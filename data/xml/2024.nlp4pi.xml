@@ -1,0 +1,292 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2024.nlp4pi">
+  <volume id="1" ingest-date="2024-11-05" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of the Third Workshop on NLP for Positive Impact</booktitle>
+      <editor><first>Daryna</first><last>Dementieva</last></editor>
+      <editor><first>Oana</first><last>Ignat</last></editor>
+      <editor><first>Zhijing</first><last>Jin</last></editor>
+      <editor><first>Rada</first><last>Mihalcea</last></editor>
+      <editor><first>Giorgio</first><last>Piatti</last></editor>
+      <editor><first>Joel</first><last>Tetreault</last></editor>
+      <editor><first>Steven</first><last>Wilson</last></editor>
+      <editor><first>Jieyu</first><last>Zhao</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Miami, Florida, USA</address>
+      <month>November</month>
+      <year>2024</year>
+      <url hash="91afd78c">2024.nlp4pi-1</url>
+      <venue>nlp4pi</venue>
+    </meta>
+    <frontmatter>
+      <url hash="b6451cf3">2024.nlp4pi-1.0</url>
+      <bibkey>nlp4pi-2024-1</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>What is the social benefit of hate speech detection research? A Systematic Review</title>
+      <author><first>Sidney Gig-Jan</first><last>Wong</last><affiliation>University of Canterbury</affiliation></author>
+      <pages>1-12</pages>
+      <abstract>While NLP research into hate speech detection has grown exponentially in the last three decades, there has been minimal uptake or engagement from policy makers and non-profit organisations. We argue the absence of ethical frameworks have contributed to this rift between current practice and best practice. By adopting appropriate ethical frameworks, NLP researchers may enable the social impact potential of hate speech research. This position paper is informed by reviewing forty-eight hate speech detection systems associated with thirty-seven publications from different venues.</abstract>
+      <url hash="da78c2d9">2024.nlp4pi-1.1</url>
+      <bibkey>wong-2024-social</bibkey>
+    </paper>
+    <paper id="2">
+      <title>Multilingual Fact-Checking using <fixed-case>LLM</fixed-case>s</title>
+      <author><first>Aryan</first><last>Singhal</last><affiliation>University of California, Santa Barbara</affiliation></author>
+      <author><first>Thomas</first><last>Law</last></author>
+      <author><first>Coby</first><last>Kassner</last></author>
+      <author><first>Ayushman</first><last>Gupta</last></author>
+      <author><first>Evan</first><last>Duan</last></author>
+      <author><first>Aviral</first><last>Damle</last></author>
+      <author><first>Ryan Luo</first><last>Li</last></author>
+      <pages>13-31</pages>
+      <abstract>Due to the recent rise in digital misinformation, there has been great interest shown in using LLMs for fact-checking and claim verification. In this paper, we answer the question: Do LLMs know multilingual facts and can they use this knowledge for effective fact-checking? To this end, we create a benchmark by filtering multilingual claims from the X-fact dataset and evaluating the multilingual fact-checking capabilities of five LLMs across five diverse languages: Spanish, Italian, Portuguese, Turkish, and Tamil on our benchmark. We employ three different prompting techniques: Zero-Shot, English Chain-of-Thought, and Cross-Lingual Prompting, using both greedy and self-consistency decoding. We extensively analyze our results and find that GPT-4o achieves the highest accuracy, but zero-shot prompting with self-consistency was the most effective overall. We also show that techniques like Chain-of-Thought and Cross-Lingual Prompting, which are designed to improve reasoning abilities, do not necessarily improve the fact-checking abilities of LLMs. Interestingly, we find a strong negative correlation between model accuracy and the amount of internet content for a given language. This suggests that LLMs are better at fact-checking from knowledge in low-resource languages. We hope that this study will encourage more work on multilingual fact-checking using LLMs.</abstract>
+      <url hash="d9250494">2024.nlp4pi-1.2</url>
+      <bibkey>singhal-etal-2024-multilingual</bibkey>
+    </paper>
+    <paper id="3">
+      <title>Transferring Fairness using Multi-Task Learning with Limited Demographic Information</title>
+      <author><first>Carlos Alejandro</first><last>Aguirre</last><affiliation>Johns Hopkins University</affiliation></author>
+      <author><first>Mark</first><last>Dredze</last><affiliation>Department of Computer Science, Whiting School of Engineering</affiliation></author>
+      <pages>32-49</pages>
+      <abstract>Training supervised machine learning systems with a fairness loss can improve prediction fairness across different demographic groups. However, doing so requires demographic annotations for training data, without which we cannot produce debiased classifiers for most tasks. Drawing inspiration from transfer learning methods, we investigate whether we can utilize demographic data from a related task to improve the fairness of a target task. We adapt a single-task fairness loss to a multi-task setting to exploit demographic labels from a related task in debiasing a target task, and demonstrate that demographic fairness objectives transfer fairness within a multi-task framework. Additionally, we show that this approach enables intersectional fairness by transferring between two datasets with different single-axis demographics. We explore different data domains to show how our loss can improve fairness domains and tasks.</abstract>
+      <url hash="f4deea88">2024.nlp4pi-1.3</url>
+      <bibkey>aguirre-dredze-2024-transferring</bibkey>
+    </paper>
+    <paper id="4">
+      <title>Selecting Shots for Demographic Fairness in Few-Shot Learning with Large Language Models</title>
+      <author><first>Carlos Alejandro</first><last>Aguirre</last><affiliation>Johns Hopkins University</affiliation></author>
+      <author><first>Kuleen</first><last>Sasse</last></author>
+      <author><first>Isabel Alyssa</first><last>Cachola</last><affiliation>Department of Computer Science, Whiting School of Engineering</affiliation></author>
+      <author><first>Mark</first><last>Dredze</last><affiliation>Department of Computer Science, Whiting School of Engineering</affiliation></author>
+      <pages>50-67</pages>
+      <abstract>Recently, work in NLP has shifted to few-shot (in-context) learning, with large language models (LLMs) performing well across a range of tasks. However, while fairness evaluations have become a standard for supervised methods, little is known about the fairness of LLMs as prediction systems. Further, common standard methods for fairness involve access to model weights or are applied during finetuning, which are not applicable in few-shot learning. Do LLMs exhibit prediction biases when used for standard NLP tasks?In this work, we analyze the effect of shots, which directly affect the performance of models, on the fairness of LLMs as NLP classification systems. We consider how different shot selection strategies, both existing and new demographically sensitive methods, affect model fairness across three standard fairness datasets. We find that overall the performance of LLMs is not indicative of their fairness, and there is not a single method that fits all scenarios. In light of these facts, we discuss how future work can include LLM fairness in evaluations.</abstract>
+      <url hash="b7078309">2024.nlp4pi-1.4</url>
+      <bibkey>aguirre-etal-2024-selecting</bibkey>
+    </paper>
+    <paper id="6">
+      <title>Covert Bias: The Severity of Social Views’ Unalignment in Language Models Towards Implicit and Explicit Opinion</title>
+      <author><first>Abeer</first><last>Aldayel</last><affiliation>King Saud University</affiliation></author>
+      <author><first>Areej</first><last>Alokaili</last><affiliation>King Saud University</affiliation></author>
+      <author><first>Rehab</first><last>Alahmadi</last></author>
+      <pages>68-77</pages>
+      <abstract>While various approaches have recently been studied for bias identification, little is known about how implicit language that does not explicitly convey a viewpoint affects bias amplification in large language models. To examine the severity of bias toward a view, we evaluated the performance of two downstream tasks where the implicit and explicit knowledge of social groups were used. First, we present a stress test evaluation by using a biased model in edge cases of excessive bias scenarios. Then, we evaluate how LLMs calibrate linguistically in response to both implicit and explicit opinions when they are aligned with conflicting viewpoints. Our findings reveal a discrepancy in LLM performance in identifying implicit and explicit opinions, with a general tendency of bias toward explicit opinions of opposing stances. Moreover, the bias-aligned models generate more cautious responses using uncertainty phrases compared to the unaligned (zero-shot) base models. The direct, incautious responses of the unaligned models suggest a need for further refinement of decisiveness by incorporating uncertainty markers to enhance their reliability, especially on socially nuanced topics with high subjectivity.</abstract>
+      <url hash="13767b07">2024.nlp4pi-1.6</url>
+      <bibkey>aldayel-etal-2024-covert</bibkey>
+    </paper>
+    <paper id="7">
+      <title><fixed-case>PG</fixed-case>-Story: Taxonomy, Dataset, and Evaluation for Ensuring Child-Safe Content for Story Generation</title>
+      <author><first>Alicia Y.</first><last>Tsai</last><affiliation>University of California Berkeley</affiliation></author>
+      <author><first>Shereen</first><last>Oraby</last><affiliation>Amazon Alexa AI</affiliation></author>
+      <author><first>Anjali</first><last>Narayan-Chen</last><affiliation>Amazon</affiliation></author>
+      <author><first>Alessandra</first><last>Cervone</last><affiliation>Amazon</affiliation></author>
+      <author><first>Spandana</first><last>Gella</last><affiliation>Amazon</affiliation></author>
+      <author><first>Apurv</first><last>Verma</last><affiliation>Bloomberg</affiliation></author>
+      <author><first>Tagyoung</first><last>Chung</last><affiliation>Amazon</affiliation></author>
+      <author><first>Jing</first><last>Huang</last><affiliation>Amazon Alexa AI</affiliation></author>
+      <author><first>Nanyun</first><last>Peng</last><affiliation>University of California, Los Angeles</affiliation></author>
+      <pages>78-97</pages>
+      <abstract>Creating children’s stories through text generation is a creative task that requires stories to be both entertaining and suitable for young audiences. However, since current story generation systems often rely on pre-trained language models fine-tuned with limited story data, they may not always prioritize child-friendliness. This can lead to the unintended generation of stories containing problematic elements such as violence, profanity, and biases. Regrettably, despite the significance of these concerns, there is a lack of clear guidelines and benchmark datasets for ensuring content safety for children. In this paper, we introduce a taxonomy specifically tailored to assess content safety in text, with a strong emphasis on children’s well-being. We present PG-Story, a dataset that includes detailed annotations for both sentence-level and discourse-level safety. We demonstrate the potential of identifying unsafe content through self-diagnosis and employing controllable generation techniques during the decoding phase to minimize unsafe elements in generated stories.</abstract>
+      <url hash="b652732c">2024.nlp4pi-1.7</url>
+      <bibkey>tsai-etal-2024-pg</bibkey>
+    </paper>
+    <paper id="8">
+      <title>Towards Explainable Multi-Label Text Classification: A Multi-Task Rationalisation Framework for Identifying Indicators of Forced Labour</title>
+      <author><first>Erick Mendez</first><last>Guzman</last></author>
+      <author><first>Viktor</first><last>Schlegel</last><affiliation>Imperial College London</affiliation></author>
+      <author><first>Riza</first><last>Batista-Navarro</last><affiliation>University of Manchester</affiliation></author>
+      <pages>98-112</pages>
+      <abstract>The importance of rationales, or natural language explanations, lies in their capacity to bridge the gap between machine predictions and human understanding, by providing human-readable insights into why a text classifier makes specific decisions. This paper presents a novel multi-task rationalisation approach tailored to enhancing the explainability of multi-label text classifiers to identify indicators of forced labour. Our framework integrates a rationale extraction task with the classification objective and allows the inclusion of human explanations during training. We conduct extensive experiments using transformer-based models on a dataset consisting of 2,800 news articles, each annotated with labels and human-generated explanations. Our findings reveal a statistically significant difference between the best-performing architecture leveraging human rationales during training and variants using only labels. Specifically, the supervised model demonstrates a 10% improvement in predictive performance measured by the weighted F1 score, a 15% increase in the agreement between human and machine-generated rationales, and a 4% improvement in the generated rationales’ comprehensiveness. These results hold promising implications for addressing complex human rights issues with greater transparency and accountability using advanced NLP techniques.</abstract>
+      <url hash="e24f2fa7">2024.nlp4pi-1.8</url>
+      <bibkey>guzman-etal-2024-towards</bibkey>
+    </paper>
+    <paper id="9">
+      <title>All Models are Wrong, But Some are Deadly: Inconsistencies in Emotion Detection in Suicide-related Tweets</title>
+      <author><first>Annika Marie</first><last>Schoene</last><affiliation>Institute for Experiential AI Northeastern University</affiliation></author>
+      <author><first>Resmi</first><last>Ramachandranpillai</last><affiliation>Institute for Experiential AI and Linköping University</affiliation></author>
+      <author><first>Tomo</first><last>Lazovich</last><affiliation>U.S. Census Bureau</affiliation></author>
+      <author><first>Ricardo A.</first><last>Baeza-Yates</last><affiliation>Northeastern University, Universitat Pompeu Fabra and Universidad de Chile</affiliation></author>
+      <pages>113-122</pages>
+      <abstract>Recent work in psychology has shown that people who experience mental health challenges are more likely to express their thoughts, emotions, and feelings on social media than share it with a clinical professional. Distinguishing suicide-related content, such as suicide mentioned in a humorous context, from genuine expressions of suicidal ideation is essential to better understanding context and risk. In this paper, we give a first insight and analysis into the differences between emotion labels annotated by humans and labels predicted by three fine-tuned language models (LMs) for suicide-related content. We find that (i) there is little agreement between LMs and humans for emotion labels of suicide-related Tweets and (ii) individual LMs predict similar emotion labels for all suicide-related categories. Our findings lead us to question the credibility and usefulness of such methods in high-risk scenarios such as suicide ideation detection.</abstract>
+      <url hash="6af7d9c3">2024.nlp4pi-1.9</url>
+      <bibkey>schoene-etal-2024-models</bibkey>
+    </paper>
+    <paper id="10">
+      <title>Efficient Aspect-Based Summarization of Climate Change Reports with Small Language Models</title>
+      <author><first>Iacopo</first><last>Ghinassi</last><affiliation>Queen Mary University of London</affiliation></author>
+      <author><first>Leonardo</first><last>Catalano</last><affiliation>University of Pisa</affiliation></author>
+      <author><first>Tommaso</first><last>Colella</last><affiliation>Universita’ di Pisa, University of Pisa</affiliation></author>
+      <pages>123-139</pages>
+      <abstract>The use of Natural Language Processing (NLP) for helping decision-makers with Climate Change action has recently been highlighted as a use case aligning with a broader drive towards NLP technologies for social good. In this context, Aspect-Based Summarization (ABS) systems that extract and summarize relevant information are particularly useful as they provide stakeholders with a convenient way of finding relevant information in expert-curated reports. In this work, we release a new dataset for ABS of Climate Change reports and we employ different Large Language Models (LLMs) and so-called Small Language Models (SLMs) to tackle this problem in an unsupervised way. Considering the problem at hand, we also show how SLMs are not significantly worse for the problem while leading to reduced carbon footprint; we do so by applying for the first time an existing framework considering both energy efficiency and task performance to the evaluation of zero-shot generative models for ABS. Overall, our results show that modern language models, both big and small, can effectively tackle ABS for Climate Change reports but more research is needed when we frame the problem as a Retrieval Augmented Generation (RAG) problem and our work and dataset will help foster efforts in this direction.</abstract>
+      <url hash="493a17ff">2024.nlp4pi-1.10</url>
+      <bibkey>ghinassi-etal-2024-efficient</bibkey>
+    </paper>
+    <paper id="14">
+      <title>An <fixed-case>NLP</fixed-case> Case Study on Predicting the Before and After of the <fixed-case>U</fixed-case>kraine–<fixed-case>R</fixed-case>ussia and Hamas–<fixed-case>I</fixed-case>srael Conflicts</title>
+      <author><first>Jordan</first><last>Miner</last></author>
+      <author><first>John E.</first><last>Ortega</last><affiliation>Northeastern University, Columbia University and New York University</affiliation></author>
+      <pages>140-151</pages>
+      <abstract>We propose a method to predict toxicity and other textual attributes through the use of natural language processing (NLP) techniques for two recent events: the Ukraine-Russia and Hamas-Israel conflicts. This article provides a basis for exploration in future conflicts with hopes to mitigate risk through the analysis of social media before and after a conflict begins. Our work compiles several datasets from Twitter and Reddit for both conflicts in a before and after separation with an aim of predicting a future state of social media for avoidance. More specifically, we show that: (1) there is a noticeable difference in social media discussion leading up to and following a conflict and (2) social media discourse on platforms like Twitter and Reddit is useful in identifying future conflicts before they arise. Our results show that through the use of advanced NLP techniques (both supervised and unsupervised) toxicity and other attributes about language before and after a conflict is predictable with a low error of nearly 1.2 percent for both conflicts.</abstract>
+      <url hash="09a63dcc">2024.nlp4pi-1.14</url>
+      <bibkey>miner-ortega-2024-nlp</bibkey>
+    </paper>
+    <paper id="15">
+      <title>Exploring the Jungle of Bias: Political Bias Attribution in Language Models via Dependency Analysis</title>
+      <author><first>David F.</first><last>Jenny</last><affiliation>ETHZ - ETH Zurich and ETHZ - ETH Zurich</affiliation></author>
+      <author><first>Yann</first><last>Billeter</last><affiliation>ZHAW - Zürcher Hochschule für Angewandte Wissenschaften</affiliation></author>
+      <author><first>Bernhard</first><last>Schölkopf</last><affiliation>ELLIS Institute and Max Planck Institute for Intelligent Systems, Max-Planck Institute</affiliation></author>
+      <author><first>Zhijing</first><last>Jin</last><affiliation>Department of Computer Science, University of Toronto</affiliation></author>
+      <pages>152-178</pages>
+      <abstract>The rapid advancement of Large Language Models (LLMs) has sparked intense debate regarding the prevalence of bias in these models and its mitigation. Yet, as exemplified by both results on debiasing methods in the literature and reports of alignment-related defects from the wider community, bias remains a poorly understood topic despite its practical relevance. To enhance the understanding of the internal causes of bias, we analyse LLM bias through the lens of causal fairness analysis, which enables us to both comprehend the origins of bias and reason about its downstream consequences and mitigation. To operationalize this framework, we propose a prompt-based method for the extraction of confounding and mediating attributes which contribute to the LLM decision process. By applying Activity Dependency Networks (ADNs), we then analyse how these attributes influence an LLM’s decision process. We apply our method to LLM ratings of argument quality in political debates. We find that the observed disparate treatment can at least in part be attributed to confounding and mitigating attributes and model misalignment, and discuss the consequences of our findings for human-AI alignment and bias mitigation.</abstract>
+      <url hash="fdf3cb2f">2024.nlp4pi-1.15</url>
+      <bibkey>jenny-etal-2024-exploring</bibkey>
+    </paper>
+    <paper id="16">
+      <title><fixed-case>A</fixed-case>gri<fixed-case>LLM</fixed-case>:Harnessing Transformers for Framer Queries</title>
+      <author><first>Krish</first><last>Didwania</last></author>
+      <author><first>Pratinav</first><last>Seth</last><affiliation>Arya.ai</affiliation></author>
+      <author><first>Aditya</first><last>Kasliwal</last></author>
+      <author><first>Amit</first><last>Agarwal</last><affiliation>Wells Fargo</affiliation></author>
+      <pages>179-187</pages>
+      <abstract>Agriculture, vital for global sustenance, necessitates innovative solutions due to a lack of organized domain experts, particularly in developing countries where many farmers are impoverished and cannot afford expert consulting. Initiatives like Farmers Helpline play a crucial role in such countries, yet challenges such as high operational costs persist. Automating query resolution can alleviate the burden on traditional call centers, providing farmers with immediate and contextually relevant information.The integration of Agriculture and Artificial Intelligence (AI) offers a transformative opportunity to empower farmers and bridge information gaps.Language models like transformers, the rising stars of AI, possess remarkable language understanding capabilities, making them ideal for addressing information gaps in agriculture.This work explores and demonstrates the transformative potential of Large Language Models (LLMs) in automating query resolution for agricultural farmers, leveraging their expertise in deciphering natural language and understanding context. Using a subset of a vast dataset of real-world farmer queries collected in India, our study focuses on approximately 4 million queries from the state of Tamil Nadu, spanning various sectors, seasonal crops, and query types.</abstract>
+      <url hash="1705d712">2024.nlp4pi-1.16</url>
+      <bibkey>didwania-etal-2024-agrillm</bibkey>
+    </paper>
+    <paper id="17">
+      <title><fixed-case>S</fixed-case>ci<fixed-case>T</fixed-case>ech<fixed-case>B</fixed-case>ait<fixed-case>RO</fixed-case>: <fixed-case>C</fixed-case>lick<fixed-case>B</fixed-case>ait Detection for <fixed-case>R</fixed-case>omanian Science and Technology News</title>
+      <author><first>Raluca-Andreea</first><last>Gînga</last></author>
+      <author><first>Ana Sabina</first><last>Uban</last><affiliation>Universitatea Bucuresti</affiliation></author>
+      <pages>188-201</pages>
+      <abstract>In this paper, we introduce a new annotated corpus of clickbait news in a low-resource language - Romanian, and a rarely covered domain - science and technology news: SciTechBaitRO. It is one of the first and the largest corpus (almost 11,000 examples) of annotated clickbait texts for the Romanian language and the first one to focus on the sci-tech domain, to our knowledge. We evaluate the possibility of automatically detecting clickbait through a series of data analysis and machine learning experiments with varied features and models, including a range of linguistic features, classical machine learning models, deep learning and pre-trained models. We compare the performance of models using different kinds of features, and show that the best results are given by the BERT models, with results of up to 89% F1 score. We additionally evaluate the models in a cross-domain setting for news belonging to other categories (i.e. politics, sports, entertainment) and demonstrate their capacity to generalize by detecting clickbait news outside of domain with high F1-scores.</abstract>
+      <url hash="fc85a57d">2024.nlp4pi-1.17</url>
+      <bibkey>ginga-uban-2024-scitechbaitro</bibkey>
+    </paper>
+    <paper id="18">
+      <title>Investigating Ableism in <fixed-case>LLM</fixed-case>s through Multi-turn Conversation</title>
+      <author><first>Guojun</first><last>Wu</last><affiliation>University of Zurich</affiliation></author>
+      <author><first>Sarah</first><last>Ebling</last><affiliation>University of Zurich</affiliation></author>
+      <pages>202-210</pages>
+      <abstract>To reveal ableism (i.e., bias against persons with disabilities) in large language models (LLMs), we introduce a novel approach involving multi-turn conversations, enabling a comparative assessment. Initially, we prompt the LLM to elaborate short biographies, followed by a request to incorporate information about a disability. Finally, we employ several methods to identify the top words that distinguish the disability-integrated biographies from those without. This comparative setting helps us uncover how LLMs handle disability-related information and reveal underlying biases. We observe that LLMs tend to highlight disabilities in a manner that can be perceived as patronizing or as implying that overcoming challenges is unexpected due to the disability.</abstract>
+      <url hash="eae6ca00">2024.nlp4pi-1.18</url>
+      <bibkey>wu-ebling-2024-investigating</bibkey>
+    </paper>
+    <paper id="19">
+      <title>Eliciting Uncertainty in Chain-of-Thought to Mitigate Bias against Forecasting Harmful User Behaviors</title>
+      <author><first>Anthony</first><last>Sicilia</last><affiliation>Northeastern University</affiliation></author>
+      <author><first>Malihe</first><last>Alikhani</last><affiliation>Northeastern University</affiliation></author>
+      <pages>211-223</pages>
+      <abstract>Conversation forecasting tasks a model with predicting the outcome of an unfolding conversation. For instance, it can be applied in social media moderation to predict harmful user behaviors before they occur, allowing for preventative interventions. While large language models (LLMs) have recently been proposed as an effective tool for conversation forecasting, it’s unclear what biases they may have, especially against forecasting the (potentially harmful) outcomes we request them to predict during moderation. This paper explores to what extent model uncertainty can be used as a tool to mitigate potential biases. Specifically, we ask three primary research questions: 1) how does LLM forecasting accuracy change when we ask models to represent their uncertainty; 2) how does LLM bias change when we ask models to represent their uncertainty; 3) how can we use uncertainty representations to reduce or completely mitigate biases without many training data points. We address these questions for 5 open-source language models tested on 2 datasets designed to evaluate conversation forecasting for social media moderation.</abstract>
+      <url hash="1ae04413">2024.nlp4pi-1.19</url>
+      <bibkey>sicilia-alikhani-2024-eliciting</bibkey>
+    </paper>
+    <paper id="21">
+      <title>Inferring Mental Burnout Discourse Across <fixed-case>R</fixed-case>eddit Communities</title>
+      <author><first>Nazanin</first><last>Sabri</last></author>
+      <author><first>Anh C.</first><last>Pham</last></author>
+      <author><first>Ishita</first><last>Kakkar</last></author>
+      <author><first>Mai</first><last>ElSherief</last><affiliation>Northeastern University</affiliation></author>
+      <pages>224-231</pages>
+      <abstract>Mental burnout refers to a psychological syndrome induced by chronic stress that negatively impacts the emotional and physical well-being of individuals. From the occupational context to personal hobbies, burnout is pervasive across domains and therefore affects the morale and productivity of society as a whole. Currently, no linguistic resources are available for the analysis or detection of burnout language. We address this gap by introducing a dataset annotated for burnout language. Given that social media is a platform for sharing life experiences and mental health struggles, our work examines the manifestation of burnout language in Reddit posts. We introduce a contextual word sense disambiguation approach to identify the specific meaning or context in which the word “burnout” is used, distinguishing between its application in mental health (e.g., job-related stress leading to burnout) and non-mental health contexts (e.g., engine burnout in a mechanical context). We create a dataset of 2,330 manually labeled Reddit posts for this task, as well as annotating the reason the poster associates with their burnout (e.g., professional, personal, non-traditional). We train machine learning models on this dataset achieving a minimum F1 score of 0.84 on the different tasks. We make our dataset of annotated Reddit post IDs publicly available to help advance future research in this field.</abstract>
+      <url hash="ffa94b78">2024.nlp4pi-1.21</url>
+      <bibkey>sabri-etal-2024-inferring</bibkey>
+    </paper>
+    <paper id="22">
+      <title>Decoding Ableism in Large Language Models: An Intersectional Approach</title>
+      <author><first>Rong</first><last>Li</last><affiliation>University of Zurich</affiliation></author>
+      <author><first>Ashwini</first><last>Kamaraj</last><affiliation>University of Zurich</affiliation></author>
+      <author><first>Jing</first><last>Ma</last><affiliation>University of Zurich</affiliation></author>
+      <author><first>Sarah</first><last>Ebling</last><affiliation>University of Zurich</affiliation></author>
+      <pages>232-249</pages>
+      <abstract>With the pervasive use of large language models (LLMs) across various domains, addressing the inherent ableist biases within these models requires more attention and resolution. This paper examines ableism in three LLMs (GPT-3.5, GPT-4, and Llama 3) by analyzing the intersection of disability with two additional social categories: gender and social class. Utilizing two task-specific prompts, we generated and analyzed text outputs with two metrics, VADER and regard, to evaluate sentiment and social perception biases within the responses. Our results indicate a marked improvement in bias mitigation from GPT-3.5 to GPT-4, with the latter demonstrating more positive sentiments overall, while Llama 3 showed comparatively weaker performance. Additionally, our findings underscore the complexity of intersectional biases: These biases are shaped by the combined effects of disability, gender, and class, which alter the expression and perception of ableism in LLM outputs. This research highlights the necessity for more nuanced and inclusive bias mitigation strategies in AI development, contributing to the ongoing dialogue on ethical AI practices.</abstract>
+      <url hash="999f38cb">2024.nlp4pi-1.22</url>
+      <bibkey>li-etal-2024-decoding</bibkey>
+    </paper>
+    <paper id="23">
+      <title>Explainable Identification of Hate Speech towards Islam using Graph Neural Networks</title>
+      <author><first>Azmine Toushik</first><last>Wasi</last></author>
+      <pages>250-257</pages>
+      <abstract>Islamophobic language on online platforms fosters intolerance, making detection and elimination crucial for promoting harmony. Traditional hate speech detection models rely on NLP techniques like tokenization, part-of-speech tagging, and encoder-decoder models. However, Graph Neural Networks (GNNs), with their ability to utilize relationships between data points, offer more effective detection and greater explainability. In this work, we represent speeches as nodes and connect them with edges based on their context and similarity to develop the graph. This study introduces a novel paradigm using GNNs to identify and explain hate speech towards Islam. Our model leverages GNNs to understand the context and patterns of hate speech by connecting texts via pretrained NLP-generated word embeddings, achieving state-of-the-art performance and enhancing detection accuracy while providing valuable explanations. This highlights the potential of GNNs in combating online hate speech and fostering a safer, more inclusive online environment.</abstract>
+      <url hash="aeca8657">2024.nlp4pi-1.23</url>
+      <bibkey>wasi-2024-explainable</bibkey>
+    </paper>
+    <paper id="24">
+      <title>From Text to Maps: <fixed-case>LLM</fixed-case>-Driven Extraction and Geotagging of Epidemiological Data</title>
+      <author><first>Karlyn K.</first><last>Harrod</last><affiliation>Oak Ridge National Laboratory</affiliation></author>
+      <author><first>Prabin</first><last>Bhandari</last><affiliation>George Mason University</affiliation></author>
+      <author><first>Antonios</first><last>Anastasopoulos</last><affiliation>Athena Research Center and George Mason University</affiliation></author>
+      <pages>258-270</pages>
+      <abstract>Epidemiological datasets are essential for public health analysis and decision-making, yet they remain scarce and often difficult to compile due to inconsistent data formats, language barriers, and evolving political boundaries. Traditional methods of creating such datasets involve extensive manual effort and are prone to errors in accurate location extraction. To address these challenges, we propose utilizing large language models (LLMs) to automate the extraction and geotagging of epidemiological data from textual documents. Our approach significantly reduces the manual effort required, limiting human intervention to validating a subset of records against text snippets and verifying the geotagging reasoning, as opposed to reviewing multiple entire documents manually to extract, clean, and geotag. Additionally, the LLMs identify information often overlooked by human annotators, further enhancing the dataset’s completeness. Our findings demonstrate that LLMs can be effectively used to semi-automate the extraction and geotagging of epidemiological data, offering several key advantages: (1) comprehensive information extraction with minimal risk of missing critical details; (2) minimal human intervention; (3) higher-resolution data with more precise geotagging; and (4) significantly reduced resource demands compared to traditional methods.</abstract>
+      <url hash="e994f00f">2024.nlp4pi-1.24</url>
+      <bibkey>harrod-etal-2024-text</bibkey>
+    </paper>
+    <paper id="25">
+      <title>Crafting Tomorrow’s Headlines: Neural News Generation and Detection in <fixed-case>E</fixed-case>nglish, <fixed-case>T</fixed-case>urkish, <fixed-case>H</fixed-case>ungarian, and <fixed-case>P</fixed-case>ersian</title>
+      <author><first>Cem</first><last>Üyük</last></author>
+      <author><first>Danica</first><last>Rovó</last><affiliation>Technische Universität München</affiliation></author>
+      <author><first>Shaghayeghkolli</first><last>Shaghayeghkolli</last></author>
+      <author><first>Rabia</first><last>Varol</last><affiliation>Technische Universität München</affiliation></author>
+      <author><first>Georg</first><last>Groh</last><affiliation>Technical University Munich</affiliation></author>
+      <author><first>Daryna</first><last>Dementieva</last></author>
+      <pages>271-307</pages>
+      <abstract>In the era dominated by information overload and its facilitation with Large Language Models (LLMs), the prevalence of misinformation poses a significant threat to public discourse and societal well-being. A critical concern at present involves the identification of machine-generated news. In this work, we take a significant step by introducing a benchmark dataset designed for neural news detection in four languages: English, Turkish, Hungarian, and Persian. The dataset incorporates outputs from multiple multilingual generators (in both, zero-shot and fine-tuned setups) such as BloomZ, LLaMa-2, Mistral, Mixtral, and GPT-4. Next, we experiment with a variety of classifiers, ranging from those based on linguistic features to advanced Transformer-based models and LLMs prompting. We present the detection results aiming to delve into the interpretablity and robustness of machine-generated texts detectors across all target languages.</abstract>
+      <url hash="a0f58e28">2024.nlp4pi-1.25</url>
+      <bibkey>uyuk-etal-2024-crafting</bibkey>
+    </paper>
+    <paper id="26">
+      <title>Reference-Based Metrics Are Biased Against Blind and Low-Vision Users’ Image Description Preferences</title>
+      <author><first>Rhea</first><last>Kapur</last></author>
+      <author><first>Elisa</first><last>Kreiss</last><affiliation>University of California, Los Angeles</affiliation></author>
+      <pages>308-314</pages>
+      <abstract>Image description generation models are sophisticated Vision-Language Models which promise to make visual content, such as images, non-visually accessible through linguistic descriptions. While these systems can benefit all, their primary motivation tends to lie in allowing blind and low-vision (BLV) users access to increasingly visual (online) discourse. Well-defined evaluation methods are crucial for steering model development into socially useful directions. In this work, we show that the most popular evaluation metrics (reference-based metrics) are biased against BLV users and therefore potentially stifle useful model development. Reference-based metrics assign quality scores based on the similarity to human-generated ground-truth descriptions and are widely accepted as neutrally representing the needs of all users. However, we find that these metrics are more strongly correlated with sighted participant ratings than BLV ratings, and we explore factors which appear to mediate this finding: description length, the image’s context of appearance, and the number of reference descriptions available. These findings suggest that there is a need for developing evaluation methods that are established based on specific downstream user groups, and they highlight the importance of reflecting on emerging biases against minorities in the development of general-purpose automatic metrics.</abstract>
+      <url hash="258e1417">2024.nlp4pi-1.26</url>
+      <bibkey>kapur-kreiss-2024-reference</bibkey>
+    </paper>
+    <paper id="27">
+      <title><fixed-case>M</fixed-case>ulti<fixed-case>C</fixed-case>limate: Multimodal Stance Detection on Climate Change Videos</title>
+      <author><first>Jiawen</first><last>Wang</last></author>
+      <author><first>Longfei</first><last>Zuo</last></author>
+      <author><first>Siyao</first><last>Peng</last><affiliation>Ludwig-Maximilians-Universität München</affiliation></author>
+      <author><first>Barbara</first><last>Plank</last><affiliation>Ludwig-Maximilians-Universität München and IT University of Copenhagen</affiliation></author>
+      <pages>315-326</pages>
+      <abstract>Climate change (CC) has attracted increasing attention in NLP in recent years. However, detecting the stance on CC in multimodal data is understudied and remains challenging due to a lack of reliable datasets. To improve the understanding of public opinions and communication strategies, this paper presents MultiClimate, the first open-source manually-annotated stance detection dataset with 100 CC-related YouTube videos and 4,209 frame-transcript pairs. We deploy state-of-the-art vision and language models, as well as multimodal models for MultiClimate stance detection. Results show that text-only BERT significantly outperforms image-only ResNet50 and ViT. Combining both modalities achieves state-of-the-art, 0.747/0.749 in accuracy/F1. Our 100M-sized fusion models also beat CLIP and BLIP, as well as the much larger 9B-sized multimodal IDEFICS and text-only Llama3 and Gemma2, indicating that multimodal stance detection remains challenging for large language models. Our code, dataset, as well as supplementary materials, are available at https://github.com/werywjw/MultiClimate.</abstract>
+      <url hash="c1a37083">2024.nlp4pi-1.27</url>
+      <bibkey>wang-etal-2024-multiclimate</bibkey>
+    </paper>
+    <paper id="28">
+      <title><fixed-case>AAVENUE</fixed-case>: Detecting <fixed-case>LLM</fixed-case> Biases on <fixed-case>NLU</fixed-case> Tasks in <fixed-case>AAVE</fixed-case> via a Novel Benchmark</title>
+      <author><first>Abhay</first><last>Gupta</last></author>
+      <author><first>Ece</first><last>Yurtseven</last></author>
+      <author><first>Philip</first><last>Meng</last><affiliation>Algoverse AI Research</affiliation></author>
+      <author><first>Kevin</first><last>Zhu</last><affiliation>Algoverse AI Research</affiliation></author>
+      <pages>327-333</pages>
+      <abstract>Detecting biases in natural language understanding (NLU) for African American Vernacular English (AAVE) is crucial to developing inclusive natural language processing (NLP) systems. To address dialect-induced performance discrepancies, we introduce AAVENUE (AAVE Natural Language Understanding Evaluation), a benchmark for evaluating large language model (LLM) performance on NLU tasks in AAVE and Standard American English (SAE). AAVENUE builds upon and extends existing benchmarks like VALUE, replacing deterministic syntactic and morphological transformations with a more flexible methodology leveraging LLM-based translation with few-shot prompting, improving performance across our evaluation metrics when translating key tasks from the GLUE and SuperGLUE benchmarks. We compare AAVENUE and VALUE translations using five popular LLMs and a comprehensive set of metrics including fluency, BARTScore, quality, coherence, and understandability. Additionally, we recruit fluent AAVE speakers to validate our translations for authenticity. Our evaluations reveal that LLMs consistently perform better on SAE tasks than AAVE-translated versions, underscoring inherent biases and highlighting the need for more inclusive NLP models.</abstract>
+      <url hash="55415c44">2024.nlp4pi-1.28</url>
+      <bibkey>gupta-etal-2024-aavenue</bibkey>
+    </paper>
+    <paper id="29">
+      <title><fixed-case>D</fixed-case>iversity<fixed-case>M</fixed-case>ed<fixed-case>QA</fixed-case>: A Benchmark for Assessing Demographic Biases in Medical Diagnosis using Large Language Models</title>
+      <author><first>Rajat</first><last>Rawat</last><affiliation>Algoverse Coding Academy LLC</affiliation></author>
+      <author><first>Hudson</first><last>McBride</last></author>
+      <author><first>Dhiyaan Chakkresh</first><last>Nirmal</last><affiliation>Algoverse Coding Academy</affiliation></author>
+      <author><first>Rajarshi</first><last>Ghosh</last></author>
+      <author><first>Jong</first><last>Moon</last></author>
+      <author><first>Dhruv Karthik</first><last>Alamuri</last></author>
+      <author><first>Kevin</first><last>Zhu</last><affiliation>Algoverse AI Research</affiliation></author>
+      <pages>334-348</pages>
+      <abstract>As large language models (LLMs) gain traction in healthcare, concerns about their susceptibility to demographic biases are growing. We introduce DiversityMedQA, a novel benchmark designed to assess LLM responses to medical queries across diverse patient demographics, such as gender and ethnicity. By perturbing questions from the MedQA dataset, which comprises of medical board exam questions, we created a benchmark that captures the nuanced differences in medical diagnosis across varying patient profiles. To ensure that our perturbations did not alter the clinical outcomes, we implemented a filtering strategy to validate each perturbation, so that any performance discrepancies would be indicative of bias. Our findings reveal notable discrepancies in model performance when tested against these demographic variations. By releasing DiversityMedQA, we provide a resource for evaluating and mitigating demographic bias in LLM medical diagnoses.</abstract>
+      <url hash="b67d2d9b">2024.nlp4pi-1.29</url>
+      <bibkey>rawat-etal-2024-diversitymedqa</bibkey>
+    </paper>
+    <paper id="30">
+      <title>Improving Industrial Safety by Auto-Generating Case-specific Preventive Recommendations</title>
+      <author><first>Sangameshwar</first><last>Patil</last><affiliation>Indian Institute of Technology, Madras and Tata Consultancy Services Limited, India</affiliation></author>
+      <author><first>Sumit</first><last>Koundanya</last><affiliation>Tata Consultancy Services Limited, India</affiliation></author>
+      <author><first>Shubham</first><last>Kumbhar</last><affiliation>Tata Consultancy Services Limited, India</affiliation></author>
+      <author><first>Alok</first><last>Kumar</last><affiliation>Tata Consultancy Services Limited, India</affiliation></author>
+      <pages>349-353</pages>
+      <abstract>In this paper, we propose a novel application to improve industrial safety by generating preventive recommendations using LLMs. Using a dataset of 275 incidents representing 11 different incident types sampled from real-life OSHA incidents, we compare three different LLMs to evaluate the quality of preventive recommendations generated by them. We also show that LLMs are not a panacea for the preventive recommendation generation task. They have limitations and can produce responses that are incorrect or irrelevant. We found that about 65% of the output from Vicuna model was not acceptable at all at the basic readability and other sanity checks level. Mistral and Phi_3 are better than Vicuna, but not all of their recommendations are of similar quality. We find that for a given safety incident case, the generated recommendations can be categorized as specific, generic, or irrelevant. This helps us to better quantify and compare the performance of the models. This paper is among the initial and novel work for the preventive recommendation generation problem. We believe it will pave way for use of NLP to positively impact the industrial safety.</abstract>
+      <url hash="52509926">2024.nlp4pi-1.30</url>
+      <bibkey>patil-etal-2024-improving</bibkey>
+    </paper>
+  </volume>
+</collection>

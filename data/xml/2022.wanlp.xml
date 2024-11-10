@@ -1,0 +1,806 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2022.wanlp">
+  <volume id="1" ingest-date="2022-12-15" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of the Seventh Arabic Natural Language Processing Workshop (WANLP)</booktitle>
+      <editor><first>Houda</first><last>Bouamor</last></editor>
+      <editor><first>Hend</first><last>Al-Khalifa</last></editor>
+      <editor><first>Kareem</first><last>Darwish</last></editor>
+      <editor><first>Owen</first><last>Rambow</last></editor>
+      <editor><first>Fethi</first><last>Bougares</last></editor>
+      <editor><first>Ahmed</first><last>Abdelali</last></editor>
+      <editor><first>Nadi</first><last>Tomeh</last></editor>
+      <editor><first>Salam</first><last>Khalifa</last></editor>
+      <editor><first>Wajdi</first><last>Zaghouani</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Abu Dhabi, United Arab Emirates (Hybrid)</address>
+      <month>December</month>
+      <year>2022</year>
+      <url hash="b775582f">2022.wanlp-1</url>
+      <venue>wanlp</venue>
+    </meta>
+    <frontmatter>
+      <url hash="fbcc6112">2022.wanlp-1.0</url>
+      <bibkey>wanlp-2022-arabic</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title><fixed-case>CA</fixed-case>ra<fixed-case>NER</fixed-case>: The <fixed-case>COVID</fixed-case>-19 <fixed-case>A</fixed-case>rabic Named Entity Corpus</title>
+      <author><first>Abdulmohsen</first><last>Al-Thubaity</last><affiliation>Kacst</affiliation></author>
+      <author><first>Sakhar</first><last>Alkhereyf</last><affiliation>Kacst</affiliation></author>
+      <author><first>Wejdan</first><last>Alzahrani</last><affiliation>King Saud University</affiliation></author>
+      <author><first>Alia</first><last>Bahanshal</last><affiliation>Kacst</affiliation></author>
+      <pages>1-10</pages>
+      <abstract>Named Entity Recognition (NER) is a well-known problem for the natural language processing (NLP) community. It is a key component of different NLP applications, including information extraction, question answering, and information retrieval. In the literature, there are several Arabic NER datasets with different named entity tags; however, due to data and concept drift, we are always in need of new data for NER and other NLP applications. In this paper, first, we introduce Wassem, a web-based annotation platform for Arabic NLP applications. Wassem can be used to manually annotate textual data for a variety of NLP tasks: text classification, sequence classification, and word segmentation. Second, we introduce the COVID-19 Arabic Named Entities Recognition (CAraNER) dataset. CAraNER has 55,389 tokens distributed over 1,278 sentences randomly extracted from Saudi Arabian newspaper articles published during 2019, 2020, and 2021. The dataset is labeled by five annotators with five named-entity tags, namely: Person, Title, Location, Organization, and Miscellaneous. The CAraNER corpus is available for download for free. We evaluate the corpus by finetuning four BERT-based Arabic language models on the CAraNER corpus. The best model was AraBERTv0.2-large with 0.86 for the F1 macro measure.</abstract>
+      <url hash="d358a448">2022.wanlp-1.1</url>
+      <bibkey>al-thubaity-etal-2022-caraner</bibkey>
+      <doi>10.18653/v1/2022.wanlp-1.1</doi>
+    </paper>
+    <paper id="2">
+      <title>Joint Coreference Resolution for Zeros and non-Zeros in <fixed-case>A</fixed-case>rabic</title>
+      <author><first>Abdulrahman</first><last>Aloraini</last><affiliation>Queen Mary University of London</affiliation></author>
+      <author><first>Sameer</first><last>Pradhan</last><affiliation>University of Pennsylvania and cemantix.org</affiliation></author>
+      <author><first>Massimo</first><last>Poesio</last><affiliation>Queen Mary University of London</affiliation></author>
+      <pages>11-21</pages>
+      <abstract>Most existing proposals about anaphoric zero pronoun (AZP) resolution regard full mention coreference and AZP resolution as two independent tasks, even though the two tasks are clearly related. The main issues that need tackling to develop a joint model for zero and non-zero mentions are the difference between the two types of arguments (zero pronouns, being null, provide no nominal information) and the lack of annotated datasets of a suitable size in which both types of arguments are annotated for languages other than Chinese and Japanese. In this paper, we introduce two architectures for jointly resolving AZPs and non-AZPs, and evaluate them on Arabic, a language for which, as far as we know, there has been no prior work on joint resolution. Doing this also required creating a new version of the Arabic subset of the standard coreference resolution dataset used for the CoNLL-2012 shared task (Pradhan et al.,2012) in which both zeros and non-zeros are included in a single dataset.</abstract>
+      <url hash="2955c206">2022.wanlp-1.2</url>
+      <bibkey>aloraini-etal-2022-joint</bibkey>
+      <video href="2022.wanlp-1.2.mp4"/>
+      <doi>10.18653/v1/2022.wanlp-1.2</doi>
+    </paper>
+    <paper id="3">
+      <title><fixed-case>SAIDS</fixed-case>: A Novel Approach for Sentiment Analysis Informed of Dialect and Sarcasm</title>
+      <author><first>Abdelrahman</first><last>Kaseb</last><affiliation>Cairo University</affiliation></author>
+      <author><first>Mona</first><last>Farouk</last><affiliation>Cairo University</affiliation></author>
+      <pages>22-30</pages>
+      <abstract>Sentiment analysis becomes an essential part of every social network, as it enables decision-makers to know more about users’ opinions in almost all life aspects. Despite its importance, there are multiple issues it encounters like the sentiment of the sarcastic text which is one of the main challenges of sentiment analysis. This paper tackles this challenge by introducing a novel system (SAIDS) that predicts the sentiment, sarcasm and dialect of Arabic tweets. SAIDS uses its prediction of sarcasm and dialect as known information to predict the sentiment. It uses MARBERT as a language model to generate sentence embedding, then passes it to the sarcasm and dialect models, and then the outputs of the three models are concatenated and passed to the sentiment analysis model. Multiple system design setups were experimented with and reported. SAIDS was applied to the ArSarcasm-v2 dataset where it outperforms the state-of-the-art model for the sentiment analysis task. By training all tasks together, SAIDS achieves results of 75.98 FPN, 59.09 F1-score and 71.13 F1-score for sentiment analysis, sarcasm detection, and dialect identification respectively. The system design can be used to enhance the performance of any task which is dependent on other tasks.</abstract>
+      <url hash="e17b5be5">2022.wanlp-1.3</url>
+      <bibkey>kaseb-farouk-2022-saids</bibkey>
+      <doi>10.18653/v1/2022.wanlp-1.3</doi>
+    </paper>
+    <paper id="4">
+      <title><fixed-case>A</fixed-case>ra<fixed-case>BART</fixed-case>: a Pretrained <fixed-case>A</fixed-case>rabic Sequence-to-Sequence Model for Abstractive Summarization</title>
+      <author><first>Moussa</first><last>Kamal Eddine</last><affiliation>École polytechnique</affiliation></author>
+      <author><first>Nadi</first><last>Tomeh</last><affiliation>LIPN, Université Sorbonne Paris Nord</affiliation></author>
+      <author><first>Nizar</first><last>Habash</last><affiliation>New York University Abu Dhabi</affiliation></author>
+      <author><first>Joseph</first><last>Le Roux</last><affiliation>Université Sorbonne Paris Nord</affiliation></author>
+      <author><first>Michalis</first><last>Vazirgiannis</last><affiliation>Ecole Polytechnique</affiliation></author>
+      <pages>31-42</pages>
+      <abstract>Like most natural language understanding and generation tasks, state-of-the-art models for summarization are transformer-based sequence-to-sequence architectures that are pretrained on large corpora. While most existing models focus on English, Arabic remains understudied. In this paper we propose AraBART, the first Arabic model in which the encoder and the decoder are pretrained end-to-end, based on BART. We show that AraBART achieves the best performance on multiple abstractive summarization datasets, outperforming strong baselines including a pretrained Arabic BERT-based model, multilingual BART, Arabic T5, and a multilingual T5 model. AraBART is publicly available.</abstract>
+      <url hash="8fba0283">2022.wanlp-1.4</url>
+      <bibkey>kamal-eddine-etal-2022-arabart</bibkey>
+      <doi>10.18653/v1/2022.wanlp-1.4</doi>
+    </paper>
+    <paper id="5">
+      <title>Towards <fixed-case>A</fixed-case>rabic Sentence Simplification via Classification and Generative Approaches</title>
+      <author><first>Nouran</first><last>Khallaf</last><affiliation>University of Leeds</affiliation></author>
+      <author><first>Serge</first><last>Sharoff</last><affiliation>University of Leeds</affiliation></author>
+      <author><first>Rasha</first><last>Soliman</last><affiliation>University of Leeds</affiliation></author>
+      <pages>43-52</pages>
+      <abstract>This paper presents an attempt to build a Modern Standard Arabic (MSA) sentence-level simplification system. We experimented with sentence simplification using two approaches: (i) a classification approach leading to lexical simplification pipelines which use Arabic-BERT, a pre-trained contextualised model, as well as a model of fastText word embeddings; and (ii) a generative approach, a Seq2Seq technique by applying a multilingual Text-to-Text Transfer Transformer mT5. We developed our training corpus by aligning the original and simplified sentences from the internationally acclaimed Arabic novel Saaq al-Bambuu. We evaluate effectiveness of these methods by comparing the generated simple sentences to the target simple sentences using the BERTScore evaluation metric. The simple sentences produced by the mT5 model achieve P 0.72, R 0.68 and F-1 0.70 via BERTScore, while, combining Arabic-BERT and fastText achieves P 0.97, R 0.97 and F-1 0.97. In addition, we report a manual error analysis for these experiments.</abstract>
+      <url hash="5d83e2eb">2022.wanlp-1.5</url>
+      <bibkey>khallaf-etal-2022-towards</bibkey>
+      <doi>10.18653/v1/2022.wanlp-1.5</doi>
+    </paper>
+    <paper id="6">
+      <title>Generating Classical <fixed-case>A</fixed-case>rabic Poetry using Pre-trained Models</title>
+      <author><first>Nehal</first><last>Elkaref</last><affiliation>German University in Cairo</affiliation></author>
+      <author><first>Mervat</first><last>Abu-Elkheir</last><affiliation>German University in Cairo</affiliation></author>
+      <author><first>Maryam</first><last>ElOraby</last><affiliation>German University in Cairo</affiliation></author>
+      <author><first>Mohamed</first><last>Abdelgaber</last><affiliation>German University in Cairo</affiliation></author>
+      <pages>53-62</pages>
+      <abstract>Poetry generation tends to be a complicated task given meter and rhyme constraints. Previous work resorted to exhaustive methods in-order to employ poetic elements. In this paper we leave pre-trained models, GPT-J and BERTShared to recognize patterns of meters and rhyme to generate classical Arabic poetry and present our findings and results on how well both models could pick up on these classical Arabic poetic elements.</abstract>
+      <url hash="d0badbdf">2022.wanlp-1.6</url>
+      <bibkey>elkaref-etal-2022-generating</bibkey>
+      <doi>10.18653/v1/2022.wanlp-1.6</doi>
+    </paper>
+    <paper id="7">
+      <title>A Benchmark Study of Contrastive Learning for <fixed-case>A</fixed-case>rabic Social Meaning</title>
+      <author><first>Md Tawkat Islam</first><last>Khondaker</last><affiliation>The University of British Columbia</affiliation></author>
+      <author><first>El Moatez Billah</first><last>Nagoudi</last><affiliation>Natural Language Processing Lab, University of British Columbia</affiliation></author>
+      <author><first>AbdelRahim</first><last>Elmadany</last><affiliation>Natural Language Processing Lab, University of British Columbia (UBC)</affiliation></author>
+      <author><first>Muhammad</first><last>Abdul-Mageed</last><affiliation>The University of British Columbia</affiliation></author>
+      <author><first>Laks</first><last>Lakshmanan, V.S.</last><affiliation>Ubc</affiliation></author>
+      <pages>63-75</pages>
+      <abstract>Contrastive learning (CL) has brought significant progress to various NLP tasks. Despite such a progress, CL has not been applied to Arabic NLP. Nor is it clear how much benefits it could bring to particular classes of tasks such as social meaning (e.g., sentiment analysis, dialect identification, hate speech detection). In this work, we present a comprehensive benchmark study of state-of-the-art supervised CL methods on a wide array of Arabic social meaning tasks. Through an extensive empirical analysis, we show that CL methods outperform vanilla finetuning on most of the tasks. We also show that CL can be data efficient and quantify this efficiency, demonstrating the promise of these methods in low-resource settings vis-a-vis the particular downstream tasks (especially label granularity).</abstract>
+      <url hash="0b9b5904">2022.wanlp-1.7</url>
+      <bibkey>khondaker-etal-2022-benchmark</bibkey>
+      <doi>10.18653/v1/2022.wanlp-1.7</doi>
+    </paper>
+    <paper id="8">
+      <title>Adversarial Text-to-Speech for low-resource languages</title>
+      <author><first>Ashraf</first><last>Elneima</last><affiliation>African Institute for Mathematical Sciences</affiliation></author>
+      <author><first>Mikołaj</first><last>Bińkowski</last><affiliation>DeepMind</affiliation></author>
+      <pages>76-84</pages>
+      <abstract>In this paper we propose a new method for training adversarial text-to-speech (TTS) models for low-resource languages using auxiliary data. Specifically, we modify the MelGAN (Kumar et al., 2019) architecture to achieve better performance in Arabic speech generation, exploring multiple additional datasets and architectural choices, which involved extra discriminators designed to exploit high-frequency similarities between languages. In our evaluation, we used subjective human evaluation, MOS-Mean Opinion Score, and a novel quantitative metric, the Fréchet Wav2Vec Distance, which we found to be well correlated with MOS. Both subjectively and quantitatively, our method outperformed the standard MelGAN model.</abstract>
+      <url hash="dcef26a8">2022.wanlp-1.8</url>
+      <bibkey>elneima-binkowski-2022-adversarial</bibkey>
+      <doi>10.18653/v1/2022.wanlp-1.8</doi>
+    </paper>
+    <paper id="9">
+      <title><fixed-case>NADI</fixed-case> 2022: The Third Nuanced <fixed-case>A</fixed-case>rabic Dialect Identification Shared Task</title>
+      <author><first>Muhammad</first><last>Abdul-Mageed</last><affiliation>The University of British Columbia</affiliation></author>
+      <author><first>Chiyu</first><last>Zhang</last><affiliation>The University of British Columbia</affiliation></author>
+      <author><first>AbdelRahim</first><last>Elmadany</last><affiliation>Natural Language Processing Lab, University of British Columbia (UBC)</affiliation></author>
+      <author><first>Houda</first><last>Bouamor</last><affiliation>Carnegie Mellon University in Qatar</affiliation></author>
+      <author><first>Nizar</first><last>Habash</last><affiliation>New York University Abu Dhabi</affiliation></author>
+      <pages>85-97</pages>
+      <abstract>We describe the findings of the third Nuanced Arabic Dialect Identification Shared Task (NADI 2022). NADI aims at advancing state-of-the-art Arabic NLP, including Arabic dialects. It does so by affording diverse datasets and modeling opportunities in a standardized context where meaningful comparisons between models and approaches are possible. NADI 2022 targeted both dialect identification (Subtask 1) and dialectal sentiment analysis (Subtask 2) at the country level. A total of 41 unique teams registered for the shared task, of whom 21 teams have participated (with 105 valid submissions). Among these, 19 teams participated in Subtask 1, and 10 participated in Subtask 2. The winning team achieved F1=27.06 on Subtask 1 and F1=75.16 on Subtask 2, reflecting that both subtasks remain challenging and motivating future work in this area. We describe the methods employed by the participating teams and offer an outlook for NADI.</abstract>
+      <url hash="b58d6b04">2022.wanlp-1.9</url>
+      <bibkey>abdul-mageed-etal-2022-nadi</bibkey>
+      <doi>10.18653/v1/2022.wanlp-1.9</doi>
+    </paper>
+    <paper id="10">
+      <title>The Shared Task on Gender Rewriting</title>
+      <author><first>Bashar</first><last>Alhafni</last><affiliation>New York University</affiliation></author>
+      <author><first>Nizar</first><last>Habash</last><affiliation>New York University Abu Dhabi</affiliation></author>
+      <author><first>Houda</first><last>Bouamor</last><affiliation>Carnegie Mellon University in Qatar</affiliation></author>
+      <author><first>Ossama</first><last>Obeid</last><affiliation>New York University Abu Dhabi</affiliation></author>
+      <author><first>Sultan</first><last>Alrowili</last><affiliation>University of Delaware</affiliation></author>
+      <author><first>Daliyah</first><last>AlZeer</last><affiliation>Taif University</affiliation></author>
+      <author><first>Kawla Mohmad</first><last>Shnqiti</last><affiliation>Clangu</affiliation></author>
+      <author><first>Ahmed</first><last>Elbakry</last><affiliation>Microsoft</affiliation></author>
+      <author><first>Muhammad</first><last>ElNokrashy</last><affiliation>Microsoft</affiliation></author>
+      <author><first>Mohamed</first><last>Gabr</last><affiliation>Microsoft</affiliation></author>
+      <author><first>Abderrahmane</first><last>Issam</last><affiliation>Archipel Cognitive</affiliation></author>
+      <author><first>Abdelrahim</first><last>Qaddoumi</last><affiliation>Nyu</affiliation></author>
+      <author><first>Vijay</first><last>Shanker</last><affiliation>University of Delaware</affiliation></author>
+      <author><first>Mahmoud</first><last>Zyate</last><affiliation>Leyton</affiliation></author>
+      <pages>98-107</pages>
+      <abstract>In this paper, we present the results and findings of the Shared Task on Gender Rewriting, which was organized as part of the Seventh Arabic Natural Language Processing Workshop. The task of gender rewriting refers to generating alternatives of a given sentence to match different target user gender contexts (e.g., a female speaker with a male listener, a male speaker with a male listener, etc.). This requires changing the grammatical gender (masculine or feminine) of certain words referring to the users. In this task, we focus on Arabic, a gender-marking morphologically rich language. A total of five teams from four countries participated in the shared task.</abstract>
+      <url hash="e065566b">2022.wanlp-1.10</url>
+      <bibkey>alhafni-etal-2022-shared</bibkey>
+      <doi>10.18653/v1/2022.wanlp-1.10</doi>
+    </paper>
+    <paper id="11">
+      <title>Overview of the <fixed-case>WANLP</fixed-case> 2022 Shared Task on Propaganda Detection in <fixed-case>A</fixed-case>rabic</title>
+      <author><first>Firoj</first><last>Alam</last><affiliation>Qatar Computing Research Institute, HBKU</affiliation></author>
+      <author><first>Hamdy</first><last>Mubarak</last><affiliation>Qatar Computing Research Institute</affiliation></author>
+      <author><first>Wajdi</first><last>Zaghouani</last><affiliation>Hamad Bin Khalifa University</affiliation></author>
+      <author><first>Giovanni</first><last>Da San Martino</last><affiliation>University of Padova</affiliation></author>
+      <author><first>Preslav</first><last>Nakov</last><affiliation>Mohamed bin Zayed University of Artificial Intelligence</affiliation></author>
+      <pages>108-118</pages>
+      <abstract>Propaganda is defined as an expression of opinion or action by individuals or groups deliberately designed to influence opinions or actions of other individuals or groups with reference to predetermined ends and this is achieved by means of well-defined rhetorical and psychological devices. Currently, propaganda (or persuasion) techniques have been commonly used on social media to manipulate or mislead social media users. Automatic detection of propaganda techniques from textual, visual, or multimodal content has been studied recently, however, major of such efforts are focused on English language content. In this paper, we propose a shared task on detecting propaganda techniques for Arabic textual content. We have done a pilot annotation of 200 Arabic tweets, which we plan to extend to 2,000 tweets, covering diverse topics. We hope that the shared task will help in building a community for Arabic propaganda detection. The dataset will be made publicly available, which can help in future studies.</abstract>
+      <url hash="57309b91">2022.wanlp-1.11</url>
+      <bibkey>alam-etal-2022-overview</bibkey>
+      <revision id="1" href="2022.wanlp-1.11v1" hash="e8b19d6c"/>
+      <revision id="2" href="2022.wanlp-1.11v2" hash="57309b91" date="2023-02-15">Corrected one paper title.</revision>
+      <video href="2022.wanlp-1.11.mp4"/>
+      <doi>10.18653/v1/2022.wanlp-1.11</doi>
+    </paper>
+    <paper id="12">
+      <title><fixed-case>A</fixed-case>rz<fixed-case>E</fixed-case>n-<fixed-case>ST</fixed-case>: A Three-way Speech Translation Corpus for Code-Switched <fixed-case>E</fixed-case>gyptian <fixed-case>A</fixed-case>rabic-<fixed-case>E</fixed-case>nglish</title>
+      <author><first>Injy</first><last>Hamed</last><affiliation>Institute for Natural Language Processing, University of Stuttgart</affiliation></author>
+      <author><first>Nizar</first><last>Habash</last><affiliation>New York University Abu Dhabi</affiliation></author>
+      <author><first>Slim</first><last>Abdennadher</last><affiliation>German University in Cairo</affiliation></author>
+      <author><first>Ngoc Thang</first><last>Vu</last><affiliation>University of Stuttgart</affiliation></author>
+      <pages>119-130</pages>
+      <abstract>We present our work on collecting ArzEn-ST, a code-switched Egyptian Arabic-English Speech Translation Corpus. This corpus is an extension of the ArzEn speech corpus, which was collected through informal interviews with bilingual speakers. In this work, we collect translations in both directions, monolingual Egyptian Arabic and monolingual English, forming a three-way speech translation corpus. We make the translation guidelines and corpus publicly available. We also report results for baseline systems for machine translation and speech translation tasks. We believe this is a valuable resource that can motivate and facilitate further research studying the code-switching phenomenon from a linguistic perspective and can be used to train and evaluate NLP systems.</abstract>
+      <url hash="dc9986b8">2022.wanlp-1.12</url>
+      <bibkey>hamed-etal-2022-arzen</bibkey>
+      <video href="2022.wanlp-1.12.mp4"/>
+      <doi>10.18653/v1/2022.wanlp-1.12</doi>
+    </paper>
+    <paper id="13">
+      <title>Maknuune: A Large Open Palestinian <fixed-case>A</fixed-case>rabic Lexicon</title>
+      <author><first>Shahd Salah Uddin</first><last>Dibas</last><affiliation>University of Oxford</affiliation></author>
+      <author><first>Christian</first><last>Khairallah</last><affiliation>New York University Abu Dhabi</affiliation></author>
+      <author><first>Nizar</first><last>Habash</last><affiliation>New York University Abu Dhabi</affiliation></author>
+      <author><first>Omar Fayez</first><last>Sadi</last><affiliation>University College of Educational Sciences-UNRWA</affiliation></author>
+      <author><first>Tariq</first><last>Sairafy</last><affiliation>University College of Educational Sciences-UNRWA</affiliation></author>
+      <author><first>Karmel</first><last>Sarabta</last><affiliation>University College of Educational Sciences-UNRWA</affiliation></author>
+      <author><first>Abrar</first><last>Ardah</last><affiliation>University College of Educational Sciences-UNRWA</affiliation></author>
+      <pages>131-141</pages>
+      <abstract>We present Maknuune, a large open lexicon for the Palestinian Arabic dialect. Maknuune has over 36K entries from 17K lemmas, and 3.7K roots. All entries include diacritized Arabic orthography, phonological transcription and English glosses. Some entries are enriched with additional information such as broken plurals and templatic feminine forms, associated phrases and collocations, Standard Arabic glosses, and examples or notes on grammar, usage, or location of collected entry</abstract>
+      <url hash="bd349d44">2022.wanlp-1.13</url>
+      <bibkey>dibas-etal-2022-maknuune</bibkey>
+      <video href="2022.wanlp-1.13.mp4"/>
+      <doi>10.18653/v1/2022.wanlp-1.13</doi>
+    </paper>
+    <paper id="14">
+      <title>Developing a Tag-Set and Extracting the Morphological Lexicons to Build a Morphological Analyzer for <fixed-case>E</fixed-case>gyptian <fixed-case>A</fixed-case>rabic</title>
+      <author><first>Amany</first><last>Fashwan</last><affiliation>Phonetics and Linguistics Department, Faculty of Arts, Alexandria University, Alexandria</affiliation></author>
+      <author><first>Sameh</first><last>Alansary</last><affiliation>Linguistics and Phonetics Department, Faculty of Arts, Alexandria University, Alexandria</affiliation></author>
+      <pages>142-160</pages>
+      <abstract>This paper sheds light on an in-progress work for building a morphological analyzer for Egyptian Arabic (EGY). To build such a tool, a tag-set schema is developed depending on a corpus of 527,000 EGY words covering different sources and genres. This tag-set schema is used in annotating about 318,940 words, morphologically, according to their contexts. Each annotated word is associated with its suitable prefix(s), original stem, tag, suffix(s), glossary, number, gender, definiteness, and conventional lemma and stem. These morphologically annotated words, in turns, are used in developing the proposed morphological analyzer where the morphological lexicons and the compatibility tables are extracted and tested. The system is compared with one of best EGY morphological analyzers; CALIMA.</abstract>
+      <url hash="f0cd67fd">2022.wanlp-1.14</url>
+      <bibkey>fashwan-alansary-2022-developing</bibkey>
+      <doi>10.18653/v1/2022.wanlp-1.14</doi>
+    </paper>
+    <paper id="15">
+      <title>A Weak Supervised Transfer Learning Approach for Sentiment Analysis to the <fixed-case>K</fixed-case>uwaiti Dialect</title>
+      <author><first>Fatemah</first><last>Husain</last><affiliation>Kuwait University</affiliation></author>
+      <author><first>Hana</first><last>Al-Ostad</last><affiliation>Gulf University for Science &amp; Technology</affiliation></author>
+      <author><first>Halima</first><last>Omar</last><affiliation>Kuwait University</affiliation></author>
+      <pages>161-173</pages>
+      <abstract>Developing a system for sentiment analysis is very challenging for the Arabic language due to the limitations in the available Arabic datasets. Many Arabic dialects are still not studied by researchers in Arabic sentiment analysis due to the complexity of annotators’ recruitment process during dataset creation. This paper covers the research gap in sentiment analysis for the Kuwaiti dialect by proposing a weak supervised approach to develop a large labeled dataset. Our dataset consists of over 16.6k tweets with 7,905 negatives, 7,902 positives, and 860 neutrals that spans several themes and time frames to remove any bias that might affect its content. The annotation agreement between our proposed system’s labels and human-annotated labels reports 93% for the pairwise percent agreement and 0.87 for Cohen’s kappa coefficient. Furthermore, we evaluate our dataset using multiple traditional machine learning classifiers and advanced deep learning language models to test its performance. The results report 89% accuracy when applied to the testing dataset using the ARBERT model.</abstract>
+      <url hash="8478a57c">2022.wanlp-1.15</url>
+      <bibkey>husain-etal-2022-weak</bibkey>
+      <doi>10.18653/v1/2022.wanlp-1.15</doi>
+    </paper>
+    <paper id="16">
+      <title>Mawqif: A Multi-label <fixed-case>A</fixed-case>rabic Dataset for Target-specific Stance Detection</title>
+      <author><first>Nora Saleh</first><last>Alturayeif</last><affiliation>King Fahd University of Petroleum and Minerals</affiliation></author>
+      <author><first>Hamzah Abdullah</first><last>Luqman</last><affiliation>King Fahd University of Petroleum and Minerals</affiliation></author>
+      <author><first>Moataz Aly Kamaleldin</first><last>Ahmed</last><affiliation>King Fahd University of Petroleum and Minerals</affiliation></author>
+      <pages>174-184</pages>
+      <abstract>Social media platforms are becoming inherent parts of people’s daily life to express opinions and stances toward topics of varying polarities. Stance detection determines the viewpoint expressed in a text toward a target. While communication on social media (e.g., Twitter) takes place in more than 40 languages, the majority of stance detection research has been focused on English. Although some efforts have recently been made to develop stance detection datasets in other languages, no similar efforts seem to have considered the Arabic language. In this paper, we present Mawqif, the first Arabic dataset for target-specific stance detection, composed of 4,121 tweets annotated with stance, sentiment, and sarcasm polarities. Mawqif, as a multi-label dataset, can provide more opportunities for studying the interaction between different opinion dimensions and evaluating a multi-task model. We provide a detailed description of the dataset, present an analysis of the produced annotation, and evaluate four BERT-based models on it. Our best model achieves a macro-F1 of 78.89%, which shows that there is ample room for improvement on this challenging task. We publicly release our dataset, the annotation guidelines, and the code of the experiments.</abstract>
+      <url hash="d3cb1e39">2022.wanlp-1.16</url>
+      <bibkey>alturayeif-etal-2022-mawqif</bibkey>
+      <doi>10.18653/v1/2022.wanlp-1.16</doi>
+    </paper>
+    <paper id="17">
+      <title>Assessing the Linguistic Knowledge in <fixed-case>A</fixed-case>rabic Pre-trained Language Models Using Minimal Pairs</title>
+      <author><first>Wafa Abdullah</first><last>Alrajhi</last><affiliation>PhD student</affiliation></author>
+      <author><first>Hend</first><last>Al-Khalifa</last><affiliation>King Saud University</affiliation></author>
+      <author><first>Abdulmalik</first><last>AlSalman</last><affiliation>King Saud Univ.</affiliation></author>
+      <pages>185-193</pages>
+      <abstract>Despite the noticeable progress that we recently witnessed in Arabic pre-trained language models (PLMs), the linguistic knowledge captured by these models remains unclear. In this paper, we conducted a study to evaluate available Arabic PLMs in terms of their linguistic knowledge. BERT-based language models (LMs) are evaluated using Minimum Pairs (MP), where each pair represents a grammatical sentence and its contradictory counterpart. MPs isolate specific linguistic knowledge to test the model’s sensitivity in understanding a specific linguistic phenomenon. We cover nine major Arabic phenomena: Verbal sentences, Nominal sentences, Adjective Modification, and Idafa construction. The experiments compared the results of fifteen Arabic BERT-based PLMs. Overall, among all tested models, CAMeL-CA outperformed the other PLMs by achieving the highest overall accuracy.</abstract>
+      <url hash="45268153">2022.wanlp-1.17</url>
+      <bibkey>alrajhi-etal-2022-assessing</bibkey>
+      <doi>10.18653/v1/2022.wanlp-1.17</doi>
+    </paper>
+    <paper id="18">
+      <title>Identifying Code-switching in <fixed-case>A</fixed-case>rabizi</title>
+      <author><first>Safaa</first><last>Shehadi</last><affiliation>Department of Computer Science, University of Haifa</affiliation></author>
+      <author><first>Shuly</first><last>Wintner</last><affiliation>University of Haifa</affiliation></author>
+      <pages>194-204</pages>
+      <abstract>We describe a corpus of social media posts that include utterances in Arabizi, a Roman-script rendering of Arabic, mixed with other languages, notably English, French, and Arabic written in the Arabic script. We manually annotated a subset of the texts with word-level language IDs; this is a non-trivial task due to the nature of mixed-language writing, especially on social media. We developed classifiers that can accurately predict the language ID tags. Then, we extended the word-level predictions to identify sentences that include Arabizi (and code-switching), and applied the classifiers to the raw corpus, thereby harvesting a large number of additional instances. The result is a large-scale dataset of Arabizi, with precise indications of code-switching between Arabizi and English, French, and Arabic.</abstract>
+      <url hash="331ea3f7">2022.wanlp-1.18</url>
+      <bibkey>shehadi-wintner-2022-identifying</bibkey>
+      <doi>10.18653/v1/2022.wanlp-1.18</doi>
+    </paper>
+    <paper id="19">
+      <title>Authorship Verification for <fixed-case>A</fixed-case>rabic Short Texts Using <fixed-case>A</fixed-case>rabic Knowledge-Base Model (<fixed-case>A</fixed-case>ra<fixed-case>KB</fixed-case>)</title>
+      <author><first>Fatimah</first><last>Alqahtani</last><affiliation>King’s College London</affiliation></author>
+      <author><first>Helen</first><last>Yannakoudakis</last><affiliation>King’s College London</affiliation></author>
+      <pages>205-213</pages>
+      <abstract>Arabic is a Semitic language, considered to be one of the most complex languages in the world due to its unique composition and complex linguistic features. It consequently causes challenges for verifying the authorship of Arabic texts, requiring extensive research and development. This paper presents a new knowledge-based model to enhance Natural Language Understanding and thereby improve authorship verification performance. The proposed model provided promising results that would benefit the Arabic research for different Natural Language Processing tasks.</abstract>
+      <url hash="69817d03">2022.wanlp-1.19</url>
+      <bibkey>alqahtani-yannakoudakis-2022-authorship</bibkey>
+      <doi>10.18653/v1/2022.wanlp-1.19</doi>
+    </paper>
+    <paper id="20">
+      <title>A Semi-supervised Approach for a Better Translation of Sentiment in Dialectical <fixed-case>A</fixed-case>rabic <fixed-case>UGT</fixed-case></title>
+      <author><first>Hadeel</first><last>Saadany</last><affiliation>University of Surrey</affiliation></author>
+      <author><first>Constantin</first><last>Orăsan</last><affiliation>University of Surrey</affiliation></author>
+      <author><first>Emad</first><last>Mohamed</last><affiliation>RGCL, Wolverhampton</affiliation></author>
+      <author><first>Ashraf</first><last>Tantawy</last><affiliation>De Montfort University</affiliation></author>
+      <pages>214-224</pages>
+      <abstract>In the online world, Machine Translation (MT) systems are extensively used to translate User-Generated Text (UGT) such as reviews, tweets, and social media posts, where the main message is often the author’s positive or negative attitude towards the topic of the text. However, MT systems still lack accuracy in some low-resource languages and sometimes make critical translation errors that completely flip the sentiment polarity of the target word or phrase and hence delivers a wrong affect message. This is particularly noticeable in texts that do not follow common lexico-grammatical standards such as the dialectical Arabic (DA) used on online platforms. In this research, we aim to improve the translation of sentiment in UGT written in the dialectical versions of the Arabic language to English. Given the scarcity of gold-standard parallel data for DA-EN in the UGT domain, we introduce a semi-supervised approach that exploits both monolingual and parallel data for training an NMT system initialised by a cross-lingual language model trained with supervised and unsupervised modeling objectives. We assess the accuracy of sentiment translation by our proposed system through a numerical ‘sentiment-closeness’ measure as well as human evaluation. We will show that our semi-supervised MT system can significantly help with correcting sentiment errors detected in the online translation of dialectical Arabic UGT.</abstract>
+      <url hash="d96e57c4">2022.wanlp-1.20</url>
+      <bibkey>saadany-etal-2022-semi</bibkey>
+      <doi>10.18653/v1/2022.wanlp-1.20</doi>
+    </paper>
+    <paper id="21">
+      <title>Cross-lingual transfer for low-resource <fixed-case>A</fixed-case>rabic language understanding</title>
+      <author><first>Khadige</first><last>Abboud</last><affiliation>Amazon Alexa AI</affiliation></author>
+      <author><first>Olga</first><last>Golovneva</last><affiliation>Meta</affiliation></author>
+      <author><first>Christopher</first><last>DiPersio</last><affiliation>Amazon</affiliation></author>
+      <pages>225-237</pages>
+      <abstract>This paper explores cross-lingual transfer learning in natural language understanding (NLU), with the focus on bootstrapping Arabic from high-resource English and French languages for domain classification, intent classification, and named entity recognition tasks. We adopt a BERT-based architecture and pretrain three models using open-source Wikipedia data and large-scale commercial datasets: monolingual:Arabic, bilingual:Arabic-English, and trilingual:Arabic-English-French models. Additionally, we use off-the-shelf machine translator to translate internal data from source English language to the target Arabic language, in an effort to enhance transfer learning through translation. We conduct experiments that finetune the three models for NLU tasks and evaluate them on a large internal dataset. Despite the morphological, orthographical, and grammatical differences between Arabic and the source languages, transfer learning performance gains from source languages and through machine translation are achieved on a real-world Arabic test dataset in both a zero-shot setting and in a setting when the models are further finetuned on labeled data from the target language.</abstract>
+      <url hash="93eb6cfb">2022.wanlp-1.21</url>
+      <bibkey>abboud-etal-2022-cross</bibkey>
+      <doi>10.18653/v1/2022.wanlp-1.21</doi>
+    </paper>
+    <paper id="22">
+      <title>Improving <fixed-case>POS</fixed-case> Tagging for <fixed-case>A</fixed-case>rabic Dialects on Out-of-Domain Texts</title>
+      <author><first>Noor</first><last>Abo Mokh</last><affiliation>Indiana University</affiliation></author>
+      <author><first>Daniel</first><last>Dakota</last><affiliation>Indiana University</affiliation></author>
+      <author><first>Sandra</first><last>Kübler</last><affiliation>Indiana University</affiliation></author>
+      <pages>238-248</pages>
+      <abstract>We investigate part of speech tagging for four Arabic dialects (Gulf, Levantine, Egyptian, and Maghrebi), in an out-of-domain setting. More specifically, we look at the effectiveness of 1) upsampling the target dialect in the training data of a joint model, 2) increasing the consistency of the annotations, and 3) using word embeddings pre-trained on a large corpus of dialectal Arabic. We increase the accuracy on average by about 20 percentage points.</abstract>
+      <url hash="8801dac4">2022.wanlp-1.22</url>
+      <bibkey>abo-mokh-etal-2022-improving</bibkey>
+      <doi>10.18653/v1/2022.wanlp-1.22</doi>
+    </paper>
+    <paper id="23">
+      <title>Domain Adaptation for <fixed-case>A</fixed-case>rabic Crisis Response</title>
+      <author><first>Reem</first><last>Alrashdi</last><affiliation>University of York, University of H’ail</affiliation></author>
+      <author><first>Simon</first><last>O’Keefe</last><affiliation>University of York</affiliation></author>
+      <pages>249-259</pages>
+      <abstract>Deep learning algorithms can identify related tweets to reduce the information overload that prevents humanitarian organisations from using valuable Twitter posts. However, they rely heavily on human-labelled data, which are unavailable for emerging crises. Because each crisis has its own features, such as location, time and social media response, current models are known to suffer from generalising to unseen disaster events when pre-trained on past ones. Tweet classifiers for low-resource languages like Arabic has the additional issue of limited labelled data duplicates caused by the absence of good language resources. Thus, we propose a novel domain adaptation approach that employs distant supervision to automatically label tweets from emerging Arabic crisis events to be used to train a model along with available human-labelled data. We evaluate our work on data from seven 2018–2020 Arabic events from different crisis types (flood, explosion, virus and storm). Results show that our method outperforms self-training in identifying crisis-related tweets in real-time scenarios and can be seen as a robust Arabic tweet classifier.</abstract>
+      <url hash="408616a9">2022.wanlp-1.23</url>
+      <bibkey>alrashdi-okeefe-2022-domain</bibkey>
+      <doi>10.18653/v1/2022.wanlp-1.23</doi>
+    </paper>
+    <paper id="24">
+      <title>Weakly and Semi-Supervised Learning for <fixed-case>A</fixed-case>rabic Text Classification using Monodialectal Language Models</title>
+      <author><first>Reem</first><last>AlYami</last><affiliation>King Fahd University of Petroleum and Minerals</affiliation></author>
+      <author><first>Rabah</first><last>Al-Zaidy</last><affiliation>King Fahd University of Petrolem and Minerals</affiliation></author>
+      <pages>260-272</pages>
+      <abstract>The lack of resources such as annotated datasets and tools for low-resource languages is a significant obstacle to the advancement of Natural Language Processing (NLP) applications targeting users who speak these languages. Although learning techniques such as semi-supervised and weakly supervised learning are effective in text classification cases where annotated data is limited, they are still not widely investigated in many languages due to the sparsity of data altogether, both labeled and unlabeled. In this study, we deploy both weakly, and semi-supervised learning approaches for text classification in low-resource languages and address the underlying limitations that can hinder the effectiveness of these techniques. To that end, we propose a suite of language-agnostic techniques for large-scale data collection, automatic data annotation, and language model training in scenarios where resources are scarce. Specifically, we propose a novel data collection pipeline for under-represented languages, or dialects, that is language and task agnostic and of sufficient size for training a language model capable of achieving competitive results on common NLP tasks, as our experiments show. The models will be shared with the research community.</abstract>
+      <url hash="83b0a8b5">2022.wanlp-1.24</url>
+      <bibkey>alyami-al-zaidy-2022-weakly</bibkey>
+      <doi>10.18653/v1/2022.wanlp-1.24</doi>
+    </paper>
+    <paper id="25">
+      <title>Event-Based Knowledge <fixed-case>MLM</fixed-case> for <fixed-case>A</fixed-case>rabic Event Detection</title>
+      <author><first>Asma Z</first><last>Yamani</last><affiliation>King Fahd University of Petroleum and Minerals</affiliation></author>
+      <author><first>Amjad K</first><last>Alsulami</last><affiliation>King Fahd University of Petroleum and Minerals</affiliation></author>
+      <author><first>Rabeah A</first><last>Al-Zaidy</last><affiliation>King Fahd University of Petroleum and Minerals</affiliation></author>
+      <pages>273-286</pages>
+      <abstract>With the fast pace of reporting around the globe from various sources, event extraction has increasingly become an important task in NLP. The use of pre-trained language models (PTMs) has become popular to provide contextual representation for downstream tasks. This work aims to pre-train language models that enhance event extraction accuracy. To this end, we propose an Event-Based Knowledge (EBK) masking approach to mask the most significant terms in the event detection task. These significant terms are based on an external knowledge source that is curated for the purpose of event detection for the Arabic language. The proposed approach improves the classification accuracy of all the 9 event types. The experimental results demonstrate the effectiveness of the proposed masking approach and encourage further exploration.</abstract>
+      <url hash="875e4823">2022.wanlp-1.25</url>
+      <bibkey>yamani-etal-2022-event</bibkey>
+      <doi>10.18653/v1/2022.wanlp-1.25</doi>
+    </paper>
+    <paper id="26">
+      <title>Establishing a Baseline for <fixed-case>A</fixed-case>rabic Patents Classification: A Comparison of Twelve Approaches</title>
+      <author><first>Taif Omar</first><last>Al-Omar</last><affiliation>King Saud University</affiliation></author>
+      <author><first>Hend</first><last>Al-Khalifa</last><affiliation>King Saud University</affiliation></author>
+      <author><first>Rawan</first><last>Al-Matham</last><affiliation>King Saud University</affiliation></author>
+      <pages>287-294</pages>
+      <abstract>Nowadays, the number of patent applications is constantly growing and there is an economical interest on developing accurate and fast models to automate their classification task. In this paper, we introduce the first public Arabic patent dataset called ArPatent and experiment with twelve classification approaches to develop a baseline for Arabic patents classification. To achieve the goal of finding the best baseline for classifying Arabic patents, different machine learning, pre-trained language models as well as ensemble approaches were conducted. From the obtained results, we can observe that the best performing model for classifying Arabic patents was ARBERT with F1 of 66.53%, while the ensemble approach of the best three performing language models, namely: ARBERT, CAMeL-MSA, and QARiB, achieved the second best F1 score, i.e., 64.52%.</abstract>
+      <url hash="e9d609cd">2022.wanlp-1.26</url>
+      <bibkey>al-omar-etal-2022-establishing</bibkey>
+      <doi>10.18653/v1/2022.wanlp-1.26</doi>
+    </paper>
+    <paper id="27">
+      <title>Towards Learning <fixed-case>A</fixed-case>rabic Morphophonology</title>
+      <author><first>Salam</first><last>Khalifa</last><affiliation>Stony Brook University</affiliation></author>
+      <author><first>Jordan</first><last>Kodner</last><affiliation>Stony Brook University</affiliation></author>
+      <author><first>Owen</first><last>Rambow</last><affiliation>Stony Brook University</affiliation></author>
+      <pages>295-301</pages>
+      <abstract>One core challenge facing morphological inflection systems is capturing language-specific morphophonological changes. This is particularly true of languages like Arabic which are morphologically complex. In this paper, we learn explicit morphophonological rules from morphologically annotated Egyptian Arabic and corresponding surface forms. These rules are human-interpretable, capture known morphophonological phenomena in the language, and are generalizable to unseen forms.</abstract>
+      <url hash="4e68a552">2022.wanlp-1.27</url>
+      <bibkey>khalifa-etal-2022-towards</bibkey>
+      <doi>10.18653/v1/2022.wanlp-1.27</doi>
+    </paper>
+    <paper id="28">
+      <title><fixed-case>A</fixed-case>ra<fixed-case>D</fixed-case>ep<fixed-case>S</fixed-case>u: Detecting Depression and Suicidal Ideation in <fixed-case>A</fixed-case>rabic Tweets Using Transformers</title>
+      <author><first>Mariam</first><last>Hassib</last><affiliation>Alexandria University</affiliation></author>
+      <author><first>Nancy</first><last>Hossam</last><affiliation>Alexandria University</affiliation></author>
+      <author><first>Jolie</first><last>Sameh</last><affiliation>Alexandria University</affiliation></author>
+      <author><first>Marwan</first><last>Torki</last><affiliation>Alexandria university</affiliation></author>
+      <pages>302-311</pages>
+      <abstract>Among mental health diseases, depression is one of the most severe, as it often leads to suicide which is the fourth leading cause of death in the Middle East. In the Middle East, Egypt has the highest percentage of suicidal deaths; due to this, it is important to identify depression and suicidal ideation. In Arabic culture, there is a lack of awareness regarding the importance of diagnosing and living with mental health diseases. However, as noted for the last couple years people all over the world, including Arab citizens, tend to express their feelings openly on social media. Twitter is the most popular platform designed to enable the expression of emotions through short texts, pictures, or videos. This paper aims to predict depression and depression with suicidal ideation. Due to the tendency of people to treat social media as their personal diaries and share their deepest thoughts on social media platforms. Social data contain valuable information that can be used to identify user’s psychological states. We create AraDepSu dataset by scrapping tweets from twitter and manually labelling them. We expand the diversity of user tweets, by adding a neutral label (“neutral”) so the dataset include three classes (“depressed”, “suicidal”, “neutral”). Then we train our AraDepSu dataset on 30+ different transformer models. We find that the best-performing model is MARBERT with accuracy, precision, recall and F1-Score values of 91.20%, 88.74%, 88.50% and 88.75%.</abstract>
+      <url hash="4a78f503">2022.wanlp-1.28</url>
+      <bibkey>hassib-etal-2022-aradepsu</bibkey>
+      <doi>10.18653/v1/2022.wanlp-1.28</doi>
+    </paper>
+    <paper id="29">
+      <title>End-to-End Speech Translation of <fixed-case>A</fixed-case>rabic to <fixed-case>E</fixed-case>nglish Broadcast News</title>
+      <author><first>Fethi</first><last>Bougares</last><affiliation>LIUM- Le Mans Université</affiliation></author>
+      <author><first>Salim</first><last>Jouili</last><affiliation>Elyadata</affiliation></author>
+      <pages>312-319</pages>
+      <abstract>Speech translation (ST) is the task of directly translating acoustic speech signals in a source language into text in a foreign language. ST task has been addressed, for a long time, using a pipeline approach with two modules : first an Automatic Speech Recognition (ASR) in the source language followed by a text-to-text Machine translation (MT). In the past few years, we have seen a paradigm shift towards the end-to-end approaches using sequence-to-sequence deep neural network models. This paper presents our efforts towards the development of the first Broadcast News end-to-end Arabic to English speech translation system. Starting from independent ASR and MT LDC releases, we were able to identify about 92 hours of Arabic audio recordings for which the manual transcription was also translated into English at the segment level. These data was used to train and compare pipeline and end-to-end speech translation systems under multiple scenarios including transfer learning and data augmentation techniques.</abstract>
+      <url hash="80489604">2022.wanlp-1.29</url>
+      <bibkey>bougares-jouili-2022-end</bibkey>
+      <doi>10.18653/v1/2022.wanlp-1.29</doi>
+    </paper>
+    <paper id="30">
+      <title><fixed-case>A</fixed-case>rabic Keyphrase Extraction: Enhancing Deep Learning Models with Pre-trained Contextual Embedding and External Features</title>
+      <author><first>Randah</first><last>Alharbi</last><affiliation>King Fahd University of Petroleum and Minerals</affiliation></author>
+      <author><first>Husni</first><last>Al-Muhtasab</last><affiliation>King Fahd University of Petroleum and Minerals</affiliation></author>
+      <pages>320-330</pages>
+      <abstract>Keyphrase extraction is essential to many Information retrieval (IR) and Natural language Processing (NLP) tasks such as summarization and indexing. This study investigates deep learning approaches to Arabic keyphrase extraction. We address the problem as sequence classification and create a Bi-LSTM model to classify each sequence token as either part of the keyphrase or outside of it. We have extracted word embeddings from two pre-trained models, Word2Vec and BERT. Moreover, we have investigated the effect of incorporating linguistic, positional, and statistical features with word embeddings on performance. Our best-performing model has achieved 0.45 F1-score on ArabicKPE dataset when combining linguistic and positional features with BERT embedding.</abstract>
+      <url hash="394adbb7">2022.wanlp-1.30</url>
+      <bibkey>alharbi-al-muhtasab-2022-arabic</bibkey>
+      <doi>10.18653/v1/2022.wanlp-1.30</doi>
+    </paper>
+    <paper id="31">
+      <title><fixed-case>A</fixed-case>rab<fixed-case>IE</fixed-case>: Joint Entity, Relation and Event Extraction for <fixed-case>A</fixed-case>rabic</title>
+      <author><first>Niama</first><last>El Khbir</last><affiliation>LIPN, Université Sorbonne Paris Nord</affiliation></author>
+      <author><first>Nadi</first><last>Tomeh</last><affiliation>LIPN, Université Sorbonne Paris Nord</affiliation></author>
+      <author><first>Thierry</first><last>Charnois</last><affiliation>LIPN - CNRS University Paris 13</affiliation></author>
+      <pages>331-345</pages>
+      <abstract>Previous work on Arabic information extraction has mainly focused on named entity recognition and very little work has been done on Arabic relation extraction and event recognition. Moreover, modeling Arabic data for such tasks is not straightforward because of the morphological richness and idiosyncrasies of the Arabic language. We propose in this article the first neural joint information extraction system for the Arabic language.</abstract>
+      <url hash="094db300">2022.wanlp-1.31</url>
+      <bibkey>el-khbir-etal-2022-arabie</bibkey>
+      <doi>10.18653/v1/2022.wanlp-1.31</doi>
+    </paper>
+    <paper id="32">
+      <title>Emoji Sentiment Roles for Sentiment Analysis: A Case Study in <fixed-case>A</fixed-case>rabic Texts</title>
+      <author><first>Shatha Ali A.</first><last>Hakami</last><affiliation>University of Birmingham</affiliation></author>
+      <author><first>Robert</first><last>Hendley</last><affiliation>University of Birmingham</affiliation></author>
+      <author><first>Phillip</first><last>Smith</last><affiliation>University of Birmingham</affiliation></author>
+      <pages>346-355</pages>
+      <abstract>Emoji (digital pictograms) are crucial features for textual sentiment analysis. However, analysing the sentiment roles of emoji is very complex. This is due to its dependency on different factors, such as textual context, cultural perspective, interlocutor’s personal traits, interlocutors’ relationships or a platforms’ functional features. This work introduces an approach to analysing the sentiment effects of emoji as textual features. Using an Arabic dataset as a benchmark, our results confirm the borrowed argument that each emoji has three different norms of sentiment role (negative, neutral or positive). Therefore, an emoji can play different sentiment roles depending upon the context. It can behave as an emphasizer, an indicator, a mitigator, a reverser or a trigger of either negative or positive sentiment within a text. In addition, an emoji may have a neutral effect (i.e., no effect) on the sentiment of the text.</abstract>
+      <url hash="c8fce690">2022.wanlp-1.32</url>
+      <bibkey>hakami-etal-2022-emoji</bibkey>
+      <doi>10.18653/v1/2022.wanlp-1.32</doi>
+    </paper>
+    <paper id="33">
+      <title><fixed-case>G</fixed-case>ulf <fixed-case>A</fixed-case>rabic Diacritization: Guidelines, Initial Dataset, and Results</title>
+      <author><first>Nouf</first><last>Alabbasi</last><affiliation>New York University</affiliation></author>
+      <author><first>Mohamed</first><last>Al-Badrashiny</last><affiliation>aiXplain inc.</affiliation></author>
+      <author><first>Maryam</first><last>Aldahmani</last><affiliation>Sibaq Lahja</affiliation></author>
+      <author><first>Ahmed</first><last>AlDhanhani</last><affiliation>Khalifa University</affiliation></author>
+      <author><first>Abdullah Saleh</first><last>Alhashmi</last><affiliation>AiXplain</affiliation></author>
+      <author><first>Fawaghy Ahmed</first><last>Alhashmi</last><affiliation>Uaeu</affiliation></author>
+      <author><first>Khalid</first><last>Al Hashemi</last><affiliation>Khalifa University</affiliation></author>
+      <author><first>Rama Emad</first><last>Alkhobbi</last><affiliation>Independent</affiliation></author>
+      <author><first>Shamma T</first><last>Al Maazmi</last><affiliation>Student</affiliation></author>
+      <author><first>Mohammed Ali</first><last>Alyafeai</last><affiliation>Cyber Gate Defense</affiliation></author>
+      <author><first>Mariam M</first><last>Alzaabi</last><affiliation>Khalifa University of Science and Technology</affiliation></author>
+      <author><first>Mohamed Saqer</first><last>Alzaabi</last><affiliation>Khalifa University</affiliation></author>
+      <author><first>Fatma Khalid</first><last>Badri</last><affiliation>Graduate</affiliation></author>
+      <author><first>Kareem</first><last>Darwish</last><affiliation>aiXplain Inc.</affiliation></author>
+      <author><first>Ehab Mansour</first><last>Diab</last><affiliation>Zagazig University</affiliation></author>
+      <author><first>Muhammad Morsy</first><last>Elmallah</last><affiliation>aixplain,Inc</affiliation></author>
+      <author><first>Amira Ayman</first><last>Elnashar</last><affiliation>American University of Sharjah</affiliation></author>
+      <author><first>Ashraf Hatim</first><last>Elneima</last><affiliation>aiXplain</affiliation></author>
+      <author><first>MHD Tameem</first><last>Kabbani</last><affiliation>American University of Sharjah</affiliation></author>
+      <author><first>Nour</first><last>Rabih</last><affiliation>King’s College London</affiliation></author>
+      <author><first>Ahmad</first><last>Saad</last><affiliation>Mohammed Bin Rashid Space Centre</affiliation></author>
+      <author><first>Ammar Mamoun</first><last>Sousou</last><affiliation>Coders HQ</affiliation></author>
+      <pages>356-360</pages>
+      <abstract>Arabic diacritic recovery is important for a variety of downstream tasks such as text-to-speech. In this paper, we introduce a new Gulf Arabic diacritization dataset composed of 19,850 words based on a subset of the Gumar corpus. We provide comprehensive set of guidelines for diacritization to enable the diacritization of more data. We also report on diacritization results based on the new corpus using a Hidden Markov Model and character-based sequence to sequence models.</abstract>
+      <url hash="9428d804">2022.wanlp-1.33</url>
+      <bibkey>alabbasi-etal-2022-gulf</bibkey>
+      <doi>10.18653/v1/2022.wanlp-1.33</doi>
+    </paper>
+    <paper id="34">
+      <title>Learning From <fixed-case>A</fixed-case>rabic Corpora But Not Always From <fixed-case>A</fixed-case>rabic Speakers: A Case Study of the <fixed-case>A</fixed-case>rabic <fixed-case>W</fixed-case>ikipedia Editions</title>
+      <author><first>Saied</first><last>Alshahrani</last><affiliation>Clarkson University</affiliation></author>
+      <author><first>Esma</first><last>Wali</last><affiliation>Clarkson University</affiliation></author>
+      <author><first>Jeanna</first><last>Matthews</last><affiliation>Clarkson University</affiliation></author>
+      <pages>361-371</pages>
+      <abstract>Wikipedia is a common source of training data for Natural Language Processing (NLP) research, especially as a source for corpora in languages other than English. However, for many downstream NLP tasks, it is important to understand the degree to which these corpora reflect representative contributions of native speakers. In particular, many entries in a given language may be translated from other languages or produced through other automated mechanisms. Language models built using corpora like Wikipedia can embed history, culture, bias, stereotypes, politics, and more, but it is important to understand whose views are actually being represented. In this paper, we present a case study focusing specifically on differences among the Arabic Wikipedia editions (Modern Standard Arabic, Egyptian, and Moroccan). In particular, we document issues in the Egyptian Arabic Wikipedia with automatic creation/generation and translation of content pages from English without human supervision. These issues could substantially affect the performance and accuracy of Large Language Models (LLMs) trained from these corpora, producing models that lack the cultural richness and meaningful representation of native speakers. Fortunately, the metadata maintained by Wikipedia provides visibility into these issues, but unfortunately, this is not the case for all corpora used to train LLMs.</abstract>
+      <url hash="144a323e">2022.wanlp-1.34</url>
+      <bibkey>alshahrani-etal-2022-learning</bibkey>
+      <doi>10.18653/v1/2022.wanlp-1.34</doi>
+    </paper>
+    <paper id="35">
+      <title>A Pilot Study on the Collection and Computational Analysis of Linguistic Differences Amongst Men and Women in a Kuwaiti <fixed-case>A</fixed-case>rabic <fixed-case>W</fixed-case>hats<fixed-case>A</fixed-case>pp Dataset</title>
+      <author><first>Hesah</first><last>Aldihan</last><affiliation>University of Sheffield</affiliation></author>
+      <author><first>Robert</first><last>Gaizauskas</last><affiliation>University of Sheffield</affiliation></author>
+      <author><first>Susan</first><last>Fitzmaurice</last><affiliation>University of Sheffield</affiliation></author>
+      <pages>372-380</pages>
+      <abstract>This study focuses on the collection and computational analysis of Kuwaiti Arabic (KA), which is considered a low resource dialect, to test different sociolinguistic hypotheses related to gendered language use. In this paper, we describe the collection and analysis of a corpus of WhatsApp Group chats with mixed gender Kuwaiti participants. This corpus, which we are making publicly available, is the first corpus of KA conversational data. We analyse different interactional and linguistic features to get insights about features that may be indicative of gender to inform the development of a gender classification system for KA in an upcoming study. Statistical analysis of our data shows that there is insufficient evidence to claim that there are significant differences amongst men and women with respect to number of turns, length of turns and number of emojis. However, qualitative analysis shows that men and women differ substantially in the types of emojis they use and in their use of lengthened words.</abstract>
+      <url hash="24962800">2022.wanlp-1.35</url>
+      <bibkey>aldihan-etal-2022-pilot</bibkey>
+      <doi>10.18653/v1/2022.wanlp-1.35</doi>
+    </paper>
+    <paper id="36">
+      <title>Beyond <fixed-case>A</fixed-case>rabic: Software for <fixed-case>P</fixed-case>erso-<fixed-case>A</fixed-case>rabic Script Manipulation</title>
+      <author><first>Alexander</first><last>Gutkin</last><affiliation>Google</affiliation></author>
+      <author><first>Cibu</first><last>Johny</last><affiliation>Google</affiliation></author>
+      <author><first>Raiomond</first><last>Doctor</last><affiliation>Google</affiliation></author>
+      <author><first>Brian</first><last>Roark</last><affiliation>Google Inc.</affiliation></author>
+      <author><first>Richard</first><last>Sproat</last><affiliation>Google, Japan</affiliation></author>
+      <pages>381-387</pages>
+      <abstract>This paper presents an open-source software library that provides a set of finite-state transducer (FST) components and corresponding utilities for manipulating the writing systems of languages that use the Perso-Arabic script. The operations include various levels of script normalization, including visual invariance-preserving operations that subsume and go beyond the standard Unicode normalization forms, as well as transformations that modify the visual appearance of characters in accordance with the regional orthographies for eleven contemporary languages from diverse language families. The library also provides simple FST-based romanization and transliteration. We additionally attempt to formalize the typology of Perso-Arabic characters by providing one-to-many mappings from Unicode code points to the languages that use them. While our work focuses on the Arabic script diaspora rather than Arabic itself, this approach could be adopted for any language that uses the Arabic script, thus providing a unified framework for treating a script family used by close to a billion people.</abstract>
+      <url hash="b010b8b8">2022.wanlp-1.36</url>
+      <bibkey>gutkin-etal-2022-beyond</bibkey>
+      <video href="2022.wanlp-1.36.mp4"/>
+      <doi>10.18653/v1/2022.wanlp-1.36</doi>
+    </paper>
+    <paper id="37">
+      <title>Coreference Annotation of an <fixed-case>A</fixed-case>rabic Corpus using a Virtual World Game</title>
+      <author><first>Wateen Abdullah</first><last>Aliady</last><affiliation>Queen Mary University of London, United Kingdom; Imam Mohammad Ibn Saud Islamic University, Saudi Arabia</affiliation></author>
+      <author><first>Abdulrahman</first><last>Aloraini</last><affiliation>Queen Mary University of London,United Kingdom; Qassim University, Saudi Arabia</affiliation></author>
+      <author><first>Christopher</first><last>Madge</last><affiliation>Queen Mary University of London,United Kingdom</affiliation></author>
+      <author><first>Juntao</first><last>Yu</last><affiliation>University of Essex,United Kingdom</affiliation></author>
+      <author><first>Richard</first><last>Bartle</last><affiliation>University of Essex,United Kingdom</affiliation></author>
+      <author><first>Massimo</first><last>Poesio</last><affiliation>Queen Mary University of London,United Kingdom</affiliation></author>
+      <pages>388-393</pages>
+      <abstract>Coreference resolution is a key aspect of text comprehension, but the size of the available coreference corpora for Arabic is limited in comparison to the size of the corpora for other languages. In this paper we present a Game-With-A-Purpose called Stroll with a Scroll created to collect from players coreference annotations for Arabic. The key contribution of this work is the embedding of the annotation task in a virtual world setting, as opposed to the puzzle-type games used in previously proposed Games-With-A-Purpose for coreference.</abstract>
+      <url hash="b1f53051">2022.wanlp-1.37</url>
+      <bibkey>aliady-etal-2022-coreference</bibkey>
+      <doi>10.18653/v1/2022.wanlp-1.37</doi>
+    </paper>
+    <paper id="38">
+      <title><fixed-case>N</fixed-case>ati<fixed-case>Q</fixed-case>: An End-to-end Text-to-Speech System for <fixed-case>A</fixed-case>rabic</title>
+      <author><first>Ahmed</first><last>Abdelali</last><affiliation>Qatar Computing Research Institute</affiliation></author>
+      <author><first>Nadir</first><last>Durrani</last><affiliation>Qcri</affiliation></author>
+      <author><first>Cenk</first><last>Demiroglu</last><affiliation>Ozyegin University</affiliation></author>
+      <author><first>Fahim</first><last>Dalvi</last><affiliation>Qatar Computing Research Institute, HBKU</affiliation></author>
+      <author><first>Hamdy</first><last>Mubarak</last><affiliation>Qatar Computing Research Institute</affiliation></author>
+      <author><first>Kareem</first><last>Darwish</last><affiliation>aiXplain Inc.</affiliation></author>
+      <pages>394-398</pages>
+      <abstract>NatiQ is end-to-end text-to-speech system for Arabic. Our speech synthesizer uses an encoder-decoder architecture with attention. We used both tacotron-based models (tacotron- 1 and tacotron-2) and the faster transformer model for generating mel-spectrograms from characters. We concatenated Tacotron1 with the WaveRNN vocoder, Tacotron2 with the WaveGlow vocoder and ESPnet transformer with the parallel wavegan vocoder to synthesize waveforms from the spectrograms. We used in-house speech data for two voices: 1) neu- tral male “Hamza”- narrating general content and news, and 2) expressive female “Amina”- narrating children story books to train our models. Our best systems achieve an aver- age Mean Opinion Score (MOS) of 4.21 and 4.40 for Amina and Hamza respectively. The objective evaluation of the systems using word and character error rate (WER and CER) as well as the response time measured by real- time factor favored the end-to-end architecture ESPnet. NatiQ demo is available online at <url>https://tts.qcri.org</url>.</abstract>
+      <url hash="27cb1cc3">2022.wanlp-1.38</url>
+      <bibkey>abdelali-etal-2022-natiq</bibkey>
+      <doi>10.18653/v1/2022.wanlp-1.38</doi>
+    </paper>
+    <paper id="39">
+      <title>The Effect of <fixed-case>A</fixed-case>rabic Dialect Familiarity on Data Annotation</title>
+      <author><first>Ibrahim</first><last>Abu Farha</last><affiliation>University of Edinburgh</affiliation></author>
+      <author><first>Walid</first><last>Magdy</last><affiliation>The University of Edinburgh</affiliation></author>
+      <pages>399-408</pages>
+      <abstract>Data annotation is the foundation of most natural language processing (NLP) tasks. However, data annotation is complex and there is often no specific correct label, especially in subjective tasks. Data annotation is affected by the annotators’ ability to understand the provided data. In the case of Arabic, this is important due to the large dialectal variety. In this paper, we analyse how Arabic speakers understand other dialects in written text. Also, we analyse the effect of dialect familiarity on the quality of data annotation, focusing on Arabic sarcasm detection. This is done by collecting third-party labels and comparing them to high-quality first-party labels. Our analysis shows that annotators tend to better identify their own dialect and they are prone to confuse dialects they are unfamiliar with. For task labels, annotators tend to perform better on their dialect or dialects they are familiar with. Finally, females tend to perform better than males on the sarcasm detection task. We suggest that to guarantee high-quality labels, researchers should recruit native dialect speakers for annotation.</abstract>
+      <url hash="72b4a8ed">2022.wanlp-1.39</url>
+      <bibkey>abu-farha-magdy-2022-effect</bibkey>
+      <doi>10.18653/v1/2022.wanlp-1.39</doi>
+    </paper>
+    <paper id="40">
+      <title>Optimizing Naive <fixed-case>B</fixed-case>ayes for <fixed-case>A</fixed-case>rabic Dialect Identification</title>
+      <author><first>Tommi</first><last>Jauhiainen</last><affiliation>University of Helsinki</affiliation></author>
+      <author><first>Heidi</first><last>Jauhiainen</last><affiliation>University of Helsinki</affiliation></author>
+      <author><first>Krister</first><last>Lindén</last><affiliation>University of Helsinki</affiliation></author>
+      <pages>409-414</pages>
+      <abstract>This article describes the language identification system used by the SUKI team in the 2022 Nuanced Arabic Dialect Identification (NADI) shared task. In addition to the system description, we give some details of the dialect identification experiments we conducted while preparing our submissions. In the end, we submitted only one official run. We used a Naive Bayes-based language identifier with character n-grams from one to four, of which we implemented a new version, which automatically optimizes its parameters. We also experimented with clustering the training data according to different topics. With the macro F1 score of 0.1963 on test set A and 0.1058 on test set B, we achieved the 18th position out of the 19 competing teams.</abstract>
+      <url hash="c95eed26">2022.wanlp-1.40</url>
+      <bibkey>jauhiainen-etal-2022-optimizing</bibkey>
+      <doi>10.18653/v1/2022.wanlp-1.40</doi>
+    </paper>
+    <paper id="41">
+      <title>i<fixed-case>C</fixed-case>ompass Working Notes for the Nuanced <fixed-case>A</fixed-case>rabic Dialect Identification Shared task</title>
+      <author><first>Abir</first><last>Messaoudi</last><affiliation>iCompass</affiliation></author>
+      <author><first>Chayma</first><last>Fourati</last><affiliation>iCompass</affiliation></author>
+      <author><first>Hatem</first><last>Haddad</last><affiliation>iCompass</affiliation></author>
+      <author><first>Moez</first><last>BenHajhmida</last><affiliation>University of Tunis El Manar</affiliation></author>
+      <pages>415-419</pages>
+      <abstract>We describe our submitted system to the Nuanced Arabic Dialect Identification (NADI) shared task. We tackled only the first subtask (Subtask 1). We used state-of-the-art Deep Learning models and pre-trained contextualized text representation models that we finetuned according to the downstream task in hand. As a first approach, we used BERT Arabic variants: MARBERT with its two versions MARBERT v1 and MARBERT v2, we combined MARBERT embeddings with a CNN classifier, and finally, we tested the Quasi-Recurrent Neural Networks (QRNN) model. The results found show that version 2 of MARBERT outperforms all of the previously mentioned models on Subtask 1.</abstract>
+      <url hash="583bd3c3">2022.wanlp-1.41</url>
+      <bibkey>messaoudi-etal-2022-icompass</bibkey>
+      <doi>10.18653/v1/2022.wanlp-1.41</doi>
+    </paper>
+    <paper id="42">
+      <title><fixed-case>TF</fixed-case>-<fixed-case>IDF</fixed-case> or Transformers for <fixed-case>A</fixed-case>rabic Dialect Identification? <fixed-case>ITFLOWS</fixed-case> participation in the <fixed-case>NADI</fixed-case> 2022 Shared Task</title>
+      <author><first>Fouad</first><last>Shammary</last><affiliation>Munster Technological University</affiliation></author>
+      <author><first>Yiyi</first><last>Chen</last><affiliation>FIZ Karlsruhe</affiliation></author>
+      <author><first>Zsolt T</first><last>Kardkovacs</last><affiliation>Data Scientist</affiliation></author>
+      <author><first>Mehwish</first><last>Alam</last><affiliation>FIZ Karlsruhe - Leibniz Institute for Information Infrastructure, AIFB Institute, KIT</affiliation></author>
+      <author><first>Haithem</first><last>Afli</last><affiliation>ADAPT Centre, Munster Technological University</affiliation></author>
+      <pages>420-424</pages>
+      <abstract>This study targets the shared task of Nuanced Arabic Dialect Identification (NADI) organized with the Workshop on Arabic Natural Language Processing (WANLP). It further focuses on Subtask 1 on the identification of the Arabic dialects at the country level. More specifically, it studies the impact of a traditional approach such as TF-IDF and then moves on to study the impact of advanced deep learning based methods. These methods include fully fine-tuning MARBERT as well as adapter based fine-tuning of MARBERT with and without performing data augmentation. The evaluation shows that the traditional approach based on TF-IDF scores the best in terms of accuracy on TEST-A dataset, while, the fine-tuned MARBERT with adapter on augmented data scores the second on Macro F1-score on the TEST-B dataset. This led to the proposed system being ranked second on the shared task on average.</abstract>
+      <url hash="2e517e3b">2022.wanlp-1.42</url>
+      <bibkey>shammary-etal-2022-tf</bibkey>
+      <doi>10.18653/v1/2022.wanlp-1.42</doi>
+    </paper>
+    <paper id="43">
+      <title>Domain-Adapted <fixed-case>BERT</fixed-case>-based Models for Nuanced <fixed-case>A</fixed-case>rabic Dialect Identification and Tweet Sentiment Analysis</title>
+      <author><first>Giyaseddin</first><last>Bayrak</last><affiliation>Marmara University</affiliation></author>
+      <author><first>Abdul Majeed</first><last>Issifu</last><affiliation>Marmara University</affiliation></author>
+      <pages>425-430</pages>
+      <abstract>This paper summarizes the solution of the Nuanced Arabic Dialect Identification (NADI) 2022 shared task. It consists of two subtasks: a country-level Arabic Dialect Identification (ADID) and an Arabic Sentiment Analysis (ASA). Our work shows the importance of using domain-adapted models and language-specific pre-processing in NLP task solutions. We implement a simple but strong baseline technique to increase the stability of fine-tuning settings to obtain a good generalization of models. Our best model for the Dialect Identification subtask achieves a Macro F-1 score of 25.54% as an average of both Test-A (33.89%) and Test-B (19.19%) F-1 scores. We also obtained a Macro F-1 score of 74.29% of positive and negative sentiments only, in the Sentiment Analysis task.</abstract>
+      <url hash="e39c6fde">2022.wanlp-1.43</url>
+      <bibkey>bayrak-issifu-2022-domain</bibkey>
+      <doi>10.18653/v1/2022.wanlp-1.43</doi>
+    </paper>
+    <paper id="44">
+      <title>Benchmarking transfer learning approaches for sentiment analysis of <fixed-case>A</fixed-case>rabic dialect</title>
+      <author><first>Emna</first><last>Fsih</last><affiliation>ANLP Research Group / Sfax, Tunisia</affiliation></author>
+      <author><first>Sameh</first><last>Kchaou</last><affiliation>ANLP Research Group / Sfax, Tunisia</affiliation></author>
+      <author><first>Rahma</first><last>Boujelbane</last><affiliation>ANLP Research Group / Sfax, Tunisia</affiliation></author>
+      <author><first>Lamia</first><last>Hadrich-Belguith</last><affiliation>ANLP Research Group, MIRACL Lab, FSEGS, Sfax University</affiliation></author>
+      <pages>431-435</pages>
+      <abstract>Arabic has a widely varying collection of dialects. With the explosion of the use of social networks, the volume of written texts has remarkably increased. Most users express themselves using their own dialect. Unfortunately, many of these dialects remain under-studied due to the scarcity of resources. Researchers and industry practitioners are increasingly interested in analyzing users’ sentiments. In this context, several approaches have been proposed, namely: traditional machine learning, deep learning transfer learning and more recently few-shot learning approaches. In this work, we compare their efficiency as part of the NADI competition to develop a country-level sentiment analysis model. Three models were beneficial for this sub-task: The first based on Sentence Transformer (ST) and achieve 43.23% on DEV set and 42.33% on TEST set, the second based on CAMeLBERT and achieve 47.85% on DEV set and 41.72% on TEST set and the third based on multi-dialect BERT model and achieve 66.72% on DEV set and 39.69% on TEST set.</abstract>
+      <url hash="6c4ebdb0">2022.wanlp-1.44</url>
+      <bibkey>fsih-etal-2022-benchmarking</bibkey>
+      <video href="2022.wanlp-1.44.mp4"/>
+      <doi>10.18653/v1/2022.wanlp-1.44</doi>
+    </paper>
+    <paper id="45">
+      <title><fixed-case>SQU</fixed-case>-<fixed-case>CS</fixed-case> @ <fixed-case>NADI</fixed-case> 2022: Dialectal <fixed-case>A</fixed-case>rabic Identification using One-vs-One Classification with <fixed-case>TF</fixed-case>-<fixed-case>IDF</fixed-case> Weights Computed on Character n-grams</title>
+      <author><first>Abdulrahman Khalifa</first><last>AAlAbdulsalam</last><affiliation>Assistant Professor</affiliation></author>
+      <pages>436-441</pages>
+      <abstract>In this paper, I present an approach using one-vs-one classification scheme with TF-IDF term weighting on character n-grams for identifying Arabic dialects used in social media. The scheme was evaluated in the context of the third Nuanced Arabic Dialect Identification (NADI 2022) shared task for identifying Arabic dialects used in Twitter messages. The approach was implemented with logistic regression loss and trained using stochastic gradient decent (SGD) algorithm. This simple method achieved a macro F1 score of 22.89% and 10.83% on TEST A and TEST B, respectively, in comparison to an approach based on AraBERT pretrained transformer model which achieved a macro F1 score of 30.01% and 14.84%, respectively. My submission based on AraBERT scored a macro F1 average of 22.42% and was ranked 10 out of the 19 teams who participated in the task.</abstract>
+      <url hash="6e8d09da">2022.wanlp-1.45</url>
+      <bibkey>aalabdulsalam-2022-squ</bibkey>
+      <doi>10.18653/v1/2022.wanlp-1.45</doi>
+    </paper>
+    <paper id="46">
+      <title>Ahmed and Khalil at <fixed-case>NADI</fixed-case> 2022: Transfer Learning and Addressing Class Imbalance for <fixed-case>A</fixed-case>rabic Dialect Identification and Sentiment Analysis</title>
+      <author><first>Ahmed</first><last>Oumar</last><affiliation>Independent Researcher</affiliation></author>
+      <author><first>Khalil</first><last>Mrini</last><affiliation>Meta AI</affiliation></author>
+      <pages>442-446</pages>
+      <abstract>In this paper, we present our findings in the two subtasks of the 2022 NADI shared task. First, in the Arabic dialect identification subtask, we find that there is heavy class imbalance, and propose to address this issue using focal loss. Our experiments with the focusing hyperparameter confirm that focal loss improves performance. Second, in the Arabic tweet sentiment analysis subtask, we deal with a smaller dataset, where text includes both Arabic dialects and Modern Standard Arabic. We propose to use transfer learning from both pre-trained MSA language models and our own model from the first subtask. Our system ranks in the 5th and 7th best spots of the leaderboards of first and second subtasks respectively.</abstract>
+      <url hash="5f228dfb">2022.wanlp-1.46</url>
+      <bibkey>oumar-mrini-2022-ahmed</bibkey>
+      <video href="2022.wanlp-1.46.mp4"/>
+      <doi>10.18653/v1/2022.wanlp-1.46</doi>
+    </paper>
+    <paper id="47">
+      <title><fixed-case>A</fixed-case>rabic Sentiment Analysis by Pretrained Ensemble</title>
+      <author><first>Abdelrahim</first><last>Qaddoumi</last><affiliation>Nyu</affiliation></author>
+      <pages>447-451</pages>
+      <abstract>This paper presents the 259 team’s BERT ensemble designed for the NADI 2022 Subtask 2 (sentiment analysis) (Abdul-Mageed et al., 2022). Twitter Sentiment analysis is one of the language processing (NLP) tasks that provides a method to understand the perception and emotions of the public around specific topics. The most common research approach focuses on obtaining the tweet’s sentiment by analyzing its lexical and syntactic features. We used multiple pretrained Arabic-Bert models with a simple average ensembling and then chose the best-performing ensemble on the training dataset and ran it on the development dataset. This system ranked 3rd in Subtask 2 with a Macro-PN-F1-score of 72.49%.</abstract>
+      <url hash="cb41c2da">2022.wanlp-1.47</url>
+      <bibkey>qaddoumi-2022-arabic</bibkey>
+      <doi>10.18653/v1/2022.wanlp-1.47</doi>
+    </paper>
+    <paper id="48">
+      <title>Dialect &amp; Sentiment Identification in Nuanced <fixed-case>A</fixed-case>rabic Tweets Using an Ensemble of Prompt-based, Fine-tuned, and Multitask <fixed-case>BERT</fixed-case>-Based Models</title>
+      <author><first>Reem</first><last>Abdel-Salam</last><affiliation>Computer Engineering, Cairo University</affiliation></author>
+      <pages>452-457</pages>
+      <abstract>Dialect Identification is important to improve the performance of various application as translation, speech recognition, etc. In this paper, we present our findings and results in the Nuanced Arabic Dialect Identification Shared Task (NADI 2022) for country-level dialect identification and sentiment identification for dialectical Arabic. The proposed model is an ensemble between fine-tuned BERT-based models and various approaches of prompt-tuning. Our model secured first place on the leaderboard for subtask 1 with an 27.06 F1-macro score, and subtask 2 secured first place with 75.15 F1-PN score. Our findings show that prompt-tuning-based models achieved better performance when compared to fine-tuning and Multi-task based methods. Moreover, using an ensemble of different loss functions might improve model performance.</abstract>
+      <url hash="41b8257e">2022.wanlp-1.48</url>
+      <bibkey>abdel-salam-2022-dialect</bibkey>
+      <doi>10.18653/v1/2022.wanlp-1.48</doi>
+    </paper>
+    <paper id="49">
+      <title>On The <fixed-case>A</fixed-case>rabic Dialects’ Identification: Overcoming Challenges of Geographical Similarities Between <fixed-case>A</fixed-case>rabic dialects and Imbalanced Datasets</title>
+      <author><first>Salma</first><last>Jamal</last><affiliation>School of Information Technology and Computer Science, Nile University</affiliation></author>
+      <author><first>Aly M</first><last>.Kassem</last><affiliation>School of Computer Science, University of Windsor</affiliation></author>
+      <author><first>Omar</first><last>Mohamed</last><affiliation>Faculty of Computers and Artificial Intelligence, Helwan University</affiliation></author>
+      <author><first>Ali</first><last>Ashraf</last><affiliation>Faculty of Computers and Artificial Intelligence, Helwan University</affiliation></author>
+      <pages>458-463</pages>
+      <abstract>Arabic is one of the world’s richest languages, with a diverse range of dialects based on geographical origin. In this paper, we present a solution to tackle subtask 1 (Country-level dialect identification) of the Nuanced Arabic Dialect Identification (NADI) shared task 2022 achieving third place with an average macro F1 score between the two test sets of 26.44%. In the preprocessing stage, we removed the most common frequent terms from all sentences across all dialects, and in the modeling step, we employed a hybrid loss function approach that includes Weighted cross entropy loss and Vector Scaling(VS) Loss. On test sets A and B, our model achieved 35.68% and 17.192% Macro F1 scores, respectively.</abstract>
+      <url hash="58a24886">2022.wanlp-1.49</url>
+      <bibkey>jamal-etal-2022-arabic</bibkey>
+      <doi>10.18653/v1/2022.wanlp-1.49</doi>
+    </paper>
+    <paper id="50">
+      <title><fixed-case>A</fixed-case>rabic dialect identification using machine learning and transformer-based models: Submission to the <fixed-case>NADI</fixed-case> 2022 Shared Task</title>
+      <author><first>Nouf</first><last>AlShenaifi</last><affiliation>King Saud University</affiliation></author>
+      <author><first>Aqil</first><last>Azmi</last><affiliation>King Saud University</affiliation></author>
+      <pages>464-467</pages>
+      <abstract>Arabic has a wide range of dialects. Dialect is the language variation of a specific community. In this paper, we show the models we created to participate in the third Nuanced Arabic Dialect Identification (NADI) shared task (Subtask 1) that involves developing a system to classify a tweet into a country-level dialect. We utilized a number of machine learning techniques as well as deep learning transformer-based models. For the machine learning approach, we build an ensemble classifier of various machine learning models. In our deep learning approach, we consider bidirectional LSTM model and AraBERT pretrained model. The results demonstrate that the deep learning approach performs noticeably better than the other machine learning approaches with 68.7% accuracy on the development set.</abstract>
+      <url hash="25dc81e1">2022.wanlp-1.50</url>
+      <bibkey>alshenaifi-azmi-2022-arabic</bibkey>
+      <doi>10.18653/v1/2022.wanlp-1.50</doi>
+    </paper>
+    <paper id="51">
+      <title><fixed-case>NLP</fixed-case> <fixed-case>DI</fixed-case> at <fixed-case>NADI</fixed-case> Shared Task Subtask-1: Sub-word Level Convolutional Neural Models and Pre-trained Binary Classifiers for Dialect Identification</title>
+      <author><first>Vani</first><last>Kanjirangat</last><affiliation>Idsia</affiliation></author>
+      <author><first>Tanja</first><last>Samardzic</last><affiliation>University of Zurich</affiliation></author>
+      <author><first>Ljiljana</first><last>Dolamic</last><affiliation>armasuisse S&amp;T</affiliation></author>
+      <author><first>Fabio</first><last>Rinaldi</last><affiliation>IDSIA, Swiss AI Institute</affiliation></author>
+      <pages>468-473</pages>
+      <abstract>In this paper, we describe our systems submitted to the NADI Subtask 1: country-wise dialect classifications. We designed two types of solutions. The first type is convolutional neural network CNN) classifiers trained on subword segments of optimized lengths. The second type is fine-tuned classifiers with BERT-based language specific pre-trained models. To deal with the missing dialects in one of the test sets, we experimented with binary classifiers, analyzing the predicted probability distribution patterns and comparing them with the development set patterns. The better performing approach on the development set was fine-tuning language specific pre-trained model (best F-score 26.59%). On the test set, on the other hand, we obtained the best performance with the CNN model trained on subword tokens obtained with a Unigram model (the best F-score 26.12%). Re-training models on samples of training data simulating missing dialects gave the maximum performance on the test set version with a number of dialects lesser than the training set (F-score 16.44%)</abstract>
+      <url hash="8f20601f">2022.wanlp-1.51</url>
+      <bibkey>kanjirangat-etal-2022-nlp</bibkey>
+      <doi>10.18653/v1/2022.wanlp-1.51</doi>
+    </paper>
+    <paper id="52">
+      <title>Word Representation Models for <fixed-case>A</fixed-case>rabic Dialect Identification</title>
+      <author><first>Mahmoud</first><last>Sobhy</last><affiliation>Benha University</affiliation></author>
+      <author><first>Ahmed H.</first><last>Abu El-Atta</last><affiliation>Benha University</affiliation></author>
+      <author><first>Ahmed A.</first><last>El-Sawy</last><affiliation>Benha University</affiliation></author>
+      <author><first>Hamada</first><last>Nayel</last><affiliation>Benha University</affiliation></author>
+      <pages>474-478</pages>
+      <abstract>This paper describes the systems submitted by BFCAI team to Nuanced Arabic Dialect Identification (NADI) shared task 2022. Dialect identification task aims at detecting the source variant of a given text or speech segment automatically. There are two subtasks in NADI 2022, the first subtask for country-level identification and the second subtask for sentiment analysis. Our team participated in the first subtask. The proposed systems use Term Frequency Inverse/Document Frequency and word embeddings as vectorization models. Different machine learning algorithms have been used as classifiers. The proposed systems have been tested on two test sets: Test-A and Test-B. The proposed models achieved Macro-f1 score of 21.25% and 9.71% for Test-A and Test-B set respectively. On other hand, the best-performed submitted system achieved Macro-f1 score of 36.48% and 18.95% for Test-A and Test-B set respectively.</abstract>
+      <url hash="7b6e0091">2022.wanlp-1.52</url>
+      <bibkey>sobhy-etal-2022-word</bibkey>
+      <doi>10.18653/v1/2022.wanlp-1.52</doi>
+    </paper>
+    <paper id="53">
+      <title>Building an Ensemble of Transformer Models for <fixed-case>A</fixed-case>rabic Dialect Classification and Sentiment Analysis</title>
+      <author><first>Abdullah Salem</first><last>Khered</last><affiliation>The University of Manchester</affiliation></author>
+      <author><first>Ingy Yasser Hassan Abdou</first><last>Abdelhalim</last><affiliation>The University of Manchester</affiliation></author>
+      <author><first>Riza</first><last>Batista-Navarro</last><affiliation>Department of Computer Science, The University of Manchester</affiliation></author>
+      <pages>479-484</pages>
+      <abstract>In this paper, we describe the approaches we developed for the Nuanced Arabic Dialect Identification (NADI) 2022 shared task, which consists of two subtasks: the identification of country-level Arabic dialects and sentiment analysis. Our team, UniManc, developed approaches to the two subtasks which are underpinned by the same model: a pre-trained MARBERT language model. For Subtask 1, we applied undersampling to create versions of the training data with a balanced distribution across classes. For Subtask 2, we further trained the original MARBERT model for the masked language modelling objective using a NADI-provided dataset of unlabelled Arabic tweets. For each of the subtasks, a MARBERT model was fine-tuned for sequence classification, using different values for hyperparameters such as seed and learning rate. This resulted in multiple model variants, which formed the basis of an ensemble model for each subtask. Based on the official NADI evaluation, our ensemble model obtained a macro-F1-score of 26.863, ranking second overall in the first subtask. In the second subtask, our ensemble model also ranked second, obtaining a macro-F1-PN score (macro-averaged F1-score over the Positive and Negative classes) of 73.544.</abstract>
+      <url hash="caaa9131">2022.wanlp-1.53</url>
+      <bibkey>khered-etal-2022-building</bibkey>
+      <doi>10.18653/v1/2022.wanlp-1.53</doi>
+    </paper>
+    <paper id="54">
+      <title><fixed-case>A</fixed-case>rabic Dialect Identification and Sentiment Classification using Transformer-based Models</title>
+      <author><first>Joseph</first><last>Attieh</last><affiliation>Aalto University</affiliation></author>
+      <author><first>Fadi</first><last>Hassan</last><affiliation>Huawei Technologies Oy., Finland</affiliation></author>
+      <pages>485-490</pages>
+      <abstract>In this paper, we present two deep learning approaches that are based on AraBERT, submitted to the Nuanced Arabic Dialect Identification (NADI) shared task of the Seventh Workshop for Arabic Natural Language Processing (WANLP 2022). NADI consists of two main sub-tasks, mainly country-level dialect and sentiment identification for dialectical Arabic. We present one system per sub-task. The first system is a multi-task learning model that consists of a shared AraBERT encoder with three task-specific classification layers. This model is trained to jointly learn the country-level dialect of the tweet as well as the region-level and area-level dialects. The second system is a distilled model of an ensemble of models trained using K-fold cross-validation. Each model in the ensemble consists of an AraBERT model and a classifier, fine-tuned on (K-1) folds of the training set. Our team Pythoneers achieved rank 6 on the first test set of the first sub-task, rank 9 on the second test set of the first sub-task, and rank 4 on the test set of the second sub-task.</abstract>
+      <url hash="d1e899d5">2022.wanlp-1.54</url>
+      <bibkey>attieh-hassan-2022-arabic</bibkey>
+      <doi>10.18653/v1/2022.wanlp-1.54</doi>
+    </paper>
+    <paper id="55">
+      <title>Generative Approach for Gender-Rewriting Task with <fixed-case>A</fixed-case>rabic<fixed-case>T</fixed-case>5</title>
+      <author><first>Sultan</first><last>Alrowili</last><affiliation>University of Delaware</affiliation></author>
+      <author><first>Vijay</first><last>Shanker</last><affiliation>University of Delaware</affiliation></author>
+      <pages>491-495</pages>
+      <abstract>Addressing the correct gender in generative tasks (e.g., Machine Translation) has been an overlooked issue in the Arabic NLP. However, the recent introduction of the Arabic Parallel Gender Corpus (APGC) dataset has established new baselines for the Arabic Gender Rewriting task. To address the Gender Rewriting task, we first pre-train our new Seq2Seq ArabicT5 model on a 17GB of Arabic Corpora. Then, we continue pre-training our ArabicT5 model on the APGC dataset using a newly proposed method. Our evaluation shows that our ArabicT5 model, when trained on the APGC dataset, achieved competitive results against existing state-of-the-art methods. In addition, our ArabicT5 model shows better results on the APGC dataset compared to other Arabic and multilingual T5 models.</abstract>
+      <url hash="15d55100">2022.wanlp-1.55</url>
+      <bibkey>alrowili-shanker-2022-generative</bibkey>
+      <doi>10.18653/v1/2022.wanlp-1.55</doi>
+    </paper>
+    <paper id="56">
+      <title><fixed-case>A</fixed-case>ra<fixed-case>P</fixed-case>rop at <fixed-case>WANLP</fixed-case> 2022 Shared Task: Leveraging Pre-Trained Language Models for <fixed-case>A</fixed-case>rabic Propaganda Detection</title>
+      <author><first>Gaurav</first><last>Singh</last><affiliation>Independent Research</affiliation></author>
+      <pages>496-500</pages>
+      <abstract>This paper presents the approach taken for the shared task on Propaganda Detection in Arabic at the Seventh Arabic Natural Language Processing Workshop (WANLP 2022). We participated in Sub-task 1 where the text of a tweet is provided, and the goal is to identify the different propaganda techniques used in it. This problem belongs to multi-label classification. For our solution, we approached leveraging different transformer based pre-trained language models with fine-tuning to solve this problem. We found that MARBERTv2 outperforms in terms of performance where F1-macro is 0.08175 and F1-micro is 0.61116 compared to other language models that we considered. Our method achieved rank 4 in the testing phase of the challenge.</abstract>
+      <url hash="f2c4d243">2022.wanlp-1.56</url>
+      <bibkey>singh-2022-araprop</bibkey>
+      <doi>10.18653/v1/2022.wanlp-1.56</doi>
+    </paper>
+    <paper id="57">
+      <title><fixed-case>TUB</fixed-case> at <fixed-case>WANLP</fixed-case>22 Shared Task: Using Semantic Similarity for Propaganda Detection in <fixed-case>A</fixed-case>rabic</title>
+      <author><first>Salar</first><last>Mohtaj</last><affiliation>Technische Universität Berlin</affiliation></author>
+      <author><first>Sebastian</first><last>Möller</last><affiliation>Quality and Usability Lab, TU Berlin</affiliation></author>
+      <pages>501-505</pages>
+      <abstract>Propaganda and the spreading of fake news through social media have become a serious problem in recent years. In this paper we present our approach for the shared task on propaganda detection in Arabic in which the goal is to identify propaganda techniques in the Arabic social media text. We propose a semantic similarity detection model to compare text in the test set with the sentences in the train set to find the most similar instances. The label of the target text is obtained from the most similar texts in the train set. The proposed model obtained the micro F1 score of 0.494 on the text data set.</abstract>
+      <url hash="c9253e22">2022.wanlp-1.57</url>
+      <bibkey>mohtaj-moller-2022-tub</bibkey>
+      <doi>10.18653/v1/2022.wanlp-1.57</doi>
+    </paper>
+    <paper id="58">
+      <title><fixed-case>SI</fixed-case>2<fixed-case>M</fixed-case> &amp; <fixed-case>AIOX</fixed-case> Labs at <fixed-case>WANLP</fixed-case> 2022 Shared Task: Propaganda Detection in <fixed-case>A</fixed-case>rabic, A Data Augmentation and Name Entity Recognition Approach</title>
+      <author><first>Kamel</first><last>Gaanoun</last><affiliation>National Institute of Statistics and Applied Economics</affiliation></author>
+      <author><first>Imade</first><last>Benelallam</last><affiliation>Aiox Labs</affiliation></author>
+      <pages>506-510</pages>
+      <abstract>This paper presents SI2M &amp; AIOX Labs work among the propaganda detection in Arabic text shared task. The objective of this challenge is to identify the propaganda techniques used in specific propaganda fragments. We use a combination of data augmentation, Name Entity Recognition, rule-based repetition detection, and ARBERT prediction to develop our system. The model we provide scored 0.585 micro F1-Score and ranked 6th out of 12 teams.</abstract>
+      <url hash="dd8e6081">2022.wanlp-1.58</url>
+      <bibkey>gaanoun-benelallam-2022-si2m</bibkey>
+      <doi>10.18653/v1/2022.wanlp-1.58</doi>
+    </paper>
+    <paper id="59">
+      <title>i<fixed-case>C</fixed-case>ompass at <fixed-case>WANLP</fixed-case> 2022 Shared Task: <fixed-case>ARBERT</fixed-case> and <fixed-case>MARBERT</fixed-case> for Multilabel Propaganda Classification of <fixed-case>A</fixed-case>rabic Tweets</title>
+      <author><first>Bilel -</first><last>Taboubi</last><affiliation>Software Engineering student</affiliation></author>
+      <author><first>Bechir</first><last>Brahem</last><affiliation>Software Engineering student</affiliation></author>
+      <author><first>Hatem</first><last>Haddad</last><affiliation>iCompass CTO</affiliation></author>
+      <pages>511-514</pages>
+      <abstract>Arabic propaganda detection in Arabic was carried out using transformers pre-trained models ARBERT, MARBERT. They were fine-tuned for the down-stream task in hand ‘subtask 1’, multilabel classification of Arabic tweets. Submitted model was MARBERT the got 0.597 micro F1 score and got the fifth rank.</abstract>
+      <url hash="e3a58c3b">2022.wanlp-1.59</url>
+      <bibkey>taboubi-etal-2022-icompass</bibkey>
+      <doi>10.18653/v1/2022.wanlp-1.59</doi>
+    </paper>
+    <paper id="60">
+      <title><fixed-case>C</fixed-case>havan<fixed-case>K</fixed-case>ane at <fixed-case>WANLP</fixed-case> 2022 Shared Task: Large Language Models for Multi-label Propaganda Detection</title>
+      <author><first>Tanmay</first><last>Chavan</last><affiliation>Pune Institute of Computer Technology</affiliation></author>
+      <author><first>Aditya Manish</first><last>Kane</last><affiliation>SCTR’s Pune Institute of Computer Technology</affiliation></author>
+      <pages>515-519</pages>
+      <abstract>The spread of propaganda through the internet has increased drastically over the past years. Lately, propaganda detection has started gaining importance because of the negative impact it has on society. In this work, we describe our approach for the WANLP 2022 shared task which handles the task of propaganda detection in a multi-label setting. The task demands the model to label the given text as having one or more types of propaganda techniques. There are a total of 21 propaganda techniques to be detected. We show that an ensemble of five models performs the best on the task, scoring a micro-F1 score of 59.73%. We also conduct comprehensive ablations and propose various future directions for this work.</abstract>
+      <url hash="97337068">2022.wanlp-1.60</url>
+      <bibkey>chavan-kane-2022-chavankane</bibkey>
+      <doi>10.18653/v1/2022.wanlp-1.60</doi>
+    </paper>
+    <paper id="61">
+      <title><fixed-case>A</fixed-case>ra<fixed-case>BERT</fixed-case> Model for Propaganda Detection</title>
+      <author><first>Mohamad</first><last>Sharara</last><affiliation>AI Engineer</affiliation></author>
+      <author><first>Wissam</first><last>Mohamad</last><affiliation>AI Engineer</affiliation></author>
+      <author><first>Ralph</first><last>Tawil</last><affiliation>AI Engineer</affiliation></author>
+      <author><first>Ralph</first><last>Chobok</last><affiliation>Data Scientist</affiliation></author>
+      <author><first>Wolf</first><last>Assi</last><affiliation>AI Engineer</affiliation></author>
+      <author><first>Antonio</first><last>Tannoury</last><affiliation>Data Scientist</affiliation></author>
+      <pages>520-523</pages>
+      <abstract>Nowadays, the rapid dissemination of data on digital platforms has resulted in the emergence of information pollution and data contamination, specifically mis-information, mal-information, dis-information, fake news, and various types of propaganda. These topics are now posing a serious threat to the online digital realm, posing numerous challenges to social media platforms and governments around the world. In this article, we propose a propaganda detection model based on the transformer-based model AraBERT, with the objective of using this framework to detect propagandistic content in the Arabic social media text scene, well with purpose of making online Arabic news and media consumption healthier and safer. Given the dataset, our results are relatively encouraging, indicating a huge potential for this line of approaches in Arabic online news text NLP.</abstract>
+      <url hash="1a0b93ee">2022.wanlp-1.61</url>
+      <bibkey>sharara-etal-2022-arabert</bibkey>
+      <revision id="1" href="2022.wanlp-1.61v1" hash="4d04c840"/>
+      <revision id="2" href="2022.wanlp-1.61v2" hash="1a0b93ee" date="2023-02-15">Corrected author name.</revision>
+      <doi>10.18653/v1/2022.wanlp-1.61</doi>
+    </paper>
+    <paper id="62">
+      <title><fixed-case>A</fixed-case>ra<fixed-case>BEM</fixed-case> at <fixed-case>WANLP</fixed-case> 2022 Shared Task: Propaganda Detection in <fixed-case>A</fixed-case>rabic Tweets</title>
+      <author><first>Eshrag Ali</first><last>Refaee</last><affiliation>Jazan University</affiliation></author>
+      <author><first>Basem</first><last>Ahmed</last><affiliation>Alaqsa University</affiliation></author>
+      <author><first>Motaz</first><last>Saad</last><affiliation>The Islamic University of Gaza</affiliation></author>
+      <pages>524-528</pages>
+      <abstract>Propaganda is information or ideas that an organized group or government spreads to influence peopleś opinions, especially by not giving all the facts or secretly emphasizing only one way of looking at the points. The ability to automatically detect propaganda-related linguistic signs is a challenging task that researchers in the NLP community have recently started to address. This paper presents the participation of our team AraBEM in the propaganda detection shared task on Arabic tweets. Our system utilized a pre-trained BERT model to perform multi-class binary classification. It attained the best score at 0.602 micro-f1, ranking third on subtask-1, which identifies the propaganda techniques as a multilabel classification problem with a baseline of 0.079.</abstract>
+      <url hash="0dc5bd89">2022.wanlp-1.62</url>
+      <bibkey>refaee-etal-2022-arabem</bibkey>
+      <doi>10.18653/v1/2022.wanlp-1.62</doi>
+    </paper>
+    <paper id="63">
+      <title><fixed-case>IITD</fixed-case> at <fixed-case>WANLP</fixed-case> 2022 Shared Task: Multilingual Multi-Granularity Network for Propaganda Detection</title>
+      <author><first>Shubham</first><last>Mittal</last><affiliation>Indian Institute of Technology Delhi</affiliation></author>
+      <author><first>Preslav</first><last>Nakov</last><affiliation>Mohamed bin Zayed University of Artificial Intelligence</affiliation></author>
+      <pages>529-533</pages>
+      <abstract>We present our system for the two subtasks of the shared task on propaganda detection in Arabic, part of WANLP’2022. Subtask 1 is a multi-label classification problem to find the propaganda techniques used in a given tweet. Our system for this task uses XLM-R to predict probabilities for the target tweet to use each of the techniques. In addition to finding the techniques, subtask 2 further asks to identify the textual span for each instance of each technique that is present in the tweet; the task can be modelled as a sequence tagging problem. We use a multi-granularity network with mBERT encoder for subtask 2. Overall, our system ranks second for both subtasks (out of 14 and 3 participants, respectively). Our experimental results and analysis show that it does not help to use a much larger English corpus annotated with propaganda techniques, regardless of whether used in English or after translation to Arabic.</abstract>
+      <url hash="a6f51780">2022.wanlp-1.63</url>
+      <bibkey>mittal-nakov-2022-iitd</bibkey>
+      <doi>10.18653/v1/2022.wanlp-1.63</doi>
+    </paper>
+    <paper id="64">
+      <title>Pythoneers at <fixed-case>WANLP</fixed-case> 2022 Shared Task: Monolingual <fixed-case>A</fixed-case>ra<fixed-case>BERT</fixed-case> for <fixed-case>A</fixed-case>rabic Propaganda Detection and Span Extraction</title>
+      <author><first>Joseph</first><last>Attieh</last><affiliation>Aalto University</affiliation></author>
+      <author><first>Fadi</first><last>Hassan</last><affiliation>Huawei Technologies Oy., Finland</affiliation></author>
+      <pages>534-540</pages>
+      <abstract>In this paper, we present two deep learning approaches that are based on AraBERT, submitted to the Propaganda Detection shared task of the Seventh Workshop for Arabic Natural Language Processing (WANLP 2022). Propaganda detection consists of two main sub-tasks, mainly propaganda identification and span extraction. We present one system per sub-task. The first system is a Multi-Task Learning model that consists of a shared AraBERT encoder with task-specific binary classification layers. This model is trained to jointly learn one binary classification task per propaganda method. The second system is an AraBERT model with a Conditional Random Field (CRF) layer. We achieved rank 3 on the first sub-task and rank 1 on the second sub-task.</abstract>
+      <url hash="fda3bdb1">2022.wanlp-1.64</url>
+      <bibkey>attieh-hassan-2022-pythoneers</bibkey>
+      <doi>10.18653/v1/2022.wanlp-1.64</doi>
+    </paper>
+    <paper id="65">
+      <title><fixed-case>CNLP</fixed-case>-<fixed-case>NITS</fixed-case>-<fixed-case>PP</fixed-case> at <fixed-case>WANLP</fixed-case> 2022 Shared Task: Propaganda Detection in <fixed-case>A</fixed-case>rabic using Data Augmentation and <fixed-case>A</fixed-case>ra<fixed-case>BERT</fixed-case> Pre-trained Model</title>
+      <author><first>Sahinur Rahman</first><last>Laskar</last><affiliation>National Institute of Technology Silchar</affiliation></author>
+      <author><first>Rahul</first><last>Singh</last><affiliation>National Institute of Technology Silchar</affiliation></author>
+      <author><first>Abdullah Faiz Ur Rahman</first><last>Khilji</last><affiliation>National Institute of Technology Silchar</affiliation></author>
+      <author><first>Riyanka</first><last>Manna</last><affiliation>Adamas University, Kolkata</affiliation></author>
+      <author><first>Partha</first><last>Pakray</last><affiliation>National Institute of Technology Silchar</affiliation></author>
+      <author><first>Sivaji</first><last>Bandyopadhyay</last><affiliation>Jadavpur University, Nit Silchar</affiliation></author>
+      <pages>541-544</pages>
+      <abstract>In today’s time, online users are regularly exposed to media posts that are propagandistic. Several strategies have been developed to promote safer media consumption in Arabic to combat this. However, there is a limited available multilabel annotated social media dataset. In this work, we have used a pre-trained AraBERT twitter-base model on an expanded train data via data augmentation. Our team CNLP-NITS-PP, has achieved the third rank in subtask 1 at WANLP-2022, for propaganda detection in Arabic (shared task) in terms of micro-F1 score of 0.602.</abstract>
+      <url hash="2f8ae4d3">2022.wanlp-1.65</url>
+      <bibkey>laskar-etal-2022-cnlp</bibkey>
+      <doi>10.18653/v1/2022.wanlp-1.65</doi>
+    </paper>
+    <paper id="66">
+      <title><fixed-case>NGU</fixed-case> <fixed-case>CNLP</fixed-case> at<fixed-case>WANLP</fixed-case> 2022 Shared Task: Propaganda Detection in <fixed-case>A</fixed-case>rabic</title>
+      <author><first>Ahmed Samir</first><last>Hussein</last><affiliation>Information Technology Institute</affiliation></author>
+      <author><first>Abu Bakr Soliman</first><last>Mohammad</last><affiliation>Nu</affiliation></author>
+      <author><first>Mohamed</first><last>Ibrahim</last><affiliation>New Giza University</affiliation></author>
+      <author><first>Laila Hesham</first><last>Afify</last><affiliation>NewGiza University, School of IT</affiliation></author>
+      <author><first>Samhaa R.</first><last>El-Beltagy</last><affiliation>Newgiza University/Optomatica</affiliation></author>
+      <pages>545-550</pages>
+      <abstract>This paper presents the system developed by the NGU_CNLP team for addressing the shared task on Propaganda Detection in Arabic at WANLP 2022. The team participated in the shared tasks’ two sub-tasks which are: 1) Propaganda technique identification in text and 2) Propaganda technique span identification. In the first sub-task, the goal is to detect all employed propaganda techniques in some given piece of text out of a possible 17 different techniques or to detect that no propaganda technique is being used in that piece of text. As such, this first sub-task is a multi-label classification problem with a pool of 18 possible labels. Subtask 2 extends sub-task 1, by requiring the identification of the exact text span in which a propaganda technique was employed, making it a sequence labeling problem. For task 1, a combination of a data augmentation strategy coupled with an enabled transformer-based model comprised our classification model. This classification model ranked first amongst the 14 systems participating in this subtask. For sub-task two, a transfer learning model was adopted. The system ranked third among the 3 different models that participated in this subtask.</abstract>
+      <url hash="6d134a64">2022.wanlp-1.66</url>
+      <bibkey>hussein-etal-2022-ngu</bibkey>
+      <doi>10.18653/v1/2022.wanlp-1.66</doi>
+    </paper>
+  </volume>
+</collection>

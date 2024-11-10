@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2023.disrpt">
+  <volume id="1" ingest-date="2023-07-08" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of the 3rd Shared Task on Discourse Relation Parsing and Treebanking (DISRPT 2023)</booktitle>
+      <editor><first>Chloé</first><last>Braud</last><affiliation>Irit, Cnrs</affiliation></editor>
+      <editor><first>Yang Janet</first><last>Liu</last><affiliation>Georgetown University</affiliation></editor>
+      <editor><first>Eleni</first><last>Metheniti</last><affiliation>IRIT, University of Toulouse</affiliation></editor>
+      <editor><first>Philippe</first><last>Muller</last><affiliation>IRIT, University of Toulouse</affiliation></editor>
+      <editor><first>Laura</first><last>Rivière</last><affiliation>Irit</affiliation></editor>
+      <editor><first>Attapol</first><last>Rutherford</last><affiliation>Chulalongkorn University</affiliation></editor>
+      <editor><first>Amir</first><last>Zeldes</last><affiliation>Georgetown University</affiliation></editor>
+      <publisher>The Association for Computational Linguistics</publisher>
+      <address>Toronto, Canada</address>
+      <month>July</month>
+      <year>2023</year>
+      <url hash="4f9e5d82">2023.disrpt-1</url>
+      <venue>disrpt</venue>
+    </meta>
+    <frontmatter>
+      <url hash="653121cb">2023.disrpt-1.0</url>
+      <bibkey>disrpt-2023-shared</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>The <fixed-case>DISRPT</fixed-case> 2023 Shared Task on Elementary Discourse Unit Segmentation, Connective Detection, and Relation Classification</title>
+      <author><first>Chloé</first><last>Braud</last><affiliation>Irit, Cnrs</affiliation></author>
+      <author><first>Yang Janet</first><last>Liu</last><affiliation>Georgetown University</affiliation></author>
+      <author><first>Eleni</first><last>Metheniti</last><affiliation>IRIT, University of Toulouse</affiliation></author>
+      <author><first>Philippe</first><last>Muller</last><affiliation>IRIT, University of Toulouse</affiliation></author>
+      <author><first>Laura</first><last>Rivière</last><affiliation>Irit</affiliation></author>
+      <author><first>Attapol</first><last>Rutherford</last><affiliation>Chulalongkorn University</affiliation></author>
+      <author><first>Amir</first><last>Zeldes</last><affiliation>Georgetown University</affiliation></author>
+      <pages>1-21</pages>
+      <abstract>In 2023, the third iteration of the DISRPT Shared Task (Discourse Relation Parsing and Treebanking) was held, dedicated to the underlying units used in discourse parsing across formalisms. Following the success of the 2019and 2021 tasks on Elementary Discourse Unit Segmentation, Connective Detection, and Relation Classification, this iteration has added 10 new corpora, including 2 new languages (Thai and Italian) and 3 discourse treebanks annotated in the discourse dependency representation in addition to the previously included frameworks: RST, SDRT, and PDTB. In this paper, we review the data included in the Shared Task, which covers 26 datasets across 13 languages, survey and compare submitted systems, and report on system performance on each task for both annotated and plain-tokenized versions of the data.</abstract>
+      <url hash="65af8518">2023.disrpt-1.1</url>
+      <bibkey>braud-etal-2023-disrpt</bibkey>
+      <doi>10.18653/v1/2023.disrpt-1.1</doi>
+    </paper>
+    <paper id="2">
+      <title><fixed-case>D</fixed-case>isco<fixed-case>F</fixed-case>lan: Instruction Fine-tuning and Refined Text Generation for Discourse Relation Label Classification</title>
+      <author><first>Kaveri</first><last>Anuranjana</last><affiliation>Saarland University</affiliation></author>
+      <pages>22-28</pages>
+      <abstract>This paper introduces DiscoFlan, a multilingual discourse relation classifier submitted for DISRPT 2023. Our submission represents the first attempt at building a multilingual discourse relation classifier for the DISRPT 2023 shared task. By our model addresses the issue to mismatches caused by hallucination in a seq2seq model by utilizing the label distribution information for label generation. In contrast to the previous state-of-the-art model, our approach eliminates the need for hand-crafted features in computing the discourse relation classes. Furthermore, we propose a novel label generation mechanism that anchors the labels to a fixed set by selectively enhancing training on the decoder model. Our experimental results demonstrate that our model surpasses the current state-of-the-art performance in 11 out of the 26 datasets considered, however the submitted model compatible with provided evaluation scripts is better in 7 out of 26 considered datasets, while demonstrating competitive results in the rest. Overall, DiscoFlan showcases promising advancements in multilingual discourse relation classification for the DISRPT 2023 shared task.</abstract>
+      <url hash="1d3fcc0c">2023.disrpt-1.2</url>
+      <bibkey>anuranjana-2023-discoflan</bibkey>
+      <doi>10.18653/v1/2023.disrpt-1.2</doi>
+    </paper>
+    <paper id="3">
+      <title><fixed-case>D</fixed-case>is<fixed-case>C</fixed-case>ut and <fixed-case>D</fixed-case>isc<fixed-case>R</fixed-case>e<fixed-case>T</fixed-case>: <fixed-case>MELODI</fixed-case> at <fixed-case>DISRPT</fixed-case> 2023</title>
+      <author><first>Eleni</first><last>Metheniti</last><affiliation>IRIT, University of Toulouse</affiliation></author>
+      <author><first>Chloé</first><last>Braud</last><affiliation>Irit, Cnrs</affiliation></author>
+      <author><first>Philippe</first><last>Muller</last><affiliation>IRIT, University of Toulouse</affiliation></author>
+      <author><first>Laura</first><last>Rivière</last><affiliation>Irit</affiliation></author>
+      <pages>29-42</pages>
+      <abstract>This paper presents the results obtained by the MELODI team for the three tasks proposed within the DISRPT 2023 shared task on discourse: segmentation, connective identification, and relation classification. The competition involves corpora in various languages in several underlying frameworks, and proposes two tracks depending on the presence or not of annotations of sentence boundaries and syntactic information. For these three tasks, we rely on a transformer-based architecture, and investigate several optimizations of the models, including hyper-parameter search and layer freezing. For discourse relations, we also explore the use of adapters—a lightweight solution for model fine-tuning—and introduce relation mappings to partially deal with the label set explosion we are facing within the setting of the shared task in a multi-corpus perspective. In the end, we propose one single architecture for segmentation and connectives, based on XLM-RoBERTa large, freezed at lower layers, with new state-of-the-art results for segmentation, and we propose 3 different models for relations, since the task makes it harder to generalize across all corpora.</abstract>
+      <url hash="a9a6c553">2023.disrpt-1.3</url>
+      <bibkey>metheniti-etal-2023-discut</bibkey>
+      <doi>10.18653/v1/2023.disrpt-1.3</doi>
+    </paper>
+    <paper id="4">
+      <title><fixed-case>HITS</fixed-case> at <fixed-case>DISRPT</fixed-case> 2023: Discourse Segmentation, Connective Detection, and Relation Classification</title>
+      <author><first>Wei</first><last>Liu</last><affiliation>Heidelberg Institute for Theoretical Studies</affiliation></author>
+      <author><first>Yi</first><last>Fan</last><affiliation>Heidelberg Institute for Theoretical Studies</affiliation></author>
+      <author><first>Michael</first><last>Strube</last><affiliation>Heidelberg Institute for Theoretical Studies</affiliation></author>
+      <pages>43-49</pages>
+      <abstract>HITS participated in the Discourse Segmentation (DS, Task 1) and Connective Detection (CD, Task 2) tasks at the DISRPT 2023. Task 1 focuses on segmenting the text into discourse units, while Task 2 aims to detect the discourse connectives. We deployed a framework based on different pre-trained models according to the target language for these two tasks.HITS also participated in the Relation Classification track (Task 3). The main task was recognizing the discourse relation between text spans from different languages. We designed a joint model for languages with a small corpus while separate models for large corpora. The adversarial training strategy is applied to enhance the robustness of relation classifiers.</abstract>
+      <url hash="8a9f489b">2023.disrpt-1.4</url>
+      <bibkey>liu-etal-2023-hits</bibkey>
+      <doi>10.18653/v1/2023.disrpt-1.4</doi>
+    </paper>
+  </volume>
+</collection>

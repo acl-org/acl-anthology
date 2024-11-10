@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2023.tllm">
+  <volume id="1" ingest-date="2023-10-30" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of the 1st Workshop on Taming Large Language Models: Controllability in the era of Interactive Assistants!</booktitle>
+      <editor><first>Devamanyu</first><last>Hazarika</last></editor>
+      <editor><first>Xiangru Robert</first><last>Tang</last></editor>
+      <editor><first>Di</first><last>Jin</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Prague, Czech Republic</address>
+      <month>September</month>
+      <year>2023</year>
+      <venue>tllm</venue>
+      <venue>ws</venue>
+    </meta>
+    <paper id="1">
+      <title><fixed-case>CST</fixed-case>5: Data Augmentation for Code-Switched Semantic Parsing</title>
+      <author><first>Anmol</first><last>Agarwal</last></author>
+      <author><first>Jigar</first><last>Gupta</last></author>
+      <author><first>Rahul</first><last>Goel</last></author>
+      <author><first>Shyam</first><last>Upadhyay</last></author>
+      <author><first>Pankaj</first><last>Joshi</last></author>
+      <author><first>Rengarajan</first><last>Aravamudhan</last></author>
+      <pages>1-10</pages>
+      <abstract>Extending semantic parsers to code-switched input has been a challenging problem, primarily due to a lack of supervised training data. In this work, we introduce CST5, a new data augmentation technique that fine-tunes a T5 model using a small seed set (≈100 utterances) to generate code-switched utterances from English utterances. We show that CST5 generates high quality code-switched data, both intrinsically (per human evaluation) and extrinsically by comparing baseline models which are trained without data augmentation to models which are trained with augmented data. Empirically we observe that using CST5, one can achieve the same semantic parsing performance by using up to 20x less labeled data. To aid further research in this area, we are also releasing (a) Hinglish-TOP, the largest human annotated code-switched semantic parsing dataset to date, containing 10k human annotated Hindi-English (Hinglish) code-switched utterances, and (b) Over 170K CST5 generated code-switched utterances from the TOPv2 dataset. Human evaluation shows that both the human annotated data as well as the CST5 generated data is of good quality.</abstract>
+      <url hash="1eb1c173">2023.tllm-1.1</url>
+      <bibkey>agarwal-etal-2023-cst5</bibkey>
+    </paper>
+    <paper id="2">
+      <title><fixed-case>P</fixed-case>anda<fixed-case>GPT</fixed-case>: One Model To Instruction-Follow Them All</title>
+      <author><first>Yixuan</first><last>Su</last></author>
+      <author><first>Tian</first><last>Lan</last></author>
+      <author><first>Huayang</first><last>Li</last></author>
+      <author><first>Jialu</first><last>Xu</last></author>
+      <author><first>Yan</first><last>Wang</last></author>
+      <author><first>Deng</first><last>Cai</last></author>
+      <pages>11-23</pages>
+      <abstract>We present PandaGPT, an approach to emPower large lANguage moDels with visual and Auditory instruction-following capabilities. Our pilot experiments show that PandaGPT can perform complex tasks such as detailed image description generation, writing stories inspired by videos, and answering questions about audios. More interestingly, PandaGPT can take multimodal inputs simultaneously and compose their semantics naturally. For example, PandaGPT can connect how objects look in an image/video and how they sound in an audio. To do so, PandaGPT combines the multimodal encoders from ImageBind and the large language models from Vicuna. Notably, only aligned image-text pairs are required for the training of PandaGPT. Thanks to the strong capability of ImageBind in embedding data from different modalities into the same space, PandaGPT displays emergent, i.e. zero-shot, cross-modal behaviors for data other than image and text (e.g., video, audio, depth, thermal, and IMU). We hope that PandaGPT serves as an initial step toward building AGI that can perceive and understand inputs in different modalities holistically, as we humans do.</abstract>
+      <url hash="c70f31d7">2023.tllm-1.2</url>
+      <bibkey>su-etal-2023-pandagpt</bibkey>
+    </paper>
+    <paper id="3">
+      <title>Emotion-Conditioned Text Generation through Automatic Prompt Optimization</title>
+      <author><first>Yarik Menchaca</first><last>Resendiz</last></author>
+      <author><first>Roman</first><last>Klinger</last></author>
+      <pages>24-30</pages>
+      <abstract>Conditional natural language generation methods often require either expensive fine-tuning or training a large language model from scratch. Both are unlikely to lead to good results without a substantial amount of data and computational resources. Prompt learning without changing the parameters of a large language model presents a promising alternative. It is a cost-effective approach, while still achieving competitive results. While this procedure is now established for zero- and few-shot text classification and structured prediction, it has received limited attention in conditional text generation. We present the first automatic prompt optimization approach for emotion-conditioned text generation with instruction-fine-tuned models. Our method uses an iterative optimization procedure that changes the prompt by adding, removing, or replacing tokens. As objective function, we only require a text classifier that measures the realization of the conditional variable in the generated text. We evaluate the method on emotion-conditioned text generation with a focus on event reports and compare it to manually designed prompts that also act as the seed for the optimization procedure. The optimized prompts achieve 0.75 macro-average F1 to fulfill the emotion condition in contrast to manually designed seed prompts with only 0.22 macro-average F1.</abstract>
+      <url hash="e4d0f08c">2023.tllm-1.3</url>
+      <bibkey>resendiz-klinger-2023-emotion</bibkey>
+    </paper>
+    <paper id="4">
+      <title>Mitigating Harms of <fixed-case>LLM</fixed-case>s via Knowledge Distillation for a Virtual Museum Tour Guide</title>
+      <author><first>Ashley</first><last>Lewis</last></author>
+      <author><first>Michael</first><last>White</last></author>
+      <pages>31-45</pages>
+      <abstract>LLMs are known to be very powerful, exhibiting both great benefits and great risk. We seek to leverage the benefits, in particular the ability to be fluent, conversational dialogue agents, while minimizing the risks, such as hallucination and toxic content. In this work we use knowledge distillation to create a virtual museum tour guide dialogue agent, employing ChatGPT as a teacher model for a smaller student model, T5-large. We find the T5 model shows competitive performance, significantly reduces instances of hallucination, and shows promise for reducing toxic content.</abstract>
+      <url hash="627bb1ca">2023.tllm-1.4</url>
+      <bibkey>lewis-white-2023-mitigating</bibkey>
+    </paper>
+    <paper id="5">
+      <title>Evaluating Large Language Models for Document-grounded Response Generation in Information-Seeking Dialogues</title>
+      <author><first>Norbert</first><last>Braunschweiler</last></author>
+      <author><first>Rama</first><last>Doddipatla</last></author>
+      <author><first>Simon</first><last>Keizer</last></author>
+      <author><first>Svetlana</first><last>Stoyanchev</last></author>
+      <pages>46-55</pages>
+      <abstract>In this paper, we investigate the use of large language models (LLMs) like ChatGPT for document-grounded response generation in the context of information-seeking dialogues. For evaluation, we use the MultiDoc2Dial corpus of task-oriented dialogues in four social service domains previously used in the DialDoc 2022 Shared Task. Information-seeking dialogue turns are grounded in multiple documents providing relevant information. We generate dialogue completion responses by prompting a ChatGPT model, using two methods: Chat-Completion and LlamaIndex. ChatCompletion uses knowledge from ChatGPT model pre-training while LlamaIndex also extracts relevant information from documents. Observing that document-grounded response generation via LLMs cannot be adequately assessed by automatic evaluation metrics as they are significantly more verbose, we perform a human evaluation where annotators rate the output of the shared task winning system, the two ChatGPT variants outputs, and human responses. While both ChatGPT variants are more likely to include information not present in the relevant segments, possibly including a presence of hallucinations, they are rated higher than both the shared task winning system and human responses.</abstract>
+      <url hash="7e481e9f">2023.tllm-1.5</url>
+      <bibkey>braunschweiler-etal-2023-evaluating</bibkey>
+    </paper>
+    <paper id="6">
+      <title>Enhancing Pipeline-Based Conversational Agents with Large Language Models</title>
+      <author><first>Mina</first><last>Foosherian</last></author>
+      <author><first>Hendrik</first><last>Purwins</last></author>
+      <author><first>Purna</first><last>Rathnayake</last></author>
+      <author><first>Touhidul</first><last>Alam</last></author>
+      <author><first>Rui</first><last>Teimao</last></author>
+      <author><first>Klaus-Dieter</first><last>Thoben</last></author>
+      <pages>56-67</pages>
+      <abstract>The latest advancements in AI and deep learning have led to a breakthrough in large language model (LLM)-based agents such as GPT-4. However, many commercial conversational agent development tools are pipeline-based and have limitations in holding a human-like conversation. This paper investigates the capabilities of LLMs to enhance pipeline-based conversational agents during two phases: 1) in the design and development phase and 2) during operations. In 1) LLMs can aid in generating training data, extracting entities and synonyms, localization, and persona design. In 2) LLMs can assist in contextualization, intent classification to prevent conversational breakdown and handle out-of-scope questions, auto-correcting utterances, rephrasing responses, formulating disambiguation questions, summarization, and enabling closed question-answering capabilities. We conducted informal experiments with GPT-4 in the private banking domain to demonstrate the scenarios above with a practical example. Companies may be hesitant to replace their pipeline-based agents with LLMs entirely due to privacy concerns and the need for deep integration within their existing ecosystems. A hybrid approach in which LLMs’ are integrated into the pipeline-based agents allows them to save time and costs of building and running agents by capitalizing on the capabilities of LLMs while retaining the integration and privacy safeguards of their existing systems.</abstract>
+      <url hash="644f01a3">2023.tllm-1.6</url>
+      <bibkey>foosherian-etal-2023-enhancing</bibkey>
+    </paper>
+    <paper id="7">
+      <title>Style Locality for Controllable Generation with k<fixed-case>NN</fixed-case> Language Models</title>
+      <author><first>Gilles</first><last>Nawezi</last></author>
+      <author><first>Lucie</first><last>Flek</last></author>
+      <author><first>Charles</first><last>Welch</last></author>
+      <pages>68-75</pages>
+      <abstract>Recent language models have been improved by the addition of external memory. Nearest neighbor language models retrieve similar contexts to assist in word prediction. The addition of locality levels allows a model to learn how to weight neighbors based on their relative location to the current text in source documents, and have been shown to further improve model performance. Nearest neighbor models have been explored for controllable generation but have not examined the use of locality levels. We present a novel approach for this purpose and evaluate it using automatic and human evaluation on politeness, formality, supportiveness, and toxicity textual data. We find that our model is successfully able to control style and provides a better fluency-style trade-off than previous work</abstract>
+      <url hash="7e5bab6d">2023.tllm-1.7</url>
+      <bibkey>nawezi-etal-2023-style</bibkey>
+    </paper>
+  </volume>
+</collection>

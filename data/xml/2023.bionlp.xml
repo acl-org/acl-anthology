@@ -1,0 +1,875 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2023.bionlp">
+  <volume id="1" ingest-date="2023-07-08" type="proceedings">
+    <meta>
+      <booktitle>The 22nd Workshop on Biomedical Natural Language Processing and BioNLP Shared Tasks</booktitle>
+      <editor><first>Dina</first><last>Demner-fushman</last></editor>
+      <editor><first>Sophia</first><last>Ananiadou</last></editor>
+      <editor><first>Kevin</first><last>Cohen</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Toronto, Canada</address>
+      <month>July</month>
+      <year>2023</year>
+      <url hash="24f9c92e">2023.bionlp-1</url>
+      <venue>bionlp</venue>
+    </meta>
+    <frontmatter>
+      <url hash="f20efbfa">2023.bionlp-1.0</url>
+      <bibkey>bionlp-2023-biomedical</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Multi-Source (Pre-)Training for Cross-Domain Measurement, Unit and Context Extraction</title>
+      <author><first>Yueling</first><last>Li</last><affiliation>Basf Se</affiliation></author>
+      <author><first>Sebastian</first><last>Martschat</last><affiliation>Basf Se</affiliation></author>
+      <author><first>Simone Paolo</first><last>Ponzetto</last><affiliation>University of Mannheim</affiliation></author>
+      <pages>1-25</pages>
+      <abstract>We present a cross-domain approach for automated measurement and context extraction based on pre-trained language models. We construct a multi-source, multi-domain corpus and train an end-to-end extraction pipeline. We then apply multi-source task-adaptive pre-training and fine-tuning to benchmark the cross-domain generalization capability of our model. Further, we conceptualize and apply a task-specific error analysis and derive insights for future work. Our results suggest that multi-source training leads to the best overall results, while single-source training yields the best results for the respective individual domain. While our setup is successful at extracting quantity values and units, more research is needed to improve the extraction of contextual entities. We make the cross-domain corpus used in this work available online.</abstract>
+      <url hash="134cfc72">2023.bionlp-1.1</url>
+      <bibkey>li-etal-2023-multi-source</bibkey>
+      <doi>10.18653/v1/2023.bionlp-1.1</doi>
+    </paper>
+    <paper id="2">
+      <title><fixed-case>G</fixed-case>aussian Distributed Prototypical Network for Few-shot Genomic Variant Detection</title>
+      <author><first>Jiarun</first><last>Cao</last><affiliation>University of Manchester</affiliation></author>
+      <author><first>Niels</first><last>Peek</last><affiliation>University of Manchester</affiliation></author>
+      <author><first>Andrew</first><last>Renehan</last><affiliation>University of Manchester</affiliation></author>
+      <author><first>Sophia</first><last>Ananiadou</last><affiliation>University of Manchester</affiliation></author>
+      <pages>26-36</pages>
+      <abstract>Automatically identifying genetic mutations in the cancer literature using text mining technology has been an important way to study the vast amount of cancer medical literature. However, novel knowledge regarding the genetic variants proliferates rapidly, though current supervised learning models struggle with discovering these unknown entity types. Few-shot learning allows a model to perform effectively with great generalization on new entity types, which has not been explored in recognizing cancer mutation detection. This paper addresses cancer mutation detection tasks with few-shot learning paradigms. We propose GDPN framework, which models the label dependency from the training examples in the support set and approximates the transition scores via Gaussian distribution. The experiments on three benchmark cancer mutation datasets show the effectiveness of our proposed model.</abstract>
+      <url hash="d923e84e">2023.bionlp-1.2</url>
+      <bibkey>cao-etal-2023-gaussian</bibkey>
+      <doi>10.18653/v1/2023.bionlp-1.2</doi>
+    </paper>
+    <paper id="3">
+      <title>Exploring Partial Knowledge Base Inference in Biomedical Entity Linking</title>
+      <author><first>Hongyi</first><last>Yuan</last><affiliation>Tsinghua University</affiliation></author>
+      <author><first>Keming</first><last>Lu</last><affiliation>University of Southern California</affiliation></author>
+      <author><first>Zheng</first><last>Yuan</last><affiliation>Alibaba Group</affiliation></author>
+      <pages>37-49</pages>
+      <abstract>Biomedical entity linking (EL) consists of named entity recognition (NER) and named entity disambiguation (NED). EL models are trained on corpora labeled by a predefined KB. However, it is a common scenario that only entities within a subset of the KB are precious to stakeholders. We name this scenario partial knowledge base inference; training an EL model with one KB and inferring on the part of it without further training. In this work, we give a detailed definition and evaluation procedures for this practically valuable but significantly understudied scenario and evaluate methods from three representative EL paradigms. We construct partial KB inference benchmarks and witness a catastrophic degradation in EL performance due to dramatically precision drop. Our findings reveal these EL paradigms can not correctly handle unlinkable mentions (NIL), so they are not robust to partial KB inference. We also propose two simple-and-effective redemption methods to combat the NIL issue with little computational overhead.</abstract>
+      <url hash="0c955b58">2023.bionlp-1.3</url>
+      <bibkey>yuan-etal-2023-exploring</bibkey>
+      <doi>10.18653/v1/2023.bionlp-1.3</doi>
+    </paper>
+    <paper id="4">
+      <title>Boosting Radiology Report Generation by Infusing Comparison Prior</title>
+      <author><first>Sanghwan</first><last>Kim</last><affiliation>ETH Zrich</affiliation></author>
+      <author><first>Farhad</first><last>Nooralahzadeh</last><affiliation>University of Zurich</affiliation></author>
+      <author><first>Morteza</first><last>Rohanian</last><affiliation>University of Zurich</affiliation></author>
+      <author><first>Koji</first><last>Fujimoto</last><affiliation>Kyoto University Graduate School of Medicine</affiliation></author>
+      <author><first>Mizuho</first><last>Nishio</last><affiliation>Kyoto University Graduate School of Medicine</affiliation></author>
+      <author><first>Ryo</first><last>Sakamoto</last><affiliation>Kyoto University Graduate School of Medicine</affiliation></author>
+      <author><first>Fabio</first><last>Rinaldi</last><affiliation>IDSIA, Swiss AI Institute</affiliation></author>
+      <author><first>Michael</first><last>Krauthammer</last><affiliation>University of Zurich</affiliation></author>
+      <pages>50-61</pages>
+      <abstract>Recent transformer-based models have made significant strides in generating radiology reports from chest X-ray images. However, a prominent challenge remains; these models often lack prior knowledge, resulting in the generation of synthetic reports that mistakenly reference non-existent prior exams. This discrepancy can be attributed to a knowledge gap between radiologists and the generation models. While radiologists possess patient-specific prior information, the models solely receive X-ray images at a specific time point. To tackle this issue, we propose a novel approach that leverages a rule-based labeler to extract comparison prior information from radiology reports. This extracted comparison prior is then seamlessly integrated into state-of-the-art transformer-based models, enabling them to produce more realistic and comprehensive reports. Our method is evaluated on English report datasets, such as IU X-ray and MIMIC-CXR. The results demonstrate that our approach surpasses baseline models in terms of natural language generation metrics. Notably, our model generates reports that are free from false references to non-existent prior exams, setting it apart from previous models. By addressing this limitation, our approach represents a significant step towards bridging the gap between radiologists and generation models in the domain of medical report generation.</abstract>
+      <url hash="948de6cc">2023.bionlp-1.4</url>
+      <bibkey>kim-etal-2023-boosting</bibkey>
+      <doi>10.18653/v1/2023.bionlp-1.4</doi>
+    </paper>
+    <paper id="5">
+      <title>Using Bottleneck Adapters to Identify Cancer in Clinical Notes under Low-Resource Constraints</title>
+      <author><first>Omid</first><last>Rohanian</last><affiliation>University of Oxford</affiliation></author>
+      <author><first>Hannah</first><last>Jauncey</last><affiliation>University of Oxford</affiliation></author>
+      <author><first>Mohammadmahdi</first><last>Nouriborji</last><affiliation>Sharif University of Technology, NLPie Research</affiliation></author>
+      <author><first>Vinod</first><last>Kumar</last><affiliation>University of Oxford</affiliation></author>
+      <author><first>Bronner P.</first><last>Gonalves</last><affiliation>University of Oxford</affiliation></author>
+      <author><first>Christiana</first><last>Kartsonaki</last><affiliation>University of Oxford</affiliation></author>
+      <author><first>Isaric</first><last>Clinical Characterisation Group</last><affiliation>University of Oxford</affiliation></author>
+      <author><first>Laura</first><last>Merson</last><affiliation>University of Oxford</affiliation></author>
+      <author><first>David</first><last>Clifton</last><affiliation>University of Oxford</affiliation></author>
+      <pages>62-78</pages>
+      <abstract>Processing information locked within clinical health records is a challenging task that remains an active area of research in biomedical NLP. In this work, we evaluate a broad set of machine learning techniques ranging from simple RNNs to specialised transformers such as BioBERT on a dataset containing clinical notes along with a set of annotations indicating whether a sample is cancer-related or not. Furthermore, we specifically employ efficient fine-tuning methods from NLP, namely, bottleneck adapters and prompt tuning, to adapt the models to our specialised task. Our evaluations suggest that fine-tuning a frozen BERT model pre-trained on natural language and with bottleneck adapters outperforms all other strategies, including full fine-tuning of the specialised BioBERT model. Based on our findings, we suggest that using bottleneck adapters in low-resource situations with limited access to labelled data or processing capacity could be a viable strategy in biomedical text mining.</abstract>
+      <url hash="23e34c92">2023.bionlp-1.5</url>
+      <bibkey>rohanian-etal-2023-using</bibkey>
+      <doi>10.18653/v1/2023.bionlp-1.5</doi>
+    </paper>
+    <paper id="6">
+      <title>Evaluating and Improving Automatic Speech Recognition using Severity</title>
+      <author><first>Ryan</first><last>Whetten</last><affiliation>Boise State University</affiliation></author>
+      <author><first>Casey</first><last>Kennington</last><affiliation>Boise State University</affiliation></author>
+      <pages>79-91</pages>
+      <abstract>A common metric for evaluating Automatic Speech Recognition (ASR) is Word Error Rate (WER) which solely takes into account discrepancies at the word-level. Although useful, WER is not guaranteed to correlate well with human judgment or performance on downstream tasks that use ASR. Meaningful assessment of ASR mistakes becomes even more important in high-stake scenarios such as health-care. We propose 2 general measures to evaluate the severity of mistakes made by ASR systems, one based on sentiment analysis and another based on text embeddings. We evaluate these measures on simulated patient-doctor conversations using 5 ASR systems. Results show that these measures capture characteristics of ASR errors that WER does not. Furthermore, we train an ASR system incorporating severity and demonstrate the potential for using severity not only in the evaluation, but in the development of ASR. Advantages and limitations of this methodology are analyzed and discussed.</abstract>
+      <url hash="468c4914">2023.bionlp-1.6</url>
+      <bibkey>whetten-kennington-2023-evaluating</bibkey>
+      <doi>10.18653/v1/2023.bionlp-1.6</doi>
+    </paper>
+    <paper id="7">
+      <title>Zero-shot Temporal Relation Extraction with <fixed-case>C</fixed-case>hat<fixed-case>GPT</fixed-case></title>
+      <author><first>Chenhan</first><last>Yuan</last><affiliation>The University of Manchester</affiliation></author>
+      <author><first>Qianqian</first><last>Xie</last><affiliation>University of Manchester</affiliation></author>
+      <author><first>Sophia</first><last>Ananiadou</last><affiliation>University of Manchester</affiliation></author>
+      <pages>92-102</pages>
+      <abstract>The goal of temporal relation extraction is to infer the temporal relation between two events in the document. Supervised models are dominant in this task. In this work, we investigate ChatGPT’s ability on zero-shot temporal relation extraction. We designed three different prompt techniques to break down the task and evaluate ChatGPT. Our experiments show that ChatGPT’s performance has a large gap with that of supervised methods and can heavily rely on the design of prompts. We further demonstrate that ChatGPT can infer more small relation classes correctly than supervised methods. The current shortcomings of ChatGPT on temporal relation extraction are also discussed in this paper. We found that ChatGPT cannot keep consistency during temporal inference and it fails in actively long-dependency temporal inference.</abstract>
+      <url hash="4fb6d9cf">2023.bionlp-1.7</url>
+      <bibkey>yuan-etal-2023-zero</bibkey>
+      <doi>10.18653/v1/2023.bionlp-1.7</doi>
+    </paper>
+    <paper id="8">
+      <title>Good Data, Large Data, or No Data? Comparing Three Approaches in Developing Research Aspect Classifiers for Biomedical Papers</title>
+      <author><first>Shreya</first><last>Chandrasekhar</last><affiliation>Penn State University</affiliation></author>
+      <author><first>Chieh-Yang</first><last>Huang</last><affiliation>Pennsylvania State University</affiliation></author>
+      <author><first>Ting-Hao</first><last>Huang</last><affiliation>Pennsylvania State University</affiliation></author>
+      <pages>103-113</pages>
+      <abstract>The rapid growth of scientific publications, particularly during the COVID-19 pandemic, emphasizes the need for tools to help researchers efficiently comprehend the latest advancements. One essential part of understanding scientific literature is research aspect classification, which categorizes sentences in abstracts to Background, Purpose, Method, and Finding. In this study, we investigate the impact of different datasets on model performance for the crowd-annotated CODA-19 research aspect classification task. Specifically, we explore the potential benefits of using the large, automatically curated PubMed 200K RCT dataset and evaluate the effectiveness of large language models (LLMs), such as LLaMA, GPT-3, ChatGPT, and GPT-4. Our results indicate that using the PubMed 200K RCT dataset does not improve performance for the CODA-19 task. We also observe that while GPT-4 performs well, it does not outperform the SciBERT model fine-tuned on the CODA-19 dataset, emphasizing the importance of a dedicated and task-aligned datasets dataset for the target task.</abstract>
+      <url hash="ca62769c">2023.bionlp-1.8</url>
+      <bibkey>chandrasekhar-etal-2023-good</bibkey>
+      <doi>10.18653/v1/2023.bionlp-1.8</doi>
+    </paper>
+    <paper id="9">
+      <title>Sentiment-guided Transformer with Severity-aware Contrastive Learning for Depression Detection on Social Media</title>
+      <author><first>Tianlin</first><last>Zhang</last><affiliation>The University of Manchester</affiliation></author>
+      <author><first>Kailai</first><last>Yang</last><affiliation>University of Manchester</affiliation></author>
+      <author><first>Sophia</first><last>Ananiadou</last><affiliation>University of Manchester</affiliation></author>
+      <pages>114-126</pages>
+      <abstract>Early identification of depression is beneficial to public health surveillance and disease treatment. There are many models that mainly treat the detection as a binary classification task, such as detecting whether a user is depressed. However, identifying users’ depression severity levels from posts on social media is more clinically useful for future prevention and treatment. Existing severity detection methods mainly model the semantic information of posts while ignoring the relevant sentiment information, which can reflect the user’s state of mind and could be helpful for severity detection. In addition, they treat all severity levels equally, making the model difficult to distinguish between closely-labeled categories. We propose a sentiment-guided Transformer model, which efficiently fuses social media posts’ semantic information with sentiment information. Furthermore, we also utilize a supervised severity-aware contrastive learning framework to enable the model to better distinguish between different severity levels. The experimental results show that our model achieves superior performance on two public datasets, while further analysis proves the effectiveness of all proposed modules.</abstract>
+      <url hash="933704aa">2023.bionlp-1.9</url>
+      <bibkey>zhang-etal-2023-sentiment</bibkey>
+      <doi>10.18653/v1/2023.bionlp-1.9</doi>
+    </paper>
+    <paper id="10">
+      <title>Exploring Drug Switching in Patients: A Deep Learning-based Approach to Extract Drug Changes and Reasons from Social Media</title>
+      <author><first>Mourad</first><last>Sarrouti</last><affiliation>Sumitovant Biopharma</affiliation></author>
+      <author><first>Carson</first><last>Tao</last><affiliation>Sumitovant Biopharma</affiliation></author>
+      <author><first>Yoann</first><last>Mamy Randriamihaja</last><affiliation>Sumitovant Biopharma</affiliation></author>
+      <pages>127-132</pages>
+      <abstract>Social media (SM) can provide valuable information about patients’ experiences with multiple drugs during treatments. Although information extraction from SM has been well-studied, drug switches detection and reasons behind these switches from SM have not been studied yet. Therefore, in this paper, we present a new SM listening approach for analyzing online patient conversations that contain information about drug switching, drug effectiveness, side effects, and adverse drug reactions. We describe a deep learning-based approach for identifying instances of drug switching in SM posts, as well as a method for extracting the reasons behind these switches. To train and test our models, we used annotated SM data from internal dataset which is automatically created using a rule-based method. We evaluated our models using Text-to-Text Transfer Transformer (T5) and found that our SM listening approach can extract medication change information and reasons with high accuracy, achieving an F1-score of 98% and a ROUGE-1 score of 93%, respectively. Overall, our results suggest that our SM listening approach has the potential to provide valuable insights into patients’ experiences with drug treatments, which can be used to improve patient outcomes and the effectiveness of drug treatments.</abstract>
+      <url hash="788abaa4">2023.bionlp-1.10</url>
+      <bibkey>sarrouti-etal-2023-exploring</bibkey>
+      <doi>10.18653/v1/2023.bionlp-1.10</doi>
+    </paper>
+    <paper id="11">
+      <title>Is the ranking of <fixed-case>P</fixed-case>ub<fixed-case>M</fixed-case>ed similar articles good enough? An evaluation of text similarity methods for three datasets</title>
+      <author><first>Mariana</first><last>Neves</last><affiliation>German Federal Institute for Risk Assessment</affiliation></author>
+      <author><first>Ines</first><last>Schadock</last><affiliation>German Federal Institute for Risk Assessment</affiliation></author>
+      <author><first>Beryl</first><last>Eusemann</last><affiliation>German Federal Institute for Risk Assessment</affiliation></author>
+      <author><first>Gilbert</first><last>Schnfelder</last><affiliation>German Federal Institute for Risk Assessment</affiliation></author>
+      <author><first>Bettina</first><last>Bert</last><affiliation>German Federal Institute for Risk Assessment</affiliation></author>
+      <author><first>Daniel</first><last>Butzke</last><affiliation>German Federal Institute for Risk Assessment</affiliation></author>
+      <pages>133-144</pages>
+      <abstract>The use of seed articles in information retrieval provides many advantages, such as a longercontext and more details about the topic being searched for. Given a seed article (i.e., a PMID), PubMed provides a pre-compiled list of similar articles to support the user in finding equivalent papers in the biomedical literature. We aimed at performing a quantitative evaluation of the PubMed Similar Articles based on three existing biomedical text similarity datasets, namely, RELISH, TREC-COVID, and SMAFIRA-c. Further, we carried out a survey and an evaluation of various text similarity methods on these three datasets. Our experiments considered the original title and abstract from PubMed as well as automatically detected sections and manually annotated relevant sentences. We provide an overview about which methods better performfor each dataset and compare them to the ranking in PubMed similar articles. While resultsvaried considerably among the datasets, we were able to obtain a better performance thanPubMed for all of them. Datasets and source codes are available at: <url>https://github.com/mariananeves/reranking</url></abstract>
+      <url hash="1979aef7">2023.bionlp-1.11</url>
+      <bibkey>neves-etal-2023-ranking</bibkey>
+      <doi>10.18653/v1/2023.bionlp-1.11</doi>
+      <video href="2023.bionlp-1.11.mp4"/>
+    </paper>
+    <paper id="12">
+      <title>How Much do Knowledge Graphs Impact Transformer Models for Extracting Biomedical Events?</title>
+      <author><first>Laura</first><last>Zanella</last><affiliation>LORIA (Universite de Lorraine, CNRS, Inria)</affiliation></author>
+      <author><first>Yannick</first><last>Toussaint</last><affiliation>LORIA, Universit de Lorraine</affiliation></author>
+      <pages>145-155</pages>
+      <abstract>Biomedical event extraction can be divided into three main subtasks; (1) biomedical event trigger detection, (2) biomedical argument identification and (3) event construction. This work focuses in the two first subtasks. For the first subtask we analyze a set of transformer language models that are commonly used in the biomedical domain to evaluate and compare their capacity for event trigger detection. We fine-tune the models using seven manually annotated corpora to assess their performance in different biomedical subdomains. SciBERT emerged as the highest performing model, presenting a slight improvement compared to baseline models. Then, for the second subtask we construct a knowledge graph (KG) from the biomedical corpora and integrate its KG embeddings to SciBERT to enrich its semantic information. We demonstrate that adding the KG embeddings to the model improves the argument identification performance by around 20 %, and by around 15 % compared to two baseline models. Our results suggest that fine-tuning a transformer model that is pretrained from scratch with biomedical and general data allows to detect event triggers and identify arguments covering different biomedical subdomains, and therefore improving its generalization. Furthermore, the integration of KG embeddings into the model can significantly improve the performance of biomedical event argument identification, outperforming the results of baseline models.</abstract>
+      <url hash="0f4235d3">2023.bionlp-1.12</url>
+      <bibkey>zanella-toussaint-2023-much</bibkey>
+      <doi>10.18653/v1/2023.bionlp-1.12</doi>
+    </paper>
+    <paper id="13">
+      <title>An end-to-end neural model based on cliques and scopes for frame extraction in long breast radiology reports</title>
+      <author><first>Perceval</first><last>Wajsburt</last><affiliation>Sorbonne Universit</affiliation></author>
+      <author><first>Xavier</first><last>Tannier</last><affiliation>Sorbonne Universit, Inserm, LIMICS</affiliation></author>
+      <pages>156-170</pages>
+      <abstract>We consider the task of automatically extracting various overlapping frames, i.e, structured entities composed of multiple labels and mentions, from long clinical breast radiology documents. While many methods exist for related topics such as event extraction, slot filling, or discontinuous entity recognition, a challenge in our study resides in the fact that clinical reports typically contain overlapping frames that span multiple sentences or paragraphs. We propose a new method that addresses these difficulties and evaluate it on a new annotated corpus. Despite the small number of documents, we show that the hybridization between knowledge injection and a learning-based system allows us to quickly obtain proper results. We will also introduce the concept of scope relations and show that it both improves the performance of our system, and provides a visual explanation of the predictions.</abstract>
+      <url hash="a5e23739">2023.bionlp-1.13</url>
+      <bibkey>wajsburt-tannier-2023-end</bibkey>
+      <doi>10.18653/v1/2023.bionlp-1.13</doi>
+    </paper>
+    <paper id="14">
+      <title><fixed-case>DISTANT</fixed-case>: Distantly Supervised Entity Span Detection and Classification</title>
+      <author><first>Ken</first><last>Yano</last><affiliation>The National Institute of Advanced Industrial Science and Technology</affiliation></author>
+      <author><first>Makoto</first><last>Miwa</last><affiliation>Toyota Technological Institute</affiliation></author>
+      <author><first>Sophia</first><last>Ananiadou</last><affiliation>University of Manchester</affiliation></author>
+      <pages>171-177</pages>
+      <abstract>We propose a distantly supervised pipeline NER which executes entity span detection and entity classification in sequence named DISTANT (DIstantly Supervised enTity spAN deTection and classification).The former entity span detector extracts possible entity mention spans by the distant supervision. Then the later entity classifier assigns each entity span to one of the positive entity types or none by employing a positive and unlabeled (PU) learning framework. Two models were built based on the pre-trained SciBERT model and fine-tuned with the silver corpus generated by the distant supervision. Experimental results on BC5CDR and NCBI-Disease datasets show that our method outperforms the end-to-end NER baselines without PU learning by a large margin. In particular, it increases the recall score effectively.</abstract>
+      <url hash="b79e5f54">2023.bionlp-1.14</url>
+      <bibkey>yano-etal-2023-distant</bibkey>
+      <doi>10.18653/v1/2023.bionlp-1.14</doi>
+    </paper>
+    <paper id="15">
+      <title>Large Language Models as Instructors: A Study on Multilingual Clinical Entity Extraction</title>
+      <author><first>Simon</first><last>Meoni</last><affiliation>Arkhn/INRIA</affiliation></author>
+      <author><first>Eric</first><last>De la Clergerie</last><affiliation>Iniria</affiliation></author>
+      <author><first>Theo</first><last>Ryffel</last><affiliation>Arkhn</affiliation></author>
+      <pages>178-190</pages>
+      <abstract>In clinical and other specialized domains, data are scarce due to their confidential nature. This lack of data is a major problem when fine-tuning language models. Nevertheless, very large language models (LLMs) are promising for the medical domain but cannot be used directly in healthcare facilities due to data confidentiality issues. We explore an approach of annotating training data with LLMs to train smaller models more adapted to our problem. We show that this method yields promising results for information extraction tasks.</abstract>
+      <url hash="1e03fc25">2023.bionlp-1.15</url>
+      <bibkey>meoni-etal-2023-large</bibkey>
+      <doi>10.18653/v1/2023.bionlp-1.15</doi>
+    </paper>
+    <paper id="16">
+      <title>Event-independent temporal positioning: application to <fixed-case>F</fixed-case>rench clinical text</title>
+      <author><first>Nesrine</first><last>Bannour</last><affiliation>Universite Paris-Saclay, CNRS, LISN</affiliation></author>
+      <author><first>Bastien</first><last>Rance</last><affiliation>INSERM, Universite Paris Cit, Sorbonne Paris Cit, AP-HP, HEGP, HeKa, Inria Paris</affiliation></author>
+      <author><first>Xavier</first><last>Tannier</last><affiliation>Sorbonne Universite, Inserm, LIMICS</affiliation></author>
+      <author><first>Aurelie</first><last>Neveol</last><affiliation>Universite Paris Saclay, CNRS, LISN</affiliation></author>
+      <pages>191-205</pages>
+      <abstract>Extracting temporal relations usually entails identifying and classifying the relation between two mentions. However, the definition of temporal mentions strongly depends on the text type and the application domain. Clinical text in particular is complex. It may describe events that occurred at different times, contain redundant information and a variety of domain-specific temporal expressions. In this paper, we propose a novel event-independent representation of temporal relations that is task-independent and, therefore, domain-independent. We are interested in identifying homogeneous text portions from a temporal standpoint and classifying the relation between each text portion and the document creation time. Temporal relation extraction is cast as a sequence labeling task and evaluated on oncology notes. We further evaluate our temporal representation by the temporal positioning of toxicity events of chemotherapy administrated to colon and lung cancer patients described in French clinical reports. An overall macro F-measure of 0.86 is obtained for temporal relation extraction by a neural token classification model trained on clinical texts written in French. Our results suggest that the toxicity event extraction task can be performed successfully by automatically identifying toxicity events and placing them within the patient timeline (F-measure .62). The proposed system has the potential to assist clinicians in the preparation of tumor board meetings.</abstract>
+      <url hash="1c2e442a">2023.bionlp-1.16</url>
+      <bibkey>bannour-etal-2023-event</bibkey>
+      <doi>10.18653/v1/2023.bionlp-1.16</doi>
+    </paper>
+    <paper id="17">
+      <title><fixed-case>ADEQA</fixed-case>: A Question Answer based approach for joint <fixed-case>ADE</fixed-case>-Suspect Extraction using Sequence-To-Sequence Transformers</title>
+      <author><first>Vinayak</first><last>Arannil</last><affiliation>Amazon</affiliation></author>
+      <author><first>Tomal</first><last>Deb</last><affiliation>Amazon</affiliation></author>
+      <author><first>Atanu</first><last>Roy</last><affiliation>Amazon</affiliation></author>
+      <pages>206-214</pages>
+      <abstract>Early identification of Adverse Drug Events (ADE) is critical for taking prompt actions while introducing new drugs into the market. These ADEs information are available through various unstructured data sources like clinical study reports, patient health records, social media posts, etc. Extracting ADEs and the related suspect drugs using machine learning is a challenging task due to the complex linguistic relations between drug ADE pairs in textual data and unavailability of large corpus of labelled datasets. This paper introduces ADEQA, a question- answer(QA) based approach using quasi supervised labelled data and sequence-to-sequence transformers to extract ADEs, drug suspects and the relationships between them. Unlike traditional QA models, natural language generation (NLG) based models don’t require extensive token level labelling and thereby reduces the adoption barrier significantly. On a public ADE corpus, we were able to achieve state-of-the-art results with an F1 score of 94% on establishing the relationships between ADEs and the respective suspects.</abstract>
+      <url hash="000d3d34">2023.bionlp-1.17</url>
+      <bibkey>arannil-etal-2023-adeqa</bibkey>
+      <doi>10.18653/v1/2023.bionlp-1.17</doi>
+      <video href="2023.bionlp-1.17.mp4"/>
+    </paper>
+    <paper id="18">
+      <title>Privacy Aware Question-Answering System for Online Mental Health Risk Assessment</title>
+      <author><first>Prateek</first><last>Chhikara</last><affiliation>University of Southern California</affiliation></author>
+      <author><first>Ujjwal</first><last>Pasupulety</last><affiliation>University of Southern California</affiliation></author>
+      <author><first>John</first><last>Marshall</last><affiliation>University of Southern California</affiliation></author>
+      <author><first>Dhiraj</first><last>Chaurasia</last><affiliation>University of Southern California</affiliation></author>
+      <author><first>Shweta</first><last>Kumari</last><affiliation>University of Southern California</affiliation></author>
+      <pages>215-222</pages>
+      <abstract>Social media platforms have enabled individuals suffering from mental illnesses to share their lived experiences and find the online support necessary to cope. However, many users fail to receive genuine clinical support, thus exacerbating their symptoms. Screening users based on what they post online can aid providers in administering targeted healthcare and minimize false positives. Pre-trained Language Models (LMs) can assess users’ social media data and classify them in terms of their mental health risk. We propose a Question-Answering (QA) approach to assess mental health risk using the Unified-QA model on two large mental health datasets. To protect user data, we extend Unified-QA by anonymizing the model training process using differential privacy. Our results demonstrate the effectiveness of modeling risk assessment as a QA task, specifically for mental health use cases. Furthermore, the model’s performance decreases by less than 1% with the inclusion of differential privacy. The proposed system’s performance is indicative of a promising research direction that will lead to the development of privacy-aware diagnostic systems.</abstract>
+      <url hash="066cd6b5">2023.bionlp-1.18</url>
+      <bibkey>chhikara-etal-2023-privacy</bibkey>
+      <doi>10.18653/v1/2023.bionlp-1.18</doi>
+    </paper>
+    <paper id="19">
+      <title><fixed-case>A</fixed-case>li<fixed-case>BERT</fixed-case>: A Pre-trained Language Model for <fixed-case>F</fixed-case>rench Biomedical Text</title>
+      <author><first>Aman</first><last>Berhe</last><affiliation>SU/IRD UMMISCO &amp; Quinten</affiliation></author>
+      <author><first>Guillaume</first><last>Draznieks</last><affiliation>Quinten</affiliation></author>
+      <author><first>Vincent</first><last>Martenot</last><affiliation>Quinten</affiliation></author>
+      <author><first>Valentin</first><last>Masdeu</last><affiliation>Quinten</affiliation></author>
+      <author><first>Lucas</first><last>Davy</last><affiliation>Quinten</affiliation></author>
+      <author><first>Jean-Daniel</first><last>Zucker</last><affiliation>Su/ird, Ummisco</affiliation></author>
+      <pages>223-236</pages>
+      <abstract>Over the past few years, domain specific pretrained language models have been investigated and have shown remarkable achievements in different downstream tasks, especially in biomedical domain. These achievements stem on the well known BERT architecture which uses an attention based self-supervision for context learning of textual documents. However, these domain specific biomedical pretrained language models mainly use English corpora. Therefore, non-English, domain-specific pretrained models remain quite rare, both of these requirements being hard to achieve. In this work, we proposed AliBERT, a biomedical pretrained language model for French and investigated different learning strategies. AliBERT is trained using regularized Unigram based tokenizer trained for this purpose. AliBERT has achieved state of the art F1 and accuracy scores in different down-stream biomedical tasks. Our pretrained model manages to outperform some French non domain-specific models such as CamemBERT and FlauBERT on diverse down-stream tasks, with less pretraining and training time and with much smaller corpora.</abstract>
+      <url hash="6d297b1b">2023.bionlp-1.19</url>
+      <bibkey>berhe-etal-2023-alibert</bibkey>
+      <doi>10.18653/v1/2023.bionlp-1.19</doi>
+    </paper>
+    <paper id="20">
+      <title>Multiple Evidence Combination for Fact-Checking of Health-Related Information</title>
+      <author><first>Pritam</first><last>Deka</last><affiliation>Queen’s University Belfast</affiliation></author>
+      <author><first>Anna</first><last>Jurek-Loughrey</last><affiliation>Queen’s University Belfast</affiliation></author>
+      <author><first>Deepak</first><last>P</last><affiliation>Queen’s University Belfast</affiliation></author>
+      <pages>237-247</pages>
+      <abstract>Fact-checking of health-related claims has become necessary in this digital age, where any information posted online is easily available to everyone. The most effective way to verify such claims is by using evidences obtained from reliable sources of medical knowledge, such as PubMed. Recent advances in the field of NLP have helped automate such fact-checking tasks. In this work, we propose a domain-specific BERT-based model using a transfer learning approach for the task of predicting the veracity of claim-evidence pairs for the verification of health-related facts. We also improvise on a method to combine multiple evidences retrieved for a single claim, taking into consideration conflicting evidences as well. We also show how our model can be exploited when labelled data is available and how back-translation can be used to augment data when there is data scarcity.</abstract>
+      <url hash="325c7f20">2023.bionlp-1.20</url>
+      <bibkey>deka-etal-2023-multiple</bibkey>
+      <doi>10.18653/v1/2023.bionlp-1.20</doi>
+    </paper>
+    <paper id="21">
+      <title>Building a Corpus for Biomedical Relation Extraction of Species Mentions</title>
+      <author><first>Oumaima</first><last>El Khettari</last><affiliation>Nantes Universit - LS2N</affiliation></author>
+      <author><first>Solen</first><last>Quiniou</last><affiliation>Nantes Universit - LS2N</affiliation></author>
+      <author><first>Samuel</first><last>Chaffron</last><affiliation>Nantes Universit - LS2N</affiliation></author>
+      <pages>248-254</pages>
+      <abstract>We present a manually annotated new corpus, Species-Species Interaction (SSI), for extracting meaningful binary relations between species, in biomedical texts, at sentence level, with a focus on the gut microbiota. The corpus leverages PubTator to annotate species in full-text articles after evaluating different NER species taggers. Our first results are promising for extracting relations between species using BERT and its biomedical variants.</abstract>
+      <url hash="90f33579">2023.bionlp-1.21</url>
+      <bibkey>el-khettari-etal-2023-building</bibkey>
+      <doi>10.18653/v1/2023.bionlp-1.21</doi>
+    </paper>
+    <paper id="22">
+      <title>Automated Extraction of Molecular Interactions and Pathway Knowledge using Large Language Model, Galactica: Opportunities and Challenges</title>
+      <author><first>Gilchan</first><last>Park</last><affiliation>Brookhaven National Laboratory</affiliation></author>
+      <author><first>Byung-Jun</first><last>Yoon</last><affiliation>Brookhaven National Laboratory</affiliation></author>
+      <author><first>Xihaier</first><last>Luo</last><affiliation>Brookhaven National Laboratory</affiliation></author>
+      <author><first>Vanessa</first><last>Lpez-Marrero</last><affiliation>Brookhaven National Laboratory</affiliation></author>
+      <author><first>Patrick</first><last>Johnstone</last><affiliation>Brookhaven National Laboratory</affiliation></author>
+      <author><first>Shinjae</first><last>Yoo</last><affiliation>Bnl</affiliation></author>
+      <author><first>Francis</first><last>Alexander</last><affiliation>Brookhaven National Laboratory</affiliation></author>
+      <pages>255-264</pages>
+      <abstract>Understanding protein interactions and pathway knowledge is essential for comprehending living systems and investigating the mechanisms underlying various biological functions and complex diseases. While numerous databases curate such biological data obtained from literature and other sources, they are not comprehensive and require considerable effort to maintain. One mitigation strategies can be utilizing large language models to automatically extract biological information and explore their potential in life science research. This study presents an initial investigation of the efficacy of utilizing a large language model, Galactica in life science research by assessing its performance on tasks involving protein interactions, pathways, and gene regulatory relation recognition. The paper details the results obtained from the model evaluation, highlights the findings, and discusses the opportunities and challenges.</abstract>
+      <url hash="3e0e10ee">2023.bionlp-1.22</url>
+      <bibkey>park-etal-2023-automated</bibkey>
+      <doi>10.18653/v1/2023.bionlp-1.22</doi>
+    </paper>
+    <paper id="23">
+      <title>Automatic Glossary of Clinical Terminology: a Large-Scale Dictionary of Biomedical Definitions Generated from Ontological Knowledge</title>
+      <author><first>François</first><last>Remy</last><affiliation>Ghent University - imec</affiliation></author>
+      <author><first>Kris</first><last>Demuynck</last><affiliation>Ghent University - imec</affiliation></author>
+      <author><first>Thomas</first><last>Demeester</last><affiliation>Ghent University - imec</affiliation></author>
+      <pages>265-272</pages>
+      <abstract>Background: More than 400.000 biomedical concepts and some of their relationships are contained in SnomedCT, a comprehensive biomedical ontology. However, their concept names are not always readily interpretable by non-experts, or patients looking at their own electronic health records (EHR). Clear definitions or descriptions in understandable language or often not available. Therefore, generating human-readable definitions for biomedical concepts might help make the information they encode more accessible and understandable to a wider public. Objective: In this article, we introduce the Automatic Glossary of Clinical Terminology (AGCT), a large-scale biomedical dictionary of clinical concepts generated using high-quality information extracted from the biomedical knowledge contained in SnomedCT.Methods: We generate a novel definition for every SnomedCT concept, after prompting the OpenAI Turbo model, a variant of GPT 3.5, using a high-quality verbalization of the SnomedCT relationships of the to-be-defined concept. A significant subset of the generated definitions was subsequently evaluated by NLP researchers with biomedical expertise on 5-point scales along the following three axes: factuality, insight, and fluency. Results: AGCT contains 422,070 computer-generated definitions for SnomedCT concepts, covering various domains such as diseases, procedures, drugs, and anatomy. The average length of the definitions is 49 words. The definitions were assigned average scores of over 4.5 out of 5 on all three axes, indicating a majority of factual, insightful, and fluent definitions. Conclusion: AGCT is a novel and valuable resource for biomedical tasks that require human-readable definitions for SnomedCT concepts. It can also serve as a base for developing robust biomedical retrieval models or other applications that leverage natural language understanding of biomedical knowledge.</abstract>
+      <url hash="4e2ad434">2023.bionlp-1.23</url>
+      <bibkey>remy-etal-2023-automatic</bibkey>
+      <doi>10.18653/v1/2023.bionlp-1.23</doi>
+    </paper>
+    <paper id="24">
+      <title>Comparing and combining some popular <fixed-case>NER</fixed-case> approaches on Biomedical tasks</title>
+      <author><first>Harsh</first><last>Verma</last><affiliation>Concordia University</affiliation></author>
+      <author><first>Sabine</first><last>Bergler</last><affiliation>Concordia University</affiliation></author>
+      <author><first>Narjesossadat</first><last>Tahaei</last><affiliation>Concordia University</affiliation></author>
+      <pages>273-279</pages>
+      <abstract>We compare three simple and popular approaches for NER: 1) SEQ (sequence labeling with a linear token classifier) 2) SeqCRF (sequence labeling with Conditional Random Fields), and 3) SpanPred (span prediction with boundary token embeddings). We compare the approaches on 4 biomedical NER tasks: GENIA, NCBI-Disease, LivingNER (Spanish), and SocialDisNER (Spanish). The SpanPred model demonstrates state-of-the-art performance on LivingNER and SocialDisNER, improving F1 by 1.3 and 0.6 F1 respectively. The SeqCRF model also demonstrates state-of-the-art performance on LivingNER and SocialDisNER, improving F1 by 0.2 F1 and 0.7 respectively. The SEQ model is competitive with the state-of-the-art on LivingNER dataset. We explore some simple ways of combining the three approaches. We find that majority voting consistently gives high precision and high F1 across all 4 datasets. Lastly, we implement a system that learns to combine SEQ’s and SpanPred’s predictions, generating systems that give high recall and high F1 across all 4 datasets. On the GENIA dataset, we find that our learned combiner system significantly boosts F1(+1.2) and recall(+2.1) over the systems being combined.</abstract>
+      <url hash="36cd73e9">2023.bionlp-1.24</url>
+      <bibkey>verma-etal-2023-comparing</bibkey>
+      <doi>10.18653/v1/2023.bionlp-1.24</doi>
+    </paper>
+    <paper id="25">
+      <title>Extracting Drug-Drug and Protein-Protein Interactions from Text using a Continuous Update of Tree-Transformers</title>
+      <author><first>Sudipta</first><last>Singha Roy</last><affiliation>The University of Western Ontario</affiliation></author>
+      <author><first>Robert E.</first><last>Mercer</last><affiliation>The University of Western Ontario</affiliation></author>
+      <pages>280-291</pages>
+      <abstract>Understanding biological mechanisms requires determining mutual protein-protein interactions (PPI). Obtaining drug-drug interactions (DDI) from scientific articles provides important information about drugs. Extracting such medical entity interactions from biomedical articles is challenging due to complex sentence structures. To address this issue, our proposed model utilizes tree-transformers to generate the sentence representation first, and then a sentence-to-word update step to fine-tune the word embeddings which are again used by the tree-transformers to generate enriched sentence representations. Using the tree-transformers helps the model preserve syntactical information and provide semantic information. The fine-tuning provided by the continuous update step adds improved semantics to the representation of each sentence. Our model outperforms other prominent models with a significant performance boost on the five standard PPI corpora and a performance boost on the one benchmark DDI corpus that are used in our experiments.</abstract>
+      <url hash="2fb10305">2023.bionlp-1.25</url>
+      <bibkey>singha-roy-mercer-2023-extracting</bibkey>
+      <doi>10.18653/v1/2023.bionlp-1.25</doi>
+    </paper>
+    <paper id="26">
+      <title>Resolving Elliptical Compounds in <fixed-case>G</fixed-case>erman Medical Text</title>
+      <author><first>Niklas</first><last>Kammer</last><affiliation>Hasso Plattner Institute, University of Potsdam</affiliation></author>
+      <author><first>Florian</first><last>Borchert</last><affiliation>Hasso Plattner Institute, University of Potsdam</affiliation></author>
+      <author><first>Silvia</first><last>Winkler</last><affiliation>Hasso Plattner Institute, University of Potsdam</affiliation></author>
+      <author><first>Gerard</first><last>de Melo</last><affiliation>HPI/University of Potsdam</affiliation></author>
+      <author><first>Matthieu-P.</first><last>Schapranow</last><affiliation>Hasso Plattner Institute, University of Potsdam</affiliation></author>
+      <pages>292-305</pages>
+      <abstract>Elliptical coordinated compound noun phrases (ECCNPs), a special kind of coordination ellipsis, are a common phenomenon in German medical texts. As their presence is known to affect the performance in downstream tasks such as entity extraction and disambiguation, their resolution can be a useful preprocessing step in information extraction pipelines. In this work, we present a new comprehensive dataset of more than 4,000 manually annotated ECCNPs in German medical text, along with the respective ground truth resolutions. Based on this data, we propose a generative encoder-decoder Transformer model, allowing for a simple end-to-end resolution of ECCNPs from raw input strings with very high accuracy (90.5% exact match score). We compare our approach to an elaborate rule-based baseline, which the generative model outperforms by a large margin. We further investigate different scenarios for prompting large language models (LLM) to resolve ECCNPs. In a zero-shot setting, performance is remarkably poor (21.6% exact matches), as the LLM tends to apply complex changes to the inputs unrelated to our specific task. We also find no improvement over the generative model when using the LLM for post-filtering of generated candidate resolutions.</abstract>
+      <url hash="80908436">2023.bionlp-1.26</url>
+      <bibkey>kammer-etal-2023-resolving</bibkey>
+      <doi>10.18653/v1/2023.bionlp-1.26</doi>
+    </paper>
+    <paper id="27">
+      <title>Augmenting <fixed-case>R</fixed-case>eddit Posts to Determine Wellness Dimensions impacting Mental Health</title>
+      <author><first>Chandreen</first><last>Liyanage</last><affiliation>Lakehead University</affiliation></author>
+      <author><first>Muskan</first><last>Garg</last><affiliation>Mayo Clinic</affiliation></author>
+      <author><first>Vijay</first><last>Mago</last><affiliation>Lakehead University</affiliation></author>
+      <author><first>Sunghwan</first><last>Sohn</last><affiliation>Mayo Clinic</affiliation></author>
+      <pages>306-312</pages>
+      <abstract>Amid ongoing health crisis, there is a growing necessity to discern possible signs of Wellness Dimensions (WD) manifested in self-narrated text. As the distribution of WD on social media data is intrinsically imbalanced, we experiment the generative AI techniques for data augmentation to enable further improvement in the pre-screening task of classifying WD. To this end, we propose a simple yet effective data augmentation approach through prompt-based Generative AI models, and evaluate the ROUGE scores and syntactic/ semantic similarity among existing interpretations and augmented data. Our approach with ChatGPT model surpasses all the other methods and achieves improvement over baselines such as Easy-Data Augmentation (EDA) and Backtranslation (BT).</abstract>
+      <url hash="66ec9bea">2023.bionlp-1.27</url>
+      <bibkey>liyanage-etal-2023-augmenting</bibkey>
+      <doi>10.18653/v1/2023.bionlp-1.27</doi>
+    </paper>
+    <paper id="28">
+      <title>End-to-end clinical temporal information extraction with multi-head attention</title>
+      <author><first>Timothy</first><last>Miller</last><affiliation>Boston Children’s Hospital and Harvard Medical School</affiliation></author>
+      <author><first>Steven</first><last>Bethard</last><affiliation>University of Arizona</affiliation></author>
+      <author><first>Dmitriy</first><last>Dligach</last><affiliation>Loyola University Chicago</affiliation></author>
+      <author><first>Guergana</first><last>Savova</last><affiliation>Boston Children’s Hospital and Harvard Medical School</affiliation></author>
+      <pages>313-319</pages>
+      <abstract>Understanding temporal relationships in text from electronic health records can be valuable for many important downstream clinical applications. Since Clinical TempEval 2017, there has been little work on end-to-end systems for temporal relation extraction, with most work focused on the setting where gold standard events and time expressions are given. In this work, we make use of a novel multi-headed attention mechanism on top of a pre-trained transformer encoder to allow the learning process to attend to multiple aspects of the contextualized embeddings. Our system achieves state of the art results on the THYME corpus by a wide margin, in both the in-domain and cross-domain settings.</abstract>
+      <url hash="04139f20">2023.bionlp-1.28</url>
+      <bibkey>miller-etal-2023-end</bibkey>
+      <doi>10.18653/v1/2023.bionlp-1.28</doi>
+    </paper>
+    <paper id="29">
+      <title>Intermediate Domain Finetuning for Weakly Supervised Domain-adaptive Clinical <fixed-case>NER</fixed-case></title>
+      <author><first>Shilpa</first><last>Suresh</last><affiliation>Boston Children’s Hospital, Harvard Medical School</affiliation></author>
+      <author><first>Nazgol</first><last>Tavabi</last><affiliation>Boston Children’s Hospital, Harvard Medical School</affiliation></author>
+      <author><first>Shahriar</first><last>Golchin</last><affiliation>Boston Children’s Hospital, Harvard Medical School</affiliation></author>
+      <author><first>Leah</first><last>Gilreath</last><affiliation>Boston Children’s Hospital, Harvard Medical School</affiliation></author>
+      <author><first>Rafael</first><last>Garcia-Andujar</last><affiliation>Boston Children’s Hospital, Harvard Medical School</affiliation></author>
+      <author><first>Alexander</first><last>Kim</last><affiliation>Boston Children’s Hospital, Harvard Medical School</affiliation></author>
+      <author><first>Joseph</first><last>Murray</last><affiliation>Boston Children’s Hospital, Harvard Medical School</affiliation></author>
+      <author><first>Blake</first><last>Bacevich</last><affiliation>Boston Children’s Hospital, Harvard Medical School</affiliation></author>
+      <author><first>Ata</first><last>Kiapour</last><affiliation>Boston Children’s Hospital, Harvard Medical School</affiliation></author>
+      <pages>320-325</pages>
+      <abstract>Accurate human-annotated data for real-worlduse cases can be scarce and expensive to obtain. In the clinical domain, obtaining such data is evenmore difficult due to privacy concerns which notonly restrict open access to quality data but also require that the annotation be done by domain experts. In this paper, we propose a novel framework - InterDAPT - that leverages Intermediate Domain Finetuning to allow language models to adapt to narrow domains with small, noisy datasets. By making use of peripherally-related, unlabeled datasets,this framework circumvents domain-specific datascarcity issues. Our results show that this weaklysupervised framework provides performance improvements in downstream clinical named entityrecognition tasks.</abstract>
+      <url hash="2523677b">2023.bionlp-1.29</url>
+      <bibkey>suresh-etal-2023-intermediate</bibkey>
+      <doi>10.18653/v1/2023.bionlp-1.29</doi>
+      <video href="2023.bionlp-1.29.mp4"/>
+    </paper>
+    <paper id="30">
+      <title>Evaluation of <fixed-case>C</fixed-case>hat<fixed-case>GPT</fixed-case> on Biomedical Tasks: A Zero-Shot Comparison with Fine-Tuned Generative Transformers</title>
+      <author><first>Israt</first><last>Jahan</last><affiliation>York University</affiliation></author>
+      <author><first>Md Tahmid Rahman</first><last>Laskar</last><affiliation>Dialpad Inc</affiliation></author>
+      <author><first>Chun</first><last>Peng</last><affiliation>York University</affiliation></author>
+      <author><first>Jimmy</first><last>Huang</last><affiliation>School of Information Technology, York University</affiliation></author>
+      <pages>326-336</pages>
+      <abstract>ChatGPT is a large language model developed by OpenAI. Despite its impressive performance across various tasks, no prior work has investigated its capability in the biomedical domain yet. To this end, this paper aims to evaluate the performance of ChatGPT on various benchmark biomedical tasks, such as relation extraction, document classification, question answering, and summarization. To the best of our knowledge, this is the first work that conducts an extensive evaluation of ChatGPT in the biomedical domain. Interestingly, we find based on our evaluation that in biomedical datasets that have smaller training sets, zero-shot ChatGPT even outperforms the state-of-the-art fine-tuned generative transformer models, such as BioGPT and BioBART. This suggests that ChatGPT’s pre-training on large text corpora makes it quite specialized even in the biomedical domain. Our findings demonstrate that ChatGPT has the potential to be a valuable tool for various tasks in the biomedical domain that lack large annotated data.</abstract>
+      <url hash="87a3930d">2023.bionlp-1.30</url>
+      <bibkey>jahan-etal-2023-evaluation</bibkey>
+      <doi>10.18653/v1/2023.bionlp-1.30</doi>
+    </paper>
+    <paper id="31">
+      <title><fixed-case>BIO</fixed-case>ptimus: Pre-training an Optimal Biomedical Language Model with Curriculum Learning for Named Entity Recognition</title>
+      <author><first>Vera</first><last>Pavlova</last><affiliation>Rttl.ai</affiliation></author>
+      <author><first>Mohammed</first><last>Makhlouf</last><affiliation>Rttl.ai</affiliation></author>
+      <pages>337-349</pages>
+      <abstract>Using language models (LMs) pre-trained in a self-supervised setting on large corpora and then fine-tuning for a downstream task has helped to deal with the problem of limited label data for supervised learning tasks such as Named Entity Recognition (NER). Recent research in biomedical language processing has offered a number of biomedical LMs pre-trained using different methods and techniques that advance results on many BioNLP tasks, including NER. However, there is still a lack of a comprehensive comparison of pre-training approaches that would work more optimally in the biomedical domain. This paper aims to investigate different pre-training methods, such as pre-training the biomedical LM from scratch and pre-training it in a continued fashion. We compare existing methods with our proposed pre-training method of initializing weights for new tokens by distilling existing weights from the BERT model inside the context where the tokens were found. The method helps to speed up the pre-training stage and improve performance on NER. In addition, we compare how masking rate, corruption strategy, and masking strategies impact the performance of the biomedical LM. Finally, using the insights from our experiments, we introduce a new biomedical LM (BIOptimus), which is pre-trained using Curriculum Learning (CL) and contextualized weight distillation method. Our model sets new states of the art on several biomedical Named Entity Recognition (NER) tasks. We release our code and all pre-trained models.</abstract>
+      <url hash="7e992083">2023.bionlp-1.31</url>
+      <bibkey>pavlova-makhlouf-2023-bioptimus</bibkey>
+      <doi>10.18653/v1/2023.bionlp-1.31</doi>
+      <video href="2023.bionlp-1.31.mp4"/>
+    </paper>
+    <paper id="32">
+      <title>Biomedical Language Models are Robust to Sub-optimal Tokenization</title>
+      <author><first>Bernal</first><last>Jimenez Gutierrez</last><affiliation>The Ohio State University</affiliation></author>
+      <author><first>Huan</first><last>Sun</last><affiliation>The Ohio State University</affiliation></author>
+      <author><first>Yu</first><last>Su</last><affiliation>The Ohio State University</affiliation></author>
+      <pages>350-362</pages>
+      <abstract>As opposed to general English, many concepts in biomedical terminology have been designed in recent history by biomedical professionals with the goal of being precise and concise. This is often achieved by concatenating meaningful biomedical morphemes to create new semantic units. Nevertheless, most modern biomedical language models (LMs) are pre-trained using standard domain-specific tokenizers derived from large scale biomedical corpus statistics without explicitly leveraging the agglutinating nature of biomedical language. In this work, we first find that standard open-domain and biomedical tokenizers are largely unable to segment biomedical terms into meaningful components. Therefore, we hypothesize that using a tokenizer which segments biomedical terminology more accurately would enable biomedical LMs to improve their performance on downstream biomedical NLP tasks, especially ones which involve biomedical terms directly such as named entity recognition (NER) and entity linking. Surprisingly, we find that pre-training a biomedical LM using a more accurate biomedical tokenizer does not improve the entity representation quality of a language model as measured by several intrinsic and extrinsic measures such as masked language modeling prediction (MLM) accuracy as well as NER and entity linking performance. These quantitative findings, along with a case study which explores entity representation quality more directly, suggest that the biomedical pre-training process is quite robust to instances of sub-optimal tokenization.</abstract>
+      <url hash="7c7a0904">2023.bionlp-1.32</url>
+      <bibkey>jimenez-gutierrez-etal-2023-biomedical</bibkey>
+      <doi>10.18653/v1/2023.bionlp-1.32</doi>
+      <video href="2023.bionlp-1.32.mp4"/>
+    </paper>
+    <paper id="33">
+      <title>Distantly Supervised Document-Level Biomedical Relation Extraction with Neighborhood Knowledge Graphs</title>
+      <author><first>Takuma</first><last>Matsubara</last><affiliation>Toyota Technological Institute</affiliation></author>
+      <author><first>Makoto</first><last>Miwa</last><affiliation>Toyota Technological Institute</affiliation></author>
+      <author><first>Yutaka</first><last>Sasaki</last><affiliation>Toyota Technological Institute</affiliation></author>
+      <pages>363-368</pages>
+      <abstract>We propose a novel distantly supervised document-level biomedical relation extraction model that uses partial knowledge graphs that include the graph neighborhood of the entities appearing in each input document. Most conventional distantly supervised relation extraction methods use only the entity relations automatically annotated by using knowledge base entries. They do not fully utilize the rich information in the knowledge base, such as entities other than the target entities and the network of heterogeneous entities defined in the knowledge base. To address this issue, our model integrates the representations of the entities acquired from the neighborhood knowledge graphs with the representations of the input document. We conducted experiments on the ChemDisGene dataset using Comparative Toxicogenomics Database (CTD) for document-level relation extraction with respect to interactions between drugs, diseases, and genes. Experimental results confirmed the performance improvement by integrating entities and their neighborhood biochemical information from the knowledge base.</abstract>
+      <url hash="c3e164e3">2023.bionlp-1.33</url>
+      <bibkey>matsubara-etal-2023-distantly</bibkey>
+      <doi>10.18653/v1/2023.bionlp-1.33</doi>
+      <video href="2023.bionlp-1.33.mp4"/>
+    </paper>
+    <paper id="34">
+      <title><fixed-case>B</fixed-case>io<fixed-case>NART</fixed-case>: A Biomedical Non-<fixed-case>A</fixed-case>uto<fixed-case>R</fixed-case>egressive Transformer for Natural Language Generation</title>
+      <author><first>Masaki</first><last>Asada</last><affiliation>National Institute of Advanced Industrial Science and Technology</affiliation></author>
+      <author><first>Makoto</first><last>Miwa</last><affiliation>Toyota Technological Institute</affiliation></author>
+      <pages>369-376</pages>
+      <abstract>We propose a novel Biomedical domain-specific Non-AutoRegressive Transformer model for natural language generation: BioNART. Our BioNART is based on an encoder-decoder model, and both encoder and decoder are compatible with widely used BERT architecture, which allows benefiting from publicly available pre-trained biomedical language model checkpoints. We performed additional pre-training and fine-tuned BioNART on biomedical summarization and doctor-patient dialogue tasks. Experimental results show that our BioNART achieves about 94% of the ROUGE score to the pre-trained autoregressive model while realizing an 18 times faster inference speed on the iCliniq dataset.</abstract>
+      <url hash="616f73ec">2023.bionlp-1.34</url>
+      <bibkey>asada-miwa-2023-bionart</bibkey>
+      <doi>10.18653/v1/2023.bionlp-1.34</doi>
+    </paper>
+    <paper id="35">
+      <title>Biomedical Relation Extraction with Entity Type Markers and Relation-specific Question Answering</title>
+      <author><first>Koshi</first><last>Yamada</last><affiliation>Toyota Technological Institute</affiliation></author>
+      <author><first>Makoto</first><last>Miwa</last><affiliation>Toyota Technological Institute</affiliation></author>
+      <author><first>Yutaka</first><last>Sasaki</last><affiliation>Toyota Technological Institute</affiliation></author>
+      <pages>377-384</pages>
+      <abstract>Recently, several methods have tackled the relation extraction task with QA and have shown successful results. However, the effectiveness of existing methods in specific domains, such as the biomedical domain, is yet to be verified. When there are multiple entity pairs that share an entity in a sentence, a QA-based relation extraction model that outputs only one single answer to a given question may not extract desired relations. In addition, these methods employ QA models that are not tuned for relation extraction. To address these issues, we first extend and apply a span QA-based relation extraction method to the drug-protein relation extraction by creating question templates and incorporating entity type markers. We further propose a binary QA-based method that directly uses the entity information available in the relation extraction task. The experimental results on the DrugProt dataset show that our QA-based methods, especially the proposed binary QA method, are effective for drug-protein relation extraction.</abstract>
+      <url hash="0911e9d1">2023.bionlp-1.35</url>
+      <bibkey>yamada-etal-2023-biomedical</bibkey>
+      <doi>10.18653/v1/2023.bionlp-1.35</doi>
+      <video href="2023.bionlp-1.35.mp4"/>
+    </paper>
+    <paper id="36">
+      <title>Biomedical Document Classification with Literature Graph Representations of Bibliographies and Entities</title>
+      <author><first>Ryuki</first><last>Ida</last><affiliation>Toyota Technological Institute</affiliation></author>
+      <author><first>Makoto</first><last>Miwa</last><affiliation>Toyota Technological Institute</affiliation></author>
+      <author><first>Yutaka</first><last>Sasaki</last><affiliation>Toyota Technological Institute</affiliation></author>
+      <pages>385-395</pages>
+      <abstract>This paper proposes a new document classification method that incorporates the representations of a literature graph created from bibliographic and entity information. Recently, document classification performance has been significantly improved with large pre-trained language models; however, there still remain documents that are difficult to classify. External information, such as bibliographic information, citation links, descriptions of entities, and medical taxonomies, has been considered one of the keys to dealing with such documents in document classification. Although several document classification methods using external information have been proposed, they only consider limited relationships, e.g., word co-occurrence and citation relationships. However, there are multiple types of external information. To overcome the limitation of the conventional use of external information, we propose a document classification model that simultaneously considers bibliographic and entity information to deeply model the relationships among documents using the representations of the literature graph. The experimental results show that our proposed method outperforms existing methods on two document classification datasets in the biomedical domain with the help of the literature graph.</abstract>
+      <url hash="94c2776c">2023.bionlp-1.36</url>
+      <bibkey>ida-etal-2023-biomedical</bibkey>
+      <doi>10.18653/v1/2023.bionlp-1.36</doi>
+      <video href="2023.bionlp-1.36.mp4"/>
+    </paper>
+    <paper id="37">
+      <title>Zero-Shot Information Extraction for Clinical Meta-Analysis using Large Language Models</title>
+      <author><first>David</first><last>Kartchner</last><affiliation>Enveda Biosciences; Georgia Institute of Technology</affiliation></author>
+      <author><first>Selvi</first><last>Ramalingam</last><affiliation>Emory University</affiliation></author>
+      <author><first>Irfan</first><last>Al-Hussaini</last><affiliation>Georgia Institute of Technology</affiliation></author>
+      <author><first>Olivia</first><last>Kronick</last><affiliation>Georgia Institute of Technology</affiliation></author>
+      <author><first>Cassie</first><last>Mitchell</last><affiliation>Georgia Institute of Technology</affiliation></author>
+      <pages>396-405</pages>
+      <abstract>Meta-analysis of randomized clinical trials (RCTs) plays a crucial role in evidence-based medicine but can be labor-intensive and error-prone. This study explores the use of large language models to enhance the efficiency of aggregating results from randomized clinical trials (RCTs) at scale. We perform a detailed comparison of the performance of these models in zero-shot prompt-based information extraction from a diverse set of RCTs to traditional manual annotation methods. We analyze the results for two different meta-analyses aimed at drug repurposing in cancer therapy pharmacovigilience in chronic myeloid leukemia. Our findings reveal that the best model for the two demonstrated tasks, ChatGPT can generally extract correct information and identify when the desired information is missing from an article. We additionally conduct a systematic error analysis, documenting the prevalence of diverse error types encountered during the process of prompt-based information extraction.</abstract>
+      <url hash="141d8e84">2023.bionlp-1.37</url>
+      <bibkey>kartchner-etal-2023-zero</bibkey>
+      <doi>10.18653/v1/2023.bionlp-1.37</doi>
+    </paper>
+    <paper id="38">
+      <title>Can Social Media Inform Dietary Approaches for Health Management? A Dataset and Benchmark for Low-Carb Diet</title>
+      <author><first>Skyler</first><last>Zou</last><affiliation>Csiro</affiliation></author>
+      <author><first>Xiang</first><last>Dai</last><affiliation>Csiro</affiliation></author>
+      <author><first>Grant</first><last>Brinkworth</last><affiliation>Csiro</affiliation></author>
+      <author><first>Pennie</first><last>Taylor</last><affiliation>Csiro</affiliation></author>
+      <author><first>Sarvnaz</first><last>Karimi</last><affiliation>Csiro</affiliation></author>
+      <pages>406-412</pages>
+      <abstract>Social media offers an accessible avenue for individuals of diverse backgrounds and circumstances to share their unique perspectives and experiences. Our study focuses on the experience of low carbohydrate diets, motivated by recent research and clinical trials that elucidates the diet’s promising health benefits. Given the lack of any suitable annotated dataset in this domain, we first define an annotation schema that reflects the interests of healthcare professionals and then manually annotate data from the Reddit social network. Finally, we benchmark the effectiveness of several classification approaches that are based on statistical Support Vector Machines (SVM) classifier, pre-train-then-finetune RoBERTa classifier, and, off-the-shelf ChatGPT API, on our annotated dataset. Our annotations and scripts that are used to download the Reddit posts are publicly available at <url>https://data.csiro.au/collection/csiro:59208</url>.</abstract>
+      <url hash="b4fbdae9">2023.bionlp-1.38</url>
+      <bibkey>zou-etal-2023-social</bibkey>
+      <doi>10.18653/v1/2023.bionlp-1.38</doi>
+    </paper>
+    <paper id="39">
+      <title>Promoting Fairness in Classification of Quality of Medical Evidence</title>
+      <author><first>Simon</first><last>Suster</last><affiliation>University of Melbourne</affiliation></author>
+      <author><first>Timothy</first><last>Baldwin</last><affiliation>Mbzuai</affiliation></author>
+      <author><first>Karin</first><last>Verspoor</last><affiliation>RMIT University</affiliation></author>
+      <pages>413-426</pages>
+      <abstract>Automatically rating the quality of published research is a critical step in medical evidence synthesis. While several methods have been proposed, their algorithmic fairness has been overlooked even though significant risks may follow when such systems are deployed in biomedical contexts. In this work, we study fairness on two systems along two sensitive attributes, participant sex and medical area. In some cases, we find important inequalities, leading us to apply various debiasing methods. Upon examining an interplay of systems’ predictive performance, fairness, as well as medically critical selective classification capabilities and calibration performance, we find that fairness can sometimes improve through debiasing, but at a cost in other performance measures.</abstract>
+      <url hash="04ef0842">2023.bionlp-1.39</url>
+      <bibkey>suster-etal-2023-promoting</bibkey>
+      <doi>10.18653/v1/2023.bionlp-1.39</doi>
+      <video href="2023.bionlp-1.39.mp4"/>
+    </paper>
+    <paper id="40">
+      <title><fixed-case>W</fixed-case>e<fixed-case>LT</fixed-case>: Improving Biomedical Fine-tuned Pre-trained Language Models with Cost-sensitive Learning</title>
+      <author><first>Ghadeer</first><last>Mobasher</last><affiliation>Heidelberg Institute for Theoretical Studies (HITS gGmbH),</affiliation></author>
+      <author><first>Wolfgang</first><last>Müller</last><affiliation>Heidelberg Institute for Theoretical Studies HITS gGmbH</affiliation></author>
+      <author><first>Olga</first><last>Krebs</last><affiliation>Heidelberg Institute for Theoretical Studies HITS gGmbH</affiliation></author>
+      <author><first>Michael</first><last>Gertz</last><affiliation>Institute of Computer Science Heidelberg University, Heidelberg, Germany</affiliation></author>
+      <pages>427-438</pages>
+      <abstract>Fine-tuning biomedical pre-trained language models (BioPLMs) such as BioBERT has become a common practice dominating leaderboards across various natural language processing tasks. Despite their success and wide adoption, prevailing fine-tuning approaches for named entity recognition (NER) naively train BioPLMs on targeted datasets without considering class distributions. This is problematic especially when dealing with imbalanced biomedical gold-standard datasets for NER in which most biomedical entities are underrepresented. In this paper, we address the class imbalance problem and propose WeLT, a cost-sensitive fine-tuning approach based on new re-scaled class weights for the task of biomedical NER. We evaluate WeLT’s fine-tuning performance on mixed-domain and domain-specific BioPLMs using eight biomedical gold-standard datasets. We compare our approach against vanilla fine-tuning and three other existing re-weighting schemes. Our results show the positive impact of handling the class imbalance problem. WeLT outperforms all the vanilla fine-tuned models. Furthermore, our method demonstrates advantages over other existing weighting schemes in most experiments.</abstract>
+      <url hash="e8aba204">2023.bionlp-1.40</url>
+      <bibkey>mobasher-etal-2023-welt</bibkey>
+      <doi>10.18653/v1/2023.bionlp-1.40</doi>
+      <video href="2023.bionlp-1.40.mp4"/>
+    </paper>
+    <paper id="41">
+      <title>Hospital Discharge Summarization Data Provenance</title>
+      <author><first>Paul</first><last>Landes</last><affiliation>University of Illinois at Chicago</affiliation></author>
+      <author><first>Aaron</first><last>Chaise</last><affiliation>University of Illinois Chicago</affiliation></author>
+      <author><first>Kunal</first><last>Patel</last><affiliation>University of Illinois Chicago</affiliation></author>
+      <author><first>Sean</first><last>Huang</last><affiliation>Vanderbilt</affiliation></author>
+      <author><first>Barbara</first><last>Di Eugenio</last><affiliation>University of Illinois at Chicago</affiliation></author>
+      <pages>439-448</pages>
+      <abstract>Summarization of medical notes has been studied for decades with hospital discharge summaries garnering recent interest in the research community. While methods for summarizing these notes have been the focus, there has been little work in understanding the feasibility of this task. We believe this effort is warranted given the notes’ length and complexity, and that they are often riddled with poorly formatted structured data and redundancy in copy and pasted text. In this work, we investigate the feasibility of the summarization task by finding the origin, or data provenance, of the discharge summary’s source text. As a motivation to understanding the data challenges of the summarization task, we present DSProv, a new dataset of 51 hospital admissions annotated by clinical informatics physicians. The dataset is analyzed for semantics and the extent of copied text from human authored electronic health record (EHR) notes. We also present a novel unsupervised method of matching notes used in discharge summaries, and release our annotation dataset1 and source code to the community.</abstract>
+      <url hash="5349c972">2023.bionlp-1.41</url>
+      <bibkey>landes-etal-2023-hospital</bibkey>
+      <doi>10.18653/v1/2023.bionlp-1.41</doi>
+      <revision id="1" href="2023.bionlp-1.41v1" hash="6db66d8d"/>
+      <revision id="2" href="2023.bionlp-1.41v2" hash="5349c972" date="2023-08-10">Typo correction.</revision>
+    </paper>
+    <paper id="42">
+      <title><fixed-case>R</fixed-case>ad<fixed-case>A</fixed-case>dapt: Radiology Report Summarization via Lightweight Domain Adaptation of Large Language Models</title>
+      <author><first>Dave</first><last>Van Veen</last><affiliation>Stanford University</affiliation></author>
+      <author><first>Cara</first><last>Van Uden</last><affiliation>Stanford University</affiliation></author>
+      <author><first>Maayane</first><last>Attias</last><affiliation>Stanford</affiliation></author>
+      <author><first>Anuj</first><last>Pareek</last><affiliation>Stanford University</affiliation></author>
+      <author><first>Christian</first><last>Bluethgen</last><affiliation>Stanford University</affiliation></author>
+      <author><first>Malgorzata</first><last>Polacin</last><affiliation>Stanford University, ETH Zurich</affiliation></author>
+      <author><first>Wah</first><last>Chiu</last><affiliation>Stanford University</affiliation></author>
+      <author><first>Jean-Benoit</first><last>Delbrouck</last><affiliation>Stanford University</affiliation></author>
+      <author><first>Juan</first><last>Zambrano Chaves</last><affiliation>Stanford University</affiliation></author>
+      <author><first>Curtis</first><last>Langlotz</last><affiliation>Stanford University</affiliation></author>
+      <author><first>Akshay</first><last>Chaudhari</last><affiliation>Stanford University</affiliation></author>
+      <author><first>John</first><last>Pauly</last><affiliation>Stanford University</affiliation></author>
+      <pages>449-460</pages>
+      <abstract>We systematically investigate lightweight strategies to adapt large language models (LLMs) for the task of radiology report summarization (RRS). Specifically, we focus on domain adaptation via pretraining (on natural language, biomedical text, or clinical text) and via discrete prompting or parameter-efficient fine-tuning. Our results consistently achieve best performance by maximally adapting to the task via pretraining on clinical text and fine-tuning on RRS examples. Importantly, this method fine-tunes a mere 0.32% of parameters throughout the model, in contrast to end-to-end fine-tuning (100% of parameters). Additionally, we study the effect of in-context examples and out-of-distribution (OOD) training before concluding with a radiologist reader study and qualitative analysis. Our findings highlight the importance of domain adaptation in RRS and provide valuable insights toward developing effective natural language processing solutions for clinical tasks.</abstract>
+      <url hash="7fc72fc4">2023.bionlp-1.42</url>
+      <bibkey>van-veen-etal-2023-radadapt</bibkey>
+      <doi>10.18653/v1/2023.bionlp-1.42</doi>
+      <video href="2023.bionlp-1.42.mp4"/>
+    </paper>
+    <paper id="43">
+      <title>Overview of the Problem List Summarization (<fixed-case>P</fixed-case>rob<fixed-case>S</fixed-case>um) 2023 Shared Task on Summarizing Patients’ Active Diagnoses and Problems from Electronic Health Record Progress Notes</title>
+      <author><first>Yanjun</first><last>Gao</last><affiliation>University of Wisconsin Madison</affiliation></author>
+      <author><first>Dmitriy</first><last>Dligach</last><affiliation>Loyola University Chicago</affiliation></author>
+      <author><first>Timothy</first><last>Miller</last><affiliation>Boston Children’s Hospital and Harvard Medical School</affiliation></author>
+      <author><first>Majid</first><last>Afshar</last><affiliation>University of Wisconsin</affiliation></author>
+      <pages>461-467</pages>
+      <abstract>The BioNLP Workshop 2023 initiated the launch of a shared task on Problem List Summarization (ProbSum) in January 2023. The aim of this shared task is to attract future research efforts in building NLP models for real-world diagnostic decision support applications, where a system generating relevant and accurate diagnoses will augment the healthcare providers’ decision-making process and improve the quality of care for patients. The goal for participants is to develop models that generated a list of diagnoses and problems using input from the daily care notes collected from the hospitalization of critically ill patients. Eight teams submitted their final systems to the shared task leaderboard. In this paper, we describe the tasks, datasets, evaluation metrics, and baseline systems. Additionally, the techniques and results of the evaluation of the different approaches tried by the participating teams are summarized.</abstract>
+      <url hash="dcaf3f7a">2023.bionlp-1.43</url>
+      <bibkey>gao-etal-2023-overview</bibkey>
+      <doi>10.18653/v1/2023.bionlp-1.43</doi>
+    </paper>
+    <paper id="44">
+      <title>Overview of the BioLaySumm 2023 Shared Task on Lay Summarization of Biomedical Research Articles</title>
+      <author><first>Tomas</first><last>Goldsack</last><affiliation>University of Sheffield</affiliation></author>
+      <author><first>Zheheng</first><last>Luo</last><affiliation>University of Manchester</affiliation></author>
+      <author><first>Qianqian</first><last>Xie</last><affiliation>University of Manchester</affiliation></author>
+      <author><first>Carolina</first><last>Scarton</last><affiliation>University of Sheffield</affiliation></author>
+      <author><first>Matthew</first><last>Shardlow</last><affiliation>Manchester Metropolitan University</affiliation></author>
+      <author><first>Sophia</first><last>Ananiadou</last><affiliation>University of Manchester</affiliation></author>
+      <author><first>Chenghua</first><last>Lin</last><affiliation>Department of Computer Science, University of Sheffield</affiliation></author>
+      <pages>468-477</pages>
+      <abstract>This paper presents the results of the shared task on Lay Summarisation of Biomedical Research Articles (BioLaySumm), hosted at the BioNLP Workshop at ACL 2023. The goal of this shared task is to develop abstractive summarisation models capable of generating “lay summaries” (i.e., summaries that are comprehensible to non-technical audiences) in both a controllable and non-controllable setting. There are two subtasks: 1) Lay Summarisation, where the goal is for participants to build models for lay summary generation only, given the full article text and the corresponding abstract as input; and2) Readability-controlled Summarisation, where the goal is for participants to train models to generate both the technical abstract and the lay summary, given an article’s main text as input. In addition to overall results, we report on the setup and insights from the BioLaySumm shared task, which attracted a total of 20 participating teams across both subtasks.</abstract>
+      <url hash="fd445dbb">2023.bionlp-1.44</url>
+      <bibkey>goldsack-etal-2023-biolaysumm</bibkey>
+      <doi>10.18653/v1/2023.bionlp-1.44</doi>
+      <revision id="1" href="2023.bionlp-1.44v1" hash="408358a2"/>
+      <revision id="2" href="2023.bionlp-1.44v2" hash="fd445dbb" date="2023-09-04">Minor updates.</revision>
+      <video href="2023.bionlp-1.44.mp4"/>
+    </paper>
+    <paper id="45">
+      <title>Overview of the <fixed-case>R</fixed-case>ad<fixed-case>S</fixed-case>um23 Shared Task on Multi-modal and Multi-anatomical Radiology Report Summarization</title>
+      <author><first>Jean-Benoit</first><last>Delbrouck</last><affiliation>Stanford University</affiliation></author>
+      <author><first>Maya</first><last>Varma</last><affiliation>Stanford University</affiliation></author>
+      <author><first>Pierre</first><last>Chambon</last><affiliation>Stanford University</affiliation></author>
+      <author><first>Curtis</first><last>Langlotz</last><affiliation>Stanford University</affiliation></author>
+      <pages>478-482</pages>
+      <abstract>Radiology report summarization is a growing area of research. Given the Findings and/or Background sections of a radiology report, the goal is to generate a summary (called an Impression section) that highlights the key observations and conclusions of the radiology study. Recent efforts have released systems that achieve promising performance as measured by widely used summarization metrics such as BLEU and ROUGE. However, the research area of radiology report summarization currently faces two important limitations. First, most of the results are reported on private datasets. This limitation prevents the ability to reproduce results and fairly compare different systems and solutions. Secondly, to the best of our knowledge, most research is carried out on chest X-rays. To palliate these two limitations, we propose a radiology report summarization (RadSum) challenge on i) a new dataset of eleven different modalities and anatomies pairs based on the MIMIC-III database ii) a multimodal report summarization dataset based on MIMIC-CXR enhanced with a brand-new test-set from Stanford Hospital. In total, we received 112 submissions across 11 teams.</abstract>
+      <url hash="ae713d52">2023.bionlp-1.45</url>
+      <bibkey>delbrouck-etal-2023-overview</bibkey>
+      <doi>10.18653/v1/2023.bionlp-1.45</doi>
+      <video href="2023.bionlp-1.45.mp4"/>
+    </paper>
+    <paper id="46">
+      <title><fixed-case>GRASUM</fixed-case> at <fixed-case>B</fixed-case>io<fixed-case>L</fixed-case>ay<fixed-case>S</fixed-case>umm Task 1: Background Knowledge Grounding for Readable, Relevant, and Factual Biomedical Lay Summaries</title>
+      <author><first>Domenic</first><last>Rosati</last><affiliation>Scite</affiliation></author>
+      <pages>483-490</pages>
+      <abstract>Communication of scientific findings to the public is important for keeping non-experts informed of developments such as life-saving medical treatments. However, generating readable lay summaries from scientific documents is challenging, and currently, these summaries suffer from critical factual errors. One popular intervention for improving factuality is using additional external knowledge to provide factual grounding. However, it is unclear how these grounding sources should be retrieved, selected, or integrated, and how supplementary grounding documents might affect the readability or relevance of the generated summaries. We develop a simple method for selecting grounding sources and integrating them with source documents. We then use the BioLaySum summarization dataset to evaluate the effects of different grounding sources on summary quality. We found that grounding source documents improves the relevance and readability of lay summaries but does not improve factuality of lay summaries. This continues to be true in zero-shot summarization settings where we hypothesized that grounding might be even more important for factual lay summaries.</abstract>
+      <url hash="456d8478">2023.bionlp-1.46</url>
+      <bibkey>rosati-2023-grasum</bibkey>
+      <doi>10.18653/v1/2023.bionlp-1.46</doi>
+    </paper>
+    <paper id="47">
+      <title><fixed-case>D</fixed-case>eakin<fixed-case>NLP</fixed-case> at <fixed-case>P</fixed-case>rob<fixed-case>S</fixed-case>um 2023: Clinical Progress Note Summarization with Rules and Language <fixed-case>M</fixed-case>odels<fixed-case>C</fixed-case>linical Progress Note Summarization with Rules and Languague Models</title>
+      <author><first>Ming</first><last>Liu</last><affiliation>Deakin University</affiliation></author>
+      <author><first>Dan</first><last>Zhang</last><affiliation>Deakin University</affiliation></author>
+      <author><first>Weicong</first><last>Tan</last><affiliation>Monash University</affiliation></author>
+      <author><first>He</first><last>Zhang</last><affiliation>Cnpiec Kexin Ltd</affiliation></author>
+      <pages>491-496</pages>
+      <abstract>This paper summarizes two approaches developed for BioNLP2023 workshop task 1A: clinical problem list summarization. We develop two types of methods with either rules or pre-trained language models. In the rule-based summarization model, we leverage UMLS (Unified Medical Language System) and a negation detector to extract text spans to represent the summary. We also fine tune three pre-trained language models (BART, T5 and GPT2) to generate the summaries. Experiment results show the rule based system returns extractive summaries but lower ROUGE-L score (0.043), while the fine tuned T5 returns a higher ROUGE-L score (0.208).</abstract>
+      <url hash="8444efaf">2023.bionlp-1.47</url>
+      <bibkey>liu-etal-2023-deakinnlp</bibkey>
+      <doi>10.18653/v1/2023.bionlp-1.47</doi>
+    </paper>
+    <paper id="48">
+      <title><fixed-case>TALP</fixed-case>-<fixed-case>UPC</fixed-case> at <fixed-case>P</fixed-case>rob<fixed-case>S</fixed-case>um 2023: Fine-tuning and Data Augmentation Strategies for <fixed-case>NER</fixed-case></title>
+      <author><first>Neil</first><last>Torrero</last><affiliation>Upc</affiliation></author>
+      <author><first>Gerard</first><last>Sant</last><affiliation>Universitat politcnica de catalunya</affiliation></author>
+      <author><first>Carlos</first><last>Escolano</last><affiliation>Universitat Politcnica de Catalunya</affiliation></author>
+      <pages>497-502</pages>
+      <abstract>This paper describes the submission of the TALP-UPC team to the Problem List Summarization task from the BioNLP 2023 workshop. This task consists of automatically extracting a list of health issues from the e-health medical record of a given patient. Our submission combines additional steps of data annotationwith finetuning of BERT pre-trained language models. Our experiments focus on the impact of finetuning on different datasets as well as the addition of data augmentation techniques to delay overfitting.</abstract>
+      <url hash="cfa72171">2023.bionlp-1.48</url>
+      <bibkey>torrero-etal-2023-talp</bibkey>
+      <doi>10.18653/v1/2023.bionlp-1.48</doi>
+    </paper>
+    <paper id="49">
+      <title>Team:<fixed-case>PULSAR</fixed-case> at <fixed-case>P</fixed-case>rob<fixed-case>S</fixed-case>um 2023:<fixed-case>PULSAR</fixed-case>: Pre-training with Extracted Healthcare Terms for Summarising Patients’ Problems and Data Augmentation with Black-box Large Language Models</title>
+      <author><first>Hao</first><last>Li</last><affiliation>University of Manchester</affiliation></author>
+      <author><first>Yuping</first><last>Wu</last><affiliation>University of Manchester</affiliation></author>
+      <author><first>Viktor</first><last>Schlegel</last><affiliation>Asus Aics</affiliation></author>
+      <author><first>Riza</first><last>Batista-Navarro</last><affiliation>Department of Computer Science, The University of Manchester</affiliation></author>
+      <author><first>Thanh-Tung</first><last>Nguyen</last><affiliation>Asus</affiliation></author>
+      <author><first>Abhinav</first><last>Ramesh Kashyap</last><affiliation>Asus Aics</affiliation></author>
+      <author><first>Xiao-Jun</first><last>Zeng</last><affiliation>University of Manchester</affiliation></author>
+      <author><first>Daniel</first><last>Beck</last><affiliation>University of Melbourne</affiliation></author>
+      <author><first>Stefan</first><last>Winkler</last><affiliation>National University of Singapore</affiliation></author>
+      <author><first>Goran</first><last>Nenadic</last><affiliation>University of Manchester</affiliation></author>
+      <pages>503-509</pages>
+      <abstract>Medical progress notes play a crucial role in documenting a patient’s hospital journey, including his or her condition, treatment plan, and any updates for healthcare providers. Automatic summarisation of a patient’s problems in the form of a “problem list” can aid stakeholders in understanding a patient’s condition, reducing workload and cognitive bias. BioNLP 2023 Shared Task 1A focusses on generating a list of diagnoses and problems from the provider’s progress notes during hospitalisation. In this paper, we introduce our proposed approach to this task, which integrates two complementary components. One component employs large language models (LLMs) for data augmentation; the other is an abstractive summarisation LLM with a novel pre-training objective for generating the patients’ problems summarised as a list. Our approach was ranked second among all submissions to the shared task. The performance of our model on the development and test datasets shows that our approach is more robust on unknown data, with an improvement of up to 3.1 points over the same size of the larger model.</abstract>
+      <url hash="9463c73b">2023.bionlp-1.49</url>
+      <bibkey>li-etal-2023-team</bibkey>
+      <doi>10.18653/v1/2023.bionlp-1.49</doi>
+    </paper>
+    <paper id="50">
+      <title>Team Converge at <fixed-case>P</fixed-case>rob<fixed-case>S</fixed-case>um 2023: Abstractive Text Summarization of Patient Progress Notes</title>
+      <author><first>Gaurav</first><last>Kolhatkar</last><affiliation>Pune Institute Of Computer Technology</affiliation></author>
+      <author><first>Aditya</first><last>Paranjape</last><affiliation>Pune Institute Of Computer Technology</affiliation></author>
+      <author><first>Omkar</first><last>Gokhale</last><affiliation>Pune Institute Of Computer Technology</affiliation></author>
+      <author><first>Dipali</first><last>Kadam</last><affiliation>Pune Institute Of Computer Technology</affiliation></author>
+      <pages>510-515</pages>
+      <abstract>In this paper, we elaborate on our approach for the shared task 1A issued by BioNLP Workshop 2023 titled Problem List Summarization. With an increase in the digitization of health records, a need arises for quick and precise summarization of large amounts of records. With the help of summarization, medical professionals can sieve through multiple records in a short span of time without overlooking any crucial point. We use abstractive text summarization for this task and experiment with multiple state-of-the-art models like Pegasus, BART, and T5, along with various pre-processing and data augmentation techniques to generate summaries from patients’ progress notes. For this task, the metric used was the ROUGE-L score. From our experiments, we conclude that Pegasus is the best-performing model on the dataset, achieving a ROUGE-L F1 score of 0.2744 on the test dataset (3rd rank on the leaderboard).</abstract>
+      <url hash="010a5a26">2023.bionlp-1.50</url>
+      <bibkey>kolhatkar-etal-2023-team</bibkey>
+      <doi>10.18653/v1/2023.bionlp-1.50</doi>
+      <video href="2023.bionlp-1.50.mp4"/>
+    </paper>
+    <paper id="51">
+      <title><fixed-case>CUED</fixed-case> at <fixed-case>P</fixed-case>rob<fixed-case>S</fixed-case>um 2023: Hierarchical Ensemble of Summarization Models</title>
+      <author><first>Potsawee</first><last>Manakul</last><affiliation>University of Cambridge</affiliation></author>
+      <author><first>Yassir</first><last>Fathullah</last><affiliation>University of Cambridge</affiliation></author>
+      <author><first>Adian</first><last>Liusie</last><affiliation>University of Cambridge</affiliation></author>
+      <author><first>Vyas</first><last>Raina</last><affiliation>University of Cambridge</affiliation></author>
+      <author><first>Vatsal</first><last>Raina</last><affiliation>University of Cambridge</affiliation></author>
+      <author><first>Mark</first><last>Gales</last><affiliation>Cambridge University</affiliation></author>
+      <pages>516-523</pages>
+      <abstract>In this paper, we consider the challenge of summarizing patients medical progress notes in a limited data setting. For the Problem List Summarization (shared task 1A) at the BioNLP Workshop 2023, we demonstrate that ClinicalT5 fine-tuned to 765 medical clinic notes outperforms other extractive, abstractive and zero-shot baselines, yielding reasonable baseline systems for medical note summarization. Further, we introduce Hierarchical Ensemble of Summarization Models (HESM), consisting of token-level ensembles of diverse fine-tuned ClinicalT5 models, followed by Minimum Bayes Risk (MBR) decoding. Our HESM approach lead to a considerable summarization performance boost, and when evaluated on held-out challenge data achieved a ROUGE-L of 32.77, which was the best-performing system at the top of the shared task leaderboard.</abstract>
+      <url hash="33ae2bb7">2023.bionlp-1.51</url>
+      <bibkey>manakul-etal-2023-cued</bibkey>
+      <doi>10.18653/v1/2023.bionlp-1.51</doi>
+    </paper>
+    <paper id="52">
+      <title><fixed-case>EL</fixed-case>i<fixed-case>RF</fixed-case>-<fixed-case>VRAIN</fixed-case> at <fixed-case>B</fixed-case>io<fixed-case>NLP</fixed-case> Task 1<fixed-case>B</fixed-case>: Radiology Report Summarization</title>
+      <author><first>Vicent</first><last>Ahuir Esteve</last><affiliation>Universitat Politecnica de Valencia</affiliation></author>
+      <author><first>Encarna</first><last>Segarra</last><affiliation>Universitat Politecnica de Valencia</affiliation></author>
+      <author><first>Lluis</first><last>Hurtado</last><affiliation>Universitat Politecnica de Valencia</affiliation></author>
+      <pages>524-529</pages>
+      <abstract>This paper presents our system at the Radiology Report Summarization Shared Task-1B of the 22nd BioNLP Workshop 2023. Inspired by the work of the BioBART model, we continuously pre-trained a general domain BART model with biomedical data to adapt it to this specific domain. In the pre-training phase, several pre-training tasks are aggregated to inject linguistic knowledge and increase the abstractivity of the generated summaries. We present the results of our models, and also, we have carried out an additional study on the lengths of the generated summaries, which has provided us with interesting information.</abstract>
+      <url hash="e8b8b0a8">2023.bionlp-1.52</url>
+      <bibkey>ahuir-esteve-etal-2023-elirf</bibkey>
+      <doi>10.18653/v1/2023.bionlp-1.52</doi>
+      <video href="2023.bionlp-1.52.mp4"/>
+    </paper>
+    <paper id="53">
+      <title><fixed-case>SINAI</fixed-case> at <fixed-case>R</fixed-case>ad<fixed-case>S</fixed-case>um23: Radiology Report Summarization Based on Domain-Specific Sequence-To-Sequence Transformer Model</title>
+      <author><first>Mariia</first><last>Chizhikova</last><affiliation>University of Jaen</affiliation></author>
+      <author><first>Manuel</first><last>Diaz-Galiano</last><affiliation>University of Jaen</affiliation></author>
+      <author><first>L. Alfonso</first><last>Urena-Lopez</last><affiliation>University of Jaen</affiliation></author>
+      <author><first>M. Teresa</first><last>Martin-Valdivia</last><affiliation>University of Jaen</affiliation></author>
+      <pages>530-534</pages>
+      <abstract>This paper covers participation of the SINAI team in the shared task 1B: Radiology Report Summarization at the BioNLP workshop held on ACL 2023. Our proposal follows a sequence-to-sequence approach which leverages pre-trained multilingual general domain and monolingual biomedical domain pre-trained language models. The best performing system based on domain-specific model reached 33.96 F1RadGraph score which is the fourth best result among the challenge participants. This model was made publicly available on HuggingFace. We also describe an attempt of Proximal Policy Optimization Reinforcement Learning that was made in order to improve the factual correctness measured with F1RadGraph but did not lead to satisfactory results.</abstract>
+      <url hash="a22afdaa">2023.bionlp-1.53</url>
+      <bibkey>chizhikova-etal-2023-sinai</bibkey>
+      <doi>10.18653/v1/2023.bionlp-1.53</doi>
+    </paper>
+    <paper id="54">
+      <title><fixed-case>K</fixed-case>now<fixed-case>L</fixed-case>ab at <fixed-case>R</fixed-case>ad<fixed-case>S</fixed-case>um23: comparing pre-trained language models in radiology report summarization</title>
+      <author><first>Jinge</first><last>Wu</last><affiliation>University College London</affiliation></author>
+      <author><first>Daqian</first><last>Shi</last><affiliation>University of Trento</affiliation></author>
+      <author><first>Abul</first><last>Hasan</last><affiliation>University College London</affiliation></author>
+      <author><first>Honghan</first><last>Wu</last><affiliation>University College London</affiliation></author>
+      <pages>535-540</pages>
+      <abstract>This paper presents our contribution to the RadSum23 shared task organized as part of the BioNLP 2023. We compared state-of-the-art generative language models in generating high-quality summaries from radiology reports. A two-stage fine-tuning approach was introduced for utilizing knowledge learnt from different datasets. We evaluated the performance of our method using a variety of metrics, including BLEU, ROUGE, bertscore, CheXbert, and RadGraph. Our results revealed the potentials of different models in summarizing radiology reports and demonstrated the effectiveness of the two-stage fine-tuning approach. We also discussed the limitations and future directions of our work, highlighting the need for better understanding the architecture design’s effect and optimal way of fine-tuning accordingly in automatic clinical summarizations.</abstract>
+      <url hash="d111982e">2023.bionlp-1.54</url>
+      <bibkey>wu-etal-2023-knowlab</bibkey>
+      <doi>10.18653/v1/2023.bionlp-1.54</doi>
+      <video href="2023.bionlp-1.54.mp4"/>
+    </paper>
+    <paper id="55">
+      <title>nav-nlp at <fixed-case>R</fixed-case>ad<fixed-case>S</fixed-case>um23: Abstractive Summarization of Radiology Reports using <fixed-case>BART</fixed-case> Finetuning</title>
+      <author><first>Sri</first><last>Macharla</last><affiliation>IIT Roorkee at Roorkee</affiliation></author>
+      <author><first>Ashok</first><last>Madamanchi</last><affiliation>IIT Roorkee at Roorkee</affiliation></author>
+      <author><first>Nikhilesh</first><last>Kancharla</last><affiliation>IIT Roorkee at Roorkee</affiliation></author>
+      <pages>541-544</pages>
+      <abstract>This paper describes the experiments undertaken and their results as part of the BioNLP 2023 workshop. We took part in Task 1B: Radiology Report Summarization. Multiple runs were submitted for evaluation from solutions utilizing transfer learning from pre-trained transformer models, which were then fine-tuned on MIMIC-III dataset, for abstractive report summarization.</abstract>
+      <url hash="396db37a">2023.bionlp-1.55</url>
+      <bibkey>macharla-etal-2023-nav</bibkey>
+      <doi>10.18653/v1/2023.bionlp-1.55</doi>
+    </paper>
+    <paper id="56">
+      <title>e-Health <fixed-case>CSIRO</fixed-case> at <fixed-case>R</fixed-case>ad<fixed-case>S</fixed-case>um23: Adapting a Chest <fixed-case>X</fixed-case>-Ray Report Generator to Multimodal Radiology Report Summarisation</title>
+      <author><first>Aaron</first><last>Nicolson</last><affiliation>Csiro</affiliation></author>
+      <author><first>Jason</first><last>Dowling</last><affiliation>Csiro</affiliation></author>
+      <author><first>Bevan</first><last>Koopman</last><affiliation>Csiro</affiliation></author>
+      <pages>545-549</pages>
+      <abstract>We describe the participation of team e-Health CSIRO in the BioNLP RadSum task of 2023. This task aims to develop automatic summarisation methods for radiology. The subtask that we participated in was multimodal; the impression section of a report was to be summarised from a given findings section and set of Chest X-rays (CXRs) of a subject’s study. For our method, we adapted an encoder-to-decoder model for CXR report generation to the subtask. e-Health CSIRO placed seventh amongst the participating teams with a RadGraph ER F1 score of 23.9.</abstract>
+      <url hash="985932d3">2023.bionlp-1.56</url>
+      <bibkey>nicolson-etal-2023-e</bibkey>
+      <doi>10.18653/v1/2023.bionlp-1.56</doi>
+    </paper>
+    <paper id="57">
+      <title>shs-nlp at <fixed-case>R</fixed-case>ad<fixed-case>S</fixed-case>um23: Domain-Adaptive Pre-training of Instruction-tuned <fixed-case>LLM</fixed-case>s for Radiology Report Impression Generation</title>
+      <author><first>Sanjeev Kumar</first><last>Karn</last><affiliation>Siemens</affiliation></author>
+      <author><first>Rikhiya</first><last>Ghosh</last><affiliation>Siemens Healthineers</affiliation></author>
+      <author><first>Kusuma</first><last>P</last><affiliation>Siemens Healthineers</affiliation></author>
+      <author><first>Oladimeji</first><last>Farri</last><affiliation>Siemens Healthineers</affiliation></author>
+      <pages>550-556</pages>
+      <abstract>Instruction-tuned generative large language models (LLMs), such as ChatGPT and Bloomz, possess excellent generalization abilities. However, they face limitations in understanding radiology reports, particularly when generating the IMPRESSIONS section from the FINDINGS section. These models tend to produce either verbose or incomplete IMPRESSIONS, mainly due to insufficient exposure to medical text data during training. We present a system that leverages large-scale medical text data for domain-adaptive pre-training of instruction-tuned LLMs, enhancing their medical knowledge and performance on specific medical tasks. We demonstrate that this system performs better in a zero-shot setting compared to several pretrain-and-finetune adaptation methods on the IMPRESSIONS generation task. Furthermore, it ranks 1st among participating systems in Task 1B: Radiology Report Summarization.</abstract>
+      <url hash="33146dc2">2023.bionlp-1.57</url>
+      <bibkey>karn-etal-2023-shs</bibkey>
+      <doi>10.18653/v1/2023.bionlp-1.57</doi>
+    </paper>
+    <paper id="58">
+      <title><fixed-case>UTSA</fixed-case>-<fixed-case>NLP</fixed-case> at <fixed-case>R</fixed-case>ad<fixed-case>S</fixed-case>um23: Multi-modal Retrieval-Based Chest <fixed-case>X</fixed-case>-Ray Report Summarization</title>
+      <author><first>Tongnian</first><last>Wang</last><affiliation>University of Texas at San Antonio</affiliation></author>
+      <author><first>Xingmeng</first><last>Zhao</last><affiliation>University of Texas San Antonio</affiliation></author>
+      <author><first>Anthony</first><last>Rios</last><affiliation>University of Texas at San Antonio</affiliation></author>
+      <pages>557-566</pages>
+      <abstract>Radiology report summarization aims to automatically provide concise summaries of radiology findings, reducing time and errors in manual summaries. However, current methods solely summarize the text, which overlooks critical details in the images. Unfortunately, directly using the images in a multimodal model is difficult. Multimodal models are susceptible to overfitting due to their increased capacity, and modalities tend to overfit and generalize at different rates. Thus, we propose a novel retrieval-based approach that uses image similarities to generate additional text features. We further employ few-shot with chain-of-thought and ensemble techniques to boost performance. Overall, our method achieves state-of-the-art performance in the F1RadGraph score, which measures the factual correctness of summaries. We rank second place in both MIMIC-CXR and MIMIC-III hidden tests among 11 teams.</abstract>
+      <url hash="69f13d43">2023.bionlp-1.58</url>
+      <bibkey>wang-etal-2023-utsa</bibkey>
+      <doi>10.18653/v1/2023.bionlp-1.58</doi>
+    </paper>
+    <paper id="59">
+      <title><fixed-case>KU</fixed-case>-<fixed-case>DMIS</fixed-case>-<fixed-case>MSRA</fixed-case> at <fixed-case>R</fixed-case>ad<fixed-case>S</fixed-case>um23: Pre-trained Vision-Language Model for Radiology Report Summarization</title>
+      <author><first>Gangwoo</first><last>Kim</last><affiliation>Korea University</affiliation></author>
+      <author><first>Hajung</first><last>Kim</last><affiliation>Korea University</affiliation></author>
+      <author><first>Lei</first><last>Ji</last><affiliation>Msra</affiliation></author>
+      <author><first>Seongsu</first><last>Bae</last><affiliation>Kaist</affiliation></author>
+      <author><first>Chanhwi</first><last>Kim</last><affiliation>Korea University, DMIS</affiliation></author>
+      <author><first>Mujeen</first><last>Sung</last><affiliation>Korea University</affiliation></author>
+      <author><first>Hyunjae</first><last>Kim</last><affiliation>Korea University</affiliation></author>
+      <author><first>Kun</first><last>Yan</last><affiliation>Beihang University</affiliation></author>
+      <author><first>Eric</first><last>Chang</last><affiliation>Kingtex</affiliation></author>
+      <author><first>Jaewoo</first><last>Kang</last><affiliation>Korea University</affiliation></author>
+      <pages>567-573</pages>
+      <abstract>In this paper, we introduce CheXOFA, a new pre-trained vision-language model (VLM) for the chest X-ray domain. Our model is initially pre-trained on various multimodal datasets within the general domain before being transferred to the chest X-ray domain. Following a prominent VLM, we unify various domain-specific tasks into a simple sequence-to-sequence schema. It enables the model to effectively learn the required knowledge and skills from limited resources in the domain. Demonstrating superior performance on the benchmark datasets provided by the BioNLP shared task (Delbrouck et al., 2023), our model benefits from its training across multiple tasks and domains. With subtle techniques including ensemble and factual calibration, our system achieves first place on the RadSum23 leaderboard for the hidden test set.</abstract>
+      <url hash="3bc635ed">2023.bionlp-1.59</url>
+      <bibkey>kim-etal-2023-ku</bibkey>
+      <doi>10.18653/v1/2023.bionlp-1.59</doi>
+    </paper>
+    <paper id="60">
+      <title><fixed-case>VBD</fixed-case>-<fixed-case>NLP</fixed-case> at <fixed-case>B</fixed-case>io<fixed-case>L</fixed-case>ay<fixed-case>S</fixed-case>umm Task 1: Explicit and Implicit Key Information Selection for Lay Summarization on Biomedical Long Documents</title>
+      <author><first>Phuc</first><last>Phan</last><affiliation>VinBigData, JSC</affiliation></author>
+      <author><first>Tri</first><last>Tran</last><affiliation>VinBigData, JSC</affiliation></author>
+      <author><first>Hai-Long</first><last>Trieu</last><affiliation>Vingroup Big Data Institute</affiliation></author>
+      <pages>574-578</pages>
+      <abstract>We describe our systems participated in the BioLaySumm 2023 Task 1, which aims at automatically generating lay summaries of scientific articles in a simplified way so that its content becomes easier to comprehend for non-expert readers. Our approaches are based on selecting key information by both explicit and implicit strategies. For explicit selection strategies, we conduct extractive summarization based on selecting key sentences for training abstractive summarization models. For implicit selection strategies, we utilize a method based on a factorized energy-based model, which is able to extract important information from long documents to generate summaries and achieve promising results. We build our systems using sequence-to-sequence models, which enable us to leverage powerful and biomedical domain pre-trained language models and apply different strategies to generate lay summaries from long documents. We conducted various experiments to carefully investigate the effects of different aspects of this long-document summarization task such as extracting different document lengths and utilizing different pre-trained language models. We achieve the third rank in the shared task (and the second rank excluding the baseline submission of the organizers).</abstract>
+      <url hash="d41fd4c5">2023.bionlp-1.60</url>
+      <bibkey>phan-etal-2023-vbd</bibkey>
+      <doi>10.18653/v1/2023.bionlp-1.60</doi>
+    </paper>
+    <paper id="61">
+      <title><fixed-case>APTS</fixed-case>umm at <fixed-case>B</fixed-case>io<fixed-case>L</fixed-case>ay<fixed-case>S</fixed-case>umm Task 1: Biomedical Breakdown, Improving Readability by Relevancy Based Selection</title>
+      <author><first>A.s.</first><last>Poornash</last><affiliation>Indian Institute of Technology Patna</affiliation></author>
+      <author><first>Atharva</first><last>Deshmukh</last><affiliation>Indian Institute of Technology Patna</affiliation></author>
+      <author><first>Archit</first><last>Sharma</last><affiliation>Indian Institute of Technology Patna</affiliation></author>
+      <author><first>Sriparna</first><last>Saha</last><affiliation>Indian Institute of Technology Patna</affiliation></author>
+      <pages>579-585</pages>
+      <abstract>In this paper we tackle a lay summarization task which aims to produce lay-summary of biomedical articles. BioLaySumm in the BioNLP Workshop at ACL 2023 (Goldsack et al., 2023), has presented us with this lay summarization task for biomedical articles. Our proposed models provide a three-step abstractive approach for summarizing biomedical articles. Our methodology involves breaking down the original document into distinct sections, generating candidate summaries for each subsection, then finally re-ranking and selecting the top performing paragraph for each section. We run ablation studies to establish that each step in our pipeline is critical for improvement in the quality of lay summary. This model achieved the second-highest rank in terms of readability scores (Luo et al., 2022). Our work distinguishes itself from previous studies by not only considering the content of the paper but also its structure, resulting in more coherent and comprehensible lay summaries. We hope that our model for generating lay summaries of biomedical articles will be a useful resource for individuals across various domains, including academia, industry, and healthcare, who require rapid comprehension of key scientific research.</abstract>
+      <url hash="740d2693">2023.bionlp-1.61</url>
+      <bibkey>poornash-etal-2023-aptsumm</bibkey>
+      <doi>10.18653/v1/2023.bionlp-1.61</doi>
+    </paper>
+    <paper id="62">
+      <title><fixed-case>NCUEE</fixed-case>-<fixed-case>NLP</fixed-case> at <fixed-case>B</fixed-case>io<fixed-case>L</fixed-case>ay<fixed-case>S</fixed-case>umm Task 2: Readability-Controlled Summarization of Biomedical Articles Using the <fixed-case>PRIMERA</fixed-case> Models</title>
+      <author><first>Chao-Yi</first><last>Chen</last><affiliation>National Central University</affiliation></author>
+      <author><first>Jen-Hao</first><last>Yang</last><affiliation>National Central University</affiliation></author>
+      <author><first>Lung-Hao</first><last>Lee</last><affiliation>National Central University</affiliation></author>
+      <pages>586-591</pages>
+      <abstract>This study describes the model design of the NCUEE-NLP system for BioLaySumm Task 2 at the BioNLP 2023 workshop. We separately fine-tune pretrained PRIMERA models to independently generate technical abstracts and lay summaries of biomedical articles. A total of seven evaluation metrics across three criteria were used to compare system performance. Our best submission was ranked first for relevance, second for readability, and fourth for factuality, tying first for overall performance.</abstract>
+      <url hash="e9c7613c">2023.bionlp-1.62</url>
+      <bibkey>chen-etal-2023-ncuee</bibkey>
+      <doi>10.18653/v1/2023.bionlp-1.62</doi>
+      <video href="2023.bionlp-1.62.mp4"/>
+    </paper>
+    <paper id="63">
+      <title>Pathology Dynamics at <fixed-case>B</fixed-case>io<fixed-case>L</fixed-case>ay<fixed-case>S</fixed-case>umm: the trade-off between Readability, Relevance, and Factuality in Lay Summarization</title>
+      <author><first>Irfan</first><last>Al-Hussaini</last><affiliation>Georgia Institute of Technology</affiliation></author>
+      <author><first>Austin</first><last>Wu</last><affiliation>Georgia Institute of Technology</affiliation></author>
+      <author><first>Cassie</first><last>Mitchell</last><affiliation>Georgia Institute of Technology</affiliation></author>
+      <pages>592-601</pages>
+      <abstract>Lay summarization aims to simplify complex scientific information for non-expert audiences. This paper investigates the trade-off between readability and relevance in the lay summarization of long biomedical documents. We introduce a two-stage framework that attains the best readability metrics in the first subtask of BioLaySumm 2023, with 8.924 FleschKincaid Grade Level and 9.188 DaleChall Readability Score. However, this comes at the cost of reduced relevance and factuality, emphasizing the inherent challenges of balancing readability and content preservation in lay summarization. The first stage generates summaries using a large language model, such as BART with LSG attention. The second stage uses a zero-shot sentence simplification method to improve the readability of the summaries. In the second subtask, a hybrid dataset is employed to train a model capable of generating both lay summaries and abstracts. This approach achieves the best readability score and shares the top overall rank with other leading methods. Our study underscores the importance of developing effective methods for creating accessible lay summaries while maintaining information integrity. Future work will integrate simplification and summary generation within a joint optimization framework that generates high-quality lay summaries that effectively communicate scientific content to a broader audience.</abstract>
+      <url hash="7a04d77f">2023.bionlp-1.63</url>
+      <bibkey>al-hussaini-etal-2023-pathology</bibkey>
+      <doi>10.18653/v1/2023.bionlp-1.63</doi>
+    </paper>
+    <paper id="64">
+      <title><fixed-case>IKM</fixed-case>_<fixed-case>L</fixed-case>ab at <fixed-case>B</fixed-case>io<fixed-case>L</fixed-case>ay<fixed-case>S</fixed-case>umm Task 1: Longformer-based Prompt Tuning for Biomedical Lay Summary Generation</title>
+      <author><first>Yu-Hsuan</first><last>Wu</last><affiliation>National Cheng Kung University</affiliation></author>
+      <author><first>Ying-Jia</first><last>Lin</last><affiliation>National Cheng-Kung University</affiliation></author>
+      <author><first>Hung-Yu</first><last>Kao</last><affiliation>National Cheng Kung University</affiliation></author>
+      <pages>602-610</pages>
+      <abstract>This paper describes the entry by the Intelligent Knowledge Management (IKM) Laboratory in the BioLaySumm 2023 task1. We aim to transform lengthy biomedical articles into concise, reader-friendly summaries that can be easily comprehended by the general public. We utilized a long-text abstractive summarization longformer model and experimented with several prompt methods for this task. Our entry placed 10th overall, but we were particularly proud to achieve a 3rd place score in the readability evaluation metric.</abstract>
+      <url hash="53075773">2023.bionlp-1.64</url>
+      <bibkey>wu-etal-2023-ikm</bibkey>
+      <doi>10.18653/v1/2023.bionlp-1.64</doi>
+    </paper>
+    <paper id="65">
+      <title><fixed-case>MDC</fixed-case> at <fixed-case>B</fixed-case>io<fixed-case>L</fixed-case>ay<fixed-case>S</fixed-case>umm Task 1: Evaluating <fixed-case>GPT</fixed-case> Models for Biomedical Lay Summarization</title>
+      <author><first>Oisín</first><last>Turbitt</last><affiliation>Medicines Discovery Catapult</affiliation></author>
+      <author><first>Robert</first><last>Bevan</last><affiliation>Medicines Discovery Catapult</affiliation></author>
+      <author><first>Mouhamad</first><last>Aboshokor</last><affiliation>Medicines Discovery Catapult</affiliation></author>
+      <pages>611-619</pages>
+      <abstract>This paper presents our approach to the BioLaySumm Task 1 shared task, held at the BioNLP 2023 Workshop. The effective communication of scientific knowledge to the general public is often limited by the technical language used in research, making it difficult for non-experts to comprehend. To address this issue, lay summaries can be used to explain research findings to non-experts in an accessible form. We conduct an evaluation of autoregressive language models, both general and specialized for the biomedical domain, to generate lay summaries from biomedical research article abstracts. Our findings demonstrate that a GPT-3.5 model combined with a straightforward few-shot prompt produces lay summaries that achieve significantly relevance and factuality compared to those generated by a fine-tuned BioGPT model. However, the summaries generated by the BioGPT model exhibit better readability. Notably, our submission for the shared task achieved 1st place in the competition.</abstract>
+      <url hash="15d5c4ac">2023.bionlp-1.65</url>
+      <bibkey>turbitt-etal-2023-mdc</bibkey>
+      <doi>10.18653/v1/2023.bionlp-1.65</doi>
+    </paper>
+    <paper id="66">
+      <title><fixed-case>LHS</fixed-case>712<fixed-case>EE</fixed-case> at <fixed-case>B</fixed-case>io<fixed-case>L</fixed-case>ay<fixed-case>S</fixed-case>umm 2023: Using <fixed-case>BART</fixed-case> and <fixed-case>LED</fixed-case> to summarize biomedical research articles</title>
+      <author><first>Quancheng</first><last>Liu</last><affiliation>University of Michigan</affiliation></author>
+      <author><first>Xiheng</first><last>Ren</last><affiliation>University of Michigan</affiliation></author>
+      <author><first>V.G.Vinod</first><last>Vydiswaran</last><affiliation>University of Michigan</affiliation></author>
+      <pages>620-624</pages>
+      <abstract>As part of our participation in BioLaySumm 2023, we explored the use of large language models (LLMs) to automatically generate concise and readable summaries of biomedical research articles. We utilized pre-trained LLMs to fine-tune our summarization models on two provided datasets, and adapt them to the shared task within the constraints of training time and computational power. Our final models achieved very high relevance and factuality scores on the test set, and ranked among the top five models in the overall performance.</abstract>
+      <url hash="25f21ca5">2023.bionlp-1.66</url>
+      <bibkey>liu-etal-2023-lhs712ee</bibkey>
+      <doi>10.18653/v1/2023.bionlp-1.66</doi>
+    </paper>
+    <paper id="67">
+      <title><fixed-case>IITR</fixed-case> at <fixed-case>B</fixed-case>io<fixed-case>L</fixed-case>ay<fixed-case>S</fixed-case>umm Task 1:Lay Summarization of <fixed-case>B</fixed-case>io<fixed-case>M</fixed-case>edical articles using Transformers</title>
+      <author><first>Venkat praneeth</first><last>Reddy</last><affiliation>Indian Institute of Technology,Roorkee</affiliation></author>
+      <author><first>Pinnapu Reddy Harshavardhan</first><last>Reddy</last><affiliation>Indian Institute of Technology,Roorkee</affiliation></author>
+      <author><first>Karanam Sai</first><last>Sumedh</last><affiliation>Indian Institute of Technology,Roorkee</affiliation></author>
+      <author><first>Raksha</first><last>Sharma</last><affiliation>Indian Institute of Technology,Roorkee</affiliation></author>
+      <pages>625-628</pages>
+      <abstract>Initially, we analyzed the datasets in a statistical way so as to learn about various sections’ contributions to the final summary in both the pros and life datasets. We found that both the datasets have an Introduction and Abstract along with some initial parts of the results contributing to the summary. We considered only these sections in the next stage of analysis. We found the optimal length or no of sentences of each of the Introduction, abstract, and result which contributes best to the summary. After this statistical analysis, we took the pre-trained model Facebook/bart-base and fine-tuned it with both the datasets PLOS and eLife. While fine-tuning and testing the results we have used chunking because the text lengths are huge. So to not lose information due to the number of token constraints of the model, we used chunking. Finally, we saw the eLife model giving more accurate results than PLOS in terms of readability aspect, probably because the PLOS summary is closer to its abstract, we have considered the eLife model as our final model and tuned the hyperparameters. We are ranked 7th overall and 1st in readability</abstract>
+      <url hash="a0a78a80">2023.bionlp-1.67</url>
+      <bibkey>reddy-etal-2023-iitr</bibkey>
+      <doi>10.18653/v1/2023.bionlp-1.67</doi>
+    </paper>
+    <paper id="68">
+      <title><fixed-case>CSIRO</fixed-case> <fixed-case>D</fixed-case>ata61 Team at <fixed-case>B</fixed-case>io<fixed-case>L</fixed-case>ay<fixed-case>S</fixed-case>umm Task 1: Lay Summarisation of Biomedical Research Articles Using Generative Models</title>
+      <author><first>Mong Yuan</first><last>Sim</last><affiliation>The University of Adelaide</affiliation></author>
+      <author><first>Xiang</first><last>Dai</last><affiliation>CSIRO Data61</affiliation></author>
+      <author><first>Maciej</first><last>Rybinski</last><affiliation>Csiro</affiliation></author>
+      <author><first>Sarvnaz</first><last>Karimi</last><affiliation>Csiro</affiliation></author>
+      <pages>629-635</pages>
+      <abstract>Lay summarisation aims at generating a summary for non-expert audience which allows them to keep updated with latest research in a specific field. Despite the significant advancements made in the field of text summarisation, lay summarisation remains relatively under-explored. We present a comprehensive set of experiments and analysis to investigate the effectiveness of existing pre-trained language models in generating lay summaries. When evaluate our models using a BioNLP Shared Task, BioLaySumm, our submission ranked second for the relevance criteria and third overall among 21 competing teams.</abstract>
+      <url hash="e52b4367">2023.bionlp-1.68</url>
+      <bibkey>sim-etal-2023-csiro</bibkey>
+      <doi>10.18653/v1/2023.bionlp-1.68</doi>
+    </paper>
+    <paper id="69">
+      <title><fixed-case>ISIKS</fixed-case>umm at <fixed-case>B</fixed-case>io<fixed-case>L</fixed-case>ay<fixed-case>S</fixed-case>umm Task 1: <fixed-case>BART</fixed-case>-based Summarization System Enhanced with Bio-Entity Labels</title>
+      <author><first>Cagla</first><last>Colak</last><affiliation>Ik University</affiliation></author>
+      <author><first>Lknur</first><last>Karadeniz</last><affiliation>Ik University</affiliation></author>
+      <pages>636-640</pages>
+      <abstract>Communicating scientific research to the general public is an essential yet challenging task. Lay summaries, which provide a simplified version of research findings, can bridge the gapbetween scientific knowledge and public understanding. The BioLaySumm task (Goldsack et al., 2023) is a shared task that seeks to automate this process by generating lay summaries from biomedical articles. Two different datasets that have been created from curating two biomedical journals (PLOS and eLife) are provided by the task organizers. As a participant in this shared task, we developed a system to generate a lay summary from an article’s abstract and main text.</abstract>
+      <url hash="50e637f6">2023.bionlp-1.69</url>
+      <bibkey>colak-karadeniz-2023-isiksumm</bibkey>
+      <doi>10.18653/v1/2023.bionlp-1.69</doi>
+    </paper>
+  </volume>
+</collection>

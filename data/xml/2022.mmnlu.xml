@@ -1,0 +1,148 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2022.mmnlu">
+  <volume id="1" ingest-date="2022-12-13" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of the Massively Multilingual Natural Language Understanding Workshop (MMNLU-22)</booktitle>
+      <editor><first>Jack</first><last>FitzGerald</last></editor>
+      <editor><first>Kay</first><last>Rottmann</last></editor>
+      <editor><first>Julia</first><last>Hirschberg</last></editor>
+      <editor><first>Mohit</first><last>Bansal</last></editor>
+      <editor><first>Anna</first><last>Rumshisky</last></editor>
+      <editor><first>Charith</first><last>Peris</last></editor>
+      <editor><first>Christopher</first><last>Hench</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Abu Dhabi, United Arab Emirates (Hybrid)</address>
+      <month>December</month>
+      <year>2022</year>
+      <url hash="edeb1cee">2022.mmnlu-1</url>
+      <venue>mmnlu</venue>
+    </meta>
+    <frontmatter>
+      <url hash="df4f8d99">2022.mmnlu-1.0</url>
+      <bibkey>mmnlu-2022-massively</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Robust Domain Adaptation for Pre-trained Multilingual Neural Machine Translation Models</title>
+      <author><first>Mathieu</first><last>Grosso</last><affiliation>Mines Paris</affiliation></author>
+      <author><first>Alexis</first><last>Mathey</last><affiliation/></author>
+      <author><first>Pirashanth</first><last>Ratnamogan</last><affiliation>ENSTA ParisTech</affiliation></author>
+      <author><first>William</first><last>Vanhuffel</last><affiliation/></author>
+      <author><first>Michael</first><last>Fotso</last><affiliation/></author>
+      <pages>1-11</pages>
+      <abstract>Recent literature has demonstrated the potential of multilingual Neural Machine Translation (mNMT) models. However, the most efficient models are not well suited to specialized industries. In these cases, internal data is scarce and expensive to find in all language pairs. Therefore, fine-tuning a mNMT model on a specialized domain is hard. In this context, we decided to focus on a new task: Domain Adaptation of a pre-trained mNMT model on a single pair of language while trying to maintain model quality on generic domain data for all language pairs. The risk of loss on generic domain and on other pairs is high. This task is key for mNMT model adoption in the industry and is at the border of many others. We propose a fine-tuning procedure for the generic mNMT that combines embeddings freezing and adversarial loss. Our experiments demonstrated that the procedure improves performances on specialized data with a minimal loss in initial performances on generic domain for all languages pairs, compared to a naive standard approach (+10.0 BLEU score on specialized data, -0.01 to -0.5 BLEU on WMT and Tatoeba datasets on the other pairs with M2M100).</abstract>
+      <url hash="880c6d15">2022.mmnlu-1.1</url>
+      <bibkey>grosso-etal-2022-robust</bibkey>
+      <video href="2022.mmnlu-1.1.mp4"/>
+      <doi>10.18653/v1/2022.mmnlu-1.1</doi>
+    </paper>
+    <paper id="2">
+      <title>Fine-grained Multi-lingual Disentangled Autoencoder for Language-agnostic Representation Learning</title>
+      <author><first>Zetian</first><last>Wu</last><affiliation>Oregon State University</affiliation></author>
+      <author><first>Zhongkai</first><last>Sun</last><affiliation>University of Wisconsin - Madison</affiliation></author>
+      <author><first>Zhengyang</first><last>Zhao</last><affiliation>University of Minnesota - Twin Cities</affiliation></author>
+      <author><first>Sixing</first><last>Lu</last><affiliation/></author>
+      <author><first>Chengyuan</first><last>Ma</last><affiliation>Georgia Institute of Technology</affiliation></author>
+      <author><first>Chenlei</first><last>Guo</last><affiliation>Carnegie Mellon University</affiliation></author>
+      <pages>12-24</pages>
+      <abstract>Encoding both language-specific and language-agnostic information into a single high-dimensional space is a common practice of pre-trained Multi-lingual Language Models (pMLM). Such encoding has been shown to perform effectively on natural language tasks requiring semantics of the whole sentence (e.g., translation). However, its effectiveness appears to be limited on tasks requiring partial information of the utterance (e.g., multi-lingual entity retrieval, template retrieval, and semantic alignment). In this work, a novel Fine-grained Multilingual Disentangled Autoencoder (FMDA) is proposed to disentangle fine-grained semantic information from language-specific information in a multi-lingual setting. FMDA is capable of successfully extracting the disentangled template semantic and residual semantic representations. Experiments conducted on the MASSIVE dataset demonstrate that the disentangled encoding can boost each other during the training, thus consistently outperforming the original pMLM and the strong language disentanglement baseline on monolingual template retrieval and cross-lingual semantic retrieval tasks across multiple languages.</abstract>
+      <url hash="0f4879b8">2022.mmnlu-1.2</url>
+      <bibkey>wu-etal-2022-fine</bibkey>
+      <video href="2022.mmnlu-1.2.mp4"/>
+      <doi>10.18653/v1/2022.mmnlu-1.2</doi>
+    </paper>
+    <paper id="3">
+      <title>Byte-Level Massively Multilingual Semantic Parsing</title>
+      <author><first>Massimo</first><last>Nicosia</last><affiliation>Google</affiliation></author>
+      <author><first>Francesco</first><last>Piccinno</last><affiliation>Google</affiliation></author>
+      <pages>25-34</pages>
+      <abstract>Token free approaches have been successfully applied to a series of word and span level tasks. In this work, we evaluate a byte-level sequence to sequence model (ByT5) on the 51 languages in the MASSIVE multilingual semantic parsing dataset. We examine multiple experimental settings: (i) zero-shot, (ii) full gold data and (iii) zero-shot with synthetic data. By leveraging a state-of-the-art label projection method for machine translated examples, we are able to reduce the gap in exact match to only 5 points with respect to a model trained on gold data from all the languages. We additionally provide insights on the cross-lingual transfer of ByT5 and show how the model compares with respect to mT5 across all parameter sizes.</abstract>
+      <url hash="a7b17a3f">2022.mmnlu-1.3</url>
+      <bibkey>nicosia-piccinno-2022-byte</bibkey>
+      <doi>10.18653/v1/2022.mmnlu-1.3</doi>
+    </paper>
+    <paper id="4">
+      <title><fixed-case>HIT</fixed-case>-<fixed-case>SCIR</fixed-case> at <fixed-case>MMNLU</fixed-case>-22: Consistency Regularization for Multilingual Spoken Language Understanding</title>
+      <author><first>Bo</first><last>Zheng</last><affiliation>Harbin Institute of Technology</affiliation></author>
+      <author><first>Zhouyang</first><last>Li</last><affiliation>Harbin Institute of Technology</affiliation></author>
+      <author><first>Fuxuan</first><last>Wei</last><affiliation>Harbin Institute of Technology</affiliation></author>
+      <author><first>Qiguang</first><last>Chen</last><affiliation>Harbin Institute of Technology</affiliation></author>
+      <author><first>Libo</first><last>Qin</last><affiliation>Harbin Institute of Technology</affiliation></author>
+      <author><first>Wanxiang</first><last>Che</last><affiliation>Harbin Institute of Technology</affiliation></author>
+      <pages>35-41</pages>
+      <abstract>Multilingual spoken language understanding (SLU) consists of two sub-tasks, namely intent detection and slot filling. To improve the performance of these two sub-tasks, we propose to use consistency regularization based on a hybrid data augmentation strategy. The consistency regularization enforces the predicted distributions for an example and its semantically equivalent augmentation to be consistent. We conduct experiments on the MASSIVE dataset under both full-dataset and zero-shot settings. Experimental results demonstrate that our proposed method improves the performance on both intent detection and slot filling tasks. Our system ranked 1st in the MMNLU-22 competition under the full-dataset setting.</abstract>
+      <url hash="99d9c526">2022.mmnlu-1.4</url>
+      <bibkey>zheng-etal-2022-hit</bibkey>
+      <video href="2022.mmnlu-1.4.mp4"/>
+      <doi>10.18653/v1/2022.mmnlu-1.4</doi>
+    </paper>
+    <paper id="5">
+      <title>Play música alegre: A Large-Scale Empirical Analysis of Cross-Lingual Phenomena in Voice Assistant Interactions</title>
+      <author><first>Donato</first><last>Crisostomi</last><affiliation>University of Roma “La Sapienza”</affiliation></author>
+      <author><first>Alessandro</first><last>Manzotti</last><affiliation>Amazon</affiliation></author>
+      <author><first>Enrico</first><last>Palumbo</last><affiliation>Spotify</affiliation></author>
+      <author><first>Davide</first><last>Bernardi</last><affiliation>Amazon</affiliation></author>
+      <author><first>Sarah</first><last>Campbell</last><affiliation>Amazon</affiliation></author>
+      <author><first>Shubham</first><last>Garg</last><affiliation>Amazon</affiliation></author>
+      <pages>42-52</pages>
+      <abstract>Cross-lingual phenomena are quite common in informal contexts like social media, where users are likely to mix their native language with English or other languages. However, few studies have focused so far on analyzing cross-lingual interactions in voice-assistant data, which present peculiar features in terms of sentence length, named entities, and use of spoken language. Also, little attention has been posed to European countries, where English is frequently used as a second language. In this paper, we present a large-scale empirical analysis of cross-lingual phenomena (code-mixing, linguistic borrowing, foreign named entities) in the interactions with a large-scale voice assistant in European countries. To do this, we first introduce a general, highly-scalable technique to generate synthetic mixed training data annotated with token-level language labels and we train two neural network models to predict them. We evaluate the models both on the synthetic dataset and on a real dataset of code-switched utterances, showing that the best performance is obtained by a character convolution based model. The results of the analysis highlight different behaviors between countries, having Italy with the highest ratio of cross-lingual utterances and Spain with a marked preference in keeping Spanish words. Our research, paired to the increase of the cross-lingual phenomena in time, motivates further research in developing multilingual Natural Language Understanding (NLU) models, which can naturally deal with cross-lingual interactions.</abstract>
+      <url hash="60f57526">2022.mmnlu-1.5</url>
+      <bibkey>crisostomi-etal-2022-play</bibkey>
+      <video href="2022.mmnlu-1.5.mp4"/>
+      <doi>10.18653/v1/2022.mmnlu-1.5</doi>
+    </paper>
+    <paper id="6">
+      <title>Zero-Shot Cross-Lingual Sequence Tagging as <fixed-case>S</fixed-case>eq2<fixed-case>S</fixed-case>eq Generation for Joint Intent Classification and Slot Filling</title>
+      <author><first>Fei</first><last>Wang</last><affiliation>University of Southern California</affiliation></author>
+      <author><first>Kuan-hao</first><last>Huang</last><affiliation>University of Southern California, Los Angeles</affiliation></author>
+      <author><first>Anoop</first><last>Kumar</last><affiliation>Amazon</affiliation></author>
+      <author><first>Aram</first><last>Galstyan</last><affiliation>University of Southern California</affiliation></author>
+      <author><first>Greg</first><last>Ver steeg</last><affiliation>University of Southern California</affiliation></author>
+      <author><first>Kai-wei</first><last>Chang</last><affiliation>University of Southern California, Los Angeles</affiliation></author>
+      <pages>53-61</pages>
+      <abstract>The joint intent classification and slot filling task seeks to detect the intent of an utterance and extract its semantic concepts. In the zero-shot cross-lingual setting, a model is trained on a source language and then transferred to other target languages through multi-lingual representations without additional training data. While prior studies show that pre-trained multilingual sequence-to-sequence (Seq2Seq) models can facilitate zero-shot transfer, there is little understanding on how to design the output template for the joint prediction tasks. In this paper, we examine three aspects of the output template – (1) label mapping, (2) task dependency, and (3) word order. Experiments on the MASSIVE dataset consisting of 51 languages show that our output template significantly improves the performance of pre-trained cross-lingual language models.</abstract>
+      <url hash="d2a6f12a">2022.mmnlu-1.6</url>
+      <bibkey>wang-etal-2022-zero</bibkey>
+      <video href="2022.mmnlu-1.6.mp4"/>
+      <doi>10.18653/v1/2022.mmnlu-1.6</doi>
+    </paper>
+    <paper id="7">
+      <title><tex-math>C5L7</tex-math>: A Zero-Shot Algorithm for Intent and Slot Detection in Multilingual Task Oriented Languages</title>
+      <author><first>Jiun-hao</first><last>Jhan</last><affiliation>Carnegie Mellon University</affiliation></author>
+      <author><first>Qingxiaoyang</first><last>Zhu</last><affiliation>University of California, Davis</affiliation></author>
+      <author><first>Nehal</first><last>Bengre</last><affiliation/></author>
+      <author><first>Tapas</first><last>Kanungo</last><affiliation>University of Washington</affiliation></author>
+      <pages>62-68</pages>
+      <abstract>Voice assistants are becoming central to our lives. The convenience of using voice assistants to do simple tasks has created an industry for voice-enabled devices like TVs, thermostats, air conditioners, etc. It has also improved the quality of life of elders by making the world more accessible. Voice assistants engage in task-oriented dialogues using machine-learned language understanding models. However, training deep-learned models take a lot of training data, which is time-consuming and expensive. Furthermore, it is even more problematic if we want the voice assistant to understand hundreds of languages. In this paper, we present a zero-shot deep learning algorithm that uses only the English part of the Massive dataset and achieves a high level of accuracy across 51 languages. The algorithm uses a delexicalized translation model to generate multilingual data for data augmentation. The training data is further weighted to improve the accuracy of the worst-performing languages. We report on our experiments with code-switching, word order, multilingual ensemble methods, and other techniques and their impact on overall accuracy.</abstract>
+      <url hash="0b58e3ff">2022.mmnlu-1.7</url>
+      <bibkey>jhan-etal-2022-c5l7</bibkey>
+      <video href="2022.mmnlu-1.7.mp4"/>
+      <doi>10.18653/v1/2022.mmnlu-1.7</doi>
+    </paper>
+    <paper id="8">
+      <title>Machine Translation for Multilingual Intent Detection and Slots Filling</title>
+      <author><first>Maxime</first><last>De bruyn</last><affiliation>University of Antwerp</affiliation></author>
+      <author><first>Ehsan</first><last>Lotfi</last><affiliation>University of Antwerp</affiliation></author>
+      <author><first>Jeska</first><last>Buhmann</last><affiliation/></author>
+      <author><first>Walter</first><last>Daelemans</last><affiliation>University of Antwerp</affiliation></author>
+      <pages>69-82</pages>
+      <abstract>We expect to interact with home assistants irrespective of our language. However, scaling the Natural Language Understanding pipeline to multiple languages while keeping the same level of accuracy remains a challenge. In this work, we leverage the inherent multilingual aspect of translation models for the task of multilingual intent classification and slot filling. Our experiments reveal that they work equally well with general-purpose multilingual text-to-text models. Furthermore, their accuracy can be further improved by artificially increasing the size of the training set. Unfortunately, increasing the training set also increases the overlap with the test set, leading to overestimating their true capabilities. As a result, we propose two new evaluation methods capable of accounting for an overlap between the training and test set.</abstract>
+      <url hash="7f83a80b">2022.mmnlu-1.8</url>
+      <bibkey>de-bruyn-etal-2022-machine</bibkey>
+      <video href="2022.mmnlu-1.8.mp4"/>
+      <doi>10.18653/v1/2022.mmnlu-1.8</doi>
+    </paper>
+    <paper id="9">
+      <title>Massively Multilingual Natural Language Understanding 2022 (<fixed-case>MMNLU</fixed-case>-22) Workshop and Competition</title>
+      <author><first>Jack</first><last>FitzGerald</last><affiliation>Amazon</affiliation></author>
+      <author><first>Christopher</first><last>Hench</last><affiliation>Amazon</affiliation></author>
+      <author><first>Charith</first><last>Peris</last><affiliation>Amazon</affiliation></author>
+      <author><first>Kay</first><last>Rottmann</last><affiliation>Amazon</affiliation></author>
+      <pages>83-87</pages>
+      <abstract>To be writen (workshop summary paper)</abstract>
+      <url hash="730e5e9c">2022.mmnlu-1.9</url>
+      <bibkey>fitzgerald-etal-2022-massively</bibkey>
+      <video href="2022.mmnlu-1.9.mp4"/>
+      <doi>10.18653/v1/2022.mmnlu-1.9</doi>
+    </paper>
+  </volume>
+</collection>

@@ -1,5 +1,5 @@
 {{ define "meta" }}
-{{ $volume_id := slicestr .Params.anthology_id 0 3 }}
+{{ $volume_id := index (split .Params.anthology_id "-") 0 }}
 {{ $paper := index (index .Site.Data.papers $volume_id) .Params.anthology_id }}
   <meta content="{{ $paper.title }}" name="citation_title" >
 {{ range $paper.author }}
@@ -40,8 +40,34 @@
 <script>
   $( document ).ready(function() {
       if (ClipboardJS.isSupported()) {
-          new ClipboardJS(".btn-clipboard");
+          success_fn = function(e) {
+              // turns button into "copy successful"-style for 2 seconds
+              var src = $(e.trigger);
+              src.toggleClass("btn-success");
+              src.children("i").toggleClass("far fa-clipboard fas fa-clipboard-check");
+              e.clearSelection();
+
+              setTimeout(function() {
+                  src.toggleClass("btn-success");
+                  src.children("i").toggleClass("far fa-clipboard fas fa-clipboard-check");
+              }, 2000);
+          };
+
+          var clipboard = new ClipboardJS(".btn-clipboard");
+          clipboard.on('success', success_fn);
           $(".btn-clipboard").removeClass("d-none");
+
+          // buttons outside the "cite" popup can't copy the content the usual way
+          // because the content element is hidden at the time; therefore we fetch
+          // and return the text to be copied manually
+          var clipboard_outside = new ClipboardJS(".btn-clipboard-outside", {
+              text: function(trigger) {
+                  var target = trigger.getAttribute("data-clipboard-target");
+                  return $(target).text();
+              }
+          });
+          clipboard_outside.on('success', success_fn);
+          $(".btn-clipboard-outside").removeClass("d-none");
       }
   });
 </script>
@@ -49,9 +75,13 @@
 
 {{ define "main" }}
 {{ $anthology_id := .Params.anthology_id }}
-{{ $volume_id := slicestr .Params.anthology_id 0 3 }}
+{{ $volume_id := index (split .Params.anthology_id "-") 0 }}
 {{ $paper := index (index .Site.Data.papers $volume_id) .Params.anthology_id }}
+{{ $has_bib := fileExists (printf "/data-export/%s.bib" $anthology_id) }}
+{{ $has_xml := fileExists (printf "/data-export/%s.xml" $anthology_id) }}
+{{ $has_endf := fileExists (printf "/data-export/%s.endf" $anthology_id) }}
 <section id="main">
+  <div>
   <h2 id="title">
     {{ with $paper.pdf }}
     <a href="{{ . }}">{{ $paper.title_html | safeHTML }}</a>
@@ -66,15 +96,32 @@
       {{ partial "author_link.html" (dict "ctx" $ "person" $person) | chomp }}{{ if ne (add $index 1) $len }}, {{ end }}
     {{ end }}
   {{ end }}
+  </p>
+  </div>
   <hr />
 
   <div class="row acl-paper-details">
     <div class="col col-lg-10 order-2">
+      {{ with $paper.retracted }}
+      <div class="alert alert-danger" role="alert">
+        <b>This paper has been retracted.</b> {{ . }}
+      </div>
+      {{ end }}
+
+      {{ with $paper.removed }}
+      <div class="alert alert-danger" role="alert">
+        <b>This paper has been <a href="https://aclanthology.org/info/corrections/#removal">removed</a>.</b>
+        {{ . }}
+      </div>
+      {{ end }}
+
       {{ with $paper.abstract_html }}
       <div class="card bg-light mb-2 mb-lg-3">
         <div class="card-body acl-abstract">
           <h5 class="card-title">Abstract</h5>
+          <span {{ with $paper.retracted }} style="text-decoration: line-through" {{ end }}>
           {{ . | safeHTML }}
+          </span>
         </div>
       </div>
       {{ end }}
@@ -114,14 +161,25 @@
       <dt>Address:</dt>
       <dd>{{ with $paper.address }}{{ . }}{{ end }}</dd>
 
+      {{ with $paper.editor }}
+        {{ $len := (len .) }}
+        <dt>Editor{{ if gt $len 1 }}s{{ end }}:</dt>
+        <dd>
+        {{ range $index, $person := . }}
+          {{ partial "author_link.html" (dict "ctx" $ "person" $person) | chomp }}{{ if ne (add $index 1) $len }}, {{ end }}
+        {{ end }}
+        </dd>
+      {{ end }}
+
       {{ with $paper.parent_volume_id }}
       {{ $volume := index $.Site.Data.volumes . }}
       <dt>{{ if gt (len $volume.venues) 1 }}Venues:{{ else }}Venue:{{ end }}</dt>
       <dd>
         {{- $len := (len $volume.venues) -}}
         {{- range $index, $venue := $volume.venues -}}
-          <a href="{{ relref $ (printf "/venues/%s.md" (index $.Site.Data.venues $venue "slug")) }}">
-            {{- $venue -}}
+            {{ $acronym := index $.Site.Data.venues $venue "acronym" }}
+          <a href="{{ relref $ (printf "/venues/%s.md" ($venue)) }}">
+            {{- $acronym -}}
           </a>
           {{ if ne (add $index 1) $len }} | {{ end }}
         {{- end -}}
@@ -143,36 +201,90 @@
       <dd>{{ with $paper.note }}{{ . }}{{ end }}</dd>
       <dt>Pages:</dt>
       <dd>{{ with $paper.pages }}{{ . }}{{ end }}</dd>
+      <dt>Language:</dt>
+      <dd>{{ with $paper.language }}{{ . }}{{ end }}</dd>
       <dt>URL:</dt>
-      <dd>{{ with $paper.pdf }}<a href="{{ . }}">{{ . }}</a>{{ end }}</dd>
+      <dd><a href="{{ $paper.url }}">{{ $paper.url }}</a></dd>
       <dt>DOI:</dt>
-      <dd>{{ with $paper.doi }}<a href="http://dx.doi.org/{{ . }}" title="To the current version of the paper by DOI">{{ . }}</a>{{ end }}</dd>
+      <dd>{{ with $paper.doi }}<a href="https://doi.org/{{ . }}" title="To the current version of the paper by DOI">{{ . }}</a>{{ end }}</dd>
+      {{ range $paper.award }}
+      <dt>Award:</dt>
+      <dd><i class="fas fa-award"></i>&nbsp;{{ . }}</dd>
+      {{ end }}
       <!--
       <dt>Bibtype:</dt>
       <dd>{{ with $paper.bibtype }}{{ . }}{{ end }}</dd>
-      <dt>Bibkey:</dt>
-      <dd>{{ with $paper.bibkey }}{{ . }}{{ end }}</dd>
       -->
-      <dt class="acl-button-row">Bib Export formats:</dt>
+      {{ if and (not $paper.retracted) (not $paper.removed) }}
+      <dt class="acl-button-row">Bibkey:</dt>
+      <dd class="acl-button-row">{{ with $paper.bibkey }}<button type="button" class="btn btn-clipboard-outside btn-secondary btn-sm d-none" data-clipboard-target="#citePaperBibkey"><i class="far fa-clipboard"></i><span id="citePaperBibkey" class="pl-2 text-monospace">{{ . }}</span></button>{{ end }}</dd>
+      {{ with $paper.citation_acl }}
+      <dt>Cite (ACL):</dt><dd><span id="citeACL">{{ safeHTML . }}</span><button type="button" class="btn btn-clipboard btn-secondary btn-sm d-none ml-2" data-clipboard-target="#citeACL"><i class="far fa-clipboard"></i></button></dd>
+      {{ end }}
+      {{ with $paper.citation }}
+      <dt>Cite (Informal):</dt><dd><span id="citeRichText">{{ markdownify . }}</span><button type="button" class="btn btn-clipboard btn-secondary btn-sm d-none ml-2" data-clipboard-target="#citeRichText"><i class="far fa-clipboard"></i></button></dd>
+      {{ end }}
+      <dt class="acl-button-row">Copy Citation:</dt>
       <dd class="acl-button-row">
-      {{ if (fileExists (printf "/data-export/%s.bib" $anthology_id)) }}
-        <a class="btn btn-secondary btn-sm" href="{{ (printf "/%s.bib" $anthology_id) | relURL }}">BibTeX</a>
+      {{ if $has_bib }}
+        <button type="button" class="btn btn-clipboard-outside btn-secondary btn-sm d-none" data-clipboard-target="#citeBibtexContent"><i class="far fa-clipboard pr-2"></i>BibTeX</button>
       {{ end }}
-      {{ if (fileExists (printf "/data-export/%s.xml" $anthology_id)) }}
-        <a class="btn btn-secondary btn-sm" href="{{ (printf "/%s.xml" $anthology_id) | relURL }}">MODS XML</a>
+        <button type="button" class="btn btn-clipboard-outside btn-secondary btn-sm d-none" data-clipboard-target="#citeMarkdownContent"><i class="far fa-clipboard pr-2"></i>Markdown</button>
+      {{ if $has_xml }}
+        <button type="button" class="btn btn-clipboard-outside btn-secondary btn-sm d-none" data-clipboard-target="#citeModsContent"><i class="far fa-clipboard pr-2"></i>MODS XML</button>
       {{ end }}
-      {{ if (fileExists (printf "/data-export/%s.endf" $anthology_id)) }}
-        <a class="btn btn-secondary btn-sm" href="{{ (printf "/%s.endf" $anthology_id) | relURL }}">EndNote</a>
+      {{ if $has_endf }}
+        <button type="button" class="btn btn-clipboard-outside btn-secondary btn-sm d-none" data-clipboard-target="#citeEndnoteContent"><i class="far fa-clipboard pr-2"></i>Endnote</button>
       {{ end }}
-      {{ if (fileExists (printf "/data-export/%s.bib" $anthology_id)) }}
-        <button type="button" class="btn btn-clipboard btn-secondary btn-sm d-none" data-clipboard-text="{{ readFile (printf "/data-export/%s.bib" $anthology_id) }}"><i class="far fa-clipboard pr-2"></i>Copy BibTeX to Clipboard</button>
-      {{ end }}
+        <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#citeModal">More options…</button>
       </dd>
+      {{ end }}  <!-- if not $paper.retracted -->
+
+      {{ with $paper.pdf }}
+      <dt>PDF:</dt><dd><a href="{{ . }}">{{ . }}</a></dd>
+      {{ end }}
 
       {{ range $paper.attachment }}
       <dt class="acl-button-row">{{ humanize .type }}:</dt>
       <dd class="acl-button-row"><a href="{{ .url }}" class="btn btn-attachment btn-sm">{{ partial "attachment_repr.html" . }}&nbsp;{{ .filename }}</a></dd>
       {{ end }}
+
+      {{ range $paper.video }}
+      <dt class="acl-button-row">Video:</dt>
+      <dd class="acl-button-row"><a href="{{ . }}" class="btn btn-attachment btn-sm"><i class="fas fa-video"></i>&nbsp;{{ . }}</a></dd>
+      {{ end }}
+
+      {{ with $paper.pwccode }}
+      <dt>Code</dt>
+      <dd>
+        {{ if .url }}
+        <a href="{{ .url }}">
+          {{- if in .url "github.com/" -}}
+          <i class="fab fa-github"></i>
+          {{- else if in .url "gitlab.com/" -}}
+          <i class="fab fa-gitlab"></i>
+          {{- else if in .url "bitbucket" -}}
+          <i class="fab fa-bitbucket"></i>
+          {{- end -}}&nbsp;{{ .name }}
+        </a>
+        {{ end }}
+        {{ if (and (eq .additional "true") .url) }}
+          +
+        {{ end }}
+        {{ if eq .additional "true" }}
+        <a href="https://paperswithcode.com/paper/?acl={{ $anthology_id }}"><svg xmlns="http://www.w3.org/2000/svg" class="pwc-icon" viewBox="0 0 512 512"><path stroke="#4d8093" fill="#4d8093" d="M88 128h48v256H88zM232 128h48v256h-48zM160 144h48v224h-48zM304 144h48v224h-48zM376 128h48v256h-48z"></path><path stroke="#4d8093" fill="#4d8093" d="M104 104V56H16v400h88v-48H64V104zM408 56v48h40v304h-40v48h88V56z"></path></svg>&nbsp;additional community code
+        </a>
+        {{ end }}
+      </dd>
+      {{ end }}
+
+      {{ with $paper.pwcdataset }}
+        <dt>Data</dt>
+        <dd>
+        {{ range $i, $t := . }}{{ if $i }},&nbsp;{{ end }}<a href="{{ $t.url }}">{{ $t.name }}</a>{{ end }}
+        </dd>
+      {{ end }}
+
     </dl>
     </div>
 
@@ -196,22 +308,122 @@
         </a>
         {{ end }}
       {{ end }}
-      {{ if (fileExists (printf "/data-export/%s.bib" $anthology_id)) }}
-      <a class="btn btn-secondary" href="{{ (printf "/%s.bib" $anthology_id) | relURL }}" title="Export '{{ $paper.title | htmlEscape }}' to bib format">
-        <i class="fas fa-file-export"></i><span class="pl-2 transform-lower-sm">Bib</span><span class="d-none d-sm-inline">TeX</span>
+      {{ if and (not $paper.retracted) (not $paper.removed) (or $has_bib $has_xml $has_endf) }}
+      <a class="btn btn-secondary" title="Open dialog for exporting citations" data-toggle="modal" data-target="#citeModal" href="#">
+        <i class="fas fa-quote-left"></i><span class="pl-2">Cite</span>
       </a>
       {{ end }}
-      <a class="btn btn-secondary" href="https://scholar.google.com/scholar?{{ (querify "q" $paper.title) | safeURL }}" title="Search for '{{ $paper.title | htmlEscape }}' on Google Scholar">
-        <i class="ai ai-google-scholar"></i><span class="pl-sm-2 d-none d-sm-inline">Search</span>
+      <a class="btn btn-secondary" href="https://www.semanticscholar.org/search?{{ (querify "q" $paper.title) | safeURL }}" title="Search for '{{ $paper.title | htmlEscape }}' on Semantic Scholar">
+        <i class="ai ai-semantic-scholar"></i><span class="pl-sm-2 d-none d-sm-inline">Search</span>
       </a>
+      {{ with $paper.pwccode }}
+        {{ if (or (eq .additional "true") .url) }}
+      <a class="btn btn-secondary d-flex flex-wrap justify-content-center" href="https://paperswithcode.com/paper/?acl={{ $anthology_id }}" title="Code for '{{ $paper.title | htmlEscape }}' on Papers with Code">
+        <svg xmlns="http://www.w3.org/2000/svg" class="pwc-icon-big" viewBox="0 0 512 512"><path stroke="#4d8093" fill="#4d8093" d="M88 128h48v256H88zM232 128h48v256h-48zM160 144h48v224h-48zM304 144h48v224h-48zM376 128h48v256h-48z"></path><path stroke="#4d8093" fill="#4d8093" d="M104 104V56H16v400h88v-48H64V104zM408 56v48h40v304h-40v48h88V56z"></path></svg>
+        <span class="pl-sm-2 d-none d-sm-inline">Code</span>
+      </a>
+        {{ end }}
+      {{ end }}
       {{ range $paper.attachment }}
       <a class="btn btn-attachment d-flex flex-wrap justify-content-center" href="{{ .url }}" title="Open {{ .type | humanize | lower }} for '{{ $paper.title | htmlEscape }}'">
         <span class="align-self-center px-1">{{ partial "attachment_repr.html" . -}}</span>
         <span class="px-1">{{ humanize .type }}</span>
       </a>
       {{ end }}
+      {{ range $paper.video }}
+      <a class="btn btn-attachment d-flex flex-wrap justify-content-center" href="{{ . }}" title="Open video for '{{ $paper.title | htmlEscape }}'">
+        <span class="align-self-center px-1"><i class="fas fa-video"></i></span>
+        <span class="px-1">Video</span>
+      </a>
+      {{ end }}
     </div>
   </div>
   <hr />
+
+  <div class="modal fade" id="citeModal" tabindex="-1" role="dialog" aria-labelledby="citeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="citeModalLabel">Export citation</h5>
+          <button class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <ul class="nav nav-tabs mb-2" id="citeFormats" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link {{ if not $has_bib }}disabled{{ else }}active{{ end }}" data-toggle="list" href="#citeBibtex" role="tab" aria-controls="citeBibtex" aria-selected="{{ if $has_bib }}true{{ else }}false{{ end }}">BibTeX</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link {{ if not $has_xml }}disabled{{ end }}" data-toggle="list" href="#citeMods" role="tab" aria-controls="citeMods" aria-selected="false">MODS XML</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link {{ if not $has_endf }}disabled{{ end }}" data-toggle="list" href="#citeEndnote" role="tab" aria-controls="citeEndnote" aria-selected="false">Endnote</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link {{ if not $has_bib }}active{{ end }}" data-toggle="list" href="#citeMarkdown" role="tab" aria-controls="citeMarkdown" aria-selected="{{ if $has_bib }}false{{ else }}true{{ end }}">Preformatted</a>
+            </li>
+          </ul>
+
+          <div class="tab-content" id="citeFormatsContent">
+            <div class="tab-pane active" id="citeBibtex" role="tabpanel">
+              {{- if $has_bib -}}
+              <pre id="citeBibtexContent" class="bg-light border p-2" style="max-height: 50vh;">
+                {{- readFile (printf "/data-export/%s.bib" $anthology_id) -}}
+              </pre>
+              <div class="modal-footer pb-1">
+                <a class="btn btn-secondary" href="{{ (printf "/%s.bib" $anthology_id) | relURL }}"><i class="fas fa-download pr-2"></i>Download as File</a>
+                <button class="btn btn-clipboard btn-primary d-none" data-clipboard-target="#citeBibtexContent"><i class="far fa-clipboard pr-2"></i>Copy to Clipboard</button>
+              </div>
+              {{- end -}}
+            </div>
+            <div class="tab-pane" id="citeMods" role="tabpanel">
+              {{- if $has_xml -}}
+              <pre id="citeModsContent" class="bg-light border p-2" style="max-height: 50vh;">
+                {{- readFile (printf "/data-export/%s.xml" $anthology_id) -}}
+              </pre>
+              <div class="modal-footer pb-1">
+                <a class="btn btn-secondary" href="{{ (printf "/%s.xml" $anthology_id) | relURL }}"><i class="fas fa-download pr-2"></i>Download as File</a>
+                <button class="btn btn-clipboard btn-primary d-none" data-clipboard-target="#citeModsContent"><i class="far fa-clipboard pr-2"></i>Copy to Clipboard</button>
+              </div>
+              {{- end -}}
+            </div>
+            <div class="tab-pane" id="citeEndnote" role="tabpanel">
+              {{- if $has_endf -}}
+              <pre id="citeEndnoteContent" class="bg-light border p-2" style="max-height: 50vh;">
+                {{- readFile (printf "/data-export/%s.endf" $anthology_id) -}}
+              </pre>
+              <div class="modal-footer pb-1">
+                <a class="btn btn-secondary" href="{{ (printf "/%s.endf" $anthology_id) | relURL }}"><i class="fas fa-download pr-2"></i>Download as File</a>
+                <button class="btn btn-clipboard btn-primary d-none" data-clipboard-target="#citeEndnoteContent"><i class="far fa-clipboard pr-2"></i>Copy to Clipboard</button>
+              </div>
+              {{- end -}}
+            </div>
+            <div class="tab-pane" id="citeMarkdown" role="tabpanel">
+              <h5>Markdown (Informal)</h5>
+              <p id="citeMarkdownContent" class="text-monospace small bg-light border p-2">
+                {{- $paper.citation -}}
+              </p>
+              <ul class="mt-2">
+                <li>{{- $paper.citation | markdownify -}}</li>
+              </ul>
+              {{ with $paper.citation_acl }}
+              <h5>ACL</h5>
+              <ul class="mt-2">
+                <li id="citeACLstyleContent">{{- $paper.citation_acl | safeHTML -}}</li>
+              </ul>
+              {{ end }}
+              <div class="modal-footer pb-1">
+                <button type="button" class="btn btn-clipboard btn-primary d-none" data-clipboard-target="#citeMarkdownContent"><i class="far fa-clipboard pr-2"></i>Copy Markdown to Clipboard</button>
+                {{ with $paper.citation_acl }}
+                <button type="button" class="btn btn-clipboard btn-primary d-none" data-clipboard-target="#citeACLstyleContent"><i class="far fa-clipboard pr-2"></i>Copy ACL to Clipboard</button>
+                {{ end }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 {{ end }}

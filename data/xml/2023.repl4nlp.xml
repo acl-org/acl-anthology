@@ -1,0 +1,341 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2023.repl4nlp">
+  <volume id="1" ingest-date="2023-07-12" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of the 8th Workshop on Representation Learning for NLP (RepL4NLP 2023)</booktitle>
+      <editor><first>Burcu</first><last>Can</last><affiliation>University of Stirling</affiliation></editor>
+      <editor><first>Maximilian</first><last>Mozes</last><affiliation>University College London</affiliation></editor>
+      <editor><first>Samuel</first><last>Cahyawijaya</last><affiliation>Hong Kong University of Science and Technology</affiliation></editor>
+      <editor><first>Naomi</first><last>Saphra</last><affiliation>New York University</affiliation></editor>
+      <editor><first>Nora</first><last>Kassner</last><affiliation>Meta</affiliation></editor>
+      <editor><first>Shauli</first><last>Ravfogel</last><affiliation>Bar-Ilan University</affiliation></editor>
+      <editor><first>Abhilasha</first><last>Ravichander</last><affiliation>Allen Institute for Artificial Intelligence</affiliation></editor>
+      <editor><first>Chen</first><last>Zhao</last><affiliation>New York University</affiliation></editor>
+      <editor><first>Isabelle</first><last>Augenstein</last><affiliation>University of Copenhagen</affiliation></editor>
+      <editor><first>Anna</first><last>Rogers</last><affiliation>University of Copenhagen</affiliation></editor>
+      <editor><first>Kyunghyun</first><last>Cho</last><affiliation>New York University</affiliation></editor>
+      <editor><first>Edward</first><last>Grefenstette</last><affiliation>DeepMind</affiliation></editor>
+      <editor><first>Lena</first><last>Voita</last><affiliation>Meta AI</affiliation></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Toronto, Canada</address>
+      <month>July</month>
+      <year>2023</year>
+      <venue>repl4nlp</venue>
+    </meta>
+    <frontmatter>
+      <url hash="72c5792b">2023.repl4nlp-1.0</url>
+      <bibkey>repl4nlp-2023-representation</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Adversarial Clean Label Backdoor Attacks and Defenses on Text Classification Systems</title>
+      <author><first>Ashim</first><last>Gupta</last></author>
+      <author><first>Amrith</first><last>Krishna</last><affiliation>University of Cambridge</affiliation></author>
+      <pages>1-12</pages>
+      <abstract>Clean-label (CL) attack is a form of data poisoning attack where an adversary modifies only the textual input of the training data, without requiring access to the labeling function. CL attacks are relatively unexplored in NLP, as compared to label flipping (LF) attacks, where the latter additionally requires access to the labeling function as well. While CL attacks are more resilient to data sanitization and manual relabeling methods than LF attacks, they often demand as high as ten times the poisoning budget than LF attacks. In this work, we first introduce an Adversarial Clean Label attack which can adversarially perturb in-class training examples for poisoning the training set. We then show that an adversary can significantly bring down the data requirements for a CL attack, using the aforementioned approach, to as low as 20 % of the data otherwise required. We then systematically benchmark and analyze a number of defense methods, for both LF and CL attacks, some previously employed solely for LF attacks in the textual domain and others adapted from computer vision. We find that text-specific defenses greatly vary in their effectiveness depending on their properties.</abstract>
+      <url hash="813b76b6">2023.repl4nlp-1.1</url>
+      <bibkey>gupta-krishna-2023-adversarial</bibkey>
+      <doi>10.18653/v1/2023.repl4nlp-1.1</doi>
+    </paper>
+    <paper id="2">
+      <title>Do not Mask Randomly: Effective Domain-adaptive Pre-training by Masking In-domain Keywords</title>
+      <author><first>Shahriar</first><last>Golchin</last><affiliation>University of Arizona</affiliation></author>
+      <author><first>Mihai</first><last>Surdeanu</last><affiliation>University of Arizona</affiliation></author>
+      <author><first>Nazgol</first><last>Tavabi</last><affiliation>Harvard University</affiliation></author>
+      <author><first>Ata</first><last>Kiapour</last><affiliation>Harvard University</affiliation></author>
+      <pages>13-21</pages>
+      <abstract>We propose a novel task-agnostic in-domain pre-training method that sits between generic pre-training and fine-tuning. Our approach selectively masks in-domain keywords, i.e., words that provide a compact representation of the target domain. We identify such keywords using KeyBERT (Grootendorst, 2020). We evaluate our approach using six different settings: three datasets combined with two distinct pre-trained language models (PLMs). Our results reveal that the fine-tuned PLMs adapted using our in-domain pre-training strategy outperform PLMs that used in-domain pre-training with random masking as well as those that followed the common pre-train-then-fine-tune paradigm. Further, the overhead of identifying in-domain keywords is reasonable, e.g., 7-15% of the pre-training time (for two epochs) for BERT Large (Devlin et al., 2019).</abstract>
+      <url hash="a1becca9">2023.repl4nlp-1.2</url>
+      <bibkey>golchin-etal-2023-mask</bibkey>
+      <doi>10.18653/v1/2023.repl4nlp-1.2</doi>
+    </paper>
+    <paper id="3">
+      <title>Grammatical information in <fixed-case>BERT</fixed-case> sentence embeddings as two-dimensional arrays</title>
+      <author><first>Vivi</first><last>Nastase</last><affiliation>University of Geneva</affiliation></author>
+      <author><first>Paola</first><last>Merlo</last><affiliation>Uppsala University and University of Geneva, Switzerland</affiliation></author>
+      <pages>22-39</pages>
+      <abstract>Sentence embeddings induced with various transformer architectures encode much semantic and syntactic information in a distributed manner in a one-dimensional array. We investigate whether specific grammatical information can be accessed in these distributed representations. Using data from a task developed to test rule-like generalizations, our experiments on detecting subject-verb agreement yield several promising results. First, we show that while the usual sentence representations encoded as one-dimensional arrays do not easily support extraction of rule-like regularities, a two-dimensional reshaping of these vectors allows various learning architectures to access such information. Next, we show that various architectures can detect patterns in these two-dimensional reshaped sentence embeddings and successfully learn a model based on smaller amounts of simpler training data, which performs well on more complex test data. This indicates that current sentence embeddings contain information that is regularly distributed, and which can be captured when the embeddings are reshaped into higher dimensional arrays. Our results cast light on representations produced by language models and help move towards developing few-shot learning approaches.</abstract>
+      <url hash="bf080aa4">2023.repl4nlp-1.3</url>
+      <bibkey>nastase-merlo-2023-grammatical</bibkey>
+      <doi>10.18653/v1/2023.repl4nlp-1.3</doi>
+      <video href="2023.repl4nlp-1.3.mp4"/>
+    </paper>
+    <paper id="4">
+      <title>A Multilingual Evaluation of <fixed-case>NER</fixed-case> Robustness to Adversarial Inputs</title>
+      <author><first>Akshay</first><last>Srinivasan</last></author>
+      <author><first>Sowmya</first><last>Vajjala</last><affiliation>National Research Council Canada</affiliation></author>
+      <pages>40-53</pages>
+      <abstract>Adversarial evaluations of language models typically focus on English alone. In this paper, we performed a multilingual evaluation of Named Entity Recognition (NER) in terms of its robustness to small perturbations in the input. Our results showed the NER models we explored across three languages (English, German and Hindi) are not very robust to such changes, as indicated by the fluctuations in the overall F1 score as well as in a more fine-grained evaluation. With that knowledge, we further explored whether it is possible to improve the existing NER models using a part of the generated adversarial data sets as augmented training data to train a new NER model or as fine-tuning data to adapt an existing NER model. Our results showed that both these approaches improve performance on the original as well as adversarial test sets. While there is no significant difference between the two approaches for English, re-training is significantly better than fine-tuning for German and Hindi.</abstract>
+      <url hash="b8ae1e3e">2023.repl4nlp-1.4</url>
+      <bibkey>srinivasan-vajjala-2023-multilingual</bibkey>
+      <doi>10.18653/v1/2023.repl4nlp-1.4</doi>
+      <video href="2023.repl4nlp-1.4.mp4"/>
+    </paper>
+    <paper id="5">
+      <title>Retrieval-Augmented Domain Adaptation of Language Models</title>
+      <author><first>Benfeng</first><last>Xu</last></author>
+      <author><first>Chunxu</first><last>Zhao</last><affiliation>Beijing Language and Culture University</affiliation></author>
+      <author><first>Wenbin</first><last>Jiang</last></author>
+      <author><first>PengFei</first><last>Zhu</last><affiliation>Baidu</affiliation></author>
+      <author><first>Songtai</first><last>Dai</last><affiliation>Baidu</affiliation></author>
+      <author><first>Chao</first><last>Pang</last><affiliation>Baidu</affiliation></author>
+      <author><first>Zhuo</first><last>Sun</last><affiliation>Baidu</affiliation></author>
+      <author><first>Shuohuan</first><last>Wang</last></author>
+      <author><first>Yu</first><last>Sun</last></author>
+      <pages>54-64</pages>
+      <abstract>Language models pretrained on general domain corpora usually exhibit considerable degradation when generalizing to downstream tasks of specialized domains. Existing approaches try to construct PLMs for each specific domains either from scratch or through further pretraining, which not only costs substantial resources, but also fails to cover all target domains at various granularity. In this work, we propose RADA, a novel Retrieval-Augmented framework for Domain Adaptation. We first construct a textual corpora that covers the downstream task at flexible domain granularity and resource availability. We employ it as a pluggable datastore to retrieve informative background knowledge, and integrate them into the standard language model framework to augment representations. We then propose a two-level selection scheme to integrate the most relevant information while alleviating irrelevant noises. Specifically, we introduce a differentiable sampling module as well as an attention mechanism to achieve both passage-level and word-level selection. Such a retrieval-augmented framework enables domain adaptation of language models with flexible domain coverage and fine-grained domain knowledge integration. We conduct comprehensive experiments across biomedical, science and legal domains to demonstrate the effectiveness of the overall framework, and its advantage over existing solutions.</abstract>
+      <url hash="4d65a19a">2023.repl4nlp-1.5</url>
+      <bibkey>xu-etal-2023-retrieval</bibkey>
+      <doi>10.18653/v1/2023.repl4nlp-1.5</doi>
+      <video href="2023.repl4nlp-1.5.mp4"/>
+    </paper>
+    <paper id="6">
+      <title>Fine-grained Text Style Transfer with Diffusion-Based Language Models</title>
+      <author><first>Yiwei</first><last>Lyu</last></author>
+      <author><first>Tiange</first><last>Luo</last><affiliation>University of Michigan - Ann Arbor</affiliation></author>
+      <author><first>Jiacheng</first><last>Shi</last></author>
+      <author><first>Todd</first><last>Hollon</last><affiliation>University of Michigan</affiliation></author>
+      <author><first>Honglak</first><last>Lee</last><affiliation>LG AI Research and University of Michigan</affiliation></author>
+      <pages>65-74</pages>
+      <abstract>Diffusion probabilistic models have shown great success in generating high-quality images controllably, and researchers have tried to utilize this controllability into text generation domain. Previous works on diffusion-based language models have shown that they can be trained without external knowledge (such as pre-trained weights) and still achieve stable performance and controllability. In this paper, we trained a diffusion-based model on StylePTB dataset, the standard benchmark for fine-grained text style transfers. The tasks in StylePTB requires much more refined control over the output text compared to tasks evaluated in previous works, and our model was able to achieve state-of-the-art performance on StylePTB on both individual and compositional transfers. Moreover, our model, trained on limited data from StylePTB without external knowledge, outperforms previous works that utilized pretrained weights, embeddings, and external grammar parsers, and this may indicate that diffusion-based language models have great potential under low-resource settings.</abstract>
+      <url hash="0a931c25">2023.repl4nlp-1.6</url>
+      <bibkey>lyu-etal-2023-fine</bibkey>
+      <doi>10.18653/v1/2023.repl4nlp-1.6</doi>
+    </paper>
+    <paper id="7">
+      <title>Enhancing text comprehension for Question Answering with Contrastive Learning</title>
+      <author><first>Seungyeon</first><last>Lee</last><affiliation>Kyungpook National University</affiliation></author>
+      <author><first>Minho</first><last>Lee</last><affiliation>Kyungpook National University</affiliation></author>
+      <pages>75-86</pages>
+      <abstract>Although Question Answering (QA) have advanced to the human-level language skills in NLP tasks, there is still a problem: the QA model gets confused when there are similar sentences or paragraphs. Existing studies focus on enhancing the text understanding of the candidate answers to improve the overall performance of the QA models. However, since these methods focus on re-ranking queries or candidate answers, they fail to resolve the confusion when many generated answers are similar to the expected answer. To address these issues, we propose a novel contrastive learning framework called ContrastiveQA that alleviates the confusion problem in answer extraction. We propose a supervised method where we generate positive and negative samples from the candidate answers and the given answer, respectively. We thus introduce ContrastiveQA, which uses contrastive learning with sampling data to reduce incorrect answers. Experimental results on four QA benchmarks show the effectiveness of the proposed method.</abstract>
+      <url hash="7c364e24">2023.repl4nlp-1.7</url>
+      <bibkey>lee-lee-2023-enhancing</bibkey>
+      <doi>10.18653/v1/2023.repl4nlp-1.7</doi>
+    </paper>
+    <paper id="8">
+      <title>Towards Flow Graph Prediction of Open-Domain Procedural Texts</title>
+      <author><first>Keisuke</first><last>Shirai</last></author>
+      <author><first>Hirotaka</first><last>Kameko</last><affiliation>Baidu</affiliation></author>
+      <author><first>Shinsuke</first><last>Mori</last><affiliation>Kyoto University</affiliation></author>
+      <pages>87-96</pages>
+      <abstract>Machine comprehension of procedural texts is essential for reasoning about the steps and automating the procedures. However, this requires identifying entities within a text and resolving the relationships between the entities. Previous work focused on the cooking domain and proposed a framework to convert a recipe text into a flow graph (FG) representation. In this work, we propose a framework based on the recipe FG for flow graph prediction of open-domain procedural texts. To investigate flow graph prediction performance in non-cooking domains, we introduce the wikiHow-FG corpus from articles on wikiHow, a website of how-to instruction articles. In experiments, we consider using the existing recipe corpus and performing domain adaptation from the cooking to the target domain. Experimental results show that the domain adaptation models achieve higher performance than those trained only on the cooking or target domain data.</abstract>
+      <url hash="cb6a27cc">2023.repl4nlp-1.8</url>
+      <bibkey>shirai-etal-2023-towards</bibkey>
+      <doi>10.18653/v1/2023.repl4nlp-1.8</doi>
+    </paper>
+    <paper id="9">
+      <title>One does not fit all! On the Complementarity of Vision Encoders for Vision and Language Tasks</title>
+      <author><first>Gregor</first><last>Geigle</last><affiliation>Bayerische Julius-Maximilians-Universität Würzburg</affiliation></author>
+      <author><first>Chen</first><last>Liu</last></author>
+      <author><first>Jonas</first><last>Pfeiffer</last><affiliation>Google</affiliation></author>
+      <author><first>Iryna</first><last>Gurevych</last><affiliation>TU Darmstadt</affiliation></author>
+      <pages>97-117</pages>
+      <abstract>Current multimodal models, aimed at solving Vision and Language (V+L) tasks, predominantly repurpose Vision Encoders (VE) as feature extractors. While many VEs—of different architectures, trained on different data and objectives—are publicly available, they are not designed for the downstream V+L tasks. Nonetheless, most current work assumes that a <i>single</i> pre-trained VE can serve as a general-purpose encoder. In this work, we focus on analysis and aim to understand whether the information stored within different VEs is complementary, i.e. if providing the model with features from multiple VEs can improve the performance on a target task, and how they are combined. We exhaustively experiment with three popular VEs on six downstream V+L tasks and analyze the attention and VE-dropout patterns. Our analyses suggest that diverse VEs complement each other, resulting in improved downstream V+L task performance, where the improvements are not due to simple ensemble effects (i.e. the performance does not always improve when increasing the number of encoders). We demonstrate that future VEs, which are not <i>repurposed</i>, but explicitly <i>designed</i> for V+L tasks, have the potential of improving performance on the target V+L tasks.</abstract>
+      <url hash="881afdfe">2023.repl4nlp-1.9</url>
+      <bibkey>geigle-etal-2023-one</bibkey>
+      <doi>10.18653/v1/2023.repl4nlp-1.9</doi>
+    </paper>
+    <paper id="10">
+      <title><fixed-case>SPC</fixed-case>: Soft Prompt Construction for Cross Domain Generalization</title>
+      <author><first>Wenbo</first><last>Zhao</last><affiliation>Amazon</affiliation></author>
+      <author><first>Arpit</first><last>Gupta</last><affiliation>Amazon</affiliation></author>
+      <author><first>Tagyoung</first><last>Chung</last><affiliation>Amazon</affiliation></author>
+      <author><first>Jing</first><last>Huang</last><affiliation>Amazon Alexa AI</affiliation></author>
+      <pages>118-130</pages>
+      <abstract>Recent advances in prompt tuning have proven effective as a new language modeling paradigm for various natural language understanding tasks. However, it is challenging to adapt the soft prompt embeddings to different domains or generalize to low-data settings when learning soft prompts itself is unstable, task-specific, and bias-prone. This paper proposes a principled learning framework—soft prompt construction (SPC)—to facilitate learning domain-adaptable soft prompts. Derived from the SPC framework is a simple loss that can plug into various models and tuning approaches to improve their cross-domain performance. We show SPC can improve upon SOTA for contextual query rewriting, summarization, and paraphrase detection by up to 5%, 19%, and 16%, respectively.</abstract>
+      <url hash="80cff754">2023.repl4nlp-1.10</url>
+      <bibkey>zhao-etal-2023-spc</bibkey>
+      <doi>10.18653/v1/2023.repl4nlp-1.10</doi>
+    </paper>
+    <paper id="11">
+      <title>Friendly Neighbors: Contextualized Sequence-to-Sequence Link Prediction</title>
+      <author><first>Adrian</first><last>Kochsiek</last><affiliation>Universität Mannheim</affiliation></author>
+      <author><first>Apoorv</first><last>Saxena</last><affiliation>Indian Institute of Science, Bangalore</affiliation></author>
+      <author><first>Inderjeet</first><last>Nair</last><affiliation>Adobe Systems</affiliation></author>
+      <author><first>Rainer</first><last>Gemulla</last><affiliation>Universität Mannheim, Germany</affiliation></author>
+      <pages>131-138</pages>
+      <abstract>We propose KGT5-context, a simple sequence-to-sequence model for link prediction (LP) in knowledge graphs (KG). Our work expands on KGT5, a recent LP model that exploits textual features of the KG, has small model size, and is scalable. To reach good predictive performance, however, KGT5 relies on an ensemble with a knowledge graph embedding model, which itself is excessively large and costly to use. In this short paper, we show empirically that adding contextual information — i.e., information about the direct neighborhood of the query entity — alleviates the need for a separate KGE model to obtain good performance. The resulting KGT5-context model is simple, reduces model size significantly, and obtains state-of-the-art performance in our experimental study.</abstract>
+      <url hash="72023aa7">2023.repl4nlp-1.11</url>
+      <bibkey>kochsiek-etal-2023-friendly</bibkey>
+      <doi>10.18653/v1/2023.repl4nlp-1.11</doi>
+    </paper>
+    <paper id="12">
+      <title>Extracting Multi-valued Relations from Language Models</title>
+      <author><first>Sneha</first><last>Singhania</last><affiliation>Saarland Informatics Campus, Max-Planck Institute for Informatics</affiliation></author>
+      <author><first>Simon</first><last>Razniewski</last><affiliation>Saarland Informatics Campus, Max-Planck Institute</affiliation></author>
+      <author><first>Gerhard</first><last>Weikum</last><affiliation>Max Planck Institute and Max-Planck Institute for Informatics</affiliation></author>
+      <pages>139-154</pages>
+      <abstract>The widespread usage of latent language representations via pre-trained language models (LMs) suggests that they are a promising source of structured knowledge. However, existing methods focus only on a single object per subject-relation pair, even though often multiple objects are correct. To overcome this limitation, we analyze these representations for their potential to yield materialized multi-object relational knowledge. We formulate the problem as a rank-then-select task. For ranking candidate objects, we evaluate existing prompting techniques and propose new ones incorporating domain knowledge. Among the selection methods, we find that choosing objects with a likelihood above a learned relation-specific threshold gives a 49.5% F1 score. Our results highlight the difficulty of employing LMs for the multi-valued slot-filling task, and pave the way for further research on extracting relational knowledge from latent language representations.</abstract>
+      <url hash="1df73402">2023.repl4nlp-1.12</url>
+      <bibkey>singhania-etal-2023-extracting</bibkey>
+      <doi>10.18653/v1/2023.repl4nlp-1.12</doi>
+    </paper>
+    <paper id="13">
+      <title>Hierarchical Multi-Instance Multi-Label Learning for Detecting Propaganda Techniques</title>
+      <author><first>Anni</first><last>Chen</last></author>
+      <author><first>Bhuwan</first><last>Dhingra</last></author>
+      <pages>155-163</pages>
+      <abstract>Since the introduction of the SemEval 2020 Task 11 (CITATION), several approaches have been proposed in the literature for classifying propagandabased on the rhetorical techniques used to influence readers. These methods, however, classify one span at a time, ignoring dependencies from the labels of other spans within the same context. In this paper, we approach propaganda technique classification as aMulti-Instance Multi-Label (MIML) learning problem (CITATION) and propose a simple RoBERTa-based model (CITATION) for classifying all spans in an article simultaneously. Further, we note that, due to the annotation process whereannotators classified the spans by following a decision tree,there is an inherent hierarchical relationship among the differenttechniques, which existing approaches ignore. We incorporate these hierarchical label dependencies by adding an auxiliary classifier for each node in the decision tree to the training objective and ensembling the predictions from the original and auxiliary classifiers at test time. Overall, our model leads to an absolute improvement of 2.47% micro-F1 over the model from the shared task winning team in a cross-validation setup and is the best performing non-ensemble model on the shared task leaderboard.</abstract>
+      <url hash="bf3502e3">2023.repl4nlp-1.13</url>
+      <bibkey>chen-dhingra-2023-hierarchical</bibkey>
+      <doi>10.18653/v1/2023.repl4nlp-1.13</doi>
+    </paper>
+    <paper id="14">
+      <title>Contrastive Loss is All You Need to Recover Analogies as Parallel Lines</title>
+      <author><first>Narutatsu</first><last>Ri</last></author>
+      <author><first>Fei-Tzin</first><last>Lee</last><affiliation>Columbia University</affiliation></author>
+      <author><first>Nakul</first><last>Verma</last><affiliation>Columbia University</affiliation></author>
+      <pages>164-173</pages>
+      <abstract>While static word embedding models are known to represent linguistic analogies as parallel lines in high-dimensional space, the underlying mechanism as to why they result in such geometric structures remains obscure. We find that an elementary contrastive-style method employed over distributional information performs competitively with popular word embedding models on analogy recovery tasks, while achieving dramatic speedups in training time. Further, we demonstrate that a contrastive loss is sufficient to create these parallel structures in word embeddings, and establish a precise relationship between the co-occurrence statistics and the geometric structure of the resulting word embeddings.</abstract>
+      <url hash="8aa4966f">2023.repl4nlp-1.14</url>
+      <bibkey>ri-etal-2023-contrastive</bibkey>
+      <doi>10.18653/v1/2023.repl4nlp-1.14</doi>
+    </paper>
+    <paper id="15">
+      <title>Syntax-Aware Graph-to-Graph Transformer for Semantic Role Labelling</title>
+      <author><first>Alireza</first><last>Mohammadshahi</last></author>
+      <author><first>James</first><last>Henderson</last><affiliation>Idiap Research Institute</affiliation></author>
+      <pages>174-186</pages>
+      <abstract>Recent models have shown that incorporating syntactic knowledge into the semantic role labelling (SRL) task leads to a significant improvement. In this paper, we propose Syntax-aware Graph-to-Graph Transformer (SynG2G-Tr) model, which encodes the syntactic structure using a novel way to input graph relations as embeddings, directly into the self-attention mechanism of Transformer. This approach adds a soft bias towards attention patterns that follow the syntactic structure but also allows the model to use this information to learn alternative patterns. We evaluate our model on both span-based and dependency-based SRL datasets, and outperform previous alternative methods in both in-domain and out-of-domain settings, on CoNLL 2005 and CoNLL 2009 datasets.</abstract>
+      <url hash="804340bd">2023.repl4nlp-1.15</url>
+      <bibkey>mohammadshahi-henderson-2023-syntax</bibkey>
+      <doi>10.18653/v1/2023.repl4nlp-1.15</doi>
+      <video href="2023.repl4nlp-1.15.mp4"/>
+    </paper>
+    <paper id="16">
+      <title>Improving Zero-shot Relation Classification via Automatically-acquired Entailment Templates</title>
+      <author><first>Mahdi</first><last>Rahimi</last><affiliation>Computer Science Department, University of Arizona</affiliation></author>
+      <author><first>Mihai</first><last>Surdeanu</last><affiliation>University of Arizona</affiliation></author>
+      <pages>187-195</pages>
+      <abstract>While fully supervised relation classification (RC) models perform well on large-scale datasets, their performance drops drastically in low-resource settings. As generating annotated examples are expensive, recent zero-shot methods have been proposed that reformulate RC into other NLP tasks for which supervision exists such as textual entailment. However, these methods rely on templates that are manually created which is costly and requires domain expertise. In this paper, we present a novel strategy for template generation for relation classification, which is based on adapting Harris’ distributional similarity principle to templates encoded using contextualized representations. Further, we perform empirical evaluation of different strategies for combining the automatically acquired templates with manual templates. The experimental results on TACRED show that our approach not only performs better than the zero-shot RC methods that only use manual templates, but also that it achieves state-of-the-art performance for zero-shot TACRED at 64.3 F1 score.</abstract>
+      <url hash="4d189bfe">2023.repl4nlp-1.16</url>
+      <bibkey>rahimi-surdeanu-2023-improving</bibkey>
+      <doi>10.18653/v1/2023.repl4nlp-1.16</doi>
+    </paper>
+    <paper id="17">
+      <title><fixed-case>MUX</fixed-case>-<fixed-case>PLM</fixed-case>s: Pre-training Language Models with Data Multiplexing</title>
+      <author><first>Vishvak</first><last>Murahari</last><affiliation>Princeton University</affiliation></author>
+      <author><first>Ameet</first><last>Deshpande</last></author>
+      <author><first>Carlos</first><last>Jimenez</last></author>
+      <author><first>Izhak</first><last>Shafran</last><affiliation>Google</affiliation></author>
+      <author><first>Mingqiu</first><last>Wang</last></author>
+      <author><first>Yuan</first><last>Cao</last><affiliation>Google Brain</affiliation></author>
+      <author><first>Karthik</first><last>Narasimhan</last><affiliation>Princeton University</affiliation></author>
+      <pages>196-211</pages>
+      <abstract>The widespread adoption of large language models such as ChatGPT and Bard has led to unprecedented demand for these technologies. The burgeoning cost of inference for ever-increasing model sizes coupled with hardware shortages has limited affordable access and poses a pressing need for efficiency approaches geared towards high throughput and performance. Multi-input multi-output (MIMO) algorithms such as data multiplexing, offer a promising solution with a many-fold increase in throughput by performing inference for multiple inputs at the cost of a single input. Yet these approaches are not currently performant enough to be deployed in modern systems. We change that by developing MUX-PLMs, a class of high throughput pre-trained language models (PLMs) trained with data multiplexing, that can be fine-tuned for any downstream task to yield high-throughput high-performance. Our novel multiplexing and demultiplexing modules proficiently entangle and disentangle inputs, and enable high-performance high throughput that are competitive with vanilla PLMs while achieving 2x/5x inference speedup with only a 1−4% drop on a broad suite of tasks.</abstract>
+      <url hash="ac902053">2023.repl4nlp-1.17</url>
+      <bibkey>murahari-etal-2023-mux</bibkey>
+      <doi>10.18653/v1/2023.repl4nlp-1.17</doi>
+    </paper>
+    <paper id="18">
+      <title>Mixed Orthographic/Phonemic Language Modeling: Beyond Orthographically Restricted Transformers (<fixed-case>BORT</fixed-case>)</title>
+      <author><first>Robert C.</first><last>Gale</last><affiliation>Oregon Health Sciences University</affiliation></author>
+      <author><first>Alexandra C.</first><last>Salem</last><affiliation>Oregon Health Sciences University</affiliation></author>
+      <author><first>Gerasimos</first><last>Fergadiotis</last><affiliation>Portland State University</affiliation></author>
+      <author><first>Steven</first><last>Bedrick</last><affiliation>Oregon Health &amp; Science University</affiliation></author>
+      <pages>212-225</pages>
+      <abstract>Speech language pathologists rely on information spanning the layers of language, often drawing from multiple layers (e.g. phonology &amp; semantics) at once. Recent innovations in large language models (LLMs) have been shown to build powerful representations for many complex language structures, especially syntax and semantics, unlocking the potential of large datasets through self-supervised learning techniques. However, these datasets are overwhelmingly orthographic, favoring writing systems like the English alphabet, a natural but phonetically imprecise choice. Meanwhile, LLM support for the international phonetic alphabet (IPA) ranges from poor to absent. Further, LLMs encode text at a word- or near-word level, and pre-training tasks have little to gain from phonetic/phonemic representations. In this paper, we introduce BORT, an LLM for mixed orthography/IPA meant to overcome these limitations. To this end, we extend the pre-training of an existing LLM with our own self-supervised pronunciation tasks. We then fine-tune for a clinical task that requires simultaneous phonological and semantic analysis. For an “easy” and “hard” version of these tasks, we show that fine-tuning from our models is more accurate by a relative 24% and 29%, and improved on character error rates by a relative 75% and 31%, respectively, than those starting from the original model.</abstract>
+      <url hash="8d294ac2">2023.repl4nlp-1.18</url>
+      <bibkey>gale-etal-2023-mixed</bibkey>
+      <doi>10.18653/v1/2023.repl4nlp-1.18</doi>
+    </paper>
+    <paper id="19">
+      <title>Effectiveness of Data Augmentation for Parameter Efficient Tuning with Limited Data</title>
+      <author><first>Stephen</first><last>Obadinma</last><affiliation>Queen’s University</affiliation></author>
+      <author><first>Hongyu</first><last>Guo</last></author>
+      <author><first>Xiaodan</first><last>Zhu</last><affiliation>Queen’s University</affiliation></author>
+      <pages>226-237</pages>
+      <abstract>Recent work has demonstrated that using parameter efficient tuning techniques such as prefix tuning (or P-tuning) on pretrained language models can yield performance that is comparable or superior to fine-tuning while dramatically reducing trainable parameters. Nevertheless, the effectiveness of such methods under the context of data augmentation, a common strategy to improve learning under low data regimes, has not been fully explored. In this paper, we examine the effectiveness of several popular task-agnostic data augmentation techniques, i.e., EDA, Back Translation, and Mixup, when using two general parameter efficient tuning methods, P-tuning v2 and LoRA, under data scarcity. We show that data augmentation can be used to boost the performance of P-tuning and LoRA models, but the effectiveness of each technique varies and certain methods can lead to a notable degradation in performance, particularly when using larger models and on harder tasks. We further analyze the sentence representations of P-tuning compared to fine-tuning to help understand the above behaviour, and reveal how P-tuning generally presents a more limited ability to separate the sentence embeddings from different classes of augmented data. In addition, it displays poorer performance on heavily altered data. However, we demonstrate that by adding a simple contrastive loss function it can help mitigate such issues for prefix tuning, resulting in sizable improvements to augmented data performance.</abstract>
+      <url hash="57ac83a0">2023.repl4nlp-1.19</url>
+      <bibkey>obadinma-etal-2023-effectiveness</bibkey>
+      <doi>10.18653/v1/2023.repl4nlp-1.19</doi>
+    </paper>
+    <paper id="20">
+      <title>Relational Sentence Embedding for Flexible Semantic Matching</title>
+      <author><first>Bin</first><last>Wang</last><affiliation>National University of Singapore, Singapore</affiliation></author>
+      <author><first>Haizhou</first><last>Li</last><affiliation>National University of Singapore, Singapore and School of Data Science, The Chinese University of Hong Kong, Shenzhen, China and Shenzhen Research Institute of Big Data</affiliation></author>
+      <pages>238-252</pages>
+      <url hash="fd37e0da">2023.repl4nlp-1.20</url>
+      <bibkey>wang-li-2023-relational</bibkey>
+      <doi>10.18653/v1/2023.repl4nlp-1.20</doi>
+    </paper>
+    <paper id="21">
+      <title>Tucker Decomposition with Frequency Attention for Temporal Knowledge Graph Completion</title>
+      <author><first>Likang</first><last>Xiao</last><affiliation>SKLSDE, School of Computer Science and Engineering, Beihang University, Beijing, China and Shen Yuan Honors College, Beihang University, Beijing, China</affiliation></author>
+      <author><first>Richong</first><last>Zhang</last><affiliation>SKLSDE, School of Computer Science and Engineering, Beihang University, Beijing, China</affiliation></author>
+      <author><first>Zijie</first><last>Chen</last><affiliation>School of Electrical and Computer Engineering, University of Toronto, Toronto, Canada</affiliation></author>
+      <author><first>Junfan</first><last>Chen</last><affiliation>SKLSDE, School of Computer Science and Engineering, Beihang University, Beijing, China</affiliation></author>
+      <pages>253-265</pages>
+      <url hash="5ed3735c">2023.repl4nlp-1.21</url>
+      <bibkey>xiao-etal-2023-tucker-decomposition</bibkey>
+      <doi>10.18653/v1/2023.repl4nlp-1.21</doi>
+    </paper>
+    <paper id="22">
+      <title><fixed-case>CLIP</fixed-case>-based image captioning via unsupervised cycle-consistency in the latent space</title>
+      <author><first>Romain</first><last>Bielawski</last><affiliation>ANITI, Université de Toulouse, France</affiliation></author>
+      <author><first>Rufin</first><last>VanRullen</last><affiliation>CerCo, CNRS UMR5549, Toulouse</affiliation></author>
+      <pages>266-275</pages>
+      <url hash="cbd11372">2023.repl4nlp-1.22</url>
+      <bibkey>bielawski-vanrullen-2023-clip</bibkey>
+      <doi>10.18653/v1/2023.repl4nlp-1.22</doi>
+    </paper>
+    <paper id="23">
+      <title>Token-level Fitting Issues of Seq2seq Models</title>
+      <author><first>Guangsheng</first><last>Bao</last><affiliation>Zhejiang University and School of Engineering, Westlake University</affiliation></author>
+      <author><first>Zhiyang</first><last>Teng</last><affiliation>Nanyang Technological University</affiliation></author>
+      <author><first>Yue</first><last>Zhang</last><affiliation>School of Engineering, Westlake University and Institute of Advanced Technology, Westlake Institute for Advanced Study</affiliation></author>
+      <pages>276-288</pages>
+      <url hash="2fb72a2b">2023.repl4nlp-1.23</url>
+      <bibkey>bao-etal-2023-token</bibkey>
+      <doi>10.18653/v1/2023.repl4nlp-1.23</doi>
+      <video href="2023.repl4nlp-1.23.mp4"/>
+      <revision id="1" href="2023.repl4nlp-1.23v1" hash="35d71706"/>
+      <revision id="2" href="2023.repl4nlp-1.23v2" hash="2fb72a2b" date="2024-06-10">Update the Acknowledgements to correct the funding information.</revision>
+    </paper>
+    <paper id="24">
+      <title>Revealing the Blind Spot of Sentence Encoder Evaluation by <fixed-case>HEROS</fixed-case></title>
+      <author><first>Cheng-Han</first><last>Chiang</last><affiliation>National Taiwan University†</affiliation></author>
+      <author><first>Hung-yi</first><last>Lee</last><affiliation>National Taiwan University†</affiliation></author>
+      <author><first>Yung-Sung</first><last>Chuang</last><affiliation>Massachusetts Institute of Technology</affiliation></author>
+      <author><first>James</first><last>Glass</last><affiliation>Massachusetts Institute of Technology</affiliation></author>
+      <pages>289-302</pages>
+      <url hash="c653b5de">2023.repl4nlp-1.24</url>
+      <bibkey>chiang-etal-2023-revealing</bibkey>
+      <doi>10.18653/v1/2023.repl4nlp-1.24</doi>
+    </paper>
+    <paper id="25">
+      <title>One-Shot Exemplification Modeling via Latent Sense Representations</title>
+      <author><first>John</first><last>Harvill</last><affiliation>University of Illinois Urbana-Champaign</affiliation></author>
+      <author><first>Mark</first><last>Hasegawa-Johnson</last><affiliation>University of Illinois Urbana-Champaign</affiliation></author>
+      <author><first>Hee Suk</first><last>Yoon</last><affiliation>Korea Advanced Institute of Science and Technology</affiliation></author>
+      <author><first>Chang D.</first><last>Yoo</last><affiliation>Korea Advanced Institute of Science and Technology</affiliation></author>
+      <author><first>Eunseop</first><last>Yoon</last><affiliation>Korea Advanced Institute of Science and Technology</affiliation></author>
+      <pages>303-314</pages>
+      <url hash="3f8a5045">2023.repl4nlp-1.25</url>
+      <bibkey>harvill-etal-2023-one</bibkey>
+      <doi>10.18653/v1/2023.repl4nlp-1.25</doi>
+    </paper>
+    <paper id="26">
+      <title><fixed-case>S</fixed-case>en2<fixed-case>P</fixed-case>ro: A Probabilistic Perspective to Sentence Embedding from Pre-trained Language Model</title>
+      <author><first>Lingfeng</first><last>Shen</last><affiliation>Tencent AI Lab</affiliation></author>
+      <author><first>Haiyun</first><last>Jiang</last><affiliation>Tencent AI Lab</affiliation></author>
+      <author><first>Lemao</first><last>Liu</last><affiliation>Tencent AI Lab</affiliation></author>
+      <author><first>Shuming</first><last>Shi</last><affiliation>Tencent AI Lab</affiliation></author>
+      <pages>315-333</pages>
+      <url hash="3080b9bd">2023.repl4nlp-1.26</url>
+      <bibkey>shen-etal-2023-sen2pro</bibkey>
+      <doi>10.18653/v1/2023.repl4nlp-1.26</doi>
+    </paper>
+    <paper id="27">
+      <title>Visual Coherence Loss for Coherent and Visually Grounded Story Generation</title>
+      <author><first>Xudong</first><last>Hong</last><affiliation>MPI Informatics and Saarland University and Saarland Informatics Campus</affiliation></author>
+      <author><first>Vera</first><last>Demberg</last><affiliation>Saarland University and Saarland Informatics Campus</affiliation></author>
+      <author><first>Asad</first><last>Sayeed</last><affiliation>University of Gothenburg</affiliation></author>
+      <author><first>Qiankun</first><last>Zheng</last><affiliation>Saarland University and Saarland Informatics Campus</affiliation></author>
+      <author><first>Bernt</first><last>Schiele</last><affiliation>MPI Informatics and Saarland Informatics Campus</affiliation></author>
+      <pages>334-346</pages>
+      <url hash="4ae909fd">2023.repl4nlp-1.27</url>
+      <bibkey>hong-etal-2023-visual-coherence</bibkey>
+      <doi>10.18653/v1/2023.repl4nlp-1.27</doi>
+    </paper>
+  </volume>
+</collection>

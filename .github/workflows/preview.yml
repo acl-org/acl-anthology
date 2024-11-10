@@ -1,0 +1,75 @@
+# Builds a preview of all non-master branches and publishes them
+# to https://aclanthology.org/previews/BRANCHNAME
+
+name: preview
+
+on:
+  push:
+    branches:
+    - '*'
+    - '!master'
+    - '!python-dev'
+
+# only run one at a time per branch
+concurrency:
+  group: preview-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  preview:
+    if: github.repository == 'acl-org/acl-anthology'
+    runs-on:
+      labels: ubuntu-latest-m
+    steps:
+    - name: install hugo
+      run: wget https://github.com/gohugoio/hugo/releases/download/v0.118.2/hugo_extended_0.118.2_linux-amd64.deb && sudo dpkg -i hugo_extended*.deb
+    - name: update
+      run: sudo apt-get update
+    - name: install other deps
+      run: sudo apt-get install -y jing bibutils openssh-client rsync libyaml-dev libpython3-dev
+    - name: dump secret key
+      env:
+        SSH_KEY: ${{ secrets.PUBLISH_SSH_KEY }}
+      run: |
+        mkdir -p $HOME/.ssh/
+        echo "$SSH_KEY" > $HOME/.ssh/id_rsa
+        chmod 600 $HOME/.ssh/id_rsa
+    - uses: actions/checkout@v3
+    - name: fetch master branch
+      run: |
+        git fetch origin master
+    - name: install pip dependencies
+      run: |
+        python -m pip install -U pip
+        python -m pip install lxml
+    - name: extract branch name
+      shell: bash
+      run: echo "branch=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_OUTPUT
+      id: extract_branch
+    - name: list volumes
+      shell: bash
+      run: echo "volumes=$(git diff --name-only $GITHUB_REF origin/master | python ./bin/volumes_from_diff.py https://preview.aclanthology.org/${{ steps.extract_branch.outputs.branch }}/volumes)" >> $GITHUB_OUTPUT
+      id: list_volumes
+#    - name: list volumes debug
+#      shell: bash
+#      run: |
+#        git diff --name-only $GITHUB_REF origin/master
+#        git diff --name-only $GITHUB_REF origin/master | python ./bin/volumes_from_diff.py https://preview.aclanthology.org/${{ steps.extract_branch.outputs.branch }}
+    - name: preview
+      shell: bash
+      env:
+        ANTHOLOGY_PREFIX: https://preview.aclanthology.org/${{ steps.extract_branch.outputs.branch }}
+      run: |
+        make NOBIB=true ANTHOLOGY_PREFIX=${ANTHOLOGY_PREFIX} check site preview
+    - uses: mshick/add-pr-comment@v2
+      with:
+        # this causes pushes to update the old message, instead of generating a new one
+        message-id: preview
+        message: |
+          Build successful. Some useful links:
+          * Complete site preview: https://preview.aclanthology.org/${{ steps.extract_branch.outputs.branch }}
+          * Potential volumes of interest: ${{ steps.list_volumes.outputs.volumes }}
+
+          This preview will be removed when the branch is merged.
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        allow-repeats: false

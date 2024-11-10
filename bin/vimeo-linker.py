@@ -39,39 +39,39 @@ import re
 from anthology import Anthology
 from docopt import docopt
 
+# ruff: noqa: F403, F405, E741
 from vimeo_apikeys import *
 
+
 def checkVideo(paper):
-    if not "attachment" in paper.attrib:
-        return False
-    for elem in paper.attrib["attachment"]:
+    for elem in paper.attachments:
         if elem["type"] == "video":
             return True
     return False
+
 
 args = docopt(__doc__)
 fromYear = int(args["--from-year"])
 cacheVimeo = args["--cache-vimeo"]
 cacheMatchings = args["--cache-matchings"]
 
-v = vimeo.VimeoClient(
-    token=personalAccessToken,
-    key=clientId,
-    secret=apiSecret
-)
+v = vimeo.VimeoClient(token=personalAccessToken, key=clientId, secret=apiSecret)
 
 allpapers = Anthology(importdir="../data/").papers
 
 print("number of papers in anthology: ", len(allpapers))
 
 papers = {k: v for k, v in allpapers.items() if int(v.attrib["year"]) > fromYear}
-print("number of papers in anthology without video after " + str(fromYear) + ": ", len(papers))
+print(
+    "number of papers in anthology without video after " + str(fromYear) + ": ",
+    len(papers),
+)
 
 
 requestUrl = "/users/46432367/videos?per_page=100"
 cont = True
 nameUrls = {}
-numRequests=0
+numRequests = 0
 
 fetchUrls = True
 if cacheVimeo and os.path.isfile("videos.pickle"):
@@ -80,7 +80,7 @@ if cacheVimeo and os.path.isfile("videos.pickle"):
 
 while cont and fetchUrls:
     res = v.get(requestUrl)
-    if res == None:
+    if res is None:
         print("Result was None; sleeping and trying again")
         time.sleep(2)
         continue
@@ -93,13 +93,13 @@ while cont and fetchUrls:
         nameUrls[elem["name"]] = elem["link"]
     requestUrl = j["paging"]["next"]
     print(requestUrl)
-    cont = requestUrl != None
+    cont = requestUrl is not None
     # seems to be needed to not run into read timeouts.
     time.sleep(1)
 
 if fetchUrls and cacheVimeo:
     pickle.dump(nameUrls, open("videos.pickle", "wb"))
-    
+
 
 notFounds = []
 result = ""
@@ -111,12 +111,13 @@ def trySubstringMatch(videoName):
         if p.is_volume:
             continue
         title = p.get_title("plain")
-        if len(title) <=  20:
+        if len(title) <= 20:
             continue
         if title.lower() in videoName:
             return (idx, p)
     return None
-    
+
+
 def tryMatch(name):
     matcher.set_seq1(name)
     for idx, p in papers.items():
@@ -124,11 +125,14 @@ def tryMatch(name):
             continue
         title = p.get_title("plain")
         matcher.set_seq2(title.lower())
-        if matcher.real_quick_ratio() > 0.8 and \
-         matcher.quick_ratio() > 0.8 and \
-         matcher.ratio() > 0.8:
+        if (
+            matcher.real_quick_ratio() > 0.8
+            and matcher.quick_ratio() > 0.8
+            and matcher.ratio() > 0.8
+        ):
             return (idx, p)
     return None
+
 
 num_elems = len(nameUrls)
 
@@ -157,24 +161,35 @@ if computeMatch:
         if " " in name:
             name = name.lower()
             res = trySubstringMatch(name)
-            if res == None:
+            if res is None:
                 res = tryMatch(name)
             # try to remove author list appended by : or by -
-            if res == None:
+            if res is None:
                 if ":" in name:
                     res = tryMatch(name.rsplit(":", 1)[0])
-            if res == None:
+            if res is None:
                 if "-" in name:
                     res = tryMatch(name.rsplit("-", 1)[0])
 
-            if res != None:
+            if res is not None:
                 (idx, p) = res
                 if checkVideo(p):
                     print("video already exists, skipping ...")
                     continue
                 title = p.get_title("plain")
                 print("found title " + title + " for video " + name)
-                result += title +"\t"+ idx +"\t"+ url +"\t"+ name +"\t"+ p.get_booktitle("plain") + "\n"
+                result += (
+                    title
+                    + "\t"
+                    + idx
+                    + "\t"
+                    + url
+                    + "\t"
+                    + name
+                    + "\t"
+                    + p.get_booktitle("plain")
+                    + "\n"
+                )
                 id_video.append((idx, url))
             else:
                 notFounds.append((name, url))
@@ -191,26 +206,26 @@ if computeMatch:
 if computeMatch and cacheMatchings:
     pickle.dump(id_video, open("videos_papers.pickle", "wb"))
 
-    
+
 venues = set([x[0].split("-")[0] for x in id_video])
 
 id_video_dict = {id: video for id, video in id_video}
 
-paperidre = re.compile(r'.*<url>(\w\d\d-\d\d\d\d)</url>')
+paperidre = re.compile(r".*<url>(\w\d\d-\d\d\d\d)</url>")
 
 has_video = False
 idx = "notset"
 for v in venues:
-    with open("../data/xml/"+v+".xml") as f:
-        with open("../data/xml/"+v+".xml.new", "w") as out:
+    with open("../data/xml/" + v + ".xml") as f:
+        with open("../data/xml/" + v + ".xml.new", "w") as out:
             for l in f:
                 m = paperidre.match(l)
                 if m:
-                    idx = m[1] #v+"-"+m[1]
+                    idx = m[1]  # v+"-"+m[1]
                     has_video = idx in id_video_dict
                 if has_video and r"</paper>" in l:
-                    out.write('      <video href="' + id_video_dict[idx] + '" tag="video"/>\n')
+                    out.write(
+                        '      <video href="' + id_video_dict[idx] + '" tag="video"/>\n'
+                    )
                     has_video = False
                 out.write(l)
-
-                

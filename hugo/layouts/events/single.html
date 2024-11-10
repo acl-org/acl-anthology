@@ -1,15 +1,34 @@
 {{ define "main" }}
+{{ $event := index .Site.Data.events .Params.event_slug }}
 <section id="main">
   <h2 id="title">
     {{ .Title }}
   </h2>
+  {{ with $event.location }}
+  <span>{{ . }}</span><br/>
+  {{ end }}
+  {{ with $event.dates }}
+  <span class="font-weight-light text-muted">{{ . }}</span><br/>
+  {{ end }}
   <hr />
 
-  {{ $venue := index .Site.Data.venues .Params.venue }}
-  {{ $volumes := index $venue "volumes_by_year" .Params.year }}
+  {{/* Get the event and iterate through all the volumes associated with it */}}
+  {{ $volumes := index $event "volumes" }}
   <div class="card bg-light mb-2 mb-lg-4">
     <div class="card-body">
-      <h4 class="card-title">Contents</h4>
+      {{ if $event.links }}
+      <h4 class="card-title">Links</h4>
+      <ul class="list-pl-responsive">
+        {{ range $event.links }}
+          {{ range $label, $link := . }}
+        <li>
+          <a class="align-middle" href="{{ $link }}">{{ $label }}</a>
+        </li>
+          {{ end }}
+        {{ end }}
+      </ul>
+      {{ end }}
+      <h4 class="card-title">Volumes</h4>
       <ul class="list-pl-responsive">
         {{ range $volumes }}
         {{ $volume := index $.Site.Data.volumes . }}
@@ -39,7 +58,6 @@
   {{ end }}
 
   {{ range $volumes }}
-  {{ $volume_id := slicestr . 0 3 }}
   {{ $volume := index $.Site.Data.volumes . }}
   <div id="{{ . | anchorize }}">
     <small><a href="#" class="text-muted"><i class="fas fa-arrow-up"></i> up</a></small>
@@ -58,7 +76,7 @@
     <a class="align-middle" href="{{ relref $ (printf "/volumes/%s.md" .) }}">{{ $volume.title }}</a></h4>
 
     {{ range $volume.papers }}
-      {{ $page := printf "/papers/%s/%s/%s.md" (slicestr . 0 1) (slicestr . 0 3) . }}
+      {{ $page := printf "/papers/%s/%s.md" (index (split . "-") 0) . }}
       {{ ($.Site.GetPage $page).Render "list-entry" }}
     {{ end }}
   </div>

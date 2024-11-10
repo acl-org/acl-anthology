@@ -1,0 +1,403 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2022.starsem">
+  <volume id="1" ingest-date="2022-06-29" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of the 11th Joint Conference on Lexical and Computational Semantics</booktitle>
+      <editor><first>Vivi</first><last>Nastase</last></editor>
+      <editor><first>Ellie</first><last>Pavlick</last></editor>
+      <editor><first>Mohammad Taher</first><last>Pilehvar</last></editor>
+      <editor><first>Jose</first><last>Camacho-Collados</last></editor>
+      <editor><first>Alessandro</first><last>Raganato</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Seattle, Washington</address>
+      <month>July</month>
+      <year>2022</year>
+      <url hash="16416877">2022.starsem-1</url>
+      <venue>starsem</venue>
+    </meta>
+    <frontmatter>
+      <url hash="3e1bd359">2022.starsem-1.0</url>
+      <bibkey>starsem-2022-joint</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>What do Large Language Models Learn about Scripts?</title>
+      <author><first>Abhilasha</first><last>Sancheti</last></author>
+      <author><first>Rachel</first><last>Rudinger</last></author>
+      <pages>1-11</pages>
+      <abstract>Script Knowledge (Schank and Abelson, 1975) has long been recognized as crucial for language understanding as it can help in filling in unstated information in a narrative. However, such knowledge is expensive to produce manually and difficult to induce from text due to reporting bias (Gordon and Van Durme, 2013). In this work, we are interested in the scientific question of whether explicit script knowledge is present and accessible through pre-trained generative language models (LMs). To this end, we introduce the task of generating full event sequence descriptions (ESDs) given a scenario as a natural language prompt. Through zero-shot probing, we find that generative LMs produce poor ESDs with mostly omitted, irrelevant, repeated or misordered events. To address this, we propose a pipeline-based script induction framework (SIF) which can generate good quality ESDs for unseen scenarios (e.g., bake a cake). SIF is a two-staged framework that fine-tunes LM on a small set of ESD examples in the first stage. In the second stage, ESD generated for an unseen scenario is post-processed using RoBERTa-based models to filter irrelevant events, remove repetitions, and reorder the temporally misordered events. Through automatic and manual evaluations, we demonstrate that SIF yields substantial improvements (1-3 BLEU points) over a fine-tuned LM. However, manual analysis shows that there is great room for improvement, offering a new research direction for inducing script knowledge.</abstract>
+      <url hash="d4b971d7">2022.starsem-1.1</url>
+      <bibkey>sancheti-rudinger-2022-large</bibkey>
+      <doi>10.18653/v1/2022.starsem-1.1</doi>
+      <pwccode url="https://github.com/abhilashasancheti/script-generation" additional="false">abhilashasancheti/script-generation</pwccode>
+    </paper>
+    <paper id="2">
+      <title><fixed-case>D</fixed-case>eep<fixed-case>A</fixed-case>2: A Modular Framework for Deep Argument Analysis with Pretrained Neural <fixed-case>T</fixed-case>ext2<fixed-case>T</fixed-case>ext Language Models</title>
+      <author><first>Gregor</first><last>Betz</last></author>
+      <author><first>Kyle</first><last>Richardson</last></author>
+      <pages>12-27</pages>
+      <abstract>In this paper, we present and implement a multi-dimensional, modular framework for performing deep argument analysis (DeepA2) using current pre-trained language models (PTLMs). ArgumentAnalyst – a T5 model [Raffel et al. 2020] set up and trained within DeepA2 – reconstructs argumentative texts, which advance an informal argumentation, as valid arguments: It inserts, e.g., missing premises and conclusions, formalizes inferences, and coherently links the logical reconstruction to the source text. We create a synthetic corpus for deep argument analysis, and evaluate ArgumentAnalyst on this new dataset as well as on existing data, specifically EntailmentBank [Dalvi et al. 2021]. Our empirical findings vindicate the overall framework and highlight the advantages of a modular design, in particular its ability to emulate established heuristics (such as hermeneutic cycles), to explore the model’s uncertainty, to cope with the plurality of correct solutions (underdetermination), and to exploit higher-order evidence.</abstract>
+      <url hash="d1d5b217">2022.starsem-1.2</url>
+      <bibkey>betz-richardson-2022-deepa2</bibkey>
+      <doi>10.18653/v1/2022.starsem-1.2</doi>
+      <pwccode url="https://github.com/vamsi995/paraphrase-generator" additional="false">vamsi995/paraphrase-generator</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/aaac">AAAC</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/entailmentbank">EntailmentBank</pwcdataset>
+    </paper>
+    <paper id="3">
+      <title>Semantics-aware Attention Improves Neural Machine Translation</title>
+      <author><first>Aviv</first><last>Slobodkin</last></author>
+      <author><first>Leshem</first><last>Choshen</last></author>
+      <author><first>Omri</first><last>Abend</last></author>
+      <pages>28-43</pages>
+      <abstract>The integration of syntactic structures into Transformer machine translation has shown positive results, but to our knowledge, no work has attempted to do so with semantic structures. In this work we propose two novel parameter-free methods for injecting semantic information into Transformers, both rely on semantics-aware masking of (some of) the attention heads. One such method operates on the encoder, through a Scene-Aware Self-Attention (SASA) head. Another on the decoder, through a Scene-Aware Cross-Attention (SACrA) head. We show a consistent improvement over the vanilla Transformer and syntax-aware models for four language pairs. We further show an additional gain when using both semantic and syntactic structures in some language pairs.</abstract>
+      <url hash="5c27e309">2022.starsem-1.3</url>
+      <bibkey>slobodkin-etal-2022-semantics</bibkey>
+      <doi>10.18653/v1/2022.starsem-1.3</doi>
+      <pwcdataset url="https://paperswithcode.com/dataset/universal-dependencies">Universal Dependencies</pwcdataset>
+    </paper>
+    <paper id="4">
+      <title>Compositional generalization with a broad-coverage semantic parser</title>
+      <author><first>Pia</first><last>Weißenhorn</last></author>
+      <author><first>Lucia</first><last>Donatelli</last></author>
+      <author><first>Alexander</first><last>Koller</last></author>
+      <pages>44-54</pages>
+      <abstract>We show how the AM parser, a compositional semantic parser (Groschwitz et al., 2018) can solve compositional generalization on the COGS dataset. It is the first semantic parser that achieves high accuracy on both naturally occurring language and the synthetic COGS dataset. We discuss implications for corpus and model design for learning human-like generalization. Our results suggest that compositional generalization can be best achieved by building compositionality into semantic parsers.</abstract>
+      <url hash="03cb4d16">2022.starsem-1.4</url>
+      <bibkey>weissenhorn-etal-2022-compositional</bibkey>
+      <doi>10.18653/v1/2022.starsem-1.4</doi>
+      <pwccode url="https://github.com/coli-saar/am-parser" additional="false">coli-saar/am-parser</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/cfq">CFQ</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/scan">SCAN</pwcdataset>
+    </paper>
+    <paper id="5">
+      <title><fixed-case>A</fixed-case>na<fixed-case>L</fixed-case>og: Testing Analytical and Deductive Logic Learnability in Language Models</title>
+      <author><first>Samuel</first><last>Ryb</last></author>
+      <author><first>Mario</first><last>Giulianelli</last></author>
+      <author><first>Arabella</first><last>Sinclair</last></author>
+      <author><first>Raquel</first><last>Fernández</last></author>
+      <pages>55-68</pages>
+      <abstract>We investigate the extent to which pre-trained language models acquire analytical and deductive logical reasoning capabilities as a side effect of learning word prediction. We present AnaLog, a natural language inference task designed to probe models for these capabilities, controlling for different invalid heuristics the models may adopt instead of learning the desired generalisations. We test four languagemodels on AnaLog, finding that they have all learned, to a different extent, to encode information that is predictive of entailment beyond shallow heuristics such as lexical overlap and grammaticality. We closely analyse the best performing language model and show that while it performs more consistently than other language models across logical connectives and reasoning domains, it still is sensitive to lexical and syntactic variations in the realisation of logical statements.</abstract>
+      <url hash="4e50b5e3">2022.starsem-1.5</url>
+      <bibkey>ryb-etal-2022-analog</bibkey>
+      <doi>10.18653/v1/2022.starsem-1.5</doi>
+      <pwcdataset url="https://paperswithcode.com/dataset/glue">GLUE</pwcdataset>
+    </paper>
+    <paper id="6">
+      <title>Pairwise Representation Learning for Event Coreference</title>
+      <author><first>Xiaodong</first><last>Yu</last></author>
+      <author><first>Wenpeng</first><last>Yin</last></author>
+      <author><first>Dan</first><last>Roth</last></author>
+      <pages>69-78</pages>
+      <abstract>Natural Language Processing tasks such as resolving the coreference of events require understanding the relations between two text snippets. These tasks are typically formulated as (binary) classification problems over independently induced representations of the text snippets. In this work, we develop a Pairwise Representation Learning (PairwiseRL) scheme for the event mention pairs, in which we jointly encode a pair of text snippets so that the representation of each mention in the pair is induced in the context of the other one. Furthermore, our representation supports a finer, structured representation of the text snippet to facilitate encoding events and their arguments. We show that PairwiseRL, despite its simplicity, outperforms the prior state-of-the-art event coreference systems on both cross-document and within-document event coreference benchmarks. We also conduct in-depth analysis in terms of the improvement and the limitation of pairwise representation so as to provide insights for future work.</abstract>
+      <url hash="a51fc9d4">2022.starsem-1.6</url>
+      <bibkey>yu-etal-2022-pairwise</bibkey>
+      <doi>10.18653/v1/2022.starsem-1.6</doi>
+      <pwcdataset url="https://paperswithcode.com/dataset/ecb">ECB+</pwcdataset>
+    </paper>
+    <paper id="7">
+      <title>A Simple Unsupervised Approach for Coreference Resolution using Rule-based Weak Supervision</title>
+      <author><first>Alessandro</first><last>Stolfo</last></author>
+      <author><first>Chris</first><last>Tanner</last></author>
+      <author><first>Vikram</first><last>Gupta</last></author>
+      <author><first>Mrinmaya</first><last>Sachan</last></author>
+      <pages>79-88</pages>
+      <abstract>Labeled data for the task of Coreference Resolution is a scarce resource, requiring significant human effort. While state-of-the-art coreference models rely on such data, we propose an approach that leverages an end-to-end neural model in settings where labeled data is unavailable. Specifically, using weak supervision, we transfer the linguistic knowledge encoded by Stanford?s rule-based coreference system to the end-to-end model, which jointly learns rich, contextualized span representations and coreference chains. Our experiments on the English OntoNotes corpus demonstrate that our approach effectively benefits from the noisy coreference supervision, producing an improvement over Stanford?s rule-based system (+3.7 F1) and outperforming the previous best unsupervised model (+0.9 F1). Additionally, we validate the efficacy of our method on two other datasets: PreCo and Litbank (+2.5 and +5 F1 on Stanford’s system, respectively).</abstract>
+      <url hash="38bef7f4">2022.starsem-1.7</url>
+      <bibkey>stolfo-etal-2022-simple</bibkey>
+      <doi>10.18653/v1/2022.starsem-1.7</doi>
+      <pwcdataset url="https://paperswithcode.com/dataset/preco">PreCo</pwcdataset>
+    </paper>
+    <paper id="8">
+      <title>Multilingual Extraction and Categorization of Lexical Collocations with Graph-aware Transformers</title>
+      <author><first>Luis</first><last>Espinosa Anke</last></author>
+      <author><first>Alexander</first><last>Shvets</last></author>
+      <author><first>Alireza</first><last>Mohammadshahi</last></author>
+      <author><first>James</first><last>Henderson</last></author>
+      <author><first>Leo</first><last>Wanner</last></author>
+      <pages>89-100</pages>
+      <abstract>Recognizing and categorizing lexical collocations in context is useful for language learning, dictionary compilation and downstream NLP. However, it is a challenging task due to the varying degrees of frozenness lexical collocations exhibit. In this paper, we put forward a sequence tagging BERT-based model enhanced with a graph-aware transformer architecture, which we evaluate on the task of collocation recognition in context. Our results suggest that explicitly encoding syntactic dependencies in the model architecture is helpful, and provide insights on differences in collocation typification in English, Spanish and French.</abstract>
+      <url hash="f1c8810b">2022.starsem-1.8</url>
+      <bibkey>espinosa-anke-etal-2022-multilingual</bibkey>
+      <doi>10.18653/v1/2022.starsem-1.8</doi>
+      <pwcdataset url="https://paperswithcode.com/dataset/bio">Bio</pwcdataset>
+    </paper>
+    <paper id="9">
+      <title><fixed-case>D</fixed-case>yna-b<fixed-case>A</fixed-case>b<fixed-case>I</fixed-case>: unlocking b<fixed-case>A</fixed-case>b<fixed-case>I</fixed-case>’s potential with dynamic synthetic benchmarking</title>
+      <author><first>Ronen</first><last>Tamari</last></author>
+      <author><first>Kyle</first><last>Richardson</last></author>
+      <author><first>Noam</first><last>Kahlon</last></author>
+      <author><first>Aviad</first><last>Sar-shalom</last></author>
+      <author><first>Nelson F.</first><last>Liu</last></author>
+      <author><first>Reut</first><last>Tsarfaty</last></author>
+      <author><first>Dafna</first><last>Shahaf</last></author>
+      <pages>101-122</pages>
+      <url hash="593e8583">2022.starsem-1.9</url>
+      <bibkey>tamari-etal-2022-dyna</bibkey>
+      <doi>10.18653/v1/2022.starsem-1.9</doi>
+      <abstract>While neural language models often perform surprisingly well on natural language understanding (NLU) tasks, their strengths and limitations remain poorly understood. Controlled synthetic tasks are thus an increasingly important resource for diagnosing model behavior. In this work we focus on story understanding, a core competency for NLU systems. However, the main synthetic resource for story understanding, the bAbI benchmark, lacks such a systematic mechanism for controllable task generation. We develop Dyna-bAbI, a dynamic framework providing fine-grained control over task generation in bAbI. We demonstrate our ideas by constructing three new tasks requiring compositional generalization, an important evaluation setting absent from the original benchmark. We tested both special-purpose models developed for bAbI as well as state-of-the-art pre-trained methods, and found that while both approaches solve the original tasks (99% accuracy), neither approach succeeded in the compositional generalization setting, indicating the limitations of the original training data. We explored ways to augment the original data, and found that though diversifying training data was far more useful than simply increasing dataset size, it was still insufficient for driving robust compositional generalization (with 70% accuracy for complex compositions). Our results underscore the importance of highly controllable task generators for creating robust NLU systems through a virtuous cycle of model and data development.</abstract>
+      <pwcdataset url="https://paperswithcode.com/dataset/squad">SQuAD</pwcdataset>
+    </paper>
+    <paper id="10">
+      <title>When Polysemy Matters: Modeling Semantic Categorization with Word Embeddings</title>
+      <author><first>Elizabeth</first><last>Soper</last></author>
+      <author><first>Jean-pierre</first><last>Koenig</last></author>
+      <pages>123-131</pages>
+      <abstract>Recent work using word embeddings to model semantic categorization have indicated that static models outperform the more recent contextual class of models (Majewska et al, 2021). In this paper, we consider polysemy as a possible confounding factor, comparing sense-level embeddings with previously studied static embeddings on both coarse- and fine-grained categorization tasks. We find that the effect of polysemy depends on how one defines semantic categorization; while sense-level embeddings dramatically outperform static embeddings in predicting coarse-grained categories derived from a word sorting task, they perform approximately equally in predicting fine-grained categories derived from context-free similarity judgments. Our findings highlight the different processes underlying human behavior on different types of semantic tasks.</abstract>
+      <url hash="3ed87e21">2022.starsem-1.10</url>
+      <bibkey>soper-koenig-2022-polysemy</bibkey>
+      <doi>10.18653/v1/2022.starsem-1.10</doi>
+    </paper>
+    <paper id="11">
+      <title>Word-Label Alignment for Event Detection: A New Perspective via Optimal Transport</title>
+      <author><first>Amir</first><last>Pouran Ben Veyseh</last></author>
+      <author><first>Thien</first><last>Nguyen</last></author>
+      <pages>132-138</pages>
+      <abstract>Event Detection (ED) aims to identify mentions/triggers of real world events in text. In the literature, this task is modeled as a sequence-labeling or word-prediction problem. In this work, we present a novel formulation in which ED is modeled as a word-label alignment task. In particular, given the words in a sentence and possible event types, the objective is to infer an alignment matrix in which event trigger words are aligned with the most likely event types. Moreover, we show that this new perspective facilitates the incorporation of word-label alignment biases to improve alignment matrix for ED. Novel alignment biases and Optimal Transport are introduced to solve our alignment problem for ED. We conduct experiments on a benchmark dataset to demonstrate the effectiveness of the proposed model for ED.</abstract>
+      <url hash="0dc8c9e6">2022.starsem-1.11</url>
+      <bibkey>pouran-ben-veyseh-nguyen-2022-word</bibkey>
+      <doi>10.18653/v1/2022.starsem-1.11</doi>
+    </paper>
+    <paper id="12">
+      <title>Comparison and Combination of Sentence Embeddings Derived from Different Supervision Signals</title>
+      <author><first>Hayato</first><last>Tsukagoshi</last></author>
+      <author><first>Ryohei</first><last>Sasano</last></author>
+      <author><first>Koichi</first><last>Takeda</last></author>
+      <pages>139-150</pages>
+      <abstract>There have been many successful applications of sentence embedding methods. However, it has not been well understood what properties are captured in the resulting sentence embeddings depending on the supervision signals. In this paper, we focus on two types of sentence embedding methods with similar architectures and tasks: one fine-tunes pre-trained language models on the natural language inference task, and the other fine-tunes pre-trained language models on word prediction task from its definition sentence, and investigate their properties. Specifically, we compare their performances on semantic textual similarity (STS) tasks using STS datasets partitioned from two perspectives: 1) sentence source and 2) superficial similarity of the sentence pairs, and compare their performances on the downstream and probing tasks. Furthermore, we attempt to combine the two methods and demonstrate that combining the two methods yields substantially better performance than the respective methods on unsupervised STS tasks and downstream tasks.</abstract>
+      <url hash="4db1d28f">2022.starsem-1.12</url>
+      <bibkey>tsukagoshi-etal-2022-comparison</bibkey>
+      <doi>10.18653/v1/2022.starsem-1.12</doi>
+      <pwcdataset url="https://paperswithcode.com/dataset/sick">SICK</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/senteval">SentEval</pwcdataset>
+    </paper>
+    <paper id="13">
+      <title>Distilling Hypernymy Relations from Language Models: On the Effectiveness of Zero-Shot Taxonomy Induction</title>
+      <author><first>Devansh</first><last>Jain</last></author>
+      <author><first>Luis</first><last>Espinosa Anke</last></author>
+      <pages>151-156</pages>
+      <abstract>In this paper, we analyze zero-shot taxonomy learning methods which are based on distilling knowledge from language models via prompting and sentence scoring. We show that, despite their simplicity, these methods outperform some supervised strategies and are competitive with the current state-of-the-art under adequate conditions. We also show that statistical and linguistic properties of prompts dictate downstream performance.</abstract>
+      <url hash="24e40786">2022.starsem-1.13</url>
+      <bibkey>jain-espinosa-anke-2022-distilling</bibkey>
+      <doi>10.18653/v1/2022.starsem-1.13</doi>
+    </paper>
+    <paper id="14">
+      <title>A Dynamic, Interpreted <fixed-case>C</fixed-case>heck<fixed-case>L</fixed-case>ist for Meaning-oriented <fixed-case>NLG</fixed-case> Metric Evaluation – through the Lens of Semantic Similarity Rating</title>
+      <author><first>Laura</first><last>Zeidler</last></author>
+      <author><first>Juri</first><last>Opitz</last></author>
+      <author><first>Anette</first><last>Frank</last></author>
+      <pages>157-172</pages>
+      <abstract>Evaluating the quality of generated text is difficult, since traditional NLG evaluation metrics, focusing more on surface form than meaning, often fail to assign appropriate scores. This is especially problematic for AMR-to-text evaluation, given the abstract nature of AMR.Our work aims to support the development and improvement of NLG evaluation metrics that focus on meaning by developing a dynamic CheckList for NLG metrics that is interpreted by being organized around meaning-relevant linguistic phenomena. Each test instance consists of a pair of sentences with their AMR graphs and a human-produced textual semantic similarity or relatedness score. Our CheckList facilitates comparative evaluation of metrics and reveals strengths and weaknesses of novel and traditional metrics. We demonstrate the usefulness of CheckList by designing a new metric GraCo that computes lexical cohesion graphs over AMR concepts. Our analysis suggests that GraCo presents an interesting NLG metric worth future investigation and that meaning-oriented NLG metrics can profit from graph-based metric components using AMR.</abstract>
+      <url hash="f18a2f67">2022.starsem-1.14</url>
+      <bibkey>zeidler-etal-2022-dynamic</bibkey>
+      <doi>10.18653/v1/2022.starsem-1.14</doi>
+      <pwcdataset url="https://paperswithcode.com/dataset/sick">SICK</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/senteval">SentEval</pwcdataset>
+    </paper>
+    <paper id="15">
+      <title>Assessing the Limits of the Distributional Hypothesis in Semantic Spaces: Trait-based Relational Knowledge and the Impact of Co-occurrences</title>
+      <author><first>Mark</first><last>Anderson</last></author>
+      <author><first>Jose</first><last>Camacho-collados</last></author>
+      <pages>173-185</pages>
+      <abstract>The increase in performance in NLP due to the prevalence of distributional models and deep learning has brought with it a reciprocal decrease in interpretability. This has spurred a focus on what neural networks learn about natural language with less of a focus on how. Some work has focused on the data used to develop data-driven models, but typically this line of work aims to highlight issues with the data, e.g. highlighting and offsetting harmful biases. This work contributes to the relatively untrodden path of what is required in data for models to capture meaningful representations of natural language. This is entails evaluating how well English and Spanish semantic spaces capture a particular type of relational knowledge, namely the traits associated with concepts (e.g. bananas-yellow), and exploring the role of co-occurrences in this context.</abstract>
+      <url hash="0bc89ba9">2022.starsem-1.15</url>
+      <bibkey>anderson-camacho-collados-2022-assessing</bibkey>
+      <doi>10.18653/v1/2022.starsem-1.15</doi>
+      <pwccode url="https://github.com/cardiffnlp/trait-relations-and-co-occurrences" additional="false">cardiffnlp/trait-relations-and-co-occurrences</pwccode>
+    </paper>
+    <paper id="16">
+      <title>A Generative Approach for Mitigating Structural Biases in Natural Language Inference</title>
+      <author><first>Dimion</first><last>Asael</last></author>
+      <author><first>Zachary</first><last>Ziegler</last></author>
+      <author><first>Yonatan</first><last>Belinkov</last></author>
+      <pages>186-199</pages>
+      <abstract>Many natural language inference (NLI) datasets contain biases that allow models to perform well by only using a biased subset of the input, without considering the remainder features. For instance, models are able to classify samples by only using the hypothesis, without learning the true relationship between it and the premise. These structural biases lead discriminative models to learn unintended superficial features and generalize poorly out of the training distribution. In this work, we reformulate the NLI task as a generative task, where a model is conditioned on the biased subset of the input and the label and generates the remaining subset of the input. We show that by imposing a uniform prior, we obtain a provably unbiased model. Through synthetic experiments, we find that this approach is highly robust to large amounts of bias. We then demonstrate empirically on two types of natural bias that this approach leads to fully unbiased models in practice. However, we find that generative models are difficult to train and generally perform worse than discriminative baselines. We highlight the difficulty of the generative modeling task in the context of NLI as a cause for this worse performance. Finally, by fine-tuning the generative model with a discriminative objective, we reduce the performance gap between the generative model and the discriminative baseline, while allowing for a small amount of bias.</abstract>
+      <url hash="b4208da7">2022.starsem-1.16</url>
+      <bibkey>asael-etal-2022-generative</bibkey>
+      <doi>10.18653/v1/2022.starsem-1.16</doi>
+      <pwccode url="https://github.com/technion-cs-nlp/generative-nli" additional="false">technion-cs-nlp/generative-nli</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/multinli">MultiNLI</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/snli">SNLI</pwcdataset>
+    </paper>
+    <paper id="17">
+      <title>Measuring Alignment Bias in Neural Seq2seq Semantic Parsers</title>
+      <author><first>Davide</first><last>Locatelli</last></author>
+      <author><first>Ariadna</first><last>Quattoni</last></author>
+      <pages>200-207</pages>
+      <abstract>Prior to deep learning the semantic parsing community has been interested in understanding and modeling the range of possible word alignments between natural language sentences and their corresponding meaning representations. Sequence-to-sequence models changed the research landscape suggesting that we no longer need to worry about alignments since they can be learned automatically by means of an attention mechanism. More recently, researchers have started to question such premise. In this work we investigate whether seq2seq models can handle both simple and complex alignments. To answer this question we augment the popular Geo semantic parsing dataset with alignment annotations and create Geo-Aligned. We then study the performance of standard seq2seq models on the examples that can be aligned monotonically versus examples that require more complex alignments. Our empirical study shows that performance is significantly better over monotonic alignments.</abstract>
+      <url hash="d2209172">2022.starsem-1.17</url>
+      <bibkey>locatelli-quattoni-2022-measuring</bibkey>
+      <doi>10.18653/v1/2022.starsem-1.17</doi>
+      <pwccode url="https://github.com/interact-erc/geo-aligned" additional="false">interact-erc/geo-aligned</pwccode>
+    </paper>
+    <paper id="18">
+      <title>Improved Induction of Narrative Chains via Cross-Document Relations</title>
+      <author><first>Andrew</first><last>Blair-stanek</last></author>
+      <author><first>Benjamin</first><last>Van Durme</last></author>
+      <pages>208-212</pages>
+      <abstract>The standard approach for inducing narrative chains considers statistics gathered per individual document. We consider whether statistics gathered using cross-document relations can lead to improved chain induction. Our study is motivated by legal narratives, where cases typically cite thematically similar cases. We consider four novel variations on pointwise mutual information (PMI), each accounting for cross-document relations in a different way. One proposed PMI variation performs 58% better relative to standard PMI on recall@50 and induces qualitatively better narrative chains.</abstract>
+      <url hash="0207882f">2022.starsem-1.18</url>
+      <bibkey>blair-stanek-van-durme-2022-improved</bibkey>
+      <doi>10.18653/v1/2022.starsem-1.18</doi>
+      <pwccode url="https://github.com/blairstanek/cross-doc" additional="false">blairstanek/cross-doc</pwccode>
+    </paper>
+    <paper id="19">
+      <title><fixed-case>DRS</fixed-case> Parsing as Sequence Labeling</title>
+      <author><first>Minxing</first><last>Shen</last></author>
+      <author><first>Kilian</first><last>Evang</last></author>
+      <pages>213-225</pages>
+      <url hash="1d3e8ac1">2022.starsem-1.19</url>
+      <bibkey>shen-evang-2022-drs</bibkey>
+      <doi>10.18653/v1/2022.starsem-1.19</doi>
+      <abstract>We present the first fully trainable semantic parser for English, German, Italian, and Dutch discourse representation structures (DRSs) that is competitive in accuracy with recent sequence-to-sequence models and at the same time <i>compositional</i> in the sense that the output maps each token to one of a finite set of meaning <i>fragments</i>, and the meaning of the utterance is a function of the meanings of its parts. We argue that this property makes the system more transparent and more useful for human-in-the-loop annotation. We achieve this simply by casting DRS parsing as a sequence labeling task, where tokens are labeled with both fragments (lists of abstracted clauses with relative referent indices indicating unification) and <i>symbols</i> like word senses or names. We give a comprehensive error analysis that highlights areas for future work.</abstract>
+    </paper>
+    <paper id="20">
+      <title>How Does Data Corruption Affect Natural Language Understanding Models? A Study on <fixed-case>GLUE</fixed-case> datasets</title>
+      <author><first>Aarne</first><last>Talman</last></author>
+      <author><first>Marianna</first><last>Apidianaki</last></author>
+      <author><first>Stergios</first><last>Chatzikyriakidis</last></author>
+      <author><first>Jörg</first><last>Tiedemann</last></author>
+      <pages>226-233</pages>
+      <abstract>A central question in natural language understanding (NLU) research is whether high performance demonstrates the models’ strong reasoning capabilities. We present an extensive series of controlled experiments where pre-trained language models are exposed to data that have undergone specific corruption transformations. These involve removing instances of specific word classes and often lead to non-sensical sentences. Our results show that performance remains high on most GLUE tasks when the models are fine-tuned or tested on corrupted data, suggesting that they leverage other cues for prediction even in non-sensical contexts. Our proposed data transformations can be used to assess the extent to which a specific dataset constitutes a proper testbed for evaluating models’ language understanding capabilities.</abstract>
+      <url hash="ae26a0aa">2022.starsem-1.20</url>
+      <bibkey>talman-etal-2022-data</bibkey>
+      <doi>10.18653/v1/2022.starsem-1.20</doi>
+      <pwccode url="https://github.com/helsinki-nlp/nlu-dataset-diagnostics" additional="false">helsinki-nlp/nlu-dataset-diagnostics</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/cola">CoLA</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/glue">GLUE</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/mrpc">MRPC</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/multinli">MultiNLI</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/qnli">QNLI</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/sst">SST</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/sst-2">SST-2</pwcdataset>
+    </paper>
+    <paper id="21">
+      <title>Leveraging Three Types of Embeddings from Masked Language Models in Idiom Token Classification</title>
+      <author><first>Ryosuke</first><last>Takahashi</last></author>
+      <author><first>Ryohei</first><last>Sasano</last></author>
+      <author><first>Koichi</first><last>Takeda</last></author>
+      <pages>234-239</pages>
+      <abstract>Many linguistic expressions have idiomatic and literal interpretations, and the automatic distinction of these two interpretations has been studied for decades. Recent research has shown that contextualized word embeddings derived from masked language models (MLMs) can give promising results for idiom token classification. This indicates that contextualized word embedding alone contains information about whether the word is being used in a literal sense or not. However, we believe that more types of information can be derived from MLMs and that leveraging such information can improve idiom token classification. In this paper, we leverage three types of embeddings from MLMs; uncontextualized token embeddings and masked token embeddings in addition to the standard contextualized word embeddings and show that the newly added embeddings significantly improve idiom token classification for both English and Japanese datasets.</abstract>
+      <url hash="e61d8179">2022.starsem-1.21</url>
+      <bibkey>takahashi-etal-2022-leveraging</bibkey>
+      <doi>10.18653/v1/2022.starsem-1.21</doi>
+    </paper>
+    <paper id="22">
+      <title>“What makes a question inquisitive?” A Study on Type-Controlled Inquisitive Question Generation</title>
+      <author><first>Lingyu</first><last>Gao</last></author>
+      <author><first>Debanjan</first><last>Ghosh</last></author>
+      <author><first>Kevin</first><last>Gimpel</last></author>
+      <pages>240-257</pages>
+      <abstract>We propose a type-controlled framework for inquisitive question generation. We annotate an inquisitive question dataset with question types, train question type classifiers, and finetune models for type-controlled question generation. Empirical results demonstrate that we can generate a variety of questions that adhere to specific types while drawing from the source texts. We also investigate strategies for selecting a single question from a generated set, considering both an informative vs. inquisitive question classifier and a pairwise ranker trained from a small set of expert annotations. Question selection using the pairwise ranker yields strong results in automatic and manual evaluation. Our human evaluation assesses multiple aspects of the generated questions, finding that the ranker chooses questions with the best syntax (4.59), semantics (4.37), and inquisitiveness (3.92) on a scale of 1-5, even rivaling the performance of human-written questions.</abstract>
+      <url hash="d730bf1f">2022.starsem-1.22</url>
+      <bibkey>gao-etal-2022-makes</bibkey>
+      <doi>10.18653/v1/2022.starsem-1.22</doi>
+      <pwccode url="https://github.com/educationaltestingservice/inquisitive-questions" additional="false">educationaltestingservice/inquisitive-questions</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/inquisitive">INQUISITIVE</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/penn-treebank">Penn Treebank</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/squad">SQuAD</pwcdataset>
+    </paper>
+    <paper id="23">
+      <title>Pretraining on Interactions for Learning Grounded Affordance Representations</title>
+      <author><first>Jack</first><last>Merullo</last></author>
+      <author><first>Dylan</first><last>Ebert</last></author>
+      <author><first>Carsten</first><last>Eickhoff</last></author>
+      <author><first>Ellie</first><last>Pavlick</last></author>
+      <pages>258-277</pages>
+      <abstract>Lexical semantics and cognitive science point to affordances (i.e. the actions that objects support) as critical for understanding and representing nouns and verbs. However, study of these semantic features has not yet been integrated with the ?foundation? models that currently dominate language representation research. We hypothesize that predictive modeling of object state over time will result in representations that encode object affordance information ?for free?. We train a neural network to predict objects? trajectories in a simulated interaction and show that our network?s latent representations differentiate between both observed and unobserved affordances. We find that models trained using 3D simulations outperform conventional 2D computer vision models trained on a similar task, and, on initial inspection, that differences between concepts correspond to expected features (e.g., roll entails rotation) . Our results suggest a way in which modern deep learning approaches to grounded language learning can be integrated with traditional formal semantic notions of lexical representations.</abstract>
+      <url hash="bbb7bfa9">2022.starsem-1.23</url>
+      <bibkey>merullo-etal-2022-pretraining</bibkey>
+      <doi>10.18653/v1/2022.starsem-1.23</doi>
+      <pwccode url="https://github.com/jmerullo/affordances" additional="false">jmerullo/affordances</pwccode>
+    </paper>
+    <paper id="24">
+      <title><fixed-case>P</fixed-case>rop<fixed-case>B</fixed-case>ank Comes of <fixed-case>A</fixed-case>ge—<fixed-case>L</fixed-case>arger, Smarter, and more Diverse</title>
+      <author><first>Sameer</first><last>Pradhan</last></author>
+      <author><first>Julia</first><last>Bonn</last></author>
+      <author><first>Skatje</first><last>Myers</last></author>
+      <author><first>Kathryn</first><last>Conger</last></author>
+      <author><first>Tim</first><last>O’gorman</last></author>
+      <author><first>James</first><last>Gung</last></author>
+      <author><first>Kristin</first><last>Wright-bettner</last></author>
+      <author><first>Martha</first><last>Palmer</last></author>
+      <pages>278-288</pages>
+      <abstract>This paper describes the evolution of the PropBank approach to semantic role labeling over the last two decades. During this time the PropBank frame files have been expanded to include non-verbal predicates such as adjectives, prepositions and multi-word expressions. The number of domains, genres and languages that have been PropBanked has also expanded greatly, creating an opportunity for much more challenging and robust testing of the generalization capabilities of PropBank semantic role labeling systems. We also describe the substantial effort that has gone into ensuring the consistency and reliability of the various annotated datasets and resources, to better support the training and evaluation of such systems</abstract>
+      <url hash="96b4e43e">2022.starsem-1.24</url>
+      <bibkey>pradhan-etal-2022-propbank</bibkey>
+      <doi>10.18653/v1/2022.starsem-1.24</doi>
+      <pwcdataset url="https://paperswithcode.com/dataset/english-web-treebank">English Web Treebank</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/framenet">FrameNet</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/nombank">NomBank</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/ontonotes-5-0">OntoNotes 5.0</pwcdataset>
+    </paper>
+    <paper id="25">
+      <title>Speech acts and Communicative Intentions for Urgency Detection</title>
+      <author><first>Laurenti</first><last>Enzo</last></author>
+      <author><first>Bourgon</first><last>Nils</last></author>
+      <author><first>Farah</first><last>Benamara</last></author>
+      <author><first>Mari</first><last>Alda</last></author>
+      <author><first>Véronique</first><last>Moriceau</last></author>
+      <author><first>Courgeon</first><last>Camille</last></author>
+      <pages>289-298</pages>
+      <abstract>Recognizing speech acts (SA) is crucial for capturing meaning beyond what is said, making communicative intentions particularly relevant to identify urgent messages. This paper attempts to measure for the first time the impact of SA on urgency detection during crises,006in tweets. We propose a new dataset annotated for both urgency and SA, and develop several deep learning architectures to inject SA into urgency detection while ensuring models generalisability. Our results show that taking speech acts into account in tweet analysis improves information type detection in an out-of-type configuration where models are evaluated in unseen event types during training. These results are encouraging and constitute a first step towards SA-aware disaster management in social media.</abstract>
+      <url hash="b167524b">2022.starsem-1.25</url>
+      <bibkey>enzo-etal-2022-speech</bibkey>
+      <doi>10.18653/v1/2022.starsem-1.25</doi>
+    </paper>
+    <paper id="26">
+      <title>What Drives the Use of Metaphorical Language? Negative Insights from Abstractness, Affect, Discourse Coherence and Contextualized Word Representations</title>
+      <author><first>Prisca</first><last>Piccirilli</last></author>
+      <author><first>Sabine</first><last>Schulte Im Walde</last></author>
+      <pages>299-310</pages>
+      <abstract>Given a specific discourse, which discourse properties trigger the use of metaphorical language, rather than using literal alternatives? For example, what drives people to say grasp the meaning rather than understand the meaning within a specific context? Many NLP approaches to metaphorical language rely on cognitive and (psycho-)linguistic insights and have successfully defined models of discourse coherence, abstractness and affect. In this work, we build five simple models relying on established cognitive and linguistic properties ? frequency, abstractness, affect, discourse coherence and contextualized word representations ? to predict the use of a metaphorical vs. synonymous literal expression in context. By comparing the models? outputs to human judgments, our study indicates that our selected properties are not sufficient to systematically explain metaphorical vs. literal language choices.</abstract>
+      <url hash="ed0a3409">2022.starsem-1.26</url>
+      <bibkey>piccirilli-schulte-im-walde-2022-drives</bibkey>
+      <doi>10.18653/v1/2022.starsem-1.26</doi>
+    </paper>
+    <paper id="27">
+      <title>Unsupervised Reinforcement Adaptation for Class-Imbalanced Text Classification</title>
+      <author><first>Yuexin</first><last>Wu</last></author>
+      <author><first>Xiaolei</first><last>Huang</last></author>
+      <pages>311-322</pages>
+      <abstract>Class imbalance naturally exists when label distributions are not aligned across source and target domains. However, existing state-of-the-art UDA models learn domain-invariant representations across domains and evaluate primarily on class-balanced data. In this work, we propose an unsupervised domain adaptation approach via reinforcement learning that jointly leverages feature variants and imbalanced labels across domains. We experiment with the text classification task for its easily accessible datasets and compare the proposed method with five baselines. Experiments on three datasets prove that our proposed method can effectively learn robust domain-invariant representations and successfully adapt text classifiers on imbalanced classes over domains.</abstract>
+      <url hash="0c6ed9ba">2022.starsem-1.27</url>
+      <bibkey>wu-huang-2022-unsupervised</bibkey>
+      <doi>10.18653/v1/2022.starsem-1.27</doi>
+      <pwccode url="https://github.com/woqingdoua/imbalanceclass" additional="false">woqingdoua/imbalanceclass</pwccode>
+    </paper>
+    <paper id="28">
+      <title>Event Causality Identification via Generation of Important Context Words</title>
+      <author><first>Hieu</first><last>Man</last></author>
+      <author><first>Minh</first><last>Nguyen</last></author>
+      <author><first>Thien</first><last>Nguyen</last></author>
+      <pages>323-330</pages>
+      <abstract>An important problem of Information Extraction involves Event Causality Identification (ECI) that seeks to identify causal relation between pairs of event mentions. Prior models for ECI have mainly solved the problem using the classification framework that does not explore prediction/generation of important context words from input sentences for causal recognition. In this work, we consider the words along the dependency path between the two event mentions in the dependency tree as the important context words for ECI. We introduce dependency path generation as a complementary task for ECI, which can be solved jointly with causal label prediction to improve the performance. To facilitate the multi-task learning, we cast ECI into a generation problem that aims to generate both causal relation and dependency path words from input sentence. In addition, we propose to use the REINFORCE algorithm to train our generative model where novel reward functions are designed to capture both causal prediction accuracy and generation quality. The experiments on two benchmark datasets demonstrate state-of-the-art performance of the proposed model for ECI.</abstract>
+      <url hash="3f378d9c">2022.starsem-1.28</url>
+      <bibkey>man-etal-2022-event</bibkey>
+      <doi>10.18653/v1/2022.starsem-1.28</doi>
+      <pwccode url="https://github.com/hieumdt/GenECI" additional="false">hieumdt/GenECI</pwccode>
+    </paper>
+    <paper id="29">
+      <title>Capturing the Content of a Document through Complex Event Identification</title>
+      <author><first>Zheng</first><last>Qi</last></author>
+      <author><first>Elior</first><last>Sulem</last></author>
+      <author><first>Haoyu</first><last>Wang</last></author>
+      <author><first>Xiaodong</first><last>Yu</last></author>
+      <author><first>Dan</first><last>Roth</last></author>
+      <pages>331-340</pages>
+      <abstract>Granular events, instantiated in a document by predicates, can usually be grouped into more general events, called complex events. Together, they capture the major content of the document. Recent work grouped granular events by defining event regions, filtering out sentences that are irrelevant to the main content. However, this approach assumes that a given complex event is always described in consecutive sentences, which does not always hold in practice. In this paper, we introduce the task of complex event identification. We address this task as a pipeline, first predicting whether two granular events mentioned in the text belong to the same complex event, independently of their position in the text, and then using this to cluster them into complex events. Due to the difficulty of predicting whether two granular events belong to the same complex event in isolation, we propose a context-augmented representation learning approach CONTEXTRL that adds additional context to better model the pairwise relation between granular events. We show that our approach outperforms strong baselines on the complex event identification task and further present a promising case study exploring the effectiveness of using complex events as input for document-level argument extraction.</abstract>
+      <url hash="3d1a5a4d">2022.starsem-1.29</url>
+      <bibkey>qi-etal-2022-capturing</bibkey>
+      <doi>10.18653/v1/2022.starsem-1.29</doi>
+    </paper>
+    <paper id="30">
+      <title>Online Coreference Resolution for Dialogue Processing: Improving Mention-Linking on Real-Time Conversations</title>
+      <author><first>Liyan</first><last>Xu</last></author>
+      <author><first>Jinho D.</first><last>Choi</last></author>
+      <pages>341-347</pages>
+      <abstract>This paper suggests a direction of coreference resolution for online decoding on actively generated input such as dialogue, where the model accepts an utterance and its past context, then finds mentions in the current utterance as well as their referents, upon each dialogue turn. A baseline and four incremental updated models adapted from the mention linking paradigm are proposed for this new setting, which address different aspects including the singletons, speaker-grounded encoding and cross-turn mention contextualization. Our approach is assessed on three datasets: Friends, OntoNotes, and BOLT. Results show that each aspect brings out steady improvement, and our best models outperform the baseline by over 10%, presenting an effective system for this setting. Further analysis highlights the task characteristics, such as the significance of addressing the mention recall.</abstract>
+      <url hash="41db02c6">2022.starsem-1.30</url>
+      <bibkey>xu-choi-2022-online</bibkey>
+      <doi>10.18653/v1/2022.starsem-1.30</doi>
+    </paper>
+  </volume>
+</collection>

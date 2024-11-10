@@ -1,0 +1,125 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2022.socialnlp">
+  <volume id="1" ingest-date="2022-06-30" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of the Tenth International Workshop on Natural Language Processing for Social Media</booktitle>
+      <editor><first>Lun-Wei</first><last>Ku</last></editor>
+      <editor><first>Cheng-Te</first><last>Li</last></editor>
+      <editor><first>Yu-Che</first><last>Tsai</last></editor>
+      <editor><first>Wei-Yao</first><last>Wang</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Seattle, Washington</address>
+      <month>July</month>
+      <year>2022</year>
+      <url hash="9f21a933">2022.socialnlp-1</url>
+      <venue>socialnlp</venue>
+    </meta>
+    <frontmatter>
+      <url hash="a89da276">2022.socialnlp-1.0</url>
+      <bibkey>socialnlp-2022-international</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Mask and Regenerate: A Classifier-based Approach for Unpaired Sentiment Transformation of Reviews for Electronic Commerce Websites.</title>
+      <author><first>Shuo</first><last>Yang</last></author>
+      <pages>1-10</pages>
+      <abstract>Style transfer is the task of transferring a sentence into the target style while keeping its content. The major challenge is that parallel corpora are not available for various domains. In this paper, we propose a Mask-And-Regenerate approach (MAR). It learns from unpaired sentences by modifying the word-level style attributes. We cautiously integrate the deletion, insertion and substitution operations into our model. This enables our model to automatically apply different edit operations for different sentences. Specifically, we train a multilayer perceptron (MLP) as a style classifier to find out and mask style-characteristic words in the source inputs. Then we learn a language model on non-parallel data sets to score sentences and remove unnecessary masks. Finally, the masked source sentences are input to a Transformer to perform style transfer. The final results show that our proposed model exceeds baselines by about 2 per cent of accuracy for both sentiment and style transfer tasks with comparable or better content retention.</abstract>
+      <url hash="be188f68">2022.socialnlp-1.1</url>
+      <bibkey>yang-2022-mask</bibkey>
+      <doi>10.18653/v1/2022.socialnlp-1.1</doi>
+      <video href="2022.socialnlp-1.1.mp4"/>
+      <pwcdataset url="https://paperswithcode.com/dataset/gyafc">GYAFC</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/imdb-movie-reviews">IMDb Movie Reviews</pwcdataset>
+    </paper>
+    <paper id="2">
+      <title>Exploiting Social Media Content for Self-Supervised Style Transfer</title>
+      <author><first>Dana</first><last>Ruiter</last></author>
+      <author><first>Thomas</first><last>Kleinbauer</last></author>
+      <author><first>Cristina</first><last>España-Bonet</last></author>
+      <author><first>Josef</first><last>van Genabith</last></author>
+      <author><first>Dietrich</first><last>Klakow</last></author>
+      <pages>11-34</pages>
+      <abstract>Recent research on style transfer takes inspiration from unsupervised neural machine translation (UNMT), learning from large amounts of non-parallel data by exploiting cycle consistency loss, back-translation, and denoising autoencoders. By contrast, the use of selfsupervised NMT (SSNMT), which leverages (near) parallel instances hidden in non-parallel data more efficiently than UNMT, has not yet been explored for style transfer. In this paper we present a novel Self-Supervised Style Transfer (3ST) model, which augments SSNMT with UNMT methods in order to identify and efficiently exploit supervisory signals in non-parallel social media posts. We compare 3ST with state-of-the-art (SOTA) style transfer models across civil rephrasing, formality and polarity tasks. We show that 3ST is able to balance the three major objectives (fluency, content preservation, attribute transfer accuracy) the best, outperforming SOTA models on averaged performance across their tested tasks in automatic and human evaluation.</abstract>
+      <url hash="5d5b75a9">2022.socialnlp-1.2</url>
+      <bibkey>ruiter-etal-2022-exploiting</bibkey>
+      <doi>10.18653/v1/2022.socialnlp-1.2</doi>
+      <pwccode url="https://github.com/uds-lsv/3st" additional="false">uds-lsv/3st</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/cola">CoLA</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/gyafc">GYAFC</pwcdataset>
+    </paper>
+    <paper id="3">
+      <title>Detecting Rumor Veracity with Only Textual Information by Double-Channel Structure</title>
+      <author><first>Alex Gunwoo</first><last>Kim</last></author>
+      <author><first>Sangwon</first><last>Yoon</last></author>
+      <pages>35-44</pages>
+      <abstract>Kyle (1985) proposes two types of rumors: informed rumors which are based on some private information and uninformed rumors which are not based on any information (i.e. bluffing). Also, prior studies find that when people have credible source of information, they are likely to use a more confident textual tone in their spreading of rumors. Motivated by these theoretical findings, we propose a double-channel structure to determine the ex-ante veracity of rumors on social media. Our ultimate goal is to classify each rumor into true, false, or unverifiable category. We first assign each text into either certain (informed rumor) or uncertain (uninformed rumor) category. Then, we apply lie detection algorithm to informed rumors and thread-reply agreement detection algorithm to uninformed rumors. Using the dataset of SemEval 2019 Task 7, which requires ex-ante threefold classification (true, false, or unverifiable) of social media rumors, our model yields a macro-F1 score of 0.4027, outperforming all the baseline models and the second-place winner (Gorrell et al., 2019). Furthermore, we empirically validate that the double-channel structure outperforms single-channel structures which use either lie detection or agreement detection algorithm to all posts.</abstract>
+      <url hash="5d1c5a0c">2022.socialnlp-1.3</url>
+      <bibkey>kim-yoon-2022-detecting</bibkey>
+      <doi>10.18653/v1/2022.socialnlp-1.3</doi>
+      <video href="2022.socialnlp-1.3.mp4"/>
+    </paper>
+    <paper id="4">
+      <title>Leveraging Dependency Grammar for Fine-Grained Offensive Language Detection using Graph Convolutional Networks</title>
+      <author><first>Divyam</first><last>Goel</last></author>
+      <author><first>Raksha</first><last>Sharma</last></author>
+      <pages>45-54</pages>
+      <abstract>The last few years have witnessed an exponential rise in the propagation of offensive text on social media. Identification of this text with high precision is crucial for the well-being of society. Most of the existing approaches tend to give high toxicity scores to innocuous statements (e.g., “I am a gay man”). These false positives result from over-generalization on the training data where specific terms in the statement may have been used in a pejorative sense (e.g., “gay”). Emphasis on such words alone can lead to discrimination against the classes these systems are designed to protect. In this paper, we address the problem of offensive language detection on Twitter, while also detecting the type and the target of the offense. We propose a novel approach called SyLSTM, which integrates syntactic features in the form of the dependency parse tree of a sentence and semantic features in the form of word embeddings into a deep learning architecture using a Graph Convolutional Network. Results show that the proposed approach significantly outperforms the state-of-the-art BERT model with orders of magnitude fewer number of parameters.</abstract>
+      <url hash="b3b1ec82">2022.socialnlp-1.4</url>
+      <bibkey>goel-sharma-2022-leveraging</bibkey>
+      <doi>10.18653/v1/2022.socialnlp-1.4</doi>
+      <video href="2022.socialnlp-1.4.mp4"/>
+      <pwccode url="https://github.com/dv-fenix/sylstm" additional="false">dv-fenix/sylstm</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/hate-speech-and-offensive-language">Hate Speech and Offensive Language</pwcdataset>
+    </paper>
+    <paper id="5">
+      <title>A Comparative Study on Word Embeddings and Social <fixed-case>NLP</fixed-case> Tasks</title>
+      <author><first>Fatma</first><last>Elsafoury</last></author>
+      <author><first>Steven R.</first><last>Wilson</last></author>
+      <author><first>Naeem</first><last>Ramzan</last></author>
+      <pages>55-64</pages>
+      <abstract>In recent years, gray social media platforms, those with a loose moderation policy on cyberbullying, have been attracting more users. Recently, data collected from these types of platforms have been used to pre-train word embeddings (social-media-based), yet these word embeddings have not been investigated for social NLP related tasks. In this paper, we carried out a comparative study between social-media-based and non-social-media-based word embeddings on two social NLP tasks: Detecting cyberbullying and Measuring social bias. Our results show that using social-media-based word embeddings as input features, rather than non-social-media-based embeddings, leads to better cyberbullying detection performance. We also show that some word embeddings are more useful than others for categorizing offensive words. However, we do not find strong evidence that certain word embeddings will necessarily work best when identifying certain categories of cyberbullying within our datasets. Finally, We show even though most of the state-of-the-art bias metrics ranked social-media-based word embeddings as the most socially biased, these results remain inconclusive and further research is required.</abstract>
+      <url hash="8d77cf9c">2022.socialnlp-1.5</url>
+      <bibkey>elsafoury-etal-2022-comparative</bibkey>
+      <doi>10.18653/v1/2022.socialnlp-1.5</doi>
+      <video href="2022.socialnlp-1.5.mp4"/>
+      <pwccode url="https://github.com/efatmae/comparative_analysis_word_embeddings_on_social_nlp_tasks" additional="false">efatmae/comparative_analysis_word_embeddings_on_social_nlp_tasks</pwccode>
+    </paper>
+    <paper id="6">
+      <title>Identifying Human Needs through Social Media: A study on <fixed-case>I</fixed-case>ndian cities during <fixed-case>COVID</fixed-case>-19</title>
+      <author><first>Sunny</first><last>Rai</last></author>
+      <author><first>Rohan</first><last>Joseph</last></author>
+      <author><first>Prakruti Singh</first><last>Thakur</last></author>
+      <author><first>Mohammed Abdul</first><last>Khaliq</last></author>
+      <pages>65-74</pages>
+      <abstract>In this paper, we present a minimally-supervised approach to identify human needs expressed in tweets. Taking inspiration from Frustration-Aggression theory, we trained RoBERTa model to classify tweets expressing frustration which serves as an indicator of unmet needs. Although the notion of frustration is highly subjective and complex, the findings support the use of pretrained language model in identifying tweets with unmet needs. Our study reveals the major causes behind feeling frustrated during the lockdown and the second wave of the COVID-19 pandemic in India. Our proposed approach can be useful in timely identification and prioritization of emerging human needs in the event of a crisis.</abstract>
+      <url hash="aec311d9">2022.socialnlp-1.6</url>
+      <bibkey>rai-etal-2022-identifying</bibkey>
+      <doi>10.18653/v1/2022.socialnlp-1.6</doi>
+      <video href="2022.socialnlp-1.6.mp4"/>
+      <pwccode url="https://github.com/axleblaze3/covid_19_tweets_with_tagged_needs" additional="false">axleblaze3/covid_19_tweets_with_tagged_needs</pwccode>
+    </paper>
+    <paper id="7">
+      <title>Towards Toxic Positivity Detection</title>
+      <author><first>Ishan Sanjeev</first><last>Upadhyay</last></author>
+      <author><first>KV Aditya</first><last>Srivatsa</last></author>
+      <author><first>Radhika</first><last>Mamidi</last></author>
+      <pages>75-82</pages>
+      <abstract>Over the past few years, there has been a growing concern around toxic positivity on social media which is a phenomenon where positivity is used to minimize one’s emotional experience. In this paper, we create a dataset for toxic positivity classification from Twitter and an inspirational quote website. We then perform benchmarking experiments using various text classification models and show the suitability of these models for the task. We achieved a macro F1 score of 0.71 and a weighted F1 score of 0.85 by using an ensemble model. To the best of our knowledge, our dataset is the first such dataset created.</abstract>
+      <url hash="daef9a1d">2022.socialnlp-1.7</url>
+      <bibkey>upadhyay-etal-2022-towards</bibkey>
+      <doi>10.18653/v1/2022.socialnlp-1.7</doi>
+      <video href="2022.socialnlp-1.7.mp4"/>
+    </paper>
+    <paper id="8">
+      <title><fixed-case>OK</fixed-case> Boomer: Probing the socio-demographic Divide in Echo Chambers</title>
+      <author><first>Henri-Jacques</first><last>Geiss</last></author>
+      <author><first>Flora</first><last>Sakketou</last></author>
+      <author><first>Lucie</first><last>Flek</last></author>
+      <pages>83-105</pages>
+      <abstract>Social media platforms such as Twitter or Reddit have become an integral part in political opinion formation and discussions, accompanied by potential echo chamber forming. In this paper, we examine the relationships between the interaction patterns, the opinion polarity, and the socio-demographic characteristics in discussion communities on Reddit. On a dataset of over 2 million posts coming from over 20k users, we combine network community detection algorithms, reliable stance polarity annotations, and NLP-based socio-demographic estimations, to identify echo chambers and understand their properties at scale. We show that the separability of the interaction communities is more strongly correlated to the relative socio-demographic divide, rather than the stance polarity gap size. We further demonstrate that the socio-demographic classifiers have a strong topical bias and should be used with caution, merely for the relative community difference comparisons within a topic, rather than for any absolute labeling.</abstract>
+      <url hash="4a17b54c">2022.socialnlp-1.8</url>
+      <bibkey>geiss-etal-2022-ok</bibkey>
+      <doi>10.18653/v1/2022.socialnlp-1.8</doi>
+      <video href="2022.socialnlp-1.8.mp4"/>
+    </paper>
+  </volume>
+</collection>

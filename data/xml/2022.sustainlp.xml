@@ -1,0 +1,137 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2022.sustainlp">
+  <volume id="1" ingest-date="2022-12-14" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of The Third Workshop on Simple and Efficient Natural Language Processing (SustaiNLP)</booktitle>
+      <editor><first>Angela</first><last>Fan</last></editor>
+      <editor><first>Iryna</first><last>Gurevych</last></editor>
+      <editor><first>Yufang</first><last>Hou</last></editor>
+      <editor><first>Zornitsa</first><last>Kozareva</last></editor>
+      <editor><first>Sasha</first><last>Luccioni</last></editor>
+      <editor><first>Nafise</first><last>Sadat Moosavi</last></editor>
+      <editor><first>Sujith</first><last>Ravi</last></editor>
+      <editor><first>Gyuwan</first><last>Kim</last></editor>
+      <editor><first>Roy</first><last>Schwartz</last></editor>
+      <editor><first>Andreas</first><last>Rücklé</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Abu Dhabi, United Arab Emirates (Hybrid)</address>
+      <month>December</month>
+      <year>2022</year>
+      <url hash="6ca82369">2022.sustainlp-1</url>
+      <venue>sustainlp</venue>
+    </meta>
+    <frontmatter>
+      <url hash="49d76ba3">2022.sustainlp-1.0</url>
+      <bibkey>sustainlp-2022-simple</bibkey>
+    </frontmatter>
+    <paper id="2">
+      <title>Efficient Two-Stage Progressive Quantization of <fixed-case>BERT</fixed-case></title>
+      <author><first>Charles</first><last>Le</last></author>
+      <author><first>Arash</first><last>Ardakani</last></author>
+      <author><first>Amir</first><last>Ardakani</last></author>
+      <author><first>Hang</first><last>Zhang</last><affiliation>McGill University, McGill University</affiliation></author>
+      <author><first>Yuyan</first><last>Chen</last></author>
+      <author><first>James</first><last>Clark</last><affiliation>McGill University</affiliation></author>
+      <author><first>Brett</first><last>Meyer</last><affiliation>McGill University</affiliation></author>
+      <author><first>Warren</first><last>Gross</last><affiliation>McGill University</affiliation></author>
+      <pages>1-9</pages>
+      <abstract>The success of large BERT models has raised the demand for model compression methods to reduce model size and computational cost. Quantization can reduce the model size and inference latency, making inference more efficient, without changing its stucture, but it comes at the cost of performance degradation. Due to the complex loss landscape of ternarized/binarized BERT, we present an efficient two-stage progressive quantization method in which we fine tune the model with quantized weights and progressively lower its bits, and then we fine tune the model with quantized weights and activations. At the same time, we strategically choose which bitwidth to fine-tune on and to initialize from, and which bitwidth to fine-tune under augmented data to outperform the existing BERT binarization methods without adding an extra module, compressing the binary model 18% more than previous binarization methods or compressing BERT by 31x w.r.t. to the full-precision model. Our method without data augmentation can outperform existing BERT ternarization methods.</abstract>
+      <url hash="55bacf90">2022.sustainlp-1.2</url>
+      <bibkey>le-etal-2022-efficient</bibkey>
+      <video href="2022.sustainlp-1.2.mp4"/>
+      <doi>10.18653/v1/2022.sustainlp-1.2</doi>
+    </paper>
+    <paper id="3">
+      <title><fixed-case>KGR</fixed-case>efiner: Knowledge Graph Refinement for Improving Accuracy of Translational Link Prediction Methods</title>
+      <author><first>Mohammad Javad</first><last>Saeedizade</last></author>
+      <author><first>Najmeh</first><last>Torabian</last><affiliation>Na</affiliation></author>
+      <author><first>Behrouz</first><last>Minaei-Bidgoli</last></author>
+      <pages>10-16</pages>
+      <abstract>Link Prediction is the task of predicting missing relations between knowledge graph entities (KG). Recent work in link prediction mainly attempted to adapt a model to increase link prediction accuracy by using more layers in neural network architecture, which heavily rely on computational resources. This paper proposes the refinement of knowledge graphs to perform link prediction operations more accurately using relatively fast translational models. Translational link prediction models have significantly less complexity than deep learning approaches; this motivated us to improve their accuracy. Our method uses the ontologies of knowledge graphs to add information as auxiliary nodes to the graph. Then, these auxiliary nodes are connected to ordinary nodes of the KG that contain auxiliary information in their hierarchy. Our experiments show that our method can significantly increase the performance of translational link prediction methods in Hit@10, Mean Rank, and Mean Reciprocal Rank.</abstract>
+      <url hash="9a2d4973">2022.sustainlp-1.3</url>
+      <bibkey>saeedizade-etal-2022-kgrefiner</bibkey>
+      <video href="2022.sustainlp-1.3.mp4"/>
+      <doi>10.18653/v1/2022.sustainlp-1.3</doi>
+    </paper>
+    <paper id="4">
+      <title>Algorithmic Diversity and Tiny Models: Comparing Binary Networks and the Fruit Fly Algorithm on Document Representation Tasks</title>
+      <author><first>Tanise</first><last>Ceron</last></author>
+      <author><first>Nhut</first><last>Truong</last></author>
+      <author><first>Aurelie</first><last>Herbelot</last><affiliation>University of Trento</affiliation></author>
+      <pages>17-28</pages>
+      <abstract>Neural language models have seen a dramatic increase in size in the last years. While many still advocate that ‘bigger is better’, work in model distillation has shown that the number of parameters used by very large networks is actually more than what is required for state-of-the-art performance. This prompts an obvious question: can we build smaller models from scratch, rather than going through the inefficient process of training at scale and subsequently reducing model size. In this paper, we investigate the behaviour of a biologically inspired algorithm, based on the fruit fly’s olfactory system. This algorithm has shown good performance in the past on the task of learning word embeddings. We now put it to the test on the task of semantic hashing. Specifically, we compare the fruit fly to a standard binary network on the task of generating locality-sensitive hashes for text documents, measuring both task performance and energy consumption. Our results indicate that the two algorithms have complementary strengths while showing similar electricity usage.</abstract>
+      <url hash="d9df9cb5">2022.sustainlp-1.4</url>
+      <bibkey>ceron-etal-2022-algorithmic</bibkey>
+      <video href="2022.sustainlp-1.4.mp4"/>
+      <doi>10.18653/v1/2022.sustainlp-1.4</doi>
+    </paper>
+    <paper id="5">
+      <title>Look Ma, Only 400 Samples! Revisiting the Effectiveness of Automatic N-Gram Rule Generation for Spelling Normalization in <fixed-case>F</fixed-case>ilipino</title>
+      <author><first>Lorenzo Jaime</first><last>Flores</last></author>
+      <author><first>Dragomir</first><last>Radev</last><affiliation>Yale University</affiliation></author>
+      <pages>29-35</pages>
+      <abstract>With 84.75 million Filipinos online, the ability for models to process online text is crucial for developing Filipino NLP applications. To this end, spelling correction is a crucial preprocessing step for downstream processing. However, the lack of data prevents the use of language models for this task. In this paper, we propose an N-Gram + Damerau-Levenshtein distance model with automatic rule extraction. We train the model on 300 samples, and show that despite limited training data, it achieves good performance and outperforms other deep learning approaches in terms of accuracy and edit distance. Moreover, the model (1) requires little compute power, (2) trains in little time, thus allowing for retraining, and (3) is easily interpretable, allowing for direct troubleshooting, highlighting the success of traditional approaches over more complex deep learning models in settings where data is unavailable.</abstract>
+      <url hash="84f2ebbb">2022.sustainlp-1.5</url>
+      <bibkey>flores-radev-2022-look</bibkey>
+      <video href="2022.sustainlp-1.5.mp4"/>
+      <doi>10.18653/v1/2022.sustainlp-1.5</doi>
+    </paper>
+    <paper id="6">
+      <title>Who Says Elephants Can’t Run: Bringing Large Scale <fixed-case>M</fixed-case>o<fixed-case>E</fixed-case> Models into Cloud Scale Production</title>
+      <author><first>Young Jin</first><last>Kim</last><affiliation>Microsoft</affiliation></author>
+      <author><first>Rawn</first><last>Henry</last></author>
+      <author><first>Raffy</first><last>Fahim</last><affiliation>Microsoft</affiliation></author>
+      <author><first>Hany</first><last>Hassan</last><affiliation>Microsoft</affiliation></author>
+      <pages>36-43</pages>
+      <abstract>Mixture of Experts (MoE) models with conditional execution of sparsely activated layers has enabled training models with a much larger number of parameters. As a result, these models have achieved significantly better quality on various natural language processing tasks including machine translation. However, it remains challenging to deploy such models in real-life scenarios due to the large memory requirements and inefficient inference. In this work, we introduce a highly efficient inference framework with several optimization approaches to accelerate the computation of sparse models and cut down the memory consumption significantly. While we achieve up to 26x speed-up in terms of throughput, we also reduce the model size almost to one eighth of the original 32-bit float model by quantizing expert weights into 4-bit integers. As a result, we are able to deploy 136x larger models with 27% less cost and significantly better quality with large scale MoE model deployment compared to the existing solutions. This enables a paradigm shift in deploying large scale multilingual MoE transformers models instead of distilling into dozens of smaller models per language or task.</abstract>
+      <url hash="0e007543">2022.sustainlp-1.6</url>
+      <bibkey>kim-etal-2022-says</bibkey>
+      <video href="2022.sustainlp-1.6.mp4"/>
+      <doi>10.18653/v1/2022.sustainlp-1.6</doi>
+    </paper>
+    <paper id="7">
+      <title>Data-Efficient Auto-Regressive Document Retrieval for Fact Verification</title>
+      <author><first>James</first><last>Thorne</last></author>
+      <pages>44-51</pages>
+      <abstract>Document retrieval is a core component of many knowledge-intensive natural language processing task formulations such as fact verification. Sources of textual knowledge such as Wikipedia articles condition the generation of answers from the models. Recent advances in retrieval use sequence-to-sequence models to incrementally predict the title of the appropriate Wikipedia page given an input instance. However, this method requires supervision in the form of human annotation to label which Wikipedia pages contain appropriate context. This paper introduces a distant-supervision method that does not require any annotation train auto-regressive retrievers that attain competitive R-Precision and Recall in a zero-shot setting. Furthermore we show that with task-specific supervised fine-tuning, auto-regressive retrieval performance for two Wikipedia-based fact verification tasks can approach or even exceed full supervision using less than <tex-math>1/4</tex-math> of the annotated data. We release all code and models</abstract>
+      <url hash="91e5dc67">2022.sustainlp-1.7</url>
+      <bibkey>thorne-2022-data</bibkey>
+      <video href="2022.sustainlp-1.7.mp4"/>
+      <doi>10.18653/v1/2022.sustainlp-1.7</doi>
+    </paper>
+    <paper id="11">
+      <title><fixed-case>A</fixed-case>fro<fixed-case>LM</fixed-case>: A Self-Active Learning-based Multilingual Pretrained Language Model for 23 <fixed-case>A</fixed-case>frican Languages</title>
+      <author><first>Bonaventure F. P.</first><last>Dossou</last></author>
+      <author><first>Atnafu Lambebo</first><last>Tonja</last><affiliation>Instituto Politécnico Nacional</affiliation></author>
+      <author><first>Oreen</first><last>Yousuf</last></author>
+      <author><first>Salomey</first><last>Osei</last></author>
+      <author><first>Abigail</first><last>Oppong</last></author>
+      <author><first>Iyanuoluwa</first><last>Shode</last></author>
+      <author><first>Oluwabusayo Olufunke</first><last>Awoyomi</last><affiliation>Na</affiliation></author>
+      <author><first>Chris</first><last>Emezue</last></author>
+      <pages>52-64</pages>
+      <abstract>In recent years, multilingual pre-trained language models have gained prominence due to their remarkable performance on numerous downstream Natural Language Processing tasks (NLP). However, pre-training these large multilingual language models requires a lot of training data, which is not available for African Languages. Active learning is a semi-supervised learning algorithm, in which a model consistently and dynamically learns to identify the most beneficial samples to train itself on, in order to achieve better optimization and performance on downstream tasks. Furthermore, active learning effectively and practically addresses real-world data scarcity. Despite all its benefits, active learning, in the context of NLP and especially multilingual language models pretraining, has received little consideration. In this paper, we present <b>AfroLM</b>, a multilingual language model pretrained from scratch on 23 African languages (the largest effort to date) using our novel self-active learning framework. Pretrained on a dataset significantly (14x) smaller than existing baselines, <b>AfroLM</b> outperforms many multilingual pretrained language models (AfriBERTa, XLMR-base, mBERT) on various NLP downstream tasks (NER, text classification, and sentiment analysis). Additional out-of-domain sentiment analysis experiments show that <b>AfroLM</b> is able to generalize well across various domains. We release the code source, and our datasets used in our framework at <url>https://github.com/bonaventuredossou/MLM_AL</url>.</abstract>
+      <url hash="7c6100ce">2022.sustainlp-1.11</url>
+      <bibkey>dossou-etal-2022-afrolm</bibkey>
+      <revision id="1" href="2022.sustainlp-1.11v1" hash="f0f0d67f"/>
+      <revision id="2" href="2022.sustainlp-1.11v2" hash="7c6100ce" date="2023-02-24">Crucial fixes to the paper.</revision>
+      <video href="2022.sustainlp-1.11.mp4"/>
+      <doi>10.18653/v1/2022.sustainlp-1.11</doi>
+    </paper>
+    <paper id="13">
+      <title>Towards Fair Dataset Distillation for Text Classification</title>
+      <author><first>Xudong</first><last>Han</last><affiliation>University of Melbourne</affiliation></author>
+      <author><first>Aili</first><last>Shen</last><affiliation>Amazon</affiliation></author>
+      <author><first>Yitong</first><last>Li</last><affiliation>Huawei Technologies Co., Ltd.</affiliation></author>
+      <author><first>Lea</first><last>Frermann</last><affiliation>The University of Melbourne</affiliation></author>
+      <author><first>Timothy</first><last>Baldwin</last><affiliation>Mohamed bin Zayed University of Artificial Intelligence and The University of Melbourne</affiliation></author>
+      <author><first>Trevor</first><last>Cohn</last><affiliation>The University of Melbourne</affiliation></author>
+      <pages>65-72</pages>
+      <abstract>With the growing prevalence of large-scale language models, their energy footprint and potential to learn and amplify historical biases are two pressing challenges. Dataset distillation (DD) — a method for reducing the dataset size by learning a small number of synthetic samples which encode the information in the original dataset — is a method for reducing the cost of model training, however its impact on fairness has not been studied. We investigate how DD impacts on group bias, with experiments over two language classification tasks, concluding that vanilla DD preserves the bias of the dataset. We then show how existing debiasing methods can be combined with DD to produce models that are fair and accurate, at reduced training cost.</abstract>
+      <url hash="aadccd18">2022.sustainlp-1.13</url>
+      <bibkey>han-etal-2022-towards-fair</bibkey>
+      <video href="2022.sustainlp-1.13.mp4"/>
+      <doi>10.18653/v1/2022.sustainlp-1.13</doi>
+    </paper>
+  </volume>
+</collection>

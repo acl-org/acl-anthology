@@ -1,0 +1,296 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2022.fnp">
+  <volume id="1" ingest-date="2022-09-22" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of the 4th Financial Narrative Processing Workshop @LREC2022</booktitle>
+      <editor><first>Mahmoud</first><last>El-Haj</last></editor>
+      <editor><first>Paul</first><last>Rayson</last></editor>
+      <editor><first>Nadhem</first><last>Zmandar</last></editor>
+      <publisher>European Language Resources Association</publisher>
+      <address>Marseille, France</address>
+      <month>June</month>
+      <year>2022</year>
+      <url hash="ec9de002">2022.fnp-1</url>
+      <venue>fnp</venue>
+    </meta>
+    <frontmatter>
+      <url hash="fb7a8a2c">2022.fnp-1.0</url>
+      <bibkey>fnp-2022-financial</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title><fixed-case>F</fixed-case>in<fixed-case>RAD</fixed-case>: Financial Readability Assessment Dataset - 13,000+ Definitions of Financial Terms for Measuring Readability</title>
+      <author><first>Sohom</first><last>Ghosh</last></author>
+      <author><first>Shovon</first><last>Sengupta</last></author>
+      <author><first>Sudip</first><last>Naskar</last></author>
+      <author><first>Sunny Kumar</first><last>Singh</last></author>
+      <pages>1–9</pages>
+      <abstract>In today’s world, the advancement and spread of the Internet and digitalization have resulted in most information being openly accessible. This holds true for financial services as well. Investors make data driven decisions by analysing publicly available information like annual reports of listed companies, details regarding asset allocation of mutual funds, etc. Many a time these financial documents contain unknown financial terms. In such cases, it becomes important to look at their definitions. However, not all definitions are equally readable. Readability largely depends on the structure, complexity and constituent terms that make up a definition. This brings in the need for automatically evaluating the readability of definitions of financial terms. This paper presents a dataset, FinRAD consisting of financial terms, their definitions and embeddings. In addition to standard readability scores (like “Flesch Reading Index (FRI)”, “Automated Readability Index (ARI)”, “SMOG Index Score (SIS)”,“Dale-Chall formula (DCF)”, etc.), it also contains the readability scores (AR) assigned based on sources from which the terms have been collected. We manually inspect a sample from it to ensure the quality of the assignment. Subsequently, we prove that the rule-based standard readability scores (like “Flesch Reading Index (FRI)”, “Automated Readability Index (ARI)”, “SMOG Index Score (SIS)”,“Dale-Chall formula (DCF)”, etc.) do not correlate well with the manually assigned binary readability scores of definitions of financial terms. Finally, we present a few neural baselines using transformer based architecture to automatically classify these definitions as readable or not. Pre-trained FinBERT model fine-tuned on FinRAD corpus performs the best (AU-ROC = 0.9927, F1 = 0.9610). This corpus can be downloaded from <url>https://github.com/sohomghosh/FinRAD_Financial_Readability_Assessment_Dataset</url>.</abstract>
+      <url hash="53680624">2022.fnp-1.1</url>
+      <bibkey>ghosh-etal-2022-finrad</bibkey>
+      <pwccode url="https://github.com/sohomghosh/finrad_financial_readability_assessment_dataset" additional="false">sohomghosh/finrad_financial_readability_assessment_dataset</pwccode>
+    </paper>
+    <paper id="2">
+      <title>Discovering Financial Hypernyms by Prompting Masked Language Models</title>
+      <author><first>Bo</first><last>Peng</last></author>
+      <author><first>Emmanuele</first><last>Chersoni</last></author>
+      <author><first>Yu-Yin</first><last>Hsu</last></author>
+      <author><first>Chu-Ren</first><last>Huang</last></author>
+      <pages>10–16</pages>
+      <abstract>With the rising popularity of Transformer-based language models, several studies have tried to exploit their masked language modeling capabilities to automatically extract relational linguistic knowledge, although this kind of research has rarely investigated semantic relations in specialized domains. The present study aims at testing a general-domain and a domain-adapted Transformer models on two datasets of financial term-hypernym pairs using the prompt methodology. Our results show that the differences of prompts impact critically on models’ performance, and that domain adaptation on financial text generally improves the capacity of the models to associate the target terms with the right hypernyms, although the more successful models are those retaining a general-domain vocabulary.</abstract>
+      <url hash="34056688">2022.fnp-1.2</url>
+      <bibkey>peng-etal-2022-discovering</bibkey>
+    </paper>
+    <paper id="3">
+      <title>Sentiment Classification by Incorporating Background Knowledge from Financial Ontologies</title>
+      <author><first>Timen</first><last>Stepišnik-Perdih</last></author>
+      <author><first>Andraž</first><last>Pelicon</last></author>
+      <author><first>Blaž</first><last>Škrlj</last></author>
+      <author><first>Martin</first><last>Žnidaršič</last></author>
+      <author><first>Igor</first><last>Lončarski</last></author>
+      <author><first>Senja</first><last>Pollak</last></author>
+      <pages>17–26</pages>
+      <abstract>Ontologies are increasingly used for machine reasoning over the last few years. They can provide explanations of concepts or be used for concept classification if there exists a mapping from the desired labels to the relevant ontology. This paper presents a practical use of an ontology for the purpose of data set generalization in an oversampling setting, with the aim of improving classification models. We demonstrate our solution on a novel financial sentiment data set using the Financial Industry Business Ontology (FIBO). The results show that generalization-based data enrichment benefits simpler models in a general setting and more complex models such as BERT in low-data setting.</abstract>
+      <url hash="c0bc4328">2022.fnp-1.3</url>
+      <bibkey>stepisnik-perdih-etal-2022-sentiment</bibkey>
+    </paper>
+    <paper id="4">
+      <title>Detecting Causes of Stock Price Rise and Decline by Machine Reading Comprehension with <fixed-case>BERT</fixed-case></title>
+      <author><first>Gakuto</first><last>Tsutsumi</last></author>
+      <author><first>Takehito</first><last>Utsuro</last></author>
+      <pages>27–35</pages>
+      <abstract>In this paper, we focused on news reported when stock prices fluctuate significantly. The news reported when stock prices change is a very useful source of information on what factors cause stock prices to change. However, because it is manually produced, not all events that cause stock prices to change are necessarily reported. Thus, in order to provide investors with information on those causes of stock price changes, it is necessary to develop a system to collect information on events that could be closely related to the stock price changes of certain companies from the Internet. As the first step towards developing such a system, this paper takes an approach of employing a BERT-based machine reading comprehension model, which extracts causes of stock price rise and decline from news reports on stock price changes. In the evaluation, the approach of using the title of the article as the question of machine reading comprehension performs well. It is shown that the fine-tuned machine reading comprehension model successfully detects additional causes of stock price rise and decline other than those stated in the title of the article.</abstract>
+      <url hash="8b4c0a1a">2022.fnp-1.4</url>
+      <bibkey>tsutsumi-utsuro-2022-detecting</bibkey>
+    </paper>
+    <paper id="5">
+      <title><fixed-case>XLNET</fixed-case>-<fixed-case>GRU</fixed-case> Sentiment Regression Model for Cryptocurrency News in <fixed-case>E</fixed-case>nglish and <fixed-case>M</fixed-case>alay</title>
+      <author><first>Nur Azmina</first><last>Mohamad Zamani</last></author>
+      <author><first>Jasy Suet Yan</first><last>Liew</last></author>
+      <author><first>Ahmad Muhyiddin</first><last>Yusof</last></author>
+      <pages>36–42</pages>
+      <abstract>Contextual word embeddings such as the transformer language models are gaining popularity in text classification and analytics but have rarely been explored for sentiment analysis on cryptocurrency news particularly on languages other than English. Various state-of-the-art (SOTA) pre-trained language models have been introduced recently such as BERT, ALBERT, ELECTRA, RoBERTa, and XLNet for text representation. Hence, this study aims to investigate the performance of using Gated Recurrent Unit (GRU) with Generalized Autoregressive Pretraining for Language (XLNet) contextual word embedding for sentiment analysis on English and Malay cryptocurrency news (Bitcoin and Ethereum). We also compare the performance of our XLNet-GRU model against other SOTA pre-trained language models. Manually labelled corpora of English and Malay news are utilized to learn the context of text specifically in the cryptocurrency domain. Based on our experiments, we found that our XLNet-GRU sentiment regression model outperformed the lexicon-based baseline with mean adjusted R2 = 0.631 across Bitcoin and Ethereum for English and mean adjusted R2 = 0.514 for Malay.</abstract>
+      <url hash="a2a84cfe">2022.fnp-1.5</url>
+      <bibkey>mohamad-zamani-etal-2022-xlnet</bibkey>
+    </paper>
+    <paper id="6">
+      <title>The Financial Narrative Summarisation Shared Task (<fixed-case>FNS</fixed-case> 2022)</title>
+      <author><first>Mahmoud</first><last>El-Haj</last></author>
+      <author><first>Nadhem</first><last>Zmandar</last></author>
+      <author><first>Paul</first><last>Rayson</last></author>
+      <author><first>Ahmed</first><last>AbuRa’ed</last></author>
+      <author><first>Marina</first><last>Litvak</last></author>
+      <author><first>Nikiforos</first><last>Pittaras</last></author>
+      <author><first>George</first><last>Giannakopoulos</last></author>
+      <author><first>Aris</first><last>Kosmopoulos</last></author>
+      <author><first>Blanca</first><last>Carbajo-Coronado</last></author>
+      <author><first>Antonio</first><last>Moreno-Sandoval</last></author>
+      <pages>43–52</pages>
+      <abstract>This paper presents the results and findings of the Financial Narrative Summarisation Shared Task on summarising UK, Greek and Spanish annual reports. The shared task was organised as part of the Financial Narrative Processing 2022 Workshop (FNP 2022 Workshop). The Financial Narrative summarisation Shared Task (FNS-2022) has been running since 2020 as part of the Financial Narrative Processing (FNP) workshop series (El-Haj et al., 2022; El-Haj et al., 2021; El-Haj et al., 2020b; El-Haj et al., 2019c; El-Haj et al., 2018). The shared task included one main task which is the use of either abstractive or extractive automatic summarisers to summarise long documents in terms of UK, Greek and Spanish financial annual reports. This shared task is the third to target financial documents. The data for the shared task was created and collected from publicly available annual reports published by firms listed on the Stock Exchanges of UK, Greece and Spain. A total number of 14 systems from 7 different teams participated in the shared task.</abstract>
+      <url hash="35121406">2022.fnp-1.6</url>
+      <bibkey>el-haj-etal-2022-financial</bibkey>
+    </paper>
+    <paper id="7">
+      <title>Multilingual Text Summarization on Financial Documents</title>
+      <author><first>Negar</first><last>Foroutan</last></author>
+      <author><first>Angelika</first><last>Romanou</last></author>
+      <author><first>Stéphane</first><last>Massonnet</last></author>
+      <author><first>Rémi</first><last>Lebret</last></author>
+      <author><first>Karl</first><last>Aberer</last></author>
+      <pages>53–58</pages>
+      <abstract>This paper proposes a multilingual Automated Text Summarization (ATS) method targeting the Financial Narrative Summarization Task (FNS-2022). We developed two systems; the first uses a pre-trained abstractive summarization model that was fine-tuned on the downstream objective, the second approaches the problem as an extractive approach in which a similarity search is performed on the trained span representations. Both models aim to identify the beginning of the continuous narrative section of the document. The language models were fine-tuned on a financial document collection of three languages (English, Spanish, and Greek) and aim to identify the beginning of the summary narrative part of the document. The proposed systems achieve high performance in the given task, with the sequence-to-sequence variant ranked 1st on ROUGE-2 F1 score on the test set for each of the three languages.</abstract>
+      <url hash="24a8333b">2022.fnp-1.7</url>
+      <bibkey>foroutan-etal-2022-multilingual</bibkey>
+    </paper>
+    <paper id="8">
+      <title>Extractive and Abstractive Summarization Methods for Financial Narrative Summarization in <fixed-case>E</fixed-case>nglish, <fixed-case>S</fixed-case>panish and <fixed-case>G</fixed-case>reek</title>
+      <author><first>Alejandro</first><last>Vaca</last></author>
+      <author><first>Alba</first><last>Segurado</last></author>
+      <author><first>David</first><last>Betancur</last></author>
+      <author><first>Álvaro</first><last>Barbero Jiménez</last></author>
+      <pages>59–64</pages>
+      <abstract>This paper describes the three summarization systems submitted to the Financial Narrative Summarization Shared Task (FNS-2022). We developed a task-specific extractive summarization method for the reports in English. It was based on a sequence classification task whose objective was to find the sentence where the summary begins. On the other hand, since the summaries for the reports in Spanish and Greek were not extractive, we used an abstractive strategy for each of the languages. In particular, we created a new Encoder-Decoder architecture in Spanish, MariMari, based on an existing Encoding-only model; we also trained multilingual Encoder-Decoder models for this task. Finally, the summaries for the reports in Greek were obtained with a translation-summary-translation system in which the reports were translated to English and summarised, and then the summaries were translated back to Greek.</abstract>
+      <url hash="97885d08">2022.fnp-1.8</url>
+      <bibkey>vaca-etal-2022-extractive</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/mlsum">MLSUM</pwcdataset>
+    </paper>
+    <paper id="9">
+      <title><fixed-case>D</fixed-case>i<fixed-case>MS</fixed-case>um: Distributed and Multilingual Summarization of Financial Narratives</title>
+      <author><first>Neelesh</first><last>Shukla</last></author>
+      <author><first>Amit</first><last>Vaid</last></author>
+      <author><first>Raghu</first><last>Katikeri</last></author>
+      <author><first>Sangeeth</first><last>Keeriyadath</last></author>
+      <author><first>Msp</first><last>Raja</last></author>
+      <pages>65–72</pages>
+      <abstract>This paper was submitted for Financial Narrative Summarization (FNS) task in FNP-2022 workshop. The objective of the task was to generate not more than 1000 words summaries for the annual financial reports written in English, Spanish and Greek languages. The central idea of this paper is to demonstrate automatic ways of identifying key narrative sections and their contributions towards generating summaries of financial reports. We have observed a few limitations in the previous works: First, the complete report was being considered for summary generation instead of key narrative sections. Second, many of the works followed manual or heuristic-based techniques to identify narrative sections. Third, sentences from key narrative sections were abruptly dropped to limit the summary to the desired length. To overcome these shortcomings, we introduced a novel approach to automatically learn key narrative sections and their weighted contributions to the reports. Since the summaries may come from various parts of the reports, the summary generation process was distributed amongst the key narrative sections based on the weights identified, later combined to have an overall summary. We also showcased that our approach is adaptive to various report formats and languages.</abstract>
+      <url hash="d957fb04">2022.fnp-1.9</url>
+      <bibkey>shukla-etal-2022-dimsum</bibkey>
+      <pwccode url="https://github.com/neeleshkshukla/DiMSum_FNP_2022" additional="false">neeleshkshukla/DiMSum_FNP_2022</pwccode>
+    </paper>
+    <paper id="10">
+      <title>Transformer-based Models for Long Document Summarisation in Financial Domain</title>
+      <author><first>Urvashi</first><last>Khanna</last></author>
+      <author><first>Samira</first><last>Ghodratnama</last></author>
+      <author><first>Diego</first><last>Moll ́a</last></author>
+      <author><first>Amin</first><last>Beheshti</last></author>
+      <pages>73–78</pages>
+      <abstract>Summarisation of long financial documents is a challenging task due to the lack of large-scale datasets and the need for domain knowledge experts to create human-written summaries. Traditional summarisation approaches that generate a summary based on the content cannot produce summaries comparable to human-written ones and thus are rarely used in practice. In this work, we use the Longformer-Encoder-Decoder (LED) model to handle long financial reports. We describe our experiments and participating systems in the financial narrative summarisation shared task. Multi-stage fine-tuning helps the model generalise better on niche domains and avoids the problem of catastrophic forgetting. We further investigate the effect of the staged fine-tuning approach on the FNS dataset. Our systems achieved promising results in terms of ROUGE scores on the validation dataset.</abstract>
+      <url hash="909d0281">2022.fnp-1.10</url>
+      <bibkey>khanna-etal-2022-transformer</bibkey>
+    </paper>
+    <paper id="11">
+      <title>Financial Narrative Summarisation Using a Hybrid <fixed-case>TF</fixed-case>-<fixed-case>IDF</fixed-case> and Clustering Summariser: <fixed-case>AO</fixed-case>-Lancs System at <fixed-case>FNS</fixed-case> 2022</title>
+      <author><first>Mahmoud</first><last>El-Haj</last></author>
+      <author><first>Andrew</first><last>Ogden</last></author>
+      <pages>79–82</pages>
+      <abstract>This paper describes the HTAC system submitted to the Financial Narrative Summarization Shared Task (FNS-2022). A methodology implementing Financial narrative Processing (FNP) to summarise financial annual reports, named Hybrid TF-IDF and Clustering (HTAC). This involves a hybrid approach combining TF-IDF sentence ranking as an NLP tool with a state-of-the-art Clustering Machine learning model to produce short 1000-word summaries of long financial annual reports. These Annual Reports are a legal responsibility of public companies and are in excess of 50,000 words. The model extracts the crucial information from these documents, discarding the extraneous content, leaving only the crucial information in a shorter, non-redundant summary. Producing summaries that are more effective than summaries produced by two pre-existing generic summarisers.</abstract>
+      <url hash="2f98f8d6">2022.fnp-1.11</url>
+      <bibkey>el-haj-ogden-2022-financial</bibkey>
+    </paper>
+    <paper id="12">
+      <title>The Financial Document Structure Extraction Shared Task (<fixed-case>F</fixed-case>in<fixed-case>TOC</fixed-case> 2022)</title>
+      <author><first>Juyeon</first><last>Kang</last></author>
+      <author><first>Abderrahim</first><last>Ait Azzi</last></author>
+      <author><first>Sandra</first><last>Bellato</last></author>
+      <author><first>Blanca</first><last>Carbajo Coronado</last></author>
+      <author><first>Mahmoud</first><last>El-Haj</last></author>
+      <author><first>Ismail</first><last>El Maarouf</last></author>
+      <author><first>Mei</first><last>Gan</last></author>
+      <author><first>Ana</first><last>Gisbert</last></author>
+      <author><first>Antonio</first><last>Moreno Sandoval</last></author>
+      <pages>83–88</pages>
+      <abstract>This paper describes the FinTOC-2022 Shared Task on the structure extraction from financial documents, its participants results and their findings. This shared task was organized as part of The 4th Financial Narrative Processing Workshop (FNP 2022), held jointly at The 13th Edition of the Language Resources and Evaluation Conference (LREC 2022), Marseille, France (El-Haj et al., 2022). This shared task aimed to stimulate research in systems for extracting table-of-contents (TOC) from investment documents (such as financial prospectuses) by detecting the document titles and organizing them hierarchically into a TOC. For the forth edition of this shared task, three subtasks were presented to the participants: one with English documents, one with French documents and the other one with Spanish documents. This year, we proposed a different and revised dataset for English and French compared to the previous editions of FinTOC and a new dataset for Spanish documents was added. The task attracted 6 submissions for each language from 4 teams, and the most successful methods make use of textual, structural and visual features extracted from the documents and propose classification models for detecting titles and TOCs for all of the subtasks.</abstract>
+      <url hash="a04aa49d">2022.fnp-1.12</url>
+      <bibkey>kang-etal-2022-financial</bibkey>
+    </paper>
+    <paper id="13">
+      <title><fixed-case>ISPRAS</fixed-case>@<fixed-case>F</fixed-case>in<fixed-case>TOC</fixed-case>-2022 Shared Task: Two-stage <fixed-case>TOC</fixed-case> Generation Model</title>
+      <author><first>Anastasiia</first><last>Bogatenkova</last></author>
+      <author><first>Oksana Vladimirovna</first><last>Belyaeva</last></author>
+      <author><first>Andrew Igorevich</first><last>Perminov</last></author>
+      <author><first>Ilya Sergeevich</first><last>Kozlov</last></author>
+      <pages>89–94</pages>
+      <abstract>This work is connected with participation in FinTOC-2022 Shared Task: “Financial Document Structure Extraction”. The competition contains two subtasks: title detection and TOC generation. We describe an approach for solving these tasks and propose the pipeline, consisting of extraction of document lines and existing TOC, feature matrix forming and classification. Classification model consists of two classifiers: the first binary classifier separates title lines from non-title, the second one determines the title level. In the title detection task, we got 0.900, 0.778 and 0.558 F1 measure, in the TOC generation task we got 63.1, 41.5 and 40.79 the harmonic mean of Inex F1 score and Inex level accuracy for English, French and Spanish documents respectively. With these results, our approach took first place among English and French submissions and second place among Spanish submissions. As a team, we took first place in the competition in English and French categories and second place in the competition in Spanish.</abstract>
+      <url hash="84a9aa34">2022.fnp-1.13</url>
+      <bibkey>bogatenkova-etal-2022-ispras</bibkey>
+    </paper>
+    <paper id="14">
+      <title>swap<fixed-case>UNIBA</fixed-case>@<fixed-case>F</fixed-case>in<fixed-case>TOC</fixed-case>2022: Fine-tuning Pre-trained Document Image Analysis Model for Title Detection on the Financial Domain</title>
+      <author><first>Pierluigi</first><last>Cassotti</last></author>
+      <author><first>Cataldo</first><last>Musto</last></author>
+      <author><first>Marco</first><last>DeGemmis</last></author>
+      <author><first>Georgios</first><last>Lekkas</last></author>
+      <author><first>Giovanni</first><last>Semeraro</last></author>
+      <pages>95–99</pages>
+      <abstract>In this paper, we introduce the results of our submitted system to the FinTOC 2022 task. We address the task using a two-stage process: first, we detect titles using Document Image Analysis, then we train a supervised model for the hierarchical level prediction. We perform Document Image Analysis using a pre-trained Faster R-CNN on the PublyaNet dataset. We fine-tuned the model on the FinTOC 2022 training set. We extract orthographic and layout features from detected titles and use them to train a Random Forest model to predict the title level. The proposed system ranked #1 on both Title Detection and the Table of Content extraction tasks for Spanish. The system ranked #3 on both the two subtasks for English and French.</abstract>
+      <url hash="99a30289">2022.fnp-1.14</url>
+      <bibkey>cassotti-etal-2022-swapuniba</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/publaynet">PubLayNet</pwcdataset>
+    </paper>
+    <paper id="15">
+      <title><fixed-case>GREYC</fixed-case>@<fixed-case>F</fixed-case>in<fixed-case>TOC</fixed-case>-2022: Handling Document Layout and Structure in Native <fixed-case>PDF</fixed-case> Bundle of Documents</title>
+      <author><first>Emmanuel</first><last>Giguet</last></author>
+      <author><first>Nadine</first><last>Lucas</last></author>
+      <pages>100–104</pages>
+      <abstract>n this paper, we present our contribution to the FinTOC-2022 Shared Task “Financial Document Structure Extraction”. We participated in the three tracks dedicated to English, French and Spanish document processing. Our main contribution consists in considering financial prospectus as a bundle of documents, i.e., a set of merged documents, each with their own layout and structure. Therefore, Document Layout and Structure Analysis (DLSA) first starts with the boundary detection of each document using general layout features. Then, the process applies inside each single document, taking advantage of the local properties. DLSA is achieved considering simultaneously text content, vectorial shapes and images embedded in the native PDF document. For the Title Detection task in English and French, we observed a significant improvement of the F-measures for Title Detection compared with those obtained during our previous participation.</abstract>
+      <url hash="d205d1da">2022.fnp-1.15</url>
+      <bibkey>giguet-lucas-2022-greyc</bibkey>
+    </paper>
+    <paper id="16">
+      <title>The Financial Causality Extraction Shared Task (<fixed-case>F</fixed-case>in<fixed-case>C</fixed-case>ausal 2022)</title>
+      <author><first>Dominique</first><last>Mariko</last></author>
+      <author><first>Hanna</first><last>Abi-Akl</last></author>
+      <author><first>Kim</first><last>Trottier</last></author>
+      <author><first>Mahmoud</first><last>El-Haj</last></author>
+      <pages>105–107</pages>
+      <abstract>We present the FinCausal 2020 Shared Task on Causality Detection in Financial Documents and the associated FinCausal dataset, and discuss the participating systems and results. The task focuses on detecting if an object, an event or a chain of events is considered a cause for a prior event. This shared task focuses on determining causality associated with a quantified fact. An event is defined as the arising or emergence of a new object or context in regard to a previous situation. Therefore, the task will emphasise the detection of causality associated with transformation of financial objects embedded in quantified facts. A total number of 7 teams submitted system runs to the FinCausal task and contributed with a system description paper. FinCausal shared task is associated with the 4th Financial Narrative Processing Workshop (FNP 2022) (El-Haj et al., 2022) which is held at the The 13th Language Resources and Evaluation Conference (LREC 2022) in Marseille, France, on June 24, 2022.</abstract>
+      <url hash="fb02b4fa">2022.fnp-1.16</url>
+      <bibkey>mariko-etal-2022-financial</bibkey>
+    </paper>
+    <paper id="17">
+      <title><fixed-case>SPOCK</fixed-case> at <fixed-case>F</fixed-case>in<fixed-case>C</fixed-case>ausal 2022: Causal Information Extraction Using Span-Based and Sequence Tagging Models</title>
+      <author><first>Anik</first><last>Saha</last></author>
+      <author><first>Jian</first><last>Ni</last></author>
+      <author><first>Oktie</first><last>Hassanzadeh</last></author>
+      <author><first>Alex</first><last>Gittens</last></author>
+      <author><first>Kavitha</first><last>Srinivas</last></author>
+      <author><first>Bulent</first><last>Yener</last></author>
+      <pages>108–111</pages>
+      <abstract>Causal information extraction is an important task in natural language processing, particularly in finance domain. In this work, we develop several information extraction models using pre-trained transformer-based language models for identifying cause and effect text spans from financial documents. We use FinCausal 2021 and 2022 data sets to train span-based and sequence tagging models. Our ensemble of sequence tagging models based on the RoBERTa-Large pre-trained language model achieves an F1 score of 94.70 with Exact Match score of 85.85 and obtains the 1st place in the FinCausal 2022 competition.</abstract>
+      <url hash="4d3dc364">2022.fnp-1.17</url>
+      <bibkey>saha-etal-2022-spock</bibkey>
+    </paper>
+    <paper id="18">
+      <title>Multilingual Financial Documentation Summarization by <fixed-case>T</fixed-case>eam_<fixed-case>T</fixed-case>redence for <fixed-case>FNS</fixed-case>2022</title>
+      <author><first>Manish</first><last>Pant</last></author>
+      <author><first>Ankush</first><last>Chopra</last></author>
+      <pages>112–115</pages>
+      <abstract>This paper describes multi-lingual long document summarization systems submitted to the Financial Narrative Summarization Shared Task (FNS 2022 ) by Team-Tredence. We developed task-specific summarization methods for 3 languages – English, Spanish and Greek. The solution is divided into two parts, where a RoBERTa model was finetuned to identify/extract summarizing segments from English documents and T5 based models were used for summarizing Spanish and Greek documents. A purely extractive approach was applied to summarize English documents using data-specific heuristics. An mT5 model was fine-tuned to identify potential narrative sections for Greek and Spanish, followed by finetuning mT5 and T5(Spanish version) for abstractive summarization task. This system also features a novel approach for generating summarization training dataset using long document segmentation and the semantic similarity across segments. We also introduce an N-gram variability score to select sub-segments for generating more diverse and informative summaries from long documents.</abstract>
+      <url hash="4b842c0c">2022.fnp-1.18</url>
+      <bibkey>pant-chopra-2022-multilingual</bibkey>
+    </paper>
+    <paper id="19">
+      <title><fixed-case>DCU</fixed-case>-Lorcan at <fixed-case>F</fixed-case>in<fixed-case>C</fixed-case>ausal 2022: Span-based Causality Extraction from Financial Documents using Pre-trained Language Models</title>
+      <author><first>Chenyang</first><last>Lyu</last></author>
+      <author><first>Tianbo</first><last>Ji</last></author>
+      <author><first>Quanwei</first><last>Sun</last></author>
+      <author><first>Liting</first><last>Zhou</last></author>
+      <pages>116–120</pages>
+      <abstract>In this paper, we describe our DCU-Lorcan system for the FinCausal 2022 shared task: span-based cause and effect extraction from financial documents. We frame the FinCausal 2022 causality extraction task as a span extraction/sequence labeling task, our submitted systems are based on the contextualized word representations produced by pre-trained language models and linear layers predicting the label for each word, followed by post-processing heuristics. In experiments, we employ pre-trained language models including DistilBERT, BERT and SpanBERT. Our best performed system achieves F-1, Recall, Precision and Exact Match scores of 92.76, 92.77, 92.76 and 68.60 respectively. Additionally, we conduct experiments investigating the effect of data size to the performance of causality extraction model and an error analysis investigating the outputs in predictions.</abstract>
+      <url hash="96ca40d2">2022.fnp-1.19</url>
+      <bibkey>lyu-etal-2022-dcu</bibkey>
+    </paper>
+    <paper id="20">
+      <title><fixed-case>LIPI</fixed-case> at <fixed-case>F</fixed-case>in<fixed-case>C</fixed-case>ausal 2022: Mining Causes and Effects from Financial Texts</title>
+      <author><first>Sohom</first><last>Ghosh</last></author>
+      <author><first>Sudip</first><last>Naskar</last></author>
+      <pages>121–123</pages>
+      <abstract>While reading financial documents, investors need to know the causes and their effects. This empowers them to make data-driven decisions. Thus, there is a need to develop an automated system for extracting causes and their effects from financial texts using Natural Language Processing. In this paper, we present the approach our team LIPI followed while participating in the FinCausal 2022 shared task. This approach is based on the winning solution of the first edition of FinCausal held in the year 2020.</abstract>
+      <url hash="dc079a5f">2022.fnp-1.20</url>
+      <bibkey>ghosh-naskar-2022-lipi</bibkey>
+      <pwccode url="https://github.com/sohomghosh/cepn" additional="false">sohomghosh/cepn</pwccode>
+    </paper>
+    <paper id="21">
+      <title>i<fixed-case>L</fixed-case>ab at <fixed-case>F</fixed-case>in<fixed-case>C</fixed-case>ausal 2022: Enhancing Causality Detection with an External Cause-Effect Knowledge Graph</title>
+      <author><first>Ziwei</first><last>Xu</last></author>
+      <author><first>Rungsiman</first><last>Nararatwong</last></author>
+      <author><first>Natthawut</first><last>Kertkeidkachorn</last></author>
+      <author><first>Ryutaro</first><last>Ichise</last></author>
+      <pages>124–127</pages>
+      <abstract>The application of span detection grows fast along with the increasing need of understanding the causes and effects of events, especially in the finance domain. However, once the syntactic clues are absent in the text, the model tends to reverse the cause and effect spans. To solve this problem, we introduce graph construction techniques to inject cause-effect graph knowledge for graph embedding. The graph features combining with BERT embedding, then are used to predict the cause effect spans. The results show our proposed graph builder method outperforms the other methods w/wo external knowledge.</abstract>
+      <url hash="ab88f6eb">2022.fnp-1.21</url>
+      <bibkey>xu-etal-2022-ilab</bibkey>
+    </paper>
+    <paper id="22">
+      <title><fixed-case>E</fixed-case>xpert<fixed-case>N</fixed-case>eurons at <fixed-case>F</fixed-case>in<fixed-case>C</fixed-case>ausal 2022 Task 2: Causality Extraction for Financial Documents</title>
+      <author><first>Joydeb</first><last>Mondal</last></author>
+      <author><first>Nagaraj</first><last>Bhat</last></author>
+      <author><first>Pramir</first><last>Sarkar</last></author>
+      <author><first>Shahid</first><last>Reza</last></author>
+      <pages>128–130</pages>
+      <abstract>In this paper describes the approach which we have built for causality extraction from the financial documents that we have submitted for FinCausal 2022 task 2. We proving a solution with intelligent pre-processing and post-processing to detect the number of cause and effect in a financial document and extract them. Our given approach achieved 90% as F1 score(weighted-average) for the official blind evaluation dataset.</abstract>
+      <url hash="e18958ae">2022.fnp-1.22</url>
+      <bibkey>mondal-etal-2022-expertneurons</bibkey>
+    </paper>
+    <paper id="23">
+      <title><fixed-case>ATL</fixed-case> at <fixed-case>F</fixed-case>in<fixed-case>C</fixed-case>ausal 2022: Transformer Based Architecture for Automatic Causal Sentence Detection and Cause-Effect Extraction</title>
+      <author><first>Abir</first><last>Naskar</last></author>
+      <author><first>Tirthankar</first><last>Dasgupta</last></author>
+      <author><first>Sudeshna</first><last>Jana</last></author>
+      <author><first>Lipika</first><last>Dey</last></author>
+      <pages>131–134</pages>
+      <abstract>Automatic extraction of cause-effect relationships from natural language texts is a challenging open problem in Artificial Intelligence. Most of the early attempts at its solution used manually constructed linguistic and syntactic rules on restricted domain data sets. With the advent of big data, and the recent popularization of deep learning, the paradigm to tackle this problem has slowly shifted. In this work we proposed a transformer based architecture to automatically detect causal sentences from textual mentions and then identify the corresponding cause-effect relations. We describe our submission to the FinCausal 2022 shared task based on this method. Our model achieves a F1-score of 0.99 for the Task-1 and F1-score of 0.60 for Task-2 on the shared task data set on financial documents.</abstract>
+      <url hash="a62ca1ff">2022.fnp-1.23</url>
+      <bibkey>naskar-etal-2022-atl</bibkey>
+    </paper>
+    <paper id="24">
+      <title><fixed-case>MNLP</fixed-case> at <fixed-case>F</fixed-case>in<fixed-case>C</fixed-case>ausal2022: Nested <fixed-case>NER</fixed-case> with a Generative Model</title>
+      <author><first>Jooyeon</first><last>Lee</last></author>
+      <author><first>Luan Huy</first><last>Pham</last></author>
+      <author><first>Özlem</first><last>Uzuner</last></author>
+      <pages>135–138</pages>
+      <abstract>This paper describes work performed for the FinCasual 2022 Shared Task “Financial Document Causality Detection” (FinCausal 2022). As the name implies, the task involves extraction of casual and consequential elements from financial text. Our approach focuses employing Nested NER using the Text-to-Text Transformer (T5) generative transformer models while applying different combinations of datasets and tagging methods. Our system reports accuracy of 79% in Exact Match comparison and F-measure score of 92% token level measurement.</abstract>
+      <url hash="98db4658">2022.fnp-1.24</url>
+      <bibkey>lee-etal-2022-mnlp</bibkey>
+    </paper>
+  </volume>
+</collection>

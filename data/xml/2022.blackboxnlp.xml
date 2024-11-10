@@ -1,0 +1,456 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2022.blackboxnlp">
+  <volume id="1" ingest-date="2022-12-07" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of the Fifth BlackboxNLP Workshop on Analyzing and Interpreting Neural Networks for NLP</booktitle>
+      <editor><first>Jasmijn</first><last>Bastings</last></editor>
+      <editor><first>Yonatan</first><last>Belinkov</last></editor>
+      <editor><first>Yanai</first><last>Elazar</last></editor>
+      <editor><first>Dieuwke</first><last>Hupkes</last></editor>
+      <editor><first>Naomi</first><last>Saphra</last></editor>
+      <editor><first>Sarah</first><last>Wiegreffe</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Abu Dhabi, United Arab Emirates (Hybrid)</address>
+      <month>December</month>
+      <year>2022</year>
+      <url hash="b7712a87">2022.blackboxnlp-1</url>
+      <venue>blackboxnlp</venue>
+    </meta>
+    <frontmatter>
+      <url hash="1c2ac07a">2022.blackboxnlp-1.0</url>
+      <bibkey>blackboxnlp-2022-blackboxnlp</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>A Minimal Model for Compositional Generalization on g<fixed-case>SCAN</fixed-case></title>
+      <author><first>Alice</first><last>Hein</last></author>
+      <author><first>Klaus</first><last>Diepold</last></author>
+      <pages>1-15</pages>
+      <abstract>Whether neural networks are capable of compositional generalization has been a topic of much debate. Most previous studies on this subject investigate the generalization capabilities of state-of-the-art deep learning architectures. We here take a more bottom-up approach and design a minimal model that displays generalization on a compositional benchmark, namely, the gSCAN dataset. The model is a hybrid architecture that combines layers trained with gradient descent and a selective attention mechanism optimized with an evolutionary strategy. The architecture has around 60 times fewer trainable parameters than models previously tested on gSCAN, and achieves comparable accuracies on most test splits, even when trained only on a fraction of the dataset. On adverb to verb generalization accuracy, it outperforms previous approaches by 65 to 86%. Through ablation studies, neuron pruning, and error analyses, we show that weight decay and attention mechanisms facilitate compositional generalization by encouraging sparse representations divorced from irrelevant context. We find that the model’s sample efficiency can mainly be attributed to its selective attention mechanism.</abstract>
+      <url hash="d457e968">2022.blackboxnlp-1.1</url>
+      <bibkey>hein-diepold-2022-minimal</bibkey>
+      <doi>10.18653/v1/2022.blackboxnlp-1.1</doi>
+    </paper>
+    <paper id="2">
+      <title>Sparse Interventions in Language Models with Differentiable Masking</title>
+      <author><first>Nicola</first><last>De Cao</last></author>
+      <author><first>Leon</first><last>Schmid</last></author>
+      <author><first>Dieuwke</first><last>Hupkes</last></author>
+      <author><first>Ivan</first><last>Titov</last></author>
+      <pages>16-27</pages>
+      <abstract>There has been a lot of interest in understanding what information is captured by hidden representations of language models (LMs). Typically, interpretation methods i) do not guarantee that the model actually uses the information found to be encoded, and ii) do not discover small subsets of neurons responsible for a considered phenomenon. Inspired by causal mediation analysis, we propose a method that discovers a small subset of neurons within a neural LM responsible for a particular linguistic phenomenon, i.e., subsets causing a change in the corresponding token emission probabilities. We use a differentiable relaxation to approximately search through the combinatorial space. An <tex-math>L_0</tex-math> regularization term ensures that the search converges to discrete and sparse solutions. We apply our method to analyze subject-verb number agreement and gender bias detection in LSTMs. We observe that it is fast and finds better solutions than alternatives such as REINFORCE and Integrated Gradients. Our experiments confirm that each of these phenomena is mediated through a small subset of neurons that do not play any other discernible role. </abstract>
+      <url hash="ceb4bea1">2022.blackboxnlp-1.2</url>
+      <bibkey>de-cao-etal-2022-sparse</bibkey>
+      <doi>10.18653/v1/2022.blackboxnlp-1.2</doi>
+    </paper>
+    <paper id="3">
+      <title>Where’s the Learning in Representation Learning for Compositional Semantics and the Case of Thematic Fit</title>
+      <author><first>Mughilan</first><last>Muthupari</last></author>
+      <author><first>Samrat</first><last>Halder</last></author>
+      <author><first>Asad</first><last>Sayeed</last></author>
+      <author><first>Yuval</first><last>Marton</last></author>
+      <pages>28-39</pages>
+      <abstract>Observing that for certain NLP tasks, such as semantic role prediction or thematic fit estimation, random embeddings perform as well as pre-trained embeddings, we explore what settings allow for this, and examine where most of the learning is encoded: the word embeddings, the semantic role embeddings, or “the network”. We find nuanced answers, depending on the task and its relation to the training objective. We examine these representation learning aspects in multi-task learning, where role prediction and role-filling are supervised tasks, while several thematic fit tasks are outside the models’ direct supervision. We observe a non-monotonous relation between some tasks’ quality scores and the training data size. In order to better understand this observation, we analyze these results using easier, per-verb versions of these tasks.</abstract>
+      <url hash="5d35909b">2022.blackboxnlp-1.3</url>
+      <bibkey>muthupari-etal-2022-wheres</bibkey>
+      <doi>10.18653/v1/2022.blackboxnlp-1.3</doi>
+    </paper>
+    <paper id="4">
+      <title>Sentence Ambiguity, Grammaticality and Complexity Probes</title>
+      <author><first>Sunit</first><last>Bhattacharya</last></author>
+      <author><first>Vilém</first><last>Zouhar</last></author>
+      <author><first>Ondrej</first><last>Bojar</last></author>
+      <pages>40-50</pages>
+      <abstract>It is unclear whether, how and where large pre-trained language models capture subtle linguistic traits like ambiguity, grammaticality and sentence complexity. We present results of automatic classification of these traits and compare their viability and patterns across representation types. We demonstrate that template-based datasets with surface-level artifacts should not be used for probing, careful comparisons with baselines should be done and that t-SNE plots should not be used to determine the presence of a feature among dense vectors representations. We also show how features might be highly localized in the layers for these models and get lost in the upper layers.</abstract>
+      <url hash="8e6111b9">2022.blackboxnlp-1.4</url>
+      <bibkey>bhattacharya-etal-2022-sentence</bibkey>
+      <doi>10.18653/v1/2022.blackboxnlp-1.4</doi>
+    </paper>
+    <paper id="5">
+      <title>Post-Hoc Interpretation of Transformer Hyperparameters with Explainable Boosting Machines</title>
+      <author><first>Kiron</first><last>Deb</last></author>
+      <author><first>Xuan</first><last>Zhang</last></author>
+      <author><first>Kevin</first><last>Duh</last></author>
+      <pages>51-61</pages>
+      <abstract>Hyperparameter tuning is important for achieving high accuracy in deep learning models, yet little interpretability work has focused on hyperparameters. We propose to use the Explainable Boosting Machine (EBM), a glassbox method, as a post-hoc analysis tool for understanding how hyperparameters influence model accuracy. We present a case study on Transformer models in machine translation to illustrate the kinds of insights that may be gleaned, and perform extensive analysis to test the robustness of EBM under different data conditions.</abstract>
+      <url hash="5d14090b">2022.blackboxnlp-1.5</url>
+      <bibkey>deb-etal-2022-post</bibkey>
+      <doi>10.18653/v1/2022.blackboxnlp-1.5</doi>
+    </paper>
+    <paper id="6">
+      <title>Revisit Systematic Generalization via Meaningful Learning</title>
+      <author><first>Ning</first><last>Shi</last></author>
+      <author><first>Boxin</first><last>Wang</last></author>
+      <author><first>Wei</first><last>Wang</last></author>
+      <author><first>Xiangyu</first><last>Liu</last></author>
+      <author><first>Zhouhan</first><last>Lin</last></author>
+      <pages>62-79</pages>
+      <abstract>Humans can systematically generalize to novel compositions of existing concepts. Recent studies argue that neural networks appear inherently ineffective in such cognitive capacity, leading to a pessimistic view and a lack of attention to optimistic results. We revisit this controversial topic from the perspective of meaningful learning, an exceptional capability of humans to learn novel concepts by connecting them with known ones. We reassess the compositional skills of sequence-to-sequence models conditioned on the semantic links between new and old concepts. Our observations suggest that models can successfully one-shot generalize to novel concepts and compositions through semantic linking, either inductively or deductively. We demonstrate that prior knowledge plays a key role as well. In addition to synthetic tests, we further conduct proof-of-concept experiments in machine translation and semantic parsing, showing the benefits of meaningful learning in applications. We hope our positive findings will encourage excavating modern neural networks’ potential in systematic generalization through more advanced learning schemes.</abstract>
+      <url hash="cfab0963">2022.blackboxnlp-1.6</url>
+      <bibkey>shi-etal-2022-revisit</bibkey>
+      <doi>10.18653/v1/2022.blackboxnlp-1.6</doi>
+    </paper>
+    <paper id="7">
+      <title>Is It Smaller Than a Tennis Ball? Language Models Play the Game of Twenty Questions</title>
+      <author><first>Maxime</first><last>De Bruyn</last></author>
+      <author><first>Ehsan</first><last>Lotfi</last></author>
+      <author><first>Jeska</first><last>Buhmann</last></author>
+      <author><first>Walter</first><last>Daelemans</last></author>
+      <pages>80-90</pages>
+      <abstract>Researchers often use games to analyze the abilities of Artificial Intelligence models. In this work, we use the game of Twenty Questions to study the world knowledge of language models. Despite its simplicity for humans, this game requires a broad knowledge of the world to answer yes/no questions. We evaluate several language models on this task and find that only the largest model has enough world knowledge to play it well, although it still has difficulties with the shape and size of objects. We also present a new method to improve the knowledge of smaller models by leveraging external information from the web. Finally, we release our dataset and Twentle, a website to interactively test the knowledge of language models by playing Twenty Questions.</abstract>
+      <url hash="9571bdd4">2022.blackboxnlp-1.7</url>
+      <bibkey>de-bruyn-etal-2022-smaller</bibkey>
+      <doi>10.18653/v1/2022.blackboxnlp-1.7</doi>
+    </paper>
+    <paper id="8">
+      <title>Post-hoc analysis of <fixed-case>A</fixed-case>rabic transformer models</title>
+      <author><first>Ahmed</first><last>Abdelali</last></author>
+      <author><first>Nadir</first><last>Durrani</last></author>
+      <author><first>Fahim</first><last>Dalvi</last></author>
+      <author><first>Hassan</first><last>Sajjad</last></author>
+      <pages>91-103</pages>
+      <abstract>Arabic is a Semitic language which is widely spoken with many dialects. Given the success of pre-trained language models, many transformer models trained on Arabic and its dialects have surfaced. While there have been an extrinsic evaluation of these models with respect to downstream NLP tasks, no work has been carried out to analyze and compare their internal representations. We probe how linguistic information is encoded in the transformer models, trained on different Arabic dialects. We perform a layer and neuron analysis on the models using morphological tagging tasks for different dialects of Arabic and a dialectal identification task. Our analysis enlightens interesting findings such as: i) word morphology is learned at the lower and middle layers, ii) while syntactic dependencies are predominantly captured at the higher layers, iii) despite a large overlap in their vocabulary, the MSA-based models fail to capture the nuances of Arabic dialects, iv) we found that neurons in embedding layers are polysemous in nature, while the neurons in middle layers are exclusive to specific properties.</abstract>
+      <url hash="e2550024">2022.blackboxnlp-1.8</url>
+      <bibkey>abdelali-etal-2022-post</bibkey>
+      <doi>10.18653/v1/2022.blackboxnlp-1.8</doi>
+    </paper>
+    <paper id="9">
+      <title>Universal Evasion Attacks on Summarization Scoring</title>
+      <author><first>Wenchuan</first><last>Mu</last></author>
+      <author><first>Kwan Hui</first><last>Lim</last></author>
+      <pages>104-118</pages>
+      <abstract>The automatic scoring of summaries is important as it guides the development of summarizers. Scoring is also complex, as it involves multiple aspects such as the fluency, grammar, and even textual entailment with the source text. However, summary scoring has not been considered as a machine learning task to study its accuracy and robustness. In this study, we place automatic scoring in the context of regression machine learning tasks and perform evasion attacks to explore its robustness. Attack systems predict a non-summary string from each input, and these non-summary strings achieve competitive scores with good summarizers on the most popular metrics: ROUGE, METEOR, and BERTScore. Attack systems also “outperform” state-of-the-art summarization methods on ROUGE-1 and ROUGE-L, and score the second-highest on METEOR. Furthermore, a BERTScore backdoor is observed: a simple trigger can score higher than any automatic summarization method. The evasion attacks in this work indicate the low robustness of current scoring systems at the system level. We hope that our highlighting of these proposed attack will facilitate the development of summary scores.</abstract>
+      <url hash="be79300e">2022.blackboxnlp-1.9</url>
+      <bibkey>mu-lim-2022-universal</bibkey>
+      <video href="2022.blackboxnlp-1.9.mp4"/>
+      <doi>10.18653/v1/2022.blackboxnlp-1.9</doi>
+    </paper>
+    <paper id="10">
+      <title>How (Un)Faithful is Attention?</title>
+      <author><first>Hessam</first><last>Amini</last></author>
+      <author><first>Leila</first><last>Kosseim</last></author>
+      <pages>119-130</pages>
+      <abstract>Although attention weights have been commonly used as a means to provide explanations for deep learning models, the approach has been widely criticized due to its lack of faithfulness. In this work, we present a simple approach to compute the newly proposed metric AtteFa, which can quantitatively represent the degree of faithfulness of the attention weights. Using this metric, we further validate the effect of the frequency of informative input elements and the use of contextual vs. non-contextual encoders on the faithfulness of the attention mechanism. Finally, we apply the approach on several real-life binary classification datasets to measure the faithfulness of attention weights in real-life settings.</abstract>
+      <url hash="3364ec21">2022.blackboxnlp-1.10</url>
+      <bibkey>amini-kosseim-2022-un</bibkey>
+      <doi>10.18653/v1/2022.blackboxnlp-1.10</doi>
+    </paper>
+    <paper id="11">
+      <title>Are Multilingual Sentiment Models Equally Right for the Right Reasons?</title>
+      <author><first>Rasmus</first><last>Jørgensen</last></author>
+      <author><first>Fiammetta</first><last>Caccavale</last></author>
+      <author><first>Christian</first><last>Igel</last></author>
+      <author><first>Anders</first><last>Søgaard</last></author>
+      <pages>131-141</pages>
+      <abstract>Multilingual NLP models provide potential solutions to the digital language divide, i.e., cross-language performance disparities. Early analyses of such models have indicated good performance across training languages and good generalization to unseen, related languages. This work examines whether, between related languages, multilingual models are equally right for the right reasons, i.e., if interpretability methods reveal that the models put emphasis on the same words as humans. To this end, we provide a new trilingual, parallel corpus of rationale annotations for English, Danish, and Italian sentiment analysis models and use it to benchmark models and interpretability methods. We propose rank-biased overlap as a better metric for comparing input token attributions to human rationale annotations. Our results show: (i) models generally perform well on the languages they are trained on, and align best with human rationales in these languages; (ii) performance is higher on English, even when not a source language, but this performance is not accompanied by higher alignment with human rationales, which suggests that language models favor English, but do not facilitate successful transfer of rationales.</abstract>
+      <url hash="fc4482a8">2022.blackboxnlp-1.11</url>
+      <bibkey>jorgensen-etal-2022-multilingual</bibkey>
+      <doi>10.18653/v1/2022.blackboxnlp-1.11</doi>
+    </paper>
+    <paper id="12">
+      <title>Probing for Understanding of <fixed-case>E</fixed-case>nglish Verb Classes and Alternations in Large Pre-trained Language Models</title>
+      <author><first>David</first><last>Yi</last></author>
+      <author><first>James</first><last>Bruno</last></author>
+      <author><first>Jiayu</first><last>Han</last></author>
+      <author><first>Peter</first><last>Zukerman</last></author>
+      <author><first>Shane</first><last>Steinert-Threlkeld</last></author>
+      <pages>142-152</pages>
+      <abstract>We investigate the extent to which verb alternation classes, as described by Levin (1993), are encoded in the embeddings of Large Pre-trained Language Models (PLMs) such as BERT, RoBERTa, ELECTRA, and DeBERTa using selectively constructed diagnostic classifiers for word and sentence-level prediction tasks. We follow and expand upon the experiments of Kann et al. (2019), which aim to probe whether static embeddings encode frame-selectional properties of verbs. At both the word and sentence level, we find that contextual embeddings from PLMs not only outperform non-contextual embeddings, but achieve astonishingly high accuracies on tasks across most alternation classes. Additionally, we find evidence that the middle-to-upper layers of PLMs achieve better performance on average than the lower layers across all probing tasks.</abstract>
+      <url hash="34a0eef4">2022.blackboxnlp-1.12</url>
+      <bibkey>yi-etal-2022-probing</bibkey>
+      <doi>10.18653/v1/2022.blackboxnlp-1.12</doi>
+    </paper>
+    <paper id="13">
+      <title>Analyzing Gender Translation Errors to Identify Information Flows between the Encoder and Decoder of a <fixed-case>NMT</fixed-case> System</title>
+      <author><first>Guillaume</first><last>Wisniewski</last></author>
+      <author><first>Lichao</first><last>Zhu</last></author>
+      <author><first>Nicolas</first><last>Ballier</last></author>
+      <author><first>François</first><last>Yvon</last></author>
+      <pages>153-163</pages>
+      <abstract>Multiple studies have shown that existing NMT systems demonstrate some kind of “gender bias”. As a result, MT output appears to err more often for feminine forms and to amplify social gender misrepresentations, which is potentially harmful to users and practioners of these technologies. This paper continues this line of investigations and reports results obtained with a new test set in strictly controlled conditions. This setting allows us to better understand the multiple inner mechanisms that are causing these biases, which include the linguistic expressions of gender, the unbalanced distribution of masculine and feminine forms in the language, the modelling of morphological variation and the training process dynamics. To counterbalance these effects, we formulate several proposals and notably show that modifying the training loss can effectively mitigate such biases.</abstract>
+      <url hash="21f78985">2022.blackboxnlp-1.13</url>
+      <bibkey>wisniewski-etal-2022-analyzing</bibkey>
+      <doi>10.18653/v1/2022.blackboxnlp-1.13</doi>
+    </paper>
+    <paper id="14">
+      <title>Human Ratings Do Not Reflect Downstream Utility: A Study of Free-Text Explanations for Model Predictions</title>
+      <author><first>Jenny</first><last>Kunz</last></author>
+      <author><first>Martin</first><last>Jirenius</last></author>
+      <author><first>Oskar</first><last>Holmström</last></author>
+      <author><first>Marco</first><last>Kuhlmann</last></author>
+      <pages>164-177</pages>
+      <abstract>Models able to generate free-text rationales that explain their output have been proposed as an important step towards interpretable NLP for “reasoning” tasks such as natural language inference and commonsense question answering. However, the relative merits of different architectures and types of rationales are not well understood and hard to measure. In this paper, we contribute two insights to this line of research: First, we find that models trained on gold explanations learn to rely on these but, in the case of the more challenging question answering data set we use, fail when given generated explanations at test time. However, additional fine-tuning on generated explanations teaches the model to distinguish between reliable and unreliable information in explanations. Second, we compare explanations by a generation-only model to those generated by a self-rationalizing model and find that, while the former score higher in terms of validity, factual correctness, and similarity to gold explanations, they are not more useful for downstream classification. We observe that the self-rationalizing model is prone to hallucination, which is punished by most metrics but may add useful context for the classification step.</abstract>
+      <url hash="87c8601f">2022.blackboxnlp-1.14</url>
+      <bibkey>kunz-etal-2022-human</bibkey>
+      <video href="2022.blackboxnlp-1.14.mp4"/>
+      <doi>10.18653/v1/2022.blackboxnlp-1.14</doi>
+    </paper>
+    <paper id="15">
+      <title>Analyzing the Representational Geometry of Acoustic Word Embeddings</title>
+      <author><first>Badr</first><last>Abdullah</last></author>
+      <author><first>Dietrich</first><last>Klakow</last></author>
+      <pages>178-191</pages>
+      <abstract>Acoustic word embeddings (AWEs) are fixed-dimensionality vector representations in a vector space such that different acoustic exemplars of the same word are projected nearby in the embedding space. In addition to their use in speech technology applications such as spoken term discovery and keyword spotting, AWE models have been adopted as models of spoken-word processing in several cognitively motivated studies and they have shown to exhibit a human-like performance in some auditory processing tasks. Nevertheless, the representation geometry of AWEs remains an under-explored topic that has not been studied in the literature. In this paper, we take a closer analytical look at AWEs and study how the choice of the learning objective and the architecture shapes their representational profile. Our main findings highlight the prominent role of the learning objective on the representational geometry over the architecture.</abstract>
+      <url hash="b152d028">2022.blackboxnlp-1.15</url>
+      <bibkey>abdullah-klakow-2022-analyzing</bibkey>
+      <video href="2022.blackboxnlp-1.15.mp4"/>
+      <doi>10.18653/v1/2022.blackboxnlp-1.15</doi>
+    </paper>
+    <paper id="16">
+      <title>Understanding Domain Learning in Language Models Through Subpopulation Analysis</title>
+      <author><first>Zheng</first><last>Zhao</last></author>
+      <author><first>Yftah</first><last>Ziser</last></author>
+      <author><first>Shay</first><last>Cohen</last></author>
+      <pages>192-209</pages>
+      <abstract>We investigate how different domains are encoded in modern neural network architectures. We analyze the relationship between natural language domains, model size, and the amount of training data used. The primary analysis tool we develop is based on subpopulation analysis with Singular Vector Canonical Correlation Analysis (SVCCA), which we apply to Transformer-based language models (LMs). We compare the latent representations of such a language model at its different layers from a pair of models: a model trained on multiple domains (an experimental model) and a model trained on a single domain (a control model). Through our method, we find that increasing the model capacity impacts how domain information is stored in upper and lower layers differently. In addition, we show that larger experimental models simultaneously embed domain-specific information as if they were conjoined control models. These findings are confirmed qualitatively, demonstrating the validity of our method.</abstract>
+      <url hash="d258a382">2022.blackboxnlp-1.16</url>
+      <bibkey>zhao-etal-2022-understanding</bibkey>
+      <doi>10.18653/v1/2022.blackboxnlp-1.16</doi>
+    </paper>
+    <paper id="17">
+      <title>Intermediate Entity-based Sparse Interpretable Representation Learning</title>
+      <author><first>Diego</first><last>Garcia-Olano</last></author>
+      <author><first>Yasumasa</first><last>Onoe</last></author>
+      <author><first>Joydeep</first><last>Ghosh</last></author>
+      <author><first>Byron</first><last>Wallace</last></author>
+      <pages>210-224</pages>
+      <abstract>Interpretable entity representations (IERs) are sparse embeddings that are “human-readable” in that dimensions correspond to fine-grained entity types and values are predicted probabilities that a given entity is of the corresponding type. These methods perform well in zero-shot and low supervision settings. Compared to standard dense neural embeddings, such interpretable representations may permit analysis and debugging. However, while fine-tuning sparse, interpretable representations improves accuracy on downstream tasks, it destroys the semantics of the dimensions which were enforced in pre-training. Can we maintain the interpretable semantics afforded by IERs while improving predictive performance on downstream tasks? Toward this end, we propose Intermediate enTity-based Sparse Interpretable Representation Learning (ItsIRL). ItsIRL realizes improved performance over prior IERs on biomedical tasks, while maintaining “interpretability” generally and their ability to support model debugging specifically. The latter is enabled in part by the ability to perform “counterfactual” fine-grained entity type manipulation, which we explore in this work. Finally, we propose a method to construct entity type based class prototypes for revealing global semantic properties of classes learned by our model. Code for pre-training and experiments will be made publicly available.</abstract>
+      <url hash="b13b4d3a">2022.blackboxnlp-1.17</url>
+      <bibkey>garcia-olano-etal-2022-intermediate</bibkey>
+      <doi>10.18653/v1/2022.blackboxnlp-1.17</doi>
+    </paper>
+    <paper id="18">
+      <title>Towards Procedural Fairness: Uncovering Biases in How a Toxic Language Classifier Uses Sentiment Information</title>
+      <author><first>Isar</first><last>Nejadgholi</last></author>
+      <author><first>Esma</first><last>Balkir</last></author>
+      <author><first>Kathleen</first><last>Fraser</last></author>
+      <author><first>Svetlana</first><last>Kiritchenko</last></author>
+      <pages>225-237</pages>
+      <abstract>Previous works on the fairness of toxic language classifiers compare the output of models with different identity terms as input features but do not consider the impact of other important concepts present in the context. Here, besides identity terms, we take into account high-level latent features learned by the classifier and investigate the interaction between these features and identity terms. For a multi-class toxic language classifier, we leverage a concept-based explanation framework to calculate the sensitivity of the model to the concept of sentiment, which has been used before as a salient feature for toxic language detection. Our results show that although for some classes, the classifier has learned the sentiment information as expected, this information is outweighed by the influence of identity terms as input features. This work is a step towards evaluating procedural fairness, where unfair processes lead to unfair outcomes. The produced knowledge can guide debiasing techniques to ensure that important concepts besides identity terms are well-represented in training datasets.</abstract>
+      <url hash="b39844c2">2022.blackboxnlp-1.18</url>
+      <bibkey>nejadgholi-etal-2022-towards</bibkey>
+      <doi>10.18653/v1/2022.blackboxnlp-1.18</doi>
+    </paper>
+    <paper id="19">
+      <title>Investigating the Characteristics of a Transformer in a Few-Shot Setup: Does Freezing Layers in <fixed-case>R</fixed-case>o<fixed-case>BERT</fixed-case>a Help?</title>
+      <author><first>Digvijay</first><last>Ingle</last></author>
+      <author><first>Rishabh</first><last>Tripathi</last></author>
+      <author><first>Ayush</first><last>Kumar</last></author>
+      <author><first>Kevin</first><last>Patel</last></author>
+      <author><first>Jithendra</first><last>Vepa</last></author>
+      <pages>238-248</pages>
+      <abstract>Transformer based language models have been widely adopted by industrial and research organisations in developing machine learning applications in the presence of limited annotated data. While these models show remarkable results, their functioning in few-shot settings is still poorly understood. Hence, we perform an investigative study to understand the characteristics of such models fine-tuned in few-shot setups. Specifically, we compare the intermediate layer representations obtained from a few-shot model and a pre-trained language model. We observe that pre-trained and few-shot models show similar representations over initial layers, whereas the later layers show a stark deviation. Based on these observations, we propose to freeze the initial Transformer layers to fine-tune the model in a constrained text classification setup with <tex-math>K</tex-math> annotated data points per class, where <tex-math>K</tex-math> ranges from 8 to 64. In our experiments across six benchmark sentence classification tasks, we discover that freezing initial 50% Transformer layers not only reduces training time but also surprisingly improves Macro F1 (upto 8%) when compared to fully trainable layers in few-shot setup. We also observe that this idea of layer freezing can very well be generalized to state-of-the-art few-shot text classification techniques, like DNNC and LM-BFF, leading to significant reduction in training time while maintaining comparable performance.</abstract>
+      <url hash="dd5e0c7d">2022.blackboxnlp-1.19</url>
+      <bibkey>ingle-etal-2022-investigating</bibkey>
+      <video href="2022.blackboxnlp-1.19.mp4"/>
+      <doi>10.18653/v1/2022.blackboxnlp-1.19</doi>
+    </paper>
+    <paper id="20">
+      <title>It Is Not Easy To Detect Paraphrases: Analysing Semantic Similarity With Antonyms and Negation Using the New <fixed-case>S</fixed-case>em<fixed-case>A</fixed-case>nto<fixed-case>N</fixed-case>eg Benchmark</title>
+      <author><first>Teemu</first><last>Vahtola</last></author>
+      <author><first>Mathias</first><last>Creutz</last></author>
+      <author><first>Jörg</first><last>Tiedemann</last></author>
+      <pages>249-262</pages>
+      <abstract>We investigate to what extent a hundred publicly available, popular neural language models capture meaning systematically. Sentence embeddings obtained from pretrained or fine-tuned language models can be used to perform particular tasks, such as paraphrase detection, semantic textual similarity assessment or natural language inference. Common to all of these tasks is that paraphrastic sentences, that is, sentences that carry (nearly) the same meaning, should have (nearly) the same embeddings regardless of surface form. We demonstrate that performance varies greatly across different language models when a specific type of meaning-preserving transformation is applied: two sentences should be identified as paraphrastic if one of them contains a negated antonym in relation to the other one, such as “I am not guilty” versus “I am innocent”.We introduce and release SemAntoNeg, a new test suite containing 3152 entries for probing paraphrasticity in sentences incorporating negation and antonyms. Among other things, we show that language models fine-tuned for natural language inference outperform other types of models, especially the ones fine-tuned to produce general-purpose sentence embeddings, on the test suite. Furthermore, we show that most models designed explicitly for paraphrasing are rather mediocre in our task.</abstract>
+      <url hash="5ab4a4f1">2022.blackboxnlp-1.20</url>
+      <bibkey>vahtola-etal-2022-easy</bibkey>
+      <doi>10.18653/v1/2022.blackboxnlp-1.20</doi>
+    </paper>
+    <paper id="21">
+      <title>Controlling for Stereotypes in Multimodal Language Model Evaluation</title>
+      <author><first>Manuj</first><last>Malik</last></author>
+      <author><first>Richard</first><last>Johansson</last></author>
+      <pages>263-271</pages>
+      <abstract>We propose a methodology and design two benchmark sets for measuring to what extent language-and-vision language models use the visual signal in the presence or absence of stereotypes. The first benchmark is designed to test for stereotypical colors of common objects, while the second benchmark considers gender stereotypes. The key idea is to compare predictions when the image conforms to the stereotype to predictions when it does not. Our results show that there is significant variation among multimodal models: the recent Transformer-based FLAVA seems to be more sensitive to the choice of image and less affected by stereotypes than older CNN-based models such as VisualBERT and LXMERT. This effect is more discernible in this type of controlled setting than in traditional evaluations where we do not know whether the model relied on the stereotype or the visual signal.</abstract>
+      <url hash="81d19932">2022.blackboxnlp-1.21</url>
+      <bibkey>malik-johansson-2022-controlling</bibkey>
+      <doi>10.18653/v1/2022.blackboxnlp-1.21</doi>
+    </paper>
+    <paper id="22">
+      <title>On the Compositional Generalization Gap of In-Context Learning</title>
+      <author><first>Arian</first><last>Hosseini</last></author>
+      <author><first>Ankit</first><last>Vani</last></author>
+      <author><first>Dzmitry</first><last>Bahdanau</last></author>
+      <author><first>Alessandro</first><last>Sordoni</last></author>
+      <author><first>Aaron</first><last>Courville</last></author>
+      <pages>272-280</pages>
+      <abstract>Pretrained large generative language models have shown great performance on many tasks, but exhibit low compositional generalization abilities. Scaling such models has been shown to improve their performance on various NLP tasks even just by conditioning them on a few examples to solve the task without any fine-tuning (also known as in-context learning). In this work, we look at the gap between the in-distribution (ID) and out-of-distribution (OOD) performance of such models in semantic parsing tasks with in-context learning. In the ID settings, the demonstrations are from the same split (<tex-math>\textit{test}</tex-math> or <tex-math>\textit{train}</tex-math>) that the model is being evaluated on, and in the OOD settings, they are from the other split. We look at how the relative generalization gap of in-context learning evolves as models are scaled up. We evaluate four model families, OPT, BLOOM, CodeGen and Codex on three semantic parsing datasets, CFQ, SCAN and GeoQuery with different number of exemplars, and observe a trend of decreasing relative generalization gap as models are scaled up.</abstract>
+      <url hash="1f56deca">2022.blackboxnlp-1.22</url>
+      <bibkey>hosseini-etal-2022-compositional</bibkey>
+      <doi>10.18653/v1/2022.blackboxnlp-1.22</doi>
+    </paper>
+    <paper id="23">
+      <title>Explaining Translationese: why are Neural Classifiers Better and what do they Learn?</title>
+      <author><first>Kwabena</first><last>Amponsah-Kaakyire</last></author>
+      <author><first>Daria</first><last>Pylypenko</last></author>
+      <author><first>Josef</first><last>Genabith</last></author>
+      <author><first>Cristina</first><last>España-Bonet</last></author>
+      <pages>281-296</pages>
+      <abstract>Recent work has shown that neural feature- and representation-learning, e.g. BERT, achieves superior performance over traditional manual feature engineering based approaches, with e.g. SVMs, in translationese classification tasks. Previous research did not show <tex-math>(i)</tex-math> whether the difference is because of the features, the classifiers or both, and <tex-math>(ii)</tex-math> what the neural classifiers actually learn. To address <tex-math>(i)</tex-math>, we carefully design experiments that swap features between BERT- and SVM-based classifiers. We show that an SVM fed with BERT representations performs at the level of the best BERT classifiers, while BERT learning and using handcrafted features performs at the level of an SVM using handcrafted features. This shows that the performance differences are due to the features. To address <tex-math>(ii)</tex-math> we use integrated gradients and find that <tex-math>(a)</tex-math> there is indication that information captured by hand-crafted features is only a subset of what BERT learns, and <tex-math>(b)</tex-math> part of BERT’s top performance results are due to BERT learning topic differences and spurious correlations with translationese.</abstract>
+      <url hash="8c3b7a26">2022.blackboxnlp-1.23</url>
+      <bibkey>amponsah-kaakyire-etal-2022-explaining</bibkey>
+      <doi>10.18653/v1/2022.blackboxnlp-1.23</doi>
+    </paper>
+    <paper id="24">
+      <title>Probing <fixed-case>GPT</fixed-case>-3’s Linguistic Knowledge on Semantic Tasks</title>
+      <author><first>Lining</first><last>Zhang</last></author>
+      <author><first>Mengchen</first><last>Wang</last></author>
+      <author><first>Liben</first><last>Chen</last></author>
+      <author><first>Wenxin</first><last>Zhang</last></author>
+      <pages>297-304</pages>
+      <abstract>GPT-3 has attracted much attention from both academia and industry. However, it is still unclear what GPT-3 has understood or learned especially in linguistic knowledge. Some studies have shown linguistic phenomena including negation and tense are hard to be recognized by language models such as BERT. In this study, we conduct probing tasks focusing on semantic information. Specifically, we investigate GPT-3’s linguistic knowledge on semantic tasks to identify tense, the number of subjects, and the number of objects for a given sentence. We also experiment with different prompt designs and temperatures of the decoding method. Our experiment results suggest that GPT-3 has acquired linguistic knowledge to identify certain semantic information in most cases, but still fails when there are some types of disturbance happening in the sentence. We also perform error analysis to summarize some common types of mistakes that GPT-3 has made when dealing with certain semantic information.</abstract>
+      <url hash="4a504b65">2022.blackboxnlp-1.24</url>
+      <bibkey>zhang-etal-2022-probing</bibkey>
+      <doi>10.18653/v1/2022.blackboxnlp-1.24</doi>
+    </paper>
+    <paper id="25">
+      <title>Garden Path Traversal in <fixed-case>GPT</fixed-case>-2</title>
+      <author><first>William</first><last>Jurayj</last></author>
+      <author><first>William</first><last>Rudman</last></author>
+      <author><first>Carsten</first><last>Eickhoff</last></author>
+      <pages>305-313</pages>
+      <abstract>In recent years, large-scale transformer decoders such as the GPT-x family of models have become increasingly popular. Studies examining the behavior of these models tend to focus only on the output of the language modeling head and avoid analysis of the internal states of the transformer decoder. In this study, we present a collection of methods to analyze the hidden states of GPT-2 and use the model’s navigation of garden path sentences as a case study. To enable this, we compile the largest currently available dataset of garden path sentences. We show that Manhattan distances and cosine similarities provide more reliable insights compared to established surprisal methods that analyze next-token probabilities computed by a language modeling head. Using these methods, we find that negating tokens have minimal impacts on the model’s representations for unambiguous forms of sentences with ambiguity solely over what the object of a verb is, but have a more substantial impact of representations for unambiguous sentences whose ambiguity would stem from the voice of a verb. Further, we find that analyzing the decoder model’s hidden states reveals periods of ambiguity that might conclude in a garden path effect but happen not to, whereas surprisal analyses routinely miss this detail.</abstract>
+      <url hash="725e7562">2022.blackboxnlp-1.25</url>
+      <bibkey>jurayj-etal-2022-garden</bibkey>
+      <video href="2022.blackboxnlp-1.25.mp4"/>
+      <doi>10.18653/v1/2022.blackboxnlp-1.25</doi>
+    </paper>
+    <paper id="26">
+      <title>Testing Pre-trained Language Models’ Understanding of Distributivity via Causal Mediation Analysis</title>
+      <author><first>Pangbo</first><last>Ban</last></author>
+      <author><first>Yifan</first><last>Jiang</last></author>
+      <author><first>Tianran</first><last>Liu</last></author>
+      <author><first>Shane</first><last>Steinert-Threlkeld</last></author>
+      <pages>314-324</pages>
+      <abstract>To what extent do pre-trained language models grasp semantic knowledge regarding the phenomenon of distributivity? In this paper, we introduce DistNLI, a new diagnostic dataset for natural language inference that targets the semantic difference arising from distributivity, and employ the causal mediation analysis framework to quantify the model behavior and explore the underlying mechanism in this semantically-related task. We find that the extent of models’ understanding is associated with model size and vocabulary size. We also provide insights into how models encode such high-level semantic knowledge.</abstract>
+      <url hash="6d95c134">2022.blackboxnlp-1.26</url>
+      <bibkey>ban-etal-2022-testing</bibkey>
+      <doi>10.18653/v1/2022.blackboxnlp-1.26</doi>
+    </paper>
+    <paper id="27">
+      <title>Using Roark-Hollingshead Distance to Probe <fixed-case>BERT</fixed-case>’s Syntactic Competence</title>
+      <author><first>Jingcheng</first><last>Niu</last></author>
+      <author><first>Wenjie</first><last>Lu</last></author>
+      <author><first>Eric</first><last>Corlett</last></author>
+      <author><first>Gerald</first><last>Penn</last></author>
+      <pages>325-334</pages>
+      <abstract>Probing BERT’s general ability to reason about syntax is no simple endeavour, primarily because of the uncertainty surrounding how large language models represent syntactic structure. Many prior accounts of BERT’s agility as a syntactic tool (Clark et al., 2013; Lau et al., 2014; Marvin and Linzen, 2018; Chowdhury and Zamparelli, 2018; Warstadt et al., 2019, 2020; Hu et al., 2020) have therefore confined themselves to studying very specific linguistic phenomena, and there has still been no definitive answer as to whether BERT “knows” syntax. The advent of perturbed masking (Wu et al., 2020) would then seem to be significant, because this is a parameter-free probing method that directly samples syntactic trees from BERT’s embeddings. These sampled trees outperform a right-branching baseline, thus providing preliminary evidence that BERT’s syntactic competence bests a simple baseline. This baseline is underwhelming, however, and our reappraisal below suggests that this result, too, is inconclusive. We propose RH Probe, an encoder-decoder probing architecture that operates on two probing tasks. We find strong empirical evidence confirming the existence of important syntactic information in BERT, but this information alone appears not to be enough to reproduce syntax in its entirety. Our probe makes crucial use of a conjecture made by Roark and Holling-shead (2008) that a particular lexical annotation that we shall call RH distance is a sufficient encoding of unlabelled binary syntactic trees, and we prove this conjecture.</abstract>
+      <url hash="0d3066fb">2022.blackboxnlp-1.27</url>
+      <bibkey>niu-etal-2022-using</bibkey>
+      <doi>10.18653/v1/2022.blackboxnlp-1.27</doi>
+    </paper>
+    <paper id="28">
+      <title><fixed-case>DALLE</fixed-case>-2 is Seeing Double: Flaws in Word-to-Concept Mapping in <fixed-case>T</fixed-case>ext2<fixed-case>I</fixed-case>mage Models</title>
+      <author><first>Royi</first><last>Rassin</last></author>
+      <author><first>Shauli</first><last>Ravfogel</last></author>
+      <author><first>Yoav</first><last>Goldberg</last></author>
+      <pages>335-345</pages>
+      <abstract>We study the way DALLE-2 maps symbols (words) in the prompt to their references (entities or properties of entities in the generated image). We show that in stark contrast to the way human process language, DALLE-2 does not follow the constraint that each word has a single role in the interpretation, and sometimes re-use the same symbol for different purposes. We collect a set of stimuli that reflect the phenomenon: we show that DALLE-2 depicts both senses of nouns with multiple senses at once; and that a given word can modify the properties of two distinct entities in the image, or can be depicted as one object and also modify the properties of another object, creating a semantic leakage of properties between entities. Taken together, our study highlights the differences between DALLE-2 and human language processing and opens an avenue for future study on the inductive biases of text-to-image models.</abstract>
+      <url hash="70914903">2022.blackboxnlp-1.28</url>
+      <bibkey>rassin-etal-2022-dalle</bibkey>
+      <doi>10.18653/v1/2022.blackboxnlp-1.28</doi>
+    </paper>
+    <paper id="29">
+      <title>Practical Benefits of Feature Feedback Under Distribution Shift</title>
+      <author><first>Anurag</first><last>Katakkar</last></author>
+      <author><first>Clay H.</first><last>Yoo</last></author>
+      <author><first>Weiqin</first><last>Wang</last></author>
+      <author><first>Zachary</first><last>Lipton</last></author>
+      <author><first>Divyansh</first><last>Kaushik</last></author>
+      <pages>346-355</pages>
+      <abstract>In attempts to develop sample-efficient and interpretable algorithms, researcher have explored myriad mechanisms for collecting and exploiting feature feedback, auxiliary annotations provided for training (but not test) instances that highlight salient evidence. Examples include bounding boxes around objects and salient spans in text. Despite its intuitive appeal, feature feedback has not delivered significant gains in practical problems as assessed on iid holdout sets. However, recent works on counterfactually augmented data suggest an alternative benefit of supplemental annotations, beyond interpretability: lessening sensitivity to spurious patterns and consequently delivering gains in out-of-domain evaluations. We speculate that while existing methods for incorporating feature feedback have delivered negligible in-sample performance gains, they may nevertheless provide out-of-domain benefits. Our experiments addressing sentiment analysis, show that feature feedback methods perform significantly better on various natural out-of-domain datasets despite comparable in-domain evaluations. By contrast, performance on natural language inference remains comparable. Finally, we compare those tasks where feature feedback does (and does not) help.</abstract>
+      <url hash="05338d95">2022.blackboxnlp-1.29</url>
+      <bibkey>katakkar-etal-2022-practical</bibkey>
+      <doi>10.18653/v1/2022.blackboxnlp-1.29</doi>
+    </paper>
+    <paper id="30">
+      <title>Identifying the Source of Vulnerability in Explanation Discrepancy: A Case Study in Neural Text Classification</title>
+      <author><first>Ruixuan</first><last>Tang</last></author>
+      <author><first>Hanjie</first><last>Chen</last></author>
+      <author><first>Yangfeng</first><last>Ji</last></author>
+      <pages>356-370</pages>
+      <abstract>Some recent works observed the instability of post-hoc explanations when input side perturbations are applied to the model. This raises the interest and concern in the stability of post-hoc explanations. However, the remaining question is: is the instability caused by the neural network model or the post-hoc explanation method? This work explores the potential source that leads to unstable post-hoc explanations. To separate the influence from the model, we propose a simple output probability perturbation method. Compared to prior input side perturbation methods, the output probability perturbation method can circumvent the neural model’s potential effect on the explanations and allow the analysis on the explanation method. We evaluate the proposed method with three widely-used post-hoc explanation methods (LIME (Ribeiro et al., 2016), Kernel Shapley (Lundberg and Lee, 2017a), and Sample Shapley (Strumbelj and Kononenko, 2010)). The results demonstrate that the post-hoc methods are stable, barely producing discrepant explanations under output probability perturbations. The observation suggests that neural network models may be the primary source of fragile explanations.</abstract>
+      <url hash="1e72ebd2">2022.blackboxnlp-1.30</url>
+      <bibkey>tang-etal-2022-identifying</bibkey>
+      <doi>10.18653/v1/2022.blackboxnlp-1.30</doi>
+    </paper>
+    <paper id="31">
+      <title>Probing Pretrained Models of Source Codes</title>
+      <author><first>Sergey</first><last>Troshin</last></author>
+      <author><first>Nadezhda</first><last>Chirkova</last></author>
+      <pages>371-383</pages>
+      <abstract>Deep learning models are widely used for solving challenging code processing tasks, such as code generation or code summarization. Traditionally, a specific model architecture was carefully built to solve a particular code processing task. However, recently general pretrained models such as CodeBERT or CodeT5 have been shown to outperform task-specific models in many applications. While pretrained models are known to learn complex patterns from data, they may fail to understand some properties of source code. To test diverse aspects of code understanding, we introduce a set of diagnostic probing tasks. We show that pretrained models of code indeed contain information about code syntactic structure, the notions of identifiers, and namespaces, but they may fail to recognize more complex code properties such as semantic equivalence. We also investigate how probing results are affected by using code-specific pretraining objectives, varying the model size, or finetuning.</abstract>
+      <url hash="31d0d44a">2022.blackboxnlp-1.31</url>
+      <bibkey>troshin-chirkova-2022-probing</bibkey>
+      <doi>10.18653/v1/2022.blackboxnlp-1.31</doi>
+    </paper>
+    <paper id="32">
+      <title>Probing the representations of named entities in Transformer-based Language Models</title>
+      <author><first>Stefan</first><last>Schouten</last></author>
+      <author><first>Peter</first><last>Bloem</last></author>
+      <author><first>Piek</first><last>Vossen</last></author>
+      <pages>384-393</pages>
+      <abstract>In this work we analyze the named entity representations learned by Transformer-based language models. We investigate the role entities play in two tasks: a language modeling task, and a sequence classification task. For this purpose we collect a novel news topic classification dataset with 12 topics called RefNews-12. We perform two complementary methods of analysis. First, we use diagnostic models allowing us to quantify to what degree entity information is present in the hidden representations. Second, we perform entity mention substitution to measure how substitute-entities with different properties impact model performance. By controlling for model uncertainty we are able to show that entities are identified, and depending on the task, play a measurable role in the model’s predictions. Additionally, we show that the entities’ types alone are not enough to account for this. Finally, we find that the the frequency with which entities occur are important for the masked language modeling task, and that the entities’ distributions over topics are important for topic classification.</abstract>
+      <url hash="12d5cd4a">2022.blackboxnlp-1.32</url>
+      <bibkey>schouten-etal-2022-probing</bibkey>
+      <doi>10.18653/v1/2022.blackboxnlp-1.32</doi>
+    </paper>
+    <paper id="33">
+      <title>Decomposing Natural Logic Inferences for Neural <fixed-case>NLI</fixed-case></title>
+      <author><first>Julia</first><last>Rozanova</last></author>
+      <author><first>Deborah</first><last>Ferreira</last></author>
+      <author><first>Mokanarangan</first><last>Thayaparan</last></author>
+      <author><first>Marco</first><last>Valentino</last></author>
+      <author><first>Andre</first><last>Freitas</last></author>
+      <pages>394-403</pages>
+      <abstract>In the interest of interpreting neural NLI models and their reasoning strategies, we carry out a systematic probing study which investigates whether these modelscapture the crucial semantic features central to natural logic: monotonicity and concept inclusion. Correctly identifying valid inferences in downward-monotone contexts is a known stumbling block for NLI performance,subsuming linguistic phenomena such as negation scope and generalized quantifiers. To understand this difficulty, we emphasize monotonicity as a property of a context and examine the extent to which models capture relevant monotonicity information in the vector representations which are intermediate to their decision making process. Drawing on the recent advancement of the probing paradigm,we compare the presence of monotonicity features across various models. We find that monotonicity information is notably weak in the representations of popularNLI models which achieve high scores on benchmarks, and observe that previous improvements to these models based on fine-tuning strategies have introduced stronger monotonicity features together with their improved performance on challenge sets.</abstract>
+      <url hash="b79d7a70">2022.blackboxnlp-1.33</url>
+      <bibkey>rozanova-etal-2022-decomposing</bibkey>
+      <doi>10.18653/v1/2022.blackboxnlp-1.33</doi>
+    </paper>
+    <paper id="34">
+      <title>Probing with Noise: Unpicking the Warp and Weft of Embeddings</title>
+      <author><first>Filip</first><last>Klubicka</last></author>
+      <author><first>John</first><last>Kelleher</last></author>
+      <pages>404-417</pages>
+      <abstract>Improving our understanding of how information is encoded in vector space can yield valuable interpretability insights. Alongside vector dimensions, we argue that it is possible for the vector norm to also carry linguistic information. We develop a method to test this: an extension of the probing framework which allows for relative intrinsic interpretations of probing results. It relies on introducing noise that ablates information encoded in embeddings, grounded in random baselines and confidence intervals. We apply the method to well-established probing tasks and find evidence that confirms the existence of separate information containers in English GloVe and BERT embeddings. Our correlation analysis aligns with the experimental findings that different encoders use the norm to encode different kinds of information: GloVe stores syntactic and sentence length information in the vector norm, while BERT uses it to encode contextual incongruity.</abstract>
+      <url hash="16ab81eb">2022.blackboxnlp-1.34</url>
+      <bibkey>klubicka-kelleher-2022-probing</bibkey>
+      <video href="2022.blackboxnlp-1.34.mp4"/>
+      <doi>10.18653/v1/2022.blackboxnlp-1.34</doi>
+    </paper>
+    <paper id="35">
+      <title>Look to the Right: Mitigating Relative Position Bias in Extractive Question Answering</title>
+      <author><first>Kazutoshi</first><last>Shinoda</last></author>
+      <author><first>Saku</first><last>Sugawara</last></author>
+      <author><first>Akiko</first><last>Aizawa</last></author>
+      <pages>418-425</pages>
+      <abstract>Extractive question answering (QA) models tend to exploit spurious correlations to make predictions when a training set has unintended biases. This tendency results in models not being generalizable to examples where the correlations do not hold. Determining the spurious correlations QA models can exploit is crucial in building generalizable QA models in real-world applications; moreover, a method needs to be developed that prevents these models from learning the spurious correlations even when a training set is biased. In this study, we discovered that the relative position of an answer, which is defined as the relative distance from an answer span to the closest question-context overlap word, can be exploited by QA models as superficial cues for making predictions. Specifically, we find that when the relative positions in a training set are biased, the performance on examples with relative positions unseen during training is significantly degraded. To mitigate the performance degradation for unseen relative positions, we propose an ensemble-based debiasing method that does not require prior knowledge about the distribution of relative positions. We demonstrate that the proposed method mitigates the models’ reliance on relative positions using the biased and full SQuAD dataset. We hope that this study can help enhance the generalization ability of QA models in real-world applications.</abstract>
+      <url hash="e644ee0c">2022.blackboxnlp-1.35</url>
+      <bibkey>shinoda-etal-2022-look</bibkey>
+      <doi>10.18653/v1/2022.blackboxnlp-1.35</doi>
+    </paper>
+    <paper id="36">
+      <title>A Continuum of Generation Tasks for Investigating Length Bias and Degenerate Repetition</title>
+      <author><first>Darcey</first><last>Riley</last></author>
+      <author><first>David</first><last>Chiang</last></author>
+      <pages>426-440</pages>
+      <abstract>Language models suffer from various degenerate behaviors. These differ between tasks: machine translation (MT) exhibits length bias, while tasks like story generation exhibit excessive repetition. Recent work has attributed the difference to task constrainedness, but evidence for this claim has always involved many confounding variables. To study this question directly, we introduce a new experimental framework that allows us to smoothly vary task constrainedness, from MT at one end to fully open-ended generation at the other, while keeping all other aspects fixed. We find that: (1) repetition decreases smoothly with constrainedness, explaining the difference in repetition across tasks; (2) length bias surprisingly also decreases with constrainedness, suggesting some other cause for the difference in length bias; (3) across the board, these problems affect the mode, not the whole distribution; (4) the differences cannot be attributed to a change in the entropy of the distribution, since another method of changing the entropy, label smoothing, does not produce the same effect.</abstract>
+      <url hash="79ac71e8">2022.blackboxnlp-1.36</url>
+      <bibkey>riley-chiang-2022-continuum</bibkey>
+      <doi>10.18653/v1/2022.blackboxnlp-1.36</doi>
+    </paper>
+    <paper id="37">
+      <title>Universal and Independent: Multilingual Probing Framework for Exhaustive Model Interpretation and Evaluation</title>
+      <author><first>Oleg</first><last>Serikov</last></author>
+      <author><first>Vitaly</first><last>Protasov</last></author>
+      <author><first>Ekaterina</first><last>Voloshina</last></author>
+      <author><first>Viktoria</first><last>Knyazkova</last></author>
+      <author><first>Tatiana</first><last>Shavrina</last></author>
+      <pages>441-456</pages>
+      <abstract>Linguistic analysis of language models is one of the ways to explain and describe their reasoning, weaknesses, and limitations. In the probing part of the model interpretability research, studies concern individual languages as well as individual linguistic structures. The question arises: are the detected regularities linguistically coherent, or on the contrary, do they dissonate at the typological scale? Moreover, the majority of studies address the inherent set of languages and linguistic structures, leaving the actual typological diversity knowledge out of scope. In this paper, we present and apply the GUI-assisted framework allowing us to easily probe massive amounts of languages for all the morphosyntactic features present in the Universal Dependencies data. We show that reflecting the anglo-centric trend in NLP over the past years, most of the regularities revealed in the mBERT model are typical for the western-European languages. Our framework can be integrated with the existing probing toolboxes, model cards, and leaderboards, allowing practitioners to use and share their familiar probing methods to interpret multilingual models. Thus we propose a toolkit to systematize the multilingual flaws in multilingual models, providing a reproducible experimental setup for 104 languages and 80 morphosyntactic features.</abstract>
+      <url hash="c64cbfcc">2022.blackboxnlp-1.37</url>
+      <bibkey>serikov-etal-2022-universal</bibkey>
+      <doi>10.18653/v1/2022.blackboxnlp-1.37</doi>
+    </paper>
+  </volume>
+</collection>

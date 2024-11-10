@@ -18,10 +18,10 @@
 use File::Glob ':bsd_glob';
 
 sub FileToString {
-    local ($fn, *str) = @_; 
+    local ($fn, *str) = @_;
     if (-e $fn) {
 	open(IN, "<$fn");
-	binmode(IN); 
+	binmode(IN);
 	my @fl = <IN>;
 	$str = join("", @fl);
 	close IN;

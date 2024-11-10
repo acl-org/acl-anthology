@@ -1,0 +1,939 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2023.nodalida">
+  <volume id="1" ingest-date="2023-05-05" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of the 24th Nordic Conference on Computational Linguistics (NoDaLiDa)</booktitle>
+      <editor><first>Tanel</first><last>Alumäe</last></editor>
+      <editor><first>Mark</first><last>Fishel</last></editor>
+      <publisher>University of Tartu Library</publisher>
+      <address>Tórshavn, Faroe Islands</address>
+      <month>May</month>
+      <year>2023</year>
+      <url hash="6bfe21ee">2023.nodalida-1</url>
+      <venue>nodalida</venue>
+    </meta>
+    <frontmatter>
+      <url hash="4d75fae4">2023.nodalida-1.0</url>
+      <bibkey>nodalida-2023-nordic</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Automated Claim Detection for Fact-checking: A Case Study using <fixed-case>N</fixed-case>orwegian Pre-trained Language Models</title>
+      <author><first>Ghazaal</first><last>Sheikhi</last></author>
+      <author><first>Samia</first><last>Touileb</last><affiliation>University og Bergen, Norway</affiliation></author>
+      <author><first>Sohail</first><last>Khan</last></author>
+      <pages>1-9</pages>
+      <abstract>We investigate to what extent pre-trained language models can be used for automated claim detection for fact-checking in a low resource setting. We explore this idea by fine-tuning four Norwegian pre-trained language models to perform the binary classification task of determining if a claim should be discarded or upheld to be further processed by human fact-checkers. We conduct a set of experiments to compare the performance of the language models, and provide a simple baseline model using SVM with tf-idf features. Since we are focusing on claim detection, the recall score for the <i>upheld</i> class is to be emphasized over other performance measures. Our experiments indicate that the language models are superior to the baseline system in terms of F1, while the baseline model results in the highest precision. However, the two Norwegian models, NorBERT2 and NB-BERT_large, give respectively superior F1 and recall values. We argue that large language models could be successfully employed to solve the automated claim detection problem. The choice of the model depends on the desired end-goal. Moreover, our error analysis shows that language models are generally less sensitive to the changes in claim length and source than the SVM model.</abstract>
+      <url hash="c0269129">2023.nodalida-1.1</url>
+      <bibkey>sheikhi-etal-2023-automated</bibkey>
+    </paper>
+    <paper id="2">
+      <title>Evaluating the Impact of Text De-Identification on Downstream <fixed-case>NLP</fixed-case> Tasks</title>
+      <author><first>Cedric</first><last>Lothritz</last></author>
+      <author><first>Bertrand</first><last>Lebichot</last></author>
+      <author><first>Kevin</first><last>Allix</last></author>
+      <author><first>Saad</first><last>Ezzini</last></author>
+      <author><first>Tegawendé</first><last>Bissyandé</last><affiliation>University of Luxemburg</affiliation></author>
+      <author><first>Jacques</first><last>Klein</last><affiliation>University of Luxembourg</affiliation></author>
+      <author><first>Andrey</first><last>Boytsov</last></author>
+      <author><first>Clément</first><last>Lefebvre</last></author>
+      <author><first>Anne</first><last>Goujon</last></author>
+      <pages>10-16</pages>
+      <abstract>Data anonymisation is often required to comply with regulations when transfering information across departments or entities. However, the risk is that this procedure can distort the data and jeopardise the models built on it. Intuitively, the process of training an NLP model on anonymised data may lower the performance of the resulting model when compared to a model trained on non-anonymised data. In this paper, we investigate the impact of de-identification on the performance of nine downstream NLP tasks. We focus on the anonymisation and pseudonymisation of personal names and compare six different anonymisation strategies for two state-of-the-art pre-trained models. Based on these experiments, we formulate recommendations on how the de-identification should be performed to guarantee accurate NLP models. Our results reveal that de-identification does have a negative impact on the performance of NLP models, but this impact is relatively low. We also find that using pseudonymisation techniques involving random names leads to better performance across most tasks.</abstract>
+      <url hash="ab6f4a3a">2023.nodalida-1.2</url>
+      <bibkey>lothritz-etal-2023-evaluating</bibkey>
+    </paper>
+    <paper id="3">
+      <title>Abstractive Text Summarization for <fixed-case>I</fixed-case>celandic</title>
+      <author><first>Þór</first><last>Sverrisson</last></author>
+      <author><first>Hafsteinn</first><last>Einarsson</last><affiliation>University of Iceland</affiliation></author>
+      <pages>17-31</pages>
+      <abstract>In this work, we studied methods for automatic abstractive summarization in a low-resource setting using Icelandic text, which is morphologically rich and has limited data compared to languages such as English. We collected and published the first publicly available abstractive summarization dataset for Icelandic and used it for training and evaluation of our models. We found that using multilingual pre-training in this setting led to improved performance, with the multilingual mT5 model consistently outperforming a similar model pre-trained from scratch on Icelandic text only. Additionally, we explored the use of machine translations for fine-tuning data augmentation and found that fine-tuning on the augmented data followed by fine-tuning on Icelandic data improved the results. This work highlights the importance of both high-quality training data and multilingual pre-training in achieving effective abstractive summarization in low-resource languages.</abstract>
+      <url hash="272bec81">2023.nodalida-1.3</url>
+      <bibkey>sverrisson-einarsson-2023-abstractive</bibkey>
+    </paper>
+    <paper id="4">
+      <title><fixed-case>ASR</fixed-case> Language Resources for <fixed-case>F</fixed-case>aroese</title>
+      <author><first>Carlos</first><last>Hernández Mena</last></author>
+      <author><first>Annika</first><last>Simonsen</last></author>
+      <author><first>Jon</first><last>Gudnason</last></author>
+      <pages>32-41</pages>
+      <abstract>The aim of this work is to present a set of novel language resources in Faroese suitable for the field of Automatic Speech Recognition including: an ASR corpus comprised of 109 hours of transcribed speech data, acoustic models in systems such as WAV2VEC2, NVIDIA-NeMo, Kaldi and PocketSphinx; a set of n-gram language models and a set of pronunciation dictionaries with two different variants of Faroese. We also show comparison results between the distinct acoustic models presented here. All the resources exposed in this document are publicly available under creative commons licences.</abstract>
+      <url hash="c859576c">2023.nodalida-1.4</url>
+      <bibkey>hernandez-mena-etal-2023-asr</bibkey>
+    </paper>
+    <paper id="5">
+      <title>Good Reads and Easy Novels: Readability and Literary Quality in a Corpus of <fixed-case>US</fixed-case>-published Fiction</title>
+      <author><first>Yuri</first><last>Bizzoni</last><affiliation>Universität des Saarlandes</affiliation></author>
+      <author><first>Pascale</first><last>Moreira</last></author>
+      <author><first>Nicole</first><last>Dwenger</last></author>
+      <author><first>Ida</first><last>Lassen</last></author>
+      <author><first>Mads</first><last>Thomsen</last></author>
+      <author><first>Kristoffer</first><last>Nielbo</last></author>
+      <pages>42-51</pages>
+      <abstract>In this paper, we explore the extent to which readability contributes to the perception of literary quality as defined by two categories of variables: expert-based (e.g., Pulitzer Prize, National Book Award) and crowd-based (e.g., GoodReads, WorldCat). Based on a large corpus of modern and contemporary fiction in English, we examine the correlation of a text’s readability with its perceived literary quality, also assessing readability measures against simpler stylometric features. Our results show that readability generally correlates with popularity as measured through open platforms such as GoodReads and WorldCat but has an inverse relation with three prestigious literary awards. This points to a distinction between crowd- and expert-based judgments of literary style, as well as to a discrimination between fame and appreciation in the reception of a book.</abstract>
+      <url hash="54d7229d">2023.nodalida-1.5</url>
+      <bibkey>bizzoni-etal-2023-good</bibkey>
+    </paper>
+    <paper id="6">
+      <title>Detection and attribution of quotes in <fixed-case>F</fixed-case>innish news media: <fixed-case>BERT</fixed-case> vs. rule-based approach</title>
+      <author><first>Maciej</first><last>Janicki</last><affiliation>University of Helsinki</affiliation></author>
+      <author><first>Antti</first><last>Kanner</last></author>
+      <author><first>Eetu</first><last>Mäkelä</last><affiliation>University of Helsinki</affiliation></author>
+      <pages>52-59</pages>
+      <abstract>We approach the problem of recognition and attribution of quotes in Finnish news media. Solving this task would create possibilities for large-scale analysis of media wrt. the presence and styles of presentation of different voices and opinions. We describe the annotation of a corpus of media texts, numbering around 1500 articles, with quote attribution and coreference information. Further, we compare two methods for automatic quote recognition: a rule-based one operating on dependency trees and a machine learning one built on top of the BERT language model. We conclude that BERT provides more promising results even with little training data, achieving 95% F-score on direct quote recognition and 84% for indirect quotes. Finally, we discuss open problems and further associated tasks, especially the necessity of resolving speaker mentions to entity references.</abstract>
+      <url hash="9befedfe">2023.nodalida-1.6</url>
+      <bibkey>janicki-etal-2023-detection</bibkey>
+    </paper>
+    <paper id="7">
+      <title>Dyslexia Prediction from Natural Reading of <fixed-case>D</fixed-case>anish Texts</title>
+      <author><first>Marina</first><last>Björnsdóttir</last></author>
+      <author><first>Nora</first><last>Hollenstein</last><affiliation>University of Copenhagen</affiliation></author>
+      <author><first>Maria</first><last>Barrett</last><affiliation>IT University of Copenhagen</affiliation></author>
+      <pages>60-70</pages>
+      <abstract>Dyslexia screening in adults is an open challenge since difficulties may not align with standardised tests designed for children. We collect eye-tracking data from natural reading of Danish texts from readers with dyslexia while closely following the experimental design of a corpus of readers without dyslexia. Research suggests that the opaque orthography of the Danish language affects the diagnostic characteristics of dyslexia. To the best of our knowledge, this is the first attempt to classify dyslexia from eye movements during reading in Danish. We experiment with various machine-learning methods, and our best model yields 0.85 F1 score.</abstract>
+      <url hash="d301f119">2023.nodalida-1.7</url>
+      <bibkey>bjornsdottir-etal-2023-dyslexia</bibkey>
+    </paper>
+    <paper id="8">
+      <title>Is Part-of-Speech Tagging a Solved Problem for <fixed-case>I</fixed-case>celandic?</title>
+      <author><first>Örvar</first><last>Kárason</last></author>
+      <author><first>Hrafn</first><last>Loftsson</last><affiliation>Reykjavík University</affiliation></author>
+      <pages>71-79</pages>
+      <abstract>We train and evaluate four Part-of-Speech tagging models for Icelandic. Three are older models that obtained the highest accuracy for Icelandic when they were introduced. The fourth model is of a type that currently reaches state-of-the-art accuracy. We use the most recent version of the MIM-GOLD training/testing corpus, its newest tagset, and augmentation data to obtain results that are comparable between the various models. We examine the accuracy improvements with each model and analyse the errors produced by our transformer model, which is based on a previously published ConvBERT model. For the set of errors that all the models make, and for which they predict the same tag, we extract a random subset for manual inspection. Extrapolating from this subset, we obtain a lower bound estimate on annotation errors in the corpus as well as on some unsolvable tagging errors. We argue that further tagging accuracy gains for Icelandic can still be obtained by fixing the errors in MIM-GOLD and, furthermore, that it should still be possible to squeeze out some small gains from our transformer model.</abstract>
+      <url hash="71389469">2023.nodalida-1.8</url>
+      <bibkey>karason-loftsson-2023-part</bibkey>
+    </paper>
+    <paper id="9">
+      <title>Multi-<fixed-case>C</fixed-case>ross<fixed-case>RE</fixed-case> A Multi-Lingual Multi-Domain Dataset for Relation Extraction</title>
+      <author><first>Elisa</first><last>Bassignana</last></author>
+      <author><first>Filip</first><last>Ginter</last></author>
+      <author><first>Sampo</first><last>Pyysalo</last></author>
+      <author><first>Rob</first><last>van der Goot</last></author>
+      <author><first>Barbara</first><last>Plank</last><affiliation>Ludwig-Maximilians-Universität München and IT University of Copenhagen</affiliation></author>
+      <pages>80-85</pages>
+      <abstract>Most research in Relation Extraction (RE) involves the English language, mainly due to the lack of multi-lingual resources. We propose Multi-CrossRE, the broadest multi-lingual dataset for RE, including 26 languages in addition to English, and covering six text domains. Multi-CrossRE is a machine translated version of CrossRE (Bassignana and Plank, 2022), with a sub-portion including more than 200 sentences in seven diverse languages checked by native speakers. We run a baseline model over the 26 new datasets and–as sanity check–over the 26 back-translations to English. Results on the back-translated data are consistent with the ones on the original English CrossRE, indicating high quality of the translation and the resulting dataset.</abstract>
+      <url hash="c19341e5">2023.nodalida-1.9</url>
+      <bibkey>bassignana-etal-2023-multi</bibkey>
+    </paper>
+    <paper id="10">
+      <title>Microservices at Your Service: Bridging the Gap between <fixed-case>NLP</fixed-case> Research and Industry</title>
+      <author><first>Tiina</first><last>Lindh-Knuutila</last></author>
+      <author><first>Hrafn</first><last>Loftsson</last><affiliation>Reykjavík University</affiliation></author>
+      <author><first>Pedro</first><last>Alonso Doval</last></author>
+      <author><first>Sebastian</first><last>Andersson</last></author>
+      <author><first>Bjarni</first><last>Barkarson</last></author>
+      <author><first>Héctor</first><last>Cerezo-Costas</last></author>
+      <author><first>Jon</first><last>Gudnason</last></author>
+      <author><first>Jökull</first><last>Gylfason</last></author>
+      <author><first>Jarmo</first><last>Hemminki</last></author>
+      <author><first>Heiki-Jaan</first><last>Kaalep</last><affiliation>institute of computer science, University of Tartu</affiliation></author>
+      <pages>86-91</pages>
+      <abstract>This paper describes a collaborative European project whose aim was to gather open source Natural Language Processing (NLP) tools and make them accessible as running services and easy to try out in the European Language Grid (ELG). The motivation of the project was to increase accessibility for more European languages and make it easier for developers to use the underlying tools in their own applications. The project resulted in the containerization of 60 existing NLP tools for 16 languages, all of which are now currently running as easily testable services in the ELG platform.</abstract>
+      <url hash="555a2289">2023.nodalida-1.10</url>
+      <bibkey>lindh-knuutila-etal-2023-microservices</bibkey>
+    </paper>
+    <paper id="11">
+      <title>Slaapte or Sliep? Extending Neural-Network Simulations of <fixed-case>E</fixed-case>nglish Past Tense Learning to <fixed-case>D</fixed-case>utch and <fixed-case>G</fixed-case>erman</title>
+      <author><first>Xiulin</first><last>Yang</last></author>
+      <author><first>Jingyan</first><last>Chen</last></author>
+      <author><first>Arjan</first><last>van Eerden</last></author>
+      <author><first>Ahnaf</first><last>Samin</last></author>
+      <author><first>Arianna</first><last>Bisazza</last><affiliation>University of Groningen</affiliation></author>
+      <pages>92-102</pages>
+      <abstract>This work studies the plausibility of sequence-to-sequence neural networks as models of morphological acquisition by humans. We replicate the findings of Kirov and Cotterell (2018) on the well-known challenge of the English past tense and examine their generalizability to two related but morphologically richer languages, namely Dutch and German. Using a new dataset of English/Dutch/German (ir)regular verb forms, we show that the major findings of Kirov and Cotterell (2018) hold for all three languages, including the observation of over-regularization errors and micro U-shape learning trajectories. At the same time, we observe troublesome cases of non human-like errors similar to those reported by recent follow-up studies with different languages or neural architectures. Finally, we study the possibility of switching to orthographic input in the absence of pronunciation information and show this can have a non-negligible impact on the simulation results, with possibly misleading findings.</abstract>
+      <url hash="4014d86d">2023.nodalida-1.11</url>
+      <bibkey>yang-etal-2023-slaapte</bibkey>
+    </paper>
+    <paper id="12">
+      <title>Class Explanations: the Role of Domain-Specific Content and Stop Words</title>
+      <author><first>Denitsa</first><last>Saynova</last><affiliation>Chalmers University of Technology</affiliation></author>
+      <author><first>Bastiaan</first><last>Bruinsma</last></author>
+      <author><first>Moa</first><last>Johansson</last></author>
+      <author><first>Richard</first><last>Johansson</last><affiliation>Chalmers University and University of Gothenburg</affiliation></author>
+      <pages>103-112</pages>
+      <abstract>We address two understudied areas related to explainability for neural text models. First, <i>class explanations</i>. What features are descriptive across a class, rather than explaining single input instances? Second, the <i>type of features</i> that are used for providing explanations. Does the explanation involve the statistical pattern of word usage or the presence of domain-specific content words? Here, we present a method to extract both class explanations and strategies to differentiate between two types of explanations – domain-specific signals or statistical variations in frequencies of common words. We demonstrate our method using a case study in which we analyse transcripts of political debates in the Swedish Riksdag.</abstract>
+      <url hash="5a033585">2023.nodalida-1.12</url>
+      <bibkey>saynova-etal-2023-class</bibkey>
+    </paper>
+    <paper id="13">
+      <title>Constructing Pseudo-parallel <fixed-case>S</fixed-case>wedish Sentence Corpora for Automatic Text Simplification</title>
+      <author><first>Daniel</first><last>Holmer</last><affiliation>Linköping University</affiliation></author>
+      <author><first>Evelina</first><last>Rennes</last></author>
+      <pages>113-123</pages>
+      <abstract>Automatic text simplification (ATS) describes the automatic transformation of a text from a complex form to a less complex form. Many modern ATS techniques need large parallel corpora of standard and simplified text, but such data does not exist for many languages. One way to overcome this issue is to create pseudo-parallel corpora by dividing existing corpora into standard and simple parts. In this work, we explore the creation of Swedish pseudo-parallel monolingual corpora by the application of different feature representation methods, sentence alignment algorithms, and indexing approaches, on a large monolingual corpus. The different corpora are used to fine-tune a sentence simplification system based on BART, which is evaluated with standard evaluation metrics for automatic text simplification.</abstract>
+      <url hash="f1d41af1">2023.nodalida-1.13</url>
+      <bibkey>holmer-rennes-2023-constructing</bibkey>
+    </paper>
+    <paper id="14">
+      <title>Who said what? Speaker Identification from Anonymous Minutes of Meetings</title>
+      <author><first>Daniel</first><last>Holmer</last><affiliation>Linköping University</affiliation></author>
+      <author><first>Lars</first><last>Ahrenberg</last><affiliation>Linköping University</affiliation></author>
+      <author><first>Julius</first><last>Monsen</last></author>
+      <author><first>Arne</first><last>Jönsson</last><affiliation>Linköping University</affiliation></author>
+      <author><first>Mikael</first><last>Apel</last></author>
+      <author><first>Marianna</first><last>Grimaldi</last></author>
+      <pages>124-134</pages>
+      <abstract>We study the performance of machine learning techniques to the problem of identifying speakers at meetings from anonymous minutes issued afterwards. The data comes from board meetings of Sveriges Riksbank (Sweden’s Central Bank). The data is split in two ways, one where each reported contribution to the discussion is treated as a data point, and another where all contributions from a single speaker have been aggregated. Using interpretable models we find that lexical features and topic models generated from speeches held by the board members outside of board meetings are good predictors of speaker identity. Combining topic models with other features gives prediction accuracies close to 80% on aggregated data, though there is still a sizeable gap in performance compared to a not easily interpreted BERT-based transformer model that we offer as a benchmark.</abstract>
+      <url hash="a9b6ace0">2023.nodalida-1.14</url>
+      <bibkey>holmer-etal-2023-said</bibkey>
+    </paper>
+    <paper id="15">
+      <title>On the Concept of Resource-Efficiency in <fixed-case>NLP</fixed-case></title>
+      <author><first>Luise</first><last>Dürlich</last><affiliation>Uppsala University</affiliation></author>
+      <author><first>Evangelia</first><last>Gogoulou</last></author>
+      <author><first>Joakim</first><last>Nivre</last><affiliation>Uppsala University</affiliation></author>
+      <pages>135-145</pages>
+      <abstract>Resource-efficiency is a growing concern in the NLP community. But what are the resources we care about and why? How do we measure efficiency in a way that is reliable and relevant? And how do we balance efficiency and other important concerns? Based on a review of the emerging literature on the subject, we discuss different ways of conceptualizing efficiency in terms of product and cost, using a simple case study on fine-tuning and knowledge distillation for illustration. We propose a novel metric of amortized efficiency that is better suited for life-cycle analysis than existing metrics.</abstract>
+      <url hash="7cf4a11d">2023.nodalida-1.15</url>
+      <bibkey>durlich-etal-2023-concept</bibkey>
+    </paper>
+    <paper id="16">
+      <title>Identifying Token-Level Dialectal Features in Social Media</title>
+      <author><first>Jeremy</first><last>Barnes</last><affiliation>University of the Basque Country</affiliation></author>
+      <author><first>Samia</first><last>Touileb</last><affiliation>University og Bergen, Norway</affiliation></author>
+      <author><first>Petter</first><last>Mæhlum</last></author>
+      <author><first>Pierre</first><last>Lison</last><affiliation>Norwegian Computing Center</affiliation></author>
+      <pages>146-158</pages>
+      <abstract>Dialectal variation is present in many human languages and is attracting a growing interest in NLP. Most previous work concentrated on either (1) classifying dialectal varieties at the document or sentence level or (2) performing standard NLP tasks on dialectal data. In this paper, we propose the novel task of token-level dialectal feature prediction. We present a set of fine-grained annotation guidelines for Norwegian dialects, expand a corpus of dialectal tweets, and manually annotate them using the introduced guidelines. Furthermore, to evaluate the learnability of our task, we conduct labeling experiments using a collection of baselines, weakly supervised and supervised sequence labeling models. The obtained results show that, despite the difficulty of the task and the scarcity of training data, many dialectal features can be predicted with reasonably high accuracy.</abstract>
+      <url hash="c2cd8484">2023.nodalida-1.16</url>
+      <bibkey>barnes-etal-2023-identifying</bibkey>
+    </paper>
+    <paper id="17">
+      <title><fixed-case>N</fixed-case>or<fixed-case>Q</fixed-case>u<fixed-case>AD</fixed-case>: <fixed-case>N</fixed-case>orwegian Question Answering Dataset</title>
+      <author><first>Sardana</first><last>Ivanova</last><affiliation>University of Helsinki</affiliation></author>
+      <author><first>Fredrik</first><last>Andreassen</last><affiliation>University of Oslo</affiliation></author>
+      <author><first>Matias</first><last>Jentoft</last></author>
+      <author><first>Sondre</first><last>Wold</last></author>
+      <author><first>Lilja</first><last>Øvrelid</last><affiliation>Dept. of Informatics, University of Oslo</affiliation></author>
+      <pages>159-168</pages>
+      <abstract>In this paper we present NorQuAD: the first Norwegian question answering dataset for machine reading comprehension. The dataset consists of 4,752 manually created question-answer pairs. We here detail the data collection procedure and present statistics of the dataset. We also benchmark several multilingual and Norwegian monolingual language models on the dataset and compare them against human performance. The dataset will be made freely available.</abstract>
+      <url hash="b54b823a">2023.nodalida-1.17</url>
+      <bibkey>ivanova-etal-2023-norquad</bibkey>
+    </paper>
+    <paper id="18">
+      <title>Extracting Sign Language Articulation from Videos with <fixed-case>M</fixed-case>edia<fixed-case>P</fixed-case>ipe</title>
+      <author><first>Carl</first><last>Börstell</last><affiliation>University of Bergen</affiliation></author>
+      <pages>169-178</pages>
+      <abstract>This paper concerns evaluating methods for extracting phonological information of Swedish Sign Language signs from video data with MediaPipe’s pose estimation. The methods involve estimating i) the articulation phase, ii) hand dominance (left vs. right), iii) the number of hands articulating (one- vs. two-handed signs) and iv) the sign’s place of articulation. The results show that MediaPipe’s tracking of the hands’ location and movement in videos can be used to estimate the articulation phase of signs. Whereas the inclusion of transport movements improves the accuracy for the estimation of hand dominance and number of hands, removing transport movements is crucial for estimating a sign’s place of articulation.</abstract>
+      <url hash="307d3645">2023.nodalida-1.18</url>
+      <bibkey>borstell-2023-extracting</bibkey>
+    </paper>
+    <paper id="19">
+      <title>Named Entity layer in <fixed-case>E</fixed-case>stonian <fixed-case>UD</fixed-case> treebanks</title>
+      <author><first>Kadri</first><last>Muischnek</last><affiliation>University of Tartu</affiliation></author>
+      <author><first>Kaili</first><last>Müürisep</last><affiliation>institute of computer science, University of Tartu</affiliation></author>
+      <pages>179-184</pages>
+      <abstract>In this paper we will introduce two new language resources, two NE-annotated corpora for Estonian: Estonian Universal Dependencies Treebank (EDT, 440,000 tokens) and Estonian Universal Dependencies Web Treebank (EWT, 90,000 tokens). Together they make up the largest publicly available Estonian named entity gold annotation dataset. Eight NE categories are manually annotated in this dataset, and the fact that it is also annotated for lemma, POS, morphological features and dependency syntactic relations, makes it more valuable. We will also show that dividing the set of named entities into clear-cut categories is not always easy.</abstract>
+      <url hash="884e556e">2023.nodalida-1.19</url>
+      <bibkey>muischnek-muurisep-2023-named</bibkey>
+    </paper>
+    <paper id="20">
+      <title><fixed-case>S</fixed-case>cand<fixed-case>E</fixed-case>val: A Benchmark for <fixed-case>S</fixed-case>candinavian Natural Language Processing</title>
+      <author><first>Dan</first><last>Nielsen</last><affiliation>The Alexandra Institute</affiliation></author>
+      <pages>185-201</pages>
+      <abstract>This paper introduces a Scandinavian benchmarking platform, ScandEval, which can benchmark any pretrained model on four different tasks in the Scandinavian languages. The datasets used in two of the tasks, linguistic acceptability and question answering, are new. We develop and release a Python package and command-line interface, scandeval, which can benchmark any model that has been uploaded to the Hugging Face Hub, with reproducible results. Using this package, we benchmark more than 80 Scandinavian or multilingual models and present the results of these in an interactive online leaderboard, as well as provide an analysis of the results. The analysis shows that there is substantial cross-lingual transfer among the the Mainland Scandinavian languages (Danish, Swedish and Norwegian), with limited cross-lingual transfer between the group of Mainland Scandinavian languages and the group of Insular Scandinavian languages (Icelandic and Faroese). The benchmarking results also show that the investment in language technology in Norway and Sweden has led to language models that outperform massively multilingual models such as XLM-RoBERTa and mDeBERTaV3. We release the source code for both the package and leaderboard.</abstract>
+      <url hash="c9e39712">2023.nodalida-1.20</url>
+      <bibkey>nielsen-2023-scandeval</bibkey>
+    </paper>
+    <paper id="21">
+      <title><fixed-case>BRENT</fixed-case>: Bidirectional Retrieval Enhanced <fixed-case>N</fixed-case>orwegian Transformer</title>
+      <author><first>Lucas</first><last>Charpentier</last><affiliation>University of Oslo</affiliation></author>
+      <author><first>Sondre</first><last>Wold</last></author>
+      <author><first>David</first><last>Samuel</last><affiliation>University of Oslo</affiliation></author>
+      <author><first>Egil</first><last>Rønningstad</last></author>
+      <pages>202-214</pages>
+      <abstract>Retrieval-based language models are increasingly employed in question-answering tasks. These models search in a corpus of documents for relevant information instead of having all factual knowledge stored in its parameters, thereby enhancing efficiency, transparency, and adaptability. We develop the first Norwegian retrieval-based model by adapting the REALM framework and evaluate it on various tasks. After training, we also separate the language model, which we call the <i>reader</i>, from the retriever components, and show that this can be fine-tuned on a range of downstream tasks. Results show that retrieval augmented language modeling improves the reader’s performance on extractive question-answering, suggesting that this type of training improves language models’ general ability to use context and that this does not happen at the expense of other abilities such as part-of-speech tagging, dependency parsing, named entity recognition, and lemmatization. Code, trained models, and data are made publicly available.</abstract>
+      <url hash="5263df2a">2023.nodalida-1.21</url>
+      <bibkey>charpentier-etal-2023-brent</bibkey>
+    </paper>
+    <paper id="22">
+      <title>Machine vs. Human: Exploring Syntax and Lexicon in <fixed-case>G</fixed-case>erman Translations, with a Spotlight on Anglicisms</title>
+      <author><first>Anastassia</first><last>Shaitarova</last></author>
+      <author><first>Anne</first><last>Göhring</last><affiliation>University of Zurich</affiliation></author>
+      <author><first>Martin</first><last>Volk</last><affiliation>University of Zurich</affiliation></author>
+      <pages>215-227</pages>
+      <abstract>Machine Translation (MT) has become an integral part of daily life for millions of people, with its output being so fluent that users often cannot distinguish it from human translation. However, these fluid texts often harbor algorithmic traces, from limited lexical choices to societal misrepresentations. This raises concerns about the possible effects of MT on natural language and human communication and calls for regular evaluations of machine-generated translations for different languages. Our paper explores the output of three widely used engines (Google, DeepL, Microsoft Azure) and one smaller commercial system. We translate the English and French source texts of seven diverse parallel corpora into German and compare MT-produced texts to human references in terms of lexical, syntactic, and morphological features. Additionally, we investigate how MT leverages lexical borrowings and analyse the distribution of anglicisms across the German translations.</abstract>
+      <url hash="fde95779">2023.nodalida-1.22</url>
+      <bibkey>shaitarova-etal-2023-machine</bibkey>
+    </paper>
+    <paper id="23">
+      <title>Training and Evaluating <fixed-case>N</fixed-case>orwegian Sentence Embedding Models</title>
+      <author><first>Bernt Ivar Utstøl</first><last>Nødland</last><affiliation>Forsvarets forskningsinstitutt, Norway</affiliation></author>
+      <pages>228-237</pages>
+      <abstract>We train and evaluate Norwegian sentence embedding models using the contrastive learning methodology SimCSE. We start from pre-trained Norwegian encoder models and train both unsupervised and supervised models. The models are evaluated on a machine-translated version of semantic textual similarity datasets, as well as binary classification tasks. We show that we can train good Norwegian sentence embedding models, that clearly outperform the pre-trained encoder models, as well as the multilingual mBERT, on the task of sentence similarity.</abstract>
+      <url hash="ee4db031">2023.nodalida-1.23</url>
+      <bibkey>nodland-2023-training</bibkey>
+    </paper>
+    <paper id="24">
+      <title>Dozens of Translation Directions or Millions of Shared Parameters? Comparing Two Types of Multilinguality in Modular Machine Translation</title>
+      <author><first>Michele</first><last>Boggia</last></author>
+      <author><first>Stig-Arne</first><last>Grönroos</last><affiliation>University of Helsinki</affiliation></author>
+      <author><first>Niki</first><last>Loppi</last><affiliation>Nvidia</affiliation></author>
+      <author><first>Timothee</first><last>Mickus</last><affiliation>University of Helsinki</affiliation></author>
+      <author><first>Alessandro</first><last>Raganato</last><affiliation>University of Milan - Bicocca</affiliation></author>
+      <author><first>Jörg</first><last>Tiedemann</last><affiliation>University of Helsinki</affiliation></author>
+      <author><first>Raúl</first><last>Vázquez</last></author>
+      <pages>238-247</pages>
+      <abstract>There are several ways of implementing multilingual NLP systems but little consensus as to whether different approaches exhibit similar effects. Are the trends that we observe when adding more languages the same as those we observe when sharing more parameters? We focus on encoder representations drawn from modular multilingual machine translation systems in an English-centric scenario, and study their quality from multiple aspects: how adequate they are for machine translation, how independent of the source language they are, and what semantic information they convey. Adding translation directions in English-centric scenarios does not conclusively lead to an increase in translation quality. Shared layers increase performance on zero-shot translation pairs and lead to more language-independent representations, but these improvements do not systematically align with more semantically accurate representations, from a monolingual standpoint.</abstract>
+      <url hash="4ddadf67">2023.nodalida-1.24</url>
+      <bibkey>boggia-etal-2023-dozens</bibkey>
+    </paper>
+    <paper id="25">
+      <title><fixed-case>D</fixed-case>an<fixed-case>S</fixed-case>um<fixed-case>T</fixed-case>5: Automatic Abstractive Summarization for <fixed-case>D</fixed-case>anish</title>
+      <author><first>Sara</first><last>Kolding</last></author>
+      <author><first>Katrine</first><last>Nymann</last></author>
+      <author><first>Ida</first><last>Hansen</last></author>
+      <author><first>Kenneth</first><last>Enevoldsen</last></author>
+      <author><first>Ross</first><last>Kristensen-McLachlan</last></author>
+      <pages>248-264</pages>
+      <abstract>Automatic abstractive text summarization is a challenging task in the field of natural language processing. This paper presents a model for domain-specific sum marization for Danish news articles, Dan SumT5; an mT5 model fine-tuned on a cleaned subset of the DaNewsroom dataset consisting of abstractive summary-article pairs. The resulting state-of-the-art model is evaluated both quantitatively and qualitatively, using ROUGE and BERTScore metrics and human rankings of the summaries. We find that although model refinements increase quantitative and qualitative performance, the model is still prone to factual errors. We discuss the limitations of current evaluation methods for automatic abstractive summarization and underline the need for improved metrics and transparency within the field. We suggest that future work should employ methods for detecting and reducing errors in model output and methods for referenceless evaluation of summaries.</abstract>
+      <url hash="b3c60ce5">2023.nodalida-1.25</url>
+      <bibkey>kolding-etal-2023-dansumt5</bibkey>
+    </paper>
+    <paper id="26">
+      <title><fixed-case>C</fixed-case>aptain<fixed-case>A</fixed-case> - A mobile app for practising <fixed-case>F</fixed-case>innish pronunciation</title>
+      <author><first>Nhan</first><last>Phan</last><affiliation>Aalto University</affiliation></author>
+      <author><first>Tamás</first><last>Grósz</last><affiliation>Aalto University</affiliation></author>
+      <author><first>Mikko</first><last>Kurimo</last><affiliation>Aalto University</affiliation></author>
+      <pages>265-270</pages>
+      <abstract>Learning a new language is often difficult, especially practising it independently. The main issue with self-study is the absence of accurate feedback from a teacher, which would enable students to learn unfamiliar languages. In recent years, with advances in Artificial Intelligence and Automatic Speech Recognition, it has become possible to build applications that can provide valuable feedback on the users’ pronunciation. In this paper, we introduce the CaptainA app explicitly developed to aid students in practising their Finnish pronunciation on handheld devices. Our app is a valuable resource for immigrants who are busy with school or work, and it helps them integrate faster into society. Furthermore, by providing this service for L2 speakers and collecting their data, we can continuously improve our system and provide better aid in the future.</abstract>
+      <url hash="007facca">2023.nodalida-1.26</url>
+      <bibkey>phan-etal-2023-captaina</bibkey>
+    </paper>
+    <paper id="27">
+      <title><fixed-case>D</fixed-case>an<fixed-case>T</fixed-case>ok: Domain Beats Language for <fixed-case>D</fixed-case>anish Social Media <fixed-case>POS</fixed-case> Tagging</title>
+      <author><first>Kia</first><last>Kirstein Hansen</last></author>
+      <author><first>Maria</first><last>Barrett</last><affiliation>IT University of Copenhagen</affiliation></author>
+      <author><first>Max</first><last>Müller-Eberstein</last><affiliation>IT University of Copenhagen</affiliation></author>
+      <author><first>Cathrine</first><last>Damgaard</last></author>
+      <author><first>Trine</first><last>Eriksen</last></author>
+      <author><first>Rob</first><last>van der Goot</last></author>
+      <pages>271-279</pages>
+      <abstract>Language from social media remains challenging to process automatically, especially for non-English languages. In this work, we introduce the first NLP dataset for TikTok comments and the first Danish social media dataset with part-of-speech annotation. We further supply annotations for normalization, code-switching, and annotator uncertainty. As transferring models to such a highly specialized domain is non-trivial, we conduct an extensive study into which source data and modeling decisions most impact the performance. Surprisingly, transferring from in-domain data, even from a different language, outperforms in-language, out-of-domain training. These benefits nonetheless rely on the underlying language models having been at least partially pre-trained on data from the target language. Using our additional annotation layers, we further analyze how normalization, code-switching, and human uncertainty affect the tagging accuracy.</abstract>
+      <url hash="67b42bc4">2023.nodalida-1.27</url>
+      <bibkey>kirstein-hansen-etal-2023-dantok</bibkey>
+    </paper>
+    <paper id="28">
+      <title>Comparison of Current Approaches to Lemmatization: A Case Study in <fixed-case>E</fixed-case>stonian</title>
+      <author><first>Aleksei</first><last>Dorkin</last></author>
+      <author><first>Kairit</first><last>Sirts</last><affiliation>University of Tartu</affiliation></author>
+      <pages>280-285</pages>
+      <abstract>This study evaluates three different lemmatization approaches to Estonian—Generative character-level models, Pattern-based word-level classification models, and rule-based morphological analysis. According to our experiments, a significantly smaller Generative model consistently outperforms the Pattern-based classification model based on EstBERT. Additionally, we observe a relatively small overlap in errors made by all three models, indicating that an ensemble of different approach could lead to improvements.</abstract>
+      <url hash="398ce8d5">2023.nodalida-1.28</url>
+      <bibkey>dorkin-sirts-2023-comparison</bibkey>
+    </paper>
+    <paper id="29">
+      <title>Generating Errors: <fixed-case>OCR</fixed-case> Post-Processing for <fixed-case>I</fixed-case>celandic</title>
+      <author><first>Atli</first><last>Jasonarson</last><affiliation>The Árni Magnússon Institute for Icelandic Studies</affiliation></author>
+      <author><first>Steinþór</first><last>Steingrímsson</last></author>
+      <author><first>Einar</first><last>Sigurðsson</last></author>
+      <author><first>Árni</first><last>Magnússon</last></author>
+      <author><first>Finnur</first><last>Ingimundarson</last></author>
+      <pages>286-291</pages>
+      <abstract>We describe work on enhancing the performance of transformer-based encoder-decoder models for OCR post-correction on modern and historical Icelandic texts, where OCRed data are scarce. We trained six models, four from scratch and two fine-tuned versions of Google’s ByT5, on a combination of real data and texts populated with artificially generated errors. Our results show that the models trained from scratch, as opposed to the fine-tuned versions, benefited the most from the addition of artificially generated errors.</abstract>
+      <url hash="a826b635">2023.nodalida-1.29</url>
+      <bibkey>jasonarson-etal-2023-generating</bibkey>
+    </paper>
+    <paper id="30">
+      <title>Generation of Replacement Options in Text Sanitization</title>
+      <author><first>Annika Willoch</first><last>Olstad</last></author>
+      <author><first>Anthi</first><last>Papadopoulou</last><affiliation>University of Oslo</affiliation></author>
+      <author><first>Pierre</first><last>Lison</last><affiliation>Norwegian Computing Center</affiliation></author>
+      <pages>292-300</pages>
+      <abstract>The purpose of text sanitization is to edit text documents to mask text spans that may directly or indirectly reveal personal information. An important problem in text sanitization is to find less specific, yet still informative replacements for each text span to mask. We present an approach to generate possible replacements using a combination of heuristic rules and an ontology derived from Wikidata. Those replacement options are hierarchically structured and cover various types of personal identifiers. Using this approach, we extend a recently released text sanitization dataset with manually selected replacements. The outcome of this data collection shows that the approach is able to suggest appropriate replacement options for most text spans.</abstract>
+      <url hash="ba1c9865">2023.nodalida-1.30</url>
+      <bibkey>olstad-etal-2023-generation</bibkey>
+    </paper>
+    <paper id="31">
+      <title><fixed-case>M</fixed-case>e<fixed-case>D</fixed-case>a-<fixed-case>BERT</fixed-case>: A medical <fixed-case>D</fixed-case>anish pretrained transformer model</title>
+      <author><first>Jannik</first><last>Pedersen</last></author>
+      <author><first>Martin</first><last>Laursen</last></author>
+      <author><first>Pernille</first><last>Vinholt</last><affiliation>University of Southern Denmark - SDU</affiliation></author>
+      <author><first>Thiusius Rajeeth</first><last>Savarimuthu</last><affiliation>University of Southern Denmark - SDU</affiliation></author>
+      <pages>301-307</pages>
+      <abstract>This paper introduces a medical Danish BERT-based language model (MeDa-BERT) and medical Danish word embeddings. The word embeddings and MeDa-BERT were pretrained on a new medical Danish corpus consisting of 133M tokens from medical Danish books and text from the internet. The models showed improved performance over general-domain models on medical Danish classification tasks. The medical word embeddings and MeDa-BERT are publicly available.</abstract>
+      <url hash="e5fff660">2023.nodalida-1.31</url>
+      <bibkey>pedersen-etal-2023-meda</bibkey>
+    </paper>
+    <paper id="32">
+      <title>Standardising Pronunciation for a Grapheme-to-Phoneme Converter for <fixed-case>F</fixed-case>aroese</title>
+      <author><first>Sandra</first><last>Lamhauge</last></author>
+      <author><first>Iben</first><last>Debess</last><affiliation>University of the Faroe Islands</affiliation></author>
+      <author><first>Carlos</first><last>Hernández Mena</last></author>
+      <author><first>Annika</first><last>Simonsen</last></author>
+      <author><first>Jon</first><last>Gudnason</last></author>
+      <pages>308-317</pages>
+      <abstract>Pronunciation dictionaries allow computational modelling of the pronunciation of words in a certain language and are widely used in speech technologies, especially in the fields of speech recognition and synthesis. On the other hand, a grapheme-to-phoneme tool is a generalization of a pronunciation dictionary that is not limited to a given and finite vocabulary. In this paper, we present a set of standardized phonological rules for the Faroese language; we introduce FARSAMPA, a machine-readable character set suitable for phonetic transcription of Faroese, and we present a set of grapheme-to-phoneme models for Faroese, which are publicly available and shared under a creative commons license. We present the G2P converter and evaluate the performance. The evaluation shows reliable results that demonstrate the quality of the data.</abstract>
+      <url hash="ff26d4ae">2023.nodalida-1.32</url>
+      <bibkey>lamhauge-etal-2023-standardising</bibkey>
+    </paper>
+    <paper id="33">
+      <title>Using Membership Inference Attacks to Evaluate Privacy-Preserving Language Modeling Fails for Pseudonymizing Data</title>
+      <author><first>Thomas</first><last>Vakili</last><affiliation>Stockholm University</affiliation></author>
+      <author><first>Hercules</first><last>Dalianis</last><affiliation>Stockholm University</affiliation></author>
+      <pages>318-323</pages>
+      <abstract>Large pre-trained language models dominate the current state-of-the-art for many natural language processing applications, including the field of clinical NLP. Several studies have found that these can be susceptible to privacy attacks that are unacceptable in the clinical domain where personally identifiable information (PII) must not be exposed. However, there is no consensus regarding how to quantify the privacy risks of different models. One prominent suggestion is to quantify these risks using membership inference attacks. In this study, we show that a state-of-the-art membership inference attack on a clinical BERT model fails to detect the privacy benefits from pseudonymizing data. This suggests that such attacks may be inadequate for evaluating token-level privacy preservation of PIIs.</abstract>
+      <url hash="52286dbc">2023.nodalida-1.33</url>
+      <bibkey>vakili-dalianis-2023-using</bibkey>
+    </paper>
+    <paper id="34">
+      <title>Sentiment Classification of Historical <fixed-case>D</fixed-case>anish and <fixed-case>N</fixed-case>orwegian Literary Texts</title>
+      <author><first>Ali</first><last>Allaith</last></author>
+      <author><first>Kirstine</first><last>Degn</last></author>
+      <author><first>Alexander</first><last>Conroy</last></author>
+      <author><first>Bolette</first><last>Pedersen</last><affiliation>University of Copenhagen</affiliation></author>
+      <author><first>Jens</first><last>Bjerring-Hansen</last><affiliation>Copenhagen University</affiliation></author>
+      <author><first>Daniel</first><last>Hershcovich</last><affiliation>University of Copenhagen</affiliation></author>
+      <pages>324-334</pages>
+      <abstract>Sentiment classification is valuable for literary analysis, as sentiment is crucial in literary narratives. It can, for example, be used to investigate a hypothesis in the literary analysis of 19th-century Scandinavian novels that the writing of female authors in this period was characterized by negative sentiment, as this paper shows. In order to enable a data-driven analysis of this hypothesis, we create a manually annotated dataset of sentence-level sentiment annotations for novels from this period and use it to train and evaluate various sentiment classification methods. We find that pre-trained multilingual language models outperform models trained on modern Danish, as well as classifiers based on lexical resources. Finally, in classifier-assisted corpus analysis, we confirm the literary hypothesis regarding the author’s gender and further shed light on the temporal development of the trend. Our dataset and trained models will be useful for future analysis of historical Danish and Norwegian literary texts.</abstract>
+      <url hash="69a9e7e8">2023.nodalida-1.34</url>
+      <bibkey>allaith-etal-2023-sentiment</bibkey>
+    </paper>
+    <paper id="35">
+      <title>Parser Evaluation for Analyzing <fixed-case>S</fixed-case>wedish 19th-20th Century Literature</title>
+      <author><first>Sara</first><last>Stymne</last></author>
+      <author><first>Carin</first><last>Östman</last></author>
+      <author><first>David</first><last>Håkansson</last></author>
+      <pages>335-346</pages>
+      <abstract>In this study, we aim to find a parser for accurately identifying different types of subordinate clauses, and related phenomena, in 19th–20th-century Swedish literature. Since no test set is available for parsing from this time period, we propose a lightweight annotation scheme for annotating a single relation of interest per sentence. We train a variety of parsers for Swedish and compare evaluations on standard modern test sets and our targeted test set. We find clear trends in which parser types perform best on the standard test sets, but that performance is considerably more varied on the targeted test set. We believe that our proposed annotation scheme can be useful for complementing standard evaluations, with a low annotation effort.</abstract>
+      <url hash="17306ab4">2023.nodalida-1.35</url>
+      <bibkey>stymne-etal-2023-parser</bibkey>
+    </paper>
+    <paper id="36">
+      <title>An Empirical Study of Multitask Learning to Improve Open Domain Dialogue Systems</title>
+      <author><first>Mehrdad</first><last>Farahani</last></author>
+      <author><first>Richard</first><last>Johansson</last><affiliation>Chalmers University and University of Gothenburg</affiliation></author>
+      <pages>347-357</pages>
+      <abstract>Autoregressive models used to generate responses in open-domain dialogue systems often struggle to take long-term context into account and to maintain consistency over a dialogue. Previous research in open-domain dialogue generation has shown that the use of <i>auxiliary tasks</i> can introduce inductive biases that encourage the model to improve these qualities. However, most previous research has focused on encoder-only or encoder/decoder models, while the use of auxiliary tasks in <i>encoder-only</i> autoregressive models is under-explored. This paper describes an investigation where four different auxiliary tasks are added to small and medium-sized GPT-2 models fine-tuned on the PersonaChat and DailyDialog datasets. The results show that the introduction of the new auxiliary tasks leads to small but consistent improvement in evaluations of the investigated models.</abstract>
+      <url hash="17d68cf9">2023.nodalida-1.36</url>
+      <bibkey>farahani-johansson-2023-empirical</bibkey>
+    </paper>
+    <paper id="37">
+      <title>Uncertainty-Aware Natural Language Inference with Stochastic Weight Averaging</title>
+      <author><first>Aarne</first><last>Talman</last><affiliation>Silo AI and University of Helsinki</affiliation></author>
+      <author><first>Hande</first><last>Celikkanat</last><affiliation>University of Helsinki</affiliation></author>
+      <author><first>Sami</first><last>Virpioja</last></author>
+      <author><first>Markus</first><last>Heinonen</last><affiliation>Aalto University</affiliation></author>
+      <author><first>Jörg</first><last>Tiedemann</last><affiliation>University of Helsinki</affiliation></author>
+      <pages>358-365</pages>
+      <abstract>This paper introduces Bayesian uncertainty modeling using Stochastic Weight Averaging-Gaussian (SWAG) in Natural Language Understanding (NLU) tasks. We apply the approach to standard tasks in natural language inference (NLI) and demonstrate the effectiveness of the method in terms of prediction accuracy and correlation with human annotation disagreements. We argue that the uncertainty representations in SWAG better reflect subjective interpretation and the natural variation that is also present in human language understanding. The results reveal the importance of uncertainty modeling, an often neglected aspect of neural language modeling, in NLU tasks.</abstract>
+      <url hash="7f445c1d">2023.nodalida-1.37</url>
+      <bibkey>talman-etal-2023-uncertainty</bibkey>
+    </paper>
+    <paper id="38">
+      <title>Alignment of <fixed-case>W</fixed-case>ikidata lexemes and Det Centrale Ordregister</title>
+      <author><first>Finn</first><last>Nielsen</last><affiliation>Technical University of Denmark</affiliation></author>
+      <pages>366-370</pages>
+      <abstract>Two Danish open access lexicographic resources have appeared in recent years: lexemes in Wikidata and Det Centrale Ordregister (COR). The lexeme part of Wikidata describes words in different languages and COR associates an identifier with each different form of Danish lexemes. Here I described the current state of the linking Wikidata lexemes with COR and some of the problems encountered.</abstract>
+      <url hash="f434afd0">2023.nodalida-1.38</url>
+      <bibkey>nielsen-2023-alignment</bibkey>
+    </paper>
+    <paper id="39">
+      <title>Low-resource Bilingual Dialect Lexicon Induction with Large Language Models</title>
+      <author><first>Ekaterina</first><last>Artemova</last><affiliation>Ludwig-Maximilians-Universität München</affiliation></author>
+      <author><first>Barbara</first><last>Plank</last><affiliation>Ludwig-Maximilians-Universität München and IT University of Copenhagen</affiliation></author>
+      <pages>371-385</pages>
+      <abstract>Bilingual word lexicons map words in one language to their synonyms in another language. Numerous papers have explored bilingual lexicon induction (BLI) in high-resource scenarios, framing a typical pipeline that consists of two steps: (i) unsupervised bitext mining and (ii) unsupervised word alignment. At the core of those steps are pre-trained large language models (LLMs).In this paper we present the analysis of the BLI pipeline for German and two of its dialects, Bavarian and Alemannic. This setup poses a number of unique challenges, attributed to the scarceness of resources, relatedness of the languages and lack of standardization in the orthography of dialects. We analyze the BLI outputs with respect to word frequency and the pairwise edit distance. Finally, we release an evaluation dataset consisting of manual annotations for 1K bilingual word pairs labeled according to their semantic similarity.</abstract>
+      <url hash="132998ee">2023.nodalida-1.39</url>
+      <bibkey>artemova-plank-2023-low</bibkey>
+    </paper>
+    <paper id="40">
+      <title>Constructing a Knowledge Graph from Textual Descriptions of Software Vulnerabilities in the National Vulnerability Database</title>
+      <author><first>Anders</first><last>Høst</last></author>
+      <author><first>Pierre</first><last>Lison</last><affiliation>Norwegian Computing Center</affiliation></author>
+      <author><first>Leon</first><last>Moonen</last><affiliation>BI Norwegian Business School</affiliation></author>
+      <pages>386-391</pages>
+      <abstract>Knowledge graphs have shown promise for several cybersecurity tasks, such as vulnerability assessment and threat analysis. In this work, we present a new method for constructing a vulnerability knowledge graph from information in the National Vulnerability Database (NVD). Our approach combines named entity recognition (NER), relation extraction (RE), and entity prediction using a combination of neural models, heuristic rules, and knowledge graph embeddings. We demonstrate how our method helps to fix missing entities in knowledge graphs used for cybersecurity and evaluate the performance.</abstract>
+      <url hash="a0502478">2023.nodalida-1.40</url>
+      <bibkey>host-etal-2023-constructing</bibkey>
+    </paper>
+    <paper id="41">
+      <title>A Survey of Corpora for <fixed-case>G</fixed-case>ermanic Low-Resource Languages and Dialects</title>
+      <author><first>Verena</first><last>Blaschke</last><affiliation>Ludwig-Maximilians-Universität München</affiliation></author>
+      <author><first>Hinrich</first><last>Schuetze</last></author>
+      <author><first>Barbara</first><last>Plank</last><affiliation>Ludwig-Maximilians-Universität München and IT University of Copenhagen</affiliation></author>
+      <pages>392-414</pages>
+      <abstract>Despite much progress in recent years, the vast majority of work in natural language processing (NLP) is on standard languages with many speakers. In this work, we instead focus on low-resource languages and in particular non-standardized low-resource languages. Even within branches of major language families, often considered well-researched, little is known about the extent and type of available resources and what the major NLP challenges are for these language varieties. The first step to address this situation is a systematic survey of available corpora (most importantly, annotated corpora, which are particularly valuable for NLP research). Focusing on Germanic low-resource language varieties, we provide such a survey in this paper. Except for geolocation (origin of speaker or document), we find that manually annotated linguistic resources are sparse and, if they exist, mostly cover morphosyntax. Despite this lack of resources, we observe that interest in this area is increasing: there is active development and a growing research community. To facilitate research, we make our overview of over 80 corpora publicly available.</abstract>
+      <url hash="ea37119d">2023.nodalida-1.41</url>
+      <bibkey>blaschke-etal-2023-survey</bibkey>
+    </paper>
+    <paper id="42">
+      <title>You say tomato, <fixed-case>I</fixed-case> say the same: A large-scale study of linguistic accommodation in online communities</title>
+      <author><first>Aleksandrs</first><last>Berdicevskis</last><affiliation>Gothenburg University</affiliation></author>
+      <author><first>Viktor</first><last>Erbro</last></author>
+      <pages>415-424</pages>
+      <abstract>An important assumption in sociolinguistics and cognitive psychology is that human beings adjust their language use to their interlocutors. Put simply, the more often people talk (or write) to each other, the more similar their speech becomes. Such accommodation has often been observed in small-scale observational studies and experiments, but large-scale longitudinal studies that systematically test whether the accommodation occurs are scarce. We use data from a very large Swedish online discussion forum to show that linguistic production of the users who write in the same subforum does usually become more similar over time. Moreover, the results suggest that this trend tends to be stronger for those pairs of users who actively interact than for those pairs who do not interact. Our data thus support the accommodation hypothesis.</abstract>
+      <url hash="90408a70">2023.nodalida-1.42</url>
+      <bibkey>berdicevskis-erbro-2023-say</bibkey>
+    </paper>
+    <paper id="43">
+      <title>Rules and neural nets for morphological tagging of <fixed-case>N</fixed-case>orwegian - Results and challenges</title>
+      <author><first>Dag</first><last>Haug</last><affiliation>University of Oslo</affiliation></author>
+      <author><first>Ahmet</first><last>Yildirim</last></author>
+      <author><first>Kristin</first><last>Hagen</last><affiliation>University of Oslo</affiliation></author>
+      <author><first>Anders</first><last>Nøklestad</last></author>
+      <pages>425-435</pages>
+      <abstract>This paper reports on efforts to improve the Oslo-Bergen Tagger for Norwegian morphological tagging. We train two deep neural network-based taggers using the recently introduced Norwegian pre-trained encoder (a BERT model for Norwegian). The first network is a sequence-to-sequence encoder-decoder and the second is a sequence classifier. We test both these configurations in a hybrid system where they combine with the existing rule-based system, and on their own. The sequence-to-sequence system performs better in the hybrid configuration, but the classifier system performs so well that combining it with the rules is actually slightly detrimental to performance.</abstract>
+      <url hash="ecc5015c">2023.nodalida-1.43</url>
+      <bibkey>haug-etal-2023-integrating</bibkey>
+    </paper>
+    <paper id="44">
+      <title>Comparing Methods for Segmenting Elementary Discourse Units in a <fixed-case>F</fixed-case>rench Conversational Corpus</title>
+      <author><first>Laurent</first><last>Prevot</last><affiliation>Université d’Aix-Marseille</affiliation></author>
+      <author><first>Julie</first><last>Hunter</last></author>
+      <author><first>Philippe</first><last>Muller</last><affiliation>IRIT, University of Toulouse</affiliation></author>
+      <pages>436-446</pages>
+      <abstract>While discourse parsing has made considerable progress in recent years, discourse segmentation of conversational speech remains a difficult issue. In this paper, we exploit a French data set that has been manually segmented into discourse units to compare two approaches to discourse segmentation: fine-tuning existing systems on manual segmentation vs. using hand-crafted labelling rules to develop a weakly supervised segmenter. Our results show that both approaches yield similar performance in terms of f-score while data programming requires less manual annotation work. In a second experiment we play with the amount of training data used for fine-tuning systems and show that a small amount of hand labelled data is enough to obtain good results (although significantly lower than in the first experiment using all the annotated data available).</abstract>
+      <url hash="4df6ba1d">2023.nodalida-1.44</url>
+      <bibkey>prevot-etal-2023-comparing</bibkey>
+    </paper>
+    <paper id="45">
+      <title>Multi-way Variational <fixed-case>NMT</fixed-case> for <fixed-case>UGC</fixed-case>: Improving Robustness in Zero-shot Scenarios via Mixture Density Networks</title>
+      <author><first>José</first><last>Rosales Núñez</last></author>
+      <author><first>Djamé</first><last>Seddah</last></author>
+      <author><first>Guillaume</first><last>Wisniewski</last><affiliation>Université de Paris</affiliation></author>
+      <pages>447-459</pages>
+      <abstract>This work presents a novel Variational Neural Machine Translation (VNMT) architecture with enhanced robustness properties, which we investigate through a detailed case-study addressing noisy French user-generated content (UGC) translation to English. We show that the proposed model, with results comparable or superior to state-of-the-art VNMT, improves performance over UGC translation in a zero-shot evaluation scenario while keeping optimal translation scores on in-domain test sets. We elaborate on such results by visualizing and explaining how neural learning representations behave when processing UGC noise. In addition, we show that VNMT enforces robustness to the learned embeddings, which can be later used for robust transfer learning approaches.</abstract>
+      <url hash="e3143e34">2023.nodalida-1.45</url>
+      <bibkey>rosales-nunez-etal-2023-multi</bibkey>
+    </paper>
+    <paper id="46">
+      <title>Multilingual Automatic Speech Recognition for <fixed-case>S</fixed-case>candinavian Languages</title>
+      <author><first>Rafal</first><last>Cerniavski</last></author>
+      <author><first>Sara</first><last>Stymne</last></author>
+      <pages>460-466</pages>
+      <abstract>We investigate the effectiveness of multilingual automatic speech recognition models for Scandinavian languages by further fine-tuning a Swedish model on Swedish, Danish, and Norwegian. We first explore zero-shot models, which perform poorly across the three languages. However, we show that a multilingual model based on a strong Swedish model, further fine-tuned on all three languages, performs well for Norwegian and Danish, with a relatively low decrease in the performance for Swedish. With a language classification module, we improve the performance of the multilingual model even further.</abstract>
+      <url hash="73e8741c">2023.nodalida-1.46</url>
+      <bibkey>cerniavski-stymne-2023-multilingual</bibkey>
+    </paper>
+    <paper id="47">
+      <title>A character-based analysis of impacts of dialects on end-to-end <fixed-case>N</fixed-case>orwegian <fixed-case>ASR</fixed-case></title>
+      <author><first>Phoebe</first><last>Parsons</last><affiliation>Norwegian University of Science and Technology</affiliation></author>
+      <author><first>Knut</first><last>Kvale</last><affiliation>Telenor R&amp;I</affiliation></author>
+      <author><first>Torbjørn</first><last>Svendsen</last><affiliation>Norwegian University of Science and Technology</affiliation></author>
+      <author><first>Giampiero</first><last>Salvi</last><affiliation>Norwegian University of Science and Technology and KTH Royal Institute of Technology</affiliation></author>
+      <pages>467-476</pages>
+      <abstract>We present a method for analyzing character errors for use with character-based, end-to-end ASR systems, as used herein for investigating dialectal speech. As end-to-end systems are able to produce novel spellings, there exists a possibility that the spelling variants produced by these systems can capture phonological information beyond the intended target word. We therefore first introduce a way of guaranteeing that similar words and characters are paired during alignment, thus ensuring that any resulting analysis of character errors is founded on sound substitutions. Then, from such a careful character alignment, we find trends in system-generated spellings that align with known phonological features of Norwegian dialects, in particular, “r” and “l” confusability and voiceless stop lenition. Through this analysis, we demonstrate that cues from acoustic dialectal features can influence the output of an end-to-end ASR systems.</abstract>
+      <url hash="26b06bb8">2023.nodalida-1.47</url>
+      <bibkey>parsons-etal-2023-character</bibkey>
+    </paper>
+    <paper id="48">
+      <title>Quasi: a synthetic Question-Answering dataset in <fixed-case>S</fixed-case>wedish using <fixed-case>GPT</fixed-case>-3 and zero-shot learning</title>
+      <author><first>Dmytro</first><last>Kalpakchi</last><affiliation>KTH Royal Institute of Technology, Stockholm, Sweden</affiliation></author>
+      <author><first>Johan</first><last>Boye</last><affiliation>KTH Royal Institute of Technology, Stockholm, Sweden</affiliation></author>
+      <pages>477-491</pages>
+      <abstract>This paper describes the creation and evaluation of a synthetic dataset of Swedish multiple-choice questions (MCQs) for reading comprehension using GPT-3. Although GPT-3 is trained mostly on English data, with only 0.11% of Swedish texts in its training material, the model still managed to generate MCQs in Swedish. About 44% of the generated MCQs turned out to be of sufficient quality, i.e. they were grammatically correct and relevant, with exactly one answer alternative being correct and the others being plausible but wrong. We provide a detailed analysis of the errors and shortcomings of the rejected MCQs, as well an analysis of the level of difficulty of the accepted MCQs. In addition to giving insights into GPT-3, the synthetic dataset could be used for training and evaluation of special-purpose MCQ-generating models.</abstract>
+      <url hash="7371b19b">2023.nodalida-1.48</url>
+      <bibkey>kalpakchi-boye-2023-quasi</bibkey>
+    </paper>
+    <paper id="49">
+      <title>Automatic Closed Captioning for <fixed-case>E</fixed-case>stonian Live Broadcasts</title>
+      <author><first>Tanel</first><last>Alumäe</last><affiliation>Tallinn University of Technology</affiliation></author>
+      <author><first>Joonas</first><last>Kalda</last></author>
+      <author><first>Külliki</first><last>Bode</last></author>
+      <author><first>Martin</first><last>Kaitsa</last></author>
+      <pages>492-499</pages>
+      <abstract>This paper describes a speech recognition based closed captioning system for Estonian language, primarily intended for the hard-of-hearing community. The system automatically identifies Estonian speech segments, converts speech to text using Kaldi-based TDNN-F models, and applies punctuation insertion and inverse text normalization. The word error rate of the system is 8.5% for television news programs and 13.4% for talk shows. The system is used by the Estonian Public Television for captioning live native language broadcasts and by the Estonian Parliament for captioning its live video feeds. Qualitative evaluation with the target audience showed that while the existence of closed captioning is crucial, the most important aspects that need to be improved are the ASR quality and better synchronization of the captions with the audio.</abstract>
+      <url hash="1cb58de9">2023.nodalida-1.49</url>
+      <bibkey>alumae-etal-2023-automatic</bibkey>
+    </paper>
+    <paper id="50">
+      <title>The Effect of Data Encoding on Relation Triplet Identification</title>
+      <author><first>Steinunn</first><last>Friðriksdóttir</last><affiliation>University of Iceland</affiliation></author>
+      <author><first>Hafsteinn</first><last>Einarsson</last><affiliation>University of Iceland</affiliation></author>
+      <pages>500-507</pages>
+      <abstract>This paper presents a novel method for creating relation extraction data for low-resource languages. Relation extraction (RE) is a task in natural language processing that involves identifying and extracting meaningful relationships between entities in text. Despite the increasing need to extract relationships from unstructured text, the limited availability of annotated data in low-resource languages presents a significant challenge to the development of high-quality relation extraction models. Our method leverages existing methods for high-resource languages to create training data for low-resource languages. The proposed method is simple, efficient and has the potential to significantly improve the performance of relation extraction models for low-resource languages, making it a promising avenue for future research.</abstract>
+      <url hash="b59153ae">2023.nodalida-1.50</url>
+      <bibkey>fridriksdottir-einarsson-2023-effect</bibkey>
+    </paper>
+    <paper id="51">
+      <title>Improving Generalization of <fixed-case>N</fixed-case>orwegian <fixed-case>ASR</fixed-case> with Limited Linguistic Resources</title>
+      <author><first>Per Erik</first><last>Solberg</last><affiliation>National Library of Norway</affiliation></author>
+      <author><first>Pablo</first><last>Ortiz</last></author>
+      <author><first>Phoebe</first><last>Parsons</last><affiliation>Norwegian University of Science and Technology</affiliation></author>
+      <author><first>Torbjørn</first><last>Svendsen</last><affiliation>Norwegian University of Science and Technology</affiliation></author>
+      <author><first>Giampiero</first><last>Salvi</last><affiliation>Norwegian University of Science and Technology and KTH Royal Institute of Technology</affiliation></author>
+      <pages>508-517</pages>
+      <abstract>With large amounts of training data, it is possible to train ASR models that generalize well across speakers and domains. But how do you train robust models when there is a limited amount of available training data? In the experiments reported here, we fine-tuned a pre-trained wav2vec2 ASR model on two transcribed, Norwegian speech datasets, one with parliamentary speech and one with radio recordings, as well as on combinations of the two datasets. We subsequently tested these models on different test sets with planned and unplanned speech and with speakers of various dialects. Our results show that models trained on combinations of the two datasets generalize better to new data than the single-dataset models, even when the length of the training data is the same. Our lexical analysis sheds light on the type of mistakes made by the models and on the importance of consistent standardization when training combined models of this kind.</abstract>
+      <url hash="8ac4600d">2023.nodalida-1.51</url>
+      <bibkey>solberg-etal-2023-improving</bibkey>
+    </paper>
+    <paper id="52">
+      <title>The Finer They Get: Combining Fine-Tuned Models For Better Semantic Change Detection</title>
+      <author><first>Wei</first><last>Zhou</last><affiliation>Universität Stuttgart</affiliation></author>
+      <author><first>Nina</first><last>Tahmasebi</last><affiliation>Dept of Swedish, Språkbanken (The swedish language bank, an NLP Lab)</affiliation></author>
+      <author><first>Haim</first><last>Dubossarsky</last><affiliation>Queen Mary, University of London</affiliation></author>
+      <pages>518-528</pages>
+      <abstract>In this work we investigate the hypothesis that enriching contextualized models using fine-tuning tasks can improve theircapacity to detect lexical semantic change (LSC). We include tasks aimed to capture both low-level linguistic information like part-of-speech tagging, as well as higher level (semantic) information. Through a series of analyses we demonstrate that certain combinations of fine-tuning tasks, like sentiment, syntactic information, and logical inference, bring large improvements to standard LSC models that are based only on standard language modeling. We test on the binary classification and ranking tasks of SemEval-2020 Task 1 and evaluate using both permutation tests and under transfer-learningscenarios.</abstract>
+      <url hash="3e2fa3da">2023.nodalida-1.52</url>
+      <bibkey>zhou-etal-2023-finer</bibkey>
+    </paper>
+    <paper id="53">
+      <title>Question Answering and Question Generation for <fixed-case>F</fixed-case>innish</title>
+      <author><first>Ilmari</first><last>Kylliäinen</last></author>
+      <author><first>Roman</first><last>Yangarber</last><affiliation>University of Helsinki</affiliation></author>
+      <pages>529-540</pages>
+      <abstract>Recent advances in the field of language modeling have improved the state-of-the-art in question answering (QA) and question generation (QG). However, the development of modern neural models, their benchmarks, and datasets for training them has mainly focused on English. Finnish, like many other languages, faces a shortage of large QA/QG model training resources, which has prevented experimenting with state-of-the-art QA/QG fine-tuning methods. We present the first neural QA and QG models that work with Finnish. To train the models, we automatically translate the SQuAD dataset and then use normalization methods to reduce the amount of problematic data created during the translation. Using the synthetic data, together with the Finnish partition of the TyDi-QA dataset, we fine-tune several transformer-based models to both QA and QG and evaluate their performance. To the best of our knowledge, the resulting dataset is the first large-scale QA/QG resource for Finnish. This paper also sets the initial benchmarks for Finnish-language QA and QG.</abstract>
+      <url hash="9a3cde6b">2023.nodalida-1.53</url>
+      <bibkey>kylliainen-yangarber-2023-question</bibkey>
+    </paper>
+    <paper id="54">
+      <title>Probing structural constraints of negation in Pretrained Language Models</title>
+      <author><first>David</first><last>Kletz</last></author>
+      <author><first>Marie</first><last>Candito</last><affiliation>Université de Paris</affiliation></author>
+      <author><first>Pascal</first><last>Amsili</last><affiliation>Sorbonne Nouvelle (Paris 3)</affiliation></author>
+      <pages>541-554</pages>
+      <abstract>Contradictory results about the encoding of the semantic impact of negation in pretrained language models (PLMs) have been drawn recently (e.g. Kassner and Schütze (2020); Gubelmann and Handschuh (2022)).In this paper we focus rather on the way PLMs encode negation and its formal impact, through the phenomenon of the Negative Polarity Item (NPI) licensing in English.More precisely, we use probes to identify which contextual representations best encode 1) the presence of negation in a sentence, and 2) the polarity of a neighboring masked polarity item. We find that contextual representations of tokens inside the negation scope do allow for (i) a better prediction of the presence of “not” compared to those outside the scope and (ii) a better prediction of the right polarity of a masked polarity item licensed by “not”, although the magnitude of the difference varies from PLM to PLM. Importantly, in both cases the trend holds even when controlling for distance to “not”.This tends to indicate that the embeddings of these models do reflect the notion of negation scope, and do encode the impact of negation on NPI licensing. Yet, further control experiments reveal that the presence of other lexical items is also better captured when using the contextual representation of a token within the same syntactic clause than outside from it, suggesting that PLMs simply capture the more general notion of syntactic clause.</abstract>
+      <url hash="a35f4d07">2023.nodalida-1.54</url>
+      <bibkey>kletz-etal-2023-probing</bibkey>
+    </paper>
+    <paper id="55">
+      <title>Boosting <fixed-case>N</fixed-case>orwegian Automatic Speech Recognition</title>
+      <author><first>Javier</first><last>De La Rosa</last><affiliation>National Library of Norway</affiliation></author>
+      <author><first>Rolv-Arild</first><last>Braaten</last></author>
+      <author><first>Per</first><last>Kummervold</last></author>
+      <author><first>Freddy</first><last>Wetjen</last></author>
+      <pages>555-564</pages>
+      <abstract>In this paper, we present several baselines for automatic speech recognition (ASR) models for the two official written languages in Norway: Bokmål and Nynorsk. We compare the performance of models of varying sizes and pre-training approaches on multiple Norwegian speech datasets. Additionally, we measure the performance of these models against previous state-of-the-art ASR models, as well as on out-of-domain datasets. We improve the state of the art on the Norwegian Parliamentary Speech Corpus (NPSC) from a word error rate (WER) of 17.10% to 7.60%, with models achieving 5.81% for Bokmål and 11.54% for Nynorsk. We also discuss the challenges and potential solutions for further improving ASR models for Norwegian.</abstract>
+      <url hash="7501210f">2023.nodalida-1.55</url>
+      <bibkey>de-la-rosa-etal-2023-boosting</bibkey>
+    </paper>
+    <paper id="56">
+      <title>Length Dependence of Vocabulary Richness</title>
+      <author><first>Niklas</first><last>Zechner</last><affiliation>Göteborg University</affiliation></author>
+      <pages>565-573</pages>
+      <abstract>The relation between the length of a text and the number of unique words is investigated using several Swedish language corpora. We consider a number of existing measures of vocabulary richness, show that they are not length-independent, and try to improve on some of them based on statistical evidence. We also look at the spectrum of values over text lengths, and find that genres have characteristic shapes.</abstract>
+      <url hash="b20963af">2023.nodalida-1.56</url>
+      <bibkey>zechner-2023-length</bibkey>
+    </paper>
+    <paper id="57">
+      <title>A query engine for <fixed-case>L</fixed-case>1-<fixed-case>L</fixed-case>2 parallel dependency treebanks</title>
+      <author><first>Arianna</first><last>Masciolini</last><affiliation>Göteborg University</affiliation></author>
+      <pages>574-587</pages>
+      <abstract>L1-L2 parallel dependency treebanks are learner corpora with interoperability as their main design goal. They consist of sentences produced by learners of a second language (L2) paired with native-like (L1) correction hypotheses. Rather than explicitly labelled for errors, these are annotated following the Universal Dependencies standard. This implies relying on tree queries for error retrieval. Work in this direction is, however, limited. We present a query engine for L1-L2 treebanks and evaluate it on two corpora, one manually validated and one automatically parsed.</abstract>
+      <url hash="4366dca9">2023.nodalida-1.57</url>
+      <bibkey>masciolini-2023-query</bibkey>
+    </paper>
+    <paper id="58">
+      <title>Filtering Matters: Experiments in Filtering Training Sets for Machine Translation</title>
+      <author><first>Steinþór</first><last>Steingrímsson</last></author>
+      <author><first>Hrafn</first><last>Loftsson</last><affiliation>Reykjavík University</affiliation></author>
+      <author><first>Andy</first><last>Way</last></author>
+      <pages>588-600</pages>
+      <abstract>We explore different approaches for filtering parallel data for MT training, whether the same filtering approaches suit different datasets, and if separate filters should be applied to a dataset depending on the translation direction. We evaluate the results of different approaches, both manually and on a downstream NMT task. We find that, first, it is beneficial to inspect how well different filtering approaches suit different datasets and, second, that while MT systems trained on data prepared using different filters do not differ substantially in quality, there is indeed a statistically significant difference. Finally, we find that the same training sets do not seem to suit different translation directions.</abstract>
+      <url hash="3111efac">2023.nodalida-1.58</url>
+      <bibkey>steingrimsson-etal-2023-filtering</bibkey>
+    </paper>
+    <paper id="59">
+      <title>Gamli - <fixed-case>I</fixed-case>celandic Oral History Corpus: Design, Collection and Evaluation</title>
+      <author><first>Luke</first><last>O’Brien</last><affiliation>Tiro</affiliation></author>
+      <author><first>Finnur</first><last>Ingimundarson</last></author>
+      <author><first>Jón</first><last>Guðnasson</last></author>
+      <author><first>Steinþór</first><last>Steingrímsson</last></author>
+      <pages>601-609</pages>
+      <abstract>We present Gamli, an ASR corpus for Icelandic oral histories, the first of its kind for this language, derived from the Ísmús ethnographic collection. Corpora for oral histories differ in various ways from corpora for general ASR, they contain spontaneous speech, multiple speakers per channel, noisy environments, the effects of historic recording equipment, and typically a large proportion of elderly speakers. Gamli contains 146 hours of aligned speech and transcripts, split into a training set and a test set. We describe our approach for creating the transcripts, through both OCR of previous transcripts and post-editing of ASR output. We also describe our approach for aligning, segmenting, and filtering the corpus and finally training a Kaldi ASR system, which achieves 22.4% word error rate (WER) on the Gamli test set, a substantial improvement from 58.4% word error rate from a baseline general ASR system for Icelandic.</abstract>
+      <url hash="a7100d6f">2023.nodalida-1.59</url>
+      <bibkey>obrien-etal-2023-gamli</bibkey>
+    </paper>
+    <paper id="60">
+      <title><fixed-case>N</fixed-case>o<fixed-case>C</fixed-case>o<fixed-case>LA</fixed-case>: The <fixed-case>N</fixed-case>orwegian Corpus of Linguistic Acceptability</title>
+      <author><first>Matias</first><last>Jentoft</last></author>
+      <author><first>David</first><last>Samuel</last><affiliation>University of Oslo</affiliation></author>
+      <pages>610-617</pages>
+      <abstract>While there has been a surge of large language models for Norwegian in recent years, we lack any tool to evaluate their understanding of grammaticality. We present two new Norwegian datasets for this task. NoCoLA-class is a supervised binary classification task where the goal is to discriminate between acceptable and non-acceptable sentences. On the other hand, NoCoLA-zero is a purely diagnostic task for evaluating the grammatical judgement of a language model in a completely zero-shot manner, i.e. without any further training. In this paper, we describe both datasets in detail, show how to use them for different flavors of language models, and conduct a comparative study of the existing Norwegian language models.</abstract>
+      <url hash="1e833c52">2023.nodalida-1.60</url>
+      <bibkey>jentoft-samuel-2023-nocola</bibkey>
+    </paper>
+    <paper id="61">
+      <title><fixed-case>N</fixed-case>or<fixed-case>B</fixed-case>ench – A Benchmark for <fixed-case>N</fixed-case>orwegian Language Models</title>
+      <author><first>David</first><last>Samuel</last><affiliation>University of Oslo</affiliation></author>
+      <author><first>Andrey</first><last>Kutuzov</last><affiliation>University of Oslo</affiliation></author>
+      <author><first>Samia</first><last>Touileb</last><affiliation>University og Bergen, Norway</affiliation></author>
+      <author><first>Erik</first><last>Velldal</last><affiliation>University of Oslo</affiliation></author>
+      <author><first>Lilja</first><last>Øvrelid</last><affiliation>Dept. of Informatics, University of Oslo</affiliation></author>
+      <author><first>Egil</first><last>Rønningstad</last></author>
+      <author><first>Elina</first><last>Sigdel</last></author>
+      <author><first>Anna</first><last>Palatkina</last></author>
+      <pages>618-633</pages>
+      <abstract>We present NorBench: a streamlined suite of NLP tasks and probes for evaluating Norwegian language models (LMs) on standardized data splits and evaluation metrics. We also introduce a range of new Norwegian language models (both encoder and encoder-decoder based). Finally, we compare and analyze their performance, along with other existing LMs, across the different benchmark tests of NorBench.</abstract>
+      <url hash="cda9b744">2023.nodalida-1.61</url>
+      <bibkey>samuel-etal-2023-norbench</bibkey>
+    </paper>
+    <paper id="62">
+      <title>Making Instruction Finetuning Accessible to Non-<fixed-case>E</fixed-case>nglish Languages: A Case Study on <fixed-case>S</fixed-case>wedish Models</title>
+      <author><first>Oskar</first><last>Holmström</last></author>
+      <author><first>Ehsan</first><last>Doostmohammadi</last></author>
+      <pages>634-642</pages>
+      <abstract>In recent years, instruction finetuning models have received increased attention due to their remarkable zero-shot and generalization capabilities. However, the widespread implementation of these models has been limited to the English language, largely due to the costs and challenges associated with creating instruction datasets. To overcome this, automatic instruction generation has been proposed as a resourceful alternative. We see this as an opportunity for the adoption of instruction finetuning for other languages. In this paper we explore the viability of instruction finetuning for Swedish. We translate a dataset of generated instructions from English to Swedish, using it to finetune both Swedish and non-Swedish models. Results indicate that the use of translated instructions significantly improves the models’ zero-shot performance, even on unseen data, while staying competitive with strong baselines ten times in size. We see this paper is a first step and a proof of concept that instruction finetuning for Swedish is within reach, through resourceful means, and that there exist several directions for further improvements.</abstract>
+      <url hash="9c42424e">2023.nodalida-1.62</url>
+      <bibkey>holmstrom-doostmohammadi-2023-making</bibkey>
+    </paper>
+    <paper id="63">
+      <title><fixed-case>G</fixed-case>iella<fixed-case>LT</fixed-case> — a stable infrastructure for <fixed-case>N</fixed-case>ordic minority languages and beyond</title>
+      <author><first>Flammie</first><last>Pirinen</last><affiliation>Norgga árktalaš universitehta</affiliation></author>
+      <author><first>Sjur</first><last>Moshagen</last></author>
+      <author><first>Katri</first><last>Hiovain-Asikainen</last></author>
+      <pages>643-649</pages>
+      <abstract>Long term language technology infrastructures are critical for continued maintenance of language technology based software that is used to support the use of languages in digital world. In Nordic area we have languages ranging from well-resourced national majority languages like Norwegian, Swedish and Finnish as well as minoritised, unresourced and indigenous languages like Sámi languages. We present an infrastructure that has been build in over 20 years time that supports building language technology and tools for most of the Nordic languages as well as many of the languages all over the world, with focus on Sámi and other indigenous, minoritised and unresourced languages. We show that one common infrastructure can be used to build tools from keyboards and spell-checkers to machine translators, grammar checkers and text-to-speech as well as automatic speech recognition.</abstract>
+      <url hash="6c4e8c95">2023.nodalida-1.63</url>
+      <bibkey>pirinen-etal-2023-giellalt</bibkey>
+    </paper>
+    <paper id="64">
+      <title>Adapting an <fixed-case>I</fixed-case>celandic morphological database to <fixed-case>F</fixed-case>aroese</title>
+      <author><first>Kristján</first><last>Rúnarsson</last></author>
+      <author><first>Kristin</first><last>Bjarnadottir</last><affiliation>Stofnun Árna Magnússonar í íslenskum fræðum</affiliation></author>
+      <pages>650-654</pages>
+      <abstract>This paper describes the adaptation of the database system developed for the Database of Icelandic Morphology (DIM) to the Faroese language and the creation of the Faroese Morphological Database using that system from lexicographical data collected for a Faroese spellchecker project.</abstract>
+      <url hash="ffed07f5">2023.nodalida-1.64</url>
+      <bibkey>runarsson-bjarnadottir-2023-adapting</bibkey>
+    </paper>
+    <paper id="65">
+      <title><fixed-case>D</fixed-case>anish Clinical Named Entity Recognition and Relation Extraction</title>
+      <author><first>Martin</first><last>Laursen</last></author>
+      <author><first>Jannik</first><last>Pedersen</last></author>
+      <author><first>Rasmus</first><last>Hansen</last></author>
+      <author><first>Thiusius Rajeeth</first><last>Savarimuthu</last><affiliation>University of Southern Denmark - SDU</affiliation></author>
+      <author><first>Pernille</first><last>Vinholt</last><affiliation>University of Southern Denmark - SDU</affiliation></author>
+      <pages>655-666</pages>
+      <abstract>Electronic health records contain important information regarding the patients’ medical history but much of this information is stored in unstructured narrative text. This paper presents the first Danish clinical named entity recognition and relation extraction dataset for extraction of six types of clinical events, six types of attributes, and three types of relations. The dataset contains 11,607 paragraphs from Danish electronic health records containing 54,631 clinical events, 41,954 attributes, and 14,604 relations. We detail the methodology of developing the annotation scheme, and train a transformer-based architecture on the developed dataset with macro F1 performance of 60.05%, 44.85%, and 70.64% for clinical events, attributes, and relations, respectively.</abstract>
+      <url hash="31cdb9f5">2023.nodalida-1.65</url>
+      <bibkey>laursen-etal-2023-danish</bibkey>
+    </paper>
+    <paper id="66">
+      <title>Scaling-up the Resources for a Freely Available <fixed-case>S</fixed-case>wedish <fixed-case>VADER</fixed-case> (sv<fixed-case>VADER</fixed-case>)</title>
+      <author><first>Dimitrios</first><last>Kokkinakis</last><affiliation>Göteborg University</affiliation></author>
+      <author><first>Ricardo</first><last>Muñoz Sánchez</last><affiliation>Göteborg University</affiliation></author>
+      <author><first>Mia-Marie</first><last>Hammarlin</last></author>
+      <pages>667-672</pages>
+      <abstract>With widespread commercial applications in various domains, sentiment analysis has become a success story for Natural Language Processing (NLP). Still, although sentiment analysis has rapidly progressed during the last years, mainly due to the application of modern AI technologies, many approaches apply knowledge-based strategies, such as lexicon-based, to the task. This is particularly true for analyzing short social media content, e.g., tweets. Moreover, lexicon-based sentiment analysis approaches are usually preferred over learning-based methods when training data is unavailable or insufficient. Therefore, our main goal is to scale-up and apply a lexicon-based approach which can be used as a baseline to Swedish sentiment analysis. All scaled-up resources are made available, while the performance of this enhanced tool is evaluated on two short datasets, achieving adequate results.</abstract>
+      <url hash="b03d99e0">2023.nodalida-1.66</url>
+      <bibkey>kokkinakis-etal-2023-scaling</bibkey>
+    </paper>
+    <paper id="67">
+      <title><fixed-case>C</fixed-case>olex2<fixed-case>L</fixed-case>ang: Language Embeddings from Semantic Typology</title>
+      <author><first>Yiyi</first><last>Chen</last></author>
+      <author><first>Russa</first><last>Biswas</last></author>
+      <author><first>Johannes</first><last>Bjerva</last><affiliation>Aalborg University</affiliation></author>
+      <pages>673-684</pages>
+      <abstract>In semantic typology, colexification refers to words with multiple meanings, either related (polysemy) or unrelated (homophony). Studies of cross-linguistic colexification have yielded insights into, e.g., psychology, historical linguistics and cognitive science (Xu et al., 2020; Brochhagen and Boleda, 2022; Schapper and Koptjevskaja-Tamm, 2022). While NLP research up until now has mainly focused on integrating syntactic typology (Naseem et al., 2012; Ponti et al., 2019; Chaudhary et al., 2019; Üstün et al., 2020; Ansell et al., 2021; Oncevay et al., 2022), we here investigate the potential of incorporating semantic typology, of which colexification is an example. We propose a framework for constructing a large-scale synset graph and learning language representations with node embedding algorithms. We demonstrate that cross-lingual colexification patterns provide a distinct signal for modelling language similarity and predicting typological features. Our representations achieve a 9.97% performance gain in predicting lexico-semantic typological features and expectantly contain a weaker syntactic signal. This study is the first attempt to learn language representations and model language similarities using semantic typology at a large scale, setting a new direction for multilingual NLP, especially for low-resource languages.</abstract>
+      <url hash="083dfd20">2023.nodalida-1.67</url>
+      <bibkey>chen-etal-2023-colex2lang</bibkey>
+    </paper>
+    <paper id="68">
+      <title>Toxicity Detection in <fixed-case>F</fixed-case>innish Using Machine Translation</title>
+      <author><first>Anni</first><last>Eskelinen</last><affiliation>University of Turku and University of Turku</affiliation></author>
+      <author><first>Laura</first><last>Silvala</last></author>
+      <author><first>Filip</first><last>Ginter</last></author>
+      <author><first>Sampo</first><last>Pyysalo</last></author>
+      <author><first>Veronika</first><last>Laippala</last><affiliation>University of Turku</affiliation></author>
+      <pages>685-697</pages>
+      <abstract>Due to the popularity of social media platforms and the sheer amount of user-generated content online, the automatic detection of toxic language has become crucial in the creation of a friendly and safe digital space. Previous work has been mostly focusing on English leaving many lower-resource languages behind. In this paper, we present novel resources for toxicity detection in Finnish by introducing two new datasets, a machine translated toxicity dataset for Finnish based on the widely used English Jigsaw dataset and a smaller test set of Suomi24 discussion forum comments originally written in Finnish and manually annotated following the definitions of the labels that were used to annotate the Jigsaw dataset. We show that machine translating the training data to Finnish provides better toxicity detection results than using the original English training data and zero-shot cross-lingual transfer with XLM-R, even with our newly annotated dataset from Suomi24.</abstract>
+      <url hash="b2103eb5">2023.nodalida-1.68</url>
+      <bibkey>eskelinen-etal-2023-toxicity</bibkey>
+    </paper>
+    <paper id="69">
+      <title>Evaluating a <fixed-case>U</fixed-case>niversal <fixed-case>D</fixed-case>ependencies Conversion Pipeline for <fixed-case>I</fixed-case>celandic</title>
+      <author><first>Þórunn</first><last>Arnardóttir</last><affiliation>University of Iceland</affiliation></author>
+      <author><first>Hinrik</first><last>Hafsteinsson</last></author>
+      <author><first>Atli</first><last>Jasonarson</last><affiliation>The Árni Magnússon Institute for Icelandic Studies</affiliation></author>
+      <author><first>Anton</first><last>Ingason</last></author>
+      <author><first>Steinþór</first><last>Steingrímsson</last></author>
+      <pages>698-704</pages>
+      <abstract>We describe the evaluation and development of a rule-based treebank conversion tool, UDConverter, which converts treebanks from the constituency-based PPCHE annotation scheme to the dependency-based Universal Dependencies (UD) scheme. The tool has already been used in the production of three UD treebanks, although no formal evaluation of the tool has been carried out as of yet. By manually correcting new output files from the converter and comparing them to the raw output, we measured the labeled attachment score (LAS) and unlabeled attachment score (UAS) of the converted texts. We obtain an LAS of 82.87 and a UAS of 87.91. In comparison to other tools, UDConverter currently provides the best results in automatic UD treebank creation for Icelandic.</abstract>
+      <url hash="09b78a4a">2023.nodalida-1.69</url>
+      <bibkey>arnardottir-etal-2023-evaluating</bibkey>
+    </paper>
+    <paper id="70">
+      <title>Automatic Transcription for <fixed-case>E</fixed-case>stonian Children’s Speech</title>
+      <author><first>Agnes</first><last>Luhtaru</last><affiliation>institute of computer science, University of Tartu</affiliation></author>
+      <author><first>Rauno</first><last>Jaaska</last></author>
+      <author><first>Karl</first><last>Kruusamäe</last><affiliation>University of Tartu</affiliation></author>
+      <author><first>Mark</first><last>Fishel</last><affiliation>University of Tartu</affiliation></author>
+      <pages>705-709</pages>
+      <abstract>We evaluate the impact of recent improvements in Automatic Speech Recognition (ASR) on transcribing Estonian children’s speech. Our research focuses on fine-tuning large ASR models with a 10-hour Estonian children’s speech dataset to create accurate transcriptions. Our results show that large pre-trained models hold great potential when fine-tuned first with a more substantial Estonian adult speech corpus and then further trained with children’s speech.</abstract>
+      <url hash="e9ce74b4">2023.nodalida-1.70</url>
+      <bibkey>luhtaru-etal-2023-automatic</bibkey>
+    </paper>
+    <paper id="71">
+      <title>Translated Benchmarks Can Be Misleading: the Case of <fixed-case>E</fixed-case>stonian Question Answering</title>
+      <author><first>Hele-Andra</first><last>Kuulmets</last><affiliation>University of Tartu</affiliation></author>
+      <author><first>Mark</first><last>Fishel</last><affiliation>University of Tartu</affiliation></author>
+      <pages>710-716</pages>
+      <abstract>Translated test datasets are a popular and cheaper alternative to native test datasets. However, one of the properties of translated data is the existence of cultural knowledge unfamiliar to the target language speakers. This can make translated test datasets differ significantly from native target datasets. As a result, we might inaccurately estimate the performance of the models in the target language. In this paper, we use both native and translated Estonian QA datasets to study this topic more closely. We discover that relying on the translated test dataset results in an overestimation of the model’s performance on native Estonian data.</abstract>
+      <url hash="685334b3">2023.nodalida-1.71</url>
+      <bibkey>kuulmets-fishel-2023-translated</bibkey>
+    </paper>
+    <paper id="72">
+      <title>Predicting the presence of inline citations in academic text using binary classification</title>
+      <author><first>Peter</first><last>Vajdecka</last></author>
+      <author><first>Elena</first><last>Callegari</last></author>
+      <author><first>Desara</first><last>Xhura</last></author>
+      <author><first>Atli</first><last>Ásmundsson</last></author>
+      <pages>717-722</pages>
+      <abstract>Properly citing sources is a crucial component of any good-quality academic paper. The goal of this study was to determine what kind of accuracy we could reach in predicting whether or not a sentence should contain an inline citation using a simple binary classification model. To that end, we fine-tuned SciBERT on both an imbalanced and a balanced dataset containing sentences with and without inline citations. We achieved an overall accuracy of over 0.92, suggesting that language patterns alone could be used to predict where inline citations should appear with some degree of accuracy.</abstract>
+      <url hash="c219a794">2023.nodalida-1.72</url>
+      <bibkey>vajdecka-etal-2023-predicting</bibkey>
+    </paper>
+    <paper id="73">
+      <title>Neural Text-to-Speech Synthesis for <fixed-case>V</fixed-case>õro</title>
+      <author><first>Liisa</first><last>Rätsep</last><affiliation>University of Tartu</affiliation></author>
+      <author><first>Mark</first><last>Fishel</last><affiliation>University of Tartu</affiliation></author>
+      <pages>723-727</pages>
+      <abstract>This paper presents the first high-quality neural text-to-speech (TTS) system for Võro, a minority language spoken in Southern Estonia. By leveraging existing Estonian TTS models and datasets, we analyze whether common low-resource NLP techniques, such as cross-lingual transfer learning from related languages or multi-task learning, can benefit our low-resource use case. Our results show that we can achieve high-quality Võro TTS without transfer learning and that using more diverse training data can even decrease synthesis quality. While these techniques may still be useful in some cases, our work highlights the need for caution when applied in specific low-resource scenarios, and it can provide valuable insights for future low-resource research and efforts in preserving minority languages.</abstract>
+      <url hash="eb09ef66">2023.nodalida-1.73</url>
+      <bibkey>ratsep-fishel-2023-neural</bibkey>
+    </paper>
+    <paper id="74">
+      <title>Transfer to a Low-Resource Language via Close Relatives: The Case Study on <fixed-case>F</fixed-case>aroese</title>
+      <author><first>Vésteinn</first><last>Snæbjarnarson</last></author>
+      <author><first>Annika</first><last>Simonsen</last></author>
+      <author><first>Goran</first><last>Glavaš</last><affiliation>Julius-Maximilians-Universität Würzburg</affiliation></author>
+      <author><first>Ivan</first><last>Vulić</last><affiliation>University of Cambridge and PolyAI Limited</affiliation></author>
+      <pages>728-737</pages>
+      <abstract>Multilingual language models have pushed state-of-the-art in cross-lingual NLP transfer. The majority of zero-shot cross-lingual transfer, however, use one and the same massively multilingual transformer (e.g., mBERT or XLM-R) to transfer to all target languages, irrespective of their typological, etymological, and phylogenetic relations to other languages. In particular, readily available data and models of resource-rich sibling languages are often ignored. In this work, we empirically show, in a case study for Faroese – a low-resource language from a high-resource language family – that by leveraging the phylogenetic information and departing from the ‘one-size-fits-all’ paradigm, one can improve cross-lingual transfer to low-resource languages. In particular, we leverage abundant resources of other Scandinavian languages (i.e., Danish, Norwegian, Swedish, and Icelandic) for the benefit of Faroese. Our evaluation results show that we can substantially improve the transfer performance to Faroese by exploiting data and models of closely-related high-resource languages. Further, we release a new web corpus of Faroese and Faroese datasets for named entity recognition (NER), semantic text similarity (STS), and new language models trained on all Scandinavian languages.</abstract>
+      <url hash="b71984e9">2023.nodalida-1.74</url>
+      <bibkey>snaebjarnarson-etal-2023-transfer</bibkey>
+    </paper>
+    <paper id="75">
+      <title>Evaluating Morphological Generalisation in Machine Translation by Distribution-Based Compositionality Assessment</title>
+      <author><first>Anssi</first><last>Moisio</last><affiliation>Aalto University</affiliation></author>
+      <author><first>Mathias</first><last>Creutz</last><affiliation>University of Helsinki</affiliation></author>
+      <author><first>Mikko</first><last>Kurimo</last><affiliation>Aalto University</affiliation></author>
+      <pages>738-751</pages>
+      <abstract>Compositional generalisation refers to the ability to understand and generate a potentially infinite number of novel meanings using a finite group of known primitives and a set of rules to combine them. The degree to which artificial neural networks can learn this ability is an open question. Recently, some evaluation methods and benchmarks have been proposed to test compositional generalisation, but not many have focused on the morphological level of language. We propose an application of the previously developed distribution-based compositionality assessment method to assess morphological generalisation in NLP tasks, such as machine translation or paraphrase detection. We demonstrate the use of our method by comparing translation systems with different BPE vocabulary sizes. The evaluation method we propose suggests that small vocabularies help with morphological generalisation in NMT.</abstract>
+      <url hash="06d398fe">2023.nodalida-1.75</url>
+      <bibkey>moisio-etal-2023-evaluating</bibkey>
+    </paper>
+    <paper id="76">
+      <title><fixed-case>E</fixed-case>stonian Named Entity Recognition: New Datasets and Models</title>
+      <author><first>Kairit</first><last>Sirts</last><affiliation>University of Tartu</affiliation></author>
+      <pages>752-761</pages>
+      <abstract>This paper presents the annotation process of two Estonian named entity recognition (NER) datasets, involving the creation of annotation guidelines for labeling eleven different types of entities. In addition to the commonly annotated entities such as person names, organization names, and locations, the annotation scheme encompasses geopolitical entities, product names, titles/roles, events, dates, times, monetary values, and percents. The annotation was performed on two datasets, one involving reannotating an existing NER dataset primarily composed of news texts and the other incorporating new texts from news and social media domains. Transformer-based models were trained on these annotated datasets to establish baseline predictive performance. Our findings indicate that the best results were achieved by training a single model on the combined dataset, suggesting that the domain differences between the datasets are relatively small.</abstract>
+      <url hash="f24b8882">2023.nodalida-1.76</url>
+      <bibkey>sirts-2023-estonian</bibkey>
+    </paper>
+    <paper id="77">
+      <title>Machine Translation for Low-resource <fixed-case>F</fixed-case>inno-<fixed-case>U</fixed-case>gric Languages</title>
+      <author><first>Lisa</first><last>Yankovskaya</last></author>
+      <author><first>Maali</first><last>Tars</last></author>
+      <author><first>Andre</first><last>Tättar</last><affiliation>University of Tartu</affiliation></author>
+      <author><first>Mark</first><last>Fishel</last><affiliation>University of Tartu</affiliation></author>
+      <pages>762-771</pages>
+      <abstract>This paper focuses on neural machine translation (NMT) for low-resource Finno-Ugric languages. Our contributions are three-fold: (1) we extend existing and collect new parallel and monolingual corpora for 20 languages, (2) we expand the 200-language translation benchmark FLORES-200 with manual translations into nine new languages, and (3) we present experiments using the collected data to create NMT systems for the included languages and investigate the impact of back-translation data on the NMT performance for low-resource languages. Experimental results show that carefully selected limited amounts of back-translation directions yield the best results in terms of translation scores, for both high-resource and low-resource output languages.</abstract>
+      <url hash="99fdbf01">2023.nodalida-1.77</url>
+      <bibkey>yankovskaya-etal-2023-machine</bibkey>
+    </paper>
+    <paper id="78">
+      <title>Distilling <fixed-case>E</fixed-case>stonian Text Domains for Production-Oriented Machine Translation</title>
+      <author><first>Elizaveta</first><last>Korotkova</last><affiliation>University of Tartu</affiliation></author>
+      <author><first>Mark</first><last>Fishel</last><affiliation>University of Tartu</affiliation></author>
+      <pages>772-781</pages>
+      <abstract>This paper explores knowledge distillation for multi-domain neural machine translation (NMT). We focus on the Estonian-English translation direction and experiment with distilling the knowledge of multiple domain-specific teacher models into a single student model that is tiny and efficient. Our experiments use a large parallel dataset of 18 million sentence pairs, consisting of 10 corpora, divided into 6 domain groups based on source similarity, and incorporate forward-translated monolingual data. Results show that tiny student models can cope with multiple domains even in case of large corpora, with different approaches benefiting frequent and low-resource domains.</abstract>
+      <url hash="17bea4e6">2023.nodalida-1.78</url>
+      <bibkey>korotkova-fishel-2023-distilling</bibkey>
+    </paper>
+    <paper id="79">
+      <title>Spelling Correction for <fixed-case>E</fixed-case>stonian Learner Language</title>
+      <author><first>Kais</first><last>Allkivi-Metsoja</last><affiliation>Tallinn University and Tallinn University</affiliation></author>
+      <author><first>Jaagup</first><last>Kippar</last></author>
+      <pages>782-788</pages>
+      <abstract>Second and foreign language (L2) learners often make specific spelling errors compared to native speakers. Language-independent spell-checking algorithms that rely on n-gram models can offer a simple solution for improving learner error detection and correction due to context-sensitivity. As the open-source speller previously available for Estonian is rule-based, our aim was to evaluate the performance of bi- and trigram-based statistical spelling correctors on an error-tagged set of A2–C1-level texts written by L2 learners of Estonian. The newly trained spell-checking models were compared to existing correction tools (open-source and commercial). Then, the best-performing Jamspell corrector was trained on various datasets to analyse their effect on the correction results.</abstract>
+      <url hash="f2c1d9f8">2023.nodalida-1.79</url>
+      <bibkey>allkivi-metsoja-kippar-2023-spelling</bibkey>
+    </paper>
+  </volume>
+  <volume id="cgmta" ingest-date="2023-12-19" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of the NoDaLiDa 2023 Workshop on Constraint Grammar - Methods, Tools and Applications</booktitle>
+      <editor><first>Eckhard</first><last>Bick</last></editor>
+      <editor><first>Trond</first><last>Trosterud</last></editor>
+      <editor><first>Tanel</first><last>Alumäe</last></editor>
+      <publisher>Association of Computational Linguistics</publisher>
+      <address>Tórshavn, Faroe Islands</address>
+      <month>May</month>
+      <year>2023</year>
+      <url hash="97ad1022">2023.nodalida-cgmta</url>
+      <venue>ws</venue>
+    </meta>
+    <frontmatter>
+      <url hash="8592bfac">2023.nodalida-cgmta.0</url>
+      <bibkey>cgmta-2023-nodalida</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Attribution of Quoted Speech in <fixed-case>P</fixed-case>ortuguese Text</title>
+      <author><first>Eckhard</first><last>Bick</last></author>
+      <pages>1-9</pages>
+      <abstract>This paper describes and evaluates a rule-based system implementing a novel method for quote attribution in Portuguese text, working on top of a Constraint-Grammar parse. Both direct and indirect speech are covered, as well as certain other text- embedded quote sources. In a first step, the system performs quote segmentation and identifies speech verbs, taking into account the different styles used in literature and news text. Speakers are then identified using syntactically and semantically grounded Constraint-Grammar rules. We rely on relational links and stream variables to handle anaphorical mentions and to recover the names of implied or underspecified speakers. In an evaluation including both literature and news text, the system performed well on both the segmentation and attribution tasks, achieving F-scores of 98-99% for the former and 89-94% for the latter.</abstract>
+      <url hash="90bda547">2023.nodalida-cgmta.1</url>
+      <bibkey>bick-2023-attribution</bibkey>
+    </paper>
+    <paper id="2">
+      <title><fixed-case>WITH</fixed-case> Context: Adding Rule-Grouping to <fixed-case>VISL</fixed-case> <fixed-case>CG</fixed-case>-3</title>
+      <author><first>Daniel</first><last>Swanson</last></author>
+      <author><first>Tino</first><last>Didriksen</last></author>
+      <author><first>Francis M.</first><last>Tyers</last></author>
+      <pages>10-14</pages>
+      <abstract>This paper presents an extension to the VISL CG-3 compiler and processor which enables complex contexts to be shared between rules. This sharing substantially improves the readability and maintainability of sets of rules performing multi-step operations.</abstract>
+      <url hash="0075725b">2023.nodalida-cgmta.2</url>
+      <bibkey>swanson-etal-2023-context</bibkey>
+    </paper>
+    <paper id="3">
+      <title>To ð or not to ð - A <fixed-case>F</fixed-case>aroese <fixed-case>CG</fixed-case>-based grammar checker targeting ð errors</title>
+      <author><first>Trond</first><last>Trosterud</last></author>
+      <pages>15-19</pages>
+      <abstract>Many errors in Faroese writing are linked to the letter ð, a letter which has no corresponding phoneme, and is always omitted intervocally and wordfinally after a vowel. It plays an important role in the written language, disambiguating homophone but not homograph forms like infinitive kasta ‘throw’ from its participle kastað. Since adding a hypercorrect ð or erroneously omitting it often results in an existing word, these errors cannot be captured by ordinary spellcheckers. The article presents a grammar checker targeting ð errors, and discusses challenges related to false alarms.</abstract>
+      <url hash="3abb03b3">2023.nodalida-cgmta.3</url>
+      <bibkey>trosterud-2023-faroese</bibkey>
+    </paper>
+    <paper id="4">
+      <title>Towards automatic essay scoring of <fixed-case>B</fixed-case>asque language texts from a rule-based approach based on curriculum-aware systems</title>
+      <author><first>Jose Maria</first><last>Arriola</last></author>
+      <author><first>Mikel</first><last>Iruskieta</last></author>
+      <author><first>Ekain</first><last>Arrieta</last></author>
+      <author><first>Jon</first><last>Alkorta</last></author>
+      <pages>20-28</pages>
+      <abstract>Although the Basque Education Law mentions that students must finish secondary compulsory education at B2 Basque level and their undergraduate studies at the C1 level, there are no objective tests or tools that can discriminate between these levels. This work presents the first rule-based method to grade written Basque learner texts. We adapt the adult Basque learner curriculum based on the CEFR to create a rule-based grammar for Basque. This paper summarises the results obtained in different classification tasks by combining information formalised through CG3 and different machine learning algorithms used in text classification. Besides, we perform a manual evaluation of the grammar. Finally, we discuss the informa- tiveness of these rules and some ways to further improve assisted text grading and combine rule-based approaches with other approaches based on readability and complexity measures.</abstract>
+      <url hash="8724e434">2023.nodalida-cgmta.4</url>
+      <bibkey>arriola-etal-2023-towards</bibkey>
+    </paper>
+    <paper id="5">
+      <title>Correcting well-known interference errors – Towards a <fixed-case>L</fixed-case>2 grammar checker for Inari Saami</title>
+      <author><first>Trond</first><last>Trosterud</last></author>
+      <author><first>Marja-Liisa</first><last>Olthuis</last></author>
+      <author><first>Linda</first><last>Wiechetek</last></author>
+      <pages>29-36</pages>
+      <abstract>We present GramDivvun, the first Inari Saami grammar checker for L2 users. The grammar checker is an important tool in the revitalisation of the language, in particular for strengthening the literary language. As the Inari Saami language community needs language tools predominantly for language learners, the focus is on grammatical interference errors made by (mostly Finnish-speaking) learners. Six of these errors are featured in the first version of the grammar checker. For non-proofread text written by inexperienced writers, precision is good, 73%. With experienced text and proofread text, alarms are rare but precision considerably lower, 19.5 % on average, but varying considerably between the error types. The paper discusses reasons for this variation. Future plans are improving results by means of increased testing, especially for complex sentences, and eventually also including more error types.</abstract>
+      <url hash="25793c8b">2023.nodalida-cgmta.5</url>
+      <bibkey>trosterud-etal-2023-correcting</bibkey>
+    </paper>
+    <paper id="6">
+      <title>Supporting Language Users - Releasing a Full-fledged <fixed-case>L</fixed-case>ule <fixed-case>S</fixed-case>ámi Grammar Checker</title>
+      <author><first>Inga Lill Sigga</first><last>Mikkelsen</last></author>
+      <author><first>Linda</first><last>Wiechetek</last></author>
+      <pages>37-45</pages>
+      <abstract>We present the first rule-based L1 grammar checker for Lule Sámi. Releasing a Lule Sámi grammar checker has direct consequences for language revitalization. Our primary intention is therefore to support language users in their writing and their confidence to use the language. We release a version of the tool for MS Word and GoogleDocs that corrects six grammatical error types. For the benefit of the user, the selection of error types is based on frequency of the errors and the quality of our tool. Our most successful error correction, for a phonetically and syntactically motivated copula error, reaches a precision of 96%.</abstract>
+      <url hash="90c527c3">2023.nodalida-cgmta.6</url>
+      <bibkey>mikkelsen-wiechetek-2023-supporting</bibkey>
+    </paper>
+    <paper id="7">
+      <title>A <fixed-case>S</fixed-case>outh <fixed-case>S</fixed-case>ámi Grammar Checker For Stopping Language Change</title>
+      <author><first>Linda</first><last>Wiechetek</last></author>
+      <author><first>Maja Lisa</first><last>Kappfjell</last></author>
+      <pages>46-54</pages>
+      <abstract>We have released and evaluated the first South Sámi grammar checker GramDivvun. It corrects two frequent error types that are caused by and causing language change and a loss of the language’s morphological richness. These general error types comprise a number of errors regarding the adjective paradigm (confusion of attributive and predicative forms) and the negation paradigm. In addition, our work includes a classification of common error types regarding the adjective and negation paradigms and lead to extensive grammatical error mark-up of our gold corpus. We achieve precisions above 71% for both adjective and negation error correction.</abstract>
+      <url hash="84efec22">2023.nodalida-cgmta.7</url>
+      <bibkey>wiechetek-kappfjell-2023-south</bibkey>
+    </paper>
+  </volume>
+  <event id="nodalida-2023">
+    <meta>
+      <title>The 24th Nordic Conference on Computational Linguistics (NoDaLiDa)</title>
+      <location>Tórshavn, Faroe Islands</location>
+      <dates>May, 2023</dates>
+    </meta>
+    <colocated>
+      <volume-id>2023.nlp4call-1</volume-id>
+      <volume-id>2023.resourceful-1</volume-id>
+    </colocated>
+  </event>
+</collection>

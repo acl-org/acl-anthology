@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2022.mmmpie">
+  <volume id="1" ingest-date="2022-10-06" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of the First Workshop on Performance and Interpretability Evaluations of Multimodal, Multipurpose, Massive-Scale Models</booktitle>
+      <publisher>International Conference on Computational Linguistics</publisher>
+      <address>Virtual</address>
+      <month>October</month>
+      <year>2022</year>
+      <url hash="5a2a12f9">2022.mmmpie-1</url>
+      <venue>mmmpie</venue>
+    </meta>
+    <frontmatter>
+      <url hash="774747b6">2022.mmmpie-1.0</url>
+      <bibkey>mmmpie-2022-performance</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>On the Effects of Video Grounding on Language Models</title>
+      <author><first>Ehsan</first><last>Doostmohammadi</last></author>
+      <author><first>Marco</first><last>Kuhlmann</last></author>
+      <pages>1–6</pages>
+      <abstract>Transformer-based models trained on text and vision modalities try to improve the performance on multimodal downstream tasks or tackle the problem Transformer-based models trained on text and vision modalities try to improve the performance on multimodal downstream tasks or tackle the problem of lack of grounding, e.g., addressing issues like models’ insufficient commonsense knowledge. While it is more straightforward to evaluate the effects of such models on multimodal tasks, such as visual question answering or image captioning, it is not as well-understood how these tasks affect the model itself, and its internal linguistic representations. In this work, we experiment with language models grounded in videos and measure the models’ performance on predicting masked words chosen based on their <i>imageability</i>. The results show that the smaller model benefits from video grounding in predicting highly imageable words, while the results for the larger model seem harder to interpret.of lack of grounding, e.g., addressing issues like models’ insufficient commonsense knowledge. While it is more straightforward to evaluate the effects of such models on multimodal tasks, such as visual question answering or image captioning, it is not as well-understood how these tasks affect the model itself, and its internal linguistic representations. In this work, we experiment with language models grounded in videos and measure the models’ performance on predicting masked words chosen based on their imageability. The results show that the smaller model benefits from video grounding in predicting highly imageable words, while the results for the larger model seem harder to interpret.</abstract>
+      <url hash="4a98ad7e">2022.mmmpie-1.1</url>
+      <bibkey>doostmohammadi-kuhlmann-2022-effects</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/howto100m">HowTo100M</pwcdataset>
+    </paper>
+    <paper id="2">
+      <title>Rethinking Task Sampling for Few-shot Vision-Language Transfer Learning</title>
+      <author><first>Zhenhailong</first><last>Wang</last></author>
+      <author><first>Hang</first><last>Yu</last></author>
+      <author><first>Manling</first><last>Li</last></author>
+      <author><first>Han</first><last>Zhao</last></author>
+      <author><first>Heng</first><last>Ji</last></author>
+      <pages>7–14</pages>
+      <abstract>Despite achieving state-of-the-art zero-shot performance, existing vision-language models still fall short of few-shot transfer ability on domain-specific problems. Classical fine-tuning often fails to prevent highly expressive models from exploiting spurious correlations. Although model-agnostic meta-learning (MAML) presents as a natural alternative for few-shot transfer learning, the expensive computation due to implicit second-order optimization limits its use on large-scale vision-language models such as CLIP. While much literature has been devoted to exploring alternative optimization strategies, we identify another essential aspect towards effective few-shot transfer learning, task sampling, which is previously only be viewed as part of data pre-processing in MAML. To show the impact of task sampling, we propose a simple algorithm, Model-Agnostic Multitask Fine-tuning (MAMF), which differentiates classical fine-tuning only on uniformly sampling multiple tasks. Despite its simplicity, we show that MAMF consistently outperforms classical fine-tuning on five few-shot image classification tasks. We further show that the effectiveness of the bi-level optimization in MAML is highly sensitive to the zero-shot performance of a task in the context of few-shot vision-language classification. The goal of this paper is to provide new insights on what makes few-shot learning work, and encourage more research into investigating better task sampling strategies.</abstract>
+      <url hash="5923ff82">2022.mmmpie-1.2</url>
+      <bibkey>wang-etal-2022-rethinking</bibkey>
+      <pwccode url="https://github.com/mikewangwzhl/multitask-finetuning_clip" additional="false">mikewangwzhl/multitask-finetuning_clip</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/clevr">CLEVR</pwcdataset>
+    </paper>
+    <paper id="3">
+      <title>Analyzing <fixed-case>BERT</fixed-case> Cross-lingual Transfer Capabilities in Continual Sequence Labeling</title>
+      <author><first>Juan Manuel</first><last>Coria</last></author>
+      <author><first>Mathilde</first><last>Veron</last></author>
+      <author><first>Sahar</first><last>Ghannay</last></author>
+      <author><first>Guillaume</first><last>Bernard</last></author>
+      <author><first>Hervé</first><last>Bredin</last></author>
+      <author><first>Olivier</first><last>Galibert</last></author>
+      <author><first>Sophie</first><last>Rosset</last></author>
+      <pages>15–25</pages>
+      <abstract>Knowledge transfer between neural language models is a widely used technique that has proven to improve performance in a multitude of natural language tasks, in particular with the recent rise of large pre-trained language models like BERT. Similarly, high cross-lingual transfer has been shown to occur in multilingual language models. Hence, it is of great importance to better understand this phenomenon as well as its limits. While most studies about cross-lingual transfer focus on training on independent and identically distributed (i.e. i.i.d.) samples, in this paper we study cross-lingual transfer in a continual learning setting on two sequence labeling tasks: slot-filling and named entity recognition. We investigate this by training multilingual BERT on sequences of 9 languages, one language at a time, on the MultiATIS++ and MultiCoNER corpora. Our first findings are that forward transfer between languages is retained although forgetting is present. Additional experiments show that lost performance can be recovered with as little as a single training epoch even if forgetting was high, which can be explained by a progressive shift of model parameters towards a better multilingual initialization. We also find that commonly used metrics might be insufficient to assess continual learning performance.</abstract>
+      <url hash="dfad7dc9">2022.mmmpie-1.3</url>
+      <bibkey>coria-etal-2022-analyzing</bibkey>
+      <pwccode url="https://github.com/juanmc2005/continualnlu" additional="false">juanmc2005/continualnlu</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/atis">ATIS</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/multiconer">MultiCoNER</pwcdataset>
+    </paper>
+    <paper id="4">
+      <title>Pixel-Level <fixed-case>BPE</fixed-case> for Auto-Regressive Image Generation</title>
+      <author><first>Anton</first><last>Razzhigaev</last></author>
+      <author><first>Anton</first><last>Voronov</last></author>
+      <author><first>Andrey</first><last>Kaznacheev</last></author>
+      <author><first>Andrey</first><last>Kuznetsov</last></author>
+      <author><first>Denis</first><last>Dimitrov</last></author>
+      <author><first>Alexander</first><last>Panchenko</last></author>
+      <pages>26–30</pages>
+      <abstract>Pixel-level autoregression with Transformer models (Image GPT or iGPT) is one of the recent approaches to image generation that has not received massive attention and elaboration due to quadratic complexity of attention as it imposes huge memory requirements and thus restricts the resolution of the generated images. In this paper, we propose to tackle this problem by adopting Byte-Pair-Encoding (BPE) originally proposed for text processing to the image domain to drastically reduce the length of the modeled sequence. The obtained results demonstrate that it is possible to decrease the amount of computation required to generate images pixel-by-pixel while preserving their quality and the expressiveness of the features extracted from the model. Our results show that there is room for improvement for iGPT-like models with more thorough research on the way to the optimal sequence encoding techniques for images.</abstract>
+      <url hash="b88a95a6">2022.mmmpie-1.4</url>
+      <bibkey>razzhigaev-etal-2022-pixel</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/imagenet">ImageNet</pwcdataset>
+    </paper>
+    <paper id="5">
+      <title>Cost-Effective Language Driven Image Editing with <fixed-case>LX</fixed-case>-<fixed-case>DRIM</fixed-case></title>
+      <author><first>Rodrigo</first><last>Santos</last></author>
+      <author><first>António</first><last>Branco</last></author>
+      <author><first>João Ricardo</first><last>Silva</last></author>
+      <pages>31–43</pages>
+      <abstract>Cross-modal language and image processing is envisaged as a way to improve language understanding by resorting to visual grounding, but only recently, with the emergence of neural architectures specifically tailored to cope with both modalities, has it attracted increased attention and obtained promising results. In this paper we address a cross-modal task of language-driven image design, in particular the task of altering a given image on the basis of language instructions. We also avoid the need for a specifically tailored architecture and resort instead to a general purpose model in the Transformer family. Experiments with the resulting tool, LX-DRIM, show very encouraging results, confirming the viability of the approach for language-driven image design while keeping it affordable in terms of compute and data.</abstract>
+      <url hash="a705cba7">2022.mmmpie-1.5</url>
+      <bibkey>santos-etal-2022-cost</bibkey>
+      <pwccode url="https://github.com/nlx-group/lx-drim" additional="false">nlx-group/lx-drim</pwccode>
+    </paper>
+    <paper id="6">
+      <title>Shapes of Emotions: Multimodal Emotion Recognition in Conversations via Emotion Shifts</title>
+      <author><first>Keshav</first><last>Bansal</last></author>
+      <author><first>Harsh</first><last>Agarwal</last></author>
+      <author><first>Abhinav</first><last>Joshi</last></author>
+      <author><first>Ashutosh</first><last>Modi</last></author>
+      <pages>44–56</pages>
+      <abstract>Emotion Recognition in Conversations (ERC) is an important and active research area. Recent work has shown the benefits of using multiple modalities (e.g., text, audio, and video) for the ERC task. In a conversation, participants tend to maintain a particular emotional state unless some stimuli evokes a change. There is a continuous ebb and flow of emotions in a conversation. Inspired by this observation, we propose a multimodal ERC model and augment it with an emotion-shift component that improves performance. The proposed emotion-shift component is modular and can be added to any existing multimodal ERC model (with a few modifications). We experiment with different variants of the model, and results show that the inclusion of emotion shift signal helps the model to outperform existing models for ERC on MOSEI and IEMOCAP datasets.</abstract>
+      <url hash="2a04e908">2022.mmmpie-1.6</url>
+      <bibkey>bansal-etal-2022-shapes</bibkey>
+      <revision id="1" href="2022.mmmpie-1.6v1" hash="3741a711"/>
+      <revision id="2" href="2022.mmmpie-1.6v2" hash="2a04e908" date="2022-11-11">Added a GitHub link of the code to the paper.</revision>
+      <pwccode url="https://github.com/exploration-lab/shapes-of-emotion" additional="false">exploration-lab/shapes-of-emotion</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/iemocap">IEMOCAP</pwcdataset>
+    </paper>
+  </volume>
+</collection>

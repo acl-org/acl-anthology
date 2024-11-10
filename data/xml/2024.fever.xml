@@ -1,0 +1,336 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2024.fever">
+  <volume id="1" ingest-date="2024-11-05" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of the Seventh Fact Extraction and VERification Workshop (FEVER)</booktitle>
+      <editor><first>Michael</first><last>Schlichtkrull</last></editor>
+      <editor><first>Yulong</first><last>Chen</last></editor>
+      <editor><first>Chenxi</first><last>Whitehouse</last></editor>
+      <editor><first>Zhenyun</first><last>Deng</last></editor>
+      <editor><first>Mubashara</first><last>Akhtar</last></editor>
+      <editor><first>Rami</first><last>Aly</last></editor>
+      <editor><first>Zhijiang</first><last>Guo</last></editor>
+      <editor><first>Christos</first><last>Christodoulopoulos</last></editor>
+      <editor><first>Oana</first><last>Cocarascu</last></editor>
+      <editor><first>Arpit</first><last>Mittal</last></editor>
+      <editor><first>James</first><last>Thorne</last></editor>
+      <editor><first>Andreas</first><last>Vlachos</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Miami, Florida, USA</address>
+      <month>November</month>
+      <year>2024</year>
+      <url hash="1933592f">2024.fever-1</url>
+      <venue>fever</venue>
+    </meta>
+    <frontmatter>
+      <url hash="e8013169">2024.fever-1.0</url>
+      <bibkey>fever-2024-1</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>The Automated Verification of Textual Claims (<fixed-case>AV</fixed-case>eri<fixed-case>T</fixed-case>e<fixed-case>C</fixed-case>) Shared Task</title>
+      <author><first>Michael</first><last>Schlichtkrull</last><affiliation>Queen Mary University of London</affiliation></author>
+      <author><first>Yulong</first><last>Chen</last><affiliation>University of Cambridge</affiliation></author>
+      <author><first>Chenxi</first><last>Whitehouse</last><affiliation>University of Cambridge</affiliation></author>
+      <author><first>Zhenyun</first><last>Deng</last><affiliation>University of Cambridge</affiliation></author>
+      <author><first>Mubashara</first><last>Akhtar</last><affiliation>King’s College London</affiliation></author>
+      <author><first>Rami</first><last>Aly</last><affiliation>University of Cambridge</affiliation></author>
+      <author><first>Zhijiang</first><last>Guo</last><affiliation>Huawei</affiliation></author>
+      <author><first>Christos</first><last>Christodoulopoulos</last><affiliation>Amazon</affiliation></author>
+      <author><first>Oana</first><last>Cocarascu</last><affiliation>King’s College London</affiliation></author>
+      <author><first>Arpit</first><last>Mittal</last><affiliation>Meta</affiliation></author>
+      <author><first>James</first><last>Thorne</last><affiliation>KAIST</affiliation></author>
+      <author><first>Andreas</first><last>Vlachos</last><affiliation>University of Cambridge</affiliation></author>
+      <pages>1-26</pages>
+      <abstract>The Automated Verification of Textual Claims (AVeriTeC) shared task asks participants to retrieve evidence and predict veracity for real-world claims checked by fact-checkers. Evidence can be found either via a search engine, or via a knowledge store provided by the organisers. Submissions are evaluated using the AVeriTeC score, which considers a claim to be accurately verified if and only if both the verdict is correct and retrieved evidence is considered to meet a certain quality threshold. The shared task received 21 submissions, 18 of which surpassed our baseline. The winning team was TUDA_MAI with an AVeriTeC score of 63%. In this paper we describe the shared task, present the full results, and highlight key takeaways from the shared task.</abstract>
+      <url hash="1735c229">2024.fever-1.1</url>
+      <bibkey>schlichtkrull-etal-2024-automated</bibkey>
+    </paper>
+    <paper id="2">
+      <title>Multi-hop Evidence Pursuit Meets the Web: Team Papelo at <fixed-case>FEVER</fixed-case> 2024</title>
+      <author><first>Christopher</first><last>Malon</last><affiliation>NEC Laboratories America</affiliation></author>
+      <pages>27-36</pages>
+      <abstract>Separating disinformation from fact on the web has long challenged both the search and the reasoning powers of humans. We show that the reasoning power of large language models (LLMs) and the retrieval power of modern search engines can be combined to automate this process and explainably verify claims. We integrate LLMs and search under a multi-hop evidence pursuit strategy. This strategy generates an initial question based on an input claim using a sequence to sequence model, searches and formulates an answer to the question, and iteratively generates follow-up questions to pursue the evidence that is missing using an LLM. We demonstrate our system on the FEVER 2024 (AVeriTeC) shared task. Compared to a strategy of generating all the questions at once, our method obtains .045 higher label accuracy and .155 higher AVeriTeC score (evaluating the adequacy of the evidence). Through ablations, we show the importance of various design choices, such as the question generation method, medium-sized context, reasoning with one document at a time, adding metadata, paraphrasing, reducing the problem to two classes, and reconsidering the final verdict. Our submitted system achieves .510 AVeriTeC score on the dev set and .477 AVeriTec score on the test set.</abstract>
+      <url hash="aaa81a74">2024.fever-1.2</url>
+      <bibkey>malon-2024-multi</bibkey>
+    </paper>
+    <paper id="3">
+      <title>Retrieving Semantics for Fact-Checking: A Comparative Approach using <fixed-case>CQ</fixed-case> (Claim to Question) &amp; <fixed-case>AQ</fixed-case> (Answer to Question)</title>
+      <author><first>Nicolò</first><last>Urbani</last><affiliation>University of Milan - Bicocca</affiliation></author>
+      <author><first>Sandip</first><last>Modha</last><affiliation>University of Milan - Bicocca</affiliation></author>
+      <author><first>Gabriella</first><last>Pasi</last><affiliation>University of Milan - Bicocca</affiliation></author>
+      <pages>37-46</pages>
+      <abstract>Fact-checking using evidences is the preferred way to tackle the issue of misinformation in the society. The democratization of information through social media has accelerated the spread of information, allowing misinformation to reach and influence a vast audience. The significant impact of these falsehoods on society and public opinion underscores the need for automated approaches to identify and combat this phenomenon.This paper is describes the participation of team IKR3-UNIMIB in AVeriTeC (Automated Verification of Textual Claims) 2024 shared task. We proposed a methods to retrieve evidence in the question and answer format and predict the veracity of a claim. As part of the AVeriTeC shared task, our method combines similarity-based ColBERT re-ranker with traditional keyword search using BM25. Additionally, a recent promising approach, Chain of RAG (CoRAG) is introduced to generate question and answer pairs (QAs) to evaluate performance on this specific dataset. We explore whether generating questions from claims or answers produces more effective QA pairs for veracity prediction. Additionally, we try to generate questions from the claim rather than from evidence (opposite the AVeriTeC dataset paper) to generate effective QA pairs for veracity prediction. Our method achieved an AVeriTeC Score of 0.18 (more than baseline) on the test dataset, demonstrating its potential in automated fact-checking.</abstract>
+      <url hash="0f54576a">2024.fever-1.3</url>
+      <bibkey>urbani-etal-2024-retrieving</bibkey>
+    </paper>
+    <paper id="4">
+      <title><fixed-case>RAG</fixed-case>-Fusion Based Information Retrieval for Fact-Checking</title>
+      <author><first>Yuki</first><last>Momii</last></author>
+      <author><first>Tetsuya</first><last>Takiguchi</last><affiliation>Kobe University</affiliation></author>
+      <author><first>Yasuo</first><last>Ariki</last><affiliation>Kobe University</affiliation></author>
+      <pages>47-54</pages>
+      <abstract>Fact-checking involves searching for relevant evidence and determining whether the given claim contains any misinformation. In this paper, we propose a fact verification system based on RAG-Fusion. We use GPT-4o to generate questions from the claim, which helps improve the accuracy of evidence retrieval.Additionally, we adopt GPT-4o for the final judgment module and refine the prompts to enhance the detection accuracy, particularly when the claim contains misinformation. Experiment showed that our system achieved an AVeriTeC Score of 0.3865 on the AVeriTeC test data, significantly surpassing the baseline score of 0.11.</abstract>
+      <url hash="487cae47">2024.fever-1.4</url>
+      <bibkey>momii-etal-2024-rag</bibkey>
+    </paper>
+    <paper id="5">
+      <title><fixed-case>UHH</fixed-case> at <fixed-case>AV</fixed-case>eri<fixed-case>T</fixed-case>e<fixed-case>C</fixed-case>: <fixed-case>RAG</fixed-case> for Fact-Checking with Real-World Claims</title>
+      <author><first>Özge</first><last>Sevgili</last></author>
+      <author><first>Irina</first><last>Nikishina</last></author>
+      <author><first>Seid Muhie</first><last>Yimam</last><affiliation>Universität Hamburg</affiliation></author>
+      <author><first>Martin</first><last>Semmann</last><affiliation>Universität Hamburg</affiliation></author>
+      <author><first>Chris</first><last>Biemann</last><affiliation>U Hamburg</affiliation></author>
+      <pages>55-63</pages>
+      <abstract>This paper presents UHH’s approach developed for the AVeriTeC shared task. The goal of the challenge is to verify given real-world claims with evidences from the Web. In this shared task, we investigate a Retrieval-Augmented Generation (RAG) model, which mainly contains retrieval, generation, and augmentation components. We start with the selection of the top 10k evidences via BM25 scores, and continue with two approaches to retrieve the most similar evidences: (1) to retrieve top 10 evidences through vector similarity, generate questions for them, and rerank them or (2) to generate questions for the claim and retrieve the most similar evidence, again, through vector similarity. After retrieving the top evidences, a Large Language Model (LLM) is prompted using the claim along with either all evidences or individual evidence to predict the label. Our system submission, <tex-math>\textbf{UHH}</tex-math>, using the first approach and individual evidence prompts, ranks 6th out of 23 systems.</abstract>
+      <url hash="e648df01">2024.fever-1.5</url>
+      <bibkey>sevgili-etal-2024-uhh</bibkey>
+    </paper>
+    <paper id="6">
+      <title>Improving Evidence Retrieval on Claim Verification Pipeline through Question Enrichment</title>
+      <author><first>Svetlana</first><last>Churina</last></author>
+      <author><first>Anab Maulana</first><last>Barik</last></author>
+      <author><first>Saisamarth Rajesh</first><last>Phaye</last></author>
+      <pages>64-70</pages>
+      <abstract>The AVeriTeC shared task introduces a new real-word claim verification dataset, where a system is tasked to verify a real-world claim based on the evidence found in the internet.In this paper, we proposed a claim verification pipeline called QueenVer which consists of 2 modules, Evidence Retrieval and Claim Verification.Our pipeline collects pairs of &lt;Question, Answer&gt; as the evidence. Recognizing the pivotal role of question quality in the evidence efficacy, we proposed question enrichment to enhance the retrieved evidence. Specifically, we adopt three different Question Generation (QG) technique, muti-hop, single-hop, and Fact-checker style. For the claim verification module, we integrate an ensemble of multiple state-of-the-art LLM to enhance its robustness.Experiments show that QueenVC achieves 0.41, 0.29, and 0.42 on Q, Q+A, and AVeriTeC scores.</abstract>
+      <url hash="07d21420">2024.fever-1.6</url>
+      <bibkey>churina-etal-2024-improving</bibkey>
+    </paper>
+    <paper id="7">
+      <title>Dunamu-ml’s Submissions on <fixed-case>AVERITEC</fixed-case> Shared Task</title>
+      <author><first>Heesoo</first><last>Park</last><affiliation>Dunamu</affiliation></author>
+      <author><first>Dongjun</first><last>Lee</last><affiliation>Dunamu</affiliation></author>
+      <author><first>Jaehyuk</first><last>Kim</last><affiliation>Dunamu</affiliation></author>
+      <author><first>ChoongWon</first><last>Park</last></author>
+      <author><first>Changhwa</first><last>Park</last><affiliation>LG Energy Solution</affiliation></author>
+      <pages>71-76</pages>
+      <abstract>This paper presents the Dunamu-ml’s submission to the AVERITEC shared task of the 7th the Fact Extraction and VERification (FEVER) workshop. The task focused on discriminating whether each claim is a fact or not. Our method is powered by the combination of an LLM and a non-parametric lexicon-based method (i.e. BM25). Essentially, we augmented the list of evidences containing the query and the corresponding answers using an powerful LLM, then, retrieved the relative documents using the generated evidences. As such, our method made a great improvement over the baseline results, achieving 0.33 performance gain over the baseline in AveriTec score.</abstract>
+      <url hash="85aa6153">2024.fever-1.7</url>
+      <bibkey>park-etal-2024-dunamu</bibkey>
+    </paper>
+    <paper id="8">
+      <title><fixed-case>FZI</fixed-case>-<fixed-case>WIM</fixed-case> at <fixed-case>AV</fixed-case>eri<fixed-case>T</fixed-case>e<fixed-case>C</fixed-case> Shared Task: Real-World Fact-Checking with Question Answering</title>
+      <author><first>Jin</first><last>Liu</last></author>
+      <author><first>Steffen</first><last>Thoma</last></author>
+      <author><first>Achim</first><last>Rettinger</last><affiliation>FZI Forschungszentrum Informatik and Trier University</affiliation></author>
+      <pages>77-85</pages>
+      <abstract>This paper describes the FZI-WIM system at the AVeriTeC shared Task, which aims to assess evidence-based automated fact-checking systems for real-world claims with evidence retrieved from the web. The FZI-WIM system utilizes open-source models to build a reliable fact-checking pipeline via question-answering. With different experimental setups, we show that more questions lead to higher scores in the shared task. Both in question generation and question-answering stages, sampling can be a way to improve the performance of our system. We further analyze the limitations of current open-source models for real-world claim verification. Our code is publicly available https://github.com/jens5588/FZI-WIM-AVERITEC.</abstract>
+      <url hash="756da120">2024.fever-1.8</url>
+      <bibkey>liu-etal-2024-fzi</bibkey>
+    </paper>
+    <paper id="9">
+      <title>Zero-Shot Learning and Key Points Are All You Need for Automated Fact-Checking</title>
+      <author><first>Mohammad Ghiasvand</first><last>Mohammadkhani</last></author>
+      <author><first>Ali Ghiasvand</first><last>Mohammadkhani</last><affiliation>Shahid Soltani 4 High School</affiliation></author>
+      <author><first>Hamid</first><last>Beigy</last></author>
+      <pages>86-90</pages>
+      <abstract>Automated fact-checking is an important task because determining the accurate status of a proposed claim within the vast amount of information available online is a critical challenge. This challenge requires robust evaluation to prevent the spread of false information. Modern large language models (LLMs) have demonstrated high capability in performing a diverse range of Natural Language Processing (NLP) tasks. By utilizing proper prompting strategies, their versatility—due to their understanding of large context sizes and zero-shot learning ability—enables them to simulate human problem-solving intuition and move towards being an alternative to humans for solving problems. In this work, we introduce a straightforward framework based on _**Z**ero-**S**hot **L**earning_ and _**Ke**y **P**oints_ (ZSL-KeP) for automated fact-checking, which despite its simplicity, performed well on the AVeriTeC shared task dataset by robustly improving the baseline and achieving 10th place.</abstract>
+      <url hash="344c2829">2024.fever-1.9</url>
+      <bibkey>mohammadkhani-etal-2024-zero</bibkey>
+    </paper>
+    <paper id="10">
+      <title>Evidence-backed Fact Checking using <fixed-case>RAG</fixed-case> and Few-Shot In-Context Learning with <fixed-case>LLM</fixed-case>s</title>
+      <author><first>Ronit</first><last>Singal</last><affiliation>IIT Kharagpur, India</affiliation></author>
+      <author><first>Pransh</first><last>Patwa</last><affiliation>Aditya English Medium School, India</affiliation></author>
+      <author><first>Parth</first><last>Patwa</last><affiliation>Amazon and University of California, Los Angeles</affiliation></author>
+      <author><first>Aman</first><last>Chadha</last><affiliation>Amazon</affiliation></author>
+      <author><first>Amitava</first><last>Das</last><affiliation>University of South Carolina</affiliation></author>
+      <pages>91-98</pages>
+      <abstract>Given the widespread dissemination of misinformation on social media, implementing fact-checking mechanisms for online claims is essential. Manually verifying every claim is very challenging, underscoring the need for an automated fact-checking system. This paper presents our system designed to address this issue. We utilize the Averitec dataset (Schlichtkrull et al., 2023) to assess the performance of our fact-checking system. In addition to veracity prediction, our system provides supporting evidence, which is extracted from the dataset. We develop a Retrieve and Generate (RAG) pipeline to extract relevant evidence sentences from a knowledge base, which are then inputted along with the claim into a large language model (LLM) for classification. We also evaluate the few-shot In-Context Learning (ICL) capabilities of multiple LLMs. Our system achieves an ‘Averitec’ score of 0.33, which is a 22% absolute improvement over the baseline. Our Code is publicly available on https://github.com/ronit-singhal/evidence-backed-fact-checking-using-rag-and-few-shot-in-context-learning-with-llms.</abstract>
+      <url hash="55f4e15c">2024.fever-1.10</url>
+      <bibkey>singal-etal-2024-evidence</bibkey>
+    </paper>
+    <paper id="11">
+      <title><fixed-case>SK</fixed-case>_<fixed-case>DU</fixed-case> Team: Cross-Encoder based Evidence Retrieval and Question Generation with Improved Prompt for the <fixed-case>AV</fixed-case>eri<fixed-case>T</fixed-case>e<fixed-case>C</fixed-case> Shared Task</title>
+      <author><first>Shrikant</first><last>Malviya</last></author>
+      <author><first>Stamos</first><last>Katsigiannis</last><affiliation>Durham University</affiliation></author>
+      <pages>99-107</pages>
+      <abstract>As part of the AVeriTeC shared task, we developed a pipelined system comprising robust and finely tuned models. Our system integrates advanced techniques for evidence retrieval and question generation, leveraging cross-encoders and large language models (LLMs) for optimal performance. With multi-stage processing, the pipeline demonstrates improvements over baseline models, particularly in handling complex claims that require nuanced reasoning by improved evidence extraction, question generation and veracity prediction. Through detailed experiments and ablation studies, we provide insights into the strengths and weaknesses of our approach, highlighting the critical role of evidence sufficiency and context dependency in automated fact-checking systems. Our system secured a competitive rank, 7th on the development and 12th on the test data, in the shared task, underscoring the effectiveness of our methods in addressing the challenges of real-world claim verification.</abstract>
+      <url hash="4f375067">2024.fever-1.11</url>
+      <bibkey>malviya-katsigiannis-2024-sk</bibkey>
+    </paper>
+    <paper id="12">
+      <title><fixed-case>I</fixed-case>n<fixed-case>F</fixed-case>act: A Strong Baseline for Automated Fact-Checking</title>
+      <author><first>Mark</first><last>Rothermel</last><affiliation>Technische Universität Darmstadt</affiliation></author>
+      <author><first>Tobias</first><last>Braun</last></author>
+      <author><first>Marcus</first><last>Rohrbach</last><affiliation>Technische Universität Darmstadt</affiliation></author>
+      <author><first>Anna</first><last>Rohrbach</last><affiliation>Technische Universität Darmstadt</affiliation></author>
+      <pages>108-112</pages>
+      <abstract>The spread of disinformation poses a global threat to democratic societies, necessitating robust and scalable Automated Fact-Checking (AFC) systems. The AVeriTeC Shared Task Challenge 2024 offers a realistic benchmark for text-based fact-checking methods. This paper presents Information-Retrieving Fact-Checker (InFact), an LLM-based approach that breaks down the task of claim verification into a 6-stage process, including evidence retrieval. When using GPT-4o as the backbone, InFact achieves an AVeriTeC score of 63% on the test set, outperforming all other 20 teams competing in the challenge, and establishing a new strong baseline for future text-only AFC systems. Qualitative analysis of mislabeled instances reveals that InFact often yields a more accurate conclusion than AVeriTeC’s human-annotated ground truth.</abstract>
+      <url hash="a8a28155">2024.fever-1.12</url>
+      <bibkey>rothermel-etal-2024-infact</bibkey>
+    </paper>
+    <paper id="13">
+      <title>Exploring Retrieval Augmented Generation For Real-world Claim Verification</title>
+      <author><first>Adjali</first><last>Omar</last><affiliation>CEA</affiliation></author>
+      <pages>113-117</pages>
+      <abstract>Automated Fact-Checking (AFC) has recently gained considerable attention to address the increasing misinformation spreading in the web and social media. The recently introduced AVeriTeC dataset alleviates some limitations of existing AFC benchmarks. In this paper, we propose to explore Retrieval Augmented Generation (RAG) and describe the system (UPS participant) we implemented to solve the AVeriTeC shared task.Our end-to-end system integrates retrieval and generation in a joint training setup to enhance evidence retrieval and question generation. Our system operates as follows: First, we conduct dense retrieval of evidence by encoding candidate evidence sentences from the provided knowledge store documents. Next, we perform a secondary retrieval of question-answer pairs from the training set, encoding these into dense vectors to support question generation with relevant in-context examples. During training, the question generator is optimized to generate questions based on retrieved or gold evidence. In preliminary automatic evaluation, our system achieved respectively 0.198 and 0.210 AVeriTeC scores on the dev and test sets.</abstract>
+      <url hash="e0c10e3f">2024.fever-1.13</url>
+      <bibkey>omar-2024-exploring</bibkey>
+    </paper>
+    <paper id="14">
+      <title><fixed-case>GP</fixed-case>roof<fixed-case>T</fixed-case>: A Multi-dimension Multi-round Fact Checking Framework Based on Claim Fact Extraction</title>
+      <author><first>Jiayu</first><last>Liu</last></author>
+      <author><first>Junhao</first><last>Tang</last></author>
+      <author><first>Hanwen</first><last>Wang</last><affiliation>The Hong Kong University of Science and Technology</affiliation></author>
+      <author><first>Baixuan</first><last>Xu</last><affiliation>Hong Kong University of Science and Technology</affiliation></author>
+      <author><first>Haochen</first><last>Shi</last></author>
+      <author><first>Weiqi</first><last>Wang</last><affiliation>Johns Hopkins University and The Hong Kong University of Science and Technology</affiliation></author>
+      <author><first>Yangqiu</first><last>Song</last><affiliation>The Hong Kong University of Science and Technology</affiliation></author>
+      <pages>118-129</pages>
+      <abstract>In the information era, the vast proliferation of online content poses significant challenges, particularly concerning the trustworthiness of these digital statements, which can have profound societal implications. Although it is possible to manually annotate and verify the authenticity of such content, the sheer volume and rapid pace of information generation render this approach impractical, both in terms of time and cost. Therefore, it is imperative to develop automated systems capable of validating online claims, ensuring that users can use the wealth of information available on the Internet effectively and reliably. Using primarily ChatGPT and the Google search API, GProofT fact checking framework generates question-answer pairs to systematically extract and verify the facts within claims. Based on the outcomes of these QA pairs, claims are subsequently labeled as Supported, Conflicted Evidence/Cherry-Picking, or Refuted. Shown by extensive experiments, GProofT Retrieval generally performs effectively in fact-checking and makes a substantial contribution to the task. Our code is released on https://github.com/HKUST-KnowComp/GProofT.</abstract>
+      <url hash="23d5c6fb">2024.fever-1.14</url>
+      <bibkey>liu-etal-2024-gprooft</bibkey>
+    </paper>
+    <paper id="15">
+      <title><fixed-case>H</fixed-case>er<fixed-case>O</fixed-case> at <fixed-case>AV</fixed-case>eri<fixed-case>T</fixed-case>e<fixed-case>C</fixed-case>: The Herd of Open Large Language Models for Verifying Real-World Claims</title>
+      <author><first>Yejun</first><last>Yoon</last><affiliation>Soongsil University</affiliation></author>
+      <author><first>Jaeyoon</first><last>Jung</last></author>
+      <author><first>Seunghyun</first><last>Yoon</last><affiliation>Adobe Research</affiliation></author>
+      <author><first>Kunwoo</first><last>Park</last><affiliation>Soongsil University</affiliation></author>
+      <pages>130-136</pages>
+      <abstract>To tackle the AVeriTeC shared task hosted by the FEVER-24, we introduce a system that only employs publicly available large language models (LLMs) for each step of automated fact-checking, dubbed the <b>Her</b>d of <b>O</b>pen LLMs for verifying real-world claims (<b>HerO</b>). HerO employs multiple LLMs for each step of automated fact-checking. For evidence retrieval, a language model is used to enhance a query by generating hypothetical documents that check the veracity of a claim. We fine-tune LLMs for question generation and veracity prediction by crafting prompts with retrieved in-context samples. HerO achieved 2nd place on the leaderboard with the AVeriTeC score of 0.57, suggesting the potential of open LLMs for verifying real-world claims. For future research, we make our code publicly available at <url>https://github.com/ssu-humane/HerO</url>.</abstract>
+      <url hash="70846fe9">2024.fever-1.15</url>
+      <bibkey>yoon-etal-2024-hero</bibkey>
+    </paper>
+    <paper id="16">
+      <title><fixed-case>AIC</fixed-case> <fixed-case>CTU</fixed-case> system at <fixed-case>AV</fixed-case>eri<fixed-case>T</fixed-case>e<fixed-case>C</fixed-case>: Re-framing automated fact-checking as a simple <fixed-case>RAG</fixed-case> task</title>
+      <author><first>Herbert</first><last>Ullrich</last></author>
+      <author><first>Tomáš</first><last>Mlynář</last><affiliation>Czech Technical Univeresity in Prague, Czech Technical University of Prague</affiliation></author>
+      <author><first>Jan</first><last>Drchal</last><affiliation>Czech Technical Univeresity in Prague, Czech Technical University of Prague</affiliation></author>
+      <pages>137-150</pages>
+      <abstract>This paper describes our <tex-math>3^{rd}</tex-math> place submission in the AVeriTeC shared task in which we attempted to address the challenge of fact-checking with evidence retrieved in the wild using a simple scheme of Retrieval-Augmented Generation (RAG) designed for the task, leveraging the predictive power of Large Language Models.We release our codebase and explain its two modules - the Retriever and the Evidence &amp; Label generator - in detail, justifying their features such as MMR-reranking and Likert-scale confidence estimation.We evaluate our solution on AVeriTeC dev and test set and interpret the results, picking the GPT-4o as the most appropriate model for our pipeline at the time of our publication, with Llama 3.1 70B being a promising open-source alternative.We perform an empirical error analysis to see that faults in our predictions often coincide with noise in the data or ambiguous fact-checks, provoking further research and data augmentation.</abstract>
+      <url hash="2fad9189">2024.fever-1.16</url>
+      <bibkey>ullrich-etal-2024-aic</bibkey>
+    </paper>
+    <paper id="20">
+      <title>Enhancing Fact Verification with Causal Knowledge Graphs and Transformer-Based Retrieval for Deductive Reasoning</title>
+      <author><first>Fiona Anting</first><last>Tan</last></author>
+      <author><first>Jay</first><last>Desai</last><affiliation>Amazon</affiliation></author>
+      <author><first>Srinivasan H.</first><last>Sengamedu</last><affiliation>Amazon</affiliation></author>
+      <pages>151-169</pages>
+      <abstract>The ability to extract and verify factual information from free-form text is critical in an era where vast amounts of unstructured data are available, yet unreliable sources abound. This paper focuses on enhancing causal deductive reasoning, a key component of factual verification, through the lens of accident investigation, where determining the probable causes of events is paramount. Deductive reasoning refers to the task of drawing conclusions based on a premise. While some deductive reasoning benchmarks exist, none focus on causal deductive reasoning and are from real-world applications. Recently, large language models (LLMs) used with prompt engineering techniques like retrieval-augmented generation (RAG) have demonstrated remarkable performance across various natural language processing benchmarks. However, adapting these techniques to handle scenarios with no knowledge bases and to different data structures, such as graphs, remains an ongoing challenge. In our study, we introduce a novel framework leveraging LLMs’ decent ability to detect and infer causal relations to construct a causal Knowledge Graph (KG) which represents knowledge that the LLM recognizes. Additionally, we propose a RoBERTa-based Transformer Graph Neural Network (RoTG) specifically designed to select relevant nodes within this KG. Integrating RoTG-retrieved causal chains into prompts effectively enhances LLM performance, demonstrating usefulness of our approach in advancing LLMs’ causal deductive reasoning capabilities.</abstract>
+      <url hash="7c3b6f45">2024.fever-1.20</url>
+      <bibkey>tan-etal-2024-enhancing-fact</bibkey>
+    </paper>
+    <paper id="21">
+      <title>Numerical Claim Detection in Finance: A New Financial Dataset, Weak-Supervision Model, and Market Analysis</title>
+      <author><first>Agam</first><last>Shah</last></author>
+      <author><first>Arnav</first><last>Hiray</last></author>
+      <author><first>Pratvi</first><last>Shah</last></author>
+      <author><first>Arkaprabha</first><last>Banerjee</last></author>
+      <author><first>Anushka</first><last>Singh</last></author>
+      <author><first>Dheeraj Deepak</first><last>Eidnani</last><affiliation>Georgia Institute of Technology</affiliation></author>
+      <author><first>Sahasra</first><last>Chava</last></author>
+      <author><first>Bhaskar</first><last>Chaudhury</last></author>
+      <author><first>Sudheer</first><last>Chava</last><affiliation>Georgia Institute of Technology</affiliation></author>
+      <pages>170-185</pages>
+      <abstract>In this paper, we investigate the influence of claims in analyst reports and earnings calls on financial market returns, considering them as significant quarterly events for publicly traded companies. To facilitate a comprehensive analysis, we construct a new financial dataset for the claim detection task in the financial domain. We benchmark various language models on this dataset and propose a novel weak-supervision model that incorporates the knowledge of subject matter experts (SMEs) in the aggregation function, outperforming existing approaches. We also demonstrate the practical utility of our proposed model by constructing a novel measure of *optimism*. Here, we observe the dependence of earnings surprise and return on our optimism measure. Our dataset, models, and code are publicly (under CC BY 4.0 license) available on GitHub.</abstract>
+      <url hash="649ae2ce">2024.fever-1.21</url>
+      <bibkey>shah-etal-2024-numerical</bibkey>
+    </paper>
+    <paper id="22">
+      <title>Streamlining Conformal Information Retrieval via Score Refinement</title>
+      <author><first>Yotam</first><last>Intrator</last></author>
+      <author><first>Regev</first><last>Cohen</last><affiliation>Google</affiliation></author>
+      <author><first>Ori</first><last>Kelner</last></author>
+      <author><first>Roman</first><last>Goldenberg</last></author>
+      <author><first>Ehud</first><last>Rivlin</last><affiliation>Technion, Technion</affiliation></author>
+      <author><first>Daniel</first><last>Freedman</last><affiliation>Verily</affiliation></author>
+      <pages>186-191</pages>
+      <abstract>Information retrieval (IR) methods, like retrieval augmented generation, are fundamental to modern applications but often lack statistical guarantees. Conformal prediction addresses this by retrieving sets guaranteed to include relevant information, yet existing approaches produce large-sized sets, incurring high computational costs and slow response times. In this work, we introduce a score refinement method that applies a simple monotone transformation to retrieval scores, leading to significantly smaller conformal sets while maintaining their statistical guarantees. Experiments on various BEIR benchmarks validate the effectiveness of our approach in producing compact sets containing relevant information.</abstract>
+      <url hash="dbda9513">2024.fever-1.22</url>
+      <bibkey>intrator-etal-2024-streamlining</bibkey>
+    </paper>
+    <paper id="23">
+      <title>Improving Explainable Fact-Checking via Sentence-Level Factual Reasoning</title>
+      <author><first>Francielle</first><last>Vargas</last></author>
+      <author><first>Isadora</first><last>Salles</last></author>
+      <author><first>Diego</first><last>Alves</last><affiliation>Universität des Saarlandes</affiliation></author>
+      <author><first>Ameeta</first><last>Agrawal</last><affiliation>Portland State University</affiliation></author>
+      <author><first>Thiago A. S.</first><last>Pardo</last><affiliation>Universidade de São Paulo</affiliation></author>
+      <author><first>Fabrício</first><last>Benevenuto</last></author>
+      <pages>192-204</pages>
+      <abstract>Most existing fact-checking systems are unable to explain their decisions by providing relevant rationales (justifications) for their predictions. It highlights a lack of transparency that poses significant risks, such as the prevalence of unexpected biases, which may increase political polarization due to limitations in impartiality. To address this critical gap, we introduce SEntence-Level FActual Reasoning (SELFAR), aimed at improving explainable fact-checking. SELFAR relies on fact extraction and verification by predicting the news source reliability and factuality (veracity) of news articles or claims at the sentence level, generating post-hoc explanations using SHAP/LIME and zero-shot prompts. Our experiments show that unreliable news stories predominantly consist of subjective statements, in contrast to reliable ones. Consequently, predicting unreliable news articles at the sentence level by analyzing impartiality and subjectivity is a promising approach for fact extraction and improving explainable fact-checking. Furthermore, LIME outperforms SHAP in explaining predictions on reliability. Additionally, while zero-shot prompts provide highly readable explanations and achieve an accuracy of 0.71 in predicting factuality, their tendency to hallucinate remains a challenge. Lastly, this paper also presents the first study on explainable fact-checking in the Portuguese language.</abstract>
+      <url hash="9a3cd532">2024.fever-1.23</url>
+      <bibkey>vargas-etal-2024-improving</bibkey>
+    </paper>
+    <paper id="24">
+      <title>Fast Evidence Extraction for Grounded Language Model Outputs</title>
+      <author><first>Pranav</first><last>Mani</last><affiliation>Abridge AI</affiliation></author>
+      <author><first>Davis</first><last>Liang</last><affiliation>Abridge</affiliation></author>
+      <author><first>Zachary Chase</first><last>Lipton</last><affiliation>Carnegie Mellon University</affiliation></author>
+      <pages>205-218</pages>
+      <abstract>Summarizing documents with Large Language Models (LLMs) warrants a rigorous inspection of the resulting outputs by humans. However, unaided verification of generated outputs is time-intensive and intractable at scale. For high-stakes applications like healthcare where verification is necessary, expediting this step can unlock massive gains in productivity. In this paper, we focus on the task of evidence extraction for abstractive summarization: for each summary line, extract the corresponding evidence spans from a source document. Viewing this evidence extraction problem through the lens of extractive question answering, we train a set of fast and scalable hierarchical architectures: EarlyFusion, MidFusion, and LateFusion. Our experiments show that (i) our method outperforms the state-of-the-art by 1.4% relative F1-Score; (ii) our model architecture reduces latency by 4x over a RoBERTa-Large baseline; and (iii) pretraining on an extractive QA corpus confers positive transfer to evidence extraction, especially in low-resource regimes.</abstract>
+      <url hash="5548204e">2024.fever-1.24</url>
+      <bibkey>mani-etal-2024-fast</bibkey>
+    </paper>
+    <paper id="25">
+      <title>Question-Based Retrieval using Atomic Units for Enterprise <fixed-case>RAG</fixed-case></title>
+      <author><first>Vatsal</first><last>Raina</last></author>
+      <author><first>Mark</first><last>Gales</last><affiliation>University of Cambridge</affiliation></author>
+      <pages>219-233</pages>
+      <abstract>Enterprise retrieval augmented generation (RAG) offers a highly flexible framework for combining powerful large language models (LLMs) with internal, possibly temporally changing, documents. In RAG, documents are first chunked. Relevant chunks are then retrieved for a user query, which are passed as context to a synthesizer LLM to generate the query response. However, the retrieval step can limit performance, as incorrect chunks can lead the synthesizer LLM to generate a false response. This work applies a zero-shot adaptation of standard dense retrieval steps for more accurate chunk recall. Specifically, a chunk is first decomposed into atomic statements. A set of synthetic questions are then generated on these atoms (with the chunk as the context). Dense retrieval involves finding the closest set of synthetic questions, and associated chunks, to the user query. It is found that retrieval with the atoms leads to higher recall than retrieval with chunks. Further performance gain is observed with retrieval using the synthetic questions generated over the atoms. Higher recall at the retrieval step enables higher performance of the enterprise LLM using the RAG pipeline.</abstract>
+      <url hash="835a0ab9">2024.fever-1.25</url>
+      <bibkey>raina-gales-2024-question</bibkey>
+    </paper>
+    <paper id="26">
+      <title><fixed-case>AMRE</fixed-case>x: <fixed-case>AMR</fixed-case> for Explainable Fact Verification</title>
+      <author><first>Chathuri</first><last>Jayaweera</last><affiliation>University of Florida</affiliation></author>
+      <author><first>Sangpil</first><last>Youm</last><affiliation>University of Florida</affiliation></author>
+      <author><first>Bonnie J</first><last>Dorr</last><affiliation>University of Florida</affiliation></author>
+      <pages>234-244</pages>
+      <abstract>With the advent of social media networks and the vast amount of information circulating through them, automatic fact verification is an essential component to prevent the spread of misinformation. It is even more useful to have fact verification systems that provide explanations along with their classifications to ensure accurate predictions. To address both of these requirements, we implement AMREx, an Abstract Meaning Representation (AMR)-based veracity prediction and explanation system for fact verification using a combination of Smatch, an AMR evaluation metric to measure meaning containment and textual similarity, and demonstrate its effectiveness in producing partially explainable justifications using two community standard fact verification datasets, FEVER and AVeriTeC. AMREx surpasses the AVeriTec baseline accuracy showing the effectiveness of our approach for real-world claim verification. It follows an interpretable pipeline and returns an explainable AMR node mapping to clarify the system’s veracity predictions when applicable. We further demonstrate that AMREx output can be used to prompt LLMs to generate natural-language explanations using the AMR mappings as a guide to lessen the probability of hallucinations.</abstract>
+      <url hash="ec74fc84">2024.fever-1.26</url>
+      <bibkey>jayaweera-etal-2024-amrex</bibkey>
+    </paper>
+    <paper id="27">
+      <title>Claim Check-Worthiness Detection: How Well do <fixed-case>LLM</fixed-case>s Grasp Annotation Guidelines?</title>
+      <author><first>Laura</first><last>Majer</last></author>
+      <author><first>Jan</first><last>Šnajder</last><affiliation>UniZg-FER, University of Zagreb</affiliation></author>
+      <pages>245-263</pages>
+      <abstract>The rising threat of disinformation underscores the need to fully or partially automate the fact-checking process. Identifying text segments requiring fact-checking is known as claim detection (CD) and claim check-worthiness detection (CW), the latter incorporating complex domain-specific criteria of worthiness and often framed as a ranking task. Zero- and few-shot LLM prompting is an attractive option for both tasks, as it bypasses the need for labeled datasets and allows verbalized claim and worthiness criteria to be directly used for prompting. We evaluate the LLMs’ predictive accuracy on five CD/CW datasets from diverse domains, using corresponding annotation guidelines in prompts. We examine two key aspects: (1) how to best distill factuality and worthiness criteria into a prompt, and (2) how much context to provide for each claim. To this end, we experiment with different levels of prompt verbosity and varying amounts of contextual information given to the model. We additionally evaluate the top-performing models with ranking metrics, resembling prioritization done by fact-checkers. Our results show that optimal prompt verbosity varies, meta-data alone adds more performance boost than co-text, and confidence scores can be directly used to produce reliable check-worthiness rankings.</abstract>
+      <url hash="dd191b8a">2024.fever-1.27</url>
+      <bibkey>majer-snajder-2024-claim</bibkey>
+    </paper>
+    <paper id="28">
+      <title>Contrastive Learning to Improve Retrieval for Real-World Fact Checking</title>
+      <author><first>Aniruddh</first><last>Sriram</last></author>
+      <author><first>Fangyuan</first><last>Xu</last><affiliation>University of Texas at Austin and University of Texas at Austin</affiliation></author>
+      <author><first>Eunsol</first><last>Choi</last><affiliation>New York University</affiliation></author>
+      <author><first>Greg</first><last>Durrett</last><affiliation>University of Texas, Austin</affiliation></author>
+      <pages>264-279</pages>
+      <abstract>Recent work on fact-checking addresses a realistic setting where models incorporate evidence retrieved from the web to decide the veracity of claims. A bottleneck in this pipeline is in retrieving relevant evidence: traditional methods may surface documents directly related to a claim, but fact-checking complex claims requires more inferences. For instance, a document about how a vaccine was developed is relevant to addressing claims about what it might contain, even if it does not address them directly. We present Contrastive Fact-Checking Reranker (CFR), an improved retriever for this setting. By leveraging the AVeriTeC dataset, which annotates subquestions for claims with human written answers from evidence documents, we fine-tune Contriever with a contrastive objective based on multiple training signals, including distillation from GPT-4, evaluating subquestion answers, and gold labels in the dataset. We evaluate our model on both retrieval and end-to-end veracity judgments about claims. On the AVeriTeC dataset, we find a 6% improvement in veracity classification accuracy. We also show our gains can be transferred to FEVER, ClaimDecomp, HotpotQA, and a synthetic dataset requiring retrievers to make inferences.</abstract>
+      <url hash="cc69d5b5">2024.fever-1.28</url>
+      <bibkey>sriram-etal-2024-contrastive</bibkey>
+    </paper>
+    <paper id="29">
+      <title><fixed-case>RAGAR</fixed-case>, Your Falsehood Radar: <fixed-case>RAG</fixed-case>-Augmented Reasoning for Political Fact-Checking using Multimodal Large Language Models</title>
+      <author><first>Mohammed Abdul</first><last>Khaliq</last></author>
+      <author><first>Paul Yu-Chun</first><last>Chang</last><affiliation>appliedAI Initiative GmbH</affiliation></author>
+      <author><first>Mingyang</first><last>Ma</last></author>
+      <author><first>Bernhard</first><last>Pflugfelder</last><affiliation>appliedAI Initiative GmbH</affiliation></author>
+      <author><first>Filip</first><last>Miletić</last><affiliation>University of Stuttgart</affiliation></author>
+      <pages>280-296</pages>
+      <abstract>The escalating challenge of misinformation, particularly in political discourse, requires advanced fact-checking solutions; this is even clearer in the more complex scenario of multimodal claims. We tackle this issue using a multimodal large language model in conjunction with retrieval-augmented generation (RAG), and introduce two novel reasoning techniques: Chain of RAG (CoRAG) and Tree of RAG (ToRAG). They fact-check multimodal claims by extracting both textual and image content, retrieving external information, and reasoning subsequent questions to be answered based on prior evidence. We achieve a weighted F1-score of 0.85, surpassing a baseline reasoning technique by 0.14 points. Human evaluation confirms that the vast majority of our generated fact-check explanations contain all information from gold standard data.</abstract>
+      <url hash="8cfe0883">2024.fever-1.29</url>
+      <bibkey>khaliq-etal-2024-ragar</bibkey>
+    </paper>
+    <paper id="30">
+      <title><fixed-case>F</fixed-case>act<fixed-case>G</fixed-case>enius: Combining Zero-Shot Prompting and Fuzzy Relation Mining to Improve Fact Verification with Knowledge Graphs</title>
+      <author><first>Sushant</first><last>Gautam</last></author>
+      <author><first>Roxana</first><last>Pop</last></author>
+      <pages>297-306</pages>
+      <abstract>Fact-checking is a crucial natural language processing (NLP) task that verifies the truthfulness of claims by considering reliable evidence. Traditional methods are labour- intensive, and most automatic approaches focus on using documents as evidence. In this paper, we focus on the relatively understudied fact-checking with Knowledge Graph data as evidence and experiment on the recently introduced FactKG benchmark. We present FactGenius, a novel method that enhances fact- checking by combining zero-shot prompting of large language models (LLMs) with fuzzy text matching on knowledge graphs (KGs). Our method employs LLMs for filtering relevant connections from the graph and validates these connections via distance-based matching. The evaluation of FactGenius on an existing benchmark demonstrates its effectiveness, as we show it significantly outperforms state-of- the-art methods. The code and materials are available at https://github.com/SushantGautam/FactGenius.</abstract>
+      <url hash="3556c08f">2024.fever-1.30</url>
+      <bibkey>gautam-pop-2024-factgenius</bibkey>
+    </paper>
+    <paper id="32">
+      <title>Fact or Fiction? Improving Fact Verification with Knowledge Graphs through Simplified Subgraph Retrievals</title>
+      <author><first>Tobias Aanderaa</first><last>Opsahl</last></author>
+      <pages>307-316</pages>
+      <abstract>Despite recent success in natural language processing (NLP), fact verification still remains a difficult task. Due to misinformation spreading increasingly fast, attention has been directed towards automatically verifying the correctness of claims. In the domain of NLP, this is usually done by training supervised machine learning models to verify claims by utilizing evidence from trustworthy corpora. We present efficient methods for verifying claims on a dataset where the evidence is in the form of structured knowledge graphs. We use the FactKG dataset, which is constructed from the DBpedia knowledge graph extracted from Wikipedia. By simplifying the evidence retrieval process, from fine-tuned language models to simple logical retrievals, we are able to construct models that both require less computational resources and achieve better test-set accuracy.</abstract>
+      <url hash="99c84ebb">2024.fever-1.32</url>
+      <bibkey>opsahl-2024-fact</bibkey>
+    </paper>
+  </volume>
+</collection>

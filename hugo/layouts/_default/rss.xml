@@ -1,0 +1,63 @@
+{{- $pctx := . -}}
+{{- if .IsHome -}}{{ $pctx = .Site }}{{- end -}}
+{{- $pages := slice -}}
+{{- if or $.IsHome $.IsSection -}}
+  {{- $pages = $pctx.RegularPages -}}
+{{- else -}}
+  {{- $pages = $pctx.Pages -}}
+{{- end -}}
+{{- $limit := .Site.Config.Services.RSS.Limit -}}
+{{- if ge $limit 1 -}}
+  <!-- First get the last page that we *would* render given the rssLimit. -->
+  {{- $last_page := (sort $pages "Date" "desc") | first $limit | last 1 -}}
+  {{- $last_page = (index $last_page 0) -}}
+  <!-- Then re-do the selection by date, including all pages with the same date as the last entry. -->
+  {{- $pages = (sort (where $pages "Date" ">=" $last_page.Date) "Date" "desc") -}}
+{{- end -}}
+{{- printf "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>" | safeHTML }}
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>{{ if eq  .Title  .Site.Title }}{{ .Site.Title }}{{ else }}{{ with .Title }}{{.}} on {{ end }}{{ .Site.Title }}{{ end }}</title>
+    <link>{{ .Permalink }}</link>
+    <description>Recent content {{ if ne  .Title  .Site.Title }}{{ with .Title }}in {{.}} {{ end }}{{ end }}on {{ .Site.Title }}</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>{{ site.LanguageCode }}</language>{{ with .Site.Author.email }}
+    <managingEditor>{{.}}{{ with $.Site.Author.name }} ({{.}}){{end}}</managingEditor>{{end}}{{ with .Site.Author.email }}
+    <webMaster>{{.}}{{ with $.Site.Author.name }} ({{.}}){{end}}</webMaster>{{end}}{{ with .Site.Copyright }}
+    <copyright>{{.}}</copyright>{{end}}{{ if not .Date.IsZero }}
+    <lastBuildDate>{{ .Date.Format "Mon, 02 Jan 2006 15:04:05 -0700" | safeHTML }}</lastBuildDate>{{ end }}
+    {{- with .OutputFormats.Get "RSS" -}}
+    {{ printf "<atom:link href=%q rel=\"self\" type=%q />" .Permalink .MediaType | safeHTML }}
+    {{- end -}}
+    {{ range $pages }}
+    <item>
+      <title>{{ .Title }}</title>
+      <link>{{ .Permalink }}</link>
+      <pubDate>{{ .Date.Format "Mon, 02 Jan 2006 15:04:05 -0700" | safeHTML }}</pubDate>
+      <guid><!-- Prefer anthology id if it exists, use permalink otherwise. -->
+        {{- if isset .Params "anthology_id" -}}
+          {{- .Param "anthology_id" -}}
+        {{- else -}}
+          {{- .Permalink -}}
+        {{- end -}}
+      </guid>
+      <description>
+        {{- if isset .Params "anthology_id" -}}
+          {{- $volume_id := index (split .Params.anthology_id "-") 0 -}}
+          {{- $paper := index (index $.Site.Data.papers $volume_id) .Params.anthology_id -}}
+          {{- with $paper.author -}}
+            {{- delimit (apply $paper.author "index" "." "full") ", " " and " -}}
+          {{- end -}}
+          {{- $volume_nr := index (split (index (split .Params.anthology_id "-") 1) ".") 0 -}}
+          {{- $volume := index $.Site.Data.volumes (printf "%s-%s" $volume_id $volume_nr) -}}
+          {{- printf " in %s" $volume.title -}}
+        {{- else if .Description -}}
+          {{ .Description | html }}
+        {{- else -}}
+          {{ .Summary | html }}
+        {{- end -}}
+      </description>
+    </item>
+    {{ end }}
+  </channel>
+</rss>

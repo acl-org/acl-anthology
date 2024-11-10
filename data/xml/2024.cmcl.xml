@@ -1,0 +1,286 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2024.cmcl">
+  <volume id="1" ingest-date="2024-07-25" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of the Workshop on Cognitive Modeling and Computational Linguistics</booktitle>
+      <editor><first>Tatsuki</first><last>Kuribayashi</last></editor>
+      <editor><first>Giulia</first><last>Rambelli</last></editor>
+      <editor><first>Ece</first><last>Takmaz</last></editor>
+      <editor><first>Philipp</first><last>Wicke</last></editor>
+      <editor><first>Yohei</first><last>Oseki</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Bangkok, Thailand</address>
+      <month>August</month>
+      <year>2024</year>
+      <url hash="923883cf">2024.cmcl-1</url>
+      <venue>cmcl</venue>
+      <venue>ws</venue>
+    </meta>
+    <frontmatter>
+      <url hash="4faa1b8f">2024.cmcl-1.0</url>
+      <bibkey>cmcl-2024-cognitive</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title><fixed-case>BAMBINO</fixed-case>-<fixed-case>LM</fixed-case>: (Bilingual-)Human-Inspired Continual Pre-training of <fixed-case>B</fixed-case>aby<fixed-case>LM</fixed-case></title>
+      <author><first>Zhewen</first><last>Shen</last></author>
+      <author><first>Aditya</first><last>Joshi</last><affiliation>UNSW</affiliation></author>
+      <author><first>Ruey-Cheng</first><last>Chen</last><affiliation>Canva</affiliation></author>
+      <pages>1-7</pages>
+      <abstract>Children from bilingual backgrounds benefit from interactions with parents and teachers to re-acquire their heritage language. In this paper, we investigate how this insight from behavioral study can be incorporated into the learning of small-scale language models. We introduce BAMBINO-LM, a continual pre-training strategy for BabyLM that uses a novel combination of alternation and PPO-based perplexity reward induced from a parent Italian model. Upon evaluation on zero-shot classification tasks for English and Italian, BAMBINO-LM improves the Italian language capability of a BabyLM baseline. Our ablation analysis demonstrates that employing both the alternation strategy and PPO-based modeling is key to this effectiveness gain. We also show that, as a side effect, the proposed method leads to a similar degradation in L1 effectiveness as human children would have had in an equivalent learning scenario. Through its modeling and findings, BAMBINO-LM makes a focused contribution to the pre-training of small-scale language models by first developing a human-inspired strategy for pre-training and then showing that it results in behaviours similar to that of humans.</abstract>
+      <url hash="6c06bea7">2024.cmcl-1.1</url>
+      <bibkey>shen-etal-2024-bambino</bibkey>
+      <doi>10.18653/v1/2024.cmcl-1.1</doi>
+    </paper>
+    <paper id="2">
+      <title>Evaluating Vision-Language Models on Bistable Images</title>
+      <author><first>Artemis</first><last>Panagopoulou</last><affiliation>SalesForce.com and University of Pennsylvania, University of Pennsylvania</affiliation></author>
+      <author><first>Coby</first><last>Melkin</last></author>
+      <author><first>Chris</first><last>Callison-Burch</last><affiliation>Allen Institute for Artificial Intelligence and University of Pennsylvania</affiliation></author>
+      <pages>8-29</pages>
+      <abstract>Bistable images, also known as ambiguous or reversible images, present visual stimuli that can be seen in two distinct interpretations, though not simultaneously, by the observer. In this study, we conduct the most extensive examination of vision-language models using bistable images to date. We manually gathered a dataset of 29 bistable images, along with their associated labels, and subjected them to 121 different manipulations in brightness, resolution, tint, and rotation. We evaluated twelve different models in both classification and generative tasks across six model architectures. Our findings reveal that, with the exception of models from the Idefics family and LLaVA1.5-13b, there is a pronounced preference for one interpretation over another among the models, and minimal variance under image manipulations, with few exceptions on image rotations. Additionally, we compared the models’ preferences with humans, noting that the models do not exhibit the same continuity biases as humans and often diverge from human initial interpretations. We also investigated the influence of variations in prompts and the use of synonymous labels, discovering that these factors significantly affect model interpretations more than image manipulations showing a higher influence of the language priors on bistable image interpretations compared to image-text training data. All code and data is open sourced.</abstract>
+      <url hash="b7d73896">2024.cmcl-1.2</url>
+      <bibkey>panagopoulou-etal-2024-evaluating</bibkey>
+      <doi>10.18653/v1/2024.cmcl-1.2</doi>
+    </paper>
+    <paper id="3">
+      <title>Locally Biased Transformers Better Align with Human Reading Times</title>
+      <author><first>Andrea</first><last>De Varda</last><affiliation>University of Milan - Bicocca</affiliation></author>
+      <author><first>Marco</first><last>Marelli</last></author>
+      <pages>30-36</pages>
+      <abstract>Recent psycholinguistic theories emphasize the interdependence between linguistic expectations and memory limitations in human language processing. We modify the self-attention mechanism of a transformer model to simulate a lossy context representation, biasing the model’s predictions to give additional weight to the local linguistic context. We show that surprisal estimates from our locally-biased model generally provide a better fit to human psychometric data, underscoring the sensitivity of the human parser to local linguistic information.</abstract>
+      <url hash="6c45aaac">2024.cmcl-1.3</url>
+      <bibkey>de-varda-marelli-2024-locally</bibkey>
+      <doi>10.18653/v1/2024.cmcl-1.3</doi>
+    </paper>
+    <paper id="4">
+      <title>Do large language models resemble humans in language use?</title>
+      <author><first>Zhenguang</first><last>Cai</last></author>
+      <author><first>Xufeng</first><last>Duan</last></author>
+      <author><first>David</first><last>Haslett</last></author>
+      <author><first>Shuqi</first><last>Wang</last></author>
+      <author><first>Martin</first><last>Pickering</last></author>
+      <pages>37-56</pages>
+      <abstract>It is unclear whether large language models (LLMs) develop humanlike characteristics in language use. We subjected ChatGPT and Vicuna to 12 pre-registered psycholinguistic experiments ranging from sounds to dialogue. ChatGPT and Vicuna replicated the human pattern of language use in 10 and 7 out of the 12 experiments, respectively. The models associated unfamiliar words with different meanings depending on their forms, continued to access recently encountered meanings of ambiguous words, reused recent sentence structures, attributed causality as a function of verb semantics, and accessed different meanings and retrieved different words depending on an interlocutor’s identity. In addition, ChatGPT, but not Vicuna, nonliterally interpreted implausible sentences that were likely to have been corrupted by noise, drew reasonable inferences, and overlooked semantic fallacies in a sentence. Finally, unlike humans, neither model preferred using shorter words to convey less informative content, nor did they use context to resolve syntactic ambiguities. We discuss how these convergences and divergences may result from the transformer architecture. Overall, these experiments demonstrate that LLMs such as ChatGPT (and Vicuna to a lesser extent) are humanlike in many aspects of human language processing.</abstract>
+      <url hash="d75553d0">2024.cmcl-1.4</url>
+      <bibkey>cai-etal-2024-large</bibkey>
+      <doi>10.18653/v1/2024.cmcl-1.4</doi>
+    </paper>
+    <paper id="5">
+      <title>The Curious Case of Representational Alignment: Unravelling Visio-Linguistic Tasks in Emergent Communication</title>
+      <author><first>Tom</first><last>Kouwenhoven</last><affiliation>Leiden University, Leiden University</affiliation></author>
+      <author><first>Max</first><last>Peeperkorn</last></author>
+      <author><first>Bram</first><last>Van Dijk</last><affiliation>Leiden University</affiliation></author>
+      <author><first>Tessa</first><last>Verhoef</last><affiliation>Leiden University, Leiden University</affiliation></author>
+      <pages>57-71</pages>
+      <abstract>Natural language has the universal properties of being compositional and grounded in reality. The emergence of linguistic properties is often investigated through simulations of emergent communication in referential games. However, these experiments have yielded mixed results compared to similar experiments addressing linguistic properties of human language. Here we address representational alignment as a potential contributing factor to these results. Specifically, we assess the representational alignment between agent image representations and between agent representations and input images. Doing so, we confirm that the emergent language does not appear to encode human-like conceptual visual features, since agent image representations drift away from inputs whilst inter-agent alignment increases. We moreover identify a strong relationship between inter-agent alignment and topographic similarity, a common metric for compositionality, and address its consequences. To address these issues, we introduce an alignment penalty that prevents representational drift but interestingly does not improve performance on a compositional discrimination task. Together, our findings emphasise the key role representational alignment plays in simulations of language emergence.</abstract>
+      <url hash="3167704f">2024.cmcl-1.5</url>
+      <bibkey>kouwenhoven-etal-2024-curious</bibkey>
+      <doi>10.18653/v1/2024.cmcl-1.5</doi>
+    </paper>
+    <paper id="6">
+      <title>Hierarchical syntactic structure in human-like language models</title>
+      <author><first>Michael</first><last>Wolfman</last></author>
+      <author><first>Donald</first><last>Dunagan</last></author>
+      <author><first>Jonathan</first><last>Brennan</last><affiliation>University of Michigan - Ann Arbor</affiliation></author>
+      <author><first>John</first><last>Hale</last><affiliation>Johns Hopkins University, University of Georgia and DeepMind</affiliation></author>
+      <pages>72-80</pages>
+      <abstract>Language models (LMs) are a meeting point for cognitive modeling and computational linguistics. How should they be designed to serve as adequate cognitive models? To address this question, this study contrasts two Transformer-based LMs that share the same architecture. Only one of them analyzes sentences in terms of explicit hierarchical structure. Evaluating the two LMs against fMRI time series via the surprisal complexity metric, the results implicate the superior temporal gyrus. These findings underline the need for hierarchical sentence structures in word-by-word models of human language comprehension.</abstract>
+      <url hash="767d0a16">2024.cmcl-1.6</url>
+      <bibkey>wolfman-etal-2024-hierarchical</bibkey>
+      <doi>10.18653/v1/2024.cmcl-1.6</doi>
+    </paper>
+    <paper id="7">
+      <title>Do <fixed-case>LLM</fixed-case>s Agree with Humans on Emotional Associations to Nonsense Words?</title>
+      <author><first>Yui</first><last>Miyakawa</last><affiliation>Nagoya University</affiliation></author>
+      <author><first>Chihaya</first><last>Matsuhira</last></author>
+      <author><first>Hirotaka</first><last>Kato</last></author>
+      <author><first>Takatsugu</first><last>Hirayama</last><affiliation>University of Human Environments</affiliation></author>
+      <author><first>Takahiro</first><last>Komamizu</last><affiliation>Nagoya University</affiliation></author>
+      <author><first>Ichiro</first><last>Ide</last><affiliation>Nagoya University and Nagoya University</affiliation></author>
+      <pages>81-85</pages>
+      <abstract>Understanding human perception of nonsense words is helpful to devise product and character names that match their characteristics. Previous studies have suggested the usefulness of Large Language Models (LLMs) for estimating such human perception, but they did not focus on its emotional aspects. Hence, this study aims to elucidate the relationship of emotions evoked by nonsense words between humans and LLMs. Using a representative LLM, GPT-4, we reproduce the procedure of an existing study to analyze evoked emotions of humans for nonsense words. A positive correlation of 0.40 was found between the emotion intensity scores reproduced by GPT-4 and those manually annotated by humans. Although the correlation is not very high, this demonstrates that GPT-4 may agree with humans on emotional associations to nonsense words. Considering that the previous study reported that the correlation among human annotators was about 0.68 on average and that between a regression model trained on the annotations for real words and humans was 0.17, GPT-4’s agreement with humans is notably strong.</abstract>
+      <url hash="77278889">2024.cmcl-1.7</url>
+      <bibkey>miyakawa-etal-2024-llms</bibkey>
+      <doi>10.18653/v1/2024.cmcl-1.7</doi>
+    </paper>
+    <paper id="8">
+      <title>Large language models fail to derive atypicality inferences in a human-like manner</title>
+      <author><first>Charlotte</first><last>Kurch</last><affiliation>Universität des Saarlandes</affiliation></author>
+      <author><first>Margarita</first><last>Ryzhova</last></author>
+      <author><first>Vera</first><last>Demberg</last><affiliation>Universität des Saarlandes</affiliation></author>
+      <pages>86-100</pages>
+      <abstract>Recent studies have claimed that large language models (LLMs) are capable of drawing pragmatic inferences (Qiu et al., 2023; Hu et al., 2022; Barattieri di San Pietro et al., 2023). The present paper sets out to test LLM’s abilities on atypicality inferences, a type of pragmatic inference that is triggered through informational redundancy. We test several state-of-the-art LLMs in a zero-shot setting and find that LLMs fail to systematically fail to derive atypicality inferences. Our robustness analysis indicates that when inferences are seemingly derived in a few-shot settings, these results can be attributed to shallow pattern matching and not pragmatic inferencing. We also analyse the performance of the LLMs at the different derivation steps required for drawing atypicality inferences – our results show that models have access to script knowledge and can use it to identify redundancies and accommodate the atypicality inference. The failure instead seems to stem from not reacting to the subtle maxim of quantity violations introduced by the informationally redundant utterances.</abstract>
+      <url hash="b1f84329">2024.cmcl-1.8</url>
+      <bibkey>kurch-etal-2024-large</bibkey>
+      <doi>10.18653/v1/2024.cmcl-1.8</doi>
+    </paper>
+    <paper id="9">
+      <title>Predict but Also Integrate: an Analysis of Sentence Processing Models for <fixed-case>E</fixed-case>nglish and <fixed-case>H</fixed-case>indi</title>
+      <author><first>Nina</first><last>Delcaro</last></author>
+      <author><first>Luca</first><last>Onnis</last><affiliation>University of Oslo</affiliation></author>
+      <author><first>Raquel</first><last>Alhama</last><affiliation>University of Amsterdam, University of Amsterdam</affiliation></author>
+      <pages>101-108</pages>
+      <abstract>Fluent speakers make implicit predictions about forthcoming linguistic items while processing sentences, possibly to increase efficiency in real-time comprehension. However, the extent to which prediction is the primary mode of processing human language is widely debated. The human language processor may also gain efficiency by integrating new linguistic information with prior knowledge and the preceding context, without actively predicting. At present, the role of probabilistic integration, as well as its computational foundation, remains relatively understudied. Here, we explored whether a Delayed Recurrent Neural Network (d-RNN, Turek et al., 2020), as an implementation of both prediction and integration, can explain patterns of human language processing over and above the contribution of a purely predictive RNN model. We found that incorporating integration contributes to explaining variability in eye-tracking data for English and Hindi.</abstract>
+      <url hash="7c63f8df">2024.cmcl-1.9</url>
+      <bibkey>delcaro-etal-2024-predict</bibkey>
+      <doi>10.18653/v1/2024.cmcl-1.9</doi>
+    </paper>
+    <paper id="10">
+      <title>Transformer Attention vs Human Attention in Anaphora Resolution</title>
+      <author><first>Anastasia</first><last>Kozlova</last></author>
+      <author><first>Albina</first><last>Akhmetgareeva</last></author>
+      <author><first>Aigul</first><last>Khanova</last><affiliation>Higher School of Economics</affiliation></author>
+      <author><first>Semen</first><last>Kudriavtsev</last></author>
+      <author><first>Alena</first><last>Fenogenova</last><affiliation>SaluteDevices</affiliation></author>
+      <pages>109-122</pages>
+      <abstract>Motivated by human cognitive processes, attention mechanism within transformer architecture has been developed to assist neural networks in allocating focus to specific aspects within input data. Despite claims regarding the interpretability achieved by attention mechanisms, the extent of correlation and similarity between machine and human attention remains a subject requiring further investigation.In this paper, we conduct a quantitative analysis of human attention compared to neural attention mechanisms in the context of the anaphora resolution task. We collect an eye-tracking dataset based on the Winograd schema challenge task for the Russian language. Leveraging this dataset, we conduct an extensive analysis of the correlations between human and machine attention maps across various transformer architectures, network layers of pre-trained and fine-tuned models. Our aim is to investigate whether insights from human attention mechanisms can be used to enhance the performance of neural networks in tasks such as anaphora resolution. The results reveal distinctions in anaphora resolution processing, offering promising prospects for improving the performance of neural networks and understanding the cognitive nuances of human perception.</abstract>
+      <url hash="9b9a3c2d">2024.cmcl-1.10</url>
+      <bibkey>kozlova-etal-2024-transformer</bibkey>
+      <doi>10.18653/v1/2024.cmcl-1.10</doi>
+    </paper>
+    <paper id="11">
+      <title>Evaluating Lexical Aspect with Large Language Models</title>
+      <author><first>Bolei</first><last>Ma</last><affiliation>Ludwig-Maximilians-Universität München</affiliation></author>
+      <pages>123-131</pages>
+      <abstract>In this study, we explore the proficiency of large language models (LLMs) in understanding two key lexical aspects: duration (durative/stative) and telicity (telic/atelic). Through experiments on datasets featuring sentences, verbs, and verb positions, we prompt the LLMs to identify aspectual features of verbs in sentences. Our findings reveal that certain LLMs, particularly those closed-source ones, are able to capture information on duration and telicity, albeit with some performance variations and weaker results compared to the baseline. By employing prompts at three levels (sentence-only, sentence with verb, and sentence with verb and its position), we demonstrate that integrating verb information generally enhances performance in aspectual feature recognition, though it introduces instability. We call for future research to look deeper into methods aimed at optimizing LLMs for aspectual feature comprehension.</abstract>
+      <url hash="82e9244f">2024.cmcl-1.11</url>
+      <bibkey>ma-2024-evaluating</bibkey>
+      <doi>10.18653/v1/2024.cmcl-1.11</doi>
+    </paper>
+    <paper id="12">
+      <title>Daily auditory environments in <fixed-case>F</fixed-case>rench-speaking infants: A longitudinal dataset</title>
+      <author><first>Estelle</first><last>Hervé</last></author>
+      <author><first>Clément</first><last>François</last><affiliation>CNRS</affiliation></author>
+      <author><first>Laurent</first><last>Prevot</last><affiliation>Université d’Aix-Marseille</affiliation></author>
+      <pages>132-151</pages>
+      <abstract>Babies’ daily auditory environment plays a crucial role in language development. Most previous research estimating the quantitative and qualitative aspects of early speech inputs has predominantly focused on English- and Spanish-speaking families. In addition, validation studies for daylong recordings’ analysis tools are scarce on French data sets.In this paper, we present a French corpus of daylong audio recordings longitudinally collected with the LENA (Language ENvironment Analysis) system from infants aged 3 to 24 months. We conduct a thorough exploration of this data set, which serves as a quality check for both the data and the analysis tools.We evaluate the reliability of LENA metrics by systematically comparing them with those obtained from the ChildProject set of tools and by checking the known dynamics of the metrics with age. These metrics are also used to replicate, on our data set, findings from (Warlaumont et al, 2014) about the increase of infants’ speech vocalizations and temporal contingencies between infants and caregivers with age.</abstract>
+      <url hash="a073ec9f">2024.cmcl-1.12</url>
+      <bibkey>herve-etal-2024-daily</bibkey>
+      <doi>10.18653/v1/2024.cmcl-1.12</doi>
+    </paper>
+    <paper id="13">
+      <title>Analysing and Validating Language Complexity Metrics Across <fixed-case>S</fixed-case>outh <fixed-case>A</fixed-case>merican Indigenous Languages</title>
+      <author><first>Felipe</first><last>Serras</last><affiliation>Universidade de São Paulo</affiliation></author>
+      <author><first>Miguel</first><last>Carpi</last><affiliation>Universidade de São Paulo</affiliation></author>
+      <author><first>Matheus</first><last>Branco</last><affiliation>University of São Paulo, Universidade de São Paulo</affiliation></author>
+      <author><first>Marcelo</first><last>Finger</last><affiliation>Universidade de São Paulo</affiliation></author>
+      <pages>152-165</pages>
+      <abstract>Language complexity is an emerging concept critical for NLP and for quantitative and cognitive approaches to linguistics. In this work, we evaluate the behavior of a set of compression-based language complexity metrics when applied to a large set of native South American languages. Our goal is to validate the desirable properties of such metrics against a more diverse set of languages, guaranteeing the universality of the techniques developed on the basis of this type of theoretical artifact. Our analysis confirmed with statistical confidence most propositions about the metrics studied, affirming their robustness, despite showing less stability than when the same metrics were applied to Indo-European languages. We also observed that the trade-off between morphological and syntactic complexities is strongly related to language phylogeny.</abstract>
+      <url hash="98917cef">2024.cmcl-1.13</url>
+      <bibkey>serras-etal-2024-analysing</bibkey>
+      <doi>10.18653/v1/2024.cmcl-1.13</doi>
+    </paper>
+    <paper id="14">
+      <title>How can large language models become more human?</title>
+      <author><first>Daphne</first><last>Wang</last><affiliation>Quandela</affiliation></author>
+      <author><first>Mehrnoosh</first><last>Sadrzadeh</last><affiliation>University College London</affiliation></author>
+      <author><first>Miloš</first><last>Stanojević</last><affiliation>University College London, University of London and Google DeepMind</affiliation></author>
+      <author><first>Wing-Yee</first><last>Chow</last><affiliation>University College London, University of London</affiliation></author>
+      <author><first>Richard</first><last>Breheny</last><affiliation>University College London, University of London</affiliation></author>
+      <pages>166-176</pages>
+      <abstract>Psycholinguistic experiments reveal that efficiency of human language use is founded on predictions at both syntactic and lexical levels. Previous models of human prediction exploiting LLMs have used an information theoretic measure called <i>surprisal</i>, with success on naturalistic text in a wide variety of languages, but under-performance on challenging text such as garden path sentences. This paper introduces a novel framework that combines the lexical predictions of an LLM with the syntactic structures provided by a dependency parser. The framework gives rise to an <i>Incompatibility Fraction</i>. When tested on two garden path datasets, it correlated well with human reading times, distinguished between easy and hard garden path, and outperformed surprisal.</abstract>
+      <url hash="74f449db">2024.cmcl-1.14</url>
+      <bibkey>wang-etal-2024-large-language-models</bibkey>
+      <doi>10.18653/v1/2024.cmcl-1.14</doi>
+    </paper>
+    <paper id="15">
+      <title>Morphology Matters: Probing the Cross-linguistic Morphological Generalization Abilities of Large Language Models through a Wug Test</title>
+      <author><first>Dang</first><last>Anh</last></author>
+      <author><first>Limor</first><last>Raviv</last><affiliation>Max-Planck Institute</affiliation></author>
+      <author><first>Lukas</first><last>Galke</last><affiliation>Max Planck Institute for Psycholinguistics</affiliation></author>
+      <pages>177-188</pages>
+      <abstract>We develop a multilingual version of the Wug Test, an artificial word completion experiment that is typically used to test the morphological knowledge of children, and apply it to the GPT family of large language models (LLMs). LLMs’ performance on this test was evaluated by native speakers of six different languages, who judged whether the inflected and derived forms generated by the models conform to the morphological rules of their language. Our results show that LLMs can generalize their morphological knowledge to new, unfamiliar words, but that their success in generating the “correct” generalization (as judged by native human speakers) is predicted by a language’s morphological complexity (specifically, integrative complexity). We further find that the amount of training data has surprisingly little on LLMs’ morphological generalization abilities within the scope of the analyzed languages. These findings highlight that “morphology matters”, and have important implications for improving low-resource language modeling.</abstract>
+      <url hash="38df4878">2024.cmcl-1.15</url>
+      <bibkey>anh-etal-2024-morphology</bibkey>
+      <doi>10.18653/v1/2024.cmcl-1.15</doi>
+    </paper>
+    <paper id="16">
+      <title>Evaluating Grammatical Well-Formedness in Large Language Models: A Comparative Study with Human Judgments</title>
+      <author><first>Zhuang</first><last>Qiu</last></author>
+      <author><first>Xufeng</first><last>Duan</last></author>
+      <author><first>Zhenguang</first><last>Cai</last></author>
+      <pages>189-198</pages>
+      <abstract>Research in artificial intelligence has witnessed the surge of large language models (LLMs) demonstrating improved performance in various natural language processing tasks. This has sparked significant discussions about the extent to which large language models emulate human linguistic cognition and usage. This study delves into the representation of grammatical well-formedness in LLMs, which is a critical aspect of linguistic knowledge. In three preregistered experiments, we collected grammaticality judgment data for over 2400 English sentences with varying structures from ChatGPT and Vicuna, comparing them with human judgment data. The results reveal substantial alignment in the assessment of grammatical correctness between LLMs and human judgments, albeit with LLMs often showing more conservative judgments for grammatical correctness or incorrectness.</abstract>
+      <url hash="03ceeec3">2024.cmcl-1.16</url>
+      <bibkey>qiu-etal-2024-evaluating</bibkey>
+      <doi>10.18653/v1/2024.cmcl-1.16</doi>
+    </paper>
+    <paper id="17">
+      <title>What does Kiki look like? Cross-modal associations between speech sounds and visual shapes in vision-and-language models</title>
+      <author><first>Tessa</first><last>Verhoef</last><affiliation>Leiden University, Leiden University</affiliation></author>
+      <author><first>Kiana</first><last>Shahrasbi</last></author>
+      <author><first>Tom</first><last>Kouwenhoven</last><affiliation>Leiden University, Leiden University</affiliation></author>
+      <pages>199-213</pages>
+      <abstract>Humans have clear cross-modal preferences when matching certain novel words to visual shapes. Evidence suggests that these preferences play a prominent role in our linguistic processing, language learning, and the origins of signal-meaning mappings. With the rise of multimodal models in AI, such as vision-and-language (VLM) models, it becomes increasingly important to uncover the kinds of visio-linguistic associations these models encode and whether they align with human representations. Informed by experiments with humans, we probe and compare four VLMs for a well-known human cross-modal preference, the bouba-kiki effect. We do not find conclusive evidence for this effect but suggest that results may depend on features of the models, such as architecture design, model size, and training details. Our findings inform discussions on the origins of the bouba-kiki effect in human cognition and future developments of VLMs that align well with human cross-modal associations.</abstract>
+      <url hash="ff52ca01">2024.cmcl-1.17</url>
+      <bibkey>verhoef-etal-2024-kiki</bibkey>
+      <doi>10.18653/v1/2024.cmcl-1.17</doi>
+    </paper>
+    <paper id="18">
+      <title>Evaluating Semantic Relations in Predicting Textual Labels for Images of Abstract and Concrete Concepts</title>
+      <author><first>Tarun</first><last>Tater</last><affiliation>Universität Stuttgart</affiliation></author>
+      <author><first>Sabine</first><last>Schulte Im Walde</last><affiliation>University of Stuttgart</affiliation></author>
+      <author><first>Diego</first><last>Frassinelli</last><affiliation>Ludwig-Maximilians-Universität München</affiliation></author>
+      <pages>214-220</pages>
+      <abstract>This study investigates the performance of SigLIP, a state-of-the-art Vision-Language Model (VLM), in predicting labels for images depicting 1,278 concepts. Our analysis across 300 images per concept shows that the model frequently predicts the exact user-tagged labels, but similarly, it often predicts labels that are semantically related to the exact labels in various ways: synonyms, hypernyms, co-hyponyms, and associated words, particularly for abstract concepts. We then zoom into the diversity of the user tags of images and word associations for abstract versus concrete concepts. Surprisingly, not only abstract but also concrete concepts exhibit significant variability, thus challenging the traditional view that representations of concrete concepts are less diverse.</abstract>
+      <url hash="08aaeb88">2024.cmcl-1.18</url>
+      <bibkey>tater-etal-2024-evaluating</bibkey>
+      <doi>10.18653/v1/2024.cmcl-1.18</doi>
+    </paper>
+    <paper id="19">
+      <title>Diachronic change in verb usage statistics predicts differences in sentence processing across the lifespan</title>
+      <author><first>Ellis</first><last>Cain</last><affiliation>University of California, Merced</affiliation></author>
+      <author><first>Rachel</first><last>Ryskin</last><affiliation>University of California at Merced</affiliation></author>
+      <pages>221-230</pages>
+      <abstract>Diachronic corpus analyses reveal that syntactic usage patterns change over time. Are these changes reflected in differences in language processing across the human lifespan? We use the attachment of with-prepositional phrases (PPs) as a case study for investigating this question: a with-PP can attach to a verb, describing an instrument with which to perform the action (e.g., Slice the cake [with a knife]), or to a direct object (DO), modifying the noun (e.g., Slice the cake [with the pink frosting]). The relative frequencies of the instrument and modifier constructions differ depending on the verb in the sentence — the ‘verb bias’. Using two diachronic corpora, Syntgram and CCOHA, we analyzed the co-occurrence statistics of 27 verbs and instrument vs. modifier with-PPs. Between the 1940s and the 2000s, some verbs were more instrument-biased (i.e., more likely to co-occur with with-PPs that attach to the verb than the DO) than others and co-occurrence patterns were more similar for temporally close decades, suggesting subtle diachronic changes in usage patterns. We collected sentence interpretation data probing with-PP attachment preferences in participants ranging in age from 25 to 75. Interpretations of globally ambiguous sentences (e.g., Pet the rabbit with the towel) differed depending on the verb (i.e., some verbs elicit more instrument than modifier interpretations of the PP than others and vice versa) and on the age of the participant. In particular, verbs which became less instrument-biased over time elicited more instrument interpretations among older adults than young adults, suggesting that variation in language comprehension can be in part predicted from the corpus statistics of the time periods that an individual experienced.</abstract>
+      <url hash="057b3836">2024.cmcl-1.19</url>
+      <bibkey>cain-ryskin-2024-diachronic</bibkey>
+      <doi>10.18653/v1/2024.cmcl-1.19</doi>
+    </paper>
+    <paper id="20">
+      <title>How Useful is Context, Actually? Comparing <fixed-case>LLM</fixed-case>s and Humans on Discourse Marker Prediction</title>
+      <author><first>Emily</first><last>Sadlier-Brown</last></author>
+      <author><first>Millie</first><last>Lou</last></author>
+      <author><first>Miikka</first><last>Silfverberg</last><affiliation>University of British Columbia</affiliation></author>
+      <author><first>Carla</first><last>Kam</last><affiliation>University of British Columbia</affiliation></author>
+      <pages>231-241</pages>
+      <abstract>This paper investigates the adverbial discourse particle actually. We compare LLM and human performance on cloze tests involving actually on examples sourced from the Providence Corpus of speech around children. We explore the impact of utterance context on cloze test performance. We find that context is always helpful, though the extent to which additional context is helpful, and what relative placement of context (i.e. before or after the masked word) is most helpful differs for individual models and humans. The best-performing LLM, GPT-4, narrowly outperforms humans. In an additional experiment, we explore cloze performance on synthetic LLM-generated examples, and find that several models vastly outperform humans.</abstract>
+      <url hash="19bf48bf">2024.cmcl-1.20</url>
+      <bibkey>sadlier-brown-etal-2024-useful</bibkey>
+      <doi>10.18653/v1/2024.cmcl-1.20</doi>
+    </paper>
+    <paper id="21">
+      <title><fixed-case>LLM</fixed-case>s’ morphological analyses of complex <fixed-case>FST</fixed-case>-generated <fixed-case>F</fixed-case>innish words</title>
+      <author><first>Anssi</first><last>Moisio</last><affiliation>Aalto University</affiliation></author>
+      <author><first>Mathias</first><last>Creutz</last><affiliation>University of Helsinki</affiliation></author>
+      <author><first>Mikko</first><last>Kurimo</last><affiliation>Aalto University</affiliation></author>
+      <pages>242-254</pages>
+      <abstract>Rule-based language processing systems have been overshadowed by neural systems in terms of utility, but it remains unclear whether neural NLP systems, in practice, learn the grammar rules that humans use. This work aims to shed light on the issue by evaluating state-of-the-art LLMs in a task of morphological analysis of complex Finnish noun forms. We generate the forms using an FST tool, and they are unlikely to have occurred in the training sets of the LLMs, therefore requiring morphological generalisation capacity. We find that GPT-4-turbohas some difficulties in the task while GPT-3.5-turbo struggles and smaller models Llama2-70B and Poro-34B fail nearly completely.</abstract>
+      <url hash="6ec085c4">2024.cmcl-1.21</url>
+      <bibkey>moisio-etal-2024-llms</bibkey>
+      <doi>10.18653/v1/2024.cmcl-1.21</doi>
+    </paper>
+    <paper id="22">
+      <title>An Eye Opener Regarding Task-Based Text Gradient Saliency</title>
+      <author><first>Guojun</first><last>Wu</last><affiliation>University of Zurich</affiliation></author>
+      <author><first>Lena</first><last>Bolliger</last><affiliation>University of Zurich</affiliation></author>
+      <author><first>David</first><last>Reich</last><affiliation>Universität Potsdam</affiliation></author>
+      <author><first>Lena</first><last>Jäger</last><affiliation>University of Zurich and Universität Potsdam</affiliation></author>
+      <pages>255-263</pages>
+      <abstract>Eye movements in reading reveal humans’ cognitive processes involved in language understanding. The duration a reader’s eyes fixate on a word has been used as a measure of the visual attention given to that word or its significance to the reader. This study investigates the correlation between the importance attributed to input tokens by language models (LMs) on the one hand and humans, in the form of fixation durations, on the other hand. While previous research on the internal processes of LMs have employed the models’ attention weights, recent studies have argued in favor of gradient-based methods. Moreover, previous approaches to interpret LMs’ internals with human gaze have neglected the tasks readers performed during reading, even though psycholinguistic research underlines that reading patterns are task-dependent. We therefore employ a gradient-based saliency method to measure the importance of input tokens when LMs are targeted on specific tasks, and we find that task specificity plays a crucial role in the correlation between human- and model-assigned importance. Our implementation is available at https://github.com/gjwubyron/Scan.</abstract>
+      <url hash="7171cab3">2024.cmcl-1.22</url>
+      <bibkey>wu-etal-2024-eye</bibkey>
+      <doi>10.18653/v1/2024.cmcl-1.22</doi>
+    </paper>
+    <paper id="23">
+      <title>Improving Language Models for Emotion Analysis: Insights from Cognitive Science</title>
+      <author><first>Constant</first><last>Bonard</last><affiliation>Universität Bern</affiliation></author>
+      <author><first>Gustave</first><last>Cortal</last></author>
+      <pages>264-277</pages>
+      <abstract>We propose leveraging cognitive science research on emotions and communication to improve language models for emotion analysis. First, we present the main emotion theories in psychology and cognitive science. Then, we introduce the main methods of emotion annotation in natural language processing and their connections to psychological theories. We also present the two main types of analyses of emotional communication in cognitive pragmatics. Finally, based on the cognitive science research presented, we propose directions for improving language models for emotion analysis. We suggest that these research efforts pave the way for constructing new annotation schemes, methods, and a possible benchmark for emotional understanding, considering different facets of human emotion and communication.</abstract>
+      <url hash="e9fe53be">2024.cmcl-1.23</url>
+      <bibkey>bonard-cortal-2024-improving</bibkey>
+      <doi>10.18653/v1/2024.cmcl-1.23</doi>
+    </paper>
+  </volume>
+</collection>

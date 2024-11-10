@@ -1,0 +1,389 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2023.dstc">
+  <volume id="1" ingest-date="2023-09-01" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of The Eleventh Dialog System Technology Challenge</booktitle>
+      <editor><first>Yun-Nung</first><last>Chen</last></editor>
+      <editor><first>Paul</first><last>Crook</last></editor>
+      <editor><first>Michel</first><last>Galley</last></editor>
+      <editor><first>Sarik</first><last>Ghazarian</last></editor>
+      <editor><first>Chulaka</first><last>Gunasekara</last></editor>
+      <editor><first>Raghav</first><last>Gupta</last></editor>
+      <editor><first>Behnam</first><last>Hedayatnia</last></editor>
+      <editor><first>Satwik</first><last>Kottur</last></editor>
+      <editor><first>Seungwhan</first><last>Moon</last></editor>
+      <editor><first>Chen</first><last>Zhang</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Prague, Czech Republic</address>
+      <month>September</month>
+      <year>2023</year>
+      <venue>dstc</venue>
+      <venue>ws</venue>
+    </meta>
+    <paper id="1">
+      <title>Exploring Prompt-based Multi-task Learning for Multimodal Dialog State Tracking and Immersive Multimodal Conversation</title>
+      <author><first>Yirong</first><last>Chen</last><affiliation>South China University of Technology</affiliation></author>
+      <author><first>Ya</first><last>Li</last><affiliation>IFLYTEK Research</affiliation></author>
+      <author><first>Tao</first><last>Wang</last><affiliation>iFLYTEK Research</affiliation></author>
+      <author><first>Xiaofen</first><last>Xing</last><affiliation>South China University of Technology</affiliation></author>
+      <author><first>Xiangmin</first><last>Xu</last><affiliation>South China University of Technology</affiliation></author>
+      <author><first>Quan</first><last>Liu</last><affiliation>iFLYTEK Research</affiliation></author>
+      <author><first>Cong</first><last>Liu</last><affiliation>iFLYTEK Research</affiliation></author>
+      <author><first>Guoping</first><last>Hu</last><affiliation>Ministry of Public Security</affiliation></author>
+      <pages>1-8</pages>
+      <abstract>With the rise of the metaverse, immersive multimodal conversation has attracted more and more researchers’ attention. Multimodal contexts will become more important for human-computer interaction in the metaverse, especially in shopping domain. Unlike traditional conversation tasks, immersive multimodal conversation has challenges such as multimodal ambiguous candidate identification and multimodal coreference resolution, which makes it more difficult to dialog state tracking and response generation, as described in SIMMC 2.1 challenge, a part of DSTC11. In particular, as the number of objects in the scene increases, the difficulty will increase dramatically. We proposed a prompt-based multi-task learning Encoder-Decoder, in which different subtasks use different prompts to make the model tend to focus on the current subtask. We achieve the winner in ambiguous candidates indentification and runner-up in multimodal coreference resolution (MM-Coref), multimodal dialog state tracking (MM-DST) and assistant response generation. Our code and model are made publicly available at https://github.com/scutcyr/dstc11-simmc2.1-scut-bds-lab.</abstract>
+      <url hash="d34fc0de">2023.dstc-1.1</url>
+      <bibkey>chen-etal-2023-exploring-prompt</bibkey>
+    </paper>
+    <paper id="2">
+      <title>Multi-Task Learning for Ambiguous Candidate Identification with Pre-trained Model</title>
+      <author><first>Daesik</first><last>Jang</last><affiliation>Sungkyunkwan university</affiliation></author>
+      <author><first>Hyewon</first><last>Choi</last><affiliation>Sungkyunkwan university</affiliation></author>
+      <pages>9-14</pages>
+      <abstract>Recently, research using multimodal datasets containing image and text information has been conducted actively. One of them is the SIMMC2.1 dataset. It is a more complicated dataset than answering a conversation using only text because it should predict an answer after understanding the relationship between images and text. Therefore, there are limitations to answering a conversation only using text-based models such as BERT or GPT-2, so models with both image and language understanding abilities should be considered. We propose a new model that is effective for the ambiguous candidate identification task in DSTC11 SIMMC2.1 Tark. It consists of a simple pipeline model structure, which has two steps. The first step is to check whether there is ambiguity in the current user utterance, and the second step is to extract objects mentioned in the ambiguous utterance of the user. We suggest a new learning framework with a pre-trained image model and text model that is effective for the ambiguous candidate identification task. Experiments show that the proposed method can improve the model performance, and our model achieved 3rd place in sub-task 1 of the SIMMC2.1 track.</abstract>
+      <url hash="f3f53ecd">2023.dstc-1.2</url>
+      <bibkey>jang-choi-2023-multi</bibkey>
+    </paper>
+    <paper id="3">
+      <title>Improving Situated Conversational Agents with Step-by-Step Multi-modal Logic Reasoning</title>
+      <author><first>Yuxing</first><last>Long</last><affiliation>Beijing University of Posts and Telecommunications</affiliation></author>
+      <author><first>Huibin</first><last>Zhang</last><affiliation>Nankai University</affiliation></author>
+      <author><first>Binyuan</first><last>Hui</last><affiliation>Alibaba Group</affiliation></author>
+      <author><first>Zhenglu</first><last>Yang</last><affiliation>Nankai University</affiliation></author>
+      <author><first>Caixia</first><last>Yuan</last><affiliation>Beijing University of Posts and Telecommunications</affiliation></author>
+      <author><first>Xiaojie</first><last>Wang</last><affiliation>Beijing University of Posts and Telecommunications</affiliation></author>
+      <author><first>Fei</first><last>Huang</last><affiliation>Alibaba</affiliation></author>
+      <author><first>Yongbin</first><last>Li</last><affiliation>Alibaba Group</affiliation></author>
+      <pages>15-24</pages>
+      <abstract>To fulfill complex user requirements in a situated conversational scenario, the agent needs to conduct step-by-step multi-modal logic reasoning, which includes locating objects, querying information and searching objects. However, existing methods omit this multi-step procedure and therefore constitutes the risk of shortcuts when making predictions. For example, they may directly copy the information from the dialogue history or simply use the textual description without perform visual reasoning. To address this issue and further boost the system performance, we apply the dual process theory to plug a reasoner into the original transformer based model for step-by-step reasoning. When system 2 completes multi-step reasoning, its output is regarded as final prediction. Our proposed method achieved the 1st rank on the summing scores across all four DSTC-11 SIMMC 2.1 sub-tasks.</abstract>
+      <url hash="36820cc7">2023.dstc-1.3</url>
+      <bibkey>long-etal-2023-improving</bibkey>
+    </paper>
+    <paper id="4">
+      <title>Contrastively Pretrained Vision-Language Transformers and Domain Adaptation Methods for Multimodal <fixed-case>TOD</fixed-case> Systems</title>
+      <author><first>Youngjae</first><last>Chang</last><affiliation>Sungkyunkwan University</affiliation></author>
+      <author><first>Doo</first><last>Young Kim</last><affiliation>Sungkyunkwan Univ</affiliation></author>
+      <author><first>Jinyoung</first><last>Kim</last><affiliation>Sungkyunkwan University</affiliation></author>
+      <author><first>Keunha</first><last>Kim</last><affiliation>Sungkyunkwan University</affiliation></author>
+      <author><first>Hyunmook</first><last>Cha</last><affiliation>Sungkyunkwan University</affiliation></author>
+      <author><first>Suyoung</first><last>Min</last><affiliation>SKKU</affiliation></author>
+      <author><first>Youngjoong</first><last>Ko</last><affiliation>Sungkyunkwan University</affiliation></author>
+      <author><first>Kye-Hwan</first><last>Lee</last><affiliation>LG Electronics Artificial Intelligence Lab</affiliation></author>
+      <author><first>Joonwoo</first><last>Park</last><affiliation>LG Electronics Artificial Intelligence Lab</affiliation></author>
+      <pages>25-30</pages>
+      <abstract>The Situated Interactive MultiModal Conversations (SIMMC2.1) Challenge 2022 is hosted by the Eleventh Dialog System Technology Challenge (DSTC11). This is the third consecutive year multimodal dialog systems have been selected as an official track of the competition, promoted by the continued interest in the research community. The task of SIMMC is to create a shopping assistant agent that can communicate with customers in a virtual store. It requires processing store scenes and product catalogs along with the customer’s request. The task is decomposed into four steps and each becomes a subtask. In this work, we explore the common approaches to modeling multimodality and find the method with the most potential. We also identify a discrepancy in using pretrained language models for dialog tasks and devise a simple domain-adaptation method. Our model came in third place for object coreferencing, dialog state tracking, and response generation tasks.</abstract>
+      <url hash="ea019799">2023.dstc-1.4</url>
+      <bibkey>chang-etal-2023-contrastively</bibkey>
+    </paper>
+    <paper id="5">
+      <title>Multi-Stage Coarse-to-Fine Contrastive Learning for Conversation Intent Induction</title>
+      <author><first>Caiyuan</first><last>Chu</last><affiliation>Chongqing University</affiliation></author>
+      <author><first>Ya</first><last>Li</last><affiliation>IFLYTEK Research</affiliation></author>
+      <author><first>Yifan</first><last>Liu</last><affiliation>IFLYTEK Research</affiliation></author>
+      <author><first>Jia-Chen</first><last>Gu</last><affiliation>University of Science and Technology of China</affiliation></author>
+      <author><first>Quan</first><last>Liu</last><affiliation>iFLYTEK Research</affiliation></author>
+      <author><first>Yongxin</first><last>Ge</last><affiliation>Chongqing University</affiliation></author>
+      <author><first>Guoping</first><last>Hu</last><affiliation>Ministry of Public Security</affiliation></author>
+      <pages>31-39</pages>
+      <abstract>Intent recognition is critical for task-oriented dialogue systems. However, for emerging domains and new services, it is difficult to accurately identify the key intent of a conversation due to time-consuming data annotation and comparatively poor model transferability. Therefore, the automatic induction of dialogue intention is very important for intelligent dialogue systems. This paper presents our solution to Track 2 of Intent Induction from Conversations for Task-Oriented Dialogue at the Eleventh Dialogue System Technology Challenge (DSTC11). The essence of intention clustering lies in distinguishing the representation of different dialogue utterances. The key to automatic intention induction is that, for any given set of new data, the sentence representation obtained by the model can be well distinguished from different labels. Therefore, we propose a multi-stage coarse-to-fine contrastive learning model training scheme including unsupervised contrastive learning pre-training, supervised contrastive learning pre-training, and fine-tuning with joint contrastive learning and clustering to obtain a better dialogue utterance representation model for the clustering task. In the released DSTC11 Track 2 evaluation results, our proposed system ranked first on both of the two subtasks of this Track.</abstract>
+      <url hash="3f51d29d">2023.dstc-1.5</url>
+      <bibkey>chu-etal-2023-multi</bibkey>
+    </paper>
+    <paper id="6">
+      <title><fixed-case>DORIC</fixed-case> : Domain Robust Fine-Tuning for Open Intent Clustering through Dependency Parsing</title>
+      <author><first>Jihyun</first><last>Lee</last><affiliation>Pohang University of Science and Technology</affiliation></author>
+      <author><first>Seungyeon</first><last>Seo</last><affiliation>postech</affiliation></author>
+      <author><first>Yunsu</first><last>Kim</last><affiliation>POSTECH</affiliation></author>
+      <author><first>Gary</first><last>Geunbae Lee</last><affiliation>Postech</affiliation></author>
+      <pages>40-47</pages>
+      <abstract>We present our work on Track 2 in the Dialog System Technology Challenges 11 (DSTC11). DSTC11-Track2 aims to provide a benchmark for zero-shot, cross-domain, intent-set induction. In the absence of in-domain training dataset, robust utterance representation that can be used across domains is necessary to induce users’ intentions. To achieve this, we leveraged a multi-domain dialogue dataset to fine-tune the language model and proposed extracting Verb-Object pairs to remove the artifacts of unnecessary information. Furthermore, we devised the method that generates each cluster’s name for the explainability of clustered results. Our approach achieved 3rd place in the precision score and showed superior accuracy and normalized mutual information (NMI) score than the baseline model on various domain datasets.</abstract>
+      <url hash="9d5627ce">2023.dstc-1.6</url>
+      <bibkey>lee-etal-2023-doric</bibkey>
+    </paper>
+    <paper id="7">
+      <title>A Two-Stage Progressive Intent Clustering for Task-Oriented Dialogue</title>
+      <author><first>Bingzhu</first><last>Du</last><affiliation>Ant Group</affiliation></author>
+      <author><first>Nan</first><last>Su</last><affiliation>Ant Group</affiliation></author>
+      <author><first>Yuchi</first><last>Zhang</last><affiliation>Ant Financial Services Group</affiliation></author>
+      <author><first>Yongliang</first><last>Wang</last><affiliation>Ant Group</affiliation></author>
+      <pages>48-56</pages>
+      <abstract>Natural Language Understanding (NLU) is one of the most critical components of task-oriented dialogue, and it is often considered as an intent classification task. To achieve outstanding intent identification performance, system designers often need to hire a large number of domain experts to label the data, which is inefficient and costly. To address this problem, researchers’ attention has gradually shifted to automatic intent clustering methods, which employ low-resource unsupervised approaches to solve classification problems. The classical framework for clustering is deep clustering, which uses deep neural networks (DNNs) to jointly optimize non-clustering loss and clustering loss. However, for new conversational domains or services, utterances required to assign intents are scarce and the performance of DNNs is often dependent on large amounts of data. In addition, although re-clustering with k-means algorithm after training the network usually leads to better results, k-means methods often suffer from poor stability. To address these problems, we propose an effective two-stage progressive approach to refine the clustering. Firstly, we pre-train the network with contrastive loss using all conversations data and then optimize the clustering loss and contrastive loss simultaneously. Secondly, we propose adaptive progressive k-means to alleviate the randomness of vanilla k-means, achieving better performance and smaller deviation. Our method ranks second in DSTC11 Track2 Task 1, a benchmark for intent clustering of task-oriented dialogue, demonstrating the superiority and effectiveness of our method.</abstract>
+      <url hash="35e91e03">2023.dstc-1.7</url>
+      <bibkey>du-etal-2023-two</bibkey>
+    </paper>
+    <paper id="8">
+      <title>Analysis of Utterance Embeddings and Clustering Methods Related to Intent Induction for Task-Oriented Dialogue</title>
+      <author><first>Jeiyoon</first><last>Park</last><affiliation>LLSOLLU</affiliation></author>
+      <author><first>Yoonna</first><last>Jang</last><affiliation>Korea University</affiliation></author>
+      <author><first>Chanhee</first><last>Lee</last><affiliation>Naver</affiliation></author>
+      <author><first>Heuiseok</first><last>Lim</last><affiliation>Korea University</affiliation></author>
+      <pages>57-66</pages>
+      <abstract>The focus of this work is to investigate unsupervised approaches to overcome quintessential challenges in designing task-oriented dialog schema: assigning intent labels to each dialog turn (intent clustering) and generating a set of intents based on the intent clustering methods (intent induction). We postulate there are two salient factors for automatic induction of intents: (1) clustering algorithm for intent labeling and (2) user utterance embedding space. We compare existing off-the-shelf clustering models and embeddings based on DSTC11 evaluation. Our extensive experiments demonstrate that the combined selection of utterance embedding and clustering method in the intent induction task should be carefully considered. We also present that pretrained MiniLM with Agglomerative clustering shows significant improvement in NMI, ARI, F1, accuracy and example coverage in intent induction tasks. The source codes are available at https://github.com/Jeiyoon/dstc11-track2.</abstract>
+      <url hash="f790544d">2023.dstc-1.8</url>
+      <bibkey>park-etal-2023-analysis</bibkey>
+    </paper>
+    <paper id="9">
+      <title>Multi-View Zero-Shot Open Intent Induction from Dialogues: Multi Domain Batch and Proxy Gradient Transfer</title>
+      <author><first>Hyukhun</first><last>Koh</last><affiliation>Seoul National University</affiliation></author>
+      <author><first>Haesung</first><last>Pyun</last><affiliation>Hanyang University</affiliation></author>
+      <author><first>Nakyeong</first><last>Yang</last><affiliation>Seoul National University</affiliation></author>
+      <author><first>Kyomin</first><last>Jung</last><affiliation>Seoul National University</affiliation></author>
+      <pages>67-80</pages>
+      <abstract>In Task Oriented Dialogue (TOD) system, detecting and inducing new intents are two main challenges to apply the system in the real world. In this paper, we suggest the semantic multiview model to resolve these two challenges: (1) SBERT for General Embedding (GE), (2) Multi Domain Batch (MDB) for dialogue domain knowledge, and (3) Proxy Gradient Transfer (PGT) for cluster-specialized semantic. MDB feeds diverse dialogue datasets to the model at once to tackle the multi-domain problem by learning the multiple domain knowledge. We introduce a novel method PGT, which employs the Siamese network to fine-tune the model with a clustering method directly. Our model can learn how to cluster dialogue utterances by using PGT. Experimental results demonstrate that our multi-view model with MDB and PGT significantly improves the Open Intent Induction performance compared to baseline systems.</abstract>
+      <url hash="792d1ef2">2023.dstc-1.9</url>
+      <bibkey>koh-etal-2023-multi</bibkey>
+    </paper>
+    <paper id="10">
+      <title>Adapting Text-based Dialogue State Tracker for Spoken Dialogues</title>
+      <author><first>Jaeseok</first><last>Yoon</last><affiliation>KAIST</affiliation></author>
+      <author><first>Seunghyun</first><last>Hwang</last><affiliation>KAIST</affiliation></author>
+      <author><first>Han</first><last>Ran</last><affiliation>ETRI</affiliation></author>
+      <author><first>Jeong-Uk</first><last>Bang</last><affiliation>ETRI</affiliation></author>
+      <author><first>Kee-Eung</first><last>Kim</last><affiliation>KAIST</affiliation></author>
+      <pages>81-88</pages>
+      <abstract>Although there have been remarkable advances in dialogue systems through the dialogue systems technology competition (DSTC), it remains one of the key challenges to building a robust task-oriented dialogue system with a speech interface. Most of the progress has been made for text-based dialogue systems since there are abundant datasets with written cor- pora while those with spoken dialogues are very scarce. However, as can be seen from voice assistant systems such as Siri and Alexa, it is of practical importance to transfer the success to spoken dialogues. In this paper, we describe our engineering effort in building a highly successful model that participated in the speech-aware dialogue systems technology challenge track in DSTC11. Our model consists of three major modules: (1) automatic speech recognition error correction to bridge the gap between the spoken and the text utterances, (2) text-based dialogue system (D3ST) for estimating the slots and values using slot descriptions, and (3) post-processing for recovering the error of the estimated slot value. Our experiments show that it is important to use an explicit automatic speech recognition error correction module, post-processing, and data augmentation to adapt a text-based dialogue state tracker for spoken dialogue corpora.</abstract>
+      <url hash="ca197f36">2023.dstc-1.10</url>
+      <bibkey>yoon-etal-2023-adapting</bibkey>
+    </paper>
+    <paper id="11">
+      <title><fixed-case>C</fixed-case>opy<fixed-case>T</fixed-case>5: Copy Mechanism and Post-Trained T5 for Speech-Aware Dialogue State Tracking System</title>
+      <author><first>Cheonyoung</first><last>Park</last><affiliation>KT</affiliation></author>
+      <author><first>Eunji</first><last>Ha</last><affiliation>KT</affiliation></author>
+      <author><first>Yewon</first><last>Jeong</last><affiliation>KT</affiliation></author>
+      <author><first>Chi-young</first><last>Kim</last><affiliation>KT</affiliation></author>
+      <author><first>Haeun</first><last>Yu</last><affiliation>Sungkyunkwan University</affiliation></author>
+      <author><first>Joo-won</first><last>Sung</last><affiliation>KT</affiliation></author>
+      <pages>89-94</pages>
+      <abstract>In a real-world environment, Dialogue State Tracking (DST) should use speech recognition results to perform tasks. However, most existing DST research has been conducted in text-based environments. This study aims to build a model that efficiently performs Automatic Speech Recognition-based DST. To operate robustly against speech noise, we used CopyT5, which adopted a copy mechanism, and trained the model using augmented data including speech noise. Furthermore, CopyT5 performed post-training using the masked language modeling method with the MultiWOZ dataset in T5 in order to learn the dialogue context better. The copy mechanism also mitigated name entity errors that may occur during DST generation. Experiments confirmed that data augmentation, post-training, and the copy mechanism effectively improve DST performance.</abstract>
+      <url hash="f9a2ef0e">2023.dstc-1.11</url>
+      <bibkey>park-etal-2023-copyt5</bibkey>
+    </paper>
+    <paper id="12">
+      <title><fixed-case>OLISIA</fixed-case>: a Cascade System for Spoken Dialogue State Tracking</title>
+      <author><first>Léo</first><last>Jacqmin</last><affiliation>Orange &amp; Aix-Marseille University</affiliation></author>
+      <author><first>Lucas</first><last>Druart</last><affiliation>Orange &amp; Avignon University</affiliation></author>
+      <author><first>Yannick</first><last>Estève</last><affiliation>LIA - Avignon University</affiliation></author>
+      <author><first>Benoît</first><last>Favre</last><affiliation>Lab. Informatique et Systèmes / Aix-Marseille University / CNRS</affiliation></author>
+      <author><first>Lina</first><last>M Rojas</last><affiliation>Orange</affiliation></author>
+      <author><first>Valentin</first><last>Vielzeuf</last><affiliation>Orange Labs</affiliation></author>
+      <pages>95-104</pages>
+      <abstract>Though Dialogue State Tracking (DST) is a core component of spoken dialogue systems, recent work on this task mostly deals with chat corpora, disregarding the discrepancies between spoken and written language. In this paper, we propose OLISIA, a cascade system which integrates an Automatic Speech Recognition (ASR) model and a DST model. We introduce several adaptations in the ASR and DST modules to improve integration and robustness to spoken conversations. With these adaptations, our system ranked first in DSTC11 Track 3, a benchmark to evaluate spoken DST. We conduct an in-depth analysis of the results and find that normalizing the ASR outputs and adapting the DST inputs through data augmentation, along with increasing the pre-trained models size all play an important role in reducing the performance discrepancy between written and spoken conversations.</abstract>
+      <url hash="69643a20">2023.dstc-1.12</url>
+      <bibkey>jacqmin-etal-2023-olisia</bibkey>
+    </paper>
+    <paper id="13">
+      <title>Speech-Aware Multi-Domain Dialogue State Generation with <fixed-case>ASR</fixed-case> Error Correction Modules</title>
+      <author><first>Ridong</first><last>Jiang</last><affiliation>Institute for Infocomm Research</affiliation></author>
+      <author><first>Wei</first><last>Shi</last><affiliation>I2R</affiliation></author>
+      <author><first>Bin</first><last>Wang</last><affiliation>National University of Singapore</affiliation></author>
+      <author><first>Chen</first><last>Zhang</last><affiliation>National University of Singapore</affiliation></author>
+      <author><first>Yan</first><last>Zhang</last><affiliation>National University of Singapore</affiliation></author>
+      <author><first>Chunlei</first><last>Pan</last><affiliation>National University of Singapore</affiliation></author>
+      <author><first>Jung</first><last>Jae Kim</last><affiliation>I2R</affiliation></author>
+      <author><first>Haizhou</first><last>Li</last><affiliation>The Chinese University of Hong Kong (Shenzhen)</affiliation></author>
+      <pages>105-112</pages>
+      <abstract>Prior research on dialogue state tracking (DST) is mostly based on written dialogue corpora. For spoken dialogues, the DST model trained on the written text should use the results (or hypothesis) of automatic speech recognition (ASR) as input. But ASR hypothesis often includes errors, which leads to significant performance drop for spoken dialogue state tracking. We address the issue by developing the following ASR error correction modules. First, we train a model to convert ASR hypothesis to ground truth user utterance, which can fix frequent patterns of errors. The model takes ASR hypotheses of two ASR models as input and fine-tuned in two stages. The corrected hypothesis is fed into a large scale pre-trained encoder-decoder model (T5) for DST training and inference. Second, if an output slot value from the encoder-decoder model is a name, we compare it with names in a dictionary crawled from Web sites and, if feasible, replace with the crawled name of the shortest edit distance. Third, we fix errors of temporal expressions in ASR hypothesis by using hand-crafted rules. Experiment results on the DSTC 11 speech-aware dataset, which is built on the popular MultiWOZ task (version 2.1), show that our proposed method can effectively mitigate the performance drop when moving from written text to spoken conversations.</abstract>
+      <url hash="399170a5">2023.dstc-1.13</url>
+      <bibkey>jiang-etal-2023-speech</bibkey>
+    </paper>
+    <paper id="14">
+      <title>Three Ways of Using Large Language Models to Evaluate Chat</title>
+      <author><first>Ondřej</first><last>Plátek</last><affiliation>Charles University, Faculty of Mathematics and Physics Institute of Formal and Applied Linguistics</affiliation></author>
+      <author><first>Vojtech</first><last>Hudecek</last><affiliation>Charles University, Czech Republic</affiliation></author>
+      <author><first>Patricia</first><last>Schmidtova</last><affiliation>Charles Universit</affiliation></author>
+      <author><first>Mateusz</first><last>Lango</last><affiliation>Charles University</affiliation></author>
+      <author><first>Ondrej</first><last>Dusek</last><affiliation>Charles University</affiliation></author>
+      <pages>113-122</pages>
+      <abstract>This paper describes the systems submitted by team6 for ChatEval, the DSTC 11 Track 4 competition. We present three different approaches to predicting turn-level qualities of chatbot responses based on large language models (LLMs). We report improvement over the baseline using dynamic few-shot examples from a vector store for the prompts for ChatGPT. We also analyze the performance of the other two approaches and report needed improvements for future work. We developed the three systems over just two weeks, showing the potential of LLMs for this task. An ablation study conducted after the challenge deadline shows that the new Llama 2 models are closing the performance gap between ChatGPT and open-source LLMs. However, we find that the Llama 2 models do not benefit from few-shot examples in the same way as ChatGPT.</abstract>
+      <url hash="da20672c">2023.dstc-1.14</url>
+      <bibkey>platek-etal-2023-three</bibkey>
+    </paper>
+    <paper id="15">
+      <title>Parallel Corpora Alignment Framework for Multilingual and Robust Automatic Dialogue Evaluation</title>
+      <author><first>Xinglin</first><last>Wang</last><affiliation>Beijing Institute of Technology</affiliation></author>
+      <author><first>Jiayi</first><last>Shi</last><affiliation>Beijing Institute of Technology</affiliation></author>
+      <author><first>Peiwen</first><last>Yuan</last><affiliation>Beijing Institute of Technology</affiliation></author>
+      <author><first>Kan</first><last>Li</last><affiliation>Beijing Insitiute of Technology, China</affiliation></author>
+      <pages>123-132</pages>
+      <abstract>Open-domain automatic dialogue evaluation plays an important role in dialogue systems. While recent efforts are being put into making learning-based evaluation metrics correlate better with human evaluation, robust metrics for parallel corpora and multiple domains remain unexplored. Parallel corpora refer to corpora that express the same idea in different ways (e.g., translation, paraphrasing and back-translation). In this paper, we propose Parallel Corpora Alignment Framework (PCAF), which improves the consistency and robustness of model evaluation on parallel corpora. Firstly, parallel corpora are aligned in semantic space through parallel-corpora-aligned contrastive learning. Then, parallel-corpora-aligned distillation on multi-dataset is applied to further improve model’s generalization ability across multiple data domains. Our approach ranks second on the final test data of DSTC11 track4 subtask1 (“Multilingual Automatic Evaluation Metrics”, turn-level) and third on the subtask2 (“Robust Automatic Evaluation Metrics”, turn-level), which proves the strong generalization ability and robustness of our proposed approach.</abstract>
+      <url hash="a25fe5c2">2023.dstc-1.15</url>
+      <bibkey>wang-etal-2023-parallel</bibkey>
+    </paper>
+    <paper id="16">
+      <title>Simple <fixed-case>LLM</fixed-case> Prompting is State-of-the-Art for Robust and Multilingual Dialogue Evaluation</title>
+      <author><first>John</first><last>Mendonça</last><affiliation>INESC-ID</affiliation></author>
+      <author><first>Patrícia</first><last>Pereira</last><affiliation>Instituto Superior Técnico / INESC-ID</affiliation></author>
+      <author><first>Helena</first><last>Moniz</last><affiliation>INESC-ID</affiliation></author>
+      <author><first>Joao</first><last>Paulo Carvalho</last><affiliation>INESC-ID / Instituto Superior Técnico, University of Lisbon, Portugal</affiliation></author>
+      <author><first>Alon</first><last>Lavie</last><affiliation>Unbabel</affiliation></author>
+      <author><first>Isabel</first><last>Trancoso</last><affiliation>IST / INESC-ID</affiliation></author>
+      <pages>133-143</pages>
+      <abstract>Despite significant research effort in the development of automatic dialogue evaluation metrics, little thought is given to evaluating dialogues other than in English. At the same time, ensuring metrics are invariant to semantically similar responses is also an overlooked topic. In order to achieve the desired properties of robustness and multilinguality for dialogue evaluation metrics, we propose a novel framework that takes advantage of the strengths of current evaluation models with the newly-established paradigm of prompting Large Language Models (LLMs). Empirical results show our framework achieves state of the art results in terms of mean Spearman correlation scores across several benchmarks and ranks first place on both the Robust and Multilingual tasks of the DSTC11 Track 4 “Automatic Evaluation Metrics for Open-Domain Dialogue Systems”, proving the evaluation capabilities of prompted LLMs.</abstract>
+      <url hash="d9c1a914">2023.dstc-1.16</url>
+      <bibkey>mendonca-etal-2023-simple</bibkey>
+    </paper>
+    <paper id="17">
+      <title>Towards Optimizing Pre-trained Language Model Ensemble Learning for Task-oriented Dialogue System</title>
+      <author><first>Zhiyuan</first><last>Zhu</last><affiliation>Shanghai Jiao Tong University</affiliation></author>
+      <author><first>Yusheng</first><last>Liao</last><affiliation>Shanghai Jiao Tong University</affiliation></author>
+      <author><first>Zhe</first><last>Chen</last><affiliation>Shanghai Jiao Tong University</affiliation></author>
+      <author><first>Yu</first><last>Wang</last><affiliation>Shanghai Jiao Tong University</affiliation></author>
+      <author><first>Yunfeng</first><last>Guan</last><affiliation>Shanghai Jiao Tong University</affiliation></author>
+      <pages>144-149</pages>
+      <abstract>Task-oriented dialogue systems that employ external knowledge to generate informative responses have become an important field of research. This paper outlines our contribution to Track 5 of the Eleventh Dialog System Technology Challenge (DSTC11), which focuses on constructing high-performing, subjective knowledge-enriched task-oriented dialogue systems. Specifically, we investigate the complementarity of various language models to tackle the diverse knowledge selection task that involves multiple external sources. Based on this investigation, we propose pre- and post-generation model ensemble approaches to mitigate potential biases inherent in using a single model for the knowledge selection task. Finally, we utilize the consensus decoding approach to combine fine-tuned ensemble models and improve the performance of the generation system. Our system ranked 1st in human evaluation, even outperforming human annotation.</abstract>
+      <url hash="898f95c8">2023.dstc-1.17</url>
+      <bibkey>zhu-etal-2023-towards-optimizing</bibkey>
+    </paper>
+    <paper id="18">
+      <title>Enhancing Task-Oriented Dialog System with Subjective Knowledge: A Large Language Model-based Data Augmentation Framework</title>
+      <author><first>Haein</first><last>Jung</last><affiliation>Sogang University</affiliation></author>
+      <author><first>Heuiyeen</first><last>Yeen</last><affiliation>Sogang University</affiliation></author>
+      <author><first>Jeehyun</first><last>Lee</last><affiliation>Sogang University</affiliation></author>
+      <author><first>Minju</first><last>Kim</last><affiliation>Sogang University</affiliation></author>
+      <author><first>Namo</first><last>Bang</last><affiliation>Sogang University</affiliation></author>
+      <author><first>Myoung-Wan</first><last>Koo</last><affiliation>Sogang University</affiliation></author>
+      <pages>150-165</pages>
+      <abstract>As Task-Oriented Dialog (TOD) systems have advanced, structured DB systems, which aim to collect relevant knowledge for answering user’s questions, have also progressed. Despite these advancements, these methods face challenges when dealing with subjective questions from users. To overcome this, DSTC11 released a subjective-knowledge-based TOD (SK-TOD) dataset and benchmark. This paper introduces a framework that effectively solves SK-TOD tasks by leveraging a Large Language Model (LLM). We demonstrate the proficient use of LLM for each sub-task, including an adapters-based method and knowledge-grounded data augmentation. Our proposed methods, which utilize LLM as an efficient tool, outperform baseline performance and approaches that directly use LLM as a one-step sub-task solver, showing superior task-specific optimization.</abstract>
+      <url hash="1303d18a">2023.dstc-1.18</url>
+      <bibkey>jung-etal-2023-enhancing</bibkey>
+    </paper>
+    <paper id="19">
+      <title>Semantic data augmentation for meaning maintenance on Task-Oriented Conversation with Large-size Language Model</title>
+      <author><first>Jaehwan</first><last>Lee</last><affiliation>LG electronics</affiliation></author>
+      <author><first>Kwanyoung</first><last>Son</last><affiliation>LG electronics</affiliation></author>
+      <author><first>Eugene</first><last>Kim</last><affiliation>LG electronics</affiliation></author>
+      <pages>166-176</pages>
+      <abstract>This paper presents our approach to building a generalized model for Track 5 in DSTC11: “Task-oriented Conversational Modeling with Subjective Knowledge” which addresses the challenge of generating responses to users’ utterances based on a variety of factual and subjective knowledge. To tackle this challenge, we first augmented the training data by leveraging contextual word embedding and back translation, thereby increasing the quantity of available data. Then, we utilized a large-size language model to enhance the acceptability of the augmented data and fine-tuned the model using augmented data. Specifically, we applied the DeBERTa-v3-large model for knowledge detection and selection, and the BART-large model for response generation. Our best model achieved the seventh rank in the objective evaluation and the second rank in the final official human evaluation. These outcomes serve as solid evidence that data augmentation and using a large-size model were highly effective for developing a conversational model system that incorporates objective and subjective knowledge.</abstract>
+      <url hash="257f641e">2023.dstc-1.19</url>
+      <bibkey>lee-etal-2023-semantic</bibkey>
+    </paper>
+    <paper id="20">
+      <title>Ensemble Method via Ranking Model for Conversational Modeling with Subjective Knowledge</title>
+      <author><first>Xin</first><last>Huang</last><affiliation>A*STAR Research Entities</affiliation></author>
+      <author><first>Kye</first><last>Min Tan</last><affiliation>A*STAR Research Entities</affiliation></author>
+      <author><first>Richeng</first><last>Duan</last><affiliation>Agency for Science, Technology and Research (A*STAR)</affiliation></author>
+      <author><first>Bowei</first><last>Zou</last><affiliation>Institute for Infocomm Research</affiliation></author>
+      <pages>177-184</pages>
+      <abstract>This paper describes our submission to the fifth track of the 11th Dialog System Technology Challenge (DSTC-11), which focuses on “Task-oriented Conversational Modeling with Subjective Knowledge”. We focus on response generation and leverage a ranking strategy to ensemble individual models of BART, Long-T5, and a fine-tuned large language model based on LLaMA. The strategy is supplemented by other techniques like low rank adaptation to maintain efficient utilization of these large models while still achieving optimal performance. The experiments show that the ensemble method outperforms individual models and the baseline method. Our model was ranked 1st place in ROUGE_1, 2nd place in ROUGE_L score and 4th place in human evaluation among a total of 14 participating teams.</abstract>
+      <url hash="80921b9f">2023.dstc-1.20</url>
+      <bibkey>huang-etal-2023-ensemble</bibkey>
+    </paper>
+    <paper id="21">
+      <title>Exploring Back Translation with Typo Noise for Enhanced Inquiry Understanding in Task-Oriented Dialogue</title>
+      <author><first>Jihyun</first><last>Lee</last><affiliation>Pohang University of Science and Technology</affiliation></author>
+      <author><first>Junseok</first><last>Kim</last><affiliation>Pohang University of Science and Technology</affiliation></author>
+      <author><first>Gary</first><last>Geunbae Lee</last><affiliation>Postech</affiliation></author>
+      <pages>185-192</pages>
+      <abstract>This paper presents our approach to the DSTC11 Track 5 selection task, which focuses on retrieving appropriate natural language knowledge sources for task-oriented dialogue. We propose typologically diverse back-translation method with typo noise, which could generate various structured user inquries. Through our noised back translation, we augmented inquiries by combining three different typologies of language sources with five different typo noise injections. Our experiments demonstrate that typological variety and typo noise aids the model in generalizing to diverse user inquiries in dialogue. In the competition, where 14 teams participated, our approach achieved the 5th rank for exact matching metric.</abstract>
+      <url hash="3c063d8d">2023.dstc-1.21</url>
+      <bibkey>lee-etal-2023-exploring</bibkey>
+    </paper>
+    <paper id="22">
+      <title>Leveraging Few-Shot Data Augmentation and Waterfall Prompting for Response Generation</title>
+      <author><first>Lea</first><last>Krause</last><affiliation>Vrije Universiteit Amsterdam</affiliation></author>
+      <author><first>Selene</first><last>Báez Santamaría</last><affiliation>Vrije Universiteit Amsterdam</affiliation></author>
+      <author><first>Michiel</first><last>van der Meer</last><affiliation>Leiden University</affiliation></author>
+      <author><first>Urja</first><last>Khurana</last><affiliation>Vrije Universiteit Amsterdam</affiliation></author>
+      <pages>193-205</pages>
+      <abstract>This paper discusses our approaches for task-oriented conversational modelling using subjective knowledge, with a particular emphasis on response generation. Our methodology was shaped by an extensive data analysis that evaluated key factors such as response length, sentiment, and dialogue acts present in the provided dataset. We used few-shot learning to augment the data with newly generated subjective knowledge items and present three approaches for DSTC11: (1) task-specific model exploration, (2) incorporation of the most frequent question into all generated responses, and (3) a waterfall prompting technique using a combination of both GPT-3 and ChatGPT.</abstract>
+      <url hash="2704f3d2">2023.dstc-1.22</url>
+      <bibkey>krause-etal-2023-leveraging</bibkey>
+    </paper>
+    <paper id="23">
+      <title>Leveraging Ensemble Techniques and Metadata for Subjective Knowledge-grounded Conversational Systems</title>
+      <author><first>Seongho</first><last>Joo</last><affiliation>Seoul National University</affiliation></author>
+      <author><first>Kang-il</first><last>Lee</last><affiliation>Seoul National University</affiliation></author>
+      <author><first>Kyungmin</first><last>Min</last><affiliation>Seoul National University</affiliation></author>
+      <author><first>Joongbo</first><last>Shin</last><affiliation>LG AI Research</affiliation></author>
+      <author><first>Janghoon</first><last>Han</last><affiliation>LG AI Research</affiliation></author>
+      <author><first>Seungpil</first><last>Won</last><affiliation>LG AI Research</affiliation></author>
+      <author><first>Kyomin</first><last>Jung</last><affiliation>Seoul National University</affiliation></author>
+      <pages>206-215</pages>
+      <abstract>The goal of DSTC11 track 5 is to build task-oriented dialogue systems that can effectively utilize external knowledge sources such as FAQs and reviews. This year’s challenge differs from previous ones as it includes subjective knowledge snippets and requires multiple snippets for a single turn. We propose a pipeline system for the challenge focusing on entity tracking, knowledge selection and response generation. Specifically, we devise a novel heuristic to ensemble the outputs from the rule-based method and neural model for entity tracking and knowledge selection. We also leverage metadata information in the knowledge source to handle fine-grained user queries. Our approach achieved the first place in objective evaluation and the third place in human evaluation of DSTC11 track 5.</abstract>
+      <url hash="12cc794e">2023.dstc-1.23</url>
+      <bibkey>joo-etal-2023-leveraging</bibkey>
+    </paper>
+    <paper id="24">
+      <title>A Difference-aware Ensemble Method for Task-oriented Dialogue with Subjective Knowledge</title>
+      <author><first>Changxin</first><last>Ke</last><affiliation>Harbin Institute of Technology</affiliation></author>
+      <author><first>Churui</first><last>Sun</last><affiliation>Harbin Institute of Technology</affiliation></author>
+      <author><first>Longxuan</first><last>Ma</last><affiliation>Harbin Institute of Technology</affiliation></author>
+      <author><first>Wei-Nan</first><last>Zhang</last><affiliation>Harbin Institute of Technology</affiliation></author>
+      <author><first>Ting</first><last>Liu</last><affiliation>哈尔滨工业大学</affiliation></author>
+      <pages>216-225</pages>
+      <abstract>We participate in the 11th Dialog System Technology Challenges (DSTC) track-5 called Task-oriented Conversational Modeling with Subjective Knowledge. Introducing subjective knowledge into task-oriented dialogue (TOD) can help the DS to understand variables of subjective user needs and to suit more dialogue scenarios. Track-5 includes several sub-tasks: 1) knowledge-seeking turn detection; 2) knowledge entity tracking; 3) knowledge entry selection; and 4) use of the selected knowledge entries for response generation. Besides the challenges of each sub-tasks own, there are two challenges across different sub-tasks. The first is that there are multiple valid knowledge entries for each knowledge-seeking turn, the accuracy of the knowledge entry selection is important for the quality of response generation. The second challenge is how to address the unseen dialogue/entities/entries in the validation and the test set. In this paper, we propose a difference-aware ensemble method to address these sub-tasks and the two challenges mentioned above. Our method helps to obtain more robust results and performs well on unseen instances. Among all the submissions for the test set, our method ranks 1st on the knowledge-seeking turn detection task and achieves 3rd on the overall automatic evaluation score. Our code and data will be released on GitHub.</abstract>
+      <url hash="3c99d821">2023.dstc-1.24</url>
+      <bibkey>ke-etal-2023-difference</bibkey>
+    </paper>
+    <paper id="25">
+      <title><fixed-case>DSTC</fixed-case>-11: Speech Aware Task-Oriented Dialog Modeling Track</title>
+      <author><first>Hagen</first><last>Soltau</last><affiliation>Google</affiliation></author>
+      <author><first>Izhak</first><last>Shafran</last><affiliation>Google AI</affiliation></author>
+      <author><first>Mingqiu</first><last>Wang</last><affiliation>Google Inc</affiliation></author>
+      <author><first>Abhinav</first><last>Rastogi</last><affiliation>Google</affiliation></author>
+      <author><first>Wei</first><last>Han</last><affiliation>Google</affiliation></author>
+      <author><first>Yuan</first><last>Cao</last><affiliation>Google Brain</affiliation></author>
+      <pages>226-234</pages>
+      <abstract>Most research on task oriented dialog modeling is based on written text input. However, users interact with practical dialog systems often using speech as input. Typically, systems convert speech into text using an Automatic Speech Recognition (ASR) system, introducing errors. Furthermore, these systems do not address the differences in written and spoken language. The research on this topic is stymied by the lack of a public corpus. Motivated by these considerations, our goal in hosting the speech-aware dialog state tracking challenge was to create a public corpus or task which can be used to investigate the performance gap between the written and spoken forms of input, develop models that could alleviate this gap, and establish whether Text-to-Speech-based (TTS) systems is a reasonable surrogate to the more-labor intensive human data collection. We created three spoken versions of the popular written-domain MultiWoz task – (a) TTS-Verbatim: written user inputs were converted into speech waveforms using a TTS system, (b) Human-Verbatim: humans spoke the user inputs verbatim, and (c) Human-paraphrased: humans paraphrased the user inputs. Additionally, we provided different forms of ASR output to encourage wider participation from teams that may not have access to state-of-the-art ASR systems. These included ASR transcripts, word time stamps, and latent representations of the audio (audio encoder outputs). In this paper, we describe the corpus, report results from participating teams, provide preliminary analyses of their results, and summarize the current state-of-the-art in this domain.</abstract>
+      <url hash="d8a0a8d3">2023.dstc-1.25</url>
+      <bibkey>soltau-etal-2023-dstc</bibkey>
+    </paper>
+    <paper id="26">
+      <title>Overview of Situated and Interactive Multimodal Conversations (<fixed-case>SIMMC</fixed-case>) 2.1 Track at <fixed-case>DSTC</fixed-case> 11</title>
+      <author><first>Satwik</first><last>Kottur</last><affiliation>Facebook AI</affiliation></author>
+      <author><first>Seungwhan</first><last>Moon</last><affiliation>Meta AI</affiliation></author>
+      <pages>235-241</pages>
+      <abstract>With ever increasing interest in task-oriented dialog systems, the recent work on Situated and Interactive Multimodal Conversations (SIMMC 2.0) aims to develop personal assistants that interact with users, grounded in an immersive and co-observed setting of photo-realistic scenes. The dataset contains <tex-math>11k</tex-math> task-oriented dialogs set in an interactive shopping scenario, spanning more than <tex-math>117k</tex-math> utterances. In order to push research towards this next generation virtual assistants, the SIMMC 2.1 challenge was conducted at the Eleventh Dialog System Technology Challenge (DSTC) which had entries from across the world competing to achieve the state-of-the-art performance in the SIMMC 2.1 task. In this report, we present and compare 13 SIMMC 2.1 model entries from 5 trams across the world to understand the current progress made across the last three years (starting with SIMMC 1.0 and 2.0 challenges) for multimodal task-oriented dialog systems. We hope that our analysis throws light on components that showed promise in addition to identifying the gaps for future research towards this grand goal of an immersive multimodal conversational agent.</abstract>
+      <url hash="e5715bb7">2023.dstc-1.26</url>
+      <bibkey>kottur-moon-2023-overview</bibkey>
+    </paper>
+    <paper id="27">
+      <title>Intent Induction from Conversations for Task-Oriented Dialogue Track at <fixed-case>DSTC</fixed-case> 11</title>
+      <author><first>James</first><last>Gung</last><affiliation>Amazon</affiliation></author>
+      <author><first>Raphael</first><last>Shu</last><affiliation>Amazon</affiliation></author>
+      <author><first>Emily</first><last>Moeng</last><affiliation>Amazon</affiliation></author>
+      <author><first>Wesley</first><last>Rose</last><affiliation>Amazon</affiliation></author>
+      <author><first>Salvatore</first><last>Romeo</last><affiliation>Amazon</affiliation></author>
+      <author><first>Arshit</first><last>Gupta</last><affiliation>Amazon</affiliation></author>
+      <author><first>Yassine</first><last>Benajiba</last><affiliation>Amazon</affiliation></author>
+      <author><first>Saab</first><last>Mansour</last><affiliation>AWS</affiliation></author>
+      <author><first>Yi</first><last>Zhang</last><affiliation>Amazon AI</affiliation></author>
+      <pages>242-259</pages>
+      <abstract>With increasing demand for and adoption of virtual assistants, recent work has investigated ways to accelerate bot schema design through the automatic induction of intents or the induction of slots and dialogue states. However, a lack of dedicated benchmarks and standardized evaluation has made progress difficult to track and comparisons between systems difficult to make. This challenge track, held as part of the Eleventh Dialog Systems Technology Challenge, introduces a benchmark that aims to evaluate methods for the automatic induction of customer intents in a realistic setting of customer service interactions between human agents and customers. We propose two subtasks for progressively tackling the automatic induction of intents and corresponding evaluation methodologies. We then present three datasets suitable for evaluating the tasks and propose simple baselines. Finally, we summarize the submissions and results of the challenge track, for which we received submissions from 34 teams.</abstract>
+      <url hash="a0b7746b">2023.dstc-1.27</url>
+      <bibkey>gung-etal-2023-intent</bibkey>
+    </paper>
+    <paper id="28">
+      <title>Overview of Robust and Multilingual Automatic Evaluation Metrics
+
+for Open-Domain Dialogue Systems at <fixed-case>DSTC</fixed-case> 11 Track 4</title>
+      <author><first>Mario</first><last>Rodríguez-Cantelar</last><affiliation>Universidad Politécnica de Madrid</affiliation></author>
+      <author><first>Chen</first><last>Zhang</last><affiliation>National University of Singapore</affiliation></author>
+      <author><first>Chengguang</first><last>Tang</last><affiliation>Tencent</affiliation></author>
+      <author><first>Ke</first><last>Shi</last><affiliation>Tencent</affiliation></author>
+      <author><first>Sarik</first><last>Ghazarian</last><affiliation>ISI USC</affiliation></author>
+      <author><first>João</first><last>Sedoc</last><affiliation>New York University</affiliation></author>
+      <author><first>Luis</first><last>Fernando D’Haro</last><affiliation>Speech Technology and Machine Learning Group - Universidad Politécnica de Madrid</affiliation></author>
+      <author><first>Alexander I.</first><last>Rudnicky</last><affiliation>Carnegie Mellon University</affiliation></author>
+      <pages>260-273</pages>
+      <abstract>The advent and fast development of neural networks have revolutionized the research on dialogue systems and subsequently have triggered various challenges regarding their automatic evaluation. Automatic evaluation of open-domain dialogue systems as an open challenge has been the center of the attention of many researchers. Despite the consistent efforts to improve automatic metrics’ correlations with human evaluation, there have been very few attempts to assess their robustness over multiple domains and dimensions. Also, their focus is mainly on the English language. All of these challenges prompt the development of automatic evaluation metrics that are reliable in various domains, dimensions, and languages. This track in the 11th Dialogue System Technology Challenge (DSTC11) is part of the ongoing effort to promote robust and multilingual automatic evaluation metrics. This article describes the datasets and baselines provided to participants and discusses the submission and result details of the two proposed subtasks.</abstract>
+      <url hash="d203a908">2023.dstc-1.28</url>
+      <bibkey>rodriguez-cantelar-etal-2023-overview</bibkey>
+    </paper>
+    <paper id="29">
+      <title>Task-Oriented Conversational Modeling with Subjective Knowledge Track in <fixed-case>DSTC</fixed-case>11</title>
+      <author><first>Seokhwan</first><last>Kim</last><affiliation>Amazon Alexa AI</affiliation></author>
+      <author><first>Spandana</first><last>Gella</last><affiliation>University of Edinburgh</affiliation></author>
+      <author><first>Chao</first><last>Zhao</last><affiliation>UNC Chapel Hill</affiliation></author>
+      <author><first>Di</first><last>Jin</last><affiliation>Amazon Alexa AI</affiliation></author>
+      <author><first>Alexandros</first><last>Papangelis</last><affiliation>Amazon Alexa AI</affiliation></author>
+      <author><first>Behnam</first><last>Hedayatnia</last><affiliation>Amazon Alexa AI</affiliation></author>
+      <author id="yang-liu"><first>Yang</first><last>Liu</last><affiliation>Amazon, Alexa AI</affiliation></author>
+      <author><first>Dilek</first><last>Z Hakkani-Tur</last><affiliation>Amazon Alexa AI</affiliation></author>
+      <pages>274-281</pages>
+      <abstract>Conventional Task-oriented Dialogue (TOD) Systems rely on domain-specific APIs/DBs or external factual knowledge to create responses. In DSTC11 track 5, we aims to provide a new challenging task to accommodate subjective user requests (e.g.,”Is the WIFI reliable?” or “Does the restaurant have a good atmosphere?” into TOD. We release a benchmark dataset, which contains subjective knowledge-seeking dialogue contexts and manually annotated responses that are grounded in subjective knowledge sources. The challenge track received a total of 48 entries from 14 participating teams.</abstract>
+      <url hash="59b8a7c0">2023.dstc-1.29</url>
+      <bibkey>kim-etal-2023-task</bibkey>
+    </paper>
+  </volume>
+</collection>

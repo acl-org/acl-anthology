@@ -1,0 +1,196 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2022.wildre">
+  <volume id="1" ingest-date="2022-09-28" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of the WILDRE-6 Workshop within the 13th Language Resources and Evaluation Conference</booktitle>
+      <editor><first>Girish Nath</first><last>Jha</last></editor>
+      <editor><first>Sobha</first><last>L.</last></editor>
+      <editor><first>Kalika</first><last>Bali</last></editor>
+      <editor><first>Atul Kr.</first><last>Ojha</last></editor>
+      <publisher>European Language Resources Association</publisher>
+      <address>Marseille, France</address>
+      <month>June</month>
+      <year>2022</year>
+      <url hash="b68ddb37">2022.wildre-1</url>
+      <venue>wildre</venue>
+    </meta>
+    <frontmatter>
+      <url hash="58453b6b">2022.wildre-1.0</url>
+      <bibkey>wildre-2022-wildre</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Introducing <fixed-case>EM</fixed-case>-<fixed-case>FT</fixed-case> for <fixed-case>M</fixed-case>anipuri-<fixed-case>E</fixed-case>nglish Neural Machine Translation</title>
+      <author><first>Rudali</first><last>Huidrom</last></author>
+      <author><first>Yves</first><last>Lepage</last></author>
+      <pages>1–6</pages>
+      <abstract>This paper introduces a pretrained word embedding for Manipuri, a low-resourced Indian language. The pretrained word embedding based on FastText is capable of handling the highly agglutinating language Manipuri (mni). We then perform machine translation (MT) experiments using neural network (NN) models. In this paper, we confirm the following observations. Firstly, the reported BLEU score of the Transformer architecture with FastText word embedding model EM-FT performs better than without in all the NMT experiments. Secondly, we observe that adding more training data from a different domain of the test data negatively impacts translation accuracy. The resources reported in this paper are made available in the ELRA catalogue to help the low-resourced languages community with MT/NLP tasks.</abstract>
+      <url hash="dccb6693">2022.wildre-1.1</url>
+      <bibkey>huidrom-lepage-2022-introducing</bibkey>
+    </paper>
+    <paper id="2">
+      <title><fixed-case>L</fixed-case>3<fixed-case>C</fixed-case>ube-<fixed-case>H</fixed-case>ing<fixed-case>C</fixed-case>orpus and <fixed-case>H</fixed-case>ing<fixed-case>BERT</fixed-case>: A Code Mixed <fixed-case>H</fixed-case>indi-<fixed-case>E</fixed-case>nglish Dataset and <fixed-case>BERT</fixed-case> Language Models</title>
+      <author><first>Ravindra</first><last>Nayak</last></author>
+      <author><first>Raviraj</first><last>Joshi</last></author>
+      <pages>7–12</pages>
+      <abstract>Code-switching occurs when more than one language is mixed in a given sentence or a conversation. This phenomenon is more prominent on social media platforms and its adoption is increasing over time. Therefore code-mixed NLP has been extensively studied in the literature. As pre-trained transformer-based architectures are gaining popularity, we observe that real code-mixing data are scarce to pre-train large language models. We present L3Cube-HingCorpus, the first large-scale real Hindi-English code mixed data in a Roman script. It consists of 52.93M sentences and 1.04B tokens, scraped from Twitter. We further present HingBERT, HingMBERT, HingRoBERTa, and HingGPT. The BERT models have been pre-trained on codemixed HingCorpus using masked language modelling objectives. We show the effectiveness of these BERT models on the subsequent downstream tasks like code-mixed sentiment analysis, POS tagging, NER, and LID from the GLUECoS benchmark. The HingGPT is a GPT2 based generative transformer model capable of generating full tweets. Our models show significant improvements over currently available models pre-trained on multiple languages and synthetic code-mixed datasets. We also release L3Cube-HingLID Corpus, the largest code-mixed Hindi-English language identification(LID) dataset and HingBERT-LID, a production-quality LID model to facilitate capturing of more code-mixed data using the process outlined in this work. The dataset and models are available at <url>https://github.com/l3cube-pune/code-mixed-nlp</url>.</abstract>
+      <url hash="af985cb9">2022.wildre-1.2</url>
+      <bibkey>nayak-joshi-2022-l3cube</bibkey>
+      <pwccode url="https://github.com/l3cube-pune/code-mixed-nlp" additional="false">l3cube-pune/code-mixed-nlp</pwccode>
+    </paper>
+    <paper id="3">
+      <title>Leveraging Sub Label Dependencies in Code Mixed <fixed-case>I</fixed-case>ndian Languages for Part-Of-Speech Tagging using Conditional Random Fields.</title>
+      <author><first>Akash Kumar</first><last>Gautam</last></author>
+      <pages>13–17</pages>
+      <abstract>Code-mixed text sequences often lead to challenges in the task of correct identification of Part-Of-Speech tags. However, lexical dependencies created while alternating between multiple languages can be leveraged to improve the performance of such tasks. Indian languages with rich morphological structure and highly inflected nature provide such an opportunity. In this work, we exploit these sub-label dependencies using conditional random fields (CRFs) by defining feature extraction functions on three distinct language pairs (Hindi-English, Bengali-English, and Telugu-English). Our results demonstrate a significant increase in the tagging performance if the feature extraction functions employ the rich inner structure of such languages.</abstract>
+      <url hash="617fb3d8">2022.wildre-1.3</url>
+      <bibkey>gautam-2022-leveraging</bibkey>
+    </paper>
+    <paper id="4">
+      <title><fixed-case>H</fixed-case>indi<fixed-case>WSD</fixed-case>: A package for word sense disambiguation in <fixed-case>H</fixed-case>inglish &amp; <fixed-case>H</fixed-case>indi</title>
+      <author><first>Mirza</first><last>Yusuf</last></author>
+      <author><first>Praatibh</first><last>Surana</last></author>
+      <author><first>Chethan</first><last>Sharma</last></author>
+      <pages>18–23</pages>
+      <abstract>A lot of commendable work has been done, especially in high resource languages such as English, Spanish, French, etc. However, work done for Indic languages such as Hindi, Tamil, Telugu, etc is relatively less due to difficulty in finding relevant datasets, and the complexity of these languages. With the advent of IndoWordnet, we can explore important tasks such as word sense disambiguation, word similarity, and cross-lingual information retrieval, and carry out effective research regarding the same. In this paper, we worked on improving word sense disambiguation for 20 of the most common ambiguous Hindi words by making use of knowledge-based methods. We also came up with “hindiwsd”, an easy-to-use framework developed in Python that acts as a pipeline for transliteration of Hinglish code-mixed text followed by spell correction, POS tagging, and word sense disambiguation of Hindi text. We also curated a dataset of these 20 most used ambiguous Hindi words. This dataset was then used to enhance a modified Lesk’s algorithm and more accurately carry out word sense disambiguation. We achieved an accuracy of about 71% using our customized Lesk’s algorithm which was an improvement to the accuracy of about 34% using the original Lesk’s algorithm on the test set.</abstract>
+      <url hash="bd11ee3d">2022.wildre-1.4</url>
+      <bibkey>yusuf-etal-2022-hindiwsd</bibkey>
+    </paper>
+    <paper id="5">
+      <title><fixed-case>P</fixed-case>āṇinian Phonological Changes: Computation and Development of Online Access System</title>
+      <author><first/><last>Sanju</last></author>
+      <author><first>Subhash</first><last>Chandra</last></author>
+      <pages>24–28</pages>
+      <abstract>Pāṇini used the term saṃhitā for phonological changes. Any Sound change which alters phonemes in a particular language is called Phonological Change. It arises when two sounds are pronounced in a language with uninterrupted speed, then those letters are affected by each other due to Articulatory, Acoustic and Auditory principles in language. The pronunciation of two sounds that are in extreme proximity, affects each other and changes them. In simple words, this phenomenon is known as sandhi. Sanskrit is considered one of the oldest languages in the world. It has produced one of the most huge literary text corpora in the world. The tradition of Sanskrit started in the Vedic period. Pāṇini’s Aṣṭādhyāyī (AD) is a complete grammar of Sanskrit. It also covers Sanskrit sounds and phonology. Phonological changes are a natural phenomenon in any language during speech but in Sanskrit, it is highly reflected. Sanskrit corpora contain numerous long words. It looks like a single sentence due to sandhi between multiple words. The process of phonological changes occurred based on certain rules of pronunciation and it is codified by the Pāṇini in AD. Pāṇini has codified these rules systemically but the computation of these rules is a challenging task. Therefore, the objective of the paper is to compute the rules and demonstrate an online access system for Sanskrit sandhi. The system also generates the whole process of phonological changes based on Pāṇinian Rules. It also plays a very effective role in Digital classroom teaching, boosting teaching skills and the learning process.</abstract>
+      <url hash="1fed38b8">2022.wildre-1.5</url>
+      <bibkey>-chandra-2022-paninian</bibkey>
+    </paper>
+    <paper id="6">
+      <title><fixed-case>L</fixed-case>3<fixed-case>C</fixed-case>ube-<fixed-case>M</fixed-case>aha<fixed-case>NER</fixed-case>: A <fixed-case>M</fixed-case>arathi Named Entity Recognition Dataset and <fixed-case>BERT</fixed-case> models</title>
+      <author><first>Onkar</first><last>Litake</last></author>
+      <author><first>Maithili Ravindra</first><last>Sabane</last></author>
+      <author><first>Parth Sachin</first><last>Patil</last></author>
+      <author><first>Aparna Abhijeet</first><last>Ranade</last></author>
+      <author><first>Raviraj</first><last>Joshi</last></author>
+      <pages>29–34</pages>
+      <abstract>Named Entity Recognition (NER) is a basic NLP task and finds major applications in conversational and search systems. It helps us identify key entities in a sentence used for the downstream application. NER or similar slot filling systems for popular languages have been heavily used in commercial applications. In this work, we focus on Marathi, an Indian language, spoken prominently by the people of Maharashtra state. Marathi is a low resource language and still lacks useful NER resources. We present L3Cube-MahaNER, the first major gold standard named entity recognition dataset in Marathi. We also describe the manual annotation guidelines followed during the process. In the end, we benchmark the dataset on different CNN, LSTM, and Transformer based models like mBERT, XLM-RoBERTa, IndicBERT, MahaBERT, etc. The MahaBERT provides the best performance among all the models. The data and models are available at <url>https://github.com/l3cube-pune/MarathiNLP</url> .</abstract>
+      <url hash="60542b22">2022.wildre-1.6</url>
+      <bibkey>litake-etal-2022-l3cube</bibkey>
+      <pwccode url="https://github.com/l3cube-pune/MarathiNLP" additional="false">l3cube-pune/MarathiNLP</pwccode>
+    </paper>
+    <paper id="7">
+      <title>Identifying Emotions in Code Mixed <fixed-case>H</fixed-case>indi-<fixed-case>E</fixed-case>nglish Tweets</title>
+      <author><first>Sanket</first><last>Sonu</last></author>
+      <author><first>Rejwanul</first><last>Haque</last></author>
+      <author><first>Mohammed</first><last>Hasanuzzaman</last></author>
+      <author><first>Paul</first><last>Stynes</last></author>
+      <author><first>Pramod</first><last>Pathak</last></author>
+      <pages>35–41</pages>
+      <abstract>Emotion detection (ED) in tweets is a text classification problem that is of interest to Natural Language Processing (NLP) researchers. Code-mixing (CM) is a process of mixing linguistic units such as words of two different languages. The CM languages are characteristically different from the languages whose linguistic units are used for mixing. Whilst NLP has been shown to be successful for low-resource languages, it becomes challenging to perform NLP tasks on CM languages. As for ED, it has been rarely investigated on CM languages such as Hindi—English due to the lack of training data that is required for today’s data-driven classification algorithms. This research proposes a gold standard dataset for detecting emotions in CM Hindi–English tweets. This paper also presents our results about the investigation of the usefulness of our gold-standard dataset while testing a number of state-of-the-art classification algorithms. We found that the ED classifier built using SVM provided us the highest accuracy (75.17%) on the hold-out test set. This research would benefit the NLP community in detecting emotions from social media platforms in multilingual societies.</abstract>
+      <url hash="15a78142">2022.wildre-1.7</url>
+      <bibkey>sonu-etal-2022-identifying</bibkey>
+    </paper>
+    <paper id="8">
+      <title>Digital Accessibility and Information Mining of Dharmaśāstric Knowledge Traditions</title>
+      <author><first>Arooshi</first><last>Nigam</last></author>
+      <author><first>Subhash</first><last>Chandra</last></author>
+      <pages>42–47</pages>
+      <abstract>The heritage of Dharmaśāstra (DS) carries extensive cultural history and encapsulates the treatises of Ancient Indian Social Institutions (SI). DS is reckoned as an epitome of the primitive Indian knowledge tradition as it incorporates a variety of genres for sciences and arts such as family law and legislation, civilization, culture, ritualistic procedures, environment, economics, commerce and finance studies, management, mathematical and medical sciences etc. SI represents a distinct tradition of civilization formation, society development and community living. The texts of the DS are primarily written in the Sanskrit language and due to its expansive subject stream, it is later translated into various other languages globally. With the ingress of the internet, the development of advanced digital technologies and IT boom, information is accessed and exchanged via digital platforms. DS texts are studied not only by Sanskrit scholars but also referred by historians, sociologists, political scientists, economists, law enthusiasts and linguists worldwide. Despite its eminence, there is a major setback in digitizing and online information mining for DS texts. The major objective of the paper is to digitize and develop an instant referencing system to amplify the digital accessibility of DS texts. This will act as an effective and immediate learning tool for researchers who are keen on intensive studying of DS concepts.</abstract>
+      <url hash="c056ef2d">2022.wildre-1.8</url>
+      <bibkey>nigam-chandra-2022-digital</bibkey>
+    </paper>
+    <paper id="9">
+      <title>Language Resource Building and <fixed-case>E</fixed-case>nglish-to-Mizo Neural Machine Translation Encountering Tonal Words</title>
+      <author><first>Vanlalmuansangi</first><last>Khenglawt</last></author>
+      <author><first>Sahinur Rahman</first><last>Laskar</last></author>
+      <author><first>Santanu</first><last>Pal</last></author>
+      <author><first>Partha</first><last>Pakray</last></author>
+      <author><first>Ajoy Kumar</first><last>Khan</last></author>
+      <pages>48–54</pages>
+      <abstract>Multilingual country like India has an enormous linguistic diversity and has an increasing demand towards developing language resources such that it will outreach in various natural language processing applications like machine translation. Low-resource language translation possesses challenges in the field of machine translation. The challenges include the availability of corpus and differences in linguistic information. This paper investigates a low-resource language pair, English-to-Mizo exploring neural machine translation by contributing an Indian language resource, i.e., English-Mizo corpus. In this work, we explore one of the main challenges to tackling tonal words existing in the Mizo language, as they add to the complexity on top of low-resource challenges for any natural language processing task. Our approach improves translation accuracy by encountering tonal words of Mizo and achieved a state-of-the-art result in English-to-Mizo translation.</abstract>
+      <url hash="e8467d6b">2022.wildre-1.9</url>
+      <bibkey>khenglawt-etal-2022-language</bibkey>
+    </paper>
+    <paper id="10">
+      <title>Classification of Multiword Expressions in <fixed-case>M</fixed-case>alayalam</title>
+      <author><first>Treesa</first><last>Cyriac</last></author>
+      <author><first>Sobha</first><last>Lalitha Devi</last></author>
+      <pages>55–59</pages>
+      <abstract>Multiword expression is an interesting concept in languages and the MWEs of a language are not easy for a non-native speaker to understand. It includes lexicalized phrases, idioms, collocations etc. Data on multiwords are helpful in language processing. ‘Multiword expressions in Malayalam’ is a less studied area. In this paper, we are trying to explore multiwords in Malayalam and to classify them as per the three idiosyncrasies: semantic idiosyncrasy, syntactic idiosyncrasy, and statistic idiosyncrasy. Though these are already identified, they are not being studied in Malayalam. The classification and features are given and are studied using Malayalam multiwords. Through this study, we identified how the linguistic features of Malayalam such as agglutination influence its multiword expressions in terms of pronunciation and spelling. Malayalam has a set of code-mixed multiword expressions which is also addressed in this study.</abstract>
+      <url hash="69128ef4">2022.wildre-1.10</url>
+      <bibkey>cyriac-lalitha-devi-2022-classification</bibkey>
+    </paper>
+    <paper id="11">
+      <title><fixed-case>B</fixed-case>engali and <fixed-case>M</fixed-case>agahi <fixed-case>PUD</fixed-case> Treebank and Parser</title>
+      <author><first>Pritha</first><last>Majumdar</last></author>
+      <author><first>Deepak</first><last>Alok</last></author>
+      <author><first>Akanksha</first><last>Bansal</last></author>
+      <author><first>Atul Kr.</first><last>Ojha</last></author>
+      <author><first>John P.</first><last>McCrae</last></author>
+      <pages>60–67</pages>
+      <abstract>This paper presents the development of the Parallel Universal Dependency (PUD) Treebank for two Indo-Aryan languages: Bengali and Magahi. A treebank of 1,000 sentences has been created using a parallel corpus of English and the UD framework. A preliminary set of sentences was annotated manually - 600 for Bengali and 200 for Magahi. The rest of the sentences were built using the Bengali and Magahi parser. The sentences have been translated and annotated manually by the authors, some of whom are also native speakers of the languages. The objective behind this work is to build a syntactically-annotated linguistic repository for the aforementioned languages, that can prove to be a useful resource for building further NLP tools. Additionally, Bengali and Magahi parsers were also created which is built on machine learning approach. The accuracy of the Bengali parser is 78.13% in the case of UPOS; 76.99% in the case of XPOS, 56.12% in the case of UAS; and 47.19% in the case of LAS. The accuracy of Magahi parser is 71.53% in the case of UPOS; 66.44% in the case of XPOS, 58.05% in the case of UAS; and 33.07% in the case of LAS. This paper also includes an illustration of the annotation schema followed, the findings of the Parallel Universal Dependency (PUD) treebank, and it’s resulting linguistic analysis</abstract>
+      <url hash="3c5c0e46">2022.wildre-1.11</url>
+      <bibkey>majumdar-etal-2022-bengali</bibkey>
+    </paper>
+    <paper id="12">
+      <title>Makadi: A Large-Scale Human-Labeled Dataset for <fixed-case>H</fixed-case>indi Semantic Parsing</title>
+      <author><first>Shashwat</first><last>Vaibhav</last></author>
+      <author><first>Nisheeth</first><last>Srivastava</last></author>
+      <pages>68–73</pages>
+      <abstract>Parsing natural language queries into formal database calls is a very well-studied problem. Because of the rich diversity of semantic markers across the world’s languages, progress in solving this problem is irreducibly language-dependent. This has created an asymmetry in progress in NLIDB solutions, with most state-of-the-art efforts focused on the resource-rich English language, with limited progress seen for low resource languages. In this short paper, we present Makadi, a large-scale, complex, cross-lingual, cross-domain semantic parsing and text-to-SQL dataset for semantic parsing in the Hindi language. Produced by translating the recently introduced English language Spider NLIDB dataset, it consists of 9693 questions and SQL queries on 166 databases with multiple tables which cover multiple domains. This is the first large-scale dataset in the Hindi language for semantic parsing and related language understanding tasks. Our dataset is publicly available at: Link removed to preserve anonymization during peer review.</abstract>
+      <url hash="e364b57d">2022.wildre-1.12</url>
+      <bibkey>vaibhav-srivastava-2022-makadi</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/wikisql">WikiSQL</pwcdataset>
+    </paper>
+    <paper id="13">
+      <title>Automatic Identification of Explicit Connectives in <fixed-case>M</fixed-case>alayalam</title>
+      <author><first>Kumari</first><last>Sheeja S</last></author>
+      <author><first>Sobha</first><last>Lalitha Devi</last></author>
+      <pages>74–79</pages>
+      <abstract>This work presents an automatic identification of explicit connectives and its arguments using supervised method, Conditional Random Fields (CRFs). In this work, we focus on the identification of connectives and their arguments in the corpus. We consider explicit connectives and its arguments for the present study. The corpus we have considered has 4,000 sentences from Malayalam documents and manually annotated the corpus for POS, chunk, clause, discourse connectives and its arguments. The corpus thus annotated is used for building the base engine. The percentage of the performance of the system is evaluated based on the precision, recall and F-score and obtained encouraging results. We have analysed the errors generated by the system and used the features obtained from the anlaysis to improve the performance of the system</abstract>
+      <url hash="e39b3178">2022.wildre-1.13</url>
+      <bibkey>sheeja-s-lalitha-devi-2022-automatic</bibkey>
+    </paper>
+    <paper id="14">
+      <title>Web based System for Derivational Process of Kṛdanta based on <fixed-case>P</fixed-case>āṇinian Grammatical Tradition</title>
+      <author><first>Sumit</first><last>Sharma</last></author>
+      <author><first>Subhash</first><last>Chandra</last></author>
+      <pages>80–83</pages>
+      <abstract>Each text of the Sanskrit literature is wadded with the uses of Sanskrit kṛdanta (participles). The knowledge and formation process of Sanskrit kṛdanta play a key role to understand the meaning of a particular kṛdanta word in Sanskrit. Without proper analysis of the kṛdanta, the Sanskrit text cannot be understood. Currently, the mode of Sanskrit learning is traditional classroom teaching which is accessible to the students but not to general Sanskrit learners. The acute growth of Information Technology (IT) is changed the educational pedagogy and web-based learning systems evolved to enhance the teaching-learning process. Though many online tools are being developed by researchers for Sanskrit these are still scarce and untasted. Globe genuinely demands the high impacted tools for Sanskrit. Undoubtedly, Sanskrit kṛdanta is part of the syllabus of all universities offering Sanskrit courses. Approximately 100 plus kṛt suffixes are added with verb roots to generate kṛdanta forms and due to complexity, the learning of these forms is a challenging task. Therefore, the objective of the paper is to present an online system for teaching the derivational process of kṛdantas based on Pāṇinian rules and generate a complete derivational process of the kṛdantas for teaching and learning. It will also provide a platform for e-learning for the derivational process of Sanskrit kṛdantas.</abstract>
+      <url hash="4952a207">2022.wildre-1.14</url>
+      <bibkey>sharma-chandra-2022-web</bibkey>
+    </paper>
+    <paper id="15">
+      <title><fixed-case>U</fixed-case>niversal <fixed-case>D</fixed-case>ependency Treebank for <fixed-case>O</fixed-case>dia Language</title>
+      <author><first>Shantipriya</first><last>Parida</last></author>
+      <author><first>Kalyanamalini</first><last>Shabadi</last></author>
+      <author><first>Atul Kr.</first><last>Ojha</last></author>
+      <author><first>Saraswati</first><last>Sahoo</last></author>
+      <author><first>Satya Ranjan</first><last>Dash</last></author>
+      <author><first>Bijayalaxmi</first><last>Dash</last></author>
+      <pages>84–89</pages>
+      <abstract>This paper presents the first publicly available treebank of Odia, a morphologically rich low resource Indian language. The treebank contains approx. 1082 tokens (100 sentences) in Odia were selected from “Samantar”, the largest available parallel corpora collection for Indic languages. All the selected sentences are manually annotated following the “Universal Dependency” guidelines. The morphological analysis of the Odia treebank was performed using machine learning techniques. The Odia annotated treebank will enrich the Odia language resource and will help in building language technology tools for cross-lingual learning and typological research. We also build a preliminary Odia parser using a machine learning approach. The accuracy of the parser is 86.6% Tokenization, 64.1% UPOS, 63.78% XPOS, 42.04% UAS and 21.34% LAS. Finally, the paper briefly discusses the linguistic analysis of the Odia UD treebank.</abstract>
+      <url hash="5fc6378a">2022.wildre-1.15</url>
+      <bibkey>parida-etal-2022-universal</bibkey>
+    </paper>
+    <paper id="16">
+      <title>Computational Referencing System for <fixed-case>S</fixed-case>anskrit Grammar</title>
+      <author><first>Baldev</first><last>Khandoliyan</last></author>
+      <author><first>Ram</first><last>Kishor</last></author>
+      <pages>90–96</pages>
+      <abstract>The goal of this project was to reconstitute and storage the text of Aṣṭādhyāyī (AD) in a computer text system so that everyone may read it. The proposed work was to do study the structure of AD and to create a relational database system for storing and interacting with AD. The system is available online, including Devanāgari Unicode and other major Indian characters as input and output, MS SQL Server, a Relational Database Management System (RDBMS)-based system, and Java Server Pages (JSP) were used. For AD, the system works as a multi-dimensional interactive knowledge-based computer system. The approach can also be applied to all Sanskrit sūtra texts that have a similar format. Sanskrit heritage texts are projected to benefit from the system’s preservation and promotion. A research is being made here for preparing an AD text as a computer aided dynamic search, learning and instruction system in the Indian context.</abstract>
+      <url hash="605ddd5c">2022.wildre-1.16</url>
+      <bibkey>khandoliyan-kishor-2022-computational</bibkey>
+    </paper>
+    <paper id="17">
+      <title><fixed-case>L</fixed-case>3<fixed-case>C</fixed-case>ube-<fixed-case>M</fixed-case>aha<fixed-case>C</fixed-case>orpus and <fixed-case>M</fixed-case>aha<fixed-case>BERT</fixed-case>: <fixed-case>M</fixed-case>arathi Monolingual Corpus, <fixed-case>M</fixed-case>arathi <fixed-case>BERT</fixed-case> Language Models, and Resources</title>
+      <author><first>Raviraj</first><last>Joshi</last></author>
+      <pages>97–101</pages>
+      <abstract>We present L3Cube-MahaCorpus a Marathi monolingual data set scraped from different internet sources. We expand the existing Marathi monolingual corpus with 24.8M sentences and 289M tokens. We further present, MahaBERT, MahaAlBERT, and MahaRoBerta all BERT-based masked language models, and MahaFT, the fast text word embeddings both trained on full Marathi corpus with 752M tokens. We show the effectiveness of these resources on downstream Marathi sentiment analysis, text classification, and named entity recognition (NER) tasks. We also release MahaGPT, a generative Marathi GPT model trained on Marathi corpus. Marathi is a popular language in India but still lacks these resources. This work is a step forward in building open resources for the Marathi language. The data and models are available at <url>https://github.com/l3cube-pune/MarathiNLP</url> .</abstract>
+      <url hash="6c6c83a8">2022.wildre-1.17</url>
+      <bibkey>joshi-2022-l3cube</bibkey>
+      <pwccode url="https://github.com/l3cube-pune/MarathiNLP" additional="false">l3cube-pune/MarathiNLP</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/cc100">CC100</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/l3cubemahasent">L3CubeMahaSent</pwcdataset>
+    </paper>
+  </volume>
+</collection>

@@ -1,0 +1,362 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2022.louhi">
+  <volume id="1" ingest-date="2022-12-13" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of the 13th International Workshop on Health Text Mining and Information Analysis (LOUHI)</booktitle>
+      <editor><first>Alberto</first><last>Lavelli</last></editor>
+      <editor><first>Eben</first><last>Holderness</last></editor>
+      <editor><first>Antonio</first><last>Jimeno Yepes</last></editor>
+      <editor><first>Anne-Lyse</first><last>Minard</last></editor>
+      <editor><first>James</first><last>Pustejovsky</last></editor>
+      <editor><first>Fabio</first><last>Rinaldi</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Abu Dhabi, United Arab Emirates (Hybrid)</address>
+      <month>December</month>
+      <year>2022</year>
+      <url hash="495416ce">2022.louhi-1</url>
+      <venue>louhi</venue>
+    </meta>
+    <frontmatter>
+      <url hash="be83caa2">2022.louhi-1.0</url>
+      <bibkey>louhi-2022-international</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Exploring the Influence of Dialog Input Format for Unsupervised Clinical Questionnaire Filling</title>
+      <author><first>Farnaz</first><last>Ghassemi Toudeshki</last><affiliation>Aliae</affiliation></author>
+      <author><first>Anna</first><last>Liednikova</last><affiliation>Aliae</affiliation></author>
+      <author><first>Philippe</first><last>Jolivet</last><affiliation>Aliae</affiliation></author>
+      <author><first>Claire</first><last>Gardent</last><affiliation>CNRS, France</affiliation></author>
+      <pages>1-13</pages>
+      <abstract>In the medical field, we have seen the emergence of health-bots that interact with patients to gather data and track their state. One of the downstream application is automatic questionnaire filling, where the content of the dialog is used to automatically fill a pre-defined medical questionnaire. Previous work has shown that answering questions from the dialog context can successfully be cast as a Natural Language Inference (NLI) task and therefore benefit from current pre-trained NLI models. However, NLI models have mostly been trained on text rather than dialogs, which may have an influence on their performance. In this paper, we study the influence of content transformation and content selection on the questionnaire filling task. Our results demonstrate that dialog pre-processing can significantly improve the performance of zero-shot questionnaire filling models which take health-bots dialogs as input.</abstract>
+      <url hash="b69ca3bd">2022.louhi-1.1</url>
+      <bibkey>ghassemi-toudeshki-etal-2022-exploring</bibkey>
+      <video href="2022.louhi-1.1.mp4"/>
+      <doi>10.18653/v1/2022.louhi-1.1</doi>
+    </paper>
+    <paper id="2">
+      <title>Assessing the Limits of Straightforward Models for Nested Named Entity Recognition in <fixed-case>S</fixed-case>panish Clinical Narratives</title>
+      <author><first>Matias</first><last>Rojas</last><affiliation>University of Chile</affiliation></author>
+      <author><first>Casimiro Pio</first><last>Carrino</last><affiliation>Barcelona Supercomputing Center</affiliation></author>
+      <author><first>Aitor</first><last>Gonzalez-Agirre</last><affiliation>Barcelona Supercomputing Center</affiliation></author>
+      <author><first>Jocelyn</first><last>Dunstan</last><affiliation>University of Chile</affiliation></author>
+      <author><first>Marta</first><last>Villegas</last><affiliation>Barcelona Supercomputing Center, Spain</affiliation></author>
+      <pages>14-25</pages>
+      <abstract>Nested Named Entity Recognition (NER) is an information extraction task that aims to identify entities that may be nested within other entity mentions. Despite the availability of several corpora with nested entities in the Spanish clinical domain, most previous work has overlooked them due to the lack of models and a clear annotation scheme for dealing with the task. To fill this gap, this paper provides an empirical study of straightforward methods for tackling the nested NER task on two Spanish clinical datasets, Clinical Trials, and the Chilean Waiting List. We assess the advantages and limitations of two sequence labeling approaches; one based on Multiple LSTM-CRF architectures and another on Joint labeling models. To better understand the differences between these models, we compute task-specific metrics that adequately measure the ability of models to detect nested entities and perform a fine-grained comparison across models. Our experimental results show that employing domain-specific language models trained from scratch significantly improves the performance obtained with strong domain-specific and general-domain baselines, achieving state-of-the-art results in both datasets. Specifically, we obtained F1 scores of 89.21 and 83.16 in Clinical Trials and the Chilean Waiting List, respectively. Interestingly enough, we observe that the task-specific metrics and analysis properly reflect the limitations of the models when recognizing nested entities. Finally, we perform a case study on an aggregated NER dataset created from several clinical corpora in Spanish. We highlight how entity length and the simultaneous recognition of inner and outer entities are the most critical variables for the nested NER task.</abstract>
+      <url hash="956b37b2">2022.louhi-1.2</url>
+      <bibkey>rojas-etal-2022-assessing</bibkey>
+      <video href="2022.louhi-1.2.mp4"/>
+      <doi>10.18653/v1/2022.louhi-1.2</doi>
+    </paper>
+    <paper id="3">
+      <title>Can Current Explainability Help Provide References in Clinical Notes to Support Humans Annotate Medical Codes?</title>
+      <author><first>Byung-Hak</first><last>Kim</last><affiliation>AKASA, Inc.</affiliation></author>
+      <author><first>Zhongfen</first><last>Deng</last><affiliation>University of Illinois at Chicago, USA</affiliation></author>
+      <author><first>Philip</first><last>Yu</last><affiliation>University of Illinois at Chicago, USA</affiliation></author>
+      <author><first>Varun</first><last>Ganapathi</last><affiliation>AKASA, Inc.</affiliation></author>
+      <pages>26-34</pages>
+      <abstract>The medical codes prediction problem from clinical notes has received substantial interest in the NLP community, and several recent studies have shown the state-of-the-art (SOTA) code prediction results of full-fledged deep learning-based methods. However, most previous SOTA works based on deep learning are still in early stages in terms of providing textual references and explanations of the predicted codes, despite the fact that this level of explainability of the prediction outcomes is critical to gaining trust from professional medical coders. This raises the important question of how well current explainability methods apply to advanced neural network models such as transformers to predict correct codes and present references in clinical notes that support code prediction. First, we present an explainable Read, Attend, and Code (xRAC) framework and assess two approaches, attention score-based xRAC-ATTN and model-agnostic knowledge-distillation-based xRAC-KD, through simplified but thorough human-grounded evaluations with SOTA transformer-based model, RAC. We find that the supporting evidence text highlighted by xRAC-ATTN is of higher quality than xRAC-KD whereas xRAC-KD has potential advantages in production deployment scenarios. More importantly, we show for the first time that, given the current state of explainability methodologies, using the SOTA medical codes prediction system still requires the expertise and competencies of professional coders, even though its prediction accuracy is superior to that of human coders. This, we believe, is a very meaningful step toward developing explainable and accurate machine learning systems for fully autonomous medical code prediction from clinical notes.</abstract>
+      <url hash="1bbc56e8">2022.louhi-1.3</url>
+      <bibkey>kim-etal-2022-current</bibkey>
+      <video href="2022.louhi-1.3.mp4"/>
+      <doi>10.18653/v1/2022.louhi-1.3</doi>
+    </paper>
+    <paper id="4">
+      <title>Distinguishing between focus and background entities in biomedical corpora using discourse structure and transformers</title>
+      <author><first>Antonio</first><last>Jimeno Yepes</last><affiliation>RMIT University, Australia &amp; University of Melbourne, Australia</affiliation></author>
+      <author><first>Karin</first><last>Verspoor</last><affiliation>RMIT University, Australia &amp; University of Melbourne, Australia</affiliation></author>
+      <pages>35-40</pages>
+      <abstract>Scientific documents typically contain numerous entity mentions, while only a subset are directly relevant to the key contributions of the paper. Distinguishing these focus entities from background ones effectively could improve the recovery of relevant documents and the extraction of information from documents. To study the identification of focus entities, we developed two large datasets of disease-causing biological pathogens using MEDLINE, the largest collection of biomedical citations, and PubMed Central, a collection of full text articles. The focus entities were identified using human-curated indexing on these collections. Experiments with machine learning methods to identify focus entities show that transformer methods achieve high precision and recall and that document discourse information is relevant. The work lays the foundation for more targeted retrieval/summarisation of entity-relevant documents.</abstract>
+      <url hash="2ea8b949">2022.louhi-1.4</url>
+      <bibkey>jimeno-yepes-verspoor-2022-distinguishing</bibkey>
+      <doi>10.18653/v1/2022.louhi-1.4</doi>
+    </paper>
+    <paper id="5">
+      <title><fixed-case>F</fixed-case>rench<fixed-case>M</fixed-case>ed<fixed-case>MCQA</fixed-case>: A <fixed-case>F</fixed-case>rench Multiple-Choice Question Answering Dataset for Medical domain</title>
+      <author><first>Yanis</first><last>Labrak</last><affiliation>Avignon University, France</affiliation></author>
+      <author><first>Adrien</first><last>Bazoge</last><affiliation>Nantes University, France</affiliation></author>
+      <author><first>Richard</first><last>Dufour</last><affiliation>Nantes University, France</affiliation></author>
+      <author><first>Beatrice</first><last>Daille</last><affiliation>Nantes University, France</affiliation></author>
+      <author><first>Pierre-Antoine</first><last>Gourraud</last><affiliation>Nantes University, France</affiliation></author>
+      <author><first>Emmanuel</first><last>Morin</last><affiliation>Nantes University, France</affiliation></author>
+      <author><first>Mickael</first><last>Rouvier</last><affiliation>Avignon University, France</affiliation></author>
+      <pages>41-46</pages>
+      <abstract>This paper introduces FrenchMedMCQA, the first publicly available Multiple-Choice Question Answering (MCQA) dataset in French for medical domain. It is composed of 3,105 questions taken from real exams of the French medical specialization diploma in pharmacy, mixing single and multiple answers. Each instance of the dataset contains an identifier, a question, five possible answers and their manual correction(s). We also propose first baseline models to automatically process this MCQA task in order to report on the current performances and to highlight the difficulty of the task. A detailed analysis of the results showed that it is necessary to have representations adapted to the medical domain or to the MCQA task: in our case, English specialized models yielded better results than generic French ones, even though FrenchMedMCQA is in French. Corpus, models and tools are available online.</abstract>
+      <url hash="cec99849">2022.louhi-1.5</url>
+      <bibkey>labrak-etal-2022-frenchmedmcqa</bibkey>
+      <doi>10.18653/v1/2022.louhi-1.5</doi>
+    </paper>
+    <paper id="6">
+      <title>A Large-Scale Dataset for Biomedical Keyphrase Generation</title>
+      <author><first>Maël</first><last>Houbre</last><affiliation>Nantes University, France</affiliation></author>
+      <author><first>Florian</first><last>Boudin</last><affiliation>Nantes University, France</affiliation></author>
+      <author><first>Beatrice</first><last>Daille</last><affiliation>Nantes University, France</affiliation></author>
+      <pages>47-53</pages>
+      <abstract>Keyphrase generation is the task consisting in generating a set of words or phrases that highlight the main topics of a document. There are few datasets for keyphrase generation in the biomedical domain and they do not meet the expectations in terms of size for training generative models. In this paper, we introduce kp-biomed, the first large-scale biomedical keyphrase generation dataset collected from PubMed abstracts. We train and release several generative models and conduct a series of experiments showing that using large scale datasets improves significantly the performances for present and absent keyphrase generation. The dataset and models are available online.</abstract>
+      <url hash="db004c50">2022.louhi-1.6</url>
+      <bibkey>houbre-etal-2022-large</bibkey>
+      <video href="2022.louhi-1.6.mp4"/>
+      <doi>10.18653/v1/2022.louhi-1.6</doi>
+    </paper>
+    <paper id="7">
+      <title>Section Classification in Clinical Notes with Multi-task Transformers</title>
+      <author><first>Fan</first><last>Zhang</last><affiliation>Google Research</affiliation></author>
+      <author><first>Itay</first><last>Laish</last><affiliation>Google Research</affiliation></author>
+      <author><first>Ayelet</first><last>Benjamini</last><affiliation>Google Research</affiliation></author>
+      <author><first>Amir</first><last>Feder</last><affiliation>Google Research</affiliation></author>
+      <pages>54-59</pages>
+      <abstract>Clinical notes are the backbone of electronic health records, often containing vital information not observed in other structured data. Unfortunately, the unstructured nature of clinical notes can lead to critical patient-related information being lost. Algorithms that organize clinical notes into distinct sections are often proposed in order to allow medical professionals to better access information in a given note. These algorithms, however, often assume a given partition over the note, and classify section types given this information. In this paper, we propose a multi-task solution for note sectioning, where a single model identifies context changes and labels each section with its medically-relevant title. Results on in-distribution (MIMIC-III) and out-of-distribution (private held-out) datasets reveal that our approach successfully identifies note sections across different hospital systems.</abstract>
+      <url hash="8e0a5098">2022.louhi-1.7</url>
+      <bibkey>zhang-etal-2022-section</bibkey>
+      <doi>10.18653/v1/2022.louhi-1.7</doi>
+    </paper>
+    <paper id="8">
+      <title>Building a Clinically-Focused Problem List From Medical Notes</title>
+      <author><first>Amir</first><last>Feder</last><affiliation>Google Research</affiliation></author>
+      <author><first>Itay</first><last>Laish</last><affiliation>Google Research</affiliation></author>
+      <author><first>Shashank</first><last>Agarwal</last><affiliation>Google Research</affiliation></author>
+      <author><first>Uri</first><last>Lerner</last><affiliation>Google Research</affiliation></author>
+      <author><first>Avel</first><last>Atias</last><affiliation>Google Research</affiliation></author>
+      <author><first>Cathy</first><last>Cheung</last><affiliation>Google Research</affiliation></author>
+      <author><first>Peter</first><last>Clardy</last><affiliation>Google Research</affiliation></author>
+      <author><first>Alon</first><last>Peled-Cohen</last><affiliation>Google Research</affiliation></author>
+      <author><first>Rachana</first><last>Fellinger</last><affiliation>Google Research</affiliation></author>
+      <author><first>Hengrui</first><last>Liu</last><affiliation>Google Research</affiliation></author>
+      <author><first>Lan</first><last>Huong Nguyen</last><affiliation>Google Research</affiliation></author>
+      <author><first>Birju</first><last>Patel</last><affiliation>Google Research</affiliation></author>
+      <author><first>Natan</first><last>Potikha</last><affiliation>Google Research</affiliation></author>
+      <author><first>Amir</first><last>Taubenfeld</last><affiliation>Google Research</affiliation></author>
+      <author><first>Liwen</first><last>Xu</last><affiliation>Google Research</affiliation></author>
+      <author><first>Seung Doo</first><last>Yang</last><affiliation>Google Research</affiliation></author>
+      <author><first>Ayelet</first><last>Benjamini</last><affiliation>Google Research</affiliation></author>
+      <author><first>Avinatan</first><last>Hassidim</last><affiliation>Google Research</affiliation></author>
+      <pages>60-68</pages>
+      <abstract>Clinical notes often contain useful information not documented in structured data, but their unstructured nature can lead to critical patient-related information being missed. To increase the likelihood that this valuable information is utilized for patient care, algorithms that summarize notes into a problem list have been proposed. Focused on identifying medically-relevant entities in the free-form text, these solutions are often detached from a canonical ontology and do not allow downstream use of the detected text-spans. Mitigating these issues, we present here a system for generating a canonical problem list from medical notes, consisting of two major stages. At the first stage, annotation, we use a transformer model to detect all clinical conditions which are mentioned in a single note. These clinical conditions are then grounded to a predefined ontology, and are linked to spans in the text. At the second stage, summarization, we develop a novel algorithm that aggregates over the set of clinical conditions detected on all of the patient’s notes, and produce a concise patient summary that organizes their most important conditions.</abstract>
+      <url hash="3865e36c">2022.louhi-1.8</url>
+      <bibkey>feder-etal-2022-building</bibkey>
+      <doi>10.18653/v1/2022.louhi-1.8</doi>
+    </paper>
+    <paper id="9">
+      <title>Specializing Static and Contextual Embeddings in the Medical Domain Using Knowledge Graphs: Let’s Keep It Simple</title>
+      <author><first>Hicham</first><last>El Boukkouri</last><affiliation>UniversitÃ© Paris-Saclay, CNRS, France</affiliation></author>
+      <author><first>Olivier</first><last>Ferret</last><affiliation>UniversitÃ© Paris-Saclay, CEA, France</affiliation></author>
+      <author><first>Thomas</first><last>Lavergne</last><affiliation>UniversitÃ© Paris-Saclay, CNRS, France</affiliation></author>
+      <author><first>Pierre</first><last>Zweigenbaum</last><affiliation>UniversitÃ© Paris-Saclay, CNRS, France</affiliation></author>
+      <pages>69-80</pages>
+      <abstract>Domain adaptation of word embeddings has mainly been explored in the context of retraining general models on large specialized corpora. While this usually yields good results, we argue that knowledge graphs, which are used less frequently, could also be utilized to enhance existing representations with specialized knowledge. In this work, we aim to shed some light on whether such knowledge injection could be achieved using a basic set of tools: graph-level embeddings and concatenation. To that end, we adopt an incremental approach where we first demonstrate that static embeddings can indeed be improved through concatenation with in-domain node2vec representations. Then, we validate this approach on contextual models and generalize it further by proposing a variant of BERT that incorporates knowledge embeddings within its hidden states through the same process of concatenation. We show that this variant outperforms plain retraining on several specialized tasks, then discuss how this simple approach could be improved further. Both our code and pre-trained models are open-sourced for future research. In this work, we conduct experiments that target the medical domain and the English language.</abstract>
+      <url hash="67493637">2022.louhi-1.9</url>
+      <bibkey>el-boukkouri-etal-2022-specializing</bibkey>
+      <video href="2022.louhi-1.9.mp4"/>
+      <doi>10.18653/v1/2022.louhi-1.9</doi>
+    </paper>
+    <paper id="10">
+      <title><fixed-case>B</fixed-case>io<fixed-case>S</fixed-case>im<fixed-case>CSE</fixed-case>: <fixed-case>B</fixed-case>io<fixed-case>M</fixed-case>edical Sentence Embeddings using Contrastive learning</title>
+      <author><first>Kamal raj</first><last>Kanakarajan</last><affiliation>SAAMA AI Research Lab, India</affiliation></author>
+      <author><first>Bhuvana</first><last>Kundumani</last><affiliation>SAAMA AI Research Lab, India</affiliation></author>
+      <author><first>Abhijith</first><last>Abraham</last><affiliation>SAAMA AI Research Lab, India</affiliation></author>
+      <author><first>Malaikannan</first><last>Sankarasubbu</last><affiliation>SAAMA AI Research Lab, India</affiliation></author>
+      <pages>81-86</pages>
+      <abstract>Sentence embeddings in the form of fixed-size vectors that capture the information in the sentence as well as the context are critical components of Natural Language Processing systems. With transformer model based sentence encoders outperforming the other sentence embedding methods in the general domain, we explore the transformer based architectures to generate dense sentence embeddings in the biomedical domain. In this work, we present BioSimCSE, where we train sentence embeddings with domain specific transformer based models with biomedical texts. We assess our model’s performance with zero-shot and fine-tuned settings on Semantic Textual Similarity (STS) and Recognizing Question Entailment (RQE) tasks. Our BioSimCSE model using BioLinkBERT achieves state of the art (SOTA) performance on both tasks.</abstract>
+      <url hash="92f954a5">2022.louhi-1.10</url>
+      <bibkey>kanakarajan-etal-2022-biosimcse</bibkey>
+      <doi>10.18653/v1/2022.louhi-1.10</doi>
+    </paper>
+    <paper id="11">
+      <title>Proxy-based Zero-Shot Entity Linking by Effective Candidate Retrieval</title>
+      <author><first>Maciej</first><last>Wiatrak</last><affiliation>BenevolentAI, UK</affiliation></author>
+      <author><first>Eirini</first><last>Arvaniti</last><affiliation>BenevolentAI, UK</affiliation></author>
+      <author><first>Angus</first><last>Brayne</last><affiliation>BenevolentAI, UK</affiliation></author>
+      <author><first>Jonas</first><last>Vetterle</last><affiliation>BenevolentAI &amp; Moonfire Ventures, UK</affiliation></author>
+      <author><first>Aaron</first><last>Sim</last><affiliation>BenevolentAI, UK</affiliation></author>
+      <pages>87-99</pages>
+      <abstract>A recent advancement in the domain of biomedical Entity Linking is the development of powerful two-stage algorithms – an initial candidate retrieval stage that generates a shortlist of entities for each mention, followed by a candidate ranking stage. However, the effectiveness of both stages are inextricably dependent on computationally expensive components. Specifically, in candidate retrieval via dense representation retrieval it is important to have hard negative samples, which require repeated forward passes and nearest neighbour searches across the entire entity label set throughout training. In this work, we show that pairing a proxy-based metric learning loss with an adversarial regularizer provides an efficient alternative to hard negative sampling in the candidate retrieval stage. In particular, we show competitive performance on the recall@1 metric, thereby providing the option to leave out the expensive candidate ranking step. Finally, we demonstrate how the model can be used in a zero-shot setting to discover out of knowledge base biomedical entities.</abstract>
+      <url hash="80e23300">2022.louhi-1.11</url>
+      <bibkey>wiatrak-etal-2022-proxy</bibkey>
+      <video href="2022.louhi-1.11.mp4"/>
+      <doi>10.18653/v1/2022.louhi-1.11</doi>
+    </paper>
+    <paper id="12">
+      <title><fixed-case>BERT</fixed-case> for Long Documents: A Case Study of Automated <fixed-case>ICD</fixed-case> Coding</title>
+      <author><first>Arash</first><last>Afkanpour</last><affiliation>Google Research</affiliation></author>
+      <author><first>Shabir</first><last>Adeel</last><affiliation>Google Research</affiliation></author>
+      <author><first>Hansenclever</first><last>Bassani</last><affiliation>Google Research</affiliation></author>
+      <author><first>Arkady</first><last>Epshteyn</last><affiliation>Google Research</affiliation></author>
+      <author><first>Hongbo</first><last>Fan</last><affiliation>Google Research</affiliation></author>
+      <author><first>Isaac</first><last>Jones</last><affiliation>Google Research</affiliation></author>
+      <author><first>Mahan</first><last>Malihi</last><affiliation>Google Research</affiliation></author>
+      <author><first>Adrian</first><last>Nauth</last><affiliation>Google Research</affiliation></author>
+      <author><first>Raj</first><last>Sinha</last><affiliation>Google Research</affiliation></author>
+      <author><first>Sanjana</first><last>Woonna</last><affiliation>Google Research</affiliation></author>
+      <author><first>Shiva</first><last>Zamani</last><affiliation>Google Research</affiliation></author>
+      <author><first>Elli</first><last>Kanal</last><affiliation>Google Research</affiliation></author>
+      <author><first>Mikhail</first><last>Fomitchev</last><affiliation>Google Research</affiliation></author>
+      <author><first>Donny</first><last>Cheung</last><affiliation>Google Research</affiliation></author>
+      <pages>100-107</pages>
+      <abstract>Transformer models have achieved great success across many NLP problems. However, previous studies in automated ICD coding concluded that these models fail to outperform some of the earlier solutions such as CNN-based models. In this paper we challenge this conclusion. We present a simple and scalable method to process long text with the existing transformer models such as BERT. We show that this method significantly improves the previous results reported for transformer models in ICD coding, and is able to outperform one of the prominent CNN-based methods.</abstract>
+      <url hash="86e709f5">2022.louhi-1.12</url>
+      <bibkey>afkanpour-etal-2022-bert</bibkey>
+      <video href="2022.louhi-1.12.mp4"/>
+      <doi>10.18653/v1/2022.louhi-1.12</doi>
+    </paper>
+    <paper id="13">
+      <title>Parameter Efficient Transfer Learning for Suicide Attempt and Ideation Detection</title>
+      <author><first>Bhanu Pratap</first><last>Singh Rawat</last><affiliation>UMass-Amherst, USA</affiliation></author>
+      <author><first>Hong</first><last>Yu</last><affiliation>UMass-Amherst &amp; U.S. Department of Veterans Affairs, USA</affiliation></author>
+      <pages>108-115</pages>
+      <abstract>Pre-trained language models (LMs) have been deployed as the state-of-the-art natural language processing (NLP) approaches for multiple clinical applications. Model generalisability is important in clinical domain due to the low available resources. In this study, we evaluated transfer learning techniques for an important clinical application: detecting suicide attempt (SA) and suicide ideation (SI) in electronic health records (EHRs). Using the annotation guideline provided by the authors of ScAN, we annotated two EHR datasets from different hospitals. We then fine-tuned ScANER, a publicly available SA and SI detection model, to evaluate five different parameter efficient transfer learning techniques, such as adapter-based learning and soft-prompt tuning, on the two datasets. Without any fine-tuning, ScANER achieve macro F1-scores of 0.85 and 0.87 for SA and SI evidence detection across the two datasets. We observed that by fine-tuning less than ~2% of ScANER’s parameters, we were able to further improve the macro F1-score for SA-SI evidence detection by 3% and 5% for the two EHR datasets. Our results show that parameter-efficient transfer learning methods can help improve the performance of publicly available clinical models on new hospital datasets with few annotations.</abstract>
+      <url hash="394ed533">2022.louhi-1.13</url>
+      <bibkey>singh-rawat-yu-2022-parameter</bibkey>
+      <video href="2022.louhi-1.13.mp4"/>
+      <doi>10.18653/v1/2022.louhi-1.13</doi>
+    </paper>
+    <paper id="14">
+      <title>Automatic Patient Note Assessment without Strong Supervision</title>
+      <author><first>Jianing</first><last>Zhou</last><affiliation>University of Illinois at Urbana Champaign, USA</affiliation></author>
+      <author><first>Vyom Nayan</first><last>Thakkar</last><affiliation>University of Illinois at Urbana Champaign, USA</affiliation></author>
+      <author><first>Rachel</first><last>Yudkowsky</last><affiliation>University of Illinois at Chicago, USA</affiliation></author>
+      <author><first>Suma</first><last>Bhat</last><affiliation>University of Illinois at Urbana Champaign, USA</affiliation></author>
+      <author><first>William F.</first><last>Bond</last><affiliation>University of Illinois College of Medicine at Peoria, USA</affiliation></author>
+      <pages>116-126</pages>
+      <abstract>Training of physicians requires significant practice writing patient notes that document the patient’s medical and health information and physician diagnostic reasoning. Assessment and feedback of the patient note requires experienced faculty, consumes significant amounts of time and delays feedback to learners. Grading patient notes is thus a tedious and expensive process for humans that could be improved with the addition of natural language processing. However, the large manual effort required to create labeled datasets increases the challenge, particularly when test cases change. Therefore, traditional supervised NLP methods relying on labelled datasets are impractical in such a low-resource scenario. In our work, we proposed an unsupervised framework as a simple baseline and a weakly supervised method utilizing transfer learning for automatic assessment of patient notes under a low-resource scenario. Experiments on our self-collected datasets show that our weakly-supervised methods could provide reliable assessment for patient notes with accuracy of 0.92.</abstract>
+      <url hash="e9a7b644">2022.louhi-1.14</url>
+      <bibkey>zhou-etal-2022-automatic</bibkey>
+      <video href="2022.louhi-1.14.mp4"/>
+      <doi>10.18653/v1/2022.louhi-1.14</doi>
+    </paper>
+    <paper id="15">
+      <title><fixed-case>DDI</fixed-case>-<fixed-case>M</fixed-case>u<fixed-case>G</fixed-case>: Multi-aspect Graphs for Drug-Drug Interaction Extraction</title>
+      <author><first>Jie</first><last>Yang</last><affiliation>University of Sydney, Australia</affiliation></author>
+      <author><first>Yihao</first><last>Ding</last><affiliation>University of Sydney, Australia</affiliation></author>
+      <author><first>Siqu</first><last>Long</last><affiliation>University of Sydney, Australia</affiliation></author>
+      <author><first>Josiah</first><last>Poon</last><affiliation>University of Sydney, Australia</affiliation></author>
+      <author><first>Soyeon Caren</first><last>Han</last><affiliation>University of Sydney &amp; University of Western Australia, Australia</affiliation></author>
+      <pages>127-137</pages>
+      <abstract>Drug-drug interaction (DDI) may leads to adverse reactions in patients, thus it is important to extract such knowledge from biomedical texts. However, previously proposed approaches typically focus on capturing sentence-aspect information while ignoring valuable knowledge concerning the whole corpus. In this paper, we propose a Multi-aspect Graph-based DDI extraction model, named DDI-MuG. We first employ a bio-specific pre-trained language model to obtain the token contextualized representations. Then we use two graphs to get syntactic information from input instance and word co-occurrence information within the entire corpus, respectively. Finally, we combine the representations of drug entities and verb tokens for the final classification. It is encouraging to see that the proposed model outperforms all baseline models on two benchmark datasets. To the best of our knowledge, this is the first model that explores multi-aspect graphs to the DDI extraction task, and we hope it can establish a foundation for more robust multi-aspect works in the future.</abstract>
+      <url hash="a1e19f69">2022.louhi-1.15</url>
+      <bibkey>yang-etal-2022-ddi</bibkey>
+      <doi>10.18653/v1/2022.louhi-1.15</doi>
+    </paper>
+    <paper id="16">
+      <title>Divide and Conquer: An Extreme Multi-Label Classification Approach for Coding Diseases and Procedures in <fixed-case>S</fixed-case>panish</title>
+      <author><first>Jose</first><last>Barros</last><affiliation>University of Chile</affiliation></author>
+      <author><first>Matias</first><last>Rojas</last><affiliation>University of Chile</affiliation></author>
+      <author><first>Jocelyn</first><last>Dunstan</last><affiliation>University of Chile</affiliation></author>
+      <author><first>Andres</first><last>Abeliuk</last><affiliation>University of Chile</affiliation></author>
+      <pages>138-147</pages>
+      <abstract>Clinical coding is the task of transforming medical documents into structured codes following a standard ontology. Since these terminologies are composed of hundreds of codes, this problem can be considered an Extreme Multi-label Classification task. This paper proposes a novel neural network-based architecture for clinical coding. First, we take full advantage of the hierarchical nature of ontologies to create clusters based on semantic relations. Then, we use a Matcher module to assign the probability of documents belonging to each cluster. Finally, the Ranker calculates the probability of each code considering only the documents in the cluster. This division allows a fine-grained differentiation within the cluster, which cannot be addressed using a single classifier. In addition, since most of the previous work has focused on solving this task in English, we conducted our experiments on three clinical coding corpora in Spanish. The experimental results demonstrate the effectiveness of our model, achieving state-of-the-art results on two of the three datasets. Specifically, we outperformed previous models on two subtasks of the CodiEsp shared task: CodiEsp-D (diseases) and CodiEsp-P (procedures). Automatic coding can profoundly impact healthcare by structuring critical information written in free text in electronic health records.</abstract>
+      <url hash="4774bdb3">2022.louhi-1.16</url>
+      <bibkey>barros-etal-2022-divide</bibkey>
+      <video href="2022.louhi-1.16.mp4"/>
+      <doi>10.18653/v1/2022.louhi-1.16</doi>
+    </paper>
+    <paper id="17">
+      <title>Curriculum-guided Abstractive Summarization for Mental Health Online Posts</title>
+      <author><first>Sajad</first><last>Sotudeh</last><affiliation>Georgetown University, USA</affiliation></author>
+      <author><first>Nazli</first><last>Goharian</last><affiliation>Georgetown University, USA</affiliation></author>
+      <author><first>Hanieh</first><last>Deilamsalehy</last><affiliation>Adobe Research</affiliation></author>
+      <author><first>Franck</first><last>Dernoncourt</last><affiliation>Adobe Research</affiliation></author>
+      <pages>148-153</pages>
+      <abstract>Automatically generating short summaries from users’ online mental health posts could save counselors’ reading time and reduce their fatigue so that they can provide timely responses to those seeking help for improving their mental state. Recent Transformers-based summarization models have presented a promising approach to abstractive summarization. They go beyond sentence selection and extractive strategies to deal with more complicated tasks such as novel word generation and sentence paraphrasing. Nonetheless, these models have a prominent shortcoming; their training strategy is not quite efficient, which restricts the model’s performance. In this paper, we include a curriculum learning approach to reweigh the training samples, bringing about an efficient learning procedure. We apply our model on extreme summarization dataset of MentSum posts —-a dataset of mental health related posts from Reddit social media. Compared to the state-of-the-art model, our proposed method makes substantial gains in terms of Rouge and Bertscore evaluation metrics, yielding 3.5% Rouge-1, 10.4% Rouge-2, and 4.7% Rouge-L, 1.5% Bertscore relative improvements.</abstract>
+      <url hash="680586bb">2022.louhi-1.17</url>
+      <bibkey>sotudeh-etal-2022-curriculum</bibkey>
+      <doi>10.18653/v1/2022.louhi-1.17</doi>
+    </paper>
+    <paper id="18">
+      <title>Improving information fusion on multimodal clinical data in classification settings</title>
+      <author><first>Sneha</first><last>Jha</last><affiliation>Imperial College London, UK</affiliation></author>
+      <author><first>Erik</first><last>Mayer</last><affiliation>Imperial College London, UK</affiliation></author>
+      <author><first>Mauricio</first><last>Barahona</last><affiliation>Imperial College London, UK</affiliation></author>
+      <pages>154-159</pages>
+      <abstract>Clinical data often exists in different forms across the lifetime of a patient’s interaction with the healthcare system - structured, unstructured or semi-structured data in the form of laboratory readings, clinical notes, diagnostic codes, imaging and audio data of various kinds, and other observational data. Formulating a representation model that aggregates information from these heterogeneous sources may allow us to jointly model on data with more predictive signal than noise and help inform our model with useful constraints learned from better data. Multimodal fusion approaches help produce representations combined from heterogeneous modalities, which can be used for clinical prediction tasks. Representations produced through different fusion techniques require different training strategies. We investigate the advantage of adding narrative clinical text to structured modalities to classification tasks in the clinical domain. We show that while there is a competitive advantage in combined representations of clinical data, the approach can be helped by training guidance customized to each modality. We show empirical results across binary/multiclass settings, single/multitask settings and unified/multimodal learning rate settings for early and late information fusion of clinical data.</abstract>
+      <url hash="08030d06">2022.louhi-1.18</url>
+      <bibkey>jha-etal-2022-improving</bibkey>
+      <doi>10.18653/v1/2022.louhi-1.18</doi>
+    </paper>
+    <paper id="19">
+      <title>How Long Is Enough? Exploring the Optimal Intervals of Long-Range Clinical Note Language Modeling</title>
+      <author><first>Samuel</first><last>Cahyawijaya</last><affiliation>Hong Kong University of Science and Technology, Hong Kong</affiliation></author>
+      <author><first>Bryan</first><last>Wilie</last><affiliation>Hong Kong University of Science and Technology, Hong Kong</affiliation></author>
+      <author><first>Holy</first><last>Lovenia</last><affiliation>Hong Kong University of Science and Technology, Hong Kong</affiliation></author>
+      <author><first>Huan</first><last>Zhong</last><affiliation>Hong Kong University of Science and Technology, Hong Kong</affiliation></author>
+      <author><first>MingQian</first><last>Zhong</last><affiliation>Hong Kong University of Science and Technology, Hong Kong</affiliation></author>
+      <author><first>Yuk-Yu Nancy</first><last>Ip</last><affiliation>Hong Kong University of Science and Technology, Hong Kong</affiliation></author>
+      <author><first>Pascale</first><last>Fung</last><affiliation>Hong Kong University of Science and Technology, Hong Kong</affiliation></author>
+      <pages>160-172</pages>
+      <abstract>Large pre-trained language models (LMs) have been widely adopted in biomedical and clinical domains, introducing many powerful LMs such as bio-lm and BioELECTRA. However, the applicability of these methods to real clinical use cases is hindered, due to the limitation of pre-trained LMs in processing long textual data with thousands of words, which is a common length for a clinical note. In this work, we explore long-range adaptation from such LMs with Longformer, allowing the LMs to capture longer clinical notes context. We conduct experiments on three n2c2 challenges datasets and a longitudinal clinical dataset from Hong Kong Hospital Authority electronic health record (EHR) system to show the effectiveness and generalizability of this concept, achieving ~10% F1-score improvement. Based on our experiments, we conclude that capturing a longer clinical note interval is beneficial to the model performance, but there are different cut-off intervals to achieve the optimal performance for different target variables.</abstract>
+      <url hash="b4125b21">2022.louhi-1.19</url>
+      <bibkey>cahyawijaya-etal-2022-long</bibkey>
+      <video href="2022.louhi-1.19.mp4"/>
+      <doi>10.18653/v1/2022.louhi-1.19</doi>
+    </paper>
+    <paper id="20">
+      <title>A Quantitative and Qualitative Analysis of Schizophrenia Language</title>
+      <author><first>Amal</first><last>Alqahtani</last><affiliation>George Washington University, USA</affiliation></author>
+      <author><first>Efsun Sarioglu</first><last>Kayi</last><affiliation>George Washington University, USA</affiliation></author>
+      <author><first>Sardar</first><last>Hamidian</last><affiliation>George Washington University, USA</affiliation></author>
+      <author><first>Michael</first><last>Compton</last><affiliation>Columbia University, USA</affiliation></author>
+      <author><first>Mona</first><last>Diab</last><affiliation>George Washington University, USA</affiliation></author>
+      <pages>173-183</pages>
+      <abstract>Schizophrenia is one of the most disabling mental health conditions to live with. Approximately one percent of the population has schizophrenia which makes it fairly common, and it affects many people and their families. Patients with schizophrenia suffer different symptoms: formal thought disorder (FTD), delusions, and emotional flatness. In this paper, we quantitatively and qualitatively analyze the language of patients with schizophrenia measuring various linguistic features in two modalities: speech and written text. We examine the following features: coherence and cohesion of thoughts, emotions, specificity, level of commit- ted belief (LCB), and personality traits. Our results show that patients with schizophrenia score high in fear and neuroticism compared to healthy controls. In addition, they are more committed to their beliefs, and their writing lacks details. They score lower in most of the linguistic features of cohesion with significant p-values.</abstract>
+      <url hash="04be3126">2022.louhi-1.20</url>
+      <bibkey>alqahtani-etal-2022-quantitative</bibkey>
+      <video href="2022.louhi-1.20.mp4"/>
+      <doi>10.18653/v1/2022.louhi-1.20</doi>
+    </paper>
+    <paper id="21">
+      <title>Exploring Hybrid and Ensemble Models for Multiclass Prediction of Mental Health Status on Social Media</title>
+      <author><first>Sourabh</first><last>Zanwar</last><affiliation>Aachen University, Germany</affiliation></author>
+      <author><first>Daniel</first><last>Wiechmann</last><affiliation>University of Amsterdam, Netherlands</affiliation></author>
+      <author><first>Yu</first><last>Qiao</last><affiliation>Aachen University, Germany</affiliation></author>
+      <author><first>Elma</first><last>Kerz</last><affiliation>Aachen University, Germany</affiliation></author>
+      <pages>184-196</pages>
+      <abstract>In recent years, there has been a surge of interest in research on automatic mental health detection (MHD) from social media data leveraging advances in natural language processing and machine learning techniques. While significant progress has been achieved in this interdisciplinary research area, the vast majority of work has treated MHD as a binary classification task. The multiclass classification setup is, however, essential if we are to uncover the subtle differences among the statistical patterns of language use associated with particular mental health conditions. Here, we report on experiments aimed at predicting six conditions (anxiety, attention deficit hyperactivity disorder, bipolar disorder, post-traumatic stress disorder, depression, and psychological stress) from Reddit social media posts. We explore and compare the performance of hybrid and ensemble models leveraging transformer-based architectures (BERT and RoBERTa) and BiLSTM neural networks trained on within-text distributions of a diverse set of linguistic features. This set encompasses measures of syntactic complexity, lexical sophistication and diversity, readability, and register-specific ngram frequencies, as well as sentiment and emotion lexicons. In addition, we conduct feature ablation experiments to investigate which types of features are most indicative of particular mental health conditions.</abstract>
+      <url hash="0eedd9ca">2022.louhi-1.21</url>
+      <bibkey>zanwar-etal-2022-exploring</bibkey>
+      <doi>10.18653/v1/2022.louhi-1.21</doi>
+    </paper>
+    <paper id="22">
+      <title>A Knowledge-Graph-Based Intrinsic Test for Benchmarking Medical Concept Embeddings and Pretrained Language Models</title>
+      <author><first>Claudio</first><last>Aracena</last><affiliation>University of Chile</affiliation></author>
+      <author><first>Fabián</first><last>Villena</last><affiliation>University of Chile</affiliation></author>
+      <author><first>Matias</first><last>Rojas</last><affiliation>University of Chile</affiliation></author>
+      <author><first>Jocelyn</first><last>Dunstan</last><affiliation>University of Chile</affiliation></author>
+      <pages>197-206</pages>
+      <abstract>Using language models created from large data sources has improved the performance of several deep learning-based architectures, obtaining state-of-the-art results in several NLP extrinsic tasks. However, little research is related to creating intrinsic tests that allow us to compare the quality of different language models when obtaining contextualized embeddings. This gap increases even more when working on specific domains in languages other than English. This paper proposes a novel graph-based intrinsic test that allows us to measure the quality of different language models in clinical and biomedical domains in Spanish. Our results show that our intrinsic test performs better for clinical and biomedical language models than a general one. Also, it correlates with better outcomes for a NER task using a probing model over contextualized embeddings. We hope our work will help the clinical NLP research community to evaluate and compare new language models in other languages and find the most suitable models for solving downstream tasks.</abstract>
+      <url hash="c12b44bd">2022.louhi-1.22</url>
+      <bibkey>aracena-etal-2022-knowledge</bibkey>
+      <doi>10.18653/v1/2022.louhi-1.22</doi>
+    </paper>
+    <paper id="23">
+      <title>Enriching Deep Learning with Frame Semantics for Empathy Classification in Medical Narrative Essays</title>
+      <author><first>Priyanka</first><last>Dey</last><affiliation>University of Illinois at Urbana-Champaign, USA</affiliation></author>
+      <author><first>Roxana</first><last>Girju</last><affiliation>University of Illinois at Urbana-Champaign, USA</affiliation></author>
+      <pages>207-217</pages>
+      <abstract>Empathy is a vital component of health care and plays a key role in the training of future doctors. Paying attention to medical students’ self-reflective stories of their interactions with patients can encourage empathy and the formation of professional identities that embody desirable values such as integrity and respect. We present a computational approach and linguistic analysis of empathic language in a large corpus of 440 essays written by pre-med students as narrated simulated patient – doctor interactions. We analyze the discourse of three kinds of empathy: cognitive, affective, and prosocial as highlighted by expert annotators. We also present various experiments with state-of-the-art recurrent neural networks and transformer models for classifying these forms of empathy. To further improve over these results, we develop a novel system architecture that makes use of frame semantics to enrich our state-of-the-art models. We show that this novel framework leads to significant improvement on the empathy classification task for this dataset.</abstract>
+      <url hash="9d38aa52">2022.louhi-1.23</url>
+      <bibkey>dey-girju-2022-enriching</bibkey>
+      <video href="2022.louhi-1.23.mp4"/>
+      <doi>10.18653/v1/2022.louhi-1.23</doi>
+    </paper>
+    <paper id="24">
+      <title>Condition-Treatment Relation Extraction on Disease-related Social Media Data</title>
+      <author><first>Sichang</first><last>Tu</last><affiliation>Emory University, USA</affiliation></author>
+      <author><first>Stephen</first><last>Doogan</last><affiliation>Real Life Sciences</affiliation></author>
+      <author><first>Jinho D.</first><last>Choi</last><affiliation>Emory University, USA</affiliation></author>
+      <pages>218-228</pages>
+      <abstract>Social media has become a popular platform where people share information about personal healthcare conditions, diagnostic histories, and medical plans. Analyzing posts on social media depicting such realistic information can help improve quality and clinical decision-making; however, the lack of structured resources in this genre limits us to build robust NLP models for meaningful analysis. This paper presents a new corpus annotating relations among many types of conditions, treatments, and their attributes illustrated in social media posts by patients and caregivers. For experiments, a transformer encoder is pretrained on 1M raw posts and used to train several document-level relation extraction models using our corpus. Our best-performing model achieves the F1 scores of 70.9 and 51.7 for Entity Recognition and Relation Extraction, respectively. These results are encouraging as it is the first neural model extracting complex relations of this kind on social media data.</abstract>
+      <url hash="dade48b2">2022.louhi-1.24</url>
+      <bibkey>tu-etal-2022-condition</bibkey>
+      <doi>10.18653/v1/2022.louhi-1.24</doi>
+    </paper>
+    <paper id="25">
+      <title>Integration of Heterogeneous Knowledge Sources for Biomedical Text Processing</title>
+      <author><first>Parsa</first><last>Bagherzadeh</last><affiliation>Concordia University, Canada</affiliation></author>
+      <author><first>Sabine</first><last>Bergler</last><affiliation>Concordia University, Canada</affiliation></author>
+      <pages>229-238</pages>
+      <abstract>Recently, research into bringing outside knowledge sources into current neural NLP models has been increasing. Most approaches that leverage external knowledge sources require laborious and non-trivial designs, as well as tailoring the system through intensive ablation of different knowledge sources, an effort that discourages users to use quality ontological resources. In this paper, we show that multiple large heterogeneous KSs can be easily integrated using a decoupled approach, allowing for an automatic ablation of irrelevant KSs, while keeping the overall parameter space tractable. We experiment with BERT and pre-trained graph embeddings, and show that they interoperate well without performance degradation, even when some do not contribute to the task.</abstract>
+      <url hash="7e096eb5">2022.louhi-1.25</url>
+      <bibkey>bagherzadeh-bergler-2022-integration</bibkey>
+      <video href="2022.louhi-1.25.mp4"/>
+      <doi>10.18653/v1/2022.louhi-1.25</doi>
+    </paper>
+  </volume>
+</collection>

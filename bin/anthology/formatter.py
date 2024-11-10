@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright 2019 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2019-2022 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,7 +17,11 @@
 import logging as log
 from copy import deepcopy
 from lxml import etree
+import citeproc
+from citeproc.source.json import CiteProcJSON
+import citeproc_styles
 import codecs
+import os
 import re
 
 from . import latexcodec
@@ -44,6 +48,46 @@ _BIBTEX_MONTHS = {
 }
 
 
+class CiteprocFormatter:
+    """Formatter using Citeproc and CSL files to produce citations.
+
+    cf. https://github.com/citation-style-language/styles for possible citation
+    styles
+    """
+
+    styles = {}
+
+    @classmethod
+    def load_style(cls, style):
+        """Loads and returns a CSL style."""
+        if style not in cls.styles:
+            if os.path.exists(style):
+                # Assume that 'style' is a filename
+                filepath = style
+            else:
+                # Assume that 'style' is the name of a style in citeproc_styles
+                filepath = citeproc_styles.get_style_filepath(style)
+            cls.styles[style] = citeproc.CitationStylesStyle(filepath)
+        return cls.styles[style]
+
+    @classmethod
+    def render_html_citation(
+        cls, paper, style="association-for-computational-linguistics"
+    ):
+        """Render a bibliography entry for a paper with a given CSL style.
+
+        Returns HTML encoded as a single string.
+        """
+        data = paper.as_citeproc_json()
+        source = CiteProcJSON(data)
+        item = citeproc.CitationItem(data[0]["id"])
+        bib = citeproc.CitationStylesBibliography(
+            cls.load_style(style), source, citeproc.formatter.html
+        )
+        bib.register(citeproc.Citation([item]))
+        return str(bib.style.render_bibliography([item])[0])
+
+
 def bibtex_encode(text):
     """Encodes a text string for use in BibTeX.
 
@@ -57,7 +101,9 @@ def bibtex_encode(text):
 
 def bibtex_convert_quotes(text):
     if re.match(r"(?<!\\)\"", text):
-        log.warning(f"Straight quote (\") found in text field ({text}); converting automatically, but please fix in XML")
+        log.warning(
+            f'Straight quote (") found in text field ({text}); converting automatically, but please fix in XML'
+        )
     text = re.sub(r"(?<!\\)\"\b", "``", text)
     text = re.sub(r"(?<!\\)\"", "''", text)
     return text
@@ -75,31 +121,51 @@ def bibtex_convert_month(text):
     if text in _BIBTEX_MONTHS.values():  # already a month spec
         return text
     # Find embedded month strings
-    text = '"{}"'.format(text)
+    text = f'"{text}"'
     for month, macro in _BIBTEX_MONTHS.items():
         if month in text:
-            text = text.replace(month, '" # {} # "'.format(macro))
+            text = text.replace(month, f'" # {macro} # "')
             text = " # ".join(filter(lambda k: k != '""', text.split(" # ")))
     return text
 
 
 def bibtex_make_entry(bibkey, bibtype, fields):
-    lines = ["@{}{{{},".format(bibtype, bibkey)]
+    lines = [f"@{bibtype}{{{bibkey},"]
     for key, value in fields:
+        if key == "author" and bibtype == "proceedings":
+            key = "editor"
         if key in ("author", "editor") and "  and  " in value:
             # Print each author on a separate line
             value = "  and\n      ".join(value.split("  and  "))
         if key == "month":
             value = bibtex_convert_month(value)
+        elif value is None:
+            log.warning(f"Skipping empty value for {bibkey}/{key}")
+            continue
+        elif has_unbalanced_braces(value):
+            log.error(f"Unbalanced braces in {key} field for {bibkey}; skipping!")
+            continue
         elif '"' in value:
             # Make sure not to use "" to quote values when they contain "
-            value = "{{{}}}".format(value)
+            value = f"{{{value}}}"
         else:
             # quote value
-            value = '"{}"'.format(value)
-        lines.append("    {} = {},".format(key, value))
+            value = f'"{value}"'
+        lines.append(f"    {key} = {value},")
     lines.append("}")
     return "\n".join(lines)
+
+
+def has_unbalanced_braces(string):
+    c = 0
+    for char in string:
+        if char == "{":
+            c += 1
+        elif char == "}":
+            c -= 1
+        if c < 0:
+            return True
+    return c != 0
 
 
 class MarkupFormatter:
@@ -140,7 +206,7 @@ class MarkupFormatter:
         # following convert_xml_text_markup in anth2bib.py
         if element.tag in ["tex-math", "url"]:
             if len(element) > 0:
-                log.warning("<{}> element has children".format(element.tag))
+                log.warning(f"<{element.tag}> element has children")
             text = element.text
         else:
             text = bibtex_encode(element.text)
@@ -148,15 +214,15 @@ class MarkupFormatter:
             text += self.as_latex(nested_element)
             text += bibtex_encode(nested_element.tail)
         if element.tag == "fixed-case":
-            text = "{{{}}}".format(text)
+            text = f"{{{text}}}"
         elif element.tag == "b":
-            text = "\\textbf{{{}}}".format(text)
+            text = f"\\textbf{{{text}}}"
         elif element.tag == "i":
-            text = "\\textit{{{}}}".format(text)
+            text = f"\\textit{{{text}}}"
         elif element.tag == "tex-math":
-            text = "${}$".format(text)
+            text = f"${text}$"
         elif element.tag == "url":
-            text = "\\url{{{}}}".format(text)
+            text = f"\\url{{{text}}}"
         text = bibtex_convert_quotes(text)
         return remove_extra_whitespace(text)
 
@@ -171,4 +237,4 @@ class MarkupFormatter:
             return self.as_html(element, **kwargs)
         elif form == "latex":
             return self.as_latex(element)
-        raise ValueError("Unknown format: {}".format(form))
+        raise ValueError(f"Unknown format: {form}")

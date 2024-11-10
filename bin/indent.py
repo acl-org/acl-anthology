@@ -26,19 +26,22 @@ Usage: indent.py <in.xml> <out.xml>
 """
 
 import lxml.etree as etree
-import argparse
-import re
-import sys
 
 from anthology.utils import indent
 
-if __name__ == '__main__':
+if __name__ == "__main__":
+    import argparse
 
-    infilename = sys.argv[1]
-    outfilename = sys.argv[2]
+    parser = argparse.ArgumentParser()
+    parser.add_argument("infile")
+    parser.add_argument("outfile", nargs="?")
+    args = parser.parse_args()
+
+    infilename = args.infile
+    outfilename = args.outfile if args.outfile is not None else args.infile
 
     tree = etree.parse(infilename)
     root = tree.getroot()
     indent(root)
 
-    tree.write(outfilename, encoding='UTF-8', xml_declaration=True, with_tail=True)
+    tree.write(outfilename, encoding="UTF-8", xml_declaration=True, with_tail=True)

@@ -1,8 +1,24 @@
 {{ define "main" }}
 <section id="main">
   <h2 id="title">
-    {{ .Title }} ({{ .Params.venue }})
+    {{ .Title }} ({{ .Params.acronym }})
   </h2>
+  <hr />
+
+  <div class="row acl-paper-details">
+    <div class="col">
+    <dl>
+      <dt>Acronym:</dt>
+      <dd>{{ .Params.acronym }}</dd>
+      <dt>Venue ID:</dt>
+      <dd>{{ .Params.venue }}</dd>
+      {{ with .Params.venue_url }}
+      <dt>URL:</dt>
+      <dd><a href="{{ . }}">{{ . }}</a></dd>
+      {{ end }}
+    </dl>
+    </div>
+  </div>
   <hr />
 
   {{ $venue := index .Site.Data.venues .Params.venue }}

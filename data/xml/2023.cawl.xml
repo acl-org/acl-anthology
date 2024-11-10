@@ -1,0 +1,148 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2023.cawl">
+  <volume id="1" ingest-date="2023-07-12" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of the Workshop on Computation and Written Language (CAWL 2023)</booktitle>
+      <editor><first>Kyle</first><last>Gorman</last></editor>
+      <editor><first>Richard</first><last>Sproat</last></editor>
+      <editor><first>Brian</first><last>Roark</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Toronto, Canada</address>
+      <month>July</month>
+      <year>2023</year>
+      <url hash="7439f297">2023.cawl-1</url>
+      <venue>cawl</venue>
+    </meta>
+    <frontmatter>
+      <url hash="fb4621c5">2023.cawl-1.0</url>
+      <bibkey>cawl-2023-computation</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Myths about Writing Systems in Speech &amp; Language Technology</title>
+      <author><first>Kyle</first><last>Gorman</last><affiliation>The Graduate Center, City University of New York</affiliation></author>
+      <author><first>Richard</first><last>Sproat</last><affiliation>Google, Japan</affiliation></author>
+      <pages>1-5</pages>
+      <abstract>Natural language processing is largely focused on written text processing. However, many computational linguists tacitly endorse myths about the nature of writing. We highlight two of these myths—the conflation of language and writing, and the notion that Chinese, Japanese, and Korean writing is ideographic—and suggest how the community can dispel them.</abstract>
+      <url hash="a9a8c2b8">2023.cawl-1.1</url>
+      <bibkey>gorman-sproat-2023-myths</bibkey>
+      <doi>10.18653/v1/2023.cawl-1.1</doi>
+    </paper>
+    <paper id="2">
+      <title>The Hidden Folk: Linguistic Properties Encoded in Multilingual Contextual Character Representations</title>
+      <author><first>Manex</first><last>Agirrezabal</last><affiliation>University of Copenhagen</affiliation></author>
+      <author><first>Sidsel</first><last>Boldsen</last><affiliation>University of Copenhagen</affiliation></author>
+      <author><first>Nora</first><last>Hollenstein</last><affiliation>University of Copenhagen</affiliation></author>
+      <pages>6-13</pages>
+      <abstract>To gain a better understanding of the linguistic information encoded in character-based language models, we probe the multilingual contextual CANINE model. We design a range of phonetic probing tasks in six Nordic languages, including Faroese as an additional zero-shot instance. We observe that some phonetic information is indeed encoded in the character representations, as consonants and vowels can be well distinguished using a linear classifier. Furthermore, results for the Danish and Norwegian language seem to be worse for the consonant/vowel distinction in comparison to other languages. The information encoded in these representations can also be learned in a zero-shot scenario, as Faroese shows a reasonably good performance in the same vowel/consonant distinction task.</abstract>
+      <url hash="747f417d">2023.cawl-1.2</url>
+      <bibkey>agirrezabal-etal-2023-hidden</bibkey>
+      <doi>10.18653/v1/2023.cawl-1.2</doi>
+    </paper>
+    <paper id="3">
+      <title>Preserving the Authenticity of Handwritten Learner Language: Annotation Guidelines for Creating Transcripts Retaining Orthographic Features</title>
+      <author><first>Christian</first><last>Gold</last><affiliation>Fernuniversitaet Hagen</affiliation></author>
+      <author><first>Ronja</first><last>Laarmann-quante</last><affiliation>Ruhr University Bochum</affiliation></author>
+      <author><first>Torsten</first><last>Zesch</last><affiliation>Computational Linguistics, FernUniversität in Hagen</affiliation></author>
+      <pages>14-21</pages>
+      <abstract>Handwritten texts produced by young learners often contain orthographic features like spelling errors, capitalization errors, punctuation errors, and impurities such as strikethroughs, inserts, and smudges. All of those are typically normalized or ignored in existing transcriptions. For applications like handwriting recognition with the goal of automatically analyzing a learner’s language performance, however, retaining such features would be necessary. To address this, we present transcription guidelines that retain the features addressed above. Our guidelines were developed iteratively and include numerous example images to illustrate the various issues. On a subset of about 90 double-transcribed texts, we compute inter-annotator agreement and show that our guidelines can be applied with high levels of percentage agreement of about .98. Overall, we transcribed 1,350 learner texts, which is about the same size as the widely adopted handwriting recognition datasets IAM (1,500 pages) and CVL (1,600 pages). Our final corpus can be used to train a handwriting recognition system that transcribes closely to the real productions by young learners. Such a system is a prerequisite for applying automatic orthography feedback systems to handwritten texts in the future.</abstract>
+      <url hash="981087ce">2023.cawl-1.3</url>
+      <bibkey>gold-etal-2023-preserving</bibkey>
+      <doi>10.18653/v1/2023.cawl-1.3</doi>
+    </paper>
+    <paper id="4">
+      <title>Exploring the Impact of Transliteration on <fixed-case>NLP</fixed-case> Performance: Treating <fixed-case>M</fixed-case>altese as an <fixed-case>A</fixed-case>rabic Dialect</title>
+      <author><first>Kurt</first><last>Micallef</last><affiliation>University of Malta</affiliation></author>
+      <author><first>Fadhl</first><last>Eryani</last><affiliation>University of Tübingen</affiliation></author>
+      <author><first>Nizar</first><last>Habash</last><affiliation>New York University Abu Dhabi</affiliation></author>
+      <author><first>Houda</first><last>Bouamor</last><affiliation>Carnegie Mellon University in Qatar</affiliation></author>
+      <author><first>Claudia</first><last>Borg</last><affiliation>University of Malta</affiliation></author>
+      <pages>22-32</pages>
+      <abstract>Multilingual models such as mBERT have been demonstrated to exhibit impressive crosslingual transfer for a number of languages. Despite this, the performance drops for lowerresourced languages, especially when they are not part of the pre-training setup and when there are script differences. In this work we consider Maltese, a low-resource language of Arabic and Romance origins written in Latin script. Specifically, we investigate the impact of transliterating Maltese into Arabic scipt on a number of downstream tasks: Part-of-Speech Tagging, Dependency Parsing, and Sentiment Analysis. We compare multiple transliteration pipelines ranging from deterministic character maps to more sophisticated alternatives, including manually annotated word mappings and non-deterministic character mappings. For the latter, we show that selection techniques using n-gram language models of Tunisian Arabic, the dialect with the highest degree of mutual intelligibility to Maltese, yield better results on downstream tasks. Moreover, our experiments highlight that the use of an Arabic pre-trained model paired with transliteration outperforms mBERT. Overall, our results show that transliterating Maltese can be considered an option to improve the cross-lingual transfer capabilities.</abstract>
+      <url hash="d45cd466">2023.cawl-1.4</url>
+      <bibkey>micallef-etal-2023-exploring</bibkey>
+      <doi>10.18653/v1/2023.cawl-1.4</doi>
+    </paper>
+    <paper id="5">
+      <title>Distinguishing <fixed-case>R</fixed-case>omanized <fixed-case>H</fixed-case>indi from <fixed-case>R</fixed-case>omanized <fixed-case>U</fixed-case>rdu</title>
+      <author><first>Elizabeth</first><last>Nielsen</last><affiliation>University of Edinburgh</affiliation></author>
+      <author><first>Christo</first><last>Kirov</last><affiliation>Google</affiliation></author>
+      <author><first>Brian</first><last>Roark</last><affiliation>Google Inc.</affiliation></author>
+      <pages>33-42</pages>
+      <abstract>We examine the task of distinguishing between Hindi and Urdu when those languages are romanized, i.e., written in the Latin script. Both languages are widely informally romanized, and to the extent that they are identified in the Latin script by language identification systems, they are typically conflated. In the absence of large labeled collections of such text, we consider methods for generating training data. Beginning with a small set of seed words, each of which are strongly indicative of one of the languages versus the other, we prompt a pretrained large language model (LLM) to generate romanized text. Treating text generated from an Urdu prompt as one class and text generated from a Hindi prompt as the other class, we build a binary language identification (LangID) classifier. We demonstrate that the resulting classifier distinguishes manually romanized Urdu Wikipedia text from manually romanized Hindi Wikipedia text far better than chance. We use this classifier to estimate the prevalence of Urdu in a large collection of text labeled as romanized Hindi that has been used to train large language models. These techniques can be applied to bootstrap classifiers in other cases where a dataset is known to contain multiple distinct but related classes, such as different dialects of the same language, but for which labels cannot easily be obtained.</abstract>
+      <url hash="94c529f5">2023.cawl-1.5</url>
+      <bibkey>nielsen-etal-2023-distinguishing</bibkey>
+      <doi>10.18653/v1/2023.cawl-1.5</doi>
+    </paper>
+    <paper id="6">
+      <title>Back-Transliteration of <fixed-case>E</fixed-case>nglish Loanwords in <fixed-case>J</fixed-case>apanese</title>
+      <author><first>Yuying</first><last>Ren</last><affiliation>Graduate Center, City University of New York</affiliation></author>
+      <pages>43-49</pages>
+      <abstract>We propose methods for transliterating English loanwords in Japanese from their Japanese written form (katakana/romaji) to their original English written form. Our data is a Japanese-English loanwords dictionary that we have created ourselves. We employ two approaches: direct transliteration, which directly converts words from katakana to English, and indirect transliteration, which utilizes the English pronunciation as a means to convert katakana words into their corresponding English sound representations, which are subsequently converted into English words. Additionally, we compare the effectiveness of using katakana versus romaji as input characters. We develop 6 models of 2 types for our experiments: one with an English lexicon-filter, and the other without. For each type, we built 3 models, including a pair n-gram based on WFSTs and two sequence-to-sequence models leveraging LSTM and transformer. Our best performing model was the pair n-gram model with a lexicon-filter, directly transliterating from katakana to English.</abstract>
+      <url hash="5e8583b6">2023.cawl-1.6</url>
+      <bibkey>ren-2023-back</bibkey>
+      <doi>10.18653/v1/2023.cawl-1.6</doi>
+    </paper>
+    <paper id="7">
+      <title>Pronunciation Ambiguities in <fixed-case>J</fixed-case>apanese Kanji</title>
+      <author><first>Wen</first><last>Zhang</last><affiliation>The Graduate Center, City University of New York</affiliation></author>
+      <pages>50-60</pages>
+      <abstract>Japanese writing is a complex system, and a large part of the complexity resides in the use of kanji. A single kanji character in modern Japanese may have multiple pronunciations, either as native vocabulary or as words borrowed from Chinese. This causes a problem for text-to-speech synthesis (TTS) because the system has to predict which pronunciation of each kanji character is appropriate in the context. The problem is called homograph disambiguation. To solve the problem, this research provides a new annotated Japanese single kanji character pronunciation data set and describes an experiment using the logistic regression (LR) classifier. A baseline is computed to compare with the LR classifier accuracy. This experiment provides the first experimental research in Japanese single kanji homograph disambiguation. The annotated Japanese data is freely released to the public to support further work.</abstract>
+      <url hash="2a265f6f">2023.cawl-1.7</url>
+      <bibkey>zhang-2023-pronunciation</bibkey>
+      <doi>10.18653/v1/2023.cawl-1.7</doi>
+    </paper>
+    <paper id="8">
+      <title>Lenient Evaluation of <fixed-case>J</fixed-case>apanese Speech Recognition: Modeling Naturally Occurring Spelling Inconsistency</title>
+      <author><first>Shigeki</first><last>Karita</last><affiliation>Google</affiliation></author>
+      <author><first>Richard</first><last>Sproat</last><affiliation>Google, Japan</affiliation></author>
+      <author><first>Haruko</first><last>Ishikawa</last><affiliation>Google, Japan</affiliation></author>
+      <pages>61-70</pages>
+      <abstract>Word error rate (WER) and character error rate (CER) are standard metrics in Speech Recognition (ASR), but one problem has always been alternative spellings: If one’s system transcribes adviser whereas the ground truth has advisor, this will count as an error even though the two spellings really represent the same word. Japanese is notorious for “lacking orthography”: most words can be spelled in multiple ways, presenting a problem for accurate ASR evaluation. In this paper we propose a new lenient evaluation metric as a more defensible CER measure for Japanese ASR. We create a lattice of plausible respellings of the reference transcription, using a combination of lexical resources, a Japanese text-processing system, and a neural machine translation model for reconstructing kanji from hiragana or katakana. In a manual evaluation, raters rated 95.4% of the proposed spelling variants as plausible. ASR results show that our method, which does not penalize the system for choosing a valid alternate spelling of a word, affords a 2.4%–3.1% absolute reduction in CER depending on the task.</abstract>
+      <url hash="1d753ff4">2023.cawl-1.8</url>
+      <bibkey>karita-etal-2023-lenient</bibkey>
+      <doi>10.18653/v1/2023.cawl-1.8</doi>
+    </paper>
+    <paper id="9">
+      <title>Disambiguating Numeral Sequences to Decipher Ancient Accounting Corpora</title>
+      <author><first>Logan</first><last>Born</last><affiliation>Simon Fraser University</affiliation></author>
+      <author><first>M. Willis</first><last>Monroe</last><affiliation>University of British Columbia</affiliation></author>
+      <author><first>Kathryn</first><last>Kelley</last><affiliation>Università di Bologna</affiliation></author>
+      <author><first>Anoop</first><last>Sarkar</last><affiliation>Simon Fraser University</affiliation></author>
+      <pages>71-81</pages>
+      <abstract>A numeration system encodes abstract numeric quantities as concrete strings of written characters. The numeration systems used by modern scripts tend to be precise and unambiguous, but this was not so for the ancient and partially-deciphered proto-Elamite (PE) script, where written numerals can have up to four distinct readings depending on the system that is used to read them. We consider the task of disambiguating between these readings in order to determine the values of the numeric quantities recorded in this corpus. We algorithmically extract a list of possible readings for each PE numeral notation, and contribute two disambiguation techniques based on structural properties of the original documents and classifiers learned with the bootstrapping algorithm. We also contribute a test set for evaluating disambiguation techniques, as well as a novel approach to cautious rule selection for bootstrapped classifiers. Our analysis confirms existing intuitions about this script and reveals previously-unknown correlations between tablet content and numeral magnitude. This work is crucial to understanding and deciphering PE, as the corpus is heavily accounting-focused and contains many more numeric tokens than tokens of text.</abstract>
+      <url hash="9924d21d">2023.cawl-1.9</url>
+      <bibkey>born-etal-2023-disambiguating</bibkey>
+      <doi>10.18653/v1/2023.cawl-1.9</doi>
+    </paper>
+    <paper id="10">
+      <title>Decipherment of Lost Ancient Scripts as Combinatorial Optimisation Using Coupled Simulated Annealing</title>
+      <author><first>Fabio</first><last>Tamburini</last><affiliation>FICLIT - University of Bologna</affiliation></author>
+      <pages>82-91</pages>
+      <abstract>This paper presents a new approach to the ancient scripts decipherment problem based on combinatorial optimisation and coupled simulated annealing, an advanced non-convex optimisation procedure. Solutions are encoded by using k-permutations allowing for null, oneto-many, and many-to-one mappings between signs. The proposed system is able to produce enhanced results in cognate identification when compared to the state-of-the-art systems on standard evaluation benchmarks used in literature.</abstract>
+      <url hash="740b9cbf">2023.cawl-1.10</url>
+      <bibkey>tamburini-2023-decipherment</bibkey>
+      <doi>10.18653/v1/2023.cawl-1.10</doi>
+    </paper>
+    <paper id="11">
+      <title>Learning the Character Inventories of Undeciphered Scripts Using Unsupervised Deep Clustering</title>
+      <author><first>Logan</first><last>Born</last><affiliation>Simon Fraser University</affiliation></author>
+      <author><first>M. Willis</first><last>Monroe</last><affiliation>University of British Columbia</affiliation></author>
+      <author><first>Kathryn</first><last>Kelley</last><affiliation>Università di Bologna</affiliation></author>
+      <author><first>Anoop</first><last>Sarkar</last><affiliation>Simon Fraser University</affiliation></author>
+      <pages>92-104</pages>
+      <abstract>A crucial step in deciphering a text is to identify what set of characters were used to write it. This requires grouping character tokens according to visual and contextual features, which can be challenging for human analysts when the number of tokens or underlying types is large. Prior work has shown that this process can be automated by clustering dense representations of character images, in a task which we call “script clustering”. In this work, we present novel architectures which exploit varying degrees of contextual and visual information to learn representations for use in script clustering. We evaluate on a range of modern and ancient scripts, and find that our models produce representations which are more effective for script recovery than the current state-of-the-art, despite using just ~2% as many parameters. Our analysis fruitfully applies these models to assess hypotheses about the character inventory of the partially-deciphered proto-Elamite script.</abstract>
+      <url hash="49e2ce97">2023.cawl-1.11</url>
+      <bibkey>born-etal-2023-learning</bibkey>
+      <doi>10.18653/v1/2023.cawl-1.11</doi>
+    </paper>
+    <paper id="12">
+      <title>A Mutual Information-based Approach to Quantifying Logography in <fixed-case>J</fixed-case>apanese and <fixed-case>S</fixed-case>umerian</title>
+      <author><first>Noah</first><last>Hermalin</last><affiliation>University of California Berkeley</affiliation></author>
+      <pages>105-110</pages>
+      <abstract>Writing systems have traditionally been classified by whether they prioritize encoding phonological information (phonographic) versus morphological or semantic information (logographic). Recent work has broached the question of how membership in these categories can be quantified. We aim to contribute to this line of research by treating a definition of logography which directly incorporates morphological identity. Our methods compare mutual information between graphic forms and phonological forms and between graphic forms and morphological identity. We report on preliminary results here for two case studies, written Sumerian and written Japanese. The results suggest that our methods present a promising means of classifying the degree to which a writing system is logographic or phonographic.</abstract>
+      <url hash="42e8a715">2023.cawl-1.12</url>
+      <bibkey>hermalin-2023-mutual</bibkey>
+      <doi>10.18653/v1/2023.cawl-1.12</doi>
+    </paper>
+  </volume>
+</collection>

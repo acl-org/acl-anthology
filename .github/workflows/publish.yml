@@ -1,0 +1,40 @@
+# Publishes the build to our current mirror, aclanthology.org
+
+name: publish-aclanthology
+
+on:
+  push:
+    branches:
+      - master
+
+# only run one at a time
+concurrency: publish
+
+jobs:
+  publish-aclanthology:
+    if: github.repository == 'acl-org/acl-anthology'
+    runs-on:
+      labels: ubuntu-latest-m
+    steps:
+    - name: install hugo
+      run: wget https://github.com/gohugoio/hugo/releases/download/v0.118.2/hugo_extended_0.118.2_linux-amd64.deb && sudo dpkg -i hugo_extended*.deb
+    - name: update
+      run: sudo apt-get update
+    - name: install other deps
+      run: sudo apt-get install -y jing bibutils openssh-client rsync libyaml-dev libpython3-dev
+    - name: dump secret key
+      env:
+        SSH_KEY: ${{ secrets.PUBLISH_SSH_KEY }}
+      run: |
+        mkdir -p $HOME/.ssh/
+        echo "$SSH_KEY" > $HOME/.ssh/id_rsa
+        chmod 600 $HOME/.ssh/id_rsa
+    - uses: actions/checkout@v3
+    - name: build
+      env:
+        ANTHOLOGY_PREFIX: https://aclanthology.org
+      run: |
+        make ANTHOLOGY_PREFIX=${ANTHOLOGY_PREFIX} check site
+    - name: publish
+      run: |
+        make ANTHOLOGY_PREFIX=${ANTHOLOGY_PREFIX} upload

@@ -1,0 +1,516 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2022.cl">
+  <volume id="1" type="journal">
+    <meta>
+      <booktitle>Computational Linguistics, Volume 48, Issue 1 - March 2022</booktitle>
+      <publisher>MIT Press</publisher>
+      <address>Cambridge, MA</address>
+      <month>March</month>
+      <year>2022</year>
+      <venue>cl</venue>
+      <journal-volume>48</journal-volume>
+      <journal-issue>1</journal-issue>
+    </meta>
+    <paper id="1">
+      <title>Obituary: <fixed-case>M</fixed-case>artin Kay</title>
+      <author><first>Ronald M.</first><last>Kaplan</last></author>
+      <author><first>Hans</first><last>Uszkoreit</last></author>
+      <doi>10.1162/coli_a_00424</doi>
+      <pages>1–3</pages>
+      <url hash="e434ff70">2022.cl-1.1</url>
+      <bibkey>kaplan-uszkoreit-2022-obituary</bibkey>
+    </paper>
+    <paper id="2">
+      <title>To Augment or Not to Augment? A Comparative Study on Text Augmentation Techniques for Low-Resource <fixed-case>NLP</fixed-case></title>
+      <author><first>Gözde Gül</first><last>Şahin</last></author>
+      <doi>10.1162/coli_a_00425</doi>
+      <abstract>Data-hungry deep neural networks have established themselves as the de facto standard for many NLP tasks, including the traditional sequence tagging ones. Despite their state-of-the-art performance on high-resource languages, they still fall behind their statistical counterparts in low-resource scenarios. One methodology to counterattack this problem is text augmentation, that is, generating new synthetic training data points from existing data. Although NLP has recently witnessed several new textual augmentation techniques, the field still lacks a systematic performance analysis on a diverse set of languages and sequence tagging tasks. To fill this gap, we investigate three categories of text augmentation methodologies that perform changes on the syntax (e.g., cropping sub-sentences), token (e.g., random word insertion), and character (e.g., character swapping) levels. We systematically compare the methods on part-of-speech tagging, dependency parsing, and semantic role labeling for a diverse set of language families using various models, including the architectures that rely on pretrained multilingual contextualized language models such as mBERT. Augmentation most significantly improves dependency parsing, followed by part-of-speech tagging and semantic role labeling. We find the experimented techniques to be effective on morphologically rich languages in general rather than analytic languages such as Vietnamese. Our results suggest that the augmentation techniques can further improve over strong baselines based on mBERT, especially for dependency parsing. We identify the character-level methods as the most consistent performers, while synonym replacement and syntactic augmenters provide inconsistent improvements. Finally, we discuss that the results most heavily depend on the task, language pair (e.g., syntactic-level techniques mostly benefit higher-level tasks and morphologically richer languages), and model type (e.g., token-level augmentation provides significant improvements for BPE, while character-level ones give generally higher scores for char and mBERT based models).</abstract>
+      <pages>5–42</pages>
+      <url hash="a51f95a4">2022.cl-1.2</url>
+      <bibkey>sahin-2022-augment</bibkey>
+    </paper>
+    <paper id="3">
+      <title>Novelty Detection: A Perspective from Natural Language Processing</title>
+      <author><first>Tirthankar</first><last>Ghosal</last></author>
+      <author><first>Tanik</first><last>Saikh</last></author>
+      <author><first>Tameesh</first><last>Biswas</last></author>
+      <author><first>Asif</first><last>Ekbal</last></author>
+      <author><first>Pushpak</first><last>Bhattacharyya</last></author>
+      <doi>10.1162/coli_a_00429</doi>
+      <abstract>The quest for new information is an inborn human trait and has always been quintessential for human survival and progress. Novelty drives curiosity, which in turn drives innovation. In Natural Language Processing (NLP), Novelty Detection refers to finding text that has some new information to offer with respect to whatever is earlier seen or known. With the exponential growth of information all across the Web, there is an accompanying menace of redundancy. A considerable portion of the Web contents are duplicates, and we need efficient mechanisms to retain new information and filter out redundant information. However, detecting redundancy at the semantic level and identifying novel text is not straightforward because the text may have less lexical overlap yet convey the same information. On top of that, non-novel/redundant information in a document may have assimilated from multiple source documents, not just one. The problem surmounts when the subject of the discourse is documents, and numerous prior documents need to be processed to ascertain the novelty/non-novelty of the current one in concern. In this work, we build upon our earlier investigations for document-level novelty detection and present a comprehensive account of our efforts toward the problem. We explore the role of pre-trained Textual Entailment (TE) models to deal with multiple source contexts and present the outcome of our current investigations. We argue that a multipremise entailment task is one close approximation toward identifying semantic-level non-novelty. Our recent approach either performs comparably or achieves significant improvement over the latest reported results on several datasets and across several related tasks (paraphrasing, plagiarism, rewrite). We critically analyze our performance with respect to the existing state of the art and show the superiority and promise of our approach for future investigations. We also present our enhanced dataset TAP-DLND 2.0 and several baselines to the community for further research on document-level novelty detection.</abstract>
+      <pages>77–117</pages>
+      <url hash="3a678836">2022.cl-1.3</url>
+      <bibkey>ghosal-etal-2022-novelty</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/multinli">MultiNLI</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/snli">SNLI</pwcdataset>
+    </paper>
+    <paper id="4">
+      <title>Improved N-Best Extraction with an Evaluation on Language Data</title>
+      <author><first>Johanna</first><last>Björklund</last></author>
+      <author><first>Frank</first><last>Drewes</last></author>
+      <author><first>Anna</first><last>Jonsson</last></author>
+      <doi>10.1162/coli_a_00427</doi>
+      <abstract>We show that a previously proposed algorithm for the N-best trees problem can be made more efficient by changing how it arranges and explores the search space. Given an integer N and a weighted tree automaton (wta) M over the tropical semiring, the algorithm computes N trees of minimal weight with respect to M. Compared with the original algorithm, the modifications increase the laziness of the evaluation strategy, which makes the new algorithm asymptotically more efficient than its predecessor. The algorithm is implemented in the software Betty, and compared to the state-of-the-art algorithm for extracting the N best runs, implemented in the software toolkit Tiburon. The data sets used in the experiments are wtas resulting from real-world natural language processing tasks, as well as artificially created wtas with varying degrees of nondeterminism. We find that Betty outperforms Tiburon on all tested data sets with respect to running time, while Tiburon seems to be the more memory-efficient choice.</abstract>
+      <pages>119–153</pages>
+      <url hash="91a1df11">2022.cl-1.4</url>
+      <bibkey>bjorklund-etal-2022-improved</bibkey>
+      <video href="2022.cl-1.4.mp4"/>
+      <pwccode url="https://github.com/tm11ajn/betty" additional="false">tm11ajn/betty</pwccode>
+    </paper>
+    <paper id="5">
+      <title>Linguistic Parameters of Spontaneous Speech for Identifying Mild Cognitive Impairment and <fixed-case>A</fixed-case>lzheimer Disease</title>
+      <author><first>Veronika</first><last>Vincze</last></author>
+      <author><first>Martina Katalin</first><last>Szabó</last></author>
+      <author><first>Ildikó</first><last>Hoffmann</last></author>
+      <author><first>László</first><last>Tóth</last></author>
+      <author><first>Magdolna</first><last>Pákáski</last></author>
+      <author><first>János</first><last>Kálmán</last></author>
+      <author><first>Gábor</first><last>Gosztolya</last></author>
+      <doi>10.1162/coli_a_00428</doi>
+      <abstract>In this article, we seek to automatically identify Hungarian patients suffering from mild cognitive impairment (MCI) or mild Alzheimer disease (mAD) based on their speech transcripts, focusing only on linguistic features. In addition to the features examined in our earlier study, we introduce syntactic, semantic, and pragmatic features of spontaneous speech that might affect the detection of dementia. In order to ascertain the most useful features for distinguishing healthy controls, MCI patients, and mAD patients, we carry out a statistical analysis of the data and investigate the significance level of the extracted features among various speaker group pairs and for various speaking tasks. In the second part of the article, we use this rich feature set as a basis for an effective discrimination among the three speaker groups. In our machine learning experiments, we analyze the efficacy of each feature group separately. Our model that uses all the features achieves competitive scores, either with or without demographic information (3-class accuracy values: 68%–70%, 2-class accuracy values: 77.3%–80%). We also analyze how different data recording scenarios affect linguistic features and how they can be productively used when distinguishing MCI patients from healthy controls.</abstract>
+      <pages>119–153</pages>
+      <url hash="2038bfad">2022.cl-1.5</url>
+      <bibkey>vincze-etal-2022-linguistic</bibkey>
+    </paper>
+    <paper id="6">
+      <title>Deep Learning for Text Style Transfer: A Survey</title>
+      <author><first>Di</first><last>Jin</last></author>
+      <author><first>Zhijing</first><last>Jin</last></author>
+      <author><first>Zhiting</first><last>Hu</last></author>
+      <author><first>Olga</first><last>Vechtomova</last></author>
+      <author><first>Rada</first><last>Mihalcea</last></author>
+      <doi>10.1162/coli_a_00426</doi>
+      <abstract>Text style transfer is an important task in natural language generation, which aims to control certain attributes in the generated text, such as politeness, emotion, humor, and many others. It has a long history in the field of natural language processing, and recently has re-gained significant attention thanks to the promising performance brought by deep neural models. In this article, we present a systematic survey of the research on neural text style transfer, spanning over 100 representative articles since the first neural text style transfer work in 2017. We discuss the task formulation, existing datasets and subtasks, evaluation, as well as the rich methodologies in the presence of parallel and non-parallel data. We also provide discussions on a variety of important topics regarding the future development of this task.1</abstract>
+      <pages>155–205</pages>
+      <url hash="ad5beda4">2022.cl-1.6</url>
+      <bibkey>jin-etal-2022-deep</bibkey>
+      <pwccode url="https://github.com/fuzhenxin/Style-Transfer-in-Text" additional="true">fuzhenxin/Style-Transfer-in-Text</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/gyafc">GYAFC</pwcdataset>
+    </paper>
+    <paper id="7">
+      <title>Probing Classifiers: Promises, Shortcomings, and Advances</title>
+      <author><first>Yonatan</first><last>Belinkov</last></author>
+      <doi>10.1162/coli_a_00422</doi>
+      <abstract>Probing classifiers have emerged as one of the prominent methodologies for interpreting and analyzing deep neural network models of natural language processing. The basic idea is simple—a classifier is trained to predict some linguistic property from a model’s representations—and has been used to examine a wide variety of models and properties. However, recent studies have demonstrated various methodological limitations of this approach. This squib critically reviews the probing classifiers framework, highlighting their promises, shortcomings, and advances.</abstract>
+      <pages>207–219</pages>
+      <url hash="4dd30d51">2022.cl-1.7</url>
+      <bibkey>belinkov-2022-probing</bibkey>
+    </paper>
+    <paper id="8">
+      <title>Revisiting the Boundary between <fixed-case>ASR</fixed-case> and <fixed-case>NLU</fixed-case> in the Age of Conversational Dialog Systems</title>
+      <author><first>Manaal</first><last>Faruqui</last></author>
+      <author><first>Dilek</first><last>Hakkani-Tür</last></author>
+      <doi>10.1162/coli_a_00430</doi>
+      <abstract>As more users across the world are interacting with dialog agents in their daily life, there is a need for better speech understanding that calls for renewed attention to the dynamics between research in automatic speech recognition (ASR) and natural language understanding (NLU). We briefly review these research areas and lay out the current relationship between them. In light of the observations we make in this article, we argue that (1) NLU should be cognizant of the presence of ASR models being used upstream in a dialog system’s pipeline, (2) ASR should be able to learn from errors found in NLU, (3) there is a need for end-to-end data sets that provide semantic annotations on spoken input, (4) there should be stronger collaboration between ASR and NLU research communities.</abstract>
+      <pages>221–232</pages>
+      <url hash="d99b7b9c">2022.cl-1.8</url>
+      <bibkey>faruqui-hakkani-tur-2022-revisiting</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/coqa">CoQA</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/squad">SQuAD</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/spoken-squad">Spoken-SQuAD</pwcdataset>
+    </paper>
+    <paper id="9">
+      <title>Natural Language Processing: A Machine Learning Perspective by <fixed-case>Y</fixed-case>ue <fixed-case>Z</fixed-case>hang and Zhiyang Teng</title>
+      <author><first>Julia</first><last>Ive</last></author>
+      <doi>10.1162/coli_r_00423</doi>
+      <pages>233–235</pages>
+      <url hash="9ace3399">2022.cl-1.9</url>
+      <bibkey>ive-2022-natural</bibkey>
+    </paper>
+    <paper id="10">
+      <title>Erratum for “Formal Basis of a Language Universal”</title>
+      <author><first>Miloš</first><last>Stanojević</last></author>
+      <author><first>Mark</first><last>Steedman</last></author>
+      <doi>10.1162/coli_x_00432</doi>
+      <pages>237–237</pages>
+      <url hash="6fd084dd">2022.cl-1.10</url>
+      <bibkey>stanojevic-steedman-2022-erratum</bibkey>
+    </paper>
+  </volume>
+  <volume id="2" type="journal">
+    <meta>
+      <booktitle>Computational Linguistics, Volume 48, Issue 2 - June 2022</booktitle>
+      <publisher>MIT Press</publisher>
+      <address>Cambridge, MA</address>
+      <month>June</month>
+      <year>2022</year>
+      <venue>cl</venue>
+      <journal-volume>48</journal-volume>
+      <journal-issue>2</journal-issue>
+    </meta>
+    <paper id="1">
+      <title>Ethics Sheet for Automatic Emotion Recognition and Sentiment Analysis</title>
+      <author><first>Saif M.</first><last>Mohammad</last></author>
+      <doi>10.1162/coli_a_00433</doi>
+      <abstract>The importance and pervasiveness of emotions in our lives makes affective computing a tremendously important and vibrant line of work. Systems for automatic emotion recognition (AER) and sentiment analysis can be facilitators of enormous progress (e.g., in improving public health and commerce) but also enablers of great harm (e.g., for suppressing dissidents and manipulating voters). Thus, it is imperative that the affective computing community actively engage with the ethical ramifications of their creations. In this article, I have synthesized and organized information from AI Ethics and Emotion Recognition literature to present fifty ethical considerations relevant to AER. Notably, this ethics sheet fleshes out assumptions hidden in how AER is commonly framed, and in the choices often made regarding the data, method, and evaluation. Special attention is paid to the implications of AER on privacy and social groups. Along the way, key recommendations are made for responsible AER. The objective of the ethics sheet is to facilitate and encourage more thoughtfulness on why to automate, how to automate, and how to judge success well before the building of AER systems. Additionally, the ethics sheet acts as a useful introductory document on emotion recognition (complementing survey articles).</abstract>
+      <pages>239–278</pages>
+      <url hash="36db3140">2022.cl-2.1</url>
+      <bibkey>mohammad-2022-ethics-sheet</bibkey>
+      <video href="2022.cl-2.1.mp4"/>
+    </paper>
+    <paper id="2">
+      <title>Domain Adaptation with Pre-trained Transformers for Query-Focused Abstractive Text Summarization</title>
+      <author><first>Md Tahmid Rahman</first><last>Laskar</last></author>
+      <author><first>Enamul</first><last>Hoque</last></author>
+      <author><first>Jimmy Xiangji</first><last>Huang</last></author>
+      <doi>10.1162/coli_a_00434</doi>
+      <abstract>The Query-Focused Text Summarization (QFTS) task aims at building systems that generate the summary of the text document(s) based on the given query. A key challenge in addressing this task is the lack of large labeled data for training the summarization model. In this article, we address this challenge by exploring a series of domain adaptation techniques. Given the recent success of pre-trained transformer models in a wide range of natural language processing tasks, we utilize such models to generate abstractive summaries for the QFTS task for both single-document and multi-document scenarios. For domain adaptation, we apply a variety of techniques using pre-trained transformer-based summarization models including transfer learning, weakly supervised learning, and distant supervision. Extensive experiments on six datasets show that our proposed approach is very effective in generating abstractive summaries for the QFTS task while setting a new state-of-the-art result in several datasets across a set of automatic and human evaluation metrics.</abstract>
+      <pages>279–320</pages>
+      <url hash="e41774df">2022.cl-2.2</url>
+      <bibkey>laskar-etal-2022-domain</bibkey>
+      <pwccode url="https://github.com/tahmedge/preqfas" additional="false">tahmedge/preqfas</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/cnn-daily-mail-1">CNN/Daily Mail</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/mediqa-ans">MEDIQA-AnS</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/trecqa">TrecQA</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/wikiqa">WikiQA</pwcdataset>
+    </paper>
+    <paper id="3">
+      <title>Challenges of Neural Machine Translation for Short Texts</title>
+      <author><first>Yu</first><last>Wan</last></author>
+      <author><first>Baosong</first><last>Yang</last></author>
+      <author><first>Derek Fai</first><last>Wong</last></author>
+      <author><first>Lidia Sam</first><last>Chao</last></author>
+      <author><first>Liang</first><last>Yao</last></author>
+      <author><first>Haibo</first><last>Zhang</last></author>
+      <author><first>Boxing</first><last>Chen</last></author>
+      <doi>10.1162/coli_a_00435</doi>
+      <abstract>Short texts (STs) present in a variety of scenarios, including query, dialog, and entity names. Most of the exciting studies in neural machine translation (NMT) are focused on tackling open problems concerning long sentences rather than short ones. The intuition behind is that, with respect to human learning and processing, short sequences are generally regarded as easy examples. In this article, we first dispel this speculation via conducting preliminary experiments, showing that the conventional state-of-the-art NMT approach, namely, Transformer (Vaswani et al. 2017), still suffers from over-translation and mistranslation errors over STs. After empirically investigating the rationale behind this, we summarize two challenges in NMT for STs associated with translation error types above, respectively: (1) the imbalanced length distribution in training set intensifies model inference calibration over STs, leading to more over-translation cases on STs; and (2) the lack of contextual information forces NMT to have higher data uncertainty on short sentences, and thus NMT model is troubled by considerable mistranslation errors. Some existing approaches, like balancing data distribution for training (e.g., data upsampling) and complementing contextual information (e.g., introducing translation memory) can alleviate the translation issues in NMT for STs. We encourage researchers to investigate other challenges in NMT for STs, thus reducing ST translation errors and enhancing translation quality.</abstract>
+      <pages>321–342</pages>
+      <url hash="d9abf790">2022.cl-2.3</url>
+      <bibkey>wan-etal-2022-challenges</bibkey>
+      <video href="2022.cl-2.3.mp4"/>
+    </paper>
+    <paper id="4">
+      <title>Annotation Curricula to Implicitly Train Non-Expert Annotators</title>
+      <author><first>Ji-Ung</first><last>Lee</last></author>
+      <author><first>Jan-Christoph</first><last>Klie</last></author>
+      <author><first>Iryna</first><last>Gurevych</last></author>
+      <doi>10.1162/coli_a_00436</doi>
+      <abstract>Annotation studies often require annotators to familiarize themselves with the task, its annotation scheme, and the data domain. This can be overwhelming in the beginning, mentally taxing, and induce errors into the resulting annotations; especially in citizen science or crowdsourcing scenarios where domain expertise is not required. To alleviate these issues, this work proposes annotation curricula, a novel approach to implicitly train annotators. The goal is to gradually introduce annotators into the task by ordering instances to be annotated according to a learning curriculum. To do so, this work formalizes annotation curricula for sentence- and paragraph-level annotation tasks, defines an ordering strategy, and identifies well-performing heuristics and interactively trained models on three existing English datasets. Finally, we provide a proof of concept for annotation curricula in a carefully designed user study with 40 voluntary participants who are asked to identify the most fitting misconception for English tweets about the Covid-19 pandemic. The results indicate that using a simple heuristic to order instances can already significantly reduce the total annotation time while preserving a high annotation quality. Annotation curricula thus can be a promising research direction to improve data collection. To facilitate future research—for instance, to adapt annotation curricula to specific tasks and expert annotation scenarios—all code and data from the user study consisting of 2,400 annotations is made available.1</abstract>
+      <pages>343–373</pages>
+      <url hash="a1ccdcf0">2022.cl-2.4</url>
+      <bibkey>lee-etal-2022-annotation</bibkey>
+      <video href="2022.cl-2.4.mp4"/>
+      <pwccode url="https://github.com/ukplab/annotation-curriculum" additional="false">ukplab/annotation-curriculum</pwccode>
+    </paper>
+    <paper id="5">
+      <title>Assessing Corpus Evidence for Formal and Psycholinguistic Constraints on Nonprojectivity</title>
+      <author><first>Himanshu</first><last>Yadav</last></author>
+      <author><first>Samar</first><last>Husain</last></author>
+      <author><first>Richard</first><last>Futrell</last></author>
+      <doi>10.1162/coli_a_00437</doi>
+      <abstract>Formal constraints on crossing dependencies have played a large role in research on the formal complexity of natural language grammars and parsing. Here we ask whether the apparent evidence for constraints on crossing dependencies in treebanks might arise because of independent constraints on trees, such as low arity and dependency length minimization. We address this question using two sets of experiments. In Experiment 1, we compare the distribution of formal properties of crossing dependencies, such as gap degree, between real trees and baseline trees matched for rate of crossing dependencies and various other properties. In Experiment 2, we model whether two dependencies cross, given certain psycholinguistic properties of the dependencies. We find surprisingly weak evidence for constraints originating from the mild context-sensitivity literature (gap degree and well-nestedness) beyond what can be explained by constraints on rate of crossing dependencies, topological properties of the trees, and dependency length. However, measures that have emerged from the parsing literature (e.g., edge degree, end-point crossings, and heads’ depth difference) differ strongly between real and random trees. Modeling results show that cognitive metrics relating to information locality and working-memory limitations affect whether two dependencies cross or not, but they do not fully explain the distribution of crossing dependencies in natural languages. Together these results suggest that crossing constraints are better characterized by processing pressures than by mildly context-sensitive constraints.</abstract>
+      <pages>375–401</pages>
+      <url hash="9d6ae8f1">2022.cl-2.5</url>
+      <bibkey>yadav-etal-2022-assessing</bibkey>
+      <video href="2022.cl-2.5.mp4"/>
+    </paper>
+    <paper id="6">
+      <title>Dual Attention Model for Citation Recommendation with Analyses on Explainability of Attention Mechanisms and Qualitative Experiments</title>
+      <author><first>Yang</first><last>Zhang</last></author>
+      <author><first>Qiang</first><last>Ma</last></author>
+      <doi>10.1162/coli_a_00438</doi>
+      <abstract>Based on an exponentially increasing number of academic articles, discovering and citing comprehensive and appropriate resources have become non-trivial tasks. Conventional citation recommendation methods suffer from severe information losses. For example, they do not consider the section header of the paper that the author is writing and for which they need to find a citation, the relatedness between the words in the local context (the text span that describes a citation), or the importance of each word from the local context. These shortcomings make such methods insufficient for recommending adequate citations to academic manuscripts. In this study, we propose a novel embedding-based neural network called dual attention model for citation recommendation (DACR) to recommend citations during manuscript preparation. Our method adapts the embedding of three semantic pieces of information: words in the local context, structural contexts,1 and the section on which the author is working. A neural network model is designed to maximize the similarity between the embedding of the three inputs (local context words, section headers, and structural contexts) and the target citation appearing in the context. The core of the neural network model comprises self-attention and additive attention; the former aims to capture the relatedness between the contextual words and structural context, and the latter aims to learn their importance. Recommendation experiments on real-world datasets demonstrate the effectiveness of the proposed approach. To seek explainability on DACR, particularly the two attention mechanisms, the learned weights from them are investigated to determine how the attention mechanisms interpret “relatedness” and “importance” through the learned weights. In addition, qualitative analyses were conducted to testify that DACR could find necessary citations that were not noticed by the authors in the past due to the limitations of the keyword-based searching.</abstract>
+      <pages>403–470</pages>
+      <url hash="e40d8ac3">2022.cl-2.6</url>
+      <bibkey>zhang-ma-2022-dual</bibkey>
+    </paper>
+    <paper id="7">
+      <title>On Learning Interpreted Languages with Recurrent Models</title>
+      <author><first>Denis</first><last>Paperno</last></author>
+      <doi>10.1162/coli_a_00431</doi>
+      <abstract>Can recurrent neural nets, inspired by human sequential data processing, learn to understand language? We construct simplified data sets reflecting core properties of natural language as modeled in formal syntax and semantics: recursive syntactic structure and compositionality. We find LSTM and GRU networks to generalize to compositional interpretation well, but only in the most favorable learning settings, with a well-paced curriculum, extensive training data, and left-to-right (but not right-to-left) composition.</abstract>
+      <pages>471–482</pages>
+      <url hash="1b28885c">2022.cl-2.7</url>
+      <bibkey>paperno-2022-learning</bibkey>
+    </paper>
+    <paper id="8">
+      <title>Boring Problems Are Sometimes the Most Interesting</title>
+      <author><first>Richard</first><last>Sproat</last></author>
+      <doi>10.1162/coli_a_00439</doi>
+      <abstract>In a recent position paper, Turing Award Winners Yoshua Bengio, Geoffrey Hinton, and Yann LeCun make the case that symbolic methods are not needed in AI and that, while there are still many issues to be resolved, AI will be solved using purely neural methods. In this piece I issue a challenge: Demonstrate that a purely neural approach to the problem of text normalization is possible. Various groups have tried, but so far nobody has eliminated the problem of unrecoverable errors, errors where, due to insufficient training data or faulty generalization, the system substitutes some other reading for the correct one. Solutions have been proposed that involve a marriage of traditional finite-state methods with neural models, but thus far nobody has shown that the problem can be solved using neural methods alone. Though text normalization is hardly an “exciting” problem, I argue that until one can solve “boring” problems like that using purely AI methods, one cannot claim that AI is a success.</abstract>
+      <pages>483–490</pages>
+      <url hash="c7da70a3">2022.cl-2.8</url>
+      <bibkey>sproat-2022-boring</bibkey>
+    </paper>
+  </volume>
+  <volume id="3" type="journal">
+    <meta>
+      <booktitle>Computational Linguistics, Volume 48, Issue 3 - September 2022</booktitle>
+      <publisher>MIT Press</publisher>
+      <address>Cambridge, MA</address>
+      <month>September</month>
+      <year>2022</year>
+      <venue>cl</venue>
+      <journal-volume>48</journal-volume>
+      <journal-issue>3</journal-issue>
+    </meta>
+    <paper id="1">
+      <title>Linear-Time Calculation of the Expected Sum of Edge Lengths in Random Projective Linearizations of Trees</title>
+      <author><first>Lluís</first><last>Alemany-Puig</last></author>
+      <author><first>Ramon</first><last>Ferrer-i-Cancho</last></author>
+      <doi>10.1162/coli_a_00442</doi>
+      <abstract>The syntactic structure of a sentence is often represented using syntactic dependency trees. The sum of the distances between syntactically related words has been in the limelight for the past decades. Research on dependency distances led to the formulation of the principle of dependency distance minimization whereby words in sentences are ordered so as to minimize that sum. Numerous random baselines have been defined to carry out related quantitative studies on lan- guages. The simplest random baseline is the expected value of the sum in unconstrained random permutations of the words in the sentence, namely, when all the shufflings of the words of a sentence are allowed and equally likely. Here we focus on a popular baseline: random projective per- mutations of the words of the sentence, that is, permutations where the syntactic dependency structure is projective, a formal constraint that sentences satisfy often in languages. Thus far, the expectation of the sum of dependency distances in random projective shufflings of a sentence has been estimated approximately with a Monte Carlo procedure whose cost is of the order of Rn, where n is the number of words of the sentence and R is the number of samples; it is well known that the larger R is, the lower the error of the estimation but the larger the time cost. Here we pre- sent formulae to compute that expectation without error in time of the order of n. Furthermore, we show that star trees maximize it, and provide an algorithm to retrieve the trees that minimize it.</abstract>
+      <pages>491–516</pages>
+      <url hash="88a62714">2022.cl-3.1</url>
+      <bibkey>alemany-puig-ferrer-i-cancho-2022-linear</bibkey>
+    </paper>
+    <paper id="2">
+      <title>The Impact of Edge Displacement <fixed-case>V</fixed-case>aserstein Distance on <fixed-case>UD</fixed-case> Parsing Performance</title>
+      <author><first>Mark</first><last>Anderson</last></author>
+      <author><first>Carlos</first><last>Gómez-Rodríguez</last></author>
+      <doi>10.1162/coli_a_00440</doi>
+      <abstract>We contribute to the discussion on parsing performance in NLP by introducing a measurement that evaluates the differences between the distributions of edge displacement (the directed distance of edges) seen in training and test data. We hypothesize that this measurement will be related to differences observed in parsing performance across treebanks. We motivate this by building upon previous work and then attempt to falsify this hypothesis by using a number of statistical methods. We establish that there is a statistical correlation between this measurement and parsing performance even when controlling for potential covariants. We then use this to establish a sampling technique that gives us an adversarial and complementary split. This gives an idea of the lower and upper bounds of parsing systems for a given treebank in lieu of freshly sampled data. In a broader sense, the methodology presented here can act as a reference for future correlation-based exploratory work in NLP.</abstract>
+      <pages>517–554</pages>
+      <url hash="54be90e9">2022.cl-3.2</url>
+      <bibkey>anderson-gomez-rodriguez-2022-impact</bibkey>
+      <video href="2022.cl-3.2.mp4"/>
+      <pwccode url="https://github.com/markda/morphological-complexity" additional="false">markda/morphological-complexity</pwccode>
+    </paper>
+    <paper id="3">
+      <title><fixed-case>UD</fixed-case>apter: Typology-based Language Adapters for Multilingual Dependency Parsing and Sequence Labeling</title>
+      <author><first>Ahmet</first><last>Üstün</last></author>
+      <author><first>Arianna</first><last>Bisazza</last></author>
+      <author><first>Gosse</first><last>Bouma</last></author>
+      <author><first>Gertjan</first><last>van Noord</last></author>
+      <doi>10.1162/coli_a_00443</doi>
+      <abstract>Recent advances in multilingual language modeling have brought the idea of a truly universal parser closer to reality. However, such models are still not immune to the “curse of multilinguality”: Cross-language interference and restrained model capacity remain major obstacles. To address this, we propose a novel language adaptation approach by introducing contextual language adapters to a multilingual parser. Contextual language adapters make it possible to learn adapters via language embeddings while sharing model parameters across languages based on contextual parameter generation. Moreover, our method allows for an easy but effective integration of existing linguistic typology features into the parsing model. Because not all typological features are available for every language, we further combine typological feature prediction with parsing in a multi-task model that achieves very competitive parsing performance without the need for an external prediction system for missing features. The resulting parser, UDapter, can be used for dependency parsing as well as sequence labeling tasks such as POS tagging, morphological tagging, and NER. In dependency parsing, it outperforms strong monolingual and multilingual baselines on the majority of both high-resource and low-resource (zero-shot) languages, showing the success of the proposed adaptation approach. In sequence labeling tasks, our parser surpasses the baseline on high resource languages, and performs very competitively in a zero-shot setting. Our in-depth analyses show that adapter generation via typological features of languages is key to this success.1</abstract>
+      <pages>555–592</pages>
+      <url hash="e4b74fbe">2022.cl-3.3</url>
+      <bibkey>ustun-etal-2022-udapter</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/universal-dependencies">Universal Dependencies</pwcdataset>
+    </paper>
+    <paper id="4">
+      <title>Tractable Parsing for <fixed-case>CCG</fixed-case>s of Bounded Degree</title>
+      <author><first>Lena Katharina</first><last>Schiffer</last></author>
+      <author><first>Marco</first><last>Kuhlmann</last></author>
+      <author><first>Giorgio</first><last>Satta</last></author>
+      <doi>10.1162/coli_a_00441</doi>
+      <abstract>Unlike other mildly context-sensitive formalisms, Combinatory Categorial Grammar (CCG) cannot be parsed in polynomial time when the size of the grammar is taken into account. Refining this result, we show that the parsing complexity of CCG is exponential only in the maximum degree of composition. When that degree is fixed, parsing can be carried out in polynomial time. Our finding is interesting from a linguistic perspective because a bounded degree of composition has been suggested as a universal constraint on natural language grammar. Moreover, ours is the first complexity result for a version of CCG that includes substitution rules, which are used in practical grammars but have been ignored in theoretical work.</abstract>
+      <pages>593–633</pages>
+      <url hash="987c3293">2022.cl-3.4</url>
+      <bibkey>schiffer-etal-2022-tractable</bibkey>
+      <video href="2022.cl-3.4.mp4"/>
+    </paper>
+    <paper id="5">
+      <title>Investigating Language Relationships in Multilingual Sentence Encoders Through the Lens of Linguistic Typology</title>
+      <author><first>Rochelle</first><last>Choenni</last></author>
+      <author><first>Ekaterina</first><last>Shutova</last></author>
+      <doi>10.1162/coli_a_00444</doi>
+      <abstract>Multilingual sentence encoders have seen much success in cross-lingual model transfer for downstream NLP tasks. The success of this transfer is, however, dependent on the model’s ability to encode the patterns of cross-lingual similarity and variation. Yet, we know relatively little about the properties of individual languages or the general patterns of linguistic variation that the models encode. In this article, we investigate these questions by leveraging knowledge from the field of linguistic typology, which studies and documents structural and semantic variation across languages. We propose methods for separating language-specific subspaces within state-of-the-art multilingual sentence encoders (LASER, M-BERT, XLM, and XLM-R) with respect to a range of typological properties pertaining to lexical, morphological, and syntactic structure. Moreover, we investigate how typological information about languages is distributed across all layers of the models. Our results show interesting differences in encoding linguistic variation associated with different pretraining strategies. In addition, we propose a simple method to study how shared typological properties of languages are encoded in two state-of-the-art multilingual models—M-BERT and XLM-R. The results provide insight into their information-sharing mechanisms and suggest that these linguistic properties are encoded jointly across typologically similar languages in these models.</abstract>
+      <pages>635–672</pages>
+      <url hash="b19e1a1e">2022.cl-3.5</url>
+      <bibkey>choenni-shutova-2022-investigating</bibkey>
+      <video href="2022.cl-3.5.mp4"/>
+      <pwcdataset url="https://paperswithcode.com/dataset/tatoeba">Tatoeba</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/xnli">XNLI</pwcdataset>
+    </paper>
+    <paper id="6">
+      <title>Survey of Low-Resource Machine Translation</title>
+      <author><first>Barry</first><last>Haddow</last></author>
+      <author><first>Rachel</first><last>Bawden</last></author>
+      <author><first>Antonio Valerio</first><last>Miceli Barone</last></author>
+      <author><first>Jindřich</first><last>Helcl</last></author>
+      <author><first>Alexandra</first><last>Birch</last></author>
+      <doi>10.1162/coli_a_00446</doi>
+      <abstract>We present a survey covering the state of the art in low-resource machine translation (MT) research. There are currently around 7,000 languages spoken in the world and almost all language pairs lack significant resources for training machine translation models. There has been increasing interest in research addressing the challenge of producing useful translation models when very little translated training data is available. We present a summary of this topical research field and provide a description of the techniques evaluated by researchers in several recent shared tasks in low-resource MT.</abstract>
+      <pages>673–732</pages>
+      <url hash="d8060a0e">2022.cl-3.6</url>
+      <bibkey>haddow-etal-2022-survey</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/cc100">CC100</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/flores">FLoRes</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/flores-101">FLoRes-101</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/samanantar">Samanantar</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/tatoeba">Tatoeba</pwcdataset>
+    </paper>
+    <paper id="7">
+      <title>Position Information in Transformers: An Overview</title>
+      <author><first>Philipp</first><last>Dufter</last></author>
+      <author><first>Martin</first><last>Schmitt</last></author>
+      <author><first>Hinrich</first><last>Schütze</last></author>
+      <doi>10.1162/coli_a_00445</doi>
+      <abstract>Transformers are arguably the main workhorse in recent natural language processing research. By definition, a Transformer is invariant with respect to reordering of the input. However, language is inherently sequential and word order is essential to the semantics and syntax of an utterance. In this article, we provide an overview and theoretical comparison of existing methods to incorporate position information into Transformer models. The objectives of this survey are to (1) showcase that position information in Transformer is a vibrant and extensive research area; (2) enable the reader to compare existing methods by providing a unified notation and systematization of different approaches along important model dimensions; (3) indicate what characteristics of an application should be taken into account when selecting a position encoding; and (4) provide stimuli for future research.</abstract>
+      <pages>733–763</pages>
+      <url hash="0acd7075">2022.cl-3.7</url>
+      <bibkey>dufter-etal-2022-position</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/glue">GLUE</pwcdataset>
+    </paper>
+  </volume>
+  <volume id="4" type="journal">
+    <meta>
+      <booktitle>Computational Linguistics, Volume 48, Issue 4 - December 2022</booktitle>
+      <publisher>MIT Press</publisher>
+      <address>Cambridge, MA</address>
+      <month>December</month>
+      <year>2022</year>
+      <venue>cl</venue>
+      <journal-volume>48</journal-volume>
+      <journal-issue>4</journal-issue>
+    </meta>
+    <paper id="9">
+      <title>Martha Palmer and Barbara Di Eugenio Interview Martha Evens</title>
+      <author><first>Martha</first><last>Evens</last></author>
+      <doi>10.1162/coli_a_00453</doi>
+      <pages>765–773</pages>
+      <url hash="a37c6ee9">2022.cl-4.9</url>
+      <bibkey>evens-2022-martha</bibkey>
+    </paper>
+    <paper id="10">
+      <title>Martha Evens, Brief Autobiography</title>
+      <author><first>Martha</first><last>Evens</last></author>
+      <doi>10.1162/coli_a_00452</doi>
+      <pages>775–782</pages>
+      <url hash="bdfc9be7">2022.cl-4.10</url>
+      <bibkey>evens-2022-martha-evens</bibkey>
+    </paper>
+    <paper id="11">
+      <title><fixed-case>N</fixed-case>oun2<fixed-case>V</fixed-case>erb: Probabilistic Frame Semantics for Word Class Conversion</title>
+      <author><first>Lei</first><last>Yu</last></author>
+      <author><first>Yang</first><last>Xu</last></author>
+      <doi>10.1162/coli_a_00447</doi>
+      <abstract>Humans can flexibly extend word usages across different grammatical classes, a phenomenon known as word class conversion. Noun-to-verb conversion, or denominal verb (e.g., to Google a cheap flight), is one of the most prevalent forms of word class conversion. However, existing natural language processing systems are impoverished in interpreting and generating novel denominal verb usages. Previous work has suggested that novel denominal verb usages are comprehensible if the listener can compute the intended meaning based on shared knowledge with the speaker. Here we explore a computational formalism for this proposal couched in frame semantics. We present a formal framework, Noun2Verb, that simulates the production and comprehension of novel denominal verb usages by modeling shared knowledge of speaker and listener in semantic frames. We evaluate an incremental set of probabilistic models that learn to interpret and generate novel denominal verb usages via paraphrasing. We show that a model where the speaker and listener cooperatively learn the joint distribution over semantic frame elements better explains the empirical denominal verb usages than state-of-the-art language models, evaluated against data from (1) contemporary English in both adult and child speech, (2) contemporary Mandarin Chinese, and (3) the historical development of English. Our work grounds word class conversion in probabilistic frame semantics and bridges the gap between natural language processing systems and humans in lexical creativity.</abstract>
+      <pages>783–818</pages>
+      <url hash="d4821544">2022.cl-4.11</url>
+      <bibkey>yu-xu-2022-noun2verb</bibkey>
+    </paper>
+    <paper id="12">
+      <title>Enhancing Lifelong Language Learning by Improving Pseudo-Sample Generation</title>
+      <author><first>Kasidis</first><last>Kanwatchara</last></author>
+      <author><first>Thanapapas</first><last>Horsuwan</last></author>
+      <author><first>Piyawat</first><last>Lertvittayakumjorn</last></author>
+      <author><first>Boonserm</first><last>Kijsirikul</last></author>
+      <author><first>Peerapon</first><last>Vateekul</last></author>
+      <doi>10.1162/coli_a_00449</doi>
+      <abstract>To achieve lifelong language learning, pseudo-rehearsal methods leverage samples generated from a language model to refresh the knowledge of previously learned tasks. Without proper controls, however, these methods could fail to retain the knowledge of complex tasks with longer texts since most of the generated samples are low in quality. To overcome the problem, we propose three specific contributions. First, we utilize double language models, each of which specializes in a specific part of the input, to produce high-quality pseudo samples. Second, we reduce the number of parameters used by applying adapter modules to enhance training efficiency. Third, we further improve the overall quality of pseudo samples using temporal ensembling and sample regeneration. The results show that our framework achieves significant improvement over baselines on multiple task sequences. Also, our pseudo sample analysis reveals helpful insights for designing even better pseudo-rehearsal methods in the future.</abstract>
+      <pages>819–848</pages>
+      <url hash="f7329f13">2022.cl-4.12</url>
+      <bibkey>kanwatchara-etal-2022-enhancing</bibkey>
+    </paper>
+    <paper id="13">
+      <title>Nucleus Composition in Transition-based Dependency Parsing</title>
+      <author><first>Joakim</first><last>Nivre</last></author>
+      <author><first>Ali</first><last>Basirat</last></author>
+      <author><first>Luise</first><last>Dürlich</last></author>
+      <author><first>Adam</first><last>Moss</last></author>
+      <doi>10.1162/coli_a_00450</doi>
+      <abstract>Dependency-based approaches to syntactic analysis assume that syntactic structure can be analyzed in terms of binary asymmetric dependency relations holding between elementary syntactic units. Computational models for dependency parsing almost universally assume that an elementary syntactic unit is a word, while the influential theory of Lucien Tesnière instead posits a more abstract notion of nucleus, which may be realized as one or more words. In this article, we investigate the effect of enriching computational parsing models with a concept of nucleus inspired by Tesnière. We begin by reviewing how the concept of nucleus can be defined in the framework of Universal Dependencies, which has become the de facto standard for training and evaluating supervised dependency parsers, and explaining how composition functions can be used to make neural transition-based dependency parsers aware of the nuclei thus defined. We then perform an extensive experimental study, using data from 20 languages to assess the impact of nucleus composition across languages with different typological characteristics, and utilizing a variety of analytical tools including ablation, linear mixed-effects models, diagnostic classifiers, and dimensionality reduction. The analysis reveals that nucleus composition gives small but consistent improvements in parsing accuracy for most languages, and that the improvement mainly concerns the analysis of main predicates, nominal dependents, clausal dependents, and coordination structures. Significant factors explaining the rate of improvement across languages include entropy in coordination structures and frequency of certain function words, in particular determiners. Analysis using dimensionality reduction and diagnostic classifiers suggests that nucleus composition increases the similarity of vectors representing nuclei of the same syntactic type.</abstract>
+      <pages>849–886</pages>
+      <url hash="6a8d22fb">2022.cl-4.13</url>
+      <bibkey>nivre-etal-2022-nucleus</bibkey>
+    </paper>
+    <paper id="14">
+      <title>Effective Approaches to Neural Query Language Identification</title>
+      <author><first>Xingzhang</first><last>Ren</last></author>
+      <author><first>Baosong</first><last>Yang</last></author>
+      <author><first>Dayiheng</first><last>Liu</last></author>
+      <author><first>Haibo</first><last>Zhang</last></author>
+      <author><first>Xiaoyu</first><last>Lv</last></author>
+      <author><first>Liang</first><last>Yao</last></author>
+      <author><first>Jun</first><last>Xie</last></author>
+      <doi>10.1162/coli_a_00451</doi>
+      <abstract>Query language identification (Q-LID) plays a crucial role in a cross-lingual search engine. There exist two main challenges in Q-LID: (1) insufficient contextual information in queries for disambiguation; and (2) the lack of query-style training examples for low-resource languages. In this article, we propose a neural Q-LID model by alleviating the above problems from both model architecture and data augmentation perspectives. Concretely, we build our model upon the advanced Transformer model. In order to enhance the discrimination of queries, a variety of external features (e.g., character, word, as well as script) are fed into the model and fused by a multi-scale attention mechanism. Moreover, to remedy the low resource challenge in this task, a novel machine translation–based strategy is proposed to automatically generate synthetic query-style data for low-resource languages. We contribute the first Q-LID test set called QID-21, which consists of search queries in 21 languages. Experimental results reveal that our model yields better classification accuracy than strong baselines and existing LID systems on both query and traditional LID tasks.1</abstract>
+      <pages>887–906</pages>
+      <url hash="ea9d6792">2022.cl-4.14</url>
+      <bibkey>ren-etal-2022-effective</bibkey>
+    </paper>
+    <paper id="15">
+      <title>Information Theory–based Compositional Distributional Semantics</title>
+      <author><first>Enrique</first><last>Amigó</last></author>
+      <author><first>Alejandro</first><last>Ariza-Casabona</last></author>
+      <author><first>Victor</first><last>Fresno</last></author>
+      <author><first>M. Antònia</first><last>Martí</last></author>
+      <doi>10.1162/coli_a_00454</doi>
+      <abstract>In the context of text representation, Compositional Distributional Semantics models aim to fuse the Distributional Hypothesis and the Principle of Compositionality. Text embedding is based on co-ocurrence distributions and the representations are in turn combined by compositional functions taking into account the text structure. However, the theoretical basis of compositional functions is still an open issue. In this article we define and study the notion of Information Theory–based Compositional Distributional Semantics (ICDS): (i) We first establish formal properties for embedding, composition, and similarity functions based on Shannon’s Information Theory; (ii) we analyze the existing approaches under this prism, checking whether or not they comply with the established desirable properties; (iii) we propose two parameterizable composition and similarity functions that generalize traditional approaches while fulfilling the formal properties; and finally (iv) we perform an empirical study on several textual similarity datasets that include sentences with a high and low lexical overlap, and on the similarity between words and their description. Our theoretical analysis and empirical results show that fulfilling formal properties affects positively the accuracy of text representation models in terms of correspondence (isometry) between the embedding and meaning spaces.</abstract>
+      <pages>907–948</pages>
+      <url hash="e6d93f6e">2022.cl-4.15</url>
+      <bibkey>amigo-etal-2022-information</bibkey>
+    </paper>
+    <paper id="16">
+      <title>Revise and Resubmit: An Intertextual Model of Text-based Collaboration in Peer Review</title>
+      <author><first>Ilia</first><last>Kuznetsov</last></author>
+      <author><first>Jan</first><last>Buchmann</last></author>
+      <author><first>Max</first><last>Eichler</last></author>
+      <author><first>Iryna</first><last>Gurevych</last></author>
+      <doi>10.1162/coli_a_00455</doi>
+      <abstract>Peer review is a key component of the publishing process in most fields of science. Increasing submission rates put a strain on reviewing quality and efficiency, motivating the development of applications to support the reviewing and editorial work. While existing NLP studies focus on the analysis of individual texts, editorial assistance often requires modeling interactions between pairs of texts—yet general frameworks and datasets to support this scenario are missing. Relationships between texts are the core object of the intertextuality theory—a family of approaches in literary studies not yet operationalized in NLP. Inspired by prior theoretical work, we propose the first intertextual model of text-based collaboration, which encompasses three major phenomena that make up a full iteration of the review–revise–and–resubmit cycle: pragmatic tagging, linking, and long-document version alignment. While peer review is used across the fields of science and publication formats, existing datasets solely focus on conference-style review in computer science. Addressing this, we instantiate our proposed model in the first annotated multidomain corpus in journal-style post-publication open peer review, and provide detailed insights into the practical aspects of intertextual annotation. Our resource is a major step toward multidomain, fine-grained applications of NLP in editorial support for peer review, and our intertextual framework paves the path for general-purpose modeling of text-based collaboration. We make our corpus, detailed annotation guidelines, and accompanying code publicly available.1</abstract>
+      <pages>949–986</pages>
+      <url hash="803649c4">2022.cl-4.16</url>
+      <bibkey>kuznetsov-etal-2022-revise</bibkey>
+    </paper>
+    <paper id="17">
+      <title>Hierarchical Interpretation of Neural Text Classification</title>
+      <author><first>Hanqi</first><last>Yan</last></author>
+      <author><first>Lin</first><last>Gui</last></author>
+      <author><first>Yulan</first><last>He</last></author>
+      <doi>10.1162/coli_a_00459</doi>
+      <abstract>Recent years have witnessed increasing interest in developing interpretable models in Natural Language Processing (NLP). Most existing models aim at identifying input features such as words or phrases important for model predictions. Neural models developed in NLP, however, often compose word semantics in a hierarchical manner. As such, interpretation by words or phrases only cannot faithfully explain model decisions in text classification. This article proposes a novel Hierarchical Interpretable Neural Text classifier, called HINT, which can automatically generate explanations of model predictions in the form of label-associated topics in a hierarchical manner. Model interpretation is no longer at the word level, but built on topics as the basic semantic unit. Experimental results on both review datasets and news datasets show that our proposed approach achieves text classification results on par with existing state-of-the-art text classifiers, and generates interpretations more faithful to model predictions and better understood by humans than other interpretable neural text classifiers.1</abstract>
+      <pages>987–1020</pages>
+      <url hash="9b67d170">2022.cl-4.17</url>
+      <bibkey>yan-etal-2022-hierarchical</bibkey>
+    </paper>
+    <paper id="18">
+      <title>Neural Embedding Allocation: Distributed Representations of Topic Models</title>
+      <author><first>Kamrun Naher</first><last>Keya</last></author>
+      <author><first>Yannis</first><last>Papanikolaou</last></author>
+      <author><first>James R.</first><last>Foulds</last></author>
+      <doi>10.1162/coli_a_00457</doi>
+      <abstract>We propose a method that uses neural embeddings to improve the performance of any given LDA-style topic model. Our method, called neural embedding allocation (NEA), deconstructs topic models (LDA or otherwise) into interpretable vector-space embeddings of words, topics, documents, authors, and so on, by learning neural embeddings to mimic the topic model. We demonstrate that NEA improves coherence scores of the original topic model by smoothing out the noisy topics when the number of topics is large. Furthermore, we show NEA’s effectiveness and generality in deconstructing and smoothing LDA, author-topic models, and the recent mixed membership skip-gram topic model and achieve better performance with the embeddings compared to several state-of-the-art models.</abstract>
+      <pages>1021–1052</pages>
+      <url hash="b2d8ead8">2022.cl-4.18</url>
+      <bibkey>keya-etal-2022-neural</bibkey>
+    </paper>
+    <paper id="19">
+      <title>The Text Anonymization Benchmark (<fixed-case>TAB</fixed-case>): A Dedicated Corpus and Evaluation Framework for Text Anonymization</title>
+      <author><first>Ildikó</first><last>Pilán</last></author>
+      <author><first>Pierre</first><last>Lison</last></author>
+      <author><first>Lilja</first><last>Øvrelid</last></author>
+      <author><first>Anthi</first><last>Papadopoulou</last></author>
+      <author><first>David</first><last>Sánchez</last></author>
+      <author><first>Montserrat</first><last>Batet</last></author>
+      <doi>10.1162/coli_a_00458</doi>
+      <abstract>We present a novel benchmark and associated evaluation metrics for assessing the performance of text anonymization methods. Text anonymization, defined as the task of editing a text document to prevent the disclosure of personal information, currently suffers from a shortage of privacy-oriented annotated text resources, making it difficult to properly evaluate the level of privacy protection offered by various anonymization methods. This paper presents TAB (Text Anonymization Benchmark), a new, open-source annotated corpus developed to address this shortage. The corpus comprises 1,268 English-language court cases from the European Court of Human Rights (ECHR) enriched with comprehensive annotations about the personal information appearing in each document, including their semantic category, identifier type, confidential attributes, and co-reference relations. Compared with previous work, the TAB corpus is designed to go beyond traditional de-identification (which is limited to the detection of predefined semantic categories), and explicitly marks which text spans ought to be masked in order to conceal the identity of the person to be protected. Along with presenting the corpus and its annotation layers, we also propose a set of evaluation metrics that are specifically tailored toward measuring the performance of text anonymization, both in terms of privacy protection and utility preservation. We illustrate the use of the benchmark and the proposed metrics by assessing the empirical performance of several baseline text anonymization models. The full corpus along with its privacy-oriented annotation guidelines, evaluation scripts, and baseline models are available on: <url>https://github.com/NorskRegnesentral/text-anonymization-benchmark</url>.</abstract>
+      <pages>1053–1101</pages>
+      <url hash="e97fa2c7">2022.cl-4.19</url>
+      <bibkey>pilan-etal-2022-text</bibkey>
+    </paper>
+    <paper id="20">
+      <title>How Much Does Lookahead Matter for Disambiguation? Partial <fixed-case>A</fixed-case>rabic Diacritization Case Study</title>
+      <author><first>Saeed</first><last>Esmail</last></author>
+      <author><first>Kfir</first><last>Bar</last></author>
+      <author><first>Nachum</first><last>Dershowitz</last></author>
+      <doi>10.1162/coli_a_00456</doi>
+      <abstract>We suggest a model for partial diacritization of deep orthographies. We focus on Arabic, where the optional indication of selected vowels by means of diacritics can resolve ambiguity and improve readability. Our partial diacritizer restores short vowels only when they contribute to the ease of understandability during reading a given running text. The idea is to identify those uncertainties of absent vowels that require the reader to look ahead to disambiguate. To achieve this, two independent neural networks are used for predicting diacritics, one that takes the entire sentence as input and another that considers only the text that has been read thus far. Partial diacritization is then determined by retaining precisely those vowels on which the two networks disagree, preferring the reading based on consideration of the whole sentence over the more naïve reading-order diacritization. For evaluation, we prepared a new dataset of Arabic texts with both full and partial vowelization. In addition to facilitating readability, we find that our partial diacritizer improves translation quality compared either to their total absence or to random selection. Lastly, we study the benefit of knowing the text that follows the word in focus toward the restoration of short vowels during reading, and we measure the degree to which lookahead contributes to resolving ambiguities encountered while reading. L’Herbelot had asserted, that the most ancient Korans, written in the Cufic character, had no vowel points; and that these were first invented by Jahia–ben Jamer, who died in the 127th year of the Hegira. “Toderini’s History of Turkish Literature,” Analytical Review (1789)</abstract>
+      <pages>1103–1123</pages>
+      <url hash="7ca73aa5">2022.cl-4.20</url>
+      <bibkey>esmail-etal-2022-much</bibkey>
+    </paper>
+    <paper id="21">
+      <title>A Metrological Perspective on Reproducibility in <fixed-case>NLP</fixed-case>*</title>
+      <author><first>Anya</first><last>Belz</last></author>
+      <doi>10.1162/coli_a_00448</doi>
+      <abstract>Reproducibility has become an increasingly debated topic in NLP and ML over recent years, but so far, no commonly accepted definitions of even basic terms or concepts have emerged. The range of different definitions proposed within NLP/ML not only do not agree with each other, they are also not aligned with standard scientific definitions. This article examines the standard definitions of repeatability and reproducibility provided by the meta-science of metrology, and explores what they imply in terms of how to assess reproducibility, and what adopting them would mean for reproducibility assessment in NLP/ML. It turns out the standard definitions lead directly to a method for assessing reproducibility in quantified terms that renders results from reproduction studies comparable across multiple reproductions of the same original study, as well as reproductions of different original studies. The article considers where this method sits in relation to other aspects of NLP work one might wish to assess in the context of reproducibility.</abstract>
+      <pages>1125–1135</pages>
+      <url hash="7b020566">2022.cl-4.21</url>
+      <bibkey>belz-2022-metrological</bibkey>
+    </paper>
+    <paper id="22">
+      <title>Explainable Natural Language Processing</title>
+      <author><first>George</first><last>Chrysostomou</last></author>
+      <doi>10.1162/coli_r_00460</doi>
+      <pages>1137–1139</pages>
+      <url hash="42d0478d">2022.cl-4.22</url>
+      <bibkey>chrysostomou-2022-explainable</bibkey>
+    </paper>
+    <paper id="23">
+      <title>Erratum: Annotation Curricula to Implicitly Train Non-Expert Annotators</title>
+      <author><first>Ji-Ung</first><last>Lee</last></author>
+      <author><first>Jan-Christoph</first><last>Klie</last></author>
+      <author><first>Iryna</first><last>Gurevych</last></author>
+      <doi>10.1162/coli_x_00469</doi>
+      <abstract>The authors of this work (“Annotation Curricula to Implicitly Train Non-Expert Annotators” by Ji-Ung Lee, Jan-Christoph Klie, and Iryna Gurevych in Computational Linguistics 48:2 <url>https://doi.org/10.1162/coli_a_00436</url>) discovered an incorrect inequality symbol in section 5.3 (page 360). The paper stated that the differences in the annotation times for the control instances result in a p-value of 0.200 which is smaller than 0.05 (p = 0.200 &lt; 0.05). As 0.200 is of course larger than 0.05, the correct inequality symbol is p = 0.200 &gt; 0.05, which is in line with the conclusion that follows in the text. The paper has been updated accordingly.</abstract>
+      <pages>1141–1141</pages>
+      <url hash="274343ab">2022.cl-4.23</url>
+      <bibkey>lee-etal-2022-erratum</bibkey>
+    </paper>
+  </volume>
+</collection>

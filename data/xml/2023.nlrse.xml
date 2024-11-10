@@ -1,0 +1,162 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2023.nlrse">
+  <volume id="1" ingest-date="2023-07-12" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of the 1st Workshop on Natural Language Reasoning and Structured Explanations (NLRSE)</booktitle>
+      <editor><first>Bhavana</first><last>Dalvi Mishra</last></editor>
+      <editor><first>Greg</first><last>Durrett</last></editor>
+      <editor><first>Peter</first><last>Jansen</last></editor>
+      <editor><first>Danilo</first><last>Neves Ribeiro</last></editor>
+      <editor><first>Jason</first><last>Wei</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Toronto, Canada</address>
+      <month>June</month>
+      <year>2023</year>
+      <url hash="d298f4fd">2023.nlrse-1</url>
+      <venue>nlrse</venue>
+    </meta>
+    <frontmatter>
+      <url hash="5cc195b0">2023.nlrse-1.0</url>
+      <bibkey>nlrse-2023-natural</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Knowledge Graph-augmented Language Models for Complex Question Answering</title>
+      <author><first>Priyanka</first><last>Sen</last><affiliation>Amazon</affiliation></author>
+      <author><first>Sandeep</first><last>Mavadia</last><affiliation>Amazon Alexa</affiliation></author>
+      <author><first>Amir</first><last>Saffari</last><affiliation>Amazon</affiliation></author>
+      <pages>1-8</pages>
+      <abstract>Large language models have shown impressive abilities to reason over input text, however, they are prone to hallucinations. On the other hand, end-to-end knowledge graph question answering (KGQA) models output responses grounded in facts, but they still struggle with complex reasoning, such as comparison or ordinal questions. In this paper, we propose a new method for complex question answering where we combine a knowledge graph retriever based on an end-to-end KGQA model with a language model that reasons over the retrieved facts to return an answer. We observe that augmenting language model prompts with retrieved KG facts improves performance over using a language model alone by an average of 83%. In particular, we see improvements on complex questions requiring count, intersection, or multi-hop reasoning operations.</abstract>
+      <url hash="9be1f9b0">2023.nlrse-1.1</url>
+      <bibkey>sen-etal-2023-knowledge</bibkey>
+      <doi>10.18653/v1/2023.nlrse-1.1</doi>
+    </paper>
+    <paper id="2">
+      <title>Exploring the Curious Case of Code Prompts</title>
+      <author><first>Li</first><last>Zhang</last><affiliation>University of Pennsylvania</affiliation></author>
+      <author><first>Liam</first><last>Dugan</last><affiliation>University of Pennsylvania</affiliation></author>
+      <author><first>Hainiu</first><last>Xu</last><affiliation>University of Pennsylvania</affiliation></author>
+      <author><first>Chris</first><last>Callison-burch</last><affiliation>University of Pennsylvania</affiliation></author>
+      <pages>9-17</pages>
+      <abstract>Recent work has shown that prompting language models with code-like representations of natural language leads to performance improvements on structured reasoning tasks. However, such tasks comprise only a small subset of all natural language tasks. In our work, we seek to answer whether or not code-prompting is the preferred way of interacting with language models in general. We compare code and text prompts across three popular GPT models (davinci, code-davinci-002, and text-davinci-002) on a broader selection of tasks (e.g., QA, sentiment, summarization) and find that with few exceptions, code prompts do not consistently outperform text prompts. Furthermore, we show that the style of code prompt has a large effect on performance for some (but not all) tasks and that fine-tuning on text instructions leads to better relative performance of code prompts.</abstract>
+      <url hash="c54b3d4d">2023.nlrse-1.2</url>
+      <bibkey>zhang-etal-2023-exploring</bibkey>
+      <doi>10.18653/v1/2023.nlrse-1.2</doi>
+    </paper>
+    <paper id="3">
+      <title>A smashed glass cannot be full: Generation of Commonsense Explanations through Prompt-based Few-shot Learning</title>
+      <author><first>Andrea</first><last>Zaninello</last><affiliation>Fondazione Bruno Kessler</affiliation></author>
+      <author><first>Bernardo</first><last>Magnini</last><affiliation>FBK</affiliation></author>
+      <pages>18-29</pages>
+      <abstract>We assume that providing explanations is a process to elicit implicit knowledge in human communication, and propose a general methodology to generate commonsense explanations from pairs of semantically related sentences. We take advantage of both prompting applied to large, encoder-decoder pre-trained language models, and few-shot learning techniques, such as pattern-exploiting training. Experiments run on the e-SNLI dataset show that the proposed method achieves state-of-the-art results on the explanation generation task, with a substantial reduction of labelled data. The obtained results open new perspective on a number of tasks involving the elicitation of implicit knowledge.</abstract>
+      <url hash="54396538">2023.nlrse-1.3</url>
+      <bibkey>zaninello-magnini-2023-smashed</bibkey>
+      <doi>10.18653/v1/2023.nlrse-1.3</doi>
+    </paper>
+    <paper id="4">
+      <title>Saliency Map Verbalization: Comparing Feature Importance Representations from Model-free and Instruction-based Methods</title>
+      <author><first>Nils</first><last>Feldhus</last><affiliation>German Research Center for Artificial Intelligence (DFKI)</affiliation></author>
+      <author><first>Leonhard</first><last>Hennig</last><affiliation>German Research Center for Artificial Intelligence (DFKI)</affiliation></author>
+      <author><first>Maximilian Dustin</first><last>Nasert</last><affiliation>German Research Center for Artificial Intelligence (DFKI)</affiliation></author>
+      <author><first>Christopher</first><last>Ebert</last><affiliation>German Research Center for Artificial Intelligence (DFKI)</affiliation></author>
+      <author><first>Robert</first><last>Schwarzenberg</last><affiliation>German Research Center For Artificial Intelligence (DFKI)</affiliation></author>
+      <author><first>Sebastian</first><last>Möller</last><affiliation>Quality and Usability Lab, TU Berlin</affiliation></author>
+      <pages>30-46</pages>
+      <abstract>Saliency maps can explain a neural model’s predictions by identifying important input features. They are difficult to interpret for laypeople, especially for instances with many features. In order to make them more accessible, we formalize the underexplored task of translating saliency maps into natural language and compare methods that address two key challenges of this approach – what and how to verbalize. In both automatic and human evaluation setups, using token-level attributions from text classification tasks, we compare two novel methods (search-based and instruction-based verbalizations) against conventional feature importance representations (heatmap visualizations and extractive rationales), measuring simulatability, faithfulness, helpfulness and ease of understanding. Instructing GPT-3.5 to generate saliency map verbalizations yields plausible explanations which include associations, abstractive summarization and commonsense reasoning, achieving by far the highest human ratings, but they are not faithfully capturing numeric information and are inconsistent in their interpretation of the task. In comparison, our search-based, model-free verbalization approach efficiently completes templated verbalizations, is faithful by design, but falls short in helpfulness and simulatability. Our results suggest that saliency map verbalization makes feature attribution explanations more comprehensible and less cognitively challenging to humans than conventional representations.</abstract>
+      <url hash="6771edab">2023.nlrse-1.4</url>
+      <bibkey>feldhus-etal-2023-saliency</bibkey>
+      <doi>10.18653/v1/2023.nlrse-1.4</doi>
+    </paper>
+    <paper id="5">
+      <title>Using Planning to Improve Semantic Parsing of Instructional Texts</title>
+      <author><first>Vanya</first><last>Cohen</last><affiliation>The University of Texas at Austin</affiliation></author>
+      <author><first>Raymond</first><last>Mooney</last><affiliation>University of Texas at Austin</affiliation></author>
+      <pages>47-58</pages>
+      <abstract>We develop a symbolic planning-based decoder to improve the few-shot semantic parsing of instructional texts. The system takes long-form instructional texts as input and produces sequences of actions in a formal language that enable execution of the instructions. This task poses unique challenges since input texts may contain long context dependencies and ambiguous and domain-specific language. Valid semantic parses also require sequences of steps that constitute an executable plan. We build on recent progress in semantic parsing by leveraging large language models to learn parsers from small amounts of training data. During decoding, our method employs planning methods and domain information to rank and correct candidate parses. To validate our method, we evaluate on four domains: two household instruction-following domains and two cooking recipe interpretation domains. We present results for few-shot semantic parsing using leave-one-out cross-validation. We show that utilizing planning domain information improves the quality of generated plans. Through ablations we also explore the effects of our decoder design choices.</abstract>
+      <url hash="c5d22c50">2023.nlrse-1.5</url>
+      <bibkey>cohen-mooney-2023-using</bibkey>
+      <doi>10.18653/v1/2023.nlrse-1.5</doi>
+    </paper>
+    <paper id="6">
+      <title>Reasoning Circuits: Few-shot Multi-hop Question Generation with Structured Rationales</title>
+      <author><first>Saurabh</first><last>Kulshreshtha</last><affiliation>University of Massachusetts Lowell</affiliation></author>
+      <author><first>Anna</first><last>Rumshisky</last><affiliation>University of Massachusetts Lowell</affiliation></author>
+      <pages>59-77</pages>
+      <abstract>Multi-hop Question Generation is the task of generating questions which require the reader to reason over and combine information spread across multiple passages employing several reasoning steps. Chain-of-thought rationale generation has been shown to improve performance on multi-step reasoning tasks and make model predictions more interpretable. However, few-shot performance gains from including rationales have been largely observed only in +100B language models, and otherwise require large-scale manual rationale annotation. In this paper, we introduce a new framework for applying chain-of-thought inspired structured rationale generation to multi-hop question generation under a very low supervision regime (8- to 128-shot). We propose to annotate a small number of examples following our proposed multi-step rationale schema, treating each reasoning step as a separate task to be performed by a generative language model. We show that our framework leads to improved control over the difficulty of the generated questions and better performance compared to baselines trained without rationales, both on automatic evaluation metrics and in human evaluation. Importantly, we show that this is achievable with a modest model size.</abstract>
+      <url hash="d63b96aa">2023.nlrse-1.6</url>
+      <bibkey>kulshreshtha-rumshisky-2023-reasoning</bibkey>
+      <doi>10.18653/v1/2023.nlrse-1.6</doi>
+    </paper>
+    <paper id="7">
+      <title>Knowledge-Augmented Language Model Prompting for Zero-Shot Knowledge Graph Question Answering</title>
+      <author><first>Jinheon</first><last>Baek</last><affiliation>Korea Advanced Institute of Science and Technology</affiliation></author>
+      <author><first>Alham Fikri</first><last>Aji</last><affiliation>MBZUAI</affiliation></author>
+      <author><first>Amir</first><last>Saffari</last><affiliation>Amazon</affiliation></author>
+      <pages>78-106</pages>
+      <abstract>Large Language Models (LLMs) are capable of performing zero-shot closed-book question answering tasks, based on their internal knowledge stored in parameters during pre-training. However, such internalized knowledge might be insufficient and incorrect, which could lead LLMs to generate factually wrong answers. Furthermore, fine-tuning LLMs to update their knowledge is expensive. To this end, we propose to augment the knowledge directly in the input of LLMs. Specifically, we first retrieve the relevant facts to the input question from the knowledge graph based on semantic similarities between the question and its associated facts. After that, we prepend the retrieved facts to the input question in the form of the prompt, which is then forwarded to LLMs to generate the answer. Our framework, Knowledge-Augmented language model PromptING (KAPING), requires no model training, thus completely zero-shot. We validate the performance of our KAPING framework on the knowledge graph question answering task, that aims to answer the user’s question based on facts over a knowledge graph, on which ours outperforms relevant zero-shot baselines by up to 48% in average, across multiple LLMs of various sizes.</abstract>
+      <url hash="e3a054d3">2023.nlrse-1.7</url>
+      <bibkey>baek-etal-2023-knowledge</bibkey>
+      <doi>10.18653/v1/2023.nlrse-1.7</doi>
+    </paper>
+    <paper id="8">
+      <title>Can In-context Learners Learn a Reasoning Concept from Demonstrations?</title>
+      <author><first>Michal</first><last>Štefánik</last><affiliation>Masaryk University</affiliation></author>
+      <author><first>Marek</first><last>Kadlčík</last><affiliation>Faculty of Informatics, Masaryk University</affiliation></author>
+      <pages>107-115</pages>
+      <abstract>Large language models show an emergent ability to learn a new task from a small number of input-output demonstrations. However, recent work shows that in-context learners largely rely on their pre-trained knowledge, such as the sentiment of the labels, instead of finding new associations in the input. However, the commonly-used few-shot evaluation settings using a random selection of in-context demonstrations can not disentangle models’ ability to learn a new skill from demonstrations, as most of the randomly-selected demonstrations do not present relations informative for prediction beyond exposing the new task distribution. To disentangle models’ in-context learning ability independent of models’ memory, we introduce a Conceptual few-shot learning method selecting the demonstrations sharing a possibly-informative concept with the predicted sample. We extract a set of such concepts from annotated explanations and measure how much can models benefit from presenting these concepts in few-shot demonstrations. We find that smaller models are more sensitive to the presented concepts. While some of the models are able to benefit from concept-presenting demonstrations for each assessed concept, we find that none of the assessed in-context learners can benefit from all presented reasoning concepts consistently, leaving the in-context concept learning an open challenge.</abstract>
+      <url hash="a339b687">2023.nlrse-1.8</url>
+      <bibkey>tefnik-kadlcik-2023-context</bibkey>
+      <doi>10.18653/v1/2023.nlrse-1.8</doi>
+      <video href="2023.nlrse-1.8.mp4"/>
+    </paper>
+    <paper id="9">
+      <title>Effect Graph: Effect Relation Extraction for Explanation Generation</title>
+      <author><first>Jonathan</first><last>Kobbe</last><affiliation>University of Mannheim</affiliation></author>
+      <author><first>Ioana</first><last>Hulpuș</last><affiliation>Data and Web Science Group, University of Mannheim</affiliation></author>
+      <author><first>Heiner</first><last>Stuckenschmidt</last><affiliation>University of Mannheim</affiliation></author>
+      <pages>116-127</pages>
+      <abstract>Argumentation is an important means of communication. For describing especially arguments about consequences, the notion of effect relations has been introduced recently. We propose a method to extract effect relations from large text resources and apply it on encyclopedic and argumentative texts. By connecting the extracted relations, we generate a knowledge graph which we call effect graph. For evaluating the effect graph, we perform crowd and expert annotations and create a novel dataset. We demonstrate a possible use case of the effect graph by proposing a method for explaining arguments from consequences.</abstract>
+      <url hash="0841e1b0">2023.nlrse-1.9</url>
+      <bibkey>kobbe-etal-2023-effect</bibkey>
+      <doi>10.18653/v1/2023.nlrse-1.9</doi>
+    </paper>
+    <paper id="10">
+      <title><fixed-case>OPT</fixed-case>-<fixed-case>R</fixed-case>: Exploring the Role of Explanations in Finetuning and Prompting for Reasoning Skills of Large Language Models</title>
+      <author><first>Badr</first><last>Alkhamissi</last><affiliation>Meta AI</affiliation></author>
+      <author><first>Siddharth</first><last>Verma</last><affiliation>Square</affiliation></author>
+      <author><first>Ping</first><last>Yu</last><affiliation>University at Buffalo</affiliation></author>
+      <author><first>Zhijing</first><last>Jin</last><affiliation>Max Planck Institute &amp; ETH Zurich</affiliation></author>
+      <author><first>Asli</first><last>Celikyilmaz</last><affiliation>FAIR @ Meta</affiliation></author>
+      <author><first>Mona</first><last>Diab</last><affiliation>Meta Responsible AI</affiliation></author>
+      <pages>128-138</pages>
+      <abstract>We conduct a thorough investigation into the reasoning capabilities of Large Language Models (LLMs), focusing specifically on the Open Pretrained Transformers (OPT) models as a representative of such models. Our study entails finetuning three different sizes of OPT on a carefully curated reasoning corpus, resulting in two sets of finetuned models: OPT-R, finetuned without explanations, and OPT-RE, finetuned with explanations. We then evaluate all models on 57 out-of-domain tasks drawn from the Super-NaturalInstructions benchmark, covering 26 distinct reasoning skills, utilizing three prompting techniques. Through a comprehensive grid of 27 configurations and 6,156 test evaluations, we investigate the dimensions of finetuning, prompting, and scale to understand the role of explanations on different reasoning skills. Our findings reveal that having explanations in the fewshot exemplar has no significant impact on the model’s performance when the model is finetuned, while positively affecting the non-finetuned counterpart. Moreover, we observe a slight yet consistent increase in classification accuracy as we incorporate explanations during prompting and finetuning, respectively. Finally, we offer insights on which reasoning skills benefit the most from incorporating explanations during finetuning and prompting, such as Numerical (+20.4%) and Analogical (+13.9%) reasoning, as well as skills that exhibit negligible or negative effects.</abstract>
+      <url hash="39be0da0">2023.nlrse-1.10</url>
+      <bibkey>alkhamissi-etal-2023-opt</bibkey>
+      <doi>10.18653/v1/2023.nlrse-1.10</doi>
+    </paper>
+    <paper id="11">
+      <title>Deductive Additivity for Planning of Natural Language Proofs</title>
+      <author><first>Zayne</first><last>Sprague</last><affiliation>University of Texas at Austin</affiliation></author>
+      <author><first>Kaj</first><last>Bostrom</last><affiliation>University of Texas at Austin</affiliation></author>
+      <author><first>Swarat</first><last>Chaudhuri</last><affiliation>UT Austin</affiliation></author>
+      <author><first>Greg</first><last>Durrett</last><affiliation>UT Austin</affiliation></author>
+      <pages>139-156</pages>
+      <abstract>Current natural language systems designed for multi-step claim validation typically operate in two phases: retrieve a set of relevant premise statements using heuristics (planning), then generate novel conclusions from those statements using a large language model (deduction). The planning step often requires expensive Transformer operations and does not scale to arbitrary numbers of premise statements. In this paper, we investigate whether efficient planning heuristic is possible via embedding spaces compatible with deductive reasoning. Specifically, we evaluate whether embedding spaces exhibit a property we call deductive additivity: the sum of premise statement embeddings should be close to embeddings of conclusions based on those premises. We explore multiple sources of off-the-shelf dense embeddings in addition to fine-tuned embeddings from GPT3 and sparse embeddings from BM25. We study embedding models both intrinsically, evaluating whether the property of deductive additivity holds, and extrinsically, using them to assist planning in natural language proof generation. Lastly, we create a dataset, Single-Step Reasoning Contrast (SSRC), to further probe performance on various reasoning types. Our findings suggest that while standard embedding methods frequently embed conclusions near the sums of their premises, they fall short of being effective heuristics and lack the ability to model certain categories of reasoning.</abstract>
+      <url hash="d64d4dff">2023.nlrse-1.11</url>
+      <bibkey>sprague-etal-2023-deductive</bibkey>
+      <doi>10.18653/v1/2023.nlrse-1.11</doi>
+    </paper>
+    <paper id="12">
+      <title>Synthetic Dataset for Evaluating Complex Compositional Knowledge for Natural Language Inference</title>
+      <author><first>Sushma Anand</first><last>Akoju</last><affiliation>University of Arizona</affiliation></author>
+      <author><first>Robert</first><last>Vacareanu</last><affiliation>University of Arizona</affiliation></author>
+      <author><first>Eduardo</first><last>Blanco</last><affiliation>University of Arizona</affiliation></author>
+      <author><first>Haris</first><last>Riaz</last><affiliation>University of Arizona</affiliation></author>
+      <author><first>Mihai</first><last>Surdeanu</last><affiliation>University of Arizona</affiliation></author>
+      <pages>157-168</pages>
+      <abstract>We introduce a synthetic dataset called Sentences Involving Complex Compositional Knowledge (SICCK) and a novel analysis that investigates the performance of Natural Language Inference (NLI) models to understand compositionality in logic. We produce 1,304 sentence pairs by modifying 15 examples from the SICK dataset (Marelli et al., 2014). To this end, we modify the original texts using a set of phrases modifiers that correspond to universal quantifiers, existential quantifiers, negation, and other concept modifiers in Natural Logic (NL) (MacCartney, 2009). We use these phrases to modify the subject, verb, and object parts of the premise and hypothesis. Lastly, we annotate these modified texts with the corresponding entailment labels following NL rules. We conduct a preliminary verification of how well the change in the structural and semantic composition is captured by neural NLI models, in both zero-shot and fine-tuned scenarios. We found that the performance of NLI models under the zero-shot setting is poor, especially for modified sentences with negation and existential quantifiers. After fine-tuning this dataset, we observe that models continue to perform poorly over negation, existential and universal modifiers.</abstract>
+      <url hash="ddf8c3c6">2023.nlrse-1.12</url>
+      <bibkey>akoju-etal-2023-synthetic</bibkey>
+      <doi>10.18653/v1/2023.nlrse-1.12</doi>
+    </paper>
+  </volume>
+</collection>

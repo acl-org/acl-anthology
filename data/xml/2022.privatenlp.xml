@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2022.privatenlp">
+  <volume id="1" ingest-date="2022-06-30" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of the Fourth Workshop on Privacy in Natural Language Processing</booktitle>
+      <editor><first>Oluwaseyi</first><last>Feyisetan</last></editor>
+      <editor><first>Sepideh</first><last>Ghanavati</last></editor>
+      <editor><first>Patricia</first><last>Thaine</last></editor>
+      <editor><first>Ivan</first><last>Habernal</last></editor>
+      <editor><first>Fatemehsadat</first><last>Mireshghallah</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Seattle, United States</address>
+      <month>July</month>
+      <year>2022</year>
+      <url hash="8e15a24c">2022.privatenlp-1</url>
+      <venue>privatenlp</venue>
+    </meta>
+    <frontmatter>
+      <url hash="9a82fffc">2022.privatenlp-1.0</url>
+      <bibkey>privatenlp-2022-privacy</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Differential Privacy in Natural Language Processing The Story So Far</title>
+      <author><first>Oleksandra</first><last>Klymenko</last></author>
+      <author><first>Stephen</first><last>Meisenbacher</last></author>
+      <author><first>Florian</first><last>Matthes</last></author>
+      <pages>1-11</pages>
+      <abstract>As the tide of Big Data continues to influence the landscape of Natural Language Processing (NLP), the utilization of modern NLP methods has grounded itself in this data, in order to tackle a variety of text-based tasks. These methods without a doubt can include private or otherwise personally identifiable information. As such, the question of privacy in NLP has gained fervor in recent years, coinciding with the development of new Privacy- Enhancing Technologies (PETs). Among these PETs, Differential Privacy boasts several desirable qualities in the conversation surrounding data privacy. Naturally, the question becomes whether Differential Privacy is applicable in the largely unstructured realm of NLP. This topic has sparked novel research, which is unified in one basic goal how can one adapt Differential Privacy to NLP methods? This paper aims to summarize the vulnerabilities addressed by Differential Privacy, the current thinking, and above all, the crucial next steps that must be considered.</abstract>
+      <url hash="e02b2a12">2022.privatenlp-1.1</url>
+      <bibkey>klymenko-etal-2022-differential</bibkey>
+      <doi>10.18653/v1/2022.privatenlp-1.1</doi>
+    </paper>
+    <paper id="2">
+      <title>The Impact of Differential Privacy on Group Disparity Mitigation</title>
+      <author><first>Victor</first><last>Petren Bach Hansen</last></author>
+      <author><first>Atula</first><last>Tejaswi Neerkaje</last></author>
+      <author><first>Ramit</first><last>Sawhney</last></author>
+      <author><first>Lucie</first><last>Flek</last></author>
+      <author><first>Anders</first><last>Sogaard</last></author>
+      <pages>12-12</pages>
+      <abstract>The performance cost of differential privacy has, for some applications, been shown to be higher for minority groups fairness, conversely, has been shown to disproportionally compromise the privacy of members of such groups. Most work in this area has been restricted to computer vision and risk assessment. In this paper, we evaluate the impact of differential privacy on fairness across four tasks, focusing on how attempts to mitigate privacy violations and between-group performance differences interact Does privacy inhibit attempts to ensure fairness? To this end, we train epsilon, delta-differentially private models with empirical risk minimization and group distributionally robust training objectives. Consistent with previous findings, we find that differential privacy increases between-group performance differences in the baseline setting but more interestingly, differential privacy reduces between-group performance differences in the robust setting. We explain this by reinterpreting differential privacy as regularization.</abstract>
+      <url hash="540319e8">2022.privatenlp-1.2</url>
+      <bibkey>petren-bach-hansen-etal-2022-impact</bibkey>
+      <doi>10.18653/v1/2022.privatenlp-1.2</doi>
+      <pwccode url="https://github.com/vpetren/fair_dp" additional="false">vpetren/fair_dp</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/celeba">CelebA</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/earnings-call">Earnings Call</pwcdataset>
+    </paper>
+    <paper id="3">
+      <title>Privacy Leakage in Text Classification A Data Extraction Approach</title>
+      <author><first>Adel</first><last>Elmahdy</last></author>
+      <author><first>Huseyin</first><last>A. Inan</last></author>
+      <author><first>Robert</first><last>Sim</last></author>
+      <pages>13-20</pages>
+      <abstract>Recent work has demonstrated the successful extraction of training data from generative language models. However, it is not evident whether such extraction is feasible in text classification models since the training objective is to predict the class label as opposed to next-word prediction. This poses an interesting challenge and raises an important question regarding the privacy of training data in text classification settings. Therefore, we study the potential privacy leakage in the text classification domain by investigating the problem of unintended memorization of training data that is not pertinent to the learning task. We propose an algorithm to extract missing tokens of a partial text by exploiting the likelihood of the class label provided by the model. We test the effectiveness of our algorithm by inserting canaries into the training set and attempting to extract tokens in these canaries post-training. In our experiments, we demonstrate that successful extraction is possible to some extent. This can also be used as an auditing strategy to assess any potential unauthorized use of personal data without consent.</abstract>
+      <url hash="462d976b">2022.privatenlp-1.3</url>
+      <bibkey>elmahdy-etal-2022-privacy</bibkey>
+      <doi>10.18653/v1/2022.privatenlp-1.3</doi>
+    </paper>
+    <paper id="4">
+      <title>Training Text-to-Text Transformers with Privacy Guarantees</title>
+      <author><first>Natalia</first><last>Ponomareva</last></author>
+      <author><first>Jasmijn</first><last>Bastings</last></author>
+      <author><first>Sergei</first><last>Vassilvitskii</last></author>
+      <pages>21-21</pages>
+      <abstract>Recent advances in NLP often stem from large transformer-based pre-trained models, which rapidly grow in size and use more and more training data. Such models are often released to the public so that end users can fine-tune them on a task dataset. While it is common to treat pre-training data as public, it may still contain personally identifiable information (PII), such as names, phone numbers, and copyrighted material. Recent findings show that the capacity of these models allows them to memorize parts of the training data, and suggest differentially private (DP) training as a potential mitigation. While there is recent work on DP fine-tuning of NLP models, the effects of DP pre-training are less well understood it is not clear how downstream performance is affected by DP pre-training, and whether DP pre-training mitigates some of the memorization concerns. We focus on T5 and show that by using recent advances in JAX and XLA we can train models with DP that do not suffer a large drop in pre-training utility, nor in training speed, and can still be fine-tuned to high accuracy on downstream tasks (e.g. GLUE). Moreover, we show that T5s span corruption is a good defense against data memorization.</abstract>
+      <url hash="390d794b">2022.privatenlp-1.4</url>
+      <bibkey>ponomareva-etal-2022-training-text</bibkey>
+      <doi>10.18653/v1/2022.privatenlp-1.4</doi>
+      <video href="2022.privatenlp-1.4.mp4"/>
+      <pwcdataset url="https://paperswithcode.com/dataset/c4">C4</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/glue">GLUE</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/qnli">QNLI</pwcdataset>
+    </paper>
+  </volume>
+</collection>

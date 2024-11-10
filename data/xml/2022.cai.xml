@@ -1,0 +1,124 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2022.cai">
+  <volume id="1" ingest-date="2022-10-06" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of the Second Workshop on When Creative AI Meets Conversational AI</booktitle>
+      <editor><first>Xianchao</first><last>Wu</last></editor>
+      <editor><first>Peiying</first><last>Ruan</last></editor>
+      <editor><first>Sheng</first><last>Li</last></editor>
+      <editor><first>Yi</first><last>Dong</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Gyeongju, Republic of Korea</address>
+      <month>October</month>
+      <year>2022</year>
+      <url hash="314e1924">2022.cai-1</url>
+      <venue>cai</venue>
+    </meta>
+    <frontmatter>
+      <url hash="9fa0983e">2022.cai-1.0</url>
+      <bibkey>cai-2022-creative</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Prompting for a conversation: How to control a dialog model?</title>
+      <author><first>Josef</first><last>Valvoda</last></author>
+      <author><first>Yimai</first><last>Fang</last></author>
+      <author><first>David</first><last>Vandyke</last></author>
+      <pages>1–8</pages>
+      <abstract>Dialog modelling faces a difficult trade-off. Models are trained on a large amount of text, yet their responses need to be limited to a desired scope and style of a dialog agent. Because the datasets used to achieve the former contain language that is not compatible with the latter, pre-trained dialog models are fine-tuned on smaller curated datasets. However, the fine-tuning process robs them of the ability to produce diverse responses, eventually reducing them to dull conversation partners. In this paper we investigate if prompting can help with mitigating the above trade-off. Specifically, we experiment with conditioning the prompt on the query, rather than training a single prompt for all queries. By following the intuition that freezing the pre-trained language model will conserve its expressivity, we find that compared to fine-tuning, prompting can achieve a higher BLEU score and substantially improve the diversity and novelty of the responses.</abstract>
+      <url hash="e07218df">2022.cai-1.1</url>
+      <bibkey>valvoda-etal-2022-prompting</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/dailydialog">DailyDialog</pwcdataset>
+    </paper>
+    <paper id="2">
+      <title>Most Language Models can be Poets too: An <fixed-case>AI</fixed-case> Writing Assistant and Constrained Text Generation Studio</title>
+      <author><first>Allen</first><last>Roush</last></author>
+      <author><first>Sanjay</first><last>Basu</last></author>
+      <author><first>Akshay</first><last>Moorthy</last></author>
+      <author><first>Dmitry</first><last>Dubovoy</last></author>
+      <pages>9–15</pages>
+      <abstract>Despite rapid advancement in the field of Constrained Natural Language Generation, little time has been spent on exploring the potential of language models which have had their vocabularies lexically, semantically, and/or phonetically constrained. We find that most language models generate compelling text even under significant constraints. We present a simple and universally applicable technique for modifying the output of a language model by compositionally applying filter functions to the language models vocabulary before a unit of text is generated. This approach is plug-and-play and requires no modification to the model. To showcase the value of this technique, we present an easy to use AI writing assistant called “Constrained Text Generation Studio” (CTGS). CTGS allows users to generate or choose from text with any combination of a wide variety of constraints, such as banning a particular letter, forcing the generated words to have a certain number of syllables, and/or forcing the words to be partial anagrams of another word. We introduce a novel dataset of prose that omits the letter “e”. We show that our method results in strictly superior performance compared to fine-tuning alone on this dataset. We also present a Huggingface “space” web-app presenting this technique called Gadsby. The code is available to the public here: <url>https://github.com/Hellisotherpeople/Constrained-Text-Generation-Studio</url></abstract>
+      <url hash="90bb2e51">2022.cai-1.2</url>
+      <bibkey>roush-etal-2022-language</bibkey>
+      <pwccode url="https://github.com/hellisotherpeople/constrained-text-generation-studio" additional="false">hellisotherpeople/constrained-text-generation-studio</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/lipogram-e">Lipogram-e</pwcdataset>
+    </paper>
+    <paper id="3">
+      <title>An Emotion-based <fixed-case>K</fixed-case>orean Multimodal Empathetic Dialogue System</title>
+      <author><first>Minyoung</first><last>Jung</last></author>
+      <author><first>Yeongbeom</first><last>Lim</last></author>
+      <author><first>San</first><last>Kim</last></author>
+      <author><first>Jin Yea</first><last>Jang</last></author>
+      <author><first>Saim</first><last>Shin</last></author>
+      <author><first>Ki-Hoon</first><last>Lee</last></author>
+      <pages>16–22</pages>
+      <abstract>We propose a Korean multimodal dialogue system targeting emotion-based empathetic dialogues because most research in this field has been conducted in a few languages such as English and Japanese and in certain circumstances. Our dialogue system consists of an emotion detector, an empathetic response generator, a monitoring interface, a voice activity detector, a speech recognizer, a speech synthesizer, a gesture classification, and several controllers to provide both multimodality and empathy during a conversation between a human and a machine. For comparisons across visual influence on users, our dialogue system contains two versions of the user interface, a cat face-based user interface and an avatar-based user interface. We evaluated our dialogue system by investigating the dialogues in text and the average mean opinion scores under three different visual conditions, no visual, the cat face-based, and the avatar-based expressions. The experimental results stand for the importance of adequate visual expressions according to user utterances.</abstract>
+      <url hash="d90edea6">2022.cai-1.3</url>
+      <bibkey>jung-etal-2022-emotion</bibkey>
+    </paper>
+    <paper id="4">
+      <title><fixed-case>BETOLD</fixed-case>: A Task-Oriented Dialog Dataset for Breakdown Detection</title>
+      <author><first>Silvia</first><last>Terragni</last></author>
+      <author><first>Bruna</first><last>Guedes</last></author>
+      <author><first>Andre</first><last>Manso</last></author>
+      <author><first>Modestas</first><last>Filipavicius</last></author>
+      <author><first>Nghia</first><last>Khau</last></author>
+      <author><first>Roland</first><last>Mathis</last></author>
+      <pages>23–34</pages>
+      <abstract>Task-Oriented Dialog (TOD) systems often suffer from dialog breakdowns - situations in which users cannot or do not want to proceed with the conversation. Ideally TOD systems should be able to detect dialog breakdowns to prevent users from quitting a conversation and to encourage them to interact with the system again. In this paper, we present BETOLD, a privacy-preserving dataset for breakdown detection. The dataset consists of user and system turns represented by intents and entity annotations, derived from NLU and NLG dialog manager components. We also propose an attention-based model that detects potential breakdowns using these annotations, instead of the utterances’ text. This approach achieves a comparable performance to the corresponding utterance-only model, while ensuring data privacy.</abstract>
+      <url hash="3f72a603">2022.cai-1.4</url>
+      <bibkey>terragni-etal-2022-betold</bibkey>
+    </paper>
+    <paper id="5">
+      <title>Insurance Question Answering via Single-turn Dialogue Modeling</title>
+      <author><first>Seon-Ok</first><last>Na</last></author>
+      <author><first>Young-Min</first><last>Kim</last></author>
+      <author><first>Seung-Hwan</first><last>Cho</last></author>
+      <pages>35–41</pages>
+      <abstract>With great success in single-turn question answering (QA), conversational QA is currently receiving considerable attention. Several studies have been conducted on this topic from different perspectives. However, building a real-world conversational system remains a challenge. This study introduces our ongoing project, which uses Korean QA data to develop a dialogue system in the insurance domain. The goal is to construct a system that provides informative responses to general insurance questions. We present the current results of single-turn QA. A unique aspect of our approach is that we borrow the concepts of intent detection and slot filling from task-oriented dialogue systems. We present details of the data construction process and the experimental results on both learning tasks.</abstract>
+      <url hash="221dc732">2022.cai-1.5</url>
+      <bibkey>na-etal-2022-insurance</bibkey>
+    </paper>
+    <paper id="6">
+      <title>Can We Train a Language Model Inside an End-to-End <fixed-case>ASR</fixed-case> Model? - Investigating Effective Implicit Language Modeling</title>
+      <author><first>Zhuo</first><last>Gong</last></author>
+      <author><first>Daisuke</first><last>Saito</last></author>
+      <author><first>Sheng</first><last>Li</last></author>
+      <author><first>Hisashi</first><last>Kawai</last></author>
+      <author><first>Nobuaki</first><last>Minematsu</last></author>
+      <pages>42–47</pages>
+      <abstract>Language models (LM) have played crucial roles in automatic speech recognition (ASR) to enhance end-to-end (E2E) ASR systems’ performance. There are two categories of approaches: finding better ways to integrate LMs into ASR systems and adapting on LMs to the task domain. This article will start with a reflection of interpolation-based integration methods of E2E ASR’s scores and LM’s scores. Then we will focus on LM augmentation approaches based on the noisy channel model, which is intrigued by insights obtained from the above reflection. The experiments show that we can enhance an ASR E2E model based on encoder-decoder architecture by pre-training the decoder with text data. This implies the decoder of an E2E model can be treated as an LM and reveals the possibility of enhancing the E2E model without an external LM. Based on those ideas, we proposed the implicit language model canceling method and then did more discussion about the decoder part of an E2E ASR model. The experimental results on the TED-LIUM2 dataset show that our approach achieves a 3.4% relative WER reduction compared with the baseline system, and more analytic experiments provide concrete experimental supports for our assumption.</abstract>
+      <url hash="8b347fcc">2022.cai-1.6</url>
+      <bibkey>gong-etal-2022-train</bibkey>
+    </paper>
+    <paper id="7">
+      <title>Semantic Content Prediction for Generating Interviewing Dialogues to Elicit Users’ Food Preferences</title>
+      <author><first>Jie</first><last>Zeng</last></author>
+      <author><first>Tatsuya</first><last>Sakato</last></author>
+      <author><first>Yukiko</first><last>Nakano</last></author>
+      <pages>48–58</pages>
+      <abstract>Dialogue systems that aim to acquire user models through interactions with users need to have interviewing functionality. In this study, we propose a method to generate interview dialogues to build a dialogue system that acquires user preferences for food. First, we collected 118 text-based dialogues between the interviewer and customer and annotated the communicative function and semantic content of the utterances. Next, using the corpus as training data, we created a classification model for the communicative function of the interviewer’s next utterance and a generative model that predicts the semantic content of the utterance based on the dialogue history. By representing semantic content as a sequence of tokens, we evaluated the semantic content prediction model using BLEU. The results demonstrated that the semantic content produced by the proposed method was closer to the ground truth than the semantic content transformed from the output text generated by the retrieval model and GPT-2. Further, we present some examples of dialogue generation by applying model outputs to template-based sentence generation.</abstract>
+      <url hash="bf83ea99">2022.cai-1.7</url>
+      <bibkey>zeng-etal-2022-semantic</bibkey>
+    </paper>
+    <paper id="8">
+      <title>Creative Painting with Latent Diffusion Models</title>
+      <author><first>Xianchao</first><last>Wu</last></author>
+      <pages>59–80</pages>
+      <abstract>Artistic painting has achieved significant progress during recent years. Using a variational autoencoder to connect the original images with compressed latent spaces and a cross attention enhanced U-Net as the backbone of diffusion, latent diffusion models (LDMs) have achieved stable and high fertility image generation. In this paper, we focus on enhancing the creative painting ability of current LDMs in two directions, textual condition extension and model retraining with Wikiart dataset. Through textual condition extension, users’ input prompts are expanded with rich contextual knowledge for deeper understanding and explaining the prompts. Wikiart dataset contains 80K famous artworks drawn during recent 400 years by more than 1,000 famous artists in rich styles and genres. Through the retraining, we are able to ask these artists to draw artistic and creative paintings on modern topics. Direct comparisons with the original model show that the creativity and artistry are enriched.</abstract>
+      <url hash="3ba22811">2022.cai-1.8</url>
+      <bibkey>wu-2022-creative</bibkey>
+    </paper>
+    <paper id="9">
+      <title>Learning to Evaluate Humor in Memes Based on the Incongruity Theory</title>
+      <author><first>Kohtaro</first><last>Tanaka</last></author>
+      <author><first>Hiroaki</first><last>Yamane</last></author>
+      <author><first>Yusuke</first><last>Mori</last></author>
+      <author><first>Yusuke</first><last>Mukuta</last></author>
+      <author><first>Tatsuya</first><last>Harada</last></author>
+      <pages>81–93</pages>
+      <abstract>Memes are a widely used means of communication on social media platforms, and are known for their ability to “go viral”. In prior works, researchers have aimed to develop an AI system to understand humor in memes. However, existing methods are limited by the reliability and consistency of the annotations in the dataset used to train the underlying models. Moreover, they do not explicitly take advantage of the incongruity between images and their captions, which is known to be an important element of humor in memes. In this study, we first gathered real-valued humor annotations of 7,500 memes through a crowdwork platform. Based on this data, we propose a refinement process to extract memes that are not influenced by interpersonal differences in the perception of humor and a method designed to extract and utilize incongruities between images and captions. The results of an experimental comparison with models using vision and language pretraining models show that our proposed approach outperformed other models in a binary classification task of evaluating whether a given meme was humorous.</abstract>
+      <url hash="c738c482">2022.cai-1.9</url>
+      <bibkey>tanaka-etal-2022-learning</bibkey>
+    </paper>
+  </volume>
+</collection>

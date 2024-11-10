@@ -1,0 +1,17 @@
+{{ define "main" }}
+<main aria-role="main">
+  <h2 id="title">
+    {{ .Title }}
+  </h2>
+  {{ with .Params.subtitle }}
+  <p class="lead text-muted">{{ . }}</p>
+  {{ end }}
+  <hr />
+
+  {{ if not .Date.IsZero }}
+  <p class="font-weight-light font-italic text-muted">{{ .Date.Format "January 2, 2006" }}</p>
+  {{ end }}
+
+  {{ .Content }}
+</main>
+{{ end }}

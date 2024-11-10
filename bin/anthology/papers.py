@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright 2019 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2019-2022 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,114 +14,177 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from functools import cached_property
+import langcodes
 import logging as log
+
 from .utils import (
+    build_anthology_id,
     parse_element,
+    infer_url,
     infer_attachment_url,
-    remove_extra_whitespace,
-    is_journal,
-    is_volume_id,
 )
 from . import data
 
-# For BibTeX export
-from .formatter import bibtex_encode, bibtex_make_entry
+# For bibliography export
+from .formatter import (
+    bibtex_encode,
+    bibtex_make_entry,
+    CiteprocFormatter,
+    MarkupFormatter,
+)
+
 
 class Paper:
-    def __init__(self, paper_id, ingest_date, volume, formatter):
+    def __init__(self, paper_id, ingest_date, volume, formatter=None):
         self.parent_volume = volume
+        if formatter is None:
+            formatter = MarkupFormatter()
         self.formatter = formatter
         self._id = paper_id
         self._ingest_date = ingest_date
-        self._bibkey = False
-        self.is_volume = paper_id == '0'
+        self._bibkey = None
+        self._citeproc_json = None
+        self.is_volume = paper_id == "0"
 
         # initialize metadata with keys inherited from volume
         self.attrib = {}
         for key, value in volume.attrib.items():
-            # Only inherit 'editor' for frontmatter
-            if (key == 'editor' and not self.is_volume) or key in ('collection_id', 'booktitle', 'id', 'meta_data', 'meta_journal_title', 'meta_volume', 'meta_issue', 'sigs', 'venues', 'meta_date', 'url'):
+            if key in (
+                "collection_id",
+                "booktitle",
+                "id",
+                "meta_data",
+                "meta_journal_title",
+                "meta_volume",
+                "meta_issue",
+                "sigs",
+                "venues",
+                "meta_date",
+                "url",
+                "pdf",
+                "xml_url",
+            ):
                 continue
 
             self.attrib[key] = value
 
+    @cached_property
+    def url(self):
+        # If <url> field not present, use ID.
+        # But see https://github.com/acl-org/acl-anthology/issues/997.
+        return infer_url(self.attrib.get("xml_url", self.full_id))
+
+    @cached_property
+    def pdf(self):
+        url = self.attrib.get("xml_url", None)
+        if url is not None:
+            return infer_url(url, template=data.PDF_LOCATION_TEMPLATE)
+        return None
+
+    @cached_property
+    def videos(self):
+        videos = self.attrib.get("video", None)
+        if videos:
+            return [
+                infer_url(video, template=data.VIDEO_LOCATION_TEMPLATE)
+                for video in videos
+            ]
+        return []
+
+    def _parse_revision_or_errata(self, tag):
+        for item in self.attrib.get(tag, []):
+            # Expand URLs with paper ID
+            if not item["url"].startswith(self.full_id):
+                log.error(
+                    "{} must begin with paper ID '{}', but is '{}'".format(
+                        tag, self.full_id, item["url"]
+                    )
+                )
+            item["url"] = data.PDF_LOCATION_TEMPLATE.format(item["url"])
+        return self.attrib.get(tag, [])
+
+    @cached_property
+    def revisions(self):
+        return self._parse_revision_or_errata("revision")
+
+    @cached_property
+    def errata(self):
+        return self._parse_revision_or_errata("erratum")
+
+    @cached_property
+    def attachments(self):
+        for item in self.attrib.get("attachment", []):
+            item["url"] = infer_attachment_url(item["url"], self.full_id)
+        return self.attrib.get("attachment", [])
+
+    @cached_property
+    def thumbnail(self):
+        return data.PDF_THUMBNAIL_LOCATION_TEMPLATE.format(self.full_id)
+
+    @cached_property
+    def title(self):
+        return self.get_title("plain")
+
+    @cached_property
+    def booktitle(self):
+        return self.get_booktitle("plain")
+
     def from_xml(xml_element, *args):
-        ingest_date = xml_element.get('ingest-date', data.UNKNOWN_INGEST_DATE)
+        ingest_date = xml_element.get("ingest-date", data.UNKNOWN_INGEST_DATE)
 
         # Default to paper ID "0" (for front matter)
-        paper = Paper(xml_element.get("id", '0'), ingest_date, *args)
+        paper = Paper(xml_element.get("id", "0"), ingest_date, *args)
 
         # Set values from parsing the XML element (overwriting
         # and changing some initialized from the volume metadata)
         for key, value in parse_element(xml_element).items():
-            if key == 'author' and 'editor' in paper.attrib:
-                del paper.attrib['editor']
-            paper.attrib[key] = value
+            if key == "bibkey":
+                paper.bibkey = value
+            else:
+                paper.attrib[key] = value
 
         # Frontmatter title is the volume 'booktitle'
         if paper.is_volume:
-            paper.attrib['xml_title'] = paper.attrib['xml_booktitle']
-            paper.attrib['xml_title'].tag = 'title'
+            paper.attrib["xml_title"] = paper.attrib["xml_booktitle"]
+            paper.attrib["xml_title"].tag = "title"
 
         # Remove booktitle for frontmatter and journals
-        if paper.is_volume or is_journal(paper.full_id):
-            del paper.attrib['xml_booktitle']
-
-        # Expand URLs with paper ID
-        for tag in ('revision', 'erratum'):
-            if tag in paper.attrib:
-                for item in paper.attrib[tag]:
-                    if not item['url'].startswith(paper.full_id):
-                        log.error(
-                            "{} must begin with paper ID '{}', but is '{}'".format(
-                                tag, paper.full_id, item['url']
-                            )
-                        )
-                    item['url'] = data.ANTHOLOGY_PDF.format(item['url'])
-
-        if 'attachment' in paper.attrib:
-            for item in paper.attrib['attachment']:
-                item['url'] = infer_attachment_url(item['url'], paper.full_id)
-
-        # Explicitly construct URL of original version of the paper
-        # -- this is a bit hacky, but it's not given in the XML
-        # explicitly
-        if 'revision' in paper.attrib:
-            paper.attrib['revision'].insert(0, {
-                "value": "{}v1".format(paper.full_id),
-                "id": "1",
-                "url": data.ANTHOLOGY_PDF.format( "{}v1".format(paper.full_id)) } )
-
-        paper.attrib["title"] = paper.get_title("plain")
-        paper.attrib["booktitle"] = paper.get_booktitle("plain")
+        if paper.is_volume or paper.parent_volume.is_journal:
+            del paper.attrib["xml_booktitle"]
 
         if "editor" in paper.attrib:
-            if paper.is_volume:
-                if "author" in paper.attrib:
-                    log.warn(
-                        "Paper {} has both <editor> and <author>; ignoring <author>".format(
-                            paper.full_id
-                        )
-                    )
+            if paper.is_volume and "author" not in paper.attrib:
                 # Proceedings editors are considered authors for their front matter
                 paper.attrib["author"] = paper.attrib["editor"]
                 del paper.attrib["editor"]
-            else:
-                log.warn(
-                    "Paper {} has <editor> but is not a proceedings volume; ignoring <editor>".format(
-                        paper.full_id
-                    )
-                )
+
         if "pages" in paper.attrib:
             if paper.attrib["pages"] is not None:
                 paper._interpret_pages()
             else:
                 del paper.attrib["pages"]
 
-        if 'author' in paper.attrib:
-            paper.attrib["author_string"] = ', '.join([x[0].full for x in paper.attrib["author"]])
+        if "author" in paper.attrib:
+            paper.attrib["author_string"] = ", ".join(
+                [x[0].full for x in paper.attrib["author"]]
+            )
 
-        paper.attrib["thumbnail"] = data.ANTHOLOGY_THUMBNAIL.format(paper.full_id)
+        # TODO: compute this lazily!
+        paper.attrib["citation"] = paper.as_markdown()
+
+        # An empty value gets set to None, which causes hugo to skip it over
+        # entirely. Set it here to a single space, instead. There's probably
+        # a better way to do this.
+        if "retracted" in paper.attrib and paper.attrib["retracted"] is None:
+            paper.attrib["retracted"] = " "
+
+        # Adjust the title for retracted papers
+        if "retracted" in paper.attrib and "xml_title" in paper.attrib:
+            paper.add_prefix_to_title("[RETRACTED] ")
+
+        if "removed" in paper.attrib and paper.attrib["removed"] is None:
+            paper.attrib["removed"] = " "
 
         return paper
 
@@ -156,24 +219,18 @@ class Paper:
 
     @property
     def paper_id(self):
-        if self.collection_id[0] == "W" or self.collection_id == "C69":
-            # If volume is a workshop, use the last two digits of ID
-            _id = "{}{:02d}".format(self.volume_id, int(self._id))
-        else:
-            # If not, only the last three
-            _id = "{}{:03d}".format(self.volume_id, int(self._id))
-        # Just to be sure
-        assert len(_id) == 4
-        return _id
+        return self._id
 
     @property
     def full_id(self):
-        return "{}-{}".format(self.collection_id, self.paper_id)
+        return self.anthology_id
+
+    @cached_property
+    def anthology_id(self):
+        return build_anthology_id(self.collection_id, self.volume_id, self.paper_id)
 
     @property
     def bibkey(self):
-        if not self._bibkey:
-            self._bibkey = self.full_id  # fallback
         return self._bibkey
 
     @bibkey.setter
@@ -182,12 +239,26 @@ class Paper:
 
     @property
     def bibtype(self):
-        if is_journal(self.full_id):
-            return "article"
-        elif self.is_volume:
+        """Return the BibTeX entry type for this paper."""
+        if self.is_volume:
             return "proceedings"
+        elif self.parent_volume.is_journal:
+            return "article"
         else:
             return "inproceedings"
+
+    @property
+    def csltype(self):
+        """Return the CSL type for this paper.
+
+        cf. https://docs.citationstyles.org/en/stable/specification.html#appendix-iii-types
+        """
+        if self.parent_volume.is_journal:
+            return "article-journal"
+        elif self.is_volume:
+            return "book"
+        else:
+            return "paper-conference"
 
     @property
     def parent_volume_id(self):
@@ -199,11 +270,43 @@ class Paper:
     def has_abstract(self):
         return "xml_abstract" in self.attrib
 
+    @property
+    def is_retracted(self) -> bool:
+        return "retracted" in self.attrib
+
+    @property
+    def is_removed(self) -> bool:
+        return "removed" in self.attrib
+
+    @property
+    def isbn(self):
+        return self.attrib.get("isbn", None)
+
+    @property
+    def langcode(self):
+        """Returns the BCP47 language code, if present"""
+        return self.attrib.get("language", None)
+
+    @property
+    def language(self):
+        """Returns the language name, if present"""
+        lang = None
+        if self.langcode:
+            lang = langcodes.Language.get(self.langcode).display_name()
+        return lang
+
     def get(self, name, default=None):
         try:
             return self.attrib[name]
         except KeyError:
             return default
+
+    def add_prefix_to_title(self, prefix):
+        """Add a prefix to the title of the paper.
+        The attrib is an lxml Element object."""
+        if self.attrib["xml_title"].text is None:
+            self.attrib["xml_title"].text = ""
+        self.attrib["xml_title"].text = prefix + self.attrib["xml_title"].text
 
     def get_title(self, form="xml"):
         """Returns the paper title, optionally formatting it.
@@ -223,15 +326,15 @@ class Paper:
         """
         return self.formatter(self.get("xml_abstract"), form, allow_url=True)
 
-    def get_booktitle(self, form="xml", default=''):
+    def get_booktitle(self, form="xml", default=""):
         """Returns the booktitle, optionally formatting it.
 
         See `get_title()` for details.
         """
-        if 'xml_booktitle' in self.attrib:
+        if "xml_booktitle" in self.attrib:
             return self.formatter(self.get("xml_booktitle"), form)
         elif self.parent_volume is not None:
-            return self.parent_volume.get('title')
+            return self.parent_volume.get("title")
         else:
             return default
 
@@ -246,7 +349,7 @@ class Paper:
                 entries.append(
                     (people, "  and  ".join(p.as_bibtex() for p, _ in self.get(people)))
                 )
-        if is_journal(self.full_id):
+        if self.parent_volume.is_journal:
             entries.append(
                 ("journal", bibtex_encode(self.parent_volume.get("meta_journal_title")))
             )
@@ -265,32 +368,154 @@ class Paper:
             if "xml_booktitle" in self.attrib:
                 entries.append(("booktitle", self.get_booktitle(form="latex")))
             elif bibtype != "proceedings":
-                entries.append(
-                    ("booktitle", self.parent_volume.get_title(form="latex"))
-                )
+                entries.append(("booktitle", self.parent_volume.get_title(form="latex")))
         for entry in ("month", "year", "address", "publisher", "note"):
             if self.get(entry) is not None:
                 entries.append((entry, bibtex_encode(self.get(entry))))
-        for entry in ("url", "doi"):
-            if entry in self.attrib:
-                # don't want latex escapes such as
-                # doi = "10.1162/coli{\_}a{\_}00008",
-                entries.append((entry, self.get(entry)))
+        if self.url is not None:
+            entries.append(("url", self.url))
+        if "doi" in self.attrib:
+            # don't want latex escapes such as
+            # doi = "10.1162/coli{\_}a{\_}00008",
+            entries.append(("doi", self.get("doi")))
         if "pages" in self.attrib:
             entries.append(("pages", self.get("pages").replace("–", "--")))
         if "xml_abstract" in self.attrib and not concise:
             entries.append(("abstract", self.get_abstract(form="latex")))
+        if self.language:
+            entries.append(("language", self.language))
+        if self.isbn:
+            entries.append(("ISBN", self.isbn))
 
         # Serialize it
         return bibtex_make_entry(bibkey, bibtype, entries)
 
+    def as_citeproc_json(self):
+        """Return a citation object suitable for CiteProcJSON."""
+        if self._citeproc_json is None:
+            data = {
+                "id": self.bibkey,
+                "title": self.get_title(form="text"),
+                "type": self.csltype,
+            }
+            if "author" in self.attrib:
+                data["author"] = [p.as_citeproc_json() for p, _ in self.get("author")]
+            if "editor" in self.attrib:
+                # or should this be "container-author"/"collection-editor" here?
+                data["editor"] = [p.as_citeproc_json() for p, _ in self.get("editor")]
+            if self.parent_volume.is_journal:
+                data["container-title"] = self.parent_volume.get("meta_journal_title")
+                journal_volume = self.parent_volume.get(
+                    "meta_volume", self.parent_volume.get("volume")
+                )
+                if journal_volume:
+                    data["volume"] = journal_volume
+                journal_issue = self.parent_volume.get(
+                    "meta_issue", self.parent_volume.get("issue")
+                )
+                if journal_issue:
+                    data["issue"] = journal_issue
+            else:
+                if "xml_booktitle" in self.attrib:
+                    data["container-title"] = self.get_booktitle(form="text")
+                elif self.bibtype != "proceedings":
+                    data["container-title"] = self.parent_volume.get_title(form="text")
+            data["publisher"] = self.get("publisher", "")
+            data["publisher-place"] = self.get("address", "")
+            data["issued"] = {
+                "date-parts": [
+                    [self.get("year")]
+                ]  # TODO: month needs to be a numeral to be included
+            }
+            data["URL"] = self.url
+            if "doi" in self.attrib:
+                data["DOI"] = self.get("doi")
+            if "pages" in self.attrib:
+                data["page"] = self.get("pages")
+            if self.isbn:
+                data["ISBN"] = self.isbn
+            self._citeproc_json = [data]
+        return self._citeproc_json
+
+    def as_citation_html(
+        self, style="association-for-computational-linguistics", link_title=True
+    ):
+        html = CiteprocFormatter.render_html_citation(self, style)
+        if link_title:
+            # It would be nicer to do this within Citeproc, which would probably
+            # entail writing/updating our own CSL style.
+            title = self.get_title("plain")
+            link = f'<a href="{self.url}">{title}</a>'
+            html = html.replace(title, link)
+        return html
+
+    def as_markdown(self, concise=False):
+        """Return a Markdown-formatted entry."""
+        title = self.get_title(form="text")
+
+        authors = "N.N."
+        field = "author" if "author" in self.attrib else "editor"
+        if field in self.attrib:
+            people = [person[0] for person in self.get(field)]
+            num_people = len(people)
+            if num_people == 1:
+                authors = people[0].last
+            elif num_people == 2:
+                authors = f"{people[0].last} & {people[1].last}"
+            elif num_people >= 3:
+                authors = f"{people[0].last} et al."
+
+        year = self.get("year")
+        venue = self.get_venue_acronym()
+        url = self.url
+
+        # hard-coded exception for old-style W-* volumes without an annotated
+        # main venue
+        if venue != "WS":
+            return f"[{title}]({url}) ({authors}, {venue} {year})"
+        return f"[{title}]({url}) ({authors}, {year})"
+
+    def get_venue_acronym(self):
+        """
+        Returns the venue acronym for the paper (e.g., NLP4TM).
+        Joint events will have more than one venue and will be hyphenated (e.g., ACL-IJCNLP).
+        """
+        venue_slugs = self.parent_volume.get_venues()
+        venues = [
+            self.parent_volume.venue_index.get_acronym_by_slug(slug)
+            for slug in venue_slugs
+        ]
+        return "-".join(venues)
+
     def as_dict(self):
-        value = self.attrib
+        value = self.attrib.copy()
         value["paper_id"] = self.paper_id
         value["parent_volume_id"] = self.parent_volume_id
         value["bibkey"] = self.bibkey
         value["bibtype"] = self.bibtype
+        value["language"] = self.language
+        value["url"] = self.url
+        value["title"] = self.title
+        value["booktitle"] = self.booktitle
+        if self.pdf:
+            value["pdf"] = self.pdf
+        if self.revisions:
+            value["revision"] = self.revisions
+        if self.errata:
+            value["erratum"] = self.errata
+        if self.videos:
+            value["video"] = self.videos
+        if self.attachments:
+            value["attachment"] = self.attachments
+        value["thumbnail"] = self.thumbnail
         return value
 
     def items(self):
         return self.attrib.items()
+
+    def iter_people(self):
+        for name, id_ in self.get("author", []):
+            yield (name, id_, "author")
+        if self.is_volume:
+            for name, id_ in self.get("editor", []):
+                yield (name, id_, "editor")

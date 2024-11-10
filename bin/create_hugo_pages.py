@@ -30,7 +30,6 @@ Options:
 
 from docopt import docopt
 from glob import glob
-from slugify import slugify
 from tqdm import tqdm
 import logging as log
 import os
@@ -40,6 +39,7 @@ import yaml
 try:
     from yaml import CLoader as Loader
 except ImportError:
+    log.info("Can't load yaml C bindings, reverting to slow pure Python version")
     from yaml import Loader
 
 from anthology.utils import SeverityTracker
@@ -47,7 +47,7 @@ from anthology.utils import SeverityTracker
 
 def check_directory(cdir, clean=False):
     if not os.path.isdir(cdir) and not os.path.exists(cdir):
-        os.mkdir(cdir)
+        os.makedirs(cdir)
         return True
     entries = os.listdir(cdir)
     if "_index.md" in entries:
@@ -80,15 +80,18 @@ def create_papers(srcdir, clean=False):
             data = yaml.load(f, Loader=Loader)
         # Create a paper stub for each entry in the volume
         for anthology_id, entry in data.items():
-            paper_dir = "{}/content/papers/{}/{}".format(
-                srcdir, anthology_id[0], anthology_id[:3]
-            )
+            paper_dir = "{}/content/papers/{}".format(srcdir, anthology_id.split("-")[0])
             if not os.path.exists(paper_dir):
                 os.makedirs(paper_dir)
             with open("{}/{}.md".format(paper_dir, anthology_id), "w") as f:
+                date = entry["ingest_date"]
                 print("---", file=f)
                 yaml.dump(
-                    {"anthology_id": anthology_id, "title": entry["title"]},
+                    {
+                        "anthology_id": anthology_id,
+                        "title": entry["title"],
+                        "date": date,
+                    },
                     default_flow_style=False,
                     stream=f,
                 )
@@ -113,12 +116,6 @@ def create_volumes(srcdir, clean=False):
                 {
                     "anthology_id": anthology_id,
                     "title": entry["title"],
-                    "aliases": [
-                        "/volumes/{}/".format(slugify(entry["title"])),
-                        "/papers/{}/{}/{}/".format(
-                            anthology_id[0], anthology_id[:3], anthology_id
-                        ),
-                    ],
                 },
                 default_flow_style=False,
                 stream=f,
@@ -143,11 +140,7 @@ def create_people(srcdir, clean=False):
             person_dir = "{}/content/people/{}".format(srcdir, name[0])
             if not os.path.exists(person_dir):
                 os.makedirs(person_dir)
-            yaml_data = {
-                "name": name,
-                "title": entry["full"],
-                "lastname": entry["last"],
-            }
+            yaml_data = {"name": name, "title": entry["full"], "lastname": entry["last"]}
             with open("{}/{}.md".format(person_dir, name), "w") as f:
                 print("---", file=f)
                 # "lastname" is dumped to allow sorting by it in Hugo
@@ -157,8 +150,8 @@ def create_people(srcdir, clean=False):
     return data
 
 
-def create_venues_and_events(srcdir, clean=False):
-    """Creates page stubs for all venues and events in the Anthology."""
+def create_venues(srcdir, clean=False):
+    """Creates page stubs for all venues in the Anthology."""
     yamlfile = "{}/data/venues.yaml".format(srcdir)
     log.debug("Processing {}".format(yamlfile))
     with open(yamlfile, "r") as f:
@@ -172,37 +165,52 @@ def create_venues_and_events(srcdir, clean=False):
         venue_str = venue_data["slug"]
         with open("{}/content/venues/{}.md".format(srcdir, venue_str), "w") as f:
             print("---", file=f)
-            yaml_data = {"venue": venue, "title": venue_data["name"]}
-            if venue_data["is_toplevel"]:
-                main_letter = venue_data["main_letter"]
-                yaml_data["aliases"] = ["/papers/{}/".format(main_letter)]
+            yaml_data = {
+                "venue": venue_data["slug"],
+                "acronym": venue_data["acronym"],
+                "title": venue_data["name"],
+            }
+            if "url" in venue_data:
+                yaml_data["venue_url"] = venue_data["url"]
             yaml.dump(yaml_data, default_flow_style=False, stream=f)
             print("---", file=f)
 
+
+def create_events(srcdir, clean=False):
+    """
+    Creates page stubs for all events in the Anthology.
+
+    Expects that the EventIndex has as sequence of dictionaries,
+    keyed by the event name, with the following fields:
+
+    [
+        "acl-2022": {
+            "title": "Annual Meeting of the Association for Computational Linguistics (2022)",
+            "volumes": ["2022.acl-main", "2022.acl-srw", ...]
+        },
+        ...
+    ]
+
+    Here, a "{event_slug}.md" stub is written for each paper. This is used with the Hugo template
+    file hugo/layout/events/single.html to lookup data written in build/data/events.yaml
+    (created by create_hugo_yaml.py, the previous step), which knows about the volumes to list.
+    The stub lists only the event slug and the event title
+    """
+    yamlfile = f"{srcdir}/data/events.yaml"
+    log.debug(f"Processing {yamlfile}")
+    with open(yamlfile, "r") as f:
+        yaml_data = yaml.load(f, Loader=Loader)
+
     log.info("Creating stubs for events...")
-    if not check_directory("{}/content/events".format(srcdir), clean=clean):
+    if not check_directory(f"{srcdir}/content/events", clean=clean):
         return
-    # Create a paper stub for each event (= venue + year, e.g. ACL 2018)
-    for venue, venue_data in data.items():
-        venue_str = venue_data["slug"]
-        for year in venue_data["volumes_by_year"]:
-            with open(
-                "{}/content/events/{}-{}.md".format(srcdir, venue_str, year), "w"
-            ) as f:
-                print("---", file=f)
-                yaml_data = {
-                    "venue": venue,
-                    "year": year,
-                    "title": "{} ({})".format(venue_data["name"], year),
-                }
-                if venue_data["is_toplevel"]:
-                    main_letter = venue_data["main_letter"]
-                    main_prefix = main_letter + year[-2:]  # e.g., P05
-                    yaml_data["aliases"] = [
-                        "/papers/{}/{}/".format(main_letter, main_prefix)
-                    ]
-                yaml.dump(yaml_data, default_flow_style=False, stream=f)
-                print("---", file=f)
+    # Create a paper stub for each event
+    for event, event_data in yaml_data.items():
+        with open(f"{srcdir}/content/events/{event}.md", "w") as f:
+            print("---", file=f)
+            yaml_data = {"event_slug": event, "title": event_data["title"]}
+            yaml.dump(yaml_data, default_flow_style=False, stream=f)
+            print("---", file=f)
 
 
 def create_sigs(srcdir, clean=False):
@@ -247,7 +255,8 @@ if __name__ == "__main__":
     create_papers(dir_, clean=args["--clean"])
     create_volumes(dir_, clean=args["--clean"])
     create_people(dir_, clean=args["--clean"])
-    create_venues_and_events(dir_, clean=args["--clean"])
+    create_venues(dir_, clean=args["--clean"])
+    create_events(dir_, clean=args["--clean"])
     create_sigs(dir_, clean=args["--clean"])
 
     if tracker.highest >= log.ERROR:

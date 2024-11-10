@@ -28,140 +28,231 @@ The revision process is as follows.
 
 Usage:
 
-  add_revision.py paper_id URL_OR_PATH.pdf "Short explanation".
+  add_revision.py [-e] paper_id URL_OR_PATH.pdf "Short explanation".
 
+`-e` denotes erratum instead of revision.
 By default, a dry run happens.
 When you are ready, add `--do`.
-
-TODO: add the <revision> tag to the XML automatically.
-(The script has all the info it needs).
 """
 
 import argparse
+import filetype
 import os
 import shutil
-import ssl
 import sys
 import tempfile
 
-from anthology.utils import deconstruct_anthology_id, indent
-from anthology.data import ANTHOLOGY_PDF
+from anthology.utils import (
+    deconstruct_anthology_id,
+    make_simple_element,
+    indent,
+    compute_hash_from_file,
+    infer_url,
+    retrieve_url,
+    get_pdf_dir,
+    get_xml_file,
+)
 
 import lxml.etree as ET
-import urllib.request
+
+from datetime import datetime
 
 
-def maybe_copy(file_from, file_to, do=False):
-    if do:
-        print('-> Copying from {} -> {}'.format(file_from, file_to), file=sys.stderr)
-        shutil.copy(file_from, file_to)
-        os.chmod(file_to, 0o644)
-    else:
-        print('-> DRY RUN: Copying from {} -> {}'.format(file_from, file_to), file=sys.stderr)
+def validate_file_type(path):
+    """Ensure downloaded file mime type matches its extension (e.g., PDF)"""
+    detected = filetype.guess(path)
+    if detected is None or not detected.mime.endswith(detected.extension):
+        mime_type = 'UNKNOWN' if detected is None else detected.mime
+        print(
+            f"FATAL: file {path} has MIME type {mime_type}",
+            file=sys.stderr,
+        )
+        sys.exit(1)
 
 
-def main(args):
+def add_revision(
+    anth_id, pdf_path, explanation, change_type="revision", dry_run=True, date=None
+):
+    """
+    Takes an Anthology ID. It then adds a revision to the Anthology XML,
+    updating and writing the XML file, and copies the PDFs into place.
+    For PDFs, the revised PDF is saved to {anth_id}.pdf and {anth_id}v{version}.pdf.
+    For the first revision, we first copy {anth_id}.pdf to {anth_id}v1.pdf.
+    """
+    if date is None:
+        now = datetime.now()
+        date = f"{now.year}-{now.month:02d}-{now.day:02d}"
 
-    change_type = 'erratum' if args.erratum else 'revision'
-    change_letter = 'e' if args.erratum else 'v'
-
-    print(f'Processing {change_type} to {args.anthology_id}...')
-
-    # TODO: make sure path exists, or download URL to temp file
-    if args.path.startswith('http'):
-        _, input_file_path = tempfile.mkstemp()
-        try:
-            print(f'-> Downloading file from {args.path}', file=sys.stderr)
-            with urllib.request.urlopen(args.path) as url, open(input_file_path, mode='wb') as input_file_fh:
-                input_file_fh.write(url.read())
-        except ssl.SSLError:
-            print('An SSL error was encountered in downloading the files.', file=sys.stderr)
-            sys.exit(1)
-    else:
-        input_file_path = args.path
-
-    collection_id, volume_id, paper_id = deconstruct_anthology_id(args.anthology_id)
-    paper_extension = args.path.split('.')[-1]
+    def maybe_copy(file_from, file_to):
+        if not dry_run:
+            print("-> Copying from {} -> {}".format(file_from, file_to), file=sys.stderr)
+            shutil.copy(file_from, file_to)
+            os.chmod(file_to, 0o644)
+        else:
+            print(
+                "-> DRY RUN: Copying from {} -> {}".format(file_from, file_to),
+                file=sys.stderr,
+            )
 
     # The new version
     revno = None
 
-    # Update XML
-    xml_file = os.path.join(os.path.dirname(sys.argv[0]), '..', 'data', 'xml', f'{collection_id}.xml')
-    tree = ET.parse(xml_file)
-    paper = tree.getroot().find(f"./volume[@id='{volume_id}']/paper[@id='{paper_id}']")
-    if paper is not None:
-        revisions = paper.findall(change_type)
-        revno = 1 if args.erratum else 2
-        for revision in revisions:
-            revno = int(revision.attrib['id']) + 1
+    change_letter = "e" if change_type == "erratum" else "v"
 
-        if args.do:
-            revision = ET.Element(change_type)
-            revision.attrib['id'] = str(revno)
-            revision.attrib['href'] = f'{args.anthology_id}{change_letter}{revno}'
-            revision.text = args.explanation
+    checksum = compute_hash_from_file(pdf_path)
 
-            # Set tails to maintain proper indentation
-            paper[-1].tail += '  '
-            revision.tail = '\n    '  # newline and two levels of indent
-
-            paper.append(revision)
-
-            indent(tree.getroot())
-
-            tree.write(xml_file, encoding="UTF-8", xml_declaration=True)
-            print(f'-> Added {change_type} node "{revision.text}" to XML', file=sys.stderr)
-
-    else:
-        print(f'-> FATAL: paper ID {args.anthology_id} not found in the Anthology', file=sys.stderr)
-        sys.exit(1)
-
-    output_dir = os.path.join(args.anthology_dir, 'pdf', collection_id[0], collection_id)
+    # Files for old-style IDs are stored under anthology-files/pdf/P/P19/*
+    # Files for new-style IDs are stored under anthology-files/pdf/2020.acl/*
+    output_dir = get_pdf_dir(anth_id)
 
     # Make sure directory exists
     if not os.path.exists(output_dir):
-        print(f'-> Creating directory {output_dir}', file=sys.stderr)
+        print(f"-> Creating directory {output_dir}", file=sys.stderr)
         os.makedirs(output_dir)
 
-    canonical_path = os.path.join(output_dir, f'{args.anthology_id}.pdf')
+    canonical_path = os.path.join(output_dir, f"{anth_id}.pdf")
 
-    if not args.erratum and revno == 2:
-        # There are no versioned files the first time around, so create the first one
-        # (essentially backing up the original version)
-        revised_file_v1_path = os.path.join(output_dir, f'{args.anthology_id}{change_letter}1.pdf')
+    # Update XML
+    xml_file = get_xml_file(anth_id)
+    collection_id, volume_id, paper_id = deconstruct_anthology_id(anth_id)
+    tree = ET.parse(xml_file)
+    if paper_id == "0":
+        paper = tree.getroot().find(f"./volume[@id='{volume_id}']/frontmatter")
+    else:
+        paper = tree.getroot().find(
+            f"./volume[@id='{volume_id}']/paper[@id='{paper_id}']"
+        )
+    if paper is not None:
+        revisions = paper.findall(change_type)
+        revno = 1 if change_type == "erratum" else 2
+        for revision in revisions:
+            revno = int(revision.attrib["id"]) + 1
 
-        current_version = ANTHOLOGY_PDF.format(args.anthology_id)
-        if args.do:
-            try:
-                print(f'-> Downloading file from {args.path} to {revised_file_v1_path}', file=sys.stderr)
-                with urllib.request.urlopen(current_version) as url, open(revised_file_v1_path, mode='wb') as fh:
-                    fh.write(url.read())
-            except ssl.SSLError:
-                print(f'-> FATAL: An SSL error was encountered in downloading {args.path}.', file=sys.stderr)
-                sys.exit(1)
-        else:
-            print(f'-> DRY RUN: Downlading file from {args.path} to {revised_file_v1_path}', file=sys.stderr)
+        if not dry_run:
+            # Update the URL hash on the <url> tag
+            if change_type != "erratum":
+                url = paper.find("./url")
+                if url is not None:
+                    url.attrib["hash"] = checksum
+
+            if change_type == "revision" and revno == 2:
+                if paper.find("./url") is not None:
+                    current_version_url = infer_url(paper.find("./url").text) + ".pdf"
+
+                # Download original file
+                # There are no versioned files the first time around, so create the first one
+                # (essentially backing up the original version)
+                revised_file_v1_path = os.path.join(
+                    output_dir, f"{anth_id}{change_letter}1.pdf"
+                )
+
+                retrieve_url(current_version_url, revised_file_v1_path)
+                validate_file_type(revised_file_v1_path)
+
+                old_checksum = compute_hash_from_file(revised_file_v1_path)
+
+                # First revision requires making the original version explicit
+                revision = make_simple_element(
+                    change_type,
+                    None,
+                    attrib={
+                        "id": "1",
+                        "href": f"{anth_id}{change_letter}1",
+                        "hash": old_checksum,
+                    },
+                    parent=paper,
+                )
+
+            revision = make_simple_element(
+                change_type,
+                explanation,
+                attrib={
+                    "id": str(revno),
+                    "href": f"{anth_id}{change_letter}{revno}",
+                    "hash": checksum,
+                    "date": date,
+                },
+                parent=paper,
+            )
+            indent(tree.getroot())
+
+            tree.write(xml_file, encoding="UTF-8", xml_declaration=True)
+            print(
+                f'-> Added {change_type} node "{revision.text}" to XML', file=sys.stderr
+            )
+
+    else:
+        print(
+            f"-> FATAL: paper ID {anth_id} not found in the Anthology",
+            file=sys.stderr,
+        )
+        sys.exit(1)
+
+    revised_file_versioned_path = os.path.join(
+        output_dir, f"{anth_id}{change_letter}{revno}.pdf"
+    )
+
+    # Copy the file to the versioned path
+    maybe_copy(pdf_path, revised_file_versioned_path)
+
+    # Copy it over the canonical path
+    if change_type == "revision":
+        maybe_copy(pdf_path, canonical_path)
 
 
-    revised_file_versioned_path = os.path.join(output_dir, f'{args.anthology_id}{change_letter}{revno}.pdf')
+def main(args):
+    change_type = "erratum" if args.erratum else "revision"
 
-    maybe_copy(input_file_path, revised_file_versioned_path, args.do)
-    maybe_copy(input_file_path, canonical_path, args.do)
+    print(f"Processing {change_type} to {args.anthology_id}...")
 
-    if args.path.startswith('http'):
+    # TODO: make sure path exists, or download URL to temp file
+    if args.path.startswith("http"):
+        _, input_file_path = tempfile.mkstemp()
+        retrieve_url(args.path, input_file_path)
+    else:
+        input_file_path = args.path
+
+    validate_file_type(input_file_path)
+
+    add_revision(
+        args.anthology_id,
+        input_file_path,
+        args.explanation,
+        change_type=change_type,
+        dry_run=args.dry_run,
+    )
+
+    if args.path.startswith("http"):
         os.remove(input_file_path)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('anthology_id', help='The Anthology paper ID to revise (e.g., P18-1001)')
-    parser.add_argument('path', type=str, help='Path to the revised paper ID (can be URL)')
-    parser.add_argument('explanation', help='Brief description of the changes.')
-    parser.add_argument('--erratum', '-e', action='store_true', help='This is an erratum instead of a revision.')
-    parser.add_argument('--do', '-x', action='store_true', default=False, help='Actually do the copying')
-    parser.add_argument('--anthology-dir', default=os.path.join(os.environ['HOME'], 'anthology-files'),
-                        help='Anthology web directory root.')
+    parser.add_argument(
+        "anthology_id", help="The Anthology paper ID to revise (e.g., P18-1001)"
+    )
+    parser.add_argument(
+        "path", type=str, help="Path to the revised paper ID (can be URL)"
+    )
+    parser.add_argument("explanation", help="Brief description of the changes.")
+    parser.add_argument(
+        "--erratum",
+        "-e",
+        action="store_true",
+        help="This is an erratum instead of a revision.",
+    )
+    now = datetime.now()
+    today = f"{now.year}-{now.month:02d}-{now.day:02d}"
+    parser.add_argument(
+        "--date",
+        "-d",
+        type=str,
+        default=today,
+        help="The date of the revision (ISO 8601 format)",
+    )
+    parser.add_argument(
+        "--dry-run", "-n", action="store_true", default=False, help="Just a dry run."
+    )
     args = parser.parse_args()
 
     main(args)

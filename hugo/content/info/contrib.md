@@ -2,235 +2,129 @@
 Title: Information for Submitters
 linktitle: Submitting
 subtitle: General information on submitting proceedings to the ACL Anthology (for event chairs)
-date: "2019-10-25"
+date: "2023-06-21"
 ---
 
-This page contains general information about how to submit proceedings to the ACL Anthology.
-If you are a workshop or publication chair whose job it is to submit your conference proceedings, this page should be helpful to you.
-Please read through it so that you have an understanding of the ingestion process.
+This page contains general information about submitting the proceedings of a conference to the ACL Anthology.
+(For information about the complete conference management process, particularly for ACL conference publications chairs, please refer to [the official documentation](https://acl-org.github.io/ACLPUB/).)
+It is intended for publication chairs of main conferences and standalone events, who have the responsibility of delivering the proceedings for all main conference and workshop volumes to the Anthology director.
+**Chairs of workshops** attached to a larger conference should also read this page, but should work through their main conference publication chair instead of directly with the Anthology.
 
 ### Overview of the Submission Process
 
-Please [contact the Anthology Director](mailto:anthology@aclweb.org) as soon as possible to register your intention to submit your proceedings.
-**If you are a workshop chair attached to a main conference (e.g., ACL or EMNLP), the main conference publication chair should handle this for you.**
-Conference-level publication chairs should assemble the following information for all volumes and workshops in their conference and send it to the director in a single email.
-We need the following information from you:
-
--  **The full titles of all volumes** that you need identifiers for; and
--  **the date** you would like your volumes to be available to the world.
-
-The full titles should not contain abbreviations, except parenthetically.
-For example, "Proceedings of EMNLP 2019" is not a good title, but "Proceedings of the 2019 Meeting of the Conference on Empirical Methods in Natural Language Processing (EMNLP)" is a great one.
-(We have plans in the works to collect short titles in the near future, for more concise display in various settings.}
-If you have sub-volumes (e.g., long papers, short papers, demonstrations, tutorial abstracts), we suggest you append them after the full volume name.
-For example, "Proceedings of the 2019 Meeting of the Conference on Empirical Methods in Natural Language Processing (EMNLP): Tutorial Abstracts".
-You should also seek consistency with the names of your volumes from prior years.
-
-With this information in hand, we will assign you a [list of Anthology identifiers](https://docs.google.com/spreadsheets/d/166W-eIJX2rzCACbjpQYOaruJda7bTZrY7MBw_oa7B2E/edit?usp=sharing) for use with ACLPUB.
-
-Ingestion is a multi-step process:
-
-1. **You** arrange your data (PDFs, BibTeX files, and metadata) using ACLPUB by following the instructions below.
-   You will run a script to lay it out into a single directory, and then send a link to your tarball.
-2. **We** ingest that data by running additional scripts that convert it into our authoritative format and commit it to [our Github repository](https://github.com/acl-org/acl-anthology/).
-3. This becomes a pull request on [our pull requests page](https://github.com/acl-org/acl-anthology/pulls).
-4. Once approved and merged into the `master` branch, the site will be automatically rebuilt (which happens twice a day) and made live.
-
-You are responsible only for the Step 1: producting a minimally compliant XML file along with the associated PDFs and optionally other data (such as software).
-This is handled by the [ACLPUB](https://github.com/acl-org/ACLPUB/) package, whose output is a minimally compliant XML file that can be ingested into [the Anthology's authoritative XML format](#authoritative-xml-format).
-**Instructions for this can be found [in the ACLPUB package](https://github.com/acl-org/ACLPUB/blob/master/anthologize/README.md)**.
-(Additionally, if you are using EasyChair, you will also want to use [our easychair scripts](https://github.com/acl-org/easy2acl), but please start with the ACLPUB documentation).
-
-The remaining steps are handled by Anthology staff and use [Anthology tools](https://github.com/acl-org/acl-anthology/tree/master/bin/).
-
-#### Notes about Softconf's START
-
-The ingestion process is manual and requires time to execute and proofcheck, and as such, it's very helpful to ensure that your proceedings are in good order before sending the link.
-Redoing the ingestion costs approximately the same time as the original ingestion and thus incurs significant additional expense for the volunteer staff.
-
-If you are using START, the process is easier for you.
-You need only supply the proceedings tarball (named `proceedings.tgz`) for each of the volumes and workshops that are part of your conference.
-You can download this from START and send it directly to your publication chair.
-If you are the publication chair, you can collect these and coordinate with the Anthology Director.
-
-Please be aware of the following:
-
-**Workshop identifiers**
-
-START uses a formatted string to identify the volume ID.
-The Anthology Director will assign templates to you for each volume your are submitting.
-For main conference proceedings (e.g., NAACL long papers), for each volume, this looks like
-
-> http://www.aclweb.org/anthology/N19-1%03d
-
-since the volume ID has one digit and the paper three.
-For workshops, it is
-
-> http://www.aclweb.org/anthology/W19-38%02d
-
-since there are only two digits for the paper ID.
-Note again that the (zero-padded) paper ID '0' is used for front matter, '1' for the first paper, and so on.
-(Note that this format will change in 2020 to allow for Anthology growth).
-
-**Special Interest Groups**
-
-For workshops, your conference publication chair should have noted special interest group affiliations and endorsements for workshops.
-If you are using START, this information can be entered in the "meta" file.
-
-### Canonical IDs and URLs
-
-Currently, we assign each paper in the ACL Anthology a unique 8-character identifier, so that we can easily locate papers and reference them.
-The identifier is assigned by the current is in the form of a letter, a two digit year, and a 4 digit paper ID (e.g., P18-1024).
-The paper ID decomposes into a volume ID and a paper ID.
-For large or prominent events related to ACL or its sister organizations that recur on a yearly basis, we use a separate lettered prefix (e.g., ACL, which is 'P'), the volume ID is 1 digit and the paper ID is 3 digits.
-For all other smaller events, we use the 'W' prefix.
-Here, the volume ID is 2 digits, and the paper ID 2 digits.
-These events therefore accommodate up to 99 papers.
-If there are more than 99 papers, they need to be broken out into two separate volume IDs.
-Both paper and volume IDs are zero-padded to ensure that filenames have a fixed width.
+Please note the following important dates.
 
 <table class="table table-bordered">
-  <thead>
+  <thead class="thead-dark">
     <tr>
-      <th scope="col">Codes</th>
-      <th scope="col">Sets</th>
-      <th scope="col">Filename Example</th>
-      <th scope="col">Comments</th>
+      <th scope="col">Deadline</th>
+      <th scope="col">Step</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>A, C, D, E, H, I, L, M, N, P, S, T, X</td>
-      <td>Proceedings (syy-xnnn)</td>
-      <td>P90-1001</td>
-      <td>
-        This is the first paper appearing in the first (or only) volume of the P90 proceedings; most proceedings have just one volume; in rare cases a proceedings volume has a supplement which should be numbered as a separate volume; in rare cases multiple proceedings volumes are bound into one (N00/A00) and these should be treated as separate volumes.
-        Each conference proceedings may have up to 999 papers; conferences with more papers than this upper limit should consult the ACL Anthology Editor on how to split the proceedings into separate volumes.
-        Proceedings chairs of conferences may choose at their discretion how they would like to partition volumes, although segmentations involving main/full papers, short papers, demonstrations and tutorial abstracts are most common.
-      </td>
+      <td>Before paper submission deadline</td>
+      <td><a href="#register-your-meeting"">Register your meeting</a></td>
     </tr>
     <tr>
-      <td>J, F, Q</td>
-      <td>Journal (jyy-xnnn)</td>
-      <td>J90-2001</td>
-      <td>This is for the first paper in the second issue of J90; For combined issues, like 3/4, use the first number of the sequence.
-        (E.g., if a journal year consists of combined issues 1/2 and 3/4, use J90-1 and J90-3 only).
-        The 'F' prefix is for the Finite String, a newsletter (now obsolete) that used to be part of the Journal.
-      </td>
+      <td>Before paper submission deadline</td>
+      <td><a href="#isbn-numbers">Request ISBNs</a></td>
     </tr>
     <tr>
-      <td>W</td>
-      <td>Workshops and Smaller Events (wyy-xxnn)</td>
-      <td>W90-0201</td>
-      <td>
-        This is for the first paper in the second workshop in 1990; there is space for up to 100 workshops per year, and up to 99 papers per workshop.
-        If a workshop exceeds 99 papers in a year, please consult with the ACL Anthology Editor.
-        In this case, a separate set letter code may be established for the venue.
-      </td>
+      <td>2 weeks before publication</td>
+      <td><a href="#submit-your-data">Submit your data</a></td>
+    </tr>
+    <tr>
+      <td>2 weeks before publication</td>
+      <td><a href="#copyright">Submit copyright transfer forms</a></td>
+    </tr>
+    <tr>
+      <td>After publication</td>
+      <td><a href="#errata-and-corrections">Making corrections</a></td>
     </tr>
   </tbody>
 </table>
 
-Historically, the file names fit within the 8.3 DOS naming constraint for maximum portability, as recommended by Adobe. PDF filenames are globally unique, to support subsetting (saving an ad hoc collection of papers to a single directory).
-This format will likely be generalized in 2019 or 2020.
+### Register your meeting
 
-The canonical URLs for the Anthology are formed by appending the ACL ID to the Anthology URL.
-For example,
+If you are a conference publications chair, you must register your intention to submit your proceedings.
+(Workshop chairs should do this through your main conference publication chair).
+This step requires you to send (a) the complete list of volumes that will be published in the Anthology (main conference volumes and workshops) and (b) the desired publication date.
+Your proceedings will be due no later than **two weeks** prior to this negotiated date.
 
-> http://www.aclweb.org/anthology/P18-1023
+This information should be submitted to us [via a Github issue](https://github.com/acl-org/acl-anthology/issues/new?assignees=anthology-assist&labels=ingestion&template=04-ingestion-request.yml&title=Ingestion+Request%3A+%7Breplace+with+name+of+event%7D).
+**Please do this as early as possible**, ideally well before the submission deadline.
+This will allow us to do a quick sanity check of the metadata.
+As noted above, if you are the chair of a workshop that is colocated with a larger event, please work with your main conference publication chair instead of directly with the Anthology.
 
-will return the PDF of this paper.
-Note that the canonical URL does *not* include the `.pdf` extension (though that URL will also resolve).
+Your Github issue should contain the following information for each volume.
 
-Workshop chairs should contact the ACL Anthology Editor to receive their workshop number offset (the 'xx' portion of the ACL Anthology ID).
-If your workshop is attached to a conference as a satellite event, please contact the proceedings chair for the main conference to receive the offset ID, as it is easiest to allocate offsets as a whole block.
-Conversely, if you are the proceedings chair for a conference that has satellite workshops, please contact the ACL Anthology Editor with the final list of titles of the workshops (make certain the workshops will actually be run) so that the editor can allocate a suitable block of offsets to the workshops.
-The current list of ingestion prefixes is [publicly visible](https://docs.google.com/spreadsheets/d/166W-eIJX2rzCACbjpQYOaruJda7bTZrY7MBw_oa7B2E/edit?usp=sharing) (but read-only).
+-  **Venue identifier**. Each venue (conference or workshop) has a [venue identifier]({{< relref "ids.md" >}}).
+   Its basic form is the conference acronym, such as ACL, NAACL, JEP/TALN/RECITAL, and so on.
+   A [slugified](https://en.wikipedia.org/wiki/Clean_URL#Slug) version of this acronym, containing only numerals and lowercase ASCII letters, is used in the URL for the venue's page on the Anthology (e.g., [ACL → acl](https://aclanthology.org/venues/acl), [JEP/TALN/RECITAL → jeptalnrecital](https://aclanthology.org/venues/jeptalnrecital)), and also forms a component of the [Anthology ID]({{< relref "ids.md" >}}).
+   For existing venues, be sure to look up [the venue's existing identifier](https://aclanthology.org/venues/).
+   New venues must have their venue identifier confirmed by the Anthology director (see subsection below).
+   Note: a common mistake is to include the year in the venue identifier, e.g., ACL2020.
+   This confuses a *meeting* of a venue with the venue itself.
+   The identifier should not have the year or meeting number in it.
+-  **Volume title**. This is the title of the volume book that will be published, e.g., *Proceedings of the...*.
+   We recommend you choose a name consistent with your prior years' volumes.
+   The full title should not contain abbreviations, except parenthetically.
+   For example, "Proceedings of EMNLP 2019" is not a good title, but "Proceedings of the 2019 Meeting of the Conference on Empirical Methods in Natural Language Processing (EMNLP)" is a great one.
+   If you have sub-volumes (e.g., long papers, short papers, demonstrations, tutorial abstracts), we suggest you append descriptors after the full volume name.
+   For example, "Proceedings of the 2019 Meeting of the Conference on Empirical Methods in Natural Language Processing (EMNLP): Tutorial Abstracts".
+   But above all, you should also seek consistency with the names of your volumes from prior years.
 
-### Paper numbering
+**We emphasize** that if you are chairing a meeting attached as a satellite of a main conference (e.g., ACL or EMNLP), please do not communicate directly with the Anthology, but instead first work with your main conference publication chair(s), who will take care of registration and many of the details below.
 
-A key notion in file naming is the paper number.
-The general rule is that papers will be numbered consecutively within the bound volume in which they appear.
-When a proceedings is divided into multiple volumes, paper number will begin from number '1', with each new volume.
-When multiple proceedings are bound into a single volume (e.g., N18), they will be treated as multiple volumes (e.g., N18-1, N18-2, and so on).
+#### New venues
 
-Any front matter is given the paper number '0', padded to the ACL ID length (e.g., N18-1000).
-Any back matter is given the number one more than the last paper in the volume.
-Front and back matter that appears internally to a volume (e.g., in N18) will be counted just like an ordinary paper.
+If your venue is appearing for the first time in the Anthology, we need to assign it a venue identifier, as described above.
+You can choose one yourself, but it will require confirmation from the Anthology director.
+If you are submitting a new venue, please be sure to also include the following information:
 
-### Authoritative XML format
+- **Venue name**. Each venue has a name.
+   These names are attached to the venue identifier and stored in [our database](https://github.com/acl-org/acl-anthology/blob/master/data/yaml/venues.yaml).
+   If your venue is new, please enter the venue name.
+   Note: similar to the caveat about about the venue identifier, this is the name of the venue, not a particular meeting of the venue.
+   When submitting a new venue to the Anthology, please make sure *not* to put the year or meeting number in the venue name.
+- **Website**. The website of the venue.
+  Ideally this is a website of the venue itself (e.g., [https://naacl.org](https://naacl.org)), and not a particular meeting of the venue.
 
-The Anthology site is generated from an authoritative XML file format containing information about volumes, paper titles, and authors.
-This data is stored in [the official repository on Github](https://github.com/acl-org/acl-anthology/tree/master/data/xml).
-Here is a fragment of a complete XML file ([P18.xml](https://github.com/acl-org/acl-anthology/blob/master/data/xml/P18.xml)), to give you the idea.
-The full file contains much more information.
+### Submit your data
 
-```xml
-<?xml version="1.0" encoding="UTF-8" ?>
-<volume id="P18">
-  <paper id="3000">
-    <title>Proceedings of <fixed-case>ACL</fixed-case> 2018, Student Research Workshop</title>
-    <editor><first>Vered</first><last>Shwartz</last></editor>
-    <!-- ... -->
-  </paper>
-  <paper id="3001">
-    <title>Towards Opinion Summarization of Customer Reviews</title>
-    <author><first>Samuel</first><last>Pecar</last></author>
-    <!-- ... -->
-  </paper>
-  <paper id="3002">
-    <title>Sampling Informative Training Data for <fixed-case>RNN</fixed-case> Language Models</title>
-    <author><first>Jared</first><last>Fernandez</last></author>
-    <author><first>Doug</first><last>Downey</last></author>
-    <!-- ... -->
-  </paper>
-  <paper id="3003">
-    <title>Learning-based Composite Metrics for Improved Caption Evaluation</title>
-    <author><first>Naeha</first><last>Sharif</last></author>
-    <author><first>Lyndon</first><last>White</last></author>
-    <author><first>Mohammed</first><last>Bennamoun</last></author>
-    <author><first>Syed Afaq</first><last>Ali Shah</last></author>
-    <!-- ... -->
-  </paper>
-  <!-- ...  -->
- </volume>
-```
+After your conference management software has collected all the camera-ready papers and associated attachments, you will arrange all the volumes of your proceedings into ACLPUB format, as described in the [ACLPUB → Anthology documentation](https://acl-org.github.io/ACLPUB/anthology.html).
+The end result is a `data` directory containing ACLPUB proceedings, one for each conference.
+A link to this directory (preferably via a file sharing service, such as Dropbox or Google Drive) should be sent to the Anthology Director **two weeks prior to your desired publication date** (which was negotiated when you first contacted us).
 
-You need not necessarily concern yourself with this format, but it may be useful to know.
+The remaining steps are handled by Anthology staff and use [Anthology tools](https://github.com/acl-org/acl-anthology/tree/master/bin/):
+
+- We ingest that data by running additional scripts that convert it into our authoritative format, apply title-case protection, and disambiguate author names.
+- This becomes a pull request on [our Github repository](https://github.com/acl-org/acl-anthology/).
+- Once approved and merged into the `master` branch, the site will be automatically rebuilt (which happens twice a day) and made live.
+
+**Please note** that workshop chairs should handle this step through their main conference publication chair, and not directly with the Anthology.
 
 ### Copyright
 
-For copyright transfers, you can use the default form at:
+If you are using the START system, this process is handled as part of the camera-ready submission process.
 
-+ https://github.com/acl-org/ACLPUB/blob/master/doc/authors/ACL-copyright-form.pdf
+Otherwise, for copyright transfers, please use the form at:
 
-Ask authors to sign the form, scan a B/W copy at 150 to 200 DPI for you as a
-`.pdf` (or `.jpg` or `.png` if otherwise not possible). Name the forms using
-the ACL Anthology identifiers, and send me a separate `.zip` or `.tgz`
-archive as you would for the proceedings of your event (e.g., a file in the
-archive might be `copyright-transfers/P11-1001.pdf`).
-These copyrights should be delivered in bulk to the Anthology Editor when submitting the proceedings.
++ https://github.com/acl-org/ACLPUB/blob/master/templates/copyright/acl-copyright-transfer-2021.pdf
 
-Note that if you are using the START system (softconf.com), there is a
-digital form of this copyright transfer form, so you may not have to ask the
-authors to print, sign and submit to you. You may be able to simply download
-the `.zip` or `.tgz` version of the archived forms and submit them to
-me. Please note this when submitting.
+Forms should be signed by authors and saved using the ACL Anthology identifiers as names.
+Please place these into a folder (e.g., `copyright-transfers/P11-1001.pdf`) and then deliver them in bulk to the Anthology Editor when submitting the proceedings.
 
-For both current and legacy events, it is good practice for the organizers
-to attempt to obtain copyright transfers for their materials, but we will
-ingest materials even if no copyright transfers are on file.
+For both current and legacy events, it is good practice for the organizers to attempt to obtain copyright transfers for their materials, but we will ingest materials even if no copyright transfers are on file.
 
 ### ISBN Numbers
 
-If you need to assign ISBN numbers, please provide the exact titles of each volume to be assigned an ISBN and forward this information to Priscilla Rasmussen, ACL Business Manager.
-
-### Publication Date
-
-By default, the publication of papers associated with a current event in the Anthology will be on the first day of the event (inclusive of workshops or tutorials).
-If you prefer to have it published on a different date, please inform us.
+If you plan to publish or print your proceedings, you will need an ISBN.
+The ACL can provide these for *ACL conferences.
+Please provide the exact titles of each volume to be assigned an ISBN and send this information to [Jennifer Rachford](acl.rachford@gmail.com), the ACL Business Manager.
 
 ### Errata and Corrections
 
-If you get requests from authors needing to post errata or revised versions of the papers, or supplemental attachments after the publication of the proceedings, please ask them to submit revisions to the current ACL Anthology editor directly (see [Corrections]({{< relref "corrections.md" >}})).
-Note that after the publiation date, corrections can only be applied to individual papers; the full proceedings volumes will not be replaced or revised.
+If you get requests from authors needing to post errata or revised versions of the papers, or supplemental attachments after the publication of the proceedings, please refer them to [our documentation on the matter]({{< relref "corrections.md" >}}).
+Note that after the publication date, corrections can only be applied to individual papers; the full proceedings volumes will not be replaced or revised.

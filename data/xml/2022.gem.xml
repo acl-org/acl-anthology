@@ -1,0 +1,594 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2022.gem">
+  <volume id="1" ingest-date="2022-12-13" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of the 2nd Workshop on Natural Language Generation, Evaluation, and Metrics (GEM)</booktitle>
+      <editor><first>Antoine</first><last>Bosselut</last></editor>
+      <editor><first>Khyathi</first><last>Chandu</last></editor>
+      <editor><first>Kaustubh</first><last>Dhole</last></editor>
+      <editor><first>Varun</first><last>Gangal</last></editor>
+      <editor><first>Sebastian</first><last>Gehrmann</last></editor>
+      <editor><first>Yacine</first><last>Jernite</last></editor>
+      <editor><first>Jekaterina</first><last>Novikova</last></editor>
+      <editor><first>Laura</first><last>Perez-Beltrachini</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Abu Dhabi, United Arab Emirates (Hybrid)</address>
+      <month>December</month>
+      <year>2022</year>
+      <url hash="8649fc02">2022.gem-1</url>
+      <venue>gem</venue>
+    </meta>
+    <frontmatter>
+      <url hash="ec0dbe83">2022.gem-1.0</url>
+      <bibkey>gem-2022-natural</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Improving abstractive summarization with energy-based re-ranking</title>
+      <author><first>Diogo</first><last>Pernes</last></author>
+      <author><first>Afonso</first><last>Mendes</last></author>
+      <author><first>André F. T.</first><last>Martins</last></author>
+      <pages>1-17</pages>
+      <abstract>Current abstractive summarization systems present important weaknesses which prevent their deployment in real-world applications, such as the omission of relevant information and the generation of factual inconsistencies (also known as hallucinations). At the same time, automatic evaluation metrics such as CTC scores (Deng et al., 2021) have been recently proposed that exhibit a higher correlation with human judgments than traditional lexical-overlap metrics such as ROUGE. In this work, we intend to close the loop by leveraging the recent advances in summarization metrics to create quality-aware abstractive summarizers. Namely, we propose an energy-based model that learns to re-rank summaries according to one or a combination of these metrics. We experiment using several metrics to train our energy-based re-ranker and show that it consistently improves the scores achieved by the predicted summaries. Nonetheless, human evaluation results show that the re-ranking approach should be used with care for highly abstractive summaries, as the available metrics are not yet sufficiently reliable for this purpose.</abstract>
+      <url hash="aae3c275">2022.gem-1.1</url>
+      <bibkey>pernes-etal-2022-improving</bibkey>
+      <video href="2022.gem-1.1.mp4"/>
+      <doi>10.18653/v1/2022.gem-1.1</doi>
+    </paper>
+    <paper id="2">
+      <title>Task-driven augmented data evaluation</title>
+      <author><first>Olga</first><last>Golovneva</last></author>
+      <author><first>Pan</first><last>Wei</last></author>
+      <author><first>Khadige</first><last>Abboud</last></author>
+      <author><first>Charith</first><last>Peris</last></author>
+      <author><first>Lizhen</first><last>Tan</last></author>
+      <author><first>Haiyang</first><last>Yu</last></author>
+      <pages>18-25</pages>
+      <abstract>In the area of data augmentation research, the main focus to date has been on the improvement of the generation models, while the examination and improvements to synthetic data evaluation methods remains less explored. In our work, we explore a number of sentence similarity measures in the context of data generation filtering, and evaluate their impact on the performance of the targeted Natural Language Understanding problem on the example of the intent classification and named entity recognition tasks. Our experiments on ATIS dataset show that the right choice of filtering technique can bring up to 33% in sentence accuracy improvement for targeted underrepresented intents.</abstract>
+      <url hash="7c702f8d">2022.gem-1.2</url>
+      <bibkey>golovneva-etal-2022-task</bibkey>
+      <doi>10.18653/v1/2022.gem-1.2</doi>
+    </paper>
+    <paper id="3">
+      <title>Generating Coherent Narratives with Subtopic Planning to Answer How-to Questions</title>
+      <author><first>Pengshan</first><last>Cai</last></author>
+      <author><first>Mo</first><last>Yu</last></author>
+      <author id="fei-liu-utdallas"><first>Fei</first><last>Liu</last></author>
+      <author><first>Hong</first><last>Yu</last></author>
+      <pages>26-42</pages>
+      <abstract>Answering how-to questions remains a major challenge in question answering research. A vast number of narrow, long-tail questions cannot be readily answered using a search engine. Moreover, there is little to no annotated data available to develop such systems. This paper makes a first attempt at generating coherent, long-form answers for how-to questions. We propose new architectures, consisting of passage retrieval, subtopic planning and narrative generation, to consolidate multiple relevant passages into a coherent, explanatory answer. Our subtopic planning module aims to produce a set of relevant, diverse subtopics that serve as the backbone for answer generation to improve topic coherence. We present extensive experiments on a WikiHow dataset repurposed for long-form question answering. Empirical results demonstrate that generating narratives to answer how-to questions is a challenging task. Nevertheless, our architecture incorporated with subtopic planning can produce high-quality, diverse narratives evaluated using automatic metrics and human assessment.</abstract>
+      <url hash="a91b1cc8">2022.gem-1.3</url>
+      <bibkey>cai-etal-2022-generating</bibkey>
+      <video href="2022.gem-1.3.mp4"/>
+      <doi>10.18653/v1/2022.gem-1.3</doi>
+    </paper>
+    <paper id="4">
+      <title>Weakly Supervised Context-based Interview Question Generation</title>
+      <author><first>Samiran</first><last>Pal</last></author>
+      <author><first>Kaamraan</first><last>Khan</last></author>
+      <author><first>Avinash Kumar</first><last>Singh</last></author>
+      <author><first>Subhasish</first><last>Ghosh</last></author>
+      <author><first>Tapas</first><last>Nayak</last></author>
+      <author><first>Girish</first><last>Palshikar</last></author>
+      <author><first>Indrajit</first><last>Bhattacharya</last></author>
+      <pages>43-53</pages>
+      <abstract>We explore the task of automated generation of technical interview questions from a given textbook. Such questions are different from those for reading comprehension studied in question generation literature. We curate a context based interview questions data set for Machine Learning and Deep Learning from two popular textbooks. We first explore the possibility of using a large generative language model (GPT-3) for this task in a zero shot setting. We then evaluate the performance of smaller generative models such as BART fine-tuned on weakly supervised data obtained using GPT-3 and hand-crafted templates. We deploy an automatic question importance assignment technique to figure out suitability of a question in a technical interview. It improves the evaluation results in many dimensions. We dissect the performance of these models for this task and also scrutinize the suitability of questions generated by them for use in technical interviews.</abstract>
+      <url hash="737f5085">2022.gem-1.4</url>
+      <bibkey>pal-etal-2022-weakly</bibkey>
+      <video href="2022.gem-1.4.mp4"/>
+      <doi>10.18653/v1/2022.gem-1.4</doi>
+    </paper>
+    <paper id="5">
+      <title>Analyzing Multi-Task Learning for Abstractive Text Summarization</title>
+      <author><first>Frederic Thomas</first><last>Kirstein</last></author>
+      <author><first>Jan Philip</first><last>Wahle</last></author>
+      <author><first>Terry</first><last>Ruas</last></author>
+      <author><first>Bela</first><last>Gipp</last></author>
+      <pages>54-77</pages>
+      <abstract>Despite the recent success of multi-task learning and pre-finetuning for natural language understanding, few works have studied the effects of task families on abstractive text summarization. Task families are a form of task grouping during the pre-finetuning stage to learn common skills, such as reading comprehension. To close this gap, we analyze the influence of multi-task learning strategies using task families for the English abstractive text summarization task. We group tasks into one of three strategies, i.e., sequential, simultaneous, and continual multi-task learning, and evaluate trained models through two downstream tasks. We find that certain combinations of task families (e.g., advanced reading comprehension and natural language inference) positively impact downstream performance. Further, we find that choice and combinations of task families influence downstream performance more than the training scheme, supporting the use of task families for abstractive text</abstract>
+      <url hash="2d7773df">2022.gem-1.5</url>
+      <bibkey>kirstein-etal-2022-analyzing</bibkey>
+      <video href="2022.gem-1.5.mp4"/>
+      <doi>10.18653/v1/2022.gem-1.5</doi>
+    </paper>
+    <paper id="6">
+      <title><fixed-case>CLSE</fixed-case>: Corpus of Linguistically Significant Entities</title>
+      <author><first>Aleksandr</first><last>Chuklin</last></author>
+      <author><first>Justin</first><last>Zhao</last></author>
+      <author><first>Mihir</first><last>Kale</last></author>
+      <pages>78-96</pages>
+      <abstract>One of the biggest challenges of natural language generation (NLG) is the proper handling of named entities. Named entities are a common source of grammar mistakes such as wrong prepositions, wrong article handling, or incorrect entity inflection. Without factoring linguistic representation, such errors are often underrepresented when evaluating on a small set of arbitrarily picked argument values, or when translating a dataset from a linguistically simpler language, like English, to a linguistically complex language, like Russian. However, for some applications, broadly precise grammatical correctness is critical – native speakers may find entity-related grammar errors silly, jarring, or even offensive. To enable the creation of more linguistically diverse NLG datasets, we release a Corpus of Linguistically Significant Entities (CLSE) annotated by linguist experts. The corpus includes 34 languages and covers 74 different semantic types to support various applications from airline ticketing to video games. To demonstrate one possible use of CLSE, we produce an augmented version of the Schema-Guided Dialog Dataset, SGD-CLSE. Using the CLSE’s entities and a small number of human translations, we create a linguistically representative NLG evaluation benchmark in three languages: French (high-resource), Marathi (low-resource), and Russian (highly inflected language). We establish quality baselines for neural, template-based, and hybrid NLG systems and discuss the strengths and weaknesses of each approach.</abstract>
+      <url hash="8e3fd0a0">2022.gem-1.6</url>
+      <bibkey>chuklin-etal-2022-clse</bibkey>
+      <video href="2022.gem-1.6.mp4"/>
+      <doi>10.18653/v1/2022.gem-1.6</doi>
+    </paper>
+    <paper id="7">
+      <title>Revisiting text decomposition methods for <fixed-case>NLI</fixed-case>-based factuality scoring of summaries</title>
+      <author><first>John</first><last>Glover</last></author>
+      <author><first>Federico</first><last>Fancellu</last></author>
+      <author><first>Vasudevan</first><last>Jagannathan</last></author>
+      <author><first>Matthew R.</first><last>Gormley</last></author>
+      <author><first>Thomas</first><last>Schaaf</last></author>
+      <pages>97-105</pages>
+      <abstract>Scoring the factuality of a generated summary involves measuring the degree to which a target text contains factual information using the input document as support. Given the similarities in the problem formulation, previous work has shown that Natural Language Inference models can be effectively repurposed to perform this task. As these models are trained to score entailment at a sentence level, several recent studies have shown that decomposing either the input document or the summary into sentences helps with factuality scoring. But is fine-grained decomposition always a winning strategy? In this paper we systematically compare different granularities of decomposition - from document to sub-sentence level, and we show that the answer is no. Our results show that incorporating additional context can yield improvement, but that this does not necessarily apply to all datasets. We also show that small changes to previously proposed entailment-based scoring methods can result in better performance, highlighting the need for caution in model and methodology selection for downstream tasks.</abstract>
+      <url hash="b659ed8e">2022.gem-1.7</url>
+      <bibkey>glover-etal-2022-revisiting</bibkey>
+      <video href="2022.gem-1.7.mp4"/>
+      <doi>10.18653/v1/2022.gem-1.7</doi>
+    </paper>
+    <paper id="8">
+      <title>Semantic Similarity as a Window into Vector- and Graph-Based Metrics</title>
+      <author><first>Wai Ching</first><last>Leung</last></author>
+      <author><first>Shira</first><last>Wein</last></author>
+      <author><first>Nathan</first><last>Schneider</last></author>
+      <pages>106-115</pages>
+      <abstract>In this work, we use sentence similarity as a lens through which to investigate the representation of meaning in graphs vs. vectors. On semantic textual similarity data, we examine how similarity metrics based on vectors alone (SENTENCE-BERT and BERTSCORE) fare compared to metrics based on AMR graphs (SMATCH and S2MATCH). Quantitative and qualitative analyses show that the AMR-based metrics can better capture meanings dependent on sentence structures, but can also be distracted by structural differences—whereas the BERT-based metrics represent finer-grained meanings of individual words, but often fail to capture the ordering effect of words within sentences and suffer from interpretability problems. These findings contribute to our understanding of each approach to semantic representation and motivate distinct use cases for graph and vector-based representations.</abstract>
+      <url hash="75daab4b">2022.gem-1.8</url>
+      <bibkey>leung-etal-2022-semantic</bibkey>
+      <doi>10.18653/v1/2022.gem-1.8</doi>
+    </paper>
+    <paper id="9">
+      <title>Towards In-Context Non-Expert Evaluation of Reflection Generation for Counselling Conversations</title>
+      <author><first>Zixiu</first><last>Wu</last></author>
+      <author><first>Simone</first><last>Balloccu</last></author>
+      <author><first>Rim</first><last>Helaoui</last></author>
+      <author><first>Diego Reforgiato</first><last>Recupero</last></author>
+      <author><first>Daniele</first><last>Riboni</last></author>
+      <pages>116-124</pages>
+      <abstract>Reflection is an essential counselling strategy, where the therapist listens actively and responds with their own interpretation of the client’s words. Recent work leveraged pre-trained language models (PLMs) to approach reflection generation as a promising tool to aid counsellor training. However, those studies used limited dialogue context for modelling and simplistic error analysis for human evaluation. In this work, we take the first step towards addressing those limitations. First, we fine-tune PLMs on longer dialogue contexts for reflection generation. Then, we collect free-text error descriptions from non-experts about generated reflections, identify common patterns among them, and accordingly establish discrete error categories using thematic analysis. Based on this scheme, we plan for future work a mass non-expert error annotation phase for generated reflections followed by an expert-based validation phase, namely “whether a coherent and consistent response is a good reflection”.</abstract>
+      <url hash="b3551c84">2022.gem-1.9</url>
+      <bibkey>wu-etal-2022-towards-context</bibkey>
+      <video href="2022.gem-1.9.mp4"/>
+      <doi>10.18653/v1/2022.gem-1.9</doi>
+    </paper>
+    <paper id="10">
+      <title><fixed-case>W</fixed-case>iki<fixed-case>O</fixed-case>mnia: filtration and evaluation of the generated <fixed-case>QA</fixed-case> corpus on the whole <fixed-case>R</fixed-case>ussian <fixed-case>W</fixed-case>ikipedia</title>
+      <author><first>Dina</first><last>Pisarevskaya</last></author>
+      <author><first>Tatiana</first><last>Shavrina</last></author>
+      <pages>125-135</pages>
+      <abstract>The General QA field has been developing the methodology referencing the Stanford Question answering dataset (SQuAD) as the significant benchmark. Compiling factual questions datasets requires manual annotations, limiting the training data’s potential size. We present the WikiOmnia dataset, a new publicly available set of QA pairs and corresponding Russian Wikipedia article summary sections, composed with a fully automated generation and filtration pipeline. To ensure high quality of generated QA pairs, diverse manual and automated evaluation techniques were applied. The WikiOmnia pipeline is available open-source and is also tested for creating SQuAD-formatted QA on other domains, like news texts, fiction, and social media. The resulting dataset includes two parts: raw data on the whole Russian Wikipedia (7,930,873 QA pairs with paragraphs for ruGPT-3 XL and 7,991,040 QA pairs with paragraphs for ruT5-large) and cleaned data with strict automatic verification (over 160,000 QA pairs with paragraphs for ruGPT-3 XL and over 3,400,000 QA pairs with paragraphs for ruT5-large).</abstract>
+      <url hash="5d71d559">2022.gem-1.10</url>
+      <bibkey>pisarevskaya-shavrina-2022-wikiomnia</bibkey>
+      <doi>10.18653/v1/2022.gem-1.10</doi>
+    </paper>
+    <paper id="12">
+      <title>Evaluation of Response Generation Models: Shouldn’t It Be Shareable and Replicable?</title>
+      <author><first>Seyed Mahed</first><last>Mousavi</last></author>
+      <author><first>Gabriel</first><last>Roccabruna</last></author>
+      <author><first>Michela</first><last>Lorandi</last></author>
+      <author><first>Simone</first><last>Caldarella</last></author>
+      <author><first>Giuseppe</first><last>Riccardi</last></author>
+      <pages>136-147</pages>
+      <abstract>Human Evaluation (HE) of automatically generated responses is necessary for the advancement of human-machine dialogue research. Current automatic evaluation measures are poor surrogates, at best. There are no agreed-upon HE protocols and it is difficult to develop them. As a result, researchers either perform non-replicable, non-transparent and inconsistent procedures or, worse, limit themselves to automated metrics. We propose to standardize the human evaluation of response generation models by publicly sharing a detailed protocol. The proposal includes the task design, annotators recruitment, task execution, and annotation reporting. Such protocol and process can be used as-is, as-a-whole, in-part, or modified and extended by the research community. We validate the protocol by evaluating two conversationally fine-tuned state-of-the-art models (GPT-2 and T5) for the complex task of personalized response generation. We invite the community to use this protocol - or its future community amended versions - as a transparent, replicable, and comparable approach to HE of generated responses.</abstract>
+      <url hash="862b22ff">2022.gem-1.12</url>
+      <bibkey>mousavi-etal-2022-evaluation</bibkey>
+      <video href="2022.gem-1.12.mp4"/>
+      <doi>10.18653/v1/2022.gem-1.12</doi>
+    </paper>
+    <paper id="13">
+      <title>Enhancing and Evaluating the Grammatical Framework Approach to Logic-to-Text Generation</title>
+      <author><first>Eduardo</first><last>Calò</last></author>
+      <author><first>Elze</first><last>van der Werf</last></author>
+      <author><first>Albert</first><last>Gatt</last></author>
+      <author><first>Kees</first><last>van Deemter</last></author>
+      <pages>148-171</pages>
+      <abstract>Logic-to-text generation is an important yet underrepresented area of natural language generation (NLG). In particular, most previous works on this topic lack sound evaluation. We address this limitation by building and evaluating a system that generates high-quality English text given a first-order logic (FOL) formula as input. We start by analyzing the performance of Ranta (2011)’s system. Based on this analysis, we develop an extended version of the system, which we name LoLa, that performs formula simplification based on logical equivalences and syntactic transformations. We carry out an extensive evaluation of LoLa using standard automatic metrics and human evaluation. We compare the results against a baseline and Ranta (2011)’s system. The results show that LoLa outperforms the other two systems in most aspects.</abstract>
+      <url hash="361c3334">2022.gem-1.13</url>
+      <bibkey>calo-etal-2022-enhancing</bibkey>
+      <video href="2022.gem-1.13.mp4"/>
+      <doi>10.18653/v1/2022.gem-1.13</doi>
+    </paper>
+    <paper id="14">
+      <title>Controllable Text Generation for All Ages: Evaluating a Plug-and-Play Approach to Age-Adapted Dialogue</title>
+      <author><first>Lennert</first><last>Jansen</last></author>
+      <author><first>Štěpán Lars</first><last>Laichter</last></author>
+      <author><first>Arabella</first><last>Sinclair</last></author>
+      <author><first>Margot</first><last>van der Goot</last></author>
+      <author><first>Raquel</first><last>Fernandez</last></author>
+      <author><first>Sandro</first><last>Pezzelle</last></author>
+      <pages>172-188</pages>
+      <abstract>To be trusted and perceived as natural and coherent, conversational systems must adapt to the language of their users. While personalized dialogue is a promising direction, controlling generation for fine-grained language features remains a challenge in this approach. A recent line of research showed the effectiveness of leveraging pre-trained language models toward adapting to a text’s topic or sentiment. In this study, we build on these approaches and focus on a higher-level dimension of language variation: speakers’ age. We frame the task as a dialogue response generation, and test methods based on bag-of-words (BoW) and neural discriminators (Disc) to condition the output of GPT-2 and DialoGPT without altering the parameters of the language models. We show that Disc models achieve a higher degree of detectable control than BoW models based on automatic evaluation. In contrast, humans can partially detect age differences in BoW but not Disc responses. Since BoW responses are deemed better than Disc ones by humans, simple controllable methods thus appear to be a better tradeoff between adaptation and language quality. Our work confirms the challenges of adapting to higher-level dimensions of language variation. Moreover, it highlights the need to evaluate natural language generation thoroughly.</abstract>
+      <url hash="2a232285">2022.gem-1.14</url>
+      <bibkey>jansen-etal-2022-controllable</bibkey>
+      <video href="2022.gem-1.14.mp4"/>
+      <doi>10.18653/v1/2022.gem-1.14</doi>
+    </paper>
+    <paper id="15">
+      <title>Template-based Contact Email Generation for Job Recommendation</title>
+      <author><first>Qiuchi</first><last>Li</last></author>
+      <author><first>Christina</first><last>Lioma</last></author>
+      <pages>189-197</pages>
+      <abstract>Text generation has long been a popular research topic in NLP. However, the task of generating contact emails from recruiters to candidates in the job recommendation scenario has received little attention by the research community. This work aims at defining the topic of automatic email generation for job recommendation, identifying the challenges, and providing a baseline template-based solution for Danish jobs. Evaluation by human experts shows that our method is effective. We wrap up by discussing the future research directions for better solving this task.</abstract>
+      <url hash="490c7d37">2022.gem-1.15</url>
+      <bibkey>li-lioma-2022-template</bibkey>
+      <video href="2022.gem-1.15.mp4"/>
+      <doi>10.18653/v1/2022.gem-1.15</doi>
+    </paper>
+    <paper id="17">
+      <title>Are Abstractive Summarization Models truly ‘Abstractive’? An Empirical Study to Compare the two Forms of Summarization</title>
+      <author><first>Vinayshekhar Bannihatti</first><last>Kumar</last></author>
+      <author><first>Rashmi</first><last>Gangadharaiah</last></author>
+      <pages>198-206</pages>
+      <abstract>Automatic Text Summarization has seen a large paradigm shift from extractive methods to abstractive (or generation-based) methods in the last few years. This can be attributed to the availability of large autoregressive language models that have been shown to outperform extractive methods. In this work, we revisit extractive methods and study their performance against state of the art(SOTA) abstractive models. Through extensive studies, we notice that abstractive methods are not yet completely abstractive in their generated summaries. In addition to this finding, we propose an evaluation metric that could benefit the summarization research community to measure the degree of abstractiveness of a summary in comparison to their extractive counterparts. To confirm the generalizability of our findings, we conduct experiments on two summarization datasets using five powerful techniques in extractive and abstractive summarization and study their levels of abstraction.</abstract>
+      <url hash="2eef0c6c">2022.gem-1.17</url>
+      <bibkey>kumar-gangadharaiah-2022-abstractive</bibkey>
+      <video href="2022.gem-1.17.mp4"/>
+      <doi>10.18653/v1/2022.gem-1.17</doi>
+    </paper>
+    <paper id="18">
+      <title>Transfer learning for multilingual vacancy text generation</title>
+      <author><first>Anna</first><last>Lorincz</last></author>
+      <author><first>David</first><last>Graus</last></author>
+      <author><first>Dor</first><last>Lavi</last></author>
+      <author><first>Joao Lebre Magalhaes</first><last>Pereira</last></author>
+      <pages>207-222</pages>
+      <abstract>Writing job vacancies is a repetitive and expensive task for humans. This research focuses on automatically generating the benefit sections of vacancies at redacted from job attributes using mT5, the multilingual version of the state-of-the-art T5 transformer trained on general domains to generate texts in multiple languages. While transformers are accurate at generating coherent text, they are sometimes incorrect at including the structured data (the input) in the generated text. Including the input correctly is crucial for vacancy text generation; otherwise, the candidates may get misled. To evaluate how the model includes the input we developed our own domain-specific metrics (input generation accuracy). This was necessary, because Relation Generation, the pre-existing evaluation metric for data-to-text generation uses only string matching, which was not suitable for our dataset (due to the binary field). With the help of the new evaluation method we were able to measure how well the input is included in the generated text separately for different types of inputs (binary, categorical, numeric), offering another contribution to the field. Additionally, we also evaluated how accurate the mT5 model generates the text in the requested language. The results show that mT5 is very accurate at generating the text in the correct language, at including seen categorical inputs and binary values correctly in the generated text. However, mT5 performed worse when generating text from unseen city names or working with numeric inputs. Furthermore, we found that generating additional synthetic training data for the samples with numeric input can increase the input generation accuracy, however this only works when the numbers are integers and only cover a small range.</abstract>
+      <url hash="1d11bf85">2022.gem-1.18</url>
+      <bibkey>lorincz-etal-2022-transfer</bibkey>
+      <video href="2022.gem-1.18.mp4"/>
+      <doi>10.18653/v1/2022.gem-1.18</doi>
+    </paper>
+    <paper id="19">
+      <title>Plug-and-Play Recipe Generation with Content Planning</title>
+      <author><first>Yinhong</first><last>Liu</last></author>
+      <author><first>Yixuan</first><last>Su</last></author>
+      <author><first>Ehsan</first><last>Shareghi</last></author>
+      <author><first>Nigel</first><last>Collier</last></author>
+      <pages>223-234</pages>
+      <abstract>Recent pre-trained language models have shown promising capability to generate fluent and realistic natural text. However, generating multi-sentence text with global content planning has been a long-existing research question. The current controlled text generation models cannot directly address this issue, as they usually condition on single known control attribute. We propose a low-cost yet effective framework that explicitly models content plans and optimizes the joint distribution of the natural sequence and the content plans in a plug-and-play post-processing manner. We evaluate our model with extensive automatic metrics and human evaluations and show that it achieves the state-of-the-art performance on the recipe generation task on Recipe1M+ dataset.</abstract>
+      <url hash="b62781cf">2022.gem-1.19</url>
+      <bibkey>liu-etal-2022-plug</bibkey>
+      <video href="2022.gem-1.19.mp4"/>
+      <doi>10.18653/v1/2022.gem-1.19</doi>
+    </paper>
+    <paper id="20">
+      <title>Towards Attribute-Entangled Controllable Text Generation: A Pilot Study of Blessing Generation</title>
+      <author><first>Shulin</first><last>Huang</last></author>
+      <author><first>Shirong</first><last>Ma</last></author>
+      <author><first>Yinghui</first><last>Li</last></author>
+      <author><first>Li</first><last>Yangning</last></author>
+      <author><first>Shiyang</first><last>Lin</last></author>
+      <author><first>Haitao</first><last>Zheng</last></author>
+      <author><first>Ying</first><last>Shen</last></author>
+      <pages>235-247</pages>
+      <abstract>Controllable Text Generation (CTG) has obtained great success due to its fine-grained generation ability obtained by focusing on multiple attributes. However, most existing CTG researches overlook how to utilize the attribute entanglement to enhance the diversity of the controlled generated texts. Facing this dilemma, we focus on a novel CTG scenario, i.e., blessing generation which is challenging because high-quality blessing texts require CTG models to comprehensively consider the entanglement between multiple attributes (e.g., objects and occasions). To promote the research on blessing generation, we present EBleT, a large-scale Entangled Blessing Text dataset containing 293K English sentences annotated with multiple attributes. Furthermore, we propose novel evaluation metrics to measure the quality of the blessing texts generated by the baseline models we designed. Our study opens a new research direction for controllable text generation and enables the development of attribute-entangled CTG models.</abstract>
+      <url hash="2fa5f211">2022.gem-1.20</url>
+      <bibkey>huang-etal-2022-towards</bibkey>
+      <video href="2022.gem-1.20.mp4"/>
+      <doi>10.18653/v1/2022.gem-1.20</doi>
+    </paper>
+    <paper id="21">
+      <title>Unsupervised Token-level Hallucination Detection from Summary Generation By-products</title>
+      <author><first>Andreas</first><last>Marfurt</last></author>
+      <author><first>James</first><last>Henderson</last></author>
+      <pages>248-261</pages>
+      <abstract>Hallucinations in abstractive summarization are model generations that are unfaithful to the source document. Current methods for detecting hallucinations operate mostly on noun phrases and named entities, and restrict themselves to the XSum dataset, which is known to have hallucinations in 3 out of 4 training examples (Maynez et al., 2020). We instead consider the CNN/DailyMail dataset where the summarization model has not seen abnormally many hallucinations during training. We automatically detect candidate hallucinations at the token level, irrespective of its part of speech. Our detection comes essentially for free, as we only use information the model already produces during generation of the summary. This enables practitioners to jointly generate a summary and identify possible hallucinations, with minimal overhead. We repurpose an existing factuality dataset and create our own token-level annotations. The evaluation on these two datasets shows that our model achieves better precision-recall tradeoffs than its competitors, which additionally require a model forward pass.</abstract>
+      <url hash="bd53fc74">2022.gem-1.21</url>
+      <bibkey>marfurt-henderson-2022-unsupervised</bibkey>
+      <doi>10.18653/v1/2022.gem-1.21</doi>
+    </paper>
+    <paper id="22">
+      <title>A Corpus and Evaluation for Predicting Semi-Structured Human Annotations</title>
+      <author><first>Andreas</first><last>Marfurt</last></author>
+      <author><first>Ashley</first><last>Thornton</last></author>
+      <author><first>David</first><last>Sylvan</last></author>
+      <author><first>Lonneke</first><last>van der Plas</last></author>
+      <author><first>James</first><last>Henderson</last></author>
+      <pages>262-275</pages>
+      <abstract>A wide variety of tasks have been framed as text-to-text tasks to allow processing by sequence-to-sequence models. We propose a new task of generating a semi-structured interpretation of a source document. The interpretation is semi-structured in that it contains mandatory and optional fields with free-text information. This structure is surfaced by human annotations, which we standardize and convert to text format. We then propose an evaluation technique that is generally applicable to any such semi-structured annotation, called equivalence classes evaluation. The evaluation technique is efficient and scalable; it creates a large number of evaluation instances from a comparably cheap clustering of the free-text information by domain experts. For our task, we release a dataset about the monetary policy of the Federal Reserve. On this corpus, our evaluation shows larger differences between pretrained models than standard text generation metrics.</abstract>
+      <url hash="1b1be9ac">2022.gem-1.22</url>
+      <bibkey>marfurt-etal-2022-corpus</bibkey>
+      <video href="2022.gem-1.22.mp4"/>
+      <doi>10.18653/v1/2022.gem-1.22</doi>
+    </paper>
+    <paper id="23">
+      <title><fixed-case>T</fixed-case>5<fixed-case>QL</fixed-case>: Taming language models for <fixed-case>SQL</fixed-case> generation</title>
+      <author><first>Samuel David</first><last>Arcadinho</last></author>
+      <author><first>David</first><last>Aparicio</last></author>
+      <author><first>Hugo</first><last>Veiga</last></author>
+      <author><first>Antonio</first><last>Alegria</last></author>
+      <pages>276-286</pages>
+      <abstract>Automatic SQL generation has been an active research area, aiming at streamlining the access to databases by writing natural language with the given intent instead of writing SQL. Current SOTA methods for semantic parsing depend on LLMs to achieve high predictive accuracy on benchmark datasets. This reduces their applicability, since LLMs requires expensive GPUs. Furthermore, SOTA methods are ungrounded and thus not guaranteed to always generate valid SQL. Here we propose T5QL, a new SQL generation method that improves the performance in benchmark datasets when using smaller LMs, namely T5-Base, by 13pp when compared against SOTA methods. Additionally, T5QL is guaranteed to always output valid SQL using a context-free grammar to constrain SQL generation. Finally, we show that dividing semantic parsing in two tasks, candidate SQLs generation and candidate re-ranking, is a promising research avenue that can reduce the need for large LMs.</abstract>
+      <url hash="2d5f53f1">2022.gem-1.23</url>
+      <bibkey>arcadinho-etal-2022-t5ql</bibkey>
+      <video href="2022.gem-1.23.mp4"/>
+      <doi>10.18653/v1/2022.gem-1.23</doi>
+    </paper>
+    <paper id="24">
+      <title>Human perceiving behavior modeling in evaluation of code generation models</title>
+      <author><first>Sergey V.</first><last>Kovalchuk</last></author>
+      <author><first>Vadim</first><last>Lomshakov</last></author>
+      <author><first>Artem</first><last>Aliev</last></author>
+      <pages>287-294</pages>
+      <abstract>Within this study, we evaluated a series of code generation models based on CodeGen and GPTNeo to compare the metric-based performance and human evaluation. For a deeper analysis of human perceiving within the evaluation procedure we’ve implemented a 5-level Likert scale assessment of the model output using a perceiving model based on the Theory of Planned Behavior (TPB). Through such analysis, we showed an extension of model assessment as well as a deeper understanding of the quality and applicability of generated code for practical question answering. The approach was evaluated with several model settings in order to assess diversity in quality and style of answer. With the TPB-based model, we showed a different level of perceiving the model result, namely personal understanding, agreement level, and readiness to use the particular code. With such analysis, we investigate a series of issues in code generation as natural language generation (NLG) problems observed in a practical context of programming question-answering with code.</abstract>
+      <url hash="1c2a6fc4">2022.gem-1.24</url>
+      <bibkey>kovalchuk-etal-2022-human</bibkey>
+      <video href="2022.gem-1.24.mp4"/>
+      <doi>10.18653/v1/2022.gem-1.24</doi>
+    </paper>
+    <paper id="25">
+      <title>Nearest Neighbor Language Models for Stylistic Controllable Generation</title>
+      <author><first>Severino</first><last>Trotta</last></author>
+      <author><first>Lucie</first><last>Flek</last></author>
+      <author><first>Charles</first><last>Welch</last></author>
+      <pages>295-305</pages>
+      <abstract>Recent language modeling performance has been greatly improved by the use of external memory. This memory encodes the context so that similar contexts can be recalled during decoding. This similarity depends on how the model learns to encode context, which can be altered to include other attributes, such as style. We construct and evaluate an architecture for this purpose, using corpora annotated for politeness, formality, and toxicity. Through extensive experiments and human evaluation we demonstrate the potential of our method to generate text while controlling style. We find that style-specific datastores improve generation performance, though results vary greatly across styles, and the effect of pretraining data and specific styles should be explored in future work.</abstract>
+      <url hash="8b8c7d09">2022.gem-1.25</url>
+      <bibkey>trotta-etal-2022-nearest</bibkey>
+      <video href="2022.gem-1.25.mp4"/>
+      <doi>10.18653/v1/2022.gem-1.25</doi>
+    </paper>
+    <paper id="26">
+      <title>On reporting scores and agreement for error annotation tasks</title>
+      <author><first>Maja</first><last>Popović</last></author>
+      <author><first>Anya</first><last>Belz</last></author>
+      <pages>306-315</pages>
+      <abstract>This work examines different ways of aggregating scores for error annotation in MT outputs: raw error counts, error counts normalised over total number of words (word percentage’), and error counts normalised over total number of errors (error percentage’). We use each of these three scores to calculate inter-annotator agreement in the form of Krippendorff’s <tex-math>alpha</tex-math> and Pearson’s <tex-math>r</tex-math> and compare the obtained numbers, overall and separately for different types of errors. While each score has its advantages depending on the goal of the evaluation, we argue that the best way of estimating inter-annotator agreement using such numbers are raw counts. If the annotation process ensures that the total number of words cannot differ among the annotators (for example, due to adding omission symbols), normalising over number of words will lead to the same conclusions. In contrast, total number of errors is very subjective because different annotators often perceive different amount of errors in the same text, therefore normalising over this number can indicate lower agreements.</abstract>
+      <url hash="9d157754">2022.gem-1.26</url>
+      <bibkey>popovic-belz-2022-reporting</bibkey>
+      <doi>10.18653/v1/2022.gem-1.26</doi>
+    </paper>
+    <paper id="27">
+      <title>Answerability: A custom metric for evaluating chatbot performance</title>
+      <author><first>Pranav</first><last>Gupta</last></author>
+      <author><first>Anand A.</first><last>Rajasekar</last></author>
+      <author><first>Amisha</first><last>Patel</last></author>
+      <author><first>Mandar</first><last>Kulkarni</last></author>
+      <author><first>Alexander</first><last>Sunell</last></author>
+      <author><first>Kyung</first><last>Kim</last></author>
+      <author><first>Krishnan</first><last>Ganapathy</last></author>
+      <author><first>Anusua</first><last>Trivedi</last></author>
+      <pages>316-325</pages>
+      <abstract>Most commercial conversational AI products in domains spanning e-commerce, health care, finance, and education involve a hierarchy of NLP models that perform a variety of tasks such as classification, entity recognition, question-answering, sentiment detection, semantic text similarity, and so on. Despite our understanding of each of the constituent models, we do not have a clear view as to how these models affect the overall platform metrics. To bridge this gap, we define a metric known as answerability, which penalizes not only irrelevant or incorrect chatbot responses but also unhelpful responses that do not serve the chatbot’s purpose despite being correct or relevant. Additionally, we describe a formula-based mathematical framework to relate individual model metrics to the answerability metric. We also describe a modeling approach for predicting a chatbot’s answerability to a user question and its corresponding chatbot response.</abstract>
+      <url hash="4d76cba1">2022.gem-1.27</url>
+      <bibkey>gupta-etal-2022-answerability</bibkey>
+      <video href="2022.gem-1.27.mp4"/>
+      <doi>10.18653/v1/2022.gem-1.27</doi>
+    </paper>
+    <paper id="28">
+      <title>Improved Evaluation of Automatic Source Code Summarisation</title>
+      <author><first>Jesse</first><last>Phillips</last></author>
+      <author><first>David</first><last>Bowes</last></author>
+      <author><first>Mahmoud</first><last>El-Haj</last></author>
+      <author><first>Tracy</first><last>Hall</last></author>
+      <pages>326-335</pages>
+      <abstract>Source code summaries are a vital tool for the understanding and maintenance of source code as they can be used to explain code in simple terms. However, source code with missing, incorrect, or outdated summaries is a common occurrence in production code. Automatic source code summarisation seeks to solve these issues by generating up-to-date summaries of source code methods. Recent work in automatically generating source code summaries uses neural networks for generating summaries; commonly Sequence-to-Sequence or Transformer models, pretrained on method-summary pairs. The most common method of evaluating the quality of these summaries is comparing the machine-generated summaries against human-written summaries. Summaries can be evaluated using n-gram-based translation metrics such as BLEU, METEOR, or ROUGE-L. However, these metrics alone can be unreliable and new Natural Language Generation metrics based on large pretrained language models provide an alternative. In this paper, we propose a method of improving the evaluation of a model by improving the preprocessing of the data used to train it, as well as proposing evaluating the model with a metric based off a language model, pretrained on a Natural Language (English) alongside traditional metrics. Our evaluation suggests our model has been improved by cleaning and preprocessing the data used in model training. The addition of a pretrained language model metric alongside traditional metrics shows that both produce results which can be used to evaluate neural source code summarisation.</abstract>
+      <url hash="63e85894">2022.gem-1.28</url>
+      <bibkey>phillips-etal-2022-improved</bibkey>
+      <video href="2022.gem-1.28.mp4"/>
+      <doi>10.18653/v1/2022.gem-1.28</doi>
+    </paper>
+    <paper id="29">
+      <title>Most <fixed-case>NLG</fixed-case> is Low-Resource: here’s what we can do about it</title>
+      <author><first>David M.</first><last>Howcroft</last></author>
+      <author><first>Dimitra</first><last>Gkatzia</last></author>
+      <pages>336-350</pages>
+      <abstract>Many domains and tasks in natural language generation (NLG) are inherently ‘low-resource’, where training data, tools and linguistic analyses are scarce. This poses a particular challenge to researchers and system developers in the era of machine-learning-driven NLG. In this position paper, we initially present the challenges researchers &amp; developers often encounter when dealing with low-resource settings in NLG. We then argue that it is unsustainable to collect large aligned datasets or build large language models from scratch for every possible domain due to cost, labour, and time constraints, so researching and developing methods and resources for low-resource settings is vital. We then discuss current approaches to low-resource NLG, followed by proposed solutions and promising avenues for future work in NLG for low-resource settings.</abstract>
+      <url hash="702e274f">2022.gem-1.29</url>
+      <bibkey>howcroft-gkatzia-2022-nlg</bibkey>
+      <video href="2022.gem-1.29.mp4"/>
+      <doi>10.18653/v1/2022.gem-1.29</doi>
+    </paper>
+    <paper id="30">
+      <title><fixed-case>G</fixed-case>i<fixed-case>CCS</fixed-case>: A <fixed-case>G</fixed-case>erman in-Context Conversational Similarity Benchmark</title>
+      <author><first>Shima</first><last>Asaadi</last></author>
+      <author><first>Zahra</first><last>Kolagar</last></author>
+      <author><first>Alina</first><last>Liebel</last></author>
+      <author><first>Alessandra</first><last>Zarcone</last></author>
+      <pages>351-362</pages>
+      <abstract>The Semantic textual similarity (STS) task is commonly used to evaluate the semantic representations that language models (LMs) learn from texts, under the assumption that good-quality representations will yield accurate similarity estimates. When it comes to estimating the similarity of two utterances in a dialogue, however, the conversational context plays a particularly important role. We argue for the need of benchmarks specifically created using conversational data in order to evaluate conversational LMs in the STS task. We introduce GiCCS, a first conversational STS evaluation benchmark for German. We collected the similarity annotations for GiCCS using best-worst scaling and presenting the target items in context, in order to obtain highly-reliable context-dependent similarity scores. We present benchmarking experiments for evaluating LMs on capturing the similarity of utterances. Results suggest that pretraining LMs on conversational data and providing conversational context can be useful for capturing similarity of utterances in dialogues. GiCCS will be publicly available to encourage benchmarking of conversational LMs.</abstract>
+      <url hash="4dbbbe27">2022.gem-1.30</url>
+      <bibkey>asaadi-etal-2022-giccs</bibkey>
+      <video href="2022.gem-1.30.mp4"/>
+      <doi>10.18653/v1/2022.gem-1.30</doi>
+    </paper>
+    <paper id="31">
+      <title>Control Prefixes for Parameter-Efficient Text Generation</title>
+      <author><first>Jordan</first><last>Clive</last></author>
+      <author><first>Kris</first><last>Cao</last></author>
+      <author><first>Marek</first><last>Rei</last></author>
+      <pages>363-382</pages>
+      <abstract>Prefix-tuning is a parameter-efficient and powerful technique for adapting a pre-trained language model to a downstream application. However, it uses the same dataset-level tuned set of parameters for all examples in the dataset. We extend the framework with a dynamic method, Control Prefixes, which allows for the effective inclusion of input-dependent information, thereby demonstrating how prefix-tuning can be used for controlled text generation tasks. The method incorporates attribute-level learnable representations into different layers of a pre-trained Transformer, enabling the generated text to be guided in a particular direction. We provide a systematic evaluation of the technique and apply it to five datasets from the GEM benchmark for natural language generation (NLG). Using only 0.1–2% additional trainable parameters, we show Control Prefixes can even outperform full fine-tuning methods, and present state-of-the-art results on several data-to-text datasets, including WebNLG. We also examine the common case where input-dependent information is unavailable at test time and show Control Prefixes can excel in this setting also.</abstract>
+      <url hash="955bc924">2022.gem-1.31</url>
+      <bibkey>clive-etal-2022-control</bibkey>
+      <video href="2022.gem-1.31.mp4"/>
+      <doi>10.18653/v1/2022.gem-1.31</doi>
+    </paper>
+    <paper id="33">
+      <title>A Survey of Recent Error Annotation Schemes for Automatically Generated Text</title>
+      <author><first>Rudali</first><last>Huidrom</last></author>
+      <author><first>Anya</first><last>Belz</last></author>
+      <pages>383-398</pages>
+      <abstract>While automatically computing numerical scores remains the dominant paradigm in NLP system evaluation, error analysis is receiving increasing attention, with numerous error annotation schemes being proposed for automatically generated text. However, there is little agreement about what error annotation schemes should look like, how many different types of errors should be distinguished and at what level of granularity. In this paper, our aim is to map out recent work on annotating errors in automatically generated text, with a particular focus on error taxonomies. We describe our systematic paper selection process, and survey the error annotation schemes reported in the papers, drawing out similarities and differences between them. Finally, we characterise the issues that would make it difficult to move from the current situation to a standardised error taxonomy for annotating errors in automatically generated text.</abstract>
+      <url hash="0d028163">2022.gem-1.33</url>
+      <bibkey>huidrom-belz-2022-survey</bibkey>
+      <video href="2022.gem-1.33.mp4"/>
+      <doi>10.18653/v1/2022.gem-1.33</doi>
+    </paper>
+    <paper id="34">
+      <title>What’s in a (dataset’s) name? The case of <fixed-case>B</fixed-case>ig<fixed-case>P</fixed-case>atent</title>
+      <author><first>Silvia</first><last>Casola</last></author>
+      <author><first>Alberto</first><last>Lavelli</last></author>
+      <author><first>Horacio</first><last>Saggion</last></author>
+      <pages>399-404</pages>
+      <abstract>Sharing datasets and benchmarks has been crucial for rapidly improving Natural Language Processing models and systems. Documenting datasets’ characteristics (and any modification introduced over time) is equally important to avoid confusion and make comparisons reliable. Here, we describe the case of BigPatent, a dataset for patent summarization that exists in at least two rather different versions under the same name. While previous literature has not clearly distinguished among versions, their differences do not only lay on a surface level but also modify the dataset’s core nature and, thus, the complexity of the summarization task. While this paper describes a specific case, we aim to shed light on new challenges that might emerge in resource sharing and advocate for comprehensive documentation of datasets and models.</abstract>
+      <url hash="c94f9434">2022.gem-1.34</url>
+      <bibkey>casola-etal-2022-whats</bibkey>
+      <video href="2022.gem-1.34.mp4"/>
+      <doi>10.18653/v1/2022.gem-1.34</doi>
+    </paper>
+    <paper id="35">
+      <title>Measuring the Measuring Tools: An Automatic Evaluation of Semantic Metrics for Text Corpora</title>
+      <author><first>George</first><last>Kour</last></author>
+      <author><first>Samuel</first><last>Ackerman</last></author>
+      <author><first>Eitan Daniel</first><last>Farchi</last></author>
+      <author><first>Orna</first><last>Raz</last></author>
+      <author><first>Boaz</first><last>Carmeli</last></author>
+      <author><first>Ateret Anaby</first><last>Tavor</last></author>
+      <pages>405-416</pages>
+      <abstract>Similarity metrics for text corpora are becoming critical due to the tremendous growth in the number of generative models. These similarity metrics measure the semantic gap between human and machine-generated text on the corpus level. However, standard methods for evaluating the characteristics of these metrics have yet to be established. We propose a set of automatic measures for evaluating the characteristics of semantic similarity metrics for text corpora. Our measures allow us to sensibly compare and identify the strengths and weaknesses of these metrics. We demonstrate the effectiveness of our evaluation measures in capturing fundamental characteristics by comparing it to a collection of classical and state-of-the-art metrics. Our measures revealed that recent metrics are becoming better in identifying semantic distributional mismatch while classical metrics are more sensitive to perturbations in the surface text levels.</abstract>
+      <url hash="3c3070d8">2022.gem-1.35</url>
+      <bibkey>kour-etal-2022-measuring</bibkey>
+      <video href="2022.gem-1.35.mp4"/>
+      <doi>10.18653/v1/2022.gem-1.35</doi>
+    </paper>
+    <paper id="39">
+      <title>Multilingual Social Media Text Generation and Evaluation with Few-Shot Prompting</title>
+      <author><first>Mack</first><last>Blackburn</last></author>
+      <pages>417-427</pages>
+      <abstract>This work adapts large language models to generate multilingual social media text that meets several objectives simultaneously: topic relevance, author style consistency, and reply validity. Leveraging existing online information behavior simulators, which currently only forecast activities but not content, our approach comprised of generalizable prompt formation and efficient evaluation to produce a believable, personalized, and responsive synthetic social network. According to some preliminary experiments, our multi-objective prompt formation and automatic evaluation/selection methods are able to yield a significant number of high-quality synthetic texts according to both standardized and trained metrics.</abstract>
+      <url hash="5cef3c53">2022.gem-1.39</url>
+      <bibkey>blackburn-2022-multilingual</bibkey>
+      <doi>10.18653/v1/2022.gem-1.39</doi>
+    </paper>
+    <paper id="40">
+      <title>Assessing Inter-metric Correlation for Multi-document Summarization Evaluation</title>
+      <author><first>Michael</first><last>Ridenour</last></author>
+      <author><first>Ameeta</first><last>Agrawal</last></author>
+      <author><first>Olubusayo</first><last>Olabisi</last></author>
+      <pages>428-438</pages>
+      <abstract>Recent advances in automatic text summarization have contemporaneously been accompanied by a great deal of new metrics of automatic evaluation. This in turn has inspired recent research to re-assess these evaluation metrics to see how well they correlate with each other as well as with human evaluation, mostly focusing on single-document summarization (SDS) tasks. Although many of these metrics are typically also used for evaluating multi-document summarization (MDS) tasks, so far, little attention has been paid to studying them under such a distinct scenario. To address this gap, we present a systematic analysis of the inter-metric correlations for MDS tasks, while comparing and contrasting the results with SDS models. Using datasets from a wide range of domains (news, peer reviews, tweets, dialogues), we thus study a unified set of metrics under both the task setups. Our empirical analysis suggests that while most reference-based metrics show fairly similar trends across both multi- and single-document summarization, there is a notable lack of correlation between reference-free metrics in multi-document summarization tasks.</abstract>
+      <url hash="35f7ef30">2022.gem-1.40</url>
+      <bibkey>ridenour-etal-2022-assessing</bibkey>
+      <video href="2022.gem-1.40.mp4"/>
+      <doi>10.18653/v1/2022.gem-1.40</doi>
+    </paper>
+    <paper id="41">
+      <title>Factual Error Correction for Abstractive Summaries Using Entity Retrieval</title>
+      <author><first>Hwanhee</first><last>Lee</last></author>
+      <author><first>Cheoneum</first><last>Park</last></author>
+      <author><first>Seunghyun</first><last>Yoon</last></author>
+      <author><first>Trung</first><last>Bui</last></author>
+      <author><first>Franck</first><last>Dernoncourt</last></author>
+      <author><first>Juae</first><last>Kim</last></author>
+      <author><first>Kyomin</first><last>Jung</last></author>
+      <pages>439-444</pages>
+      <abstract>Despite the recent advancements in abstractive summarization systems leveraged from large-scale datasets and pre-trained language models, the factual correctness of the summary is still insufficient. One line of trials to mitigate this problem is to include a post-editing process that can detect and correct factual errors in the summary. In building such a system, it is strongly required that 1) the process has a high success rate and interpretability and 2) it has a fast running time. Previous approaches focus on the regeneration of the summary, resulting in low interpretability and high computing resources. In this paper, we propose an efficient factual error correction system RFEC based on entity retrieval. RFEC first retrieves the evidence sentences from the original document by comparing the sentences with the target summary to reduce the length of the text to analyze. Next, RFEC detects entity-level errors in the summaries using the evidence sentences and substitutes the wrong entities with the accurate entities from the evidence sentences. Experimental results show that our proposed error correction system shows more competitive performance than baseline methods in correcting factual errors with a much faster speed.</abstract>
+      <url hash="a11ba31e">2022.gem-1.41</url>
+      <bibkey>lee-etal-2022-factual</bibkey>
+      <video href="2022.gem-1.41.mp4"/>
+      <doi>10.18653/v1/2022.gem-1.41</doi>
+    </paper>
+    <paper id="42">
+      <title>Coherent Long Text Generation by Contrastive Soft Prompt</title>
+      <author><first>Guandan</first><last>Chen</last></author>
+      <author><first>Jiashu</first><last>Pu</last></author>
+      <author><first>Yadong</first><last>Xi</last></author>
+      <author><first>Rongsheng</first><last>Zhang</last></author>
+      <pages>445-455</pages>
+      <abstract>Improving the coherence of long text generation is an important but challenging task. Existing models still struggle to generate a logical and coherent sentence sequence. It is difficult for a model to plan long text generation and avoid generating incoherent texts from a high-level semantic perspective. We speculate that this is due to two factors: (1) current training methods mainly rely on maximum likelihood estimation computed from token-level probability prediction; (2) the role of incoherent texts has been largely under-explored, thus the noised generated texts with errors are out-of-distribution for the model. To address these issues, in this paper, we propose a Contrastive Soft Prompt (CSP) model for improving the coherence of long text generation. It learns text representations in the hidden space for better planning long text generation. To this end, it jointly learns to generate a text representation close to representations of coherent texts and away from incoherent ones, and then generate long text taking this representation as the soft prompt. We conduct experiments on two public story generation datasets, and experiment results show that our method can generate more coherent stories than the state-of-the-art model.</abstract>
+      <url hash="5c1b0e6e">2022.gem-1.42</url>
+      <bibkey>chen-etal-2022-coherent</bibkey>
+      <video href="2022.gem-1.42.mp4"/>
+      <doi>10.18653/v1/2022.gem-1.42</doi>
+    </paper>
+    <paper id="43">
+      <title>Error Analysis of <fixed-case>T</fixed-case>o<fixed-case>TT</fixed-case>o Table-to-Text Neural <fixed-case>NLG</fixed-case> Models</title>
+      <author><first>Barkavi</first><last>Sundararajan</last></author>
+      <author><first>Somayajulu</first><last>Sripada</last></author>
+      <author><first>Ehud</first><last>Reiter</last></author>
+      <pages>456-470</pages>
+      <abstract>We report error analysis of outputs from seven Table-to-Text generation models fine-tuned on ToTTo, an open-domain English language dataset. A manual error annotation of a subset of outputs (a total of 5,278 sentences) belonging to the topic of Politics generated by these seven models has been carried out. Our error annotation focused on eight categories of errors. The error analysis shows that more than 45% of sentences from each of the seven models have been error-free. It uncovered some of the specific classes of errors such as WORD errors that are the dominant errors in all the seven models, NAME and NUMBER errors are more committed by two of the GeM benchmark models, whereas DATE-DIMENSION and OTHER category of errors are more common in our Table-to-Text models.</abstract>
+      <url hash="b9d677d2">2022.gem-1.43</url>
+      <bibkey>sundararajan-etal-2022-error</bibkey>
+      <video href="2022.gem-1.43.mp4"/>
+      <doi>10.18653/v1/2022.gem-1.43</doi>
+    </paper>
+    <paper id="44">
+      <title>Improving Dialogue Act Recognition with Augmented Data</title>
+      <author><first>Khyati</first><last>Mahajan</last></author>
+      <author><first>Soham</first><last>Parikh</last></author>
+      <author><first>Quaizar</first><last>Vohra</last></author>
+      <author><first>Mitul</first><last>Tiwari</last></author>
+      <author><first>Samira</first><last>Shaikh</last></author>
+      <pages>471-479</pages>
+      <abstract>We present our work on augmenting dialog act recognition capabilities utilizing synthetically generated data. Our work is motivated by the limitations of current dialog act datasets, and the need to adapt for new domains as well as ambiguity in utterances written by humans. We list our observations and findings towards how synthetically generated data can contribute meaningfully towards more robust dialogue act recognition models extending to new domains. Our major finding shows that synthetic data, which is linguistically varied, can be very useful towards this goal and increase the performance from (0.39, 0.16) to (0.85, 0.88) for AFFIRM and NEGATE dialog acts respectively.</abstract>
+      <url hash="d7bad008">2022.gem-1.44</url>
+      <bibkey>mahajan-etal-2022-improving</bibkey>
+      <video href="2022.gem-1.44.mp4"/>
+      <doi>10.18653/v1/2022.gem-1.44</doi>
+    </paper>
+    <paper id="45">
+      <title>Do Decoding Algorithms Capture Discourse Structure in Multi-Modal Tasks? A Case Study of Image Paragraph Generation</title>
+      <author><first>Nikolai</first><last>Ilinykh</last></author>
+      <author><first>Simon</first><last>Dobnik</last></author>
+      <pages>480-493</pages>
+      <abstract>This paper describes insights into how different inference algorithms structure discourse in image paragraphs. We train a multi-modal transformer and compare 11 variations of decoding algorithms. We propose to evaluate image paragraphs not only with standard automatic metrics, but also with a more extensive, “under the hood” analysis of the discourse formed by sentences. Our results show that while decoding algorithms can be unfaithful to the reference texts, they still generate grounded descriptions, but they also lack understanding of the discourse structure and differ from humans in terms of attentional structure over images.</abstract>
+      <url hash="0406cd10">2022.gem-1.45</url>
+      <bibkey>ilinykh-dobnik-2022-decoding</bibkey>
+      <video href="2022.gem-1.45.mp4"/>
+      <doi>10.18653/v1/2022.gem-1.45</doi>
+    </paper>
+    <paper id="46">
+      <title>20<fixed-case>Q</fixed-case>: Overlap-Free World Knowledge Benchmark for Language Models</title>
+      <author><first>Maxime</first><last>De Bruyn</last></author>
+      <author><first>Ehsan</first><last>Lotfi</last></author>
+      <author><first>Jeska</first><last>Buhmann</last></author>
+      <author><first>Walter</first><last>Daelemans</last></author>
+      <pages>494-508</pages>
+      <abstract>What do language models know about our world? This question is hard to answer but important to get right. To this end, we introduce 20Q, a novel benchmark using the Twenty Questions game to evaluate world knowledge and common sense of language models. Thanks to our overlap-free benchmark, language models learn the game of Twenty Questions without learning relevant knowledge for the test set. We uncover two intuitive factors influencing the world knowledge of language models: the size of the model and the topic frequency in the pre-training data. Moreover, we show that in-context learning is inefficient for evaluating language models’ world knowledge — fine-tuning is necessary to show their true capabilities. Lastly, our results show room for improvement to enhance the world knowledge and common sense of large language models. A potential solution would be to up-sample unfrequent topics in the pre-training of language models.</abstract>
+      <url hash="93a83cfe">2022.gem-1.46</url>
+      <bibkey>de-bruyn-etal-2022-20q</bibkey>
+      <doi>10.18653/v1/2022.gem-1.46</doi>
+    </paper>
+    <paper id="47">
+      <title>What Was Your Name Again? Interrogating Generative Conversational Models For Factual Consistency Evaluation</title>
+      <author><first>Ehsan</first><last>Lotfi</last></author>
+      <author><first>Maxime</first><last>De Bruyn</last></author>
+      <author><first>Jeska</first><last>Buhmann</last></author>
+      <author><first>Walter</first><last>Daelemans</last></author>
+      <pages>509-519</pages>
+      <abstract>Generative conversational agents are known to suffer from problems like inconsistency and hallucination, and a big challenge in studying these issues remains evaluation: they are not properly reflected in common text generation metrics like perplexity or BLEU, and alternative implicit methods like semantic similarity or NLI labels can be misguided when few specific tokens are decisive. In this work we propose ConsisTest; a factual consistency benchmark including both WH and Y/N questions based on PersonaChat, along with a hybrid evaluation pipeline which aims to get the best of symbolic and sub-symbolic methods. Using these and focusing on pretrained generative models like BART, we provide detailed statistics and analysis on how the model’s consistency is affected by variations in question and context.</abstract>
+      <url hash="9e3158cd">2022.gem-1.47</url>
+      <bibkey>lotfi-etal-2022-name</bibkey>
+      <video href="2022.gem-1.47.mp4"/>
+      <doi>10.18653/v1/2022.gem-1.47</doi>
+    </paper>
+    <paper id="48">
+      <title>Narrative Why-Question Answering: A Review of Challenges and Datasets</title>
+      <author><first>Emil</first><last>Kalbaliyev</last></author>
+      <author><first>Kairit</first><last>Sirts</last></author>
+      <pages>520-530</pages>
+      <abstract>Narrative Why-Question Answering is an important task to assess the causal reasoning ability of systems in narrative settings. Further progress in this domain needs clear identification of challenges related to understanding the causal structure of narration. In this paper, we give an overview of the challenges related to both narrative understanding and why-question answering, because Narrative Why-Question Answering combines the characteristics of these domains. We also identify narrative QA datasets containing why-questions and analyze their characteristics through the lens of these challenges.</abstract>
+      <url hash="f19f2d77">2022.gem-1.48</url>
+      <bibkey>kalbaliyev-sirts-2022-narrative</bibkey>
+      <video href="2022.gem-1.48.mp4"/>
+      <doi>10.18653/v1/2022.gem-1.48</doi>
+    </paper>
+    <paper id="49">
+      <title>Exploring a <fixed-case>POS</fixed-case>-based Two-stage Approach for Improving Low-Resource <fixed-case>AMR</fixed-case>-to-Text Generation</title>
+      <author><first>Marco Antonio</first><last>Sobrevilla Cabezudo</last></author>
+      <author><first>Thiago</first><last>Pardo</last></author>
+      <pages>531-538</pages>
+      <abstract>This work presents a two-stage approach for tackling low-resource AMR-to-text generation for Brazilian Portuguese. Our approach consists of (1) generating a masked surface realization in which some tokens are masked according to its Part-of-Speech class and (2) infilling the masked tokens according to the AMR graph and the previous masked surface realization. Results show a slight improvement over the baseline, mainly in BLEU (1.63) and METEOR (0.02) scores. Moreover, we evaluate the pipeline components separately, showing that the bottleneck of the pipeline is the masked surface realization. Finally, the human evaluation suggests that models still suffer from hallucinations, and some strategies to deal with the problems found are proposed.</abstract>
+      <url hash="bcd42a6f">2022.gem-1.49</url>
+      <bibkey>sobrevilla-cabezudo-pardo-2022-exploring</bibkey>
+      <doi>10.18653/v1/2022.gem-1.49</doi>
+    </paper>
+    <paper id="50">
+      <title>What Makes Data-to-Text Generation Hard for Pretrained Language Models?</title>
+      <author><first>Moniba</first><last>Keymanesh</last></author>
+      <author><first>Adrian</first><last>Benton</last></author>
+      <author><first>Mark</first><last>Dredze</last></author>
+      <pages>539-554</pages>
+      <abstract>Expressing natural language descriptions of structured facts or relations – data-to-text generation (D2T) – increases the accessibility of structured knowledge repositories. Previous work shows that pre-trained language models (PLMs) perform remarkably well on this task after fine-tuning on a significant amount of task-specific training data. On the other hand, while auto-regressive PLMs can generalize from a few task examples, their efficacy at D2T is largely unexplored. Furthermore, we have an incomplete understanding of the limits of PLMs on D2T. In this work, we conduct an empirical study of both fine-tuned and auto-regressive PLMs on the DART multi-domain D2T dataset. We consider their performance as a function of the amount of task-specific data and how the data is incorporated into the models: zero and few-shot learning, and fine-tuning of model weights. In addition, we probe the limits of PLMs by measuring performance on subsets of the evaluation data: novel predicates and abstractive test examples. To improve the performance on these subsets, we investigate two techniques: providing predicate descriptions in the context and re-ranking generated candidates by information reflected in the source. Finally, we conduct a human evaluation of model errors and show that D2T generation tasks would benefit from datasets with more careful manual curation.</abstract>
+      <url hash="674e9ce9">2022.gem-1.50</url>
+      <bibkey>keymanesh-etal-2022-makes</bibkey>
+      <doi>10.18653/v1/2022.gem-1.50</doi>
+    </paper>
+    <paper id="51">
+      <title>Don’t Say What You Don’t Know: Improving the Consistency of Abstractive Summarization by Constraining Beam Search</title>
+      <author><first>Daniel</first><last>King</last></author>
+      <author><first>Zejiang</first><last>Shen</last></author>
+      <author><first>Nishant</first><last>Subramani</last></author>
+      <author><first>Daniel S.</first><last>Weld</last></author>
+      <author><first>Iz</first><last>Beltagy</last></author>
+      <author><first>Doug</first><last>Downey</last></author>
+      <pages>555-571</pages>
+      <abstract>Abstractive summarization systems today produce fluent and relevant output, but often “hallucinate” statements not supported by the source text. We analyze the connection between hallucinations and training data, and find evidence that models hallucinate because they train on target summaries that are unsupported by the source. Based on our findings, we present PINOCCHIO, a new decoding method that improves the consistency of a transformer-based abstractive summarizer by constraining beam search to avoid hallucinations. Given the model states and outputs at a given step, PINOCCHIO detects likely model hallucinations based on various measures of attribution to the source text. PINOCCHIO backtracks to find more consistent output, and can opt to produce no summary at all when no consistent generation can be found. In experiments, we find that PINOCCHIO improves the consistency of generation by an average of 67% on two abstractive summarization datasets, without hurting recall.</abstract>
+      <url hash="e3725277">2022.gem-1.51</url>
+      <bibkey>king-etal-2022-dont</bibkey>
+      <doi>10.18653/v1/2022.gem-1.51</doi>
+    </paper>
+  </volume>
+</collection>

@@ -33,7 +33,7 @@ from collections import defaultdict
 from tqdm import tqdm
 import logging as log
 import os
-import yaml, yamlfix
+import yaml
 
 try:
     from yaml import CSafeDumper as Dumper
@@ -41,18 +41,33 @@ except ImportError:
     from yaml import SafeDumper as Dumper
 
 from anthology import Anthology
-from anthology.utils import SeverityTracker
+from anthology.utils import SeverityTracker, deconstruct_anthology_id
 from create_hugo_pages import check_directory
 
 
+SCRIPTDIR = os.path.dirname(os.path.realpath(__file__))
+
+
 def export_anthology(anthology, outdir, clean=False, dryrun=False):
+    """
+    Dumps files in build/yaml/*.yaml. These files are used in conjunction with the hugo
+    page stubs created by create_hugo_pages.py to instantiate Hugo templates.
+    """
     # Prepare paper index
     papers = defaultdict(dict)
+    citation_styles = {
+        "acl": f"{SCRIPTDIR}/acl.csl",
+        # "apa": "apa-6th-edition",
+        # "mla": "modern-language-association-7th-edition",
+    }
+
     for id_, paper in anthology.papers.items():
         log.debug("export_anthology: processing paper '{}'".format(id_))
         data = paper.as_dict()
+        if paper.parent_volume.ingest_date:
+            data["ingest_date"] = paper.parent_volume.ingest_date
         data["title_html"] = paper.get_title("html")
-        if 'xml_title' in data:
+        if "xml_title" in data:
             del data["xml_title"]
         if "xml_booktitle" in data:
             data["booktitle_html"] = paper.get_booktitle("html")
@@ -60,6 +75,8 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
         if "xml_abstract" in data:
             data["abstract_html"] = paper.get_abstract("html")
             del data["xml_abstract"]
+        if "xml_url" in data:
+            del data["xml_url"]
         if "author" in data:
             data["author"] = [
                 anthology.people.resolve_name(name, id_) for name, id_ in data["author"]
@@ -68,6 +85,8 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
             data["editor"] = [
                 anthology.people.resolve_name(name, id_) for name, id_ in data["editor"]
             ]
+        for abbrev, style in citation_styles.items():
+            data[f"citation_{abbrev}"] = paper.as_citation_html(style)
         papers[paper.collection_id][paper.full_id] = data
 
     # Prepare people index
@@ -81,8 +100,13 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
             data["comment"] = anthology.people.comments[id_]
         if id_ in anthology.people.similar:
             data["similar"] = sorted(anthology.people.similar[id_])
+        papers_for_id = anthology.people.get_papers(id_, role="author") + [
+            paper
+            for paper in anthology.people.get_papers(id_, role="editor")
+            if anthology.papers.get(paper).is_volume
+        ]
         data["papers"] = sorted(
-            anthology.people.get_papers(id_),
+            papers_for_id,
             key=lambda p: anthology.papers.get(p).get("year"),
             reverse=True,
         )
@@ -94,29 +118,34 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
         data["venues"] = sorted(
             [
                 [venue, count]
-                for (venue, count) in anthology.people.get_venues(
-                    anthology.venues, id_
-                ).items()
+                for (venue, count) in anthology.people.get_venues(id_).items()
             ],
             key=lambda p: p[1],
             reverse=True,
         )
-        variants = [n for n in anthology.people.get_used_names(id_) if n != name]
+        variants = [
+            n
+            for n in anthology.people.get_used_names(id_)
+            if n.first != name.first or n.last != name.last
+        ]
         if len(variants) > 0:
-            data["variant_entries"] = [name.as_dict() for name in variants]
+            data["variant_entries"] = [name.as_dict() for name in sorted(variants)]
         people[id_[0]][id_] = data
 
     # Prepare volume index
     volumes = {}
     for id_, volume in anthology.volumes.items():
         log.debug("export_anthology: processing volume '{}'".format(id_))
-        data = volume.attrib
+        data = volume.as_dict()
         data["title_html"] = volume.get_title("html")
         del data["xml_booktitle"]
         if "xml_abstract" in data:
             del data["xml_abstract"]
+        if "xml_url" in data:
+            del data["xml_url"]
         data["has_abstracts"] = volume.has_abstracts
         data["papers"] = volume.paper_ids
+        data["venues"] = volume.get_venues()
         if "author" in data:
             data["author"] = [
                 anthology.people.resolve_name(name, id_) for name, id_ in data["author"]
@@ -129,19 +158,59 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
 
     # Prepare venue index
     venues = {}
-    for acronym, data in anthology.venues.items():
+    for main_venue, data in anthology.venues.items():
+        data.get("oldstyle_letter", "W")
         data = data.copy()
-        data["volumes_by_year"] = {
-            year: sorted(filter(lambda k: volumes[k]["year"] == year, data["volumes"]))
-            for year in sorted(data["years"])
-        }
+        data["volumes_by_year"] = {}
+        for year in sorted(data["years"]):
+            # Grab just the volumes that match the current year
+            filtered_volumes = list(
+                filter(lambda k: volumes[k]["year"] == year, data["volumes"])
+            )
+            data["volumes_by_year"][year] = filtered_volumes
+        if not data["volumes_by_year"]:
+            log.warning(f"Venue '{main_venue}' has no volumes associated with it")
+
         data["years"] = sorted(list(data["years"]))
+
+        # The export uses volumes_by_year, deleting this saves space
         del data["volumes"]
-        venues[acronym] = data
+
+        venues[main_venue] = data
+
+    # Prepare events index
+    events = {}
+    for event_name, event_data in anthology.eventindex.items():
+        main_venue = event_data["venue"]
+        event_data = event_data.copy()
+
+        def volume_sorter(volume):
+            """
+            Puts all main volumes before satellite ones.
+            Main volumes are sorted in a stabile manner as
+            found in the XML. Colocated ones are sorted
+            alphabetically.
+
+            :param volume: The Anthology volume
+            """
+            if main_venue in volumes[volume]["venues"]:
+                # sort volumes in main venue first
+                return "_"
+            elif deconstruct_anthology_id(volume)[1] == main_venue:
+                # this puts Findings at the top (e.g., 2022-findings.emnlp will match emnlp)
+                return "__"
+            else:
+                # sort colocated volumes alphabetically, using
+                # the alphabetically-earliest volume
+                return min(volumes[volume]["venues"])
+
+        event_data["volumes"] = sorted(event_data["volumes"], key=volume_sorter)
+
+        events[event_name] = event_data
 
     # Prepare SIG index
     sigs = {}
-    for acronym, sig in anthology.sigs.items():
+    for main_venue, sig in anthology.sigs.items():
         data = {
             "name": sig.name,
             "slug": sig.slug,
@@ -149,7 +218,7 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
             "volumes_by_year": sig.volumes_by_year,
             "years": sorted([str(year) for year in sig.years]),
         }
-        sigs[acronym] = data
+        sigs[main_venue] = data
 
     # Dump all
     if not dryrun:
@@ -171,6 +240,10 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
 
         with open("{}/venues.yaml".format(outdir), "w") as f:
             yaml.dump(venues, Dumper=Dumper, stream=f)
+        progress.update()
+
+        with open(f"{outdir}/events.yaml", "w") as f:
+            yaml.dump(events, Dumper=Dumper, stream=f)
         progress.update()
 
         with open("{}/sigs.yaml".format(outdir), "w") as f:
@@ -203,6 +276,7 @@ if __name__ == "__main__":
 
     log.info("Reading the Anthology data...")
     anthology = Anthology(importdir=args["--importdir"])
+
     log.info("Exporting to YAML...")
     export_anthology(
         anthology, args["--exportdir"], clean=args["--clean"], dryrun=args["--dry-run"]
