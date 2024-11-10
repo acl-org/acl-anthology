@@ -653,12 +653,8 @@ def copy_pdf_and_attachment(
 
                     if Path(attach_src_path).exists():
                         maybe_copy(attach_src_path, attach_dest_path)
-                        print(
-                            f"Attaching {attach_dest_path} ({type_}) to {paper_num}"
-                        )
-                        volume[paper_num]['attachments'].append(
-                            (attach_dest_path, type_)
-                        )
+                        print(f"Attaching {attach_dest_path} ({type_}) to {paper_num}")
+                        volume[paper_num]['attachments'].append((attach_dest_path, type_))
 
     return volume, collection_id, volume_name, proceedings_pdf_dest_path
 
