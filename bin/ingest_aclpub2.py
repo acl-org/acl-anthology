@@ -281,7 +281,7 @@ def find_paper_attachment(paper_name: str, attachments_dir: str) -> Optional[str
     return attachment_path
 
 
-def join_names(author, fields=["first_name"]):
+def join_names(author, fields=["first_name", "middle_name"]):
     """
     Joins name fields. If you want to merge first names with middle names,
     set fields to ["first_name", "middle_name"]. However, many people enter
@@ -289,7 +289,7 @@ def join_names(author, fields=["first_name"]):
     """
     names = []
     for field in fields:
-        if author[field] is not None:
+        if author.get(field) is not None:
             names.append(author[field])
     return " ".join(names)
 
