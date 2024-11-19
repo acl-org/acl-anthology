@@ -1,0 +1,171 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2024.genbench">
+  <volume id="1" ingest-date="2024-11-05" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of the 2nd GenBench Workshop on Generalisation (Benchmarking) in NLP</booktitle>
+      <editor><first>Dieuwke</first><last>Hupkes</last></editor>
+      <editor><first>Verna</first><last>Dankers</last></editor>
+      <editor><first>Khuyagbaatar</first><last>Batsuren</last></editor>
+      <editor><first>Amirhossein</first><last>Kazemnejad</last></editor>
+      <editor><first>Christos</first><last>Christodoulopoulos</last></editor>
+      <editor><first>Mario</first><last>Giulianelli</last></editor>
+      <editor><first>Ryan</first><last>Cotterell</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Miami, Florida, USA</address>
+      <month>November</month>
+      <year>2024</year>
+      <url hash="b126796d">2024.genbench-1</url>
+      <venue>genbench</venue>
+    </meta>
+    <frontmatter>
+      <url hash="6192890a">2024.genbench-1.0</url>
+      <bibkey>genbench-2024-1</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Evaluating the fairness of task-adaptive pretraining on unlabeled test data before few-shot text classification</title>
+      <author><first>Kush</first><last>Dubey</last><affiliation>Independent</affiliation></author>
+      <pages>1-26</pages>
+      <abstract>Few-shot learning benchmarks are critical for evaluating modern NLP techniques. It is possible, however, that benchmarks favor methods which easily make use of unlabeled text, because researchers can use unlabeled text from the test set to pretrain their models. Given the dearth of research on this potential problem, we run experiments to quantify the bias caused by pretraining on unlabeled test set text instead of on unlabeled, independently drawn text. Controlled few-shot and zero-shot experiments on 25 classification tasks and 3 language models—BERT, GPT-2, and Mistral 7B—do not find evidence of overoptimism. Furthermore, we demonstrate the importance of repeated subsampling when studying few-shot text classification, and recommend that few-shot learning benchmarks include multiple training folds. Code and data are available here: <url>https://github.com</url> (currently omitted for anonymity).</abstract>
+      <url hash="df3886ed">2024.genbench-1.1</url>
+      <bibkey>dubey-2024-evaluating</bibkey>
+    </paper>
+    <paper id="2">
+      <title>From Language to Pixels: Task Recognition and Task Learning in <fixed-case>LLM</fixed-case>s</title>
+      <author><first>Janek</first><last>Falkenstein</last></author>
+      <author><first>Carolin M.</first><last>Schuster</last></author>
+      <author><first>Alexander H.</first><last>Berger</last><affiliation>Technische Universität München</affiliation></author>
+      <author><first>Georg</first><last>Groh</last><affiliation>Technical University Munich</affiliation></author>
+      <pages>27-41</pages>
+      <abstract>LLMs can perform unseen tasks by learning from a few in-context examples. How in-context learning works is still uncertain. We investigate the mechanisms of in-context learning on a challenging non-language task. The task requires the LLM to generate pixel matrices representing images of basic shapes. We introduce a framework to analyze if this task is solved by recognizing similar formats from the training data (task recognition) or by understanding the instructions and learning the skill de novo during inference (task learning). Our experiments demonstrate that LLMs generate meaningful pixel matrices with task recognition and fail to learn such tasks when encountering unfamiliar formats. Our findings offer insights into LLMs’ learning mechanisms and their generalization ability to guide future research on their seemingly human-like behavior.</abstract>
+      <url hash="21d8c9f0">2024.genbench-1.2</url>
+      <bibkey>falkenstein-etal-2024-language</bibkey>
+    </paper>
+    <paper id="3">
+      <title>The <fixed-case>S</fixed-case>lay<fixed-case>QA</fixed-case> benchmark of social reasoning: testing gender-inclusive generalization with neopronouns</title>
+      <author><first>Bastian</first><last>Bunzeck</last><affiliation>Universität Bielefeld</affiliation></author>
+      <author><first>Sina</first><last>Zarrieß</last><affiliation>Bielefeld University</affiliation></author>
+      <pages>42-53</pages>
+      <abstract>We introduce SlayQA, a novel benchmark data set designed to evaluate language models’ ability to handle gender-inclusive language, specifically the use of neopronouns, in a question-answering setting. Derived from the Social IQa data set, SlayQA modifies context-question-answer triples to include gender-neutral pronouns, creating a significant linguistic distribution shift in comparison to common pre-training corpora like C4 or Dolma. Our results show that state-of-the-art language models struggle with the challenge, exhibiting small, but noticeable performance drops when answering question containing neopronouns compared to those without.</abstract>
+      <url hash="9a3359d4">2024.genbench-1.3</url>
+      <bibkey>bunzeck-zarriess-2024-slayqa</bibkey>
+    </paper>
+    <paper id="4">
+      <title>Automated test generation to evaluate tool-augmented <fixed-case>LLM</fixed-case>s as conversational <fixed-case>AI</fixed-case> agents</title>
+      <author><first>Samuel</first><last>Arcadinho</last><affiliation>Zendesk</affiliation></author>
+      <author><first>David Oliveira</first><last>Aparicio</last></author>
+      <author><first>Mariana S. C.</first><last>Almeida</last></author>
+      <pages>54-68</pages>
+      <abstract>Tool-augmented LLMs are a promising approach to create AI agents that can have realistic conversations, follow procedures, and call appropriate functions. However, evaluating them is challenging due to the diversity of possible conversations, and existing datasets focus only on single interactions and function-calling. We present a test generation pipeline to evaluate LLMs as conversational AI agents. Our framework uses LLMs to generate diverse tests grounded on user-defined procedures. For that, we use intermediate graphs to limit the LLM test generator’s tendency to hallucinate content that is not grounded on input procedures, and enforces high coverage of the possible conversations. Additionally, we put forward ALMITA, a manually curated dataset for evaluating AI agents in customer support, and use it to evaluate existing LLMs. Our results show that while tool-augmented LLMs perform well in single interactions, they often struggle to handle complete conversations. While our focus is on customer support, our test generation pipeline is general enough to evaluate different AI agents.</abstract>
+      <url hash="8c65d47b">2024.genbench-1.4</url>
+      <bibkey>arcadinho-etal-2024-automated</bibkey>
+    </paper>
+    <paper id="5">
+      <title><fixed-case>MMLU</fixed-case>-<fixed-case>SR</fixed-case>: A Benchmark for Stress-Testing Reasoning Capability of Large Language Models</title>
+      <author><first>Wentian</first><last>Wang</last></author>
+      <author><first>Sarthak</first><last>Jain</last></author>
+      <author><first>Paul</first><last>Kantor</last><affiliation>University of Wisconsin - Madison, Rutgers University, New Brunswick and Paul B Kantor, Consultant</affiliation></author>
+      <author><first>Jacob</first><last>Feldman</last><affiliation>Rutgers University</affiliation></author>
+      <author><first>Lazaros</first><last>Gallos</last><affiliation>Rutgers University</affiliation></author>
+      <author><first>Hao</first><last>Wang</last><affiliation>Rutgers University</affiliation></author>
+      <pages>69-85</pages>
+      <abstract>We propose MMLU-SR, a novel dataset designed to measure the true comprehension abilities of Large Language Models (LLMs) by challenging their performance in question-answering tasks with modified terms. We reasoned that an agent that “truly” understands a concept can still evaluate it when key terms are replaced by suitably defined alternate terms, and sought to differentiate such comprehension from mere text replacement. In our study, we modified standardized test questions by replacing a key term with a dummy word along with its definition. The key term could be in the context of questions, answers, or both questions and answers. Notwithstanding the high scores achieved by recent popular LLMs on the MMLU leaderboard, we found a substantial reduction in model performance after such replacement, suggesting poor comprehension. This new benchmark provides a rigorous benchmark for testing true model comprehension, and poses a challenge to the broader scientific community.</abstract>
+      <url hash="98323862">2024.genbench-1.5</url>
+      <bibkey>wang-etal-2024-mmlu</bibkey>
+    </paper>
+    <paper id="6">
+      <title><fixed-case>ML</fixed-case>issard: Multilingual Long and Simple Sequential Reasoning Benchmarks</title>
+      <author><first>Mirelle Candida</first><last>Bueno</last></author>
+      <author><first>Roberto</first><last>Lotufo</last><affiliation>University of Campinas, Universidade Estadual de Campinas</affiliation></author>
+      <author><first>Rodrigo</first><last>Frassetto Nogueira</last><affiliation>Universidade Estadual de Campinas</affiliation></author>
+      <pages>86-95</pages>
+      <abstract>Language models are now capable of solving tasks that require dealing with long sequences consisting of hundreds of thousands of tokens. However, they often fail on tasks that require repetitive use of simple rules, even on sequences that are much shorter than those seen during training. For example, state-of-the-art LLMs can find common items in two lists with up to 20 items but fail when lists have 80 items. In this paper, we introduce MLissard, a multilingual benchmark designed to evaluate models’ abilities to process and generate texts of varied lengths and offers a mechanism for controlling sequence complexity. Our evaluation of open-source and proprietary models show a consistent decline in performance across all models and languages as the complexity of the sequence increases. Surprisingly, the use of in-context examples in languages other than English helps increase extrapolation performance significantly.</abstract>
+      <url hash="feff4847">2024.genbench-1.6</url>
+      <bibkey>bueno-etal-2024-mlissard</bibkey>
+    </paper>
+    <paper id="7">
+      <title><fixed-case>M</fixed-case>ulti<fixed-case>P</fixed-case>rag<fixed-case>E</fixed-case>val: Multilingual Pragmatic Evaluation of Large Language Models</title>
+      <author><first>Dojun</first><last>Park</last><affiliation>Seoul National University</affiliation></author>
+      <author><first>Jiwoo</first><last>Lee</last><affiliation>NA</affiliation></author>
+      <author><first>Seohyun</first><last>Park</last><affiliation>NA</affiliation></author>
+      <author><first>Hyeyun</first><last>Jeong</last><affiliation>NA</affiliation></author>
+      <author><first>Youngeun</first><last>Koo</last><affiliation>NA</affiliation></author>
+      <author><first>Soonha</first><last>Hwang</last><affiliation>Yonsei University</affiliation></author>
+      <author><first>Seonwoo</first><last>Park</last><affiliation>NA</affiliation></author>
+      <author><first>Sungeun</first><last>Lee</last><affiliation>NA</affiliation></author>
+      <pages>96-119</pages>
+      <abstract>As the capabilities of Large Language Models (LLMs) expand, it becomes increasingly important to evaluate them beyond basic knowledge assessment, focusing on higher-level language understanding. This study introduces MultiPragEval, the first multilingual pragmatic evaluation of LLMs, designed for English, German, Korean, and Chinese. Comprising 1200 question units categorized according to Grice’s Cooperative Principle and its four conversational maxims, MultiPragEval enables an in-depth assessment of LLMs’ contextual awareness and their ability to infer implied meanings. Our findings demonstrate that Claude3-Opus significantly outperforms other models in all tested languages, establishing a state-of-the-art in the field. Among open-source models, Solar-10.7B and Qwen1.5-14B emerge as strong competitors. By analyzing pragmatic inference, we provide valuable insights into the capabilities essential for advanced language comprehension in AI systems.</abstract>
+      <url hash="30e88042">2024.genbench-1.7</url>
+      <bibkey>park-etal-2024-multiprageval</bibkey>
+    </paper>
+    <paper id="8">
+      <title>Beyond the Numbers: Transparency in Relation Extraction Benchmark Creation and Leaderboards</title>
+      <author><first>Varvara</first><last>Arzt</last></author>
+      <author><first>Allan</first><last>Hanbury</last><affiliation>Complexity Science Hub and Technische Universität Wien</affiliation></author>
+      <pages>120-130</pages>
+      <abstract>This paper investigates the transparency in the creation of benchmarks and the use of leaderboards for measuring progress in NLP, with a focus on the relation extraction (RE) task. Existing RE benchmarks often suffer from insufficient documentation, lacking crucial details such as data sources, inter-annotator agreement, the algorithms used for the selection of instances for datasets, and information on potential biases like dataset imbalance. Progress in RE is frequently measured by leaderboards that rank systems based on evaluation methods, typically limited to aggregate metrics like F1-score. However, the absence of detailed performance analysis beyond these metrics can obscure the true generalisation capabilities of models. Our analysis reveals that widely used RE benchmarks, such as TACRED and NYT, tend to be highly imbalanced and contain noisy labels. Moreover, the lack of class-based performance metrics fails to accurately reflect model performance across datasets with a large number of relation types. These limitations should be carefully considered when reporting progress in RE. While our discussion centers on the transparency of RE benchmarks and leaderboards, the observations we discuss are broadly applicable to other NLP tasks as well. Rather than undermining the significance and value of existing RE benchmarks and the development of new models, this paper advocates for improved documentation and more rigorous evaluation to advance the field.</abstract>
+      <url hash="50a9cc85">2024.genbench-1.8</url>
+      <bibkey>arzt-hanbury-2024-beyond</bibkey>
+    </paper>
+    <paper id="9">
+      <title>Is artificial intelligence still intelligence? <fixed-case>LLM</fixed-case>s generalize to novel adjective-noun pairs, but don’t mimic the full human distribution</title>
+      <author><first>Hayley</first><last>Ross</last><affiliation>Harvard University, Harvard University</affiliation></author>
+      <author><first>Kathryn</first><last>Davidson</last><affiliation>Harvard University</affiliation></author>
+      <author><first>Najoung</first><last>Kim</last><affiliation>Boston University and Google</affiliation></author>
+      <pages>131-153</pages>
+      <abstract>Inferences from adjective-noun combinations like “Is artificial intelligence still intelligence?” provide a good test bed for LLMs’ understanding of meaning and compositional generalization capability, since there are many combinations which are novel to both humans and LLMs but nevertheless elicit convergent human judgments. We study a range of LLMs and find that the largest models we tested are able to draw human-like inferences when the inference is determined by context and can generalize to unseen adjective-noun combinations. We also propose three methods to evaluate LLMs on these inferences out of context, where there is a distribution of human-like answers rather than a single correct answer. We find that LLMs show a human-like distribution on at most 75% of our dataset, which is promising but still leaves room for improvement.</abstract>
+      <url hash="efb202e2">2024.genbench-1.9</url>
+      <bibkey>ross-etal-2024-artificial</bibkey>
+    </paper>
+    <paper id="10">
+      <title><fixed-case>CHIE</fixed-case>: Generative <fixed-case>MRC</fixed-case> Evaluation for in-context <fixed-case>QA</fixed-case> with Correctness, Helpfulness, Irrelevancy, and Extraneousness Aspects</title>
+      <author><first>Wannaphong</first><last>Phatthiyaphaibun</last><affiliation>Vidyasirimedhi Institute of Science and Technology</affiliation></author>
+      <author><first>Surapon</first><last>Nonesung</last><affiliation>SCB 10X</affiliation></author>
+      <author><first>Peerat</first><last>Limkonchotiwat</last><affiliation>AI Singapore</affiliation></author>
+      <author><first>Can</first><last>Udomcharoenchaikit</last><affiliation>Vidyasirimedhi Institute of Science and Technology (VISTEC)</affiliation></author>
+      <author><first>Jitkapat</first><last>Sawatphol</last></author>
+      <author><first>Ekapol</first><last>Chuangsuwanich</last><affiliation>Chulalongkorn University</affiliation></author>
+      <author><first>Sarana</first><last>Nutanong</last></author>
+      <pages>154-164</pages>
+      <abstract>The evaluation of generative models in Machine Reading Comprehension (MRC) presents distinct difficulties, as traditional metrics like BLEU, ROUGE, METEOR, Exact Match, and F1 score often struggle to capture the nuanced and diverse responses. While embedding-based metrics such as BERTScore and BARTScore focus on semantic similarity, they still fail to fully address aspects such as recognizing additional helpful information and rewarding contextual faithfulness. Recent advances in large language model (LLM) based metrics offer more fine-grained evaluations, but challenges such as score clustering remain. This paper introduces a multi-aspect evaluation framework, CHIE,incorporating aspects of <b>C</b>orrectness, <b>H</b>elpfulness, <b>I</b>rrelevance, and <b>E</b>xtraneousness. Our approach, which uses binary categorical values rather than continuous rating scales, aligns well with human judgments, indicating its potential as a comprehensive and effective evaluation method.</abstract>
+      <url hash="2509b060">2024.genbench-1.10</url>
+      <bibkey>phatthiyaphaibun-etal-2024-chie</bibkey>
+    </paper>
+    <paper id="11">
+      <title>Investigating the Generalizability of Pretrained Language Models across Multiple Dimensions: A Case Study of <fixed-case>NLI</fixed-case> and <fixed-case>MRC</fixed-case></title>
+      <author><first>Ritam</first><last>Dutt</last><affiliation>Carnegie Mellon University</affiliation></author>
+      <author><first>Sagnik Ray</first><last>Choudhury</last><affiliation>National Board of Medical Examiners</affiliation></author>
+      <author><first>Varun Venkat</first><last>Rao</last></author>
+      <author><first>Carolyn</first><last>Rose</last><affiliation>School of Computer Science, Carnegie Mellon University</affiliation></author>
+      <author><first>V.G.Vinod</first><last>Vydiswaran</last><affiliation>University of Michigan - Ann Arbor</affiliation></author>
+      <pages>165-182</pages>
+      <abstract>Generalization refers to the ability of machine learning models to perform well on dataset distributions different from the one it was trained on. While several pre-existing works have characterized the generalizability of NLP models across different dimensions, such as domain shift, adversarial perturbations, or compositional variations, most studies were carried out in a stand-alone setting, emphasizing a single dimension of interest. We bridge this gap by systematically investigating the generalizability of pre-trained language models across different architectures, sizes, and training strategies, over multiple dimensions for the task of natural language inference and question answering. Our results indicate that model instances typically exhibit consistent generalization trends, i.e., they generalize equally well (or poorly) across most scenarios, and this ability is correlated with model architecture, base dataset performance, size, and training mechanism. We hope this research motivates further work in a) developing a multi-dimensional generalization benchmark for systematic evaluation and b) examining the reasons behind models’ generalization abilities. The code and data are available at https://github.com/sagnik/md-gen-nlp, and the trained models are released at https://huggingface.co/varun-v-rao.</abstract>
+      <url hash="684866b1">2024.genbench-1.11</url>
+      <bibkey>dutt-etal-2024-investigating</bibkey>
+    </paper>
+    <paper id="12">
+      <title><fixed-case>O</fixed-case>mni<fixed-case>D</fixed-case>ialog: A Multimodal Benchmark for Generalization Across Text, Visual, and Audio Modalities</title>
+      <author><first>Anton</first><last>Razzhigaev</last></author>
+      <author><first>Maxim</first><last>Kurkin</last><affiliation>Skolkovo Institute of Science and Technology and Artificial Intelligence Research Institute</affiliation></author>
+      <author><first>Elizaveta</first><last>Goncharova</last><affiliation>Higher School of Economics</affiliation></author>
+      <author><first>Irina</first><last>Abdullaeva</last></author>
+      <author><first>Anastasia</first><last>Lysenko</last></author>
+      <author><first>Alexander</first><last>Panchenko</last><affiliation>Skoltech</affiliation></author>
+      <author><first>Andrey</first><last>Kuznetsov</last><affiliation>AIRI, Sber and Samara National Research University</affiliation></author>
+      <author><first>Denis</first><last>Dimitrov</last><affiliation>AIRI and Sber</affiliation></author>
+      <pages>183-195</pages>
+      <abstract>We introduce <tex-math>\textit{OmniDialog}</tex-math> — the first trimodal comprehensive benchmark grounded in a knowledge graph (Wikidata) to evaluate the generalization of Large Multimodal Models (LMMs) across three modalities. Our benchmark consists of more than 4,000 dialogues, each averaging 10 turns, all annotated and cross-validated by human experts. The dialogues in our dataset are designed to prevent shortcut learning by incorporating various formats and misleading or irrelevant multimodal cues. We also evaluate both multimodal and unimodal models to gain insights into how they process modality inputs introduced in the conversation.</abstract>
+      <url hash="83c14ef2">2024.genbench-1.12</url>
+      <bibkey>razzhigaev-etal-2024-omnidialog</bibkey>
+    </paper>
+    <paper id="13">
+      <title>Towards a new Benchmark for Emotion Detection in <fixed-case>NLP</fixed-case>: A Unifying Framework of Recent Corpora</title>
+      <author><first>Anna</first><last>Koufakou</last><affiliation>Florida Gulf Coast University</affiliation></author>
+      <author><first>Elijah</first><last>Nieves</last><affiliation>NA</affiliation></author>
+      <author><first>John</first><last>Peller</last><affiliation>NA</affiliation></author>
+      <pages>196-206</pages>
+      <abstract>Emotion recognition in text is a complex and evolving field that has garnered considerable interest. This paper addresses the pressing need to explore and experiment with new corpora annotated with emotions. We identified several corpora presented since 2018. We restricted this study to English single-labeled data. Nevertheless, the datasets vary in source, domain, topic, emotion types, and distributions. As a basis for benchmarking, we conducted emotion detection experiments by fine-tuning a pretrained model and compared our outcomes with results from the original publications. More importantly, in our efforts to combine existing resources, we created a unified corpus from these diverse datasets and evaluated the impact of training on that corpus versus on the training set for each corpus. Our approach aims to streamline research by offering a unified platform for emotion detection to aid comparisons and benchmarking, addressing a significant gap in the current landscape. Additionally, we present a discussion of related practices and challenges. Our code and dataset information are available at https://github.com/a-koufakou/EmoDetect-Unify. We hope this will enable the NLP community to leverage this unified framework towards a new benchmark in emotion detection.</abstract>
+      <url hash="658db773">2024.genbench-1.13</url>
+      <bibkey>koufakou-etal-2024-towards</bibkey>
+    </paper>
+  </volume>
+</collection>
