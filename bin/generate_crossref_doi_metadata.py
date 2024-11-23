@@ -278,11 +278,10 @@ def main(volumes):
                     elif name_part.tag == "last":
                         make_simple_element("surname", text=name_part.text, parent=pn)
 
-            for title in paper.iter(tag="title"):
-                o_titles = make_simple_element("titles", parent=cp)
-                make_simple_element(
-                    "title", parent=o_titles, text=formatter.as_text(title)
-                )
+            title = paper.find("./title")
+            title_text = formatter.as_text(title) if title is not None else "Front Matter"
+            o_titles = make_simple_element("titles", parent=cp)
+            make_simple_element("title", parent=o_titles, text=title_text)
 
             pd = make_simple_element("publication_date", parent=cp)
             o_year = make_simple_element("year", parent=pd)
