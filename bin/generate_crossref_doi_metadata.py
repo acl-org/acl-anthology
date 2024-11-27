@@ -28,6 +28,13 @@ the ACL $1 USD.
 See also https://github.com/acl-org/acl-anthology/wiki/DOI
 
 Usage: python3 generate_crossref_doi_metadata.py <list of volume IDs>
+
+It's best to use this with the get_volumes_for_event.py script, which takes an
+XML file and returns all volumes and colocated workshops found within it.
+This is perfect
+
+    python3 generate_crossref_doi_metadata.py $(bin/get_volumes_for_event.py data/xml/2024.emnlp.xml)
+
 e.g.,
 
     python3 generate_crossref_doi_metadata.py P19-1 P19-2 P19-3 P19-4 > acl2019_dois.xml

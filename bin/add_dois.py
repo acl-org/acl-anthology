@@ -24,6 +24,11 @@ Usage:
 
     add_dois.py [list of volume IDs]
 
+The best way to use it is with a script that adds all associated volumes
+for an event, including main conference and workshop volumes:
+
+    add_dois.py $(get_volumes_for_event.py data/xml/2024.emnlp.xml)
+
 e.g.,
 
     python3 add_dois.py P19-1 P19-2 P19-3 P19-4 W19-32
