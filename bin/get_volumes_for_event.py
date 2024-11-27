@@ -8,14 +8,8 @@ a list of all volumes associated with an event.
 
 import lxml.etree as ET
 
-if __name__ == '__main__':
-    import argparse
 
-    parser = argparse.ArgumentParser()
-    parser.add_argument('xml_file', help='XML file to process')
-    args = parser.parse_args()
-
-    xml_file = args.xml_file
+def get_volumes(xml_file):
     tree = ET.parse(xml_file)
     root = tree.getroot()
 
@@ -34,4 +28,14 @@ if __name__ == '__main__':
             for volume in colocated.findall("volume-id"):
                 volumes.append(volume.text)
 
-    print(" ".join(sorted(volumes)))
+    return volumes
+
+
+if __name__ == '__main__':
+    import argparse
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument('xml_file', help='XML file to process')
+    args = parser.parse_args()
+
+    print(" ".join(get_volumes(args.xml_file)))
