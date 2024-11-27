@@ -42,7 +42,6 @@ Limitations:
 - This script does not inject the DOI data into the Anthology XML.
   For this, use `bin/add_dois.py <list of volume IDs>`.
 - Doesn't properly handle existing ISBN information.
-- Doesn't currently submit the frontmatter.
 
 Tested:
 - against 2018 workshop and conference data (working)
@@ -225,9 +224,18 @@ def main(volumes):
             "resource", parent=dd, text=CANONICAL_URL_TEMPLATE.format(full_volume_id)
         )
 
-        for paper in v.findall("./paper"):
-            ## Individual Paper Data
-            paper_id = paper.attrib["id"]
+        artifacts = v.findall("./frontmatter") + v.findall("./paper")
+        for paper in artifacts:  # v.findall("./paper"):
+            paper_type = paper.tag
+            ## Individual Paper and Frontmatter Data
+            if paper_type == "frontmatter":
+                paper_id = "0"
+            elif paper_type == "paper":
+                paper_id = paper.attrib["id"]
+            else:
+                print(f"* Skipping unknown artifact {paper.tag}", file=sys.stderr)
+                continue
+
             if paper.find("./url") is not None:
                 url = paper.find("./url").text
             else:
@@ -243,7 +251,13 @@ def main(volumes):
             # contributors
             contribs = make_simple_element("contributors", parent=cp)
             author_index = 0
-            for author in paper.findall("./author"):
+            if paper_type == "paper":
+                contributor_list = paper.findall("./author")
+            elif paper_type == "frontmatter":
+                # Frontmatter's contributors are the editors
+                contributor_list = meta.findall("./editor")
+
+            for author in contributor_list:
                 pn = make_simple_element(
                     "person_name",
                     parent=contribs,
@@ -264,11 +278,10 @@ def main(volumes):
                     elif name_part.tag == "last":
                         make_simple_element("surname", text=name_part.text, parent=pn)
 
-            for title in paper.iter(tag="title"):
-                o_titles = make_simple_element("titles", parent=cp)
-                make_simple_element(
-                    "title", parent=o_titles, text=formatter.as_text(title)
-                )
+            title = paper.find("./title")
+            title_text = formatter.as_text(title) if title is not None else "Front Matter"
+            o_titles = make_simple_element("titles", parent=cp)
+            make_simple_element("title", parent=o_titles, text=title_text)
 
             pd = make_simple_element("publication_date", parent=cp)
             o_year = make_simple_element("year", parent=pd)
