@@ -238,12 +238,137 @@
     </paper>
     <paper id="10">
       <title>The Pitfalls of Defining Hallucination</title>
-      <author><first>Kees van</first><last>Deemter</last></author>
+      <author><first>Kees</first><last>van Deemter</last></author>
       <doi>10.1162/coli_a_00509</doi>
       <abstract>Despite impressive advances in Natural Language Generation (NLG) and Large Language Models (LLMs), researchers are still unclear about important aspects of NLG evaluation. To substantiate this claim, I examine current classifications of hallucination and omission in data-text NLG, and I propose a logic-based synthesis of these classfications. I conclude by highlighting some remaining limitations of all current thinking about hallucination and by discussing implications for LLMs.</abstract>
       <pages>807–816</pages>
       <url hash="1638361a">2024.cl-2.10</url>
       <bibkey>deemter-2024-pitfalls</bibkey>
+    </paper>
+  </volume>
+  <volume id="3" type="journal">
+    <meta>
+      <booktitle>Computational Linguistics, Volume 50, Issue 3 - September 2024</booktitle>
+      <publisher>MIT Press</publisher>
+      <address>Cambridge, MA</address>
+      <month>September</month>
+      <year>2024</year>
+      <venue>cl</venue>
+      <journal-volume>50</journal-volume>
+      <journal-issue>3</journal-issue>
+    </meta>
+    <paper id="1">
+      <title>Analyzing Dataset Annotation Quality Management in the Wild</title>
+      <author><first>Jan-Christoph</first><last>Klie</last></author>
+      <author><first>Richard</first><last>Eckart de Castilho</last></author>
+      <author><first>Iryna</first><last>Gurevych</last></author>
+      <doi>10.1162/coli_a_00516</doi>
+      <abstract>Data quality is crucial for training accurate, unbiased, and trustworthy machine learning models as well as for their correct evaluation. Recent work, however, has shown that even popular datasets used to train and evaluate state-of-the-art models contain a non-negligible amount of erroneous annotations, biases, or artifacts. While practices and guidelines regarding dataset creation projects exist, to our knowledge, large-scale analysis has yet to be performed on how quality management is conducted when creating natural language datasets and whether these recommendations are followed. Therefore, we first survey and summarize recommended quality management practices for dataset creation as described in the literature and provide suggestions for applying them. Then, we compile a corpus of 591 scientific publications introducing text datasets and annotate it for quality-related aspects, such as annotator management, agreement, adjudication, or data validation. Using these annotations, we then analyze how quality management is conducted in practice. A majority of the annotated publications apply good or excellent quality management. However, we deem the effort of 30% of the studies as only subpar. Our analysis also shows common errors, especially when using inter-annotator agreement and computing annotation error rates.</abstract>
+      <pages>817–866</pages>
+      <url hash="4d72b557">2024.cl-3.1</url>
+      <bibkey>klie-etal-2024-analyzing</bibkey>
+    </paper>
+    <paper id="2">
+      <title><fixed-case>LLM</fixed-case>-Assisted Data Augmentation for <fixed-case>C</fixed-case>hinese Dialogue-Level Dependency Parsing</title>
+      <author><first>Meishan</first><last>Zhang</last></author>
+      <author><first>Gongyao</first><last>Jiang</last></author>
+      <author><first>Shuang</first><last>Liu</last></author>
+      <author><first>Jing</first><last>Chen</last></author>
+      <author><first>Min</first><last>Zhang</last></author>
+      <doi>10.1162/coli_a_00515</doi>
+      <abstract>Dialogue-level dependency parsing, despite its growing academic interest, often encounters underperformance issues due to resource shortages. A potential solution to this challenge is data augmentation. In recent years, large language models (LLMs) have demonstrated strong capabilities in generation, which can facilitate data augmentation greatly. In this study, we focus on Chinese dialogue-level dependency parsing, presenting three simple and effective strategies with LLM to augment the original training instances, namely word-level, syntax-level, and discourse-level augmentations, respectively. These strategies enable LLMs to either preserve or modify dependency structures, thereby assuring accuracy while increasing the diversity of instances at different levels. We conduct experiments on the benchmark dataset released by Jiang et al. (2023) to validate our approach. Results show that our method can greatly boost the parsing performance in various settings, particularly in dependencies among elementary discourse units. Lastly, we provide in-depth analysis to show the key points of our data augmentation strategies.</abstract>
+      <pages>867–891</pages>
+      <url hash="49ab2050">2024.cl-3.2</url>
+      <bibkey>zhang-etal-2024-llm-assisted</bibkey>
+    </paper>
+    <paper id="3">
+      <title>Aligning Human and Computational Coherence Evaluations</title>
+      <author><first>Jia Peng</first><last>Lim</last></author>
+      <author><first>Hady W.</first><last>Lauw</last></author>
+      <doi>10.1162/coli_a_00518</doi>
+      <abstract>Automated coherence metrics constitute an efficient and popular way to evaluate topic models. Previous work presents a mixed picture of their presumed correlation with human judgment. This work proposes a novel sampling approach to mining topic representations at a large scale while seeking to mitigate bias from sampling, enabling the investigation of widely used automated coherence metrics via large corpora. Additionally, this article proposes a novel user study design, an amalgamation of different proxy tasks, to derive a finer insight into the human decision-making processes. This design subsumes the purpose of simple rating and outlier-detection user studies. Similar to the sampling approach, the user study conducted is extensive, comprising 40 study participants split into eight different study groups tasked with evaluating their respective set of 100 topic representations. Usually, when substantiating the use of these metrics, human responses are treated as the gold standard. This article further investigates the reliability of human judgment by flipping the comparison and conducting a novel extended analysis of human response at the group and individual level against a generic corpus. The investigation results show a moderate to good correlation between these metrics and human judgment, especially for generic corpora, and derive further insights into the human perception of coherence. Analyzing inter-metric correlations across corpora shows moderate to good correlation among these metrics. As these metrics depend on corpus statistics, this article further investigates the topical differences between corpora, revealing nuances in applications of these metrics.</abstract>
+      <pages>893–952</pages>
+      <url hash="5e57cfa7">2024.cl-3.3</url>
+      <bibkey>lim-lauw-2024-aligning</bibkey>
+    </paper>
+    <paper id="4">
+      <title>Relation Extraction in Underexplored Biomedical Domains: A Diversity-optimized Sampling and Synthetic Data Generation Approach</title>
+      <author><first>Maxime</first><last>Delmas</last></author>
+      <author><first>Magdalena</first><last>Wysocka</last></author>
+      <author><first>André</first><last>Freitas</last></author>
+      <doi>10.1162/coli_a_00520</doi>
+      <abstract>The sparsity of labeled data is an obstacle to the development of Relation Extraction (RE) models and the completion of databases in various biomedical areas. While being of high interest in drug-discovery, the literature on natural products, reporting the identification of potential bioactive compounds from organisms, is a concrete example of such an overlooked topic. To mark the start of this new task, we created the first curated evaluation dataset and extracted literature items from the LOTUS database to build training sets. To this end, we developed a new sampler, inspired by diversity metrics in ecology, named Greedy Maximum Entropy sampler (https://github.com/idiap/gme-sampler). The strategic optimization of both balance and diversity of the selected items in the evaluation set is important given the resource-intensive nature of manual curation. After quantifying the noise in the training set, in the form of discrepancies between the text of input abstracts and the expected output labels, we explored different strategies accordingly. Framing the task as an end-to-end Relation Extraction, we evaluated the performance of standard fine-tuning (BioGPT, GPT-2, and Seq2rel) and few-shot learning with open Large Language Models (LLMs) (LLaMA 7B-65B). In addition to their evaluation in few-shot settings, we explore the potential of open LLMs as synthetic data generators and propose a new workflow for this purpose. All evaluated models exhibited substantial improvements when fine-tuned on synthetic abstracts rather than the original noisy data. We provide our best performing (F1-score = 59.0) BioGPT-Large model for end-to-end RE of natural products relationships along with all the training and evaluation datasets. See more details at https://github.com/idiap/abroad-re.</abstract>
+      <pages>953–1000</pages>
+      <url hash="9ce3cb73">2024.cl-3.4</url>
+      <bibkey>delmas-etal-2024-relation</bibkey>
+    </paper>
+    <paper id="5">
+      <title>Cross-lingual Cross-temporal Summarization: Dataset, Models, Evaluation</title>
+      <author><first>Ran</first><last>Zhang</last></author>
+      <author><first>Jihed</first><last>Ouni</last></author>
+      <author><first>Steffen</first><last>Eger</last></author>
+      <doi>10.1162/coli_a_00519</doi>
+      <abstract>While summarization has been extensively researched in natural language processing (NLP), cross-lingual cross-temporal summarization (CLCTS) is a largely unexplored area that has the potential to improve cross-cultural accessibility and understanding. This article comprehensively addresses the CLCTS task, including dataset creation, modeling, and evaluation. We (1) build the first CLCTS corpus with 328 instances for hDe-En (extended version with 455 instances) and 289 for hEn-De (extended version with 501 instances), leveraging historical fiction texts and Wikipedia summaries in English and German; (2) examine the effectiveness of popular transformer end-to-end models with different intermediate fine-tuning tasks; (3) explore the potential of GPT-3.5 as a summarizer; and (4) report evaluations from humans, GPT-4, and several recent automatic evaluation metrics. Our results indicate that intermediate task fine-tuned end-to-end models generate bad to moderate quality summaries while GPT-3.5, as a zero-shot summarizer, provides moderate to good quality outputs. GPT-3.5 also seems very adept at normalizing historical text. To assess data contamination in GPT-3.5, we design an adversarial attack scheme in which we find that GPT-3.5 performs slightly worse for unseen source documents compared to seen documents. Moreover, it sometimes hallucinates when the source sentences are inverted against its prior knowledge with a summarization accuracy of 0.67 for plot omission, 0.71 for entity swap, and 0.53 for plot negation. Overall, our regression results of model performances suggest that longer, older, and more complex source texts (all of which are more characteristic for historical language variants) are harder to summarize for all models, indicating the difficulty of the CLCTS task. Regarding evaluation, we observe that both the GPT-4 and BERTScore correlate moderately with human evaluations, implicating great potential for future improvement.</abstract>
+      <pages>1001–1047</pages>
+      <url hash="a4690640">2024.cl-3.5</url>
+      <bibkey>zhang-etal-2024-cross</bibkey>
+    </paper>
+    <paper id="6">
+      <title>Cognitive Plausibility in Natural Language Processing</title>
+      <author><first>Yevgen</first><last>Matusevych</last></author>
+      <doi>10.1162/coli_r_00517</doi>
+      <pages>1049–1052</pages>
+      <url hash="f2fbdf46">2024.cl-3.6</url>
+      <bibkey>matusevych-2024-cognitive</bibkey>
+    </paper>
+    <paper id="7">
+      <title>Large Language Model Instruction Following: A Survey of Progresses and Challenges</title>
+      <author><first>Renze</first><last>Lou</last></author>
+      <author><first>Kai</first><last>Zhang</last></author>
+      <author><first>Wenpeng</first><last>Yin</last></author>
+      <doi>10.1162/coli_a_00523</doi>
+      <abstract>Task semantics can be expressed by a set of input-output examples or a piece of textual instruction. Conventional machine learning approaches for natural language processing (NLP) mainly rely on the availability of large-scale sets of task-specific examples. Two issues arise: First, collecting task-specific labeled examples does not apply to scenarios where tasks may be too complicated or costly to annotate, or the system is required to handle a new task immediately; second, this is not user-friendly since end-users are probably more willing to provide task description rather than a set of examples before using the system. Therefore, the community is paying increasing interest in a new supervision-seeking paradigm for NLP: learning to follow task instructions, that is, instruction following. Despite its impressive progress, there are some unsolved research equations that the community struggles with. This survey tries to summarize and provide insights into the current research on instruction following, particularly, by answering the following questions: (i) What is task instruction, and what instruction types exist? (ii) How should we model instructions? (iii) What are popular instruction following datasets and evaluation metrics? (iv) What factors influence and explain the instructions’ performance? (v) What challenges remain in instruction following? To our knowledge, this is the first comprehensive survey about instruction following.1</abstract>
+      <pages>1053–1095</pages>
+      <url hash="f3e80b64">2024.cl-3.7</url>
+      <bibkey>lou-etal-2024-large</bibkey>
+    </paper>
+    <paper id="8">
+      <title>Bias and Fairness in Large Language Models: A Survey</title>
+      <author><first>Isabel O.</first><last>Gallegos</last></author>
+      <author><first>Ryan A.</first><last>Rossi</last></author>
+      <author><first>Joe</first><last>Barrow</last></author>
+      <author><first>Md Mehrab</first><last>Tanjim</last></author>
+      <author><first>Sungchul</first><last>Kim</last></author>
+      <author><first>Franck</first><last>Dernoncourt</last></author>
+      <author><first>Tong</first><last>Yu</last></author>
+      <author><first>Ruiyi</first><last>Zhang</last></author>
+      <author><first>Nesreen K.</first><last>Ahmed</last></author>
+      <doi>10.1162/coli_a_00524</doi>
+      <abstract>Rapid advancements of large language models (LLMs) have enabled the processing, understanding, and generation of human-like text, with increasing integration into systems that touch our social sphere. Despite this success, these models can learn, perpetuate, and amplify harmful social biases. In this article, we present a comprehensive survey of bias evaluation and mitigation techniques for LLMs. We first consolidate, formalize, and expand notions of social bias and fairness in natural language processing, defining distinct facets of harm and introducing several desiderata to operationalize fairness for LLMs. We then unify the literature by proposing three intuitive taxonomies, two for bias evaluation, namely, metrics and datasets, and one for mitigation. Our first taxonomy of metrics for bias evaluation disambiguates the relationship between metrics and evaluation datasets, and organizes metrics by the different levels at which they operate in a model: embeddings, probabilities, and generated text. Our second taxonomy of datasets for bias evaluation categorizes datasets by their structure as counterfactual inputs or prompts, and identifies the targeted harms and social groups; we also release a consolidation of publicly available datasets for improved access. Our third taxonomy of techniques for bias mitigation classifies methods by their intervention during pre-processing, in-training, intra-processing, and post-processing, with granular subcategories that elucidate research trends. Finally, we identify open problems and challenges for future work. Synthesizing a wide range of recent research, we aim to provide a clear guide of the existing literature that empowers researchers and practitioners to better understand and prevent the propagation of bias in LLMs.</abstract>
+      <pages>1097–1179</pages>
+      <url hash="687f3ad2">2024.cl-3.8</url>
+      <bibkey>gallegos-etal-2024-bias</bibkey>
+    </paper>
+    <paper id="10">
+      <title>A Novel Alignment-based Approach for <fixed-case>PARSEVAL</fixed-case> Measuress</title>
+      <author><first>Eunkyul Leah</first><last>Jo</last></author>
+      <author><first>Angela Yoonseo</first><last>Park</last></author>
+      <author><first>Jungyeul</first><last>Park</last></author>
+      <doi>10.1162/coli_a_00512</doi>
+      <abstract>We propose a novel method for calculating PARSEVAL measures to evaluate constituent parsing results. Previous constituent parsing evaluation techniques were constrained by the requirement for consistent sentence boundaries and tokenization results, proving to be stringent and inconvenient. Our new approach handles constituent parsing results obtained from raw text, even when sentence boundaries and tokenization differ from the preprocessed gold sentence. Implementing this measure is our evaluation by alignment approach. The algorithm enables the alignment of tokens and sentences in the gold and system parse trees. Our proposed algorithm draws on the analogy of sentence and word alignment commonly used in machine translation (MT). To demonstrate the intricacy of calculations and clarify any integration of configurations, we explain the implementations in detailed pseudo-code and provide empirical proof for how sentence and word alignment can improve evaluation reliability.</abstract>
+      <pages>1181–1190</pages>
+      <url hash="658565b0">2024.cl-3.10</url>
+      <bibkey>jo-etal-2024-novel</bibkey>
+    </paper>
+    <paper id="12">
+      <title>Do Language Models’ Words Refer?</title>
+      <author><first>Matthew</first><last>Mandelkern</last></author>
+      <author><first>Tal</first><last>Linzen</last></author>
+      <doi>10.1162/coli_a_00522</doi>
+      <abstract>What do language models (LMs) do with language? They can produce sequences of (mostly) coherent strings closely resembling English. But do those sentences mean something, or are LMs simply babbling in a convincing simulacrum of language use? We address one aspect of this broad question: whether LMs’ words can refer, that is, achieve “word-to-world” connections. There is prima facie reason to think they do not, since LMs do not interact with the world in the way that ordinary language users do. Drawing on the externalist tradition in philosophy of language, we argue that those appearances are misleading: Even if the inputs to LMs are simply strings of text, they are strings of text with natural histories, and that may suffice for LMs’ words to refer.</abstract>
+      <pages>1191–1200</pages>
+      <url hash="b83cf24c">2024.cl-3.12</url>
+      <bibkey>mandelkern-linzen-2024-language</bibkey>
     </paper>
   </volume>
 </collection>

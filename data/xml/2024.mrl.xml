@@ -1,0 +1,365 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2024.mrl">
+  <volume id="1" ingest-date="2024-11-05" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of the Fourth Workshop on Multilingual Representation Learning (MRL 2024)</booktitle>
+      <editor><first>Jonne</first><last>Sälevä</last></editor>
+      <editor><first>Abraham</first><last>Owodunni</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Miami, Florida, USA</address>
+      <month>November</month>
+      <year>2024</year>
+      <url hash="f2d55793">2024.mrl-1</url>
+      <venue>mrl</venue>
+    </meta>
+    <frontmatter>
+      <url hash="951799a0">2024.mrl-1.0</url>
+      <bibkey>mrl-2024-1</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title><fixed-case>S</fixed-case>amba<fixed-case>L</fixed-case>ingo: Teaching Large Language Models New Languages</title>
+      <author><first>Zoltan</first><last>Csaki</last><affiliation>Sambanova Systems</affiliation></author>
+      <author id="bo-li"><first>Bo</first><last>Li</last></author>
+      <author><first>Jonathan Lingjie</first><last>Li</last></author>
+      <author><first>Qiantong</first><last>Xu</last><affiliation>Sambanova Systems</affiliation></author>
+      <author><first>Pian</first><last>Pawakapan</last></author>
+      <author><first>Leon</first><last>Zhang</last><affiliation>Sambanova Systems</affiliation></author>
+      <author><first>Yun</first><last>Du</last><affiliation>Sambanova Systems</affiliation></author>
+      <author><first>Hengyu</first><last>Zhao</last><affiliation>Sambanova Systems</affiliation></author>
+      <author><first>Changran</first><last>Hu</last><affiliation>Sambanova Systems, Inc</affiliation></author>
+      <author><first>Urmish</first><last>Thakker</last><affiliation>SambaNova Systems</affiliation></author>
+      <pages>1-21</pages>
+      <abstract>Despite the widespread availability of LLMs, there remains a substantial gap in their capabilities and availability across diverse languages. One approach to address these issues has been to take an existing pre-trained LLM and continue to train it on new languages. While prior works have experimented with language adaptation, many questions around best practices and methodology have not been covered. In this paper, we present a comprehensive investigation into the adaptation of LLMs to new languages. Our study covers the key components in this process, including vocabulary extension, direct preference optimization and the data scarcity problem for human alignment in low resource languages. We scale these experiments across 9 languages and 2 parameter scales (7B and 70B). We compare our models against Llama 2, Aya-101, XGLM, BLOOM and existing language experts, outperforming all prior published baselines. Additionally, all evaluation code and checkpoints are made public to facilitate future research.</abstract>
+      <url hash="e7d9365c">2024.mrl-1.1</url>
+      <bibkey>csaki-etal-2024-sambalingo</bibkey>
+    </paper>
+    <paper id="2">
+      <title>What an Elegant Bridge: Multilingual <fixed-case>LLM</fixed-case>s are Biased Similarly in Different Languages</title>
+      <author><first>Viktor</first><last>Mihaylov</last></author>
+      <author><first>Aleksandar</first><last>Shtedritski</last></author>
+      <pages>22-29</pages>
+      <abstract>This paper investigates biases of Large Language Models (LLMs) through the lens of grammatical gender. Drawing inspiration from seminal works in psycholinguistics, particularly the study of gender’s influence on language perception, we leverage multilingual LLMs to revisit and expand upon the foundational experiments of Boroditsky (2003). Employing LLMs as a novel method for examining psycholinguistic biases related to grammatical gender, we prompt a model to describe nouns with adjectives in various languages, focusing specifically on languages with grammatical gender. In particular, we look at adjective co-occurrences across gender and languages, and train a binary classifier to predict grammatical gender given adjectives an LLM uses to describe a noun. Surprisingly, we find that a simple classifier can not only predict noun gender above chance but also exhibit cross-language transferability. We show that while LLMs may describe words differently in different languages, they are biased similarly.</abstract>
+      <url hash="f276a732">2024.mrl-1.2</url>
+      <bibkey>mihaylov-shtedritski-2024-elegant-bridge</bibkey>
+    </paper>
+    <paper id="3">
+      <title>Adapting Open-Source Generative Large Language Models for Low-Resource Languages: A Case Study for <fixed-case>T</fixed-case>urkish</title>
+      <author><first>Cagri</first><last>Toraman</last><affiliation>METU, Middle East Technical University</affiliation></author>
+      <pages>30-44</pages>
+      <abstract>Despite advancements in English-dominant generative large language models, further development is needed for low-resource languages to enhance global accessibility. The primary methods for representing these languages are monolingual and multilingual pretraining. Monolingual pretraining is expensive due to hardware requirements, and multilingual models often have uneven performance across languages. This study explores an alternative solution by adapting large language models, primarily trained on English, to low-resource languages. We assess various strategies, including continual training, instruction fine-tuning, task-specific fine-tuning, and vocabulary extension. The results show that continual training improves language comprehension, as reflected in perplexity scores, and task-specific tuning generally enhances performance of downstream tasks. However, extending the vocabulary shows no substantial benefits. Additionally, while larger models improve task performance with few-shot tuning, multilingual models perform worse than their monolingual counterparts when adapted.</abstract>
+      <url hash="940e79f1">2024.mrl-1.3</url>
+      <bibkey>toraman-2024-adapting</bibkey>
+    </paper>
+    <paper id="4">
+      <title>An Efficient Approach for Studying Cross-Lingual Transfer in Multilingual Language Models</title>
+      <author><first>Fahim</first><last>Faisal</last><affiliation>, George Mason University</affiliation></author>
+      <author><first>Antonios</first><last>Anastasopoulos</last><affiliation>Athena Research Center and George Mason University</affiliation></author>
+      <pages>45-92</pages>
+      <abstract>The capacity and effectiveness of pre-trained multilingual models (MLMs) for zero-shot cross-lingual transfer is well established. However, phenomena of positive or negative transfer, and the effect of language choice still need to be fully understood, especially in the complex setting of massively multilingual LMs. We propose an <i>efficient</i> method to study transfer language influence in zero-shot performance on another target language. Unlike previous work, our approach <i>disentangles downstream tasks from language</i>, using dedicated adapter units. Our findings suggest that some languages do not largely affect others, while some languages, especially ones unseen during pre-training, can be extremely beneficial or detrimental for different target languages. We find that no transfer language is beneficial for all target languages. We do, curiously, observe languages previously unseen by MLMs consistently benefit from transfer from <i>almost any</i> language. We additionally use our modular approach to quantify negative interference efficiently and categorize languages accordingly. Furthermore, we provide a list of promising transfer-target language configurations that consistently lead to target language performance improvements.</abstract>
+      <url hash="27eca014">2024.mrl-1.4</url>
+      <bibkey>faisal-anastasopoulos-2024-efficient</bibkey>
+    </paper>
+    <paper id="5">
+      <title>Are You Sure? Rank Them Again: Repeated Ranking For Better Preference Datasets</title>
+      <author><first>Peter</first><last>Devine</last></author>
+      <pages>93-105</pages>
+      <abstract>Training Large Language Models (LLMs) with Reinforcement Learning from AI Feedback (RLAIF) aligns model outputs more closely with human preferences. This involves an evaluator model ranking multiple candidate responses to user prompts. However, the rankings from popular evaluator models such as GPT-4 can be inconsistent.We propose the Repeat Ranking method, in which we evaluate the same responses multiple times and train only on those responses which are consistently ranked. Using 2,714 training prompts in 62 languages, we generated responses from 7 top multilingual LLMs and had GPT-4 rank them five times each. Evaluating on MT-Bench chat benchmarks in six languages, our method outperformed the standard practice of training on all available prompts.Our work highlights the quality versus quantity trade-off in RLAIF dataset generation and offers a stackable strategy for enhancing dataset and thus model quality.</abstract>
+      <url hash="96892825">2024.mrl-1.5</url>
+      <bibkey>devine-2024-sure</bibkey>
+    </paper>
+    <paper id="6">
+      <title>Tagengo: A Multilingual Chat Dataset</title>
+      <author><first>Peter</first><last>Devine</last></author>
+      <pages>106-113</pages>
+      <abstract>Open source large language models (LLMs) have shown great improvements in recent times. However, many of these models are focused solely on popular spoken languages. We present a high quality dataset of more than 70k prompt-response pairs in 74 languages which consist of human generated prompts and synthetic responses. We use this dataset to train a state-of-the-art open source English LLM to chat multilingually.We evaluate our model on MT-Bench chat benchmarks in 6 languages, finding that our multilingual model outperforms previous state-of-the-art open source LLMs across each language. We further find that training on more multilingual data is beneficial to the performance in a chosen target language (Japanese) compared to simply training on only data in that language.These results indicate the necessity of training on large amounts of high quality multilingual data to make a more accessible LLM.</abstract>
+      <url hash="c4d19d45">2024.mrl-1.6</url>
+      <bibkey>devine-2024-tagengo</bibkey>
+    </paper>
+    <paper id="7">
+      <title>Language and Task Arithmetic with Parameter-Efficient Layers for Zero-Shot Summarization</title>
+      <author><first>Alexandra</first><last>Chronopoulou</last><affiliation>Google</affiliation></author>
+      <author><first>Jonas</first><last>Pfeiffer</last><affiliation>Google DeepMind</affiliation></author>
+      <author><first>Joshua</first><last>Maynez</last><affiliation>Google</affiliation></author>
+      <author><first>Xinyi</first><last>Wang</last><affiliation>Google</affiliation></author>
+      <author><first>Sebastian</first><last>Ruder</last><affiliation>Cohere and Google</affiliation></author>
+      <author><first>Priyanka</first><last>Agrawal</last><affiliation>Google Deepmind</affiliation></author>
+      <pages>114-126</pages>
+      <abstract>Parameter-efficient fine-tuning (PEFT) using labeled task data can significantly improve the performance of large language models (LLMs) on the downstream task. However, there are 7000 languages in the world and many of these languages lack labeled data for real-world language generation tasks. In this paper, we propose to improve zero-shot cross-lingual transfer by composing expert modules trained separately on language or task data. Our method composes <tex-math>\textit{language}</tex-math> and <tex-math>\textit{task}</tex-math> PEFT adapters via element-wise arithmetic operations to leverage unlabeled data and English labeled data. We extend our approach to cases where labeled data from more languages is available and propose to arithmetically compose PEFT adapters trained on languages related to the target. Empirical results on summarization demonstrate that our method is a strategy that obtains consistent gains using minimal training of PEFT parameters.</abstract>
+      <url hash="0e215985">2024.mrl-1.7</url>
+      <bibkey>chronopoulou-etal-2024-language</bibkey>
+    </paper>
+    <paper id="8">
+      <title>Modeling Bilingual Sentence Processing: Evaluating <fixed-case>RNN</fixed-case> and Transformer Architectures for Cross-Language Structural Priming</title>
+      <author><first>Demi</first><last>Zhang</last></author>
+      <author><first>Bushi</first><last>Xiao</last></author>
+      <author><first>Chao</first><last>Gao</last></author>
+      <author><first>Sangpil</first><last>Youm</last><affiliation>University of Florida</affiliation></author>
+      <author><first>Bonnie J</first><last>Dorr</last><affiliation>University of Florida</affiliation></author>
+      <pages>127-136</pages>
+      <abstract>This study evaluates the performance of Recurrent Neural Network (RNN) and Transformer models in replicating cross-language structural priming, a key indicator of abstract grammatical representations in human language processing. Focusing on Chinese-English priming, which involves two typologically distinct languages, we examine how these models handle the robust phenomenon of structural priming, where exposure to a particular sentence structure increases the likelihood of selecting a similar structure subsequently. Our findings indicate that transformers outperform RNNs in generating primed sentence structures, with accuracy rates that exceed 25.84% to 33. 33%. This challenges the conventional belief that human sentence processing primarily involves recurrent and immediate processing and suggests a role for cue-based retrieval mechanisms. This work contributes to our understanding of how computational models may reflect human cognitive processes across diverse language families.</abstract>
+      <url hash="a2e7f7b4">2024.mrl-1.8</url>
+      <bibkey>zhang-etal-2024-modeling-bilingual</bibkey>
+    </paper>
+    <paper id="9">
+      <title>Recipe for Zero-shot <fixed-case>POS</fixed-case> Tagging: Is It Useful in Realistic Scenarios?</title>
+      <author><first>Zeno</first><last>Vandenbulcke</last><affiliation>KU Leuven, KU Leuven</affiliation></author>
+      <author><first>Lukas</first><last>Vermeire</last></author>
+      <author><first>Miryam</first><last>de Lhoneux</last><affiliation>KU Leuven</affiliation></author>
+      <pages>137-147</pages>
+      <abstract>POS tagging plays a fundamental role in numerous applications. While POS taggers are highly accurate in well-resourced settings, they lag behind in cases of limited or missing training data. This paper focuses on POS tagging for languages with limited data. We seek to identify favourable characteristics of datasets for training POS tagging models using related languages without specific training on the target language. This is a zero-shot approach. We investigate both mono- and multilingual models trained on related languages and compare their accuracies. Additionally, we compare these results with models trained directly on the target language itself. We do this for three target low-resource languages, for each of which we select several support languages. Our research highlights the importance of accurate dataset selection for developing effective zero-shot POS tagging models. Particularly, a strong linguistic relationship and high-quality datasets ensure optimal results. For extremely low-resource languages, zero-shot training proves to be a viable option.</abstract>
+      <url hash="d025a49f">2024.mrl-1.9</url>
+      <bibkey>vandenbulcke-etal-2024-recipe</bibkey>
+    </paper>
+    <paper id="10">
+      <title>Gender-specific Machine Translation with Large Language Models</title>
+      <author><first>Eduardo</first><last>Sánchez</last><affiliation>University College London, University of London and Meta</affiliation></author>
+      <author><first>Pierre</first><last>Andrews</last></author>
+      <author><first>Pontus</first><last>Stenetorp</last><affiliation>University College London</affiliation></author>
+      <author><first>Mikel</first><last>Artetxe</last><affiliation>Reka AI</affiliation></author>
+      <author><first>Marta R.</first><last>Costa-jussà</last><affiliation>Meta</affiliation></author>
+      <pages>148-158</pages>
+      <abstract>‘While machine translation (MT) systems have seen significant improvements,it is still common for translations to reflect societal biases, such as genderbias. Decoder-only language models (LLMs) have demonstrated potential in MT, albeitwith performance slightly lagging behind traditional encoder-decoder neural machinetranslation (NMT) systems. However, LLMs offer a unique advantage: the abilityto control the properties of the output through prompting. In this study, we leveragethis flexibility to explore Llama”s capability to produce gender-specific translations.Our results indicate that Llama can generate gender-specific translations withtranslation quality and gender bias comparable to NLLB, a state-of-the-art multilingualNMT system.’</abstract>
+      <url hash="d3b7040f">2024.mrl-1.10</url>
+      <bibkey>sanchez-etal-2024-gender</bibkey>
+    </paper>
+    <paper id="11">
+      <title><fixed-case>J</fixed-case>ina-<fixed-case>C</fixed-case>ol<fixed-case>BERT</fixed-case>-v2: A General-Purpose Multilingual Late Interaction Retriever</title>
+      <author><first>Han</first><last>Xiao</last><affiliation>Jina AI</affiliation></author>
+      <author><first>Bo</first><last>Wang</last></author>
+      <author><first>Rohan</first><last>Jha</last></author>
+      <pages>159-166</pages>
+      <abstract>Multi-vector dense models, such as ColBERT, have proven highly effective in information retrieval. ColBERT’s late interaction scoring approximates the joint query-document attention seen in cross-encoders while maintaining inference efficiency closer to traditional dense retrieval models, thanks to its bi-encoder architecture and recent optimizations in indexing and search. In this paper, we introduce a novel architecture and a training framework to support long context window and multilingual retrieval. Leveraging Matryoshka Representation Loss, we further demonstrate that the reducing the embedding dimensionality from 128 to 64 has insignificant impact on the model’s retrieval performance and cut storage requirements by up to 50%. Our new model, Jina-ColBERT-v2, demonstrates strong performance across a range of English and multilingual retrieval tasks,</abstract>
+      <url hash="0e17920e">2024.mrl-1.11</url>
+      <bibkey>xiao-etal-2024-jina</bibkey>
+    </paper>
+    <paper id="12">
+      <title>Cross-Lingual Named Entity Recognition for Low-Resource Languages: A <fixed-case>H</fixed-case>indi-<fixed-case>N</fixed-case>epali Case Study Using Multilingual <fixed-case>BERT</fixed-case> Models</title>
+      <author><first>Dipendra</first><last>Yadav</last></author>
+      <author><first>Sumaiya</first><last>Suravee</last></author>
+      <author><first>Tobias</first><last>Strauß</last><affiliation>Universität Rostock</affiliation></author>
+      <author><first>Kristina</first><last>Yordanova</last><affiliation>Ernst-Moritz-Arndt Universität Greifswald</affiliation></author>
+      <pages>167-174</pages>
+      <abstract>This study investigates the potential of cross-lingual transfer learning for Named Entity Recognition (NER) between Hindi and Nepali, two languages that, despite their linguistic similarities, face significant disparities in available resources. By leveraging multilingual BERT models, including RemBERT, BERT Multilingual, MuRIL, and DistilBERT Multilingual, the research examines whether pre-training them on a resource-rich language like Hindi can enhance NER performance in a resource-constrained language like Nepali and vice versa. The study conducts experiments in both monolingual and cross-lingual settings to evaluate the models’ effectiveness in transferring linguistic knowledge between the two languages. The findings reveal that while RemBERT and MuRIL perform well in monolingual contexts—RemBERT excelling in Hindi and MuRIL in Nepali—BERT Multilingual performs comparatively best in cross-lingual scenarios, in generalizing features across the languages. Although DistilBERT Multilingual demonstrates slightly lower performance in cross-lingual tasks, it balances efficiency with competitive results. The study underscores the importance of model selection based on linguistic and resource-specific contexts, highlighting that general-purpose models like BERT Multilingual are particularly well-suited for cross-lingual applications.</abstract>
+      <url hash="2420cfd4">2024.mrl-1.12</url>
+      <bibkey>yadav-etal-2024-cross</bibkey>
+    </paper>
+    <paper id="13">
+      <title>Parameter-efficient Adaptation of Multilingual Multimodal Models for Low-resource <fixed-case>ASR</fixed-case></title>
+      <author><first>Abhishek</first><last>Gupta</last></author>
+      <author><first>Amruta</first><last>Parulekar</last></author>
+      <author><first>Sameep</first><last>Chattopadhyay</last></author>
+      <author><first>Preethi</first><last>Jyothi</last><affiliation>Indian Institute of Technology Bombay</affiliation></author>
+      <pages>175-185</pages>
+      <abstract>Automatic speech recognition (ASR) for low-resource languages remains a challenge due to the scarcity of labeled training data. Parameter-efficient fine-tuning and text-only adaptation are two popular methods that have been used to address such low-resource settings. In this work, we investigate how these techniques can be effectively combined using a multilingual multimodal model like SeamlessM4T. Multimodal models are able to leverage unlabeled text via text-only adaptation with further parameter-efficient ASR fine-tuning, thus boosting ASR performance. We also show cross-lingual transfer from a high-resource language, achieving up to a relative 17% WER reduction over baseline in an extremely low-resource setting without any labeled speech.</abstract>
+      <url hash="b084cbfd">2024.mrl-1.13</url>
+      <bibkey>gupta-etal-2024-parameter</bibkey>
+    </paper>
+    <paper id="14">
+      <title>Towards Cross-Linguistic Semantic Grounding using Dictionary Graph Analysis</title>
+      <author><first>Ethan</first><last>Eschrich</last><affiliation>University of Florida</affiliation></author>
+      <author><first>Zoey</first><last>Liu</last><affiliation>University of Florida</affiliation></author>
+      <pages>186-188</pages>
+      <abstract>Previous work has explored the structure of dictionaries as directed graphs, with arcs between words when one word is used in the definition of another. We analyze the efficacy of these methodologies and explore the cross-linguistic patterns of the strongly connected components of multiple monolingual dictionaries. We find that the number of sources in the condensation graph of a directed dictionary graph is roughly stable across multiple different languages, and present future research directions.</abstract>
+      <url hash="fbc9068d">2024.mrl-1.14</url>
+      <bibkey>eschrich-liu-2024-towards</bibkey>
+    </paper>
+    <paper id="15">
+      <title>Vikhr: Constructing a State-of-the-art Bilingual Open-Source Instruction-Following Large Language Model for <fixed-case>R</fixed-case>ussian</title>
+      <author><first>Aleksandr</first><last>Nikolich</last></author>
+      <author><first>Konstantin</first><last>Korolev</last></author>
+      <author><first>Sergei</first><last>Bratchikov</last><affiliation>Misis</affiliation></author>
+      <author><first>Igor</first><last>Kiselev</last><affiliation>University of Waterloo</affiliation></author>
+      <author><first>Artem</first><last>Shelmanov</last><affiliation>Mohamed bin Zayed University of Artificial Intelligence</affiliation></author>
+      <pages>189-199</pages>
+      <abstract>There has been a surge in the development of various Large Language Models (LLMs). However, text generation for languages other than English often faces significant challenges, including poor generation quality and reduced computational performance due to the disproportionate representation of tokens in the model’s vocabulary. In this work, we address these issues by developing a pipeline for adaptation of English-oriented pre-trained models to other languages and constructing efficient bilingual LLMs. Using this pipeline, we construct Vikhr, a state-of-the-art bilingual open-source instruction-following LLM designed specifically for the Russian language. “Vikhr” refers to the name of the Mistral LLM series and means a “strong gust of wind.”Unlike previous Russian-language models that typically rely on LoRA adapters on top of English-oriented models, sacrificing performance for lower training costs, Vikhr features an adapted tokenizer vocabulary and undergoes the continued pre-training and instruction tuning of all weights. This not only enhances the model’s performance but also significantly improves its computational and contextual efficiency.The remarkable performance of Vikhr across various Russian-language benchmarks can also be attributed to our efforts in expanding instruction datasets and corpora for continued pre-training. Vikhr not only sets the new state of the art among open-source LLMs for Russian but even outperforms some proprietary closed-source models on certain benchmarks. The model weights, instruction sets, and code are publicly available.</abstract>
+      <url hash="26790790">2024.mrl-1.15</url>
+      <bibkey>nikolich-etal-2024-vikhr</bibkey>
+    </paper>
+    <paper id="16">
+      <title>Mitigating the Linguistic Gap with Phonemic Representations for Robust Cross-lingual Transfer</title>
+      <author><first>Haeji</first><last>Jung</last></author>
+      <author><first>Changdae</first><last>Oh</last><affiliation>Department of Computer Science, University of Wisconsin - Madison</affiliation></author>
+      <author><first>Jooeon</first><last>Kang</last><affiliation>Sogang University</affiliation></author>
+      <author><first>Jimin</first><last>Sohn</last><affiliation>NAVER</affiliation></author>
+      <author><first>Kyungwoo</first><last>Song</last><affiliation>Yonsei University</affiliation></author>
+      <author><first>Jinkyu</first><last>Kim</last><affiliation>Korea University</affiliation></author>
+      <author><first>David R</first><last>Mortensen</last><affiliation>Carnegie Mellon University</affiliation></author>
+      <pages>200-211</pages>
+      <abstract>Approaches to improving multilingual language understanding often struggle with significant performance gaps between high-resource and low-resource languages. While there are efforts to align the languages in a single latent space to mitigate such gaps, how different input-level representations influence such gaps has not been investigated, particularly with phonemic inputs. We hypothesize that the performance gaps are affected by representation discrepancies between those languages, and revisit the use of phonemic representations as a means to mitigate these discrepancies.To demonstrate the effectiveness of phonemic representations, we present experiments on three representative cross-lingual tasks on 12 languages in total. The results show that phonemic representations exhibit higher similarities between languages compared to orthographic representations, and it consistently outperforms grapheme-based baseline model on languages that are relatively low-resourced.We present quantitative evidence from three cross-lingual tasks that demonstrate the effectiveness of phonemic representations, and it is further justified by a theoretical analysis of the cross-lingual performance gap.</abstract>
+      <url hash="67d6a405">2024.mrl-1.16</url>
+      <bibkey>jung-etal-2024-mitigating</bibkey>
+    </paper>
+    <paper id="17">
+      <title>Leveraging Adapters for Improved Cross-lingual Transfer for Low-Resource Creole <fixed-case>MT</fixed-case></title>
+      <author><first>Marcell Richard</first><last>Fekete</last></author>
+      <author><first>Ernests</first><last>Lavrinovics</last></author>
+      <author><first>Nathaniel Romney</first><last>Robinson</last><affiliation>Department of Computer Science, Whiting School of Engineering</affiliation></author>
+      <author><first>Heather</first><last>Lent</last><affiliation>Aalborg University</affiliation></author>
+      <author><first>Raj</first><last>Dabre</last><affiliation>National Institute of Information and Communications Technology (NICT), National Institute of Advanced Industrial Science and Technology</affiliation></author>
+      <author><first>Johannes</first><last>Bjerva</last><affiliation>Aalborg University</affiliation></author>
+      <pages>212-215</pages>
+      <abstract>———– EXTENDED ABSTRACT INTRODUCTION ———–Creole languages are low-resource languages, often genetically related to languages like English, French, and Portuguese, due to their linguistic histories with colonialism (DeGraff, 2003). As such, Creoles stand to benefit greatly from both data-efficient methods and transfer-learning from high-resource languages. At the same time, it has been observed by Lent et al. (2022b) that machine translation (MT) is a highly desired language technology by speakers of many Creoles. To this end, recent works have contributed new datasets, allowing for the development and evaluation of MT systems for Creoles (Robinson et al., 2024; Lent et al. 2024). In this work, we explore the use of the limited monolingual and parallel data for Creoles using parameter-efficient adaptation methods. Specifically, we compare the performance of different adapter architectures over the set of available benchmarks. We find adapters a promising approach for Creoles because they are parameter-efficient and have been shown to leverage transfer learning between related languages (Faisal and Anastasopoulos, 2022). While we perform experiments across multiple Creoles, we present only on Haitian Creole in this extended abstract. For future work, we aim to explore the potentials for leveraging other high-resourced languages for parameter-efficient transfer learning.</abstract>
+      <url hash="4bf6545b">2024.mrl-1.17</url>
+      <bibkey>fekete-etal-2024-leveraging</bibkey>
+    </paper>
+    <paper id="18">
+      <title>Evaluating Multilingual Long-Context Models for Retrieval and Reasoning</title>
+      <author><first>Ameeta</first><last>Agrawal</last><affiliation>Portland State University</affiliation></author>
+      <author><first>Andy</first><last>Dang</last><affiliation>Portland State University</affiliation></author>
+      <author><first>Sina</first><last>Bagheri Nezhad</last><affiliation>Portland State University</affiliation></author>
+      <author><first>Rhitabrat</first><last>Pokharel</last></author>
+      <author><first>Russell</first><last>Scheinberg</last></author>
+      <pages>216-231</pages>
+      <abstract>Recent large language models (LLMs) demonstrate impressive capabilities in handling long contexts, some exhibiting near-perfect recall on synthetic retrieval tasks. However, these evaluations have mainly focused on English text and involved a single target sentence within lengthy contexts. Our work investigates how LLM performance generalizes to multilingual settings with multiple hidden target sentences. We create a new dataset – mLongRR – to comprehensively evaluate several multilingual long-context LLMs on retrieval and reasoning tasks across five languages: English, Vietnamese, Indonesian, Swahili, and Somali. These languages share the Latin script but belong to distinct language families and resource levels. Our analysis reveals a significant performance gap between languages. The best-performing models such as Gemini-1.5 and GPT-4o, achieve around 96% accuracy in English to around 36% in Somali with a single target sentence. However, this accuracy drops to 40% in English and 0% in Somali when dealing with three target sentences. Our findings highlight the challenges long-context LLMs face when processing longer contexts, an increase in the number of target sentences, or languages of lower resource levels.</abstract>
+      <url hash="d37f5461">2024.mrl-1.18</url>
+      <bibkey>agrawal-etal-2024-evaluating</bibkey>
+    </paper>
+    <paper id="19">
+      <title>Community <fixed-case>OSCAR</fixed-case>: A Community Effort for Multilingual Web Data</title>
+      <author><first>Manuel</first><last>Brack</last><affiliation>German Research Center for AI and Technische Universität Darmstadt</affiliation></author>
+      <author><first>Malte</first><last>Ostendorff</last><affiliation>Deutsche Telekom</affiliation></author>
+      <author><first>Pedro</first><last>Ortiz Suarez</last><affiliation>Common Crawl Foundation</affiliation></author>
+      <author><first>José Javier</first><last>Saiz</last><affiliation>Barcelona Supercomputing Center</affiliation></author>
+      <author><first>Iñaki Lacunza</first><last>Castilla</last><affiliation>Barcelona Supercomputing Center</affiliation></author>
+      <author><first>Jorge</first><last>Palomar-Giner</last><affiliation>Barcelona Supercomputing Center</affiliation></author>
+      <author><first>Alexander</first><last>Shvets</last><affiliation>Barcelona Supercomputing Center</affiliation></author>
+      <author><first>Patrick</first><last>Schramowski</last><affiliation>German Research Center for AI</affiliation></author>
+      <author><first>Georg</first><last>Rehm</last><affiliation>Humboldt Universität Berlin and Deutsches Forschungszentrum für Künstliche Intelligenz</affiliation></author>
+      <author><first>Marta</first><last>Villegas</last><affiliation>Barcelona Supercomputing Center, Universitat Pompeu Fabra and Universitat Autònoma de Barcelona</affiliation></author>
+      <author><first>Kristian</first><last>Kersting</last><affiliation>German Research Center for AI, The Hessian Center for AI and TU Darmstadt</affiliation></author>
+      <pages>232-235</pages>
+      <abstract>The development of large language models (LLMs) relies heavily on extensive, high-quality datasets. Publicly available datasets focus predominantly on English, leaving other language communities behind. To address this issue, we introduce Community OSCAR, a multilingual dataset initiative designed to address the gap between English and non-English data availability. Through a collective effort, Community OSCAR covers over 150 languages with 45 billion documents, totaling over 345 TiB of data. Initial results indicate that Community OSCAR provides valuable raw data for training LLMs and enhancing the performance of multilingual models. This work aims to contribute to the ongoing advancements in multilingual NLP and to support a more inclusive AI ecosystem by making high-quality, multilingual data more accessible to those working with low-resource languages.</abstract>
+      <url hash="365cc018">2024.mrl-1.19</url>
+      <bibkey>brack-etal-2024-community</bibkey>
+    </paper>
+    <paper id="20">
+      <title>Leveraging <fixed-case>LLM</fixed-case>s for Translating and Classifying Mental Health Data</title>
+      <author><first>Konstantinos</first><last>Skianis</last><affiliation>University of Ioannina</affiliation></author>
+      <author><first>A. Seza</first><last>Doğruöz</last><affiliation>Ghent University</affiliation></author>
+      <author><first>John</first><last>Pavlopoulos</last><affiliation>Athens University of Economics and Business</affiliation></author>
+      <pages>236-241</pages>
+      <abstract>Large language models (LLMs) are increasingly used in medical fields. In mental health support, the early identification of linguistic markers associated with mental health conditions can provide valuable support to mental health professionals, and reduce long waiting times for patients.Despite the benefits of LLMs for mental health support, there is limited research on their application in mental health systems for languages other than English. Our study addresses this gap by focusing on the detection of depression severity in Greek through user-generated posts which are automatically translated from English. Our results show that GPT3.5-turbo is not very successful in identifying the severity of depression in English, and it has a varying performance in Greek as well. Our study underscores the necessity for further research, especially in languages with less resources.Also, careful implementation is necessary to ensure that LLMs are used effectively in mental health platforms, and human supervision remains crucial to avoid misdiagnosis.</abstract>
+      <url hash="3f4ba26b">2024.mrl-1.20</url>
+      <bibkey>skianis-etal-2024-leveraging</bibkey>
+    </paper>
+    <paper id="21">
+      <title>Bridging the Bosphorus: Advancing <fixed-case>T</fixed-case>urkish Large Language Models through Strategies for Low-Resource Language Adaptation and Benchmarking</title>
+      <author><first>Emre Can</first><last>Acikgoz</last></author>
+      <author><first>Mete</first><last>Erdogan</last></author>
+      <author><first>Deniz</first><last>Yuret</last><affiliation>Koc University</affiliation></author>
+      <pages>242-268</pages>
+      <abstract>Large Language Models (LLMs) are becoming crucial across various fields, emphasizing the urgency for high-quality models in underrepresented languages. This study explores the unique challenges faced by low-resource languages, such as data scarcity, model selection, evaluation, and computational limitations, with a special focus on Turkish. We conduct an in-depth analysis to evaluate the impact of training strategies, model choices, and data availability on the performance of LLMs designed for underrepresented languages. Our approach includes two methodologies: (i) adapting existing LLMs originally pretrained in English to understand Turkish, and (ii) developing a model from the ground up using Turkish pretraining data, both supplemented with supervised fine-tuning on a novel Turkish instruction-tuning dataset aimed at enhancing reasoning capabilities. The relative performance of these methods is evaluated through the creation of a new leaderboard for Turkish LLMs, featuring benchmarks that assess different reasoning and knowledge skills. Furthermore, we conducted experiments on data and model scaling, both during pretraining and fine-tuning, simultaneously emphasizing the capacity for knowledge transfer across languages and addressing the challenges of catastrophic forgetting encountered during fine-tuning on a different language. Our goal is to offer a detailed guide for advancing the LLM framework in low-resource linguistic contexts, thereby making natural language processing (NLP) benefits more globally accessible.</abstract>
+      <url hash="72943dbe">2024.mrl-1.21</url>
+      <bibkey>acikgoz-etal-2024-bridging</bibkey>
+    </paper>
+    <paper id="22">
+      <title>Unsupervised Text Representation Learning via Instruction-Tuning for Zero-Shot Dense Retrieval</title>
+      <author><first>Qiuhai</first><last>Zeng</last></author>
+      <author><first>Zimeng</first><last>Qiu</last><affiliation>Amazon</affiliation></author>
+      <author><first>Dae Yon</first><last>Hwang</last><affiliation>Amazon AGI</affiliation></author>
+      <author><first>Xin</first><last>He</last><affiliation>Amazon</affiliation></author>
+      <author><first>William M.</first><last>Campbell</last></author>
+      <pages>269-279</pages>
+      <abstract>Dense retrieval systems are commonly used for information retrieval (IR). They rely on learning text representations through an encoder and usually require supervised modeling via labelled data which can be costly to obtain or simply unavailable. In this study, we introduce a novel unsupervised text representation learning technique via instruction-tuning the pre-trained encoder-decoder large language model (LLM) under the dual-encoder retrieval framework. We demonstrate on multiple languages that the corpus representation can be augmented by the representations of relevant synthetic queries generated by the instruct-tuned LLM founded on the Rao-Blackwell theorem. Furthermore, we effectively align the query and corpus text representation with self-instruct tuning. We evaluate our proposed method under low-resource settings on three English, two German and one Portuguese retrieval datasets measuring NDCG@10, MRR@100, Recall@100. We significantly improve the average zero-shot retrieval performance on all metrics, increasing out-of-box FLAN-T5 model variations by [4.73%, 6.15%] in absolute NDCG@10 and exceeding four supervised dense retrievers.</abstract>
+      <url hash="56052a9e">2024.mrl-1.22</url>
+      <bibkey>zeng-etal-2024-unsupervised</bibkey>
+    </paper>
+    <paper id="23">
+      <title>Language Bias in Multilingual Information Retrieval: The Nature of the Beast and Mitigation Methods</title>
+      <author><first>Jinrui</first><last>Yang</last><affiliation>The University of Melbourne</affiliation></author>
+      <author><first>Fan</first><last>Jiang</last></author>
+      <author><first>Timothy</first><last>Baldwin</last><affiliation>Mohamed bin Zayed University of Artificial Intelligence and The University of Melbourne</affiliation></author>
+      <pages>280-292</pages>
+      <abstract>Language fairness in multilingual information retrieval (MLIR) systems is crucial for ensuring equitable access to information across diverse languages. This paper sheds light on the issue, based on the assumption that queries in different languages, but with identical semantics, should yield equivalent ranking lists when retrieving on the same multilingual documents. We evaluate the degree of fairness using both traditional retrieval methods, and a DPR neural ranker based on mBERT and XLM-R. Additionally, we introduce ‘LaKDA’, a novel loss designed to mitigate language biases in neural MLIR approaches. Our analysis exposes intrinsic language biases in current MLIR technologies, with notable disparities across the retrieval methods, and the effectiveness of LaKDA in enhancing language fairness.</abstract>
+      <url hash="d828a1c5">2024.mrl-1.23</url>
+      <bibkey>yang-etal-2024-language-bias</bibkey>
+    </paper>
+    <paper id="24">
+      <title>Representational Isomorphism and Alignment of Multilingual Large Language Models</title>
+      <author><first>Di</first><last>Wu</last><affiliation>University of Amsterdam</affiliation></author>
+      <author><first>Yibin</first><last>Lei</last><affiliation>University of Amsterdam</affiliation></author>
+      <author><first>Andrew</first><last>Yates</last><affiliation>University of Amsterdam</affiliation></author>
+      <author><first>Christof</first><last>Monz</last><affiliation>University of Amsterdam, University of Amsterdam</affiliation></author>
+      <pages>293-297</pages>
+      <abstract>In this extended abstract, we investigate the capability of Large Language Models (LLMs) to represent texts in multilingual contexts. Our findings reveal that sentence representations derived from LLMs exhibit a high degree of isomorphism across languages. This existing isomorphism facilitates representational alignments in few-shot settings. Specifically, by applying a contrastive objective at the representation level with only a small number (e.g., 100) of translation pairs, we significantly improve models’ performance on Semantic Textual Similarity (STS) tasks across languages.</abstract>
+      <url hash="a6aced4f">2024.mrl-1.24</url>
+      <bibkey>wu-etal-2024-representational-isomorphism</bibkey>
+    </paper>
+    <paper id="25">
+      <title>Generalization Measures for Zero-Shot Cross-Lingual Transfer</title>
+      <author><first>Saksham</first><last>Bassi</last><affiliation>New York University</affiliation></author>
+      <author><first>Duygu</first><last>Ataman</last><affiliation>New York University</affiliation></author>
+      <author><first>Kyunghyun</first><last>Cho</last><affiliation>Genentech and New York University</affiliation></author>
+      <pages>298-309</pages>
+      <abstract>Building robust and reliable machine learning systems requires models with the capacity to generalize their knowledge to interpret unseen inputs with different characteristics. Traditional language model evaluation tasks lack informative metrics about model generalization, and their applicability in new settings is often measured using task and language-specific downstream performance, which is lacking in many languages and tasks. To address this gap, we explore a set of efficient and reliable measures that could aid in computing more information related to the generalization capability of language models, particularly in cross-lingual zero-shot settings. Our central hypothesis is that the sharpness of a model’s loss landscape, i.e., the representation of loss values over its weight space, can indicate its generalization potential, with a flatter landscape suggesting better generalization. We propose a novel and stable algorithm to reliably compute the sharpness of a model optimum, and demonstrate its correlation with successful cross-lingual transfer.</abstract>
+      <url hash="ac86dd0f">2024.mrl-1.25</url>
+      <bibkey>bassi-etal-2024-generalization</bibkey>
+    </paper>
+    <paper id="26">
+      <title>Detecting and Translating Language Ambiguity with Multilingual <fixed-case>LLM</fixed-case>s</title>
+      <author><first>Behrang</first><last>Mehrparvar</last></author>
+      <author><first>Sandro</first><last>Pezzelle</last><affiliation>University of Amsterdam</affiliation></author>
+      <pages>310-323</pages>
+      <abstract>Most languages could be ambiguous, which means the same conveyed text or speech, results in different actions by different readers or listeners. In this project, we propose a method to detect the ambiguity of a sentence using translation by multilingual LLMs. In particular, we hypothesize that a good machine translator should preserve the ambiguity of sentences in all target languages. Therefore, we investigate whether ambiguity is encoded in the hidden representation of a translation model or, instead, if only a single meaning is encoded. In our experiments, we have been able to predict ambiguity of sentences with high accuracy using machine translation without direct use of semantics and only based on the reconstruction error of a function that maps the forward and backward translation hidden representations to each other. The potential applications of the proposed approach span i) detecting ambiguous sentences, ii) fine-tuning existing multilingual LLMs to preserve ambiguous information, and iii) developing AI systems that can generate ambiguity-free languages when needed.</abstract>
+      <url hash="0714c1a1">2024.mrl-1.26</url>
+      <bibkey>mehrparvar-pezzelle-2024-detecting</bibkey>
+    </paper>
+    <paper id="27">
+      <title><fixed-case>MLT</fixed-case>-<fixed-case>DR</fixed-case>: Multi-Lingual/Task Demonstration Retrieval
+
+An Attempt towards Generalized Retriever for In-Context Learning</title>
+      <author><first>Kazuma</first><last>Hashimoto</last><affiliation>Google Research</affiliation></author>
+      <author><first>Arjun Reddy</first><last>Akula</last><affiliation>Google Research</affiliation></author>
+      <author><first>Karthik</first><last>Raman</last><affiliation>Google</affiliation></author>
+      <author><first>Michael</first><last>Bendersky</last><affiliation>Google</affiliation></author>
+      <pages>324-345</pages>
+      <abstract>This paper presents Multi-Lingual/Task Demonstration Retrieval (MLT-DR) for in-context learning with Large Language Models (LLMs).Our goal is to investigate how dense demonstration retrieval models are generalized across languages and tasks.We first convert 81 tasks into a common format, covering various languages, task types, and domains.For 8 English-based tasks among them, we use machine translation to create synthetic multi/cross-lingual tasks, by translating the examples into non-English languages to explicitly cover more than 130 languages.We then use an instruction-tuned LLM to estimate utility of demonstrations for all the tasks to train the demonstration retrieval models.In our experiments, we show an interesting counterintuitive observation; to compute embeddings of demonstrations, using both the input and ground-truth output hurts the generalization ability of the retriever on unseen tasks whose output space is quite different from those in the seen task set.We also examine that our retriever robustly works even with LLMs that we did not touch during the development of the models.The retrieval models’ checkpoints are publicly available at <url>URL-available-upon-publication</url>.</abstract>
+      <url hash="33eea348">2024.mrl-1.27</url>
+      <bibkey>hashimoto-etal-2024-mlt</bibkey>
+    </paper>
+    <paper id="28">
+      <title><fixed-case>M</fixed-case>c<fixed-case>G</fixed-case>ill <fixed-case>NLP</fixed-case> Group Submission to the <fixed-case>MRL</fixed-case> 2024 Shared Task: Ensembling Enhances Effectiveness of Multilingual Small <fixed-case>LM</fixed-case>s</title>
+      <author><first>Senyu</first><last>Li</last></author>
+      <author><first>Hao</first><last>Yu</last></author>
+      <author><first>Jessica</first><last>Ojo</last><affiliation>Lelapa AI</affiliation></author>
+      <author><first>David Ifeoluwa</first><last>Adelani</last></author>
+      <pages>346-356</pages>
+      <abstract>We present our systems for the three tasks and five languages included in the MRL 2024 Shared Task on Multilingual Multi-task Information Retrieval: (1) Named Entity Recognition, (2) Free-form Question Answering, and (3) Multiple-choice Question Answering. For each task, we explored the impact of selecting different multilingual language models for fine-tuning across various target languages, and implemented an ensemble system that generates final outputs based on predictions from multiple fine-tuned models. All models are large language models fine-tuned on task-specific data. Our experimental results show that a more balanced dataset would yield better results. However, when training data for certain languages are scarce, fine-tuning on a large amount of English data supplemented by a small amount of “triggering data” in the target language can produce decent results.</abstract>
+      <url hash="8e0685c1">2024.mrl-1.28</url>
+      <bibkey>li-etal-2024-mcgill</bibkey>
+    </paper>
+    <paper id="29">
+      <title><fixed-case>CUNI</fixed-case> and <fixed-case>LMU</fixed-case> Submission to the <fixed-case>MRL</fixed-case> 2024 Shared Task on Multi-lingual Multi-task Information Retrieval</title>
+      <author><first>Katharina</first><last>Hämmerl</last></author>
+      <author><first>Andrei-Alexandru</first><last>Manea</last></author>
+      <author><first>Gianluca</first><last>Vico</last><affiliation>Charles University Prague</affiliation></author>
+      <author><first>Jindřich</first><last>Helcl</last><affiliation>Charles University</affiliation></author>
+      <author><first>Jindřich</first><last>Libovický</last><affiliation>Charles University Prague</affiliation></author>
+      <pages>357-364</pages>
+      <abstract>We present the joint CUNI and LMU submission to the MRL 2024 Shared Task on Multi-lingual Multi-task Information Retrieval.The shared task objective was to explore how we can deploy modern methods in NLP in multi-lingual low-resource settings, tested on two sub-tasks: Named-entity recognition and question answering.Our solutions to the subtasks are based on data acquisition and model adaptation.We compare the performance of our submitted systems with the translate-test approachwhich proved to be the most useful in the previous edition of the shared task.Our results show that using more data as well as fine-tuning recent multilingual pre-trained models leads to considerable improvements over the translate-test baseline.Our code is available at https://github.com/ufal/mrl2024-multilingual-ir-shared-task.</abstract>
+      <url hash="fd2bd981">2024.mrl-1.29</url>
+      <bibkey>hammerl-etal-2024-cuni</bibkey>
+    </paper>
+    <paper id="30">
+      <title>Findings of the 2nd Shared Task on Multi-lingual Multi-task Information Retrieval at <fixed-case>MRL</fixed-case> 2024</title>
+      <author><first>Francesco</first><last>Tinner</last><affiliation>University of Amsterdam</affiliation></author>
+      <author><first>Raghav</first><last>Mantri</last><affiliation>New York University</affiliation></author>
+      <author><first>Mammad</first><last>Hajili</last><affiliation>Microsoft</affiliation></author>
+      <author><first>Chiamaka</first><last>Chukwuneke</last><affiliation>Lancaster University, UK</affiliation></author>
+      <author><first>Dylan</first><last>Massey</last><affiliation>University of Zurich</affiliation></author>
+      <author><first>Benjamin A.</first><last>Ajibade</last><affiliation>University of Alabama</affiliation></author>
+      <author><first>Bilge Deniz</first><last>Kocak</last><affiliation>Villanova University</affiliation></author>
+      <author><first>Abolade</first><last>Dawud</last><affiliation>Masakhane</affiliation></author>
+      <author><first>Jonathan</first><last>Atala</last><affiliation>Anglia Ruskin University</affiliation></author>
+      <author><first>Hale</first><last>Sirin</last><affiliation>Johns Hopkins University</affiliation></author>
+      <author><first>Kayode</first><last>Olaleye</last><affiliation>University of Pretoria</affiliation></author>
+      <author><first>Anar</first><last>Rzayev</last><affiliation>KAIST</affiliation></author>
+      <author><first>David</first><last>Adelani</last><affiliation>McGill University</affiliation></author>
+      <author><first>Duygu</first><last>Ataman</last><affiliation>New York University</affiliation></author>
+      <pages>365-376</pages>
+      <abstract>Large language models (LLMs) demonstrate exceptional proficiency in both the comprehension and generation of textual data, particularly in English, a language for which extensive public benchmarks have been established across a wide range of natural language processing (NLP) tasks. Nonetheless, their performance in multilingual contexts and specialized domains remains less rigorously validated, raising questions about their reliability and generalizability across linguistically diverse and domain-specific settings. The second edition of the Shared Task on Multilingual Multitask Information Retrieval aims to provide a comprehensive and inclusive multilingual evaluation benchmark which aids assessing the ability of multilingual LLMs to capture logical, factual, or causal relationships within lengthy text contexts and generate language under sparse settings, particularly in scenarios with under-resourced languages. The shared task consists of two subtasks crucial to information retrieval: Named entity recognition (NER) and reading comprehension (RC), in 7 data-scarce languages: Azerbaijani, Swiss German, Turkish and , which previously lacked annotated resources in information retrieval tasks. This year specifally focus on the multiple-choice question answering evaluation setting which provides a more objective setting for comparing different methods across languages.</abstract>
+      <url hash="0c6cac0a">2024.mrl-1.30</url>
+      <bibkey>tinner-etal-2024-findings</bibkey>
+    </paper>
+  </volume>
+</collection>

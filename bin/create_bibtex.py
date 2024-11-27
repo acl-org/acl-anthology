@@ -157,8 +157,10 @@ def create_bibtex(anthology, trgdir, limit=0, clean=False) -> None:
                                 concise_contents,
                             )
 
-                        # Convert spaces to tabs to save a bit of space
-                        concise_contents = re.sub(r"\n    ", "\n\t", concise_contents)
+                        # Remove whitespace to save space and keep things under 50 MB
+                        concise_contents = re.sub(r",\n +", ",", concise_contents)
+                        concise_contents = re.sub(r"  and\n +", " and ", concise_contents)
+                        concise_contents = re.sub(r",\n}", "}", concise_contents)
 
                         print(concise_contents, file=file_anthology_raw)
 
@@ -182,7 +184,8 @@ if __name__ == "__main__":
 
     # If NOBIB is set, generate only three bibs per volume
     limit = 0 if os.environ.get("NOBIB", "false") == "false" else 3
-    log.info(f"NOBIB=true, generating only {limit} BibTEX files per volume")
+    if limit != 0:
+        log.info(f"NOBIB=true, generating only {limit} BibTEX files per volume")
 
     anthology = Anthology(importdir=args["--importdir"], fast_load=True)
     create_bibtex(anthology, args["--exportdir"], limit=limit, clean=args["--clean"])

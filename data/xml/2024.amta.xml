@@ -1,0 +1,449 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2024.amta">
+  <volume id="research" ingest-date="2024-09-27" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of the 16th Conference of the Association for Machine Translation in the Americas (Volume 1: Research Track)</booktitle>
+      <editor><first>Rebecca</first><last>Knowles</last></editor>
+      <editor><first>Akiko</first><last>Eriguchi</last></editor>
+      <editor><first>Shivali</first><last>Goel</last></editor>
+      <publisher>Association for Machine Translation in the Americas</publisher>
+      <address>Chicago, USA</address>
+      <month>September</month>
+      <year>2024</year>
+      <venue>amta</venue>
+    </meta>
+    <frontmatter>
+      <url hash="3416258f">2024.amta-research.0</url>
+      <bibkey>amta-2024-research</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title><fixed-case>AMTA</fixed-case> Best Thesis Award Abstract: Detecting Fine-Grained Semantic Divergences to Improve Translation Understanding Across Languages</title>
+      <author><first>Eleftheria</first><last>Briakou</last></author>
+      <pages>1–3</pages>
+      <abstract>In this thesis, we focus on detecting fine-grained semantic divergences—subtle meaning differences in sentences that overlap in content—to improve machine and human translation understanding.</abstract>
+      <url hash="2fdf8380">2024.amta-research.1</url>
+      <bibkey>briakou-2024-amta</bibkey>
+    </paper>
+    <paper id="2">
+      <title>Leveraging <fixed-case>LLM</fixed-case>s for <fixed-case>MT</fixed-case> in Crisis Scenarios: a blueprint for low-resource languages</title>
+      <author><first>Seamus</first><last>Lankford</last></author>
+      <author><first>Andy</first><last>Way</last></author>
+      <pages>4–13</pages>
+      <abstract>In an evolving landscape of crisis communication, the need for robust and adaptable Machine Translation (MT) systems is more pressing than ever, particularly for low-resource languages. This study presents a comprehensive exploration of leveraging Large Language Models (LLMs) and Multilingual LLMs (MLLMs) to enhance MT capabilities in such scenarios. By focusing on the unique challenges posed by crisis situations where speed, accuracy, and the ability to handle a wide range of languages are paramount, this research outlines a novel approach that combines the cutting-edge capabilities of LLMs with fine-tuning techniques and community-driven corpus development strategies. At the core of this study is the development and empirical evaluation of MT systems tailored for two low-resource language pairs, illustrating the process from initial model selection and fine-tuning through to deployment. Bespoke systems are developed and modelled on the recent Covid-19 pandemic. The research highlights the importance of community involvement in creating highly specialised, crisis-specific datasets and compares custom GPTs with NLLB-adapted MLLM models. It identifies fine-tuned MLLM models as offering superior performance compared with their LLM counterparts. A scalable and replicable model for rapid MT system development in crisis scenarios is outlined. Our approach enhances the field of humanitarian technology by offering a blueprint for developing multilingual communication systems during emergencies.</abstract>
+      <url hash="da9d8b7a">2024.amta-research.2</url>
+      <bibkey>lankford-way-2024-leveraging</bibkey>
+    </paper>
+    <paper id="3">
+      <title>Adding multimodal capabilities to a text-only translation model</title>
+      <author><first>Vipin</first><last>Vijayan</last></author>
+      <author><first>Braeden</first><last>Bowen</last></author>
+      <author><first>Scott</first><last>Grigsby</last></author>
+      <author><first>Timothy</first><last>Anderson</last></author>
+      <author><first>Jeremy</first><last>Gwinnup</last></author>
+      <pages>14–28</pages>
+      <abstract>While most current work in multimodal machine translation (MMT) uses the Multi30k dataset for training and evaluation, we find that the resulting models overfit to the Multi30k dataset to an extreme degree. Consequently, these models perform very badly when evaluated against typical text-only testing sets such as the newstest datasets. In order to perform well on both Multi30k and typical text-only datasets, we use a performant text-only machine translation (MT) model as the starting point of our MMT model. We add vision-text adapter layers connected via gating mechanisms to the MT model, and incrementally transform the MT model into an MMT model by 1) pre-training using vision-based masking of the source text and 2) fine-tuning on Multi30k. We achieve a state-of-the-art performance on the Multi30k 2016 en-de test set of 46.5 BLEU4 score and 0.61 CoMMuTE score via this approach while retaining the performance of the original text-only MT model against the newstest dataset.</abstract>
+      <url hash="0ee61b15">2024.amta-research.3</url>
+      <bibkey>vijayan-etal-2024-adding</bibkey>
+    </paper>
+    <paper id="4">
+      <title>Detecting concrete visual tokens for Multimodal Machine Translation</title>
+      <author><first>Braeden</first><last>Bowen</last></author>
+      <author><first>Vipin</first><last>Vijayan</last></author>
+      <author><first>Scott</first><last>Grigsby</last></author>
+      <author><first>Timothy</first><last>Anderson</last></author>
+      <author><first>Jeremy</first><last>Gwinnup</last></author>
+      <pages>29–38</pages>
+      <abstract>The challenge of visual grounding and masking in multimodal machine translation (MMT) systems has encouraged varying approaches to the detection and selection of visually-grounded text tokens for masking. We introduce new methods for detection of visually and contextually relevant (concrete) tokens from source sentences, including detection with natural language processing (NLP), detection with object detection, and a joint detection-verification technique. We also introduce new methods for selection of detected tokens, including shortest n tokens, longest n tokens, and all detected concrete tokens. We utilize the GRAM MMT architecture to train models against synthetically collated multimodal datasets of source images with masked sentences, showing performance improvements and improved usage of visual context during translation tasks over the baseline model.</abstract>
+      <url hash="6cdb7592">2024.amta-research.4</url>
+      <bibkey>bowen-etal-2024-detecting</bibkey>
+    </paper>
+    <paper id="5">
+      <title>Predicting Anchored Text from Translation Memories for Machine Translation Using Deep Learning Methods</title>
+      <author><first>Richard</first><last>Yue</last></author>
+      <author><first>John</first><last>Ortega</last></author>
+      <pages>39–47</pages>
+      <abstract>Translation memories (TMs) are the backbone for professional translation tools called computer-aided translation (CAT) tools. In order to perform a translation using a CAT tool, a translator uses the TM to gather translations similar to the desired segment to translate (s’). Many CAT tools offer a fuzzy-match algorithm to locate segments (s) in the TM that are close in distance to s’. After locating two similar segments, the CAT tool will present parallel segments (s, t) that contain one segment in the source language along with its translation in the target language. Additionally, CAT tools contain fuzzy-match repair (FMR) techniques that will automatically use the parallel segments from the TM to create new TM entries containing a modified version of the original with the idea in mind that it will be the translation of s’. Most FMR techniques use machine translation as a way of ‘repairing’ those words that have to be modified. In this article, we show that for a large part of those words which are anchored, we can use other techniques that are based on machine learning approaches such as Word2Vec. BERT, and even ChatGPT. Specifically, we show that for anchored words that follow the continuous bag-of-words (CBOW) paradigm, Word2Vec, BERT, and GPT-4 can be used to achieve similar and, for some cases, better results than neural machine translation for translating anchored words from French to English.</abstract>
+      <url hash="bc0a6a01">2024.amta-research.5</url>
+      <bibkey>yue-ortega-2024-predicting</bibkey>
+    </paper>
+    <paper id="6">
+      <title>On Translating Technical Terminology: A Translation Workflow for Machine-Translated Acronyms</title>
+      <author><first>Richard</first><last>Yue</last></author>
+      <author><first>John</first><last>Ortega</last></author>
+      <author><first>Kenneth</first><last>Church</last></author>
+      <pages>48–54</pages>
+      <abstract>The typical workflow for a professional translator to translate a document from its source language (SL) to a target language (TL) is not always focused on what many language models in natural language processing (NLP) do - predict the next word in a series of words. While high-resource languages like English and French are reported to achieve near human parity using common metrics for measurement such as BLEU and COMET, we find that an important step is being missed: the translation of technical terms, specifically acronyms. Some state-of-the art machine translation systems like Google Translate which are publicly available can be erroneous when dealing with acronyms - as much as 50% in our findings. This article addresses acronym disambiguation for MT systems by proposing an additional step to the SL-TL (FR-EN) translation workflow where we first offer a new acronym corpus for public consumption and then experiment with a search-based thresholding algorithm that achieves nearly 10% increase when compared to Google Translate and OpusMT.</abstract>
+      <url hash="358ce0ce">2024.amta-research.6</url>
+      <bibkey>yue-etal-2024-translating</bibkey>
+    </paper>
+    <paper id="7">
+      <title>Exploring the Advantages and Challenges of a Concept-Guided Approach in Large Language Model Aided Machine Translation: Integrating Generative <fixed-case>AI</fixed-case> And Human-like Cognition</title>
+      <author><first>Ming</first><last>Qian</last></author>
+      <author><first>Chuiqing</first><last>Kong</last></author>
+      <pages>55–72</pages>
+      <abstract>Humans outperform large language models (LLMs) on sophisticated tasks because human cognition involves a range of cognitive functions and their dynamic interactions. This study explores how integrating human cognition through concept-guided instruction and few-shot teaching in the prompt can guide LLMs to improve translation outcomes. We first demonstrate that for simple and widely used concepts, concept-guided prompting approaches offer significant benefits. We then test prompt engineering with Chinese-to-English translation examples, using hypothetical spaces—generated by GPT4—to estimate the complexity of various concepts and Likert scores—generated by human experts—to evaluate the translation performance. Our findings show that LLM translation performance declines as concept complexity increases. We also identify additional challenges: LLMs struggle with continuity in explaining and practicing sophisticated concepts due to the lack of human-like cognitive functions, such as cognitive dissonance. Additionally, LLMs lack a graceful speed-accuracy tradeoff because they do not possess the dynamic information processing, response strategies, and performance assessment that humans do. However, LLMs can mitigate some of these challenges by using Chain-of-Thought (CoT) reasoning, which is especially effective for problems requiring consistent, well-structured reasoning steps. Despite this, LLMs can only represent the effects of complex human cognitive functions through (often) fragmented linguistic descriptions, whereas humans excel at understanding critical and broader contexts and the interconnections between cognitive aspects.</abstract>
+      <url hash="abae62fe">2024.amta-research.7</url>
+      <bibkey>qian-kong-2024-exploring</bibkey>
+    </paper>
+    <paper id="8">
+      <title>How Effective is Synthetic Data and Instruction Fine-tuning for Translation with Markup using <fixed-case>LLM</fixed-case>s?</title>
+      <author><first>Raj</first><last>Dabre</last></author>
+      <author><first>Haiyue</first><last>Song</last></author>
+      <author><first>Miriam</first><last>Exel</last></author>
+      <author><first>Bianka</first><last>Buschbeck</last></author>
+      <author><first>Johannes</first><last>Eschbach-Dymanus</last></author>
+      <author><first>Hideki</first><last>Tanaka</last></author>
+      <pages>73–87</pages>
+      <abstract>Recent works have shown that prompting large language models (LLMs) is effective for translation with markup where LLMs can simultaneously transfer markup tags while ensuring that the content, both inside and outside tag pairs is correctly translated. However, these works make a rather unrealistic assumption of the existence of high-quality parallel sentences with markup for prompting. Furthermore, the impact of instruction fine-tuning (IFT) in this setting is unknown. In this paper, we provide a study, the first of its kind, focusing on the effectiveness of synthetically created markup data and IFT for translation with markup using LLMs. We focus on translation from English to five European languages, German, French, Dutch, Finnish and Russian, where we show that regardless of few-shot prompting or IFT, synthetic data created via word alignments, while leading to inferior markup transfer compared to using original data with markups, does not negatively impact the translation quality. Furthermore, IFT mainly impacts the translation quality compared to few-shot prompting and has slightly better markup transfer capabilities than the latter. We hope our work will help practitioners make effective decisions on modeling choices for LLM based translation with markup.</abstract>
+      <url hash="46b9b907">2024.amta-research.8</url>
+      <bibkey>dabre-etal-2024-effective</bibkey>
+    </paper>
+    <paper id="9">
+      <title>Guiding In-Context Learning of <fixed-case>LLM</fixed-case>s through Quality Estimation for Machine Translation</title>
+      <author><first>Javad</first><last>Pourmostafa Roshan Sharami</last></author>
+      <author><first>Dimitar</first><last>Shterionov</last></author>
+      <author><first>Pieter</first><last>Spronck</last></author>
+      <pages>88–101</pages>
+      <abstract>The quality of output from large language models (LLMs), particularly in machine translation (MT), is closely tied to the quality of in-context examples (ICEs) provided along with the query, i.e., the text to translate. The effectiveness of these ICEs is influenced by various factors, such as the domain of the source text, the order in which the ICEs are presented, the number of these examples, and the prompt templates used. Naturally, selecting the most impactful ICEs depends on understanding how these affect the resulting translation quality, which ultimately relies on translation references or human judgment. This paper presents a novel methodology for in-context learning (ICL) that relies on a search algorithm guided by domain-specific quality estimation (QE). Leveraging the XGLM model, our methodology estimates the resulting translation quality without the need for translation references, selecting effective ICEs for MT to maximize translation quality. Our results demonstrate significant improvements over existing ICL methods and higher translation performance compared to fine-tuning a pre-trained language model (PLM), specifically mBART-50.</abstract>
+      <url hash="bcd56b55">2024.amta-research.9</url>
+      <bibkey>pourmostafa-roshan-sharami-etal-2024-guiding</bibkey>
+      <revision id="1" href="2024.amta-research.9v1" hash="a770338a"/>
+      <revision id="2" href="2024.amta-research.9v2" hash="bcd56b55" date="2024-10-05">Update github link.</revision>
+    </paper>
+    <paper id="10">
+      <title>Some Tradeoffs in Continual Learning for Parliamentary Neural Machine Translation Systems</title>
+      <author><first>Rebecca</first><last>Knowles</last></author>
+      <author><first>Samuel</first><last>Larkin</last></author>
+      <author><first>Michel</first><last>Simard</last></author>
+      <author><first>Marc A</first><last>Tessier</last></author>
+      <author><first>Gabriel</first><last>Bernier-Colborne</last></author>
+      <author><first>Cyril</first><last>Goutte</last></author>
+      <author><first>Chi-kiu</first><last>Lo</last></author>
+      <pages>102–118</pages>
+      <abstract>In long-term translation projects, like Parliamentary text, there is a desire to build machine translation systems that can adapt to changes over time. We implement and examine a simple approach to continual learning for neural machine translation, exploring tradeoffs between consistency, the model’s ability to learn from incoming data, and the time a client would need to wait to obtain a newly trained translation system.</abstract>
+      <url hash="1067f94f">2024.amta-research.10</url>
+      <bibkey>knowles-etal-2024-tradeoffs</bibkey>
+    </paper>
+    <paper id="11">
+      <title>Position Paper: Should Machine Translation be Labelled as <fixed-case>AI</fixed-case>-Generated Content?</title>
+      <author><first>Michel</first><last>Simard</last></author>
+      <pages>119–129</pages>
+      <abstract>In September 2023, the Government of Canada issued a ‘Guide on the Use of Generative AI’ with recommendations for Canadian government institutions and their employees. As other similar documents published by various organizations in recent years, this document makes recommendations regarding transparency, stating that whenever generative AI is used to produce content, the reader should be informed that “messages addressed to them are generated by AI”. While this guide does not address specifically the case of machine translation, it does mention translation as a potential application of generative AI. Therefore, one question that naturally arises is: Should machine-translated texts be explicitly labelled as AI-generated content wherever they are used? In this position paper, we examine this question in detail, with the goal of proposing clear guidelines specifically regarding MT, not only for government institutions, but for anyone using MT technology to produce new versions of a text. Our main conclusion is that machine-translated text is indeed AI-generated content. As such, it should be explicitly marked everywhere it is used. We make recommendations as to what form this labelling might take. We also examine under what conditions labelling can be removed or omitted.</abstract>
+      <url hash="cec17bdc">2024.amta-research.11</url>
+      <bibkey>simard-2024-position</bibkey>
+    </paper>
+    <paper id="12">
+      <title>Best Practices of Successive Halving on Neural Machine Translation and Large Language Models</title>
+      <author><first>Xuan</first><last>Zhang</last></author>
+      <author><first>Kevin</first><last>Duh</last></author>
+      <pages>130–139</pages>
+      <abstract>Hyperparameter optimization (HPO) enhances neural machine translation (NMT) models but demands substantial computational resources. Successive halving, a multi-fidelity HPO method, mitigates this by early stopping unpromising models and allocating more resources to promising ones. This method is particularly relevant for NMT and large language models, which are computationally intensive. However, successive halving relies on a noisy estimation of model performance and assumes that early performance is highly correlated with final performance. We introduce a table lookup benchmark dataset to study the reliability of successive halving and propose best practices for its application in NMT and large language models.</abstract>
+      <url hash="0652bc19">2024.amta-research.12</url>
+      <bibkey>zhang-duh-2024-best</bibkey>
+    </paper>
+    <paper id="13">
+      <title>Entropy– and Distance-Regularized Attention Improves Low-Resource Neural Machine Translation</title>
+      <author><first>Ali</first><last>Araabi</last></author>
+      <author><first>Vlad</first><last>Niculae</last></author>
+      <author><first>Christof</first><last>Monz</last></author>
+      <pages>140–153</pages>
+      <abstract>Transformer-based models in Neural Machine Translation (NMT) rely heavily on multi-head attention for capturing dependencies within and across source and target sequences. In Transformers, attention mechanisms dynamically determine which parts of the sentence to focus on in the encoder and decoder through self-attention and cross-attention. Our experiments show that high-resource NMT systems often exhibit a specific peaked attention distribution, indicating a focus on key elements. However, in low-resource NMT, attention tends to be dispersed throughout the sentence, lacking the focus demonstrated by high-resource models. To tackle this issue, we present EaDRA (Entropy– and Distance-Regularized Attention), which introduces an inductive bias to prioritize essential elements and guide the attention mechanism accordingly. Extensive experiments using EaDRA on diverse low-resource language pairs demonstrate significant improvements in translation quality, while incurring negligible computational cost.</abstract>
+      <url hash="9ba80a57">2024.amta-research.13</url>
+      <bibkey>araabi-etal-2024-entropy</bibkey>
+    </paper>
+    <paper id="14">
+      <title>Enhancing Translation Quality by Leveraging Semantic Diversity in Multimodal Machine Translation</title>
+      <author><first>Ali</first><last>Hatami</last></author>
+      <author><first>Mihael</first><last>Arcan</last></author>
+      <author><first>Paul</first><last>Buitelaar</last></author>
+      <pages>154–166</pages>
+      <abstract>Despite advancements in neural machine translation, word sense disambiguation remains challenging, particularly with limited textual context. Multimodal Machine Translation enhances text-only models by integrating visual information, but its impact varies across translations. This study focuses on ambiguous sentences to investigate the effectiveness of utilizing visual information. By prioritizing these sentences, which benefit from visual cues, we aim to enhance hybrid multimodal and text-only translation approaches. We utilize Latent Semantic Analysis and Sentence-BERT to extract context vectors from the British National Corpus, enabling the assessment of semantic diversity. Our approach enhances translation quality for English-German and English-French on Multi30k, assessed through metrics including BLEU, chrF2, and TER.</abstract>
+      <url hash="360c34fe">2024.amta-research.14</url>
+      <bibkey>hatami-etal-2024-enhancing</bibkey>
+    </paper>
+    <paper id="15">
+      <title>Can Synthetic Speech Improve End-to-End Conversational Speech Translation?</title>
+      <author><first>Bismarck</first><last>Bamfo Odoom</last></author>
+      <author><first>Nathaniel</first><last>Robinson</last></author>
+      <author><first>Elijah</first><last>Rippeth</last></author>
+      <author><first>Luis</first><last>Tavarez-Arce</last></author>
+      <author><first>Kenton</first><last>Murray</last></author>
+      <author><first>Matthew</first><last>Wiesner</last></author>
+      <author><first>Paul</first><last>McNamee</last></author>
+      <author><first>Philipp</first><last>Koehn</last></author>
+      <author><first>Kevin</first><last>Duh</last></author>
+      <pages>167–177</pages>
+      <abstract>Conversational speech translation is an important technology that fosters communication among people of different language backgrounds. Three-way parallel data in the form of source speech, source transcript, and target translation is usually required to train end-to-end systems. However, such datasets are not readily available and are expensive to create as this involves multiple annotation stages. In this paper, we investigate the use of synthetic data from generative models, namely machine translation and text-to-speech synthesis, for training conversational speech translation systems. We show that adding synthetic data to the training recipe increasingly improves end-to-end training performance, especially when limited real data is available. However, when no real data is available, no amount of synthetic data helps.</abstract>
+      <url hash="55cafa45">2024.amta-research.15</url>
+      <bibkey>bamfo-odoom-etal-2024-synthetic</bibkey>
+    </paper>
+    <paper id="16">
+      <title>The Translator’s Canvas: Using <fixed-case>LLM</fixed-case>s to Enhance Poetry Translation</title>
+      <author><first>Natália</first><last>Resende</last></author>
+      <author><first>James</first><last>Hadley</last></author>
+      <pages>178–189</pages>
+      <abstract>We explore the potential of LLMs to enhance the translation process of rhymed and non-rhymed poetry. We examine LLMs’ performance in terms of lexical variety, lexical density, and sentence length compared to human translations (HT). We also examine the models’ abilities to translate sonnets while preserving the rhyme scheme of the source text. Our findings suggest that LLMs can serve as valuable tools for literary translators, assisting with the creative process and suggesting solutions to problems that may not otherwise have been considered. However, if the paradigm is flipped, such that instead of the systems being as tools by human translators, humans are used to post-edit the outputs to a standard comparable to the published translations, the amount of work required to complete the post-editing stage may outweigh any benefits assocaiated with using machine translation in the first place.</abstract>
+      <url hash="d32d41fd">2024.amta-research.16</url>
+      <bibkey>resende-hadley-2024-translators</bibkey>
+    </paper>
+    <paper id="17">
+      <title>Evaluation Briefs: Drawing on Translation Studies for Human Evaluation of <fixed-case>MT</fixed-case></title>
+      <author><first>Ting</first><last>Liu</last></author>
+      <author><first>Chi-kiu</first><last>Lo</last></author>
+      <author><first>Elizabeth</first><last>Marshman</last></author>
+      <author><first>Rebecca</first><last>Knowles</last></author>
+      <pages>190–208</pages>
+      <abstract>In this position paper, we examine ways in which researchers in machine translation and translation studies have approached the problem of evaluating the output of machine translation systems and, more broadly, the questions of what it means to define translation quality. We explore their similarities and differences, highlighting the role that the purpose and context of translation plays in translation studies approaches. We argue that evaluation of machine translation (e.g., in shared tasks) would benefit from additional insights from translation studies, and we suggest the introduction of an ‘evaluation brief” (analogous to the ‘translation brief’) which could help set out useful context for annotators tasked with evaluating machine translation.</abstract>
+      <url hash="e84ada84">2024.amta-research.17</url>
+      <bibkey>liu-etal-2024-evaluation</bibkey>
+    </paper>
+    <paper id="18">
+      <title>Word-level Translation Quality Estimation Based on Optimal Transport</title>
+      <author><first>Yuto</first><last>Kuroda</last></author>
+      <author><first>Atsushi</first><last>Fujita</last></author>
+      <author><first>Tomoyuki</first><last>Kajiwara</last></author>
+      <pages>209–224</pages>
+      <abstract>Word-level translation quality estimation (TQE) is the task of identifying erroneous words in a translation with respect to the source. State-of-the-art methods for TQE exploit large quantities of synthetic training data generated from bilingual parallel corpora, where pseudo-quality labels are determined by comparing two independent translations for the same source text, i.e., an output from a machine translation (MT) system and a reference translation in the parallel corpora. However, this process is sorely reliant on the surface forms of words, with acceptable synonyms and interchangeable word orderings regarded as erroneous. This can potentially mislead the pre-training of models. In this paper, we describe a method that integrates a degree of uncertainty in labeling the words in synthetic training data for TQE. To estimate the extent to which each word in the MT output is likely to be correct or erroneous with respect to the reference translation, we propose to use the concept of optimal transport (OT), which exploits contextual word embeddings. Empirical experiments using a public benchmarking dataset for word-level TQE demonstrate that pre-training TQE models with the pseudo-quality labels determined by OT produces better predictions of the word-level quality labels determined by manual post-editing than doing so with surface-based pseudo-quality labels.</abstract>
+      <url hash="13394bfe">2024.amta-research.18</url>
+      <bibkey>kuroda-etal-2024-word</bibkey>
+    </paper>
+    <paper id="19">
+      <title>Improving Rare Word Translation With Dictionaries and Attention Masking</title>
+      <author><first>Kenneth J</first><last>Sible</last></author>
+      <author><first>David</first><last>Chiang</last></author>
+      <pages>225–235</pages>
+      <abstract>In machine translation, rare words continue to be a problem for the dominant encoder-decoder architecture, especially in low-resource and out-of-domain translation settings. Human translators solve this problem with monolingual or bilingual dictionaries. In this paper, we propose appending definitions from a bilingual dictionary to source sentences and using attention masking to link together rare words with their definitions. We find that including definitions for rare words improves performance by up to 1.0 BLEU and 1.6 MacroF1.</abstract>
+      <url hash="32022e34">2024.amta-research.19</url>
+      <bibkey>sible-chiang-2024-improving</bibkey>
+    </paper>
+    <paper id="20">
+      <title>How Much Data is Enough Data? Fine-Tuning Large Language Models for In-House Translation: Performance Evaluation Across Multiple Dataset Sizes</title>
+      <author><first>Inacio</first><last>Vieira</last></author>
+      <author><first>Will</first><last>Allred</last></author>
+      <author><first>Séamus</first><last>Lankford</last></author>
+      <author><first>Sheila</first><last>Castilho</last></author>
+      <author><first>Andy</first><last>Way</last></author>
+      <pages>236–249</pages>
+      <abstract>In this study, we explore the effectiveness of fine-tuning Large Language Models (LLMs), particularly Llama 3 8B Instruct, using translation memories (TMs) for hyper-specific machine translation (MT) tasks. Decoder-only LLMs have shown impressive performance in MT due to their ability to learn from extensive datasets and generate high quality translations. However, LLMs often struggle with the nuances and style required for organisation-specific translation so we leverage TMs, which store human translated segments, as a valuable resource to enhance translation accuracy and efficiency. We investigate the impact of fine-tuning the Llama 3 model using TMs from a specific organisation in the software sector. Our experiments cover five translation directions across languages of varying resource levels (English to Brazilian Portuguese, Czech, German, Finnish, and Korean). We analyse diverse sizes of training datasets (1k to 100k+ segments) to evaluate their influence on translation quality. We fine-tune separate models for each training set and evaluate their performance based on automatic metrics, BLEU, chrF++, TER, and COMET. Our findings reveal improvement in translation performance with larger datasets across all metrics. On average, BLEU and COMET scores increase by 13 and 25 points respectively on the largest training set against the baseline model. Notably, there is a performance deterioration in comparison with the baseline model when fine-tuning on only 1k and 2k examples; however, we observe a substantial improvement as the training dataset size increases. The study highlights the potential of integrating TMs with LLMs to create bespoke translation models tailored to the specific needs of businesses, therefore enhancing translation quality and reducing turn-around times. This approach offers a valuable insight for organisations seeking to leverage TMs and LLMs for optimal translation outcomes, specially in narrower domains.</abstract>
+      <url hash="6281eb28">2024.amta-research.20</url>
+      <bibkey>vieira-etal-2024-much</bibkey>
+    </paper>
+    <paper id="21">
+      <title>Examining Cognitive Biases in <fixed-case>C</fixed-case>hat<fixed-case>GPT</fixed-case> 3.5 and <fixed-case>C</fixed-case>hat<fixed-case>GPT</fixed-case> 4 through Human Evaluation and Linguistic Comparison</title>
+      <author><first>Marta</first><last>Castello</last></author>
+      <author><first>Giada</first><last>Pantana</last></author>
+      <author><first>Ilaria</first><last>Torre</last></author>
+      <pages>250–260</pages>
+      <abstract>This paper aims to investigate the presence of cognitive biases, more specifically of Availability heuristics, Representativeness heuristics and Framing, in OpenAI’s ChatGPT 3.5 and ChatGPT 4, as well as the linguistic dependency of their occurrences in the Large Language Models’ (LLMs) outputs. The innovative aspect of this research is conveyed by rephrasing three tasks proposed in Kahneman and Tversky’s works and determining whether the LLMs’ answers to the tasks are correct or incorrect and human-like or non-human-like. The latter classification is made possible by interviewing a total of 56 native speakers of Italian, English and Spanish, thus introducing a new linguistic comparison of results and forming a “human standard’. Our study indicates that GPTs 3.5 and 4 are very frequently subject to the cognitive biases under discussion and their answers are mostly non-human-like. There is minimal but significant discrepancy in the performance of GPT 3.5 and 4, slightly favouring ChatGPT 4 in avoiding biased responses, specifically for Availability heuristics. We also reveal that, while the results for ChatGPT 4 are not significantly language dependent, meaning that the performances in avoiding biases are not affected by the prompting language, their difference with ChatGPT 3.5 is statistically significant.</abstract>
+      <url hash="3c008473">2024.amta-research.21</url>
+      <bibkey>castello-etal-2024-examining</bibkey>
+    </paper>
+  </volume>
+  <volume id="presentations" ingest-date="2024-09-27" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of the 16th Conference of the Association for Machine Translation in the Americas (Volume 2: Presentations)</booktitle>
+      <editor><first>Marianna</first><last>Martindale</last></editor>
+      <editor><first>Janice</first><last>Campbell</last></editor>
+      <editor><first>Konstantin</first><last>Savenkov</last></editor>
+      <editor><first>Shivali</first><last>Goel</last></editor>
+      <publisher>Association for Machine Translation in the Americas</publisher>
+      <address>Chicago, USA</address>
+      <month>September</month>
+      <year>2024</year>
+      <venue>amta</venue>
+    </meta>
+    <frontmatter>
+      <url hash="a414a012">2024.amta-presentations.0</url>
+      <bibkey>amta-2024-presentations</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Staying in the Loop with Gen <fixed-case>AI</fixed-case>: <fixed-case>AI</fixed-case>/Gen <fixed-case>AI</fixed-case>-Powered <fixed-case>HLT</fixed-case> for Public Sector</title>
+      <author><first>Konstantine</first><last>Boukhvalov</last></author>
+      <pages>1–17</pages>
+      <abstract>With the development of Generative AI (GAI) capabilities and new applications of GAI emerging every day, many are debating about what role, if any, there will be for human involvement in various tasks, from translation to translation-related services (TRS) to project management. Large organizations, such as language service providers and their customers, are concerned with what their companies will look like in the new GAI world. During our presentation, ManpowerGroup Public Sector (MGPS) will outline its vision for the future role of “humans-in-the-loop” for machine translation for the public sector and how we are transforming our organization to meet the new demands of GAI technology and workflows. We will outline five focus areas: corpus building; corpus curation / quality control; security; workflow adjustments; and output quality evaluation, including fact-checking and domain-specific expertise.</abstract>
+      <url hash="c4c07724">2024.amta-presentations.1</url>
+      <bibkey>boukhvalov-2024-staying</bibkey>
+    </paper>
+    <paper id="2">
+      <title>The Evolving Path to <fixed-case>LLM</fixed-case>-based <fixed-case>MT</fixed-case></title>
+      <author><first>Kirti</first><last>Vashee</last></author>
+      <pages>18–18</pages>
+      <abstract>This session will explore the challenges and obstacles we face in transitioning from current SOTA NMT models to an LLM-based MT landscape for enterprise use cases. NMT models are now pervasive and utilized in many production scenarios from eCommerce, eDiscovery, and Customer Service &amp; Support. While LLM MT shows promise with high-resource language translation there are significant latency, throughput, and adaptation challenges to resolve. The session will look at key questions like: Can LLM MT scale to the same levels as current NMT technology? What innovation can we expect from LLM MT to further the SOTA? What other impact will GenAI have on localization production practices? Will there be an interim hybrid period where both NMT and GenAI work together in production workflows? Will LLM MT be able to address low-resource language requirements? How will multilingual LLMs being developed across the world affect the Big Tech and English-centric dominance we see in GenAI today?</abstract>
+      <url hash="3a457d6b">2024.amta-presentations.2</url>
+      <bibkey>vashee-2024-evolving</bibkey>
+    </paper>
+    <paper id="3">
+      <title>Enhancing Translation Accuracy and Consistency through Large Language Models</title>
+      <author><first>Mei Chai</first><last>Zheng</last></author>
+      <pages>19–29</pages>
+      <abstract>Recent advancements in neural machine translation (NMT) have significantly improved the accuracy of translation from one language to another. However, challenges such as adherence to translation memories, context-specific terminologies, and consistent formality register remain pervasive hurdles. This presentation explores the integration of Large Language Models (LLMs) into the MT pipeline to address these specific issues, demonstrating substantial improvements in translation quality and contextual appropriateness.</abstract>
+      <url hash="74e82c50">2024.amta-presentations.3</url>
+      <bibkey>zheng-2024-enhancing</bibkey>
+    </paper>
+    <paper id="4">
+      <title>Is <fixed-case>AI</fixed-case> the new ”Human evaluator”?</title>
+      <author><first>Aneta</first><last>Sapeta</last></author>
+      <pages>30–44</pages>
+      <abstract>The AI tide has been present in the Localization industry for many years now, and even though there is a big hype around it, it is still trying to find its place in localization. Some are trying to use it as an NMT replacement for the current market models, and others as a helping tool in evaluating the NMT outputs by having less Human input in evaluating the MT quality. From our experience, we are still depending on Human evaluation for assessment, but how good of an evaluator can AI be? From our tests, evaluating the MT quality by the AI can be a challenging task (even though we have seen significant progress in recent years) as it requires the system to understand the meaning of the source, and the target, and then to be able to judge the quality by assessing the more or less visible errors, and to be unbiased in giving its assessment. In this presentation, we want to show our insights on the reliability of AI for MT and whether we can exclude humans from the evaluation circle.</abstract>
+      <url hash="47ab62c4">2024.amta-presentations.4</url>
+      <bibkey>sapeta-2024-ai</bibkey>
+    </paper>
+    <paper id="5">
+      <title><fixed-case>PREDICT</fixed-case> Methodology - Machine Translation Eligibility Criteria</title>
+      <author><first>Paula</first><last>Manzur</last></author>
+      <pages>45–74</pages>
+      <abstract>Enterprises in the localization sector handle diverse content types, requiring precise localization solutions. Options range from raw machine translation to transcreation. But how can they ensure the best match between content and localization method? Traditionally, the decision relied mostly on human judgment. The PREDICT Methodology, crafted by Booking.com’s localization central team, offers a systematic framework for assessing MT suitability, aligning content type with the optimal localization solution. By integrating risk tolerance weights into binary queries about a source content and use case, PREDICT provides a score and recommended solution, from raw MT to human-only translation. This approach enables our business to provide the right quality for that specific content type, boost translation efficiency and reduce costs. Looking ahead, the methodology envisions integrating LLMs for automation and guidance, utilizing prompts to identify risk-mitigating strategies.</abstract>
+      <url hash="ee855f87">2024.amta-presentations.5</url>
+      <bibkey>manzur-2024-predict</bibkey>
+    </paper>
+    <paper id="6">
+      <title>The Multi-Range Theory of Translation Quality Measurement: <fixed-case>MQM</fixed-case> scoring models and Statistical Quality Control</title>
+      <author><first>Arle</first><last>Lommel</last></author>
+      <author><first>Serge</first><last>Gladkoff</last></author>
+      <author><first>Alan</first><last>Melby</last></author>
+      <author><first>Sue Ellen</first><last>Wright</last></author>
+      <author><first>Ingemar</first><last>Strandvik</last></author>
+      <author><first>Katerina</first><last>Gasova</last></author>
+      <author><first>Angelika</first><last>Vaasa</last></author>
+      <author><first>Andy</first><last>Benzo</last></author>
+      <author><first>Romina</first><last>Marazzato Sparano</last></author>
+      <author><first>Monica</first><last>Foresi</last></author>
+      <author><first>Johani</first><last>Innis</last></author>
+      <author><first>Lifeng</first><last>Han</last></author>
+      <author><first>Goran</first><last>Nenadic</last></author>
+      <pages>75–94</pages>
+      <abstract>The year 2024 marks the 10th anniversary of the Multidimensional Quality Metrics (MQM) framework for analytic translation quality evaluation. The MQM error typology has been widely used by practitioners in the translation and localization industry and has served as the basis for many derivative projects. The annual Conference on Machine Translation (WMT) shared tasks on both human and automatic translation quality evaluations used the MQM error typology. The metric stands on two pillars: <i>error typology</i> and the <i>scoring model</i>. The scoring model calculates the quality score from annotation data, detailing how to convert error type and severity counts into numeric scores to determine if the content meets specifications. Previously, only the raw scoring model had been published. This April, the MQM Council published the <i>Linear Calibrated Scoring Model</i>, officially presented herein, along with the <i>Non-Linear Scoring Model</i>, which had not been published</abstract>
+      <url hash="8a54a89b">2024.amta-presentations.6</url>
+      <bibkey>lommel-etal-2024-multi</bibkey>
+    </paper>
+    <paper id="7">
+      <title>Automating Idiom Translation with Cross-Lingual Natural Language Generation Grounded In Semantic Analyses Using Large Language Models</title>
+      <author><first>Ming</first><last>Qian</last></author>
+      <pages>95–115</pages>
+      <abstract>Idioms exhibit varying degrees of semantic transparency, making their translation challenging. Cross-language differences in idiom usage and connotations add complexity. Using a large language modeling (LLM) approach, we automate Chinese-to-English idiom translation in three steps: (1) Semantic analysis of Chinese idioms using ontology or FrameNet to identify key concepts/relationships like action, purpose, outcome, and context. (2) Generation of multi-word English expressions reflecting these concepts. (3) Selection of the top English idiom candidate that closely matches the Chinese idiom’s meaning. Applied to examples like ‘破釜沉舟’, ‘刀山火海’, and ‘抛砖引玉’, our method performs on par with human experts. The semantic reasoning approach enhances transparency in LLM decisions, simulating logical inferences over the semantic framework.</abstract>
+      <url hash="ab758059">2024.amta-presentations.7</url>
+      <bibkey>qian-2024-automating</bibkey>
+    </paper>
+    <paper id="8">
+      <title>Enhancing Localization Workflows with <fixed-case>G</fixed-case>en<fixed-case>AI</fixed-case>-Based Solutions: A Deep Dive into Automated Post-Editing and Translation Error Detection</title>
+      <author><first>Maciej</first><last>Modrzejewski</last></author>
+      <pages>116–132</pages>
+      <abstract>The advent of Large Language Models (LLMs) has significantly transformed the localization sector. This presentation examines the integration of Generative AI (GenAI) solutions into translation and localization workflows, focusing on Automated Post-Editing (APE) and Automated Translation Error Detection. Using language pairs English-German and English-Japanese, APE consistently enhances translation quality by an average of 2-5 BLEU and 0.1-0.25 COMET compared to strong generic baselines. For specialized domains, APE reduces post-editing time by 40% for the worst-performing outputs from encoder-decoder-based MT systems. Combining APE with our in-house reference-free Quality Estimation (QE) model yields additional improvement. Through detailed methodologies, human evaluation results, and industrial applications, we demonstrate the transformative potential of these technologies in enhancing accuracy, reducing costs, and optimizing localization processes.</abstract>
+      <url hash="87bdbe68">2024.amta-presentations.8</url>
+      <bibkey>modrzejewski-2024-enhancing</bibkey>
+    </paper>
+    <paper id="9">
+      <title><fixed-case>C</fixed-case>anton<fixed-case>MT</fixed-case>: <fixed-case>C</fixed-case>antonese-<fixed-case>E</fixed-case>nglish Neural Machine Translation Looking into Evaluations</title>
+      <author><first>Kung Yin</first><last>Hong</last></author>
+      <author><first>Lifeng</first><last>Han</last></author>
+      <author><first>Riza</first><last>Batista-Navarro</last></author>
+      <author><first>Goran</first><last>Nenadic</last></author>
+      <pages>133-144</pages>
+      <abstract>Cantonese-English is a low-resource language pair for machine translation (MT) studies, despite the vast amount of English content publicly available online and the large amount of native Cantonese speakers. Based on our previous work on CANTONMT from Hong et al. (2024), where we created the open-source fine-tuned systems for Cantonese-English Neural MT (NMT) using base-models NLLB, OpusMT, and mBART and corpus collections and creation, in this paper, we report our extended experiments on model training and comparisons. In particular, we incorporated human-based evaluations using native Cantonese speakers who are also fluent in the English language. We designed a modified version of the HOPE metric from Gladkoff and Han (2022) for the categorised error analysis and serenity-level statistics (naming HOPES). The models selected for human evaluations are NLLB-mBART fine-tuned and two translators from commercial companies: Bing and GPT4.</abstract>
+      <url hash="fc607f7b">2024.amta-presentations.9</url>
+      <bibkey>hong-etal-2024-cantonmt-cantonese</bibkey>
+    </paper>
+    <paper id="10">
+      <title>Leveraging <fixed-case>AI</fixed-case> Technologies for Enhanced Multimedia Localization</title>
+      <author><first>Ashley</first><last>Mondello</last></author>
+      <author><first>Sahil</first><last>Rasane</last></author>
+      <author><first>Alina</first><last>Karakanta</last></author>
+      <author><first>Laura</first><last>Casanellas</last></author>
+      <pages>145–151</pages>
+      <abstract>As demand for multilingual video content rises, multimedia localization is becoming crucial for Language Service Providers (LSPs), offering revenue growth and new business opportunities. To cope with labor-intensive multimedia workflows and the rise in client demand for cheaper and faster multimedia localization services, LSPs are starting to leverage advanced AI applications to streamline the localization process. However, workflows and tools adopted by media service providers may not be suitable for LSPs, while the plethora of available solutions makes it hard for LSPs to choose the ones that most effectively optimize their workflows. In this presentation, we assess AI technologies that offer efficiency and cost reduction in the traditionally human-driven workflows of transcription, translation, voice-over (VO), and subtitling with the goal to provide recommendations for LSPs on how to evaluate which tools work best for their processes.</abstract>
+      <url hash="c266bfb6">2024.amta-presentations.10</url>
+      <bibkey>mondello-etal-2024-leveraging</bibkey>
+    </paper>
+    <paper id="11">
+      <title>Open-source <fixed-case>LLM</fixed-case>s vs. <fixed-case>NMT</fixed-case> Systems: Translating Spatial Language in <fixed-case>EN</fixed-case>-<fixed-case>PT</fixed-case>-br Subtitles</title>
+      <author><first>Rafael</first><last>Fernandes</last></author>
+      <author><first>Marcos</first><last>Lopes</last></author>
+      <pages>152–153</pages>
+      <abstract>This research investigates the challenges of translating spatial language using open-source LLMs versus traditional NMTs. Focusing on spatial prepositions like ACROSS, INTO, ONTO, and THROUGH, which are particularly challenging for the EN-PT-br pair, the study evaluates translations using BLEU, METEOR, BERTScore, COMET, and TER metrics, along with manual error analysis. The findings reveal that moderate-sized LLMs, such as LLaMa-3-8B and Mixtral-8x7B, achieve accuracy comparable to NMTs like DeepL. However, LLMs frequently exhibit mistranslation errors, including interlanguage/code-switching and anglicisms, while NMTs demonstrate better fluency. Both LLMs and NMTs struggle with spatial-related errors, including syntactic projections and polysemy. The study concludes that significant hurdles remain in accurately translating spatial language, suggesting that future research should focus on enhancing training datasets, refining models, and developing more sophisticated evaluation metrics.</abstract>
+      <url hash="b2c81ea5">2024.amta-presentations.11</url>
+      <bibkey>fernandes-lopes-2024-open</bibkey>
+    </paper>
+    <paper id="12">
+      <title>Comparative Evaluation of Large Language Models for Linguistic Quality Assessment in Machine Translation</title>
+      <author><first>Daria</first><last>Sinitsyna</last></author>
+      <author><first>Konstantin</first><last>Savenkov</last></author>
+      <pages>154–183</pages>
+      <abstract>Building on our GPT-4 LQA research in MT, this study identifies top LLMs for an LQA pipeline with up to three models. LLMs like GPT-4, GPT-4o, GPT-4 Turbo, Google Vertex, Anthropic’s Claude 3, and Llama-3 are prompted using MQM error typology. These models generate segment-wise outputs describing translation errors, scored by severity and DQF-MQM penalties. The study evaluates four language pairs: English-Spanish, English-Chinese, English-German, and English-Portuguese, using datasets from our 2024 State of MT Report across eight domains. LLM outputs are correlated with human judgments, ranking models by alignment with human assessments for penalty score, issue presence, type, and severity. This research proposes an LQA pipeline with up to three models, weighted by output quality, highlighting LLMs’ potential to enhance MT review processes and improve translation quality.</abstract>
+      <url hash="d629a295">2024.amta-presentations.12</url>
+      <bibkey>sinitsyna-savenkov-2024-comparative</bibkey>
+    </paper>
+    <paper id="13">
+      <title>Evaluating End-to-End Speech-to-Speech Translation for Dubbing: Challenges and New Metrics</title>
+      <author><first>Fred</first><last>Bane</last></author>
+      <pages>184–207</pages>
+      <abstract>The advent of end-to-end speech-to-speech translation (S2ST) systems in recent years marks a significant advancement over traditional cascaded approaches. These novel systems represent a direct translation pathway from spoken input to spoken output without relying on intermediate text forms. However, evaluation methods for this task, such as ASR BLEU, are often still compartmentalized and text-based. We suggest the quality of the resulting speech must be measured too. Naturalness, similarity of the target voice to the original, reflection of accents, and rhythm are all important. We argue that new evaluation metrics are needed in response to this watershed change. Our presentation approaches this topic through the lens of dubbing, with a particular focus on voice over. We begin with a critical examination of existing metrics. Then we discuss key features of S2ST that are inadequately captured. Finally, we propose new directions for evaluation of S2ST systems.</abstract>
+      <url hash="d1ab8934">2024.amta-presentations.13</url>
+      <bibkey>bane-2024-evaluating</bibkey>
+    </paper>
+    <paper id="14">
+      <title>Enhancing Consistency Through Prompt-Tuning for Style Guide Adaptation</title>
+      <author><first>Ming</first><last>Qian</last></author>
+      <author><first>Zidian</first><last>Guo</last></author>
+      <pages>208–221</pages>
+      <abstract>This presentation explores the use of Prompt-Tuning (PT) to improve brand and language consistency in localization by teaching Large Language Models (LLMs) to develop and apply style guides from minimal examples. PT allows for the automatic enforcement of style guides for specific projects, potentially enhancing translation quality across varied tasks. Our approach involves defining key style guide components such as domain, audience, and formatting standards for acronyms, dates, and measurements, and creating prompts that instruct LLMs to extract and apply these standards in new translation tasks. We conducted extensive tests to evaluate the effectiveness of PT, documenting the process to ensure replicability. The expected results include improved consistency and translation performance, advancing the use of AI in localization and setting a foundation for future innovation in the field.</abstract>
+      <url hash="4732dda2">2024.amta-presentations.14</url>
+      <bibkey>qian-guo-2024-enhancing</bibkey>
+    </paper>
+    <paper id="15">
+      <title>An Evaluation of <fixed-case>E</fixed-case>nglish to <fixed-case>S</fixed-case>panish Medical Translation by Large Language Models</title>
+      <author><first>Nicholas</first><last>Riina</last></author>
+      <author><first>Likhitha</first><last>Patlolla</last></author>
+      <author><first>Camilo</first><last>Hernandez Joya</last></author>
+      <author><first>Roger</first><last>Bautista</last></author>
+      <author><first>Melissa</first><last>Olivar-Villanueva</last></author>
+      <author><first>Anish</first><last>Kumar</last></author>
+      <pages>222–236</pages>
+      <abstract>Machine translation (MT) with Large Language Models (LLMs) holds promise as a clinical translation tool with more capabilities than a traditional MT model. This work compares the quality of English to Spanish translation by three LLMs: ChatGPT3.5 Turbo, ChatGPT4o, and Aguila, against Google Translate. The test set used in this study is MedlinePlus, a parallel dataset of educational health information in English and Spanish developed by the National Library of Medicine. ChatGPT4o and Google Translate performed similarly in both automated scoring (BLEU, METEOR, and BERTscore) and human evaluation with ChatGPT3.5 Turbo not far behind. Aguila, the only LLM intended for primarily Spanish and Catalan use, surprisingly performed much worse than the other models. However, qualitative analysis of Aguila’s results revealed the use of Spanish word choice that may reach a broader audience.</abstract>
+      <url hash="f06bf169">2024.amta-presentations.15</url>
+      <bibkey>riina-etal-2024-evaluation</bibkey>
+    </paper>
+    <paper id="16">
+      <title>From “Comment allez-vous?” to “Comment ça va?”: Leveraging Large Language Models to Automate Formality Adaptation in Translation</title>
+      <author><first>Vera</first><last>Senderowicz</last></author>
+      <pages>237–254</pages>
+      <abstract>The evolution of machine translation (MT) has seen significant advancements in data cleaning and post-editing methodologies, but numerous cases requiring semantic comprehension have still necessitated human intervention—until the emergence of Large Language Models (LLMs). In our research, we have explored an innovative application of Generative AI (Gen AI) to adapt bilingual content’s target segments from a formal to an informal register, in scenarios where the source language lacks explicit grammatical markers for formality and thus is grammatically bivalent in that sense. In this session, we will demonstrate how LLMs, enhanced by supplementary methodologies such as fine-tuning and combined with other, more legacy language models, can efficiently perform this formality adaptation task. We aim to showcase best practices for leveraging Gen AI in adapting bilingual content registers, highlighting the potential for cost reduction and quality enhancement in translation processes.</abstract>
+      <url hash="5e526934">2024.amta-presentations.16</url>
+      <bibkey>senderowicz-2024-comment</bibkey>
+    </paper>
+    <paper id="17">
+      <title>Academia &amp; Business: How Quality Assurance can Merge Two Rivals</title>
+      <author><first>Patry</first><last>Muñoz Andrés</last></author>
+      <pages>255–257</pages>
+      <abstract>As a general rule, in many industries, but especially in ours, the world of academia tends to go its own route, in many instances, separating itself from the business environment where the actual outcome of this research could be applied. This talk portraits the journey of Quality Assurance in Translation from the first logical step within an LSP, which involves ISO certifications and automated QA, to more sophisticated tools such as Machine Translation (MT), and Large Language Models (LLMs). This is a combined journey in which business and academia are merged in order to achieve a common goal: quality. As opposed to simply compiling research, this session means to show how such research can be used by LSPs in order to achieve the highest possible quality in their translation services.</abstract>
+      <url hash="8f418e1c">2024.amta-presentations.17</url>
+      <bibkey>munoz-andres-2024-academia</bibkey>
+    </paper>
+    <paper id="18">
+      <title>Language Technology for All: Industry Initiatives to Serve Low Resource Languages</title>
+      <author><first>Blaise</first><last>Hylak</last></author>
+      <pages>258–258</pages>
+      <abstract>In an increasingly globalized world, language localization tools have become indispensable. However, there is a glaring disparity in the distribution of these resources. While English and other dominant languages benefit from advanced machine translation (MT) technologies and Large Language Models (LLM), many languages remain marginalized. Luckily, there are some initiatives underway to address this concern. This research aims to explore the development of language technology tools for low resource languages. The study evaluates organizations’ efforts to develop language resource data/tools for low resource languages with regards to machine translation (MT), speech-to-speech translation (S2ST), and what the outlook may be for the future.</abstract>
+      <url hash="e9366c80">2024.amta-presentations.18</url>
+      <bibkey>hylak-2024-language</bibkey>
+    </paper>
+    <paper id="19">
+      <title>Impact of Syntactic Complexity on the Processes and Performance of Large Language Models-leveraged Post-editing</title>
+      <author><first>Longhui</first><last>Zou</last></author>
+      <author><first>Michael</first><last>Carl</last></author>
+      <author><first>Shaghayegh</first><last>Momtaz</last></author>
+      <author><first>Mehdi</first><last>Mirzapour</last></author>
+      <pages>259–260</pages>
+      <abstract>This research explores the interaction between human translators and Large Language Models (LLMs) during post-editing (PE). The study examines the impact of syntactic complexity on the PE processes and performance, specifically when working with the raw translation output generated by GPT-4. We selected four English source texts (STs) from previous American Translators Association (ATA) certification examinations. Each text is about 10 segments, with 250 words. GPT-4 was employed to translate the four STs from English into simplified Chinese. The empirical experiment simulated the authentic work environment of PE, using professional computer-assisted translation (CAT) tool, Trados. The experiment involved 46 participants with different levels of translation expertise (30 student translators and 16 expert translators), producing altogether 2162 segments of PE versions. We implemented five syntactic complexity metrics in the context of PE for quantitative analysis.</abstract>
+      <url hash="be46b897">2024.amta-presentations.19</url>
+      <bibkey>zou-etal-2024-impact</bibkey>
+    </paper>
+    <paper id="20">
+      <title>Labels on Translation Output: a triple win</title>
+      <author><first>Alan</first><last>Melby</last></author>
+      <pages>261–286</pages>
+      <abstract>In the 2023 edition of the ASTM International translation standard (F2575) the labels BRT and UMT have been standardized. The Label BRT stands for ‘Bilingually Reviewed Translation, by a qualified language professional’. The Label UMT is for everything else, from raw machine translation to MT where only the target text is checked, to human translation that does not involve a qualified professional. Thus, UMT could be expanded as ‘Unreviewed or Missing-qualifications Translation’. This presentation will argue that the use of the labels BRT and UMT is a triple win: The ‘consumers’ (end users) of a translation win because they have useful information for risk analysis (harm from errors). MT developers win because they have useful metadata when selecting training material. And professional translators win by increasing their visibility to the public. The presentation will give a history of these two labels and enlist the help of the entire AMTA community in promoting their use.</abstract>
+      <url hash="5fdf26c1">2024.amta-presentations.20</url>
+      <bibkey>melby-2024-labels</bibkey>
+    </paper>
+  </volume>
+</collection>

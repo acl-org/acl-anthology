@@ -51,15 +51,13 @@ from time import sleep
 import lxml.etree as ET
 
 
-def add_doi(xml_node, collection_id, volume_id, force=False):
-    if "id" in xml_node.attrib:
-        # normal paper
-        paper_id = int(xml_node.attrib["id"])
-    else:
-        # frontmatter
-        paper_id = 0
+def add_doi(xml_node, anth_id, force=False):
+    """
+    :param xml_node: the XML node to add the DOI to
+    :param anth_id: The Anthology ID of the paper, volume, or frontmatter
+    :param force: Whether to overwrite existing DOIs
+    """
 
-    anth_id = build_anthology_id(collection_id, volume_id, paper_id)
     new_doi_text = f"{data.DOI_PREFIX}{anth_id}"
 
     doi = xml_node.find("doi")
@@ -117,15 +115,27 @@ def process_volume(anthology_volume):
         volume_title = formatter.as_text(volume_booktitle)
         print(f'-> Found volume "{volume_title}"', file=sys.stderr)
 
+        # Add the volume-level DOI
+        meta_node = volume.find("meta")
+        if meta_node is not None:
+            anth_id = build_anthology_id(collection_id, volume_id)
+            added = add_doi(meta_node, anth_id, force=args.force)
+            num_added += added
+
         # Iterate through all papers
         papers = volume.findall("paper")
         if (frontmatter := volume.find("frontmatter")) is not None:
             papers.insert(0, frontmatter)
-        for paper in papers:
-            added = add_doi(paper, collection_id, volume_id, force=args.force)
+
+        for paper_node in papers:
+            # get the paper id attrib, default to 0 (frontmatter)
+            paper_id = int(paper_node.attrib.get("id", 0))
+            anth_id = build_anthology_id(collection_id, volume_id, paper_id)
+
+            added = add_doi(paper_node, anth_id, force=args.force)
             if added:
                 num_added += 1
-                sleep(1)
+                sleep(0.1)
 
         indent(tree.getroot())
 
