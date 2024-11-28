@@ -29,7 +29,7 @@
   <div class="col-12 col-xl-2">
     <aside class="card acl-greeting font-weight-light mb-3">
       <div class="card-body">
-        The ACL Anthology is a library of publications in the scientific fields of <a href="https://www.aclweb.org/portal/what-is-cl">computational linguistics</a> and speech and natural language processing. It currently hosts {{ $.Scratch.Get "paper_count" }} papers from official venues of the <a href="https://www.aclweb.org/">Association for Computational Linguistics</a> and other organizations.
+        The ACL Anthology is a library of publications in the scientific fields of <a href="https://www.aclweb.org/portal/what-is-cl">computational linguistics</a> and speech and natural language processing. It currently hosts {{ lang.FormatNumberCustom 0 ($.Scratch.Get "paper_count") }} papers from official venues of the <a href="https://www.aclweb.org/">Association for Computational Linguistics</a> and other organizations.
       </div>
       <div class="card-body">
         <a href="http://groups.google.com/group/acl-anthology?hl=en">Subscribe to the mailing list</a> or the <a href="{{ "posts/index.xml" | relURL }}">RSS news feed</a> to receive announcements and updates to the Anthology.
