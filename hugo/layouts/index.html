@@ -157,7 +157,6 @@
       <a class="btn btn-block btn-info" href="{{ "anthology.bib" | relURL }}">slim plaintext ({{ printf "%.2f MB" (div (os.Stat "/data-export/anthology.bib").Size 1000000.0) }})</a>
       {{ end }}
 
-      <a class="btn btn-block btn-warning" href="{{ "papers/index.xml" | relURL }}">RSS Feed (latest 1000 papers)</a>
       <a class="btn btn-block btn-success" href="{{ ($.Site.GetPage "/faq/feedback.md").RelPermalink }}">Give feedback</a>
     </div>
   </main>
