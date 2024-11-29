@@ -169,7 +169,7 @@ class PersonIndex(SlottedDict[Person]):
                 try:
                     for name_spec in volume.editors:
                         person = self.get_or_create_person(name_spec)
-                        person.item_ids.add(volume.full_id_tuple)
+                        person.item_ids.append(volume.full_id_tuple)
                     for paper in volume.papers():
                         context = paper
                         name_specs = (
@@ -181,7 +181,7 @@ class PersonIndex(SlottedDict[Person]):
                         )
                         for name_spec in name_specs:
                             person = self.get_or_create_person(name_spec)
-                            person.item_ids.add(paper.full_id_tuple)
+                            person.item_ids.append(paper.full_id_tuple)
                 except Exception as exc:
                     note = f"Raised in {context.__class__.__name__} {context.full_id}; {name_spec}"
                     # If this is merged into a single if-statement (with "or"),
@@ -350,7 +350,7 @@ class PersonIndex(SlottedDict[Person]):
                 ),
             }
             if person.item_ids:
-                attrib["items"] = list(person.item_ids)
+                attrib["items"] = person.item_ids
             if len(person.names) > 1:
                 attrib["variants"] = [
                     asdict(
