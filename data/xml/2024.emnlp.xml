@@ -3774,9 +3774,11 @@
       <author><first>Enhong</first><last>Chen</last><affiliation>University of Science and Technology of China</affiliation></author>
       <pages>4683-4702</pages>
       <abstract>Despite the significant progress of large language models (LLMs) in various tasks, they often produce factual errors due to their limited internal knowledge. Retrieval-Augmented Generation (RAG), which enhances LLMs with external knowledge sources, offers a promising solution. However, these methods can be misled by irrelevant paragraphs in retrieved documents. Due to the inherent uncertainty in LLM generation, inputting the entire document may introduce off-topic information, causing the model to deviate from the central topic and affecting the relevance of the generated content. To address these issues, we propose the Retrieve-Plan-Generation (RPG) framework. RPG generates plan tokens to guide subsequent generation in the plan stage. In the answer stage, the model selects relevant fine-grained paragraphs based on the plan and uses them for further answer generation. This plan-answer process is repeated iteratively until completion, enhancing generation relevance by focusing on specific topics. To implement this framework efficiently, we utilize a simple but effective multi-task prompt-tuning method, enabling the existing LLMs to handle both planning and answering. We comprehensively compare RPG with baselines across 5 knowledge-intensive generation tasks, demonstrating the effectiveness of our approach.</abstract>
-      <url hash="7c67dd1e">2024.emnlp-main.270</url>
+      <url hash="f69f6783">2024.emnlp-main.270</url>
       <bibkey>lyu-etal-2024-retrieve</bibkey>
       <doi>10.18653/v1/2024.emnlp-main.270</doi>
+      <revision id="1" href="2024.emnlp-main.270v1" hash="7c67dd1e"/>
+      <revision id="2" href="2024.emnlp-main.270v2" hash="f69f6783" date="2024-12-01">This revision corrects a typo in Table 1 and clarifies the metric version used in the experiment.</revision>
     </paper>
     <paper id="271">
       <title><fixed-case>C</fixed-case>o<fixed-case>E</fixed-case>vol: Constructing Better Responses for Instruction Finetuning through Multi-Agent Cooperation</title>
@@ -14120,8 +14122,6 @@
       <pages>18393-18409</pages>
       <abstract>Generative AI systems powered by Large Language Models have become increasingly popular in recent years. Lately, due to the risk of providing users with unsafe information, the adoption of those systems in safety-critical domains has raised significant concerns. To respond to this situation, input-output filters, commonly called guardrail models, have been proposed to complement other measures, such as model alignment. Unfortunately, the lack of a standard benchmark for guardrail models poses significant evaluation issues and makes it hard to compare results across scientific publications. To fill this gap, we introduce GuardBench, a large-scale benchmark for guardrail models comprising 40 safety evaluation datasets. To facilitate the adoption of GuardBench, we release a Python library providing an automated evaluation pipeline built on top of it. With our benchmark, we also share the first large-scale prompt moderation datasets in German, French, Italian, and Spanish. To assess the current state-of-the-art, we conduct an extensive comparison of recent guardrail models and show that a general-purpose instruction-following model of comparable size achieves competitive results without the need for specific fine-tuning.</abstract>
       <url hash="9fb8d5a8">2024.emnlp-main.1022</url>
-      <attachment type="software" hash="a43effbf">2024.emnlp-main.1022.software.zip</attachment>
-      <attachment type="data" hash="a082eb2b">2024.emnlp-main.1022.data.zip</attachment>
       <bibkey>bassani-sanchez-2024-guardbench</bibkey>
       <doi>10.18653/v1/2024.emnlp-main.1022</doi>
     </paper>
@@ -17622,9 +17622,11 @@
       <author><first>Amir</first><last>Gholami</last><affiliation>University of California Berkeley</affiliation></author>
       <pages>80-88</pages>
       <abstract>Recent large language models (LLMs) have enabled the development of advanced agentic systems that can integrate various tools and APIs to fulfill user queries through function calling. However, the deployment of these LLMs on the edge has not been explored since they typically require cloud-based infrastructure due to their substantial model size and computational demands. To this end, we present TinyAgent, an end-to-end framework for training and deploying task-specific small language model agents capable of function calling for driving agentic systems at the edge. We first show how to enable accurate function calling for open-source models via the LLMCompiler framework. We then systematically curate a high-quality dataset for function calling, which we use to fine-tune two small language models, TinyAgent-1.1B and 7B. For efficient inference, we introduce a novel tool retrieval method to reduce the input prompt length and utilize quantization to further accelerate the inference speed. As a driving application, we demonstrate a local Siri-like system for Apple’s MacBook that can execute user commands through text or voice input. Our results show that our models can achieve, and even surpass, the function-calling capabilities of larger models like GPT-4-Turbo, while being fully deployed at the edge. We open-source our [dataset, models, and installable package](https://github.com/SqueezeAILab/TinyAgent) and provide a [demo video](https://www.youtube.com/watch?v=0GvaGL9IDpQ) for our MacBook assistant agent.</abstract>
-      <url hash="f9682aa4">2024.emnlp-demo.9</url>
+      <url hash="b70f30be">2024.emnlp-demo.9</url>
       <bibkey>erdogan-etal-2024-tinyagent</bibkey>
       <doi>10.18653/v1/2024.emnlp-demo.9</doi>
+      <revision id="1" href="2024.emnlp-demo.9v1" hash="f9682aa4"/>
+      <revision id="2" href="2024.emnlp-demo.9v2" hash="b70f30be" date="2024-11-29">The acknowledgements section is updated with the complete acknowledgements.</revision>
     </paper>
     <paper id="10">
       <title><fixed-case>T</fixed-case>ruth<fixed-case>R</fixed-case>eader: Towards Trustworthy Document Assistant Chatbot with Reliable Attribution</title>
@@ -20193,11 +20195,11 @@
       <doi>10.18653/v1/2024.emnlp-tutorials.3</doi>
     </paper>
     <paper id="4">
-      <title>Introductory Tutorial: Reasoning with Natural Language Explanations</title>
+      <title>Reasoning with Natural Language Explanations</title>
       <author><first>Marco</first><last>Valentino</last></author>
       <author><first>André</first><last>Freitas</last></author>
       <pages>25–31</pages>
-      <abstract>TODO</abstract>
+      <abstract>Explanation constitutes an archetypal feature of human rationality, underpinning learning and generalisation, and representing one of the media supporting scientific discovery and communication. Due to the importance of explanations in human reasoning, an increasing amount of research in Natural Language Inference (NLI) has started reconsidering the role that explanations play in learning and inference, attempting to build explanation-based NLI models that can effectively encode and use natural language explanations on downstream tasks. Research in explanation-based NLI, however, presents specific challenges and opportunities, as explanatory reasoning reflects aspects of both material and formal inference, making it a particularly rich setting to model and deliver complex reasoning. In this tutorial, we provide a comprehensive introduction to the field of explanation-based NLI, grounding this discussion on the epistemological-linguistic foundations of explanations, systematically describing the main architectural trends and evaluation methodologies that can be used to build systems capable of explanatory reasoning.</abstract>
       <url hash="b110995b">2024.emnlp-tutorials.4</url>
       <bibkey>valentino-freitas-2024-introductory</bibkey>
       <doi>10.18653/v1/2024.emnlp-tutorials.4</doi>
