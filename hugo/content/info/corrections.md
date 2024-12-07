@@ -2,7 +2,7 @@
 Title: Requesting Corrections
 linktitle: Corrections
 subtitle: How to submit corrections to the Anthology
-date: 2021-11-11
+date: 2024-09-06
 ---
 
 ### Types of corrections
@@ -33,16 +33,12 @@ Please take note of the following points regarding revisions and retractions.
 
 A request to change paper metadata (that does not require any PDF changes) can be submitted in several ways.
 
--  _(Preferred)_ Please file [a Github issue](https://github.com/acl-org/acl-anthology/issues/new?assignees=anthology-assist&labels=correction%2Cmetadata&template=01-metadata-correction.yml&title=Paper+Metadata%3A+%7Breplace+with+Anthology+ID%7D).
-   **Be sure to indicate the Anthology ID of the paper** (e.g., `P19-1017` or `2020.acl-1.17`).
--  If your issue is sensitive, you can alternately contact us via email at anthology@aclweb.org.
-   Again, please be sure to include the Anthology ID of the paper in your email.
--  If you would like to expedite the process and are familiar with [git](https://git-scm.com), you can make the correction yourself and file a [pull request (PR)](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests).
-   To do this, first fork our repository so that you can make edits to your local copy.
-   Then, locate your file amongst our [authoritative XML files](https://github.com/acl-org/acl-anthology/tree/master/data/xml).
-   As an example, if the Anthology ID of your paper is `P19-10171`, then the file you will need to edit is [data/xml/P19.xml](https://github.com/acl-org/acl-anthology/blob/master/data/xml/P19.xml).
-   Find your entry from some identifying information, make the correction, and issue a PR against our `master` branch.
-   For smaller XML files, you can avoid having to clone the repository by [editing directly in the browser](https://help.github.com/en/github/managing-files-in-a-repository/editing-files-in-another-users-repository).
+- Have us do the work. Please note that in order to reduce our workload, we process corrections in batches, merging them at the beginning of each month.
+   -  _(Preferred)_ Please file [a Github issue](https://github.com/acl-org/acl-anthology/issues/new?assignees=anthology-assist&labels=correction%2Cmetadata&template=01-metadata-correction.yml&title=Paper+Metadata%3A+%7Breplace+with+Anthology+ID%7D).
+     **Be sure to indicate the Anthology ID of the paper** (e.g., `P19-1017` or `2020.acl-1.17`).
+   -  If your issue is sensitive, you can alternately contact us via email at anthology@aclweb.org.
+      Again, please be sure to include the Anthology ID of the paper in your email.
+- Make the change yourself. The advantage here is that your request can be approved and made live as soon as we see it. You can do this by [following the instructions here](https://github.com/acl-org/acl-anthology/wiki/Issuing-Pull-Requests-For-Corrections).
 
 The Anthology team will attend to the correction as we find time.
 Metadata changes are generally accepted if they are consistent with the PDF, which we take as authoritative.
