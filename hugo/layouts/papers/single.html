@@ -284,8 +284,6 @@
         {{ range $i, $t := . }}{{ if $i }},&nbsp;{{ end }}<a href="{{ $t.url }}">{{ $t.name }}</a>{{ end }}
         </dd>
       {{ end }}
-
-    </dl>
     </div>
 
     <!-- Most of the styling for this block is set in _papers.scss to avoid clutter -->
@@ -425,5 +423,14 @@
       </div>
     </div>
   </div>
+  <!-- TODO: check styling -->
+  <details>
+    <summary>File a correction</summary>
+    <div>
+      {{ with partial "correction.html" (dict "ctx" $ "paper" $paper "anthology_id" $anthology_id "volume_id" $volume_id) | chomp }}
+      {{ . }}
+      {{ end }}
+    </div>
+  </details>
 </section>
 {{ end }}
