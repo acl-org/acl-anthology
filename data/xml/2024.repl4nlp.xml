@@ -1,0 +1,236 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2024.repl4nlp">
+  <volume id="1" ingest-date="2024-07-30" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of the 9th Workshop on Representation Learning for NLP (RepL4NLP-2024)</booktitle>
+      <editor><first>Chen</first><last>Zhao</last></editor>
+      <editor><first>Marius</first><last>Mosbach</last></editor>
+      <editor><first>Pepa</first><last>Atanasova</last></editor>
+      <editor><first>Seraphina</first><last>Goldfarb-Tarrent</last></editor>
+      <editor><first>Peter</first><last>Hase</last></editor>
+      <editor><first>Arian</first><last>Hosseini</last></editor>
+      <editor><first>Maha</first><last>Elbayad</last></editor>
+      <editor><first>Sandro</first><last>Pezzelle</last></editor>
+      <editor><first>Maximilian</first><last>Mozes</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Bangkok, Thailand</address>
+      <month>August</month>
+      <year>2024</year>
+      <url hash="c7d7ee46">2024.repl4nlp-1</url>
+      <venue>repl4nlp</venue>
+      <venue>ws</venue>
+    </meta>
+    <frontmatter>
+      <url hash="0f15b08f">2024.repl4nlp-1.0</url>
+      <bibkey>repl4nlp-1-2024</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Learning Contextualized Box Embeddings with Prototypical Networks</title>
+      <author><first>Kohei</first><last>Oda</last></author>
+      <author><first>Kiyoaki</first><last>Shirai</last><affiliation>Japan Advanced Institute of Science and Technology</affiliation></author>
+      <author><first>Natthawut</first><last>Kertkeidkachorn</last><affiliation>Japan Advanced Institute of Science and Technology, Tokyo Institute of Technology</affiliation></author>
+      <pages>1-12</pages>
+      <abstract>This paper proposes ProtoBox, a novel method to learn contextualized box embeddings. Unlike an ordinary word embedding, which represents a word as a single vector, a box embedding represents the meaning of a word as a box in a high-dimensional space: that is suitable for representing semantic relations between words. In addition, our method aims to obtain a “contextualized” box embedding, which is an abstract representation of a word in a specific context. ProtoBox is based on Prototypical Networks, which is a robust method for classification problems, especially focusing on learning the hypernym–hyponym relation between senses. ProtoBox is evaluated on three tasks: Word Sense Disambiguation (WSD), New Sense Classification (NSC), and Hypernym Identification (HI). Experimental results show that ProtoBox outperforms baselines for the HI task and is comparable for the WSD and NSC tasks.</abstract>
+      <url hash="7b8b4574">2024.repl4nlp-1.1</url>
+      <bibkey>oda-etal-2024-learning</bibkey>
+    </paper>
+    <paper id="2">
+      <title><fixed-case>D</fixed-case>omain<fixed-case>I</fixed-case>nv: Domain Invariant Fine Tuning and Adversarial Label Correction For Unsupervised <fixed-case>QA</fixed-case> Domain Adaptation</title>
+      <author><first>Anant</first><last>Khandelwal</last><affiliation>Glance AI</affiliation></author>
+      <pages>13-25</pages>
+      <abstract>Existing Question Answering (QA) systems are limited in their ability to answer questions from unseen domains or any out-of-domain distributions, making them less reliable for deployment in real scenarios. Importantly, all existing QA domain adaptation methods are either based on generating synthetic data or pseudo-labeling the target domain data. Domain adaptation methods relying on synthetic data and pseudo-labeling suffer from either the need for extensive computational resources or an additional overhead of carefully selecting the confidence threshold to distinguish noisy examples from the training dataset. In this paper, we propose unsupervised domain adaptation for an unlabeled target domain by transferring the target representation close to the source domain without using supervision from the target domain. To achieve this, we introduce the idea of domain-invariant fine-tuning along with adversarial label correction (DomainInv) to identify target instances that are distant from the source domain. This involves learning the domain invariant feature encoder to minimize the distance between such target instances and source instances class-wisely. This eliminates the possibility of learning features of the target domain that are still close to the source support but are ambiguous. The evaluation of our QA domain adaptation method, namely DomainInv, on multiple target QA datasets reveals a performance improvement over the strongest baseline.</abstract>
+      <url hash="b1fe045a">2024.repl4nlp-1.2</url>
+      <bibkey>khandelwal-2024-domaininv</bibkey>
+    </paper>
+    <paper id="3">
+      <title>Relevance-aware Diverse Query Generation for Out-of-domain Text Ranking</title>
+      <author><first>Jia-Huei</first><last>Ju</last><affiliation>University of Amsterdam</affiliation></author>
+      <author><first>Chao-Han</first><last>Yang</last><affiliation>NVIDIA Research</affiliation></author>
+      <author><first>Szu-Wei</first><last>Fu</last><affiliation>NVIDIA and Microsoft</affiliation></author>
+      <author><first>Ming-Feng</first><last>Tsai</last><affiliation>National Chengchi University</affiliation></author>
+      <author><first>Chuan-Ju</first><last>Wang</last><affiliation>Academia Sinica</affiliation></author>
+      <pages>26-36</pages>
+      <abstract>Domain adaptation presents significant challenges for out-of-domain text ranking, especially when supervised data is limited. In this paper, we present ReadQG (Relevance-Aware Diverse Query Generation), a method to generate informative synthetic queries to facilitate the adaptation process of text ranking models. Unlike previous approaches focusing solely on relevant query generation, our ReadQG generates diverse queries with continuous relevance scores. Specifically, we propose leveraging soft-prompt tuning and diverse generation objectives to control query generation according to the given relevance. Our experiments show that integrating negative queries into the learning process enhances the effectiveness of text ranking models in out-of-domain information retrieval (IR) benchmarks. Furthermore, we measure the quality of query generation, highlighting the underlying beneficial characteristics of negative queries. Our empirical results and analysis also shed light on potential directions for more advanced data augmentation in IR. The data and code have been released.</abstract>
+      <url hash="44c4b1f9">2024.repl4nlp-1.3</url>
+      <bibkey>ju-etal-2024-relevance</bibkey>
+    </paper>
+    <paper id="4">
+      <title>Learning from Others: Similarity-based Regularization for Mitigating Dataset Bias.</title>
+      <author><first>Reda</first><last>Igbaria</last></author>
+      <author><first>Yonatan</first><last>Belinkov</last><affiliation>Technion, Technion</affiliation></author>
+      <pages>37-50</pages>
+      <abstract>Common methods for mitigating spurious correlations in natural language understanding (NLU) usually operate in the output space, encouraging a main model to behave differently from a bias model by down-weighing examples where the bias model is confident.While improving out of distribution (OOD) performance, it was recently observed that the internal representations of the presumably debiased models are actually more, rather than less biased. We propose SimgReg, a new method for debiasing internal model components via similarity-based regularization, in representation space: We encourage the model to learn representations that are either similar to an unbiased model or different from a biased model. We experiment with three NLU tasks and different kinds of biases.We find that SimReg improves OOD performance, with little in-distribution degradation. Moreover, the representations learned by SimReg are less biased than in other methods.</abstract>
+      <url hash="13b9526e">2024.repl4nlp-1.4</url>
+      <bibkey>igbaria-belinkov-2024-learning</bibkey>
+    </paper>
+    <paper id="5">
+      <title>Prior Knowledge-Guided Adversarial Training</title>
+      <author><first>Lis</first><last>Pereira</last><affiliation>National Institute of Information and Communications Technology (NICT), National Institute of Advanced Industrial Science and Technology</affiliation></author>
+      <author><first>Fei</first><last>Cheng</last><affiliation>Kyoto University</affiliation></author>
+      <author><first>Wan Jou</first><last>She</last><affiliation>Kyoto Institute of Technology</affiliation></author>
+      <author><first>Masayuki</first><last>Asahara</last><affiliation>National Institute for Japanese Language and Linguistics, Japan</affiliation></author>
+      <author><first>Ichiro</first><last>Kobayashi</last><affiliation>Ochanomizu University</affiliation></author>
+      <pages>51-57</pages>
+      <abstract>We introduce a simple yet effective Prior Knowledge-Guided ADVersarial Training (PKG-ADV) algorithm to improve adversarial training for natural language understanding. Our method simply utilizes task-specific label distribution to guide the training process. By prioritizing the use of prior knowledge of labels, we aim to generate more informative adversarial perturbations. We apply our model to several challenging temporal reasoning tasks. Our method enables a more reliable and controllable data training process than relying on randomized adversarial perturbation. Albeit simple, our method achieved significant improvements in these tasks. To facilitate further research, we will release the code and models.</abstract>
+      <url hash="0f276f93">2024.repl4nlp-1.5</url>
+      <bibkey>pereira-etal-2024-prior</bibkey>
+    </paper>
+    <paper id="6">
+      <title><fixed-case>IT</fixed-case>-Tuning : Parameter Efficient Information Token Tuning for Language Model</title>
+      <author><first>Jungu</first><last>Kim</last></author>
+      <author><first>Hyeoncheol</first><last>Kim</last><affiliation>Korea University</affiliation></author>
+      <pages>58-68</pages>
+      <abstract>Recently, language models have demonstrated exceptional performance compared to their predecessors. In this context, attention mechanisms and pre-training significantly contribute to the enhanced performance of modern language models. Additionally, a continuously increasing number of parameters plays a crucial role in these advancements . However, an increase in the number of parameters significantly increases the GPU memory and training time required during fine-tuning of language models, this makes fine-tuning infeasible in environments with limited computing resources. Furthermore, after fine-tuning, the storage space required for deployment increases proportionally with the number of tasks, making it challenging to deploy devices with limited storage capacities. In this study, we propose IT-Tuning, a Parameter Efficient Fine-Tuning method that introduces a new concept called information tokens to address these issues.</abstract>
+      <url hash="5e551e3d">2024.repl4nlp-1.6</url>
+      <bibkey>kim-kim-2024-tuning</bibkey>
+    </paper>
+    <paper id="7">
+      <title>Bridging the Gap: Transfer Learning from <fixed-case>E</fixed-case>nglish <fixed-case>PLM</fixed-case>s to <fixed-case>M</fixed-case>alaysian <fixed-case>E</fixed-case>nglish</title>
+      <author><first>MohanRaj</first><last>Chanthran</last><affiliation>Monash University, Malaysia Campus</affiliation></author>
+      <author><first>Lay-Ki</first><last>Soon</last><affiliation>Monash University</affiliation></author>
+      <author><first>Huey Fang</first><last>Ong</last><affiliation>Monash University Malaysia</affiliation></author>
+      <author><first>Bhawani</first><last>Selvaretnam</last></author>
+      <pages>69-77</pages>
+      <abstract>Malaysian English is a low resource creole languages, where it carries the elements of Malay, Chinese, and Tamil languages, in addition to Standard English. Named Entity Recognition (NER) models underperforms when capturing entities from Malaysian English text due to its distinctive morphosyntactic adaptations, semantic features and code-switching (mixing English and Malay). Considering these gaps, we introduce MENmBERT and MENBERT, a pre-trained language model with contextual understanding, specifically tailored for Malaysian English. We have fine-tuned MENmBERT and MENBERT using manually annotated entities and relations from the Malaysian English News Article (MEN) Dataset. This fine-tuning process allows the PLM to learn representations that capture the nuances of Malaysian English relevant for NER and RE tasks. MENmBERT achieved a 1.52% and 26.27% improvement on NER and RE tasks respectively compared to the bert-base-multilingual-cased model. While the overall performance for NER does not have significant improvement, our further analysis shows that there is a significant improvement when evaluated by the 12 entity labels. These findings suggest that pre-training language models on language-specific and geographically-focused corpora can be a promising approach for improving NER performance in low-resource settings. The dataset and code published through this paper provide valuable resources for NLP research work focusing on Malaysian English.</abstract>
+      <url hash="ffb4a05b">2024.repl4nlp-1.7</url>
+      <bibkey>raj-etal-2024-bridging</bibkey>
+    </paper>
+    <paper id="8">
+      <title>Unified Interpretation of Smoothing Methods for Negative Sampling Loss Functions in Knowledge Graph Embedding</title>
+      <author><first>Xincan</first><last>Feng</last></author>
+      <author><first>Hidetaka</first><last>Kamigaito</last><affiliation>Division of Information Science, Nara Institute of Science and Technology</affiliation></author>
+      <author><first>Katsuhiko</first><last>Hayashi</last><affiliation>The University of Tokyo</affiliation></author>
+      <author><first>Taro</first><last>Watanabe</last><affiliation>Nara Institute of Science and Technology, Japan</affiliation></author>
+      <pages>78-98</pages>
+      <abstract>Knowledge Graphs (KGs) are fundamental resources in knowledge-intensive tasks in NLP. Due to the limitation of manually creating KGs, KG Completion (KGC) has an important role in automatically completing KGs by scoring their links with KG Embedding (KGE). To handle many entities in training, KGE relies on Negative Sampling (NS) loss that can reduce the computational cost by sampling. Since the appearance frequencies for each link are at most one in KGs, sparsity is an essential and inevitable problem. The NS loss is no exception. As a solution, the NS loss in KGE relies on smoothing methods like Self-Adversarial Negative Sampling (SANS) and subsampling. However, it is uncertain what kind of smoothing method is suitable for this purpose due to the lack of theoretical understanding. This paper provides theoretical interpretations of the smoothing methods for the NS loss in KGE and induces a new NS loss, Triplet Adaptive Negative Sampling (TANS), that can cover the characteristics of the conventional smoothing methods. Experimental results of TransE, DistMult, ComplEx, RotatE, HAKE, and HousE on FB15k-237, WN18RR, and YAGO3-10 datasets and their sparser subsets show the soundness of our interpretation and performance improvement by our TANS.</abstract>
+      <url hash="a0c8c52b">2024.repl4nlp-1.8</url>
+      <bibkey>feng-etal-2024-unified</bibkey>
+    </paper>
+    <paper id="9">
+      <title>How Useful is Continued Pre-Training for Generative Unsupervised Domain Adaptation?</title>
+      <author><first>Rheeya</first><last>Uppaal</last><affiliation>Department of Computer Science, University of Wisconsin - Madison</affiliation></author>
+      <author><first>Yixuan</first><last>Li</last><affiliation>University of Wisconsin, Madison, Stanford University, Facebook AI, Google AI and Cornell University</affiliation></author>
+      <author><first>Junjie</first><last>Hu</last><affiliation>University of Wisconsin, Madison</affiliation></author>
+      <pages>99-117</pages>
+      <abstract>Recent breakthroughs in scale have enabled the emergence of powerful generative language models, and the ability to fine-tune these models on various tasks by casting them into prompts or instructions. In this landscape, the problem of Unsupervised Domain Adaptation (UDA), or the problem of leveraging knowledge from a labeled source domain to an unlabeled target domain, has been left behind, with recent UDA methods still addressing discriminative classification. In particular, two popular UDA approaches, involving Continued Pre-Training (CPT) and learning domain invariant representations, have been under-explored in the generative setting, signaling a gap. In this work, we evaluate the utility of CPT for generative UDA. We first perform an empirical evaluation to measure the trade-offs between CPT and strong methods promoting domain invariance. We further evaluate how well the benefits of CPT extend to different architectures, tuning methods and data regimes. We then motivate the use of CPT by studying to what degree it benefits classification performance on the target domain. Finally, we attempt to understand the mechanism behind which CPT improves classification performance on the unlabeled target domain. Our findings suggest that a implicitly learns the downstream task while predicting masked words informative to that task. Our work connects the body of UDA research with that of instruction tuning, enabling an initial step towards a wider applicability of modern language models.</abstract>
+      <url hash="bd9a08ee">2024.repl4nlp-1.9</url>
+      <bibkey>uppaal-etal-2024-useful</bibkey>
+    </paper>
+    <paper id="10">
+      <title>Word Boundary Information Isn’t Useful for Encoder Language Models</title>
+      <author><first>Edward</first><last>Gow-Smith</last></author>
+      <author><first>Dylan</first><last>Phelps</last></author>
+      <author><first>Harish</first><last>Tayyar Madabushi</last><affiliation>University of Bath</affiliation></author>
+      <author><first>Carolina</first><last>Scarton</last><affiliation>University of Sheffield</affiliation></author>
+      <author><first>Aline</first><last>Villavicencio</last><affiliation>University of Exeter and University of Sheffield</affiliation></author>
+      <pages>118-135</pages>
+      <abstract>All existing transformer-based approaches to NLP using subword tokenisation algorithms encode whitespace (word boundary information) through the use of special space symbols (such as ## or _) forming part of tokens. These symbols have been shown to a) lead to reduced morphological validity of tokenisations, and b) give substantial vocabulary redundancy. As such, removing these symbols has been shown to have a beneficial effect on the processing of morphologically complex words for transformer encoders in the pretrain-finetune paradigm. In this work, we explore whether word boundary information is at all useful to such models. In particular, we train transformer encoders across four different training scales, and investigate several alternative approaches to including word boundary information, evaluating on two languages (English and Finnish) with a range of tasks across different domains and problem set-ups: sentence classification datasets, NER (for token-level classification), and two classification datasets involving complex words (Superbizarre and FLOTA). Overall, through an extensive experimental setup that includes the pre-training of 35 models, we find no substantial improvements from our alternative approaches, suggesting that modifying tokenisers to remove word boundary information isn’t leading to a loss of useful information.</abstract>
+      <url hash="8f808b28">2024.repl4nlp-1.10</url>
+      <bibkey>gow-smith-etal-2024-word</bibkey>
+    </paper>
+    <paper id="11">
+      <title>Beyond Link Prediction: On Pre-Training Knowledge Graph Embeddings</title>
+      <author><first>Daniel</first><last>Ruffinelli</last></author>
+      <author><first>Rainer</first><last>Gemulla</last><affiliation>Universität Mannheim, Germany</affiliation></author>
+      <pages>136-162</pages>
+      <abstract>Knowledge graph embeddings (KGEs) provide low-dimensional representations of the entities and relations in a knowledge graph (KG) in order to reason about the KG and to inject structured knowledge into various downstream applications. Most prior work, however, focuses almost exclusively on training and evaluating KGE models for the task of link prediction. In this work, we explore KGE models as general-purpose representations of KGs and study their suitability (i) for more generally capturing properties of the KG and (ii) for downstream tasks such as entity classification and regression. For (i), we designed a new set of graph-structure prediction tasks to assess whether models capture different structures in the graph. For (ii), we investigate whether models provide useful features for a variety of downstream tasks. We found that strong link prediction performance was neither an indication that models generally capture patterns in the graph, nor that they were more useful in downstream tasks. As a result, we included our proposed graph-structure prediction tasks as additional training objectives and found that models trained with this multi-task approach generally, but not always, performed better at both graph-structure prediction and downstream tasks. However, the most suitable choice of pre-training tasks varies across KGE models and types of downstream tasks, suggesting opportunities for more research into the relation between pre-training KGE models and their usability on downstream applications.</abstract>
+      <url hash="54f20322">2024.repl4nlp-1.11</url>
+      <bibkey>ruffinelli-gemulla-2024-beyond</bibkey>
+    </paper>
+    <paper id="12">
+      <title>Learn it or Leave it: Module Composition and Pruning for Continual Learning</title>
+      <author><first>Mingyang</first><last>Wang</last></author>
+      <author><first>Heike</first><last>Adel</last><affiliation>Hochschule der Medien (University of Applied Sciences)</affiliation></author>
+      <author><first>Lukas</first><last>Lange</last><affiliation>Robert Bosch GmbH, Bosch</affiliation></author>
+      <author><first>Jannik</first><last>Strötgen</last><affiliation>Karlsruhe University of Applied Sciences</affiliation></author>
+      <author><first>Hinrich</first><last>Schuetze</last></author>
+      <pages>163-176</pages>
+      <abstract>In real-world environments, continual learning is essential for machine learning models, as they need to acquire new knowledge incrementally without forgetting what they have already learned. While pretrained language models have shown impressive capabilities on various static tasks, applying them to continual learning poses significant challenges, including avoiding catastrophic forgetting, facilitating knowledge transfer, and maintaining parameter efficiency. In this paper, we introduce MoCL-P, a novel lightweight continual learning method that addresses these challenges simultaneously. Unlike traditional approaches that continuously expand parameters for newly arriving tasks, MoCL-P integrates task representation-guided module composition with adaptive pruning, effectively balancing knowledge integration and computational overhead. Our evaluation across three continual learning benchmarks with up to 176 tasks shows that MoCL-P achieves state-of-the-art performance and improves parameter efficiency by up to three times, demonstrating its potential for practical applications where resource requirements are constrained.</abstract>
+      <url hash="b945aedd">2024.repl4nlp-1.12</url>
+      <bibkey>wang-etal-2024-learn</bibkey>
+    </paper>
+    <paper id="13">
+      <title>Text-Guided Alternative Image Clustering</title>
+      <author><first>Andreas</first><last>Stephan</last></author>
+      <author><first>Lukas</first><last>Miklautz</last><affiliation>Universität Vienna</affiliation></author>
+      <author><first>Collin</first><last>Leiber</last><affiliation>Ludwig-Maximilians-Universität München</affiliation></author>
+      <author><first>Pedro Henrique</first><last>Luz De Araujo</last><affiliation>Universität Vienna</affiliation></author>
+      <author><first>Dominik</first><last>Répás</last></author>
+      <author><first>Claudia</first><last>Plant</last><affiliation>Universität Vienna</affiliation></author>
+      <author><first>Benjamin</first><last>Roth</last><affiliation>Universität Vienna</affiliation></author>
+      <pages>177-190</pages>
+      <abstract>Traditional image clustering techniques only find a single grouping within visual data. In particular, they do not provide a possibility to explicitly define multiple types of clustering. This work explores the potential of large vision-language models to facilitate alternative image clustering. We propose Text-Guided Alternative Image Consensus Clustering (TGAICC), a novel approach that leverages user-specified interests via prompts to guide the discovery of diverse clusterings. To achieve this, it generates a clustering for each prompt, groups them using hierarchical clustering, and then aggregates them using consensus clustering. TGAICC outperforms image- and text-based baselines on four alternative image clustering benchmark datasets. Furthermore, using count-based word statistics, we are able to obtain text-based explanations of the alternative clusterings. In conclusion, our research illustrates how contemporary large vision-language models can transform explanatory data analysis, enabling the generation of insightful, customizable, and diverse image clusterings.</abstract>
+      <url hash="118e4080">2024.repl4nlp-1.13</url>
+      <bibkey>stephan-etal-2024-text-guided</bibkey>
+    </paper>
+    <paper id="14">
+      <title><fixed-case>QAVSA</fixed-case>: Question Answering using Vector Symbolic Algebras</title>
+      <author><first>Ryan</first><last>Laube</last></author>
+      <author><first>Chris</first><last>Eliasmith</last><affiliation>University of Waterloo</affiliation></author>
+      <pages>191-202</pages>
+      <abstract>With the advancement of large pretrained language models (PLMs), many question answering (QA) benchmarks have been developed in order to evaluate the reasoning capabilities of these models. Augmenting PLMs with external knowledge in the form of Knowledge Graphs (KGs) has been a popular method to improve their reasoning capabilities, and a common method to reason over KGs is to use Graph Neural Networks (GNNs). As an alternative to GNNs to augment PLMs, we propose a novel graph reasoning module using Vector Symbolic Algebra (VSA) graph representations and a k-layer MLP. We demonstrate that our VSA-based model performs as well as QA-GNN, a model combining a PLM and a GNN-module, on 3 multiple-choice question answering (MCQA) datasets. Our model has a simpler architecture than QA-GNN and also converges 39% faster during training.</abstract>
+      <url hash="5ba5e6a1">2024.repl4nlp-1.14</url>
+      <bibkey>laube-eliasmith-2024-qavsa</bibkey>
+    </paper>
+    <paper id="15">
+      <title>Tracking linguistic information in transformer-based sentence embeddings through targeted sparsification</title>
+      <author><first>Vivi</first><last>Nastase</last><affiliation>University of Geneva</affiliation></author>
+      <author><first>Paola</first><last>Merlo</last><affiliation>Idiap Research Institute and University of Geneva, Switzerland</affiliation></author>
+      <pages>203-214</pages>
+      <abstract>Analyses of transformer-based models have shown that they encode a variety of linguistic information from their textual input. While these analyses have shed a light on the relation between linguistic information on one side, and internal architecture and parameters on the other, a question remains unanswered: how is this linguistic information reflected in sentence embeddings? Using datasets consisting of sentences with known structure, we test to what degree information about chunks (in particular noun, verb or prepositional phrases), such as grammatical number, or semantic role, can be localized in sentence embeddings. Our results show that such information is not distributed over the entire sentence embedding, but rather it is encoded in specific regions. Understanding how the information from an input text is compressed into sentence embeddings helps understand current transformer models and help build future explainable neural models.</abstract>
+      <url hash="83d5c7b2">2024.repl4nlp-1.15</url>
+      <bibkey>nastase-merlo-2024-tracking</bibkey>
+    </paper>
+    <paper id="16">
+      <title>Learning New Tasks from a Few Examples with Soft-Label Prototypes</title>
+      <author><first>Avyav</first><last>Singh</last></author>
+      <author><first>Ekaterina</first><last>Shutova</last><affiliation>University of Amsterdam</affiliation></author>
+      <author><first>Helen</first><last>Yannakoudakis</last><affiliation>Computer Laboratory, University of Cambridge and King’s College London</affiliation></author>
+      <pages>215-236</pages>
+      <abstract>Existing approaches to few-shot learning in NLP rely on large language models (LLMs) and/or fine-tuning of these to generalise on out-of-distribution data. In this work, we propose a novel few-shot learning approach based on soft-label prototypes (SLPs) designed to collectively capture the distribution of different classes across the input domain space. We focus on learning previously unseen NLP tasks from very few examples (4, 8, 16) per class and experimentally demonstrate that our approach achieves superior performance on the majority of tested tasks in this data-lean setting while being highly parameter efficient. We also show that our few-shot adaptation method can be integrated into more generalised learning settings, primarily meta-learning, to yield superior performance against strong baselines.</abstract>
+      <url hash="4172f34b">2024.repl4nlp-1.16</url>
+      <bibkey>singh-etal-2024-learning</bibkey>
+    </paper>
+    <paper id="17">
+      <title>Learned Transformer Position Embeddings Have a Low-Dimensional Structure</title>
+      <author><first>Ulme</first><last>Wennberg</last></author>
+      <author><first>Gustav</first><last>Henter</last><affiliation>KTH Royal Institute of Technology</affiliation></author>
+      <pages>237-244</pages>
+      <abstract>Position embeddings have long been essential for sequence-order encoding in transformer models, yet their structure is underexplored. This study uses principal component analysis (PCA) to quantitatively compare the dimensionality of absolute position and word embeddings in BERT and ALBERT. We find that, unlike word embeddings, position embeddings occupy a low-dimensional subspace, typically utilizing under 10% of the dimensions available. Additionally, the principal vectors are dominated by a few low-frequency rotational components, a structure arising independently across models.</abstract>
+      <url hash="965ded2d">2024.repl4nlp-1.17</url>
+      <bibkey>wennberg-henter-2024-learned</bibkey>
+    </paper>
+    <paper id="18">
+      <title>Multi-label Learning with Random Circular Vectors</title>
+      <author><first>Ken</first><last>Nishida</last></author>
+      <author><first>Kojiro</first><last>Machi</last><affiliation>Hokkaido University</affiliation></author>
+      <author><first>Kazuma</first><last>Onishi</last></author>
+      <author><first>Katsuhiko</first><last>Hayashi</last><affiliation>The University of Tokyo</affiliation></author>
+      <author><first>Hidetaka</first><last>Kamigaito</last><affiliation>Division of Information Science, Nara Institute of Science and Technology</affiliation></author>
+      <pages>245-255</pages>
+      <abstract>The extreme multi-label classification (XMC) task involves learning a classifier that can predict from a large label set the most relevant subset of labels for a data instance. While deep neural networks (DNNs) have demonstrated remarkable success in XMC problems, the task is still challenging because it must deal with a large number of output labels, which make the DNN training computationally expensive. This paper addresses the issue by exploring the use of random circular vectors, where each vector component is represented as a complex amplitude. In our framework, we can develop an output layer and loss function of DNNs for XMC by representing the final output layer as a fully connected layer that directly predicts a low-dimensional circular vector encoding a set of labels for a data instance. We conducted experiments on synthetic datasets to verify that circular vectors have better label encoding capacity and retrieval ability than normal real-valued vectors. Then, we conducted experiments on actual XMC datasets and found that these appealing properties of circular vectors contribute to significant improvements in task performance compared with a previous model using random real-valued vectors, while reducing the size of the output layers by up to 99%.</abstract>
+      <url hash="1e6e1f68">2024.repl4nlp-1.18</url>
+      <bibkey>nishida-etal-2024-multi</bibkey>
+    </paper>
+    <paper id="19">
+      <title>Mitigating Semantic Leakage in Cross-lingual Embeddings via Orthogonality Constraint</title>
+      <author><first>Dayeon</first><last>Ki</last><affiliation>University of Maryland, College Park</affiliation></author>
+      <author><first>Cheonbok</first><last>Park</last><affiliation>NAVER</affiliation></author>
+      <author><first>Hyunjoong</first><last>Kim</last><affiliation>NAVER</affiliation></author>
+      <pages>256-273</pages>
+      <abstract>Accurately aligning contextual representations in cross-lingual sentence embeddings is key for effective parallel data mining. A common strategy for achieving this alignment involves disentangling semantics and language in sentence embeddings derived from multilingual pre-trained models. However, we discover that current disentangled representation learning methods suffer from semantic leakage—a term we introduce to describe when a substantial amount of language-specific information is unintentionally leaked into semantic representations. This hinders the effective disentanglement of semantic and language representations, making it difficult to retrieve embeddings that distinctively represent the meaning of the sentence. To address this challenge, we propose a novel training objective, ORthogonAlity Constraint LEarning (ORACLE), tailored to enforce orthogonality between semantic and language embeddings. ORACLE builds upon two components: intra-class clustering and inter-class separation. Through experiments on cross-lingual retrieval and semantic textual similarity tasks, we demonstrate that training with the ORACLE objective effectively reduces semantic leakage and enhances semantic alignment within the embedding space.</abstract>
+      <url hash="3886429d">2024.repl4nlp-1.19</url>
+      <bibkey>ki-etal-2024-mitigating</bibkey>
+    </paper>
+    <paper id="21">
+      <title>Whitening Not Recommended for Classification Tasks in <fixed-case>LLM</fixed-case>s</title>
+      <author><first>Ali</first><last>Forooghi</last><affiliation>University of Windsor</affiliation></author>
+      <author><first>Shaghayegh</first><last>Sadeghi</last></author>
+      <author><first>Jianguo</first><last>Lu</last><affiliation>University of Windsor</affiliation></author>
+      <pages>285-289</pages>
+      <abstract>Sentence embedding is a cornerstone in NLP. Whitening has been claimed to be an effective method to improve embeddings obtained from Large Language Models (LLMs) for sentence embedding. However, we find that the effectiveness of whitening is model-dependent and task-dependent. In particular, whitening degenerates embeddings for classification tasks. The conclusion is supported by extensive experiments. A by-product of our research is embedding evaluation platform for LLMs called SentEval+</abstract>
+      <url hash="049e61cf">2024.repl4nlp-1.21</url>
+      <bibkey>forooghi-etal-2024-whitening</bibkey>
+    </paper>
+  </volume>
+</collection>

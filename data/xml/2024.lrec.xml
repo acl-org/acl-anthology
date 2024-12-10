@@ -19,7 +19,7 @@
     </meta>
     <frontmatter>
       <url hash="e3949820">2024.lrec-main.0</url>
-      <bibkey>lrec-coling-main-2024</bibkey>
+      <bibkey>lrec-coling-2024-main</bibkey>
     </frontmatter>
     <paper id="1">
       <title>3<fixed-case>AM</fixed-case>: An Ambiguity-Aware Multi-Modal Machine Translation Dataset</title>
@@ -91,8 +91,10 @@
       <author><first>Ho-fung</first><last>Leung</last></author>
       <pages>70–76</pages>
       <abstract>Pre-trained Language Models have been shown to be able to emulate deductive reasoning in natural language. However, PLMs are easily affected by irrelevant information (e.g., entity) in instance-level proofs when learning deductive reasoning. To address this limitation, we propose an Abstract-level Deductive Reasoner (ADR). ADR is trained to predict the abstract reasoning proof of each sample, which guides PLMs to learn general reasoning patterns rather than instance-level knowledge. Experimental results demonstrate that ADR significantly reduces the impact of PLMs learning instance-level knowledge (over 70%).</abstract>
-      <url hash="ec44ce5c">2024.lrec-main.6</url>
+      <url hash="5c065e8c">2024.lrec-main.6</url>
       <bibkey>wu-etal-2024-abstract</bibkey>
+      <revision id="1" href="2024.lrec-main.6v1" hash="ec44ce5c"/>
+      <revision id="2" href="2024.lrec-main.6v2" hash="5c065e8c" date="2024-08-20">Minor update.</revision>
     </paper>
     <paper id="7">
       <title>A Call for Clarity in Beam Search: How It Works and When It Stops</title>
@@ -1475,8 +1477,8 @@
     <paper id="123">
       <title>Applying Transfer Learning to <fixed-case>G</fixed-case>erman Metaphor Prediction</title>
       <author><first>Maria</first><last>Berger</last></author>
-      <author><first>Sebastian Michael</first><last>Reimann</last></author>
-      <author><first>Nieke Marie</first><last>Kiwitt</last></author>
+      <author><first>Nieke</first><last>Kiwitt</last></author>
+      <author><first>Sebastian</first><last>Reimann</last></author>
       <pages>1383–1392</pages>
       <abstract>This paper presents results in transfer-learning metaphor recognition in German. Starting from an English language corpus annotated for metaphor at the sentence level, and its machine-translation to German, we annotate 1000 sentences of the German part to use it as a Gold standard for two different metaphor prediction setups: i) a sequence labeling set-up (on the token-level), and ii) a classification (based on sentences) setup. We test two transfer leaning approaches: i) a group of transformer models, and ii) a technique that utilizes bilingual embeddings together with an RNN classifier. We find out that the transformer models do moderately in a zero-shot scenario (up to 61% F1 for classification) and the embeddings approaches do not even beat the guessing baseline (36% F1 for classification). We use our Gold data to fine-tune the classification tasks on target-language data achieving up to 90% F1 with both, the multilingual BERT and the bilingual embeddings. We also publish the annotated bilingual corpus.</abstract>
       <url hash="c50dc219">2024.lrec-main.123</url>
@@ -3039,7 +3041,7 @@
     </paper>
     <paper id="257">
       <title><fixed-case>CASIMIR</fixed-case>: A Corpus of Scientific Articles Enhanced with Multiple Author-Integrated Revisions</title>
-      <author><first>Léane Isabelle</first><last>Jourdan</last></author>
+      <author><first>Léane</first><last>Jourdan</last></author>
       <author><first>Florian</first><last>Boudin</last></author>
       <author><first>Nicolas</first><last>Hernandez</last></author>
       <author><first>Richard</first><last>Dufour</last></author>
@@ -3363,7 +3365,7 @@
     <paper id="285">
       <title>Choice-75: A Dataset on Decision Branching in Script Learning</title>
       <author><first>Zhaoyi</first><last>Hou</last></author>
-      <author><first>Li</first><last>Zhang</last></author>
+      <author id="li-zhang-upenn"><first>Li</first><last>Zhang</last></author>
       <author><first>Chris</first><last>Callison-Burch</last></author>
       <pages>3215–3223</pages>
       <abstract>Script learning studies how daily events unfold. It enables machines to reason about narratives with implicit information. Previous works mainly consider a script as a linear sequence of events while ignoring the potential branches that arise due to people’s circumstantial choices. We hence propose Choice-75, the first benchmark that challenges intelligent systems to make decisions given descriptive scenarios, containing 75 scripts and more than 600 scenarios. We also present preliminary results with current large language models (LLM). Although they demonstrate overall decent performances, there is still notable headroom in hard scenarios.</abstract>
@@ -4875,7 +4877,7 @@
     <paper id="413">
       <title>Denoising Labeled Data for Comment Moderation Using Active Learning</title>
       <author><first>Andraž</first><last>Pelicon</last></author>
-      <author><first>Mladen</first><last>Karan</last></author>
+      <author><first>Vanja Mladen</first><last>Karan</last></author>
       <author><first>Ravi</first><last>Shekhar</last></author>
       <author><first>Matthew</first><last>Purver</last></author>
       <author><first>Senja</first><last>Pollak</last></author>
@@ -5507,12 +5509,13 @@
     </paper>
     <paper id="464">
       <title>Does the Language Matter? Curriculum Learning over Neo-<fixed-case>L</fixed-case>atin Languages</title>
-      <author><first>Giulia</first><last>Pucci</last></author>
       <author><first>Leonardo</first><last>Ranaldi</last></author>
+      <author><first>Giulia</first><last>Pucci</last></author>
+      <author><first>André</first><last>Freitas</last></author>
       <pages>5212–5220</pages>
-      <abstract>Curriculum Learning (CL) is emerging as a relevant technique to reduce the cost of pre-training Large Language Models. The idea, tested for the English language, is to train LLMs by organizing training examples from the simplest to the most complex. Complexity measures may depend on the specific language. Hence, this paper aims to investigate whether CL and the complexity measure can be easily exported to other languages. For this reason, we present a set of linguistically motivated measures to determine the complexity of examples, which has been used in English: these measures are based on text length, rarity, and comprehensibility. We then test the approach to two Romance languages: Italian and French. Our results show that the technique can be easily exported to languages other than English without adaptation.</abstract>
+      <abstract>Curriculum Learning (CL) has been emerged as an effective technique for improving the performances and reducing the cost of pre-training Large Language Models (LLMs). The efficacy of CL demonstrated in different scenarios is in the training LLMs by organizing examples from the simplest to the most complex. Although improvements have been shown extensively, this approach was used for pre-training, leaving novel fine-tuning approaches such as instruction-tuning unexplored. In this paper, we propose a novel complexity measure to empower the instruction-tuning method using the CL paradigm. To complement previous works, we propose cognitively motivated measures to determine the complexity of training demonstrations used in the instruction-tuning paradigm. Hence, we experiment with the proposed heuristics first in English and then in other languages. The downstream results show that delivering training examples by complexity ranking is also effective for instruction tuning, as it improves downstream performance while reducing costs. Furthermore, the technique can be easily transferred to languages other than English, e.g., Italian and French, without any adaptation, maintaining functionality and effectiveness.</abstract>
       <url hash="8d23ec5e">2024.lrec-main.464</url>
-      <bibkey>pucci-ranaldi-2024-language</bibkey>
+      <bibkey>ranaldi-etal-2024-language</bibkey>
     </paper>
     <paper id="465">
       <title>Do Language Models Care about Text Quality? Evaluating Web-Crawled Corpora across 11 Languages</title>
@@ -14183,8 +14186,8 @@
     </paper>
     <paper id="1207">
       <title><fixed-case>R</fixed-case>eflect<fixed-case>S</fixed-case>umm: A Benchmark for Course Reflection Summarization</title>
-      <author><first>Mohamed</first><last>Elaraby</last></author>
       <author><first>Yang</first><last>Zhong</last></author>
+      <author><first>Mohamed</first><last>Elaraby</last></author>
       <author><first>Diane</first><last>Litman</last></author>
       <author><first>Ahmed Ashraf</first><last>Butt</last></author>
       <author><first>Muhsin</first><last>Menekse</last></author>
@@ -14384,8 +14387,10 @@
       <author><first>Vera</first><last>Demberg</last></author>
       <pages>14053–14062</pages>
       <abstract>Data-to-text (D2T) generation describes the task of verbalizing data, often given as attribute-value pairs. While this task is relevant for many different data domains beyond the traditionally well-explored tasks of weather forecasting, restaurant recommendations, and sports reporting, a major challenge to the applicability of data-to-text generation methods is typically data sparsity. For many applications, there is extremely little training data in terms of attribute-value inputs and target language outputs available for training a model. Given the sparse data setting, recently developed prompting methods seem most suitable for addressing D2T tasks since they do not require substantial amounts of training data, unlike finetuning approaches. However, prompt-based approaches are also challenging, as a) the design and search of prompts are non-trivial; and b) hallucination problems may occur because of the strong inductive bias of these models. In this paper, we propose a retrieval-augmented modular prompt tuning () method, which constructs prompts that fit the input data closely, thereby bridging the domain gap between the large-scale language model and the structured input data. Experiments show that our method generates texts with few hallucinations and achieves state-of-the-art performance on a dataset for drone handover message generation.</abstract>
-      <url hash="805426af">2024.lrec-main.1224</url>
+      <url hash="d24899c0">2024.lrec-main.1224</url>
       <bibkey>feng-etal-2024-retrieval</bibkey>
+      <revision id="1" href="2024.lrec-main.1224v1" hash="805426af"/>
+      <revision id="2" href="2024.lrec-main.1224v2" hash="d24899c0" date="2024-07-14">Minor updates.</revision>
     </paper>
     <paper id="1225">
       <title>Retrieval-based Question Answering with Passage Expansion Using a Knowledge Graph</title>
@@ -14699,9 +14704,10 @@
       <author><first>Weiming</first><last>Peng</last></author>
       <pages>14347–14357</pages>
       <abstract>Variational autoencoder (VAE) is a widely used generative model that gains great popularity for its capability in density estimation and representation learning. However, when employing a strong autoregressive generation network, VAE tends to converge to a degenerate local optimum known as posterior collapse. In this paper, we propose a model named Scale-VAE to solve this problem. Scale-VAE does not force the KL term to be larger than a positive constant, but aims to make the latent variables easier to be exploited by the generation network. Specifically, each dimension of the mean for the approximate posterior distribution is multiplied by a factor to keep that dimension discriminative across data instances. The same factors are used for all data instances so as not to change the relative relationship between the posterior distributions. Latent variables from the scaled-up posteriors are fed into the generation network, but the original posteriors are still used to calculate the KL term. In this way, Scale-VAE can solve the posterior collapse problem with a training cost similar to or even lower than the basic VAE. Experimental results show that Scale-VAE outperforms state-of-the-art models in density estimation, representation learning, and consistency of the latent space, and is competitive with other models in generation.</abstract>
-      <url hash="6c921536">2024.lrec-main.1250</url>
+      <url hash="de630dd0">2024.lrec-main.1250</url>
       <revision id="1" href="2024.lrec-main.1250v1" hash="b2eb6c7b"/>
       <revision id="2" href="2024.lrec-main.1250v2" hash="6c921536" date="2024-06-19">This revision corrects the number of the first sponsored Fund in the Acknowledgments section (from 4222003 to 4234081). It also corrects a typo in the email address of the third author.</revision>
+      <revision id="3" href="2024.lrec-main.1250v3" hash="de630dd0" date="2024-07-14">Minor updates.</revision>
       <bibkey>song-etal-2024-scale</bibkey>
     </paper>
     <paper id="1251">
@@ -14784,13 +14790,13 @@
     </paper>
     <paper id="1258">
       <title><fixed-case>S</fixed-case>ci<fixed-case>N</fixed-case>ews: From Scholarly Complexities to Public Narratives – a Dataset for Scientific News Report Generation</title>
-      <author><first>Dongqi</first><last>Pu</last></author>
+      <author><first>Dongqi</first><last>Liu</last></author>
       <author><first>Yifan</first><last>Wang</last></author>
-      <author><first>Jia E.</first><last>Loy</last></author>
+      <author><first>Jia</first><last>Loy</last></author>
       <author><first>Vera</first><last>Demberg</last></author>
       <pages>14429–14444</pages>
       <abstract>Scientific news reports serve as a bridge, adeptly translating complex research articles into reports that resonate with the broader public. The automated generation of such narratives enhances the accessibility of scholarly insights. In this paper, we present a new corpus to facilitate this paradigm development. Our corpus comprises a parallel compilation of academic publications and their corresponding scientific news reports across nine disciplines. To demonstrate the utility and reliability of our dataset, we conduct an extensive analysis, highlighting the divergences in readability and brevity between scientific news narratives and academic manuscripts. We benchmark our dataset employing state-of-the-art text generation models. The evaluation process involves both automatic and human evaluation, which lays the groundwork for future explorations into the automated generation of scientific news reports. The dataset and code related to this work are available at https://dongqi.me/projects/SciNews.</abstract>
-      <url hash="60926663">2024.lrec-main.1258</url>
+      <url hash="cde3addb">2024.lrec-main.1258</url>
       <bibkey>pu-etal-2024-scinews</bibkey>
     </paper>
     <paper id="1259">
@@ -14843,7 +14849,7 @@
       <bibkey>sedykh-etal-2024-searching</bibkey>
     </paper>
     <paper id="1262">
-      <title>Sebastian, Basti, Wastl?! Recognizing Named Entities in <fixed-case>B</fixed-case>avarian Dialectal Data</title>
+      <title><fixed-case>S</fixed-case>ebastian, <fixed-case>B</fixed-case>asti, <fixed-case>W</fixed-case>astl?! Recognizing Named Entities in <fixed-case>B</fixed-case>avarian Dialectal Data</title>
       <author><first>Siyao</first><last>Peng</last></author>
       <author><first>Zihang</first><last>Sun</last></author>
       <author><first>Huangyan</first><last>Shan</last></author>
@@ -15595,7 +15601,7 @@
     <paper id="1327">
       <title><fixed-case>STE</fixed-case>nt<fixed-case>C</fixed-case>onv: Predicting Disagreement between <fixed-case>R</fixed-case>eddit Users with Stance Detection and a Signed Graph Convolutional Network</title>
       <author><first>Isabelle</first><last>Lorge</last></author>
-      <author><first>Li</first><last>Zhang</last></author>
+      <author id="li-zhang-uk"><first>Li</first><last>Zhang</last></author>
       <author><first>Xiaowen</first><last>Dong</last></author>
       <author><first>Janet</first><last>Pierrehumbert</last></author>
       <pages>15273–15284</pages>
@@ -18012,8 +18018,8 @@
     <paper id="1536">
       <title>Word-Aware Modality Stimulation for Multimodal Fusion</title>
       <author><first>Shuhei</first><last>Tateishi</last></author>
-      <author><first>Makoto</first><last>Nakatsuji</last></author>
       <author><first>Yasuhito</first><last>Osugi</last></author>
+      <author><first>Makoto</first><last>Nakatsuji</last></author>
       <pages>17664–17674</pages>
       <abstract>Multimodal learning is generally expected to make more accurate predictions than text-only analysis. Here, although various methods for fusing multimodal inputs have been proposed for sentiment analysis tasks, we found that they may be inhibiting their fusion methods, which are based on attention-based language models, from learning non-verbal modalities, because non-verbal ones are isolated from the linguistic semantics and contexts and do not include them, meaning that they are unsuitable for applying attention to text modalities during the fusion phase. To address this issue, we propose Word-aware Modality Stimulation Fusion (WA-MSF) for facilitating integration of non-verbal modalities with the text modality. The Modality Stimulation Unit layer (MSU-layer) is the core concept of WA-MSF; it integrates language contexts and semantics into non-verbal modalities, thereby instilling linguistic essence into these modalities. Moreover, WA-MSF uses aMLP in the fusion phase in order to utilize spatial and temporal representations of non-verbal modalities more effectively than transformer fusion. In our experiments, WA-MSF set a new state-of-the-art level of performance on sentiment prediction tasks.</abstract>
       <url hash="8d7d4f71">2024.lrec-main.1536</url>
@@ -18265,10 +18271,11 @@
       <year>2024</year>
       <url hash="15bba0c4">2024.lrec-tutorials</url>
       <venue>lrec</venue>
+      <venue>coling</venue>
     </meta>
     <frontmatter>
       <url hash="c022a703">2024.lrec-tutorials.0</url>
-      <bibkey>lrec-tutorials-2024</bibkey>
+      <bibkey>lrec-coling-2024-tutorials</bibkey>
     </frontmatter>
     <paper id="1">
       <title>From Multimodal <fixed-case>LLM</fixed-case> to Human-level <fixed-case>AI</fixed-case>: Modality, Instruction, Reasoning, Efficiency and beyond</title>
@@ -18373,8 +18380,10 @@
       <author><first>Tom</first><last>Hope</last></author>
       <pages>56–67</pages>
       <abstract>Due to the rapid growth of publications varying in quality, there exists a pressing need to help scientists digest and evaluate relevant papers, thereby facilitating scientific discovery. This creates a number of urgent questions; however, computer-human collaboration in the scientific paper lifecycle is still in the exploratory stage and lacks a unified framework for analyzing the relevant tasks. Additionally, with the recent significant success of large language models (LLMs), they have increasingly played an important role in academic writing. In this cutting-edge tutorial, we aim to provide an all-encompassing overview of the paper lifecycle, detailing how machines can augment every stage of the research process for the scientist, including scientific literature understanding, experiment development, manuscript draft writing, and finally draft evaluation. This tutorial is devised for researchers interested in this rapidly-developing field of NLP-augmented paper writing. The tutorial will also feature a session of hands-on exercises during which participants can guide machines in generating ideas and automatically composing key paper elements. Furthermore, we will address current challenges, explore future directions, and discuss potential ethical issues. A toolkit designed for human-computer collaboration throughout the paper lifecycle will also be made publically available.</abstract>
-      <url hash="48c515ae">2024.lrec-tutorials.10</url>
+      <url hash="60d95613">2024.lrec-tutorials.10</url>
       <bibkey>wang-etal-2024-towards-human</bibkey>
+      <revision id="1" href="2024.lrec-tutorials.10v1" hash="48c515ae"/>
+      <revision id="2" href="2024.lrec-tutorials.10v2" hash="60d95613" date="2024-07-28">Remove a cited paper upon request from the paper's authors.</revision>
     </paper>
     <paper id="11">
       <title>Tutorial Proposal: Hallucination in Large Language Models</title>

@@ -1,0 +1,204 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2024.langmol">
+  <volume id="1" ingest-date="2024-08-02" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of the 1st Workshop on Language + Molecules (L+M 2024)</booktitle>
+      <editor><first>Carl</first><last>Edwards</last></editor>
+      <editor><first>Qingyun</first><last>Wang</last></editor>
+      <editor><first>Manling</first><last>Li</last></editor>
+      <editor><first>Lawrence</first><last>Zhao</last></editor>
+      <editor><first>Tom</first><last>Hope</last></editor>
+      <editor><first>Heng</first><last>Ji</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Bangkok, Thailand</address>
+      <month>August</month>
+      <year>2024</year>
+      <url hash="f09d7e2b">2024.langmol-1</url>
+      <venue>langmol</venue>
+      <venue>ws</venue>
+    </meta>
+    <frontmatter>
+      <url hash="d9524b51">2024.langmol-1.0</url>
+      <bibkey>langmol-1-2024</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title><fixed-case>L</fixed-case>+<fixed-case>M</fixed-case>-24: Building a Dataset for <fixed-case>L</fixed-case>anguage+<fixed-case>M</fixed-case>olecules @ <fixed-case>ACL</fixed-case> 2024</title>
+      <author><first>Carl</first><last>Edwards</last><affiliation>University of Illinois at Urbana-Champaign</affiliation></author>
+      <author><first>Qingyun</first><last>Wang</last><affiliation>University of Illinois at Urbana-Champaign</affiliation></author>
+      <author><first>Lawrence</first><last>Zhao</last></author>
+      <author><first>Heng</first><last>Ji</last><affiliation>University of Illinois, Urbana-Champaign</affiliation></author>
+      <pages>1-9</pages>
+      <abstract>Language-molecule models have emerged as an exciting direction for molecular discovery and understanding. However, training these models is challenging due to the scarcity of molecule-language pair datasets. At this point, datasets have been released which are 1) small and scraped from existing databases, 2) large but noisy and constructed by performing entity linking on the scientific literature, and 3) built by converting property prediction datasets to natural language using templates. In this document, we detail the L+M-24 dataset, which has been created for the Language + Molecules Workshop shared task at ACL 2024. In particular, L+M-24 is designed to focus on three key benefits of natural language in molecule design: compositionality, functionality, and abstraction</abstract>
+      <url hash="8da0bed9">2024.langmol-1.1</url>
+      <bibkey>edwards-etal-2024-l</bibkey>
+      <revision id="1" href="2024.langmol-1.1v1" hash="d9524b51"/>
+      <revision id="2" href="2024.langmol-1.1v2" hash="8da0bed9" date="2024-08-24">Linked to the wrong paper.</revision>
+      <doi>10.18653/v1/2024.langmol-1.1</doi>
+    </paper>
+    <paper id="2">
+      <title>Could Chemical Language Models benefit from Message Passing</title>
+      <author><first>Jiaqing</first><last>Xie</last><affiliation>Swiss Federal Institute of Technology</affiliation></author>
+      <author><first>Ziheng</first><last>Chi</last></author>
+      <pages>10-20</pages>
+      <abstract>Pretrained language models (LMs) showcase significant capabilities in processing molecular text, while concurrently, message passing neural networks (MPNNs) demonstrate resilience and versatility in the domain of molecular science. Despite these advancements, we find there are limited studies investigating the bidirectional interactions between molecular structures and their corresponding textual representations. Therefore, in this paper, we propose two strategies to evaluate whether an information integration can enhance the performance: contrast learning, which involves utilizing an MPNN to supervise the training of the LM, and fusion, which exploits information from both models. Our empirical analysis reveals that the integration approaches exhibit superior performance compared to baselines when applied to smaller molecular graphs, while these integration approaches do not yield performance enhancements on large scale graphs.</abstract>
+      <url hash="f332f1c5">2024.langmol-1.2</url>
+      <bibkey>xie-chi-2024-chemical</bibkey>
+      <doi>10.18653/v1/2024.langmol-1.2</doi>
+    </paper>
+    <paper id="3">
+      <title><fixed-case>ALM</fixed-case>ol: Aligned Language-Molecule Translation <fixed-case>LLM</fixed-case>s through Offline Preference Contrastive Optimisation</title>
+      <author><first>Dimitris</first><last>Gkoumas</last><affiliation>Queen Mary University of London</affiliation></author>
+      <pages>21-27</pages>
+      <abstract>The field of chemistry and Artificial Intelligence (AI) intersection is an area of active research that aims to accelerate scientific discovery. The integration of large language models (LLMs) with scientific modalities has shown significant promise in this endeavour. However, challenges persist in effectively addressing training efficacy and the out-of-distribution problem, particularly as existing approaches rely on larger models and datasets. In this context, we focus on machine language-molecule translation and deploy a novel training approach called contrastive preference optimisation, which avoids generating translations that are merely adequate but not perfect. To ensure generalisability and mitigate memorisation effects, we conduct experiments using only 10% of the data. Our results demonstrate that our models achieve up to a 32% improvement compared to counterpart models. Finally, we introduce a fine-grained, domain-agnostic evaluation method to assess hallucination in LLMs and promote responsible use.</abstract>
+      <url hash="f5b87d92">2024.langmol-1.3</url>
+      <bibkey>gkoumas-2024-almol</bibkey>
+      <doi>10.18653/v1/2024.langmol-1.3</doi>
+    </paper>
+    <paper id="4">
+      <title>Evaluating Extrapolation Ability of Large Language Model in Chemical Domain</title>
+      <author><first>Taehun</first><last>Cha</last><affiliation>Korea University</affiliation></author>
+      <author id="donghun-lee-kb"><first>Donghun</first><last>Lee</last><affiliation>Korea University</affiliation></author>
+      <pages>28-33</pages>
+      <abstract>Solving a problem outside the training space, i.e. extrapolation, has been a long problem in the machine learning community. The current success of large language models demonstrates the LLM’s extrapolation ability to several unseen tasks. In line with these works, we evaluate the LLM”s extrapolation ability in the chemical domain. We construct a data set measuring the material properties of epoxy polymers depending on various raw materials and curing processes. LLM should predict the material property when novel raw material is introduced utilizing its chemical knowledge. Through experiments, LLM tends to choose the right direction of adjustment but fails to determine the exact degree, resulting in poor MAE on some properties. But LLM can successfully adjust the degree with only a one-shot example. The results show that LLM can extrapolate to new unseen material utilizing its chemical knowledge learned through massive pre-training.</abstract>
+      <url hash="07420736">2024.langmol-1.4</url>
+      <bibkey>cha-lee-2024-evaluating</bibkey>
+      <doi>10.18653/v1/2024.langmol-1.4</doi>
+    </paper>
+    <paper id="5">
+      <title>Design Proteins Using Large Language Models: Enhancements and Comparative Analyses</title>
+      <author><first>Kamyar</first><last>Zeinalipour</last></author>
+      <author><first>Neda</first><last>Jamshidi</last></author>
+      <author><first>Monica</first><last>Bianchini</last><affiliation>University of Siena</affiliation></author>
+      <author><first>Marco</first><last>Maggini</last><affiliation>University of Siena</affiliation></author>
+      <author><first>Marco</first><last>Gori</last><affiliation>University of Siena</affiliation></author>
+      <pages>34-47</pages>
+      <abstract>Pre-trained LLMs have demonstrated substantial capabilities across a range of conventional natural language processing (NLP) tasks, such as summarization and entity recognition. In this paper, we explore the application of LLMs in the generation of high-quality protein sequences. Specifically, we adopt a suite of pre-trained LLMs, including Mistral-7B, Llama-2-7B, Llama-3-8B, and gemma-7B, to produce valid protein sequences. All of these models are publicly available (https://github.com/KamyarZeinalipour/protein-design-LLMs).Unlike previous work in this field, our approach utilizes a relatively small dataset comprising 42,000 distinct human protein sequences. We retrain these models to process protein-related data, ensuring the generation of biologically feasible protein structures. Our findings demonstrate that even with limited data, the adapted models exhibit efficiency comparable to established protein-focused models such as ProGen varieties, ProtGPT2, and ProLLaMA, which were trained on millions of protein sequences. To validate and quantify the performance of our models, we conduct comparative analyses employing standard metrics such as pLDDT, RMSD, TM-score, and REU. Furthermore, we commit to making the trained versions of all four models publicly available, fostering greater transparency and collaboration in the field of computational biology.</abstract>
+      <url hash="d88f6fd4">2024.langmol-1.5</url>
+      <bibkey>zeinalipour-etal-2024-design</bibkey>
+      <doi>10.18653/v1/2024.langmol-1.5</doi>
+    </paper>
+    <paper id="6">
+      <title>Enhanced <fixed-case>B</fixed-case>io<fixed-case>T</fixed-case>5+ for Molecule-Text Translation: A Three-Stage Approach with Data Distillation, Diverse Training, and Voting Ensemble</title>
+      <author><first>Qizhi</first><last>Pei</last><affiliation>Renmin University of China and Microsoft</affiliation></author>
+      <author><first>Lijun</first><last>Wu</last><affiliation>ByteDance</affiliation></author>
+      <author><first>Kaiyuan</first><last>Gao</last></author>
+      <author><first>Jinhua</first><last>Zhu</last></author>
+      <author><first>Rui</first><last>Yan</last><affiliation>Renmin University of China</affiliation></author>
+      <pages>48-54</pages>
+      <abstract>This paper presents our enhanced BioT5+ method for the Language + Molecules shared task at the ACL 2024 Workshop. The task involves “translating” between molecules and natural language, including molecule captioning and text-based molecule generation using the <i>L+M-24</i> dataset. Our method consists of three stages. In the first stage, we distill data from various models. In the second stage, combined with <i>extra</i> version of the provided dataset, we train diverse models for subsequent voting ensemble.We also adopt Transductive Ensemble Learning (TEL) to enhance these base models. Lastly, all models are integrated using a voting ensemble method. Experimental results demonstrate that BioT5+ achieves superior performance on <i>L+M-24</i> dataset. On the final leaderboard, our method (team name: <b>qizhipei</b>) ranks <b>first</b> in the text-based molecule generation task and <b>second</b> in the molecule captioning task, highlighting its efficacy and robustness in translating between molecules and natural language. The pre-trained BioT5+ models are available at <url>https://github.com/QizhiPei/BioT5</url>.</abstract>
+      <url hash="72df5b65">2024.langmol-1.6</url>
+      <bibkey>pei-etal-2024-enhanced</bibkey>
+      <doi>10.18653/v1/2024.langmol-1.6</doi>
+    </paper>
+    <paper id="7">
+      <title><fixed-case>C</fixed-case>hat<fixed-case>M</fixed-case>ol Copilot: An Agent for Molecular Modeling and Computation Powered by <fixed-case>LLM</fixed-case>s</title>
+      <author><first>Jinyuan</first><last>Sun</last><affiliation>institute of Microbiology, Chinese Academy of Sciences</affiliation></author>
+      <author><first>Auston</first><last>Li</last><affiliation>SUN YAT-SEN UNIVERSITY</affiliation></author>
+      <author><first>Yifan</first><last>Deng</last></author>
+      <author><first>Jiabo</first><last>Li</last><affiliation>SUN YAT-SEN UNIVERSITY</affiliation></author>
+      <pages>55-65</pages>
+      <abstract>Large Language Models (LLMs) like ChatGPT excel at diverse tasks when given explicit instructions, yet they often struggle with specialized domains such as molecular science, lacking in-depth reasoning and sophisticated planning capabilities. To address these limitations, we introduce ChatMol Copilot, a chatbot-like agent specifically engineered for protein design and small molecule computations. ChatMol Copilot employs a multi-level abstraction framework to expand the LLM‘s capability. At the basic level, it integrates external computational tools through function calls, thus offloading complex tasks and enabling a focus on strategic decision-making. The second level is data abstraction. Large data sets (such as a large number of molecules created by a generative model) are stored in Redis cache, and the redis keys are referenced by LLMs for data sources involved in computation. The third level of abstraction allows the LLM to orchestrate these tools, either directly or via dynamically generated Python executables. Our evaluations demonstrate that ChatMol Copilot can adeptly manage molecular modeling tasks, effectively utilizing a variety of tools as directed. By simplifying access to sophisticated molecular modeling resources, ChatMol Copilot stands to significantly accelerate drug discovery and biotechnological innovation, empowering biochemists with advanced, user-friendly AI capabilities. The open-sourced code is available at https://github.com/ChatMol/ChatMol</abstract>
+      <url hash="71f0880f">2024.langmol-1.7</url>
+      <bibkey>sun-etal-2024-chatmol</bibkey>
+      <doi>10.18653/v1/2024.langmol-1.7</doi>
+    </paper>
+    <paper id="8">
+      <title><fixed-case>S</fixed-case>ci<fixed-case>M</fixed-case>ind: A Multimodal Mixture-of-Experts Model for Advancing Pharmaceutical Sciences</title>
+      <author><first>Zhaoping</first><last>Xiong</last></author>
+      <author><first>Xintao</first><last>Fang</last></author>
+      <author><first>Haotian</first><last>Chu</last><affiliation>Huawei Technologies Ltd.</affiliation></author>
+      <author><first>Xiaozhe</first><last>Wan</last></author>
+      <author><first>Liwei</first><last>Liu</last></author>
+      <author><first>Yameng</first><last>Li</last></author>
+      <author><first>Wenkai</first><last>Xiang</last><affiliation>Lingang laboratory</affiliation></author>
+      <author><first>Mingyue</first><last>Zheng</last><affiliation>Shanghai Institute of Materia Medica</affiliation></author>
+      <pages>66-73</pages>
+      <abstract>Large language models (LLMs) have made substantial strides, but their use in reliably tackling issues within specialized domains, particularly in interdisciplinary areas like pharmaceutical sciences, is hindered by data heterogeneity, knowledge complexity, unique objectives, and a spectrum of constraint conditions. In this area, diverse modalities such as nucleic acids, proteins, molecular structures, and natural language are often involved. We designed a specialized token set and introduced a new Mixture-of-Experts (MoEs) pre-training and fine-tuning strategy to unify these modalities in one model. With this strategy, we’ve created a multi-modal mixture-of-experts foundational model for pharmaceutical sciences, named SciMind. This model has undergone extensive pre-training on publicly accessible datasets including nucleic acid sequences, protein sequences, molecular structure strings, and biomedical texts, and delivers good performance on biomedical text comprehension, promoter prediction, protein function prediction, molecular description, and molecular generation.</abstract>
+      <url hash="e11a250e">2024.langmol-1.8</url>
+      <bibkey>xiong-etal-2024-scimind</bibkey>
+      <doi>10.18653/v1/2024.langmol-1.8</doi>
+    </paper>
+    <paper id="9">
+      <title>Knowledge Graph Extraction from Total Synthesis Documents</title>
+      <author><first>Andres</first><last>M Bran</last></author>
+      <author><first>Zlatko</first><last>Jončev</last></author>
+      <author><first>Philippe</first><last>Schwaller</last><affiliation>Swiss Federal Institute of Technology Lausanne</affiliation></author>
+      <pages>74-84</pages>
+      <abstract>Knowledge graphs (KGs) have emerged as a powerful tool for organizing and integrating complex information, making it a suitable format for scientific knowledge. However, translating scientific knowledge into KGs is challenging as a wide variety of styles and elements to present data and ideas is used. Although efforts for KG extraction (KGE) from scientific documents exist, evaluation remains challenging and field-dependent; and existing benchmarks do not focuse on scientific information. Furthermore, establishing a general benchmark for this task is challenging as not all scientific knowledge has a ground-truth KG representation, making any benchmark prone to ambiguity. Here we propose Graph of Organic Synthesis Benchmark (GOSyBench), a benchmark for KG extraction from scientific documents in chemistry, that leverages the native KG-like structure of synthetic routes in organic chemistry. We develop KG-extraction algorithms based on LLMs (GPT-4, Claude, Mistral) and VLMs (GPT-4o), the best of which reaches 73% recovery accuracy and 59% precision, leaving a lot of room for improvement. We expect GOSyBench can serve as a valuable resource for evaluating and advancing KGE methods in the scientific domain, ultimately facilitating better organization, integration, and discovery of scientific knowledge.</abstract>
+      <url hash="50563cbf">2024.langmol-1.9</url>
+      <bibkey>m-bran-etal-2024-knowledge</bibkey>
+      <doi>10.18653/v1/2024.langmol-1.9</doi>
+    </paper>
+    <paper id="10">
+      <title><fixed-case>NLP</fixed-case>eople at <i>
+          <fixed-case>L</fixed-case>+<fixed-case>M</fixed-case>-24</i> Shared Task: An Ensembled Approach for Molecule Captioning from <fixed-case>SMILES</fixed-case></title>
+      <author><first>Shinnosuke</first><last>Tanaka</last><affiliation>International Business Machines</affiliation></author>
+      <author><first>Carol</first><last>Mak</last><affiliation>International Business Machines</affiliation></author>
+      <author><first>Flaviu</first><last>Cipcigan</last><affiliation>International Business Machines</affiliation></author>
+      <author><first>James</first><last>Barry</last></author>
+      <author><first>Mohab</first><last>Elkaref</last><affiliation>International Business Machines</affiliation></author>
+      <author><first>Movina</first><last>Moses</last></author>
+      <author><first>Vishnudev</first><last>Kuruvanthodi</last><affiliation>International Business Machines</affiliation></author>
+      <author><first>Geeth</first><last>Mel</last></author>
+      <pages>85-90</pages>
+      <abstract>This paper presents our approach submitted to the Language + Molecules 2024 (<i>L+M-24</i>) Shared Task in the Molecular Captioning track. The task involves generating captions that describe the properties of molecules that are provided in SMILES format.We propose a method for the task that decomposes the challenge of generating captions from SMILES into a classification problem,where we first predict the molecule’s properties. The molecules whose properties can be predicted with high accuracy show high translation metric scores in the caption generation by LLMs, while others produce low scores. Then we use the predicted properties to select the captions generated by different types of LLMs, and use that prediction as the final output. Our submission achieved an overall increase score of 15.21 on the dev set and 12.30 on the evaluation set, based on translation metrics and property metrics from the baseline.</abstract>
+      <url hash="3bff4ac4">2024.langmol-1.10</url>
+      <bibkey>tanaka-etal-2024-nlpeople</bibkey>
+      <doi>10.18653/v1/2024.langmol-1.10</doi>
+    </paper>
+    <paper id="11">
+      <title>Knowlab’s Submission to <fixed-case>L</fixed-case>+<fixed-case>M</fixed-case> Shared Task: All you need is continued pretraining of chemistry texts even for molecule captioning</title>
+      <author><first>Yunsoo</first><last>Kim</last></author>
+      <author><first>Honghan</first><last>Wu</last><affiliation>University College London, University of London</affiliation></author>
+      <pages>91-96</pages>
+      <abstract>This paper presents our submission to the L+M-24 shared task, focused on translating molecular structures into natural language descriptions, known as the molecule captioning task. We selected a small language model (SLM), Phi-3-mini-4k, to evaluate the impact of continued pretraining and instruction tuning for domain-specific chemical knowledge. The Phi-3 model was continued pretrained with 90M chemistry textbooks and abstracts, followed by instruction tuning on 150K question answering sets of SMILES and general chemistry knowledge. Despite the continued pretraining phase not including direct exposure to SMILES representations, it significantly enhanced the Phi-3 model’s performance, a 300% increase for the BLEU scores, in the molecule captioning task. The code and model are released at <url>https://github.com/bluesky333/Phi3KnowChem</url> to facilitate research in chemical small language modeling.</abstract>
+      <url hash="9668b610">2024.langmol-1.11</url>
+      <bibkey>kim-wu-2024-knowlabs</bibkey>
+      <doi>10.18653/v1/2024.langmol-1.11</doi>
+    </paper>
+    <paper id="12">
+      <title><fixed-case>M</fixed-case>ol2<fixed-case>L</fixed-case>ang-<fixed-case>VLM</fixed-case>: Vision- and Text-Guided Generative Pre-trained Language Models for Advancing Molecule Captioning through Multimodal Fusion</title>
+      <author><first>Duong</first><last>Tran</last></author>
+      <author><first>Nhat Truong</first><last>Pham</last><affiliation>Sungkyunkwan University</affiliation></author>
+      <author><first>Nguyen</first><last>Nguyen</last></author>
+      <author><first>Balachandran</first><last>Manavalan</last><affiliation>Sung Kyun Kwan University</affiliation></author>
+      <pages>97-102</pages>
+      <abstract>This paper introduces Mol2Lang-VLM, an enhanced method for refining generative pre-trained language models for molecule captioning using multimodal features to achieve more accurate caption generation. Our approach leverages the encoder and decoder blocks of the Transformer-based architecture by introducing third sub-layers into both. Specifically, we insert sub-layers in the encoder to fuse features from SELFIES strings and molecular images, while the decoder fuses features from SMILES strings and their corresponding descriptions. Moreover, cross multi-head attention is employed instead of common multi-head attention to enable the decoder to attend to the encoder’s output, thereby integrating the encoded contextual information for better and more accurate caption generation. Performance evaluation on the CheBI-20 and L+M-24 benchmark datasets demonstrates Mol2Lang-VLM’s superiority, achieving higher accuracy and quality in caption generation compared to existing methods. Our code and pre-processed data are available at https://github.com/nhattruongpham/mol-lang-bridge/tree/mol2lang/.</abstract>
+      <url hash="ad67c6a9">2024.langmol-1.12</url>
+      <bibkey>tran-etal-2024-mol2lang</bibkey>
+      <doi>10.18653/v1/2024.langmol-1.12</doi>
+    </paper>
+    <paper id="13">
+      <title><fixed-case>DNA</fixed-case> Language Model and Interpretable Graph Neural Network Identify Genes and Pathways Involved in Rare Diseases</title>
+      <author><first>Ali</first><last>Saadat</last><affiliation>EPFL</affiliation></author>
+      <author><first>Jacques</first><last>Fellay</last><affiliation>EPFL</affiliation></author>
+      <pages>103-115</pages>
+      <abstract>Identification of causal genes and pathways is a critical step for understanding the genetic underpinnings of rare diseases. We propose novel approaches to gene prioritization and pathway identification using DNA language model, graph neural networks, and genetic algorithm. Using HyenaDNA, a long-range genomic foundation model, we generated dynamic gene embeddings that reflect changes caused by deleterious variants. These gene embeddings were then utilized to identify candidate genes and pathways. We validated our method on a cohort of rare disease patients with partially known genetic diagnosis, demonstrating the re-identification of known causal genes and pathways and the detection of novel candidates. These findings have implications for the prevention and treatment of rare diseases by enabling targeted identification of new drug targets and therapeutic pathways.</abstract>
+      <url hash="97416b43">2024.langmol-1.13</url>
+      <bibkey>saadat-fellay-2024-dna</bibkey>
+      <doi>10.18653/v1/2024.langmol-1.13</doi>
+    </paper>
+    <paper id="14">
+      <title>Repurformer: Transformers for Repurposing-Aware Molecule Generation</title>
+      <author><first>Changhun</first><last>Lee</last></author>
+      <author><first>Gyumin</first><last>Lee</last><affiliation>Korea University</affiliation></author>
+      <pages>116-127</pages>
+      <abstract>Generating as diverse molecules as possible with desired properties is crucial for drug discovery research, which invokes many approaches based on deep generative models today. Despite recent advancements in these models, particularly in variational autoencoders (VAEs), generative adversarial networks (GANs), Transformers, and diffusion models, a significant challenge known as the sample bias problem remains. This problem occurs when generated molecules targeting the same protein tend to be structurally similar, reducing the diversity of generation. To address this, we propose leveraging multi-hop relationships among proteins and compounds. Our model, Repurformer, integrates bi-directional pretraining with Fast Fourier Transform (FFT) and low-pass filtering (LPF) to capture complex interactions and generate diverse molecules. A series of experiments on BindingDB dataset confirm that Repurformer successfully creates substitutes for anchor compounds that resemble positive compounds, increasing diversity between the anchor and generated compounds.</abstract>
+      <url hash="1ca36957">2024.langmol-1.14</url>
+      <bibkey>lee-lee-2024-repurformer</bibkey>
+      <doi>10.18653/v1/2024.langmol-1.14</doi>
+    </paper>
+    <paper id="15">
+      <title><fixed-case>L</fixed-case>ang2<fixed-case>M</fixed-case>ol-Diff: A Diffusion-Based Generative Model for Language-to-Molecule Translation Leveraging <fixed-case>SELFIES</fixed-case> Representation</title>
+      <author><first>Nguyen</first><last>Nguyen</last></author>
+      <author><first>Nhat Truong</first><last>Pham</last><affiliation>Sungkyunkwan University</affiliation></author>
+      <author><first>Duong</first><last>Tran</last></author>
+      <author><first>Balachandran</first><last>Manavalan</last><affiliation>Sung Kyun Kwan University</affiliation></author>
+      <pages>128-134</pages>
+      <abstract>Generating de novo molecules from textual descriptions is challenging due to potential issues with molecule validity in SMILES representation and limitations of autoregressive models. This work introduces Lang2Mol-Diff, a diffusion-based language-to-molecule generative model using the SELFIES representation. Specifically, Lang2Mol-Diff leverages the strengths of two state-of-the-art molecular generative models: BioT5 and TGM-DLM. By employing BioT5 to tokenize the SELFIES representation, Lang2Mol-Diff addresses the validity issues associated with SMILES strings. Additionally, it incorporates a text diffusion mechanism from TGM-DLM to overcome the limitations of autoregressive models in this domain. To the best of our knowledge, this is the first study to leverage the diffusion mechanism for text-based de novo molecule generation using the SELFIES molecular string representation. Performance evaluation on the L+M-24 benchmark dataset shows that Lang2Mol-Diff outperforms all existing methods for molecule generation in terms of validity. Our code and pre-processed data are available at https://github.com/nhattruongpham/mol-lang-bridge/tree/lang2mol/.</abstract>
+      <url hash="464232d6">2024.langmol-1.15</url>
+      <bibkey>nguyen-etal-2024-lang2mol</bibkey>
+      <doi>10.18653/v1/2024.langmol-1.15</doi>
+    </paper>
+  </volume>
+</collection>

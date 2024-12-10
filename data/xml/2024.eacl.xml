@@ -133,7 +133,7 @@
     </paper>
     <paper id="10">
       <title><fixed-case>O</fixed-case>pen<fixed-case>PI</fixed-case>2.0: An Improved Dataset for Entity Tracking in Texts</title>
-      <author><first>Li</first><last>Zhang</last></author>
+      <author id="li-zhang-upenn"><first>Li</first><last>Zhang</last></author>
       <author><first>Hainiu</first><last>Xu</last></author>
       <author><first>Abhinav</first><last>Kommula</last></author>
       <author><first>Chris</first><last>Callison-Burch</last><affiliation>Allen Institute for Artificial Intelligence and University of Pennsylvania</affiliation></author>
@@ -364,7 +364,7 @@
       <author><first>Verena</first><last>Blaschke</last><affiliation>Ludwig-Maximilians-Universität München</affiliation></author>
       <author><first>Barbara</first><last>Plank</last><affiliation>Ludwig-Maximilians-Universität München and IT University of Copenhagen</affiliation></author>
       <pages>445-468</pages>
-      <abstract>Mainstream cross-lingual task-oriented dialogue (ToD) systems leverage the transfer learning paradigm by training a joint model for intent recognition and slot-filling in English and applying it, zero-shot, to other languages.We address a gap in prior research, which often overlooked the transfer to lower-resource colloquial varieties due to limited test data.Inspired by prior work on English varieties, we craft and manually evaluate perturbation rules that transform German sentences into colloquial forms and use them to synthesize test sets in four ToD datasets.Our perturbation rules cover 18 distinct language phenomena, enabling us to explore the impact of each perturbation on slot and intent performance.Using these new datasets, we conduct an experimental evaluation across six different transformers.Here, we demonstrate that when applied to colloquial varieties, ToD systems maintain their intent recognition performance, losing 6% (4.62 percentage points) in accuracy on average. However, they exhibit a significant drop in slot detection, with a decrease of 31% (21 percentage points) in slot F<tex-math>_1</tex-math> score.Our findings are further supported by a transfer experiment from Standard American English to synthetic Urban African American Vernacular English.</abstract>
+      <abstract>Mainstream cross-lingual task-oriented dialogue (ToD) systems leverage the transfer learning paradigm by training a joint model for intent recognition and slot-filling in English and applying it, zero-shot, to other languages. We address a gap in prior research, which often overlooked the transfer to lower-resource colloquial varieties due to limited test data. Inspired by prior work on English varieties, we craft and manually evaluate perturbation rules that transform German sentences into colloquial forms and use them to synthesize test sets in four ToD datasets. Our perturbation rules cover 18 distinct language phenomena, enabling us to explore the impact of each perturbation on slot and intent performance. Using these new datasets, we conduct an experimental evaluation across six different transformers. Here, we demonstrate that when applied to colloquial varieties, ToD systems maintain their intent recognition performance, losing 6% (4.62 percentage points) in accuracy on average. However, they exhibit a significant drop in slot detection, with a decrease of 31% (21 percentage points) in slot F<tex-math>_1</tex-math> score. Our findings are further supported by a transfer experiment from Standard American English to synthetic Urban African American Vernacular English.</abstract>
       <url hash="51ed9c7f">2024.eacl-long.28</url>
       <attachment type="software" hash="3a9f24a3">2024.eacl-long.28.software.zip</attachment>
       <bibkey>artemova-etal-2024-exploring</bibkey>
@@ -1480,7 +1480,6 @@
       <pages>1946-1958</pages>
       <abstract>Distance from unimodality (DFU) has been found to correlate well with human judgment for the assessment of polarized opinions. However, its un-normalized nature makes it less intuitive and somewhat difficult to exploit in machine learning (e.g., as a supervised signal). In this work a normalized version of this measure, called nDFU, is proposed that leads to better assessment of the degree of polarization. Then, we propose a methodology for K-class text classification, based on nDFU, that exploits polarized texts in the dataset. Such polarized instances are assigned to a separate K+1 class, so that a K+1-class classifier is trained. An empirical analysis on three datasets for abusive language detection, shows that nDFU can be used to model polarized annotations and prevent them from harming the classification performance. Finally, we further exploit nDFU to specify conditions that could explain polarization given a dimension and present text examples that polarized the annotators when the dimension was gender and race. Our code is available at https://github.com/ipavlopoulos/ndfu.</abstract>
       <url hash="1eda6f0a">2024.eacl-long.117</url>
-      <attachment type="software" hash="973b811f">2024.eacl-long.117.software.zip</attachment>
       <bibkey>pavlopoulos-likas-2024-polarized</bibkey>
       <video href="2024.eacl-long.117.mp4"/>
     </paper>
@@ -2810,7 +2809,7 @@
       <author><first>Matthew</first><last>Matero</last></author>
       <author><first>Salvatore</first><last>Giorgi</last></author>
       <author><first>Vivek</first><last>Kulkarni</last></author>
-      <author><first>H.</first><last>Schwartz</last><affiliation>Stony Brook University (SUNY)</affiliation></author>
+      <author><first>H. Andrew</first><last>Schwartz</last><affiliation>Stony Brook University (SUNY)</affiliation></author>
       <pages>454-468</pages>
       <abstract>Social science NLP tasks, such as emotion or humor detection, are required to capture the semantics along with the implicit pragmatics from text, often with limited amounts of training data. Instruction tuning has been shown to improve the many capabilities of large language models (LLMs) such as commonsense reasoning, reading comprehension, and computer programming. However, little is known about the effectiveness of instruction tuning on the social domain where implicit pragmatic cues are often needed to be captured. We explore the use of instruction tuning for social science NLP tasks and introduce Socialite-Llama — an open-source, instruction-tuned Llama. On a suite of 20 social science tasks, Socialite-Llama improves upon the performance of Llama as well as matches or improves upon the performance of a state-of-the-art, multi-task finetuned model on a majority of them. Further, Socialite-Llama also leads to improvement on 5 out of 6 related social tasks as compared to Llama, suggesting instruction tuning can lead to generalized social understanding. All resources including our code, model and dataset can be found through [bit.ly/socialitellama](https://bit.ly/socialitellama/).</abstract>
       <url hash="91eb1d08">2024.eacl-short.40</url>
@@ -3104,9 +3103,11 @@
       <author><first>James H.</first><last>Martin</last><affiliation>University of Colorado Boulder</affiliation></author>
       <pages>177-186</pages>
       <abstract>This paper presents a novel Cross-document Abstract Meaning Representation (X-AMR) annotation tool designed for annotating key corpus-level event semantics. Leveraging machine assistance through the Prodigy Annotation Tool, we enhance the user experience, ensuring ease and efficiency in the annotation process. Through empirical analyses, we demonstrate the effectiveness of our tool in augmenting an existing event corpus, highlighting its advantages when integrated with GPT-4. Code and annotations: href{https://anonymous.4open.science/r/xamr-9ED0}{anonymous.4open.science/r/xamr-9ED0} footnote Demo: {href{https://youtu.be/TuirftxciNE}{https://youtu.be/TuirftxciNE}} footnote Live Link: {href{https://tinyurl.com/mrxmafwh}{https://tinyurl.com/mrxmafwh}}</abstract>
-      <url hash="0d9a8852">2024.eacl-demo.19</url>
+      <url hash="f09896a9">2024.eacl-demo.19</url>
       <bibkey>ahmed-etal-2024-x</bibkey>
       <video href="2024.eacl-demo.19.mp4"/>
+      <revision id="1" href="2024.eacl-demo.19v1" hash="0d9a8852"/>
+      <revision id="2" href="2024.eacl-demo.19v2" hash="f09896a9" date="2024-08-17">Adding Acknowledgements section.</revision>
     </paper>
     <paper id="20">
       <title><fixed-case>D</fixed-case>oc<fixed-case>C</fixed-case>hecker: Bootstrapping Code Large Language Model for Detecting and Resolving Code-Comment Inconsistencies</title>
