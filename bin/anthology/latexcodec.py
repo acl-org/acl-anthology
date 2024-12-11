@@ -8,7 +8,7 @@
 # PSF (Python Software Foundation) license found here:
 # http://www.python.org/psf/license/
 
-'''Translates unicode to bibtex-friendly encoding.
+r"""Translates unicode to bibtex-friendly encoding.
 
 bibtex-friendly features:
 
@@ -54,7 +54,7 @@ mapping ord(unicode char) to LaTeX code.
 
 D. Eppstein, October 2003.
 
-'''
+"""
 
 from __future__ import generators
 import codecs
@@ -548,7 +548,7 @@ _blacklist = set(" \n\r")
 _blacklist.add(None)  # shortcut candidate generation at end of data
 
 # Construction of inverse translation table
-_l2u = {'\ ': ord(" ")}  # unexpanding space makes no sense in non-TeX contexts
+_l2u = {'\\ ': ord(" ")}  # unexpanding space makes no sense in non-TeX contexts
 
 for _tex in latex_equivalents:
     if _tex <= 0x0020 or (_tex <= 0x007F and len(latex_equivalents[_tex]) <= 1):

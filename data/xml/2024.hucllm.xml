@@ -1,0 +1,116 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2024.hucllm">
+  <volume id="1" ingest-date="2024-07-26" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of the 1st Human-Centered Large Language Modeling Workshop</booktitle>
+      <editor><first>Nikita</first><last>Soni</last></editor>
+      <editor><first>Lucie</first><last>Flek</last></editor>
+      <editor><first>Ashish</first><last>Sharma</last></editor>
+      <editor><first>Diyi</first><last>Yang</last></editor>
+      <editor><first>Sara</first><last>Hooker</last></editor>
+      <editor><first>H. Andrew</first><last>Schwartz</last></editor>
+      <publisher>ACL</publisher>
+      <address>TBD</address>
+      <month>August</month>
+      <year>2024</year>
+      <url hash="11c75976">2024.hucllm-1</url>
+      <venue>hucllm</venue>
+      <venue>ws</venue>
+    </meta>
+    <frontmatter>
+      <url hash="6709fefd">2024.hucllm-1.0</url>
+      <bibkey>hucllm-2024-human</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Human Speech Perception in Noise: Can Large Language Models Paraphrase to Improve It?</title>
+      <author><first>Anupama</first><last>Chingacham</last></author>
+      <author><first>Miaoran</first><last>Zhang</last><affiliation>Saarland University</affiliation></author>
+      <author><first>Vera</first><last>Demberg</last><affiliation>Universität des Saarlandes</affiliation></author>
+      <author><first>Dietrich</first><last>Klakow</last><affiliation>Saarland University</affiliation></author>
+      <pages>1-15</pages>
+      <abstract>Large Language Models (LLMs) can generate text by transferring style attributes like formality resulting in formal or informal text.However, instructing LLMs to generate text that when spoken, is more intelligible in an acoustically difficult environment, is an under-explored topic.We conduct the first study to evaluate LLMs on a novel task of generating acoustically intelligible paraphrases for better human speech perception in noise.Our experiments in English demonstrated that with standard prompting, LLMs struggle to control the non-textual attribute, i.e., acoustic intelligibility, while efficiently capturing the desired textual attributes like semantic equivalence. To remedy this issue, we propose a simple prompting approach, prompt-and-select, which generates paraphrases by decoupling the desired textual and non-textual attributes in the text generation pipeline.Our approach resulted in a 40% relative improvement in human speech perception, by paraphrasing utterances that are highly distorted in a listening condition with babble noise at signal-to-noise ratio (SNR) -5 dB. This study reveals the limitation of LLMs in capturing non-textual attributes, and our proposed method showcases the potential of using LLMs for better human speech perception in noise.</abstract>
+      <url hash="ba64bc13">2024.hucllm-1.1</url>
+      <bibkey>chingacham-etal-2024-human</bibkey>
+      <doi>10.18653/v1/2024.hucllm-1.1</doi>
+    </paper>
+    <paper id="2">
+      <title>Human-Centered Design Recommendations for <fixed-case>LLM</fixed-case>-as-a-judge</title>
+      <author><first>Qian</first><last>Pan</last><affiliation>IBM, International Business Machines</affiliation></author>
+      <author><first>Zahra</first><last>Ashktorab</last></author>
+      <author><first>Michael</first><last>Desmond</last></author>
+      <author><first>Martín</first><last>Santillán Cooper</last></author>
+      <author><first>James</first><last>Johnson</last></author>
+      <author><first>Rahul</first><last>Nair</last><affiliation>IBM Research Europe</affiliation></author>
+      <author><first>Elizabeth</first><last>Daly</last><affiliation>IBM Research</affiliation></author>
+      <author><first>Werner</first><last>Geyer</last></author>
+      <pages>16-29</pages>
+      <abstract>Traditional reference-based metrics, such as BLEU and ROUGE, are less effective for assessing outputs from Large Language Models (LLMs) that produce highly creative or superior-quality text, or in situations where reference outputs are unavailable. While human evaluation remains an option, it is costly and difficult to scale. Recent work using LLMs as evaluators (LLM-as-a-judge) is promising, but trust and reliability remain a significant concern. Integrating human input is crucial to ensure criteria used to evaluate are aligned with the human’s intent, and evaluations are robust and consistent. This paper presents a user study of a design exploration called EvaluLLM, that enables users to leverage LLMs as customizable judges, promoting human involvement to balance trust and cost-saving potential with caution. Through interviews with eight domain experts, we identified the need for assistance in developing effective evaluation criteria aligning the LLM-as-a-judge with practitioners’ preferences and expectations. We offer findings and design recommendations to optimize human-assisted LLM-as-judge systems.</abstract>
+      <url hash="77ba030e">2024.hucllm-1.2</url>
+      <bibkey>pan-etal-2024-human</bibkey>
+      <doi>10.18653/v1/2024.hucllm-1.2</doi>
+    </paper>
+    <paper id="3">
+      <title>Parameter-Efficient Detoxification with Contrastive Decoding</title>
+      <author><first>Tong</first><last>Niu</last><affiliation>Salesforce AI Research</affiliation></author>
+      <author><first>Caiming</first><last>Xiong</last><affiliation>Salesforce Research</affiliation></author>
+      <author><first>Yingbo</first><last>Zhou</last><affiliation>Salesforce Research</affiliation></author>
+      <author><first>Semih</first><last>Yavuz</last><affiliation>SalesForce.com</affiliation></author>
+      <pages>30-40</pages>
+      <abstract>The field of natural language generation has witnessed significant advancements in recent years, including the development of controllable text generation techniques. However, controlling the attributes of the generated text remains a challenge, especially when aiming to avoid undesirable behavior such as toxicity. In this work, we introduce Detoxification Generator (DETOXIGEN), an inference-time algorithm that steers the generation away from unwanted styles. DETOXIGEN is an ensemble of a pre-trained language model (generator) and a detoxifier. The detoxifier is trained intentionally on the toxic data representative of the undesirable attribute, encouraging it to generate text in that style exclusively. During the actual generation, we use the trained detoxifier to produce undesirable tokens for the generator to contrast against at each decoding step. This approach directly informs the generator to avoid generating tokens that the detoxifier considers highly likely. We evaluate DETOXIGEN on the commonly used REALTOXICITYPROMPTS benchmark (Gehman et al., 2020) with various language models as generators. We find that it significantly outperforms previous approaches in detoxification metrics while not compromising on the generation quality. Moreover, the detoxifier is obtained by soft prompt-tuning using the same backbone language model as the generator. Hence, DETOXIGEN requires only a tiny amount of extra weights from the virtual tokens of the detoxifier to be loaded into GPU memory while decoding, making it a promising lightweight, practical, and parameter-efficient detoxification strategy.</abstract>
+      <url hash="f16869a7">2024.hucllm-1.3</url>
+      <bibkey>niu-etal-2024-parameter</bibkey>
+      <doi>10.18653/v1/2024.hucllm-1.3</doi>
+    </paper>
+    <paper id="4">
+      <title>To What Extent Are Large Language Models Capable of Generating Substantial Reflections for Motivational Interviewing Counseling Chatbots? A Human Evaluation</title>
+      <author><first>Erkan</first><last>Basar</last></author>
+      <author><first>Iris</first><last>Hendrickx</last><affiliation>Radboud University Nijmegen, the Netherlands</affiliation></author>
+      <author><first>Emiel</first><last>Krahmer</last><affiliation>Tilburg University</affiliation></author>
+      <author><first>Gert-Jan</first><last>Bruijn</last></author>
+      <author><first>Tibor</first><last>Bosse</last><affiliation>Radboud University</affiliation></author>
+      <pages>41-52</pages>
+      <abstract>Motivational Interviewing is a counselling style that requires skillful usage of reflective listening and engaging in conversations about sensitive and personal subjects. In this paper, we investigate to what extent we can use generative large language models in motivational interviewing chatbots to generate precise and variable reflections on user responses. We conduct a two-step human evaluation where we first independently assess the generated reflections based on four criteria essential to health counseling; appropriateness, specificity, naturalness, and engagement. In the second step, we compare the overall quality of generated and human-authored reflections via a ranking evaluation. We use GPT-4, BLOOM, and FLAN-T5 models to generate motivational interviewing reflections, based on real conversational data collected via chatbots designed to provide support for smoking cessation and sexual health. We discover that GPT-4 can produce reflections of a quality comparable to human-authored reflections. Finally, we conclude that large language models have the potential to enhance and expand reflections in predetermined health counseling chatbots, but a comprehensive manual review is advised.</abstract>
+      <url hash="c45c4c26">2024.hucllm-1.4</url>
+      <bibkey>basar-etal-2024-extent</bibkey>
+      <doi>10.18653/v1/2024.hucllm-1.4</doi>
+    </paper>
+    <paper id="5">
+      <title>Vision-Language Models under Cultural and Inclusive Considerations</title>
+      <author><first>Antonia</first><last>Karamolegkou</last></author>
+      <author><first>Phillip</first><last>Rust</last></author>
+      <author><first>Ruixiang</first><last>Cui</last></author>
+      <author><first>Yong</first><last>Cao</last></author>
+      <author><first>Anders</first><last>Søgaard</last><affiliation>Copenhagen University</affiliation></author>
+      <author><first>Daniel</first><last>Hershcovich</last><affiliation>University of Copenhagen</affiliation></author>
+      <pages>53-66</pages>
+      <abstract>Large Vision Language Models can be used to assist visually impaired individuals by describing images they capture in their daily lives. Current evaluation datasets may not reflect the diverse cultural user backgrounds nor the situational context of this use case. To address this problem, we create a survey to determine caption preferences and propose a culture-centric evaluation benchmark by filtering VizWiz, an existing dataset with images taken by people who are blind. We then evaluate different models and prompts, investigating their reliability as visual assistants. While the evaluation results for state-of-the-art models seem promising, we identified some weak spots such as hallucinations and problems with conventional evaluation metrics. Our survey, data, code, and model outputs will be publicly available.</abstract>
+      <url hash="3e19ebb2">2024.hucllm-1.5</url>
+      <bibkey>karamolegkou-etal-2024-vision</bibkey>
+      <doi>10.18653/v1/2024.hucllm-1.5</doi>
+    </paper>
+    <paper id="6">
+      <title>Evaluating Large Language Models on Social Signal Sensitivity: An Appraisal Theory Approach</title>
+      <author><first>Zhen</first><last>Wu</last></author>
+      <author><first>Ritam</first><last>Dutt</last><affiliation>Carnegie Mellon University</affiliation></author>
+      <author><first>Carolyn</first><last>Rose</last><affiliation>School of Computer Science, Carnegie Mellon University</affiliation></author>
+      <pages>67-80</pages>
+      <abstract>We present a framework to assess the sensitivity of Large Language Models (LLMs) to textually embedded social signals using an Appraisal Theory perspective. We report on an experiment that uses prompts encoding three dimensions of social signals: Affect, Judgment, and Appreciation. In response to the prompt, an LLM generates both an analysis (Insight) and a conversational Response, which are analyzed in terms of sensitivity to the signals. We quantitatively evaluate the output text through topical analysis of the Insight and predicted social intelligence scores of the Response in terms of empathy and emotional polarity. Key findings show that LLMs are more sensitive to positive signals. The personas impact Responses but not the Insight. We discuss how our framework can be extended to a broader set of social signals, personas, and scenarios to evaluate LLM behaviors under various conditions.</abstract>
+      <url hash="4fa58f6b">2024.hucllm-1.6</url>
+      <bibkey>wu-etal-2024-evaluating</bibkey>
+      <doi>10.18653/v1/2024.hucllm-1.6</doi>
+      <revision id="1" href="2024.hucllm-1.6v1" hash="805f560b"/>
+      <revision id="2" href="2024.hucllm-1.6v2" hash="4fa58f6b" date="2024-10-05">Added funding.</revision>
+    </paper>
+    <paper id="7">
+      <title>Aligning to Adults Is Easy, Aligning to Children Is Hard: A Study of Linguistic Alignment in Dialogue Systems</title>
+      <author><first>Dorothea</first><last>French</last><affiliation>University of Colorado, Boulder</affiliation></author>
+      <author><first>Sidney</first><last>D’Mello</last><affiliation>University of Colorado at Boulder</affiliation></author>
+      <author><first>Katharina</first><last>von der Wense</last><affiliation>Johannes-Gutenberg Universität Mainz, University of Colorado, Boulder and New York University</affiliation></author>
+      <pages>81-87</pages>
+      <abstract>During conversations, people align to one another over time, by using similar words, concepts, and syntax. This helps form a shared understanding of the conversational content and is associated with increased engagement and satisfaction. It also affects conversation outcomes: e.g., when talking to language learners, an above normal level of linguistic alignment of parents or language teachers is correlated with faster language acquisition. These benefits make human-like alignment an important property of dialogue systems, which has often been overlooked by the NLP community. In order to fill this gap, we ask: (RQ1) Due to the importance for engagement and satisfaction, to what degree do state-of-the-art dialogue systems align to adult users? (RQ2) With a potential application to child language acquisition in mind, do systems, similar to parents, show high levels of alignment during conversations with children? Our experiments show that ChatGPT aligns to adults at roughly human levels, while Llama2 shows elevated alignment. However, when responding to a child, both systems’ alignment is below human levels.</abstract>
+      <url hash="5d1d87e5">2024.hucllm-1.7</url>
+      <bibkey>french-etal-2024-aligning</bibkey>
+      <doi>10.18653/v1/2024.hucllm-1.7</doi>
+    </paper>
+  </volume>
+</collection>

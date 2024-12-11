@@ -15,7 +15,7 @@
     </meta>
     <frontmatter>
       <url hash="1adf0ac6">2024.naacl-long.0</url>
-      <bibkey>naacl-2024-2024</bibkey>
+      <bibkey>naacl-2024-long</bibkey>
     </frontmatter>
     <paper id="1">
       <title>Named Entity Recognition Under Domain Shift via Metric Learning for Life Sciences</title>
@@ -286,8 +286,10 @@
       <author><first>Nancy</first><last>Chen</last></author>
       <pages>370-390</pages>
       <abstract>We present SeaEval, a benchmark for multilingual foundation models. In addition to characterizing how these models understand and reason with natural language, we also investigate how well they comprehend cultural practices, nuances, and values. Alongside standard accuracy metrics, we investigate the brittleness of foundation models in the dimensions of semantics and multilinguality. Our analyses span both open-sourced and closed models, leading to empirical results across classic NLP tasks, reasoning, and cultural comprehension. Key findings indicate (1) Many models exhibit varied behavior when given paraphrased instructions. (2) Many models still suffer from exposure bias (e.g., positional bias, majority label bias). (3) For questions rooted in factual, scientific, and commonsense knowledge, consistent responses are expected across multilingual queries that are semantically equivalent. Yet, most models surprisingly demonstrate inconsistent performance on these queries. (4) Multilingually-trained models have not attained “balanced multilingual” capabilities. Our endeavors underscore the need for more generalizable semantic representations and enhanced multilingual contextualization. SeaEval can serve as a launchpad for more thorough investigations and evaluations for multilingual and multicultural scenarios.</abstract>
-      <url hash="8811be7d">2024.naacl-long.22</url>
+      <url hash="554adec3">2024.naacl-long.22</url>
       <bibkey>wang-etal-2024-seaeval</bibkey>
+      <revision id="1" href="2024.naacl-long.22v1" hash="8811be7d"/>
+      <revision id="2" href="2024.naacl-long.22v2" hash="554adec3" date="2024-07-14">Updated acknowledgement.</revision>
       <doi>10.18653/v1/2024.naacl-long.22</doi>
     </paper>
     <paper id="23">
@@ -440,6 +442,7 @@
       <author><first>Jiawen</first><last>Lyn</last></author>
       <author><first>Wei</first><last>Zhu</last><affiliation>University of Hong Kong</affiliation></author>
       <author><first>Xing</first><last>Tian</last></author>
+      <author><first>Yvette</first><last>Graham</last><affiliation>Trinity College Dublin</affiliation></author>
       <pages>622-641</pages>
       <abstract>Parameter-efficient fine-tuning (PEFT) is widely studied for its effectiveness and efficiency in the era of large language models. Low-rank adaptation (LoRA) has demonstrated commendable performance as a popular and representative method. However, it is implemented with a fixed intrinsic rank that might not be the ideal setting for the downstream tasks. Recognizing the need for more flexible downstream task adaptation, we extend the methodology of LoRA to an innovative approach we call allocating low-rank adaptation (ALoRA) that enables dynamic adjustments to the intrinsic rank during the adaptation process. First, we propose a novel method, AB-LoRA, that can effectively estimate the importance score of each LoRA rank. Second, guided by AB-LoRA, we gradually prune abundant and negatively impacting LoRA ranks and allocate the pruned LoRA budgets to important Transformer modules needing higher ranks. We have conducted experiments on various tasks, and the experimental results demonstrate that our ALoRA method can outperform the recent baselines with comparable tunable parameters.</abstract>
       <url hash="31136714">2024.naacl-long.35</url>
@@ -731,7 +734,7 @@
     </paper>
     <paper id="59">
       <title>Corpus Considerations for Annotator Modeling and Scaling</title>
-      <author><first>Sarumi</first><last>Oluyemi</last></author>
+      <author><first>Olufunke O.</first><last>Sarumi</last></author>
       <author><first>Béla</first><last>Neuendorf</last></author>
       <author><first>Joan</first><last>Plepi</last><affiliation>Rheinische Friedrich-Wilhelms Universität Bonn</affiliation></author>
       <author><first>Lucie</first><last>Flek</last><affiliation>Rheinische Friedrich-Wilhelms Universität Bonn</affiliation></author>
@@ -1005,9 +1008,11 @@
       <author><first>Mari</first><last>Ostendorf</last><affiliation>University of Washington</affiliation></author>
       <pages>1434-1445</pages>
       <abstract>Large language models (LLMs) have revolutionized the landscape of Natural Language Processing, but are computationally expensive. To reduce the cost without sacrificing performance, previous studies have explored various approaches to harness the potential of Smaller Language Models (SLMs) as cost-effective alternatives to their larger counterparts. Driven by findings that SLMs and LLMs exhibit complementary strengths in a structured knowledge extraction task, this work presents a novel SLM/LLM routing framework designed to improve computational efficiency and enhance task performance. In dialogue state tracking tasks, the proposed routing framework enhances performance substantially compared to relying solely on LLMs, while reducing the computational costs by over 50%.</abstract>
-      <url hash="55eb381a">2024.naacl-long.79</url>
+      <url hash="1c178a9f">2024.naacl-long.79</url>
       <bibkey>lee-etal-2024-orchestrallm</bibkey>
       <doi>10.18653/v1/2024.naacl-long.79</doi>
+      <revision id="1" href="2024.naacl-long.79v1" hash="55eb381a"/>
+      <revision id="2" href="2024.naacl-long.79v2" hash="1c178a9f" date="2024-10-05">Minor updates.</revision>
     </paper>
     <paper id="80">
       <title>Multi-Operational Mathematical Derivations in Latent Space</title>
@@ -1311,7 +1316,7 @@
       <author><first>Yilin</first><last>Liu</last></author>
       <author><first>Shudong</first><last>Lu</last></author>
       <pages>1863-1876</pages>
-      <abstract>Information extraction (IE) encounters challenges due to the variety of schemas and objectives that differ across tasks. Recent advancements hint at the potential for universal approaches to model such tasks, referred to as Universal Information Extraction (UIE). While handling diverse tasks in one model, their generalization is limited since they are actually learning task-specific knowledge.In this study, we introduce an innovative paradigm known as TRUE-UIE, wherein all IE tasks are aligned to learn the same goals: extracting mention spans and two universal relations named <tex-math>\mathtt{NEXT}</tex-math> and <tex-math>\mathtt{IS}</tex-math>. During the decoding process, the <tex-math>\mathtt{NEXT}</tex-math> relation is utilized to group related elements, while the <tex-math>\mathtt{IS}</tex-math> relation, in conjunction with structured language prompts, undertakes the role of type recognition. Additionally, we consider the sequential dependency of tokens during span extraction, an aspect often overlooked in prevalent models.Our empirical experiments indicate that TRUE-UIE achieves state-of-the-art performance on established benchmarks encompassing 16 datasets, spanning 7 diverse IE tasks. Further evaluations reveal that our approach effectively share knowledge between different IE tasks, showcasing significant transferability in zero-shot and few-shot scenarios.</abstract>
+      <abstract>Information extraction (IE) encounters challenges due to the variety of schemas and objectives that differ across tasks. Recent advancements hint at the potential for universal approaches to model such tasks, referred to as Universal Information Extraction (UIE). While handling diverse tasks in one model, their generalization is limited since they are actually learning task-specific knowledge.In this study, we introduce an innovative paradigm known as TRUE-UIE, wherein all IE tasks are aligned to learn the same goals: extracting mention spans and two universal relations named NEXT and IS. During the decoding process, the NEXT relation is utilized to group related elements, while the IS relation, in conjunction with structured language prompts, undertakes the role of type recognition. Additionally, we consider the sequential dependency of tokens during span extraction, an aspect often overlooked in prevalent models.Our empirical experiments indicate that TRUE-UIE achieves state-of-the-art performance on established benchmarks encompassing 16 datasets, spanning 7 diverse IE tasks. Further evaluations reveal that our approach effectively share knowledge between different IE tasks, showcasing significant transferability in zero-shot and few-shot scenarios.</abstract>
       <url hash="1f5b043b">2024.naacl-long.103</url>
       <bibkey>wang-etal-2024-true</bibkey>
       <doi>10.18653/v1/2024.naacl-long.103</doi>
@@ -1550,11 +1555,11 @@
     </paper>
     <paper id="121">
       <title><fixed-case>RST</fixed-case>-<fixed-case>L</fixed-case>o<fixed-case>RA</fixed-case>: A Discourse-Aware Low-Rank Adaptation for Long Document Abstractive Summarization</title>
-      <author><first>Dongqi</first><last>Pu</last><affiliation>Universität des Saarlandes</affiliation></author>
+      <author><first>Dongqi</first><last>Liu</last><affiliation>Universität des Saarlandes</affiliation></author>
       <author><first>Vera</first><last>Demberg</last><affiliation>Universität des Saarlandes</affiliation></author>
       <pages>2200-2220</pages>
       <abstract>For long document summarization, discourse structure is important to discern the key content of the text and the differences in importance level between sentences. Unfortunately, the integration of rhetorical structure theory (RST) into parameter-efficient fine-tuning strategies for long document summarization remains unexplored. Therefore, this paper introduces RST-LoRA and proposes four RST-aware variants to explicitly incorporate RST into the LoRA model. Our empirical evaluation demonstrates that incorporating the type and uncertainty of rhetorical relations can complementarily enhance the performance of LoRA in summarization tasks. Furthermore, the best-performing variant we introduced outperforms the vanilla LoRA and full-parameter fine-tuning models, as confirmed by multiple automatic and human evaluations, and even surpasses previous state-of-the-art methods.</abstract>
-      <url hash="c16eee9d">2024.naacl-long.121</url>
+      <url hash="2c61263a">2024.naacl-long.121</url>
       <bibkey>pu-demberg-2024-rst</bibkey>
       <doi>10.18653/v1/2024.naacl-long.121</doi>
     </paper>
@@ -1746,7 +1751,7 @@
       <author><first>Vasudha</first><last>Varadarajan</last></author>
       <author><first>Sverker</first><last>Sikström</last></author>
       <author><first>Oscar</first><last>Kjell</last></author>
-      <author><first>H.</first><last>Schwartz</last><affiliation>Stony Brook University (SUNY)</affiliation></author>
+      <author><first>H. Andrew</first><last>Schwartz</last><affiliation>Stony Brook University (SUNY)</affiliation></author>
       <pages>2466-2478</pages>
       <abstract>Mental health issues differ widely among individuals, with varied signs and symptoms. Recently, language-based assessments haveshown promise in capturing this diversity, but they require a substantial sample of words per person for accuracy. This work introducesthe task of Adaptive Language-Based Assessment (ALBA), which involves adaptively ordering questions while also scoring an individual’s latent psychological trait using limited language responses to previous questions. To this end, we develop adaptive testing methods under two psychometric measurement theories: Classical Test Theory and Item Response Theory.We empirically evaluate ordering and scoring strategies, organizing into two new methods: a semi-supervised item response theory-basedmethod (ALIRT) and a supervised Actor-Critic model. While we found both methods to improve over non-adaptive baselines, We foundALIRT to be the most accurate and scalable, achieving the highest accuracy with fewer questions (e.g., Pearson r ≈ 0.93 after only 3 questions as compared to typically needing at least 7 questions). In general, adaptive language-based assessments of depression and anxiety were able to utilize a smaller sample of language without compromising validity or large computational costs.</abstract>
       <url hash="d483a97d">2024.naacl-long.136</url>
@@ -2130,8 +2135,10 @@
       <author><first>David</first><last>Bamman</last><affiliation>University of California Berkeley</affiliation></author>
       <pages>3005-3024</pages>
       <abstract>Much work in the space of NLP has used computational methods to explore sociolinguistic variation in text. In this paper, we argue that memes, as multimodal forms of language comprised of visual templates and text, also exhibit meaningful social variation. We construct a computational pipeline to cluster individual instances of memes into templates and semantic variables, taking advantage of their multimodal structure in doing so. We apply this method to a large collection of meme images from Reddit and make available the resulting SemanticMemes dataset of 3.8M images clustered by their semantic function. We use these clusters to analyze linguistic variation in memes, discovering not only that socially meaningful variation in meme usage exists between subreddits, but that patterns of meme innovation and acculturation within these communities align with previous findings on written language.</abstract>
-      <url hash="32449c7f">2024.naacl-long.166</url>
+      <url hash="e35fc522">2024.naacl-long.166</url>
       <bibkey>zhou-etal-2024-social</bibkey>
+      <revision id="1" href="2024.naacl-long.166v1" hash="32449c7f"/>
+      <revision id="2" href="2024.naacl-long.166v2" hash="e35fc522" date="2024-07-17">Update paper to camera-ready version.</revision>
       <doi>10.18653/v1/2024.naacl-long.166</doi>
     </paper>
     <paper id="167">
@@ -3640,7 +3647,7 @@
       <title>Generalizable and Stable Finetuning of Pretrained Language Models on Low-Resource Texts</title>
       <author><first>Sai Ashish</first><last>Somayajula</last></author>
       <author><first>Youwei</first><last>Liang</last><affiliation>University of California, San Diego</affiliation></author>
-      <author><first>Li</first><last>Zhang</last></author>
+      <author id="li-zhang-ucsandiego"><first>Li</first><last>Zhang</last></author>
       <author><first>Abhishek</first><last>Singh</last></author>
       <author><first>Pengtao</first><last>Xie</last><affiliation>University of California, San Diego</affiliation></author>
       <pages>4936-4953</pages>
@@ -4705,10 +4712,11 @@
       <author><first>Suhang</first><last>Wang</last><affiliation>Pennsylvania State University</affiliation></author>
       <pages>6340-6354</pages>
       <abstract>Text-to-Image (T2I) models have shown great performance in generating images based on textual prompts. However, these models are vulnerable to unsafe input to generate unsafe content like sexual, harassment and illegal-activity images. Existing studies based on image checker, model fine-tuning and embedding blocking are impractical in real-world applications. Hence, we propose the first universal **p**rompt **o**ptimizer for **s**afe T2**I** (**POSI**) generation in black-box scenario. We first construct a dataset consisting of toxic-clean prompt pairs by GPT-3.5 Turbo. To guide the optimizer to have the ability of converting toxic prompt to clean prompt while preserving semantic information, we design a novel reward function measuring toxicity and text alignment of generated images and train the optimizer through Proximal Policy Optimization. Experiments show that our approach can effectively reduce the likelihood of various T2I models in generating inappropriate images, with no significant impact on text alignment. It is also flexible to be combined with methods to achieve better performance. Our code is available at [https://github.com/wzongyu/POSI](https://github.com/wzongyu/POSI).</abstract>
-      <url hash="77e22f71">2024.naacl-long.351</url>
+      <url hash="6c6693ff">2024.naacl-long.351</url>
       <bibkey>wu-etal-2024-universal</bibkey>
       <revision id="1" href="2024.naacl-long.351v1" hash="15802fcf"/>
       <revision id="2" href="2024.naacl-long.351v2" hash="77e22f71" date="2024-06-28">Minor updates.</revision>
+      <revision id="3" href="2024.naacl-long.351v3" hash="6c6693ff" date="2024-07-14">Minor updates.</revision>
       <doi>10.18653/v1/2024.naacl-long.351</doi>
     </paper>
     <paper id="352">
@@ -6331,7 +6339,7 @@
     <paper id="477">
       <title>Large Human Language Models: A Need and the Challenges</title>
       <author><first>Nikita</first><last>Soni</last></author>
-      <author><first>H.</first><last>Schwartz</last><affiliation>Stony Brook University (SUNY)</affiliation></author>
+      <author><first>H. Andrew</first><last>Schwartz</last><affiliation>Stony Brook University (SUNY)</affiliation></author>
       <author><first>João</first><last>Sedoc</last><affiliation>New York University</affiliation></author>
       <author><first>Niranjan</first><last>Balasubramanian</last><affiliation>State University of New York, Stony Brook</affiliation></author>
       <pages>8631-8646</pages>
@@ -6485,7 +6493,7 @@
     </meta>
     <frontmatter>
       <url hash="31ab78c1">2024.naacl-short.0</url>
-      <bibkey>naacl-2024-2024-north</bibkey>
+      <bibkey>naacl-2024-short</bibkey>
     </frontmatter>
     <paper id="1">
       <title>Revisiting Zero-Shot Abstractive Summarization in the Era of Large Language Models from the Perspective of Position Bias</title>
@@ -7202,9 +7210,11 @@
       <author><first>Stevie</first><last>Chancellor</last><affiliation>University of Minnesota - Twin Cities</affiliation></author>
       <pages>672-680</pages>
       <abstract>Social media data has been used for detecting users with mental disorders, such as depression. Despite the global significance of cross-cultural representation and its potential impact on model performance, publicly available datasets often lack crucial metadata relatedto this aspect. In this work, we evaluate the generalization of benchmark datasets to build AI models on cross-cultural Twitter data. We gather a custom geo-located Twitter dataset of depressed users from seven countries as a test dataset. Our results show that depressiondetection models do not generalize globally. The models perform worse on Global South users compared to Global North. Pre-trainedlanguage models achieve the best generalization compared to Logistic Regression, though still show significant gaps in performance on depressed and non-Western users. We quantify our findings and provide several actionable suggestions to mitigate this issue</abstract>
-      <url hash="f2f6603d">2024.naacl-short.58</url>
+      <url hash="a3cdc052">2024.naacl-short.58</url>
       <bibkey>abdelkadir-etal-2024-diverse</bibkey>
       <doi>10.18653/v1/2024.naacl-short.58</doi>
+      <revision id="1" href="2024.naacl-short.58v1" hash="f2f6603d"/>
+      <revision id="2" href="2024.naacl-short.58v2" hash="a3cdc052" date="2024-10-18">Corrects two typos.</revision>
     </paper>
     <paper id="59">
       <title>Removing <fixed-case>RLHF</fixed-case> Protections in <fixed-case>GPT</fixed-case>-4 via Fine-Tuning</title>
@@ -7447,7 +7457,7 @@
     </meta>
     <frontmatter>
       <url hash="448c3d4c">2024.naacl-demo.0</url>
-      <bibkey>naacl-2024-2024-north-american</bibkey>
+      <bibkey>naacl-2024-demo</bibkey>
     </frontmatter>
     <paper id="1">
       <title><fixed-case>TOPICAL</fixed-case>: <fixed-case>TOPIC</fixed-case> Pages <fixed-case>A</fixed-case>utomagica<fixed-case>L</fixed-case>ly</title>
@@ -7735,22 +7745,25 @@
       <doi>10.18653/v1/2024.naacl-demo.21</doi>
     </paper>
   </volume>
-  <volume id="srw" ingest-date="2024-06-14" type="proceedings">
+  <volume id="srw" ingest-date="2024-07-16" type="proceedings">
     <meta>
       <booktitle>Proceedings of the 2024 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies (Volume 4: Student Research Workshop)</booktitle>
       <editor><first>Yang (Trista)</first><last>Cao</last></editor>
       <editor><first>Isabel</first><last>Papadimitriou</last></editor>
       <editor><first>Anaelia</first><last>Ovalle</last></editor>
+      <editor><first>Marcos</first><last>Zampieri</last></editor>
+      <editor><first>Francis</first><last>Ferraro</last></editor>
+      <editor><first>Swabha</first><last>Swayamdipta</last></editor>
       <publisher>Association for Computational Linguistics</publisher>
       <address>Mexico City, Mexico</address>
       <month>June</month>
       <year>2024</year>
-      <url hash="2b76f385">2024.naacl-srw</url>
+      <url hash="27f599d1">2024.naacl-srw</url>
       <venue>naacl</venue>
     </meta>
     <frontmatter>
-      <url hash="79fa1107">2024.naacl-srw.0</url>
-      <bibkey>naacl-2024-2024-north-american-chapter</bibkey>
+      <url hash="b4266c58">2024.naacl-srw.0</url>
+      <bibkey>naacl-2024-srw</bibkey>
     </frontmatter>
     <paper id="1">
       <title>Systematic Analysis for Pretrained Language Model Priming for Parameter-Efficient Fine-tuning</title>
@@ -7761,7 +7774,7 @@
       <author><first>Hung-yi</first><last>Lee</last><affiliation>National Taiwan University</affiliation></author>
       <pages>1-7</pages>
       <abstract>Parameter-efficient (PE) methods (like Prompts or Adapters) for adapting pre-trained language models (PLM) to downstream tasks have been popular recently. However, hindrances still prevent these methods from reaching their full potential. For example, two significant challenges are few-shot adaptation and cross-task generalization. To tackle these issues, we propose a general PE priming framework to enhance and explore the few-shot adaptation and generalization ability of PE methods. In this framework, PLMs are primed with PE methods for rapidly adapting to various target tasks. To evaluate the generalization ability of these PE methods, we conduct experiments on a few-shot cross-domain benchmark containing 160 diverse NLP tasks. Our experiment not only reveals the best priming strategy but also verifies that priming facilitates the adaptation to target tasks.</abstract>
-      <url hash="79f126f0">2024.naacl-srw.1</url>
+      <url hash="b0f370ab">2024.naacl-srw.1</url>
       <bibkey>huang-etal-2024-systematic</bibkey>
       <doi>10.18653/v1/2024.naacl-srw.1</doi>
     </paper>
@@ -7772,7 +7785,7 @@
       <author><first>Wai</first><last>Lam</last><affiliation>The Chinese University of Hong Kong</affiliation></author>
       <pages>8-15</pages>
       <abstract>In the realm of emerging multitasking abilities of Large language models (LLMs), methodologies like prompt tuning enable low-cost adaptation to downstream tasks without retraining the model. However, automatic input pre-processing when LLMs are unavailable is currently under-studied. This paper proposes ReLLM (Rephrasing for LLMs), a method that automatically paraphrases input content for better output generations. ReLLM replaces low-frequency lexical items with their high-frequency counterparts. This substitution is particularly beneficial for low-resource language tasks that lack sufficient training data and resources. ReLLM is user-friendly and requires no additional LLM training. Experimental results in cross-lingual summarization, and natural language inference demonstrate the effectiveness of ReLLM.</abstract>
-      <url hash="38fc391c">2024.naacl-srw.2</url>
+      <url hash="21147d69">2024.naacl-srw.2</url>
       <bibkey>yang-etal-2024-rephrasing</bibkey>
       <doi>10.18653/v1/2024.naacl-srw.2</doi>
     </paper>
@@ -7784,7 +7797,7 @@
       <author><first>Deng</first><last>Cai</last><affiliation>Tencent AI Lab</affiliation></author>
       <pages>16-24</pages>
       <abstract>In this paper, we study the generalization ability of large language models (LLMs) with respect to compositional instructions, which are instructions that can be decomposed into several sub-instructions. We argue that the ability to generalize from simple instructions to more intricate compositional instructions represents a key aspect of the out-of-distribution generalization for LLMs. Since there are no specialized datasets for studying this phenomenon, we first construct a dataset with the help of ChatGPT, guided by the self-instruct technique. Then, we fine-tune and evaluate LLMs on these datasets. Interestingly, our experimental results indicate that training LLMs on higher-order compositional instructions enhances their performance on lower-order ones, but the reverse does not hold true.</abstract>
-      <url hash="4beb4383">2024.naacl-srw.3</url>
+      <url hash="4ac82612">2024.naacl-srw.3</url>
       <bibkey>yang-etal-2024-exploring</bibkey>
       <doi>10.18653/v1/2024.naacl-srw.3</doi>
     </paper>
@@ -7796,7 +7809,7 @@
       <author><first>Heuiseok</first><last>Lim</last><affiliation>Korea University</affiliation></author>
       <pages>25-35</pages>
       <abstract>Critical error detection (CED) in machine translation is a task that aims to detect errors that significantly distort the intended meaning. However, the existing study of CED lacks explainability due to the absence of content addressing the reasons for catastrophic errors. To address this limitation, we propose Explainable CED, a dataset that introduces the attributes of error explanation and correction regarding critical errors. Considering the advantage of reducing time costs and mitigating human annotation bias, we leverage a large language model in the data construction process. To improve the quality of the dataset and mitigate hallucination, we compare responses from the model and introduce an additional data filtering method through feedback scoring. The experiment demonstrates that the dataset appropriately reflects a consistent explanation and revision for errors, validating the reliability of the dataset.</abstract>
-      <url hash="9e32f27b">2024.naacl-srw.4</url>
+      <url hash="17db48e1">2024.naacl-srw.4</url>
       <bibkey>jung-etal-2024-explainable</bibkey>
       <doi>10.18653/v1/2024.naacl-srw.4</doi>
     </paper>
@@ -7806,7 +7819,7 @@
       <author><first>Luc</first><last>Lamontagne</last><affiliation>Laval University</affiliation></author>
       <pages>36-41</pages>
       <abstract>This paper presents an innovative approach to the early detection of expensive insurance claims by leveraging survival analysis concepts within a deep learning framework exploiting textual information from claims notes. Our proposed SMARTR model addresses limitations of state-of-the-art models, such as handling data-label mismatches and non-uniform data frequency, to enhance a posteriori classification and early detection. Our results suggest that incorporating temporal dynamics and empty period representation improves model performance, highlighting the importance of considering time in insurance claim analysis. The approach appears promising for application to other insurance datasets.</abstract>
-      <url hash="75b11ea5">2024.naacl-srw.5</url>
+      <url hash="8588c058">2024.naacl-srw.5</url>
       <bibkey>baillargeon-lamontagne-2024-smartr</bibkey>
       <doi>10.18653/v1/2024.naacl-srw.5</doi>
     </paper>
@@ -7815,7 +7828,7 @@
       <author><first>Richard</first><last>Zhu</last><affiliation>Princeton University</affiliation></author>
       <pages>42-47</pages>
       <abstract>Exact nearest neighbor search is a computationally intensive process, and even its simpler sibling — vector retrieval — can be computationally complex. This is exacerbated when retrieving vectors which have high-dimension <tex-math>d</tex-math> relative to the number of vectors, <tex-math>N</tex-math>, in the database. Exact nearest neighbor retrieval has been generally acknowledged to be a <tex-math>O(Nd)</tex-math> problem with no sub-linear solutions. Attention has instead shifted towards Approximate Nearest-Neighbor (ANN) retrieval techniques, many of which have sub-linear or even logarithmic time complexities. However, if our intuition from binary search problems (e.g. <tex-math>d=1</tex-math> vector retrieval) carries, there ought to be a way to retrieve an organized representation of vectors without brute-forcing our way to a solution. For low dimension (e.g. <tex-math>d=2</tex-math> or <tex-math>d=3</tex-math> cases), kd-trees provide a <tex-math>O(d\log N)</tex-math> algorithm for retrieval. Unfortunately the algorithm deteriorates rapidly to a <tex-math>O(dN)</tex-math> solution at high dimensions (e.g. <tex-math>k=128</tex-math>), in practice. We propose a novel algorithm for logarithmic Fast Exact Retrieval for Nearest-neighbor lookup (FERN), inspired by kd-trees. The algorithm achieves <tex-math>O(d\log N)</tex-math> look-up with 100% recall on 10 million <tex-math>d=128</tex-math> uniformly randomly generated vectors.</abstract>
-      <url hash="187ad44f">2024.naacl-srw.6</url>
+      <url hash="9ec7ba01">2024.naacl-srw.6</url>
       <bibkey>zhu-2024-fast</bibkey>
       <doi>10.18653/v1/2024.naacl-srw.6</doi>
     </paper>
@@ -7827,7 +7840,7 @@
       <author><first>Tauhidur</first><last>Rahman</last><affiliation>University of California, San Diego</affiliation></author>
       <pages>48-55</pages>
       <abstract>The opaque nature of neural networks, often described as black boxes, poses significant challenges in understanding their learning mechanisms, which limit our ability to fully optimize and trust these models.Inspired by how humans learn, this paper proposes a novel neural network training strategy that employs multitask learning with progressive difficulty subtasks, which we believe can potentially shed light on the internal learning mechanisms of neural networks.We implemented this strategy across a range of NLP tasks, data sets, and neural network architectures and observed notable improvements in model performance.This suggests that neural networks may be able to extract common features and internalize shared representations across similar subtasks that differ in their difficulty.Analyzing this strategy could lead us to more interpretable and robust neural networks, enhancing both their performance and our understanding of their nature.</abstract>
-      <url hash="e72f65d0">2024.naacl-srw.7</url>
+      <url hash="ee2582c3">2024.naacl-srw.7</url>
       <bibkey>luo-etal-2024-start</bibkey>
       <doi>10.18653/v1/2024.naacl-srw.7</doi>
     </paper>
@@ -7843,7 +7856,7 @@
       <author><first>Anders</first><last>Johannsen</last></author>
       <pages>56-74</pages>
       <abstract>Spurred by recent advances in Large Language Models (LLMs), virtual assistants are poised to take a leap forward in terms of their dialogue capabilities. Yet a major bottleneck to achieving genuinely transformative task-oriented dialogue capabilities remains the scarcity of high quality data. Existing datasets, while impressive in scale, have limited domain coverage and contain few genuinely challenging conversational phenomena; those which are present are typically unlabelled, making it difficult to assess the strengths and weaknesses of models without time-consuming and costly human evaluation. Moreover, creating high quality dialogue data has until now required considerable human input, limiting both the scale of these datasets and the ability to rapidly bootstrap data for a new target domain. We aim to overcome these issues with LUCID, a modularised and highly automated LLM-driven data generation system that produces realistic, diverse and challenging dialogues. We use LUCID to generate a seed dataset of 4,277 conversations across 100 intents to demonstrate its capabilities, with a human review finding consistently high quality labels in the generated data.</abstract>
-      <url hash="0f2fee07">2024.naacl-srw.8</url>
+      <url hash="335d0894">2024.naacl-srw.8</url>
       <bibkey>stacey-etal-2024-lucid</bibkey>
       <doi>10.18653/v1/2024.naacl-srw.8</doi>
     </paper>
@@ -7855,7 +7868,7 @@
       <author><first>Dipti</first><last>Sharma</last><affiliation>IIIT Hyderabad</affiliation></author>
       <pages>75-82</pages>
       <abstract>Named Entity Recognition (NER) is a use-ful component in Natural Language Process-ing (NLP) applications. It is used in varioustasks such as Machine Translation, Summa-rization, Information Retrieval, and Question-Answering systems. The research on NER iscentered around English and some other ma-jor languages, whereas limited attention hasbeen given to Indian languages. We analyze thechallenges and propose techniques that can betailored for Multilingual Named Entity Recog-nition for Indian Languages. We present a hu-man annotated named entity corpora of ∼40Ksentences for 4 Indian languages from two ofthe major Indian language families. Addition-ally, we show the transfer learning capabilitiesof pre-trained transformer models from a highresource language to multiple low resource lan-guages through a series of experiments. Wealso present a multilingual model fine-tunedon our dataset, which achieves an F1 score of∼0.80 on our dataset on average. We achievecomparable performance on completely unseenbenchmark datasets for Indian languages whichaffirms the usability of our model.</abstract>
-      <url hash="4f2af632">2024.naacl-srw.9</url>
+      <url hash="0ef2b73e">2024.naacl-srw.9</url>
       <bibkey>bahad-etal-2024-fine</bibkey>
       <doi>10.18653/v1/2024.naacl-srw.9</doi>
     </paper>
@@ -7864,20 +7877,20 @@
       <author><first>Selene</first><last>Baez Santamaria</last></author>
       <pages>83-92</pages>
       <abstract>We create an adaptive conversational agent that assesses the quality of its knowledge and is driven to become more knowledgeable. Unlike agents with predefined tasks, ours can leverage people as diverse sources to meet its knowledge needs. We test the agent in social contexts, where personal and subjective information can be obtained through dialogue. We provide the agent both with generic methods for assessing its knowledge quality (e.g. correctness, completeness, redundancy, interconnectedness, and diversity), as well as with generic capabilities to improve its knowledge by leveraging external sources. We demonstrate that the agent can learn effective policies to acquire the knowledge needed by assessing the efficiency of these capabilities during interaction. Our framework enables on-the-fly learning, offering a dynamic and adaptive approach to shaping conversational interactions.</abstract>
-      <url hash="c3b97db0">2024.naacl-srw.10</url>
+      <url hash="eafa54b5">2024.naacl-srw.10</url>
       <bibkey>baez-santamaria-2024-knowledge</bibkey>
       <doi>10.18653/v1/2024.naacl-srw.10</doi>
     </paper>
     <paper id="11">
       <title>Exploring Inherent Biases in <fixed-case>LLM</fixed-case>s within <fixed-case>K</fixed-case>orean Social Context: A Comparative Analysis of <fixed-case>C</fixed-case>hat<fixed-case>GPT</fixed-case> and <fixed-case>GPT</fixed-case>-4</title>
       <author><first>Seungyoon</first><last>Lee</last><affiliation>Korea University</affiliation></author>
-      <author><first>Dongjun</first><last>Kim</last><affiliation>Korea University</affiliation></author>
+      <author><first>Dong</first><last>Kim</last><affiliation>Korea University</affiliation></author>
       <author><first>Dahyun</first><last>Jung</last><affiliation>Korea University</affiliation></author>
       <author><first>Chanjun</first><last>Park</last><affiliation>Upstage</affiliation></author>
       <author><first>Heuiseok</first><last>Lim</last><affiliation>Korea University</affiliation></author>
       <pages>93-104</pages>
       <abstract>Large Language Models (LLMs) have significantly impacted various fields requiring advanced linguistic understanding, yet concerns regarding their inherent biases and ethical considerations have also increased. Notably, LLMs have been critiqued for perpetuating stereotypes against diverse groups based on race, sexual orientation, and other attributes. However, most research analyzing these biases has predominantly focused on communities where English is the primary language, neglecting to consider the cultural and linguistic nuances of other societies. In this paper, we aim to explore the inherent biases and toxicity of LLMs, specifically within the social context of Korea. We devise a set of prompts that reflect major societal issues in Korea and assign varied personas to both ChatGPT and GPT-4 to assess the toxicity of the generated sentences. Our findings indicate that certain personas or prompt combinations consistently yield harmful content, highlighting the potential risks associated with specific persona-issue alignments within the Korean cultural framework. Furthermore, we discover that GPT-4 can produce more than twice the level of toxic content than ChatGPT under certain conditions.</abstract>
-      <url hash="be8e0206">2024.naacl-srw.11</url>
+      <url hash="e1e6ec1b">2024.naacl-srw.11</url>
       <bibkey>lee-etal-2024-exploring-inherent</bibkey>
       <doi>10.18653/v1/2024.naacl-srw.11</doi>
     </paper>
@@ -7889,7 +7902,7 @@
       <author><first>Josef</first><last>Genabith</last><affiliation>German Research Center for AI and Universität des Saarlandes</affiliation></author>
       <pages>105-115</pages>
       <abstract>Misunderstandings occur all the time in human conversation but deciding on when to ask for clarification is a challenging task for conversational systems that requires a balance between asking too many unnecessary questions and running the risk of providing incorrect information. This work investigates clarification identification based on the task and data from (Xu et al., 2019), reproducing their Transformer baseline and extending it by comparing pre-trained language model fine-tuning, prompt tuning and manual prompt engineering on the task of clarification identification. Our experiments show strong performance with LM and a prompt tuning approach with BERT and RoBERTa, outperforming standard LM fine-tuning, while manual prompt engineering with GPT-3.5 proved to be less effective, although informative prompt instructions have the potential of steering the model towards generating more accurate explanations for why clarification is needed.</abstract>
-      <url hash="baf528f6">2024.naacl-srw.12</url>
+      <url hash="f3404498">2024.naacl-srw.12</url>
       <bibkey>leippert-etal-2024-clarify</bibkey>
       <doi>10.18653/v1/2024.naacl-srw.12</doi>
     </paper>
@@ -7901,7 +7914,7 @@
       <author><first>Jun</first><last>Suzuki</last><affiliation>Tohoku University</affiliation></author>
       <pages>116-123</pages>
       <abstract>With the remarkable development of large language models (LLMs), ensuring the factuality of output has become a challenge.However, having all the contents of the response with given knowledge or facts is not necessarily a good thing in dialogues.This study aimed to achieve both attractiveness and factuality in a dialogue response for which a task was set to predict sentences that do not require factual correctness judgment such as agreeing, or personal opinions/feelings.We created a dataset, dialogue dataset annotated with fact-check-needed label (DDFC), for this task via crowdsourcing, and classification tasks were performed on several models using this dataset.The model with the highest classification accuracy could yield about 88% accurate classification results.</abstract>
-      <url hash="c946c720">2024.naacl-srw.13</url>
+      <url hash="7c4f0099">2024.naacl-srw.13</url>
       <bibkey>kamei-etal-2024-detecting</bibkey>
       <doi>10.18653/v1/2024.naacl-srw.13</doi>
     </paper>
@@ -7912,7 +7925,7 @@
       <author><first>Piek</first><last>Vossen</last><affiliation>Vrije Universiteit Amsterdam</affiliation></author>
       <pages>124-129</pages>
       <abstract>Cross-lingual transfer has become an effective way of transferring knowledge between languages. In this paper, we explore an often overlooked aspect in this domain: the influence of the source language of a language model on language transfer performance. We consider a case where the target language and its script are not part of the pre-trained model. We conduct a series of experiments on monolingual and multilingual models that are pre-trained on different tokenization methods to determine factors that affect cross-lingual transfer to a new language with a unique script. Our findings reveal the importance of the tokenizer as a stronger factor than the shared script, language similarity, and model size.</abstract>
-      <url hash="959e7088">2024.naacl-srw.14</url>
+      <url hash="a5dfcfe1">2024.naacl-srw.14</url>
       <bibkey>tufa-etal-2024-unknown</bibkey>
       <doi>10.18653/v1/2024.naacl-srw.14</doi>
     </paper>
@@ -7923,7 +7936,7 @@
       <author><first>Toshiyuki</first><last>Kurabayashi</last><affiliation>NTT</affiliation></author>
       <pages>130-137</pages>
       <abstract>The ability to generate code using large language models (LLMs) has been increasing year by year. However, studies on code generation at the repository level are not very active. In repository-level code generation, it is necessary to refer to related code snippets among multiple files. By taking the similarity between code snippets, related files are searched and input into an LLM, and generation is performed. This paper proposes a method to search for related files (code search) by taking similarities not between code snippets but between the texts converted from the code snippets by the LLM. We confirmed that converting to text improves the accuracy of code search.</abstract>
-      <url hash="6b92984a">2024.naacl-srw.15</url>
+      <url hash="3684e41c">2024.naacl-srw.15</url>
       <bibkey>kondo-etal-2024-improving</bibkey>
       <doi>10.18653/v1/2024.naacl-srw.15</doi>
     </paper>
@@ -7936,7 +7949,7 @@
       <author><first>Jy-yong</first><last>Sohn</last><affiliation>Yonsei University</affiliation></author>
       <pages>138-145</pages>
       <abstract>Making decent multi-lingual sentence representations is critical to achieve high performances in cross-lingual downstream tasks. In this work, we propose a novel method to align multi-lingual embeddings based on the similarity of sentences measured by a pre-trained mono-lingual embedding model. Given translation sentence pairs, we train a multi-lingual model in a way that the similarity between cross-lingual embeddings follows the similarity of sentences measured at the mono-lingual teacher model. Our method can be considered as contrastive learning with soft labels defined as the similarity between sentences. Our experimental results on five languages show that our contrastive loss with soft labels far outperforms conventional constrastive loss with hard labels in various benchmarks for bitext mining tasks and STS tasks. In addition, our method outperforms existing multi-lingual embeddings including LaBSE, for Tatoeba dataset.</abstract>
-      <url hash="bb7b6b6e">2024.naacl-srw.16</url>
+      <url hash="8104215c">2024.naacl-srw.16</url>
       <bibkey>park-etal-2024-improving-multi</bibkey>
       <doi>10.18653/v1/2024.naacl-srw.16</doi>
     </paper>
@@ -7948,7 +7961,7 @@
       <author><first>Julien</first><last>Tourille</last><affiliation>CEA</affiliation></author>
       <pages>146-153</pages>
       <abstract>Few-shot learning techniques for Event Extraction are developed to alleviate the cost of data annotation. However, most studies on few-shot event extraction only focus on event trigger detection and no study has been proposed on argument extraction in a meta-learning context. In this paper, we investigate few-shot event argument extraction using prototypical networks, casting the task as a relation classification problem. Furthermore, we propose to enhance the relation embeddings by injecting syntactic knowledge into the model using graph convolutional networks. Our experimental results show that our proposed approach achieves strong performance on ACE 2005 in several few-shot configurations, and highlight the importance of syntactic knowledge for this task. More generally, our paper provides a unified evaluation framework for meta-learning approaches for argument extraction.</abstract>
-      <url hash="5e60085e">2024.naacl-srw.17</url>
+      <url hash="3d64ae70">2024.naacl-srw.17</url>
       <bibkey>tuo-etal-2024-shot</bibkey>
       <doi>10.18653/v1/2024.naacl-srw.17</doi>
     </paper>
@@ -7961,7 +7974,7 @@
       <author><first>Daisuke</first><last>Kawahara</last><affiliation>Waseda University</affiliation></author>
       <pages>154-160</pages>
       <abstract>The development of large language models (LLMs) is becoming increasingly significant, and there is a demand for high-quality, large-scale corpora for their pretraining.The quality of a web corpus is especially essential to improve the performance of LLMs because it accounts for a large proportion of the whole corpus. However, filtering methods for Web corpora have yet to be established.In this paper, we present empirical studies to reveal which filtering methods are indeed effective and analyze why they are.We build classifiers and language models in Japanese that can process large amounts of corpora rapidly enough for pretraining LLMs in limited computational resources. By evaluating these filtering methods based on a Web corpus quality evaluation benchmark, we reveal that the most accurate method is the N-gram language model. Indeed, we empirically present that strong filtering methods can rather lead to lesser performance in downstream tasks.We also report that the proportion of some specific topics in the processed documents decreases significantly during the filtering process.</abstract>
-      <url hash="19c7069b">2024.naacl-srw.18</url>
+      <url hash="4f88c767">2024.naacl-srw.18</url>
       <bibkey>enomoto-etal-2024-investigating</bibkey>
       <doi>10.18653/v1/2024.naacl-srw.18</doi>
     </paper>
@@ -7970,7 +7983,7 @@
       <author><first>Jaap</first><last>Kruijt</last><affiliation>Vrije Universiteit Amsterdam</affiliation></author>
       <pages>161-167</pages>
       <abstract>In this PhD, we investigate the processes through which common ground shapes the pragmatic use of referring expressions in Human-Robot Interaction. A central point in our investigation is the interplay between a growing common ground and changes in the surrounding context, which can create ambiguity, variation and the need for pragmatic interpretations. We outline three objectives that define the scope of our work: 1) obtaining data with common ground interactions, 2) examining reference-making, and 3) evaluating the robot interlocutor. We use datasets as well as a novel interactive experimental framework to investigate the linguistic processes involved in shaping referring expressions. We also design an interactive robot model, which models these linguistic processes and can use pragmatic inference to resolve referring expressions. With this work, we contribute to existing work in HRI, reference resolution and the study of common ground.</abstract>
-      <url hash="b71b1995">2024.naacl-srw.19</url>
+      <url hash="1ef8f6bd">2024.naacl-srw.19</url>
       <bibkey>kruijt-2024-referring</bibkey>
       <doi>10.18653/v1/2024.naacl-srw.19</doi>
     </paper>
@@ -7980,7 +7993,7 @@
       <author><first>Julia</first><last>Ive</last><affiliation>Queen Mary, University of London</affiliation></author>
       <pages>168-199</pages>
       <abstract>Code clone detection is challenging, as sourcecode can be written in different languages, do-mains, and styles. In this paper, we arguethat source code is inherently a graph, not asequence, and that graph-based methods aremore suitable for code clone detection thansequence-based methods. We compare the per-formance of two state-of-the-art models: Code-BERT (Feng et al., 2020), a sequence-basedmodel, and CodeGraph (Yu et al., 2023), agraph-based model, on two benchmark data-sets: BCB (Svajlenko et al., 2014) and PoolC(PoolC, no date). We show that CodeGraphoutperforms CodeBERT on both data-sets, es-pecially on cross-lingual code clones. To thebest of our knowledge, this is the first work todemonstrate the cross-lingual code clone detec-tion showing superiority on graph-based meth-ods over sequence-based methods</abstract>
-      <url hash="d518abce">2024.naacl-srw.20</url>
+      <url hash="c8d6529a">2024.naacl-srw.20</url>
       <bibkey>rahaman-ive-2024-source</bibkey>
       <doi>10.18653/v1/2024.naacl-srw.20</doi>
     </paper>
@@ -7994,7 +8007,7 @@
       <author><first>Muhammad</first><last>Abdul-Mageed</last><affiliation>University of British Columbia</affiliation></author>
       <pages>200-211</pages>
       <abstract>Text Style Transfer (TST) seeks to alter the style of text while retaining its core content. Given the constraints of limited parallel datasets for TST, we propose CoTeX, a framework that leverages large language models (LLMs) alongside chain-of-thought (CoT) prompting to facilitate TST. CoTeX distills the complex rewriting and reasoning capabilities of LLMs into more streamlined models capable of working with both non-parallel and parallel data. Through experimentation across four TST datasets, CoTeX is shown to surpass traditional supervised fine-tuning and knowledge distillation methods, particularly in low-resource settings. We conduct a comprehensive evaluation, comparing CoTeX against current unsupervised, supervised, in-context learning (ICL) techniques, and instruction-tuned LLMs. Furthermore, CoTeX distinguishes itself by offering transparent explanations for its style transfer process.</abstract>
-      <url hash="67aed81b">2024.naacl-srw.21</url>
+      <url hash="b1c59f21">2024.naacl-srw.21</url>
       <bibkey>zhang-etal-2024-distilling</bibkey>
       <doi>10.18653/v1/2024.naacl-srw.21</doi>
     </paper>
@@ -8006,7 +8019,7 @@
       <author><first>Daisuke</first><last>Kawahara</last><affiliation>Waseda University</affiliation></author>
       <pages>212-218</pages>
       <abstract>Non-autoregressive (NAR) language models are known for their low latency in neural machine translation (NMT). However, a performance gap exists between NAR and autoregressive models due to the large decoding space and difficulty in capturing dependency between target words accurately. Compounding this, preparing appropriate training data for NAR models is a non-trivial task, often exacerbating exposure bias. To address these challenges, we apply reinforcement learning (RL) to Levenshtein Transformer, a representative edit-based NAR model, demonstrating that RL with self-generated data can enhance the performance of edit-based NAR models. We explore two RL approaches: stepwise reward maximization and episodic reward maximization. We discuss the respective pros and cons of these two approaches and empirically verify them. Moreover, we experimentally investigate the impact of temperature setting on performance, confirming the importance of proper temperature setting for NAR models’ training.</abstract>
-      <url hash="d25e01fe">2024.naacl-srw.22</url>
+      <url hash="3aa8c01b">2024.naacl-srw.22</url>
       <bibkey>wang-etal-2024-reinforcement</bibkey>
       <doi>10.18653/v1/2024.naacl-srw.22</doi>
     </paper>
@@ -8018,7 +8031,7 @@
       <author><first>Takashi</first><last>Ninomiya</last><affiliation>Ehime University</affiliation></author>
       <pages>219-225</pages>
       <abstract>We create a parallel corpus for medical text simplification in Japanese, which simplifies medical terms into expressions that patients can understand without effort.While text simplification in the medial domain is strongly desired by society, it is less explored in Japanese because of the lack of language resources.In this study, we build a parallel corpus for Japanese text simplification evaluation in the medical domain using patients’ weblogs.This corpus consists of 1,425 pairs of complex and simple sentences with or without medical terms.To tackle medical text simplification without a training corpus of the corresponding domain, we repurpose a Japanese text simplification model of other domains.Furthermore, we propose a lexically constrained reranking method that allows to avoid technical terms to be output.Experimental results show that our method contributes to achieving higher simplification performance in the medical domain.</abstract>
-      <url hash="450fca2a">2024.naacl-srw.23</url>
+      <url hash="460c023b">2024.naacl-srw.23</url>
       <bibkey>horiguchi-etal-2024-evaluation</bibkey>
       <doi>10.18653/v1/2024.naacl-srw.23</doi>
     </paper>
@@ -8030,7 +8043,7 @@
       <author><first>Takashi</first><last>Ninomiya</last><affiliation>Ehime University</affiliation></author>
       <pages>226-232</pages>
       <abstract>To reduce the cost of training models for each language for developers of natural language processing applications, pre-trained multilingual sentence encoders are promising.However, since training corpora for such multilingual sentence encoders contain only a small amount of text in languages other than English, they suffer from performance degradation for non-English languages.To improve the performance of pre-trained multilingual sentence encoders for non-English languages, we propose a method of machine translating a source sentence into English and then inputting it together with the source sentence in a multi-source manner.Experimental results on sentiment analysis and topic classification tasks in Japanese revealed the effectiveness of the proposed method.</abstract>
-      <url hash="baeeb1bc">2024.naacl-srw.24</url>
+      <url hash="508e72be">2024.naacl-srw.24</url>
       <bibkey>kajikawa-etal-2024-multi</bibkey>
       <doi>10.18653/v1/2024.naacl-srw.24</doi>
     </paper>
@@ -8040,11 +8053,11 @@
       <author><first>Guo</first><last>Huai</last></author>
       <author><first>Jinyu</first><last>Liu</last></author>
       <author><first>Eric</first><last>Khiu</last></author>
-      <author><first>A.</first><last>Doğruöz</last><affiliation>Ghent University</affiliation></author>
+      <author><first>A. Seza</first><last>Doğruöz</last><affiliation>Ghent University</affiliation></author>
       <author><first>En-Shiun</first><last>Lee</last></author>
       <pages>233-241</pages>
       <abstract>In the pursuit of supporting more languages around the world, tools that characterize properties of languages play a key role in expanding the existing multilingual NLP research. In this study, we focus on a widely used typological knowledge base, URIEL, which aggregates linguistic information into numeric vectors. Specifically, we delve into the soundness and reproducibility of the approach taken by URIEL in quantifying language similarity. Our analysis reveals URIEL’s ambiguity in calculating language distances and in handling missing values. Moreover, we find that URIEL does not provide any information about typological features for 31% of the languages it represents, undermining the reliabilility of the database, particularly on low-resource languages. Our literature review suggests URIEL and lang2vec are used in papers on diverse NLP tasks, which motivates us to rigorously verify the database as the effectiveness of these works depends on the reliability of the information the tool provides.</abstract>
-      <url hash="efa931dd">2024.naacl-srw.25</url>
+      <url hash="ab86c321">2024.naacl-srw.25</url>
       <bibkey>toossi-etal-2024-reproducibility</bibkey>
       <doi>10.18653/v1/2024.naacl-srw.25</doi>
     </paper>
@@ -8057,7 +8070,7 @@
       <author><first>Noriko</first><last>Kando</last><affiliation>NII, Tokyo Institute of Technology</affiliation></author>
       <pages>242-254</pages>
       <abstract>Survey research using open-ended responses is an important method thatcontributes to the discovery of unknown issues and new needs. However,survey research generally requires time and cost-consuming manual dataprocessing, indicating that it is difficult to analyze large dataset.To address this issue, we propose an LLM-based method to automate partsof the grounded theory approach (GTA), a representative approach of thequalitative data analysis. We generated and annotated pseudo open-endedresponses, and used them as the training data for the coding proceduresof GTA. Through evaluations, we showed that the models trained withpseudo open-ended responses are quite effective compared with thosetrained with manually annotated open-ended responses. We alsodemonstrate that the LLM-based approach is highly efficient andcost-saving compared to human-based approach.</abstract>
-      <url hash="3a7e3bd9">2024.naacl-srw.26</url>
+      <url hash="dee6241e">2024.naacl-srw.26</url>
       <bibkey>zenimoto-etal-2024-coding</bibkey>
       <doi>10.18653/v1/2024.naacl-srw.26</doi>
     </paper>
@@ -8066,7 +8079,7 @@
       <author><first>Qinyuan</first><last>Ye</last><affiliation>University of Southern California</affiliation></author>
       <pages>255-262</pages>
       <abstract>Humans can learn a new language task efficiently with only few examples, by leveraging their knowledge and experience obtained when learning prior tasks. Enabling similar cross-task generalization abilities in NLP systems is fundamental for approaching the goal of general intelligence and expanding the reach of language technology in the future.In this thesis proposal, I will present my work on (1) benchmarking cross-task generalization abilities with diverse NLP tasks; (2) developing model architectures for improving cross-task generalization abilities; (3) analyzing and predicting the generalization landscape of current state-of-the-art large language models. Additionally, I will outline future research directions, along with preliminary thoughts on addressing them.</abstract>
-      <url hash="4aaf86e1">2024.naacl-srw.27</url>
+      <url hash="965185ee">2024.naacl-srw.27</url>
       <bibkey>ye-2024-cross</bibkey>
       <doi>10.18653/v1/2024.naacl-srw.27</doi>
     </paper>
@@ -8076,16 +8089,18 @@
       <author><first>Naoki</first><last>Yoshinaga</last><affiliation>Institute of Industrial Science, the University of Tokyo</affiliation></author>
       <pages>263-271</pages>
       <abstract>Esports, a sports competition on video games, has become one of the most important sporting events. Although esports play logs have been accumulated, only a small portion of them accompany text commentaries for the audience to retrieve and understand the plays. In this study, we therefore introduce the task of generating game commentaries from esports’ data records. We first build large-scale esports data-to-text datasets that pair structured data and commentaries from a popular esports game, League of Legends. We then evaluate Transformer-based models to generate game commentaries from structured data records, while examining the impact of the pre-trained language models. Evaluation results on our dataset revealed the challenges of this novel task. We will release our dataset to boost potential research in the data-to-text generation community.</abstract>
-      <url hash="4551beff">2024.naacl-srw.28</url>
+      <url hash="f5cce59e">2024.naacl-srw.28</url>
       <bibkey>wang-yoshinaga-2024-commentary</bibkey>
       <doi>10.18653/v1/2024.naacl-srw.28</doi>
+      <revision id="1" href="2024.naacl-srw.28v1" hash="be28f83d"/>
+      <revision id="2" href="2024.naacl-srw.28v2" hash="f5cce59e" date="2024-10-11">Corrected a Grant Number in the Acknowledgments section.</revision>
     </paper>
     <paper id="29">
       <title>Facilitating Opinion Diversity through Hybrid <fixed-case>NLP</fixed-case> Approaches</title>
       <author><first>Michiel</first><last>Van Der Meer</last><affiliation>Leiden University</affiliation></author>
       <pages>272-284</pages>
       <abstract>Modern democracies face a critical issue of declining citizen participation in decision-making. Online discussion forums are an important avenue for enhancing citizen participation. This thesis proposal 1) identifies the challenges involved in facilitating large-scale online discussions with Natural Language Processing (NLP), 2) suggests solutions to these challenges by incorporating hybrid human-AI technologies, and 3) investigates what these technologies can reveal about individual perspectives in online discussions. We propose a three-layered hierarchy for representing perspectives that can be obtained by a mixture of human intelligence and large language models. We illustrate how these representations can draw insights into the diversity of perspectives and allow us to investigate interactions in online discussions.</abstract>
-      <url hash="547f2ebd">2024.naacl-srw.29</url>
+      <url hash="f9c7283c">2024.naacl-srw.29</url>
       <bibkey>van-der-meer-2024-facilitating</bibkey>
       <doi>10.18653/v1/2024.naacl-srw.29</doi>
     </paper>
@@ -8095,7 +8110,7 @@
       <author><first>Simon</first><last>Ostermann</last><affiliation>German Research Center for AI</affiliation></author>
       <pages>285-291</pages>
       <abstract>Pretrained transformer-based language models have produced state-of-the-art performance in most natural language understanding tasks. These models undergo two stages of training: pretraining on a huge corpus of data and fine-tuning on a specific downstream task. The pretraining phase is extremely compute-intensive and requires several high-performance computing devices like GPUs and several days or even months of training, but it is crucial for the model to capture global knowledge and also has a significant impact on the fine-tuning task. This is a major roadblock for researchers without access to sophisticated computing resources. To overcome this challenge, we propose two novel hybrid architectures called HybridBERT (HBERT), which combine self-attention and additive attention mechanisms together with sub-layer normalization. We introduce a computing budget to the pretraining phase, limiting the training time and usage to a single GPU. We show that HBERT attains twice the pretraining accuracy of a vanilla-BERT baseline. We also evaluate our proposed models on two downstream tasks, where we outperform BERT-base while accelerating inference. Moreover, we study the effect of weight initialization with a limited pretraining budget. The code and models are publicly available at: www.github.com/gokulsg/HBERT/.</abstract>
-      <url hash="b0a15b6c">2024.naacl-srw.30</url>
+      <url hash="43de6fcf">2024.naacl-srw.30</url>
       <bibkey>srinivasagan-ostermann-2024-hybridbert</bibkey>
       <doi>10.18653/v1/2024.naacl-srw.30</doi>
     </paper>
@@ -8115,7 +8130,7 @@
     </meta>
     <frontmatter>
       <url hash="1261e115">2024.naacl-tutorials.0</url>
-      <bibkey>naacl-2024-2024-north-american-chapter-association</bibkey>
+      <bibkey>naacl-2024-tutorials</bibkey>
     </frontmatter>
     <paper id="1">
       <title>Catch Me If You <fixed-case>GPT</fixed-case>: Tutorial on Deepfake Texts</title>
@@ -8216,7 +8231,7 @@
     </meta>
     <frontmatter>
       <url hash="826bfc28">2024.naacl-industry.0</url>
-      <bibkey>naacl-2024-2024-north-american-chapter-association-linguistics</bibkey>
+      <bibkey>naacl-2024-industry</bibkey>
     </frontmatter>
     <paper id="1">
       <title><fixed-case>HP</fixed-case>ipe: Large Language Model Pipeline Parallelism for Long Context on Heterogeneous Cost-effective Devices</title>
@@ -8672,7 +8687,7 @@
     </paper>
     <paper id="34">
       <title>Shears: Unstructured Sparsity with Neural Low-rank Adapter Search</title>
-      <author><first>Juan</first><last>Munoz</last><affiliation>Intel</affiliation></author>
+      <author><first>J. Pablo</first><last>Muñoz</last><affiliation>Intel</affiliation></author>
       <author><first>Jinjie</first><last>Yuan</last><affiliation>Intel</affiliation></author>
       <author><first>Nilesh</first><last>Jain</last><affiliation>Intel</affiliation></author>
       <pages>395-405</pages>

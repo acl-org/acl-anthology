@@ -94,7 +94,7 @@
       <title>Addressing the Binning Problem in Calibration Assessment through Scalar Annotations</title>
       <author><first>Zhengping</first><last>Jiang</last></author>
       <author><first>Anqi</first><last>Liu</last></author>
-      <author><first>Benjamnin Van</first><last>Durme</last></author>
+      <author><first>Benjamin</first><last>Van Durme</last></author>
       <doi>10.1162/tacl_a_00636</doi>
       <abstract>Computational linguistics models commonly target the prediction of discrete—categorical—labels. When assessing how well-calibrated these model predictions are, popular evaluation schemes require practitioners to manually determine a binning scheme: grouping labels into bins to approximate true label posterior. The problem is that these metrics are sensitive to binning decisions. We consider two solutions to the binning problem that apply at the stage of data annotation: collecting either distributed (redundant) labels or direct scalar value assignment. In this paper, we show that although both approaches address the binning problem by evaluating instance-level calibration, direct scalar assignment is significantly more cost-effective. We provide theoretical analysis and empirical evidence to support our proposal for dataset creators to adopt scalar annotation protocols to enable a higher-quality assessment of model calibration.</abstract>
       <pages>120–136</pages>
@@ -292,7 +292,7 @@
       <author><first>Lukas</first><last>Edman</last></author>
       <author><first>Gabriele</first><last>Sarti</last></author>
       <author><first>Antonio</first><last>Toral</last></author>
-      <author><first>Gertjan van</first><last>Noord</last></author>
+      <author><first>Gertjan</first><last>van Noord</last></author>
       <author><first>Arianna</first><last>Bisazza</last></author>
       <doi>10.1162/tacl_a_00651</doi>
       <abstract>Pretrained character-level and byte-level language models have been shown to be competitive with popular subword models across a range of Natural Language Processing tasks. However, there has been little research on their effectiveness for neural machine translation (NMT), particularly within the popular pretrain-then-finetune paradigm. This work performs an extensive comparison across multiple languages and experimental conditions of character- and subword-level pretrained models (ByT5 and mT5, respectively) on NMT. We show the effectiveness of character-level modeling in translation, particularly in cases where fine-tuning data is limited. In our analysis, we show how character models’ gains in translation quality are reflected in better translations of orthographically similar words and rare words. While evaluating the importance of source texts in driving model predictions, we highlight word-level patterns within ByT5, suggesting an ability to modulate word-level and character-level information during generation. We conclude by assessing the efficiency tradeoff of byte models, suggesting their usage in non-time-critical scenarios to boost translation quality.</abstract>
@@ -564,6 +564,443 @@
       <pages>786–802</pages>
       <url hash="a64ff5ef">2024.tacl-1.44</url>
       <bibkey>lehmann-etal-2024-beyond</bibkey>
+    </paper>
+    <paper id="45">
+      <title>Comparing Humans and Large Language Models on an Experimental Protocol Inventory for Theory of Mind Evaluation (<fixed-case>EPITOME</fixed-case>)</title>
+      <author><first>Cameron R.</first><last>Jones</last></author>
+      <author><first>Sean</first><last>Trott</last></author>
+      <author><first>Benjamin</first><last>Bergen</last></author>
+      <doi>10.1162/tacl_a_00674</doi>
+      <abstract>We address a growing debate about the extent to which large language models (LLMs) produce behavior consistent with Theory of Mind (ToM) in humans. We present EPITOME: a battery of six experiments that tap diverse ToM capacities, including belief attribution, emotional inference, and pragmatic reasoning. We elicit a performance baseline from human participants for each task. We use the dataset to ask whether distributional linguistic information learned by LLMs is sufficient to explain ToM in humans. We compare performance of five LLMs to a baseline of responses from human comprehenders. Results are mixed. LLMs display considerable sensitivity to mental states and match human performance in several tasks. Yet, they commit systematic errors in others, especially those requiring pragmatic reasoning on the basis of mental state information. Such uneven performance indicates that human-level ToM may require resources beyond distributional information.</abstract>
+      <pages>803–819</pages>
+      <url hash="cf0fc783">2024.tacl-1.45</url>
+      <bibkey>jones-etal-2024-comparing-humans</bibkey>
+    </paper>
+    <paper id="46">
+      <title>A Closer Look at Classification Evaluation Metrics and a Critical Reflection of Common Evaluation Practice</title>
+      <author><first>Juri</first><last>Opitz</last></author>
+      <doi>10.1162/tacl_a_00675</doi>
+      <abstract>Classification systems are evaluated in a countless number of papers. However, we find that evaluation practice is often nebulous. Frequently, metrics are selected without arguments, and blurry terminology invites misconceptions. For instance, many works use so-called ‘macro’ metrics to rank systems (e.g., ‘macro F1’) but do not clearly specify what they would expect from such a ‘macro’ metric. This is problematic, since picking a metric can affect research findings and thus any clarity in the process should be maximized. Starting from the intuitive concepts of bias and prevalence, we perform an analysis of common evaluation metrics. The analysis helps us understand the metrics’ underlying properties, and how they align with expectations as found expressed in papers. Then we reflect on the practical situation in the field, and survey evaluation practice in recent shared tasks. We find that metric selection is often not supported with convincing arguments, an issue that can make a system ranking seem arbitrary. Our work aims at providing overview and guidance for more informed and transparent metric selection, fostering meaningful evaluation.</abstract>
+      <pages>820–836</pages>
+      <url hash="9039f3ba">2024.tacl-1.46</url>
+      <bibkey>opitz-2024-closer</bibkey>
+    </paper>
+    <paper id="47">
+      <title>Revisiting Meta-evaluation for Grammatical Error Correction</title>
+      <author><first>Masamune</first><last>Kobayashi</last></author>
+      <author><first>Masato</first><last>Mita</last></author>
+      <author><first>Mamoru</first><last>Komachi</last></author>
+      <doi>10.1162/tacl_a_00676</doi>
+      <abstract>Metrics are the foundation for automatic evaluation in grammatical error correction (GEC), with their evaluation of the metrics (meta-evaluation) relying on their correlation with human judgments. However, conventional meta-evaluations in English GEC encounter several challenges, including biases caused by inconsistencies in evaluation granularity and an outdated setup using classical systems. These problems can lead to misinterpretation of metrics and potentially hinder the applicability of GEC techniques. To address these issues, this paper proposes SEEDA, a new dataset for GEC meta-evaluation. SEEDA consists of corrections with human ratings along two different granularities: edit-based and sentence-based, covering 12 state-of-the-art systems including large language models, and two human corrections with different focuses. The results of improved correlations by aligning the granularity in the sentence-level meta-evaluation suggest that edit-based metrics may have been underestimated in existing studies. Furthermore, correlations of most metrics decrease when changing from classical to neural systems, indicating that traditional metrics are relatively poor at evaluating fluently corrected sentences with many edits.</abstract>
+      <pages>837–855</pages>
+      <url hash="3c4982f4">2024.tacl-1.47</url>
+      <bibkey>kobayashi-etal-2024-revisiting</bibkey>
+    </paper>
+    <paper id="48">
+      <title>Context-Aware Machine Translation with Source Coreference Explanation</title>
+      <author><first>Huy Hien</first><last>Vu</last></author>
+      <author><first>Hidetaka</first><last>Kamigaito</last></author>
+      <author><first>Taro</first><last>Watanabe</last></author>
+      <doi>10.1162/tacl_a_00677</doi>
+      <abstract>Despite significant improvements in enhancing the quality of translation, context-aware machine translation (MT) models underperform in many cases. One of the main reasons is that they fail to utilize the correct features from context when the context is too long or their models are overly complex. This can lead to the explain-away effect, wherein the models only consider features easier to explain predictions, resulting in inaccurate translations. To address this issue, we propose a model that explains the decisions made for translation by predicting coreference features in the input. We construct a model for input coreference by exploiting contextual features from both the input and translation output representations on top of an existing MT model. We evaluate and analyze our method in the WMT document-level translation task of English-German dataset, the English-Russian dataset, and the multilingual TED talk dataset, demonstrating an improvement of over 1.0 BLEU score when compared with other context-aware models.</abstract>
+      <pages>856–874</pages>
+      <url hash="740bc432">2024.tacl-1.48</url>
+      <bibkey>vu-etal-2024-context</bibkey>
+    </paper>
+    <paper id="49">
+      <title>Can Authorship Attribution Models Distinguish Speakers in Speech Transcripts?</title>
+      <author><first>Cristina</first><last>Aggazzotti</last></author>
+      <author><first>Nicholas</first><last>Andrews</last></author>
+      <author><first>Elizabeth Allyn</first><last>Smith</last></author>
+      <doi>10.1162/tacl_a_00678</doi>
+      <abstract>Authorship verification is the task of determining if two distinct writing samples share the same author and is typically concerned with the attribution of written text. In this paper, we explore the attribution of transcribed speech, which poses novel challenges. The main challenge is that many stylistic features, such as punctuation and capitalization, are not informative in this setting. On the other hand, transcribed speech exhibits other patterns, such as filler words and backchannels (e.g., um, uh-huh), which may be characteristic of different speakers. We propose a new benchmark for speaker attribution focused on human-transcribed conversational speech transcripts. To limit spurious associations of speakers with topic, we employ both conversation prompts and speakers participating in the same conversation to construct verification trials of varying difficulties. We establish the state of the art on this new benchmark by comparing a suite of neural and non-neural baselines, finding that although written text attribution models achieve surprisingly good performance in certain settings, they perform markedly worse as conversational topic is increasingly controlled. We present analyses of the impact of transcription style on performance as well as the ability of fine-tuning on speech transcripts to improve performance.1</abstract>
+      <pages>875–891</pages>
+      <url hash="d246509c">2024.tacl-1.49</url>
+      <bibkey>aggazzotti-etal-2024-authorship</bibkey>
+    </paper>
+    <paper id="50">
+      <title>Decision-Oriented Dialogue for Human-<fixed-case>AI</fixed-case> Collaboration</title>
+      <author><first>Jessy</first><last>Lin</last></author>
+      <author><first>Nicholas</first><last>Tomlin</last></author>
+      <author><first>Jacob</first><last>Andreas</last></author>
+      <author><first>Jason</first><last>Eisner</last></author>
+      <doi>10.1162/tacl_a_00679</doi>
+      <abstract>We describe a class of tasks called decision-oriented dialogues, in which AI assistants such as large language models (LMs) must collaborate with one or more humans via natural language to help them make complex decisions. We formalize three domains in which users face everyday decisions: (1) choosing an assignment of reviewers to conference papers, (2) planning a multi-step itinerary in a city, and (3) negotiating travel plans for a group of friends. In each of these settings, AI assistants and users have disparate abilities that they must combine to arrive at the best decision: Assistants can access and process large amounts of information, while users have preferences and constraints external to the system. For each task, we build a dialogue environment where agents receive a reward based on the quality of the final decision they reach. We evaluate LMs in self-play and in collaboration with humans and find that they fall short compared to human assistants, achieving much lower rewards despite engaging in longer dialogues. We highlight a number of challenges models face in decision-oriented dialogues, ranging from goal-directed behavior to reasoning and optimization, and release our environments as a testbed for future work.</abstract>
+      <pages>892–911</pages>
+      <url hash="1064d839">2024.tacl-1.50</url>
+      <bibkey>lin-etal-2024-decision</bibkey>
+    </paper>
+    <paper id="51">
+      <title>Exploring Continual Learning of Compositional Generalization in <fixed-case>NLI</fixed-case></title>
+      <author><first>Xiyan</first><last>Fu</last></author>
+      <author><first>Anette</first><last>Frank</last></author>
+      <doi>10.1162/tacl_a_00680</doi>
+      <abstract>Compositional Natural Language Inference (NLI) has been explored to assess the true abilities of neural models to perform NLI. Yet, current evaluations assume models to have full access to all primitive inferences in advance, in contrast to humans that continuously acquire inference knowledge. In this paper, we introduce the Continual Compositional Generalization in Inference (C2Gen NLI) challenge, where a model continuously acquires knowledge of constituting primitive inference tasks as a basis for compositional inferences. We explore how continual learning affects compositional generalization in NLI, by designing a continual learning setup for compositional NLI inference tasks. Our experiments demonstrate that models fail to compositionally generalize in a continual scenario. To address this problem, we first benchmark various continual learning algorithms and verify their efficacy. We then further analyze C2Gen, focusing on how to order primitives and compositional inference types, and examining correlations between subtasks. Our analyses show that by learning subtasks continuously while observing their dependencies and increasing degrees of difficulty, continual learning can enhance composition generalization ability.1</abstract>
+      <pages>912–932</pages>
+      <url hash="7cc5c7fa">2024.tacl-1.51</url>
+      <bibkey>fu-frank-2024-exploring</bibkey>
+    </paper>
+    <paper id="52">
+      <title>State of What Art? A Call for Multi-Prompt <fixed-case>LLM</fixed-case> Evaluation</title>
+      <author><first>Moran</first><last>Mizrahi</last></author>
+      <author><first>Guy</first><last>Kaplan</last></author>
+      <author><first>Dan</first><last>Malkin</last></author>
+      <author><first>Rotem</first><last>Dror</last></author>
+      <author><first>Dafna</first><last>Shahaf</last></author>
+      <author><first>Gabriel</first><last>Stanovsky</last></author>
+      <doi>10.1162/tacl_a_00681</doi>
+      <abstract>Recent advances in LLMs have led to an abundance of evaluation benchmarks, which typically rely on a single instruction template per task. We create a large-scale collection of instruction paraphrases and comprehensively analyze the brittleness introduced by single-prompt evaluations across 6.5M instances, involving 20 different LLMs and 39 tasks from 3 benchmarks. We find that different instruction templates lead to very different performance, both absolute and relative. Instead, we propose a set of diverse metrics on multiple instruction paraphrases, specifically tailored for different use cases (e.g., LLM vs. downstream development), ensuring a more reliable and meaningful assessment of LLM capabilities. We show that our metrics provide new insights into the strengths and limitations of current LLMs.</abstract>
+      <pages>933–949</pages>
+      <url hash="e10bc06a">2024.tacl-1.52</url>
+      <bibkey>mizrahi-etal-2024-state</bibkey>
+    </paper>
+    <paper id="53">
+      <title><fixed-case>C</fixed-case>reole<fixed-case>V</fixed-case>al: Multilingual Multitask Benchmarks for Creoles</title>
+      <author><first>Heather</first><last>Lent</last></author>
+      <author><first>Kushal</first><last>Tatariya</last></author>
+      <author><first>Raj</first><last>Dabre</last></author>
+      <author><first>Yiyi</first><last>Chen</last></author>
+      <author><first>Marcell</first><last>Fekete</last></author>
+      <author><first>Esther</first><last>Ploeger</last></author>
+      <author><first>Li</first><last>Zhou</last></author>
+      <author><first>Ruth-Ann</first><last>Armstrong</last></author>
+      <author><first>Abee</first><last>Eijansantos</last></author>
+      <author><first>Catriona</first><last>Malau</last></author>
+      <author><first>Hans Erik</first><last>Heje</last></author>
+      <author><first>Ernests</first><last>Lavrinovics</last></author>
+      <author><first>Diptesh</first><last>Kanojia</last></author>
+      <author><first>Paul</first><last>Belony</last></author>
+      <author><first>Marcel</first><last>Bollmann</last></author>
+      <author><first>Loïc</first><last>Grobol</last></author>
+      <author><first>Miryam de</first><last>Lhoneux</last></author>
+      <author><first>Daniel</first><last>Hershcovich</last></author>
+      <author><first>Michel</first><last>DeGraff</last></author>
+      <author><first>Anders</first><last>Søgaard</last></author>
+      <author><first>Johannes</first><last>Bjerva</last></author>
+      <doi>10.1162/tacl_a_00682</doi>
+      <abstract>Creoles represent an under-explored and marginalized group of languages, with few available resources for NLP research. While the genealogical ties between Creoles and a number of highly resourced languages imply a significant potential for transfer learning, this potential is hampered due to this lack of annotated data. In this work we present CreoleVal, a collection of benchmark datasets spanning 8 different NLP tasks, covering up to 28 Creole languages; it is an aggregate of novel development datasets for reading comprehension relation classification, and machine translation for Creoles, in addition to a practical gateway to a handful of preexisting benchmarks. For each benchmark, we conduct baseline experiments in a zero-shot setting in order to further ascertain the capabilities and limitations of transfer learning for Creoles. Ultimately, we see CreoleVal as an opportunity to empower research on Creoles in NLP and computational linguistics, and in general, a step towards more equitable language technology around the globe.</abstract>
+      <pages>950–978</pages>
+      <url hash="91d2ea19">2024.tacl-1.53</url>
+      <bibkey>lent-etal-2024-creoleval</bibkey>
+    </paper>
+    <paper id="54">
+      <title>xcomet: Transparent Machine Translation Evaluation through Fine-grained Error Detection</title>
+      <author><first>Nuno M.</first><last>Guerreiro</last></author>
+      <author><first>Ricardo</first><last>Rei</last></author>
+      <author><first>Daan van</first><last>Stigt</last></author>
+      <author><first>Luisa</first><last>Coheur</last></author>
+      <author><first>Pierre</first><last>Colombo</last></author>
+      <author><first>André F. T.</first><last>Martins</last></author>
+      <doi>10.1162/tacl_a_00683</doi>
+      <abstract>Widely used learned metrics for machine translation evaluation, such as Comet and Bleurt, estimate the quality of a translation hypothesis by providing a single sentence-level score. As such, they offer little insight into translation errors (e.g., what are the errors and what is their severity). On the other hand, generative large language models (LLMs) are amplifying the adoption of more granular strategies to evaluation, attempting to detail and categorize translation errors. In this work, we introduce xcomet, an open-source learned metric designed to bridge the gap between these approaches. xcomet integrates both sentence-level evaluation and error span detection capabilities, exhibiting state-of-the-art performance across all types of evaluation (sentence-level, system-level, and error span detection). Moreover, it does so while highlighting and categorizing error spans, thus enriching the quality assessment. We also provide a robustness analysis with stress tests, and show that xcomet is largely capable of identifying localized critical errors and hallucinations.</abstract>
+      <pages>979–995</pages>
+      <url hash="140182d5">2024.tacl-1.54</url>
+      <bibkey>guerreiro-etal-2024-xcomet</bibkey>
+    </paper>
+    <paper id="55">
+      <title><fixed-case>SEEP</fixed-case>: Training Dynamics Grounds Latent Representation Search for Mitigating Backdoor Poisoning Attacks</title>
+      <author><first>Xuanli</first><last>He</last></author>
+      <author><first>Qiongkai</first><last>Xu</last></author>
+      <author><first>Jun</first><last>Wang</last></author>
+      <author><first>Benjamin I. P.</first><last>Rubinstein</last></author>
+      <author><first>Trevor</first><last>Cohn</last></author>
+      <doi>10.1162/tacl_a_00684</doi>
+      <abstract>Modern NLP models are often trained on public datasets drawn from diverse sources, rendering them vulnerable to data poisoning attacks. These attacks can manipulate the model’s behavior in ways engineered by the attacker. One such tactic involves the implantation of backdoors, achieved by poisoning specific training instances with a textual trigger and a target class label. Several strategies have been proposed to mitigate the risks associated with backdoor attacks by identifying and removing suspected poisoned examples. However, we observe that these strategies fail to offer effective protection against several advanced backdoor attacks. To remedy this deficiency, we propose a novel defensive mechanism that first exploits training dynamics to identify poisoned samples with high precision, followed by a label propagation step to improve recall and thus remove the majority of poisoned instances. Compared with recent advanced defense methods, our method considerably reduces the success rates of several backdoor attacks while maintaining high classification accuracy on clean test sets.</abstract>
+      <pages>996–1010</pages>
+      <url hash="0d1d3379">2024.tacl-1.55</url>
+      <bibkey>he-etal-2024-seep</bibkey>
+    </paper>
+    <paper id="56">
+      <title>Do <fixed-case>LLM</fixed-case>s Exhibit Human-like Response Biases? A Case Study in Survey Design</title>
+      <author><first>Lindia</first><last>Tjuatja</last></author>
+      <author><first>Valerie</first><last>Chen</last></author>
+      <author><first>Tongshuang</first><last>Wu</last></author>
+      <author><first>Ameet</first><last>Talwalkwar</last></author>
+      <author><first>Graham</first><last>Neubig</last></author>
+      <doi>10.1162/tacl_a_00685</doi>
+      <abstract>One widely cited barrier to the adoption of LLMs as proxies for humans in subjective tasks is their sensitivity to prompt wording—but interestingly, humans also display sensitivities to instruction changes in the form of response biases. We investigate the extent to which LLMs reflect human response biases, if at all. We look to survey design, where human response biases caused by changes in the wordings of “prompts” have been extensively explored in social psychology literature. Drawing from these works, we design a dataset and framework to evaluate whether LLMs exhibit human-like response biases in survey questionnaires. Our comprehensive evaluation of nine models shows that popular open and commercial LLMs generally fail to reflect human-like behavior, particularly in models that have undergone RLHF. Furthermore, even if a model shows a significant change in the same direction as humans, we find that they are sensitive to perturbations that do not elicit significant changes in humans. These results highlight the pitfalls of using LLMs as human proxies, and underscore the need for finer-grained characterizations of model behavior.1</abstract>
+      <pages>1011–1026</pages>
+      <url hash="cfd7590e">2024.tacl-1.56</url>
+      <bibkey>tjuatja-etal-2024-llms</bibkey>
+    </paper>
+    <paper id="57">
+      <title>Multi-level Shared Knowledge Guided Learning for Knowledge Graph Completion</title>
+      <author><first>Yongxue</first><last>Shan</last></author>
+      <author><first>Jie</first><last>Zhou</last></author>
+      <author><first>Jie</first><last>Peng</last></author>
+      <author><first>Xin</first><last>Zhou</last></author>
+      <author><first>Jiaqian</first><last>Yin</last></author>
+      <author><first>Xiaodong</first><last>Wang</last></author>
+      <doi>10.1162/tacl_a_00686</doi>
+      <abstract>In the task of Knowledge Graph Completion (KGC), the existing datasets and their inherent subtasks carry a wealth of shared knowledge that can be utilized to enhance the representation of knowledge triplets and overall performance. However, no current studies specifically address the shared knowledge within KGC. To bridge this gap, we introduce a multi-level Shared Knowledge Guided learning method (SKG) that operates at both the dataset and task levels. On the dataset level, SKG-KGC broadens the original dataset by identifying shared features within entity sets via text summarization. On the task level, for the three typical KGC subtasks—head entity prediction, relation prediction, and tail entity prediction—we present an innovative multi-task learning architecture with dynamically adjusted loss weights. This approach allows the model to focus on more challenging and underperforming tasks, effectively mitigating the imbalance of knowledge sharing among subtasks. Experimental results demonstrate that SKG-KGC outperforms existing text-based methods significantly on three well-known datasets, with the most notable improvement on WN18RR (MRR: 66.6%→ 72.2%, Hit@1: 58.7%→67.0%).</abstract>
+      <pages>1027–1042</pages>
+      <url hash="87138fa9">2024.tacl-1.57</url>
+      <bibkey>shan-etal-2024-multi</bibkey>
+    </paper>
+    <paper id="58">
+      <title>Do Multi-Document Summarization Models Synthesize?</title>
+      <author><first>Jay</first><last>DeYoung</last></author>
+      <author><first>Stephanie C.</first><last>Martinez</last></author>
+      <author><first>Iain J.</first><last>Marshall</last></author>
+      <author><first>Byron C.</first><last>Wallace</last></author>
+      <doi>10.1162/tacl_a_00687</doi>
+      <abstract>Multi-document summarization entails producing concise synopses of collections of inputs. For some applications, the synopsis should accurately synthesize inputs with respect to a key aspect, e.g., a synopsis of film reviews written about a particular movie should reflect the average critic consensus. As a more consequential example, narrative summaries that accompany biomedical systematic reviews of clinical trial results should accurately summarize the potentially conflicting results from individual trials. In this paper we ask: To what extent do modern multi-document summarization models implicitly perform this sort of synthesis? We run experiments over opinion and evidence synthesis datasets using a suite of summarization models, from fine-tuned transformers to GPT-4. We find that existing models partially perform synthesis, but imperfectly: Even the best performing models are over-sensitive to changes in input ordering and under-sensitive to changes in input compositions (e.g., ratio of positive to negative reviews). We propose a simple, general, effective method for improving model synthesis capabilities by generating an explicitly diverse set of candidate outputs, and then selecting from these the string best aligned with the expected aggregate measure for the inputs, or abstaining when the model produces no good candidate.</abstract>
+      <pages>1043–1062</pages>
+      <url hash="10184acf">2024.tacl-1.58</url>
+      <bibkey>deyoung-etal-2024-multi</bibkey>
+    </paper>
+    <paper id="59">
+      <title><fixed-case>ARN</fixed-case>: Analogical Reasoning on Narratives</title>
+      <author><first>Zhivar</first><last>Sourati</last></author>
+      <author><first>Filip</first><last>Ilievski</last></author>
+      <author><first>Pia</first><last>Sommerauer</last></author>
+      <author><first>Yifan</first><last>Jiang</last></author>
+      <doi>10.1162/tacl_a_00688</doi>
+      <abstract>As a core cognitive skill that enables the transferability of information across domains, analogical reasoning has been extensively studied for both humans and computational models. However, while cognitive theories of analogy often focus on narratives and study the distinction between surface, relational, and system similarities, existing work in natural language processing has a narrower focus as far as relational analogies between word pairs. This gap brings a natural question: can state-of-the-art large language models (LLMs) detect system analogies between narratives? To gain insight into this question and extend word-based relational analogies to relational system analogies, we devise a comprehensive computational framework that operationalizes dominant theories of analogy, using narrative elements to create surface and system mappings. Leveraging the interplay between these mappings, we create a binary task and benchmark for Analogical Reasoning on Narratives (ARN), covering four categories of far (cross-domain)/near (within-domain) analogies and disanalogies. We show that while all LLMs can largely recognize near analogies, even the largest ones struggle with far analogies in a zero-shot setting, with GPT4.0 scoring below random. Guiding the models through solved examples and Chain-of-Thought reasoning enhances their analogical reasoning ability. Yet, since even in the few-shot setting, the best model only performs halfway between random and humans, ARN opens exciting directions for computational analogical reasoners.</abstract>
+      <pages>1063–1086</pages>
+      <url hash="b3978ad4">2024.tacl-1.59</url>
+      <bibkey>sourati-etal-2024-arn</bibkey>
+    </paper>
+    <paper id="60">
+      <title>Are Language Models More Like Libraries or Like Librarians? Bibliotechnism, the Novel Reference Problem, and the Attitudes of <fixed-case>LLM</fixed-case>s</title>
+      <author><first>Harvey</first><last>Lederman</last></author>
+      <author><first>Kyle</first><last>Mahowald</last></author>
+      <doi>10.1162/tacl_a_00690</doi>
+      <abstract>Are LLMs cultural technologies like photocopiers or printing presses, which transmit information but cannot create new content? A challenge for this idea, which we call bibliotechnism, is that LLMs generate novel text. We begin with a defense of bibliotechnism, showing how even novel text may inherit its meaning from original human-generated text. We then argue that bibliotechnism faces an independent challenge from examples in which LLMs generate novel reference, using new names to refer to new entities. Such examples could be explained if LLMs were not cultural technologies but had beliefs, desires, and intentions. According to interpretationism in the philosophy of mind, a system has such attitudes if and only if its behavior is well explained by the hypothesis that it does. Interpretationists may hold that LLMs have attitudes, and thus have a simple solution to the novel reference problem. We emphasize, however, that interpretationism is compatible with very simple creatures having attitudes and differs sharply from views that presuppose these attitudes require consciousness, sentience, or intelligence (topics about which we make no claims).</abstract>
+      <pages>1087–1103</pages>
+      <url hash="3c377351">2024.tacl-1.60</url>
+      <bibkey>lederman-mahowald-2024-language</bibkey>
+    </paper>
+    <paper id="61">
+      <title>Segmentation-Free Streaming Machine Translation</title>
+      <author><first>Javier</first><last>Iranzo-Sánchez</last></author>
+      <author><first>Jorge</first><last>Iranzo-Sánchez</last></author>
+      <author><first>Adrià</first><last>Giménez</last></author>
+      <author><first>Jorge</first><last>Civera</last></author>
+      <author><first>Alfons</first><last>Juan</last></author>
+      <doi>10.1162/tacl_a_00691</doi>
+      <abstract>Streaming Machine Translation (MT) is the task of translating an unbounded input text stream in real-time. The traditional cascade approach, which combines an Automatic Speech Recognition (ASR) and an MT system, relies on an intermediate segmentation step which splits the transcription stream into sentence-like units. However, the incorporation of a hard segmentation constrains the MT system and is a source of errors. This paper proposes a Segmentation-Free framework that enables the model to translate an unsegmented source stream by delaying the segmentation decision until after the translation has been generated. Extensive experiments show how the proposed Segmentation-Free framework has better quality-latency trade-off than competing approaches that use an independent segmentation model.1</abstract>
+      <pages>1104–1121</pages>
+      <url hash="5a01d561">2024.tacl-1.61</url>
+      <bibkey>iranzo-sanchez-etal-2024-segmentation</bibkey>
+    </paper>
+    <paper id="62">
+      <title>Do Language Models Enjoy Their Own Stories? Prompting Large Language Models for Automatic Story Evaluation</title>
+      <author><first>Cyril</first><last>Chhun</last></author>
+      <author><first>Fabian M.</first><last>Suchanek</last></author>
+      <author><first>Chloé</first><last>Clavel</last></author>
+      <doi>10.1162/tacl_a_00689</doi>
+      <abstract>Storytelling is an integral part of human experience and plays a crucial role in social interactions. Thus, Automatic Story Evaluation (ASE) and Generation (ASG) could benefit society in multiple ways, but they are challenging tasks which require high-level human abilities such as creativity, reasoning, and deep understanding. Meanwhile, Large Language Models (LLMs) now achieve state-of-the-art performance on many NLP tasks. In this paper, we study whether LLMs can be used as substitutes for human annotators for ASE. We perform an extensive analysis of the correlations between LLM ratings, other automatic measures, and human annotations, and we explore the influence of prompting on the results and the explainability of LLM behaviour. Most notably, we find that LLMs outperform current automatic measures for system-level evaluation but still struggle at providing satisfactory explanations for their answers.</abstract>
+      <pages>1122–1142</pages>
+      <url hash="0d7cc8b7">2024.tacl-1.62</url>
+      <bibkey>chhun-etal-2024-language</bibkey>
+    </paper>
+    <paper id="63">
+      <title>How Often Are Errors in Natural Language Reasoning Due to Paraphrastic Variability?</title>
+      <author><first>Neha</first><last>Srikanth</last></author>
+      <author><first>Marine</first><last>Carpuat</last></author>
+      <author><first>Rachel</first><last>Rudinger</last></author>
+      <doi>10.1162/tacl_a_00692</doi>
+      <abstract>Large language models have been shown to behave inconsistently in response to meaning-preserving paraphrastic inputs. At the same time, researchers evaluate the knowledge and reasoning abilities of these models with test evaluations that do not disaggregate the effect of paraphrastic variability on performance. We propose a metric, PC, for evaluating the paraphrastic consistency of natural language reasoning models based on the probability of a model achieving the same correctness on two paraphrases of the same problem. We mathematically connect this metric to the proportion of a model’s variance in correctness attributable to paraphrasing. To estimate PC, we collect ParaNlu, a dataset of 7,782 human-written and validated paraphrased reasoning problems constructed on top of existing benchmark datasets for defeasible and abductive natural language inference.1 Using ParaNlu, we measure the paraphrastic consistency of several model classes and show that consistency dramatically increases with pretraining but not fine-tuning. All models tested exhibited room for improvement in paraphrastic consistency.</abstract>
+      <pages>1143–1162</pages>
+      <url hash="5780b54b">2024.tacl-1.63</url>
+      <bibkey>srikanth-etal-2024-often</bibkey>
+    </paper>
+    <paper id="64">
+      <title>Investigating Hallucinations in Pruned Large Language Models for Abstractive Summarization</title>
+      <author><first>George</first><last>Chrysostomou</last></author>
+      <author><first>Zhixue</first><last>Zhao</last></author>
+      <author><first>Miles</first><last>Williams</last></author>
+      <author><first>Nikolaos</first><last>Aletras</last></author>
+      <doi>10.1162/tacl_a_00695</doi>
+      <abstract>Despite the remarkable performance of generative large language models (LLMs) on abstractive summarization, they face two significant challenges: their considerable size and tendency to hallucinate. Hallucinations are concerning because they erode reliability and raise safety issues. Pruning is a technique that reduces model size by removing redundant weights, enabling more efficient sparse inference. Pruned models yield downstream task performance comparable to the original, making them ideal alternatives when operating on a limited budget. However, the effect that pruning has upon hallucinations in abstractive summarization with LLMs has yet to be explored. In this paper, we provide an extensive empirical study across five summarization datasets, two state-of-the-art pruning methods, and five instruction-tuned LLMs. Surprisingly, we find that hallucinations are less prevalent from pruned LLMs than the original models. Our analysis suggests that pruned models tend to depend more on the source document for summary generation. This leads to a higher lexical overlap between the generated summary and the source document, which could be a reason for the reduction in hallucination risk.1</abstract>
+      <pages>1163–1181</pages>
+      <url hash="3caf9828">2024.tacl-1.64</url>
+      <bibkey>chrysostomou-etal-2024-investigating</bibkey>
+    </paper>
+    <paper id="65">
+      <title>Hypernetworks for Personalizing <fixed-case>ASR</fixed-case> to Atypical Speech</title>
+      <author><first>Max</first><last>Müller-Eberstein</last></author>
+      <author><first>Dianna</first><last>Yee</last></author>
+      <author><first>Karren</first><last>Yang</last></author>
+      <author><first>Gautam Varma</first><last>Mantena</last></author>
+      <author><first>Colin</first><last>Lea</last></author>
+      <doi>10.1162/tacl_a_00696</doi>
+      <abstract>Parameter-efficient fine-tuning (PEFT) for personalizing automatic speech recognition (ASR) has recently shown promise for adapting general population models to atypical speech. However, these approaches assume a priori knowledge of the atypical speech disorder being adapted for—the diagnosis of which requires expert knowledge that is not always available. Even given this knowledge, data scarcity and high inter-/intra-speaker variability further limit the effectiveness of traditional fine-tuning. To circumvent these challenges, we first identify the minimal set of model parameters required for ASR adaptation. Our analysis of each individual parameter’s effect on adaptation performance allows us to reduce Word Error Rate (WER) by half while adapting 0.03% of all weights. Alleviating the need for cohort-specific models, we next propose the novel use of a meta-learned hypernetwork to generate highly individualized, utterance-level adaptations on-the-fly for a diverse set of atypical speech characteristics. Evaluating adaptation at the global, cohort, and individual-level, we show that hypernetworks generalize better to out-of-distribution speakers, while maintaining an overall relative WER reduction of 75.2% using 0.1% of the full parameter budget.</abstract>
+      <pages>1182–1196</pages>
+      <url hash="d384b8b0">2024.tacl-1.65</url>
+      <bibkey>muller-eberstein-etal-2024-hypernetworks</bibkey>
+    </paper>
+    <paper id="66">
+      <title>Retrieval-Pretrained Transformer: Long-range Language Modeling with Self-retrieval</title>
+      <author><first>Ohad</first><last>Rubin</last></author>
+      <author><first>Jonathan</first><last>Berant</last></author>
+      <doi>10.1162/tacl_a_00693</doi>
+      <abstract>Retrieval-augmented language models (LMs) have received much attention recently. However, typically the retriever is not trained jointly as a native component of the LM, but added post-hoc to an already-pretrained LM, which limits the ability of the LM and the retriever to adapt to one another. In this work, we propose the Retrieval-Pretrained Transformer (RPT), an architecture and training procedure for jointly training a retrieval-augmented LM from scratch and applying it to the task of modeling long texts. Given a recently generated text chunk in a long document, the LM computes query representations, which are then used to retrieve earlier chunks in the document, located potentially tens of thousands of tokens before. Information from retrieved chunks is fused into the LM representations to predict the next target chunk. We train the retriever component with a semantic objective, where the goal is to retrieve chunks that increase the probability of the next chunk, according to a reference LM. We evaluate RPT on four long-range language modeling tasks, spanning books, code, and mathematical writing, and demonstrate that RPT improves retrieval quality and subsequently perplexity across the board compared to strong baselines.</abstract>
+      <pages>1197–1213</pages>
+      <url hash="578fe4f2">2024.tacl-1.66</url>
+      <bibkey>rubin-berant-2024-retrieval</bibkey>
+    </paper>
+    <paper id="67">
+      <title>Retrieval-style In-context Learning for Few-shot Hierarchical Text Classification</title>
+      <author><first>Huiyao</first><last>Chen</last></author>
+      <author><first>Yu</first><last>Zhao</last></author>
+      <author><first>Zulong</first><last>Chen</last></author>
+      <author><first>Mengjia</first><last>Wang</last></author>
+      <author><first>Liangyue</first><last>Li</last></author>
+      <author><first>Meishan</first><last>Zhang</last></author>
+      <author><first>Min</first><last>Zhang</last></author>
+      <doi>10.1162/tacl_a_00697</doi>
+      <abstract>Hierarchical text classification (HTC) is an important task with broad applications, and few-shot HTC has gained increasing interest recently. While in-context learning (ICL) with large language models (LLMs) has achieved significant success in few-shot learning, it is not as effective for HTC because of the expansive hierarchical label sets and extremely ambiguous labels. In this work, we introduce the first ICL-based framework with LLM for few-shot HTC. We exploit a retrieval database to identify relevant demonstrations, and an iterative policy to manage multi-layer hierarchical labels. Particularly, we equip the retrieval database with HTC label-aware representations for the input texts, which is achieved by continual training on a pretrained language model with masked language modeling (MLM), layer-wise classification (CLS, specifically for HTC), and a novel divergent contrastive learning (DCL, mainly for adjacent semantically similar labels) objective. Experimental results on three benchmark datasets demonstrate superior performance of our method, and we can achieve state-of-the-art results in few-shot HTC.</abstract>
+      <pages>1214–1231</pages>
+      <url hash="d09a7ee1">2024.tacl-1.67</url>
+      <bibkey>chen-etal-2024-retrieval-style</bibkey>
+    </paper>
+    <paper id="68">
+      <title>Do Vision and Language Models Share Concepts? A Vector Space Alignment Study</title>
+      <author><first>Jiaang</first><last>Li</last></author>
+      <author><first>Yova</first><last>Kementchedjhieva</last></author>
+      <author><first>Constanza</first><last>Fierro</last></author>
+      <author><first>Anders</first><last>Søgaard</last></author>
+      <doi>10.1162/tacl_a_00698</doi>
+      <abstract>Large-scale pretrained language models (LMs) are said to “lack the ability to connect utterances to the world” (Bender and Koller, 2020), because they do not have “mental models of the world” (Mitchell and Krakauer, 2023). If so, one would expect LM representations to be unrelated to representations induced by vision models. We present an empirical evaluation across four families of LMs (BERT, GPT-2, OPT, and LLaMA-2) and three vision model architectures (ResNet, SegFormer, and MAE). Our experiments show that LMs partially converge towards representations isomorphic to those of vision models, subject to dispersion, polysemy, and frequency. This has important implications for both multi-modal processing and the LM understanding debate (Mitchell and Krakauer, 2023).1</abstract>
+      <pages>1232–1249</pages>
+      <url hash="eb6876ba">2024.tacl-1.68</url>
+      <bibkey>li-etal-2024-vision-language</bibkey>
+    </paper>
+    <paper id="69">
+      <title>Assessing the Role of Context in Chat Translation Evaluation: Is Context Helpful and Under What Conditions?</title>
+      <author><first>Sweta</first><last>Agrawal</last></author>
+      <author><first>Amin</first><last>Farajian</last></author>
+      <author><first>Patrick</first><last>Fernandes</last></author>
+      <author><first>Ricardo</first><last>Rei</last></author>
+      <author><first>André F. T.</first><last>Martins</last></author>
+      <doi>10.1162/tacl_a_00700</doi>
+      <abstract>Despite the recent success of automatic metrics for assessing translation quality, their application in evaluating the quality of machine-translated chats has been limited. Unlike more structured texts like news, chat conversations are often unstructured, short, and heavily reliant on contextual information. This poses questions about the reliability of existing sentence-level metrics in this domain as well as the role of context in assessing the translation quality. Motivated by this, we conduct a meta-evaluation of existing automatic metrics, primarily designed for structured domains such as news, to assess the quality of machine-translated chats. We find that reference-free metrics lag behind reference-based ones, especially when evaluating translation quality in out-of-English settings. We then investigate how incorporating conversational contextual information in these metrics for sentence-level evaluation affects their performance. Our findings show that augmenting neural learned metrics with contextual information helps improve correlation with human judgments in the reference-free scenario and when evaluating translations in out-of-English settings. Finally, we propose a new evaluation metric, Context-MQM, that utilizes bilingual context with a large language model (LLM) and further validate that adding context helps even for LLM-based evaluation metrics.</abstract>
+      <pages>1250–1267</pages>
+      <url hash="65baa401">2024.tacl-1.69</url>
+      <bibkey>agrawal-etal-2024-assessing</bibkey>
+    </paper>
+    <paper id="70">
+      <title>Not Eliminate but Aggregate: Post-Hoc Control over Mixture-of-Experts to Address Shortcut Shifts in Natural Language Understanding</title>
+      <author><first>Ukyo</first><last>Honda</last></author>
+      <author><first>Tatsushi</first><last>Oka</last></author>
+      <author><first>Peinan</first><last>Zhang</last></author>
+      <author><first>Masato</first><last>Mita</last></author>
+      <doi>10.1162/tacl_a_00701</doi>
+      <abstract>Recent models for natural language understanding are inclined to exploit simple patterns in datasets, commonly known as shortcuts. These shortcuts hinge on spurious correlations between labels and latent features existing in the training data. At inference time, shortcut-dependent models are likely to generate erroneous predictions under distribution shifts, particularly when some latent features are no longer correlated with the labels. To avoid this, previous studies have trained models to eliminate the reliance on shortcuts. In this study, we explore a different direction: pessimistically aggregating the predictions of a mixture-of-experts, assuming each expert captures relatively different latent features. The experimental results demonstrate that our post-hoc control over the experts significantly enhances the model’s robustness to the distribution shift in shortcuts. Additionally, we show that our approach has some practical advantages. We also analyze our model and provide results to support the assumption.1</abstract>
+      <pages>1268–1289</pages>
+      <url hash="1416ec68">2024.tacl-1.70</url>
+      <bibkey>honda-etal-2024-eliminate</bibkey>
+    </paper>
+    <paper id="71">
+      <title>Reading Subtext: Evaluating Large Language Models on Short Story Summarization with Writers</title>
+      <author><first>Melanie</first><last>Subbiah</last></author>
+      <author><first>Sean</first><last>Zhang</last></author>
+      <author><first>Lydia B.</first><last>Chilton</last></author>
+      <author><first>Kathleen</first><last>McKeown</last></author>
+      <doi>10.1162/tacl_a_00702</doi>
+      <abstract>We evaluate recent Large Language Models (LLMs) on the challenging task of summarizing short stories, which can be lengthy, and include nuanced subtext or scrambled timelines. Importantly, we work directly with authors to ensure that the stories have not been shared online (and therefore are unseen by the models), and to obtain informed evaluations of summary quality using judgments from the authors themselves. Through quantitative and qualitative analysis grounded in narrative theory, we compare GPT-4, Claude-2.1, and LLama-2-70B. We find that all three models make faithfulness mistakes in over 50% of summaries and struggle with specificity and interpretation of difficult subtext. We additionally demonstrate that LLM ratings and other automatic metrics for summary quality do not correlate well with the quality ratings from the writers.</abstract>
+      <pages>1290–1310</pages>
+      <url hash="7a24796d">2024.tacl-1.71</url>
+      <bibkey>subbiah-etal-2024-reading</bibkey>
+    </paper>
+    <paper id="72">
+      <title><fixed-case>L</fixed-case>2<fixed-case>CE</fixed-case>val: Evaluating Language-to-Code Generation Capabilities of Large Language Models</title>
+      <author><first>Ansong</first><last>Ni</last></author>
+      <author><first>Pengcheng</first><last>Yin</last></author>
+      <author><first>Yilun</first><last>Zhao</last></author>
+      <author><first>Martin</first><last>Riddell</last></author>
+      <author><first>Troy</first><last>Feng</last></author>
+      <author><first>Rui</first><last>Shen</last></author>
+      <author><first>Stephen</first><last>Yin</last></author>
+      <author><first>Ye</first><last>Liu</last></author>
+      <author><first>Semih</first><last>Yavuz</last></author>
+      <author><first>Caiming</first><last>Xiong</last></author>
+      <author><first>Shafiq</first><last>Joty</last></author>
+      <author><first>Yingbo</first><last>Zhou</last></author>
+      <author><first>Dragomir</first><last>Radev</last></author>
+      <author><first>Arman</first><last>Cohan</last></author>
+      <author><first>Arman</first><last>Cohan</last></author>
+      <doi>10.1162/tacl_a_00705</doi>
+      <abstract>Recently, large language models (LLMs), especially those that are pretrained on code, have demonstrated strong capabilities in generating programs from natural language inputs. Despite promising results, there is a notable lack of a comprehensive evaluation of these models’ language-to-code generation capabilities. Existing studies often focus on specific tasks, model architectures, or learning paradigms, leading to a fragmented understanding of the overall landscape. In this work, we present L2CEval, a systematic evaluation of the language-to-code generation capabilities of LLMs on 7 tasks across the domain spectrum of semantic parsing, math reasoning, and Python programming, analyzing the factors that potentially affect their performance, such as model size, pretraining data, instruction tuning, and different prompting methods. In addition, we assess confidence calibration, and conduct human evaluations to identify typical failures across different tasks and models. L2CEval offers a comprehensive understanding of the capabilities and limitations of LLMs in language-to-code generation. We release the evaluation framework1 and all model outputs, hoping to lay the groundwork for further future research. All future evaluations (e.g., LLaMA-3, StarCoder2, etc) will be updated on the project website: https://l2c-eval.github.io/.</abstract>
+      <pages>1311–1329</pages>
+      <url hash="6b27990b">2024.tacl-1.72</url>
+      <bibkey>ni-etal-2024-l2ceval</bibkey>
+    </paper>
+    <paper id="73">
+      <title><fixed-case>N</fixed-case>ovi<fixed-case>C</fixed-case>ode: Generating Programs from Natural Language Utterances by Novices</title>
+      <author><first>Asaf Achi</first><last>Mordechai</last></author>
+      <author><first>Yoav</first><last>Goldberg</last></author>
+      <author><first>Reut</first><last>Tsarfaty</last></author>
+      <doi>10.1162/tacl_a_00694</doi>
+      <abstract>Current Text-to-Code models demonstrate impressive capabilities in generating executable code from natural language snippets. However, current studies focus on technical instructions and programmer-oriented language, and it is an open question whether these models can effectively translate natural language descriptions given by non-technical users and express complex goals, to an executable program that contains an intricate flow—composed of API access and control structures as loops, conditions, and sequences. To unlock the challenge of generating a complete program from a plain non-technical description we present NoviCode, a novel NL Programming task, which takes as input an API and a natural language description by a novice non-programmer, and provides an executable program as output. To assess the efficacy of models on this task, we provide a novel benchmark accompanied by test suites wherein the generated program code is assessed not according to their form, but according to their functional execution. Our experiments show that, first, NoviCode is indeed a challenging task in the code synthesis domain, and that generating complex code from non-technical instructions goes beyond the current Text-to-Code paradigm. Second, we show that a novel approach wherein we align the NL utterances with the compositional hierarchical structure of the code, greatly enhances the performance of LLMs on this task, compared with the end-to-end Text-to-Code counterparts.</abstract>
+      <pages>1330–1345</pages>
+      <url hash="f552b934">2024.tacl-1.73</url>
+      <bibkey>mordechai-etal-2024-novicode</bibkey>
+    </paper>
+    <paper id="74">
+      <title>Characterizing Learning Curves During Language Model Pre-Training: Learning, Forgetting, and Stability</title>
+      <author><first>Tyler A.</first><last>Chang</last></author>
+      <author><first>Zhuowen</first><last>Tu</last></author>
+      <author><first>Benjamin K.</first><last>Bergen</last></author>
+      <doi>10.1162/tacl_a_00708</doi>
+      <abstract>How do language models learn to make predictions during pre-training? To study this, we extract learning curves from five autoregressive English language model pre-training runs, for 1M unseen tokens in context. We observe that the language models generate short repetitive phrases before learning to generate longer and more coherent text. We also find that individual tokens often exhibit sudden increases or decreases in loss that are surprisingly consistent across pre-training runs. To better understand these fluctuations, we quantify the final surprisal, within-run variability, age of acquisition, forgettability, and cross-run variability of learning curves for individual tokens in context. More frequent tokens reach lower final surprisals, exhibit less variability within and across pre-training runs, are learned earlier, and are less likely to be “forgotten” during pre-training. Higher n-gram probabilities further accentuate these effects. Independent of the target token, shorter and more frequent contexts correlate with marginally more stable and quickly acquired predictions. Based on our results, we argue for the existence of sequential learning dependencies between different model capabilities, and we characterize language model learning as early n-gram learning before gradual refinement of tail n-gram predictions.</abstract>
+      <pages>1346–1362</pages>
+      <url hash="d36764bc">2024.tacl-1.74</url>
+      <bibkey>chang-etal-2024-characterizing</bibkey>
+    </paper>
+    <paper id="75">
+      <title>Addressing Topic Leakage in Cross-Topic Evaluation for Authorship Verification</title>
+      <author><first>Jitkapat</first><last>Sawatphol</last></author>
+      <author><first>Can</first><last>Udomcharoenchaikit</last></author>
+      <author><first>Sarana</first><last>Nutanong</last></author>
+      <doi>10.1162/tacl_a_00709</doi>
+      <abstract>Authorship verification (AV) aims to identify whether a pair of texts has the same author. We address the challenge of evaluating AV models’ robustness against topic shifts. The conventional evaluation assumes minimal topic overlap between training and test data. However, we argue that there can still be topic leakage in test data, causing misleading model performance and unstable rankings. To address this, we propose an evaluation method called Heterogeneity-Informed Topic Sampling (HITS), which creates a smaller dataset with a heterogeneously distributed topic set. Our experimental results demonstrate that HITS-sampled datasets yield a more stable ranking of models across random seeds and evaluation splits. Our contributions include: 1. An analysis of causes and effects of topic leakage; 2. A demonstration of the HITS in reducing the effects of topic leakage; and 3. The Robust Authorship Verification bENchmark (RAVEN) that allows topic shortcut test to uncover AV models’ reliance on topic-specific features.</abstract>
+      <pages>1363–1377</pages>
+      <url hash="f00aa882">2024.tacl-1.75</url>
+      <bibkey>sawatphol-etal-2024-addressing</bibkey>
+    </paper>
+    <paper id="76">
+      <title>Beyond Prompt Brittleness: Evaluating the Reliability and Consistency of Political Worldviews in <fixed-case>LLM</fixed-case>s</title>
+      <author><first>Tanise</first><last>Ceron</last></author>
+      <author><first>Neele</first><last>Falk</last></author>
+      <author><first>Ana</first><last>Barić</last></author>
+      <author><first>Dmitry</first><last>Nikolaev</last></author>
+      <author><first>Sebastian</first><last>Padó</last></author>
+      <doi>10.1162/tacl_a_00710</doi>
+      <abstract>Due to the widespread use of large language models (LLMs), we need to understand whether they embed a specific “worldview” and what these views reflect. Recent studies report that, prompted with political questionnaires, LLMs show left-liberal leanings (Feng et al., 2023; Motoki et al., 2024). However, it is as yet unclear whether these leanings are reliable (robust to prompt variations) and whether the leaning is consistent across policies and political leaning. We propose a series of tests which assess the reliability and consistency of LLMs’ stances on political statements based on a dataset of voting-advice questionnaires collected from seven EU countries and annotated for policy issues. We study LLMs ranging in size from 7B to 70B parameters and find that their reliability increases with parameter count. Larger models show overall stronger alignment with left-leaning parties but differ among policy programs: They show a (left-wing) positive stance towards environment protection, social welfare state, and liberal society but also (right-wing) law and order, with no consistent preferences in the areas of foreign policy and migration.</abstract>
+      <pages>1378–1400</pages>
+      <url hash="2e112251">2024.tacl-1.76</url>
+      <bibkey>ceron-etal-2024-beyond</bibkey>
+    </paper>
+    <paper id="77">
+      <title>Self-supervised Topic Taxonomy Discovery in the Box Embedding Space</title>
+      <author><first>Yuyin</first><last>Lu</last></author>
+      <author><first>Hegang</first><last>Chen</last></author>
+      <author><first>Pengbo</first><last>Mao</last></author>
+      <author><first>Yanghui</first><last>Rao</last></author>
+      <author><first>Haoran</first><last>Xie</last></author>
+      <author><first>Fu Lee</first><last>Wang</last></author>
+      <author><first>Qing</first><last>Li</last></author>
+      <doi>10.1162/tacl_a_00712</doi>
+      <abstract>Topic taxonomy discovery aims at uncovering topics of different abstraction levels and constructing hierarchical relations between them. Unfortunately, most prior work can hardly model semantic scopes of words and topics by holding the Euclidean embedding space assumption. What’s worse, they infer asymmetric hierarchical relations by symmetric distances between topic embeddings. As a result, existing methods suffer from problems of low-quality topics at high abstraction levels and inaccurate hierarchical relations. To alleviate these problems, this paper develops a Box embedding-based Topic Model (BoxTM) that maps words and topics into the box embedding space, where the asymmetric metric is defined to properly infer hierarchical relations among topics. Additionally, our BoxTM explicitly infers upper-level topics based on correlation between specific topics through recursive clustering on topic boxes. Finally, extensive experiments validate high-quality of the topic taxonomy learned by BoxTM.</abstract>
+      <pages>1401–1416</pages>
+      <url hash="6bcb4197">2024.tacl-1.77</url>
+      <bibkey>lu-etal-2024-self</bibkey>
+    </paper>
+    <paper id="78">
+      <title>When Can <fixed-case>LLM</fixed-case>s Actually Correct Their Own Mistakes? A Critical Survey of Self-Correction of <fixed-case>LLM</fixed-case>s</title>
+      <author><first>Ryo</first><last>Kamoi</last></author>
+      <author><first>Yusen</first><last>Zhang</last></author>
+      <author><first>Nan</first><last>Zhang</last></author>
+      <author><first>Jiawei</first><last>Han</last></author>
+      <author><first>Rui</first><last>Zhang</last></author>
+      <doi>10.1162/tacl_a_00713</doi>
+      <abstract>Self-correction is an approach to improving responses from large language models (LLMs) by refining the responses using LLMs during inference. Prior work has proposed various self-correction frameworks using different sources of feedback, including self-evaluation and external feedback. However, there is still no consensus on the question of when LLMs can correct their own mistakes, as recent studies also report negative results. In this work, we critically survey broad papers and discuss the conditions required for successful self-correction. We first find that prior studies often do not define their research questions in detail and involve impractical frameworks or unfair evaluations that over-evaluate self-correction. To tackle these issues, we categorize research questions in self-correction research and provide a checklist for designing appropriate experiments. Our critical survey based on the newly categorized research questions shows that (1) no prior work demonstrates successful self-correction with feedback from prompted LLMs, except for studies in tasks that are exceptionally suited for self-correction, (2) self-correction works well in tasks that can use reliable external feedback, and (3) large-scale fine-tuning enables self-correction.</abstract>
+      <pages>1417–1440</pages>
+      <url hash="3273e9fc">2024.tacl-1.78</url>
+      <bibkey>kamoi-etal-2024-llms</bibkey>
     </paper>
   </volume>
 </collection>
