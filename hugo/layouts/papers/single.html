@@ -91,7 +91,10 @@
         {
           first: "{{ .first }}",
           last: "{{ .last }}",
+          {{ if .id }}
+          // optional author id key, used for disambiguation
           id: "{{ .id }}",
+          {{ end }}
           affiliation: "{{ .affiliation }}"
         },
         {{ end }}
@@ -100,8 +103,10 @@
     };
     const baseurl = "https://github.com/acl-org/acl-anthology/issues/new?template=99-bulk-metadata-correction.yml";
 
+    const issue_title = "Metadata correction for {{ .Params.anthology_id }}";
+
     // encode the params JSON object as a multi-line valid JSON string
-    const url = baseurl + "&data=" + encodeURIComponent(JSON.stringify(params, null, 2));
+    const url = baseurl + "&title=${issue_title}&data=" + encodeURIComponent(JSON.stringify(params, null, 2));
 
     // load the url in a new tab
     alert(url);
