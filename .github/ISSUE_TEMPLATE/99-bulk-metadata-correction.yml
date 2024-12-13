@@ -7,15 +7,15 @@ body:
   - type: markdown
     attributes:
       value: >
-        This form will list the title, abstract, and authors in structured YAML. You can manipulate this YAML to make corrections, such as adjusting a title, correcting an author name, adding a missing author, or reordering names. After verification from Anthology staff, these corrections will be applied in weekly batches and made live.
+        This form will list the title, abstract, and authors in structured JSON. You can manipulate this YAML to make corrections, such as adjusting a title, correcting an author name, adding a missing author, or reordering names. After verification from Anthology staff, these corrections will be applied in weekly batches and made live.
   - type: textarea
     id: data
     attributes:
-      label: YAML code block
-      description: Please make corrections below.
+      label: JSON code block
+      description: Please make corrections below, taking care to preserve the JSON structure.
     validations:
       required: true
   - type: markdown
     attributes:
       value: |
-        **Note:** If you request an author name correction for yourself, please also make sure that your name is correctly entered into Softconf/OpenReview for any future publications, as this is where we obtain the author names from.
+        **Note:** If you request an author name correction for yourself, please help ensure your name is correct for future publications by setting it correctly in Softconf/OpenReview.
