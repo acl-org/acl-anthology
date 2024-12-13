@@ -109,18 +109,8 @@
     const who = "anthology-assist"
 
     // encode the params JSON object as a multi-line valid JSON string
-    const url = baseurl + `&title=${issue_title}&assignee=${who}&labels=${labels}&data=${encodeURIComponent(JSON.stringify(params, null, 2))}`;
+    const url = baseurl + `&title=${issue_title}&assignee=${who}&labels=${labels}&data=` + encodeURIComponent(JSON.stringify(params, null, 2));
 
-    /*
-    YAML variant
-    <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
-
-    const yamlString = jsyaml.dump(params, { indent: 2 });
-    const url = `${baseurl}&title=${encodeURIComponent(issue_title)}&data=${encodeURIComponent("---\n" + yamlString)}`;
-    */
-
-    // load the url in a new tab
-    alert(url);
     window.open(url, "_blank");
 }
 </script>
