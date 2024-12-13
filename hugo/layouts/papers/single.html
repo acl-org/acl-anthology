@@ -70,6 +70,40 @@
           $(".btn-clipboard-outside").removeClass("d-none");
       }
   });
+
+  function handleMetadataCorrection() {
+    /*
+    Assemble all the variables to pass them to the Github script.
+    The author list, title, and abstract can be read from the page
+    parameters. They should be assembled into a JSON object that
+    is then URL-encoded and passed to the modified template, which
+    will format it in a block for editing in the Github issue.
+    */
+
+    const params = {
+      anthology_id: "{{ .Params.anthology_id }}",
+      title: "{{ $paper.title }}",
+      authors: [
+        {{ range $paper.author }}
+        {
+          first: "{{ .first }}",
+          last: "{{ .last }}",
+          id: "{{ .id }}",
+          affiliation: "{{ .affiliation }}"
+        },
+        {{ end }}
+      ],
+      abstract: "{{ $paper.abstract }}"
+    };
+    const baseurl = "https://github.com/acl-org/acl-anthology/issues/new?template=99-bulk-metadata-correction.yml";
+
+    // encode the params JSON object as a multi-line valid JSON string
+    const url = baseurl + "&data=" + encodeURIComponent(JSON.stringify(params, null, 2));
+  
+    // load the url in a new tab
+    alert(url);
+    window.open(url, "_blank");
+}
 </script>
 {{ end }}
 
@@ -96,10 +130,10 @@
       {{ partial "author_link.html" (dict "ctx" $ "person" $person) | chomp }}{{ if ne (add $index 1) $len }}, {{ end }}
     {{ end }}
   {{ end }}
+    <a href="#" class="small float-right" onclick="handleMetadataCorrection()">[Metadata incorrect?]</a>
   </p>
   </div>
   <hr />
-
   <div class="row acl-paper-details">
     <div class="col col-lg-10 order-2">
       {{ with $paper.retracted }}
