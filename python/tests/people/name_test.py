@@ -24,6 +24,7 @@ def test_name_firstlast():
     assert n1.last == "Doe"
     assert n1.as_first_last() == "John Doe"
     assert n1.as_last_first() == "Doe, John"
+    assert n1.as_full() == "John Doe"
     assert n1.as_bibtex() == "Doe, John"
     n2 = Name(last="Doe", first="John")
     assert n1 == n2
@@ -40,6 +41,7 @@ def test_name_onlylast():
     assert n1.last == "Mausam"
     assert n1.as_first_last() == "Mausam"
     assert n1.as_last_first() == "Mausam"
+    assert n1.as_full() == "Mausam"
     assert n1.as_bibtex() == "Mausam"
 
 
@@ -81,6 +83,7 @@ def test_name_with_script():
     assert n1.first == "大文"
     assert n1.last == "陳"
     assert n1.script == "hani"
+    assert n1.as_full() == "陳大文"
     # Script information is NOT distinctive, so names should still compare equal
     assert n1 == n2
 

@@ -63,6 +63,19 @@ class Name:
             return self.last
         return f"{self.last}, {self.first}"
 
+    def as_full(self) -> str:
+        """
+        Builds the full name, determining the appropriate format based on the script.
+
+        Returns:
+            For Han names, this will be '{last}{first}'; for other scripts (or if no script is given), this will be '{first} {last}'.
+        """
+        if self.first is None:
+            return self.last
+        if self.script == "hani":
+            return f"{self.last}{self.first}"
+        return f"{self.first} {self.last}"
+
     def as_bibtex(self) -> str:
         """
         Returns:
