@@ -288,12 +288,12 @@ def export_people(anthology, outdir, dryrun):
                 "full": cname.as_first_last(),
                 "slug": person_id,
                 "papers": [paper.full_id for paper in papers],
-                "coauthors": anthology.people.find_coauthors_counter(
+                "coauthors": sorted(anthology.people.find_coauthors_counter(
                     person
-                ).most_common(),
-                "venues": Counter(
+                ).most_common()),
+                "venues": sorted(Counter(
                     venue for paper in papers for venue in paper.venue_ids
-                ).most_common(),
+                ).most_common()),
             }
             if len(person.names) > 1:
                 data["variant_entries"] = [
