@@ -102,13 +102,20 @@ def paper_to_dict(paper):
         "citation": paper.to_markdown_citation(),
         "citation_acl": paper.to_citation(),
     }
-    if paper.authors:
-        data["author"] = [
-            person_to_dict(paper.root.resolve(ns).id, ns) for ns in paper.authors
-        ]
+    editors = [person_to_dict(paper.root.resolve(ns).id, ns) for ns in paper.get_editors()]
+    if paper.is_frontmatter:
+        # Editors are considered authors for the frontmatter
+        if editors:
+            data["author"] = editors
+    else:
+        if paper.authors:
+            data["author"] = [
+                person_to_dict(paper.root.resolve(ns).id, ns) for ns in paper.authors
+            ]
+        if editors:
+            data["editor"] = editors
+    if "author" in data:
         data["author_string"] = ", ".join(author["full"] for author in data["author"])
-    if editors := paper.get_editors():
-        data["editor"] = [person_to_dict(paper.root.resolve(ns).id, ns) for ns in editors]
     for key in ("doi", "language", "note"):
         if (value := getattr(paper, key)) is not None:
             data[key] = value
@@ -243,13 +250,12 @@ def export_papers_and_volumes(anthology, outdir, dryrun):
                 # which may be fetched from the volume if not set for the paper
                 volume_data = {
                     "booktitle": volume.title.as_text(),
-                    "booktitle_html": volume.title.as_html(),
                     "parent_volume_id": volume.full_id,
                     "month": volume.month,
                     "year": volume.year,
                     "venue": volume.venue_ids,
                 }
-                for key in ("address", "publisher"):
+                for key in ("address", "publisher", "isbn"):
                     if (value := getattr(volume, key)) is not None:
                         volume_data[key] = value
                 if events := volume.get_events():
