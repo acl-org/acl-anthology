@@ -58,6 +58,14 @@ test_cases_markup = (
         },
     ),
     (
+        "Workshop on Topic A &amp; B",
+        {
+            "text": "Workshop on Topic A & B",
+            "html": "Workshop on Topic A &amp; B",
+            "latex": "Workshop on Topic A \\& B",
+        },
+    ),
+    (
         "<fixed-case>U</fixed-case>pstream <fixed-case>M</fixed-case>itigation <fixed-case>I</fixed-case>s <i><fixed-case>N</fixed-case>ot</i> <fixed-case>A</fixed-case>ll <fixed-case>Y</fixed-case>ou <fixed-case>N</fixed-case>eed",
         {
             "text": "Upstream Mitigation Is Not All You Need",
@@ -111,7 +119,7 @@ def test_markup(inp, out):
     assert markup.as_html() == out["html"]
     assert markup.as_latex() == out["latex"]
     assert etree.tostring(markup.to_xml("title"), encoding="unicode") == xml
-    assert markup.contains_markup == (out["text"] != out["html"])
+    assert markup.contains_markup == ("<" in out["html"])
 
 
 def test_simple_string():
