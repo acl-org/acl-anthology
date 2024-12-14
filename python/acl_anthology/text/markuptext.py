@@ -21,6 +21,7 @@ from collections import defaultdict
 from copy import deepcopy
 from lxml import etree
 from typing import Iterator, Optional
+from xml.sax.saxutils import escape as xml_escape
 
 from ..utils import (
     latex_encode,
@@ -121,7 +122,7 @@ class MarkupText:
                 `<a href="...">` tags, but in simply `<span>` tags.
         """
         if isinstance(self._content, str):
-            return self._content
+            return xml_escape(self._content)
         if self._html is not None:
             return self._html
         element = deepcopy(self._content)
