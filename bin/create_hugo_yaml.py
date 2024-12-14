@@ -75,10 +75,9 @@ def make_progress():
 
 
 @cache
-def person_to_dict(person):
-    name = person.canonical_name
+def person_to_dict(person_id, name):
     return {
-        "id": person.id,
+        "id": person_id,
         "first": name.first,
         "last": name.last,
         "full": name.as_first_last(),
@@ -90,10 +89,15 @@ def paper_to_dict(paper):
     Turn a single paper into a dictionary suitable for YAML export as expected by Hugo.
     """
     data = {
-        "author": [person_to_dict(paper.root.resolve(ns)) for ns in paper.authors],
+        "author": [
+            person_to_dict(paper.root.resolve(ns).id, ns.name) for ns in paper.authors
+        ],
         "bibkey": paper.bibkey,
         "bibtype": paper.bibtype,
-        "editor": [person_to_dict(paper.root.resolve(ns)) for ns in paper.get_editors()],
+        "editor": [
+            person_to_dict(paper.root.resolve(ns).id, ns.name)
+            for ns in paper.get_editors()
+        ],
         "paper_id": paper.id,
         "title": paper.title.as_text(),
         "title_html": paper.title.as_html(),
@@ -203,7 +207,7 @@ def volume_to_dict(volume):
             data["meta_date"] = f"{volume.year}/{month_str}"
     if volume.editors:
         data["editor"] = [
-            person_to_dict(volume.root.resolve(ns)) for ns in volume.editors
+            person_to_dict(volume.root.resolve(ns).id, ns.name) for ns in volume.editors
         ]
     if events := volume.get_events():
         data["events"] = [event.id for event in events if event.is_explicit]
@@ -288,12 +292,14 @@ def export_people(anthology, outdir, dryrun):
                 "full": cname.as_first_last(),
                 "slug": person_id,
                 "papers": [paper.full_id for paper in papers],
-                "coauthors": sorted(anthology.people.find_coauthors_counter(
-                    person
-                ).most_common()),
-                "venues": sorted(Counter(
-                    venue for paper in papers for venue in paper.venue_ids
-                ).most_common()),
+                "coauthors": sorted(
+                    anthology.people.find_coauthors_counter(person).most_common()
+                ),
+                "venues": sorted(
+                    Counter(
+                        venue for paper in papers for venue in paper.venue_ids
+                    ).most_common()
+                ),
             }
             if len(person.names) > 1:
                 data["variant_entries"] = [
