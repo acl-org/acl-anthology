@@ -92,14 +92,11 @@ def paper_to_dict(paper):
     Turn a single paper into a dictionary suitable for YAML export as expected by Hugo.
     """
     data = {
-        "author": [
-            person_to_dict(paper.root.resolve(ns).id, ns) for ns in paper.authors
-        ],
+        "author": [person_to_dict(paper.root.resolve(ns).id, ns) for ns in paper.authors],
         "bibkey": paper.bibkey,
         "bibtype": paper.bibtype,
         "editor": [
-            person_to_dict(paper.root.resolve(ns).id, ns)
-            for ns in paper.get_editors()
+            person_to_dict(paper.root.resolve(ns).id, ns) for ns in paper.get_editors()
         ],
         "paper_id": paper.id,
         "title": paper.title.as_text(),
