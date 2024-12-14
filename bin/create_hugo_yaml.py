@@ -75,12 +75,15 @@ def make_progress():
 
 
 @cache
-def person_to_dict(person_id, name):
+def person_to_dict(person_id, ns):
+    full_name = ns.name.as_full()
+    if ns.variants:
+        full_name = f"{full_name} ({', '.join(var.as_full() for var in ns.variants)})"
     return {
         "id": person_id,
-        "first": name.first,
-        "last": name.last,
-        "full": name.as_first_last(),
+        "first": ns.first,
+        "last": ns.last,
+        "full": full_name,
     }
 
 
@@ -90,12 +93,12 @@ def paper_to_dict(paper):
     """
     data = {
         "author": [
-            person_to_dict(paper.root.resolve(ns).id, ns.name) for ns in paper.authors
+            person_to_dict(paper.root.resolve(ns).id, ns) for ns in paper.authors
         ],
         "bibkey": paper.bibkey,
         "bibtype": paper.bibtype,
         "editor": [
-            person_to_dict(paper.root.resolve(ns).id, ns.name)
+            person_to_dict(paper.root.resolve(ns).id, ns)
             for ns in paper.get_editors()
         ],
         "paper_id": paper.id,
@@ -201,8 +204,6 @@ def volume_to_dict(volume):
     for key in ("address", "doi", "isbn", "publisher"):
         if (value := getattr(volume, key)) is not None:
             data[key] = value
-    if volume.address:
-        data["address"] = volume.address
     if volume.month:
         data["month"] = volume.month
         if (month_str := month_str2num(volume.month)) is not None:
@@ -211,7 +212,7 @@ def volume_to_dict(volume):
         data["shortbooktitle"] = volume.shorttitle.as_text()
     if volume.editors:
         data["editor"] = [
-            person_to_dict(volume.root.resolve(ns).id, ns.name) for ns in volume.editors
+            person_to_dict(volume.root.resolve(ns).id, ns) for ns in volume.editors
         ]
     if events := volume.get_events():
         data["events"] = [event.id for event in events if event.is_explicit]
