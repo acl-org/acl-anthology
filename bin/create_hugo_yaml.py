@@ -201,10 +201,14 @@ def volume_to_dict(volume):
     for key in ("address", "doi", "isbn", "publisher"):
         if (value := getattr(volume, key)) is not None:
             data[key] = value
+    if volume.address:
+        data["address"] = volume.address
     if volume.month:
         data["month"] = volume.month
         if (month_str := month_str2num(volume.month)) is not None:
             data["meta_date"] = f"{volume.year}/{month_str}"
+    if volume.shorttitle:
+        data["shortbooktitle"] = volume.shorttitle.as_text()
     if volume.editors:
         data["editor"] = [
             person_to_dict(volume.root.resolve(ns).id, ns.name) for ns in volume.editors
