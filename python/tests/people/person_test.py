@@ -56,3 +56,14 @@ def test_person_papers(anthology):
     assert len(person.item_ids) == 3
     assert len(list(person.papers())) == 2
     assert len(list(person.volumes())) == 1
+
+
+def test_person_equality(anthology_stub):
+    n = Name("Yang", "Liu")
+    person1 = Person("yang-liu", anthology_stub, [n])
+    person2 = Person("yang-liu", anthology_stub, [n])
+    person3 = Person("yang-liu-mit", anthology_stub, [n])
+    assert person1 == person2
+    assert person1 != person3
+    assert person2 != person3
+    assert hash(person1) == hash(person2)
