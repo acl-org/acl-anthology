@@ -236,6 +236,9 @@ class NameSpecification:
     affiliation: Optional[str] = field(default=None)
     variants: list[Name] = Factory(list)
 
+    def __hash__(self) -> int:
+        return hash((self.name, self.id, self.affiliation, tuple(self.variants)))
+
     @property
     def first(self) -> Optional[str]:
         """The first name component."""
