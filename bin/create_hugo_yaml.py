@@ -33,6 +33,7 @@ Options:
 
 from docopt import docopt
 from collections import Counter, defaultdict
+from functools import cache
 import logging as log
 from omegaconf import OmegaConf
 import os
@@ -73,6 +74,7 @@ def make_progress():
     return Progress(*columns)
 
 
+@cache
 def person_to_dict(person):
     name = person.canonical_name
     return {
@@ -204,7 +206,7 @@ def volume_to_dict(volume):
             person_to_dict(volume.root.resolve(ns)) for ns in volume.editors
         ]
     if events := volume.get_events():
-        data["events"] = [event.id for event in events]
+        data["events"] = [event.id for event in events if event.is_explicit]
     if sigs := volume.get_sigs():
         data["sigs"] = [sig.acronym for sig in sigs]
     if volume.type == VolumeType.JOURNAL:
