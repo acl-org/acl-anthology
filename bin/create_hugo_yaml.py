@@ -92,12 +92,9 @@ def paper_to_dict(paper):
     Turn a single paper into a dictionary suitable for YAML export as expected by Hugo.
     """
     data = {
-        "author": [person_to_dict(paper.root.resolve(ns).id, ns) for ns in paper.authors],
         "bibkey": paper.bibkey,
         "bibtype": paper.bibtype,
-        "editor": [
-            person_to_dict(paper.root.resolve(ns).id, ns) for ns in paper.get_editors()
-        ],
+        "ingest_date": paper.get_ingest_date().isoformat(),
         "paper_id": paper.id,
         "title": paper.title.as_text(),
         "title_html": paper.title.as_html(),
@@ -105,7 +102,13 @@ def paper_to_dict(paper):
         "citation": paper.to_markdown_citation(),
         "citation_acl": paper.to_citation(),
     }
-    data["author_string"] = ", ".join(author["full"] for author in data["author"])
+    if paper.authors:
+        data["author"] = [
+            person_to_dict(paper.root.resolve(ns).id, ns) for ns in paper.authors
+        ]
+        data["author_string"] = ", ".join(author["full"] for author in data["author"])
+    if editors := paper.get_editors():
+        data["editor"] = [person_to_dict(paper.root.resolve(ns).id, ns) for ns in editors]
     for key in ("doi", "language", "note"):
         if (value := getattr(paper, key)) is not None:
             data[key] = value
@@ -236,17 +239,24 @@ def export_papers_and_volumes(anthology, outdir, dryrun):
                 # TODO: Could this be changed in the Hugo templates to
                 # fetch the information from the volume, instead of duplicating
                 # this information on every paper?
+                # --- this also applies to some information from paper_to_dict()
+                # which may be fetched from the volume if not set for the paper
                 volume_data = {
-                    "address": volume.address,
                     "booktitle": volume.title.as_text(),
+                    "booktitle_html": volume.title.as_html(),
                     "parent_volume_id": volume.full_id,
-                    "publisher": volume.publisher,
                     "month": volume.month,
                     "year": volume.year,
+                    "venue": volume.venue_ids,
                 }
+                for key in ("address", "publisher"):
+                    if (value := getattr(volume, key)) is not None:
+                        volume_data[key] = value
                 if events := volume.get_events():
                     # TODO: This information is currently not used on paper templates
-                    volume_data["events"] = [event.id for event in events]
+                    volume_data["events"] = [
+                        event.id for event in events if event.is_explicit
+                    ]
 
                 # Now build the data for every paper
                 for paper in volume.papers():
