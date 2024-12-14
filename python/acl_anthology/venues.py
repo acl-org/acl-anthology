@@ -62,7 +62,8 @@ class Venue:
     )
     oldstyle_letter: Optional[str] = field(default=None)
     url: Optional[str] = field(default=None)
-    type: Optional[str] = field(default=None)  # TODO: should we deprecate this?
+    # TODO: Should we deprecate 'type'? Currently used to designate journals at the venue level.
+    type: Optional[str] = field(default=None)
 
     @classmethod
     def load_from_yaml(cls, path: PathLike[str], parent: Anthology) -> Venue:

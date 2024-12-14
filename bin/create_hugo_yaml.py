@@ -332,6 +332,8 @@ def export_venues(anthology, outdir, dryrun):
             data["oldstyle_letter"] = venue.oldstyle_letter
         if venue.url is not None:
             data["url"] = venue.url
+        if venue.type is not None:
+            data["type"] = venue.type
         data["volumes_by_year"] = {}
         for volume in venue.volumes():
             year, volume_id = volume.year, volume.full_id
