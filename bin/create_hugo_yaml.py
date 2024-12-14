@@ -384,9 +384,9 @@ def export_events(anthology, outdir, dryrun):
             ],
             "year": year,
         }
-        if event.location is not None:
+        if event.location:
             data["location"] = event.location
-        if event.dates is not None:
+        if event.dates:
             data["dates"] = event.dates
 
         volume_ids = []
