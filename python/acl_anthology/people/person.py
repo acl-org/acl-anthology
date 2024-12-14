@@ -47,6 +47,14 @@ class Person:
     comment: Optional[str] = field(default=None)
     is_explicit: Optional[bool] = field(default=False)
 
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, Person):
+            return False
+        return self.id == other.id
+
+    def __hash__(self) -> int:
+        return hash(self.id)
+
     @property
     def canonical_name(self) -> Name:
         """
