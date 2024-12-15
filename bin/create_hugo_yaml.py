@@ -323,7 +323,9 @@ def export_people(anthology, outdir, dryrun):
                 "slug": person_id,
                 "papers": [paper.full_id for paper in papers],
                 "coauthors": sorted(
-                    anthology.people.find_coauthors_counter(person).most_common()
+                    anthology.people.find_coauthors_counter(
+                        person, include_volumes=False
+                    ).most_common()
                 ),
                 "venues": sorted(
                     Counter(
