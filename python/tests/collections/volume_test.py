@@ -175,6 +175,8 @@ def test_volume_attributes_naloma(anthology):
     assert volume.id == "1"
     assert volume.year == "2022"
     assert volume.is_workshop
+    assert volume.venue_ids == ["nlma", "ws"]
+    assert volume.venue_acronym == "NALOMA"
 
 
 def test_volume_venues_j89(anthology):
