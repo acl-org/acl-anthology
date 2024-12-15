@@ -97,7 +97,7 @@ def paper_to_dict(paper):
         "ingest_date": paper.get_ingest_date().isoformat(),
         "paper_id": paper.id,
         "title": paper.title.as_text(),
-        "title_html": paper.title.as_html(),
+        "title_html": paper.title.as_html(allow_url=False),
         # Slightly funky logic: If there is an external URL given for a paper,
         # it will be in '.pdf', even though we use the Anthology landing page
         # (and not the PDF URL) for everything else
@@ -209,7 +209,7 @@ def volume_to_dict(volume):
         "meta_date": volume.year,  # may be overwritten below
         "papers": [paper.full_id for paper in volume.papers()],
         "title": volume.title.as_text(),
-        "title_html": volume.title.as_html(),
+        "title_html": volume.title.as_html(allow_url=False),
         "year": volume.year,
         "sigs": [],
         "url": (
