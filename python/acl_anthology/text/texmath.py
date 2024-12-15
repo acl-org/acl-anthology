@@ -32,16 +32,19 @@ TEX_TO_HTML: dict[str, Tuple[str, dict[str, str]]] = {
     "text": ("span", {"class": "font-weight-normal"}),
     "mathbf": ("strong", {}),
     "textbf": ("strong", {}),
+    "bf": ("strong", {}),  # not a correct use of this command, but sometimes observed
     "boldsymbol": ("strong", {}),
     "mathit": ("em", {}),
     "textit": ("em", {}),
+    "it": ("em", {}),  # not a correct use of this command, but sometimes observed
     "emph": ("em", {}),
     "textsc": ("span", {"style": "font-variant: small-caps;"}),
     "texttt": ("span", {"class": "text-monospace"}),
+    "tt": ("span", {"class": "text-monospace"}),
     "textsubscript": ("sub", {}),
     "textsuperscript": ("sup", {}),
 }
-REMOVED_COMMANDS = ("bf", "rm", "it", "sc")
+REMOVED_COMMANDS = ("bf", "rm", "it", "sc", "sf", "mathcal")
 
 
 def _append_text(text: str, trg: etree._Element) -> None:
@@ -155,7 +158,7 @@ class _TexMath:
         elif name == "frac":
             self._parse_fraction(args, trg)
         # Handle commands with simple HTML tag substitutions
-        elif name in TEX_TO_HTML:
+        elif name in TEX_TO_HTML and args:
             elem_name, elem_attrib = TEX_TO_HTML[name]
             sx = etree.Element(elem_name, attrib=elem_attrib)
             self._parse(args, sx)
