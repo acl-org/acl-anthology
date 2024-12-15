@@ -102,7 +102,9 @@ def paper_to_dict(paper):
         "citation": paper.to_markdown_citation(),
         "citation_acl": paper.to_citation(),
     }
-    editors = [person_to_dict(paper.root.resolve(ns).id, ns) for ns in paper.get_editors()]
+    editors = [
+        person_to_dict(paper.root.resolve(ns).id, ns) for ns in paper.get_editors()
+    ]
     if paper.is_frontmatter:
         # Editors are considered authors for the frontmatter
         if editors:
