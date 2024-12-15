@@ -112,9 +112,7 @@ class EventFileReference(FileReference):
 class VideoReference(FileReference):
     """Reference to a video."""
 
-    # TODO: videos can only be remote URLs according to the schema
-
-    template_field: str = field(repr=False, default="attachment_location_template")
+    template_field: str = field(repr=False, default="video_location_template")
     permission: bool = field(default=True)
 
     @classmethod
