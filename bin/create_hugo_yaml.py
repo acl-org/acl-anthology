@@ -260,11 +260,10 @@ def export_papers_and_volumes(anthology, outdir, dryrun):
                 volume_data = {
                     "booktitle": volume.title.as_text(),
                     "parent_volume_id": volume.full_id,
-                    "month": volume.month,
                     "year": volume.year,
                     "venue": volume.venue_ids,
                 }
-                for key in ("address", "publisher", "isbn"):
+                for key in ("address", "publisher", "isbn", "month"):
                     if (value := getattr(volume, key)) is not None:
                         volume_data[key] = value
                 if events := volume.get_events():
