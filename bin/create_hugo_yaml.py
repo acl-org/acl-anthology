@@ -98,7 +98,10 @@ def paper_to_dict(paper):
         "paper_id": paper.id,
         "title": paper.title.as_text(),
         "title_html": paper.title.as_html(),
-        "url": paper.web_url,
+        # Slightly funky logic: If there is an external URL given for a paper,
+        # it will be in '.pdf', even though we use the Anthology landing page
+        # (and not the PDF URL) for everything else
+        "url": paper.web_url if (not paper.pdf or paper.pdf.is_local) else paper.pdf.url,
         "citation": paper.to_markdown_citation(),
         "citation_acl": paper.to_citation(),
     }
@@ -118,9 +121,11 @@ def paper_to_dict(paper):
             data["editor"] = editors
     if "author" in data:
         data["author_string"] = ", ".join(author["full"] for author in data["author"])
-    for key in ("doi", "language", "note"):
+    for key in ("doi", "note"):
         if (value := getattr(paper, key)) is not None:
             data[key] = value
+    if (language_name := paper.language_name) is not None:
+        data["language"] = language_name
     if (abstract := paper.abstract) is not None:
         data["abstract_html"] = abstract.as_html()
     if paper.attachments:
@@ -207,7 +212,9 @@ def volume_to_dict(volume):
         "title_html": volume.title.as_html(),
         "year": volume.year,
         "sigs": [],
-        "url": volume.web_url,
+        "url": (
+            volume.web_url if (not volume.pdf or volume.pdf.is_local) else volume.pdf.url
+        ),
         "venues": volume.venue_ids,
     }
     for key in ("address", "doi", "isbn", "publisher"):
