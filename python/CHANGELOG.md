@@ -12,6 +12,7 @@
 - SIGIndex now reverse-indexes co-located volumes, so it is now possible to get SIGs associated with volumes, e.g. via `Volume.get_sigs()`.
 - VenueIndex now reverse-indexes associated volumes, so it is now possible to get volumes associated with venues, e.g. via `Venue.volumes()`.
 - Papers now have attribute `thumbnail`.
+- Papers now have attribute `language_name`, which uses the [langcodes](https://langcodes-hickford.readthedocs.io/en/) library to map language tags in the XML to proper language names.
 - Volumes now have attributes `has_abstracts`, `venue_acronym`, and `web_url`.
 - Names now have function `as_full()`, returning the full name in the appropriate format based on whether it is given in Han or Latin script.
 
@@ -23,7 +24,7 @@
 - Bugfix: Converting a `<texmath>` expression to Unicode no longer serializes the tail of the XML tag, but only the TeX math expression itself.
 - Bugfix: Heuristic scoring of name variants will no longer overwrite canonical names that are explicitly defined in `name_variants.yaml`.
 - Bugfix: `MarkupText.as_html()` now always correctly HTML-escapes characters.
-
+- Bugfix: `MarkupText.from_xml()` now correctly handles empty tags; got converted to the string `"None"` before.
 
 ## [0.4.3] — 2023-11-05
 

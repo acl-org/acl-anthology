@@ -19,6 +19,7 @@ import datetime
 from attrs import define, field, Factory
 from enum import Enum
 from functools import cached_property
+import langcodes
 from lxml import etree
 from lxml.builder import E
 from typing import cast, Any, Optional, TYPE_CHECKING
@@ -96,8 +97,6 @@ class Paper:
     deletion: Optional[PaperDeletionNotice] = field(default=None, repr=False)
     doi: Optional[str] = field(default=None, repr=False)
     ingest_date: Optional[str] = field(default=None, repr=False)
-    # TODO: previously, we used "langcodes" to map this to a language name
-    #       `langcodes.Language.get(self.langcode).display_name()`
     language: Optional[str] = field(default=None, repr=False)
     note: Optional[str] = field(default=None, repr=False)
     pages: Optional[str] = field(default=None, repr=False)
@@ -216,6 +215,13 @@ class Paper:
         if self.pdf is not None:
             return PDFThumbnailReference(self.full_id)
         return None
+
+    @property
+    def language_name(self) -> Optional[str]:
+        """The name of the language this paper is written in, if specified."""
+        if self.language is None:
+            return None
+        return langcodes.Language.get(self.language).display_name()
 
     @property
     def venue_ids(self) -> list[str]:

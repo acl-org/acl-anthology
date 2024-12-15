@@ -58,6 +58,27 @@ def test_paper_get_events(anthology):
     assert paper.get_events() == [anthology.events["acl-2022"]]
 
 
+test_cases_language = (
+    ("2022.acl-short.11", None, None),
+    ("2022.naloma-1.3", "fra", "French"),
+    ("2022.naloma-1.4", "en-US", "English (United States)"),
+)
+
+
+@pytest.mark.parametrize("paper_id, language, language_name", test_cases_language)
+def test_paper_language(anthology, paper_id, language, language_name):
+    paper = anthology.get_paper(paper_id)
+    assert paper is not None
+    if language is None:
+        assert paper.language is None
+    else:
+        assert paper.language == language
+    if language_name is None:
+        assert paper.language_name is None
+    else:
+        assert paper.language_name == language_name
+
+
 def test_paper_bibtype():
     volume = VolumeStub()
     volume.type = VolumeType.JOURNAL
@@ -118,7 +139,7 @@ test_cases_xml = (
   <revision id="1" href="2023.fake-volume.max" hash="21e2f21f"/>
   <revision id="2" href="2023.fake-volume.maxv2" hash="bc27f0f5" date="2023-10-03">Some explanation</revision>
   <doi>10.18653/v1/2023.fake-volume.max</doi>
-  <language>Klingon</language>
+  <language>fra</language>
   <note>This is not a real paper, obviously.</note>
   <attachment hash="a6a7a5a4" type="website">2023.fake-attachment</attachment>
   <attachment hash="12345678" type="software">2023.fake-software</attachment>
