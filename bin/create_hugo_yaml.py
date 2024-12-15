@@ -173,7 +173,7 @@ def paper_to_dict(paper):
     if (pwc := paper.paperswithcode) is not None:
         if pwc.code is not None:
             data["pwccode"] = {
-                "additional": pwc.community_code,
+                "additional": "true" if pwc.community_code else "false",
                 "name": pwc.code[0],
                 "url": pwc.code[1],
             }
