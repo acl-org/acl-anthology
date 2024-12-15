@@ -255,7 +255,7 @@ test_cases_papercitation = (
     # Journal article, no author, no editor
     (
         "J89-1009",
-        'N.N. 1989. <a href="https://aclanthology.org/J89-1009/">Briefly Noted</a>. <i>Computational Linguistics</i>, 15(1).',
+        '<a href="https://aclanthology.org/J89-1009/">Briefly Noted</a>. 1989. <i>Computational Linguistics</i>, 15(1).',
     ),
     # Journal frontmatter
     (

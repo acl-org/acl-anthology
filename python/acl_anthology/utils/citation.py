@@ -120,7 +120,17 @@ def render_acl_citation(paper: Paper) -> str:
     Note:
         This function re-implements (parts of) the ACL citation style in pure Python, making it a much faster alternative to [citeproc_render_html][acl_anthology.utils.citation.citeproc_render_html].
     """
-    authors = _format_names(paper.authors if paper.authors else paper.get_editors())
+    if paper.authors:
+        authors = _format_names(paper.authors)
+    else:
+        editors = paper.get_editors()
+        if not editors:
+            # No authors, no editors
+            authors = ""
+        else:
+            authors = _format_names(editors)
+            if not paper.is_frontmatter:
+                authors = f"{authors} ({'eds.' if len(editors) > 1 else 'ed.'})"
     title = f'<a href="{paper.web_url}">{paper.title.as_text()}</a>'
     if paper.is_frontmatter:
         title = f"<i>{title}</i>"
@@ -128,7 +138,8 @@ def render_acl_citation(paper: Paper) -> str:
     if paper.bibtype == "inproceedings":
         parent = [f"In <i>{paper.parent.title.as_text()}</i>"]
         if paper.pages:
-            parent.append(f", pages {_format_pages(paper.pages)}")
+            pages = _format_pages(paper.pages)
+            parent.append(f", {'pages' if '–' in pages else 'page'} {pages}")
         if paper.address:
             parent.append(f", {paper.address}")
         if paper.publisher:
@@ -149,4 +160,12 @@ def render_acl_citation(paper: Paper) -> str:
             if paper.address:
                 parent.append(f", {paper.address}")
 
-    return f"{authors}. {paper.year}. {title}. {''.join(parent)}."
+    if authors:
+        citation = f"{authors}. {paper.year}. {title}."
+    else:
+        citation = f"{title}. {paper.year}."
+
+    if parent:
+        citation = f"{citation} {''.join(parent)}."
+
+    return citation

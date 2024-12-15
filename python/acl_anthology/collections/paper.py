@@ -324,7 +324,7 @@ class Paper:
         """
         namespecs = self.authors if not self.is_frontmatter else self.get_editors()
         if len(namespecs) == 0:
-            name = "N.N."
+            name = ""
         elif len(namespecs) == 1:
             name = namespecs[0].last
         elif len(namespecs) == 2:
@@ -334,10 +334,13 @@ class Paper:
 
         venue_year = (
             f"{self.year}"
-            if "ws" in self.venue_ids
+            if self.parent.venue_acronym == "WS"
             else f"{self.parent.venue_acronym} {self.year}"
         )
-        return f"[{self.title.as_text()}]({self.web_url}) ({name}, {venue_year})"
+        if name:
+            return f"[{self.title.as_text()}]({self.web_url}) ({name}, {venue_year})"
+        else:
+            return f"[{self.title.as_text()}]({self.web_url}) ({venue_year})"
 
     @classmethod
     def from_frontmatter_xml(cls, parent: Volume, paper: etree._Element) -> Paper:
