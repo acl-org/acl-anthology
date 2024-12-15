@@ -94,28 +94,28 @@ class PersonIndex(SlottedDict[Person]):
         return self.get_or_create_person(name_spec, create=False)
 
     def find_coauthors(
-        self, person: str | Person, include_editors: bool = True
+        self, person: str | Person, include_volumes: bool = True
     ) -> list[Person]:
         """Find all persons who co-authored or co-edited items with the given person.
 
         Parameters:
             person: A person ID _or_ Person instance.
-            include_editors: If set to False, will only consider co-*authored* items, not co-*edited* items.
+            include_volumes: If set to False, will not consider co-editorship on volumes, unless they have frontmatter.
 
         Returns:
             A list of all persons who are co-authors; can be empty.
         """
-        coauthors = self.find_coauthors_counter(person, include_editors=include_editors)
+        coauthors = self.find_coauthors_counter(person, include_volumes=include_volumes)
         return [self.data[pid] for pid in coauthors]
 
     def find_coauthors_counter(
-        self, person: str | Person, include_editors: bool = True
+        self, person: str | Person, include_volumes: bool = True
     ) -> Counter[str]:
         """Find the count of co-authored or co-edited items per person.
 
         Parameters:
             person: A person ID _or_ Person instance.
-            include_editors: If set to False, will only consider co-*authored* items, not co-*edited* items.
+            include_volumes: If set to False, will not consider co-editorship on volumes, unless they have frontmatter.
 
         Returns:
             A Counter mapping **IDs** of other persons Y to the number of papers this person has co-authored with Y.
@@ -127,10 +127,15 @@ class PersonIndex(SlottedDict[Person]):
         coauthors: Counter[str] = Counter()
         for item_id in person.item_ids:
             item = cast("Volume | Paper", self.parent.get(item_id))
-            if include_editors:
-                coauthors.update(
-                    self.get_or_create_person(ns, create=False).id for ns in item.editors
-                )
+            if (
+                not include_volumes
+                and item.full_id_tuple[-1] is None  # item is a Volume
+                and not cast("Volume", item).has_frontmatter
+            ):
+                continue
+            coauthors.update(
+                self.get_or_create_person(ns, create=False).id for ns in item.editors
+            )
             if hasattr(item, "authors"):
                 coauthors.update(
                     self.get_or_create_person(ns, create=False).id for ns in item.authors
