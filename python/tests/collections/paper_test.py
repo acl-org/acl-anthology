@@ -204,6 +204,7 @@ test_cases_paper_to_bibtex = (
         """@article{oshaughnessy-1989-parsing,
     title = "Parsing with a Small Dictionary for Applications such as Text to Speech",
     author = "O'Shaughnessy, Douglas D.",
+    editor = "Allen, James F.",
     journal = "Computational Linguistics",
     volume = "15",
     number = "2",
@@ -231,21 +232,55 @@ def test_paper_to_bibtex(anthology, full_id, with_abstract, expected):
 
 
 test_cases_papercitation = (
+    # Journal article
     (
         "J89-4001",
         'Andrew Haas. 1989. <a href="https://aclanthology.org/J89-4001/">A Parsing Algorithm for Unification Grammar</a>. <i>Computational Linguistics</i>, 15(4):219–232.',
     ),
+    # Journal article, single page
+    (
+        "J89-1004",
+        'Martha Evens. 1989. <a href="https://aclanthology.org/J89-1004/">Book Reviews: An Artificial Intelligence Approach to Legal Reasoning</a>. <i>Computational Linguistics</i>, 15(1):53.',
+    ),
+    # Journal article, no page numbers
+    (
+        "J89-1005",
+        'Barron Brainerd. 1989. <a href="https://aclanthology.org/J89-1005/">Book Reviews: Mathematics of Language</a>. <i>Computational Linguistics</i>, 15(1).',
+    ),
+    # Journal article, no author
+    (
+        "J89-2015",
+        'James F. Allen (ed.). 1989. <a href="https://aclanthology.org/J89-2015/">Abstracts of Current Literature</a>. <i>Computational Linguistics</i>, 15(2).',
+    ),
+    # Journal article, no author, no editor
+    (
+        "J89-1009",
+        '<a href="https://aclanthology.org/J89-1009/">Briefly Noted</a>. 1989. <i>Computational Linguistics</i>, 15(1).',
+    ),
+    # Journal frontmatter
+    (
+        "J89-2000",
+        'James F. Allen. 1989. <i><a href="https://aclanthology.org/J89-2000/">Computational Linguistics, Volume 15, Number 2, June 1989</a></i>.',
+    ),
+    # Conference proceedings
     (
         "2022.acl-short.0",
         'Smaranda Muresan, Preslav Nakov, and Aline Villavicencio. 2022. <i><a href="https://aclanthology.org/2022.acl-short.0/">Proceedings of the 60th Annual Meeting of the Association for Computational Linguistics (Volume 2: Short Papers)</a></i>. Association for Computational Linguistics, Dublin, Ireland.',
     ),
+    # Article in proceedings, two authors, with page numbers
     (
         "2022.acl-long.268",
         'Elena Álvarez-Mellado and Constantine Lignos. 2022. <a href="https://aclanthology.org/2022.acl-long.268/">Detecting Unassimilated Borrowings in Spanish: An Annotated Corpus and Approaches to Modeling</a>. In <i>Proceedings of the 60th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)</i>, pages 3868–3888, Dublin, Ireland. Association for Computational Linguistics.',
     ),
+    # Article in proceedings, many authors, no page numbers
     (
         "L06-1060",
         'Brian Roark, Mary Harper, Eugene Charniak, Bonnie Dorr, Mark Johnson, Jeremy Kahn, Yang Liu, Mari Ostendorf, John Hale, Anna Krasnyanskaya, Matthew Lease, Izhak Shafran, Matthew Snover, Robin Stewart, and Lisa Yung. 2006. <a href="https://aclanthology.org/L06-1060/">SParseval: Evaluation Metrics for Parsing Speech</a>. In <i>Proceedings of the Fifth International Conference on Language Resources and Evaluation (LREC’06)</i>, Genoa, Italy. European Language Resources Association (ELRA).',
+    ),
+    # Article in proceedings, one author, single page
+    (
+        "2022.naloma-1.1",
+        'Tim Fernando. 2022. <a href="https://aclanthology.org/2022.naloma-1.1/">Strings from neurons to language</a>. In <i>Proceedings of the 3rd Natural Logic Meets Machine Learning Workshop (NALOMA III)</i>, page 10, Galway, Ireland. Association for Computational Linguistics.',
     ),
 )
 
@@ -258,21 +293,40 @@ def test_paper_to_citation(anthology, full_id, expected):
 
 
 test_cases_papercitation_markdown = (
+    # Journal article
     (
         "J89-4001",
         "[A Parsing Algorithm for Unification Grammar](https://aclanthology.org/J89-4001/) (Haas, CL 1989)",
     ),
+    # Journal article, no author
+    (
+        "J89-2015",
+        "[Abstracts of Current Literature](https://aclanthology.org/J89-2015/) (CL 1989)",
+    ),
+    # Journal article, no author, no editor
+    (
+        "J89-1009",
+        "[Briefly Noted](https://aclanthology.org/J89-1009/) (CL 1989)",
+    ),
+    # Conference proceedings
     (
         "2022.acl-short.0",
         "[Proceedings of the 60th Annual Meeting of the Association for Computational Linguistics (Volume 2: Short Papers)](https://aclanthology.org/2022.acl-short.0/) (Muresan et al., ACL 2022)",
     ),
+    # Article in proceedings, two authors
     (
         "2022.acl-long.268",
         "[Detecting Unassimilated Borrowings in Spanish: An Annotated Corpus and Approaches to Modeling](https://aclanthology.org/2022.acl-long.268/) (Álvarez-Mellado & Lignos, ACL 2022)",
     ),
+    # Article in proceedings, many authors
     (
         "L06-1060",
         "[SParseval: Evaluation Metrics for Parsing Speech](https://aclanthology.org/L06-1060/) (Roark et al., LREC 2006)",
+    ),
+    # Article in proceedings, single author
+    (
+        "2022.naloma-1.1",
+        "[Strings from neurons to language](https://aclanthology.org/2022.naloma-1.1/) (Fernando, NALOMA 2022)",
     ),
 )
 

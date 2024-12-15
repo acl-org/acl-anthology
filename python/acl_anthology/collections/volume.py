@@ -136,7 +136,7 @@ class Volume(SlottedDict[Paper]):
     @property
     def venue_acronym(self) -> str:
         """The acronym of the venue(s) associated with this volume.  In case of multiple venues, this will be a concatenation of the individual venue acronyms."""
-        return "-".join(venue.acronym for venue in self.venues())
+        return "-".join(venue.acronym for venue in self.venues() if venue.id != "ws")
 
     @property
     def web_url(self) -> str:
