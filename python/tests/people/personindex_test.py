@@ -184,8 +184,9 @@ def test_get_person_coauthors(index_with_full_anthology):
     person = index.get_by_name(Name("Preslav", "Nakov"))[0]
     coauthors = index.find_coauthors(person)
     assert len(coauthors) == 2
-    coauthors = index.find_coauthors(person, include_editors=False)
-    assert len(coauthors) == 0
+    # Both volumes where Preslav Nakov is editor have frontmatter, so should still be counted
+    coauthors = index.find_coauthors(person, include_volumes=False)
+    assert len(coauthors) == 2
 
 
 def test_get_person_coauthors_counter(index_with_full_anthology):
