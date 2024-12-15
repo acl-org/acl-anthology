@@ -107,6 +107,14 @@ test_cases_markup = (
             "latex": "陳大文",
         },
     ),
+    (
+        "",
+        {
+            "text": "",
+            "html": "",
+            "latex": "",
+        },
+    ),
 )
 
 

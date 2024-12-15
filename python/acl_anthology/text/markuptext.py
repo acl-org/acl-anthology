@@ -181,7 +181,7 @@ class MarkupText:
         if len(element):
             return cls(deepcopy(element))
         else:
-            return cls(str(element.text))
+            return cls(str(element.text) if element.text is not None else "")
 
     def to_xml(self, tag: str = "span") -> etree._Element:
         """
