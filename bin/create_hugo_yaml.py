@@ -57,7 +57,11 @@ from acl_anthology import Anthology, config
 from acl_anthology.collections.paper import PaperDeletionType
 from acl_anthology.collections.volume import VolumeType
 from acl_anthology.utils.logging import SeverityTracker
-from acl_anthology.utils.text import interpret_pages, month_str2num
+from acl_anthology.utils.text import (
+    interpret_pages,
+    month_str2num,
+    remove_extra_whitespace,
+)
 from create_hugo_pages import check_directory
 
 
@@ -97,7 +101,7 @@ def paper_to_dict(paper):
         "ingest_date": paper.get_ingest_date().isoformat(),
         "paper_id": paper.id,
         "title": paper.title.as_text(),
-        "title_html": paper.title.as_html(allow_url=False),
+        "title_html": remove_extra_whitespace(paper.title.as_html(allow_url=False)),
         # Slightly funky logic: If there is an external URL given for a paper,
         # it will be in '.pdf', even though we use the Anthology landing page
         # (and not the PDF URL) for everything else
@@ -127,7 +131,7 @@ def paper_to_dict(paper):
     if (language_name := paper.language_name) is not None:
         data["language"] = language_name
     if (abstract := paper.abstract) is not None:
-        data["abstract_html"] = abstract.as_html()
+        data["abstract_html"] = remove_extra_whitespace(abstract.as_html())
     if paper.attachments:
         data["attachment"] = [
             {
@@ -209,7 +213,7 @@ def volume_to_dict(volume):
         "meta_date": volume.year,  # may be overwritten below
         "papers": [paper.full_id for paper in volume.papers()],
         "title": volume.title.as_text(),
-        "title_html": volume.title.as_html(allow_url=False),
+        "title_html": remove_extra_whitespace(volume.title.as_html(allow_url=False)),
         "year": volume.year,
         "sigs": [],
         "url": (
