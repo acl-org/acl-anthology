@@ -86,11 +86,11 @@ def create_papers(srcdir, clean=False):
             with open("{}/{}.md".format(paper_dir, anthology_id), "w") as f:
                 date = entry["ingest_date"]
                 print("---", file=f)
+                # MJP: AFAICT, only anthology_id is used, to lookup the paper in the database.
+                # We could save time / space by removing title and date.
                 yaml.dump(
                     {
                         "anthology_id": anthology_id,
-                        "title": entry["title"],
-                        "date": date,
                     },
                     default_flow_style=False,
                     stream=f,
@@ -115,7 +115,6 @@ def create_volumes(srcdir, clean=False):
             yaml.dump(
                 {
                     "anthology_id": anthology_id,
-                    "title": entry["title"],
                 },
                 default_flow_style=False,
                 stream=f,
