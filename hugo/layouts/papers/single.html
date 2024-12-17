@@ -85,7 +85,7 @@
 
     const params = {
       anthology_id: "{{ .Params.anthology_id }}",
-      title: "{{ $paper.title }}",
+      title: "{{ $paper.title_raw }}",
       authors: [
         {{ range $paper.author }}
         {
@@ -99,7 +99,7 @@
         },
         {{ end }}
       ],
-      abstract: "{{ $paper.abstract }}"
+      abstract: "{{ $paper.abstract_raw }}"
     };
     const baseurl = "https://github.com/acl-org/acl-anthology/issues/new?template=99-bulk-metadata-correction.yml";
 
