@@ -72,7 +72,6 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
             del data["xml_title"]
         if "xml_booktitle" in data:
             data["booktitle_html"] = paper.get_booktitle("html")
-            data["booktitle_raw"] = paper.get_booktitle("xml")
             del data["xml_booktitle"]
         if "xml_abstract" in data:
             data["abstract_html"] = paper.get_abstract("html")
