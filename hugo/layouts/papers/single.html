@@ -141,7 +141,8 @@
       {{ partial "author_link.html" (dict "ctx" $ "person" $person) | chomp }}{{ if ne (add $index 1) $len }}, {{ end }}
     {{ end }}
   {{ end }}
-    <a href="#" class="small float-right" onclick="handleMetadataCorrection()">[Metadata incorrect?]</a>
+    <br/>
+    <a href="#" class="small" onclick="handleMetadataCorrection()">[Metadata incorrect?]</a>
   </p>
   </div>
   <hr />
@@ -333,7 +334,6 @@
 
     <!-- Most of the styling for this block is set in _papers.scss to avoid clutter -->
     <div class="acl-paper-link-block">
-      <a href="#" class="small float-right" onclick="handleMetadataCorrection()">Metadata incorrect?</a>
       {{ if isset $paper "revision" }}
         {{ range last 1 $paper.revision }}
         <a class="btn btn-primary" href="{{ .url }}" title="Open latest revision PDF of '{{ $paper.title | htmlEscape }}'">
@@ -380,7 +380,9 @@
         <span class="px-1">Video</span>
       </a>
       {{ end }}
-      <a href="#" class="small float-right" onclick="handleMetadataCorrection()">Metadata incorrect?</a>
+      <a class="btn btn-attachment d-flex flex-wrap justify-content-center" href=# title="Correct problems with title, author list, and abstract" onclick="handleMetadataCorrection()">
+        <span class="pl-sm-2 d-none d-sm-inline">Fix metadata</span>
+      </a>
     </div>
   </div>
   <hr />
