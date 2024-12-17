@@ -112,7 +112,7 @@
       if (Array.isArray(value) && value.length > 0 && typeof value[0] === 'object') {
         // Convert array of objects to single line
         const oneLine = JSON.stringify(value).slice(1, -1);
-        // Add proper indentation 
+        // Add proper indentation
         return `__ARRAY__${oneLine}__ARRAY__`;
       }
       return value;
