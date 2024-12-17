@@ -108,8 +108,18 @@
     const labels = "metadata,correction"
     const who = "anthology-assist"
 
+    var param_string = JSON.stringify(data, function(key, value) {
+      if (Array.isArray(value) && value.length > 0 && typeof value[0] === 'object') {
+        // Convert array of objects to single line
+        const oneLine = JSON.stringify(value).slice(1, -1);
+        // Add proper indentation 
+        return `__ARRAY__${oneLine}__ARRAY__`;
+      }
+      return value;
+    }, 2).replace(/"__ARRAY__(.+?)__ARRAY__"/gs, '[\n    $1\n  ]')
+
     // encode the params JSON object as a multi-line valid JSON string
-    const url = baseurl + `&title=${issue_title}&assignee=${who}&labels=${labels}&data=` + encodeURIComponent(JSON.stringify(params, null, 2));
+    const url = baseurl + `&title=${issue_title}&assignee=${who}&labels=${labels}&data=` + encodeURIComponent(param_string);
 
     window.open(url, "_blank");
 }
