@@ -84,7 +84,7 @@ def create_papers(srcdir, clean=False):
             if not os.path.exists(paper_dir):
                 os.makedirs(paper_dir)
             with open("{}/{}.md".format(paper_dir, anthology_id), "w") as f:
-                date = entry["ingest_date"]
+                entry["ingest_date"]
                 print("---", file=f)
                 # MJP: AFAICT, only anthology_id is used, to lookup the paper in the database.
                 # We could save time / space by removing title and date.
