@@ -67,13 +67,16 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
         if paper.parent_volume.ingest_date:
             data["ingest_date"] = paper.parent_volume.ingest_date
         data["title_html"] = paper.get_title("html")
+        data["title_raw"] = paper.get_title("xml")
         if "xml_title" in data:
             del data["xml_title"]
         if "xml_booktitle" in data:
             data["booktitle_html"] = paper.get_booktitle("html")
+            data["booktitle_raw"] = paper.get_booktitle("xml")
             del data["xml_booktitle"]
         if "xml_abstract" in data:
             data["abstract_html"] = paper.get_abstract("html")
+            data["abstract_raw"] = paper.get_abstract("xml")
             del data["xml_abstract"]
         if "xml_url" in data:
             del data["xml_url"]
@@ -138,6 +141,7 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
         log.debug("export_anthology: processing volume '{}'".format(id_))
         data = volume.as_dict()
         data["title_html"] = volume.get_title("html")
+        data["title_raw"] = volume.get_title("xml")
         del data["xml_booktitle"]
         if "xml_abstract" in data:
             del data["xml_abstract"]
