@@ -25,23 +25,25 @@ jobs:
             }
 
             const body = issue.body;
-            if (!body.includes('```json')) {
-              core.setFailed('Issue does not start with JSON code block');
+            const jsonMatch = body.match(/```json\s*([\s\S]*?)\s*```/);
+
+            if (!jsonMatch) {
+              core.setFailed('Issue body does not contain a JSON code block');
               return;
             }
 
             try {
-              const jsonContent = body.split('```json')[1].split('```')[0].trim();
-              const data = JSON.parse(jsonContent);
+              const data = JSON.parse(jsonMatch[1]);
 
               if (!data.anthology_id) {
-                core.setFailed('No anthology_id found in JSON');
+                core.setFailed('No anthology_id key found in JSON data');
                 return;
               }
 
               core.setOutput('anthology_id', data.anthology_id);
             } catch (error) {
-              core.setFailed(`Error parsing JSON: ${error.message}`);
+              core.setFailed(`Error parsing JSON: ${error.message}\n${jsonMatch[1]}`);
+              return;
             }
 
       - name: Create comment
