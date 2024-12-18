@@ -13,7 +13,7 @@ jobs:
         with:
           script: |
             const issue = context.payload.issue;
-            
+
             // Check labels
             const labels = issue.labels.map(label => label.name);
             const hasRequiredLabels = 
@@ -24,7 +24,7 @@ jobs:
               core.setFailed('Required labels not present');
               return;
             }
-            
+
             // Check and parse JSON
             const body = issue.body;
             const jsonMatch = body.match(/```json\s*([\s\S]*?)\s*```/);
@@ -47,7 +47,7 @@ jobs:
               core.setFailed(`Error parsing JSON: ${error.message}\n${jsonMatch[1]}`);
               return;
             }
-            
+
             // Create comment
             const comment = `
             Found ACL Anthology entry:
