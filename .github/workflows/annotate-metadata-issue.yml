@@ -21,7 +21,7 @@ jobs:
               labels.includes('metadata');
 
             if (!hasRequiredLabels) {
-              core.setFailed('Required labels not present');
+              console.log('Required labels ("correction" and "metadata") not present');
               return;
             }
 
@@ -30,7 +30,7 @@ jobs:
             const jsonMatch = body.match(/```json\s*([\s\S]*?)\s*```/);
 
             if (!jsonMatch) {
-              core.setFailed('Issue body does not contain a JSON code block');
+              console.log('No JSON code block found inside the issue body');
               return;
             }
 
@@ -39,12 +39,12 @@ jobs:
               const data = JSON.parse(jsonMatch[1]);
 
               if (!data.anthology_id) {
-                core.setFailed('No anthology_id key found in JSON data');
+                cojnsole.log('No anthology_id key found in JSON data');
                 return;
               }
               anthology_id = data.anthology_id;
             } catch (error) {
-              core.setFailed(`Error parsing JSON: ${error.message}\n${jsonMatch[1]}`);
+              console.log(`Error parsing JSON: ${error.message}\n${jsonMatch[1]}`);
               return;
             }
 
