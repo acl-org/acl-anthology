@@ -18,7 +18,7 @@ jobs:
             const hasRequiredLabels =
               labels.includes('correction') &&
               labels.includes('metadata');
-            
+
             core.setOutput('has_required_labels', hasRequiredLabels.toString());
 
             core.setOutput('has_required_labels', hasRequiredLabels.toString());
@@ -32,7 +32,7 @@ jobs:
             const issue = context.payload.issue;
             const body = issue.body;
             const jsonMatch = body.match(/```json\s*([\s\S]*?)\s*```/);
-            
+
             if (!jsonMatch) {
               core.setOutput('valid_json', 'false');
               return;
