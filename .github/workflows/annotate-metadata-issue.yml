@@ -8,47 +8,53 @@ jobs:
   process-anthology-issue:
     runs-on: ubuntu-latest
     steps:
-      - name: Process issue and create comment
+      - name: Check required labels
+        id: check-labels
         uses: actions/github-script@v6
         with:
           script: |
             const issue = context.payload.issue;
-
-            // Check labels
             const labels = issue.labels.map(label => label.name);
             const hasRequiredLabels =
               labels.includes('correction') &&
               labels.includes('metadata');
 
-            if (!hasRequiredLabels) {
-              core.setFailed('Required labels not present');
-              return;
-            }
+            core.setOutput('has_required_labels', hasRequiredLabels.toString());
 
-            // Check and parse JSON
+      - name: Parse JSON from issue body
+        id: parse-json
+        if: steps.check-labels.outputs.has_required_labels == 'true'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const issue = context.payload.issue;
             const body = issue.body;
             const jsonMatch = body.match(/```json\s*([\s\S]*?)\s*```/);
 
             if (!jsonMatch) {
-              core.setFailed('Issue body does not contain a JSON code block');
+              core.setOutput('valid_json', 'false');
               return;
             }
 
-            let anthology_id;
             try {
               const data = JSON.parse(jsonMatch[1]);
-
               if (!data.anthology_id) {
-                core.setFailed('No anthology_id key found in JSON data');
+                core.setOutput('valid_json', 'false');
                 return;
               }
-              anthology_id = data.anthology_id;
+              core.setOutput('anthology_id', data.anthology_id);
+              core.setOutput('valid_json', 'true');
             } catch (error) {
-              core.setFailed(`Error parsing JSON: ${error.message}\n${jsonMatch[1]}`);
-              return;
+              core.setOutput('valid_json', 'false');
             }
 
-            // Create comment
+      - name: Create comment
+        if: steps.check-labels.outputs.has_required_labels == 'true' && steps.parse-json.outputs.valid_json == 'true'
+        uses: actions/github-script@v6
+        with:
+          anthology_id: ${{ steps.parse-json.outputs.anthology_id }}
+          script: |
+            const anthology_id = core.getInput('anthology_id');
             const comment = `
             Found ACL Anthology entry:
 
