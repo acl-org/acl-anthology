@@ -16,10 +16,10 @@ jobs:
 
             // Check labels
             const labels = issue.labels.map(label => label.name);
-            const hasRequiredLabels = 
-              labels.includes('correction') && 
+            const hasRequiredLabels =
+              labels.includes('correction') &&
               labels.includes('metadata');
-            
+
             if (!hasRequiredLabels) {
               core.setFailed('Required labels not present');
               return;
@@ -37,7 +37,7 @@ jobs:
             let anthology_id;
             try {
               const data = JSON.parse(jsonMatch[1]);
-              
+
               if (!data.anthology_id) {
                 core.setFailed('No anthology_id key found in JSON data');
                 return;
@@ -51,12 +51,12 @@ jobs:
             // Create comment
             const comment = `
             Found ACL Anthology entry:
-            
+
             📄 Paper: https://aclanthology.org/${anthology_id}
-            
+
             ![Thumbnail](https://aclanthology.org/thumb/${anthology_id}.jpg)
             `;
-            
+
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
