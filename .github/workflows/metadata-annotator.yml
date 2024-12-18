@@ -25,7 +25,7 @@ jobs:
             }
 
             const body = issue.body;
-            if (!body.startsWith('```json')) {
+            if (!body.includes('```json')) {
               core.setFailed('Issue does not start with JSON code block');
               return;
             }
