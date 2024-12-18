@@ -21,6 +21,8 @@ jobs:
             
             core.setOutput('has_required_labels', hasRequiredLabels.toString());
 
+            core.setOutput('has_required_labels', hasRequiredLabels.toString());
+
       - name: Parse JSON from issue body
         id: parse-json
         if: steps.check-labels.outputs.has_required_labels == 'true'
@@ -35,7 +37,7 @@ jobs:
               core.setOutput('valid_json', 'false');
               return;
             }
-            
+
             try {
               const data = JSON.parse(jsonMatch[1]);
               if (!data.anthology_id) {
