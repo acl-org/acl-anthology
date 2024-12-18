@@ -1,0 +1,65 @@
+name: Add link and image to metadata issue
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  process-anthology-issue:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Process issue and create comment
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const issue = context.payload.issue;
+
+            // Check labels
+            const labels = issue.labels.map(label => label.name);
+            const hasRequiredLabels =
+              labels.includes('correction') &&
+              labels.includes('metadata');
+
+            if (!hasRequiredLabels) {
+              core.setFailed('Required labels not present');
+              return;
+            }
+
+            // Check and parse JSON
+            const body = issue.body;
+            const jsonMatch = body.match(/```json\s*([\s\S]*?)\s*```/);
+
+            if (!jsonMatch) {
+              core.setFailed('Issue body does not contain a JSON code block');
+              return;
+            }
+
+            let anthology_id;
+            try {
+              const data = JSON.parse(jsonMatch[1]);
+
+              if (!data.anthology_id) {
+                core.setFailed('No anthology_id key found in JSON data');
+                return;
+              }
+              anthology_id = data.anthology_id;
+            } catch (error) {
+              core.setFailed(`Error parsing JSON: ${error.message}\n${jsonMatch[1]}`);
+              return;
+            }
+
+            // Create comment
+            const comment = `
+            Found ACL Anthology entry:
+
+            📄 Paper: https://aclanthology.org/${anthology_id}
+
+            ![Thumbnail](https://aclanthology.org/thumb/${anthology_id}.jpg)
+            `;
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: comment
+            });
