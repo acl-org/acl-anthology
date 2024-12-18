@@ -8,12 +8,13 @@ jobs:
   process-anthology-issue:
     runs-on: ubuntu-latest
     steps:
-      - name: Check issue labels
-        id: check-labels
+      - name: Process issue and create comment
         uses: actions/github-script@v6
         with:
           script: |
             const issue = context.payload.issue;
+
+            // Check labels
             const labels = issue.labels.map(label => label.name);
             const hasRequiredLabels =
               labels.includes('correction') &&
@@ -24,6 +25,7 @@ jobs:
               return;
             }
 
+            // Check and parse JSON
             const body = issue.body;
             const jsonMatch = body.match(/```json\s*([\s\S]*?)\s*```/);
 
@@ -32,6 +34,7 @@ jobs:
               return;
             }
 
+            let anthology_id;
             try {
               const data = JSON.parse(jsonMatch[1]);
 
@@ -39,19 +42,13 @@ jobs:
                 core.setFailed('No anthology_id key found in JSON data');
                 return;
               }
-
-              core.setOutput('anthology_id', data.anthology_id);
+              anthology_id = data.anthology_id;
             } catch (error) {
               core.setFailed(`Error parsing JSON: ${error.message}\n${jsonMatch[1]}`);
               return;
             }
 
-      - name: Create comment
-        if: success()
-        uses: actions/github-script@v6
-        with:
-          script: |
-            const anthology_id = steps.check-labels.outputs.anthology_id;
+            // Create comment
             const comment = `
             Found ACL Anthology entry:
 
