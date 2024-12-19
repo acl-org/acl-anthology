@@ -1,0 +1,120 @@
+name: Validate Correction
+on:
+  issues:
+    types: [opened, edited]
+
+jobs:
+  validate:
+    if: contains(github.event.issue.labels.*.name, 'correction') && contains(github.event.issue.labels.*.name, 'metadata')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Extract JSON and get anthology ID
+        id: extract-data
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const body = context.payload.issue.body;
+            const jsonMatch = body.match(/```json\n([\s\S]*?)\n```/);
+            if (!jsonMatch) {
+              core.setOutput('No JSON found in issue body');
+              return;
+            }
+            const jsonData = jsonMatch[1];
+            
+            // Parse JSON to get anthology_id
+            const metadata = JSON.parse(jsonData);
+            const anthology_id = metadata.anthology_id;
+            
+            core.setOutput('json', jsonData);
+            core.setOutput('anthology_id', anthology_id);
+
+      - name: Download thumbnail image
+        id: download-image
+        run: |
+          mkdir -p images
+          curl -o images/thumbnail.jpg "https://aclanthology.org/thumb/${{ steps.extract-data.outputs.anthology_id }}.jpg"
+          echo "image_path=images/thumbnail.jpg" >> $GITHUB_OUTPUT
+
+      - name: Validate corrections with OpenAI
+        id: openai-validation
+        uses: openai/openai-github-action@v1
+        with:
+          api-key: ${{ secrets.OPENAI_API_KEY }}
+          model: 'gpt-4-vision-preview'
+          temperature: 0.1
+          messages: |
+            [
+              {
+                "role": "system",
+                "content": "You are a helpful assistant that validates corrections to academic paper metadata. Compare the PDF thumbnail image against the proposed JSON corrections and determine if they are valid. Focus on checking: 1) Title matches 2) Authors match and are in correct order 3) Abstract matches. Respond with a JSON object having fields: 'valid' (boolean), 'errors' (array of strings describing any issues found), 'details' (string explaining the validation)"
+              },
+              {
+                "role": "user",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Please validate the following corrections against this paper thumbnail:"
+                  },
+                  {
+                    "type": "image",
+                    "image_path": "${{ steps.download-image.outputs.image_path }}"
+                  },
+                  {
+                    "type": "text",
+                    "text": "Corrections JSON: ${{ steps.extract-data.outputs.json }}"
+                  }
+                ]
+              }
+            ]
+
+      - name: Comment validation results
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const validation = ${{ steps.openai-validation.outputs.response }};
+            
+            let comment = '';
+            if (validation.valid) {
+              comment = '✅ **Validation Passed**\n\n' + validation.details;
+            } else {
+              comment = '❌ **Validation Failed**\n\n';
+              comment += '**Errors found:**\n';
+              validation.errors.forEach(error => {
+                comment += `- ${error}\n`;
+              });
+              comment += '\n**Details:**\n' + validation.details;
+            }
+            
+            // Get existing validation comments
+            const comments = await github.rest.issues.listComments({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo
+            });
+            
+            // Find the most recent validation comment
+            const validationComment = comments.data.reverse().find(c => 
+              c.body.includes('**Validation') && c.user.login === 'github-actions[bot]'
+            );
+            
+            if (validationComment) {
+              // Update existing validation comment
+              await github.rest.issues.updateComment({
+                comment_id: validationComment.id,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: comment
+              });
+            } else {
+              // Create new validation comment
+              await github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: comment
+              });
+            }
+
+            if (!validation.valid) {
+              core.setFailed('Validation failed');
+            }

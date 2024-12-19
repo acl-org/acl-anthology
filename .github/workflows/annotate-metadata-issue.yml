@@ -18,9 +18,6 @@ jobs:
             const hasRequiredLabels =
               labels.includes('correction') &&
               labels.includes('metadata');
-
-            core.setOutput('has_required_labels', hasRequiredLabels.toString());
-
             core.setOutput('has_required_labels', hasRequiredLabels.toString());
 
       - name: Parse JSON from issue body
