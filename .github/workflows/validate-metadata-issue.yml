@@ -20,11 +20,11 @@ jobs:
               return;
             }
             const jsonData = jsonMatch[1];
-            
+
             // Parse JSON to get anthology_id
             const metadata = JSON.parse(jsonData);
             const anthology_id = metadata.anthology_id;
-            
+
             core.setOutput('json', jsonData);
             core.setOutput('anthology_id', anthology_id);
 
@@ -72,7 +72,7 @@ jobs:
         with:
           script: |
             const validation = ${{ steps.openai-validation.outputs.response }};
-            
+
             let comment = '';
             if (validation.valid) {
               comment = '✅ **Validation Passed**\n\n' + validation.details;
@@ -84,19 +84,19 @@ jobs:
               });
               comment += '\n**Details:**\n' + validation.details;
             }
-            
+
             // Get existing validation comments
             const comments = await github.rest.issues.listComments({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo
             });
-            
+
             // Find the most recent validation comment
-            const validationComment = comments.data.reverse().find(c => 
+            const validationComment = comments.data.reverse().find(c =>
               c.body.includes('**Validation') && c.user.login === 'github-actions[bot]'
             );
-            
+
             if (validationComment) {
               // Update existing validation comment
               await github.rest.issues.updateComment({

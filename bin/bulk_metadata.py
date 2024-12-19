@@ -160,11 +160,15 @@ class AnthologyMetadataUpdater:
                 #         print("-> Skipping (not approved yet)", file=sys.stderr)
                 #     continue
 
+                anthology_id = json_block.get("anthology_id")
+                collection_id = anthology_id.split("-")[0]
+                xml_path = f"data/xml/{collection_id}.xml"
+
                 # Get current file content
                 file_content = self.repo.get_contents(xml_path, ref=new_branch_name)
 
                 # Apply changes to XML
-                tree = self._apply_changes_to_xml(xml_path, change_set['changes'])
+                tree = self._apply_changes_to_xml(xml_path, None)
 
                 if tree:
                     # Convert tree to string and encode
@@ -206,6 +210,7 @@ if __name__ == "__main__":
     github_token = os.getenv("GITHUB_TOKEN")
 
     import argparse
+
     parser = argparse.ArgumentParser(description="Bulk metadata corrections")
     parser.add_argument("-v", "--verbose", action="store_true", help="Verbose output")
     args = parser.parse_args()
