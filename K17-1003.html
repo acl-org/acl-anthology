@@ -1,0 +1,497 @@
+<!doctype html>
+<html lang=en-us>
+
+<head>
+  <meta charset=utf-8>
+  <meta charset=utf-8>
+  <meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
+  <meta name=robots content="noindex, nofollow"><!--[if IEMobile]><meta http-equiv=cleartype content="on"><![endif]-->
+  <title>Exploring the Syntactic Abilities of RNNs with Multi-task Learning - ACL Anthology</title>
+  <meta name=generator content="Hugo 0.118.2">
+  <link href=/autopr/aclicon.ico rel="shortcut icon" type=image/x-icon>
+  <link rel=stylesheet href=autopr/css/main.min.b1d14a9a8f6bb9c608ca4de9aad72a6e06945119f97951f2908522dc220e6277.css
+    media=screen>
+  <link rel=stylesheet href=https://use.fontawesome.com/releases/v5.7.2/css/all.css
+    integrity=sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr crossorigin=anonymous>
+  <link rel=stylesheet href=autopr/css/academicons.min.css>
+  <meta content="Exploring the Syntactic Abilities of RNNs with Multi-task Learning" name=citation_title>
+  <meta content="Émile Enguehard" name=citation_author>
+  <meta content="Yoav Goldberg" name=citation_author>
+  <meta content="Tal Linzen" name=citation_author>
+  <meta content="Proceedings of the 21st Conference on Computational Natural Language Learning (CoNLL 2017)"
+    name=citation_conference_title>
+  <meta content="2017/8" name=citation_publication_date>
+  <meta content="https://preview.aclanthology.org/autopr/K17-1003.pdf" name=citation_pdf_url>
+  <meta content="3" name=citation_firstpage>
+  <meta content="14" name=citation_lastpage>
+  <meta content="10.18653/v1/K17-1003" name=citation_doi>
+  <meta property="og:title" content="Exploring the Syntactic Abilities of RNNs with Multi-task Learning">
+  <meta property="og:image" content="https://preview.aclanthology.org/autopr/thumb/K17-1003.jpg">
+  <meta property="og:image:alt" content="First page of paper PDF.">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="ACL Anthology">
+  <meta property="og:url" content="https://aclanthology.org/K17-1003">
+  <meta property="og:description"
+    content="Émile Enguehard, Yoav Goldberg, Tal Linzen. Proceedings of the 21st Conference on Computational Natural Language Learning (CoNLL 2017). 2017.">
+  <link rel=canonical href=https://aclanthology.org/K17-1003>
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+  <style>
+      .draggable:hover {
+          cursor: move;
+          background-color: #f3f4f6;
+      }
+      .dragging {
+          opacity: 0.5;
+      }
+  </style>  
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-sm navbar-light bg-light bg-gradient-light shadow-sm py-0 mb-3 mb-md-4 mb-xl-5">
+    <div id=navbar-container class=container><a class=navbar-brand href= /><img src=/images/acl-logo.svg width=56
+        alt="ACL Logo">
+      <span class="d-inline pl-2">ACL Anthology</span></a>
+      <button class=navbar-toggler type=button data-toggle=collapse data-target=#navbarSupportedContent
+        aria-controls=navbarSupportedContent aria-expanded=false aria-label="Toggle navigation">
+        <span class=navbar-toggler-icon></span></button>
+      <div class="collapse navbar-collapse" id=navbarSupportedContent>
+        <ul class="navbar-nav flex-grow-1 pr-md-2">
+          <li class=nav-item><a class=nav-link href=/autopr/posts />News<span class=sr-only>(current)</span></a></li>
+          <li class=nav-item><a class=nav-link href=/autopr/faq />FAQ<span class=sr-only>(current)</span></a></li>
+          <li class=nav-item><a class=nav-link href=/autopr/info/corrections />Corrections<span
+              class=sr-only>(current)</span></a></li>
+          <li class=nav-item><a class=nav-link href=/autopr/info/contrib />Submissions<span
+              class=sr-only>(current)</span></a></li>
+          <li class=nav-item><a class=nav-link href=https://github.com/acl-org/acl-anthology /><i
+              class="fab fa-github pr-1"></i>Github</a></li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0 flex-nowrap" action=/search/? method=get><input id=acl-search-box
+            class="form-control mr-sm-2" name=q type=search placeholder=Search... aria-label=Search>
+          <button class="btn btn-outline-primary" type=submit><i class="fas fa-search"></i></button>
+        </form>
+      </div>
+    </div>
+  </nav>
+  <div role=alert class="alert alert-danger text-center">This is an <b>internal, incomplete preview</b> of a proposed
+    change to the ACL Anthology.
+    For efficiency reasons, we generate only three BibTeX files per volume, and the preview may be incomplete in other
+    ways, or contain mistakes.
+    <b>Do not treat this content as an official publication</b>.
+  </div>
+  <div id=main-container class=container>
+    <section id=main>
+      <div>
+        <h2 id=title><a href=https://preview.aclanthology.org/autopr/K17-1003.pdf>Exploring the Syntactic Abilities of
+            <span class=acl-fixed-case>RNN</span>s with Multi-task Learning</a></h2>
+        <p class=lead><a href=/autopr/people/e/emile-enguehard />Émile Enguehard</a>,
+          <a href=/autopr/people/y/yoav-goldberg />Yoav Goldberg</a>,
+          <a href=/autopr/people/t/tal-linzen />Tal Linzen</a>
+          <a href="#" class="small float-right" data-toggle="modal" data-target="#correctionModal">[Correct metadata]</a>
+        </p>
+      </div>
+      <hr>
+
+<!-- Modal structure -->
+<div class="modal fade" id="correctionModal" tabindex="-1" role="dialog" aria-labelledby="correctionModalLabel" aria-hidden="true">
+  <div class="modal-dialog max-w-2xl" role="document">
+    <div class="modal-content bg-white rounded-lg shadow">
+      <div class="modal-header flex justify-between items-center px-4 py-2 border-b border-gray-200">
+        <h5 class="modal-title text-base font-medium text-gray-900" id="correctionModalLabel">File a Correction</h5>
+        <button type="button" class="text-gray-400 hover:text-gray-500" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body p-4">
+        <form id="paperForm" class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Title</label>
+            <input type="text" id="title" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm" value="Exploring the Syntactic Abilities of RNNs with Multi-task Learning">
+          </div>
+
+          <div>
+            <div class="flex justify-between items-center mb-1">
+              <label class="block text-sm font-medium text-gray-700">Authors</label>
+              <button type="button" id="addAuthor" class="px-2 py-1 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50">
+                Add Author
+              </button>
+            </div>
+            <div id="authorsList" class="grid gap-2">
+              <div class="grid grid-cols-12 gap-2 items-center bg-gray-50 p-2 rounded-md">
+                <input type="text" value="Émile" class="col-span-4 text-sm rounded-md border-gray-300">
+                <input type="text" value="Enguehard" class="col-span-4 text-sm rounded-md border-gray-300">
+                <input type="text" placeholder="Affiliation" class="col-span-3 text-sm rounded-md border-gray-300 text-gray-500">
+                <button type="button" class="col-span-1 text-gray-400 hover:text-gray-500">&times;</button>
+              </div>
+              <div class="grid grid-cols-12 gap-2 items-center bg-gray-50 p-2 rounded-md">
+                <input type="text" value="Yoav" class="col-span-4 text-sm rounded-md border-gray-300">
+                <input type="text" value="Goldberg" class="col-span-4 text-sm rounded-md border-gray-300">
+                <input type="text" placeholder="Affiliation" class="col-span-3 text-sm rounded-md border-gray-300 text-gray-500">
+                <button type="button" class="col-span-1 text-gray-400 hover:text-gray-500">&times;</button>
+              </div>
+              <div class="grid grid-cols-12 gap-2 items-center bg-gray-50 p-2 rounded-md">
+                <input type="text" value="Tal" class="col-span-4 text-sm rounded-md border-gray-300">
+                <input type="text" value="Linzen" class="col-span-4 text-sm rounded-md border-gray-300">
+                <input type="text" placeholder="Affiliation" class="col-span-3 text-sm rounded-md border-gray-300 text-gray-500">
+                <button type="button" class="col-span-1 text-gray-400 hover:text-gray-500">&times;</button>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Abstract</label>
+            <textarea id="abstract" rows="4" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm">Recent work has explored the syntactic abilities of RNNs using the subject-verb agreement task, which diagnoses sensitivity to sentence structure. RNNs performed this task well in common cases, but faltered in complex sentences (Linzen et al., 2016). We test whether these errors are due to inherent limitations of the architecture or to the relatively indirect supervision provided by most agreement dependencies in a corpus. We trained a single RNN to perform both the agreement task and an additional task, either CCG supertagging or language modeling. Multi-task training led to significantly lower error rates, in particular on complex sentences, suggesting that RNNs have the ability to evolve more sophisticated syntactic representations than shown before. We also show that easily available agreement training data can improve performance on other syntactic tasks, in particular when only a limited amount of training data is available for those tasks. The multi-task paradigm can also be leveraged to inject grammatical knowledge into language models.</textarea>
+          </div>
+
+          <input type="hidden" id="anthology_id" value="K17-1003">
+
+          <div class="flex justify-end space-x-3">
+            <button type="button" class="px-3 py-1.5 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50" data-dismiss="modal">
+              Cancel
+            </button>
+            <button type="submit" class="px-3 py-1.5 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md hover:bg-indigo-700">
+              Submit
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+      
+
+      <div class="row acl-paper-details">
+        <div class="col col-lg-10 order-2">
+          <div class="card bg-light mb-2 mb-lg-3">
+            <div class="card-body acl-abstract">
+              <h5 class=card-title>Abstract</h5><span>Recent work has explored the syntactic abilities of RNNs using the
+                subject-verb agreement task, which diagnoses sensitivity to sentence structure. RNNs performed this task
+                well in common cases, but faltered in complex sentences (Linzen et al., 2016). We test whether these
+                errors are due to inherent limitations of the architecture or to the relatively indirect supervision
+                provided by most agreement dependencies in a corpus. We trained a single RNN to perform both the
+                agreement task and an additional task, either CCG supertagging or language modeling. Multi-task training
+                led to significantly lower error rates, in particular on complex sentences, suggesting that RNNs have
+                the ability to evolve more sophisticated syntactic representations than shown before. We also show that
+                easily available agreement training data can improve performance on other syntactic tasks, in particular
+                when only a limited amount of training data is available for those tasks. The multi-task paradigm can
+                also be leveraged to inject grammatical knowledge into language models.</span>
+            </div>
+          </div>
+          <dl>
+            <dt>Anthology ID:</dt>
+            <dd>K17-1003</dd>
+            <dt>Volume:</dt>
+            <dd><a href=/autopr/volumes/K17-1 />Proceedings of the 21st Conference on Computational Natural Language
+              Learning (CoNLL 2017)</a></dd>
+            <dt>Month:</dt>
+            <dd>August</dd>
+            <dt>Year:</dt>
+            <dd>2017</dd>
+            <dt>Address:</dt>
+            <dd>Vancouver, Canada</dd>
+            <dt>Editors:</dt>
+            <dd><a href=/autopr/people/r/roger-levy />Roger Levy</a>,
+              <a href=/autopr/people/l/lucia-specia />Lucia Specia</a>
+            </dd>
+            <dt>Venue:</dt>
+            <dd><a href=/autopr/venues/conll />CoNLL</a></dd>
+            <dt>SIG:</dt>
+            <dd><a href=/autopr/sigs/signll />SIGNLL</a></dd>
+            <dt>Publisher:</dt>
+            <dd>Association for Computational Linguistics</dd>
+            <dt>Note:</dt>
+            <dd></dd>
+            <dt>Pages:</dt>
+            <dd>3–14</dd>
+            <dt>Language:</dt>
+            <dd></dd>
+            <dt>URL:</dt>
+            <dd><a href=https://aclanthology.org/K17-1003>https://aclanthology.org/K17-1003</a></dd>
+            <dt>DOI:</dt>
+            <dd><a href=https://doi.org/10.18653/v1/K17-1003
+                title="To the current version of the paper by DOI">10.18653/v1/K17-1003</a></dd>
+            <dt class=acl-button-row>Bibkey:</dt>
+            <dd class=acl-button-row><button type=button class="btn btn-clipboard-outside btn-secondary btn-sm d-none"
+                data-clipboard-target=#citePaperBibkey><i class="far fa-clipboard"></i><span id=citePaperBibkey
+                  class="pl-2 text-monospace">enguehard-etal-2017-exploring</span></button></dd>
+            <dt>Cite (ACL):</dt>
+            <dd><span id=citeACL>Émile Enguehard, Yoav Goldberg, and Tal Linzen. 2017. <a
+                  href=https://aclanthology.org/K17-1003>Exploring the Syntactic Abilities of RNNs with Multi-task
+                  Learning</a>. In <i>Proceedings of the 21st Conference on Computational Natural Language Learning
+                  (CoNLL 2017)</i>, pages 3–14, Vancouver, Canada. Association for Computational
+                Linguistics.</span><button type=button class="btn btn-clipboard btn-secondary btn-sm d-none ml-2"
+                data-clipboard-target=#citeACL><i class="far fa-clipboard"></i></button></dd>
+            <dt>Cite (Informal):</dt>
+            <dd><span id=citeRichText><a href=https://aclanthology.org/K17-1003>Exploring the Syntactic Abilities of
+                  RNNs with Multi-task Learning</a> (Enguehard et al., CoNLL 2017)</span><button type=button
+                class="btn btn-clipboard btn-secondary btn-sm d-none ml-2" data-clipboard-target=#citeRichText><i
+                  class="far fa-clipboard"></i></button></dd>
+            <dt class=acl-button-row>Copy Citation:</dt>
+            <dd class=acl-button-row><button type=button class="btn btn-clipboard-outside btn-secondary btn-sm d-none"
+                data-clipboard-target=#citeMarkdownContent><i class="far fa-clipboard pr-2"></i>Markdown</button>
+              <button type=button class="btn btn-secondary btn-sm" data-toggle=modal data-target=#citeModal>More
+                options…</button>
+            </dd>
+            <dt>PDF:</dt>
+            <dd><a
+                href=https://preview.aclanthology.org/autopr/K17-1003.pdf>https://preview.aclanthology.org/autopr/K17-1003.pdf</a>
+            </dd>
+            <dt>Code</dt>
+            <dd><a href=https://github.com/emengd/multitask-agreement><i
+                  class="fab fa-github"></i>&nbsp;emengd/multitask-agreement</a></dd>
+            <dt>Data</dt>
+            <dd><a href=https://paperswithcode.com/dataset/penn-treebank>Penn Treebank</a></dd>
+        </div>
+        <div class=acl-paper-link-block><a class="btn btn-primary"
+            href=https://preview.aclanthology.org/autopr/K17-1003.pdf
+            title="Open PDF of 'Exploring the Syntactic Abilities of RNNs with Multi-task Learning'"><i
+              class="far fa-file-pdf"></i><span class=pl-2>PDF</span></a>
+          <a class="btn btn-secondary"
+            href="https://www.semanticscholar.org/search?q=Exploring+the+Syntactic+Abilities+of+RNNs+with+Multi-task+Learning"
+            title="Search for 'Exploring the Syntactic Abilities of RNNs with Multi-task Learning' on Semantic Scholar"><i
+              class="ai ai-semantic-scholar"></i><span class="pl-sm-2 d-none d-sm-inline">Search</span></a>
+          <a class="btn btn-secondary d-flex flex-wrap justify-content-center"
+            href="https://paperswithcode.com/paper/?acl=K17-1003"
+            title="Code for 'Exploring the Syntactic Abilities of RNNs with Multi-task Learning' on Papers with Code"><svg
+              xmlns="http://www.w3.org/2000/svg" class="pwc-icon-big" viewBox="0 0 512 512">
+              <path stroke="#4d8093" fill="#4d8093"
+                d="M88 128h48v256H88zm144 0h48v256h-48zm-72 16h48v224h-48zm144 0h48v224h-48zm72-16h48v256h-48z" />
+              <path stroke="#4d8093" fill="#4d8093"
+                d="M104 104V56H16v4e2h88v-48H64V104zM408 56v48h40v304h-40v48h88V56z" />
+            </svg><span class="pl-sm-2 d-none d-sm-inline">Code</span></a>
+          </div>
+      </div>
+      <hr>
+      <div class="modal fade" id=citeModal tabindex=-1 role=dialog aria-labelledby=citeModalLabel aria-hidden=true>
+        <div class="modal-dialog modal-lg" role=document>
+          <div class=modal-content>
+            <div class=modal-header>
+              <h5 class=modal-title id=citeModalLabel>Export citation</h5><button class=close data-dismiss=modal
+                aria-label=Close>
+                <span aria-hidden=true>&#215;</span></button>
+            </div>
+            <div class=modal-body>
+              <ul class="nav nav-tabs mb-2" id=citeFormats role=tablist>
+                <li class=nav-item><a class="nav-link disabled" data-toggle=list href=#citeBibtex role=tab
+                    aria-controls=citeBibtex aria-selected=false>BibTeX</a></li>
+                <li class=nav-item><a class="nav-link disabled" data-toggle=list href=#citeMods role=tab
+                    aria-controls=citeMods aria-selected=false>MODS XML</a></li>
+                <li class=nav-item><a class="nav-link disabled" data-toggle=list href=#citeEndnote role=tab
+                    aria-controls=citeEndnote aria-selected=false>Endnote</a></li>
+                <li class=nav-item><a class="nav-link active" data-toggle=list href=#citeMarkdown role=tab
+                    aria-controls=citeMarkdown aria-selected=true>Preformatted</a></li>
+              </ul>
+              <div class=tab-content id=citeFormatsContent>
+                <div class="tab-pane active" id=citeBibtex role=tabpanel></div>
+                <div class=tab-pane id=citeMods role=tabpanel></div>
+                <div class=tab-pane id=citeEndnote role=tabpanel></div>
+                <div class=tab-pane id=citeMarkdown role=tabpanel>
+                  <h5>Markdown (Informal)</h5>
+                  <p id=citeMarkdownContent class="text-monospace small bg-light border p-2">[Exploring the Syntactic
+                    Abilities of RNNs with Multi-task Learning](https://aclanthology.org/K17-1003) (Enguehard et al.,
+                    CoNLL 2017)</p>
+                  <ul class=mt-2>
+                    <li><a href=https://aclanthology.org/K17-1003>Exploring the Syntactic Abilities of RNNs with
+                        Multi-task Learning</a> (Enguehard et al., CoNLL 2017)</li>
+                  </ul>
+                  <h5>ACL</h5>
+                  <ul class=mt-2>
+                    <li id=citeACLstyleContent>Émile Enguehard, Yoav Goldberg, and Tal Linzen. 2017. <a
+                        href=https://aclanthology.org/K17-1003>Exploring the Syntactic Abilities of RNNs with Multi-task
+                        Learning</a>. In <i>Proceedings of the 21st Conference on Computational Natural Language
+                        Learning (CoNLL 2017)</i>, pages 3–14, Vancouver, Canada. Association for Computational
+                      Linguistics.</li>
+                  </ul>
+                  <div class="modal-footer pb-1"><button type=button class="btn btn-clipboard btn-primary d-none"
+                      data-clipboard-target=#citeMarkdownContent><i class="far fa-clipboard pr-2"></i>Copy Markdown to
+                      Clipboard</button>
+                    <button type=button class="btn btn-clipboard btn-primary d-none"
+                      data-clipboard-target=#citeACLstyleContent><i class="far fa-clipboard pr-2"></i>Copy ACL to
+                      Clipboard</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <details>
+        <summary>File a correction</summary>
+        <div>
+          <!doctype html>
+          <div class="columns container my-2">
+            <div class="column is-half is-offset-one-quarter">
+              <h1 class=title>Report errors in your paper's metadata</h1>
+              <form id=correction-form method=post><input type=hidden name=volume_id value=K17>
+                <input type=hidden name=anthology_id value=K17-1003>
+                <input type=hidden name=authors
+                  value="[map[first:Émile full:Émile Enguehard id:emile-enguehard last:Enguehard] map[first:Yoav full:Yoav Goldberg id:yoav-goldberg last:Goldberg] map[first:Tal full:Tal Linzen id:tal-linzen last:Linzen]]">
+                <label for=paper_title>Paper title:</label>
+                <input type=text id=paper_title name=paper_title
+                  value="Exploring the Syntactic Abilities of RNNs with Multi-task Learning"><br><br><label
+                  for=paper_url>Paper URL:</label>
+                <input type=text id=paper_url name=paper_url value=https://aclanthology.org/K17-1003><br><br><label
+                  for=paper_author>Paper authors:</label>
+                <label for=paper_author_first>First Name:</label>
+                <input type=text id=paper_author_first_1 name=paper_author_first_1 value=Yoav><br><br><label
+                  for=paper_author_last>Last Name:</label>
+                <input type=text id=paper_author_last_1 name=paper_author_last_1 value=Goldberg><br><br><label
+                  for=paper_author_first>First Name:</label>
+                <input type=text id=paper_author_first_2 name=paper_author_first_2 value=Tal><br><br><label
+                  for=paper_author_last>Last Name:</label>
+                <input type=text id=paper_author_last_2 name=paper_author_last_2 value=Linzen><br><br><button
+                  type=submit>Submit</button>
+            </div>
+          </div>
+          <script>console.log("Script is running!"), document.getElementById("correction-form").addEventListener("submit", function (e) {
+              e.preventDefault(); const d = new FormData(e.target), t = Object.fromEntries(d.entries()); console.log("Form Data:", t); const i = t.volume_id, s = t.anthology_id, a = t.paper_title, r = t.paper_url, c = t.paper_author_first + " " + t.paper_author_last, o = s + ".md"; console.log("Filename:", o); let l = `---
+  volume_id: "${i}"
+  anthology_id: "${s}"
+  title: "${a}"
+  url: "${r}"
+  author: "${c}"
+
+---
+
+`; const n = encodeURIComponent(l); console.log("Encoded File Text:", n); const u = "master/", h = "data/", m = "https://github.com/acl-org/acl-anthology/new/" + u + h + "new?value=" + n + "&filename=" + o; window.open(m)
+            })</script>
+        </div>
+      </details>
+    </section>
+
+
+
+
+  </div>
+  <footer class="bg-gradient-light py-2 py-xl-3 mt-3 mt-md-4 mt-xl-5">
+    <div class=container>
+      <p class="text-muted small px-1"><span class="float-right mt-2 ml-2"><a rel=license
+            href=http://creativecommons.org/licenses/by/4.0 /><img alt="Creative Commons License" style=border-width:0
+            src=https://i.creativecommons.org/l/by/4.0/88x31.png></a></span>
+        ACL materials are Copyright ©&nbsp;1963&ndash;2024 ACL; other materials are copyrighted by their respective
+        copyright holders. Materials prior to 2016 here are licensed under the <a
+          href=https://creativecommons.org/licenses/by-nc-sa/3.0 />Creative Commons Attribution-NonCommercial-ShareAlike
+        3.0 International License</a>. Permission is granted to make copies for the purposes of teaching and research.
+        Materials published in or after 2016 are licensed on a <a
+          href=https://creativecommons.org/licenses/by/4.0 />Creative Commons Attribution 4.0 International License</a>.
+      </p>
+      <p class="text-muted small px-1">The ACL Anthology is managed and built by the <a href=/autopr/info/credits />ACL
+        Anthology team</a> of volunteers.</p>
+      <p class="text-muted small px-1"><i>Site last built on 11 December 2024 at 16:44 UTC with <a
+            href=https://github.com/acl-org/acl-anthology/tree/6831fe17fea3f63388337a84773a181af4d3f759>commit
+            6831fe17</a>.</i></p>
+    </div>
+  </footer>
+  <script src=https://code.jquery.com/jquery-3.3.1.slim.min.js
+    integrity=sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo crossorigin=anonymous></script>
+  <script src=https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js
+    integrity=sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut crossorigin=anonymous></script>
+  <script src=https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js
+    integrity=sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k crossorigin=anonymous></script>
+  <script>$(function () { $('[data-toggle="tooltip"]').tooltip(), $("#toggle-all-abstracts") && ($("#toggle-all-abstracts").click(function () { var e = $("#toggle-all-abstracts"); e.attr("disabled", !0), e.attr("data-toggle-state") == "hide" ? ($(".abstract-collapse").collapse("show"), e.attr("data-toggle-state", "show")) : ($(".abstract-collapse").collapse("hide"), e.attr("data-toggle-state", "hide")), e.attr("disabled", !1) }), $("#toggle-all-abstracts").attr("disabled", !1)) })</script>
+  <script src=autopr/js/clipboard.min.js></script>
+  <script>$(document).ready(function () { if (ClipboardJS.isSupported()) { success_fn = function (e) { var t = $(e.trigger); t.toggleClass("btn-success"), t.children("i").toggleClass("far fa-clipboard fas fa-clipboard-check"), e.clearSelection(), setTimeout(function () { t.toggleClass("btn-success"), t.children("i").toggleClass("far fa-clipboard fas fa-clipboard-check") }, 2e3) }; var e, t = new ClipboardJS(".btn-clipboard"); t.on("success", success_fn), $(".btn-clipboard").removeClass("d-none"), e = new ClipboardJS(".btn-clipboard-outside", { text: function (e) { var t = e.getAttribute("data-clipboard-target"); return $(t).text() } }), e.on("success", success_fn), $(".btn-clipboard-outside").removeClass("d-none") } })
+
+  // Initial authors data
+  const initialAuthors = [
+      { first: "Émile", last: "Enguehard", affiliation: "" },
+      { first: "Yoav", last: "Goldberg", affiliation: "" },
+      { first: "Tal", last: "Linzen", affiliation: "" }
+  ];
+
+  let authors = [...initialAuthors];
+  let draggedItem = null;
+
+  function createAuthorRow(author, index) {
+      const div = document.createElement('div');
+      div.className = 'draggable flex gap-4 items-center p-4 bg-gray-50 rounded-lg';
+      div.draggable = true;
+      div.innerHTML = `
+          <input type="text" placeholder="First Name" class="flex-1 px-3 py-2 rounded-md border-gray-300" value="${author.first}">
+          <input type="text" placeholder="Last Name" class="flex-1 px-3 py-2 rounded-md border-gray-300" value="${author.last}">
+          <input type="text" placeholder="Affiliation" class="flex-1 px-3 py-2 rounded-md border-gray-300" value="${author.affiliation}">
+          <button type="button" class="remove-author px-2 py-1 text-red-600 hover:text-red-800">×</button>
+      `;
+
+      // Add drag and drop event listeners
+      div.addEventListener('dragstart', (e) => {
+          draggedItem = index;
+          div.classList.add('dragging');
+      });
+
+      div.addEventListener('dragend', () => {
+          div.classList.remove('dragging');
+      });
+
+      div.addEventListener('dragover', (e) => {
+          e.preventDefault();
+      });
+
+      div.addEventListener('drop', (e) => {
+          e.preventDefault();
+          const dropIndex = index;
+          if (draggedItem !== dropIndex) {
+              const temp = authors[draggedItem];
+              authors.splice(draggedItem, 1);
+              authors.splice(dropIndex, 0, temp);
+              renderAuthors();
+          }
+      });
+
+      // Add remove button listener
+      div.querySelector('.remove-author').addEventListener('click', () => {
+          authors.splice(index, 1);
+          renderAuthors();
+      });
+
+      // Add input change listeners
+      const inputs = div.querySelectorAll('input');
+      inputs[0].addEventListener('change', (e) => authors[index].first = e.target.value);
+      inputs[1].addEventListener('change', (e) => authors[index].last = e.target.value);
+      inputs[2].addEventListener('change', (e) => authors[index].affiliation = e.target.value);
+
+      return div;
+  }
+
+  function renderAuthors() {
+      const authorsList = document.getElementById('authorsList');
+      authorsList.innerHTML = '';
+      authors.forEach((author, index) => {
+          authorsList.appendChild(createAuthorRow(author, index));
+      });
+  }
+
+  // Initialize authors list
+  renderAuthors();
+
+  // Add author button
+  document.getElementById('addAuthor').addEventListener('click', () => {
+      authors.push({ first: '', last: '', affiliation: '' });
+      renderAuthors();
+  });
+
+  // Form submission
+  document.getElementById('paperForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const params = new URLSearchParams();
+      
+      params.append('title', document.getElementById('title').value);
+      params.append('abstract', document.getElementById('abstract').value);
+      
+      authors.forEach((author, index) => {
+          params.append(`author${index + 1}_first`, author.first);
+          params.append(`author${index + 1}_last`, author.last);
+          params.append(`author${index + 1}_affiliation`, author.affiliation);
+      });
+      
+      params.append('anthology_id', document.getElementById('anthology_id').value);
+
+      const url = `https://aclanthology.org/edit?${params.toString()}`;
+      alert(url);
+  });  
+
+
+  </script>
+</body>
+
+</html>
