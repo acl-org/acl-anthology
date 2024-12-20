@@ -8,64 +8,96 @@ jobs:
     if: contains(github.event.issue.labels.*.name, 'correction') && contains(github.event.issue.labels.*.name, 'metadata')
     runs-on: ubuntu-latest
     steps:
+      - name: Install dependencies
+        run: |
+          npm install axios
+
       - name: Extract JSON and get anthology ID
         id: extract-data
         uses: actions/github-script@v7
         with:
           script: |
-            const body = context.payload.issue.body;
+            const body = context.payload.issue.body.replace(/\r\n/g, '\n');
             const jsonMatch = body.match(/```json\n([\s\S]*?)\n```/);
             if (!jsonMatch) {
-              core.setOutput('No JSON found in issue body');
+              core.setFailed('No JSON found in issue body');
               return;
             }
             const jsonData = jsonMatch[1];
 
             // Parse JSON to get anthology_id
             const metadata = JSON.parse(jsonData);
+            delete metadata.abstract;
             const anthology_id = metadata.anthology_id;
 
-            core.setOutput('json', jsonData);
+            const author_list = metadata.authors.map(author => `${author.first} ${author.last}`).join(', ');
+
+            // get title, escape any double-quotes
+            const title = metadata.title.replace(/"/g, '\\"');
+
+            // Set output variable
             core.setOutput('anthology_id', anthology_id);
+            core.setOutput('author_list', author_list);
+            core.setOutput('title', title);
 
-      - name: Download thumbnail image
-        id: download-image
-        run: |
-          mkdir -p images
-          curl -o images/thumbnail.jpg "https://aclanthology.org/thumb/${{ steps.extract-data.outputs.anthology_id }}.jpg"
-          echo "image_path=images/thumbnail.jpg" >> $GITHUB_OUTPUT
-
-      - name: Validate corrections with OpenAI
+      - name: Validate with OpenAI
         id: openai-validation
-        uses: openai/openai-github-action@v1
+        uses: actions/github-script@v7
         with:
-          api-key: ${{ secrets.OPENAI_API_KEY }}
-          model: 'gpt-4-vision-preview'
-          temperature: 0.1
-          messages: |
-            [
-              {
-                "role": "system",
-                "content": "You are a helpful assistant that validates corrections to academic paper metadata. Compare the PDF thumbnail image against the proposed JSON corrections and determine if they are valid. Focus on checking: 1) Title matches 2) Authors match and are in correct order 3) Abstract matches. Respond with a JSON object having fields: 'valid' (boolean), 'errors' (array of strings describing any issues found), 'details' (string explaining the validation)"
-              },
-              {
-                "role": "user",
-                "content": [
-                  {
-                    "type": "text",
-                    "text": "Please validate the following corrections against this paper thumbnail:"
-                  },
-                  {
-                    "type": "image",
-                    "image_path": "${{ steps.download-image.outputs.image_path }}"
-                  },
-                  {
-                    "type": "text",
-                    "text": "Corrections JSON: ${{ steps.extract-data.outputs.json }}"
-                  }
-                ]
-              }
-            ]
+          script: |
+            const axios = require('axios');
+
+            const anthology_id = '${{ steps.extract-data.outputs.anthology_id }}';
+            const author_list = '${{ steps.extract-data.outputs.author_list }}';
+            const title = "${{ steps.extract-data.outputs.title }}";
+            const pdf_url = `https://www.aclanthology.org/${anthology_id}.pdf`;
+
+            try {
+                const response = await axios.post(
+                    'https://api.openai.com/v1/chat/completions',
+                    {
+                        model: 'gpt-4o-mini',
+                        messages: [
+                          {
+                            role: "system",
+                            content: "You are a sharp-eyed editor whose role is to validate proposed corrections to academic paper metadata. You are able to look at the first page of a PDF and determine the list of authors from reading order, as an person could, as well as to evaluate the title. You pay careful attention when comparing that information to any changes that are suggested."
+                          },
+                          {
+                            role: 'user',
+                            content: `Please download the PDF from ${pdf_url}, look at the title block on the first page, and then verify that its title and list of authors match the proposed corrections given below.\n\nFor the title corrections, please ignore formatting tags like <fixed-case>...</fixed-case> and focus on the words. It is also okay to have minor differences in title casing. The important thing is that the words are correct and complete.\n\nThe proposed title edit is: ${title}.\n\nFor the list of authors, please make sure that (1) the proposed list contains all authors, (2) each name is represented completely, and (3) the authors are in the correct order.\n\nThe proposed list of authors, given in a comma-separated list, is: ${author_list}.\n\nPlease return your result as a JSON structure with a single field, 'valid', a boolean, and a 'details' field, containing a list of detailed explanations for each of your decisions.`
+                          }
+                        ],
+                        max_tokens: 1000,
+                        temperature: 0.1,
+                    },
+                    {
+                      headers: {
+                        Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+                        'OpenAI-Organization': process.env.OPENAI_ORG,
+                        'Content-Type': 'application/json'
+                      }
+                    }
+                );
+
+                const response_text = response.data.choices[0].message.content;
+
+                // parse out the json part (```json ... ```)
+                const jsonMatch = response_text.match(/```json\n([\s\S]*?)\n```/);
+                if (!jsonMatch) {
+                  throw new Error('No JSON found in OpenAI response');
+                }
+                const result = jsonMatch[1];
+                core.setOutput('response', result);
+                return result;
+            } catch (error) {
+                console.error('Error calling OpenAI:', error.response?.data || error.message);
+                throw error;
+            }
+          result-encoding: json
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_ORG: ${{ secrets.OPENAI_ORG }}
 
       - name: Comment validation results
         uses: actions/github-script@v7
@@ -75,30 +107,27 @@ jobs:
 
             let comment = '';
             if (validation.valid) {
-              comment = '✅ **Validation Passed**\n\n' + validation.details;
+              comment = '✅ **LLM Validation Passed**\n\n';
             } else {
-              comment = '❌ **Validation Failed**\n\n';
-              comment += '**Errors found:**\n';
-              validation.errors.forEach(error => {
-                comment += `- ${error}\n`;
-              });
-              comment += '\n**Details:**\n' + validation.details;
+              comment = '❌ **LLM Validation Failed**\n\n';
             }
+            comment += '**Details:**\n';
+              validation.details.forEach(detail => {
+                comment += `- ${detail}\n`;
+              });
 
-            // Get existing validation comments
             const comments = await github.rest.issues.listComments({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo
             });
 
-            // Find the most recent validation comment
+            // look for existing comment to update
             const validationComment = comments.data.reverse().find(c =>
-              c.body.includes('**Validation') && c.user.login === 'github-actions[bot]'
+              c.body.includes('**LLM') && c.user.login === 'github-actions[bot]'
             );
 
             if (validationComment) {
-              // Update existing validation comment
               await github.rest.issues.updateComment({
                 comment_id: validationComment.id,
                 owner: context.repo.owner,
@@ -106,15 +135,10 @@ jobs:
                 body: comment
               });
             } else {
-              // Create new validation comment
               await github.rest.issues.createComment({
                 issue_number: context.issue.number,
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 body: comment
               });
-            }
-
-            if (!validation.valid) {
-              core.setFailed('Validation failed');
             }
