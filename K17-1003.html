@@ -9,6 +9,7 @@
   <title>Exploring the Syntactic Abilities of RNNs with Multi-task Learning - ACL Anthology</title>
   <meta name=generator content="Hugo 0.118.2">
   <link href=/autopr/aclicon.ico rel="shortcut icon" type=image/x-icon>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
   <link rel=stylesheet href=autopr/css/main.min.b1d14a9a8f6bb9c608ca4de9aad72a6e06945119f97951f2908522dc220e6277.css
     media=screen>
   <link rel=stylesheet href=https://use.fontawesome.com/releases/v5.7.2/css/all.css
@@ -37,14 +38,31 @@
 
   <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
   <style>
-      .draggable:hover {
-          cursor: move;
-          background-color: #f3f4f6;
-      }
-      .dragging {
-          opacity: 0.5;
-      }
-  </style>  
+  .author-row {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    align-items: center;
+    cursor: move;
+  }
+  .author-row input {
+    flex: 1;
+  }
+  .drag-handle {
+    cursor: grab;
+  }
+  .drag-handle:active {
+    cursor: grabbing;
+  }
+  .author-row {
+    cursor: grab;
+  }
+  .author-row:active {
+    cursor: grabbing;
+  }
+
+
+  </style>
 </head>
 
 <body>
@@ -87,78 +105,41 @@
         <p class=lead><a href=/autopr/people/e/emile-enguehard />Émile Enguehard</a>,
           <a href=/autopr/people/y/yoav-goldberg />Yoav Goldberg</a>,
           <a href=/autopr/people/t/tal-linzen />Tal Linzen</a>
-          <a href="#" class="small float-right" data-toggle="modal" data-target="#correctionModal">[Correct metadata]</a>
         </p>
       </div>
       <hr>
 
-<!-- Modal structure -->
-<div class="modal fade" id="correctionModal" tabindex="-1" role="dialog" aria-labelledby="correctionModalLabel" aria-hidden="true">
-  <div class="modal-dialog max-w-2xl" role="document">
-    <div class="modal-content bg-white rounded-lg shadow">
-      <div class="modal-header flex justify-between items-center px-4 py-2 border-b border-gray-200">
-        <h5 class="modal-title text-base font-medium text-gray-900" id="correctionModalLabel">File a Correction</h5>
-        <button type="button" class="text-gray-400 hover:text-gray-500" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+<!-- Modal -->
+<div class="modal fade" id="metadataModal" tabindex="-1" aria-labelledby="metadataModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"><span id="paperIdSpan"></span> Metadata Correction</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body p-4">
-        <form id="paperForm" class="space-y-4">
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1">Title</label>
-            <input type="text" id="title" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm" value="Exploring the Syntactic Abilities of RNNs with Multi-task Learning">
+      <div class="modal-body">
+        <form id="metadataForm">
+          <div class="mb-3">
+            <label for="paperTitle" class="form-label">Title</label>
+            <input type="text" class="form-control" id="paperTitle">
           </div>
+          <label class="form-label">Authors</label>
+          <div id="authorsContainer" ondrop="dropAuthor(event)" ondragover="allowDrop(event)"></div>
+          <button type="button" class="btn btn-secondary btn-sm mb-3" onclick="addAuthor()">Add Author</button>
 
-          <div>
-            <div class="flex justify-between items-center mb-1">
-              <label class="block text-sm font-medium text-gray-700">Authors</label>
-              <button type="button" id="addAuthor" class="px-2 py-1 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50">
-                Add Author
-              </button>
-            </div>
-            <div id="authorsList" class="grid gap-2">
-              <div class="grid grid-cols-12 gap-2 items-center bg-gray-50 p-2 rounded-md">
-                <input type="text" value="Émile" class="col-span-4 text-sm rounded-md border-gray-300">
-                <input type="text" value="Enguehard" class="col-span-4 text-sm rounded-md border-gray-300">
-                <input type="text" placeholder="Affiliation" class="col-span-3 text-sm rounded-md border-gray-300 text-gray-500">
-                <button type="button" class="col-span-1 text-gray-400 hover:text-gray-500">&times;</button>
-              </div>
-              <div class="grid grid-cols-12 gap-2 items-center bg-gray-50 p-2 rounded-md">
-                <input type="text" value="Yoav" class="col-span-4 text-sm rounded-md border-gray-300">
-                <input type="text" value="Goldberg" class="col-span-4 text-sm rounded-md border-gray-300">
-                <input type="text" placeholder="Affiliation" class="col-span-3 text-sm rounded-md border-gray-300 text-gray-500">
-                <button type="button" class="col-span-1 text-gray-400 hover:text-gray-500">&times;</button>
-              </div>
-              <div class="grid grid-cols-12 gap-2 items-center bg-gray-50 p-2 rounded-md">
-                <input type="text" value="Tal" class="col-span-4 text-sm rounded-md border-gray-300">
-                <input type="text" value="Linzen" class="col-span-4 text-sm rounded-md border-gray-300">
-                <input type="text" placeholder="Affiliation" class="col-span-3 text-sm rounded-md border-gray-300 text-gray-500">
-                <button type="button" class="col-span-1 text-gray-400 hover:text-gray-500">&times;</button>
-              </div>
-            </div>
-          </div>
-
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1">Abstract</label>
-            <textarea id="abstract" rows="4" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm">Recent work has explored the syntactic abilities of RNNs using the subject-verb agreement task, which diagnoses sensitivity to sentence structure. RNNs performed this task well in common cases, but faltered in complex sentences (Linzen et al., 2016). We test whether these errors are due to inherent limitations of the architecture or to the relatively indirect supervision provided by most agreement dependencies in a corpus. We trained a single RNN to perform both the agreement task and an additional task, either CCG supertagging or language modeling. Multi-task training led to significantly lower error rates, in particular on complex sentences, suggesting that RNNs have the ability to evolve more sophisticated syntactic representations than shown before. We also show that easily available agreement training data can improve performance on other syntactic tasks, in particular when only a limited amount of training data is available for those tasks. The multi-task paradigm can also be leveraged to inject grammatical knowledge into language models.</textarea>
-          </div>
-
-          <input type="hidden" id="anthology_id" value="K17-1003">
-
-          <div class="flex justify-end space-x-3">
-            <button type="button" class="px-3 py-1.5 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50" data-dismiss="modal">
-              Cancel
-            </button>
-            <button type="submit" class="px-3 py-1.5 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md hover:bg-indigo-700">
-              Submit
-            </button>
+          <div class="mb-3">
+            <label for="paperAbstract" class="form-label">Abstract</label>
+            <textarea class="form-control" id="paperAbstract" rows="6"></textarea>
           </div>
         </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" onclick="submitMetadataCorrection()">Submit</button>
       </div>
     </div>
   </div>
 </div>
-      
+
 
       <div class="row acl-paper-details">
         <div class="col col-lg-10 order-2">
@@ -259,6 +240,9 @@
               <path stroke="#4d8093" fill="#4d8093"
                 d="M104 104V56H16v4e2h88v-48H64V104zM408 56v48h40v304h-40v48h88V56z" />
             </svg><span class="pl-sm-2 d-none d-sm-inline">Code</span></a>
+            <a class="btn btn-warning d-flex flex-wrap justify-content-center" href=# title="Correct problems with title, author list, and abstract" onclick="showMetadataDialog()">
+              <span class="pl-sm-2 d-none d-sm-inline">Fix metadata</span>
+            </a>
           </div>
       </div>
       <hr>
@@ -386,109 +370,142 @@
     integrity=sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo crossorigin=anonymous></script>
   <script src=https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js
     integrity=sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut crossorigin=anonymous></script>
-  <script src=https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js
-    integrity=sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k crossorigin=anonymous></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <script>$(function () { $('[data-toggle="tooltip"]').tooltip(), $("#toggle-all-abstracts") && ($("#toggle-all-abstracts").click(function () { var e = $("#toggle-all-abstracts"); e.attr("disabled", !0), e.attr("data-toggle-state") == "hide" ? ($(".abstract-collapse").collapse("show"), e.attr("data-toggle-state", "show")) : ($(".abstract-collapse").collapse("hide"), e.attr("data-toggle-state", "hide")), e.attr("disabled", !1) }), $("#toggle-all-abstracts").attr("disabled", !1)) })</script>
   <script src=autopr/js/clipboard.min.js></script>
   <script>$(document).ready(function () { if (ClipboardJS.isSupported()) { success_fn = function (e) { var t = $(e.trigger); t.toggleClass("btn-success"), t.children("i").toggleClass("far fa-clipboard fas fa-clipboard-check"), e.clearSelection(), setTimeout(function () { t.toggleClass("btn-success"), t.children("i").toggleClass("far fa-clipboard fas fa-clipboard-check") }, 2e3) }; var e, t = new ClipboardJS(".btn-clipboard"); t.on("success", success_fn), $(".btn-clipboard").removeClass("d-none"), e = new ClipboardJS(".btn-clipboard-outside", { text: function (e) { var t = e.getAttribute("data-clipboard-target"); return $(t).text() } }), e.on("success", success_fn), $(".btn-clipboard-outside").removeClass("d-none") } })
 
-  // Initial authors data
-  const initialAuthors = [
-      { first: "Émile", last: "Enguehard", affiliation: "" },
-      { first: "Yoav", last: "Goldberg", affiliation: "" },
-      { first: "Tal", last: "Linzen", affiliation: "" }
-  ];
+  const paper_params = {
+  anthology_id: "2024.acl-1.1",
+  title: "Original Title",
+  authors: [
+    {"first": "Alice", "last": "Smith", "affiliation": "University A"},
+    {"first": "Bob", "last": "Johnson", "affiliation": "Company B"}
+  ],
+  abstract: "Original abstract text here."
+};
 
-  let authors = [...initialAuthors];
-  let draggedItem = null;
-
-  function createAuthorRow(author, index) {
-      const div = document.createElement('div');
-      div.className = 'draggable flex gap-4 items-center p-4 bg-gray-50 rounded-lg';
-      div.draggable = true;
-      div.innerHTML = `
-          <input type="text" placeholder="First Name" class="flex-1 px-3 py-2 rounded-md border-gray-300" value="${author.first}">
-          <input type="text" placeholder="Last Name" class="flex-1 px-3 py-2 rounded-md border-gray-300" value="${author.last}">
-          <input type="text" placeholder="Affiliation" class="flex-1 px-3 py-2 rounded-md border-gray-300" value="${author.affiliation}">
-          <button type="button" class="remove-author px-2 py-1 text-red-600 hover:text-red-800">×</button>
-      `;
-
-      // Add drag and drop event listeners
-      div.addEventListener('dragstart', (e) => {
-          draggedItem = index;
-          div.classList.add('dragging');
-      });
-
-      div.addEventListener('dragend', () => {
-          div.classList.remove('dragging');
-      });
-
-      div.addEventListener('dragover', (e) => {
-          e.preventDefault();
-      });
-
-      div.addEventListener('drop', (e) => {
-          e.preventDefault();
-          const dropIndex = index;
-          if (draggedItem !== dropIndex) {
-              const temp = authors[draggedItem];
-              authors.splice(draggedItem, 1);
-              authors.splice(dropIndex, 0, temp);
-              renderAuthors();
-          }
-      });
-
-      // Add remove button listener
-      div.querySelector('.remove-author').addEventListener('click', () => {
-          authors.splice(index, 1);
-          renderAuthors();
-      });
-
-      // Add input change listeners
-      const inputs = div.querySelectorAll('input');
-      inputs[0].addEventListener('change', (e) => authors[index].first = e.target.value);
-      inputs[1].addEventListener('change', (e) => authors[index].last = e.target.value);
-      inputs[2].addEventListener('change', (e) => authors[index].affiliation = e.target.value);
-
-      return div;
-  }
-
-  function renderAuthors() {
-      const authorsList = document.getElementById('authorsList');
-      authorsList.innerHTML = '';
-      authors.forEach((author, index) => {
-          authorsList.appendChild(createAuthorRow(author, index));
-      });
-  }
-
-  // Initialize authors list
-  renderAuthors();
-
-  // Add author button
-  document.getElementById('addAuthor').addEventListener('click', () => {
-      authors.push({ first: '', last: '', affiliation: '' });
-      renderAuthors();
+// Initial authors data
+function showMetadataDialog() {
+  // Populate the modal with current values
+  document.getElementById("paperIdSpan").textContent = paper_params.anthology_id;
+  document.getElementById("paperTitle").value = paper_params.title;
+  document.getElementById("paperAbstract").value = paper_params.abstract;
+  
+  const container = document.getElementById("authorsContainer");
+  container.innerHTML = "";
+  paper_params.authors.forEach((author, idx) => {
+    container.appendChild(createAuthorRow(author.first, author.last, author.affiliation));
   });
 
-  // Form submission
-  document.getElementById('paperForm').addEventListener('submit', (e) => {
-      e.preventDefault();
-      const params = new URLSearchParams();
-      
-      params.append('title', document.getElementById('title').value);
-      params.append('abstract', document.getElementById('abstract').value);
-      
-      authors.forEach((author, index) => {
-          params.append(`author${index + 1}_first`, author.first);
-          params.append(`author${index + 1}_last`, author.last);
-          params.append(`author${index + 1}_affiliation`, author.affiliation);
-      });
-      
-      params.append('anthology_id', document.getElementById('anthology_id').value);
+  const modal = new bootstrap.Modal(document.getElementById('metadataModal'));
+  modal.show();
+}
 
-      const url = `https://aclanthology.org/edit?${params.toString()}`;
-      alert(url);
-  });  
+function createAuthorRow(first, last, affiliation) {
+  const row = document.createElement('div');
+  row.className = 'author-row';
+  row.draggable = true;
+  row.ondragstart = dragAuthor;
+
+  const handle = document.createElement('span');
+  handle.className = 'drag-handle';
+  handle.textContent = '⋮';
+  handle.draggable = true;
+  
+  const firstName = document.createElement('input');
+  firstName.type = 'text';
+  firstName.placeholder = 'First name';
+  firstName.value = first;
+
+  const lastName = document.createElement('input');
+  lastName.type = 'text';
+  lastName.placeholder = 'Last name';
+  lastName.value = last;
+
+  const aff = document.createElement('input');
+  aff.type = 'text';
+  aff.placeholder = 'Affiliation';
+  aff.value = affiliation;
+
+  const delBtn = document.createElement('button');
+  delBtn.type = 'button';
+  delBtn.className = 'btn btn-sm btn-danger';
+  delBtn.textContent = 'Delete';
+  delBtn.onclick = () => row.remove();
+
+  row.appendChild(handle);
+  row.appendChild(firstName);
+  row.appendChild(lastName);
+  row.appendChild(aff);
+  row.appendChild(delBtn);
+
+  return row;
+}
+
+function addAuthor() {
+  const container = document.getElementById('authorsContainer');
+  container.appendChild(createAuthorRow("", "", ""));
+}
+
+// Drag & Drop functions for authors
+let draggedAuthor = null;
+function dragAuthor(ev) {
+  ev.dataTransfer.setData('text/plain', '');
+  draggedAuthor = ev.currentTarget;
+}
+function allowDrop(ev) {
+  ev.preventDefault();
+}
+function dropAuthor(ev) {
+  ev.preventDefault();
+  if (ev.target.id === "authorsContainer" || ev.target.parentNode.id === "authorsContainer") {
+    const container = document.getElementById("authorsContainer");
+    // Insert before the target row if we dropped on a row, otherwise at the end
+    if (ev.target.classList && ev.target.classList.contains('author-row')) {
+      container.insertBefore(draggedAuthor, ev.target);
+    } else if (ev.target.parentNode.classList && ev.target.parentNode.classList.contains('author-row')) {
+      container.insertBefore(draggedAuthor, ev.target.parentNode);
+    } else {
+      container.appendChild(draggedAuthor);
+    }
+  }
+}
+
+// New function to handle submission
+function submitMetadataCorrection() {
+  const newTitle = document.getElementById("paperTitle").value;
+  const newAbstract = document.getElementById("paperAbstract").value;
+
+  const authorRows = document.querySelectorAll("#authorsContainer .author-row");
+  const newAuthors = [];
+  authorRows.forEach(row => {
+    const inputs = row.querySelectorAll("input");
+    newAuthors.push({
+      "first": inputs[0].value,
+      "last": inputs[1].value,
+      "affiliation": inputs[2].value
+    });
+  });
+
+  const updatedParams = {
+    ...paper_params,
+    title: newTitle,
+    authors: newAuthors,
+    abstract: newAbstract
+  };
+
+  // Same assembly as original code
+  const baseurl = "https://github.com/acl-org/acl-anthology/issues/new?template=99-bulk-metadata-correction.yml";
+  const issue_title = `Metadata correction for ${updatedParams.anthology_id}`;
+  const labels = "metadata,correction";
+  const who = "anthology-assist";
+  const param_string = "```json\n" + JSON.stringify(updatedParams, null, 2) + "```";
+  
+  const url = baseurl + `&title=${encodeURIComponent(issue_title)}&assignee=${encodeURIComponent(who)}&labels=${encodeURIComponent(labels)}&data=` + encodeURIComponent(param_string);
+  
+  window.open(url, "_blank");
+}
 
 
   </script>
