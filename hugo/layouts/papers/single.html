@@ -33,6 +33,47 @@
   <meta property="og:url" content="{{ $paper.url }}" />
   <meta property="og:description" content="{{ $paper.author_string }}. {{ $paper.booktitle }}. {{ $paper.year }}." />
   <link rel="canonical" href="{{ $paper.url }}" />
+  <style>
+    .sortable-ghost {
+      opacity: 0.4;
+    }
+    .author-row {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+      align-items: center;
+      cursor: move;
+    }
+    .author-row input {
+      flex: 1;
+    }
+    .drag-handle {
+      cursor: grab;
+    }
+    .drag-handle:active {
+      cursor: grabbing;
+    }
+    .author-row {
+      cursor: grab;
+    }
+    .author-row:active {
+      cursor: grabbing;
+    }
+    .author-row {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+      align-items: center;
+      background: #f8f9fa;
+      padding: 0.5rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      cursor: grab; /* Signals draggability */
+    }
+    .author-row:active {
+      cursor: grabbing;
+    }
+  </style>
 {{ end }}
 
 {{ define "javascript" }}
