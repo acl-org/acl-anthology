@@ -38,6 +38,9 @@
 
   <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
   <style>
+  .sortable-ghost {
+    opacity: 0.4;
+  }
   .author-row {
     display: flex;
     gap: 0.5rem;
@@ -60,7 +63,20 @@
   .author-row:active {
     cursor: grabbing;
   }
-
+  .author-row {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    align-items: center;
+    background: #f8f9fa;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: grab; /* Signals draggability */
+  }
+  .author-row:active {
+    cursor: grabbing;
+  }
 
   </style>
 </head>
@@ -299,53 +315,7 @@
           </div>
         </div>
       </div>
-      <details>
-        <summary>File a correction</summary>
-        <div>
-          <!doctype html>
-          <div class="columns container my-2">
-            <div class="column is-half is-offset-one-quarter">
-              <h1 class=title>Report errors in your paper's metadata</h1>
-              <form id=correction-form method=post><input type=hidden name=volume_id value=K17>
-                <input type=hidden name=anthology_id value=K17-1003>
-                <input type=hidden name=authors
-                  value="[map[first:Émile full:Émile Enguehard id:emile-enguehard last:Enguehard] map[first:Yoav full:Yoav Goldberg id:yoav-goldberg last:Goldberg] map[first:Tal full:Tal Linzen id:tal-linzen last:Linzen]]">
-                <label for=paper_title>Paper title:</label>
-                <input type=text id=paper_title name=paper_title
-                  value="Exploring the Syntactic Abilities of RNNs with Multi-task Learning"><br><br><label
-                  for=paper_url>Paper URL:</label>
-                <input type=text id=paper_url name=paper_url value=https://aclanthology.org/K17-1003><br><br><label
-                  for=paper_author>Paper authors:</label>
-                <label for=paper_author_first>First Name:</label>
-                <input type=text id=paper_author_first_1 name=paper_author_first_1 value=Yoav><br><br><label
-                  for=paper_author_last>Last Name:</label>
-                <input type=text id=paper_author_last_1 name=paper_author_last_1 value=Goldberg><br><br><label
-                  for=paper_author_first>First Name:</label>
-                <input type=text id=paper_author_first_2 name=paper_author_first_2 value=Tal><br><br><label
-                  for=paper_author_last>Last Name:</label>
-                <input type=text id=paper_author_last_2 name=paper_author_last_2 value=Linzen><br><br><button
-                  type=submit>Submit</button>
-            </div>
-          </div>
-          <script>console.log("Script is running!"), document.getElementById("correction-form").addEventListener("submit", function (e) {
-              e.preventDefault(); const d = new FormData(e.target), t = Object.fromEntries(d.entries()); console.log("Form Data:", t); const i = t.volume_id, s = t.anthology_id, a = t.paper_title, r = t.paper_url, c = t.paper_author_first + " " + t.paper_author_last, o = s + ".md"; console.log("Filename:", o); let l = `---
-  volume_id: "${i}"
-  anthology_id: "${s}"
-  title: "${a}"
-  url: "${r}"
-  author: "${c}"
-
----
-
-`; const n = encodeURIComponent(l); console.log("Encoded File Text:", n); const u = "master/", h = "data/", m = "https://github.com/acl-org/acl-anthology/new/" + u + h + "new?value=" + n + "&filename=" + o; window.open(m)
-            })</script>
-        </div>
-      </details>
     </section>
-
-
-
-
   </div>
   <footer class="bg-gradient-light py-2 py-xl-3 mt-3 mt-md-4 mt-xl-5">
     <div class=container>
@@ -373,17 +343,19 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <script>$(function () { $('[data-toggle="tooltip"]').tooltip(), $("#toggle-all-abstracts") && ($("#toggle-all-abstracts").click(function () { var e = $("#toggle-all-abstracts"); e.attr("disabled", !0), e.attr("data-toggle-state") == "hide" ? ($(".abstract-collapse").collapse("show"), e.attr("data-toggle-state", "show")) : ($(".abstract-collapse").collapse("hide"), e.attr("data-toggle-state", "hide")), e.attr("disabled", !1) }), $("#toggle-all-abstracts").attr("disabled", !1)) })</script>
   <script src=autopr/js/clipboard.min.js></script>
+  <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
   <script>$(document).ready(function () { if (ClipboardJS.isSupported()) { success_fn = function (e) { var t = $(e.trigger); t.toggleClass("btn-success"), t.children("i").toggleClass("far fa-clipboard fas fa-clipboard-check"), e.clearSelection(), setTimeout(function () { t.toggleClass("btn-success"), t.children("i").toggleClass("far fa-clipboard fas fa-clipboard-check") }, 2e3) }; var e, t = new ClipboardJS(".btn-clipboard"); t.on("success", success_fn), $(".btn-clipboard").removeClass("d-none"), e = new ClipboardJS(".btn-clipboard-outside", { text: function (e) { var t = e.getAttribute("data-clipboard-target"); return $(t).text() } }), e.on("success", success_fn), $(".btn-clipboard-outside").removeClass("d-none") } })
 
   const paper_params = {
-  anthology_id: "2024.acl-1.1",
-  title: "Original Title",
-  authors: [
-    {"first": "Alice", "last": "Smith", "affiliation": "University A"},
-    {"first": "Bob", "last": "Johnson", "affiliation": "Company B"}
-  ],
-  abstract: "Original abstract text here."
-};
+    anthology_id: "K17-1003",
+    title: "Exploring the Syntactic Abilities of RNNs with Multi-task Learning",
+    authors: [
+      {"first": "Émile", "last": "Enguehard", "affiliation": ""},
+      {"first": "Yoav", "last": "Goldberg", "affiliation": ""},
+      {"first": "Tal", "last": "Linzen", "affiliation": ""}
+    ],
+    abstract: "Recent work has explored the syntactic abilities of RNNs using the subject-verb agreement task, which diagnoses sensitivity to sentence structure. RNNs performed this task well in common cases, but faltered in complex sentences (Linzen et al., 2016). We test whether these errors are due to inherent limitations of the architecture or to the relatively indirect supervision provided by most agreement dependencies in a corpus. We trained a single RNN to perform both the agreement task and an additional task, either CCG supertagging or language modeling. Multi-task training led to significantly lower error rates, in particular on complex sentences, suggesting that RNNs have the ability to evolve more sophisticated syntactic representations than shown before. We also show that easily available agreement training data can improve performance on other syntactic tasks, in particular when only a limited amount of training data is available for those tasks. The multi-task paradigm can also be leveraged to inject grammatical knowledge into language models."
+  };
 
 // Initial authors data
 function showMetadataDialog() {
@@ -401,114 +373,152 @@ function showMetadataDialog() {
   const modal = new bootstrap.Modal(document.getElementById('metadataModal'));
   modal.show();
 }
+</script>
+<div id="authorsContainer"></div>
 
-function createAuthorRow(first, last, affiliation) {
-  const row = document.createElement('div');
-  row.className = 'author-row';
-  row.draggable = true;
-  row.ondragstart = dragAuthor;
+<script>
+  // Just call Sortable on your container after you’ve populated it:
+  new Sortable(document.getElementById('authorsContainer'), {
+    animation: 150, // a nice animation
+    handle: '.drag-handle', // if you have a handle
+    ghostClass: 'sortable-ghost'
+  });
+  </script>
 
-  const handle = document.createElement('span');
-  handle.className = 'drag-handle';
-  handle.textContent = '⋮';
-  handle.draggable = true;
-  
-  const firstName = document.createElement('input');
-  firstName.type = 'text';
-  firstName.placeholder = 'First name';
-  firstName.value = first;
-
-  const lastName = document.createElement('input');
-  lastName.type = 'text';
-  lastName.placeholder = 'Last name';
-  lastName.value = last;
-
-  const aff = document.createElement('input');
-  aff.type = 'text';
-  aff.placeholder = 'Affiliation';
-  aff.value = affiliation;
-
-  const delBtn = document.createElement('button');
-  delBtn.type = 'button';
-  delBtn.className = 'btn btn-sm btn-danger';
-  delBtn.textContent = 'Delete';
-  delBtn.onclick = () => row.remove();
-
-  row.appendChild(handle);
-  row.appendChild(firstName);
-  row.appendChild(lastName);
-  row.appendChild(aff);
-  row.appendChild(delBtn);
-
-  return row;
-}
-
-function addAuthor() {
-  const container = document.getElementById('authorsContainer');
-  container.appendChild(createAuthorRow("", "", ""));
-}
-
-// Drag & Drop functions for authors
-let draggedAuthor = null;
-function dragAuthor(ev) {
-  ev.dataTransfer.setData('text/plain', '');
-  draggedAuthor = ev.currentTarget;
-}
-function allowDrop(ev) {
-  ev.preventDefault();
-}
-function dropAuthor(ev) {
-  ev.preventDefault();
-  if (ev.target.id === "authorsContainer" || ev.target.parentNode.id === "authorsContainer") {
-    const container = document.getElementById("authorsContainer");
-    // Insert before the target row if we dropped on a row, otherwise at the end
-    if (ev.target.classList && ev.target.classList.contains('author-row')) {
-      container.insertBefore(draggedAuthor, ev.target);
-    } else if (ev.target.parentNode.classList && ev.target.parentNode.classList.contains('author-row')) {
-      container.insertBefore(draggedAuthor, ev.target.parentNode);
-    } else {
-      container.appendChild(draggedAuthor);
+<script>
+  // Dragstart: store the element being dragged
+  authorsContainer.addEventListener('dragstart', (e) => {
+    const row = e.target.closest('.author-row');
+    if (row) {
+      draggedElement = row;
+      e.dataTransfer.effectAllowed = 'move';
+      e.dataTransfer.setData('text/plain', 'reordering'); // required to initiate drag
     }
-  }
-}
-
-// New function to handle submission
-function submitMetadataCorrection() {
-  const newTitle = document.getElementById("paperTitle").value;
-  const newAbstract = document.getElementById("paperAbstract").value;
-
-  const authorRows = document.querySelectorAll("#authorsContainer .author-row");
-  const newAuthors = [];
-  authorRows.forEach(row => {
-    const inputs = row.querySelectorAll("input");
-    newAuthors.push({
-      "first": inputs[0].value,
-      "last": inputs[1].value,
-      "affiliation": inputs[2].value
-    });
   });
 
-  const updatedParams = {
-    ...paper_params,
-    title: newTitle,
-    authors: newAuthors,
-    abstract: newAbstract
-  };
+  // Dragover: allow drop
+  authorsContainer.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+  });
 
-  // Same assembly as original code
-  const baseurl = "https://github.com/acl-org/acl-anthology/issues/new?template=99-bulk-metadata-correction.yml";
-  const issue_title = `Metadata correction for ${updatedParams.anthology_id}`;
-  const labels = "metadata,correction";
-  const who = "anthology-assist";
-  const param_string = "```json\n" + JSON.stringify(updatedParams, null, 2) + "```";
-  
-  const url = baseurl + `&title=${encodeURIComponent(issue_title)}&assignee=${encodeURIComponent(who)}&labels=${encodeURIComponent(labels)}&data=` + encodeURIComponent(param_string);
-  
-  window.open(url, "_blank");
-}
+  // Drop: Insert the dragged element before the hovered row if found
+  authorsContainer.addEventListener('drop', (e) => {
+    e.preventDefault();
+    const targetRow = e.target.closest('.author-row');
+    if (targetRow && targetRow !== draggedElement) {
+      authorsContainer.insertBefore(draggedElement, targetRow);
+    } else if (!targetRow) {
+      // If dropped outside any specific row, append to the end
+      authorsContainer.appendChild(draggedElement);
+    }
+    draggedElement = null;
+  });
 
+  function createAuthorRow(first, last, affiliation) {
+    const row = document.createElement('div');
+    row.className = 'author-row';
+    row.draggable = true;
+    row.ondragstart = dragAuthor;
 
+    const handle = document.createElement('span');
+    handle.className = 'drag-handle';
+    handle.textContent = '⋮';
+    handle.draggable = true;
+    
+    const firstName = document.createElement('input');
+    firstName.type = 'text';
+    firstName.placeholder = 'First name';
+    firstName.value = first;
+
+    const lastName = document.createElement('input');
+    lastName.type = 'text';
+    lastName.placeholder = 'Last name';
+    lastName.value = last;
+
+    const aff = document.createElement('input');
+    aff.type = 'text';
+    aff.placeholder = 'Affiliation';
+    aff.value = affiliation;
+
+    const delBtn = document.createElement('button');
+    delBtn.type = 'button';
+    delBtn.className = 'btn btn-sm btn-danger';
+    delBtn.textContent = 'Delete';
+    delBtn.onclick = () => row.remove();
+
+    row.appendChild(handle);
+    row.appendChild(firstName);
+    row.appendChild(lastName);
+    row.appendChild(aff);
+    row.appendChild(delBtn);
+
+    return row;
+  }
+
+  function addAuthor() {
+    const container = document.getElementById('authorsContainer');
+    container.appendChild(createAuthorRow("", "", ""));
+  }
+
+  // Drag & Drop functions for authors
+  let draggedAuthor = null;
+  function dragAuthor(ev) {
+    ev.dataTransfer.setData('text/plain', '');
+    draggedAuthor = ev.currentTarget;
+  }
+  function allowDrop(ev) {
+    ev.preventDefault();
+  }
+  function dropAuthor(ev) {
+    ev.preventDefault();
+    if (ev.target.id === "authorsContainer" || ev.target.parentNode.id === "authorsContainer") {
+      const container = document.getElementById("authorsContainer");
+      // Insert before the target row if we dropped on a row, otherwise at the end
+      if (ev.target.classList && ev.target.classList.contains('author-row')) {
+        container.insertBefore(draggedAuthor, ev.target);
+      } else if (ev.target.parentNode.classList && ev.target.parentNode.classList.contains('author-row')) {
+        container.insertBefore(draggedAuthor, ev.target.parentNode);
+      } else {
+        container.appendChild(draggedAuthor);
+      }
+    }
+  }
+
+  // New function to handle submission
+  function submitMetadataCorrection() {
+    const newTitle = document.getElementById("paperTitle").value;
+    const newAbstract = document.getElementById("paperAbstract").value;
+
+    const authorRows = document.querySelectorAll("#authorsContainer .author-row");
+    const newAuthors = [];
+    authorRows.forEach(row => {
+      const inputs = row.querySelectorAll("input");
+      newAuthors.push({
+        "first": inputs[0].value,
+        "last": inputs[1].value,
+        "affiliation": inputs[2].value
+      });
+    });
+
+    const updatedParams = {
+      ...paper_params,
+      title: newTitle,
+      authors: newAuthors,
+      abstract: newAbstract
+    };
+
+    // Same assembly as original code
+    const baseurl = "https://github.com/acl-org/acl-anthology/issues/new?template=99-bulk-metadata-correction.yml";
+    const issue_title = `Metadata correction for ${updatedParams.anthology_id}`;
+    const labels = "metadata,correction";
+    const who = "anthology-assist";
+    const param_string = "```json\n" + JSON.stringify(updatedParams, null, 2) + "\n```";
+    
+    const url = baseurl + `&title=${encodeURIComponent(issue_title)}&assignee=${encodeURIComponent(who)}&labels=${encodeURIComponent(labels)}&data=` + encodeURIComponent(param_string);
+    
+    window.open(url, "_blank");
+  }
   </script>
 </body>
-
 </html>
