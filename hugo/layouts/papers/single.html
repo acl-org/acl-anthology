@@ -140,7 +140,7 @@
     document.getElementById("paperIdSpan").textContent = paper_params.anthology_id;
     document.getElementById("paperTitle").value = paper_params.title;
     document.getElementById("paperAbstract").value = paper_params.abstract;
-    
+
     const container = document.getElementById("authorsContainer");
     container.innerHTML = "";
     paper_params.authors.forEach((author, idx) => {
@@ -196,7 +196,7 @@
     handle.className = 'drag-handle';
     handle.textContent = '⋮';
     handle.draggable = true;
-    
+
     const firstName = document.createElement('input');
     firstName.type = 'text';
     firstName.placeholder = 'First name';
@@ -285,9 +285,9 @@
     const labels = "metadata,correction";
     const who = "anthology-assist";
     const param_string = "```json\n" + JSON.stringify(updatedParams, null, 2) + "\n```";
-    
+
     const url = baseurl + `&title=${encodeURIComponent(issue_title)}&assignee=${encodeURIComponent(who)}&labels=${encodeURIComponent(labels)}&data=` + encodeURIComponent(param_string);
-    
+
     window.open(url, "_blank");
   }
 </script>
@@ -336,7 +336,7 @@
             <small id="authorTitleHelp" class="form-text text-muted">Adjust author names, affiliations, and list order to match the PDF.</small>
             <div id="authorsContainer" ondrop="dropAuthor(event)" ondragover="allowDrop(event)"></div>
             <button type="button" class="btn btn-secondary btn-sm mb-3" onclick="addAuthor()">Add Author</button>
-  
+
             <div class="mb-3">
               <label for="paperAbstract" class="form-label">Abstract</label>
               <small id="abstractTitleHelp" class="form-text text-muted">Correct abstract if needed. Retain XML formatting tags such as &lt;tex-math&gt;.</small>
