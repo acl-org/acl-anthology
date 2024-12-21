@@ -125,7 +125,8 @@ def paper_to_dict(paper):
             data["editor"] = editors
     if "author" in data:
         data["author_string"] = ", ".join(author["full"] for author in data["author"])
-    for key in ("doi", "note"):
+    for key in ("doi", "issue", "note"):
+        # TODO: Key 'issue' is currently unused on Hugo templates
         if (value := getattr(paper, key)) is not None:
             data[key] = value
     if (language_name := paper.language_name) is not None:
