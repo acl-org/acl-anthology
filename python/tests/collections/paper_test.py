@@ -58,6 +58,17 @@ def test_paper_get_events(anthology):
     assert paper.get_events() == [anthology.events["acl-2022"]]
 
 
+def test_paper_attachments(anthology):
+    paper = anthology.get_paper("2022.acl-long.48")
+    assert paper is not None
+    assert len(paper.attachments) == 2
+    attachments = sorted((att_type, att.name) for (att_type, att) in paper.attachments)
+    assert attachments == [
+        ("software", "2022.acl-long.48.software.txt"),
+        ("software", "2022.acl-long.48.software.zip"),
+    ]
+
+
 test_cases_language = (
     ("2022.acl-short.11", None, None),
     ("2022.naloma-1.3", "fra", "French"),
@@ -150,6 +161,7 @@ test_cases_xml = (
   <note>This is not a real paper, obviously.</note>
   <attachment hash="a6a7a5a4" type="website">2023.fake-attachment</attachment>
   <attachment hash="12345678" type="software">2023.fake-software</attachment>
+  <attachment hash="12345690" type="software">2023.extra-software</attachment>
   <video href="2023.fake-video.mp4"/>
   <award>Most ridiculous entry</award>
   <removed date="2023-09-30">Removed immediately for being fake</removed>

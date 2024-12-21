@@ -21,6 +21,7 @@
 ### Changed
 
 - `Venue.item_ids` and `Person.item_ids` are now lists instead of sets. This is because we need to preserve the order in which items were added when loading the XML, as this is meaningful (e.g. reflects the order in which items should appear on the Anthology website).
+- `Paper.attachments` is now a list of tuples, instead of a dict. This is because attachment types are not always unique (e.g., there can be two "software" attachments).
 - Bugfix: Events now use the correct URL template.
 - Bugfix: Events that are both implicitly _and_ explicitly created now merge their information, instead of overwriting each other.
 - Bugfix: Converting a `<texmath>` expression to Unicode no longer serializes the tail of the XML tag, but only the TeX math expression itself.

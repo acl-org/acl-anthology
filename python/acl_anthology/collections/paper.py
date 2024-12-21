@@ -59,7 +59,7 @@ class Paper:
         title: The title of the paper.
 
     Attributes: List Attributes:
-        attachments: File attachments of this paper. The dictionary key specifies the type of attachment (e.g., "software").
+        attachments: File attachments of this paper, as tuples of the format `(type_of_attachment, attachment_file)`; can be empty.
         authors: Names of authors associated with this paper; can be empty.
         awards: Names of awards this has paper has received; can be empty.
         editors: Names of editors associated with this paper; can be empty.
@@ -85,7 +85,7 @@ class Paper:
     bibkey: str = field()
     title: MarkupText = field()
 
-    attachments: dict[str, AttachmentReference] = field(factory=dict, repr=False)
+    attachments: list[tuple[str, AttachmentReference]] = field(factory=list, repr=False)
     authors: list[NameSpecification] = Factory(list)
     awards: list[str] = field(factory=list, repr=False)
     # TODO: why can a Paper ever have "editors"? it's allowed by the schema
@@ -367,7 +367,7 @@ class Paper:
             "parent": parent,
             # A frontmatter's title is the parent volume's title
             "title": parent.title,
-            "attachments": {},
+            "attachments": [],
         }
         # Frontmatter only supports a small subset of regular paper attributes,
         # so we duplicate these here -- but maybe suboptimal?
@@ -376,7 +376,9 @@ class Paper:
                 kwargs[element.tag] = element.text
             elif element.tag == "attachment":
                 type_ = str(element.get("type", "attachment"))
-                kwargs["attachments"][type_] = AttachmentReference.from_xml(element)
+                kwargs["attachments"].append(
+                    (type_, AttachmentReference.from_xml(element))
+                )
             elif element.tag == "revision":
                 if "revisions" not in kwargs:
                     kwargs["revisions"] = []
@@ -401,7 +403,7 @@ class Paper:
             "parent": parent,
             "authors": [],
             "editors": [],
-            "attachments": {},
+            "attachments": [],
         }
         if (ingest_date := paper.get("ingest-date")) is not None:
             kwargs["ingest_date"] = str(ingest_date)
@@ -418,7 +420,9 @@ class Paper:
                 kwargs[element.tag] = MarkupText.from_xml(element)
             elif element.tag == "attachment":
                 type_ = str(element.get("type", "attachment"))
-                kwargs["attachments"][type_] = AttachmentReference.from_xml(element)
+                kwargs["attachments"].append(
+                    (type_, AttachmentReference.from_xml(element))
+                )
             elif element.tag == "award":
                 if "awards" not in kwargs:
                     kwargs["awards"] = []
@@ -482,7 +486,7 @@ class Paper:
         for tag in ("doi", "issue", "language", "note"):
             if (value := getattr(self, tag)) is not None:
                 paper.append(getattr(E, tag)(value))
-        for type_, attachment in self.attachments.items():
+        for type_, attachment in self.attachments:
             elem = attachment.to_xml("attachment")
             elem.set("type", type_)
             paper.append(elem)
