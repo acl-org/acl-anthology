@@ -81,6 +81,7 @@ class MarkupText:
     _html: Optional[str] = field(init=False, default=None)
     _latex: Optional[str] = field(init=False, default=None)
     _text: Optional[str] = field(init=False, default=None)
+    _xml: Optional[str] = field(init=False, default=None)
 
     def __str__(self) -> str:
         return self.as_text()
@@ -89,7 +90,7 @@ class MarkupText:
         return f"<MarkupText {self.as_html()!r}>"
 
     def __rich_repr__(self) -> Iterator[str]:
-        yield self.as_html()
+        yield self.as_xml()
 
     @property
     def contains_markup(self) -> bool:
@@ -157,6 +158,17 @@ class MarkupText:
             latex = markup_to_latex(self._content)
             self._latex = remove_extra_whitespace(latex)
         return self._latex
+
+    def as_xml(self) -> str:
+        """
+        Returns:
+            Text with markup in the original XML format.
+        """
+        if isinstance(self._content, str):
+            return xml_escape(self._content)
+        if self._xml is None:
+            self._xml = remove_extra_whitespace(stringify_children(self._content))
+        return self._xml
 
     @classmethod
     def from_string(cls, text: str) -> MarkupText:

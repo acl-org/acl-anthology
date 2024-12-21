@@ -16,6 +16,7 @@
 - Papers now have attribute `issue` to record issue numbers set at paper level. You probably want to use `Paper.get_issue()` to access these.
 - Volumes now have attributes `has_abstracts`, `venue_acronym`, and `web_url`.
 - Names now have function `as_full()`, returning the full name in the appropriate format based on whether it is given in Han or Latin script.
+- MarkupText now has function `as_xml()` to return a string of the internal XML representation.
 
 ### Changed
 
