@@ -47,6 +47,26 @@ test_cases_volume_xml = (
   </frontmatter>
 </volume>
 """,
+    """<volume id="demo" type="proceedings" ingest-date="2022-05-15">
+  <meta>
+    <booktitle>Proceedings of the 60th Annual Meeting of the Association for Computational Linguistics: System Demonstrations</booktitle>
+    <editor><first>Valerio</first><last>Basile</last></editor>
+    <editor><first>Zornitsa</first><last>Kozareva</last></editor>
+    <editor><first>Sanja</first><last>Stajner</last></editor>
+    <publisher>Association for Computational Linguistics</publisher>
+    <address>Dublin, Ireland</address>
+    <doi>10.18653/v1/2022.acl-demo</doi>
+    <month>May</month>
+    <year>2022</year>
+    <url hash="d92e3f4d">2022.acl-demo</url>
+    <venue>acl</venue>
+  </meta>
+  <frontmatter>
+    <url hash="ad64a7d9">2022.acl-demo.0</url>
+    <bibkey>acl-2022-association-linguistics-system</bibkey>
+  </frontmatter>
+</volume>
+""",
     """<volume id="1" type="journal">
   <meta>
     <booktitle>Computational Linguistics, Volume 15, Number 1, March 1989</booktitle>
@@ -138,7 +158,7 @@ def test_volume_all_attribs():
     assert volume.get_ingest_date() == date(2023, 1, 12)
 
 
-def test_volume_attributes_2022acl(anthology):
+def test_volume_attributes_2022acl_long(anthology):
     volume = anthology.get_volume("2022.acl-long")
     assert isinstance(volume, Volume)
     assert volume.id == "long"
@@ -146,10 +166,29 @@ def test_volume_attributes_2022acl(anthology):
     assert volume.get_ingest_date() == date(2022, 5, 15)
     assert volume.address == "Dublin, Ireland"
     assert volume.publisher == "Association for Computational Linguistics"
+    assert volume.doi is None
     assert volume.month == "May"
     assert volume.year == "2022"
     assert volume.pdf.name == "2022.acl-long"
     assert volume.pdf.checksum == "b8317652"
+    assert volume.venue_ids == ["acl"]
+    assert volume.venue_acronym == "ACL"
+    assert not volume.is_workshop
+
+
+def test_volume_attributes_2022acl_demo(anthology):
+    volume = anthology.get_volume("2022.acl-demo")
+    assert isinstance(volume, Volume)
+    assert volume.id == "demo"
+    assert volume.ingest_date == "2022-05-15"
+    assert volume.get_ingest_date() == date(2022, 5, 15)
+    assert volume.address == "Dublin, Ireland"
+    assert volume.publisher == "Association for Computational Linguistics"
+    assert volume.doi == "10.18653/v1/2022.acl-demo"
+    assert volume.month == "May"
+    assert volume.year == "2022"
+    assert volume.pdf.name == "2022.acl-demo"
+    assert volume.pdf.checksum == "d92e3f4d"
     assert volume.venue_ids == ["acl"]
     assert volume.venue_acronym == "ACL"
     assert not volume.is_workshop
