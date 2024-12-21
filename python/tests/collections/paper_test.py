@@ -112,6 +112,13 @@ test_cases_xml = (
   <bibkey>nn-1989-briefly</bibkey>
 </paper>
 """,
+    """<paper id="9">
+  <title>Briefly Noted</title>
+  <url hash="166bd6c1">J89-1009</url>
+  <issue>42</issue>
+  <bibkey>nn-1989-briefly</bibkey>
+</paper>
+""",
     """<paper id="6">
   <title>Domain Adaptation in Multilingual and Multi-Domain Monolingual Settings for Complex Word Identification</title>
   <author><first>George-Eduard</first><last>Zaharia</last></author>
@@ -267,6 +274,11 @@ test_cases_papercitation = (
     (
         "J89-1005",
         'Barron Brainerd. 1989. <a href="https://aclanthology.org/J89-1005/">Book Reviews: Mathematics of Language</a>. <i>Computational Linguistics</i>, 15(1).',
+    ),
+    # Journal article, issue number defined at paper level
+    (
+        "J89-3003",
+        'Tomek Strzalkowski and Nick Cercone. 1989. <a href="https://aclanthology.org/J89-3003/">Non-singular Concepts in Natural Language Discourse</a>. <i>Computational Linguistics</i>, 15(10):171–186.',
     ),
     # Journal article, no author
     (

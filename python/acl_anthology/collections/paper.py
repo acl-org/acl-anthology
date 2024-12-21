@@ -72,6 +72,7 @@ class Paper:
         deletion: A notice of the paper's retraction or removal, if applicable.
         doi: The DOI for the paper.
         ingest_date: The date of ingestion.
+        issue: The journal issue for this paper, if not identical for the entire volume.
         language: The language this paper is (mainly) written in.  When given, this should be a ISO 639-2 code (e.g. "eng"), though occasionally IETF is used (e.g. "pt-BR").
         note: A note attached to this paper.  Used very sparingly.
         pages: Page numbers of this paper within its volume.
@@ -97,6 +98,7 @@ class Paper:
     deletion: Optional[PaperDeletionNotice] = field(default=None, repr=False)
     doi: Optional[str] = field(default=None, repr=False)
     ingest_date: Optional[str] = field(default=None, repr=False)
+    issue: Optional[str] = field(default=None, repr=False)
     language: Optional[str] = field(default=None, repr=False)
     note: Optional[str] = field(default=None, repr=False)
     pages: Optional[str] = field(default=None, repr=False)
@@ -189,7 +191,7 @@ class Paper:
             case VolumeType.JOURNAL:
                 data["container-title"] = self.parent.get_journal_title()
                 data["volume"] = self.parent.journal_volume
-                data["issue"] = self.parent.journal_issue
+                data["issue"] = self.get_issue()
             case VolumeType.PROCEEDINGS:
                 data["container-title"] = self.parent.title.as_text()
         return {k: v for k, v in data.items() if v is not None}
@@ -263,6 +265,15 @@ class Paper:
             return self.parent.get_ingest_date()
         return datetime.date.fromisoformat(self.ingest_date)
 
+    def get_issue(self) -> Optional[str]:
+        """
+        Returns:
+            The issue number of this paper. Inherits from its parent volume unless explicitly set for the paper.
+        """
+        if self.issue is None:
+            return self.parent.journal_issue
+        return self.issue
+
     def to_bibtex(self, with_abstract: bool = False) -> str:
         """Generate a BibTeX entry for this paper.
 
@@ -286,7 +297,7 @@ class Paper:
                         [
                             ("journal", self.parent.get_journal_title()),
                             ("volume", self.parent.journal_volume),
-                            ("number", self.parent.journal_issue),
+                            ("number", self.get_issue()),
                         ]
                     )
                 case VolumeType.PROCEEDINGS:
@@ -399,7 +410,7 @@ class Paper:
             log.debug(f"Paper {paper.get('id')!r}: Type attribute is currently ignored")
             # kwargs["type"] = str(paper_type)
         for element in paper:
-            if element.tag in ("bibkey", "doi", "language", "note", "pages"):
+            if element.tag in ("bibkey", "doi", "issue", "language", "note", "pages"):
                 kwargs[element.tag] = element.text
             elif element.tag in ("author", "editor"):
                 kwargs[f"{element.tag}s"].append(NameSpecification.from_xml(element))
@@ -432,7 +443,7 @@ class Paper:
                 if "videos" not in kwargs:
                     kwargs["videos"] = []
                 kwargs["videos"].append(VideoReference.from_xml(element))
-            elif element.tag in ("issue", "journal", "mrf"):
+            elif element.tag in ("journal", "mrf"):
                 # TODO: these fields are currently ignored
                 log.debug(
                     f"Paper {paper.get('id')!r}: Tag '{element.tag}' is currently ignored"
@@ -468,7 +479,7 @@ class Paper:
             paper.append(erratum.to_xml())
         for revision in self.revisions:
             paper.append(revision.to_xml())
-        for tag in ("doi", "language", "note"):
+        for tag in ("doi", "issue", "language", "note"):
             if (value := getattr(self, tag)) is not None:
                 paper.append(getattr(E, tag)(value))
         for type_, attachment in self.attachments.items():

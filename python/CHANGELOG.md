@@ -13,6 +13,7 @@
 - VenueIndex now reverse-indexes associated volumes, so it is now possible to get volumes associated with venues, e.g. via `Venue.volumes()`.
 - Papers now have attribute `thumbnail`.
 - Papers now have attribute `language_name`, which uses the [langcodes](https://langcodes-hickford.readthedocs.io/en/) library to map language tags in the XML to proper language names.
+- Papers now have attribute `issue` to record issue numbers set at paper level. You probably want to use `Paper.get_issue()` to access these.
 - Volumes now have attributes `has_abstracts`, `venue_acronym`, and `web_url`.
 - Names now have function `as_full()`, returning the full name in the appropriate format based on whether it is given in Han or Latin script.
 
