@@ -93,29 +93,162 @@
     abstract: "{{ $paper.abstract_raw }}"
   };
 
-  function handleMetadataCorrection() {
-    /*
-    Assemble all the variables to pass them to the Github script.
-    The author list, title, and abstract can be read from the page
-    parameters. They should be assembled into a JSON object that
-    is then URL-encoded and passed to the modified template, which
-    will format it in a block for editing in the Github issue.
-    */
+  // Initial authors data
+  function showMetadataDialog() {
+    // Populate the modal with current values
+    document.getElementById("paperIdSpan").textContent = paper_params.anthology_id;
+    document.getElementById("paperTitle").value = paper_params.title;
+    document.getElementById("paperAbstract").value = paper_params.abstract;
+    
+    const container = document.getElementById("authorsContainer");
+    container.innerHTML = "";
+    paper_params.authors.forEach((author, idx) => {
+      container.appendChild(createAuthorRow(author.first, author.last, author.affiliation));
+    });
+
+    const modal = new bootstrap.Modal(document.getElementById('metadataModal'));
+    modal.show();
+  }
+
+  // Just call Sortable on your container after you’ve populated it:
+  new Sortable(document.getElementById('authorsContainer'), {
+    animation: 150, // a nice animation
+    ghostClass: 'sortable-ghost'
+  });
+
+  // Dragstart: store the element being dragged
+  authorsContainer.addEventListener('dragstart', (e) => {
+    const row = e.target.closest('.author-row');
+    if (row) {
+      draggedElement = row;
+      e.dataTransfer.effectAllowed = 'move';
+      e.dataTransfer.setData('text/plain', 'reordering'); // required to initiate drag
+    }
+  });
+
+  // Dragover: allow drop
+  authorsContainer.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+  });
+
+  // Drop: Insert the dragged element before the hovered row if found
+  authorsContainer.addEventListener('drop', (e) => {
+    e.preventDefault();
+    const targetRow = e.target.closest('.author-row');
+    if (targetRow && targetRow !== draggedElement) {
+      authorsContainer.insertBefore(draggedElement, targetRow);
+    } else if (!targetRow) {
+      // If dropped outside any specific row, append to the end
+      authorsContainer.appendChild(draggedElement);
+    }
+    draggedElement = null;
+  });
+
+  function createAuthorRow(first, last, affiliation) {
+    const row = document.createElement('div');
+    row.className = 'author-row';
+    row.draggable = true;
+    row.ondragstart = dragAuthor;
+
+    const handle = document.createElement('span');
+    handle.className = 'drag-handle';
+    handle.textContent = '⋮';
+    handle.draggable = true;
+    
+    const firstName = document.createElement('input');
+    firstName.type = 'text';
+    firstName.placeholder = 'First name';
+    firstName.value = first;
+
+    const lastName = document.createElement('input');
+    lastName.type = 'text';
+    lastName.placeholder = 'Last name';
+    lastName.value = last;
+
+    const aff = document.createElement('input');
+    aff.type = 'text';
+    aff.placeholder = 'Affiliation';
+    aff.value = affiliation;
+
+    const delBtn = document.createElement('button');
+    delBtn.type = 'button';
+    delBtn.className = 'btn btn-sm btn-danger';
+    delBtn.textContent = 'Delete';
+    delBtn.onclick = () => row.remove();
+
+    row.appendChild(handle);
+    row.appendChild(firstName);
+    row.appendChild(lastName);
+    row.appendChild(aff);
+    row.appendChild(delBtn);
+
+    return row;
+  }
+
+  function addAuthor() {
+    const container = document.getElementById('authorsContainer');
+    container.appendChild(createAuthorRow("", "", ""));
+  }
+
+  // Drag & Drop functions for authors
+  let draggedAuthor = null;
+  function dragAuthor(ev) {
+    ev.dataTransfer.setData('text/plain', '');
+    draggedAuthor = ev.currentTarget;
+  }
+  function allowDrop(ev) {
+    ev.preventDefault();
+  }
+  function dropAuthor(ev) {
+    ev.preventDefault();
+    if (ev.target.id === "authorsContainer" || ev.target.parentNode.id === "authorsContainer") {
+      const container = document.getElementById("authorsContainer");
+      // Insert before the target row if we dropped on a row, otherwise at the end
+      if (ev.target.classList && ev.target.classList.contains('author-row')) {
+        container.insertBefore(draggedAuthor, ev.target);
+      } else if (ev.target.parentNode.classList && ev.target.parentNode.classList.contains('author-row')) {
+        container.insertBefore(draggedAuthor, ev.target.parentNode);
+      } else {
+        container.appendChild(draggedAuthor);
+      }
+    }
+  }
+
+  // New function to handle submission
+  function submitMetadataCorrection() {
+    const newTitle = document.getElementById("paperTitle").value;
+    const newAbstract = document.getElementById("paperAbstract").value;
+
+    const authorRows = document.querySelectorAll("#authorsContainer .author-row");
+    const newAuthors = [];
+    authorRows.forEach(row => {
+      const inputs = row.querySelectorAll("input");
+      newAuthors.push({
+        "first": inputs[0].value,
+        "last": inputs[1].value,
+        "affiliation": inputs[2].value
+      });
+    });
+
+    const updatedParams = {
+      ...paper_params,
+      title: newTitle,
+      authors: newAuthors,
+      abstract: newAbstract
+    };
+
+    // Same assembly as original code
     const baseurl = "https://github.com/acl-org/acl-anthology/issues/new?template=99-bulk-metadata-correction.yml";
-
-    const issue_title = `Metadata correction for ${paper_params.anthology_id}`;
-
-    const labels = "metadata,correction"
-    const who = "anthology-assist"
-
-    // TODO: assemble these data items from the form dialog instead
-    var param_string = "```json\n" + JSON.stringify(paper_params, null, 2) + "```";
-
-    // encode the params JSON object as a multi-line valid JSON string
-    const url = baseurl + `&title=${issue_title}&assignee=${who}&labels=${labels}&data=` + encodeURIComponent(param_string);
-
+    const issue_title = `Metadata correction for ${updatedParams.anthology_id}`;
+    const labels = "metadata,correction";
+    const who = "anthology-assist";
+    const param_string = "```json\n" + JSON.stringify(updatedParams, null, 2) + "\n```";
+    
+    const url = baseurl + `&title=${encodeURIComponent(issue_title)}&assignee=${encodeURIComponent(who)}&labels=${encodeURIComponent(labels)}&data=` + encodeURIComponent(param_string);
+    
     window.open(url, "_blank");
-}
+  }
 </script>
 {{ end }}
 
@@ -142,9 +275,39 @@
       {{ partial "author_link.html" (dict "ctx" $ "person" $person) | chomp }}{{ if ne (add $index 1) $len }}, {{ end }}
     {{ end }}
   {{ end }}
-    <br/>
-    <a href="#" class="small" onclick="handleMetadataCorrection()">[Metadata incorrect?]</a>
   </p>
+  </div>
+  <div class="modal fade" id="metadataModal" tabindex="-1" aria-labelledby="metadataModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Correct Metadata for <span id="paperIdSpan"></span></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="metadataForm">
+            <div class="mb-3">
+              <label for="paperTitle" class="form-label">Title</label>
+              <small id="paperTitleHelp" class="form-text text-muted">Adjust the title. Retain tags such as &lt;fixed-case&gt;.</small>
+              <input type="text" class="form-control" id="paperTitle">
+            </div>
+            <label class="form-label">Authors</label>
+            <small id="authorTitleHelp" class="form-text text-muted">Adjust author names, affiliations, and list order to match the PDF.</small>
+            <div id="authorsContainer" ondrop="dropAuthor(event)" ondragover="allowDrop(event)"></div>
+            <button type="button" class="btn btn-secondary btn-sm mb-3" onclick="addAuthor()">Add Author</button>
+  
+            <div class="mb-3">
+              <label for="paperAbstract" class="form-label">Abstract</label>
+              <small id="abstractTitleHelp" class="form-text text-muted">Correct abstract if needed. Retain XML formatting tags such as &lt;tex-math&gt;.</small>
+              <textarea class="form-control" id="paperAbstract" rows="6"></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" onclick="submitMetadataCorrection()">Submit</button>
+        </div>
+      </div>
+    </div>
   </div>
   <hr />
   <div class="row acl-paper-details">
@@ -334,6 +497,8 @@
       </dl>
     </div>
 
+    <div id="authorsContainer"></div>
+
     <!-- Most of the styling for this block is set in _papers.scss to avoid clutter -->
     <div class="acl-paper-link-block">
       {{ if isset $paper "revision" }}
@@ -382,7 +547,7 @@
         <span class="px-1">Video</span>
       </a>
       {{ end }}
-      <a class="btn btn-warning d-flex flex-wrap justify-content-center" href=# title="Correct problems with title, author list, and abstract" onclick="handleMetadataCorrection()">
+      <a class="btn btn-warning d-flex flex-wrap justify-content-center" href=# title="Correct problems with title, author list, and abstract" onclick="showMetadataDialog()">
         <span class="pl-sm-2 d-none d-sm-inline">Fix metadata</span>
       </a>
     </div>
