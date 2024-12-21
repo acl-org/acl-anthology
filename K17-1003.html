@@ -381,7 +381,7 @@ function showMetadataDialog() {
   document.getElementById("paperIdSpan").textContent = paper_params.anthology_id;
   document.getElementById("paperTitle").value = paper_params.title;
   document.getElementById("paperAbstract").value = paper_params.abstract;
-  
+
   const container = document.getElementById("authorsContainer");
   container.innerHTML = "";
   paper_params.authors.forEach((author, idx) => {
@@ -523,7 +523,7 @@ function createAuthorRow(first, last, affiliation) {
   //   firstName.placeholder = 'First name';
   //   firstName.className = 'form-control';
   //   firstName.value = first;
-    
+
   //   firstNameCol.appendChild(firstName);
 
   //   // Last name column
@@ -630,9 +630,9 @@ function createAuthorRow(first, last, affiliation) {
     const labels = "metadata,correction";
     const who = "anthology-assist";
     const param_string = "```json\n" + JSON.stringify(updatedParams, null, 2) + "\n```";
-    
+
     const url = baseurl + `&title=${encodeURIComponent(issue_title)}&assignee=${encodeURIComponent(who)}&labels=${encodeURIComponent(labels)}&data=` + encodeURIComponent(param_string);
-    
+
     window.open(url, "_blank");
   }
   </script>
