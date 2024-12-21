@@ -68,6 +68,9 @@ from create_hugo_pages import check_directory
 SCRIPTDIR = os.path.dirname(os.path.realpath(__file__))
 
 
+# TODO: autopr introduces title_raw and abstract_raw (containing the xml)
+
+
 def make_progress():
     columns = [
         TextColumn("[progress.description]{task.description:25s}"),
@@ -129,6 +132,9 @@ def paper_to_dict(paper):
         # TODO: Key 'issue' is currently unused on Hugo templates
         if (value := getattr(paper, key)) is not None:
             data[key] = value
+    # Frontmatter inherits DOI from volume ... not sure if it should, and this is a bit messy
+    if (paper.is_frontmatter and "doi" not in data and (value := paper.parent.doi) is not None):
+        data["doi"] = value
     if (language_name := paper.language_name) is not None:
         data["language"] = language_name
     if (abstract := paper.abstract) is not None:
