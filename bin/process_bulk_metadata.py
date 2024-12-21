@@ -1,7 +1,28 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+#
+# Copyright 2024 Matt Post <post@cs.jhu.edu>
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 
 """
-Queries the Github API for all issues in the acl-org/acl-anthology repository. It then goes through them, looking for ones that have both "metadata" and "correction" labels, a "JSON code block" in the description, and are approved by at least one member of the anthology group. It then creates a new PR on a branch labeled bulk-corrections-YYYY-MM-DD, where it makes a single PR from changes from all matching issues.
+Queries the Github API for all issues in the acl-org/acl-anthology repository. 
+It then goes through them, looking for ones that have both "metadata" and "correction" 
+labels, a "JSON code block" in the description, and are approved by at least one member 
+of the anthology group. It then creates a new PR on a branch labeled bulk-corrections-YYYY-MM-DD, 
+where it makes a single PR from changes from all matching issues.
+
+Usage: process_bulk_metadata.py [-v]
 
 TODO:
 - [X] Need raw abstract text to be passed through
