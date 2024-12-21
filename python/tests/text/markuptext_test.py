@@ -126,6 +126,7 @@ def test_markup(inp, out):
     assert markup.as_text() == out["text"]
     assert markup.as_html() == out["html"]
     assert markup.as_latex() == out["latex"]
+    assert markup.as_xml() == inp
     assert etree.tostring(markup.to_xml("title"), encoding="unicode") == xml
     assert markup.contains_markup == ("<" in out["html"])
 
@@ -137,6 +138,7 @@ def test_simple_string():
     assert markup.as_text() == text
     assert markup.as_html() == text
     assert markup.as_latex() == text
+    assert markup.as_xml() == text
     assert (
         etree.tostring(markup.to_xml("span"), encoding="unicode")
         == f"<span>{text}</span>"
