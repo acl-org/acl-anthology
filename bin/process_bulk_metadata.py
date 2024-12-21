@@ -16,10 +16,10 @@
 # limitations under the License.
 
 """
-Queries the Github API for all issues in the acl-org/acl-anthology repository. 
-It then goes through them, looking for ones that have both "metadata" and "correction" 
-labels, a "JSON code block" in the description, and are approved by at least one member 
-of the anthology group. It then creates a new PR on a branch labeled bulk-corrections-YYYY-MM-DD, 
+Queries the Github API for all issues in the acl-org/acl-anthology repository.
+It then goes through them, looking for ones that have both "metadata" and "correction"
+labels, a "JSON code block" in the description, and are approved by at least one member
+of the anthology group. It then creates a new PR on a branch labeled bulk-corrections-YYYY-MM-DD,
 where it makes a single PR from changes from all matching issues.
 
 Usage: process_bulk_metadata.py [-v]
