@@ -148,8 +148,8 @@ def render_acl_citation(paper: Paper) -> str:
         parent = [f"<i>{paper.parent.get_journal_title()}</i>"]
         if paper.parent.journal_volume:
             parent.append(f", {paper.parent.journal_volume}")
-            if paper.parent.journal_issue:
-                parent.append(f"({paper.parent.journal_issue})")
+            if (journal_issue := paper.get_issue()) is not None:
+                parent.append(f"({journal_issue})")
             if paper.pages:
                 parent.append(f":{_format_pages(paper.pages)}")
         elif paper.pages:
