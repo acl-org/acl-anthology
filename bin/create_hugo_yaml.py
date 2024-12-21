@@ -146,7 +146,7 @@ def paper_to_dict(paper):
                 "type": attachment[0].capitalize(),
                 "url": attachment[1].url,
             }
-            for attachment in paper.attachments.items()
+            for attachment in paper.attachments
         ]
     if paper.awards:
         data["award"] = paper.awards
