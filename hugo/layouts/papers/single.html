@@ -33,47 +33,6 @@
   <meta property="og:url" content="{{ $paper.url }}" />
   <meta property="og:description" content="{{ $paper.author_string }}. {{ $paper.booktitle }}. {{ $paper.year }}." />
   <link rel="canonical" href="{{ $paper.url }}" />
-  <style>
-    .sortable-ghost {
-      opacity: 0.4;
-    }
-    .author-row {
-      display: flex;
-      gap: 0.5rem;
-      margin-bottom: 0.5rem;
-      align-items: center;
-      cursor: move;
-    }
-    .author-row input {
-      flex: 1;
-    }
-    .drag-handle {
-      cursor: grab;
-    }
-    .drag-handle:active {
-      cursor: grabbing;
-    }
-    .author-row {
-      cursor: grab;
-    }
-    .author-row:active {
-      cursor: grabbing;
-    }
-    .author-row {
-      display: flex;
-      gap: 0.5rem;
-      margin-bottom: 0.5rem;
-      align-items: center;
-      background: #f8f9fa;
-      padding: 0.5rem;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      cursor: grab; /* Signals draggability */
-    }
-    .author-row:active {
-      cursor: grabbing;
-    }
-  </style>
 {{ end }}
 
 {{ define "javascript" }}
@@ -187,30 +146,63 @@
   });
 
   function createAuthorRow(first, last, affiliation) {
+    // Create the container for the entire row
     const row = document.createElement('div');
-    row.className = 'author-row';
+    row.className = 'row g-2 mb-2 author-row';
     row.draggable = true;
     row.ondragstart = dragAuthor;
+
+    // Handle column
+    const handleCol = document.createElement('div');
+    handleCol.className = 'col-12 col-md-1 text-center';
 
     const handle = document.createElement('span');
     handle.className = 'drag-handle';
     handle.textContent = '⋮';
+    // Note: If you don't want to restrict dragging to the handle, remove handle.draggable
     handle.draggable = true;
+
+    handleCol.appendChild(handle);
+
+    // First name column
+    const firstNameCol = document.createElement('div');
+    firstNameCol.className = 'col-12 col-md-3';
 
     const firstName = document.createElement('input');
     firstName.type = 'text';
     firstName.placeholder = 'First name';
+    firstName.className = 'form-control';
     firstName.value = first;
+
+    firstNameCol.appendChild(firstName);
+
+    // Last name column
+    const lastNameCol = document.createElement('div');
+    lastNameCol.className = 'col-12 col-md-3';
 
     const lastName = document.createElement('input');
     lastName.type = 'text';
     lastName.placeholder = 'Last name';
+    lastName.className = 'form-control';
     lastName.value = last;
 
-    const aff = document.createElement('input');
-    aff.type = 'text';
-    aff.placeholder = 'Affiliation';
-    aff.value = affiliation;
+    lastNameCol.appendChild(lastName);
+
+    // Affiliation column
+    const affCol = document.createElement('div');
+    affCol.className = 'col-12 col-md-3';
+
+    const affInput = document.createElement('input');
+    affInput.type = 'text';
+    affInput.placeholder = 'Affiliation';
+    affInput.className = 'form-control';
+    affInput.value = affiliation;
+
+    affCol.appendChild(affInput);
+
+    // Delete button column
+    const delCol = document.createElement('div');
+    delCol.className = 'col-12 col-md-2 text-end';
 
     const delBtn = document.createElement('button');
     delBtn.type = 'button';
@@ -218,11 +210,14 @@
     delBtn.textContent = 'Delete';
     delBtn.onclick = () => row.remove();
 
-    row.appendChild(handle);
-    row.appendChild(firstName);
-    row.appendChild(lastName);
-    row.appendChild(aff);
-    row.appendChild(delBtn);
+    delCol.appendChild(delBtn);
+
+    // Append all columns to the row
+    row.appendChild(handleCol);
+    row.appendChild(firstNameCol);
+    row.appendChild(lastNameCol);
+    row.appendChild(affCol);
+    row.appendChild(delCol);
 
     return row;
   }
