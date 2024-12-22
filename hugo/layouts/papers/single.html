@@ -267,12 +267,25 @@
       });
     });
 
-    const updatedParams = {
-      ...paper_params,
-      title: newTitle,
-      authors: newAuthors,
-      abstract: newAbstract
-    };
+    // Compare original values to current values
+    const updatedParams = {}
+
+    if (newTitle !== paper_params.title) {
+      updatedParams.title = newTitle;
+    }
+
+    if (newAbstract !== paper_params.abstract) {
+      updatedParams.abstract = newAbstract;
+    }
+
+    if (JSON.stringify(newAuthors) !== JSON.stringify(paper_params.authors)) {
+      updatedParams.authors = newAuthors;
+    }
+
+    if (Object.keys(updatedParams).length === 0) {
+      alert("No changes detected.");
+      return;
+    }
 
     // Same assembly as original code
     const baseurl = "https://github.com/acl-org/acl-anthology/issues/new?template=99-bulk-metadata-correction.yml";
