@@ -538,7 +538,7 @@ class PaperDeletionNotice:
     type: PaperDeletionType
     """Type indicating whether the paper was _retracted_ or _removed_."""
 
-    note: str
+    note: Optional[str]
     """A note explaining the retraction or removal."""
 
     date: str
@@ -549,7 +549,7 @@ class PaperDeletionNotice:
         """Instantiates a deletion notice from its `<removed>` or `<retracted>` block in the XML."""
         return cls(
             type=PaperDeletionType(str(element.tag)),
-            note=str(element.text),
+            note=str(element.text) if element.text else None,
             date=str(element.get("date")),
         )
 
