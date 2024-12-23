@@ -133,7 +133,11 @@ def paper_to_dict(paper):
         if (value := getattr(paper, key)) is not None:
             data[key] = value
     # Frontmatter inherits DOI from volume ... not sure if it should, and this is a bit messy
-    if (paper.is_frontmatter and "doi" not in data and (value := paper.parent.doi) is not None):
+    if (
+        paper.is_frontmatter
+        and "doi" not in data
+        and (value := paper.parent.doi) is not None
+    ):
         data["doi"] = value
     if (language_name := paper.language_name) is not None:
         data["language"] = language_name
