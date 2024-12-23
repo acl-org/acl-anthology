@@ -193,6 +193,12 @@ def test_build_personindex_automatically(index_with_full_anthology):
     assert len(persons) == 1
 
 
+def test_canonical_name_is_never_a_variant(index_with_full_anthology):
+    index = index_with_full_anthology
+    for person in index.values():
+        assert person.canonical_name.script is None
+
+
 def test_get_person_coauthors(index_with_full_anthology):
     index = index_with_full_anthology
     person = index.get_by_name(Name("Kathleen", "Dahlgren"))[0]
