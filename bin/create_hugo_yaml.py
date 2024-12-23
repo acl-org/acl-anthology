@@ -168,7 +168,7 @@ def paper_to_dict(paper):
             # Ensures consistent formatting of page range strings
             data["pages"] = f"{page_first}–{page_last}"
         else:
-            data["pages"] = paper.pages
+            data["pages"] = page_first
     if paper.pdf is not None:
         data["pdf"] = paper.pdf.url
         data["thumbnail"] = paper.thumbnail.url
