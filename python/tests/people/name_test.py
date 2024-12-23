@@ -182,6 +182,12 @@ def test_name_scoring():
     assert n1.score() < n5.score()
 
 
+def test_name_scoring_first_vs_last_name():
+    n1 = Name("Chan Tai", "Man")
+    n2 = Name("Chan", "Tai Man")
+    assert n1.score() < n2.score()
+
+
 def test_name_from_string():
     n1 = Name.from_string("André Rieu")
     n2 = Name.from_string("Rieu, André")

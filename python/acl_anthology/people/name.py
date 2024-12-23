@@ -99,6 +99,11 @@ class Name:
         score -= sum(w[0].islower() if w else 0 for w in re.split(r"\W+", name))
         if name[0].islower():  # extra penalty for first name
             score -= 1
+        # Penalize first names that are longer than last names (this is
+        # intended to make a difference when a person has both "C, A B" and "B
+        # C, A" as names)
+        if self.first is not None and len(self.first) > len(self.last):
+            score -= 1
         return score
 
     def slugify(self) -> str:
