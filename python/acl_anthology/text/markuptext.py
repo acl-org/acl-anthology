@@ -103,7 +103,7 @@ class MarkupText:
             The plain text with any markup stripped. The only transformation that will be performed is replacing TeX-math expressions with their corresponding Unicode representation, if possible.
         """
         if isinstance(self._content, str):
-            return self._content
+            return remove_extra_whitespace(self._content)
         if self._text is not None:
             return self._text
         element = deepcopy(self._content)
@@ -123,7 +123,7 @@ class MarkupText:
                 `<a href="...">` tags, but in simply `<span>` tags.
         """
         if isinstance(self._content, str):
-            return xml_escape(self._content)
+            return xml_escape(remove_extra_whitespace(self._content))
         if self._html is not None:
             return self._html
         element = deepcopy(self._content)
@@ -153,10 +153,10 @@ class MarkupText:
         if self._latex is not None:
             return self._latex
         if isinstance(self._content, str):
-            self._latex = latex_convert_quotes(latex_encode(self._content))
+            latex = latex_convert_quotes(latex_encode(self._content))
         else:
             latex = markup_to_latex(self._content)
-            self._latex = remove_extra_whitespace(latex)
+        self._latex = remove_extra_whitespace(latex)
         return self._latex
 
     def as_xml(self) -> str:
@@ -167,7 +167,7 @@ class MarkupText:
         if isinstance(self._content, str):
             return xml_escape(self._content)
         if self._xml is None:
-            self._xml = remove_extra_whitespace(stringify_children(self._content))
+            self._xml = stringify_children(self._content)
         return self._xml
 
     @classmethod

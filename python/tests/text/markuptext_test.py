@@ -66,6 +66,22 @@ test_cases_markup = (
         },
     ),
     (
+        "Title with\n\n line breaks",
+        {
+            "text": "Title with line breaks",
+            "html": "Title with line breaks",
+            "latex": "Title with line breaks",
+        },
+    ),
+    (
+        "<span>Title with\n\n line breaks</span>",
+        {
+            "text": "Title with line breaks",
+            "html": "<span>Title with line breaks</span>",
+            "latex": "Title with line breaks",
+        },
+    ),
+    (
         "<fixed-case>U</fixed-case>pstream <fixed-case>M</fixed-case>itigation <fixed-case>I</fixed-case>s <i><fixed-case>N</fixed-case>ot</i> <fixed-case>A</fixed-case>ll <fixed-case>Y</fixed-case>ou <fixed-case>N</fixed-case>eed",
         {
             "text": "Upstream Mitigation Is Not All You Need",
