@@ -20,7 +20,7 @@ from lxml import etree
 from lxml.builder import E
 import re
 from slugify import slugify
-from typing import Optional, cast
+from typing import Optional, cast, TypeAlias
 
 from ..utils.latex import latex_encode
 
@@ -223,7 +223,7 @@ class Name:
         return elem
 
 
-ConvertableIntoName = Name | str | tuple[Optional[str], str] | dict[str, str]
+ConvertableIntoName: TypeAlias = Name | str | tuple[Optional[str], str] | dict[str, str]
 """A type that can be converted into a Name instance."""
 
 
