@@ -83,14 +83,14 @@ class Name:
         """
         return latex_encode(self.as_last_first())
 
-    def score(self) -> int:
+    def score(self) -> float:
         """
         Returns:
             A score for this name that is intended for comparing different names that generate the same ID.  Names that are more likely to be the correct canonical variant should return higher scores via this function.
         """
         name = self.as_first_last()
         # Prefer longer variants
-        score = len(name)
+        score = float(len(name))
         # Prefer variants with non-ASCII characters
         score += sum((ord(c) > 127) for c in name)
         # Penalize upper-case characters after word boundaries
@@ -103,7 +103,7 @@ class Name:
         # intended to make a difference when a person has both "C, A B" and "B
         # C, A" as names)
         if self.first is not None and len(self.first) > len(self.last):
-            score -= 1
+            score += 0.5
         return score
 
     def slugify(self) -> str:

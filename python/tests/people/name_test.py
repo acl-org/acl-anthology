@@ -185,7 +185,7 @@ def test_name_scoring():
 def test_name_scoring_first_vs_last_name():
     n1 = Name("Chan Tai", "Man")
     n2 = Name("Chan", "Tai Man")
-    assert n1.score() < n2.score()
+    assert n1.score() > n2.score()
 
 
 def test_name_from_string():
