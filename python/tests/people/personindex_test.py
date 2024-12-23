@@ -54,6 +54,25 @@ def test_load_variant_list_correct_variants(index):
     assert pid[0] in index
 
 
+def test_load_variant_list_correct_ids(index):
+    # If no explicit ID is defined, the ID should be based on the canonical
+    # name in the variants list
+    index._load_variant_list()
+    index.is_data_loaded = True
+    n1 = Name("Susan", "Warwick-Armstrong")
+    pid = index.name_to_ids[n1]
+    assert pid == ["susan-armstrong"]
+
+
+def test_load_variant_find_people_single_name(index):
+    # People with a single name should correctly be found
+    index._load_variant_list()
+    index.is_data_loaded = True
+    n1 = Name(None, "Srinivas")
+    pid = index.name_to_ids[n1]
+    assert pid == ["srinivas-bangalore"]
+
+
 def test_add_person(index):
     p1 = Person("yang-liu", index.parent, [Name("Yang", "Liu")])
     index.add_person(p1)

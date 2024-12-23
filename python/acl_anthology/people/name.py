@@ -41,7 +41,7 @@ class Name:
         >>> Name(None, "Mausam")
     """
 
-    first: Optional[str]
+    first: Optional[str] = field(eq=lambda x: x if x else None)
     last: str
     script: Optional[str] = field(default=None, repr=False, eq=False)
 
@@ -50,7 +50,7 @@ class Name:
         Returns:
             The person's full name in the form '{first} {last}'.
         """
-        if self.first is None:
+        if not self.first:
             return self.last
         return f"{self.first} {self.last}"
 
@@ -59,7 +59,7 @@ class Name:
         Returns:
             The person's full name in the form '{last}, {first}'.
         """
-        if self.first is None:
+        if not self.first:
             return self.last
         return f"{self.last}, {self.first}"
 
@@ -70,7 +70,7 @@ class Name:
         Returns:
             For Han names, this will be '{last}{first}'; for other scripts (or if no script is given), this will be '{first} {last}'.
         """
-        if self.first is None:
+        if not self.first:
             return self.last
         if self.script == "hani":
             return f"{self.last}{self.first}"
