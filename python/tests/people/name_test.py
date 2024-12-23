@@ -45,6 +45,16 @@ def test_name_onlylast():
     assert n1.as_bibtex() == "Mausam"
 
 
+def test_name_onlylast_none_vs_empty_string():
+    n1 = Name(None, "Mausam")
+    n2 = Name("", "Mausam")
+    assert n1.as_first_last() == n2.as_first_last()
+    assert n1.as_last_first() == n2.as_last_first()
+    assert n1.as_full() == n2.as_full()
+    assert n1.as_bibtex() == n2.as_bibtex()
+    assert n1 == n2
+
+
 def test_name_specification():
     n1 = NameSpecification(Name("John", "Doe"))
     n2 = NameSpecification(Name("John", "Doe"))
