@@ -58,6 +58,13 @@ def test_person_papers(anthology):
     assert len(list(person.volumes())) == 1
 
 
+def test_person_with_name_variants(anthology):
+    # Name variants should be recorded as names of that person
+    person = anthology.get_person("yang-liu-ict")
+    assert person.has_name(Name("Yang", "Liu"))
+    assert person.has_name(Name("洋", "刘"))
+
+
 def test_person_equality(anthology_stub):
     n = Name("Yang", "Liu")
     person1 = Person("yang-liu", anthology_stub, [n])
