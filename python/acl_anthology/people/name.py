@@ -91,8 +91,8 @@ class Name:
         name = self.as_first_last()
         # Prefer longer variants
         score = float(len(name))
-        # Prefer variants with non-ASCII characters
-        score += sum((ord(c) > 127) for c in name)
+        # Prefer variants with non-ASCII characters or dashes
+        score += sum((ord(c) > 127 or c == "-") for c in name)
         # Penalize upper-case characters after word boundaries
         score -= sum(any(c.isupper() for c in w[1:]) for w in re.split(r"\W+", name))
         # Penalize lower-case characters at word boundaries
