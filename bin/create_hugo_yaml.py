@@ -207,7 +207,9 @@ def paper_to_dict(paper):
             for revision in paper.revisions
         ]
     if paper.videos:
-        data["video"] = [video.url for video in paper.videos if video.permission]
+        videos = [video.url for video in paper.videos if video.permission]
+        if videos:
+            data["video"] = videos
     return data
 
 
