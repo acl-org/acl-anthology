@@ -72,7 +72,8 @@ class Paper:
         deletion: A notice of the paper's retraction or removal, if applicable.
         doi: The DOI for the paper.
         ingest_date: The date of ingestion.
-        issue: The journal issue for this paper, if not identical for the entire volume.
+        issue: The journal issue for this paper.  Should normally be set at the volume level; you probably want to use `get_issue()` instead.
+        journal: The journal name for this paper.   Should normally be set at the volume level; you probably want to use `get_journal_title()` instead.
         language: The language this paper is (mainly) written in.  When given, this should be a ISO 639-2 code (e.g. "eng"), though occasionally IETF is used (e.g. "pt-BR").
         note: A note attached to this paper.  Used very sparingly.
         pages: Page numbers of this paper within its volume.
@@ -99,6 +100,7 @@ class Paper:
     doi: Optional[str] = field(default=None, repr=False)
     ingest_date: Optional[str] = field(default=None, repr=False)
     issue: Optional[str] = field(default=None, repr=False)
+    journal: Optional[str] = field(default=None, repr=False)
     language: Optional[str] = field(default=None, repr=False)
     note: Optional[str] = field(default=None, repr=False)
     pages: Optional[str] = field(default=None, repr=False)
@@ -189,7 +191,7 @@ class Paper:
             data["author"] = data["editor"]
         match self.parent.type:
             case VolumeType.JOURNAL:
-                data["container-title"] = self.parent.get_journal_title()
+                data["container-title"] = self.get_journal_title()
                 data["volume"] = self.parent.journal_volume
                 data["issue"] = self.get_issue()
             case VolumeType.PROCEEDINGS:
@@ -274,6 +276,15 @@ class Paper:
             return self.parent.journal_issue
         return self.issue
 
+    def get_journal_title(self) -> str:
+        """
+        Returns:
+            The journal title for this paper.  Inherits from its parent volume unless explicitly set for the paper.
+        """
+        if self.journal is None:
+            return self.parent.get_journal_title()
+        return self.journal
+
     def to_bibtex(self, with_abstract: bool = False) -> str:
         """Generate a BibTeX entry for this paper.
 
@@ -295,7 +306,7 @@ class Paper:
                 case VolumeType.JOURNAL:
                     bibtex_fields.extend(
                         [
-                            ("journal", self.parent.get_journal_title()),
+                            ("journal", self.get_journal_title()),
                             ("volume", self.parent.journal_volume),
                             ("number", self.get_issue()),
                         ]

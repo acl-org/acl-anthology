@@ -145,7 +145,7 @@ def render_acl_citation(paper: Paper) -> str:
         if paper.publisher:
             parent.append(f". {paper.publisher}")
     elif paper.bibtype == "article":
-        parent = [f"<i>{paper.parent.get_journal_title()}</i>"]
+        parent = [f"<i>{paper.get_journal_title()}</i>"]
         if paper.parent.journal_volume:
             parent.append(f", {paper.parent.journal_volume}")
             if (journal_issue := paper.get_issue()) is not None:
