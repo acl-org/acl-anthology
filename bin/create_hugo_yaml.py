@@ -153,11 +153,11 @@ def paper_to_dict(paper):
     if paper.deletion:
         match paper.deletion.type:
             case PaperDeletionType.RETRACTED:
-                data["retracted"] = paper.deletion.note
+                data["retracted"] = paper.deletion.note if paper.deletion.note else " "
                 data["title"] = f"[RETRACTED] {data['title']}"
                 data["title_html"] = f"[RETRACTED] {data['title_html']}"
             case PaperDeletionType.REMOVED:
-                data["removed"] = paper.deletion.note
+                data["removed"] = paper.deletion.note if paper.deletion.note else " "
                 data["title"] = f"[REMOVED] {data['title']}"
                 data["title_html"] = f"[REMOVED] {data['title_html']}"
     if paper.pages is not None:
