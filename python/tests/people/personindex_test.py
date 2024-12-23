@@ -233,3 +233,11 @@ def test_get_by_namespec(index_with_full_anthology):
     person = index.get_by_namespec(ns2)
     assert person.id == "yang-liu-microsoft"
     assert person.canonical_name == Name("Yang", "Liu")
+
+
+def test_get_by_name_variants(index_with_full_anthology):
+    # It should be possible to find a person by a name variant
+    index = index_with_full_anthology
+    persons = index.get_by_name(Name("洋", "刘"))
+    assert len(persons) == 1
+    assert persons[0].id == "yang-liu-ict"

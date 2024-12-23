@@ -27,6 +27,7 @@
 - Bugfix: Converting a `<texmath>` expression to Unicode no longer serializes the tail of the XML tag, but only the TeX math expression itself.
 - Bugfix: Heuristic scoring of name variants will no longer overwrite canonical names that are explicitly defined in `name_variants.yaml`.
 - Bugfix: In first names, the values `None` and `""` (empty string) are now considered equivalent.
+- Bugfix: Name variants in different scripts are now correctly recorded as names for the respective author.
 - Bugfix: `MarkupText.as_html()` now always correctly HTML-escapes characters.
 - Bugfix: `MarkupText.from_xml()` now correctly handles empty tags; got converted to the string `"None"` before.
 

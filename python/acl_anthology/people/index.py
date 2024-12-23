@@ -236,6 +236,7 @@ class PersonIndex(SlottedDict[Person]):
         """
         name = name_spec.name
         if (pid := name_spec.id) is not None:
+            # Explicit ID given; should already exist from name_variants.yaml
             try:
                 person = self.data[pid]
                 person.add_name(name)
@@ -246,6 +247,7 @@ class PersonIndex(SlottedDict[Person]):
                 exc1.add_note("Did you forget to define the ID in name_variants.yaml?")
                 raise exc1
         elif pid_list := self.name_to_ids[name]:
+            # Name already exists in the index, but has no explicit ID
             if len(pid_list) > 1:
                 exc2 = AmbiguousNameError(
                     name,
@@ -256,6 +258,7 @@ class PersonIndex(SlottedDict[Person]):
             pid = pid_list[0]
             person = self.data[pid]
         else:
+            # Name not in the index and has no explicit ID
             pid = self.generate_id(name)
             try:
                 # If the auto-generated ID already exists, we assume it's the same person
@@ -271,7 +274,8 @@ class PersonIndex(SlottedDict[Person]):
                 self.name_to_ids[name].append(pid)
             except KeyError:
                 if create:
-                    # If it doesn't, only then do we create a new perosn
+                    # If the auto-generated ID doesn't exist yet, then and only
+                    # then do we create a new person
                     person = Person(id=pid, parent=self.parent, names=[name])
                     self.add_person(person)
                 else:
@@ -279,6 +283,11 @@ class PersonIndex(SlottedDict[Person]):
                         name_spec,
                         f"Name '{name}' generated ID '{pid}' that doesn't exist",
                     )
+        # Make sure that name variants specified here are registered
+        for name in name_spec.variants:
+            person.add_name(name)
+            if name not in self.name_to_ids:
+                self.name_to_ids[name].append(pid)
         return person
 
     @staticmethod
