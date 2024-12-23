@@ -332,7 +332,7 @@ def export_people(anthology, outdir, dryrun):
             data = {
                 "first": cname.first,
                 "last": cname.last,
-                "full": cname.as_first_last(),
+                "full": cname.as_full(),
                 "slug": person_id,
                 "papers": [paper.full_id for paper in papers],
                 "coauthors": sorted(
@@ -347,10 +347,16 @@ def export_people(anthology, outdir, dryrun):
                 ),
             }
             if len(person.names) > 1:
-                data["variant_entries"] = [
-                    {"first": n.first, "last": n.last, "full": n.as_first_last()}
-                    for n in person.names[1:]
-                ]
+                data["variant_entries"] = []
+                diff_script_variants = []
+                for n in person.names[1:]:
+                    data["variant_entries"].append(
+                        {"first": n.first, "last": n.last, "full": n.as_full()}
+                    )
+                    if n.script is not None:
+                        diff_script_variants.append(n.as_full())
+                if diff_script_variants:
+                    data["full"] = f"{data['full']} ({', '.join(diff_script_variants)})"
             if person.comment is not None:
                 data["comment"] = person.comment
             similar = anthology.people.similar.subset(person_id)
