@@ -24,7 +24,7 @@ from os import PathLike
 from pathlib import Path
 from rich.progress import track
 from slugify import slugify
-from typing import cast, overload, Iterator, Optional
+from typing import cast, overload, Iterator, Optional, TypeAlias
 
 if sys.version_info >= (3, 11):
     from typing import Self
@@ -41,8 +41,8 @@ from .sigs import SIGIndex
 from .venues import VenueIndex
 
 
-NameSpecificationOrIter = NameSpecification | Iterator[NameSpecification]
-PersonOrList = Person | list[Person]
+NameSpecificationOrIter: TypeAlias = NameSpecification | Iterator[NameSpecification]
+PersonOrList: TypeAlias = Person | list[Person]
 
 
 class Anthology:

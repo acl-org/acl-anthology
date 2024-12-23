@@ -20,7 +20,7 @@ from lxml import etree
 from lxml.builder import E
 import re
 from slugify import slugify
-from typing import Optional, cast
+from typing import Optional, cast, TypeAlias
 
 from ..utils.latex import latex_encode
 
@@ -98,6 +98,11 @@ class Name:
         # Penalize lower-case characters at word boundaries
         score -= sum(w[0].islower() if w else 0 for w in re.split(r"\W+", name))
         if name[0].islower():  # extra penalty for first name
+            score -= 1
+        # Penalize first names that are longer than last names (this is
+        # intended to make a difference when a person has both "C, A B" and "B
+        # C, A" as names)
+        if self.first is not None and len(self.first) > len(self.last):
             score -= 1
         return score
 
@@ -223,7 +228,7 @@ class Name:
         return elem
 
 
-ConvertableIntoName = Name | str | tuple[Optional[str], str] | dict[str, str]
+ConvertableIntoName: TypeAlias = Name | str | tuple[Optional[str], str] | dict[str, str]
 """A type that can be converted into a Name instance."""
 
 
