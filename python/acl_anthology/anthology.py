@@ -32,9 +32,10 @@ else:
     from typing_extensions import Self
 
 from .config import config, dirs
-from .exceptions import SchemaMismatchWarning
+from .exceptions import AnthologyException, SchemaMismatchWarning
 from .utils import git
 from .utils.ids import AnthologyID, parse_id
+from .utils.logging import get_logger
 from .collections import CollectionIndex, Collection, Volume, Paper, Event, EventIndex
 from .people import PersonIndex, Person, Name, NameSpecification, ConvertableIntoName
 from .sigs import SIGIndex
@@ -43,6 +44,8 @@ from .venues import VenueIndex
 
 NameSpecificationOrIter: TypeAlias = NameSpecification | Iterator[NameSpecification]
 PersonOrList: TypeAlias = Person | list[Person]
+
+log = get_logger()
 
 
 class Anthology:
@@ -119,19 +122,17 @@ class Anthology:
     def load_all(self) -> Self:
         """Load all Anthology data files.
 
-        Calling this function is **not strictly necessary.** If you
-        access Anthology data through object methods or
-        [SlottedDict][acl_anthology.containers.SlottedDict]
-        functionality, data will be loaded on-the-fly as required.
-        However, if you know that your program will load all data files
-        (particularly the XML files) eventually, for example by
-        iterating over all volumes/papers, loading everything at once
-        with this function can result in a considerable speed-up.
+        **Calling this function is not strictly necessary.** If you access Anthology data through object methods or [SlottedDict][acl_anthology.containers.SlottedDict] functionality, data will be loaded on-the-fly as required. However, if you know that your program will load all data files (particularly the XML files) eventually, for example by iterating over all volumes/papers, loading everything at once with this function can result in a considerable speed-up.
+
+        Important:
+            Exceptions raised during the index creation are sent to the logger, and **not** re-raised.
+            Use the [SeverityTracker][acl_anthology.utils.logging.SeverityTracker] to check if an exception occurred.
         """
         was_gc_enabled = False
         if config["disable_gc"]:
             was_gc_enabled = gc.isenabled()
             gc.disable()
+        elem = None
         try:
             iterator = track(
                 it.chain(
@@ -146,7 +147,18 @@ class Anthology:
                 self.events.verbose = False
                 self.people.verbose = False
             for elem in iterator:
-                elem.load()  # type: ignore
+                try:
+                    elem.load()  # type: ignore
+                except Exception as exc:
+                    if elem is not None:
+                        note = f"Raised in {elem!r}"
+                        # If this is merged into a single if-statement (with "or"),
+                        # the type checker complains ¯\_(ツ)_/¯
+                        if isinstance(exc, AnthologyException):
+                            exc.add_note(note)
+                        elif sys.version_info >= (3, 11):
+                            exc.add_note(note)
+                    log.exception(exc)
             if self.verbose:
                 self.events.verbose = True
                 self.people.verbose = True
