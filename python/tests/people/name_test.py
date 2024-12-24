@@ -182,6 +182,18 @@ def test_name_scoring():
     assert n1.score() < n5.score()
 
 
+def test_name_scoring_umlauts():
+    n1 = Name("Gokhan", "Tur")
+    n2 = Name("Gökhan", "Tür")
+    assert n1.score() < n2.score()
+
+
+def test_name_scoring_dashes():
+    n1 = Name("Pascual", "Martínez Gómez")
+    n2 = Name("Pascual", "Martínez-Gómez")
+    assert n1.score() < n2.score()
+
+
 def test_name_scoring_first_vs_last_name():
     n1 = Name("Chan Tai", "Man")
     n2 = Name("Chan", "Tai Man")

@@ -34,8 +34,7 @@ class Person:
         names: A list of names under which this person has published.
         item_ids: A list of volume and/or paper IDs this person has authored or edited.
         comment: A comment for disambiguation purposes; can be stored in `name_variants.yaml`.
-        is_explicit: True if this person is explicitly defined in the metadata
-            (i.e. `name_variants.yaml`), rather than implicitly created.
+        is_explicit: True if this person has names explicitly defined in `name_variants.yaml`.  Note this does _not_ necessarily mean an explicit ID was defined for the person there.
     """
 
     id: str
