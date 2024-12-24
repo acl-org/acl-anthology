@@ -237,15 +237,14 @@ class PersonIndex(SlottedDict[Person]):
         name = name_spec.name
         if (pid := name_spec.id) is not None:
             # Explicit ID given; should already exist from name_variants.yaml
-            try:
-                person = self.data[pid]
-                person.add_name(name)
-            except KeyError:
+            person = self.data.get(pid)
+            if person is None or not person.is_explicit:
                 exc1 = NameIDUndefinedError(
                     name_spec, f"Name '{name}' used with ID '{pid}' that doesn't exist"
                 )
                 exc1.add_note("Did you forget to define the ID in name_variants.yaml?")
                 raise exc1
+            person.add_name(name)
         elif pid_list := self.name_to_ids[name]:
             # Name already exists in the index, but has no explicit ID
             if len(pid_list) > 1:

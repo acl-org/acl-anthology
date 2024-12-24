@@ -45,6 +45,8 @@ _ = traceback.install()
 del _
 
 from acl_anthology import Anthology
+from acl_anthology.utils.logging import setup_rich_logging
 
+setup_rich_logging(level="INFO")
 anthology = Anthology(datadir="../data")
 print(f">>> anthology = {anthology}")
