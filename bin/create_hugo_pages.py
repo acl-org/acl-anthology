@@ -44,7 +44,7 @@ except ImportError:
     log.info("Can't load yaml C bindings, reverting to slow pure Python version")
     from yaml import Loader
 
-from acl_anthology.utils.logging import SeverityTracker
+from acl_anthology.utils.logging import setup_rich_logging
 
 
 def check_directory(cdir, clean=False):
@@ -248,10 +248,7 @@ if __name__ == "__main__":
     dir_ = os.path.abspath(args["--dir"])
 
     log_level = log.DEBUG if args["--debug"] else log.INFO
-    tracker = SeverityTracker()
-    log.basicConfig(
-        format="%(message)s", level=log_level, handlers=[RichHandler(), tracker]
-    )
+    tracker = setup_rich_logging(level=log_level)
 
     create_papers(dir_, clean=args["--clean"])
     create_volumes(dir_, clean=args["--clean"])

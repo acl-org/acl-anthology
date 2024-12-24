@@ -56,7 +56,7 @@ except ImportError:
 from acl_anthology import Anthology, config
 from acl_anthology.collections.paper import PaperDeletionType
 from acl_anthology.collections.volume import VolumeType
-from acl_anthology.utils.logging import SeverityTracker
+from acl_anthology.utils.logging import setup_rich_logging
 from acl_anthology.utils.text import (
     interpret_pages,
     month_str2num,
@@ -526,19 +526,18 @@ if __name__ == "__main__":
         )
 
     log_level = log.DEBUG if args["--debug"] else log.INFO
-    tracker = SeverityTracker()
-    log.basicConfig(
-        format="%(message)s", level=log_level, handlers=[RichHandler(), tracker]
-    )
+    tracker = setup_rich_logging(level=log_level)
 
     # This "freezes" the config, resulting in a massive speed-up
     OmegaConf.resolve(config)
 
     anthology = Anthology(datadir=args["--importdir"])
     anthology.load_all()
+    if tracker.highest >= log.ERROR:
+        exit(1)
+
     export_anthology(
         anthology, args["--exportdir"], clean=args["--clean"], dryrun=args["--dry-run"]
     )
-
     if tracker.highest >= log.ERROR:
         exit(1)
