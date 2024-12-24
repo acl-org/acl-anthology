@@ -100,7 +100,7 @@ class Event:
                     if meta.tag == "title":
                         kwargs["title"] = MarkupText.from_xml(meta)
                     elif meta.tag in ("location", "dates"):
-                        kwargs[meta.tag] = str(meta.text)
+                        kwargs[meta.tag] = str(meta.text) if meta.text else None
             elif element.tag == "links":
                 kwargs["links"] = {}
                 for url in element:
