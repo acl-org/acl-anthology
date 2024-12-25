@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.5.0] — 2024-12-25
+
 ### Added
 
 - Papers can now generate citation reference strings via `to_citation()`.
