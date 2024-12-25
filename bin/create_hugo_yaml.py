@@ -38,7 +38,6 @@ import logging as log
 from omegaconf import OmegaConf
 import os
 from rich import print
-from rich.logging import RichHandler
 from rich.progress import (
     Progress,
     TextColumn,
@@ -68,9 +67,6 @@ from create_hugo_pages import check_directory
 SCRIPTDIR = os.path.dirname(os.path.realpath(__file__))
 
 
-# TODO: autopr introduces title_raw and abstract_raw (containing the xml)
-
-
 def make_progress():
     columns = [
         TextColumn("[progress.description]{task.description:25s}"),
@@ -98,6 +94,7 @@ def paper_to_dict(paper):
     """
     Turn a single paper into a dictionary suitable for YAML export as expected by Hugo.
     """
+    # TODO: autopr introduces title_raw and abstract_raw (containing the xml)
     data = {
         "bibkey": paper.bibkey,
         "bibtype": paper.bibtype,
@@ -531,8 +528,7 @@ if __name__ == "__main__":
     # This "freezes" the config, resulting in a massive speed-up
     OmegaConf.resolve(config)
 
-    anthology = Anthology(datadir=args["--importdir"])
-    anthology.load_all()
+    anthology = Anthology(datadir=args["--importdir"]).load_all()
     if tracker.highest >= log.ERROR:
         exit(1)
 

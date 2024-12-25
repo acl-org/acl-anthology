@@ -33,7 +33,6 @@ from glob import glob
 import logging as log
 import os
 from rich import print
-from rich.logging import RichHandler
 from rich.progress import track
 import shutil
 import yaml
