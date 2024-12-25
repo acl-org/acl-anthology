@@ -35,24 +35,11 @@ import datetime
 
 from docopt import docopt
 from pathlib import Path
-from rich import print
-from rich.logging import RichHandler
 from rich.progress import track
 
-from anthology import Anthology
-from anthology.utils import SeverityTracker, deconstruct_anthology_id, infer_year
+from acl_anthology import Anthology
+from acl_anthology.utils.logging import setup_rich_logging
 from create_hugo_pages import check_directory
-
-
-def volume_sorter(volume_tuple):
-    """
-    Extracts the year so that we can sort by the year and then
-    the collection ID.
-    """
-    volume_id = volume_tuple[0]
-    collection_id, year, _ = deconstruct_anthology_id(volume_id)
-    year = infer_year(collection_id)
-    return year, volume_id
 
 
 def create_bibtex(anthology, trgdir, limit=0, clean=False) -> None:
@@ -95,8 +82,10 @@ def create_bibtex(anthology, trgdir, limit=0, clean=False) -> None:
         print("@string{anth = {https://aclanthology.org/}}", file=file_anthology_raw)
         print(file=file_anthology_raw)
 
-        for volume_id, volume in track(
-            sorted(anthology.volumes.items(), key=volume_sorter, reverse=True),
+        for volume in track(
+            sorted(
+                anthology.volumes(), key=lambda vol: (vol.year, vol.full_id), reverse=True
+            ),
             description="Creating BibTeX files...",
         ):
             # reset this each time
@@ -105,19 +94,21 @@ def create_bibtex(anthology, trgdir, limit=0, clean=False) -> None:
             volume_dir = trgdir
             if not os.path.exists(volume_dir):
                 os.makedirs(volume_dir)
-            with open("{}/volumes/{}.bib".format(trgdir, volume_id), "w") as file_volume:
-                for i, paper in enumerate(volume, 1):
+            with open(
+                "{}/volumes/{}.bib".format(trgdir, volume.full_id), "w"
+            ) as file_volume:
+                for i, paper in enumerate(volume.values(), 1):
                     if limit and i > limit:
                         break
 
                     with open(
                         "{}/{}.bib".format(volume_dir, paper.full_id), "w"
                     ) as file_paper:
-                        contents = paper.as_bibtex()
+                        contents = paper.to_bibtex(with_abstract=True)
                         print(contents, file=file_paper)
                         print(contents, file=file_anthology_with_abstracts)
 
-                        concise_contents = paper.as_bibtex(concise=True)
+                        concise_contents = paper.to_bibtex()
                         print(concise_contents, file=file_volume)
                         print(concise_contents, file=file_anthology)
 
@@ -138,7 +129,9 @@ def create_bibtex(anthology, trgdir, limit=0, clean=False) -> None:
                         # the first entry in each volume
                         if concise_contents.startswith("@proceedings"):
                             # Grab the title string and create the alias
-                            abbrev = f"{volume.get_venues()[0].upper()}:{infer_year(volume.collection_id)}:{volume.volume_id}"
+                            abbrev = (
+                                f"{volume.venue_ids[0].upper()}:{volume.year}:{volume.id}"
+                            )
                             try:
                                 booktitle = re.search(
                                     r"    title = \"(.*)\",", concise_contents
@@ -149,7 +142,7 @@ def create_bibtex(anthology, trgdir, limit=0, clean=False) -> None:
                                 )
                             except AttributeError:
 
-                                log.warning(f"Could not find title for {volume_id}")
+                                log.warning(f"Could not find title for {volume.full_id}")
                                 abbrev = None
 
                         if abbrev is not None and "booktitle" in concise_contents:
@@ -181,18 +174,17 @@ if __name__ == "__main__":
         )
 
     log_level = log.DEBUG if args["--debug"] else log.INFO
-    tracker = SeverityTracker()
-    log.basicConfig(
-        format="%(message)s", level=log_level, handlers=[RichHandler(), tracker]
-    )
+    tracker = setup_rich_logging(level=log_level)
 
     # If NOBIB is set, generate only three bibs per volume
     limit = 0 if os.environ.get("NOBIB", "false") == "false" else 3
     if limit != 0:
         log.info(f"NOBIB=true, generating only {limit} BibTEX files per volume")
 
-    anthology = Anthology(importdir=args["--importdir"], fast_load=True)
-    create_bibtex(anthology, args["--exportdir"], limit=limit, clean=args["--clean"])
+    anthology = Anthology(datadir=args["--importdir"])  # .load_all()
+    if tracker.highest >= log.ERROR:
+        exit(1)
 
+    create_bibtex(anthology, args["--exportdir"], limit=limit, clean=args["--clean"])
     if tracker.highest >= log.ERROR:
         exit(1)
