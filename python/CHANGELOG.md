@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [0.5.0] — 2024-12-25
+
+This release is intended to be feature-complete with regard to generating the entire ACL Anthology website.
+
 ### Added
 
 - Papers can now generate citation reference strings via `to_citation()`.

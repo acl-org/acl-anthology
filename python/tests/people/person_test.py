@@ -65,6 +65,15 @@ def test_person_with_name_variants(anthology):
     assert person.has_name(Name("洋", "刘"))
 
 
+def test_person_is_explicit(anthology):
+    person = anthology.get_person("yang-liu-ict")
+    assert person.is_explicit
+    person = anthology.get_person("nicoletta-calzolari")
+    assert not person.is_explicit
+    person = anthology.get_person("srinivas-bangalore")
+    assert person.is_explicit
+
+
 def test_person_equality(anthology_stub):
     n = Name("Yang", "Liu")
     person1 = Person("yang-liu", anthology_stub, [n])
