@@ -154,7 +154,7 @@
 
     // Handle column
     const handleCol = document.createElement('div');
-    handleCol.className = 'col-12 col-md-1 text-center';
+    handleCol.className = 'col-1 text-center';
 
     const handle = document.createElement('span');
     handle.className = 'drag-handle';
@@ -166,7 +166,7 @@
 
     // First name column
     const firstNameCol = document.createElement('div');
-    firstNameCol.className = 'col-12 col-md-3';
+    firstNameCol.className = 'col-11 col-md-3';
 
     const firstName = document.createElement('input');
     firstName.type = 'text';
@@ -190,7 +190,7 @@
 
     // Affiliation column
     const affCol = document.createElement('div');
-    affCol.className = 'col-12 col-md-3';
+    affCol.className = 'col-10 col-md-3';
 
     const affInput = document.createElement('input');
     affInput.type = 'text';
@@ -202,12 +202,12 @@
 
     // Delete button column
     const delCol = document.createElement('div');
-    delCol.className = 'col-12 col-md-2 text-end';
+    delCol.className = 'col-2 col-md-2 text-end';
 
     const delBtn = document.createElement('button');
     delBtn.type = 'button';
     delBtn.className = 'btn btn-sm btn-danger';
-    delBtn.textContent = 'Delete';
+    delBtn.textContent = 'X';
     delBtn.onclick = () => row.remove();
 
     delCol.appendChild(delBtn);
