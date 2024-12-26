@@ -62,7 +62,9 @@ class Venue:
     )
     oldstyle_letter: Optional[str] = field(default=None)
     url: Optional[str] = field(default=None)
-    # TODO: Should we deprecate 'type'? Currently used to designate journals at the venue level.
+    # TODO: Should we reconsider 'type'? Currently used to designate journals
+    # at the venue level; but journals are also marked on the individual
+    # volumes.
     type: Optional[str] = field(default=None)
 
     @classmethod
