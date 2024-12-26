@@ -34,10 +34,11 @@ import os
 import datetime
 
 from docopt import docopt
+from omegaconf import OmegaConf
 from pathlib import Path
 from rich.progress import track
 
-from acl_anthology import Anthology
+from acl_anthology import Anthology, config
 from acl_anthology.utils.logging import setup_rich_logging
 from create_hugo_pages import check_directory
 
@@ -175,6 +176,9 @@ if __name__ == "__main__":
 
     log_level = log.DEBUG if args["--debug"] else log.INFO
     tracker = setup_rich_logging(level=log_level)
+
+    # This "freezes" the config, resulting in a massive speed-up
+    OmegaConf.resolve(config)
 
     # If NOBIB is set, generate only three bibs per volume
     limit = 0 if os.environ.get("NOBIB", "false") == "false" else 3
