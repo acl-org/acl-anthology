@@ -294,7 +294,7 @@
 
     // Same assembly as original code
     const baseurl = "https://github.com/acl-org/acl-anthology/issues/new?template=99-bulk-metadata-correction.yml";
-    const issue_title = `Metadata correction for ${updatedParams.anthology_id}`;
+    const issue_title = "Metadata correction for {{ .Params.anthology_id}}";
     const labels = "metadata,correction";
     const who = "anthology-assist";
     const param_string = "```json\n" + JSON.stringify(updatedParams, null, 2) + "\n```";
