@@ -185,7 +185,7 @@ if __name__ == "__main__":
     if limit != 0:
         log.info(f"NOBIB=true, generating only {limit} BibTEX files per volume")
 
-    anthology = Anthology(datadir=args["--importdir"])  # .load_all()
+    anthology = Anthology(datadir=args["--importdir"]).load_all()
     if tracker.highest >= log.ERROR:
         exit(1)
 
