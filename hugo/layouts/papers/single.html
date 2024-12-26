@@ -154,11 +154,12 @@
 
     // Group drag handle and first name column
     const grabberCol = document.createElement('div');
-    grabberCol.className = 'col-auto';
+    grabberCol.className = 'col-auto pe-1';
 
     const handle = document.createElement('span');
-    handle.className = 'drag-handle px-2';
+    handle.className = 'drag-handle';
     handle.textContent = '⋮';
+    handle.style = "padding: 0 2px";
     // Note: If you don't want to restrict dragging to the handle, remove handle.draggable
     handle.draggable = true;
 
