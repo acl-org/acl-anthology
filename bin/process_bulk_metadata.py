@@ -137,16 +137,16 @@ class AnthologyMetadataUpdater:
                 abstract_node.text = changes["abstract"]
                 print(f"-> Changed abstract to {changes['abstract']}", file=sys.stderr)
             if "authors" in changes:
-                authors_node = paper_node.find("authors")
-                if authors_node is None:
-                    authors_node = ET.SubElement(paper_node, "authors")
-                else:
-                    authors_node.clear()
+                # remove existing author nodes
+                for author_node in paper_node.findall("author"):
+                    paper_node.remove(author_node)
+
                 for author in changes["authors"]:
                     attrib = {}
                     if "id" in author:
                         attrib["id"] = author["id"]
-                    author_node = ET.SubElement(authors_node, "author", attrib=attrib)
+                    # create author_node and add as sibling after insertion_point
+                    author_node = ET.SubElement(paper_node, "author", attrib=attrib)
                     if "first" in author:
                         first_node = ET.SubElement(author_node, "first")
                         first_node.text = author["first"]
@@ -191,7 +191,7 @@ class AnthologyMetadataUpdater:
                 ref=f"refs/heads/{new_branch_name}", sha=base_branch.commit.sha
             )
 
-            changes_made = False
+            closed_issues = []
 
             for issue in issues:
                 if ids and issue.number not in ids:
@@ -240,15 +240,16 @@ class AnthologyMetadataUpdater:
                         file_content.sha,
                         branch=new_branch_name,
                     )
-                    changes_made = True
+                    closed_issues.append(issue)
 
-            if changes_made:
+            if len(closed_issues) > 0:
+                closed_issues_str = "\n".join([f"Closes #{issue.number}" for issue in closed_issues])
+
                 # Create pull request
                 pr = self.repo.create_pull(
                     title=f"Bulk metadata corrections {today}",
                     body="Automated PR for bulk metadata corrections.\n\n"
-                    "This PR includes changes from the following issues:\n"
-                    + "\n".join([f"#{issue.number}" for issue in issues]),
+                    + closed_issues_str,
                     head=new_branch_name,
                     base="master",
                 )
