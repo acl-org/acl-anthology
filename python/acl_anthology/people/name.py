@@ -15,7 +15,7 @@
 from __future__ import annotations
 
 from attrs import define, field, Factory
-from functools import cached_property
+from functools import cache, cached_property
 from lxml import etree
 from lxml.builder import E
 import re
@@ -76,6 +76,7 @@ class Name:
             return f"{self.last}{self.first}"
         return f"{self.first} {self.last}"
 
+    @cache
     def as_bibtex(self) -> str:
         """
         Returns:

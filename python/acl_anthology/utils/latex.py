@@ -16,6 +16,7 @@ from __future__ import annotations
 
 import codecs
 import re
+from functools import lru_cache
 from typing import Optional, TypeAlias, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -88,6 +89,7 @@ def has_unbalanced_braces(string: str) -> bool:
     return c != 0
 
 
+@lru_cache
 def latex_encode(text: Optional[str]) -> str:
     """
     Arguments:
