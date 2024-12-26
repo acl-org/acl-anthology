@@ -162,7 +162,7 @@ class AnthologyMetadataUpdater:
             print(f"Error applying changes to XML: {e}")
             return None
 
-    def process_metadata_issues(self, ids=[], verbose=False, skip_validation=False):
+    def process_metadata_issues(self, ids=[], verbose=False, skip_validation=False, dry_run=False):
         """Process all metadata issues and create PR with changes."""
         # Get all open issues with required labels
         issues = self.repo.get_issues(state='open', labels=['metadata', 'correction'])
@@ -246,14 +246,15 @@ class AnthologyMetadataUpdater:
                 closed_issues_str = "\n".join([f"Closes #{issue.number}" for issue in closed_issues])
 
                 # Create pull request
-                pr = self.repo.create_pull(
-                    title=f"Bulk metadata corrections {today}",
-                    body="Automated PR for bulk metadata corrections.\n\n"
-                    + closed_issues_str,
-                    head=new_branch_name,
-                    base="master",
-                )
-                print(f"Created PR: {pr.html_url}")
+                if not dry_run:
+                    pr = self.repo.create_pull(
+                        title=f"Bulk metadata corrections {today}",
+                        body="Automated PR for bulk metadata corrections.\n\n"
+                        + closed_issues_str,
+                        head=new_branch_name,
+                        base="master",
+                    )
+                    print(f"Created PR: {pr.html_url}")
             else:
                 # Clean up branch if no changes were made
                 ref.delete()
@@ -278,10 +279,15 @@ if __name__ == "__main__":
     parser.add_argument(
         "ids", nargs="*", type=int, help="Specific issue IDs to process"
     )
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Dry run (do not create PRs)",
+    )
     args = parser.parse_args()
 
     if not github_token:
         raise ValueError("Please set GITHUB_TOKEN environment variable")
 
     updater = AnthologyMetadataUpdater(github_token)
-    updater.process_metadata_issues(ids=args.ids, verbose=args.verbose, skip_validation=args.skip_validation)
+    updater.process_metadata_issues(ids=args.ids, verbose=args.verbose, skip_validation=args.skip_validation, dry_run=args.dry_run)
