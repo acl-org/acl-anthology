@@ -7,19 +7,16 @@ body:
   - type: markdown
     attributes:
       value: >
-        This form is activated by following a link from a paper page in the Anthology (e.g., https://aclanthology.org/K17-1003/). The form will list the title, abstract, and authors in JSON format, which you can manipulate to make corrections, such as adjusting a title, correcting an author name, adding a missing author, or reordering names.
-
-        Please note to take care to preserve structure such as the `<fixed-case>` tag that is sometimes present in titles.
-
+        **This form is not meant to be used manually.** Instead, it is activated by following the "Fix metadata" link from each paper page in the Anthology (e.g., https://aclanthology.org/K17-1003/). Clicking this button displays a UI tool for modifying the title, abstract, and author list. Submission of that form will automatically populate the field below.
+  - type: markdown
+    attributes:
+      value: >
         Corrections will be processed in bulk on a weekly basis after verification by Anthology staff.
   - type: textarea
     id: data
-    attributes:
-      label: JSON code block
-      description: Please make corrections below, taking care to preserve the JSON structure (e.g., no trailing commas at the end of lists). If you add an author, do not worry about the ID unless you know what it is.
     validations:
       required: true
   - type: markdown
     attributes:
       value: |
-        **Note:** If you request an author name correction for yourself, please help ensure your name is correct for future publications by setting it correctly in Softconf/OpenReview.
+        **Important:** If you request an author name correction for yourself, please help ensure your name is correct for future publications by setting it correctly in Softconf/OpenReview.
