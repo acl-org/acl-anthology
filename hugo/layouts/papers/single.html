@@ -280,10 +280,9 @@
       updatedParams.abstract = newAbstract;
     }
 
+    // remove "id" field from paper_params.authors
+    const oldAuthorString = JSON.stringify(paper_params.authors.map(({id, ...rest}) => rest));
     const newAuthorString = JSON.stringify(newAuthors);
-    const oldAuthorString = JSON.stringify(paper_params.authors);
-    alert(newAuthorString);
-    alert(oldAuthorString);
     if (newAuthorString != oldAuthorString) {
       updatedParams.authors = newAuthors;
     }
@@ -292,8 +291,6 @@
       alert("No changes detected.");
       return;
     }
-
-    alert    
 
     // Same assembly as original code
     const baseurl = "https://github.com/acl-org/acl-anthology/issues/new?template=99-bulk-metadata-correction.yml";
@@ -352,7 +349,7 @@
             </div>
             <label class="form-label">Authors</label>
             <small id="authorTitleHelp" class="form-text text-muted">Adjust author names, affiliations, and list order to match the PDF.</small>
-            <div id="authorsContainer" ondrop="dropAuthor(event)" ondragover="allowDrop(event)"></div>
+            <div id="authorsContainer" class="px-3" ondrop="dropAuthor(event)" ondragover="allowDrop(event)"></div>
             <button type="button" class="btn btn-secondary btn-sm mb-3" onclick="addAuthor()">Add Author</button>
 
             <div class="mb-3">
