@@ -507,16 +507,25 @@ def parse_element(
     return attrib
 
 
-def make_simple_element(tag, text=None, attrib=None, parent=None, namespaces=None):
-    """Convenience function to create an LXML node"""
-    el = (
-        etree.Element(tag, nsmap=namespaces)
-        if parent is None
-        else etree.SubElement(parent, tag)
-    )
+def make_simple_element(tag, text=None, attrib=None, parent=None, sibling=None, namespaces=None):
+    """Convenience function to create an LXML node.
+
+    :param tag: the tag name
+    :param text: the text content of the node
+    :param attrib: a dictionary of attributes
+    :param parent: the parent node
+    :param sibling: if provided and found, the new node will be inserted after this node
+    """
+    el = etree.Element(tag, nsmap=namespaces)
+    if parent is not None:
+        if sibling is not None:
+            parent.insert(parent.index(sibling) + 1, el)
+        else:
+            parent.append(el)
+
     if text:
         el.text = str(text)
-    if attrib:
+    if len(attrib):
         for key, value in attrib.items():
             el.attrib[key] = value
     return el

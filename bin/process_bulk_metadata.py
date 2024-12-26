@@ -35,10 +35,10 @@ import os
 from datetime import datetime
 from github import Github
 import json
-import xml.etree.ElementTree as ET
+import lxml.etree as ET
 import re
 
-from anthology.utils import deconstruct_anthology_id, indent
+from anthology.utils import deconstruct_anthology_id, indent, make_simple_element
 
 
 class AnthologyMetadataUpdater:
@@ -127,13 +127,13 @@ class AnthologyMetadataUpdater:
             if "title" in changes:
                 title_node = paper_node.find("title")
                 if title_node is None:
-                    title_node = ET.SubElement(paper_node, "title")
+                    title_node = make_simple_element("title", parent=paper_node)
                 title_node.text = changes["title"]
                 print(f"-> Changed title to {changes['title']}", file=sys.stderr)
             if "abstract" in changes:
                 abstract_node = paper_node.find("abstract")
                 if abstract_node is None:
-                    abstract_node = ET.SubElement(paper_node, "abstract")
+                    abstract_node =make_simple_element("abstract", paper_node)
                 abstract_node.text = changes["abstract"]
                 print(f"-> Changed abstract to {changes['abstract']}", file=sys.stderr)
             if "authors" in changes:
@@ -141,20 +141,23 @@ class AnthologyMetadataUpdater:
                 for author_node in paper_node.findall("author"):
                     paper_node.remove(author_node)
 
+                prev_sibling = paper_node.find("title")
+
                 for author in changes["authors"]:
                     attrib = {}
                     if "id" in author:
                         attrib["id"] = author["id"]
                     # create author_node and add as sibling after insertion_point
-                    author_node = ET.SubElement(paper_node, "author", attrib=attrib)
+                    author_node = make_simple_element("author", attrib=attrib, parent=paper_node, sibling=prev_sibling)
+                    prev_sibling = author_node
                     if "first" in author:
-                        first_node = ET.SubElement(author_node, "first")
+                        first_node = make_simple_element("first", parent=author_node)
                         first_node.text = author["first"]
                     if "last" in author:
-                        last_node = ET.SubElement(author_node, "last")
+                        last_node = make_simple_element("last", parent=author_node)
                         last_node.text = author["last"]
-                    if "affiliation" in author:
-                        affiliation_node = ET.SubElement(author_node, "affiliation")
+                    if "affiliation" in author and author["affiliation"]:
+                        affiliation_node = make_simple_element("affiliation", parent=author_node)
                         affiliation_node.text = author["affiliation"]
                     print(f"-> Added author {author['first']} {author['last']}", file=sys.stderr)
             return tree
@@ -227,10 +230,10 @@ class AnthologyMetadataUpdater:
                 tree = self._apply_changes_to_xml(xml_path, anthology_id, json_block)
 
                 if tree:
-                    # Convert tree to string and encode
-                    new_content = ET.tostring(
-                        tree.getroot(), encoding='unicode', method='xml'
-                    )
+                    indent(tree.getroot())
+
+                    # write to string
+                    new_content = ET.tostring(tree.getroot(), encoding="UTF-8", xml_declaration=True)
 
                     # Commit changes
                     self.repo.update_file(
