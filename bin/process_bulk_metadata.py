@@ -124,18 +124,15 @@ class AnthologyMetadataUpdater:
                 return None
 
             # Apply changes to XML
-            if "title" in changes:
-                title_node = paper_node.find("title")
-                if title_node is None:
-                    title_node = make_simple_element("title", parent=paper_node)
-                title_node.text = changes["title"]
-                print(f"-> Changed title to {changes['title']}", file=sys.stderr)
-            if "abstract" in changes:
-                abstract_node = paper_node.find("abstract")
-                if abstract_node is None:
-                    abstract_node =make_simple_element("abstract", paper_node)
-                abstract_node.text = changes["abstract"]
-                print(f"-> Changed abstract to {changes['abstract']}", file=sys.stderr)
+            for key in ["title", "abstract"]:
+                if key in changes:
+                    node = paper_node.find(key)
+                    if node is None:
+                        node = make_simple_element(key, parent=paper_node)
+                    # set the node to the structure of the new string
+                    new_node = ET.fromstring(f"<{key}>{changes[key]}</{key}>")
+                    # replace the current node with the new node in the tree
+                    paper_node.replace(node, new_node)
             if "authors" in changes:
                 # remove existing author nodes
                 for author_node in paper_node.findall("author"):

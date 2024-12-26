@@ -523,9 +523,9 @@ def make_simple_element(tag, text=None, attrib=None, parent=None, sibling=None, 
         else:
             parent.append(el)
 
-    if text:
+    if text is not None:
         el.text = str(text)
-    if len(attrib):
+    if attrib:
         for key, value in attrib.items():
             el.attrib[key] = value
     return el
