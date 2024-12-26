@@ -507,7 +507,9 @@ def parse_element(
     return attrib
 
 
-def make_simple_element(tag, text=None, attrib=None, parent=None, sibling=None, namespaces=None):
+def make_simple_element(
+    tag, text=None, attrib=None, parent=None, sibling=None, namespaces=None
+):
     """Convenience function to create an LXML node.
 
     :param tag: the tag name

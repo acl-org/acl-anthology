@@ -118,7 +118,9 @@ class AnthologyMetadataUpdater:
 
             collection_id, volume_id, paper_id = deconstruct_anthology_id(anthology_id)
 
-            paper_node = tree.getroot().find(f"./volume[@id='{volume_id}']/paper[@id='{paper_id}']")
+            paper_node = tree.getroot().find(
+                f"./volume[@id='{volume_id}']/paper[@id='{paper_id}']"
+            )
             if paper_node is None:
                 print(f"-> Paper not found in XML file {xml_path}", file=sys.stderr)
                 return None
@@ -145,7 +147,9 @@ class AnthologyMetadataUpdater:
                     if "id" in author:
                         attrib["id"] = author["id"]
                     # create author_node and add as sibling after insertion_point
-                    author_node = make_simple_element("author", attrib=attrib, parent=paper_node, sibling=prev_sibling)
+                    author_node = make_simple_element(
+                        "author", attrib=attrib, parent=paper_node, sibling=prev_sibling
+                    )
                     prev_sibling = author_node
                     if "first" in author:
                         first_node = make_simple_element("first", parent=author_node)
@@ -154,15 +158,22 @@ class AnthologyMetadataUpdater:
                         last_node = make_simple_element("last", parent=author_node)
                         last_node.text = author["last"]
                     if "affiliation" in author and author["affiliation"]:
-                        affiliation_node = make_simple_element("affiliation", parent=author_node)
+                        affiliation_node = make_simple_element(
+                            "affiliation", parent=author_node
+                        )
                         affiliation_node.text = author["affiliation"]
-                    print(f"-> Added author {author['first']} {author['last']}", file=sys.stderr)
+                    print(
+                        f"-> Added author {author['first']} {author['last']}",
+                        file=sys.stderr,
+                    )
             return tree
         except Exception as e:
             print(f"Error applying changes to XML: {e}")
             return None
 
-    def process_metadata_issues(self, ids=[], verbose=False, skip_validation=False, dry_run=False):
+    def process_metadata_issues(
+        self, ids=[], verbose=False, skip_validation=False, dry_run=False
+    ):
         """Process all metadata issues and create PR with changes."""
         # Get all open issues with required labels
         issues = self.repo.get_issues(state='open', labels=['metadata', 'correction'])
@@ -230,7 +241,9 @@ class AnthologyMetadataUpdater:
                     indent(tree.getroot())
 
                     # write to string
-                    new_content = ET.tostring(tree.getroot(), encoding="UTF-8", xml_declaration=True)
+                    new_content = ET.tostring(
+                        tree.getroot(), encoding="UTF-8", xml_declaration=True
+                    )
 
                     # Commit changes
                     self.repo.update_file(
@@ -243,7 +256,9 @@ class AnthologyMetadataUpdater:
                     closed_issues.append(issue)
 
             if len(closed_issues) > 0:
-                closed_issues_str = "\n".join([f"Closes #{issue.number}" for issue in closed_issues])
+                closed_issues_str = "\n".join(
+                    [f"- closes #{issue.number}" for issue in closed_issues]
+                )
 
                 # Create pull request
                 if not dry_run:
@@ -276,9 +291,7 @@ if __name__ == "__main__":
         action="store_true",
         help="Skip validation of approval by Anthology team member",
     )
-    parser.add_argument(
-        "ids", nargs="*", type=int, help="Specific issue IDs to process"
-    )
+    parser.add_argument("ids", nargs="*", type=int, help="Specific issue IDs to process")
     parser.add_argument(
         "--dry-run",
         action="store_true",
@@ -290,4 +303,9 @@ if __name__ == "__main__":
         raise ValueError("Please set GITHUB_TOKEN environment variable")
 
     updater = AnthologyMetadataUpdater(github_token)
-    updater.process_metadata_issues(ids=args.ids, verbose=args.verbose, skip_validation=args.skip_validation, dry_run=args.dry_run)
+    updater.process_metadata_issues(
+        ids=args.ids,
+        verbose=args.verbose,
+        skip_validation=args.skip_validation,
+        dry_run=args.dry_run,
+    )
