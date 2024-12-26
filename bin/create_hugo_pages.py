@@ -90,7 +90,11 @@ def create_papers(srcdir, clean=False):
             with open("{}/{}.md".format(paper_dir, anthology_id), "w") as f:
                 print("---", file=f)
                 yaml.dump(
-                    {"anthology_id": anthology_id, "title": entry["title"]},
+                    {
+                        "anthology_id": anthology_id,
+                        "title": entry["title"],
+                        "date": entry["ingest_date"],
+                    },
                     default_flow_style=False,
                     stream=f,
                 )
