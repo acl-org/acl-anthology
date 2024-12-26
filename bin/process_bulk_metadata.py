@@ -38,6 +38,8 @@ import json
 import xml.etree.ElementTree as ET
 import re
 
+from anthology.utils import deconstruct_anthology_id, indent
+
 
 class AnthologyMetadataUpdater:
     def __init__(self, github_token):
@@ -101,7 +103,6 @@ class AnthologyMetadataUpdater:
                 f.write(issue_body)
 
             if match:
-                print("Got a match", match)
                 # return the first match
                 return json.loads(match[1])
         except Exception as e:
@@ -109,27 +110,59 @@ class AnthologyMetadataUpdater:
 
         return None
 
-    def _apply_changes_to_xml(self, xml_path, changes):
+    def _apply_changes_to_xml(self, xml_path, anthology_id, changes):
         """Apply the specified changes to XML file."""
         try:
+            print(f"Applying changes to XML file {xml_path}", file=sys.stderr)
             tree = ET.parse(xml_path)
-            root = tree.getroot()
 
-            for change in changes:
-                elements = root.findall(change['xpath'])
-                for element in elements:
-                    if 'new_value' in change:
-                        element.text = change['new_value']
-                    elif 'new_attributes' in change:
-                        for attr, value in change['new_attributes'].items():
-                            element.set(attr, value)
+            collection_id, volume_id, paper_id = deconstruct_anthology_id(anthology_id)
 
+            paper_node = tree.getroot().find(f"./volume[@id='{volume_id}']/paper[@id='{paper_id}']")
+            if paper_node is None:
+                print(f"-> Paper not found in XML file {xml_path}", file=sys.stderr)
+                return None
+
+            # Apply changes to XML
+            if "title" in changes:
+                title_node = paper_node.find("title")
+                if title_node is None:
+                    title_node = ET.SubElement(paper_node, "title")
+                title_node.text = changes["title"]
+                print(f"-> Changed title to {changes['title']}", file=sys.stderr)
+            if "abstract" in changes:
+                abstract_node = paper_node.find("abstract")
+                if abstract_node is None:
+                    abstract_node = ET.SubElement(paper_node, "abstract")
+                abstract_node.text = changes["abstract"]
+                print(f"-> Changed abstract to {changes['abstract']}", file=sys.stderr)
+            if "authors" in changes:
+                authors_node = paper_node.find("authors")
+                if authors_node is None:
+                    authors_node = ET.SubElement(paper_node, "authors")
+                else:
+                    authors_node.clear()
+                for author in changes["authors"]:
+                    attrib = {}
+                    if "id" in author:
+                        attrib["id"] = author["id"]
+                    author_node = ET.SubElement(authors_node, "author", attrib=attrib)
+                    if "first" in author:
+                        first_node = ET.SubElement(author_node, "first")
+                        first_node.text = author["first"]
+                    if "last" in author:
+                        last_node = ET.SubElement(author_node, "last")
+                        last_node.text = author["last"]
+                    if "affiliation" in author:
+                        affiliation_node = ET.SubElement(author_node, "affiliation")
+                        affiliation_node.text = author["affiliation"]
+                    print(f"-> Added author {author['first']} {author['last']}", file=sys.stderr)
             return tree
         except Exception as e:
             print(f"Error applying changes to XML: {e}")
             return None
 
-    def process_metadata_issues(self, verbose=False):
+    def process_metadata_issues(self, ids=[], verbose=False, skip_validation=False):
         """Process all metadata issues and create PR with changes."""
         # Get all open issues with required labels
         issues = self.repo.get_issues(state='open', labels=['metadata', 'correction'])
@@ -139,7 +172,7 @@ class AnthologyMetadataUpdater:
         today = datetime.now().strftime("%Y-%m-%d")
         new_branch_name = f"bulk-corrections-{today}"
 
-        try:
+        if True:
             # Check if branch already exists
             existing_branch = next(
                 (
@@ -161,6 +194,8 @@ class AnthologyMetadataUpdater:
             changes_made = False
 
             for issue in issues:
+                if ids and issue.number not in ids:
+                    continue
                 opened_at = issue.created_at.strftime("%Y-%m-%d")
                 if verbose:
                     print(
@@ -176,10 +211,10 @@ class AnthologyMetadataUpdater:
                     continue
 
                 # Skip issues that are not approved by team member
-                # if not self._is_approved_by_team_member(issue):
-                #     if verbose:
-                #         print("-> Skipping (not approved yet)", file=sys.stderr)
-                #     continue
+                if not skip_validation and not self._is_approved_by_team_member(issue):
+                    if verbose:
+                        print("-> Skipping (not approved yet)", file=sys.stderr)
+                    continue
 
                 anthology_id = json_block.get("anthology_id")
                 collection_id = anthology_id.split("-")[0]
@@ -189,7 +224,7 @@ class AnthologyMetadataUpdater:
                 file_content = self.repo.get_contents(xml_path, ref=new_branch_name)
 
                 # Apply changes to XML
-                tree = self._apply_changes_to_xml(xml_path, None)
+                tree = self._apply_changes_to_xml(xml_path, anthology_id, json_block)
 
                 if tree:
                     # Convert tree to string and encode
@@ -223,8 +258,8 @@ class AnthologyMetadataUpdater:
                 ref.delete()
                 print("No changes to make - deleted branch")
 
-        except Exception as e:
-            print(f"Error processing issues: {e}")
+        # except Exception as e:
+        #     print(f"Error processing issues: {e}")
 
 
 if __name__ == "__main__":
@@ -234,10 +269,18 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description="Bulk metadata corrections")
     parser.add_argument("-v", "--verbose", action="store_true", help="Verbose output")
+    parser.add_argument(
+        "--skip-validation",
+        action="store_true",
+        help="Skip validation of approval by Anthology team member",
+    )
+    parser.add_argument(
+        "ids", nargs="*", type=int, help="Specific issue IDs to process"
+    )
     args = parser.parse_args()
 
     if not github_token:
         raise ValueError("Please set GITHUB_TOKEN environment variable")
 
     updater = AnthologyMetadataUpdater(github_token)
-    updater.process_metadata_issues(args.verbose)
+    updater.process_metadata_issues(ids=args.ids, verbose=args.verbose, skip_validation=args.skip_validation)
