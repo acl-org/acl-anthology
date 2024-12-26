@@ -74,9 +74,9 @@ docs: _deps
 docs-serve: _deps
   poetry run mkdocs serve
 
-# Open a Python REPL
-py *ARGS: _deps
-  poetry run python {{ARGS}}
+# Open a Python REPL with an Anthology object pre-instantiated
+py: _deps
+  poetry run python -i repl_with_anthology.py
 
 # Check that there are no uncommited changes
 [private]

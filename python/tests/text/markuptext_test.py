@@ -58,6 +58,30 @@ test_cases_markup = (
         },
     ),
     (
+        "Workshop on Topic A &amp; B",
+        {
+            "text": "Workshop on Topic A & B",
+            "html": "Workshop on Topic A &amp; B",
+            "latex": "Workshop on Topic A \\& B",
+        },
+    ),
+    (
+        "Title with\n\n line breaks",
+        {
+            "text": "Title with line breaks",
+            "html": "Title with line breaks",
+            "latex": "Title with line breaks",
+        },
+    ),
+    (
+        "<span>Title with\n\n line breaks</span>",
+        {
+            "text": "Title with line breaks",
+            "html": "<span>Title with line breaks</span>",
+            "latex": "Title with line breaks",
+        },
+    ),
+    (
         "<fixed-case>U</fixed-case>pstream <fixed-case>M</fixed-case>itigation <fixed-case>I</fixed-case>s <i><fixed-case>N</fixed-case>ot</i> <fixed-case>A</fixed-case>ll <fixed-case>Y</fixed-case>ou <fixed-case>N</fixed-case>eed",
         {
             "text": "Upstream Mitigation Is Not All You Need",
@@ -99,6 +123,14 @@ test_cases_markup = (
             "latex": "陳大文",
         },
     ),
+    (
+        "",
+        {
+            "text": "",
+            "html": "",
+            "latex": "",
+        },
+    ),
 )
 
 
@@ -110,8 +142,9 @@ def test_markup(inp, out):
     assert markup.as_text() == out["text"]
     assert markup.as_html() == out["html"]
     assert markup.as_latex() == out["latex"]
+    assert markup.as_xml() == inp
     assert etree.tostring(markup.to_xml("title"), encoding="unicode") == xml
-    assert markup.contains_markup == (out["text"] != out["html"])
+    assert markup.contains_markup == ("<" in out["html"])
 
 
 def test_simple_string():
@@ -121,6 +154,7 @@ def test_simple_string():
     assert markup.as_text() == text
     assert markup.as_html() == text
     assert markup.as_latex() == text
+    assert markup.as_xml() == text
     assert (
         etree.tostring(markup.to_xml("span"), encoding="unicode")
         == f"<span>{text}</span>"

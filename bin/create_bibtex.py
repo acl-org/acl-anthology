@@ -67,13 +67,17 @@ def create_bibtex(anthology, trgdir, limit=0, clean=False) -> None:
         return
 
     log.info("Creating BibTeX files for all papers...")
-    with open(
-        "{}/anthology.bib".format(trgdir), "wt", encoding="utf-8"
-    ) as file_anthology_raw, gzip.open(
-        "{}/anthology.bib.gz".format(trgdir), "wt", encoding="utf-8"
-    ) as file_anthology, gzip.open(
-        "{}/anthology+abstracts.bib.gz".format(trgdir), "wt", encoding="utf-8"
-    ) as file_anthology_with_abstracts:
+    with (
+        open(
+            "{}/anthology.bib".format(trgdir), "wt", encoding="utf-8"
+        ) as file_anthology_raw,
+        gzip.open(
+            "{}/anthology.bib.gz".format(trgdir), "wt", encoding="utf-8"
+        ) as file_anthology,
+        gzip.open(
+            "{}/anthology+abstracts.bib.gz".format(trgdir), "wt", encoding="utf-8"
+        ) as file_anthology_with_abstracts,
+    ):
         # Add a header to each consolidated bibfile
         for outfh in file_anthology_raw, file_anthology, file_anthology_with_abstracts:
             print(
