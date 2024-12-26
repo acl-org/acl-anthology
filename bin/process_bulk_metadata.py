@@ -136,6 +136,16 @@ class AnthologyMetadataUpdater:
                     # replace the current node with the new node in the tree
                     paper_node.replace(node, new_node)
             if "authors" in changes:
+                """
+                Every author has an id, but for a small subset, these ids are explicit, since they're used for disambiguation. To distinguish these, we need to find the subset of the authors in the current XML that have explicit ID attributes. We then use this below to set the ID.
+                """
+                real_ids = set()
+                for author in changes["authors"]:
+                    id_ = author["id"]
+                    existing_author = paper_node.findall(f"author[@id='{id_}']")
+                    if existing_author is None:
+                        real_ids.add(id_)
+
                 # remove existing author nodes
                 for author_node in paper_node.findall("author"):
                     paper_node.remove(author_node)
@@ -144,7 +154,8 @@ class AnthologyMetadataUpdater:
 
                 for author in changes["authors"]:
                     attrib = {}
-                    if "id" in author:
+                    if "id" in real_ids:
+                        # if the ID was explicitly represented, preserve it
                         attrib["id"] = author["id"]
                     # create author_node and add as sibling after insertion_point
                     author_node = make_simple_element(
