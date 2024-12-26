@@ -148,25 +148,25 @@
   function createAuthorRow(first, last, affiliation) {
     // Create the container for the entire row
     const row = document.createElement('div');
-    row.className = 'row g-0 g-lg-2 mb-2 author-row';
+    row.className = 'row g-0 g-lg-2 mb-2 author-row align-items-center';
     row.draggable = true;
     row.ondragstart = dragAuthor;
 
-    // Handle column
-    const handleCol = document.createElement('div');
-    handleCol.className = 'col-1 col-md-1 text-center';
+    // Group drag handle and first name column
+    const grabberCol = document.createElement('div');
+    grabberCol.className = 'col-auto';
 
     const handle = document.createElement('span');
-    handle.className = 'drag-handle';
+    handle.className = 'drag-handle px-2';
     handle.textContent = '⋮';
     // Note: If you don't want to restrict dragging to the handle, remove handle.draggable
     handle.draggable = true;
 
-    handleCol.appendChild(handle);
+    grabberCol.appendChild(handle);
 
     // First name column
     const firstNameCol = document.createElement('div');
-    firstNameCol.className = 'col-11 col-md-3';
+    firstNameCol.className = 'col-10 col-lg-3';
 
     const firstName = document.createElement('input');
     firstName.type = 'text';
@@ -175,10 +175,11 @@
     firstName.value = first;
 
     firstNameCol.appendChild(firstName);
+    grabberCol.appendChild(firstNameCol);
 
     // Last name column
     const lastNameCol = document.createElement('div');
-    lastNameCol.className = 'col-12 col-md-3';
+    lastNameCol.className = 'col-12 col-lg-3 mt-2 mt-lg-0';
 
     const lastName = document.createElement('input');
     lastName.type = 'text';
@@ -190,7 +191,7 @@
 
     // Affiliation column
     const affCol = document.createElement('div');
-    affCol.className = 'col-10 col-md-3';
+    affCol.className = 'col-10 col-lg-3 mt-2 mt-lg-0';
 
     const affInput = document.createElement('input');
     affInput.type = 'text';
@@ -202,7 +203,7 @@
 
     // Delete button column
     const delCol = document.createElement('div');
-    delCol.className = 'col-2 col-md-2 text-end';
+    delCol.className = 'col-auto ms-lg-auto text-end';
 
     const delBtn = document.createElement('button');
     delBtn.type = 'button';
@@ -213,7 +214,7 @@
     delCol.appendChild(delBtn);
 
     // Append all columns to the row
-    row.appendChild(handleCol);
+    row.appendChild(grabberCol);
     row.appendChild(firstNameCol);
     row.appendChild(lastNameCol);
     row.appendChild(affCol);
@@ -278,7 +279,11 @@
       updatedParams.abstract = newAbstract;
     }
 
-    if (JSON.stringify(newAuthors) !== JSON.stringify(paper_params.authors)) {
+    const newAuthorString = JSON.stringify(newAuthors);
+    const oldAuthorString = JSON.stringify(paper_params.authors);
+    alert(newAuthorString);
+    alert(oldAuthorString);
+    if (newAuthorString != oldAuthorString) {
       updatedParams.authors = newAuthors;
     }
 
@@ -286,6 +291,8 @@
       alert("No changes detected.");
       return;
     }
+
+    alert    
 
     // Same assembly as original code
     const baseurl = "https://github.com/acl-org/acl-anthology/issues/new?template=99-bulk-metadata-correction.yml";
