@@ -32,7 +32,6 @@ from docopt import docopt
 from glob import glob
 import logging as log
 import os
-from rich import print
 from rich.progress import track
 import shutil
 import yaml

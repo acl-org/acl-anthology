@@ -37,7 +37,6 @@ from functools import cache
 import logging as log
 from omegaconf import OmegaConf
 import os
-from rich import print
 from rich.progress import (
     Progress,
     TextColumn,
