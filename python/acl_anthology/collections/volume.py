@@ -22,6 +22,7 @@ from typing import Any, Iterator, Optional, cast, TYPE_CHECKING
 import sys
 
 from .. import constants
+from ..config import config
 from ..containers import SlottedDict
 from ..files import PDFReference
 from ..people import NameSpecification
@@ -33,6 +34,7 @@ from .types import VolumeType
 
 if TYPE_CHECKING:
     from ..anthology import Anthology
+    from ..sigs import SIG
     from . import Collection, Event
 
 
@@ -111,6 +113,11 @@ class Volume(SlottedDict[Paper]):
         return (self.parent.id, self.id, None)
 
     @property
+    def has_abstracts(self) -> bool:
+        """True if at least one paper in this volume has an abstract."""
+        return any(paper.abstract is not None for paper in self.data.values())
+
+    @property
     def has_frontmatter(self) -> bool:
         """True if this volume has frontmatter."""
         return "0" in self.data
@@ -125,6 +132,16 @@ class Volume(SlottedDict[Paper]):
     def root(self) -> Anthology:
         """The Anthology instance to which this object belongs."""
         return self.parent.parent.parent
+
+    @property
+    def venue_acronym(self) -> str:
+        """The acronym of the venue(s) associated with this volume.  In case of multiple venues, this will be a concatenation of the individual venue acronyms."""
+        return "-".join(venue.acronym for venue in self.venues() if venue.id != "ws")
+
+    @property
+    def web_url(self) -> str:
+        """The URL of this volume's landing page on the ACL Anthology website."""
+        return cast(str, config["volume_page_template"]).format(self.full_id)
 
     def get_events(self) -> list[Event]:
         """
@@ -161,6 +178,13 @@ class Volume(SlottedDict[Paper]):
                 "Journal volume must have exactly one venue or an explicit <journal-title>"
             )
         return self.root.venues[self.venue_ids[0]].name
+
+    def get_sigs(self) -> list[SIG]:
+        """
+        Returns:
+            A list of SIGs associated with this volume.
+        """
+        return self.root.sigs.by_volume(self.full_id_tuple)
 
     def papers(self) -> Iterator[Paper]:
         """An iterator over all Paper objects in this volume."""

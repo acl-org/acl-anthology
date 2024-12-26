@@ -21,8 +21,10 @@ from pathlib import Path
 from typing import Iterator, Optional, TYPE_CHECKING
 import yaml
 
+from .collections import Volume
 from .containers import SlottedDict
 from .utils import ids
+from .utils.ids import AnthologyID, AnthologyIDTuple
 
 try:
     from yaml import CLoader as Loader, CDumper as Dumper
@@ -183,6 +185,9 @@ class SIGIndex(SlottedDict[SIG]):
     """
 
     parent: Anthology = field(repr=False, eq=False)
+    reverse: dict[AnthologyIDTuple, set[str]] = field(
+        init=False, repr=False, factory=lambda: defaultdict(set)
+    )
     is_data_loaded: bool = field(init=False, repr=False, default=False)
 
     def load(self) -> None:
@@ -196,4 +201,22 @@ class SIGIndex(SlottedDict[SIG]):
         for yamlpath in self.parent.datadir.glob("yaml/sigs/*.yaml"):
             sig = SIG.load_from_yaml(self, yamlpath)
             self.data[sig.id] = sig
+
+            for meeting in sig.meetings:
+                if isinstance(meeting, str):
+                    volume_fid = ids.parse_id(meeting)
+                    self.reverse[volume_fid].add(sig.id)
+
         self.is_data_loaded = True
+
+    def by_volume(self, volume: Volume | AnthologyID) -> list[SIG]:
+        """Find SIGs associated with a volume."""
+        if not self.is_data_loaded:
+            self.load()
+
+        if isinstance(volume, Volume):
+            volume_fid = volume.full_id_tuple
+        else:
+            volume_fid = ids.parse_id(volume)
+
+        return [self.data[sig_id] for sig_id in self.reverse[volume_fid]]

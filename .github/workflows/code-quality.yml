@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - python-dev
     paths:
       - '.pre-commit-config.yaml'
       - '.codecov.yml'
@@ -71,4 +72,6 @@ jobs:
 
       # Coverage report
       - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}

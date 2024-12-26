@@ -15,6 +15,15 @@
 import pytest
 from acl_anthology.utils import text
 
+test_cases_pages = (
+    ("1-1", ("1", "1")),
+    ("14-17", ("14", "17")),
+    ("42–44", ("42", "44")),
+    ("45–45", ("45", "45")),
+    ("96--101", ("96", "101")),
+    ("557", ("557", "557")),
+)
+
 test_cases_whitespace = (
     (" ", ""),
     ("\n\n  \n            \n \n", ""),
@@ -22,6 +31,11 @@ test_cases_whitespace = (
     ("Foo\nBar\nBaz ", "FooBarBaz"),
     (" Lorem  ipsum   dolor      sit\n\n\n amen", "Lorem ipsum dolor sit amen"),
 )
+
+
+@pytest.mark.parametrize("inp, out", test_cases_pages)
+def test_interpret_pages(inp, out):
+    assert text.interpret_pages(inp) == out
 
 
 @pytest.mark.parametrize("inp, out", test_cases_whitespace)

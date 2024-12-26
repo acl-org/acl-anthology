@@ -85,3 +85,12 @@ def test_sigindex_sigsem(anthology):
     )
     volume = next(sig.volumes())
     assert volume.full_id == "2022.naloma-1"
+
+
+def test_sig_by_volume(anthology):
+    index = SIGIndex(anthology)
+    assert index.by_volume("2022.acl-long") == []
+    assert index.by_volume("2022.acl-demo") == [index["sigdat"]]
+    sigs = index.by_volume("2022.naloma-1")
+    assert len(sigs) == 2
+    assert set(sig.id for sig in sigs) == {"sigdat", "sigsem"}

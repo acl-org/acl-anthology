@@ -140,9 +140,10 @@ def retrieve_url(remote_url: str, local_path: str):
             },
         )
 
-        with opener.open(request, timeout=1000) as url, open(
-            local_path, mode="wb"
-        ) as input_file_fh:
+        with (
+            opener.open(request, timeout=1000) as url,
+            open(local_path, mode="wb") as input_file_fh,
+        ):
             input_file_fh.write(url.read())
     else:
         shutil.copyfile(remote_url, local_path)

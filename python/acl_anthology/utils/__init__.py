@@ -12,9 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from .citation import citeproc_render_html
 from .git import clone_or_pull_from_repo
 from .ids import build_id, parse_id, AnthologyID
-from .latex import latex_encode, latex_convert_quotes
+from .latex import latex_encode, latex_convert_quotes, make_bibtex_entry
 from .logging import setup_rich_logging, get_logger
 from .text import remove_extra_whitespace
 from .xml import stringify_children
@@ -23,10 +24,12 @@ from .xml import stringify_children
 __all__ = [
     "AnthologyID",
     "build_id",
+    "citeproc_render_html",
     "clone_or_pull_from_repo",
     "get_logger",
     "latex_encode",
     "latex_convert_quotes",
+    "make_bibtex_entry",
     "parse_id",
     "remove_extra_whitespace",
     "setup_rich_logging",
