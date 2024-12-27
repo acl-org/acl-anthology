@@ -15,13 +15,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Usage: create_hugo_yaml.py [--importdir=DIR] [--exportdir=DIR] [-c] [--debug] [--dry-run]
+"""Usage: create_hugo_data.py [--importdir=DIR] [--exportdir=DIR] [-c] [--debug] [--dry-run]
 
-Creates YAML files containing all necessary Anthology data for the static website generator.
+Creates Hugo data files containing all necessary Anthology data for the website generation.
 
 Options:
-  --importdir=DIR          Directory to import XML files from. [default: {scriptdir}/../data/]
-  --exportdir=DIR          Directory to write YAML files to.   [default: {scriptdir}/../build/data/]
+  --importdir=DIR          Directory to import XML files from. [default: {scriptdir}/../../data/]
+  --exportdir=DIR          Directory to write YAML files to.   [default: {scriptdir}/../../build/data/]
   --debug                  Output debug-level log messages.
   -c, --clean              Delete existing files in target directory before generation.
   -n, --dry-run            Do not write YAML files (useful for debugging).
