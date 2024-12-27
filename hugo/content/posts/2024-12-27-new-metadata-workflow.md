@@ -2,9 +2,9 @@
 Title: New workflow for processing metadata
 date: "2024-12-27"
 Description: >
-    A simplified workflow for processing metadata corrections should make it easier for authors to submit corrections and for Anthology staff and volunteers to process them expeditionsly.
+    A simplified workflow for processing metadata corrections should make it easier for authors to submit corrections and for Anthology staff and volunteers to process them expeditiously.
 ---
-After proceedings are published, authors often discover errors to the paper metadata, including misspelled author names, missing or miss-ordered authors, and titles or abstracts that were subtly modified during the publication process. Until today, corrections to these papers involved a lot of manual effort on both the part of authors (who had to search out a form and fill it out) and Anthology staff (who had to manually process and interpret these forms and make the corrections). The result was hundreds of issues accumulating on the [Anthology Github repository](https://github.com/acl-org/acl-anthology/issues?q=is%3Aissue+is%3Aopen+label%3Acorrection+label%3Ametadata), and a delay of weeks or even months to manage them.
+After proceedings are published, authors often discover errors to the paper metadata, including misspelled author names, missing or misordered authors, and titles or abstracts that were subtly modified during the publication process. Until today, corrections to these papers involved a lot of manual effort on both the part of authors (who had to search out a form and fill it out) and Anthology staff (who had to manually process and interpret these forms and make the corrections). The result was hundreds of issues accumulating on the [Anthology Github repository](https://github.com/acl-org/acl-anthology/issues?q=is%3Aissue+is%3Aopen+label%3Acorrection+label%3Ametadata), and a delay of weeks or even months to manage them.
 
 ![target](/images/2024-12-27/many-requests.png)
 
