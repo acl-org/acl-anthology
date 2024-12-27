@@ -228,7 +228,7 @@ class AnthologyMetadataUpdater:
                             )
                             url = f"https://aclanthology.org/{anthology_id}"
                             issue.create_comment(
-                                f"### Notice\n\nThe Anthology has had difficulty keeping up with the large number of metadata corrections we receive. We have therefore updated our workflow with a more automatated process. We are closing this issue, and ask that you help us out by recreating your request using this new workflow. You can do this by visiting [the paper page associated with this issue]({url}) and clicking on the yellow 'Fix metadata' button. This will take you through a few steps simple steps."
+                                f"### Notice\n\nThe Anthology has had difficulty keeping up with the large number of metadata corrections we receive. We have therefore updated our workflow with a more automatated process. We are closing this issue, and ask that you help us out by recreating your request using this new workflow. You can do this by visiting [the paper page associated with this issue]({url}) and clicking on the yellow 'Fix metadata' button. This will take you through a few simple steps."
                             )
                             # close the issue as "not planned"
                             issue.edit(state="closed", state_reason="not_planned")
