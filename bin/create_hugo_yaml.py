@@ -93,7 +93,6 @@ def paper_to_dict(paper):
     """
     Turn a single paper into a dictionary suitable for YAML export as expected by Hugo.
     """
-    # TODO: autopr introduces title_raw and abstract_raw (containing the xml)
     data = {
         "bibkey": paper.bibkey,
         "bibtype": paper.bibtype,
@@ -101,6 +100,7 @@ def paper_to_dict(paper):
         "paper_id": paper.id,
         "title": paper.title.as_text(),
         "title_html": remove_extra_whitespace(paper.title.as_html(allow_url=False)),
+        "title_raw": paper.title.as_xml(),
         # Slightly funky logic: If there is an external URL given for a paper,
         # it will be in '.pdf', even though we use the Anthology landing page
         # (and not the PDF URL) for everything else
@@ -139,6 +139,7 @@ def paper_to_dict(paper):
         data["language"] = language_name
     if (abstract := paper.abstract) is not None:
         data["abstract_html"] = remove_extra_whitespace(abstract.as_html())
+        data["abstract_raw"] = abstract.as_xml()
     if paper.attachments:
         data["attachment"] = [
             {
@@ -223,6 +224,7 @@ def volume_to_dict(volume):
         "papers": [paper.full_id for paper in volume.papers()],
         "title": volume.title.as_text(),
         "title_html": remove_extra_whitespace(volume.title.as_html(allow_url=False)),
+        "title_raw": volume.title.as_xml(),
         "year": volume.year,
         "sigs": [],
         "url": (
