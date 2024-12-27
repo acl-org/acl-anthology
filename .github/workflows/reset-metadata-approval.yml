@@ -1,0 +1,38 @@
+name: Reset Approval on Edit
+
+on:
+  issues:
+    types:
+      - edited
+
+jobs:
+  reset-approval:
+    if: contains(join(github.event.issue.labels.*.name, ','), 'correction') || contains(join(github.event.issue.labels.*.name, ','), 'metadata')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Leave a comment and reset approval status
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const { issue, repository } = context.payload;
+            const owner = repository.owner.login;
+            const repo = repository.name;
+            const approvedLabel = "approved";
+
+            // Check if the issue has the "approved" label and remove it
+            if (issue.labels.some(label => label.name === approvedLabel)) {
+              await github.issues.removeLabel({
+                owner,
+                repo,
+                issue_number: issue.number,
+                name: approvedLabel
+              });
+
+              // Add a comment to notify about the edit
+              await github.issues.createComment({
+                owner,
+                repo,
+                issue_number: issue.number,
+                body: "Approval status has been reset after the issue was edited."
+              });
+            }

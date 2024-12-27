@@ -36,6 +36,9 @@
 {{ end }}
 
 {{ define "javascript" }}
+{{ $anthology_id := .Params.anthology_id }}
+{{ $volume_id := index (split .Params.anthology_id "-") 0 }}
+{{ $paper := index (index .Site.Data.papers $volume_id) .Params.anthology_id }}
 <script src="{{ "/js/clipboard.min.js" | relURL }}"></script>
 <script>
   $( document ).ready(function() {
@@ -70,6 +73,245 @@
           $(".btn-clipboard-outside").removeClass("d-none");
       }
   });
+
+  const paper_params = {
+    anthology_id: "{{ .Params.anthology_id }}",
+    title: "{{ $paper.title_raw }}",
+    authors: [
+      {{ range $paper.author }}
+      {
+        first: "{{ .first }}",
+        last: "{{ .last }}",
+        id: "{{ .id }}",
+        affiliation: "{{ .affiliation }}"
+      },
+      {{ end }}
+    ],
+    abstract: "{{ $paper.abstract_raw }}"
+  };
+
+  // Initial authors data
+  function showMetadataDialog() {
+    // Populate the modal with current values
+    document.getElementById("paperIdSpan").textContent = paper_params.anthology_id;
+    document.getElementById("paperTitle").value = paper_params.title;
+    document.getElementById("paperAbstract").value = paper_params.abstract;
+
+    const container = document.getElementById("authorsContainer");
+    container.innerHTML = "";
+    paper_params.authors.forEach((author, idx) => {
+      container.appendChild(createAuthorRow(author.first, author.last, author.id, author.affiliation));
+    });
+
+    const modal = new bootstrap.Modal(document.getElementById('metadataModal'));
+    modal.show();
+  }
+
+  // Just call Sortable on your container after you’ve populated it:
+  new Sortable(document.getElementById('authorsContainer'), {
+    animation: 150, // a nice animation
+    ghostClass: 'sortable-ghost'
+  });
+
+  // Dragstart: store the element being dragged
+  authorsContainer.addEventListener('dragstart', (e) => {
+    const row = e.target.closest('.author-row');
+    if (row) {
+      draggedElement = row;
+      e.dataTransfer.effectAllowed = 'move';
+      e.dataTransfer.setData('text/plain', 'reordering'); // required to initiate drag
+    }
+  });
+
+  // Dragover: allow drop
+  authorsContainer.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+  });
+
+  // Drop: Insert the dragged element before the hovered row if found
+  authorsContainer.addEventListener('drop', (e) => {
+    e.preventDefault();
+    const targetRow = e.target.closest('.author-row');
+    if (targetRow && targetRow !== draggedElement) {
+      authorsContainer.insertBefore(draggedElement, targetRow);
+    } else if (!targetRow) {
+      // If dropped outside any specific row, append to the end
+      authorsContainer.appendChild(draggedElement);
+    }
+    draggedElement = null;
+  });
+
+  function createAuthorRow(first, last, id, affiliation) {
+    // Create the container for the entire row
+    const row = document.createElement('div');
+    row.className = 'row g-0 g-lg-2 mb-2 author-row align-items-center';
+    row.draggable = true;
+    row.ondragstart = dragAuthor;
+
+    // Group drag handle and first name column
+    const grabberCol = document.createElement('div');
+    grabberCol.className = 'col-auto pe-1';
+
+    const handle = document.createElement('span');
+    handle.className = 'drag-handle';
+    handle.textContent = '⋮';
+    handle.style = "padding: 0 2px";
+    // Note: If you don't want to restrict dragging to the handle, remove handle.draggable
+    handle.draggable = true;
+
+    grabberCol.appendChild(handle);
+
+    // First name column
+    const firstNameCol = document.createElement('div');
+    firstNameCol.className = 'col-10 col-lg-3';
+
+    const firstName = document.createElement('input');
+    firstName.type = 'text';
+    firstName.placeholder = 'First name';
+    firstName.className = 'form-control';
+    firstName.value = first;
+
+    firstNameCol.appendChild(firstName);
+    grabberCol.appendChild(firstNameCol);
+
+    // Last name column
+    const lastNameCol = document.createElement('div');
+    lastNameCol.className = 'col-12 col-lg-3 mt-2 mt-lg-0';
+
+    const lastName = document.createElement('input');
+    lastName.type = 'text';
+    lastName.placeholder = 'Last name';
+    lastName.className = 'form-control';
+    lastName.value = last;
+
+    lastNameCol.appendChild(lastName);
+
+    // Add a hidden form control for author ID
+    const idInput = document.createElement('input');
+    idInput.type = 'hidden';
+    idInput.value = id;
+    lastNameCol.appendChild(idInput);
+
+    // Affiliation column
+    const affCol = document.createElement('div');
+    affCol.className = 'col-10 col-lg-3 mt-2 mt-lg-0';
+
+    const affInput = document.createElement('input');
+    affInput.type = 'text';
+    affInput.placeholder = 'Affiliation';
+    affInput.className = 'form-control';
+    affInput.value = affiliation;
+
+    affCol.appendChild(affInput);
+
+    // Delete button column
+    const delCol = document.createElement('div');
+    delCol.className = 'col-auto ms-lg-auto text-end';
+
+    const delBtn = document.createElement('button');
+    delBtn.type = 'button';
+    delBtn.className = 'btn btn-sm btn-danger';
+    delBtn.textContent = 'X';
+    delBtn.onclick = () => row.remove();
+
+    delCol.appendChild(delBtn);
+
+    // Append all columns to the row
+    row.appendChild(grabberCol);
+    row.appendChild(firstNameCol);
+    row.appendChild(lastNameCol);
+    row.appendChild(affCol);
+    row.appendChild(delCol);
+
+    return row;
+  }
+
+  function addAuthor() {
+    const container = document.getElementById('authorsContainer');
+    container.appendChild(createAuthorRow("", "", "", ""));
+  }
+
+  // Drag & Drop functions for authors
+  let draggedAuthor = null;
+  function dragAuthor(ev) {
+    ev.dataTransfer.setData('text/plain', '');
+    draggedAuthor = ev.currentTarget;
+  }
+  function allowDrop(ev) {
+    ev.preventDefault();
+  }
+  function dropAuthor(ev) {
+    ev.preventDefault();
+    if (ev.target.id === "authorsContainer" || ev.target.parentNode.id === "authorsContainer") {
+      const container = document.getElementById("authorsContainer");
+      // Insert before the target row if we dropped on a row, otherwise at the end
+      if (ev.target.classList && ev.target.classList.contains('author-row')) {
+        container.insertBefore(draggedAuthor, ev.target);
+      } else if (ev.target.parentNode.classList && ev.target.parentNode.classList.contains('author-row')) {
+        container.insertBefore(draggedAuthor, ev.target.parentNode);
+      } else {
+        container.appendChild(draggedAuthor);
+      }
+    }
+  }
+
+  // New function to handle submission
+  function submitMetadataCorrection() {
+    const newTitle = document.getElementById("paperTitle").value;
+    const newAbstract = document.getElementById("paperAbstract").value;
+
+    const authorRows = document.querySelectorAll("#authorsContainer .author-row");
+    const newAuthors = [];
+    authorRows.forEach(row => {
+      const inputs = row.querySelectorAll("input");
+      newAuthors.push({
+        "first": inputs[0].value,
+        "last": inputs[1].value,
+        "id": inputs[2].value,
+        "affiliation": inputs[3].value
+      });
+    });
+
+    // Compare original values to current values
+    const updatedParams = {
+      anthology_id: paper_params.anthology_id
+    }
+
+    if (newTitle !== paper_params.title) {
+      updatedParams.title = newTitle;
+    }
+
+    if (newAbstract !== paper_params.abstract) {
+      updatedParams.abstract = newAbstract;
+    }
+
+    // remove "id" field from paper_params.authors
+
+    const oldAuthorString = JSON.stringify(paper_params.authors);
+    const newAuthorString = JSON.stringify(newAuthors);
+    // alert("old=" + oldAuthorString);
+    // alert("new=" + newAuthorString);
+    if (newAuthorString != oldAuthorString) {
+      updatedParams.authors = newAuthors;
+    }
+
+    if (Object.keys(updatedParams).length === 0) {
+      alert("No changes detected.");
+      return;
+    }
+
+    // Same assembly as original code
+    const baseurl = "https://github.com/acl-org/acl-anthology/issues/new?template=99-bulk-metadata-correction.yml";
+    const issue_title = "Metadata correction for {{ .Params.anthology_id}}";
+    const labels = "metadata,correction";
+    const who = "anthology-assist";
+    const param_string = "```json\n" + JSON.stringify(updatedParams, null, 2) + "\n```";
+
+    const url = baseurl + `&title=${encodeURIComponent(issue_title)}&assignee=${encodeURIComponent(who)}&labels=${encodeURIComponent(labels)}&data=` + encodeURIComponent(param_string);
+
+    window.open(url, "_blank");
+  }
 </script>
 {{ end }}
 
@@ -98,8 +340,41 @@
   {{ end }}
   </p>
   </div>
-  <hr />
+  <div class="modal fade" id="metadataModal" tabindex="-1" aria-labelledby="metadataModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Correct Metadata for <span id="paperIdSpan"></span></h5>
+          <button class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="metadataForm">
+            <div class="mb-3">
+              <label for="paperTitle" class="form-label">Title</label>
+              <small id="paperTitleHelp" class="form-text text-muted">Adjust the title. Retain tags such as &lt;fixed-case&gt;.</small>
+              <input type="text" class="form-control" id="paperTitle">
+            </div>
+            <label class="form-label">Authors</label>
+            <small id="authorTitleHelp" class="form-text text-muted">Adjust author names, affiliations, and list order to match the PDF.</small>
+            <div id="authorsContainer" class="px-3" ondrop="dropAuthor(event)" ondragover="allowDrop(event)"></div>
+            <button type="button" class="btn btn-secondary btn-sm mb-3" onclick="addAuthor()">Add Author</button>
 
+            <div class="mb-3">
+              <label for="paperAbstract" class="form-label">Abstract</label>
+              <small id="abstractTitleHelp" class="form-text text-muted">Correct abstract if needed. Retain XML formatting tags such as &lt;tex-math&gt;.</small>
+              <textarea class="form-control" id="paperAbstract" rows="6"></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" onclick="submitMetadataCorrection()">Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr />
   <div class="row acl-paper-details">
     <div class="col col-lg-10 order-2">
       {{ with $paper.retracted }}
@@ -284,8 +559,7 @@
         {{ range $i, $t := . }}{{ if $i }},&nbsp;{{ end }}<a href="{{ $t.url }}">{{ $t.name }}</a>{{ end }}
         </dd>
       {{ end }}
-
-    </dl>
+      </dl>
     </div>
 
     <!-- Most of the styling for this block is set in _papers.scss to avoid clutter -->
@@ -336,6 +610,10 @@
         <span class="px-1">Video</span>
       </a>
       {{ end }}
+      <a class="btn btn-warning d-flex flex-wrap justify-content-center" href=# title="Correct problems with title, author list, and abstract" onclick="showMetadataDialog()">
+        <span class="pl-sm-2 d-none d-sm-inline"><i class="fas fa-edit"></i></span>
+        <span class="px-1">Fix metadata</span>
+      </a>
     </div>
   </div>
   <hr />
