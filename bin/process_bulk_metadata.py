@@ -97,13 +97,7 @@ class AnthologyMetadataUpdater:
         issue_body = issue_body.replace("\r", "")
 
         try:
-            match = re.search(r"```json\n(.*?)\n```", issue_body, re.DOTALL)
-
-            with open("test.json", "w") as f:
-                f.write(issue_body)
-
-            if match:
-                # return the first match
+            if match := re.search(r"```json\n(.*?)\n```", issue_body, re.DOTALL) is not None:
                 return json.loads(match[1])
         except Exception as e:
             print(f"Error parsing metadata changes: {e}", file=sys.stderr)
