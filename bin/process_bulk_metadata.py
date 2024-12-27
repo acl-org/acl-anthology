@@ -246,13 +246,15 @@ class AnthologyMetadataUpdater:
 
                 anthology_id = json_block.get("anthology_id")
                 collection_id, _, _ = deconstruct_anthology_id(anthology_id)
-                xml_path = f"data/xml/{collection_id}.xml"
 
-                # Get current file content
-                file_content = self.repo.get_contents(xml_path, ref=new_branch_name)
+                # XML file path relative to repo root (for reading current state)
+                xml_repo_path = f"data/xml/{collection_id}.xml"
+                file_content = self.repo.get_contents(xml_repo_path, ref=new_branch_name)
 
-                # Apply changes to XML
-                tree = self._apply_changes_to_xml(xml_path, anthology_id, json_block)
+                # XML file path on file system (for writing changes)
+                scriptdir = os.path.dirname(os.path.abspath(__file__))
+                xml_file_path = f"{scriptdir}/../data/xml/{collection_id}.xml"
+                tree = self._apply_changes_to_xml(xml_file_path, anthology_id, json_block)
 
                 if tree:
                     indent(tree.getroot())
@@ -264,7 +266,7 @@ class AnthologyMetadataUpdater:
 
                     # Commit changes
                     self.repo.update_file(
-                        xml_path,
+                        xml_repo_path,
                         f"Processed metadata corrections for #{issue.number}",
                         new_content,
                         file_content.sha,
