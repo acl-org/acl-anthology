@@ -56,7 +56,7 @@ class AnthologyMetadataUpdater:
 
         Expected format:
         JSON CODE BLOCK
-        
+
         ```json
         {
           "anthology_id": "..."
@@ -73,12 +73,13 @@ class AnthologyMetadataUpdater:
         }
         ```
         """
-
-        # why are these in there
+        # For some reason, the issue body has \r\n line endings
         issue_body = issue_body.replace("\r", "")
 
         try:
-            if match := re.search(r"```json\n(.*?)\n```", issue_body, re.DOTALL) is not None:
+            if (
+                match := re.search(r"```json\n(.*?)\n```", issue_body, re.DOTALL)
+            ) is not None:
                 return json.loads(match[1])
         except Exception as e:
             print(f"Error parsing metadata changes: {e}", file=sys.stderr)
@@ -88,10 +89,10 @@ class AnthologyMetadataUpdater:
     def _apply_changes_to_xml(self, xml_path, anthology_id, changes):
         """Apply the specified changes to XML file."""
         try:
-            print(f"Applying changes to XML file {xml_path}", file=sys.stderr)
+            print(f"-> Applying changes to XML file {xml_path}", file=sys.stderr)
             tree = ET.parse(xml_path)
 
-            collection_id, volume_id, paper_id = deconstruct_anthology_id(anthology_id)
+            _, volume_id, paper_id = deconstruct_anthology_id(anthology_id)
 
             paper_node = tree.getroot().find(
                 f"./volume[@id='{volume_id}']/paper[@id='{paper_id}']"
@@ -149,13 +150,10 @@ class AnthologyMetadataUpdater:
                             "affiliation", parent=author_node
                         )
                         affiliation_node.text = author["affiliation"]
-                    print(
-                        f"-> Added author {author['first']} {author['last']}",
-                        file=sys.stderr,
-                    )
+
             return tree
         except Exception as e:
-            print(f"Error applying changes to XML: {e}")
+            print(f"Error applying changes to XML: {e}", file=sys.stderr)
             return None
 
     def process_metadata_issues(
@@ -264,7 +262,7 @@ class AnthologyMetadataUpdater:
                     # Commit changes
                     self.repo.update_file(
                         xml_path,
-                        f"Bulk metadata corrections from #{issue.number}",
+                        f"Processed metadata corrections for #{issue.number}",
                         new_content,
                         file_content.sha,
                         branch=new_branch_name,
