@@ -18,7 +18,6 @@ jobs:
             const hasRequiredLabels =
               labels.includes('correction') &&
               labels.includes('metadata');
-
             core.setOutput('has_required_labels', hasRequiredLabels.toString());
 
       - name: Parse JSON from issue body
@@ -56,9 +55,7 @@ jobs:
           script: |
             const anthology_id = core.getInput('anthology_id');
             const comment = `
-            Found ACL Anthology entry:
-
-            📄 Paper: https://aclanthology.org/${anthology_id}
+            Found ACL Anthology entry: https://aclanthology.org/${anthology_id}
 
             ![Thumbnail](https://aclanthology.org/thumb/${anthology_id}.jpg)
             `;
