@@ -46,52 +46,33 @@ class AnthologyMetadataUpdater:
         """Initialize with GitHub token."""
         self.g = Github(github_token)
         self.repo = self.g.get_repo("acl-org/acl-anthology")
-        self.anthology_team_members = self._get_team_members()
 
-    def _get_team_members(self):
-        """Get all members of the anthology team."""
-        try:
-            # Get the anthology team - you'll need to adjust the team name/ID
-            teams = self.repo.get_teams()
-            anthology_team = next((team for team in teams if team.slug == "anthology"))
-
-            members = set(member.login for member in anthology_team.get_members())
-            print("MEMBERS", members)
-            return members
-        except Exception as e:
-            print(f"Error getting team members: {e}")
-            return set()
-
-    def _is_approved_by_team_member(self, issue):
+    def _is_approved(self, issue):
         """Check if issue has approval from anthology team member."""
-        for reaction in issue.get_reactions():
-            if (
-                reaction.content == '+1'
-                and reaction.user.login in self.anthology_team_members
-            ):
-                return True
-        return False
+        return "approved" in [label.name for label in issue.get_labels()]
 
     def _parse_metadata_changes(self, issue_body):
-        """Parse the metadata changes from issue body."""
-        # Expected format:
-        # JSONN CODE BLOCK
-        #
-        # ```json
-        # {
-        #   "anthology_id": "..."
-        #   "title": "...",
-        #   "authors": [
-        #     {
-        #       "first": "Carolyn Jane",
-        #       "last": "Anderson",
-        #       "id": "carolyn-anderson",
-        #       "affiliation": ""
-        #     }
-        #   ],
-        #   "abstract": "..."
-        # }
-        # ```
+        """Parse the metadata changes from issue body.
+
+        Expected format:
+        JSON CODE BLOCK
+        
+        ```json
+        {
+          "anthology_id": "..."
+          "title": "...",
+          "authors": [
+            {
+              "first": "Carolyn Jane",
+              "last": "Anderson",
+              "id": "carolyn-anderson",
+              "affiliation": ""
+            }
+          ],
+          "abstract": "..."
+        }
+        ```
+        """
 
         # why are these in there
         issue_body = issue_body.replace("\r", "")
@@ -257,7 +238,7 @@ class AnthologyMetadataUpdater:
                     continue
 
                 # Skip issues that are not approved by team member
-                if not skip_validation and not self._is_approved_by_team_member(issue):
+                if not skip_validation and not self._is_approved(issue):
                     if verbose:
                         print("-> Skipping (not approved yet)", file=sys.stderr)
                     continue
