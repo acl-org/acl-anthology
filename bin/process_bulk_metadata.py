@@ -173,28 +173,29 @@ class AnthologyMetadataUpdater:
         today = datetime.now().strftime("%Y-%m-%d")
         new_branch_name = f"bulk-corrections-{today}"
 
-        if True:
-            # Check if branch already exists
-            existing_branch = next(
-                (
-                    ref
-                    for ref in self.repo.get_git_refs()
-                    if ref.ref == f"refs/heads/{new_branch_name}"
-                ),
-                None,
-            )
-            if existing_branch:
-                print(f"Deleting existing branch {new_branch_name}")
-                existing_branch.delete()
+        # Check if branch already exists
+        existing_branch = next(
+            (
+                ref
+                for ref in self.repo.get_git_refs()
+                if ref.ref == f"refs/heads/{new_branch_name}"
+            ),
+            None,
+        )
+        if existing_branch:
+            print(f"Deleting existing branch {new_branch_name}")
+            existing_branch.delete()
 
-            # Create new branch
-            ref = self.repo.create_git_ref(
-                ref=f"refs/heads/{new_branch_name}", sha=base_branch.commit.sha
-            )
+        # Create new branch
+        ref = self.repo.create_git_ref(
+            ref=f"refs/heads/{new_branch_name}", sha=base_branch.commit.sha
+        )
 
-            closed_issues = []
+        # record which issues were successfully processed and need closing
+        closed_issues = []
 
-            for issue in issues:
+        for issue in issues:
+            try:
                 if ids and issue.number not in ids:
                     continue
                 opened_at = issue.created_at.strftime("%Y-%m-%d")
@@ -242,7 +243,7 @@ class AnthologyMetadataUpdater:
                     continue
 
                 anthology_id = json_block.get("anthology_id")
-                collection_id = anthology_id.split("-")[0]
+                collection_id, _, _ = deconstruct_anthology_id(anthology_id)
                 xml_path = f"data/xml/{collection_id}.xml"
 
                 # Get current file content
@@ -268,29 +269,29 @@ class AnthologyMetadataUpdater:
                         branch=new_branch_name,
                     )
                     closed_issues.append(issue)
+            except Exception as e:
+                print(f"Error processing issue {issue.number}: {type(e)}: {e}")
+                continue
 
-            if len(closed_issues) > 0:
-                closed_issues_str = "\n".join(
-                    [f"- closes #{issue.number}" for issue in closed_issues]
+        if len(closed_issues) > 0:
+            closed_issues_str = "\n".join(
+                [f"- closes #{issue.number}" for issue in closed_issues]
+            )
+
+            # Create pull request
+            if not dry_run:
+                pr = self.repo.create_pull(
+                    title=f"Bulk metadata corrections {today}",
+                    body="Automated PR for bulk metadata corrections.\n\n"
+                    + closed_issues_str,
+                    head=new_branch_name,
+                    base="master",
                 )
-
-                # Create pull request
-                if not dry_run:
-                    pr = self.repo.create_pull(
-                        title=f"Bulk metadata corrections {today}",
-                        body="Automated PR for bulk metadata corrections.\n\n"
-                        + closed_issues_str,
-                        head=new_branch_name,
-                        base="master",
-                    )
-                    print(f"Created PR: {pr.html_url}")
-            else:
-                # Clean up branch if no changes were made
-                ref.delete()
-                print("No changes to make - deleted branch")
-
-        # except Exception as e:
-        #     print(f"Error processing issues: {e}")
+                print(f"Created PR: {pr.html_url}")
+        else:
+            # Clean up branch if no changes were made
+            ref.delete()
+            print("No changes to make, deleted branch")
 
 
 if __name__ == "__main__":
