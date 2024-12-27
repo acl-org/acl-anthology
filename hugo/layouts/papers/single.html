@@ -274,7 +274,9 @@
     });
 
     // Compare original values to current values
-    const updatedParams = {}
+    const updatedParams = {
+      anthology_id: paper_params.anthology_id
+    }
 
     if (newTitle !== paper_params.title) {
       updatedParams.title = newTitle;
