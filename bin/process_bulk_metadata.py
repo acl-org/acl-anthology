@@ -22,12 +22,14 @@ labels, a "JSON code block" in the description, and are approved by at least one
 of the anthology group. It then creates a new PR on a branch labeled bulk-corrections-YYYY-MM-DD,
 where it makes a single PR from changes from all matching issues.
 
-Usage: process_bulk_metadata.py [-v]
+Usage: process_bulk_metadata.py [-v] [--skip-validation] [--dry-run] [--close-old-issues] [ids...]
 
-TODO:
-- [X] Need raw abstract text to be passed through
-- [X] Handle HTML tags in the title
-- [ ] Find XML file, make edit
+Options:
+    -v, --verbose            Verbose output
+    --skip-validation        Skip requirement of "approved" tag
+    --dry-run                Dry run (do not create PRs)
+    --close-old-issues       Close old metadata requests with a comment (those without a JSON block)
+    ids                      Specific issue IDs to process (default: all)
 """
 
 import sys
