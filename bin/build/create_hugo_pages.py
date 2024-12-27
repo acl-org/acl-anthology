@@ -31,18 +31,15 @@ Options:
 from docopt import docopt
 from glob import glob
 import logging as log
+import msgspec
 import os
 from rich.progress import track
 import shutil
-import yaml
-
-try:
-    from yaml import CLoader as Loader
-except ImportError:
-    log.info("Can't load yaml C bindings, reverting to slow pure Python version")
-    from yaml import Loader
 
 from acl_anthology.utils.logging import setup_rich_logging
+
+
+ENCODER = msgspec.json.Encoder()
 
 
 def check_directory(cdir, clean=False):
@@ -74,30 +71,28 @@ def create_papers(srcdir, clean=False):
         return
 
     # Go through all paper volumes
-    for yamlfile in track(
-        glob("{}/data/papers/*.yaml".format(srcdir)),
+    for datafile in track(
+        glob("{}/data/papers/*.json".format(srcdir)),
         description="Creating paper pages... ",
     ):
-        log.debug("Processing {}".format(yamlfile))
-        with open(yamlfile, "r") as f:
-            data = yaml.load(f, Loader=Loader)
+        log.debug("Processing {}".format(datafile))
+        with open(datafile, "rb") as f:
+            data = msgspec.json.decode(f.read())
         # Create a paper stub for each entry in the volume
         for anthology_id, entry in data.items():
             paper_dir = "{}/content/papers/{}".format(srcdir, anthology_id.split("-")[0])
             if not os.path.exists(paper_dir):
                 os.makedirs(paper_dir)
-            with open("{}/{}.md".format(paper_dir, anthology_id), "w") as f:
-                print("---", file=f)
-                yaml.dump(
-                    {
-                        "anthology_id": anthology_id,
-                        "title": entry["title"],
-                        "date": entry["ingest_date"],
-                    },
-                    default_flow_style=False,
-                    stream=f,
+            with open("{}/{}.md".format(paper_dir, anthology_id), "wb") as f:
+                f.write(
+                    ENCODER.encode(
+                        {
+                            "anthology_id": anthology_id,
+                            "title": entry["title"],
+                            "date": entry["ingest_date"],
+                        }
+                    )
                 )
-                print("---", file=f)
 
 
 def create_volumes(srcdir, clean=False):
@@ -106,23 +101,21 @@ def create_volumes(srcdir, clean=False):
     if not check_directory("{}/content/volumes".format(srcdir), clean=clean):
         return
 
-    yamlfile = "{}/data/volumes.yaml".format(srcdir)
-    log.debug("Processing {}".format(yamlfile))
-    with open(yamlfile, "r") as f:
-        data = yaml.load(f, Loader=Loader)
+    datafile = "{}/data/volumes.json".format(srcdir)
+    log.debug("Processing {}".format(datafile))
+    with open(datafile, "rb") as f:
+        data = msgspec.json.decode(f.read())
     # Create a paper stub for each proceedings volume
     for anthology_id, entry in data.items():
-        with open("{}/content/volumes/{}.md".format(srcdir, anthology_id), "w") as f:
-            print("---", file=f)
-            yaml.dump(
-                {
-                    "anthology_id": anthology_id,
-                    "title": entry["title"],
-                },
-                default_flow_style=False,
-                stream=f,
+        with open("{}/content/volumes/{}.md".format(srcdir, anthology_id), "wb") as f:
+            f.write(
+                ENCODER.encode(
+                    {
+                        "anthology_id": anthology_id,
+                        "title": entry["title"],
+                    }
+                )
             )
-            print("---", file=f)
 
     return data
 
@@ -133,51 +126,46 @@ def create_people(srcdir, clean=False):
     if not check_directory("{}/content/people".format(srcdir), clean=clean):
         return
 
-    for yamlfile in track(
-        glob("{}/data/people/*.yaml".format(srcdir)),
+    for datafile in track(
+        glob("{}/data/people/*.json".format(srcdir)),
         description="Creating people pages...",
     ):
-        log.debug("Processing {}".format(yamlfile))
-        with open(yamlfile, "r") as f:
-            data = yaml.load(f, Loader=Loader)
+        log.debug("Processing {}".format(datafile))
+        with open(datafile, "rb") as f:
+            data = msgspec.json.decode(f.read())
         # Create a page stub for each person
         for name, entry in data.items():
             person_dir = "{}/content/people/{}".format(srcdir, name[0])
             if not os.path.exists(person_dir):
                 os.makedirs(person_dir)
-            yaml_data = {"name": name, "title": entry["full"], "lastname": entry["last"]}
-            with open("{}/{}.md".format(person_dir, name), "w") as f:
-                print("---", file=f)
-                # "lastname" is dumped to allow sorting by it in Hugo
-                yaml.dump(yaml_data, default_flow_style=False, stream=f)
-                print("---", file=f)
+            data_out = {"name": name, "title": entry["full"], "lastname": entry["last"]}
+            with open("{}/{}.md".format(person_dir, name), "wb") as f:
+                f.write(ENCODER.encode(data_out))
 
     return data
 
 
 def create_venues(srcdir, clean=False):
     """Creates page stubs for all venues in the Anthology."""
-    yamlfile = "{}/data/venues.yaml".format(srcdir)
-    log.debug("Creating venues pages from {}".format(yamlfile))
-    with open(yamlfile, "r") as f:
-        data = yaml.load(f, Loader=Loader)
+    datafile = "{}/data/venues.json".format(srcdir)
+    print("Creating venue pages...")
+    with open(datafile, "rb") as f:
+        data = msgspec.json.decode(f.read())
 
     if not check_directory("{}/content/venues".format(srcdir), clean=clean):
         return
     # Create a paper stub for each venue (e.g. ACL)
     for venue, venue_data in data.items():
         venue_str = venue_data["slug"]
-        with open("{}/content/venues/{}.md".format(srcdir, venue_str), "w") as f:
-            print("---", file=f)
-            yaml_data = {
+        with open("{}/content/venues/{}.md".format(srcdir, venue_str), "wb") as f:
+            data_out = {
                 "venue": venue_data["slug"],
                 "acronym": venue_data["acronym"],
                 "title": venue_data["name"],
             }
             if "url" in venue_data:
-                yaml_data["venue_url"] = venue_data["url"]
-            yaml.dump(yaml_data, default_flow_style=False, stream=f)
-            print("---", file=f)
+                data_out["venue_url"] = venue_data["url"]
+            f.write(ENCODER.encode(data_out))
 
 
 def create_events(srcdir, clean=False):
@@ -196,50 +184,45 @@ def create_events(srcdir, clean=False):
     ]
 
     Here, a "{event_slug}.md" stub is written for each paper. This is used with the Hugo template
-    file hugo/layout/events/single.html to lookup data written in build/data/events.yaml
-    (created by create_hugo_yaml.py, the previous step), which knows about the volumes to list.
+    file hugo/layout/events/single.html to lookup data written in build/data/events.json
+    (created by create_hugo_data.py, the previous step), which knows about the volumes to list.
     The stub lists only the event slug and the event title
     """
-    yamlfile = f"{srcdir}/data/events.yaml"
-    log.debug(f"Creating event pages from {yamlfile}")
-    with open(yamlfile, "r") as f:
-        yaml_data = yaml.load(f, Loader=Loader)
+    datafile = f"{srcdir}/data/events.json"
+    print("Creating event pages...")
+    with open(datafile, "rb") as f:
+        data = msgspec.json.decode(f.read())
 
     if not check_directory(f"{srcdir}/content/events", clean=clean):
         return
     # Create a paper stub for each event
-    for event, event_data in yaml_data.items():
-        with open(f"{srcdir}/content/events/{event}.md", "w") as f:
-            print("---", file=f)
-            yaml_data = {"event_slug": event, "title": event_data["title"]}
-            yaml.dump(yaml_data, default_flow_style=False, stream=f)
-            print("---", file=f)
+    for event, event_data in data.items():
+        with open(f"{srcdir}/content/events/{event}.md", "wb") as f:
+            f.write(ENCODER.encode({"event_slug": event, "title": event_data["title"]}))
 
 
 def create_sigs(srcdir, clean=False):
     """Creates page stubs for all SIGs in the Anthology."""
-    yamlfile = "{}/data/sigs.yaml".format(srcdir)
-    log.debug("Creating SIG pages from {}".format(yamlfile))
-    with open(yamlfile, "r") as f:
-        data = yaml.load(f, Loader=Loader)
+    datafile = "{}/data/sigs.json".format(srcdir)
+    print("Creating SIG pages...")
+    with open(datafile, "rb") as f:
+        data = msgspec.json.decode(f.read())
 
     if not check_directory("{}/content/sigs".format(srcdir), clean=clean):
         return
     # Create a paper stub for each SIGS (e.g. SIGMORPHON)
     for sig, sig_data in data.items():
         sig_str = sig_data["slug"]
-        with open("{}/content/sigs/{}.md".format(srcdir, sig_str), "w") as f:
-            print("---", file=f)
-            yaml.dump(
-                {
-                    "acronym": sig,
-                    "short_acronym": sig[3:] if sig.startswith("SIG") else sig,
-                    "title": sig_data["name"],
-                },
-                default_flow_style=False,
-                stream=f,
+        with open("{}/content/sigs/{}.md".format(srcdir, sig_str), "wb") as f:
+            f.write(
+                ENCODER.encode(
+                    {
+                        "acronym": sig,
+                        "short_acronym": sig[3:] if sig.startswith("SIG") else sig,
+                        "title": sig_data["name"],
+                    }
+                )
             )
-            print("---", file=f)
 
 
 if __name__ == "__main__":

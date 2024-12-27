@@ -21,20 +21,18 @@ Creates Hugo data files containing all necessary Anthology data for the website 
 
 Options:
   --importdir=DIR          Directory to import XML files from. [default: {scriptdir}/../../data/]
-  --exportdir=DIR          Directory to write YAML files to.   [default: {scriptdir}/../../build/data/]
+  --exportdir=DIR          Directory to write data files to.   [default: {scriptdir}/../../build/data/]
   --debug                  Output debug-level log messages.
   -c, --clean              Delete existing files in target directory before generation.
-  -n, --dry-run            Do not write YAML files (useful for debugging).
+  -n, --dry-run            Do not write data files (useful for debugging).
   -h, --help               Display this helpful text.
 """
-
-# TODO: Exporting to JSON via msgspec is orders of magnitude faster than
-#       PyYAML, and Hugo supports JSON as a data format as well.
 
 from docopt import docopt
 from collections import Counter, defaultdict
 from functools import cache
 import logging as log
+import msgspec
 from omegaconf import OmegaConf
 import os
 from rich.progress import (
@@ -44,12 +42,6 @@ from rich.progress import (
     TaskProgressColumn,
     TimeRemainingColumn,
 )
-import yaml
-
-try:
-    from yaml import CSafeDumper as Dumper
-except ImportError:
-    from yaml import SafeDumper as Dumper
 
 from acl_anthology import Anthology, config
 from acl_anthology.collections.paper import PaperDeletionType
@@ -63,6 +55,7 @@ from acl_anthology.utils.text import (
 from create_hugo_pages import check_directory
 
 
+ENCODER = msgspec.json.Encoder()
 SCRIPTDIR = os.path.dirname(os.path.realpath(__file__))
 
 
@@ -91,7 +84,7 @@ def person_to_dict(person_id, ns):
 
 def paper_to_dict(paper):
     """
-    Turn a single paper into a dictionary suitable for YAML export as expected by Hugo.
+    Turn a single paper into a dictionary as used by the Hugo templates.
     """
     data = {
         "bibkey": paper.bibkey,
@@ -216,7 +209,7 @@ def paper_to_dict(paper):
 
 def volume_to_dict(volume):
     """
-    Turn a single volume into a dictionary suitable for YAML export as expected by Hugo.
+    Turn a single volume into a dictionary as used by the Hugo templates.
     """
     data = {
         "has_abstracts": volume.has_abstracts,
@@ -298,15 +291,15 @@ def export_papers_and_volumes(anthology, outdir, dryrun):
                 all_volumes[volume.full_id] = volume_to_dict(volume)
 
             if not dryrun:
-                with open(f"{outdir}/papers/{collection.id}.yaml", "w") as f:
-                    yaml.dump(collection_papers, Dumper=Dumper, stream=f)
+                with open(f"{outdir}/papers/{collection.id}.json", "wb") as f:
+                    f.write(ENCODER.encode(collection_papers))
 
             progress.update(task, advance=len(collection_papers))
 
     # Export volumes
     if not dryrun:
-        with open(f"{outdir}/volumes.yaml", "w") as f:
-            yaml.dump(all_volumes, Dumper=Dumper, stream=f)
+        with open(f"{outdir}/volumes.json", "wb") as f:
+            f.write(ENCODER.encode(all_volumes))
 
 
 def export_people(anthology, outdir, dryrun):
@@ -365,8 +358,8 @@ def export_people(anthology, outdir, dryrun):
 
         if not dryrun:
             for first_letter, people_list in people.items():
-                with open(f"{outdir}/people/{first_letter}.yaml", "w") as f:
-                    yaml.dump(people_list, Dumper=Dumper, stream=f)
+                with open(f"{outdir}/people/{first_letter}.json", "wb") as f:
+                    f.write(ENCODER.encode(people_list))
                 progress.update(task, advance=len(people_list) * factor)
 
 
@@ -402,8 +395,8 @@ def export_venues(anthology, outdir, dryrun):
         all_venues[venue_id] = data
 
     if not dryrun:
-        with open("{}/venues.yaml".format(outdir), "w") as f:
-            yaml.dump(all_venues, Dumper=Dumper, stream=f)
+        with open("{}/venues.json".format(outdir), "wb") as f:
+            f.write(ENCODER.encode(all_venues))
 
 
 def export_events(anthology, outdir, dryrun):
@@ -459,8 +452,8 @@ def export_events(anthology, outdir, dryrun):
         all_events[event.id] = data
 
     if not dryrun:
-        with open(f"{outdir}/events.yaml", "w") as f:
-            yaml.dump(all_events, Dumper=Dumper, stream=f)
+        with open(f"{outdir}/events.json", "wb") as f:
+            f.write(ENCODER.encode(all_events))
 
 
 def export_sigs(anthology, outdir, dryrun):
@@ -488,13 +481,13 @@ def export_sigs(anthology, outdir, dryrun):
         all_sigs[sig.acronym] = data
 
     if not dryrun:
-        with open("{}/sigs.yaml".format(outdir), "w") as f:
-            yaml.dump(all_sigs, Dumper=Dumper, stream=f)
+        with open("{}/sigs.json".format(outdir), "wb") as f:
+            f.write(ENCODER.encode(all_sigs))
 
 
 def export_anthology(anthology, outdir, clean=False, dryrun=False):
     """
-    Dumps files in build/yaml/*.yaml. These files are used in conjunction with the hugo
+    Dumps files in build/data/*.json. These files are used in conjunction with the hugo
     page stubs created by create_hugo_pages.py to instantiate Hugo templates.
     """
     # Create directories
