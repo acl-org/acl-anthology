@@ -184,7 +184,12 @@ class AnthologyMetadataUpdater:
             return None
 
     def process_metadata_issues(
-        self, ids=[], verbose=False, skip_validation=False, dry_run=False, close_old_issues=False
+        self,
+        ids=[],
+        verbose=False,
+        skip_validation=False,
+        dry_run=False,
+        close_old_issues=False,
     ):
         """Process all metadata issues and create PR with changes."""
         # Get all open issues with required labels
@@ -247,7 +252,7 @@ class AnthologyMetadataUpdater:
                             )
                             url = f"https://aclanthology.org/{anthology_id}"
                             issue.create_comment(
-                                f"The Anthology has had difficulty keeping up with the manual process we use for the large number of metadata corrections we receive. We have therefore updated our workflow with a more automatated process. We are closing this issue, and ask that you help us out by recreating your request using this new workflow. You can do this by visiting [the paper page associated with this issue]({url}) and clicking on the yellow 'Fix metadata' button. This will take you through a few steps simple steps."
+                                f"### Notice\n\nThe Anthology has had difficulty keeping up with the large number of metadata corrections we receive. We have therefore updated our workflow with a more automatated process. We are closing this issue, and ask that you help us out by recreating your request using this new workflow. You can do this by visiting [the paper page associated with this issue]({url}) and clicking on the yellow 'Fix metadata' button. This will take you through a few steps simple steps."
                             )
                             # close the issue as "not planned"
                             issue.edit(state="closed", state_reason="not_planned")
