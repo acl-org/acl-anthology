@@ -141,10 +141,11 @@ class AnthologyMetadataUpdater:
                 """
                 real_ids = set()
                 for author in changes["authors"]:
-                    id_ = author["id"]
-                    existing_author = paper_node.findall(f"author[@id='{id_}']")
-                    if existing_author is None:
-                        real_ids.add(id_)
+                    id_ = author.get("id", None)
+                    if id_:
+                        existing_author = paper_node.find(f"author[@id='{id_}']")
+                        if existing_author is not None:
+                            real_ids.add(id_)
 
                 # remove existing author nodes
                 for author_node in paper_node.findall("author"):
@@ -183,7 +184,7 @@ class AnthologyMetadataUpdater:
             return None
 
     def process_metadata_issues(
-        self, ids=[], verbose=False, skip_validation=False, dry_run=False
+        self, ids=[], verbose=False, skip_validation=False, dry_run=False, close_old_issues=False
     ):
         """Process all metadata issues and create PR with changes."""
         # Get all open issues with required labels
@@ -228,8 +229,32 @@ class AnthologyMetadataUpdater:
                 # Parse metadata changes from issue
                 json_block = self._parse_metadata_changes(issue.body)
                 if not json_block:
-                    if verbose:
-                        print("-> Skipping (no JSON block)", file=sys.stderr)
+                    if close_old_issues:
+                        # for old issues, filed without a JSON block, we append a comment
+                        # alerting them to how to file a new issue using the new format.
+                        # If possible, we first parse the Anthology ID out of the title:
+                        # Metadata correction for {anthology_id}. We can then use this to
+                        # post a link to the original paper so they can go through the
+                        # automated process.
+                        anthology_id = None
+                        match = re.search(r"Paper Metadata: [\{]?(.*)[\}]?", issue.title)
+                        if match:
+                            anthology_id = match[1]
+                        if anthology_id:
+                            print(
+                                f"-> Closing issue {issue.number} with a link to the new process",
+                                file=sys.stderr,
+                            )
+                            url = f"https://aclanthology.org/{anthology_id}"
+                            issue.create_comment(
+                                f"The Anthology has had difficulty keeping up with the manual process we use for the large number of metadata corrections we receive. We have therefore updated our workflow with a more automatated process. We are closing this issue, and ask that you help us out by recreating your request using this new workflow. You can do this by visiting [the paper page associated with this issue]({url}) and clicking on the yellow 'Fix metadata' button. This will take you through a few steps simple steps."
+                            )
+                            # close the issue as "not planned"
+                            issue.edit(state="closed", state_reason="not_planned")
+                            continue
+                    else:
+                        if verbose:
+                            print("-> Skipping (no JSON block)", file=sys.stderr)
                     continue
 
                 # Skip issues that are not approved by team member
@@ -308,6 +333,12 @@ if __name__ == "__main__":
         action="store_true",
         help="Dry run (do not create PRs)",
     )
+    parser.add_argument(
+        "--close-old-issues",
+        action="store_true",
+        help="Close old metadata requests with a comment (those without a JSON block)",
+    )
+
     args = parser.parse_args()
 
     if not github_token:
@@ -319,4 +350,5 @@ if __name__ == "__main__":
         verbose=args.verbose,
         skip_validation=args.skip_validation,
         dry_run=args.dry_run,
+        close_old_issues=args.close_old_issues,
     )
