@@ -258,6 +258,12 @@
 
   // New function to handle submission
   function submitMetadataCorrection() {
+    // make sure the pdfCorrectionCheck box is checked
+    if (!document.getElementById("pdfCorrectionCheck").checked) {
+      alert("Please check the box to confirm that these changes match the PDF.");
+      return;
+    }
+
     const newTitle = document.getElementById("paperTitle").value;
     const newAbstract = document.getElementById("paperAbstract").value;
 
@@ -351,6 +357,13 @@
         </div>
         <div class="modal-body">
           <form id="metadataForm">
+            <div class="alert alert-info" role="alert">
+              <b>Important</b>: The Anthology treat PDFs as authoritative. Please use this form only to correct data that is out of line with the PDF. See <a href="https://aclanthology.org/info/corrections/">our corrections guidelines</a> if you need to change the PDF.
+            </div>
+            <div class="form-check mb-3">
+              <input type="checkbox" class="form-check-input" id="pdfCorrectionCheck">
+              <label class="form-check-label" for="pdfCorrectionCheck">These changes match the PDF</label>
+            </div>
             <div class="mb-3">
               <label for="paperTitle" class="form-label">Title</label>
               <small id="paperTitleHelp" class="form-text text-muted">Adjust the title. Retain tags such as &lt;fixed-case&gt;.</small>
