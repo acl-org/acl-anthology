@@ -52,11 +52,32 @@ from acl_anthology.utils.text import (
     month_str2num,
     remove_extra_whitespace,
 )
-from create_hugo_pages import check_directory
 
 
 ENCODER = msgspec.json.Encoder()
 SCRIPTDIR = os.path.dirname(os.path.realpath(__file__))
+
+
+def check_directory(cdir, clean=False):
+    if not os.path.isdir(cdir) and not os.path.exists(cdir):
+        os.makedirs(cdir)
+        return True
+    entries = os.listdir(cdir)
+    if "_index.md" in entries:
+        entries.remove("_index.md")
+    if entries and not clean:
+        log.critical("Directory already exists and has content files: {}".format(cdir))
+        log.info(
+            "Call this script with the -c/--clean flag to automatically DELETE existing files"
+        )
+        return False
+    for entry in entries:
+        entry = "{}/{}".format(cdir, entry)
+        if os.path.isdir(entry):
+            shutil.rmtree(entry)
+        else:
+            os.remove(entry)
+    return True
 
 
 def make_progress():
