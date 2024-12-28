@@ -164,7 +164,7 @@ hugo_data: build/.data
 
 build/.data: build/.basedirs $(sourcefiles) venv/bin/activate
 	@echo "INFO     Generating data files for Hugo..."
-	. $(VENV) && python3 bin/build/create_hugo_data.py --clean
+	. $(VENV) && python3 bin/create_hugo_data.py --clean
 	@touch build/.data
 
 .PHONY: hugo_pages
@@ -172,7 +172,7 @@ hugo_pages: build/.pages
 
 build/.pages: build/.basedirs build/.data venv/bin/activate
 	@echo "INFO     Creating page templates for Hugo..."
-	. $(VENV) && python3 bin/build/create_hugo_pages.py --clean
+	. $(VENV) && python3 bin/create_hugo_pages.py --clean
 	@touch build/.pages
 
 .PHONY: bibtex
@@ -187,7 +187,7 @@ endnote: build/.endnote
 #######################################################
 build/.bibtex: build/.basedirs $(sourcefiles) venv/bin/activate
 	@echo "INFO     Creating BibTeX files..."
-	. $(VENV) && python3 bin/build/create_bibtex.py --clean
+	. $(VENV) && python3 bin/create_bibtex.py --clean
 	@touch build/.bibtex
 
 # Disable citation targets (except for 3 bibtex per volume) by setting NOBIB=true
