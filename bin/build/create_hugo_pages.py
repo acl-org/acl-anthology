@@ -39,6 +39,7 @@ import shutil
 from acl_anthology.utils.logging import setup_rich_logging
 
 
+DECODER = msgspec.json.Decoder()
 ENCODER = msgspec.json.Encoder()
 
 
@@ -77,7 +78,7 @@ def create_papers(srcdir, clean=False):
     ):
         log.debug("Processing {}".format(datafile))
         with open(datafile, "rb") as f:
-            data = msgspec.json.decode(f.read())
+            data = DECODER.decode(f.read())
         # Create a paper stub for each entry in the volume
         for anthology_id, entry in data.items():
             paper_dir = "{}/content/papers/{}".format(srcdir, anthology_id.split("-")[0])
@@ -104,7 +105,7 @@ def create_volumes(srcdir, clean=False):
     datafile = "{}/data/volumes.json".format(srcdir)
     log.debug("Processing {}".format(datafile))
     with open(datafile, "rb") as f:
-        data = msgspec.json.decode(f.read())
+        data = DECODER.decode(f.read())
     # Create a paper stub for each proceedings volume
     for anthology_id, entry in data.items():
         with open("{}/content/volumes/{}.md".format(srcdir, anthology_id), "wb") as f:
@@ -132,7 +133,7 @@ def create_people(srcdir, clean=False):
     ):
         log.debug("Processing {}".format(datafile))
         with open(datafile, "rb") as f:
-            data = msgspec.json.decode(f.read())
+            data = DECODER.decode(f.read())
         # Create a page stub for each person
         for name, entry in data.items():
             person_dir = "{}/content/people/{}".format(srcdir, name[0])
@@ -150,7 +151,7 @@ def create_venues(srcdir, clean=False):
     datafile = "{}/data/venues.json".format(srcdir)
     print("Creating venue pages...")
     with open(datafile, "rb") as f:
-        data = msgspec.json.decode(f.read())
+        data = DECODER.decode(f.read())
 
     if not check_directory("{}/content/venues".format(srcdir), clean=clean):
         return
@@ -191,7 +192,7 @@ def create_events(srcdir, clean=False):
     datafile = f"{srcdir}/data/events.json"
     print("Creating event pages...")
     with open(datafile, "rb") as f:
-        data = msgspec.json.decode(f.read())
+        data = DECODER.decode(f.read())
 
     if not check_directory(f"{srcdir}/content/events", clean=clean):
         return
@@ -206,7 +207,7 @@ def create_sigs(srcdir, clean=False):
     datafile = "{}/data/sigs.json".format(srcdir)
     print("Creating SIG pages...")
     with open(datafile, "rb") as f:
-        data = msgspec.json.decode(f.read())
+        data = DECODER.decode(f.read())
 
     if not check_directory("{}/content/sigs".format(srcdir), clean=clean):
         return
