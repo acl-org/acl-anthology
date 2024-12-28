@@ -223,7 +223,7 @@ endif
 .PHONY: hugo
 hugo: build/.hugo
 
-build/.hugo: build/.static build/.bibtex build/.mods build/.endnote
+build/.hugo: build/.static build/.data build/.bibtex build/.mods build/.endnote
 	@echo "INFO     Running Hugo... this may take a while."
 	@cd build && \
 	    hugo -b $(ANTHOLOGYHOST)/$(ANTHOLOGYDIR) \
