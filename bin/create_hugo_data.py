@@ -42,6 +42,7 @@ from rich.progress import (
     TaskProgressColumn,
     TimeRemainingColumn,
 )
+import shutil
 
 from acl_anthology import Anthology, config
 from acl_anthology.collections.paper import PaperDeletionType
