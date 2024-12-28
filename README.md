@@ -28,7 +28,7 @@ To build the Anthology website, you will need:
 
 + **Python 3.10** or higher
 + Python packages listed in `bin/requirements.txt`; to install, run `pip -r bin/requirements.txt`
-+ [**Hugo 0.114**](https://gohugo.io) or higher (can be [downloaded directly from
++ [**Hugo 0.126.0**](https://gohugo.io) or higher (can be [downloaded directly from
   their repo](https://github.com/gohugoio/hugo/releases); the ***extended version*** is required!)
 + [**bibutils**](https://sourceforge.net/p/bibutils/home/Bibutils/) for creating
   non-BibTeX citation formats (not strictly required to build the website, but
@@ -116,7 +116,7 @@ You will need this software on the server
  - rsync
  - git
  - python3 >= 3.10
- - hugo > 0.114
+ - hugo > 0.126.0
  - python3-venv
 
 Note that generating the anthology takes quite a bit of RAM, so make

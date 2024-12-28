@@ -45,23 +45,7 @@ $ python3 bin/create_hugo_data.py
 
 This process should not take longer than a few minutes.
 
-### Step 2: Create page stubs for site generation
-
-The data files created in Step 1 are used by Hugo to pull in information about
-venues/papers/etc., but they cannot be used to define what actual *pages* the
-website should have.  Therefore, another script takes the data files generated
-in Step 1 and produce stubs of pages for each individual paper, venue, etc.
-
-This is achieved by calling:
-
-```bash
-$ python3 bin/create_hugo_pages.py
-```
-
-This script will produce *a lot* of files in the `build/content/` subdirectory
-(most prominently, one for each paper in the Anthology).
-
-### Step 3: Create bibliography export files for papers
+### Step 2: Create bibliography export files for papers
 
 In this step, we create `.bib` files for each paper and proceedings volume in
 the Anthology.  This is achieved by calling:
@@ -83,7 +67,7 @@ $ find build/data-export -name '*.bib' -exec bin/bib2xml_wrapper {} \; >/dev/nul
 This creates a corresponding `.xml` file in MODS format for every `.bib` file
 generated previously.
 
-### Step 4: Run Hugo
+### Step 3: Run Hugo
 
 The files that were generated so far are in the `build/` subdirectory, in which
 Hugo will be invoked. Before doing this, however, you need to also copy the
