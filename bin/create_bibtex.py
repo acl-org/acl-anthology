@@ -20,8 +20,8 @@
 Creates .bib files for all papers in the Hugo directory.
 
 Options:
-  --importdir=DIR          Directory to import XML files from. [default: {scriptdir}/../../data/]
-  --exportdir=DIR          Directory to write exported files to.   [default: {scriptdir}/../../build/data-export/]
+  --importdir=DIR          Directory to import XML files from. [default: {scriptdir}/../data/]
+  --exportdir=DIR          Directory to write exported files to.   [default: {scriptdir}/../build/data-export/]
   --debug                  Output debug-level log messages.
   -c, --clean              Delete existing files in target directory before generation.
   -h, --help               Display this helpful text.

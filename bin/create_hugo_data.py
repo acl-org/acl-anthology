@@ -20,8 +20,8 @@
 Creates Hugo data files containing all necessary Anthology data for the website generation.
 
 Options:
-  --importdir=DIR          Directory to import XML files from. [default: {scriptdir}/../../data/]
-  --exportdir=DIR          Directory to write data files to.   [default: {scriptdir}/../../build/data/]
+  --importdir=DIR          Directory to import XML files from. [default: {scriptdir}/../data/]
+  --exportdir=DIR          Directory to write data files to.   [default: {scriptdir}/../build/data/]
   --debug                  Output debug-level log messages.
   -c, --clean              Delete existing files in target directory before generation.
   -n, --dry-run            Do not write data files (useful for debugging).

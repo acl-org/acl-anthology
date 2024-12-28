@@ -22,7 +22,7 @@ Creates page stubs for the full anthology based on the Hugo data files.
 This script can only be run after create_hugo_data.py!
 
 Options:
-  --dir=DIR                Hugo project directory. [default: {scriptdir}/../../build/]
+  --dir=DIR                Hugo project directory. [default: {scriptdir}/../build/]
   --debug                  Output debug-level log messages.
   -c, --clean              Delete existing files in target directory before generation.
   -h, --help               Display this helpful text.
@@ -237,7 +237,7 @@ if __name__ == "__main__":
     tracker = setup_rich_logging(level=log_level)
 
     create_papers(dir_, clean=args["--clean"])
-    create_volumes(dir_, clean=args["--clean"])
+    # create_volumes(dir_, clean=args["--clean"])
     create_people(dir_, clean=args["--clean"])
     create_venues(dir_, clean=args["--clean"])
     create_events(dir_, clean=args["--clean"])
