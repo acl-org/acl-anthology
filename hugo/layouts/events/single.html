@@ -73,10 +73,10 @@
       <a class="badge badge-secondary align-middle mr-1" href="{{ $bibfile | relURL }}" data-toggle="tooltip" data-placement="top" title="Export to BibTeX">bib&nbsp;(full)</a>
       {{- end -}}
       </span>
-    <a class="align-middle" href="{{ relref $ (printf "/volumes/%s.md" .) }}">{{ $volume.title }}</a></h4>
+    <a class="align-middle" href="{{ relref $ (printf "/volumes/%s" .) }}">{{ $volume.title }}</a></h4>
 
     {{ range $volume.papers }}
-      {{ $page := printf "/papers/%s/%s.md" (index (split . "-") 0) . }}
+      {{ $page := printf "/papers/%s" . }}
       {{ ($.Site.GetPage $page).Render "list-entry" }}
     {{ end }}
   </div>

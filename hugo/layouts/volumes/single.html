@@ -125,7 +125,7 @@
 
   <div>
     {{ range $paper.papers }}
-      {{ $page := printf "/papers/%s/%s.md" (index (split . "-") 0) . }}
+      {{ $page := printf "/papers/%s" . }}
       {{ ($.Site.GetPage $page).Render "list-entry" }}
     {{ end }}
   </div>

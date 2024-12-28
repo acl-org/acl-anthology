@@ -167,14 +167,6 @@ build/.data: build/.basedirs $(sourcefiles) venv/bin/activate
 	. $(VENV) && python3 bin/create_hugo_data.py --clean
 	@touch build/.data
 
-.PHONY: hugo_pages
-hugo_pages: build/.pages
-
-build/.pages: build/.basedirs build/.data venv/bin/activate
-	@echo "INFO     Creating page templates for Hugo..."
-	. $(VENV) && python3 bin/create_hugo_pages.py --clean
-	@touch build/.pages
-
 .PHONY: bibtex
 bibtex:	build/.bibtex
 
@@ -231,7 +223,7 @@ endif
 .PHONY: hugo
 hugo: build/.hugo
 
-build/.hugo: build/.static build/.pages build/.bibtex build/.mods build/.endnote
+build/.hugo: build/.static build/.bibtex build/.mods build/.endnote
 	@echo "INFO     Running Hugo... this may take a while."
 	@cd build && \
 	    hugo -b $(ANTHOLOGYHOST)/$(ANTHOLOGYDIR) \

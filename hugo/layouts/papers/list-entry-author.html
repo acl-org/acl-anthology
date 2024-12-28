@@ -49,7 +49,7 @@
     <br />
     {{- with $paper.parent_volume_id -}}
     {{ $volume := index $.Site.Data.volumes . }}
-    {{ $volume_page := printf "/volumes/%s.md" . }}
+    {{ $volume_page := printf "/volumes/%s" . }}
     <a href="{{ relref $ $volume_page }}" class="text-muted">{{ $volume.title }}</a>
     {{- end -}}
   </span>
