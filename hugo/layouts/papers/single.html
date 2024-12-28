@@ -292,17 +292,14 @@
       updatedParams.abstract = newAbstract;
     }
 
-    // remove "id" field from paper_params.authors
-
     const oldAuthorString = JSON.stringify(paper_params.authors);
     const newAuthorString = JSON.stringify(newAuthors);
-    // alert("old=" + oldAuthorString);
-    // alert("new=" + newAuthorString);
     if (newAuthorString != oldAuthorString) {
       updatedParams.authors = newAuthors;
     }
 
-    if (Object.keys(updatedParams).length === 0) {
+    if (Object.keys(updatedParams).length === 1) {
+      // ensure it's not just the anthology_id in the dictionary
       alert("No changes detected.");
       return;
     }
