@@ -44,7 +44,7 @@ from anthology.utils import deconstruct_anthology_id, indent, make_simple_elemen
 
 close_old_issue_comment = """### ⓘ Notice
 
-The Anthology has implemented a new, semi-automated workflow to better handle metadata corrections. We are closing this issue, and invite you to resubmit your request using our new workflow. Please visit your paper page ([{anthology_id}]({url})) and click the yellow 'Fix metadata' button. This will guide you through the new process step by step."""
+The Anthology has implemented a new, semi-automated workflow to better handle metadata corrections. We are closing this issue, and invite you to resubmit your request using our new workflow. Please visit your paper page ([{anthology_id}]({url})) and click the yellow 'Fix data' button. This will guide you through the new process step by step."""
 
 
 class AnthologyMetadataUpdater:
