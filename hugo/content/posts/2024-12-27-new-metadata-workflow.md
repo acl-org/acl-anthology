@@ -8,7 +8,7 @@ After proceedings are published, authors often discover errors in the paper meta
 
 <img src="/images/2024-12-27/many-requests.png" alt="Accumulating issues" style="width:50%;" />
 
-We are therefore happy to announce a new simplified workflow that we hope will reduce effort and processing time. This workflow introduces a yellow "Fix metadata" button on each paper page in the Anthology. Clicking on this button will display a dialog allowing for easy manipulation of the title, author list, and abstract. Upon submission, this dialog will lead the submitter to the creation of a structured Github issue for the correction. The user needs only to submit the issue, and leave the rest to Anthology staff.
+We are therefore happy to announce a new simplified workflow that we hope will reduce effort and processing time. This workflow introduces a yellow "Fix data" button on each paper page in the Anthology. Clicking on this button will display a dialog allowing for easy manipulation of the title, author list, and abstract. Upon submission, this dialog will lead the submitter to the creation of a structured Github issue for the correction. The user needs only to submit the issue, and leave the rest to Anthology staff.
 
 <img src="/images/2024-12-27/dialog.png" alt="Metadata correction dialog" style="width:50%;" />
 
