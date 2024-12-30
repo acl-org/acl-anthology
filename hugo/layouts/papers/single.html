@@ -258,6 +258,12 @@
 
   // New function to handle submission
   function submitMetadataCorrection() {
+    // make sure the pdfCorrectionCheck box is checked
+    if (!document.getElementById("pdfCorrectionCheck").checked) {
+      alert("Please check the box to confirm that these changes match the PDF.");
+      return;
+    }
+
     const newTitle = document.getElementById("paperTitle").value;
     const newAbstract = document.getElementById("paperAbstract").value;
 
@@ -286,17 +292,14 @@
       updatedParams.abstract = newAbstract;
     }
 
-    // remove "id" field from paper_params.authors
-
     const oldAuthorString = JSON.stringify(paper_params.authors);
     const newAuthorString = JSON.stringify(newAuthors);
-    // alert("old=" + oldAuthorString);
-    // alert("new=" + newAuthorString);
     if (newAuthorString != oldAuthorString) {
       updatedParams.authors = newAuthors;
     }
 
-    if (Object.keys(updatedParams).length === 0) {
+    if (Object.keys(updatedParams).length === 1) {
+      // ensure it's not just the anthology_id in the dictionary
       alert("No changes detected.");
       return;
     }
@@ -351,6 +354,9 @@
         </div>
         <div class="modal-body">
           <form id="metadataForm">
+            <div class="alert alert-info" role="alert">
+              <b>Important</b>: The Anthology treat PDFs as authoritative. Please use this form only to correct data that is out of line with the PDF. See <a href="https://aclanthology.org/info/corrections/">our corrections guidelines</a> if you need to change the PDF.
+            </div>
             <div class="mb-3">
               <label for="paperTitle" class="form-label">Title</label>
               <small id="paperTitleHelp" class="form-text text-muted">Adjust the title. Retain tags such as &lt;fixed-case&gt;.</small>
@@ -368,7 +374,11 @@
             </div>
           </form>
         </div>
-        <div class="modal-footer">
+        <div class="modal-footer d-flex align-items-center">
+          <div class="form-check mb-0">
+            <input type="checkbox" class="form-check-input" id="pdfCorrectionCheck">
+            <label class="form-check-label" for="pdfCorrectionCheck">These changes match the PDF</label>
+          </div>
           <button type="button" class="btn btn-primary" onclick="submitMetadataCorrection()">Submit</button>
         </div>
       </div>
@@ -611,8 +621,8 @@
       </a>
       {{ end }}
       <a class="btn btn-warning d-flex flex-wrap justify-content-center" href=# title="Correct problems with title, author list, and abstract" onclick="showMetadataDialog()">
-        <span class="pl-sm-2 d-none d-sm-inline"><i class="fas fa-edit"></i></span>
-        <span class="px-1">Fix metadata</span>
+        <span class="d-none d-sm-inline"><i class="fas fa-edit"></i></span>
+        <span class="pl-md-2">Fix data</span>
       </a>
     </div>
   </div>
