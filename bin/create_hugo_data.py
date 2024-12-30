@@ -328,9 +328,8 @@ def export_people(anthology, outdir, dryrun):
     with make_progress() as progress:
         # Just to make progress bars nicer
         ppl_count = sum(1 for _ in anthology.people.items())
-        factor = 2
         if not dryrun:
-            ppl_count *= 1 + factor
+            ppl_count += 100
         task = progress.add_task("Exporting people...", total=ppl_count)
 
         # Here begins the actual serialization
@@ -382,7 +381,7 @@ def export_people(anthology, outdir, dryrun):
             for first_letter, people_list in people.items():
                 with open(f"{outdir}/people/{first_letter}.json", "wb") as f:
                     f.write(ENCODER.encode(people_list))
-                progress.update(task, advance=len(people_list) * factor)
+            progress.update(task, advance=100)
 
 
 def export_venues(anthology, outdir, dryrun):
