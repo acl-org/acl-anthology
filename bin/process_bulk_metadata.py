@@ -42,6 +42,10 @@ import re
 
 from anthology.utils import deconstruct_anthology_id, indent, make_simple_element
 
+close_old_issue_comment = """### ⓘ Notice
+
+The Anthology has implemented a new, semi-automated workflow to better handle metadata corrections. We are closing this issue, and invite you to resubmit your request using our new workflow. Please visit your paper page ([{anthology_id}]({url})) and click the yellow 'Fix data' button. This will guide you through the new process step by step."""
+
 
 class AnthologyMetadataUpdater:
     def __init__(self, github_token):
@@ -228,8 +232,11 @@ class AnthologyMetadataUpdater:
                             )
                             url = f"https://aclanthology.org/{anthology_id}"
                             issue.create_comment(
-                                f"### Notice\n\nThe Anthology has had difficulty keeping up with the large number of metadata corrections we receive. We have therefore updated our workflow with a more automatated process. We are closing this issue, and ask that you help us out by recreating your request using this new workflow. You can do this by visiting [the paper page associated with this issue]({url}) and clicking on the yellow 'Fix metadata' button. This will take you through a few simple steps."
+                                close_old_issue_comment.format(
+                                    anthology_id=anthology_id, url=url
+                                )
                             )
+
                             # close the issue as "not planned"
                             issue.edit(state="closed", state_reason="not_planned")
                             continue
