@@ -322,9 +322,6 @@
 {{ $anthology_id := .Params.anthology_id }}
 {{ $volume_id := index (split .Params.anthology_id "-") 0 }}
 {{ $paper := index (index .Site.Data.papers $volume_id) .Params.anthology_id }}
-{{ $has_bib := fileExists (printf "/data-export/%s.bib" $anthology_id) }}
-{{ $has_xml := fileExists (printf "/data-export/%s.xml" $anthology_id) }}
-{{ $has_endf := fileExists (printf "/data-export/%s.endf" $anthology_id) }}
 <section id="main">
   <div>
   <h2 id="title">
@@ -511,14 +508,14 @@
       {{ end }}
       <dt class="acl-button-row">Copy Citation:</dt>
       <dd class="acl-button-row">
-      {{ if $has_bib }}
+      {{ with $paper.bibtex }}
         <button type="button" class="btn btn-clipboard-outside btn-secondary btn-sm d-none" data-clipboard-target="#citeBibtexContent"><i class="far fa-clipboard pr-2"></i>BibTeX</button>
       {{ end }}
         <button type="button" class="btn btn-clipboard-outside btn-secondary btn-sm d-none" data-clipboard-target="#citeMarkdownContent"><i class="far fa-clipboard pr-2"></i>Markdown</button>
-      {{ if $has_xml }}
+      {{ with $paper.mods }}
         <button type="button" class="btn btn-clipboard-outside btn-secondary btn-sm d-none" data-clipboard-target="#citeModsContent"><i class="far fa-clipboard pr-2"></i>MODS XML</button>
       {{ end }}
-      {{ if $has_endf }}
+      {{ with $paper.endf }}
         <button type="button" class="btn btn-clipboard-outside btn-secondary btn-sm d-none" data-clipboard-target="#citeEndnoteContent"><i class="far fa-clipboard pr-2"></i>Endnote</button>
       {{ end }}
         <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#citeModal">More options…</button>
@@ -592,7 +589,7 @@
         </a>
         {{ end }}
       {{ end }}
-      {{ if and (not $paper.retracted) (not $paper.removed) (or $has_bib $has_xml $has_endf) }}
+      {{ if and (not $paper.retracted) (not $paper.removed) ($paper.bibtex) }}
       <a class="btn btn-secondary" title="Open dialog for exporting citations" data-toggle="modal" data-target="#citeModal" href="#">
         <i class="fas fa-quote-left"></i><span class="pl-2">Cite</span>
       </a>
@@ -640,49 +637,43 @@
         <div class="modal-body">
           <ul class="nav nav-tabs mb-2" id="citeFormats" role="tablist">
             <li class="nav-item">
-              <a class="nav-link {{ if not $has_bib }}disabled{{ else }}active{{ end }}" data-toggle="list" href="#citeBibtex" role="tab" aria-controls="citeBibtex" aria-selected="{{ if $has_bib }}true{{ else }}false{{ end }}">BibTeX</a>
+              <a class="nav-link {{ if not $paper.bibtex }}disabled{{ else }}active{{ end }}" data-toggle="list" href="#citeBibtex" role="tab" aria-controls="citeBibtex" aria-selected="{{ if $paper.bibtex }}true{{ else }}false{{ end }}">BibTeX</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link {{ if not $has_xml }}disabled{{ end }}" data-toggle="list" href="#citeMods" role="tab" aria-controls="citeMods" aria-selected="false">MODS XML</a>
+              <a class="nav-link {{ if not $paper.mods }}disabled{{ end }}" data-toggle="list" href="#citeMods" role="tab" aria-controls="citeMods" aria-selected="false">MODS XML</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link {{ if not $has_endf }}disabled{{ end }}" data-toggle="list" href="#citeEndnote" role="tab" aria-controls="citeEndnote" aria-selected="false">Endnote</a>
+              <a class="nav-link {{ if not $paper.endf }}disabled{{ end }}" data-toggle="list" href="#citeEndnote" role="tab" aria-controls="citeEndnote" aria-selected="false">Endnote</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link {{ if not $has_bib }}active{{ end }}" data-toggle="list" href="#citeMarkdown" role="tab" aria-controls="citeMarkdown" aria-selected="{{ if $has_bib }}false{{ else }}true{{ end }}">Preformatted</a>
+              <a class="nav-link {{ if not $paper.bibtex }}active{{ end }}" data-toggle="list" href="#citeMarkdown" role="tab" aria-controls="citeMarkdown" aria-selected="{{ if $paper.bibtex }}false{{ else }}true{{ end }}">Preformatted</a>
             </li>
           </ul>
 
           <div class="tab-content" id="citeFormatsContent">
             <div class="tab-pane active" id="citeBibtex" role="tabpanel">
-              {{- if $has_bib -}}
-              <pre id="citeBibtexContent" class="bg-light border p-2" style="max-height: 50vh;">
-                {{- readFile (printf "/data-export/%s.bib" $anthology_id) -}}
-              </pre>
+              {{- with $paper.bibtex -}}
+              <pre id="citeBibtexContent" class="bg-light border p-2" style="max-height: 50vh;">{{ . }}</pre>
               <div class="modal-footer pb-1">
-                <a class="btn btn-secondary" href="{{ (printf "/%s.bib" $anthology_id) | relURL }}"><i class="fas fa-download pr-2"></i>Download as File</a>
+                <a class="btn btn-secondary disabled" href=""><i class="fas fa-download pr-2"></i>Download as File</a>
                 <button class="btn btn-clipboard btn-primary d-none" data-clipboard-target="#citeBibtexContent"><i class="far fa-clipboard pr-2"></i>Copy to Clipboard</button>
               </div>
               {{- end -}}
             </div>
             <div class="tab-pane" id="citeMods" role="tabpanel">
-              {{- if $has_xml -}}
-              <pre id="citeModsContent" class="bg-light border p-2" style="max-height: 50vh;">
-                {{- readFile (printf "/data-export/%s.xml" $anthology_id) -}}
-              </pre>
+              {{- with $paper.mods -}}
+              <pre id="citeModsContent" class="bg-light border p-2" style="max-height: 50vh;">{{ . }}</pre>
               <div class="modal-footer pb-1">
-                <a class="btn btn-secondary" href="{{ (printf "/%s.xml" $anthology_id) | relURL }}"><i class="fas fa-download pr-2"></i>Download as File</a>
+                <a class="btn btn-secondary disabled" href=""><i class="fas fa-download pr-2"></i>Download as File</a>
                 <button class="btn btn-clipboard btn-primary d-none" data-clipboard-target="#citeModsContent"><i class="far fa-clipboard pr-2"></i>Copy to Clipboard</button>
               </div>
               {{- end -}}
             </div>
             <div class="tab-pane" id="citeEndnote" role="tabpanel">
-              {{- if $has_endf -}}
-              <pre id="citeEndnoteContent" class="bg-light border p-2" style="max-height: 50vh;">
-                {{- readFile (printf "/data-export/%s.endf" $anthology_id) -}}
-              </pre>
+              {{- with $paper.endf -}}
+              <pre id="citeEndnoteContent" class="bg-light border p-2" style="max-height: 50vh;">{{ . }}</pre>
               <div class="modal-footer pb-1">
-                <a class="btn btn-secondary" href="{{ (printf "/%s.endf" $anthology_id) | relURL }}"><i class="fas fa-download pr-2"></i>Download as File</a>
+                <a class="btn btn-secondary disabled" href=""><i class="fas fa-download pr-2"></i>Download as File</a>
                 <button class="btn btn-clipboard btn-primary d-none" data-clipboard-target="#citeEndnoteContent"><i class="far fa-clipboard pr-2"></i>Copy to Clipboard</button>
               </div>
               {{- end -}}
