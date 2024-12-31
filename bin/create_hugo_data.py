@@ -15,13 +15,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Usage: create_hugo_data.py [--importdir=DIR] [--exportdir=DIR] [-c] [--debug] [--dry-run]
+"""Usage: create_hugo_data.py [--importdir=DIR] [--exportdir=DIR] [options]
 
 Creates Hugo data files containing all necessary Anthology data for the website generation.
 
 Options:
   --importdir=DIR          Directory to import XML files from. [default: {scriptdir}/../data/]
   --exportdir=DIR          Directory to write data files to.   [default: {scriptdir}/../build/data/]
+  --bib-limit=N            Only generate bibliographic information for the first N papers per volume.
+                           Setting the environment variable NOBIB=true is equivalent to --bib-limit=3.
   --debug                  Output debug-level log messages.
   -c, --clean              Delete existing files in target directory before generation.
   -n, --dry-run            Do not write data files (useful for debugging).
@@ -55,6 +57,7 @@ from acl_anthology.utils.text import (
 )
 
 
+BIBLIMIT = False
 ENCODER = msgspec.json.Encoder()
 SCRIPTDIR = os.path.dirname(os.path.realpath(__file__))
 
@@ -126,6 +129,8 @@ def paper_to_dict(paper):
     editors = [
         person_to_dict(paper.root.resolve(ns).id, ns) for ns in paper.get_editors()
     ]
+    if not BIBLIMIT or int(paper.id) <= BIBLIMIT:
+        data["bibtex"] = paper.to_bibtex(with_abstract=True)
     if paper.is_frontmatter:
         # Editors are considered authors for the frontmatter
         if editors:
@@ -539,6 +544,12 @@ if __name__ == "__main__":
 
     log_level = log.DEBUG if args["--debug"] else log.INFO
     tracker = setup_rich_logging(level=log_level)
+
+    if (limit := args["--bib-limit"]):
+        BIBLIMIT = int(limit)
+    elif os.environ.get("NOBIB", "false") == "true":
+        BIBLIMIT = 3
+        log.info(f"NOBIB=true, setting --bib-limit=3")
 
     # This "freezes" the config, resulting in a massive speed-up
     OmegaConf.resolve(config)

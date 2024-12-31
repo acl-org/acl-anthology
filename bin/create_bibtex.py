@@ -17,7 +17,7 @@
 
 """Usage: create_bibtex.py [--importdir=DIR] [--exportdir=DIR] [-c] [--debug]
 
-Creates .bib files for all papers in the Hugo directory.
+Creates anthology.bib files and MODS/Endnote format for all papers in the Hugo directory.
 
 Options:
   --importdir=DIR          Directory to import XML files from. [default: {scriptdir}/../data/]
@@ -27,20 +27,37 @@ Options:
   -h, --help               Display this helpful text.
 """
 
-import re
+import datetime
+from docopt import docopt
 import gzip
 import logging as log
 import os
-import datetime
-
-from docopt import docopt
-from omegaconf import OmegaConf
+import msgspec
 from pathlib import Path
+import re
 from rich.progress import track
+import shutil
+import subprocess
 
 from acl_anthology import Anthology, config
 from acl_anthology.utils.logging import setup_rich_logging
 from create_hugo_data import check_directory
+
+
+def convert_bibtex(bibtex):
+    mods = subprocess.run(
+        ["/usr/bin/bib2xml", "-nt"],
+        input=bibtex,
+        capture_output=True,
+        text=True,
+    ).stdout
+    endf = subprocess.run(
+        ["/usr/bin/xml2end"],
+        input=mods,
+        capture_output=True,
+        text=True,
+    ).stdout
+    return mods.strip(" \ufeff\r\n"), endf.strip(" \ufeff\r\n")
 
 
 def create_bibtex(anthology, trgdir, limit=0, clean=False) -> None:
@@ -177,18 +194,6 @@ if __name__ == "__main__":
     log_level = log.DEBUG if args["--debug"] else log.INFO
     tracker = setup_rich_logging(level=log_level)
 
-    # This "freezes" the config, resulting in a massive speed-up
-    OmegaConf.resolve(config)
-
-    # If NOBIB is set, generate only three bibs per volume
-    limit = 0 if os.environ.get("NOBIB", "false") == "false" else 3
-    if limit != 0:
-        log.info(f"NOBIB=true, generating only {limit} BibTEX files per volume")
-
-    anthology = Anthology(datadir=args["--importdir"]).load_all()
-    if tracker.highest >= log.ERROR:
-        exit(1)
-
-    create_bibtex(anthology, args["--exportdir"], limit=limit, clean=args["--clean"])
+    create_bibtex(args["--exportdir"], limit=limit, clean=args["--clean"])
     if tracker.highest >= log.ERROR:
         exit(1)
