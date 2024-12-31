@@ -112,7 +112,7 @@ test_cases_markup = (
             "html": "Äöøéÿőßû–",
             # this is what the modified latexcodec from the acl-anthology repo produces:
             # "latex": '{\\"A}{\\"o}{\\o}{\\\'e}{\\"y}{\\H{o}}{\\ss}{\\^u}{--}',
-            "latex": '\\"A\\"o\\o \\\'e\\"y\\H o\\ss \\^u--',
+            "latex": '\\"A\\"o{\\o}\\\'e\\"y\\H{o}{\\ss}\\^u--',
         },
     ),
     (

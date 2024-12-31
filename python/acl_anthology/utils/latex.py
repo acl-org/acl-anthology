@@ -14,10 +14,9 @@
 
 from __future__ import annotations
 
-import codecs
 import re
 from functools import lru_cache
-from typing import Optional, TypeAlias, TYPE_CHECKING
+from typing import cast, Optional, TypeAlias, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from ..people.name import NameSpecification
@@ -26,8 +25,26 @@ if TYPE_CHECKING:
     SerializableAsBibTeX: TypeAlias = None | str | MarkupText | list[NameSpecification]
     """Any type that can be supplied to `make_bibtex_entry`."""
 
-import latexcodec  # noqa: F401
+from pylatexenc.latexencode import (
+    UnicodeToLatexEncoder,
+    UnicodeToLatexConversionRule,
+    RULE_DICT,
+)
 
+LATEXENC = UnicodeToLatexEncoder(
+    conversion_rules=[
+        UnicodeToLatexConversionRule(
+            RULE_DICT,
+            {
+                ord("’"): "'",  # defaults to \textquoteright
+                ord("–"): "--",  # defaults to \textendash
+                ord("—"): "---",  # defaults to \textemdash
+            },
+        ),
+        "defaults",
+    ],
+    unknown_char_policy="keep",
+)
 
 BIBTEX_FIELD_NEEDS_ENCODING = {"journal", "address", "publisher", "note"}
 """Any BibTeX field whose value should be LaTeX-encoded first."""
@@ -48,8 +65,8 @@ BIBTEX_MONTHS = {
 }
 """A mapping of month names to BibTeX macros."""
 
-RE_OPENING_QUOTE = re.compile(r"(?<!\\)\"\b")
-RE_CLOSING_QUOTE = re.compile(r"(?<!\\)\"")
+RE_OPENING_QUOTE_DOUBLE = re.compile(r"(?<!\\)''\b")
+RE_OPENING_QUOTE_SINGLE = re.compile(r"(?<!\\)'\b")
 RE_HYPHENS_BETWEEN_NUMBERS = re.compile(r"(?<=[0-9])(-|–|—)(?=[0-9])")
 
 
@@ -100,8 +117,7 @@ def latex_encode(text: Optional[str]) -> str:
     """
     if text is None:
         return ""
-    text = str(codecs.encode(text, "ulatex+ascii", "keep"))
-    return text
+    return cast(str, LATEXENC.unicode_to_latex(text))
 
 
 def latex_convert_quotes(text: str) -> str:
@@ -110,14 +126,14 @@ def latex_convert_quotes(text: str) -> str:
         text: An arbitrary string.
 
     Returns:
-        The input string with regular quotes converted into LaTeX quotes.
+        The input string with LaTeX quotes converted into proper opening quotes, if necessary.
 
     Examples:
-        >>> latex_convert_quotes('This "great" example')
+        >>> latex_convert_quotes("This ''great'' example")
         "This ``great'' example"
     """
-    text = RE_OPENING_QUOTE.sub("``", text)
-    text = RE_CLOSING_QUOTE.sub("''", text)
+    text = RE_OPENING_QUOTE_DOUBLE.sub("``", text)
+    text = RE_OPENING_QUOTE_SINGLE.sub("`", text)
     return text
 
 

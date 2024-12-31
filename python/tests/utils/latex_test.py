@@ -18,10 +18,10 @@ from acl_anthology.text import MarkupText
 from acl_anthology.utils import latex
 
 test_cases_latex = (
-    ('"This is a quotation."', "``This is a quotation.''"),
-    ('This is a "quotation".', "This is a ``quotation''."),
-    ('Can you "please" "convert" this?', "Can you ``please'' ``convert'' this?"),
-    ('My name is "陳大文".', "My name is ``陳大文''."),
+    ("''This is a quotation.''", "``This is a quotation.''"),
+    ("This is a ''quotation''.", "This is a ``quotation''."),
+    ("Can you ''please'' 'convert' this?", "Can you ``please'' `convert' this?"),
+    ("My name is ''陳大文''.", "My name is ``陳大文''."),
 )
 
 
@@ -77,7 +77,7 @@ def test_make_bibtex_entry():
     author = "Do\\'e, John",
     title = "Th\\'e Pap\\'er",
     booktitle = "My ``Conference''",
-    address = {"Montr\\'eal"},
+    address = "''Montr\\'eal''",
     doi = "10.000.a_b_c",
     month = feb,
     pages = "1--7"
