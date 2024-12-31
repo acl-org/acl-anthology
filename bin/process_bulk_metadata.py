@@ -52,6 +52,14 @@ class AnthologyMetadataUpdater:
         """Initialize with GitHub token."""
         self.g = Github(github_token)
         self.repo = self.g.get_repo("acl-org/acl-anthology")
+        self.stats = {
+            "closed_issues": 0,
+            "visited_issues": 0,
+            "relevant_issues": 0,
+            "approved_issues": 0,
+            "merged_issues": 0,
+            "unapproved_issues": 0,
+        }
 
     def _is_approved(self, issue):
         """Check if issue has approval from anthology team member."""
@@ -201,6 +209,7 @@ class AnthologyMetadataUpdater:
         closed_issues = []
 
         for issue in issues:
+            self.stats["visited_issues"] += 1
             try:
                 if ids and issue.number not in ids:
                     continue
@@ -226,31 +235,37 @@ class AnthologyMetadataUpdater:
                         if match:
                             anthology_id = match[1]
                         if anthology_id:
-                            print(
-                                f"-> Closing issue {issue.number} with a link to the new process",
-                                file=sys.stderr,
-                            )
-                            url = f"https://aclanthology.org/{anthology_id}"
-                            issue.create_comment(
-                                close_old_issue_comment.format(
-                                    anthology_id=anthology_id, url=url
+                            if verbose:
+                                print(
+                                    f"-> Closing issue {issue.number} with a link to the new process",
+                                    file=sys.stderr,
                                 )
-                            )
+                            if not dry_run:
+                                url = f"https://aclanthology.org/{anthology_id}"
+                                issue.create_comment(
+                                    close_old_issue_comment.format(
+                                        anthology_id=anthology_id, url=url
+                                    )
+                                )
+                                # close the issue as "not planned"
+                                issue.edit(state="closed", state_reason="not_planned")
 
-                            # close the issue as "not planned"
-                            issue.edit(state="closed", state_reason="not_planned")
+                            self.stats["closed_issues"] += 1
                             continue
                     else:
                         if verbose:
                             print("-> Skipping (no JSON block)", file=sys.stderr)
                     continue
 
+                self.stats["relevant_issues"] += 1
                 # Skip issues that are not approved by team member
                 if not skip_validation and not self._is_approved(issue):
                     if verbose:
                         print("-> Skipping (not approved yet)", file=sys.stderr)
+                    self.stats["unapproved_issues"] += 1
                     continue
 
+                self.stats["approved_issues"] += 1
                 anthology_id = json_block.get("anthology_id")
                 collection_id, _, _ = deconstruct_anthology_id(anthology_id)
 
@@ -280,9 +295,7 @@ class AnthologyMetadataUpdater:
                         branch=new_branch_name,
                     )
                     closed_issues.append(issue)
-            except Exception as e:
-                print(f"Error processing issue {issue.number}: {type(e)}: {e}")
-                continue
+                    self.stats["merged_issues"] += 1
 
         if len(closed_issues) > 0:
             closed_issues_str = "\n".join(
@@ -342,3 +355,6 @@ if __name__ == "__main__":
         dry_run=args.dry_run,
         close_old_issues=args.close_old_issues,
     )
+
+    for stat in updater.stats:
+        print(f"{stat}: {updater.stats[stat]}", file=sys.stderr)

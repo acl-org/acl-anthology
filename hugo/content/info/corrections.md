@@ -35,7 +35,7 @@ Please note that **the Anthology treats PDFs as authoritative**. This means that
 
 A request to change paper metadata can be submitted in two ways.
 
-- Navigate to the paper's page in the ACL Anthology (e.g., [K17-1003](https://aclanthology.org/K17-1003/)). From there, click the yellow "Fix data" button. This will display a dialog that you can use to correct the title and abstract and fix issues with the author list.
+- Navigate to the paper's page in the ACL Anthology (e.g., [K17-1003](https://aclanthology.org/K17-1003/)). From there, click the yellow "Fix metadata" button. This will display a dialog that you can use to correct the title and abstract and fix issues with the author list.
 
   Submitting this form will create a Github issue with a JSON data block. This will then be validated by Anthology staff, and processed by a semi-automatic bulk corrections script on a weekly basis.
 

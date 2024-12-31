@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# Copyright 2019-2024 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2019 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -34,13 +34,23 @@ import os
 import datetime
 
 from docopt import docopt
-from omegaconf import OmegaConf
+from tqdm import tqdm
 from pathlib import Path
-from rich.progress import track
 
-from acl_anthology import Anthology, config
-from acl_anthology.utils.logging import setup_rich_logging
+from anthology import Anthology
+from anthology.utils import SeverityTracker, deconstruct_anthology_id, infer_year
 from create_hugo_pages import check_directory
+
+
+def volume_sorter(volume_tuple):
+    """
+    Extracts the year so that we can sort by the year and then
+    the collection ID.
+    """
+    volume_id = volume_tuple[0]
+    collection_id, year, _ = deconstruct_anthology_id(volume_id)
+    year = infer_year(collection_id)
+    return year, volume_id
 
 
 def create_bibtex(anthology, trgdir, limit=0, clean=False) -> None:
@@ -56,7 +66,7 @@ def create_bibtex(anthology, trgdir, limit=0, clean=False) -> None:
     if not check_directory("{}/volumes".format(trgdir), clean=clean):
         return
 
-    log.debug("Creating BibTeX files for all papers...")
+    log.info("Creating BibTeX files for all papers...")
     with (
         open(
             "{}/anthology.bib".format(trgdir), "wt", encoding="utf-8"
@@ -83,11 +93,8 @@ def create_bibtex(anthology, trgdir, limit=0, clean=False) -> None:
         print("@string{anth = {https://aclanthology.org/}}", file=file_anthology_raw)
         print(file=file_anthology_raw)
 
-        for volume in track(
-            sorted(
-                anthology.volumes(), key=lambda vol: (vol.year, vol.full_id), reverse=True
-            ),
-            description="Creating BibTeX files...",
+        for volume_id, volume in tqdm(
+            sorted(anthology.volumes.items(), key=volume_sorter, reverse=True)
         ):
             # reset this each time
             abbrev = None
@@ -95,21 +102,19 @@ def create_bibtex(anthology, trgdir, limit=0, clean=False) -> None:
             volume_dir = trgdir
             if not os.path.exists(volume_dir):
                 os.makedirs(volume_dir)
-            with open(
-                "{}/volumes/{}.bib".format(trgdir, volume.full_id), "w"
-            ) as file_volume:
-                for i, paper in enumerate(volume.values(), 1):
+            with open("{}/volumes/{}.bib".format(trgdir, volume_id), "w") as file_volume:
+                for i, paper in enumerate(volume, 1):
                     if limit and i > limit:
                         break
 
                     with open(
                         "{}/{}.bib".format(volume_dir, paper.full_id), "w"
                     ) as file_paper:
-                        contents = paper.to_bibtex(with_abstract=True)
+                        contents = paper.as_bibtex()
                         print(contents, file=file_paper)
                         print(contents, file=file_anthology_with_abstracts)
 
-                        concise_contents = paper.to_bibtex()
+                        concise_contents = paper.as_bibtex(concise=True)
                         print(concise_contents, file=file_volume)
                         print(concise_contents, file=file_anthology)
 
@@ -130,9 +135,7 @@ def create_bibtex(anthology, trgdir, limit=0, clean=False) -> None:
                         # the first entry in each volume
                         if concise_contents.startswith("@proceedings"):
                             # Grab the title string and create the alias
-                            abbrev = (
-                                f"{volume.venue_ids[0].upper()}:{volume.year}:{volume.id}"
-                            )
+                            abbrev = f"{volume.get_venues()[0].upper()}:{infer_year(volume.collection_id)}:{volume.volume_id}"
                             try:
                                 booktitle = re.search(
                                     r"    title = \"(.*)\",", concise_contents
@@ -142,8 +145,12 @@ def create_bibtex(anthology, trgdir, limit=0, clean=False) -> None:
                                     file=file_anthology_raw,
                                 )
                             except AttributeError:
+                                import sys
 
-                                log.warning(f"Could not find title for {volume.full_id}")
+                                print(
+                                    f"Could not find title for {volume_id}",
+                                    file=sys.stderr,
+                                )
                                 abbrev = None
 
                         if abbrev is not None and "booktitle" in concise_contents:
@@ -175,20 +182,17 @@ if __name__ == "__main__":
         )
 
     log_level = log.DEBUG if args["--debug"] else log.INFO
-    tracker = setup_rich_logging(level=log_level)
-
-    # This "freezes" the config, resulting in a massive speed-up
-    OmegaConf.resolve(config)
+    log.basicConfig(format="%(levelname)-8s %(message)s", level=log_level)
+    tracker = SeverityTracker()
+    log.getLogger().addHandler(tracker)
 
     # If NOBIB is set, generate only three bibs per volume
     limit = 0 if os.environ.get("NOBIB", "false") == "false" else 3
     if limit != 0:
         log.info(f"NOBIB=true, generating only {limit} BibTEX files per volume")
 
-    anthology = Anthology(datadir=args["--importdir"]).load_all()
-    if tracker.highest >= log.ERROR:
-        exit(1)
-
+    anthology = Anthology(importdir=args["--importdir"], fast_load=True)
     create_bibtex(anthology, args["--exportdir"], limit=limit, clean=args["--clean"])
+
     if tracker.highest >= log.ERROR:
         exit(1)

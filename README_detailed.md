@@ -148,10 +148,12 @@ comprise:
   defines which author names should be treated as identical for purposes of
   generating "author" pages.
 
-The "acl-anthology-py" module under [`python/`](python/) is responsible
+The "anthology" module under [`bin/anthology/`](bin/anthology/) is responsible
 for parsing and interpreting all these data files.  Some information that is not
 explicitly stored in any of these files is *derived automatically* by this
-module during Step 1 of building the website.
+module during Step 1 of building the website.  (For example, if a publication
+year is not explicitly given in the XML, it is derived from the volume ID in
+[`Paper._infer_year()`](bin/anthology/papers.py).)
 
 ### Presentation (Templates)
 
