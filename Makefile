@@ -173,11 +173,11 @@ bib:	build/.bib
 #######################################################
 # Disable citation targets (except for 3 bibtex per volume) by setting NOBIB=true
 ifeq (true, $(NOBIB))
-$(info WARNING: not creating citation materials; this is not suitable for release!)
+$(info WARNING: not creating full citation materials; this is not suitable for release!)
 else
 
 build/.bib: build/.basedirs $(sourcefiles) venv/bin/activate
-	@echo "INFO     Creating bibliographic files..."
+	@echo "INFO     Creating extra bibliographic files..."
 	. $(VENV) && python3 bin/create_bib.py --clean
 	@touch build/.bib
 endif

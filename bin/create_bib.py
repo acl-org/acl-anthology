@@ -35,43 +35,19 @@ import msgspec
 from pathlib import Path
 import re
 from rich.progress import track
-import shutil
 import subprocess
 
 from acl_anthology import config
 from acl_anthology.utils.ids import infer_year
 from acl_anthology.utils.logging import setup_rich_logging
-from create_hugo_data import check_directory
 
 
 DECODER = msgspec.json.Decoder()
-
-
-def convert_bibtex(bibtex):
-    mods = subprocess.run(
-        ["/usr/bin/bib2xml", "-nt"],
-        input=bibtex,
-        capture_output=True,
-        text=True,
-    ).stdout
-    endf = subprocess.run(
-        ["/usr/bin/xml2end"],
-        input=mods,
-        capture_output=True,
-        text=True,
-    ).stdout
-    return mods.strip(" \ufeff\r\n"), endf.strip(" \ufeff\r\n")
+ENCODER = msgspec.json.Encoder()
 
 
 def create_bibtex(builddir, clean=False) -> None:
     """Create full Anthology BibTeX files."""
-    trgdir = f"{builddir}/data-export"
-
-    # gzip.open(
-    #        f"{builddir}/data-export/anthology+abstracts.bib.gz", "wt", encoding="utf-8"
-    #    ) as file_anthology_with_abstracts,
-    # ):
-
     with (
         open(
             f"{builddir}/data-export/anthology.bib", "wt", encoding="utf-8"
@@ -174,9 +150,70 @@ def create_bibtex(builddir, clean=False) -> None:
             with open(collection_file, "rb") as f:
                 data = DECODER.decode(f.read())
 
-            for entry in data.values():
-                if bibtex := entry.get("bibtex"):
-                    print(bibtex, file=file_anthology_with_abstracts)
+                # bibtex = "\n".join(entry["bibtex"] for entry in data.values() if "bibtex" in entry)
+                # print(bibtex, file=file_anthology_with_abstracts)
+
+                for entry in data.values():
+                    if bibtex := entry.get("bibtex"):
+                        print(bibtex, file=file_anthology_with_abstracts)
+
+
+def convert_bibtex(builddir):
+    """Convert BibTeX into other bibliographic formats, and add them to the data files."""
+    for collection_file in track(
+        list(Path(f"{builddir}/data/papers").glob("*.json")),
+        description="Converting to MODS & Endnote...       ",
+    ):
+        with open(collection_file, "rb") as f:
+            data = DECODER.decode(f.read())
+
+        # for entry in data.values():
+        #    if bibtex := entry.get("bibtex"):
+        #        entry["mods"], entry["endf"] = get_mods_and_endf(bibtex)
+
+        entries = [entry for entry in data.values() if entry.get("bibtex")]
+        if not entries:
+            continue
+
+        bibtex = "\n".join(entry["bibtex"] for entry in entries)
+        mods_batch, endf_batch = batch_convert_to_mods_and_endf(
+            bibtex, collection_file.name
+        )
+        assert len(entries) == len(mods_batch) == len(endf_batch)
+        for entry, mods, endf in zip(entries, mods_batch, endf_batch):
+            entry["mods"] = mods
+            entry["endf"] = endf
+
+        with open(collection_file, "wb") as f:
+            f.write(ENCODER.encode(data))
+
+
+def batch_convert_to_mods_and_endf(bibtex, context):
+    mods = subprocess.run(
+        ["/usr/bin/bib2xml", "-nt"],
+        input=bibtex,
+        capture_output=True,
+        text=True,
+    )
+    log.debug(f"{context}: {mods.stderr.strip()}")
+    endf = subprocess.run(
+        ["/usr/bin/xml2end"],
+        input=mods.stdout,
+        capture_output=True,
+        text=True,
+    )
+    log.debug(f"{context}: {endf.stderr.strip()}")
+
+    mods_header, *mods_entries = re.split(r"<mods ", mods.stdout)
+    mods_header = mods_header.lstrip("\ufeff")
+    mods_footer = "</modsCollection>\n"
+    mods_batch = [f"{mods_header}{entry}{mods_footer}" for entry in mods_entries[:-1]] + [
+        f"{mods_header}{mods_entries[:-1]}"
+    ]
+
+    endf_batch = endf.stdout.strip("\ufeff\r\n").split("\n\n")
+
+    return mods_batch, endf_batch
 
 
 if __name__ == "__main__":
@@ -191,5 +228,6 @@ if __name__ == "__main__":
     tracker = setup_rich_logging(level=log_level)
 
     create_bibtex(args["--builddir"], clean=args["--clean"])
+    convert_bibtex(args["--builddir"])
     if tracker.highest >= log.ERROR:
         exit(1)
