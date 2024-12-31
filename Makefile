@@ -167,63 +167,27 @@ build/.data: build/.basedirs $(sourcefiles) venv/bin/activate
 	. $(VENV) && python3 bin/create_hugo_data.py --clean
 	@touch build/.data
 
-.PHONY: bibtex
-bibtex:	build/.bibtex
-
-.PHONY: mods
-mods: build/.mods
-
-.PHONY: endnote
-endnote: build/.endnote
+.PHONY: bib
+bib:	build/.bib
 
 #######################################################
-build/.bibtex: build/.basedirs $(sourcefiles) venv/bin/activate
-	@echo "INFO     Creating BibTeX files..."
-	. $(VENV) && python3 bin/create_bibtex.py --clean
-	@touch build/.bibtex
-
 # Disable citation targets (except for 3 bibtex per volume) by setting NOBIB=true
 ifeq (true, $(NOBIB))
 $(info WARNING: not creating citation materials; this is not suitable for release!)
-build/.mods: build/.bibtex
-	touch build/.mods
-build/.endnote: build/.bibtex
-	touch build/.endnote
 else
 
-build/.mods: build/.bibtex
-	@if [ $(HAS_BIB2XML) = false ]; then \
-	    echo "bib2xml not found, please install bibtools"; \
-            echo "alternatively, build the site without endnote files by running make hugo"; \
-	    exit 1; \
-	fi
-	@echo "INFO     Converting BibTeX files to MODS XML..."
-	@find build/data-export -name '*.bib' -print0 | \
-	      xargs -0 -n 1 -P 8 bin/bib2xml_wrapper >/dev/null
-	@touch build/.mods
-
-build/.endnote: build/.mods
-	@if [ $(HAS_XML2END) = false ]; then \
-	    echo "xml2end not found, please install bibtools"; \
-            echo "alternatively, build the site without endnote files by running make hugo"; \
-	    exit 1; \
-	fi
-	@echo "INFO     Converting MODS XML files to EndNote..."
-	@find build/data-export -name '*.xml' -print0 | \
-	      xargs -0 -n 1 -P 8 bin/xml2end_wrapper >/dev/null
-	@touch build/.endnote
+build/.bib: build/.basedirs $(sourcefiles) venv/bin/activate
+	@echo "INFO     Creating bibliographic files..."
+	. $(VENV) && python3 bin/create_bib.py --clean
+	@touch build/.bib
 endif
 # end if block to conditionally disable bibtex generation
 #######################################################
 
-
-%.endf: %.xml
-	xml2end $< 2>&1 > $@
-
 .PHONY: hugo
 hugo: build/.hugo
 
-build/.hugo: build/.static build/.data build/.bibtex build/.mods build/.endnote
+build/.hugo: build/.static build/.data build/.bib
 	@echo "INFO     Running Hugo... this may take a while."
 	@cd build && \
 	    hugo -b $(ANTHOLOGYHOST)/$(ANTHOLOGYDIR) \

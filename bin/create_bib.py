@@ -15,13 +15,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Usage: create_bibtex.py [--importdir=DIR] [--exportdir=DIR] [-c] [--debug]
+"""Usage: create_bib.py [--builddir=DIR] [-c] [--debug]
 
-Creates anthology.bib files and MODS/Endnote format for all papers in the Hugo directory.
+Creates anthology.bib files and MODS/Endnote formats for all papers in the Hugo directory.
 
 Options:
-  --importdir=DIR          Directory to import XML files from. [default: {scriptdir}/../data/]
-  --exportdir=DIR          Directory to write exported files to.   [default: {scriptdir}/../build/data-export/]
+  --builddir=DIR           Directory with build files; used both for reading and writing. [default: {scriptdir}/../build/]
   --debug                  Output debug-level log messages.
   -c, --clean              Delete existing files in target directory before generation.
   -h, --help               Display this helpful text.
@@ -60,14 +59,10 @@ def convert_bibtex(bibtex):
     return mods.strip(" \ufeff\r\n"), endf.strip(" \ufeff\r\n")
 
 
-def create_bibtex(anthology, trgdir, limit=0, clean=False) -> None:
+def create_bibtex(anthology, builddir, clean=False) -> None:
     """Creates .bib files for all papers.
-
-    :param anthology: The Anthology object.
-    :param trgdir: The target directory to write to
-    :param limit: If nonzero, only generate {limit} entries per volume
-    :param clean: Clean the directory first
     """
+    trgdir = f"{builddir}/data-export"
     if not check_directory("{}/papers".format(trgdir), clean=clean):
         return
     if not check_directory("{}/volumes".format(trgdir), clean=clean):
@@ -116,9 +111,6 @@ def create_bibtex(anthology, trgdir, limit=0, clean=False) -> None:
                 "{}/volumes/{}.bib".format(trgdir, volume.full_id), "w"
             ) as file_volume:
                 for i, paper in enumerate(volume.values(), 1):
-                    if limit and i > limit:
-                        break
-
                     with open(
                         "{}/{}.bib".format(volume_dir, paper.full_id), "w"
                     ) as file_paper:
@@ -182,18 +174,14 @@ def create_bibtex(anthology, trgdir, limit=0, clean=False) -> None:
 if __name__ == "__main__":
     args = docopt(__doc__)
     scriptdir = os.path.dirname(os.path.abspath(__file__))
-    if "{scriptdir}" in args["--importdir"]:
-        args["--importdir"] = os.path.abspath(
-            args["--importdir"].format(scriptdir=scriptdir)
-        )
-    if "{scriptdir}" in args["--exportdir"]:
-        args["--exportdir"] = os.path.abspath(
-            args["--exportdir"].format(scriptdir=scriptdir)
+    if "{scriptdir}" in args["--builddir"]:
+        args["--builddir"] = os.path.abspath(
+            args["--builddir"].format(scriptdir=scriptdir)
         )
 
     log_level = log.DEBUG if args["--debug"] else log.INFO
     tracker = setup_rich_logging(level=log_level)
 
-    create_bibtex(args["--exportdir"], limit=limit, clean=args["--clean"])
+    create_bibtex(args["--builddir"], clean=args["--clean"])
     if tracker.highest >= log.ERROR:
         exit(1)
