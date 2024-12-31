@@ -66,6 +66,7 @@ SxscriptStatus = Literal[False, "sub", "sup"]
 TexEverything = list[Union[str, TexCmd, TexText, TexGroup]]
 
 
+# TODO: Could we rewrite this using pylatexenc.latexwalker?
 @define
 class _TexMath:
     """Interpreter and converter for TeX inline math expressions.
@@ -83,6 +84,7 @@ class _TexMath:
     loaded: bool = field(init=False, default=False)
 
     def load_symbols(self) -> None:
+        # TODO: could this use pylatexenc.latexencode.get_builtin_uni2latex_dict()?
         data = pkgutil.get_data("acl_anthology", "data/unimathsymbols.txt")
         if data is None:
             raise FileNotFoundError(
