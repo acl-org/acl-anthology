@@ -176,7 +176,7 @@ ifeq (true, $(NOBIB))
 $(info WARNING: not creating full citation materials; this is not suitable for release!)
 else
 
-build/.bib: build/.basedirs $(sourcefiles) venv/bin/activate
+build/.bib: build/.basedirs build/.data venv/bin/activate
 	@echo "INFO     Creating extra bibliographic files..."
 	. $(VENV) && python3 bin/create_bib.py --clean
 	@touch build/.bib
