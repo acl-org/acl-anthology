@@ -116,6 +116,14 @@ test_cases_markup = (
         },
     ),
     (
+        "Hajič, Jan and Woźniak, Michał",
+        {
+            "text": "Hajič, Jan and Woźniak, Michał",
+            "html": "Hajič, Jan and Woźniak, Michał",
+            "latex": "Haji\\v{c}, Jan and Wo\\'zniak, Micha{\\l}",
+        },
+    ),
+    (
         "陳大文",
         {
             "text": "陳大文",

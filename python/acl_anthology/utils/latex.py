@@ -43,6 +43,7 @@ LATEXENC = UnicodeToLatexEncoder(
         ),
         "defaults",
     ],
+    replacement_latex_protection="braces",
     unknown_char_policy="keep",
 )
 
