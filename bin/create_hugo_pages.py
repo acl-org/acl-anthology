@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# Copyright 2019 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2019-2024 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -30,9 +30,9 @@ Options:
 
 from docopt import docopt
 from glob import glob
-from tqdm import tqdm
 import logging as log
 import os
+from rich.progress import track
 import shutil
 import yaml
 
@@ -42,7 +42,7 @@ except ImportError:
     log.info("Can't load yaml C bindings, reverting to slow pure Python version")
     from yaml import Loader
 
-from anthology.utils import SeverityTracker
+from acl_anthology.utils.logging import setup_rich_logging
 
 
 def check_directory(cdir, clean=False):
@@ -69,12 +69,15 @@ def check_directory(cdir, clean=False):
 
 def create_papers(srcdir, clean=False):
     """Creates page stubs for all papers in the Anthology."""
-    log.info("Creating stubs for papers...")
+    log.debug("Creating paper pages...")
     if not check_directory("{}/content/papers".format(srcdir), clean=clean):
         return
 
     # Go through all paper volumes
-    for yamlfile in tqdm(glob("{}/data/papers/*.yaml".format(srcdir))):
+    for yamlfile in track(
+        glob("{}/data/papers/*.yaml".format(srcdir)),
+        description="Creating paper pages... ",
+    ):
         log.debug("Processing {}".format(yamlfile))
         with open(yamlfile, "r") as f:
             data = yaml.load(f, Loader=Loader)
@@ -84,13 +87,12 @@ def create_papers(srcdir, clean=False):
             if not os.path.exists(paper_dir):
                 os.makedirs(paper_dir)
             with open("{}/{}.md".format(paper_dir, anthology_id), "w") as f:
-                date = entry["ingest_date"]
                 print("---", file=f)
                 yaml.dump(
                     {
                         "anthology_id": anthology_id,
                         "title": entry["title"],
-                        "date": date,
+                        "date": entry["ingest_date"],
                     },
                     default_flow_style=False,
                     stream=f,
@@ -100,7 +102,7 @@ def create_papers(srcdir, clean=False):
 
 def create_volumes(srcdir, clean=False):
     """Creates page stubs for all proceedings volumes in the Anthology."""
-    log.info("Creating stubs for volumes...")
+    log.debug("Creating volume pages...")
     if not check_directory("{}/content/volumes".format(srcdir), clean=clean):
         return
 
@@ -127,11 +129,14 @@ def create_volumes(srcdir, clean=False):
 
 def create_people(srcdir, clean=False):
     """Creates page stubs for all authors/editors in the Anthology."""
-    log.info("Creating stubs for people...")
+    log.debug("Creating people pages...")
     if not check_directory("{}/content/people".format(srcdir), clean=clean):
         return
 
-    for yamlfile in tqdm(glob("{}/data/people/*.yaml".format(srcdir))):
+    for yamlfile in track(
+        glob("{}/data/people/*.yaml".format(srcdir)),
+        description="Creating people pages...",
+    ):
         log.debug("Processing {}".format(yamlfile))
         with open(yamlfile, "r") as f:
             data = yaml.load(f, Loader=Loader)
@@ -153,11 +158,10 @@ def create_people(srcdir, clean=False):
 def create_venues(srcdir, clean=False):
     """Creates page stubs for all venues in the Anthology."""
     yamlfile = "{}/data/venues.yaml".format(srcdir)
-    log.debug("Processing {}".format(yamlfile))
+    log.debug("Creating venues pages from {}".format(yamlfile))
     with open(yamlfile, "r") as f:
         data = yaml.load(f, Loader=Loader)
 
-    log.info("Creating stubs for venues...")
     if not check_directory("{}/content/venues".format(srcdir), clean=clean):
         return
     # Create a paper stub for each venue (e.g. ACL)
@@ -197,11 +201,10 @@ def create_events(srcdir, clean=False):
     The stub lists only the event slug and the event title
     """
     yamlfile = f"{srcdir}/data/events.yaml"
-    log.debug(f"Processing {yamlfile}")
+    log.debug(f"Creating event pages from {yamlfile}")
     with open(yamlfile, "r") as f:
         yaml_data = yaml.load(f, Loader=Loader)
 
-    log.info("Creating stubs for events...")
     if not check_directory(f"{srcdir}/content/events", clean=clean):
         return
     # Create a paper stub for each event
@@ -216,11 +219,10 @@ def create_events(srcdir, clean=False):
 def create_sigs(srcdir, clean=False):
     """Creates page stubs for all SIGs in the Anthology."""
     yamlfile = "{}/data/sigs.yaml".format(srcdir)
-    log.debug("Processing {}".format(yamlfile))
+    log.debug("Creating SIG pages from {}".format(yamlfile))
     with open(yamlfile, "r") as f:
         data = yaml.load(f, Loader=Loader)
 
-    log.info("Creating stubs for SIGs...")
     if not check_directory("{}/content/sigs".format(srcdir), clean=clean):
         return
     # Create a paper stub for each SIGS (e.g. SIGMORPHON)
@@ -248,9 +250,7 @@ if __name__ == "__main__":
     dir_ = os.path.abspath(args["--dir"])
 
     log_level = log.DEBUG if args["--debug"] else log.INFO
-    log.basicConfig(format="%(levelname)-8s %(message)s", level=log_level)
-    tracker = SeverityTracker()
-    log.getLogger().addHandler(tracker)
+    tracker = setup_rich_logging(level=log_level)
 
     create_papers(dir_, clean=args["--clean"])
     create_volumes(dir_, clean=args["--clean"])

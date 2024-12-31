@@ -18,6 +18,8 @@ import attrs
 import datetime
 from attrs import define, field, Factory
 from enum import Enum
+from functools import cached_property
+import langcodes
 from lxml import etree
 from lxml.builder import E
 from typing import cast, Any, Optional, TYPE_CHECKING
@@ -27,10 +29,12 @@ from ..files import (
     AttachmentReference,
     PapersWithCodeReference,
     PDFReference,
+    PDFThumbnailReference,
     VideoReference,
 )
 from ..people import NameSpecification
 from ..text import MarkupText
+from ..utils.citation import citeproc_render_html, render_acl_citation
 from ..utils.ids import build_id, AnthologyIDTuple
 from ..utils.latex import make_bibtex_entry
 from ..utils.logging import get_logger
@@ -55,7 +59,7 @@ class Paper:
         title: The title of the paper.
 
     Attributes: List Attributes:
-        attachments: File attachments of this paper. The dictionary key specifies the type of attachment (e.g., "software").
+        attachments: File attachments of this paper, as tuples of the format `(type_of_attachment, attachment_file)`; can be empty.
         authors: Names of authors associated with this paper; can be empty.
         awards: Names of awards this has paper has received; can be empty.
         editors: Names of editors associated with this paper; can be empty.
@@ -68,6 +72,8 @@ class Paper:
         deletion: A notice of the paper's retraction or removal, if applicable.
         doi: The DOI for the paper.
         ingest_date: The date of ingestion.
+        issue: The journal issue for this paper.  Should normally be set at the volume level; you probably want to use `get_issue()` instead.
+        journal: The journal name for this paper.   Should normally be set at the volume level; you probably want to use `get_journal_title()` instead.
         language: The language this paper is (mainly) written in.  When given, this should be a ISO 639-2 code (e.g. "eng"), though occasionally IETF is used (e.g. "pt-BR").
         note: A note attached to this paper.  Used very sparingly.
         pages: Page numbers of this paper within its volume.
@@ -80,7 +86,7 @@ class Paper:
     bibkey: str = field()
     title: MarkupText = field()
 
-    attachments: dict[str, AttachmentReference] = field(factory=dict, repr=False)
+    attachments: list[tuple[str, AttachmentReference]] = field(factory=list, repr=False)
     authors: list[NameSpecification] = Factory(list)
     awards: list[str] = field(factory=list, repr=False)
     # TODO: why can a Paper ever have "editors"? it's allowed by the schema
@@ -93,6 +99,8 @@ class Paper:
     deletion: Optional[PaperDeletionNotice] = field(default=None, repr=False)
     doi: Optional[str] = field(default=None, repr=False)
     ingest_date: Optional[str] = field(default=None, repr=False)
+    issue: Optional[str] = field(default=None, repr=False)
+    journal: Optional[str] = field(default=None, repr=False)
     language: Optional[str] = field(default=None, repr=False)
     note: Optional[str] = field(default=None, repr=False)
     pages: Optional[str] = field(default=None, repr=False)
@@ -152,6 +160,45 @@ class Paper:
                 raise ValueError(f"Unknown volume type: {self.parent.type}")
 
     @property
+    def csltype(self) -> str:
+        """The [CSL type](https://docs.citationstyles.org/en/stable/specification.html#appendix-iii-types) for this paper."""
+        if self.is_frontmatter:
+            return "book"
+        if self.parent.type == VolumeType.JOURNAL:
+            return "article-journal"
+        # else:
+        return "paper-conference"
+
+    @cached_property
+    def citeproc_dict(self) -> dict[str, Any]:
+        """The citation object corresponding to this paper for use with CiteProcJSON."""
+        data: dict[str, Any] = {
+            "id": self.bibkey,
+            "title": self.title.as_text(),
+            "type": self.csltype,
+            "author": [namespec.citeproc_dict for namespec in self.authors],
+            "editor": [namespec.citeproc_dict for namespec in self.get_editors()],
+            "publisher": self.publisher,
+            "publisher-place": self.address,
+            # TODO: month currently not included
+            "issued": {"date-parts": [[self.year]]},
+            "URL": self.web_url,
+            "DOI": self.doi,
+            "ISBN": self.parent.isbn,
+            "page": self.pages,
+        }
+        if self.is_frontmatter:
+            data["author"] = data["editor"]
+        match self.parent.type:
+            case VolumeType.JOURNAL:
+                data["container-title"] = self.get_journal_title()
+                data["volume"] = self.parent.journal_volume
+                data["issue"] = self.get_issue()
+            case VolumeType.PROCEEDINGS:
+                data["container-title"] = self.parent.title.as_text()
+        return {k: v for k, v in data.items() if v is not None}
+
+    @property
     def address(self) -> Optional[str]:
         """The publisher's address for this paper. Inherited from the parent Volume."""
         return self.parent.address
@@ -165,6 +212,20 @@ class Paper:
     def publisher(self) -> Optional[str]:
         """The paper's publisher. Inherited from the parent Volume."""
         return self.parent.publisher
+
+    @property
+    def thumbnail(self) -> Optional[PDFThumbnailReference]:
+        """A reference to a thumbnail image of the paper's PDF."""
+        if self.pdf is not None:
+            return PDFThumbnailReference(self.full_id)
+        return None
+
+    @property
+    def language_name(self) -> Optional[str]:
+        """The name of the language this paper is written in, if specified."""
+        if self.language is None:
+            return None
+        return langcodes.Language.get(self.language).display_name()
 
     @property
     def venue_ids(self) -> list[str]:
@@ -206,6 +267,24 @@ class Paper:
             return self.parent.get_ingest_date()
         return datetime.date.fromisoformat(self.ingest_date)
 
+    def get_issue(self) -> Optional[str]:
+        """
+        Returns:
+            The issue number of this paper. Inherits from its parent volume unless explicitly set for the paper.
+        """
+        if self.issue is None:
+            return self.parent.journal_issue
+        return self.issue
+
+    def get_journal_title(self) -> str:
+        """
+        Returns:
+            The journal title for this paper.  Inherits from its parent volume unless explicitly set for the paper.
+        """
+        if self.journal is None:
+            return self.parent.get_journal_title()
+        return self.journal
+
     def to_bibtex(self, with_abstract: bool = False) -> str:
         """Generate a BibTeX entry for this paper.
 
@@ -215,6 +294,8 @@ class Paper:
         Returns:
             The BibTeX entry for this paper as a formatted string.
         """
+        # Note: Fields are added in the order in which they will appear in the
+        # BibTeX entry, for reproducibility
         bibtex_fields: list[tuple[str, SerializableAsBibTeX]] = [
             ("title", self.title),
             ("author", self.authors),
@@ -225,9 +306,9 @@ class Paper:
                 case VolumeType.JOURNAL:
                     bibtex_fields.extend(
                         [
-                            ("journal", self.parent.get_journal_title()),
+                            ("journal", self.get_journal_title()),
                             ("volume", self.parent.journal_volume),
-                            ("number", self.parent.journal_issue),
+                            ("number", self.get_issue()),
                         ]
                     )
                 case VolumeType.PROCEEDINGS:
@@ -250,6 +331,45 @@ class Paper:
             bibtex_fields.append(("abstract", self.abstract))
         return make_bibtex_entry(self.bibtype, self.bibkey, bibtex_fields)
 
+    def to_citation(self, style: Optional[str] = None) -> str:
+        """Generate a citation (reference) for this paper.
+
+        Arguments:
+            style: A path to a CSL file.  If None (default), uses the built-in ACL citation style.
+
+        Returns:
+            The generated citation reference as a single string with HTML markup.  See [`citeproc_render_html()`][acl_anthology.utils.citation.citeproc_render_html] for the rationale behind returning a single string here.
+        """
+        if style is None:
+            return render_acl_citation(self)
+        return citeproc_render_html(self.citeproc_dict, style)
+
+    def to_markdown_citation(self) -> str:
+        """Generate a brief citation (reference) in Markdown for this paper.
+
+        Returns:
+            The generated citation reference as a single string with Markdown markup.
+        """
+        namespecs = self.authors if not self.is_frontmatter else self.get_editors()
+        if len(namespecs) == 0:
+            name = ""
+        elif len(namespecs) == 1:
+            name = namespecs[0].last
+        elif len(namespecs) == 2:
+            name = f"{namespecs[0].last} & {namespecs[1].last}"
+        else:
+            name = f"{namespecs[0].last} et al."
+
+        venue_year = (
+            f"{self.year}"
+            if self.parent.venue_acronym == "WS"
+            else f"{self.parent.venue_acronym} {self.year}"
+        )
+        if name:
+            return f"[{self.title.as_text()}]({self.web_url}) ({name}, {venue_year})"
+        else:
+            return f"[{self.title.as_text()}]({self.web_url}) ({venue_year})"
+
     @classmethod
     def from_frontmatter_xml(cls, parent: Volume, paper: etree._Element) -> Paper:
         """Instantiates a new paper from a `<frontmatter>` block in the XML."""
@@ -258,7 +378,7 @@ class Paper:
             "parent": parent,
             # A frontmatter's title is the parent volume's title
             "title": parent.title,
-            "attachments": {},
+            "attachments": [],
         }
         # Frontmatter only supports a small subset of regular paper attributes,
         # so we duplicate these here -- but maybe suboptimal?
@@ -267,7 +387,9 @@ class Paper:
                 kwargs[element.tag] = element.text
             elif element.tag == "attachment":
                 type_ = str(element.get("type", "attachment"))
-                kwargs["attachments"][type_] = AttachmentReference.from_xml(element)
+                kwargs["attachments"].append(
+                    (type_, AttachmentReference.from_xml(element))
+                )
             elif element.tag == "revision":
                 if "revisions" not in kwargs:
                     kwargs["revisions"] = []
@@ -292,7 +414,7 @@ class Paper:
             "parent": parent,
             "authors": [],
             "editors": [],
-            "attachments": {},
+            "attachments": [],
         }
         if (ingest_date := paper.get("ingest-date")) is not None:
             kwargs["ingest_date"] = str(ingest_date)
@@ -301,7 +423,15 @@ class Paper:
             log.debug(f"Paper {paper.get('id')!r}: Type attribute is currently ignored")
             # kwargs["type"] = str(paper_type)
         for element in paper:
-            if element.tag in ("bibkey", "doi", "language", "note", "pages"):
+            if element.tag in (
+                "bibkey",
+                "doi",
+                "issue",
+                "journal",
+                "language",
+                "note",
+                "pages",
+            ):
                 kwargs[element.tag] = element.text
             elif element.tag in ("author", "editor"):
                 kwargs[f"{element.tag}s"].append(NameSpecification.from_xml(element))
@@ -309,7 +439,9 @@ class Paper:
                 kwargs[element.tag] = MarkupText.from_xml(element)
             elif element.tag == "attachment":
                 type_ = str(element.get("type", "attachment"))
-                kwargs["attachments"][type_] = AttachmentReference.from_xml(element)
+                kwargs["attachments"].append(
+                    (type_, AttachmentReference.from_xml(element))
+                )
             elif element.tag == "award":
                 if "awards" not in kwargs:
                     kwargs["awards"] = []
@@ -334,8 +466,8 @@ class Paper:
                 if "videos" not in kwargs:
                     kwargs["videos"] = []
                 kwargs["videos"].append(VideoReference.from_xml(element))
-            elif element.tag in ("issue", "journal", "mrf"):
-                # TODO: these fields are currently ignored
+            elif element.tag == ("mrf"):
+                # TODO: this field is currently ignored
                 log.debug(
                     f"Paper {paper.get('id')!r}: Tag '{element.tag}' is currently ignored"
                 )
@@ -370,10 +502,10 @@ class Paper:
             paper.append(erratum.to_xml())
         for revision in self.revisions:
             paper.append(revision.to_xml())
-        for tag in ("doi", "language", "note"):
+        for tag in ("doi", "issue", "journal", "language", "note"):
             if (value := getattr(self, tag)) is not None:
                 paper.append(getattr(E, tag)(value))
-        for type_, attachment in self.attachments.items():
+        for type_, attachment in self.attachments:
             elem = attachment.to_xml("attachment")
             elem.set("type", type_)
             paper.append(elem)
@@ -406,7 +538,7 @@ class PaperDeletionNotice:
     type: PaperDeletionType
     """Type indicating whether the paper was _retracted_ or _removed_."""
 
-    note: str
+    note: Optional[str]
     """A note explaining the retraction or removal."""
 
     date: str
@@ -417,7 +549,7 @@ class PaperDeletionNotice:
         """Instantiates a deletion notice from its `<removed>` or `<retracted>` block in the XML."""
         return cls(
             type=PaperDeletionType(str(element.tag)),
-            note=str(element.text),
+            note=str(element.text) if element.text else None,
             date=str(element.get("date")),
         )
 

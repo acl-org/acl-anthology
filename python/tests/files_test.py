@@ -48,7 +48,7 @@ test_cases_video = (
     (
         '<video href="2022.acl-long.225.mp4"/>',
         "2022.acl-long.225.mp4",
-        "https://aclanthology.org/attachments/2022.acl-long.225.mp4",
+        "https://aclanthology.org/2022.acl-long.225.mp4",
         True,
     ),
     (

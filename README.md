@@ -26,9 +26,9 @@ These are basic instructions on generating the ACL Anthology website as seen on 
 
 To build the Anthology website, you will need:
 
-+ **Python 3.8** or higher
++ **Python 3.10** or higher
 + Python packages listed in `bin/requirements.txt`; to install, run `pip -r bin/requirements.txt`
-+ [**Hugo 0.58.3**](https://gohugo.io) or higher (can be [downloaded directly from
++ [**Hugo 0.114**](https://gohugo.io) or higher (can be [downloaded directly from
   their repo](https://github.com/gohugoio/hugo/releases); the ***extended version*** is required!)
 + [**bibutils**](https://sourceforge.net/p/bibutils/home/Bibutils/) for creating
   non-BibTeX citation formats (not strictly required to build the website, but
@@ -119,7 +119,7 @@ You will need this software on the server
  - rsync
  - git
  - python3
- - hugo > 0.58
+ - hugo > 0.114
  - python3-venv
 
 If you want the build process to be fast, install `cython3` and

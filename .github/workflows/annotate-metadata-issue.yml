@@ -1,0 +1,68 @@
+name: Add link and image to metadata issue
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  process-anthology-issue:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check required labels
+        id: check-labels
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const issue = context.payload.issue;
+            const labels = issue.labels.map(label => label.name);
+            const hasRequiredLabels =
+              labels.includes('correction') &&
+              labels.includes('metadata');
+            core.setOutput('has_required_labels', hasRequiredLabels.toString());
+
+      - name: Parse JSON from issue body
+        id: parse-json
+        if: steps.check-labels.outputs.has_required_labels == 'true'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const issue = context.payload.issue;
+            const body = issue.body;
+            const jsonMatch = body.match(/```json\s*([\s\S]*?)\s*```/);
+
+            if (!jsonMatch) {
+              core.setOutput('valid_json', 'false');
+              return;
+            }
+
+            try {
+              const data = JSON.parse(jsonMatch[1]);
+              if (!data.anthology_id) {
+                core.setOutput('valid_json', 'false');
+                return;
+              }
+              core.setOutput('anthology_id', data.anthology_id);
+              core.setOutput('valid_json', 'true');
+            } catch (error) {
+              core.setOutput('valid_json', 'false');
+            }
+
+      - name: Create comment
+        if: steps.check-labels.outputs.has_required_labels == 'true' && steps.parse-json.outputs.valid_json == 'true'
+        uses: actions/github-script@v6
+        with:
+          anthology_id: ${{ steps.parse-json.outputs.anthology_id }}
+          script: |
+            const anthology_id = core.getInput('anthology_id');
+            const comment = `
+            Found ACL Anthology entry: https://aclanthology.org/${anthology_id}
+
+            ![Thumbnail](https://aclanthology.org/thumb/${anthology_id}.jpg)
+            `;
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: comment
+            });

@@ -45,7 +45,10 @@ class CollectionIndex(SlottedDict[Collection]):
             Currently assumes that XML files are **always** named according to the collection ID they
             contain; i.e., a file named "L16.xml" *must* contain the collection with ID "L16".
         """
-        for xmlpath in self.parent.datadir.glob("xml/*.xml"):
+        # Implementation note: The sorting here is mainly there for ensuring a
+        # consistent order of volumes when building the website, e.g. in the
+        # volume list for venues.
+        for xmlpath in sorted(self.parent.datadir.glob("xml/*.xml")):
             # Assumes that XML files are **always** named as their collection
             # IDs.  --- Alternatively, could peek at the first two lines of the
             # file to parse only the <collection id="..."> tag?
