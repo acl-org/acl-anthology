@@ -97,10 +97,6 @@ ifeq ($(HUGO_VERSION_TOO_LOW),true)
   $(error "incorrect hugo version installed! Need hugo 0.$(HUGO_VERSION_MIN), but only found hugo 0.$(HUGO_VERSION)!")
 endif
 
-# check whether bibtools are installed; used by the endnote and mods targets.
-HAS_XML2END=$(shell which xml2end > /dev/null && echo true || echo false)
-HAS_BIB2XML=$(shell which bib2xml > /dev/null && echo true || echo false)
-
 
 VENV := "venv/bin/activate"
 
