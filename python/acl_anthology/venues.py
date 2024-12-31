@@ -117,10 +117,12 @@ class VenueIndex(SlottedDict[Venue]):
 
     Attributes:
         parent: The parent Anthology instance to which this index belongs.
+        no_item_ids: If set to True, skips parsing all XML files, which means the reverse-indexing of Volumes via `Venue.item_ids` will not be available.
         is_data_loaded: A flag indicating whether the venue YAML files have been loaded and the index has been built.
     """
 
     parent: Anthology = field(repr=False, eq=False)
+    no_item_ids: bool = field(repr=False, default=False)
     is_data_loaded: bool = field(init=False, repr=False, default=False)
 
     def load(self) -> None:
@@ -150,6 +152,8 @@ class VenueIndex(SlottedDict[Venue]):
         Raises:
             ValueError: If a volume lists a venue ID that doesn't exist (i.e., isn't defined in the venue YAML files).
         """
+        if self.no_item_ids:
+            return
         for volume in self.parent.volumes():
             for venue_id in volume.venue_ids:
                 if venue_id not in self.data:

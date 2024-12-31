@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- VenueIndex can now set `no_item_ids=True` to skip reverse-indexing volumes. This avoids parsing all XML files if all you want to access is basic venue information, but means that `Venue.item_ids` will be empty. _You probably don't want to use this unless you know that you are not going to need this information._
+
 ## [0.5.0] — 2024-12-25
 
 This release is intended to be feature-complete with regard to generating the entire ACL Anthology website.
