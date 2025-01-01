@@ -34,7 +34,7 @@ Options:
 
 import sys
 import os
-from datetime import datetime
+from datetime import datetime, time
 from github import Github
 import git
 import json
@@ -65,11 +65,10 @@ class AnthologyMetadataUpdater:
         }
 
     def push(self, branch):
-        # push the branch to github
-        self.github_repo.create_git_ref(
-            ref=f"refs/heads/{branch}", sha=self.local_repo.head.commit.hexsha
+        """Push branch from local repo to GitHub."""
+        self.local_repo.remotes.origin.push(
+            refspec=f"refs/heads/{branch}:refs/heads/{branch}"
         )
-        self.local_repo.remotes.origin.push(refspec=f"refs/heads/{branch}")
 
     def _is_approved(self, issue):
         """Check if issue has approval from anthology team member."""
@@ -341,6 +340,23 @@ class AnthologyMetadataUpdater:
             if not dry_run:
                 # push the local branch to github
                 self.push(new_branch_name)
+
+                # wait for ref to be available
+                for i in range(5):
+                    try:
+                        ref = self.github_repo.get_git_ref(f"heads/{new_branch_name}")
+                        print(
+                            f"Branch {new_branch_name} is now available", file=sys.stderr
+                        )
+                        break
+                    except:
+                        print(
+                            f"Waiting for branch {new_branch_name} to be available...",
+                            file=sys.stderr,
+                        )
+                        time.sleep(2**i)
+                else:
+                    raise Exception(f"Branch {new_branch_name} never became available")
 
                 pr = self.github_repo.create_pull(
                     title=f"Bulk metadata corrections {today}",
