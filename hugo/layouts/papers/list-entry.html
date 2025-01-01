@@ -8,11 +8,13 @@
       pdf
     </a>
     {{- end -}}
+<!--
     {{- if and (not $paper.retracted) (fileExists (printf "/data-export/%s.bib" .Params.anthology_id)) -}}
     <a class="badge badge-secondary align-middle mr-1" href="{{ (printf "/%s.bib" .Params.anthology_id) | relURL }}" data-toggle="tooltip" data-placement="top" title="Export to BibTeX">
       bib
     </a>
     {{- end -}}
+-->
     {{- with $paper.abstract_html -}}
     <a class="badge badge-info align-middle mr-1" href="#abstract-{{ replace $.Params.anthology_id "." "--" }}" data-toggle="collapse" aria-expanded="false" aria-controls="abstract-{{ $.Params.anthology_id }}" title="Show Abstract">abs</a>
     {{- end -}}
