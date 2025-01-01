@@ -228,4 +228,4 @@ def test_name_from_any():
 
 def test_name_as_bibtex():
     n1 = Name.from_string("André Rieu")
-    assert n1.as_bibtex() == "Rieu, Andr\\'e"
+    assert n1.as_bibtex() == "Rieu, Andr{\\'e}"
