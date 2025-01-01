@@ -46,6 +46,7 @@ LATEXENC = UnicodeToLatexEncoder(
     ],
     replacement_latex_protection="braces-all",
     unknown_char_policy="keep",
+    unknown_char_warning=False,
 )
 
 BIBTEX_FIELD_NEEDS_ENCODING = {"journal", "address", "publisher", "note"}
