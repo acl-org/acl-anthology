@@ -62,7 +62,7 @@ test_cases_markup = (
         {
             "text": "Workshop on Topic A & B",
             "html": "Workshop on Topic A &amp; B",
-            "latex": "Workshop on Topic A \\& B",
+            "latex": "Workshop on Topic A {\\&} B",
         },
     ),
     (
@@ -110,9 +110,15 @@ test_cases_markup = (
         {
             "text": "Äöøéÿőßû–",
             "html": "Äöøéÿőßû–",
-            # this is what the modified latexcodec from the acl-anthology repo produces:
-            # "latex": '{\\"A}{\\"o}{\\o}{\\\'e}{\\"y}{\\H{o}}{\\ss}{\\^u}{--}',
-            "latex": '\\"A\\"o\\o \\\'e\\"y\\H o\\ss \\^u--',
+            "latex": '{\\"A}{\\"o}{\\o}{\\\'e}{\\"y}{\\H{o}}{\\ss}{\\^u}{--}',
+        },
+    ),
+    (
+        "Hajič, Jan and Woźniak, Michał",
+        {
+            "text": "Hajič, Jan and Woźniak, Michał",
+            "html": "Hajič, Jan and Woźniak, Michał",
+            "latex": "Haji{\\v{c}}, Jan and Wo{\\'z}niak, Micha{\\l}",
         },
     ),
     (

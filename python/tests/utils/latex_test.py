@@ -18,10 +18,10 @@ from acl_anthology.text import MarkupText
 from acl_anthology.utils import latex
 
 test_cases_latex = (
-    ('"This is a quotation."', "``This is a quotation.''"),
-    ('This is a "quotation".', "This is a ``quotation''."),
-    ('Can you "please" "convert" this?', "Can you ``please'' ``convert'' this?"),
-    ('My name is "陳大文".', "My name is ``陳大文''."),
+    ("{''}This is a quotation.{''}", "``This is a quotation.''"),
+    ("This is a {''}quotation{''}.", "This is a ``quotation''."),
+    ("Can you 'please' {'}convert{'} this?", "Can you `please' `convert' this?"),
+    ("My name is ''陳大文''.", "My name is ``陳大文''."),
 )
 
 
@@ -36,7 +36,8 @@ def test_namespecs_to_bibtex():
     assert latex.namespecs_to_bibtex([]) == ""
     assert latex.namespecs_to_bibtex([ns1]) == "Chan, Tai Man"
     assert (
-        latex.namespecs_to_bibtex([ns1, ns2]) == "Chan, Tai Man  and\n      Do\\'e, John"
+        latex.namespecs_to_bibtex([ns1, ns2])
+        == "Chan, Tai Man  and\n      Do{\\'e}, John"
     )
 
 
@@ -66,7 +67,7 @@ def test_make_bibtex_entry():
         ("editor", []),
         ("title", MarkupText.from_string("Thé Papér")),
         ("booktitle", MarkupText.from_string('My "Conference"')),
-        ("address", '"Montréal"'),
+        ("address", "Montréal"),
         ("doi", "10.000.a_b_c"),
         ("publisher", ""),
         ("month", "February"),
@@ -74,10 +75,10 @@ def test_make_bibtex_entry():
         ("pages", "1–7"),
     ]
     expected = """@inproceedings{my-entry,
-    author = "Do\\'e, John",
-    title = "Th\\'e Pap\\'er",
+    author = "Do{\\'e}, John",
+    title = "Th{\\'e} Pap{\\'e}r",
     booktitle = "My ``Conference''",
-    address = {"Montr\\'eal"},
+    address = "Montr{\\'e}al",
     doi = "10.000.a_b_c",
     month = feb,
     pages = "1--7"
