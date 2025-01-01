@@ -90,7 +90,7 @@ endif
 #######################################################
 
 # hugo version check
-HUGO_VERSION_MIN=114
+HUGO_VERSION_MIN=126
 HUGO_VERSION=$(shell hugo version | sed 's/^.* v0\.\(.*\)\..*/\1/')
 HUGO_VERSION_TOO_LOW:=$(shell [[ $(HUGO_VERSION_MIN) -gt $(HUGO_VERSION) ]] && echo true)
 ifeq ($(HUGO_VERSION_TOO_LOW),true)
@@ -124,14 +124,10 @@ build/.sitemap: venv/bin/activate build/.hugo
 venv: venv/bin/activate
 
 # installs dependencies if requirements.txt have been updated.
-# checks whether libyaml is enabled to ensure fast build times.
 venv/bin/activate: bin/requirements.txt
 	test -d venv || python3 -m venv venv
 	. $(VENV) && pip3 install wheel
 	. $(VENV) && pip3 install -Ur bin/requirements.txt
-	@. $(VENV) && python3 -c "from yaml import CLoader" 2> /dev/null || ( \
-	    echo "WARNING     No libyaml bindings enabled for pyyaml, your build will be several times slower than needed";\
-	    echo "            see the README on GitHub for more information")
 	touch venv/bin/activate
 
 .PHONY: all
@@ -163,21 +159,13 @@ build/.static: build/.basedirs $(shell find hugo -type f)
 	@perl -pi -e "s|ANTHOLOGYDIR|$(ANTHOLOGYDIR)|g" build/website/index.html
 	@touch build/.static
 
-.PHONY: yaml
-yaml: build/.yaml
+.PHONY: hugo_data
+hugo_data: build/.data
 
-build/.yaml: build/.basedirs $(sourcefiles) venv/bin/activate
-	@echo "INFO     Generating YAML files for Hugo..."
-	. $(VENV) && python3 bin/create_hugo_yaml.py --clean
-	@touch build/.yaml
-
-.PHONY: hugo_pages
-hugo_pages: build/.pages
-
-build/.pages: build/.basedirs build/.yaml venv/bin/activate
-	@echo "INFO     Creating page templates for Hugo..."
-	. $(VENV) && python3 bin/create_hugo_pages.py --clean
-	@touch build/.pages
+build/.data: build/.basedirs $(sourcefiles) venv/bin/activate
+	@echo "INFO     Generating data files for Hugo..."
+	. $(VENV) && python3 bin/create_hugo_data.py --clean
+	@touch build/.data
 
 .PHONY: bibtex
 bibtex:	build/.bibtex
@@ -235,7 +223,7 @@ endif
 .PHONY: hugo
 hugo: build/.hugo
 
-build/.hugo: build/.static build/.pages build/.bibtex build/.mods build/.endnote
+build/.hugo: build/.static build/.data build/.bibtex build/.mods build/.endnote
 	@echo "INFO     Running Hugo... this may take a while."
 	@cd build && \
 	    hugo -b $(ANTHOLOGYHOST)/$(ANTHOLOGYDIR) \

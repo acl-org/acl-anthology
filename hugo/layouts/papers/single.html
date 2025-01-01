@@ -434,7 +434,7 @@
       <dd>
         {{- with $paper.parent_volume_id -}}
         {{ $volume := index $.Site.Data.volumes . }}
-        {{ $volume_page := printf "/volumes/%s.md" . }}
+        {{ $volume_page := printf "/volumes/%s" . }}
         <a href="{{ relref $ $volume_page }}">{{ $volume.title }}</a>
         {{- end -}}
       </dd>
@@ -463,7 +463,7 @@
         {{- $len := (len $volume.venues) -}}
         {{- range $index, $venue := $volume.venues -}}
             {{ $acronym := index $.Site.Data.venues $venue "acronym" }}
-          <a href="{{ relref $ (printf "/venues/%s.md" ($venue)) }}">
+          <a href="{{ relref $ (printf "/venues/%s" ($venue)) }}">
             {{- $acronym -}}
           </a>
           {{ if ne (add $index 1) $len }} | {{ end }}
@@ -474,7 +474,7 @@
         {{- $len := (len $volume.sigs) -}}
         {{- range $index, $sig := $volume.sigs -}}
           {{ $slug := index $.Site.Data.sigs $sig "slug" }}
-          <a href="{{ relref $ (printf "/sigs/%s.md" $slug) }}">{{ $sig }}</a>
+          <a href="{{ relref $ (printf "/sigs/%s" $slug) }}">{{ $sig }}</a>
           {{ if ne (add $index 1) $len }} | {{ end }}
         {{- end -}}
       </dd>

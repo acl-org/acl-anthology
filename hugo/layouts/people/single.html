@@ -43,7 +43,7 @@
             {{ $.Scratch.Set "current_year" $paper.year }}
           {{ end }}
 
-          {{ $page := printf "/papers/%s/%s.md" (index (split . "-") 0) . }}
+          {{ $page := printf "/papers/%s" . }}
           {{ ($.Site.GetPage $page).Render "list-entry-author" }}
         {{ end }}
       {{ end }}
@@ -94,7 +94,7 @@
               {{ range first 5 $person.venues }}
               <li class="list-group-item">
                 {{ $venue := index . 0 }}
-                <a href="{{ relref $ (printf "/venues/%s.md" (index $.Site.Data.venues $venue "slug")) }}" class="align-middle">
+                <a href="{{ relref $ (printf "/venues/%s" (index $.Site.Data.venues $venue "slug")) }}" class="align-middle">
                   {{- $venue -}}
                 </a><span class="badge badge-secondary align-middle ml-2">{{ index . 1 }}</span>
               </li>
@@ -107,7 +107,7 @@
               {{ range after 5 $person.venues }}
               <li class="list-group-item">
                 {{ $venue := index . 0 }}
-                <a href="{{ relref $ (printf "/venues/%s.md" (index $.Site.Data.venues $venue "slug")) }}" class="align-middle">
+                <a href="{{ relref $ (printf "/venues/%s" (index $.Site.Data.venues $venue "slug")) }}" class="align-middle">
                   {{- $venue -}}
                 </a><span class="badge badge-secondary align-middle ml-2">{{ index . 1 }}</span>
               </li>
