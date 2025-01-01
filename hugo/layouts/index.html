@@ -92,7 +92,7 @@
         {{ range $venue := sort $.Site.Data.venues "slug" "asc" }}
         {{ if (and $venue.is_toplevel $venue.is_acl) }}
         <tr class="text-center border-left border-right">
-          {{ $venue_page := $.Site.GetPage (printf "/venues/%s.md" $venue.slug) }}
+          {{ $venue_page := $.Site.GetPage (printf "/venues/%s" $venue.slug) }}
           <th scope="row"><a href="{{ $venue_page.RelPermalink }}">{{ $venue.acronym }}</a></th>
           {{ range $all_years }}
           {{ $year := string . }}
@@ -101,7 +101,7 @@
           <td class="{{ cond (in $border_years $year) "border-left" "" }}">
             {{- with index $.Site.Data.events $event -}}
               {{- with index $.Site.Data.events $event "volumes" -}}
-            <a href="{{ relref $ (printf "/events/%s.md" $event) }}">{{ slicestr $year 2 4 }}</a>
+            <a href="{{ relref $ (printf "/events/%s" $event) }}">{{ slicestr $year 2 4 }}</a>
               {{- end -}}
             {{- end -}}
           </td>
@@ -147,7 +147,7 @@
         {{ range $venue := sort $.Site.Data.venues "slug" "asc" }}
         {{ if (and $venue.is_toplevel (not $venue.is_acl)) }}
         <tr class="text-center border-left border-right">
-          {{ $venue_page := $.Site.GetPage (printf "/venues/%s.md" $venue.slug) }}
+          {{ $venue_page := $.Site.GetPage (printf "/venues/%s" $venue.slug) }}
           <th scope="row"><a href="{{ $venue_page.RelPermalink }}">{{ $venue.acronym }}</a></th>
           {{ range $all_years }}
           {{ $year := string . }}
@@ -155,7 +155,7 @@
           <td class="{{ cond (in $border_years $year) "border-left" "" }}">
             {{- with index $.Site.Data.events $event -}}
               {{- with index $.Site.Data.events $event "volumes" -}}
-            <a href="{{ relref $ (printf "/events/%s.md" $event) }}">{{ slicestr $year 2 4 }}</a>
+            <a href="{{ relref $ (printf "/events/%s" $event) }}">{{ slicestr $year 2 4 }}</a>
               {{- end -}}
             {{- end -}}
           </td>

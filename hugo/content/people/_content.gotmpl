@@ -1,0 +1,12 @@
+{{ range $first_letter, $people := .Site.Data.people }}
+   {{ range $person_id, $person := $people }}
+      {{ $page := dict
+         "kind" "page"
+         "path" (printf "%s/%s" $first_letter $person_id)
+         "slug" $person_id
+         "params" (dict "name" $person_id "lastname" $person.last)
+         "title" $person.full
+      }}
+      {{ $.AddPage $page }}
+   {{ end }}
+{{ end }}

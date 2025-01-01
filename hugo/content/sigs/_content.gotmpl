@@ -1,0 +1,14 @@
+{{ range $sig_id, $sig := .Site.Data.sigs }}
+   {{ $short_acronym := $sig_id }}
+   {{ if eq (substr $sig_id 0 3) "SIG" }}
+      {{ $short_acronym = substr $sig_id 3 }}
+   {{ end }}
+   {{ $page := dict
+      "kind" "page"
+      "path" $sig.slug
+      "slug" $sig.slug
+      "params" (dict "acronym" $sig_id "short_acronym" $short_acronym)
+      "title" $sig.name
+   }}
+   {{ $.AddPage $page }}
+{{ end }}
