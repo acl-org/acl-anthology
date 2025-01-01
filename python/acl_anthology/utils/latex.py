@@ -40,6 +40,10 @@ LATEXENC = UnicodeToLatexEncoder(
                 ord("’"): "'",  # defaults to \textquoteright
                 ord("–"): "--",  # defaults to \textendash
                 ord("—"): "---",  # defaults to \textemdash
+                ord("í"): "\\'i",  # defaults to using dotless \i
+                ord("ì"): "\\`i",
+                ord("î"): "\\^i",
+                ord("ï"): '\\"i',
             },
         ),
         "defaults",

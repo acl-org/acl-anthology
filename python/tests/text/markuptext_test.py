@@ -122,6 +122,22 @@ test_cases_markup = (
         },
     ),
     (
+        "Žabokrtský, Zdeněk and Ševčíková, Magda",
+        {
+            "text": "Žabokrtský, Zdeněk and Ševčíková, Magda",
+            "html": "Žabokrtský, Zdeněk and Ševčíková, Magda",
+            "latex": "{\\v{Z}}abokrtsk{\\'y}, Zden{\\v{e}}k and {\\v{S}}ev{\\v{c}}{\\'i}kov{\\'a}, Magda",
+        },
+    ),
+    (
+        "íìïîı",
+        {
+            "text": "íìïîı",
+            "html": "íìïîı",
+            "latex": "{\\'i}{\\`i}{\\\"i}{\\^i}{\\i}",
+        },
+    ),
+    (
         "陳大文",
         {
             "text": "陳大文",
