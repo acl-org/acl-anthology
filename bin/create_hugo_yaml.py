@@ -15,24 +15,26 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Usage: create_hugo_data.py [--importdir=DIR] [--exportdir=DIR] [-c] [--debug] [--dry-run]
+"""Usage: create_hugo_yaml.py [--importdir=DIR] [--exportdir=DIR] [-c] [--debug] [--dry-run]
 
-Creates Hugo data files containing all necessary Anthology data for the website generation.
+Creates YAML files containing all necessary Anthology data for the static website generator.
 
 Options:
   --importdir=DIR          Directory to import XML files from. [default: {scriptdir}/../data/]
-  --exportdir=DIR          Directory to write data files to.   [default: {scriptdir}/../build/data/]
+  --exportdir=DIR          Directory to write YAML files to.   [default: {scriptdir}/../build/data/]
   --debug                  Output debug-level log messages.
   -c, --clean              Delete existing files in target directory before generation.
-  -n, --dry-run            Do not write data files (useful for debugging).
+  -n, --dry-run            Do not write YAML files (useful for debugging).
   -h, --help               Display this helpful text.
 """
+
+# TODO: Exporting to JSON via msgspec is orders of magnitude faster than
+#       PyYAML, and Hugo supports JSON as a data format as well.
 
 from docopt import docopt
 from collections import Counter, defaultdict
 from functools import cache
 import logging as log
-import msgspec
 from omegaconf import OmegaConf
 import os
 from rich.progress import (
@@ -42,7 +44,12 @@ from rich.progress import (
     TaskProgressColumn,
     TimeRemainingColumn,
 )
-import shutil
+import yaml
+
+try:
+    from yaml import CSafeDumper as Dumper
+except ImportError:
+    from yaml import SafeDumper as Dumper
 
 from acl_anthology import Anthology, config
 from acl_anthology.collections.paper import PaperDeletionType
@@ -53,32 +60,10 @@ from acl_anthology.utils.text import (
     month_str2num,
     remove_extra_whitespace,
 )
+from create_hugo_pages import check_directory
 
 
-ENCODER = msgspec.json.Encoder()
 SCRIPTDIR = os.path.dirname(os.path.realpath(__file__))
-
-
-def check_directory(cdir, clean=False):
-    if not os.path.isdir(cdir) and not os.path.exists(cdir):
-        os.makedirs(cdir)
-        return True
-    entries = os.listdir(cdir)
-    if "_index.md" in entries:
-        entries.remove("_index.md")
-    if entries and not clean:
-        log.critical("Directory already exists and has content files: {}".format(cdir))
-        log.info(
-            "Call this script with the -c/--clean flag to automatically DELETE existing files"
-        )
-        return False
-    for entry in entries:
-        entry = "{}/{}".format(cdir, entry)
-        if os.path.isdir(entry):
-            shutil.rmtree(entry)
-        else:
-            os.remove(entry)
-    return True
 
 
 def make_progress():
@@ -106,7 +91,7 @@ def person_to_dict(person_id, ns):
 
 def paper_to_dict(paper):
     """
-    Turn a single paper into a dictionary as used by the Hugo templates.
+    Turn a single paper into a dictionary suitable for YAML export as expected by Hugo.
     """
     data = {
         "bibkey": paper.bibkey,
@@ -231,7 +216,7 @@ def paper_to_dict(paper):
 
 def volume_to_dict(volume):
     """
-    Turn a single volume into a dictionary as used by the Hugo templates.
+    Turn a single volume into a dictionary suitable for YAML export as expected by Hugo.
     """
     data = {
         "has_abstracts": volume.has_abstracts,
@@ -313,23 +298,24 @@ def export_papers_and_volumes(anthology, outdir, dryrun):
                 all_volumes[volume.full_id] = volume_to_dict(volume)
 
             if not dryrun:
-                with open(f"{outdir}/papers/{collection.id}.json", "wb") as f:
-                    f.write(ENCODER.encode(collection_papers))
+                with open(f"{outdir}/papers/{collection.id}.yaml", "w") as f:
+                    yaml.dump(collection_papers, Dumper=Dumper, stream=f)
 
             progress.update(task, advance=len(collection_papers))
 
     # Export volumes
     if not dryrun:
-        with open(f"{outdir}/volumes.json", "wb") as f:
-            f.write(ENCODER.encode(all_volumes))
+        with open(f"{outdir}/volumes.yaml", "w") as f:
+            yaml.dump(all_volumes, Dumper=Dumper, stream=f)
 
 
 def export_people(anthology, outdir, dryrun):
     with make_progress() as progress:
         # Just to make progress bars nicer
         ppl_count = sum(1 for _ in anthology.people.items())
+        factor = 2
         if not dryrun:
-            ppl_count += 100
+            ppl_count *= 1 + factor
         task = progress.add_task("Exporting people...", total=ppl_count)
 
         # Here begins the actual serialization
@@ -379,9 +365,9 @@ def export_people(anthology, outdir, dryrun):
 
         if not dryrun:
             for first_letter, people_list in people.items():
-                with open(f"{outdir}/people/{first_letter}.json", "wb") as f:
-                    f.write(ENCODER.encode(people_list))
-            progress.update(task, advance=100)
+                with open(f"{outdir}/people/{first_letter}.yaml", "w") as f:
+                    yaml.dump(people_list, Dumper=Dumper, stream=f)
+                progress.update(task, advance=len(people_list) * factor)
 
 
 def export_venues(anthology, outdir, dryrun):
@@ -416,8 +402,8 @@ def export_venues(anthology, outdir, dryrun):
         all_venues[venue_id] = data
 
     if not dryrun:
-        with open("{}/venues.json".format(outdir), "wb") as f:
-            f.write(ENCODER.encode(all_venues))
+        with open("{}/venues.yaml".format(outdir), "w") as f:
+            yaml.dump(all_venues, Dumper=Dumper, stream=f)
 
 
 def export_events(anthology, outdir, dryrun):
@@ -473,8 +459,8 @@ def export_events(anthology, outdir, dryrun):
         all_events[event.id] = data
 
     if not dryrun:
-        with open(f"{outdir}/events.json", "wb") as f:
-            f.write(ENCODER.encode(all_events))
+        with open(f"{outdir}/events.yaml", "w") as f:
+            yaml.dump(all_events, Dumper=Dumper, stream=f)
 
 
 def export_sigs(anthology, outdir, dryrun):
@@ -502,13 +488,13 @@ def export_sigs(anthology, outdir, dryrun):
         all_sigs[sig.acronym] = data
 
     if not dryrun:
-        with open("{}/sigs.json".format(outdir), "wb") as f:
-            f.write(ENCODER.encode(all_sigs))
+        with open("{}/sigs.yaml".format(outdir), "w") as f:
+            yaml.dump(all_sigs, Dumper=Dumper, stream=f)
 
 
 def export_anthology(anthology, outdir, clean=False, dryrun=False):
     """
-    Dumps files in build/data/*.json. These files are used in conjunction with the hugo
+    Dumps files in build/yaml/*.yaml. These files are used in conjunction with the hugo
     page stubs created by create_hugo_pages.py to instantiate Hugo templates.
     """
     # Create directories

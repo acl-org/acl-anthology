@@ -36,9 +36,11 @@ import sys
 import os
 from datetime import datetime
 from github import Github
+import git
 import json
 import lxml.etree as ET
 import re
+
 
 from anthology.utils import deconstruct_anthology_id, indent, make_simple_element
 
@@ -50,8 +52,24 @@ The Anthology has implemented a new, semi-automated workflow to better handle me
 class AnthologyMetadataUpdater:
     def __init__(self, github_token):
         """Initialize with GitHub token."""
-        self.g = Github(github_token)
-        self.repo = self.g.get_repo("acl-org/acl-anthology")
+        self.github = Github(github_token)
+        self.github_repo = self.github.get_repo("acl-org/acl-anthology")
+        self.local_repo = git.Repo(os.path.join(os.path.dirname(__file__), ".."))
+        self.stats = {
+            "closed_issues": 0,
+            "visited_issues": 0,
+            "relevant_issues": 0,
+            "approved_issues": 0,
+            "merged_issues": 0,
+            "unapproved_issues": 0,
+        }
+
+    def push(self, branch):
+        # push the branch to github
+        self.github_repo.create_git_ref(
+            ref=f"refs/heads/{branch}", sha=self.local_repo.head.commit.hexsha
+        )
+        self.local_repo.remotes.origin.push(refspec=f"refs/heads/{branch}")
 
     def _is_approved(self, issue):
         """Check if issue has approval from anthology team member."""
@@ -92,75 +110,92 @@ class AnthologyMetadataUpdater:
 
         return None
 
-    def _apply_changes_to_xml(self, xml_path, anthology_id, changes):
+    def _apply_changes_to_xml(self, xml_repo_path, anthology_id, changes):
         """Apply the specified changes to XML file."""
-        try:
-            print(f"-> Applying changes to XML file {xml_path}", file=sys.stderr)
-            tree = ET.parse(xml_path)
 
-            _, volume_id, paper_id = deconstruct_anthology_id(anthology_id)
+        print("-> Applying changes to XML file", file=sys.stderr)
+        tree = ET.parse(xml_repo_path)
+        # factored version
+        # tree = ET.ElementTree(ET.fromstring(self.get_file_contents(xml_repo_path)))
 
-            paper_node = tree.getroot().find(
-                f"./volume[@id='{volume_id}']/paper[@id='{paper_id}']"
-            )
-            if paper_node is None:
-                print(f"-> Paper not found in XML file {xml_path}", file=sys.stderr)
-                return None
+        _, volume_id, paper_id = deconstruct_anthology_id(anthology_id)
 
-            # Apply changes to XML
-            for key in ["title", "abstract"]:
-                if key in changes:
-                    node = paper_node.find(key)
-                    if node is None:
-                        node = make_simple_element(key, parent=paper_node)
-                    # set the node to the structure of the new string
-                    new_node = ET.fromstring(f"<{key}>{changes[key]}</{key}>")
-                    # replace the current node with the new node in the tree
-                    paper_node.replace(node, new_node)
-            if "authors" in changes:
-                """
-                Every author has an id, but for a small subset, these ids are explicit, since they're used for disambiguation. To distinguish these, we need to find the subset of the authors in the current XML that have explicit ID attributes. We then use this below to set the ID.
-                """
-                real_ids = set()
-                for author in changes["authors"]:
-                    id_ = author.get("id", None)
-                    if id_:
-                        existing_author = paper_node.find(f"author[@id='{id_}']")
-                        if existing_author is not None:
-                            real_ids.add(id_)
-
-                # remove existing author nodes
-                for author_node in paper_node.findall("author"):
-                    paper_node.remove(author_node)
-
-                prev_sibling = paper_node.find("title")
-
-                for author in changes["authors"]:
-                    attrib = {}
-                    if "id" in real_ids:
-                        # if the ID was explicitly represented, preserve it
-                        attrib["id"] = author["id"]
-                    # create author_node and add as sibling after insertion_point
-                    author_node = make_simple_element(
-                        "author", attrib=attrib, parent=paper_node, sibling=prev_sibling
-                    )
-                    prev_sibling = author_node
-                    if "first" in author:
-                        first_node = make_simple_element("first", parent=author_node)
-                        first_node.text = author["first"]
-                    if "last" in author:
-                        last_node = make_simple_element("last", parent=author_node)
-                        last_node.text = author["last"]
-                    if "affiliation" in author and author["affiliation"]:
-                        affiliation_node = make_simple_element(
-                            "affiliation", parent=author_node
-                        )
-                        affiliation_node.text = author["affiliation"]
-
-            return tree
-        except Exception as e:
-            print(f"Error applying changes to XML: {e}", file=sys.stderr)
+        paper_node = tree.getroot().find(
+            f"./volume[@id='{volume_id}']/paper[@id='{paper_id}']"
+        )
+        if paper_node is None:
+            print(f"-> Paper not found in XML file {xml_repo_path}", file=sys.stderr)
             return None
+
+        # Apply changes to XML
+        for key in ["title", "abstract"]:
+            if key in changes:
+                node = paper_node.find(key)
+                if node is None:
+                    node = make_simple_element(key, parent=paper_node)
+                # set the node to the structure of the new string
+                try:
+                    new_node = ET.fromstring(f"<{key}>{changes[key]}</{key}>")
+                except ET.XMLSyntaxError as e:
+                    print(f"Error parsing XML for key {key}: {e}", file=sys.stderr)
+                    return None
+                # replace the current node with the new node in the tree
+                paper_node.replace(node, new_node)
+
+        if "authors" in changes:
+            """
+            Every author has an id, but for a small subset, these ids are explicit, since they're used for disambiguation. To distinguish these, we need to find the subset of the authors in the current XML that have explicit ID attributes. We then use this below to set the ID.
+            """
+            real_ids = set()
+            for author in changes["authors"]:
+                id_ = author.get("id", None)
+                if id_:
+                    existing_author = paper_node.find(f"author[@id='{id_}']")
+                    if existing_author is not None:
+                        real_ids.add(id_)
+
+            # remove existing author nodes
+            for author_node in paper_node.findall("author"):
+                paper_node.remove(author_node)
+
+            prev_sibling = paper_node.find("title")
+
+            for author in changes["authors"]:
+                attrib = {}
+                if "id" in real_ids:
+                    # if the ID was explicitly represented, preserve it
+                    attrib["id"] = author["id"]
+                # create author_node and add as sibling after insertion_point
+                author_node = make_simple_element(
+                    "author", attrib=attrib, parent=paper_node, sibling=prev_sibling
+                )
+                prev_sibling = author_node
+                if "first" in author:
+                    first_node = make_simple_element("first", parent=author_node)
+                    first_node.text = author["first"]
+                if "last" in author:
+                    last_node = make_simple_element("last", parent=author_node)
+                    last_node.text = author["last"]
+                if "affiliation" in author and author["affiliation"]:
+                    affiliation_node = make_simple_element(
+                        "affiliation", parent=author_node
+                    )
+                    affiliation_node.text = author["affiliation"]
+
+        return tree
+
+    def get_file_contents(self, repo_path, ref="master"):
+        """
+        Github's repo.get_contents() method has a limit of 1MB for file size. For large files, we need to download from the raw URL. You'd think the API would just handle this transparently, but it doesn't; if the file is too big, it just returns an empty object, and you have to spend hours tracking down why it doesn't work.
+        """
+        # get the file contents from the repo from the specified ref
+        tree = self.local_repo.refs[ref].commit.tree
+
+        # Get file
+        blob = tree / repo_path
+        file_content = blob.data_stream.read()
+
+        return file_content
 
     def process_metadata_issues(
         self,
@@ -172,35 +207,41 @@ class AnthologyMetadataUpdater:
     ):
         """Process all metadata issues and create PR with changes."""
         # Get all open issues with required labels
-        issues = self.repo.get_issues(state='open', labels=['metadata', 'correction'])
+        issues = self.github_repo.get_issues(
+            state='open', labels=['metadata', 'correction']
+        )
 
-        # Create new branch for changes
-        base_branch = self.repo.get_branch("master")
+        # Create new branch off "master"
+        # base_branch = self.local_repo.head.reference
+        base_branch = self.local_repo.heads.master
+
         today = datetime.now().strftime("%Y-%m-%d")
         new_branch_name = f"bulk-corrections-{today}"
 
-        # Check if branch already exists
-        existing_branch = next(
-            (
-                ref
-                for ref in self.repo.get_git_refs()
-                if ref.ref == f"refs/heads/{new_branch_name}"
-            ),
-            None,
-        )
-        if existing_branch:
-            print(f"Deleting existing branch {new_branch_name}")
-            existing_branch.delete()
+        # Check if branch already exists, and if so, remove it
+        if new_branch_name in self.local_repo.heads:
+            if verbose:
+                print(f"Deleting existing branch {new_branch_name}", file=sys.stderr)
+            self.local_repo.delete_head(new_branch_name, force=True)
 
         # Create new branch
-        ref = self.repo.create_git_ref(
-            ref=f"refs/heads/{new_branch_name}", sha=base_branch.commit.sha
-        )
+        ref = self.local_repo.create_head(new_branch_name, base_branch)
+        # ref = self.local_repo.create_git_ref(
+        #     ref=f"refs/heads/{new_branch_name}", sha=base_branch.commit.sha
+        # )
+        print(f"Created branch {new_branch_name} from {base_branch}", file=sys.stderr)
+
+        # store the current branch
+        current_branch = self.local_repo.head.reference
+
+        # switch to that branch
+        self.local_repo.head.reference = ref
 
         # record which issues were successfully processed and need closing
         closed_issues = []
 
         for issue in issues:
+            self.stats["visited_issues"] += 1
             try:
                 if ids and issue.number not in ids:
                     continue
@@ -226,62 +267,69 @@ class AnthologyMetadataUpdater:
                         if match:
                             anthology_id = match[1]
                         if anthology_id:
-                            print(
-                                f"-> Closing issue {issue.number} with a link to the new process",
-                                file=sys.stderr,
-                            )
-                            url = f"https://aclanthology.org/{anthology_id}"
-                            issue.create_comment(
-                                close_old_issue_comment.format(
-                                    anthology_id=anthology_id, url=url
+                            if verbose:
+                                print(
+                                    f"-> Closing issue {issue.number} with a link to the new process",
+                                    file=sys.stderr,
                                 )
-                            )
+                            if not dry_run:
+                                url = f"https://aclanthology.org/{anthology_id}"
+                                issue.create_comment(
+                                    close_old_issue_comment.format(
+                                        anthology_id=anthology_id, url=url
+                                    )
+                                )
+                                # close the issue as "not planned"
+                                issue.edit(state="closed", state_reason="not_planned")
 
-                            # close the issue as "not planned"
-                            issue.edit(state="closed", state_reason="not_planned")
+                            self.stats["closed_issues"] += 1
                             continue
                     else:
                         if verbose:
                             print("-> Skipping (no JSON block)", file=sys.stderr)
                     continue
 
+                self.stats["relevant_issues"] += 1
+
                 # Skip issues that are not approved by team member
                 if not skip_validation and not self._is_approved(issue):
                     if verbose:
                         print("-> Skipping (not approved yet)", file=sys.stderr)
+                    self.stats["unapproved_issues"] += 1
                     continue
+
+                self.stats["approved_issues"] += 1
 
                 anthology_id = json_block.get("anthology_id")
                 collection_id, _, _ = deconstruct_anthology_id(anthology_id)
 
                 # XML file path relative to repo root (for reading current state)
                 xml_repo_path = f"data/xml/{collection_id}.xml"
-                file_content = self.repo.get_contents(xml_repo_path, ref=new_branch_name)
-
-                # XML file path on file system (for writing changes)
-                scriptdir = os.path.dirname(os.path.abspath(__file__))
-                xml_file_path = f"{scriptdir}/../data/xml/{collection_id}.xml"
-                tree = self._apply_changes_to_xml(xml_file_path, anthology_id, json_block)
+                tree = self._apply_changes_to_xml(xml_repo_path, anthology_id, json_block)
 
                 if tree:
                     indent(tree.getroot())
 
-                    # write to string
-                    new_content = ET.tostring(
-                        tree.getroot(), encoding="UTF-8", xml_declaration=True
+                    # dump tree to file
+                    tree.write(
+                        xml_repo_path,
+                        encoding='UTF-8',
+                        xml_declaration=True,
+                        with_tail=True,
                     )
 
                     # Commit changes
-                    self.repo.update_file(
-                        xml_repo_path,
-                        f"Processed metadata corrections for #{issue.number}",
-                        new_content,
-                        file_content.sha,
-                        branch=new_branch_name,
+                    self.local_repo.index.add([xml_repo_path])
+                    self.local_repo.index.commit(
+                        f"Processed metadata corrections for #{issue.number}"
                     )
+
                     closed_issues.append(issue)
+                    self.stats["merged_issues"] += 1
+
             except Exception as e:
                 print(f"Error processing issue {issue.number}: {type(e)}: {e}")
+                e.print_stack_trace()
                 continue
 
         if len(closed_issues) > 0:
@@ -291,18 +339,20 @@ class AnthologyMetadataUpdater:
 
             # Create pull request
             if not dry_run:
-                pr = self.repo.create_pull(
+                # push the local branch to github
+                self.push(new_branch_name)
+
+                pr = self.github_repo.create_pull(
                     title=f"Bulk metadata corrections {today}",
                     body="Automated PR for bulk metadata corrections.\n\n"
                     + closed_issues_str,
                     head=new_branch_name,
                     base="master",
                 )
-                print(f"Created PR: {pr.html_url}")
-        else:
-            # Clean up branch if no changes were made
-            ref.delete()
-            print("No changes to make, deleted branch")
+                print(f"Created PR: {pr.html_url}", file=sys.stderr)
+
+        # Switch back to original branch
+        self.local_repo.head.reference = current_branch
 
 
 if __name__ == "__main__":
@@ -342,3 +392,6 @@ if __name__ == "__main__":
         dry_run=args.dry_run,
         close_old_issues=args.close_old_issues,
     )
+
+    for stat in updater.stats:
+        print(f"{stat}: {updater.stats[stat]}", file=sys.stderr)

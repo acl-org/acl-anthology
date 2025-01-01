@@ -40,7 +40,7 @@ from rich.progress import track
 
 from acl_anthology import Anthology, config
 from acl_anthology.utils.logging import setup_rich_logging
-from create_hugo_data import check_directory
+from create_hugo_pages import check_directory
 
 
 def create_bibtex(anthology, trgdir, limit=0, clean=False) -> None:

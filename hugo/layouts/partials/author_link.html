@@ -10,5 +10,5 @@
 */}}
 {{ $first_letter := slicestr .person.id 0 1 }}
 {{ $entry := index .ctx.Site.Data.people $first_letter .person.id }}
-{{ $link_to := printf "/people/%s/%s" $first_letter .person.id }}
+{{ $link_to := printf "/people/%s/%s.md" $first_letter .person.id }}
 <a href="{{ relref .ctx $link_to }}"{{ with .class }} class="{{ . }}"{{ end }}>{{ if isset .person "full" }}{{ .person.full }}{{ else }}{{ $entry.full }}{{ end }}</a>

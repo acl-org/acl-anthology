@@ -14,7 +14,7 @@
     {{ "<![endif]-->" | safeHTML }}
 
     {{/* NOTE: the Site's title, and if there is a page title, that is set too */}}
-    <title>{{ block "title" . }}{{ with .Title }}{{ . }} - {{ end }}{{ .Site.Title }}{{ end }}</title>
+    <title>{{ block "title" . }}{{ with .Params.Title }}{{ . }} - {{ end }}{{ .Site.Title }}{{ end }}</title>
 
     {{ hugo.Generator }}
     <link href="{{ "aclicon.ico" | relURL }}" rel="shortcut icon" type="image/x-icon" />
