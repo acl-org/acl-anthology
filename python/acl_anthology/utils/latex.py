@@ -43,7 +43,7 @@ LATEXENC = UnicodeToLatexEncoder(
         ),
         "defaults",
     ],
-    replacement_latex_protection="braces",
+    replacement_latex_protection="braces-all",
     unknown_char_policy="keep",
 )
 
@@ -66,8 +66,10 @@ BIBTEX_MONTHS = {
 }
 """A mapping of month names to BibTeX macros."""
 
-RE_OPENING_QUOTE_DOUBLE = re.compile(r"(?<!\\)''\b")
+RE_OPENING_QUOTE_DOUBLE = re.compile(r"(?<!\\)({''}|'')\b")
 RE_OPENING_QUOTE_SINGLE = re.compile(r"(?<!\\)'\b")
+RE_CLOSING_QUOTE_DOUBLE = re.compile(r"(?<!\\){''}")
+RE_CLOSING_QUOTE_SINGLE = re.compile(r"(?<!\\){'}")
 RE_HYPHENS_BETWEEN_NUMBERS = re.compile(r"(?<=[0-9])(-|–|—)(?=[0-9])")
 
 
@@ -127,14 +129,16 @@ def latex_convert_quotes(text: str) -> str:
         text: An arbitrary string.
 
     Returns:
-        The input string with LaTeX quotes converted into proper opening quotes, if necessary.
+        The input string with LaTeX quotes converted into proper opening and closing quotes, removing braces around them, if necessary.
 
     Examples:
-        >>> latex_convert_quotes("This ''great'' example")
+        >>> latex_convert_quotes("This {''}great{''} example")
         "This ``great'' example"
     """
     text = RE_OPENING_QUOTE_DOUBLE.sub("``", text)
     text = RE_OPENING_QUOTE_SINGLE.sub("`", text)
+    text = RE_CLOSING_QUOTE_DOUBLE.sub("''", text)
+    text = RE_CLOSING_QUOTE_SINGLE.sub("'", text)
     return text
 
 
