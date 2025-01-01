@@ -62,7 +62,7 @@ test_cases_markup = (
         {
             "text": "Workshop on Topic A & B",
             "html": "Workshop on Topic A &amp; B",
-            "latex": "Workshop on Topic A \\& B",
+            "latex": "Workshop on Topic A {\\&} B",
         },
     ),
     (
@@ -110,9 +110,31 @@ test_cases_markup = (
         {
             "text": "Äöøéÿőßû–",
             "html": "Äöøéÿőßû–",
-            # this is what the modified latexcodec from the acl-anthology repo produces:
-            # "latex": '{\\"A}{\\"o}{\\o}{\\\'e}{\\"y}{\\H{o}}{\\ss}{\\^u}{--}',
-            "latex": '\\"A\\"o\\o \\\'e\\"y\\H o\\ss \\^u--',
+            "latex": '{\\"A}{\\"o}{\\o}{\\\'e}{\\"y}{\\H{o}}{\\ss}{\\^u}{--}',
+        },
+    ),
+    (
+        "Hajič, Jan and Woźniak, Michał",
+        {
+            "text": "Hajič, Jan and Woźniak, Michał",
+            "html": "Hajič, Jan and Woźniak, Michał",
+            "latex": "Haji{\\v{c}}, Jan and Wo{\\'z}niak, Micha{\\l}",
+        },
+    ),
+    (
+        "Žabokrtský, Zdeněk and Ševčíková, Magda",
+        {
+            "text": "Žabokrtský, Zdeněk and Ševčíková, Magda",
+            "html": "Žabokrtský, Zdeněk and Ševčíková, Magda",
+            "latex": "{\\v{Z}}abokrtsk{\\'y}, Zden{\\v{e}}k and {\\v{S}}ev{\\v{c}}{\\'i}kov{\\'a}, Magda",
+        },
+    ),
+    (
+        "íìïîı ÍÌÏÎİ",
+        {
+            "text": "íìïîı ÍÌÏÎİ",
+            "html": "íìïîı ÍÌÏÎİ",
+            "latex": "{\\'i}{\\`i}{\\\"i}{\\^i}{\\i} {\\'I}{\\`I}{\\\"I}{\\^I}{\\.I}",
         },
     ),
     (

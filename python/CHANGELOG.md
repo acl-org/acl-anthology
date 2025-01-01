@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Changed
+
+- LaTeX encoding now uses [pylatexenc](https://pylatexenc.readthedocs.io/) instead of latexcodec, and wraps all macros in braces. This should address problems with BibTeX handling, see [#4280](https://github.com/acl-org/acl-anthology/issues/4280).
+
 ## [0.5.0] — 2024-12-25
 
 This release is intended to be feature-complete with regard to generating the entire ACL Anthology website.
