@@ -4,7 +4,7 @@
 [![GitHub contributors](https://img.shields.io/github/contributors/acl-org/acl-anthology)](https://github.com/acl-org/acl-anthology/graphs/contributors)
 [![Good first project issues](https://img.shields.io/github/issues/acl-org/acl-anthology/good%20first%20project)](https://github.com/acl-org/acl-anthology/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3A%22good+first+project%22)
 [![License](https://img.shields.io/github/license/acl-org/acl-anthology)](LICENSE)
-[![acl-anthology-py on PyPI](https://img.shields.io/pypi/v/acl-anthology-py?logo=python&label=acl-anthology-py&labelColor=lightgray&color=3776AB)](https://pypi.org/project/acl-anthology-py/)
+[![acl-anthology on PyPI](https://img.shields.io/pypi/v/acl-anthology?logo=python&label=acl-anthology&labelColor=lightgray&color=3776AB)](https://pypi.org/project/acl-anthology/)
 
 This repository contains:
 
@@ -14,7 +14,7 @@ This repository contains:
 
 The official home of this repository is <https://github.com/acl-org/acl-anthology>.
 
-## Using the acl-anthology-py Python package
+## Using the acl-anthology Python package
 
 Please see the separate [README for the Python package](python/README.md) for detailed information.
 

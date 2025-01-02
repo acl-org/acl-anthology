@@ -1,25 +1,25 @@
-# acl-anthology-py
+# acl-anthology
 
 [![License](https://img.shields.io/github/license/acl-org/acl-anthology)](LICENSE)
 [![Build Status](https://img.shields.io/github/actions/workflow/status/acl-org/acl-anthology/code-quality.yml)](https://github.com/acl-org/acl-anthology/actions/workflows/code-quality.yml)
-[![Documentation](https://img.shields.io/readthedocs/acl-anthology-py)](https://acl-anthology-py.readthedocs.io/en/latest/)
+[![Documentation](https://img.shields.io/readthedocs/acl-anthology)](https://acl-anthology.readthedocs.io/en/latest/)
 [![Code Coverage](https://img.shields.io/codecov/c/gh/acl-org/acl-anthology)](https://codecov.io/gh/acl-org/acl-anthology)
-![Supported Python Versions](https://img.shields.io/pypi/pyversions/acl-anthology-py)
-![Development Status](https://img.shields.io/pypi/status/acl-anthology-py)
-[![Package on PyPI](https://img.shields.io/pypi/v/acl-anthology-py)](https://pypi.org/project/acl-anthology-py/)
+![Supported Python Versions](https://img.shields.io/pypi/pyversions/acl-anthology)
+![Development Status](https://img.shields.io/pypi/status/acl-anthology)
+[![Package on PyPI](https://img.shields.io/pypi/v/acl-anthology)](https://pypi.org/project/acl-anthology/)
 
 This package accesses data from the [ACL
 Anthology](https://aclanthology.org).
 
-- [**Documentation**](https://acl-anthology-py.readthedocs.io/en/latest/)
-- [**Package on PyPI**](https://pypi.org/project/acl-anthology-py/)
+- [**Documentation**](https://acl-anthology.readthedocs.io/en/latest/)
+- [**Package on PyPI**](https://pypi.org/project/acl-anthology/)
 
 ## How to use
 
 Install via `pip`:
 
 ```bash
-$ pip install acl-anthology-py
+$ pip install acl-anthology
 ```
 
 Instantiate the library, automatically fetching data files from the [ACL
@@ -53,7 +53,7 @@ Two-Level Morphology with Composition
 ```
 
 Find more examples and details on the API in the [**official
-documentation**](https://acl-anthology-py.readthedocs.io/en/latest/).
+documentation**](https://acl-anthology.readthedocs.io/en/latest/).
 
 ## Developing
 
