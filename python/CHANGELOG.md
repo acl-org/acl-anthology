@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [0.5.1] — 2025-01-02
+
+This release changes the PyPI package name from acl-anthology-py to acl-anthology.
+
 ### Added
 
 - VenueIndex can now set `no_item_ids=True` to skip reverse-indexing volumes. This avoids parsing all XML files if all you want to access is basic venue information, but means that `Venue.item_ids` will be empty. _You probably don't want to use this unless you know that you are not going to need this information._
