@@ -17,7 +17,7 @@ build:
       - pip install poetry
       - poetry config virtualenvs.create false
     post_install:
-      - poetry install --directory=python --with dev
+      - VIRTUAL_ENV=$READTHEDOCS_VIRTUALENV_PATH poetry install --directory=python --with dev
 
 # Build documentation with MkDocs
 mkdocs:
