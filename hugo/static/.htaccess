@@ -92,3 +92,8 @@ RewriteRule ^(\d{4})\.([a-zA-Z\d]+).handbook.pdf$ anthology-files/handbooks/$2/$
 
 # Copyright
 RewriteRule acl-copyright-transfer.pdf anthology-files/templates/acl-copyright-transfer.pdf [L,NC]
+
+# Dynamically generate paper-level bib files
+# Needs "Options +ExecCGI" and "AddHandler cgi-script .cgi" for the /cgi-bin directory enabled
+RewriteRule ^(\d{4}\.[a-zA-Z\d]+-[a-zA-Z\d]+\.[a-zA-Z\d]+)\.bib$ /ANTHOLOGYDIR/cgi-bin/generate_bib.cgi?anthology_id=$1 [L,NC]
+RewriteRule ^([A-Za-z]\d{2}\-\d{4})\.bib$ /ANTHOLOGYDIR/cgi-bin/generate_bib.cgi?anthology_id=$1 [L,NC]
