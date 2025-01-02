@@ -34,7 +34,8 @@ if [[ -z $2 ]]; then
     echo "Looking for PDFs in $inputdir..."
     for pdf in $(find $inputdir -type f -name '*.pdf'); do
         outfile=$THUMBDIR/$(basename $pdf .pdf).jpg
-        if [[ ! -s $outfile ]]; then
+        # update if outfile doesn't exist or has an older timestamp
+        if [[ ! -e $outfile || $pdf -nt $outfile ]]; then
           echo "$pdf -> $outfile"
           bash $0 $pdf $outfile
         fi
