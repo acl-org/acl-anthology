@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import logging
 import pytest
 from pathlib import Path
 from acl_anthology.venues import VenueIndex, Venue
@@ -80,3 +81,11 @@ def test_venueindex_iter(anthology):
     index = VenueIndex(anthology)
     venue_ids = index.keys()
     assert set(venue_ids) == set(all_toy_venue_ids)
+
+
+def test_venueindex_noindex(anthology, caplog):
+    """Accessing venues with no_item_ids=True should not load XML files."""
+    with caplog.at_level(logging.DEBUG):
+        index = VenueIndex(anthology, no_item_ids=True)
+        _ = index.get("cl").name
+    assert not any("XML data file" in rec.message for rec in caplog.records)

@@ -7,15 +7,12 @@ fetching data from the main ACL Anthology repository, you will also need to have
 ## Installation
 
 The library is available as a [PyPI
-package](https://pypi.org/project/acl-anthology-py/) and can therefore simply be
+package](https://pypi.org/project/acl-anthology/) and can therefore simply be
 installed via pip:
 
 ```bash
-pip install acl-anthology-py
+pip install acl-anthology
 ```
-
-Alternatively, you can [download releases from
-Github](https://github.com/acl-org/acl-anthology/releases/).
 
 ## Instantiating the Anthology
 

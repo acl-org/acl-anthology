@@ -18,7 +18,7 @@ can even use this library to programmatically make changes to the metadata.
 This package requires **Python 3.10 or newer**. Install via pip:
 
 ```bash
-pip install acl-anthology-py
+pip install acl-anthology
 ```
 
 Instantiate the library, automatically fetching data files from the [ACL

@@ -75,5 +75,5 @@ class SchemaMismatchWarning(UserWarning):
     def __init__(self) -> None:
         super().__init__(
             "Data directory contains a different schema.rnc as this library; "
-            "you might need to update the data or the acl-anthology-py library."
+            "you might need to update the data or the acl-anthology library."
         )

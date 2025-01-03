@@ -122,7 +122,7 @@ comprise:
   defines which author names should be treated as identical for purposes of
   generating "author" pages.
 
-The "acl-anthology-py" module under [`python/`](python/) is responsible
+The "acl-anthology" module under [`python/`](python/) is responsible
 for parsing and interpreting all these data files.  Some information that is not
 explicitly stored in any of these files is *derived automatically* by this
 module during Step 1 of building the website.
