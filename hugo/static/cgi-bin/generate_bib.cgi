@@ -46,7 +46,44 @@ This needs to be done in a sister directory of the volumes/ directory.
 
 import os
 import sys
-import acl_anthology
+
+
+def parse_id(anthology_id):
+    """
+    Parses an Anthology ID into its constituent collection ID, volume ID, and paper ID
+    parts.
+
+    Copied and trimmed from the Anthology python module to avoid the import.
+    """
+
+    if isinstance(anthology_id, tuple):
+        return anthology_id
+
+    if "-" not in anthology_id:
+        return (anthology_id, None, None)
+
+    collection_id, rest = anthology_id.split("-")
+    if collection_id[0].isdigit():
+        # post-2020 IDs
+        if "." in rest:
+            return (collection_id, *(rest.split(".")))  # type: ignore
+        else:
+            return (collection_id, rest, None)
+    else:
+        # pre-2020 IDs
+        if len(rest) < 4:
+            # probably volume-only identifier
+            return (collection_id, rest.lstrip("0"), None)
+        elif (
+            collection_id.startswith("W")
+            or collection_id == "C69"
+            or (collection_id == "D19" and int(rest[0]) >= 5)
+        ):
+            paper_id = rest[2:].lstrip("0")
+            return (collection_id, rest[0:2].lstrip("0"), paper_id if paper_id else "0")
+        else:
+            paper_id = rest[1:].lstrip("0")
+            return (collection_id, rest[0], paper_id if paper_id else "0")
 
 
 def parse_query_string(query_string):
@@ -71,8 +108,11 @@ def bib_entries(f):
 
 
 def get_bibtex_entry(anthology_id):
-    # Get the volume_id from the anthology_id
-    parsed = acl_anthology.utils.parse_id(anthology_id)
+    """
+    Opens the volumes file and retrieves the bibtex entry corresponding
+    to the requested Anthology ID.
+    """
+    parsed = parse_id(anthology_id)
     volume_id = f"{parsed[0]}-{parsed[1]}"
     with open(f"../volumes/{volume_id}.bib") as f:
         # iterate through the file, reading bibtex entries
