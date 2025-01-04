@@ -15,13 +15,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Usage: create_hugo_data.py [--importdir=DIR] [--exportdir=DIR] [-c] [--debug] [--dry-run]
+"""Usage: create_hugo_data.py [--importdir=DIR] [--exportdir=DIR] [options]
 
 Creates Hugo data files containing all necessary Anthology data for the website generation.
 
+This will write JSON data files to `{exportdir}/data/` as well as volume-level BibTeX files
+to `{exportdir}/data-export/volumes/`.
+
 Options:
   --importdir=DIR          Directory to import XML files from. [default: {scriptdir}/../data/]
-  --exportdir=DIR          Directory to write data files to.   [default: {scriptdir}/../build/data/]
+  --exportdir=DIR          Directory to write build files to.   [default: {scriptdir}/../build/]
+  --bib-limit=N            Only generate bibliographic information for the first N papers per volume.
+                           Setting the environment variable NOBIB=true is equivalent to --bib-limit=3.
   --debug                  Output debug-level log messages.
   -c, --clean              Delete existing files in target directory before generation.
   -n, --dry-run            Do not write data files (useful for debugging).
@@ -55,6 +60,7 @@ from acl_anthology.utils.text import (
 )
 
 
+BIBLIMIT = False
 ENCODER = msgspec.json.Encoder()
 SCRIPTDIR = os.path.dirname(os.path.realpath(__file__))
 
@@ -126,6 +132,8 @@ def paper_to_dict(paper):
     editors = [
         person_to_dict(paper.root.resolve(ns).id, ns) for ns in paper.get_editors()
     ]
+    if not BIBLIMIT or int(paper.id) <= BIBLIMIT:
+        data["bibtex"] = paper.to_bibtex(with_abstract=True)
     if paper.is_frontmatter:
         # Editors are considered authors for the frontmatter
         if editors:
@@ -273,13 +281,14 @@ def volume_to_dict(volume):
     return data
 
 
-def export_papers_and_volumes(anthology, outdir, dryrun):
+def export_papers_and_volumes(anthology, builddir, dryrun):
     all_volumes = {}
     with make_progress() as progress:
         paper_count = sum(1 for _ in anthology.papers())
         task = progress.add_task("Exporting papers...", total=paper_count)
         for collection in anthology.collections.values():
             collection_papers = {}
+            volume_bibtex = {}
             for volume in collection.volumes():
                 # Compute volume-level information that gets appended to every paper
                 # TODO: Could this be changed in the Hugo templates to
@@ -287,6 +296,7 @@ def export_papers_and_volumes(anthology, outdir, dryrun):
                 # this information on every paper?
                 # --- this also applies to some information from paper_to_dict()
                 # which may be fetched from the volume if not set for the paper
+                volume_bibtex[volume.full_id] = []
                 volume_data = {
                     "booktitle": volume.title.as_text(),
                     "parent_volume_id": volume.full_id,
@@ -307,24 +317,34 @@ def export_papers_and_volumes(anthology, outdir, dryrun):
                     data = paper_to_dict(paper)
                     data.update(volume_data)
                     collection_papers[paper.full_id] = data
+                    if "bibtex" in data:
+                        volume_bibtex[volume.full_id].append(
+                            paper.to_bibtex(with_abstract=False)
+                        )
 
                 # We build the volume data separately since it uses slightly
                 # different fields than what gets attached to papers
                 all_volumes[volume.full_id] = volume_to_dict(volume)
 
             if not dryrun:
-                with open(f"{outdir}/papers/{collection.id}.json", "wb") as f:
+                with open(f"{builddir}/data/papers/{collection.id}.json", "wb") as f:
                     f.write(ENCODER.encode(collection_papers))
+
+                for volume_id, bibtex in volume_bibtex.items():
+                    with open(
+                        f"{builddir}/data-export/volumes/{volume_id}.bib", "w"
+                    ) as f:
+                        print("\n".join(bibtex), file=f)
 
             progress.update(task, advance=len(collection_papers))
 
     # Export volumes
     if not dryrun:
-        with open(f"{outdir}/volumes.json", "wb") as f:
+        with open(f"{builddir}/data/volumes.json", "wb") as f:
             f.write(ENCODER.encode(all_volumes))
 
 
-def export_people(anthology, outdir, dryrun):
+def export_people(anthology, builddir, dryrun):
     with make_progress() as progress:
         # Just to make progress bars nicer
         ppl_count = sum(1 for _ in anthology.people.items())
@@ -379,12 +399,12 @@ def export_people(anthology, outdir, dryrun):
 
         if not dryrun:
             for first_letter, people_list in people.items():
-                with open(f"{outdir}/people/{first_letter}.json", "wb") as f:
+                with open(f"{builddir}/data/people/{first_letter}.json", "wb") as f:
                     f.write(ENCODER.encode(people_list))
             progress.update(task, advance=100)
 
 
-def export_venues(anthology, outdir, dryrun):
+def export_venues(anthology, builddir, dryrun):
     all_venues = {}
     print("Exporting venues...")
     for venue_id, venue in anthology.venues.items():
@@ -416,11 +436,11 @@ def export_venues(anthology, outdir, dryrun):
         all_venues[venue_id] = data
 
     if not dryrun:
-        with open("{}/venues.json".format(outdir), "wb") as f:
+        with open(f"{builddir}/data/venues.json", "wb") as f:
             f.write(ENCODER.encode(all_venues))
 
 
-def export_events(anthology, outdir, dryrun):
+def export_events(anthology, builddir, dryrun):
     # Export events
     all_events = {}
     print("Exporting events...")
@@ -473,11 +493,11 @@ def export_events(anthology, outdir, dryrun):
         all_events[event.id] = data
 
     if not dryrun:
-        with open(f"{outdir}/events.json", "wb") as f:
+        with open(f"{builddir}/data/events.json", "wb") as f:
             f.write(ENCODER.encode(all_events))
 
 
-def export_sigs(anthology, outdir, dryrun):
+def export_sigs(anthology, builddir, dryrun):
     all_sigs = {}
     print("Exporting SIGs...")
     for sig in anthology.sigs.values():
@@ -502,27 +522,32 @@ def export_sigs(anthology, outdir, dryrun):
         all_sigs[sig.acronym] = data
 
     if not dryrun:
-        with open("{}/sigs.json".format(outdir), "wb") as f:
+        with open(f"{builddir}/data/sigs.json", "wb") as f:
             f.write(ENCODER.encode(all_sigs))
 
 
-def export_anthology(anthology, outdir, clean=False, dryrun=False):
+def export_anthology(anthology, builddir, clean=False, dryrun=False):
     """
-    Dumps files in build/data/*.json. These files are used in conjunction with the hugo
-    page stubs created by create_hugo_pages.py to instantiate Hugo templates.
+    Dumps files in build/data/*.json, which are used by Hugo templates
+    to generate the website, as well as build/data-export/volumes/*.bib,
+    which are used later as a basis to generate more bibliographic files.
     """
     # Create directories
     if not dryrun:
         for subdir in ("", "papers", "people"):
-            target_dir = "{}/{}".format(outdir, subdir)
+            target_dir = "{}/data/{}".format(builddir, subdir)
+            if not check_directory(target_dir, clean=clean):
+                return
+        for subdir in ("", "volumes"):
+            target_dir = "{}/data-export/{}".format(builddir, subdir)
             if not check_directory(target_dir, clean=clean):
                 return
 
-    export_papers_and_volumes(anthology, outdir, dryrun)
-    export_people(anthology, outdir, dryrun)
-    export_venues(anthology, outdir, dryrun)
-    export_events(anthology, outdir, dryrun)
-    export_sigs(anthology, outdir, dryrun)
+    export_papers_and_volumes(anthology, builddir, dryrun)
+    export_people(anthology, builddir, dryrun)
+    export_venues(anthology, builddir, dryrun)
+    export_events(anthology, builddir, dryrun)
+    export_sigs(anthology, builddir, dryrun)
 
 
 if __name__ == "__main__":
@@ -539,6 +564,12 @@ if __name__ == "__main__":
 
     log_level = log.DEBUG if args["--debug"] else log.INFO
     tracker = setup_rich_logging(level=log_level)
+
+    if limit := args["--bib-limit"]:
+        BIBLIMIT = int(limit)
+    elif os.environ.get("NOBIB", "false") == "true":
+        BIBLIMIT = 3
+        log.info("NOBIB=true, setting --bib-limit=3")
 
     # This "freezes" the config, resulting in a massive speed-up
     OmegaConf.resolve(config)
