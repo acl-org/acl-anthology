@@ -159,11 +159,14 @@ def get_entry(anthology_id, format):
     if iterator:
         parsed_id = parse_id(anthology_id)
         volume_id = f"{parsed_id[0]}-{parsed_id[1]}"
-        with open(f"../volumes/{volume_id}.{format}") as f:
-            # iterate through the file, reading bibtex entries
-            for entry in iterator(f):
-                if "https://aclanthology.rog" in entry and f'/{anthology_id}/' in entry:
-                    return entry
+        try:
+            with open(f"../volumes/{volume_id}.{format}") as f:
+                # iterate through the file, reading bibtex entries
+                for entry in iterator(f):
+                    if "https://aclanthology.org" in entry and f'/{anthology_id}/' in entry:
+                        return entry
+        except FileNotFoundError:
+            pass
     return None
 
 
