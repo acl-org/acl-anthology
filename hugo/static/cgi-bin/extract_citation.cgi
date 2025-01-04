@@ -163,7 +163,9 @@ def get_entry(anthology_id, format):
             with open(f"../volumes/{volume_id}.{format}") as f:
                 # iterate through the file, reading bibtex entries
                 for entry in iterator(f):
-                    if "https://aclanthology.org" in entry and f'/{anthology_id}/' in entry:
+                    # match either https://preview.aclanthology.org/{branch}/{anthology_id}/
+                    # or https://aclanthology.org/{anthology_id}/ without using regex (good enough)
+                    if "https://" in entry or "aclanthology.org" in entry and f'/{anthology_id}/' in entry:
                         return entry
         except FileNotFoundError:
             pass
