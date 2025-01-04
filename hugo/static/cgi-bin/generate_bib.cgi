@@ -123,14 +123,14 @@ def get_bibtex_entry(anthology_id):
 
 
 if __name__ == "__main__":
-    print("Content-Type: text/plain\n")
-
     # Get the anthology_id from the query string
     params = parse_query_string(os.environ.get("QUERY_STRING", ""))
     anthology_id = params.get("anthology_id")
-    if not anthology_id:
-        print("Error: anthology_id not provided")
-        sys.exit(1)
-
     bibtex_entry = get_bibtex_entry(anthology_id)
-    print(bibtex_entry)
+    if not bibtex_entry:
+        print("Status: 404 Not Found")
+        print("Content-Type: text/plain")
+        print()
+    else:
+        print("Content-Type: text/plain\n")
+        print(bibtex_entry)
