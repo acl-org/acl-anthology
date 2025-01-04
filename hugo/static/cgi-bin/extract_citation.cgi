@@ -93,9 +93,9 @@ def parse_query_string(query_string):
     return dict(q.split("=") for q in query_string.split("&"))
 
 
-def bib_entries(f):
+def bib_iterator(f):
     """
-    Create an iterator that iterates over bib entries in a file.
+    An iterator that iterates over bib entries in a file.
     """
     entry = ""
     for line in f:
@@ -107,38 +107,44 @@ def bib_entries(f):
             entry += line
 
 
-def get_bibtex_entry(anthology_id):
+def xml_iterator(anthology_id):
     """
-    Opens the volumes file and retrieves the bibtex entry corresponding
-    to the requested Anthology ID.
+    An iterator for MODS XML entries.
     """
-    parsed = parse_id(anthology_id)
-    volume_id = f"{parsed[0]}-{parsed[1]}"
-    with open(f"../volumes/{volume_id}.bib") as f:
-        # iterate through the file, reading bibtex entries
-        for entry in bib_entries(f):
-            if f'/{anthology_id}/' in entry:
-                return entry
     return None
 
 
-def get_mods_xml_entry(anthology_id):
-    return None
-
-
-def get_endnote_entry(anthology_id):
-    return None
+def endf_iterator(f):
+    """
+    An iterator for EndNote XML entries.
+    """
+    entry = ""
+    for line in f:
+        if line.strip() == "":
+            yield entry
+            entry = ""
+        else:
+            entry += line
+    if entry:
+        yield entry
 
 
 def get_entry(anthology_id, format):
-    if format == "bib":
-        return get_bibtex_entry(anthology_id)
-    elif format == "xml":
-        return get_mods_xml_entry(anthology_id)
-    elif format == "endf":
-        return get_endnote_entry(anthology_id)
-    else:
-        return ""
+    """
+    Opens the volumes file corresponding to the format, then grab the
+    associated iterator, and look for an entry matching the anthology_id.
+    """
+    # The iterator is the function {format}_iterator
+    iterator = globals().get(f"{format}_iterator")
+    if iterator:
+        parsed_id = parse_id(anthology_id)
+        volume_id = f"{parsed_id[0]}-{parsed_id[1]}"
+        with open(f"../volumes/{volume_id}.{format}") as f:
+            # iterate through the file, reading bibtex entries
+            for entry in iterator(f):
+                if "https://aclanthology.rog" in entry and f'/{anthology_id}/' in entry:
+                    return entry
+    return None
 
 
 if __name__ == "__main__":
