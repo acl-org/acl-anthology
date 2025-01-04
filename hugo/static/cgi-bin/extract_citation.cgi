@@ -122,15 +122,36 @@ def get_bibtex_entry(anthology_id):
     return None
 
 
+def get_mods_xml_entry(anthology_id):
+    return None
+
+
+def get_endnote_entry(anthology_id):
+    return None
+
+
+def get_entry(anthology_id, format):
+    if format == "bib":
+        return get_bibtex_entry(anthology_id)
+    elif format == "xml":
+        return get_mods_xml_entry(anthology_id)
+    elif format == "endf":
+        return get_endnote_entry(anthology_id)
+    else:
+        return ""
+
+
 if __name__ == "__main__":
     # Get the anthology_id from the query string
     params = parse_query_string(os.environ.get("QUERY_STRING", ""))
     anthology_id = params.get("anthology_id")
-    bibtex_entry = get_bibtex_entry(anthology_id)
-    if not bibtex_entry:
+    format = params.get("format")
+    entry = get_entry(anthology_id, format)
+    if not entry:
         print("Status: 404 Not Found")
         print("Content-Type: text/plain")
         print()
     else:
-        print("Content-Type: text/plain\n")
-        print(bibtex_entry)
+        print("Content-Type: text/plain")
+        print()
+        print(entry)
