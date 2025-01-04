@@ -107,11 +107,31 @@ def bib_iterator(f):
             entry += line
 
 
-def xml_iterator(anthology_id):
+def xml_iterator(f):
     """
     An iterator for MODS XML entries.
+
+    Format:
+        <?xml version="1.0" encoding="UTF-8"?>
+        <modsCollection xmlns="http://www.loc.gov/mods/v3">
+        <mods ID="acl-2024-long">
+            <titleInfo>
+                <title>Proceedings of the 62nd Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)</title>
+            </titleInfo>
+        ...
+        </modsCollection>
     """
-    return None
+    header = ""
+    entry = ""
+    for line in f:
+        if line.startswith("<?xml") or line.startswith("<modsCollection"):
+            header += line
+        if line.strip() == "</mods>":
+            entry += line
+            yield header + entry + "</modsCollection>"
+            entry = ""
+        else:
+            entry += line
 
 
 def endf_iterator(f):
