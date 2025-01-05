@@ -167,19 +167,26 @@ def create_bibtex(builddir, clean=False) -> None:
 
 
 def convert_bibtex(builddir, max_workers=None):
-    """Convert BibTeX into other bibliographic formats, and add them to the data files.
+    """Convert BibTeX into other bibliographic formats, for both data files and volume-level bibliography files.
 
     Requires data files from create_hugo_data.py.
     """
-    files = list(Path(f"{builddir}/data/papers").glob("*.json"))
+    data_files = list(Path(f"{builddir}/data/papers").glob("*.json"))
+    bib_files = list(Path(f"{builddir}/data-export/volumes").glob("*.bib"))
 
     with make_progress() as progress:
-        task = progress.add_task("Convert to MODS & Endnote...", total=len(files))
+        task = progress.add_task(
+            "Convert to MODS & Endnote...", total=len(data_files) + len(bib_files)
+        )
 
         with concurrent.futures.ProcessPoolExecutor(max_workers=max_workers) as executor:
-            futures = [executor.submit(convert_collection_file, file) for file in files]
-            for _ in concurrent.futures.as_completed(futures):
+            futures = [
+                executor.submit(convert_collection_file, file) for file in data_files
+            ] + [executor.submit(convert_volume_bib_file, file) for file in bib_files]
+            for future in concurrent.futures.as_completed(futures):
                 progress.update(task, advance=1)
+                if (exc := future.exception()) is not None:
+                    log.exception(exc)
 
 
 def convert_collection_file(collection_file):
@@ -207,6 +214,34 @@ def convert_collection_file(collection_file):
         f.write(msgspec.json.encode(data))
 
 
+def convert_volume_bib_file(volume_bib_file):
+    """Read a single volume bib file, and convert it to MODS and Endnote formats.
+
+    Important:
+        This function should not rely on global objects, as it will be executed concurrently for different files with multiprocessing.
+    """
+
+    volume_mods_file = volume_bib_file.with_suffix(".xml")
+    volume_endf_file = volume_bib_file.with_suffix(".endf")
+
+    with open(volume_bib_file, "rb") as bib, open(volume_mods_file, "wb") as mods:
+        subprocess.run(
+            [BIB2XML, "-nt"],
+            stdin=bib,
+            stdout=mods,
+            stderr=subprocess.PIPE,
+            check=True,
+        )
+    with open(volume_mods_file, "rb") as mods, open(volume_endf_file, "wb") as endf:
+        subprocess.run(
+            [XML2END],
+            stdin=mods,
+            stdout=endf,
+            stderr=subprocess.PIPE,
+            check=True,
+        )
+
+
 def batch_convert_to_mods_and_endf(bibtex, context):
     """Convert a BibTeX string with multiple entries to MODS and Endnote.
 
@@ -217,6 +252,7 @@ def batch_convert_to_mods_and_endf(bibtex, context):
         input=bibtex,
         capture_output=True,
         text=True,
+        check=True,
     )
     log.debug(f"{context}: {mods.stderr.strip()}")
     endf = subprocess.run(
@@ -224,6 +260,7 @@ def batch_convert_to_mods_and_endf(bibtex, context):
         input=mods.stdout,
         capture_output=True,
         text=True,
+        check=True,
     )
     log.debug(f"{context}: {endf.stderr.strip()}")
 
