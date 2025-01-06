@@ -17,8 +17,9 @@ from lxml import etree
 from pathlib import Path
 
 from acl_anthology import Anthology
-from acl_anthology.collections import Collection, CollectionIndex
+from acl_anthology.collections import Collection, CollectionIndex, VolumeType
 from acl_anthology.utils import xml
+from acl_anthology.text import MarkupText
 
 
 test_cases_xml_collections = (
@@ -92,3 +93,33 @@ def test_collection_roundtrip_save(collection_index, datadir, tmp_path, filename
     expected = etree.parse(infile)
     generated = etree.parse(outfile)
     xml.assert_equals(generated.getroot(), expected.getroot())
+
+
+def test_collection_create_volume_implicit(collection_index):
+    collection = collection_index.get("2022.acl")
+    volume = collection.create_volume(
+        "keynotes",
+        title=MarkupText.from_string("Keynotes from ACL 2022"),
+    )
+    assert volume.year == "2022"
+    assert volume.id == "keynotes"
+    assert volume.full_id == "2022.acl-keynotes"
+    assert volume.type == VolumeType.PROCEEDINGS
+
+
+def test_collection_create_volume_explicit(collection_index):
+    collection = collection_index.get("J89")
+    volume = collection.create_volume(
+        "99",
+        title=MarkupText.from_string("Special Issue"),
+        year="1989",
+        type="journal",
+        journal_issue="99",
+        venue_ids=["cl"],
+    )
+    assert volume.year == "1989"
+    assert volume.id == "99"
+    assert volume.full_id == "J89-99"
+    assert volume.type == VolumeType.JOURNAL
+    assert volume.journal_issue == "99"
+    assert "cl" in volume.venue_ids

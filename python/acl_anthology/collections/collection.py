@@ -19,7 +19,7 @@ from attrs import define, field
 from lxml import etree
 from os import PathLike
 from pathlib import Path
-from typing import Iterator, Optional, cast, TYPE_CHECKING
+from typing import Any, Iterator, Optional, cast, TYPE_CHECKING
 
 if sys.version_info >= (3, 11):
     from typing import Self
@@ -27,9 +27,12 @@ else:
     from typing_extensions import Self
 
 from ..containers import SlottedDict
+from ..text.markuptext import MarkupText
+from ..utils.ids import infer_year, validate_volume_or_paper_id
 from ..utils.logging import get_logger
 from ..utils import xml
 from .event import Event
+from .types import VolumeType
 from .volume import Volume
 from .paper import Paper
 
@@ -124,6 +127,56 @@ class Collection(SlottedDict[Volume]):
         """
         self.root.relaxng.assertValid(etree.parse(self.path))
         return self
+
+    def create_volume(
+        self,
+        id_: str,
+        title: MarkupText,
+        year: Optional[str | int] = None,
+        type: str | VolumeType = VolumeType.PROCEEDINGS,
+        **kwargs: Any,
+    ) -> Volume:
+        """Create a new [Volume][acl_anthology.collections.volume.Volume] object in this collection.
+
+        Parameters:
+            id_: The ID of the new volume.
+            title: The title of the new volume.
+            year: The year of the new volume; if None, will infer the year from this collection's ID.
+            type: Whether this is a journal or proceedings volume; defaults to [VolumeType.PROCEEDINGS][acl_anthology.collections.types.VolumeType].
+            **kwargs: Any valid list or optional attribute of [Volume][acl_anthology.collections.volume.Volume].
+
+        Returns:
+            The created [Volume][acl_anthology.collections.volume.Volume] object.
+
+        Raises:
+            ValueError: If a volume with the given ID already exists, or the ID is not well-formed.
+        """
+        if not self.is_data_loaded:
+            self.load()
+        if not validate_volume_or_paper_id(id_):
+            raise ValueError(f"Is not a valid volume ID: {id_}")
+        if id_ in self.data:
+            raise ValueError(f"Volume {id_} already exists in collection {self.id}")
+        if not isinstance(title, MarkupText):
+            raise ValueError("Title needs to be an instance of MarkupText")
+
+        kwargs["parent"] = self
+        if year is None:
+            year = infer_year(self.id)
+        elif isinstance(year, int):
+            year = str(year)
+        if isinstance(type, str):
+            type = VolumeType(type)
+
+        volume = Volume(
+            id=id_,
+            booktitle=title,
+            year=year,
+            type=type,
+            **kwargs,
+        )
+        volume.is_data_loaded = True
+        return volume
 
     def load(self) -> None:
         """Loads the XML file belonging to this collection."""
