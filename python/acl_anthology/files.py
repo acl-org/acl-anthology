@@ -18,7 +18,7 @@ import sys
 from attrs import define, field, Factory
 from lxml import etree
 from lxml.builder import E
-from typing import cast, Optional
+from typing import cast, ClassVar, Optional
 
 if sys.version_info >= (3, 11):
     from typing import Self
@@ -43,7 +43,7 @@ class FileReference:
 
     name: str = field()
     checksum: Optional[str] = field(default=None)
-    template_field: str = field(repr=False, default="")
+    template_field: ClassVar[str] = ""
 
     @property
     def is_local(self) -> bool:
@@ -82,14 +82,14 @@ class FileReference:
 class PDFReference(FileReference):
     """Reference to a PDF file."""
 
-    template_field: str = field(repr=False, default="pdf_location_template")
+    template_field: ClassVar[str] = "pdf_location_template"
 
 
 @define
 class PDFThumbnailReference(FileReference):
     """Reference to a PDF thumbnail image."""
 
-    template_field: str = field(repr=False, default="pdf_thumbnail_location_template")
+    template_field: ClassVar[str] = "pdf_thumbnail_location_template"
 
 
 @define
@@ -98,21 +98,21 @@ class AttachmentReference(FileReference):
 
     # TODO: attachments must be local files according to the schema
 
-    template_field: str = field(repr=False, default="attachment_location_template")
+    template_field: ClassVar[str] = "attachment_location_template"
 
 
 @define
 class EventFileReference(FileReference):
     """Reference to an event-related file."""
 
-    template_field: str = field(repr=False, default="event_location_template")
+    template_field: ClassVar[str] = "event_location_template"
 
 
 @define
 class VideoReference(FileReference):
     """Reference to a video."""
 
-    template_field: str = field(repr=False, default="video_location_template")
+    template_field: ClassVar[str] = "video_location_template"
     permission: bool = field(default=True)
 
     @classmethod

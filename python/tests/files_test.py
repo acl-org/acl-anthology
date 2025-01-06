@@ -190,3 +190,11 @@ def test_pwc_reference_to_xml(xml_list, code, community_code, datasets):
     assert len(xml_list) == len(actual_xml_list)
     for expected_xml, actual_xml in zip(xml_list, actual_xml_list):
         assert etree.tostring(actual_xml, encoding="unicode") == expected_xml
+
+
+def test_reference_cant_change_template_field():
+    name = "2023.venue-volume.222"
+    ref = PDFReference(name)
+    assert isinstance(ref.template_field, str)
+    with pytest.raises(AttributeError):
+        ref.template_field = "foo"
