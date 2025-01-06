@@ -41,6 +41,8 @@ from pathlib import Path
 from typing import List, Optional, Tuple
 
 from acl_anthology import Anthology
+from acl_anthology.collections import VolumeType
+from acl_anthology.text import MarkupText
 
 # from anthology.utils import make_simple_element, indent, compute_hash_from_file
 
@@ -303,16 +305,7 @@ def main(args):
 
     collection_id = str(year) + "." + venue
     if (collection := anthology.collections.get(collection_id)) is None:
-        # TODO: Should provide convenience function for instantiating new collections
-        from acl_anthology.collections import Collection
-
-        collection = Collection(
-            id=collection_id,
-            parent=anthology.collections,
-            path=os.path.join(args.anthology_dir, "data", "xml", f"{collection_id}.xml"),
-        )
-        collection.is_data_loaded = True
-        # ------
+        collection = anthology.collections.create(collection_id)
 
     papers = []
     for xml in sorted(args.root_dir.glob("*.xml")):
@@ -350,24 +343,18 @@ def main(args):
             else:
                 month = None
 
-            # TODO: encapsulate
-            from acl_anthology.collections import Volume, VolumeType
-            from acl_anthology.text import MarkupText
-
-            volume = Volume(
-                id=issue,
-                parent=collection,
+            volume = collection.create_volume(
+                issue,
+                title=MarkupText.from_string(issue_info),  # TODO: from LaTeX?
                 type=VolumeType.JOURNAL,
                 year=str(year),
                 month=month,
-                booktitle=MarkupText.from_string(issue_info),  # TODO: from LaTeX?
                 publisher="MIT Press",
                 address="Cambridge, MA",
                 venue_ids=[venue],
                 journal_volume=volume,
                 journal_issue=issue,
             )
-            # ------
 
         # Check if the paper is already present in the volume
         if any(paper.get("doi") == paper_dict["doi"] for paper in volume.papers()):
@@ -377,7 +364,6 @@ def main(args):
         # TODO: encapsulate
         from acl_anthology.collections import Paper
         from acl_anthology.people import NameSpecification, Name
-        from acl_anthology.text import MarkupText
 
         paper = Paper(
             id=...,  # should be determined automatically
