@@ -40,7 +40,7 @@ def collection_index(anthology):
 
 
 def test_empty_collection(collection_index):
-    collection = Collection("empty", parent=collection_index, path=Path("."))
+    collection = Collection("2000.empty", parent=collection_index, path=Path("."))
     assert not collection.is_data_loaded
     collection.is_data_loaded = True
     assert isinstance(collection.root, Anthology)

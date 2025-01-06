@@ -28,7 +28,7 @@ from ..files import PDFReference
 from ..people import NameSpecification
 from ..text import MarkupText
 from ..venues import Venue
-from ..utils.ids import build_id, AnthologyIDTuple
+from ..utils.ids import build_id, is_valid_item_id, AnthologyIDTuple
 from .paper import Paper
 from .types import VolumeType
 
@@ -69,7 +69,7 @@ class Volume(SlottedDict[Paper]):
         shorttitle: A shortened form of the title. (Aliased to `shortbooktitle` for initialization.)
     """
 
-    id: str
+    id: str = field()
     parent: Collection = field(repr=False, eq=False)
     type: VolumeType = field(repr=False)
     title: MarkupText = field(alias="booktitle")
@@ -91,6 +91,11 @@ class Volume(SlottedDict[Paper]):
     shorttitle: Optional[MarkupText] = field(
         default=None, alias="shortbooktitle", repr=False
     )
+
+    @id.validator
+    def _check_id(self, _: Any, value: Any) -> None:
+        if not isinstance(value, str) or not is_valid_item_id(value):
+            raise ValueError(f"Not a valid Volume ID: {value}")
 
     @property
     def frontmatter(self) -> Paper | None:

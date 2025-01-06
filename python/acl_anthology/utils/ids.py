@@ -24,6 +24,12 @@ AnthologyIDTuple = tuple[str, Optional[str], Optional[str]]
 AnthologyID = str | AnthologyIDTuple
 """Any type that can be parsed into an Anthology ID."""
 
+RE_COLLECTION_ID = re.compile(r"([0-9]{4}\.[a-z0-9]+)|([A-Z][0-9]{2})")
+"""A regular expression matching any valid collection ID."""
+
+RE_ITEM_ID = re.compile(r"[a-z0-9]+")
+"""A regular expression matching any valid volume or paper ID."""
+
 
 def build_id(
     collection_id: str, volume_id: Optional[str] = None, paper_id: Optional[str] = None
@@ -174,18 +180,16 @@ def parse_id(anthology_id: AnthologyID) -> AnthologyIDTuple:
             return (collection_id, rest[0], paper_id if paper_id else "0")
 
 
-def validate_new_collection_id(collection_id: str) -> bool:
-    """Validate that a string is formatted like a new-style collection ID.
-
-    New-style collection IDs are required to look like `{year}.{identifier}`.
+def is_valid_collection_id(id_: str) -> bool:
+    """Validate that a string is formatted like a proper collection ID.
 
     Returns:
         True if the string is valid, False otherwise.
     """
-    return re.fullmatch(r"[0-9]{4}\.[a-z0-9]+", collection_id) is not None
+    return RE_COLLECTION_ID.fullmatch(id_) is not None
 
 
-def validate_volume_or_paper_id(id_: str) -> bool:
+def is_valid_item_id(id_: str) -> bool:
     """Validate that a string is a valid volume or paper ID.
 
     Volume or paper IDs must only consist of lower-case ASCII characters and digits.
@@ -193,7 +197,7 @@ def validate_volume_or_paper_id(id_: str) -> bool:
     Returns:
         True if the string is valid, False otherwise.
     """
-    return re.fullmatch(r"[a-z0-9]+", id_) is not None
+    return RE_ITEM_ID.fullmatch(id_) is not None
 
 
 def infer_year(anthology_id: AnthologyID) -> str:

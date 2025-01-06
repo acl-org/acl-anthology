@@ -28,7 +28,7 @@ else:
 
 from ..containers import SlottedDict
 from ..text.markuptext import MarkupText
-from ..utils.ids import infer_year, validate_volume_or_paper_id
+from ..utils.ids import infer_year, is_valid_collection_id
 from ..utils.logging import get_logger
 from ..utils import xml
 from .event import Event
@@ -60,11 +60,16 @@ class Collection(SlottedDict[Volume]):
         is_data_loaded: A flag indicating whether the XML file has already been loaded.
     """
 
-    id: str
+    id: str = field()
     parent: CollectionIndex = field(repr=False, eq=False)
-    path: Path
+    path: Path = field()
     event: Optional[Event] = field(init=False, repr=False, default=None)
     is_data_loaded: bool = field(init=False, repr=False, default=False)
+
+    @id.validator
+    def _check_id(self, _: Any, value: Any) -> None:
+        if not isinstance(value, str) or not is_valid_collection_id(value):
+            raise ValueError(f"Not a valid Collection ID: {value}")
 
     @property
     def root(self) -> Anthology:
@@ -149,20 +154,16 @@ class Collection(SlottedDict[Volume]):
             The created [Volume][acl_anthology.collections.volume.Volume] object.
 
         Raises:
-            ValueError: If a volume with the given ID already exists, if the ID is not well-formed, if this collection has an old-style ID, or if a mandatory parameter has the wrong type.
+            ValueError: If a volume with the given ID already exists, or if this collection has an old-style ID.
         """
         if not self.is_data_loaded:
             self.load()
-        if not validate_volume_or_paper_id(id_):
-            raise ValueError(f"Is not a valid volume ID: {id_}")
         if not self.id[0].isdigit():
             raise ValueError(
                 f"Can't create volume in collection {self.id} with old-style ID"
             )
         if id_ in self.data:
             raise ValueError(f"Volume {id_} already exists in collection {self.id}")
-        if not isinstance(title, MarkupText):
-            raise ValueError("Title needs to be an instance of MarkupText")
 
         kwargs["parent"] = self
         if year is None:

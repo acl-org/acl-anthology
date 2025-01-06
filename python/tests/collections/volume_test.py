@@ -136,9 +136,9 @@ def test_volume_minimum_attribs():
 def test_volume_all_attribs():
     volume_title = MarkupText.from_string("Lorem ipsum")
     volume_shorttitle = MarkupText.from_string("L.I.")
-    parent = Collection("2023.acl-long", None, Path("."))
+    parent = Collection("2023.acl", None, Path("."))
     volume = Volume(
-        id="42",
+        id="long",
         parent=parent,
         type="proceedings",
         booktitle=volume_title,
@@ -254,7 +254,7 @@ def test_volume_with_multiple_venues(anthology):
     volume_title = MarkupText.from_string(
         "Joint conference of ACL and LREC (hypothetical)"
     )
-    parent = Collection("acl.2092", CollectionIndexStub(anthology), Path("."))
+    parent = Collection("2092.acl", CollectionIndexStub(anthology), Path("."))
     volume = Volume(
         "1",
         parent,
@@ -263,7 +263,7 @@ def test_volume_with_multiple_venues(anthology):
         venue_ids=["acl", "lrec"],
         year="2092",
     )
-    assert volume.full_id == "acl.2092-1"
+    assert volume.full_id == "2092.acl-1"
     assert volume.title == volume_title
     assert volume.venue_ids == ["acl", "lrec"]
     assert volume.venue_acronym == "ACL-LREC"

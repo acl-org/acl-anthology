@@ -18,7 +18,6 @@ from attrs import define, field
 from typing import TYPE_CHECKING
 
 from ..containers import SlottedDict
-from ..utils.ids import validate_new_collection_id
 from .bibkeys import BibkeyIndex
 from .collection import Collection
 
@@ -75,12 +74,12 @@ class CollectionIndex(SlottedDict[Collection]):
             The created [Collection][acl_anthology.collections.collection.Collection] object.
 
         Raises:
-            ValueError: If a collection with the given ID already exists, or the ID is not well-formed.
+            ValueError: If a collection with the given ID already exists, or if the ID appears to be an old-style ID.
         """
         if not self.is_data_loaded:
             self.load()  # required to check for ID clashes
-        if not validate_new_collection_id(id_):
-            raise ValueError(f"Is not a valid new-style collection ID: {id_}")
+        if not id_[0].isdigit():
+            raise ValueError(f"Collection ID does not start with a digit: {id_}")
         if id_ in self.data:
             raise ValueError(f"Collection {id_} already exists")
 
