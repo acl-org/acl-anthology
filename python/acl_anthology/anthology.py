@@ -1,4 +1,4 @@
-# Copyright 2023-2024 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2025 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -137,9 +137,15 @@ class Anthology:
             iterator = track(
                 it.chain(
                     self.collections.values(),
-                    (self.people, self.events, self.sigs, self.venues),
+                    (
+                        self.collections.bibkeys,
+                        self.people,
+                        self.events,
+                        self.sigs,
+                        self.venues,
+                    ),
                 ),
-                total=len(self.collections) + 4,
+                total=len(self.collections) + 5,
                 disable=(not self.verbose),
                 description="Loading Anthology data...",
             )
@@ -262,13 +268,24 @@ class Anthology:
             full_id: An Anthology ID that refers to a paper.
 
         Returns:
-            The volume associated with the given ID.
+            The paper associated with the given ID.
         """
         (collection_id, volume_id, paper_id) = parse_id(full_id)
         volume = self.get_volume((collection_id, volume_id, None))
         if volume is None or paper_id is None:
             return None
         return volume.get(paper_id)
+
+    def get_paper_by_bibkey(self, bibkey: str) -> Optional[Paper]:
+        """Access a paper by its citation key/bibkey.
+
+        Parameters:
+            bibkey: A bibkey belonging to an Anthology paper.
+
+        Returns:
+            The paper associated with the given bibkey.
+        """
+        return self.collections.bibkeys.get(bibkey)
 
     def get_event(self, event_id: str) -> Optional[Event]:
         """Access an event by its ID.

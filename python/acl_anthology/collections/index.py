@@ -1,4 +1,4 @@
-# Copyright 2023-2024 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2025 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ from typing import TYPE_CHECKING
 
 from ..containers import SlottedDict
 from ..utils.ids import validate_new_collection_id
+from .bibkeys import BibkeyIndex
 from .collection import Collection
 
 if TYPE_CHECKING:
@@ -33,11 +34,16 @@ class CollectionIndex(SlottedDict[Collection]):
 
     Attributes:
         parent: The parent Anthology instance to which this index belongs.
+        bibkeys: A [BibkeyIndex](acl_anthology.collections.bibkeys.BibkeyIndex] instance.
         is_data_loaded: A flag indicating whether the XML directory has already been indexed.
     """
 
     parent: Anthology = field(repr=False, eq=False)
+    bibkeys: BibkeyIndex = field(init=False, repr=False, eq=False)
     is_data_loaded: bool = field(init=False, repr=False, default=False)
+
+    def __attrs_post_init__(self) -> None:
+        self.bibkeys = BibkeyIndex(self)
 
     def load(self) -> None:
         """Find all XML data files and index them by their collection ID.
@@ -46,6 +52,8 @@ class CollectionIndex(SlottedDict[Collection]):
             Currently assumes that XML files are **always** named according to the collection ID they
             contain; i.e., a file named "L16.xml" *must* contain the collection with ID "L16".
         """
+        if self.is_data_loaded:
+            return
         # Implementation note: The sorting here is mainly there for ensuring a
         # consistent order of volumes when building the website, e.g. in the
         # volume list for venues.
