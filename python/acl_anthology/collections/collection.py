@@ -149,12 +149,16 @@ class Collection(SlottedDict[Volume]):
             The created [Volume][acl_anthology.collections.volume.Volume] object.
 
         Raises:
-            ValueError: If a volume with the given ID already exists, or the ID is not well-formed.
+            ValueError: If a volume with the given ID already exists, if the ID is not well-formed, if this collection has an old-style ID, or if a mandatory parameter has the wrong type.
         """
         if not self.is_data_loaded:
             self.load()
         if not validate_volume_or_paper_id(id_):
             raise ValueError(f"Is not a valid volume ID: {id_}")
+        if not self.id[0].isdigit():
+            raise ValueError(
+                f"Can't create volume in collection {self.id} with old-style ID"
+            )
         if id_ in self.data:
             raise ValueError(f"Volume {id_} already exists in collection {self.id}")
         if not isinstance(title, MarkupText):

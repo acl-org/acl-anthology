@@ -109,6 +109,7 @@ def test_collection_create_volume_implicit(collection_index):
 
 def test_collection_create_volume_explicit(collection_index):
     collection = collection_index.get("J89")
+    collection.id = "1989.cl"  # because we can't create volumes with old-style ID
     volume = collection.create_volume(
         "99",
         title=MarkupText.from_string("Special Issue"),
@@ -119,7 +120,7 @@ def test_collection_create_volume_explicit(collection_index):
     )
     assert volume.year == "1989"
     assert volume.id == "99"
-    assert volume.full_id == "J89-99"
+    assert volume.full_id == "1989.cl-99"
     assert volume.type == VolumeType.JOURNAL
     assert volume.journal_issue == "99"
     assert "cl" in volume.venue_ids

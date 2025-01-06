@@ -177,7 +177,7 @@ def parse_id(anthology_id: AnthologyID) -> AnthologyIDTuple:
 def validate_new_collection_id(collection_id: str) -> bool:
     """Validate that a string is formatted like a new-style collection ID.
 
-    New-style collection IDs are required to look like {year}-{identifier}.
+    New-style collection IDs are required to look like `{year}.{identifier}`.
 
     Returns:
         True if the string is valid, False otherwise.
