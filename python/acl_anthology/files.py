@@ -15,7 +15,7 @@
 """Classes for representing and resolving file references."""
 
 import sys
-from attrs import define, field, Factory
+from attrs import define, field, validators as v, Factory
 from lxml import etree
 from lxml.builder import E
 from typing import cast, ClassVar, Optional
@@ -41,8 +41,10 @@ class FileReference:
         checksum (Optional[str]): The CRC32 checksum for the file.  Only specified for internal filenames.
     """
 
-    name: str = field()
-    checksum: Optional[str] = field(default=None)
+    name: str = field(converter=str)
+    checksum: Optional[str] = field(
+        default=None, validator=v.optional(v.instance_of(str))
+    )
     template_field: ClassVar[str] = ""
 
     @property
@@ -113,7 +115,7 @@ class VideoReference(FileReference):
     """Reference to a video."""
 
     template_field: ClassVar[str] = "video_location_template"
-    permission: bool = field(default=True)
+    permission: bool = field(default=True, converter=bool)
 
     @classmethod
     def from_xml(cls, elem: etree._Element) -> Self:

@@ -15,7 +15,7 @@
 from __future__ import annotations
 
 import sys
-from attrs import define, field
+from attrs import define, field, validators as v
 from lxml import etree
 from os import PathLike
 from pathlib import Path
@@ -60,15 +60,20 @@ class Collection(SlottedDict[Volume]):
         is_data_loaded: A flag indicating whether the XML file has already been loaded.
     """
 
-    id: str = field()
+    id: str = field(converter=str)
     parent: CollectionIndex = field(repr=False, eq=False)
-    path: Path = field()
-    event: Optional[Event] = field(init=False, repr=False, default=None)
+    path: Path = field(converter=Path)
+    event: Optional[Event] = field(
+        init=False,
+        repr=False,
+        default=None,
+        validator=v.optional(v.instance_of(Event)),
+    )
     is_data_loaded: bool = field(init=False, repr=False, default=False)
 
     @id.validator
-    def _check_id(self, _: Any, value: Any) -> None:
-        if not isinstance(value, str) or not is_valid_collection_id(value):
+    def _check_id(self, _: Any, value: str) -> None:
+        if not is_valid_collection_id(value):
             raise ValueError(f"Not a valid Collection ID: {value}")
 
     @property
@@ -137,8 +142,8 @@ class Collection(SlottedDict[Volume]):
         self,
         id_: str,
         title: MarkupText,
-        year: Optional[str | int] = None,
-        type: str | VolumeType = VolumeType.PROCEEDINGS,
+        year: Optional[str] = None,
+        type: VolumeType = VolumeType.PROCEEDINGS,
         **kwargs: Any,
     ) -> Volume:
         """Create a new [Volume][acl_anthology.collections.volume.Volume] object in this collection.
@@ -168,10 +173,6 @@ class Collection(SlottedDict[Volume]):
         kwargs["parent"] = self
         if year is None:
             year = infer_year(self.id)
-        elif isinstance(year, int):
-            year = str(year)
-        if isinstance(type, str):
-            type = VolumeType(type)
 
         volume = Volume(
             id=id_,

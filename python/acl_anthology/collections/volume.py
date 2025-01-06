@@ -15,7 +15,7 @@
 from __future__ import annotations
 
 import datetime
-from attrs import define, field, Factory
+from attrs import define, field, validators as v
 from lxml import etree
 from lxml.builder import E
 from typing import Any, Iterator, Optional, cast, TYPE_CHECKING
@@ -69,32 +69,69 @@ class Volume(SlottedDict[Paper]):
         shorttitle: A shortened form of the title. (Aliased to `shortbooktitle` for initialization.)
     """
 
-    id: str = field()
+    id: str = field(converter=str)
     parent: Collection = field(repr=False, eq=False)
-    type: VolumeType = field(repr=False)
-    title: MarkupText = field(alias="booktitle")
-    year: str = field()
+    type: VolumeType = field(repr=False, converter=VolumeType)
+    title: MarkupText = field(alias="booktitle", validator=v.instance_of(MarkupText))
+    year: str = field(converter=str, validator=v.matches_re(r"^[0-9]{4}$"))
 
-    editors: list[NameSpecification] = Factory(list)
-    venue_ids: list[str] = field(factory=list)
+    editors: list[NameSpecification] = field(
+        factory=list,
+        validator=v.deep_iterable(
+            member_validator=v.instance_of(NameSpecification),
+            iterable_validator=v.instance_of(list),
+        ),
+    )
+    venue_ids: list[str] = field(
+        factory=list,
+        validator=v.deep_iterable(
+            member_validator=v.instance_of(str),
+            iterable_validator=v.instance_of(list),
+        ),
+    )
 
-    address: Optional[str] = field(default=None, repr=False)
-    doi: Optional[str] = field(default=None, repr=False)
-    ingest_date: Optional[str] = field(default=None, repr=False)
-    isbn: Optional[str] = field(default=None, repr=False)
-    journal_issue: Optional[str] = field(default=None, repr=False)
-    journal_volume: Optional[str] = field(default=None, repr=False)
-    journal_title: Optional[str] = field(default=None, repr=False)
-    month: Optional[str] = field(default=None, repr=False)
-    pdf: Optional[PDFReference] = field(default=None, repr=False)
-    publisher: Optional[str] = field(default=None, repr=False)
+    address: Optional[str] = field(
+        default=None, repr=False, validator=v.optional(v.instance_of(str))
+    )
+    doi: Optional[str] = field(
+        default=None, repr=False, validator=v.optional(v.instance_of(str))
+    )
+    ingest_date: Optional[str] = field(
+        default=None, repr=False, validator=v.optional(v.instance_of(str))
+    )
+    isbn: Optional[str] = field(
+        default=None, repr=False, validator=v.optional(v.instance_of(str))
+    )
+    journal_issue: Optional[str] = field(
+        default=None, repr=False, validator=v.optional(v.instance_of(str))
+    )
+    journal_volume: Optional[str] = field(
+        default=None, repr=False, validator=v.optional(v.instance_of(str))
+    )
+    journal_title: Optional[str] = field(
+        default=None, repr=False, validator=v.optional(v.instance_of(str))
+    )
+    month: Optional[str] = field(
+        default=None, repr=False, validator=v.optional(v.instance_of(str))
+    )
+    pdf: Optional[PDFReference] = field(
+        default=None,
+        repr=False,
+        validator=v.optional(v.instance_of(PDFReference)),
+    )
+    publisher: Optional[str] = field(
+        default=None, repr=False, validator=v.optional(v.instance_of(str))
+    )
     shorttitle: Optional[MarkupText] = field(
-        default=None, alias="shortbooktitle", repr=False
+        default=None,
+        alias="shortbooktitle",
+        repr=False,
+        validator=v.optional(v.instance_of(MarkupText)),
     )
 
     @id.validator
-    def _check_id(self, _: Any, value: Any) -> None:
-        if not isinstance(value, str) or not is_valid_item_id(value):
+    def _check_id(self, _: Any, value: str) -> None:
+        if not is_valid_item_id(value):
             raise ValueError(f"Not a valid Volume ID: {value}")
 
     @property

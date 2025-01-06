@@ -16,7 +16,7 @@ from __future__ import annotations
 
 import attrs
 import datetime
-from attrs import define, field, Factory
+from attrs import define, field, validators as v
 from enum import Enum
 from functools import cached_property
 import langcodes
@@ -35,7 +35,7 @@ from ..files import (
 from ..people import NameSpecification
 from ..text import MarkupText
 from ..utils.citation import citeproc_render_html, render_acl_citation
-from ..utils.ids import build_id, AnthologyIDTuple
+from ..utils.ids import build_id, is_valid_item_id, AnthologyIDTuple
 from ..utils.latex import make_bibtex_entry
 from ..utils.logging import get_logger
 from .types import VolumeType
@@ -46,6 +46,165 @@ if TYPE_CHECKING:
     from . import Event, Volume
 
 log = get_logger()
+RE_STR_DATE = r"^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+
+
+@define
+class PaperErratum:
+    """An erratum for a paper."""
+
+    id: str = field(converter=str, validator=v.matches_re(r"^[1-9][0-9]?$"))
+    """An ID for this erratum.  Must be numeric."""
+
+    pdf: PDFReference = field()
+    """A reference to the erratum's PDF."""
+
+    date: Optional[str] = field(
+        default=None, validator=v.optional(v.matches_re(RE_STR_DATE))
+    )
+    """The date where this erratum was added."""
+
+    @pdf.validator
+    def _check_pdf(self, _: Any, value: Any) -> None:
+        # The PDFReference for an erratum must be a local filename according to the schema
+        if not isinstance(value, PDFReference):
+            raise TypeError(
+                f"'pdf' must be {PDFReference!r} (got '{value!r}' that is a {type(value)!r})"
+            )
+        if not value.is_local:
+            raise ValueError(
+                f"'pdf' of a PaperErratum must be a local file reference (got '{value}')"
+            )
+
+    @classmethod
+    def from_xml(cls, element: etree._Element) -> PaperErratum:
+        """Instantiates an erratum from its `<erratum>` block in the XML."""
+        return cls(
+            id=str(element.get("id")),
+            pdf=PDFReference.from_xml(element),
+            date=element.get("date"),
+        )
+
+    def to_xml(self) -> etree._Element:
+        """
+        Returns:
+            A serialization of this erratum in Anthology XML format.
+        """
+        elem = E.erratum(self.pdf.name, id=self.id, hash=str(self.pdf.checksum))
+        if self.date is not None:
+            elem.set("date", self.date)
+        return elem
+
+
+@define
+class PaperRevision:
+    """A revised version of a paper."""
+
+    id: str = field(converter=str, validator=v.matches_re(r"^[1-9][0-9]?$"))
+    """An ID for this revision.  Must be numeric."""
+
+    note: Optional[str] = field(validator=v.optional(v.instance_of(str)))
+    """A note explaining the reason for the revision."""
+
+    pdf: PDFReference = field()
+    """A reference to the revision's PDF."""
+
+    date: Optional[str] = field(
+        default=None, validator=v.optional(v.matches_re(RE_STR_DATE))
+    )
+    """The date where this revision was added."""
+
+    @pdf.validator
+    def _check_pdf(self, _: Any, value: Any) -> None:
+        # The PDFReference for a revision must be a local filename according to the schema
+        if not isinstance(value, PDFReference):
+            raise TypeError(
+                f"'pdf' must be {PDFReference!r} (got '{value!r}' that is a {type(value)!r})"
+            )
+        if not value.is_local:
+            raise ValueError(
+                f"'pdf' of a PaperRevision must be a local file reference (got '{value}')"
+            )
+
+    @classmethod
+    def from_xml(cls, element: etree._Element) -> PaperRevision:
+        """Instantiates a revision from its `<revision>` block in the XML."""
+        return cls(
+            id=str(element.get("id")),
+            note=str(element.text) if element.text else None,
+            pdf=PDFReference(str(element.get("href")), str(element.get("hash"))),
+            date=element.get("date"),
+        )
+
+    def to_xml(self) -> etree._Element:
+        """
+        Returns:
+            A serialization of this revision in Anthology XML format.
+        """
+        elem = E.revision(
+            id=self.id,
+            href=self.pdf.name,
+            hash=str(self.pdf.checksum),
+        )
+        if self.note:
+            elem.text = str(self.note)
+        if self.date is not None:
+            elem.set("date", self.date)
+        return elem
+
+
+class PaperDeletionType(Enum):
+    """Type of deletion of a paper."""
+
+    RETRACTED = "retracted"
+    """Paper was retracted.  A retraction occurs when serious, unrecoverable errors are discovered, which drastically affect the findings of the original work."""
+
+    REMOVED = "removed"
+    """Paper was removed.  A removal occurs in rare circumstances where serious ethical or legal issues arise, such as plagiarism."""
+
+
+@define
+class PaperDeletionNotice:
+    """A notice about a paper's deletion (i.e., retraction or removal) from the Anthology."""
+
+    type: PaperDeletionType = field(converter=PaperDeletionType)
+    """Type indicating whether the paper was _retracted_ or _removed_."""
+
+    note: Optional[str] = field(validator=v.optional(v.instance_of(str)))
+    """A note explaining the retraction or removal."""
+
+    date: str = field(default=None, validator=v.matches_re(RE_STR_DATE))
+    """The date on which the paper was retracted or removed."""
+
+    @classmethod
+    def from_xml(cls, element: etree._Element) -> PaperDeletionNotice:
+        """Instantiates a deletion notice from its `<removed>` or `<retracted>` block in the XML."""
+        return cls(
+            type=PaperDeletionType(str(element.tag)),
+            note=str(element.text) if element.text else None,
+            date=str(element.get("date")),
+        )
+
+    def to_xml(self) -> etree._Element:
+        """
+        Returns:
+            A serialization of this deletion notice in Anthology XML format.
+        """
+        return cast(
+            etree._Element, getattr(E, self.type.value)(self.note, date=self.date)
+        )
+
+
+def _attachment_validator(instance: Paper, _: Any, value: Any) -> None:
+    if (
+        not isinstance(value, tuple)
+        or len(value) != 2
+        or not isinstance(value[0], str)
+        or not isinstance(value[1], AttachmentReference)
+    ):
+        raise TypeError(
+            f"'attachments' needs to contain tuples of (str, AttachmentReference) (got: {value!r})"
+        )
 
 
 @define
@@ -81,33 +240,109 @@ class Paper:
         pdf: A reference to the paper's PDF.
     """
 
-    id: str
+    id: str = field(converter=str)
     parent: Volume = field(repr=False, eq=False)
-    bibkey: str = field()
-    title: MarkupText = field()
+    bibkey: str = field(validator=v.instance_of(str))  # TODO: more validation here?
+    title: MarkupText = field(validator=v.instance_of(MarkupText))
 
-    attachments: list[tuple[str, AttachmentReference]] = field(factory=list, repr=False)
-    authors: list[NameSpecification] = Factory(list)
-    awards: list[str] = field(factory=list, repr=False)
-    # TODO: why can a Paper ever have "editors"? it's allowed by the schema
-    editors: list[NameSpecification] = field(factory=list, repr=False)
-    errata: list[PaperErratum] = field(factory=list, repr=False)
-    revisions: list[PaperRevision] = field(factory=list, repr=False)
-    videos: list[VideoReference] = field(factory=list, repr=False)
-
-    abstract: Optional[MarkupText] = field(default=None)
-    deletion: Optional[PaperDeletionNotice] = field(default=None, repr=False)
-    doi: Optional[str] = field(default=None, repr=False)
-    ingest_date: Optional[str] = field(default=None, repr=False)
-    issue: Optional[str] = field(default=None, repr=False)
-    journal: Optional[str] = field(default=None, repr=False)
-    language: Optional[str] = field(default=None, repr=False)
-    note: Optional[str] = field(default=None, repr=False)
-    pages: Optional[str] = field(default=None, repr=False)
-    paperswithcode: Optional[PapersWithCodeReference] = field(
-        default=None, on_setattr=attrs.setters.frozen, repr=False
+    attachments: list[tuple[str, AttachmentReference]] = field(
+        factory=list,
+        repr=False,
+        validator=v.deep_iterable(
+            member_validator=_attachment_validator,
+            iterable_validator=v.instance_of(list),
+        ),
     )
-    pdf: Optional[PDFReference] = field(default=None, repr=False)
+    authors: list[NameSpecification] = field(
+        factory=list,
+        validator=v.deep_iterable(
+            member_validator=v.instance_of(NameSpecification),
+            iterable_validator=v.instance_of(list),
+        ),
+    )
+    awards: list[str] = field(
+        factory=list,
+        repr=False,
+        validator=v.deep_iterable(
+            member_validator=v.instance_of(str),
+            iterable_validator=v.instance_of(list),
+        ),
+    )
+    # TODO: why can a Paper ever have "editors"? it's allowed by the schema
+    editors: list[NameSpecification] = field(
+        factory=list,
+        repr=False,
+        validator=v.deep_iterable(
+            member_validator=v.instance_of(NameSpecification),
+            iterable_validator=v.instance_of(list),
+        ),
+    )
+    errata: list[PaperErratum] = field(
+        factory=list,
+        repr=False,
+        validator=v.deep_iterable(
+            member_validator=v.instance_of(PaperErratum),
+            iterable_validator=v.instance_of(list),
+        ),
+    )
+    revisions: list[PaperRevision] = field(
+        factory=list,
+        repr=False,
+        validator=v.deep_iterable(
+            member_validator=v.instance_of(PaperRevision),
+            iterable_validator=v.instance_of(list),
+        ),
+    )
+    videos: list[VideoReference] = field(
+        factory=list,
+        repr=False,
+        validator=v.deep_iterable(
+            member_validator=v.instance_of(VideoReference),
+            iterable_validator=v.instance_of(list),
+        ),
+    )
+
+    abstract: Optional[MarkupText] = field(
+        default=None, validator=v.optional(v.instance_of(MarkupText))
+    )
+    deletion: Optional[PaperDeletionNotice] = field(
+        default=None, repr=False, validator=v.optional(v.instance_of(PaperDeletionNotice))
+    )
+    doi: Optional[str] = field(
+        default=None, repr=False, validator=v.optional(v.instance_of(str))
+    )
+    ingest_date: Optional[str] = field(
+        default=None, repr=False, validator=v.optional(v.instance_of(str))
+    )
+    issue: Optional[str] = field(
+        default=None, repr=False, validator=v.optional(v.instance_of(str))
+    )
+    journal: Optional[str] = field(
+        default=None, repr=False, validator=v.optional(v.instance_of(str))
+    )
+    language: Optional[str] = field(
+        default=None, repr=False, validator=v.optional(v.instance_of(str))
+    )
+    note: Optional[str] = field(
+        default=None, repr=False, validator=v.optional(v.instance_of(str))
+    )
+    pages: Optional[str] = field(
+        default=None, repr=False, validator=v.optional(v.instance_of(str))
+    )
+    paperswithcode: Optional[PapersWithCodeReference] = field(
+        default=None,
+        on_setattr=attrs.setters.frozen,
+        repr=False,
+        validator=v.optional(v.instance_of(PapersWithCodeReference)),
+    )
+    pdf: Optional[PDFReference] = field(
+        default=None, repr=False, validator=v.optional(v.instance_of(PDFReference))
+    )
+
+    @id.validator
+    def _check_id(self, _: Any, value: str) -> None:
+        if not is_valid_item_id(value):
+            raise ValueError(f"Not a valid Paper ID: {value}")
 
     @property
     def collection_id(self) -> str:
@@ -519,123 +754,3 @@ class Paper:
         if self.paperswithcode is not None:
             paper.extend(self.paperswithcode.to_xml_list())
         return paper
-
-
-class PaperDeletionType(Enum):
-    """Type of deletion of a paper."""
-
-    RETRACTED = "retracted"
-    """Paper was retracted.  A retraction occurs when serious, unrecoverable errors are discovered, which drastically affect the findings of the original work."""
-
-    REMOVED = "removed"
-    """Paper was removed.  A removal occurs in rare circumstances where serious ethical or legal issues arise, such as plagiarism."""
-
-
-@define
-class PaperDeletionNotice:
-    """A notice about a paper's deletion (i.e., retraction or removal) from the Anthology."""
-
-    type: PaperDeletionType
-    """Type indicating whether the paper was _retracted_ or _removed_."""
-
-    note: Optional[str]
-    """A note explaining the retraction or removal."""
-
-    date: str
-    """The date on which the paper was retracted or removed."""
-
-    @classmethod
-    def from_xml(cls, element: etree._Element) -> PaperDeletionNotice:
-        """Instantiates a deletion notice from its `<removed>` or `<retracted>` block in the XML."""
-        return cls(
-            type=PaperDeletionType(str(element.tag)),
-            note=str(element.text) if element.text else None,
-            date=str(element.get("date")),
-        )
-
-    def to_xml(self) -> etree._Element:
-        """
-        Returns:
-            A serialization of this deletion notice in Anthology XML format.
-        """
-        return cast(
-            etree._Element, getattr(E, self.type.value)(self.note, date=self.date)
-        )
-
-
-@define
-class PaperErratum:
-    """An erratum for a paper."""
-
-    id: str
-    """An ID for this erratum."""
-
-    pdf: PDFReference
-    """A reference to the erratum's PDF."""
-    # Note: must be a local filename according to the schema
-
-    date: Optional[str] = field(default=None)
-    """The date where this erratum was added."""
-
-    @classmethod
-    def from_xml(cls, element: etree._Element) -> PaperErratum:
-        """Instantiates an erratum from its `<erratum>` block in the XML."""
-        return cls(
-            id=str(element.get("id")),
-            pdf=PDFReference.from_xml(element),
-            date=element.get("date"),
-        )
-
-    def to_xml(self) -> etree._Element:
-        """
-        Returns:
-            A serialization of this erratum in Anthology XML format.
-        """
-        elem = E.erratum(self.pdf.name, id=self.id, hash=str(self.pdf.checksum))
-        if self.date is not None:
-            elem.set("date", self.date)
-        return elem
-
-
-@define
-class PaperRevision:
-    """A revised version of a paper."""
-
-    id: str
-    """An ID for this revision."""
-
-    note: Optional[str]
-    """A note explaining the reason for the revision."""
-
-    pdf: PDFReference
-    """A reference to the revision's PDF."""
-    # Note: must be a local filename according to the schema
-
-    date: Optional[str] = field(default=None)
-    """The date where this revision was added."""
-
-    @classmethod
-    def from_xml(cls, element: etree._Element) -> PaperRevision:
-        """Instantiates a revision from its `<revision>` block in the XML."""
-        return cls(
-            id=str(element.get("id")),
-            note=str(element.text) if element.text else None,
-            pdf=PDFReference(str(element.get("href")), str(element.get("hash"))),
-            date=element.get("date"),
-        )
-
-    def to_xml(self) -> etree._Element:
-        """
-        Returns:
-            A serialization of this revision in Anthology XML format.
-        """
-        elem = E.revision(
-            id=self.id,
-            href=self.pdf.name,
-            hash=str(self.pdf.checksum),
-        )
-        if self.note:
-            elem.text = str(self.note)
-        if self.date is not None:
-            elem.set("date", self.date)
-        return elem

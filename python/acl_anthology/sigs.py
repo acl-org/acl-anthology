@@ -14,7 +14,7 @@
 
 from __future__ import annotations
 
-from attrs import define, field
+from attrs import define, field, validators as v
 from collections import ChainMap, defaultdict
 from os import PathLike
 from pathlib import Path
@@ -50,11 +50,11 @@ class SIG:
     """
 
     parent: SIGIndex = field(repr=False, eq=False)
-    id: str
-    acronym: str
-    name: str
-    path: Path
-    url: Optional[str] = field(default=None)
+    id: str = field(converter=str)
+    acronym: str = field(converter=str)
+    name: str = field(converter=str)
+    path: Path = field(converter=Path)
+    url: Optional[str] = field(default=None, validator=v.optional(v.instance_of(str)))
     meetings: list[str | SIGMeeting] = field(factory=list, repr=False)
 
     @property

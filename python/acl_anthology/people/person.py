@@ -14,7 +14,7 @@
 
 from __future__ import annotations
 
-from attrs import define, field, Factory
+from attrs import define, field, validators as v
 from typing import Iterator, Optional, TYPE_CHECKING
 from ..utils.ids import AnthologyIDTuple, build_id_from_tuple
 from . import Name
@@ -37,14 +37,20 @@ class Person:
         is_explicit: True if this person has names explicitly defined in `name_variants.yaml`.  Note this does _not_ necessarily mean an explicit ID was defined for the person there.
     """
 
-    id: str
+    id: str = field(converter=str)
     parent: Anthology = field(repr=False, eq=False)
-    names: list[Name] = Factory(list)
+    names: list[Name] = field(
+        factory=list,
+        validator=v.deep_iterable(
+            member_validator=v.instance_of(Name),
+            iterable_validator=v.instance_of(list),
+        ),
+    )
     item_ids: list[AnthologyIDTuple] = field(
         factory=list, repr=lambda x: f"<list of {len(x)} AnthologyIDTuple objects>"
     )
-    comment: Optional[str] = field(default=None)
-    is_explicit: Optional[bool] = field(default=False)
+    comment: Optional[str] = field(default=None, validator=v.optional(v.instance_of(str)))
+    is_explicit: Optional[bool] = field(default=False, converter=bool)
 
     def __eq__(self, other: object) -> bool:
         if not isinstance(other, Person):

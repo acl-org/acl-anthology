@@ -17,13 +17,9 @@ from attrs import define
 from lxml import etree
 
 from acl_anthology.collections import Event, Talk
+from acl_anthology.files import EventFileReference
 from acl_anthology.text import MarkupText
 from acl_anthology.utils.xml import indent
-
-
-@define
-class AttachmentReferenceMock:
-    name: str
 
 
 @define
@@ -99,8 +95,8 @@ def test_event_all_attribs():
             ("2023.baz", "1", None),
             ("2023.asdf", "1", None),
         ],
-        talks=[Talk("Invited talk")],
-        links={"Website": AttachmentReferenceMock("http://foobar.com")},
+        talks=[Talk(MarkupText.from_string("Invited talk"))],
+        links={"Website": EventFileReference("http://foobar.com")},
     )
     assert event.collection_id == "2023.li"
     assert event.title == event_title
@@ -172,7 +168,7 @@ test_cases_talk_xml = (
 
 
 def test_talk_minimum_attribs():
-    title = "On the Development of Software Tests"
+    title = MarkupText.from_string("On the Development of Software Tests")
     talk = Talk(title)
     assert talk.title == title
     assert talk.type is None

@@ -30,7 +30,7 @@ from acl_anthology.collections.paper import (
 
 
 class VolumeStub:
-    title = "Generic volume"
+    title = MarkupText.from_string("Generic volume")
     editors = []
 
 
