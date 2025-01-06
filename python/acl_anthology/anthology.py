@@ -228,6 +228,18 @@ class Anthology:
             return volume
         return volume.get(paper_id)
 
+    def get_collection(self, full_id: AnthologyID) -> Optional[Collection]:
+        """Access a collection by its ID or the ID of a contained volume or paper.
+
+        Parameters:
+            full_id: An Anthology ID.
+
+        Returns:
+            The collection associated with the given ID.
+        """
+        (collection_id, *_) = parse_id(full_id)
+        return self.collections.get(collection_id)
+
     def get_volume(self, full_id: AnthologyID) -> Optional[Volume]:
         """Access a volume by its ID or the ID of a contained paper.
 

@@ -33,6 +33,16 @@ def test_relaxng(anthology):
     assert isinstance(relaxng, RelaxNG)
 
 
+def test_get_collection(anthology):
+    # Fetch 2022.acl
+    collection = anthology.get_collection("2022.acl-long.1")
+    assert collection is not None
+    assert collection.id == "2022.acl"
+    assert collection is anthology.collections.get("2022.acl")
+    assert collection is anthology.get_collection("2022.acl")
+    assert collection is anthology.get_collection("2022.acl-long")
+
+
 def test_get_volume(anthology):
     # Fetch 2022.acl-long -- these should all be identical
     volume = anthology.get_volume("2022.acl-long")
