@@ -74,3 +74,26 @@ test_cases_years = (
 @pytest.mark.parametrize("anthology_id, year", test_cases_years)
 def test_infer_year(anthology_id, year):
     assert ids.infer_year(anthology_id) == year
+
+
+def test_validate_new_collection_id():
+    assert ids.validate_new_collection_id("2022.acl")
+    assert ids.validate_new_collection_id("1996.nlp4call")
+    assert not ids.validate_new_collection_id("W09")
+    assert not ids.validate_new_collection_id("2022-a b c")
+    assert not ids.validate_new_collection_id("2022-acl")
+    assert not ids.validate_new_collection_id("2022.acl-main")
+    assert not ids.validate_new_collection_id("")
+    assert not ids.validate_new_collection_id(".")
+    assert not ids.validate_new_collection_id("2025.")
+
+
+def test_validate_volume_or_paper_id():
+    assert ids.validate_volume_or_paper_id("main")
+    assert ids.validate_volume_or_paper_id("1")
+    assert ids.validate_volume_or_paper_id("500")
+    assert ids.validate_volume_or_paper_id("tutorial4")
+    assert not ids.validate_volume_or_paper_id("acl-main")
+    assert not ids.validate_volume_or_paper_id("main.42")
+    assert not ids.validate_volume_or_paper_id("acl ")
+    assert not ids.validate_volume_or_paper_id("")

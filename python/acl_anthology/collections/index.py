@@ -18,6 +18,7 @@ from attrs import define, field
 from typing import TYPE_CHECKING
 
 from ..containers import SlottedDict
+from ..utils.ids import validate_new_collection_id
 from .collection import Collection
 
 if TYPE_CHECKING:
@@ -39,7 +40,7 @@ class CollectionIndex(SlottedDict[Collection]):
     is_data_loaded: bool = field(init=False, repr=False, default=False)
 
     def load(self) -> None:
-        """Finds all XML data files and indexes them by their collection ID.
+        """Find all XML data files and index them by their collection ID.
 
         Note:
             Currently assumes that XML files are **always** named according to the collection ID they
@@ -55,3 +56,31 @@ class CollectionIndex(SlottedDict[Collection]):
             collection_id = xmlpath.name[:-4]
             self.data[collection_id] = Collection(collection_id, self, xmlpath)
         self.is_data_loaded = True
+
+    def create(self, id_: str) -> Collection:
+        """Create a new [Collection][acl_anthology.collections.collection.Collection] object.
+
+        Parameters:
+            id_: The ID of the new collection.
+
+        Returns:
+            The created [Collection][acl_anthology.collections.collection.Collection] object.
+
+        Raises:
+            ValueError: If a collection with the given ID already exists, or the ID is not well-formed.
+        """
+        if not self.is_data_loaded:
+            self.load()  # required to check for ID clashes
+        if not validate_new_collection_id(id_):
+            raise ValueError(f"Is not a valid new-style collection ID: {id_}")
+        if id_ in self.data:
+            raise ValueError(f"Collection {id_} already exists")
+
+        collection = Collection(
+            id=id_,
+            parent=self,
+            path=self.parent.datadir / "xml" / f"{id_}.xml",
+        )
+        collection.is_data_loaded = True
+
+        return collection

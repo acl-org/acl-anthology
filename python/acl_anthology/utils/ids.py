@@ -14,6 +14,7 @@
 
 """Functions for manipulating Anthology IDs."""
 
+import re
 from typing import Optional
 
 
@@ -171,6 +172,28 @@ def parse_id(anthology_id: AnthologyID) -> AnthologyIDTuple:
         else:
             paper_id = rest[1:].lstrip("0")
             return (collection_id, rest[0], paper_id if paper_id else "0")
+
+
+def validate_new_collection_id(collection_id: str) -> bool:
+    """Validate that a string is formatted like a new-style collection ID.
+
+    New-style collection IDs are required to look like {year}-{identifier}.
+
+    Returns:
+        True if the string is valid, False otherwise.
+    """
+    return re.fullmatch(r"[0-9]{4}\.[a-z0-9]+", collection_id) is not None
+
+
+def validate_volume_or_paper_id(id_: str) -> bool:
+    """Validate that a string is a valid volume or paper ID.
+
+    Volume or paper IDs must only consist of lower-case ASCII characters and digits.
+
+    Returns:
+        True if the string is valid, False otherwise.
+    """
+    return re.fullmatch(r"[a-z0-9]+", id_) is not None
 
 
 def infer_year(anthology_id: AnthologyID) -> str:
