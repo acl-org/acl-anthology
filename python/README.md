@@ -2,7 +2,7 @@
 
 [![License](https://img.shields.io/github/license/acl-org/acl-anthology)](LICENSE)
 [![Build Status](https://img.shields.io/github/actions/workflow/status/acl-org/acl-anthology/code-quality.yml)](https://github.com/acl-org/acl-anthology/actions/workflows/code-quality.yml)
-[![Documentation](https://img.shields.io/readthedocs/acl-anthology)](https://acl-anthology.readthedocs.io/en/latest/)
+[![Documentation](https://img.shields.io/readthedocs/acl-anthology)](https://acl-anthology.readthedocs.io/)
 [![Code Coverage](https://img.shields.io/codecov/c/gh/acl-org/acl-anthology)](https://codecov.io/gh/acl-org/acl-anthology)
 ![Supported Python Versions](https://img.shields.io/pypi/pyversions/acl-anthology)
 ![Development Status](https://img.shields.io/pypi/status/acl-anthology)
@@ -11,7 +11,7 @@
 This package accesses data from the [ACL
 Anthology](https://aclanthology.org).
 
-- [**Documentation**](https://acl-anthology.readthedocs.io/en/latest/)
+- [**Documentation**](https://acl-anthology.readthedocs.io/)
 - [**Package on PyPI**](https://pypi.org/project/acl-anthology/)
 
 ## How to use
@@ -53,7 +53,7 @@ Two-Level Morphology with Composition
 ```
 
 Find more examples and details on the API in the [**official
-documentation**](https://acl-anthology.readthedocs.io/en/latest/).
+documentation**](https://acl-anthology.readthedocs.io/).
 
 ## Developing
 
