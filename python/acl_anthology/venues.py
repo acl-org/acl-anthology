@@ -128,7 +128,7 @@ class VenueIndex(SlottedDict[Venue]):
 
     parent: Anthology = field(repr=False, eq=False)
     no_item_ids: bool = field(repr=False, default=False)
-    is_data_loaded: bool = field(init=False, repr=False, default=False)
+    is_data_loaded: bool = field(init=False, repr=True, default=False)
 
     def load(self) -> None:
         """Loads and parses the `venues/*.yaml` files.

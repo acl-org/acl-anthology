@@ -39,7 +39,7 @@ class CollectionIndex(SlottedDict[Collection]):
 
     parent: Anthology = field(repr=False, eq=False)
     bibkeys: BibkeyIndex = field(init=False, repr=False, eq=False)
-    is_data_loaded: bool = field(init=False, repr=False, default=False)
+    is_data_loaded: bool = field(init=False, repr=True, default=False)
 
     def __attrs_post_init__(self) -> None:
         self.bibkeys = BibkeyIndex(self)

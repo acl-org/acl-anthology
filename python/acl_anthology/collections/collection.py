@@ -69,7 +69,7 @@ class Collection(SlottedDict[Volume]):
         default=None,
         validator=v.optional(v.instance_of(Event)),
     )
-    is_data_loaded: bool = field(init=False, repr=False, default=False)
+    is_data_loaded: bool = field(init=False, repr=True, default=False)
 
     @id.validator
     def _check_id(self, _: Any, value: str) -> None:

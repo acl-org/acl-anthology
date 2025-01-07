@@ -188,7 +188,7 @@ class SIGIndex(SlottedDict[SIG]):
     reverse: dict[AnthologyIDTuple, set[str]] = field(
         init=False, repr=False, factory=lambda: defaultdict(set)
     )
-    is_data_loaded: bool = field(init=False, repr=False, default=False)
+    is_data_loaded: bool = field(init=False, repr=True, default=False)
 
     def load(self) -> None:
         """Loads and parses the `sigs/*.yaml` files.
