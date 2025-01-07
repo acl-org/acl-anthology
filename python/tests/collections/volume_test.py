@@ -18,6 +18,7 @@ from pathlib import Path
 import pytest
 
 from acl_anthology.collections import Collection, Volume, VolumeType
+from acl_anthology.people import NameSpecification as NameSpec
 from acl_anthology.text import MarkupText
 from acl_anthology.utils.xml import indent
 
@@ -294,3 +295,41 @@ def test_volume_roundtrip_xml(xml):
     out = volume.to_xml()
     indent(out)
     assert etree.tostring(out, encoding="unicode") == xml
+
+
+def test_volume_create_paper_implicit(anthology):
+    volume = anthology.get_volume("2022.acl-long")
+    authors = [NameSpec("Bollmann, Marcel")]
+    paper = volume.create_paper(
+        title=MarkupText.from_string("The awesome paper I have never written"),
+        authors=authors,
+        ingest_date="2025-01-07",
+    )
+    assert paper.authors == authors
+    assert paper.title.as_text() == "The awesome paper I have never written"
+    assert paper.ingest_date == "2025-01-07"
+    assert paper.parent is volume
+    # Highest paper ID in 2022.acl-long is 603, so this one should automatically get 604
+    assert paper.id == "604"
+    assert paper.full_id == "2022.acl-long.604"
+    # Bibkey should automatically have been generated
+    assert paper.bibkey == "bollmann-2022-awesome"
+
+
+def test_volume_create_paper_explicit(anthology):
+    volume = anthology.get_volume("2022.acl-long")
+    authors = [NameSpec("Bollmann, Marcel")]
+    paper = volume.create_paper(
+        title=MarkupText.from_string("The awesome paper I have never written"),
+        authors=authors,
+        ingest_date="2025-01-07",
+        id_="701",
+        bibkey="bollmann-2022-the-awesome",
+    )
+    assert paper.authors == authors
+    assert paper.title.as_text() == "The awesome paper I have never written"
+    assert paper.ingest_date == "2025-01-07"
+    assert paper.parent is volume
+    assert paper.id == "701"
+    assert paper.full_id == "2022.acl-long.701"
+    assert paper.bibkey == "bollmann-2022-the-awesome"

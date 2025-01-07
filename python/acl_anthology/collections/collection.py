@@ -151,7 +151,7 @@ class Collection(SlottedDict[Volume]):
         Parameters:
             id_: The ID of the new volume.
             title: The title of the new volume.
-            year: The year of the new volume; if None, will infer the year from this collection's ID.
+            year: The year of the new volume (optional); if None, will infer the year from this collection's ID.
             type: Whether this is a journal or proceedings volume; defaults to [VolumeType.PROCEEDINGS][acl_anthology.collections.types.VolumeType].
             **kwargs: Any valid list or optional attribute of [Volume][acl_anthology.collections.volume.Volume].
 
@@ -182,6 +182,9 @@ class Collection(SlottedDict[Volume]):
             **kwargs,
         )
         volume.is_data_loaded = True
+        # TODO: How to solve registration in different indices? Not all indices might be loaded, nor might it be desirable to load them.
+        # - Volumes can be linked from EventIndex, VenueIndex, SIGIndex
+        # - Volumes can be linked to the Person objects of its editors
         return volume
 
     def load(self) -> None:

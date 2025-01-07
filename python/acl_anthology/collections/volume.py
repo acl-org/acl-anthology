@@ -243,15 +243,6 @@ class Volume(SlottedDict[Paper]):
                 )
             raise exc
 
-    def _add_paper_from_xml(self, element: etree._Element) -> None:
-        """Creates a new paper belonging to this volume.
-
-        Parameters:
-            element: The `<paper>` element.
-        """
-        paper = Paper.from_xml(self, element)
-        self.data[paper.id] = paper
-
     def to_bibtex(self) -> str:
         """Generate a BibTeX entry for this volume.
 
@@ -264,6 +255,52 @@ class Volume(SlottedDict[Paper]):
         if self.frontmatter is None:
             raise Exception("Cannot generate BibTeX for volume without frontmatter.")
         return self.frontmatter.to_bibtex()
+
+    def create_paper(
+        self,
+        title: MarkupText,
+        id_: Optional[str] = None,
+        bibkey: Optional[str] = None,
+        **kwargs: Any,
+    ) -> Paper:
+        """Create a new [Paper][acl_anthology.collections.paper.Paper] object in this volume.
+
+        Parameters:
+            title: The title of the new paper.
+            id_: The ID of the new paper (optional); if None, will generate the next-highest numeric ID that doesn't already exist in this volume.
+            bibkey: The citation key of the new paper (optional); if None, will automatically generate a non-clashing citation key (recommended!).
+            **kwargs: Any valid list or optional attribute of [Paper][acl_anthology.collections.paper.Paper].
+
+        Returns:
+            The created [Paper][acl_anthology.collections.paper.Paper] object.
+
+        Raises:
+            ValueError: If a paper with the given ID or bibkey already exists.
+        """
+        if id_ is None:
+            _numeric_keys = sorted(int(n) for n in self.data.keys() if n.isnumeric())
+            if _numeric_keys:
+                id_ = str(_numeric_keys[-1] + 1)  # highest ID plus one
+            else:
+                id_ = "1"  # if no numeric ID exists, start at 1
+        elif id_ in self.data:
+            raise ValueError(f"Paper {id_} already exists in volume {self.full_id}")
+
+        kwargs["parent"] = self
+        paper = Paper(id=id_, bibkey=bibkey, title=title, **kwargs)
+        self.parent.parent.bibkeys.index_paper(paper)
+        # TODO: How to solve registration in different indices? Not all indices might be loaded, nor might it be desirable to load them.
+        # - Papers can be linked to the Person objects of its authors/editors
+        return paper
+
+    def _add_paper_from_xml(self, element: etree._Element) -> None:
+        """Creates a new paper belonging to this volume.
+
+        Parameters:
+            element: The `<paper>` element.
+        """
+        paper = Paper.from_xml(self, element)
+        self.data[paper.id] = paper
 
     @classmethod
     def from_xml(cls, parent: Collection, meta: etree._Element) -> Volume:

@@ -242,7 +242,7 @@ class Paper:
 
     id: str = field(converter=str)
     parent: Volume = field(repr=False, eq=False)
-    bibkey: str = field(validator=v.instance_of(str))  # TODO: more validation here?
+    bibkey: str | None = field(validator=v.optional(v.instance_of(str)))
     title: MarkupText = field(validator=v.instance_of(MarkupText))
 
     attachments: list[tuple[str, AttachmentReference]] = field(
@@ -528,7 +528,12 @@ class Paper:
 
         Returns:
             The BibTeX entry for this paper as a formatted string.
+
+        Raises:
+            ValueError: If 'bibkey' is None.
         """
+        if self.bibkey is None:
+            raise ValueError("Cannot generate BibTeX entry with empty 'bibkey'")
         # Note: Fields are added in the order in which they will appear in the
         # BibTeX entry, for reproducibility
         bibtex_fields: list[tuple[str, SerializableAsBibTeX]] = [
@@ -714,7 +719,12 @@ class Paper:
         """
         Returns:
             A serialization of this paper as a `<paper>` or `<frontmatter>` block in the Anthology XML format.
+
+        Raises:
+            ValueError: If 'bibkey' is None.
         """
+        if self.bibkey is None:
+            raise ValueError("Cannot serialize a Paper with empty 'bibkey'")
         if self.is_frontmatter:
             paper = etree.Element("frontmatter")
         else:
