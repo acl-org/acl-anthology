@@ -15,6 +15,10 @@ module = 'pylatexenc.*'
 ignore_missing_imports = true
 
 [[tool.mypy.overrides]]
+module = 'stop_words.*'
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
 module = 'citeproc.*'
 ignore_missing_imports = true
 
@@ -77,6 +81,7 @@ rnc2rng = "^2.6.6"
 citeproc-py = "^0.6.0"
 langcodes = {extras = ["data"], version = "^3.5.0"}
 pylatexenc = "^2.10"
+stop-words = "^2018.7.23"
 
 [tool.poetry.group.dev.dependencies]
 black = "^24.3.0"
