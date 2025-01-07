@@ -15,14 +15,21 @@
 from __future__ import annotations
 
 from attrs import define, field
+import re
 from rich.progress import track
-from typing import TYPE_CHECKING
+from slugify import slugify
+from typing import cast, TYPE_CHECKING
 
 from ..containers import SlottedDict
+from ..text import StopWords
 from .paper import Paper
 
 if TYPE_CHECKING:
     from .index import CollectionIndex
+
+
+BIBKEY_MAX_NAMES = 2
+"""The maximum number of names to consider when generating bibkeys."""
 
 
 @define
@@ -39,8 +46,106 @@ class BibkeyIndex(SlottedDict[Paper]):
     parent: CollectionIndex = field(repr=False, eq=False)
     is_data_loaded: bool = field(init=False, repr=True, default=False)
 
+    def generate_bibkey(self, paper: Paper) -> str:
+        """Generate a unique bibkey for the given paper.
+
+        Parameters:
+            paper: The paper for which a bibkey should be generated.
+
+        Returns:
+            The generated bibkey.
+
+        Note:
+            Calling this function will _not change_ the paper's bibkey nor add the bibkey to the index; this needs to be done separately.  To generate a bibkey for a newly created paper and add it to the index, use [index_paper()][acl_anthology.collections.bibkeys.BibkeyIndex.index_paper] instead.
+        """
+        if not self.is_data_loaded:
+            self.load()
+
+        title_words = None
+
+        if paper.is_frontmatter:
+            # Proceedings volumes/frontmatter use {venue}-{year}-{volume_id}
+            bibkey = (
+                f"{slugify(paper.parent.venue_acronym)}-{paper.year}-{paper.volume_id}"
+            )
+        else:
+            # Generate slugified author string, using '-etal' if necessary
+            namespecs = paper.authors if paper.authors else paper.get_editors()
+            if not namespecs:
+                bibnames = "nn"
+            elif len(namespecs) > BIBKEY_MAX_NAMES:
+                bibnames = f"{slugify(namespecs[0].last)}-etal"
+            else:
+                bibnames = "-".join(slugify(ns.last) for ns in namespecs)
+
+            # Generate slugified and filtered list of title words
+            title_words = [
+                word
+                for word in slugify(paper.title.as_text()).split("-")
+                if not StopWords.contains(word)
+            ]
+
+            # Regular papers use {authors}-{year}-{first_title_words}
+            bibkey = f"{bibnames}-{paper.year}-{title_words.pop(0)}"
+
+        # Guarantee uniqueness
+        while bibkey in self.data:
+            if title_words:
+                # If we have unused title words, take the next one
+                bibkey = f"{bibkey}-{title_words.pop(0)}"
+            else:
+                # Otherwise, add a number, starting from 2
+                if (m := re.search(r"-([0-9]+)$", bibkey)) is not None:
+                    number = int(m.group(1)) + 1
+                    bibkey = m.re.sub(f"-{number}", bibkey)
+                else:
+                    bibkey = f"{bibkey}-2"
+
+        return bibkey
+
+    def index_paper(self, paper: Paper) -> None:
+        """Add a new paper to the index.
+
+        This function is not used when building the index, but only when adding newly created papers.  If the paper's bibkey is None, this will automatically generate a bibkey for the paper.
+
+        Parameters:
+            paper: The paper to be indexed.
+
+        Raises:
+            ValueError: If the paper's bibkey is not None and is already in the index.
+        """
+        if not self.is_data_loaded:
+            self.load()
+        if paper.bibkey is None:
+            paper.bibkey = self.generate_bibkey(paper)
+        elif paper.bibkey in self.data:
+            raise ValueError(
+                f"Cannot index bibkey '{paper.bibkey}' for paper {paper.full_id}; already assigned to {self.data[paper.bibkey].full_id}"
+            )
+
+        self.data[paper.bibkey] = paper
+
+    def refresh_bibkey(self, paper: Paper) -> None:
+        """Refresh the paper's bibkey and update the index.
+
+        This function can be used to make a paper's bibkey reflect changes in its metadata (such as author list or title), or to update bibkeys after their generation logic has changed.  This will modify both the paper and the index.
+
+        Parameters:
+            paper: The paper whose bibkey should be refreshed.
+
+        Raises:
+            KeyError: If the paper wasn't indexed with its current bibkey.
+        """
+        if not self.is_data_loaded:
+            self.load()
+        if paper.bibkey is None:
+            return self.index_paper(paper)
+        del self.data[paper.bibkey]
+        paper.bibkey = self.generate_bibkey(paper)
+        self.data[paper.bibkey] = paper
+
     def load(self) -> None:
-        """Loads an index of bibkeys."""
+        """Load an index of bibkeys."""
         # This function exists so we can later add the option to read the index
         # from a cache if it doesn't need re-building.
         if self.is_data_loaded:
@@ -49,7 +154,7 @@ class BibkeyIndex(SlottedDict[Paper]):
         self.is_data_loaded = True
 
     def reset(self) -> None:
-        """Resets the index."""
+        """Reset the index."""
         self.data = {}
         self.is_data_loaded = False
 
@@ -73,5 +178,5 @@ class BibkeyIndex(SlottedDict[Paper]):
                     raise ValueError(
                         f"Paper {paper.full_id} has bibkey {paper.bibkey}, which is already assigned to paper {self.data[paper.bibkey].full_id}"
                     )
-                self.data[paper.bibkey] = paper
+                self.data[cast(str, paper.bibkey)] = paper
         self.is_data_loaded = True

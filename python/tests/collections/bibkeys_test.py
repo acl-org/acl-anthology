@@ -13,6 +13,7 @@
 # limitations under the License.
 
 
+import pytest
 from acl_anthology.collections import BibkeyIndex
 
 
@@ -31,3 +32,102 @@ def test_bibkeys_indexing(anthology):
     )
     assert "cl-1989-linguistics-15-number-4" in index
     assert index.get("cl-1989-linguistics-15-number-4").full_id_tuple == ("J89", "4", "0")
+
+
+def test_bibkeys_index_paper(anthology):
+    index = BibkeyIndex(anthology.collections)
+    # We manually set is_data_loaded=True to prevent automatic indexing of bibkeys
+    index.is_data_loaded = True
+
+    paper = anthology.get_paper("2022.acl-long.93")
+    assert paper.bibkey == "kamal-eddine-etal-2022-frugalscore"
+    assert "kamal-eddine-etal-2022-frugalscore" not in index
+
+    # Indexing the paper should add it to the index
+    index.index_paper(paper)
+    assert "kamal-eddine-etal-2022-frugalscore" in index
+    assert index["kamal-eddine-etal-2022-frugalscore"] is paper
+
+    # Indexing the paper again should raise ValueError
+    with pytest.raises(ValueError):
+        index.index_paper(paper)
+
+    # Setting the paper's bibkey to None should index the paper again, auto-generating a new & unique bibkey
+    paper.bibkey = None
+    index.index_paper(paper)
+    assert paper.bibkey == "kamal-eddine-etal-2022-frugalscore-learning"
+    assert "kamal-eddine-etal-2022-frugalscore-learning" in index
+    assert index["kamal-eddine-etal-2022-frugalscore-learning"] is paper
+
+
+def test_bibkeys_generate_bibkey_should_add_title_words(anthology):
+    index = BibkeyIndex(anthology.collections)
+    index.load()
+
+    # Generating a bibkey for an existing paper should result in a bibkey with another title words added
+    paper = anthology.get_paper("2022.acl-long.10")
+    assert paper.bibkey == "feng-etal-2022-dynamic"
+    assert index.generate_bibkey(paper) == "feng-etal-2022-dynamic-schema"
+
+    # Generating a bibkey for an existing paper should result in a bibkey with another title words added
+    paper = anthology.get_paper("J89-2003")
+    assert paper.bibkey == "davis-1989-cross"
+    assert index.generate_bibkey(paper) == "davis-1989-cross-vowel"
+
+
+def test_bibkeys_generate_bibkey_should_increment_counter(anthology):
+    index = BibkeyIndex(anthology.collections)
+    index.load()
+
+    # Generating a bibkey when there are not enough title words should increment the counter
+    paper = anthology.get_paper("J89-4009")
+    assert paper.bibkey == "nn-1989-advertisements-4"
+    assert index.generate_bibkey(paper) == "nn-1989-advertisements-5"
+
+
+def test_bibkeys_generate_bibkey_should_match_existing_bibkeys(anthology):
+    index = BibkeyIndex(anthology.collections)
+    # We manually set is_data_loaded=True to prevent automatic indexing of bibkeys
+    index.is_data_loaded = True
+
+    # Now, we can check if the auto-generated bibkeys match the ones in our XML
+    for paper in anthology.papers("2022.acl"):
+        assert index.generate_bibkey(paper) == paper.bibkey
+        # We need to index the paper so it is taken into account for future clashes
+        index.index_paper(paper)
+
+
+def test_bibkeys_refresh_bibkey_should_update(anthology):
+    index = BibkeyIndex(anthology.collections)
+    index.load()
+
+    # We pick a paper (here, frontmatter) with a bibkey not conforming to what
+    # generate_bibkey() would produce
+    paper = anthology.get_paper("2022.naloma-1.0")
+    assert paper.bibkey == "naloma-2022-natural"
+    assert "naloma-2022-natural" in index
+    assert index["naloma-2022-natural"] is paper
+
+    # Refreshing the bibkey should replace it with the new version
+    index.refresh_bibkey(paper)
+    assert paper.bibkey == "naloma-2022-1"
+    assert "naloma-2022-natural" not in index
+    assert "naloma-2022-1" in index
+    assert index["naloma-2022-1"] is paper
+
+
+def test_bibkeys_refresh_bibkey_should_leave_unchanged(anthology):
+    index = BibkeyIndex(anthology.collections)
+    index.load()
+
+    # We pick a paper with a bibkey that doesn't need changing
+    paper = anthology.get_paper("L06-1060")
+    assert paper.bibkey == "roark-etal-2006-sparseval"
+    assert "roark-etal-2006-sparseval" in index
+    assert index["roark-etal-2006-sparseval"] is paper
+
+    # Refreshing the bibkey should not change it
+    index.refresh_bibkey(paper)
+    assert paper.bibkey == "roark-etal-2006-sparseval"
+    assert "roark-etal-2006-sparseval" in index
+    assert index["roark-etal-2006-sparseval"] is paper

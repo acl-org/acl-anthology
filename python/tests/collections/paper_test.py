@@ -226,7 +226,7 @@ test_cases_paper_to_bibtex = (
     (
         "2022.acl-short.0",
         False,
-        """@proceedings{acl-2022-association-linguistics,
+        """@proceedings{acl-2022-short,
     title = "Proceedings of the 60th Annual Meeting of the Association for Computational Linguistics (Volume 2: Short Papers)",
     editor = "Muresan, Smaranda  and
       Nakov, Preslav  and
