@@ -227,6 +227,17 @@ class Volume(SlottedDict[Paper]):
             raise Exception("Cannot generate BibTeX for volume without frontmatter.")
         return self.frontmatter.to_bibtex()
 
+    def generate_paper_id(self) -> str:
+        """Generate a paper ID that is not yet taken in this volume.
+
+        This will always generate a numeric ID that is one higher than the currently highest numeric ID in this volume.  If the volume is empty, it will return "1".
+
+        Returns:
+            A paper ID not yet taken in this volume.
+        """
+        numeric_keys = sorted(int(n) for n in self.data.keys() if n.isnumeric())
+        return "1" if not numeric_keys else str(numeric_keys[-1] + 1)
+
     def create_paper(
         self,
         title: MarkupText,
@@ -249,17 +260,14 @@ class Volume(SlottedDict[Paper]):
             ValueError: If a paper with the given ID or bibkey already exists.
         """
         if id_ is None:
-            _numeric_keys = sorted(int(n) for n in self.data.keys() if n.isnumeric())
-            if _numeric_keys:
-                id_ = str(_numeric_keys[-1] + 1)  # highest ID plus one
-            else:
-                id_ = "1"  # if no numeric ID exists, start at 1
+            id_ = self.generate_paper_id()
         elif id_ in self.data:
             raise ValueError(f"Paper {id_} already exists in volume {self.full_id}")
 
         kwargs["parent"] = self
         paper = Paper(id=id_, bibkey=bibkey, title=title, **kwargs)
         self.parent.parent.bibkeys.index_paper(paper)
+        self.data[id_] = paper
         # TODO: How to solve registration in different indices? Not all indices might be loaded, nor might it be desirable to load them.
         # - Papers can be linked to the Person objects of its authors/editors
         return paper

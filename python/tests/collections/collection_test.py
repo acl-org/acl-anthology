@@ -101,6 +101,7 @@ def test_collection_create_volume_implicit(collection_index):
         "keynotes",
         title=MarkupText.from_string("Keynotes from ACL 2022"),
     )
+    assert volume.id in collection
     assert volume.year == "2022"
     assert volume.id == "keynotes"
     assert volume.full_id == "2022.acl-keynotes"
@@ -118,6 +119,7 @@ def test_collection_create_volume_explicit(collection_index):
         journal_issue="99",
         venue_ids=["cl"],
     )
+    assert volume.id in collection
     assert volume.year == "1989"
     assert volume.id == "99"
     assert volume.full_id == "1989.cl-99"

@@ -183,6 +183,7 @@ class Collection(SlottedDict[Volume]):
             **kwargs,
         )
         volume.is_data_loaded = True
+        self.data[id_] = volume
         # TODO: How to solve registration in different indices? Not all indices might be loaded, nor might it be desirable to load them.
         # - Volumes can be linked from EventIndex, VenueIndex, SIGIndex
         # - Volumes can be linked to the Person objects of its editors

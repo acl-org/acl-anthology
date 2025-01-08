@@ -30,6 +30,7 @@ def test_create_collection(anthology_stub):
     collection = index.create("2099.acl")
     assert collection.id == "2099.acl"
     assert collection.parent is index
+    assert collection.id in index
 
 
 def test_create_collection_should_raise(anthology_stub):

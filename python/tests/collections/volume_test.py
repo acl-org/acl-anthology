@@ -297,6 +297,21 @@ def test_volume_roundtrip_xml(xml):
     assert etree.tostring(out, encoding="unicode") == xml
 
 
+def test_volume_generate_paper_id(anthology):
+    volume = anthology.get_volume("2022.acl-long")
+    # Highest paper ID in 2022.acl-long is 603
+    assert volume.generate_paper_id() == "604"
+    # Calling this repeatedly will generate the same ID
+    assert volume.generate_paper_id() == "604"
+    # Adding a Paper with this ID should then generate the next-higher one
+    volume.create_paper(
+        id_="604",
+        bibkey="my-awesome-paper",
+        title=MarkupText.from_string("The awesome paper I have never written"),
+    )
+    assert volume.generate_paper_id() == "605"
+
+
 def test_volume_create_paper_implicit(anthology):
     volume = anthology.get_volume("2022.acl-long")
     authors = [NameSpec("Bollmann, Marcel")]
@@ -309,6 +324,7 @@ def test_volume_create_paper_implicit(anthology):
     assert paper.title.as_text() == "The awesome paper I have never written"
     assert paper.ingest_date == "2025-01-07"
     assert paper.parent is volume
+    assert paper.id in volume
     # Highest paper ID in 2022.acl-long is 603, so this one should automatically get 604
     assert paper.id == "604"
     assert paper.full_id == "2022.acl-long.604"
@@ -330,6 +346,7 @@ def test_volume_create_paper_explicit(anthology):
     assert paper.title.as_text() == "The awesome paper I have never written"
     assert paper.ingest_date == "2025-01-07"
     assert paper.parent is volume
+    assert paper.id in volume
     assert paper.id == "701"
     assert paper.full_id == "2022.acl-long.701"
     assert paper.bibkey == "bollmann-2022-the-awesome"
