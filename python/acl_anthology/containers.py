@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+"""Provides the base class for all dictionary-like containers."""
+
 import sys
 from attrs import define, field
 from collections.abc import ItemsView, KeysView, ValuesView

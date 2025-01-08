@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+"""Functions for XML serialization."""
+
 import itertools as it
 from lxml import etree
 from typing import Callable, Optional

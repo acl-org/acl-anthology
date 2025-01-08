@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+"""Functions providing converters and validators for [attrs](https://www.attrs.org/) classes."""
+
 from __future__ import annotations
 
 import attrs
@@ -49,7 +51,7 @@ def auto_validate_types(
 ) -> list[attrs.Attribute[Any]]:
     """Adds validators to attrs classes based on their type annotations.
 
-    Supported type annotations are:
+    Supported type annotations:
       - str, int
       - `FileReference` and derived classes
       - `Name`, `NameSpecification`
@@ -58,9 +60,9 @@ def auto_validate_types(
       - `list[<type>]`
       - `tuple[<type>, ...]`
 
-    The purpose of this function is to reduce the need for explicitly adding validators to the classes in [acl_anthology.collections][] and [acl_anthology.people.person][].
+    The purpose of this function is to reduce the need for explicitly adding validators to the classes in `acl_anthology.collections` and `acl_anthology.people.person`.
 
-    It does _not_ automatically validate classes _defined_ in [acl_anthology.collections][], as that would lead to circular imports.
+    It does _not_ automatically validate classes _defined_ in `acl_anthology.collections`, as that would lead to circular imports.
 
     See also: <https://www.attrs.org/en/stable/extending.html#transform-fields>
     """
