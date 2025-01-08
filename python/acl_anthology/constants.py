@@ -15,6 +15,10 @@
 """Constants used within the library."""
 
 from datetime import date
+from typing import Final
+
+FRONTMATTER_ID: Final = "0"
+"""Paper ID that signals that a paper is frontmatter."""
 
 UNKNOWN_INGEST_DATE = date(1900, 1, 1)
 """Default ingestion date."""

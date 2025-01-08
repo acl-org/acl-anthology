@@ -109,7 +109,7 @@ class Volume(SlottedDict[Paper]):
     @property
     def frontmatter(self) -> Paper | None:
         """Returns the volume's frontmatter, if any."""
-        return self.data.get("0")
+        return self.data.get(constants.FRONTMATTER_ID)
 
     @property
     def collection_id(self) -> str:
@@ -134,7 +134,7 @@ class Volume(SlottedDict[Paper]):
     @property
     def has_frontmatter(self) -> bool:
         """True if this volume has frontmatter."""
-        return "0" in self.data
+        return constants.FRONTMATTER_ID in self.data
 
     @property
     def is_workshop(self) -> bool:

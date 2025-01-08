@@ -24,6 +24,7 @@ from lxml import etree
 from lxml.builder import E
 from typing import cast, Any, Optional, TYPE_CHECKING
 
+from .. import constants
 from ..config import config
 from ..files import (
     AttachmentReference,
@@ -372,7 +373,7 @@ class Paper:
     @property
     def is_frontmatter(self) -> bool:
         """Returns True if this paper represents a volume's frontmatter."""
-        return self.id == "0"
+        return self.id == constants.FRONTMATTER_ID
 
     @property
     def root(self) -> Anthology:
@@ -614,7 +615,7 @@ class Paper:
     def from_frontmatter_xml(cls, parent: Volume, paper: etree._Element) -> Paper:
         """Instantiates a new paper from a `<frontmatter>` block in the XML."""
         kwargs: dict[str, Any] = {
-            "id": "0",
+            "id": constants.FRONTMATTER_ID,
             "parent": parent,
             # A frontmatter's title is the parent volume's title
             "title": parent.title,
