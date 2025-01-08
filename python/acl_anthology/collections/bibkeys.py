@@ -103,46 +103,22 @@ class BibkeyIndex(SlottedDict[Paper]):
 
         return bibkey
 
-    def index_paper(self, paper: Paper) -> None:
-        """Add a new paper to the index.
+    def _index_paper(self, bibkey: str, paper: Paper) -> None:
+        """Add a paper to the index.
 
-        This function is not used when building the index, but only when adding newly created papers.  If the paper's bibkey is None, this will automatically generate a bibkey for the paper.
-
-        Parameters:
-            paper: The paper to be indexed.
+        Warning:
+            This function should not be called manually. It is invoked automatically when a paper's bibkey is changed.
 
         Raises:
             ValueError: If the paper's bibkey is not None and is already in the index.
         """
         if not self.is_data_loaded:
             self.load()
-        if paper.bibkey is None:
-            paper.bibkey = self.generate_bibkey(paper)
-        elif paper.bibkey in self.data:
+        if bibkey in self.data:
             raise ValueError(
-                f"Cannot index bibkey '{paper.bibkey}' for paper {paper.full_id}; already assigned to {self.data[paper.bibkey].full_id}"
+                f"Cannot index bibkey '{bibkey}' for paper {paper.full_id}; already assigned to {self.data[bibkey].full_id}"
             )
-
-        self.data[paper.bibkey] = paper
-
-    def refresh_bibkey(self, paper: Paper) -> None:
-        """Refresh the paper's bibkey and update the index.
-
-        This function can be used to make a paper's bibkey reflect changes in its metadata (such as author list or title), or to update bibkeys after their generation logic has changed.  This will modify both the paper and the index.
-
-        Parameters:
-            paper: The paper whose bibkey should be refreshed.
-
-        Raises:
-            KeyError: If the paper wasn't indexed with its current bibkey.
-        """
-        if not self.is_data_loaded:
-            self.load()
-        if paper.bibkey is None:
-            return self.index_paper(paper)
-        del self.data[paper.bibkey]
-        paper.bibkey = self.generate_bibkey(paper)
-        self.data[paper.bibkey] = paper
+        self.data[bibkey] = paper
 
     def load(self) -> None:
         """Load an index of bibkeys."""

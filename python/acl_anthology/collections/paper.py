@@ -15,8 +15,8 @@
 from __future__ import annotations
 
 import attrs
-import datetime
 from attrs import define, field, validators as v
+import datetime
 from functools import cached_property
 import langcodes
 from lxml import etree
@@ -203,6 +203,28 @@ def _attachment_validator(instance: Paper, _: Any, value: Any) -> None:
         )
 
 
+def _update_bibkey_index(
+    paper: Paper, attr: attrs.Attribute[Any], value: Optional[str]
+) -> str:
+    # Should run on __setattr__ of Paper.bibkey
+    bibkeyindex = paper.parent.parent.parent.bibkeys
+    if not bibkeyindex.is_data_loaded:
+        if value is None:
+            # Need to load the index to generate new bibkeys
+            bibkeyindex.load()
+        else:
+            return value
+
+    old_bibkey = cast(str, paper.bibkey)
+    if old_bibkey in bibkeyindex:
+        del bibkeyindex[old_bibkey]
+    if value is None:
+        value = bibkeyindex.generate_bibkey(paper)
+
+    bibkeyindex._index_paper(value, paper)
+    return value
+
+
 @define(field_transformer=auto_validate_types)
 class Paper:
     """A paper entry.
@@ -238,7 +260,9 @@ class Paper:
 
     id: str = field(converter=int_to_str)
     parent: Volume = field(repr=False, eq=False)
-    bibkey: Optional[str] = field()
+    bibkey: Optional[str] = field(
+        on_setattr=attrs.setters.pipe(attrs.setters.validate, _update_bibkey_index),
+    )
     title: MarkupText = field()
 
     attachments: list[tuple[str, AttachmentReference]] = field(
