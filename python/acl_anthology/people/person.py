@@ -14,8 +14,9 @@
 
 from __future__ import annotations
 
-from attrs import define, field, validators as v
+from attrs import define, field
 from typing import Iterator, Optional, TYPE_CHECKING
+from ..utils.attrs import auto_validate_types
 from ..utils.ids import AnthologyIDTuple, build_id_from_tuple
 from . import Name
 
@@ -24,7 +25,7 @@ if TYPE_CHECKING:
     from ..collections import Paper, Volume
 
 
-@define
+@define(field_transformer=auto_validate_types)
 class Person:
     """A natural person.
 
@@ -37,20 +38,14 @@ class Person:
         is_explicit: True if this person has names explicitly defined in `name_variants.yaml`.  Note this does _not_ necessarily mean an explicit ID was defined for the person there.
     """
 
-    id: str = field(converter=str)
+    id: str = field()
     parent: Anthology = field(repr=False, eq=False)
-    names: list[Name] = field(
-        factory=list,
-        validator=v.deep_iterable(
-            member_validator=v.instance_of(Name),
-            iterable_validator=v.instance_of(list),
-        ),
-    )
+    names: list[Name] = field(factory=list)
     item_ids: list[AnthologyIDTuple] = field(
         factory=list, repr=lambda x: f"<list of {len(x)} AnthologyIDTuple objects>"
     )
-    comment: Optional[str] = field(default=None, validator=v.optional(v.instance_of(str)))
-    is_explicit: Optional[bool] = field(default=False, converter=bool)
+    comment: Optional[str] = field(default=None)
+    is_explicit: Optional[bool] = field(default=False)  # TODO: why can this be None?
 
     def __eq__(self, other: object) -> bool:
         if not isinstance(other, Person):

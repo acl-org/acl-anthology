@@ -20,8 +20,28 @@ import datetime
 from typing import Any, Callable, Optional
 import re
 
+from .ids import AnthologyIDTuple
+
 
 RE_WRAPPED_TYPE = re.compile(r"^([^\[]*)\[(.*)\]$")
+
+
+def validate_anthology_id_tuple(cls: Any, attr: attrs.Attribute[Any], value: Any) -> None:
+    if (
+        isinstance(value, tuple)
+        and len(value) == 3
+        and isinstance(value[0], str)
+        and isinstance(value[1], (type(None), str))
+        and isinstance(value[2], (type(None), str))
+    ):
+        return
+
+    raise TypeError(
+        f"'{attr.name}' must be AnthologyIDTuple (got {value!r})",
+        attr,
+        AnthologyIDTuple,
+        value,
+    )
 
 
 def auto_validate_types(
@@ -38,9 +58,9 @@ def auto_validate_types(
       - `list[<type>]`
       - `tuple[<type>, ...]`
 
-    The purpose of this function is to reduce the need for explicitly adding validators to the classes in [acl_anthology.collections][].
+    The purpose of this function is to reduce the need for explicitly adding validators to the classes in [acl_anthology.collections][] and [acl_anthology.people.person][].
 
-    It does _not_ automatically validate classes defined _in_ [acl_anthology.collections][], as that would lead to circular imports.
+    It does _not_ automatically validate classes _defined_ in [acl_anthology.collections][], as that would lead to circular imports.
 
     See also: <https://www.attrs.org/en/stable/extending.html#transform-fields>
     """
@@ -118,6 +138,8 @@ def auto_validate_types(
         # Handle known types
         if (type_ := known_types.get(field_type)) is not None:
             return validators.instance_of(type_)
+        elif field_type == "AnthologyIDTuple":
+            return validate_anthology_id_tuple
 
         # unsupported
         return None
