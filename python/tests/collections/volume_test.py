@@ -333,3 +333,37 @@ def test_volume_create_paper_explicit(anthology):
     assert paper.id == "701"
     assert paper.full_id == "2022.acl-long.701"
     assert paper.bibkey == "bollmann-2022-the-awesome"
+
+
+def test_volume_type_conversion():
+    parent = Collection("L05", None, Path("."))
+    volume = Volume(
+        6,
+        parent,
+        type="journal",
+        booktitle=MarkupText.from_string("Lorem ipsum"),  # "Lorem ipsum",
+        year=2005,
+    )
+    assert volume.id == "6"  # str
+    assert volume.full_id == "L05-6"
+    assert isinstance(volume.title, MarkupText)
+    assert volume.year == "2005"
+    assert volume.type == VolumeType.JOURNAL
+
+
+def test_volume_type_validation():
+    volume_title = MarkupText.from_string("Lorem ipsum")
+    parent = Collection("L05", None, Path("."))
+    volume = Volume(
+        "6",
+        parent,
+        type=VolumeType.JOURNAL,
+        booktitle=volume_title,
+        year="2005",
+    )
+    with pytest.raises(TypeError):
+        volume.doi = 42
+    with pytest.raises(TypeError):
+        volume.venue_ids = "lrec"
+    with pytest.raises(TypeError):
+        volume.pdf = "L05-6000.pdf"

@@ -1,4 +1,4 @@
-# Copyright 2023-2024 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2025 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
 from __future__ import annotations
 
 import datetime
-from attrs import define, field, validators as v
+from attrs import define, field, validators
 from lxml import etree
 from lxml.builder import E
 from typing import Any, Iterator, Optional, cast, TYPE_CHECKING
@@ -28,6 +28,7 @@ from ..files import PDFReference
 from ..people import NameSpecification
 from ..text import MarkupText
 from ..venues import Venue
+from ..utils.attrs import auto_validate_types, maybe_int_to_str
 from ..utils.ids import build_id, is_valid_item_id, AnthologyIDTuple
 from .paper import Paper
 from .types import VolumeType
@@ -38,7 +39,7 @@ if TYPE_CHECKING:
     from . import Collection, Event
 
 
-@define
+@define(field_transformer=auto_validate_types)
 class Volume(SlottedDict[Paper]):
     """A publication volume.
 
@@ -69,64 +70,35 @@ class Volume(SlottedDict[Paper]):
         shorttitle: A shortened form of the title. (Aliased to `shortbooktitle` for initialization.)
     """
 
-    id: str = field(converter=str)
+    id: str = field(converter=maybe_int_to_str)
     parent: Collection = field(repr=False, eq=False)
     type: VolumeType = field(repr=False, converter=VolumeType)
-    title: MarkupText = field(alias="booktitle", validator=v.instance_of(MarkupText))
-    year: str = field(converter=str, validator=v.matches_re(r"^[0-9]{4}$"))
-
-    editors: list[NameSpecification] = field(
-        factory=list,
-        validator=v.deep_iterable(
-            member_validator=v.instance_of(NameSpecification),
-            iterable_validator=v.instance_of(list),
-        ),
-    )
-    venue_ids: list[str] = field(
-        factory=list,
-        validator=v.deep_iterable(
-            member_validator=v.instance_of(str),
-            iterable_validator=v.instance_of(list),
-        ),
+    title: MarkupText = field(alias="booktitle")
+    year: str = field(
+        converter=maybe_int_to_str, validator=validators.matches_re(r"^[0-9]{4}$")
     )
 
-    address: Optional[str] = field(
-        default=None, repr=False, validator=v.optional(v.instance_of(str))
-    )
-    doi: Optional[str] = field(
-        default=None, repr=False, validator=v.optional(v.instance_of(str))
-    )
+    editors: list[NameSpecification] = field(factory=list)
+    venue_ids: list[str] = field(factory=list)
+
+    address: Optional[str] = field(default=None, repr=False)
+    doi: Optional[str] = field(default=None, repr=False)
     ingest_date: Optional[str] = field(
-        default=None, repr=False, validator=v.optional(v.instance_of(str))
-    )
-    isbn: Optional[str] = field(
-        default=None, repr=False, validator=v.optional(v.instance_of(str))
-    )
+        default=None, repr=False
+    )  # TODO: convert from datetime.date?
+    isbn: Optional[str] = field(default=None, repr=False)
     journal_issue: Optional[str] = field(
-        default=None, repr=False, validator=v.optional(v.instance_of(str))
+        default=None, repr=False, converter=maybe_int_to_str
     )
     journal_volume: Optional[str] = field(
-        default=None, repr=False, validator=v.optional(v.instance_of(str))
+        default=None, repr=False, converter=maybe_int_to_str
     )
-    journal_title: Optional[str] = field(
-        default=None, repr=False, validator=v.optional(v.instance_of(str))
-    )
-    month: Optional[str] = field(
-        default=None, repr=False, validator=v.optional(v.instance_of(str))
-    )
-    pdf: Optional[PDFReference] = field(
-        default=None,
-        repr=False,
-        validator=v.optional(v.instance_of(PDFReference)),
-    )
-    publisher: Optional[str] = field(
-        default=None, repr=False, validator=v.optional(v.instance_of(str))
-    )
+    journal_title: Optional[str] = field(default=None, repr=False)
+    month: Optional[str] = field(default=None, repr=False)  # TODO: validate/convert?
+    pdf: Optional[PDFReference] = field(default=None, repr=False)
+    publisher: Optional[str] = field(default=None, repr=False)
     shorttitle: Optional[MarkupText] = field(
-        default=None,
-        alias="shortbooktitle",
-        repr=False,
-        validator=v.optional(v.instance_of(MarkupText)),
+        default=None, alias="shortbooktitle", repr=False
     )
 
     @id.validator
