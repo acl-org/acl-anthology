@@ -206,8 +206,11 @@ def _attachment_validator(instance: Paper, _: Any, value: Any) -> None:
 def _update_bibkey_index(
     paper: Paper, attr: attrs.Attribute[Any], value: Optional[str]
 ) -> str:
-    # Should run on __setattr__ of Paper.bibkey
-    bibkeyindex = paper.parent.parent.parent.bibkeys
+    """Update the bibkey in [BibkeyIndex][acl_anthology.collections.bibkeys.BibkeyIndex].
+
+    Intended to be called from `on_setattr` of an [attrs.field][].
+    """
+    bibkeyindex = paper.root.collections.bibkeys
     if not bibkeyindex.is_data_loaded:
         if value is None:
             # Need to load the index to generate new bibkeys

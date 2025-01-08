@@ -49,7 +49,9 @@ def validate_anthology_id_tuple(cls: Any, attr: attrs.Attribute[Any], value: Any
 def auto_validate_types(
     cls: type, fields: list[attrs.Attribute[Any]]
 ) -> list[attrs.Attribute[Any]]:
-    """Adds validators to attrs classes based on their type annotations.
+    """Add validators to attrs classes based on their type annotations.
+
+    Intended to be used with the `field_transformer` parameter of [`@attrs.define`][attrs.define].
 
     Supported type annotations:
       - str, int
@@ -60,9 +62,7 @@ def auto_validate_types(
       - `list[<type>]`
       - `tuple[<type>, ...]`
 
-    The purpose of this function is to reduce the need for explicitly adding validators to the classes in `acl_anthology.collections` and `acl_anthology.people.person`.
-
-    It does _not_ automatically validate classes _defined_ in `acl_anthology.collections`, as that would lead to circular imports.
+    The purpose of this function is to reduce the need for explicitly adding validators to the classes in `acl_anthology.collections` and `acl_anthology.people.person`.  It does _not_ automatically validate classes _defined_ in `acl_anthology.collections`, as that would lead to circular imports.
 
     See also: <https://www.attrs.org/en/stable/extending.html#transform-fields>
     """
@@ -162,14 +162,20 @@ def auto_validate_types(
 
 
 def int_to_str(value: Any) -> Any:
-    """Convert an int to str, and leave unchanged otherwise."""
+    """Convert an int to str, and leave unchanged otherwise.
+
+    Intended to be used as a converter for [attrs.field][].
+    """
     if isinstance(value, int):
         return str(value)
     return value
 
 
 def date_to_str(value: Any) -> Any:
-    """Convert a date or datetime object to str (in ISO format), and leave unchanged otherwise."""
+    """Convert a [date][datetime.date] or [datetime][datetime.datetime] object to str (in ISO format), and leave unchanged otherwise.
+
+    Intended to be used as a converter for [attrs.field][].
+    """
     if isinstance(value, datetime.date):
         return value.isoformat()
     elif isinstance(value, datetime.datetime):

@@ -56,7 +56,7 @@ class BibkeyIndex(SlottedDict[Paper]):
             The generated bibkey.
 
         Note:
-            Calling this function will _not change_ the paper's bibkey nor add the bibkey to the index; this needs to be done separately.  To generate a bibkey for a newly created paper and add it to the index, use [index_paper()][acl_anthology.collections.bibkeys.BibkeyIndex.index_paper] instead.
+            Calling this function will _not change_ the paper's bibkey nor add the bibkey to the index.
         """
         if not self.is_data_loaded:
             self.load()

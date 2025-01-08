@@ -68,6 +68,7 @@ class SchemaMismatchWarning(UserWarning):
     """Raised when the data directory contains a different XML schema as this library.
 
     This typically means that either:
+
     - The data directory is outdated, and needs to be synced with the official Anthology data.
     - This library needs to be updated.
     """
