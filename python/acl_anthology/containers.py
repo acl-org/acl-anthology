@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+"""Provides the base class for all dictionary-like containers."""
+
 import sys
 from attrs import define, field
 from collections.abc import ItemsView, KeysView, ValuesView
@@ -54,7 +56,7 @@ class SlottedDict(Generic[T]):
         repr=lambda x: f"<dict of {len(x)} {dict_type(x)}item{'' if len(x) == 1 else 's'}>",
         factory=dict,
     )
-    is_data_loaded: bool = field(init=False, repr=False, default=True)
+    is_data_loaded: bool = field(init=False, repr=True, default=True)
 
     def __contains__(self, key: str) -> bool:
         if not self.is_data_loaded:

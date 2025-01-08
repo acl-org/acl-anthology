@@ -1,4 +1,4 @@
-# Copyright 2023-2024 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2025 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -33,6 +33,16 @@ def test_relaxng(anthology):
     assert isinstance(relaxng, RelaxNG)
 
 
+def test_get_collection(anthology):
+    # Fetch 2022.acl
+    collection = anthology.get_collection("2022.acl-long.1")
+    assert collection is not None
+    assert collection.id == "2022.acl"
+    assert collection is anthology.collections.get("2022.acl")
+    assert collection is anthology.get_collection("2022.acl")
+    assert collection is anthology.get_collection("2022.acl-long")
+
+
 def test_get_volume(anthology):
     # Fetch 2022.acl-long -- these should all be identical
     volume = anthology.get_volume("2022.acl-long")
@@ -50,6 +60,20 @@ def test_get_paper(anthology):
     assert paper is not None
     assert paper.id == "1"
     assert paper.full_id == "2022.acl-long.1"
+
+
+@pytest.mark.parametrize(
+    "bibkey, full_id",
+    (
+        ("feng-etal-2022-dynamic", "2022.acl-long.10"),
+        ("gubelmann-etal-2022-philosophically", "2022.naloma-1.5"),
+        ("cl-1989-linguistics-15-number-4", "J89-4000"),
+    ),
+)
+def test_get_paper_by_bibkey(anthology, bibkey, full_id):
+    paper = anthology.get_paper_by_bibkey(bibkey)
+    assert paper is not None
+    assert paper.full_id == full_id
 
 
 @pytest.mark.parametrize(

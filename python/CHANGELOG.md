@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+### Added
+
+- Papers are now indexed by their bibkeys and can be retrieved via `Anthology.get_paper_by_bibkey()`.
+- Bibkeys can now be generated and updated, guaranteeing uniqueness.
+
 ## [0.5.1] — 2025-01-02
 
 This release changes the PyPI package name from acl-anthology-py to acl-anthology.

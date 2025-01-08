@@ -15,10 +15,10 @@
 """Classes for representing and resolving file references."""
 
 import sys
-from attrs import define, field, Factory
+from attrs import define, field, validators as v, Factory
 from lxml import etree
 from lxml.builder import E
-from typing import cast, Optional
+from typing import cast, ClassVar, Optional
 
 if sys.version_info >= (3, 11):
     from typing import Self
@@ -41,9 +41,11 @@ class FileReference:
         checksum (Optional[str]): The CRC32 checksum for the file.  Only specified for internal filenames.
     """
 
-    name: str = field()
-    checksum: Optional[str] = field(default=None)
-    template_field: str = field(repr=False, default="")
+    name: str = field(converter=str)
+    checksum: Optional[str] = field(
+        default=None, validator=v.optional(v.instance_of(str))
+    )
+    template_field: ClassVar[str] = ""
 
     @property
     def is_local(self) -> bool:
@@ -82,14 +84,14 @@ class FileReference:
 class PDFReference(FileReference):
     """Reference to a PDF file."""
 
-    template_field: str = field(repr=False, default="pdf_location_template")
+    template_field: ClassVar[str] = "pdf_location_template"
 
 
 @define
 class PDFThumbnailReference(FileReference):
     """Reference to a PDF thumbnail image."""
 
-    template_field: str = field(repr=False, default="pdf_thumbnail_location_template")
+    template_field: ClassVar[str] = "pdf_thumbnail_location_template"
 
 
 @define
@@ -98,22 +100,22 @@ class AttachmentReference(FileReference):
 
     # TODO: attachments must be local files according to the schema
 
-    template_field: str = field(repr=False, default="attachment_location_template")
+    template_field: ClassVar[str] = "attachment_location_template"
 
 
 @define
 class EventFileReference(FileReference):
     """Reference to an event-related file."""
 
-    template_field: str = field(repr=False, default="event_location_template")
+    template_field: ClassVar[str] = "event_location_template"
 
 
 @define
 class VideoReference(FileReference):
     """Reference to a video."""
 
-    template_field: str = field(repr=False, default="video_location_template")
-    permission: bool = field(default=True)
+    template_field: ClassVar[str] = "video_location_template"
+    permission: bool = field(default=True, converter=bool)
 
     @classmethod
     def from_xml(cls, elem: etree._Element) -> Self:

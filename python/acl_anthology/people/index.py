@@ -63,7 +63,7 @@ class PersonIndex(SlottedDict[Person]):
         init=False, repr=False, factory=lambda: defaultdict(list)
     )
     similar: DisjointSet = field(init=False, repr=False, factory=DisjointSet)
-    is_data_loaded: bool = field(init=False, repr=False, default=False)
+    is_data_loaded: bool = field(init=False, repr=True, default=False)
 
     def get_by_name(self, name: Name) -> list[Person]:
         """Access persons by their name.

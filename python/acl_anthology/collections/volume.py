@@ -1,4 +1,4 @@
-# Copyright 2023-2024 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2025 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
 from __future__ import annotations
 
 import datetime
-from attrs import define, field, Factory
+from attrs import define, field, validators
 from lxml import etree
 from lxml.builder import E
 from typing import Any, Iterator, Optional, cast, TYPE_CHECKING
@@ -28,7 +28,8 @@ from ..files import PDFReference
 from ..people import NameSpecification
 from ..text import MarkupText
 from ..venues import Venue
-from ..utils.ids import build_id, AnthologyIDTuple
+from ..utils.attrs import auto_validate_types, date_to_str, int_to_str
+from ..utils.ids import build_id, is_valid_item_id, AnthologyIDTuple
 from .paper import Paper
 from .types import VolumeType
 
@@ -38,7 +39,7 @@ if TYPE_CHECKING:
     from . import Collection, Event
 
 
-@define
+@define(field_transformer=auto_validate_types)
 class Volume(SlottedDict[Paper]):
     """A publication volume.
 
@@ -69,33 +70,45 @@ class Volume(SlottedDict[Paper]):
         shorttitle: A shortened form of the title. (Aliased to `shortbooktitle` for initialization.)
     """
 
-    id: str
+    id: str = field(converter=int_to_str)
     parent: Collection = field(repr=False, eq=False)
-    type: VolumeType = field(repr=False)
+    type: VolumeType = field(repr=False, converter=VolumeType)
     title: MarkupText = field(alias="booktitle")
-    year: str = field()
+    year: str = field(
+        converter=int_to_str, validator=validators.matches_re(r"^[0-9]{4}$")
+    )
 
-    editors: list[NameSpecification] = Factory(list)
+    editors: list[NameSpecification] = field(factory=list)
     venue_ids: list[str] = field(factory=list)
 
     address: Optional[str] = field(default=None, repr=False)
     doi: Optional[str] = field(default=None, repr=False)
-    ingest_date: Optional[str] = field(default=None, repr=False)
+    ingest_date: Optional[str] = field(
+        default=None,
+        repr=False,
+        converter=date_to_str,
+        validator=validators.optional(validators.matches_re(constants.RE_ISO_DATE)),
+    )
     isbn: Optional[str] = field(default=None, repr=False)
-    journal_issue: Optional[str] = field(default=None, repr=False)
-    journal_volume: Optional[str] = field(default=None, repr=False)
+    journal_issue: Optional[str] = field(default=None, repr=False, converter=int_to_str)
+    journal_volume: Optional[str] = field(default=None, repr=False, converter=int_to_str)
     journal_title: Optional[str] = field(default=None, repr=False)
-    month: Optional[str] = field(default=None, repr=False)
+    month: Optional[str] = field(default=None, repr=False)  # TODO: validate/convert?
     pdf: Optional[PDFReference] = field(default=None, repr=False)
     publisher: Optional[str] = field(default=None, repr=False)
     shorttitle: Optional[MarkupText] = field(
         default=None, alias="shortbooktitle", repr=False
     )
 
+    @id.validator
+    def _check_id(self, _: Any, value: str) -> None:
+        if not is_valid_item_id(value):
+            raise ValueError(f"Not a valid Volume ID: {value}")
+
     @property
     def frontmatter(self) -> Paper | None:
         """Returns the volume's frontmatter, if any."""
-        return self.data.get("0")
+        return self.data.get(constants.FRONTMATTER_ID)
 
     @property
     def collection_id(self) -> str:
@@ -120,7 +133,7 @@ class Volume(SlottedDict[Paper]):
     @property
     def has_frontmatter(self) -> bool:
         """True if this volume has frontmatter."""
-        return "0" in self.data
+        return constants.FRONTMATTER_ID in self.data
 
     @property
     def is_workshop(self) -> bool:
@@ -201,15 +214,6 @@ class Volume(SlottedDict[Paper]):
                 )
             raise exc
 
-    def _add_paper_from_xml(self, element: etree._Element) -> None:
-        """Creates a new paper belonging to this volume.
-
-        Parameters:
-            element: The `<paper>` element.
-        """
-        paper = Paper.from_xml(self, element)
-        self.data[paper.id] = paper
-
     def to_bibtex(self) -> str:
         """Generate a BibTeX entry for this volume.
 
@@ -222,6 +226,61 @@ class Volume(SlottedDict[Paper]):
         if self.frontmatter is None:
             raise Exception("Cannot generate BibTeX for volume without frontmatter.")
         return self.frontmatter.to_bibtex()
+
+    def generate_paper_id(self) -> str:
+        """Generate a paper ID that is not yet taken in this volume.
+
+        This will always generate a numeric ID that is one higher than the currently highest numeric ID in this volume.  If the volume is empty, it will return "1".
+
+        Returns:
+            A paper ID not yet taken in this volume.
+        """
+        numeric_keys = sorted(int(n) for n in self.data.keys() if n.isnumeric())
+        return "1" if not numeric_keys else str(numeric_keys[-1] + 1)
+
+    def create_paper(
+        self,
+        title: MarkupText,
+        id: Optional[str] = None,
+        bibkey: Optional[str] = None,
+        **kwargs: Any,
+    ) -> Paper:
+        """Create a new [Paper][acl_anthology.collections.paper.Paper] object in this volume.
+
+        Parameters:
+            title: The title of the new paper.
+            id: The ID of the new paper (optional); if None, will generate the next-highest numeric ID that doesn't already exist in this volume.
+            bibkey: The citation key of the new paper (optional); if None, will automatically generate a non-clashing citation key (recommended!).
+            **kwargs: Any valid list or optional attribute of [Paper][acl_anthology.collections.paper.Paper].
+
+        Returns:
+            The created [Paper][acl_anthology.collections.paper.Paper] object.
+
+        Raises:
+            ValueError: If a paper with the given ID or bibkey already exists.
+        """
+        if id is None:
+            id = self.generate_paper_id()
+        elif id in self.data:
+            raise ValueError(f"Paper {id} already exists in volume {self.full_id}")
+
+        kwargs["parent"] = self
+        paper = Paper(id=id, bibkey=bibkey, title=title, **kwargs)
+        paper.bibkey = bibkey  # triggers indexing --- this is a bit obscure?
+        # self.parent.parent.bibkeys._index_paper(bibkey, paper)
+        self.data[id] = paper
+        # TODO: How to solve registration in different indices? Not all indices might be loaded, nor might it be desirable to load them.
+        # - Papers can be linked to the Person objects of its authors/editors
+        return paper
+
+    def _add_paper_from_xml(self, element: etree._Element) -> None:
+        """Creates a new paper belonging to this volume.
+
+        Parameters:
+            element: The `<paper>` element.
+        """
+        paper = Paper.from_xml(self, element)
+        self.data[paper.id] = paper
 
     @classmethod
     def from_xml(cls, parent: Collection, meta: etree._Element) -> Volume:

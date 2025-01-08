@@ -14,13 +14,13 @@
 
 from __future__ import annotations
 
-from attrs import define, field, Factory
+from attrs import define, field, validators as v
 from functools import cache, cached_property
 from lxml import etree
 from lxml.builder import E
 import re
 from slugify import slugify
-from typing import Optional, cast, TypeAlias
+from typing import Any, Optional, cast, TypeAlias
 
 from ..utils.latex import latex_encode
 
@@ -41,9 +41,13 @@ class Name:
         >>> Name(None, "Mausam")
     """
 
-    first: Optional[str] = field(eq=lambda x: x if x else None)
-    last: str
-    script: Optional[str] = field(default=None, repr=False, eq=False)
+    first: Optional[str] = field(
+        eq=lambda x: x if x else None, validator=v.optional(v.instance_of(str))
+    )
+    last: str = field(validator=v.instance_of(str))
+    script: Optional[str] = field(
+        default=None, repr=False, eq=False, validator=v.optional(v.instance_of(str))
+    )
 
     def as_first_last(self) -> str:
         """
@@ -233,6 +237,10 @@ ConvertableIntoName: TypeAlias = Name | str | tuple[Optional[str], str] | dict[s
 """A type that can be converted into a Name instance."""
 
 
+def _Name_from(value: Any) -> Name:
+    return Name.from_(value)
+
+
 @define
 class NameSpecification:
     """A name specification on a paper etc., containing additional data fields for information or disambiguation besides just the name.
@@ -250,10 +258,18 @@ class NameSpecification:
         (for this functionality, see [Person][acl_anthology.people.person.Person]).
     """
 
-    name: Name
-    id: Optional[str] = field(default=None)
-    affiliation: Optional[str] = field(default=None)
-    variants: list[Name] = Factory(list)
+    name: Name = field(converter=_Name_from)
+    id: Optional[str] = field(default=None, validator=v.optional(v.instance_of(str)))
+    affiliation: Optional[str] = field(
+        default=None, validator=v.optional(v.instance_of(str))
+    )
+    variants: list[Name] = field(
+        factory=list,
+        validator=v.deep_iterable(
+            member_validator=v.instance_of(Name),
+            iterable_validator=v.instance_of(list),
+        ),
+    )
 
     def __hash__(self) -> int:
         return hash((self.name, self.id, self.affiliation, tuple(self.variants)))

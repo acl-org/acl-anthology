@@ -1,4 +1,4 @@
-# Copyright 2023-2024 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2025 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,11 +15,11 @@
 from __future__ import annotations
 
 import sys
-from attrs import define, field
+from attrs import define, field, validators as v
 from lxml import etree
 from os import PathLike
 from pathlib import Path
-from typing import Iterator, Optional, cast, TYPE_CHECKING
+from typing import Any, Iterator, Optional, cast, TYPE_CHECKING
 
 if sys.version_info >= (3, 11):
     from typing import Self
@@ -27,9 +27,13 @@ else:
     from typing_extensions import Self
 
 from ..containers import SlottedDict
+from ..text.markuptext import MarkupText
+from ..utils.attrs import auto_validate_types, int_to_str
+from ..utils.ids import infer_year, is_valid_collection_id
 from ..utils.logging import get_logger
 from ..utils import xml
 from .event import Event
+from .types import VolumeType
 from .volume import Volume
 from .paper import Paper
 
@@ -41,7 +45,7 @@ if TYPE_CHECKING:
 log = get_logger()
 
 
-@define
+@define(field_transformer=auto_validate_types)
 class Collection(SlottedDict[Volume]):
     """A collection of volumes and events, corresponding to an XML file in the `data/xml/` directory of the Anthology repo.
 
@@ -57,11 +61,21 @@ class Collection(SlottedDict[Volume]):
         is_data_loaded: A flag indicating whether the XML file has already been loaded.
     """
 
-    id: str
+    id: str = field(converter=int_to_str)
     parent: CollectionIndex = field(repr=False, eq=False)
-    path: Path
-    event: Optional[Event] = field(init=False, repr=False, default=None)
-    is_data_loaded: bool = field(init=False, repr=False, default=False)
+    path: Path = field(converter=Path)
+    event: Optional[Event] = field(
+        init=False,
+        repr=False,
+        default=None,
+        validator=v.optional(v.instance_of(Event)),
+    )
+    is_data_loaded: bool = field(init=False, repr=True, default=False)
+
+    @id.validator
+    def _check_id(self, _: Any, value: str) -> None:
+        if not is_valid_collection_id(value):
+            raise ValueError(f"Not a valid Collection ID: {value}")
 
     @property
     def root(self) -> Anthology:
@@ -124,6 +138,56 @@ class Collection(SlottedDict[Volume]):
         """
         self.root.relaxng.assertValid(etree.parse(self.path))
         return self
+
+    def create_volume(
+        self,
+        id: str,
+        title: MarkupText,
+        year: Optional[str] = None,
+        type: VolumeType = VolumeType.PROCEEDINGS,
+        **kwargs: Any,
+    ) -> Volume:
+        """Create a new [Volume][acl_anthology.collections.volume.Volume] object in this collection.
+
+        Parameters:
+            id: The ID of the new volume.
+            title: The title of the new volume.
+            year: The year of the new volume (optional); if None, will infer the year from this collection's ID.
+            type: Whether this is a journal or proceedings volume; defaults to [VolumeType.PROCEEDINGS][acl_anthology.collections.types.VolumeType].
+            **kwargs: Any valid list or optional attribute of [Volume][acl_anthology.collections.volume.Volume].
+
+        Returns:
+            The created [Volume][acl_anthology.collections.volume.Volume] object.
+
+        Raises:
+            ValueError: If a volume with the given ID already exists, or if this collection has an old-style ID.
+        """
+        if not self.is_data_loaded:
+            self.load()
+        if not self.id[0].isdigit():
+            raise ValueError(
+                f"Can't create volume in collection {self.id} with old-style ID"
+            )
+        if id in self.data:
+            raise ValueError(f"Volume {id} already exists in collection {self.id}")
+
+        kwargs["parent"] = self
+        if year is None:
+            year = infer_year(self.id)
+
+        volume = Volume(
+            id=id,
+            booktitle=title,
+            year=year,
+            type=type,
+            **kwargs,
+        )
+        volume.is_data_loaded = True
+        self.data[id] = volume
+        # TODO: How to solve registration in different indices? Not all indices might be loaded, nor might it be desirable to load them.
+        # - Volumes can be linked from EventIndex, VenueIndex, SIGIndex
+        # - Volumes can be linked to the Person objects of its editors
+        return volume
 
     def load(self) -> None:
         """Loads the XML file belonging to this collection."""
