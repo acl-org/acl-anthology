@@ -64,11 +64,11 @@ class CollectionIndex(SlottedDict[Collection]):
             self.data[collection_id] = Collection(collection_id, self, xmlpath)
         self.is_data_loaded = True
 
-    def create(self, id_: str) -> Collection:
+    def create(self, id: str) -> Collection:
         """Create a new [Collection][acl_anthology.collections.collection.Collection] object.
 
         Parameters:
-            id_: The ID of the new collection.
+            id: The ID of the new collection.
 
         Returns:
             The created [Collection][acl_anthology.collections.collection.Collection] object.
@@ -78,17 +78,17 @@ class CollectionIndex(SlottedDict[Collection]):
         """
         if not self.is_data_loaded:
             self.load()  # required to check for ID clashes
-        if not id_[0].isdigit():
-            raise ValueError(f"Collection ID does not start with a digit: {id_}")
-        if id_ in self.data:
-            raise ValueError(f"Collection {id_} already exists")
+        if not id[0].isdigit():
+            raise ValueError(f"Collection ID does not start with a digit: {id}")
+        if id in self.data:
+            raise ValueError(f"Collection {id} already exists")
 
         collection = Collection(
-            id=id_,
+            id=id,
             parent=self,
-            path=self.parent.datadir / "xml" / f"{id_}.xml",
+            path=self.parent.datadir / "xml" / f"{id}.xml",
         )
         collection.is_data_loaded = True
-        self.data[id_] = collection
+        self.data[id] = collection
 
         return collection

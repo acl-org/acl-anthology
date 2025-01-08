@@ -305,7 +305,7 @@ def test_volume_generate_paper_id(anthology):
     assert volume.generate_paper_id() == "604"
     # Adding a Paper with this ID should then generate the next-higher one
     volume.create_paper(
-        id_="604",
+        id="604",
         bibkey="my-awesome-paper",
         title=MarkupText.from_string("The awesome paper I have never written"),
     )
@@ -339,7 +339,7 @@ def test_volume_create_paper_explicit(anthology):
         title=MarkupText.from_string("The awesome paper I have never written"),
         authors=authors,
         ingest_date="2025-01-07",
-        id_="701",
+        id="701",
         bibkey="bollmann-2022-the-awesome",
     )
     assert paper.authors == authors

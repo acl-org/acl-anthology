@@ -241,7 +241,7 @@ class Volume(SlottedDict[Paper]):
     def create_paper(
         self,
         title: MarkupText,
-        id_: Optional[str] = None,
+        id: Optional[str] = None,
         bibkey: Optional[str] = None,
         **kwargs: Any,
     ) -> Paper:
@@ -249,7 +249,7 @@ class Volume(SlottedDict[Paper]):
 
         Parameters:
             title: The title of the new paper.
-            id_: The ID of the new paper (optional); if None, will generate the next-highest numeric ID that doesn't already exist in this volume.
+            id: The ID of the new paper (optional); if None, will generate the next-highest numeric ID that doesn't already exist in this volume.
             bibkey: The citation key of the new paper (optional); if None, will automatically generate a non-clashing citation key (recommended!).
             **kwargs: Any valid list or optional attribute of [Paper][acl_anthology.collections.paper.Paper].
 
@@ -259,15 +259,15 @@ class Volume(SlottedDict[Paper]):
         Raises:
             ValueError: If a paper with the given ID or bibkey already exists.
         """
-        if id_ is None:
-            id_ = self.generate_paper_id()
-        elif id_ in self.data:
-            raise ValueError(f"Paper {id_} already exists in volume {self.full_id}")
+        if id is None:
+            id = self.generate_paper_id()
+        elif id in self.data:
+            raise ValueError(f"Paper {id} already exists in volume {self.full_id}")
 
         kwargs["parent"] = self
-        paper = Paper(id=id_, bibkey=bibkey, title=title, **kwargs)
+        paper = Paper(id=id, bibkey=bibkey, title=title, **kwargs)
         self.parent.parent.bibkeys.index_paper(paper)
-        self.data[id_] = paper
+        self.data[id] = paper
         # TODO: How to solve registration in different indices? Not all indices might be loaded, nor might it be desirable to load them.
         # - Papers can be linked to the Person objects of its authors/editors
         return paper

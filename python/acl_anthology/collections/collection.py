@@ -141,7 +141,7 @@ class Collection(SlottedDict[Volume]):
 
     def create_volume(
         self,
-        id_: str,
+        id: str,
         title: MarkupText,
         year: Optional[str] = None,
         type: VolumeType = VolumeType.PROCEEDINGS,
@@ -150,7 +150,7 @@ class Collection(SlottedDict[Volume]):
         """Create a new [Volume][acl_anthology.collections.volume.Volume] object in this collection.
 
         Parameters:
-            id_: The ID of the new volume.
+            id: The ID of the new volume.
             title: The title of the new volume.
             year: The year of the new volume (optional); if None, will infer the year from this collection's ID.
             type: Whether this is a journal or proceedings volume; defaults to [VolumeType.PROCEEDINGS][acl_anthology.collections.types.VolumeType].
@@ -168,22 +168,22 @@ class Collection(SlottedDict[Volume]):
             raise ValueError(
                 f"Can't create volume in collection {self.id} with old-style ID"
             )
-        if id_ in self.data:
-            raise ValueError(f"Volume {id_} already exists in collection {self.id}")
+        if id in self.data:
+            raise ValueError(f"Volume {id} already exists in collection {self.id}")
 
         kwargs["parent"] = self
         if year is None:
             year = infer_year(self.id)
 
         volume = Volume(
-            id=id_,
+            id=id,
             booktitle=title,
             year=year,
             type=type,
             **kwargs,
         )
         volume.is_data_loaded = True
-        self.data[id_] = volume
+        self.data[id] = volume
         # TODO: How to solve registration in different indices? Not all indices might be loaded, nor might it be desirable to load them.
         # - Volumes can be linked from EventIndex, VenueIndex, SIGIndex
         # - Volumes can be linked to the Person objects of its editors

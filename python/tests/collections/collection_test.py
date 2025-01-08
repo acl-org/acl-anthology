@@ -112,7 +112,7 @@ def test_collection_create_volume_explicit(collection_index):
     collection = collection_index.get("J89")
     collection.id = "1989.cl"  # because we can't create volumes with old-style ID
     volume = collection.create_volume(
-        "99",
+        id="99",
         title=MarkupText.from_string("Special Issue"),
         year="1989",
         type="journal",
