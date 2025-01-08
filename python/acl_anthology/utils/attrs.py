@@ -16,7 +16,8 @@ from __future__ import annotations
 
 import attrs
 from attrs import validators
-from typing import Any, cast
+import datetime
+from typing import Any, Callable, Optional
 import re
 
 
@@ -30,9 +31,16 @@ def auto_validate_types(
 
     Supported type annotations are:
       - str, int
-      - FileReference and derived classes
-      - Name, NameSpecification
-      - MarkupText
+      - `FileReference` and derived classes
+      - `Name`, `NameSpecification`
+      - `MarkupText`
+      - `Optional[<type>]`
+      - `list[<type>]`
+      - `tuple[<type>, ...]`
+
+    The purpose of this function is to reduce the need for explicitly adding validators to the classes in [acl_anthology.collections][].
+
+    It does _not_ automatically validate classes defined _in_ [acl_anthology.collections][], as that would lead to circular imports.
 
     See also: <https://www.attrs.org/en/stable/extending.html#transform-fields>
     """
@@ -66,56 +74,65 @@ def auto_validate_types(
         }
     }
 
+    def make_validator(field_type: Any) -> Optional[Callable[..., Any]]:
+        if not isinstance(field_type, str):
+            return None
+
+        # Handle Optional[], list[], etc.
+        if (m := RE_WRAPPED_TYPE.match(field_type)) is not None:
+            match m.group(1):
+                case "Optional":
+                    if (inner := make_validator(m.group(2))) is not None:
+                        return validators.optional(inner)
+                case "dict":
+                    dict_parts = m.group(2).split(", ")
+                    if (
+                        len(dict_parts) == 2
+                        and (key_inner := make_validator(dict_parts[0])) is not None
+                        and (value_inner := make_validator(dict_parts[1])) is not None
+                    ):
+                        return validators.deep_mapping(
+                            key_validator=key_inner, value_validator=value_inner
+                        )
+                case "list":
+                    if (inner := make_validator(m.group(2))) is not None:
+                        return validators.deep_iterable(
+                            member_validator=inner,
+                            iterable_validator=validators.instance_of(list),
+                        )
+                case "tuple":
+                    tuple_parts = m.group(2).split(", ")
+                    # Only tuples of variable length with a single type
+                    if (
+                        len(tuple_parts) == 2
+                        and tuple_parts[1] == "..."
+                        and (inner := make_validator(tuple_parts[0])) is not None
+                    ):
+                        return validators.deep_iterable(
+                            member_validator=inner,
+                            iterable_validator=validators.instance_of(tuple),
+                        )
+            # unsupported
+            return None
+
+        # Handle known types
+        if (type_ := known_types.get(field_type)) is not None:
+            return validators.instance_of(type_)
+
+        # unsupported
+        return None
+
     results = []
     for field in fields:
+        # Don't modify field if validator already defined
         if field.validator is not None:
             results.append(field)
             continue
 
-        wrapper: Any = None
-        validator: Any = None
-        field_type = cast(str, field.type)
-
-        # Handle Optional[], list[], tuple[]
-        if (
-            isinstance(field_type, str)
-            and (m := RE_WRAPPED_TYPE.match(field_type)) is not None
-        ):
-            field_type = m.group(2)
-            match m.group(1):
-                case "Optional":
-                    wrapper = validators.optional
-                case "list":
-                    wrapper = lambda x: validators.deep_iterable(  # noqa: E731
-                        member_validator=x,
-                        iterable_validator=validators.instance_of(list),
-                    )
-                case "tuple":
-                    wrapper = lambda x: validators.deep_iterable(  # noqa: E731
-                        member_validator=x,
-                        iterable_validator=validators.instance_of(tuple),
-                    )
-                case _:
-                    # unsupported
-                    results.append(field)
-                    continue
-
-        # Handle known types
-        if (type_ := known_types.get(field_type)) is not None:
-            validator = validators.instance_of(type_)
+        if (validator := make_validator(field.type)) is not None:
+            results.append(field.evolve(validator=validator))
         else:
-            # unsupported
             results.append(field)
-            continue
-
-        # Was type wrapped?
-        if wrapper:
-            validator = wrapper(validator)
-
-        results.append(field.evolve(validator=validator))
-
-    for field in results:
-        if field.validator is None:
             print(
                 f"Did not add auto-validator to field '{field.name}' with type annotation '{field.type}'"
             )
@@ -123,7 +140,17 @@ def auto_validate_types(
     return results
 
 
-def maybe_int_to_str(value: Any) -> Any:
+def int_to_str(value: Any) -> Any:
+    """Convert an int to str, and leave unchanged otherwise."""
     if isinstance(value, int):
         return str(value)
+    return value
+
+
+def date_to_str(value: Any) -> Any:
+    """Convert a date or datetime object to str (in ISO format), and leave unchanged otherwise."""
+    if isinstance(value, datetime.date):
+        return value.isoformat()
+    elif isinstance(value, datetime.datetime):
+        return value.date().isoformat()
     return value

@@ -1,4 +1,4 @@
-# Copyright 2023-2024 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2025 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,7 +17,6 @@ from __future__ import annotations
 import attrs
 import datetime
 from attrs import define, field, validators as v
-from enum import Enum
 from functools import cached_property
 import langcodes
 from lxml import etree
@@ -35,11 +34,12 @@ from ..files import (
 )
 from ..people import NameSpecification
 from ..text import MarkupText
+from ..utils.attrs import auto_validate_types, date_to_str, int_to_str
 from ..utils.citation import citeproc_render_html, render_acl_citation
 from ..utils.ids import build_id, is_valid_item_id, AnthologyIDTuple
 from ..utils.latex import make_bibtex_entry
 from ..utils.logging import get_logger
-from .types import VolumeType
+from .types import PaperDeletionType, VolumeType
 
 if TYPE_CHECKING:
     from ..anthology import Anthology
@@ -47,21 +47,22 @@ if TYPE_CHECKING:
     from . import Event, Volume
 
 log = get_logger()
-RE_STR_DATE = r"^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
 
 
-@define
+@define(field_transformer=auto_validate_types)
 class PaperErratum:
     """An erratum for a paper."""
 
-    id: str = field(converter=str, validator=v.matches_re(r"^[1-9][0-9]?$"))
+    id: str = field(converter=int_to_str, validator=v.matches_re(r"^[1-9][0-9]?$"))
     """An ID for this erratum.  Must be numeric."""
 
     pdf: PDFReference = field()
     """A reference to the erratum's PDF."""
 
     date: Optional[str] = field(
-        default=None, validator=v.optional(v.matches_re(RE_STR_DATE))
+        default=None,
+        converter=date_to_str,
+        validator=v.optional(v.matches_re(constants.RE_ISO_DATE)),
     )
     """The date where this erratum was added."""
 
@@ -97,21 +98,23 @@ class PaperErratum:
         return elem
 
 
-@define
+@define(field_transformer=auto_validate_types)
 class PaperRevision:
     """A revised version of a paper."""
 
-    id: str = field(converter=str, validator=v.matches_re(r"^[1-9][0-9]?$"))
+    id: str = field(converter=int_to_str, validator=v.matches_re(r"^[1-9][0-9]?$"))
     """An ID for this revision.  Must be numeric."""
 
-    note: Optional[str] = field(validator=v.optional(v.instance_of(str)))
+    note: Optional[str] = field()
     """A note explaining the reason for the revision."""
 
     pdf: PDFReference = field()
     """A reference to the revision's PDF."""
 
     date: Optional[str] = field(
-        default=None, validator=v.optional(v.matches_re(RE_STR_DATE))
+        default=None,
+        converter=date_to_str,
+        validator=v.optional(v.matches_re(constants.RE_ISO_DATE)),
     )
     """The date where this revision was added."""
 
@@ -154,27 +157,19 @@ class PaperRevision:
         return elem
 
 
-class PaperDeletionType(Enum):
-    """Type of deletion of a paper."""
-
-    RETRACTED = "retracted"
-    """Paper was retracted.  A retraction occurs when serious, unrecoverable errors are discovered, which drastically affect the findings of the original work."""
-
-    REMOVED = "removed"
-    """Paper was removed.  A removal occurs in rare circumstances where serious ethical or legal issues arise, such as plagiarism."""
-
-
-@define
+@define(field_transformer=auto_validate_types)
 class PaperDeletionNotice:
     """A notice about a paper's deletion (i.e., retraction or removal) from the Anthology."""
 
     type: PaperDeletionType = field(converter=PaperDeletionType)
     """Type indicating whether the paper was _retracted_ or _removed_."""
 
-    note: Optional[str] = field(validator=v.optional(v.instance_of(str)))
+    note: Optional[str] = field()
     """A note explaining the retraction or removal."""
 
-    date: str = field(default=None, validator=v.matches_re(RE_STR_DATE))
+    date: str = field(
+        default=None, converter=date_to_str, validator=v.matches_re(constants.RE_ISO_DATE)
+    )
     """The date on which the paper was retracted or removed."""
 
     @classmethod
@@ -208,7 +203,7 @@ def _attachment_validator(instance: Paper, _: Any, value: Any) -> None:
         )
 
 
-@define
+@define(field_transformer=auto_validate_types)
 class Paper:
     """A paper entry.
 
@@ -241,10 +236,10 @@ class Paper:
         pdf: A reference to the paper's PDF.
     """
 
-    id: str = field(converter=str)
+    id: str = field(converter=int_to_str)
     parent: Volume = field(repr=False, eq=False)
-    bibkey: str | None = field(validator=v.optional(v.instance_of(str)))
-    title: MarkupText = field(validator=v.instance_of(MarkupText))
+    bibkey: Optional[str] = field()
+    title: MarkupText = field()
 
     attachments: list[tuple[str, AttachmentReference]] = field(
         factory=list,
@@ -254,30 +249,10 @@ class Paper:
             iterable_validator=v.instance_of(list),
         ),
     )
-    authors: list[NameSpecification] = field(
-        factory=list,
-        validator=v.deep_iterable(
-            member_validator=v.instance_of(NameSpecification),
-            iterable_validator=v.instance_of(list),
-        ),
-    )
-    awards: list[str] = field(
-        factory=list,
-        repr=False,
-        validator=v.deep_iterable(
-            member_validator=v.instance_of(str),
-            iterable_validator=v.instance_of(list),
-        ),
-    )
+    authors: list[NameSpecification] = field(factory=list)
+    awards: list[str] = field(factory=list, repr=False)
     # TODO: why can a Paper ever have "editors"? it's allowed by the schema
-    editors: list[NameSpecification] = field(
-        factory=list,
-        repr=False,
-        validator=v.deep_iterable(
-            member_validator=v.instance_of(NameSpecification),
-            iterable_validator=v.instance_of(list),
-        ),
-    )
+    editors: list[NameSpecification] = field(factory=list, repr=False)
     errata: list[PaperErratum] = field(
         factory=list,
         repr=False,
@@ -294,51 +269,23 @@ class Paper:
             iterable_validator=v.instance_of(list),
         ),
     )
-    videos: list[VideoReference] = field(
-        factory=list,
-        repr=False,
-        validator=v.deep_iterable(
-            member_validator=v.instance_of(VideoReference),
-            iterable_validator=v.instance_of(list),
-        ),
-    )
+    videos: list[VideoReference] = field(factory=list, repr=False)
 
-    abstract: Optional[MarkupText] = field(
-        default=None, validator=v.optional(v.instance_of(MarkupText))
-    )
+    abstract: Optional[MarkupText] = field(default=None)
     deletion: Optional[PaperDeletionNotice] = field(
         default=None, repr=False, validator=v.optional(v.instance_of(PaperDeletionNotice))
     )
-    doi: Optional[str] = field(
-        default=None, repr=False, validator=v.optional(v.instance_of(str))
-    )
-    ingest_date: Optional[str] = field(
-        default=None, repr=False, validator=v.optional(v.instance_of(str))
-    )
-    issue: Optional[str] = field(
-        default=None, repr=False, validator=v.optional(v.instance_of(str))
-    )
-    journal: Optional[str] = field(
-        default=None, repr=False, validator=v.optional(v.instance_of(str))
-    )
-    language: Optional[str] = field(
-        default=None, repr=False, validator=v.optional(v.instance_of(str))
-    )
-    note: Optional[str] = field(
-        default=None, repr=False, validator=v.optional(v.instance_of(str))
-    )
-    pages: Optional[str] = field(
-        default=None, repr=False, validator=v.optional(v.instance_of(str))
-    )
+    doi: Optional[str] = field(default=None, repr=False)
+    ingest_date: Optional[str] = field(default=None, repr=False)
+    issue: Optional[str] = field(default=None, repr=False)
+    journal: Optional[str] = field(default=None, repr=False)
+    language: Optional[str] = field(default=None, repr=False)
+    note: Optional[str] = field(default=None, repr=False)
+    pages: Optional[str] = field(default=None, repr=False)
     paperswithcode: Optional[PapersWithCodeReference] = field(
-        default=None,
-        on_setattr=attrs.setters.frozen,
-        repr=False,
-        validator=v.optional(v.instance_of(PapersWithCodeReference)),
+        default=None, on_setattr=attrs.setters.frozen, repr=False
     )
-    pdf: Optional[PDFReference] = field(
-        default=None, repr=False, validator=v.optional(v.instance_of(PDFReference))
-    )
+    pdf: Optional[PDFReference] = field(default=None, repr=False)
 
     @id.validator
     def _check_id(self, _: Any, value: str) -> None:

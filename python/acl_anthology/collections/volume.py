@@ -28,7 +28,7 @@ from ..files import PDFReference
 from ..people import NameSpecification
 from ..text import MarkupText
 from ..venues import Venue
-from ..utils.attrs import auto_validate_types, maybe_int_to_str
+from ..utils.attrs import auto_validate_types, date_to_str, int_to_str
 from ..utils.ids import build_id, is_valid_item_id, AnthologyIDTuple
 from .paper import Paper
 from .types import VolumeType
@@ -70,12 +70,12 @@ class Volume(SlottedDict[Paper]):
         shorttitle: A shortened form of the title. (Aliased to `shortbooktitle` for initialization.)
     """
 
-    id: str = field(converter=maybe_int_to_str)
+    id: str = field(converter=int_to_str)
     parent: Collection = field(repr=False, eq=False)
     type: VolumeType = field(repr=False, converter=VolumeType)
     title: MarkupText = field(alias="booktitle")
     year: str = field(
-        converter=maybe_int_to_str, validator=validators.matches_re(r"^[0-9]{4}$")
+        converter=int_to_str, validator=validators.matches_re(r"^[0-9]{4}$")
     )
 
     editors: list[NameSpecification] = field(factory=list)
@@ -84,15 +84,14 @@ class Volume(SlottedDict[Paper]):
     address: Optional[str] = field(default=None, repr=False)
     doi: Optional[str] = field(default=None, repr=False)
     ingest_date: Optional[str] = field(
-        default=None, repr=False
-    )  # TODO: convert from datetime.date?
+        default=None,
+        repr=False,
+        converter=date_to_str,
+        validator=validators.optional(validators.matches_re(constants.RE_ISO_DATE)),
+    )
     isbn: Optional[str] = field(default=None, repr=False)
-    journal_issue: Optional[str] = field(
-        default=None, repr=False, converter=maybe_int_to_str
-    )
-    journal_volume: Optional[str] = field(
-        default=None, repr=False, converter=maybe_int_to_str
-    )
+    journal_issue: Optional[str] = field(default=None, repr=False, converter=int_to_str)
+    journal_volume: Optional[str] = field(default=None, repr=False, converter=int_to_str)
     journal_title: Optional[str] = field(default=None, repr=False)
     month: Optional[str] = field(default=None, repr=False)  # TODO: validate/convert?
     pdf: Optional[PDFReference] = field(default=None, repr=False)

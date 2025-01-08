@@ -1,4 +1,4 @@
-# Copyright 2023-2024 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2025 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -22,3 +22,9 @@ FRONTMATTER_ID: Final = "0"
 
 UNKNOWN_INGEST_DATE = date(1900, 1, 1)
 """Default ingestion date."""
+
+RE_EVENT_ID = r"^[a-z0-9]+-[0-9]{4}$"
+"""A regular expression matching a valid event ID."""
+
+RE_ISO_DATE = r"^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+"""A regular expression matching a date in ISO format."""

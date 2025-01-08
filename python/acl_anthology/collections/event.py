@@ -1,5 +1,5 @@
 # Copyright 2022 Matt Post <post@cs.jhu.edu>
-# Copyright 2023-2024 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2025 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -20,9 +20,11 @@ from lxml import etree
 from lxml.builder import E
 from typing import Any, Iterator, Optional, TYPE_CHECKING
 
+from ..constants import RE_EVENT_ID
 from ..files import EventFileReference
 from ..people import NameSpecification
 from ..text import MarkupText
+from ..utils.attrs import auto_validate_types
 from ..utils.ids import AnthologyIDTuple, parse_id, build_id_from_tuple
 
 if TYPE_CHECKING:
@@ -30,10 +32,7 @@ if TYPE_CHECKING:
     from . import Collection, Volume
 
 
-RE_STR_EVENT_ID = r"^[a-z0-9]+-[0-9]{4}"
-
-
-@define
+@define(field_transformer=auto_validate_types)
 class Talk:
     """A talk without an associated paper, such as a keynote or invited talk.
 
@@ -44,22 +43,10 @@ class Talk:
         attachments: Links to attachments for this talk. The dictionary key specifies the type of attachment (e.g., "video" or "slides").
     """
 
-    title: MarkupText = field(validator=v.instance_of(MarkupText))
-    type: Optional[str] = field(default=None, validator=v.optional(v.instance_of(str)))
-    speakers: list[NameSpecification] = field(
-        factory=list,
-        validator=v.deep_iterable(
-            member_validator=v.instance_of(NameSpecification),
-            iterable_validator=v.instance_of(list),
-        ),
-    )
-    attachments: dict[str, EventFileReference] = field(
-        factory=dict,
-        validator=v.deep_mapping(
-            key_validator=v.instance_of(str),
-            value_validator=v.instance_of(EventFileReference),
-        ),
-    )
+    title: MarkupText = field()
+    type: Optional[str] = field(default=None)
+    speakers: list[NameSpecification] = field(factory=list)
+    attachments: dict[str, EventFileReference] = field(factory=dict)
 
     @classmethod
     def from_xml(cls, element: etree._Element) -> Talk:
@@ -99,7 +86,7 @@ class Talk:
         return elem
 
 
-@define
+@define(field_transformer=auto_validate_types)
 class Event:
     """An event, such as a meeting or a conference.
 
@@ -119,7 +106,7 @@ class Event:
         dates: The dates when the event happened.
     """
 
-    id: str = field(converter=str, validator=v.matches_re(RE_STR_EVENT_ID))
+    id: str = field(validator=v.matches_re(RE_EVENT_ID))
     parent: Collection = field(repr=False, eq=False)
     is_explicit: bool = field(default=False, converter=bool)
 
@@ -127,14 +114,7 @@ class Event:
         factory=list,
         repr=lambda x: f"<list of {len(x)} AnthologyIDTuple objects>",
     )
-    links: dict[str, EventFileReference] = field(
-        factory=dict,
-        repr=False,
-        validator=v.deep_mapping(
-            key_validator=v.instance_of(str),
-            value_validator=v.instance_of(EventFileReference),
-        ),
-    )
+    links: dict[str, EventFileReference] = field(factory=dict, repr=False)
     talks: list[Talk] = field(
         factory=list,
         repr=False,
@@ -144,13 +124,9 @@ class Event:
         ),
     )
 
-    title: Optional[MarkupText] = field(
-        default=None, validator=v.optional(v.instance_of(MarkupText))
-    )
-    location: Optional[str] = field(
-        default=None, validator=v.optional(v.instance_of(str))
-    )
-    dates: Optional[str] = field(default=None, validator=v.optional(v.instance_of(str)))
+    title: Optional[MarkupText] = field(default=None)
+    location: Optional[str] = field(default=None)
+    dates: Optional[str] = field(default=None)
 
     @property
     def collection_id(self) -> str:

@@ -28,6 +28,7 @@ else:
 
 from ..containers import SlottedDict
 from ..text.markuptext import MarkupText
+from ..utils.attrs import auto_validate_types, int_to_str
 from ..utils.ids import infer_year, is_valid_collection_id
 from ..utils.logging import get_logger
 from ..utils import xml
@@ -44,7 +45,7 @@ if TYPE_CHECKING:
 log = get_logger()
 
 
-@define
+@define(field_transformer=auto_validate_types)
 class Collection(SlottedDict[Volume]):
     """A collection of volumes and events, corresponding to an XML file in the `data/xml/` directory of the Anthology repo.
 
@@ -60,7 +61,7 @@ class Collection(SlottedDict[Volume]):
         is_data_loaded: A flag indicating whether the XML file has already been loaded.
     """
 
-    id: str = field(converter=str)
+    id: str = field(converter=int_to_str)
     parent: CollectionIndex = field(repr=False, eq=False)
     path: Path = field(converter=Path)
     event: Optional[Event] = field(
