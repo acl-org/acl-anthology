@@ -157,9 +157,6 @@ def auto_validate_types(
             results.append(field.evolve(validator=validator))
         else:
             results.append(field)
-            print(
-                f"Did not add auto-validator to field '{field.name}' with type annotation '{field.type}'"
-            )
 
     return results
 
