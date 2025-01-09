@@ -80,7 +80,7 @@ class AnthologyMetadataUpdater:
             {
               "first": "Carolyn Jane",
               "last": "Anderson",
-              "id": "carolyn-anderson",
+              "id": "carolyn-anderson"
             }
           ],
           "abstract": "..."
