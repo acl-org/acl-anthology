@@ -300,7 +300,7 @@ class AnthologyMetadataUpdater:
                     # Commit changes
                     self.local_repo.index.add([xml_repo_path])
                     self.local_repo.index.commit(
-                        f"Processed metadata corrections for #{issue.number}"
+                        f"Processed metadata corrections (closes #{issue.number})"
                     )
 
                     closed_issues.append(issue)
