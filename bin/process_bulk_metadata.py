@@ -81,7 +81,6 @@ class AnthologyMetadataUpdater:
               "first": "Carolyn Jane",
               "last": "Anderson",
               "id": "carolyn-anderson",
-              "affiliation": ""
             }
           ],
           "abstract": "..."
@@ -161,17 +160,9 @@ class AnthologyMetadataUpdater:
                     "author", attrib=attrib, parent=paper_node, sibling=prev_sibling
                 )
                 prev_sibling = author_node
-                if "first" in author:
-                    first_node = make_simple_element("first", parent=author_node)
-                    first_node.text = author["first"]
-                if "last" in author:
-                    last_node = make_simple_element("last", parent=author_node)
-                    last_node.text = author["last"]
-                if "affiliation" in author and author["affiliation"]:
-                    affiliation_node = make_simple_element(
-                        "affiliation", parent=author_node
-                    )
-                    affiliation_node.text = author["affiliation"]
+                for key in ["first", "last", "affiliation", "variant"]:
+                    if key in author and author[key]:
+                        make_simple_element(key, text=author[key], parent=author_node)
 
         return tree
 
@@ -217,9 +208,6 @@ class AnthologyMetadataUpdater:
 
         # Create new branch
         ref = self.local_repo.create_head(new_branch_name, base_branch)
-        # ref = self.local_repo.create_git_ref(
-        #     ref=f"refs/heads/{new_branch_name}", sha=base_branch.commit.sha
-        # )
         print(f"Created branch {new_branch_name} from {base_branch}", file=sys.stderr)
 
         # store the current branch
