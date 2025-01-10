@@ -347,12 +347,21 @@ def export_people(anthology, outdir, dryrun):
                 "full": cname.as_full(),
                 "slug": person_id,
                 "papers": [paper.full_id for paper in papers],
-                "coauthors": anthology.people.find_coauthors_counter(
-                    person, include_volumes=False
-                ).most_common(),
-                "venues": Counter(
-                    venue for paper in papers for venue in paper.venue_ids
-                ).most_common(),
+                "coauthors": sorted(
+                    anthology.people.find_coauthors_counter(
+                        person, include_volumes=False
+                    ).most_common(),
+                    key=lambda item: (
+                        -item[1],
+                        anthology.people[item[0]].canonical_name.last,
+                    ),
+                ),
+                "venues": sorted(
+                    Counter(
+                        venue for paper in papers for venue in paper.venue_ids
+                    ).most_common(),
+                    key=lambda item: (-item[1], item[0]),
+                ),
             }
             if len(person.names) > 1:
                 data["variant_entries"] = []
