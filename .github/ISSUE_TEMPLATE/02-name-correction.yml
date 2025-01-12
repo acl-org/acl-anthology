@@ -1,6 +1,6 @@
-name: Correction to Author Metadata
+name: Correction to Author Page
 description: Fix issues with author pages.
-title: "Author Metadata: {replace with author name}"
+title: "Author Page: {replace with author name}"
 labels: ["correction", "metadata"]
 assignees:
   - anthology-assist
@@ -8,11 +8,13 @@ body:
   - type: markdown
     attributes:
       value: >
-        This form will report author metadata issues to Anthology staff.
-        For simple cases (where paper metadata in the [XML](https://github.com/acl-org/acl-anthology/tree/master/data/xml)
-        record doesn't match the PDF, or
-        [`name_variants.yaml`](https://github.com/acl-org/acl-anthology/blob/master/data/yaml/name_variants.yaml) needs modification),
-        submitting a __pull request__ instead will expedite the process. Thanks!
+        This form will report issues with author pages—for example, if a name needs to be disambiguated,
+        or if two versions of a name should be mapped to the same individual.
+        For cases where an individual has published under multiple name variants, submitting a pull request
+        that modifies [`name_variants.yaml`](https://github.com/acl-org/acl-anthology/blob/master/data/yaml/name_variants.yaml)
+        directly will expedite the process. If an author name listed for a paper does not match
+        what is in the PDF, instead use the "Fix data" button on the paper page,
+        which will help automate the correction. Thanks!
   - type: textarea
     id: name_pages_affected
     attributes:
