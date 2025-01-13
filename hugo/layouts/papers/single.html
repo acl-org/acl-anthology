@@ -298,6 +298,12 @@
 
     const url = baseurl + `&title=${encodeURIComponent(issue_title)}&assignee=${encodeURIComponent(who)}&labels=${encodeURIComponent(labels)}&data=` + encodeURIComponent(param_string);
 
+    // Display an error if the URL length string is too long
+    if (url.length > 2000) {
+      alert(`The correction string URL is too long to submit (${url.length} chars). Please open a manual correction request at https://github.com/acl-org/acl-anthology/issues/new`);
+      return;
+    }
+
     window.open(url, "_blank");
   }
 </script>
