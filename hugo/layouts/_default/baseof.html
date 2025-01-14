@@ -48,7 +48,7 @@
 
           // abstract toggling -- used on multiple pages, so defined here
           if ($("#toggle-all-abstracts")) {
-              $("#toggle-all-abstracts").click(
+              $("#toggle-all-abstracts").on("click",
                   function() {
                       var target = $("#toggle-all-abstracts");
                       target.attr("disabled", true);
