@@ -49,9 +49,15 @@ def test_bibkeys_index_paper(anthology):
     assert "kamal-eddine-etal-2022-frugalscore" in index
     assert index["kamal-eddine-etal-2022-frugalscore"] is paper
 
-    # Indexing the paper again should raise ValueError
+    # Indexing the paper again should not change anything
+    index._index_paper(paper.bibkey, paper)
+    assert "kamal-eddine-etal-2022-frugalscore" in index
+    assert index["kamal-eddine-etal-2022-frugalscore"] is paper
+
+    # Indexing a different paper with the same bibkey should raise
     with pytest.raises(ValueError):
-        index._index_paper(paper.bibkey, paper)
+        paper2 = anthology.get_paper("2022.acl-long.100")
+        index._index_paper(paper.bibkey, paper2)
 
 
 def test_bibkeys_generate_bibkey_should_add_title_words(anthology):

@@ -20,6 +20,7 @@ from rich.progress import track
 from slugify import slugify
 from typing import TYPE_CHECKING
 
+from .. import constants
 from ..containers import SlottedDict
 from ..text import StopWords
 from .paper import Paper
@@ -103,22 +104,35 @@ class BibkeyIndex(SlottedDict[Paper]):
 
         return bibkey
 
-    def _index_paper(self, bibkey: str, paper: Paper) -> None:
+    def _index_paper(self, bibkey: str, paper: Paper) -> str:
         """Add a paper to the index.
+
+        If the supplied bibkey is [`constants.NO_BIBKEY`][acl_anthology.constants.NO_BIBKEY], this will trigger creation of a new bibkey.
 
         Warning:
             This function should not be called manually. It is invoked automatically when a paper's bibkey is changed.
 
+        Returns:
+            The bibkey that was indexed.
+
         Raises:
-            ValueError: If the paper's bibkey is not None and is already in the index.
+            ValueError: If the bibkey is not [`constants.NO_BIBKEY`][acl_anthology.constants.NO_BIBKEY] and is already in the index pointing to another paper.
         """
         if not self.is_data_loaded:
             self.load()
-        if bibkey in self.data:
+
+        if paper.bibkey in self.data:
+            del self.data[paper.bibkey]
+
+        if bibkey == constants.NO_BIBKEY:
+            bibkey = self.generate_bibkey(paper)
+        elif bibkey in self.data:
             raise ValueError(
                 f"Cannot index bibkey '{bibkey}' for paper {paper.full_id}; already assigned to {self.data[bibkey].full_id}"
             )
+
         self.data[bibkey] = paper
+        return bibkey
 
     def load(self) -> None:
         """Load an index of bibkeys."""

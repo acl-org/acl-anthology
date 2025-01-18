@@ -208,21 +208,8 @@ def _update_bibkey_index(paper: Paper, attr: attrs.Attribute[Any], value: str) -
 
     Intended to be called from `on_setattr` of an [attrs.field][].
     """
-    bibkeyindex = paper.root.collections.bibkeys
-    if not bibkeyindex.is_data_loaded:
-        if value == constants.NO_BIBKEY:
-            # Need to load the index to generate new bibkeys
-            bibkeyindex.load()
-        else:
-            return value
-
-    old_bibkey = paper.bibkey
-    if old_bibkey in bibkeyindex:
-        del bibkeyindex[old_bibkey]
-    if value == constants.NO_BIBKEY:
-        value = bibkeyindex.generate_bibkey(paper)
-
-    bibkeyindex._index_paper(value, paper)
+    bibkey_index = paper.root.collections.bibkeys
+    value = bibkey_index._index_paper(value, paper)
     return value
 
 
