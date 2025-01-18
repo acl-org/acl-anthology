@@ -6,7 +6,6 @@ Run this any time you edit name_variants to easily keep things sorted.
 """
 
 import yaml
-import sys
 import anthology
 import logging
 import os.path
