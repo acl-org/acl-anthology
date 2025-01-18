@@ -14,6 +14,7 @@
 
 
 import pytest
+from acl_anthology import constants
 from acl_anthology.collections import BibkeyIndex
 
 
@@ -101,8 +102,8 @@ def test_bibkeys_refresh_bibkey_should_update(anthology):
     assert "naloma-2022-natural" in index
     assert index["naloma-2022-natural"] is paper
 
-    # Setting the bibkey to None should replace it with an automatically-generated version
-    paper.bibkey = None  # NOTE: use paper.refresh_bibkey() in practice
+    # Setting the bibkey to NO_BIBKEY should replace it with an automatically-generated version
+    paper.bibkey = constants.NO_BIBKEY  # NOTE: use paper.refresh_bibkey() in practice
     assert paper.bibkey == "naloma-2022-1"
     assert "naloma-2022-natural" not in index
     assert "naloma-2022-1" in index
@@ -127,7 +128,7 @@ def test_bibkeys_refresh_bibkey_should_leave_unchanged(anthology):
     assert index["roark-etal-2006-sparseval"] is paper
 
     # Refreshing the bibkey should not change it
-    paper.bibkey = None  # NOTE: use paper.refresh_bibkey() in practice
+    paper.bibkey = constants.NO_BIBKEY  # NOTE: use paper.refresh_bibkey() in practice
     assert paper.bibkey == "roark-etal-2006-sparseval"
     assert "roark-etal-2006-sparseval" in index
     assert index["roark-etal-2006-sparseval"] is paper

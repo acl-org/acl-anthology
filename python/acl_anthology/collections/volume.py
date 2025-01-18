@@ -242,7 +242,7 @@ class Volume(SlottedDict[Paper]):
         self,
         title: MarkupText,
         id: Optional[str] = None,
-        bibkey: Optional[str] = None,
+        bibkey: str = constants.NO_BIBKEY,
         **kwargs: Any,
     ) -> Paper:
         """Create a new [Paper][acl_anthology.collections.paper.Paper] object in this volume.
@@ -250,7 +250,7 @@ class Volume(SlottedDict[Paper]):
         Parameters:
             title: The title of the new paper.
             id: The ID of the new paper (optional); if None, will generate the next-highest numeric ID that doesn't already exist in this volume.
-            bibkey: The citation key of the new paper (optional); if None, will automatically generate a non-clashing citation key (recommended!).
+            bibkey: The citation key of the new paper (optional); defaults to [`constants.NO_BIBKEY`][acl_anthology.constants.NO_BIBKEY], in which case a non-clashing citation key will be automatically generated (recommended!).
             **kwargs: Any valid list or optional attribute of [Paper][acl_anthology.collections.paper.Paper].
 
         Returns:

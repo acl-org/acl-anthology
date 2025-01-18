@@ -203,25 +203,23 @@ def _attachment_validator(instance: Paper, _: Any, value: Any) -> None:
         )
 
 
-def _update_bibkey_index(
-    paper: Paper, attr: attrs.Attribute[Any], value: Optional[str]
-) -> str:
+def _update_bibkey_index(paper: Paper, attr: attrs.Attribute[Any], value: str) -> str:
     """Update the bibkey in [BibkeyIndex][acl_anthology.collections.bibkeys.BibkeyIndex].
 
     Intended to be called from `on_setattr` of an [attrs.field][].
     """
     bibkeyindex = paper.root.collections.bibkeys
     if not bibkeyindex.is_data_loaded:
-        if value is None:
+        if value == constants.NO_BIBKEY:
             # Need to load the index to generate new bibkeys
             bibkeyindex.load()
         else:
             return value
 
-    old_bibkey = cast(str, paper.bibkey)
+    old_bibkey = paper.bibkey
     if old_bibkey in bibkeyindex:
         del bibkeyindex[old_bibkey]
-    if value is None:
+    if value == constants.NO_BIBKEY:
         value = bibkeyindex.generate_bibkey(paper)
 
     bibkeyindex._index_paper(value, paper)
@@ -263,7 +261,7 @@ class Paper:
 
     id: str = field(converter=int_to_str)
     parent: Volume = field(repr=False, eq=False)
-    bibkey: Optional[str] = field(
+    bibkey: str = field(
         on_setattr=attrs.setters.pipe(attrs.setters.validate, _update_bibkey_index),
     )
     title: MarkupText = field()
@@ -505,10 +503,10 @@ class Paper:
             The BibTeX entry for this paper as a formatted string.
 
         Raises:
-            ValueError: If 'bibkey' is None.
+            ValueError: If 'bibkey' is set to [`constants.NO_BIBKEY`][acl_anthology.constants.NO_BIBKEY].
         """
-        if self.bibkey is None:
-            raise ValueError("Cannot generate BibTeX entry with empty 'bibkey'")
+        if self.bibkey == constants.NO_BIBKEY:
+            raise ValueError("Cannot generate BibTeX entry without bibkey")
         # Note: Fields are added in the order in which they will appear in the
         # BibTeX entry, for reproducibility
         bibtex_fields: list[tuple[str, SerializableAsBibTeX]] = [
@@ -696,10 +694,10 @@ class Paper:
             A serialization of this paper as a `<paper>` or `<frontmatter>` block in the Anthology XML format.
 
         Raises:
-            ValueError: If 'bibkey' is None.
+            ValueError: If 'bibkey' is set to [`constants.NO_BIBKEY`][acl_anthology.constants.NO_BIBKEY].
         """
-        if self.bibkey is None:
-            raise ValueError("Cannot serialize a Paper with empty 'bibkey'")
+        if self.bibkey == constants.NO_BIBKEY:
+            raise ValueError("Cannot serialize a Paper without bibkey")
         if self.is_frontmatter:
             paper = etree.Element("frontmatter")
         else:

@@ -18,7 +18,7 @@ from attrs import define, field
 import re
 from rich.progress import track
 from slugify import slugify
-from typing import cast, TYPE_CHECKING
+from typing import TYPE_CHECKING
 
 from ..containers import SlottedDict
 from ..text import StopWords
@@ -154,5 +154,5 @@ class BibkeyIndex(SlottedDict[Paper]):
                     raise ValueError(
                         f"Paper {paper.full_id} has bibkey {paper.bibkey}, which is already assigned to paper {self.data[paper.bibkey].full_id}"
                     )
-                self.data[cast(str, paper.bibkey)] = paper
+                self.data[paper.bibkey] = paper
         self.is_data_loaded = True

@@ -20,6 +20,9 @@ from typing import Final
 FRONTMATTER_ID: Final = "0"
 """Paper ID that signals that a paper is frontmatter."""
 
+NO_BIBKEY: Final = "__NO_BIBKEY__"
+"""Sentinel value to be set on a newly created paper, before its bibkeys is generated."""
+
 UNKNOWN_INGEST_DATE = date(1900, 1, 1)
 """Default ingestion date."""
 
