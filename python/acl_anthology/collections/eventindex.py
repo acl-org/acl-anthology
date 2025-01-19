@@ -61,6 +61,12 @@ class EventIndex(SlottedDict[Event]):
 
         return [self.data[event_id] for event_id in self.reverse[volume_fid]]
 
+    def reset(self) -> None:
+        """Resets the index."""
+        self.data = {}
+        self.reverse = defaultdict(set)
+        self.is_data_loaded = False
+
     def load(self) -> None:
         """Load the entire Anthology data and build an index of events."""
         if self.is_data_loaded:
