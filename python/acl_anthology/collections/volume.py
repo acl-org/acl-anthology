@@ -266,11 +266,17 @@ class Volume(SlottedDict[Paper]):
 
         kwargs["parent"] = self
         paper = Paper(id=id, bibkey=bibkey, title=title, **kwargs)
+
         # Necessary because on_setattr is not called during initialization:
         paper.bibkey = bibkey  # triggers bibkey generating (if necessary) & indexing
+
+        # For convenience, if authors/editors were given, we add them to the index here
+        if paper.authors:
+            self.root.people._add_to_index(paper.authors, paper.full_id_tuple)
+        if paper.editors:
+            self.root.people._add_to_index(paper.editors, paper.full_id_tuple)
+
         self.data[id] = paper
-        # TODO: How to solve registration in different indices? Not all indices might be loaded, nor might it be desirable to load them.
-        # - Papers can be linked to the Person objects of its authors/editors
         return paper
 
     def _add_paper_from_xml(self, element: etree._Element) -> None:

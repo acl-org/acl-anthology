@@ -183,10 +183,12 @@ class Collection(SlottedDict[Volume]):
             **kwargs,
         )
         volume.is_data_loaded = True
+
+        # For convenience, if editors were given, we add them to the index here
+        if volume.editors:
+            self.root.people._add_to_index(volume.editors, volume.full_id_tuple)
+
         self.data[id] = volume
-        # TODO: How to solve registration in different indices? Not all indices might be loaded, nor might it be desirable to load them.
-        # - Volumes can be linked from EventIndex, VenueIndex, SIGIndex
-        # - Volumes can be linked to the Person objects of its editors
         return volume
 
     def load(self) -> None:

@@ -352,10 +352,7 @@ def test_volume_create_paper_explicit(anthology):
     assert paper.bibkey == "bollmann-2022-the-awesome"
 
 
-@pytest.mark.parametrize(
-    "pre_load",
-    (pytest.param(True, marks=pytest.mark.xfail(reason="not implemented")), False),
-)
+@pytest.mark.parametrize("pre_load", (True, False))
 def test_volume_create_paper_should_update_person(anthology, pre_load):
     if pre_load:
         anthology.people.load()  # otherwise we test creation, not updating
@@ -374,10 +371,7 @@ def test_volume_create_paper_should_update_person(anthology, pre_load):
     assert paper.full_id_tuple in person.item_ids
 
 
-@pytest.mark.parametrize(
-    "pre_load",
-    (pytest.param(True, marks=pytest.mark.xfail(reason="not implemented")), False),
-)
+@pytest.mark.parametrize("pre_load", (True, False))
 def test_volume_create_paper_should_update_personindex(anthology, pre_load):
     if pre_load:
         anthology.people.load()  # otherwise we test creation, not updating
@@ -404,7 +398,7 @@ def test_volume_remove_editor(anthology):
     assert volume.full_id_tuple in person.item_ids
 
     # Removing editor from volume should update the person
-    volume.editors = (volume.editors[0], volume.editors[2])
+    volume.editors = [volume.editors[0], volume.editors[2]]
     assert volume.full_id_tuple not in person.item_ids
 
 
@@ -418,7 +412,7 @@ def test_volume_add_editor(anthology):
     assert volume.full_id_tuple not in person.item_ids
 
     # Adding this editor to the volume should update the person
-    volume.editors = volume.editors + (ns,)
+    volume.editors.append(ns)
     assert volume.full_id_tuple in person.item_ids
 
 

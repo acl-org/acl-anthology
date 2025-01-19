@@ -15,6 +15,7 @@
 from __future__ import annotations
 
 from attrs import define, field, asdict
+from collections.abc import Iterable
 from collections import Counter, defaultdict
 import itertools as it
 from os import PathLike
@@ -32,6 +33,7 @@ except ImportError:  # pragma: no cover
 
 from ..containers import SlottedDict
 from ..exceptions import AnthologyException, AmbiguousNameError, NameIDUndefinedError
+from ..utils.ids import AnthologyIDTuple
 from ..utils.logging import get_logger
 from . import Person, Name, NameSpecification
 
@@ -302,6 +304,20 @@ class PersonIndex(SlottedDict[Person]):
             the same person.
         """
         return name.slugify()
+
+    def _add_to_index(
+        self, namespecs: Iterable[NameSpecification], item_id: AnthologyIDTuple
+    ) -> None:
+        """Add persons to the index.
+
+        This function exists for internal use when creating new volumes or papers.  It should not be called manually.
+        """
+        if not self.is_data_loaded:
+            return
+
+        for namespec in namespecs:
+            person = self.get_or_create_person(namespec)
+            person.item_ids.append(item_id)
 
     def _load_variant_list(self) -> None:
         """Loads and parses the `name_variant.yaml` file.

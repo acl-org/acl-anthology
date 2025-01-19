@@ -129,10 +129,7 @@ def test_collection_create_volume_explicit(collection_index):
     assert "cl" in volume.venue_ids
 
 
-@pytest.mark.parametrize(
-    "pre_load",
-    (pytest.param(True, marks=pytest.mark.xfail(reason="not implemented")), False),
-)
+@pytest.mark.parametrize("pre_load", (True, False))
 def test_collection_create_volume_should_update_person(anthology, pre_load):
     if pre_load:
         anthology.people.load()  # otherwise we test creation, not updating
@@ -151,10 +148,7 @@ def test_collection_create_volume_should_update_person(anthology, pre_load):
     assert volume.full_id_tuple in person.item_ids
 
 
-@pytest.mark.parametrize(
-    "pre_load",
-    (pytest.param(True, marks=pytest.mark.xfail(reason="not implemented")), False),
-)
+@pytest.mark.parametrize("pre_load", (True, False))
 def test_collection_create_volume_should_update_personindex(anthology, pre_load):
     if pre_load:
         anthology.people.load()  # otherwise we test creation, not updating
