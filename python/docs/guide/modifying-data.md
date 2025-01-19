@@ -83,7 +83,7 @@ To change an existing author's name, you just need to remember that names are
 immutable:
 
 ```pycon
->>> papers.authors[0].name = Name("Bollmann, Marcel")
+>>> paper.authors[0].name = Name("Bollmann, Marcel")
 ```
 
 !!! danger
@@ -93,6 +93,32 @@ immutable:
     get an (immediate) error if you e.g. append the wrong type of object to a
     list attribute.
 
+### Things to keep in mind
+
+#### Citation keys
+If a paper's title or author list has changed, you might want to recreate its
+citation key (or 'bibkey').  This can be done by simply calling
+[`Paper.refresh_bibkey()`][acl_anthology.collections.paper.Paper.refresh_bibkey].
+If the auto-generated bibkey is identical to the current one, the bibkey will
+not change.
+
+#### Dependent indices
+- If an item's `bibkey` changes, the [BibkeyIndex][acl_anthology.collections.bibkeys.BibkeyIndex] **will** update automatically.
+- If an item's author or editor list changes, the [PersonIndex][acl_anthology.people.index.PersonIndex] and any [Person][acl_anthology.people.person.Person] objects created from it **will not update** automatically.
+- If an item's `venue_ids` list changes, the [VenueIndex][acl_anthology.venues.VenueIndex] and any [Venue][acl_anthology.venues.Venue] objects created from it **will not update** automatically.
+- If an item's `venue_ids` list changes, any implicit [Event][acl_anthology.collections.event.Event] created by it and its corresponding reverse-indexing in the [EventIndex][acl_anthology.collections.eventindex.EventIndex] **will not update** automatically.
+
+If, after making changes, you need to access an index that is not updated automatically, just do:
+
+```python
+anthology.reset_indices()
+```
+
+This will _not_ update any Event, Person, or Venue objects you may have already
+obtained, but any objects returned by an index _after_ the reset will reflect
+the new data.
+
+
 ## Modifying people
 
 {==TODO==}
@@ -101,6 +127,62 @@ immutable:
 ## Ingesting new proceedings
 
 {==TODO==}
+
+### New collections, volumes, and papers
+
+Creating new objects from `acl_anthology.collections` should be done with
+`create_` functions from their respective parent objects.  Here is a minimal
+example to create a new paper in an entirely new collection:
+
+```python
+collection = anthology.create_collection("2049.acl")
+volume = collection.create_volume(
+    id="long",
+    title=MarkupText.from_string("Proceedings of the ..."),
+)
+paper = volume.create_paper(
+    title=MarkupText.from_string("GPT-5000 is all you need")
+)
+```
+
+All attributes that can be set on these objects can also be supplied as keyword
+parameters to the `create_` functions; alternatively, they can be set on the
+object after it has been created.
+
+Some required attributes don't _need_ to be supplied on these functions:
+
+- A Volume's `year` attribute will be derived from the collection ID (e.g.,
+  `"2049"` in a collection with ID `"2049.acl"`).
+- A Volume's `type` will default to
+  [PROCEEDINGS][acl_anthology.collections.types.VolumeType].
+- A Paper's `id` will be set to the next-highest numeric ID that doesn't already
+  exist in the volume, starting at `"1"`.
+- A Paper's `bibkey` will be automatically generated if not explicitly set.
+  (But if you didn't supply an `authors` list when creating the paper, you will
+  want to call `refresh_bibkey()` on the Paper after setting the authors.)
+
+### New events
+
+Creating an explicit event works the same way as with other collection items:
+
+```python
+event = collection.create_event(id="acl-2049")
+```
+
+An Event's `id`, if not given, will be automatically generated from the
+collection ID (e.g., `"2049.acl"` will generate `"acl-2049"` for the event).
+
+Since the mixture of implicit and explicit creation of events and linking them
+to volumes can sometimes become a bit unintuitive (see [the documentation of
+`create_event()`][acl_anthology.collections.collection.Collection.create_event]
+or the source code of
+[`EventIndex.load()`][acl_anthology.collections.eventindex.EventIndex.load] for
+the gory details), it's best to ensure that:
+
+1. The EventIndex has been loaded before creating a new event (e.g. by running
+   `anthology.events.load()` or `anthology.load_all()`).
+2. Any volumes in the same collection are explicitly added to the event via
+   `event.add_colocated(volume)`.
 
 
 ## Saving changes
