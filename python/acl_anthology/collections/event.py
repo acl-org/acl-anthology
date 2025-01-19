@@ -25,7 +25,7 @@ from ..files import EventFileReference
 from ..people import NameSpecification
 from ..text import MarkupText
 from ..utils.attrs import auto_validate_types
-from ..utils.ids import AnthologyIDTuple, parse_id, build_id_from_tuple
+from ..utils.ids import AnthologyID, AnthologyIDTuple, parse_id, build_id_from_tuple
 
 if TYPE_CHECKING:
     from ..anthology import Anthology
@@ -151,6 +151,30 @@ class Event:
                     f"{build_id_from_tuple(anthology_id)}, which doesn't exist"
                 )
             yield volume
+
+    def add_colocated(self, volume: Volume | AnthologyID) -> None:
+        """Add a co-located volume to this event.
+
+        Will do nothing if the given volume is already co-located with this event.
+
+        Parameters:
+            volume: The ID or Volume object to co-locate with this event.
+        """
+        from .volume import Volume
+
+        if isinstance(volume, Volume):
+            volume_id = volume.full_id_tuple
+        else:
+            volume_id = parse_id(volume)
+
+        if volume_id in self.colocated_ids:
+            return
+
+        self.colocated_ids.append(volume_id)
+
+        # Update the event index as well
+        if self.root.events.is_data_loaded:
+            self.root.events.reverse[volume_id].add(self.id)
 
     @classmethod
     def from_xml(cls, parent: Collection, event: etree._Element) -> Event:

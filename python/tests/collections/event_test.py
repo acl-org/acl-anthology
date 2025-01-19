@@ -150,6 +150,23 @@ def test_event_volumes(anthology):
         list(anthology.events.get("acl-2022").volumes())
 
 
+def test_event_add_colocated(anthology):
+    event = anthology.events.get("lrec-2006")
+    assert len(event.colocated_ids) == 1
+    volume = anthology.get_volume("J89-1")
+
+    # Adding colocated volume should update Event & EventIndex
+    event.add_colocated(volume)
+    assert len(event.colocated_ids) == 2
+    assert volume.full_id_tuple in event.colocated_ids
+    assert event in anthology.events.by_volume(volume)
+
+    # Adding the same volume a second time shouldn't change anything
+    event.add_colocated(volume)
+    event.add_colocated(volume.full_id_tuple)
+    assert len(event.colocated_ids) == 2
+
+
 test_cases_talk_xml = (
     """<talk>
   <title>Keynote 1: Language in the human brain</title>

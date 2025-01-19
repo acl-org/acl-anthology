@@ -483,6 +483,18 @@ class Paper:
             return self.parent.get_journal_title()
         return self.journal
 
+    def refresh_bibkey(self) -> str:
+        """Replace this paper's bibkey with a unique, automatically-generated one.
+
+        Can be used to re-generate a bibkey after the title or author information has been modified.
+
+        Returns:
+            The new bibkey.  (May be identical to the current one.)
+        """
+        # Triggers the re-creation of the bibkey via on_setattr mechanism
+        self.bibkey = constants.NO_BIBKEY
+        return self.bibkey
+
     def to_bibtex(self, with_abstract: bool = False) -> str:
         """Generate a BibTeX entry for this paper.
 
