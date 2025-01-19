@@ -67,6 +67,22 @@ class EventIndex(SlottedDict[Event]):
         self.reverse = defaultdict(set)
         self.is_data_loaded = False
 
+    def _add_to_index(self, event: Event) -> None:
+        """Add an event to the index, adding already linked item IDs to it if applicable.
+
+        This function exists for internal use when creating new explicit events in a collection.  It should not be called manually.
+        """
+        if not self.is_data_loaded:
+            return
+
+        if event.id in self.data:
+            for co_id in self.data[event.id].colocated_ids:
+                if co_id not in event.colocated_ids:
+                    event.colocated_ids.append(co_id)
+        self.data[event.id] = event
+        for volume_fid in event.colocated_ids:
+            self.reverse[volume_fid].add(event.id)
+
     def load(self) -> None:
         """Load the entire Anthology data and build an index of events."""
         if self.is_data_loaded:

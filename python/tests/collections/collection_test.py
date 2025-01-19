@@ -253,3 +253,34 @@ def test_collection_create_volume_should_update_venue(anthology, pre_load, reset
 
     # Nev volume should be added to existing venue
     assert volume.full_id_tuple in anthology.venues["acl"].item_ids
+
+
+def test_collection_create_event(collection_index):
+    collection = collection_index.get("L06")
+
+    # For old-style ID collections, an ID must be explicitly given
+    with pytest.raises(ValueError):
+        _ = collection.create_event()
+
+    event = collection.create_event(id="lrec-2006")
+    assert event.id == "lrec-2006"
+
+    # Trying to create yet another event in the same collection should raise
+    with pytest.raises(ValueError):
+        _ = collection.create_event(id="lrecagain-2006")
+
+
+@pytest.mark.parametrize("pre_load", (True, False))
+def test_collection_create_event_should_update_eventindex(pre_load, anthology):
+    if pre_load:
+        anthology.events.load()  # otherwise we test creation, not updating
+
+    collection = anthology.collections.get("L06")
+    event = collection.create_event(id="lrec-2006")
+
+    if pre_load:
+        # Volume should automatically have been added
+        assert event.colocated_ids == [collection.get("1").full_id_tuple]
+    else:
+        # If event index wasn't loaded, it's not
+        assert event.colocated_ids == []

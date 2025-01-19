@@ -171,12 +171,12 @@ class Collection(SlottedDict[Volume]):
         if id in self.data:
             raise ValueError(f"Volume {id} already exists in collection {self.id}")
 
-        kwargs["parent"] = self
         if year is None:
             year = infer_year(self.id)
 
         volume = Volume(
             id=id,
+            parent=self,
             booktitle=title,
             year=year,
             type=type,
@@ -190,6 +190,48 @@ class Collection(SlottedDict[Volume]):
 
         self.data[id] = volume
         return volume
+
+    def create_event(
+        self,
+        id: Optional[str] = None,
+        **kwargs: Any,
+    ) -> Event:
+        """Create a new (explicit) [Event][acl_anthology.collections.event.Event] object in this collection.
+
+        Parameters:
+            id: The ID of the event; must follow [`RE_EVENT_ID`][acl_anthology.constants.RE_EVENT_ID].  If None (default), and this collection has a new-style ID, will generate an event ID based on this (e.g., collection "2022.emnlp" will generate event "emnlp-2022").
+            **kwargs: Any valid list or optional attribute of [Event][acl_anthology.collections.event.Event].
+
+        Returns:
+            The created [Event][acl_anthology.collections.event.Event] object.
+
+        Raises:
+            ValueError: If an explicitly defined event already exists in this collection, or if `id` was None and this collection has an old-style ID.
+
+        Note:
+            If the [event index][acl_anthology.collection.eventindex.EventIndex] is loaded _and_ an event with the given ID is already implicitly defined, the newly created event will replace that one, _but will inherit its co-located IDs_.  It is currently not possible to explicitly create an event without also explicitly linking all co-located item IDs to it, but for performance reasons (this linking needs to load the entire Anthology data), it _only happens when the event index is loaded._  This means that e.g. entirely new proceedings can be created without the performance impact of loading everything, but for adding new events to existing proceedings, the event index should probably be loaded first.
+        """
+        if not self.is_data_loaded:
+            self.load()
+        if self.event is not None:
+            raise ValueError(
+                f"Can't create event in collection {self.id}: already exists"
+            )
+        if id is None:
+            if not self.id[0].isdigit():
+                raise ValueError(
+                    f"Can't create event in collection {self.id} without an explicitly given ID"
+                )
+            id = "-".join(self.id.split(".")[::-1])
+
+        self.event = Event(
+            id=id,
+            parent=self,
+            is_explicit=True,
+            **kwargs,
+        )
+        self.root.events._add_to_index(self.event)
+        return self.event
 
     def load(self) -> None:
         """Loads the XML file belonging to this collection."""
