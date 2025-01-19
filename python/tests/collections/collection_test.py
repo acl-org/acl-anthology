@@ -18,6 +18,7 @@ from pathlib import Path
 
 from acl_anthology import Anthology
 from acl_anthology.collections import Collection, CollectionIndex, VolumeType
+from acl_anthology.people import NameSpecification
 from acl_anthology.utils import xml
 from acl_anthology.text import MarkupText
 

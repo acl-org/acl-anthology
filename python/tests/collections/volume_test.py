@@ -361,7 +361,7 @@ def test_volume_create_paper_should_update_person(anthology, pre_load):
         anthology.people.load()  # otherwise we test creation, not updating
 
     volume = anthology.get_volume("2022.acl-long")
-    authors = (NameSpec("Berg-Kirkpatrick, Taylor"),)
+    authors = [NameSpec("Berg-Kirkpatrick, Taylor")]
     paper = volume.create_paper(
         title=MarkupText.from_string("The awesome paper I have never written"),
         authors=authors,
@@ -383,7 +383,7 @@ def test_volume_create_paper_should_update_personindex(anthology, pre_load):
         anthology.people.load()  # otherwise we test creation, not updating
 
     volume = anthology.get_volume("2022.acl-long")
-    authors = (NameSpec("Nonexistant, Guy Absolutely"),)
+    authors = [NameSpec("Nonexistant, Guy Absolutely")]
     paper = volume.create_paper(
         title=MarkupText.from_string("An entirely imaginary paper"),
         authors=authors,
