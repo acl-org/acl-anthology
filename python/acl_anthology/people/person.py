@@ -29,6 +29,9 @@ if TYPE_CHECKING:
 class Person:
     """A natural person.
 
+    Info:
+        All information about persons is currently derived from [name specifications][acl_anthology.people.name.NameSpecification] on volumes and papers, and not stored explicitly. This means that Person objects **cannot be used to make changes** to Anthology data; change the information on papers instead.
+
     Attributes:
         id: A unique ID for this person.
         parent: The parent Anthology instance to which this person belongs.

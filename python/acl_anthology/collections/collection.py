@@ -51,6 +51,9 @@ class Collection(SlottedDict[Volume]):
 
     Provides dictionary-like functionality mapping volume IDs to [Volume][acl_anthology.collections.volume.Volume] objects in the collection.
 
+    Info:
+        To create a new collection, use [`CollectionIndex.create()`][acl_anthology.collections.index.CollectionIndex.create].
+
     Attributes: Required Attributes:
         id: The ID of this collection (e.g. "L06" or "2022.emnlp").
         parent: The parent CollectionIndex instance to which this collection belongs.
@@ -208,8 +211,8 @@ class Collection(SlottedDict[Volume]):
         Raises:
             ValueError: If an explicitly defined event already exists in this collection, or if `id` was None and this collection has an old-style ID.
 
-        Note:
-            If the [event index][acl_anthology.collection.eventindex.EventIndex] is loaded _and_ an event with the given ID is already implicitly defined, the newly created event will replace that one, _but will inherit its co-located IDs_.  It is currently not possible to explicitly create an event without also explicitly linking all co-located item IDs to it, but for performance reasons (this linking needs to load the entire Anthology data), it _only happens when the event index is loaded._  This means that e.g. entirely new proceedings can be created without the performance impact of loading everything, but for adding new events to existing proceedings, the event index should probably be loaded first.
+        Danger:
+            If the [event index][acl_anthology.collections.eventindex.EventIndex] is loaded _and_ an event with the given ID is already implicitly defined, the newly created event will replace that one, _but will inherit its co-located IDs_.  It is currently not possible to explicitly create an event without also explicitly linking all co-located item IDs to it, but for performance reasons (this linking needs to load the entire Anthology data), it _only happens when the event index is loaded._  This means that e.g. entirely new proceedings can be created without the performance impact of loading everything, but for adding new events to existing proceedings, the event index should probably be loaded first.
         """
         if not self.is_data_loaded:
             self.load()

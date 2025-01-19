@@ -90,8 +90,8 @@ class Talk:
 class Event:
     """An event, such as a meeting or a conference.
 
-    Note:
-        To manually create a new event, use [`Collection.create_event()`][acl_anthology.collections.collection.Collection.create_event].
+    Info:
+        To create a new explicit event, use [`Collection.create_event()`][acl_anthology.collections.collection.Collection.create_event].
 
     Attributes: Required Attributes:
         id: The ID of this event.

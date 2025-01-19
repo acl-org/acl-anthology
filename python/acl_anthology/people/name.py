@@ -29,6 +29,9 @@ from ..utils.latex import latex_encode
 class Name:
     """A person's name.
 
+    Note:
+        Name objects are _frozen_, meaning they are immutable.  This allows them to be used as dictionary keys, but means that in order to change a name somewhere, you need to replace it with a new `Name` instance.
+
     Attributes:
         first: First name part. Can be given as `None` for people who
             only have a single name, but cannot be omitted.

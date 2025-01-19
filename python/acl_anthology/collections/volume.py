@@ -45,6 +45,9 @@ class Volume(SlottedDict[Paper]):
 
     Provides dictionary-like functionality mapping paper IDs to [Paper][acl_anthology.collections.paper.Paper] objects in the volume.
 
+    Info:
+        To create a new volume, use [`Collection.create_volume()`][acl_anthology.collections.collection.Collection.create_volume].
+
     Attributes: Required Attributes:
         id: The ID of this volume (e.g. "1" or "main").
         parent: The collection this volume belongs to.

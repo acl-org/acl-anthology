@@ -217,6 +217,9 @@ def _update_bibkey_index(paper: Paper, attr: attrs.Attribute[Any], value: str) -
 class Paper:
     """A paper entry.
 
+    Info:
+        To create a new paper, use [`Volume.create_paper()`][acl_anthology.collections.volume.Volume.create_paper].
+
     Attributes: Required Attributes:
         id: The ID of this paper (e.g. "1" or "42").
         parent: The Volume object that this paper belongs to.

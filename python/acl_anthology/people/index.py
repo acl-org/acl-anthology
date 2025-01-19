@@ -51,6 +51,14 @@ class PersonIndex(SlottedDict[Person]):
 
     Provides dictionary-like functionality mapping person IDs to [Person][acl_anthology.people.person.Person] objects.
 
+    Info:
+        All information about persons is currently derived from [name specifications][acl_anthology.people.name.NameSpecification] on volumes and papers, and not stored explicitly. This means:
+
+        1. Loading this index requires parsing the entire Anthology data.
+        2. Nothing in this index should be modified to make changes to Anthology data; change the information on papers instead.
+
+        See the [guide on accessing author/editor information](../guide/accessing-authors.md) for more information.
+
     Attributes:
         parent: The parent Anthology instance to which this index belongs.
         verbose: If False, will not show progress bar when building the index from scratch.
