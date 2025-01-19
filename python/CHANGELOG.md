@@ -6,6 +6,9 @@
 
 - Papers are now indexed by their bibkeys and can be retrieved via `Anthology.get_paper_by_bibkey()`.
 - Bibkeys can now be generated and updated, guaranteeing uniqueness.
+- Collections, Volumes, and Papers can now be newly created with functions on their respective parent objects.
+
+### Changed
 
 ## [0.5.1] — 2025-01-02
 

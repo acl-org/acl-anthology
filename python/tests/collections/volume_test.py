@@ -352,6 +352,76 @@ def test_volume_create_paper_explicit(anthology):
     assert paper.bibkey == "bollmann-2022-the-awesome"
 
 
+@pytest.mark.parametrize(
+    "pre_load",
+    (pytest.param(True, marks=pytest.mark.xfail(reason="not implemented")), False),
+)
+def test_volume_create_paper_should_update_person(anthology, pre_load):
+    if pre_load:
+        anthology.people.load()  # otherwise we test creation, not updating
+
+    volume = anthology.get_volume("2022.acl-long")
+    authors = (NameSpec("Berg-Kirkpatrick, Taylor"),)
+    paper = volume.create_paper(
+        title=MarkupText.from_string("The awesome paper I have never written"),
+        authors=authors,
+        ingest_date="2025-01-07",
+    )
+    assert paper.authors == authors
+
+    # Paper should have been added to the person object
+    person = anthology.resolve(authors[0])
+    assert paper.full_id_tuple in person.item_ids
+
+
+@pytest.mark.parametrize(
+    "pre_load",
+    (pytest.param(True, marks=pytest.mark.xfail(reason="not implemented")), False),
+)
+def test_volume_create_paper_should_update_personindex(anthology, pre_load):
+    if pre_load:
+        anthology.people.load()  # otherwise we test creation, not updating
+
+    volume = anthology.get_volume("2022.acl-long")
+    authors = (NameSpec("Nonexistant, Guy Absolutely"),)
+    paper = volume.create_paper(
+        title=MarkupText.from_string("An entirely imaginary paper"),
+        authors=authors,
+        ingest_date="2025-01-07",
+    )
+    assert paper.authors == authors
+
+    # New author should exist in the author index
+    person = anthology.resolve(authors[0])
+    assert paper.full_id_tuple in person.item_ids
+
+
+@pytest.mark.xfail(reason="not implemented")
+def test_volume_remove_editor(anthology):
+    volume = anthology.get_volume("2022.acl-long")
+    person = anthology.resolve(volume.editors[1])
+    assert person.id == "preslav-nakov"
+    assert volume.full_id_tuple in person.item_ids
+
+    # Removing editor from volume should update the person
+    volume.editors = (volume.editors[0], volume.editors[2])
+    assert volume.full_id_tuple not in person.item_ids
+
+
+@pytest.mark.xfail(reason="not implemented")
+def test_volume_add_editor(anthology):
+    volume = anthology.get_volume("2022.acl-long")
+    # This person exists, but is not an editor on this volume
+    ns = NameSpec("Rada Mihalcea")
+    assert ns not in volume.editors
+    person = anthology.resolve(ns)
+    assert volume.full_id_tuple not in person.item_ids
+
+    # Adding this editor to the volume should update the person
+    volume.editors = volume.editors + (ns,)
+    assert volume.full_id_tuple in person.item_ids
+
+
 def test_volume_type_conversion():
     parent = Collection("L05", None, Path("."))
     volume = Volume(

@@ -126,3 +126,111 @@ def test_collection_create_volume_explicit(collection_index):
     assert volume.type == VolumeType.JOURNAL
     assert volume.journal_issue == "99"
     assert "cl" in volume.venue_ids
+
+
+@pytest.mark.parametrize(
+    "pre_load",
+    (pytest.param(True, marks=pytest.mark.xfail(reason="not implemented")), False),
+)
+def test_collection_create_volume_should_update_person(anthology, pre_load):
+    if pre_load:
+        anthology.people.load()  # otherwise we test creation, not updating
+
+    collection = anthology.collections.get("2022.acl")
+    editors = [NameSpecification("Rada Mihalcea")]
+    volume = collection.create_volume(
+        "keynotes",
+        title=MarkupText.from_string("Keynotes from ACL 2022"),
+        editors=editors,
+    )
+    assert volume.editors == editors
+
+    # Volume should have been added to the person object
+    person = anthology.resolve(editors[0])
+    assert volume.full_id_tuple in person.item_ids
+
+
+@pytest.mark.parametrize(
+    "pre_load",
+    (pytest.param(True, marks=pytest.mark.xfail(reason="not implemented")), False),
+)
+def test_collection_create_volume_should_update_personindex(anthology, pre_load):
+    if pre_load:
+        anthology.people.load()  # otherwise we test creation, not updating
+
+    collection = anthology.collections.get("2022.acl")
+    editors = [NameSpecification("Nonexistant, Guy Absolutely")]
+    volume = collection.create_volume(
+        "keynotes",
+        title=MarkupText.from_string("Keynotes from ACL 2022"),
+        editors=editors,
+    )
+    assert volume.editors == editors
+
+    # New editor should exist in the person index
+    person = anthology.resolve(editors[0])
+    assert volume.full_id_tuple in person.item_ids
+
+
+@pytest.mark.parametrize(
+    "pre_load",
+    (pytest.param(True, marks=pytest.mark.xfail(reason="not implemented")), False),
+)
+def test_collection_create_volume_should_create_event(anthology, pre_load):
+    if pre_load:
+        anthology.events.load()  # otherwise we test creation, not updating
+
+    collection = anthology.collections.create("2000.empty")
+    volume = collection.create_volume(
+        "1",
+        title=MarkupText.from_string("Empty volume"),
+        venue_ids=["acl"],
+    )
+
+    # New implicit event should exist in the event index
+    assert "acl-2000" in anthology.events
+    assert volume.full_id_tuple in anthology.events["acl-2000"].colocated_ids
+    assert volume.full_id_tuple in anthology.events.reverse
+    assert anthology.events.reverse[volume.full_id_tuple] == {"acl-2000"}
+
+
+@pytest.mark.parametrize(
+    "pre_load",
+    (pytest.param(True, marks=pytest.mark.xfail(reason="not implemented")), False),
+)
+def test_collection_create_volume_should_update_event(anthology, pre_load):
+    if pre_load:
+        anthology.events.load()  # otherwise we test creation, not updating
+
+    collection = anthology.collections.get("2022.acl")
+    collection.is_data_loaded = True
+    volume = collection.create_volume(
+        "keynotes",
+        title=MarkupText.from_string("Keynotes from ACL 2022"),
+        venue_ids=["acl"],
+    )
+
+    # New volume should be added to existing event
+    assert "acl-2022" in anthology.events
+    assert volume.full_id_tuple in anthology.events["acl-2022"].colocated_ids
+    assert volume.full_id_tuple in anthology.events.reverse
+    assert anthology.events.reverse[volume.full_id_tuple] == {"acl-2022"}
+
+
+@pytest.mark.parametrize(
+    "pre_load",
+    (pytest.param(True, marks=pytest.mark.xfail(reason="not implemented")), False),
+)
+def test_collection_create_volume_should_update_venue(anthology, pre_load):
+    if pre_load:
+        anthology.venues.load()  # otherwise we test creation, not updating
+
+    collection = anthology.collections.create("2000.empty")
+    volume = collection.create_volume(
+        "1",
+        title=MarkupText.from_string("Empty volume"),
+        venue_ids=["acl"],
+    )
+
+    # Nev volume should be added to existing venue
+    assert volume.full_id_tuple in anthology.venues["acl"].item_ids
