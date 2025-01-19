@@ -168,10 +168,15 @@ def test_collection_create_volume_should_update_personindex(anthology, pre_load)
 
 
 @pytest.mark.parametrize(
-    "pre_load",
-    (pytest.param(True, marks=pytest.mark.xfail(reason="not implemented")), False),
+    "pre_load, reset",
+    (
+        (True, True),
+        pytest.param(True, False, marks=pytest.mark.xfail(reason="not implemented")),
+        (False, False),
+        (False, True),
+    ),
 )
-def test_collection_create_volume_should_create_event(anthology, pre_load):
+def test_collection_create_volume_should_create_event(anthology, pre_load, reset):
     if pre_load:
         anthology.events.load()  # otherwise we test creation, not updating
 
@@ -182,6 +187,9 @@ def test_collection_create_volume_should_create_event(anthology, pre_load):
         venue_ids=["acl"],
     )
 
+    if reset:
+        anthology.reset_indices()
+
     # New implicit event should exist in the event index
     assert "acl-2000" in anthology.events
     assert volume.full_id_tuple in anthology.events["acl-2000"].colocated_ids
@@ -190,10 +198,15 @@ def test_collection_create_volume_should_create_event(anthology, pre_load):
 
 
 @pytest.mark.parametrize(
-    "pre_load",
-    (pytest.param(True, marks=pytest.mark.xfail(reason="not implemented")), False),
+    "pre_load, reset",
+    (
+        (True, True),
+        pytest.param(True, False, marks=pytest.mark.xfail(reason="not implemented")),
+        (False, False),
+        (False, True),
+    ),
 )
-def test_collection_create_volume_should_update_event(anthology, pre_load):
+def test_collection_create_volume_should_update_event(anthology, pre_load, reset):
     if pre_load:
         anthology.events.load()  # otherwise we test creation, not updating
 
@@ -205,6 +218,9 @@ def test_collection_create_volume_should_update_event(anthology, pre_load):
         venue_ids=["acl"],
     )
 
+    if reset:
+        anthology.reset_indices()
+
     # New volume should be added to existing event
     assert "acl-2022" in anthology.events
     assert volume.full_id_tuple in anthology.events["acl-2022"].colocated_ids
@@ -213,10 +229,15 @@ def test_collection_create_volume_should_update_event(anthology, pre_load):
 
 
 @pytest.mark.parametrize(
-    "pre_load",
-    (pytest.param(True, marks=pytest.mark.xfail(reason="not implemented")), False),
+    "pre_load, reset",
+    (
+        (True, True),
+        pytest.param(True, False, marks=pytest.mark.xfail(reason="not implemented")),
+        (False, False),
+        (False, True),
+    ),
 )
-def test_collection_create_volume_should_update_venue(anthology, pre_load):
+def test_collection_create_volume_should_update_venue(anthology, pre_load, reset):
     if pre_load:
         anthology.venues.load()  # otherwise we test creation, not updating
 
@@ -226,6 +247,9 @@ def test_collection_create_volume_should_update_venue(anthology, pre_load):
         title=MarkupText.from_string("Empty volume"),
         venue_ids=["acl"],
     )
+
+    if reset:
+        anthology.reset_indices()
 
     # Nev volume should be added to existing venue
     assert volume.full_id_tuple in anthology.venues["acl"].item_ids

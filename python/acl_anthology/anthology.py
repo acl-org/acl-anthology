@@ -173,6 +173,16 @@ class Anthology:
                 gc.enable()
         return self
 
+    def reset_indices(self) -> Self:
+        """Reset all non-collection indices.
+
+        Intended to be used after modifying data, to make sure all indices correctly reflect the changes.
+        """
+        self.events.reset()
+        self.people.reset()
+        self.venues.reset()
+        return self
+
     @property
     def relaxng(self) -> RelaxNG:
         """The RelaxNG schema for the Anthology's XML data files."""

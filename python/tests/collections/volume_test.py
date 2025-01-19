@@ -390,19 +390,21 @@ def test_volume_create_paper_should_update_personindex(anthology, pre_load):
     assert paper.full_id_tuple in person.item_ids
 
 
-@pytest.mark.xfail(reason="not implemented")
 def test_volume_remove_editor(anthology):
     volume = anthology.get_volume("2022.acl-long")
-    person = anthology.resolve(volume.editors[1])
+    ns = volume.editors[1]
+    person = anthology.resolve(ns)
     assert person.id == "preslav-nakov"
     assert volume.full_id_tuple in person.item_ids
 
-    # Removing editor from volume should update the person
+    # Removing editor from volume
     volume.editors = [volume.editors[0], volume.editors[2]]
+    # Person should be updated after resetting indices
+    anthology.reset_indices()
+    person = anthology.resolve(ns)
     assert volume.full_id_tuple not in person.item_ids
 
 
-@pytest.mark.xfail(reason="not implemented")
 def test_volume_add_editor(anthology):
     volume = anthology.get_volume("2022.acl-long")
     # This person exists, but is not an editor on this volume
@@ -411,8 +413,11 @@ def test_volume_add_editor(anthology):
     person = anthology.resolve(ns)
     assert volume.full_id_tuple not in person.item_ids
 
-    # Adding this editor to the volume should update the person
+    # Adding this editor to the volume
     volume.editors.append(ns)
+    # Person should be updated after resetting indices
+    anthology.reset_indices()
+    person = anthology.resolve(ns)
     assert volume.full_id_tuple in person.item_ids
 
 
