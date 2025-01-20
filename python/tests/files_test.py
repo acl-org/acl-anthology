@@ -16,7 +16,12 @@ import pytest
 from lxml import etree
 
 from acl_anthology import config
-from acl_anthology.files import PDFReference, VideoReference, PapersWithCodeReference
+from acl_anthology.files import (
+    AttachmentReference,
+    PDFReference,
+    VideoReference,
+    PapersWithCodeReference,
+)
 
 
 test_cases_pdf = (
@@ -198,3 +203,17 @@ def test_reference_cant_change_template_field():
     assert isinstance(ref.template_field, str)
     with pytest.raises(AttributeError):
         ref.template_field = "foo"
+
+
+def test_pdfreference_from_file():
+    name = "tests/J16-4001.pdf"  # must exist
+    ref = PDFReference.from_file(name)
+    assert ref.name == "J16-4001"  # without the .pdf
+    assert ref.checksum == "f9f4f558"
+
+
+def test_attachmentreference_from_file():
+    name = "tests/J16-4001.pdf"  # must exist
+    ref = AttachmentReference.from_file(name)
+    assert ref.name == "J16-4001.pdf"  # WITH the .pdf
+    assert ref.checksum == "f9f4f558"

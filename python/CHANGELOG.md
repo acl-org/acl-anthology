@@ -8,6 +8,7 @@
 - Bibkeys can now be generated and updated, guaranteeing uniqueness.
 - Collections, Volumes, Papers, and Events can now be newly created with functions on their respective parent objects.
   - Event creation currently has some unintuitive behaviour due to the existence of implicit event creation and linking; see docs.
+- FileReferences can now be instantiated from files, and functions for checksum computation have been added.
 
 ### Changed
 

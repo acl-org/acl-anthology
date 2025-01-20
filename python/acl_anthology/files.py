@@ -18,7 +18,10 @@ import sys
 from attrs import define, field, validators as v, Factory
 from lxml import etree
 from lxml.builder import E
+from os import PathLike
+from pathlib import Path
 from typing import cast, ClassVar, Optional
+from zlib import crc32
 
 if sys.version_info >= (3, 11):
     from typing import Self
@@ -27,6 +30,32 @@ else:
 
 from .config import config
 from .utils.xml import xsd_boolean
+
+
+def compute_checksum(value: bytes) -> str:
+    """Compute the checksum of a byte string.
+
+    Parameters:
+        value: Any byte string.
+
+    Returns:
+        The checksum of the byte string as an eight-character, hex-formatted string.
+    """
+    checksum = crc32(value) & 0xFFFFFFFF
+    return f"{checksum:08x}"
+
+
+def compute_checksum_from_file(path: PathLike[str]) -> str:
+    """Compute the checksum of a file.
+
+    Parameters:
+        path: The path to a file.
+
+    Returns:
+        The checksum of the file's contents.
+    """
+    with open(path, "rb") as f:
+        return compute_checksum(f.read())
 
 
 @define
@@ -60,8 +89,36 @@ class FileReference:
         return cast(str, config[self.template_field]).format(self.name)
 
     @classmethod
+    def from_file(cls, filename: PathLike[str]) -> Self:
+        """Instantiate a new file reference from a file.
+
+        This automatically computes the checksum for the file and determines its name.
+
+        The name of the returned reference will depend on the configured template string; for example, if this function is called on the [PDFReference][acl_anthology.files.PDFReference] class and given a filename ending in `".pdf"`, and [`config.pdf_location_template`][acl_anthology.config.DefaultConfig] ends in `".pdf"`, this means the filename should and will be stored _without_ the `".pdf"` suffix.
+
+        Parameters:
+            filename: The path to the file.
+
+        Returns:
+            A file reference for the given file.
+
+        Raises:
+            FileNotFoundError: If filename does not point to an existing file.
+        """
+        if not (path := Path(filename)).is_file():
+            raise FileNotFoundError(f"Not a file: {filename}")
+
+        if cast(str, config[cls.template_field]).endswith(path.suffix):
+            name = path.stem
+        else:
+            name = path.name
+
+        checksum = compute_checksum_from_file(path)
+        return cls(name=name, checksum=checksum)
+
+    @classmethod
     def from_xml(cls, elem: etree._Element) -> Self:
-        """Instantiates a new file reference from a corresponding XML element."""
+        """Instantiate a new file reference from a corresponding XML element."""
         checksum = elem.get("hash")
         return cls(name=str(elem.text), checksum=str(checksum) if checksum else None)
 
