@@ -13,7 +13,8 @@
 # limitations under the License.
 
 from .markuptext import MarkupText
+from .stopwords import StopWords
 from .texmath import TexMath
 
 
-__all__ = ["MarkupText", "TexMath"]
+__all__ = ["MarkupText", "StopWords", "TexMath"]

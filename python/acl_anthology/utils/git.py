@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+"""Functions implementing the automatic cloning of the Anthology repository."""
+
 from git.repo import Repo
 from git import RemoteProgress
 from os import PathLike
