@@ -286,7 +286,9 @@ class AnthologyMetadataUpdater:
                     print("-> Applying changes to XML file", file=sys.stderr)
 
                 try:
-                    tree = self._apply_changes_to_xml(xml_repo_path, anthology_id, json_block)
+                    tree = self._apply_changes_to_xml(
+                        xml_repo_path, anthology_id, json_block
+                    )
                 except Exception as e:
                     if verbose:
                         print(e, file=sys.stderr)
