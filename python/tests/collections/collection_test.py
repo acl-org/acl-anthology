@@ -68,6 +68,14 @@ def test_collection_load(
         assert collection.get_event() is None
 
 
+def test_collection_load_id_mismatch(collection_index, datadir):
+    collection = Collection(
+        "2019.emnlp", parent=collection_index, path=datadir / "xml" / "2022.acl.xml"
+    )
+    with pytest.raises(ValueError):
+        collection.load()
+
+
 @pytest.mark.parametrize("filename", test_cases_xml_roundtrip)
 def test_collection_validate_schema(collection_index, datadir, filename):
     infile = datadir / "xml" / filename
