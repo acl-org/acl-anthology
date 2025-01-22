@@ -1,5 +1,11 @@
+#!/usr/bin/env python3
+
+"""
+Removes unused name variants and also sorts the file.
+Run this any time you edit name_variants to easily keep things sorted.
+"""
+
 import yaml
-import sys
 import anthology
 import logging
 import os.path
@@ -29,4 +35,4 @@ for d in variants:
 
 newvariants.sort(key=lambda v: (v["canonical"]["last"], v["canonical"]["first"]))
 
-sys.stdout.write(yaml.dump(newvariants, allow_unicode=True, default_flow_style=None))
+print(yaml.dump(newvariants, allow_unicode=True, default_flow_style=None))
