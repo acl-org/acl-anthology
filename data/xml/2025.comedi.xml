@@ -1,0 +1,153 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2025.comedi">
+  <volume id="1" ingest-date="2025-01-24" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of Context and Meaning: Navigating Disagreements in NLP Annotation</booktitle>
+      <editor><first>Michael</first><last>Roth</last></editor>
+      <editor><first>Dominik</first><last>Schlechtweg</last></editor>
+      <publisher>International Committee on Computational Linguistics</publisher>
+      <address>Abu Dhabi, UAE</address>
+      <month>January</month>
+      <year>2025</year>
+      <url hash="44c0b6f3">2025.comedi-1</url>
+      <venue>comedi</venue>
+      <venue>ws</venue>
+    </meta>
+    <frontmatter>
+      <url hash="e4f433a8">2025.comedi-1.0</url>
+    </frontmatter>
+    <paper id="1">
+      <title>Is a bunch of words enough to detect disagreement in hateful content?</title>
+      <author><first>Giulia</first><last>Rizzi</last></author>
+      <author><first>Paolo</first><last>Rosso</last></author>
+      <author><first>Elisabetta</first><last>Fersini</last></author>
+      <pages>1–11</pages>
+      <abstract>The complexity of the annotation process when adopting crowdsourcing platforms for labeling hateful content can be linked to the presence of textual constituents that can be ambiguous, misinterpreted, or characterized by a reduced surrounding context. In this paper, we address the problem of perspectivism in hateful speech by leveraging contextualized embedding representation of their constituents and weighted probability functions. The effectiveness of the proposed approach is assessed using four datasets provided for the SemEval 2023 Task 11 shared task. The results emphasize that a few elements can serve as a proxy to identify sentences that may be perceived differently by multiple readers, without the need of necessarily exploiting complex Large Language Models.</abstract>
+      <url hash="e7a2357c">2025.comedi-1.1</url>
+    </paper>
+    <paper id="2">
+      <title>On Crowdsourcing Task Design for Discourse Relation Annotation</title>
+      <author><first>Frances</first><last>Yung</last></author>
+      <author><first>Vera</first><last>Demberg</last></author>
+      <pages>12–19</pages>
+      <abstract>Interpreting implicit discourse relations involves complex reasoning, requiring the integration of semantic cues with background knowledge, as overt connectives like “because” or “then” are absent. These relations often allow multiple interpretations, best represented as distributions. In this study, we compare two established methods that crowdsource implicit discourse relation annotation by connective insertion: a free-choice approach, which allows annotators to select any suitable connective, and a forced-choice approach, which asks them to select among a set of predefined options. Specifically, we re-annotate the whole DiscoGeM 1.0 corpus - initially annotated with the free-choice method - using the forced-choice approach. The free-choice approach allows for flexible and intuitive insertion of various connectives, which are context-dependent. Comparison among over 130,000 annotations, however, shows that the free-choice strategy produces less diverse annotations, often converging on common labels. Analysis of the results reveals the interplay between task design and the annotators’ abilities to interpret and produce discourse relations.</abstract>
+      <url hash="11eeaab6">2025.comedi-1.2</url>
+    </paper>
+    <paper id="3">
+      <title>Sources of Disagreement in Data for <fixed-case>LLM</fixed-case> Instruction Tuning</title>
+      <author><first>Russel</first><last>Dsouza</last></author>
+      <author><first>Venelin</first><last>Kovatchev</last></author>
+      <pages>20–32</pages>
+      <abstract>In this paper we study the patterns of label disagreement in data used for instruction tuning Large Language models (LLMs). Specifically, we focus on data used for Reinforcement Learning from Human Feedback (RLHF). Our objective is to determine what is the primary source of disagreement: the individual data points, the choice of annotators, or the task formulation. We annotate the same dataset multiple times under different conditions and compare the overall agreement and the patterns of disagreement. For task formulation, we compare “single” format where annotators rate LLM responses individually with “preference” format where annotators select one of two possible responses. For annotators, we compare data from human labelers with automatic data labeling using LLMs. Our results indicate that: (1) there are very few “universally ambiguous” instances. The label disagreement depends largely on the task formulation and the choice of annotators; (2) the overall agreement remains consistent across experiments. We find no evidence that “preference” data is of higher quality than “single” data; and (3) the change of task formulation and annotators impacts the resulting instance-level labels. The labels obtained in different experiments are correlated, but not identical.</abstract>
+      <url hash="d7fe6959">2025.comedi-1.3</url>
+    </paper>
+    <paper id="4">
+      <title><fixed-case>C</fixed-case>o<fixed-case>M</fixed-case>e<fixed-case>D</fixed-case>i Shared Task: Median Judgment Classification &amp; Mean Disagreement Ranking with Ordinal Word-in-Context Judgments</title>
+      <author><first>Dominik</first><last>Schlechtweg</last></author>
+      <author><first>Tejaswi</first><last>Choppa</last></author>
+      <author><first>Wei</first><last>Zhao</last></author>
+      <author><first>Michael</first><last>Roth</last></author>
+      <pages>33–47</pages>
+      <abstract>We asked task participants to solve two subtasks given a pair of word usages: Ordinal Graded Word-in-Context Classification (OGWiC) and Disagreement in Word-in-Context Ranking (DisWiC). The tasks take a different view on modeling of word meaning by (i) treating WiC as an ordinal classification task, and (ii) making disagreement the explicit detection aim (instead of removing it). OGWiC is solved with relatively high performance while DisWiC proves to be a challenging task. In both tasks, the dominating model architecture uses independently optimized binary Word-in-Context models.</abstract>
+      <url hash="c43f8cb6">2025.comedi-1.4</url>
+    </paper>
+    <paper id="5">
+      <title>Deep-change at <fixed-case>C</fixed-case>o<fixed-case>M</fixed-case>e<fixed-case>D</fixed-case>i: the Cross-Entropy Loss is not All You Need</title>
+      <author><first>Mikhail</first><last>Kuklin</last></author>
+      <author><first>Nikolay</first><last>Arefyev</last></author>
+      <pages>48–64</pages>
+      <abstract>Manual annotation of edges in Diachronic Word Usage Graphs is a critical step in creation of datasets for Lexical Semantic Change Detection tasks, but a very labour-intensive one. Annotators estimate if two senses of an ambiguous word expressed in two usages of this word are related and how. This is a variation of the Word-in-Context (WiC) task with some peculiarities, including diachronic data, an ordinal scale for annotations consisting of 4 values with pre-defined meanings (e.g. homonymy, polysemy), and special attention to the degree of disagreement between annotators which affects the further processing of the graph. CoMeDi is a shared task aiming at automating this annotation process. Participants are asked to predict the median annotation for a pair of usages in the first subtask, and estimate the disagreement between annotators in the second subtask. Together this gives some idea about the distribution of annotations we can get from humans for a given pair of usages. For the first subtask we tried several ways of adapting a binary WiC model to this 4 class problem. We discovered that further fine-tuning the model as a 4 class classifier on the training data of the shared task works significantly worse than thresholding the original binary model. For the second subtask our best results were achieved by building a model that predicts the whole multinomial distribution of annotations and calculating the disagreement from this distribution. Our solutions for both subtasks have outperformed all other participants of the shared task.</abstract>
+      <url hash="15da2c23">2025.comedi-1.5</url>
+    </paper>
+    <paper id="6">
+      <title>Predicting Median, Disagreement and Noise Label in Ordinal Word-in-Context Data</title>
+      <author><first>Tejaswi</first><last>Choppa</last></author>
+      <author><first>Michael</first><last>Roth</last></author>
+      <author><first>Dominik</first><last>Schlechtweg</last></author>
+      <pages>65–77</pages>
+      <abstract>TThe quality of annotated data is crucial for Machine Learning models, particularly in word sense annotation in context (Word-in-Context, WiC). WiC datasets often show significant annotator disagreement, and information is lost when creating gold labels through majority or median aggregation. Recent work has addressed this by incorporating disagreement data through new label aggregation methods. Modeling disagreement is important since real-world scenarios often lack clean data and require predictions on inherently difficult samples. Disagreement prediction can help detect complex cases or to reflect inherent data ambiguity. We aim to model different aspects of ordinal Word-in-Context annotations necessary to build a more human-like model: (i) the aggregated label, which has traditionally been the modeling aim, (ii) the disagreement between annotators, and (iii) the aggregated noise label which annotators can choose to exclude data points from annotation. We find that disagreement and noise are impacted by various properties of data like ambiguity, which in turn points to data uncertainty.</abstract>
+      <url hash="cb81c6ed">2025.comedi-1.6</url>
+    </paper>
+    <paper id="7">
+      <title><fixed-case>GRASP</fixed-case> at <fixed-case>C</fixed-case>o<fixed-case>M</fixed-case>e<fixed-case>D</fixed-case>i Shared Task: Multi-Strategy Modeling of Annotator Behavior in Multi-Lingual Semantic Judgments</title>
+      <author><first>David</first><last>Alfter</last></author>
+      <author><first>Mattias</first><last>Appelgren</last></author>
+      <pages>78–89</pages>
+      <abstract>This paper presents the GRASP team’s systems for the CoMeDi 2025 shared task on disagreement prediction in semantic annotation. The task comprises two subtasks: predicting median similarity scores and mean disagreement scores for word usage across multiple languages including Chinese, English, German, Norwegian, Russian, Spanish, and Swedish. For subtask 1, we implement three approaches: Prochain, a probabilistic chain model predicting sequential judgments; FARM, an ensemble of five fine-tuned XLM-RoBERTa models; and THAT, a task-specific model using XL-Lexeme with adaptive thresholds. For subtask 2, we develop three systems: LAMP, combining language-agnostic and monolingual models; BUMBLE, using optimal language combinations; and DRAMA, leveraging disagreement patterns from FARM’s outputs. Our results show strong performance across both subtasks, ranking second overall among participating teams. The probabilistic Prochain model demonstrates surprisingly robust performance when given accurate initial judgments, while our task-specific approaches show varying effectiveness across languages.</abstract>
+      <url hash="bee66adc">2025.comedi-1.7</url>
+    </paper>
+    <paper id="8">
+      <title>Funzac at <fixed-case>C</fixed-case>o<fixed-case>M</fixed-case>e<fixed-case>D</fixed-case>i Shared Task: Modeling Annotator Disagreement from Word-In-Context Perspectives</title>
+      <author><first>Olufunke O.</first><last>Sarumi</last></author>
+      <author><first>Charles</first><last>Welch</last></author>
+      <author><first>Lucie</first><last>Flek</last></author>
+      <author><first>Jörg</first><last>Schlötterer</last></author>
+      <pages>90–96</pages>
+      <abstract>In this work, we evaluate annotator disagreement in Word-in-Context (WiC) tasks exploring the relationship between contextual meaning and disagreement as part of the CoMeDi shared task competition. While prior studies have modeled disagreement by analyzing annotator attributes with single-sentence inputs, this shared task incorporates WiC to bridge the gap between sentence-level semantic representation and annotator judgment variability. We describe three different methods that we developed for the shared task, including a feature enrichment approach that combines concatenation, element-wise differences, products, and cosine similarity, Euclidean and Manhattan distances to extend contextual embedding representations, a transformation by Adapter blocks to obtain task-specific representations of contextual embeddings, and classifiers of varying complexities, including ensembles. The comparison of our methods demonstrates improved performance for methods that include enriched and task-specfic features. While the performance of our method falls short in comparison to the best system in subtask 1 (OGWiC), it is competitive to the official evaluation results in subtask 2 (DisWiC)</abstract>
+      <url hash="13ba1f3c">2025.comedi-1.8</url>
+    </paper>
+    <paper id="9">
+      <title><fixed-case>F</fixed-case>uoc<fixed-case>C</fixed-case>hu<fixed-case>VIP</fixed-case>123 at <fixed-case>C</fixed-case>o<fixed-case>M</fixed-case>e<fixed-case>D</fixed-case>i Shared Task: Disagreement Ranking with <fixed-case>XLM</fixed-case>-Roberta Sentence Embeddings and Deep Neural Regression</title>
+      <author><first>Phuoc Duong Huy</first><last>Chu</last></author>
+      <pages>97–102</pages>
+      <abstract>This paper presents results of our system for CoMeDi Shared Task, focusing on Subtask 2: Disagreement Ranking. Our system leverages sentence embeddings generated by the paraphrase-xlm-r-multilingual-v1 model, combined with a deep neural regression model incorporating batch normalization and dropout for improved generalization. By predicting the mean of pairwise judgment differences between annotators, our method explicitly targets disagreement ranking, diverging from traditional “gold label” aggregation approaches. We optimized our system with a tailored architecture and training procedure, achieving competitive performance in Spearman correlation against the mean disagreement labels. Our results highlights the importance of robust embeddings, effective model architecture, and careful handling of judgment differences for ranking disagreement in multilingual contexts. These findings provide insights into leveraging contextualized representations for ordinal judgment tasks and open avenues for further refinement in disagreement prediction models.</abstract>
+      <url hash="651bf930">2025.comedi-1.9</url>
+    </paper>
+    <paper id="10">
+      <title><fixed-case>J</fixed-case>uniper<fixed-case>L</fixed-case>iu at <fixed-case>C</fixed-case>o<fixed-case>M</fixed-case>e<fixed-case>D</fixed-case>i Shared Task: Models as Annotators in Lexical Semantics Disagreements</title>
+      <author><first>Zhu</first><last>Liu</last></author>
+      <author><first>Zhen</first><last>Hu</last></author>
+      <author><first>Ying</first><last>Liu</last></author>
+      <pages>103–112</pages>
+      <abstract>We present the results of our system for the CoMeDi Shared Task, which predicts majority votes (Subtask 1) and annotator disagreements (Subtask 2). Our approach combines model ensemble strategies with MLP-based and threshold-based methods trained on pretrained language models. Treating individual models as virtual annotators, we simulate the annotation process by designing aggregation measures that incorporate continuous relatedness scores and discrete classification labels to capture both majority and disagreement. Additionally, we employ anisotropy removal techniques to enhance performance. Experimental results demonstrate the effectiveness of our methods, particularly for Subtask 2. Notably, we find that standard deviation on continuous relatedness scores among different model manipulations correlates with human disagreement annotations compared to metrics on aggregated discrete labels. The code will be published at https://github.com/RyanLiut/CoMeDi_Solution</abstract>
+      <url hash="b117fe7a">2025.comedi-1.10</url>
+    </paper>
+    <paper id="11">
+      <title><fixed-case>MML</fixed-case>ab<fixed-case>UIT</fixed-case> at <fixed-case>C</fixed-case>o<fixed-case>M</fixed-case>e<fixed-case>D</fixed-case>i<fixed-case>S</fixed-case>hared Task: Text Embedding Techniques versus Generation-Based <fixed-case>NLI</fixed-case> for Median Judgment Classification</title>
+      <author><first>Tai Duc</first><last>Le</last></author>
+      <author><first>Thin Dang</first><last>Van</last></author>
+      <pages>113–121</pages>
+      <abstract>This paper presents our approach in the COLING2025-CoMeDi task in 7 languages, focusing on sub-task 1: Median Judgment Classification with Ordinal Word-in-Context Judgments (OGWiC). Specifically, we need to determine the meaning relation of one word in two different contexts and classify the input into 4 labels. To address sub-task 1, we implement and investigate various solutions, including (1) Stacking, Averaged Embedding techniques with a multilingual BERT-based model; and (2) utilizing a Natural Language Inference approach instead of a regular classification process. All the experiments were conducted on the P100 GPU from the Kaggle platform. To enhance the context of input, we perform Improve Known Data Rate and Text Expansion in some languages. For model focusing purposes Custom Token was used in the data processing pipeline. Our best official results on the test set are 0.515, 0.518, and 0.524 in terms of Krippendorff’s α score on task 1. Our participation system achieved a Top 3 ranking in task 1. Besides the official result, our best approach also achieved 0.596 regarding Krippendorff’s α score on Task 1.</abstract>
+      <url hash="1f187237">2025.comedi-1.11</url>
+    </paper>
+    <paper id="12">
+      <title><fixed-case>ABDN</fixed-case>-<fixed-case>NLP</fixed-case> at <fixed-case>C</fixed-case>o<fixed-case>M</fixed-case>e<fixed-case>D</fixed-case>i Shared Task: Predicting the Aggregated Human Judgment via Weighted Few-Shot Prompting</title>
+      <author><first>Ying Xuan</first><last>Loke</last></author>
+      <author><first>Dominik</first><last>Schlechtweg</last></author>
+      <author><first>Wei</first><last>Zhao</last></author>
+      <pages>122–128</pages>
+      <abstract>Human annotation is notorious for being subjective and expensive. Recently, (CITATION) introduced the CoMeDi shared task aiming to address this issue by predicting human annotations on the semantic proximity between word uses, and estimating the variation of the human annotations. However, distinguishing the proximity between word uses can be challenging, when their semantic difference is subtle. In this work, we focus on predicting the aggregated annotator judgment of semantic proximity by using a large language model fine-tuned on 20 examples with various proximity classes. To distinguish nuanced proximity, we propose a weighted few-shot approach that pays greater attention to the proximity classes identified as important during fine-tuning. We evaluate our approach in the CoMeDi shared task across 7 languages. Our results demonstrate the superiority of our approach over zero-shot and standard few-shot counterparts. While useful, the weighted few-shot should be applied with caution, given that it relies on development sets to compute the importance of proximity classes, and thus may not generalize well to real-world scenarios where the distribution of class importance is different.</abstract>
+      <url hash="002c59b5">2025.comedi-1.12</url>
+    </paper>
+    <paper id="13">
+      <title>Automating Annotation Guideline Improvements using <fixed-case>LLM</fixed-case>s: A Case Study</title>
+      <author><first>Adrien</first><last>Bibal</last></author>
+      <author><first>Nathaniel</first><last>Gerlek</last></author>
+      <author><first>Goran</first><last>Muric</last></author>
+      <author><first>Elizabeth</first><last>Boschee</last></author>
+      <author><first>Steven C.</first><last>Fincke</last></author>
+      <author><first>Mike</first><last>Ross</last></author>
+      <author><first>Steven N.</first><last>Minton</last></author>
+      <pages>129–144</pages>
+      <abstract>Annotating texts can be a tedious task, especially when texts are noisy. At the root of the issue, guidelines are not always optimized enough to be able to perform the required annotation task. In difficult cases, complex workflows are designed to be able to reach the best possible guidelines. However, crowdsource workers are commonly recruited to go through these complex workflows, limiting the number of iterations over the workflows, and therefore, the possible results because of the slow speed and the high cost of workers. In this paper, our case study, based on the entity recognition problem, suggests that LLMs can help produce guidelines of high quality (inter-annotator agreement going from 0.593 to 0.84 when improving WNUT-17’s guidelines), while being faster and cheaper than crowdsource workers.</abstract>
+      <url hash="fe6591e8">2025.comedi-1.13</url>
+    </paper>
+    <paper id="14">
+      <title>Ambiguity and Disagreement in <fixed-case>A</fixed-case>bstract <fixed-case>M</fixed-case>eaning <fixed-case>R</fixed-case>epresentation</title>
+      <author><first>Shira</first><last>Wein</last></author>
+      <pages>145–154</pages>
+      <abstract>Abstract Meaning Representation (AMR) is a graph-based semantic formalism which has been incorporated into a number of downstream tasks related to natural language understanding. Recent work has highlighted the key, yet often ignored, role of ambiguity and implicit information in natural language understanding. As such, in order to effectively leverage AMR in downstream applications, it is imperative to understand to what extent and in what ways ambiguity affects AMR graphs and causes disagreement in AMR annotation. In this work, we examine the role of ambiguity in AMR graph structure by employing a taxonomy of ambiguity types and producing AMRs affected by each type. Additionally, we investigate how various AMR parsers handle the presence of ambiguity in sentences. Finally, we quantify the impact of ambiguity on AMR using disambiguating paraphrases at a larger scale, and compare this to the measurable impact of ambiguity in vector semantics.</abstract>
+      <url hash="c41cf7d6">2025.comedi-1.14</url>
+    </paper>
+    <paper id="15">
+      <title>Disagreement in Metaphor Annotation of <fixed-case>M</fixed-case>exican <fixed-case>S</fixed-case>panish Science Tweets</title>
+      <author><first>Alec M.</first><last>Sanchez-Montero</last></author>
+      <author><first>Gemma</first><last>Bel-Enguix</last></author>
+      <author><first>Sergio Luis</first><last>Ojeda Trueba</last></author>
+      <author><first>Gerardo</first><last>Sierra Martínez</last></author>
+      <pages>155–164</pages>
+      <abstract>Traditional linguistic annotation methods often strive for a gold standard with hard labels as input for natural language processing models, assuming an underlying objective truth for all tasks. However, disagreement among annotators is a common scenario, even for seemingly objective linguistic tasks, and is particularly prominent in figurative language annotation, since multiple valid interpretations can sometimes coexist. This study presents the annotation process for identifying metaphorical tweets within a corpus of 3733 Public Communication of Science texts written in Mexican Spanish, emphasizing inter-annotator disagreement. Using Fleiss’ and Cohen’s Kappa alongside agreement percentages, we evaluated metaphorical language detection through binary classification in three situations: two subsets of the corpus labeled by three different non-expert annotators each, and a subset of disagreement tweets, identified in the non-expert annotation phase, re-labeled by three expert annotators. Our results suggest that expert annotation may improve agreement levels, but does not exclude disagreement, likely due to factors such as the relatively novelty of the genre, the presence of multiple scientific topics, and the blending of specialized and non-specialized discourse. Going further, we propose adopting a learning-from-disagreement approach for capturing diverse annotation perspectives to enhance computational metaphor detection in Mexican Spanish.</abstract>
+      <url hash="772ead3b">2025.comedi-1.15</url>
+    </paper>
+  </volume>
+</collection>
