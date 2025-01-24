@@ -468,6 +468,8 @@ def main(args):
 
                 # Add the venue tag
                 make_simple_element("venue", venue_name, parent=meta_node)
+                if (args.is_workshop):
+                    make_simple_element("venue", "ws", parent=meta_node)
 
                 # modify frontmatter tag
                 paper_node.tag = "frontmatter"
@@ -570,6 +572,9 @@ if __name__ == "__main__":
         "-a",
         default=attachments_path,
         help="Root path for placement of PDF files",
+    )
+    parser.add_argument(
+        "--is-workshop", "-w", action="store_true", help="Venue is a workshop"
     )
     parser.add_argument(
         "--dry-run", "-n", action="store_true", help="Don't actually copy anything."
