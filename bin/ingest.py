@@ -468,7 +468,7 @@ def main(args):
 
                 # Add the venue tag
                 make_simple_element("venue", venue_name, parent=meta_node)
-                if (args.is_workshop):
+                if args.is_workshop:
                     make_simple_element("venue", "ws", parent=meta_node)
 
                 # modify frontmatter tag
