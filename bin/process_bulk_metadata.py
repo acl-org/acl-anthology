@@ -103,7 +103,6 @@ class AnthologyMetadataUpdater:
     def _apply_changes_to_xml(self, xml_repo_path, anthology_id, changes):
         """Apply the specified changes to XML file."""
 
-        print("-> Applying changes to XML file", file=sys.stderr)
         tree = ET.parse(xml_repo_path)
         # factored version
         # tree = ET.ElementTree(ET.fromstring(self.get_file_contents(xml_repo_path)))
@@ -114,8 +113,7 @@ class AnthologyMetadataUpdater:
             f"./volume[@id='{volume_id}']/paper[@id='{paper_id}']"
         )
         if paper_node is None:
-            print(f"-> Paper not found in XML file {xml_repo_path}", file=sys.stderr)
-            return None
+            raise Exception(f"-> Paper not found in XML file: {xml_repo_path}")
 
         # Apply changes to XML
         for key in ["title", "abstract"]:
@@ -128,7 +126,7 @@ class AnthologyMetadataUpdater:
                     new_node = ET.fromstring(f"<{key}>{changes[key]}</{key}>")
                 except ET.XMLSyntaxError as e:
                     print(f"Error parsing XML for key {key}: {e}", file=sys.stderr)
-                    return None
+                    raise e
                 # replace the current node with the new node in the tree
                 paper_node.replace(node, new_node)
 
@@ -284,7 +282,16 @@ class AnthologyMetadataUpdater:
 
                 # XML file path relative to repo root (for reading current state)
                 xml_repo_path = f"data/xml/{collection_id}.xml"
-                tree = self._apply_changes_to_xml(xml_repo_path, anthology_id, json_block)
+                if verbose:
+                    print("-> Applying changes to XML file", file=sys.stderr)
+
+                try:
+                    tree = self._apply_changes_to_xml(
+                        xml_repo_path, anthology_id, json_block
+                    )
+                except Exception as e:
+                    if verbose:
+                        print(e, file=sys.stderr)
 
                 if tree:
                     indent(tree.getroot())
@@ -300,7 +307,7 @@ class AnthologyMetadataUpdater:
                     # Commit changes
                     self.local_repo.index.add([xml_repo_path])
                     self.local_repo.index.commit(
-                        f"Processed metadata corrections for #{issue.number}"
+                        f"Processed metadata corrections (closes #{issue.number})"
                     )
 
                     closed_issues.append(issue)
