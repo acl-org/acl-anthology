@@ -1,0 +1,531 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2025.finnlp">
+  <volume id="1" ingest-date="2025-01-24" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of the Joint Workshop of the 9th Financial Technology and Natural Language Processing (FinNLP), the 6th Financial Narrative Processing (FNP), and the 1st Workshop on Large Language Models for Finance and Legal (LLMFinLegal)</booktitle>
+      <editor><first>Chung-Chi</first><last>Chen</last></editor>
+      <editor><first>Antonio</first><last>Moreno-Sandoval</last></editor>
+      <editor><first>Jimin</first><last>Huang</last></editor>
+      <editor><first>Qianqian</first><last>Xie</last></editor>
+      <editor><first>Sophia</first><last>Ananiadou</last></editor>
+      <editor><first>Hsin-Hsi</first><last>Chen</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Abu Dhabi, UAE</address>
+      <month>January</month>
+      <year>2025</year>
+      <url hash="8b2dcc3f">2025.finnlp-1</url>
+      <venue>finnlp</venue>
+      <venue>ws</venue>
+    </meta>
+    <frontmatter>
+      <url hash="832d2e3c">2025.finnlp-1.0</url>
+    </frontmatter>
+    <paper id="1">
+      <title>Chat Bankman-Fried: an Exploration of <fixed-case>LLM</fixed-case> Alignment in Finance</title>
+      <author><first>Claudia</first><last>Biancotti</last></author>
+      <author><first>Carolina</first><last>Camassa</last></author>
+      <author><first>Andrea</first><last>Coletta</last></author>
+      <author><first>Oliver</first><last>Giudice</last></author>
+      <author><first>Aldo</first><last>Glielmo</last></author>
+      <pages>1–22</pages>
+      <abstract>Advancements in large language models (LLMs) have renewed concerns about AI alignment—the consistency between human and AI goals and values. As various jurisdictions enact legislation on AI safety, the concept of alignment must be defined and measured across different domains. This paper proposes an experimental framework to assess whether LLMs adhere to ethical and legal standards in the relatively unexplored context of finance. We prompt ten LLMs to impersonate the CEO of a financial institution and test their willingness to misuse customer assets to repay outstanding corporate debt. Beginning with a baseline configuration, we adjust preferences, incentives and constraints, analyzing the impact of each adjustment with logistic regression. Our findings reveal significant heterogeneity in the baseline propensity for unethical behavior of LLMs. Factors such as risk aversion, profit expectations, and regulatory environment consistently influence misalignment in ways predicted by economic theory, although the magnitude of these effects varies across LLMs. This paper highlights the benefits and limitations of simulation-based, ex-post safety testing. While it can inform financial authorities and institutions aiming to ensure LLM safety, there is a clear trade-off between generality and cost.</abstract>
+      <url hash="e222937e">2025.finnlp-1.1</url>
+    </paper>
+    <paper id="2">
+      <title><fixed-case>G</fixed-case>raph<fixed-case>RAG</fixed-case> Analysis for Financial Narrative Summarization and A Framework for Optimizing Domain Adaptation</title>
+      <author><first>Neelesh Kumar</first><last>Shukla</last></author>
+      <author><first>Prabhat</first><last>Prabhakar</last></author>
+      <author><first>Sakthivel</first><last>Thangaraj</last></author>
+      <author><first>Sandeep</first><last>Singh</last></author>
+      <author><first>Weiyi</first><last>Sun</last></author>
+      <author><first>C Prasanna</first><last>Venkatesan</last></author>
+      <author><first>Viji</first><last>Krishnamurthy</last></author>
+      <pages>23–34</pages>
+      <abstract>Large Language Models (LLMs) have shown promise in summarizing complex documents, but their limitations in handling lengthy documents and capturing global information hinder their performance in tasks like Query-Focused Summarization (QFS). We explore GraphRAG, a retrieval-augmented generation approach that utilizes a globally summarized knowledge graph derived from an LLM. We apply GraphRAG to the Financial Narrative Summarization (FNS) dataset, which consists of lengthy financial reports. Our results show that a naive RAG approach outperforms GraphRAG in terms of comprehensiveness, directness, conciseness and completeness. However, we demonstrate that optimizing entity and relation extraction using an LLM as an optimizer can enhance GraphRAG’s performance. Our study highlights the need for domain-specific optimization to improve GraphRAG’s capabilities for summarization tasks in facts-heavy domains like finance. We propose an optimization framework that extends GraphRAG’s original domain adaptation strategy by incorporating entity and relations optimization, leading to improved performance in capturing relevant entities and relationships. Our findings contribute to the development of more effective summarization models for complex documents in finance and other domains.</abstract>
+      <url hash="32df9862">2025.finnlp-1.2</url>
+    </paper>
+    <paper id="3">
+      <title><fixed-case>B</fixed-case>u<fixed-case>DDIE</fixed-case>: A Business Document Dataset for Multi-task Information Extraction</title>
+      <author><first>Dongsheng</first><last>Wang</last></author>
+      <author><first>Ran</first><last>Zmigrod</last></author>
+      <author><first>Mathieu J.</first><last>Sibue</last></author>
+      <author><first>Yulong</first><last>Pei</last></author>
+      <author><first>Petr</first><last>Babkin</last></author>
+      <author><first>Ivan</first><last>Brugere</last></author>
+      <author><first>Xiaomo</first><last>Liu</last></author>
+      <author><first>Nacho</first><last>Navarro</last></author>
+      <author><first>Antony</first><last>Papadimitriou</last></author>
+      <author><first>William</first><last>Watson</last></author>
+      <author><first>Zhiqiang</first><last>Ma</last></author>
+      <author><first>Armineh</first><last>Nourbakhsh</last></author>
+      <author><first>Sameena</first><last>Shah</last></author>
+      <pages>35–47</pages>
+      <abstract>The field of visually rich document understanding (VRDU) aims to solve a multitude of well-researched NLP tasks in the multi-modal domain. Several datasets exist for research on specific tasks of VRDU, such as document classification (DC), key entity extraction (KEE), entity linking, visual question answering (VQA), inter alia. These datasets cover documents like invoices and receipts with sparse annotations such that they support one or two co-related tasks (e.g., entity extraction and entity linking). Unfortunately, only focusing on a single specific type of documents or task is not representative of how documents often need to be processed in the wild – where variety in style and requirements is expected. In this paper, we introduce BuDDIE: Business Document Dataset for Information Extraction, the first multi-task dataset of 1665 real-world business documents that contains rich and dense annotations for DC, KEE, and VQA. Our dataset consists of publicly available business entity documents from US state government websites. The documents are structured and vary in their style and layout across states and types (e.g., forms, certificates, reports, etc.). We provide data variety and quality metrics for BuDDIE as well as a series of baselines for each task. Our baselines cover traditional textual, multi-modal, and large language model approaches to VRDU.</abstract>
+      <url hash="6ddf82d7">2025.finnlp-1.3</url>
+    </paper>
+    <paper id="4">
+      <title><fixed-case>F</fixed-case>in<fixed-case>M</fixed-case>o<fixed-case>E</fixed-case>: A <fixed-case>M</fixed-case>o<fixed-case>E</fixed-case>-based Large <fixed-case>C</fixed-case>hinese Financial Language Model</title>
+      <author><first>Xuanyu</first><last>Zhang</last></author>
+      <author><first>Qing</first><last>Yang</last></author>
+      <pages>48–53</pages>
+      <abstract>Large-scale language models have demonstrated remarkable success, achieving strong performance across a variety of general tasks. However, when applied to domain-specific fields, such as finance, these models face challenges due to the need for both specialized knowledge and robust general capabilities. In this paper, we introduce FinMoE, a MOE-based large-scale Chinese financial language model that bridges the gap between general language models and domain-specific requirements. FinMoE employs a dense MoE architecture, where all expert networks are simultaneously activated and dynamically combined to effectively integrate general linguistic understanding with domain-specific financial expertise. Experimental results demonstrate that FinMoE achieves state-of-the-art performance on both general-purpose and financial benchmarks at a comparable scale, validating its ability to balance domain specialization with general knowledge and reasoning.</abstract>
+      <url hash="8592b3b9">2025.finnlp-1.4</url>
+    </paper>
+    <paper id="5">
+      <title>Bridging the Gap: Efficient Cross-Lingual <fixed-case>NER</fixed-case> in Low-Resource Financial Domain</title>
+      <author><first>Sunisth</first><last>Kumar</last></author>
+      <author><first>Mohammed</first><last>ElKholy</last></author>
+      <author><first>Davide</first><last>Liu</last></author>
+      <author><first>Alexandre</first><last>Boulenger</last></author>
+      <pages>54–62</pages>
+      <abstract>We present an innovative and efficient modeling framework for cross-lingual named entity recognition (NER), leveraging the strengths of knowledge distillation and consistency training. Our approach distills knowledge from an XLM-RoBERTa model pre-trained on a high-resource source language (English) to a student model, which then undergoes semi-supervised consistency training with KL divergence loss on a low-resource target language (Arabic). We focus our application on the financial domain, using a small, sourced dataset of financial transactions as seen in SMS messages Using datasets comprising SMS messages in English and Arabic containing financial transaction information, we aim to transfer NER capabilities from English to Arabic with minimal labeled Arabic samples. The framework generalizes named entity recognition from English to Arabic, achieving F1 scores of 0.74 on the Arabic financial transaction dataset and 0.61 on the WikiANN dataset, surpassing or closely competing with models that have 1.7 and 5.3 more parameters, respectively, while efficiently training it on a single T4 GPU. Our experiments show that using a small number of labeled data for low-resource cross-lingual NER applications is a wiser choice than utilizing zero-shot techniques while also using up fewer resources. This framework holds significant potential for developing multilingual applications, particularly in regions where digital interactions span English and low-resource languages.</abstract>
+      <url hash="850155ef">2025.finnlp-1.5</url>
+    </paper>
+    <paper id="6">
+      <title>Evaluating Financial Literacy of Large Language Models through Domain Specific Languages for Plain Text Accounting</title>
+      <author><first>Alexei Gustavo</first><last>Figueroa Rosero</last></author>
+      <author><first>Paul</first><last>Grundmann</last></author>
+      <author><first>Julius</first><last>Freidank</last></author>
+      <author><first>Wolfgang</first><last>Nejdl</last></author>
+      <author><first>Alexander</first><last>Loeser</last></author>
+      <pages>63–75</pages>
+      <abstract>Large language models (LLMs) have proven highly effective for a wide range of tasks, including code generation. Recently, advancements in their capabilities have shown promise in areas like mathematical reasoning, chain-of-thought processes and self-reflection. However, their effectiveness in domains requiring nuanced understanding of financial contexts, such as accounting, remains unclear. In this study, we evaluate how well LLMs perform in generating code for domain-specific languages (DSLs) in accounting, using Beancount as a case study. We create a set of tasks based on common financial ratios, to evaluate the numeracy and financial literacy of LLMs. Our findings reveal that while LLMs are state-of-the art in generative tasks, they struggle severely with accounting, often producing inaccurate calculations and misinterpreting financial scenarios. We characterize these shortcomings through a comprehensive evaluation, shedding light on the limitations of LLMs in understanding and handling money-related tasks.</abstract>
+      <url hash="582656cd">2025.finnlp-1.6</url>
+    </paper>
+    <paper id="7">
+      <title>Synthetic Data Generation Using Large Language Models for Financial Question Answering</title>
+      <author><first>Chetan</first><last>Harsha</last></author>
+      <author><first>Karmvir Singh</first><last>Phogat</last></author>
+      <author><first>Sridhar</first><last>Dasaratha</last></author>
+      <author><first>Sai Akhil</first><last>Puranam</last></author>
+      <author><first>Shashishekar</first><last>Ramakrishna</last></author>
+      <pages>76–95</pages>
+      <abstract>Recent research has shown excellent performance of large language models (LLMs) for answering questions requiring multi-step financial reasoning. While the larger models have been used with zero-shot or few-shot prompting, the smaller variants need fine-tuning on training data containing questions and the corresponding answers that includes detailed reasoning demonstrations. To alleviate the significant cost of creating a data set with complex questions and corresponding answers, we explore the use of synthetic data for financial question answering using a multi-step LLM based approach to generate question as well as the answers with reasoning steps. We consider standard as well as conversational financial question answering scenarios. We experiment with synthetic data generation for three different real financial reasoning problems that already have manually collected data sets created with the help of financial experts. Using the same document sources, we use the proposed LLM based approach to generate synthetic questions and answers. To measure the effectiveness, we train multiple small language models (SLMs) on these synthetic data and compare the performance with that of the same SLMs trained on the real data. We further perform extensive experimental analysis generating important evidence on the potential of using synthetic data in financial reasoning tasks.</abstract>
+      <url hash="0f520afa">2025.finnlp-1.7</url>
+    </paper>
+    <paper id="8">
+      <title>Concept-Based <fixed-case>RAG</fixed-case> Models: A High-Accuracy Fact Retrieval Approach</title>
+      <author><first>Cheng-Yu</first><last>Lin</last></author>
+      <author><first>Jyh-Shing</first><last>Jang</last></author>
+      <pages>96–100</pages>
+      <abstract>This study introduces a concept-based methodology to optimize Retrieval-Augmented Generation (RAG) tasks by assessing dataset certainty using entropy-based metrics and concept extraction techniques. Unlike traditional methods focused on reducing LLM hallucinations or modifying data structures, this approach evaluates inherent knowledge uncertainty from an LLM perspective. By pre-processing documents with LLMs, the concept-based method significantly enhances precision in tasks demanding high accuracy, such as legal, finance, or formal document responses.</abstract>
+      <url hash="7df06c80">2025.finnlp-1.8</url>
+    </paper>
+    <paper id="9">
+      <title>Training <fixed-case>L</fixed-case>ayout<fixed-case>LM</fixed-case> from Scratch for Efficient Named-Entity Recognition in the Insurance Domain</title>
+      <author><first>Benno</first><last>Uthayasooriyar</last></author>
+      <author><first>Antoine</first><last>Ly</last></author>
+      <author><first>Franck</first><last>Vermet</last></author>
+      <author><first>Caio</first><last>Corro</last></author>
+      <pages>101–110</pages>
+      <abstract>Generic pre-trained neural networks may struggle to produce good results in specialized domains like finance and insurance. This is due to a domain mismatch between training data and downstream tasks, as in-domain data are often scarce due to privacy constraints. In this work, we compare different pre-training strategies for LayoutLM. We show that using domain-relevant documents improves results on a named-entity recognition (NER) problem using a novel dataset of anonymized insurance-related financial documents called PAYSLIPS. Moreover, we show that we can achieve competitive results using a smaller and faster model.</abstract>
+      <url hash="078c6b47">2025.finnlp-1.9</url>
+    </paper>
+    <paper id="10">
+      <title><fixed-case>A</fixed-case>veni<fixed-case>B</fixed-case>ench: Accessible and Versatile Evaluation of Finance Intelligence</title>
+      <author><first>Mateusz</first><last>Klimaszewski</last></author>
+      <author><first>Pinzhen</first><last>Chen</last></author>
+      <author><first>Liane</first><last>Guillou</last></author>
+      <author><first>Ioannis</first><last>Papaioannou</last></author>
+      <author><first>Barry</first><last>Haddow</last></author>
+      <author><first>Alexandra</first><last>Birch</last></author>
+      <pages>111–117</pages>
+      <abstract>Over the last few years, there has been great interest in applying large language models (LLMs) to problems in the finance industry, and the field needs a robust LLM benchmark to support this work. Current financial LLM benchmarks contain simple tasks which are not representative of real use cases and have test sets with licences that do not allow commercial use. In response, we release AveniBench, a permissively licensed benchmark that tests a group of six key finance-related skills: tabular reasoning, numerical reasoning, question answering, long context modelling, summarisation and dialogue. We refactor the test sets to ensure that metrics are comparable, providing a unified framework. Furthermore, AveniBench introduces two task difficulty modes, easy and hard, enabling scalable evaluation based on real-world deployment needs. We use our benchmark to evaluate a diverse set of 20 widely used LLMs, from small open-weight models to proprietary systems like GPT-4. This evaluation initiates our public leaderboard, providing valuable insights for future academic research and commercial development.</abstract>
+      <url hash="072b7e8f">2025.finnlp-1.10</url>
+    </paper>
+    <paper id="11">
+      <title>Forecasting Credit Ratings: A Case Study where Traditional Methods Outperform Generative <fixed-case>LLM</fixed-case>s</title>
+      <author><first>Felix</first><last>Drinkall</last></author>
+      <author><first>Janet B.</first><last>Pierrehumbert</last></author>
+      <author><first>Stefan</first><last>Zohren</last></author>
+      <pages>118–133</pages>
+      <abstract>Large Language Models (LLMs) have been shown to perform well for many downstream tasks. Transfer learning can enable LLMs to acquire skills that were not targeted during pre-training. In financial contexts, LLMs can sometimes beat well-established benchmarks. This paper investigates how well LLMs perform at forecasting corporate credit ratings. We show that while LLMs are very good at encoding textual information, traditional methods are still very competitive when it comes to encoding numeric and multimodal data. For our task, current LLMs perform worse than a more traditional XGBoost architecture that combines fundamental and macroeconomic data with high-density text-based embedding features. We investigate the degree to which the text encoding methodology affects performance and interpretability.</abstract>
+      <url hash="6c7e0647">2025.finnlp-1.11</url>
+    </paper>
+    <paper id="12">
+      <title>Investigating the effectiveness of length based rewards in <fixed-case>DPO</fixed-case> for building Conversational Financial Question Answering Systems</title>
+      <author><first>Anushka</first><last>Yadav</last></author>
+      <author><first>Sai Krishna</first><last>Rallabandi</last></author>
+      <author><first>Parag Pravin</first><last>Dakle</last></author>
+      <author><first>Preethi</first><last>Raghavan</last></author>
+      <pages>134–140</pages>
+      <abstract>In this paper, we address the numerical reasoning challenges of financial question-answering systems. We propose a two-stage approach where models first generate intermediate calculations and then produce the final answer. We perform two set of experiments to evaluate the performance of our approach. In the first, we compare single-step and multi-step approaches, demonstrating that incorporating intermediate calculations significantly improves numerical accuracy. In the second experiment, we compare traditional DPO and iterative DPO (iDPO) with length-regularized DPO. We show that while traditional DPO reduced parsing errors, it introduces verbosity; iDPO improves reasoning iteratively but faces diminishing returns. On the other hand, Length-regularized DPO reduces verbosity of intermediate calculation as well as enhances numerical accuracy across all models. These results highlight the potential of combining intermediate reasoning steps with domain-specific optimizations to build robust financial question-answering systems.</abstract>
+      <url hash="b10bc714">2025.finnlp-1.12</url>
+    </paper>
+    <paper id="13">
+      <title><fixed-case>C</fixed-case>redit<fixed-case>LLM</fixed-case>: Constructing Financial <fixed-case>AI</fixed-case> Assistant for Credit Products using Financial <fixed-case>LLM</fixed-case> and Few Data</title>
+      <author><first>Sixing</first><last>Yan</last></author>
+      <author><first>Ting</first><last>Zhu</last></author>
+      <pages>141–152</pages>
+      <abstract>Facilitating financial technology with the large-language model (LLM) has been developing in recent years. To address the challenges in one of the biggest world-wide markets, China, Chinese-expertise financial LLM has also been studied. The related works focus on conventional NLP tasks in finance, while developing LLM for specific tasks is also required. Besides, in the credit loan business, the existing AI-based approaches are largely related to Credit like Credit rating and Fraud prediction, while credit product customization is still missing. In China, Inclusive Finance and Rural Finance become two hot topics that raise critical challenges in flexibly customizing credit products to meet the variable fund requirements of small &amp; micro businesses, individual businesses, and agricultural businesses of local character. In this paper, the credit product customization is studied by developing an LLM-based financial AI assistant for the credit loan business. It is proposed to satisfy the business requirements of customer counseling, recommendation, and question-answers regarding credit loans. The proposed LLM is developed by Chinese prompt data automatically constructed based on a small set of real-world credit products. The experiments demonstrate its effectiveness in credit loan-related ability while maintaining comparable performance in conventional finance NLP tasks.</abstract>
+      <url hash="9387186d">2025.finnlp-1.13</url>
+    </paper>
+    <paper id="14">
+      <title>Modeling Interactions Between Stocks Using <fixed-case>LLM</fixed-case>-Enhanced Graphs for Volume Prediction</title>
+      <author><first>Zhiyu</first><last>Xu</last></author>
+      <author><first>Yi</first><last>Liu</last></author>
+      <author><first>Yuchi</first><last>Wang</last></author>
+      <author><first>Ruihan</first><last>Bao</last></author>
+      <author><first>Keiko</first><last>Harimoto</last></author>
+      <author><first>Xu</first><last>Sun</last></author>
+      <pages>153–163</pages>
+      <abstract>Accurate trading volume prediction is essential for portfolio optimization, market regulation, and financial risk control. An effective method for predicting trading volume involves building a graph to model relations between stock. Recent research has enhanced these models by integrating stock news to improve forecasting ability. However, existing approaches primarily integrate news data as auxiliary features for nodes in Graph Neural Networks (GNNs), overlooking the relational information between stocks embedded in news. To address this, we propose LLM-Enhanced Dynamic Graph Neural Network (LED-GNN), a framework that constructs dynamic graphs using inter-stock relationships extracted from news via a large language model (LLM)-centered pipeline, combined with graphs learned from historical price-volume data. A dynamic GNN then processes these graphs to generate predictions. Evaluated on a real-world dataset, TOPIX, with Reuters Financial News, LED-GNN consistently outperformed all baseline models, achieving a 2% improvement over the strongest baseline.</abstract>
+      <url hash="9b351b78">2025.finnlp-1.14</url>
+    </paper>
+    <paper id="15">
+      <title>Financial Named Entity Recognition: How Far Can <fixed-case>LLM</fixed-case> Go?</title>
+      <author><first>Yi-Te</first><last>Lu</last></author>
+      <author><first>Yintong</first><last>Huo</last></author>
+      <pages>164–168</pages>
+      <abstract>The surge of large language models (LLMs) has revolutionized the extraction and analysis of crucial information from a growing volume of financial statements, announcements, and business news. Recognition for named entities to construct structured data poses a significant challenge in analyzing financial documents and is a foundational task for intelligent financial analytics. However, how effective are these generic LLMs and their performance under various prompts are yet need a better understanding. To fill in the blank, we present a systematic evaluation of state-of-the-art LLMs and prompting methods in the financial Named Entity Recognition (NER) problem. Specifically, our experimental results highlight their strengths and limitations, identify five representative failure types, and provide insights into their potential and challenges for domain-specific tasks.</abstract>
+      <url hash="dc899ccb">2025.finnlp-1.15</url>
+    </paper>
+    <paper id="16">
+      <title>Proxy Tuning for Financial Sentiment Analysis: Overcoming Data Scarcity and Computational Barriers</title>
+      <author><first>Yuxiang</first><last>Wang</last></author>
+      <author><first>Yuchi</first><last>Wang</last></author>
+      <author><first>Yi</first><last>Liu</last></author>
+      <author><first>Ruihan</first><last>Bao</last></author>
+      <author><first>Keiko</first><last>Harimoto</last></author>
+      <author><first>Xu</first><last>Sun</last></author>
+      <pages>169–174</pages>
+      <abstract>Financial sentiment analysis plays a pivotal role in the financial domain. However, the task remains challenging due to the nuanced nature of financial sentiment, the need for high interpretability, and the scarcity of high-quality datasets. To address these issues, we leverage recent advancements in large language models (LLMs) and propose to adapt proxy tuning for financial sentiment analysis. Proxy tuning efficiently transfers knowledge from a pre-trained expert model to a controllable base model by incorporating logit differences, steering the base model toward the desired sentiment representation. Our method offers significant advantages: (1) it is training-free, reducing computational demands and data dependency; (2) it achieves promising performance, with a 36.67% improvement over the base model and over 90% of the tuned model’s performance; and (3) it is highly adaptable, functioning in a plug-and-play manner without requiring access to model architectures or weights. These results demonstrate the potential of proxy tuning as an efficient and practical solution for financial sentiment analysis in data-scarce scenarios.</abstract>
+      <url hash="23299b8f">2025.finnlp-1.16</url>
+    </paper>
+    <paper id="17">
+      <title>The contribution of <fixed-case>LLM</fixed-case>s to relation extraction in the economic field</title>
+      <author><first>Mohamed</first><last>Ettaleb</last></author>
+      <author><first>Mouna</first><last>Kamel</last></author>
+      <author><first>Nathalie</first><last>Aussenac-Gilles</last></author>
+      <author><first>Véronique</first><last>Moriceau</last></author>
+      <pages>175–183</pages>
+      <abstract>Relation Extraction (RE) is a fundamental task in natural language processing, aimed at deducing semantic relationships between entities in a text. Traditional supervised extraction methods relation extraction methods involve training models to annotate tokens representing entity mentions, followed by predicting the relationship between these entities. However, recent advancements have transformed this task into a sequence-to-sequence problem. This involves converting relationships between entities into target string, which are then generated from the input text. Thus, language models now appear as a solution to this task and have already been used in numerous studies, with various levels of refinement, across different domains. The objective of the present study is to evaluate the contribution of large language models (LLM) to the task of relation extraction in a specific domain (in this case, the economic domain), compared to smaller language models. To do this, we considered as a baseline a model based on the BERT architecture, trained in this domain, and four LLM, namely FinGPT specific to the financial domain, XLNet, ChatGLM, and Llama3, which are generalists. All these models were evaluated on the same extraction task, with zero-shot for the general-purpose LLM, as well as refinements through few-shot learning and fine-tuning. The experiments showedthat the best performance in terms of F-score was achieved with fine-tuned LLM, with Llama3 achieving the highest performance.</abstract>
+      <url hash="41613581">2025.finnlp-1.17</url>
+    </paper>
+    <paper id="18">
+      <title>Generating Financial News Articles from Factors of Stock Price Rise / Decline by <fixed-case>LLM</fixed-case>s</title>
+      <author><first>Shunsuke</first><last>Nishida</last></author>
+      <author><first>Takehito</first><last>Utsuro</last></author>
+      <pages>184–195</pages>
+      <abstract>In this paper, we study the task of generating financial news articles related to stock price fluctuations. Traditionally, reporters manually write these articles by identifying the causes behind significant stock price volatility. However, this process is time-consuming, limiting the number of articles produced. To address this, the study explores the use of generative AI to automatically generate such articles. The AI system, similar to human reporters, would analyze stock price volatility and determine the underlying factors contributing to these fluctuations. To support this approach, we introduces a Japanese dataset called JFinSR, which includes stock price fluctuation rankings from “Kabutan” and related financial information regarding factors of stock price rise / decline from “Nihon Keizai Shimbun (Nikkei).” Using this dataset, we implement the few-shot learning technique on large language models (LLMs) to enable automatic generation of high-quality articles from factors of stock price rise / decline that are available in Nikkei. In the evaluation, we compare zero-shot and few-shot learning approaches, where the few-shot learning achieved the higher F1 scores in terms of ROUGE-1/ROUGE-L metrics.</abstract>
+      <url hash="1d06e369">2025.finnlp-1.18</url>
+    </paper>
+    <paper id="19">
+      <title>Can Large language model analyze financial statements well?</title>
+      <author><first>Xinlin</first><last>Wang</last></author>
+      <author><first>Mats</first><last>Brorsson</last></author>
+      <pages>196–206</pages>
+      <abstract>Since GPT-3.5’s release, large language models (LLMs) have made significant advancements, including in financial analysis. However, their effectiveness in financial calculations and predictions is still uncertain. This study examines LLMs’ ability to analyze financial reports, focusing on three questions: their accuracy in calculating financial ratios, the use of these metrics in DuPont analysis and the Z-score model for bankruptcy prediction, and their effectiveness in predicting financial indicators with limited knowledge. We used various methods, including zero-shot and few-shot learning, retrieval-augmented generation (RAG), and fine-tuning, in three advanced LLMs and compared their outputs to ground truth and expert predictions to assess their calculation and predictive abilities. The results highlight both the potential and limitations of LLMs in processing numerical data and performing complex financial analyses.</abstract>
+      <url hash="cb645c4a">2025.finnlp-1.19</url>
+    </paper>
+    <paper id="20">
+      <title><fixed-case>AMWAL</fixed-case>: Named Entity Recognition for <fixed-case>A</fixed-case>rabic Financial News</title>
+      <author><first>Muhammad S.</first><last>Abdo</last></author>
+      <author><first>Yash</first><last>Hatekar</last></author>
+      <author><first>Damir</first><last>Cavar</last></author>
+      <pages>207–213</pages>
+      <abstract>Financial Named Entity Recognition (NER) presents a pivotal task in extracting structured information from unstructured financial data, especially when extending its application to languages beyond English. In this paper, we present AMWAL, a named entity recognition system for Arabic financial news. Our approach centered on building a specialized corpus compiled from three major Arabic financial newspapers spanning from 2000 to 2023. Entities were extracted from this corpus using a semi-automatic process that included manual annotation and review to ensure accuracy. The total number of entities identified amounts to 17.1k tokens, distributed across 20 categories, providing a comprehensive coverage of financial entities. To standardize the identified entities, we adopt financial concepts from the Financial Industry Business Ontology (FIBO, 2020), aligning our framework with industry standards. The significance of our work lies not only in the creation of the first customized NER system for Arabic financial data but also in its potential to streamline information extraction processes in the financial domain. Our NER system achieves a Precision score of 96.08, a Recall score of 95.87, and an F1 score of 95.97, which outperforms state-of-the-art general Arabic NER systems as well as other systems for financial NER in other languages.</abstract>
+      <url hash="5ba1b293">2025.finnlp-1.20</url>
+    </paper>
+    <paper id="21">
+      <title>The Financial Document Causality Detection Shared Task (<fixed-case>F</fixed-case>in<fixed-case>C</fixed-case>ausal 2025)</title>
+      <author><first>Antonio</first><last>Moreno-Sandoval</last></author>
+      <author><first>Jordi</first><last>Porta</last></author>
+      <author><first>Blanca</first><last>Carbajo-Coronado</last></author>
+      <author><first>Yanco</first><last>Torterolo</last></author>
+      <author><first>Doaa</first><last>Samy</last></author>
+      <pages>214–221</pages>
+      <abstract>We present the Financial Document Causality Detection Task (FinCausal 2025), a multilingual challenge to identify causal relationships within financial texts. This task comprises English and Spanish subtasks, with datasets compiled from British and Spanish annual reports. Participants were tasked with identifying and generating answers to questions about causes or effects within specific text segments. The dataset combines extractive and generative question-answering (QA) methods, with abstractly formulated questions and directly extracted answers from the text. Systems performance is evaluated using exact matching and semantic similarity metrics. The challenge attracted submissions from 10 teams for the English subtask and 10 teams for the Spanish subtask. FinCausal 2025 is part of the 6th Financial Narrative Processing Workshop (FNP 2025), hosted at COLING 2025 in Abu Dhabi.</abstract>
+      <url hash="6974d665">2025.finnlp-1.21</url>
+    </paper>
+    <paper id="22">
+      <title><fixed-case>KULF</fixed-case>i Framework: Knowledge Utilization for Optimizing Large Language Models for Financial Causal Reasoning</title>
+      <author><first>Neelesh Kumar</first><last>Shukla</last></author>
+      <author><first>Sandeep</first><last>Singh</last></author>
+      <author><first>Prabhat Kumar</first><last>Prabhakar</last></author>
+      <author><first>Sakthivel</first><last>Thangaraj</last></author>
+      <author><first>Weiyi</first><last>Sun</last></author>
+      <author><first>C Prasanna</first><last>Venkatesan</last></author>
+      <author><first>Viji</first><last>Krishnamurthy</last></author>
+      <pages>222–229</pages>
+      <abstract>This paper presents our contribution to the Financial Document Causality Detection (FinCausal) task 2025. The FinCausal challenge centers on the extraction of cause-and-effect relationships from financial texts written in both English and Spanish. We introduce KULFi, a novel Knowledge Utilization framework designed to augment the capabilities of Large Language Models (LLMs) by leveraging the expertise of more advanced reasoning models. Through the utilization of Teacher LLMs to generate task-specific instructions, KULFi optimizes the performance of Student LLMs via automated prompt optimization. We evaluate the efficacy of KULFi on the Financial Document Causality Detection Task, where Student LLM achieves a similarity score comparable to human-guided prompt optimization for the same LLM, demonstrating significant improvements in causal reasoning performance. Our results demonstrate that KULFi enables effective knowledge transfer from more robust models to less capable ones, as well as efficient learning from training data, minimizing the need for human input in prompt design and enabling more precise causal analysis in financial contexts. Our system attained SAS and Exact Match scores of 0.92 and 0.35 on the English dataset, and 0.92 and 0.09 on the Spanish dataset, respectively. This framework has far-reaching implications, with potential applications in enhancing decision-making across complex financial environments.</abstract>
+      <url hash="230e69f7">2025.finnlp-1.22</url>
+    </paper>
+    <paper id="23">
+      <title>Exploring the Effectiveness of Multilingual and Generative Large Language Models for Question Answering in Financial Texts</title>
+      <author><first>Ali</first><last>Al-Laith</last></author>
+      <pages>230–235</pages>
+      <abstract>This paper investigates the use of large language models (LLMs) for financial causality detection in the FinCausal 2025 shared task, focusing on generative and multilingual question answering (QA) tasks. Our study employed both generative and discriminative approaches, utilizing GPT-4o for generative QA and BERT-base-multilingual-cased, XLM-RoBerta-large, and XLM-RoBerta-base for multilingual QA across English and Spanish datasets. The datasets consist of financial disclosures where questions reflect causal relationships, paired with extractive answers derived directly from the text. Evaluation was conducted using Semantic Answer Similarity (SAS) and Exact Match (EM) metrics. While the discriminative XLM-RoBerta-large model achieved the best overall performance, ranking 5th in English (SAS: 0.9598, EM: 0.7615) and 4th in Spanish (SAS: 0.9756, EM: 0.8084) among 11 team submissions, our results also highlight the effectiveness of the generative GPT-4o approach. Notably, GPT-4o achieved promising results in few-shot settings, with SAS scores approaching those of fine-tuned discriminative models, demonstrating that the generative approach can provide competitive performance despite lacking task-specific fine-tuning. This comparison underscores the potential of generative LLMs as robust, versatile alternatives for complex QA tasks like financial causality detection.</abstract>
+      <url hash="16145604">2025.finnlp-1.23</url>
+    </paper>
+    <paper id="24">
+      <title><fixed-case>CLRG</fixed-case>@<fixed-case>F</fixed-case>in<fixed-case>C</fixed-case>ausal2025: Cause-Effect Extraction in Finance Domain</title>
+      <author><first>Vibhavkrishnan</first><last>K S</last></author>
+      <author><first>Pattabhi</first><last>RK Rao</last></author>
+      <author><first>Sobha</first><last>Lalitha Devi</last></author>
+      <pages>236–241</pages>
+      <abstract>This paper presents our work on Cause-Effect information extraction specifically in the financial domain. Cause and effect information is very much needed for expert decision making. Particularly, in the financial domain, the fund managers, financial analysts, etc. need to have the information on cause-effects for their works. Natural Language Processing (NLP) techniques help in the automatic extraction of cause and effect from a given text. In this work, we build various cause-effect text span detection models using pre-trained transformer-based language models and fine tune these models using the data provided by FinCausal 2025 task organizers. We have only used FinCausal 2025 data sets to train our models. No other external data is used. Our ensemble of sequence tagging models based on the Fine-tuned RoBERTa-Large language model achieves SAS score of 0.9604 and Exact match score of 0.7214 for English. Similarly for Spanish we obtain SAS score of 0.9607 and Exact match score of 0.7166. This is our first time participation in the FinCausal 2025 Task.</abstract>
+      <url hash="5778b861">2025.finnlp-1.24</url>
+    </paper>
+    <paper id="25">
+      <title>Sarang at <fixed-case>F</fixed-case>in<fixed-case>C</fixed-case>ausal 2025: Contextual <fixed-case>QA</fixed-case> for Financial Causality Detection Combining Extractive and Generative Models</title>
+      <author><first>Avinash</first><last>Trivedi</last></author>
+      <author><first>Gauri</first><last>Toshniwal</last></author>
+      <author><first>Sangeetha</first><last>S</last></author>
+      <author><first>S R.</first><last>Balasundaram</last></author>
+      <pages>242–247</pages>
+      <abstract>This paper describes our approach for the FinCausal 2025 English Shared Task, aimed at detecting and extracting causal relationships from the financial text. The task involved answering context-driven questions to identify causes or effects within specified text segments. Our method utilized a consciousAI RoBERTa-base encoder model, fine-tuned on the SQuADx dataset. We further fine-tuned it using the FinCausal 2025 development set. To enhance the quality and contextual relevance of the answers, we passed outputs from the extractive model through Gemma2-9B, a generative large language model, for answer refinement. This hybrid approach effectively addressed the task’s requirements, showcasing the strength of combining extractive and generative models. We (Team name: Sarang) achieved outstanding results, securing 3rd rank with a Semantic Answer Similarity (SAS) score of 96.74% and an Exact Match (EM) score of 70.14%.</abstract>
+      <url hash="94e1a57e">2025.finnlp-1.25</url>
+    </paper>
+    <paper id="26">
+      <title>Enhancing Causal Relationship Detection Using Prompt Engineering and Large Language Models</title>
+      <author><first>Pulkit</first><last>Chatwal</last></author>
+      <author><first>Amit</first><last>Agarwal</last></author>
+      <author><first>Ankush</first><last>Mittal</last></author>
+      <pages>248–252</pages>
+      <abstract>This paper explores the use of large language models (LLMs) and prompt engineering to detect causal relationships in financial disclosures. The task was part of the FinCausal 2025 shared competition, which focuses on identifying cause-and-effect relationships in financial texts across languages. The study demonstrates the effectiveness of LLMs, specifically LLaMA 3.2, in tackling causality detection in English and Spanish financial reports. The paper introduces various prompt engineering techniques, including zero-shot, few-shot, and chain-of-thought (CoT) prompting, to improve performance. For English, the best results were achieved using the Few-Shot + CoT approach, while for Spanish, the Few-Shot method provided strong semantic alignment despite lower exact match accuracy. The evaluation used two metrics: Exact Match (EM) and Semantic Alignment Score (SAS). The results showed high SAS scores for both languages, indicating good semantic understanding, with English performing particularly well. The study emphasizes the importance of tailored prompt engineering techniques to handle language-specific nuances in financial contexts and suggests future research directions, including fine-tuning LLaMA 3.2 and testing additional LLM architectures to enhance multilingual causality detection in financial texts.</abstract>
+      <url hash="c854ad5f">2025.finnlp-1.26</url>
+    </paper>
+    <paper id="27">
+      <title>Addressing Hallucination in Causal <fixed-case>Q</fixed-case>&amp;<fixed-case>A</fixed-case>: The Efficacy of Fine-tuning over Prompting in <fixed-case>LLM</fixed-case>s</title>
+      <author><first>Georg</first><last>Niess</last></author>
+      <author><first>Houssam</first><last>Razouk</last></author>
+      <author><first>Stasa</first><last>Mandic</last></author>
+      <author><first>Roman</first><last>Kern</last></author>
+      <pages>253–258</pages>
+      <abstract>This paper presents our approach and findings for participating in the FinCausal 2025 competition, which addresses causal question answering derived from financial documents, specifically English and Spanish annual reports. We investigate the effectiveness of generative models, such as Llama, in contrast to common extractive methods like BERT-based token classification. While prompt optimization and few-shot learning offer some improvements, they were insufficient for consistently outperforming extractive methods in FinCausal, suffering from hallucinations. In contrast, fine-tuning generative models was shown to be essential for minimizing hallucinations and achieving superior performance. Using our fine-tuned multilingual model for both tasks, we outperform our extractive and monolingual approaches, achieving top results for Spanish and second-best for English in the competition. Our findings indicate that fine-tuned large language models are well-suited for causal Q&amp;A from complex financial narratives, offering robust multilingual capabilities and effectively mitigating hallucinations.</abstract>
+      <url hash="cf5ba6dc">2025.finnlp-1.27</url>
+    </paper>
+    <paper id="28">
+      <title><fixed-case>P</fixed-case>resi<fixed-case>U</fixed-case>niv at <fixed-case>F</fixed-case>in<fixed-case>C</fixed-case>ausal 2025 Shared Task: Applying Fine-tuned Language Models to Explain Financial Cause and Effect with Zero-shot Learning</title>
+      <author><first>Medha</first><last>Jeenoor</last></author>
+      <author><first>Madiha</first><last>Aziz</last></author>
+      <author><first>Saipriya Dipika</first><last>Vaidyanathan</last></author>
+      <author><first>Avijit</first><last>Samantraya</last></author>
+      <author><first>Sandeep</first><last>Mathias</last></author>
+      <pages>259–264</pages>
+      <abstract>Transformer-based multilingual question-answering models are used to detect causality in financial text data. This study employs BERT (CITATION) for English text and XLM-RoBERTa (CITATION) for Spanish data, which were fine-tuned on the SQuAD datasets (CITATION) (CITATION). These pre-trained models are used to extract answers to the targeted questions. We design a system using these pre-trained models to answer questions, based on the given context. The results validate the effectiveness of the systems in understanding nuanced financial language and offers a tool for multi-lingual text analysis. Our system is able to achieve SAS scores of 0.75 in Spanish and 0.82 in English.</abstract>
+      <url hash="126f3912">2025.finnlp-1.28</url>
+    </paper>
+    <paper id="29">
+      <title>Extracting Financial Causality through <fixed-case>QA</fixed-case>: Insights from <fixed-case>F</fixed-case>in<fixed-case>C</fixed-case>ausal 2025 <fixed-case>S</fixed-case>panish Subtask</title>
+      <author><first>Marcelo Jose</first><last>Moreno Aviles</last></author>
+      <author><first>Alejandro</first><last>Vaca</last></author>
+      <pages>265–270</pages>
+      <abstract>The methodology tested both span extraction and generative tasks, with generative models ultimately proving to be more effective. SuperLenia, a private generative model, was the best-performing model. It is a combination of public models with sizes ranging from 7B to 8B parameters. SuperLenia was fine-tuned using QLoRA in a chat-based framework, and hyperparameter tuned during inference, including adjustments to temperature and sampling, further enhanced its performance.</abstract>
+      <url hash="bfc2d563">2025.finnlp-1.29</url>
+    </paper>
+    <paper id="30">
+      <title><fixed-case>F</fixed-case>in<fixed-case>NLP</fixed-case>-<fixed-case>FNP</fixed-case>-<fixed-case>LLMF</fixed-case>in<fixed-case>L</fixed-case>egal-2025 Shared Task: Financial Misinformation Detection Challenge Task</title>
+      <author><first>Zhiwei</first><last>Liu</last></author>
+      <author><first>Keyi</first><last>Wang</last></author>
+      <author><first>Zhuo</first><last>Bao</last></author>
+      <author><first>Xin</first><last>Zhang</last></author>
+      <author><first>Jiping</first><last>Dong</last></author>
+      <author><first>Kailai</first><last>Yang</last></author>
+      <author><first>Mohsinul</first><last>Kabir</last></author>
+      <author><first>Polydoros</first><last>Giannouris</last></author>
+      <author><first>Rui</first><last>Xing</last></author>
+      <author><first>Park</first><last>Seongchan</last></author>
+      <author><first>Jaehong</first><last>Kim</last></author>
+      <author><first>Dong</first><last>Li</last></author>
+      <author><first>Qianqian</first><last>Xie</last></author>
+      <author><first>Sophia</first><last>Ananiadou</last></author>
+      <pages>271–276</pages>
+      <abstract>Despite the promise of large language models (LLMs) in finance, their capabilities for financial misinformation detection (FMD) remain largely unexplored. To evaluate the capabilities of LLMs in FMD task, we introduce the financial misinformation detection shared task featured at COLING FinNLP-FNP-LLMFinLegal-2024, FMD Challenge. This challenge aims to evaluate the ability of LLMs to verify financial misinformation while generating plausible explanations. In this paper, we provide an overview of this task and dataset, summarize participants’ methods, and present their experimental evaluations, highlighting the effectiveness of LLMs in addressing the FMD task. To the best of our knowledge, the FMD Challenge is one of the first challenges for assessing LLMs in the field of FMD. Therefore, we provide detailed observations and draw conclusions for the future development of this field.</abstract>
+      <url hash="c1138aac">2025.finnlp-1.30</url>
+    </paper>
+    <paper id="31">
+      <title><fixed-case>FMD</fixed-case>-Mllama at the Financial Misinformation Detection Challenge Task: Multimodal Reasoning and Evidence Generation</title>
+      <author><first>Zheyang</first><last>Luo</last></author>
+      <author><first>Guangbin</first><last>Zhang</last></author>
+      <author><first>Jiahao</first><last>Xiao</last></author>
+      <author><first>Xuankang</first><last>Zhang</last></author>
+      <author><first>Yulin</first><last>Dou</last></author>
+      <author><first>Jiangming</first><last>Liu</last></author>
+      <pages>277–282</pages>
+      <abstract>This paper presents our system for the Financial Misinformation Detection Challenge Task. We utilize multimodal reasoning, incorporating textual and image information, to address the task. Our system demonstrates the capability to detect financial misinformation while providing comprehensive explanations. Experimental results show that our final system significantly outperforms the baselines and ranks second on the task leaderboard.</abstract>
+      <url hash="98adafa2">2025.finnlp-1.31</url>
+      <attachment type="OptionalSupplementaryMaterial" hash="0ca8f77d">2025.finnlp-1.31.OptionalSupplementaryMaterial.zip</attachment>
+    </paper>
+    <paper id="32">
+      <title>Ask Asper at the Financial Misinformation Detection Challenge Task: Enhancing Financial Decision-Making: A Dual Approach Using Explainable <fixed-case>LLM</fixed-case>s for Misinformation Detection</title>
+      <author><first>Sonal</first><last>Singh</last></author>
+      <author><first>Rahul</first><last>Mehta</last></author>
+      <author><first>Yadunath</first><last>Gupta</last></author>
+      <author><first>Soudip Roy</first><last>Chowdhury</last></author>
+      <pages>283–287</pages>
+      <abstract>The integrity of the market and investor con- fidence are seriously threatened by the prolif- eration of financial misinformation via digital media. Existing approaches such as fact check, lineage detection and others have demonstrated significant progress in detecting financial mis- information. In this paper, we present a novel two-stage framework leveraging large language models (LLMs) to identify and explain finan- cial misinformation. The framework first em- ploys a GPT-4 model fine-tuned on financial datasets to classify claims as “True,” “False,” or “Not Enough Information” by analyzing rel- evant financial context. To enhance classifi- cation reliability, a second LLM serves as a verification layer, examining and refining the initial model’s predictions. This dual-model approach ensures greater accuracy in misinfor- mation detection through cross-validation. Beyond classification, our methodology empha- sizes generating clear, concise, and actionable explanations that enable users to understand the reasoning behind each determination. By com- bining robust misinformation detection with interpretability, our paradigm advances AI sys- tem transparency and accountability, providing valuable support to investors, regulators, and financial stakeholders in mitigating misinfor- mation risks.</abstract>
+      <url hash="c9b35219">2025.finnlp-1.32</url>
+    </paper>
+    <paper id="33">
+      <title>Team <fixed-case>FMD</fixed-case> <fixed-case>LLM</fixed-case> at the Financial Misinformation Detection Challenge Task: Exploring Task Structuring and Metadata Impact on Performance</title>
+      <author><first>Ken</first><last>Kawamura</last></author>
+      <pages>288–296</pages>
+      <abstract>The detection of financial misinformation (FMD) is a growing challenge. In this paper, we investigate how task structuring and metadata integration impact the performance of large language models (LLMs) on FMD tasks. We compare two approaches: predicting the label before generating an explanation, and generating the explanation first. Our results reveal that prediction-first models achieve higher F1 scores. We also assess the effect of auxiliary metadata, which surprisingly degraded performance despite its correlation with the labels. Our findings highlight the importance of task order and the need to carefully consider whether to use metadata in limited data settings.</abstract>
+      <url hash="4a51d717">2025.finnlp-1.33</url>
+    </paper>
+    <paper id="34">
+      <title>Dunamu <fixed-case>ML</fixed-case> at the Financial Misinformation Detection Challenge Task: Improving Supervised Fine-Tuning with <fixed-case>LLM</fixed-case>-based Data Augmentation</title>
+      <author><first>Dongjun</first><last>Lee</last></author>
+      <author><first>Heesoo</first><last>Park</last></author>
+      <pages>297–301</pages>
+      <abstract>In this paper, we describe Dunamu ML’s submission to the Financial Misinformation Detection (FMD) 2025 shared task. To address the low-resource challenge in FMD, we augmented a general domain misinformation detection dataset for training. We first collected claims, contexts, and misinformation labels from a public dataset. Then, we generated evidence for each label based on a closed LLM with few-shot examples extracted from the FMD training dataset. Finally, we oversampled the training data specific to the financial domain and augmented it with the generated data to perform supervised fine-tuning (SFT) on the LLM. When evaluated on the blind test dataset, our model achieved an F1 score of 84.67 in misinformation classification and a ROUGE-1 score of 81.21 in evidence generation, ranking first on the leaderboard in both aspects.</abstract>
+      <url hash="c06e4646">2025.finnlp-1.34</url>
+    </paper>
+    <paper id="35">
+      <title>1-800-<fixed-case>SHARED</fixed-case>-<fixed-case>TASKS</fixed-case> at the Financial Misinformation Detection Challenge Task: Sequential Learning for Claim Verification and Explanation Generation in Financial Domains</title>
+      <author><first>Jebish</first><last>Purbey</last></author>
+      <author><first>Siddhant</first><last>Gupta</last></author>
+      <author><first>Nikhil</first><last>Manali</last></author>
+      <author><first>Siddartha</first><last>Pullakhandam</last></author>
+      <author><first>Drishti</first><last>Sharma</last></author>
+      <author><first>Ashay</first><last>Srivastava</last></author>
+      <author><first>Ram Mohan Rao</first><last>Kadiyala</last></author>
+      <pages>302–307</pages>
+      <abstract>This paper presents the system description of our entry for the COLING 2025 FMD challenge, focusing on misinformation detection in financial domains. We experimented with a combination of large language models, including Qwen, Mistral, and Gemma-2, and leveraged pre-processing and sequential learning for not only identifying fraudulent financial content but also generating coherent, and concise explanations that clarify the rationale behind the classifications. Our approach achieved competitive results with an F1-score of 0.8283 for classification, and ROUGE-1 of 0.7253 for explanations. This work highlights the transformative potential of LLMs in financial applications, offering insights into their capabilities for combating misinformation and enhancing transparency while identifying areas for future improvement in robustness and domain adaptation.</abstract>
+      <url hash="518e67ba">2025.finnlp-1.35</url>
+    </paper>
+    <paper id="36">
+      <title><fixed-case>GMU</fixed-case>-<fixed-case>MU</fixed-case> at the Financial Misinformation Detection Challenge Task: Exploring <fixed-case>LLM</fixed-case>s for Financial Claim Verification</title>
+      <author><first>Alphaeus</first><last>Dmonte</last></author>
+      <author><first>Roland R.</first><last>Oruche</last></author>
+      <author><first>Marcos</first><last>Zampieri</last></author>
+      <author><first>Eunmi</first><last>Ko</last></author>
+      <author><first>Prasad</first><last>Calyam</last></author>
+      <pages>308–312</pages>
+      <abstract>This paper describes the team GMU-MU submission to the Financial Misinformation Detection challenge. The goal of this challenge is to identify financial misinformation and generate explanations justifying the predictions by developing or adapting LLMs. The participants were provided with a dataset of financial claims that were categorized into six financial domain categories. We experiment with the Llama model using two approaches; instruction-tuning the model with the training dataset, and a prompting approach that directly evaluates the off-the-shelf model. Our best system was placed 5th among the 12 systems, achieving an overall evaluation score of 0.6682.</abstract>
+      <url hash="3cfc8347">2025.finnlp-1.36</url>
+    </paper>
+    <paper id="37">
+      <title>Deloitte (Drocks) at the Financial Misinformation Detection Challenge Task: Enhancing Misinformation Detection through Instruction-Tuned Models</title>
+      <author><first>Harika</first><last>Abburi</last></author>
+      <author><first>Alex</first><last>Chandler</last></author>
+      <author><first>Edward</first><last>Bowen</last></author>
+      <author><first>Sanmitra</first><last>Bhattacharya</last></author>
+      <author><first>Nirmala</first><last>Pudota</last></author>
+      <pages>313–320</pages>
+      <abstract>Large Language Models (LLMs) are capable of producing highly fluent and convincing text; however, they can sometimes include factual errors and misleading information. Consequently, LLMs have emerged as tools for the rapid and cost-effective generation of financial misinformation, enabling bad actors to harm individual investors and attempt to manipulate markets. In this study, we instruction-tune Generative Pre-trained Transformers (GPT-4o-mini) to detect financial misinformation and produce concise explanations for why a given claim or statement is classified as misinformation, leveraging the contextual information provided. Our model achieved fourth place in Financial Misinformation Detection (FMD) shared task with a micro F1 score of 0.788 and a ROUGE-1 score of 0.743 on the private test set of FACT-checking within the FINancial domain (FIN-FACT) dataset provided by the shared task organizers.</abstract>
+      <url hash="2a2f5fd8">2025.finnlp-1.37</url>
+    </paper>
+    <paper id="38">
+      <title>Capybara at the Financial Misinformation Detection Challenge Task: Chain-of-Thought Enhanced Financial Misinformation Detection</title>
+      <author><first>Yupeng</first><last>Cao</last></author>
+      <author><first>Haohang</first><last>Li</last></author>
+      <author><first>Yangyang</first><last>Yu</last></author>
+      <author><first>Shashidhar Reddy</first><last>Javaji</last></author>
+      <pages>321–325</pages>
+      <abstract>Financial misinformation poses a significant threat to investment decisions and market stability. Recently, the application of Large Language Models (LLMs) for detecting financial misinformation has gained considerable attention within the natural language processing (NLP) community. The Financial Misinformation Detection (FMD) challenge @ Coling 2025 serves as a valuable platform for collaboration and innovation. This paper presents our solution to FMD challenge. Our approach involves using search engines to retrieve the summarized high-quality information as supporting evidence and designing a financial domain-specific chain-of-thought to enhance the reasoning capabilities of LLMs. We evaluated our method on both commercial closed-source LLMs (GPT-family) and open-source models (Llama-3.1-8B and QWen). The experimental results domonstrate that the proposed method improves veracity prediction performance. However, the quality of the generated explanations remains relatively poor. In the paper, we present the experimental findings and provides an in depth analysis of these results.</abstract>
+      <url hash="67b476ef">2025.finnlp-1.38</url>
+    </paper>
+    <paper id="39">
+      <title>A Scalable Framework for Legal Text Understanding in Regulatory and Financial Contexts.</title>
+      <author><first>Santiago</first><last>Martínez</last></author>
+      <author><first>Juan Manuel</first><last>Castañeda</last></author>
+      <author><first>Ruben</first><last>Manrique</last></author>
+      <pages>326–334</pages>
+      <abstract>This study presents a comprehensive approach to developing a domain-specific large language model (LLM) for regulatory and financial text interpretation. A specialized corpus was constructed through large-scale scraping of financial and regulatory documents across domains such as compliance, licensing, and financial reporting. The data was preprocessed using GPT-4o-mini with prompt engineering to retain critical information and remove noise. We further pre-trained a LLaMA-3.1-8B model on the curated corpus and fine-tuned it using an instruction dataset covering nine tasks from the Coling 2025 Regulations Challenge, including acronym expansion, regulatory question-answering, and XBRL-based financial analytics, employing QLoRA to reduce memory requirements. The model exhibits a slight improvement from baseline answering complex regulatory questions (detailed QA) and expanding acronyms. This study demonstrates the potential of domain-specific LLMs in regulatory text interpretation and lays the groundwork for future research in specialized NLP evaluation methodologies.</abstract>
+      <url hash="b1458091">2025.finnlp-1.39</url>
+    </paper>
+    <paper id="40">
+      <title>Audit-<fixed-case>FT</fixed-case> at the Regulations Challenge Task: An Open-Source Large Language Model for Audit</title>
+      <author><first>Jiajia</first><last>Huang</last></author>
+      <author><first>Maowei</first><last>Jiang</last></author>
+      <author><first>Haoran</first><last>Zhu</last></author>
+      <pages>335–348</pages>
+      <abstract>Intelligent auditing represents a crucial advancement in modern audit practices, enhancing both the quality and efficiency of audits within the realm of artificial intelligence. With the rise of large language model (LLM), there is enormous potential for intelligent models to contribute to audit domain. However, general LLMs applied in audit domain face the challenges of lacking specialized knowledge and the presence of data biases. To overcome these challenges, this study introduces AuditWen, an open-source audit LLM by fine-tuning Qwen with constructing instruction data from audit domain. We first outline the application scenarios for LLMs in the audit and extract requirements that shape the development of LLMs tailored for audit purposes. We then propose an audit LLM, called AuditWen, by fine-tuning Qwen with constructing 30k instruction dataset from 15 audit tasks and 3 layers. In evaluation stage, we proposed a benchmark with 5k instructions that covers a set of critical audit tasks derived from the application scenarios. With the benchmark, we compare AuditWen with other existing LLMs from information extraction, question answering and document generation. The experimental results demonstrate superior performance of AuditWen both in question understanding and answer generation, making it an immediately valuable tool for audit.</abstract>
+      <url hash="2d731c34">2025.finnlp-1.40</url>
+    </paper>
+    <paper id="41">
+      <title><fixed-case>F</fixed-case>in<fixed-case>M</fixed-case>ind-<fixed-case>Y</fixed-case>-Me at the Regulations Challenge Task: Financial Mind Your Meaning based on <fixed-case>TH</fixed-case>a<fixed-case>LLE</fixed-case></title>
+      <author><first>Pantid</first><last>Chantangphol</last></author>
+      <author><first>Pornchanan</first><last>Balee</last></author>
+      <author><first>Kantapong</first><last>Sucharitpongpan</last></author>
+      <author><first>Chanatip</first><last>Saetia</last></author>
+      <author><first>Tawunrat</first><last>Chalothorn</last></author>
+      <pages>349–362</pages>
+      <abstract>This paper presents our submission to the COLING 2025 regulation challenge, focusing on nine tasks in the regulatory and financial domains. The challenge aims to advance large language models beyond general-purpose capabilities, adapting them for regulatory and financial tasks using a unified framework of task-specific prompts and input templates. We propose a sequential fine-tuning approach that integrates reasoning-based training, tailored system prompts, and Chain-of-Thought (CoT) inference to optimize task-specific performance. This method improves accuracy and reliability across diverse tasks. Notably, CoT inference demonstrates exceptional effectiveness in handling complex scenarios and tasks requiring specific answer patterns, such as named entity recognition and financial calculations. Our model achieved an overall score of 54.801%, ranking 1st among all teams and becoming the top performer in the challenge. These results highlight the effectiveness of sequential fine-tuning, advanced reasoning techniques, and fine-tuned prompts in improving performance and scalability for complex regulatory and financial applications.</abstract>
+      <url hash="6cd1ff4a">2025.finnlp-1.41</url>
+    </paper>
+    <paper id="42">
+      <title><fixed-case>F</fixed-case>in<fixed-case>NLP</fixed-case>-<fixed-case>FNP</fixed-case>-<fixed-case>LLMF</fixed-case>in<fixed-case>L</fixed-case>egal-2025 Shared Task: Regulations Challenge</title>
+      <author><first>Keyi</first><last>Wang</last></author>
+      <author><first>Jaisal</first><last>Patel</last></author>
+      <author><first>Charlie</first><last>Shen</last></author>
+      <author><first>Daniel</first><last>Kim</last></author>
+      <author><first>Andy</first><last>Zhu</last></author>
+      <author><first>Alex</first><last>Lin</last></author>
+      <author><first>Luca</first><last>Borella</last></author>
+      <author><first>Cailean</first><last>Osborne</last></author>
+      <author><first>Matt</first><last>White</last></author>
+      <author><first>Steve</first><last>Yang</last></author>
+      <author><first>Kairong</first><last>Xiao</last></author>
+      <author><first>Xiao-Yang</first><last>Liu</last></author>
+      <pages>363–370</pages>
+      <abstract>Financial large language models (FinLLMs) have been applied to various tasks in business, finance, accounting, and auditing. Complex financial regulations and standards are critical to financial services, which LLMs must comply with. However, FinLLMs’ performance in understanding and interpreting financial regulations has rarely been studied. Therefore, we organize the Regulations Challenge, a shared task at COLING FinNLP-FNP-LLMFinLegal-2025. It encourages the academic community to explore the strengths and limitations of popular LLMs. We create 9 novel tasks and corresponding question sets. In this paper, we provide an overview of these tasks and summarize participants’ approaches and results. We aim to raise awareness of FinLLMs’ professional capability in financial regulations and industry standards.</abstract>
+      <url hash="19984b2b">2025.finnlp-1.42</url>
+    </paper>
+    <paper id="43">
+      <title><fixed-case>I</fixed-case>ntelli<fixed-case>C</fixed-case>hain Stars at the Regulations Challenge Task: A Large Language Model for Financial Regulation</title>
+      <author><first>Shijia</first><last>Jiang</last></author>
+      <author><first>Yongfu</first><last>Dai</last></author>
+      <author><first>Haochen</first><last>Jia</last></author>
+      <author><first>Yuxin</first><last>Wang</last></author>
+      <author><first>Hao</first><last>Wang</last></author>
+      <pages>371–384</pages>
+      <abstract>We present our approach to the COLING-2025 Regulations Challenge, which evaluates large language models (LLMs) on nine regulatory tasks, such as abbreviation recognition and financial data extraction. To address challenges like domain-specific terminologies and dynamic regulatory contexts, we developed a robust data construction pipeline, integrating proprietary Chinese regulatory data, Fin-GPT datasets, and financial Q&amp;A data. The pipeline applied, but was not limited to, language filtering, semantic screening, and deduplication, resulting in a 30,000-example dataset combining financial regulations and general financial data. Using this dataset, we fine-tuned Llama 3.2-3B-Instruct to create Reg-LLaMA, a specialized model that outperformed baselines on the Regulations Challenge and PIXIU datasets. These results demonstrate the effectiveness of domain-specific data construction in advancing LLMs for regulatory tasks, paving the way for reliable and interpretable AI in regulated industries.</abstract>
+      <url hash="f9f9a65b">2025.finnlp-1.43</url>
+    </paper>
+    <paper id="44">
+      <title>Fin-<fixed-case>DBQA</fixed-case> Shared-task: Database Querying and Reasoning</title>
+      <author><first>Rungsiman</first><last>Nararatwong</last></author>
+      <author><first>Natthawut</first><last>Kertkeidkachorn</last></author>
+      <author><first>Hiroya</first><last>Takamura</last></author>
+      <author><first>Ryutaro</first><last>Ichise</last></author>
+      <pages>385–391</pages>
+      <abstract>This paper presents the results of the Fin-DBQA shared task based on a question-answering dataset, focusing on database querying and reasoning. The dataset, consisting of 400 questions grouped into 40 conversations, evaluates language models’ abilities to answer sequential questions with complex reasoning and multi-hop queries in a multi-turn conversational question-answering setting. Each sample includes the question, answer, database queries, querying result (tables), and a program (series of operations) that produces the answer from the result. We received 52 submissions from three participants, with scores significantly surpassing the baselines. One participant submitted a paper detailing a prompt-based solution using large language models with additional data preprocessing that helps improve the overall performance.</abstract>
+      <url hash="dce1e840">2025.finnlp-1.44</url>
+    </paper>
+    <paper id="45">
+      <title>Adapt <fixed-case>LLM</fixed-case> for Multi-turn Reasoning <fixed-case>QA</fixed-case> using Tidy Data</title>
+      <author><first>Jan</first><last>Strich</last></author>
+      <pages>392–400</pages>
+      <abstract>This paper presents our submission to the Fin-DBQA shared task at the 9th FinNLP workshop. The task involves answering finance-focused questions in a multi-turn environment, requiring step-by-step reasoning and Python code generation. We propose a novel approach to tackle this multidimensional problem by pre-processing the data into tidy data format so that each column represents a variable and each row an observation. Our experiments demonstrate that using the tidy data format allows all models to surpass SOTA, with GPT-4o achieving a 50.62% accuracy on the DBQR-QA benchmark achieving second place on the shared task leaderboard. These findings suggest that transforming data into the tidy data format enhances reasoning capabilities, reduces syntax errors, and improves performance on table-reasoning QA tasks. The code is available online.</abstract>
+      <url hash="dc2d2b8b">2025.finnlp-1.45</url>
+    </paper>
+    <paper id="46">
+      <title><fixed-case>F</fixed-case>in<fixed-case>NLP</fixed-case>-<fixed-case>FNP</fixed-case>-<fixed-case>LLMF</fixed-case>in<fixed-case>L</fixed-case>egal @ <fixed-case>COLING</fixed-case> 2025 Shared Task: Agent-Based Single Cryptocurrency Trading Challenge</title>
+      <author><first>Yangyang</first><last>Yu</last></author>
+      <author><first>Haohang</first><last>Li</last></author>
+      <author><first>Yupeng</first><last>Cao</last></author>
+      <author><first>Keyi</first><last>Wang</last></author>
+      <author><first>Zhiyang</first><last>Deng</last></author>
+      <author><first>Zhiyuan</first><last>Yao</last></author>
+      <author><first>Yuechen</first><last>Jiang</last></author>
+      <author><first>Dong</first><last>Li</last></author>
+      <author><first>Ruey-Ling</first><last>Weng</last></author>
+      <author><first>Jordan W.</first><last>Suchow</last></author>
+      <pages>401–406</pages>
+      <abstract>Despite the promise of large language models based agent framework in stock trading task, their capabilities for comprehensive analysis and multiple different financial assets remain largely unexplored, such as cryptocurrency trading. To evaluate the capabilities of LLM-based agent framework in cryptocurrency trading, we introduce an LLMs-based financial shared task featured at COLING 2025 FinNLP-FNP-LLMFinLegal workshop, named Agent-based Single Cryptocurrency Trading Challenge. This challenge includes two cryptocurrencies: BitCoin and Ethereum. In this paper, we provide an overview of these tasks and datasets, summarize participants’ methods, and present their experimental evaluations, highlighting the effectiveness of LLMs in addressing cryptocurrency trading challenges. To the best of our knowledge, the Agent-based Single Cryptocurrency Trading Challenge is one of the first challenges for assessing LLMs in the financial area. In consequence, we provide detailed observations and take away conclusions for future development in this area.</abstract>
+      <url hash="d6922534">2025.finnlp-1.46</url>
+    </paper>
+    <paper id="47">
+      <title><fixed-case>S</fixed-case>am’s Fans at the Crypto Trading Challenge Task: A Threshold-Based Decision Approach Based on <fixed-case>F</fixed-case>in<fixed-case>M</fixed-case>em Framework</title>
+      <author><first>You</first><last>Wang</last></author>
+      <author><first>Jingyi</first><last>Wei</last></author>
+      <author><first>Mingsong</first><last>Ye</last></author>
+      <pages>407–413</pages>
+      <abstract>The advancements of large language models (LLMs) demonstrate the value of pre-training on diverse datasets, enabling these models to excel across a wide range of tasks while adapting effectively to specialized applications. This study presents an approach to enhance LLMs’ ability to process and trade based on cryptocurrency data across different time horizons. We fine-tuned two established language models, Llama-3.1-8b and Qwen2.5-7b, to effectively interpret and utilize temporal market data provided by the FinMem framework. Our methodology enables these models to analyze multi-period market data from FinMem, including price movements and momentum indicators, to execute effective cryptocurrency trading decisions. Results show that this fine-tuning approach improves the models’ capacity to analyze market conditions and inform trading decisions based on multi-period market dynamics.</abstract>
+      <url hash="70b6ca37">2025.finnlp-1.47</url>
+    </paper>
+    <paper id="48">
+      <title>300k/ns team at the Crypto Trading Challenge Task: Enhancing the justification of accurate trading decisions through parameter-efficient fine-tuning of reasoning models</title>
+      <author><first>Artem</first><last>Agarkov</last></author>
+      <author><first>Mihail</first><last>Kulik</last></author>
+      <author><first>Leonid</first><last>Shmyrkov</last></author>
+      <pages>414–422</pages>
+      <abstract>In this paper, we address the Agent-Based Sin- gle Cryptocurrency Trading Challenge, focus- ing on decision-making for trading Bitcoin and Etherium. Our approach utilizes fine- tuning a Mistral AI model on a dataset com- prising summarized cryptocurrency news, en- abling it to make informed “buy,” “sell,” or “hold” decisions and articulate its reasoning. The model integrates textual sentiment analysis and contextual reasoning with real-time mar- ket trends, demonstrating the potential of Large Language Models (LLMs) in high-stakes finan- cial decision-making. The model achieved a notable accuracy, highlighting its capacity to manage risk while optimizing returns. This work contributes to advancing AI-driven so- lutions for cryptocurrency markets and offers insights into the practical deployment of LLMs in real-time trading environments. We made our model publicly available.</abstract>
+      <url hash="953aad0e">2025.finnlp-1.48</url>
+    </paper>
+  </volume>
+</collection>
