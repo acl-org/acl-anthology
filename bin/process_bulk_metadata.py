@@ -109,9 +109,12 @@ class AnthologyMetadataUpdater:
 
         _, volume_id, paper_id = deconstruct_anthology_id(anthology_id)
 
-        paper_node = tree.getroot().find(
-            f"./volume[@id='{volume_id}']/paper[@id='{paper_id}']"
-        )
+        if paper_id == "0":
+            paper_node = tree.getroot().find(f"./volume[@id='{volume_id}']/meta")
+        else:
+            paper_node = tree.getroot().find(
+                f"./volume[@id='{volume_id}']/paper[@id='{paper_id}']"
+            )
         if paper_node is None:
             raise Exception(f"-> Paper not found in XML file: {xml_repo_path}")
 
@@ -137,13 +140,15 @@ class AnthologyMetadataUpdater:
             real_ids = set()
             for author in changes["authors"]:
                 id_ = author.get("id", None)
+
+                author_tag = "editor" if paper_id == "0" else "author"
                 if id_:
-                    existing_author = paper_node.find(f"author[@id='{id_}']")
+                    existing_author = paper_node.find(f"{author_tag}[@id='{id_}']")
                     if existing_author is not None:
                         real_ids.add(id_)
 
             # remove existing author nodes
-            for author_node in paper_node.findall("author"):
+            for author_node in paper_node.findall(author_tag):
                 paper_node.remove(author_node)
 
             prev_sibling = paper_node.find("title")
@@ -155,7 +160,7 @@ class AnthologyMetadataUpdater:
                     attrib["id"] = author["id"]
                 # create author_node and add as sibling after insertion_point
                 author_node = make_simple_element(
-                    "author", attrib=attrib, parent=paper_node, sibling=prev_sibling
+                    author_tag, attrib=attrib, parent=paper_node, sibling=prev_sibling
                 )
                 prev_sibling = author_node
                 for key in ["first", "last", "affiliation", "variant"]:
@@ -291,6 +296,7 @@ class AnthologyMetadataUpdater:
                 except Exception as e:
                     if verbose:
                         print(e, file=sys.stderr)
+                    continue
 
                 if tree:
                     indent(tree.getroot())
