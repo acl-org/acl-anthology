@@ -234,8 +234,11 @@ class AnthologyMetadataUpdater:
                 # Parse metadata changes from issue
                 try:
                     json_block = self._parse_metadata_changes(issue.body)
-                except json.decoder.JSONDecodeError as e
-                    print(f"Failed to parse JSON block in #{issue.number}: {e}", file=sys.stderr)
+                except json.decoder.JSONDecodeError as e:
+                    print(
+                        f"Failed to parse JSON block in #{issue.number}: {e}",
+                        file=sys.stderr,
+                    )
                     json_block = None
 
                 if not json_block:
@@ -270,7 +273,10 @@ class AnthologyMetadataUpdater:
                             continue
                     else:
                         if verbose:
-                            print(f"-> Skipping #{issue.number} (no JSON block)", file=sys.stderr)
+                            print(
+                                f"-> Skipping #{issue.number} (no JSON block)",
+                                file=sys.stderr,
+                            )
                     continue
 
                 self.stats["relevant_issues"] += 1
@@ -297,7 +303,10 @@ class AnthologyMetadataUpdater:
                         xml_repo_path, anthology_id, json_block
                     )
                 except Exception as e:
-                    print(f"Failed to apply changes to #{issue.number}: {e}", file=sys.stderr)
+                    print(
+                        f"Failed to apply changes to #{issue.number}: {e}",
+                        file=sys.stderr,
+                    )
                     continue
 
                 if tree:
