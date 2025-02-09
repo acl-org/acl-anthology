@@ -2663,11 +2663,11 @@
     </paper>
     <paper id="191">
       <title><fixed-case>L</fixed-case>lama2<fixed-case>V</fixed-case>ec: Unsupervised Adaptation of Large Language Models for Dense Retrieval</title>
-      <author><first>Zheng</first><last>Liu</last></author>
       <author><first>Chaofan</first><last>Li</last></author>
+      <author><first>Zheng</first><last>Liu</last></author>
       <author><first>Shitao</first><last>Xiao</last></author>
-      <author><first>Yingxia</first><last>Shao</last></author>
-      <author><first>Defu</first><last>Lian</last></author>
+      <author><first>Yingxia</first><last>Shao</last><affiliation>Beijing University of Posts and Telecommunications</affiliation></author>
+      <author><first>Defu</first><last>Lian</last><affiliation>University of Science and Technology of China</affiliation></author>
       <pages>3490-3500</pages>
       <abstract>Dense retrieval calls for discriminative embeddings to represent the semantic relationship between query and document. It may benefit from the using of large language models (LLMs), given LLMs’ strong capability on semantic understanding. However, the LLMs are learned by auto-regression, whose working mechanism is completely different from representing whole text as one discriminative embedding. Thus, it is imperative to study how to adapt LLMs properly so that they can be effectively initialized as the backbone encoder for dense retrieval. In this paper, we propose a novel approach, called <b>Llama2Vec</b>, which performs unsupervised adaptation of LLM for its dense retrieval application. Llama2Vec consists of two pretext tasks: EBAE (Embedding-Based Auto-Encoding) and EBAR (Embedding-Based Auto-Regression), where the LLM is prompted to <i>reconstruct the input sentence</i> and <i>predict the next sentence</i> based on its text embeddings. Llama2Vec is simple, lightweight, but highly effective. It is used to adapt LLaMA-2-7B on the Wikipedia corpus. With a moderate steps of adaptation, it substantially improves the model’s fine-tuned performances on a variety of dense retrieval benchmarks. Notably, it results in the new state-of-the-art performances on popular benchmarks, such as passage and document retrieval on MSMARCO, and zero-shot retrieval on BEIR. The model and source code will be made publicly available to facilitate the future research. Our model is available at https://github.com/FlagOpen/FlagEmbedding.</abstract>
       <url hash="e0092648">2024.acl-long.191</url>
@@ -13986,8 +13986,8 @@
     <paper id="29">
       <title>Compromesso! <fixed-case>I</fixed-case>talian Many-Shot Jailbreaks undermine the safety of Large Language Models</title>
       <author><first>Fabio</first><last>Pernisi</last></author>
-      <author><first>Dirk</first><last>Hovy</last></author>
-      <author><first>Paul</first><last>Röttger</last></author>
+      <author><first>Dirk</first><last>Hovy</last><affiliation>Bocconi University</affiliation></author>
+      <author><first>Paul</first><last>R�ttger</last><affiliation>Bocconi University</affiliation></author>
       <pages>245-251</pages>
       <abstract>As diverse linguistic communities and users adopt Large Language Models (LLMs), assessing their safety across languages becomes critical. Despite ongoing efforts to align these models with safe and ethical guidelines, they can still be induced into unsafe behavior with jailbreaking, a technique in which models are prompted to act outside their operational guidelines. What research has been conducted on these vulnerabilities was predominantly on English, limiting the understanding of LLM behavior in other languages. We address this gap by investigating Many-Shot Jailbreaking (MSJ) in Italian, underscoring the importance of understanding LLM behavior in different languages. We base our analysis on a newly created Italian dataset to identify unique safety vulnerabilities in 4 families of open-source LLMs.We find that the models exhibit unsafe behaviors even with minimal exposure to harmful prompts, and–more alarmingly–this tendency rapidly escalates with more demonstrations.</abstract>
       <url hash="5b5c8ec0">2024.acl-srw.29</url>
