@@ -63,7 +63,7 @@ However, if the metadata for the papers is correct, then we need to manually lin
 **Multiple people, single author page**.
 
 In this situation, many different people have published under the same name.
-An example is [Yang Liu](https://aclanthology.org/people/yang-liu). 
+An example is [Yang Liu](https://aclanthology.org/people/yang-liu).
 In this case, we have to manually assign IDs to the papers to create a separate author page, typically using their Ph.D. granting institution (e.g., [Yang Liu of Edinburgh](https://aclanthology.org/people/y/yang-liu-edinburgh/).
 
 Both situations can be addressed by [filing an Author Page request](https://github.com/acl-org/acl-anthology/issues/new?template=02-name-correction.yml).

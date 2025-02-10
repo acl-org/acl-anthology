@@ -14,4 +14,3 @@ In summary, there are three main types of corrections we handle:
 * _PDF corrections_. This includes changes such as revisions or retractions. For more information, please see see [details on the corrections page]({{< relref "/info/corrections.md" >}}).
 
 Important: The Anthology treats the data on the PDF itself as the authoritative source of information, so all metadata corrections should conform to the information found there. If that information is wrong, a PDF correction is needed.
-
