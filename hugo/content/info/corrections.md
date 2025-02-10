@@ -5,15 +5,15 @@ subtitle: How to submit corrections to the Anthology
 date: 2025-02-10
 ---
 
-### What type of correction do you need?
+### What type of correction do I need?
 
 Our central guiding corrections principle is that **we view the content of PDFs as authoritative**. If you see errors or inconsistencies in the metadata (author list, title, abstract), you need to first check to see if it matches the PDF.
 
 This view drives three main types of corrections:
 
-* _PDF corrections_. The PDF itself can be in error.
-* _Metadata only_. Information presented in the Anthology may be different from the PDF. Examples include errors in the title, abstract, or author list.
-* _Author disambiguation_. An author's papers might be spread across multiple author pages (one person, multiple pages), or a single author page might contain papers from different people (multiple people, one page).
+* [_PDF corrections_](#pdf-corrections). The PDF itself can be in error.
+* [_Metadata only_](#metadata-corrections). Information presented in the Anthology may be different from the PDF. Examples include errors in the title, abstract, or author list.
+* [_Author disambiguation_](#author-disambiguation). An author's papers might be spread across multiple author pages (one person, multiple pages), or a single author page might contain papers from different people (multiple people, one page).
 
 Below we describe the process for addressing these types of corrections, in order of the frequency we encounter them.
 
@@ -24,22 +24,21 @@ These kinds of corrections bring the information presented in the Anthology in l
 
 A request to change paper metadata can be submitted in two ways.
 
-- Navigate to the paper's page in the ACL Anthology (e.g., [K17-1003](https://aclanthology.org/K17-1003/)). From there, click the yellow "Fix data" button. This will display a dialog that you can use to correct the title and abstract and fix issues with the author list.
+1. Navigate to the paper's page in the ACL Anthology (e.g., [K17-1003](https://aclanthology.org/K17-1003/)). From there, click the yellow "Fix data" button. This will display a dialog that you can use to correct the title and abstract and fix issues with the author list.
 
-  Submitting this form will create a Github issue with a JSON data block. This will then be validated by Anthology staff, and processed by a semi-automatic bulk corrections script on a weekly basis.
+   Submitting this form will create a Github issue with a JSON data block. This will then be validated by Anthology staff, and processed by a semi-automatic bulk corrections script on a weekly basis.
 
--  If you would like to expedite the process and are familiar with [git](https://git-scm.com), you can make the correction yourself and file a [pull request (PR)](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests).
-    1. First, locate your file amongst our [authoritative XML files](https://github.com/acl-org/acl-anthology/tree/master/data/xml). The name of your file is the portion of the Anthology ID that comes before the hyphen.
+2. If you would like to expedite the process and are familiar with [git](https://git-scm.com), you can make the correction yourself and file a [pull request (PR)](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests).
 
-    As an example, if the Anthology ID of your paper is `P19-10171`, then the file you will need to edit is [data/xml/P19.xml](https://github.com/acl-org/acl-anthology/blob/master/data/xml/P19.xml); if the Anthology ID of your paper is `2021.iwslt-1.28`, then the file you will need to edit is [data/xml/2021.iwslt.xml](https://github.com/acl-org/acl-anthology/blob/master/data/xml/2021.iwslt.xml).
-    2. Find your entry in the XML file, and use Github's edit button to fix it and then to issue a PR against our `master` branch.
-    3. For larger XML files, you may have to fork the repository first. [More information can be found here](https://help.github.com/en/github/managing-files-in-a-repository/editing-files-in-another-users-repository).
+    * First, locate your file amongst our [authoritative XML files](https://github.com/acl-org/acl-anthology/tree/master/data/xml). The name of your file is the portion of the Anthology ID that comes before the hyphen. As an example, if the Anthology ID of your paper is `P19-10171`, then the file you will need to edit is [data/xml/P19.xml](https://github.com/acl-org/acl-anthology/blob/master/data/xml/P19.xml); if the Anthology ID of your paper is `2021.iwslt-1.28`, then the file you will need to edit is [data/xml/2021.iwslt.xml](https://github.com/acl-org/acl-anthology/blob/master/data/xml/2021.iwslt.xml).
+    * Find your entry in the XML file, and use Github's edit button to fix it and then to issue a PR against our `master` branch.
+    * For larger XML files, you may have to fork the repository first. [More information can be found here](https://help.github.com/en/github/managing-files-in-a-repository/editing-files-in-another-users-repository).
 
 The Anthology team will attend to the correction as we find time.
 Metadata changes are generally accepted if they are consistent with the PDF, which we take as authoritative.
 However, please see the following note.
 
-#### Note on changes to author metadata
+**Note on changes to author metadata**
 
 Because it is beyond our ability to keep track of the many differing policies governing conferences and journals whose proceedings we host, it is therefore up to those groups to ensure that PDF authorship is correct when proceedings are delivered to the Anthology for ingestion.
 
@@ -51,17 +50,15 @@ In such cases, we will ask authors to arrange for this permission to be conveyed
 The Anthology builds author pages based on the string form of names found in paper metadata.
 These pages are housed under https://aclanthology.org/people/, e.g., [Aravand Joshi](https://aclanthology.org/people/aravind-joshi).
 
-There are two types of author disambiguation that we handle:
+There are two types of author disambiguation:
 
 **One person, multiple author pages**.
 This situation occurs when a person has multiple papers written under different names.
 Often, these names are minor variations of each other (e.g., including or excluding a middle initial).
-
 Sometimes, this is a simple mistake in the metadata that can be handled using the procedure described above.
 However, if the metadata for the papers is correct, then we need to manually link the author pages.
 
 **Multiple people, single author page**.
-
 In this situation, many different people have published under the same name.
 An example is [Yang Liu](https://aclanthology.org/people/yang-liu).
 In this case, we have to manually assign IDs to the papers to create a separate author page, typically using their Ph.D. granting institution (e.g., [Yang Liu of Edinburgh](https://aclanthology.org/people/y/yang-liu-edinburgh/).
