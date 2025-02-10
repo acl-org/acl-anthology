@@ -37,8 +37,7 @@ A request to change paper metadata can be submitted in two ways.
 
 The Anthology team will attend to the correction as we find time.
 Metadata changes are generally accepted if they are consistent with the PDF, which we take as authoritative.
-However, please see the [note below about changes to the author list](#note-on-author-changes).
-
+However, please see the following note.
 
 #### Note on changes to author metadata
 
