@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <collection id="2025.indonlp">
-  <volume id="1" ingest-date="2025-01-24" type="proceedings">
+  <volume id="1" ingest-date="2025-02-12" type="proceedings">
     <meta>
       <booktitle>Proceedings of the First Workshop on Natural Language Processing for Indo-Aryan and Dravidian Languages</booktitle>
       <editor><first>Ruvan</first><last>Weerasinghe</last></editor>
@@ -10,12 +10,12 @@
       <address>Abu Dhabi</address>
       <month>January</month>
       <year>2025</year>
-      <url hash="d3024667">2025.indonlp-1</url>
+      <url hash="dc507331">2025.indonlp-1</url>
       <venue>indonlp</venue>
       <venue>ws</venue>
     </meta>
     <frontmatter>
-      <url hash="f4b48186">2025.indonlp-1.0</url>
+      <url hash="b8695673">2025.indonlp-1.0</url>
       <bibkey>indonlp-ws-2025-1</bibkey>
     </frontmatter>
     <paper id="1">
@@ -199,6 +199,49 @@
       <abstract>The Romanized text has become popu lar with the growth of digital communi cation platforms, largely due to the fa miliarity with English keyboards. In Sri Lanka, Romanized Sinhala, commonly re ferred to as “Singlish” is widely used in digi tal communications. This paper introduces a novel context-aware back-transliteration system designed to address the ad-hoc typ ing patterns and lexical ambiguity inher ent in Singlish. The proposed system com bines dictionary-based mapping for Singlish words, a rule-based transliteration for out of-vocabulary words and a BERT-based language model for addressing lexical am biguities. Evaluation results demonstrate the robustness of the proposed approach, achieving high BLEU scores along with low Word Error Rate (WER) and Character Er ror Rate (CER) across test datasets. This study provides an effective solution for Ro manized Sinhala back-transliteration and establishes the foundation for improving NLP tools for similar low-resourced lan guages.</abstract>
       <url hash="4721b8e5">2025.indonlp-1.16</url>
       <bibkey>perera-etal-2025-indonlp</bibkey>
+    </paper>
+    <paper id="17">
+      <title>Crossing Language Boundaries: Evaluation of Large Language Models on <fixed-case>U</fixed-case>rdu-<fixed-case>E</fixed-case>nglish Question Answering</title>
+      <author><first>Samreen</first><last>Kazi</last></author>
+      <author><first>Maria</first><last>Rahim</last></author>
+      <author><first>Shakeel Ahmed</first><last>Khoja</last></author>
+      <pages>141–151</pages>
+      <abstract>This study evaluates the question-answering capabilities of Large Language Models (LLMs) in Urdu, addressing a critical gap in low-resource language processing. Four models GPT-4, mBERT, XLM-R, and mT5 are assessed across monolingual, cross-lingual, and mixed-language settings using the UQuAD1.0 and SQuAD2.0 datasets. Results reveal significant performance gaps between English and Urdu processing, with GPT-4 achieving the highest F1 scores (89.1% in English, 76.4% in Urdu) while demonstrating relative robustness in cross-lingual scenarios. Boundary detection and translation mismatches emerge as primary challenges, particularly in cross-lingual settings. The study further demonstrates that question complexity and length significantly impact performance, with factoid questions yielding 14.2% higher F1 scores compared to complex questions. These findings establish important benchmarks for enhancing LLM performance in low-resource languages and identify key areas for improvement in multilingual question-answering systems.</abstract>
+      <url hash="5ac4c274">2025.indonlp-1.17</url>
+      <bibkey>kazi-etal-2025-crossing</bibkey>
+    </paper>
+    <paper id="18">
+      <title>Investigating the Effect of Backtranslation for <fixed-case>I</fixed-case>ndic Languages</title>
+      <author><first>Sudhansu Bala</first><last>Das</last></author>
+      <author><first>Samujjal</first><last>Choudhury</last></author>
+      <author><first>Dr Tapas Kumar</first><last>Mishra</last></author>
+      <author><first>Dr Bidyut Kr</first><last>Patra</last></author>
+      <pages>152–165</pages>
+      <abstract>Neural machine translation (NMT) is becoming increasingly popular as an effective method of automated language translation. However, due to a scarcity of training datasets, its effectiveness is limited when used with low-resource languages, such as Indian Languages (ILs). The lack of parallel datasets in Natural Language Processing (NLP) makes it difficult to investigate many ILs for Machine Translation (MT). A data augmentation approach such as Backtranslation (BT) can be used to enhance the size of the training dataset. This paper presents the development of a NMT model for ILs within the context of a MT system. To address the issue of data scarcity, the paper examines the effectiveness of a BT approach for ILs that uses both monolingual and parallel datasets. Experimental results reveal that while the BT has improved the model’s performance, however, it is not as significant as expected. It has also been observed that, even though the English-ILs and ILs-English models are trained on the same dataset, the ILs-English models perform better in all evaluation metrics. The reason for this is that ILs frequently differ in sentence structure, word order, and morphological richness from English. The paper also includes error analysis for translations between languages that were utilized in experiments utilizing the Multidimensional Quality Metrics (MQM) framework.</abstract>
+      <url hash="3265eb83">2025.indonlp-1.18</url>
+      <bibkey>das-etal-2025-investigating</bibkey>
+    </paper>
+    <paper id="19">
+      <title><fixed-case>S</fixed-case>inhala Transliteration: A Comparative Analysis Between Rule-based and <fixed-case>S</fixed-case>eq2<fixed-case>S</fixed-case>eq Approaches</title>
+      <author><first>Widanalage Mario Yomal</first><last>De Mel</last></author>
+      <author><first>Kasun Imesha</first><last>Wickramasinghe</last></author>
+      <author><first>Nisansa</first><last>de Silva</last></author>
+      <author><first>Surangika Dayani</first><last>Ranathunga</last></author>
+      <pages>166–173</pages>
+      <abstract>Due to reasons of convenience and lack of tech literacy, transliteration (i.e., Romanizing native scripts instead of using localization tools) is eminently prevalent in the context of low-resource languages such as Sinhala, which have their own writing script. In this study, our focus is on Romanized Sinhala transliteration. We propose two methods to address this problem: Our baseline is a rule-based method, which is then compared against our second method where we approach the transliteration problem as a sequence-to-sequence task akin to the established Neural Machine Translation (NMT) task. For the latter, we propose a Transformer based Encode-Decoder solution. We witnessed that the Transformer-based method could grab many ad-hoc patterns within the Romanized scripts compared to the rule-based method.</abstract>
+      <url hash="ed0b3dc6">2025.indonlp-1.19</url>
+      <bibkey>de-mel-etal-2025-sinhala</bibkey>
+    </paper>
+    <paper id="20">
+      <title><fixed-case>R</fixed-case>omanized to Native <fixed-case>M</fixed-case>alayalam Script Transliteration Using an Encoder-Decoder Framework</title>
+      <author><first>Bajiyo</first><last>Baiju</last></author>
+      <author><first>Kavya</first><last>Manohar</last></author>
+      <author><first>Leena G.</first><last>Pillai</last></author>
+      <author><first>Elizabeth</first><last>Sherly</last></author>
+      <pages>174–178</pages>
+      <abstract>In this work, we present the development of a reverse transliteration model to convert romanized Malayalam to native script using an encoder-decoder framework built with attention-based bidirectional Long Short Term Memory (Bi-LSTM) architecture. To train the model, we have used curated and combined collection of 4.3 million transliteration pairs derived from publicly available Indic language translitertion datasets, Dakshina and Aksharantar. We evaluated the model on two different test dataset provided by IndoNLP-2025-Shared-Task that contain, (1) General typing patterns and (2) Adhoc typing patterns, respectively. On the Test Set-1, we obtained a character error rate (CER) of 7.42%. However upon Test Set-2, with adhoc typing patterns, where most vowel indicators are missing, our model gave a CER of 22.8%.</abstract>
+      <url hash="2af1458d">2025.indonlp-1.20</url>
+      <bibkey>baiju-etal-2025-romanized</bibkey>
     </paper>
   </volume>
 </collection>
