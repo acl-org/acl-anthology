@@ -42,6 +42,8 @@ from typing import List, Optional, Tuple
 
 from acl_anthology import Anthology
 from acl_anthology.collections import VolumeType
+from acl_anthology.files import PDFReference
+from acl_anthology.people import Name, NameSpecification as NameSpec
 from acl_anthology.text import MarkupText
 
 # from anthology.utils import make_simple_element, indent, compute_hash_from_file
@@ -361,20 +363,13 @@ def main(args):
             logging.info(f"Skipping existing paper with DOI {paper_dict['doi']}")
             continue
 
-        # TODO: encapsulate
-        from acl_anthology.collections import Paper
-        from acl_anthology.people import NameSpecification, Name
-
-        paper = Paper(
-            id=...,  # should be determined automatically
-            parent=volume,
-            bibkey="",  # should be determined automatically
+        paper = volume.create_paper(
             title=MarkupText.from_string(paper_dict["title"]),  # TODO: from LaTeX?
             abstract=MarkupText.from_string(paper_dict["abstract"]),  # TODO: from LaTeX?
             doi=paper_dict["doi"],
             pages="-".join(paper_dict["pages"]),  # TODO
             authors=[
-                NameSpecification(Name.from_dict(author))
+                NameSpec(Name.from_dict(author))
                 for author in paper_dict["authors"]
             ],
         )
@@ -383,12 +378,7 @@ def main(args):
         destination = pdf_destination / f"{anth_id}.pdf"
         print(f"Copying {pdf_path} to {destination}")
         shutil.copyfile(pdf_path, destination)
-
-        # TODO:
-        from acl_anthology.files import PDFReference
-
-        paper.pdf = PDFReference(name=f"{anth_id}.pdf", checksum=...)
-        # checksum = compute_hash_from_file(pdf_path)
+        paper.pdf = PDFReference.from_file(pdf_path)
 
         # TODO: Normalization needs to happen within the library
         # for oldnode in papernode:
