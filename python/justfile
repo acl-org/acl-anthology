@@ -56,7 +56,7 @@ test-all-python-versions: _deps
   # Restore the currently active Poetry environment on exit
   trap "poetry env use $(poetry env info -e)" EXIT
   # Loop over all supported Python versions
-  for py in 3.10 3.11 3.12; do
+  for py in 3.10 3.11 3.12 3.13; do
     poetry env use $py
     poetry install --with dev --quiet
     poetry run pytest -m "not integration"
