@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- Support for Python 3.13.
+
 ## [0.5.1] — 2025-01-02
 
 This release changes the PyPI package name from acl-anthology-py to acl-anthology.

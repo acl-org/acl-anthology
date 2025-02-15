@@ -1,6 +1,6 @@
 [tool.black]
 line-length = 90
-target-version = ['py310', 'py311', 'py312']
+target-version = ['py310', 'py311', 'py312', 'py313']
 skip-string-normalization = false
 
 [tool.mypy]
@@ -54,12 +54,13 @@ classifiers = [
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
 ]
 
 [tool.poetry.dependencies]
-python = ">=3.10,<3.11.0 || >3.11.0,<3.13"
+python = ">=3.10,<3.11.0 || >3.11.0,<3.14"
 docopt = "^0.6.2"
-lxml = "^4.9.2"
+lxml = "^5.3.1"
 PyYAML = "^6.0"
 app-paths = "^0.0.7"
 diskcache = "^5.6.1"
@@ -79,7 +80,7 @@ langcodes = {extras = ["data"], version = "^3.5.0"}
 pylatexenc = "^2.10"
 
 [tool.poetry.group.dev.dependencies]
-black = "^24.3.0"
+black = ">=25.1"
 pytest = "^7.3.1"
 pytest-cov = "^4.0.0"
 ruff = "^0.3.4"
