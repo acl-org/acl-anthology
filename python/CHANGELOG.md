@@ -4,6 +4,7 @@
 
 ### Added
 
+- Support for Python 3.13.
 - Papers are now indexed by their bibkeys and can be retrieved via `Anthology.get_paper_by_bibkey()`.
 - Bibkeys can now be generated and updated, guaranteeing uniqueness.
 - Collections, Volumes, Papers, and Events can now be newly created with functions on their respective parent objects.
