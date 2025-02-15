@@ -30,17 +30,20 @@ target-version = 'py310'
 [tool.ruff.lint]
 ignore = ['E501']  # "Line too long" is black's job
 
-[tool.poetry]
+[project]
 name = "acl-anthology"
 packages = [
     { include = "acl_anthology" },
 ]
 version = "0.5.1"
 description = "A library for accessing the ACL Anthology"
-authors = ["Marcel Bollmann <marcel@bollmann.me>"]
+authors = [
+    { name = "Marcel Bollmann", email = "marcel@bollmann.me" },
+]
 license = "Apache-2.0"
 readme = "README.md"
 repository = "https://github.com/acl-org/acl-anthology"
+documentation = "https://acl-anthology.readthedocs.io/"
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
@@ -56,28 +59,28 @@ classifiers = [
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
 ]
-
-[tool.poetry.dependencies]
-python = ">=3.10,<3.11.0 || >3.11.0,<3.14"
-docopt = "^0.6.2"
-lxml = "^5.3.1"
-PyYAML = "^6.0"
-app-paths = "^0.0.7"
-diskcache = "^5.6.1"
-rich = "^13.3.5"
-attrs = "^23.2.0"
-texsoup = ">=0.3.1,<0.4.0"
-omegaconf = "^2.3.0"
-python-slugify = {extras = ["unidecode"], version = "^8.0.1"}
-numpy = "^1.26.0"
-scipy = "^1.6.0"
-typing-extensions = {version = "^4.6.0", python = "<3.11"}
-platformdirs = "^3.11.0"
-gitpython = "^3.1.37"
-rnc2rng = "^2.6.6"
-citeproc-py = "^0.6.0"
-langcodes = {extras = ["data"], version = "^3.5.0"}
-pylatexenc = "^2.10"
+requires-python = ">=3.10, !=3.11.0, <3.14"
+dependencies = [
+    "docopt (>=0.6.2)",
+    "lxml (~=5.3.1)",
+    "PyYAML (~=6.0)",
+    "app-paths (~=0.0.7)",
+    "diskcache (>=5.6.1)",
+    "rich (>=13.3.5)",
+    "attrs (~=23.2)",
+    "texsoup (>=0.3.1, <0.4.0)",
+    "omegaconf (~=2.3.0)",
+    "python-slugify[unidecode] (~=8.0.1)",
+    "numpy (>=1.26.0)",
+    "scipy (>=1.6.0)",
+    "platformdirs (~=3.11.0)",
+    "gitpython (>=3.1.37)",
+    "rnc2rng (>=2.6.6)",
+    "citeproc-py (~=0.6.0)",
+    "langcodes[data] (>=3.5.0)",
+    "pylatexenc (~=2.10)",
+    "typing-extensions (>=4.6.0) ; python_version < '3.11'",
+]
 
 [tool.poetry.group.dev.dependencies]
 black = ">=25.1"
