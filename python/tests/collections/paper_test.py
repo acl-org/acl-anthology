@@ -16,6 +16,7 @@ import pytest
 from acl_anthology.collections import CollectionIndex
 from acl_anthology.collections.types import VolumeType
 from acl_anthology.files import PDFReference
+from acl_anthology.people import NameSpecification
 from acl_anthology.text import MarkupText
 from acl_anthology.utils.xml import indent
 from lxml import etree
@@ -30,7 +31,7 @@ from acl_anthology.collections.paper import (
 
 
 class VolumeStub:
-    title = "Generic volume"
+    title = MarkupText.from_string("Generic volume")
     editors = []
 
 
@@ -101,6 +102,37 @@ def test_paper_bibtype():
     assert paper.bibtype == "proceedings"
     volume.type = VolumeType.JOURNAL
     assert paper.bibtype == "book"
+
+
+def test_paper_remove_author(anthology):
+    paper = anthology.get_paper("2022.acl-demo.2")
+    ns = paper.authors[-1]
+    person = anthology.resolve(ns)
+    assert person.id == "iryna-gurevych"
+    assert paper.full_id_tuple in person.item_ids
+
+    # Removing last author from paper
+    paper.authors = paper.authors[:-1]
+    # Person should be updated after resetting indices
+    anthology.reset_indices()
+    person = anthology.resolve(ns)
+    assert paper.full_id_tuple not in person.item_ids
+
+
+def test_paper_add_author(anthology):
+    paper = anthology.get_paper("2022.acl-demo.2")
+    # This person exists, but is not an author on this paper
+    ns = NameSpecification("Maya Varma")
+    assert ns not in paper.authors
+    person = anthology.resolve(ns)
+    assert paper.full_id_tuple not in person.item_ids
+
+    # Adding this author to the paper
+    paper.authors.insert(0, ns)
+    # Person should be updated after resetting indices
+    anthology.reset_indices()
+    person = anthology.resolve(ns)
+    assert paper.full_id_tuple in person.item_ids
 
 
 test_cases_xml = (
@@ -226,7 +258,7 @@ test_cases_paper_to_bibtex = (
     (
         "2022.acl-short.0",
         False,
-        """@proceedings{acl-2022-association-linguistics,
+        """@proceedings{acl-2022-short,
     title = "Proceedings of the 60th Annual Meeting of the Association for Computational Linguistics (Volume 2: Short Papers)",
     editor = "Muresan, Smaranda  and
       Nakov, Preslav  and

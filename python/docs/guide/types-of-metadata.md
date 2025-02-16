@@ -84,10 +84,10 @@ or **event links**:
 
 ```pycon
 >>> paper.attachments
-{
-  'Software': AttachmentReference(name='2021.eacl-main.89.Software.zip', checksum='ca8afe3f'),
-  'Dataset': AttachmentReference(name='2021.eacl-main.89.Dataset.txt', checksum='07778fe5')
-}
+[
+  ('Software', AttachmentReference(name='2021.eacl-main.89.Software.zip', checksum='ca8afe3f')),
+  ('Dataset', AttachmentReference(name='2021.eacl-main.89.Dataset.txt', checksum='07778fe5'))
+]
 >>> anthology.get_event("acl-2022").links
 {
   'website': AttachmentReference(name='https://2022.aclweb.org', checksum=None),
