@@ -165,7 +165,7 @@ def get_entry(anthology_id, format):
                 for entry in iterator(f):
                     # match either https://preview.aclanthology.org/{branch}/{anthology_id}/
                     # or https://aclanthology.org/{anthology_id}/ without using regex (good enough)
-                    if "https://" in entry or "aclanthology.org" in entry and f'/{anthology_id}/' in entry:
+                    if ("https://" in entry or "aclanthology.org" in entry) and f'/{anthology_id}/' in entry:
                         return entry
         except FileNotFoundError:
             pass
