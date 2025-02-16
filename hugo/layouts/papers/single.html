@@ -95,8 +95,8 @@
     document.getElementById("paperIdSpan").textContent = paper_params.anthology_id;
     document.getElementById("paperTitle").value = paper_params.title;
     document.getElementById("paperAbstract").value = paper_params.abstract;
-    document.getElementById("paperSnapshot").href = "/thumb/" + paper_params.anthology_id + ".jpg";
-    document.getElementById("paperSnapshotImg").src = "/thumb/" + paper_params.anthology_id + ".jpg";
+    document.getElementById("paperSnapshot").href = "https://aclanthology.org/thumb/" + paper_params.anthology_id + ".jpg";
+    document.getElementById("paperSnapshotImg").src = "https://aclanthology.org/thumb/" + paper_params.anthology_id + ".jpg";
 
     const container = document.getElementById("authorsContainer");
     container.innerHTML = "";
@@ -172,6 +172,7 @@
     firstName.placeholder = 'First name';
     firstName.className = 'form-control';
     firstName.value = first;
+    firstName.onkeypress = () => refreshAuthorList();
 
     firstNameCol.appendChild(firstName);
     grabberCol.appendChild(firstNameCol);
@@ -185,6 +186,7 @@
     lastName.placeholder = 'Last name';
     lastName.className = 'form-control';
     lastName.value = last;
+    lastName.onkeypress = () => refreshAuthorList();
 
     lastNameCol.appendChild(lastName);
 
@@ -218,6 +220,17 @@
   function addAuthor() {
     const container = document.getElementById('authorsContainer');
     container.appendChild(createAuthorRow("", "", "", ""));
+  }
+
+  function refreshAuthorList() {
+    const container = document.getElementById('authorsContainer');
+    var authors = "";
+    for (authorRow of container.children) {
+      const first = authorRow.children[1].children[0].value;
+      const last = authorRow.children[2].children[0].value;
+      authors += first + "  " + last + "; "
+    }
+    document.getElementById("paperAuthorList").textContent = authors;
   }
 
   // Drag & Drop functions for authors
@@ -360,15 +373,16 @@
               <textarea class="form-control" id="paperAbstract" rows="6"></textarea>
             </div>
 
-            <div style="height: 150px; text-align: center; overflow: hidden; position: relative;">
+            <div class="mb-3" style="height: 150px; text-align: center; overflow: hidden; position: relative;">
               <a id="paperSnapshot" href=""><img id="paperSnapshotImg" src="" style="position: absolute; left: 0; top: -50px;"></a>
             </div>
+            <div class="mb-3" id="paperAuthorList"></div>
           </form>
         </div>
         <div class="modal-footer d-flex align-items-center">
           <div class="form-check mb-0">
             <input type="checkbox" class="form-check-input" id="pdfCorrectionCheck">
-            <label class="form-check-label" for="pdfCorrectionCheck">ALL author names, the title, and the abstract match the PDF. If paper metadata matches the PDF, but the paper should be linked to a different author page, please file an <a href="https://github.com/acl-org/acl-anthology/issues/new?assignees=anthology-assist&labels=correction%2Cmetadata&projects=&template=02-name-correction.yml&title=Author+Page%3A+%7Breplace+with+author+name%7D">author page correction</a> instead.</label>
+            <label class="form-check-label" for="pdfCorrectionCheck">ALL author names match the PDF snapshot above.</label>
           </div>
           <button type="button" class="btn btn-primary" onclick="submitMetadataCorrection()">Submit</button>
         </div>
