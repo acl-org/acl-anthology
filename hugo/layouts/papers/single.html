@@ -95,6 +95,8 @@
     document.getElementById("paperIdSpan").textContent = paper_params.anthology_id;
     document.getElementById("paperTitle").value = paper_params.title;
     document.getElementById("paperAbstract").value = paper_params.abstract;
+    document.getElementById("paperSnapshot").href = "/thumb/" + paper_params.anthology_id + ".jpg";
+    document.getElementById("paperSnapshotImg").src = "/thumb/" + paper_params.anthology_id + ".jpg";
 
     const container = document.getElementById("authorsContainer");
     container.innerHTML = "";
@@ -356,6 +358,10 @@
               <label for="paperAbstract" class="form-label">Abstract</label>
               <small id="abstractTitleHelp" class="form-text text-muted">Correct abstract if needed. Retain XML formatting tags such as &lt;tex-math&gt;.</small>
               <textarea class="form-control" id="paperAbstract" rows="6"></textarea>
+            </div>
+
+            <div style="height: 150px; text-align: center; overflow: hidden; position: relative;">
+              <a id="paperSnapshot" href=""><img id="paperSnapshotImg" src="" style="position: absolute; left: 0; top: -50px;"></a>
             </div>
           </form>
         </div>
