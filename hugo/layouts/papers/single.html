@@ -39,8 +39,8 @@
 {{ $anthology_id := .Params.anthology_id }}
 {{ $volume_id := index (split .Params.anthology_id "-") 0 }}
 {{ $paper := index (index .Site.Data.papers $volume_id) .Params.anthology_id }}
-<script src="{{ "/js/clipboard.min.js" | relURL }}"></script>
-<script src="{{ "/js/FileSaver.js" | relURL }}"></script>
+<script src="{{ relURL "js/clipboard.min.js" }}"></script>
+<script src="{{ relURL "js/FileSaver.js" }}"></script>
 <script>
   $( document ).ready(function() {
       if (ClipboardJS.isSupported()) {

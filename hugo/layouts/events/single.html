@@ -68,9 +68,9 @@
       <a class="badge badge-primary align-middle mr-1" href="{{ . }}" data-toggle="tooltip" data-placement="top" title="Open full proceedings volume as PDF">pdf&nbsp;(full)</a>
       <br class="d-none d-sm-inline-block" />
       {{- end -}}
-      {{- $bibfile := printf "/volumes/%s.bib" . -}}
+      {{- $bibfile := printf "volumes/%s.bib" . -}}
       {{- if (fileExists (printf "/data-export/%s" $bibfile)) -}}
-      <a class="badge badge-secondary align-middle mr-1" href="{{ $bibfile | relURL }}" data-toggle="tooltip" data-placement="top" title="Export to BibTeX">bib&nbsp;(full)</a>
+      <a class="badge badge-secondary align-middle mr-1" href="{{ relURL $bibfile }}" data-toggle="tooltip" data-placement="top" title="Export to BibTeX">bib&nbsp;(full)</a>
       {{- end -}}
       </span>
     <a class="align-middle" href="{{ relref $ (printf "/volumes/%s" .) }}">{{ $volume.title }}</a></h4>

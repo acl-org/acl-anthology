@@ -9,7 +9,7 @@
     </a>
     {{- end -}}
     {{- if and (not $paper.retracted) (fileExists (printf "/data-export/volumes/%s.bib" $paper.parent_volume_id)) -}}
-    <a class="badge badge-secondary align-middle mr-1" href="{{ (printf "/%s.bib" .Params.anthology_id) | relURL }}" data-toggle="tooltip" data-placement="top" title="Export to BibTeX">
+    <a class="badge badge-secondary align-middle mr-1" href="{{ (printf "%s.bib" .Params.anthology_id) | relURL }}" data-toggle="tooltip" data-placement="top" title="Export to BibTeX">
       bib
     </a>
     {{- end -}}
