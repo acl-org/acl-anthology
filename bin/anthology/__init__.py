@@ -7,7 +7,7 @@ from .volumes import Volume
 import warnings
 
 warnings.warn(
-    """Your code uses the legacy Anthology library.  Consider migrating to acl-anthology-py <https://acl-anthology-py.readthedocs.io/>""",
+    """Your code uses the legacy Anthology library.  Consider migrating to acl-anthology <https://acl-anthology.readthedocs.io/>""",
     FutureWarning,
     stacklevel=2,
 )

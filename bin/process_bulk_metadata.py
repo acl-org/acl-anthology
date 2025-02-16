@@ -80,8 +80,7 @@ class AnthologyMetadataUpdater:
             {
               "first": "Carolyn Jane",
               "last": "Anderson",
-              "id": "carolyn-anderson",
-              "affiliation": ""
+              "id": "carolyn-anderson"
             }
           ],
           "abstract": "..."
@@ -91,47 +90,46 @@ class AnthologyMetadataUpdater:
         # For some reason, the issue body has \r\n line endings
         issue_body = issue_body.replace("\r", "")
 
-        try:
-            if (
-                match := re.search(r"```json\n(.*?)\n```", issue_body, re.DOTALL)
-            ) is not None:
-                return json.loads(match[1])
-        except Exception as e:
-            print(f"Error parsing metadata changes: {e}", file=sys.stderr)
+        if (
+            match := re.search(r"```json\n(.*?)\n```", issue_body, re.DOTALL)
+        ) is not None:
+            return json.loads(match[1])
 
         return None
 
     def _apply_changes_to_xml(self, xml_repo_path, anthology_id, changes):
         """Apply the specified changes to XML file."""
 
-        print("-> Applying changes to XML file", file=sys.stderr)
         tree = ET.parse(xml_repo_path)
         # factored version
         # tree = ET.ElementTree(ET.fromstring(self.get_file_contents(xml_repo_path)))
 
         _, volume_id, paper_id = deconstruct_anthology_id(anthology_id)
 
-        paper_node = tree.getroot().find(
-            f"./volume[@id='{volume_id}']/paper[@id='{paper_id}']"
-        )
+        if paper_id == "0":
+            paper_node = tree.getroot().find(f"./volume[@id='{volume_id}']/meta")
+        else:
+            paper_node = tree.getroot().find(
+                f"./volume[@id='{volume_id}']/paper[@id='{paper_id}']"
+            )
         if paper_node is None:
-            print(f"-> Paper not found in XML file {xml_repo_path}", file=sys.stderr)
-            return None
+            raise Exception(f"-> Paper not found in XML file: {xml_repo_path}")
 
         # Apply changes to XML
-        for key in ["title", "abstract"]:
-            if key in changes:
-                node = paper_node.find(key)
-                if node is None:
-                    node = make_simple_element(key, parent=paper_node)
-                # set the node to the structure of the new string
-                try:
-                    new_node = ET.fromstring(f"<{key}>{changes[key]}</{key}>")
-                except ET.XMLSyntaxError as e:
-                    print(f"Error parsing XML for key {key}: {e}", file=sys.stderr)
-                    return None
-                # replace the current node with the new node in the tree
-                paper_node.replace(node, new_node)
+        if paper_id != "0":
+            # frontmatter has no title or abstract
+            for key in ["title", "abstract"]:
+                if key in changes:
+                    node = paper_node.find(key)
+                    if node is None:
+                        node = make_simple_element(key, parent=paper_node)
+                        # set the node to the structure of the new string
+                    try:
+                        new_node = ET.fromstring(f"<{key}>{changes[key]}</{key}>")
+                    except ET.XMLSyntaxError as e:
+                        raise e
+                    # replace the current node with the new node in the tree
+                    paper_node.replace(node, new_node)
 
         if "authors" in changes:
             """
@@ -140,13 +138,15 @@ class AnthologyMetadataUpdater:
             real_ids = set()
             for author in changes["authors"]:
                 id_ = author.get("id", None)
+
+                author_tag = "editor" if paper_id == "0" else "author"
                 if id_:
-                    existing_author = paper_node.find(f"author[@id='{id_}']")
+                    existing_author = paper_node.find(f"{author_tag}[@id='{id_}']")
                     if existing_author is not None:
                         real_ids.add(id_)
 
             # remove existing author nodes
-            for author_node in paper_node.findall("author"):
+            for author_node in paper_node.findall(author_tag):
                 paper_node.remove(author_node)
 
             prev_sibling = paper_node.find("title")
@@ -158,20 +158,12 @@ class AnthologyMetadataUpdater:
                     attrib["id"] = author["id"]
                 # create author_node and add as sibling after insertion_point
                 author_node = make_simple_element(
-                    "author", attrib=attrib, parent=paper_node, sibling=prev_sibling
+                    author_tag, attrib=attrib, parent=paper_node, sibling=prev_sibling
                 )
                 prev_sibling = author_node
-                if "first" in author:
-                    first_node = make_simple_element("first", parent=author_node)
-                    first_node.text = author["first"]
-                if "last" in author:
-                    last_node = make_simple_element("last", parent=author_node)
-                    last_node.text = author["last"]
-                if "affiliation" in author and author["affiliation"]:
-                    affiliation_node = make_simple_element(
-                        "affiliation", parent=author_node
-                    )
-                    affiliation_node.text = author["affiliation"]
+                for key in ["first", "last", "affiliation", "variant"]:
+                    if key in author and author[key]:
+                        make_simple_element(key, text=author[key], parent=author_node)
 
         return tree
 
@@ -209,18 +201,14 @@ class AnthologyMetadataUpdater:
         today = datetime.now().strftime("%Y-%m-%d")
         new_branch_name = f"bulk-corrections-{today}"
 
-        # Check if branch already exists, and if so, remove it
+        # If the branch exists, use it, else create it
         if new_branch_name in self.local_repo.heads:
-            if verbose:
-                print(f"Deleting existing branch {new_branch_name}", file=sys.stderr)
-            self.local_repo.delete_head(new_branch_name, force=True)
-
-        # Create new branch
-        ref = self.local_repo.create_head(new_branch_name, base_branch)
-        # ref = self.local_repo.create_git_ref(
-        #     ref=f"refs/heads/{new_branch_name}", sha=base_branch.commit.sha
-        # )
-        print(f"Created branch {new_branch_name} from {base_branch}", file=sys.stderr)
+            ref = self.local_repo.heads[new_branch_name]
+            print(f"Using existing branch {new_branch_name}", file=sys.stderr)
+        else:
+            # Create new branch
+            ref = self.local_repo.create_head(new_branch_name, base_branch)
+            print(f"Created branch {new_branch_name} from {base_branch}", file=sys.stderr)
 
         # store the current branch
         current_branch = self.local_repo.head.reference
@@ -244,7 +232,15 @@ class AnthologyMetadataUpdater:
                     )
 
                 # Parse metadata changes from issue
-                json_block = self._parse_metadata_changes(issue.body)
+                try:
+                    json_block = self._parse_metadata_changes(issue.body)
+                except json.decoder.JSONDecodeError as e:
+                    print(
+                        f"Failed to parse JSON block in #{issue.number}: {e}",
+                        file=sys.stderr,
+                    )
+                    json_block = None
+
                 if not json_block:
                     if close_old_issues:
                         # for old issues, filed without a JSON block, we append a comment
@@ -277,7 +273,10 @@ class AnthologyMetadataUpdater:
                             continue
                     else:
                         if verbose:
-                            print("-> Skipping (no JSON block)", file=sys.stderr)
+                            print(
+                                f"-> Skipping #{issue.number} (no JSON block)",
+                                file=sys.stderr,
+                            )
                     continue
 
                 self.stats["relevant_issues"] += 1
@@ -296,7 +295,19 @@ class AnthologyMetadataUpdater:
 
                 # XML file path relative to repo root (for reading current state)
                 xml_repo_path = f"data/xml/{collection_id}.xml"
-                tree = self._apply_changes_to_xml(xml_repo_path, anthology_id, json_block)
+                if verbose:
+                    print("-> Applying changes to XML file", file=sys.stderr)
+
+                try:
+                    tree = self._apply_changes_to_xml(
+                        xml_repo_path, anthology_id, json_block
+                    )
+                except Exception as e:
+                    print(
+                        f"Failed to apply changes to #{issue.number}: {e}",
+                        file=sys.stderr,
+                    )
+                    continue
 
                 if tree:
                     indent(tree.getroot())
@@ -312,7 +323,7 @@ class AnthologyMetadataUpdater:
                     # Commit changes
                     self.local_repo.index.add([xml_repo_path])
                     self.local_repo.index.commit(
-                        f"Processed metadata corrections for #{issue.number}"
+                        f"Process metadata corrections for {anthology_id} (closes #{issue.number})"
                     )
 
                     closed_issues.append(issue)

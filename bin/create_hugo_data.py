@@ -370,12 +370,17 @@ def export_people(anthology, builddir, dryrun):
                 "coauthors": sorted(
                     anthology.people.find_coauthors_counter(
                         person, include_volumes=False
-                    ).most_common()
+                    ).most_common(),
+                    key=lambda item: (
+                        -item[1],
+                        anthology.people[item[0]].canonical_name.last,
+                    ),
                 ),
                 "venues": sorted(
                     Counter(
                         venue for paper in papers for venue in paper.venue_ids
-                    ).most_common()
+                    ).most_common(),
+                    key=lambda item: (-item[1], item[0]),
                 ),
             }
             if len(person.names) > 1:
