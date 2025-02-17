@@ -174,7 +174,7 @@
     firstName.placeholder = 'First name';
     firstName.className = 'form-control';
     firstName.value = first;
-    firstName.onkeypress = () => refreshAuthorList();
+    firstName.oninput = () => refreshAuthorList();
 
     firstNameCol.appendChild(firstName);
     grabberCol.appendChild(firstNameCol);
@@ -188,7 +188,7 @@
     lastName.placeholder = 'Last name';
     lastName.className = 'form-control';
     lastName.value = last;
-    lastName.onkeypress = () => refreshAuthorList();
+    lastName.oninput = () => refreshAuthorList();
 
     lastNameCol.appendChild(lastName);
 
