@@ -95,7 +95,7 @@
     document.getElementById("paperIdSpan").textContent = paper_params.anthology_id;
     document.getElementById("paperTitle").value = paper_params.title;
     document.getElementById("paperAbstract").value = paper_params.abstract;
-    document.getElementById("paperPDF").href = "https://aclanthology.org/" + paper_params.anthology_id + ".pdf";
+    document.getElementById("paperPDF").href = "{{ $paper.pdf }}";
     document.getElementById("paperSnapshot").href = "https://aclanthology.org/thumb/" + paper_params.anthology_id + ".jpg";
     document.getElementById("paperSnapshotImg").src = "https://aclanthology.org/thumb/" + paper_params.anthology_id + ".jpg";
 
@@ -385,7 +385,7 @@
         <div class="modal-footer d-flex align-items-center">
           <div class="form-check mb-0">
             <input type="checkbox" class="form-check-input" id="pdfCorrectionCheck">
-            <label class="form-check-label" for="pdfCorrectionCheck">ALL author names match the snapshot above—including middle initials, hyphens, and accents. (If no snapshot, consult <a href="#" id="paperPDF">the PDF</a>).</label>
+            <label class="form-check-label" for="pdfCorrectionCheck">ALL author names match the snapshot above—including middle initials, hyphens, and accents. (If no snapshot, consult <a href="#" id="paperPDF">the PDF</a>.)</label>
           </div>
           <button type="button" class="btn btn-primary" onclick="submitMetadataCorrection()">Submit</button>
         </div>
