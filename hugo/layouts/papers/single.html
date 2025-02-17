@@ -281,8 +281,8 @@
     const newAuthorString = JSON.stringify(newAuthors);
     if (newAuthorString != oldAuthorString) {
       updatedParams.authors = newAuthors;
-      updatedParam.authors0 = paper_params.authors.map((x) => x.first + "  " + x.last).join(" | ");
-      updatedParam.authors1 = newAuthors.map((x) => x.first + "  " + x.last).join(" | ");
+      updatedParams.authors0 = paper_params.authors.map((x) => x.first + "  " + x.last).join(" | ");
+      updatedParams.authors1 = newAuthors.map((x) => x.first + "  " + x.last).join(" | ");
     }
 
     if (Object.keys(updatedParams).length === 1) {
