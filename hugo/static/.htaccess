@@ -92,3 +92,9 @@ RewriteRule ^(\d{4})\.([a-zA-Z\d]+).handbook.pdf$ anthology-files/handbooks/$2/$
 
 # Copyright
 RewriteRule acl-copyright-transfer.pdf anthology-files/templates/acl-copyright-transfer.pdf [L,NC]
+
+# Dynamically generate paper-level bib, endnote, and mods XML files
+Options +ExecCGI
+AddHandler cgi-script .cgi
+RewriteRule ^(\d{4}\.[a-zA-Z\d]+-[a-zA-Z\d]+\.[a-zA-Z\d]+?)(?:v\d+)?\.(bib|xml|endf)$ /ANTHOLOGYDIR/cgi-bin/extract_citation.cgi?anthology_id=$1&format=$2 [L,NC]
+RewriteRule ^([A-Za-z]\d{2}\-\d{4})(?:v\d+)?\.(bib|xml|endf)$ /ANTHOLOGYDIR/cgi-bin/extract_citation.cgi?anthology_id=$1&format=$2 [L,NC]
