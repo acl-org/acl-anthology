@@ -176,7 +176,7 @@ else
 
 build/.bib: build/.basedirs build/.data venv/bin/activate
 	@echo "INFO     Creating extra bibliographic files..."
-	. $(VENV) && python3 bin/create_bib.py --clean
+	. $(VENV) && python3 bin/create_extra_bib.py --clean
 	@touch build/.bib
 endif
 # end if block to conditionally disable bibtex generation

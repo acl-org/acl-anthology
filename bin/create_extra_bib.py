@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# Copyright 2019-2024 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2019-2025 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,9 +15,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Usage: create_bib.py [--builddir=DIR] [-c] [--max-workers=N] [--debug]
+"""Usage: create_extra_bib.py [--builddir=DIR] [-c] [--max-workers=N] [--debug]
 
-Creates anthology.bib files and MODS/Endnote formats for all papers in the Hugo directory.
+Creates full Anthology BibTeX files and MODS/Endnote formats for all papers in the Hugo directory.
 
 Options:
   --builddir=DIR           Directory with build files; used both for reading and writing. [default: {scriptdir}/../build/]

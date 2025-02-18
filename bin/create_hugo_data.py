@@ -26,8 +26,6 @@ Options:
   --importdir=DIR          Directory to import XML files from. [default: {scriptdir}/../data/]
   --exportdir=DIR          Directory to write build files to.   [default: {scriptdir}/../build/]
   --bib-limit=N            Only generate bibliographic information for the first N papers per volume.
-                           Setting the environment variable NOBIB=true will prevent generating *any*
-                           bibliographic information, equivalent to --bib-limit=0.
   --debug                  Output debug-level log messages.
   -c, --clean              Delete existing files in target directory before generation.
   -n, --dry-run            Do not write data files (useful for debugging).
@@ -573,9 +571,6 @@ if __name__ == "__main__":
 
     if limit := args["--bib-limit"]:
         BIBLIMIT = int(limit)
-    elif os.environ.get("NOBIB", "false") == "true":
-        BIBLIMIT = 0
-        log.info("NOBIB=true, not generating any bibliographic information")
 
     # This "freezes" the config, resulting in a massive speed-up
     OmegaConf.resolve(config)
