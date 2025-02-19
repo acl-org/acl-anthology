@@ -257,6 +257,7 @@
       } else {
         container.appendChild(draggedAuthor);
       }
+      refreshAuthorList();
     }
   }
 
@@ -375,17 +376,22 @@
               <small id="abstractTitleHelp" class="form-text text-muted">Correct abstract if needed. Retain XML formatting tags such as &lt;tex-math&gt;.</small>
               <textarea class="form-control" id="paperAbstract" rows="6"></textarea>
             </div>
-
-            <div class="mb-3" style="height: 150px; text-align: center; overflow: hidden; position: relative;">
-              <a id="paperSnapshot" href=""><img id="paperSnapshotImg" src="" style="position: absolute; left: 0; top: -50px;"></a>
+            
+            <div class="mb-3">
+              <label class="form-label">Verification against PDF</label>
+              <small class="form-text text-muted">Ensure that the new title/authors match the snapshot below. (If there is no snapshot or it is too small, consult <a href="#" id="paperPDF">the PDF</a>.)</small>
+              <div style="height: 150px; text-align: center; overflow: hidden; position: relative;">
+                <a id="paperSnapshot" href=""><img id="paperSnapshotImg" src="" style="position: absolute; left: 0; top: -50px;"></a>
+              </div>
+              <small class="form-text text-muted">Authors concatenated from the text boxes above:</small>
+              <div class="card card-body bg-light" id="paperAuthorList"></div>
             </div>
-            <div class="mb-3" id="paperAuthorList"></div>
           </form>
         </div>
         <div class="modal-footer d-flex align-items-center">
           <div class="form-check mb-0">
             <input type="checkbox" class="form-check-input" id="pdfCorrectionCheck">
-            <label class="form-check-label" for="pdfCorrectionCheck">ALL author names match the snapshot above—including middle initials, hyphens, and accents. (If no snapshot, consult <a href="#" id="paperPDF">the PDF</a>.)</label>
+            <label class="form-check-label" for="pdfCorrectionCheck">ALL author names match the snapshot above—including middle initials, hyphens, and accents.</label>
           </div>
           <button type="button" class="btn btn-primary" onclick="submitMetadataCorrection()">Submit</button>
         </div>
