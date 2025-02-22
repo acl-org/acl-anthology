@@ -54,7 +54,7 @@ def is_anthology_id(anthology_id):
     Returns true if the ID matches the Anthology ID format.
     This is either YYYY.[a-z]-[a-z].\\d+ or [A-Z]YY-\\d{4}
     """
-    return re.match(r'\d{4}\.[a-z0-9]+\-[a-z]+\.\d+', anthology_id) or re.match(r'[A-Z]\d{2}\-\d{4}')
+    return bool(re.match(r'\d{4}\.[a-z0-9]+\-[a-z]+\.\d+', anthology_id) or re.match(r'[A-Z]\d{2}\-\d{4}', anthology_id))
 
 
 def parse_id(anthology_id):
