@@ -52,9 +52,11 @@ import re
 def is_anthology_id(anthology_id):
     """
     Returns true if the ID matches the Anthology ID format.
-    This is either YYYY.[a-z]-[a-z].\\d+ or [A-Z]YY-\\d{4}
+    Make sure to test this on both old-style (J16-1001)
+    and new-style (2023.acl-long.219) IDs.
     """
-    return re.match(r'\d{4}\.[a-z0-9]+\-[a-z]+\.\d+', anthology_id) or re.match(r'[A-Z]\d{2}\-\d{4}')
+    result = re.match(r'\d{4}\.[a-z0-9]+-[a-z0-9]+\.\d+', anthology_id) or re.match(r'[A-Z]\d{2}-\d{4}', anthology_id)
+    return result is not None
 
 
 def parse_id(anthology_id):
