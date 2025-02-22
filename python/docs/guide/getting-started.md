@@ -49,8 +49,6 @@ repo](https://github.com/acl-org/acl-anthology/tree/master/data).
 
 ## Examples
 
-This section demonstrates how to use the `anthology` object by way of examples.
-
 ### Finding a paper by its ID
 
 All metadata from the Anthology can be accessed through the
@@ -132,8 +130,10 @@ NameSpecification(name=Name(first='Dan', last='Klein'), ...)
 >>> person = anthology.resolve(paper.authors[-1])
 ```
 
-[Accessing Authors/Editors](accessing-authors.md) describes the intricacies of
-working with names and people in more detail.
+!!! info
+
+    [Accessing Authors/Editors](accessing-authors.md) describes the intricacies of
+    working with names and people in more detail.
 
 ### Finding all papers from an event
 
@@ -185,7 +185,7 @@ event (`ws-2020`), as well as the EMNLP 2020 event.
 
 <!-- {==What about SIGs or venues? No way to find all papers yet==} -->
 
-### Getting the BibTeX entry for a paper
+### Working with BibTeX entries
 
 To generate the BibTeX entry for a paper, simply call [`Paper.to_bibtex()`][acl_anthology.collections.paper.Paper.to_bibtex]:
 
@@ -215,6 +215,14 @@ To also include the abstract in the BibTeX entry:
 
 ```pycon
 >>> print(paper.to_bibtex(with_abstract=True))
+```
+
+You can also find a paper by its citation key:
+
+```pycon
+>>> paper = anthology.get_paper_by_bibkey("kitaev-etal-2022-learned")
+>>> print(paper.full_id)
+2022.acl-long.220
 ```
 
 ### Searching for papers by keywords in title

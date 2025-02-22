@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import pytest
 from acl_anthology.collections import CollectionIndex
 
 
@@ -21,3 +22,22 @@ def test_get_collection(anthology_stub):
     collection = index.get("2022.acl")
     assert collection is not None
     assert collection.id == "2022.acl"
+
+
+def test_create_collection(anthology_stub):
+    index = CollectionIndex(anthology_stub)
+    # Create 2099.acl
+    collection = index.create("2099.acl")
+    assert collection.id == "2099.acl"
+    assert collection.parent is index
+    assert collection.id in index
+
+
+def test_create_collection_should_raise(anthology_stub):
+    index = CollectionIndex(anthology_stub)
+    # 2022.acl already exists
+    with pytest.raises(ValueError):
+        index.create("2022.acl")
+    # Collections can't be created with old-style IDs
+    with pytest.raises(ValueError):
+        index.create("P50")

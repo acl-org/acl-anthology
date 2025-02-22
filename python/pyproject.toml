@@ -15,6 +15,10 @@ module = 'pylatexenc.*'
 ignore_missing_imports = true
 
 [[tool.mypy.overrides]]
+module = 'stop_words.*'
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
 module = 'citeproc.*'
 ignore_missing_imports = true
 
@@ -67,7 +71,7 @@ dependencies = [
     "app-paths (~=0.0.7)",
     "diskcache (>=5.6.1)",
     "rich (>=13.3.5)",
-    "attrs (~=23.2)",
+    "attrs (~=24.1)",
     "texsoup (>=0.3.1, <0.4.0)",
     "omegaconf (~=2.3.0)",
     "python-slugify[unidecode] (~=8.0.1)",
@@ -79,6 +83,7 @@ dependencies = [
     "citeproc-py (~=0.6.0)",
     "langcodes[data] (>=3.5.0)",
     "pylatexenc (~=2.10)",
+    "stop-words (>=2018.7.23)",
     "typing-extensions (>=4.6.0) ; python_version < '3.11'",
 ]
 
