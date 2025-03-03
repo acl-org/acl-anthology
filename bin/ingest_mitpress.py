@@ -40,13 +40,9 @@ import lxml.etree as etree
 from pathlib import Path
 from typing import List, Optional, Tuple
 
-from acl_anthology import Anthology
-from acl_anthology.collections import VolumeType
-from acl_anthology.files import PDFReference
-from acl_anthology.people import Name, NameSpecification as NameSpec
-from acl_anthology.text import MarkupText
-
-# from anthology.utils import make_simple_element, indent, compute_hash_from_file
+from anthology import Anthology, Paper, Volume
+from normalize_anth import normalize
+from anthology.utils import make_simple_element, indent, compute_hash_from_file
 
 __version__ = "0.5"
 
@@ -272,25 +268,86 @@ def process_xml(xml: Path, is_tacl: bool) -> Optional[etree.Element]:
 
     info, issue, volume = get_article_journal_info(front, is_tacl)
 
-    paper = {
-        "title": get_title(front),
-        "authors": [
-            {
-                "first": given_names,
-                "last": surname,
-            }
-            for given_names, surname in get_authors(front)
-        ],
-        "doi": get_doi(front),
-        "abstract": get_abstract(front),
-        "pages": get_pages(front),  # tuple
-    }
+    paper = etree.Element("paper")
+
+    title_text = get_title(front)
+    title = etree.Element("title")
+    title.text = title_text
+    paper.append(title)
+
+    authors = get_authors(front)
+    for given_names, surname in authors:
+        first = etree.Element("first")
+        first.text = given_names
+
+        last = etree.Element("last")
+        last.text = surname
+
+        author = etree.Element("author")
+        author.append(first)
+        author.append(last)
+
+        paper.append(author)
+
+    doi_text = get_doi(front)
+    doi = etree.Element("doi")
+    doi.text = doi_text
+    paper.append(doi)
+
+    abstract_text = get_abstract(front)
+    if abstract_text:
+        make_simple_element("abstract", abstract_text, parent=paper)
+
+    pages_tuple = get_pages(front)
+    pages = etree.Element("pages")
+    pages.text = "–".join(pages_tuple)  # en-dash, not hyphen!
+    paper.append(pages)
 
     return paper, info, issue, volume
 
 
+def issue_info_to_node(
+    issue_info: str, year_: str, journal_issue: str, venue: str, volume: str
+) -> etree.Element:
+    """Creates the meta block for a new issue / volume"""
+    meta = make_simple_element("meta")
+
+    assert int(year_)
+
+    make_simple_element("booktitle", issue_info, parent=meta)
+    make_simple_element("publisher", "MIT Press", parent=meta)
+    make_simple_element("address", "Cambridge, MA", parent=meta)
+
+    if venue == "cl":
+        month_text = issue_info.split()[-2]  # blah blah blah month year
+        if month_text not in {
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December",
+        }:
+            logging.error("Unknown month: " + month_text)
+        make_simple_element("month", month_text, parent=meta)
+
+    make_simple_element("year", str(year_), parent=meta)
+    make_simple_element("venue", venue, parent=meta)
+    make_simple_element("journal-volume", volume, parent=meta)
+
+    return meta
+
+
 def main(args):
-    anthology = Anthology(datadir=os.path.join(args.anthology_dir, "data"))
+    anthology = Anthology(
+        importdir=os.path.join(args.anthology_dir, "data"), require_bibkeys=False
+    )
 
     is_tacl = "tacl" in args.root_dir.stem
     logging.info(f"Looks like a {'TACL' if is_tacl else 'CL'} ingestion")
@@ -306,13 +363,24 @@ def main(args):
             sys.exit(-1)
 
     collection_id = str(year) + "." + venue
-    if (collection := anthology.collections.get(collection_id)) is None:
-        collection = anthology.collections.create(collection_id)
+
+    collection_file = os.path.join(
+        args.anthology_dir, "data", "xml", f"{collection_id}.xml"
+    )
+    if os.path.exists(collection_file):
+        collection = etree.parse(collection_file).getroot()
+    else:
+        collection = make_simple_element("collection", attrib={"id": collection_id})
+
+    # volume_info = get_volume_info(list(args.year_root.glob("*.*.*/*.*.*.xml"))[0])
+    # volume.append(volume_info)
+
+    previous_issue_info = None
 
     papers = []
     for xml in sorted(args.root_dir.glob("*.xml")):
-        paper_dict, issue_info, issue, volume = process_xml(xml, is_tacl)
-        if paper_dict["title"].startswith("Erratum: “"):
+        papernode, issue_info, issue, volume = process_xml(xml, is_tacl)
+        if papernode is None or papernode.find("title").text.startswith("Erratum: “"):
             continue
 
         pdf_path = xml.parent / xml.with_suffix(".pdf").name
@@ -320,7 +388,7 @@ def main(args):
             logging.error(f"Missing pdf for {pdf_path}")
             sys.exit(1)
 
-        papers.append((paper_dict, pdf_path, issue_info, issue))
+        papers.append((papernode, pdf_path, issue_info, issue))
 
         pdf_destination = Path(args.pdfs_dir)
         pdf_destination = pdf_destination / "pdf" / venue
@@ -328,64 +396,82 @@ def main(args):
 
     # MIT Press does assign its IDs in page order, so we have to sort by page
     def sort_papers_by_page(paper_tuple):
-        startpage = paper_tuple[0]["pages"][0]
+        papernode = paper_tuple[0]
+        startpage = int(papernode.find("./pages").text.split("–")[0])
         return startpage
 
-    for paper_dict, pdf_path, issue_info, issue in sorted(
-        papers, key=sort_papers_by_page
-    ):
+    paper_id = 1  # Stupid non-enumerate counter because of "Erratum: " papers interleaved with real ones.
+    for papernode, pdf_path, issue_info, issue in sorted(papers, key=sort_papers_by_page):
         issue = issue or "1"
-        if (volume := collection.get(issue)) is None:
-            logging.info(f"New issue: {issue_info}")
+        if issue_info != previous_issue_info:
+            # Emit the new volume info before the paper.
+            logging.info("New issue")
+            logging.info(f"{issue_info} vs. {previous_issue_info}")
+            previous_issue_info = issue_info
 
-            if venue == "cl":
-                month = issue_info.split()[-2]  # blah blah blah month year
-                if month not in MONTHS.values():
-                    logging.error("Unknown month: " + month)
+            # Look for node in tree, else create it
+            volume_xml = collection.find(f'./volume[@id="{issue}"]')
+            if volume_xml is None:
+                # xml volume = journal issue
+                volume_xml = make_simple_element(
+                    "volume", attrib={"id": issue, "type": "journal"}, parent=collection
+                )
+                volume_xml.append(
+                    issue_info_to_node(issue_info, year, issue, venue, volume)
+                )
+                paper_id = 1
             else:
-                month = None
+                for paper in volume_xml.findall(".//paper"):
+                    paper_id = max(paper_id, int(paper.attrib["id"]))
 
-            volume = collection.create_volume(
-                issue,
-                title=MarkupText.from_string(issue_info),  # TODO: from LaTeX?
-                type=VolumeType.JOURNAL,
-                year=str(year),
-                month=month,
-                publisher="MIT Press",
-                address="Cambridge, MA",
-                venue_ids=[venue],
-                journal_volume=volume,
-                journal_issue=issue,
-            )
+                paper_id += 1
+
+        anth_id = f"{collection_id}-{issue}.{paper_id}"
 
         # Check if the paper is already present in the volume
-        if any(paper.get("doi") == paper_dict["doi"] for paper in volume.papers()):
-            logging.info(f"Skipping existing paper with DOI {paper_dict['doi']}")
+        doi_text = papernode.find("./doi").text
+        doi_node = collection.xpath(f'.//doi[text()="{doi_text}"]')
+        if len(doi_node):
+            logging.info(
+                f"Skipping existing paper {anth_id}/{doi_text} with title {papernode.find('title').text}"
+            )
             continue
 
-        paper = volume.create_paper(
-            title=MarkupText.from_string(paper_dict["title"]),  # TODO: from LaTeX?
-            abstract=MarkupText.from_string(paper_dict["abstract"]),  # TODO: from LaTeX?
-            doi=paper_dict["doi"],
-            pages="-".join(paper_dict["pages"]),  # TODO
-            authors=[
-                NameSpec(Name.from_dict(author))
-                for author in paper_dict["authors"]
-            ],
-        )
+        papernode.attrib["id"] = f"{paper_id}"
 
-        anth_id = paper.full_id
         destination = pdf_destination / f"{anth_id}.pdf"
         print(f"Copying {pdf_path} to {destination}")
         shutil.copyfile(pdf_path, destination)
-        paper.pdf = PDFReference.from_file(pdf_path)
+        checksum = compute_hash_from_file(pdf_path)
 
-        # TODO: Normalization needs to happen within the library
-        # for oldnode in papernode:
-        #    normalize(oldnode, informat="latex")
+        url_text = anth_id
+        url = etree.Element("url")
+        url.attrib["hash"] = checksum
+        url.text = url_text
+        papernode.append(url)
 
-    # All serialization to XML happens here
-    collection.save()
+        # Generate bibkey
+        volume = Volume.from_xml(
+            volume_xml,
+            collection_id,
+            anthology.venues,
+            anthology.sigs,
+            anthology.formatter,
+        )
+        paper = Paper.from_xml(papernode, volume, anthology.formatter)
+        bibkey = anthology.pindex.create_bibkey(paper, vidx=anthology.venues)
+        make_simple_element("bibkey", bibkey, parent=papernode)
+
+        # Normalize
+        for oldnode in papernode:
+            normalize(oldnode, informat="latex")
+        volume_xml.append(papernode)
+
+        paper_id += 1
+
+    indent(collection)  # from anthology.utils
+    et = etree.ElementTree(collection)
+    et.write(collection_file, encoding="UTF-8", xml_declaration=True, with_tail=True)
 
 
 if __name__ == "__main__":
