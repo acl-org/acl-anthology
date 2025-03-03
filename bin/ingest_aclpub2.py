@@ -161,7 +161,7 @@ def parse_conf_yaml(ingestion_dir: str) -> Dict[str, Any]:
             meta = yaml.safe_load(path.read_text())
             break
     else:
-        raise Exception("Can't find conference_details.yml (looked in {paths_to_check})")
+        raise Exception(f"Can't find conference_details.yml (looked in {paths_to_check})")
 
     meta['month'] = meta['start_date'].strftime('%B')
     meta['year'] = str(meta['start_date'].year)
