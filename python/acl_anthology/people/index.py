@@ -15,6 +15,7 @@
 from __future__ import annotations
 
 from attrs import define, field, asdict
+from collections.abc import Iterable
 from collections import Counter, defaultdict
 import itertools as it
 from os import PathLike
@@ -32,6 +33,7 @@ except ImportError:  # pragma: no cover
 
 from ..containers import SlottedDict
 from ..exceptions import AnthologyException, AmbiguousNameError, NameIDUndefinedError
+from ..utils.ids import AnthologyIDTuple
 from ..utils.logging import get_logger
 from . import Person, Name, NameSpecification
 
@@ -49,6 +51,14 @@ class PersonIndex(SlottedDict[Person]):
 
     Provides dictionary-like functionality mapping person IDs to [Person][acl_anthology.people.person.Person] objects.
 
+    Info:
+        All information about persons is currently derived from [name specifications][acl_anthology.people.name.NameSpecification] on volumes and papers, and not stored explicitly. This means:
+
+        1. Loading this index requires parsing the entire Anthology data.
+        2. Nothing in this index should be modified to make changes to Anthology data; change the information on papers instead.
+
+        See the [guide on accessing author/editor information](../guide/accessing-authors.md) for more information.
+
     Attributes:
         parent: The parent Anthology instance to which this index belongs.
         verbose: If False, will not show progress bar when building the index from scratch.
@@ -63,7 +73,7 @@ class PersonIndex(SlottedDict[Person]):
         init=False, repr=False, factory=lambda: defaultdict(list)
     )
     similar: DisjointSet = field(init=False, repr=False, factory=DisjointSet)
-    is_data_loaded: bool = field(init=False, repr=False, default=False)
+    is_data_loaded: bool = field(init=False, repr=True, default=False)
 
     def get_by_name(self, name: Name) -> list[Person]:
         """Access persons by their name.
@@ -302,6 +312,20 @@ class PersonIndex(SlottedDict[Person]):
             the same person.
         """
         return name.slugify()
+
+    def _add_to_index(
+        self, namespecs: Iterable[NameSpecification], item_id: AnthologyIDTuple
+    ) -> None:
+        """Add persons to the index.
+
+        This function exists for internal use when creating new volumes or papers.  It should not be called manually.
+        """
+        if not self.is_data_loaded:
+            return
+
+        for namespec in namespecs:
+            person = self.get_or_create_person(namespec)
+            person.item_ids.append(item_id)
 
     def _load_variant_list(self) -> None:
         """Loads and parses the `name_variant.yaml` file.

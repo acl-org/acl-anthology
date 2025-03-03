@@ -1,4 +1,4 @@
-# Copyright 2023-2024 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2025 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -137,9 +137,15 @@ class Anthology:
             iterator = track(
                 it.chain(
                     self.collections.values(),
-                    (self.people, self.events, self.sigs, self.venues),
+                    (
+                        self.collections.bibkeys,
+                        self.people,
+                        self.events,
+                        self.sigs,
+                        self.venues,
+                    ),
                 ),
-                total=len(self.collections) + 4,
+                total=len(self.collections) + 5,
                 disable=(not self.verbose),
                 description="Loading Anthology data...",
             )
@@ -165,6 +171,16 @@ class Anthology:
         finally:
             if was_gc_enabled:
                 gc.enable()
+        return self
+
+    def reset_indices(self) -> Self:
+        """Reset all non-collection indices.
+
+        Intended to be used after modifying data, to make sure all indices correctly reflect the changes.
+        """
+        self.events.reset()
+        self.people.reset()
+        self.venues.reset()
         return self
 
     @property
@@ -228,6 +244,18 @@ class Anthology:
             return volume
         return volume.get(paper_id)
 
+    def get_collection(self, full_id: AnthologyID) -> Optional[Collection]:
+        """Access a collection by its ID or the ID of a contained volume or paper.
+
+        Parameters:
+            full_id: An Anthology ID.
+
+        Returns:
+            The collection associated with the given ID.
+        """
+        (collection_id, *_) = parse_id(full_id)
+        return self.collections.get(collection_id)
+
     def get_volume(self, full_id: AnthologyID) -> Optional[Volume]:
         """Access a volume by its ID or the ID of a contained paper.
 
@@ -250,13 +278,24 @@ class Anthology:
             full_id: An Anthology ID that refers to a paper.
 
         Returns:
-            The volume associated with the given ID.
+            The paper associated with the given ID.
         """
         (collection_id, volume_id, paper_id) = parse_id(full_id)
         volume = self.get_volume((collection_id, volume_id, None))
         if volume is None or paper_id is None:
             return None
         return volume.get(paper_id)
+
+    def get_paper_by_bibkey(self, bibkey: str) -> Optional[Paper]:
+        """Access a paper by its citation key/bibkey.
+
+        Parameters:
+            bibkey: A bibkey belonging to an Anthology paper.
+
+        Returns:
+            The paper associated with the given bibkey.
+        """
+        return self.collections.bibkeys.get(bibkey)
 
     def get_event(self, event_id: str) -> Optional[Event]:
         """Access an event by its ID.
@@ -326,3 +365,10 @@ class Anthology:
         if isinstance(name_spec, NameSpecification):
             return self.people.get_by_namespec(name_spec)
         return [self.people.get_by_namespec(ns) for ns in name_spec]
+
+    def create_collection(self, id: str) -> Collection:
+        """Create a new [Collection][acl_anthology.collections.collection.Collection] object.
+
+        Alias for [`CollectionIndex.create()`][acl_anthology.collections.index.CollectionIndex.create].
+        """
+        return self.collections.create(id)

@@ -1,4 +1,9 @@
-# Design decisions
+# Original design decisions
+
+!!! note
+
+    These are the original design decisions for the first version of this library,
+    and don't necessarily reflect its state today.
 
 The ACL Anthology comes with its own [Python
 library](https://github.com/acl-org/acl-anthology/tree/master/bin/anthology)
@@ -123,3 +128,9 @@ Anthology repo.
 To make the library more useful for _modifying_ Anthology data, e.g. as part of
 ingestion or correction scripts, separate validation methods can be added that
 can be called on-demand.
+
+!!! note
+
+    Data validation is now actually the default, as it has been found to have
+    a minimal impact on runtime performance when using validators of attrs
+    classes.

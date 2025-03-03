@@ -15,6 +15,16 @@
 from enum import Enum
 
 
+class PaperDeletionType(Enum):
+    """Type of deletion of a paper."""
+
+    RETRACTED = "retracted"
+    """Paper was retracted.  A retraction occurs when serious, unrecoverable errors are discovered, which drastically affect the findings of the original work."""
+
+    REMOVED = "removed"
+    """Paper was removed.  A removal occurs in rare circumstances where serious ethical or legal issues arise, such as plagiarism."""
+
+
 class VolumeType(Enum):
     """Type of publication a volume represents."""
 

@@ -54,19 +54,34 @@ nav:
       - api/constants.md
       - api/containers.md
       - collections:
-          - api/collectionindex.md
-          - api/collection.md
-          - api/volume.md
-          - api/paper.md
-          - api/eventindex.md
-          - api/event.md
+          - api/collections.bibkeys.md
+          - api/collections.collection.md
+          - api/collections.event.md
+          - api/collections.eventindex.md
+          - api/collections.index.md
+          - api/collections.paper.md
+          - api/collections.types.md
+          - api/collections.volume.md
+      - api/exceptions.md
       - api/files.md
-      - api/people.md
+      - people:
+          - api/people.index.md
+          - api/people.name.md
+          - api/people.person.md
       - api/sigs.md
       - api/text.md
-      - api/utils.md
+      - utils:
+          - api/utils.attrs.md
+          - api/utils.citation.md
+          - api/utils.git.md
+          - api/utils.ids.md
+          - api/utils.latex.md
+          - api/utils.logging.md
+          - api/utils.text.md
+          - api/utils.xml.md
       - api/venues.md
-  - Contributing:
+  - Internals:
+      - contributing/indexing.md
       - contributing/design.md
 
 plugins:
@@ -81,6 +96,7 @@ plugins:
             - https://lxml.de/apidoc/objects.inv
             - https://omegaconf.readthedocs.io/en/latest/objects.inv
             - https://docs.scipy.org/doc/scipy/objects.inv
+            - https://www.attrs.org/en/stable/objects.inv
           options:
             docstring_style: google
             docstring_section_style: table  # from: {list, table, spacy}
