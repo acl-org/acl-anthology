@@ -118,8 +118,7 @@ def test_collection_create_volume_implicit(collection_index):
 
 
 def test_collection_create_volume_explicit(collection_index):
-    collection = collection_index.get("J89")
-    collection.id = "1989.cl"  # because we can't create volumes with old-style ID
+    collection = collection_index.get("1989.cl")
     volume = collection.create_volume(
         id="99",
         title=MarkupText.from_string("Special Issue"),
