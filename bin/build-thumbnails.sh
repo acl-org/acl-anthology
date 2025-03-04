@@ -34,17 +34,18 @@ if [[ -z $2 ]]; then
     echo "Looking for PDFs in $inputdir..."
     for pdf in $(find $inputdir -type f -name '*.pdf'); do
         outfile=$THUMBDIR/$(basename $pdf .pdf).jpg
+        trimmedfile=$THUMBDIR/$(basename $pdf .pdf)-trimmed.jpg
         # update if outfile doesn't exist or has an older timestamp
-        if [[ ! -e $outfile || $pdf -nt $outfile ]]; then
+        if [[ ! -e $outfile || ! -e $trimmedfile || $pdf -nt $outfile ]]; then
           echo "$pdf -> $outfile"
-          bash $0 $pdf $outfile
+          bash $0 $pdf $outfile $trimmedfile
         fi
     done
 else
     pdffile=$1
     outfile=$2
+    trimmedfile=$3
 
-    cmd="convert $pdffile[0] -background white -flatten -resize x${DIM}^ -gravity North -crop ${DIM}x${DIM}+0+10 -colorspace Gray $outfile"
-#    echo $cmd
-    $cmd
+    convert $pdffile[0] -background white -flatten -resize x${DIM}^ -gravity North -crop ${DIM}x${DIM}+0+10 -colorspace Gray $outfile
+    convert -trim $outfile $trimmedfile
 fi
