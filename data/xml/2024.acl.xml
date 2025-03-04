@@ -32,7 +32,7 @@
       <abstract>Finetuning large language models (LLMs) has been empirically effective on a variety of downstream tasks. Existing approaches to finetuning an LLM either focus on parameter-efficient finetuning, which only updates a small number of trainable parameters, or attempt to reduce the memory footprint during the training phase of the finetuning. Typically, the memory footprint during finetuning stems from three contributors: model weights, optimizer states, and intermediate activations. However, existing works still require considerable memory, and none can simultaneously mitigate the memory footprint of all three sources. In this paper, we present quantized side tuing (QST), which enables memory-efficient and fast finetuning of LLMs by operating through a dual-stage process. First, QST quantizes an LLM’s model weights into 4-bit to reduce the memory footprint of the LLM’s original weights. Second, QST introduces a side network separated from the LLM, which utilizes the hidden states of the LLM to make task-specific predictions. Using a separate side network avoids performing back-propagation through the LLM, thus reducing the memory requirement of the intermediate activations. Finally, QST leverages several low-rank adaptors and gradient-free downsample modules to significantly reduce the trainable parameters, so as to save the memory footprint of the optimizer states. Experiments show that QST can reduce the total memory footprint by up to 2.3× and speed up the finetuning process by up to 3<tex-math>\times</tex-math> while achieving competent performance compared with the state-of-the-art. When it comes to full finetuning, QST can reduce the total memory footprint up to 7<tex-math>\times</tex-math>.</abstract>
       <url hash="17bb3556">2024.acl-long.1</url>
       <bibkey>zhang-etal-2024-quantized</bibkey>
-      <award>Outstanding Paper</award>
+      <award>Outstanding Paper Award</award>
       <doi>10.18653/v1/2024.acl-long.1</doi>
     </paper>
     <paper id="2">
@@ -4771,6 +4771,7 @@
       <url hash="a4744631">2024.acl-long.341</url>
       <bibkey>miao-etal-2024-discursive</bibkey>
       <doi>10.18653/v1/2024.acl-long.341</doi>
+	  <award>SAC Award - Discourse and Pragmatics</award>
     </paper>
     <paper id="342">
       <title>An Open Multilingual System for Scoring Readability of <fixed-case>W</fixed-case>ikipedia</title>
@@ -10852,7 +10853,7 @@
       <abstract>Recently, there has been growing interest in long-context scaling of large language models (LLMs). To facilitate research in this field, we propose L-Eval to institute a more standardized evaluation for Long-Context Language Models (LCLMs) addressing two key aspects: dataset construction and evaluation metrics. On the one hand, we build a new evaluation suite containing 20 sub-tasks, 508 long documents, and more than 2,000 human-labeled query-response pairs including diverse task types, domains, and input length (3k~200k tokens). On the other hand, we investigate the effectiveness of evaluation metrics for LCLMs and we show that Length-instruction-enhanced (LIE) evaluation and LLM judges can better correlate with human judgments. We conducted a comprehensive study of 4 popular commercial LLMs and 12 open-source counterparts using the L-Eval benchmark. Our empirical findings offer useful insights into the study of LCLMs and lay the groundwork for the development of a more principled evaluation of these models.</abstract>
       <url hash="1a4d3fdb">2024.acl-long.776</url>
       <bibkey>an-etal-2024-l</bibkey>
-      <award>Outstanding Paper</award>
+      <award>Outstanding Paper Award</award>
       <doi>10.18653/v1/2024.acl-long.776</doi>
     </paper>
     <paper id="777">
@@ -10885,7 +10886,7 @@
       <abstract>Although achieving promising performance, recent analyses show that current generative large language models (LLMs) may still capture dataset biases and utilize them for generation, leading to poor generalizability and harmfulness of LLMs. However, due to the diversity of dataset biases and the over-optimization problem, previous prior-knowledge-based debiasing methods and fine-tuning-based debiasing methods may not be suitable for current LLMs.To address this issue, we explore combining active learning with the causal mechanisms and propose a casual-guided active learning (CAL) framework, which utilizes LLMs itself to automatically and autonomously identify informative biased samples and induce the bias patterns. Then a cost-effective and efficient in-context learning based method is employed to prevent LLMs from utilizing dataset biases during generation.Experimental results show that CAL can effectively recognize typical biased instances and induce various bias patterns for debiasing LLMs.</abstract>
       <url hash="b2bec36b">2024.acl-long.778</url>
       <bibkey>sun-etal-2024-causal</bibkey>
-      <award>Outstanding Paper</award>
+      <award>Outstanding Paper Award</award>
       <doi>10.18653/v1/2024.acl-long.778</doi>
     </paper>
     <paper id="779">
@@ -10982,7 +10983,7 @@
       <abstract>Language models (LMs) have proven to be powerful tools for psycholinguistic research, but most prior work has focused on purely behavioural measures (e.g., surprisal comparisons). At the same time, research in model interpretability has begun to illuminate the abstract causal mechanisms shaping LM behavior. To help bring these strands of research closer together, we introduce CausalGym. We adapt and expand the SyntaxGym suite of tasks to benchmark the ability of interpretability methods to causally affect model behaviour. To illustrate how CausalGym can be used, we study the pythia models (14M–6.9B) and assess the causal efficacy of a wide range of interpretability methods, including linear probing and distributed alignment search (DAS). We find that DAS outperforms the other methods, and so we use it to study the learning trajectory of two difficult linguistic phenomena in pythia-1b: negative polarity item licensing and filler–gap dependencies. Our analysis shows that the mechanism implementing both of these tasks is learned in discrete stages, not gradually.</abstract>
       <url hash="e1b07a7a">2024.acl-long.785</url>
       <bibkey>arora-etal-2024-causalgym</bibkey>
-      <award>Outstanding Paper</award>
+      <award>Outstanding Paper Award, SAC Award - Interpretability and Analysis of Models for NLP</award>
       <doi>10.18653/v1/2024.acl-long.785</doi>
     </paper>
     <paper id="786">
@@ -10998,6 +10999,7 @@
       <url hash="36f2f0eb">2024.acl-long.786</url>
       <bibkey>feng-etal-2024-dont</bibkey>
       <doi>10.18653/v1/2024.acl-long.786</doi>
+	  <award>Outstanding Paper Award, SAC Award - Question Answering</award>
     </paper>
     <paper id="787">
       <title>Mission: Impossible Language Models</title>
@@ -11035,7 +11037,7 @@
       <abstract>The field of natural language processing (NLP) has recently witnessed a transformative shift with the emergence of foundation models, particularly Large Language Models (LLMs) that have revolutionized text-based NLP. This paradigm has extended to other modalities, including speech, where researchers are actively exploring the combination of Speech Foundation Models (SFMs) and LLMs into single, unified models capable of addressing multimodal tasks. Among such tasks, this paper focuses on speech-to-text translation (ST). By examining the published papers on the topic, we propose a unified view of the architectural solutions and training strategies presented so far, highlighting similarities and differences among them. Based on this examination, we not only organize the lessons learned but also show how diverse settings and evaluation approaches hinder the identification of the best-performing solution for each architectural building block and training choice. Lastly, we outline recommendations for future works on the topic aimed at better understanding the strengths and weaknesses of the SFM+LLM solutions for ST.</abstract>
       <url hash="5159d9cd">2024.acl-long.789</url>
       <bibkey>gaido-etal-2024-speech</bibkey>
-      <award>Outstanding Paper</award>
+      <award>Outstanding Paper Award, SAC Award - Machine Translation</award>
       <doi>10.18653/v1/2024.acl-long.789</doi>
     </paper>
     <paper id="790">
@@ -11144,7 +11146,7 @@
       <abstract>How do we roll out language technologies across a world with 7,000 languages? In one story, we scale the successes of NLP further into ‘low-resource’ languages, doing ever more with less. However, this approach does not recognise the fact that, beyond the 500 institutional languages, the remaining languages are oral vernaculars spoken by communities who use a language of wider communication to interact with the outside world. I argue that such ‘contact languages’ are the appropriate target for technologies like machine translation, and that the 6,500 oral languages must be approached differently. I share a story from an Indigenous community, where local people reshaped an extractive agenda to align with their relational agenda. I describe the emerging paradigm of relational NLP and explain how it opens the way to non-extractive methods and to solutions that enhance human agency.</abstract>
       <url hash="d620024e">2024.acl-long.797</url>
       <bibkey>bird-2024-must</bibkey>
-      <award>Outstanding Paper</award>
+      <award>Outstanding Paper Award</award>
       <doi>10.18653/v1/2024.acl-long.797</doi>
     </paper>
     <paper id="798">
@@ -11190,7 +11192,7 @@
       <abstract>Empirical studies have identified a range of learnability biases and limitations of transformers, such as a persistent difficulty in learning to compute simple formal languages such as PARITY, and a bias towards low-degree functions. However, theoretical understanding remains limited, with existing expressiveness theory either overpredicting or underpredicting realistic learning abilities. We prove that, under the transformer architecture, the loss landscape is constrained by the input-space sensitivity: Transformers whose output is sensitive to many parts of the input string inhabit isolated points in parameter space, leading to a low-sensitivity bias in generalization. We show theoretically and empirically that this theory unifies a broad array of empirical observations about the learning abilities and biases of transformers, such as their generalization bias towards low sensitivity and low degree, and difficulty in length generalization for PARITY. This shows that understanding transformers’ inductive biases requires studying not just their in-principle expressivity, but also their loss landscape.</abstract>
       <url hash="a461b288">2024.acl-long.800</url>
       <bibkey>hahn-rofin-2024-sensitive</bibkey>
-      <award>Best Paper Award</award>
+      <award>Best Paper Award, SAC Award - Machine Learning for NLP</award>
       <doi>10.18653/v1/2024.acl-long.800</doi>
     </paper>
     <paper id="801">
@@ -11217,7 +11219,7 @@
       <abstract>Code generation has fast become one of the most popular applications of language models (LMs). Nonetheless, research on multilingual aspects of Code-LMs, such as cross-lingual transfer between different programming languages, language-specific data augmentation, and post-hoc LM adaptation, alongside the exploitation of data sources other than the original textual content, has been much sparser than for their natural language counterparts. In particular, most mainstream Code-LMs have been pre-trained on source code files alone. In this work, we investigate the prospect of leveraging readily available compiler intermediate representations (IR)—shared across programming languages—to improve the multilingual capabilities of Code-LMs and facilitate cross-lingual transfer. To this end, we first compile SLTrans, a parallel dataset consisting of nearly 4M self-contained source code files coupled with their respective intermediate representations. Next, starting from various base Code-LMs (ranging from 1.1B to 7.3B parameters), we carry out continued causal language modelling training on SLTrans, forcing the Code-LMs to (1) learn the IR language and (2) align the IR constructs with respective constructs of various programming languages. Our resulting models, dubbed IRCoder, display sizeable and consistent gains across various code generation tasks and metrics, including prompt robustness, multilingual code completion, code understanding, and instruction following.</abstract>
       <url hash="07f90cb7">2024.acl-long.802</url>
       <bibkey>paul-etal-2024-ircoder</bibkey>
-      <award>Outstanding Paper</award>
+      <award>Outstanding Paper Award</award>
       <doi>10.18653/v1/2024.acl-long.802</doi>
     </paper>
     <paper id="803">
@@ -11255,7 +11257,7 @@
       <abstract>Large, high-quality datasets are crucial for training Large Language Models (LLMs). However, so far, few datasets are available for specialized critical domains such as law and the available ones are often small and only in English. To fill this gap, we curate and release MultiLegalPile, a 689GB corpus in 24 languages from 17 jurisdictions. MultiLegalPile includes diverse legal data sources and allows for pretraining NLP models under fair use, with most of the dataset licensed very permissively. We pretrain two RoBERTa models and one Longformer multilingually, and 24 monolingual models on each of the language-specific subsets and evaluate them on LEXTREME. Additionally, we evaluate the English and multilingual models on LexGLUE. Our multilingual models set a new SotA on LEXTREME and our English models on LexGLUE. We release the dataset, trained models, and all code under the most open licenses possible.</abstract>
       <url hash="5f8fff77">2024.acl-long.805</url>
       <bibkey>niklaus-etal-2024-multilegalpile</bibkey>
-      <award>Outstanding Paper</award>
+      <award>Outstanding Paper Award</award>
       <doi>10.18653/v1/2024.acl-long.805</doi>
     </paper>
     <paper id="806">
@@ -11369,7 +11371,7 @@
       <abstract>Multi-agent systems, when enhanced with Large Language Models (LLMs), exhibit profound capabilities in collective intelligence. However, the potential misuse of this intelligence for malicious purposes presents significant risks. To date, comprehensive research on the safety issues associated with multi-agent systems remains limited. In this paper, we explore these concerns through the innovative lens of agent psychology, revealing that the dark psychological states of agents constitute a significant threat to safety.To tackle these concerns, we propose a comprehensive framework (PsySafe) grounded in agent psychology, focusing on three key areas: firstly, identifying how dark personality traits in agents can lead to risky behaviors; secondly, evaluating the safety of multi-agent systems from the psychological and behavioral perspectives, and thirdly, devising effective strategies to mitigate these risks.Our experiments reveal several intriguing phenomena, such as the collective dangerous behaviors among agents, agents’ self-reflection when engaging in dangerous behavior, and the correlation between agents’ psychological assessments and dangerous behaviors. We anticipate that our framework and observations will provide valuable insights for further research into the safety of multi-agent systems. We make our data and code publicly accessible at https://github.com/AI4Good24/PsySafe.</abstract>
       <url hash="c5da5232">2024.acl-long.812</url>
       <bibkey>zhang-etal-2024-psysafe</bibkey>
-      <award>Outstanding Paper</award>
+      <award>Outstanding Paper Award</award>
       <doi>10.18653/v1/2024.acl-long.812</doi>
     </paper>
     <paper id="813">
@@ -11386,7 +11388,7 @@
       <abstract>Emotional Support Conversation (ESC) is a task aimed at alleviating individuals’ emotional distress through daily conversation. Given its inherent complexity and non-intuitive nature, ESConv dataset incorporates support strategies to facilitate the generation of appropriate responses. Recently, despite the remarkable conversational ability of large language models (LLMs), previous studies have suggested that they often struggle with providing useful emotional support. Hence, this work initially analyzes the results of LLMs on ESConv, revealing challenges in selecting the correct strategy and a notable preference for a specific strategy. Motivated by these, we explore the impact of the inherent preference in LLMs on providing emotional support, and consequently, we observe that exhibiting high preference for specific strategies hinders effective emotional support, aggravating its robustness in predicting the appropriate strategy. Moreover, we conduct a methodological study to offer insights into the necessary approaches for LLMs to serve as proficient emotional supporters. Our findings emphasize that (1) low preference for specific strategies hinders the progress of emotional support, (2) external assistance helps reduce preference bias, and (3) existing LLMs alone cannot become good emotional supporters. These insights suggest promising avenues for future research to enhance the emotional intelligence of LLMs.</abstract>
       <url hash="5a117051">2024.acl-long.813</url>
       <bibkey>kang-etal-2024-large</bibkey>
-      <award>Outstanding Paper</award>
+      <award>Outstanding Paper Award</award>
       <doi>10.18653/v1/2024.acl-long.813</doi>
     </paper>
     <paper id="814">
@@ -11433,7 +11435,7 @@
       <abstract>Much recent work seeks to evaluate values and opinions in large language models (LLMs) using multiple-choice surveys and questionnaires. Most of this work is motivated by concerns around real-world LLM applications. For example, politically-biased LLMs may subtly influence society when they are used by millions of people. Such real-world concerns, however, stand in stark contrast to the artificiality of current evaluations: real users do not typically ask LLMs survey questions. Motivated by this discrepancy, we challenge the prevailing *constrained* evaluation paradigm for values and opinions in LLMs and explore more realistic *unconstrained* evaluations. As a case study, we focus on the popular Political Compass Test (PCT). In a systematic review, we find that most prior work using the PCT *forces models to comply with the PCT’s multiple-choice format. We show that models give substantively different answers when not forced; that answers change depending on how models are forced; and that answers lack paraphrase robustness. Then, we demonstrate that models give different answers yet again in a more realistic open-ended answer setting. We distill these findings into recommendations and open challenges in evaluating values and opinions in LLMs.</abstract>
       <url hash="545e06ab">2024.acl-long.816</url>
       <bibkey>rottger-etal-2024-political</bibkey>
-      <award>Outstanding Paper</award>
+      <award>Outstanding Paper Award</award>
       <doi>10.18653/v1/2024.acl-long.816</doi>
     </paper>
     <paper id="817">
@@ -11448,6 +11450,7 @@
       <url hash="c9390b27">2024.acl-long.817</url>
       <bibkey>puccetti-etal-2024-ai</bibkey>
       <doi>10.18653/v1/2024.acl-long.817</doi>
+	  <award>SAC Award - Multilinguality and Language Diversity</award>
     </paper>
     <paper id="818">
       <title>Same Task, More Tokens: the Impact of Input Length on the Reasoning Performance of Large Language Models</title>
@@ -11458,7 +11461,7 @@
       <abstract>This paper explores the impact of extending input lengths on the capabilities of Large Language Models (LLMs). Despite LLMs advancements in recent times, their performance consistency across different input lengths is not well understood. We investigate this aspect by introducing a novel QA reasoning framework, specifically designed to assess the impact of input length. We isolate the effect of input length using multiple versions of the same sample, each being extended with padding of different lengths, types and locations. Our findings show a notable degradation in LLMs’ reasoning performance at much shorter input lengths than their technical maximum. We show that the degradation trend appears in every version of our dataset, although at different intensities.Additionally, our study reveals that the traditional metric of next word prediction correlates negatively with performance of LLMs’ on our reasoning dataset. We analyse our results and identify failure modes that can serve as useful guides for future research, potentially informing strategies to address the limitations observed in LLMs.</abstract>
       <url hash="c7648846">2024.acl-long.818</url>
       <bibkey>levy-etal-2024-task</bibkey>
-      <award>Outstanding Paper</award>
+      <award>Outstanding Paper Award</award>
       <doi>10.18653/v1/2024.acl-long.818</doi>
     </paper>
     <paper id="819">
@@ -11484,7 +11487,7 @@
       <abstract>We ask whether multilingual language models trained on unbalanced, English-dominated corpora use English as an internal pivot language—-a question of key importance for understanding how language models function and the origins of linguistic bias. Focusing on the Llama-2 family of transformer models, our study is based on carefully constructed non-English prompts with a unique correct single-token continuation. From layer to layer, transformers gradually map an input embedding of the final prompt token to an output embedding from which next-token probabilities are computed. Tracking intermediate embeddings through their high-dimensional space reveals three distinct phases, whereby intermediate embeddings (1) start far away from output token embeddings; (2) already in middle layers allow for decoding a semantically correct next token, but giving higher probability to its version in English than in the input language; (3) move into an input-language-specific region of the embedding space. We cast these results into a conceptual model where the three phases operate in ”input space”, ”concept space”, and ”output space”, respectively. Crucially, our evidence suggests that the abstract ”concept space” lies closer to English than to other input languages, which may have important consequences regarding the biases embodied by multilingual language models.</abstract>
       <url hash="4acfb7e2">2024.acl-long.820</url>
       <bibkey>wendler-etal-2024-llamas</bibkey>
-      <award>Outstanding Paper</award>
+      <award>Outstanding Paper Award</award>
       <doi>10.18653/v1/2024.acl-long.820</doi>
     </paper>
     <paper id="821">
@@ -11499,7 +11502,7 @@
       <abstract>Large Language Models (LLMs) have demonstrated remarkable abilities in general scenarios. Instruction finetuning empowers them to align with humans in various tasks. Nevertheless, the <i>Diversity</i> and <i>Quality</i> of the instruction data remain two main challenges for instruction finetuning. With regard to this, in this paper, we propose a novel gradient-based method to automatically select high-quality and diverse instruction finetuning data for machine translation. Our key innovation centers around analyzing how individual training examples influence the model during training. Specifically, we select training examples that exert beneficial influences on the model as high-quality ones by means of Influence Function plus a small high-quality seed dataset. Moreover, to enhance the diversity of the training data we maximize the variety of influences they have on the model by clustering on their gradients and resampling. Extensive experiments on WMT22 and FLORES translation tasks demonstrate the superiority of our methods, and in-depth analysis further validates their effectiveness and generalization.</abstract>
       <url hash="22a00126">2024.acl-long.821</url>
       <bibkey>pan-etal-2024-g</bibkey>
-      <award>Outstanding Paper</award>
+      <award>Outstanding Paper Award</award>
       <doi>10.18653/v1/2024.acl-long.821</doi>
     </paper>
     <paper id="822">
@@ -11511,7 +11514,7 @@
       <abstract>Framing studies how individuals and societies make sense of the world, by communicating or representing complex issues through schema of interpretation. The framing of information in the mass media influences our interpretation of facts and corresponding decisions, so detecting and analysing it is essential to understand biases in the information we consume. Despite that, framing is still mostly examined manually, on a case-by-case basis, while existing large-scale automatic analyses using NLP methods are not mature enough to solve this task. In this survey we show that despite the growing interest to framing in NLP its current approaches do not capture those aspects which allow to frame, rather than simply convey, the message. To this end, we bring together definitions of frames and framing adopted in different disciplines; examine cognitive, linguistic, and communicative aspects a frame contains beyond its topical content. We survey recent work on computational frame detection, and discuss how framing aspects and frame definitions are (or should) be reflected in NLP approaches.</abstract>
       <url hash="45a7d323">2024.acl-long.822</url>
       <bibkey>otmakhova-etal-2024-media</bibkey>
-      <award>Outstanding Paper</award>
+      <award>Outstanding Paper Award</award>
       <doi>10.18653/v1/2024.acl-long.822</doi>
     </paper>
     <paper id="823">
@@ -11525,6 +11528,7 @@
       <url hash="756be8d4">2024.acl-long.823</url>
       <bibkey>li-etal-2024-spz</bibkey>
       <doi>10.18653/v1/2024.acl-long.823</doi>
+	  <award>Outstanding Paper Award</award>
     </paper>
     <paper id="824">
       <title>Calibrating Large Language Models Using Their Generations Only</title>
@@ -11578,6 +11582,7 @@
       <url hash="3ddef82d">2024.acl-long.827</url>
       <bibkey>taguchi-chiang-2024-language</bibkey>
       <doi>10.18653/v1/2024.acl-long.827</doi>
+	  <award>Outstanding Paper Award, SAC Award - Speech recognition, text-to-speech and spoken language understanding</award>
     </paper>
     <paper id="828">
       <title>Steering Llama 2 via Contrastive Activation Addition</title>
@@ -11591,7 +11596,7 @@
       <abstract>We introduce Contrastive Activation Addition (CAA), a method for steering language models by modifying their activations during forward passes. CAA computes “steering vectors” by averaging the difference in residual stream activations between pairs of positive and negative examples of a particular behavior, such as factual versus hallucinatory responses. During inference, these steering vectors are added at all token positions after the user’s prompt with either a positive or negative coefficient, allowing precise control over the degree of the targeted behavior. We evaluate CAA’s effectiveness on Llama 2 Chat using multiple-choice behavioral question datasets and open-ended generation tasks. We demonstrate that CAA significantly alters model behavior, is effective over and on top of traditional methods like finetuning and system prompt design, and minimally reduces capabilities. Moreover, we gain deeper insights into CAA’s mechanisms by employing various activation space interpretation methods. CAA accurately steers model outputs and sheds light on how high-level concepts are represented in Large Language Models (LLMs).</abstract>
       <url hash="27d4268d">2024.acl-long.828</url>
       <bibkey>rimsky-etal-2024-steering</bibkey>
-      <award>Outstanding Paper</award>
+      <award>Outstanding Paper Award, SAC Award - Ethics, Bias, and Fairness</award>
       <doi>10.18653/v1/2024.acl-long.828</doi>
     </paper>
     <paper id="829">
@@ -11605,7 +11610,7 @@
       <abstract>The advent of artificial intelligence has led to a growing emphasis on data-driven modeling in macroeconomics, with agent-based modeling (ABM) emerging as a prominent bottom-up simulation paradigm. In ABM, agents (*e.g.*, households, firms) interact within a macroeconomic environment, collectively generating market dynamics. Existing agent modeling typically employs predetermined rules or learning-based neural networks for decision-making. However, customizing each agent presents significant challenges, complicating the modeling of agent heterogeneity. Additionally, the influence of multi-period market dynamics and multifaceted macroeconomic factors are often overlooked in decision-making processes.In this work, we introduce **EconAgent**, a large language model-empowered agent with human-like characteristics for macroeconomic simulation. We first construct a simulation environment that incorporates various market dynamics driven by agents’ decisions regarding work and consumption. Through the perception module, we create heterogeneous agents with distinct decision-making mechanisms. Furthermore, we model the impact of macroeconomic trends using a memory module, which allows agents to reflect on past individual experiences and market dynamics.Simulation experiments show that EconAgent can make realistic decisions, leading to more reasonable macroeconomic phenomena compared to existing rule-based or learning-based agents. Our codes are released at https://github.com/tsinghua-fib-lab/ACL24-EconAgent.</abstract>
       <url hash="c996513d">2024.acl-long.829</url>
       <bibkey>li-etal-2024-econagent</bibkey>
-      <award>Outstanding Paper</award>
+      <award>Outstanding Paper Award</award>
       <doi>10.18653/v1/2024.acl-long.829</doi>
     </paper>
     <paper id="830">
@@ -11640,8 +11645,8 @@
       <abstract>Originating from China’s Shang Dynasty approximately 3,000 years ago, the Oracle Bone Script (OBS) is a cornerstone in the annals of linguistic history, predating many established writing systems. Despite the discovery of thousands of inscriptions, a vast expanse of OBS remains undeciphered, casting a veil of mystery over this ancient language. The emergence of modern AI technologies presents a novel frontier for OBS decipherment, challenging traditional NLP methods that rely heavily on large textual corpora, a luxury not afforded by historical languages. This paper introduces a novel approach by adopting image generation techniques, specifically through the development of Oracle Bone Script Decipher (OBSD). Utilizing a conditional diffusion-based strategy, OBSD generates vital clues for decipherment, charting a new course for AI-assisted analysis of ancient languages. To validate its efficacy, extensive experiments were conducted on an oracle bone script dataset, with quantitative results demonstrating the effectiveness of OBSD.</abstract>
       <url hash="77c78647">2024.acl-long.831</url>
       <bibkey>guan-etal-2024-deciphering</bibkey>
-      <award>Best Paper Award</award>
       <doi>10.18653/v1/2024.acl-long.831</doi>
+      <award>Best Paper Award, SAC Award - Computational Social Science and Cultural Analytics</award>
     </paper>
     <paper id="832">
       <title><fixed-case>M</fixed-case>4<fixed-case>LE</fixed-case>: A Multi-Ability Multi-Range Multi-Task Multi-Domain Long-Context Evaluation Benchmark for Large Language Models</title>
@@ -11658,7 +11663,7 @@
       <abstract>Managing long sequences has become an important and necessary feature for large language models (LLMs). However, assessing their ability to handle long contexts remains a challenge. This paper introduces M<tex-math>^4</tex-math>LE, a <tex-math>\textbf{M}</tex-math>ulti-ability, <tex-math>\textbf{M}</tex-math>ulti-range, <tex-math>\textbf{M}</tex-math>ulti-task, <tex-math>\textbf{M}</tex-math>ulti-domain benchmark for <tex-math>\textbf{L}</tex-math>ong-context <tex-math>\textbf{E}</tex-math>valuation. It encompasses 36 NLP datasets, covering 11 types of tasks and 12 domains, providing a comprehensive test bed. To address the lack of tasks featuring naturally long sequences, we propose an automatic approach to convert short-sequence tasks into long-sequence scenarios. These scenarios evaluate LLMs’ long-context understanding across five key abilities: understanding of single or multiple relevant spans in long contexts based on explicit or semantic hints, and global context understanding. This automatic approach allows us to create instances evenly distributed from 1k to 8k input length. Our evaluation of 11 prominent LLMs reveals that 1) Current LLMs struggle to understand long context, particularly when tasks require multiple-span attention. 2) Semantic retrieval is more difficult for competent LLMs. 3) Models fine-tuned on longer text with position interpolation have comparable performance to those using Neural Tangent Kernel (NTK) aware scaling methods without fine-tuning. We make our benchmark publicly available to encourage future research in this challenging area.</abstract>
       <url hash="4a924d47">2024.acl-long.832</url>
       <bibkey>kwan-etal-2024-m4le</bibkey>
-      <award>Outstanding Paper</award>
+      <award>Outstanding Paper Award</award>
       <doi>10.18653/v1/2024.acl-long.832</doi>
     </paper>
     <paper id="833">
@@ -11703,7 +11708,7 @@
       <abstract>With the growing complexity of fact verification tasks, the concern with “thoughtful” reasoning capabilities is increasing. However, recent fact verification benchmarks mainly focus on checking a narrow scope of semantic factoids within claims and lack an explicit logical reasoning process. In this paper, we introduce CHECKWHY, a challenging dataset tailored to a novel causal fact verification task: checking the truthfulness of the causal relation within claims through rigorous reasoning steps. CHECKWHY consists of over 19K “why” claim-evidence- argument structure triplets with supports, refutes, and not enough info labels. Each argument structure is composed of connected evidence, representing the reasoning process that begins with foundational evidence and progresses toward claim establishment. Through extensive experiments on state-of-the-art models, we validate the importance of incorporating the argument structure for causal fact verification. Moreover, the automated and human evaluation of argument structure generation reveals the difficulty in producing satisfying argument structure by fine-tuned models or Chain-of-Thought prompted LLMs, leaving considerable room for future improvements.</abstract>
       <url hash="e49fd60c">2024.acl-long.835</url>
       <bibkey>si-etal-2024-checkwhy</bibkey>
-      <award>Outstanding Paper</award>
+      <award>Outstanding Paper Award, SAC Award - Sentiment Analysis, Stylistic Analysis, and Argument Mining</award>
       <doi>10.18653/v1/2024.acl-long.835</doi>
     </paper>
     <paper id="836">
@@ -11732,7 +11737,7 @@
       <abstract>Annotated datasets are an essential ingredient to train, evaluate, compare and productionalize supervised machine learning models. It is therefore imperative that annotations are of high quality. For their creation, good quality management and thereby reliable quality estimates are needed. Then, if quality is insufficient during the annotation process, rectifying measures can be taken to improve it. Quality estimation is often performed by having experts manually label instances as correct or incorrect. But checking all annotated instances tends to be expensive. Therefore, in practice, usually only subsets are inspected; sizes are chosen mostly without justification or regard to statistical power and more often than not, are relatively small. Basing estimates on small sample sizes, however, can lead to imprecise values for the error rate. Using unnecessarily large sample sizes costs money that could be better spent, for instance on more annotations. Therefore, we first describe in detail how to use confidence intervals for finding the minimal sample size needed to estimate the annotation error rate. Then, we propose applying acceptance sampling as an alternative to error rate estimation We show that acceptance sampling can reduce the required sample sizes up to 50% while providing the same statistical guarantees.</abstract>
       <url hash="2f8b77e2">2024.acl-long.837</url>
       <bibkey>klie-etal-2024-efficient</bibkey>
-      <award>Outstanding Paper</award>
+      <award>Outstanding Paper Award</award>
       <doi>10.18653/v1/2024.acl-long.837</doi>
     </paper>
     <paper id="838">
@@ -11866,7 +11871,7 @@
       <abstract>Large language models (LLMs) undergo safety alignment to ensure safe conversations with humans. However, this paper introduces a training-free attack method capable of reversing safety alignment, converting the outcomes of stronger alignment into greater potential for harm by accessing only LLM output token distributions. Specifically, our method achieves this reversal by contrasting the output token distribution of a safety-aligned language model (e.g., Llama-2-chat) against its pre-trained version (e.g., Llama-2), so that the token predictions are shifted towards the opposite direction of safety alignment.We name this method <i>emulated disalignment</i> (ED) because sampling from this contrastive distribution provably emulates the result of fine-tuning to minimize a safety reward.Our experiments with ED across three evaluation datasets and four model families (Llama-1, Llama-2, Mistral, and Alpaca) show that ED doubles the harmfulness of pre-trained models and outperforms strong baselines, achieving the highest harmful rates in 43 out of 48 evaluation subsets by a large margin.Eventually, given ED’s reliance on language model output token distributions, which particularly compromises open-source models, our findings highlight the need to reassess the open accessibility of language models, even if they have been safety-aligned.Code is available at https://github.com/ZHZisZZ/emulated-disalignment.</abstract>
       <url hash="83cc5751">2024.acl-long.842</url>
       <bibkey>zhou-etal-2024-emulated</bibkey>
-      <award>Outstanding Paper</award>
+      <award>Outstanding Paper Award</award>
       <doi>10.18653/v1/2024.acl-long.842</doi>
     </paper>
     <paper id="843">
@@ -11887,7 +11892,7 @@
       <abstract>Despite the considerable advancements in English LLMs, the progress in building comparable models for other languages has been hindered due to the scarcity of tailored resources. Our work aims to bridge this divide by introducing an expansive suite of resources specifically designed for the development of Indic LLMs, covering 22 languages, containing a total of 251B tokens and 74.8M instruction-response pairs. Recognizing the importance of both data quality and quantity, our approach combines highly curated manually verified data, unverified yet valuable data, and synthetic data. We build a clean, open-source pipeline for curating pre-training data from diverse sources, including websites, PDFs, and videos, incorporating best practices for crawling, cleaning, flagging, and deduplication. For instruction-fine tuning, we amalgamate existing Indic datasets, translate/transliterate English datasets into Indian languages, and utilize LLaMa2 and Mixtral models to create conversations grounded in articles from Indian Wikipedia and Wikihow. Additionally, we address toxicity alignment by generating toxic prompts for multiple scenarios and then generate non-toxic responses by feeding these toxic prompts to an aligned LLaMa2 model. We hope that the datasets, tools, and resources released as a part of this work will not only propel the research and development of Indic LLMs but also establish an open-source blueprint for extending such efforts to other languages.</abstract>
       <url hash="28f6a48c">2024.acl-long.843</url>
       <bibkey>khan-etal-2024-indicllmsuite</bibkey>
-      <award>Outstanding Paper</award>
+      <award>Outstanding Paper Award</award>
       <doi>10.18653/v1/2024.acl-long.843</doi>
     </paper>
     <paper id="844">
@@ -11998,7 +12003,7 @@
       <abstract>Recently, several scholars have contributed to the growth of a new theoretical framework in NLP called perspectivism. This approach aimsto leverage data annotated by different individuals to model diverse perspectives that affect their opinions on subjective phenomena such as irony. In this context, we propose MultiPICo, a multilingual perspectivist corpus of ironic short conversations in different languages andlinguistic varieties extracted from Twitter and Reddit. The corpus includes sociodemographic information about its annotators. Our analysis of the annotated corpus shows how different demographic cohorts may significantly disagree on their annotation of irony and how certain cultural factors influence the perception of the phenomenon and the agreement on the annotation. Moreover, we show how disaggregated annotations and rich annotator metadata can be exploited to benchmark the ability of large language models to recognize irony, their positionality with respect to sociodemographic groups, and the efficacy of perspective-taking prompting for irony detection in multiple languages.</abstract>
       <url hash="2b988cdb">2024.acl-long.849</url>
       <bibkey>casola-etal-2024-multipico</bibkey>
-      <award>Outstanding Paper</award>
+      <award>Outstanding Paper Award</award>
       <doi>10.18653/v1/2024.acl-long.849</doi>
     </paper>
     <paper id="850">
@@ -12035,7 +12040,7 @@
       <abstract>Theory of Mind (ToM), the ability to understand people’s mental states, is an essential ingredient for developing machines with human-level social intelligence. Recent machine learning models, particularly large language models, seem to show some aspects of ToM understanding. However, existing ToM benchmarks use unimodal datasets – either video or text. Human ToM, on the other hand, is more than video or text understanding. People can flexibly reason about another person’s mind based on conceptual representations (e.g., goals, beliefs, plans) extracted from any available data. To address this, we introduce a multimodal Theory of Mind question answering (MMToM-QA) benchmark. MMToM-QA comprehensively evaluates machine ToM both on multimodal data and on different kinds of unimodal data about a person’s activity in a household environment. To engineer multimodal ToM capacity, we propose a novel method, BIP-ALM (Bayesian Inverse Planning Accelerated by Language Models). BIP-ALM extracts unified representations from multimodal data and utilizes language models for scalable Bayesian inverse planning. We conducted a systematic comparison of human performance, BIP-ALM, and state-of-the-art models, including GPT-4. The experiments demonstrate that large language models and large multimodal models still lack robust ToM capacity. BIP-ALM, on the other hand, shows promising results, by leveraging the power of both model-based mental inference and language models.</abstract>
       <url hash="6f98d25d">2024.acl-long.851</url>
       <bibkey>jin-etal-2024-mmtom</bibkey>
-      <award>Outstanding Paper</award>
+      <award>Outstanding Paper Award</award>
       <doi>10.18653/v1/2024.acl-long.851</doi>
     </paper>
     <paper id="852">
@@ -12089,6 +12094,7 @@
       <url hash="0ff91cee">2024.acl-long.855</url>
       <bibkey>yoshida-etal-2024-maps</bibkey>
       <doi>10.18653/v1/2024.acl-long.855</doi>
+	  <award>Outstanding Paper Award, SAC Award - Generation</award>
     </paper>
     <paper id="856">
       <title>Guardians of the Machine Translation Meta-Evaluation: Sentinel Metrics Fall In!</title>
@@ -12115,7 +12121,7 @@
       <abstract>Despite significant advances in Semantic Role Labeling (SRL), much work in this field has been carried out with a focus on verbal predicates, with the research on nominal SRL lagging behind. In many contexts, however, nominal predicates are often as informative as verbal ones, thus needing proper treatment. In this paper we aim to fill this gap and make nominal SRL a first-class citizen. We introduce a novel approach to create the first large-scale, high-quality inventory of nominal predicates and organize them into semantically-coherent frames. Although automatically created, NounAtlas – our frame inventory – is subsequently fully validated. We then put forward a technique to generate silver training data for nominal SRL and show that a state-of-the-art SRL model can achieve good performance. Interestingly, thanks to our design choices which enable seamless integration of our predicate inventory with its verbal counterpart, we can mix verbal and nominal data and perform robust SRL on both types of predicates.</abstract>
       <url hash="4d537122">2024.acl-long.857</url>
       <bibkey>navigli-etal-2024-nounatlas</bibkey>
-      <award>Outstanding Paper</award>
+      <award>Outstanding Paper Award</award>
       <doi>10.18653/v1/2024.acl-long.857</doi>
     </paper>
     <paper id="858">
@@ -12134,6 +12140,7 @@
       <url hash="2a64e2c8">2024.acl-long.858</url>
       <bibkey>xu-etal-2024-earth</bibkey>
       <doi>10.18653/v1/2024.acl-long.858</doi>
+	  <award>Outstanding Paper Award</award>
     </paper>
     <paper id="859">
       <title><fixed-case>L</fixed-case>oo<fixed-case>GLE</fixed-case>: Can Long-Context Language Models Understand Long Contexts?</title>
@@ -12161,6 +12168,7 @@
       <url hash="6f7336bc">2024.acl-long.860</url>
       <bibkey>park-etal-2024-lets</bibkey>
       <doi>10.18653/v1/2024.acl-long.860</doi>
+	  <award>Outstanding Paper Award</award>
     </paper>
     <paper id="861">
       <title><fixed-case>ECBD</fixed-case>: Evidence-Centered Benchmark Design for <fixed-case>NLP</fixed-case></title>
@@ -12218,7 +12226,7 @@
       <abstract>Language models (LMs) automatically learn word embeddings during pre-training on language corpora. Although word embeddings are usually interpreted as feature vectors for individual words, their roles in language model generation remain underexplored. In this work, we theoretically and empirically revisit output word embeddings and find that their linear transformations are equivalent to steering language model generation styles. We name such steers LM-Steers and find them existing in LMs of all sizes. It requires learning parameters equal to 0.2% of the original LMs’ size for steering each style. On tasks such as language model detoxification and sentiment control, LM-Steers can achieve comparable or superior performance compared with state-of-the-art controlled generation methods while maintaining a better balance with generation quality. The learned LM-Steer serves as a lens in text styles: it reveals that word embeddings are interpretable when associated with language model generations and can highlight text spans that most indicate the style differences. An LM-Steer is transferrable between different language models by an explicit form calculation. One can also continuously steer LMs simply by scaling the LM-Steer or compose multiple LM-Steers by adding their transformations. Our codes are publicly available at https://github.com/Glaciohound/LM-Steer.</abstract>
       <url hash="843312e5">2024.acl-long.864</url>
       <bibkey>han-etal-2024-word</bibkey>
-      <award>Outstanding Paper</award>
+      <award>Outstanding Paper Award</award>
       <doi>10.18653/v1/2024.acl-long.864</doi>
     </paper>
   </volume>
@@ -13109,7 +13117,7 @@
       <abstract>On annotating multi-dialect Arabic datasets, it is common to randomly assign the samples across a pool of native Arabic speakers. Recent analyses recommended routing dialectal samples to native speakers of their respective dialects to build higher-quality datasets. However, automatically identifying the dialect of samples is hard. Moreover, the pool of annotators who are native speakers of specific Arabic dialects might be scarce. Arabic Level of Dialectness (ALDi) was recently introduced as a quantitative variable that measures how sentences diverge from Standard Arabic. On randomly assigning samples to annotators, we hypothesize that samples of higher ALDi scores are harder to label especially if they are written in dialects that the annotators do not speak. We test this by analyzing the relation between ALDi scores and the annotators’ agreement, on 15 public datasets having raw individual sample annotations for various sentence-classification tasks. We find strong evidence supporting our hypothesis for 11 of them. Consequently, we recommend prioritizing routing samples of high ALDi scores to native speakers of each sample’s dialect, for which the dialect could be automatically identified at higher accuracies.</abstract>
       <url hash="82a30d81">2024.acl-short.69</url>
       <bibkey>keleg-etal-2024-estimating</bibkey>
-      <award>Outstanding Paper</award>
+      <award>Outstanding Paper Award</award>
       <doi>10.18653/v1/2024.acl-short.69</doi>
     </paper>
     <paper id="70">
@@ -13121,7 +13129,7 @@
       <abstract>On annotating multi-dialect Arabic datasets, it is common to randomly assign the samples across a pool of native Arabic speakers. Recent analyses recommended routing dialectal samples to native speakers of their respective dialects to build higher-quality datasets. However, automatically identifying the dialect of samples is hard. Moreover, the pool of annotators who are native speakers of specific Arabic dialects might be scarce. Arabic Level of Dialectness (ALDi) was recently introduced as a quantitative variable that measures how sentences diverge from Standard Arabic. On randomly assigning samples to annotators, we hypothesize that samples of higher ALDi scores are harder to label especially if they are written in dialects that the annotators do not speak. We test this by analyzing the relation between ALDi scores and the annotators’ agreement, on 15 public datasets having raw individual sample annotations for various sentence-classification tasks. We find strong evidence supporting our hypothesis for 11 of them. Consequently, we recommend prioritizing routing samples of high ALDi scores to native speakers of each sample’s dialect, for which the dialect could be automatically identified at higher accuracies.</abstract>
       <url hash="82a30d81">2024.acl-short.70</url>
       <bibkey>keleg-etal-2024-estimating-level</bibkey>
-      <award>Outstanding Paper</award>
+      <award>Outstanding Paper Award</award>
       <doi>10.18653/v1/2024.acl-short.70</doi>
     </paper>
     <paper id="71">
@@ -13158,7 +13166,7 @@
       <abstract>While subword tokenizers such as BPE and WordPiece are typically used to build vocabularies for NLP models, the method of decoding text into a sequence of tokens from these vocabularies is often left unspecified, or ill-suited to the method in which they were constructed. We provide a controlled analysis of seven tokenizer inference methods across four different algorithms and three vocabulary sizes, performed on a novel intrinsic evaluation suite we curated for English, combining measures rooted in morphology, cognition, and information theory. We show that for the most commonly used tokenizers, greedy inference performs surprisingly well; and that SaGe, a recently-introduced contextually-informed tokenizer, outperforms all others on morphological alignment.</abstract>
       <url hash="5f2fb137">2024.acl-short.73</url>
       <bibkey>uzan-etal-2024-greed</bibkey>
-      <award>Outstanding Paper</award>
+      <award>Outstanding Paper Award, SAC Award - Phonology, Morphology and Word Segmentation</award>
       <doi>10.18653/v1/2024.acl-short.73</doi>
     </paper>
     <paper id="74">
@@ -13199,7 +13207,7 @@
       <abstract>Humor is a fundamental facet of human cognition and interaction. Yet, despite recent advances in natural language processing, humor detection remains a challenging task that is complicated by the scarcity of datasets that pair humorous texts with similar non-humorous counterparts. We investigate whether large language models (LLMs) can generate synthetic data for humor detection via editing texts. We benchmark LLMs on an existing human dataset and show that current LLMs display an impressive ability to “unfun” jokes, as judged by humans and as measured on the downstream task of humor detection. We extend our approach to a code-mixed English-Hindi humor dataset where we find that GPT-4’s synthetic data is highly rated by bilingual annotators and provides challenging adversarial examples for humor classifiers.</abstract>
       <url hash="9b372b05">2024.acl-short.76</url>
       <bibkey>horvitz-etal-2024-getting</bibkey>
-      <award>Outstanding Paper</award>
+      <award>Outstanding Paper Award</award>
       <doi>10.18653/v1/2024.acl-short.76</doi>
     </paper>
     <paper id="77">
