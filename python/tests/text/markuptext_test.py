@@ -157,7 +157,7 @@ test_cases_markup = (
 
 
 @pytest.mark.parametrize("inp, out", test_cases_markup)
-def test_markup(inp, out):
+def test_markup_from_xml(inp, out):
     xml = f"<title>{inp}</title>"
     element = etree.fromstring(xml)
     markup = MarkupText.from_xml(element)
@@ -181,3 +181,78 @@ def test_simple_string():
         etree.tostring(markup.to_xml("span"), encoding="unicode")
         == f"<span>{text}</span>"
     )
+
+
+test_cases_markup_from_latex = (
+    ("", ""),
+    (
+        "{A}dap{L}e{R}: Speeding up Inference by Adaptive Length Reduction",
+        "<fixed-case>A</fixed-case>dap<fixed-case>L</fixed-case>e<fixed-case>R</fixed-case>: Speeding up Inference by Adaptive Length Reduction",
+    ),
+    (
+        "\\textbf{D}ynamic \\textbf{S}chema \\textbf{G}raph \\textbf{F}usion \\textbf{Net}work (\\textbf{DSGFNet})",
+        "<b>D</b>ynamic <b>S</b>chema <b>G</b>raph <b>F</b>usion <b>Net</b>work (<b>DSGFNet</b>)",
+    ),
+    (
+        "selecting prompt templates \\textit{without labeled examples} and \\emph{without direct access to the model}.",
+        "selecting prompt templates <i>without labeled examples</i> and <i>without direct access to the model</i>.",
+    ),
+    (
+        "$^{\\mathcal{E}}$: a Vectorial Resource for Computing Conceptual Similarity",
+        "<tex-math>^{\\mathcal{E}}</tex-math>: a Vectorial Resource for Computing Conceptual Similarity",
+    ),
+    (
+        "The source code will be available at \\url{https://github.com/zhang-yu-wei/MTP-CLNN}.",
+        "The source code will be available at <url>https://github.com/zhang-yu-wei/MTP-CLNN</url>.",
+    ),
+    (
+        "Workshop on Topic A {\\&} B",
+        "Workshop on Topic A &amp; B",
+    ),
+    (
+        "{U}pstream {M}itigation {I}s \\textit{{N}ot} {A}ll {Y}ou {N}eed",
+        "<fixed-case>U</fixed-case>pstream <fixed-case>M</fixed-case>itigation <fixed-case>I</fixed-case>s <i><fixed-case>N</fixed-case>ot</i> <fixed-case>A</fixed-case>ll <fixed-case>Y</fixed-case>ou <fixed-case>N</fixed-case>eed",
+    ),
+    (
+        "\\textbf{Con\\textit{trived}} {\\textbf{Ex}AMP\\textit{L}e} of N\\textbf{es$_{te}$d} markup",
+        "<b>Con<i>trived</i></b> <b>Ex</b>AMP<i>L</i>e of N<b>es<tex-math>_{te}</tex-math>d</b> markup",
+    ),
+    (
+        "\\textit{D\\textbf{e\\textit{e\\textbf{e\\textit{e\\textbf{p}}}}}}ly",
+        "<i>D<b>e<i>e<b>e<i>e<b>p</b></i></b></i></b></i>ly",
+    ),
+    (
+        '{\\"A}{\\"o}{\\o}{\\\'e}{\\"y}{\\H{o}}{\\ss}{\\^u}{--}',
+        "Äöøéÿőßû–",
+    ),
+    (
+        "Haji{\\v{c}}, Jan and Wo{\\'z}niak, Micha{\\l}",
+        "Hajič, Jan and Woźniak, Michał",
+    ),
+    (
+        "{\\v{Z}}abokrtsk{\\'y}, Zden{\\v{e}}k and {\\v{S}}ev{\\v{c}}{\\'i}kov{\\'a}, Magda",
+        "Žabokrtský, Zdeněk and Ševčíková, Magda",
+    ),
+    (
+        "{\\'i}{\\`i}{\\\"i}{\\^i}{\\i} {\\'I}{\\`I}{\\\"I}{\\^I}{\\.I}",
+        "íìïîı ÍÌÏÎİ",
+    ),
+    (
+        "陳大文",
+        "陳大文",
+    ),
+    (
+        "A $4.9\\%$ increase",
+        "A 4.9% increase",
+    ),
+    (
+        "A $\\log 25$ increase",
+        "A <tex-math>\\log 25</tex-math> increase",
+    ),
+)
+
+
+@pytest.mark.parametrize("inp, out", test_cases_markup_from_latex)
+def test_markup_from_latex(inp, out):
+    markup = MarkupText.from_latex(inp)
+    assert markup.as_xml() == out

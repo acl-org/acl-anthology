@@ -18,6 +18,7 @@ from __future__ import annotations
 
 import re
 from functools import lru_cache
+from lxml import etree
 from typing import cast, Optional, TypeAlias, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -27,12 +28,30 @@ if TYPE_CHECKING:
     SerializableAsBibTeX: TypeAlias = None | str | MarkupText | list[NameSpecification]
     """Any type that can be supplied to `make_bibtex_entry`."""
 
+from .logging import get_logger
+from .xml import append_text
 
 from pylatexenc.latexencode import (
     UnicodeToLatexEncoder,
     UnicodeToLatexConversionRule,
     RULE_DICT,
 )
+from pylatexenc.latexwalker import (
+    LatexWalker,
+    LatexNode,
+    LatexCharsNode,
+    LatexGroupNode,
+    LatexMacroNode,
+    LatexMathNode,
+    LatexSpecialsNode,
+)
+from pylatexenc.latex2text import LatexNodes2Text
+
+log = get_logger()
+
+################################################################################
+### UNICODE TO LATEX (BIBTEX)
+################################################################################
 
 LATEXENC = UnicodeToLatexEncoder(
     conversion_rules=[
@@ -54,6 +73,7 @@ LATEXENC = UnicodeToLatexEncoder(
     unknown_char_policy="keep",
     unknown_char_warning=False,
 )
+"""A UnicodeToLatexEncoder instance intended for BibTeX generation."""
 
 BIBTEX_FIELD_NEEDS_ENCODING = {"journal", "address", "publisher", "note"}
 """Any BibTeX field whose value should be LaTeX-encoded first."""
@@ -211,3 +231,152 @@ def namespecs_to_bibtex(namespecs: list[NameSpecification]) -> str:
         A BibTeX-formatted string representing the given names.
     """
     return "  and\n      ".join(spec.name.as_bibtex() for spec in namespecs)
+
+
+################################################################################
+### LATEX TO UNICODE/XML
+################################################################################
+
+LATEX_MACRO_TO_XMLTAG = {
+    "emph": "i",
+    "em": "i",
+    "textit": "i",
+    "it": "i",
+    "textsl": "i",
+    "sl": "i",
+    "textbf": "b",
+    "bf": "b",
+    "url": "url",
+}
+LATEX_TO_TEXT = LatexNodes2Text(
+    strict_latex_spaces=True,
+)
+
+
+def _is_trivial_math(node: LatexMathNode) -> bool:
+    """Helper function to determine whether or not a LatexMathNode contains only 'trivial' content that doesn't require a <tex-math> node."""
+    content = node.latex_verbatim().strip("$").replace(r"\%", "%")
+    return all(c.isspace() or c.isdigit() or c in (".,@%~") for c in content)
+
+
+def _should_parse_macro_as_text(node: LatexMacroNode) -> bool:
+    """Helper function to determine whether or not a LatexMacroNode should be parsed as a simple character macro."""
+    subnodes = node.nodeargd.argnlist
+    if len(subnodes) == 0:
+        # Macro without arguments; e.g. \i or \l
+        return True
+    elif len(subnodes) > 1:
+        # Macro with more than one argument
+        return False
+    subnode = subnodes[0]
+    if subnode.isNodeType(LatexCharsNode) and subnode.len == 1:
+        return True
+    if (
+        subnode.isNodeType(LatexGroupNode)
+        and len(subnode.nodelist) == 1
+        and subnode.nodelist[0].isNodeType(LatexCharsNode)
+        and subnode.nodelist[0].len == 1
+    ):
+        return True
+    return False
+
+
+def _should_wrap_in_fixed_case(node: LatexGroupNode) -> bool:
+    """Helper function to determine whether or not a LatexGroupNode should produce a <fixed-case> tag."""
+    if len(node.nodelist) == 0 or node.delimiters != ("{", "}"):
+        return False
+    if node.latex_verbatim().startswith("{\\"):
+        # {\...} does *not* protect case
+        return False
+    if node.nodelist[0].isNodeType(LatexMathNode):
+        # Don't mark {$...$}
+        return False
+    if node.nodelist[0].isNodeType(LatexSpecialsNode):
+        # Don't mark {``}, {--}, etc.
+        return False
+    return True
+
+
+def _parse_nodelist_to_element(
+    nodelist: list[LatexNode],
+    element: etree._Element,
+    use_fixed_case: bool,
+    in_macro: bool = False,
+) -> None:
+    """Parse a list of LaTeX nodes into an XML element using the Anthology markup format.
+
+    Arguments:
+        nodelist: The list of parsed LaTeX nodes.
+        element: An XML element into which the parsed nodes will be added.
+        use_fixed_case: Flag indicating whether <fixed-case> protection should be applied.
+        in_macro: Flag indicating whether this function was called by recursing into a macro node. (Do not set this manually.)
+
+    Returns:
+        None; the XML element is modified in-place.
+    """
+    for node in nodelist:
+        if node.isNodeType(LatexCharsNode):
+            # Plain text
+            append_text(element, node.chars)
+        elif node.isNodeType(LatexMacroNode):
+            # LaTeX macro
+            if (tag := LATEX_MACRO_TO_XMLTAG.get(node.macroname)) is not None:
+                # This macro should get its own XML tag (e.g. \textbf -> <b>)
+                subelem = etree.SubElement(element, tag)
+                subnodes = node.nodeargd.argnlist
+                _parse_nodelist_to_element(
+                    subnodes, subelem, use_fixed_case, in_macro=True
+                )
+            elif _should_parse_macro_as_text(node):
+                # This macro should be parsed as text because it probably
+                # represents a special character, such as \v{c} or \"I
+                append_text(element, LATEX_TO_TEXT.macro_node_to_text(node))
+            else:
+                # This is a macro we don't know how to handle - emit warning,
+                # then discard macro but recurse into its children
+                log.warning(f"Unhandled LaTeX macro '{node.macroname}'")
+                subnodes = node.nodeargd.argnlist
+                _parse_nodelist_to_element(
+                    subnodes, subelem, use_fixed_case, in_macro=True
+                )
+        elif node.isNodeType(LatexGroupNode):
+            # Bracketed group, such as {...} or [...]
+            if not in_macro and _should_wrap_in_fixed_case(node):
+                # Protect this with <fixed-case>, then recurse
+                subelem = etree.SubElement(element, "fixed-case")
+                _parse_nodelist_to_element(node.nodelist, subelem, False)
+            else:
+                # Just recurse
+                _parse_nodelist_to_element(node.nodelist, element, use_fixed_case)
+        elif node.isNodeType(LatexMathNode):
+            # Math node
+            if _is_trivial_math(node):
+                # Just append as text
+                append_text(element, LATEX_TO_TEXT.math_node_to_text(node))
+            else:
+                # Keep verbatim, but wrap in <tex-math>
+                subelem = etree.SubElement(element, "tex-math")
+                subelem.text = node.latex_verbatim().strip("$")
+        elif node.isNodeType(LatexSpecialsNode):
+            # TODO: Is this always the correct way?
+            append_text(element, LATEX_TO_TEXT.specials_node_to_text(node))
+        else:
+            # Comments or environments
+            log.warning(f"Unhandled node type: {node.nodeType}")
+
+
+def parse_latex_to_xml(latex_input: str, use_fixed_case: bool = True) -> etree._Element:
+    """Convert a string with LaTeX markup into the Anthology XML format.
+
+    Arguments:
+        latex_input: A string potentially including LaTeX markup.
+        use_fixed_case: Flag indicating whether <fixed-case> protection should be applied.
+
+    Returns:
+        An XML element representing the given LaTeX input in the Anthology XML format for markup strings.
+    """
+    element = etree.Element("root")
+    walker = LatexWalker(latex_input)
+    nodelist, *_ = walker.get_latex_nodes()
+    _parse_nodelist_to_element(nodelist, element, use_fixed_case)
+    return element

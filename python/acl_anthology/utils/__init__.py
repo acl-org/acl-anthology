@@ -15,7 +15,12 @@
 from .citation import citeproc_render_html
 from .git import clone_or_pull_from_repo
 from .ids import build_id, parse_id, AnthologyID
-from .latex import latex_encode, latex_convert_quotes, make_bibtex_entry
+from .latex import (
+    latex_encode,
+    latex_convert_quotes,
+    make_bibtex_entry,
+    parse_latex_to_xml,
+)
 from .logging import setup_rich_logging, get_logger
 from .text import remove_extra_whitespace
 from .xml import stringify_children
@@ -31,6 +36,7 @@ __all__ = [
     "latex_convert_quotes",
     "make_bibtex_entry",
     "parse_id",
+    "parse_latex_to_xml",
     "remove_extra_whitespace",
     "setup_rich_logging",
     "stringify_children",
