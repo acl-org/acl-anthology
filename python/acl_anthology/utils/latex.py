@@ -337,7 +337,7 @@ def _parse_nodelist_to_element(
                 log.warning(f"Unhandled LaTeX macro '{node.macroname}'")
                 subnodes = node.nodeargd.argnlist
                 _parse_nodelist_to_element(
-                    subnodes, subelem, use_fixed_case, in_macro=True
+                    subnodes, element, use_fixed_case, in_macro=True
                 )
         elif node.isNodeType(LatexGroupNode):
             # Bracketed group, such as {...} or [...]

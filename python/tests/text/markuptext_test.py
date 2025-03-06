@@ -249,6 +249,10 @@ test_cases_markup_from_latex = (
         "A $\\log 25$ increase",
         "A <tex-math>\\log 25</tex-math> increase",
     ),
+    (
+        "An \\textsc{unhandled} command",
+        "An unhandled command",
+    ),
 )
 
 
