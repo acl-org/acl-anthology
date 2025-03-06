@@ -253,6 +253,10 @@ test_cases_markup_from_latex = (
         "An \\textsc{unhandled} command",
         "An unhandled command",
     ),
+    (
+        "A citation \\cite[p.32]{doe-et-al-2024}",
+        "A citation (CITATION)",
+    ),
 )
 
 

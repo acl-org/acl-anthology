@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Functions implementing the conversion to LaTeX/BibTeX formats."""
+"""Functions implementing conversions to and from LaTeX/BibTeX formats."""
 
 from __future__ import annotations
 
@@ -45,7 +45,11 @@ from pylatexenc.latexwalker import (
     LatexMathNode,
     LatexSpecialsNode,
 )
-from pylatexenc.latex2text import LatexNodes2Text
+from pylatexenc.latex2text import (
+    LatexNodes2Text,
+    MacroTextSpec,
+    get_default_latex_context_db,
+)
 
 log = get_logger()
 
@@ -248,9 +252,16 @@ LATEX_MACRO_TO_XMLTAG = {
     "bf": "b",
     "url": "url",
 }
-LATEX_TO_TEXT = LatexNodes2Text(
-    strict_latex_spaces=True,
+LATEX_CITE_MACROS = {"cite", "citep", "citet", "newcite", "citeauthor", "citeyear"}
+L2T_CONTEXT = get_default_latex_context_db()
+L2T_CONTEXT.add_context_category(
+    "citations",
+    prepend=True,
+    macros=[
+        MacroTextSpec(macro, simplify_repl=r"(CITATION)") for macro in LATEX_CITE_MACROS
+    ],
 )
+LATEX_TO_TEXT = LatexNodes2Text(strict_latex_spaces=True, latex_context=L2T_CONTEXT)
 
 
 def _is_trivial_math(node: LatexMathNode) -> bool:
@@ -315,7 +326,9 @@ def _parse_nodelist_to_element(
         None; the XML element is modified in-place.
     """
     for node in nodelist:
-        if node.isNodeType(LatexCharsNode):
+        if node is None:
+            continue
+        elif node.isNodeType(LatexCharsNode):
             # Plain text
             append_text(element, node.chars)
         elif node.isNodeType(LatexMacroNode):
@@ -327,6 +340,9 @@ def _parse_nodelist_to_element(
                 _parse_nodelist_to_element(
                     subnodes, subelem, use_fixed_case, in_macro=True
                 )
+            elif node.macroname in LATEX_CITE_MACROS:
+                # A citation command such as \cite{...}
+                append_text(element, LATEX_TO_TEXT.macro_node_to_text(node))
             elif _should_parse_macro_as_text(node):
                 # This macro should be parsed as text because it probably
                 # represents a special character, such as \v{c} or \"I
@@ -345,9 +361,12 @@ def _parse_nodelist_to_element(
                 # Protect this with <fixed-case>, then recurse
                 subelem = etree.SubElement(element, "fixed-case")
                 _parse_nodelist_to_element(node.nodelist, subelem, False)
-            else:
+            elif node.delimiters == ("{", "}"):
                 # Just recurse
                 _parse_nodelist_to_element(node.nodelist, element, use_fixed_case)
+            else:
+                # Skip [...] or <...> groups
+                pass
         elif node.isNodeType(LatexMathNode):
             # Math node
             if _is_trivial_math(node):
