@@ -137,12 +137,12 @@ def create_bibtex(builddir, clean=False) -> None:
                         concise_contents,
                     )
 
-                # Remove whitespace to save space and keep things under 50 MB
-                concise_contents = re.sub(r",\n +", ",", concise_contents)
-                concise_contents = re.sub(r"  and\n +", " and ", concise_contents)
-                concise_contents = re.sub(r",\n}", "}", concise_contents)
+            # Remove whitespace to save space and keep things under 50 MB
+            concise_contents = re.sub(r",\n +", ",", concise_contents)
+            concise_contents = re.sub(r"  and\n +", " and ", concise_contents)
+            concise_contents = re.sub(r",\n}", "}", concise_contents)
 
-                print(concise_contents, file=file_anthology_raw)
+            print(concise_contents, file=file_anthology_raw)
 
     with gzip.open(
         f"{builddir}/data-export/anthology+abstracts.bib.gz", "wt", encoding="utf-8"
