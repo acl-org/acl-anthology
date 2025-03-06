@@ -26,6 +26,7 @@ from xml.sax.saxutils import escape as xml_escape
 from ..utils import (
     latex_encode,
     latex_convert_quotes,
+    parse_latex_to_xml,
     remove_extra_whitespace,
     stringify_children,
 )
@@ -180,6 +181,18 @@ class MarkupText:
             Instantiated MarkupText object corresponding to the string.
         """
         return cls(text)
+
+    @classmethod
+    def from_latex(cls, text: str) -> MarkupText:
+        """
+        Arguments:
+            text: A text string potentially containing LaTeX markup.
+
+        Returns:
+            Instantiated MarkupText object corresponding to the string.
+        """
+        element = parse_latex_to_xml(text)
+        return cls.from_xml(element)
 
     @classmethod
     def from_xml(cls, element: etree._Element) -> MarkupText:
