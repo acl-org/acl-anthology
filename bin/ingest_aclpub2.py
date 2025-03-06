@@ -837,8 +837,8 @@ def create_xml(
                     name_part.text = correct_caps(name_part.text)
 
     # Other data from the meta file
-    # if 'isbn' in meta:
-    #     make_simple_element('isbn', meta['isbn'], parent=meta_node)
+    if 'isbn' in meta:
+        make_simple_element('isbn', meta['isbn'], parent=meta_node)
 
     indent(root_node)
     tree = etree.ElementTree(root_node)
