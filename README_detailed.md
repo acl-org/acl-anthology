@@ -22,7 +22,8 @@ If this doesn't work, you can instead use the following instructions to go throu
 the process step by step and observe the expected outputs.
 
 ### Step 0: Install required Python packages
-To build the anthology, the packages listed in
+
+To build the Anthology, the packages listed in
   [bin/requirements.txt](bin/requirements.txt) are needed (they are installed and updated by make automatically).
   + *Note:* You can install all needed dependencies using the command `pip install -r bin/requirements.txt`
 
@@ -35,7 +36,8 @@ The data sources for the Anthology currently reside in the [`data/`](data/)
 directory.  XML files contain the authoritative paper metadata, and additional
 YAML files document information about venues and special interest groups (SIGs).
 Before the Anthology website can be generated, all this information needs to be
-converted and preprocessed for the static site generator.
+converted and preprocessed for the static site generator.  Some derived
+information, such as BibTeX entries for each paper, is also added in this step.
 
 This is achieved by calling:
 
@@ -45,27 +47,24 @@ $ python3 bin/create_hugo_data.py
 
 This process should not take longer than a few minutes.
 
-### Step 2: Create bibliography export files for papers
+### Step 2: Create extra bibliography export files for papers
 
-In this step, we create `.bib` files for each paper and proceedings volume in
-the Anthology.  This is achieved by calling:
+_(NB: This step is skipped on preview branches.)_
+
+In this step, we create the full consolidated BibTeX files (`anthology.bib`
+etc.) as well as the MODS and Endnote formats.  This is achieved by calling:
 
 ```bash
-$ python3 bin/create_bibtex.py
+$ python3 bin/create_extra_bib.py
 ```
 
 The exported files will be written to the `build/data-export/` subdirectory.
 
 For other export formats, we rely on the
-[`bibutils`](https://sourceforge.net/p/bibutils/home/Bibutils/) suite by
-first converting the generated `.bib` files to MODS XML:
-
-```bash
-$ find build/data-export -name '*.bib' -exec bin/bib2xml_wrapper {} \; >/dev/null
-```
-
-This creates a corresponding `.xml` file in MODS format for every `.bib` file
-generated previously.
+[`bibutils`](https://sourceforge.net/p/bibutils/home/Bibutils/) suite by first
+converting the generated `.bib` files to MODS XML, then converting the MODS XML
+to Endnote.  This happens within the `bin/create_extra_bib.py` script and uses
+some performance optimizations (such as process pools) to speed this up.
 
 ### Step 3: Run Hugo
 
