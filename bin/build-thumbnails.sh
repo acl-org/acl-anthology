@@ -1,22 +1,20 @@
 # Requires $PREVIEW_DIR to be set.
 #!/bin/bash
 
-# Builds thumbnails for files. There are two use cases:
-# 1. If no arguments are supplied, will do so for all Anthology files.
+# Builds thumbnails and trimmed thumbnails for all PDFs.
+# (Trimmed thumbnails are used in the Metadata edit screen.)
+# The script works by echoing commands to STDOUT, which should
+# be piped through xargs or GNU parallel.
+#
+# There are two use cases:
+# 1. If no arguments are supplied, it will recurse to the base case:
 #
 #    Example:
 #
-#        build_thumbnails.sh
+#        build_thumbnails.sh | parallel -j 5
 #
-# 2. If two arguments are supplied, will read the first file and write
-#    to the second.
-#
-#    Example:
-#
-#        build_thumbnails ~/anthology-files/pdf/W/W19/W19-5605.pdf \
-#          ~/anthology-files/thumb/W/W19/W19-5606-thumb.pdf
-#
-# The first use case recurses to the second.
+# 2. In the base case, the thumbnail and trimmed thumbnail files are provided.
+#    These are echoed to STDOUT.
 
 # The base directory of Anthology object files (contains pdf/ and thumb/)
 ANTHOLOGYFILES=$HOME/anthology-files
@@ -31,14 +29,12 @@ if [[ -z $2 ]]; then
     [[ ! -e $THUMBDIR ]] && mkdir -p $THUMBDIR
 
     inputdir=${1:-$ANTHOLOGYFILES/pdf/}
-    echo "Looking for PDFs in $inputdir..."
     for pdf in $(find $inputdir -type f -name '*.pdf'); do
         outfile=$THUMBDIR/$(basename $pdf .pdf).jpg
         trimmedfile=$THUMBDIR/$(basename $pdf .pdf)-trimmed.jpg
         # update if outfile doesn't exist or has an older timestamp
         if [[ ! -e $outfile || ! -e $trimmedfile || $pdf -nt $outfile ]]; then
-          echo "$pdf -> $outfile"
-          bash $0 $pdf $outfile $trimmedfile
+          echo bash $0 $pdf $outfile $trimmedfile
         fi
     done
 else
@@ -47,5 +43,7 @@ else
     trimmedfile=$3
 
     convert $pdffile[0] -background white -flatten -resize x${DIM}^ -gravity North -crop ${DIM}x${DIM}+0+10 -colorspace Gray $outfile
-    convert -trim $outfile $trimmedfile
+
+    DIM=1024
+    convert $pdffile[0] -background white -colorspace Gray -flatten -resize x${DIM}^ -gravity North -crop ${DIM}x${DIM}+0+10 -trim $trimmedfile
 fi
