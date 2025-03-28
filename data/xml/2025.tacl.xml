@@ -105,5 +105,51 @@
       <url hash="b3e3ee70">2025.tacl-1.6</url>
       <bibkey>ahuja-etal-2025-learning</bibkey>
     </paper>
+    <paper id="7">
+      <title>A Confidence-based Acquisition Model for Self-supervised Active Learning and Label Correction</title>
+      <author><first>Carel van</first><last>Niekerk</last></author>
+      <author><first>Christian</first><last>Geishauser</last></author>
+      <author><first>Michael</first><last>Heck</last></author>
+      <author><first>Shutong</first><last>Feng</last></author>
+      <author><first>Hsien-chin</first><last>Lin</last></author>
+      <author><first>Nurul</first><last>Lubis</last></author>
+      <author><first>Benjamin</first><last>Ruppik</last></author>
+      <author><first>Renato</first><last>Vukovic</last></author>
+      <author><first>Milica</first><last>Gašić</last></author>
+      <doi>10.1162/tacl_a_00734</doi>
+      <abstract>Supervised neural approaches are hindered by their dependence on large, meticulously annotated datasets, a requirement that is particularly cumbersome for sequential tasks. The quality of annotations tends to deteriorate with the transition from expert-based to crowd-sourced labeling. To address these challenges, we present CAMEL (Confidence-based Acquisition Model for Efficient self-supervised active Learning), a pool-based active learning framework tailored to sequential multi-output problems. CAMEL possesses two core features: (1) it requires expert annotators to label only a fraction of a chosen sequence, and (2) it facilitates self-supervision for the remainder of the sequence. By deploying a label correction mechanism, CAMEL can also be utilized for data cleaning. We evaluate CAMEL on two sequential tasks, with a special emphasis on dialogue belief tracking, a task plagued by the constraints of limited and noisy datasets. Our experiments demonstrate that CAMEL significantly outperforms the baselines in terms of efficiency. Furthermore, the data corrections suggested by our method contribute to an overall improvement in the quality of the resulting datasets.1</abstract>
+      <pages>167–187</pages>
+      <url hash="6a1bfedf">2025.tacl-1.7</url>
+      <bibkey>niekerk-etal-2025-confidence</bibkey>
+    </paper>
+    <paper id="8">
+      <title><fixed-case>OPT</fixed-case>-Tree: Speculative Decoding with Adaptive Draft Tree Structure</title>
+      <author><first>Jikai</first><last>Wang</last></author>
+      <author><first>Yi</first><last>Su</last></author>
+      <author><first>Juntao</first><last>Li</last></author>
+      <author><first>Qingrong</first><last>Xia</last></author>
+      <author><first>Zi</first><last>Ye</last></author>
+      <author><first>Xinyu</first><last>Duan</last></author>
+      <author><first>Zhefeng</first><last>Wang</last></author>
+      <author><first>Min</first><last>Zhang</last></author>
+      <doi>10.1162/tacl_a_00735</doi>
+      <abstract>Autoregressive language models demonstrate excellent performance in various scenarios. However, the inference efficiency is limited by its one-step-one-word generation mode, which has become a pressing problem recently as the models become increasingly larger. Speculative decoding employs a “draft and then verify” mechanism to allow multiple tokens to be generated in one step, realizing lossless acceleration. Existing methods mainly adopt fixed heuristic draft structures, which do not adapt to different situations to maximize the acceptance length during verification. To alleviate this dilemma, we propose OPT-Tree, an algorithm to construct adaptive and scalable draft trees, which can be applied to any autoregressive draft model. It searches the optimal tree structure that maximizes the mathematical expectation of the acceptance length in each decoding step. Experimental results reveal that OPT-Tree outperforms the existing draft structures and achieves a speed-up ratio of up to 3.2 compared with autoregressive decoding. If the draft model is powerful enough and the node budget is sufficient, it can generate more than ten tokens in a single step. Our code is available at https://github.com/Jikai0Wang/OPT-Tree.</abstract>
+      <pages>188–199</pages>
+      <url hash="5dda4bd4">2025.tacl-1.8</url>
+      <bibkey>wang-etal-2025-opt</bibkey>
+    </paper>
+    <paper id="9">
+      <title>Transformers as Transducers</title>
+      <author><first>Lena</first><last>Strobl</last></author>
+      <author><first>Dana</first><last>Angluin</last></author>
+      <author><first>David</first><last>Chiang</last></author>
+      <author><first>Jonathan</first><last>Rawski</last></author>
+      <author><first>Ashish</first><last>Sabharwal</last></author>
+      <doi>10.1162/tacl_a_00736</doi>
+      <abstract>We study the sequence-to-sequence mapping capacity of transformers by relating them to finite transducers, and find that they can express surprisingly large classes of (total functional) transductions. We do so using variants of RASP, a programming language designed to help people “think like transformers,” as an intermediate representation. We extend the existing Boolean variant B-RASP to sequence-to-sequence transductions and show that it computes exactly the first-order rational transductions (such as string rotation). Then, we introduce two new extensions. B-RASP[pos] enables calculations on positions (such as copying the first half of a string) and contains all first-order regular transductions. S-RASP adds prefix sum, which enables additional arithmetic operations (such as squaring a string) and contains all first-order polyregular transductions. Finally, we show that masked average-hard attention transformers can simulate S-RASP.</abstract>
+      <pages>200–219</pages>
+      <url hash="27951ace">2025.tacl-1.9</url>
+      <bibkey>strobl-etal-2025-transformers</bibkey>
+    </paper>
   </volume>
 </collection>
