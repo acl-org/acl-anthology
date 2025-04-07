@@ -601,9 +601,9 @@
     </paper>
     <paper id="42">
       <title>Successfully Guiding Humans with Imperfect Instructions by Highlighting Potential Errors and Suggesting Corrections</title>
-      <author><first>Lingjun</first><last>Zhao</last><affiliation>University of Maryland, College Park</affiliation></author>
-      <author><first>Khanh Xuan</first><last>Nguyen</last></author>
-      <author><first>Hal</first><last>Daumé Iii</last><affiliation>University of Maryland - College Park, University of Maryland, College Park and Microsoft</affiliation></author>
+      <author><first>Lingjun</first><last>Zhao</last></author>
+      <author><first>Nguyen X.</first><last>Khanh</last></author>
+      <author><first>Hal</first><last>Daumé III</last></author>
       <pages>719-736</pages>
       <abstract>Language models will inevitably err in situations with which they are unfamiliar. However, by effectively communicating uncertainties, they can still guide humans toward making sound decisions in those contexts. We demonstrate this idea by developing HEAR, a system that can successfully guide humans in simulated residential environments despite generating potentially inaccurate instructions. Diverging from systems that provide users with only the instructions they generate, HEAR warns users of potential errors in its instructions and suggests corrections. This rich uncertainty information effectively prevents misguidance and reduces the search space for users. Evaluation with 80 users shows that HEAR achieves a 13% increase in success rate and a 29% reduction in final location error distance compared to only presenting instructions to users. Interestingly, we find that offering users possibilities to explore, HEAR motivates them to make more attempts at the task, ultimately leading to a higher success rate. To our best knowledge, this work is the first to show the practical benefits of uncertainty communication in a long-horizon sequential decision-making problem.</abstract>
       <url hash="98eb6ac2">2024.emnlp-main.42</url>
@@ -14746,13 +14746,13 @@
     </paper>
     <paper id="1068">
       <title><fixed-case>S</fixed-case>hadow<fixed-case>LLM</fixed-case>: Predictor-based Contextual Sparsity for Large Language Models</title>
-      <author><first>Yash</first><last>Akhauri</last><affiliation>Google and Cornell University</affiliation></author>
-      <author><first>Ahmed F</first><last>AbouElhamayed</last><affiliation>Cornell University and Ain Shams University</affiliation></author>
-      <author><first>Jordan</first><last>Dotzel</last><affiliation>Google and Cornell University</affiliation></author>
-      <author><first>Zhiru</first><last>Zhang</last><affiliation>Cornell University, Cornell University, Cornell University and Cornell University</affiliation></author>
-      <author><first>Alexander M</first><last>Rush</last><affiliation>Cornell University and School of Engineering and Applied Sciences, Harvard University</affiliation></author>
-      <author><first>Safeen</first><last>Huda</last><affiliation>Google</affiliation></author>
-      <author><first>Mohamed S.</first><last>Abdelfattah</last><affiliation>Cornell University</affiliation></author>
+      <author><first>Yash</first><last>Akhauri</last></author>
+      <author><first>Ahmed F.</first><last>AbouElhamayed</last></author>
+      <author><first>Jordan</first><last>Dotzel</last></author>
+      <author><first>Zhiru</first><last>Zhang</last></author>
+      <author><first>Alexander M.</first><last>Rush</last></author>
+      <author><first>Safeen</first><last>Huda</last></author>
+      <author><first>Mohamed S.</first><last>Abdelfattah</last></author>
       <pages>19154-19167</pages>
       <abstract>The high power consumption and latency-sensitive deployments of large language models (LLMs) have motivated efficiency techniques like quantization and sparsity. Contextual sparsity, where the sparsity pattern is input-dependent, is crucial in LLMs because the permanent removal of attention heads or neurons from LLMs can significantly degrade accuracy. Prior work has attempted to model contextual sparsity using neural networks trained to predict activation magnitudes, which can be used to dynamically prune structures with low predicted activation magnitude. In this paper, we look beyond magnitude-based pruning criteria to assess attention head and neuron importance in LLMs. We develop a novel predictor called ShadowLLM, which can shadow the LLM behavior and enforce better sparsity patterns, resulting in over 15% improvement in end-to-end accuracy compared to prior methods. In addition, ShadowLLM achieves up to a 20% speed-up over the state-of-the-art DejaVu framework. These enhancements are validated on Llama-2 and OPT models with up to 30 billion parameters. Our code is available at https://github.com/abdelfattah-lab/shadow_llm/</abstract>
       <url hash="999a6170">2024.emnlp-main.1068</url>
@@ -14838,11 +14838,13 @@
       <author><first>Nikolaos</first><last>Pappas</last><affiliation>AWS AI Labs</affiliation></author>
       <author><first>Sheng</first><last>Zha</last><affiliation>Amazon</affiliation></author>
       <pages>19287-19301</pages>
-      <abstract>Training with mixed data distributions is a common and important part of creating multi-task and instruction-following models. The diversity of the data distributions and cost of joint training makes the optimization procedure extremely challenging. Data mixing methods partially address this problem, albeit having a sub-optimal performance across data sources and require multiple expensive training runs. In this paper, we propose a simple and efficient alternative for better optimization of the data sources by combining models individually trained on each data source with the base model using basic element-wise vector operations. The resulting model, namely Distribution Edited Model (DEM), is cheaper than standard data mixing and outperforms strong baselines on a variety of benchmarks, yielding upto 6.2% improvement on MMLU, 11.5% on BBH, 16.1% on DROP, 6% MathQA and 9.3% on HELM with models of size 3B to 13B. Notably, DEM does not require full re-training when modifying a single data-source, thus making it very flexible and scalable for training with diverse data sources.</abstract>
-      <url hash="f087d729">2024.emnlp-main.1074</url>
+      <abstract>Training with mixed data distributions is a common and important part of creating multi-task and instruction-following models. The diversity of the data distributions and cost of joint training makes the optimization procedure extremely challenging. Data mixing methods partially address this problem, albeit having a sub-optimal performance across data sources and require multiple expensive training runs. In this paper, we propose a simple and efficient alternative for better optimization of the data sources by combining models individually trained on each data source with the base model using basic element-wise vector operations. The resulting model, namely Distribution Edited Model (DEM), is cheaper than standard data mixing and outperforms strong baselines on a variety of benchmarks, yielding upto 6.2% improvement on MMLU, 11.5% on BBH, 16.1% on DROP, 6% MathQA and 9.3% on HELM with models of size 3B to 13B. Notably, DEM does not require full re-training when modifying a single data-source, thus making it very flexible and scalable for training with diverse data sources. The code is available at https://github.com/amazon-science/dem-distribution-edited-model.</abstract>
+      <url hash="81fcb7b5">2024.emnlp-main.1074</url>
       <bibkey>ram-etal-2024-dem</bibkey>
       <doi>10.18653/v1/2024.emnlp-main.1074</doi>
       <award>Special Theme Paper Award</award>
+      <revision id="1" href="2024.emnlp-main.1074v1" hash="f087d729"/>
+      <revision id="2" href="2024.emnlp-main.1074v2" hash="81fcb7b5" date="2025-03-17">Added a link to the code repository in the abstract.</revision>
     </paper>
     <paper id="1075">
       <title>Altogether: Image Captioning via Re-aligning Alt-text</title>
@@ -18052,9 +18054,11 @@
       <author><first>Preslav</first><last>Nakov</last><affiliation>Mohamed bin Zayed University of Artificial Intelligence</affiliation></author>
       <pages>336-343</pages>
       <abstract>The ease of access to large language models (LLMs) has enabled a widespread of machine-generated texts, and now it is often hard to tell whether a piece of text was human-written or machine-generated. This raises concerns about potential misuse, particularly within educational and academic domains. Thus, it is important to develop practical systems that can automate the process. Here, we present one such system, LLM-DetectAIve, designed for fine-grained detection. Unlike most previous work on machine-generated text detection, which focused on binary classification, LLM-DetectAIve supports four categories: (i) human-written, (ii) machine-generated, (iii) machine-written, then machine-humanized, and (iv) human-written, then machine-polished. Category (iii) aims to detect attempts to obfuscate the fact that a text was machine-generated, while category (iv) looks for cases where the LLM was used to polish a human-written text, which is typically acceptable in academic writing, but not in education. Our experiments show that LLM-DetectAIve can effectively identify the above four categories, which makes it a potentially useful tool in education, academia, and other domains.LLM-DetectAIve is publicly accessible at https://github.com/mbzuai-nlp/LLM-DetectAIve. The video describing our system is available at https://youtu.be/E8eT_bE7k8c.</abstract>
-      <url hash="625cb500">2024.emnlp-demo.35</url>
+      <url hash="6365ae80">2024.emnlp-demo.35</url>
       <bibkey>abassy-etal-2024-llm</bibkey>
       <doi>10.18653/v1/2024.emnlp-demo.35</doi>
+      <revision id="1" href="2024.emnlp-demo.35v1" hash="625cb500"/>
+      <revision id="2" href="2024.emnlp-demo.35v2" hash="6365ae80" date="2025-03-16">Corrected a citation in page 6, i.e., MixSet (Zhang et al., 2024); added a sentence to page 2 describing a contemporary work.</revision>
     </paper>
     <paper id="36">
       <title>Translation Canvas: An Explainable Interface to Pinpoint and Analyze Translation Systems</title>
