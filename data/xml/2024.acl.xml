@@ -88,12 +88,12 @@
     <paper id="5">
       <title><fixed-case>G</fixed-case>en<fixed-case>T</fixed-case>ranslate: Large Language Models are Generative Multilingual Speech and Machine Translators</title>
       <author><first>Yuchen</first><last>Hu</last></author>
-      <author><first>Chen</first><last>Chen</last><affiliation>Nanyang Technological University</affiliation></author>
-      <author><first>Chao-Han</first><last>Yang</last><affiliation>NVIDIA Research</affiliation></author>
-      <author><first>Ruizhe</first><last>Li</last><affiliation>University of Aberdeen</affiliation></author>
+      <author><first>Chen</first><last>Chen</last></author>
+      <author><first>Chao-Han Huck</first><last>Yang</last></author>
+      <author><first>Ruizhe</first><last>Li</last></author>
       <author><first>Dong</first><last>Zhang</last></author>
       <author><first>Zhehuai</first><last>Chen</last></author>
-      <author><first>EngSiong</first><last>Chng</last><affiliation>Nanyang Technological University</affiliation></author>
+      <author><first>Eng Siong</first><last>Chng</last></author>
       <pages>74-90</pages>
       <abstract>Recent advances in large language models (LLMs) have stepped forward the development of multilingual speech and machine translation by its reduced representation errors and incorporated external knowledge. However, both translation tasks typically utilize beam search decoding and top-1 hypothesis selection for inference. These techniques struggle to fully exploit the rich information in the diverse N-best hypotheses, making them less optimal for translation tasks that require a single, high-quality output sequence. In this paper, we propose a new generative paradigm for translation tasks, namely GenTranslate, which builds upon LLMs to generate better results from the diverse translation versions in N-best list. Leveraging the rich linguistic knowledge and strong reasoning abilities of LLMs, our new paradigm can integrate the diverse N-best candidates to generate a higher-quality translation result. Furthermore, to support LLM finetuning, we build and release a HypoTranslate dataset that contains over 592K hypotheses-translation pairs in 11 languages. Experiments on various speech and machine translation benchmarks (e.g., FLEURS, CoVoST-2, WMT) demonstrate that our GenTranslate significantly outperforms the state-of-the-art model.</abstract>
       <url hash="343feea0">2024.acl-long.5</url>
@@ -1989,7 +1989,7 @@
       <author><first>Tianyu</first><last>Gao</last></author>
       <author><first>Danqi</first><last>Chen</last><affiliation>Department of Computer Science, Princeton University</affiliation></author>
       <pages>2588-2610</pages>
-      <abstract>Extending large language models (LLMs) to process longer inputs is crucial for numerous applications. However, the considerable computational cost of transformers, coupled with limited generalization of positional encoding, restricts the size of their context window. We introduce Cross-Attention to Parallel Encodings (CAPE), a framework that can be applied to any existing decoder-only LLMs for context expansion. CAPE leverages a small encoder to process a long input chunk by chunk and enables the frozen decoder to cross-attend to the additional contexts. CAPE is efficient, generalizable, and versatile: trained with 8K-token documents, CAPE extends the context window of LLaMA-2 to 128K tokens, offering <tex-math>10\times</tex-math> of the throughput with only 1/6 of the memory. CAPE yields strong performance on language modeling and in-context learning. CAPE also excels in retrieval-augmented applications, while existing long-context models degenerate with retrieved contexts. We further introduce a CAPE variant that can extend the context window of instruction-tuned models with only unlabeled data, and showcase its effectiveness on LLaMA-2-Chat, leading to a strong instruction-following model that can leverage very long context on downstream tasks.</abstract>
+      <abstract>Extending large language models (LLMs) to process longer inputs is crucial for a wide range of applications. However, the substantial computational cost of transformers and limited generalization of positional encoding restrict the size of their context window. We introduce Context Expansion with Parallel Encoding (CEPE), a framework that can be applied to any existing decoder-only LLMs to extend their context window. CEPE employs a small encoder to process long inputs chunk by chunk, enabling the frozen decoder to utilize additional contexts via cross-attention. CEPE is efficient, generalizable, and versatile: trained with 8K-token documents, it extends the context window of LLAMA-2 to 128K tokens, offering 10x the throughput with only 1/6 of the memory. CEPE yields strong performance on language modeling and in-context learning. CEPE also excels in retrieval-augmented applications, while existing long-context models degenerate with retrieved contexts. We further introduce a CEPE variant that can extend the context window of instruction-tuned models using only unlabeled data, and showcase its effectiveness on LLAMA-2-CHAT, leading to a strong instruction-following model that can leverage very long contexts on downstream tasks.</abstract>
       <url hash="5d302642">2024.acl-long.142</url>
       <bibkey>yen-etal-2024-long</bibkey>
       <doi>10.18653/v1/2024.acl-long.142</doi>
@@ -9398,15 +9398,15 @@
     </paper>
     <paper id="672">
       <title>More Victories, Less Cooperation: Assessing Cicero’s Diplomacy Play</title>
-      <author><first>Wichayaporn</first><last>Wongkamjan</last><affiliation>Department of Computer Science, University of Maryland, College Park</affiliation></author>
+      <author><first>Wichayaporn</first><last>Wongkamjan</last></author>
       <author><first>Feng</first><last>Gu</last></author>
       <author><first>Yanze</first><last>Wang</last></author>
-      <author><first>Ulf</first><last>Hermjakob</last><affiliation>University of Southern California Information Sciences Institute</affiliation></author>
-      <author><first>Jonathan</first><last>May</last><affiliation>University of Southern California and USC/ISI</affiliation></author>
-      <author><first>Brandon</first><last>Stewart</last></author>
-      <author><first>Jonathan</first><last>Kummerfeld</last><affiliation>University of Sydney</affiliation></author>
+      <author><first>Ulf</first><last>Hermjakob</last></author>
+      <author><first>Jonathan</first><last>May</last></author>
+      <author><first>Brandon M.</first><last>Stewart</last></author>
+      <author><first>Jonathan K.</first><last>Kummerfeld</last></author>
       <author><first>Denis</first><last>Peskoff</last></author>
-      <author><first>Jordan</first><last>Boyd-Graber</last><affiliation>University of Maryland, College Park</affiliation></author>
+      <author><first>Jordan Lee</first><last>Boyd-Graber</last></author>
       <pages>12423-12441</pages>
       <abstract>The boardgame Diplomacy is a challenging setting for communicative and cooperative artificial intelligence. The most prominent communicative Diplomacy AI, Cicero, has excellent strategic abilities, exceeding human players. However, the best Diplomacy players master communication, not just tactics, which is why the game has received attention as an AI challenge. This work seeks to understand the degree to which Cicero succeeds at communication. First, we annotate in-game communication with abstract meaning representation to separate in-game tactics from general language. Second, we run two dozen games with humans and Cicero, totaling over 200 human-player hours of competition. While AI can consistently outplay human players, AI-Human communication is still limited because of AI’s difficulty with deception and persuasion. This shows that Cicero relies on strategy and has not yet reached the full promise of communicative and cooperative AI.</abstract>
       <url hash="928477b4">2024.acl-long.672</url>
@@ -11362,15 +11362,15 @@
     </paper>
     <paper id="812">
       <title><fixed-case>P</fixed-case>sy<fixed-case>S</fixed-case>afe: A Comprehensive Framework for Psychological-based Attack, Defense, and Evaluation of Multi-agent System Safety</title>
-      <author><first>Zaibin</first><last>Zhang</last><affiliation>Dalian University of Technology</affiliation></author>
-      <author><first>Yongting</first><last>Zhang</last><affiliation>University of Science and Technology of China</affiliation></author>
-      <author><first>Lijun</first><last>Li</last><affiliation>Shanghai Artificial Intelligence Laboratory</affiliation></author>
-      <author><first>Jing</first><last>Shao</last><affiliation>Shanghai AI Laboratory</affiliation></author>
-      <author><first>Hongzhi</first><last>Gao</last><affiliation>University of Science and Technology of China</affiliation></author>
-      <author><first>Yu</first><last>Qiao</last><affiliation>Shanghai Aritifcal Intelligence Laboratory</affiliation></author>
-      <author><first>Lijun</first><last>Wang</last><affiliation>Dalian University of Technology</affiliation></author>
-      <author><first>Huchuan</first><last>Lu</last><affiliation>Dalian University of Technology</affiliation></author>
-      <author><first>Feng</first><last>Zhao</last><affiliation>University of Science and Technology of China</affiliation></author>
+      <author><first>Zaibin</first><last>Zhang</last></author>
+      <author><first>Yongting</first><last>Zhang</last></author>
+      <author><first>Lijun</first><last>Li</last></author>
+      <author><first>Hongzhi</first><last>Gao</last></author>
+      <author><first>Lijun</first><last>Wang</last></author>
+      <author><first>Huchuan</first><last>Lu</last></author>
+      <author><first>Feng</first><last>Zhao</last></author>
+      <author><first>Yu</first><last>Qiao</last></author>
+      <author><first>Jing</first><last>Shao</last></author>
       <pages>15202-15231</pages>
       <abstract>Multi-agent systems, when enhanced with Large Language Models (LLMs), exhibit profound capabilities in collective intelligence. However, the potential misuse of this intelligence for malicious purposes presents significant risks. To date, comprehensive research on the safety issues associated with multi-agent systems remains limited. In this paper, we explore these concerns through the innovative lens of agent psychology, revealing that the dark psychological states of agents constitute a significant threat to safety.To tackle these concerns, we propose a comprehensive framework (PsySafe) grounded in agent psychology, focusing on three key areas: firstly, identifying how dark personality traits in agents can lead to risky behaviors; secondly, evaluating the safety of multi-agent systems from the psychological and behavioral perspectives, and thirdly, devising effective strategies to mitigate these risks.Our experiments reveal several intriguing phenomena, such as the collective dangerous behaviors among agents, agents’ self-reflection when engaging in dangerous behavior, and the correlation between agents’ psychological assessments and dangerous behaviors. We anticipate that our framework and observations will provide valuable insights for further research into the safety of multi-agent systems. We make our data and code publicly accessible at https://github.com/AI4Good24/PsySafe.</abstract>
       <url hash="c5da5232">2024.acl-long.812</url>
