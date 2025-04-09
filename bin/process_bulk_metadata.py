@@ -366,7 +366,7 @@ if __name__ == "__main__":
     import argparse
 
     parser = argparse.ArgumentParser(description="Bulk metadata corrections")
-    parser.add_argument("-v", "--verbose", action="store_true", help="Verbose output")
+    parser.add_argument("-q", "--quiet", action="store_true", help="Suppress output")
     parser.add_argument(
         "--skip-validation",
         action="store_true",
@@ -392,7 +392,7 @@ if __name__ == "__main__":
     updater = AnthologyMetadataUpdater(github_token)
     updater.process_metadata_issues(
         ids=args.ids,
-        verbose=args.verbose,
+        verbose=not args.quiet,
         skip_validation=args.skip_validation,
         dry_run=args.dry_run,
         close_old_issues=args.close_old_issues,
