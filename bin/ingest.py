@@ -326,7 +326,7 @@ def main(args):
                 continue
 
             # names are {abbrev}{number}.pdf
-            match = re.match(r".*\.(\d+)\.pdf", pdf_file)
+            match = re.match(r".*(\d+)\.pdf", pdf_file)
 
             if match is not None:
                 paper_num = int(match[1])
