@@ -24,17 +24,17 @@ These kinds of corrections bring the information presented in the Anthology in l
 
 A request to change paper metadata can be submitted in two ways.
 
-1. Navigate to the paper's page in the ACL Anthology (e.g., [K17-1003](https://aclanthology.org/K17-1003/)). From there, click the yellow "Fix data" button. This will display a dialog that you can use to correct the title and abstract and fix issues with the author list.
+1. (Preferred) Navigate to the paper's page in the ACL Anthology (e.g., [K17-1003](https://aclanthology.org/K17-1003/)). From there, click the yellow "Fix data" button. This will display a dialog that you can use to correct the title and abstract and fix issues with the author list.
 
-   Submitting this form will create a Github issue with a JSON data block. This will then be validated by Anthology staff, and processed by a semi-automatic bulk corrections script on a weekly basis.
+   Submitting this form will create a Github issue with a JSON data block. This will then be validated by Anthology staff, and processed by a semi-automatic bulk corrections script on a regular basis (usually every Friday).
 
 2. If you would like to expedite the process and are familiar with [git](https://git-scm.com), you can make the correction yourself and file a [pull request (PR)](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests).
 
     * First, locate your file amongst our [authoritative XML files](https://github.com/acl-org/acl-anthology/tree/master/data/xml). The name of your file is the portion of the Anthology ID that comes before the hyphen. As an example, if the Anthology ID of your paper is `P19-10171`, then the file you will need to edit is [data/xml/P19.xml](https://github.com/acl-org/acl-anthology/blob/master/data/xml/P19.xml); if the Anthology ID of your paper is `2021.iwslt-1.28`, then the file you will need to edit is [data/xml/2021.iwslt.xml](https://github.com/acl-org/acl-anthology/blob/master/data/xml/2021.iwslt.xml).
     * Find your entry in the XML file, and use Github's edit button to fix it and then to issue a PR against our `master` branch.
     * For larger XML files, you may have to fork the repository first. [More information can be found here](https://help.github.com/en/github/managing-files-in-a-repository/editing-files-in-another-users-repository).
+    * Create the pull request. Anthology staff will review the PR and merge it into the master branch.
 
-The Anthology team will attend to the correction as we find time.
 Metadata changes are generally accepted if they are consistent with the PDF, which we take as authoritative.
 However, please see the following note.
 
