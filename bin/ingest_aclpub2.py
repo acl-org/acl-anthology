@@ -704,7 +704,22 @@ def create_xml(
             # year, venue = collection_id.split(".")
             # bibkey = f"{venue}-{year}-{volume_name}"
         else:
-            paper_node = paper2xml(papers[paper_num - 1], paper_num, paper_id_full, meta)
+            try:
+                paper_node = paper2xml(
+                    papers[paper_num - 1], paper_num, paper_id_full, meta
+                )
+            except Exception:
+                import json
+
+                print(
+                    f"Failed to create XML for paper {paper_num} id={paper_id_full}",
+                    file=sys.stderr,
+                )
+                print(
+                    json.dumps(papers[paper_num - 1], indent=2, ensure_ascii=False),
+                    file=sys.stderr,
+                )
+                sys.exit(1)
             # bibkey = anthology.pindex.create_bibkey(paper_node, vidx=anthology.venues)
 
         # Ideally this would be here, but it requires a Paper object, which requires a Volume object, etc
