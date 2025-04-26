@@ -66,9 +66,11 @@ and this script will look for the above files relative to the
 anthology directory.
 """
 
+import re
 import sys
 import yaml
 import logging
+from datetime import datetime
 from pathlib import Path
 
 logging.basicConfig(format="%(message)s", level=logging.INFO)
@@ -85,12 +87,12 @@ class CounterHandler(logging.Handler):
 
     def emit(self, record):
         self.count += 1
-        print(self.format(record), file=sys.stderr)
+#        print(self.format(record), file=sys.stderr)
 
+logger.addHandler(CounterHandler(logging.WARNING))
+logger.addHandler(CounterHandler(logging.ERROR))
 
 def main(args):
-    logger.addHandler(CounterHandler(logging.WARNING))
-    logger.addHandler(CounterHandler(logging.ERROR))
 
     rootdir = Path(args.import_dir)
 
@@ -106,24 +108,34 @@ def main(args):
             rootdir = Path(config["import_dir"])
             logger.info(f"Using import directory '{rootdir}'")
 
-    # conference details
+    ## CONFERENCE DETAILS
+    # make sure file exists
     if not (
         conference_details_path := rootdir / "inputs" / "conference_details.yml"
     ).exists():
         logger.error(f"x File '{conference_details_path}' does not exist")
     elif args.verbose:
         logger.info(f"✓ Found {conference_details_path}")
+
     conference_details = yaml.safe_load(conference_details_path.read_text())
+    anthology_venue_id = str(conference_details.get("anthology_venue_id", ""))
+    volume_name = str(conference_details["volume_name"])
+
+    # every volume needs editors
     if "editors" not in conference_details:
         logger.error("No editors found in conference_details")
-    if " " in conference_details["volume_name"]:
-        logger.error("Space found in volume name (should be a slug, [a-z0-9] only)")
-    if conference_details["volume_name"].lower() == "findings":
-        anthology_venue_id = conference_details.get("anthology_venue_id", "")
-        volume_name = conference_details["volume_name"]
+    # look for the current year in the venue id
+    last_two_digits = datetime.now().year % 100
+    if anthology_venue_id.endswith(str(datetime.now().year % 100)):
+        logger.error("It looks like you may have the year in the venue ID. The venue ID is not tied to the year, but groups volumes from the same venue across years, e.g., KnowledgeNLP = https://aclanthology.org/venues/knowledgenlp")
+    # volume name must match this format
+    if not re.fullmatch(r'[a-z0-9]+', volume_name):
+        logger.error("Volume name can only have a-z0-9 (most single-volume workshops use 1 or main)")
+    if volume_name.lower() == "findings":
         logger.error(
             f"You have anthology_venue_id={anthology_venue_id} and volume_name={volume_name}, but this should probably be the other way around (Findings is the venue)"
         )
+    # 
 
     # papers.yml
     if not (papers_path := rootdir / "inputs" / "papers.yml").exists():
