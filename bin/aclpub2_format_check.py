@@ -113,6 +113,9 @@ def main(args):
         logger.error(f"x File '{conference_details_path}' does not exist")
     elif args.verbose:
         logger.info(f"✓ Found {conference_details_path}")
+    conference_details = yaml.safe_load(conference_details_path.read_text())
+    if not "editors" in conference_details:
+        logger.error("No editors found in conference_details")
 
     # papers.yml
     if not (papers_path := rootdir / "inputs" / "papers.yml").exists():
