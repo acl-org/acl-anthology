@@ -116,6 +116,14 @@ def main(args):
     conference_details = yaml.safe_load(conference_details_path.read_text())
     if "editors" not in conference_details:
         logger.error("No editors found in conference_details")
+    if " " in conference_details["volume_name"]:
+        logger.error("Space found in volume name (should be a slug, [a-z0-9] only)")
+    if conference_details["volume_name"].lower() == "findings":
+        anthology_venue_id = conference_details.get("anthology_venue_id", "")
+        volume_name = conference_details["volume_name"]
+        logger.error(
+            f"You have anthology_venue_id={anthology_venue_id} and volume_name={volume_name}, but this should probably be the other way around (Findings is the venue)"
+        )
 
     # papers.yml
     if not (papers_path := rootdir / "inputs" / "papers.yml").exists():
