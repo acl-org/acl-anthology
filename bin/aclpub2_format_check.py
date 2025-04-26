@@ -114,7 +114,7 @@ def main(args):
     elif args.verbose:
         logger.info(f"✓ Found {conference_details_path}")
     conference_details = yaml.safe_load(conference_details_path.read_text())
-    if not "editors" in conference_details:
+    if "editors" not in conference_details:
         logger.error("No editors found in conference_details")
 
     # papers.yml
