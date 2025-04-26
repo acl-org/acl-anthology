@@ -669,6 +669,7 @@ def create_xml(
     proceedings_pdf_dest_path: str,
     people,
     papers: List[Dict[str, str]],
+    is_workshop=False,
 ) -> None:
     venue_name = meta['anthology_venue_id'].lower()
     collection_file = os.path.join(anthology_dir, 'data', 'xml', f'{collection_id}.xml')
@@ -770,6 +771,8 @@ def create_xml(
 
             # add the venue tag
             make_simple_element("venue", venue_name, parent=meta_node)
+            if is_workshop:
+                make_simple_element("venue", "ws", parent=meta_node)
 
             # modify frontmatter tag
             paper_node.tag = "frontmatter"
@@ -890,7 +893,28 @@ def create_xml(
     default=f'{datetime.now().year}-{datetime.now().month:02d}-{datetime.now().day:02d}',
     help='Ingestion date',
 )
-def main(ingestion_dir, pdfs_dir, attachments_dir, anthology_dir, ingest_date):
+@click.option(
+    '-w',
+    '--workshop',
+    is_flag=True,
+    default=False,
+    help='Event is a workshop (add workshop venue tag)',
+)
+@click.option(
+    '-p',
+    '--parent-event',
+    default=None,
+    help='Event ID (e.g., naacl-2025) workshop was colocated with',
+)
+def main(
+    ingestion_dir,
+    pdfs_dir,
+    attachments_dir,
+    anthology_dir,
+    ingest_date,
+    workshop,
+    parent_event,
+):
     anthology_datadir = Path(sys.argv[0]).parent / ".." / "data"
     # anthology = Anthology(
     #     importdir=anthology_datadir, require_bibkeys=False
@@ -935,7 +959,49 @@ def main(ingestion_dir, pdfs_dir, attachments_dir, anthology_dir, ingest_date):
         proceedings_pdf_dest_path=proceedings_pdf_dest_path,
         people=people,
         papers=papers,
+        is_workshop=workshop is not None,
     )
+
+    if parent_event is not None:
+        parent_venue_id, year = parent_event.split("-")
+        collection_file = os.path.join(
+            anthology_dir, 'data', 'xml', f'{year}.{parent_venue_id}.xml'
+        )
+        if not os.path.exists(collection_file):
+            print(f"No such parent file {collection_file}", file=sys.stderr)
+            sys.exit(1)
+
+        root_node = etree.parse(collection_file).getroot()
+
+        event_node = root_node.find(f"./event[@id='{parent_event}']")
+        if event_node is None:
+            print(
+                f"No event node with id '{parent_event}' found in {collection_file}",
+                file=sys.stderr,
+            )
+            sys.exit(1)
+
+        colocated_node = event_node.find("./colocated")
+        if colocated_node is None:
+            colocated_node = make_simple_element('colocated', parent=event_node)
+
+        # see if it already exists
+        for volume_node in colocated_node:
+            if volume_node.text == volume_full_id:
+                print(
+                    f"Event {volume_full_id} already listed as colocated with {parent_event}, skipping",
+                    file=sys.stderr,
+                )
+                break
+        else:
+            print(f"Created entry for {volume_full_id}", file=sys.stderr)
+            make_simple_element("volume-id", volume_full_id, parent=colocated_node)
+
+            indent(root_node)
+            tree = etree.ElementTree(root_node)
+            tree.write(
+                collection_file, encoding='UTF-8', xml_declaration=True, with_tail=True
+            )
 
 
 if __name__ == '__main__':
