@@ -994,7 +994,10 @@ def main(
                 )
                 break
         else:
-            print(f"Created event entry in {parent_event} for {volume_full_id}", file=sys.stderr)
+            print(
+                f"Created event entry in {parent_event} for {volume_full_id}",
+                file=sys.stderr,
+            )
             make_simple_element("volume-id", volume_full_id, parent=colocated_node)
 
             indent(root_node)

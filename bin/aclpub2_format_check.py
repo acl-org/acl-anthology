@@ -87,10 +87,13 @@ class CounterHandler(logging.Handler):
 
     def emit(self, record):
         self.count += 1
+
+
 #        print(self.format(record), file=sys.stderr)
 
 logger.addHandler(CounterHandler(logging.WARNING))
 logger.addHandler(CounterHandler(logging.ERROR))
+
 
 def main(args):
 
@@ -125,17 +128,20 @@ def main(args):
     if "editors" not in conference_details:
         logger.error("No editors found in conference_details")
     # look for the current year in the venue id
-    last_two_digits = datetime.now().year % 100
     if anthology_venue_id.endswith(str(datetime.now().year % 100)):
-        logger.error("It looks like you may have the year in the venue ID. The venue ID is not tied to the year, but groups volumes from the same venue across years, e.g., KnowledgeNLP = https://aclanthology.org/venues/knowledgenlp")
+        logger.error(
+            "It looks like you may have the year in the venue ID. The venue ID is not tied to the year, but groups volumes from the same venue across years, e.g., KnowledgeNLP = https://aclanthology.org/venues/knowledgenlp"
+        )
     # volume name must match this format
     if not re.fullmatch(r'[a-z0-9]+', volume_name):
-        logger.error("Volume name can only have a-z0-9 (most single-volume workshops use 1 or main)")
+        logger.error(
+            "Volume name can only have a-z0-9 (most single-volume workshops use 1 or main)"
+        )
     if volume_name.lower() == "findings":
         logger.error(
             f"You have anthology_venue_id={anthology_venue_id} and volume_name={volume_name}, but this should probably be the other way around (Findings is the venue)"
         )
-    # 
+    #
 
     # papers.yml
     if not (papers_path := rootdir / "inputs" / "papers.yml").exists():
