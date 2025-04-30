@@ -12,6 +12,7 @@
       <year>2024</year>
       <url hash="e8f6811d">2024.acl-long</url>
       <venue>acl</venue>
+      <venue>ws</venue>
       <doi>10.18653/v1/2024.acl-long</doi>
     </meta>
     <frontmatter>
@@ -14234,6 +14235,106 @@
       <url hash="4321195c">2024.acl-srw.49</url>
       <bibkey>merler-etal-2024-context</bibkey>
       <doi>10.18653/v1/2024.acl-srw.49</doi>
+    </paper>
+    <paper id="50">
+      <title>Seed-Free Synthetic Data Generation Framework for Instruction-Tuning <fixed-case>LLM</fixed-case>s: A Case Study in <fixed-case>T</fixed-case>hai</title>
+      <author><first>Parinthapat</first><last>Pengpun</last></author>
+      <author><first>Can</first><last>Udomcharoenchaikit</last><affiliation>Vidyasirimedhi Institute of Science and Technology (VISTEC)</affiliation></author>
+      <author><first>Weerayut</first><last>Buaphet</last></author>
+      <author><first>Peerat</first><last>Limkonchotiwat</last></author>
+      <pages>445-464</pages>
+      <abstract>We present a synthetic data approach for instruction-tuning large language models (LLMs) for low-resource languages in a data-efficient manner, specifically focusing on Thai. We identify three key properties that contribute to the effectiveness of instruction-tuning datasets: fluency, diversity, and cultural context. We propose a seed-data-free framework for generating synthetic instruction-tuning data that incorporates these essential properties. Our framework employs an LLM to generate diverse topics, retrieve relevant contexts from Wikipedia, and create instructions for various tasks, such as question answering, summarization, and conversation. The experimental results show that our best-performing synthetic dataset, which incorporates all three key properties, achieves competitive performance using only 5,000 instructions when compared to state-of-the-art Thai LLMs trained on hundreds of thousands of instructions. Our code and dataset are publicly available at https://github.com/parinzee/seed-free-synthetic-instruct.</abstract>
+      <url hash="024c8c75">2024.acl-srw.38</url>
+      <bibkey>pengpun-etal-2024-seed</bibkey>
+    </paper>
+    <paper id="51">
+      <title>Can <fixed-case>LLM</fixed-case>s substitute <fixed-case>SQL</fixed-case>? Comparing Resource Utilization of Querying <fixed-case>LLM</fixed-case>s versus Traditional Relational Databases</title>
+      <author><first>Xiang</first><last>Zhang</last><affiliation>Metropolitan College, Boston University</affiliation></author>
+      <author><first>Khatoon</first><last>Khedri</last></author>
+      <author><first>Reza</first><last>Rawassizadeh</last></author>
+      <pages>465-472</pages>
+      <abstract>Large Language Models (LLMs) can automate or substitute different types of tasks in the software engineering process. This study evaluates the resource utilization and accuracy of LLM in interpreting and executing natural language queries against traditional SQL within relational database management systems. We empirically examine the resource utilization and accuracy of nine LLMs varying from 7 to 34 Billion parameters, including Llama2 7B, Llama2 13B, Mistral, Mixtral, Optimus-7B, SUS-chat-34B, platypus-yi-34b, NeuralHermes-2.5-Mistral-7B and Starling-LM-7B-alpha, using a small transaction dataset. Our findings indicate that using LLMs for database queries incurs significant energy overhead (even small and quantized models), making it an environmentally unfriendly approach. Therefore, we advise against replacing relational databases with LLMs due to their substantial resource utilization.</abstract>
+      <url hash="00ee2b40">2024.acl-srw.40</url>
+      <bibkey>zhang-etal-2024-llms-substitute</bibkey>
+    </paper>
+    <paper id="52">
+      <title><fixed-case>I</fixed-case>nstruct<fixed-case>C</fixed-case>oder: Instruction Tuning Large Language Models for Code Editing</title>
+      <author><first>Kaixin</first><last>Li</last></author>
+      <author><first>Qisheng</first><last>Hu</last><affiliation>Nanyang Technological University</affiliation></author>
+      <author><first>James Xu</first><last>Zhao</last><affiliation>national university of singaore, National University of Singapore</affiliation></author>
+      <author><first>Hui</first><last>Chen</last><affiliation>Nanyang Technological University</affiliation></author>
+      <author><first>Yuxi</first><last>Xie</last></author>
+      <author><first>Tiedong</first><last>Liu</last></author>
+      <author><first>Michael</first><last>Shieh</last><affiliation>National University of Singapore</affiliation></author>
+      <author><first>Junxian</first><last>He</last><affiliation>Hong Kong University of Science and Technology</affiliation></author>
+      <pages>473-493</pages>
+      <abstract>Code editing encompasses a variety of pragmatic tasks that developers deal with daily. Despite its relevance and practical usefulness, automatic code editing remains an underexplored area in the evolution of deep learning models, partly due to data scarcity. In this work, we explore the use of Large Language Models (LLMs) to edit code based on user instructions. Evaluated on a novel human-written execution-based benchmark dubbed EditEval, we found current models often struggle to fulfill the instructions. In light of this, we contribute InstructCoder, the first instruction-tuning dataset designed to adapt LLMs for general-purpose code editing, containing high-diversity code-editing tasks such as comment insertion, code optimization, and code refactoring. It consists of over 114,000 instruction-input-output triplets and covers multiple distinct code editing scenarios. The collection process starts with filtered commit data sourced from GitHub Python repositories as seeds. Subsequently, the dataset is systematically expanded through an iterative process, where both seed and generated tasks are used to prompt ChatGPT for more data. Our findings reveal that open-source LLMs fine-tuned on InstructCoder can significantly enhance the accuracy of code edits, exhibiting superior code-editing performance matching advanced proprietary LLMs. The datasets and the source code are publicly available.</abstract>
+      <url hash="4a3dea5e">2024.acl-srw.41</url>
+      <bibkey>li-etal-2024-instructcoder</bibkey>
+    </paper>
+    <paper id="53">
+      <title><fixed-case>M</fixed-case>o<fixed-case>E</fixed-case>xtend: Tuning New Experts for Modality and Task Extension</title>
+      <author><first>Shanshan</first><last>Zhong</last></author>
+      <author><first>Shanghua</first><last>Gao</last><affiliation>Harvard University</affiliation></author>
+      <author><first>Zhongzhan</first><last>Huang</last><affiliation>Sun Yat-Sen University</affiliation></author>
+      <author><first>Wushao</first><last>Wen</last><affiliation>SUN YAT-SEN UNIVERSITY</affiliation></author>
+      <author><first>Marinka</first><last>Zitnik</last><affiliation>Harvard University</affiliation></author>
+      <author><first>Pan</first><last>Zhou</last><affiliation>Singapore Management University</affiliation></author>
+      <pages>494-505</pages>
+      <abstract>Large language models (LLMs) excel in various tasks but are primarily trained on text data, limiting their application scope. Expanding LLM capabilities to include vision-language understanding is vital, yet training them on multimodal data from scratch is challenging and costly. Existing instruction tuning methods, e.g., LLAVA, often connects a pretrained CLIP vision encoder and LLMs via fully fine-tuning LLMs to bridge the modality gap. However, full fine-tuning is plagued by catastrophic forgetting, i.e., forgetting previous knowledge, and high training costs particularly in the era of increasing tasks and modalities. To solve this issue, we introduce MoExtend, an effective framework designed to streamline the modality adaptation and extension of Mixture-of-Experts (MoE) models. MoExtend seamlessly integrates new experts into pre-trained MoE models, endowing them with novel knowledge without the need to tune pretrained models such as MoE and vision encoders. This approach enables rapid adaptation and extension to new modal data or tasks, effectively addressing the challenge of accommodating new modalities within LLMs. Furthermore, MoExtend avoids tuning pretrained models, thus mitigating the risk of catastrophic forgetting. Experimental results demonstrate the efficacy and efficiency of MoExtend in enhancing the multimodal capabilities of LLMs, contributing to advancements in multimodal AI research.</abstract>
+      <url hash="102d21ee">2024.acl-srw.42</url>
+      <bibkey>zhong-etal-2024-moextend</bibkey>
+    </paper>
+    <paper id="54">
+      <title>On the Interpretability of Deep Learning Models for Collaborative Argumentation Analysis in Classrooms</title>
+      <author><first>Deliang</first><last>Wang</last></author>
+      <author><first>Gaowei</first><last>Chen</last><affiliation>University of Hong Kong</affiliation></author>
+      <pages>506-516</pages>
+      <abstract>Collaborative argumentation holds significant potential for enhancing students’ learning outcomes within classroom settings. Consequently, researchers have explored the application of artificial intelligence (AI) to automatically analyze argumentation in these contexts. Despite the remarkable performance of deep learning models in this task, their lack of interpretability poses a critical challenge, leading to teachers’ skepticism and limited utilization. To cultivate trust among teachers, this PhD thesis proposal aims to leverage explainable AI techniques to provide explanations for these deep learning models. Specifically, the study develops two deep learning models for automated analysis of argument moves (claim, evidence, and warrant) and specificity levels (low, medium, and high) within collaborative argumentation. To address the interpretability issue, four explainable AI methods are proposed: gradient sensitivity, gradient input, integrated gradient, and LIME. Computational experiments demonstrate the efficacy of these methods in elucidating model predictions by computing word contributions, with LIME delivering exceptional performance. Moreover, a quasi-experiment is designed to evaluate the impact of model explanations on user trust and knowledge, serving as a future study of this PhD proposal. By tackling the challenges of interpretability and trust, this PhD thesis proposal aims to contribute to fostering user trust in AI and facilitating the practical implementation of AI in educational contexts.</abstract>
+      <url hash="098705cc">2024.acl-srw.43</url>
+      <bibkey>wang-chen-2024-interpretability</bibkey>
+    </paper>
+    <paper id="55">
+      <title>Automatically Suggesting Diverse Example Sentences for <fixed-case>L</fixed-case>2 <fixed-case>J</fixed-case>apanese Learners Using Pre-Trained Language Models</title>
+      <author><first>Enrico</first><last>Benedetti</last></author>
+      <author><first>Akiko</first><last>Aizawa</last><affiliation>NII, Tokyo Institute of Technology</affiliation></author>
+      <author><first>Florian</first><last>Boudin</last><affiliation>University of Nantes</affiliation></author>
+      <pages>517-534</pages>
+      <abstract>Providing example sentences that are diverse and aligned with learners’ proficiency levels is essential for fostering effective language acquisition.This study examines the use of Pre-trained Language Models (PLMs) to produce example sentences targeting L2 Japanese learners.We utilize PLMs in two ways: as quality scoring components in a retrieval system that draws from a newly curated corpus of Japanese sentences, and as direct sentence generators using zero-shot learning.We evaluate the quality of sentences by considering multiple aspects such as difficulty, diversity, and naturalness, with a panel of raters consisting of learners of Japanese, native speakers – and GPT-4.Our findings suggest that there is inherent disagreement among participants on the ratings of sentence qualities, except for difficulty. Despite that, the retrieval approach was preferred by all evaluators, especially for beginner and advanced target proficiency, while the generative approaches received lower scores on average.Even so, our experiments highlight the potential for using PLMs to enhance the adaptability of sentence suggestion systems and therefore improve the language learning journey.</abstract>
+      <url hash="f07529bb">2024.acl-srw.44</url>
+      <bibkey>benedetti-etal-2024-automatically</bibkey>
+    </paper>
+    <paper id="45">
+      <title><fixed-case>Z</fixed-case>-coref: <fixed-case>T</fixed-case>hai Coreference and Zero Pronoun Resolution</title>
+      <author><first>Poomphob</first><last>Suwannapichat</last><affiliation>King Mongkut’s University of Technology Thonburi</affiliation></author>
+      <author><first>Sansiri.tarn@kmutt.ac.th</first><last>Sansiri.tarn@kmutt.ac.th</last><affiliation>NA</affiliation></author>
+      <author><first>Santitham.pro@kmutt.ac.th</first><last>Santitham.pro@kmutt.ac.th</last><affiliation>NA</affiliation></author>
+      <pages>535-542</pages>
+      <abstract>Coreference Resolution (CR) and Zero Pronoun Resolution (ZPR) are vital for extracting meaningful information from text. However, limited research and datasets pose significant challenges in Thai language. To address this, we developed an annotated joint CR and ZPR dataset. Additionally, we introduced the Z-coref model, capable of simultaneously handling CR and ZPR tasks by adjusting the span definition of a prior CR architecture to include token gaps. The proposed model trained on our dataset outperformed the state-of-the-art in resolving both coreference resolution and zero-pronoun resolution, while taking less time to train.</abstract>
+      <url hash="a40c087e">2024.acl-srw.45</url>
+    </paper>
+    <paper id="56">
+      <title>Plot Retrieval as an Assessment of Abstract Semantic Association</title>
+      <author><first>Shicheng</first><last>Xu</last></author>
+      <author><first>Liang</first><last>Pang</last><affiliation>Institute of Computing Technology, Chinese Academy of Sciences</affiliation></author>
+      <author><first>Jiangnan</first><last>Li</last><affiliation>WeChat, Tencent Inc.</affiliation></author>
+      <author><first>Mo</first><last>Yu</last><affiliation>WeChat AI, Tencent</affiliation></author>
+      <author><first>Fandong</first><last>Meng</last><affiliation>WeChat AI, Tencent Inc.</affiliation></author>
+      <author><first>Huawei</first><last>Shen</last><affiliation>Institute of Computing Technology, Chinese Academy of Sciences</affiliation></author>
+      <author><first>Xueqi</first><last>Cheng</last><affiliation>, Chinese Academy of Sciences</affiliation></author>
+      <author><first>Jie</first><last>Zhou</last></author>
+      <pages>543-558</pages>
+      <abstract>Retrieving relevant plots from the book for a query is a critical task, which can improve the reading experience and efficiency of readers. Readers usually only give an abstract and vague description as the query based on their own understanding, summaries, or speculations of the plot, which requires the retrieval model to have a strong ability to estimate the abstract semantic associations between the query and candidate plots. However, existing information retrieval (IR) datasets cannot reflect this ability well. In this paper, we propose PlotRetrieval, a labeled dataset to train and evaluate the performance of IR models on the novel task Plot Retrieval. Text pairs in PlotRetrieval have less word overlap and more abstract semantic association, which can reflect the ability of the IR models to estimate the abstract semantic association, rather than just traditional lexical or semantic matching. Extensive experiments across various lexical retrieval, sparse retrieval, dense retrieval, and cross-encoder methods compared with human studies on PlotRetrieval show current IR models still struggle in capturing abstract semantic association between texts. PlotRetrieval can be the benchmark for further research on the semantic association modeling ability of IR models.</abstract>
+      <url hash="69c5ef83">2024.acl-srw.46</url>
+      <bibkey>xu-etal-2024-plot</bibkey>
+    </paper>
+    <paper id="57">
+      <title>Foundation Model for Biomedical Graphs: Integrating Knowledge Graphs and Protein Structures to Large Language Models</title>
+      <author><first>Yunsoo</first><last>Kim</last></author>
+      <pages>559-568</pages>
+      <abstract>Transformer model has been a de-facto standard in natural language processing. Its adaptations in other fields such as computer vision showed promising results that this architecture is a powerful neural network in representation learning regardless of the data type. This recent success has led to research in multimodal Large Language Model (LLM), which enabled us to new types of tasks and applications with multiple data types. However, multimodal LLM in the biomedical domain is primarily limited to images, text, and/or sequence data. Here I propose to work on multimodal LLM architecture for biomedical graphs such as protein structure and chemical molecules. The research hypothesis is based on the fact that clinicians and researchers in computational biology and clinical research take advantage of various information for their decision-making process. Therefore, an AI model being able to handle multiple data types should boost its ability to use diverse knowledge for improved performances in clinical applications.</abstract>
+      <url hash="07792c66">2024.acl-srw.50</url>
+      <bibkey>kim-2024-foundation</bibkey>
     </paper>
   </volume>
   <volume id="tutorials" ingest-date="2024-08-11" type="proceedings">
