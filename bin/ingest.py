@@ -325,8 +325,8 @@ def main(args):
             if os.path.basename(pdf_file).startswith("."):
                 continue
 
-            # names are {abbrev}{number}.pdf
-            match = re.match(r".*(\d+)\.pdf", pdf_file)
+            # names are {abbrev}{number}.pdf, but may also have Anthology new-style IDs
+            match = re.match(r".*?(\d+)\.pdf", pdf_file)
 
             if match is not None:
                 paper_num = int(match[1])
