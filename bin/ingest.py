@@ -387,6 +387,13 @@ def main(args):
                     log(f"Copying {attachment_file} -> {dest_path}", args.dry_run)
                     shutil.copyfile(attachment_file_path, dest_path)
 
+                if paper_num not in volume:
+                    print(f"Fatal: no key {paper_num} in volume", file=sys.stderr)
+                    import json
+
+                    print(json.dumps(volume, indent=2), file=sys.stderr)
+                    sys.exit(1)
+
                 volume[paper_num]["attachments"].append((dest_path, type_))
 
         # create xml
