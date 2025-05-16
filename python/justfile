@@ -95,7 +95,7 @@ prepare-new-release VERSION: no-uncommitted-changes check test-all test-integrat
   # Update changelog
   VERSION=$(poetry version --short)
   DATE=$(date -u +%Y-%m-%d)
-  sed -i "s/^## \[Unreleased\].*\$/## [Unreleased]\n\n## [$VERSION] — $DATE/" CHANGELOG.md
+  sed -i "s/^## \[Unreleased\].*\$/## [$VERSION] — $DATE/" CHANGELOG.md
   # Build package
   poetry build
   # Commit changes
@@ -111,7 +111,7 @@ prepare-new-release VERSION: no-uncommitted-changes check test-all test-integrat
   echo "(To undo: git reset HEAD~ )"
   echo ""
   echo "Next steps:"
-  echo "  1. git push, then PR & merge the branch into main"
-  echo "  2. git checkout main && git tag v$VERSION && git push --tags"
-  echo "  3. poetry publish"
-  echo "  4. Create a release on Github"
+  echo "  1. git tag py-v$VERSION && git push --tags"
+  echo "  2. poetry publish"
+  echo "  3. Create PR python-dev -> master"
+  echo "  4. (optionally) Create a release on Github"
