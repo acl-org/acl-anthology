@@ -71,6 +71,10 @@
       <dd><a href="{{ $paper.url }}">{{ $paper.url }}</a></dd>
       <dt>DOI:</dt>
       <dd>{{ with $paper.doi }}<a href="https://doi.org/{{ . }}" title="To the current version of the paper by DOI">{{ . }}</a>{{ end }}</dd>
+      {{ with $paper.isbn }}
+      <dt>ISBN:</dt>
+      <dd>{{ . }}</dd>
+      {{ end }}
       <!--
       <dt>Bibtype:</dt>
       <dd>{{ with $paper.bibtype }}{{ . }}{{ end }}</dd>
@@ -79,15 +83,15 @@
       -->
       <dt class="acl-button-row">Bib Export formats:</dt>
       <dd class="acl-button-row">
-      {{ $bibfile := printf "/volumes/%s.bib" $anthology_id }}
+      {{ $bibfile := printf "volumes/%s.bib" $anthology_id }}
       {{ if (fileExists (printf "/data-export/%s" $bibfile)) }}
         <a class="btn btn-secondary btn-sm" href="{{ $bibfile | relURL }}">BibTeX</a>
       {{ end }}
-      {{ $expfile := printf "/volumes/%s.xml" $anthology_id }}
+      {{ $expfile := printf "volumes/%s.xml" $anthology_id }}
       {{ if (fileExists (printf "/data-export/%s" $expfile)) }}
         <a class="btn btn-secondary btn-sm" href="{{ $expfile | relURL }}">MODS XML</a>
       {{ end }}
-      {{ $endfile := printf "/volumes/%s.endf" $anthology_id }}
+      {{ $endfile := printf "volumes/%s.endf" $anthology_id }}
       {{ if (fileExists (printf "/data-export/%s" $endfile)) }}
         <a class="btn btn-secondary btn-sm" href="{{ $endfile | relURL }}">EndNote</a>
       {{ end }}
