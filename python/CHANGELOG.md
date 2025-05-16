@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.5.2] — 2025-05-16
+
 ### Added
 
 - Support for Python 3.13.
