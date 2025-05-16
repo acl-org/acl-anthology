@@ -1,8 +1,8 @@
 # Changelog
 
-## [Unreleased]
-
 ## [0.5.2] — 2025-05-16
+
+This release adds support for Python 3.13 and initial functionality for creating new proceedings.
 
 ### Added
 
@@ -12,8 +12,6 @@
 - Collections, Volumes, Papers, and Events can now be newly created with functions on their respective parent objects.
   - Event creation currently has some unintuitive behaviour due to the existence of implicit event creation and linking; see docs.
 - FileReferences can now be instantiated from files, and functions for checksum computation have been added.
-
-### Changed
 
 ## [0.5.1] — 2025-01-02
 
