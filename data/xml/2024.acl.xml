@@ -6545,16 +6545,18 @@
     </paper>
     <paper id="473">
       <title>Enhancing Dialogue State Tracking Models through <fixed-case>LLM</fixed-case>-backed User-Agents Simulation</title>
-      <author><first>Cheng</first><last>Niu</last></author>
       <author><first>Xingguang</first><last>Wang</last></author>
       <author><first>Xuxin</first><last>Cheng</last></author>
       <author><first>Juntong</first><last>Song</last></author>
       <author><first>Tong</first><last>Zhang</last><affiliation>UIUC</affiliation></author>
+      <author><first>Cheng</first><last>Niu</last></author>
       <pages>8724-8741</pages>
       <abstract>Dialogue State Tracking (DST) is designed to monitor the evolving dialogue state in the conversations and plays a pivotal role in developing task-oriented dialogue systems. However, obtaining the annotated data for the DST task is usually a costly endeavor. In this paper, we focus on employing LLMs to generate dialogue data to reduce dialogue collection and annotation costs. Specifically, GPT-4 is used to simulate the user and agent interaction, generating thousands of dialogues annotated with DST labels. Then a two-stage fine-tuning on LLaMA 2 is performed on the generated data and the real data for the DST prediction. Experimental results on two public DST benchmarks show that with the generated dialogue data, our model performs better than the baseline trained solely on real data. In addition, our approach is also capable of adapting to the dynamic demands in real-world scenarios, generating dialogues in new domains swiftly. After replacing dialogue segments in any domain with the corresponding generated ones, the model achieves comparable performance to the model trained on real data. The source code and generated dialogue data are available at https://github.com/ParticleMedia/LUAS.</abstract>
-      <url hash="a9d7b259">2024.acl-long.473</url>
+      <url hash="045b7e47">2024.acl-long.473</url>
       <bibkey>niu-etal-2024-enhancing</bibkey>
       <doi>10.18653/v1/2024.acl-long.473</doi>
+      <revision id="1" href="2024.acl-long.473v1" hash="a9d7b259"/>
+      <revision id="2" href="2024.acl-long.473v2" hash="045b7e47" date="2025-04-25">Correct author order</revision>
     </paper>
     <paper id="474">
       <title><fixed-case>M</fixed-case>eta<fixed-case>S</fixed-case>um<fixed-case>P</fixed-case>erceiver: Multimodal Multi-Document Evidence Summarization for Fact-Checking</title>
@@ -13810,11 +13812,13 @@
       <address>Bangkok, Thailand</address>
       <month>August</month>
       <year>2024</year>
-      <url hash="cde5b670">2024.acl-srw</url>
+      <url hash="81f820a7">2024.acl-srw</url>
       <venue>acl</venue>
+      <venue>ws</venue>
+      <isbn>979-8-89176-097-4</isbn>
     </meta>
     <frontmatter>
-      <url hash="fc18831c">2024.acl-srw.0</url>
+      <url hash="f2599f6a">2024.acl-srw.0</url>
       <bibkey>acl-2024-srw</bibkey>
     </frontmatter>
     <paper id="1">
@@ -13825,7 +13829,7 @@
       <author><first>Christopher</first><last>Homan</last></author>
       <pages>1-9</pages>
       <abstract>Machine translation (MT) is a rapidly expanding field that has experienced significant advancements in recent years with the development of models capable of translating multiple languages with remarkable accuracy. However, the representation of African languages in this field still needs improvement due to linguistic complexities and limited resources. This applies to the Zarma language, a dialect of Songhay (of the Nilo-Saharan language family) spoken by over 5 million people across Niger and neighboring countries (Lewis et al., 2016). This paper introduces Feriji, the first robust French-Zarma parallel corpus and glossary designed for MT. The corpus, containing 61,085 sentences in Zarma and 42,789 in French, and a glossary of 4,062 words represents a significant step in addressing the need for more resources for Zarma. We fine-tune three large language models on our dataset, obtaining a BLEU score of 30.06 on the best-performing model. We further evaluate the models on human judgments of fluency, comprehension, and readability and the importance and impact of the corpus and models. Our contributions help to bridge a significant language gap and promote an essential and overlooked indigenous African language.</abstract>
-      <url hash="cd755fd9">2024.acl-srw.1</url>
+      <url hash="95b1c655">2024.acl-srw.1</url>
       <bibkey>keita-etal-2024-feriji</bibkey>
       <doi>10.18653/v1/2024.acl-srw.1</doi>
     </paper>
@@ -13835,7 +13839,7 @@
       <author><first>Seong mook</first><last>Kim</last><affiliation>Sungkyunkwan University, South Korea</affiliation></author>
       <pages>10-20</pages>
       <abstract>This study investigates how Large Language Models (LLMs), particularly BERT (Devlin et al., 2019) and GPT-2 (Radford et al., 2019), engage in pragmatic inference of scalar implicature, such as some. Two sets of experiments were conducted using cosine similarity and next sentence/token prediction as experimental methods. The results in experiment 1 showed that, both models interpret some as pragmatic implicature not all in the absence of context, aligning with human language processing. In experiment 2, in which Question Under Discussion (QUD) was presented as a contextual cue, BERT showed consistent performance regardless of types of QUDs, while GPT-2 encountered processing difficulties since a certain type of QUD required pragmatic inference for implicature. The findings revealed that, in terms of theoretical approaches, BERT inherently incorporates pragmatic implicature not all within the term some, adhering to Default model (Levinson, 2000). In contrast, GPT-2 seems to encounter processing difficulties in inferring pragmatic implicature within context, consistent with Context-driven model (Sperber and Wilson, 2002).</abstract>
-      <url hash="49c975e0">2024.acl-srw.2</url>
+      <url hash="b60cdc2f">2024.acl-srw.2</url>
       <bibkey>cho-ismkim99-skku-edu-2024-pragmatic</bibkey>
       <doi>10.18653/v1/2024.acl-srw.2</doi>
     </paper>
@@ -13846,7 +13850,7 @@
       <author><first>Hitomi</first><last>Yanaka</last><affiliation>the University of Tokyo</affiliation></author>
       <pages>21-33</pages>
       <abstract>As conventional topic models rely on word co-occurrence to infer latent topics, topic modeling for short texts has been a long-standing challenge. Large Language Models (LLMs) can potentially overcome this challenge by contextually learning the meanings of words via pretraining. In this paper, we study two approaches to using LLMs for topic modeling: parallel prompting and sequential prompting. Input length limitations prevent LLMs from processing many texts at once. However, an arbitrary number of texts can be handled by LLMs by splitting the texts into smaller subsets and processing them in parallel or sequentially. Our experimental results demonstrate that our methods can identify more coherent topics than existing ones while maintaining the diversity of the induced topics. Furthermore, we found that the inferred topics cover the input texts to some extent, while hallucinated topics are hardly generated.</abstract>
-      <url hash="eb8faa52">2024.acl-srw.3</url>
+      <url hash="e53abe45">2024.acl-srw.3</url>
       <bibkey>doi-etal-2024-topic</bibkey>
       <doi>10.18653/v1/2024.acl-srw.3</doi>
     </paper>
@@ -13860,7 +13864,7 @@
       <author><first>Zhou</first><last>Zhao</last><affiliation>Zhejiang University and Zhejiang University</affiliation></author>
       <pages>34-41</pages>
       <abstract>Direct speech-to-speech translation (S2ST) with discrete self-supervised representations has achieved remarkable accuracy, but is unable to preserve the speaker timbre of the source speech. Meanwhile, the scarcity of high-quality speaker-parallel data poses a challenge for learning style transfer during translation. We design an S2ST pipeline with style-transfer capability on the basis of discrete self-supervised speech representations and codec units. The acoustic language model we introduce for style transfer leverages self-supervised in-context learning, acquiring style transfer ability without relying on any speaker-parallel data, thereby overcoming data scarcity. By using extensive training data, our model achieves zero-shot cross-lingual style transfer on previously unseen source languages. Experiments show that our model generates translated speeches with high fidelity and speaker similarity. Audio samples are available at http://stylelm.github.io/ .</abstract>
-      <url hash="1e867503">2024.acl-srw.5</url>
+      <url hash="99e15913">2024.acl-srw.5</url>
       <bibkey>wang-etal-2024-speech</bibkey>
       <doi>10.18653/v1/2024.acl-srw.5</doi>
     </paper>
@@ -13869,7 +13873,7 @@
       <author><first>Ahmed</first><last>Allam</last></author>
       <pages>42-50</pages>
       <abstract>Large Language Models (LLMs) have become pivotal in advancing natural language processing, yet their potential to perpetuate biases poses significant concerns. This paper introduces a new framework employing Direct Preference Optimization (DPO) to mitigate gender, racial, and religious biases in LLM-generated English text. By developing a loss function that favors less biased over biased completions, our approach cultivates a preference for respectful and non-discriminatory language in LLMs. We also contribute a manually designed dataset for training LLMs to recognize and correct biases. This dataset encompasses a diverse range of prompts paired with both biased and unbiased completions. Implementing this approach on the Microsoft Phi-2 model, we demonstrate substantial reductions in biased outputs as our model outperforms the baseline model on almost all bias benchmarks. Our model also achieves better performance compared to other open-source models on most benchmarks. By reducing biases in the language generated by the model, our study marks a significant step towards developing more ethical and socially responsible LLMs. We publicly release BiasDPO dataset on HuggingFace.</abstract>
-      <url hash="1ffa5346">2024.acl-srw.7</url>
+      <url hash="9ec8156a">2024.acl-srw.7</url>
       <bibkey>allam-2024-biasdpo</bibkey>
       <doi>10.18653/v1/2024.acl-srw.7</doi>
     </paper>
@@ -13880,7 +13884,7 @@
       <author><first>Masaaki</first><last>Nagata</last><affiliation>NTT Corporation</affiliation></author>
       <pages>51-61</pages>
       <abstract>Acquiring large-scale parallel corpora is crucial for NLP tasks such asNeural Machine Translation, and web crawling has become a popularmethodology for this purpose. Previous studies have been conductedbased on sentence-based segmentation (SBS) when aligning documents invarious languages which are obtained through web crawling. Among them,the TK-PERT method (Thompson and Koehn, 2020) achieved state-of-the-artresults and addressed the boilerplate text in web crawling data wellthrough a down-weighting approach. However, there remains a problemwith how to handle long-text encoding better. Thus, we introduce thestrategy of Overlapping Fixed-Length Segmentation (OFLS) in place ofSBS, and observe a pronounced enhancement when performing the sameapproach for document alignment. In this paper, we compare the SBS andOFLS using three previous methods, Mean-Pool, TK-PERT (Thompson andKoehn, 2020), and Optimal Transport (Clark et al., 2019; El- Kishky andGuzman, 2020), on the WMT16 document alignment shared task forFrench-English, as well as on our self-established Japanese-Englishdataset MnRN. As a result, for the WMT16 task, various SBS basedmethods showed an increase in recall by 1% to 10% after reproductionwith OFLS. For MnRN data, OFLS demonstrated notable accuracyimprovements and exhibited faster document embedding speed.</abstract>
-      <url hash="992f5355">2024.acl-srw.10</url>
+      <url hash="84902172">2024.acl-srw.10</url>
       <bibkey>wang-etal-2024-document</bibkey>
       <doi>10.18653/v1/2024.acl-srw.10</doi>
     </paper>
@@ -13891,7 +13895,7 @@
       <author><first>Supreetha</first><last>R</last></author>
       <pages>62-67</pages>
       <abstract>Large Language Models (LLMs) have significant potential for facilitating intelligent end-user applications in healthcare. However, hallucinations remain an inherent problem with LLMs, making it crucial to address this issue with extensive medical knowledge and data. In this work, we propose a Retrieve-and-Medically-Augmented-Generation with Knowledge Reduction (ReMAG-KR) pipeline, employing a carefully curated knowledge base using cross-encoder re-ranking strategies. The pipeline is tested on medical MCQ-based QA datasets as well as general QA datasets. It was observed that when the knowledge base is reduced, the model’s performance decreases by 2-8%, while the inference time improves by 47%.</abstract>
-      <url hash="0fa3d62d">2024.acl-srw.13</url>
+      <url hash="04effb8b">2024.acl-srw.13</url>
       <bibkey>murali-etal-2024-remag</bibkey>
       <doi>10.18653/v1/2024.acl-srw.13</doi>
     </paper>
@@ -13906,7 +13910,7 @@
       <author><first>Timothy</first><last>Baldwin</last><affiliation>Mohamed bin Zayed University of Artificial Intelligence and The University of Melbourne</affiliation></author>
       <pages>68-75</pages>
       <abstract>Instruction tuning significantly enhances the performance of large language models (LLMs) across various tasks. However, the procedure to optimizing the mixing of instruction datasets for LLM fine-tuning is still poorly understood. This study categorizes instructions into three primary types: NLP downstream tasks, coding, and general chat. We explore the effects of instruction tuning on different combinations of datasets on LLM performance, and find that certain instruction types are more advantageous for specific applications but can negatively impact other areas. This work provides insights into instruction mixtures, laying the foundations for future research.</abstract>
-      <url hash="1be37de3">2024.acl-srw.15</url>
+      <url hash="4e6cceeb">2024.acl-srw.15</url>
       <bibkey>wang-etal-2024-demystifying</bibkey>
       <doi>10.18653/v1/2024.acl-srw.15</doi>
     </paper>
@@ -13916,7 +13920,7 @@
       <author><first>Gina-Anne</first><last>Levow</last><affiliation>University of Washington and University of Washington</affiliation></author>
       <pages>76-82</pages>
       <abstract>Recent advancements in multilingual models for automatic speech recognition (ASR) have been able to achieve a high accuracy for languages with extremely limited resources. This study examines ASR modeling for the Mvskoke language, an indigenous language of America. The parameter efficiency of adapter training is contrasted with training entire models, and it is demonstrated how performance varies with different amounts of data. Additionally, the models are evaluated with trigram language model decoding, and the outputs are compared across different types of speech recordings. Results show that training an adapter is both parameter efficient and gives higher accuracy for a relatively small amount of data.</abstract>
-      <url hash="918ba88b">2024.acl-srw.16</url>
+      <url hash="e0de67af">2024.acl-srw.16</url>
       <bibkey>mainzinger-levow-2024-fine</bibkey>
       <doi>10.18653/v1/2024.acl-srw.16</doi>
     </paper>
@@ -13927,18 +13931,18 @@
       <author><first>Jörgen</first><last>Pfeffer</last><affiliation>Technische Universität München</affiliation></author>
       <pages>83-91</pages>
       <abstract>This PhD proposal aims to investigate ways of automating qualitative data analysis, specifically the thematic coding of texts. Despite existing methods vastly covered in literature, they mainly use Topic Modeling and other quantitative approaches which are far from resembling a human’s analysis outcome. This proposal examines the limitations of current research in the field. It proposes a novel methodology based on Large Language Models to tackle automated coding and make it as close as possible to the results of human researchers. This paper covers studies already done in this field and their limitations, existing software, the problem of duplicating the researcher bias, and the proposed methodology.</abstract>
-      <url hash="a9c1ea15">2024.acl-srw.17</url>
+      <url hash="859d7603">2024.acl-srw.17</url>
       <bibkey>parfenova-etal-2024-automating</bibkey>
       <doi>10.18653/v1/2024.acl-srw.17</doi>
     </paper>
     <paper id="18">
       <title><fixed-case>ANHALTEN</fixed-case>: Cross-Lingual Transfer for <fixed-case>G</fixed-case>erman Token-Level Reference-Free Hallucination Detection</title>
-      <author><first>Janek</first><last>Herrlein</last><affiliation>Bayerische Julius-Maximilians-Universit�t W�rzburg</affiliation></author>
-      <author><first>Chia-Chien</first><last>Hung</last><affiliation>NEC Laboratories Europe and Universit�t Mannheim</affiliation></author>
-      <author><first>Goran</first><last>Glava�</last><affiliation>Julius-Maximilians-Universit�t W�rzburg</affiliation></author>
+      <author><first>Janek</first><last>Herrlein</last><affiliation>Bayerische Julius-Maximilians-Universität Würzburg</affiliation></author>
+      <author><first>Chia-Chien</first><last>Hung</last><affiliation>NEC Laboratories Europe and Universität Mannheim</affiliation></author>
+      <author><first>Goran</first><last>Glavaš</last><affiliation>Julius-Maximilians-Universität Wärzburg</affiliation></author>
       <pages>92-100</pages>
       <abstract>Research on token-level reference-free hallucination detection has predominantly focused on English, primarily due to the scarcity of robust datasets in other languages. This has hindered systematic investigations into the effectiveness of cross-lingual transfer for this important NLP application. To address this gap, we introduce ANHALTEN, a new evaluation dataset that extends the English hallucination detection dataset to German. To the best of our knowledge, this is the first work that explores cross-lingual transfer for token-level reference-free hallucination detection. ANHALTEN contains gold annotations in German that are parallel (i.e., directly comparable to the original English instances). We benchmark several prominent cross-lingual transfer approaches, demonstrating that larger context length leads to better hallucination detection in German, even without succeeding context. Importantly, we show that the sample-efficient few-shot transfer is the most effective approach in most setups. This highlights the practical benefits of minimal annotation effort in the target language for reference-free hallucination detection. Aiming to catalyze future research on cross-lingual token-level reference-free hallucination detection, we make ANHALTEN publicly available: https://github.com/janekh24/anhalten</abstract>
-      <url hash="132c929f">2024.acl-srw.18</url>
+      <url hash="42b378e4">2024.acl-srw.18</url>
       <bibkey>herrlein-etal-2024-anhalten</bibkey>
       <doi>10.18653/v1/2024.acl-srw.18</doi>
     </paper>
@@ -13949,7 +13953,7 @@
       <author><first>Peerapon</first><last>Vateekul</last><affiliation>Chulalongkorn University</affiliation></author>
       <pages>101-109</pages>
       <abstract>Prompt-based learning has shown its effectiveness in few-shot text classification. A key factor in its success is a verbalizer, which translates output from a language model into a predicted class. Notably, the simplest and widely acknowledged verbalizer employs manual labels to represent the classes. However, manual selection may not yield the optimal words for a given language model, potentially leading to subpar classification performance, especially in mid-to-low resource languages with weaker language models. Therefore, we propose Label-Aware Automatic Verbalizer (LAAV), effectively augmenting manual labels for improved few-shot classification results. Specifically, we utilize the label name along with the conjunction “and” to induce the model to generate more effective words for the verbalizer. Experimental results on four mid-to-low resource Southeast Asian languages demonstrate that LAAV significantly outperforms existing verbalizers.</abstract>
-      <url hash="bd759d3b">2024.acl-srw.19</url>
+      <url hash="b1c0a788">2024.acl-srw.19</url>
       <bibkey>thaminkaew-etal-2024-label</bibkey>
       <doi>10.18653/v1/2024.acl-srw.19</doi>
     </paper>
@@ -13960,7 +13964,7 @@
       <author><first>Thomas</first><last>Lavergne</last></author>
       <pages>110-130</pages>
       <abstract>Multiword Expressions (MWEs) make a goodcase study for linguistic diversity due to theiridiosyncratic nature. Defining MWE canonicalforms as types, diversity may be measurednotably through disparity, based on pairwisedistances between types. To this aim, wetrain static MWE-aware word embeddings forverbal MWEs in 14 languages, and we showinteresting properties of these vector spaces.We use these vector spaces to implement theso-called functional diversity measure. Weapply this measure to the results of severalMWE identification systems. We find that,although MWE vector spaces are meaningful ata local scale, the disparity measure aggregatingthem at a global scale strongly correlateswith the number of types, which questions itsusefulness in presence of simpler diversitymetrics such as variety. We make the vectorspaces we generated available.</abstract>
-      <url hash="6321ffb4">2024.acl-srw.20</url>
+      <url hash="ab469e4d">2024.acl-srw.20</url>
       <bibkey>estve-etal-2024-vector</bibkey>
       <doi>10.18653/v1/2024.acl-srw.20</doi>
     </paper>
@@ -13970,7 +13974,7 @@
       <author><first>Dirk</first><last>Hovy</last><affiliation>Bocconi University</affiliation></author>
       <pages>131-143</pages>
       <abstract>Any report frames issues to favor a particular interpretation by highlighting or excluding certain aspects of a story. Despite the widespread use of framing in disinformation, framing properties and detection methods remain underexplored outside the English-speaking world. We explore how multilingual framing of the same issue differs systematically. We use eight years of Russia-backed disinformation campaigns, spanning 8k news articles in 4 languages targeting 15 countries. We find that disinformation campaigns consistently and intentionally favor specific framing, depending on the target language of the audience. We further discover how Russian-language articles consistently highlight selected frames depending on the region of the media coverage. We find that the two most prominent models for automatic frame analysis underperform and show high disagreement, highlighting the need for further research.</abstract>
-      <url hash="5d5a1c27">2024.acl-srw.21</url>
+      <url hash="b5559129">2024.acl-srw.21</url>
       <bibkey>sinelnik-hovy-2024-narratives</bibkey>
       <doi>10.18653/v1/2024.acl-srw.21</doi>
     </paper>
@@ -13981,7 +13985,7 @@
       <author><first>Andreas</first><last>Spitz</last><affiliation>Universität Konstanz</affiliation></author>
       <pages>144-158</pages>
       <abstract>Researchers in the political and social sciences often rely on classification models to analyze trends in information consumption by examining browsing histories of millions of webpages. Automated scalable methods are necessary due to the impracticality of manual labeling. In this paper, we model the detection of topic-related content as a binary classification task and compare the accuracy of fine-tuned pre-trained encoder models against in-context learning strategies. Using only a few hundred annotated data points per topic, we detect content related to three German policies in a database of scraped webpages. We compare multilingual and monolingual models, as well as zero and few-shot approaches, and investigate the impact of negative sampling strategies and the combination of URL &amp; content-based features. Our results show that a small sample of annotated data is sufficient to train an effective classifier. Fine-tuning encoder-based models yields better results than in-context learning. Classifiers using both URL &amp; content-based features perform best, while using URLs alone provides adequate results when content is unavailable.</abstract>
-      <url hash="81f4b458">2024.acl-srw.22</url>
+      <url hash="2fedeb49">2024.acl-srw.22</url>
       <bibkey>schelb-etal-2024-assessing</bibkey>
       <doi>10.18653/v1/2024.acl-srw.22</doi>
     </paper>
@@ -13993,7 +13997,7 @@
       <author><first>Eisaku</first><last>Maeda</last><affiliation>Tokyo Denki University</affiliation></author>
       <pages>159-169</pages>
       <abstract>Large Language Models (LLMs) are considered to have potentially extensive knowledge, but because their internal processing is black-boxed, it has been difficult to directly edit the knowledge held by the LLMs themselves. To address this issue, a method called local modification-based knowledge editing has been developed. This method identifies the knowledge neurons that encode the target knowledge and adjusts the parameters associated with these neurons to update the knowledge. Knowledge neurons are identified by masking the <tex-math>\it{o}</tex-math> part from sentences representing relational triplets (<tex-math>\it{s, r, o}</tex-math>), having the LLM predict the masked part, and observing the LLM's activation during the prediction. When the architecture is decoder-based, the predicted <tex-math>\it{o}</tex-math> needs to be located at the end of the sentence. Previous local modification-based knowledge editing methods for decoder-based models have assumed SVO languages and faced challenges when applied to SOV languages such as Japanese. In this study, we propose a knowledge editing method that eliminates the need for word order constraints by converting the input for identifying knowledge neurons into a question where <tex-math>\it{o}</tex-math> is the answer. We conducted validation experiments on 500 examples and confirmed that the proposed method is effective for Japanese, a non-SVO language. We also applied this method to English, an SVO language, and demonstrated that it outperforms conventional methods.</abstract>
-      <url hash="115421f1">2024.acl-srw.23</url>
+      <url hash="de1412e0">2024.acl-srw.23</url>
       <bibkey>ishigaki-etal-2024-knowledge</bibkey>
       <doi>10.18653/v1/2024.acl-srw.23</doi>
     </paper>
@@ -14005,7 +14009,7 @@
       <author><first>Dietrich</first><last>Klakow</last><affiliation>Saarland University</affiliation></author>
       <pages>170-185</pages>
       <abstract>Identifying beneficial tasks to transfer from is a critical step toward successful intermediate-task transfer learning. In this work, we experiment with 130 source-target task combinations and demonstrate that the transfer performance exhibits severe variance across different source tasks and training seeds, highlighting the crucial role of intermediate-task selection in a broader context. We compare four representative task selection methods in a unified setup, focusing on their effectiveness and consistency. Compared to embedding-free methods and text embeddings, task embeddings constructed from fine-tuned weights can better estimate task transferability by improving task prediction scores from 2.59% to 3.96%. Despite their strong performance, we observe that the task embeddings do not consistently demonstrate superiority for tasks requiring reasoning abilities. Furthermore, we introduce a novel method that measures pairwise token similarity using maximum inner product search, leading to the highest performance in task prediction. Our findings suggest that token-wise similarity is better predictive for predicting transferability compared to averaging weights.</abstract>
-      <url hash="a0631551">2024.acl-srw.24</url>
+      <url hash="bf844b70">2024.acl-srw.24</url>
       <bibkey>lin-etal-2024-exploring</bibkey>
       <doi>10.18653/v1/2024.acl-srw.24</doi>
     </paper>
@@ -14017,7 +14021,7 @@
       <author><first>Cyril</first><last>Grouin</last><affiliation>CNRS</affiliation></author>
       <pages>186-191</pages>
       <abstract>The processing of long sequences with models remains a subject in its own right, including automatic summary, despite recent improvements. In this work, we present experiments on the automatic summarization of scientific articles using BART models, taking into account textual information coming from distinct passages from the long texts to be summarized. We demonstrate that taking into account document structure improves the performance of state-of-the-art models and approaches the performance of LongFormer on English.</abstract>
-      <url hash="b378c57e">2024.acl-srw.25</url>
+      <url hash="207bf02f">2024.acl-srw.25</url>
       <bibkey>sauvage-etal-2024-structure</bibkey>
       <doi>10.18653/v1/2024.acl-srw.25</doi>
     </paper>
@@ -14028,7 +14032,7 @@
       <author><first>Hitomi</first><last>Yanaka</last><affiliation>the University of Tokyo</affiliation></author>
       <pages>192-199</pages>
       <abstract>Vision-and-Language Navigation (VLN) encompasses interacting with autonomous vehicles using language and visual input from the perspective of mobility.Most of the previous work in this field focuses on spatial reasoning and the semantic grounding of visual information.However, reasoning based on the actions of pedestrians in the scene is not much considered.In this study, we provide a VLN dataset for destination prediction with action inference to investigate the extent to which current VLN models perform action inference.We introduce a crowd-sourcing process to construct a dataset for this task in two steps: (1) collecting beliefs about the next action for a pedestrian and (2) annotating the destination considering the pedestrian’s next action.Our benchmarking results of the models on destination prediction lead us to believe that the models can learn to reason about the effect of the action and the next action on the destination to a certain extent.However, there is still much scope for improvement.</abstract>
-      <url hash="0a4c0c54">2024.acl-srw.26</url>
+      <url hash="565f5cd3">2024.acl-srw.26</url>
       <bibkey>kondapally-etal-2024-action</bibkey>
       <doi>10.18653/v1/2024.acl-srw.26</doi>
     </paper>
@@ -14038,19 +14042,19 @@
       <author><first>Rob</first><last>Voigt</last><affiliation>Northwestern University</affiliation></author>
       <pages>200-208</pages>
       <abstract>In France, linguistic borrowings in the relatively conservative French language are an important site of cultural debate, and rap in particular is a hotspot for borrowings. In this work, we use computational methods to understand the factors that affect the prominence and prevalence of a borrowing. To do so, we manually annotate a lexicon of over 700 borrowings occurring in this context (including key aspects for each borrowing such as origin and semantic class). We analyze the prevalence of these borrowings in a newly collected corpus of over 8000 French rap song lyrics and find that there are increases in the proportion of linguistic borrowings, interjections, and Niger-Congo borrowings while terms related to the arts are decreasing in prevalence. We release our code and data to facilitate further research in this area and discuss potential future directions.</abstract>
-      <url hash="d6346cb3">2024.acl-srw.27</url>
+      <url hash="cad78821">2024.acl-srw.27</url>
       <bibkey>zurbuchen-voigt-2024-computational</bibkey>
       <doi>10.18653/v1/2024.acl-srw.27</doi>
     </paper>
     <paper id="28">
       <title>On Improving Repository-Level Code <fixed-case>QA</fixed-case> for Large Language Models</title>
       <author><first>Jan</first><last>Strich</last></author>
-      <author><first>Florian</first><last>Schneider</last><affiliation>Universit�t Hamburg</affiliation></author>
+      <author><first>Florian</first><last>Schneider</last><affiliation>Universität Hamburg</affiliation></author>
       <author><first>Irina</first><last>Nikishina</last></author>
       <author><first>Chris</first><last>Biemann</last><affiliation>U Hamburg</affiliation></author>
       <pages>209-244</pages>
       <abstract>Large Language Models (LLMs) such as ChatGPT, GitHub Copilot, Llama, or Mistral assist programmers as copilots and knowledge sources to make the coding process faster and more efficient. This paper aims to improve the copilot performance by implementing different self-alignment processes and retrieval-augmented generation (RAG) pipelines, as well as their combination. To test the effectiveness of all approaches, we create a dataset and apply a model-based evaluation, using LLM as a judge. It is designed to check the model’s abilities to understand the source code semantics, the dependency between files, and the overall meta-information about the repository. We also compare our approach with other existing solutions, e.g. ChatGPT-3.5, and evaluate on the existing benchmarks. Code and dataset are available online (https://anonymous.4open.science/r/ma_llm-382D).</abstract>
-      <url hash="3dba2e84">2024.acl-srw.28</url>
+      <url hash="3df8ab17">2024.acl-srw.28</url>
       <bibkey>strich-etal-2024-improving</bibkey>
       <doi>10.18653/v1/2024.acl-srw.28</doi>
     </paper>
@@ -14061,7 +14065,7 @@
       <author><first>Paul</first><last>Röttger</last></author>
       <pages>245-251</pages>
       <abstract>As diverse linguistic communities and users adopt Large Language Models (LLMs), assessing their safety across languages becomes critical. Despite ongoing efforts to align these models with safe and ethical guidelines, they can still be induced into unsafe behavior with jailbreaking, a technique in which models are prompted to act outside their operational guidelines. What research has been conducted on these vulnerabilities was predominantly on English, limiting the understanding of LLM behavior in other languages. We address this gap by investigating Many-Shot Jailbreaking (MSJ) in Italian, underscoring the importance of understanding LLM behavior in different languages. We base our analysis on a newly created Italian dataset to identify unique safety vulnerabilities in 4 families of open-source LLMs.We find that the models exhibit unsafe behaviors even with minimal exposure to harmful prompts, and–more alarmingly–this tendency rapidly escalates with more demonstrations.</abstract>
-      <url hash="5b5c8ec0">2024.acl-srw.29</url>
+      <url hash="3a789ad4">2024.acl-srw.29</url>
       <bibkey>pernisi-etal-2024-compromesso</bibkey>
       <doi>10.18653/v1/2024.acl-srw.29</doi>
     </paper>
@@ -14073,7 +14077,7 @@
       <author><first>Dien</first><last>Dinh</last></author>
       <pages>252-260</pages>
       <abstract>Question answering involves creating answers to questions. With the growth of large language models, the ability of question-answering systems has dramatically improved. However, there is a lack of Vietnamese abstractive question-answering datasets, especially in the medical domain. Therefore, this research aims to mitigate this gap by introducing ViMedAQA. This **Vi**etnamese **Med**ical **A**bstractive **Q**uestion-**A**nswering dataset covers four topics in the Vietnamese medical domain, including body parts, disease, drugs and medicine. Additionally, the empirical results on the proposed dataset examine the capability of the large language models in the Vietnamese medical domain, including reasoning, memorizing and awareness of essential information.</abstract>
-      <url hash="8ffe4f78">2024.acl-srw.31</url>
+      <url hash="2545887c">2024.acl-srw.31</url>
       <bibkey>tran-etal-2024-vimedaqa</bibkey>
       <doi>10.18653/v1/2024.acl-srw.31</doi>
     </paper>
@@ -14087,7 +14091,7 @@
       <author id="fei-liu"><first>Fei</first><last>Liu</last><affiliation>Emory University</affiliation></author>
       <pages>261-272</pages>
       <abstract>Customizing LLMs for a specific task involves separating high-quality responses from lower-quality ones. This skill can be developed using supervised fine-tuning with extensive human preference data. However, obtaining a large volume of expert-annotated data is costly for most tasks. In this paper, we explore a novel method to optimize LLMs using ranking metrics. This method trains the model to prioritize the best responses from a pool of candidates created for a particular task. Rather than a traditional full ordering, we advocate for a partial ordering, as achieving consensus on the perfect order of candidate responses can be challenging. Our partial ordering is more robust, less sensitive to noise, and can be achieved with limited human annotations or through heuristic methods. We test our system’s improved response generation ability using benchmark datasets, including textual entailment and multi-document question answering. We conduct ablation studies to understand crucial factors, such as how to gather candidate responses for a specific task, determine their most suitable order, and balance supervised fine-tuning with ranking metrics. Our approach, named RESCUE, offers a promising avenue for enhancing the response generation and task accuracy of LLMs.</abstract>
-      <url hash="cc5abbb7">2024.acl-srw.32</url>
+      <url hash="3cbb59e1">2024.acl-srw.32</url>
       <bibkey>wang-etal-2024-rescue</bibkey>
       <doi>10.18653/v1/2024.acl-srw.32</doi>
     </paper>
@@ -14098,7 +14102,7 @@
       <author><first>Annie</first><last>Chen</last><affiliation>University of Washington</affiliation></author>
       <pages>273-286</pages>
       <abstract>Geoparsing, the task of assigning coordinates to locations extracted from free text, is invaluable in enabling us to place locations in time and space. In the historical domain, many geoparsing corpora are from large news collections. We examine the Svoboda Diaries, a small historical corpus written primarily in English, with many location names in transliterated Arabic. We develop a pipeline employing named entity recognition for geotagging, and a map-based generate-and-rank approach incorporating candidate name augmentation and clustering of location context words for geocoding. Our system outperforms existing map-based geoparsers in terms of accuracy, lowest mean distance error, and number of locations correctly identified. As location names may vary from those in knowledge bases, we find that augmented candidate generation is instrumental in the system’s performance. Among our candidate generation methods, the generation of transliterated names contributed the most to increased location matches in the knowledge base. Our main contribution is proposing an integrated pipeline for geoparsing of historical corpora using augmented candidate location name generation and clustering methods – an approach that can be generalized to other texts with foreign or non-standard spellings.</abstract>
-      <url hash="22cb71e6">2024.acl-srw.33</url>
+      <url hash="80c77dc3">2024.acl-srw.33</url>
       <bibkey>zhou-etal-2024-basreh</bibkey>
       <doi>10.18653/v1/2024.acl-srw.33</doi>
     </paper>
@@ -14109,7 +14113,7 @@
       <author><first>Joey</first><last>Chuang</last><affiliation>McGill University</affiliation></author>
       <pages>287-292</pages>
       <abstract>This paper introduces a novel method for empirically evaluating the relationship between the phonological and semantic similarity of linguistic units using embedding spaces. Chinese character homophones are used as a proof-of-concept. We employ cosine similarity as a proxy for semantic similarity between characters, and compare relationships between phonologically-related characters and baseline characters (chosen as similar-frequency characters). We show there is a strongly statistically significant positive semantic relationship among different Chinese characters at varying levels of sound-sharing. We also perform some basic probing using t-SNE and UMAP visualizations, and indicate directions for future applications of this method.</abstract>
-      <url hash="ccee2b3e">2024.acl-srw.34</url>
+      <url hash="f9134add">2024.acl-srw.34</url>
       <bibkey>wu-etal-2024-homophone2vec</bibkey>
       <doi>10.18653/v1/2024.acl-srw.34</doi>
     </paper>
@@ -14119,7 +14123,7 @@
       <author><first>Ali</first><last>Emami</last><affiliation>Brock University</affiliation></author>
       <pages>293-306</pages>
       <abstract>Knowledge distillation allows smaller neural networks to emulate the performance of larger, teacher models with reduced computational demands. Traditional methods for Large Language Models (LLMs) often necessitate extensive fine-tuning, which limits their accessibility. To address this, we introduce Trace-of-Thought Prompting, a novel framework designed to distill critical reasoning capabilities from large-scale teacher models (over 8 billion parameters) to small-scale student models (up to 8 billion parameters). This approach leverages problem decomposition to enhance interpretability and facilitate human-in-the-loop interventions. Empirical evaluations on the GSM8K and MATH datasets show that student models achieve accuracy gains of up to 113% on GSM8K and 20% on MATH, with significant improvements particularly notable in smaller models like Llama 2 and Zephyr. Our results suggest a promising pathway for open-source, small-scale models to eventually serve as both students and teachers, potentially reducing our reliance on large-scale, proprietary models. Our code, featuring data analytics and testing scripts, is provided here: https://github.com/traceofthought/trace-of-thought-prompting/tree/main.</abstract>
-      <url hash="c6c9ea7c">2024.acl-srw.35</url>
+      <url hash="09803655">2024.acl-srw.35</url>
       <bibkey>mcdonald-emami-2024-trace</bibkey>
       <doi>10.18653/v1/2024.acl-srw.35</doi>
     </paper>
@@ -14132,7 +14136,7 @@
       <author><first>Aman</first><last>Chadha</last><affiliation>Amazon</affiliation></author>
       <pages>307-317</pages>
       <abstract>Large Language Models (LLMs) have demonstrated impressive zero-shot performance on a wide range of NLP tasks, demonstrating the ability to reason and apply common sense. A relevant application is to use them for creating high-quality synthetic datasets for downstream tasks. In this work, we probe whether GPT-4 can be used to augment existing extractive reading comprehension datasets. Automating data annotation processes has the potential to save large amounts of time, money, and effort that goes into manually labeling datasets. In this paper, we evaluate the performance of GPT-4 as a replacement for human annotators for low-resource reading comprehension tasks, by comparing performance after fine-tuning, and the cost associated with annotation. This work serves to be the first analysis of LLMs as synthetic data augmenters for QA systems, highlighting the unique opportunities and challenges. Additionally, we release augmented versions of low-resource datasets, that will allow the research community to create further benchmarks for evaluation of generated datasets. Github available at https://github.com/vsamuel2003/qa-gpt4</abstract>
-      <url hash="b89c25ab">2024.acl-srw.36</url>
+      <url hash="673535f6">2024.acl-srw.36</url>
       <bibkey>samuel-etal-2024-llms</bibkey>
       <doi>10.18653/v1/2024.acl-srw.36</doi>
     </paper>
@@ -14141,7 +14145,7 @@
       <author><first>Vipasha</first><last>Bansal</last></author>
       <pages>318-333</pages>
       <abstract>Deep semantic representations are useful for many NLU tasks (Droganova and Zeman 2019; Schuster and Manning-2016). Manual annotation to build these representations is time-consuming, and so automatic approaches are preferred (Droganova and Zeman 2019; Bender et al. 2015). This paper demonstrates how rich semantic representations can be automatically derived for Thai Serial Verb Constructions (SVCs), where the semantic relationship between component verbs is not immediately clear from the surface forms. I present the first fully-implemented HPSG analysis for Thai SVCs, deriving appropriate semantic representations (MRS; Copestake et al. 2005) from syntactic features, implemented within a DELPH-IN computational grammar (Slayden 2009). This analysis increases verified coverage of SVCs by 73% and decreases ambiguity by 46%. The final grammar can be found at: https://github.com/VipashaB94/ThaiGrammar</abstract>
-      <url hash="47b0652a">2024.acl-srw.37</url>
+      <url hash="edbdf6fd">2024.acl-srw.37</url>
       <bibkey>bansal-2024-automatic</bibkey>
       <doi>10.18653/v1/2024.acl-srw.37</doi>
     </paper>
@@ -14150,7 +14154,7 @@
       <author><first>Manas</first><last>Madine</last></author>
       <pages>334-344</pages>
       <abstract>This paper investigates the robustness of Large Language Models (LLMs) against Out-Of-Distribution (OOD) data within the context of sentiment analysis. Traditional fine-tuning approaches often fail to generalize effectively across different data distributions, limiting the practical deployment of LLMs in dynamic real-world scenarios. To address this challenge, we introduce a novel method called “Semantic Rewriting,” which leverages the inherent flexibility of LLMs to align both in-distribution (ID) and OOD data with the LLMs distributions. By semantically transforming sentences to minimize linguistic discrepancies, our approach helps to standardize features across datasets, thus enhancing model robustness. We conduct extensive experiments with several benchmark datasets and LLMs to validate the efficacy of our method. The results demonstrate that Semantic Rewriting significantly improves the performance of models on OOD tasks, outperforming traditional methods in both robustness and generalization capabilities. Our findings suggest that Semantic Rewriting is a promising technique for developing more reliable and versatile NLP systems capable of performing robustly across diverse operational environments.</abstract>
-      <url hash="01f7a2c0">2024.acl-srw.39</url>
+      <url hash="0f9d5faa">2024.acl-srw.39</url>
       <bibkey>madine-2024-bridging</bibkey>
       <doi>10.18653/v1/2024.acl-srw.39</doi>
     </paper>
@@ -14159,7 +14163,7 @@
       <author><first>Yeeun</first><last>Kang</last></author>
       <pages>345-357</pages>
       <abstract>Multilingual code-switching research is often hindered by the lack and linguistically biased status of available datasets. To expand language representation, we synthesize code-switching data by replacing intonation units detected through PSST, a speech segmentation model fine-tuned from OpenAI’s Whisper, using a speech-to-text translation dataset, CoVoST 2. With our dataset, CoVoSwitch, spanning 13 languages, we evaluate the code-switching translation performance of two multilingual translation models, M2M-100 418M and NLLB-200 600M. We reveal that the inclusion of code-switching units results in higher translation performance than monolingual settings and that models are better at code-switching translation into English than non-English. Further, low-resource languages gain most from integration of code-switched units when translating into English but much less when translating into non-English. Translations into low-resource languages also perform worse than even raw code-switched inputs. We find that systems excel at copying English tokens but struggle with non-English tokens, that the off-target problem in monolingual settings is also relevant in code-switching settings, and that models hallucinate in code-switching translation by introducing words absent in both of the original source sentences. CoVoSwitch and code are available at https://github.com/sophiayk20/covoswitch.</abstract>
-      <url hash="b87b975f">2024.acl-srw.40</url>
+      <url hash="762e4fae">2024.acl-srw.40</url>
       <bibkey>kang-2024-covoswitch</bibkey>
       <doi>10.18653/v1/2024.acl-srw.40</doi>
     </paper>
@@ -14167,11 +14171,11 @@
       <title>Beyond Abstracts: A New Dataset, Prompt Design Strategy and Method for Biomedical Synthesis Generation</title>
       <author><first>James</first><last>O’Doherty</last></author>
       <author><first>Cian</first><last>Nolan</last></author>
-      <author><first>Yufang</first><last>Hou</last><affiliation>Technische Universit�t Darmstadt and IBM Research Ireland</affiliation></author>
+      <author><first>Yufang</first><last>Hou</last><affiliation>Technische Universität Darmstadt and IBM Research Ireland</affiliation></author>
       <author><first>Anya</first><last>Belz</last><affiliation>Dublin City University</affiliation></author>
       <pages>358-377</pages>
       <abstract>The biomedical field relies on cost and time intensive systematic reviews of papers to enable practitioners to keep up to date with research. Impressive recent advances in large language models (LLMs) have made the task of automating at least part of the systematic review process feasible, but progress is slow. This paper identifies some factors that may have been holding research back, and proposes a new, enhanced dataset and prompting-based method for automatic synthesis generation, the most challenging step for automation. We test different models and types of information from and about biomedical studies for their usefulness in obtaining high-quality results.We find that, surprisingly, inclusion of paper abstracts can worsens results. Instead, study summary information, and system instructions informed by domain knowledge, are key to producing high-quality syntheses.</abstract>
-      <url hash="4129859d">2024.acl-srw.42</url>
+      <url hash="8aac3af1">2024.acl-srw.42</url>
       <bibkey>odoherty-etal-2024-beyond</bibkey>
       <doi>10.18653/v1/2024.acl-srw.42</doi>
     </paper>
@@ -14183,7 +14187,7 @@
       <author><first>Koichi</first><last>Takeda</last><affiliation>Nagoya University</affiliation></author>
       <pages>378-389</pages>
       <abstract>Decoder-based large language models (LLMs) have shown high performance on many tasks in natural language processing. This is also true for sentence embedding learning, where a decoder-based model, PromptEOL, has achieved the best performance on semantic textual similarity (STS) tasks. However, PromptEOL requires a manually annotated natural language inference (NLI) dataset for fine-tuning.We aim to improve sentence embeddings without using large manually annotated datasets by automatically generating an NLI dataset with an LLM and using it for fine-tuning of PromptEOL. To achieve this, we explore methods of data generation suitable for sentence embedding learning in this study. Specifically, we will focus on automatic dataset generation through few-shot learning and explore the appropriate methods to leverage few-shot examples. Experimental results on the STS tasks demonstrate that our approach outperforms existing models in settings without large manually annotated datasets.</abstract>
-      <url hash="f55354dd">2024.acl-srw.43</url>
+      <url hash="1dacb9d7">2024.acl-srw.43</url>
       <bibkey>sato-etal-2024-improving</bibkey>
       <doi>10.18653/v1/2024.acl-srw.43</doi>
     </paper>
@@ -14195,7 +14199,7 @@
       <author><first>Riyadh</first><last>Baghdadi</last><affiliation>New York University</affiliation></author>
       <pages>390-401</pages>
       <abstract>Code language models have emerged as useful tools for various programming tasks, yet they often struggle when it comes to complex ones. In this paper, we explore the potential of curriculum learning in enhancing the performance of these models. While prior research has suggested that curriculum learning does not necessarily help in improving the performance of language models, our results surprisingly show that this may not be the case for code language models. We demonstrate that a well-designed curriculum learning approach significantly improves the accuracy of small decoder-only code language models on the task of code execution, while its effect on code completion is less significant. To explore the potential of curriculum learning, we train multiple GPT models with 1 million parameters each to predict the next token and evaluate them on code completion and execution tasks. Our contributions include proposing a novel code difficulty assessment metric by combining software code measures, investigating the effectiveness of Curriculum Learning for code language models, and introducing a Novel Curriculum Learning schedule that enhances the performance of small decoder-only language models in code execution tasks. The results of this paper open the door for more research on the use of curriculum learning for code language models.</abstract>
-      <url hash="1afd1526">2024.acl-srw.44</url>
+      <url hash="2a53d3a8">2024.acl-srw.44</url>
       <bibkey>nair-etal-2024-curriculum</bibkey>
       <doi>10.18653/v1/2024.acl-srw.44</doi>
     </paper>
@@ -14206,7 +14210,7 @@
       <author><first>Sean</first><last>O’Brien</last><affiliation>University of California, San Diego</affiliation></author>
       <pages>402-413</pages>
       <abstract>Although LLMs have the potential to transform many fields, they still underperform humans in reasoning tasks. Existing methods induce the model to produce step-by-step calculations, but this research explores the question: Does making the LLM analyze the question improve its performance? We propose a novel prompting strategy called Question Analysis Prompting (QAP), in which the model is prompted to explain the question in ’n’ words before solving. The value of ’n’ influences the length of response generated by the model. QAP is evaluated on GPT-3.5 Turbo and GPT-4 Turbo on arithmetic datasets GSM8K, AQuA, and SAT and commonsense dataset StrategyQA. QAP is compared with other state-of-the-art prompts including chain-of-thought (CoT), Plan and Solve Prompting (PS+) and Take A Deep Breath (TADB). QAP outperforms all state-of-the-art prompts on AQuA and SAT datasets on both GPT-3.5 and GPT-4. QAP consistently ranks among the top-2 prompts on 75% of the tests. A key factor of QAP performance can be attributed to response length, where detailed responses are beneficial when answering harder questions, but can negatively affect easy questions.</abstract>
-      <url hash="28db8c22">2024.acl-srw.45</url>
+      <url hash="79e55405">2024.acl-srw.45</url>
       <bibkey>yugeswardeenoo-etal-2024-question</bibkey>
       <doi>10.18653/v1/2024.acl-srw.45</doi>
     </paper>
@@ -14217,7 +14221,7 @@
       <author><first>Ashutosh</first><last>Modi</last><affiliation>IIT Kanpur</affiliation></author>
       <pages>414-426</pages>
       <abstract>Although Large Language Models (LLMs) have been trained using just the next token prediction objective, these have shown impressive performance on various tasks. Consequently, it has attracted research interests in this regard. While one line of work in the past has suggested that LLMs learn surface-level statistics from the dataset, another line of work emphasizes that the learned representations are effective for simulating the underlying world model, considering the causal relationship for the next token prediction. This phenomenon is often referred to as the emergence of a world model in sequence prediction tasks. Recent work has demonstrated this phenomenon in a simulated setting of board games like Othello and Chess. In this paper, we analyze the game of Checkers to find out the emergence of a world model in a language model. By training a GPT-style autoregressive language model using only the next character prediction objective, we find that the model does show a hint of learning a world model representation of the board positions. We perform our analysis on two datasets: 1) synthetic dataset, which comes from the checkers game tree, and 2) human gameplay dataset. With multiple models trained with different layer sizes, we find that increasing the parameter size does help learn better world model representation decoded by linear probes.</abstract>
-      <url hash="93839814">2024.acl-srw.48</url>
+      <url hash="0c22dedb">2024.acl-srw.48</url>
       <bibkey>joshi-etal-2024-checkersgpt</bibkey>
       <doi>10.18653/v1/2024.acl-srw.48</doi>
     </paper>
@@ -14229,9 +14233,110 @@
       <author><first>Pekka</first><last>Marttinen</last><affiliation>Aalto University</affiliation></author>
       <pages>427-444</pages>
       <abstract>State of the art Symbolic Regression (SR) methods currently build specialized models, while the application of Large Language Models (LLMs) remains largely unexplored. In this work, we introduce the first comprehensive framework that utilizes LLMs for the task of SR.We propose In-Context Symbolic Regression (ICSR), an SR method which iteratively refines a functional form with an LLM and determines its coefficients with an external optimizer. ICSR leverages LLMs’ strong mathematical prior both to propose an initial set of possible functions given the observations and to refine them based on their errors.Our findings reveal that LLMs are able to successfully find symbolic equations that fit the given data, matching or outperforming the overall performance of the best SR baselines on four popular benchmarks, while yielding simpler equations with better out of distribution generalization.</abstract>
-      <url hash="4321195c">2024.acl-srw.49</url>
+      <url hash="48a19672">2024.acl-srw.49</url>
       <bibkey>merler-etal-2024-context</bibkey>
       <doi>10.18653/v1/2024.acl-srw.49</doi>
+    </paper>
+    <paper id="50">
+      <title>Seed-Free Synthetic Data Generation Framework for Instruction-Tuning <fixed-case>LLM</fixed-case>s: A Case Study in <fixed-case>T</fixed-case>hai</title>
+      <author><first>Parinthapat</first><last>Pengpun</last></author>
+      <author><first>Can</first><last>Udomcharoenchaikit</last><affiliation>Vidyasirimedhi Institute of Science and Technology (VISTEC)</affiliation></author>
+      <author><first>Weerayut</first><last>Buaphet</last></author>
+      <author><first>Peerat</first><last>Limkonchotiwat</last></author>
+      <pages>445-464</pages>
+      <abstract>We present a synthetic data approach for instruction-tuning large language models (LLMs) for low-resource languages in a data-efficient manner, specifically focusing on Thai. We identify three key properties that contribute to the effectiveness of instruction-tuning datasets: fluency, diversity, and cultural context. We propose a seed-data-free framework for generating synthetic instruction-tuning data that incorporates these essential properties. Our framework employs an LLM to generate diverse topics, retrieve relevant contexts from Wikipedia, and create instructions for various tasks, such as question answering, summarization, and conversation. The experimental results show that our best-performing synthetic dataset, which incorporates all three key properties, achieves competitive performance using only 5,000 instructions when compared to state-of-the-art Thai LLMs trained on hundreds of thousands of instructions. Our code and dataset are publicly available at https://github.com/parinzee/seed-free-synthetic-instruct.</abstract>
+      <url hash="024c8c75">2024.acl-srw.50</url>
+      <bibkey>pengpun-etal-2024-seed</bibkey>
+    </paper>
+    <paper id="51">
+      <title>Can <fixed-case>LLM</fixed-case>s substitute <fixed-case>SQL</fixed-case>? Comparing Resource Utilization of Querying <fixed-case>LLM</fixed-case>s versus Traditional Relational Databases</title>
+      <author><first>Xiang</first><last>Zhang</last><affiliation>Metropolitan College, Boston University</affiliation></author>
+      <author><first>Khatoon</first><last>Khedri</last></author>
+      <author><first>Reza</first><last>Rawassizadeh</last></author>
+      <pages>465-472</pages>
+      <abstract>Large Language Models (LLMs) can automate or substitute different types of tasks in the software engineering process. This study evaluates the resource utilization and accuracy of LLM in interpreting and executing natural language queries against traditional SQL within relational database management systems. We empirically examine the resource utilization and accuracy of nine LLMs varying from 7 to 34 Billion parameters, including Llama2 7B, Llama2 13B, Mistral, Mixtral, Optimus-7B, SUS-chat-34B, platypus-yi-34b, NeuralHermes-2.5-Mistral-7B and Starling-LM-7B-alpha, using a small transaction dataset. Our findings indicate that using LLMs for database queries incurs significant energy overhead (even small and quantized models), making it an environmentally unfriendly approach. Therefore, we advise against replacing relational databases with LLMs due to their substantial resource utilization.</abstract>
+      <url hash="00ee2b40">2024.acl-srw.51</url>
+      <bibkey>zhang-etal-2024-llms-substitute</bibkey>
+    </paper>
+    <paper id="52">
+      <title><fixed-case>I</fixed-case>nstruct<fixed-case>C</fixed-case>oder: Instruction Tuning Large Language Models for Code Editing</title>
+      <author><first>Kaixin</first><last>Li</last></author>
+      <author><first>Qisheng</first><last>Hu</last><affiliation>Nanyang Technological University</affiliation></author>
+      <author><first>James Xu</first><last>Zhao</last><affiliation>national university of singaore, National University of Singapore</affiliation></author>
+      <author><first>Hui</first><last>Chen</last><affiliation>Nanyang Technological University</affiliation></author>
+      <author><first>Yuxi</first><last>Xie</last></author>
+      <author><first>Tiedong</first><last>Liu</last></author>
+      <author><first>Michael</first><last>Shieh</last><affiliation>National University of Singapore</affiliation></author>
+      <author><first>Junxian</first><last>He</last><affiliation>Hong Kong University of Science and Technology</affiliation></author>
+      <pages>473-493</pages>
+      <abstract>Code editing encompasses a variety of pragmatic tasks that developers deal with daily. Despite its relevance and practical usefulness, automatic code editing remains an underexplored area in the evolution of deep learning models, partly due to data scarcity. In this work, we explore the use of Large Language Models (LLMs) to edit code based on user instructions. Evaluated on a novel human-written execution-based benchmark dubbed EditEval, we found current models often struggle to fulfill the instructions. In light of this, we contribute InstructCoder, the first instruction-tuning dataset designed to adapt LLMs for general-purpose code editing, containing high-diversity code-editing tasks such as comment insertion, code optimization, and code refactoring. It consists of over 114,000 instruction-input-output triplets and covers multiple distinct code editing scenarios. The collection process starts with filtered commit data sourced from GitHub Python repositories as seeds. Subsequently, the dataset is systematically expanded through an iterative process, where both seed and generated tasks are used to prompt ChatGPT for more data. Our findings reveal that open-source LLMs fine-tuned on InstructCoder can significantly enhance the accuracy of code edits, exhibiting superior code-editing performance matching advanced proprietary LLMs. The datasets and the source code are publicly available.</abstract>
+      <url hash="4a3dea5e">2024.acl-srw.52</url>
+      <bibkey>li-etal-2024-instructcoder</bibkey>
+    </paper>
+    <paper id="53">
+      <title><fixed-case>M</fixed-case>o<fixed-case>E</fixed-case>xtend: Tuning New Experts for Modality and Task Extension</title>
+      <author><first>Shanshan</first><last>Zhong</last></author>
+      <author><first>Shanghua</first><last>Gao</last><affiliation>Harvard University</affiliation></author>
+      <author><first>Zhongzhan</first><last>Huang</last><affiliation>Sun Yat-Sen University</affiliation></author>
+      <author><first>Wushao</first><last>Wen</last><affiliation>SUN YAT-SEN UNIVERSITY</affiliation></author>
+      <author><first>Marinka</first><last>Zitnik</last><affiliation>Harvard University</affiliation></author>
+      <author><first>Pan</first><last>Zhou</last><affiliation>Singapore Management University</affiliation></author>
+      <pages>494-505</pages>
+      <abstract>Large language models (LLMs) excel in various tasks but are primarily trained on text data, limiting their application scope. Expanding LLM capabilities to include vision-language understanding is vital, yet training them on multimodal data from scratch is challenging and costly. Existing instruction tuning methods, e.g., LLAVA, often connects a pretrained CLIP vision encoder and LLMs via fully fine-tuning LLMs to bridge the modality gap. However, full fine-tuning is plagued by catastrophic forgetting, i.e., forgetting previous knowledge, and high training costs particularly in the era of increasing tasks and modalities. To solve this issue, we introduce MoExtend, an effective framework designed to streamline the modality adaptation and extension of Mixture-of-Experts (MoE) models. MoExtend seamlessly integrates new experts into pre-trained MoE models, endowing them with novel knowledge without the need to tune pretrained models such as MoE and vision encoders. This approach enables rapid adaptation and extension to new modal data or tasks, effectively addressing the challenge of accommodating new modalities within LLMs. Furthermore, MoExtend avoids tuning pretrained models, thus mitigating the risk of catastrophic forgetting. Experimental results demonstrate the efficacy and efficiency of MoExtend in enhancing the multimodal capabilities of LLMs, contributing to advancements in multimodal AI research.</abstract>
+      <url hash="102d21ee">2024.acl-srw.53</url>
+      <bibkey>zhong-etal-2024-moextend</bibkey>
+    </paper>
+    <paper id="54">
+      <title>On the Interpretability of Deep Learning Models for Collaborative Argumentation Analysis in Classrooms</title>
+      <author><first>Deliang</first><last>Wang</last></author>
+      <author><first>Gaowei</first><last>Chen</last><affiliation>University of Hong Kong</affiliation></author>
+      <pages>506-516</pages>
+      <abstract>Collaborative argumentation holds significant potential for enhancing students’ learning outcomes within classroom settings. Consequently, researchers have explored the application of artificial intelligence (AI) to automatically analyze argumentation in these contexts. Despite the remarkable performance of deep learning models in this task, their lack of interpretability poses a critical challenge, leading to teachers’ skepticism and limited utilization. To cultivate trust among teachers, this PhD thesis proposal aims to leverage explainable AI techniques to provide explanations for these deep learning models. Specifically, the study develops two deep learning models for automated analysis of argument moves (claim, evidence, and warrant) and specificity levels (low, medium, and high) within collaborative argumentation. To address the interpretability issue, four explainable AI methods are proposed: gradient sensitivity, gradient input, integrated gradient, and LIME. Computational experiments demonstrate the efficacy of these methods in elucidating model predictions by computing word contributions, with LIME delivering exceptional performance. Moreover, a quasi-experiment is designed to evaluate the impact of model explanations on user trust and knowledge, serving as a future study of this PhD proposal. By tackling the challenges of interpretability and trust, this PhD thesis proposal aims to contribute to fostering user trust in AI and facilitating the practical implementation of AI in educational contexts.</abstract>
+      <url hash="098705cc">2024.acl-srw.54</url>
+      <bibkey>wang-chen-2024-interpretability</bibkey>
+    </paper>
+    <paper id="55">
+      <title>Automatically Suggesting Diverse Example Sentences for <fixed-case>L</fixed-case>2 <fixed-case>J</fixed-case>apanese Learners Using Pre-Trained Language Models</title>
+      <author><first>Enrico</first><last>Benedetti</last></author>
+      <author><first>Akiko</first><last>Aizawa</last><affiliation>NII, Tokyo Institute of Technology</affiliation></author>
+      <author><first>Florian</first><last>Boudin</last><affiliation>University of Nantes</affiliation></author>
+      <pages>517-534</pages>
+      <abstract>Providing example sentences that are diverse and aligned with learners’ proficiency levels is essential for fostering effective language acquisition.This study examines the use of Pre-trained Language Models (PLMs) to produce example sentences targeting L2 Japanese learners.We utilize PLMs in two ways: as quality scoring components in a retrieval system that draws from a newly curated corpus of Japanese sentences, and as direct sentence generators using zero-shot learning.We evaluate the quality of sentences by considering multiple aspects such as difficulty, diversity, and naturalness, with a panel of raters consisting of learners of Japanese, native speakers – and GPT-4.Our findings suggest that there is inherent disagreement among participants on the ratings of sentence qualities, except for difficulty. Despite that, the retrieval approach was preferred by all evaluators, especially for beginner and advanced target proficiency, while the generative approaches received lower scores on average.Even so, our experiments highlight the potential for using PLMs to enhance the adaptability of sentence suggestion systems and therefore improve the language learning journey.</abstract>
+      <url hash="f07529bb">2024.acl-srw.55</url>
+      <bibkey>benedetti-etal-2024-automatically</bibkey>
+    </paper>
+    <paper id="56">
+      <title><fixed-case>Z</fixed-case>-coref: <fixed-case>T</fixed-case>hai Coreference and Zero Pronoun Resolution</title>
+      <author><first>Poomphob</first><last>Suwannapichat</last><affiliation>King Mongkut’s University of Technology Thonburi</affiliation></author>
+      <author><first>Sansiri.tarn@kmutt.ac.th</first><last>Sansiri.tarn@kmutt.ac.th</last><affiliation>NA</affiliation></author>
+      <author><first>Santitham.pro@kmutt.ac.th</first><last>Santitham.pro@kmutt.ac.th</last><affiliation>NA</affiliation></author>
+      <pages>535-542</pages>
+      <abstract>Coreference Resolution (CR) and Zero Pronoun Resolution (ZPR) are vital for extracting meaningful information from text. However, limited research and datasets pose significant challenges in Thai language. To address this, we developed an annotated joint CR and ZPR dataset. Additionally, we introduced the Z-coref model, capable of simultaneously handling CR and ZPR tasks by adjusting the span definition of a prior CR architecture to include token gaps. The proposed model trained on our dataset outperformed the state-of-the-art in resolving both coreference resolution and zero-pronoun resolution, while taking less time to train.</abstract>
+      <url hash="a40c087e">2024.acl-srw.56</url>
+      <bibkey>suwannapichat-etal-2024-z</bibkey>
+    </paper>
+    <paper id="57">
+      <title>Plot Retrieval as an Assessment of Abstract Semantic Association</title>
+      <author><first>Shicheng</first><last>Xu</last></author>
+      <author><first>Liang</first><last>Pang</last><affiliation>Institute of Computing Technology, Chinese Academy of Sciences</affiliation></author>
+      <author><first>Jiangnan</first><last>Li</last><affiliation>WeChat, Tencent Inc.</affiliation></author>
+      <author><first>Mo</first><last>Yu</last><affiliation>WeChat AI, Tencent</affiliation></author>
+      <author><first>Fandong</first><last>Meng</last><affiliation>WeChat AI, Tencent Inc.</affiliation></author>
+      <author><first>Huawei</first><last>Shen</last><affiliation>Institute of Computing Technology, Chinese Academy of Sciences</affiliation></author>
+      <author><first>Xueqi</first><last>Cheng</last><affiliation>, Chinese Academy of Sciences</affiliation></author>
+      <author><first>Jie</first><last>Zhou</last></author>
+      <pages>543-558</pages>
+      <abstract>Retrieving relevant plots from the book for a query is a critical task, which can improve the reading experience and efficiency of readers. Readers usually only give an abstract and vague description as the query based on their own understanding, summaries, or speculations of the plot, which requires the retrieval model to have a strong ability to estimate the abstract semantic associations between the query and candidate plots. However, existing information retrieval (IR) datasets cannot reflect this ability well. In this paper, we propose PlotRetrieval, a labeled dataset to train and evaluate the performance of IR models on the novel task Plot Retrieval. Text pairs in PlotRetrieval have less word overlap and more abstract semantic association, which can reflect the ability of the IR models to estimate the abstract semantic association, rather than just traditional lexical or semantic matching. Extensive experiments across various lexical retrieval, sparse retrieval, dense retrieval, and cross-encoder methods compared with human studies on PlotRetrieval show current IR models still struggle in capturing abstract semantic association between texts. PlotRetrieval can be the benchmark for further research on the semantic association modeling ability of IR models.</abstract>
+      <url hash="69c5ef83">2024.acl-srw.57</url>
+      <bibkey>xu-etal-2024-plot</bibkey>
+    </paper>
+    <paper id="58">
+      <title>Foundation Model for Biomedical Graphs: Integrating Knowledge Graphs and Protein Structures to Large Language Models</title>
+      <author><first>Yunsoo</first><last>Kim</last></author>
+      <pages>559-568</pages>
+      <abstract>Transformer model has been a de-facto standard in natural language processing. Its adaptations in other fields such as computer vision showed promising results that this architecture is a powerful neural network in representation learning regardless of the data type. This recent success has led to research in multimodal Large Language Model (LLM), which enabled us to new types of tasks and applications with multiple data types. However, multimodal LLM in the biomedical domain is primarily limited to images, text, and/or sequence data. Here I propose to work on multimodal LLM architecture for biomedical graphs such as protein structure and chemical molecules. The research hypothesis is based on the fact that clinicians and researchers in computational biology and clinical research take advantage of various information for their decision-making process. Therefore, an AI model being able to handle multiple data types should boost its ability to use diverse knowledge for improved performances in clinical applications.</abstract>
+      <url hash="07792c66">2024.acl-srw.58</url>
+      <bibkey>kim-2024-foundation</bibkey>
     </paper>
   </volume>
   <volume id="tutorials" ingest-date="2024-08-11" type="proceedings">
