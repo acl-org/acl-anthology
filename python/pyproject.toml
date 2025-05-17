@@ -27,7 +27,10 @@ markers = [
     "integration: marks tests on the full acl-org/acl-anthology repo"
 ]
 testpaths = ["tests"]
-filterwarnings = ["error"]
+filterwarnings = [
+    "error",
+    "ignore:invalid escape sequence:SyntaxWarning"
+]
 
 [tool.ruff]
 target-version = 'py310'
