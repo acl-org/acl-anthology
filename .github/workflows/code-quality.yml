@@ -45,15 +45,20 @@ jobs:
       - uses: actions/cache@v3
         name: Cache virtual environment based on Poetry lockfile
         with:
-          path: ./.venv
+          path: ./python/.venv
           key: venv-${{ hashFiles('python/poetry.lock') }}
       - name: Install dependencies
-        run: poetry install --with dev --verbose
+        run: poetry install --with dev --no-cache --verbose
       - name: Cache pre-commit hooks based on pre-commit config
         uses: actions/cache@v3
         with:
           path: ~/.cache/pre-commit
           key: pre-commit|${{ matrix.os }}|${{ matrix.python-version }}|${{ hashFiles('~/.pre-commit-config.yaml') }}
+      - name: Print information about CI environment (for debugging)
+        run: |
+          locale
+          poetry run python -c "import locale; print(locale.getpreferredencoding())"
+          poetry run python -m site
 
       # Run all checks and tests
       - name: Run pre-commit hooks
