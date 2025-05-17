@@ -54,9 +54,9 @@ def test_empty_collection(collection_index):
     "filename, no_volumes, no_papers, has_event", test_cases_xml_collections
 )
 def test_collection_load(
-    collection_index, datadir, filename, no_volumes, no_papers, has_event
+    collection_index, shared_datadir, filename, no_volumes, no_papers, has_event
 ):
-    infile = datadir / "xml" / filename
+    infile = shared_datadir / "anthology" / "xml" / filename
     collection = Collection(
         filename.replace(".xml", ""), parent=collection_index, path=infile
     )
@@ -70,17 +70,19 @@ def test_collection_load(
         assert collection.get_event() is None
 
 
-def test_collection_load_id_mismatch(collection_index, datadir):
+def test_collection_load_id_mismatch(collection_index, shared_datadir):
     collection = Collection(
-        "2019.emnlp", parent=collection_index, path=datadir / "xml" / "2022.acl.xml"
+        "2019.emnlp",
+        parent=collection_index,
+        path=shared_datadir / "anthology" / "xml" / "2022.acl.xml",
     )
     with pytest.raises(ValueError):
         collection.load()
 
 
 @pytest.mark.parametrize("filename", test_cases_xml_roundtrip)
-def test_collection_validate_schema(collection_index, datadir, filename):
-    infile = datadir / "xml" / filename
+def test_collection_validate_schema(collection_index, shared_datadir, filename):
+    infile = shared_datadir / "anthology" / "xml" / filename
     collection = Collection(
         filename.replace(".xml", ""), parent=collection_index, path=infile
     )
@@ -88,8 +90,8 @@ def test_collection_validate_schema(collection_index, datadir, filename):
 
 
 @pytest.mark.parametrize("filename", test_cases_xml_roundtrip)
-def test_collection_roundtrip_save(collection_index, datadir, tmp_path, filename):
-    infile = datadir / "xml" / filename
+def test_collection_roundtrip_save(collection_index, shared_datadir, tmp_path, filename):
+    infile = shared_datadir / "anthology" / "xml" / filename
     outfile = tmp_path / filename
     # Load & save collection
     collection = Collection(
@@ -100,8 +102,8 @@ def test_collection_roundtrip_save(collection_index, datadir, tmp_path, filename
     # Compare
     assert outfile.is_file()
     expected = etree.parse(infile)
-    generated = etree.parse(outfile)
-    xml.assert_equals(generated.getroot(), expected.getroot())
+    out = etree.parse(outfile)
+    xml.assert_equals(out.getroot(), expected.getroot())
 
 
 def test_collection_create_volume_implicit(collection_index):

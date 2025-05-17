@@ -15,17 +15,16 @@
 import pytest
 import os
 from lxml.etree import RelaxNG
-from pathlib import Path
 from acl_anthology import Anthology
 from acl_anthology.people import Name
 
 SCRIPTDIR = os.path.dirname(os.path.realpath(__file__))
-DATADIR = Path(f"{SCRIPTDIR}/toy_anthology")
 
 
-def test_instantiate():
-    anthology = Anthology(datadir=DATADIR)
-    assert anthology.datadir == Path(DATADIR)
+def test_instantiate(shared_datadir):
+    datadir = shared_datadir / "anthology"
+    anthology = Anthology(datadir=datadir)
+    assert anthology.datadir == datadir
 
 
 def test_relaxng(anthology):

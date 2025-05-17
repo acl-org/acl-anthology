@@ -205,15 +205,13 @@ def test_reference_cant_change_template_field():
         ref.template_field = "foo"
 
 
-def test_pdfreference_from_file():
-    name = "tests/J16-4001.pdf"  # must exist
-    ref = PDFReference.from_file(name)
-    assert ref.name == "J16-4001"  # without the .pdf
+def test_pdfreference_from_file(datadir):
+    ref = PDFReference.from_file(datadir / "J16-4001.pdf")
+    assert ref.name == "J16-4001"  # WITHOUT the .pdf
     assert ref.checksum == "f9f4f558"
 
 
-def test_attachmentreference_from_file():
-    name = "tests/J16-4001.pdf"  # must exist
-    ref = AttachmentReference.from_file(name)
+def test_attachmentreference_from_file(datadir):
+    ref = AttachmentReference.from_file(datadir / "J16-4001.pdf")
     assert ref.name == "J16-4001.pdf"  # WITH the .pdf
     assert ref.checksum == "f9f4f558"
