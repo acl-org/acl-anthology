@@ -46,7 +46,7 @@ jobs:
         name: Cache virtual environment based on Poetry lockfile
         with:
           path: ./.venv
-          key: venv-${{ hashFiles('poetry.lock') }}
+          key: venv-${{ hashFiles('python/poetry.lock') }}
       - name: Install dependencies
         run: poetry install --with dev --verbose
       - name: Cache pre-commit hooks based on pre-commit config
