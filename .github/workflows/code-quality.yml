@@ -62,8 +62,12 @@ jobs:
           SKIP: no-commit-to-branch
       - name: Run type checker
         run: poetry run mypy acl_anthology
+      # Running 'import TexSoup' is a terrible hack that seems to fix import
+      # errors from pytest, probably through byte-compiling the package
       - name: Run tests
-        run: poetry run pytest -m "not integration" --cov=acl_anthology --cov-report=xml --trace-config
+        run: |
+          poetry run python -c "import TexSoup"
+          poetry run pytest -m "not integration" --cov=acl_anthology --cov-report=xml --trace-config
 
       # Run integration tests, but only run on latest Python version to save time
       - name: Run integration tests
