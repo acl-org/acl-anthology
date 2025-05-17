@@ -211,7 +211,7 @@ class PapersWithCodeReference:
             self.code = pwc_tuple
         elif elem.tag == "pwcdataset":
             self.datasets.append(pwc_tuple)
-        else:
+        else:  # pragma: no cover
             raise ValueError(
                 f"Unsupported element for PapersWithCodeReference: <{elem.tag}>"
             )

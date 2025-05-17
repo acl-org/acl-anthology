@@ -205,7 +205,7 @@ class Event:
                     for volume_id in element
                     if volume_id.tag == "volume-id"
                 ]
-            else:
+            else:  # pragma: no cover
                 raise ValueError(f"Unsupported element for Event: <{element.tag}>")
         return cls(**kwargs)
 

@@ -25,6 +25,7 @@ from typing import cast, Any, Optional, TYPE_CHECKING
 
 from .. import constants
 from ..config import config
+from ..exceptions import AnthologyInvalidIDError, AnthologyXMLError
 from ..files import (
     AttachmentReference,
     PapersWithCodeReference,
@@ -305,7 +306,7 @@ class Paper:
     @id.validator
     def _check_id(self, _: Any, value: str) -> None:
         if not is_valid_item_id(value):
-            raise ValueError(f"Not a valid Paper ID: {value}")
+            raise AnthologyInvalidIDError(value, "not a valid paper ID")
 
     @property
     def collection_id(self) -> str:
@@ -612,7 +613,11 @@ class Paper:
             elif element.tag == "url":
                 kwargs["pdf"] = PDFReference.from_xml(element)
             else:
-                raise ValueError(f"Unsupported element for Frontmatter: <{element.tag}>")
+                raise AnthologyXMLError(
+                    parent.full_id_tuple,
+                    element.tag,
+                    "unsupported element for <frontmatter>",
+                )
         return cls(**kwargs)
 
     @classmethod
@@ -687,7 +692,9 @@ class Paper:
                     f"Paper {paper.get('id')!r}: Tag '{element.tag}' is currently ignored"
                 )
             else:
-                raise ValueError(f"Unsupported element for Paper: <{element.tag}>")
+                raise AnthologyXMLError(
+                    parent.full_id_tuple, element.tag, "unsupported element for <paper>"
+                )
         return cls(**kwargs)
 
     def to_xml(self) -> etree._Element:

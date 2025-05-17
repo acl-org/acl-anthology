@@ -22,6 +22,7 @@ from typing import TYPE_CHECKING
 
 from .. import constants
 from ..containers import SlottedDict
+from ..exceptions import AnthologyDuplicateIDError
 from ..text import StopWords
 from ..utils.logging import get_logger
 from .paper import Paper
@@ -120,7 +121,7 @@ class BibkeyIndex(SlottedDict[Paper]):
             The bibkey that was indexed.
 
         Raises:
-            ValueError: If the bibkey is not [`constants.NO_BIBKEY`][acl_anthology.constants.NO_BIBKEY] and is already in the index pointing to another paper.
+            AnthologyDuplicateIDError: If the bibkey is not [`constants.NO_BIBKEY`][acl_anthology.constants.NO_BIBKEY] and is already in the index pointing to another paper.
         """
         if not self.is_data_loaded:
             self.load()
@@ -131,8 +132,9 @@ class BibkeyIndex(SlottedDict[Paper]):
         if bibkey == constants.NO_BIBKEY:
             bibkey = self.generate_bibkey(paper)
         elif bibkey in self.data:
-            raise ValueError(
-                f"Cannot index bibkey '{bibkey}' for paper {paper.full_id}; already assigned to {self.data[bibkey].full_id}"
+            raise AnthologyDuplicateIDError(
+                bibkey,
+                f"Cannot index bibkey '{bibkey}' for paper {paper.full_id}; already assigned to {self.data[bibkey].full_id}",
             )
 
         self.data[bibkey] = paper
@@ -156,7 +158,7 @@ class BibkeyIndex(SlottedDict[Paper]):
         """Load the entire Anthology data and build an index of bibkeys.
 
         Raises:
-            ValueError: If a non-unique bibkey is encountered.
+            AnthologyDuplicateIDError: If a non-unique bibkey is encountered.  In case of multiple errors, only one exception is raised at the end, and all errors are sent to the logger.
         """
         self.reset()
         # Go through every single paper
@@ -170,19 +172,13 @@ class BibkeyIndex(SlottedDict[Paper]):
         for collection in iterator:
             for paper in collection.papers():
                 if paper.bibkey in self.data:
-                    errors.append(
+                    log.error(
                         f"Paper {paper.full_id} has bibkey {paper.bibkey}, which is already assigned to paper {self.data[paper.bibkey].full_id}"
                     )
+                    errors.append(paper.bibkey)
                 self.data[paper.bibkey] = paper
         if errors:
-            for error in errors:
-                log.error(error)
-            raise ValueError(
-                "\n".join(
-                    (
-                        "There were duplicate bibkeys while building the bibkey index:",
-                        *errors,
-                    )
-                )
+            raise AnthologyDuplicateIDError(
+                errors, "There were duplicate bibkeys while building the bibkey index."
             )
         self.is_data_loaded = True

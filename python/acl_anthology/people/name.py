@@ -213,7 +213,7 @@ class Name:
             return cls(*name)
         elif isinstance(name, str):
             return cls.from_string(name)
-        else:
+        else:  # pragma: no cover
             raise TypeError(f"Cannot instantiate Name from {type(name)}")
 
     def to_xml(self, tag: str = "variant") -> etree._Element:
