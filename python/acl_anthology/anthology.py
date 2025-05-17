@@ -134,18 +134,19 @@ class Anthology:
             gc.disable()
         elem = None
         try:
+            indices_to_load = (
+                self.collections.bibkeys,
+                self.people,
+                self.events,
+                self.sigs,
+                self.venues,
+            )
             iterator = track(
                 it.chain(
                     self.collections.values(),
-                    (
-                        self.collections.bibkeys,
-                        self.people,
-                        self.events,
-                        self.sigs,
-                        self.venues,
-                    ),
+                    indices_to_load,
                 ),
-                total=len(self.collections) + 5,
+                total=len(self.collections) + len(indices_to_load),
                 disable=(not self.verbose),
                 description="Loading Anthology data...",
             )
@@ -290,7 +291,7 @@ class Anthology:
         """Access a paper by its citation key/bibkey.
 
         Parameters:
-            bibkey: A bibkey belonging to an Anthology paper.
+            bibkey: A bibkey belonging to an Anthology paper, e.g. 'devlin-etal-2019-bert'.
 
         Returns:
             The paper associated with the given bibkey.
