@@ -68,7 +68,7 @@ jobs:
       - name: Run type checker
         run: poetry run mypy acl_anthology
       - name: Run tests
-        run: poetry run pytest -m "not integration" --cov=acl_anthology --cov-report=xml
+        run: poetry run pytest -m "not integration" --cov=acl_anthology --cov-report=xml --trace-config
 
       # Run integration tests, but only run on latest Python version to save time
       - name: Run integration tests
