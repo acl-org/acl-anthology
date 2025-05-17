@@ -42,18 +42,13 @@ jobs:
         run: |
           poetry config virtualenvs.create true --local
           poetry config virtualenvs.in-project true --local
-      # - uses: actions/cache@v3
-      #   name: Cache virtual environment based on Poetry lockfile
-      #   with:
-      #     path: ./.venv
-      #     key: venv-${{ hashFiles('python/poetry.lock') }}
       - name: Install dependencies
         run: poetry install --with dev --no-cache --verbose
-      # - name: Cache pre-commit hooks based on pre-commit config
-      #   uses: actions/cache@v3
-      #   with:
-      #     path: ~/.cache/pre-commit
-      #     key: pre-commit|${{ matrix.os }}|${{ matrix.python-version }}|${{ hashFiles('~/.pre-commit-config.yaml') }}
+      - name: Cache pre-commit hooks based on pre-commit config
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pre-commit
+          key: pre-commit|${{ matrix.os }}|${{ matrix.python-version }}|${{ hashFiles('~/.pre-commit-config.yaml') }}
       - name: Print information about CI environment (for debugging)
         run: |
           locale
@@ -68,9 +63,7 @@ jobs:
       - name: Run type checker
         run: poetry run mypy acl_anthology
       - name: Run tests
-        run: |
-          poetry run pytest -m "nothing" --trace-config
-          poetry run pytest -m "not integration" --cov=acl_anthology --cov-report=xml
+        run: poetry run pytest -m "not integration" --cov=acl_anthology --cov-report=xml --trace-config
 
       # Run integration tests, but only run on latest Python version to save time
       - name: Run integration tests
