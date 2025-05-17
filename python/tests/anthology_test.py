@@ -1,4 +1,4 @@
-# Copyright 2023-2024 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2025 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,22 +15,31 @@
 import pytest
 import os
 from lxml.etree import RelaxNG
-from pathlib import Path
 from acl_anthology import Anthology
 from acl_anthology.people import Name
 
 SCRIPTDIR = os.path.dirname(os.path.realpath(__file__))
-DATADIR = Path(f"{SCRIPTDIR}/toy_anthology")
 
 
-def test_instantiate():
-    anthology = Anthology(datadir=DATADIR)
-    assert anthology.datadir == Path(DATADIR)
+def test_instantiate(shared_datadir):
+    datadir = shared_datadir / "anthology"
+    anthology = Anthology(datadir=datadir)
+    assert anthology.datadir == datadir
 
 
 def test_relaxng(anthology):
     relaxng = anthology.relaxng
     assert isinstance(relaxng, RelaxNG)
+
+
+def test_get_collection(anthology):
+    # Fetch 2022.acl
+    collection = anthology.get_collection("2022.acl-long.1")
+    assert collection is not None
+    assert collection.id == "2022.acl"
+    assert collection is anthology.collections.get("2022.acl")
+    assert collection is anthology.get_collection("2022.acl")
+    assert collection is anthology.get_collection("2022.acl-long")
 
 
 def test_get_volume(anthology):
@@ -53,12 +62,27 @@ def test_get_paper(anthology):
 
 
 @pytest.mark.parametrize(
+    "bibkey, full_id",
+    (
+        ("feng-etal-2022-dynamic", "2022.acl-long.10"),
+        ("gubelmann-etal-2022-philosophically", "2022.naloma-1.5"),
+        ("cl-1989-linguistics-15-number-4", "J89-4000"),
+    ),
+)
+def test_get_paper_by_bibkey(anthology, bibkey, full_id):
+    paper = anthology.get_paper_by_bibkey(bibkey)
+    assert paper is not None
+    assert paper.full_id == full_id
+
+
+@pytest.mark.parametrize(
     "id_", ("2022.acl-short.0", "2022.naloma-1.0", "J89-4000", "L06-1000")
 )
 def test_get_frontmatter(anthology, id_):
     paper = anthology.get_paper(id_)
     assert paper is not None
     assert paper.is_frontmatter
+    assert paper is paper.parent.frontmatter
 
 
 def test_volumes(anthology):
@@ -91,7 +115,7 @@ def test_papers(anthology):
         count += 1
         found.add(paper.collection_id)
     assert expected == found
-    assert count == 852
+    assert count == 851
 
 
 def test_papers_by_collection_id(anthology):
@@ -150,6 +174,7 @@ def test_load_all(anthology):
     anthology.load_all()
     assert anthology.collections.is_data_loaded
     assert anthology.collections["J89"].is_data_loaded
+    assert anthology.collections.bibkeys.is_data_loaded
     assert anthology.events.is_data_loaded
     assert anthology.people.is_data_loaded
     assert anthology.sigs.is_data_loaded

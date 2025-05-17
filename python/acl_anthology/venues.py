@@ -14,7 +14,7 @@
 
 from __future__ import annotations
 
-from attrs import define, field, asdict
+from attrs import define, field, validators as v, asdict
 from os import PathLike
 from pathlib import Path
 from typing import Iterator, Optional, TYPE_CHECKING
@@ -25,6 +25,7 @@ try:
 except ImportError:  # pragma: no cover
     from yaml import Loader, Dumper  # type: ignore
 
+from .utils.attrs import auto_validate_types
 from .utils.ids import AnthologyIDTuple, build_id_from_tuple
 from .containers import SlottedDict
 
@@ -33,7 +34,7 @@ if TYPE_CHECKING:
     from .collections import Volume
 
 
-@define
+@define(field_transformer=auto_validate_types)
 class Venue:
     """A publication venue.
 
@@ -50,22 +51,24 @@ class Venue:
         url: A website URL for the venue.
     """
 
-    id: str
+    id: str = field(converter=str)
     parent: Anthology = field(repr=False, eq=False)
-    acronym: str
-    name: str
-    path: Path
-    is_acl: bool = field(default=False)
-    is_toplevel: bool = field(default=False)
+    acronym: str = field(converter=str)
+    name: str = field(converter=str)
+    path: Path = field(converter=Path)
+    is_acl: bool = field(default=False, converter=bool)
+    is_toplevel: bool = field(default=False, converter=bool)
     item_ids: list[AnthologyIDTuple] = field(
         factory=list, repr=lambda x: f"<list of {len(x)} AnthologyIDTuple objects>"
     )
-    oldstyle_letter: Optional[str] = field(default=None)
-    url: Optional[str] = field(default=None)
+    oldstyle_letter: Optional[str] = field(
+        default=None, validator=v.optional(v.matches_re("^[A-Z]$"))
+    )
+    url: Optional[str] = field(default=None, validator=v.optional(v.instance_of(str)))
     # TODO: Should we reconsider 'type'? Currently used to designate journals
     # at the venue level; but journals are also marked on the individual
     # volumes.
-    type: Optional[str] = field(default=None)
+    type: Optional[str] = field(default=None, validator=v.optional(v.instance_of(str)))
 
     @classmethod
     def load_from_yaml(cls, path: PathLike[str], parent: Anthology) -> Venue:
@@ -126,7 +129,7 @@ class VenueIndex(SlottedDict[Venue]):
 
     parent: Anthology = field(repr=False, eq=False)
     no_item_ids: bool = field(repr=False, default=False)
-    is_data_loaded: bool = field(init=False, repr=False, default=False)
+    is_data_loaded: bool = field(init=False, repr=True, default=False)
 
     def load(self) -> None:
         """Loads and parses the `venues/*.yaml` files.

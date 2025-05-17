@@ -26,6 +26,9 @@ command runner; running `just -l` will list all available recipes, while `just
   additionally re-running the checks on failure, so that the checking and
   testing will continue even if some hooks have modified files.
 
+- `just py` will launch a Python REPL with an
+  [Anthology][acl_anthology.anthology.Anthology] object already instantiated.
+
 - The justfile defines several more useful recipes; list them with `just -l`!
 
 ## Running benchmarks
