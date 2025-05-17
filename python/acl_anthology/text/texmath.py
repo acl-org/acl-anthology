@@ -168,12 +168,12 @@ class _TexMath:
             pass
         # Give up, but preserve element
         else:
-            log.warn(f"Unknown TeX-math command: {code}")
+            log.warning(f"Unknown TeX-math command: {code}")
             self._append_unparsed(code, trg)
 
     def _parse_fraction(self, args: list[TexEverything], trg: etree._Element) -> None:
         if len(args) != 2:
-            log.warn(f"Couldn't parse \\frac: got {len(args)} arguments, expected 2")
+            log.warning(f"Couldn't parse \\frac: got {len(args)} arguments, expected 2")
             self._append_unparsed(TexCmd("frac", args=args), trg)
         else:
             # Represent numerator of fraction as superscript
@@ -190,7 +190,7 @@ class _TexMath:
     def _parse_text(self, code: str | TexText, trg: etree._Element) -> SxscriptStatus:
         text = str(code)
         # TexSoup doesn't parse any non-alpha command as a command. Ex: \$
-        # However it does seperate them into their own text part. Ex: 'r\\&dd' -> ['r', '\\&', 'dd']
+        # However it does separate them into their own text part. Ex: 'r\\&dd' -> ['r', '\\&', 'dd']
         # Therefore try to do command mapping replacement of all text beginning with \ and of length 2
         if len(text) == 2 and text[0] == "\\":
             text = self.cmd_map.get(text[1], text)
