@@ -62,6 +62,10 @@ test-all-python-versions: _deps
     poetry run pytest -m "not integration"
   done
 
+# Run all tests that are expected to fail and list a summary with their reasons
+test-only-xfail: _deps
+  poetry run pytest -rx -m xfail
+
 # Run type-checker only
 typecheck: _deps
   poetry run mypy acl_anthology

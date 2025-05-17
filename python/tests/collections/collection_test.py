@@ -70,6 +70,9 @@ def test_collection_load(
         assert collection.get_event() is None
 
 
+@pytest.mark.filterwarnings(
+    "ignore::ResourceWarning"
+)  # etree doesn't properly close XML file here
 def test_collection_load_id_mismatch(collection_index, shared_datadir):
     collection = Collection(
         "2019.emnlp",

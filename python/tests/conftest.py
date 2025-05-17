@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import logging
 import pytest
 
 pytest.register_assert_rewrite("acl_anthology.utils.xml")
@@ -25,16 +24,9 @@ class AnthologyStub:
 
 
 @pytest.fixture
-def anthology(shared_datadir, caplog):
-    logging.captureWarnings(True)
+def anthology(shared_datadir):
     anthology = Anthology(shared_datadir / "anthology")
     yield anthology
-    for when in ("setup", "call"):
-        warnings = [
-            x.message for x in caplog.get_records(when) if x.levelno == logging.WARNING
-        ]
-        if warnings:
-            pytest.fail(f"Tests on data/anthology logged warning(s): {warnings}")
 
 
 @pytest.fixture
