@@ -172,8 +172,7 @@ class PersonIndex(SlottedDict[Person]):
         """Load the entire Anthology data and build an index of persons.
 
         Important:
-            Exceptions raised during the index creation are sent to the logger, and **not** re-raised.
-            Use the [SeverityTracker][acl_anthology.utils.logging.SeverityTracker] to check if an exception occurred.
+            Exceptions raised during the index creation are sent to the logger, and only a generic exception is raised at the end.
         """
         self.reset()
         # Load variant list, so IDs defined there are added first
@@ -185,6 +184,7 @@ class PersonIndex(SlottedDict[Person]):
             disable=(not show_progress),
             description="Building person index...",
         )
+        raised_exception = False
         for collection in iterator:
             for volume in collection.volumes():
                 context: Paper | Volume = volume
@@ -213,6 +213,11 @@ class PersonIndex(SlottedDict[Person]):
                     elif sys.version_info >= (3, 11):
                         exc.add_note(note)
                     log.exception(exc)
+                    raised_exception = True
+        if raised_exception:
+            raise Exception(
+                "An exception was raised while building PersonIndex; check the logger for details."
+            )
         self.is_data_loaded = True
 
     def add_person(self, person: Person) -> None:

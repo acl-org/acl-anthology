@@ -15,17 +15,16 @@
 import pytest
 import os
 from lxml.etree import RelaxNG
-from pathlib import Path
 from acl_anthology import Anthology
 from acl_anthology.people import Name
 
 SCRIPTDIR = os.path.dirname(os.path.realpath(__file__))
-DATADIR = Path(f"{SCRIPTDIR}/toy_anthology")
 
 
-def test_instantiate():
-    anthology = Anthology(datadir=DATADIR)
-    assert anthology.datadir == Path(DATADIR)
+def test_instantiate(shared_datadir):
+    datadir = shared_datadir / "anthology"
+    anthology = Anthology(datadir=datadir)
+    assert anthology.datadir == datadir
 
 
 def test_relaxng(anthology):
@@ -83,6 +82,7 @@ def test_get_frontmatter(anthology, id_):
     paper = anthology.get_paper(id_)
     assert paper is not None
     assert paper.is_frontmatter
+    assert paper is paper.parent.frontmatter
 
 
 def test_volumes(anthology):
@@ -115,7 +115,7 @@ def test_papers(anthology):
         count += 1
         found.add(paper.collection_id)
     assert expected == found
-    assert count == 852
+    assert count == 851
 
 
 def test_papers_by_collection_id(anthology):
@@ -174,6 +174,7 @@ def test_load_all(anthology):
     anthology.load_all()
     assert anthology.collections.is_data_loaded
     assert anthology.collections["J89"].is_data_loaded
+    assert anthology.collections.bibkeys.is_data_loaded
     assert anthology.events.is_data_loaded
     assert anthology.people.is_data_loaded
     assert anthology.sigs.is_data_loaded

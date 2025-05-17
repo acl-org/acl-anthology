@@ -1,4 +1,4 @@
-# Copyright 2023-2024 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2025 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -27,7 +27,7 @@ test_cases_xml_collections = (
     # (filename, # volumes, # papers, has event?)
     ("2022.acl.xml", 5, 779, True),
     ("2022.naloma.xml", 1, 6, False),
-    ("J89.xml", 4, 62, False),
+    ("J89.xml", 4, 61, False),
     ("L06.xml", 1, 5, False),
 )
 
@@ -40,7 +40,7 @@ def collection_index(anthology):
     return CollectionIndex(parent=anthology)
 
 
-def test_empty_collection(collection_index):
+def test_collection_instantiate_empty(collection_index):
     collection = Collection("2000.empty", parent=collection_index, path=Path("."))
     assert not collection.is_data_loaded
     collection.is_data_loaded = True
@@ -50,13 +50,22 @@ def test_empty_collection(collection_index):
     assert collection.get_event() is None
 
 
+def test_collection_should_raise_on_invalid_id(collection_index):
+    with pytest.raises(ValueError):
+        collection = Collection("2000-empty", parent=collection_index, path=Path("."))
+
+    collection = Collection("2000.empty", parent=collection_index, path=Path("."))
+    with pytest.raises(ValueError):
+        collection.id = "2099-empty"
+
+
 @pytest.mark.parametrize(
     "filename, no_volumes, no_papers, has_event", test_cases_xml_collections
 )
 def test_collection_load(
-    collection_index, datadir, filename, no_volumes, no_papers, has_event
+    collection_index, shared_datadir, filename, no_volumes, no_papers, has_event
 ):
-    infile = datadir / "xml" / filename
+    infile = shared_datadir / "anthology" / "xml" / filename
     collection = Collection(
         filename.replace(".xml", ""), parent=collection_index, path=infile
     )
@@ -70,17 +79,22 @@ def test_collection_load(
         assert collection.get_event() is None
 
 
-def test_collection_load_id_mismatch(collection_index, datadir):
+@pytest.mark.filterwarnings(
+    "ignore::ResourceWarning"
+)  # lxml doesn't properly close XML file here
+def test_collection_load_id_mismatch(collection_index, shared_datadir):
     collection = Collection(
-        "2019.emnlp", parent=collection_index, path=datadir / "xml" / "2022.acl.xml"
+        "2019.emnlp",
+        parent=collection_index,
+        path=shared_datadir / "anthology" / "xml" / "2022.acl.xml",
     )
     with pytest.raises(ValueError):
         collection.load()
 
 
 @pytest.mark.parametrize("filename", test_cases_xml_roundtrip)
-def test_collection_validate_schema(collection_index, datadir, filename):
-    infile = datadir / "xml" / filename
+def test_collection_validate_schema(collection_index, shared_datadir, filename):
+    infile = shared_datadir / "anthology" / "xml" / filename
     collection = Collection(
         filename.replace(".xml", ""), parent=collection_index, path=infile
     )
@@ -88,8 +102,8 @@ def test_collection_validate_schema(collection_index, datadir, filename):
 
 
 @pytest.mark.parametrize("filename", test_cases_xml_roundtrip)
-def test_collection_roundtrip_save(collection_index, datadir, tmp_path, filename):
-    infile = datadir / "xml" / filename
+def test_collection_roundtrip_save(collection_index, shared_datadir, tmp_path, filename):
+    infile = shared_datadir / "anthology" / "xml" / filename
     outfile = tmp_path / filename
     # Load & save collection
     collection = Collection(
@@ -100,8 +114,8 @@ def test_collection_roundtrip_save(collection_index, datadir, tmp_path, filename
     # Compare
     assert outfile.is_file()
     expected = etree.parse(infile)
-    generated = etree.parse(outfile)
-    xml.assert_equals(generated.getroot(), expected.getroot())
+    out = etree.parse(outfile)
+    xml.assert_equals(out.getroot(), expected.getroot())
 
 
 def test_collection_create_volume_implicit(collection_index):
@@ -134,6 +148,24 @@ def test_collection_create_volume_explicit(collection_index):
     assert volume.type == VolumeType.JOURNAL
     assert volume.journal_issue == "99"
     assert "cl" in volume.venue_ids
+
+
+def test_collection_create_volume_should_fail_in_oldstyle_volumes(collection_index):
+    collection = collection_index.get("L06")
+    with pytest.raises(ValueError):
+        _ = collection.create_volume(
+            "keynotes",
+            title=MarkupText.from_string("Keynotes from LREC 2006"),
+        )
+
+
+def test_collection_create_volume_should_fail_if_already_exists(collection_index):
+    collection = collection_index.get("2022.acl")
+    with pytest.raises(ValueError):
+        _ = collection.create_volume(
+            "long",
+            title=MarkupText.from_string("Long papers from ACL 2022"),
+        )
 
 
 @pytest.mark.parametrize("pre_load", (True, False))
@@ -262,7 +294,7 @@ def test_collection_create_volume_should_update_venue(anthology, pre_load, reset
     assert volume.full_id_tuple in anthology.venues["acl"].item_ids
 
 
-def test_collection_create_event(collection_index):
+def test_collection_create_event_oldstyle_ids(collection_index):
     collection = collection_index.get("L06")
 
     # For old-style ID collections, an ID must be explicitly given
@@ -275,6 +307,18 @@ def test_collection_create_event(collection_index):
     # Trying to create yet another event in the same collection should raise
     with pytest.raises(ValueError):
         _ = collection.create_event(id="lrecagain-2006")
+
+
+def test_collection_create_event_newstyle_ids(collection_index):
+    collection = collection_index.get("1989.cl")
+
+    # For new-style ID collections, an explicit event ID is not required
+    event = collection.create_event()
+    assert event.id == "cl-1989"
+
+    # Trying to create yet another event in the same collection should raise
+    with pytest.raises(ValueError):
+        _ = collection.create_event(id="cl-1989")
 
 
 @pytest.mark.parametrize("pre_load", (True, False))

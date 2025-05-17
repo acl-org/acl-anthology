@@ -40,6 +40,7 @@ test_cases_volume_stopwords = (
 @pytest.mark.parametrize("word, is_stop", test_cases_stopwords)
 def test_stopwords_contains(word, is_stop):
     assert StopWords.contains(word) == is_stop
+    assert StopWords.is_stopword(word) == is_stop
 
 
 @pytest.mark.parametrize("word, is_stop", test_cases_volume_stopwords)

@@ -125,27 +125,28 @@ class Anthology:
         **Calling this function is not strictly necessary.** If you access Anthology data through object methods or [SlottedDict][acl_anthology.containers.SlottedDict] functionality, data will be loaded on-the-fly as required. However, if you know that your program will load all data files (particularly the XML files) eventually, for example by iterating over all volumes/papers, loading everything at once with this function can result in a considerable speed-up.
 
         Important:
-            Exceptions raised during the index creation are sent to the logger, and **not** re-raised.
-            Use the [SeverityTracker][acl_anthology.utils.logging.SeverityTracker] to check if an exception occurred.
+            Exceptions raised during the index creation are sent to the logger, and only a generic exception is raised at the end.
         """
         was_gc_enabled = False
         if config["disable_gc"]:
             was_gc_enabled = gc.isenabled()
             gc.disable()
         elem = None
+        raised_exception = False
         try:
+            indices_to_load = (
+                self.collections.bibkeys,
+                self.people,
+                self.events,
+                self.sigs,
+                self.venues,
+            )
             iterator = track(
                 it.chain(
                     self.collections.values(),
-                    (
-                        self.collections.bibkeys,
-                        self.people,
-                        self.events,
-                        self.sigs,
-                        self.venues,
-                    ),
+                    indices_to_load,
                 ),
-                total=len(self.collections) + 5,
+                total=len(self.collections) + len(indices_to_load),
                 disable=(not self.verbose),
                 description="Loading Anthology data...",
             )
@@ -165,12 +166,17 @@ class Anthology:
                         elif sys.version_info >= (3, 11):
                             exc.add_note(note)
                     log.exception(exc)
+                    raised_exception = True
             if self.verbose:
                 self.events.verbose = True
                 self.people.verbose = True
         finally:
             if was_gc_enabled:
                 gc.enable()
+        if raised_exception:
+            raise Exception(
+                "An exception was raised during loading; check the logger for details."
+            )
         return self
 
     def reset_indices(self) -> Self:
@@ -290,7 +296,7 @@ class Anthology:
         """Access a paper by its citation key/bibkey.
 
         Parameters:
-            bibkey: A bibkey belonging to an Anthology paper.
+            bibkey: A bibkey belonging to an Anthology paper, e.g. 'devlin-etal-2019-bert'.
 
         Returns:
             The paper associated with the given bibkey.
@@ -366,7 +372,7 @@ class Anthology:
             return self.people.get_by_namespec(name_spec)
         return [self.people.get_by_namespec(ns) for ns in name_spec]
 
-    def create_collection(self, id: str) -> Collection:
+    def create_collection(self, id: str) -> Collection:  # pragma: no cover
         """Create a new [Collection][acl_anthology.collections.collection.Collection] object.
 
         Alias for [`CollectionIndex.create()`][acl_anthology.collections.index.CollectionIndex.create].

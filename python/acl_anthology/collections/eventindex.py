@@ -22,11 +22,14 @@ from typing import TYPE_CHECKING
 from ..containers import SlottedDict
 from ..text import MarkupText
 from ..utils.ids import AnthologyID, AnthologyIDTuple, parse_id
+from ..utils.logging import get_logger
 from .event import Event
 from .volume import Volume
 
 if TYPE_CHECKING:
     from ..anthology import Anthology
+
+log = get_logger()
 
 
 @define
@@ -94,38 +97,46 @@ class EventIndex(SlottedDict[Event]):
             disable=(not self.verbose),
             description=" Building event index...",
         )
+        raised_exception = False
         for collection in iterator:
-            if (explicit_event := collection.get_event()) is not None:
-                if explicit_event.id in self.data:
-                    # This event has already been implicitly created in another file
-                    # See https://github.com/acl-org/acl-anthology/issues/2743#issuecomment-2453501562
-                    for co_id in self.data[explicit_event.id].colocated_ids:
-                        if co_id not in explicit_event.colocated_ids:
-                            explicit_event.colocated_ids.append(co_id)
-                self.data[explicit_event.id] = explicit_event
-                for volume_fid in explicit_event.colocated_ids:
-                    self.reverse[volume_fid].add(explicit_event.id)
+            try:
+                if (explicit_event := collection.get_event()) is not None:
+                    if explicit_event.id in self.data:
+                        # This event has already been implicitly created in another file
+                        # See https://github.com/acl-org/acl-anthology/issues/2743#issuecomment-2453501562
+                        for co_id in self.data[explicit_event.id].colocated_ids:
+                            if co_id not in explicit_event.colocated_ids:
+                                explicit_event.colocated_ids.append(co_id)
+                    self.data[explicit_event.id] = explicit_event
+                    for volume_fid in explicit_event.colocated_ids:
+                        self.reverse[volume_fid].add(explicit_event.id)
 
-            for volume in collection.volumes():
-                volume_fid = volume.full_id_tuple
-                if explicit_event is not None:
-                    self.reverse[volume_fid].add(explicit_event.id)
-                for venue_id in volume.venue_ids:
-                    event_id = f"{venue_id}-{volume.year}"
-                    if (event := self.data.get(event_id)) is None:
-                        # Implicitly create event if it doesn't exist yet
-                        venue_name = self.parent.venues[venue_id].name
-                        event_name = f"{venue_name} ({volume.year})"
-                        self.data[event_id] = Event(
-                            event_id,
-                            collection,
-                            is_explicit=False,
-                            colocated_ids=[volume_fid],
-                            title=MarkupText.from_string(event_name),
-                        )
-                    elif volume_fid not in event.colocated_ids:
-                        # Add implicit connection to existing event
-                        event.colocated_ids.append(volume_fid)
-                    self.reverse[volume_fid].add(event_id)
-
+                for volume in collection.volumes():
+                    volume_fid = volume.full_id_tuple
+                    if explicit_event is not None:
+                        self.reverse[volume_fid].add(explicit_event.id)
+                    for venue_id in volume.venue_ids:
+                        event_id = f"{venue_id}-{volume.year}"
+                        if (event := self.data.get(event_id)) is None:
+                            # Implicitly create event if it doesn't exist yet
+                            venue_name = self.parent.venues[venue_id].name
+                            event_name = f"{venue_name} ({volume.year})"
+                            self.data[event_id] = Event(
+                                event_id,
+                                collection,
+                                is_explicit=False,
+                                colocated_ids=[volume_fid],
+                                title=MarkupText.from_string(event_name),
+                            )
+                        elif volume_fid not in event.colocated_ids:
+                            # Add implicit connection to existing event
+                            event.colocated_ids.append(volume_fid)
+                        self.reverse[volume_fid].add(event_id)
+            except Exception as exc:
+                log.exception(exc)
+                raised_exception = True
+        if raised_exception:
+            raise Exception(
+                "An exception was raised while building EventIndex; check the logger for details."
+            )
         self.is_data_loaded = True

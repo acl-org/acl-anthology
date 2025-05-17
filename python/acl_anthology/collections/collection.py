@@ -27,6 +27,7 @@ else:
     from typing_extensions import Self
 
 from ..containers import SlottedDict
+from ..exceptions import AnthologyDuplicateIDError, AnthologyInvalidIDError
 from ..text.markuptext import MarkupText
 from ..utils.attrs import auto_validate_types, int_to_str
 from ..utils.ids import infer_year, is_valid_collection_id
@@ -78,7 +79,7 @@ class Collection(SlottedDict[Volume]):
     @id.validator
     def _check_id(self, _: Any, value: str) -> None:
         if not is_valid_collection_id(value):
-            raise ValueError(f"Not a valid Collection ID: {value}")
+            raise AnthologyInvalidIDError(value, "Not a valid Collection ID")
 
     @property
     def root(self) -> Anthology:
@@ -112,11 +113,13 @@ class Collection(SlottedDict[Volume]):
             The created volume.
 
         Raises:
-            ValueError: If a volume with the given ID already exists.
+            AnthologyDuplicateIDError: If a volume with the given ID already exists.
         """
         volume = Volume.from_xml(self, meta)
         if volume.id in self.data:
-            raise ValueError(f"Volume {volume.id} already exists in collection {self.id}")
+            raise AnthologyDuplicateIDError(
+                volume.id, "Volume already exists in collection {self.id}"
+            )
         self.data[volume.id] = volume
         return volume
 
@@ -163,7 +166,8 @@ class Collection(SlottedDict[Volume]):
             The created [Volume][acl_anthology.collections.volume.Volume] object.
 
         Raises:
-            ValueError: If a volume with the given ID already exists, or if this collection has an old-style ID.
+            AnthologyDuplicateIDError: If a volume with the given ID already exists.
+            ValueError: If this collection has an old-style ID.
         """
         if not self.is_data_loaded:
             self.load()
@@ -172,7 +176,9 @@ class Collection(SlottedDict[Volume]):
                 f"Can't create volume in collection {self.id} with old-style ID"
             )
         if id in self.data:
-            raise ValueError(f"Volume {id} already exists in collection {self.id}")
+            raise AnthologyDuplicateIDError(
+                id, f"Volume already exists in collection {self.id}"
+            )
 
         if year is None:
             year = infer_year(self.id)
@@ -264,8 +270,9 @@ class Collection(SlottedDict[Volume]):
                 element.clear()
             elif element.tag == "collection":
                 if element.get("id") != self.id:
-                    raise ValueError(
-                        f"File {self.path} contains Collection '{element.get('id')}'"
+                    raise AnthologyInvalidIDError(
+                        element.get("id"),
+                        f"File {self.path} does not contain Collection {self.id}",
                     )
             else:
                 # Keep element around; should only apply to <event><meta> ...

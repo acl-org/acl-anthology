@@ -24,6 +24,7 @@ import sys
 from .. import constants
 from ..config import config
 from ..containers import SlottedDict
+from ..exceptions import AnthologyDuplicateIDError, AnthologyInvalidIDError
 from ..files import PDFReference
 from ..people import NameSpecification
 from ..text import MarkupText
@@ -106,7 +107,7 @@ class Volume(SlottedDict[Paper]):
     @id.validator
     def _check_id(self, _: Any, value: str) -> None:
         if not is_valid_item_id(value):
-            raise ValueError(f"Not a valid Volume ID: {value}")
+            raise AnthologyInvalidIDError(value, "Not a valid Volume ID")
 
     @property
     def frontmatter(self) -> Paper | None:
@@ -226,7 +227,7 @@ class Volume(SlottedDict[Paper]):
         Raises:
             Exception: If this volume has no frontmatter.
         """
-        if self.frontmatter is None:
+        if self.frontmatter is None:  # pragma: no cover
             raise Exception("Cannot generate BibTeX for volume without frontmatter.")
         return self.frontmatter.to_bibtex()
 
@@ -260,12 +261,14 @@ class Volume(SlottedDict[Paper]):
             The created [Paper][acl_anthology.collections.paper.Paper] object.
 
         Raises:
-            ValueError: If a paper with the given ID or bibkey already exists.
+            AnthologyDuplicateIDError: If a paper with the given ID or bibkey already exists.
         """
         if id is None:
             id = self.generate_paper_id()
         elif id in self.data:
-            raise ValueError(f"Paper {id} already exists in volume {self.full_id}")
+            raise AnthologyDuplicateIDError(
+                id, "Paper ID already exists in volume {self.full_id}"
+            )
 
         kwargs["parent"] = self
         paper = Paper(id=id, bibkey=bibkey, title=title, **kwargs)
@@ -329,7 +332,7 @@ class Volume(SlottedDict[Paper]):
                 kwargs["pdf"] = PDFReference.from_xml(element)
             elif element.tag == "venue":
                 kwargs["venue_ids"].append(str(element.text))
-            else:
+            else:  # pragma: no cover
                 raise ValueError(f"Unsupported element for Volume: <{element.tag}>")
         return cls(**kwargs)
 

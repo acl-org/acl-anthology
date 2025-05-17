@@ -612,7 +612,7 @@
     </paper>
     <paper id="49">
       <title>Swift Cross-Dataset Pruning: Enhancing Fine-Tuning Efficiency in Natural Language Understanding</title>
-      <author><first>Nguyen Binh</first><last>Nguyen</last></author>
+      <author><first>Binh-Nguyen</first><last>Nguyen</last></author>
       <author><first>Yang</first><last>He</last></author>
       <pages>726–739</pages>
       <abstract>Dataset pruning aims to select a subset of a dataset for efficient model training. While data efficiency in natural language processing has primarily focused on cross-corpus scenarios during model pre-training, efficient dataset pruning for task-specific fine-tuning across diverse datasets remains challenging due to variability in dataset sizes, data distributions, class imbalance and label spaces. Current cross-dataset pruning techniques for fine-tuning often rely on computationally expensive sample ranking processes, typically requiring full dataset training or reference models. We address this gap by proposing Swift Cross-Dataset Pruning (SCDP). Specifically, our approach uses TF-IDF embeddings with geometric median to rapidly evaluate sample importance. We then apply dataset size-adaptive pruning to ensure diversity: for smaller datasets, we retain examples far from the geometric median, while for larger ones, we employ distance-based stratified pruning. Experimental results on six diverse datasets demonstrate the effectiveness of our method, spanning various tasks and scales while significantly reducing computational resources.</abstract>
@@ -1342,8 +1342,10 @@
       <author><first>Daichi</first><last>Mochihashi</last></author>
       <pages>1613–1631</pages>
       <abstract>The meanings and relationships of words shift over time. This phenomenon is referred to as semantic shift. Research focused on understanding how semantic shifts occur over multiple time periods is essential for gaining a detailed understanding of semantic shifts. However, detecting change points only between adjacent time periods is insufficient for analyzing detailed semantic shifts, and using BERT-based methods to examine word sense proportions incurs a high computational cost. To address those issues, we propose a simple yet intuitive framework for how semantic shifts occur over multiple time periods by utilizing similarity matrices based on word embeddings. We calculate diachronic word similarity matrices using fast and lightweight word embeddings across arbitrary time periods, making it deeper to analyze continuous semantic shifts. Additionally, by clustering the resulting similarity matrices, we can categorize words that exhibit similar behavior of semantic shift in an unsupervised manner.</abstract>
-      <url hash="a5553218">2025.coling-main.109</url>
+      <url hash="a5e20867">2025.coling-main.109</url>
       <bibkey>kiyama-etal-2025-analyzing</bibkey>
+      <revision id="1" href="2025.coling-main.109v1" hash="a5553218"/>
+      <revision id="2" href="2025.coling-main.109v2" hash="a5e20867" date="2025-03-16">Fixed the broken table references in the text.</revision>
     </paper>
     <paper id="110">
       <title>A Testset for Context-Aware <fixed-case>LLM</fixed-case> Translation in <fixed-case>K</fixed-case>orean-to-<fixed-case>E</fixed-case>nglish Discourse Level Translation</title>
@@ -1692,7 +1694,7 @@
       <author><first>Peifeng</first><last>Li</last></author>
       <author><first>Qiaoming</first><last>Zhu</last></author>
       <pages>2038–2048</pages>
-      <abstract>Document-level event factuality identification (DEFI) assesses the veracity degree to which an event mentioned in a document has happened, which is crucial for many natural language processing tasks. Previous work assesses evet factuality by solely relying on the semantic information within a single document, which fails to identify hard cases where the document itself is hallucinative or counterfactual. There is also a pressing need for more suitable data of this kind. To tackle these issues, we construct Factualusion, a novel corpus with hallucination features that can be used not only for DEFI but can also be applied for hallucination evaluation for large language models. We further propose Trucidator, a graph-based framework that constructs intra-document and cross-document graphs and employs a multi-task learning paradigm to acquire more robust node embeddings, leveraging cross-document inference for more accurate identification. Experiments show that our proposed framework outperformed several baselines, demonstrating the effectiveness of our method.</abstract>
+      <abstract>Document-level event factuality identification (DEFI) assesses the veracity degree to which an event mentioned in a document has happened, which is crucial for many natural language processing tasks. Previous work assesses event factuality by solely relying on the semantic information within a single document, which fails to identify hard cases where the document itself is hallucinative or counterfactual. There is also a pressing need for more suitable data of this kind. To tackle these issues, we construct Factualusion, a novel corpus with hallucination features that can be used not only for DEFI but can also be applied for hallucination evaluation for large language models. We further propose Trucidator, a graph-based framework that constructs intra-document and cross-document graphs and employs a multi-task learning paradigm to acquire more robust node embeddings, leveraging cross-document inference for more accurate identification. Experiments show that our proposed framework outperformed several baselines, demonstrating the effectiveness of our method.</abstract>
       <url hash="d930412c">2025.coling-main.139</url>
       <bibkey>zhang-etal-2025-trucidator</bibkey>
     </paper>
@@ -2112,7 +2114,7 @@
     </paper>
     <paper id="174">
       <title>Implicit Discourse Relation Classification For <fixed-case>N</fixed-case>igerian <fixed-case>P</fixed-case>idgin</title>
-      <author><first>Muhammed Yahia Gaffar Saeed</first><last>Saeed</last></author>
+      <author><first>Muhammed</first><last>Saeed</last></author>
       <author><first>Peter</first><last>Bourgonje</last></author>
       <author><first>Vera</first><last>Demberg</last></author>
       <pages>2561–2574</pages>
@@ -3027,14 +3029,14 @@
     </paper>
     <paper id="252">
       <title>Alternate Preference Optimization for Unlearning Factual Knowledge in Large Language Models</title>
-      <author><first>Anmol Reddy</first><last>Mekala</last></author>
+      <author><first>Anmol</first><last>Mekala</last></author>
       <author><first>Vineeth</first><last>Dorna</last></author>
       <author><first>Shreya</first><last>Dubey</last></author>
       <author><first>Abhishek</first><last>Lalwani</last></author>
       <author><first>David</first><last>Koleczek</last></author>
       <author><first>Mukund</first><last>Rungta</last></author>
-      <author><first>Sadid A.</first><last>Hasan</last></author>
-      <author><first>Elita A.A</first><last>Lobo</last></author>
+      <author><first>Sadid</first><last>Hasan</last></author>
+      <author><first>Elita</first><last>Lobo</last></author>
       <pages>3732–3752</pages>
       <abstract>Machine unlearning aims to efficiently eliminate the influence of specific training data, known as the forget set, from the model. However, existing unlearning methods for Large Language Models (LLMs) face a critical challenge: they rely solely on negative feedback to suppress responses related to the forget set, which often results in nonsensical or inconsistent outputs, diminishing model utility and posing potential privacy risks. To address this limitation, we propose a novel approach called Alternate Preference Optimization (AltPO), which combines negative feedback with in-domain positive feedback on the forget set. Additionally, we introduce new evaluation metrics to assess the quality of responses related to the forget set. Extensive experiments show that our approach not only enables effective unlearning but also avoids undesirable model behaviors while maintaining overall model performance.</abstract>
       <url hash="a6f9ee6c">2025.coling-main.252</url>
@@ -3188,8 +3190,10 @@
       <author><first>Xi-He</first><last>Qiu</last></author>
       <pages>3924–3935</pages>
       <abstract>This paper proposes a novel parameter-efficient fine-tuning method that combines the knowledge completion capability of deconvolution with the subspace learning ability, reducing the number of parameters required for fine-tuning by 8 times . Experimental results demonstrate that our method achieves superior training efficiency and performance compared to existing models.</abstract>
-      <url hash="c7e39ea9">2025.coling-main.265</url>
+      <url hash="f61d0419">2025.coling-main.265</url>
       <bibkey>zhang-etal-2025-parameter</bibkey>
+      <revision id="1" href="2025.coling-main.265v1" hash="c7e39ea9"/>
+      <revision id="2" href="2025.coling-main.265v2" hash="f61d0419" date="2025-02-06">Corrected author name.</revision>
     </paper>
     <paper id="266">
       <title><fixed-case>S</fixed-case>tory<fixed-case>LL</fixed-case>a<fixed-case>VA</fixed-case>: Enhancing Visual Storytelling with Multi-Modal Large Language Models</title>
@@ -3815,8 +3819,8 @@
     </paper>
     <paper id="318">
       <title><fixed-case>B</fixed-case>asq<fixed-case>BBQ</fixed-case>: A <fixed-case>QA</fixed-case> Benchmark for Assessing Social Biases in <fixed-case>LLM</fixed-case>s for <fixed-case>B</fixed-case>asque, a Low-Resource Language</title>
-      <author><first>Xabier</first><last>Saralegi</last></author>
       <author><first>Muitze</first><last>Zulaika</last></author>
+      <author><first>Xabier</first><last>Saralegi</last></author>
       <pages>4753–4767</pages>
       <abstract>The rise of pre-trained language models has revolutionized natural language processing (NLP) tasks, but concerns about the propagation of social biases in these models remain, particularly in under-resourced languages like Basque. This paper introduces BasqBBQ, the first benchmark designed to assess social biases in Basque across eight domains, using a multiple-choice question-answering (QA) task. We evaluate various autoregressive large language models (LLMs), including multilingual and those adapted for Basque, to analyze both their accuracy and bias transmission. Our results show that while larger models generally achieve better accuracy, ambiguous cases remain challenging. In terms of bias, larger models exhibit lower negative bias. However, high negative bias persists in specific categories such as Disability Status, Age and Physical Appearance, especially in ambiguous contexts. Conversely, categories such as Sexual Orientation, Gender Identity, and Race/Ethnicity show the least bias in ambiguous contexts. The continual pre-training based adaptation process for Basque has a limited impact on bias when compared with English. This work represents a key step toward creating more ethical LLMs for low-resource languages.</abstract>
       <url hash="b201c4bc">2025.coling-main.318</url>
@@ -3824,10 +3828,10 @@
     </paper>
     <paper id="319">
       <title><fixed-case>D</fixed-case>yn<fixed-case>R</fixed-case>ank: Improve Passage Retrieval with Dynamic Zero-Shot Prompting Based on Question Classification</title>
-      <author><first>Abdelrahman Elsayed Mahmoud</first><last>Abdallah</last></author>
+      <author><first>Abdelrahman</first><last>Abdallah</last></author>
       <author><first>Jamshid</first><last>Mozafari</last></author>
       <author><first>Bhawna</first><last>Piryani</last></author>
-      <author><first>Mohammed</first><last>M.Abdelgwad</last></author>
+      <author><first>Mohammed M.</first><last>Abdelgwad</last></author>
       <author><first>Adam</first><last>Jatowt</last></author>
       <pages>4768–4778</pages>
       <abstract>This paper presents DynRank, a novel framework for enhancing passage retrieval in open-domain question-answering systems through dynamic zero-shot question classification. Traditional approaches rely on static prompts and pre-defined templates, which may limit model adaptability across different questions and contexts. In contrast, DynRank introduces a dynamic prompting mechanism, leveraging a pre-trained question classification model that categorizes questions into fine-grained types. Based on these classifications, contextually relevant prompts are generated, enabling more effective passage retrieval. We integrate DynRank into existing retrieval frameworks and conduct extensive experiments on multiple QA benchmark datasets.</abstract>
@@ -3926,8 +3930,10 @@
       <author><first>Richard</first><last>Dufour</last></author>
       <pages>4910–4919</pages>
       <abstract>Familiarizing oneself with a new scientific field and its existing literature can be daunting due to the large amount of available articles. Curated lists of academic references, or reading lists, compiled by experts, offer a structured way to gain a comprehensive overview of a domain or a specific scientific challenge. In this work, we introduce ACL-rlg, the largest open expert-annotated reading list dataset. We also provide multiple baselines for evaluating reading list generation and formally define it as a retrieval task. Our qualitative study highlights that traditional scholarly search engines and indexing methods perform poorly on this task, and GPT-4o, despite showing better results, exhibits signs of potential data contamination.</abstract>
-      <url hash="477dd1f7">2025.coling-main.327</url>
+      <url hash="caa6e55b">2025.coling-main.327</url>
       <bibkey>aubert-beduchaud-etal-2025-acl</bibkey>
+      <revision id="1" href="2025.coling-main.327v1" hash="477dd1f7"/>
+      <revision id="2" href="2025.coling-main.327v2" hash="caa6e55b" date="2025-02-06">Added citations to BM25S, faiss and SPECTER 2 articles.</revision>
     </paper>
     <paper id="328">
       <title><fixed-case>SEED</fixed-case>: Accelerating Reasoning Tree Construction via Scheduled Speculative Decoding</title>
@@ -4123,7 +4129,7 @@
     </paper>
     <paper id="344">
       <title>Refer to the Reference: Reference-focused Synthetic Automatic Post-Editing Data Generation</title>
-      <author><first>Sourabh Dattatray</first><last>Deoghare</last></author>
+      <author><first>Sourabh</first><last>Deoghare</last></author>
       <author><first>Diptesh</first><last>Kanojia</last></author>
       <author><first>Pushpak</first><last>Bhattacharyya</last></author>
       <pages>5123–5135</pages>
@@ -4724,8 +4730,10 @@
       <author><first>Mark</first><last>Lee</last></author>
       <pages>5890–5901</pages>
       <abstract>Entity Alignment (EA) is a critical task in Knowledge Graph (KG) integration, aimed at identifying and matching equivalent entities that represent the same real-world objects. While EA methods based on knowledge representation learning have shown strong performance on synthetic benchmark datasets such as DBP15K, their effectiveness significantly decline in real-world scenarios which often involve data that is highly heterogeneous, incomplete, and domain-specific, as seen in datasets like DOREMUS and AGROLD. Addressing this challenge, we propose DAEA, a novel EA approach with Domain Adaptation that leverages the data characteristics of synthetic benchmarks for improved performance in real-world datasets. DAEA introduces a multi-source KGs selection mechanism and a specialized domain adaptive entity alignment loss function to bridge the gap between real-world data and optimal benchmark data, mitigating the challenges posed by aligning entities across highly heterogeneous KGs. Experimental results demonstrate that DAEA outperforms state-of-the-art models on real-world datasets, achieving a 29.94% improvement in Hits@1 on DOREMUS and a 5.64% improvement on AGROLD. Code is available at https://github.com/yangxiaoxiaoly/DAEA.</abstract>
-      <url hash="659edf7a">2025.coling-main.393</url>
+      <url hash="dd2c725f">2025.coling-main.393</url>
       <bibkey>yang-etal-2025-daea</bibkey>
+      <revision id="1" href="2025.coling-main.393v1" hash="659edf7a"/>
+      <revision id="2" href="2025.coling-main.393v2" hash="dd2c725f" date="2025-03-16">Typo fix.</revision>
     </paper>
     <paper id="394">
       <title><fixed-case>C</fixed-case>o<fixed-case>P</fixed-case>r<fixed-case>US</fixed-case>: Consistency Preserving Utterance Synthesis towards more realistic benchmark dialogues</title>
@@ -5504,14 +5512,14 @@
     </paper>
     <paper id="463">
       <title><fixed-case>URIEL</fixed-case>+: Enhancing Linguistic Inclusion and Usability in a Typological and Multilingual Knowledge Base</title>
-      <author><first>Aditya Armaan</first><last>Khan</last></author>
-      <author><first>Mason Stephen</first><last>Shipton</last></author>
+      <author><first>Aditya</first><last>Khan</last></author>
+      <author><first>Mason</first><last>Shipton</last></author>
       <author><first>David</first><last>Anugraha</last></author>
       <author><first>Kaiyao</first><last>Duan</last></author>
       <author><first>Phuong H.</first><last>Hoang</last></author>
       <author><first>Eric</first><last>Khiu</last></author>
       <author><first>A. Seza</first><last>Doğruöz</last></author>
-      <author><first>Annie</first><last>Lee</last></author>
+      <author><first>En-Shiun Annie</first><last>Lee</last></author>
       <pages>6937–6952</pages>
       <abstract>URIEL is a knowledge base offering geographical, phylogenetic, and typological vector representations for 7970 languages. It includes distance measures between these vectors for 4005 languages, which are accessible via the lang2vec tool. Despite being frequently cited, URIEL is limited in terms of linguistic inclusion and overall usability. To tackle these challenges, we introduce URIEL+, an enhanced version of URIEL and lang2vec that addresses these limitations. In addition to expanding typological feature coverage for 2898 languages, URIEL+ improves the user experience with robust, customizable distance calculations to better suit the needs of users. These upgrades also offer competitive performance on downstream tasks and provide distances that better align with linguistic distance studies.</abstract>
       <url hash="5bcff7a7">2025.coling-main.463</url>
@@ -6347,7 +6355,7 @@
       <author><first>Florian</first><last>Schneider</last></author>
       <author><first>Xintong</first><last>Wang</last></author>
       <author><first>Seid Muhie</first><last>Yimam</last></author>
-      <author><first>Daniil Alekhseevich</first><last>Moskovskiy</last></author>
+      <author><first>Daniil</first><last>Moskovskiy</last></author>
       <author><first>Elisei</first><last>Stakovskii</last></author>
       <author><first>Eran</first><last>Kaufman</last></author>
       <author><first>Ashraf</first><last>Elnagar</last></author>
@@ -6470,7 +6478,7 @@
     <paper id="545">
       <title>Improving <fixed-case>NMT</fixed-case> Models by Retrofitting Quality Estimators into Trainable Energy Loss</title>
       <author><first>Gahyun</first><last>Yoo</last></author>
-      <author><first>Jay Yoon</first><last>Lee</last></author>
+      <author><first>Jay-Yoon</first><last>Lee</last></author>
       <pages>8184–8196</pages>
       <abstract>Reinforcement learning has shown great promise in aligning language models with human preferences in a variety of text generation tasks, including machine translation. For translation tasks, rewards can easily be obtained from quality estimation (QE) models which can generate rewards for unlabeled data. Despite its usefulness, reinforcement learning cannot exploit the gradients with respect to the QE score. We propose QE-EBM, a method of employing quality estimators as trainable loss networks that can directly backpropagate to the NMT model. We examine our method on several low and high resource target languages with English as the source language. QE-EBM outperforms strong baselines such as REINFORCE and proximal policy optimization (PPO) as well as supervised fine-tuning for all target languages, especially low-resource target languages. Most notably, for English-to-Mongolian translation, our method achieves improvements of 2.5 BLEU, 7.1 COMET-KIWI, 5.3 COMET, and 6.4 XCOMET relative to the supervised baseline.</abstract>
       <url hash="2f6b7934">2025.coling-main.545</url>
@@ -6663,11 +6671,11 @@
     <paper id="561">
       <title>A Flash in the Pan: Better Prompting Strategies to Deploy Out-of-the-Box <fixed-case>LLM</fixed-case>s as Conversational Recommendation Systems</title>
       <author><first>Gustavo Adolpho</first><last>Lucas de Carvalho</last></author>
-      <author><first>Simon</first><last>Ben Igeri</last></author>
+      <author><first>Simon</first><last>Benigeri</last></author>
       <author><first>Jennifer</first><last>Healey</last></author>
       <author><first>Victor</first><last>Bursztyn</last></author>
       <author><first>David</first><last>Demeter</last></author>
-      <author><first>Lawrence A.</first><last>Birnbaum</last></author>
+      <author><first>Lawrence</first><last>Birnbaum</last></author>
       <pages>8385–8398</pages>
       <abstract>Conversational Recommendation Systems (CRSs) are a particularly interesting application for out-of-the-box LLMs due to their potential for eliciting user preferences and making recommendations in natural language across a wide set of domains. Somewhat surprisingly, we find however that in such a conversational application, the more questions a user answers about their preferences, the worse the model’s recommendations become. We demonstrate this phenomenon on a previously published dataset as well as two novel datasets which we contribute. We also explain why earlier benchmarks failed to detect this round-over-round performance loss, highlighting the importance of the evaluation strategy we use and expanding upon Li et al. (2023a). We also present preference elicitation and recommendation strategies that mitigate this degradation in performance, beating state-of-the-art results, and show how three underlying models, GPT-3.5, GPT-4, and Claude 3.5 Sonnet, differently impact these strategies. Our datasets and code are available at https://github.com/CtrlVGustavo/A-Flash- in-the-Pan-CRS.</abstract>
       <url hash="20a74037">2025.coling-main.561</url>
@@ -7762,7 +7770,7 @@
     </paper>
     <paper id="653">
       <title>Analyzing Offensive Language Dataset Insights from Training Dynamics and Human Agreement Level</title>
-      <author><first>Do Kyung</first><last>Kim</last></author>
+      <author><first>Do-Kyung</first><last>Kim</last></author>
       <author><first>Hyeseon</first><last>Ahn</last></author>
       <author><first>Youngwook</first><last>Kim</last></author>
       <author><first>Yo-Sub</first><last>Han</last></author>
@@ -8096,7 +8104,7 @@
       <author><first>Maha</first><last>Elgarf</last></author>
       <author><first>Hanan</first><last>Salam</last></author>
       <pages>10228–10241</pages>
-      <abstract>Theory of Mind (ToM) is the ability to under- stand and reflect on the mental states of oth- ers. Although this capability is crucial for hu- man interaction, testing on Large Language Models (LLMs) reveals that they possess only a rudimentary understanding of it. Although the most capable closed-source LLMs have come close to human performance on some ToM tasks, they still perform poorly on com- plex variations of the task that involve more structured reasoning. In this work, we utilize the concept of “pretend-play”, or “Simulation Theory” from cognitive psychology to propose “Decompose-ToM”: an LLM-based inference algorithm that improves model performance on complex ToM tasks. We recursively simu- late user perspectives and decompose the ToM task into a simpler set of tasks: subject identi- fication, question-reframing, world model up- dation, and knowledge availability. We test the algorithm on higher-order ToM tasks and a task testing for ToM capabilities in a conversa- tional setting, demonstrating that our approach shows significant improvement across models compared to baseline methods while requiring minimal prompt tuning across tasks and no ad- ditional model training.</abstract>
+      <abstract>Theory of Mind (ToM) is the ability to understand and reflect on the mental states of others. Although this capability is crucial for human interaction, testing on Large Language Models (LLMs) reveals that they possess only a rudimentary understanding of it. Although the most capable closed-source LLMs have come close to human performance on some ToM tasks, they still perform poorly on complex variations of the task that involve more structured reasoning. In this work, we utilize the concept of “pretend-play”, or “Simulation Theory” from cognitive psychology to propose “Decompose-ToM”: an LLM-based inference algorithm that improves model performance on complex ToM tasks. We recursively simulate user perspectives and decompose the ToM task into a simpler set of tasks: subject identification, question-reframing, world model updation, and knowledge availability. We test the algorithm on higher-order ToM tasks and a task testing for ToM capabilities in a conversational setting, demonstrating that our approach shows significant improvement across models compared to baseline methods while requiring minimal prompt tuning across tasks and no additional model training. Our code is publicly available.</abstract>
       <url hash="3a465f5b">2025.coling-main.682</url>
       <bibkey>sarangi-etal-2025-decompose</bibkey>
     </paper>
@@ -8198,8 +8206,10 @@
       <author><first>Veronique</first><last>Hoste</last></author>
       <pages>10367–10374</pages>
       <abstract>This paper explores the effectiveness of two types of transformer models — large generative models and sequence-to-sequence models — for automatically post-correcting Optical Character Recognition (OCR) output in early modern Dutch plays. To address the need for optimally aligned data, we create a parallel dataset based on the OCRed and ground truth versions from the EmDComF corpus using state-of-the-art alignment techniques. By combining character-based and semantic methods, we design and release a qualitative OCR-to-gold parallel dataset, selecting the alignment with the lowest Character Error Rate (CER) for all alignment pairs. We then fine-tune and evaluate five generative models and four sequence-to-sequence models on the OCR post-correction dataset. Results show that sequence-to-sequence models generally outperform generative models in this task, correcting more OCR errors and overgenerating and undergenerating less, with mBART as the best performing system.</abstract>
-      <url hash="c785a9d6">2025.coling-main.690</url>
+      <url hash="dab40eb0">2025.coling-main.690</url>
       <bibkey>debaene-etal-2025-evaluating</bibkey>
+      <revision id="1" href="2025.coling-main.690v1" hash="c785a9d6"/>
+      <revision id="2" href="2025.coling-main.690v2" hash="dab40eb0" date="2025-02-06">Added citation to Dutch generative LLM Fietje.</revision>
     </paper>
     <paper id="691">
       <title><fixed-case>BANER</fixed-case>: Boundary-Aware <fixed-case>LLM</fixed-case>s for Few-Shot Named Entity Recognition</title>
@@ -9745,8 +9755,8 @@
     </paper>
     <paper id="37">
       <title>Building a Family of Data Augmentation Models for Low-cost <fixed-case>LLM</fixed-case> Fine-tuning on the Cloud</title>
-      <author><first>Chengyu</first><last>Wang</last></author>
       <author><first>Yuanhao</first><last>Yue</last></author>
+      <author><first>Chengyu</first><last>Wang</last></author>
       <author><first>Jun</first><last>Huang</last></author>
       <author><first>Peng</first><last>Wang</last></author>
       <pages>431–444</pages>
@@ -9866,8 +9876,10 @@
       <author><first>Dinesh</first><last>Garg</last></author>
       <pages>546–560</pages>
       <abstract>A domain-specific extension of C language known as <i>extended Berkeley Packet Filter (eBPF)</i> has gained widespread acceptance for various tasks, including observability, security, and network acceleration in the cloud community. Due to its recency and complexity, there is an overwhelming need for natural language summaries of existing eBPF codes (particularly open-source code) for practitioners and developers, which will go a long way in easing the understanding and development of new code. However, being a niche Domain-Specific Language (DSL), there is a scarcity of available training data. In this paper, we investigate the effectiveness of LLMs for summarizing low-resource DSLs, in the context of eBPF codes. Specifically, we propose a clustering-based technique to retrieve in-context examples that are semantically closer to the test example and propose a very simple yet powerful prompt design that yields superior-quality code summary generation. Experimental results show that our proposed retrieval approach for prompt generation improves the eBPF code summarization accuracy up to 12.9 BLEU points over other prompting techniques. The codes are available at https://github.com/babangain/ebpf_summ.</abstract>
-      <url hash="6ef70186">2025.coling-industry.47</url>
+      <url hash="3d5d21b1">2025.coling-industry.47</url>
       <bibkey>gain-etal-2025-transforming</bibkey>
+      <revision id="1" href="2025.coling-industry.47v1" hash="6ef70186"/>
+      <revision id="2" href="2025.coling-industry.47v2" hash="3d5d21b1" date="2025-02-06">Minor updates.</revision>
     </paper>
     <paper id="48">
       <title>Is my Meeting Summary Good? Estimating Quality with a Multi-<fixed-case>LLM</fixed-case> Evaluator</title>
@@ -10103,6 +10115,7 @@
       <author><first>Dai</first><last>Nakashima</last></author>
       <author><first>Ryo</first><last>Sato</last></author>
       <author><first>Naoki</first><last>Asaba</last></author>
+      <author><first>Shintaro</first><last>Kawamura</last></author>
       <pages>771–783</pages>
       <abstract>The increasing size of large language models (LLMs) poses significant challenges due to their high computational costs and energy consumption, making their deployment in industrial settings difficult. Small language models (SLMs) have been introduced to mitigate these challenges by reducing model size while preserving performance. However, the embedding layer, which occupies a significant portion of the model, remains a bottleneck in model compression efforts. In this paper, we valdated vocabulary reduction as a solution to compress the embedding layer and reduce model size without significant loss of performance. We conduct a series of experiments to investigate how vocabulary reduction affects GPU memory footprint, inference speed, and task performance. Our results show that while performance generally declines with vocabulary reduction, fine-tuning can recover much of the lost performance. Moreover, in some tasks, such as truthfulness and summarization, the vocabulary-reduced models outperform the baseline. Finally, we demonstrate that vocabulary reduction can be effectively applied in domain adaptation, particularly in the medical domain, and in multilingual adaptation, improving task efficiency and cross-lingual robustness.</abstract>
       <url hash="6ad56825">2025.coling-industry.64</url>
@@ -10130,8 +10143,10 @@
       <author><first>Juhee</first><last>Park</last></author>
       <pages>794–806</pages>
       <abstract>In-vehicle speech recognition (IVSR) systems are crucial components of modern automotive interfaces, enabling hands-free control and enhancing user safety. However, traditional IVSR systems often struggle with interpreting user intent accurately due to limitations in contextual understanding and ambiguity resolution, leading to user frustration. This paper introduces LLM ContextBridge, a novel hybrid architecture that integrates Pretrained Language Model-based intent classification with Large Language Models to enhance both command recognition and dialogue management. LLM ContextBridge serves as a seamless bridge between traditional natural language understanding techniques and LLMs, combining the precise intent recognition of conventional NLU with the contextual handling and ambiguity resolution capabilities of LLMs. This approach significantly improves recognition accuracy and user experience, particularly in complex, multi-turn dialogues. Experimental results show notable improvements in task success rates and user satisfaction, demonstrating that LLM ContextBridge can make IVSR systems more intuitive, responsive, and context-aware.</abstract>
-      <url hash="15a92a45">2025.coling-industry.66</url>
+      <url hash="8d9007d0">2025.coling-industry.66</url>
       <bibkey>chun-etal-2025-llm</bibkey>
+      <revision id="1" href="2025.coling-industry.66v1" hash="15a92a45"/>
+      <revision id="2" href="2025.coling-industry.66v2" hash="8d9007d0" date="2025-03-17">Fixed references.</revision>
     </paper>
     <paper id="67">
       <title>Neural Document Segmentation Using Weighted Sliding Windows with Transformer Encoders</title>
@@ -10170,4 +10185,38 @@
       <bibkey>tan-etal-2025-teaching</bibkey>
     </paper>
   </volume>
+  <event id="coling-2025">
+    <meta>
+      <title>The 31st International Conference on Computational Linguistics</title>
+      <location>Abu Dhabi, United Arab Emirates</location>
+      <dates>January 19–24, 2025</dates>
+    </meta>
+    <links>
+      <url type="website">https://coling2025.org</url>
+    </links>
+    <colocated>
+      <volume-id>2025.abjadnlp-1</volume-id>
+      <volume-id>2025.bucc-1</volume-id>
+      <volume-id>2025.chipsal-1</volume-id>
+      <volume-id>2025.chum-1</volume-id>
+      <volume-id>2025.clrel-1</volume-id>
+      <volume-id>2025.cltw-1</volume-id>
+      <volume-id>2025.comedi-1</volume-id>
+      <volume-id>2025.evalmg-1</volume-id>
+      <volume-id>2025.finnlp-1</volume-id>
+      <volume-id>2025.genaidetect-1</volume-id>
+      <volume-id>2025.genaik-1</volume-id>
+      <volume-id>2025.indonlp-1</volume-id>
+      <volume-id>2025.loreslm-1</volume-id>
+      <volume-id>2025.mcg-1</volume-id>
+      <volume-id>2025.nakbanlp-1</volume-id>
+      <volume-id>2025.neusymbridge-1</volume-id>
+      <volume-id>2025.regnlp-1</volume-id>
+      <volume-id>2025.sealp-1</volume-id>
+      <volume-id>2025.sumeval-2</volume-id>
+      <volume-id>2025.vardial-1</volume-id>
+      <volume-id>2025.wacl-1</volume-id>
+      <volume-id>2025.wraicogs-1</volume-id>
+    </colocated>
+  </event>
 </collection>
