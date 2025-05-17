@@ -174,6 +174,7 @@ def test_load_all(anthology):
     anthology.load_all()
     assert anthology.collections.is_data_loaded
     assert anthology.collections["J89"].is_data_loaded
+    assert anthology.collections.bibkeys.is_data_loaded
     assert anthology.events.is_data_loaded
     assert anthology.people.is_data_loaded
     assert anthology.sigs.is_data_loaded

@@ -367,7 +367,7 @@ class Anthology:
             return self.people.get_by_namespec(name_spec)
         return [self.people.get_by_namespec(ns) for ns in name_spec]
 
-    def create_collection(self, id: str) -> Collection:
+    def create_collection(self, id: str) -> Collection:  # pragma: no cover
         """Create a new [Collection][acl_anthology.collections.collection.Collection] object.
 
         Alias for [`CollectionIndex.create()`][acl_anthology.collections.index.CollectionIndex.create].
