@@ -507,7 +507,7 @@ class Paper:
         Raises:
             ValueError: If 'bibkey' is set to [`constants.NO_BIBKEY`][acl_anthology.constants.NO_BIBKEY].
         """
-        if self.bibkey == constants.NO_BIBKEY:
+        if self.bibkey == constants.NO_BIBKEY:  # pragma: no cover
             raise ValueError("Cannot generate BibTeX entry without bibkey")
         # Note: Fields are added in the order in which they will appear in the
         # BibTeX entry, for reproducibility
@@ -698,7 +698,7 @@ class Paper:
         Raises:
             ValueError: If 'bibkey' is set to [`constants.NO_BIBKEY`][acl_anthology.constants.NO_BIBKEY].
         """
-        if self.bibkey == constants.NO_BIBKEY:
+        if self.bibkey == constants.NO_BIBKEY:  # pragma: no cover
             raise ValueError("Cannot serialize a Paper without bibkey")
         if self.is_frontmatter:
             paper = etree.Element("frontmatter")

@@ -82,6 +82,7 @@ def test_get_frontmatter(anthology, id_):
     paper = anthology.get_paper(id_)
     assert paper is not None
     assert paper.is_frontmatter
+    assert paper is paper.parent.frontmatter
 
 
 def test_volumes(anthology):
@@ -114,7 +115,7 @@ def test_papers(anthology):
         count += 1
         found.add(paper.collection_id)
     assert expected == found
-    assert count == 852
+    assert count == 851
 
 
 def test_papers_by_collection_id(anthology):

@@ -15,6 +15,7 @@
 
 import pytest
 from acl_anthology.collections import BibkeyIndex
+from lxml import etree
 
 
 def test_bibkeys_indexing(anthology):
@@ -154,3 +155,31 @@ def test_bibkeys_refresh_bibkey_should_leave_unchanged(anthology, pre_load):
     assert paper.bibkey == "roark-etal-2006-sparseval"
     assert "roark-etal-2006-sparseval" in index
     assert index["roark-etal-2006-sparseval"] is paper
+
+
+def test_bibkeys_should_not_allow_setting_duplicate_bibkeys(anthology):
+    index = BibkeyIndex(anthology.collections)
+    index.is_data_loaded = True
+
+    paper_a = anthology.get_paper("2022.acl-long.1")
+    paper_a.bibkey = "my-duplicate-bibkey"  # okay
+
+    paper_b = anthology.get_paper("2022.acl-long.2")
+    with pytest.raises(ValueError):
+        paper_b.bibkey = "my-duplicate-bibkey"  # not okay
+
+
+def test_bibkeys_should_not_allow_loading_duplicate_bibkeys(anthology, shared_datadir):
+    # Manipulate an XML file so that two papers have identical bibkeys
+    filename = shared_datadir / "anthology" / "xml" / "2022.acl.xml"
+    tree = etree.parse(filename)
+    for paper_id in (5, 14):
+        bibkey = tree.xpath(f"//volume[@id='long']/paper[@id='{paper_id}']/bibkey")[0]
+        bibkey.text = "li-etal-2022-learning"
+    with open(filename, "wb") as f:
+        f.write(etree.tostring(tree, xml_declaration=True, encoding="UTF-8"))
+
+    # Simply loading the bibkey index should raise an error now
+    index = BibkeyIndex(anthology.collections)
+    with pytest.raises(ValueError):
+        index.load()

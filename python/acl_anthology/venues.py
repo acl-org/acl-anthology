@@ -25,6 +25,7 @@ try:
 except ImportError:  # pragma: no cover
     from yaml import Loader, Dumper  # type: ignore
 
+from .utils.attrs import auto_validate_types
 from .utils.ids import AnthologyIDTuple, build_id_from_tuple
 from .containers import SlottedDict
 
@@ -33,7 +34,7 @@ if TYPE_CHECKING:
     from .collections import Volume
 
 
-@define
+@define(field_transformer=auto_validate_types)
 class Venue:
     """A publication venue.
 

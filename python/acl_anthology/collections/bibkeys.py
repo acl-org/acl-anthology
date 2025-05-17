@@ -23,10 +23,14 @@ from typing import TYPE_CHECKING
 from .. import constants
 from ..containers import SlottedDict
 from ..text import StopWords
+from ..utils.logging import get_logger
 from .paper import Paper
 
 if TYPE_CHECKING:
     from .index import CollectionIndex
+
+
+log = get_logger()
 
 
 BIBKEY_MAX_NAMES = 2
@@ -162,11 +166,23 @@ class BibkeyIndex(SlottedDict[Paper]):
             disable=(not show_progress),
             description="Building bibkey index...",
         )
+        errors = []
         for collection in iterator:
             for paper in collection.papers():
                 if paper.bibkey in self.data:
-                    raise ValueError(
+                    errors.append(
                         f"Paper {paper.full_id} has bibkey {paper.bibkey}, which is already assigned to paper {self.data[paper.bibkey].full_id}"
                     )
                 self.data[paper.bibkey] = paper
+        if errors:
+            for error in errors:
+                log.error(error)
+            raise ValueError(
+                "\n".join(
+                    (
+                        "There were duplicate bibkeys while building the bibkey index:",
+                        *errors,
+                    )
+                )
+            )
         self.is_data_loaded = True

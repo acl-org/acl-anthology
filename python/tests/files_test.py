@@ -211,6 +211,11 @@ def test_pdfreference_from_file(datadir):
     assert ref.checksum == "f9f4f558"
 
 
+def test_pdfreference_from_nonexistant_file(datadir):
+    with pytest.raises(FileNotFoundError):
+        _ = PDFReference.from_file(datadir / "J16-9999.pdf")
+
+
 def test_attachmentreference_from_file(datadir):
     ref = AttachmentReference.from_file(datadir / "J16-4001.pdf")
     assert ref.name == "J16-4001.pdf"  # WITH the .pdf

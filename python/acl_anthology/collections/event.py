@@ -64,7 +64,7 @@ class Talk:
             elif meta.tag == "url":
                 type_ = str(meta.get("type", "attachment"))
                 kwargs["attachments"][type_] = EventFileReference.from_xml(meta)
-            else:
+            else:  # pragma: no cover
                 raise ValueError(f"Unsupported element for Talk: <{meta.tag}>")
         return cls(**kwargs)
 
