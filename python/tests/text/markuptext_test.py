@@ -185,35 +185,47 @@ def test_simple_string():
 
 test_cases_markup_from_latex = (
     ("", ""),
-    (
+    (  # ~ becomes a non-breaking space  // TODO: do we want a regular space here?
+        "~",
+        "\xa0",
+    ),
+    (  # Convert \\ to newline
+        "\\\\",
+        "\n",
+    ),
+    (  # --note minor bug: \\ doesn't eat up the space following it
+        "a\\\\ a",
+        "a\n a",
+    ),
+    (  # Curly braces become <fixed-case>
         "{A}dap{L}e{R}: Speeding up Inference by Adaptive Length Reduction",
         "<fixed-case>A</fixed-case>dap<fixed-case>L</fixed-case>e<fixed-case>R</fixed-case>: Speeding up Inference by Adaptive Length Reduction",
     ),
-    (
+    (  # \textbf becomes <b>
         "\\textbf{D}ynamic \\textbf{S}chema \\textbf{G}raph \\textbf{F}usion \\textbf{Net}work (\\textbf{DSGFNet})",
         "<b>D</b>ynamic <b>S</b>chema <b>G</b>raph <b>F</b>usion <b>Net</b>work (<b>DSGFNet</b>)",
     ),
-    (
+    (  # \textit becomes <i>
         "selecting prompt templates \\textit{without labeled examples} and \\emph{without direct access to the model}.",
         "selecting prompt templates <i>without labeled examples</i> and <i>without direct access to the model</i>.",
     ),
-    (
+    (  # Math expressions get turned into <tex-math>
         "$^{\\mathcal{E}}$: a Vectorial Resource for Computing Conceptual Similarity",
         "<tex-math>^{\\mathcal{E}}</tex-math>: a Vectorial Resource for Computing Conceptual Similarity",
     ),
-    (
+    (  # \url becomes <url>
         "The source code will be available at \\url{https://github.com/zhang-yu-wei/MTP-CLNN}.",
         "The source code will be available at <url>https://github.com/zhang-yu-wei/MTP-CLNN</url>.",
     ),
-    (
+    (  # Special characters do _not_ get <fixed-case> even when they’re in braces
         "Workshop on Topic A {\\&} B",
         "Workshop on Topic A &amp; B",
     ),
-    (
+    (  # Nesting <fixed-case> and <i>
         "{U}pstream {M}itigation {I}s \\textit{{N}ot} {A}ll {Y}ou {N}eed",
         "<fixed-case>U</fixed-case>pstream <fixed-case>M</fixed-case>itigation <fixed-case>I</fixed-case>s <i><fixed-case>N</fixed-case>ot</i> <fixed-case>A</fixed-case>ll <fixed-case>Y</fixed-case>ou <fixed-case>N</fixed-case>eed",
     ),
-    (
+    (  # Nesting tags in different ways
         "\\textbf{Con\\textit{trived}} {\\textbf{Ex}AMP\\textit{L}e} of N\\textbf{es$_{te}$d} markup",
         "<b>Con<i>trived</i></b> <b>Ex</b>AMP<i>L</i>e of N<b>es<tex-math>_{te}</tex-math>d</b> markup",
     ),
@@ -221,7 +233,7 @@ test_cases_markup_from_latex = (
         "\\textit{D\\textbf{e\\textit{e\\textbf{e\\textit{e\\textbf{p}}}}}}ly",
         "<i>D<b>e<i>e<b>e<i>e<b>p</b></i></b></i></b></i>ly",
     ),
-    (
+    (  # Testing various special characters, again should _not_ get <fixed-case>
         '{\\"A}{\\"o}{\\o}{\\\'e}{\\"y}{\\H{o}}{\\ss}{\\^u}{--}',
         "Äöøéÿőßû–",
     ),
@@ -238,22 +250,54 @@ test_cases_markup_from_latex = (
         "íìïîı ÍÌÏÎİ",
     ),
     (
+        "\\'i\\`i\\\"i\\^i\\i~\\'I\\`I\\\"I\\^I\\.I",
+        "íìïîı\xa0ÍÌÏÎİ",
+    ),
+    (
+        "\\textasciitilde{} \\sim",
+        "~ ∼",
+    ),
+    (  # Testing various special characters that had explicitly defined regexes in the old latex_to_unicode.py
+        "\\'e{\\'e}\\'{e}",
+        "ééé",
+    ),
+    (
+        "\\textcommabelow{S} \\textcommabelow t",
+        "S\N{COMBINING COMMA BELOW} t\N{COMBINING COMMA BELOW}",
+    ),
+    (
+        "\\dj\\DJ",
+        "đĐ",
+    ),
+    (
+        "\\hwithstroke\\Hwithstroke",
+        "ħĦ",
+    ),
+    (
+        "\\textquotesingle \\textquotedblleft \\textquotedblright",
+        "'“”",
+    ),
+    (
+        "\\$42 x`x",
+        "$42 x`x",  # TODO: latex_to_unicode.py converts ` to ‘ but I'm not sure why
+    ),
+    (  # Non-ASCII characters should remain unchanged
         "陳大文",
         "陳大文",
     ),
-    (
+    (  # Simple math does not get wrapped in <tex-math>
         "A $4.9\\%$ increase",
         "A 4.9% increase",
     ),
-    (
+    (  # Math with e.g. a command inside gets wrapped in <tex-math>
         "A $\\log 25$ increase",
         "A <tex-math>\\log 25</tex-math> increase",
     ),
-    (
+    (  # Unhandled TeX commands are dropped entirely, but their contents are preserved
         "An \\textsc{unhandled} command",
         "An unhandled command",
     ),
-    (
+    (  # \cite gets turned into "(CITATION)"  // TODO: we could also drop these entirely
         "A citation \\cite[p.32]{doe-et-al-2024}",
         "A citation (CITATION)",
     ),

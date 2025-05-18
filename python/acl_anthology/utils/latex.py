@@ -44,11 +44,13 @@ from pylatexenc.latexwalker import (
     LatexMacroNode,
     LatexMathNode,
     LatexSpecialsNode,
+    get_default_latex_context_db as get_default_latexwalker_context_db,
 )
+from pylatexenc.macrospec import MacroSpec
 from pylatexenc.latex2text import (
     LatexNodes2Text,
     MacroTextSpec,
-    get_default_latex_context_db,
+    get_default_latex_context_db as get_default_latex2text_context_db,
 )
 
 log = get_logger()
@@ -252,8 +254,21 @@ LATEX_MACRO_TO_XMLTAG = {
     "bf": "b",
     "url": "url",
 }
+"""A mapping of LaTeX macros to Anthology XML tags."""
+
 LATEX_CITE_MACROS = {"cite", "citep", "citet", "newcite", "citeauthor", "citeyear"}
-L2T_CONTEXT = get_default_latex_context_db()
+"""A set of LaTeX macros that will be treated as citation macros."""
+
+LW_CONTEXT = get_default_latexwalker_context_db()
+LW_CONTEXT.add_context_category(
+    "unhandled special characters",
+    prepend=True,
+    macros=[
+        MacroSpec("textcommabelow", "{"),
+    ],
+)
+
+L2T_CONTEXT = get_default_latex2text_context_db()
 L2T_CONTEXT.add_context_category(
     "citations",
     prepend=True,
@@ -261,17 +276,32 @@ L2T_CONTEXT.add_context_category(
         MacroTextSpec(macro, simplify_repl=r"(CITATION)") for macro in LATEX_CITE_MACROS
     ],
 )
+L2T_CONTEXT.add_context_category(
+    "unhandled special characters",
+    prepend=True,
+    macros=[
+        MacroTextSpec("textcommabelow", simplify_repl="%s\N{COMBINING COMMA BELOW}"),
+        MacroTextSpec("hwithstroke", simplify_repl="ħ"),
+        MacroTextSpec("Hwithstroke", simplify_repl="Ħ"),
+    ],
+)
 LATEX_TO_TEXT = LatexNodes2Text(strict_latex_spaces=True, latex_context=L2T_CONTEXT)
 
 
 def _is_trivial_math(node: LatexMathNode) -> bool:
-    """Helper function to determine whether or not a LatexMathNode contains only 'trivial' content that doesn't require a <tex-math> node."""
+    """Helper function to determine whether or not a LatexMathNode contains only 'trivial' content that doesn't require a <tex-math> node.
+
+    Currently, a math node is considered 'trivial' if it only contains numbers, spaces, and a few allowed characters (e.g. commas, dots, percentage signs).
+    """
     content = node.latex_verbatim().strip("$").replace(r"\%", "%")
     return all(c.isspace() or c.isdigit() or c in (".,@%~") for c in content)
 
 
 def _should_parse_macro_as_text(node: LatexMacroNode) -> bool:
-    """Helper function to determine whether or not a LatexMacroNode should be parsed as a simple character macro."""
+    """Helper function to determine whether or not a LatexMacroNode should be parsed as a simple character macro (e.g. `\\'y`)."""
+    if node.nodeargd is None:
+        # I'm not sure what this means, happens with macros like {\"\i} that may be considered invalid?
+        return False
     subnodes = node.nodeargd.argnlist
     if len(subnodes) == 0:
         # Macro without arguments; e.g. \i or \l
@@ -343,6 +373,9 @@ def _parse_nodelist_to_element(
             elif node.macroname in LATEX_CITE_MACROS:
                 # A citation command such as \cite{...}
                 append_text(element, LATEX_TO_TEXT.macro_node_to_text(node))
+            elif node.macroname == "\\":
+                # Special case: explicit linebreak \\
+                append_text(element, "\n")
             elif _should_parse_macro_as_text(node):
                 # This macro should be parsed as text because it probably
                 # represents a special character, such as \v{c} or \"I
@@ -351,10 +384,10 @@ def _parse_nodelist_to_element(
                 # This is a macro we don't know how to handle - emit warning,
                 # then discard macro but recurse into its children
                 log.warning(f"Unhandled LaTeX macro '{node.macroname}'")
-                subnodes = node.nodeargd.argnlist
-                _parse_nodelist_to_element(
-                    subnodes, element, use_fixed_case, in_macro=True
-                )
+                if node.nodeargd and (subnodes := node.nodeargd.argnlist):
+                    _parse_nodelist_to_element(
+                        subnodes, element, use_fixed_case, in_macro=True
+                    )
         elif node.isNodeType(LatexGroupNode):
             # Bracketed group, such as {...} or [...]
             if not in_macro and _should_wrap_in_fixed_case(node):
@@ -393,9 +426,12 @@ def parse_latex_to_xml(latex_input: str, use_fixed_case: bool = True) -> etree._
 
     Returns:
         An XML element representing the given LaTeX input in the Anthology XML format for markup strings.
+
+    Note:
+        This is a potentially lossy conversion, as the Anthology XML format only represents a small subset of LaTeX commands.  Unhandled commands will be dropped, but emit a warning in the logger.
     """
     element = etree.Element("root")
-    walker = LatexWalker(latex_input)
+    walker = LatexWalker(latex_input, latex_context=LW_CONTEXT)
     nodelist, *_ = walker.get_latex_nodes()
     _parse_nodelist_to_element(nodelist, element, use_fixed_case)
     return element
