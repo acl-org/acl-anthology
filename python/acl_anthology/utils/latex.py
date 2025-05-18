@@ -267,6 +267,13 @@ LW_CONTEXT.add_context_category(
         MacroSpec("textcommabelow", "{"),
     ],
 )
+LW_CONTEXT.add_context_category(
+    "common macros",
+    prepend=True,
+    macros=[
+        MacroSpec("href", "{{"),
+    ],
+)
 
 L2T_CONTEXT = get_default_latex2text_context_db()
 L2T_CONTEXT.add_context_category(
@@ -285,6 +292,16 @@ L2T_CONTEXT.add_context_category(
         MacroTextSpec("Hwithstroke", simplify_repl="Ħ"),
     ],
 )
+L2T_CONTEXT.add_context_category(
+    "common macros",
+    prepend=True,
+    macros=[
+        # \href: drop the URL but keep the text – we could append the URL in a
+        # <url> tag, but this cannot be done here, we would have to add this to
+        # _parse_nodelist_to_element as another special case
+        MacroTextSpec("href", simplify_repl=r"%(2)s")
+    ],
+)
 LATEX_TO_TEXT = LatexNodes2Text(strict_latex_spaces=True, latex_context=L2T_CONTEXT)
 
 
@@ -295,31 +312,6 @@ def _is_trivial_math(node: LatexMathNode) -> bool:
     """
     content = node.latex_verbatim().strip("$").replace(r"\%", "%")
     return all(c.isspace() or c.isdigit() or c in (".,@%~") for c in content)
-
-
-def _should_parse_macro_as_text(node: LatexMacroNode) -> bool:
-    """Helper function to determine whether or not a LatexMacroNode should be parsed as a simple character macro (e.g. `\\'y`)."""
-    if node.nodeargd is None:
-        # I'm not sure what this means, happens with macros like {\"\i} that may be considered invalid?
-        return False
-    subnodes = node.nodeargd.argnlist
-    if len(subnodes) == 0:
-        # Macro without arguments; e.g. \i or \l
-        return True
-    elif len(subnodes) > 1:
-        # Macro with more than one argument
-        return False
-    subnode = subnodes[0]
-    if subnode.isNodeType(LatexCharsNode) and subnode.len == 1:
-        return True
-    if (
-        subnode.isNodeType(LatexGroupNode)
-        and len(subnode.nodelist) == 1
-        and subnode.nodelist[0].isNodeType(LatexCharsNode)
-        and subnode.nodelist[0].len == 1
-    ):
-        return True
-    return False
 
 
 def _should_wrap_in_fixed_case(node: LatexGroupNode) -> bool:
@@ -357,7 +349,7 @@ def _parse_nodelist_to_element(
     """
     for node in nodelist:
         if node is None:
-            continue
+            continue  # pragma: no cover
         elif node.isNodeType(LatexCharsNode):
             # Plain text
             append_text(element, node.chars)
@@ -376,18 +368,12 @@ def _parse_nodelist_to_element(
             elif node.macroname == "\\":
                 # Special case: explicit linebreak \\
                 append_text(element, "\n")
-            elif _should_parse_macro_as_text(node):
-                # This macro should be parsed as text because it probably
-                # represents a special character, such as \v{c} or \"I
-                append_text(element, LATEX_TO_TEXT.macro_node_to_text(node))
             else:
-                # This is a macro we don't know how to handle - emit warning,
-                # then discard macro but recurse into its children
-                log.warning(f"Unhandled LaTeX macro '{node.macroname}'")
-                if node.nodeargd and (subnodes := node.nodeargd.argnlist):
-                    _parse_nodelist_to_element(
-                        subnodes, element, use_fixed_case, in_macro=True
-                    )
+                # This macro either represents a special characters, such as
+                # \v{c} or \"I, or is some other macro we do not explicitly
+                # handle; in both cases, we fall back on Latex2Text’s default
+                # conversion, which can be influenced by L2T_CONTEXT
+                append_text(element, LATEX_TO_TEXT.macro_node_to_text(node))
         elif node.isNodeType(LatexGroupNode):
             # Bracketed group, such as {...} or [...]
             if not in_macro and _should_wrap_in_fixed_case(node):

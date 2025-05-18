@@ -217,6 +217,10 @@ test_cases_markup_from_latex = (
         "The source code will be available at \\url{https://github.com/zhang-yu-wei/MTP-CLNN}.",
         "The source code will be available at <url>https://github.com/zhang-yu-wei/MTP-CLNN</url>.",
     ),
+    (  # \href currently only keeps the text, not the link
+        "\\href{http://www.overleaf.com}{Overleaf}",
+        "Overleaf",
+    ),
     (  # Special characters do _not_ get <fixed-case> even when they’re in braces
         "Workshop on Topic A {\\&} B",
         "Workshop on Topic A &amp; B",
@@ -252,6 +256,10 @@ test_cases_markup_from_latex = (
     (
         "\\'i\\`i\\\"i\\^i\\i~\\'I\\`I\\\"I\\^I\\.I",
         "íìïîı\xa0ÍÌÏÎİ",
+    ),
+    (
+        '\\"\\i',
+        "ï",
     ),
     (
         "\\textasciitilde{} \\sim",
@@ -293,13 +301,35 @@ test_cases_markup_from_latex = (
         "A $\\log 25$ increase",
         "A <tex-math>\\log 25</tex-math> increase",
     ),
-    (  # Unhandled TeX commands are dropped entirely, but their contents are preserved
+    (  # ...but never in fixed-case
+        "A {$\\log 25$} increase",
+        "A <tex-math>\\log 25</tex-math> increase",
+    ),
+    (  # Unhandled TeX commands are converted by Latex2Text’s rules
         "An \\textsc{unhandled} command",
         "An unhandled command",
     ),
-    (  # \cite gets turned into "(CITATION)"  // TODO: we could also drop these entirely
+    (
+        "\\newcommand{\\R}{\\mathbb{R}}",
+        "",
+    ),
+    (  # A macro that pylatexenc doesn't know can't have its arguments parsed, so they end up as <fixed-case>
+        "\\complicatedusermacro{bar}",
+        "<fixed-case>bar</fixed-case>",
+    ),
+    (  # \cite gets turned into "(CITATION)"  // TODO: we could handle these differently
         "A citation \\cite[p.32]{doe-et-al-2024}",
         "A citation (CITATION)",
+    ),
+    (  # LaTeX comments get dropped
+        "Some text    % a comment",
+        "Some text    ",
+    ),
+    (  # LaTeX environments get dropped  // TODO: can Latex2Text’s defaults handle them?
+        """\\begin{itemize}
+             \\item I hope we don't have to handle this
+           \\end{itemize}""",
+        "",
     ),
 )
 
