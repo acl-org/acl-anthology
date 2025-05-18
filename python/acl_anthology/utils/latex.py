@@ -243,6 +243,9 @@ def namespecs_to_bibtex(namespecs: list[NameSpecification]) -> str:
 ### LATEX TO UNICODE/XML
 ################################################################################
 
+# The logic implemented here is largely based on our old
+# `bin/latex_to_unicode.py` which was mainly authored by David Chiang.
+
 LATEX_MACRO_TO_XMLTAG = {
     "emph": "i",
     "em": "i",
