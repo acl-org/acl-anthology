@@ -24,6 +24,8 @@ if TYPE_CHECKING:
 if sys.version_info >= (3, 11):
 
     class AnthologyException(Exception):
+        """Base class from which all other exceptions defined here inherit."""
+
         def __init__(self, msg: str):
             super().__init__(msg)
 

@@ -83,11 +83,9 @@ If you know that you are looking for a specific type of item, you can also use:
 
 ### Working with containers
 
-You can also store and work with the child objects (representing
-e.g. collections or volumes) directly.  Following the [data
-hierarchy](#data-hierarchy) described above, child objects of the
-[`Anthology`][acl_anthology.anthology.Anthology] class are also organized in a
-hierarchical fashion:
+Following the [data hierarchy](#data-hierarchy) described above, child objects
+of the [`Anthology`][acl_anthology.anthology.Anthology] class are also organized
+in a hierarchical fashion:
 
 - The [`CollectionIndex`][acl_anthology.collections.index.CollectionIndex] is a container mapping collection IDs to [`Collection`][acl_anthology.collections.collection.Collection] objects. _(The index is accessible as `anthology.collections`.)_
 - [`Collection`][acl_anthology.collections.collection.Collection] objects are containers mapping volume IDs to [`Volume`][acl_anthology.collections.volume.Volume] objects.
@@ -103,7 +101,7 @@ anthology.collections["2022.acl"]["long"]["220"]  # same
 
 !!! tip
 
-    As a general rule, all containers provide complete dictionary-like functionality.
+    As a general rule, all containers provide **complete dictionary-like functionality**.
 
 The following all work as they would with a regular dictionary object:
 
