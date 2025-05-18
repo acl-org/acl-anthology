@@ -338,3 +338,41 @@ test_cases_markup_from_latex = (
 def test_markup_from_latex(inp, out):
     markup = MarkupText.from_latex(inp)
     assert markup.as_xml() == out
+
+
+test_cases_markup_from_latex_maybe = (
+    ("", "", ""),
+    (  # LaTeX comment or intended percentage sign?
+        "This is a 20% increase",
+        "This is a 20",
+        "This is a 20% increase",
+    ),
+    (  # ... this should not be affected
+        "A $4.9\\%$ increase",
+        "A 4.9% increase",
+        "A 4.9% increase",
+    ),
+    (  # Non-breaking space or actual tilde?
+        "We have ~20 examples",
+        "We have \xa020 examples",
+        "We have ~20 examples",
+    ),
+    (
+        "a few (~20)",
+        "a few (\xa020)",
+        "a few (~20)",
+    ),
+    (  # ... this should not be affected
+        "We have 20~examples",
+        "We have 20\xa0examples",
+        "We have 20\xa0examples",
+    ),
+)
+
+
+@pytest.mark.parametrize("inp, out1, out2", test_cases_markup_from_latex_maybe)
+def test_markup_from_latex_maybe(inp, out1, out2):
+    markup = MarkupText.from_latex(inp)
+    assert markup.as_xml() == out1
+    markup = MarkupText.from_latex_maybe(inp)
+    assert markup.as_xml() == out2

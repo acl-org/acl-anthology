@@ -1,4 +1,4 @@
-# Copyright 2023-2024 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2025 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -403,12 +403,15 @@ def _parse_nodelist_to_element(
             log.warning(f"Unhandled node type: {node.nodeType}")
 
 
-def parse_latex_to_xml(latex_input: str, use_fixed_case: bool = True) -> etree._Element:
+def parse_latex_to_xml(
+    latex_input: str, use_fixed_case: bool = True, use_heuristics: bool = False
+) -> etree._Element:
     """Convert a string with LaTeX markup into the Anthology XML format.
 
     Arguments:
         latex_input: A string potentially including LaTeX markup.
         use_fixed_case: Flag indicating whether <fixed-case> protection should be applied.
+        use_heuristics: If True, will apply some heuristics to determine if certain symbols should be interpreted as plain text rather than LaTeX; e.g., it will prevent percentage signs from being interpreted as LaTeX comments.  Set this to True when dealing with inputs that could either be plain text or LaTeX.
 
     Returns:
         An XML element representing the given LaTeX input in the Anthology XML format for markup strings.
@@ -416,6 +419,14 @@ def parse_latex_to_xml(latex_input: str, use_fixed_case: bool = True) -> etree._
     Note:
         This is a potentially lossy conversion, as the Anthology XML format only represents a small subset of LaTeX commands.  Unhandled commands will be dropped, but emit a warning in the logger.
     """
+    if use_heuristics:
+        # % is probably percent (not a comment delimiter)
+        latex_input = re.sub(r"(?<!\\)%", r"\%", latex_input)
+
+        # Use a heuristic to decide whether ~ means "approximately" or is a tie
+        latex_input = re.sub(r"(?<=[ (])~(?=\d)", r"\\textasciitilde ", latex_input)
+        latex_input = re.sub(r"^~(?=\d)", r"\\textasciitilde ", latex_input)
+
     element = etree.Element("root")
     walker = LatexWalker(latex_input, latex_context=LW_CONTEXT)
     nodelist, *_ = walker.get_latex_nodes()

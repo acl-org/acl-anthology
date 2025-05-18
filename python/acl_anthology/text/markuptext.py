@@ -191,7 +191,21 @@ class MarkupText:
         Returns:
             Instantiated MarkupText object corresponding to the string.
         """
-        element = parse_latex_to_xml(text)
+        element = parse_latex_to_xml(text, use_heuristics=False)
+        return cls.from_xml(element)
+
+    @classmethod
+    def from_latex_maybe(cls, text: str) -> MarkupText:
+        """
+        Like `from_latex()`, but can be used if it is unclear if the string is plain text or LaTeX.  Will apply certain heuristics to e.g. prevent percentage signs being interpreted as LaTeX comments in plain text inputs.
+
+        Arguments:
+            text: A text string potentially in plain text or LaTeX format.
+
+        Returns:
+            Instantiated MarkupText object corresponding to the string.
+        """
+        element = parse_latex_to_xml(text, use_heuristics=True)
         return cls.from_xml(element)
 
     @classmethod
