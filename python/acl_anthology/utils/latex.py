@@ -72,26 +72,38 @@ BIBTEX_MONTHS = {
 }
 """A mapping of month names to BibTeX macros."""
 
-RE_OPENING_QUOTE_DOUBLE = re.compile(r"""
+RE_OPENING_QUOTE_DOUBLE = re.compile(
+    r"""
                                       (\A|(?<=\s))  # must be start of the string or come after whitespace
                                       ({''}|'')     # match double apostrophe, optionally in braces
                                       (?!}|\s)      # must not come before whitespace or closing brace }
-                                      """, re.X)
-RE_OPENING_QUOTE_SINGLE = re.compile(r"""
+                                      """,
+    re.X,
+)
+RE_OPENING_QUOTE_SINGLE = re.compile(
+    r"""
                                       (\A|(?<=\s))  # must be start of the string or come after whitespace
                                       ({'}|')       # match single apostrophe, optionally in braces
                                       (?!'|}|\s)    # must not come before whitespace, closing brace, or another apostrophe
-                                      """, re.X)
-RE_CLOSING_QUOTE_DOUBLE = re.compile(r"""
+                                      """,
+    re.X,
+)
+RE_CLOSING_QUOTE_DOUBLE = re.compile(
+    r"""
                                       (?<!\\)       # must not come after backslash
                                       {''}          # match double apostrophe in braces
                                       (?=\W|\Z)     # must be end of the string or come before a non-word character
-                                      """, re.X)
-RE_CLOSING_QUOTE_SINGLE = re.compile(r"""
+                                      """,
+    re.X,
+)
+RE_CLOSING_QUOTE_SINGLE = re.compile(
+    r"""
                                       (?<!\\)       # must not come after backslash
                                       {'}           # match single apostrophe in braces
                                       (?=\W|\Z)     # must be end of the string or come before a non-word character
-                                      """, re.X)
+                                      """,
+    re.X,
+)
 
 RE_HYPHENS_BETWEEN_NUMBERS = re.compile(r"(?<=[0-9])(-|–|—)(?=[0-9])")
 
