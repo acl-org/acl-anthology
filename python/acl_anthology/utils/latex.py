@@ -167,6 +167,9 @@ def latex_convert_quotes(text: str) -> str:
     Returns:
         The input string with LaTeX quotes converted into proper opening and closing quotes, removing braces around them, if necessary.
 
+    Note:
+        This is called during the conversion from our XML markup to LaTeX. Straight quotation marks (`"`) will have been converted to double apostrophes, usually in braces (`{''}`), by pylatexenc; this function applies regexes to turn them into appropriate opening/closing quotes with the braces removed.
+
     Examples:
         >>> latex_convert_quotes("This {''}great{''} example")
         "This ``great'' example"
