@@ -19,9 +19,12 @@ from acl_anthology.utils import latex
 
 test_cases_latex = (
     ("{''}This is a quotation.{''}", "``This is a quotation.''"),
+    ("''This is a quotation.''", "``This is a quotation.''"),
     ("This is a {''}quotation{''}.", "This is a ``quotation''."),
     ("Can you 'please' {'}convert{'} this?", "Can you `please' `convert' this?"),
     ("My name is ''陳大文''.", "My name is ``陳大文''."),
+    ("This isn't a quotation.", "This isn't a quotation."),
+    ("But ''\\textbf{this}'' is", "But ``\\textbf{this}'' is"),
 )
 
 
