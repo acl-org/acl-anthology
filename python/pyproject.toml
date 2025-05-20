@@ -91,6 +91,9 @@ dependencies = [
     "typing-extensions (>=4.6.0) ; python_version < '3.11'",
 ]
 
+[project.scripts]
+acl-anthology-editor = 'acl_anthology.tui.editor:main'
+
 [tool.poetry.group.dev.dependencies]
 black = ">=25.1"
 pytest = "^7.3.1"
@@ -107,6 +110,12 @@ types-pyyaml = "^6.0.12.11"
 types-lxml = "^2023.3.28"
 pymdown-extensions = "^10.13"
 pytest-datadir = "^1.6.1"
+
+
+[tool.poetry.group.tui.dependencies]
+textual = "^3.2.0"
+textual-dev = "^1.7.0"
+thefuzz = "^0.22.1"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
