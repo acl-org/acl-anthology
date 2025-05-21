@@ -17,7 +17,6 @@ from __future__ import annotations
 import sys
 from attrs import define, field, validators as v
 from lxml import etree
-from os import PathLike
 from pathlib import Path
 from typing import Any, Iterator, Optional, cast, TYPE_CHECKING
 
@@ -39,6 +38,7 @@ from .volume import Volume
 from .paper import Paper
 
 if TYPE_CHECKING:
+    from _typeshed import StrPath
     from ..anthology import Anthology
     from .index import CollectionIndex
 
@@ -293,7 +293,7 @@ class Collection(SlottedDict[Volume]):
 
         self.is_data_loaded = True
 
-    def save(self, path: Optional[PathLike[str]] = None) -> None:
+    def save(self, path: Optional[StrPath] = None) -> None:
         """Saves this collection as an XML file.
 
         Arguments:
