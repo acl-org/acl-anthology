@@ -1,4 +1,4 @@
-# Copyright 2023-2024 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2025 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,12 +14,16 @@
 
 """Functions implementing the automatic cloning of the Anthology repository."""
 
+from __future__ import annotations
+
 from git.repo import Repo
 from git import RemoteProgress
-from os import PathLike
 from pathlib import Path
 from rich.progress import Progress
-from typing import Optional
+from typing import Optional, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from _typeshed import StrPath
 
 from .logging import get_logger
 
@@ -27,9 +31,7 @@ from .logging import get_logger
 log = get_logger()
 
 
-def clone_or_pull_from_repo(
-    repo_url: str, local_path: PathLike[str], verbose: bool
-) -> None:
+def clone_or_pull_from_repo(repo_url: str, local_path: StrPath, verbose: bool) -> None:
     """Clones a Git repository, or pulls from remote if it already exists.
 
     Arguments:

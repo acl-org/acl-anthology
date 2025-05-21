@@ -20,16 +20,18 @@ import pkgutil
 import sys
 import warnings
 from lxml.etree import RelaxNG
-from os import PathLike
 from pathlib import Path
 from rich.progress import track
 from slugify import slugify
-from typing import cast, overload, Iterator, Optional, TypeAlias
+from typing import cast, overload, Iterator, Optional, TypeAlias, TYPE_CHECKING
 
 if sys.version_info >= (3, 11):
     from typing import Self
 else:
     from typing_extensions import Self
+
+if TYPE_CHECKING:
+    from _typeshed import StrPath
 
 from .config import config, dirs
 from .exceptions import AnthologyException, SchemaMismatchWarning
@@ -41,7 +43,6 @@ from .people import PersonIndex, Person, Name, NameSpecification, ConvertableInt
 from .sigs import SIGIndex
 from .venues import VenueIndex
 
-
 NameSpecificationOrIter: TypeAlias = NameSpecification | Iterator[NameSpecification]
 PersonOrList: TypeAlias = Person | list[Person]
 
@@ -52,11 +53,11 @@ class Anthology:
     """An instance of the ACL Anthology data.
 
     Attributes:
-        datadir (PathLike[str]): The path to the data folder.
-        verbose (bool): If False, will not show progress bars during longer operations.
+        datadir: The path to the data folder.
+        verbose: If False, will not show progress bars during longer operations.
     """
 
-    def __init__(self, datadir: PathLike[str], verbose: bool = True) -> None:
+    def __init__(self, datadir: StrPath, verbose: bool = True) -> None:
         if not Path(datadir).is_dir():
             raise FileNotFoundError(f"Not a directory: {datadir}")
 
@@ -98,7 +99,7 @@ class Anthology:
     def from_repo(
         cls,
         repo_url: str = "https://github.com/acl-org/acl-anthology.git",
-        path: Optional[PathLike[str]] = None,
+        path: Optional[StrPath] = None,
         verbose: bool = True,
     ) -> Self:
         """Instantiates the Anthology from a Git repo.

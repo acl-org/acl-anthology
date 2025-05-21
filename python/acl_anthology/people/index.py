@@ -1,4 +1,4 @@
-# Copyright 2023-2024 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2025 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,7 +18,6 @@ from attrs import define, field, asdict
 from collections.abc import Iterable
 from collections import Counter, defaultdict
 import itertools as it
-from os import PathLike
 from pathlib import Path
 from rich.progress import track
 from scipy.cluster.hierarchy import DisjointSet  # type: ignore
@@ -38,6 +37,7 @@ from ..utils.logging import get_logger
 from . import Person, Name, NameSpecification
 
 if TYPE_CHECKING:
+    from _typeshed import StrPath
     from ..anthology import Anthology
     from ..collections import Paper, Volume
 
@@ -381,7 +381,7 @@ class PersonIndex(SlottedDict[Person]):
         for a, b in merge_list:
             self.similar.merge(a, b)
 
-    def save(self, path: PathLike[str]) -> None:
+    def save(self, path: StrPath) -> None:
         """Save the entire index.
 
         CURRENTLY UNTESTED; DO NOT USE.

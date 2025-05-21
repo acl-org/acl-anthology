@@ -1,4 +1,4 @@
-# Copyright 2023-2024 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2025 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,7 +15,6 @@
 from __future__ import annotations
 
 from attrs import define, field, validators as v, asdict
-from os import PathLike
 from pathlib import Path
 from typing import Iterator, Optional, TYPE_CHECKING
 import yaml
@@ -30,6 +29,7 @@ from .utils.ids import AnthologyIDTuple, build_id_from_tuple
 from .containers import SlottedDict
 
 if TYPE_CHECKING:
+    from _typeshed import StrPath
     from .anthology import Anthology
     from .collections import Volume
 
@@ -71,7 +71,7 @@ class Venue:
     type: Optional[str] = field(default=None, validator=v.optional(v.instance_of(str)))
 
     @classmethod
-    def load_from_yaml(cls, path: PathLike[str], parent: Anthology) -> Venue:
+    def load_from_yaml(cls, path: StrPath, parent: Anthology) -> Venue:
         """Instantiates a venue from its YAML file.
 
         Arguments:
@@ -87,7 +87,7 @@ class Venue:
             kwargs = yaml.load(f, Loader=Loader)
         return cls(venue_id, parent=parent, path=path, **kwargs)
 
-    def save(self, path: Optional[PathLike[str]] = None) -> None:
+    def save(self, path: Optional[StrPath] = None) -> None:
         """Saves this venue as a YAML file.
 
         Arguments:

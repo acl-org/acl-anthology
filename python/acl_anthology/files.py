@@ -1,4 +1,4 @@
-# Copyright 2023-2024 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2025 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,19 +14,23 @@
 
 """Classes for representing and resolving file references."""
 
+from __future__ import annotations
+
 import sys
 from attrs import define, field, validators as v, Factory
 from lxml import etree
 from lxml.builder import E
-from os import PathLike
 from pathlib import Path
-from typing import cast, ClassVar, Optional
+from typing import cast, ClassVar, Optional, TYPE_CHECKING
 from zlib import crc32
 
 if sys.version_info >= (3, 11):
     from typing import Self
 else:
     from typing_extensions import Self
+
+if TYPE_CHECKING:
+    from _typeshed import StrPath
 
 from .config import config
 from .utils.xml import xsd_boolean
@@ -45,7 +49,7 @@ def compute_checksum(value: bytes) -> str:
     return f"{checksum:08x}"
 
 
-def compute_checksum_from_file(path: PathLike[str]) -> str:
+def compute_checksum_from_file(path: StrPath) -> str:
     """Compute the checksum of a file.
 
     Parameters:
@@ -89,7 +93,7 @@ class FileReference:
         return cast(str, config[self.template_field]).format(self.name)
 
     @classmethod
-    def from_file(cls, filename: PathLike[str]) -> Self:
+    def from_file(cls, filename: StrPath) -> Self:
         """Instantiate a new file reference from a file.
 
         This automatically computes the checksum for the file and determines its name.

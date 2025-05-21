@@ -1,4 +1,4 @@
-# Copyright 2023-2024 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2025 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,7 +16,6 @@ from __future__ import annotations
 
 from attrs import define, field, validators as v
 from collections import ChainMap, defaultdict
-from os import PathLike
 from pathlib import Path
 from typing import Iterator, Optional, TYPE_CHECKING
 import yaml
@@ -32,6 +31,7 @@ except ImportError:  # pragma: no cover
     from yaml import Loader, Dumper  # type: ignore
 
 if TYPE_CHECKING:
+    from _typeshed import StrPath
     from .anthology import Anthology
     from .collections.volume import Volume
 
@@ -86,7 +86,7 @@ class SIG:
                 yield volume
 
     @classmethod
-    def load_from_yaml(cls, parent: SIGIndex, path: PathLike[str]) -> SIG:
+    def load_from_yaml(cls, parent: SIGIndex, path: StrPath) -> SIG:
         """Instantiates a SIG from its YAML file.
 
         Arguments:
@@ -122,7 +122,7 @@ class SIG:
                     )
         return sig
 
-    def save(self, path: Optional[PathLike[str]] = None) -> None:
+    def save(self, path: Optional[StrPath] = None) -> None:
         """Saves this SIG as a YAML file.
 
         Arguments:
