@@ -20,7 +20,9 @@ from __future__ import annotations
 
 from textual import on, work
 from textual.app import App, ComposeResult
+from textual.binding import Binding
 from textual.containers import Container, Vertical, VerticalScroll
+from textual.message import Message
 from textual.reactive import reactive
 from textual.widgets import Input, Label, ListItem, ListView, Footer, Header, Static
 
@@ -33,6 +35,13 @@ class AuthorList(ListView):
     ids_to_show: reactive[list[str]] = reactive(list, recompose=True)
     max_to_show: int = 250
 
+    BINDINGS = [
+        Binding("up", "move_up", "Move up to Author Input", show=False),
+    ]
+
+    class MoveUp(Message):
+        pass
+
     def compose(self) -> ComposeResult:
         for id_ in self.ids_to_show[: self.max_to_show]:
             yield ListItem(Label(id_))
@@ -43,6 +52,12 @@ class AuthorList(ListView):
                 classes="more-not-shown",
             )
 
+    def action_move_up(self) -> None:
+        if self.index == 0:
+            self.post_message(self.MoveUp())
+        else:
+            self.action_cursor_up()
+
 
 class AnthologyEditor(App[None]):
     """ACL Anthology editing app."""
@@ -51,6 +66,7 @@ class AnthologyEditor(App[None]):
     TITLE = "ACL Anthology"
     SUB_TITLE = "Author Editor"
     BINDINGS = [
+        Binding("down", "move_down", "Move down from Author Input", show=False),
         ("q", "quit", "Quit"),
     ]
 
@@ -68,6 +84,18 @@ class AnthologyEditor(App[None]):
             with VerticalScroll(id="code-view"):
                 yield Static(id="code", expand=True)
         yield Footer()
+
+    def action_move_down(self) -> None:
+        if self.query_one("#author-input").has_focus:
+            lv = self.query_one("#list-view", AuthorList)
+            if lv.ids_to_show:
+                lv.index = 0
+                lv.focus()
+
+    def on_author_list_move_up(self) -> None:
+        lv = self.query_one("#list-view", AuthorList)
+        if lv.has_focus and lv.index == 0:
+            self.query_one("#author-input").focus()
 
     @on(Input.Changed, "#author-input")
     def filter_author_list(self, event: Input.Changed) -> None:
