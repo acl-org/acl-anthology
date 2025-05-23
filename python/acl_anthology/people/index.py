@@ -1,4 +1,4 @@
-# Copyright 2023-2024 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2025 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,9 +15,9 @@
 from __future__ import annotations
 
 from attrs import define, field, asdict
+from collections.abc import Iterable
 from collections import Counter, defaultdict
 import itertools as it
-from os import PathLike
 from pathlib import Path
 from rich.progress import track
 from scipy.cluster.hierarchy import DisjointSet  # type: ignore
@@ -32,10 +32,12 @@ except ImportError:  # pragma: no cover
 
 from ..containers import SlottedDict
 from ..exceptions import AnthologyException, AmbiguousNameError, NameIDUndefinedError
+from ..utils.ids import AnthologyIDTuple
 from ..utils.logging import get_logger
 from . import Person, Name, NameSpecification
 
 if TYPE_CHECKING:
+    from _typeshed import StrPath
     from ..anthology import Anthology
     from ..collections import Paper, Volume
 
@@ -48,6 +50,14 @@ class PersonIndex(SlottedDict[Person]):
     """Index object through which all persons (authors/editors) can be accessed.
 
     Provides dictionary-like functionality mapping person IDs to [Person][acl_anthology.people.person.Person] objects.
+
+    Info:
+        All information about persons is currently derived from [name specifications][acl_anthology.people.name.NameSpecification] on volumes and papers, and not stored explicitly. This means:
+
+        1. Loading this index requires parsing the entire Anthology data.
+        2. Nothing in this index should be modified to make changes to Anthology data; change the information on papers instead.
+
+        See the [guide on accessing author/editor information](../guide/accessing-authors.md) for more information.
 
     Attributes:
         parent: The parent Anthology instance to which this index belongs.
@@ -63,7 +73,7 @@ class PersonIndex(SlottedDict[Person]):
         init=False, repr=False, factory=lambda: defaultdict(list)
     )
     similar: DisjointSet = field(init=False, repr=False, factory=DisjointSet)
-    is_data_loaded: bool = field(init=False, repr=False, default=False)
+    is_data_loaded: bool = field(init=False, repr=True, default=False)
 
     def get_by_name(self, name: Name) -> list[Person]:
         """Access persons by their name.
@@ -162,8 +172,7 @@ class PersonIndex(SlottedDict[Person]):
         """Load the entire Anthology data and build an index of persons.
 
         Important:
-            Exceptions raised during the index creation are sent to the logger, and **not** re-raised.
-            Use the [SeverityTracker][acl_anthology.utils.logging.SeverityTracker] to check if an exception occurred.
+            Exceptions raised during the index creation are sent to the logger, and only a generic exception is raised at the end.
         """
         self.reset()
         # Load variant list, so IDs defined there are added first
@@ -175,6 +184,7 @@ class PersonIndex(SlottedDict[Person]):
             disable=(not show_progress),
             description="Building person index...",
         )
+        raised_exception = False
         for collection in iterator:
             for volume in collection.volumes():
                 context: Paper | Volume = volume
@@ -203,6 +213,11 @@ class PersonIndex(SlottedDict[Person]):
                     elif sys.version_info >= (3, 11):
                         exc.add_note(note)
                     log.exception(exc)
+                    raised_exception = True
+        if raised_exception:
+            raise Exception(
+                "An exception was raised while building PersonIndex; check the logger for details."
+            )
         self.is_data_loaded = True
 
     def add_person(self, person: Person) -> None:
@@ -303,6 +318,20 @@ class PersonIndex(SlottedDict[Person]):
         """
         return name.slugify()
 
+    def _add_to_index(
+        self, namespecs: Iterable[NameSpecification], item_id: AnthologyIDTuple
+    ) -> None:
+        """Add persons to the index.
+
+        This function exists for internal use when creating new volumes or papers.  It should not be called manually.
+        """
+        if not self.is_data_loaded:
+            return
+
+        for namespec in namespecs:
+            person = self.get_or_create_person(namespec)
+            person.item_ids.append(item_id)
+
     def _load_variant_list(self) -> None:
         """Loads and parses the `name_variant.yaml` file.
 
@@ -352,7 +381,7 @@ class PersonIndex(SlottedDict[Person]):
         for a, b in merge_list:
             self.similar.merge(a, b)
 
-    def save(self, path: PathLike[str]) -> None:
+    def save(self, path: StrPath) -> None:
         """Save the entire index.
 
         CURRENTLY UNTESTED; DO NOT USE.

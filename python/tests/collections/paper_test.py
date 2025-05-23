@@ -12,10 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import attrs
+import copy
 import pytest
 from acl_anthology.collections import CollectionIndex
 from acl_anthology.collections.types import VolumeType
-from acl_anthology.files import PDFReference
+from acl_anthology.files import AttachmentReference, PDFReference
+from acl_anthology.people import NameSpecification
 from acl_anthology.text import MarkupText
 from acl_anthology.utils.xml import indent
 from lxml import etree
@@ -30,7 +33,7 @@ from acl_anthology.collections.paper import (
 
 
 class VolumeStub:
-    title = "Generic volume"
+    title = MarkupText.from_string("Generic volume")
     editors = []
 
 
@@ -69,6 +72,64 @@ def test_paper_attachments(anthology):
     ]
 
 
+def test_paper_attachments_set(anthology):
+    paper = anthology.get_paper("2022.acl-long.48")
+    assert paper is not None
+    assert len(paper.attachments) == 2
+
+    attachments = copy.deepcopy(paper.attachments)
+    paper.attachments = attachments
+    assert len(paper.attachments) == 2
+
+    paper.attachments = []
+    assert len(paper.attachments) == 0
+
+
+def test_paper_attachments_set_should_raise_on_invalid_items(anthology):
+    paper = anthology.get_paper("2022.acl-long.42")
+
+    with pytest.raises(TypeError):
+        paper.attachments = [("software", "2022.acl-long.42.software.txt")]
+
+    with pytest.raises(TypeError):
+        paper.attachments = [AttachmentReference(name="2022.acl-long.42.software.txt")]
+
+    with pytest.raises(TypeError):
+        paper.attachments = (
+            "software",
+            AttachmentReference(name="2022.acl-long.42.software.txt"),
+        )
+
+    # this is the correct way:
+    paper.attachments = [
+        ("software", AttachmentReference(name="2022.acl-long.42.software.txt"))
+    ]
+    assert len(paper.attachments) == 1
+
+
+def test_paper_attachments_append(anthology):
+    paper = anthology.get_paper("2022.acl-long.48")
+
+    # list modifications cannot automatically be validated...
+    paper.attachments.append("something invalid")
+
+    # ...but manually triggering validation should raise an error
+    with pytest.raises(TypeError):
+        attrs.validate(paper)
+
+
+def test_paper_change_id(anthology):
+    paper = anthology.get_paper("2022.acl-long.48")
+    paper.id = "14308"  # okay
+    paper.id = "xxx"  # okay
+
+    with pytest.raises(ValueError):
+        paper.id = "x-42"  # invalid format
+
+    # BUT: currently no automatic check if ID already exists, so this works
+    paper.id = "1"
+
+
 test_cases_language = (
     ("2022.acl-short.11", None, None),
     ("2022.naloma-1.3", "fra", "French"),
@@ -101,6 +162,37 @@ def test_paper_bibtype():
     assert paper.bibtype == "proceedings"
     volume.type = VolumeType.JOURNAL
     assert paper.bibtype == "book"
+
+
+def test_paper_remove_author(anthology):
+    paper = anthology.get_paper("2022.acl-demo.2")
+    ns = paper.authors[-1]
+    person = anthology.resolve(ns)
+    assert person.id == "iryna-gurevych"
+    assert paper.full_id_tuple in person.item_ids
+
+    # Removing last author from paper
+    paper.authors = paper.authors[:-1]
+    # Person should be updated after resetting indices
+    anthology.reset_indices()
+    person = anthology.resolve(ns)
+    assert paper.full_id_tuple not in person.item_ids
+
+
+def test_paper_add_author(anthology):
+    paper = anthology.get_paper("2022.acl-demo.2")
+    # This person exists, but is not an author on this paper
+    ns = NameSpecification("Maya Varma")
+    assert ns not in paper.authors
+    person = anthology.resolve(ns)
+    assert paper.full_id_tuple not in person.item_ids
+
+    # Adding this author to the paper
+    paper.authors.insert(0, ns)
+    # Person should be updated after resetting indices
+    anthology.reset_indices()
+    person = anthology.resolve(ns)
+    assert paper.full_id_tuple in person.item_ids
 
 
 test_cases_xml = (
@@ -226,7 +318,7 @@ test_cases_paper_to_bibtex = (
     (
         "2022.acl-short.0",
         False,
-        """@proceedings{acl-2022-association-linguistics,
+        """@proceedings{acl-2022-short,
     title = "Proceedings of the 60th Annual Meeting of the Association for Computational Linguistics (Volume 2: Short Papers)",
     editor = "Muresan, Smaranda  and
       Nakov, Preslav  and
@@ -454,6 +546,16 @@ def test_papererratum_to_xml(xml, id_, pdf_name, pdf_checksum, date):
     assert etree.tostring(erratum.to_xml(), encoding="unicode") == xml
 
 
+def test_papererratum_must_get_pdfreference():
+    with pytest.raises(TypeError):
+        _ = PaperErratum("42", "erratum.pdf")
+
+
+def test_papererratum_must_be_local():
+    with pytest.raises(ValueError):
+        _ = PaperErratum("42", PDFReference(name="https://aclanthology.org/somefile.pdf"))
+
+
 test_cases_paperrevision = (
     (
         '<revision id="1" href="Q15-1022v1" hash="f16c56cd"/>',
@@ -503,3 +605,17 @@ def test_paperrevision_to_xml(xml, id_, pdf_name, pdf_checksum, date, note):
         id_, note=note, pdf=PDFReference(name=pdf_name, checksum=pdf_checksum), date=date
     )
     assert etree.tostring(revision.to_xml(), encoding="unicode") == xml
+
+
+def test_paperrevision_must_get_pdfreference():
+    with pytest.raises(TypeError):
+        _ = PaperRevision("42", note=None, pdf="revision.pdf")
+
+
+def test_paperrevision_must_be_local():
+    with pytest.raises(ValueError):
+        _ = PaperRevision(
+            "42",
+            note=None,
+            pdf=PDFReference(name="https://aclanthology.org/somefile.pdf"),
+        )

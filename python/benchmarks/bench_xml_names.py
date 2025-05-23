@@ -87,8 +87,8 @@ def bench_with_iter():
 
 __benchmarks__ = [
     (
-        bench_with_iter,
         bench_with_findtext,
-        "XML: parse <author> via iteration vs. findtext",
+        bench_with_iter,
+        "XML <author>: iterate instead of searching with .findtext",
     ),
 ]

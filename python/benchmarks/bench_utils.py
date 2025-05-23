@@ -50,11 +50,11 @@ __benchmarks__ = [
     (
         detect_url_regex,
         detect_url_contains_separator,
-        "Check URL via regex vs. '://' in string",
+        "Check URL via '://' in string instead of regex",
     ),
     (
         detect_url_startswith_protocol,
         detect_url_contains_separator,
-        "Check URL via .startswith('http') vs. '://' in string",
+        "Check URL via '://' in string instead of .startswith('http')",
     ),
 ]

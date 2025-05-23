@@ -61,6 +61,13 @@ def test_name_specification():
     assert n1 == n2
 
 
+def test_name_specification_converter():
+    n1 = NameSpecification(("John", "Doe"))
+    n2 = NameSpecification("Doe, John")
+    n3 = NameSpecification({"first": "John", "last": "Doe"})
+    assert n1 == n2 == n3
+
+
 def test_name_spec_citeproc():
     n1 = NameSpecification(Name("John", "Doe"))
     assert n1.citeproc_dict == {"family": "Doe", "given": "John"}

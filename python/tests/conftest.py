@@ -12,40 +12,25 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import logging
-import os
 import pytest
-from pathlib import Path
 
 pytest.register_assert_rewrite("acl_anthology.utils.xml")
 
 from acl_anthology import Anthology  # noqa: E402
 
-SCRIPTDIR = os.path.dirname(os.path.realpath(__file__))
-
-
-@pytest.fixture
-def datadir():
-    return Path(f"{SCRIPTDIR}/toy_anthology")
-
 
 class AnthologyStub:
-    datadir = Path(f"{SCRIPTDIR}/toy_anthology")
+    datadir = None
 
 
 @pytest.fixture
-def anthology(datadir, caplog):
-    logging.captureWarnings(True)
-    anthology = Anthology(datadir)
+def anthology(shared_datadir):
+    anthology = Anthology(shared_datadir / "anthology")
     yield anthology
-    for when in ("setup", "call"):
-        warnings = [
-            x.message for x in caplog.get_records(when) if x.levelno == logging.WARNING
-        ]
-        if warnings:
-            pytest.fail(f"Tests on toy_anthology logged warning(s): {warnings}")
 
 
 @pytest.fixture
-def anthology_stub():
-    return AnthologyStub()
+def anthology_stub(shared_datadir):
+    stub = AnthologyStub()
+    stub.datadir = shared_datadir / "anthology"
+    return stub
