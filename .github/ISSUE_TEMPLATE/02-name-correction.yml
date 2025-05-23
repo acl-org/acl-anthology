@@ -35,6 +35,18 @@ body:
         - label: This author has permanently changed their name.
     validations:
       required: true
+  - type: checkboxes
+    id: name_correction_check
+    attributes:
+      label: Confirming that Paper Metadata is Correct
+      description: |
+        If an author name listed on the Anthology page does not match the name
+        on the PDF, **this is not the correct issue template to use.** Please
+        use the "Fix data" button on the affected paper page(s) instead to
+        correct the name displayed on the ACL Anthology.
+      options:
+        - label: I have made sure that the names given for each of the author's papers match the name shown on the PDF.
+          required: True
   - type: textarea
     id: name_change_description
     attributes:
