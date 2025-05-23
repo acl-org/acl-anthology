@@ -70,6 +70,14 @@ test-only-xfail: _deps
 typecheck: _deps
   poetry run mypy acl_anthology
 
+# Run benchmarks
+benchmark: _deps
+  poetry run richbench --percentage benchmarks/
+  @echo ""
+  @echo "  Note: Benchmark descriptions should be interpreted as 'Is it faster to...' or"
+  @echo "        'What is the performance impact if we...', with the highlighted columns"
+  @echo "        showing the delta."
+
 # Build the documentation
 docs: _deps
   poetry run mkdocs build

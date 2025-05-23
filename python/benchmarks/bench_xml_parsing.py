@@ -19,7 +19,7 @@ from pathlib import Path
 
 REPEAT = 3
 SCRIPTDIR = os.path.dirname(os.path.realpath(__file__))
-XMLFILE = Path(f"{SCRIPTDIR}/../tests/toy_anthology/xml/2022.acl.xml")
+XMLFILE = Path(f"{SCRIPTDIR}/../tests/data/anthology/xml/2022.acl.xml")
 
 # Names of XML elements that may appear multiple times, and should be accumulated as a list
 LIST_ELEMENTS = (
@@ -181,13 +181,13 @@ def bench_with_parse_and_clear_element():
 
 __benchmarks__ = [
     (
-        bench_with_parse_element,
         bench_with_parse_single_element,
-        "XML: parse entire <paper> vs. parse one child per function call",
+        bench_with_parse_element,
+        "XML <paper>: one function call instead of one per child tag",
     ),
     (
         bench_with_parse_element,
         bench_with_parse_and_clear_element,
-        "XML: parse <paper> without vs. with clearing them afterwards",
+        "XML <paper>: clear <paper> element after parsing",
     ),
 ]

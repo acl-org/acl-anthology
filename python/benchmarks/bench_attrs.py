@@ -13,71 +13,56 @@
 # limitations under the License.
 
 import attrs
-from attrs import define, field
+from pathlib import Path
+
+from acl_anthology.collections import Collection, Volume
+from acl_anthology.people import NameSpecification as NameSpec
+from acl_anthology.text import MarkupText
 
 
-REPEAT = 100_000
-URL = "http://www.lrec-conf.org/proceedings/lrec2000/pdf/374.pdf"
+REPEAT = 1_000
 
 
-class UrlWithoutAttrs:
-    def __init__(self, url: str) -> None:
-        self.url = url
+def create_volume():
+    volume_title = MarkupText.from_string("Lorem ipsum")
+    volume_shorttitle = MarkupText.from_string("L.I.")
+    parent = Collection("2023.acl", None, Path("."))
+    volume = Volume(
+        id="long",
+        parent=parent,
+        type="proceedings",
+        booktitle=volume_title,
+        year="2023",
+        address="Online",
+        doi="10.100/0000",
+        editors=[NameSpec("Bollmann, Marcel")],
+        ingest_date="2023-01-12",
+        isbn="0000-0000-0000",
+        month="jan",
+        pdf=None,
+        publisher="Myself",
+        shortbooktitle=volume_shorttitle,
+        venue_ids=["li", "acl"],
+    )
 
 
-@define
-class UrlWithoutValidation:
-    url: str
-
-
-@define
-class UrlWithValidation:
-    url: str = field()
-
-    @url.validator
-    def noop(self, _attribute, _value):
-        pass
-
-
-def vanilla_class_without_validation():
-    """Instantiate a regular class."""
+def instantiate_volume_regularly():
+    """Instantiate a Volume."""
     for _ in range(REPEAT):
-        UrlWithoutAttrs(URL)
+        create_volume()
 
 
-def attrs_class_without_validation():
-    """Instantiate a class without attribute validation."""
+def instantiate_volume_without_validation():
+    """Instantiate a class with attribute validation disabled."""
     for _ in range(REPEAT):
-        UrlWithoutValidation(URL)
-
-
-def attrs_class_with_validation():
-    """Instantiate a class with attribute validation."""
-    for _ in range(REPEAT):
-        UrlWithValidation(URL)
-
-
-def attrs_class_with_validation_disabled():
-    """Instantiate a class that has attribute validation, but disabled."""
-    with attrs.validators.disabled():
-        for _ in range(REPEAT):
-            UrlWithValidation(URL)
+        with attrs.validators.disabled():
+            create_volume()
 
 
 __benchmarks__ = [
     (
-        vanilla_class_without_validation,
-        attrs_class_without_validation,
-        "attrs: Vanilla class vs. attrs class",
-    ),
-    (
-        attrs_class_with_validation,
-        attrs_class_without_validation,
-        "attrs: Attribute validation vs. no validation",
-    ),
-    (
-        attrs_class_with_validation_disabled,
-        attrs_class_without_validation,
-        "attrs: Attribute validation disabled vs. no validation",
+        instantiate_volume_regularly,
+        instantiate_volume_without_validation,
+        "attrs: instantiate Volume with attrs.validators.disabled",
     ),
 ]
