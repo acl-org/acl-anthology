@@ -27,7 +27,7 @@ def create_volume():
     volume_title = MarkupText.from_string("Lorem ipsum")
     volume_shorttitle = MarkupText.from_string("L.I.")
     parent = Collection("2023.acl", None, Path("."))
-    volume = Volume(
+    _ = Volume(
         id="long",
         parent=parent,
         type="proceedings",
