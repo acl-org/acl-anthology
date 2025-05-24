@@ -197,7 +197,7 @@ class MarkupText:
     @classmethod
     def from_latex_maybe(cls, text: str) -> MarkupText:
         """
-        Like `from_latex()`, but can be used if it is unclear if the string is plain text or LaTeX.  Will apply certain heuristics to e.g. prevent percentage signs being interpreted as LaTeX comments in plain text inputs.
+        Like `from_latex()`, but can be used if it is unclear if the string is plain text or LaTeX.  Will prevent percentage signs being interpreted as LaTeX comments, and apply a heuristic to decide if a tilde is literal or a non-breaking space.
 
         Arguments:
             text: A text string potentially in plain text or LaTeX format.
