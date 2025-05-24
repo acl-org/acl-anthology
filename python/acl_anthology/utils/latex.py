@@ -72,10 +72,39 @@ BIBTEX_MONTHS = {
 }
 """A mapping of month names to BibTeX macros."""
 
-RE_OPENING_QUOTE_DOUBLE = re.compile(r"(?<!\\)({''}|'')\b")
-RE_OPENING_QUOTE_SINGLE = re.compile(r"(?<!\\)({'}|')\b")
-RE_CLOSING_QUOTE_DOUBLE = re.compile(r"(?<!\\){''}")
-RE_CLOSING_QUOTE_SINGLE = re.compile(r"(?<!\\){'}")
+RE_OPENING_QUOTE_DOUBLE = re.compile(
+    r"""
+     (\A|(?<=\s))  # must be start of the string or come after whitespace
+     ({''}|'')     # match double apostrophe, optionally in braces
+     (?!}|\s)      # must not come before whitespace or closing brace }
+     """,
+    re.X,
+)
+RE_OPENING_QUOTE_SINGLE = re.compile(
+    r"""
+     (\A|(?<=\s))  # must be start of the string or come after whitespace
+     ({'}|')       # match single apostrophe, optionally in braces
+     (?!'|}|\s)    # must not come before whitespace, closing brace, or another apostrophe
+     """,
+    re.X,
+)
+RE_CLOSING_QUOTE_DOUBLE = re.compile(
+    r"""
+     (?<!\\)       # must not come after backslash
+     {''}          # match double apostrophe in braces
+     (?=\W|\Z)     # must be end of the string or come before a non-word character
+     """,
+    re.X,
+)
+RE_CLOSING_QUOTE_SINGLE = re.compile(
+    r"""
+     (?<!\\)       # must not come after backslash
+     {'}           # match single apostrophe in braces
+     (?=\W|\Z)     # must be end of the string or come before a non-word character
+     """,
+    re.X,
+)
+
 RE_HYPHENS_BETWEEN_NUMBERS = re.compile(r"(?<=[0-9])(-|–|—)(?=[0-9])")
 
 
@@ -137,6 +166,9 @@ def latex_convert_quotes(text: str) -> str:
 
     Returns:
         The input string with LaTeX quotes converted into proper opening and closing quotes, removing braces around them, if necessary.
+
+    Note:
+        This is called during the conversion from our XML markup to LaTeX. Straight quotation marks (`"`) will have been converted to double apostrophes, usually in braces (`{''}`), by pylatexenc; this function applies regexes to turn them into appropriate opening/closing quotes with the braces removed.
 
     Examples:
         >>> latex_convert_quotes("This {''}great{''} example")
