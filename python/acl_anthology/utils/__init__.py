@@ -1,4 +1,4 @@
-# Copyright 2023-2024 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2025 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ from .latex import (
     parse_latex_to_xml,
 )
 from .logging import setup_rich_logging, get_logger
-from .text import remove_extra_whitespace
+from .text import clean_unicode, remove_extra_whitespace
 from .xml import stringify_children
 
 
@@ -30,6 +30,7 @@ __all__ = [
     "AnthologyID",
     "build_id",
     "citeproc_render_html",
+    "clean_unicode",
     "clone_or_pull_from_repo",
     "get_logger",
     "latex_encode",
