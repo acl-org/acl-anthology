@@ -1,4 +1,4 @@
-# Copyright 2023-2024 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2025 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,6 +15,7 @@
 """Functions for simpler string manipulation."""
 
 from typing import cast, Optional
+import unicodedata
 
 
 _MONTH_TO_NUM: dict[str, int] = {
@@ -31,6 +32,55 @@ _MONTH_TO_NUM: dict[str, int] = {
     "november": 11,
     "december": 12,
 }
+
+_CLEAN_UNICODE_TRANS = str.maketrans(
+    {
+        "\u00ad": "",  # soft hyphen
+        "\u2010": "-",  # hyphen
+        "\u2011": "-",  # non-breaking hyphen
+    }
+)
+
+
+def clean_unicode(s: str) -> str:
+    """Performs some opinionated string normalization.
+
+    Originally implemented in <https://github.com/acl-org/acl-anthology/blob/master/bin/normalize_anth.py> by David Wei Chiang, this is intended to standardize how we represent certain Unicode characters in our data, e.g. by decomposing ligatures, removing "invisible" soft hyphens, etc.
+
+    Arguments:
+        s: Any text string.
+
+    Returns:
+        The cleaned up string.
+    """
+    s = s.translate(_CLEAN_UNICODE_TRANS)
+
+    # Some sources encode an i with an accent above using dotless i,
+    # which must be converted to normal i
+    start = 0
+    while (idx := s.find("ı", start)) > -1:
+        # bug: we should only be looking for accents above, not below
+        if unicodedata.category(s[idx + 1]) == "Mn":
+            s = f"{s[:idx]}i{s[idx+1:]}"
+        start = idx + 1
+
+    # Selectively apply compatibility decomposition.
+    # This converts, e.g., ﬁ to fi and ： to :, but not ² to 2.
+    # Unsure: … to ...
+    # More classes could be added here.
+    def decompose(c: str) -> str:
+        d = unicodedata.decomposition(c)
+        if d and d.split(None, 1)[0] in ["<compat>", "<wide>", "<narrow>", "<noBreak>"]:
+            return unicodedata.normalize("NFKD", c)
+        else:
+            return c
+
+    s = "".join(map(decompose, s))
+
+    # Convert combining characters when possible
+    s = unicodedata.normalize("NFC", s)
+
+    return s
 
 
 def interpret_pages(text: str) -> tuple[str, str]:

@@ -81,6 +81,30 @@ def assert_equals(elem: etree._Element, other: etree._Element) -> None:
             assert_equals(elem_child, other_child)
 
 
+def append_text(elem: etree._Element, text: str) -> None:
+    """Append text to an XML element.
+
+    If the XML element has children, the text will be appended to the tail of the last child; otherwise, it will be appended to its text attribute.
+
+    Arguments:
+        elem: The XML element.
+        text: The text string to append to the XML element.
+
+    Returns:
+        None; the XML element is modified in-place.
+    """
+    if len(elem):
+        # already has children — append text to tail
+        if elem[-1].tail is not None:
+            elem[-1].tail = "".join((elem[-1].tail, text))
+        else:
+            elem[-1].tail = text
+    elif elem.text is not None:
+        elem.text = "".join((elem.text, text))
+    else:
+        elem.text = text
+
+
 def clean_whitespace(
     text: Optional[str], func: Optional[Callable[[str], str]] = None
 ) -> Optional[str]:
