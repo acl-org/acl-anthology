@@ -1,0 +1,355 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2023.blackboxnlp">
+  <volume id="1" ingest-date="2023-12-06" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of the 6th BlackboxNLP Workshop: Analyzing and Interpreting Neural Networks for NLP</booktitle>
+      <editor><first>Yonatan</first><last>Belinkov</last></editor>
+      <editor><first>Sophie</first><last>Hao</last></editor>
+      <editor><first>Jaap</first><last>Jumelet</last></editor>
+      <editor><first>Najoung</first><last>Kim</last></editor>
+      <editor><first>Arya</first><last>McCarthy</last></editor>
+      <editor><first>Hosein</first><last>Mohebbi</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Singapore</address>
+      <month>December</month>
+      <year>2023</year>
+      <url hash="1e47f22b">2023.blackboxnlp-1</url>
+      <venue>blackboxnlp</venue>
+      <venue>ws</venue>
+    </meta>
+    <frontmatter>
+      <url hash="9b7e4c17">2023.blackboxnlp-1.0</url>
+      <bibkey>blackboxnlp-ws-2023-blackboxnlp</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Knowledge-Grounded Natural Language Recommendation Explanation</title>
+      <author><first>Anthony</first><last>Colas</last></author>
+      <author><first>Jun</first><last>Araki</last></author>
+      <author><first>Zhengyu</first><last>Zhou</last></author>
+      <author><first>Bingqing</first><last>Wang</last></author>
+      <author><first>Zhe</first><last>Feng</last></author>
+      <pages>1–15</pages>
+      <abstract>Explanations accompanying a recommendation can assist users in understanding the decision made by recommendation systems, which in turn increases a user’s confidence and trust in the system. Recently, research has focused on generating natural language explanations in a human-readable format. Thus far, the proposed approaches leverage item reviews written by users, which are often subjective, sparse in language, and unable to account for new items that have not been purchased or reviewed before. Instead, we aim to generate fact-grounded recommendation explanations that are objectively described with item features while implicitly considering a user’s preferences, based on the user’s purchase history. To achieve this, we propose a knowledge graph (KG) approach to natural language explainable recommendation. Our approach draws on user-item features through a novel collaborative filtering-based KG representation to produce fact-grounded, personalized explanations, while jointly learning user-item representations for recommendation scoring. Experimental results show that our approach consistently outperforms previous state-of-the-art models on natural language explainable recommendation metrics.</abstract>
+      <url hash="5a5aac4d">2023.blackboxnlp-1.1</url>
+      <bibkey>colas-etal-2023-knowledge</bibkey>
+      <doi>10.18653/v1/2023.blackboxnlp-1.1</doi>
+      <video href="2023.blackboxnlp-1.1.mp4"/>
+    </paper>
+    <paper id="2">
+      <title>Emergent Linear Representations in World Models of Self-Supervised Sequence Models</title>
+      <author><first>Neel</first><last>Nanda</last></author>
+      <author><first>Andrew</first><last>Lee</last></author>
+      <author><first>Martin</first><last>Wattenberg</last></author>
+      <pages>16–30</pages>
+      <abstract>How do sequence models represent their decision-making process? Prior work suggests that Othello-playing neural network learned nonlinear models of the board state (Li et al., 2023a). In this work, we provide evidence of a closely related linear representation of the board. In particular, we show that probing for “my colour” vs. “opponent’s colour” may be a simple yet powerful way to interpret the model’s internal state. This precise understanding of the internal representations allows us to control the model’s behaviour with simple vector arithmetic. Linear representations enable significant interpretability progress, which we demonstrate with further exploration of how the world model is computed.</abstract>
+      <url hash="5dcd94b8">2023.blackboxnlp-1.2</url>
+      <bibkey>nanda-etal-2023-emergent</bibkey>
+      <doi>10.18653/v1/2023.blackboxnlp-1.2</doi>
+      <video href="2023.blackboxnlp-1.2.mp4"/>
+    </paper>
+    <paper id="3">
+      <title>Explaining Data Patterns in Natural Language with Language Models</title>
+      <author><first>Chandan</first><last>Singh</last></author>
+      <author><first>John X.</first><last>Morris</last></author>
+      <author><first>Jyoti</first><last>Aneja</last></author>
+      <author><first>Alexander</first><last>Rush</last></author>
+      <author><first>Jianfeng</first><last>Gao</last></author>
+      <pages>31–55</pages>
+      <abstract>Large language models (LLMs) have displayed an impressive ability to harness natural language to perform complex tasks. We explore whether we can leverage this ability to find and explain patterns in data. Specifically, given a pre-trained LLM and data examples, we apply interpretable autoprompting (iPrompt) to generate a natural language string explaining the data. iPrompt iteratively generates explanations with an LLM and reranks them based on their performance when used as a prompt. Experiments on a wide range of datasets, from synthetic mathematics to natural language understanding, show that iPrompt can yield meaningful insights by accurately finding dataset explanations that are human-interpretable. Moreover, iPrompt is reasonably efficient, as it does not require access to model gradients and works with relatively small models (e.g. ~6 billion parameters rather than &gt;=100 billion). Finally, experiments with scientific datasets show the potential for iPrompt to aid in scientific discovery.</abstract>
+      <url hash="1ecd97fb">2023.blackboxnlp-1.3</url>
+      <bibkey>singh-etal-2023-explaining</bibkey>
+      <doi>10.18653/v1/2023.blackboxnlp-1.3</doi>
+    </paper>
+    <paper id="4">
+      <title>Probing Quantifier Comprehension in Large Language Models: Another Example of Inverse Scaling</title>
+      <author><first>Akshat</first><last>Gupta</last></author>
+      <pages>56–64</pages>
+      <abstract>With their increasing size, large language models (LLMs) are becoming increasingly good at language understanding tasks. But even with high performance on specific downstream task, LLMs fail at simple linguistic tests for negation or quantifier understanding. Previous work on quantifier understanding in LLMs show inverse scaling in understanding few-type quantifiers. In this paper, we question the claims of of previous work and show that it is a result of inappropriate testing methodology. We also present alternate methods to measure quantifier comprehension in LLMs and show that LLMs are able to better understand the difference between the meaning of few-type and most-type quantifiers as their size increases, although they are not particularly good at it. We also observe inverse scaling for most-type quantifier understanding, which is contrary to human psycho-linguistic experiments and previous work, where the model’s understanding of most-type quantifier gets worse as the model size increases. We do this evaluation on models ranging from 125M-175B parameters, which suggests that LLMs do not do as well as expected with quantifiers. We also discuss the possible reasons for this and the relevance of quantifier understanding in evaluating language understanding in LLMs.</abstract>
+      <url hash="533f4b87">2023.blackboxnlp-1.4</url>
+      <bibkey>gupta-2023-probing</bibkey>
+      <doi>10.18653/v1/2023.blackboxnlp-1.4</doi>
+    </paper>
+    <paper id="5">
+      <title>Disentangling the Linguistic Competence of Privacy-Preserving <fixed-case>BERT</fixed-case></title>
+      <author><first>Stefan</first><last>Arnold</last></author>
+      <author><first>Nils</first><last>Kemmerzell</last></author>
+      <author><first>Annika</first><last>Schreiner</last></author>
+      <pages>65–75</pages>
+      <abstract>Differential Privacy (DP) has been tailored to address the unique challenges of text-to-text privatization. However, text-to-text privatization is known for degrading the performance of language models when trained on perturbed text. Employing a series of interpretation techniques on the internal representations extracted from BERT trained on perturbed pre-text, we intend to disentangle at the linguistic level the distortion induced by differential privacy. Experimental results from a representational similarity analysis indicate that the overall similarity of internal representations is substantially reduced. Using probing tasks to unpack this dissimilarity, we find evidence that text-to-text privatization affects the linguistic competence across several formalisms, encoding localized properties of words while falling short at encoding the contextual relationships between spans of words.</abstract>
+      <url hash="ea2b40f9">2023.blackboxnlp-1.5</url>
+      <bibkey>arnold-etal-2023-disentangling</bibkey>
+      <doi>10.18653/v1/2023.blackboxnlp-1.5</doi>
+    </paper>
+    <paper id="6">
+      <title>“Honey, Tell Me What’s Wrong”, Global Explanation of Textual Discriminative Models through Cooperative Generation</title>
+      <author><first>Antoine</first><last>Chaffin</last></author>
+      <author><first>Julien</first><last>Delaunay</last></author>
+      <pages>76–88</pages>
+      <abstract>The ubiquity of complex machine learning has raised the importance of model-agnostic explanation algorithms. These methods create artificial instances by slightly perturbing real instances, capturing shifts in model decisions. However, such methods rely on initial data and only provide explanations of the decision for these. To tackle these problems, we propose Therapy, the first global and model-agnostic explanation method adapted to text which requires no input dataset. Therapy generates texts following the distribution learned by a classifier through cooperative generation. Because it does not rely on initial samples, it allows to generate explanations even when data is absent (e.g., for confidentiality reasons). Moreover, conversely to existing methods that combine multiple local explanations into a global one, Therapy offers a global overview of the model behavior on the input space. Our experiments show that although using no input data to generate samples, Therapy provides insightful information about features used by the classifier that is competitive with the ones from methods relying on input samples and outperforms them when input samples are not specific to the studied model.</abstract>
+      <url hash="d6721009">2023.blackboxnlp-1.6</url>
+      <bibkey>chaffin-delaunay-2023-honey-tell</bibkey>
+      <doi>10.18653/v1/2023.blackboxnlp-1.6</doi>
+    </paper>
+    <paper id="7">
+      <title>Self-Consistency of Large Language Models under Ambiguity</title>
+      <author><first>Henning</first><last>Bartsch</last></author>
+      <author><first>Ole</first><last>Jorgensen</last></author>
+      <author><first>Domenic</first><last>Rosati</last></author>
+      <author><first>Jason</first><last>Hoelscher-Obermaier</last></author>
+      <author><first>Jacob</first><last>Pfau</last></author>
+      <pages>89–105</pages>
+      <abstract>Large language models (LLMs) that do not give consistent answers across contexts are problematic when used for tasks with expectations of consistency–e.g. question-answering, explanations, etc. Our work presents an evaluation benchmark for self-consistency in cases of under-specification where two or more answers can be correct. We conduct a series of behavioral experiments on the OpenAI model suite using an ambiguous integer sequence completion task. We find that average consistency ranges from 67% to 82%, far higher than would be predicted if a model’s consistency was random, and increases as model capability improves. Furthermore, we show that models tend to maintain self-consistency across a series of robustness checks, including prompting speaker changes and sequence length changes. These results suggest that self-consistency arises as an emergent capability without specifically training for it. Despite this, we find that models are uncalibrated when judging their own consistency, with models displaying both over- and under-confidence. We also propose a nonparametric test for determining from token output distribution whether a model assigns non-trivial probability to alternative answers. Using this test, we find that despite increases in self-consistency, models usually place significant weight on alternative, inconsistent answers. This distribution of probability mass provides evidence that even highly self-consistent models internally compute multiple possible responses.</abstract>
+      <url hash="fb5b65c3">2023.blackboxnlp-1.7</url>
+      <bibkey>bartsch-etal-2023-self</bibkey>
+      <doi>10.18653/v1/2023.blackboxnlp-1.7</doi>
+    </paper>
+    <paper id="8">
+      <title>Character-Level <fixed-case>C</fixed-case>hinese Backpack Language Models</title>
+      <author><first>Hao</first><last>Sun</last></author>
+      <author><first>John</first><last>Hewitt</last></author>
+      <pages>106–119</pages>
+      <abstract>The Backpack is a Transformer alternative shown to improve interpretability in English language modeling by decomposing predictions into a weighted sum of token sense components. However, Backpacks’ reliance on token-defined meaning raises questions as to their potential for languages other than English, a language for which subword tokenization provides a reasonable approximation for lexical items. In this work, we train, evaluate, interpret, and control Backpack language models in character-tokenized Chinese, in which words are often composed of many characters. We find that our (134M parameter) Chinese Backpack language model performs comparably to a (104M parameter) Transformer, and learns rich character-level meanings that log-additively compose to form word meanings. In SimLex-style lexical semantic evaluations, simple averages of Backpack character senses outperform input embeddings from a Transformer. We find that complex multi-character meanings are often formed by using the same per-character sense weights consistently across context. Exploring interpretability-through control, we show that we can localize a source of gender bias in our Backpacks to specific character senses and intervene to reduce the bias.</abstract>
+      <url hash="ef09913d">2023.blackboxnlp-1.8</url>
+      <bibkey>sun-hewitt-2023-character</bibkey>
+      <doi>10.18653/v1/2023.blackboxnlp-1.8</doi>
+    </paper>
+    <paper id="9">
+      <title>Unveiling Multilinguality in Transformer Models: Exploring Language Specificity in Feed-Forward Networks</title>
+      <author><first>Sunit</first><last>Bhattacharya</last></author>
+      <author><first>Ondřej</first><last>Bojar</last></author>
+      <pages>120–126</pages>
+      <abstract>Recent research suggests that the feed-forward module within Transformers can be viewed as a collection of key-value memories, where the keys learn to capture specific patterns from the input based on the training examples. The values then combine the output from the ‘memories’ of the keys to generate predictions about the next token. This leads to an incremental process of prediction that gradually converges towards the final token choice near the output layers. This interesting perspective raises questions about how multilingual models might leverage this mechanism. Specifically, for autoregressive models trained on two or more languages, do all neurons (across layers) respond equally to all languages? No! Our hypothesis centers around the notion that during pre-training, certain model parameters learn strong language-specific features, while others learn more language-agnostic (shared across languages) features. To validate this, we conduct experiments utilizing parallel corpora of two languages that the model was initially pre-trained on. Our findings reveal that the layers closest to the network’s input or output tend to exhibit more language-specific behaviour compared to the layers in the middle.</abstract>
+      <url hash="1ebb287d">2023.blackboxnlp-1.9</url>
+      <bibkey>bhattacharya-bojar-2023-unveiling</bibkey>
+      <doi>10.18653/v1/2023.blackboxnlp-1.9</doi>
+    </paper>
+    <paper id="10">
+      <title>Why Bother with Geometry? On the Relevance of Linear Decompositions of Transformer Embeddings</title>
+      <author><first>Timothee</first><last>Mickus</last></author>
+      <author><first>Raúl</first><last>Vázquez</last></author>
+      <pages>127–141</pages>
+      <abstract>A recent body of work has demonstrated that Transformer embeddings can be linearly decomposed into well-defined sums of factors, that can in turn be related to specific network inputs or components. There is however still a dearth of work studying whether these mathematical reformulations are empirically meaningful. In the present work, we study representations from machine-translation decoders using two of such embedding decomposition methods. Our results indicate that, while decomposition-derived indicators effectively correlate with model performance, variation across different runs suggests a more nuanced take on this question. The high variability of our measurements indicate that geometry reflects model-specific characteristics more than it does sentence-specific computations, and that similar training conditions do not guarantee similar vector spaces.</abstract>
+      <url hash="f86d643f">2023.blackboxnlp-1.10</url>
+      <bibkey>mickus-vazquez-2023-bother</bibkey>
+      <doi>10.18653/v1/2023.blackboxnlp-1.10</doi>
+    </paper>
+    <paper id="11">
+      <title>Investigating Semantic Subspaces of Transformer Sentence Embeddings through Linear Structural Probing</title>
+      <author><first>Dmitry</first><last>Nikolaev</last></author>
+      <author><first>Sebastian</first><last>Padó</last></author>
+      <pages>142–154</pages>
+      <abstract>The question of what kinds of linguistic information are encoded in different layers of Transformer-based language models is of considerable interest for the NLP community. Existing work, however, has overwhelmingly focused on word-level representations and encoder-only language models with the masked-token training objective. In this paper, we present experiments with semantic structural probing, a method for studying sentence-level representations via finding a subspace of the embedding space that provides suitable task-specific pairwise distances between data-points. We apply our method to language models from different families (encoder-only, decoder-only, encoder-decoder) and of different sizes in the context of two tasks, semantic textual similarity and natural-language inference. We find that model families differ substantially in their performance and layer dynamics, but that the results are largely model-size invariant.</abstract>
+      <url hash="3813f932">2023.blackboxnlp-1.11</url>
+      <bibkey>nikolaev-pado-2023-investigating</bibkey>
+      <doi>10.18653/v1/2023.blackboxnlp-1.11</doi>
+    </paper>
+    <paper id="12">
+      <title>Causal Abstraction for Chain-of-Thought Reasoning in Arithmetic Word Problems</title>
+      <author><first>Juanhe (TJ)</first><last>Tan</last></author>
+      <pages>155–168</pages>
+      <abstract>Recent work suggests that large language models (LLMs) achieve higher accuracy on multi-step reasoning tasks when prompted to generate intermediate reasoning steps, or a chain of thought (CoT), before their final answer. However, it is unclear how exactly CoTs improve LLMs’ accuracy, and in particular, if LLMs use their CoTs to reason to their final answers. This paper tries to answer this question with respect to arithmetic word problems, by (i) evaluating the correctness of LLMs’ CoTs, and (ii) using causal abstraction to assess if the intermediate tokens produced as part of a CoT causally impact LLMs’ final answers, in line with the reasoning described by the CoT. We find that for CoT-prompted LLMs, correct answers to arithmetic problems are highly correlated with correct CoTs, and that when LLMs produce correct CoTs, they realize to a fairly large extent the causal models suggested by their CoTs. Higher degrees of realization also seem associated with better overall accuracy on the arithmetic problems. These findings suggest that some CoT-prompted LLMs may do better on multi-step arithmetic reasoning at least partly because they use their CoTs to reason to their final answers. However, for some LLMs, other internal processes may also be involved.</abstract>
+      <url hash="457cc095">2023.blackboxnlp-1.12</url>
+      <attachment type="Software" hash="7f3cf28f">2023.blackboxnlp-1.12.Software.zip</attachment>
+      <bibkey>tan-2023-causal</bibkey>
+      <doi>10.18653/v1/2023.blackboxnlp-1.12</doi>
+    </paper>
+    <paper id="13">
+      <title>Enhancing Interpretability Using Human Similarity Judgements to Prune Word Embeddings</title>
+      <author><first>Natalia</first><last>Flechas Manrique</last></author>
+      <author><first>Wanqian</first><last>Bao</last></author>
+      <author><first>Aurelie</first><last>Herbelot</last></author>
+      <author><first>Uri</first><last>Hasson</last></author>
+      <pages>169–179</pages>
+      <abstract>Interpretability methods in NLP aim to provide insights into the semantics underlying specific system architectures. Focusing on word embeddings, we present a supervised-learning method that, for a given domain (e.g., sports, professions), identifies a subset of model features that strongly improve prediction of human similarity judgments. We show this method keeps only 20-40% of the original embeddings, for 8 independent semantic domains, and that it retains different feature sets across domains. We then present two approaches for interpreting the semantics of the retained features. The first obtains the scores of the domain words (co-hyponyms) on the first principal component of the retained embeddings, and extracts terms whose co-occurrence with the co-hyponyms tracks these scores’ profile. This analysis reveals that humans differentiate e.g. sports based on how gender-inclusive and international they are. The second approach uses the retained sets as variables in a probing task that predicts values along 65 semantically annotated dimensions for a dataset of 535 words. The features retained for professions are best at predicting cognitive, emotional and social dimensions, whereas features retained for fruits or vegetables best predict the gustation (taste) dimension. We discuss implications for alignment between AI systems and human knowledge.</abstract>
+      <url hash="563d1152">2023.blackboxnlp-1.13</url>
+      <bibkey>flechas-manrique-etal-2023-enhancing</bibkey>
+      <doi>10.18653/v1/2023.blackboxnlp-1.13</doi>
+    </paper>
+    <paper id="14">
+      <title>When Your Language Model Cannot <fixed-case>E</fixed-case>ven Do Determiners Right: Probing for Anti-Presuppositions and the Maximize Presupposition! Principle</title>
+      <author><first>Judith</first><last>Sieker</last></author>
+      <author><first>Sina</first><last>Zarrieß</last></author>
+      <pages>180–198</pages>
+      <abstract>The increasing interest in probing the linguistic capabilities of large language models (LLMs) has long reached the area of semantics and pragmatics, including the phenomenon of presuppositions. In this study, we investigate a phenomenon that, however, has not yet been investigated, i.e., the phenomenon of anti-presupposition and the principle that accounts for it, the Maximize Presupposition! principle (MP!). Through an experimental investigation using psycholinguistic data and four open-source BERT model variants, we explore how language models handle different anti-presuppositions and whether they apply the MP! principle in their predictions. Further, we examine whether fine-tuning with Natural Language Inference data impacts adherence to the MP! principle. Our findings reveal that LLMs tend to replicate context-based n-grams rather than follow the MP! principle, with fine-tuning not enhancing their adherence. Notably, our results further indicate a striking difficulty of LLMs to correctly predict determiners, in relatively simple linguistic contexts.</abstract>
+      <url hash="7e7c4e80">2023.blackboxnlp-1.14</url>
+      <bibkey>sieker-zarriess-2023-language</bibkey>
+      <doi>10.18653/v1/2023.blackboxnlp-1.14</doi>
+    </paper>
+    <paper id="15">
+      <title>Introducing <fixed-case>VULCAN</fixed-case>: A Visualization Tool for Understanding Our Models and Data by Example</title>
+      <author><first>Jonas</first><last>Groschwitz</last></author>
+      <pages>199–211</pages>
+      <abstract>Examples are a powerful tool that help us understand complex concepts and connections. In computational linguistics research, looking at example system output and example corpus entries can offer a wealth of insights that are not otherwise accessible. This paper describes the open-source software VULCAN, a visualization tool for strings, graphs, trees, alignments, attention and more. VULCAN’s unique ability to visualize both linguistic structures and properties of neural models make it particularly relevant for neuro-symbolic models. Neuro-symbolic models, combining neural networks with often linguistically grounded structures, offer a promise of increased interpretability in an age of purely neural black-box end-to-end models. VULCAN aims to facilitate this interpretability in practice. VULCAN is designed to be both easy to use and powerful in its capabilities.</abstract>
+      <url hash="52018c87">2023.blackboxnlp-1.15</url>
+      <bibkey>groschwitz-2023-introducing</bibkey>
+      <doi>10.18653/v1/2023.blackboxnlp-1.15</doi>
+    </paper>
+    <paper id="16">
+      <title>The Self-Contained Negation Test Set</title>
+      <author><first>David</first><last>Kletz</last></author>
+      <author><first>Pascal</first><last>Amsili</last></author>
+      <author><first>Marie</first><last>Candito</last></author>
+      <pages>212–221</pages>
+      <abstract>Several methodologies have recently been proposed to evaluate the ability of Pretrained Language Models (PLMs) to interpret negation. In this article, we build on Gubelmann and Handschuh (2022), which studies the modification of PLMs’ predictions as a function of the polarity of inputs, in English. Crucially, this test uses “self-contained” inputs ending with a masked position: depending on the polarity of a verb in the input, a particular token is either semantically ruled out or allowed at the masked position. By replicating Gubelmann and Handschuh (2022) experiments, we have uncovered flaws that weaken the conclusions that can be drawn from this test. We thus propose an improved version, the Self-Contained Neg Test, which is more controlled, more systematic, and entirely based on examples forming minimal pairs varying only in the presence or absence of verbal negation in English. When applying our test to the roberta and bert base and large models, we show that only roberta-large shows trends that match the expectations, while bert-base is mostly insensitive to negation. For all the tested models though, in a significant number of test instances the top-1 prediction remains the token that is semantically forbidden by the context, which shows how much room for improvement remains for a proper treatment of the negation phenomenon.</abstract>
+      <url hash="cd4cd42d">2023.blackboxnlp-1.16</url>
+      <bibkey>kletz-etal-2023-self</bibkey>
+      <doi>10.18653/v1/2023.blackboxnlp-1.16</doi>
+    </paper>
+    <paper id="17">
+      <title>Investigating the Effect of Discourse Connectives on Transformer Surprisal: Language Models Understand Connectives, <fixed-case>E</fixed-case>ven So They Are Surprised</title>
+      <author><first>Yan</first><last>Cong</last></author>
+      <author><first>Emmanuele</first><last>Chersoni</last></author>
+      <author><first>Yu-Yin</first><last>Hsu</last></author>
+      <author><first>Philippe</first><last>Blache</last></author>
+      <pages>222–232</pages>
+      <abstract>As neural language models (NLMs) based on Transformers are becoming increasingly dominant in natural language processing, several studies have proposed analyzing the semantic and pragmatic abilities of such models. In our study, we aimed at investigating the effect of discourse connectives on NLMs with regard to Transformer Surprisal scores by focusing on the English stimuli of an experimental dataset, in which the expectations about an event in a discourse fragment could be reversed by a concessive or a contrastive connective. By comparing the Surprisal scores of several NLMs, we found that bigger NLMs show patterns similar to humans’ behavioral data when a concessive connective is used, while connective-related effects tend to disappear with a contrastive one. We have additionally validated our findings with GPT-Neo using an extended dataset, and results mostly show a consistent pattern.</abstract>
+      <url hash="1c86a9b0">2023.blackboxnlp-1.17</url>
+      <bibkey>cong-etal-2023-investigating</bibkey>
+      <doi>10.18653/v1/2023.blackboxnlp-1.17</doi>
+    </paper>
+    <paper id="18">
+      <title><fixed-case>METAPROBE</fixed-case>: A Representation- and Task-Agnostic Probe</title>
+      <author><first>Yichu</first><last>Zhou</last></author>
+      <author><first>Vivek</first><last>Srikumar</last></author>
+      <pages>233–249</pages>
+      <abstract>Probing contextualized representations typically involves comparing task-specific model predictions against ground truth linguistic labels. Although this methodology shows <i>what</i> information can be recovered by a classifier, it does not reveal <i>how</i> a classifier uses the representation to make its decision. To address the latter problem, we ask: Do task-classifiers rely on representation- and task-independent geometric patterns in the embedding space? We explore this question by developing MetaProbe, an approach that uses geometric properties of representations to predict the behavior of task-specific classifiers (i.e., their predictions as opposed to the ground truth). Our experiments reveal the existence of universal geometric patterns across representations that can predict classifier predictions. Consequently, this allows us to posit a geometric explanation for the impressive performance of contextualized representations.</abstract>
+      <url hash="cdec572d">2023.blackboxnlp-1.18</url>
+      <bibkey>zhou-srikumar-2023-metaprobe</bibkey>
+      <doi>10.18653/v1/2023.blackboxnlp-1.18</doi>
+    </paper>
+    <paper id="19">
+      <title>How Much Consistency Is Your Accuracy Worth?</title>
+      <author><first>Jacob K.</first><last>Johnson</last></author>
+      <author><first>Ana</first><last>Marasović</last></author>
+      <pages>250–260</pages>
+      <abstract>Contrast set consistency is a robustness measurement that evaluates the rate at which a model correctly responds to all instances in a bundle of minimally different examples relying on the same knowledge. To draw additional insights, we propose to complement consistency with relative consistency—the probability that an equally accurate model would surpass the consistency of the proposed model, given a distribution over possible consistencies. Models with 100% relative consistency have reached a consistency peak for their accuracy. We reflect on prior work that reports consistency in contrast sets and observe that relative consistency can alter the assessment of a model’s consistency compared to another. We anticipate that our proposed measurement and insights will influence future studies aiming to promote consistent behavior in models.</abstract>
+      <url hash="0b45ec56">2023.blackboxnlp-1.19</url>
+      <bibkey>johnson-marasovic-2023-much</bibkey>
+      <doi>10.18653/v1/2023.blackboxnlp-1.19</doi>
+    </paper>
+    <paper id="20">
+      <title>Investigating the Encoding of Words in <fixed-case>BERT</fixed-case>’s Neurons Using Feature Textualization</title>
+      <author><first>Tanja</first><last>Baeumel</last></author>
+      <author><first>Soniya</first><last>Vijayakumar</last></author>
+      <author><first>Josef</first><last>van Genabith</last></author>
+      <author><first>Guenter</first><last>Neumann</last></author>
+      <author><first>Simon</first><last>Ostermann</last></author>
+      <pages>261–270</pages>
+      <abstract>Pretrained language models (PLMs) form the basis of most state-of-the-art NLP technologies. Nevertheless, they are essentially black boxes: Humans do not have a clear understanding of what knowledge is encoded in different parts of the models, especially in individual neurons. A contrast is in computer vision, where feature visualization provides a decompositional interpretability technique for neurons of vision models. Activation maximization is used to synthesize inherently interpretable visual representations of the information encoded in individual neurons. Our work is inspired by this but presents a cautionary tale on the interpretability of single neurons, based on the first large-scale attempt to adapt activation maximization to NLP, and, more specifically, large PLMs. We propose feature textualization, a technique to produce dense representations of neurons in the PLM word embedding space. We apply feature textualization to the BERT model to investigate whether the knowledge encoded in individual neurons can be interpreted and symbolized. We find that the produced representations can provide insights about the knowledge encoded in individual neurons, but that individual neurons do not represent clear-cut symbolic units of language such as words. Additionally, we use feature textualization to investigate how many neurons are needed to encode words in BERT.</abstract>
+      <url hash="18962e01">2023.blackboxnlp-1.20</url>
+      <bibkey>baeumel-etal-2023-investigating</bibkey>
+      <doi>10.18653/v1/2023.blackboxnlp-1.20</doi>
+    </paper>
+    <paper id="21">
+      <title>Evaluating Transformer’s Ability to Learn Mildly Context-Sensitive Languages</title>
+      <author><first>Shunjie</first><last>Wang</last></author>
+      <author><first>Shane</first><last>Steinert-Threlkeld</last></author>
+      <pages>271–283</pages>
+      <abstract>Despite the fact that Transformers perform well in NLP tasks, recent studies suggest that self-attention is theoretically limited in learning even some regular and context-free languages. These findings motivated us to think about their implications in modeling natural language, which is hypothesized to be mildly context-sensitive. We test the Transformer’s ability to learn mildly context-sensitive languages of varying complexities, and find that they generalize well to unseen in-distribution data, but their ability to extrapolate to longer strings is worse than that of LSTMs. Our analyses show that the learned self-attention patterns and representations modeled dependency relations and demonstrated counting behavior, which may have helped the models solve the languages.</abstract>
+      <url hash="2afc15cf">2023.blackboxnlp-1.21</url>
+      <bibkey>wang-steinert-threlkeld-2023-evaluating</bibkey>
+      <doi>10.18653/v1/2023.blackboxnlp-1.21</doi>
+    </paper>
+    <paper id="22">
+      <title>Layered Bias: Interpreting Bias in Pretrained Large Language Models</title>
+      <author><first>Nirmalendu</first><last>Prakash</last></author>
+      <author><first>Roy Ka-Wei</first><last>Lee</last></author>
+      <pages>284–295</pages>
+      <abstract>Large language models (LLMs) like GPT and PALM have excelled in numerous natural language processing (NLP) tasks such as text generation, question answering, and translation. However, they are also found to have inherent social biases. To address this, recent studies have proposed debiasing techniques like iterative nullspace projection (INLP) and Counterfactual Data Augmentation (CDA). Additionally, there’s growing interest in understanding the intricacies of these models. Some researchers focus on individual neural units, while others examine specific layers. In our study, we benchmark newly released models, assess the impact of debiasing methods, and investigate how biases are linked to different transformer layers using a method called Logit Lens. Specifically, we evaluate three modern LLMs: OPT, LLaMA, and LLaMA2, and their debiased versions. Our experiments are based on two popular bias evaluation datasets, StereoSet and CrowS-Pairs, and we perform a layer-by-layer analysis using the Logit Lens.</abstract>
+      <url hash="fa504de9">2023.blackboxnlp-1.22</url>
+      <bibkey>prakash-lee-2023-layered</bibkey>
+      <doi>10.18653/v1/2023.blackboxnlp-1.22</doi>
+    </paper>
+    <paper id="23">
+      <title>Not Wacky vs. Definitely Wacky: A Study of Scalar Adverbs in Pretrained Language Models</title>
+      <author><first>Isabelle</first><last>Lorge</last></author>
+      <author><first>Janet B.</first><last>Pierrehumbert</last></author>
+      <pages>296–316</pages>
+      <abstract>Vector-space models of word meaning all assume that words occurring in similar contexts have similar meanings. Words that are similar in their topical associations but differ in their logical force tend to emerge as semantically close – creating well-known challenges for NLP applications that involve logical reasoning. Pretrained language models such as BERT, RoBERTa, GPT-2, and GPT-3 hold the promise of performing better on logical tasks than classic static word embeddings. However, reports are mixed about their success. Here, we advance this discussion through a systematic study of scalar adverbs, an under-explored class of words with strong logical force. Using three different tasks involving both naturalistic social media data and constructed examples, we investigate the extent to which BERT, RoBERTa, GPT-2 and GPT-3 exhibit knowledge of these common words. We ask: 1) Do the models distinguish amongst the three semantic categories of MODALITY, FREQUENCY and DEGREE? 2) Do they have implicit representations of full scales from maximally negative to maximally positive? 3) How do word frequency and contextual factors impact model performance? We find that despite capturing some aspects of logical meaning, the models still have obvious shortfalls.</abstract>
+      <url hash="1f5216bc">2023.blackboxnlp-1.23</url>
+      <bibkey>lorge-pierrehumbert-2023-wacky</bibkey>
+      <doi>10.18653/v1/2023.blackboxnlp-1.23</doi>
+    </paper>
+    <paper id="24">
+      <title>Rigorously Assessing Natural Language Explanations of Neurons</title>
+      <author><first>Jing</first><last>Huang</last></author>
+      <author><first>Atticus</first><last>Geiger</last></author>
+      <author><first>Karel</first><last>D’Oosterlinck</last></author>
+      <author><first>Zhengxuan</first><last>Wu</last></author>
+      <author><first>Christopher</first><last>Potts</last></author>
+      <pages>317–331</pages>
+      <abstract>Natural language is an appealing medium for explaining how large language models process and store information, but evaluating the faithfulness of such explanations is challenging. To help address this, we develop two modes of evaluation for natural language explanations that claim individual neurons represent a concept in a text input. In the *observational mode*, we evaluate claims that a neuron <tex-math>a</tex-math> activates on all and only input strings that refer to a concept picked out by the proposed explanation <tex-math>E</tex-math>. In the *intervention mode*, we construe <tex-math>E</tex-math> as a claim that neuron <tex-math>a</tex-math> is a causal mediator of the concept denoted by <tex-math>E</tex-math>. We apply our framework to the GPT-4-generated explanations of GPT-2 XL neurons of Bills et al. (2023) and show that even the most confident explanations have high error rates and little to no causal efficacy. We close the paper by critically assessing whether natural language is a good choice for explanations and whether neurons are the best level of analysis.</abstract>
+      <url hash="bc94db5d">2023.blackboxnlp-1.24</url>
+      <bibkey>huang-etal-2023-rigorously</bibkey>
+      <doi>10.18653/v1/2023.blackboxnlp-1.24</doi>
+      <video href="2023.blackboxnlp-1.24.mp4"/>
+    </paper>
+    <paper id="25">
+      <title><fixed-case>NPI</fixed-case>s Aren’t Exactly Easy: Variation in Licensing across Large Language Models</title>
+      <author><first>Deanna</first><last>DeCarlo</last></author>
+      <author><first>William</first><last>Palmer</last></author>
+      <author><first>Michael</first><last>Wilson</last></author>
+      <author><first>Bob</first><last>Frank</last></author>
+      <pages>332–341</pages>
+      <abstract>We examine the licensing of negative polarity items (NPIs) in large language models (LLMs) to enrich the picture of how models acquire NPIs as linguistic phenomena at the syntax-semantics interface. NPIs are a class of words which have a restricted distribution, appearing only in certain licensing contexts, prototypically negation. Unlike much of previous work which assumes NPIs and their licensing environments constitute unified classes, we consider NPI distribution in its full complexity: different NPIs are possible in different licensing environments. By studying this phenomenon across a broad range of models, we are able to explore which features of the model architecture, properties of the training data, and linguistic characteristics of the NPI phenomenon itself drive performance.</abstract>
+      <url hash="c2fc377e">2023.blackboxnlp-1.25</url>
+      <bibkey>decarlo-etal-2023-npis</bibkey>
+      <doi>10.18653/v1/2023.blackboxnlp-1.25</doi>
+      <video href="2023.blackboxnlp-1.25.mp4"/>
+    </paper>
+    <paper id="26">
+      <title>Memory Injections: Correcting Multi-Hop Reasoning Failures During Inference in Transformer-Based Language Models</title>
+      <author><first>Mansi</first><last>Sakarvadia</last></author>
+      <author><first>Aswathy</first><last>Ajith</last></author>
+      <author><first>Arham</first><last>Khan</last></author>
+      <author><first>Daniel</first><last>Grzenda</last></author>
+      <author><first>Nathaniel</first><last>Hudson</last></author>
+      <author><first>André</first><last>Bauer</last></author>
+      <author><first>Kyle</first><last>Chard</last></author>
+      <author><first>Ian</first><last>Foster</last></author>
+      <pages>342–356</pages>
+      <abstract>Answering multi-hop reasoning questions requires retrieving and synthesizing information from diverse sources. Large Language Models (LLMs) struggle to perform such reasoning consistently. Here we propose an approach to pinpoint and rectify multi-hop reasoning failures through targeted memory injections on LLM attention heads. First, we analyze the per-layer activations of GPT-2 models in response to single and multi-hop prompts. We then propose a mechanism that allows users to inject pertinent prompt-specific information, which we refer to as “memories,” at critical LLM locations during inference. By thus enabling the LLM to incorporate additional relevant information during inference, we enhance the quality of multi-hop prompt completions. We show empirically that a simple, efficient, and targeted memory injection into a key attention layer can often increase the probability of the desired next token in multi-hop tasks, by up to 424%.</abstract>
+      <url hash="6016928b">2023.blackboxnlp-1.26</url>
+      <bibkey>sakarvadia-etal-2023-memory</bibkey>
+      <doi>10.18653/v1/2023.blackboxnlp-1.26</doi>
+      <video href="2023.blackboxnlp-1.26.mp4"/>
+    </paper>
+    <paper id="27">
+      <title>Systematic Generalization by Finetuning? Analyzing Pretrained Language Models Using Constituency Tests</title>
+      <author><first>Aishik</first><last>Chakraborty</last></author>
+      <author><first>Jackie CK</first><last>Cheung</last></author>
+      <author><first>Timothy J.</first><last>O’Donnell</last></author>
+      <pages>357–366</pages>
+      <abstract>Constituents are groups of words that behave as a syntactic unit. Many linguistic phenomena (e.g., question formation, diathesis alternations) require the manipulation and rearrangement of constituents in a sentence. In this paper, we investigate how different finetuning setups affect the ability of pretrained sequence-to-sequence language models such as BART and T5 to replicate constituency tests — transformations that involve manipulating constituents in a sentence. We design multiple evaluation settings by varying the combinations of constituency tests and sentence types that a model is exposed to during finetuning. We show that models can replicate a linguistic transformation on a specific type of sentence that they saw during finetuning, but performance degrades substantially in other settings, showing a lack of systematic generalization. These results suggest that models often learn to manipulate sentences at a surface level unrelated to the constituent-level syntactic structure, for example by copying the first word of a sentence. These results may partially explain the brittleness of pretrained language models in downstream tasks.</abstract>
+      <url hash="3a168b5b">2023.blackboxnlp-1.27</url>
+      <bibkey>chakraborty-etal-2023-systematic</bibkey>
+      <doi>10.18653/v1/2023.blackboxnlp-1.27</doi>
+      <video href="2023.blackboxnlp-1.27.mp4"/>
+    </paper>
+    <paper id="28">
+      <title>On Quick Kisses and How to Make Them Count: A Study on Event Construal in Light Verb Constructions with <fixed-case>BERT</fixed-case></title>
+      <author><first>Chenxin</first><last>Liu</last></author>
+      <author><first>Emmanuele</first><last>Chersoni</last></author>
+      <pages>367–378</pages>
+      <abstract>Psycholinguistic studies suggested that our mental perception of events depends not only on the lexical items used to describe them, but also on the syntactic structure of the event description. More specifically, it has been argued that light verb constructions affect the perception of duration in event construal, such that the same event in this type of constructions is perceived by humans as taking less time (to give a kiss takes a shorter time than to kiss). In our paper, we present two experiments with BERT using English stimuli from psycholinguistic studies to investigate the effects of the syntactic construction on event duration and event similarity. We show that i) the dimensions of BERT vectors encode a smaller value for duration for both punctive and durative events in count syntax, in line with human results; on the other hand, we also found that ii) BERT semantic similarity fails to capture the conceptual shift that durative events should undergo in count syntax.</abstract>
+      <url hash="17deb9bb">2023.blackboxnlp-1.28</url>
+      <bibkey>liu-chersoni-2023-quick</bibkey>
+      <doi>10.18653/v1/2023.blackboxnlp-1.28</doi>
+      <video href="2023.blackboxnlp-1.28.mp4"/>
+    </paper>
+    <paper id="29">
+      <title>Identifying and Adapting Transformer-Components Responsible for Gender Bias in an <fixed-case>E</fixed-case>nglish Language Model</title>
+      <author><first>Abhijith</first><last>Chintam</last></author>
+      <author><first>Rahel</first><last>Beloch</last></author>
+      <author><first>Willem</first><last>Zuidema</last></author>
+      <author><first>Michael</first><last>Hanna</last></author>
+      <author><first>Oskar</first><last>van der Wal</last></author>
+      <pages>379–394</pages>
+      <abstract>Language models (LMs) exhibit and amplify many types of undesirable biases learned from the training data, including gender bias. However, we lack tools for effectively and efficiently changing this behavior without hurting general language modeling performance. In this paper, we study three methods for identifying causal relations between LM components and particular output: causal mediation analysis, automated circuit discovery and our novel, efficient method called DiffMask+ based on differential masking. We apply the methods to GPT-2 small and the problem of gender bias, and use the discovered sets of components to perform parameter-efficient fine-tuning for bias mitigation. Our results show significant overlap in the identified components (despite huge differences in the computational requirements of the methods) as well as success in mitigating gender bias, with less damage to general language modeling compared to full model fine-tuning. However, our work also underscores the difficulty of defining and measuring bias, and the sensitivity of causal discovery procedures to dataset choice. We hope our work can contribute to more attention for dataset development, and lead to more effective mitigation strategies for other types of bias.</abstract>
+      <url hash="c0c4bd94">2023.blackboxnlp-1.29</url>
+      <bibkey>chintam-etal-2023-identifying</bibkey>
+      <doi>10.18653/v1/2023.blackboxnlp-1.29</doi>
+      <video href="2023.blackboxnlp-1.29.mp4"/>
+    </paper>
+  </volume>
+</collection>

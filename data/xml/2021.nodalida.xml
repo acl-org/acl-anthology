@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <collection id="2021.nodalida">
-  <volume id="main" ingest-date="2021-05-31">
+  <volume id="main" ingest-date="2021-05-31" type="proceedings">
     <meta>
       <booktitle>Proceedings of the 23rd Nordic Conference on Computational Linguistics (NoDaLiDa)</booktitle>
       <editor><first>Simon</first><last>Dobnik</last></editor>
@@ -23,7 +23,7 @@
       <author><first>Antti</first><last>Virtanen</last></author>
       <author><first>Filip</first><last>Ginter</last></author>
       <pages>1–10</pages>
-      <abstract>Deep neural language models such as BERT have enabled substantial recent advances in many natural language processing tasks. However, due to the effort and computational cost involved in their pre-training, such models are typically introduced only for a small number of high-resource languages such as English. While multilingual models covering large numbers of languages are available, recent work suggests monolingual training can produce better models, and our understanding of the tradeoffs between mono- and multilingual training is incomplete. In this paper, we introduce a simple, fully automated pipeline for creating language-specific BERT models from Wikipedia data and introduce 42 new such models, most for languages up to now lacking dedicated deep neural language models. We assess the merits of these models using cloze tests and the state-of-the-art UDify parser on Universal Dependencies data, contrasting performance with results using the multilingual BERT (mBERT) model. We find that the newly introduced WikiBERT models outperform mBERT in cloze tests for nearly all languages, and that UDify using WikiBERT models outperforms the parser using mBERT on average, with the language-specific models showing substantially improved performance for some languages, yet limited improvement or a decrease in performance for others. All of the methods and models introduced in this work are available under open licenses from https://github.com/turkunlp/wikibert.</abstract>
+      <abstract>Deep neural language models such as BERT have enabled substantial recent advances in many natural language processing tasks. However, due to the effort and computational cost involved in their pre-training, such models are typically introduced only for a small number of high-resource languages such as English. While multilingual models covering large numbers of languages are available, recent work suggests monolingual training can produce better models, and our understanding of the tradeoffs between mono- and multilingual training is incomplete. In this paper, we introduce a simple, fully automated pipeline for creating language-specific BERT models from Wikipedia data and introduce 42 new such models, most for languages up to now lacking dedicated deep neural language models. We assess the merits of these models using cloze tests and the state-of-the-art UDify parser on Universal Dependencies data, contrasting performance with results using the multilingual BERT (mBERT) model. We find that the newly introduced WikiBERT models outperform mBERT in cloze tests for nearly all languages, and that UDify using WikiBERT models outperforms the parser using mBERT on average, with the language-specific models showing substantially improved performance for some languages, yet limited improvement or a decrease in performance for others. All of the methods and models introduced in this work are available under open licenses from <url>https://github.com/turkunlp/wikibert</url>.</abstract>
       <url hash="7cca7cfa">2021.nodalida-main.1</url>
       <bibkey>pyysalo-etal-2021-wikibert</bibkey>
       <pwcdataset url="https://paperswithcode.com/dataset/universal-dependencies">Universal Dependencies</pwcdataset>
@@ -49,6 +49,7 @@
       <abstract>In this work, we show the process of building a large-scale training set from digital and digitized collections at a national library. The resulting Bidirectional Encoder Representations from Transformers (BERT)-based language model for Norwegian outperforms multilingual BERT (mBERT) models in several token and sequence classification tasks for both Norwegian Bokmål and Norwegian Nynorsk. Our model also improves the mBERT performance for other languages present in the corpus such as English, Swedish, and Danish. For languages not included in the corpus, the weights degrade moderately while keeping strong multilingual properties. Therefore, we show that building high-quality models within a memory institution using somewhat noisy optical character recognition (OCR) content is feasible, and we hope to pave the way for other memory institutions to follow.</abstract>
       <url hash="51be5fb2">2021.nodalida-main.3</url>
       <bibkey>kummervold-etal-2021-operationalizing</bibkey>
+      <pwccode url="https://github.com/NBAiLab/notram" additional="true">NBAiLab/notram</pwccode>
     </paper>
     <paper id="4">
       <title>Large-Scale Contextualised Language Modelling for <fixed-case>N</fixed-case>orwegian</title>
@@ -58,11 +59,11 @@
       <author><first>Lilja</first><last>Øvrelid</last></author>
       <author><first>Stephan</first><last>Oepen</last></author>
       <pages>30–40</pages>
-      <abstract>We present the ongoing NorLM initiative to support the creation and use of very large contextualised language models for Norwegian (and in principle other Nordic languages), including a ready-to-use software environment, as well as an experience report for data preparation and training. This paper introduces the first large-scale monolingual language models for Norwegian, based on both the ELMo and BERT frameworks. In addition to detailing the training process, we present contrastive benchmark results on a suite of NLP tasks for Norwegian. For additional background and access to the data, models, and software, please see: http://norlm.nlpl.eu</abstract>
+      <abstract>We present the ongoing NorLM initiative to support the creation and use of very large contextualised language models for Norwegian (and in principle other Nordic languages), including a ready-to-use software environment, as well as an experience report for data preparation and training. This paper introduces the first large-scale monolingual language models for Norwegian, based on both the ELMo and BERT frameworks. In addition to detailing the training process, we present contrastive benchmark results on a suite of NLP tasks for Norwegian. For additional background and access to the data, models, and software, please see: <url>http://norlm.nlpl.eu</url></abstract>
       <url hash="a9eecc98">2021.nodalida-main.4</url>
       <bibkey>kutuzov-etal-2021-large</bibkey>
       <pwccode url="https://github.com/ltgoslo/NorBERT" additional="true">ltgoslo/NorBERT</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/norec-fine">NoReC_fine</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/norne">NorNE</pwcdataset>
     </paper>
     <paper id="5">
       <title>Extremely low-resource machine translation for closely related languages</title>
@@ -155,7 +156,7 @@
       <abstract>The current recipe for better model performance within NLP is to increase model size and training data. While it gives us models with increasingly impressive results, it also makes it more difficult to train and deploy state-of-the-art models for NLP due to increasing computational costs. Model compression is a field of research that aims to alleviate this problem. The field encompasses different methods that aim to preserve the performance of a model while decreasing the size of it. One such method is knowledge distillation. In this article, we investigate the effect of knowledge distillation for named entity recognition models in Swedish. We show that while some sequence tagging models benefit from knowledge distillation, not all models do. This prompts us to ask questions about in which situations and for which models knowledge distillation is beneficial. We also reason about the effect of knowledge distillation on computational costs.</abstract>
       <url hash="257f7716">2021.nodalida-main.13</url>
       <bibkey>hagstrom-johansson-2021-knowledge</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/conll-2003">CoNLL-2003</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/conll-2003">CoNLL 2003</pwcdataset>
     </paper>
     <paper id="14">
       <title>Fine-grained Named Entity Annotation for <fixed-case>F</fixed-case>innish</title>
@@ -168,6 +169,7 @@
       <url hash="94e80954">2021.nodalida-main.14</url>
       <bibkey>luoma-etal-2021-fine</bibkey>
       <pwcdataset url="https://paperswithcode.com/dataset/finer">Finer</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/ontonotes-5-0">OntoNotes 5.0</pwcdataset>
     </paper>
     <paper id="15">
       <title>Survey and reproduction of computational approaches to dating of historical texts</title>
@@ -253,6 +255,7 @@
       <abstract>Building tools to remove sensitive information such as personal names, addresses, and telephone numbers - so called Protected Health Information (PHI) - from clinical free text is an important task to make clinical texts available for research. These de-identification tools must be assessed regarding their quality in the form of the measurements precision and re- call. To assess such tools, gold standards - annotated clinical text - must be available. Such gold standards exist for larger languages. For Norwegian, how- ever, there are no such resources. Therefore, an already existing Norwegian synthetic clinical corpus, NorSynthClinical, has been extended with PHIs and annotated by two annotators, obtaining an inter-annotator agreement of 0.94 F1-measure. In total, the corpus has 409 annotated PHI instances and is called NorSynthClinical PHI. A de-identification hybrid tool (machine learning and rule-based meth- ods) for Norwegian was developed and trained with open available resources, and obtained an overall F1-measure of 0.73 and a recall of 0.62, when tested using NorSynthClinical PHI. NorSynthClinical PHI is made open and available at Github to be used by the research community.</abstract>
       <url hash="0c83f294">2021.nodalida-main.22</url>
       <bibkey>brathen-etal-2021-creating</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/norne">NorNE</pwcdataset>
     </paper>
     <paper id="23">
       <title>Applying and Sharing pre-trained <fixed-case>BERT</fixed-case>-models for Named Entity Recognition and Classification in <fixed-case>S</fixed-case>wedish Electronic Patient Records</title>
@@ -354,7 +357,6 @@
       <bibkey>maehlum-etal-2021-negation</bibkey>
       <pwccode url="https://github.com/ltgoslo/norec_neg" additional="false">ltgoslo/norec_neg</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/norec">NoReC</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/norec-fine">NoReC_fine</pwcdataset>
     </paper>
     <paper id="31">
       <title>What Taggers Fail to Learn, Parsers Need the Most</title>
@@ -628,6 +630,7 @@
       <abstract>We present an open-source toolkit for Danish Natural Language Processing, enabling easy access to Danish NLP’s latest advancements. The toolkit features wrapper-functions for loading models and datasets in a unified way using third-party NLP frameworks. The toolkit is developed to enhance community building, understanding the need from industry and knowledge sharing. As an example of this, we present Angry Tweets: An Annotation Game to create awareness of Danish NLP and create a new sentiment-annotated dataset.</abstract>
       <url hash="92f983af">2021.nodalida-main.53</url>
       <bibkey>pauli-etal-2021-danlp</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/angry-tweets">Angry Tweets</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/dane">DaNE</pwcdataset>
     </paper>
     <paper id="54">
@@ -641,7 +644,9 @@
     </paper>
   </volume>
   <event id="nodalida-2021">
-    <colocated>2021.motra-1</colocated>
-    <colocated>2021.nlp4call-1</colocated>
+    <colocated>
+      <volume-id>2021.motra-1</volume-id>
+      <volume-id>2021.nlp4call-1</volume-id>
+    </colocated>
   </event>
 </collection>

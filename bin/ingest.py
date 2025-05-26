@@ -131,7 +131,7 @@ def bib2xml(bibfilename, anthology_id):
     bibdata = read_bibtex(bibfilename)
     if len(bibdata.entries) != 1:
         log(f"more than one entry in {bibfilename}")
-    bibkey, bibentry = bibdata.entries.items()[0]
+    bibkey, bibentry = list(bibdata.entries.items())[0]
     if len(bibentry.fields) == 0:
         log(f"parsing bib of paper {paper_no} failed")
         sys.exit(1)
@@ -294,6 +294,7 @@ def main(args):
                     meta["path"],
                     "cdrom",
                     f"{year}-{venue_name.lower()}-{volume_name}.pdf",
+                    f"{venue_name.lower()}-{year}.{volume_name}.pdf",
                 ),
                 os.path.join(meta["path"], "cdrom", f"{venue_name.upper()}-{year}.pdf"),
             ]
@@ -324,8 +325,8 @@ def main(args):
             if os.path.basename(pdf_file).startswith("."):
                 continue
 
-            # names are {abbrev}{number}.pdf
-            match = re.match(r".*\.(\d+)\.pdf", pdf_file)
+            # names are {abbrev}{number}.pdf, but may also have Anthology new-style IDs
+            match = re.match(r".*?(\d+)\.pdf", pdf_file)
 
             if match is not None:
                 paper_num = int(match[1])
@@ -386,6 +387,13 @@ def main(args):
                     log(f"Copying {attachment_file} -> {dest_path}", args.dry_run)
                     shutil.copyfile(attachment_file_path, dest_path)
 
+                if paper_num not in volume:
+                    print(f"Fatal: no key {paper_num} in volume", file=sys.stderr)
+                    import json
+
+                    print(json.dumps(volume, indent=2), file=sys.stderr)
+                    sys.exit(1)
+
                 volume[paper_num]["attachments"].append((dest_path, type_))
 
         # create xml
@@ -399,7 +407,11 @@ def main(args):
 
         volume_node = make_simple_element(
             "volume",
-            attrib={"id": volume_name, "ingest-date": args.ingest_date},
+            attrib={
+                "id": volume_name,
+                "ingest-date": args.ingest_date,
+                "type": "proceedings",
+            },
         )
 
         # Replace the existing one if present
@@ -463,6 +475,8 @@ def main(args):
 
                 # Add the venue tag
                 make_simple_element("venue", venue_name, parent=meta_node)
+                if args.is_workshop:
+                    make_simple_element("venue", "ws", parent=meta_node)
 
                 # modify frontmatter tag
                 paper_node.tag = "frontmatter"
@@ -565,6 +579,9 @@ if __name__ == "__main__":
         "-a",
         default=attachments_path,
         help="Root path for placement of PDF files",
+    )
+    parser.add_argument(
+        "--is-workshop", "-w", action="store_true", help="Venue is a workshop"
     )
     parser.add_argument(
         "--dry-run", "-n", action="store_true", help="Don't actually copy anything."

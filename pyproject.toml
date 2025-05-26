@@ -1,8 +1,10 @@
 [tool.black]
 line-length = 90
-target-version = ['py37', 'py38']
+target-version = ['py310', 'py311', 'py312']
 skip-string-normalization = true
 
 [tool.ruff]
+target-version = 'py310'
+
+[tool.ruff.lint]
 ignore = ['E501']  # "Line too long" is black's job
-target-version = 'py38'

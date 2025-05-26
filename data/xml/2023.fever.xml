@@ -1,0 +1,114 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2023.fever">
+  <volume id="1" ingest-date="2023-04-29" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of the Sixth Fact Extraction and VERification Workshop (FEVER)</booktitle>
+      <editor><first>Mubashara</first><last>Akhtar</last></editor>
+      <editor><first>Rami</first><last>Aly</last></editor>
+      <editor><first>Christos</first><last>Christodoulopoulos</last></editor>
+      <editor><first>Oana</first><last>Cocarascu</last></editor>
+      <editor><first>Zhijiang</first><last>Guo</last></editor>
+      <editor><first>Arpit</first><last>Mittal</last></editor>
+      <editor><first>Michael</first><last>Schlichtkrull</last></editor>
+      <editor><first>James</first><last>Thorne</last></editor>
+      <editor><first>Andreas</first><last>Vlachos</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Dubrovnik, Croatia</address>
+      <month>May</month>
+      <year>2023</year>
+      <url hash="f4a5f498">2023.fever-1</url>
+      <venue>fever</venue>
+    </meta>
+    <frontmatter>
+      <url hash="cfc89f89">2023.fever-1.0</url>
+      <bibkey>fever-2023-fact</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Rethinking the Event Coding Pipeline with Prompt Entailment</title>
+      <author><first>Clément</first><last>Lefebvre</last><affiliation>EPFL - EPF Lausanne</affiliation></author>
+      <author><first>Niklas</first><last>Stoehr</last></author>
+      <pages>1-16</pages>
+      <abstract>For monitoring crises, political events are extracted from the news. The large amount of unstructured full-text event descriptions makes a case-by-case analysis unmanageable, particularly for low-resource humanitarian aid organizations. This creates a demand to classify events into event types, a task referred to as event coding. Typically, domain experts craft an event type ontology, annotators label a large dataset and technical experts develop a supervised coding system. In this work, we propose PR-ENT, a new event coding approach that is more flexible and resource-efficient, while maintaining competitive accuracy: first, we extend an event description such as “Military injured two civilians” by a template, e.g. “People were [Z]” and prompt a pre-trained (cloze) language model to fill the slot Z. Second, we select suitable answer candidates Zstar = “injured”, “hurt”... by treating the event description as premise and the filled templates as hypothesis in a textual entailment task. In a final step, the selected answer candidate can be mapped to its corresponding event type. This allows domain experts to draft the codebook directly as labeled prompts and interpretable answer candidates. This human-in-the-loop process is guided by our codebook design tool. We show that our approach is robust through several checks: perturbing the event description and prompt template, restricting the vocabulary and removing contextual information.</abstract>
+      <url hash="c86cfb1f">2023.fever-1.1</url>
+      <bibkey>lefebvre-stoehr-2023-rethinking</bibkey>
+      <video href="2023.fever-1.1.mp4"/>
+      <doi>10.18653/v1/2023.fever-1.1</doi>
+    </paper>
+    <paper id="2">
+      <title>Hierarchical Representations in Dense Passage Retrieval for Question-Answering</title>
+      <author><first>Philipp</first><last>Ennen</last></author>
+      <author><first>Federica</first><last>Freddi</last></author>
+      <author><first>Chyi-Jiunn</first><last>Lin</last></author>
+      <author><first>Po-Nien</first><last>Kung</last></author>
+      <author><first>RenChu</first><last>Wang</last></author>
+      <author><first>Chien-Yi</first><last>Yang</last></author>
+      <author><first>Da-shan</first><last>Shiu</last></author>
+      <author><first>Alberto</first><last>Bernacchia</last><affiliation>MedaiTek Research</affiliation></author>
+      <pages>17-28</pages>
+      <abstract>An approach to improve question-answering performance is to retrieve accompanying information that contains factual evidence matching the question. These retrieved documents are then fed into a reader that generates an answer. A commonly applied retriever is dense passage retrieval. In this retriever, the output of a transformer neural network is used to query a knowledge database for matching documents. Inspired by the observation that different layers of a transformer network provide rich representations with different levels of abstraction, we hypothesize that useful queries can be generated not only at the output layer, but at every layer of a transformer network, and that the hidden representations of different layers may combine to improve the fetched documents for reader performance. Our novel approach integrates retrieval into each layer of a transformer network, exploiting the hierarchical representations of the input question. We show that our technique outperforms prior work on downstream tasks such as question answering, demonstrating the effectiveness of our approach.</abstract>
+      <url hash="3fd08358">2023.fever-1.2</url>
+      <bibkey>ennen-etal-2023-hierarchical</bibkey>
+      <video href="2023.fever-1.2.mp4"/>
+      <doi>10.18653/v1/2023.fever-1.2</doi>
+    </paper>
+    <paper id="3">
+      <title>An Entity-based Claim Extraction Pipeline for Real-world Biomedical Fact-checking</title>
+      <author><first>Amelie</first><last>Wuehrl</last><affiliation>University of Stuttgart, Universität Stuttgart</affiliation></author>
+      <author><first>Lara</first><last>Grimminger</last></author>
+      <author><first>Roman</first><last>Klinger</last><affiliation>University of Stuttgart</affiliation></author>
+      <pages>29-37</pages>
+      <abstract>Existing fact-checking models for biomedical claims are typically trained on synthetic or well-worded data and hardly transfer to social media content. This mismatch can be mitigated by adapting the social media input to mimic the focused nature of common training claims. To do so, Wührl and Klinger (2022a) propose to extract concise claims based on medical entities in the text. However, their study has two limitations: First, it relies on gold-annotated entities. Therefore, its feasibility for a real-world application cannot be assessed since this requires detecting relevant entities automatically. Second, they represent claim entities with the original tokens. This constitutes a terminology mismatch which potentially limits the fact-checking performance. To understand both challenges, we propose a claim extraction pipeline for medical tweets that incorporates named entity recognition and terminology normalization via entity linking. We show that automatic NER does lead to a performance drop in comparison to using gold annotations but the fact-checking performance still improves considerably over inputting the unchanged tweets. Normalizing entities to their canonical forms does, however, not improve the performance.</abstract>
+      <url hash="fc4a6463">2023.fever-1.3</url>
+      <bibkey>wuehrl-etal-2023-entity</bibkey>
+      <video href="2023.fever-1.3.mp4"/>
+      <doi>10.18653/v1/2023.fever-1.3</doi>
+    </paper>
+    <paper id="4">
+      <title>Enhancing Information Retrieval in Fact Extraction and Verification</title>
+      <author><first>Daniel</first><last>Guzman Olivares</last></author>
+      <author><first>Lara</first><last>Quijano</last><affiliation>Universidad Autónoma de Madrid</affiliation></author>
+      <author><first>Federico</first><last>Liberatore</last></author>
+      <pages>38-48</pages>
+      <abstract>Modern fact verification systems have distanced themselves from the black box paradigm by providing the evidence used to infer their veracity judgments. Hence, evidence-backed fact verification systems’ performance heavily depends on the capabilities of their retrieval component to identify these facts. A popular evaluation benchmark for these systems is the FEVER task, which consists of determining the veracity of short claims using sentences extracted from Wikipedia. In this paper, we present a novel approach to the the retrieval steps of the FEVER task leveraging the graph structure of Wikipedia. The retrieval models surpass state of the art results at both sentence and document level. Additionally, we show that by feeding our retrieved evidence to the best-performing textual entailment model, we set a new state of the art in the FEVER competition.</abstract>
+      <url hash="c2dfa529">2023.fever-1.4</url>
+      <bibkey>guzman-olivares-etal-2023-enhancing</bibkey>
+      <video href="2023.fever-1.4.mp4"/>
+      <doi>10.18653/v1/2023.fever-1.4</doi>
+    </paper>
+    <paper id="5">
+      <title>“World Knowledge” in Multiple Choice Reading Comprehension</title>
+      <author><first>Adian</first><last>Liusie</last><affiliation>University of Cambridge</affiliation></author>
+      <author><first>Vatsal</first><last>Raina</last></author>
+      <author><first>Mark</first><last>Gales</last><affiliation>University of Cambridge</affiliation></author>
+      <pages>49-57</pages>
+      <abstract>Recently it has been shown that without any access to the contextual passage, multiple choice reading comprehension (MCRC) systems are able to answer questions significantly better than random on average. These systems use their accumulated “world knowledge” to directly answer questions, rather than using information from the passage. This paper examines the possibility of exploiting this observation as a tool for test designers to ensure that the form of “world knowledge” is acceptable for a particular set of questions. We propose information-theory based metrics that enable the level of “world knowledge” exploited by systems to be assessed. Two metrics are described: the expected number of options, which measures whether a passage-free system can identify the answer a question using world knowledge; and the contextual mutual information, which measures the importance of context for a given question. We demonstrate that questions with low expected number of options, and hence answerable by the shortcut system, are often similarly answerable by humans without context. This highlights that the general knowledge ‘shortcuts’ could be equally used by exam candidates, and that our proposed metrics may be helpful for future test designers to monitor the quality of questions.</abstract>
+      <url hash="2be95a66">2023.fever-1.5</url>
+      <bibkey>liusie-etal-2023-world</bibkey>
+      <video href="2023.fever-1.5.mp4"/>
+      <doi>10.18653/v1/2023.fever-1.5</doi>
+    </paper>
+    <paper id="6">
+      <title><fixed-case>BEVERS</fixed-case>: A General, Simple, and Performant Framework for Automatic Fact Verification</title>
+      <author><first>Mitchell</first><last>DeHaven</last><affiliation>Usc/isi</affiliation></author>
+      <author><first>Stephen</first><last>Scott</last><affiliation>University of Nebraska-Lincoln</affiliation></author>
+      <pages>58-65</pages>
+      <abstract>Automatic fact verification has become an increasingly popular topic in recent years and among datasets the Fact Extraction and VERification (FEVER) dataset is one of the most popular. In this work we present BEVERS, a tuned baseline system for the FEVER dataset. Our pipeline uses standard approaches for document retrieval, sentence selection, and final claim classification, however, we spend considerable effort ensuring optimal performance for each component. The results are that BEVERS achieves the highest FEVER score and label accuracy among all systems, published or unpublished. We also apply this pipeline to another fact verification dataset, Scifact, and achieve the highest label accuracy among all systems on that dataset as well. We also make our full code available.</abstract>
+      <url hash="5f426620">2023.fever-1.6</url>
+      <bibkey>dehaven-scott-2023-bevers</bibkey>
+      <video href="2023.fever-1.6.mp4"/>
+      <doi>10.18653/v1/2023.fever-1.6</doi>
+    </paper>
+    <paper id="7">
+      <title>An Effective Approach for Informational and Lexical Bias Detection</title>
+      <author><first>Iffat</first><last>Maab</last></author>
+      <author><first>Edison</first><last>Marrese-Taylor</last></author>
+      <author><first>Yutaka</first><last>Matsuo</last><affiliation>The University of Tokyo and The University of Tokyo</affiliation></author>
+      <pages>66-77</pages>
+      <abstract>In this paper we present a thorough investigation of automatic bias recognition on BASIL, a dataset of political news which has been annotated with different kinds of biases. We begin by unveiling several inconsistencies in prior work using this dataset, showing that most approaches focus only on certain task formulations while ignoring others, and also failing to report important evaluation details. We provide a comprehensive categorization of these approaches, as well as a more uniform and clear set of evaluation metrics. We argue about the importance of the missing formulations and also propose the novel task of simultaneously detecting different kinds of biases in news. In our work, we tackle bias on six different BASIL classification tasks in a unified manner. Eventually, we introduce a simple yet effective approach based on data augmentation and preprocessing which is generic and works very well across models and task formulations, allowing us to obtain state-of-the-art results. We also perform ablation studies on some tasks to quantify the strength of data augmentation and preprocessing, and find that they correlate positively on all bias tasks.</abstract>
+      <url hash="90b9cfee">2023.fever-1.7</url>
+      <bibkey>maab-etal-2023-effective</bibkey>
+      <video href="2023.fever-1.7.mp4"/>
+      <doi>10.18653/v1/2023.fever-1.7</doi>
+    </paper>
+  </volume>
+</collection>

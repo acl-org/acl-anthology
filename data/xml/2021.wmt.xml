@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <collection id="2021.wmt">
-  <volume id="1" ingest-date="2022-01-11">
+  <volume id="1" ingest-date="2022-01-11" type="proceedings">
     <meta>
       <booktitle>Proceedings of the Sixth Conference on Machine Translation</booktitle>
       <editor><first>Loic</first><last>Barrault</last></editor>
@@ -78,7 +78,7 @@
       <bibkey>akhbardeh-etal-2021-findings</bibkey>
       <pwcdataset url="https://paperswithcode.com/dataset/ccaligned">CCAligned</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/dogc">DOGC</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/flores-101">FLORES-101</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/flores-101">FLoRes-101</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/paracrawl">ParaCrawl</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/wmt-2020">WMT 2020</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/wikimatrix">WikiMatrix</pwcdataset>
@@ -99,8 +99,8 @@
       <abstract>We present the results of the first task on Large-Scale Multilingual Machine Translation. The task consists on the many-to-many evaluation of a single model across a variety of source and target languages. This year, the task consisted on three different settings: (i) SMALL-TASK1 (Central/South-Eastern European Languages), (ii) the SMALL-TASK2 (South-East Asian Languages), and (iii) FULL-TASK (all 101 x 100 language pairs). All the tasks used the FLORES-101 dataset as the evaluation benchmark. To ensure the longevity of the dataset, the test sets were not publicly released and the models were evaluated in a controlled environment on Dynabench. There were a total of 10 participating teams for the tasks, with a total of 151 intermediate model submissions and 13 final models. This year’s result show a significant improvement over the known base-lines with +17.8 BLEU for SMALL-TASK2, +10.6 for FULL-TASK and +3.6 for SMALL-TASK1.</abstract>
       <url hash="23ef8cf5">2021.wmt-1.2</url>
       <bibkey>wenzek-etal-2021-findings</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/flores-101">FLORES-101</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/flores">FLoRes</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/flores-101">FLoRes-101</pwcdataset>
     </paper>
     <paper id="3">
       <title><fixed-case>GTCOM</fixed-case> Neural Machine Translation Systems for <fixed-case>WMT</fixed-case>21</title>
@@ -595,6 +595,7 @@
       <abstract>This paper describes Charles University sub-mission for Terminology translation shared task at WMT21. The objective of this task is to design a system which translates certain terms based on a provided terminology database, while preserving high overall translation quality. We competed in English-French language pair. Our approach is based on providing the desired translations alongside the input sentence and training the model to use these provided terms. We lemmatize the terms both during the training and inference, to allow the model to learn how to produce correct surface forms of the words, when they differ from the forms provided in the terminology database.</abstract>
       <url hash="aea155c4">2021.wmt-1.42</url>
       <bibkey>jon-etal-2021-cuni</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/opus-mt">OPUS-MT</pwcdataset>
     </paper>
     <paper id="43">
       <title>Transfer Learning with Shallow Decoders: <fixed-case>BSC</fixed-case> at <fixed-case>WMT</fixed-case>2021’s Multilingual Low-Resource Translation for <fixed-case>I</fixed-case>ndo-<fixed-case>E</fixed-case>uropean Languages Shared Task</title>
@@ -642,11 +643,11 @@
       <author><first>Zizhen</first><last>Lian</last></author>
       <author><first>Marine</first><last>Carpuat</last></author>
       <pages>383–386</pages>
-      <abstract>This paper describes the system submitted to Large-Scale Multilingual Shared Task (Small Task #2) at WMT 2021. It is based on the massively multilingual open-source model FLORES101_MM100 model, with selective fine-tuning.Our best-performing system reported a 15.72 average BLEU score for the task.</abstract>
+      <abstract>This paper describes the system submitted to Large-Scale Multilingual Shared Task (Small Task #2) at WMT 2021. It is based on the massively multilingual open-source model FLORES101_MM100 model, with selective fine-tuning. Our best-performing system reported a 15.72 average BLEU score for the task.</abstract>
       <url hash="29e9fc0d">2021.wmt-1.46</url>
       <bibkey>bandyopadhyay-etal-2021-university</bibkey>
       <pwcdataset url="https://paperswithcode.com/dataset/ccaligned">CCAligned</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/flores-101">FLORES-101</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/flores-101">FLoRes-101</pwcdataset>
     </paper>
     <paper id="47">
       <title>To Optimize, or Not to Optimize, That Is the Question: <fixed-case>T</fixed-case>el<fixed-case>U</fixed-case>-<fixed-case>KU</fixed-case> Models for <fixed-case>WMT</fixed-case>21 Large-Scale Multilingual Machine Translation</title>
@@ -672,7 +673,6 @@
       <url hash="eeeccac0">2021.wmt-1.48</url>
       <bibkey>emezue-dossou-2021-mmtafrica</bibkey>
       <pwccode url="https://github.com/edaiofficial/mmtafrica" additional="false">edaiofficial/mmtafrica</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/flores-101">FLORES-101</pwcdataset>
     </paper>
     <paper id="49">
       <title>The <fixed-case>LMU</fixed-case> <fixed-case>M</fixed-case>unich System for the <fixed-case>WMT</fixed-case> 2021 Large-Scale Multilingual Machine Translation Shared Task</title>
@@ -683,7 +683,6 @@
       <abstract>This paper describes the submission of LMU Munich to the WMT 2021 multilingual machine translation task for small track #1, which studies translation between 6 languages (Croatian, Hungarian, Estonian, Serbian, Macedonian, English) in 30 directions. We investigate the extent to which bilingual translation systems can influence multilingual translation systems. More specifically, we trained 30 bilingual translation systems, covering all language pairs, and used data augmentation technologies such as back-translation and knowledge distillation to improve the multilingual translation systems. Our best translation system scores 5 to 6 BLEU higher than a strong baseline system provided by the organizers. As seen in the dynalab leaderboard, our submission is the only fully constrained submission that uses only the corpus provided by the organizers and does not use any pre-trained models.</abstract>
       <url hash="277cb28b">2021.wmt-1.49</url>
       <bibkey>lai-etal-2021-lmu</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/flores-101">FLORES-101</pwcdataset>
     </paper>
     <paper id="50">
       <title>Back-translation for Large-Scale Multilingual Machine Translation</title>
@@ -704,7 +703,7 @@
       <abstract>We present our development of the multilingual machine translation system for the large-scale multilingual machine translation task at WMT 2021. Starting form the provided baseline system, we investigated several techniques to improve the translation quality on the target subset of languages. We were able to significantly improve the translation quality by adapting the system towards the target subset of languages and by generating synthetic data using the initial model. Techniques successfully applied in zero-shot multilingual machine translation (e.g. similarity regularizer) only had a minor effect on the final translation performance.</abstract>
       <url hash="b71eaeda">2021.wmt-1.51</url>
       <bibkey>liu-niehues-2021-maastricht-universitys</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/flores-101">FLORES-101</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/flores-101">FLoRes-101</pwcdataset>
     </paper>
     <paper id="52">
       <title>Data Processing Matters: <fixed-case>SRPH</fixed-case>-Konvergen <fixed-case>AI</fixed-case>’s Machine Translation System for <fixed-case>WMT</fixed-case>’21</title>
@@ -714,7 +713,7 @@
       <abstract>In this paper, we describe the submission of the joint Samsung Research Philippines-Konvergen AI team for the WMT’21 Large Scale Multilingual Translation Task - Small Track 2. We submit a standard Seq2Seq Transformer model to the shared task without any training or architecture tricks, relying mainly on the strength of our data preprocessing techniques to boost performance. Our final submission model scored 22.92 average BLEU on the FLORES-101 devtest set, and scored 22.97 average BLEU on the contest’s hidden test set, ranking us sixth overall. Despite using only a standard Transformer, our model ranked first in Indonesian to Javanese, showing that data preprocessing matters equally, if not more, than cutting edge model architectures and training techniques.</abstract>
       <url hash="dba24a10">2021.wmt-1.52</url>
       <bibkey>sutawika-cruz-2021-data</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/flores-101">FLORES-101</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/flores-101">FLoRes-101</pwcdataset>
     </paper>
     <paper id="53">
       <title><fixed-case>T</fixed-case>en<fixed-case>T</fixed-case>rans Large-Scale Multilingual Machine Translation System for <fixed-case>WMT</fixed-case>21</title>
@@ -727,7 +726,7 @@
       <abstract>This paper describes TenTrans large-scale multilingual machine translation system for WMT 2021. We participate in the Small Track 2 in five South East Asian languages, thirty directions: Javanese, Indonesian, Malay, Tagalog, Tamil, English. We mainly utilized forward/back-translation, in-domain data selection, knowledge distillation, and gradual fine-tuning from the pre-trained model FLORES-101. We find that forward/back-translation significantly improves the translation results, data selection and gradual fine-tuning are particularly effective during adapting domain, while knowledge distillation brings slight performance improvement. Also, model averaging is used to further improve the translation performance based on these systems. Our final system achieves an average BLEU score of 28.89 across thirty directions on the test set.</abstract>
       <url hash="803348ac">2021.wmt-1.53</url>
       <bibkey>xie-etal-2021-tentrans</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/flores-101">FLORES-101</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/flores-101">FLoRes-101</pwcdataset>
     </paper>
     <paper id="54">
       <title>Multilingual Machine Translation Systems from <fixed-case>M</fixed-case>icrosoft for <fixed-case>WMT</fixed-case>21 Shared Task</title>
@@ -746,7 +745,7 @@
       <abstract>This report describes Microsoft’s machine translation systems for the WMT21 shared task on large-scale multilingual machine translation. We participated in all three evaluation tracks including Large Track and two Small Tracks where the former one is unconstrained and the latter two are fully constrained. Our model submissions to the shared task were initialized with DeltaLM, a generic pre-trained multilingual encoder-decoder model, and fine-tuned correspondingly with the vast collected parallel data and allowed data sources according to track settings, together with applying progressive learning and iterative back-translation approaches to further improve the performance. Our final submissions ranked first on three tracks in terms of the automatic evaluation metric.</abstract>
       <url hash="2a796749">2021.wmt-1.54</url>
       <bibkey>yang-etal-2021-multilingual-machine</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/flores-101">FLORES-101</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/flores-101">FLoRes-101</pwcdataset>
     </paper>
     <paper id="55">
       <title><fixed-case>HW</fixed-case>-<fixed-case>TSC</fixed-case>’s Participation in the <fixed-case>WMT</fixed-case> 2021 Large-Scale Multilingual Translation Task</title>
@@ -804,7 +803,6 @@
       <bibkey>krubinski-etal-2021-just</bibkey>
       <video href="2021.wmt-1.58.mp4"/>
       <pwccode url="https://github.com/ufal/mteqa" additional="false">ufal/mteqa</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/squad">SQuAD</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/xquad">XQuAD</pwcdataset>
     </paper>
     <paper id="59">
@@ -872,6 +870,7 @@
       <url hash="eda6418a">2021.wmt-1.63</url>
       <bibkey>castilho-etal-2021-dela</bibkey>
       <video href="2021.wmt-1.63.mp4"/>
+      <pwccode url="https://github.com/sheilacastilho/dela-project" additional="false">sheilacastilho/dela-project</pwccode>
     </paper>
     <paper id="64">
       <title>Multilingual Domain Adaptation for <fixed-case>NMT</fixed-case>: Decoupling Language and Domain Information with Adapters</title>
@@ -879,7 +878,7 @@
       <author><first>Alexandre</first><last>Berard</last></author>
       <author><first>Vassilina</first><last>Nikoulina</last></author>
       <pages>578–598</pages>
-      <abstract>Adapter layers are lightweight, learnable units inserted between transformer layers. Recent work explores using such layers for neural machine translation (NMT), to adapt pre-trained models to new domains or language pairs, training only a small set of parameters for each new setting (language pair or domain). In this work we study the compositionality of language and domain adapters in the context of Machine Translation. We aim to study, 1) parameter-efficient adaptation to multiple domains and languages simultaneously (full-resource scenario) and 2) cross-lingual transfer in domains where parallel data is unavailable for certain language pairs (partial-resource scenario). We find that in the partial resource scenario a naive combination of domain-specific and language-specific adapters often results in ‘catastrophic forgetting’ of the missing languages. We study other ways to combine the adapters to alleviate this issue and maximize cross-lingual transfer. With our best adapter combinations, we obtain improvements of 3-4 BLEU on average for source languages that do not have in-domain data. For target languages without in-domain data, we achieve a similar improvement by combining adapters with back-translation. Supplementary material is available at https://tinyurl.com/r66stbxj.</abstract>
+      <abstract>Adapter layers are lightweight, learnable units inserted between transformer layers. Recent work explores using such layers for neural machine translation (NMT), to adapt pre-trained models to new domains or language pairs, training only a small set of parameters for each new setting (language pair or domain). In this work we study the compositionality of language and domain adapters in the context of Machine Translation. We aim to study, 1) parameter-efficient adaptation to multiple domains and languages simultaneously (full-resource scenario) and 2) cross-lingual transfer in domains where parallel data is unavailable for certain language pairs (partial-resource scenario). We find that in the partial resource scenario a naive combination of domain-specific and language-specific adapters often results in ‘catastrophic forgetting’ of the missing languages. We study other ways to combine the adapters to alleviate this issue and maximize cross-lingual transfer. With our best adapter combinations, we obtain improvements of 3-4 BLEU on average for source languages that do not have in-domain data. For target languages without in-domain data, we achieve a similar improvement by combining adapters with back-translation. Supplementary material is available at <url>https://tinyurl.com/r66stbxj</url>.</abstract>
       <url hash="f2520c89">2021.wmt-1.64</url>
       <bibkey>cooper-stickland-etal-2021-multilingual</bibkey>
       <video href="2021.wmt-1.64.mp4"/>
@@ -1348,6 +1347,7 @@
       <abstract>This paper presents the NICT Kyoto submission for the WMT’21 Quality Estimation (QE) Critical Error Detection shared task (Task 3). Our approach relies mainly on QE model pretraining for which we used 11 language pairs, three sentence-level and three word-level translation quality metrics. Starting from an XLM-R checkpoint, we perform continued training by modifying the learning objective, switching from masked language modeling to QE oriented signals, before finetuning and ensembling the models. Results obtained on the test set in terms of correlation coefficient and F-score show that automatic metrics and synthetic data perform well for pretraining, with our submissions ranked first for two out of four language pairs. A deeper look at the impact of each metric on the downstream task indicates higher performance for token oriented metrics, while an ablation study emphasizes the usefulness of conducting both self-supervised and QE pretraining.</abstract>
       <url hash="2f6549e8">2021.wmt-1.99</url>
       <bibkey>rubino-etal-2021-nict</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/opus">OPUS</pwcdataset>
     </paper>
     <paper id="100">
       <title><fixed-case>QEM</fixed-case>ind: <fixed-case>A</fixed-case>libaba’s Submission to the <fixed-case>WMT</fixed-case>21 Quality Estimation Shared Task</title>
@@ -1462,7 +1462,7 @@
       <author><first>Gleb</first><last>Erofeev</last></author>
       <author><first>Serge</first><last>Gladkoff</last></author>
       <pages>1014–1023</pages>
-      <abstract>Human evaluation has always been expensive while researchers struggle to trust the automatic metrics. To address this, we propose to customise traditional metrics by taking advantages of the pre-trained language models (PLMs) and the limited available human labelled scores. We first re-introduce the hLEPOR metric factors, followed by the Python version we developed (ported) which achieved the automatic tuning of the weighting parameters in hLEPOR metric. Then we present the customised hLEPOR (cushLEPOR) which uses Optuna hyper-parameter optimisation framework to fine-tune hLEPOR weighting parameters towards better agreement to pre-trained language models (using LaBSE) regarding the exact MT language pairs that cushLEPOR is deployed to. We also optimise cushLEPOR towards professional human evaluation data based on MQM and pSQM framework on English-German and Chinese-English language pairs. The experimental investigations show cushLEPOR boosts hLEPOR performances towards better agreements to PLMs like LABSE with much lower cost, and better agreements to human evaluations including MQM and pSQM scores, and yields much better performances than BLEU. Official results show that our submissions win three language pairs including English-German and Chinese-English on News domain via cushLEPOR(LM) and English-Russian on TED domain via hLEPOR. (data available at https://github.com/poethan/cushLEPOR)</abstract>
+      <abstract>Human evaluation has always been expensive while researchers struggle to trust the automatic metrics. To address this, we propose to customise traditional metrics by taking advantages of the pre-trained language models (PLMs) and the limited available human labelled scores. We first re-introduce the hLEPOR metric factors, followed by the Python version we developed (ported) which achieved the automatic tuning of the weighting parameters in hLEPOR metric. Then we present the customised hLEPOR (cushLEPOR) which uses Optuna hyper-parameter optimisation framework to fine-tune hLEPOR weighting parameters towards better agreement to pre-trained language models (using LaBSE) regarding the exact MT language pairs that cushLEPOR is deployed to. We also optimise cushLEPOR towards professional human evaluation data based on MQM and pSQM framework on English-German and Chinese-English language pairs. The experimental investigations show cushLEPOR boosts hLEPOR performances towards better agreements to PLMs like LABSE with much lower cost, and better agreements to human evaluations including MQM and pSQM scores, and yields much better performances than BLEU. Official results show that our submissions win three language pairs including English-German and Chinese-English on News domain via cushLEPOR(LM) and English-Russian on TED domain via hLEPOR. (data available at <url>https://github.com/poethan/cushLEPOR</url>)</abstract>
       <url hash="83648184">2021.wmt-1.109</url>
       <attachment type="Software" hash="92ea3580">2021.wmt-1.109.Software.zip</attachment>
       <bibkey>han-etal-2021-cushlepor</bibkey>

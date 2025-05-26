@@ -24,6 +24,11 @@ Usage:
 
     add_dois.py [list of volume IDs]
 
+The best way to use it is with a script that adds all associated volumes
+for an event, including main conference and workshop volumes:
+
+    add_dois.py $(get_volumes_for_event.py data/xml/2024.emnlp.xml)
+
 e.g.,
 
     python3 add_dois.py P19-1 P19-2 P19-3 P19-4 W19-32
@@ -46,21 +51,18 @@ from anthology.utils import (
     make_simple_element,
 )
 from anthology.formatter import MarkupFormatter
-from itertools import chain
 from time import sleep
 
 import lxml.etree as ET
 
 
-def add_doi(xml_node, collection_id, volume_id, force=False):
-    if "id" in xml_node.attrib:
-        # normal paper
-        paper_id = int(xml_node.attrib["id"])
-    else:
-        # frontmatter
-        paper_id = 0
+def add_doi(xml_node, anth_id, force=False):
+    """
+    :param xml_node: the XML node to add the DOI to
+    :param anth_id: The Anthology ID of the paper, volume, or frontmatter
+    :param force: Whether to overwrite existing DOIs
+    """
 
-    anth_id = build_anthology_id(collection_id, volume_id, paper_id)
     new_doi_text = f"{data.DOI_PREFIX}{anth_id}"
 
     doi = xml_node.find("doi")
@@ -73,21 +75,25 @@ def add_doi(xml_node, collection_id, volume_id, force=False):
 
     doi_url = f"{data.DOI_URL_PREFIX}{data.DOI_PREFIX}{anth_id}"
     for tries in [1, 2, 3]:  # lots of random failures
-        result = test_url_code(doi_url)
-        if result.status_code == 200:
-            doi = make_simple_element("doi", text=new_doi_text)
-            print(f"-> Adding DOI {new_doi_text}", file=sys.stderr)
-            xml_node.append(doi)
-            return True
-        elif result.status_code == 429:  # too many requests
-            pause_for = int(result.headers["Retry-After"])
-            print(f"--> Got 429, pausing for {pause_for} seconds", file=sys.stderr)
-            sleep(pause_for + 1)
-        elif result.status_code == 404:  # not found
-            print("--> Got 404", file=sys.stderr)
-            break
-        else:
-            print(f"--> Other problem: {result}", file=sys.stderr)
+        try:
+            result = test_url_code(doi_url)
+            if result.status_code == 200:
+                doi = make_simple_element("doi", text=new_doi_text)
+                print(f"-> Adding DOI {new_doi_text}", file=sys.stderr)
+                xml_node.append(doi)
+                return True
+            elif result.status_code == 429:  # too many requests
+                pause_for = int(result.headers["Retry-After"])
+                print(f"--> Got 429, pausing for {pause_for} seconds", file=sys.stderr)
+                sleep(pause_for + 1)
+            elif result.status_code == 404:  # not found
+                print("--> Got 404", file=sys.stderr)
+                break
+            else:
+                print(f"--> Other problem: {result}", file=sys.stderr)
+
+        except Exception as e:
+            print(e)
 
     print(f"-> Couldn't add DOI for {doi_url}", file=sys.stderr)
     return False
@@ -114,12 +120,27 @@ def process_volume(anthology_volume):
         volume_title = formatter.as_text(volume_booktitle)
         print(f'-> Found volume "{volume_title}"', file=sys.stderr)
 
+        # Add the volume-level DOI
+        meta_node = volume.find("meta")
+        if meta_node is not None:
+            anth_id = build_anthology_id(collection_id, volume_id)
+            added = add_doi(meta_node, anth_id, force=args.force)
+            num_added += added
+
         # Iterate through all papers
-        for paper in chain(volume.find("frontmatter"), volume.findall("paper")):
-            added = add_doi(paper, collection_id, volume_id, force=args.force)
+        papers = volume.findall("paper")
+        if (frontmatter := volume.find("frontmatter")) is not None:
+            papers.insert(0, frontmatter)
+
+        for paper_node in papers:
+            # get the paper id attrib, default to 0 (frontmatter)
+            paper_id = int(paper_node.attrib.get("id", 0))
+            anth_id = build_anthology_id(collection_id, volume_id, paper_id)
+
+            added = add_doi(paper_node, anth_id, force=args.force)
             if added:
                 num_added += 1
-                sleep(1)
+                sleep(0.1)
 
         indent(tree.getroot())
 

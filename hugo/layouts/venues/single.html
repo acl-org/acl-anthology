@@ -5,13 +5,29 @@
   </h2>
   <hr />
 
+  <div class="row acl-paper-details">
+    <div class="col">
+    <dl>
+      <dt>Acronym:</dt>
+      <dd>{{ .Params.acronym }}</dd>
+      <dt>Venue ID:</dt>
+      <dd>{{ .Params.venue }}</dd>
+      {{ with .Params.venue_url }}
+      <dt>URL:</dt>
+      <dd><a href="{{ . }}">{{ . }}</a></dd>
+      {{ end }}
+    </dl>
+    </div>
+  </div>
+  <hr />
+
   {{ $venue := index .Site.Data.venues .Params.venue }}
   <div>
     {{ range $year := sort (index $venue "years") "value" "desc" }}
     {{ $volumes := index $venue "volumes_by_year" $year }}
     <div class="row">
       <div class="col-sm-1">
-        <h4><a href="{{ relref $ (printf "/events/%s-%s.md" $venue.slug $year) }}">{{ $year }}</a></h4>
+        <h4><a href="{{ relref $ (printf "/events/%s-%s" $venue.slug $year) }}">{{ $year }}</a></h4>
       </div>
       <div class="col-sm">
         <ul>
@@ -21,7 +37,7 @@
             {{ if eq hugo.Environment "development" }}
               <span class="badge badge-light align-middle">{{ . }}</span>
             {{ end }}
-            <a class="align-middle" href="{{ relref $ (printf "/volumes/%s.md" .) }}">{{ $volume.title }}</a>
+            <a class="align-middle" href="{{ relref $ (printf "/volumes/%s" .) }}">{{ $volume.title }}</a>
             <span class="badge badge-info align-middle ml-1">{{ len $volume.papers }}&nbsp;{{ cond (gt (len $volume.papers) 1) "papers" "paper" }}</span>
           </li>
           {{ end }}

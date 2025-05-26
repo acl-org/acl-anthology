@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2023.cs4oa">
+  <volume id="1" ingest-date="2023-09-03" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of the 1st Workshop on CounterSpeech for Online Abuse (CS4OA)</booktitle>
+      <editor><first>Yi-Ling</first><last>Chung</last></editor>
+      <editor><first>Helena</first><last>Bonaldi</last></editor>
+      <editor><first>Gavin</first><last>Abercrombie</last></editor>
+      <editor><first>Marco</first><last>Guerini</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Prague, Czechia</address>
+      <month>September</month>
+      <year>2023</year>
+      <venue>cs4oa</venue>
+      <venue>ws</venue>
+    </meta>
+    <paper id="1">
+      <title>From Generic to Personalized: Investigating Strategies for Generating Targeted Counter Narratives against Hate Speech</title>
+      <author><first>Mekselina</first><last>Doğanç</last></author>
+      <author><first>Ilia</first><last>Markov</last><affiliation>CLTL, Vrije Universiteit Amsterdam</affiliation></author>
+      <pages>1-12</pages>
+      <abstract>The spread of hate speech (HS) in the digital age poses significant challenges, with online platforms becoming breeding grounds for harmful content. While many natural language processing (NLP) studies have focused on identifying hate speech, few have explored the generation of counter narratives (CNs) as means to combat it. Previous studies have shown that computational models often generate CNs that are dull and generic, and therefore do not resonate with hate speech authors. In this paper, we explore the personalization capabilities of computational models for generating more targeted and engaging CNs. This paper investigates various strategies for incorporating author profiling information into GPT-2 and GPT-3.5 models to enhance the personalization of CNs to combat online hate speech. We investigate the effectiveness of incorporating author profiling aspects, more specifically the age and gender information of HS authors, in tailoring CNs specifically targeted at HS spreaders. We discuss the challenges, opportunities, and future directions for incorporating user profiling information into CN interventions.</abstract>
+      <url hash="b2da97d3">2023.cs4oa-1.1</url>
+      <bibkey>doganc-markov-2023-generic</bibkey>
+    </paper>
+    <paper id="2">
+      <title>Weigh Your Own Words: Improving Hate Speech Counter Narrative Generation via Attention Regularization</title>
+      <author><first>Helena</first><last>Bonaldi</last></author>
+      <author><first>Giuseppe</first><last>Attanasio</last></author>
+      <author><first>Debora</first><last>Nozza</last></author>
+      <author><first>Marco</first><last>Guerini</last></author>
+      <pages>13-28</pages>
+      <abstract>Recent computational approaches for combating online hate speech involve the automatic generation of counter narratives by adapting Pretrained Transformer-based Language Models (PLMs) with human-curated data. This process, however, can produce in-domain overfitting, resulting in models generating acceptable narratives only for hatred similar to training data, with little portability to other targets or to real-world toxic language. This paper introduces novel attention regularization methodologies to improve the generalization capabilities of PLMs for counter narratives generation. Overfitting to training-specific terms is then discouraged, resulting in more diverse and richer narratives. We experiment with two attention-based regularization techniques on a benchmark English dataset. Regularized models produce better counter narratives than state-of-the-art approaches in most cases, both in terms of automatic metrics and human evaluation, especially when hateful targets are not present in the training data. This work paves the way for better and more flexible counter-speech generation models, a task for which datasets are highly challenging to produce.</abstract>
+      <url hash="6933cdd3">2023.cs4oa-1.2</url>
+      <bibkey>bonaldi-etal-2023-weigh</bibkey>
+    </paper>
+    <paper id="3">
+      <title>Distilling Implied Bias from Hate Speech for Counter Narrative Selection</title>
+      <author><first>Nami</first><last>Akazawa</last></author>
+      <author><first>Serra Sinem</first><last>Tekiroğlu</last></author>
+      <author><first>Marco</first><last>Guerini</last></author>
+      <pages>29-43</pages>
+      <abstract>Hate speech is a critical problem in our society and social media platforms are often an amplifier for this phenomenon. Recently the use of Counter Narratives (informative and non-aggressive responses) has been proposed as a viable solution to counter hateful content that goes beyond simple detection-removal strategies. In this paper we present a novel approach along this line of research, which utilizes the implied statement (bias) expressed in the hate speech to retrieve an appropriate counter narrative. To this end, we first trained and tested several LMs that, given a hateful post, generate the underlying bias and the target group. Then, for the counter narrative selection task, we experimented with several methodologies that either use or not use the implied bias during the process. Experiments show that using the target group information allows the system to better focus on relevant content and that implied statement for selecting counter narratives is better than the corresponding standard approach that does not use it. To our knowledge, this is the first attempt to build an automatic selection tool that uses hate speech implied bias to drive Counter Narrative selection.</abstract>
+      <url hash="60a2c637">2023.cs4oa-1.3</url>
+      <bibkey>akazawa-etal-2023-distilling</bibkey>
+    </paper>
+    <paper id="4">
+      <title>Just Collect, Don’t Filter: Noisy Labels Do Not Improve Counterspeech Collection for Languages Without Annotated Resources</title>
+      <author><first>Pauline</first><last>Möhle</last></author>
+      <author><first>Matthias</first><last>Orlikowski</last></author>
+      <author><first>Philipp</first><last>Cimiano</last></author>
+      <pages>44-61</pages>
+      <abstract>Counterspeech on social media is rare. Consequently, it is difficult to collect naturally occurring examples, in particular for languages without annotated datasets. In this work, we study methods to increase the relevance of social media samples for counterspeech annotation when we lack annotated resources. We use the example of sourcing German data for counterspeech annotations from Twitter. We monitor tweets from German politicians and activists to collect replies. To select relevant replies we a) find replies that match German abusive keywords or b) label replies for counterspeech using a multilingual classifier fine-tuned on English data. For both approaches and a baseline setting, we annotate a random sample and use bootstrap sampling to estimate the amount of counterspeech. We find that neither the multilingual model nor the keyword approach achieve significantly higher counts of true counterspeech than the baseline. Thus, keyword lists or multi-lingual classifiers are likely not worth the added complexity beyond purposive data collection: Already without additional filtering, we gather a meaningful sample with 7,4% true counterspeech.</abstract>
+      <url hash="037a72fa">2023.cs4oa-1.4</url>
+      <bibkey>mohle-etal-2023-just</bibkey>
+    </paper>
+    <paper id="5">
+      <title>What Makes Good Counterspeech? A Comparison of Generation Approaches and Evaluation Metrics</title>
+      <author><first>Yi</first><last>Zheng</last></author>
+      <author><first>Björn</first><last>Ross</last></author>
+      <author><first>Walid</first><last>Magdy</last></author>
+      <pages>62-71</pages>
+      <abstract>Counterspeech has been proposed as a solution to the proliferation of online hate. Research has shown that natural language processing (NLP) approaches could generate such counterspeech automatically, but there are competing ideas for how NLP models might be used for this task and a variety of evaluation metrics whose relationship to one another is unclear. We test three different approaches and collect ratings of the generated counterspeech for 1,740 tweet-participant pairs to systematically compare the counterspeech on three aspects: quality, effectiveness and user preferences. We examine which model performs best at which metric and which aspects of counterspeech predict user preferences. A free-form text generation approach using ChatGPT performs the most consistently well, though its generations are occasionally unspecific and repetitive. In our experiment, participants’ preferences for counterspeech are predicted by the quality of the counterspeech, not its perceived effectiveness. The results can help future research approach counterspeech evaluation more systematically.</abstract>
+      <url hash="a96d05d2">2023.cs4oa-1.5</url>
+      <bibkey>zheng-etal-2023-makes</bibkey>
+    </paper>
+  </volume>
+</collection>

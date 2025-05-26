@@ -8,6 +8,7 @@ on:
     branches:
     - '*'
     - '!master'
+    - '!python-*'
 
 # only run one at a time per branch
 concurrency:
@@ -16,10 +17,12 @@ concurrency:
 
 jobs:
   preview:
-    runs-on: ubuntu-22.04
+    if: github.repository == 'acl-org/acl-anthology'
+    runs-on:
+      labels: ubuntu-latest-m
     steps:
     - name: install hugo
-      run: wget https://github.com/gohugoio/hugo/releases/download/v0.108.0/hugo_extended_0.108.0_linux-amd64.deb && sudo dpkg -i hugo_extended*.deb
+      run: wget https://github.com/gohugoio/hugo/releases/download/v0.140.2/hugo_extended_0.140.2_linux-amd64.deb && sudo dpkg -i hugo_extended*.deb
     - name: update
       run: sudo apt-get update
     - name: install other deps
@@ -31,7 +34,7 @@ jobs:
         mkdir -p $HOME/.ssh/
         echo "$SSH_KEY" > $HOME/.ssh/id_rsa
         chmod 600 $HOME/.ssh/id_rsa
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: fetch master branch
       run: |
         git fetch origin master
@@ -41,11 +44,11 @@ jobs:
         python -m pip install lxml
     - name: extract branch name
       shell: bash
-      run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+      run: echo "branch=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_OUTPUT
       id: extract_branch
     - name: list volumes
       shell: bash
-      run: echo "##[set-output name=volumes;]$(git diff --name-only $GITHUB_REF origin/master | python ./bin/volumes_from_diff.py https://preview.aclanthology.org/${{ steps.extract_branch.outputs.branch }}/volumes)"
+      run: echo "volumes=$(git diff --name-only $GITHUB_REF origin/master | python ./bin/volumes_from_diff.py https://preview.aclanthology.org/${{ steps.extract_branch.outputs.branch }}/volumes)" >> $GITHUB_OUTPUT
       id: list_volumes
 #    - name: list volumes debug
 #      shell: bash

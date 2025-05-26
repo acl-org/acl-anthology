@@ -1,0 +1,46 @@
+name: link-to-checklist
+
+on:
+  workflow_dispatch:
+  pull_request_target:
+    types: [opened]
+
+jobs:
+  add-review-checklist:
+    if : ${{ github.event_name == 'pull_request_target' && github.event.action == 'opened' && startsWith(github.event.pull_request.title, 'ingest') == true}}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+      - name: Print event details
+        run: |
+          echo "Event Name: ${{ github.event_name }}"
+          echo "Action: ${{ github.event.action }}"
+          echo "PR Title: ${{ github.event.pull_request.title }}"
+          echo "Starts with ingestion: ${{ startsWith(github.event.pull_request.title, 'ingestion') }}"
+      - name: Log from GitHub script
+        uses: actions/github-script@v6
+        with:
+          script: |
+            console.log('This is a test log.');
+            console.log('Event Name:', context.eventName);
+            console.log('Action:', context.payload.action);
+            console.log('PR Title:', context.payload.pull_request.title);
+            console.log('Starts with ingestion:', context.payload.pull_request.title.startsWith('ingestion'));
+      - name: Add review checklist
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const fs = require('fs');
+            console.log('Reading checklist file...');
+            const review_checklist = fs.readFileSync('.github/ingestion-review-checklist.md', 'utf8');
+            const old_description = context.payload.pull_request.body || '';
+            console.log('Old description:', old_description);
+            const updated_body = !old_description.trim() ? review_checklist : old_description + "\n\n" + review_checklist;
+            github.rest.pulls.update({
+                pull_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: updated_body,
+              });
+              console.log('Updated body:', updated_body);

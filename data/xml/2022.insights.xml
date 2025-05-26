@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <collection id="2022.insights">
-  <volume id="1" ingest-date="2022-05-15">
+  <volume id="1" ingest-date="2022-05-15" type="proceedings">
     <meta>
       <booktitle>Proceedings of the Third Workshop on Insights from Negative Results in NLP</booktitle>
       <editor><first>Shabnam</first><last>Tafreshi</last></editor>
@@ -64,14 +64,13 @@
       <author><first>Jennifer</first><last>Foster</last></author>
       <author><first>Yvette</first><last>Graham</last></author>
       <pages>24-37</pages>
-      <abstract>Past work that investigates out-of-domain performance of QA systems has mainly focused on general domains (e.g. news domain, wikipedia domain), underestimating the importance of subdomains defined by the internal characteristics of QA datasets.In this paper, we extend the scope of “out-of-domain” by splitting QA examples into different subdomains according to their internal characteristics including question type, text length, answer position. We then examine the performance of QA systems trained on the data from different subdomains. Experimental results show that the performance of QA systems can be significantly reduced when the train data and test data come from different subdomains. These results question the generalizability of current QA systems in multiple subdomains, suggesting the need to combat the bias introduced by the internal characteristics of QA datasets.</abstract>
+      <abstract>Past work that investigates out-of-domain performance of QA systems has mainly focused on general domains (e.g. news domain, wikipedia domain), underestimating the importance of subdomains defined by the internal characteristics of QA datasets. In this paper, we extend the scope of “out-of-domain” by splitting QA examples into different subdomains according to their internal characteristics including question type, text length, answer position. We then examine the performance of QA systems trained on the data from different subdomains. Experimental results show that the performance of QA systems can be significantly reduced when the train data and test data come from different subdomains. These results question the generalizability of current QA systems in multiple subdomains, suggesting the need to combat the bias introduced by the internal characteristics of QA datasets.</abstract>
       <url hash="60ac7946">2022.insights-1.4</url>
       <bibkey>lyu-etal-2022-extending</bibkey>
       <doi>10.18653/v1/2022.insights-1.4</doi>
       <video href="2022.insights-1.4.mp4"/>
       <pwccode url="https://github.com/lyuchenyang/analysing-question-answering-data" additional="false">lyuchenyang/analysing-question-answering-data</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/newsqa">NewsQA</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/squad">SQuAD</pwcdataset>
     </paper>
     <paper id="5">
       <title>What Do You Get When You Cross Beam Search with Nucleus Sampling?</title>
@@ -114,7 +113,7 @@
       <author><first>Dawei</first><last>Zhu</last></author>
       <author><first>Michael A.</first><last>Hedderich</last></author>
       <author><first>Fangzhou</first><last>Zhai</last></author>
-      <author><first>David</first><last>Adelani</last></author>
+      <author><first>David Ifeoluwa</first><last>Adelani</last></author>
       <author><first>Dietrich</first><last>Klakow</last></author>
       <pages>62-67</pages>
       <abstract>Incorrect labels in training data occur when human annotators make mistakes or when the data is generated via weak or distant supervision. It has been shown that complex noise-handling techniques - by modeling, cleaning or filtering the noisy instances - are required to prevent models from fitting this label noise. However, we show in this work that, for text classification tasks with modern NLP models like BERT, over a variety of noise types, existing noise-handling methods do not always improve its performance, and may even deteriorate it, suggesting the need for further investigation. We also back our observations with a comprehensive analysis.</abstract>
@@ -178,12 +177,13 @@
       <author><first>Makoto</first><last>Kawano</last></author>
       <author><first>Yutaka</first><last>Matsuo</last></author>
       <pages>88-93</pages>
-      <abstract>With in the broader scope of machine learning, data augmentation is a common strategy to improve generalization and robustness of machine learning models. While data augmentation has been widely used within computer vision, its use in the NLP has been been comparably rather limited. The reason for this is that within NLP, the impact of proposed data augmentation methods on performance has not been evaluated in a unified manner, and effective data augmentation methods are unclear. In this paper, we look to tackle this by evaluating the impact of 12 data augmentation methods on multiple datasets when finetuning pre-trained language models. We find minimal improvements when data sizes are constrained to a few thousand, with performance degradation when data size is increased. We also use various methods to quantify the strength of data augmentations, and find that these values, though weakly correlated with downstream performance, correlate negatively or positively depending on the task.Furthermore, we find a glaring lack of consistently performant data augmentations. This all alludes to the difficulty of data augmentations for NLP tasks and we are inclined to believe that static data augmentations are not broadly applicable given these properties.</abstract>
+      <abstract>With in the broader scope of machine learning, data augmentation is a common strategy to improve generalization and robustness of machine learning models. While data augmentation has been widely used within computer vision, its use in the NLP has been been comparably rather limited. The reason for this is that within NLP, the impact of proposed data augmentation methods on performance has not been evaluated in a unified manner, and effective data augmentation methods are unclear. In this paper, we look to tackle this by evaluating the impact of 12 data augmentation methods on multiple datasets when finetuning pre-trained language models. We find minimal improvements when data sizes are constrained to a few thousand, with performance degradation when data size is increased. We also use various methods to quantify the strength of data augmentations, and find that these values, though weakly correlated with downstream performance, correlate negatively or positively depending on the task. Furthermore, we find a glaring lack of consistently performant data augmentations. This all alludes to the difficulty of data augmentations for NLP tasks and we are inclined to believe that static data augmentations are not broadly applicable given these properties.</abstract>
       <url hash="32ceab8e">2022.insights-1.12</url>
       <bibkey>okimura-etal-2022-impact</bibkey>
       <doi>10.18653/v1/2022.insights-1.12</doi>
       <video href="2022.insights-1.12.mp4"/>
       <pwcdataset url="https://paperswithcode.com/dataset/sst">SST</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/sst-2">SST-2</pwcdataset>
     </paper>
     <paper id="13">
       <title>Can Question Rewriting Help Conversational Question Answering?</title>
@@ -218,6 +218,7 @@
       <pwcdataset url="https://paperswithcode.com/dataset/dynasent">DynaSent</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/mrqa-2019">MRQA</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/sst">SST</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/sst-3">SST-3</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/superglue">SuperGLUE</pwcdataset>
     </paper>
     <paper id="15">
@@ -240,7 +241,7 @@
       <title>Do Data-based Curricula Work?</title>
       <author><first>Maxim</first><last>Surkov</last></author>
       <author><first>Vladislav</first><last>Mosin</last></author>
-      <author><first>Ivan</first><last>Yamshchikov</last></author>
+      <author><first>Ivan P.</first><last>Yamshchikov</last></author>
       <pages>119-128</pages>
       <abstract>Current state-of-the-art NLP systems use large neural networks that require extensive computational resources for training. Inspired by human knowledge acquisition, researchers have proposed curriculum learning - sequencing tasks (task-based curricula) or ordering and sampling the datasets (data-based curricula) that facilitate training. This work investigates the benefits of data-based curriculum learning for large language models such as BERT and T5. We experiment with various curricula based on complexity measures and different sampling strategies. Extensive experiments on several NLP tasks show that curricula based on various complexity measures rarely have any benefits, while random sampling performs either as well or better than curricula.</abstract>
       <url hash="e310549a">2022.insights-1.16</url>

@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <collection id="I17">
-  <volume id="1">
+  <volume id="1" type="proceedings">
     <meta>
       <booktitle>Proceedings of the Eighth International Joint Conference on Natural Language Processing (Volume 1: Long Papers)</booktitle>
       <url hash="a7b1c47f">I17-1</url>
@@ -170,6 +170,7 @@
       <url hash="8b3f64cb">I17-1014</url>
       <abstract>We decompose multimodal translation into two sub-tasks: learning to translate and learning visually grounded representations. In a multitask learning framework, translations are learned in an attention-based encoder-decoder, and grounded representations are learned through image representation prediction. Our approach improves translation performance compared to the state of the art on the Multi30K dataset. Furthermore, it is equally effective if we train the image prediction task on the external MS COCO dataset, and we find improvements if we train the translation model on the external News Commentary parallel text.</abstract>
       <bibkey>elliott-kadar-2017-imagination</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/multi30k">Multi30K</pwcdataset>
     </paper>
     <paper id="15">
       <title>Understanding and Improving Morphological Learning in the Neural Machine Translation Decoder</title>
@@ -305,6 +306,7 @@
       <pwccode url="" additional="true"/>
       <pwcdataset url="https://paperswithcode.com/dataset/mpqa-opinion-corpus">MPQA Opinion Corpus</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/sst">SST</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/sst-2">SST-2</pwcdataset>
     </paper>
     <paper id="27">
       <title>Coordination Boundary Identification with Similarity and Replaceability</title>
@@ -630,7 +632,7 @@
       <abstract>Despite successful applications across a broad range of NLP tasks, conditional random fields (“CRFs”), in particular the linear-chain variant, are only able to model local features. While this has important benefits in terms of inference tractability, it limits the ability of the model to capture long-range dependencies between items. Attempts to extend CRFs to capture long-range dependencies have largely come at the cost of computational complexity and approximate inference. In this work, we propose an extension to CRFs by integrating external memory, taking inspiration from memory networks, thereby allowing CRFs to incorporate information far beyond neighbouring steps. Experiments across two tasks show substantial improvements over strong CRF and LSTM baselines.</abstract>
       <bibkey>liu-etal-2017-capturing</bibkey>
       <pwccode url="https://github.com/liufly/mecrf" additional="false">liufly/mecrf</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/conll-2003">CoNLL-2003</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/conll-2003">CoNLL 2003</pwcdataset>
     </paper>
     <paper id="57">
       <title>Named Entity Recognition with Stack Residual <fixed-case>LSTM</fixed-case> and Trainable Bias Decoding</title>
@@ -642,7 +644,8 @@
       <abstract>Recurrent Neural Network models are the state-of-the-art for Named Entity Recognition (NER). We present two innovations to improve the performance of these models. The first innovation is the introduction of residual connections between the Stacked Recurrent Neural Network model to address the degradation problem of deep neural networks. The second innovation is a bias decoding mechanism that allows the trained system to adapt to non-differentiable and externally computed objectives, such as the entity-based F-measure. Our work improves the state-of-the-art results for both Spanish and English languages on the standard train/development/test split of the CoNLL 2003 Shared Task NER dataset.</abstract>
       <bibkey>tran-etal-2017-named</bibkey>
       <pwcdataset url="https://paperswithcode.com/dataset/billion-word-benchmark">Billion Word Benchmark</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/conll-2003">CoNLL-2003</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/conll-2003">CoNLL 2003</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/one-billion-word-benchmark">One Billion Word Benchmark</pwcdataset>
     </paper>
     <paper id="58">
       <title><fixed-case>N</fixed-case>euramanteau: A Neural Network Ensemble Model for Lexical Blends</title>
@@ -822,7 +825,7 @@
       <author><first>Asli</first><last>Celikyilmaz</last></author>
       <pages>733–743</pages>
       <url hash="41891dc2">I17-1074</url>
-      <abstract>One of the major drawbacks of modularized task-completion dialogue systems is that each module is trained individually, which presents several challenges. For example, downstream modules are affected by earlier modules, and the performance of the entire system is not robust to the accumulated errors. This paper presents a novel end-to-end learning framework for task-completion dialogue systems to tackle such issues.Our neural dialogue system can directly interact with a structured database to assist users in accessing information and accomplishing certain tasks. The reinforcement learning based dialogue manager offers robust capabilities to handle noises caused by other components of the dialogue system. Our experiments in a movie-ticket booking domain show that our end-to-end system not only outperforms modularized dialogue system baselines for both objective and subjective evaluation, but also is robust to noises as demonstrated by several systematic experiments with different error granularity and rates specific to the language understanding module.</abstract>
+      <abstract>One of the major drawbacks of modularized task-completion dialogue systems is that each module is trained individually, which presents several challenges. For example, downstream modules are affected by earlier modules, and the performance of the entire system is not robust to the accumulated errors. This paper presents a novel end-to-end learning framework for task-completion dialogue systems to tackle such issues. Our neural dialogue system can directly interact with a structured database to assist users in accessing information and accomplishing certain tasks. The reinforcement learning based dialogue manager offers robust capabilities to handle noises caused by other components of the dialogue system. Our experiments in a movie-ticket booking domain show that our end-to-end system not only outperforms modularized dialogue system baselines for both objective and subjective evaluation, but also is robust to noises as demonstrated by several systematic experiments with different error granularity and rates specific to the language understanding module.</abstract>
       <bibkey>li-etal-2017-end</bibkey>
       <pwccode url="https://github.com/MiuLab/TC-Bot" additional="true">MiuLab/TC-Bot</pwccode>
     </paper>
@@ -1074,7 +1077,6 @@
       <abstract>Reading comprehension (RC) is a challenging task that requires synthesis of information across sentences and multiple turns of reasoning. Using a state-of-the-art RC model, we empirically investigate the performance of single-turn and multiple-turn reasoning on the SQuAD and MS MARCO datasets. The RC model is an end-to-end neural network with iterative attention, and uses reinforcement learning to dynamically control the number of turns. We find that multiple-turn reasoning outperforms single-turn reasoning for all question and answer types; further, we observe that enabling a flexible number of turns generally improves upon a fixed multiple-turn strategy. %across all question types, and is particularly beneficial to questions with lengthy, descriptive answers. We achieve results competitive to the state-of-the-art on these two datasets.</abstract>
       <bibkey>shen-etal-2017-empirical</bibkey>
       <pwcdataset url="https://paperswithcode.com/dataset/ms-marco">MS MARCO</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/squad">SQuAD</pwcdataset>
     </paper>
     <paper id="97">
       <title>Automated Historical Fact-Checking by Passage Retrieval, Word Statistics, and Virtual Question-Answering</title>
@@ -1110,8 +1112,7 @@
       <pages>986–995</pages>
       <url hash="6f539013">I17-1099</url>
       <attachment type="dataset" hash="72580f0d">I17-1099.Datasets.zip</attachment>
-      <abstract>We develop a high-quality multi-turn dialog dataset, <b>DailyDialog</b>, which is intriguing in several aspects. The language is human-written and less noisy. The dialogues in the dataset reflect our daily communication way and cover various topics about our daily life. We also manually label the developed dataset with communication intention and emotion information. Then, we evaluate existing approaches on DailyDialog dataset and hope it benefit the research field of dialog systems. The dataset is available on <url>http://yanran.li/dailydialog</url>
-      </abstract>
+      <abstract>We develop a high-quality multi-turn dialog dataset, <b>DailyDialog</b>, which is intriguing in several aspects. The language is human-written and less noisy. The dialogues in the dataset reflect our daily communication way and cover various topics about our daily life. We also manually label the developed dataset with communication intention and emotion information. Then, we evaluate existing approaches on DailyDialog dataset and hope it benefit the research field of dialog systems. The dataset is available on <url>http://yanran.li/dailydialog</url></abstract>
       <bibkey>li-etal-2017-dailydialog</bibkey>
       <pwccode url="" additional="true"/>
       <pwcdataset url="https://paperswithcode.com/dataset/dailydialog">DailyDialog</pwcdataset>
@@ -1160,7 +1161,7 @@
       <bibkey>maki-etal-2017-roles</bibkey>
     </paper>
   </volume>
-  <volume id="2">
+  <volume id="2" type="proceedings">
     <meta>
       <booktitle>Proceedings of the Eighth International Joint Conference on Natural Language Processing (Volume 2: Short Papers)</booktitle>
       <url hash="d073afb3">I17-2</url>
@@ -1363,7 +1364,7 @@
       <url hash="e202a1c6">I17-2017</url>
       <abstract>We present Segment-level Neural CRF, which combines neural networks with a linear chain CRF for segment-level sequence modeling tasks such as named entity recognition (NER) and syntactic chunking. Our segment-level CRF can consider higher-order label dependencies compared with conventional word-level CRF. Since it is difficult to consider all possible variable length segments, our method uses segment lattice constructed from the word-level tagging model to reduce the search space. Performing experiments on NER and chunking, we demonstrate that our method outperforms conventional word-level CRF with neural networks.</abstract>
       <bibkey>sato-etal-2017-segment</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/conll-2003">CoNLL-2003</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/conll-2003">CoNLL 2003</pwcdataset>
     </paper>
     <paper id="18">
       <title>Integrating Vision and Language Datasets to Measure Word Concreteness</title>
@@ -1373,8 +1374,8 @@
       <url hash="19c9f12d">I17-2018</url>
       <abstract>We present and take advantage of the inherent visualizability properties of words in visual corpora (the textual components of vision-language datasets) to compute concreteness scores for words. Our simple method does not require hand-annotated concreteness score lists for training, and yields state-of-the-art results when evaluated against concreteness scores lists and previously derived scores, as well as when used for metaphor detection.</abstract>
       <bibkey>kehat-pustejovsky-2017-integrating</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/coco">COCO</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/flickr30k">Flickr30k</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/coco">MS COCO</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/visual-genome">Visual Genome</pwcdataset>
     </paper>
     <paper id="19">
@@ -1443,6 +1444,8 @@
       <abstract>In this paper, we investigate the effectiveness of different affective lexicons through sentiment analysis of phrases. We examine how phrases can be represented through manually prepared lexicons, extended lexicons using computational methods, or word embedding. Comparative studies clearly show that word embedding using unsupervised distributional method outperforms manually prepared lexicons no matter what affective models are used in the lexicons. Our conclusion is that although different affective lexicons are cognitively backed by theories, they do not show any advantage over the automatically obtained word embedding.</abstract>
       <bibkey>li-etal-2017-manually</bibkey>
       <pwcdataset url="https://paperswithcode.com/dataset/sst">SST</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/sst-2">SST-2</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/sst-3">SST-3</pwcdataset>
     </paper>
     <paper id="26">
       <title><fixed-case>MTNA</fixed-case>: A Neural Multi-task Model for Aspect Category Classification and Aspect Term Extraction On Restaurant Reviews</title>
@@ -1597,6 +1600,7 @@
       <url hash="f28aac69">I17-2039</url>
       <abstract>Relation Discovery discovers predicates (relation types) from a text corpus relying on the co-occurrence of two named entities in the same sentence. This is a very narrowing constraint: it represents only a small fraction of all relation mentions in practice. In this paper we propose a high recall approach for Open IE, which enables covering up to 16 times more sentences in a large corpus. Comparison against OpenIE systems shows that our proposed approach achieves 28% improvement over the highest recall OpenIE system and 6% improvement in precision than the same system.</abstract>
       <bibkey>elsahar-etal-2017-high</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/new-york-times-annotated-corpus">New York Times Annotated Corpus</pwcdataset>
     </paper>
     <paper id="40">
       <title>Using Context Events in Neural Network Models for Event Temporal Status Identification</title>
@@ -1997,7 +2001,7 @@
       <pwccode url="https://github.com/pitrack/monolign" additional="false">pitrack/monolign</pwccode>
     </paper>
   </volume>
-  <volume id="3">
+  <volume id="3" type="proceedings">
     <meta>
       <booktitle>Proceedings of the <fixed-case>IJCNLP</fixed-case> 2017, System Demonstrations</booktitle>
       <url hash="a2e2243f">I17-3</url>
@@ -2092,7 +2096,7 @@
       <author><first>Richard Tzong-Han</first><last>Tsai</last></author>
       <pages>17–20</pages>
       <url hash="8aa1b35e">I17-3005</url>
-      <abstract>In the paper, we propose an information retrieval based (IR-based) Question Answering (QA) system to assist online customer service staffs respond users in the telecom domain. When user asks a question, the system retrieves a set of relevant answers and ranks them. Moreover, our system uses a novel reranker to enhance the ranking result of information retrieval.It employs the word2vec model to represent the sentences as vectors. It also uses a sub-category feature, predicted by the k-nearest neighbor algorithm. Finally, the system returns the top five candidate answers, making online staffs find answers much more efficiently.</abstract>
+      <abstract>In the paper, we propose an information retrieval based (IR-based) Question Answering (QA) system to assist online customer service staffs respond users in the telecom domain. When user asks a question, the system retrieves a set of relevant answers and ranks them. Moreover, our system uses a novel reranker to enhance the ranking result of information retrieval. It employs the word2vec model to represent the sentences as vectors. It also uses a sub-category feature, predicted by the k-nearest neighbor algorithm. Finally, the system returns the top five candidate answers, making online staffs find answers much more efficiently.</abstract>
       <bibkey>wang-etal-2017-telecom</bibkey>
     </paper>
     <paper id="6">
@@ -2224,8 +2228,7 @@
       <author><first>Eduard</first><last>Hovy</last></author>
       <pages>61–64</pages>
       <url hash="e1cacfec">I17-3016</url>
-      <abstract>This paper aims to provide an effective tool for conversion between Simplified Chinese and Traditional Chinese. We present STCP, a customizable system comprising statistical conversion model, and proofreading web interface. Experiments show that our system achieves comparable character-level conversion performance with the state-of-art systems. In addition, our proofreading interface can effectively support diagnostics and data annotation. STCP is available at <url>http://lagos.lti.cs.cmu.edu:8002/</url>
-      </abstract>
+      <abstract>This paper aims to provide an effective tool for conversion between Simplified Chinese and Traditional Chinese. We present STCP, a customizable system comprising statistical conversion model, and proofreading web interface. Experiments show that our system achieves comparable character-level conversion performance with the state-of-art systems. In addition, our proofreading interface can effectively support diagnostics and data annotation. STCP is available at <url>http://lagos.lti.cs.cmu.edu:8002/</url></abstract>
       <bibkey>xu-etal-2017-stcp</bibkey>
     </paper>
     <paper id="17">
@@ -2241,7 +2244,7 @@
       <bibkey>mehta-etal-2017-deep</bibkey>
     </paper>
   </volume>
-  <volume id="4">
+  <volume id="4" type="proceedings">
     <meta>
       <booktitle>Proceedings of the <fixed-case>IJCNLP</fixed-case> 2017, Shared Tasks</booktitle>
       <url hash="13c9a2f6">I17-4</url>
@@ -2651,7 +2654,7 @@
       <bibkey>sarkar-etal-2017-ju</bibkey>
     </paper>
   </volume>
-  <volume id="5">
+  <volume id="5" type="proceedings">
     <meta>
       <booktitle>Proceedings of the <fixed-case>IJCNLP</fixed-case> 2017, Tutorial Abstracts</booktitle>
       <url hash="55518413">I17-5</url>

@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2024.moomin">
+  <volume id="1" ingest-date="2024-03-04" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of the 1st Workshop on Modular and Open Multilingual NLP (MOOMIN 2024)</booktitle>
+      <editor><first>Raúl</first><last>Vázquez</last></editor>
+      <editor><first>Timothee</first><last>Mickus</last></editor>
+      <editor><first>Jörg</first><last>Tiedemann</last></editor>
+      <editor><first>Ivan</first><last>Vulić</last></editor>
+      <editor><first>Ahmet</first><last>Üstün</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>St Julians, Malta</address>
+      <month>March</month>
+      <year>2024</year>
+      <url hash="e752e854">2024.moomin-1</url>
+      <venue>moomin</venue>
+      <venue>ws</venue>
+    </meta>
+    <frontmatter>
+      <url hash="fbf5b79d">2024.moomin-1.0</url>
+      <bibkey>moomin-2024-modular</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Toward the Modular Training of Controlled Paraphrase Adapters</title>
+      <author><first>Teemu</first><last>Vahtola</last></author>
+      <author><first>Mathias</first><last>Creutz</last></author>
+      <pages>1-6</pages>
+      <abstract>Controlled paraphrase generation often focuses on a specific aspect of paraphrasing, for instance syntactically controlled paraphrase generation. However, these models face a limitation: they lack modularity. Consequently adapting them for another aspect, such as lexical variation, needs full retraining of the model each time. To enhance the flexibility in training controlled paraphrase models, our proposition involves incrementally training a modularized system for controlled paraphrase generation for English. We start by fine-tuning a pretrained language model to learn the broad task of paraphrase generation, generally emphasizing meaning preservation and surface form variation. Subsequently, we train a specialized sub-task adapter with limited sub-task specific training data. We can then leverage this adapter in guiding the paraphrase generation process toward a desired output aligning with the distinctive features within the sub-task training data. The preliminary results on comparing the fine-tuned and adapted model against various competing systems indicates that the most successful method for mastering both general paraphrasing skills and task-specific expertise follows a two-stage approach. This approach involves starting with the initial fine-tuning of a generic paraphrase model and subsequently tailoring it for the specific sub-task.</abstract>
+      <url hash="3b47795b">2024.moomin-1.1</url>
+      <bibkey>vahtola-creutz-2024-toward</bibkey>
+    </paper>
+    <paper id="2">
+      <title>Soft Prompt Tuning for Cross-Lingual Transfer: When Less is More</title>
+      <author><first>Fred</first><last>Philippy</last></author>
+      <author><first>Siwen</first><last>Guo</last></author>
+      <author><first>Shohreh</first><last>Haddadan</last></author>
+      <author><first>Cedric</first><last>Lothritz</last></author>
+      <author><first>Jacques</first><last>Klein</last></author>
+      <author><first>Tegawendé</first><last>F. Bissyandé</last></author>
+      <pages>7-15</pages>
+      <abstract>Soft Prompt Tuning (SPT) is a parameter-efficient method for adapting pre-trained language models (PLMs) to specific tasks by inserting learnable embeddings, or soft prompts, at the input layer of the PLM, without modifying its parameters. This paper investigates the potential of SPT for cross-lingual transfer. Unlike previous studies on SPT for cross-lingual transfer that often fine-tune both the soft prompt and the model parameters, we adhere to the original intent of SPT by keeping the model parameters frozen and only training the soft prompt. This does not only reduce the computational cost and storage overhead of full-model fine-tuning, but we also demonstrate that this very parameter efficiency intrinsic to SPT can enhance cross-lingual transfer performance to linguistically distant languages. Moreover, we explore how different factors related to the prompt, such as the length or its reparameterization, affect cross-lingual transfer performance.</abstract>
+      <url hash="da41ef14">2024.moomin-1.2</url>
+      <bibkey>philippy-etal-2024-soft</bibkey>
+    </paper>
+    <paper id="3">
+      <title>Modular Adaptation of Multilingual Encoders to Written <fixed-case>S</fixed-case>wiss <fixed-case>G</fixed-case>erman Dialect</title>
+      <author><first>Jannis</first><last>Vamvas</last></author>
+      <author><first>Noëmi</first><last>Aepli</last></author>
+      <author><first>Rico</first><last>Sennrich</last></author>
+      <pages>16-23</pages>
+      <abstract>Creating neural text encoders for written Swiss German is challenging due to a dearth of training data combined with dialectal variation. In this paper, we build on several existing multilingual encoders and adapt them to Swiss German using continued pre-training. Evaluation on three diverse downstream tasks shows that simply adding a Swiss German adapter to a modular encoder achieves 97.5% of fully monolithic adaptation performance. We further find that for the task of retrieving Swiss German sentences given Standard German queries, adapting a character-level model is more effective than the other adaptation strategies. We release our code and the models trained for our experiments.</abstract>
+      <url hash="fe919a5d">2024.moomin-1.3</url>
+      <bibkey>vamvas-etal-2024-modular</bibkey>
+    </paper>
+    <paper id="4">
+      <title>The Impact of Language Adapters in Cross-Lingual Transfer for <fixed-case>NLU</fixed-case></title>
+      <author><first>Jenny</first><last>Kunz</last></author>
+      <author><first>Oskar</first><last>Holmström</last></author>
+      <pages>24-43</pages>
+      <abstract>Modular deep learning has been proposed for the efficient adaption of pre-trained models to new tasks, domains and languages. In particular, combining language adapters with task adapters has shown potential where no supervised data exists for a language. In this paper, we explore the role of language adapters in zero-shot cross-lingual transfer for natural language understanding (NLU) benchmarks. We study the effect of including a target-language adapter in detailed ablation studies with two multilingual models and three multilingual datasets. Our results show that the effect of target-language adapters is highly inconsistent across tasks, languages and models. Retaining the source-language adapter instead often leads to an equivalent, and sometimes to a better, performance. Removing the language adapter after training has only a weak negative effect, indicating that the language adapters do not have a strong impact on the predictions.</abstract>
+      <url hash="5ee3c675">2024.moomin-1.4</url>
+      <bibkey>kunz-holmstrom-2024-impact</bibkey>
+    </paper>
+    <paper id="5">
+      <title>Mixing and Matching: Combining Independently Trained Translation Model Components</title>
+      <author><first>Taido</first><last>Purason</last></author>
+      <author><first>Andre</first><last>Tättar</last></author>
+      <author><first>Mark</first><last>Fishel</last></author>
+      <pages>44-56</pages>
+      <abstract>This paper investigates how to combine encoders and decoders of different independently trained NMT models. Combining encoders/decoders is not directly possible since the intermediate representations of any two independent NMT models are different and cannot be combined without modification. To address this, firstly, a dimension adapter is added if the encoder and decoder have different embedding dimensionalities, and secondly, representation adapter layers are added to align the encoder’s representations for the decoder to process. As a proof of concept, this paper looks at many-to-Estonian translation and combines a massively multilingual encoder (NLLB) and a high-quality language-specific decoder. The paper successfully demonstrates that the sentence representations of two independent NMT models can be made compatible without changing the pre-trained components while keeping translation quality from deteriorating. Results show improvements in both translation quality and speed for many-to-one translation over the baseline multilingual model.</abstract>
+      <url hash="e1556084">2024.moomin-1.5</url>
+      <bibkey>purason-etal-2024-mixing</bibkey>
+    </paper>
+  </volume>
+</collection>

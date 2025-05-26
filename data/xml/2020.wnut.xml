@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <collection id="2020.wnut">
-  <volume id="1" ingest-date="2020-11-06">
+  <volume id="1" ingest-date="2020-11-06" type="proceedings">
     <meta>
       <booktitle>Proceedings of the Sixth Workshop on Noisy User-generated Text (W-NUT 2020)</booktitle>
       <editor><first>Wei</first><last>Xu</last></editor>
@@ -25,8 +25,8 @@
       <url hash="e2a50533">2020.wnut-1.1</url>
       <doi>10.18653/v1/2020.wnut-1.1</doi>
       <bibkey>kaplan-2020-may</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/conll-2003">CoNLL 2003</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/conll">CoNLL++</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/conll-2003">CoNLL-2003</pwcdataset>
     </paper>
     <paper id="2">
       <title>“Did you really mean what you said?” : Sarcasm Detection in <fixed-case>H</fixed-case>indi-<fixed-case>E</fixed-case>nglish Code-Mixed Data using Bilingual Word Embeddings</title>
@@ -55,6 +55,7 @@
       <pwcdataset url="https://paperswithcode.com/dataset/glue">GLUE</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/imdb-movie-reviews">IMDb Movie Reviews</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/sst">SST</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/sst-2">SST-2</pwcdataset>
     </paper>
     <paper id="4">
       <title>Determining Question-Answer Plausibility in Crowdsourced Datasets Using Multi-Task Learning</title>
@@ -87,7 +88,7 @@
       <author><first>Cheng</first><last>Peng</last></author>
       <author><first>Weiwei</first><last>Wang</last></author>
       <pages>34–40</pages>
-      <abstract>Cross-sentence attention has been widely applied in text matching, in which model learns the aligned information between two intermediate sequence representations to capture their semantic relationship. However, commonly the intermediate representations are generated solely based on the preceding layers and the models may suffer from error propagation and unstable matching, especially when multiple attention layers are used. In this paper, we pro-pose an enhanced sentence alignment network with simple gated feature augmentation, where the model is able to flexibly integrate both original word and contextual features to improve the cross-sentence attention. Moreover, our model is less complex with fewer parameters compared to many state-of-the-art structures.Experiments on three benchmark datasets validate our model capacity for text matching.</abstract>
+      <abstract>Cross-sentence attention has been widely applied in text matching, in which model learns the aligned information between two intermediate sequence representations to capture their semantic relationship. However, commonly the intermediate representations are generated solely based on the preceding layers and the models may suffer from error propagation and unstable matching, especially when multiple attention layers are used. In this paper, we pro-pose an enhanced sentence alignment network with simple gated feature augmentation, where the model is able to flexibly integrate both original word and contextual features to improve the cross-sentence attention. Moreover, our model is less complex with fewer parameters compared to many state-of-the-art structures. Experiments on three benchmark datasets validate our model capacity for text matching.</abstract>
       <url hash="8d42f4ec">2020.wnut-1.6</url>
       <attachment type="OptionalSupplementaryMaterial" hash="90867caf">2020.wnut-1.6.OptionalSupplementaryMaterial.zip</attachment>
       <doi>10.18653/v1/2020.wnut-1.6</doi>
@@ -254,7 +255,7 @@
       <author><first>Md Mahfuz Ibn</first><last>Alam</last></author>
       <author><first>Antonios</first><last>Anastasopoulos</last></author>
       <pages>149–158</pages>
-      <abstract>The performance of neural machine translation (NMT) systems only trained on a single language variant degrades when confronted with even slightly different language variations. With this work, we build upon previous work to explore how to mitigate this issue. We show that fine-tuning using naturally occurring noise along with pseudo-references (i.e. “corrected” non-native inputs translated using the baseline NMT system) is a promising solution towards systems robust to such type of input variations. We focus on four translation pairs, from English to Spanish, Italian, French, and Portuguese, with our system achieving improvements of up to 3.1 BLEU points compared to the baselines, establishing a new state-of-the-art on the JFLEG-ES dataset. All datasets and code are publicly available here: https://github.com/mahfuzibnalam/finetuning_for_robustness .</abstract>
+      <abstract>The performance of neural machine translation (NMT) systems only trained on a single language variant degrades when confronted with even slightly different language variations. With this work, we build upon previous work to explore how to mitigate this issue. We show that fine-tuning using naturally occurring noise along with pseudo-references (i.e. “corrected” non-native inputs translated using the baseline NMT system) is a promising solution towards systems robust to such type of input variations. We focus on four translation pairs, from English to Spanish, Italian, French, and Portuguese, with our system achieving improvements of up to 3.1 BLEU points compared to the baselines, establishing a new state-of-the-art on the JFLEG-ES dataset. All datasets and code are publicly available here: <url>https://github.com/mahfuzibnalam/finetuning_for_robustness</url> .</abstract>
       <url hash="f665096a">2020.wnut-1.20</url>
       <doi>10.18653/v1/2020.wnut-1.20</doi>
       <bibkey>alam-anastasopoulos-2020-fine</bibkey>
@@ -262,6 +263,7 @@
       <pwcdataset url="https://paperswithcode.com/dataset/fce">FCE</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/jfleg">JFLEG</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/mtnt">MTNT</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/opus-mt">OPUS-MT</pwcdataset>
     </paper>
     <paper id="21">
       <title>Impact of <fixed-case>ASR</fixed-case> on <fixed-case>A</fixed-case>lzheimer’s Disease Detection: All Errors are Equal, but Deletions are More Equal than Others</title>
@@ -426,7 +428,7 @@
       <author><first>Tejas</first><last>Vaidhya</last></author>
       <author><first>Ayush</first><last>Kaushal</last></author>
       <pages>268–272</pages>
-      <abstract>Supervised models trained to predict properties from representations have been achieving high accuracy on a variety of tasks.For in-stance, the BERT family seems to work exceptionally well on the downstream task from NER tagging to the range of other linguistictasks. But the vocabulary used in the medical field contains a lot of different tokens used only in the medical industry such as the name of different diseases, devices, organisms,medicines, etc. that makes it difficult for traditional BERT model to create contextualized embedding. In this paper, we are going to illustrate the System for Named Entity Tagging based on Bio-Bert. Experimental results show that our model gives substantial improvements over the baseline and stood the fourth runner up in terms of F1 score, and first runner up in terms of Recall with just 2.21 F1 score behind the best one.</abstract>
+      <abstract>Supervised models trained to predict properties from representations have been achieving high accuracy on a variety of tasks. For in-stance, the BERT family seems to work exceptionally well on the downstream task from NER tagging to the range of other linguistictasks. But the vocabulary used in the medical field contains a lot of different tokens used only in the medical industry such as the name of different diseases, devices, organisms,medicines, etc. that makes it difficult for traditional BERT model to create contextualized embedding. In this paper, we are going to illustrate the System for Named Entity Tagging based on Bio-Bert. Experimental results show that our model gives substantial improvements over the baseline and stood the fourth runner up in terms of F1 score, and first runner up in terms of Recall with just 2.21 F1 score behind the best one.</abstract>
       <url hash="60747a41">2020.wnut-1.34</url>
       <doi>10.18653/v1/2020.wnut-1.34</doi>
       <bibkey>vaidhya-kaushal-2020-iitkgp</bibkey>
@@ -461,6 +463,7 @@
       <attachment type="OptionalSupplementaryMaterial" hash="12fdd120">2020.wnut-1.37.OptionalSupplementaryMaterial.txt</attachment>
       <doi>10.18653/v1/2020.wnut-1.37</doi>
       <bibkey>acharya-2020-wnut</bibkey>
+      <pwccode url="https://github.com/kaushikacharya/wet_lab_protocols" additional="false">kaushikacharya/wet_lab_protocols</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/wnut-20-task-1-extracting-entities-and">WNUT 2020</pwcdataset>
     </paper>
     <paper id="38">

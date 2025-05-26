@@ -1,0 +1,10 @@
+<li>
+  <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+  <span class="badge badge-secondary align-middle ml-1">{{ .Params.acronym }}</span>
+  {{ $venue := index .Site.Data.venues .Params.venue }}
+  {{ $volumes := slice }}
+  {{ range $year := index $venue "years" }}
+    {{ $volumes = $volumes | append (index $venue "volumes_by_year" $year) }}
+  {{ end }}
+  <span class="badge badge-info align-middle ml-1">{{ len $volumes }}&nbsp;{{ cond (gt (len $volumes) 1) "volumes" "volume" }}</span>
+</li>

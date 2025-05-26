@@ -7,33 +7,33 @@ We are grateful to all our contributors whose work makes this collection of scho
 
 ### Active Volunteers
 
++ **Director** [Matt Post](http://post3.net/) (2019&ndash;)
 + **Indexing Lead**: [A. Seza Doğruöz](https://lt3.ugent.be/people/as-dogruoz/) (Universiteit Gent)
 + **Site Development Lead**: [Marcel Bollmann](https://marcel.bollmann.me/) (Jönköping University)
 + [David Chiang](https://www3.nd.edu/~dchiang/) (University of Notre Dame)
 + [Arne Köhn](https://arne.chark.eu) (New Work SE)
 + [Daniel Gildea](https://www.cs.rochester.edu/u/gildea/) (University of Rochester)
-+ [Kilian Gebhardt](https://wwwtcs.inf.tu-dresden.de/~kilian/) (TU Dresden)
 + [Nathan Schneider](http://people.cs.georgetown.edu/nschneid/) (Georgetown University)
-+ [Marc Schulder](https://marc.schulder.info/) (Institute for German Sign Language, Hamburg University)
 
 ### Past Volunteers
 
 + [Animesh Prasad](http://wing.comp.nus.edu.sg/~animesh/) (National University of Singapore)
 + [Anoop Sarkar](https://www.cs.sfu.ca/~anoop/) (Simon Fraser University)
++ [Chenliang Li](http://www.lichenliang.net/) (Wuhan University)
 + [Christian Federmann](https://www.microsoft.com/en-us/research/people/chrife/) (Microsoft Research)
 + [Christoph Teichmann](https://www.cteichmann.com/) (Bloomberg LLC)
 + [Hien Linh Nguyen](https://sg.linkedin.com/in/linhhienng) (Facebook Singapore)
++ [Kilian Gebhardt](https://wwwtcs.inf.tu-dresden.de/~kilian/) (TU Dresden)
 + [Nitin Madnani](https://desilinguist.org/) (Educational Testing Services)
++ [Marc Schulder](https://marc.schulder.info/) (Institute for German Sign Language, Hamburg University)
 + [Martín Villalba](http://www.coli.uni-saarland.de/~villalba/) (Saarland University)
++ Namratha Urs (University of North Texas)
 + [Simone Teufel](https://www.cl.cam.ac.uk/~sht25/) (Cambridge)
 + [Tao Chen](http://www.cs.jhu.edu/~taochen/) (Google)
-+ Namratha Urs (University of North Texas)
-+ [Chenliang Li](http://www.lichenliang.net/) (Wuhan University)
 + Authors of anthology introductions: John Nerbonne, Julia Hirschberg, Donia Scott, Diane Litman, Sergei Nirenburg, Karen Spärck Jones, and Aravind Joshi.
 
-### Directors
+### Past Directors
 
-+ [Matt Post](http://waypost.net/) (2019&ndash;)
 + [Min-Yen Kan](http://www.comp.nus.edu.sg/~kanmy/) (2008&ndash;2018)
 + [Steven Bird](http://stevenbird.net/) (2001&ndash;2007)
 + Eduard Hovy, John Nerbonne, Mike Rosner, Nicoletta Calzolari and Doug Arnold (Past Associate Editors)
@@ -61,4 +61,4 @@ Our thanks to:
 
 * The European Language Resources Association (ELRA), for allowing us to host the International Conference on Language Resources and Evaluation proceedings series (LREC).
 
-* Robert Amsler for his generous help and support of compiling the listing of the Finite String newsletter, and to David Chiang for undertaking the labor of splitting it up into readable articles.
+* Robert Amsler, for his generous help and support of compiling the listing of the Finite String newsletter, and to David Chiang for undertaking the labor of splitting it up into readable articles.

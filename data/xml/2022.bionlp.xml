@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <collection id="2022.bionlp">
-  <volume id="1" ingest-date="2022-05-15">
+  <volume id="1" ingest-date="2022-05-15" type="proceedings">
     <meta>
       <booktitle>Proceedings of the 21st Workshop on Biomedical Language Processing</booktitle>
       <editor><first>Dina</first><last>Demner-Fushman</last></editor>
@@ -37,7 +37,7 @@
       <author><first>Gary</first><last>Bader</last></author>
       <author><first>Bo</first><last>Wang</last></author>
       <pages>10–25</pages>
-      <abstract>Motivated by the fact that many relations cross the sentence boundary, there has been increasing interest in document-level relation extraction (DocRE). DocRE requires integrating information within and across sentences, capturing complex interactions between mentions of entities. Most existing methods are pipeline-based, requiring entities as input. However, jointly learning to extract entities and relations can improve performance and be more efficient due to shared parameters and training steps. In this paper, we develop a sequence-to-sequence approach, seq2rel, that can learn the subtasks of DocRE (entity extraction, coreference resolution and relation extraction) end-to-end, replacing a pipeline of task-specific components. Using a simple strategy we call entity hinting, we compare our approach to existing pipeline-based methods on several popular biomedical datasets, in some cases exceeding their performance. We also report the first end-to-end results on these datasets for future comparison. Finally, we demonstrate that, under our model, an end-to-end approach outperforms a pipeline-based approach. Our code, data and trained models are available at https://github.com/johngiorgi/seq2rel. An online demo is available at https://share.streamlit.io/johngiorgi/seq2rel/main/demo.py.</abstract>
+      <abstract>Motivated by the fact that many relations cross the sentence boundary, there has been increasing interest in document-level relation extraction (DocRE). DocRE requires integrating information within and across sentences, capturing complex interactions between mentions of entities. Most existing methods are pipeline-based, requiring entities as input. However, jointly learning to extract entities and relations can improve performance and be more efficient due to shared parameters and training steps. In this paper, we develop a sequence-to-sequence approach, seq2rel, that can learn the subtasks of DocRE (entity extraction, coreference resolution and relation extraction) end-to-end, replacing a pipeline of task-specific components. Using a simple strategy we call entity hinting, we compare our approach to existing pipeline-based methods on several popular biomedical datasets, in some cases exceeding their performance. We also report the first end-to-end results on these datasets for future comparison. Finally, we demonstrate that, under our model, an end-to-end approach outperforms a pipeline-based approach. Our code, data and trained models are available at <url>https://github.com/johngiorgi/seq2rel</url>. An online demo is available at <url>https://share.streamlit.io/johngiorgi/seq2rel/main/demo.py</url>.</abstract>
       <url hash="ff2fd2a7">2022.bionlp-1.2</url>
       <bibkey>giorgi-etal-2022-sequence</bibkey>
       <doi>10.18653/v1/2022.bionlp-1.2</doi>
@@ -104,7 +104,6 @@
       <pwccode url="https://github.com/dpappas/Data-Augmentation-for-Biomedical-Factoid-Question-Answering" additional="false">dpappas/Data-Augmentation-for-Biomedical-Factoid-Question-Answering</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/biomrc">BIOMRC</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/bioasq">BioASQ</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/squad">SQuAD</pwcdataset>
     </paper>
     <paper id="7">
       <title>Slot Filling for Biomedical Information Extraction</title>
@@ -113,7 +112,7 @@
       <author><first>Justin Joshua</first><last>Grace</last></author>
       <author><first>Francine</first><last>Bennett</last></author>
       <pages>82–90</pages>
-      <abstract>Information Extraction (IE) from text refers to the task of extracting structured knowledge from unstructured text. The task typically consists of a series of sub-tasks such as Named Entity Recognition and Relation Extraction. Sourcing entity and relation type specific training data is a major bottleneck in domains with limited resources such as biomedicine. In this work we present a slot filling approach to the task of biomedical IE, effectively replacing the need for entity and relation-specific training data, allowing us to deal with zero-shot settings. We follow the recently proposed paradigm of coupling a Tranformer-based bi-encoder, Dense Passage Retrieval, with a Transformer-based reading comprehension model to extract relations from biomedical text. We assemble a biomedical slot filling dataset for both retrieval and reading comprehension and conduct a series of experiments demonstrating that our approach outperforms a number of simpler baselines. We also evaluate our approach end-to-end for standard as well as zero-shot settings. Our work provides a fresh perspective on how to solve biomedical IE tasks, in the absence of relevant training data. Our code, models and datasets are available at https://github.com/tba.</abstract>
+      <abstract>Information Extraction (IE) from text refers to the task of extracting structured knowledge from unstructured text. The task typically consists of a series of sub-tasks such as Named Entity Recognition and Relation Extraction. Sourcing entity and relation type specific training data is a major bottleneck in domains with limited resources such as biomedicine. In this work we present a slot filling approach to the task of biomedical IE, effectively replacing the need for entity and relation-specific training data, allowing us to deal with zero-shot settings. We follow the recently proposed paradigm of coupling a Tranformer-based bi-encoder, Dense Passage Retrieval, with a Transformer-based reading comprehension model to extract relations from biomedical text. We assemble a biomedical slot filling dataset for both retrieval and reading comprehension and conduct a series of experiments demonstrating that our approach outperforms a number of simpler baselines. We also evaluate our approach end-to-end for standard as well as zero-shot settings. Our work provides a fresh perspective on how to solve biomedical IE tasks, in the absence of relevant training data. Our code, models and datasets are available at <url>https://github.com/tba</url>.</abstract>
       <url hash="37211784">2022.bionlp-1.7</url>
       <bibkey>papanikolaou-etal-2022-slot</bibkey>
       <doi>10.18653/v1/2022.bionlp-1.7</doi>
@@ -321,7 +320,7 @@
       <author><first>Bin</first><last>Sun</last></author>
       <author><first>Shutao</first><last>Li</last></author>
       <pages>212–219</pages>
-      <abstract>This paper introduces the approach of VPAI_Lab team’s experiments on BioNLP 2022 shared task 1 Medical Video Classification (MedVidCL). Given an input video, the MedVidCL task aims to correctly classify it into one of three following categories: Medical Instructional, Medical Non-instructional, and Non-medical. Inspired by its dataset construction process, we divide the classification process into two stages. The first stage is to classify videos into medical videos and non-medical videos. In the second stage, for those samples classified as medical videos, we further classify them into instructional videos and non-instructional videos. In addition, we also propose the cross-modal fusion method to solve the video classification, such as fusing the text features (question and subtitles) from the pre-training language models and visual features from image frames. Specifically, we use textual information to concatenate and query the visual information for obtaining better feature representation. Extensive experiments show that the proposed method significantly outperforms the official baseline method by 15.4% in the F1 score, which shows its effectiveness. Finally, the online results show that our method ranks the Top-1 on the online unseen test set. All the experimental codes are open-sourced at https://github.com/Lireanstar/MedVidCL.</abstract>
+      <abstract>This paper introduces the approach of VPAI_Lab team’s experiments on BioNLP 2022 shared task 1 Medical Video Classification (MedVidCL). Given an input video, the MedVidCL task aims to correctly classify it into one of three following categories: Medical Instructional, Medical Non-instructional, and Non-medical. Inspired by its dataset construction process, we divide the classification process into two stages. The first stage is to classify videos into medical videos and non-medical videos. In the second stage, for those samples classified as medical videos, we further classify them into instructional videos and non-instructional videos. In addition, we also propose the cross-modal fusion method to solve the video classification, such as fusing the text features (question and subtitles) from the pre-training language models and visual features from image frames. Specifically, we use textual information to concatenate and query the visual information for obtaining better feature representation. Extensive experiments show that the proposed method significantly outperforms the official baseline method by 15.4% in the F1 score, which shows its effectiveness. Finally, the online results show that our method ranks the Top-1 on the online unseen test set. All the experimental codes are open-sourced at <url>https://github.com/Lireanstar/MedVidCL</url>.</abstract>
       <url hash="553d86ef">2022.bionlp-1.21</url>
       <bibkey>li-etal-2022-vpai</bibkey>
       <doi>10.18653/v1/2022.bionlp-1.21</doi>
@@ -341,10 +340,10 @@
       <doi>10.18653/v1/2022.bionlp-1.22</doi>
       <video href="2022.bionlp-1.22.mp4"/>
       <pwccode url="https://github.com/jbshp/gencomparesum" additional="false">jbshp/gencomparesum</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/arxiv">Arxiv HEP-TH citation graph</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/cord-19">CORD-19</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/pubmed">Pubmed</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/s2orc">S2ORC</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/arxiv">arXiv</pwcdataset>
     </paper>
     <paper id="23">
       <title><fixed-case>B</fixed-case>io<fixed-case>C</fixed-case>ite: A Deep Learning-based Citation Linkage Framework for Biomedical Research Articles</title>
@@ -458,6 +457,7 @@
       <bibkey>sazzed-2022-banglabiomed</bibkey>
       <doi>10.18653/v1/2022.bionlp-1.31</doi>
       <video href="2022.bionlp-1.31.mp4"/>
+      <pwccode url="https://github.com/sazzadcsedu/banglabiomed" additional="false">sazzadcsedu/banglabiomed</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/cowese">CoWeSe</pwcdataset>
     </paper>
     <paper id="32">
@@ -573,7 +573,7 @@
       <author><first>Connor</first><last>Brown</last></author>
       <author><first>Lifu</first><last>Huang</last></author>
       <pages>402–411</pages>
-      <abstract>Antibiotic resistance has become a growing worldwide concern as new resistance mechanisms are emerging and spreading globally, and thus detecting and collecting the cause – Antibiotic Resistance Genes (ARGs), have been more critical than ever. In this work, we aim to automate the curation of ARGs by extracting ARG-related assertive statements from scientific papers. To support the research towards this direction, we build SciARG, a new benchmark dataset containing 2,000 manually annotated statements as the evaluation set and 12,516 silver-standard training statements that are automatically created from scientific papers by a set of rules. To set up the baseline performance on SciARG, we exploit three state-of-the-art neural architectures based on pre-trained language models and prompt tuning, and further ensemble them to attain the highest 77.0% F-score. To the best of our knowledge, we are the first to leverage natural language processing techniques to curate all validated ARGs from scientific papers. Both the code and data are publicly available at https://github.com/VT-NLP/SciARG.</abstract>
+      <abstract>Antibiotic resistance has become a growing worldwide concern as new resistance mechanisms are emerging and spreading globally, and thus detecting and collecting the cause – Antibiotic Resistance Genes (ARGs), have been more critical than ever. In this work, we aim to automate the curation of ARGs by extracting ARG-related assertive statements from scientific papers. To support the research towards this direction, we build SciARG, a new benchmark dataset containing 2,000 manually annotated statements as the evaluation set and 12,516 silver-standard training statements that are automatically created from scientific papers by a set of rules. To set up the baseline performance on SciARG, we exploit three state-of-the-art neural architectures based on pre-trained language models and prompt tuning, and further ensemble them to attain the highest 77.0% F-score. To the best of our knowledge, we are the first to leverage natural language processing techniques to curate all validated ARGs from scientific papers. Both the code and data are publicly available at <url>https://github.com/VT-NLP/SciARG</url>.</abstract>
       <url hash="3de7d562">2022.bionlp-1.40</url>
       <bibkey>chandak-etal-2022-towards</bibkey>
       <doi>10.18653/v1/2022.bionlp-1.40</doi>

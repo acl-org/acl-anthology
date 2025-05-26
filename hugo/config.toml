@@ -2,6 +2,12 @@ languageCode = "en-us"
 title = "ACL Anthology"
 disablePathToLower = true
 staticDir = ["static", "data-export"]
+rssLimit = 1000
 
 [permalinks]
-  papers = "/:filename/"
+  papers = "/:slug/"
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true  # allow HTML in MD files

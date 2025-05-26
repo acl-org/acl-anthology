@@ -1,0 +1,155 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2025.tacl">
+  <volume id="1" type="journal">
+    <meta>
+      <booktitle>Transactions of the Association for Computational Linguistics, Volume 13</booktitle>
+      <publisher>MIT Press</publisher>
+      <address>Cambridge, MA</address>
+      <year>2025</year>
+      <venue>tacl</venue>
+      <journal-volume>13</journal-volume>
+    </meta>
+    <paper id="1">
+      <title>Dolomites: Domain-Specific Long-Form Methodical Tasks</title>
+      <author><first>Chaitanya</first><last>Malaviya</last></author>
+      <author><first>Priyanka</first><last>Agrawal</last></author>
+      <author><first>Kuzman</first><last>Ganchev</last></author>
+      <author><first>Pranesh</first><last>Srinivasan</last></author>
+      <author><first>Fantine</first><last>Huot</last></author>
+      <author><first>Jonathan</first><last>Berant</last></author>
+      <author><first>Mark</first><last>Yatskar</last></author>
+      <author><first>Dipanjan</first><last>Das</last></author>
+      <author><first>Mirella</first><last>Lapata</last></author>
+      <author><first>Chris</first><last>Alberti</last></author>
+      <doi>10.1162/tacl_a_00727</doi>
+      <abstract>Experts in various fields routinely perform methodical writing tasks to plan, organize, and report their work. From a clinician writing a differential diagnosis for a patient, to a teacher writing a lesson plan for students, these tasks are pervasive, requiring to methodically generate structured long-form output for a given input. We develop a typology of methodical tasks structured in the form of a task objective, procedure, input, and output, and introduce DoLoMiTes, a novel benchmark with specifications for 519 such tasks elicited from hundreds of experts from across 25 fields. Our benchmark further contains specific instantiations of methodical tasks with concrete input and output examples (1,857 in total) which we obtain by collecting expert revisions of up to 10 model-generated examples of each task. We use these examples to evaluate contemporary language models, highlighting that automating methodical tasks is a challenging long-form generation problem, as it requires performing complex inferences, while drawing upon the given context as well as domain knowledge. Our dataset is available at https://dolomites-benchmark.github.io/.</abstract>
+      <pages>1–29</pages>
+      <url hash="c8e9160d">2025.tacl-1.1</url>
+      <bibkey>malaviya-etal-2025-dolomites</bibkey>
+    </paper>
+    <paper id="2">
+      <title><fixed-case>S</fixed-case>pi<fixed-case>R</fixed-case>it-<fixed-case>LM</fixed-case>: Interleaved Spoken and Written Language Model</title>
+      <author><first>Tu Anh</first><last>Nguyen</last></author>
+      <author><first>Benjamin</first><last>Muller</last></author>
+      <author><first>Bokai</first><last>Yu</last></author>
+      <author><first>Marta R.</first><last>Costa-jussa</last></author>
+      <author><first>Maha</first><last>Elbayad</last></author>
+      <author><first>Sravya</first><last>Popuri</last></author>
+      <author><first>Christophe</first><last>Ropers</last></author>
+      <author><first>Paul-Ambroise</first><last>Duquenne</last></author>
+      <author><first>Robin</first><last>Algayres</last></author>
+      <author><first>Ruslan</first><last>Mavlyutov</last></author>
+      <author><first>Itai</first><last>Gat</last></author>
+      <author><first>Mary</first><last>Williamson</last></author>
+      <author><first>Gabriel</first><last>Synnaeve</last></author>
+      <author><first>Juan</first><last>Pino</last></author>
+      <author><first>Benoît</first><last>Sagot</last></author>
+      <author><first>Emmanuel</first><last>Dupoux</last></author>
+      <doi>10.1162/tacl_a_00728</doi>
+      <abstract>We introduce SpiRit-LM, a foundation multimodal language model that freely mixes text and speech. Our model is based on a 7B pretrained text language model that we extend to the speech modality by continuously training it on text and speech units. Speech and text sequences are concatenated as a single stream of tokens, and trained with a word-level interleaving method using a small automatically curated speech-text parallel corpus. SpiRit-LM comes in two versions: a Base version that uses speech phonetic units (HuBERT) and an Expressive version that models expressivity using pitch and style units in addition to the phonetic units. For both versions, the text is encoded with subword BPE tokens. The resulting model displays both the semantic abilities of text models and the expressive abilities of speech models. Additionally, we demonstrate that SpiRit-LM can learn new tasks in a few-shot fashion across modalities (i.e., ASR, TTS, Speech Classification). We make available model weights and inference code.1,2</abstract>
+      <pages>30–52</pages>
+      <url hash="c8b5342b">2025.tacl-1.2</url>
+      <bibkey>nguyen-etal-2025-spirit</bibkey>
+    </paper>
+    <paper id="3">
+      <title><fixed-case>CLAP</fixed-case>nq: Cohesive Long-form Answers from Passages in Natural Questions for <fixed-case>RAG</fixed-case> systems</title>
+      <author><first>Sara</first><last>Rosenthal</last></author>
+      <author><first>Avirup</first><last>Sil</last></author>
+      <author><first>Radu</first><last>Florian</last></author>
+      <author><first>Salim</first><last>Roukos</last></author>
+      <doi>10.1162/tacl_a_00729</doi>
+      <abstract>Retrieval Augmented Generation (RAG) has become a popular application for large language models. It is preferable that successful RAG systems provide accurate answers that are supported by being grounded in a passage without any hallucinations. While considerable work is required for building a full RAG pipeline, being able to benchmark performance is also necessary. We present CLAPnq, a benchmark Long-form Question Answering dataset for the full RAG pipeline. CLAPnq includes long answers with grounded gold passages from Natural Questions (NQ) and a corpus to perform either retrieval, generation, or the full RAG pipeline. The CLAPnq answers are concise, 3x smaller than the full passage, and cohesive, meaning that the answer is composed fluently, often by integrating multiple pieces of the passage that are not contiguous. RAG models must adapt to these properties to be successful at CLAPnq. We present baseline experiments and analysis for CLAPnq that highlight areas where there is still significant room for improvement in grounded RAG. CLAPnq is publicly available at https://github.com/primeqa/clapnq.</abstract>
+      <pages>53–72</pages>
+      <url hash="e8bde712">2025.tacl-1.3</url>
+      <bibkey>rosenthal-etal-2025-clapnq</bibkey>
+    </paper>
+    <paper id="4">
+      <title>Salute the Classic: Revisiting Challenges of Machine Translation in the Age of Large Language Models</title>
+      <author><first>Jianhui</first><last>Pang</last></author>
+      <author><first>Fanghua</first><last>Ye</last></author>
+      <author><first>Derek Fai</first><last>Wong</last></author>
+      <author><first>Dian</first><last>Yu</last></author>
+      <author><first>Shuming</first><last>Shi</last></author>
+      <author><first>Zhaopeng</first><last>Tu</last></author>
+      <author><first>Longyue</first><last>Wang</last></author>
+      <doi>10.1162/tacl_a_00730</doi>
+      <abstract>The evolution of Neural Machine Translation (NMT) has been significantly influenced by six core challenges (Koehn and Knowles, 2017) that have acted as benchmarks for progress in this field. This study revisits these challenges, offering insights into their ongoing relevance in the context of advanced Large Language Models (LLMs): domain mismatch, amount of parallel data, rare word prediction, translation of long sentences, attention model as word alignment, and sub-optimal beam search. Our empirical findings show that LLMs effectively reduce reliance on parallel data for major languages during pretraining and significantly improve translation of long sentences containing approximately 80 words, even translating documents up to 512 words. Despite these improvements, challenges in domain mismatch and rare word prediction persist. While NMT-specific challenges like word alignment and beam search may not apply to LLMs, we identify three new challenges in LLM-based translation: inference efficiency, translation of low-resource languages during pretraining, and human-aligned evaluation.</abstract>
+      <pages>73–95</pages>
+      <url hash="c1364690">2025.tacl-1.4</url>
+      <bibkey>pang-etal-2025-salute</bibkey>
+    </paper>
+    <paper id="5">
+      <title>Investigating Critical Period Effects in Language Acquisition through Neural Language Models</title>
+      <author><first>Ionut</first><last>Constantinescu</last></author>
+      <author><first>Tiago</first><last>Pimentel</last></author>
+      <author><first>Ryan</first><last>Cotterell</last></author>
+      <author><first>Alex</first><last>Warstadt</last></author>
+      <doi>10.1162/tacl_a_00725</doi>
+      <abstract>Humans appear to have a critical period (CP) for language acquisition: Second language (L2) acquisition becomes harder after early childhood, and ceasing exposure to a first language (L1) after this period (but not before) typically does not lead to substantial loss of L1 proficiency. It is unknown whether these CP effects result from innately determined brain maturation or as a stabilization of neural connections naturally induced by experience. In this study, we use language models (LMs) to test the extent to which these phenomena are peculiar to humans, or shared by a broader class of language learners. We vary the age of exposure by training LMs on language pairs in various experimental conditions, and find that LMs, which lack any direct analog to innate maturational stages, do not show CP effects when the age of exposure of L2 is delayed. Our results contradict the claim that CP effects are an inevitable result of statistical learning, and they are consistent with an innate mechanism for CP effects. We show that we can reverse-engineer the CP by introducing a regularizer partway through training to simulate a maturational decrease in plasticity. All in all, our results suggest that L1 learning on its own may not be enough to induce a CP, and additional engineering is necessary to make language models more cognitively plausible.</abstract>
+      <pages>96–120</pages>
+      <url hash="8cc461b9">2025.tacl-1.5</url>
+      <bibkey>constantinescu-etal-2025-investigating</bibkey>
+    </paper>
+    <paper id="6">
+      <title>Learning Syntax Without Planting Trees: Understanding Hierarchical Generalization in Transformers</title>
+      <author><first>Kabir</first><last>Ahuja</last></author>
+      <author><first>Vidhisha</first><last>Balachandran</last></author>
+      <author><first>Madhur</first><last>Panwar</last></author>
+      <author><first>Tianxing</first><last>He</last></author>
+      <author><first>Noah A.</first><last>Smith</last></author>
+      <author><first>Navin</first><last>Goyal</last></author>
+      <author><first>Yulia</first><last>Tsvetkov</last></author>
+      <doi>10.1162/tacl_a_00733</doi>
+      <abstract>Transformers trained on natural language data have been shown to exhibit hierarchical generalization without explicitly encoding any structural bias. In this work, we investigate sources of inductive bias in transformer models and their training that could cause such preference for hierarchical generalization. We extensively experiment with transformers trained on five synthetic, controlled datasets using several training objectives and show that, while objectives such as sequence-to-sequence modeling, classification, etc., often fail to lead to hierarchical generalization, the language modeling objective consistently leads to transformers generalizing hierarchically. We then study how different generalization behaviors emerge during the training by conducting pruning experiments that reveal the joint existence of subnetworks within the model implementing different generalizations. Finally, we take a Bayesian perspective to understand transformers’ preference for hierarchical generalization: We establish a correlation between whether transformers generalize hierarchically on a dataset and if the simplest explanation of that dataset is provided by a hierarchical grammar compared to regular grammars exhibiting linear generalization. Overall, our work presents new insights on the origins of hierarchical generalization in transformers and provides a theoretical framework for studying generalization in language models.</abstract>
+      <pages>121–141</pages>
+      <url hash="b3e3ee70">2025.tacl-1.6</url>
+      <bibkey>ahuja-etal-2025-learning</bibkey>
+    </paper>
+    <paper id="7">
+      <title>A Confidence-based Acquisition Model for Self-supervised Active Learning and Label Correction</title>
+      <author><first>Carel van</first><last>Niekerk</last></author>
+      <author><first>Christian</first><last>Geishauser</last></author>
+      <author><first>Michael</first><last>Heck</last></author>
+      <author><first>Shutong</first><last>Feng</last></author>
+      <author><first>Hsien-chin</first><last>Lin</last></author>
+      <author><first>Nurul</first><last>Lubis</last></author>
+      <author><first>Benjamin</first><last>Ruppik</last></author>
+      <author><first>Renato</first><last>Vukovic</last></author>
+      <author><first>Milica</first><last>Gašić</last></author>
+      <doi>10.1162/tacl_a_00734</doi>
+      <abstract>Supervised neural approaches are hindered by their dependence on large, meticulously annotated datasets, a requirement that is particularly cumbersome for sequential tasks. The quality of annotations tends to deteriorate with the transition from expert-based to crowd-sourced labeling. To address these challenges, we present CAMEL (Confidence-based Acquisition Model for Efficient self-supervised active Learning), a pool-based active learning framework tailored to sequential multi-output problems. CAMEL possesses two core features: (1) it requires expert annotators to label only a fraction of a chosen sequence, and (2) it facilitates self-supervision for the remainder of the sequence. By deploying a label correction mechanism, CAMEL can also be utilized for data cleaning. We evaluate CAMEL on two sequential tasks, with a special emphasis on dialogue belief tracking, a task plagued by the constraints of limited and noisy datasets. Our experiments demonstrate that CAMEL significantly outperforms the baselines in terms of efficiency. Furthermore, the data corrections suggested by our method contribute to an overall improvement in the quality of the resulting datasets.1</abstract>
+      <pages>167–187</pages>
+      <url hash="6a1bfedf">2025.tacl-1.7</url>
+      <bibkey>niekerk-etal-2025-confidence</bibkey>
+    </paper>
+    <paper id="8">
+      <title><fixed-case>OPT</fixed-case>-Tree: Speculative Decoding with Adaptive Draft Tree Structure</title>
+      <author><first>Jikai</first><last>Wang</last></author>
+      <author><first>Yi</first><last>Su</last></author>
+      <author><first>Juntao</first><last>Li</last></author>
+      <author><first>Qingrong</first><last>Xia</last></author>
+      <author><first>Zi</first><last>Ye</last></author>
+      <author><first>Xinyu</first><last>Duan</last></author>
+      <author><first>Zhefeng</first><last>Wang</last></author>
+      <author><first>Min</first><last>Zhang</last></author>
+      <doi>10.1162/tacl_a_00735</doi>
+      <abstract>Autoregressive language models demonstrate excellent performance in various scenarios. However, the inference efficiency is limited by its one-step-one-word generation mode, which has become a pressing problem recently as the models become increasingly larger. Speculative decoding employs a “draft and then verify” mechanism to allow multiple tokens to be generated in one step, realizing lossless acceleration. Existing methods mainly adopt fixed heuristic draft structures, which do not adapt to different situations to maximize the acceptance length during verification. To alleviate this dilemma, we propose OPT-Tree, an algorithm to construct adaptive and scalable draft trees, which can be applied to any autoregressive draft model. It searches the optimal tree structure that maximizes the mathematical expectation of the acceptance length in each decoding step. Experimental results reveal that OPT-Tree outperforms the existing draft structures and achieves a speed-up ratio of up to 3.2 compared with autoregressive decoding. If the draft model is powerful enough and the node budget is sufficient, it can generate more than ten tokens in a single step. Our code is available at https://github.com/Jikai0Wang/OPT-Tree.</abstract>
+      <pages>188–199</pages>
+      <url hash="5dda4bd4">2025.tacl-1.8</url>
+      <bibkey>wang-etal-2025-opt</bibkey>
+    </paper>
+    <paper id="9">
+      <title>Transformers as Transducers</title>
+      <author><first>Lena</first><last>Strobl</last></author>
+      <author><first>Dana</first><last>Angluin</last></author>
+      <author><first>David</first><last>Chiang</last></author>
+      <author><first>Jonathan</first><last>Rawski</last></author>
+      <author><first>Ashish</first><last>Sabharwal</last></author>
+      <doi>10.1162/tacl_a_00736</doi>
+      <abstract>We study the sequence-to-sequence mapping capacity of transformers by relating them to finite transducers, and find that they can express surprisingly large classes of (total functional) transductions. We do so using variants of RASP, a programming language designed to help people “think like transformers,” as an intermediate representation. We extend the existing Boolean variant B-RASP to sequence-to-sequence transductions and show that it computes exactly the first-order rational transductions (such as string rotation). Then, we introduce two new extensions. B-RASP[pos] enables calculations on positions (such as copying the first half of a string) and contains all first-order regular transductions. S-RASP adds prefix sum, which enables additional arithmetic operations (such as squaring a string) and contains all first-order polyregular transductions. Finally, we show that masked average-hard attention transformers can simulate S-RASP.</abstract>
+      <pages>200–219</pages>
+      <url hash="27951ace">2025.tacl-1.9</url>
+      <bibkey>strobl-etal-2025-transformers</bibkey>
+    </paper>
+  </volume>
+</collection>

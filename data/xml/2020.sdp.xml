@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <collection id="2020.sdp">
-  <volume id="1" ingest-date="2020-11-06">
+  <volume id="1" ingest-date="2020-11-06" type="proceedings">
     <meta>
       <booktitle>Proceedings of the First Workshop on Scholarly Document Processing</booktitle>
       <editor><first>Muthu Kumar</first><last>Chandrasekaran</last></editor>
@@ -35,8 +35,7 @@
       <author><first>Michal</first><last>Shmueli-Scheuer</last></author>
       <author><first>Anita</first><last>de Waard</last></author>
       <pages>1–6</pages>
-      <abstract>Next to keeping up with the growing literature in their own and related fields, scholars increasingly also need to rebut pseudo-science and disinformation. To address these challenges, computational work on enhancing search, summarization, and analysis of scholarly documents has flourished. However, the various strands of research on scholarly document processing remain fragmented. To reach to the broader NLP and AI/ML community, pool distributed efforts and enable shared access to published research, we held the 1st Workshop on Scholarly Document Processing at EMNLP 2020 as a virtual event. The SDP workshop consisted of a research track (including a poster session), two invited talks and three Shared Tasks (CL-SciSumm, Lay-Summ and LongSumm), geared towards easier access to scientific methods and results. <b>Website</b>: <url>https://ornlcda.github.io/SDProc</url>
-      </abstract>
+      <abstract>Next to keeping up with the growing literature in their own and related fields, scholars increasingly also need to rebut pseudo-science and disinformation. To address these challenges, computational work on enhancing search, summarization, and analysis of scholarly documents has flourished. However, the various strands of research on scholarly document processing remain fragmented. To reach to the broader NLP and AI/ML community, pool distributed efforts and enable shared access to published research, we held the 1st Workshop on Scholarly Document Processing at EMNLP 2020 as a virtual event. The SDP workshop consisted of a research track (including a poster session), two invited talks and three Shared Tasks (CL-SciSumm, Lay-Summ and LongSumm), geared towards easier access to scientific methods and results. <b>Website</b>: <url>https://ornlcda.github.io/SDProc</url></abstract>
       <url hash="4e49b742">2020.sdp-1.1</url>
       <doi>10.18653/v1/2020.sdp-1.1</doi>
       <bibkey>chandrasekaran-etal-2020-overview</bibkey>
@@ -60,7 +59,7 @@
       <author><first>C. Lee</first><last>Giles</last></author>
       <author><first>Christopher</first><last>Griffin</last></author>
       <pages>10–19</pages>
-      <abstract>Acknowledgements are ubiquitous in scholarly papers. Existing acknowledgement entity recognition methods assume all named entities are acknowledged. Here, we examine the nuances between acknowledged and named entities by analyzing sentence structure. We develop an acknowledgement extraction system, AckExtract based on open-source text mining software and evaluate our method using manually labeled data. AckExtract uses the PDF of a scholarly paper as input and outputs acknowledgement entities. Results show an overall performance of F_1=0.92. We built a supplementary database by linking CORD-19 papers with acknowledgement entities extracted by AckExtract including persons and organizations and find that only up to 50–60% of named entities are actually acknowledged. We further analyze chronological trends of acknowledgement entities in CORD-19 papers. All codes and labeled data are publicly available at https://github.com/lamps-lab/ackextract.</abstract>
+      <abstract>Acknowledgements are ubiquitous in scholarly papers. Existing acknowledgement entity recognition methods assume all named entities are acknowledged. Here, we examine the nuances between acknowledged and named entities by analyzing sentence structure. We develop an acknowledgement extraction system, AckExtract based on open-source text mining software and evaluate our method using manually labeled data. AckExtract uses the PDF of a scholarly paper as input and outputs acknowledgement entities. Results show an overall performance of F_1=0.92. We built a supplementary database by linking CORD-19 papers with acknowledgement entities extracted by AckExtract including persons and organizations and find that only up to 50–60% of named entities are actually acknowledged. We further analyze chronological trends of acknowledgement entities in CORD-19 papers. All codes and labeled data are publicly available at <url>https://github.com/lamps-lab/ackextract</url>.</abstract>
       <url hash="dc7c6b4d">2020.sdp-1.3</url>
       <doi>10.18653/v1/2020.sdp-1.3</doi>
       <video href="https://slideslive.com/38940712"/>
@@ -165,7 +164,7 @@
     <paper id="10">
       <title><fixed-case>D</fixed-case>eep<fixed-case>P</fixed-case>aper<fixed-case>C</fixed-case>omposer: A Simple Solution for Training Data Preparation for Parsing Research Papers</title>
       <author><first>Meng</first><last>Ling</last></author>
-      <author><first>Jian</first><last>Chen</last></author>
+      <author id="jian-chen"><first>Jian</first><last>Chen</last></author>
       <pages>91–96</pages>
       <abstract>We present DeepPaperComposer, a simple solution for preparing highly accurate (100%) training data without manual labeling to extract content from scholarly articles using convolutional neural networks (CNNs). We used our approach to generate data and trained CNNs to extract eight categories of both textual (titles, abstracts, headers, figure and table captions, and other texts) and non-textural content (figures and tables) from 30 years of IEEE VIS conference papers, of which a third were scanned bitmap PDFs. We curated this dataset and named it VISpaper-3K. We then showed our initial benchmark performance using VISpaper-3K over itself and CS-150 using YOLOv3 and Faster-RCNN. We open-source DeepPaperComposer of our training data generation and released the resulting annotation data VISpaper-3K to promote re-producible research.</abstract>
       <url hash="4de2b873">2020.sdp-1.10</url>
@@ -197,14 +196,13 @@
       <bibkey>ozyurt-2020-effectiveness</bibkey>
       <pwcdataset url="https://paperswithcode.com/dataset/bioasq">BioASQ</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/ncbi-disease-1">NCBI Disease</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/squad">SQuAD</pwcdataset>
     </paper>
     <paper id="13">
       <title><fixed-case>S</fixed-case>ci<fixed-case>WING</fixed-case>– A Software Toolkit for Scientific Document Processing</title>
       <author><first>Abhinav</first><last>Ramesh Kashyap</last></author>
       <author><first>Min-Yen</first><last>Kan</last></author>
       <pages>113–120</pages>
-      <abstract>We introduce SciWING, an open-source soft-ware toolkit which provides access to state-of-the-art pre-trained models for scientific document processing (SDP) tasks, such as citation string parsing, logical structure recovery and citation intent classification. Compared to other toolkits, SciWING follows a full neural pipeline and provides a Python inter-face for SDP. When needed, SciWING provides fine-grained control for rapid experimentation with different models by swapping and stacking different modules. Transfer learning from general and scientific documents specific pre-trained transformers (i.e., BERT, SciBERT, etc.) can be performed. SciWING incorporates ready-to-use web and terminal-based applications and demonstrations to aid adoption and development. The toolkit is available from http://sciwing.io and the demos are available at http://rebrand.ly/sciwing-demo.</abstract>
+      <abstract>We introduce SciWING, an open-source soft-ware toolkit which provides access to state-of-the-art pre-trained models for scientific document processing (SDP) tasks, such as citation string parsing, logical structure recovery and citation intent classification. Compared to other toolkits, SciWING follows a full neural pipeline and provides a Python inter-face for SDP. When needed, SciWING provides fine-grained control for rapid experimentation with different models by swapping and stacking different modules. Transfer learning from general and scientific documents specific pre-trained transformers (i.e., BERT, SciBERT, etc.) can be performed. SciWING incorporates ready-to-use web and terminal-based applications and demonstrations to aid adoption and development. The toolkit is available from <url>http://sciwing.io</url> and the demos are available at <url>http://rebrand.ly/sciwing-demo</url>.</abstract>
       <url hash="ca89a186">2020.sdp-1.13</url>
       <doi>10.18653/v1/2020.sdp-1.13</doi>
       <video href="https://slideslive.com/38940731"/>
@@ -279,7 +277,7 @@
       <author><first>Edwin A.</first><last>Valentijn</last></author>
       <author><first>Lambert</first><last>Schomaker</last></author>
       <pages>158–167</pages>
-      <abstract>Training recurrent neural networks on long texts, in particular scholarly documents, causes problems for learning. While hierarchical attention networks (HANs) are effective in solving these problems, they still lose important information about the structure of the text. To tackle these problems, we propose the use of HANs combined with structure-tags which mark the role of sentences in the document. Adding tags to sentences, marking them as corresponding to title, abstract or main body text, yields improvements over the state-of-the-art for scholarly document quality prediction. The proposed system is applied to the task of accept/reject prediction on the PeerRead dataset and compared against a recent BiLSTM-based model and joint textual+visual model as well as against plain HANs. Compared to plain HANs, accuracy increases on all three domains.On the computation and language domain our new model works best overall, and increases accuracy 4.7% over the best literature result. We also obtain improvements when introducing the tags for prediction of the number of citations for 88k scientific publications that we compiled from the Allen AI S2ORC dataset. For our HAN-system with structure-tags we reach 28.5% explained variance, an improvement of 1.8% over our reimplementation of the BiLSTM-based model as well as 1.0% improvement over plain HANs.</abstract>
+      <abstract>Training recurrent neural networks on long texts, in particular scholarly documents, causes problems for learning. While hierarchical attention networks (HANs) are effective in solving these problems, they still lose important information about the structure of the text. To tackle these problems, we propose the use of HANs combined with structure-tags which mark the role of sentences in the document. Adding tags to sentences, marking them as corresponding to title, abstract or main body text, yields improvements over the state-of-the-art for scholarly document quality prediction. The proposed system is applied to the task of accept/reject prediction on the PeerRead dataset and compared against a recent BiLSTM-based model and joint textual+visual model as well as against plain HANs. Compared to plain HANs, accuracy increases on all three domains. On the computation and language domain our new model works best overall, and increases accuracy 4.7% over the best literature result. We also obtain improvements when introducing the tags for prediction of the number of citations for 88k scientific publications that we compiled from the Allen AI S2ORC dataset. For our HAN-system with structure-tags we reach 28.5% explained variance, an improvement of 1.8% over our reimplementation of the BiLSTM-based model as well as 1.0% improvement over plain HANs.</abstract>
       <url hash="319c81b4">2020.sdp-1.18</url>
       <attachment type="OptionalSupplementaryMaterial" hash="f3ea3b53">2020.sdp-1.18.OptionalSupplementaryMaterial.zip</attachment>
       <doi>10.18653/v1/2020.sdp-1.18</doi>
@@ -412,7 +410,7 @@
       <author><first>Sriparna</first><last>Saha</last></author>
       <author><first>Pushpak</first><last>Bhattacharyya</last></author>
       <pages>242–250</pages>
-      <abstract>In this paper, we present the IIIT Bhagalpur and IIT Patna team’s effort to solve the three shared tasks namely, CL-SciSumm 2020, CL-LaySumm 2020, LongSumm 2020 at SDP 2020. The theme of these tasks is to generate medium-scale, lay and long summaries, respectively, for scientific articles. For the first two tasks, unsupervised systems are developed, while for the third one, we develop a supervised system.The performances of all the systems were evaluated on the associated datasets with the shared tasks in term of well-known ROUGE metric.</abstract>
+      <abstract>In this paper, we present the IIIT Bhagalpur and IIT Patna team’s effort to solve the three shared tasks namely, CL-SciSumm 2020, CL-LaySumm 2020, LongSumm 2020 at SDP 2020. The theme of these tasks is to generate medium-scale, lay and long summaries, respectively, for scientific articles. For the first two tasks, unsupervised systems are developed, while for the third one, we develop a supervised system. The performances of all the systems were evaluated on the associated datasets with the shared tasks in term of well-known ROUGE metric.</abstract>
       <url hash="99701ac1">2020.sdp-1.27</url>
       <doi>10.18653/v1/2020.sdp-1.27</doi>
       <bibkey>reddy-etal-2020-iiitbh</bibkey>
@@ -576,7 +574,7 @@
     <paper id="40">
       <title>Divide and Conquer: From Complexity to Simplicity for Lay Summarization</title>
       <author><first>Rochana</first><last>Chaturvedi</last></author>
-      <author><first>Saachi</first><last>.</last></author>
+      <author><first/><last>Saachi</last></author>
       <author><first>Jaspreet Singh</first><last>Dhani</last></author>
       <author><first>Anurag</first><last>Joshi</last></author>
       <author><first>Ankush</first><last>Khanna</last></author>

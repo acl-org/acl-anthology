@@ -1,0 +1,168 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2023.loresmt">
+  <volume id="1" ingest-date="2023-04-29" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of the Sixth Workshop on Technologies for Machine Translation of Low-Resource Languages (LoResMT 2023)</booktitle>
+      <editor><first>Atul Kr.</first><last>Ojha</last></editor>
+      <editor><first>Chao-hong</first><last>Liu</last></editor>
+      <editor><first>Ekaterina</first><last>Vylomova</last></editor>
+      <editor><first>Flammie</first><last>Pirinen</last></editor>
+      <editor><first>Jade</first><last>Abbott</last></editor>
+      <editor><first>Jonathan</first><last>Washington</last></editor>
+      <editor><first>Nathaniel</first><last>Oco</last></editor>
+      <editor><first>Valentin</first><last>Malykh</last></editor>
+      <editor><first>Varvara</first><last>Logacheva</last></editor>
+      <editor><first>Xiaobing</first><last>Zhao</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Dubrovnik, Croatia</address>
+      <month>May</month>
+      <year>2023</year>
+      <url hash="e253aae1">2023.loresmt-1</url>
+      <venue>loresmt</venue>
+    </meta>
+    <frontmatter>
+      <url hash="e45aaf0f">2023.loresmt-1.0</url>
+      <bibkey>loresmt-2023-technologies</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Train Global, Tailor Local: Minimalist Multilingual Translation into Endangered Languages</title>
+      <author><first>Zhong</first><last>Zhou</last><affiliation>Carnegie Mellon University</affiliation></author>
+      <author><first>Jan</first><last>Niehues</last><affiliation>Karlsruhe Institut of Technology</affiliation></author>
+      <author><first>Alexander</first><last>Waibel</last><affiliation>Carnegie Mellon</affiliation></author>
+      <pages>1-15</pages>
+      <abstract>In many humanitarian scenarios, translation into severely low resource languages often does not require a universal translation engine, but a dedicated text-specific translation engine. For example, healthcare records, hygienic procedures, government communication, emergency procedures and religious texts are all limited texts. While generic translation engines for all languages do not exist, translation of multilingually known limited texts into new, endangered languages may be possible and reduce human translation effort. We attempt to leverage translation resources from rich resource languages to efficiently produce best possible translation quality for well known texts, which is available in multiple languages, in a new, severely low resource language. We examine two approaches: 1.) best selection of seed sentences to jump start translations in a new language in view of best generalization to the remainder of a larger targeted text(s), and 2.) we adapt large general multilingual translation engines from many other languages to focus on a specific text in a new, unknown language. We find that adapting large pretrained multilingual models to the domain/text first and then to the severely low resource language works best. If we also select a best set of seed sentences, we can improve average chrF performance on new test languages from a baseline of 21.9 to 50.7, while reducing the number of seed sentences to only ∼1,000 in the new, unknown language.</abstract>
+      <url hash="e1d2c61e">2023.loresmt-1.1</url>
+      <bibkey>zhou-etal-2023-train</bibkey>
+      <video href="2023.loresmt-1.1.mp4"/>
+      <doi>10.18653/v1/2023.loresmt-1.1</doi>
+    </paper>
+    <paper id="2">
+      <title>Multilingual Bidirectional Unsupervised Translation through Multilingual Finetuning and Back-Translation</title>
+      <author><first>Bryan</first><last>Li</last><affiliation>University of Pennsylvania</affiliation></author>
+      <author><first>Mohammad Sadegh</first><last>Rasooli</last><affiliation>Microsoft</affiliation></author>
+      <author><first>Ajay</first><last>Patel</last><affiliation>University of Pennsylvania</affiliation></author>
+      <author><first>Chris</first><last>Callison-burch</last><affiliation>University of Pennsylvania</affiliation></author>
+      <pages>16-31</pages>
+      <abstract>We propose a two-stage approach for training a single NMT model to translate unseen languages both to and from English. For the first stage, we initialize an encoder-decoder model to pretrained XLM-R and RoBERTa weights, then perform multilingual fine-tuning on parallel data in 40 languages to English. We find this model can generalize to zero-shot translations on unseen languages. For the second stage, we leverage this generalization ability to generate synthetic parallel data from monolingual datasets, then bidirectionally train with successive rounds of back-translation. Our approach, which we EcXTra (uE/unglish-uc/uentric Crosslingual (uX/u) uTra/unsfer), is conceptually simple, only using a standard cross-entropy objective throughout. It is also data-driven, sequentially leveraging auxiliary parallel data and monolingual data. We evaluate unsupervised NMT results for 7 low-resource languages, and find that each round of back-translation training further refines bidirectional performance. Our final single EcXTra-trained model achieves competitive translation performance in all translation directions, notably establishing a new state-of-the-art for English-to-Kazakh (22.9 10.4 BLEU). Our code is available at [this URL](<url>https://github.com/manestay/EcXTra</url>).</abstract>
+      <url hash="ba4eed41">2023.loresmt-1.2</url>
+      <bibkey>li-etal-2023-multilingual</bibkey>
+      <video href="2023.loresmt-1.2.mp4"/>
+      <doi>10.18653/v1/2023.loresmt-1.2</doi>
+    </paper>
+    <paper id="3">
+      <title><fixed-case>PEACH</fixed-case>: Pre-Training Sequence-to-Sequence Multilingual Models for Translation with Semi-Supervised Pseudo-Parallel Document Generation</title>
+      <author><first>Alireza</first><last>Salemi</last><affiliation>University of Massachusetts Amherst</affiliation></author>
+      <author><first>Amirhossein</first><last>Abaskohi</last><affiliation>Undergraduate computer engineering student at the University of Tehran</affiliation></author>
+      <author><first>Sara</first><last>Tavakoli</last><affiliation>University of Tehran</affiliation></author>
+      <author><first>Azadeh</first><last>Shakery</last><affiliation>University of Tehran</affiliation></author>
+      <author><first>Yadollah</first><last>Yaghoobzadeh</last><affiliation>University of Tehran</affiliation></author>
+      <pages>32-46</pages>
+      <abstract>Multilingual pre-training significantly improves many multilingual NLP tasks, including machine translation. Most existing methods are based on some variants of masked language modeling and text-denoising objectives on monolingual data. Multilingual pre-training on monolingual data ignores the availability of parallel data in many language pairs. Also, some other works integrate the available human-generated parallel translation data in their pre-training. This kind of parallel data is definitely helpful, but it is limited even in high-resource language pairs. This paper introduces a novel semi-supervised method, SPDG, that generates high-quality pseudo-parallel data for multilingual pre-training. First, a denoising model is pre-trained on monolingual data to reorder, add, remove, and substitute words, enhancing the pre-training documents’ quality. Then, we generate different pseudo-translations for each pre-training document using dictionaries for word-by-word translation and applying the pre-trained denoising model. The resulting pseudo-parallel data is then used to pre-train our multilingual sequence-to-sequence model, PEACH. Our experiments show that PEACH outperforms existing approaches used in training mT5 and mBART on various translation tasks, including supervised, zero- and few-shot scenarios. Moreover, PEACH’s ability to transfer knowledge between similar languages makes it particularly useful for low-resource languages. Our results demonstrate that with high-quality dictionaries for generating accurate pseudo-parallel, PEACH can be valuable for low-resource languages.</abstract>
+      <url hash="8551cd70">2023.loresmt-1.3</url>
+      <bibkey>salemi-etal-2023-peach</bibkey>
+      <video href="2023.loresmt-1.3.mp4"/>
+      <doi>10.18653/v1/2023.loresmt-1.3</doi>
+    </paper>
+    <paper id="4">
+      <title>A Simplified Training Pipeline for Low-Resource and Unsupervised Machine Translation</title>
+      <author><first>Àlex R.</first><last>Atrio</last><affiliation>Heig-vd / Hes-so &amp; Epfl</affiliation></author>
+      <author><first>Alexis</first><last>Allemann</last><affiliation>Heig-vd / Hes-so</affiliation></author>
+      <author><first>Ljiljana</first><last>Dolamic</last><affiliation>armasuisse S&amp;T</affiliation></author>
+      <author><first>Andrei</first><last>Popescu-Belis</last><affiliation>Heig-vd / Hes-so</affiliation></author>
+      <pages>47-58</pages>
+      <url hash="9daf6f42">2023.loresmt-1.4</url>
+      <bibkey>atrio-etal-2023-simplified</bibkey>
+      <abstract>Training neural MT systems for low-resource language pairs or in unsupervised settings (i.e. with no parallel data) often involves a large number of auxiliary systems. These may include parent systems trained on higher-resource pairs and used for initializing the parameters of child systems, multilingual systems for neighboring languages, and several stages of systems trained on pseudo-parallel data obtained through back-translation. We propose here a simplified pipeline, which we compare to the best submissions to the WMT 2021 Shared Task on Unsupervised MT and Very Low Resource Supervised MT. Our pipeline only needs two parents, two children, one round of back-translation for low-resource directions and two for unsupervised ones and obtains better or similar scores when compared to more complex alternatives.</abstract>
+      <video href="2023.loresmt-1.4.mp4"/>
+      <doi>10.18653/v1/2023.loresmt-1.4</doi>
+    </paper>
+    <paper id="5">
+      <title>Language-Family Adapters for Low-Resource Multilingual Neural Machine Translation</title>
+      <author><first>Alexandra</first><last>Chronopoulou</last><affiliation>LMU Munich</affiliation></author>
+      <author><first>Dario</first><last>Stojanovski</last><affiliation>Microsoft</affiliation></author>
+      <author><first>Alexander</first><last>Fraser</last><affiliation>Ludwig-Maximilians-Universität München</affiliation></author>
+      <pages>59-72</pages>
+      <abstract>Large multilingual models trained with self-supervision achieve state-of-the-art results in a wide range of natural language processing tasks. Self-supervised pretrained models are often fine-tuned on parallel data from one or multiple language pairs for machine translation. Multilingual fine-tuning improves performance on low-resource languages but requires modifying the entire model and can be prohibitively expensive. Training a new adapter on each language pair or training a single adapter on all language pairs without updating the pretrained model has been proposed as a parameter-efficient alternative. However, the former does not permit any sharing between languages, while the latter shares parameters for all languages and is susceptible to negative interference. In this paper, we propose training language-family adapters on top of mBART-50 to facilitate cross-lingual transfer. Our approach outperforms related baselines, yielding higher translation scores on average when translating from English to 17 different low-resource languages. We also show that language-family adapters provide an effective method to translate to languages unseen during pretraining.</abstract>
+      <url hash="a847d0f5">2023.loresmt-1.5</url>
+      <bibkey>chronopoulou-etal-2023-language</bibkey>
+      <video href="2023.loresmt-1.5.mp4"/>
+      <doi>10.18653/v1/2023.loresmt-1.5</doi>
+    </paper>
+    <paper id="6">
+      <title>Improving Neural Machine Translation of Indigenous Languages with Multilingual Transfer Learning</title>
+      <author><first>Wei-rui</first><last>Chen</last><affiliation>The University of British Columbia</affiliation></author>
+      <author><first>Muhammad</first><last>Abdul-mageed</last><affiliation>The University of British Columbia</affiliation></author>
+      <pages>73-85</pages>
+      <abstract>Machine translation (MT) involving Indigenous languages, including endangered ones, is challenging primarily due to lack of sufficient parallel data. We describe an approach exploiting bilingual and multilingual pretrained MT models in a transfer learning setting to translate from Spanish into ten South American Indigenous languages. Our models set new SOTA on five out of the ten language pairs we consider, even doubling performance on one of these five pairs. Unlike previous SOTA that perform data augmentation to enlarge the train sets, we retain the low-resource setting to test the effectiveness of our models under such a constraint. In spite of the rarity of linguistic information available about the Indigenous languages, we offer a number of quantitative and qualitative analyses (e.g., as to morphology, tokenization, and orthography) to contextualize our results.</abstract>
+      <url hash="fd9250e5">2023.loresmt-1.6</url>
+      <bibkey>chen-abdul-mageed-2023-improving</bibkey>
+      <video href="2023.loresmt-1.6.mp4"/>
+      <doi>10.18653/v1/2023.loresmt-1.6</doi>
+    </paper>
+    <paper id="7">
+      <title>Investigating Lexical Replacements for <fixed-case>A</fixed-case>rabic-<fixed-case>E</fixed-case>nglish Code-Switched Data Augmentation</title>
+      <author><first>Injy</first><last>Hamed</last><affiliation>Institute for Natural Language Processing, University of Stuttgart</affiliation></author>
+      <author><first>Nizar</first><last>Habash</last><affiliation>New York University Abu Dhabi</affiliation></author>
+      <author><first>Slim</first><last>Abdennadher</last><affiliation>German University in Cairo</affiliation></author>
+      <author><first>Ngoc Thang</first><last>Vu</last><affiliation>University of Stuttgart</affiliation></author>
+      <pages>86-100</pages>
+      <abstract>Data sparsity is a main problem hindering the development of code-switching (CS) NLP systems. In this paper, we investigate data augmentation techniques for synthesizing dialectal Arabic-English CS text. We perform lexical replacements using word-aligned parallel corpora where CS points are either randomly chosen or learnt using a sequence-to-sequence model. We compare these approaches against dictionary-based replacements. We assess the quality of generated sentences through human evaluation and evaluate the effectiveness of data augmentation on machine translation (MT), automatic speech recognition (ASR), and speech translation (ST) tasks. Results show that using a predictive model results in more natural CS sentences compared to the random approach, as reported in human judgements. In the downstream tasks, despite the random approach generating more data, both approaches perform equally (outperforming dictionary-based replacements). Overall, data augmentation achieves 34% improvement in perplexity, 5.2% relative improvement on WER for ASR task, +4.0-5.1 BLEU points on MT task, and +2.1-2.2 BLEU points on ST over a baseline trained on available data without augmentation.</abstract>
+      <url hash="9506552a">2023.loresmt-1.7</url>
+      <bibkey>hamed-etal-2023-investigating</bibkey>
+      <video href="2023.loresmt-1.7.mp4"/>
+      <doi>10.18653/v1/2023.loresmt-1.7</doi>
+    </paper>
+    <paper id="8">
+      <title>Measuring the Impact of Data Augmentation Methods for Extremely Low-Resource <fixed-case>NMT</fixed-case></title>
+      <author><first>Annie</first><last>Lamar</last><affiliation>Stanford University</affiliation></author>
+      <author><first>Zeyneb</first><last>Kaya</last><affiliation>Saratoga High School</affiliation></author>
+      <pages>101-109</pages>
+      <abstract>Data augmentation (DA) is a popular strategy to boost performance on neural machine translation tasks. The impact of data augmentation in low-resource environments, particularly for diverse and scarce languages, is understudied. In this paper, we introduce a simple yet novel metric to measure the impact of several different data augmentation strategies. This metric, which we call Data Augmentation Advantage (DAA), quantifies how many true data pairs a synthetic data pair is worth in a particular experimental context. We demonstrate the utility of this metric by training models for several linguistically-varied datasets using the data augmentation methods of back-translation, SwitchOut, and sentence concatenation. In lower-resource tasks, DAA is an especially valuable metric for comparing DA performance as it provides a more effective way to quantify gains when BLEU scores are especially small and results across diverse languages are more divergent and difficult to assess.</abstract>
+      <url hash="92012423">2023.loresmt-1.8</url>
+      <bibkey>lamar-kaya-2023-measuring</bibkey>
+      <video href="2023.loresmt-1.8.mp4"/>
+      <doi>10.18653/v1/2023.loresmt-1.8</doi>
+    </paper>
+    <paper id="9">
+      <title>Findings from the <fixed-case>B</fixed-case>ambara - <fixed-case>F</fixed-case>rench Machine Translation Competition (<fixed-case>BFMT</fixed-case> 2023)</title>
+      <author><first>Ninoh</first><last>Agostinho Da Silva</last><affiliation>Independent, previously Université Paris-Cité</affiliation></author>
+      <author><first>Tunde Oluwaseyi</first><last>Ajayi</last><affiliation>Insight Centre for Data Analytics, Masakhane</affiliation></author>
+      <author><first>Alexander</first><last>Antonov</last><affiliation>Chuvash Language Laboratory, Yandex</affiliation></author>
+      <author><first>Panga</first><last>Azazia Kamate</last><affiliation>RobotsMali</affiliation></author>
+      <author><first>Moussa</first><last>Coulibaly</last><affiliation>RobotsMali</affiliation></author>
+      <author><first>Mason</first><last>Del Rio</last><affiliation>Orange</affiliation></author>
+      <author><first>Yacouba</first><last>Diarra</last><affiliation>RobotsMali</affiliation></author>
+      <author><first>Sebastian</first><last>Diarra</last><affiliation>RobotsMali</affiliation></author>
+      <author><first>Chris</first><last>Emezue</last><affiliation>Mila Quebec AI Institute, Lanfrica, Masakhane, Technical University of Munich</affiliation></author>
+      <author><first>Joel</first><last>Hamilcaro</last><affiliation>Independent, previously Université Paris-Cité</affiliation></author>
+      <author><first>Christopher M.</first><last>Homan</last><affiliation>Rochester Institute of Technology, USA</affiliation></author>
+      <author><first>Alexander</first><last>Most</last><affiliation>Montana State University,USA</affiliation></author>
+      <author><first>Joseph</first><last>Mwatukange</last><affiliation>Meyabase Platforms</affiliation></author>
+      <author><first>Peter</first><last>Ohue</last><affiliation>University of Ibadan, Nigeria</affiliation></author>
+      <author><first>Michael</first><last>Pham</last><affiliation>Swarthmore</affiliation></author>
+      <author><first>Abdoulaye</first><last>Sako</last><affiliation>RobotsMali</affiliation></author>
+      <author><first>Sokhar</first><last>Samb</last><affiliation>Dakar American University of Science and Technology, Senegal</affiliation></author>
+      <author><first>Yaya</first><last>Sy</last><affiliation>Independent, previously Université Paris-Cité</affiliation></author>
+      <author><first>Tharindu Cyril</first><last>Weerasooriya</last><affiliation>Rochester Institute of Technology, USA</affiliation></author>
+      <author><first>Yacine</first><last>Zahidi</last><affiliation>Orange Silicon Valley</affiliation></author>
+      <author><first>Sarah</first><last>Luger</last><affiliation>Orange Silicon Valley</affiliation></author>
+      <pages>110-122</pages>
+      <abstract>Orange Silicon Valley hosted a low-resource machine translation (MT) competition with monetary prizes. The goals of the competition were to raise awareness of the challenges in the low-resource MT domain, improve MT algorithms and data strategies, and support MT expertise development in the regions where people speak Bambara and other low-resource languages. The participants built Bambara to French and French to Bambara machine translation systems using data provided by the organizers and additional data resources shared amongst the competitors. This paper details each team’s different approaches and motivation for ongoing work in Bambara and the broader low-resource machine translation domain.</abstract>
+      <url hash="bf5522ee">2023.loresmt-1.9</url>
+      <bibkey>agostinho-da-silva-etal-2023-findings</bibkey>
+      <video href="2023.loresmt-1.9.mp4"/>
+      <doi>10.18653/v1/2023.loresmt-1.9</doi>
+    </paper>
+    <paper id="10">
+      <title>Evaluating Sentence Alignment Methods in a Low-Resource Setting: An <fixed-case>E</fixed-case>nglish-<fixed-case>Y</fixed-case>orù<fixed-case>B</fixed-case>á Study Case</title>
+      <author><first>Edoardo</first><last>Signoroni</last><affiliation>NLP Centre, Faculty of Informatics, Masaryk University</affiliation></author>
+      <author><first>Pavel</first><last>Rychlý</last><affiliation>NLP Centre, Faculty of Informatics, Masaryk University</affiliation></author>
+      <pages>123-129</pages>
+      <abstract>Parallel corpora are still crucial to train effective Machine Translation systems. This is even more true for low-resource language pairs, for which Neural Machine Translation has been shown to be less robust to domain mismatch and noise. Due to time and resource constraints, parallel corpora are mostly created with sentence alignment methods which automatically infer alignments. Recent work focused on state-of-the-art pre-trained sentence embeddings-based methods which are available only for a tiny fraction of the world’s languages. In this paper, we evaluate the performance of four widely used algorithms on the low-resource English-Yorùbá language pair against a multidomain benchmark parallel corpus on two experiments involving 1-to-1 alignments with and without reordering. We find that, at least for this language pair, earlier and simpler methods are more suited to the task, all the while not requiring additional data or resources. We also report that the methods we evaluated perform differently across distinct domains, thus indicating that some approach may be better for a specific domain or textual structure.</abstract>
+      <url hash="fccd5197">2023.loresmt-1.10</url>
+      <bibkey>signoroni-rychly-2023-evaluating</bibkey>
+      <video href="2023.loresmt-1.10.mp4"/>
+      <doi>10.18653/v1/2023.loresmt-1.10</doi>
+    </paper>
+  </volume>
+</collection>

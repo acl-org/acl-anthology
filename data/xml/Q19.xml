@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <collection id="Q19">
-  <volume id="1">
+  <volume id="1" type="journal">
     <meta>
       <booktitle>Transactions of the Association for Computational Linguistics, Volume 7</booktitle>
       <editor><last>Lee</last><first>Lillian</first></editor>
@@ -11,6 +11,7 @@
       <address>Cambridge, MA</address>
       <year>2019</year>
       <venue>tacl</venue>
+      <journal-volume>7</journal-volume>
     </meta>
     <frontmatter>
       <bibkey>tacl-2019-transactions</bibkey>
@@ -50,7 +51,7 @@
       <doi>10.1162/tacl_a_00253</doi>
       <abstract>In standard NLP pipelines, morphological analysis and disambiguation (MA&amp;D) precedes syntactic and semantic downstream tasks. However, for languages with complex and ambiguous word-internal structure, known as morphologically rich languages (MRLs), it has been hypothesized that syntactic context may be crucial for accurate MA&amp;D, and vice versa. In this work we empirically confirm this hypothesis for Modern Hebrew, an MRL with complex morphology and severe word-level ambiguity, in a novel transition-based framework. Specifically, we propose a joint morphosyntactic transition-based framework which formally unifies two distinct transition systems, morphological and syntactic, into a single transition-based system with joint training and joint inference. We empirically show that MA&amp;D results obtained in the joint settings outperform MA&amp;D results obtained by the respective standalone components, and that end-to-end parsing results obtained by our joint system present a new state of the art for Hebrew dependency parsing.</abstract>
       <pages>33–48</pages>
-      <video href="https://vimeo.com/384777366"/>
+      <video href="Q19-1003.mp4"/>
       <url hash="f3f27f3a">Q19-1003</url>
       <bibkey>more-etal-2019-joint</bibkey>
     </paper>
@@ -85,7 +86,7 @@
       <doi>10.1162/tacl_a_00256</doi>
       <abstract>Existing approaches to neural machine translation (NMT) generate the target language sequence token-by-token from left to right. However, this kind of unidirectional decoding framework cannot make full use of the target-side future contexts which can be produced in a right-to-left decoding direction, and thus suffers from the issue of unbalanced outputs. In this paper, we introduce a synchronous bidirectional–neural machine translation (SB-NMT) that predicts its outputs using left-to-right and right-to-left decoding simultaneously and interactively, in order to leverage both of the history and future information at the same time. Specifically, we first propose a new algorithm that enables synchronous bidirectional decoding in a single model. Then, we present an interactive decoding model in which left-to-right (right-to-left) generation does not only depend on its previously generated outputs, but also relies on future contexts predicted by right-to-left (left-to-right) decoding. We extensively evaluate the proposed SB-NMT model on large-scale NIST Chinese–English, WMT14 English–German, and WMT18 Russian–English translation tasks. Experimental results demonstrate that our model achieves significant improvements over the strong Transformer model by 3.92, 1.49, and 1.04 BLEU points, respectively, and obtains the state-of-the-art performance on Chinese–English and English–German translation tasks.</abstract>
       <pages>91–105</pages>
-      <video href="https://vimeo.com/385255892"/>
+      <video href="Q19-1006.mp4"/>
       <url hash="14f3e215">Q19-1006</url>
       <bibkey>zhou-etal-2019-synchronous</bibkey>
       <pwccode url="https://github.com/wszlong/sb-nmt" additional="true">wszlong/sb-nmt</pwccode>
@@ -100,7 +101,7 @@
       <doi>10.1162/tacl_a_00257</doi>
       <abstract>We propose a novel geometric approach for learning bilingual mappings given monolingual embeddings and a bilingual dictionary. Our approach decouples the source-to-target language transformation into (a) language-specific rotations on the original embeddings to align them in a common, latent space, and (b) a language-independent similarity metric in this common space to better model the similarity between the embeddings. Overall, we pose the bilingual mapping problem as a classification problem on smooth Riemannian manifolds. Empirically, our approach outperforms previous approaches on the bilingual lexicon induction and cross-lingual word similarity tasks. We next generalize our framework to represent multiple languages in a common latent space. Language-specific rotations for all the languages and a common similarity metric in the latent space are learned jointly from bilingual dictionaries for multiple language pairs. We illustrate the effectiveness of joint learning for multiple languages in an indirect word translation setting.</abstract>
       <pages>107–120</pages>
-      <video href="https://vimeo.com/384494399"/>
+      <video href="Q19-1007.mp4"/>
       <url hash="3daa6ba8">Q19-1007</url>
       <bibkey>jawanpuria-etal-2019-learning</bibkey>
       <pwccode url="https://github.com/anoopkunchukuttan/geomm" additional="true">anoopkunchukuttan/geomm</pwccode>
@@ -152,10 +153,10 @@
       <abstract>When searching for information, a human reader first glances over a document, spots relevant sections, and then focuses on a few sentences for resolving her intention. However, the high variance of document structure complicates the identification of the salient topic of a given section at a glance. To tackle this challenge, we present SECTOR, a model to support machine reading systems by segmenting documents into coherent sections and assigning topic labels to each section. Our deep neural network architecture learns a latent topic embedding over the course of a document. This can be leveraged to classify local topics from plain text and segment a document at topic shifts. In addition, we contribute WikiSection, a publicly available data set with 242k labeled sections in English and German from two distinct domains: diseases and cities. From our extensive evaluation of 20 architectures, we report a highest score of 71.6% F1 for the segmentation and classification of 30 topics from the English city domain, scored by our SECTOR long short-term memory model with Bloom filter embeddings and bidirectional segmentation. This is a significant improvement of 29.5 points F1 over state-of-the-art CNN classifiers with baseline segmentation.</abstract>
       <pages>169–184</pages>
       <url hash="3b77c57d">Q19-1011</url>
-      <video href="https://vimeo.com/384478902"/>
+      <video href="Q19-1011.mp4"/>
       <attachment type="presentation" hash="e0aa7535">Q19-1011.Presentation.pdf</attachment>
       <bibkey>arnold-etal-2019-sector</bibkey>
-      <pwccode url="https://github.com/sebastianarnold/SECTOR" additional="true">sebastianarnold/SECTOR</pwccode>
+      <pwccode url="https://github.com/sebastianarnold/WikiSection" additional="true">sebastianarnold/WikiSection</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/wikisection">WikiSection</pwcdataset>
     </paper>
     <paper id="12">
@@ -185,7 +186,7 @@
       <doi>10.1162/tacl_a_00263</doi>
       <abstract>The performance of text classification has improved tremendously using intelligently engineered neural-based models, especially those injecting categorical metadata as additional information, e.g., using user/product information for sentiment classification. This information has been used to modify parts of the model (e.g., word embeddings, attention mechanisms) such that results can be customized according to the metadata. We observe that current representation methods for categorical metadata, which are devised for human consumption, are not as effective as claimed in popular classification methods, outperformed even by simple concatenation of categorical features in the final layer of the sentence encoder. We conjecture that categorical features are harder to represent for machine use, as available context only indirectly describes the category, and even such context is often scarce (for tail category). To this end, we propose using basis vectors to effectively incorporate categorical metadata on various parts of a neural-based model. This additionally decreases the number of parameters dramatically, especially when the number of categorical features is large. Extensive experiments on various data sets with different properties are performed and show that through our method, we can represent categorical metadata more effectively to customize parts of the model, including unexplored ones, and increase the performance of the model greatly.</abstract>
       <pages>201–215</pages>
-      <video href="https://vimeo.com/384481958"/>
+      <video href="Q19-1013.mp4"/>
       <url hash="043bc2de">Q19-1013</url>
       <bibkey>kim-etal-2019-categorical</bibkey>
       <pwccode url="https://github.com/zizi1532/BasisCustomize" additional="true">zizi1532/BasisCustomize</pwccode>
@@ -200,7 +201,7 @@
       <author><first>Yejin</first><last>Choi</last></author>
       <author><first>Claire</first><last>Cardie</last></author>
       <doi>10.1162/tacl_a_00264</doi>
-      <abstract>We present DREAM, the first dialogue-based multiple-choice reading comprehension data set. Collected from English as a Foreign Language examinations designed by human experts to evaluate the comprehension level of Chinese learners of English, our data set contains 10,197 multiple-choice questions for 6,444 dialogues. In contrast to existing reading comprehension data sets, DREAM is the first to focus on in-depth multi-turn multi-party dialogue understanding. DREAM is likely to present significant challenges for existing reading comprehension systems: 84% of answers are non-extractive, 85% of questions require reasoning beyond a single sentence, and 34% of questions also involve commonsense knowledge. We apply several popular neural reading comprehension models that primarily exploit surface information within the text and find them to, at best, just barely outperform a rule-based approach. We next investigate the effects of incorporating dialogue structure and different kinds of general world knowledge into both rule-based and (neural and non-neural) machine learning-based reading comprehension models. Experimental results on the DREAM data set show the effectiveness of dialogue structure and general world knowledge. DREAM is available at https://dataset.org/dream/.</abstract>
+      <abstract>We present DREAM, the first dialogue-based multiple-choice reading comprehension data set. Collected from English as a Foreign Language examinations designed by human experts to evaluate the comprehension level of Chinese learners of English, our data set contains 10,197 multiple-choice questions for 6,444 dialogues. In contrast to existing reading comprehension data sets, DREAM is the first to focus on in-depth multi-turn multi-party dialogue understanding. DREAM is likely to present significant challenges for existing reading comprehension systems: 84% of answers are non-extractive, 85% of questions require reasoning beyond a single sentence, and 34% of questions also involve commonsense knowledge. We apply several popular neural reading comprehension models that primarily exploit surface information within the text and find them to, at best, just barely outperform a rule-based approach. We next investigate the effects of incorporating dialogue structure and different kinds of general world knowledge into both rule-based and (neural and non-neural) machine learning-based reading comprehension models. Experimental results on the DREAM data set show the effectiveness of dialogue structure and general world knowledge. DREAM is available at <url>https://dataset.org/dream/</url>.</abstract>
       <pages>217–231</pages>
       <url hash="aee4406b">Q19-1014</url>
       <bibkey>sun-etal-2019-dream</bibkey>
@@ -217,7 +218,7 @@
       <doi>10.1162/tacl_a_00265</doi>
       <abstract>In many machine learning scenarios, supervision by gold labels is not available and conse quently neural models cannot be trained directly by maximum likelihood estimation. In a weak supervision scenario, metric-augmented objectives can be employed to assign feedback to model outputs, which can be used to extract a supervision signal for training. We present several objectives for two separate weakly supervised tasks, machine translation and semantic parsing. We show that objectives should actively discourage negative outputs in addition to promoting a surrogate gold structure. This notion of bipolarity is naturally present in ramp loss objectives, which we adapt to neural models. We show that bipolar ramp loss objectives outperform other non-bipolar ramp loss objectives and minimum risk training on both weakly supervised tasks, as well as on a supervised machine translation task. Additionally, we introduce a novel token-level ramp loss objective, which is able to outperform even the best sequence-level ramp loss on both weakly supervised tasks.</abstract>
       <pages>233–248</pages>
-      <video href="https://vimeo.com/383999550"/>
+      <video href="Q19-1015.mp4"/>
       <url hash="547d2fed">Q19-1015</url>
       <bibkey>jehl-etal-2019-learning</bibkey>
       <pwccode url="https://github.com/carhaas/nematus" additional="false">carhaas/nematus</pwccode>
@@ -229,7 +230,7 @@
       <author><first>Danqi</first><last>Chen</last></author>
       <author><first>Christopher D.</first><last>Manning</last></author>
       <doi>10.1162/tacl_a_00266</doi>
-      <abstract>Humans gather information through conversations involving a series of interconnected questions and answers. For machines to assist in information gathering, it is therefore essential to enable them to answer conversational questions. We introduce CoQA, a novel dataset for building Conversational Question Answering systems. Our dataset contains 127k questions with answers, obtained from 8k conversations about text passages from seven diverse domains. The questions are conversational, and the answers are free-form text with their corresponding evidence highlighted in the passage. We analyze CoQA in depth and show that conversational questions have challenging phenomena not present in existing reading comprehension datasets (e.g., coreference and pragmatic reasoning). We evaluate strong dialogue and reading comprehension models on CoQA. The best system obtains an F1 score of 65.4%, which is 23.4 points behind human performance (88.8%), indicating that there is ample room for improvement. We present CoQA as a challenge to the community at https://stanfordnlp.github.io/coqa.</abstract>
+      <abstract>Humans gather information through conversations involving a series of interconnected questions and answers. For machines to assist in information gathering, it is therefore essential to enable them to answer conversational questions. We introduce CoQA, a novel dataset for building Conversational Question Answering systems. Our dataset contains 127k questions with answers, obtained from 8k conversations about text passages from seven diverse domains. The questions are conversational, and the answers are free-form text with their corresponding evidence highlighted in the passage. We analyze CoQA in depth and show that conversational questions have challenging phenomena not present in existing reading comprehension datasets (e.g., coreference and pragmatic reasoning). We evaluate strong dialogue and reading comprehension models on CoQA. The best system obtains an F1 score of 65.4%, which is 23.4 points behind human performance (88.8%), indicating that there is ample room for improvement. We present CoQA as a challenge to the community at <url>https://stanfordnlp.github.io/coqa</url>.</abstract>
       <pages>249–266</pages>
       <url hash="7976ceb5">Q19-1016</url>
       <bibkey>reddy-etal-2019-coqa</bibkey>
@@ -238,7 +239,6 @@
       <pwcdataset url="https://paperswithcode.com/dataset/mctest">MCTest</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/ms-marco">MS MARCO</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/narrativeqa">NarrativeQA</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/squad">SQuAD</pwcdataset>
     </paper>
     <paper id="17">
       <title>What You Say and How You Say it: Joint Modeling of Topics and Discourse in Microblog Conversations</title>
@@ -249,9 +249,9 @@
       <author><first>Michael R.</first><last>Lyu</last></author>
       <author><first>Irwin</first><last>King</last></author>
       <doi>10.1162/tacl_a_00267</doi>
-      <abstract>This paper presents an unsupervised framework for jointly modeling topic content and discourse behavior in microblog conversations. Concretely, we propose a neural model to discover word clusters indicating what a conversation concerns (i.e., topics) and those reflecting how participants voice their opinions (i.e., discourse).1 Extensive experiments show that our model can yield both coherent topics and meaningful discourse behavior. Further study shows that our topic and discourse representations can benefit the classification of microblog messages, especially when they are jointly trained with the classifier.Our data sets and code are available at: http://github.com/zengjichuan/Topic_Disc.</abstract>
+      <abstract>This paper presents an unsupervised framework for jointly modeling topic content and discourse behavior in microblog conversations. Concretely, we propose a neural model to discover word clusters indicating what a conversation concerns (i.e., topics) and those reflecting how participants voice their opinions (i.e., discourse).1 Extensive experiments show that our model can yield both coherent topics and meaningful discourse behavior. Further study shows that our topic and discourse representations can benefit the classification of microblog messages, especially when they are jointly trained with the classifier. Our data sets and code are available at: <url>http://github.com/zengjichuan/Topic_Disc</url>.</abstract>
       <pages>267–281</pages>
-      <video href="https://vimeo.com/385265124"/>
+      <video href="Q19-1017.mp4"/>
       <url hash="16d506c0">Q19-1017</url>
       <bibkey>zeng-etal-2019-say</bibkey>
       <pwccode url="https://github.com/zengjichuan/Topic_Disc" additional="false">zengjichuan/Topic_Disc</pwccode>
@@ -275,7 +275,7 @@
       <doi>10.1162/tacl_a_00269</doi>
       <abstract>We focus on graph-to-sequence learning, which can be framed as transducing graph structures to sequences for text generation. To capture structural information associated with graphs, we investigate the problem of encoding graphs using graph convolutional networks (GCNs). Unlike various existing approaches where shallow architectures were used for capturing local structural information only, we introduce a dense connection strategy, proposing a novel Densely Connected Graph Convolutional Network (DCGCN). Such a deep architecture is able to integrate both local and non-local features to learn a better structural representation of a graph. Our model outperforms the state-of-the-art neural models significantly on AMR-to-text generation and syntax-based neural machine translation.</abstract>
       <pages>297–312</pages>
-      <video href="https://vimeo.com/385210377"/>
+      <video href="Q19-1019.mp4"/>
       <url hash="955cb0e7">Q19-1019</url>
       <bibkey>guo-etal-2019-densely</bibkey>
       <pwccode url="https://github.com/Cartus/DCGCN" additional="false">Cartus/DCGCN</pwccode>
@@ -289,7 +289,7 @@
       <doi>10.1162/tacl_a_00270</doi>
       <abstract>Speech translation has traditionally been approached through cascaded models consisting of a speech recognizer trained on a corpus of transcribed speech, and a machine translation system trained on parallel texts. Several recent works have shown the feasibility of collapsing the cascade into a single, direct model that can be trained in an end-to-end fashion on a corpus of translated speech. However, experiments are inconclusive on whether the cascade or the direct model is stronger, and have only been conducted under the unrealistic assumption that both are trained on equal amounts of data, ignoring other available speech recognition and machine translation corpora. In this paper, we demonstrate that direct speech translation models require more data to perform well than cascaded models, and although they allow including auxiliary data through multi-task training, they are poor at exploiting such data, putting them at a severe disadvantage. As a remedy, we propose the use of end- to-end trainable models with two attention mechanisms, the first establishing source speech to source text alignments, the second modeling source to target text alignment. We show that such models naturally decompose into multi-task–trainable recognition and translation tasks and propose an attention-passing technique that alleviates error propagation issues in a previous formulation of a model with two attention stages. Our proposed model outperforms all examined baselines and is able to exploit auxiliary training data much more effectively than direct attentional models.</abstract>
       <pages>313–325</pages>
-      <video href="https://vimeo.com/385434616"/>
+      <video href="Q19-1020.mp4"/>
       <url hash="544cee88">Q19-1020</url>
       <bibkey>sperber-etal-2019-attention</bibkey>
     </paper>
@@ -312,7 +312,7 @@
       <doi>10.1162/tacl_a_00272</doi>
       <abstract>In this paper we focus on learning dependency aware representations for semantic role labeling without recourse to an external parser. The backbone of our model is an LSTM-based semantic role labeler jointly trained with two auxiliary tasks: predicting the dependency label of a word and whether there exists an arc linking it to the predicate. The auxiliary tasks provide syntactic information that is specific to semantic role labeling and are learned from training data (dependency annotations) without relying on existing dependency parsers, which can be noisy (e.g., on out-of-domain data or infrequent constructions). Experimental results on the CoNLL-2009 benchmark dataset show that our model outperforms the state of the art in English, and consistently improves performance in other languages, including Chinese, German, and Spanish.</abstract>
       <pages>343–356</pages>
-      <video href="https://vimeo.com/384772555"/>
+      <video href="Q19-1022.mp4"/>
       <url hash="c8f6bcf4">Q19-1022</url>
       <bibkey>cai-lapata-2019-syntax</bibkey>
       <pwccode url="https://github.com/RuiCaiNLP/SRL_DEP" additional="false">RuiCaiNLP/SRL_DEP</pwccode>
@@ -336,7 +336,7 @@
       <doi>10.1162/tacl_a_00274</doi>
       <abstract>Neural end-to-end goal-oriented dialog systems showed promise to reduce the workload of human agents for customer service, as well as reduce wait time for users. However, their inability to handle new user behavior at deployment has limited their usage in real world. In this work, we propose an end-to-end trainable method for neural goal-oriented dialog systems that handles new user behaviors at deployment by transferring the dialog to a human agent intelligently. The proposed method has three goals: 1) maximize user’s task success by transferring to human agents, 2) minimize the load on the human agents by transferring to them only when it is essential, and 3) learn online from the human agent’s responses to reduce human agents’ load further. We evaluate our proposed method on a modified-bAbI dialog task, which simulates the scenario of new user behaviors occurring at test time. Experimental results show that our proposed method is effective in achieving the desired goals.</abstract>
       <pages>375–386</pages>
-      <video href="https://vimeo.com/384015139"/>
+      <video href="Q19-1024.mp4"/>
       <url hash="54676f9c">Q19-1024</url>
       <bibkey>rajendran-etal-2019-learning</bibkey>
       <pwccode url="https://github.com/IBM/modified-bAbI-dialog-tasks" additional="false">IBM/modified-bAbI-dialog-tasks</pwccode>
@@ -367,6 +367,7 @@
       <url hash="277aafcb">Q19-1027</url>
       <bibkey>shwartz-dagan-2019-still</bibkey>
       <pwccode url="https://github.com/vered1986/lexcomp" additional="false">vered1986/lexcomp</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/steusle">STREUSLE</pwcdataset>
     </paper>
     <paper id="28">
       <title>Multiattentive Recurrent Neural Network Architecture for Multilingual Readability Assessment</title>
@@ -388,7 +389,7 @@
       <doi>10.1162/tacl_a_00275</doi>
       <abstract>Composition models of distributional semantics are used to construct phrase representations from the representations of their words. Composition models are typically situated on two ends of a spectrum. They either have a small number of parameters but compose all phrases in the same way, or they perform word-specific compositions at the cost of a far larger number of parameters. In this paper we propose transformation weighting (TransWeight), a composition model that consistently outperforms existing models on nominal compounds, adjective-noun phrases, and adverb-adjective phrases in English, German, and Dutch. TransWeight drastically reduces the number of parameters needed compared with the best model in the literature by composing similar words in the same way.</abstract>
       <pages>437–451</pages>
-      <video href="https://vimeo.com/384772326"/>
+      <video href="Q19-1025.mp4"/>
       <url hash="f819b871">Q19-1025</url>
       <bibkey>dima-etal-2019-word</bibkey>
     </paper>
@@ -415,7 +416,7 @@
       <doi>10.1162/tacl_a_00276</doi>
       <abstract>We present the Natural Questions corpus, a question answering data set. Questions consist of real anonymized, aggregated queries issued to the Google search engine. An annotator is presented with a question along with a Wikipedia page from the top 5 search results, and annotates a long answer (typically a paragraph) and a short answer (one or more entities) if present on the page, or marks null if no long/short answer is present. The public release consists of 307,373 training examples with single annotations; 7,830 examples with 5-way annotations for development data; and a further 7,842 examples with 5-way annotated sequestered as test data. We present experiments validating quality of the data. We also describe analysis of 25-way annotations on 302 examples, giving insights into human variability on the annotation task. We introduce robust metrics for the purposes of evaluating question answering systems; demonstrate high human upper bounds on these metrics; and establish baseline results using competitive methods drawn from related literature.</abstract>
       <pages>452–466</pages>
-      <video href="https://vimeo.com/385198433"/>
+      <video href="Q19-1026.mp4"/>
       <url hash="b99b51da">Q19-1026</url>
       <bibkey>kwiatkowski-etal-2019-natural</bibkey>
       <pwcdataset url="https://paperswithcode.com/dataset/natural-questions">Natural Questions</pwcdataset>
@@ -424,7 +425,6 @@
       <pwcdataset url="https://paperswithcode.com/dataset/ms-marco">MS MARCO</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/narrativeqa">NarrativeQA</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/quac">QuAC</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/squad">SQuAD</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/triviaqa">TriviaQA</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/wikiqa">WikiQA</pwcdataset>
     </paper>
@@ -503,7 +503,7 @@
       <author><first>Erenay</first><last>Dayanık</last></author>
       <author><first>Deniz</first><last>Yuret</last></author>
       <doi>10.1162/tacl_a_00286</doi>
-      <abstract>We introduce Morse, a recurrent encoder-decoder model that produces morphological analyses of each word in a sentence. The encoder turns the relevant information about the word and its context into a fixed size vector representation and the decoder generates the sequence of characters for the lemma followed by a sequence of individual morphological features. We show that generating morphological features individually rather than as a combined tag allows the model to handle rare or unseen tags and to outperform whole-tag models. In addition, generating morphological features as a sequence rather than, for example, an unordered set allows our model to produce an arbitrary number of features that represent multiple inflectional groups in morphologically complex languages. We obtain state-of-the-art results in nine languages of different morphological complexity under low-resource, high-resource, and transfer learning settings. We also introduce TrMor2018, a new high-accuracy Turkish morphology data set. Our Morse implementation and the TrMor2018 data set are available online to support future research.1See https://github.com/ai-ku/Morse.jl for a Morse implementation in Julia/Knet (Yuret, 2016) and https://github.com/ai-ku/TrMor2018 for the new Turkish data set.</abstract>
+      <abstract>We introduce Morse, a recurrent encoder-decoder model that produces morphological analyses of each word in a sentence. The encoder turns the relevant information about the word and its context into a fixed size vector representation and the decoder generates the sequence of characters for the lemma followed by a sequence of individual morphological features. We show that generating morphological features individually rather than as a combined tag allows the model to handle rare or unseen tags and to outperform whole-tag models. In addition, generating morphological features as a sequence rather than, for example, an unordered set allows our model to produce an arbitrary number of features that represent multiple inflectional groups in morphologically complex languages. We obtain state-of-the-art results in nine languages of different morphological complexity under low-resource, high-resource, and transfer learning settings. We also introduce TrMor2018, a new high-accuracy Turkish morphology data set. Our Morse implementation and the TrMor2018 data set are available online to support future research.1See <url>https://github.com/ai-ku/Morse.jl</url> for a Morse implementation in Julia/Knet (Yuret, 2016) and <url>https://github.com/ai-ku/TrMor2018</url> for the new Turkish data set.</abstract>
       <pages>567–579</pages>
       <url hash="66999caa">Q19-1036</url>
       <bibkey>akyurek-etal-2019-morphological</bibkey>
@@ -529,7 +529,7 @@
       <author><first>Mikel</first><last>Artetxe</last></author>
       <author><first>Holger</first><last>Schwenk</last></author>
       <doi>10.1162/tacl_a_00288</doi>
-      <abstract>We introduce an architecture to learn joint multilingual sentence representations for 93 languages, belonging to more than 30 different families and written in 28 different scripts. Our system uses a single BiLSTM encoder with a shared byte-pair encoding vocabulary for all languages, which is coupled with an auxiliary decoder and trained on publicly available parallel corpora. This enables us to learn a classifier on top of the resulting embeddings using English annotated data only, and transfer it to any of the 93 languages without any modification. Our experiments in cross-lingual natural language inference (XNLI data set), cross-lingual document classification (MLDoc data set), and parallel corpus mining (BUCC data set) show the effectiveness of our approach. We also introduce a new test set of aligned sentences in 112 languages, and show that our sentence embeddings obtain strong results in multilingual similarity search even for low- resource languages. Our implementation, the pre-trained encoder, and the multilingual test set are available at https://github.com/facebookresearch/LASER.</abstract>
+      <abstract>We introduce an architecture to learn joint multilingual sentence representations for 93 languages, belonging to more than 30 different families and written in 28 different scripts. Our system uses a single BiLSTM encoder with a shared byte-pair encoding vocabulary for all languages, which is coupled with an auxiliary decoder and trained on publicly available parallel corpora. This enables us to learn a classifier on top of the resulting embeddings using English annotated data only, and transfer it to any of the 93 languages without any modification. Our experiments in cross-lingual natural language inference (XNLI data set), cross-lingual document classification (MLDoc data set), and parallel corpus mining (BUCC data set) show the effectiveness of our approach. We also introduce a new test set of aligned sentences in 112 languages, and show that our sentence embeddings obtain strong results in multilingual similarity search even for low- resource languages. Our implementation, the pre-trained encoder, and the multilingual test set are available at <url>https://github.com/facebookresearch/LASER</url>.</abstract>
       <pages>597–610</pages>
       <url hash="24399fd7">Q19-1038</url>
       <bibkey>artetxe-schwenk-2019-massively</bibkey>
@@ -587,7 +587,7 @@
       <pages>661–676</pages>
       <url hash="40d0dd15">Q19-1042</url>
       <bibkey>gu-etal-2019-insertion</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/coco">COCO</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/coco">MS COCO</pwcdataset>
     </paper>
     <paper id="43">
       <title>Inherent Disagreements in Human Textual Inferences</title>

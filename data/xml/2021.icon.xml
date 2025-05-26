@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <collection id="2021.icon">
-  <volume id="main" ingest-date="2022-09-06">
+  <volume id="main" ingest-date="2022-09-06" type="proceedings">
     <meta>
       <booktitle>Proceedings of the 18th International Conference on Natural Language Processing (ICON)</booktitle>
       <editor><first>Sivaji</first><last>Bandyopadhyay</last></editor>
@@ -118,7 +118,7 @@
       <abstract>In recent times, machine translation models can learn to perform implicit bridging between language pairs never seen explicitly during training and showing that transfer learning helps for languages with constrained resources. This work investigates the low resource machine translation via transfer learning from multilingual pre-trained models i.e. mBART-50 and mT5-base in the pretext of Indo-Aryan (Assamese and Bengali) and Tibeto-Burman (Manipuri) languages via finetuning as a downstream task. Assamese and Manipuri were absent in the pretraining of both mBART-50 and the mT5 models. However, the experimental results attest that the finetuning from these pre-trained models surpasses the multilingual model trained from scratch.</abstract>
       <url hash="ae020c47">2021.icon-main.9</url>
       <bibkey>singh-etal-2021-transferability</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/flores-101">FLORES-101</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/flores-101">FLoRes-101</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/pmindia">PMIndia</pwcdataset>
     </paper>
     <paper id="10">
@@ -244,7 +244,7 @@
       <abstract>Text Style Transfer (TST) aims to alter the underlying style of the source text to another specific style while keeping the same content. Due to the scarcity of high-quality parallel training data, unsupervised learning has become a trending direction for TST tasks. In this paper, we propose a novel VAE based Text Style Transfer with pivOt Words Enhancement leaRning (VT-STOWER) method which utilizes Variational AutoEncoder (VAE) and external style embeddings to learn semantics and style distribution jointly. Additionally, we introduce pivot words learning, which is applied to learn decisive words for a specific style and thereby further improve the overall performance of the style transfer. The proposed VT-STOWER can be scaled to different TST scenarios given very limited and non-parallel training data with a novel and flexible style strength control mechanism. Experiments demonstrate that the VT-STOWER outperforms the state-of-the-art on sentiment, formality, and code-switching TST tasks.</abstract>
       <url hash="6d4feb0e">2021.icon-main.20</url>
       <bibkey>xu-etal-2021-vae</bibkey>
-      <pwccode url="https://github.com/fe1ixxu/vt-stower" additional="false">fe1ixxu/vt-stower</pwccode>
+      <pwccode url="https://github.com/fe1ixxu/vt-stower" additional="true">fe1ixxu/vt-stower</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/gyafc">GYAFC</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/lince">LinCE</pwcdataset>
     </paper>
@@ -320,7 +320,7 @@
       <url hash="b308199a">2021.icon-main.27</url>
       <attachment type="OptionalSupplementaryMaterial" hash="9206305c">2021.icon-main.27.OptionalSupplementaryMaterial.pdf</attachment>
       <bibkey>robbins-etal-2021-towards</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/coco">COCO</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/coco">MS COCO</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/textcaps">TextCaps</pwcdataset>
     </paper>
     <paper id="28">
@@ -332,7 +332,7 @@
       <url hash="9742f99f">2021.icon-main.28</url>
       <bibkey>das-singh-2021-image</bibkey>
       <pwcdataset url="https://paperswithcode.com/dataset/banglalekhaimagecaptions">BanglaLekhaImageCaptions</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/coco">COCO</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/coco">MS COCO</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/visual-genome">Visual Genome</pwcdataset>
     </paper>
     <paper id="29">
@@ -369,6 +369,7 @@
       <abstract>Social media platforms like Facebook, Twitter, and Instagram have a significant impact on several aspects of society. Memes are a new type of social media communication found on social platforms. Even though memes are primarily used to distribute humorous content, certain memes propagate hate speech through dark humor. It is critical to properly analyze and filter out these toxic memes from social media. But the presence of sarcasm and humor in an implicit way analyzes memes more challenging. This paper proposes an end-to-end neural network architecture that learns the complex association between text and image of a meme. For this purpose, we use a recent SemEval-2020 Task-8 multimodal dataset. We proposed an end-to-end CNN-based deep neural network architecture with two sub-modules viz. (i)Co-attention based sub-module and (ii) Multimodal Factorized Bilinear Pooling(MFB) sub-module to represent the textual and visual features of a meme in a more fine-grained way. We demonstrated the effectiveness of our proposed work through extensive experiments. The experimental results show that our proposed model achieves a 36.81% macro F1-score, outperforming all the baseline models.</abstract>
       <url hash="ac5e0f11">2021.icon-main.31</url>
       <bibkey>kumari-etal-2021-co</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/memotion-analysis">SemEval-2020 Task-8</pwcdataset>
     </paper>
     <paper id="32">
       <title>How effective is incongruity? Implications for code-mixed sarcasm detection</title>
@@ -739,7 +740,7 @@
       <author><first>Bhavik</first><last>Ardeshna</last></author>
       <author><first>Brijesh</first><last>Bhatt</last></author>
       <pages>544–549</pages>
-      <abstract>Transformer based architectures have shown notable results on many down streaming tasks including question answering. The availability of data, on the other hand, impedes obtaining legitimate performance for low-resource languages. In this paper, we investigate the applicability of pre-trained multilingual models to improve the performance of question answering in low-resource languages. We tested four combinations of language and task adapters using multilingual transformer architectures on seven languages similar to MLQA dataset. Additionally, we have also proposed zero-shot transfer learning of low-resource question answering using language and task adapters. We observed that stacking the language and the task adapters improves the multilingual transformer models’ performance significantly for low-resource languages. Our code and trained models are available at: https://github.com/CALEDIPQALL/</abstract>
+      <abstract>Transformer based architectures have shown notable results on many down streaming tasks including question answering. The availability of data, on the other hand, impedes obtaining legitimate performance for low-resource languages. In this paper, we investigate the applicability of pre-trained multilingual models to improve the performance of question answering in low-resource languages. We tested four combinations of language and task adapters using multilingual transformer architectures on seven languages similar to MLQA dataset. Additionally, we have also proposed zero-shot transfer learning of low-resource question answering using language and task adapters. We observed that stacking the language and the task adapters improves the multilingual transformer models’ performance significantly for low-resource languages. Our code and trained models are available at: <url>https://github.com/CALEDIPQALL/</url></abstract>
       <url hash="085cbdfe">2021.icon-main.66</url>
       <attachment type="OptionalSupplementaryMaterial" hash="e4af0acd">2021.icon-main.66.OptionalSupplementaryMaterial.pdf</attachment>
       <bibkey>pandya-etal-2021-cascading</bibkey>
@@ -781,7 +782,7 @@
       <author><first>Mahesh</first><last>Gorijala</last></author>
       <author><first>Aniruddha</first><last>Bala</last></author>
       <author><first>Pinaki</first><last>Bhaskar</last></author>
-      <author><first>Krishnaditya</first><last>.</last></author>
+      <author><first/><last>Krishnaditya</last></author>
       <author><first>Vikram</first><last>Mupparthi</last></author>
       <pages>573–582</pages>
       <abstract>Mobile devices, with their rapidly growing usage, have turned into rich sources of user information, holding critical insights for betterment of user experience and personalization. Creating, receiving and storing important information in the form of unstructured text has become a part and parcel of daily routine of users. From purchase deliveries in Short Message Service (SMS) or Notifications, to event booking details in Calendar applications, mobile devices serve as a portal for understanding user interests, behaviours and activities through information extraction. In this paper, we address the challenge of on-device extraction of user information from unstructured data in natural language from heterogeneous sources like messages, notification, calendar etc. The issue of privacy concern is effectively eliminated by the on-device nature of the proposed solution. Our proposed solution consists of 3 components – A Na ̈ıve-Bayes based classifier for domain identification, a Dual Character andWord based Bidirectional Long Short Term Memory (Bi-LSTM) and Conditional Random Field (CRF) model for attribute extraction and a rule-based Entity Linker. Our solution achieved a 93.29% F1 score on five domains (shopping, travel, event, service and personal). Since on-device deployment has memory and latency constraints, we ensure minimal model size and optimal inference latency. To demonstrate the efficacy of our approach, we have experimented on CoNLL- 2003 dataset and achieved comparable performance to existing benchmark results.</abstract>
@@ -884,7 +885,7 @@
       <bibkey>biswas-2021-bypassing</bibkey>
     </paper>
     <paper id="80">
-      <title>Design and Development of Spoken Dialogue System in Indic Languages</title>
+      <title>Design and Development of Spoken Dialogue System in <fixed-case>I</fixed-case>ndic Languages</title>
       <author><first>Shrikant</first><last>Malviya</last></author>
       <pages>654–657</pages>
       <abstract>Based on the modular architecture of a task-oriented Spoken Dialogue System (SDS), the presented work focussed on constructing all the system components as statistical models with parameters learned directly from the data by resolving various language-specific and language-independent challenges. In order to understand the research questions that underlie the SLU and DST module in the perspective of Indic languages (Hindi), we collect a dialogue corpus: Hindi Dialogue Restaurant Search (HDRS) corpus and compare various state-of-the-art SLU and DST models on it. For the dialogue manager (DM), we investigate the deep-learning reinforcement learning (RL) methods, e.g. actor-critic algorithms with experience replay. Next, for the dialogue generation, we incorporated Recurrent Neural Network Language Generation (RNNLG) framework based models. For speech synthesisers as a last component in the dialogue pipeline, we not only train several TTS systems but also propose a quality assessment framework to evaluate them.</abstract>
@@ -938,11 +939,11 @@
       <url hash="5153e5f2">2021.icon-main.84</url>
       <bibkey>jha-etal-2021-image2tweet</bibkey>
       <pwccode url="https://github.com/git-rishabh-jha/image2tweet" additional="false">git-rishabh-jha/image2tweet</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/coco">COCO</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/flickr30k">Flickr30k</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/coco">MS COCO</pwcdataset>
     </paper>
   </volume>
-  <volume id="multigen" ingest-date="2022-09-21">
+  <volume id="multigen" ingest-date="2022-09-21" type="proceedings">
     <meta>
       <booktitle>Proceedings of the 18th International Conference on Natural Language Processing: Shared Task on Multilingual Gender Biased and Communal Language Identification</booktitle>
       <editor><first>Ritesh</first><last>Kumar</last></editor>
@@ -1096,8 +1097,10 @@
     </paper>
   </volume>
   <event id="icon-2021">
-    <colocated>2021.nlp4dh-1</colocated>
-    <colocated>2021.smp-1</colocated>
-    <colocated>2021.pail-1</colocated>
+    <colocated>
+      <volume-id>2021.nlp4dh-1</volume-id>
+      <volume-id>2021.smp-1</volume-id>
+      <volume-id>2021.pail-1</volume-id>
+    </colocated>
   </event>
 </collection>

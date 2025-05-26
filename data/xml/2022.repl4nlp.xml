@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <collection id="2022.repl4nlp">
-  <volume id="1" ingest-date="2022-05-15">
+  <volume id="1" ingest-date="2022-05-15" type="proceedings">
     <meta>
       <booktitle>Proceedings of the 7th Workshop on Representation Learning for NLP</booktitle>
       <editor><first>Spandana</first><last>Gella</last></editor>
@@ -35,7 +35,7 @@
       <author><first>Alexandra</first><last>Birch</last></author>
       <author><first>Rico</first><last>Sennrich</last></author>
       <pages>1-8</pages>
-      <abstract>Neural machine learning models can successfully model language that is similar to their training distribution, but they are highly susceptible to degradation under distribution shift, which occurs in many practical applications when processing out-of-domain (OOD) text. This has been attributed to “shortcut learning”":" relying on weak correlations over arbitrary large contexts. We propose a method based on OOD detection with Random Network Distillation to allow an autoregressive language model to automatically disregard OOD context during inference, smoothly transitioning towards a less expressive but more robust model as the data becomes more OOD, while retaining its full context capability when operating in-distribution. We apply our method to a GRU architecture, demonstrating improvements on multiple language modeling (LM) datasets.</abstract>
+      <abstract>Neural machine learning models can successfully model language that is similar to their training distribution, but they are highly susceptible to degradation under distribution shift, which occurs in many practical applications when processing out-of-domain (OOD) text. This has been attributed to “shortcut learning””:" relying on weak correlations over arbitrary large contexts. We propose a method based on OOD detection with Random Network Distillation to allow an autoregressive language model to automatically disregard OOD context during inference, smoothly transitioning towards a less expressive but more robust model as the data becomes more OOD, while retaining its full context capability when operating in-distribution. We apply our method to a GRU architecture, demonstrating improvements on multiple language modeling (LM) datasets.</abstract>
       <url hash="12206eb8">2022.repl4nlp-1.1</url>
       <bibkey>valerio-miceli-barone-etal-2022-distributionally</bibkey>
       <doi>10.18653/v1/2022.repl4nlp-1.1</doi>
@@ -63,7 +63,7 @@
       <author><first>Tim</first><last>Van De Cruys</last></author>
       <author><first>Rufin</first><last>Vanrullen</last></author>
       <pages>29-38</pages>
-      <abstract>CLIP, a vision-language network trained with a multimodal contrastive learning objective on a large dataset of images and captions, has demonstrated impressive zero-shot ability in various tasks. However, recent work showed that in comparison to unimodal (visual) networks, CLIP’s multimodal training does not benefit generalization (e.g. few-shot or transfer learning) for standard visual classification tasks such as object, street numbers or animal recognition. Here, we hypothesize that CLIP’s improved unimodal generalization abilities may be most prominent in domains that involve human-centric concepts (cultural, social, aesthetic, affective...); this is because CLIP’s training dataset is mainly composed of image annotations made by humans for other humans. To evaluate this, we use 3 tasks that require judging human-centric concepts”:" sentiment analysis on tweets, genre classification on books or movies. We introduce and publicly release a new multimodal dataset for movie genre classification. We compare CLIP’s visual stream against two visually trained networks and CLIP’s textual stream against two linguistically trained networks, as well as multimodal combinations of these networks. We show that CLIP generally outperforms other networks, whether using one or two modalities. We conclude that CLIP’s multimodal training is beneficial for both unimodal and multimodal tasks that require classification of human-centric concepts.</abstract>
+      <abstract>CLIP, a vision-language network trained with a multimodal contrastive learning objective on a large dataset of images and captions, has demonstrated impressive zero-shot ability in various tasks. However, recent work showed that in comparison to unimodal (visual) networks, CLIP’s multimodal training does not benefit generalization (e.g. few-shot or transfer learning) for standard visual classification tasks such as object, street numbers or animal recognition. Here, we hypothesize that CLIP’s improved unimodal generalization abilities may be most prominent in domains that involve human-centric concepts (cultural, social, aesthetic, affective...); this is because CLIP’s training dataset is mainly composed of image annotations made by humans for other humans. To evaluate this, we use 3 tasks that require judging human-centric concepts”:” sentiment analysis on tweets, genre classification on books or movies. We introduce and publicly release a new multimodal dataset for movie genre classification. We compare CLIP’s visual stream against two visually trained networks and CLIP’s textual stream against two linguistically trained networks, as well as multimodal combinations of these networks. We show that CLIP generally outperforms other networks, whether using one or two modalities. We conclude that CLIP’s multimodal training is beneficial for both unimodal and multimodal tasks that require classification of human-centric concepts.</abstract>
       <url hash="7452646f">2022.repl4nlp-1.4</url>
       <bibkey>bielawski-etal-2022-clip</bibkey>
       <doi>10.18653/v1/2022.repl4nlp-1.4</doi>
@@ -98,12 +98,12 @@
       <doi>10.18653/v1/2022.repl4nlp-1.6</doi>
       <video href="2022.repl4nlp-1.6.mp4"/>
       <pwccode url="https://github.com/dfki-nlp/fewie" additional="false">dfki-nlp/fewie</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/conll-2003">CoNLL-2003</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/conll-2003">CoNLL 2003</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/few-nerd">Few-NERD</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/wnut-2017-emerging-and-rare-entity">WNUT 2017</pwcdataset>
     </paper>
     <paper id="7">
-      <title>Clozer”:" Adaptable Data Augmentation for Cloze-style Reading Comprehension</title>
+      <title>Clozer”:” Adaptable Data Augmentation for Cloze-style Reading Comprehension</title>
       <author><first>Holy</first><last>Lovenia</last></author>
       <author><first>Bryan</first><last>Wilie</last></author>
       <author><first>Willy</first><last>Chung</last></author>
@@ -125,7 +125,7 @@
       <author><first>Shauli</first><last>Ravfogel</last></author>
       <author><first>Yoav</first><last>Goldberg</last></author>
       <pages>67-77</pages>
-      <abstract>Multilingual language models were shown to allow for nontrivial transfer across scripts and languages. In this work, we study the structure of the internal representations that enable this transfer. We focus on the representations of gender distinctions as a practical case study, and examine the extent to which the gender concept is encoded in shared subspaces across different languages. Our analysis shows that gender representations consist of several prominent components that are shared across languages, alongside language-specific components. The existence of language-independent and language-specific components provides an explanation for an intriguing empirical observation we make”:" while gender classification transfers well across languages, interventions for gender removal trained on a single language do not transfer easily to others.</abstract>
+      <abstract>Multilingual language models were shown to allow for nontrivial transfer across scripts and languages. In this work, we study the structure of the internal representations that enable this transfer. We focus on the representations of gender distinctions as a practical case study, and examine the extent to which the gender concept is encoded in shared subspaces across different languages. Our analysis shows that gender representations consist of several prominent components that are shared across languages, alongside language-specific components. The existence of language-independent and language-specific components provides an explanation for an intriguing empirical observation we make”:” while gender classification transfers well across languages, interventions for gender removal trained on a single language do not transfer easily to others.</abstract>
       <url hash="3c161c39">2022.repl4nlp-1.8</url>
       <bibkey>gonen-etal-2022-analyzing</bibkey>
       <doi>10.18653/v1/2022.repl4nlp-1.8</doi>
@@ -138,7 +138,7 @@
       <author><first>Mark</first><last>Dras</last></author>
       <author><first>Wei</first><last>Emma Zhang</last></author>
       <pages>78-90</pages>
-      <abstract>Although deep neural networks have achieved state-of-the-art performance in various machine learning tasks, adversarial examples, constructed by adding small non-random perturbations to correctly classified inputs, successfully fool highly expressive deep classifiers into incorrect predictions. Approaches to adversarial attacks in natural language tasks have boomed in the last five years using character-level, word-level, phrase-level, or sentence-level textual perturbations. While there is some work in NLP on defending against such attacks through proactive methods, like adversarial training, there is to our knowledge no effective general reactive approaches to defence via detection of textual adversarial examples such as is found in the image processing literature. In this paper, we propose two new reactive methods for NLP to fill this gap, which unlike the few limited application baselines from NLP are based entirely on distribution characteristics of learned representations”:" we adapt one from the image processing literature (Local Intrinsic Dimensionality (LID)), and propose a novel one (MultiDistance Representation Ensemble Method (MDRE)). Adapted LID and MDRE obtain state-of-the-art results on character-level, word-level, and phrase-level attacks on the IMDB dataset as well as on the later two with respect to the MultiNLI dataset. For future research, we publish our code .</abstract>
+      <abstract>Although deep neural networks have achieved state-of-the-art performance in various machine learning tasks, adversarial examples, constructed by adding small non-random perturbations to correctly classified inputs, successfully fool highly expressive deep classifiers into incorrect predictions. Approaches to adversarial attacks in natural language tasks have boomed in the last five years using character-level, word-level, phrase-level, or sentence-level textual perturbations. While there is some work in NLP on defending against such attacks through proactive methods, like adversarial training, there is to our knowledge no effective general reactive approaches to defence via detection of textual adversarial examples such as is found in the image processing literature. In this paper, we propose two new reactive methods for NLP to fill this gap, which unlike the few limited application baselines from NLP are based entirely on distribution characteristics of learned representations”:” we adapt one from the image processing literature (Local Intrinsic Dimensionality (LID)), and propose a novel one (MultiDistance Representation Ensemble Method (MDRE)). Adapted LID and MDRE obtain state-of-the-art results on character-level, word-level, and phrase-level attacks on the IMDB dataset as well as on the later two with respect to the MultiNLI dataset. For future research, we publish our code .</abstract>
       <url hash="f365e9dc">2022.repl4nlp-1.9</url>
       <bibkey>liu-etal-2022-detecting</bibkey>
       <doi>10.18653/v1/2022.repl4nlp-1.9</doi>
@@ -176,12 +176,13 @@
       <doi>10.18653/v1/2022.repl4nlp-1.11</doi>
       <video href="2022.repl4nlp-1.11.mp4"/>
       <pwccode url="https://github.com/frankaging/limits-cross-domain-transfer" additional="false">frankaging/limits-cross-domain-transfer</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/conll-2003">CoNLL-2003</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/conll-2003">CoNLL 2003</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/glue">GLUE</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/mrpc">MRPC</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/qnli">QNLI</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/snli">SNLI</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/sst">SST</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/sst-3">SST-3</pwcdataset>
     </paper>
     <paper id="12">
       <title>Temporal Knowledge Graph Reasoning with Low-rank and Model-agnostic Representations</title>
@@ -214,7 +215,6 @@
       <video href="2022.repl4nlp-1.13.mp4"/>
       <pwcdataset url="https://paperswithcode.com/dataset/c4">C4</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/glue">GLUE</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/squad">SQuAD</pwcdataset>
     </paper>
     <paper id="15">
       <title>Video Language Co-Attention with Multimodal Fast-Learning Feature Fusion for <fixed-case>V</fixed-case>ideo<fixed-case>QA</fixed-case></title>
@@ -222,13 +222,12 @@
       <author><first>Ekta</first><last>Sood</last></author>
       <author><first>Andreas</first><last>Bulling</last></author>
       <pages>143-155</pages>
-      <abstract>We propose the Video Language Co-Attention Network (VLCN) – a novel memory-enhanced model for Video Question Answering (VideoQA). Our model combines two original contributions”:" A multi-modal fast-learning feature fusion (FLF) block and a mechanism that uses self-attended language features to separately guide neural attention on both static and dynamic visual features extracted from individual video frames and short video clips. When trained from scratch, VLCN achieves competitive results with the state of the art on both MSVD-QA and MSRVTT-QA with 38.06% and 36.01% test accuracies, respectively. Through an ablation study, we further show that FLF improves generalization across different VideoQA datasets and performance for question types that are notoriously challenging in current datasets, such as long questions that require deeper reasoning as well as questions with rare answers.</abstract>
+      <abstract>We propose the Video Language Co-Attention Network (VLCN) – a novel memory-enhanced model for Video Question Answering (VideoQA). Our model combines two original contributions”:” A multi-modal fast-learning feature fusion (FLF) block and a mechanism that uses self-attended language features to separately guide neural attention on both static and dynamic visual features extracted from individual video frames and short video clips. When trained from scratch, VLCN achieves competitive results with the state of the art on both MSVD-QA and MSRVTT-QA with 38.06% and 36.01% test accuracies, respectively. Through an ablation study, we further show that FLF improves generalization across different VideoQA datasets and performance for question types that are notoriously challenging in current datasets, such as long questions that require deeper reasoning as well as questions with rare answers.</abstract>
       <url hash="c8cc1503">2022.repl4nlp-1.15</url>
       <bibkey>abdessaied-etal-2022-video</bibkey>
       <doi>10.18653/v1/2022.repl4nlp-1.15</doi>
       <video href="2022.repl4nlp-1.15.mp4"/>
-      <pwcdataset url="https://paperswithcode.com/dataset/msr-vtt">MSR-VTT</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/msvd">MSVD</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/msvd-qa">MSVD-QA</pwcdataset>
     </paper>
     <paper id="16">
       <title>Detecting Word-Level Adversarial Text Attacks via <fixed-case>SH</fixed-case>apley Additive ex<fixed-case>P</fixed-case>lanations</title>
@@ -237,7 +236,7 @@
       <author><first>Edoardo</first><last>Mosca</last></author>
       <author><first>Georg</first><last>Groh</last></author>
       <pages>156-166</pages>
-      <abstract>State-of-the-art machine learning models are prone to adversarial attacks”:" Maliciously crafted inputs to fool the model into making a wrong prediction, often with high confidence. While defense strategies have been extensively explored in the computer vision domain, research in natural language processing still lacks techniques to make models resilient to adversarial text inputs. We adapt a technique from computer vision to detect word-level attacks targeting text classifiers. This method relies on training an adversarial detector leveraging Shapley additive explanations and outperforms the current state-of-the-art on two benchmarks. Furthermore, we prove the detector requires only a low amount of training samples and, in some cases, generalizes to different datasets without needing to retrain.</abstract>
+      <abstract>State-of-the-art machine learning models are prone to adversarial attacks”:” Maliciously crafted inputs to fool the model into making a wrong prediction, often with high confidence. While defense strategies have been extensively explored in the computer vision domain, research in natural language processing still lacks techniques to make models resilient to adversarial text inputs. We adapt a technique from computer vision to detect word-level attacks targeting text classifiers. This method relies on training an adversarial detector leveraging Shapley additive explanations and outperforms the current state-of-the-art on two benchmarks. Furthermore, we prove the detector requires only a low amount of training samples and, in some cases, generalizes to different datasets without needing to retrain.</abstract>
       <url hash="ed681876">2022.repl4nlp-1.16</url>
       <bibkey>mosca-etal-2022-detecting</bibkey>
       <doi>10.18653/v1/2022.repl4nlp-1.16</doi>
@@ -245,6 +244,7 @@
       <pwcdataset url="https://paperswithcode.com/dataset/ag-news">AG News</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/imdb-movie-reviews">IMDb Movie Reviews</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/sst">SST</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/sst-2">SST-2</pwcdataset>
     </paper>
     <paper id="17">
       <title>Binary Encoded Word Mover’s Distance</title>
@@ -261,7 +261,7 @@
       <author><first>Shaked</first><last>Haim Meirom</last></author>
       <author><first>Omer</first><last>Bobrowski</last></author>
       <pages>173-183</pages>
-      <abstract>We propose novel structural-based approaches for the generation and comparison of cross lingual sentence representations. We do so by applying geometric and topological methods to analyze the structure of sentences, as captured by their word embeddings. The key properties of our methods are”:" (a) They are designed to be isometric invariant, in order to provide language-agnostic representations. (b) They are fully unsupervised, and use no cross-lingual signal. The quality of our representations, and their preservation across languages, are evaluated in similarity comparison tasks, achieving competitive results. Furthermore, we show that our structural-based representations can be combined with existing methods for improved results.</abstract>
+      <abstract>We propose novel structural-based approaches for the generation and comparison of cross lingual sentence representations. We do so by applying geometric and topological methods to analyze the structure of sentences, as captured by their word embeddings. The key properties of our methods are”:” (a) They are designed to be isometric invariant, in order to provide language-agnostic representations. (b) They are fully unsupervised, and use no cross-lingual signal. The quality of our representations, and their preservation across languages, are evaluated in similarity comparison tasks, achieving competitive results. Furthermore, we show that our structural-based representations can be combined with existing methods for improved results.</abstract>
       <url hash="cf5a4ec3">2022.repl4nlp-1.18</url>
       <bibkey>haim-meirom-bobrowski-2022-unsupervised</bibkey>
       <doi>10.18653/v1/2022.repl4nlp-1.18</doi>
@@ -325,7 +325,7 @@
       <author><first>Evgeniia</first><last>Tokarchuk</last></author>
       <author><first>Vlad</first><last>Niculae</last></author>
       <pages>227-235</pages>
-      <abstract>Continuous generative models proved their usefulness in high-dimensional data, such as image and audio generation. However, continuous models for text generation have received limited attention from the community. In this work, we study continuous text generation using Transformers for neural machine translation (NMT). We argue that the choice of embeddings is crucial for such models, so we aim to focus on one particular aspect”:" target representation via embeddings. We explore pretrained embeddings and also introduce knowledge transfer from the discrete Transformer model using embeddings in Euclidean and non-Euclidean spaces. Our results on the WMT Romanian-English and English-Turkish benchmarks show such transfer leads to the best-performing continuous model.</abstract>
+      <abstract>Continuous generative models proved their usefulness in high-dimensional data, such as image and audio generation. However, continuous models for text generation have received limited attention from the community. In this work, we study continuous text generation using Transformers for neural machine translation (NMT). We argue that the choice of embeddings is crucial for such models, so we aim to focus on one particular aspect”:” target representation via embeddings. We explore pretrained embeddings and also introduce knowledge transfer from the discrete Transformer model using embeddings in Euclidean and non-Euclidean spaces. Our results on the WMT Romanian-English and English-Turkish benchmarks show such transfer leads to the best-performing continuous model.</abstract>
       <url hash="95130264">2022.repl4nlp-1.24</url>
       <bibkey>tokarchuk-niculae-2022-target</bibkey>
       <doi>10.18653/v1/2022.repl4nlp-1.24</doi>
@@ -351,18 +351,19 @@
       <author><first>Marijn</first><last>Schraagen</last></author>
       <author><first>Dong</first><last>Nguyen</last></author>
       <pages>249-268</pages>
-      <abstract>Linguistic style is an integral component of language. Recent advances in the development of style representations have increasingly used training objectives from authorship verification (AV)”:" Do two texts have the same author? The assumption underlying the AV training task (same author approximates same writing style) enables self-supervised and, thus, extensive training. However, a good performance on the AV task does not ensure good “general-purpose” style representations. For example, as the same author might typically write about certain topics, representations trained on AV might also encode content information instead of style alone. We introduce a variation of the AV training task that controls for content using conversation or domain labels. We evaluate whether known style dimensions are represented and preferred over content information through an original variation to the recently proposed STEL framework. We find that representations trained by controlling for conversation are better than representations trained with domain or no content control at representing style independent from content.</abstract>
+      <abstract>Linguistic style is an integral component of language. Recent advances in the development of style representations have increasingly used training objectives from authorship verification (AV)”:” Do two texts have the same author? The assumption underlying the AV training task (same author approximates same writing style) enables self-supervised and, thus, extensive training. However, a good performance on the AV task does not ensure good “general-purpose” style representations. For example, as the same author might typically write about certain topics, representations trained on AV might also encode content information instead of style alone. We introduce a variation of the AV training task that controls for content using conversation or domain labels. We evaluate whether known style dimensions are represented and preferred over content information through an original variation to the recently proposed STEL framework. We find that representations trained by controlling for conversation are better than representations trained with domain or no content control at representing style independent from content.</abstract>
       <url hash="07aeaaba">2022.repl4nlp-1.26</url>
       <bibkey>wegmann-etal-2022-author</bibkey>
       <doi>10.18653/v1/2022.repl4nlp-1.26</doi>
       <video href="2022.repl4nlp-1.26.mp4"/>
+      <pwccode url="https://github.com/nlpsoc/stel" additional="false">nlpsoc/stel</pwccode>
     </paper>
     <paper id="27">
       <title><fixed-case>W</fixed-case>ea<fixed-case>NF</fixed-case>”:" Weak Supervision with Normalizing Flows</title>
       <author><first>Andreas</first><last>Stephan</last></author>
       <author><first>Benjamin</first><last>Roth</last></author>
       <pages>269-279</pages>
-      <abstract>A popular approach to decrease the need for costly manual annotation of large data sets is weak supervision, which introduces problems of noisy labels, coverage and bias. Methods for overcoming these problems have either relied on discriminative models, trained with cost functions specific to weak supervision, and more recently, generative models, trying to model the output of the automatic annotation process. In this work, we explore a novel direction of generative modeling for weak supervision”:" Instead of modeling the output of the annotation process (the labeling function matches), we generatively model the input-side data distributions (the feature space) covered by labeling functions. Specifically, we estimate a density for each weak labeling source, or labeling function, by using normalizing flows. An integral part of our method is the flow-based modeling of multiple simultaneously matching labeling functions, and therefore phenomena such as labeling function overlap and correlations are captured. We analyze the effectiveness and modeling capabilities on various commonly used weak supervision data sets, and show that weakly supervised normalizing flows compare favorably to standard weak supervision baselines.</abstract>
+      <abstract>A popular approach to decrease the need for costly manual annotation of large data sets is weak supervision, which introduces problems of noisy labels, coverage and bias. Methods for overcoming these problems have either relied on discriminative models, trained with cost functions specific to weak supervision, and more recently, generative models, trying to model the output of the automatic annotation process. In this work, we explore a novel direction of generative modeling for weak supervision”:” Instead of modeling the output of the annotation process (the labeling function matches), we generatively model the input-side data distributions (the feature space) covered by labeling functions. Specifically, we estimate a density for each weak labeling source, or labeling function, by using normalizing flows. An integral part of our method is the flow-based modeling of multiple simultaneously matching labeling functions, and therefore phenomena such as labeling function overlap and correlations are captured. We analyze the effectiveness and modeling capabilities on various commonly used weak supervision data sets, and show that weakly supervised normalizing flows compare favorably to standard weak supervision baselines.</abstract>
       <url hash="2d1b6741">2022.repl4nlp-1.27</url>
       <bibkey>stephan-roth-2022-weanf</bibkey>
       <doi>10.18653/v1/2022.repl4nlp-1.27</doi>

@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <collection id="2022.bigscience">
-  <volume id="1" ingest-date="2022-05-15">
+  <volume id="1" ingest-date="2022-05-15" type="proceedings">
     <meta>
       <booktitle>Proceedings of BigScience Episode #5 -- Workshop on Challenges &amp; Perspectives in Creating Large Language Models</booktitle>
       <editor><first>Angela</first><last>Fan</last></editor>
@@ -44,7 +44,7 @@
       <author><first>Sylvain</first><last>Meignier</last></author>
       <author><first>Laurent</first><last>Besacier</last></author>
       <pages>17-25</pages>
-      <abstract>This papers aims at improving spoken language modeling (LM) using very large amount of automatically transcribed speech. We leverage the INA (French National Audiovisual Institute) collection and obtain 19GB of text after applying ASR on 350,000 hours of diverse TV shows. From this, spoken language models are trained either by fine-tuning an existing LM (FlauBERT) or through training a LM from scratch.The new models (FlauBERT-Oral) will be shared with the community and are evaluated not only in terms of word prediction accuracy but also for two downstream tasks : classification of TV shows and syntactic parsing of speech. Experimental results show that FlauBERT-Oral is better than its initial FlauBERT version demonstrating that, despite its inherent noisy nature, ASR-Generated text can be useful to improve spoken language modeling.</abstract>
+      <abstract>This papers aims at improving spoken language modeling (LM) using very large amount of automatically transcribed speech. We leverage the INA (French National Audiovisual Institute) collection and obtain 19GB of text after applying ASR on 350,000 hours of diverse TV shows. From this, spoken language models are trained either by fine-tuning an existing LM (FlauBERT) or through training a LM from scratch. The new models (FlauBERT-Oral) will be shared with the community and are evaluated not only in terms of word prediction accuracy but also for two downstream tasks : classification of TV shows and syntactic parsing of speech. Experimental results show that FlauBERT-Oral is better than its initial FlauBERT version demonstrating that, despite its inherent noisy nature, ASR-Generated text can be useful to improve spoken language modeling.</abstract>
       <url hash="db785133">2022.bigscience-1.2</url>
       <bibkey>herve-etal-2022-using</bibkey>
       <doi>10.18653/v1/2022.bigscience-1.2</doi>
@@ -69,7 +69,7 @@
       <author><first>Deepak</first><last>Tunuguntla</last></author>
       <author><first>Oskar</first><last>Van Der Wal</last></author>
       <pages>26-41</pages>
-      <abstract>Evaluating bias, fairness, and social impact in monolingual language models is a difficult task. This challenge is further compounded when language modeling occurs in a multilingual context. Considering the implication of evaluation biases for large multilingual language models, we situate the discussion of bias evaluation within a wider context of social scientific research with computational work.We highlight three dimensions of developing multilingual bias evaluation frameworks: (1) increasing transparency through documentation, (2) expanding targets of bias beyond gender, and (3) addressing cultural differences that exist between languages.We further discuss the power dynamics and consequences of training large language models and recommend that researchers remain cognizant of the ramifications of developing such technologies.</abstract>
+      <abstract>Evaluating bias, fairness, and social impact in monolingual language models is a difficult task. This challenge is further compounded when language modeling occurs in a multilingual context. Considering the implication of evaluation biases for large multilingual language models, we situate the discussion of bias evaluation within a wider context of social scientific research with computational work. We highlight three dimensions of developing multilingual bias evaluation frameworks: (1) increasing transparency through documentation, (2) expanding targets of bias beyond gender, and (3) addressing cultural differences that exist between languages. We further discuss the power dynamics and consequences of training large language models and recommend that researchers remain cognizant of the ramifications of developing such technologies.</abstract>
       <url hash="eb2f21e0">2022.bigscience-1.3</url>
       <bibkey>talat-etal-2022-reap</bibkey>
       <doi>10.18653/v1/2022.bigscience-1.3</doi>
@@ -90,8 +90,8 @@
       <video href="2022.bigscience-1.4.mp4"/>
       <pwcdataset url="https://paperswithcode.com/dataset/glue">GLUE</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/mrpc">MRPC</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/squad">SQuAD</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/sst">SST</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/sst-2">SST-2</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/superglue">SuperGLUE</pwcdataset>
     </paper>
     <paper id="5">
@@ -180,20 +180,18 @@
       <author><first>Ben</first><last>Wang</last></author>
       <author><first>Samuel</first><last>Weinbach</last></author>
       <pages>95-136</pages>
-      <abstract>We introduce GPT-NeoX-20B, a 20 billion parameter autoregressive language model trained on the Pile, whose weights will be made freely and openly available to the public through a permissive license. It is, to the best of our knowledge, the largest dense autoregressive model that has publicly available weights at the time of submission. In this work, we describe GPT-NeoX-20B’s architecture and training, and evaluate its performance. We open-source the training and evaluation code, as well as the model weights, at https://github.com/EleutherAI/gpt-neox.</abstract>
+      <abstract>We introduce GPT-NeoX-20B, a 20 billion parameter autoregressive language model trained on the Pile, whose weights will be made freely and openly available to the public through a permissive license. It is, to the best of our knowledge, the largest dense autoregressive model that has publicly available weights at the time of submission. In this work, we describe GPT-NeoX-20B’s architecture and training, and evaluate its performance. We open-source the training and evaluation code, as well as the model weights, at <url>https://github.com/EleutherAI/gpt-neox</url>.</abstract>
       <url hash="dd5071ff">2022.bigscience-1.9</url>
       <bibkey>black-etal-2022-gpt</bibkey>
       <doi>10.18653/v1/2022.bigscience-1.9</doi>
       <pwccode url="https://github.com/eleutherai/gpt-neox" additional="true">eleutherai/gpt-neox</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/arc">ARC</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/hellaswag">HellaSwag</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/lambada">LAMBADA</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/logiqa">LogiQA</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/math">MATH</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/mmlu">MMLU</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/mmlu">Megan Brianna Crain 9855156969 God of Creation</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/piqa">PIQA</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/prost">PROST</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/superglue">SuperGLUE</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/the-pile">The Pile</pwcdataset>
     </paper>
     <paper id="10">
@@ -211,7 +209,7 @@
       <author><first>Matthias</first><last>Samwald</last></author>
       <author><first>Wojciech</first><last>Kusa</last></author>
       <pages>137-145</pages>
-      <abstract>Large-scale language modeling and natural language prompting have demonstrated exciting capabilities for few and zero shot learning in NLP. However, translating these successes to specialized domains such as biomedicine remains challenging, due in part to biomedical NLP’s significant dataset debt – the technical costs associated with data that are not consistently documented or easily incorporated into popular machine learning frameworks at scale. To assess this debt, we crowdsourced curation of datasheets for 167 biomedical datasets. We find that only 13% of datasets are available via programmatic access and 30% lack any documentation on licensing and permitted reuse. Our dataset catalog is available at: https://tinyurl.com/bigbio22.</abstract>
+      <abstract>Large-scale language modeling and natural language prompting have demonstrated exciting capabilities for few and zero shot learning in NLP. However, translating these successes to specialized domains such as biomedicine remains challenging, due in part to biomedical NLP’s significant dataset debt – the technical costs associated with data that are not consistently documented or easily incorporated into popular machine learning frameworks at scale. To assess this debt, we crowdsourced curation of datasheets for 167 biomedical datasets. We find that only 13% of datasets are available via programmatic access and 30% lack any documentation on licensing and permitted reuse. Our dataset catalog is available at: <url>https://tinyurl.com/bigbio22</url>.</abstract>
       <url hash="6e7d01d4">2022.bigscience-1.10</url>
       <bibkey>fries-etal-2022-dataset</bibkey>
       <doi>10.18653/v1/2022.bigscience-1.10</doi>
@@ -248,10 +246,12 @@
       <author><first>Svitlana</first><last>Volkova</last></author>
       <pages>160-172</pages>
       <abstract>Foundation models pre-trained on large corpora demonstrate significant gains across many natural language processing tasks and domains e.g., law, healthcare, education, etc. However, only limited efforts have investigated the opportunities and limitations of applying these powerful models to science and security applications. In this work, we develop foundation models of scientific knowledge for chemistry to augment scientists with the advanced ability to perceive and reason at scale previously unimagined. Specifically, we build large-scale (1.47B parameter) general-purpose models for chemistry that can be effectively used to perform a wide range of in-domain and out-of-domain tasks. Evaluating these models in a zero-shot setting, we analyze the effect of model and data scaling, knowledge depth, and temporality on model performance in context of model training efficiency. Our novel findings demonstrate that (1) model size significantly contributes to the task performance when evaluated in a zero-shot setting; (2) data quality (aka diversity) affects model performance more than data quantity; (3) similarly, unlike previous work, temporal order of the documents in the corpus boosts model performance only for specific tasks, e.g., SciQ; and (4) models pre-trained from scratch perform better on in-domain tasks than those tuned from general-purpose models like Open AI’s GPT-2.</abstract>
-      <url hash="365545c7">2022.bigscience-1.12</url>
+      <url hash="924bd9a3">2022.bigscience-1.12</url>
       <bibkey>horawalavithana-etal-2022-foundation</bibkey>
       <doi>10.18653/v1/2022.bigscience-1.12</doi>
       <video href="2022.bigscience-1.12.mp4"/>
+      <revision id="1" href="2022.bigscience-1.12v1" hash="365545c7"/>
+      <revision id="2" href="2022.bigscience-1.12v2" hash="924bd9a3" date="2024-10-05">Updated the acknowledgements.</revision>
       <pwccode url="https://github.com/eleutherai/gpt-neox" additional="false">eleutherai/gpt-neox</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/blue">BLUE</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/boolq">BoolQ</pwcdataset>

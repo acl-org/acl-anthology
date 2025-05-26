@@ -22,7 +22,6 @@ import requests
 import shutil
 
 from lxml import etree
-from urllib.parse import urlparse
 from xml.sax.saxutils import escape as xml_escape
 from typing import Tuple, Optional
 from zlib import crc32
@@ -39,18 +38,6 @@ def xml_escape_or_none(t):
 
 def is_newstyle_id(anthology_id):
     return anthology_id[0].isdigit()  # New-style IDs are year-first
-
-
-def is_journal(anthology_id):
-    if is_newstyle_id(anthology_id):
-        # TODO: this function is sometimes called with "full_id", sometimes with
-        # "collection_id", so we're not using `deconstruct_anthology_id` here at
-        # the moment
-        venue = anthology_id.split("-")[0].split(".")[-1]
-        # TODO: this is currently hard-coded, but should be moved to the XML representation
-        return venue in data.JOURNAL_IDS
-    else:
-        return anthology_id[0] in ("J", "Q")
 
 
 def is_volume_id(anthology_id):
@@ -153,9 +140,10 @@ def retrieve_url(remote_url: str, local_path: str):
             },
         )
 
-        with opener.open(request, timeout=1000) as url, open(
-            local_path, mode="wb"
-        ) as input_file_fh:
+        with (
+            opener.open(request, timeout=1000) as url,
+            open(local_path, mode="wb") as input_file_fh,
+        ):
             input_file_fh.write(url.read())
     else:
         shutil.copyfile(remote_url, local_path)
@@ -300,20 +288,20 @@ def infer_url(filename, template=data.CANONICAL_URL_TEMPLATE):
         "{}" in template or "%s" in template
     ), "template has no substitution text; did you pass a prefix by mistake?"
 
-    if urlparse(filename).netloc:
+    if "://" in filename:
         return filename
     return template.format(filename)
 
 
 def infer_attachment_url(filename, parent_id=None):
-    if urlparse(filename).netloc:
+    if "://" in filename:
         return filename
     # Otherwise, treat it as an internal filename
     if parent_id is not None and not filename.startswith(parent_id):
         logging.error(
             f"attachment must begin with paper ID '{parent_id}', but is '{filename}'"
         )
-    return infer_url(filename, data.ATTACHMENT_TEMPLATE)
+    return data.ATTACHMENT_TEMPLATE.format(filename)
 
 
 def infer_year(collection_id):
@@ -393,7 +381,15 @@ def indent(elem, level=0, internal=False):
     Adapted from https://stackoverflow.com/a/33956544 .
     """
     # tags that have no internal linebreaks (including children)
-    oneline = elem.tag in ("author", "editor", "title", "booktitle", "variant")
+    oneline = elem.tag in (
+        "author",
+        "editor",
+        "speaker",
+        "title",
+        "booktitle",
+        "variant",
+        "abstract",
+    )
 
     elem.text = clean_whitespace(elem.text)
 
@@ -410,12 +406,12 @@ def indent(elem, level=0, internal=False):
 
         # recurse
         for child in elem:
-            indent(child, level + 1, internal=oneline)
+            indent(child, level + 1, internal=(internal or oneline))
 
         # Clean up the last child
         if oneline:
             child.tail = clean_whitespace(child.tail, strip="right")
-        elif not child.tail or not child.tail.strip():
+        elif not internal and (not child.tail or not child.tail.strip()):
             child.tail = "\n" + level * "  "
     else:
         elem.text = clean_whitespace(elem.text, strip="both")
@@ -426,23 +422,39 @@ def indent(elem, level=0, internal=False):
             elem.tail = "\n" + level * "  "
 
 
-def parse_element(xml_element):
+def parse_element(
+    xml_element,
+    list_elements=data.LIST_ELEMENTS,
+    dont_parse_elements=data.DONT_PARSE_ELEMENTS,
+):
     """
     Parses an XML node into a key-value hash.
+    Certain types receive special treatment.
     Works for defined elements (mainly paper nodes and the <meta> block)
+
+    :param xml_element: the XML node to parse
+    :param list_elements: a list of elements that should be accumulated as lists
+    :param dont_parse_elements: a list of elements whose value should be the unparsed
+           XML node, rather than the parsed value
     """
     attrib = {}
     if xml_element is None:
         return attrib
 
     for element in xml_element:
+        if element.tag is etree.Comment:
+            continue
+
         # parse value
         tag = element.tag.lower()
-        if tag in ("abstract", "title", "booktitle"):
+        if tag in dont_parse_elements:
+            # These elements have sub-formatting that gets interpreted in different
+            # ways (text, BibTeX, HTML, etc.), so we preserve the XML, marking it
+            # with a prefix.
             tag = f"xml_{tag}"
             value = element
         elif tag == "url":
-            tag = "xml_url"
+            tag = element.attrib.get("type", "xml_url")
             value = element.text
         elif tag == "attachment":
             value = {
@@ -484,7 +496,8 @@ def parse_element(xml_element):
         else:
             value = element.text
 
-        if tag in data.LIST_ELEMENTS:
+        # these items get built as lists (default is to overwrite)
+        if tag in list_elements:
             try:
                 attrib[tag].append(value)
             except KeyError:
@@ -495,15 +508,26 @@ def parse_element(xml_element):
     return attrib
 
 
-def make_simple_element(tag, text=None, attrib=None, parent=None, namespaces=None):
-    """Convenience function to create an LXML node"""
-    el = (
-        etree.Element(tag, nsmap=namespaces)
-        if parent is None
-        else etree.SubElement(parent, tag)
-    )
-    if text:
-        el.text = text
+def make_simple_element(
+    tag, text=None, attrib=None, parent=None, sibling=None, namespaces=None
+):
+    """Convenience function to create an LXML node.
+
+    :param tag: the tag name
+    :param text: the text content of the node
+    :param attrib: a dictionary of attributes
+    :param parent: the parent node
+    :param sibling: if provided and found, the new node will be inserted after this node
+    """
+    el = etree.Element(tag, nsmap=namespaces)
+    if parent is not None:
+        if sibling is not None:
+            parent.insert(parent.index(sibling) + 1, el)
+        else:
+            parent.append(el)
+
+    if text is not None:
+        el.text = str(text)
     if attrib:
         for key, value in attrib.items():
             el.attrib[key] = value

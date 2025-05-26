@@ -1,0 +1,204 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2024.determit">
+  <volume id="1" ingest-date="2024-05-18" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of the Workshop on DeTermIt! Evaluating Text Difficulty in a Multilingual Context @ LREC-COLING 2024</booktitle>
+      <editor><first>Giorgio Maria Di</first><last>Nunzio</last></editor>
+      <editor><first>Federica</first><last>Vezzani</last></editor>
+      <editor><first>Liana</first><last>Ermakova</last></editor>
+      <editor><first>Hosein</first><last>Azarbonyad</last></editor>
+      <editor><first>Jaap</first><last>Kamps</last></editor>
+      <publisher>ELRA and ICCL</publisher>
+      <address>Torino, Italia</address>
+      <month>May</month>
+      <year>2024</year>
+      <url hash="a18cbe23">2024.determit-1</url>
+      <venue>determit</venue>
+      <venue>ws</venue>
+    </meta>
+    <frontmatter>
+      <url hash="09f76227">2024.determit-1.0</url>
+      <bibkey>determit-2024-determit</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Reproduction &amp; Benchmarking of <fixed-case>G</fixed-case>erman Text Simplification Systems</title>
+      <author><first>Regina</first><last>Stodden</last></author>
+      <pages>1–15</pages>
+      <abstract>The paper investigates the reproducibility of various approaches to automatically simplify German texts and identifies key challenges in the process. We reproduce eight sentence simplification systems including rules-based models, fine-tuned models, and prompting of autoregressive models. We highlight three main issues of reproducibility: the impossibility of reproduction due to missing details, code, or restricted access to data/models; variations in reproduction, hindering meaningful comparisons; and discrepancies in evaluation scores between reported and reproduced models. To enhance reproducibility and facilitate model comparison, we recommend the publication of model-related details, including checkpoints, code, and training methodologies. Our study also emphasizes the importance of releasing system generations, when possible, for thorough analysis and better understanding of original works. In our effort to compare reproduced models, we also create a German sentence simplification benchmark of the eight models across six test sets. Overall, the study underscores the significance of transparency, documentation, and diverse training data for advancing reproducibility and meaningful model comparison in automated German text simplification.</abstract>
+      <url hash="e1668a87">2024.determit-1.1</url>
+      <bibkey>stodden-2024-reproduction</bibkey>
+    </paper>
+    <paper id="2">
+      <title>Complexity-Aware Scientific Literature Search: Searching for Relevant and Accessible Scientific Text</title>
+      <author><first>Liana</first><last>Ermakova</last></author>
+      <author><first>Jaap</first><last>Kamps</last></author>
+      <pages>16–26</pages>
+      <abstract>Abstract: We conduct a series of experiments on ranking scientific abstracts in response to popular science queries issued by non-expert users. We show that standard IR ranking models optimized on topical relevance are indeed ignoring the individual user’s context and background knowledge. We also demonstrate the viability of complexity-aware retrieval models that retrieve more accessible relevant documents or ensure these are ranked prior to more advanced documents on the topic. More generally, our results help remove some of the barriers to consulting scientific literature by non-experts and hold the potential to promote science literacy in the general public. Lay Summary: In a world of misinformation and disinformation, access to objective evidence-based scientific information is crucial. The general public ignores scientific information due to its perceived complexity, resorting to shallow information on the web or in social media. We analyze the complexity of scientific texts retrieved for a lay person’s topic, and find a great variation in text complexity. A proof of concept complexity-aware search engine is able to retrieve both relevant and accessible scientific information for a layperson’s information need.</abstract>
+      <url hash="f8ae5943">2024.determit-1.2</url>
+      <bibkey>ermakova-kamps-2024-complexity</bibkey>
+    </paper>
+    <paper id="3">
+      <title>Beyond Sentence-level Text Simplification: Reproducibility Study of Context-Aware Document Simplification</title>
+      <author><first>Jan</first><last>Bakker</last></author>
+      <author><first>Jaap</first><last>Kamps</last></author>
+      <pages>27–38</pages>
+      <abstract>Previous research on automatic text simplification has focused on almost exclusively on sentence-level inputs. However, the simplification of full documents cannot be tackled by naively simplifying each sentence in isolation, as this approach fails to preserve the discourse structure of the document. Recent Context-Aware Document Simplification approaches explore various models whose input goes beyond the sentence-level. These model achieve state-of-the-art performance on the Newsela-auto dataset, which requires a difficult to obtain license to use. We replicate these experiments on an open-source dataset, namely Wiki-auto, and share all training details to make future reproductions easy. Our results validate the claim that models guided by a document-level plan outperform their standard counterparts. However, they do not support the claim that simplification models perform better when they have access to a local document context. We also find that planning models do not generalize well to out-of-domain settings. Lay Summary: We have access to unprecedented amounts of information, yet the most authoritative sources may exceed a user’s language proficiency level. Text simplification technology can change the writing style while preserving the main content. Recent paragraph-level and document-level text simplification approaches outcompete traditional sentence-level approaches, and increase the understandability of complex texts.</abstract>
+      <url hash="0d94e1b3">2024.determit-1.3</url>
+      <bibkey>bakker-kamps-2024-beyond</bibkey>
+    </paper>
+    <paper id="4">
+      <title>Towards Automatic <fixed-case>F</fixed-case>innish Text Simplification</title>
+      <author><first>Anna</first><last>Dmitrieva</last></author>
+      <author><first>Jörg</first><last>Tiedemann</last></author>
+      <pages>39–50</pages>
+      <abstract>Automatic text simplification (ATS/TS) models typically require substantial parallel training data. This paper describes our work on expanding the Finnish-Easy Finnish parallel corpus and making baseline simplification models. We discuss different approaches to document and sentence alignment. After finding the optimal alignment methodologies, we increase the amount of document-aligned data 6.5 times and add a sentence-aligned version of the dataset consisting of more than twelve thousand sentence pairs. Using sentence-aligned data, we fine-tune two models for text simplification. The first is mBART, a sequence-to-sequence translation architecture proven to show good results for monolingual translation tasks. The second is the Finnish GPT model, for which we utilize instruction fine-tuning. This work is the first attempt to create simplification models for Finnish using monolingual parallel data in this language. The data has been deposited in the Finnish Language Bank (Kielipankki) and is available for non-commercial use, and the models will be made accessible through either Kielipankki or public repositories such as Huggingface or GitHub.</abstract>
+      <url hash="a7279e36">2024.determit-1.4</url>
+      <bibkey>dmitrieva-tiedemann-2024-towards</bibkey>
+    </paper>
+    <paper id="5">
+      <title>Multilingual Resources for Lexical Complexity Prediction: A Review</title>
+      <author><first>Matthew</first><last>Shardlow</last></author>
+      <author><first>Kai</first><last>North</last></author>
+      <author><first>Marcos</first><last>Zampieri</last></author>
+      <pages>51–59</pages>
+      <abstract>Lexical complexity prediction is the NLP task aimed at using machine learning to predict the difficulty of a target word in context for a given user or user group. Multiple datasets exist for lexical complexity prediction, many of which have been published recently in diverse languages. In this survey, we discuss nine recent datasets (2018-2024) all of which provide lexical complexity prediction annotations. Particularly, we identified eight languages (French, Spanish, Chinese, German, Russian, Japanese, Turkish and Portuguese) with at least one lexical complexity dataset. We do not consider the English datasets, which have already received significant treatment elsewhere in the literature. To survey these datasets, we use the recommendations of the Complex 2.0 Framework (Shardlow et al., 2022), identifying how the datasets differ along the following dimensions: annotation scale, context, multiple token instances, multiple token annotations, diverse annotators. We conclude with future research challenges arising from our survey of existing lexical complexity prediction datasets.</abstract>
+      <url hash="413aa700">2024.determit-1.5</url>
+      <bibkey>shardlow-etal-2024-multilingual</bibkey>
+    </paper>
+    <paper id="6">
+      <title>Plain Language Summarization of Clinical Trials</title>
+      <author><first>Polydoros</first><last>Giannouris</last></author>
+      <author><first>Theodoros</first><last>Myridis</last></author>
+      <author><first>Tatiana</first><last>Passali</last></author>
+      <author><first>Grigorios</first><last>Tsoumakas</last></author>
+      <pages>60–67</pages>
+      <abstract>Plain language summarization, or lay summarization, is an emerging natural language processing task, aiming to make scientific articles accessible to an audience of non-scientific backgrounds. The healthcare domain can greatly benefit from applications of automatic plain language summarization, as results that concern a large portion of the population are reported in large documents with complex terminology. However, existing corpora for this task are limited in scope, usually regarding conference or journal article abstracts. In this paper, we introduce the task of automated generation of plain language summaries for clinical trials, and construct CARES (Clinical Abstractive Result Extraction and Simplification), the first corresponding dataset. CARES consists of publicly available, human-written summaries of clinical trials conducted by Pfizer. Source text is identified from documents released throughout the life-cycle of the trial, and steps are taken to remove noise and select the appropriate sections. Experiments show that state-of-the-art models achieve satisfactory results in most evaluation metrics</abstract>
+      <url hash="58128bde">2024.determit-1.6</url>
+      <bibkey>giannouris-etal-2024-plain</bibkey>
+    </paper>
+    <paper id="7">
+      <title>Enhancing Lexical Complexity Prediction through Few-shot Learning with Gpt-3</title>
+      <author><first>Jenny Alexandra</first><last>Ortiz-Zambrano</last></author>
+      <author><first>César Humberto</first><last>Espín-Riofrío</last></author>
+      <author><first>Arturo</first><last>Montejo-Ráez</last></author>
+      <pages>68–76</pages>
+      <abstract>This paper describes an experiment to evaluate the ability of the GPT-3 language model to classify terms regarding their lexical complexity. This was achieved through the creation and evaluation of different versions of the model: text-Davinci-002 y text-Davinci-003 and prompts for few-shot learning to determine the complexity of the words. The results obtained on the CompLex dataset achieve a minimum average error of 0.0856. Although this is not better than the state of the art (which is 0.0609), it is a performing and promising approach to lexical complexity prediction without the need for model fine-tuning.</abstract>
+      <url hash="4969b2fc">2024.determit-1.7</url>
+      <bibkey>ortiz-zambrano-etal-2024-enhancing</bibkey>
+    </paper>
+    <paper id="8">
+      <title>An Approach towards Unsupervised Text Simplification on Paragraph-Level for <fixed-case>G</fixed-case>erman Texts</title>
+      <author><first>Leon</first><last>Fruth</last></author>
+      <author><first>Robin</first><last>Jegan</last></author>
+      <author><first>Andreas</first><last>Henrich</last></author>
+      <pages>77–89</pages>
+      <abstract>Text simplification as a research field has received attention in recent years for English and other languages, however, German text simplification techniques are lacking thus far. We present an unsupervised simplification approach for German texts using reinforcement learning (self-critical sequence training). Our main contributions are the adaption of an existing method for English, the selection and creation of German corpora for this task and the customization of rewards for particular aspects of the German language. In our paper, we describe our system and an evaluation, including still present issues and problems due to the complexity of the German language, as well as directions for future research.</abstract>
+      <url hash="103afd88">2024.determit-1.8</url>
+      <bibkey>fruth-etal-2024-approach</bibkey>
+    </paper>
+    <paper id="9">
+      <title>Simplification Strategies in <fixed-case>F</fixed-case>rench Spontaneous Speech</title>
+      <author><first>Lucía</first><last>Ormaechea</last></author>
+      <author><first>Nikos</first><last>Tsourakis</last></author>
+      <author><first>Didier</first><last>Schwab</last></author>
+      <author><first>Pierrette</first><last>Bouillon</last></author>
+      <author><first>Benjamin</first><last>Lecouteux</last></author>
+      <pages>90–102</pages>
+      <abstract>Automatic Text Simplification (ATS) aims at rewriting texts into simpler variants while preserving their original meaning, so they can be more easily understood by different audiences. While ATS has been widely used for written texts, its application to spoken language remains unexplored, even if it is not exempt from difficulty. This study aims to characterize the edit operations performed in order to simplify French transcripts for non-native speakers. To do so, we relied on a data sample randomly extracted from the Orféo-CEFC French spontaneous speech dataset. In the absence of guidelines to direct this process, we adopted an intuitive simplification approach, so as to investigate the crafted simplifications based on expert linguists’ criteria, and to compare them with those produced by a generative AI (namely, ChatGPT). The results, analyzed quantitatively and qualitatively, reveal that the most common edits are deletions, and affect oral production aspects, like restarts or hesitations. Consequently, candidate simplifications are typically register-standardized sentences that solely include the propositional content of the input. The study also examines the alignment between human- and machine-based simplifications, revealing a moderate level of agreement, and highlighting the subjective nature of the task. The findings contribute to understanding the intricacies of simplifying spontaneous spoken language. In addition, the provision of a small-scale parallel dataset derived from such expert simplifications, Propicto-Orféo-Simple, can facilitate the evaluation of speech simplification solutions.</abstract>
+      <url hash="32015fd0">2024.determit-1.9</url>
+      <bibkey>ormaechea-etal-2024-simplification</bibkey>
+    </paper>
+    <paper id="10">
+      <title><fixed-case>DARES</fixed-case>: Dataset for <fixed-case>A</fixed-case>rabic Readability Estimation of School Materials</title>
+      <author><first>Mo</first><last>El-Haj</last></author>
+      <author><first>Sultan</first><last>Almujaiwel</last></author>
+      <author><first>Damith</first><last>Premasiri</last></author>
+      <author><first>Tharindu</first><last>Ranasinghe</last></author>
+      <author><first>Ruslan</first><last>Mitkov</last></author>
+      <pages>103–113</pages>
+      <abstract>This research introduces DARES, a dataset for assessing the readability of Arabic text in Saudi school materials. DARES compromise of 13335 instances from textbooks used in 2021 and contains two subtasks; (a) Coarse-grained readability assessment where the text is classified into different educational levels such as primary and secondary. (b) Fine-grained readability assessment where the text is classified into individual grades.. We fine-tuned five transformer models that support Arabic and found that CAMeLBERTmix performed the best in all input settings. Evaluation results showed high performance for the coarse-grained readability assessment task, achieving a weighted F1 score of 0.91 and a macro F1 score of 0.79. The fine-grained task achieved a weighted F1 score of 0.68 and a macro F1 score of 0.55. These findings demonstrate the potential of our approach for advancing Arabic text readability assessment in education, with implications for future innovations in the field.</abstract>
+      <url hash="32c655e3">2024.determit-1.10</url>
+      <bibkey>el-haj-etal-2024-dares</bibkey>
+    </paper>
+    <paper id="11">
+      <title>Legal Text Reader Profiling: Evidences from Eye Tracking and Surprisal Based Analysis</title>
+      <author><first>Calogero J.</first><last>Scozzaro</last></author>
+      <author><first>Davide</first><last>Colla</last></author>
+      <author><first>Matteo</first><last>Delsanto</last></author>
+      <author><first>Antonio</first><last>Mastropaolo</last></author>
+      <author><first>Enrico</first><last>Mensa</last></author>
+      <author><first>Luisa</first><last>Revelli</last></author>
+      <author><first>Daniele P.</first><last>Radicioni</last></author>
+      <pages>114–124</pages>
+      <abstract>Reading movements and times are a precious cue to follow reader’s strategy, and to track the underlying effort in text processing. To date, many approaches are being devised to simplify texts to overcome difficulties stemming from sentences obscure, ambiguous or deserving clarification. In the legal domain, ensuring the clarity of norms and regulations is of the utmost importance, as the full understanding of such documents lies at the foundation of core social obligations and rights. This task requires determining which utterances and text excerpts are difficult for which (sort of) reader. This investigation is the aim of the present work. We propose a preliminary study based on eye-tracking data of 61 readers, with focus on individuating different reader profiles, and on predicting reading times of our readers.</abstract>
+      <url hash="db5e9d36">2024.determit-1.11</url>
+      <bibkey>scozzaro-etal-2024-legal</bibkey>
+    </paper>
+    <paper id="12">
+      <title>The Simplification of the Language of Public Administration: The Case of Ombudsman Institutions</title>
+      <author><first>Gabriel</first><last>Gonzalez-Delgado</last></author>
+      <author><first>Borja</first><last>Navarro-Colorado</last></author>
+      <pages>125–133</pages>
+      <abstract>Language produced by Public Administrations has crucial implications in citizens’ lives. However, its syntactic complexity and the use of legal jargon, among other factors, make it difficult to be understood for laypeople and certain target audiences. The NLP task of Automatic Text Simplification (ATS) can help to the necessary simplification of this technical language. For that purpose, specialized parallel datasets of complex-simple pairs need to be developed for the training of these ATS systems. In this position paper, an on-going project is presented, whose main objectives are (a) to extensively analyze the syntactical, lexical, and discursive features of the language of English-speaking ombudsmen, as samples of public administrative language, with special attention to those characteristics that pose a threat to comprehension, and (b) to develop the OmbudsCorpus, a parallel corpus of complex-simple supra-sentential fragments from ombudsmen’s case reports that have been manually simplified by professionals and annotated with standardized simplification operations. This research endeavor aims to provide a deeper understanding of the simplification process and to enhance the training of ATS systems specialized in administrative texts.</abstract>
+      <url hash="f5ac291e">2024.determit-1.12</url>
+      <bibkey>gonzalez-delgado-navarro-colorado-2024-simplification</bibkey>
+    </paper>
+    <paper id="13">
+      <title>Term Variation in Institutional Languages: Degrees of Specialization in Municipal Waste Management Terminology</title>
+      <author><first>Nicola</first><last>Cirillo</last></author>
+      <author><first>Daniela</first><last>Vellutino</last></author>
+      <pages>134–140</pages>
+      <abstract>Institutional Italian is a variety of Italian used in the official communications of institutions, especially in public administrations. Besides legal and administrative languages, it comprises the language used in websites, social media and advertising material produced by public administrations. To understand the lexical profile of institutional languages completely, standard measures of lexical complexity, like the type-token ratio and the percentage of basic vocabulary, should be complemented with the examination of the terminological variation. This study compares the terminology of three types of institutional texts: administrative acts, technical-operational texts, and informative texts. In particular, we collected 86 terms with various degrees of specialization and analysed their distribution within the subcorpora of ItaIst-DdAC_GRU, a corpus composed of institutional texts drafted by Italian municipalities about municipal waste management. Results suggest that administrative acts employ high-specialization terms compliant with the law, often in the form of acronyms. Conversely, informative texts contain more low-specialization terms, privileging single-word terms to remain self-contained. Finally, the terminology of technical-operational texts is characterised by standardized and formulaic phrases.</abstract>
+      <url hash="da4fd2a0">2024.determit-1.13</url>
+      <bibkey>cirillo-vellutino-2024-term</bibkey>
+    </paper>
+    <paper id="14">
+      <title><fixed-case>LARGEMED</fixed-case>: A Resource for Identifying and Generating Paraphrases for <fixed-case>F</fixed-case>rench Medical Terms</title>
+      <author><first>Ioana</first><last>Buhnila</last></author>
+      <author><first>Amalia</first><last>Todirascu</last></author>
+      <pages>141–151</pages>
+      <abstract>This article presents a method extending an existing French corpus of paraphrases of medical terms ANONYMOUS with new data from Web archives created during the Covid-19 pandemic. Our method semi-automatically detects new terms and paraphrase markers introducing paraphrases from these Web archives, followed by a manual annotation step to identify paraphrases and their lexical and semantic properties. The extended large corpus LARGEMED could be used for automatic medical text simplification for patients and their families. To automatise data collection, we propose two experiments. The first experiment uses the new LARGEMED dataset to train a binary classifier aiming to detect new sentences containing possible paraphrases. The second experiment aims to use correct paraphrases to train a model for paraphrase generation, by adapting T5 Language Model to the paraphrase generation task using an adversarial algorithm.</abstract>
+      <url hash="c26fa6c5">2024.determit-1.14</url>
+      <bibkey>buhnila-todirascu-2024-largemed</bibkey>
+    </paper>
+    <paper id="15">
+      <title>Clearer Governmental Communication: Text Simplification with <fixed-case>C</fixed-case>hat<fixed-case>GPT</fixed-case> Evaluated by Quantitative and Qualitative Research</title>
+      <author><first>Nadine</first><last>Beks van Raaij</last></author>
+      <author><first>Daan</first><last>Kolkman</last></author>
+      <author><first>Ksenia</first><last>Podoynitsyna</last></author>
+      <pages>152–178</pages>
+      <abstract>This research investigates the application of ChatGPT for the simplification of Dutch government letters, aiming to enhance their comprehensibility without compromising legal accuracy. We use a three-stage mixed method evaluation procedure to compare the performance of a naive approach, RoBERTA, and ChatGPT. We select the six most complicated letters from a corpus of 200 letters and use the three approaches to simplify them. First, we compare their scores on four evaluation metrics (ROUGE, BLEU, BLEURT, and LiNT), then we assess the simplifications with a legal and linguistic expert. Finally we investigate the performance of ChatGPT in a randomized controlled trial with 72 participants. Our findings reveal that ChatGPT significantly improves the readability of government letters, demonstrating over a 20% increase in comprehensibility scores and a 19% increase in correct question answering among participants. We also demonstrate the importance of a robust evaluation procedure.</abstract>
+      <url hash="207fb764">2024.determit-1.15</url>
+      <bibkey>beks-van-raaij-etal-2024-clearer</bibkey>
+    </paper>
+    <paper id="16">
+      <title>Legal Science and Compute Science: A Preliminary Discussions on How to Represent the “Penumbra” Cone with <fixed-case>AI</fixed-case></title>
+      <author><first>Angela</first><last>Condello</last></author>
+      <author><first>Giorgio Maria</first><last>Di Nunzio</last></author>
+      <pages>179–184</pages>
+      <abstract>Legal science encounters significant challenges with the widespread integration of AI software across various legal operations. The distinction between signs, senses, and references from a linguistic point of view, as drawn by Gottlob Frege, underscores the complexity of legal language, especially in multilingual contexts like the European Union. In this paper, we describe the problems of legal terminology, examining the “penumbra” problem through Herbert Hart’s legal theory of meaning. We also analyze the feasibility of training automatic systems to handle conflicts between different interpretations of legal norms, particularly in multilingual legal systems. By examining the transformative impact of Artificial Intelligence on traditional legal practices, this research contributes to the theoretical discussion about the exploration of innovative methodologies for simplifying complex terminologies without compromising meaning.</abstract>
+      <url hash="2cdf77a6">2024.determit-1.16</url>
+      <bibkey>condello-di-nunzio-2024-legal</bibkey>
+    </paper>
+    <paper id="17">
+      <title>Simpler Becomes Harder: Do <fixed-case>LLM</fixed-case>s Exhibit a Coherent Behavior on Simplified Corpora?</title>
+      <author><first>Miriam</first><last>Anschütz</last></author>
+      <author><first>Edoardo</first><last>Mosca</last></author>
+      <author><first>Georg</first><last>Groh</last></author>
+      <pages>185–195</pages>
+      <abstract>Text simplification seeks to improve readability while retaining the original content and meaning. Our study investigates whether pre-trained classifiers also maintain such coherence by comparing their predictions on both original and simplified inputs. We conduct experiments using 11 pre-trained models, including BERT and OpenAI’s GPT 3.5, across six datasets spanning three languages. Additionally, we conduct a detailed analysis of the correlation between prediction change rates and simplification types/strengths. Our findings reveal alarming inconsistencies across all languages and models. If not promptly addressed, simplified inputs can be easily exploited to craft zero-iteration model-agnostic adversarial attacks with success rates of up to 50%.</abstract>
+      <url hash="32ea23aa">2024.determit-1.17</url>
+      <bibkey>anschutz-etal-2024-simpler</bibkey>
+    </paper>
+    <paper id="18">
+      <title>Pre-Gamus: Reducing Complexity of Scientific Literature as a Support against Misinformation</title>
+      <author><first>Nico</first><last>Colic</last></author>
+      <author><first>Jin-Dong</first><last>Kim</last></author>
+      <author><first>Fabio</first><last>Rinaldi</last></author>
+      <pages>196–201</pages>
+      <abstract>Scientific literature encodes a wealth of knowledge relevant to various users. However, the complexity of scientific jargon makes it inaccessible to all but domain specialists. It would be helpful for different types of people to be able to get at least a gist of a paper. Biomedical practitioners often find it difficult to keep up with the information load; but even lay people would benefit from scientific information, for example to dispel medical misconceptions. Besides, in many countries, familiarity with English is limited, let alone scientific English, even among professionals. All this points to the need for simplified access to the scientific literature. We thus present an application aimed at solving this problem, which is capable of summarising scientific text in a way that is tailored to specific types of users, and in their native language. For this objective, we used an LLM that our system queries using user-selected parameters. We conducted an informal evaluation of this prototype using a questionnaire in 3 different languages.</abstract>
+      <url hash="923fd21f">2024.determit-1.18</url>
+      <bibkey>colic-etal-2024-pre</bibkey>
+    </paper>
+  </volume>
+</collection>

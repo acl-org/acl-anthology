@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <collection id="2021.sigmorphon">
-  <volume id="1" ingest-date="2021-07-25">
+  <volume id="1" ingest-date="2021-07-25" type="proceedings">
     <meta>
       <booktitle>Proceedings of the 18th SIGMORPHON Workshop on Computational Research in Phonetics, Phonology, and Morphology</booktitle>
       <editor><first>Garrett</first><last>Nicolai</last></editor>
@@ -136,7 +136,7 @@
       <author><first>Josh</first><last>Daniels</last></author>
       <author><first>Alexis</first><last>Palmer</last></author>
       <pages>90–97</pages>
-      <abstract>This paper presents two different systems for unsupervised clustering of morphological paradigms, in the context of the SIGMORPHON 2021 Shared Task 2. The goal of this task is to correctly cluster words in a given language by their inflectional paradigm, without any previous knowledge of the language and without supervision from labeled data of any sort. The words in a single morphological paradigm are different inflectional variants of an underlying lemma, meaning that the words share a common core meaning. They also - usually - show a high degree of orthographical similarity. Following these intuitions, we investigate KMeans clustering using two different types of word representations: one focusing on orthographical similarity and the other focusing on semantic similarity.Additionally, we discuss the merits of randomly initialized centroids versus pre-defined centroids for clustering. Pre-defined centroids are identified based on either a standard longest common substring algorithm or a connected graph method built off of longest common substring. For all development languages, the character-based embeddings perform similarly to the baseline, and the semantic embeddings perform well below the baseline.Analysis of the systems’ errors suggests that clustering based on orthographic representations is suitable for a wide range of morphological mechanisms, particularly as part of a larger system.</abstract>
+      <abstract>This paper presents two different systems for unsupervised clustering of morphological paradigms, in the context of the SIGMORPHON 2021 Shared Task 2. The goal of this task is to correctly cluster words in a given language by their inflectional paradigm, without any previous knowledge of the language and without supervision from labeled data of any sort. The words in a single morphological paradigm are different inflectional variants of an underlying lemma, meaning that the words share a common core meaning. They also - usually - show a high degree of orthographical similarity. Following these intuitions, we investigate KMeans clustering using two different types of word representations: one focusing on orthographical similarity and the other focusing on semantic similarity. Additionally, we discuss the merits of randomly initialized centroids versus pre-defined centroids for clustering. Pre-defined centroids are identified based on either a standard longest common substring algorithm or a connected graph method built off of longest common substring. For all development languages, the character-based embeddings perform similarly to the baseline, and the semantic embeddings perform well below the baseline. Analysis of the systems’ errors suggests that clustering based on orthographic representations is suitable for a wide range of morphological mechanisms, particularly as part of a larger system.</abstract>
       <url hash="9231ef72">2021.sigmorphon-1.10</url>
       <doi>10.18653/v1/2021.sigmorphon-1.10</doi>
       <bibkey>perkoff-etal-2021-orthographic</bibkey>
@@ -212,7 +212,7 @@
       <author><first>Vagrant</first><last>Gautam</last></author>
       <author><first>Wang Yau</first><last>Li</last></author>
       <author><first>Zafarullah</first><last>Mahmood</last></author>
-      <author><first>Frederic</first><last>Mailhot</last></author>
+      <author><first>Fred</first><last>Mailhot</last></author>
       <author><first>Shreekantha</first><last>Nadig</last></author>
       <author><first>Riqiang</first><last>Wang</last></author>
       <author><first>Nathan</first><last>Zhang</last></author>
@@ -379,7 +379,7 @@
       <author><first>Ben</first><last>Ambridge</last></author>
       <author><first>Ekaterina</first><last>Vylomova</last></author>
       <pages>229–259</pages>
-      <abstract>This year's iteration of the SIGMORPHON Shared Task on morphological reinflection focuses on typological diversity and cross-lingual variation of morphosyntactic features. In terms of the task, we enrich UniMorph with new data for 32 languages from 13 language families, with most of them being under-resourced: Kunwinjku, Classical Syriac, Arabic (Modern Standard, Egyptian, Gulf), Hebrew, Amharic, Aymara, Magahi, Braj, Kurdish (Central, Northern, Southern), Polish, Karelian, Livvi, Ludic, Veps, Võro, Evenki, Xibe, Tuvan, Sakha, Turkish, Indonesian, Kodi, Seneca, Asháninka, Yanesha, Chukchi, Itelmen, Eibela. We evaluate six systems on the new data and conduct an extensive error analysis of the systems' predictions. Transformer-based models generally demonstrate superior performance on the majority of languages, achieving &gt;90% accuracy on 65% of them. The languages on which systems yielded low accuracy are mainly under-resourced, with a limited amount of data. Most errors made by the systems are due to allomorphy, honorificity, and form variation. In addition, we observe that systems especially struggle to inflect multiword lemmas. The systems also produce misspelled forms or end up in repetitive loops (e.g., RNN-based models). Finally, we report a large drop in systems' performance on previously unseen lemmas.</abstract>
+      <abstract>This year’s iteration of the SIGMORPHON Shared Task on morphological reinflection focuses on typological diversity and cross-lingual variation of morphosyntactic features. In terms of the task, we enrich UniMorph with new data for 32 languages from 13 language families, with most of them being under-resourced: Kunwinjku, Classical Syriac, Arabic (Modern Standard, Egyptian, Gulf), Hebrew, Amharic, Aymara, Magahi, Braj, Kurdish (Central, Northern, Southern), Polish, Karelian, Livvi, Ludic, Veps, Võro, Evenki, Xibe, Tuvan, Sakha, Turkish, Indonesian, Kodi, Seneca, Asháninka, Yanesha, Chukchi, Itelmen, Eibela. We evaluate six systems on the new data and conduct an extensive error analysis of the systems’ predictions. Transformer-based models generally demonstrate superior performance on the majority of languages, achieving &gt;90% accuracy on 65% of them. The languages on which systems yielded low accuracy are mainly under-resourced, with a limited amount of data. Most errors made by the systems are due to allomorphy, honorificity, and form variation. In addition, we observe that systems especially struggle to inflect multiword lemmas. The systems also produce misspelled forms or end up in repetitive loops (e.g., RNN-based models). Finally, we report a large drop in systems’ performance on previously unseen lemmas.</abstract>
       <url hash="51afc6c5">2021.sigmorphon-1.25</url>
       <doi>10.18653/v1/2021.sigmorphon-1.25</doi>
       <bibkey>pimentel-ryskina-etal-2021-sigmorphon</bibkey>
@@ -422,8 +422,7 @@
       <author><first>Colin</first><last>Wilson</last></author>
       <author><first>Jane S.Y.</first><last>Li</last></author>
       <pages>283–291</pages>
-      <abstract>Morphological rules with various levels of specificity can be learned from example lexemes by recursive application of minimal generalization (Albright and Hayes, 2002, 2003).
-A model that learns rules solely through minimal generalization was used to predict average human wug-test ratings from German, English, and Dutch in the SIGMORPHON-UniMorph 2021 Shared Task, with competitive results. Some formal properties of the minimal generalization operation were proved. An automatic method was developed to create wug-test stimuli for future experiments that investigate whether the model’s morphological generalizations are too minimal.</abstract>
+      <abstract>Morphological rules with various levels of specificity can be learned from example lexemes by recursive application of minimal generalization (Albright and Hayes, 2002, 2003). A model that learns rules solely through minimal generalization was used to predict average human wug-test ratings from German, English, and Dutch in the SIGMORPHON-UniMorph 2021 Shared Task, with competitive results. Some formal properties of the minimal generalization operation were proved. An automatic method was developed to create wug-test stimuli for future experiments that investigate whether the model’s morphological generalizations are too minimal.</abstract>
       <url hash="0fc07fce">2021.sigmorphon-1.29</url>
       <doi>10.18653/v1/2021.sigmorphon-1.29</doi>
       <bibkey>wilson-etal-2021-were</bibkey>

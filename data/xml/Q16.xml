@@ -1,6 +1,5 @@
-<?xml version='1.0' encoding='UTF-8'?>
 <collection id="Q16">
-  <volume id="1">
+  <volume id="1" type="journal">
     <meta>
       <booktitle>Transactions of the Association for Computational Linguistics, Volume 4</booktitle>
       <editor><last>Lee</last><first>Lillian</first></editor>
@@ -10,6 +9,7 @@
       <address>Cambridge, MA</address>
       <year>2016</year>
       <venue>tacl</venue>
+      <journal-volume>4</journal-volume>
     </meta>
     <frontmatter>
       <bibkey>tacl-2016-transactions</bibkey>
@@ -80,7 +80,7 @@
       <abstract>Algorithmic decipherment is a prime example of a truly unsupervised problem. The first step in the decipherment process is the identification of the encrypted language. We propose three methods for determining the source language of a document enciphered with a monoalphabetic substitution cipher. The best method achieves 97% accuracy on 380 languages. We then present an approach to decoding anagrammed substitution ciphers, in which the letters within words have been arbitrarily transposed. It obtains the average decryption word accuracy of 93% on a set of 50 ciphertexts in 5 languages. Finally, we report the results on the Voynich manuscript, an unsolved fifteenth century cipher, which suggest Hebrew as the language of the document.</abstract>
       <pages>75–86</pages>
       <url hash="07652073">Q16-1006</url>
-      <video href="https://vimeo.com/234952044"/>
+      <video href="Q16-1006.mp4"/>
       <bibkey>hauer-kondrak-2016-decoding</bibkey>
     </paper>
     <paper id="7">
@@ -235,7 +235,7 @@
       <author><first>Bing</first><last>Xiang</last></author>
       <author><first>Bowen</first><last>Zhou</last></author>
       <doi>10.1162/tacl_a_00097</doi>
-      <abstract>How to model a pair of sentences is a critical issue in many NLP tasks such as answer selection (AS), paraphrase identification (PI) and textual entailment (TE). Most prior work (i) deals with one individual task by fine-tuning a specific system; (ii) models each sentence’s representation separately, rarely considering the impact of the other sentence; or (iii) relies fully on manually designed, task-specific linguistic features. This work presents a general Attention Based Convolutional Neural Network (ABCNN) for modeling a pair of sentences. We make three contributions. (i) The ABCNN can be applied to a wide variety of tasks that require modeling of sentence pairs. (ii) We propose three attention schemes that integrate mutual influence between sentences into CNNs; thus, the representation of each sentence takes into consideration its counterpart. These interdependent sentence pair representations are more powerful than isolated sentence representations. (iii) ABCNNs achieve state-of-the-art performance on AS, PI and TE tasks. We release code at: https://github.com/yinwenpeng/Answer_Selection.</abstract>
+      <abstract>How to model a pair of sentences is a critical issue in many NLP tasks such as answer selection (AS), paraphrase identification (PI) and textual entailment (TE). Most prior work (i) deals with one individual task by fine-tuning a specific system; (ii) models each sentence’s representation separately, rarely considering the impact of the other sentence; or (iii) relies fully on manually designed, task-specific linguistic features. This work presents a general Attention Based Convolutional Neural Network (ABCNN) for modeling a pair of sentences. We make three contributions. (i) The ABCNN can be applied to a wide variety of tasks that require modeling of sentence pairs. (ii) We propose three attention schemes that integrate mutual influence between sentences into CNNs; thus, the representation of each sentence takes into consideration its counterpart. These interdependent sentence pair representations are more powerful than isolated sentence representations. (iii) ABCNNs achieve state-of-the-art performance on AS, PI and TE tasks. We release code at: <url>https://github.com/yinwenpeng/Answer_Selection</url>.</abstract>
       <pages>259–272</pages>
       <url hash="22c70cdf">Q16-1019</url>
       <erratum id="1" hash="5899b6cd">Q16-1019e1</erratum>
@@ -264,6 +264,7 @@
       <pages>287–300</pages>
       <url hash="8d1148c2">Q16-1021</url>
       <bibkey>schofield-mimno-2016-comparing</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/new-york-times-annotated-corpus">New York Times Annotated Corpus</pwcdataset>
     </paper>
     <paper id="22">
       <title>Multilingual Projection for Parsing Truly Low-Resource Languages</title>
@@ -300,9 +301,10 @@
       <abstract>We present Sparse Non-negative Matrix (SNM) estimation, a novel probability estimation technique for language modeling that can efficiently incorporate arbitrary features. We evaluate SNM language models on two corpora: the One Billion Word Benchmark and a subset of the LDC English Gigaword corpus. Results show that SNM language models trained with n-gram features are a close match for the well-established Kneser-Ney models. The addition of skip-gram features yields a model that is in the same league as the state-of-the-art recurrent neural network language models, as well as complementary: combining the two modeling techniques yields the best known result on the One Billion Word Benchmark. On the Gigaword corpus further improvements are observed using features that cross sentence boundaries. The computational advantages of SNM estimation over both maximum entropy and neural network estimation are probably its main strength, promising an approach that has large flexibility in combining arbitrary features and yet scales gracefully to large amounts of data.</abstract>
       <pages>329–342</pages>
       <url hash="63cf5d56">Q16-1024</url>
-      <video href="https://vimeo.com/239246963"/>
+      <video href="Q16-1024.mp4"/>
       <bibkey>pelemans-etal-2016-sparse</bibkey>
       <pwcdataset url="https://paperswithcode.com/dataset/billion-word-benchmark">Billion Word Benchmark</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/one-billion-word-benchmark">One Billion Word Benchmark</pwcdataset>
     </paper>
     <paper id="25">
       <title>Multi-lingual Dependency Parsing Evaluation: a Large-scale Analysis of Word Order Properties using Artificial Data</title>
@@ -324,7 +326,8 @@
       <url hash="c1db0998">Q16-1026</url>
       <bibkey>chiu-nichols-2016-named</bibkey>
       <pwccode url="" additional="true"/>
-      <pwcdataset url="https://paperswithcode.com/dataset/conll-2003">CoNLL-2003</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/conll-1">CoNLL</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/conll-2003">CoNLL 2003</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/dbpedia">DBpedia</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/ontonotes-5-0">OntoNotes 5.0</pwcdataset>
     </paper>
@@ -339,7 +342,7 @@
       <abstract>Neural machine translation (NMT) aims at solving machine translation (MT) problems using neural networks and has exhibited promising results in recent years. However, most of the existing NMT models are shallow and there is still a performance gap between a single NMT model and the best conventional MT system. In this work, we introduce a new type of linear connections, named fast-forward connections, based on deep Long Short-Term Memory (LSTM) networks, and an interleaved bi-directional architecture for stacking the LSTM layers. Fast-forward connections play an essential role in propagating the gradients and building a deep topology of depth 16. On the WMT’14 English-to-French task, we achieve BLEU=37.7 with a single attention model, which outperforms the corresponding single shallow model by 6.2 BLEU points. This is the first time that a single NMT model achieves state-of-the-art performance and outperforms the best conventional model by 0.7 BLEU points. We can still achieve BLEU=36.3 even without using an attention mechanism. After special handling of unknown words and model ensembling, we obtain the best score reported to date on this task with BLEU=40.4. Our models are also validated on the more difficult WMT’14 English-to-German task.</abstract>
       <pages>371–383</pages>
       <url hash="9771a562">Q16-1027</url>
-      <video href="https://vimeo.com/239245533"/>
+      <video href="Q16-1027.mp4"/>
       <bibkey>zhou-etal-2016-deep</bibkey>
       <pwcdataset url="https://paperswithcode.com/dataset/europarl">Europarl</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/wmt-2014">WMT 2014</pwcdataset>
@@ -408,9 +411,8 @@
       <abstract>We suggest a compositional vector representation of parse trees that relies on a recursive combination of recurrent-neural network encoders. To demonstrate its effectiveness, we use the representation as the backbone of a greedy, bottom-up dependency parser, achieving very strong accuracies for English and Chinese, without relying on external word embeddings. The parser’s implementation is available for download at the first author’s webpage.</abstract>
       <pages>445–461</pages>
       <url hash="6b238c9f">Q16-1032</url>
-      <video href="https://vimeo.com/239249592"/>
+      <video href="Q16-1032.mp4"/>
       <bibkey>kiperwasser-goldberg-2016-easy</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/penn-treebank">Penn Treebank</pwcdataset>
     </paper>
     <paper id="33">
       <title>Large-scale Analysis of Counseling Conversations: An Application of Natural Language Processing to Mental Health</title>
@@ -421,7 +423,7 @@
       <abstract>Mental illness is one of the most pressing public health issues of our time. While counseling and psychotherapy can be effective treatments, our knowledge about how to conduct successful counseling conversations has been limited due to lack of large-scale data with labeled outcomes of the conversations. In this paper, we present a large-scale, quantitative study on the discourse of text-message-based counseling conversations. We develop a set of novel computational discourse analysis methods to measure how various linguistic aspects of conversations are correlated with conversation outcomes. Applying techniques such as sequence-based conversation models, language model comparisons, message clustering, and psycholinguistics-inspired word frequency analyses, we discover actionable conversation strategies that are associated with better conversation outcomes.</abstract>
       <pages>463–476</pages>
       <url hash="eab3ccdc">Q16-1033</url>
-      <video href="https://vimeo.com/239248873"/>
+      <video href="Q16-1033.mp4"/>
       <bibkey>althoff-etal-2016-large</bibkey>
     </paper>
     <paper id="34">
@@ -434,7 +436,7 @@
       <abstract>Efficient methods for storing and querying are critical for scaling high-order m-gram language models to large corpora. We propose a language model based on compressed suffix trees, a representation that is highly compact and can be easily held in memory, while supporting queries needed in computing language model probabilities on-the-fly. We present several optimisations which improve query runtimes up to 2500×, despite only incurring a modest increase in construction time and memory usage. For large corpora and high Markov orders, our method is highly competitive with the state-of-the-art KenLM package. It imposes much lower memory requirements, often by orders of magnitude, and has runtimes that are either similar (for training) or comparable (for querying).</abstract>
       <pages>477–490</pages>
       <url hash="633fea8d">Q16-1034</url>
-      <video href="https://vimeo.com/239246831"/>
+      <video href="Q16-1034.mp4"/>
       <bibkey>shareghi-etal-2016-fast</bibkey>
       <pwccode url="https://github.com/eehsan/cstlm" additional="false">eehsan/cstlm</pwccode>
     </paper>
@@ -446,7 +448,7 @@
       <abstract>We release Galactic Dependencies 1.0—a large set of synthetic languages not found on Earth, but annotated in Universal Dependencies format. This new resource aims to provide training and development data for NLP methods that aim to adapt to unfamiliar languages. Each synthetic treebank is produced from a real treebank by stochastically permuting the dependents of nouns and/or verbs to match the word order of other real languages. We discuss the usefulness, realism, parsability, perplexity, and diversity of the synthetic languages. As a simple demonstration of the use of Galactic Dependencies, we consider single-source transfer, which attempts to parse a real target language using a parser trained on a “nearby” source language. We find that including synthetic source languages somewhat increases the diversity of the source pool, which significantly improves results for most target languages.</abstract>
       <pages>491–505</pages>
       <url hash="325b71bc">Q16-1035</url>
-      <video href="https://vimeo.com/239249526"/>
+      <video href="Q16-1035.mp4"/>
       <bibkey>wang-eisner-2016-galactic</bibkey>
       <pwccode url="https://github.com/gdtreebank/gdtreebank" additional="false">gdtreebank/gdtreebank</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/universal-dependencies">Universal Dependencies</pwcdataset>
@@ -459,7 +461,7 @@
       <abstract>We propose two models for verbalizing numbers, a key component in speech recognition and synthesis systems. The first model uses an end-to-end recurrent neural network. The second model, drawing inspiration from the linguistics literature, uses finite-state transducers constructed with a minimal amount of training data. While both models achieve near-perfect performance, the latter model can be trained using several orders of magnitude less data than the former, making it particularly useful for low-resource languages.</abstract>
       <pages>507–519</pages>
       <url hash="6180cf32">Q16-1036</url>
-      <video href="https://vimeo.com/239246509"/>
+      <video href="Q16-1036.mp4"/>
       <bibkey>gorman-sproat-2016-minimally</bibkey>
     </paper>
     <paper id="37">
@@ -482,7 +484,7 @@
       <abstract>Automatic satire detection is a subtle text classification task, for machines and at times, even for humans. In this paper we argue that satire detection should be approached using common-sense inferences, rather than traditional text classification methods. We present a highly structured latent variable model capturing the required inferences. The model abstracts over the specific entities appearing in the articles, grouping them into generalized categories, thus allowing the model to adapt to previously unseen situations.</abstract>
       <pages>537–549</pages>
       <url hash="972e9bad">Q16-1038</url>
-      <video href="https://vimeo.com/239249393"/>
+      <video href="Q16-1038.mp4"/>
       <bibkey>goldwasser-zhang-2016-understanding</bibkey>
     </paper>
     <paper id="39">

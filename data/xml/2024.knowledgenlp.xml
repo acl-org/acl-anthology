@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2024.knowledgenlp">
+  <volume id="1" ingest-date="2024-07-22" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of the 3rd Workshop on Knowledge Augmented Methods for NLP</booktitle>
+      <editor><first>Wenhao</first><last>Yu</last></editor>
+      <editor><first>Weijia</first><last>Shi</last></editor>
+      <editor><first>Michihiro</first><last>Yasunaga</last></editor>
+      <editor><first>Meng</first><last>Jiang</last></editor>
+      <editor><first>Chenguang</first><last>Zhu</last></editor>
+      <editor><first>Hannaneh</first><last>Hajishirzi</last></editor>
+      <editor><first>Luke</first><last>Zettlemoyer</last></editor>
+      <editor><first>Zhihan</first><last>Zhang</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Bangkok, Thailand</address>
+      <month>August</month>
+      <year>2024</year>
+      <url hash="050882e1">2024.knowledgenlp-1</url>
+      <venue>knowledgenlp</venue>
+      <venue>ws</venue>
+    </meta>
+    <frontmatter>
+      <url hash="68eaa5d0">2024.knowledgenlp-1.0</url>
+      <bibkey>knowledgenlp-2024-knowledge</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title><fixed-case>GAD</fixed-case>e<fixed-case>P</fixed-case>o: Graph-Assisted Declarative Pooling Transformers for Document-Level Relation Extraction</title>
+      <author><first>Andrei</first><last>Coman</last></author>
+      <author><first>Christos</first><last>Theodoropoulos</last></author>
+      <author><first>Marie-Francine</first><last>Moens</last><affiliation>KU Leuven, KU Leuven</affiliation></author>
+      <author><first>James</first><last>Henderson</last><affiliation>Idiap Research Institute</affiliation></author>
+      <pages>1-14</pages>
+      <abstract>Document-level relation extraction typically relies on text-based encoders and hand-coded pooling heuristics to aggregate information learned by the encoder. In this paper, we leverage the intrinsic graph processing capabilities of the Transformer model and propose replacing hand-coded pooling methods with new tokens in the input, which are designed to aggregate information via explicit graph relations in the computation of attention weights. We introduce a joint text-graph Transformer model and a graph-assisted declarative pooling (GADePo) specification of the input, which provides explicit and high-level instructions for information aggregation. GADePo allows the pooling process to be guided by domain-specific knowledge or desired outcomes but still learned by the Transformer, leading to more flexible and customisable pooling strategies. We evaluate our method across diverse datasets and models and show that our approach yields promising results that are consistently better than those achieved by the hand-coded pooling functions.</abstract>
+      <url hash="1d08fcae">2024.knowledgenlp-1.1</url>
+      <bibkey>coman-etal-2024-gadepo</bibkey>
+      <doi>10.18653/v1/2024.knowledgenlp-1.1</doi>
+    </paper>
+    <paper id="2">
+      <title><fixed-case>K</fixed-case>a<fixed-case>PQA</fixed-case>: Knowledge-Augmented Product Question-Answering</title>
+      <author><first>Swetha</first><last>Eppalapally</last></author>
+      <author><first>Daksh</first><last>Dangi</last></author>
+      <author><first>Chaithra</first><last>Bhat</last></author>
+      <author><first>Ankita</first><last>Gupta</last></author>
+      <author><first>Ruiyi</first><last>Zhang</last><affiliation>Adobe Systems</affiliation></author>
+      <author><first>Shubham</first><last>Agarwal</last><affiliation>Adobe Systems</affiliation></author>
+      <author><first>Karishma</first><last>Bagga</last><affiliation>Adobe Research</affiliation></author>
+      <author><first>Seunghyun</first><last>Yoon</last><affiliation>Adobe Research</affiliation></author>
+      <author><first>Nedim</first><last>Lipka</last><affiliation>Adobe Systems</affiliation></author>
+      <author><first>Ryan</first><last>Rossi</last><affiliation>Adobe Research</affiliation></author>
+      <author><first>Franck</first><last>Dernoncourt</last><affiliation>Adobe Systems</affiliation></author>
+      <pages>15-29</pages>
+      <abstract>Question-answering for domain-specific applications has recently attracted much interest due to the latest advancements in large language models (LLMs). However, accurately assessing the performance of these applications remains a challenge, mainly due to the lack of suitable benchmarks that effectively simulate real-world scenarios. To address this challenge, we introduce two product question-answering (QA) datasets focused on Adobe Acrobat and Photoshop products to help evaluate the performance of existing models on domain-specific product QA tasks. Additionally, we propose a novel knowledge-driven RAG-QA framework to enhance the performance of the models in the product QA task. Our experiments demonstrated that inducing domain knowledge through query reformulation allowed for increased retrieval and generative performance when compared to standard RAG-QA methods. This improvement, however, is slight, and thus illustrates the challenge posed by the datasets introduced.</abstract>
+      <url hash="e748ab2a">2024.knowledgenlp-1.2</url>
+      <bibkey>eppalapally-etal-2024-kapqa</bibkey>
+      <doi>10.18653/v1/2024.knowledgenlp-1.2</doi>
+    </paper>
+    <paper id="3">
+      <title>Collecting High-quality Multi-modal Conversational Search Data for <fixed-case>E</fixed-case>-Commerce</title>
+      <author><first>Marcus</first><last>Collins</last><affiliation>Amazon</affiliation></author>
+      <author><first>Oleg</first><last>Rokhlenko</last></author>
+      <author><first>Eugene</first><last>Agichtein</last><affiliation>Amazon and Emory University</affiliation></author>
+      <author><first>Shervin</first><last>Malmasi</last><affiliation>Amazon</affiliation></author>
+      <pages>30-43</pages>
+      <abstract>Continued improvement of conversational assistants in knowledge-rich domains like E-Commerce requires large volumes of realistic high-quality conversation data to power increasingly sophisticated large language model chatbots, dialogue managers, response rankers, and recommenders. The problem is exacerbated for multi-modal interactions in realistic conversational product search and recommendation. Here, an artificial sales agent must interact intelligently with a customer using both textual and visual information and incorporate results from external search systems, such as a product catalog. Yet, it remains an open question how to best crowd-source large-scale, naturalistic multi-modal dialogue and action data, required to train such an artificial agent. We describe our crowd-sourced task where one worker (the Buyer) plays the role of the customer, and another (the Seller) plays the role of the sales agent. We identify subtle interactions between one worker’s environment and their partner’s behavior mediated by workers’ word choice. We find that limiting information presented to the Buyer, both in their backstory and by the Seller, improves conversation quality. We also show how conversations are improved through minimal automated Seller “coaching”. While typed and spoken messages are slightly different, the differences are not as large as frequently assumed. We plan to release our platform code and the resulting dialogues to advance research on conversational search agents.</abstract>
+      <url hash="788ccfb0">2024.knowledgenlp-1.3</url>
+      <bibkey>collins-etal-2024-collecting</bibkey>
+      <doi>10.18653/v1/2024.knowledgenlp-1.3</doi>
+    </paper>
+    <paper id="4">
+      <title>Learning to Trust Your Feelings: Leveraging Self-awareness in <fixed-case>LLM</fixed-case>s for Hallucination Mitigation</title>
+      <author><first>Yuxin</first><last>Liang</last></author>
+      <author><first>Zhuoyang</first><last>Song</last></author>
+      <author><first>Hao</first><last>Wang</last><affiliation>IDEA</affiliation></author>
+      <author><first>Jiaxing</first><last>Zhang</last><affiliation>IDEA</affiliation></author>
+      <pages>44-58</pages>
+      <abstract>We evaluate the ability of Large Language Models (LLMs) to discern and express their internal knowledge state, a key factor in countering factual hallucination and ensuring reliable application of LLMs. We observe a robust self-awareness of internal knowledge state in LLMs, evidenced by over 85% accuracy in knowledge state probing. However, LLMs often fail to faithfully express their internal knowledge during generation, leading to factual hallucinations. We develop an automated hallucination annotation tool, DreamCatcher, which merges knowledge probing and consistency checking methods to rank factual preference data. Using knowledge preference as reward, We propose a Reinforcement Learning from Knowledge Feedback (RLKF) training framework, leveraging reinforcement learning to enhance the factuality and honesty of LLMs. Our experiments across multiple models show that RLKF training effectively enhances the ability of models to utilize their internal knowledge state, boosting performance in a variety of knowledge-based and honesty-related tasks.</abstract>
+      <url hash="ecfc6b43">2024.knowledgenlp-1.4</url>
+      <bibkey>liang-etal-2024-learning</bibkey>
+      <doi>10.18653/v1/2024.knowledgenlp-1.4</doi>
+    </paper>
+    <paper id="5">
+      <title>Aggregating Impressions on Celebrities and their Reasons from Microblog Posts and Web Search Pages</title>
+      <author><first>Hibiki</first><last>Yokoyama</last></author>
+      <author><first>Rikuto</first><last>Tsuchida</last></author>
+      <author><first>Kosei</first><last>Buma</last></author>
+      <author><first>Sho</first><last>Miyakawa</last><affiliation>University of Tsukuba, Tsukuba University</affiliation></author>
+      <author><first>Takehito</first><last>Utsuro</last><affiliation>University of Tsukuba</affiliation></author>
+      <author><first>Masaharu</first><last>Yoshioka</last><affiliation>Hokkaido University</affiliation></author>
+      <pages>59-72</pages>
+      <abstract>This paper aims to augment fans’ ability to critique and exploreinformation related to celebrities of interest. First, we collect postsfrom X (formerly Twitter) that discuss matters related to specificcelebrities. For the collection of major impressions from these posts,we employ ChatGPT as a large language model (LLM) to analyze andsummarize key sentiments. Next, based on collected impressions, wesearch for Web pages and collect the content of the top 30 ranked pagesas the source for exploring the reasons behind those impressions. Oncethe Web page content collection is complete, we collect and aggregatedetailed reasons for the impressions on the celebrities from the contentof each page. For this part, we continue to use ChatGPT, enhanced bythe retrieval augmented generation (RAG) framework, to ensure thereliability of the collected results compared to relying solely on theprior knowledge of the LLM. Evaluation results by comparing a referencethat is manually collected and aggregated reasons with those predictedby ChatGPT revealed that ChatGPT achieves high accuracy in reasoncollection and aggregation. Furthermore, we compared the performance ofChatGPT with an existing model of mT5 in reason collection and confirmedthat ChatGPT exhibits superior performance.</abstract>
+      <url hash="a112b463">2024.knowledgenlp-1.5</url>
+      <bibkey>yokoyama-etal-2024-aggregating</bibkey>
+      <doi>10.18653/v1/2024.knowledgenlp-1.5</doi>
+    </paper>
+    <paper id="6">
+      <title><fixed-case>DSLR</fixed-case>: Document Refinement with Sentence-Level Re-ranking and Reconstruction to Enhance Retrieval-Augmented Generation</title>
+      <author><first>Taeho</first><last>Hwang</last></author>
+      <author><first>Soyeong</first><last>Jeong</last><affiliation>Korea Advanced Institute of Science &amp; Technology</affiliation></author>
+      <author><first>Sukmin</first><last>Cho</last></author>
+      <author><first>SeungYoon</first><last>Han</last></author>
+      <author><first>Jong</first><last>Park</last><affiliation>Korea Advanced Institute of Science and Technology</affiliation></author>
+      <pages>73-92</pages>
+      <abstract>Recent advancements in Large Language Models (LLMs) have significantly improved their performance across various Natural Language Processing (NLP) tasks.However, LLMs still struggle with generating non-factual responses due to limitations in their parametric memory.Retrieval-Augmented Generation (RAG) systems address this issue by incorporating external knowledge with a retrieval module.Despite their successes, however, current RAG systems face challenges with retrieval failures and the limited ability of LLMs to filter out irrelevant information.Therefore, in this work, we propose <i>
+          <b>DSLR</b></i> (<b>D</b>ocument Refinement with <b>S</b>entence-<b>L</b>evel <b>R</b>e-ranking and Reconstruction), an unsupervised framework that decomposes retrieved documents into sentences, filters out irrelevant sentences, and reconstructs them again into coherent passages.We experimentally validate <i>DSLR</i> on multiple open-domain QA datasets and the results demonstrate that <i>DSLR</i> significantly enhances the RAG performance over conventional fixed-size passage.Furthermore, our <i>DSLR</i> enhances performance in specific, yet realistic scenarios without the need for additional training, providing an effective and efficient solution for refining retrieved documents in RAG systems.</abstract>
+      <url hash="c35e4259">2024.knowledgenlp-1.6</url>
+      <bibkey>hwang-etal-2024-dslr</bibkey>
+      <doi>10.18653/v1/2024.knowledgenlp-1.6</doi>
+    </paper>
+    <paper id="7">
+      <title>Enhancing Robustness of Retrieval-Augmented Language Models with In-Context Learning</title>
+      <author><first>SeongIl</first><last>Park</last><affiliation>Seoul National University</affiliation></author>
+      <author><first>Seungwoo</first><last>Choi</last><affiliation>Seoul National University</affiliation></author>
+      <author><first>Nahyun</first><last>Kim</last><affiliation>Seoul National University</affiliation></author>
+      <author><first>Jay-Yoon</first><last>Lee</last><affiliation>Seoul National University</affiliation></author>
+      <pages>93-102</pages>
+      <abstract>Retrieval-Augmented Language Models (RALMs) have significantly improved performance in open-domain question answering (QA) by leveraging external knowledge. However, RALMs still struggle with unanswerable queries, where the retrieved contexts do not contain the correct answer, and with conflicting information, where different sources provide contradictory answers due to imperfect retrieval. This study introduces an in-context learning-based approach to enhance the reasoning capabilities of RALMs, making them more robust in imperfect retrieval scenarios. Our method incorporates Machine Reading Comprehension (MRC) demonstrations, referred to as <tex-math>\textit{cases}</tex-math>, to boost the model’s capabilities to identify unanswerabilities and conflicts among the retrieved contexts. Experiments on two open-domain QA datasets show that our approach increases accuracy in identifying unanswerable and conflicting scenarios without requiring additional fine-tuning. This work demonstrates that in-context learning can effectively enhance the robustness of RALMs in open-domain QA tasks.</abstract>
+      <url hash="a20bd600">2024.knowledgenlp-1.7</url>
+      <bibkey>park-etal-2024-enhancing</bibkey>
+      <doi>10.18653/v1/2024.knowledgenlp-1.7</doi>
+    </paper>
+  </volume>
+</collection>

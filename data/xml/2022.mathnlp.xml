@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <collection id="2022.mathnlp">
-  <volume id="1" ingest-date="2022-12-13">
+  <volume id="1" ingest-date="2022-12-13" type="proceedings">
     <meta>
       <booktitle>Proceedings of the 1st Workshop on Mathematical Natural Language Processing (MathNLP)</booktitle>
       <editor><first>Deborah</first><last>Ferreira</last></editor>
@@ -29,6 +29,8 @@
       <abstract>How language models process complex input that requires multiple steps of inference is not well understood. Previous research has shown that information about intermediate values of these inputs can be extracted from the activations of the models, but it is unclear where that information is encoded and whether that information is indeed used during inference. We introduce a method for analyzing how a Transformer model processes these inputs by focusing on simple arithmetic problems and their intermediate values. To trace where information about intermediate values is encoded, we measure the correlation between intermediate values and the activations of the model using principal component analysis (PCA). Then, we perform a causal intervention by manipulating model weights. This intervention shows that the weights identified via tracing are not merely correlated with intermediate values, but causally related to model predictions. Our findings show that the model has a locality to certain intermediate values, and this is useful for enhancing the interpretability of the models.</abstract>
       <url hash="ab2c46dd">2022.mathnlp-1.1</url>
       <bibkey>matsumoto-etal-2022-tracing</bibkey>
+      <video href="2022.mathnlp-1.1.mp4"/>
+      <doi>10.18653/v1/2022.mathnlp-1.1</doi>
     </paper>
     <paper id="2">
       <title>Investigating Math Word Problems using Pretrained Multilingual Language Models</title>
@@ -40,6 +42,8 @@
       <abstract>In this paper, we revisit math word problems (MWPs) from the cross-lingual and multilingual perspective. We construct our MWP solvers over pretrained multilingual language models using the sequence-to-sequence model with copy mechanism. We compare how the MWP solvers perform in cross-lingual and multilingual scenarios. To facilitate the comparison of cross-lingual performance, we first adapt the large-scale English dataset MathQA as a counterpart of the Chinese dataset Math23K. Then we extend several English datasets to bilingual datasets through machine translation plus human annotation. Our experiments show that the MWP solvers may not be transferred to a different language even if the target expressions share the same numerical constants and operator set. However, it can be better generalized if problem types exist on both source language and target language.</abstract>
       <url hash="892ab559">2022.mathnlp-1.2</url>
       <bibkey>tan-etal-2022-investigating</bibkey>
+      <video href="2022.mathnlp-1.2.mp4"/>
+      <doi>10.18653/v1/2022.mathnlp-1.2</doi>
     </paper>
     <paper id="3">
       <title>Induced Natural Language Rationales and Interleaved Markup Tokens Enable Extrapolation in Large Language Models</title>
@@ -49,9 +53,11 @@
       <author><first>Roberto</first><last>Lotufo</last></author>
       <author><first>Rodrigo</first><last>Nogueira</last></author>
       <pages>17-24</pages>
-      <abstract>The ability to extrapolate, i.e., to make predictions on sequences that are longer than those presented as training examples, is a challenging problem for current deep learning models. Recent work shows that this limitation persists in state-of-the-art Transformer-based models. Most solutions to this problem use specific architectures or training methods that do not generalize to other tasks. We demonstrate that large language models can succeed in extrapolation without modifying their architecture or training procedure. Our experimental results show that generating step-by-step rationales and introducing marker tokens are both required for effective extrapolation. First, we induce a language model to produce step-by-step rationales before outputting the answer to effectively communicate the task to the model. However, as sequences become longer, we find that current models struggle to keep track of token positions. To address this issue, we interleave output tokens with markup tokens that act as explicit positional and counting symbols. Our findings show how these two complementary approaches enable remarkable sequence extrapolation and highlight a limitation of current architectures to effectively generalize without explicit surface form guidance. Code available at https://anonymous.4open.science/r/induced-rationales-markup-tokens-0650/README.md</abstract>
+      <abstract>The ability to extrapolate, i.e., to make predictions on sequences that are longer than those presented as training examples, is a challenging problem for current deep learning models. Recent work shows that this limitation persists in state-of-the-art Transformer-based models. Most solutions to this problem use specific architectures or training methods that do not generalize to other tasks. We demonstrate that large language models can succeed in extrapolation without modifying their architecture or training procedure. Our experimental results show that generating step-by-step rationales and introducing marker tokens are both required for effective extrapolation. First, we induce a language model to produce step-by-step rationales before outputting the answer to effectively communicate the task to the model. However, as sequences become longer, we find that current models struggle to keep track of token positions. To address this issue, we interleave output tokens with markup tokens that act as explicit positional and counting symbols. Our findings show how these two complementary approaches enable remarkable sequence extrapolation and highlight a limitation of current architectures to effectively generalize without explicit surface form guidance. Code available at <url>https://anonymous.4open.science/r/induced-rationales-markup-tokens-0650/README.md</url></abstract>
       <url hash="967d0c0d">2022.mathnlp-1.3</url>
       <bibkey>bueno-etal-2022-induced</bibkey>
+      <video href="2022.mathnlp-1.3.mp4"/>
+      <doi>10.18653/v1/2022.mathnlp-1.3</doi>
     </paper>
     <paper id="4">
       <title>Towards Autoformalization of Mathematics and Code Correctness: Experiments with Elementary Proofs</title>
@@ -62,6 +68,8 @@
       <abstract>The ever-growing complexity of mathematical proofs makes their manual verification by mathematicians very cognitively demanding. Autoformalization seeks to address this by translating proofs written in natural language into a formal representation that is computer-verifiable via interactive theorem provers. In this paper, we introduce a semantic parsing approach, based on the Universal Transformer architecture, that translates elementary mathematical proofs into an equivalent formalization in the language of the Coq interactive theorem prover. The same architecture is also trained to translate simple imperative code decorated with Hoare triples into formally verifiable proofs of correctness in Coq. Experiments on a limited domain of artificial and human-written proofs show that the models generalize well to intermediate lengths not seen during training and variations in natural language.</abstract>
       <url hash="ed50c971">2022.mathnlp-1.4</url>
       <bibkey>cunningham-etal-2022-towards</bibkey>
+      <video href="2022.mathnlp-1.4.mp4"/>
+      <doi>10.18653/v1/2022.mathnlp-1.4</doi>
     </paper>
     <paper id="5">
       <title>Numerical Correlation in Text</title>
@@ -72,6 +80,8 @@
       <abstract>Evaluation of quantitative reasoning of large language models is an important step towards understanding their current capabilities and limitations. We propose a new task, Numerical Correlation in Text, which requires models to identify the correlation between two numbers in a sentence. To this end, we introduce a new dataset, which contains over 2,000 Wikipedia sentences with two numbers and their correlation labels. Using this dataset we are able to show that recent numerically aware pretraining methods for language models do not help generalization on this task posing a challenge for future work in this area.</abstract>
       <url hash="f1bd9868">2022.mathnlp-1.5</url>
       <bibkey>spokoyny-etal-2022-numerical</bibkey>
+      <video href="2022.mathnlp-1.5.mp4"/>
+      <doi>10.18653/v1/2022.mathnlp-1.5</doi>
     </paper>
     <paper id="6">
       <title>Extracting Operator Trees from Model Embeddings</title>
@@ -81,6 +91,8 @@
       <abstract>Transformer-based language models are able to capture several linguistic properties such as hierarchical structures like dependency or constituency trees. Whether similar structures for mathematics are extractable from language models has not yet been explored. This work aims to probe current state-of-the-art models for the extractability of Operator Trees from their contextualized embeddings using the structure probe designed by Hewitt and Manning. We release the code and our data set for future analysis.</abstract>
       <url hash="445f5e4c">2022.mathnlp-1.6</url>
       <bibkey>reusch-lehner-2022-extracting</bibkey>
+      <video href="2022.mathnlp-1.6.mp4"/>
+      <doi>10.18653/v1/2022.mathnlp-1.6</doi>
     </paper>
     <paper id="7">
       <title>End-to-End Evaluation of a Spoken Dialogue System for Learning Basic Mathematics</title>
@@ -92,6 +104,8 @@
       <abstract>The advances in language-based Artificial Intelligence (AI) technologies applied to build educational applications can present AI for social-good opportunities with a broader positive impact. Across many disciplines, enhancing the quality of mathematics education is crucial in building critical thinking and problem-solving skills at younger ages. Conversational AI systems have started maturing to a point where they could play a significant role in helping students learn fundamental math concepts. This work presents a task-oriented Spoken Dialogue System (SDS) built to support play-based learning of basic math concepts for early childhood education. The system has been evaluated via real-world deployments at school while the students are practicing early math concepts with multimodal interactions. We discuss our efforts to improve the SDS pipeline built for math learning, for which we explore utilizing MathBERT representations for potential enhancement to the Natural Language Understanding (NLU) module. We perform an end-to-end evaluation using real-world deployment outputs from the Automatic Speech Recognition (ASR), Intent Recognition, and Dialogue Manager (DM) components to understand how error propagation affects the overall performance in real-world scenarios.</abstract>
       <url hash="5b025852">2022.mathnlp-1.7</url>
       <bibkey>okur-etal-2022-end</bibkey>
+      <video href="2022.mathnlp-1.7.mp4"/>
+      <doi>10.18653/v1/2022.mathnlp-1.7</doi>
     </paper>
   </volume>
 </collection>

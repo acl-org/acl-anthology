@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <collection id="2022.amta">
-  <volume id="research" ingest-date="2022-09-04">
+  <volume id="research" ingest-date="2022-09-04" type="proceedings">
     <meta>
       <booktitle>Proceedings of the 15th biennial conference of the Association for Machine Translation in the Americas (Volume 1: Research Track)</booktitle>
       <publisher>Association for Machine Translation in the Americas</publisher>
@@ -38,7 +38,7 @@
       <url hash="f1da3e1d">2022.amta-research.2</url>
       <abstract>Preservation of domain knowledge from the source to target is crucial in any translation workflow. It is common in the translation industry to receive highly-specialized projects, where there is hardly any parallel in-domain data. In such scenarios where there is insufficient in-domain data to fine-tune Machine Translation (MT) models, producing translations that are consistent with the relevant context is challenging. In this work, we propose leveraging state-of-the-art pretrained language models (LMs) for domain-specific data augmentation for MT, simulating the domain characteristics of either (a) a small bilingual dataset, or (b) the monolingual source text to be translated. Combining this idea with back-translation, we can generate huge amounts of synthetic bilingual in-domain data for both use cases. For our investigation, we used the state-of-the-art MT architecture, Transformer. We employed mixed fine-tuning to train models that significantly improve translation of in-domain texts. More specifically, our proposed methods achieved improvements of approximately 5-6 BLEU and 2-3 BLEU, respectively, on Arabic-to-English and English-to-Arabic language pairs. Furthermore, the outcome of human evaluation corroborates the automatic evaluation results.</abstract>
       <bibkey>moslem-etal-2022-domain</bibkey>
-      <pwccode url="https://github.com/ymoslem/mt-lm" additional="false">ymoslem/mt-lm</pwccode>
+      <pwccode url="https://github.com/ymoslem/mt-preparation" additional="true">ymoslem/mt-preparation</pwccode>
     </paper>
     <paper id="3">
       <title>Strategies for Adapting Multilingual Pre-training for Domain-Specific Machine Translation</title>
@@ -74,15 +74,15 @@
       <bibkey>amer-etal-2022-fast</bibkey>
     </paper>
     <paper id="6">
-      <title>Language Tokens: Simply Improving Zero-Shot Multi-Aligned Translation in Encoder-Decoder Models</title>
-      <author><first>Muhammad</first><last>N ElNokrashy</last></author>
+      <title>Language Tokens: A Frustratingly Simple Approach Improves Zero-Shot Performance of Multilingual Translation</title>
+      <author><first>Muhammad</first><last>ElNokrashy</last></author>
       <author><first>Amr</first><last>Hendy</last></author>
       <author><first>Mohamed</first><last>Maher</last></author>
       <author><first>Mohamed</first><last>Afify</last></author>
-      <author><first>Hany</first><last>Hassan</last></author>
+      <author><first>Hany</first><last>Hassan Awadalla</last></author>
       <pages>70-82</pages>
       <url hash="c4e3b27e">2022.amta-research.6</url>
-      <abstract>This paper proposes a simple and effective method to improve direct translation for the zero-shot case and when direct data is available. We modify the input tokens at both the encoder and decoder to include signals for the source and target languages. We show a performance gain when training from scratch, or finetuning a pretrained model with the proposed setup. In in-house experiments, our method shows nearly a 10.0 BLEU points difference depending on the stoppage criteria. In a WMT-based setting, we see 1.3 and 0.4 BLEU points improvement for the zero-shot setting, and when using direct data for training, respectively, while from-English performance improves by 4.17 and 0.85 BLEU points. In the low-resource setting, we see a 1.5 ∼ 1.7 point improvement when finetuning on directly translated domain data.</abstract>
+      <abstract>This paper proposes a simple yet effective method to improve direct (X-to-Y) translation for both cases: zero-shot and when direct data is available. We modify the input tokens at both the encoder and decoder to include signals for the source and target languages. We show a performance gain when training from scratch, or finetuning a pretrained model with the pro- posed setup. In the experiments, our method shows nearly 10.0 BLEU points gain on in-house datasets depending on the checkpoint selection criteria. In a WMT evaluation campaign, From- English performance improves by 4.17 and 2.87 BLEU points, in the zero-shot setting, and when direct data is available for training, respectively. While X-to-Y improves by 1.29 BLEU over the zero-shot baseline, and 0.44 over the many-to-many baseline. In the low-resource setting, we see a 1.5 ∼ 1.7 point improvement when finetuning on X-to-Y domain data.</abstract>
       <bibkey>n-elnokrashy-etal-2022-language</bibkey>
       <pwcdataset url="https://paperswithcode.com/dataset/ccaligned">CCAligned</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/ccmatrix">CCMatrix</pwcdataset>
@@ -128,16 +128,16 @@
       <url hash="fd2826f2">2022.amta-research.9</url>
       <abstract>Neural Machine Translation (NMT) is an open vocabulary problem. As a result, dealing with the words not occurring during training (a.k.a. out-of-vocabulary (OOV) words) have long been a fundamental challenge for NMT systems. The predominant method to tackle this problem is Byte Pair Encoding (BPE) which splits words, including OOV words, into sub-word segments. BPE has achieved impressive results for a wide range of translation tasks in terms of automatic evaluation metrics. While it is often assumed that by using BPE, NMT systems are capable of handling OOV words, the effectiveness of BPE in translating OOV words has not been explicitly measured. In this paper, we study to what extent BPE is successful in translating OOV words at the word-level. We analyze the translation quality of OOV words based on word type, number of segments, cross-attention weights, and the frequency of segment n-grams in the training data. Our experiments show that while careful BPE settings seem to be fairly useful in translating OOV words across datasets, a considerable percentage of OOV words are translated incorrectly. Furthermore, we highlight the slightly higher effectiveness of BPE in translating OOV words for special cases, such as named-entities and when the languages involved are linguistically close to each other.</abstract>
       <bibkey>araabi-etal-2022-effective</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/flores-101">FLORES-101</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/flores-101">FLoRes-101</pwcdataset>
     </paper>
     <paper id="10">
       <title>On the Effectiveness of Quasi Character-Level Models for Machine Translation</title>
-      <author><first>Salvador</first><last>Carrión-Ponz</last></author>
+      <author><first>Salvador</first><last>Carrión</last></author>
       <author><first>Francisco</first><last>Casacuberta</last></author>
       <pages>131-143</pages>
       <url hash="b53f65d5">2022.amta-research.10</url>
       <abstract>Neural Machine Translation (NMT) models often use subword-level vocabularies to deal with rare or unknown words. Although some studies have shown the effectiveness of purely character-based models, these approaches have resulted in highly expensive models in computational terms. In this work, we explore the benefits of quasi-character-level models for very low-resource languages and their ability to mitigate the effects of the catastrophic forgetting problem. First, we conduct an empirical study on the efficacy of these models, as a function of the vocabulary and training set size, for a range of languages, domains, and architectures. Next, we study the ability of these models to mitigate the effects of catastrophic forgetting in machine translation. Our work suggests that quasi-character-level models have practically the same generalization capabilities as character-based models but at lower computational costs. Furthermore, they appear to help achieve greater consistency between domains than standard subword-level models, although the catastrophic forgetting problem is not mitigated.</abstract>
-      <bibkey>carrion-ponz-casacuberta-2022-effectiveness</bibkey>
+      <bibkey>carrion-casacuberta-2022-effectiveness</bibkey>
     </paper>
     <paper id="11">
       <title>Improving Translation of Out Of Vocabulary Words using Bilingual Lexicon Induction in Low-Resource Machine Translation</title>
@@ -174,12 +174,12 @@
     </paper>
     <paper id="14">
       <title>Few-Shot Regularization to Tackle Catastrophic Forgetting in Multilingual Machine Translation</title>
-      <author><first>Salvador Carrión-Ponz</first><last/></author>
+      <author><first>Salvador</first><last>Carrión</last></author>
       <author><first>Francisco</first><last>Casacuberta</last></author>
       <pages>188-199</pages>
       <url hash="fd8d6bcf">2022.amta-research.14</url>
       <abstract>Increasing the number of tasks supported by a machine learning model without forgetting previously learned tasks is the goal of any lifelong learning system. In this work, we study how to mitigate the effects of the catastrophic forgetting problem to sequentially train a multilingual neural machine translation model using minimal past information. First, we describe the catastrophic forgetting phenomenon as a function of the number of tasks learned (language pairs) and the ratios of past data used during the learning of the new task. Next, we explore the importance of applying oversampling strategies for scenarios where only minimal amounts of past data are available. Finally, we derive a new loss function that minimizes the forgetting of previously learned tasks by actively re-weighting past samples and penalizing weights that deviate too much from the original model. Our work suggests that by using minimal amounts of past data and a simple regularization function, we can significantly mitigate the effects of the catastrophic forgetting phenomenon without increasing the computational costs.</abstract>
-      <bibkey>-casacuberta-2022-shot</bibkey>
+      <bibkey>carrion-casacuberta-2022-shot</bibkey>
     </paper>
     <paper id="15">
       <title>Quantized <fixed-case>W</fixed-case>asserstein <fixed-case>P</fixed-case>rocrustes Alignment of Word Embedding Spaces</title>
@@ -314,7 +314,7 @@
       <bibkey>zhang-etal-2022-evaluating</bibkey>
     </paper>
   </volume>
-  <volume id="upg" ingest-date="2022-09-04">
+  <volume id="upg" ingest-date="2022-09-04" type="proceedings">
     <meta>
       <booktitle>Proceedings of the 15th Biennial Conference of the Association for Machine Translation in the Americas (Volume 2: Users and Providers Track and Government Track)</booktitle>
       <publisher>Association for Machine Translation in the Americas</publisher>
@@ -672,7 +672,7 @@
       <bibkey>tzoukermann-etal-2022-speech</bibkey>
     </paper>
   </volume>
-  <volume id="coco4mt" ingest-date="2022-09-04">
+  <volume id="coco4mt" ingest-date="2022-09-04" type="proceedings">
     <meta>
       <booktitle>Proceedings of the 15th biennial conference of the Association for Machine Translation in the Americas (Workshop 2: Corpus Generation and Corpus Augmentation for Machine Translation)</booktitle>
       <publisher>Association for Machine Translation in the Americas</publisher>
@@ -715,6 +715,7 @@
       <url hash="c08b8e8a">2022.amta-coco4mt.2</url>
       <abstract>This paper proposes an efficient and semi-automated method for human-in-the-loop post- editing for machine translation (MT) corpus generation. The method is based on online training of a custom MT quality estimation metric on-the-fly as linguists perform post-edits. The online estimator is used to prioritize worse hypotheses for post-editing, and auto-close best hypothe- ses without post-editing. This way, significant improvements can be achieved in the resulting quality of post-edits at a lower cost due to reduced human involvement. The trained estimator can also provide an online sanity check mechanism for post-edits and remove the need for ad- ditional linguists to review them or work on the same hypotheses. In this paper, the effect of prioritizing with the proposed method on the resulting MT corpus quality is presented versus scheduling hypotheses randomly. As demonstrated by experiments, the proposed method im- proves the lifecycle of MT models by focusing the linguist effort on production samples and hypotheses, which matter most for expanding MT corpora to be used for re-training them</abstract>
       <bibkey>yuksel-etal-2022-efficient</bibkey>
+      <pwccode url="https://github.com/aixplain/Efficient-MT" additional="false">aixplain/Efficient-MT</pwccode>
     </paper>
     <paper id="3">
       <title>Building and Analysis of <fixed-case>T</fixed-case>amil Lyric Corpus with Semantic Representation</title>
@@ -734,7 +735,7 @@
       <bibkey>burda-lassen-2022-ukrainian</bibkey>
     </paper>
   </volume>
-  <volume id="wetpr" ingest-date="2022-09-04">
+  <volume id="wetpr" ingest-date="2022-09-04" type="proceedings">
     <meta>
       <booktitle>Proceedings of the 15th biennial conference of the Association for Machine Translation in the Americas (Workshop 1: Empirical Translation Process Research)</booktitle>
       <publisher>Association for Machine Translation in the Americas</publisher>

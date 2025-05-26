@@ -24,7 +24,7 @@ from slugify import slugify
 from stop_words import get_stop_words
 from .people import PersonName
 
-from typing import List
+from typing import List, Dict
 
 try:
     from yaml import CLoader as Loader
@@ -217,9 +217,18 @@ class AnthologyIndex:
             raise Exception(
                 "Cannot create bibkeys when AnthologyIndex is instantiated with fast_load=True"
             )
+
+        # Regular papers use the first title word, then add title words until uniqueness is achieved
+        title = [
+            w
+            for w in slugify(paper.get_title("plain")).split("-")
+            if not self._is_stopword(w, paper)
+        ]
+
         if paper.is_volume:
-            # Proceedings volumes use venue acronym instead of authors/editors
+            # Proceedings volumes use venue acronym instead of authors/editors, e.g., lrec-tutorials-2024
             bibnames = slugify(paper.get_venue_acronym())
+            bibkey = f"{bibnames}-{paper.get('year')}-{paper.volume_id}"
         else:
             # Regular papers use author/editor names
             names = paper.get("author")
@@ -232,12 +241,9 @@ class AnthologyIndex:
                     bibnames = "-".join(slugify(n.last) for n, _ in names)
             else:
                 bibnames = "nn"
-        title = [
-            w
-            for w in slugify(paper.get_title("plain")).split("-")
-            if not self._is_stopword(w, paper)
-        ]
-        bibkey = f"{bibnames}-{paper.get('year')}-{title.pop(0)}"
+
+            bibkey = f"{bibnames}-{paper.get('year')}-{title.pop(0)}"
+
         while bibkey in self.bibkeys:  # guarantee uniqueness
             if title:
                 bibkey += f"-{title.pop(0)}"
@@ -309,7 +315,7 @@ class AnthologyIndex:
                 if not self._fast_load:
                     self._id_to_used[id_].add(name)
 
-                if not dummy:
+                if not dummy and (role == "author" or paper.is_volume):
                     # Register paper
                     self.id_to_papers[id_][role].append(paper.full_id)
                     if not self._fast_load:
@@ -353,30 +359,6 @@ class AnthologyIndex:
                 "Cannot retrieve list of similar names when AnthologyIndex is instantiated with fast_load=True"
             )
         return self._similar
-
-    def verify(self):
-        ## no longer issuing a warning for unused variants
-        ## it is generally a good idea to keep them around in case they pop up again
-        ## if you want to prune them, try clean_name_variants.py
-        # for name, ids in self.name_to_ids.items():
-        #    for id_ in ids:
-        #        cname = self.id_to_canonical[id_]
-        #        if name != cname and name not in self._id_to_used[id_]:
-        #            log.warning(
-        #                "Variant name '{}' of '{}' is not used".format(
-        #                    repr(name), repr(cname)
-        #                )
-        #            )
-        if self._fast_load:
-            return  # does nothing
-        for name, d in self.name_to_papers.items():
-            # name appears with more than one explicit id and also
-            # appears without id at least once
-            if len(d[False]) > 0 and len(d[True]) > 1:
-                log.error(f"Name '{name}' is ambiguous and is used without explicit id")
-                log.error(
-                    "  Please add an id to paper(s):   {}".format(" ".join(d[False]))
-                )
 
     def personids(self):
         return self.id_to_canonical.keys()
@@ -422,7 +404,7 @@ class AnthologyIndex:
         return self.comments.get(id_, None)
 
     @lru_cache(maxsize=2**16)
-    def resolve_name(self, name, id_=None):
+    def resolve_name(self, name, id_=None) -> Dict:
         """Find person named 'name' and return a dict with fields
         'first', 'last', 'id'"""
         if id_ is None:

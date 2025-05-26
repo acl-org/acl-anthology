@@ -199,7 +199,7 @@ test_cases_html = (
     ),
     (
         '<tex-math>p(\\boldsymbol{y}|\\textrm{do}(\\boldsymbol{x}))</tex-math>',
-        '<span class="tex-math">p(<strong>y</strong>|<span>do</span>(<strong>x</strong>))</span>',
+        '<span class="tex-math">p(<strong>y</strong>|<span class="font-weight-normal">do</span>(<strong>x</strong>))</span>',
     ),
     ('<tex-math>{\\sim}3\\%</tex-math>', '<span class="tex-math">∼3%</span>'),
     (
@@ -213,6 +213,14 @@ test_cases_html = (
     (
         '<tex-math>RoBERTa_{large}</tex-math>',
         '<span class="tex-math">RoBERTa<sub>large</sub></span>',
+    ),
+    (
+        '<tex-math>RoBERTa_{\\rm large}</tex-math>',
+        '<span class="tex-math">RoBERTa<sub> large</sub></span>',
+    ),
+    (
+        '<tex-math>RoBERTa_{\\bf large}</tex-math>',
+        '<span class="tex-math">RoBERTa<sub> large</sub></span>',
     ),
     ('<tex-math>\\ell_1</tex-math>', '<span class="tex-math">ℓ<sub>1</sub></span>'),
     (
@@ -239,6 +247,14 @@ test_cases_html = (
         '<tex-math>2_3</tex-math>',
         '<span class="tex-math">2<sub>3</sub></span>',
     ),
+    (
+        '<tex-math>foo_{\\textsc{bar}}</tex-math>',
+        '<span class="tex-math">foo<sub><span style="font-variant: small-caps;">bar</span></sub></span>',
+    ),
+    (
+        '<tex-math>foo^{\\texttt{bar}}</tex-math>',
+        '<span class="tex-math">foo<sup><span class="text-monospace">bar</span></sup></span>',
+    ),
 )
 
 
@@ -247,6 +263,8 @@ def test_unicode(inp, out):
     element = etree.fromstring(f"<span>{inp}</span>")
     math_element = element.find(".//tex-math")
     actual_out = texmath.to_unicode(math_element)
+    if math_element.tail:
+        actual_out += math_element.tail
     assert actual_out == out
 
 

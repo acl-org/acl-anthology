@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <collection id="2022.wat">
-  <volume id="1" ingest-date="2022-10-06">
+  <volume id="1" ingest-date="2022-10-06" type="proceedings">
     <meta>
       <booktitle>Proceedings of the 9th Workshop on Asian Translation</booktitle>
       <publisher>International Conference on Computational Linguistics</publisher>
@@ -54,10 +54,12 @@
       <author><first>Yutaka</first><last>Matsuo</last></author>
       <pages>44–50</pages>
       <abstract>Jejueo is a critically endangered language spoken on Jeju Island and is closely related to but mutually unintelligible with Korean. Parallel data between Jejueo and Korean is scarce, and translation between the two languages requires more attention, as current neural machine translation systems typically rely on large amounts of parallel training data. While low-resource machine translation has been shown to benefit from using additional monolingual data during the pretraining process, not as much research has been done on how to select languages other than the source and target languages for use during pretraining. We show that using large amounts of Korean and Japanese data during the pretraining process improves translation by 2.16 BLEU points for translation in the Jejueo → Korean direction and 1.34 BLEU points for translation in the Korean → Jejueo direction compared to the baseline.</abstract>
-      <url hash="51ef8db4">2022.wat-1.3</url>
+      <url hash="408d0d78">2022.wat-1.3</url>
       <bibkey>zheng-etal-2022-improving</bibkey>
       <revision id="1" href="2022.wat-1.3v1" hash="dbf7f901"/>
       <revision id="2" href="2022.wat-1.3v2" hash="51ef8db4" date="2022-10-26">Fixed typos.</revision>
+      <revision id="3" href="2022.wat-1.3v3" hash="622ca468" date="2024-03-10">Corrected the citation used for mBART from liu-etal-2020-multilingual to liu-etal-2020-multilingual-denoising.</revision>
+      <revision id="4" href="2022.wat-1.3v4" hash="408d0d78" date="2024-11-29">This revision adds the page numbering and footer present in the original but missing in a previous revision.</revision>
       <pwcdataset url="https://paperswithcode.com/dataset/jit-dataset">JIT Dataset</pwcdataset>
     </paper>
     <paper id="4">
@@ -130,7 +132,7 @@
       <title>Does partial pretranslation can improve low ressourced-languages pairs?</title>
       <author><first>Raoul</first><last>Blin</last></author>
       <pages>82–88</pages>
-      <abstract>We study the effects of a local and punctual pretranslation of the source corpus on the performance of a Transformer translation model. The pretranslations are performed at the morphological (morpheme translation), lexical (word translation) and morphosyntactic (numeral groups and dates) levels. We focus on small and medium-sized training corpora (50K ~ 2.5M bisegments) and on a linguistically distant language pair (Japanese and French). We find that this type of pretranslation does not lead to significant progress. We describe the motivations of the approach, the specific difficulties of Japanese-French translation. We discuss the possible reasons for the observed underperformance.</abstract>
+      <abstract>We study the effects of a local and punctual pretranslation of the source corpus on the performance of a Transformer translation model. The pretranslations are performed at the morphological (morpheme translation), lexical (word translation) and morphosyntactic (numeral groups and dates) levels. We focus on small and medium-sized training corpora (50K 2.5M bisegments) and on a linguistically distant language pair (Japanese and French). We find that this type of pretranslation does not lead to significant progress. We describe the motivations of the approach, the specific difficulties of Japanese-French translation. We discuss the possible reasons for the observed underperformance.</abstract>
       <url hash="b8a7c1e9">2022.wat-1.10</url>
       <bibkey>blin-2022-partial</bibkey>
     </paper>
@@ -144,6 +146,7 @@
       <abstract>Recently, numbers of works shows that the performance of neural machine translation (NMT) can be improved to a certain extent with using visual information. However, most of these conclusions are drawn from the analysis of experimental results based on a limited set of bilingual sentence-image pairs, such as Multi30K.In these kinds of datasets, the content of one bilingual parallel sentence pair must be well represented by a manually annotated image,which is different with the actual translation situation. we propose an open-vocabulary image retrieval methods to collect descriptive images for bilingual parallel corpus using image search engine, and we propose text-aware attentive visual encoder to filter incorrectly collected noise images. Experiment results on Multi30K and other two translation datasets show that our proposed method achieves significant improvements over strong baselines.</abstract>
       <url hash="93143a14">2022.wat-1.11</url>
       <bibkey>tang-etal-2022-multimodal</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/multi30k">Multi30K</pwcdataset>
     </paper>
     <paper id="12">
       <title>Silo <fixed-case>NLP</fixed-case>’s Participation at <fixed-case>WAT</fixed-case>2022</title>

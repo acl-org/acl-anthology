@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <collection id="C16">
-  <volume id="1">
+  <volume id="1" type="proceedings">
     <meta>
       <booktitle>Proceedings of <fixed-case>COLING</fixed-case> 2016, the 26th International Conference on Computational Linguistics: Technical Papers</booktitle>
       <url hash="ac8faccf">C16-1</url>
@@ -360,7 +360,6 @@
       <url hash="b6078282">C16-1032</url>
       <abstract>We propose a new approach to PoS tagging where in a first step, we assign a coarse-grained tag corresponding to the main syntactic category. Based on this high-precision decision, in the second step we utilize specially trained fine-grained models with heavily reduced decision complexity. By analyzing the system under oracle conditions, we show that there is a quite large potential for significantly outperforming a competitive baseline. When we take error-propagation from the coarse-grained tagging into account, our approach is on par with the state of the art. Our approach also allows tailoring the tagger towards recognizing single word classes which are of interest e.g. for researchers searching for specific phenomena in large corpora. In a case study, we significantly outperform a standard model that also makes use of the same optimizations.</abstract>
       <bibkey>horsmann-zesch-2016-assigning</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/penn-treebank">Penn Treebank</pwcdataset>
     </paper>
     <paper id="33">
       <title>Data-Driven Morphological Analysis and Disambiguation for Morphologically Rich Languages and <fixed-case>U</fixed-case>niversal <fixed-case>D</fixed-case>ependencies</title>
@@ -577,7 +576,7 @@
       <author><first>Pradhuman</first><last>Jhala</last></author>
       <pages>536–546</pages>
       <url hash="11467818">C16-1052</url>
-      <abstract>Product classification is the task of automatically predicting a taxonomy path for a product in a predefined taxonomy hierarchy given a textual product description or title. For efficient product classification we require a suitable representation for a document (the textual description of a product) feature vector and efficient and fast algorithms for prediction.To address the above challenges, we propose a new distributional semantics representation for document vector formation. We also develop a new two-level ensemble approach utilising (with respect to the taxonomy tree) path-wise, node-wise and depth-wise classifiers to reduce error in the final product classification task. Our experiments show the effectiveness of the distributional representation and the ensemble approach on data sets from a leading e-commerce platform and achieve improved results on various evaluation metrics compared to earlier approaches.</abstract>
+      <abstract>Product classification is the task of automatically predicting a taxonomy path for a product in a predefined taxonomy hierarchy given a textual product description or title. For efficient product classification we require a suitable representation for a document (the textual description of a product) feature vector and efficient and fast algorithms for prediction. To address the above challenges, we propose a new distributional semantics representation for document vector formation. We also develop a new two-level ensemble approach utilising (with respect to the taxonomy tree) path-wise, node-wise and depth-wise classifiers to reduce error in the final product classification task. Our experiments show the effectiveness of the distributional representation and the ensemble approach on data sets from a leading e-commerce platform and achieve improved results on various evaluation metrics compared to earlier approaches.</abstract>
       <bibkey>gupta-etal-2016-product</bibkey>
     </paper>
     <paper id="53">
@@ -823,7 +822,7 @@
       <author><first>Ting</first><last>Liu</last></author>
       <pages>794–803</pages>
       <url hash="21af8154">C16-1076</url>
-      <abstract>Parallelism is an important rhetorical device. We propose a machine learning approach for automated sentence parallelism identification in student essays. We build an essay dataset with sentence level parallelism annotated. We derive features by combining generalized word alignment strategies and the alignment measures between word sequences. The experimental results show that sentence parallelism can be effectively identified with a F1 score of 82% at pair-wise level and 72% at parallelism chunk level.Based on this approach, we automatically identify sentence parallelism in more than 2000 student essays and study the correlation between the use of sentence parallelism and the types and quality of essays.</abstract>
+      <abstract>Parallelism is an important rhetorical device. We propose a machine learning approach for automated sentence parallelism identification in student essays. We build an essay dataset with sentence level parallelism annotated. We derive features by combining generalized word alignment strategies and the alignment measures between word sequences. The experimental results show that sentence parallelism can be effectively identified with a F1 score of 82% at pair-wise level and 72% at parallelism chunk level. Based on this approach, we automatically identify sentence parallelism in more than 2000 student essays and study the correlation between the use of sentence parallelism and the types and quality of essays.</abstract>
       <bibkey>song-etal-2016-learning</bibkey>
     </paper>
     <paper id="77">
@@ -1282,12 +1281,12 @@
     <paper id="119">
       <title>Semantic Relation Classification via Hierarchical Recurrent Neural Network with Attention</title>
       <author><first>Minguang</first><last>Xiao</last></author>
-      <author><first>Cong</first><last>Liu</last></author>
+      <author id="cong-liu-fau"><first>Cong</first><last>Liu</last></author>
       <pages>1254–1263</pages>
       <url hash="c189a788">C16-1119</url>
       <abstract>Semantic relation classification remains a challenge in natural language processing. In this paper, we introduce a hierarchical recurrent neural network that is capable of extracting information from raw sentences for relation classification. Our model has several distinctive features: (1) Each sentence is divided into three context subsequences according to two annotated nominals, which allows the model to encode each context subsequence independently so as to selectively focus as on the important context information; (2) The hierarchical model consists of two recurrent neural networks (RNNs): the first one learns context representations of the three context subsequences respectively, and the second one computes semantic composition of these three representations and produces a sentence representation for the relationship classification of the two nominals. (3) The attention mechanism is adopted in both RNNs to encourage the model to concentrate on the important information when learning the sentence representations. Experimental results on the SemEval-2010 Task 8 dataset demonstrate that our model is comparable to the state-of-the-art without using any hand-crafted features.</abstract>
       <bibkey>xiao-liu-2016-semantic</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/semeval-2010-task-8">SemEval-2010 Task 8</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/semeval-2010-task-8">SemEval-2010 Task-8</pwcdataset>
     </paper>
     <paper id="120">
       <title>A Unified Architecture for Semantic Role Labeling and Relation Classification</title>
@@ -1300,7 +1299,7 @@
       <url hash="c1bed546">C16-1120</url>
       <abstract>This paper describes a unified neural architecture for identifying and classifying multi-typed semantic relations between words in a sentence. We investigate two typical and well-studied tasks: semantic role labeling (SRL) which identifies the relations between predicates and arguments, and relation classification (RC) which focuses on the relation between two entities or nominals. While mostly studied separately in prior work, we show that the two tasks can be effectively connected and modeled using a general architecture. Experiments on CoNLL-2009 benchmark datasets show that our SRL models significantly outperform state-of-the-art approaches. Our RC models also yield competitive performance with the best published records. Furthermore, we show that the two tasks can be trained jointly with multi-task learning, resulting in additive significant improvements for SRL.</abstract>
       <bibkey>guo-etal-2016-unified</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/semeval-2010-task-8">SemEval-2010 Task 8</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/semeval-2010-task-8">SemEval-2010 Task-8</pwcdataset>
     </paper>
     <paper id="121">
       <title>Facing the most difficult case of Semantic Role Labeling: A collaboration of word embeddings and co-training</title>
@@ -1345,7 +1344,7 @@
       <url hash="20e6b8f9">C16-1124</url>
       <abstract>We present a model of visually-grounded language learning based on stacked gated recurrent neural networks which learns to predict visual features given an image description in the form of a sequence of phonemes. The learning task resembles that faced by human language learners who need to discover both structure and meaning from noisy and ambiguous data across modalities. We show that our model indeed learns to predict features of the visual context given phonetically transcribed image descriptions, and show that it represents linguistic information in a hierarchy of levels: lower layers in the stack are comparatively more sensitive to form, whereas higher layers are more sensitive to meaning.</abstract>
       <bibkey>gelderloos-chrupala-2016-phonemes</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/coco">COCO</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/coco">MS COCO</pwcdataset>
     </paper>
     <paper id="125">
       <title>Linguistic features for <fixed-case>H</fixed-case>indi light verb construction identification</title>
@@ -1408,7 +1407,6 @@
       <url hash="a7aba4f8">C16-1130</url>
       <abstract>Determining the intended sense of words in text – word sense disambiguation (WSD) – is a long-standing problem in natural language processing. Recently, researchers have shown promising results using word vectors extracted from a neural network language model as features in WSD algorithms. However, a simple average or concatenation of word vectors for each word in a text loses the sequential and syntactic information of the text. In this paper, we study WSD with a sequence learning neural net, LSTM, to better capture the sequential and syntactic patterns of the text. To alleviate the lack of training data in all-words WSD, we employ the same LSTM in a semi-supervised label propagation classifier. We demonstrate state-of-the-art results, especially on verbs.</abstract>
       <bibkey>yuan-etal-2016-semi</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/semeval-2013">SemEval 2013</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/senseval-2-1">Senseval-2</pwcdataset>
     </paper>
     <paper id="131">
@@ -1500,7 +1498,7 @@
       <url hash="4596dc90">C16-1138</url>
       <abstract>Nowadays, neural networks play an important role in the task of relation classification. By designing different neural architectures, researchers have improved the performance to a large extent in comparison with traditional methods. However, existing neural networks for relation classification are usually of shallow architectures (e.g., one-layer convolutional neural networks or recurrent networks). They may fail to explore the potential representation space in different abstraction levels. In this paper, we propose deep recurrent neural networks (DRNNs) for relation classification to tackle this challenge. Further, we propose a data augmentation method by leveraging the directionality of relations. We evaluated our DRNNs on the SemEval-2010 Task 8, and achieve an F1-score of 86.1%, outperforming previous state-of-the-art recorded results.</abstract>
       <bibkey>xu-etal-2016-improved</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/semeval-2010-task-8">SemEval-2010 Task 8</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/semeval-2010-task-8">SemEval-2010 Task-8</pwcdataset>
     </paper>
     <paper id="139">
       <title>Relation Extraction with Multi-instance Multi-label Convolutional Neural Networks</title>
@@ -1925,6 +1923,7 @@
       <url hash="1c645d0c">C16-1177</url>
       <abstract>Information status plays an important role in discourse processing. According to the hearer’s common sense knowledge and his comprehension of the preceding text, a discourse entity could be old, mediated or new. In this paper, we propose an attention-based LSTM model to address the problem of fine-grained information status classification in an incremental manner. Our approach resembles how human beings process the task, i.e., decide the information status of the current discourse entity based on its preceding context. Experimental results on the ISNotes corpus (Markert et al., 2012) reveal that (1) despite its moderate result, our model with only word embedding features captures the necessary semantic knowledge needed for the task by a large extent; and (2) when incorporating with additional several simple features, our model achieves the competitive results compared to the state-of-the-art approach (Hou et al., 2013) which heavily depends on lots of hand-crafted semantic features.</abstract>
       <bibkey>hou-2016-incremental</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/isnotes">ISNotes</pwcdataset>
     </paper>
     <paper id="178">
       <title>Detection, Disambiguation and Argument Identification of Discourse Connectives in <fixed-case>C</fixed-case>hinese Discourse Parsing</title>
@@ -2452,7 +2451,7 @@
     <paper id="227">
       <title>Improved Word Embeddings with Implicit Structure Information</title>
       <author><first>Jie</first><last>Shen</last></author>
-      <author><first>Cong</first><last>Liu</last></author>
+      <author id="cong-liu-fau"><first>Cong</first><last>Liu</last></author>
       <pages>2408–2417</pages>
       <url hash="1d0b9f79">C16-1227</url>
       <abstract>Distributed word representation is an efficient method for capturing semantic and syntactic word relations. In this work, we introduce an extension to the continuous bag-of-words model for learning word representations efficiently by using implicit structure information. Instead of relying on a syntactic parser which might be noisy and slow to build, we compute weights representing probabilities of syntactic relations based on the Huffman softmax tree in an efficient heuristic. The constructed “implicit graphs” from these weights show that these weights contain useful implicit structure information. Extensive experiments performed on several word similarity and word analogy tasks show gains compared to the basic continuous bag-of-words model.</abstract>
@@ -2484,6 +2483,7 @@
       <bibkey>wang-etal-2016-combination</bibkey>
       <pwccode url="https://github.com/ultimate010/crnn" additional="false">ultimate010/crnn</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/sst">SST</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/sst-2">SST-2</pwcdataset>
     </paper>
     <paper id="230">
       <title>Stance Classification in Rumours as a Sequential Task Exploiting the Tree Structure of Social Media Conversations</title>
@@ -2582,7 +2582,7 @@
       <url hash="09d05d17">C16-1238</url>
       <abstract>Nowadays, neural networks play an important role in the task of relation classification. In this paper, we propose a novel attention-based convolutional neural network architecture for this task. Our model makes full use of word embedding, part-of-speech tag embedding and position embedding information. Word level attention mechanism is able to better determine which parts of the sentence are most influential with respect to the two entities of interest. This architecture enables learning some important features from task-specific labeled data, forgoing the need for external knowledge such as explicit dependency structures. Experiments on the SemEval-2010 Task 8 benchmark dataset show that our model achieves better performances than several state-of-the-art neural network models and can achieve a competitive performance just with minimal feature engineering.</abstract>
       <bibkey>shen-huang-2016-attention</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/semeval-2010-task-8">SemEval-2010 Task 8</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/semeval-2010-task-8">SemEval-2010 Task-8</pwcdataset>
     </paper>
     <paper id="239">
       <title>Table Filling Multi-Task Recurrent Neural Network for Joint Entity and Relation Extraction</title>
@@ -2681,7 +2681,6 @@
       <url hash="0538c49e">C16-1247</url>
       <abstract>We examine the potential of recurrent neural networks for handling pragmatic inferences involving complex contextual cues for the task of article usage prediction. We train and compare several variants of Long Short-Term Memory (LSTM) networks with an attention mechanism. Our model outperforms a previous state-of-the-art system, achieving up to 96.63% accuracy on the WSJ/PTB corpus. In addition, we perform a series of analyses to understand the impact of various model choices. We find that the gain in performance can be attributed to the ability of LSTMs to pick up on contextual cues, both local and further away in distance, and that the model is able to solve cases involving reasoning about coreference and synonymy. We also show how the attention mechanism contributes to the interpretability of the model’s effectiveness.</abstract>
       <bibkey>kabbara-etal-2016-capturing</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/penn-treebank">Penn Treebank</pwcdataset>
     </paper>
     <paper id="248">
       <title>Aspect Based Sentiment Analysis using Sentiment Flow with Local and Non-local Neighbor Information</title>
@@ -2952,7 +2951,7 @@
     <paper id="274">
       <title>Modelling Sentence Pairs with Tree-structured Attentive Encoder</title>
       <author><first>Yao</first><last>Zhou</last></author>
-      <author><first>Cong</first><last>Liu</last></author>
+      <author id="cong-liu-fau"><first>Cong</first><last>Liu</last></author>
       <author><first>Yan</first><last>Pan</last></author>
       <pages>2912–2922</pages>
       <url hash="5174a61c">C16-1274</url>
@@ -2973,7 +2972,7 @@
       <url hash="4b8b5bd3">C16-1275</url>
       <abstract>In this paper, we propose a novel neural approach for paraphrase generation. Conventional paraphrase generation methods either leverage hand-written rules and thesauri-based alignments, or use statistical machine learning principles. To the best of our knowledge, this work is the first to explore deep learning models for paraphrase generation. Our primary contribution is a stacked residual LSTM network, where we add residual connections between LSTM layers. This allows for efficient training of deep LSTMs. We evaluate our model and other state-of-the-art deep learning models on three different datasets: PPDB, WikiAnswers, and MSCOCO. Evaluation results demonstrate that our model outperforms sequence to sequence, attention-based, and bi-directional LSTM models on BLEU, METEOR, TER, and an embedding-based sentence similarity metric.</abstract>
       <bibkey>prakash-etal-2016-neural</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/coco">COCO</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/coco">MS COCO</pwcdataset>
     </paper>
     <paper id="276">
       <title><fixed-case>E</fixed-case>nglish-<fixed-case>C</fixed-case>hinese Knowledge Base Translation with Neural Network</title>
@@ -3025,6 +3024,7 @@
       <url hash="e870300f">C16-1280</url>
       <abstract>Sentiment classification becomes more and more important with the rapid growth of user generated content. However, sentiment classification task usually comes with two challenges: first, sentiment classification is highly domain-dependent and training sentiment classifier for every domain is inefficient and often impractical; second, since the quantity of labeled data is important for assessing the quality of classifier, it is hard to evaluate classifiers when labeled data is limited for certain domains. To address the challenges mentioned above, we focus on learning high-level features that are able to generalize across domains, so a global classifier can benefit with a simple combination of documents from multiple domains. In this paper, the proposed model incorporates both sentiment polarity and unlabeled data from multiple domains and learns new feature representations. Our model doesn’t require labels from every domain, which means the learned feature representation can be generalized for sentiment domain adaptation. In addition, the learned feature representation can be used as classifier since our model defines the meaning of feature value and arranges high-level features in a prefixed order, so it is not necessary to train another classifier on top of the new features. Empirical evaluations demonstrate our model outperforms baselines and yields competitive results to other state-of-the-art works on benchmark datasets.</abstract>
       <bibkey>yang-etal-2016-leveraging</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/multi-domain-sentiment-dataset-v2-0">Multi-Domain Sentiment</pwcdataset>
     </paper>
     <paper id="281">
       <title>Political News Sentiment Analysis for Under-resourced Languages</title>
@@ -3376,7 +3376,7 @@
       <abstract>Target-dependent sentiment classification remains a challenge: modeling the semantic relatedness of a target with its context words in a sentence. Different context words have different influences on determining the sentiment polarity of a sentence towards the target. Therefore, it is desirable to integrate the connections between target word and context words when building a learning system. In this paper, we develop two target dependent long short-term memory (LSTM) models, where target information is automatically taken into account. We evaluate our methods on a benchmark dataset from Twitter. Empirical results show that modeling sentence representation with standard LSTM does not perform well. Incorporating target information into LSTM can significantly boost the classification accuracy. The target-dependent LSTM models achieve state-of-the-art performances without using syntactic parser or external sentiment lexicons.</abstract>
       <bibkey>tang-etal-2016-effective</bibkey>
       <pwccode url="" additional="true"/>
-      <pwcdataset url="https://paperswithcode.com/dataset/semeval-2014-task-4-sub-task-2">SemEval 2014 Task 4 Sub Task 2</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/semeval-2014-task-4-sub-task-2">SemEval-2014 Task-4</pwcdataset>
     </paper>
     <paper id="312">
       <title>Towards assessing depth of argumentation</title>
@@ -3396,8 +3396,8 @@
       <url hash="7c21847d">C16-1313</url>
       <abstract>Video event detection is a challenging problem in information and multimedia retrieval. Different from single action detection, event detection requires a richer level of semantic information from video. In order to overcome this challenge, existing solutions often represent videos using high level features such as concepts. However, concept-based representation can be confusing because it does not encode the relationship between concepts. This issue can be addressed by exploiting the co-occurrences of the concepts, however, it often leads to a very huge number of possible combinations. In this paper, we propose a new approach to obtain the relationship between concepts by exploiting the syntactic dependencies between words in the image captions. The main advantage of this approach is that it significantly reduces the number of informative combinations between concepts. We conduct extensive experiments to analyze the effectiveness of using the new dependency representation for event detection on two large-scale TRECVID Multimedia Event Detection 2013 and 2014 datasets. Experimental results show that i) Dependency features are more discriminative than concept-based features. ii) Dependency features can be combined with our current event detection system to further improve the performance. For instance, the relative improvement can be as far as 8.6% on the MEDTEST14 10Ex setting.</abstract>
       <bibkey>phan-etal-2016-video</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/coco">COCO</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/imagenet">ImageNet</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/coco">MS COCO</pwcdataset>
     </paper>
     <paper id="314">
       <title>Predicting Restaurant Consumption Level through Social Media Footprints</title>
@@ -3591,8 +3591,8 @@
       <abstract>Recurrent Neural Network (RNN) is one of the most popular architectures used in Natural Language Processsing (NLP) tasks because its recurrent structure is very suitable to process variable-length text. RNN can utilize distributed representations of words by first converting the tokens comprising each text into vectors, which form a matrix. And this matrix includes two dimensions: the time-step dimension and the feature vector dimension. Then most existing models usually utilize one-dimensional (1D) max pooling operation or attention-based operation only on the time-step dimension to obtain a fixed-length vector. However, the features on the feature vector dimension are not mutually independent, and simply applying 1D pooling operation over the time-step dimension independently may destroy the structure of the feature representation. On the other hand, applying two-dimensional (2D) pooling operation over the two dimensions may sample more meaningful features for sequence modeling tasks. To integrate the features on both dimensions of the matrix, this paper explores applying 2D max pooling operation to obtain a fixed-length representation of the text. This paper also utilizes 2D convolution to sample more meaningful information of the matrix. Experiments are conducted on six text classification tasks, including sentiment analysis, question classification, subjectivity classification and newsgroup classification. Compared with the state-of-the-art models, the proposed models achieve excellent performance on 4 out of 6 tasks. Specifically, one of the proposed models achieves highest accuracy on Stanford Sentiment Treebank binary classification and fine-grained classification tasks.</abstract>
       <bibkey>zhou-etal-2016-text</bibkey>
       <pwccode url="" additional="true"/>
-      <pwcdataset url="https://paperswithcode.com/dataset/glue">GLUE</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/sst">SST</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/sst-2">SST-2</pwcdataset>
     </paper>
     <paper id="330">
       <title>More is not always better: balancing sense distributions for all-words Word Sense Disambiguation</title>
@@ -3636,7 +3636,6 @@
       <bibkey>bjerva-etal-2016-semantic</bibkey>
       <pwccode url="https://github.com/bjerva/semantic-tagging" additional="false">bjerva/semantic-tagging</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/groningen-meaning-bank">Groningen Meaning Bank</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/penn-treebank">Penn Treebank</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/universal-dependencies">Universal Dependencies</pwcdataset>
     </paper>
     <paper id="334">
@@ -3681,10 +3680,9 @@
       <url hash="bf22af37">C16-1337</url>
       <abstract>We propose a structured generative latent variable model that integrates information from multiple contextual representations for Word Sense Induction. Our approach jointly models global lexical, local lexical and dependency syntactic context. Each context type is associated with a latent variable and the three types of variables share a hierarchical structure. We use skip-gram based word and dependency context embeddings to construct all three types of representations, reducing the total number of parameters to be estimated and enabling better generalization. We describe an EM algorithm to efficiently estimate model parameters and use the Integrated Complete Likelihood criterion to automatically estimate the number of senses. Our model achieves state-of-the-art results on the SemEval-2010 and SemEval-2013 Word Sense Induction datasets.</abstract>
       <bibkey>komninos-manandhar-2016-structured</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/semeval-2013">SemEval 2013</pwcdataset>
     </paper>
   </volume>
-  <volume id="2">
+  <volume id="2" type="proceedings">
     <meta>
       <booktitle>Proceedings of <fixed-case>COLING</fixed-case> 2016, the 26th International Conference on Computational Linguistics: System Demonstrations</booktitle>
       <url hash="193cd6e4">C16-2</url>
@@ -3712,8 +3710,7 @@
       <author><first>Giuseppe</first><last>Carenini</last></author>
       <pages>1–5</pages>
       <url hash="569ba479">C16-2001</url>
-      <abstract>We present an interactive system to provide effective and efficient search capabilities in Community Question Answering (cQA) forums. The system integrates state-of-the-art technology for answer search with a Web-based user interface specifically tailored to support the cQA forum readers. The answer search module automatically finds relevant answers for a new question by exploring related questions and the comments within their threads. The graphical user interface presents the search results and supports the exploration of related information. The system is running live at <url>http://www.qatarliving.com/betasearch/</url>.
-    </abstract>
+      <abstract>We present an interactive system to provide effective and efficient search capabilities in Community Question Answering (cQA) forums. The system integrates state-of-the-art technology for answer search with a Web-based user interface specifically tailored to support the cQA forum readers. The answer search module automatically finds relevant answers for a new question by exploring related questions and the comments within their threads. The graphical user interface presents the search results and supports the exploration of related information. The system is running live at <url>http://www.qatarliving.com/betasearch/</url>.</abstract>
       <bibkey>hoque-etal-2016-interactive</bibkey>
     </paper>
     <paper id="2">
@@ -4026,8 +4023,7 @@
       <author><first>Dan</first><last>Roth</last></author>
       <pages>146–150</pages>
       <url hash="a36c6b52">C16-2031</url>
-      <abstract>We release a cross-lingual wikification system for all languages in Wikipedia. Given a piece of text in any supported language, the system identifies names of people, locations, organizations, and grounds these names to the corresponding English Wikipedia entries. The system is based on two components: a cross-lingual named entity recognition (NER) model and a cross-lingual mention grounding model. The cross-lingual NER model is a language-independent model which can extract named entity mentions in the text of any language in Wikipedia. The extracted mentions are then grounded to the English Wikipedia using the cross-lingual mention grounding model. The only resources required to train the proposed system are the multilingual Wikipedia dump and existing training data for English NER. The system is online at <url>http://cogcomp.cs.illinois.edu/page/demo_view/xl_wikifier</url>
-      </abstract>
+      <abstract>We release a cross-lingual wikification system for all languages in Wikipedia. Given a piece of text in any supported language, the system identifies names of people, locations, organizations, and grounds these names to the corresponding English Wikipedia entries. The system is based on two components: a cross-lingual named entity recognition (NER) model and a cross-lingual mention grounding model. The cross-lingual NER model is a language-independent model which can extract named entity mentions in the text of any language in Wikipedia. The extracted mentions are then grounded to the English Wikipedia using the cross-lingual mention grounding model. The only resources required to train the proposed system are the multilingual Wikipedia dump and existing training data for English NER. The system is online at <url>http://cogcomp.cs.illinois.edu/page/demo_view/xl_wikifier</url></abstract>
       <bibkey>tsai-roth-2016-illinois</bibkey>
     </paper>
     <paper id="32">
@@ -4395,7 +4391,7 @@
       <pwccode url="https://github.com/fabiencro/knmt" additional="false">fabiencro/knmt</pwccode>
     </paper>
   </volume>
-  <volume id="3">
+  <volume id="3" type="proceedings">
     <meta>
       <booktitle>Proceedings of <fixed-case>COLING</fixed-case> 2016, the 26th International Conference on Computational Linguistics: Tutorial Abstracts</booktitle>
       <url hash="ce026f3a">C16-3</url>
@@ -4426,8 +4422,7 @@
       <author><first>Wei-Fan</first><last>Chen</last></author>
       <pages>5–8</pages>
       <url hash="ac11eaf4">C16-3002</url>
-      <abstract>The rapid accumulation of data in social media (in million and billion scales) has imposed great challenges in information extraction, knowledge discovery, and data mining, and texts bearing sentiment and opinions are one of the major categories of user generated data in social media. Sentiment analysis is the main technology to quickly capture what people think from these text data, and is a research direction with immediate practical value in ‘big data’ era. Learning such techniques will allow data miners to perform advanced mining tasks considering real sentiment and opinions expressed by users in additional to the statistics calculated from the physical actions (such as viewing or purchasing records) user perform, which facilitates the development of real-world applications. However, the situation that most tools are limited to the English language might stop academic or industrial people from doing research or products which cover a wider scope of data, retrieving information from people who speak different languages, or developing applications for worldwide users. More specifically, sentiment analysis determines the polarities and strength of the sentiment-bearing expressions, and it has been an important and attractive research area. In the past decade, resources and tools have been developed for sentiment analysis in order to provide subsequent vital applications, such as product reviews, reputation management, call center robots, automatic public survey, etc. However, most of these resources are for the English language. Being the key to the understanding of business and government issues, sentiment analysis resources and tools are required for other major languages, e.g., Chinese. In this tutorial, audience can learn the skills for retrieving sentiment from texts in another major language, Chinese, to overcome this obstacle. The goal of this tutorial is to introduce the proposed sentiment analysis technologies and datasets in the literature, and give the audience the opportunities to use resources and tools to process Chinese texts from the very basic preprocessing, i.e., word segmentation and part of speech tagging, to sentiment analysis, i.e., applying sentiment dictionaries and obtaining sentiment scores, through step-by-step instructions and a hand-on practice. The basic processing tools are from CKIP Participants can download these resources, use them and solve the problems they encounter in this tutorial. This tutorial will begin from some background knowledge of sentiment analysis, such as how sentiment are categorized, where to find available corpora and which models are commonly applied, especially for the Chinese language. Then a set of basic Chinese text processing tools for word segmentation, tagging and parsing will be introduced for the preparation of mining sentiment and opinions. After bringing the idea of how to pre-process the Chinese language to the audience, I will describe our work on compositional Chinese sentiment analysis from words to sentences, and an application on social media text (Facebook) as an example. All our involved and recently developed related resources, including Chinese Morphological Dataset, Augmented NTU Sentiment Dictionary (aug-NTUSD), E-hownet with sentiment information, Chinese Opinion Treebank, and the CopeOpi Sentiment Scorer, will also be introduced and distributed in this tutorial. The tutorial will end by a hands-on session of how to use these materials and tools to process Chinese sentiment. Content Details, Materials, and Program please refer to the tutorial URL: <url>http://www.lunweiku.com/</url>
-      </abstract>
+      <abstract>The rapid accumulation of data in social media (in million and billion scales) has imposed great challenges in information extraction, knowledge discovery, and data mining, and texts bearing sentiment and opinions are one of the major categories of user generated data in social media. Sentiment analysis is the main technology to quickly capture what people think from these text data, and is a research direction with immediate practical value in ‘big data’ era. Learning such techniques will allow data miners to perform advanced mining tasks considering real sentiment and opinions expressed by users in additional to the statistics calculated from the physical actions (such as viewing or purchasing records) user perform, which facilitates the development of real-world applications. However, the situation that most tools are limited to the English language might stop academic or industrial people from doing research or products which cover a wider scope of data, retrieving information from people who speak different languages, or developing applications for worldwide users. More specifically, sentiment analysis determines the polarities and strength of the sentiment-bearing expressions, and it has been an important and attractive research area. In the past decade, resources and tools have been developed for sentiment analysis in order to provide subsequent vital applications, such as product reviews, reputation management, call center robots, automatic public survey, etc. However, most of these resources are for the English language. Being the key to the understanding of business and government issues, sentiment analysis resources and tools are required for other major languages, e.g., Chinese. In this tutorial, audience can learn the skills for retrieving sentiment from texts in another major language, Chinese, to overcome this obstacle. The goal of this tutorial is to introduce the proposed sentiment analysis technologies and datasets in the literature, and give the audience the opportunities to use resources and tools to process Chinese texts from the very basic preprocessing, i.e., word segmentation and part of speech tagging, to sentiment analysis, i.e., applying sentiment dictionaries and obtaining sentiment scores, through step-by-step instructions and a hand-on practice. The basic processing tools are from CKIP Participants can download these resources, use them and solve the problems they encounter in this tutorial. This tutorial will begin from some background knowledge of sentiment analysis, such as how sentiment are categorized, where to find available corpora and which models are commonly applied, especially for the Chinese language. Then a set of basic Chinese text processing tools for word segmentation, tagging and parsing will be introduced for the preparation of mining sentiment and opinions. After bringing the idea of how to pre-process the Chinese language to the audience, I will describe our work on compositional Chinese sentiment analysis from words to sentences, and an application on social media text (Facebook) as an example. All our involved and recently developed related resources, including Chinese Morphological Dataset, Augmented NTU Sentiment Dictionary (aug-NTUSD), E-hownet with sentiment information, Chinese Opinion Treebank, and the CopeOpi Sentiment Scorer, will also be introduced and distributed in this tutorial. The tutorial will end by a hands-on session of how to use these materials and tools to process Chinese sentiment. Content Details, Materials, and Program please refer to the tutorial URL: <url>http://www.lunweiku.com/</url></abstract>
       <bibkey>ku-chen-2016-chinese</bibkey>
     </paper>
     <paper id="3">
@@ -4465,7 +4460,7 @@
       <author><first>Trevor</first><last>Cohn</last></author>
       <pages>20–21</pages>
       <url hash="6409f91f">C16-3006</url>
-      <abstract>Succinct data structures involve the use of novel data structures, compression technologies, and other mechanisms to allow data to be stored in extremely small memory or disk footprints, while still allowing for efficient access to the underlying data. They have successfully been applied in areas such as Information Retrieval and Bioinformatics to create highly compressible in-memory search indexes which provide efficient search functionality over datasets which traditionally could only be processed using external memory data structures. Modern technologies in this space are not well known within the NLP community, but have the potential to revolutionise NLP, particularly the application to ‘big data’ in the form of terabyte and larger corpora. This tutorial will present a practical introduction to the most important succinct data structures, tools, and applications with the intent of providing the researchers with a jump-start into this domain. The focus of this tutorial will be efficient text processing utilising space efficient representations of suffix arrays, suffix trees and searchable integer compression schemes with specific applications of succinct data structures to common NLP tasks such as <tex-math>n</tex-math>-gram language modelling. </abstract>
+      <abstract>Succinct data structures involve the use of novel data structures, compression technologies, and other mechanisms to allow data to be stored in extremely small memory or disk footprints, while still allowing for efficient access to the underlying data. They have successfully been applied in areas such as Information Retrieval and Bioinformatics to create highly compressible in-memory search indexes which provide efficient search functionality over datasets which traditionally could only be processed using external memory data structures. Modern technologies in this space are not well known within the NLP community, but have the potential to revolutionise NLP, particularly the application to ‘big data’ in the form of terabyte and larger corpora. This tutorial will present a practical introduction to the most important succinct data structures, tools, and applications with the intent of providing the researchers with a jump-start into this domain. The focus of this tutorial will be efficient text processing utilising space efficient representations of suffix arrays, suffix trees and searchable integer compression schemes with specific applications of succinct data structures to common NLP tasks such as <tex-math>n</tex-math>-gram language modelling.</abstract>
       <bibkey>petri-cohn-2016-succinct</bibkey>
     </paper>
     <paper id="7">

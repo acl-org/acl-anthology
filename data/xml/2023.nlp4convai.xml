@@ -1,0 +1,172 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2023.nlp4convai">
+  <volume id="1" ingest-date="2023-07-21" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of the 5th Workshop on NLP for Conversational AI (NLP4ConvAI 2023)</booktitle>
+      <editor><first>Yun-Nung</first><last>Chen</last></editor>
+      <editor><first>Abhinav</first><last>Rastogi</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Toronto, Canada</address>
+      <month>July</month>
+      <year>2023</year>
+      <url hash="61fe21c3">2023.nlp4convai-1</url>
+      <venue>nlp4convai</venue>
+    </meta>
+    <frontmatter>
+      <url hash="eb6e326c">2023.nlp4convai-1.0</url>
+      <bibkey>nlp4convai-2023-nlp</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Response Generation in Longitudinal Dialogues: Which Knowledge Representation Helps?</title>
+      <author><first>Seyed Mahed</first><last>Mousavi</last></author>
+      <author><first>Simone</first><last>Caldarella</last></author>
+      <author><first>Giuseppe</first><last>Riccardi</last></author>
+      <pages>1-11</pages>
+      <abstract>Longitudinal Dialogues (LD) are the most challenging type of conversation for human-machine dialogue systems. LDs include the recollections of events, personal thoughts, and emotions specific to each individual in a sparse sequence of dialogue sessions. Dialogue systems designed for LDs should uniquely interact with the users over multiple sessions and long periods of time (e.g. weeks), and engage them in personal dialogues to elaborate on their feelings, thoughts, and real-life events. In this paper, we study the task of response generation in LDs. We evaluate whether general-purpose Pre-trained Language Models (PLM) are appropriate for this purpose. We fine-tune two PLMs, GePpeTto (GPT-2) and iT5, using a dataset of LDs. We experiment with different representations of the personal knowledge extracted from LDs for grounded response generation, including the graph representation of the mentioned events and participants. We evaluate the performance of the models via automatic metrics and the contribution of the knowledge via the Integrated Gradients technique. We categorize the natural language generation errors via human evaluations of contextualization, appropriateness and engagement of the user.</abstract>
+      <url hash="b503bb8c">2023.nlp4convai-1.1</url>
+      <bibkey>mousavi-etal-2023-response</bibkey>
+      <doi>10.18653/v1/2023.nlp4convai-1.1</doi>
+    </paper>
+    <paper id="2">
+      <title>On the Underspecification of Situations in Open-domain Conversational Datasets</title>
+      <author><first>Naoki</first><last>Otani</last></author>
+      <author><first>Jun</first><last>Araki</last></author>
+      <author><first>HyeongSik</first><last>Kim</last></author>
+      <author><first>Eduard</first><last>Hovy</last><affiliation>University of Melbourne</affiliation></author>
+      <pages>12-28</pages>
+      <abstract>Advances of open-domain conversational systems have been achieved through the creation of numerous conversation datasets. However, many of the commonly used datasets contain little or no information about the conversational situation, such as relevant objects/people, their properties, and relationships. This absence leads to underspecification of the problem space and typically results in undesired dialogue system behavior. This position paper discusses the current state of the field associated with processing situational information. An analysis of response generation using three datasets shows that explicitly provided situational information can improve the coherence and specificity of generated responses, but further experiments reveal that generation systems can be misled by irrelevant information. Our conclusions from this evaluation provide insights into the problem and directions for future research.</abstract>
+      <url hash="6a2d5a78">2023.nlp4convai-1.2</url>
+      <bibkey>otani-etal-2023-underspecification</bibkey>
+      <doi>10.18653/v1/2023.nlp4convai-1.2</doi>
+      <video href="2023.nlp4convai-1.2.mp4"/>
+    </paper>
+    <paper id="3">
+      <title>Correcting Semantic Parses with Natural Language through Dynamic Schema Encoding</title>
+      <author><first>Parker</first><last>Glenn</last></author>
+      <author><first>Parag Pravin</first><last>Dakle</last></author>
+      <author><first>Preethi</first><last>Raghavan</last></author>
+      <pages>29-38</pages>
+      <abstract>In addressing the task of converting natural language to SQL queries, there are several semantic and syntactic challenges. It becomes increasingly important to understand and remedy the points of failure as the performance of semantic parsing systems improve. We explore semantic parse correction with natural language feedback, proposing a new solution built on the success of autoregressive decoders in text-to-SQL tasks. By separating the semantic and syntactic difficulties of the task, we show that the accuracy of text-to-SQL parsers can be boosted by up to 26% with only one turn of correction with natural language. Additionally, we show that a T5-base model is capable of correcting the errors of a T5-large model in a zero-shot, cross-parser setting.</abstract>
+      <url hash="f1e4ddc9">2023.nlp4convai-1.3</url>
+      <bibkey>glenn-etal-2023-correcting</bibkey>
+      <doi>10.18653/v1/2023.nlp4convai-1.3</doi>
+      <video href="2023.nlp4convai-1.3.mp4"/>
+    </paper>
+    <paper id="4">
+      <title>Dialogue State Tracking with Sparse Local Slot Attention</title>
+      <author><first>Longfei</first><last>Yang</last></author>
+      <author><first>Jiyi</first><last>Li</last></author>
+      <author><first>Sheng</first><last>Li</last></author>
+      <author><first>Takahiro</first><last>Shinozaki</last></author>
+      <pages>39-46</pages>
+      <abstract>Dialogue state tracking (DST) is designed to track the dialogue state during the conversations between users and systems, which is the core of task-oriented dialogue systems. Mainstream models predict the values for each slot with fully token-wise slot attention from dialogue history. However, such operations may result in overlooking the neighboring relationship. Moreover, it may lead the model to assign probability mass to irrelevant parts, while these parts contribute little. It becomes severe with the increase in dialogue length. Therefore, we investigate sparse local slot attention for DST in this work. Slot-specific local semantic information is obtained at a sub-sampled temporal resolution capturing local dependencies for each slot. Then these local representations are attended with sparse attention weights to guide the model to pay attention to relevant parts of local information for subsequent state value prediction. The experimental results on MultiWOZ 2.0 and 2.4 datasets show that the proposed approach effectively improves the performance of ontology-based dialogue state tracking, and performs better than token-wise attention for long dialogues.</abstract>
+      <url hash="3e828724">2023.nlp4convai-1.4</url>
+      <bibkey>yang-etal-2023-dialogue</bibkey>
+      <doi>10.18653/v1/2023.nlp4convai-1.4</doi>
+    </paper>
+    <paper id="5">
+      <title><fixed-case>LLM</fixed-case>-Eval: Unified Multi-Dimensional Automatic Evaluation for Open-Domain Conversations with Large Language Models</title>
+      <author><first>Yen-Ting</first><last>Lin</last></author>
+      <author><first>Yun-Nung</first><last>Chen</last></author>
+      <pages>47-58</pages>
+      <abstract>We propose LLM-Eval, a unified multi-dimensional automatic evaluation method for open-domain conversations with large language models (LLMs). Existing evaluation methods often rely on human annotations, ground-truth responses, or multiple LLM prompts, which can be expensive and time-consuming. To address these issues, we design a single prompt-based evaluation method that leverages a unified evaluation schema to cover multiple dimensions of conversation quality in a single model call. We extensively evaluate the performance of LLM-Eval on various benchmark datasets, demonstrating its effectiveness, efficiency, and adaptability compared to state-of-the-art evaluation methods. Our analysis also highlights the importance of choosing suitable LLMs and decoding strategies for accurate evaluation results. LLM-Eval offers a versatile and robust solution for evaluating open-domain conversation systems, streamlining the evaluation process and providing consistent performance across diverse scenarios.</abstract>
+      <url hash="fc512f76">2023.nlp4convai-1.5</url>
+      <bibkey>lin-chen-2023-llm</bibkey>
+      <doi>10.18653/v1/2023.nlp4convai-1.5</doi>
+    </paper>
+    <paper id="6">
+      <title>c<fixed-case>TBLS</fixed-case>: Augmenting Large Language Models with Conversational Tables</title>
+      <author><first>Anirudh S.</first><last>Sundar</last></author>
+      <author><first>Larry</first><last>Heck</last></author>
+      <pages>59-70</pages>
+      <abstract>Optimizing accuracy and performance while eliminating hallucinations of open-domain conversational large language models (LLMs) is an open research challenge. A particularly promising direction is to augment and ground LLMs with information from structured sources. This paper introduces Conversational Tables cTBLS, a three-step architecture to retrieve and generate dialogue responses grounded on retrieved tabular information. cTBLS uses Transformer encoder embeddings for Dense Table Retrieval and obtains up to 125% relative improvement over the retriever in the previous state-of-the-art system on the HyrbiDialogue dataset. cTBLS then uses a shared process between encoder and decoder models to perform a coarse+fine tabular knowledge (e.g., cell) ranking combined with a GPT-3.5 LLM response generator to yield a 2x relative improvement in ROUGE scores. Finally, human evaluators prefer cTBLs +80% of the time (coherency, fluency) and judge informativeness to be 4x better than the previous state-of-the-art.</abstract>
+      <url hash="e5547dcd">2023.nlp4convai-1.6</url>
+      <bibkey>sundar-heck-2023-ctbls</bibkey>
+      <doi>10.18653/v1/2023.nlp4convai-1.6</doi>
+    </paper>
+    <paper id="7">
+      <title><fixed-case>IDAS</fixed-case>: Intent Discovery with Abstractive Summarization</title>
+      <author><first>Maarten</first><last>De Raedt</last></author>
+      <author><first>Fréderic</first><last>Godin</last></author>
+      <author><first>Thomas</first><last>Demeester</last></author>
+      <author><first>Chris</first><last>Develder</last></author>
+      <pages>71-88</pages>
+      <abstract>Intent discovery is the task of inferring latent intents from a set of unlabeled utterances, and is a useful step towards the efficient creation of new conversational agents. We show that recent competitive methods in intent discovery can be outperformed by clustering utterances based on abstractive summaries, i.e., “labels”, that retain the core elements while removing non-essential information. We contribute the IDAS approach, which collects a set of descriptive utterance labels by prompting a Large Language Model, starting from a well-chosen seed set of prototypical utterances, to bootstrap an In-Context Learning procedure to generate labels for non-prototypical utterances. The utterances and their resulting noisy labels are then encoded by a frozen pre-trained encoder, and subsequently clustered to recover the latent intents. For the unsupervised task (without any intent labels) IDAS outperforms the state-of-the-art by up to +7.42% in standard cluster metrics for the Banking, StackOverflow, and Transport datasets. For the semi-supervised task (with labels for a subset of intents) IDAS surpasses 2 recent methods on the CLINC benchmark without even using labeled data.</abstract>
+      <url hash="cbd73733">2023.nlp4convai-1.7</url>
+      <bibkey>de-raedt-etal-2023-idas</bibkey>
+      <doi>10.18653/v1/2023.nlp4convai-1.7</doi>
+    </paper>
+    <paper id="8">
+      <title>User Simulator Assisted Open-ended Conversational Recommendation System</title>
+      <author><first>Qiusi</first><last>Zhan</last></author>
+      <author><first>Xiaojie</first><last>Guo</last></author>
+      <author><first>Heng</first><last>Ji</last></author>
+      <author><first>Lingfei</first><last>Wu</last></author>
+      <pages>89-101</pages>
+      <abstract>Conversational recommendation systems (CRS) have gained popularity in e-commerce as they can recommend items during user interactions. However, current open-ended CRS have limited recommendation performance due to their short-sighted training process, which only predicts one utterance at a time without considering its future impact. To address this, we propose a User Simulator (US) that communicates with the CRS using natural language based on given user preferences, enabling long-term reinforcement learning. We also introduce a framework that uses reinforcement learning (RL) with two novel rewards, i.e., recommendation and conversation rewards, to train the CRS. This approach considers the long-term goals and improves both the conversation and recommendation performance of the CRS. Our experiments show that our proposed framework improves the recall of recommendations by almost 100%. Moreover, human evaluation demonstrates the superiority of our framework in enhancing the informativeness of generated utterances.</abstract>
+      <url hash="a8c5de00">2023.nlp4convai-1.8</url>
+      <bibkey>zhan-etal-2023-user</bibkey>
+      <doi>10.18653/v1/2023.nlp4convai-1.8</doi>
+    </paper>
+    <paper id="9">
+      <title>Evaluating Inter-Bilingual Semantic Parsing for <fixed-case>I</fixed-case>ndian Languages</title>
+      <author><first>Divyanshu</first><last>Aggarwal</last></author>
+      <author><first>Vivek</first><last>Gupta</last></author>
+      <author><first>Anoop</first><last>Kunchukuttan</last></author>
+      <pages>102-122</pages>
+      <abstract>Despite significant progress in Natural Language Generation for Indian languages (IndicNLP), there is a lack of datasets around complex structured tasks such as semantic parsing. One reason for this imminent gap is the complexity of the logical form, which makes English to multilingual translation difficult. The process involves alignment of logical forms, intents and slots with translated unstructured utterance. To address this, we propose an Inter-bilingual Seq2seq Semantic parsing dataset IE-SemParse Suite for 11 distinct Indian languages. We highlight the proposed task’s practicality, and evaluate existing multilingual seq2seq models across several train-test strategies. Our experiment reveals a high correlation across performance of original multilingual semantic parsing datasets (such as mTOP, multilingual TOP and multiATIS++) and our proposed IE-SemParse suite.</abstract>
+      <url hash="bd409be7">2023.nlp4convai-1.9</url>
+      <bibkey>aggarwal-etal-2023-evaluating</bibkey>
+      <doi>10.18653/v1/2023.nlp4convai-1.9</doi>
+      <video href="2023.nlp4convai-1.9.mp4"/>
+    </paper>
+    <paper id="10">
+      <title>Zero-Shot Dialogue Relation Extraction by Relating Explainable Triggers and Relation Names</title>
+      <author><first>Ze-Song</first><last>Xu</last></author>
+      <author><first>Yun-Nung</first><last>Chen</last></author>
+      <pages>123-128</pages>
+      <abstract>Developing dialogue relation extraction (DRE) systems often requires a large amount of labeled data, which can be costly and time-consuming to annotate. In order to improve scalability and support diverse, unseen relation extraction, this paper proposes a method for leveraging the ability to capture triggers and relate them to previously unseen relation names. Specifically, we introduce a model that enables zero-shot dialogue relation extraction by utilizing trigger-capturing capabilities. Our experiments on a benchmark DialogRE dataset demonstrate that the proposed model achieves significant improvements for both seen and unseen relations. Notably, this is the first attempt at zero-shot dialogue relation extraction using trigger-capturing capabilities, and our results suggest that this approach is effective for inferring previously unseen relation types. Overall, our findings highlight the potential for this method to enhance the scalability and practicality of DRE systems.</abstract>
+      <url hash="466498ac">2023.nlp4convai-1.10</url>
+      <bibkey>xu-chen-2023-zero</bibkey>
+      <doi>10.18653/v1/2023.nlp4convai-1.10</doi>
+    </paper>
+    <paper id="11">
+      <title>Generating Video Game Scripts with Style</title>
+      <author><first>Gaetan</first><last>Lopez Latouche</last></author>
+      <author><first>Laurence</first><last>Marcotte</last></author>
+      <author><first>Ben</first><last>Swanson</last></author>
+      <pages>129-139</pages>
+      <abstract>While modern language models can generate a scripted scene in the format of a play, movie, or video game cutscene the quality of machine generated text remains behind that of human authors. In this work, we focus on one aspect of this quality gap; generating text in the style of an arbitrary and unseen character. We propose the Style Adaptive Semiparametric Scriptwriter (SASS) which leverages an adaptive weighted style memory to generate dialog lines in accordance with a character’s speaking patterns. Using the LIGHT dataset as well as a new corpus of scripts from twenty-three AAA video games, we show that SASS not only outperforms similar models but in some cases can also be used in conjunction with them to yield further improvement.</abstract>
+      <url hash="2d0cbb23">2023.nlp4convai-1.11</url>
+      <bibkey>lopez-latouche-etal-2023-generating</bibkey>
+      <doi>10.18653/v1/2023.nlp4convai-1.11</doi>
+      <video href="2023.nlp4convai-1.11.mp4"/>
+    </paper>
+    <paper id="12">
+      <title>A Survey of Challenges and Methods in the Computational Modeling of Multi-Party Dialog</title>
+      <author><first>Ananya</first><last>Ganesh</last></author>
+      <author><first>Martha</first><last>Palmer</last></author>
+      <author><first>Katharina</first><last>Kann</last></author>
+      <pages>140-154</pages>
+      <abstract>Advances in conversational AI systems, powered in particular by large language models, have facilitated rapid progress in understanding and generating dialog. Typically, task-oriented or open-domain dialog systems have been designed to work with two-party dialog, i.e., the exchange of utterances between a single user and a dialog system. However, modern dialog systems may be deployed in scenarios such as classrooms or meetings where conversational analysis of multiple speakers is required. This survey will present research around computational modeling of “multi-party dialog”, outlining differences from two-party dialog, challenges and issues in working with multi-party dialog, and methods for representing multi-party dialog. We also provide an overview of dialog datasets created for the study of multi-party dialog, as well as tasks that are of interest in this domain.</abstract>
+      <url hash="db636b22">2023.nlp4convai-1.12</url>
+      <bibkey>ganesh-etal-2023-survey</bibkey>
+      <doi>10.18653/v1/2023.nlp4convai-1.12</doi>
+    </paper>
+    <paper id="13">
+      <title>Conversational Recommendation as Retrieval: A Simple, Strong Baseline</title>
+      <author><first>Raghav</first><last>Gupta</last></author>
+      <author><first>Renat</first><last>Aksitov</last></author>
+      <author><first>Samrat</first><last>Phatale</last></author>
+      <author><first>Simral</first><last>Chaudhary</last></author>
+      <author><first>Harrison</first><last>Lee</last></author>
+      <author><first>Abhinav</first><last>Rastogi</last></author>
+      <pages>155-160</pages>
+      <abstract>Conversational recommendation systems (CRS) aim to recommend suitable items to users through natural language conversation. However, most CRS approaches do not effectively utilize the signal provided by these conversations. They rely heavily on explicit external knowledge e.g., knowledge graphs to augment the models’ understanding of the items and attributes, which is quite hard to scale. To alleviate this, we propose an alternative information retrieval (IR)-styled approach to the CRS item recommendation task, where we represent conversations as queries and items as documents to be retrieved. We expand the document representation used for retrieval with conversations from the training set. With a simple BM25-based retriever, we show that our task formulation compares favorably with much more complex baselines using complex external knowledge on a popular CRS benchmark. We demonstrate further improvements using user-centric modeling and data augmentation to counter the cold start problem for CRSs.</abstract>
+      <url hash="2c275017">2023.nlp4convai-1.13</url>
+      <bibkey>gupta-etal-2023-conversational</bibkey>
+      <doi>10.18653/v1/2023.nlp4convai-1.13</doi>
+      <video href="2023.nlp4convai-1.13.mp4"/>
+    </paper>
+  </volume>
+</collection>

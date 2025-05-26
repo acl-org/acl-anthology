@@ -1,0 +1,72 @@
+name: Add link and image to metadata issue
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  process-anthology-issue:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check required labels
+        id: check-labels
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const issue = context.payload.issue;
+            const labels = issue.labels.map(label => label.name);
+            const hasRequiredLabels =
+              labels.includes('correction') &&
+              labels.includes('metadata');
+            core.setOutput('has_required_labels', hasRequiredLabels.toString());
+
+      - name: Parse JSON from issue body
+        id: parse-json
+        if: steps.check-labels.outputs.has_required_labels == 'true'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const issue = context.payload.issue;
+            const body = issue.body;
+            const jsonMatch = body.match(/```json\s*([\s\S]*?)\s*```/);
+
+            if (!jsonMatch) {
+              core.setOutput('valid_json', 'false');
+              return;
+            }
+
+            try {
+              const data = JSON.parse(jsonMatch[1]);
+              if (!data.anthology_id) {
+                core.setOutput('valid_json', 'false');
+                return;
+              }
+              core.setOutput('valid_json', 'true');
+              core.setOutput('anthology_id', data.anthology_id);
+            } catch (error) {
+              core.setOutput('valid_json', 'false');
+              return;
+            }
+
+      - name: Create comment
+        if: steps.check-labels.outputs.has_required_labels == 'true' && steps.parse-json.outputs.valid_json == 'true'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const anthology_id = '${{ steps.parse-json.outputs.anthology_id }}';
+            const comment = `
+            Found ACL Anthology entry: https://aclanthology.org/${anthology_id}
+
+            ![Thumbnail](https://aclanthology.org/thumb/${anthology_id}.jpg)
+
+            Please edit the JSON above if it does not match the image.
+
+            A staff member will review this correction. Once approved, it will be processed as part of a weekly batch of corrections.
+            `;
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: comment
+            });

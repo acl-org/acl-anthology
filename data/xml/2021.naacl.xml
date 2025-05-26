@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <collection id="2021.naacl">
-  <volume id="main" ingest-date="2021-05-24">
+  <volume id="main" ingest-date="2021-05-24" type="proceedings">
     <meta>
       <booktitle>Proceedings of the 2021 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies</booktitle>
       <editor><first>Kristina</first><last>Toutanova</last></editor>
@@ -21,7 +21,7 @@
     </meta>
     <frontmatter>
       <url hash="0f48a8d4">2021.naacl-main.0</url>
-      <bibkey>naacl-2021-2021</bibkey>
+      <bibkey>naacl-2021-main</bibkey>
     </frontmatter>
     <paper id="1">
       <title>Knowledge Router: Learning Disentangled Representations for Knowledge Graphs</title>
@@ -439,7 +439,7 @@
       <author><first>Rocco</first><last>Tripodi</last></author>
       <author><first>Roberto</first><last>Navigli</last></author>
       <pages>325–337</pages>
-      <abstract>Graph-based semantic parsing aims to represent textual meaning through directed graphs. As one of the most promising general-purpose meaning representations, these structures and their parsing have gained a significant interest momentum during recent years, with several diverse formalisms being proposed. Yet, owing to this very heterogeneity, most of the research effort has focused mainly on solutions specific to a given formalism. In this work, instead, we reframe semantic parsing towards multiple formalisms as Multilingual Neural Machine Translation (MNMT), and propose SGL, a many-to-many seq2seq architecture trained with an MNMT objective. Backed by several experiments, we show that this framework is indeed effective once the learning procedure is enhanced with large parallel corpora coming from Machine Translation: we report competitive performances on AMR and UCCA parsing, especially once paired with pre-trained architectures. Furthermore, we find that models trained under this configuration scale remarkably well to tasks such as cross-lingual AMR parsing: SGL outperforms all its competitors by a large margin without even explicitly seeing non-English to AMR examples at training time and, once these examples are included as well, sets an unprecedented state of the art in this task. We release our code and our models for research purposes at https://github.com/SapienzaNLP/sgl.</abstract>
+      <abstract>Graph-based semantic parsing aims to represent textual meaning through directed graphs. As one of the most promising general-purpose meaning representations, these structures and their parsing have gained a significant interest momentum during recent years, with several diverse formalisms being proposed. Yet, owing to this very heterogeneity, most of the research effort has focused mainly on solutions specific to a given formalism. In this work, instead, we reframe semantic parsing towards multiple formalisms as Multilingual Neural Machine Translation (MNMT), and propose SGL, a many-to-many seq2seq architecture trained with an MNMT objective. Backed by several experiments, we show that this framework is indeed effective once the learning procedure is enhanced with large parallel corpora coming from Machine Translation: we report competitive performances on AMR and UCCA parsing, especially once paired with pre-trained architectures. Furthermore, we find that models trained under this configuration scale remarkably well to tasks such as cross-lingual AMR parsing: SGL outperforms all its competitors by a large margin without even explicitly seeing non-English to AMR examples at training time and, once these examples are included as well, sets an unprecedented state of the art in this task. We release our code and our models for research purposes at <url>https://github.com/SapienzaNLP/sgl</url>.</abstract>
       <url hash="73b203c6">2021.naacl-main.30</url>
       <doi>10.18653/v1/2021.naacl-main.30</doi>
       <bibkey>procopio-etal-2021-sgl</bibkey>
@@ -451,7 +451,7 @@
       <author><first>Andrea</first><last>Bacciu</last></author>
       <author><first>Roberto</first><last>Navigli</last></author>
       <pages>338–351</pages>
-      <abstract>While cross-lingual techniques are finding increasing success in a wide range of Natural Language Processing tasks, their application to Semantic Role Labeling (SRL) has been strongly limited by the fact that each language adopts its own linguistic formalism, from PropBank for English to AnCora for Spanish and PDT-Vallex for Czech, inter alia. In this work, we address this issue and present a unified model to perform cross-lingual SRL over heterogeneous linguistic resources. Our model implicitly learns a high-quality mapping for different formalisms across diverse languages without resorting to word alignment and/or translation techniques. We find that, not only is our cross-lingual system competitive with the current state of the art but that it is also robust to low-data scenarios. Most interestingly, our unified model is able to annotate a sentence in a single forward pass with all the inventories it was trained with, providing a tool for the analysis and comparison of linguistic theories across different languages. We release our code and model at https://github.com/SapienzaNLP/unify-srl.</abstract>
+      <abstract>While cross-lingual techniques are finding increasing success in a wide range of Natural Language Processing tasks, their application to Semantic Role Labeling (SRL) has been strongly limited by the fact that each language adopts its own linguistic formalism, from PropBank for English to AnCora for Spanish and PDT-Vallex for Czech, inter alia. In this work, we address this issue and present a unified model to perform cross-lingual SRL over heterogeneous linguistic resources. Our model implicitly learns a high-quality mapping for different formalisms across diverse languages without resorting to word alignment and/or translation techniques. We find that, not only is our cross-lingual system competitive with the current state of the art but that it is also robust to low-data scenarios. Most interestingly, our unified model is able to annotate a sentence in a single forward pass with all the inventories it was trained with, providing a tool for the analysis and comparison of linguistic theories across different languages. We release our code and model at <url>https://github.com/SapienzaNLP/unify-srl</url>.</abstract>
       <url hash="acc4099d">2021.naacl-main.31</url>
       <award>Outstanding Long Paper</award>
       <doi>10.18653/v1/2021.naacl-main.31</doi>
@@ -527,7 +527,6 @@
       <doi>10.18653/v1/2021.naacl-main.36</doi>
       <bibkey>dai-etal-2021-apo</bibkey>
       <video href="2021.naacl-main.36.mp4"/>
-      <pwcdataset url="https://paperswithcode.com/dataset/penn-treebank">Penn Treebank</pwcdataset>
     </paper>
     <paper id="37">
       <title><fixed-case>DART</fixed-case>: Open-Domain Structured Data Record to Text Generation</title>
@@ -556,7 +555,7 @@
       <author><first>Richard</first><last>Socher</last></author>
       <author><first>Nazneen Fatema</first><last>Rajani</last></author>
       <pages>432–447</pages>
-      <abstract>We present DART, an open domain structured DAta Record to Text generation dataset with over 82k instances (DARTs). Data-to-text annotations can be a costly process, especially when dealing with tables which are the major source of structured data and contain nontrivial structures. To this end, we propose a procedure of extracting semantic triples from tables that encodes their structures by exploiting the semantic dependencies among table headers and the table title. Our dataset construction framework effectively merged heterogeneous sources from open domain semantic parsing and spoken dialogue systems by utilizing techniques including tree ontology annotation, question-answer pair to declarative sentence conversion, and predicate unification, all with minimum post-editing. We present systematic evaluation on DART as well as new state-of-the-art results on WebNLG 2017 to show that DART (1) poses new challenges to existing data-to-text datasets and (2) facilitates out-of-domain generalization. Our data and code can be found at https://github.com/Yale-LILY/dart.</abstract>
+      <abstract>We present DART, an open domain structured DAta Record to Text generation dataset with over 82k instances (DARTs). Data-to-text annotations can be a costly process, especially when dealing with tables which are the major source of structured data and contain nontrivial structures. To this end, we propose a procedure of extracting semantic triples from tables that encodes their structures by exploiting the semantic dependencies among table headers and the table title. Our dataset construction framework effectively merged heterogeneous sources from open domain semantic parsing and spoken dialogue systems by utilizing techniques including tree ontology annotation, question-answer pair to declarative sentence conversion, and predicate unification, all with minimum post-editing. We present systematic evaluation on DART as well as new state-of-the-art results on WebNLG 2017 to show that DART (1) poses new challenges to existing data-to-text datasets and (2) facilitates out-of-domain generalization. Our data and code can be found at <url>https://github.com/Yale-LILY/dart</url>.</abstract>
       <url hash="5c59fd3f">2021.naacl-main.37</url>
       <doi>10.18653/v1/2021.naacl-main.37</doi>
       <bibkey>nan-etal-2021-dart</bibkey>
@@ -584,7 +583,7 @@
       <bibkey>muller-etal-2021-unseen</bibkey>
       <video href="2021.naacl-main.38.mp4"/>
       <pwcdataset url="https://paperswithcode.com/dataset/oscar">OSCAR</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/wikiann-1">WikiAnn</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/wikiann-1">WikiANN</pwcdataset>
     </paper>
     <paper id="39">
       <title>Multi-Adversarial Learning for Cross-Lingual Word Embeddings</title>
@@ -644,7 +643,6 @@
       <pwcdataset url="https://paperswithcode.com/dataset/rcb">RCB</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/rwsd">RWSD</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/rucos">RuCoS</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/squad">SQuAD</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/terra">TERRa</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/xquad">XQuAD</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/xtreme">XTREME</pwcdataset>
@@ -662,7 +660,8 @@
       <url hash="6382be74">2021.naacl-main.42</url>
       <doi>10.18653/v1/2021.naacl-main.42</doi>
       <bibkey>xia-etal-2021-metaxl</bibkey>
-      <pwccode url="https://github.com/microsoft/MetaXL" additional="false">microsoft/MetaXL</pwccode>
+      <pwccode url="https://github.com/microsoft/MetaXL" additional="true">microsoft/MetaXL</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/marc">MARC</pwcdataset>
     </paper>
     <paper id="43">
       <title>Open Domain Question Answering over Tables via Dense Retrieval</title>
@@ -716,9 +715,8 @@
       <pwccode url="https://github.com/michiyasunaga/qagnn" additional="true">michiyasunaga/qagnn</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/commonsenseqa">CommonsenseQA</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/conceptnet">ConceptNet</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/medqa-usmle">MedQA-USMLE</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/openbookqa">OpenBookQA</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/riddle-sense">Riddle Sense</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/riddle-sense">RiddleSense</pwcdataset>
     </paper>
     <paper id="46">
       <title><fixed-case>XOR</fixed-case> <fixed-case>QA</fixed-case>: Cross-lingual Open-Retrieval Question Answering</title>
@@ -729,7 +727,7 @@
       <author><first>Eunsol</first><last>Choi</last></author>
       <author><first>Hannaneh</first><last>Hajishirzi</last></author>
       <pages>547–564</pages>
-      <abstract>Multilingual question answering tasks typically assume that answers exist in the same language as the question. Yet in practice, many languages face both information scarcity—where languages have few reference articles—and information asymmetry—where questions reference concepts from other cultures. This work extends open-retrieval question answering to a cross-lingual setting enabling questions from one language to be answered via answer content from another language. We construct a large-scale dataset built on 40K information-seeking questions across 7 diverse non-English languages that TyDi QA could not find same-language answers for. Based on this dataset, we introduce a task framework, called Cross-lingual Open-Retrieval Question Answering (XOR QA), that consists of three new tasks involving cross-lingual document retrieval from multilingual and English resources. We establish baselines with state-of-the-art machine translation systems and cross-lingual pretrained models. Experimental results suggest that XOR QA is a challenging task that will facilitate the development of novel techniques for multilingual question answering. Our data and code are available at https://nlp.cs.washington.edu/xorqa/.</abstract>
+      <abstract>Multilingual question answering tasks typically assume that answers exist in the same language as the question. Yet in practice, many languages face both information scarcity—where languages have few reference articles—and information asymmetry—where questions reference concepts from other cultures. This work extends open-retrieval question answering to a cross-lingual setting enabling questions from one language to be answered via answer content from another language. We construct a large-scale dataset built on 40K information-seeking questions across 7 diverse non-English languages that TyDi QA could not find same-language answers for. Based on this dataset, we introduce a task framework, called Cross-lingual Open-Retrieval Question Answering (XOR QA), that consists of three new tasks involving cross-lingual document retrieval from multilingual and English resources. We establish baselines with state-of-the-art machine translation systems and cross-lingual pretrained models. Experimental results suggest that XOR QA is a challenging task that will facilitate the development of novel techniques for multilingual question answering. Our data and code are available at <url>https://nlp.cs.washington.edu/xorqa/</url>.</abstract>
       <url hash="010faf33">2021.naacl-main.46</url>
       <doi>10.18653/v1/2021.naacl-main.46</doi>
       <bibkey>asai-etal-2021-xor</bibkey>
@@ -739,7 +737,6 @@
       <pwcdataset url="https://paperswithcode.com/dataset/mkqa">MKQA</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/mlqa">MLQA</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/natural-questions">Natural Questions</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/squad">SQuAD</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/xquad">XQuAD</pwcdataset>
     </paper>
     <paper id="47">
@@ -1021,6 +1018,7 @@
       <doi>10.18653/v1/2021.naacl-main.65</doi>
       <bibkey>vyas-ballesteros-2021-linking</bibkey>
       <video href="2021.naacl-main.65.mp4"/>
+      <pwcdataset url="https://paperswithcode.com/dataset/conll-2003">CoNLL 2003</pwcdataset>
     </paper>
     <paper id="66">
       <title>Self-Training with Weak Supervision</title>
@@ -1134,7 +1132,7 @@
       <author><first>Yoav</first><last>Goldberg</last></author>
       <author><first>Byron</first><last>Wallace</last></author>
       <pages>946–959</pages>
-      <abstract>Large Transformers pretrained over clinical notes from Electronic Health Records (EHR) have afforded substantial gains in performance on predictive clinical tasks. The cost of training such models (and the necessity of data access to do so) coupled with their utility motivates parameter sharing, i.e., the release of pretrained models such as ClinicalBERT. While most efforts have used deidentified EHR, many researchers have access to large sets of sensitive, non-deidentified EHR with which they might train a BERT model (or similar). Would it be safe to release the weights of such a model if they did? In this work, we design a battery of approaches intended to recover Personal Health Information (PHI) from a trained BERT. Specifically, we attempt to recover patient names and conditions with which they are associated. We find that simple probing methods are not able to meaningfully extract sensitive information from BERT trained over the MIMIC-III corpus of EHR. However, more sophisticated “attacks” may succeed in doing so: To facilitate such research, we make our experimental setup and baseline probing models available at https://github.com/elehman16/exposing_patient_data_release.</abstract>
+      <abstract>Large Transformers pretrained over clinical notes from Electronic Health Records (EHR) have afforded substantial gains in performance on predictive clinical tasks. The cost of training such models (and the necessity of data access to do so) coupled with their utility motivates parameter sharing, i.e., the release of pretrained models such as ClinicalBERT. While most efforts have used deidentified EHR, many researchers have access to large sets of sensitive, non-deidentified EHR with which they might train a BERT model (or similar). Would it be safe to release the weights of such a model if they did? In this work, we design a battery of approaches intended to recover Personal Health Information (PHI) from a trained BERT. Specifically, we attempt to recover patient names and conditions with which they are associated. We find that simple probing methods are not able to meaningfully extract sensitive information from BERT trained over the MIMIC-III corpus of EHR. However, more sophisticated “attacks” may succeed in doing so: To facilitate such research, we make our experimental setup and baseline probing models available at <url>https://github.com/elehman16/exposing_patient_data_release</url>.</abstract>
       <url hash="03fc0bc3">2021.naacl-main.73</url>
       <doi>10.18653/v1/2021.naacl-main.73</doi>
       <bibkey>lehman-etal-2021-bert</bibkey>
@@ -1153,8 +1151,8 @@
       <doi>10.18653/v1/2021.naacl-main.74</doi>
       <bibkey>cao-etal-2021-low</bibkey>
       <video href="2021.naacl-main.74.mp4"/>
-      <pwccode url="https://github.com/stevenxcao/subnetwork-probing" additional="false">stevenxcao/subnetwork-probing</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/conll-2003">CoNLL-2003</pwcdataset>
+      <pwccode url="https://github.com/stevenxcao/subnetwork-probing" additional="true">stevenxcao/subnetwork-probing</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/conll-2003">CoNLL 2003</pwcdataset>
     </paper>
     <paper id="75">
       <title>An Empirical Comparison of Instance Attribution Methods for <fixed-case>NLP</fixed-case></title>
@@ -1163,7 +1161,7 @@
       <author><first>Byron</first><last>Wallace</last></author>
       <author><first>Sameer</first><last>Singh</last></author>
       <pages>967–975</pages>
-      <abstract>Widespread adoption of deep models has motivated a pressing need for approaches to interpret network outputs and to facilitate model debugging. Instance attribution methods constitute one means of accomplishing these goals by retrieving training instances that (may have) led to a particular prediction. Influence functions (IF; Koh and Liang 2017) provide machinery for doing this by quantifying the effect that perturbing individual train instances would have on a specific test prediction. However, even approximating the IF is computationally expensive, to the degree that may be prohibitive in many cases. Might simpler approaches (e.g., retrieving train examples most similar to a given test point) perform comparably? In this work, we evaluate the degree to which different potential instance attribution agree with respect to the importance of training samples. We find that simple retrieval methods yield training instances that differ from those identified via gradient-based methods (such as IFs), but that nonetheless exhibit desirable characteristics similar to more complex attribution methods. Code for all methods and experiments in this paper is available at: https://github.com/successar/instance_attributions_NLP.</abstract>
+      <abstract>Widespread adoption of deep models has motivated a pressing need for approaches to interpret network outputs and to facilitate model debugging. Instance attribution methods constitute one means of accomplishing these goals by retrieving training instances that (may have) led to a particular prediction. Influence functions (IF; Koh and Liang 2017) provide machinery for doing this by quantifying the effect that perturbing individual train instances would have on a specific test prediction. However, even approximating the IF is computationally expensive, to the degree that may be prohibitive in many cases. Might simpler approaches (e.g., retrieving train examples most similar to a given test point) perform comparably? In this work, we evaluate the degree to which different potential instance attribution agree with respect to the importance of training samples. We find that simple retrieval methods yield training instances that differ from those identified via gradient-based methods (such as IFs), but that nonetheless exhibit desirable characteristics similar to more complex attribution methods. Code for all methods and experiments in this paper is available at: <url>https://github.com/successar/instance_attributions_NLP</url>.</abstract>
       <url hash="e872d85f">2021.naacl-main.75</url>
       <doi>10.18653/v1/2021.naacl-main.75</doi>
       <bibkey>pezeshkpour-etal-2021-empirical</bibkey>
@@ -1171,6 +1169,7 @@
       <pwccode url="https://github.com/successar/instance_attributions_NLP" additional="false">successar/instance_attributions_NLP</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/multinli">MultiNLI</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/sst">SST</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/sst-2">SST-2</pwcdataset>
     </paper>
     <paper id="76">
       <title>Generalization in Instruction Following Systems</title>
@@ -1199,7 +1198,7 @@
       <bibkey>sun-etal-2021-lightningdot</bibkey>
       <video href="2021.naacl-main.77.mp4"/>
       <pwccode url="https://github.com/intersun/LightningDOT" additional="true">intersun/LightningDOT</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/coco">COCO</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/coco">MS COCO</pwcdataset>
     </paper>
     <paper id="78">
       <title>Measuring Social Biases in Grounded Vision and Language Embeddings</title>
@@ -1232,6 +1231,7 @@
       <bibkey>yang-etal-2021-mtag</bibkey>
       <video href="2021.naacl-main.79.mp4"/>
       <pwccode url="https://github.com/jedyang97/MTAG" additional="false">jedyang97/MTAG</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/cmu-mosi">CMU-MOSI</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/iemocap">IEMOCAP</pwcdataset>
     </paper>
     <paper id="80">
@@ -1306,7 +1306,7 @@
       <author><first>Tuo</first><last>Zhao</last></author>
       <author><first>Chao</first><last>Zhang</last></author>
       <pages>1063–1077</pages>
-      <abstract>Fine-tuned pre-trained language models (LMs) have achieved enormous success in many natural language processing (NLP) tasks, but they still require excessive labeled data in the fine-tuning stage. We study the problem of fine-tuning pre-trained LMs using only weak supervision, without any labeled data. This problem is challenging because the high capacity of LMs makes them prone to overfitting the noisy labels generated by weak supervision. To address this problem, we develop a contrastive self-training framework, COSINE, to enable fine-tuning LMs with weak supervision. Underpinned by contrastive regularization and confidence-based reweighting, our framework gradually improves model fitting while effectively suppressing error propagation. Experiments on sequence, token, and sentence pair classification tasks show that our model outperforms the strongest baseline by large margins and achieves competitive performance with fully-supervised fine-tuning methods. Our implementation is available on https://github.com/yueyu1030/COSINE.</abstract>
+      <abstract>Fine-tuned pre-trained language models (LMs) have achieved enormous success in many natural language processing (NLP) tasks, but they still require excessive labeled data in the fine-tuning stage. We study the problem of fine-tuning pre-trained LMs using only weak supervision, without any labeled data. This problem is challenging because the high capacity of LMs makes them prone to overfitting the noisy labels generated by weak supervision. To address this problem, we develop a contrastive self-training framework, COSINE, to enable fine-tuning LMs with weak supervision. Underpinned by contrastive regularization and confidence-based reweighting, our framework gradually improves model fitting while effectively suppressing error propagation. Experiments on sequence, token, and sentence pair classification tasks show that our model outperforms the strongest baseline by large margins and achieves competitive performance with fully-supervised fine-tuning methods. Our implementation is available on <url>https://github.com/yueyu1030/COSINE</url>.</abstract>
       <url hash="e055f2f3">2021.naacl-main.84</url>
       <doi>10.18653/v1/2021.naacl-main.84</doi>
       <bibkey>yu-etal-2021-fine</bibkey>
@@ -1314,8 +1314,8 @@
       <pwccode url="https://github.com/yueyu1030/COSINE" additional="false">yueyu1030/COSINE</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/ag-news">AG News</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/imdb-movie-reviews">IMDb Movie Reviews</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/superglue">SuperGLUE</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/wic">WiC</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/yelp">Yelp</pwcdataset>
     </paper>
     <paper id="85">
       <title>Posterior Differential Regularization with f-divergence for Improving Model Robustness</title>
@@ -1335,8 +1335,8 @@
       <pwcdataset url="https://paperswithcode.com/dataset/imdb-movie-reviews">IMDb Movie Reviews</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/mrqa-2019">MRQA</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/multinli">MultiNLI</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/squad">SQuAD</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/sst">SST</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/sst-2">SST-2</pwcdataset>
     </paper>
     <paper id="86">
       <title>Understanding Hard Negatives in Noise Contrastive Estimation</title>
@@ -1424,7 +1424,7 @@
       <doi>10.18653/v1/2021.naacl-main.91</doi>
       <bibkey>agrawal-etal-2021-assessing</bibkey>
       <video href="2021.naacl-main.91.mp4"/>
-      <pwcdataset url="https://paperswithcode.com/dataset/wmt19-metrics-task">WMT19 Metrics Task</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/wmt19-metrics-task">WMT 2019 Metrics Task</pwcdataset>
     </paper>
     <paper id="92">
       <title>The Curious Case of Hallucinations in Neural Machine Translation</title>
@@ -1478,7 +1478,6 @@
       <pwcdataset url="https://paperswithcode.com/dataset/natural-questions">Natural Questions</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/newsqa">NewsQA</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/qa-srl">QA-SRL</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/squad">SQuAD</pwcdataset>
     </paper>
     <paper id="96">
       <title>Capturing Row and Column Semantics in Transformer Based Question Answering over Tables</title>
@@ -1500,7 +1499,6 @@
       <video href="2021.naacl-main.96.mp4"/>
       <pwccode url="https://github.com/IBM/row-column-intersection" additional="false">IBM/row-column-intersection</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/natural-questions">Natural Questions</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/squad">SQuAD</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/wikisql">WikiSQL</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/wikitablequestions">WikiTableQuestions</pwcdataset>
     </paper>
@@ -1529,7 +1527,6 @@
       <pwcdataset url="https://paperswithcode.com/dataset/bio">Bio</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/mrqa-2019">MRQA</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/newsqa">NewsQA</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/squad">SQuAD</pwcdataset>
     </paper>
     <paper id="99">
       <title>Text Modular Networks: Learning to Decompose Tasks in the Language of Existing Models</title>
@@ -1548,7 +1545,6 @@
       <pwcdataset url="https://paperswithcode.com/dataset/break">BREAK</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/drop">DROP</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/hotpotqa">HotpotQA</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/squad">SQuAD</pwcdataset>
     </paper>
     <paper id="100">
       <title><fixed-case>RECONSIDER</fixed-case>: Improved Re-Ranking using Span-Focused Cross-Attention for Open Domain Question Answering</title>
@@ -1578,7 +1574,6 @@
       <video href="2021.naacl-main.101.mp4"/>
       <pwcdataset url="https://paperswithcode.com/dataset/hotpotqa">HotpotQA</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/newsqa">NewsQA</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/squad">SQuAD</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/searchqa">SearchQA</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/triviaqa">TriviaQA</pwcdataset>
     </paper>
@@ -1705,13 +1700,13 @@
       <author><first>Jiaao</first><last>Chen</last></author>
       <author><first>Diyi</first><last>Yang</last></author>
       <pages>1380–1391</pages>
-      <abstract>Abstractive conversation summarization has received much attention recently. However, these generated summaries often suffer from insufficient, redundant, or incorrect content, largely due to the unstructured and complex characteristics of human-human interactions. To this end, we propose to explicitly model the rich structures in conversations for more precise and accurate conversation summarization, by first incorporating discourse relations between utterances and action triples (“who-doing-what”) in utterances through structured graphs to better encode conversations, and then designing a multi-granularity decoder to generate summaries by combining all levels of information. Experiments show that our proposed models outperform state-of-the-art methods and generalize well in other domains in terms of both automatic evaluations and human judgments. We have publicly released our code at https://github.com/GT-SALT/Structure-Aware-BART.</abstract>
+      <abstract>Abstractive conversation summarization has received much attention recently. However, these generated summaries often suffer from insufficient, redundant, or incorrect content, largely due to the unstructured and complex characteristics of human-human interactions. To this end, we propose to explicitly model the rich structures in conversations for more precise and accurate conversation summarization, by first incorporating discourse relations between utterances and action triples (“who-doing-what”) in utterances through structured graphs to better encode conversations, and then designing a multi-granularity decoder to generate summaries by combining all levels of information. Experiments show that our proposed models outperform state-of-the-art methods and generalize well in other domains in terms of both automatic evaluations and human judgments. We have publicly released our code at <url>https://github.com/GT-SALT/Structure-Aware-BART</url>.</abstract>
       <url hash="58cc357e">2021.naacl-main.109</url>
       <doi>10.18653/v1/2021.naacl-main.109</doi>
       <bibkey>chen-yang-2021-structure</bibkey>
       <video href="2021.naacl-main.109.mp4"/>
       <pwccode url="https://github.com/GT-SALT/Structure-Aware-BART" additional="false">GT-SALT/Structure-Aware-BART</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/samsum-corpus">SAMSum Corpus</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/samsum-corpus">SAMSum</pwcdataset>
     </paper>
     <paper id="110">
       <title>A New Approach to Overgenerating and Scoring Abstractive Summaries</title>
@@ -1768,7 +1763,7 @@
       <author><first>Zi-Yi</first><last>Dou</last></author>
       <author><first>Pengfei</first><last>Liu</last></author>
       <pages>1437–1448</pages>
-      <abstract>Although some recent works show potential complementarity among different state-of-the-art systems, few works try to investigate this problem in text summarization. Researchers in other areas commonly refer to the techniques of reranking or stacking to approach this problem. In this work, we highlight several limitations of previous methods, which motivates us to present a new framework Refactor that provides a unified view of text summarization and summaries combination. Experimentally, we perform a comprehensive evaluation that involves twenty-two base systems, four datasets, and three different application scenarios. Besides new state-of-the-art results on CNN/DailyMail dataset (46.18 ROUGE-1), we also elaborate on how our proposed method addresses the limitations of the traditional methods and the effectiveness of the Refactor model sheds light on insight for performance improvement. Our system can be directly used by other researchers as an off-the-shelf tool to achieve further performance improvements. We open-source all the code and provide a convenient interface to use it: https://github.com/yixinL7/Refactoring-Summarization.</abstract>
+      <abstract>Although some recent works show potential complementarity among different state-of-the-art systems, few works try to investigate this problem in text summarization. Researchers in other areas commonly refer to the techniques of reranking or stacking to approach this problem. In this work, we highlight several limitations of previous methods, which motivates us to present a new framework Refactor that provides a unified view of text summarization and summaries combination. Experimentally, we perform a comprehensive evaluation that involves twenty-two base systems, four datasets, and three different application scenarios. Besides new state-of-the-art results on CNN/DailyMail dataset (46.18 ROUGE-1), we also elaborate on how our proposed method addresses the limitations of the traditional methods and the effectiveness of the Refactor model sheds light on insight for performance improvement. Our system can be directly used by other researchers as an off-the-shelf tool to achieve further performance improvements. We open-source all the code and provide a convenient interface to use it: <url>https://github.com/yixinL7/Refactoring-Summarization</url>.</abstract>
       <url hash="e5195109">2021.naacl-main.113</url>
       <doi>10.18653/v1/2021.naacl-main.113</doi>
       <bibkey>liu-etal-2021-refsum</bibkey>
@@ -1816,6 +1811,7 @@
       <bibkey>li-etal-2021-neural</bibkey>
       <video href="2021.naacl-main.116.mp4"/>
       <pwccode url="https://github.com/LeePleased/LeftmostSeg" additional="false">LeePleased/LeftmostSeg</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/ontonotes-5-0">OntoNotes 5.0</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/universal-dependencies">Universal Dependencies</pwcdataset>
     </paper>
     <paper id="117">
@@ -1830,7 +1826,7 @@
       <bibkey>yang-etal-2021-pcfgs</bibkey>
       <video href="2021.naacl-main.117.mp4"/>
       <pwccode url="https://github.com/sustcsonglin/TN-PCFG" additional="false">sustcsonglin/TN-PCFG</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/penn-treebank">Penn Treebank</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/ptb">PTB Diagnostic ECG Database</pwcdataset>
     </paper>
     <paper id="118">
       <title><fixed-case>GEMNET</fixed-case>: Effective Gated Gazetteer Representations for Recognizing Complex Entities in Low-context Input</title>
@@ -2018,7 +2014,7 @@
       <author><first>Junyi Jessy</first><last>Li</last></author>
       <author><first>Katrin</first><last>Erk</last></author>
       <pages>1626–1644</pages>
-      <abstract>Discourse signals are often implicit, leaving it up to the interpreter to draw the required inferences. At the same time, discourse is embedded in a social context, meaning that interpreters apply their own assumptions and beliefs when resolving these inferences, leading to multiple, valid interpretations. However, current discourse data and frameworks ignore the social aspect, expecting only a single ground truth. We present the first discourse dataset with multiple and subjective interpretations of English conversation in the form of perceived conversation acts and intents. We carefully analyze our dataset and create computational models to (1) confirm our hypothesis that taking into account the bias of the interpreters leads to better predictions of the interpretations, (2) and show disagreements are nuanced and require a deeper understanding of the different contextual factors. We share our dataset and code at http://github.com/elisaF/subjective_discourse.</abstract>
+      <abstract>Discourse signals are often implicit, leaving it up to the interpreter to draw the required inferences. At the same time, discourse is embedded in a social context, meaning that interpreters apply their own assumptions and beliefs when resolving these inferences, leading to multiple, valid interpretations. However, current discourse data and frameworks ignore the social aspect, expecting only a single ground truth. We present the first discourse dataset with multiple and subjective interpretations of English conversation in the form of perceived conversation acts and intents. We carefully analyze our dataset and create computational models to (1) confirm our hypothesis that taking into account the bias of the interpreters leads to better predictions of the interpretations, (2) and show disagreements are nuanced and require a deeper understanding of the different contextual factors. We share our dataset and code at <url>http://github.com/elisaF/subjective_discourse</url>.</abstract>
       <url hash="dff13f7d">2021.naacl-main.129</url>
       <doi>10.18653/v1/2021.naacl-main.129</doi>
       <bibkey>ferracane-etal-2021-answer</bibkey>
@@ -2048,6 +2044,7 @@
       <doi>10.18653/v1/2021.naacl-main.131</doi>
       <bibkey>kobayashi-ng-2021-bridging</bibkey>
       <video href="2021.naacl-main.131.mp4"/>
+      <pwcdataset url="https://paperswithcode.com/dataset/isnotes">ISNotes</pwcdataset>
     </paper>
     <paper id="132">
       <title>Explicitly Modeling Syntax in Language Models with Incremental Parsing and a Dynamic Oracle</title>
@@ -2090,7 +2087,6 @@
       <doi>10.18653/v1/2021.naacl-main.134</doi>
       <bibkey>tao-etal-2021-learning</bibkey>
       <video href="2021.naacl-main.134.mp4"/>
-      <pwcdataset url="https://paperswithcode.com/dataset/penn-treebank">Penn Treebank</pwcdataset>
     </paper>
     <paper id="135">
       <title>Mask Attention Networks: Rethinking and Strengthen Transformer</title>
@@ -2122,7 +2118,7 @@
       <author><first>Hua</first><last>Wu</last></author>
       <author><first>Haifeng</first><last>Wang</last></author>
       <pages>1702–1715</pages>
-      <abstract>Coarse-grained linguistic information, such as named entities or phrases, facilitates adequately representation learning in pre-training. Previous works mainly focus on extending the objective of BERT’s Masked Language Modeling (MLM) from masking individual tokens to contiguous sequences of n tokens. We argue that such contiguously masking method neglects to model the intra-dependencies and inter-relation of coarse-grained linguistic information. As an alternative, we propose ERNIE-Gram, an explicitly n-gram masking method to enhance the integration of coarse-grained information into pre-training. In ERNIE-Gram, n-grams are masked and predicted directly using explicit n-gram identities rather than contiguous sequences of n tokens. Furthermore, ERNIE-Gram employs a generator model to sample plausible n-gram identities as optional n-gram masks and predict them in both coarse-grained and fine-grained manners to enable comprehensive n-gram prediction and relation modeling. We pre-train ERNIE-Gram on English and Chinese text corpora and fine-tune on 19 downstream tasks. Experimental results show that ERNIE-Gram outperforms previous pre-training models like XLNet and RoBERTa by a large margin, and achieves comparable results with state-of-the-art methods. The source codes and pre-trained models have been released at https://github.com/PaddlePaddle/ERNIE.</abstract>
+      <abstract>Coarse-grained linguistic information, such as named entities or phrases, facilitates adequately representation learning in pre-training. Previous works mainly focus on extending the objective of BERT’s Masked Language Modeling (MLM) from masking individual tokens to contiguous sequences of n tokens. We argue that such contiguously masking method neglects to model the intra-dependencies and inter-relation of coarse-grained linguistic information. As an alternative, we propose ERNIE-Gram, an explicitly n-gram masking method to enhance the integration of coarse-grained information into pre-training. In ERNIE-Gram, n-grams are masked and predicted directly using explicit n-gram identities rather than contiguous sequences of n tokens. Furthermore, ERNIE-Gram employs a generator model to sample plausible n-gram identities as optional n-gram masks and predict them in both coarse-grained and fine-grained manners to enable comprehensive n-gram prediction and relation modeling. We pre-train ERNIE-Gram on English and Chinese text corpora and fine-tune on 19 downstream tasks. Experimental results show that ERNIE-Gram outperforms previous pre-training models like XLNet and RoBERTa by a large margin, and achieves comparable results with state-of-the-art methods. The source codes and pre-trained models have been released at <url>https://github.com/PaddlePaddle/ERNIE</url>.</abstract>
       <url hash="e9bf68ce">2021.naacl-main.136</url>
       <doi>10.18653/v1/2021.naacl-main.136</doi>
       <bibkey>xiao-etal-2021-ernie</bibkey>
@@ -2139,8 +2135,8 @@
       <pwcdataset url="https://paperswithcode.com/dataset/multinli">MultiNLI</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/qnli">QNLI</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/race">RACE</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/squad">SQuAD</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/sst">SST</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/sst-2">SST-2</pwcdataset>
     </paper>
     <paper id="137">
       <title>Lattice-<fixed-case>BERT</fixed-case>: Leveraging Multi-Granularity Representations in <fixed-case>C</fixed-case>hinese Pre-trained Language Models</title>
@@ -2150,13 +2146,14 @@
       <author><first>Songfang</first><last>Huang</last></author>
       <author><first>Dongyan</first><last>Zhao</last></author>
       <pages>1716–1731</pages>
-      <abstract>Chinese pre-trained language models usually process text as a sequence of characters, while ignoring more coarse granularity, e.g., words. In this work, we propose a novel pre-training paradigm for Chinese — Lattice-BERT, which explicitly incorporates word representations along with characters, thus can model a sentence in a multi-granularity manner. Specifically, we construct a lattice graph from the characters and words in a sentence and feed all these text units into transformers. We design a lattice position attention mechanism to exploit the lattice structures in self-attention layers. We further propose a masked segment prediction task to push the model to learn from rich but redundant information inherent in lattices, while avoiding learning unexpected tricks. Experiments on 11 Chinese natural language understanding tasks show that our model can bring an average increase of 1.5% under the 12-layer setting, which achieves new state-of-the-art among base-size models on the CLUE benchmarks. Further analysis shows that Lattice-BERT can harness the lattice structures, and the improvement comes from the exploration of redundant information and multi-granularity representations. Our code will be available at https://github.com/alibaba/pretrained-language-models/LatticeBERT.</abstract>
+      <abstract>Chinese pre-trained language models usually process text as a sequence of characters, while ignoring more coarse granularity, e.g., words. In this work, we propose a novel pre-training paradigm for Chinese — Lattice-BERT, which explicitly incorporates word representations along with characters, thus can model a sentence in a multi-granularity manner. Specifically, we construct a lattice graph from the characters and words in a sentence and feed all these text units into transformers. We design a lattice position attention mechanism to exploit the lattice structures in self-attention layers. We further propose a masked segment prediction task to push the model to learn from rich but redundant information inherent in lattices, while avoiding learning unexpected tricks. Experiments on 11 Chinese natural language understanding tasks show that our model can bring an average increase of 1.5% under the 12-layer setting, which achieves new state-of-the-art among base-size models on the CLUE benchmarks. Further analysis shows that Lattice-BERT can harness the lattice structures, and the improvement comes from the exploration of redundant information and multi-granularity representations. Our code will be available at <url>https://github.com/alibaba/pretrained-language-models/LatticeBERT</url>.</abstract>
       <url hash="25f9f321">2021.naacl-main.137</url>
       <doi>10.18653/v1/2021.naacl-main.137</doi>
       <bibkey>lai-etal-2021-lattice</bibkey>
       <video href="2021.naacl-main.137.mp4"/>
       <pwccode url="https://github.com/alibaba/AliceMind" additional="true">alibaba/AliceMind</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/clue">CLUE</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/cmnli">CMNLI</pwcdataset>
     </paper>
     <paper id="138">
       <title>Modeling Event Plausibility with Consistent Conceptual Abstraction</title>
@@ -2266,7 +2263,7 @@
       <video href="2021.naacl-main.144.mp4"/>
       <pwccode url="https://github.com/KiroSummer/opinion_mining_with_syn_cons" additional="false">KiroSummer/opinion_mining_with_syn_cons</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/mpqa-opinion-corpus">MPQA Opinion Corpus</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/penn-treebank">Penn Treebank</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/ontonotes-5-0">OntoNotes 5.0</pwcdataset>
     </paper>
     <paper id="145">
       <title>Target-specified Sequence Labeling with Multi-head Self-attention for Target-oriented Opinion Words Extraction</title>
@@ -2297,7 +2294,7 @@
       <bibkey>dai-etal-2021-syntax</bibkey>
       <video href="2021.naacl-main.146.mp4"/>
       <pwccode url="https://github.com/ROGERDJQ/RoBERTaABSA" additional="false">ROGERDJQ/RoBERTaABSA</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/semeval-2014-task-4-sub-task-2">SemEval 2014 Task 4 Sub Task 2</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/semeval-2014-task-4-sub-task-2">SemEval-2014 Task-4</pwcdataset>
     </paper>
     <paper id="147">
       <title>Domain Divergences: A Survey and Empirical Analysis</title>
@@ -2311,6 +2308,7 @@
       <doi>10.18653/v1/2021.naacl-main.147</doi>
       <bibkey>ramesh-kashyap-etal-2021-domain</bibkey>
       <video href="2021.naacl-main.147.mp4"/>
+      <pwcdataset url="https://paperswithcode.com/dataset/conll-2003">CoNLL 2003</pwcdataset>
     </paper>
     <paper id="148">
       <title>Target-Aware Data Augmentation for Stance Detection</title>
@@ -2374,10 +2372,10 @@
       <doi>10.18653/v1/2021.naacl-main.152</doi>
       <bibkey>chung-etal-2021-splat</bibkey>
       <video href="2021.naacl-main.152.mp4"/>
+      <pwccode url="" additional="true"/>
       <pwcdataset url="https://paperswithcode.com/dataset/cmu-mosei">CMU-MOSEI</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/fluent-speech-commands">Fluent Speech Commands</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/librispeech">LibriSpeech</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/squad">SQuAD</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/spoken-squad">Spoken-SQuAD</pwcdataset>
     </paper>
     <paper id="153">
@@ -2394,8 +2392,8 @@
       <doi>10.18653/v1/2021.naacl-main.153</doi>
       <bibkey>ramnath-etal-2021-worldly</bibkey>
       <video href="2021.naacl-main.153.mp4"/>
-      <pwcdataset url="https://paperswithcode.com/dataset/coco">COCO</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/dbpedia">DBpedia</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/coco">MS COCO</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/places">Places</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/simplequestions">SimpleQuestions</pwcdataset>
     </paper>
@@ -2405,7 +2403,7 @@
       <author><first>Julian</first><last>Salazar</last></author>
       <author><first>Katrin</first><last>Kirchhoff</last></author>
       <pages>1920–1927</pages>
-      <abstract>Non-autoregressive encoder-decoder models greatly improve decoding speed over autoregressive models, at the expense of generation quality. To mitigate this, iterative decoding models repeatedly infill or refine the proposal of a non-autoregressive model. However, editing at the level of output sequences limits model flexibility. We instead propose *iterative realignment*, which by refining latent alignments allows more flexible edits in fewer steps. Our model, Align-Refine, is an end-to-end Transformer which iteratively realigns connectionist temporal classification (CTC) alignments. On the WSJ dataset, Align-Refine matches an autoregressive baseline with a 14x decoding speedup; on LibriSpeech, we reach an LM-free test-other WER of 9.0% (19% relative improvement on comparable work) in three iterations. We release our code at https://github.com/amazon-research/align-refine.</abstract>
+      <abstract>Non-autoregressive encoder-decoder models greatly improve decoding speed over autoregressive models, at the expense of generation quality. To mitigate this, iterative decoding models repeatedly infill or refine the proposal of a non-autoregressive model. However, editing at the level of output sequences limits model flexibility. We instead propose *iterative realignment*, which by refining latent alignments allows more flexible edits in fewer steps. Our model, Align-Refine, is an end-to-end Transformer which iteratively realigns connectionist temporal classification (CTC) alignments. On the WSJ dataset, Align-Refine matches an autoregressive baseline with a 14x decoding speedup; on LibriSpeech, we reach an LM-free test-other WER of 9.0% (19% relative improvement on comparable work) in three iterations. We release our code at <url>https://github.com/amazon-research/align-refine</url>.</abstract>
       <url hash="5b63d4e1">2021.naacl-main.154</url>
       <doi>10.18653/v1/2021.naacl-main.154</doi>
       <bibkey>chi-etal-2021-align</bibkey>
@@ -2440,6 +2438,7 @@
       <bibkey>wu-etal-2021-counterfactual</bibkey>
       <video href="2021.naacl-main.156.mp4"/>
       <pwccode url="https://github.com/ckre/cmge" additional="false">ckre/cmge</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/10000-people-human-pose-recognition-data">10,000 People - Human Pose Recognition Data</pwcdataset>
     </paper>
     <paper id="157">
       <title>Personalized Response Generation via Generative Split Memory Network</title>
@@ -2503,8 +2502,8 @@
       <title>Model Extraction and Adversarial Transferability, Your <fixed-case>BERT</fixed-case> is Vulnerable!</title>
       <author><first>Xuanli</first><last>He</last></author>
       <author><first>Lingjuan</first><last>Lyu</last></author>
-      <author><first>Lichao</first><last>Sun</last></author>
       <author><first>Qiongkai</first><last>Xu</last></author>
+      <author><first>Lichao</first><last>Sun</last></author>
       <pages>2006–2012</pages>
       <abstract>Natural language processing (NLP) tasks, ranging from text classification to text generation, have been revolutionised by the pretrained language models, such as BERT. This allows corporations to easily build powerful APIs by encapsulating fine-tuned BERT models for downstream tasks. However, when a fine-tuned BERT model is deployed as a service, it may suffer from different attacks launched by the malicious users. In this work, we first present how an adversary can steal a BERT-based API service (the victim/target model) on multiple benchmark datasets with limited prior knowledge and queries. We further show that the extracted model can lead to highly transferable adversarial attacks against the victim model. Our studies indicate that the potential vulnerabilities of BERT-based API services still hold, even when there is an architectural mismatch between the victim model and the attack model. Finally, we investigate two defence strategies to protect the victim model, and find that unless the performance of the victim model is sacrificed, both model extraction and adversarial transferability can effectively compromise the target models.</abstract>
       <url hash="39018058">2021.naacl-main.161</url>
@@ -2546,7 +2545,7 @@
       <video href="2021.naacl-main.163.mp4"/>
       <pwccode url="https://github.com/DandyQi/MaskedCRF" additional="true">DandyQi/MaskedCRF</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/atis">ATIS</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/conll-2003">CoNLL-2003</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/conll-2003">CoNLL 2003</pwcdataset>
     </paper>
     <paper id="164">
       <title>Heterogeneous Graph Neural Networks for Concept Prerequisite Relation Learning in Educational Data</title>
@@ -2572,7 +2571,7 @@
       <author><first>Xu</first><last>Sun</last></author>
       <author><first>Bin</first><last>He</last></author>
       <pages>2048–2058</pages>
-      <abstract>Recent studies have revealed a security threat to natural language processing (NLP) models, called the Backdoor Attack. Victim models can maintain competitive performance on clean samples while behaving abnormally on samples with a specific trigger word inserted. Previous backdoor attacking methods usually assume that attackers have a certain degree of data knowledge, either the dataset which users would use or proxy datasets for a similar task, for implementing the data poisoning procedure. However, in this paper, we find that it is possible to hack the model in a data-free way by modifying one single word embedding vector, with almost no accuracy sacrificed on clean samples. Experimental results on sentiment analysis and sentence-pair classification tasks show that our method is more efficient and stealthier. We hope this work can raise the awareness of such a critical security risk hidden in the embedding layers of NLP models. Our code is available at https://github.com/lancopku/Embedding-Poisoning.</abstract>
+      <abstract>Recent studies have revealed a security threat to natural language processing (NLP) models, called the Backdoor Attack. Victim models can maintain competitive performance on clean samples while behaving abnormally on samples with a specific trigger word inserted. Previous backdoor attacking methods usually assume that attackers have a certain degree of data knowledge, either the dataset which users would use or proxy datasets for a similar task, for implementing the data poisoning procedure. However, in this paper, we find that it is possible to hack the model in a data-free way by modifying one single word embedding vector, with almost no accuracy sacrificed on clean samples. Experimental results on sentiment analysis and sentence-pair classification tasks show that our method is more efficient and stealthier. We hope this work can raise the awareness of such a critical security risk hidden in the embedding layers of NLP models. Our code is available at <url>https://github.com/lancopku/Embedding-Poisoning</url>.</abstract>
       <url hash="d4506bd6">2021.naacl-main.165</url>
       <doi>10.18653/v1/2021.naacl-main.165</doi>
       <bibkey>yang-etal-2021-careful</bibkey>
@@ -2580,6 +2579,8 @@
       <pwccode url="https://github.com/lancopku/Embedding-Poisoning" additional="false">lancopku/Embedding-Poisoning</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/imdb-movie-reviews">IMDb Movie Reviews</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/sst">SST</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/sst-2">SST-2</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/sst-5">SST-5</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/wikitext-103">WikiText-103</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/wikitext-2">WikiText-2</pwcdataset>
     </paper>
@@ -2629,8 +2630,9 @@
       <doi>10.18653/v1/2021.naacl-main.168</doi>
       <bibkey>patel-etal-2021-nlp</bibkey>
       <video href="2021.naacl-main.168.mp4"/>
-      <pwccode url="https://github.com/arkilpatel/SVAMP" additional="false">arkilpatel/SVAMP</pwccode>
+      <pwccode url="https://github.com/arkilpatel/SVAMP" additional="true">arkilpatel/SVAMP</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/svamp">SVAMP</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/asdiv">ASDiv</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/mawps">MAWPS</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/math23k">Math23K</pwcdataset>
     </paper>
@@ -2661,7 +2663,7 @@
       <author><first>Joongbo</first><last>Shin</last></author>
       <author><first>Kyomin</first><last>Jung</last></author>
       <pages>2105–2115</pages>
-      <abstract>In the automatic evaluation of generative question answering (GenQA) systems, it is difficult to assess the correctness of generated answers due to the free-form of the answer. Especially, widely used n-gram similarity metrics often fail to discriminate the incorrect answers since they equally consider all of the tokens. To alleviate this problem, we propose KPQA metric, a new metric for evaluating the correctness of GenQA. Specifically, our new metric assigns different weights to each token via keyphrase prediction, thereby judging whether a generated answer sentence captures the key meaning of the reference answer. To evaluate our metric, we create high-quality human judgments of correctness on two GenQA datasets. Using our human-evaluation datasets, we show that our proposed metric has a significantly higher correlation with human judgments than existing metrics in various datasets. Code for KPQA-metric will be available at https://github.com/hwanheelee1993/KPQA.</abstract>
+      <abstract>In the automatic evaluation of generative question answering (GenQA) systems, it is difficult to assess the correctness of generated answers due to the free-form of the answer. Especially, widely used n-gram similarity metrics often fail to discriminate the incorrect answers since they equally consider all of the tokens. To alleviate this problem, we propose KPQA metric, a new metric for evaluating the correctness of GenQA. Specifically, our new metric assigns different weights to each token via keyphrase prediction, thereby judging whether a generated answer sentence captures the key meaning of the reference answer. To evaluate our metric, we create high-quality human judgments of correctness on two GenQA datasets. Using our human-evaluation datasets, we show that our proposed metric has a significantly higher correlation with human judgments than existing metrics in various datasets. Code for KPQA-metric will be available at <url>https://github.com/hwanheelee1993/KPQA</url>.</abstract>
       <url hash="fdae925e">2021.naacl-main.170</url>
       <attachment type="OptionalSupplementaryData" hash="5a65429a">2021.naacl-main.170.OptionalSupplementaryData.pdf</attachment>
       <doi>10.18653/v1/2021.naacl-main.170</doi>
@@ -2671,7 +2673,6 @@
       <pwcdataset url="https://paperswithcode.com/dataset/gqa">GQA</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/ms-marco">MS MARCO</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/narrativeqa">NarrativeQA</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/squad">SQuAD</pwcdataset>
     </paper>
     <paper id="171">
       <title><fixed-case>S</fixed-case>tyle<fixed-case>PTB</fixed-case>: A Compositional Benchmark for Fine-grained Controllable Text Style Transfer</title>
@@ -2719,7 +2720,7 @@
       <author><first>Mai Hoang</first><last>Dao</last></author>
       <author><first>Dat Quoc</first><last>Nguyen</last></author>
       <pages>2146–2153</pages>
-      <abstract>The current COVID-19 pandemic has lead to the creation of many corpora that facilitate NLP research and downstream applications to help fight the pandemic. However, most of these corpora are exclusively for English. As the pandemic is a global problem, it is worth creating COVID-19 related datasets for languages other than English. In this paper, we present the first manually-annotated COVID-19 domain-specific dataset for Vietnamese. Particularly, our dataset is annotated for the named entity recognition (NER) task with newly-defined entity types that can be used in other future epidemics. Our dataset also contains the largest number of entities compared to existing Vietnamese NER datasets. We empirically conduct experiments using strong baselines on our dataset, and find that: automatic Vietnamese word segmentation helps improve the NER results and the highest performances are obtained by fine-tuning pre-trained language models where the monolingual model PhoBERT for Vietnamese (Nguyen and Nguyen, 2020) produces higher results than the multilingual model XLM-R (Conneau et al., 2020). We publicly release our dataset at: https://github.com/VinAIResearch/PhoNER_COVID19</abstract>
+      <abstract>The current COVID-19 pandemic has lead to the creation of many corpora that facilitate NLP research and downstream applications to help fight the pandemic. However, most of these corpora are exclusively for English. As the pandemic is a global problem, it is worth creating COVID-19 related datasets for languages other than English. In this paper, we present the first manually-annotated COVID-19 domain-specific dataset for Vietnamese. Particularly, our dataset is annotated for the named entity recognition (NER) task with newly-defined entity types that can be used in other future epidemics. Our dataset also contains the largest number of entities compared to existing Vietnamese NER datasets. We empirically conduct experiments using strong baselines on our dataset, and find that: automatic Vietnamese word segmentation helps improve the NER results and the highest performances are obtained by fine-tuning pre-trained language models where the monolingual model PhoBERT for Vietnamese (Nguyen and Nguyen, 2020) produces higher results than the multilingual model XLM-R (Conneau et al., 2020). We publicly release our dataset at: <url>https://github.com/VinAIResearch/PhoNER_COVID19</url></abstract>
       <url hash="c033111a">2021.naacl-main.173</url>
       <doi>10.18653/v1/2021.naacl-main.173</doi>
       <bibkey>truong-etal-2021-covid</bibkey>
@@ -2775,7 +2776,7 @@
       <author><first>Niyati</first><last>Chhaya</last></author>
       <author><first>Lyle</first><last>Ungar</last></author>
       <pages>2191–2200</pages>
-      <abstract>This study introduces and analyzes WikiTalkEdit, a dataset of conversations and edit histories from Wikipedia, for research in online cooperation and conversation modeling. The dataset comprises dialog triplets from the Wikipedia Talk pages, and editing actions on the corresponding articles being discussed. We show how the data supports the classic understanding of style matching, where positive emotion and the use of first-person pronouns predict a positive emotional change in a Wikipedia contributor. However, they do not predict editorial behavior. On the other hand, feedback invoking evidentiality and criticism, and references to Wikipedia’s community norms, is more likely to persuade the contributor to perform edits but is less likely to lead to a positive emotion. We developed baseline classifiers trained on pre-trained RoBERTa features that can predict editorial change with an F1 score of .54, as compared to an F1 score of .66 for predicting emotional change. A diagnostic analysis of persisting errors is also provided. We conclude with possible applications and recommendations for future work. The dataset is publicly available for the research community at https://github.com/kj2013/WikiTalkEdit/.</abstract>
+      <abstract>This study introduces and analyzes WikiTalkEdit, a dataset of conversations and edit histories from Wikipedia, for research in online cooperation and conversation modeling. The dataset comprises dialog triplets from the Wikipedia Talk pages, and editing actions on the corresponding articles being discussed. We show how the data supports the classic understanding of style matching, where positive emotion and the use of first-person pronouns predict a positive emotional change in a Wikipedia contributor. However, they do not predict editorial behavior. On the other hand, feedback invoking evidentiality and criticism, and references to Wikipedia’s community norms, is more likely to persuade the contributor to perform edits but is less likely to lead to a positive emotion. We developed baseline classifiers trained on pre-trained RoBERTa features that can predict editorial change with an F1 score of .54, as compared to an F1 score of .66 for predicting emotional change. A diagnostic analysis of persisting errors is also provided. We conclude with possible applications and recommendations for future work. The dataset is publicly available for the research community at <url>https://github.com/kj2013/WikiTalkEdit/</url>.</abstract>
       <url hash="25ba3e2d">2021.naacl-main.177</url>
       <attachment type="OptionalSupplementaryCode" hash="ef852469">2021.naacl-main.177.OptionalSupplementaryCode.zip</attachment>
       <doi>10.18653/v1/2021.naacl-main.177</doi>
@@ -2843,12 +2844,13 @@
       <author><first>Patricia</first><last>Rossini</last></author>
       <author><first>Rebekah</first><last>Tromble</last></author>
       <pages>2289–2303</pages>
-      <abstract>Online abuse can inflict harm on users and communities, making online spaces unsafe and toxic. Progress in automatically detecting and classifying abusive content is often held back by the lack of high quality and detailed datasets.We introduce a new dataset of primarily English Reddit entries which addresses several limitations of prior work. It (1) contains six conceptually distinct primary categories as well as secondary categories, (2) has labels annotated in the context of the conversation thread, (3) contains rationales and (4) uses an expert-driven group-adjudication process for high quality annotations. We report several baseline models to benchmark the work of future researchers. The annotated dataset, annotation guidelines, models and code are freely available.</abstract>
+      <abstract>Online abuse can inflict harm on users and communities, making online spaces unsafe and toxic. Progress in automatically detecting and classifying abusive content is often held back by the lack of high quality and detailed datasets. We introduce a new dataset of primarily English Reddit entries which addresses several limitations of prior work. It (1) contains six conceptually distinct primary categories as well as secondary categories, (2) has labels annotated in the context of the conversation thread, (3) contains rationales and (4) uses an expert-driven group-adjudication process for high quality annotations. We report several baseline models to benchmark the work of future researchers. The annotated dataset, annotation guidelines, models and code are freely available.</abstract>
       <url hash="92a564b8">2021.naacl-main.182</url>
       <doi>10.18653/v1/2021.naacl-main.182</doi>
       <bibkey>vidgen-etal-2021-introducing</bibkey>
       <video href="2021.naacl-main.182.mp4"/>
       <pwccode url="https://github.com/dongpng/cad_naacl2021" additional="false">dongpng/cad_naacl2021</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/cad">CAD</pwcdataset>
     </paper>
     <paper id="183">
       <title>Lifelong Learning of Hate Speech Classification on Social Media</title>
@@ -2946,7 +2948,6 @@
       <pwccode url="https://github.com/derronxu/sparsebert" additional="false">derronxu/sparsebert</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/glue">GLUE</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/qnli">QNLI</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/squad">SQuAD</pwcdataset>
     </paper>
     <paper id="189">
       <title>Towards a Comprehensive Understanding and Accurate Evaluation of Societal Biases in Pre-Trained Transformers</title>
@@ -3043,7 +3044,7 @@
       <author><first>Florian</first><last>Metze</last></author>
       <author><first>Alexander</first><last>Hauptmann</last></author>
       <pages>2443–2459</pages>
-      <abstract>This paper studies zero-shot cross-lingual transfer of vision-language models. Specifically, we focus on multilingual text-to-video search and propose a Transformer-based model that learns contextual multilingual multimodal embeddings. Under a zero-shot setting, we empirically demonstrate that performance degrades significantly when we query the multilingual text-video model with non-English sentences. To address this problem, we introduce a multilingual multimodal pre-training strategy, and collect a new multilingual instructional video dataset (Multi-HowTo100M) for pre-training. Experiments on VTT show that our method significantly improves video search in non-English languages without additional annotations. Furthermore, when multilingual annotations are available, our method outperforms recent baselines by a large margin in multilingual text-to-video search on VTT and VATEX; as well as in multilingual text-to-image search on Multi30K. Our model and Multi-HowTo100M is available at http://github.com/berniebear/Multi-HT100M.</abstract>
+      <abstract>This paper studies zero-shot cross-lingual transfer of vision-language models. Specifically, we focus on multilingual text-to-video search and propose a Transformer-based model that learns contextual multilingual multimodal embeddings. Under a zero-shot setting, we empirically demonstrate that performance degrades significantly when we query the multilingual text-video model with non-English sentences. To address this problem, we introduce a multilingual multimodal pre-training strategy, and collect a new multilingual instructional video dataset (Multi-HowTo100M) for pre-training. Experiments on VTT show that our method significantly improves video search in non-English languages without additional annotations. Furthermore, when multilingual annotations are available, our method outperforms recent baselines by a large margin in multilingual text-to-video search on VTT and VATEX; as well as in multilingual text-to-image search on Multi30K. Our model and Multi-HowTo100M is available at <url>http://github.com/berniebear/Multi-HT100M</url>.</abstract>
       <url hash="52e407d9">2021.naacl-main.195</url>
       <attachment type="OptionalSupplementaryData" hash="0546d73d">2021.naacl-main.195.OptionalSupplementaryData.txt</attachment>
       <doi>10.18653/v1/2021.naacl-main.195</doi>
@@ -3137,7 +3138,7 @@
       <author><first>Tim</first><last>Rocktäschel</last></author>
       <author><first>Sebastian</first><last>Riedel</last></author>
       <pages>2523–2544</pages>
-      <abstract>Challenging problems such as open-domain question answering, fact checking, slot filling and entity linking require access to large, external knowledge sources. While some models do well on individual tasks, developing general models is difficult as each task might require computationally expensive indexing of custom knowledge sources, in addition to dedicated infrastructure. To catalyze research on models that condition on specific information in large textual resources, we present a benchmark for knowledge-intensive language tasks (KILT). All tasks in KILT are grounded in the same snapshot of Wikipedia, reducing engineering turnaround through the re-use of components, as well as accelerating research into task-agnostic memory architectures. We test both task-specific and general baselines, evaluating downstream performance in addition to the ability of the models to provide provenance. We find that a shared dense vector index coupled with a seq2seq model is a strong baseline, outperforming more tailor-made approaches for fact checking, open-domain question answering and dialogue, and yielding competitive results on entity linking and slot filling, by generating disambiguated text. KILT data and code are available at https://github.com/facebookresearch/KILT.</abstract>
+      <abstract>Challenging problems such as open-domain question answering, fact checking, slot filling and entity linking require access to large, external knowledge sources. While some models do well on individual tasks, developing general models is difficult as each task might require computationally expensive indexing of custom knowledge sources, in addition to dedicated infrastructure. To catalyze research on models that condition on specific information in large textual resources, we present a benchmark for knowledge-intensive language tasks (KILT). All tasks in KILT are grounded in the same snapshot of Wikipedia, reducing engineering turnaround through the re-use of components, as well as accelerating research into task-agnostic memory architectures. We test both task-specific and general baselines, evaluating downstream performance in addition to the ability of the models to provide provenance. We find that a shared dense vector index coupled with a seq2seq model is a strong baseline, outperforming more tailor-made approaches for fact checking, open-domain question answering and dialogue, and yielding competitive results on entity linking and slot filling, by generating disambiguated text. KILT data and code are available at <url>https://github.com/facebookresearch/KILT</url>.</abstract>
       <url hash="21842ec2">2021.naacl-main.200</url>
       <doi>10.18653/v1/2021.naacl-main.200</doi>
       <bibkey>petroni-etal-2021-kilt</bibkey>
@@ -3149,7 +3150,6 @@
       <pwcdataset url="https://paperswithcode.com/dataset/fever">FEVER</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/hotpotqa">HotpotQA</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/natural-questions">Natural Questions</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/superglue">SuperGLUE</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/t-rex">T-REx</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/triviaqa">TriviaQA</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/wizard-of-wikipedia">Wizard of Wikipedia</pwcdataset>
@@ -3180,6 +3180,7 @@
       <doi>10.18653/v1/2021.naacl-main.202</doi>
       <bibkey>xu-etal-2021-temporal</bibkey>
       <video href="2021.naacl-main.202.mp4"/>
+      <pwccode url="https://github.com/soledad921/telm" additional="false">soledad921/telm</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/icews">ICEWS</pwcdataset>
     </paper>
     <paper id="203">
@@ -3194,7 +3195,7 @@
       <bibkey>karouzos-etal-2021-udalm</bibkey>
       <video href="2021.naacl-main.203.mp4"/>
       <pwccode url="https://github.com/ckarouzos/slp_daptmlm" additional="false">ckarouzos/slp_daptmlm</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/multi-domain-sentiment-dataset-v2-0">Multi-Domain Sentiment Dataset v2.0</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/multi-domain-sentiment-dataset-v2-0">Multi-Domain Sentiment</pwcdataset>
     </paper>
     <paper id="204">
       <title>Beyond Black &amp; White: Leveraging Annotator Disagreement via Soft-Label Multi-Task Learning</title>
@@ -3312,7 +3313,7 @@
       <doi>10.18653/v1/2021.naacl-main.211</doi>
       <bibkey>ahmad-etal-2021-unified</bibkey>
       <video href="2021.naacl-main.211.mp4"/>
-      <pwccode url="https://github.com/wasiahmad/PLBART" additional="false">wasiahmad/PLBART</pwccode>
+      <pwccode url="https://github.com/wasiahmad/PLBART" additional="true">wasiahmad/PLBART</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/concode">CONCODE</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/codesearchnet">CodeSearchNet</pwcdataset>
     </paper>
@@ -3329,7 +3330,6 @@
       <doi>10.18653/v1/2021.naacl-main.212</doi>
       <bibkey>hua-etal-2021-hyperparameter</bibkey>
       <video href="2021.naacl-main.212.mp4"/>
-      <pwccode url="https://github.com/tinghua-code/ccfi" additional="false">tinghua-code/ccfi</pwccode>
     </paper>
     <paper id="213">
       <title>On the Embeddings of Variables in Recurrent Neural Networks for Source Code</title>
@@ -3408,7 +3408,7 @@
       <author><first>Xuezhi</first><last>Wang</last></author>
       <author><first>Diyi</first><last>Yang</last></author>
       <pages>2736–2746</pages>
-      <abstract>Continual learning has become increasingly important as it enables NLP models to constantly learn and gain knowledge over time. Previous continual learning methods are mainly designed to preserve knowledge from previous tasks, without much emphasis on how to well generalize models to new tasks. In this work, we propose an information disentanglement based regularization method for continual learning on text classification. Our proposed method first disentangles text hidden spaces into representations that are generic to all tasks and representations specific to each individual task, and further regularizes these representations differently to better constrain the knowledge required to generalize. We also introduce two simple auxiliary tasks: next sentence prediction and task-id prediction, for learning better generic and specific representation spaces. Experiments conducted on large-scale benchmarks demonstrate the effectiveness of our method in continual text classification tasks with various sequences and lengths over state-of-the-art baselines. We have publicly released our code at https://github.com/GT-SALT/IDBR.</abstract>
+      <abstract>Continual learning has become increasingly important as it enables NLP models to constantly learn and gain knowledge over time. Previous continual learning methods are mainly designed to preserve knowledge from previous tasks, without much emphasis on how to well generalize models to new tasks. In this work, we propose an information disentanglement based regularization method for continual learning on text classification. Our proposed method first disentangles text hidden spaces into representations that are generic to all tasks and representations specific to each individual task, and further regularizes these representations differently to better constrain the knowledge required to generalize. We also introduce two simple auxiliary tasks: next sentence prediction and task-id prediction, for learning better generic and specific representation spaces. Experiments conducted on large-scale benchmarks demonstrate the effectiveness of our method in continual text classification tasks with various sequences and lengths over state-of-the-art baselines. We have publicly released our code at <url>https://github.com/GT-SALT/IDBR</url>.</abstract>
       <url hash="c5ea54f3">2021.naacl-main.218</url>
       <doi>10.18653/v1/2021.naacl-main.218</doi>
       <bibkey>huang-etal-2021-continual</bibkey>
@@ -3487,6 +3487,7 @@
       <pwcdataset url="https://paperswithcode.com/dataset/glue">GLUE</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/snli">SNLI</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/sst">SST</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/sst-2">SST-2</pwcdataset>
     </paper>
     <paper id="224">
       <title>Incorporating External Knowledge to Enhance Tabular Reasoning</title>
@@ -3543,7 +3544,7 @@
       <author><first>Andrew</first><last>Moore</last></author>
       <author><first>Jeremy</first><last>Barnes</last></author>
       <pages>2838–2869</pages>
-      <abstract>The majority of work in targeted sentiment analysis has concentrated on finding better methods to improve the overall results. Within this paper we show that these models are not robust to linguistic phenomena, specifically negation and speculation. In this paper, we propose a multi-task learning method to incorporate information from syntactic and semantic auxiliary tasks, including negation and speculation scope detection, to create English-language models that are more robust to these phenomena. Further we create two challenge datasets to evaluate model performance on negated and speculative samples. We find that multi-task models and transfer learning via language modelling can improve performance on these challenge datasets, but the overall performances indicate that there is still much room for improvement. We release both the datasets and the source code at &lt;a href=”https://github.com/jerbarnes/multitask_negation_for_targeted_sentiment”&gt;https://github.com/jerbarnes/multitask_negation_for_targeted_sentiment&lt;/a&gt;.</abstract>
+      <abstract>The majority of work in targeted sentiment analysis has concentrated on finding better methods to improve the overall results. Within this paper we show that these models are not robust to linguistic phenomena, specifically negation and speculation. In this paper, we propose a multi-task learning method to incorporate information from syntactic and semantic auxiliary tasks, including negation and speculation scope detection, to create English-language models that are more robust to these phenomena. Further we create two challenge datasets to evaluate model performance on negated and speculative samples. We find that multi-task models and transfer learning via language modelling can improve performance on these challenge datasets, but the overall performances indicate that there is still much room for improvement. We release both the datasets and the source code at <url>https://github.com/jerbarnes/multitask_negation_for_targeted_sentiment</url>.</abstract>
       <url hash="d258fa8d">2021.naacl-main.227</url>
       <attachment type="OptionalSupplementaryData" hash="3e7ac80d">2021.naacl-main.227.OptionalSupplementaryData.zip</attachment>
       <attachment type="OptionalSupplementaryCode" hash="08b676cf">2021.naacl-main.227.OptionalSupplementaryCode.zip</attachment>
@@ -3609,7 +3610,7 @@
       <doi>10.18653/v1/2021.naacl-main.231</doi>
       <bibkey>tian-etal-2021-aspect</bibkey>
       <video href="2021.naacl-main.231.mp4"/>
-      <pwccode url="https://github.com/cuhksz-nlp/ASA-TGCN" additional="false">cuhksz-nlp/ASA-TGCN</pwccode>
+      <pwccode url="https://github.com/cuhksz-nlp/ASA-TGCN" additional="true">cuhksz-nlp/ASA-TGCN</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/mams">MAMS</pwcdataset>
     </paper>
     <paper id="232">
@@ -3648,7 +3649,6 @@
       <bibkey>shi-etal-2021-learning</bibkey>
       <video href="2021.naacl-main.234.mp4"/>
       <pwccode url="https://github.com/tzshi/nob-naacl21" additional="false">tzshi/nob-naacl21</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/penn-treebank">Penn Treebank</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/qa-srl">QA-SRL</pwcdataset>
     </paper>
     <paper id="235">
@@ -3944,7 +3944,7 @@
       <author><first>Jonathan</first><last>May</last></author>
       <author><first>Jonathan</first><last>Gratch</last></author>
       <pages>3167–3185</pages>
-      <abstract>Automated systems that negotiate with humans have broad applications in pedagogy and conversational AI. To advance the development of practical negotiation systems, we present CaSiNo: a novel corpus of over a thousand negotiation dialogues in English. Participants take the role of campsite neighbors and negotiate for food, water, and firewood packages for their upcoming trip. Our design results in diverse and linguistically rich negotiations while maintaining a tractable, closed-domain environment. Inspired by the literature in human-human negotiations, we annotate persuasion strategies and perform correlation analysis to understand how the dialogue behaviors are associated with the negotiation performance. We further propose and evaluate a multi-task framework to recognize these strategies in a given utterance. We find that multi-task learning substantially improves the performance for all strategy labels, especially for the ones that are the most skewed. We release the dataset, annotations, and the code to propel future work in human-machine negotiations: https://github.com/kushalchawla/CaSiNo</abstract>
+      <abstract>Automated systems that negotiate with humans have broad applications in pedagogy and conversational AI. To advance the development of practical negotiation systems, we present CaSiNo: a novel corpus of over a thousand negotiation dialogues in English. Participants take the role of campsite neighbors and negotiate for food, water, and firewood packages for their upcoming trip. Our design results in diverse and linguistically rich negotiations while maintaining a tractable, closed-domain environment. Inspired by the literature in human-human negotiations, we annotate persuasion strategies and perform correlation analysis to understand how the dialogue behaviors are associated with the negotiation performance. We further propose and evaluate a multi-task framework to recognize these strategies in a given utterance. We find that multi-task learning substantially improves the performance for all strategy labels, especially for the ones that are the most skewed. We release the dataset, annotations, and the code to propel future work in human-machine negotiations: <url>https://github.com/kushalchawla/CaSiNo</url></abstract>
       <url hash="9232b1e3">2021.naacl-main.254</url>
       <doi>10.18653/v1/2021.naacl-main.254</doi>
       <bibkey>chawla-etal-2021-casino</bibkey>
@@ -3988,7 +3988,7 @@
       <author><first>Anastasios</first><last>Sidiropoulos</last></author>
       <author><first>Jia</first><last>Xu</last></author>
       <pages>3217–3228</pages>
-      <abstract>Deep Learning-based NLP systems can be sensitive to unseen tokens and hard to learn with high-dimensional inputs, which critically hinder learning generalization. We introduce an approach by grouping input words based on their semantic diversity to simplify input language representation with low ambiguity. Since the semantically diverse words reside in different contexts, we are able to substitute words with their groups and still distinguish word meanings relying on their contexts. We design several algorithms that compute diverse groupings based on random sampling, geometric distances, and entropy maximization, and we prove formal guarantees for the entropy-based algorithms. Experimental results show that our methods generalize NLP models and demonstrate enhanced accuracy on POS tagging and LM tasks and significant improvements on medium-scale machine translation tasks, up to +6.5 BLEU points. Our source code is available at https://github.com/abdulrafae/dg.</abstract>
+      <abstract>Deep Learning-based NLP systems can be sensitive to unseen tokens and hard to learn with high-dimensional inputs, which critically hinder learning generalization. We introduce an approach by grouping input words based on their semantic diversity to simplify input language representation with low ambiguity. Since the semantically diverse words reside in different contexts, we are able to substitute words with their groups and still distinguish word meanings relying on their contexts. We design several algorithms that compute diverse groupings based on random sampling, geometric distances, and entropy maximization, and we prove formal guarantees for the entropy-based algorithms. Experimental results show that our methods generalize NLP models and demonstrate enhanced accuracy on POS tagging and LM tasks and significant improvements on medium-scale machine translation tasks, up to +6.5 BLEU points. Our source code is available at <url>https://github.com/abdulrafae/dg</url>.</abstract>
       <url hash="5b4e5e6a">2021.naacl-main.257</url>
       <attachment type="OptionalSupplementaryData" hash="748a89a8">2021.naacl-main.257.OptionalSupplementaryData.zip</attachment>
       <attachment type="OptionalSupplementaryCode" hash="c7dee13a">2021.naacl-main.257.OptionalSupplementaryCode.pdf</attachment>
@@ -4005,7 +4005,7 @@
       <author><first>Chengzhong</first><last>Xu</last></author>
       <author><first>Jiebo</first><last>Luo</last></author>
       <pages>3229–3241</pages>
-      <abstract>Fine-tuning pre-trained language models suchas BERT has become a common practice dom-inating leaderboards across various NLP tasks.Despite its recent success and wide adoption,this process is unstable when there are onlya small number of training samples available.The brittleness of this process is often reflectedby the sensitivity to random seeds. In this pa-per, we propose to tackle this problem basedon the noise stability property of deep nets,which is investigated in recent literature (Aroraet al., 2018; Sanyal et al., 2020). Specifically,we introduce a novel and effective regulariza-tion method to improve fine-tuning on NLPtasks, referred to asLayer-wiseNoiseStabilityRegularization (LNSR). We extend the theo-ries about adding noise to the input and provethat our method gives a stabler regularizationeffect. We provide supportive evidence by ex-perimentally confirming that well-performingmodels show a low sensitivity to noise andfine-tuning with LNSR exhibits clearly bet-ter generalizability and stability. Furthermore,our method also demonstrates advantages overother state-of-the-art algorithms including L2-SP (Li et al., 2018), Mixout (Lee et al., 2020)and SMART (Jiang et al., 20)</abstract>
+      <abstract>Fine-tuning pre-trained language models suchas BERT has become a common practice dom-inating leaderboards across various NLP tasks. Despite its recent success and wide adoption,this process is unstable when there are onlya small number of training samples available. The brittleness of this process is often reflectedby the sensitivity to random seeds. In this pa-per, we propose to tackle this problem basedon the noise stability property of deep nets,which is investigated in recent literature (Aroraet al., 2018; Sanyal et al., 2020). Specifically,we introduce a novel and effective regulariza-tion method to improve fine-tuning on NLPtasks, referred to asLayer-wiseNoiseStabilityRegularization (LNSR). We extend the theo-ries about adding noise to the input and provethat our method gives a stabler regularizationeffect. We provide supportive evidence by ex-perimentally confirming that well-performingmodels show a low sensitivity to noise andfine-tuning with LNSR exhibits clearly bet-ter generalizability and stability. Furthermore,our method also demonstrates advantages overother state-of-the-art algorithms including L2-SP (Li et al., 2018), Mixout (Lee et al., 2020)and SMART (Jiang et al., 20)</abstract>
       <url hash="db10efc2">2021.naacl-main.258</url>
       <doi>10.18653/v1/2021.naacl-main.258</doi>
       <bibkey>hua-etal-2021-noise</bibkey>
@@ -4013,7 +4013,6 @@
       <pwcdataset url="https://paperswithcode.com/dataset/cola">CoLA</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/glue">GLUE</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/mrpc">MRPC</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/superglue">SuperGLUE</pwcdataset>
     </paper>
     <paper id="259">
       <title><fixed-case>F</fixed-case>low<fixed-case>P</fixed-case>rior: Learning Expressive Priors for Latent Variable Sentence Models</title>
@@ -4025,7 +4024,6 @@
       <doi>10.18653/v1/2021.naacl-main.259</doi>
       <bibkey>ding-gimpel-2021-flowprior</bibkey>
       <video href="2021.naacl-main.259.mp4"/>
-      <pwcdataset url="https://paperswithcode.com/dataset/penn-treebank">Penn Treebank</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/snli">SNLI</pwcdataset>
     </paper>
     <paper id="260">
@@ -4065,7 +4063,7 @@
       <title>Ensemble of <fixed-case>MRR</fixed-case> and <fixed-case>NDCG</fixed-case> models for Visual Dialog</title>
       <author><first>Idan</first><last>Schwartz</last></author>
       <pages>3272–3363</pages>
-      <abstract>Assessing an AI agent that can converse in human language and understand visual content is challenging. Generation metrics, such as BLEU scores favor correct syntax over semantics. Hence a discriminative approach is often used, where an agent ranks a set of candidate options. The mean reciprocal rank (MRR) metric evaluates the model performance by taking into account the rank of a single human-derived answer. This approach, however, raises a new challenge: the ambiguity and synonymy of answers, for instance, semantic equivalence (e.g., ‘yeah’ and ‘yes’). To address this, the normalized discounted cumulative gain (NDCG) metric has been used to capture the relevance of all the correct answers via dense annotations. However, the NDCG metric favors the usually applicable uncertain answers such as ‘I don’t know.’ Crafting a model that excels on both MRR and NDCG metrics is challenging. Ideally, an AI agent should answer a human-like reply and validate the correctness of any answer. To address this issue, we describe a two-step non-parametric ranking approach that can merge strong MRR and NDCG models. Using our approach, we manage to keep most MRR state-of-the-art performance (70.41% vs. 71.24%) and the NDCG state-of-the-art performance (72.16% vs. 75.35%). Moreover, our approach won the recent Visual Dialog 2020 challenge. Source code is available at https://github.com/idansc/mrr-ndcg.</abstract>
+      <abstract>Assessing an AI agent that can converse in human language and understand visual content is challenging. Generation metrics, such as BLEU scores favor correct syntax over semantics. Hence a discriminative approach is often used, where an agent ranks a set of candidate options. The mean reciprocal rank (MRR) metric evaluates the model performance by taking into account the rank of a single human-derived answer. This approach, however, raises a new challenge: the ambiguity and synonymy of answers, for instance, semantic equivalence (e.g., ‘yeah’ and ‘yes’). To address this, the normalized discounted cumulative gain (NDCG) metric has been used to capture the relevance of all the correct answers via dense annotations. However, the NDCG metric favors the usually applicable uncertain answers such as ‘I don’t know.’ Crafting a model that excels on both MRR and NDCG metrics is challenging. Ideally, an AI agent should answer a human-like reply and validate the correctness of any answer. To address this issue, we describe a two-step non-parametric ranking approach that can merge strong MRR and NDCG models. Using our approach, we manage to keep most MRR state-of-the-art performance (70.41% vs. 71.24%) and the NDCG state-of-the-art performance (72.16% vs. 75.35%). Moreover, our approach won the recent Visual Dialog 2020 challenge. Source code is available at <url>https://github.com/idansc/mrr-ndcg</url>.</abstract>
       <url hash="9b91aca2">2021.naacl-main.262</url>
       <doi>10.18653/v1/2021.naacl-main.262</doi>
       <bibkey>schwartz-2021-ensemble</bibkey>
@@ -4182,7 +4180,8 @@
       <doi>10.18653/v1/2021.naacl-main.270</doi>
       <bibkey>iida-etal-2021-tabbie</bibkey>
       <video href="2021.naacl-main.270.mp4"/>
-      <pwccode url="https://github.com/SFIG611/tabbie" additional="false">SFIG611/tabbie</pwccode>
+      <pwccode url="https://github.com/SFIG611/tabbie" additional="true">SFIG611/tabbie</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/fintabnet">FinTabNet</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/viznet-sato">VizNet-Sato</pwcdataset>
     </paper>
     <paper id="271">
@@ -4298,7 +4297,6 @@
       <pwcdataset url="https://paperswithcode.com/dataset/tekgen">TekGen</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/lama">LAMA</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/natural-questions">Natural Questions</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/squad">SQuAD</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/t-rex">T-REx</pwcdataset>
     </paper>
     <paper id="279">
@@ -4326,7 +4324,7 @@
       <author><first>Heyan</first><last>Huang</last></author>
       <author><first>Ming</first><last>Zhou</last></author>
       <pages>3576–3588</pages>
-      <abstract>In this work, we present an information-theoretic framework that formulates cross-lingual language model pre-training as maximizing mutual information between multilingual-multi-granularity texts. The unified view helps us to better understand the existing methods for learning cross-lingual representations. More importantly, inspired by the framework, we propose a new pre-training task based on contrastive learning. Specifically, we regard a bilingual sentence pair as two views of the same meaning and encourage their encoded representations to be more similar than the negative examples. By leveraging both monolingual and parallel corpora, we jointly train the pretext tasks to improve the cross-lingual transferability of pre-trained models. Experimental results on several benchmarks show that our approach achieves considerably better performance. The code and pre-trained models are available at https://aka.ms/infoxlm.</abstract>
+      <abstract>In this work, we present an information-theoretic framework that formulates cross-lingual language model pre-training as maximizing mutual information between multilingual-multi-granularity texts. The unified view helps us to better understand the existing methods for learning cross-lingual representations. More importantly, inspired by the framework, we propose a new pre-training task based on contrastive learning. Specifically, we regard a bilingual sentence pair as two views of the same meaning and encourage their encoded representations to be more similar than the negative examples. By leveraging both monolingual and parallel corpora, we jointly train the pretext tasks to improve the cross-lingual transferability of pre-trained models. Experimental results on several benchmarks show that our approach achieves considerably better performance. The code and pre-trained models are available at <url>https://aka.ms/infoxlm</url>.</abstract>
       <url hash="c7fdf3ea">2021.naacl-main.280</url>
       <doi>10.18653/v1/2021.naacl-main.280</doi>
       <bibkey>chi-etal-2021-infoxlm</bibkey>
@@ -4379,7 +4377,7 @@
       <video href="2021.naacl-main.283.mp4"/>
       <pwccode url="https://github.com/meryemmhamdi1/meta_cross_nlu_qa" additional="false">meryemmhamdi1/meta_cross_nlu_qa</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/mlqa">MLQA</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/tydi-qa">TyDi QA</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/tydi-qa">TyDiQA</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/tydiqa-goldp">TyDiQA-GoldP</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/xnli">XNLI</pwcdataset>
     </paper>
@@ -4391,7 +4389,7 @@
       <author><first>Aditya</first><last>Siddhant</last></author>
       <author><first>Graham</first><last>Neubig</last></author>
       <pages>3633–3643</pages>
-      <abstract>Pre-trained cross-lingual encoders such as mBERT (Devlin et al., 2019) and XLM-R (Conneau et al., 2020) have proven impressively effective at enabling transfer-learning of NLP systems from high-resource languages to low-resource languages. This success comes despite the fact that there is no explicit objective to align the contextual embeddings of words/sentences with similar meanings across languages together in the same space. In this paper, we present a new method for learning multilingual encoders, AMBER (Aligned Multilingual Bidirectional EncodeR). AMBER is trained on additional parallel data using two explicit alignment objectives that align the multilingual representations at different granularities. We conduct experiments on zero-shot cross-lingual transfer learning for different tasks including sequence tagging, sentence retrieval and sentence classification. Experimental results on the tasks in the XTREME benchmark (Hu et al., 2020) show that AMBER obtains gains of up to 1.1 average F1 score on sequence tagging and up to 27.3 average accuracy on retrieval over the XLM-R-large model which has 3.2x the parameters of AMBER. Our code and models are available at http://github.com/junjiehu/amber.</abstract>
+      <abstract>Pre-trained cross-lingual encoders such as mBERT (Devlin et al., 2019) and XLM-R (Conneau et al., 2020) have proven impressively effective at enabling transfer-learning of NLP systems from high-resource languages to low-resource languages. This success comes despite the fact that there is no explicit objective to align the contextual embeddings of words/sentences with similar meanings across languages together in the same space. In this paper, we present a new method for learning multilingual encoders, AMBER (Aligned Multilingual Bidirectional EncodeR). AMBER is trained on additional parallel data using two explicit alignment objectives that align the multilingual representations at different granularities. We conduct experiments on zero-shot cross-lingual transfer learning for different tasks including sequence tagging, sentence retrieval and sentence classification. Experimental results on the tasks in the XTREME benchmark (Hu et al., 2020) show that AMBER obtains gains of up to 1.1 average F1 score on sequence tagging and up to 27.3 average accuracy on retrieval over the XLM-R-large model which has 3.2x the parameters of AMBER. Our code and models are available at <url>http://github.com/junjiehu/amber</url>.</abstract>
       <url hash="079276c9">2021.naacl-main.284</url>
       <doi>10.18653/v1/2021.naacl-main.284</doi>
       <bibkey>hu-etal-2021-explicit</bibkey>
@@ -4411,7 +4409,7 @@
       <doi>10.18653/v1/2021.naacl-main.285</doi>
       <bibkey>fei-etal-2021-cross</bibkey>
       <video href="2021.naacl-main.285.mp4"/>
-      <pwcdataset url="https://paperswithcode.com/dataset/coco">COCO</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/coco">MS COCO</pwcdataset>
     </paper>
     <paper id="286">
       <title><fixed-case>W</fixed-case>ikipedia Entities as Rendezvous across Languages: Grounding Multilingual Language Models by Predicting <fixed-case>W</fixed-case>ikipedia Hyperlinks</title>
@@ -4426,7 +4424,7 @@
       <video href="2021.naacl-main.286.mp4"/>
       <pwcdataset url="https://paperswithcode.com/dataset/mlqa">MLQA</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/paws-x">PAWS-X</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/tydi-qa">TyDi QA</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/tydi-qa">TyDiQA</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/xl-wic">XL-WiC</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/xnli">XNLI</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/xquad">XQuAD</pwcdataset>
@@ -4466,7 +4464,7 @@
       <author><first>Yezhou</first><last>Yang</last></author>
       <author><first>Chitta</first><last>Baral</last></author>
       <pages>3692–3709</pages>
-      <abstract>Most existing research on visual question answering (VQA) is limited to information explicitly present in an image or a video. In this paper, we take visual understanding to a higher level where systems are challenged to answer questions that involve mentally simulating the hypothetical consequences of performing specific actions in a given scenario. Towards that end, we formulate a vision-language question answering task based on the CLEVR (Johnson et. al., 2017) dataset. We then modify the best existing VQA methods and propose baseline solvers for this task. Finally, we motivate the development of better vision-language models by providing insights about the capability of diverse architectures to perform joint reasoning over image-text modality. Our dataset setup scripts and codes will be made publicly available at https://github.com/shailaja183/clevr_hyp.</abstract>
+      <abstract>Most existing research on visual question answering (VQA) is limited to information explicitly present in an image or a video. In this paper, we take visual understanding to a higher level where systems are challenged to answer questions that involve mentally simulating the hypothetical consequences of performing specific actions in a given scenario. Towards that end, we formulate a vision-language question answering task based on the CLEVR (Johnson et. al., 2017) dataset. We then modify the best existing VQA methods and propose baseline solvers for this task. Finally, we motivate the development of better vision-language models by providing insights about the capability of diverse architectures to perform joint reasoning over image-text modality. Our dataset setup scripts and codes will be made publicly available at <url>https://github.com/shailaja183/clevr_hyp</url>.</abstract>
       <url hash="076d7b41">2021.naacl-main.289</url>
       <attachment type="OptionalSupplementaryData" hash="8e83d44d">2021.naacl-main.289.OptionalSupplementaryData.pdf</attachment>
       <doi>10.18653/v1/2021.naacl-main.289</doi>
@@ -4509,6 +4507,7 @@
       <pwccode url="https://github.com/Hsuan-Tung/universal_attack_natural_trigger" additional="false">Hsuan-Tung/universal_attack_natural_trigger</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/snli">SNLI</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/sst">SST</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/sst-5">SST-5</pwcdataset>
     </paper>
     <paper id="292">
       <title><fixed-case>Q</fixed-case>uadruplet<fixed-case>BERT</fixed-case>: An Efficient Model For Embedding-Based Large-Scale Retrieval</title>
@@ -4703,7 +4702,7 @@
       <author><first>Kai-Wei</first><last>Chang</last></author>
       <author><first>Cho-Jui</first><last>Hsieh</last></author>
       <pages>3899–3916</pages>
-      <abstract>Robustness and counterfactual bias are usually evaluated on a test dataset. However, are these evaluations robust? If the test dataset is perturbed slightly, will the evaluation results keep the same? In this paper, we propose a “double perturbation” framework to uncover model weaknesses beyond the test dataset. The framework first perturbs the test dataset to construct abundant natural sentences similar to the test data, and then diagnoses the prediction change regarding a single-word substitution. We apply this framework to study two perturbation-based approaches that are used to analyze models’ robustness and counterfactual bias in English. (1) For robustness, we focus on synonym substitutions and identify vulnerable examples where prediction can be altered. Our proposed attack attains high success rates (96.0%-99.8%) in finding vulnerable examples on both original and robustly trained CNNs and Transformers. (2) For counterfactual bias, we focus on substituting demographic tokens (e.g., gender, race) and measure the shift of the expected prediction among constructed sentences. Our method is able to reveal the hidden model biases not directly shown in the test dataset. Our code is available at https://github.com/chong-z/nlp-second-order-attack.</abstract>
+      <abstract>Robustness and counterfactual bias are usually evaluated on a test dataset. However, are these evaluations robust? If the test dataset is perturbed slightly, will the evaluation results keep the same? In this paper, we propose a “double perturbation” framework to uncover model weaknesses beyond the test dataset. The framework first perturbs the test dataset to construct abundant natural sentences similar to the test data, and then diagnoses the prediction change regarding a single-word substitution. We apply this framework to study two perturbation-based approaches that are used to analyze models’ robustness and counterfactual bias in English. (1) For robustness, we focus on synonym substitutions and identify vulnerable examples where prediction can be altered. Our proposed attack attains high success rates (96.0%-99.8%) in finding vulnerable examples on both original and robustly trained CNNs and Transformers. (2) For counterfactual bias, we focus on substituting demographic tokens (e.g., gender, race) and measure the shift of the expected prediction among constructed sentences. Our method is able to reveal the hidden model biases not directly shown in the test dataset. Our code is available at <url>https://github.com/chong-z/nlp-second-order-attack</url>.</abstract>
       <url hash="0fa9f3a2">2021.naacl-main.305</url>
       <doi>10.18653/v1/2021.naacl-main.305</doi>
       <bibkey>zhang-etal-2021-double</bibkey>
@@ -4711,6 +4710,7 @@
       <pwccode url="https://github.com/chong-z/nlp-second-order-attack" additional="false">chong-z/nlp-second-order-attack</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/glue">GLUE</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/sst">SST</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/sst-2">SST-2</pwcdataset>
     </paper>
     <paper id="306">
       <title>Explaining Neural Network Predictions on Sentence Pairs via Learning Word-Group Masks</title>
@@ -4932,7 +4932,7 @@
       <author><first>Antonio</first><last>Jimeno Yepes</last></author>
       <author><first>Jey Han</first><last>Lau</last></author>
       <pages>4078–4087</pages>
-      <abstract>We introduce a grey-box adversarial attack and defence framework for sentiment classification. We address the issues of differentiability, label preservation and input reconstruction for adversarial attack and defence in one unified framework. Our results show that once trained, the attacking model is capable of generating high-quality adversarial examples substantially faster (one order of magnitude less in time) than state-of-the-art attacking methods. These examples also preserve the original sentiment according to human evaluation. Additionally, our framework produces an improved classifier that is robust in defending against multiple adversarial attacking methods. Code is available at: https://github.com/ibm-aur-nlp/adv-def-text-dist.</abstract>
+      <abstract>We introduce a grey-box adversarial attack and defence framework for sentiment classification. We address the issues of differentiability, label preservation and input reconstruction for adversarial attack and defence in one unified framework. Our results show that once trained, the attacking model is capable of generating high-quality adversarial examples substantially faster (one order of magnitude less in time) than state-of-the-art attacking methods. These examples also preserve the original sentiment according to human evaluation. Additionally, our framework produces an improved classifier that is robust in defending against multiple adversarial attacking methods. Code is available at: <url>https://github.com/ibm-aur-nlp/adv-def-text-dist</url>.</abstract>
       <url hash="8c3d5e4a">2021.naacl-main.321</url>
       <attachment type="OptionalSupplementaryData" hash="13ab1e9f">2021.naacl-main.321.OptionalSupplementaryData.zip</attachment>
       <doi>10.18653/v1/2021.naacl-main.321</doi>
@@ -4997,7 +4997,6 @@
       <pwcdataset url="https://paperswithcode.com/dataset/glue">GLUE</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/multinli">MultiNLI</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/snli">SNLI</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/squad">SQuAD</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/superglue">SuperGLUE</pwcdataset>
     </paper>
     <paper id="325">
@@ -5026,6 +5025,7 @@
       <video href="2021.naacl-main.326.mp4"/>
       <pwccode url="https://github.com/Wendy-Xiao/summ_guided_disco_parser" additional="false">Wendy-Xiao/summ_guided_disco_parser</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/cnn-daily-mail-1">CNN/Daily Mail</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/new-york-times-annotated-corpus">New York Times Annotated Corpus</pwcdataset>
     </paper>
     <paper id="327">
       <title>Probing for Bridging Inference in Transformer Language Models</title>
@@ -5038,6 +5038,7 @@
       <bibkey>pandit-hou-2021-probing</bibkey>
       <video href="2021.naacl-main.327.mp4"/>
       <pwccode url="https://github.com/oapandit/probBertForbridging" additional="false">oapandit/probBertForbridging</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/isnotes">ISNotes</pwcdataset>
     </paper>
     <paper id="328">
       <title>Is Incoherence Surprising? Targeted Evaluation of Coherence Prediction from Language Models</title>
@@ -5486,7 +5487,7 @@
       <author><first>Subhi</first><last>Al’Aref</last></author>
       <author><first>Yifan</first><last>Peng</last></author>
       <pages>4533–4538</pages>
-      <abstract>Utilizing clinical texts in survival analysis is difficult because they are largely unstructured. Current automatic extraction models fail to capture textual information comprehensively since their labels are limited in scope. Furthermore, they typically require a large amount of data and high-quality expert annotations for training. In this work, we present a novel method of using BERT-based hidden layer representations of clinical texts as covariates for proportional hazards models to predict patient survival outcomes. We show that hidden layers yield notably more accurate predictions than predefined features, outperforming the previous baseline model by 5.7% on average across C-index and time-dependent AUC. We make our work publicly available at https://github.com/bionlplab/heart_failure_mortality.</abstract>
+      <abstract>Utilizing clinical texts in survival analysis is difficult because they are largely unstructured. Current automatic extraction models fail to capture textual information comprehensively since their labels are limited in scope. Furthermore, they typically require a large amount of data and high-quality expert annotations for training. In this work, we present a novel method of using BERT-based hidden layer representations of clinical texts as covariates for proportional hazards models to predict patient survival outcomes. We show that hidden layers yield notably more accurate predictions than predefined features, outperforming the previous baseline model by 5.7% on average across C-index and time-dependent AUC. We make our work publicly available at <url>https://github.com/bionlplab/heart_failure_mortality</url>.</abstract>
       <url hash="39b07bce">2021.naacl-main.358</url>
       <doi>10.18653/v1/2021.naacl-main.358</doi>
       <bibkey>lee-etal-2021-leveraging</bibkey>
@@ -5509,6 +5510,7 @@
       <doi>10.18653/v1/2021.naacl-main.359</doi>
       <bibkey>gosangi-etal-2021-use</bibkey>
       <video href="2021.naacl-main.359.mp4"/>
+      <pwcdataset url="https://paperswithcode.com/dataset/pmoa-cite">PMOA-CITE</pwcdataset>
     </paper>
     <paper id="360">
       <title>Data and Model Distillation as a Solution for Domain-transferable Fact Verification</title>
@@ -5532,7 +5534,7 @@
       <author><first>Vickie</first><last>Mays</last></author>
       <author><first>Kai-Wei</first><last>Chang</last></author>
       <pages>4553–4559</pages>
-      <abstract>Coreference resolution is an important compo-nent in analyzing narrative text from admin-istrative data (e.g., clinical or police sources).However, existing coreference models trainedon general language corpora suffer from poortransferability due to domain gaps, especiallywhen they are applied to gender-inclusive datawith lesbian, gay, bisexual, and transgender(LGBT) individuals.In this paper, we an-alyzed the challenges of coreference resolu-tion in an exemplary form of administrativetext written in English: violent death nar-ratives from the USA’s Centers for DiseaseControl’s (CDC) National Violent Death Re-porting System. We developed a set of dataaugmentation rules to improve model perfor-mance using a probabilistic data programmingframework. Experiments on narratives froman administrative database, as well as existinggender-inclusive coreference datasets, demon-strate the effectiveness of data augmentationin training coreference models that can betterhandle text data about LGBT individuals.</abstract>
+      <abstract>Coreference resolution is an important compo-nent in analyzing narrative text from admin-istrative data (e.g., clinical or police sources).However, existing coreference models trainedon general language corpora suffer from poortransferability due to domain gaps, especiallywhen they are applied to gender-inclusive datawith lesbian, gay, bisexual, and transgender(LGBT) individuals. In this paper, we an-alyzed the challenges of coreference resolu-tion in an exemplary form of administrativetext written in English: violent death nar-ratives from the USA’s Centers for DiseaseControl’s (CDC) National Violent Death Re-porting System. We developed a set of dataaugmentation rules to improve model perfor-mance using a probabilistic data programmingframework. Experiments on narratives froman administrative database, as well as existinggender-inclusive coreference datasets, demon-strate the effectiveness of data augmentationin training coreference models that can betterhandle text data about LGBT individuals.</abstract>
       <url hash="00bf1116">2021.naacl-main.361</url>
       <doi>10.18653/v1/2021.naacl-main.361</doi>
       <bibkey>uppunda-etal-2021-adapting</bibkey>
@@ -5567,7 +5569,6 @@
       <video href="2021.naacl-main.363.mp4"/>
       <pwcdataset url="https://paperswithcode.com/dataset/multirc">MultiRC</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/qasc">QASC</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/superglue">SuperGLUE</pwcdataset>
     </paper>
     <paper id="364">
       <title><fixed-case>SPARTQA</fixed-case>: A Textual Question Answering Benchmark for Spatial Reasoning</title>
@@ -5581,7 +5582,7 @@
       <doi>10.18653/v1/2021.naacl-main.364</doi>
       <bibkey>mirzaee-etal-2021-spartqa</bibkey>
       <video href="2021.naacl-main.364.mp4"/>
-      <pwccode url="https://github.com/HLR/SpartQA_generation" additional="false">HLR/SpartQA_generation</pwccode>
+      <pwccode url="https://github.com/HLR/SpartQA-baselines" additional="true">HLR/SpartQA-baselines</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/spartqa-1">SPARTQA -</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/boolq">BoolQ</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/glue">GLUE</pwcdataset>
@@ -5619,10 +5620,10 @@
       <doi>10.18653/v1/2021.naacl-main.366</doi>
       <bibkey>lin-etal-2021-differentiable</bibkey>
       <video href="2021.naacl-main.366.mp4"/>
-      <pwcdataset url="https://paperswithcode.com/dataset/arc">ARC</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/genericskb">GenericsKB</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/hotpotqa">HotpotQA</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/natural-questions">Natural Questions</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/openbookqa">OpenBookQA</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/qasc">QASC</pwcdataset>
     </paper>
     <paper id="367">
@@ -5640,7 +5641,6 @@
       <bibkey>wan-etal-2021-structure</bibkey>
       <video href="2021.naacl-main.367.mp4"/>
       <pwcdataset url="https://paperswithcode.com/dataset/doc2dial-1">Doc2Dial</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/squad">SQuAD</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/doc2dial">doc2dial</pwcdataset>
     </paper>
     <paper id="368">
@@ -5650,7 +5650,7 @@
       <author><first>Jordan</first><last>Boyd-Graber</last></author>
       <author><first>Hal</first><last>Daumé III</last></author>
       <pages>4635–4641</pages>
-      <abstract>Complex question answering often requires finding a reasoning chain that consists of multiple evidence pieces. Current approaches incorporate the strengths of structured knowledge and unstructured text, assuming text corpora is semi-structured. Building on dense retrieval methods, we propose a new multi-step retrieval approach (BeamDR) that iteratively forms an evidence chain through beam search in dense representations. When evaluated on multi-hop question answering, BeamDR is competitive to state-of-the-art systems, without using any semi-structured information. Through query composition in dense space, BeamDR captures the implicit relationships between evidence in the reasoning chain. The code is available at https://github.com/ henryzhao5852/BeamDR.</abstract>
+      <abstract>Complex question answering often requires finding a reasoning chain that consists of multiple evidence pieces. Current approaches incorporate the strengths of structured knowledge and unstructured text, assuming text corpora is semi-structured. Building on dense retrieval methods, we propose a new multi-step retrieval approach (BeamDR) that iteratively forms an evidence chain through beam search in dense representations. When evaluated on multi-hop question answering, BeamDR is competitive to state-of-the-art systems, without using any semi-structured information. Through query composition in dense space, BeamDR captures the implicit relationships between evidence in the reasoning chain. The code is available at <url>https://github.com/henryzhao5852/BeamDR</url>.</abstract>
       <url hash="7eb4993c">2021.naacl-main.368</url>
       <doi>10.18653/v1/2021.naacl-main.368</doi>
       <bibkey>zhao-etal-2021-multi-step</bibkey>
@@ -5687,7 +5687,7 @@
       <author><first>Tommaso</first><last>Pasini</last></author>
       <author><first>Roberto</first><last>Navigli</last></author>
       <pages>4661–4672</pages>
-      <abstract>Word Sense Disambiguation (WSD) is a historical NLP task aimed at linking words in contexts to discrete sense inventories and it is usually cast as a multi-label classification task. Recently, several neural approaches have employed sense definitions to better represent word meanings. Yet, these approaches do not observe the input sentence and the sense definition candidates all at once, thus potentially reducing the model performance and generalization power. We cope with this issue by reframing WSD as a span extraction problem — which we called Extractive Sense Comprehension (ESC) — and propose ESCHER, a transformer-based neural architecture for this new formulation. By means of an extensive array of experiments, we show that ESC unleashes the full potential of our model, leading it to outdo all of its competitors and to set a new state of the art on the English WSD task. In the few-shot scenario, ESCHER proves to exploit training data efficiently, attaining the same performance as its closest competitor while relying on almost three times fewer annotations. Furthermore, ESCHER can nimbly combine data annotated with senses from different lexical resources, achieving performances that were previously out of everyone’s reach. The model along with data is available at https://github.com/SapienzaNLP/esc.</abstract>
+      <abstract>Word Sense Disambiguation (WSD) is a historical NLP task aimed at linking words in contexts to discrete sense inventories and it is usually cast as a multi-label classification task. Recently, several neural approaches have employed sense definitions to better represent word meanings. Yet, these approaches do not observe the input sentence and the sense definition candidates all at once, thus potentially reducing the model performance and generalization power. We cope with this issue by reframing WSD as a span extraction problem — which we called Extractive Sense Comprehension (ESC) — and propose ESCHER, a transformer-based neural architecture for this new formulation. By means of an extensive array of experiments, we show that ESC unleashes the full potential of our model, leading it to outdo all of its competitors and to set a new state of the art on the English WSD task. In the few-shot scenario, ESCHER proves to exploit training data efficiently, attaining the same performance as its closest competitor while relying on almost three times fewer annotations. Furthermore, ESCHER can nimbly combine data annotated with senses from different lexical resources, achieving performances that were previously out of everyone’s reach. The model along with data is available at <url>https://github.com/SapienzaNLP/esc</url>.</abstract>
       <url hash="c245a034">2021.naacl-main.371</url>
       <doi>10.18653/v1/2021.naacl-main.371</doi>
       <bibkey>barba-etal-2021-esc</bibkey>
@@ -5708,7 +5708,7 @@
     </paper>
     <paper id="373">
       <title>Constructing Taxonomies from Pretrained Language Models</title>
-      <author><first>Catherine</first><last>Chen</last></author>
+      <author id="catherine-chen-ucberkley"><first>Catherine</first><last>Chen</last></author>
       <author><first>Kevin</first><last>Lin</last></author>
       <author><first>Dan</first><last>Klein</last></author>
       <pages>4687–4700</pages>
@@ -5769,6 +5769,7 @@
       <bibkey>aldeneh-etal-2021-learning</bibkey>
       <video href="2021.naacl-main.377.mp4"/>
       <pwcdataset url="https://paperswithcode.com/dataset/iemocap">IEMOCAP</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/msp-improv">MSP-IMPROV</pwcdataset>
     </paper>
     <paper id="378">
       <title>Adapting <fixed-case>BERT</fixed-case> for Continual Learning of a Sequence of Aspect Sentiment Classification Tasks</title>
@@ -5828,7 +5829,7 @@
       <author><first>Mohit</first><last>Bansal</last></author>
       <author><first>Jianfeng</first><last>Gao</last></author>
       <pages>4780–4793</pages>
-      <abstract>Abstractive summarization, the task of generating a concise summary of input documents, requires: (1) reasoning over the source document to determine the salient pieces of information scattered across the long document, and (2) composing a cohesive text by reconstructing these salient facts into a shorter summary that faithfully reflects the complex relations connecting these facts. In this paper, we adapt TP-Transformer (Schlag et al., 2019), an architecture that enriches the original Transformer (Vaswani et al., 2017) with the explicitly compositional Tensor Product Representation (TPR), for the task of abstractive summarization. The key feature of our model is a structural bias that we introduce by encoding two separate representations for each token to represent the syntactic structure (with role vectors) and semantic content (with filler vectors) separately. The model then binds the role and filler vectors into the TPR as the layer output. We argue that the structured intermediate representations enable the model to take better control of the contents (salient facts) and structures (the syntax that connects the facts) when generating the summary. Empirically, we show that our TP-Transformer outperforms the Transformer and the original TP-Transformer significantly on several abstractive summarization datasets based on both automatic and human evaluations. On several syntactic and semantic probing tasks, we demonstrate the emergent structural information in the role vectors and the performance gain by information specificity of the role vectors and improved syntactic interpretability in the TPR layer outputs.(Code and models are available at https://github.com/jiangycTarheel/TPT-Summ)</abstract>
+      <abstract>Abstractive summarization, the task of generating a concise summary of input documents, requires: (1) reasoning over the source document to determine the salient pieces of information scattered across the long document, and (2) composing a cohesive text by reconstructing these salient facts into a shorter summary that faithfully reflects the complex relations connecting these facts. In this paper, we adapt TP-Transformer (Schlag et al., 2019), an architecture that enriches the original Transformer (Vaswani et al., 2017) with the explicitly compositional Tensor Product Representation (TPR), for the task of abstractive summarization. The key feature of our model is a structural bias that we introduce by encoding two separate representations for each token to represent the syntactic structure (with role vectors) and semantic content (with filler vectors) separately. The model then binds the role and filler vectors into the TPR as the layer output. We argue that the structured intermediate representations enable the model to take better control of the contents (salient facts) and structures (the syntax that connects the facts) when generating the summary. Empirically, we show that our TP-Transformer outperforms the Transformer and the original TP-Transformer significantly on several abstractive summarization datasets based on both automatic and human evaluations. On several syntactic and semantic probing tasks, we demonstrate the emergent structural information in the role vectors and the performance gain by information specificity of the role vectors and improved syntactic interpretability in the TPR layer outputs.(Code and models are available at <url>https://github.com/jiangycTarheel/TPT-Summ</url>)</abstract>
       <url hash="f06a0ec4">2021.naacl-main.381</url>
       <doi>10.18653/v1/2021.naacl-main.381</doi>
       <bibkey>jiang-etal-2021-enriching</bibkey>
@@ -5863,7 +5864,7 @@
       <doi>10.18653/v1/2021.naacl-main.383</doi>
       <bibkey>pagnoni-etal-2021-understanding</bibkey>
       <video href="2021.naacl-main.383.mp4"/>
-      <pwccode url="https://github.com/artidoro/frank" additional="false">artidoro/frank</pwccode>
+      <pwccode url="https://github.com/artidoro/frank" additional="true">artidoro/frank</pwccode>
     </paper>
     <paper id="384">
       <title><fixed-case>GS</fixed-case>um: A General Framework for Guided Neural Abstractive Summarization</title>
@@ -5880,6 +5881,7 @@
       <video href="2021.naacl-main.384.mp4"/>
       <pwccode url="https://github.com/neulab/guided_summarization" additional="false">neulab/guided_summarization</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/cnn-daily-mail-1">CNN/Daily Mail</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/new-york-times-annotated-corpus">New York Times Annotated Corpus</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/wikihow">WikiHow</pwcdataset>
     </paper>
     <paper id="385">
@@ -5894,7 +5896,6 @@
       <video href="2021.naacl-main.385.mp4"/>
       <pwcdataset url="https://paperswithcode.com/dataset/glue">GLUE</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/natural-questions">Natural Questions</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/squad">SQuAD</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/superglue">SuperGLUE</pwcdataset>
     </paper>
     <paper id="386">
@@ -5969,7 +5970,6 @@
       <doi>10.18653/v1/2021.naacl-main.390</doi>
       <bibkey>zhang-de-marneffe-2021-identifying</bibkey>
       <video href="2021.naacl-main.390.mp4"/>
-      <pwcdataset url="https://paperswithcode.com/dataset/superglue">SuperGLUE</pwcdataset>
     </paper>
     <paper id="391">
       <title>Modeling Human Mental States with an Entity-based Narrative Graph</title>
@@ -6008,7 +6008,7 @@
       <doi>10.18653/v1/2021.naacl-main.393</doi>
       <bibkey>krishna-etal-2021-hurdles</bibkey>
       <video href="2021.naacl-main.393.mp4"/>
-      <pwccode url="https://github.com/martiansideofthemoon/hurdles-longform-qa" additional="false">martiansideofthemoon/hurdles-longform-qa</pwccode>
+      <pwccode url="https://github.com/martiansideofthemoon/hurdles-longform-qa" additional="true">martiansideofthemoon/hurdles-longform-qa</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/eli5">ELI5</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/glue">GLUE</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/kilt">KILT</pwcdataset>
@@ -6070,6 +6070,7 @@
       <doi>10.18653/v1/2021.naacl-main.397</doi>
       <bibkey>cao-wang-2021-attention</bibkey>
       <video href="2021.naacl-main.397.mp4"/>
+      <pwcdataset url="https://paperswithcode.com/dataset/new-york-times-annotated-corpus">New York Times Annotated Corpus</pwcdataset>
     </paper>
     <paper id="398">
       <title>Factual Probing Is [<fixed-case>MASK</fixed-case>]: Learning vs. Learning to Recall</title>
@@ -6099,7 +6100,6 @@
       <bibkey>ding-koehn-2021-evaluating</bibkey>
       <video href="2021.naacl-main.399.mp4"/>
       <pwccode url="https://github.com/shuoyangd/tarsius" additional="false">shuoyangd/tarsius</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/penn-treebank">Penn Treebank</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/wikitext-2">WikiText-2</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/winobias">WinoBias</pwcdataset>
     </paper>
@@ -6150,6 +6150,8 @@
       <video href="2021.naacl-main.402.mp4"/>
       <pwccode url="https://github.com/rizwan09/NLPDV" additional="false">rizwan09/NLPDV</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/glue">GLUE</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/multi-domain-sentiment-dataset-v2-0">Multi-Domain Sentiment</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/multinli">MultiNLI</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/qnli">QNLI</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/universal-dependencies">Universal Dependencies</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/xnli">XNLI</pwcdataset>
@@ -6179,6 +6181,7 @@
       <video href="2021.naacl-main.404.mp4"/>
       <pwccode url="https://github.com/tatsu-lab/mlm_inductive_bias" additional="false">tatsu-lab/mlm_inductive_bias</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/sst">SST</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/sst-2">SST-2</pwcdataset>
     </paper>
     <paper id="405">
       <title>Limitations of Autoregressive Models and Their Alternatives</title>
@@ -6259,7 +6262,6 @@
       <video href="2021.naacl-main.409.mp4"/>
       <pwcdataset url="https://paperswithcode.com/dataset/glue">GLUE</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/openwebtext">OpenWebText</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/squad">SQuAD</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/webtext">WebText</pwcdataset>
     </paper>
     <paper id="410">
@@ -6406,7 +6408,6 @@
       <pwcdataset url="https://paperswithcode.com/dataset/ms-marco">MS MARCO</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/manymodalqa">ManyModalQA</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/natural-questions">Natural Questions</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/squad">SQuAD</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/tvqa">TVQA</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/visual-question-answering">Visual Question Answering</pwcdataset>
     </paper>
@@ -6420,7 +6421,7 @@
       <author><first>Winston</first><last>Hsu</last></author>
       <author><first>Wen-Chin</first><last>Chen</last></author>
       <pages>5333–5338</pages>
-      <abstract>To effectively apply robots in working environments and assist humans, it is essential to develop and evaluate how visual grounding (VG) can affect machine performance on occluded objects. However, current VG works are limited in working environments, such as offices and warehouses, where objects are usually occluded due to space utilization issues. In our work, we propose a novel OCID-Ref dataset featuring a referring expression segmentation task with referring expressions of occluded objects. OCID-Ref consists of 305,694 referring expressions from 2,300 scenes with providing RGB image and point cloud inputs. To resolve challenging occlusion issues, we argue that it’s crucial to take advantage of both 2D and 3D signals to resolve challenging occlusion issues. Our experimental results demonstrate the effectiveness of aggregating 2D and 3D signals but referring to occluded objects still remains challenging for the modern visual grounding systems. OCID-Ref is publicly available at https://github.com/lluma/OCID-Ref</abstract>
+      <abstract>To effectively apply robots in working environments and assist humans, it is essential to develop and evaluate how visual grounding (VG) can affect machine performance on occluded objects. However, current VG works are limited in working environments, such as offices and warehouses, where objects are usually occluded due to space utilization issues. In our work, we propose a novel OCID-Ref dataset featuring a referring expression segmentation task with referring expressions of occluded objects. OCID-Ref consists of 305,694 referring expressions from 2,300 scenes with providing RGB image and point cloud inputs. To resolve challenging occlusion issues, we argue that it’s crucial to take advantage of both 2D and 3D signals to resolve challenging occlusion issues. Our experimental results demonstrate the effectiveness of aggregating 2D and 3D signals but referring to occluded objects still remains challenging for the modern visual grounding systems. OCID-Ref is publicly available at <url>https://github.com/lluma/OCID-Ref</url></abstract>
       <url hash="ed094776">2021.naacl-main.419</url>
       <attachment type="OptionalSupplementaryData" hash="be7e740e">2021.naacl-main.419.OptionalSupplementaryData.zip</attachment>
       <doi>10.18653/v1/2021.naacl-main.419</doi>
@@ -6429,7 +6430,6 @@
       <pwccode url="https://github.com/lluma/OCID-Ref" additional="false">lluma/OCID-Ref</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/cops-ref">Cops-Ref</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/ocid">OCID</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/refcoco">RefCOCO</pwcdataset>
     </paper>
     <paper id="420">
       <title>Unsupervised Vision-and-Language Pre-training Without Parallel Images and Captions</title>
@@ -6475,7 +6475,7 @@
       <doi>10.18653/v1/2021.naacl-main.422</doi>
       <bibkey>ilharco-etal-2021-probing</bibkey>
       <video href="2021.naacl-main.422.mp4"/>
-      <pwcdataset url="https://paperswithcode.com/dataset/coco">COCO</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/coco">MS COCO</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/visual-genome">Visual Genome</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/visual-question-answering">Visual Question Answering</pwcdataset>
     </paper>
@@ -6543,6 +6543,8 @@
       <bibkey>du-etal-2021-self</bibkey>
       <pwccode url="https://github.com/facebookresearch/SentAugment" additional="false">facebookresearch/SentAugment</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/sst">SST</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/sst-2">SST-2</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/sst-5">SST-5</pwcdataset>
     </paper>
     <paper id="427">
       <title>Supporting Clustering with Contrastive Learning</title>
@@ -6587,12 +6589,13 @@
       <author><first>Liner</first><last>Yang</last></author>
       <author><first>Tat-Seng</first><last>Chua</last></author>
       <pages>5441–5452</pages>
-      <abstract>Grammatical Error Correction (GEC) aims to correct writing errors and help language learners improve their writing skills. However, existing GEC models tend to produce spurious corrections or fail to detect lots of errors. The quality estimation model is necessary to ensure learners get accurate GEC results and avoid misleading from poorly corrected sentences. Well-trained GEC models can generate several high-quality hypotheses through decoding, such as beam search, which provide valuable GEC evidence and can be used to evaluate GEC quality. However, existing models neglect the possible GEC evidence from different hypotheses. This paper presents the Neural Verification Network (VERNet) for GEC quality estimation with multiple hypotheses. VERNet establishes interactions among hypotheses with a reasoning graph and conducts two kinds of attention mechanisms to propagate GEC evidence to verify the quality of generated hypotheses. Our experiments on four GEC datasets show that VERNet achieves state-of-the-art grammatical error detection performance, achieves the best quality estimation results, and significantly improves GEC performance by reranking hypotheses. All data and source codes are available at https://github.com/thunlp/VERNet.</abstract>
+      <abstract>Grammatical Error Correction (GEC) aims to correct writing errors and help language learners improve their writing skills. However, existing GEC models tend to produce spurious corrections or fail to detect lots of errors. The quality estimation model is necessary to ensure learners get accurate GEC results and avoid misleading from poorly corrected sentences. Well-trained GEC models can generate several high-quality hypotheses through decoding, such as beam search, which provide valuable GEC evidence and can be used to evaluate GEC quality. However, existing models neglect the possible GEC evidence from different hypotheses. This paper presents the Neural Verification Network (VERNet) for GEC quality estimation with multiple hypotheses. VERNet establishes interactions among hypotheses with a reasoning graph and conducts two kinds of attention mechanisms to propagate GEC evidence to verify the quality of generated hypotheses. Our experiments on four GEC datasets show that VERNet achieves state-of-the-art grammatical error detection performance, achieves the best quality estimation results, and significantly improves GEC performance by reranking hypotheses. All data and source codes are available at <url>https://github.com/thunlp/VERNet</url>.</abstract>
       <url hash="4b3cb79b">2021.naacl-main.429</url>
       <doi>10.18653/v1/2021.naacl-main.429</doi>
       <bibkey>liu-etal-2021-neural</bibkey>
       <video href="2021.naacl-main.429.mp4"/>
       <pwccode url="https://github.com/thunlp/VERNet" additional="false">thunlp/VERNet</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/conll-1">CoNLL</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/conll-2014-shared-task-grammatical-error">CoNLL-2014 Shared Task: Grammatical Error Correction</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/fce">FCE</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/jfleg">JFLEG</pwcdataset>
@@ -6615,6 +6618,7 @@
       <pwcdataset url="https://paperswithcode.com/dataset/glue">GLUE</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/imdb-movie-reviews">IMDb Movie Reviews</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/sst">SST</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/sst-2">SST-2</pwcdataset>
     </paper>
     <paper id="431">
       <title>Discrete Argument Representation Learning for Interactive Argument Pair Identification</title>
@@ -6774,8 +6778,7 @@
       <author><first>Su</first><last>Zhu</last></author>
       <author><first>Kai</first><last>Yu</last></author>
       <pages>5567–5577</pages>
-      <abstract>Given a database schema, Text-to-SQL aims to translate a natural language question into the corresponding SQL query. Under the setup of cross-domain, traditional semantic parsing models struggle to adapt to unseen database schemas. To improve the model generalization capability for rare and unseen schemas, we propose a new architecture, ShadowGNN, which processes schemas at abstract and semantic levels. By ignoring names of semantic items in databases, abstract schemas are exploited in a well-designed graph projection neural network to obtain delexicalized representation of question and schema. Based on the domain-independent representations, a relation-aware transformer is utilized to further extract logical linking between question and schema. Finally, a SQL decoder with context-free grammar is applied. On the challenging Text-to-SQL benchmark Spider, empirical results show that ShadowGNN outperforms state-of-the-art models. When the annotated data is extremely limited (only 10% training set), ShadowGNN gets over absolute 5% performance gain, which shows its powerful generalization ability. Our implementation will be open-sourced at <url>https://github.com/WowCZ/shadowgnn</url>
-      </abstract>
+      <abstract>Given a database schema, Text-to-SQL aims to translate a natural language question into the corresponding SQL query. Under the setup of cross-domain, traditional semantic parsing models struggle to adapt to unseen database schemas. To improve the model generalization capability for rare and unseen schemas, we propose a new architecture, ShadowGNN, which processes schemas at abstract and semantic levels. By ignoring names of semantic items in databases, abstract schemas are exploited in a well-designed graph projection neural network to obtain delexicalized representation of question and schema. Based on the domain-independent representations, a relation-aware transformer is utilized to further extract logical linking between question and schema. Finally, a SQL decoder with context-free grammar is applied. On the challenging Text-to-SQL benchmark Spider, empirical results show that ShadowGNN outperforms state-of-the-art models. When the annotated data is extremely limited (only 10% training set), ShadowGNN gets over absolute 5% performance gain, which shows its powerful generalization ability. Our implementation will be open-sourced at <url>https://github.com/WowCZ/shadowgnn</url></abstract>
       <url hash="d3fef69d">2021.naacl-main.441</url>
       <doi>10.18653/v1/2021.naacl-main.441</doi>
       <bibkey>chen-etal-2021-shadowgnn</bibkey>
@@ -6818,7 +6821,7 @@
       <author><first>Gonzalo</first><last>Ramos</last></author>
       <author><first>Ahmed Hassan</first><last>Awadallah</last></author>
       <pages>5599–5610</pages>
-      <abstract>We study semantic parsing in an interactive setting in which users correct errors with natural language feedback. We present NL-EDIT, a model for interpreting natural language feedback in the interaction context to generate a sequence of edits that can be applied to the initial parse to correct its errors. We show that NL-EDIT can boost the accuracy of existing text-to-SQL parsers by up to 20% with only one turn of correction. We analyze the limitations of the model and discuss directions for improvement and evaluation. The code and datasets used in this paper are publicly available at http://aka.ms/NLEdit.</abstract>
+      <abstract>We study semantic parsing in an interactive setting in which users correct errors with natural language feedback. We present NL-EDIT, a model for interpreting natural language feedback in the interaction context to generate a sequence of edits that can be applied to the initial parse to correct its errors. We show that NL-EDIT can boost the accuracy of existing text-to-SQL parsers by up to 20% with only one turn of correction. We analyze the limitations of the model and discuss directions for improvement and evaluation. The code and datasets used in this paper are publicly available at <url>http://aka.ms/NLEdit</url>.</abstract>
       <url hash="623a4ff3">2021.naacl-main.444</url>
       <doi>10.18653/v1/2021.naacl-main.444</doi>
       <bibkey>elgohary-etal-2021-nl</bibkey>
@@ -6978,12 +6981,12 @@
       <author><first>Wei</first><last>Wang</last></author>
       <author><first>Jing</first><last>Xiao</last></author>
       <pages>5704–5716</pages>
-      <abstract>Although pre-trained big models (e.g., BERT, ERNIE, XLNet, GPT3 etc.) have delivered top performance in Seq2seq modeling, their deployments in real-world applications are often hindered by the excessive computations and memory demand involved. For many applications, including named entity recognition (NER), matching the state-of-the-art result under budget has attracted considerable attention. Drawing power from the recent advance in knowledge distillation (KD), this work presents a novel distillation scheme to efficiently transfer the knowledge learned from big models to their more affordable counterpart. Our solution highlights the construction of surrogate labels through the k-best Viterbi algorithm to distill knowledge from the teacher model. To maximally assimilate knowledge into the student model, we propose a multi-grained distillation scheme, which integrates cross entropy involved in conditional random field (CRF) and fuzzy learning.To validate the effectiveness of our proposal, we conducted a comprehensive evaluation on five NER benchmarks, reporting cross-the-board performance gains relative to competing prior-arts. We further discuss ablation results to dissect our gains.</abstract>
+      <abstract>Although pre-trained big models (e.g., BERT, ERNIE, XLNet, GPT3 etc.) have delivered top performance in Seq2seq modeling, their deployments in real-world applications are often hindered by the excessive computations and memory demand involved. For many applications, including named entity recognition (NER), matching the state-of-the-art result under budget has attracted considerable attention. Drawing power from the recent advance in knowledge distillation (KD), this work presents a novel distillation scheme to efficiently transfer the knowledge learned from big models to their more affordable counterpart. Our solution highlights the construction of surrogate labels through the k-best Viterbi algorithm to distill knowledge from the teacher model. To maximally assimilate knowledge into the student model, we propose a multi-grained distillation scheme, which integrates cross entropy involved in conditional random field (CRF) and fuzzy learning. To validate the effectiveness of our proposal, we conducted a comprehensive evaluation on five NER benchmarks, reporting cross-the-board performance gains relative to competing prior-arts. We further discuss ablation results to dissect our gains.</abstract>
       <url hash="80a493cf">2021.naacl-main.454</url>
       <doi>10.18653/v1/2021.naacl-main.454</doi>
       <bibkey>zhou-etal-2021-multi</bibkey>
       <video href="2021.naacl-main.454.mp4"/>
-      <pwccode url="https://github.com/11zhouxuan/multi_grained_kd_ner" additional="false">11zhouxuan/multi_grained_kd_ner</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/ontonotes-5-0">OntoNotes 5.0</pwcdataset>
     </paper>
     <paper id="455">
       <title><fixed-case>SGG</fixed-case>: Learning to Select, Guide, and Generate for Keyphrase Generation</title>
@@ -7025,8 +7028,9 @@
       <doi>10.18653/v1/2021.naacl-main.457</doi>
       <bibkey>long-etal-2021-generative</bibkey>
       <video href="2021.naacl-main.457.mp4"/>
-      <pwcdataset url="https://paperswithcode.com/dataset/coco">COCO</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/flickr30k">Flickr30k</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/coco">MS COCO</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/multi30k">Multi30K</pwcdataset>
     </paper>
     <paper id="458">
       <title>Non-Autoregressive Translation by Learning Target Categorical Codes</title>
@@ -7105,7 +7109,7 @@
       <author><first>Yufei</first><last>Huang</last></author>
       <author><first>Maosong</first><last>Sun</last></author>
       <pages>5798–5809</pages>
-      <abstract>Existing pre-trained language models (PLMs) are often computationally expensive in inference, making them impractical in various resource-limited real-world applications. To address this issue, we propose a dynamic token reduction approach to accelerate PLMs’ inference, named TR-BERT, which could flexibly adapt the layer number of each token in inference to avoid redundant calculation. Specially, TR-BERT formulates the token reduction process as a multi-step token selection problem and automatically learns the selection strategy via reinforcement learning. The experimental results on several downstream NLP tasks show that TR-BERT is able to speed up BERT by 2-5 times to satisfy various performance demands. Moreover, TR-BERT can also achieve better performance with less computation in a suite of long-text tasks since its token-level layer number adaption greatly accelerates the self-attention operation in PLMs. The source code and experiment details of this paper can be obtained from https://github.com/thunlp/TR-BERT.</abstract>
+      <abstract>Existing pre-trained language models (PLMs) are often computationally expensive in inference, making them impractical in various resource-limited real-world applications. To address this issue, we propose a dynamic token reduction approach to accelerate PLMs’ inference, named TR-BERT, which could flexibly adapt the layer number of each token in inference to avoid redundant calculation. Specially, TR-BERT formulates the token reduction process as a multi-step token selection problem and automatically learns the selection strategy via reinforcement learning. The experimental results on several downstream NLP tasks show that TR-BERT is able to speed up BERT by 2-5 times to satisfy various performance demands. Moreover, TR-BERT can also achieve better performance with less computation in a suite of long-text tasks since its token-level layer number adaption greatly accelerates the self-attention operation in PLMs. The source code and experiment details of this paper can be obtained from <url>https://github.com/thunlp/TR-BERT</url>.</abstract>
       <url hash="e279e6ef">2021.naacl-main.463</url>
       <doi>10.18653/v1/2021.naacl-main.463</doi>
       <bibkey>ye-etal-2021-tr</bibkey>
@@ -7176,7 +7180,7 @@
       <author><first>Liwei</first><last>Wang</last></author>
       <author><first>Xiaodan</first><last>Liang</last></author>
       <pages>5848–5855</pages>
-      <abstract>Recent QA with logical reasoning questions requires passage-level relations among the sentences. However, current approaches still focus on sentence-level relations interacting among tokens. In this work, we explore aggregating passage-level clues for solving logical reasoning QA by using discourse-based information. We propose a discourse-aware graph network (DAGN) that reasons relying on the discourse structure of the texts. The model encodes discourse information as a graph with elementary discourse units (EDUs) and discourse relations, and learns the discourse-aware features via a graph network for downstream QA tasks. Experiments are conducted on two logical reasoning QA datasets, ReClor and LogiQA, and our proposed DAGN achieves competitive results. The source code is available at https://github.com/Eleanor-H/DAGN.</abstract>
+      <abstract>Recent QA with logical reasoning questions requires passage-level relations among the sentences. However, current approaches still focus on sentence-level relations interacting among tokens. In this work, we explore aggregating passage-level clues for solving logical reasoning QA by using discourse-based information. We propose a discourse-aware graph network (DAGN) that reasons relying on the discourse structure of the texts. The model encodes discourse information as a graph with elementary discourse units (EDUs) and discourse relations, and learns the discourse-aware features via a graph network for downstream QA tasks. Experiments are conducted on two logical reasoning QA datasets, ReClor and LogiQA, and our proposed DAGN achieves competitive results. The source code is available at <url>https://github.com/Eleanor-H/DAGN</url>.</abstract>
       <url hash="32c3fcb0">2021.naacl-main.467</url>
       <doi>10.18653/v1/2021.naacl-main.467</doi>
       <bibkey>huang-etal-2021-dagn</bibkey>
@@ -7209,7 +7213,7 @@
       <author><first>Min-Yen</first><last>Kan</last></author>
       <author><first>William Yang</first><last>Wang</last></author>
       <pages>5866–5880</pages>
-      <abstract>Obtaining training data for multi-hop question answering (QA) is time-consuming and resource-intensive. We explore the possibility to train a well-performed multi-hop QA model without referencing any human-labeled multi-hop question-answer pairs, i.e., unsupervised multi-hop QA. We propose MQA-QG, an unsupervised framework that can generate human-like multi-hop training data from both homogeneous and heterogeneous data sources. MQA-QG generates questions by first selecting/generating relevant information from each data source and then integrating the multiple information to form a multi-hop question. Using only generated training data, we can train a competent multi-hop QA which achieves 61% and 83% of the supervised learning performance for the HybridQA and the HotpotQA dataset, respectively. We also show that pretraining the QA system with the generated data would greatly reduce the demand for human-annotated training data. Our codes are publicly available at https://github.com/teacherpeterpan/Unsupervised-Multi-hop-QA.</abstract>
+      <abstract>Obtaining training data for multi-hop question answering (QA) is time-consuming and resource-intensive. We explore the possibility to train a well-performed multi-hop QA model without referencing any human-labeled multi-hop question-answer pairs, i.e., unsupervised multi-hop QA. We propose MQA-QG, an unsupervised framework that can generate human-like multi-hop training data from both homogeneous and heterogeneous data sources. MQA-QG generates questions by first selecting/generating relevant information from each data source and then integrating the multiple information to form a multi-hop question. Using only generated training data, we can train a competent multi-hop QA which achieves 61% and 83% of the supervised learning performance for the HybridQA and the HotpotQA dataset, respectively. We also show that pretraining the QA system with the generated data would greatly reduce the demand for human-annotated training data. Our codes are publicly available at <url>https://github.com/teacherpeterpan/Unsupervised-Multi-hop-QA</url>.</abstract>
       <url hash="d59cda74">2021.naacl-main.469</url>
       <doi>10.18653/v1/2021.naacl-main.469</doi>
       <bibkey>pan-etal-2021-unsupervised</bibkey>
@@ -7301,7 +7305,7 @@
       <pwcdataset url="https://paperswithcode.com/dataset/crd3">CRD3</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/interview">Interview</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/multiwoz">MultiWOZ</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/samsum-corpus">SAMSum Corpus</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/samsum-corpus">SAMSum</pwcdataset>
     </paper>
     <paper id="475">
       <title>Improving Faithfulness in Abstractive Summarization with Contrast Candidate Generation and Selection</title>
@@ -7328,7 +7332,7 @@
       <video href="2021.naacl-main.476.mp4"/>
     </paper>
     <paper id="477">
-      <title>ReinforceBug: A Framework to Generate Adversarial Textual Examples</title>
+      <title><fixed-case>R</fixed-case>einforce<fixed-case>B</fixed-case>ug: A Framework to Generate Adversarial Textual Examples</title>
       <author><first>Bushra</first><last>Sabir</last></author>
       <author><first>Muhammad Ali</first><last>Babar</last></author>
       <author><first>Raj</first><last>Gaire</last></author>
@@ -7342,7 +7346,7 @@
       <video href="2021.naacl-main.477.mp4"/>
     </paper>
   </volume>
-  <volume id="demos" ingest-date="2021-05-24">
+  <volume id="demos" ingest-date="2021-05-24" type="proceedings">
     <meta>
       <booktitle>Proceedings of the 2021 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies: Demonstrations</booktitle>
       <editor><first>Avi</first><last>Sil</last></editor>
@@ -7356,14 +7360,14 @@
     </meta>
     <frontmatter>
       <url hash="15c022e7">2021.naacl-demos.0</url>
-      <bibkey>naacl-2021-2021-north</bibkey>
+      <bibkey>naacl-2021-demos</bibkey>
     </frontmatter>
     <paper id="1">
       <title><fixed-case>P</fixed-case>ho<fixed-case>NLP</fixed-case>: A joint multi-task learning model for <fixed-case>V</fixed-case>ietnamese part-of-speech tagging, named entity recognition and dependency parsing</title>
       <author><first>Linh The</first><last>Nguyen</last></author>
       <author><first>Dat Quoc</first><last>Nguyen</last></author>
       <pages>1–7</pages>
-      <abstract>We present the first multi-task learning model – named PhoNLP – for joint Vietnamese part-of-speech (POS) tagging, named entity recognition (NER) and dependency parsing. Experiments on Vietnamese benchmark datasets show that PhoNLP produces state-of-the-art results, outperforming a single-task learning approach that fine-tunes the pre-trained Vietnamese language model PhoBERT (Nguyen and Nguyen, 2020) for each task independently. We publicly release PhoNLP as an open-source toolkit under the Apache License 2.0. Although we specify PhoNLP for Vietnamese, our PhoNLP training and evaluation command scripts in fact can directly work for other languages that have a pre-trained BERT-based language model and gold annotated corpora available for the three tasks of POS tagging, NER and dependency parsing. We hope that PhoNLP can serve as a strong baseline and useful toolkit for future NLP research and applications to not only Vietnamese but also the other languages. Our PhoNLP is available at https://github.com/VinAIResearch/PhoNLP</abstract>
+      <abstract>We present the first multi-task learning model – named PhoNLP – for joint Vietnamese part-of-speech (POS) tagging, named entity recognition (NER) and dependency parsing. Experiments on Vietnamese benchmark datasets show that PhoNLP produces state-of-the-art results, outperforming a single-task learning approach that fine-tunes the pre-trained Vietnamese language model PhoBERT (Nguyen and Nguyen, 2020) for each task independently. We publicly release PhoNLP as an open-source toolkit under the Apache License 2.0. Although we specify PhoNLP for Vietnamese, our PhoNLP training and evaluation command scripts in fact can directly work for other languages that have a pre-trained BERT-based language model and gold annotated corpora available for the three tasks of POS tagging, NER and dependency parsing. We hope that PhoNLP can serve as a strong baseline and useful toolkit for future NLP research and applications to not only Vietnamese but also the other languages. Our PhoNLP is available at <url>https://github.com/VinAIResearch/PhoNLP</url></abstract>
       <url hash="478af461">2021.naacl-demos.1</url>
       <doi>10.18653/v1/2021.naacl-demos.1</doi>
       <bibkey>nguyen-nguyen-2021-phonlp</bibkey>
@@ -7397,7 +7401,7 @@
       <author><first>Yinnian</first><last>Lin</last></author>
       <author><first>Sen</first><last>Hu</last></author>
       <pages>18–25</pages>
-      <abstract>We present NAMER, an open-domain Chinese knowledge base question answering system based on a novel node-based framework that better grasps the structural mapping between questions and KB queries by aligning the nodes in a query with their corresponding mentions in question. Equipped with techniques including data augmentation and multitasking, we show that the proposed framework outperforms the previous SoTA on CCKS CKBQA dataset. Moreover, we develop a novel data annotation strategy that facilitates the node-to-mention alignment, a dataset (https://github.com/ridiculouz/CKBQA) with such strategy is also published to promote further research. An online demo of NAMER (http://kbqademo.gstore.cn) is provided to visualize our framework and supply extra information for users, a video illustration (https://youtu.be/yetnVye_hg4) of NAMER is also available.</abstract>
+      <abstract>We present NAMER, an open-domain Chinese knowledge base question answering system based on a novel node-based framework that better grasps the structural mapping between questions and KB queries by aligning the nodes in a query with their corresponding mentions in question. Equipped with techniques including data augmentation and multitasking, we show that the proposed framework outperforms the previous SoTA on CCKS CKBQA dataset. Moreover, we develop a novel data annotation strategy that facilitates the node-to-mention alignment, a dataset (<url>https://github.com/ridiculouz/CKBQA</url>) with such strategy is also published to promote further research. An online demo of NAMER (<url>http://kbqademo.gstore.cn</url>) is provided to visualize our framework and supply extra information for users, a video illustration (<url>https://youtu.be/yetnVye_hg4</url>) of NAMER is also available.</abstract>
       <url hash="ea05fc80">2021.naacl-demos.3</url>
       <doi>10.18653/v1/2021.naacl-demos.3</doi>
       <bibkey>zhang-etal-2021-namer</bibkey>
@@ -7450,7 +7454,6 @@
       <pwcdataset url="https://paperswithcode.com/dataset/anli">ANLI</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/multinli">MultiNLI</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/snli">SNLI</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/superglue">SuperGLUE</pwcdataset>
     </paper>
     <paper id="7">
       <title><fixed-case>E</fixed-case>vent<fixed-case>P</fixed-case>lus: A Temporal Event Understanding Pipeline</title>
@@ -7481,7 +7484,7 @@
       <author><first>Jiawei</first><last>Ma</last></author>
       <author><first>Jingxuan</first><last>Tu</last></author>
       <author><first>Ying</first><last>Lin</last></author>
-      <author><first>Ranran Haoran</first><last>Zhang</last></author>
+      <author id="ranran-haoran-zhang"><first>Ranran Haoran</first><last>Zhang</last></author>
       <author><first>Weili</first><last>Liu</last></author>
       <author><first>Aabhas</first><last>Chauhan</last></author>
       <author><first>Yingjun</first><last>Guan</last></author>
@@ -7514,7 +7517,7 @@
       <author><first>Philipp</first><last>Hager</last></author>
       <author><first>Ralf</first><last>Krestel</last></author>
       <pages>78–83</pages>
-      <abstract>Current document embeddings require large training corpora but fail to learn high-quality representations when confronted with a small number of domain-specific documents and rare terms. Further, they transform each document into a single embedding vector, making it hard to capture different notions of document similarity or explain why two documents are considered similar. In this work, we propose our Faceted Domain Encoder, a novel approach to learn multifaceted embeddings for domain-specific documents. It is based on a Siamese neural network architecture and leverages knowledge graphs to further enhance the embeddings even if only a few training samples are available. The model identifies different types of domain knowledge and encodes them into separate dimensions of the embedding, thereby enabling multiple ways of finding and comparing related documents in the vector space. We evaluate our approach on two benchmark datasets and find that it achieves the same embedding quality as state-of-the-art models while requiring only a tiny fraction of their training data. An interactive demo, our source code, and the evaluation datasets are available online: https://hpi.de/naumann/s/multifaceted-embeddings and a screencast is available on YouTube: https://youtu.be/HHcsX2clEwg</abstract>
+      <abstract>Current document embeddings require large training corpora but fail to learn high-quality representations when confronted with a small number of domain-specific documents and rare terms. Further, they transform each document into a single embedding vector, making it hard to capture different notions of document similarity or explain why two documents are considered similar. In this work, we propose our Faceted Domain Encoder, a novel approach to learn multifaceted embeddings for domain-specific documents. It is based on a Siamese neural network architecture and leverages knowledge graphs to further enhance the embeddings even if only a few training samples are available. The model identifies different types of domain knowledge and encodes them into separate dimensions of the embedding, thereby enabling multiple ways of finding and comparing related documents in the vector space. We evaluate our approach on two benchmark datasets and find that it achieves the same embedding quality as state-of-the-art models while requiring only a tiny fraction of their training data. An interactive demo, our source code, and the evaluation datasets are available online: <url>https://hpi.de/naumann/s/multifaceted-embeddings</url> and a screencast is available on YouTube: <url>https://youtu.be/HHcsX2clEwg</url></abstract>
       <url hash="18a45b63">2021.naacl-demos.9</url>
       <doi>10.18653/v1/2021.naacl-demos.9</doi>
       <bibkey>risch-etal-2021-multifaceted</bibkey>
@@ -7574,7 +7577,7 @@
       <author><first>Eric</first><last>Fosler-Lussier</last></author>
       <author><first>Harry</first><last>Hochheiser</last></author>
       <pages>106–115</pages>
-      <abstract>Embeddings of words and concepts capture syntactic and semantic regularities of language; however, they have seen limited use as tools to study characteristics of different corpora and how they relate to one another. We introduce TextEssence, an interactive system designed to enable comparative analysis of corpora using embeddings. TextEssence includes visual, neighbor-based, and similarity-based modes of embedding analysis in a lightweight, web-based interface. We further propose a new measure of embedding confidence based on nearest neighborhood overlap, to assist in identifying high-quality embeddings for corpus analysis. A case study on COVID-19 scientific literature illustrates the utility of the system. TextEssence can be found at https://textessence.github.io.</abstract>
+      <abstract>Embeddings of words and concepts capture syntactic and semantic regularities of language; however, they have seen limited use as tools to study characteristics of different corpora and how they relate to one another. We introduce TextEssence, an interactive system designed to enable comparative analysis of corpora using embeddings. TextEssence includes visual, neighbor-based, and similarity-based modes of embedding analysis in a lightweight, web-based interface. We further propose a new measure of embedding confidence based on nearest neighborhood overlap, to assist in identifying high-quality embeddings for corpus analysis. A case study on COVID-19 scientific literature illustrates the utility of the system. TextEssence can be found at <url>https://textessence.github.io</url>.</abstract>
       <url hash="4f44e392">2021.naacl-demos.13</url>
       <doi>10.18653/v1/2021.naacl-demos.13</doi>
       <bibkey>newman-griffis-etal-2021-textessence</bibkey>
@@ -7685,10 +7688,11 @@
       <bibkey>ranasinghe-zampieri-2021-mudes</bibkey>
       <video href="2021.naacl-demos.17.mp4"/>
       <pwccode url="https://github.com/tharindudr/MUDES" additional="false">tharindudr/MUDES</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/civil-comments">Civil Comments</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/olid">OLID</pwcdataset>
     </paper>
   </volume>
-  <volume id="srw" ingest-date="2021-05-24">
+  <volume id="srw" ingest-date="2021-05-24" type="proceedings">
     <meta>
       <booktitle>Proceedings of the 2021 Conference of the North American Chapter of the Association for Computational Linguistics: Student Research Workshop</booktitle>
       <editor><first>Esin</first><last>Durmus</last></editor>
@@ -7705,7 +7709,7 @@
     </meta>
     <frontmatter>
       <url hash="ae6ac8a7">2021.naacl-srw.0</url>
-      <bibkey>naacl-2021-2021-north-american</bibkey>
+      <bibkey>naacl-2021-srw</bibkey>
     </frontmatter>
     <paper id="1">
       <title>Sampling and Filtering of Neural Machine Translation Distillation Data</title>
@@ -7813,7 +7817,6 @@
       <doi>10.18653/v1/2021.naacl-srw.9</doi>
       <bibkey>xiao-etal-2021-open</bibkey>
       <video href="2021.naacl-srw.9.mp4"/>
-      <pwcdataset url="https://paperswithcode.com/dataset/squad">SQuAD</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/triviaqa">TriviaQA</pwcdataset>
     </paper>
     <paper id="10">
@@ -7896,6 +7899,7 @@
       <video href="2021.naacl-srw.15.mp4"/>
       <pwcdataset url="https://paperswithcode.com/dataset/dailydialog">DailyDialog</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/sst">SST</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/sst-2">SST-2</pwcdataset>
     </paper>
     <paper id="16">
       <title>Comparison of Grammatical Error Correction Using Back-Translation Models</title>
@@ -7918,7 +7922,7 @@
       <author><first>Feng</first><last>Yifan</last></author>
       <author><first>Chenggang</first><last>Mi</last></author>
       <pages>136–142</pages>
-      <abstract>The quality and quantity of parallel sentences are known as very important training data for constructing neural machine translation (NMT) systems. However, these resources are not available for many low-resource language pairs. Many existing methods need strong supervision are not suitable. Although several attempts at developing unsupervised models, they ignore the language-invariant between languages. In this paper, we propose an approach based on transfer learning to mine parallel sentences in the unsupervised setting.With the help of bilingual corpora of rich-resource language pairs, we can mine parallel sentences without bilingual supervision of low-resource language pairs. Experiments show that our approach improves the performance of mined parallel sentences compared with previous methods. In particular, we achieve excellent results at two real-world low-resource language pairs.</abstract>
+      <abstract>The quality and quantity of parallel sentences are known as very important training data for constructing neural machine translation (NMT) systems. However, these resources are not available for many low-resource language pairs. Many existing methods need strong supervision are not suitable. Although several attempts at developing unsupervised models, they ignore the language-invariant between languages. In this paper, we propose an approach based on transfer learning to mine parallel sentences in the unsupervised setting. With the help of bilingual corpora of rich-resource language pairs, we can mine parallel sentences without bilingual supervision of low-resource language pairs. Experiments show that our approach improves the performance of mined parallel sentences compared with previous methods. In particular, we achieve excellent results at two real-world low-resource language pairs.</abstract>
       <url hash="3f8ad05b">2021.naacl-srw.17</url>
       <doi>10.18653/v1/2021.naacl-srw.17</doi>
       <bibkey>sun-etal-2021-parallel</bibkey>
@@ -7975,13 +7979,13 @@
       <url hash="d8aae487">2021.naacl-srw.21</url>
       <bibkey>schneider-etal-2021-towards</bibkey>
       <video href="2021.naacl-srw.21.mp4"/>
-      <pwcdataset url="https://paperswithcode.com/dataset/coco">COCO</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/conceptual-captions">Conceptual Captions</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/flickr30k">Flickr30k</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/coco">MS COCO</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/wikicaps">WikiCaps</pwcdataset>
     </paper>
   </volume>
-  <volume id="tutorials" ingest-date="2021-05-24">
+  <volume id="tutorials" ingest-date="2021-05-24" type="proceedings">
     <meta>
       <booktitle>Proceedings of the 2021 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies: Tutorials</booktitle>
       <editor><first>Greg</first><last>Kondrak</last></editor>
@@ -7996,7 +8000,7 @@
     </meta>
     <frontmatter>
       <url hash="7699fb95">2021.naacl-tutorials.0</url>
-      <bibkey>naacl-2021-2021-north-american-chapter</bibkey>
+      <bibkey>naacl-2021-tutorials</bibkey>
     </frontmatter>
     <paper id="1">
       <title>Pretrained Transformers for Text Ranking: <fixed-case>BERT</fixed-case> and Beyond</title>
@@ -8017,8 +8021,8 @@
       <pwcdataset url="https://paperswithcode.com/dataset/ms-marco">MS MARCO</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/natural-questions">Natural Questions</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/snli">SNLI</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/squad">SQuAD</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/sst">SST</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/sst-2">SST-2</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/trec-covid">TREC-COVID</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/triviaqa">TriviaQA</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/webquestions">WebQuestions</pwcdataset>
@@ -8089,7 +8093,7 @@
       <video href="2021.naacl-tutorials.6.mp4"/>
     </paper>
   </volume>
-  <volume id="industry" ingest-date="2021-05-24">
+  <volume id="industry" ingest-date="2021-05-24" type="proceedings">
     <meta>
       <booktitle>Proceedings of the 2021 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies: Industry Papers</booktitle>
       <editor><first>Young-bum</first><last>Kim</last></editor>
@@ -8104,7 +8108,7 @@
     </meta>
     <frontmatter>
       <url hash="e7988991">2021.naacl-industry.0</url>
-      <bibkey>naacl-2021-2021-north-american-chapter-association</bibkey>
+      <bibkey>naacl-2021-industry</bibkey>
     </frontmatter>
     <paper id="1">
       <title>When does text prediction benefit from additional context? An exploration of contextual signals for chat and email messages</title>
@@ -8492,6 +8496,7 @@
       <doi>10.18653/v1/2021.naacl-industry.25</doi>
       <bibkey>muralidharan-etal-2021-noise</bibkey>
       <video href="2021.naacl-industry.25.mp4"/>
+      <pwcdataset url="https://paperswithcode.com/dataset/conll-2003">CoNLL 2003</pwcdataset>
     </paper>
     <paper id="26">
       <title>Goodwill Hunting: Analyzing and Repurposing Off-the-Shelf Named Entity Linking Systems</title>
@@ -8698,27 +8703,29 @@
     </paper>
   </volume>
   <event id="naacl-2021">
-    <colocated>2021.alvr-1</colocated>
-    <colocated>2021.americasnlp-1</colocated>
-    <colocated>2021.autosimtrans-1</colocated>
-    <colocated>2021.bionlp-1</colocated>
-    <colocated>2021.calcs-1</colocated>
-    <colocated>2021.clpsych-1</colocated>
-    <colocated>2021.cmcl-1</colocated>
-    <colocated>2021.dash-1</colocated>
-    <colocated>2021.deelio-1</colocated>
-    <colocated>2021.maiworkshop-1</colocated>
-    <colocated>2021.nlp4if-1</colocated>
-    <colocated>2021.nlpmc-1</colocated>
-    <colocated>2021.nuse-1</colocated>
-    <colocated>2021.privatenlp-1</colocated>
-    <colocated>2021.sdp-1</colocated>
-    <colocated>2021.sigtyp-1</colocated>
-    <colocated>2021.smm4h-1</colocated>
-    <colocated>2021.socialnlp-1</colocated>
-    <colocated>2021.teachingnlp-1</colocated>
-    <colocated>2021.textgraphs-1</colocated>
-    <colocated>2021.trustnlp-1</colocated>
-    <colocated>2021.vigil-1</colocated>
+    <colocated>
+      <volume-id>2021.alvr-1</volume-id>
+      <volume-id>2021.americasnlp-1</volume-id>
+      <volume-id>2021.autosimtrans-1</volume-id>
+      <volume-id>2021.bionlp-1</volume-id>
+      <volume-id>2021.calcs-1</volume-id>
+      <volume-id>2021.clpsych-1</volume-id>
+      <volume-id>2021.cmcl-1</volume-id>
+      <volume-id>2021.dash-1</volume-id>
+      <volume-id>2021.deelio-1</volume-id>
+      <volume-id>2021.maiworkshop-1</volume-id>
+      <volume-id>2021.nlp4if-1</volume-id>
+      <volume-id>2021.nlpmc-1</volume-id>
+      <volume-id>2021.nuse-1</volume-id>
+      <volume-id>2021.privatenlp-1</volume-id>
+      <volume-id>2021.sdp-1</volume-id>
+      <volume-id>2021.sigtyp-1</volume-id>
+      <volume-id>2021.smm4h-1</volume-id>
+      <volume-id>2021.socialnlp-1</volume-id>
+      <volume-id>2021.teachingnlp-1</volume-id>
+      <volume-id>2021.textgraphs-1</volume-id>
+      <volume-id>2021.trustnlp-1</volume-id>
+      <volume-id>2021.vigil-1</volume-id>
+    </colocated>
   </event>
 </collection>

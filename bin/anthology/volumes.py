@@ -23,10 +23,8 @@ from .sigs import SIGIndex
 from .utils import (
     build_anthology_id,
     parse_element,
-    is_journal,
     month_str2num,
     infer_url,
-    infer_year,
 )
 
 
@@ -35,6 +33,7 @@ class Volume:
         self,
         collection_id,
         volume_id,
+        volume_type,
         ingest_date,
         meta_data,
         venue_index: VenueIndex,
@@ -48,10 +47,11 @@ class Volume:
         """
         self.collection_id = collection_id
         self._id = volume_id
+        self._type = volume_type
         self.ingest_date = ingest_date
         self.formatter = formatter
-        self._set_meta_info(meta_data)
         self.venue_index = venue_index
+        self._set_meta_info(meta_data)
         self.attrib["venues"] = meta_data.get("venue", [])
         self.attrib["events"] = meta_data.get("event", [])
         self.attrib["sigs"] = sig_index.get_associated_sigs(self.full_id)
@@ -72,6 +72,7 @@ class Volume:
         volume_xml, collection_id, venue_index: VenueIndex, sig_index: SIGIndex, formatter
     ):
         volume_id = volume_xml.attrib["id"]
+        volume_type = volume_xml.attrib["type"]
         # The date of publication, defaulting to earlier than anything we'll encounter
         ingest_date = volume_xml.attrib.get("ingest-date", data.UNKNOWN_INGEST_DATE)
         meta_data = parse_element(volume_xml.find("meta"))
@@ -82,6 +83,7 @@ class Volume:
         volume = Volume(
             collection_id,
             volume_id,
+            volume_type,
             ingest_date,
             meta_data,
             venue_index,
@@ -109,38 +111,43 @@ class Volume:
             return infer_url(url, template=data.PDF_LOCATION_TEMPLATE)
         return None
 
+    @property
+    def is_journal(self):
+        return self._type == "journal"
+
     def _set_meta_info(self, meta_data):
         """Derive journal title, volume, and issue no. used in metadata.
 
         This function replicates functionality that was previously hardcoded in
         'app/helpers/papers_helper.rb' of the Rails app."""
         self.attrib = meta_data
-        if "author" in self.attrib:
-            # Authors of the front matter are the volume's editors
-            self.attrib["editor"] = self.attrib["author"]
-            del self.attrib["author"]
-
-        # Some volumes don't set this---but they should!
-        if "year" not in self.attrib:
-            self.attrib["year"] = infer_year(self.collection_id)
 
         self.attrib["meta_date"] = self.get("year")
         if "month" in self.attrib:
             month = month_str2num(self.get("month"))
             if month is not None:
                 self.attrib["meta_date"] = f"{self.get('year')}/{month}"
-        if is_journal(self.collection_id):
-            # TODO: This should be explicitly represented in the XML instead of
-            # hardcoding and parsing it.
-            journal_title, volume_no, issue_no = data.get_journal_info(
-                self.collection_id, self.attrib["title"]
-            )
+        if self.is_journal:
+            if "journal-title" in self.attrib:
+                journal_title = self.attrib["journal-title"]
+            else:
+                venues = meta_data.get("venue", [])
+                if len(venues) != 1:
+                    raise ValueError(
+                        f"{self.full_id}: journal volume must have exactly one venue or an explicit <journal-title>"
+                    )
+                journal_title = self.venue_index.get_venue(venues[0])["name"]
 
             self.attrib["meta_journal_title"] = journal_title
-            if volume_no is not None:
-                self.attrib["meta_volume"] = volume_no
-            if issue_no is not None:
-                self.attrib["meta_issue"] = issue_no
+
+            # For compatibility reasons, we rename the attributes here; might
+            # change this later
+            if "journal-volume" in self.attrib:
+                self.attrib["meta_volume"] = self.attrib["journal-volume"]
+                del self.attrib["journal-volume"]
+            if "journal-issue" in self.attrib:
+                self.attrib["meta_issue"] = self.attrib["journal-issue"]
+                del self.attrib["journal-issue"]
 
     @property
     def volume_id(self):

@@ -1,15 +1,33 @@
 {{ define "main" }}
+{{ $event := index .Site.Data.events .Params.event_slug }}
 <section id="main">
   <h2 id="title">
     {{ .Title }}
   </h2>
+  {{ with $event.location }}
+  <span>{{ . }}</span><br/>
+  {{ end }}
+  {{ with $event.dates }}
+  <span class="font-weight-light text-muted">{{ . }}</span><br/>
+  {{ end }}
   <hr />
 
   {{/* Get the event and iterate through all the volumes associated with it */}}
-  {{ $event := index .Site.Data.events .Params.event_slug }}
   {{ $volumes := index $event "volumes" }}
   <div class="card bg-light mb-2 mb-lg-4">
     <div class="card-body">
+      {{ if $event.links }}
+      <h4 class="card-title">Links</h4>
+      <ul class="list-pl-responsive">
+        {{ range $event.links }}
+          {{ range $label, $link := . }}
+        <li>
+          <a class="align-middle" href="{{ $link }}">{{ $label }}</a>
+        </li>
+          {{ end }}
+        {{ end }}
+      </ul>
+      {{ end }}
       <h4 class="card-title">Volumes</h4>
       <ul class="list-pl-responsive">
         {{ range $volumes }}
@@ -50,15 +68,15 @@
       <a class="badge badge-primary align-middle mr-1" href="{{ . }}" data-toggle="tooltip" data-placement="top" title="Open full proceedings volume as PDF">pdf&nbsp;(full)</a>
       <br class="d-none d-sm-inline-block" />
       {{- end -}}
-      {{- $bibfile := printf "/volumes/%s.bib" . -}}
+      {{- $bibfile := printf "volumes/%s.bib" . -}}
       {{- if (fileExists (printf "/data-export/%s" $bibfile)) -}}
-      <a class="badge badge-secondary align-middle mr-1" href="{{ $bibfile | relURL }}" data-toggle="tooltip" data-placement="top" title="Export to BibTeX">bib&nbsp;(full)</a>
+      <a class="badge badge-secondary align-middle mr-1" href="{{ relURL $bibfile }}" data-toggle="tooltip" data-placement="top" title="Export to BibTeX">bib&nbsp;(full)</a>
       {{- end -}}
       </span>
-    <a class="align-middle" href="{{ relref $ (printf "/volumes/%s.md" .) }}">{{ $volume.title }}</a></h4>
+    <a class="align-middle" href="{{ relref $ (printf "/volumes/%s" .) }}">{{ $volume.title }}</a></h4>
 
     {{ range $volume.papers }}
-      {{ $page := printf "/papers/%s/%s.md" (index (split . "-") 0) . }}
+      {{ $page := printf "/papers/%s" . }}
       {{ ($.Site.GetPage $page).Render "list-entry" }}
     {{ end }}
   </div>

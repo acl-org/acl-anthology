@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <collection id="2021.mrl">
-  <volume id="1" ingest-date="2021-11-01">
+  <volume id="1" ingest-date="2021-11-01" type="proceedings">
     <meta>
       <booktitle>Proceedings of the 1st Workshop on Multilingual Representation Learning</booktitle>
       <editor><first>Duygu</first><last>Ataman</last></editor>
@@ -34,6 +34,7 @@
       <doi>10.18653/v1/2021.mrl-1.1</doi>
       <video href="2021.mrl-1.1.mp4"/>
       <pwccode url="https://github.com/gentaiscool/few-shot-lm" additional="false">gentaiscool/few-shot-lm</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/mtop">MTOP</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/multinli">MultiNLI</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/snips">SNIPS</pwcdataset>
     </paper>
@@ -63,7 +64,7 @@
       <bibkey>bassani-etal-2021-clustering</bibkey>
       <doi>10.18653/v1/2021.mrl-1.3</doi>
       <video href="2021.mrl-1.3.mp4"/>
-      <pwcdataset url="https://paperswithcode.com/dataset/tydi-qa">TyDi QA</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/tydi-qa">TyDiQA</pwcdataset>
     </paper>
     <paper id="4">
       <title>Do not neglect related languages: The case of low-resource <fixed-case>O</fixed-case>ccitan cross-lingual word embeddings</title>
@@ -126,7 +127,6 @@
       <bibkey>k-etal-2021-analyzing</bibkey>
       <doi>10.18653/v1/2021.mrl-1.8</doi>
       <pwccode url="https://github.com/microsoft/taxixnli" additional="false">microsoft/taxixnli</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/glue">GLUE</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/multinli">MultiNLI</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/taxinli">TaxiNLI</pwcdataset>
     </paper>
@@ -149,7 +149,7 @@
       <author><first>Jose</first><last>Camacho-Collados</last></author>
       <author><first>Mohammad Taher</first><last>Pilehvar</last></author>
       <pages>107–115</pages>
-      <abstract>In this paper we analyze the extent to which contextualized sense embeddings, i.e., sense embeddings that are computed based on contextualized word embeddings, are transferable across languages.To this end, we compiled a unified cross-lingual benchmark for Word Sense Disambiguation. We then propose two simple strategies to transfer sense-specific knowledge across languages and test them on the benchmark.Experimental results show that this contextualized knowledge can be effectively transferred to similar languages through pre-trained multilingual language models, to the extent that they can out-perform monolingual representations learnednfrom existing language-specific data.</abstract>
+      <abstract>In this paper we analyze the extent to which contextualized sense embeddings, i.e., sense embeddings that are computed based on contextualized word embeddings, are transferable across languages. To this end, we compiled a unified cross-lingual benchmark for Word Sense Disambiguation. We then propose two simple strategies to transfer sense-specific knowledge across languages and test them on the benchmark. Experimental results show that this contextualized knowledge can be effectively transferred to similar languages through pre-trained multilingual language models, to the extent that they can out-perform monolingual representations learnednfrom existing language-specific data.</abstract>
       <url hash="a4b89553">2021.mrl-1.10</url>
       <bibkey>rezaee-etal-2021-cross</bibkey>
       <doi>10.18653/v1/2021.mrl-1.10</doi>
@@ -162,7 +162,7 @@
       <author><first>Yuxin</first><last>Zhu</last></author>
       <author><first>Jimmy</first><last>Lin</last></author>
       <pages>116–126</pages>
-      <abstract>Pretrained multilingual language models have been shown to work well on many languages for a variety of downstream NLP tasks. However, these models are known to require a lot of training data. This consequently leaves out a huge percentage of the world’s languages as they are under-resourced. Furthermore, a major motivation behind these models is that lower-resource languages benefit from joint training with higher-resource languages. In this work, we challenge this assumption and present the first attempt at training a multilingual language model on only low-resource languages. We show that it is possible to train competitive multilingual language models on less than 1 GB of text. Our model, named AfriBERTa, covers 11 African languages, including the first language model for 4 of these languages. Evaluations on named entity recognition and text classification spanning 10 languages show that our model outperforms mBERT and XLM-Rin several languages and is very competitive overall. Results suggest that our “small data” approach based on similar languages may sometimes work better than joint training on large datasets with high-resource languages. Code, data and models are released at https://github.com/keleog/afriberta.</abstract>
+      <abstract>Pretrained multilingual language models have been shown to work well on many languages for a variety of downstream NLP tasks. However, these models are known to require a lot of training data. This consequently leaves out a huge percentage of the world’s languages as they are under-resourced. Furthermore, a major motivation behind these models is that lower-resource languages benefit from joint training with higher-resource languages. In this work, we challenge this assumption and present the first attempt at training a multilingual language model on only low-resource languages. We show that it is possible to train competitive multilingual language models on less than 1 GB of text. Our model, named AfriBERTa, covers 11 African languages, including the first language model for 4 of these languages. Evaluations on named entity recognition and text classification spanning 10 languages show that our model outperforms mBERT and XLM-Rin several languages and is very competitive overall. Results suggest that our “small data” approach based on similar languages may sometimes work better than joint training on large datasets with high-resource languages. Code, data and models are released at <url>https://github.com/keleog/afriberta</url>.</abstract>
       <url hash="98baf544">2021.mrl-1.11</url>
       <bibkey>ogueji-etal-2021-small</bibkey>
       <doi>10.18653/v1/2021.mrl-1.11</doi>
@@ -175,7 +175,7 @@
       <author><first>Peng</first><last>Shi</last></author>
       <author><first>Jimmy</first><last>Lin</last></author>
       <pages>127–137</pages>
-      <abstract>We present Mr. TyDi, a multi-lingual benchmark dataset for mono-lingual retrieval in eleven typologically diverse languages, designed to evaluate ranking with learned dense representations. The goal of this resource is to spur research in dense retrieval techniques in non-English languages, motivated by recent observations that existing techniques for representation learning perform poorly when applied to out-of-distribution data. As a starting point, we provide zero-shot baselines for this new dataset based on a multi-lingual adaptation of DPR that we call “mDPR”. Experiments show that although the effectiveness of mDPR is much lower than BM25, dense representations nevertheless appear to provide valuable relevance signals, improving BM25 results in sparse–dense hybrids. In addition to analyses of our results, we also discuss future challenges and present a research agenda in multi-lingual dense retrieval. Mr. TyDi can be downloaded at https://github.com/castorini/mr.tydi.</abstract>
+      <abstract>We present Mr. TyDi, a multi-lingual benchmark dataset for mono-lingual retrieval in eleven typologically diverse languages, designed to evaluate ranking with learned dense representations. The goal of this resource is to spur research in dense retrieval techniques in non-English languages, motivated by recent observations that existing techniques for representation learning perform poorly when applied to out-of-distribution data. As a starting point, we provide zero-shot baselines for this new dataset based on a multi-lingual adaptation of DPR that we call “mDPR”. Experiments show that although the effectiveness of mDPR is much lower than BM25, dense representations nevertheless appear to provide valuable relevance signals, improving BM25 results in sparse–dense hybrids. In addition to analyses of our results, we also discuss future challenges and present a research agenda in multi-lingual dense retrieval. Mr. TyDi can be downloaded at <url>https://github.com/castorini/mr.tydi</url>.</abstract>
       <url hash="b65d5771">2021.mrl-1.12</url>
       <bibkey>zhang-etal-2021-mr</bibkey>
       <doi>10.18653/v1/2021.mrl-1.12</doi>
@@ -195,7 +195,7 @@
       <author><first>Clara</first><last>Vania</last></author>
       <author><first>Iacer</first><last>Calixto</last></author>
       <pages>138–152</pages>
-      <abstract>An exciting frontier in natural language understanding (NLU) and generation (NLG) calls for (vision-and-) language models that can efficiently access external structured knowledge repositories. However, many existing knowledge bases only cover limited domains, or suffer from noisy data, and most of all are typically hard to integrate into neural language pipelines. To fill this gap, we release VisualSem: a high-quality knowledge graph (KG) which includes nodes with multilingual glosses, multiple illustrative images, and visually relevant relations. We also release a neural multi-modal retrieval model that can use images or sentences as inputs and retrieves entities in the KG. This multi-modal retrieval model can be integrated into any (neural network) model pipeline. We encourage the research community to use VisualSem for data augmentation and/or as a source of grounding, among other possible uses. VisualSem as well as the multi-modal retrieval models are publicly available and can be downloaded in this URL: https://github.com/iacercalixto/visualsem.</abstract>
+      <abstract>An exciting frontier in natural language understanding (NLU) and generation (NLG) calls for (vision-and-) language models that can efficiently access external structured knowledge repositories. However, many existing knowledge bases only cover limited domains, or suffer from noisy data, and most of all are typically hard to integrate into neural language pipelines. To fill this gap, we release VisualSem: a high-quality knowledge graph (KG) which includes nodes with multilingual glosses, multiple illustrative images, and visually relevant relations. We also release a neural multi-modal retrieval model that can use images or sentences as inputs and retrieves entities in the KG. This multi-modal retrieval model can be integrated into any (neural network) model pipeline. We encourage the research community to use VisualSem for data augmentation and/or as a source of grounding, among other possible uses. VisualSem as well as the multi-modal retrieval models are publicly available and can be downloaded in this URL: <url>https://github.com/iacercalixto/visualsem</url>.</abstract>
       <url hash="231e95c6">2021.mrl-1.13</url>
       <bibkey>alberts-etal-2021-visualsem</bibkey>
       <doi>10.18653/v1/2021.mrl-1.13</doi>
@@ -244,7 +244,6 @@
       <bibkey>prasad-etal-2021-effectiveness</bibkey>
       <doi>10.18653/v1/2021.mrl-1.16</doi>
       <video href="2021.mrl-1.16.mp4"/>
-      <pwcdataset url="https://paperswithcode.com/dataset/squad">SQuAD</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/tweeteval">TweetEval</pwcdataset>
     </paper>
     <paper id="17">
@@ -293,6 +292,7 @@
       <bibkey>kim-etal-2021-analysis</bibkey>
       <doi>10.18653/v1/2021.mrl-1.19</doi>
       <pwccode url="https://github.com/emorynlp/mrl-2021" additional="false">emorynlp/mrl-2021</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/ontonotes-5-0">OntoNotes 5.0</pwcdataset>
     </paper>
     <paper id="20">
       <title>Regularising Fisher Information Improves Cross-lingual Generalisation</title>

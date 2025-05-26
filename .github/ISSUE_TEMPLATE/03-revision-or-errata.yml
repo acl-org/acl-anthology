@@ -1,0 +1,51 @@
+name: Submission of Revision or Erratum
+description: Submit a new PDF with a revision or erratum to a paper.
+title: "Paper Revision: {replace with Anthology ID}"
+labels: ["correction", "revision"]
+assignees:
+  - anthology-assist
+body:
+  - type: input
+    id: anthology_id
+    attributes:
+      label: Anthology ID
+      description: |
+        This is the ID that appears in the URL of the paper; please do _not_ give the bibkey.
+      placeholder: ex. 2020.acl-1.17 or P19-1017
+    validations:
+      required: true
+  - type: dropdown
+    id: revision_or_erratum
+    attributes:
+      label: Type of Change
+      description: |
+        Is this a revision or an erratum?
+        - A **revision** is a versioned replacement of the original scholarly work. This format allows a corrected paper to be read in place of the original scholarly work, and typically does not highlight the original's errors.
+        - An **erratum** clarifies errors made in the original scholarly work. Usually these are just short notes, corrective statements, or changes to equations or other problems in the original, which need to be read alongside the original work.
+      options:
+        - Revision
+        - Erratum
+    validations:
+      required: true
+  - type: textarea
+    id: revision_or_erratum_pdf
+    attributes:
+      label: PDF of the Revision or Erratum
+      description: |
+        Please provide the PDF containing the revision or erratum, either by providing a link or uploading it directly within the textbox below.
+
+        Note that the ACL Anthology **cannot change the content of PDF files.** To file a revision, you need to provide an updated version of the PDF file yourself.
+      placeholder: |
+        (Provide a link or use the "Attach an image or video" button to attach the PDF file directly.)
+    validations:
+      required: true
+  - type: textarea
+    id: description_of_changes
+    attributes:
+      label: Brief Description of Changes
+      description: |
+        Please provide a brief description of the changes.  This description **will be displayed on the paper page**, and should be written in a neutral (third-person) fashion with complete sentences.
+      placeholder: |
+        ex. This revision corrects a typo in Equation 7. It also introduces a new figure, Figure 12, which plots the relationship between our proposed model and the baselines.
+    validations:
+      required: true

@@ -1,0 +1,20 @@
+{{ define "meta" }}
+<meta name="robots" content="noindex, nofollow">
+{{ end }}
+
+{{ define "main" }}
+<main aria-role="main">
+  <h2 id="title">{{ .Title }}</h2>
+  <hr />
+
+  {{ .Content }}
+
+  {{ with .Params.render_pagelist }}
+  <ul>
+    {{ range $.Pages }}
+      {{ .Render "li" }}
+    {{ end }}
+  </ul>
+  {{ end }}
+</main>
+{{ end }}

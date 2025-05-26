@@ -45,7 +45,7 @@
         {{- $len := (len $paper.venues) -}}
         {{- range $index, $venue := $paper.venues -}}
             {{ $acronym := index $.Site.Data.venues $venue "acronym" }}
-          <a href="{{ relref $ (printf "/venues/%s.md" ($venue)) }}">
+          <a href="{{ relref $ (printf "/venues/%s" ($venue)) }}">
             {{- $acronym -}}
           </a>
           {{ if ne (add $index 1) $len }} | {{ end }}
@@ -59,7 +59,7 @@
         {{- $len := (len $paper.sigs) -}}
         {{- range $index, $sig := $paper.sigs -}}
           {{ $slug := index $.Site.Data.sigs $sig "slug" }}
-          <a href="{{ relref $ (printf "/sigs/%s.md" $slug) }}">{{ $sig }}</a>
+          <a href="{{ relref $ (printf "/sigs/%s" $slug) }}">{{ $sig }}</a>
           {{ if ne (add $index 1) $len }} | {{ end }}
         {{- end -}}
       </dd>
@@ -70,7 +70,11 @@
       <dt>URL:</dt>
       <dd><a href="{{ $paper.url }}">{{ $paper.url }}</a></dd>
       <dt>DOI:</dt>
-      <dd>{{ with $paper.doi }}<a href="http://dx.doi.org/{{ . }}" title="To the current version of the paper by DOI">{{ . }}</a>{{ end }}</dd>
+      <dd>{{ with $paper.doi }}<a href="https://doi.org/{{ . }}" title="To the current version of the paper by DOI">{{ . }}</a>{{ end }}</dd>
+      {{ with $paper.isbn }}
+      <dt>ISBN:</dt>
+      <dd>{{ . }}</dd>
+      {{ end }}
       <!--
       <dt>Bibtype:</dt>
       <dd>{{ with $paper.bibtype }}{{ . }}{{ end }}</dd>
@@ -79,15 +83,15 @@
       -->
       <dt class="acl-button-row">Bib Export formats:</dt>
       <dd class="acl-button-row">
-      {{ $bibfile := printf "/volumes/%s.bib" $anthology_id }}
+      {{ $bibfile := printf "volumes/%s.bib" $anthology_id }}
       {{ if (fileExists (printf "/data-export/%s" $bibfile)) }}
         <a class="btn btn-secondary btn-sm" href="{{ $bibfile | relURL }}">BibTeX</a>
       {{ end }}
-      {{ $expfile := printf "/volumes/%s.xml" $anthology_id }}
+      {{ $expfile := printf "volumes/%s.xml" $anthology_id }}
       {{ if (fileExists (printf "/data-export/%s" $expfile)) }}
         <a class="btn btn-secondary btn-sm" href="{{ $expfile | relURL }}">MODS XML</a>
       {{ end }}
-      {{ $endfile := printf "/volumes/%s.endf" $anthology_id }}
+      {{ $endfile := printf "volumes/%s.endf" $anthology_id }}
       {{ if (fileExists (printf "/data-export/%s" $endfile)) }}
         <a class="btn btn-secondary btn-sm" href="{{ $endfile | relURL }}">EndNote</a>
       {{ end }}
@@ -125,7 +129,7 @@
 
   <div>
     {{ range $paper.papers }}
-      {{ $page := printf "/papers/%s/%s.md" (index (split . "-") 0) . }}
+      {{ $page := printf "/papers/%s" . }}
       {{ ($.Site.GetPage $page).Render "list-entry" }}
     {{ end }}
   </div>

@@ -2,7 +2,7 @@
 {{ with .Get 2 }}
 <a href="{{ . }}">
 {{ end }}
-<img src="{{ printf "/images/sponsors/%s" (.Get 1) | relURL }}" title="{{ .Get 0 }}" style="max-height: 100px;" />
+<img src="{{ printf "images/sponsors/%s" (.Get 1) | relURL }}" title="{{ .Get 0 }}" style="max-height: 100px;" />
 {{ with .Get 2 }}
 </a>
 {{ end }}

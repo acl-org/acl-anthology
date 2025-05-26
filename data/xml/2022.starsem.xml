@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <collection id="2022.starsem">
-  <volume id="1" ingest-date="2022-06-29">
+  <volume id="1" ingest-date="2022-06-29" type="proceedings">
     <meta>
       <booktitle>Proceedings of the 11th Joint Conference on Lexical and Computational Semantics</booktitle>
       <editor><first>Vivi</first><last>Nastase</last></editor>
@@ -39,6 +39,7 @@
       <url hash="d1d5b217">2022.starsem-1.2</url>
       <bibkey>betz-richardson-2022-deepa2</bibkey>
       <doi>10.18653/v1/2022.starsem-1.2</doi>
+      <pwccode url="https://github.com/vamsi995/paraphrase-generator" additional="false">vamsi995/paraphrase-generator</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/aaac">AAAC</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/entailmentbank">EntailmentBank</pwcdataset>
     </paper>
@@ -80,7 +81,6 @@
       <bibkey>ryb-etal-2022-analog</bibkey>
       <doi>10.18653/v1/2022.starsem-1.5</doi>
       <pwcdataset url="https://paperswithcode.com/dataset/glue">GLUE</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/superglue">SuperGLUE</pwcdataset>
     </paper>
     <paper id="6">
       <title>Pairwise Representation Learning for Event Coreference</title>
@@ -131,11 +131,10 @@
       <author><first>Reut</first><last>Tsarfaty</last></author>
       <author><first>Dafna</first><last>Shahaf</last></author>
       <pages>101-122</pages>
-      <abstract>While neural language models often perform surprisingly well on natural language understanding (NLU) tasks, their strengths and limitations remain poorly understood. Controlled synthetic tasks are thus an increasingly important resource for diagnosing model behavior. In this work we focus on story understanding, a core competency for NLU systems. However, the main synthetic resource for story understanding, the bAbI benchmark, lacks such a systematic mechanism for controllable task generation. We develop Dyna-bAbI, a dynamic framework providing fine-grained control over task generation in bAbI. We demonstrate our ideas by constructing three new tasks requiring compositional generalization, an important evaluation setting absent from the original benchmark. We tested both special-purpose models developed for bAbI as well as state-of-the-art pre-trained methods, and found that while both approaches solve the original tasks (99{% accuracy), neither approach succeeded in the compositional generalization setting, indicating the limitations of the original training data.We explored ways to augment the original data, and found that though diversifying training data was far more useful than simply increasing dataset size, it was still insufficient for driving robust compositional generalization (with 70{% accuracy for complex compositions). Our results underscore the importance of highly controllable task generators for creating robust NLU systems through a virtuous cycle of model and data development.</abstract>
       <url hash="593e8583">2022.starsem-1.9</url>
       <bibkey>tamari-etal-2022-dyna</bibkey>
       <doi>10.18653/v1/2022.starsem-1.9</doi>
-      <pwcdataset url="https://paperswithcode.com/dataset/squad">SQuAD</pwcdataset>
+      <abstract>While neural language models often perform surprisingly well on natural language understanding (NLU) tasks, their strengths and limitations remain poorly understood. Controlled synthetic tasks are thus an increasingly important resource for diagnosing model behavior. In this work we focus on story understanding, a core competency for NLU systems. However, the main synthetic resource for story understanding, the bAbI benchmark, lacks such a systematic mechanism for controllable task generation. We develop Dyna-bAbI, a dynamic framework providing fine-grained control over task generation in bAbI. We demonstrate our ideas by constructing three new tasks requiring compositional generalization, an important evaluation setting absent from the original benchmark. We tested both special-purpose models developed for bAbI as well as state-of-the-art pre-trained methods, and found that while both approaches solve the original tasks (99% accuracy), neither approach succeeded in the compositional generalization setting, indicating the limitations of the original training data. We explored ways to augment the original data, and found that though diversifying training data was far more useful than simply increasing dataset size, it was still insufficient for driving robust compositional generalization (with 70% accuracy for complex compositions). Our results underscore the importance of highly controllable task generators for creating robust NLU systems through a virtuous cycle of model and data development.</abstract>
     </paper>
     <paper id="10">
       <title>When Polysemy Matters: Modeling Semantic Categorization with Word Embeddings</title>
@@ -163,10 +162,11 @@
       <author><first>Ryohei</first><last>Sasano</last></author>
       <author><first>Koichi</first><last>Takeda</last></author>
       <pages>139-150</pages>
-      <abstract>There have been many successful applications of sentence embedding methods.However, it has not been well understood what properties are captured in the resulting sentence embeddings depending on the supervision signals.In this paper, we focus on two types of sentence embedding methods with similar architectures and tasks: one fine-tunes pre-trained language models on the natural language inference task, and the other fine-tunes pre-trained language models on word prediction task from its definition sentence, and investigate their properties.Specifically, we compare their performances on semantic textual similarity (STS) tasks using STS datasets partitioned from two perspectives: 1) sentence source and 2) superficial similarity of the sentence pairs, and compare their performances on the downstream and probing tasks.Furthermore, we attempt to combine the two methods and demonstrate that combining the two methods yields substantially better performance than the respective methods on unsupervised STS tasks and downstream tasks.</abstract>
+      <abstract>There have been many successful applications of sentence embedding methods. However, it has not been well understood what properties are captured in the resulting sentence embeddings depending on the supervision signals. In this paper, we focus on two types of sentence embedding methods with similar architectures and tasks: one fine-tunes pre-trained language models on the natural language inference task, and the other fine-tunes pre-trained language models on word prediction task from its definition sentence, and investigate their properties. Specifically, we compare their performances on semantic textual similarity (STS) tasks using STS datasets partitioned from two perspectives: 1) sentence source and 2) superficial similarity of the sentence pairs, and compare their performances on the downstream and probing tasks. Furthermore, we attempt to combine the two methods and demonstrate that combining the two methods yields substantially better performance than the respective methods on unsupervised STS tasks and downstream tasks.</abstract>
       <url hash="4db1d28f">2022.starsem-1.12</url>
       <bibkey>tsukagoshi-etal-2022-comparison</bibkey>
       <doi>10.18653/v1/2022.starsem-1.12</doi>
+      <pwcdataset url="https://paperswithcode.com/dataset/sick">SICK</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/senteval">SentEval</pwcdataset>
     </paper>
     <paper id="13">
@@ -185,7 +185,7 @@
       <author><first>Juri</first><last>Opitz</last></author>
       <author><first>Anette</first><last>Frank</last></author>
       <pages>157-172</pages>
-      <abstract>Evaluating the quality of generated text is difficult, since traditional NLG evaluation metrics, focusing more on surface form than meaning, often fail to assign appropriate scores.This is especially problematic for AMR-to-text evaluation, given the abstract nature of AMR.Our work aims to support the development and improvement of NLG evaluation metrics that focus on meaning by developing a dynamic CheckList for NLG metrics that is interpreted by being organized around meaning-relevant linguistic phenomena. Each test instance consists of a pair of sentences with their AMR graphs and a human-produced textual semantic similarity or relatedness score. Our CheckList facilitates comparative evaluation of metrics and reveals strengths and weaknesses of novel and traditional metrics. We demonstrate the usefulness of CheckList by designing a new metric GraCo that computes lexical cohesion graphs over AMR concepts. Our analysis suggests that GraCo presents an interesting NLG metric worth future investigation and that meaning-oriented NLG metrics can profit from graph-based metric components using AMR.</abstract>
+      <abstract>Evaluating the quality of generated text is difficult, since traditional NLG evaluation metrics, focusing more on surface form than meaning, often fail to assign appropriate scores. This is especially problematic for AMR-to-text evaluation, given the abstract nature of AMR.Our work aims to support the development and improvement of NLG evaluation metrics that focus on meaning by developing a dynamic CheckList for NLG metrics that is interpreted by being organized around meaning-relevant linguistic phenomena. Each test instance consists of a pair of sentences with their AMR graphs and a human-produced textual semantic similarity or relatedness score. Our CheckList facilitates comparative evaluation of metrics and reveals strengths and weaknesses of novel and traditional metrics. We demonstrate the usefulness of CheckList by designing a new metric GraCo that computes lexical cohesion graphs over AMR concepts. Our analysis suggests that GraCo presents an interesting NLG metric worth future investigation and that meaning-oriented NLG metrics can profit from graph-based metric components using AMR.</abstract>
       <url hash="f18a2f67">2022.starsem-1.14</url>
       <bibkey>zeidler-etal-2022-dynamic</bibkey>
       <doi>10.18653/v1/2022.starsem-1.14</doi>
@@ -244,10 +244,10 @@
       <author><first>Minxing</first><last>Shen</last></author>
       <author><first>Kilian</first><last>Evang</last></author>
       <pages>213-225</pages>
-      <abstract>We present the first fully trainable semantic parser for English, German, Italian, and Dutch discourse representation structures (DRSs) that is competitive in accuracy with recent sequence-to-sequence models and at the same time {emph{compositional} in the sense that the output maps each token to one of a finite set of meaning {emph{fragments}, and the meaning of the utterance is a function of the meanings of its parts. We argue that this property makes the system more transparent and more useful for human-in-the-loop annotation. We achieve this simply by casting DRS parsing as a sequence labeling task, where tokens are labeled with both fragments (lists of abstracted clauses with relative referent indices indicating unification) and {emph{symbols} like word senses or names. We give a comprehensive error analysis that highlights areas for future work.</abstract>
       <url hash="1d3e8ac1">2022.starsem-1.19</url>
       <bibkey>shen-evang-2022-drs</bibkey>
       <doi>10.18653/v1/2022.starsem-1.19</doi>
+      <abstract>We present the first fully trainable semantic parser for English, German, Italian, and Dutch discourse representation structures (DRSs) that is competitive in accuracy with recent sequence-to-sequence models and at the same time <i>compositional</i> in the sense that the output maps each token to one of a finite set of meaning <i>fragments</i>, and the meaning of the utterance is a function of the meanings of its parts. We argue that this property makes the system more transparent and more useful for human-in-the-loop annotation. We achieve this simply by casting DRS parsing as a sequence labeling task, where tokens are labeled with both fragments (lists of abstracted clauses with relative referent indices indicating unification) and <i>symbols</i> like word senses or names. We give a comprehensive error analysis that highlights areas for future work.</abstract>
     </paper>
     <paper id="20">
       <title>How Does Data Corruption Affect Natural Language Understanding Models? A Study on <fixed-case>GLUE</fixed-case> datasets</title>
@@ -267,7 +267,7 @@
       <pwcdataset url="https://paperswithcode.com/dataset/multinli">MultiNLI</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/qnli">QNLI</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/sst">SST</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/superglue">SuperGLUE</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/sst-2">SST-2</pwcdataset>
     </paper>
     <paper id="21">
       <title>Leveraging Three Types of Embeddings from Masked Language Models in Idiom Token Classification</title>
@@ -293,7 +293,6 @@
       <pwccode url="https://github.com/educationaltestingservice/inquisitive-questions" additional="false">educationaltestingservice/inquisitive-questions</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/inquisitive">INQUISITIVE</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/penn-treebank">Penn Treebank</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/squad">SQuAD</pwcdataset>
     </paper>
     <paper id="23">
       <title>Pretraining on Interactions for Learning Grounded Affordance Representations</title>
@@ -326,6 +325,7 @@
       <pwcdataset url="https://paperswithcode.com/dataset/english-web-treebank">English Web Treebank</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/framenet">FrameNet</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/nombank">NomBank</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/ontonotes-5-0">OntoNotes 5.0</pwcdataset>
     </paper>
     <paper id="25">
       <title>Speech acts and Communicative Intentions for Urgency Detection</title>

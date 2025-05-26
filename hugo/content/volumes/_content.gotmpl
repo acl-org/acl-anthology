@@ -1,0 +1,10 @@
+{{ range $anthology_id, $volume := .Site.Data.volumes }}
+   {{ $page := dict
+      "kind" "page"
+      "path" $anthology_id
+      "slug" $anthology_id
+      "params" (dict "anthology_id" $anthology_id)
+      "title" $volume.title
+   }}
+   {{ $.AddPage $page }}
+{{ end }}

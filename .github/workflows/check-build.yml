@@ -1,7 +1,9 @@
 name: check-build
 
 on:
-  pull_request
+  pull_request:
+    branches:
+      - master
 
 # only run one at a time per branch
 concurrency:
@@ -10,14 +12,15 @@ concurrency:
 
 jobs:
   check-build:
-    runs-on: ubuntu-22.04
+    runs-on:
+      labels: ubuntu-latest-m
     steps:
     - name: install hugo
-      run: wget https://github.com/gohugoio/hugo/releases/download/v0.108.0/hugo_extended_0.108.0_linux-amd64.deb && sudo dpkg -i hugo_extended*.deb
+      run: wget https://github.com/gohugoio/hugo/releases/download/v0.140.2/hugo_extended_0.140.2_linux-amd64.deb && sudo dpkg -i hugo_extended*.deb
     - name: update
       run: sudo apt-get update
     - name: install other deps
       run: sudo apt-get install -y jing bibutils openssh-client rsync libyaml-dev libpython3-dev
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v3
     - name: build
       run: make check site

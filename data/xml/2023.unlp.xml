@@ -1,0 +1,208 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2023.unlp">
+  <volume id="1" ingest-date="2023-04-29" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of the Second Ukrainian Natural Language Processing Workshop (UNLP)</booktitle>
+      <editor><first>Mariana</first><last>Romanyshyn</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Dubrovnik, Croatia</address>
+      <month>May</month>
+      <year>2023</year>
+      <url hash="4011460c">2023.unlp-1</url>
+      <venue>unlp</venue>
+    </meta>
+    <frontmatter>
+      <url hash="21cf972f">2023.unlp-1.0</url>
+      <bibkey>unlp-2023-ukrainian</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Introducing <fixed-case>U</fixed-case>ber<fixed-case>T</fixed-case>ext 2.0: A Corpus of <fixed-case>M</fixed-case>odern <fixed-case>U</fixed-case>krainian at Scale</title>
+      <author><first>Dmytro</first><last>Chaplynskyi</last><affiliation>Lang-uk Initiative</affiliation></author>
+      <pages>1-10</pages>
+      <abstract>This paper addresses the need for massive corpora for a low-resource language and presents the publicly available UberText 2.0 corpus for the Ukrainian language and discusses the methodology of its construction. While the collection and maintenance of such a corpus is more of a data extraction and data engineering task, the corpus itself provides a solid foundation for natural language processing tasks. It can enable the creation of contemporary language models and word embeddings, resulting in a better performance of numerous downstream tasks for the Ukrainian language. In addition, the paper and software developed can be used as a guidance and model solution for other low-resource languages. The resulting corpus is available for download on the project page. It has 3.274 billion tokens, consists of 8.59 million texts and takes up 32 gigabytes of space.</abstract>
+      <url hash="07adbca5">2023.unlp-1.1</url>
+      <bibkey>chaplynskyi-2023-introducing</bibkey>
+      <video href="2023.unlp-1.1.mp4"/>
+      <doi>10.18653/v1/2023.unlp-1.1</doi>
+    </paper>
+    <paper id="2">
+      <title>Contextual Embeddings for <fixed-case>U</fixed-case>krainian: A Large Language Model Approach to Word Sense Disambiguation</title>
+      <author><first>Yurii</first><last>Laba</last><affiliation>Ukrainian Catholic University</affiliation></author>
+      <author><first>Volodymyr</first><last>Mudryi</last><affiliation>Independent ML researcher</affiliation></author>
+      <author><first>Dmytro</first><last>Chaplynskyi</last><affiliation>Lang-uk Initiative</affiliation></author>
+      <author><first>Mariana</first><last>Romanyshyn</last><affiliation>Grammarly</affiliation></author>
+      <author><first>Oles</first><last>Dobosevych</last><affiliation>Ukrainian Catholic University</affiliation></author>
+      <pages>11-19</pages>
+      <abstract>This research proposes a novel approach to the Word Sense Disambiguation (WSD) task in the Ukrainian language based on supervised fine-tuning of a pre-trained Large Language Model (LLM) on the dataset generated in an unsupervised way to obtain better contextual embeddings for words with multiple senses. The paper presents a method for generating a new dataset for WSD evaluation in the Ukrainian language based on the SUM dictionary. We developed a comprehensive framework that facilitates the generation of WSD evaluation datasets, enables the use of different prediction strategies, LLMs, and pooling strategies, and generates multiple performance reports. Our approach shows 77,9% accuracy for lexical meaning prediction for homonyms.</abstract>
+      <url hash="c0690565">2023.unlp-1.2</url>
+      <bibkey>laba-etal-2023-contextual</bibkey>
+      <video href="2023.unlp-1.2.mp4"/>
+      <doi>10.18653/v1/2023.unlp-1.2</doi>
+    </paper>
+    <paper id="3">
+      <title>Learning Word Embeddings for <fixed-case>U</fixed-case>krainian: A Comparative Study of <fixed-case>F</fixed-case>ast<fixed-case>T</fixed-case>ext Hyperparameters</title>
+      <author><first>Nataliia</first><last>Romanyshyn</last><affiliation>Ukrainian Catholic University</affiliation></author>
+      <author><first>Dmytro</first><last>Chaplynskyi</last><affiliation>Lang-uk Initiative</affiliation></author>
+      <author><first>Kyrylo</first><last>Zakharov</last><affiliation>Court on the Palm</affiliation></author>
+      <pages>20-31</pages>
+      <abstract>This study addresses the challenges of learning unsupervised word representations for the morphologically rich and low-resource Ukrainian language. Traditional models that perform decently on English do not generalize well for such languages due to a lack of sufficient data and the complexity of their grammatical structures. To overcome these challenges, we utilized a high-quality, large dataset of different genres for learning Ukrainian word vector representations. We found the best hyperparameters to train fastText language models on this dataset and performed intrinsic and extrinsic evaluations of the generated word embeddings using the established methods and metrics. The results of this study indicate that the trained vectors exhibit superior performance on intrinsic tests in comparison to existing embeddings for Ukrainian. Our best model gives 62% Accuracy on the word analogy task. Extrinsic evaluations were performed on two sequence labeling tasks: NER and POS tagging (83% spaCy NER F-score, 83% spaCy POS Accuracy, 92% Flair POS Accuracy).</abstract>
+      <url hash="b9461f06">2023.unlp-1.3</url>
+      <bibkey>romanyshyn-etal-2023-learning</bibkey>
+      <video href="2023.unlp-1.3.mp4"/>
+      <doi>10.18653/v1/2023.unlp-1.3</doi>
+    </paper>
+    <paper id="4">
+      <title><fixed-case>GPT</fixed-case>-2 Metadata Pretraining Towards Instruction Finetuning for <fixed-case>U</fixed-case>krainian</title>
+      <author><first>Volodymyr</first><last>Kyrylov</last><affiliation>Universitá della Svizzera italiana</affiliation></author>
+      <author><first>Dmytro</first><last>Chaplynskyi</last><affiliation>Lang-uk Initiative</affiliation></author>
+      <pages>32-39</pages>
+      <abstract>We explore pretraining unidirectional language models on 4B tokens from the largest curated corpus of Ukrainian, UberText 2.0. We enrich document text by surrounding it with weakly structured metadata, such as title, tags, and publication year, enabling metadata-conditioned text generation and text-conditioned metadata prediction at the same time. We pretrain GPT-2 Small, Medium and Large models each on single GPU, reporting training times, BPC on BrUK and BERTScore on titles for 1000 News from the Future. Next, we venture to formatting POS and NER datasets as instructions, and train low-rank attention adapters, performing these tasks as constrained text generation. We release our models for the community at <url>https://github.com/proger/uk4b</url>.</abstract>
+      <url hash="90aa1675">2023.unlp-1.4</url>
+      <bibkey>kyrylov-chaplynskyi-2023-gpt</bibkey>
+      <video href="2023.unlp-1.4.mp4"/>
+      <doi>10.18653/v1/2023.unlp-1.4</doi>
+    </paper>
+    <paper id="5">
+      <title>The Evolution of Pro-Kremlin Propaganda From a Machine Learning and Linguistics Perspective</title>
+      <author><first>Veronika</first><last>Solopova</last><affiliation>Freie University of Berlin</affiliation></author>
+      <author><first>Christoph</first><last>Benzmüller</last><affiliation>FU Berlin</affiliation></author>
+      <author><first>Tim</first><last>Landgraf</last><affiliation>Freie Universität Berlin</affiliation></author>
+      <pages>40-48</pages>
+      <abstract>In the Russo-Ukrainian war, propaganda is produced by Russian state-run news outlets for both international and domestic audiences. Its content and form evolve and change with time as the war continues. This constitutes a challenge to content moderation tools based on machine learning when the data used for training and the current news start to differ significantly. In this follow-up study, we evaluate our previous BERT and SVM models that classify Pro-Kremlin propaganda from a Pro-Western stance, trained on the data from news articles and telegram posts at the start of 2022, on the new 2023 subset. We examine both classifiers’ errors and perform a comparative analysis of these subsets to investigate which changes in narratives provoke drops in performance.</abstract>
+      <url hash="5e0b151d">2023.unlp-1.5</url>
+      <bibkey>solopova-etal-2023-evolution</bibkey>
+      <video href="2023.unlp-1.5.mp4"/>
+      <doi>10.18653/v1/2023.unlp-1.5</doi>
+    </paper>
+    <paper id="6">
+      <title>Abstractive Summarization for the <fixed-case>U</fixed-case>krainian Language: Multi-Task Learning with Hromadske.ua News Dataset</title>
+      <author><first>Svitlana</first><last>Galeshchuk</last><affiliation>PSL/Paris Dauphine, West Ukrainian National University, BNP Paribas</affiliation></author>
+      <pages>49-53</pages>
+      <abstract>Despite recent NLP developments, abstractive summarization remains a challenging task, especially in the case of low-resource languages like Ukrainian. The paper aims at improving the quality of summaries produced by mT5 for news in Ukrainian by fine-tuning the model with a mixture of summarization and text similarity tasks using summary-article and title-article training pairs, respectively. The proposed training set-up with small, base, and large mT5 models produce higher quality résumé. Besides, we present a new Ukrainian dataset for the abstractive summarization task that consists of circa 36.5K articles collected from Hromadske.ua until June 2021.</abstract>
+      <url hash="ec8a15da">2023.unlp-1.6</url>
+      <bibkey>galeshchuk-2023-abstractive</bibkey>
+      <video href="2023.unlp-1.6.mp4"/>
+      <doi>10.18653/v1/2023.unlp-1.6</doi>
+    </paper>
+    <paper id="7">
+      <title>Extension <fixed-case>M</fixed-case>ulti30<fixed-case>K</fixed-case>: Multimodal Dataset for Integrated Vision and Language Research in <fixed-case>U</fixed-case>krainian</title>
+      <author><first>Nataliia</first><last>Saichyshyna</last><affiliation>Kharkiv National University of Radio Electronics</affiliation></author>
+      <author><first>Daniil</first><last>Maksymenko</last><affiliation>Kharkiv National University of Radio Electronics</affiliation></author>
+      <author><first>Oleksii</first><last>Turuta</last><affiliation>Kharkiv National University of Radio Electronics</affiliation></author>
+      <author><first>Andriy</first><last>Yerokhin</last><affiliation>Kharkiv National University of Radio Electronics</affiliation></author>
+      <author><first>Andrii</first><last>Babii</last><affiliation>Kharkiv National University of Radio Electronics</affiliation></author>
+      <author><first>Olena</first><last>Turuta</last><affiliation>Kharkiv National University of Radio Electronics</affiliation></author>
+      <pages>54-61</pages>
+      <abstract>We share the results of the project within the well-known Multi30k dataset dedicated to improving machine translation of text from English into Ukrainian. The main task was to manually prepare the dataset and improve the translation of texts. The importance of collecting such datasets for low-resource languages for improving the quality of machine translation has been discussed. We also studied the features of translations of words and sentences with ambiguous meanings. The collection of multimodal datasets is essential for natural language processing tasks because it allows the development of more complex and comprehensive machine learning models that can understand and analyze different types of data. These models can learn from a variety of data types, including images, text, and audio, for more accurate and meaningful results.</abstract>
+      <url hash="78ab9402">2023.unlp-1.7</url>
+      <bibkey>saichyshyna-etal-2023-extension</bibkey>
+      <video href="2023.unlp-1.7.mp4"/>
+      <doi>10.18653/v1/2023.unlp-1.7</doi>
+    </paper>
+    <paper id="8">
+      <title>Silver Data for Coreference Resolution in <fixed-case>U</fixed-case>krainian: Translation, Alignment, and Projection</title>
+      <author><first>Pavlo</first><last>Kuchmiichuk</last><affiliation>University of Rochester</affiliation></author>
+      <pages>62-72</pages>
+      <abstract>Low-resource languages continue to present challenges for current NLP methods, and multilingual NLP is gaining attention in the research community. One of the main issues is the lack of sufficient high-quality annotated data for low-resource languages. In this paper, we show how labeled data for high-resource languages such as English can be used in low-resource NLP. We present two silver datasets for coreference resolution in Ukrainian, adapted from existing English data by manual translation and machine translation in combination with automatic alignment and annotation projection. The code is made publicly available.</abstract>
+      <url hash="595ac67f">2023.unlp-1.8</url>
+      <bibkey>kuchmiichuk-2023-silver</bibkey>
+      <video href="2023.unlp-1.8.mp4"/>
+      <doi>10.18653/v1/2023.unlp-1.8</doi>
+    </paper>
+    <paper id="9">
+      <title>Exploring Word Sense Distribution in <fixed-case>U</fixed-case>krainian with a Semantic Vector Space Model</title>
+      <author><first>Nataliia</first><last>Cheilytko</last><affiliation>Friedrich Schiller University Jena</affiliation></author>
+      <author><first>Ruprecht</first><last>von Waldenfels</last><affiliation>Friedrich Schiller University Jena</affiliation></author>
+      <pages>73-78</pages>
+      <abstract>The paper discusses a Semantic Vector Space Model targeted at revealing how Ukrainian word senses vary and relate to each other. One of the benefits of the proposed semantic model is that it considers second-order context of the words and, thus, has more potential to compare and distinguish word senses observed in a unique concordance line. Combined with visualization techniques, this model makes it possible for a lexicographer to explore the Ukrainian word senses distribution on a large-scale. The paper describes the first results of the research performed and the following steps of the initiative.</abstract>
+      <url hash="9836dffe">2023.unlp-1.9</url>
+      <bibkey>cheilytko-von-waldenfels-2023-exploring</bibkey>
+      <video href="2023.unlp-1.9.mp4"/>
+      <doi>10.18653/v1/2023.unlp-1.9</doi>
+    </paper>
+    <paper id="10">
+      <title>The Parliamentary Code-Switching Corpus: Bilingualism in the <fixed-case>U</fixed-case>krainian Parliament in the 1990s-2020s</title>
+      <author><first>Olha</first><last>Kanishcheva</last><affiliation>University of Jena</affiliation></author>
+      <author><first>Tetiana</first><last>Kovalova</last><affiliation>V.N. Karazin Kharkiv National University</affiliation></author>
+      <author><first>Maria</first><last>Shvedova</last><affiliation>Lviv Polytechnic National University; University of Jena</affiliation></author>
+      <author><first>Ruprecht</first><last>von Waldenfels</last><affiliation>University of Jena</affiliation></author>
+      <pages>79-90</pages>
+      <abstract>We describe a Ukrainian-Russian code-switching corpus of Ukrainian Parliamentary Session Transcripts. The corpus includes speeches entirely in Ukrainian, Russian, or various types of mixed speech and allows us to see how speakers switch between these languages depending on the communicative situation. The paper describes the process of creating this corpus from the official multilingual transcripts using automatic language detecting and publicly available metadata on the speakers. On this basis, we consider possible reasons for the change in the number of Ukrainian speakers in the parliament and present the most common patterns of bilingual Ukrainian and Russian code-switching in parliamentarians’ speeches.</abstract>
+      <url hash="8cdc7487">2023.unlp-1.10</url>
+      <bibkey>kanishcheva-etal-2023-parliamentary</bibkey>
+      <video href="2023.unlp-1.10.mp4"/>
+      <doi>10.18653/v1/2023.unlp-1.10</doi>
+    </paper>
+    <paper id="11">
+      <title>Creating a <fixed-case>POS</fixed-case> Gold Standard Corpus of <fixed-case>M</fixed-case>odern <fixed-case>U</fixed-case>krainian</title>
+      <author><first>Vasyl</first><last>Starko</last><affiliation>Ukrainian Catholic University</affiliation></author>
+      <author><first>Andriy</first><last>Rysin</last><affiliation>Independent researcher</affiliation></author>
+      <pages>91-95</pages>
+      <abstract>This paper presents an ongoing project to create the Ukrainian Brown Corpus (BRUK), a disambiguated corpus of Modern Ukrainian. Inspired by and loosely based on the original Brown University corpus, BRUK contains one million words, spans 11 years (2010–2020), and represents edited written Ukrainian. Using stratified random sampling, we have selected fragments of texts from multiple sources to ensure maximum variety, fill nine predefined categories, and produce a balanced corpus. BRUK has been automatically POS-tagged with the help of our tools (a large morphological dictionary of Ukrainian and a tagger). A manually disambiguated and validated subset of BRUK (450,000 words) has been made available online. This gold standard, the biggest of its kind for Ukrainian, fills a critical need in the NLP ecosystem for this language. The ultimate goal is to produce a fully disambiguated one-million corpus of Modern Ukrainian.</abstract>
+      <url hash="c6bf77ed">2023.unlp-1.11</url>
+      <bibkey>starko-rysin-2023-creating</bibkey>
+      <video href="2023.unlp-1.11.mp4"/>
+      <doi>10.18653/v1/2023.unlp-1.11</doi>
+    </paper>
+    <paper id="12">
+      <title><fixed-case>UA</fixed-case>-<fixed-case>GEC</fixed-case>: Grammatical Error Correction and Fluency Corpus for the <fixed-case>U</fixed-case>krainian Language</title>
+      <author><first>Oleksiy</first><last>Syvokon</last><affiliation>Microsoft</affiliation></author>
+      <author><first>Olena</first><last>Nahorna</last><affiliation>Grammarly</affiliation></author>
+      <author><first>Pavlo</first><last>Kuchmiichuk</last><affiliation>-</affiliation></author>
+      <author><first>Nastasiia</first><last>Osidach</last><affiliation>Grammarly</affiliation></author>
+      <pages>96-102</pages>
+      <abstract>We present a corpus professionally annotated for grammatical error correction (GEC) and fluency edits in the Ukrainian language. We have built two versions of the corpus – GEC+Fluency and GEC-only – to differentiate the corpus application. To the best of our knowledge, this is the first GEC corpus for the Ukrainian language. We collected texts with errors (33,735 sentences) from a diverse pool of contributors, including both native and non-native speakers. The data cover a wide variety of writing domains, from text chats and essays to formal writing. Professional proofreaders corrected and annotated the corpus for errors relating to fluency, grammar, punctuation, and spelling. This corpus can be used for developing and evaluating GEC systems in Ukrainian. More generally, it can be used for researching multilingual and low-resource NLP, morphologically rich languages, document-level GEC, and fluency correction. The corpus is publicly available at <url>https://github.com/grammarly/ua-gec</url></abstract>
+      <url hash="02360acc">2023.unlp-1.12</url>
+      <bibkey>syvokon-etal-2023-ua</bibkey>
+      <video href="2023.unlp-1.12.mp4"/>
+      <doi>10.18653/v1/2023.unlp-1.12</doi>
+    </paper>
+    <paper id="13">
+      <title>Comparative Study of Models Trained on Synthetic Data for <fixed-case>U</fixed-case>krainian Grammatical Error Correction</title>
+      <author><first>Maksym</first><last>Bondarenko</last><affiliation>Pravopysnyk</affiliation></author>
+      <author><first>Artem</first><last>Yushko</last><affiliation>Pravopysnyk</affiliation></author>
+      <author><first>Andrii</first><last>Shportko</last><affiliation>Pravopysnyk</affiliation></author>
+      <author><first>Andrii</first><last>Fedorych</last><affiliation>Pravopysnyk</affiliation></author>
+      <pages>103-113</pages>
+      <abstract>The task of Grammatical Error Correction (GEC) has been extensively studied for the English language. However, its application to low-resource languages, such as Ukrainian, remains an open challenge. In this paper, we develop sequence tagging and neural machine translation models for the Ukrainian language as well as a set of algorithmic correction rules to augment those systems. We also develop synthetic data generation techniques for the Ukrainian language to create high-quality human-like errors. Finally, we determine the best combination of synthetically generated data to augment the existing UA-GEC corpus and achieve the state-of-the-art results of 0.663 F0.5 score on the newly established UA-GEC benchmark. The code and trained models will be made publicly available on GitHub and HuggingFace.</abstract>
+      <url hash="20d06cc2">2023.unlp-1.13</url>
+      <bibkey>bondarenko-etal-2023-comparative</bibkey>
+      <video href="2023.unlp-1.13.mp4"/>
+      <doi>10.18653/v1/2023.unlp-1.13</doi>
+    </paper>
+    <paper id="14">
+      <title>A Low-Resource Approach to the Grammatical Error Correction of <fixed-case>U</fixed-case>krainian</title>
+      <author><first>Frank</first><last>Palma Gomez</last><affiliation>Queens College, CUNY</affiliation></author>
+      <author><first>Alla</first><last>Rozovskaya</last><affiliation>Queens College, City University of New York</affiliation></author>
+      <author><first>Dan</first><last>Roth</last><affiliation>University of Pennsylvania</affiliation></author>
+      <pages>114-120</pages>
+      <abstract>We present our system that participated in the shared task on the grammatical error correction of Ukrainian. We have implemented two approaches that make use of large pre-trained language models and synthetic data, that have been used for error correction of English as well as low-resource languages. The first approach is based on fine-tuning a large multilingual language model (mT5) in two stages: first, on synthetic data, and then on gold data. The second approach trains a (smaller) seq2seq Transformer model pre-trained on synthetic data and fine-tuned on gold data. Our mT5-based model scored first in “GEC only” track, and a very close second in the “GEC+Fluency” track. Our two key innovations are (1) finetuning in stages, first on synthetic, and then on gold data; and (2) a high-quality corruption method based on roundtrip machine translation to complement existing noisification approaches.</abstract>
+      <url hash="12b4cac5">2023.unlp-1.14</url>
+      <bibkey>gomez-etal-2023-low</bibkey>
+      <video href="2023.unlp-1.14.mp4"/>
+      <doi>10.18653/v1/2023.unlp-1.14</doi>
+    </paper>
+    <paper id="15">
+      <title><fixed-case>R</fixed-case>ed<fixed-case>P</fixed-case>en<fixed-case>N</fixed-case>et for Grammatical Error Correction: Outputs to Tokens, Attentions to Spans</title>
+      <author><first>Bohdan</first><last>Didenko</last><affiliation>WebSpellChecker LLC</affiliation></author>
+      <author><first>Andrii</first><last>Sameliuk</last><affiliation>WebSpellChecker LLC</affiliation></author>
+      <pages>121-131</pages>
+      <abstract>The text editing tasks, including sentence fusion, sentence splitting and rephrasing, text simplification, and Grammatical Error Correction (GEC), share a common trait of dealing with highly similar input and output sequences. This area of research lies at the intersection of two well-established fields: (i) fully autoregressive sequence-to-sequence approaches commonly used in tasks like Neural Machine Translation (NMT) and (ii) sequence tagging techniques commonly used to address tasks such as Part-of-speech tagging, Named-entity recognition (NER), and similar. In the pursuit of a balanced architecture, researchers have come up with numerous imaginative and unconventional solutions, which we’re discussing in the Related Works section. Our approach to addressing text editing tasks is called RedPenNet and is aimed at reducing architectural and parametric redundancies presented in specific Sequence-To-Edits models, preserving their semi-autoregressive advantages. Our models achieve F0.5 scores of 77.60 on the BEA-2019 (test), which can be considered as state-of-the-art the only exception for system combination (Qorib et al., 2022) and 67.71 on the UAGEC+Fluency (test) benchmarks. This research is being conducted in the context of the UNLP 2023 workshop, where it will be presented as a paper for the Shared Task in Grammatical Error Correction (GEC) for Ukrainian. This study aims to apply the RedPenNet approach to address the GEC problem in the Ukrainian language.</abstract>
+      <url hash="bef27476">2023.unlp-1.15</url>
+      <bibkey>didenko-sameliuk-2023-redpennet</bibkey>
+      <video href="2023.unlp-1.15.mp4"/>
+      <doi>10.18653/v1/2023.unlp-1.15</doi>
+    </paper>
+    <paper id="16">
+      <title>The <fixed-case>UNLP</fixed-case> 2023 Shared Task on Grammatical Error Correction for <fixed-case>U</fixed-case>krainian</title>
+      <author><first>Oleksiy</first><last>Syvokon</last><affiliation>Microsoft</affiliation></author>
+      <author><first>Mariana</first><last>Romanyshyn</last><affiliation>Grammarly</affiliation></author>
+      <pages>132-137</pages>
+      <abstract>This paper presents the results of the UNLP 2023 shared task, the first Shared Task on Grammatical Error Correction for the Ukrainian language. The task included two tracks: GEC-only and GEC+Fluency. The dataset and evaluation scripts were provided to the participants, and the final results were evaluated on a hidden test set. Six teams submitted their solutions before the deadline, and four teams submitted papers that were accepted to appear in the UNLP workshop proceedings and are referred to in this report. The CodaLab leaderboard is left open for further submissions.</abstract>
+      <url hash="fe50d7c2">2023.unlp-1.16</url>
+      <bibkey>syvokon-romanyshyn-2023-unlp</bibkey>
+      <video href="2023.unlp-1.16.mp4"/>
+      <doi>10.18653/v1/2023.unlp-1.16</doi>
+    </paper>
+  </volume>
+</collection>

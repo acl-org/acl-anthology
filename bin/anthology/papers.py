@@ -23,7 +23,6 @@ from .utils import (
     parse_element,
     infer_url,
     infer_attachment_url,
-    is_journal,
 )
 from . import data
 
@@ -51,8 +50,7 @@ class Paper:
         # initialize metadata with keys inherited from volume
         self.attrib = {}
         for key, value in volume.attrib.items():
-            # Only inherit 'editor' for frontmatter
-            if (key == "editor" and not self.is_volume) or key in (
+            if key in (
                 "collection_id",
                 "booktitle",
                 "id",
@@ -141,8 +139,6 @@ class Paper:
         # Set values from parsing the XML element (overwriting
         # and changing some initialized from the volume metadata)
         for key, value in parse_element(xml_element).items():
-            if key == "author" and "editor" in paper.attrib:
-                del paper.attrib["editor"]
             if key == "bibkey":
                 paper.bibkey = value
             else:
@@ -154,22 +150,15 @@ class Paper:
             paper.attrib["xml_title"].tag = "title"
 
         # Remove booktitle for frontmatter and journals
-        if paper.is_volume or is_journal(paper.full_id):
+        if paper.is_volume or paper.parent_volume.is_journal:
             del paper.attrib["xml_booktitle"]
 
         if "editor" in paper.attrib:
-            if paper.is_volume:
-                if "author" in paper.attrib:
-                    log.warn(
-                        f"Paper {paper.full_id} has both <editor> and <author>; ignoring <author>"
-                    )
+            if paper.is_volume and "author" not in paper.attrib:
                 # Proceedings editors are considered authors for their front matter
                 paper.attrib["author"] = paper.attrib["editor"]
                 del paper.attrib["editor"]
-            else:
-                log.warn(
-                    f"Paper {paper.full_id} has <editor> but is not a proceedings volume; ignoring <editor>"
-                )
+
         if "pages" in paper.attrib:
             if paper.attrib["pages"] is not None:
                 paper._interpret_pages()
@@ -181,6 +170,7 @@ class Paper:
                 [x[0].full for x in paper.attrib["author"]]
             )
 
+        # TODO: compute this lazily!
         paper.attrib["citation"] = paper.as_markdown()
 
         # An empty value gets set to None, which causes hugo to skip it over
@@ -188,6 +178,10 @@ class Paper:
         # a better way to do this.
         if "retracted" in paper.attrib and paper.attrib["retracted"] is None:
             paper.attrib["retracted"] = " "
+
+        # Adjust the title for retracted papers
+        if "retracted" in paper.attrib and "xml_title" in paper.attrib:
+            paper.add_prefix_to_title("[RETRACTED] ")
 
         if "removed" in paper.attrib and paper.attrib["removed"] is None:
             paper.attrib["removed"] = " "
@@ -248,7 +242,7 @@ class Paper:
         """Return the BibTeX entry type for this paper."""
         if self.is_volume:
             return "proceedings"
-        elif is_journal(self.full_id):
+        elif self.parent_volume.is_journal:
             return "article"
         else:
             return "inproceedings"
@@ -259,7 +253,7 @@ class Paper:
 
         cf. https://docs.citationstyles.org/en/stable/specification.html#appendix-iii-types
         """
-        if is_journal(self.full_id):
+        if self.parent_volume.is_journal:
             return "article-journal"
         elif self.is_volume:
             return "book"
@@ -307,6 +301,13 @@ class Paper:
         except KeyError:
             return default
 
+    def add_prefix_to_title(self, prefix):
+        """Add a prefix to the title of the paper.
+        The attrib is an lxml Element object."""
+        if self.attrib["xml_title"].text is None:
+            self.attrib["xml_title"].text = ""
+        self.attrib["xml_title"].text = prefix + self.attrib["xml_title"].text
+
     def get_title(self, form="xml"):
         """Returns the paper title, optionally formatting it.
 
@@ -348,7 +349,7 @@ class Paper:
                 entries.append(
                     (people, "  and  ".join(p.as_bibtex() for p, _ in self.get(people)))
                 )
-        if is_journal(self.full_id):
+        if self.parent_volume.is_journal:
             entries.append(
                 ("journal", bibtex_encode(self.parent_volume.get("meta_journal_title")))
             )
@@ -402,7 +403,7 @@ class Paper:
             if "editor" in self.attrib:
                 # or should this be "container-author"/"collection-editor" here?
                 data["editor"] = [p.as_citeproc_json() for p, _ in self.get("editor")]
-            if is_journal(self.full_id):
+            if self.parent_volume.is_journal:
                 data["container-title"] = self.parent_volume.get("meta_journal_title")
                 journal_volume = self.parent_volume.get(
                     "meta_volume", self.parent_volume.get("volume")
@@ -452,17 +453,17 @@ class Paper:
         """Return a Markdown-formatted entry."""
         title = self.get_title(form="text")
 
-        authors = ""
-        for field in ("author", "editor"):
-            if field in self.attrib:
-                people = [person[0] for person in self.get(field)]
-                num_people = len(people)
-                if num_people == 1:
-                    authors = people[0].last
-                elif num_people == 2:
-                    authors = f"{people[0].last} & {people[1].last}"
-                elif num_people >= 3:
-                    authors = f"{people[0].last} et al."
+        authors = "N.N."
+        field = "author" if "author" in self.attrib else "editor"
+        if field in self.attrib:
+            people = [person[0] for person in self.get(field)]
+            num_people = len(people)
+            if num_people == 1:
+                authors = people[0].last
+            elif num_people == 2:
+                authors = f"{people[0].last} & {people[1].last}"
+            elif num_people >= 3:
+                authors = f"{people[0].last} et al."
 
         year = self.get("year")
         venue = self.get_venue_acronym()
@@ -513,6 +514,8 @@ class Paper:
         return self.attrib.items()
 
     def iter_people(self):
-        for role in ("author", "editor"):
-            for name, id_ in self.get(role, []):
-                yield (name, id_, role)
+        for name, id_ in self.get("author", []):
+            yield (name, id_, "author")
+        if self.is_volume:
+            for name, id_ in self.get("editor", []):
+                yield (name, id_, "editor")

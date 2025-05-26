@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <collection id="2022.eamt">
-  <volume id="1" ingest-date="2022-05-31">
+  <volume id="1" ingest-date="2022-05-31" type="proceedings">
     <meta>
       <booktitle>Proceedings of the 23rd Annual Conference of the European Association for Machine Translation</booktitle>
       <editor><first>Helena</first><last>Moniz</last></editor>
@@ -85,11 +85,11 @@
     </paper>
     <paper id="7">
       <title>Passing Parser Uncertainty to the Transformer: Labeled Dependency Distributions for Neural Machine Translation</title>
-      <author><first>Dongqi</first><last>Pu</last></author>
+      <author><first>Dongqi</first><last>Liu</last></author>
       <author><first>Khalil</first><last>Sima’an</last></author>
       <pages>41–50</pages>
       <abstract>Existing syntax-enriched neural machine translation (NMT) models work either with the single most-likely unlabeled parse or the set of n-best unlabeled parses coming out of an external parser. Passing a single or n-best parses to the NMT model risks propagating parse errors. Furthermore, unlabeled parses represent only syntactic groupings without their linguistically relevant categories. In this paper we explore the question: Does passing both parser uncertainty and labeled syntactic knowledge to the Transformer improve its translation performance? This paper contributes a novel method for infusing the whole labeled dependency distributions (LDD) of the source sentence’s dependency forest into the self-attention mechanism of the encoder of the Transformer. A range of experimental results on three language pairs demonstrate that the proposed approach outperforms both the vanilla Transformer as well as the single best-parse Transformer model across several evaluation metrics.</abstract>
-      <url hash="15be0b3e">2022.eamt-1.7</url>
+      <url hash="f5310b32">2022.eamt-1.7</url>
       <bibkey>pu-simaan-2022-passing</bibkey>
     </paper>
     <paper id="8">
@@ -163,7 +163,7 @@
     </paper>
     <paper id="14">
       <title>On the Interaction of Regularization Factors in Low-resource Neural Machine Translation</title>
-      <author><first/><last>Àlex R. Atrio</last></author>
+      <author><first>Àlex R.</first><last>Atrio</last></author>
       <author><first>Andrei</first><last>Popescu-Belis</last></author>
       <pages>111–120</pages>
       <abstract>We explore the roles and interactions of the hyper-parameters governing regularization, and propose a range of values applicable to low-resource neural machine translation. We demonstrate that default or recommended values for high-resource settings are not optimal for low-resource ones, and that more aggressive regularization is needed when resources are scarce, in proportion to their scarcity. We explain our observations by the generalization abilities of sharp vs. flat basins in the loss landscape of a neural network. Results for four regularization factors corroborate our claim: batch size, learning rate, dropout rate, and gradient clipping. Moreover, we show that optimal results are obtained when using several of these factors, and that our findings generalize across datasets of different sizes and languages.</abstract>
@@ -209,7 +209,6 @@
       <abstract>Deep learning models have significantly advanced the state of the art of question answering systems. However, the majority of datasets available for training such models have been annotated by humans, are open-domain, and are composed primarily in English. To deal with these limitations, we introduce a pipeline that creates synthetic data from natural text. To illustrate the domain-adaptability of our approach, as well as its multilingual potential, we use our pipeline to obtain synthetic data in English and Dutch. We combine the synthetic data with non-synthetic data (SQuAD 2.0) and evaluate multilingual BERT models on the question answering task. Models trained with synthetically augmented data demonstrate a clear improvement in performance when evaluated on the domain-specific test set, compared to the models trained exclusively on SQuAD 2.0. We expect our work to be beneficial for training domain-specific question-answering systems when the amount of available data is limited.</abstract>
       <url hash="dafdccfd">2022.eamt-1.18</url>
       <bibkey>kramchaninova-defauw-2022-synthetic</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/squad">SQuAD</pwcdataset>
     </paper>
     <paper id="19">
       <title>Automatic Discrimination of Human and Neural Machine Translation: A Study with Multiple Pre-Trained Models and Longer Context</title>
@@ -220,6 +219,7 @@
       <abstract>We address the task of automatically distinguishing between human-translated (HT) and machine translated (MT) texts. Following recent work, we fine-tune pre-trained language models (LMs) to perform this task. Our work differs in that we use state-of-the-art pre-trained LMs, as well as the test sets of the WMT news shared tasks as training data, to ensure the sentences were not seen during training of the MT system itself. Moreover, we analyse performance for a number of different experimental setups, such as adding translationese data, going beyond the sentence-level and normalizing punctuation. We show that (i) choosing a state-of-the-art LM can make quite a difference: our best baseline system (DeBERTa) outperforms both BERT and RoBERTa by over 3% accuracy, (ii) adding translationese data is only beneficial if there is not much data available, (iii) considerable improvements can be obtained by classifying at the document-level and (iv) normalizing punctuation and thus avoiding (some) shortcuts has no impact on model performance.</abstract>
       <url hash="9cd42b6f">2022.eamt-1.19</url>
       <bibkey>van-der-werff-etal-2022-automatic</bibkey>
+      <pwccode url="https://github.com/tobiasvanderwerff/HT-vs-MT" additional="false">tobiasvanderwerff/HT-vs-MT</pwccode>
     </paper>
     <paper id="20">
       <title>A Taxonomy and Study of Critical Errors in Machine Translation</title>

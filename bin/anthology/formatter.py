@@ -21,6 +21,7 @@ import citeproc
 from citeproc.source.json import CiteProcJSON
 import citeproc_styles
 import codecs
+import os
 import re
 
 from . import latexcodec
@@ -60,9 +61,13 @@ class CiteprocFormatter:
     def load_style(cls, style):
         """Loads and returns a CSL style."""
         if style not in cls.styles:
-            cls.styles[style] = citeproc.CitationStylesStyle(
-                citeproc_styles.get_style_filepath(style)
-            )
+            if os.path.exists(style):
+                # Assume that 'style' is a filename
+                filepath = style
+            else:
+                # Assume that 'style' is the name of a style in citeproc_styles
+                filepath = citeproc_styles.get_style_filepath(style)
+            cls.styles[style] = citeproc.CitationStylesStyle(filepath)
         return cls.styles[style]
 
     @classmethod
@@ -137,6 +142,9 @@ def bibtex_make_entry(bibkey, bibtype, fields):
         elif value is None:
             log.warning(f"Skipping empty value for {bibkey}/{key}")
             continue
+        elif has_unbalanced_braces(value):
+            log.error(f"Unbalanced braces in {key} field for {bibkey}; skipping!")
+            continue
         elif '"' in value:
             # Make sure not to use "" to quote values when they contain "
             value = f"{{{value}}}"
@@ -146,6 +154,18 @@ def bibtex_make_entry(bibkey, bibtype, fields):
         lines.append(f"    {key} = {value},")
     lines.append("}")
     return "\n".join(lines)
+
+
+def has_unbalanced_braces(string):
+    c = 0
+    for char in string:
+        if char == "{":
+            c += 1
+        elif char == "}":
+            c -= 1
+        if c < 0:
+            return True
+    return c != 0
 
 
 class MarkupFormatter:

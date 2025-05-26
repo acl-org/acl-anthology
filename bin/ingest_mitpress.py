@@ -255,7 +255,7 @@ def get_article_journal_info(xml_front_node: etree.Element, is_tacl: bool) -> st
         date=string_date_text,
     )
     logging.debug(format_string.format(**data))
-    return format_string.format(**data), issue_text
+    return format_string.format(**data), issue_text, volume_text
 
 
 def process_xml(xml: Path, is_tacl: bool) -> Optional[etree.Element]:
@@ -266,7 +266,7 @@ def process_xml(xml: Path, is_tacl: bool) -> Optional[etree.Element]:
     root = tree.getroot()
     front = root.find("front", root.nsmap)
 
-    info, issue = get_article_journal_info(front, is_tacl)
+    info, issue, volume = get_article_journal_info(front, is_tacl)
 
     paper = etree.Element("paper")
 
@@ -303,11 +303,11 @@ def process_xml(xml: Path, is_tacl: bool) -> Optional[etree.Element]:
     pages.text = "–".join(pages_tuple)  # en-dash, not hyphen!
     paper.append(pages)
 
-    return paper, info, issue
+    return paper, info, issue, volume
 
 
 def issue_info_to_node(
-    issue_info: str, year_: str, volume_id: str, venue: str
+    issue_info: str, year_: str, journal_issue: str, venue: str, volume: str
 ) -> etree.Element:
     """Creates the meta block for a new issue / volume"""
     meta = make_simple_element("meta")
@@ -339,6 +339,7 @@ def issue_info_to_node(
 
     make_simple_element("year", str(year_), parent=meta)
     make_simple_element("venue", venue, parent=meta)
+    make_simple_element("journal-volume", volume, parent=meta)
 
     return meta
 
@@ -378,7 +379,7 @@ def main(args):
 
     papers = []
     for xml in sorted(args.root_dir.glob("*.xml")):
-        papernode, issue_info, issue = process_xml(xml, is_tacl)
+        papernode, issue_info, issue, volume = process_xml(xml, is_tacl)
         if papernode is None or papernode.find("title").text.startswith("Erratum: “"):
             continue
 
@@ -413,15 +414,16 @@ def main(args):
             if volume_xml is None:
                 # xml volume = journal issue
                 volume_xml = make_simple_element(
-                    "volume", attrib={"id": issue}, parent=collection
+                    "volume", attrib={"id": issue, "type": "journal"}, parent=collection
                 )
                 volume_xml.append(
-                    issue_info_to_node(issue_info, year, collection_id, is_tacl)
+                    issue_info_to_node(issue_info, year, issue, venue, volume)
                 )
+                paper_id = 1
             else:
                 for paper in volume_xml.findall(".//paper"):
                     paper_id = max(paper_id, int(paper.attrib["id"]))
-                    print(f"Setting paper_id to {paper_id}")
+
                 paper_id += 1
 
         anth_id = f"{collection_id}-{issue}.{paper_id}"

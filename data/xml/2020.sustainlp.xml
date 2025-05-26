@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <collection id="2020.sustainlp">
-  <volume id="1" ingest-date="2020-11-06">
+  <volume id="1" ingest-date="2020-11-06" type="proceedings">
     <meta>
       <booktitle>Proceedings of SustaiNLP: Workshop on Simple and Efficient Natural Language Processing</booktitle>
       <editor><first>Nafise Sadat</first><last>Moosavi</last></editor>
@@ -40,7 +40,7 @@
       <author><first>Ganesh</first><last>Dasika</last></author>
       <author><first>Matthew</first><last>Mattina</last></author>
       <pages>8–18</pages>
-      <abstract>Sequence model based NLP applications canbe large. Yet, many applications that benefit from them run on small devices with very limited compute and storage capabilities, while still having run-time constraints.As a result, there is a need for a compression technique that can achieve significant compression without negatively impacting inference run-time and task accuracy. This paper proposes a new compression technique called Hybrid Matrix Factorization (HMF) that achieves this dual objective. HMF improves low-rank matrix factorization (LMF) techniques by doubling the rank of the matrix using an intelligent hybrid-structure leading to better accuracy than LMF. Further, by preserving dense matrices, it leads to faster inference run-timethan pruning or structure matrix based compression technique. We evaluate the impact of this technique on 5 NLP benchmarks across multiple tasks (Translation, Intent Detection,Language Modeling) and show that for similar accuracy values and compression factors, HMF can achieve more than 2.32x faster inference run-time than pruning and 16.77% better accuracy than LMF.</abstract>
+      <abstract>Sequence model based NLP applications canbe large. Yet, many applications that benefit from them run on small devices with very limited compute and storage capabilities, while still having run-time constraints. As a result, there is a need for a compression technique that can achieve significant compression without negatively impacting inference run-time and task accuracy. This paper proposes a new compression technique called Hybrid Matrix Factorization (HMF) that achieves this dual objective. HMF improves low-rank matrix factorization (LMF) techniques by doubling the rank of the matrix using an intelligent hybrid-structure leading to better accuracy than LMF. Further, by preserving dense matrices, it leads to faster inference run-timethan pruning or structure matrix based compression technique. We evaluate the impact of this technique on 5 NLP benchmarks across multiple tasks (Translation, Intent Detection,Language Modeling) and show that for similar accuracy values and compression factors, HMF can achieve more than 2.32x faster inference run-time than pruning and 16.77% better accuracy than LMF.</abstract>
       <url hash="7b1879e5">2020.sustainlp-1.2</url>
       <doi>10.18653/v1/2020.sustainlp-1.2</doi>
       <video href="https://slideslive.com/38939420"/>
@@ -89,6 +89,7 @@
       <pwcdataset url="https://paperswithcode.com/dataset/glue">GLUE</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/imdb-movie-reviews">IMDb Movie Reviews</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/sst">SST</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/sst-2">SST-2</pwcdataset>
     </paper>
     <paper id="6">
       <title>Efficient Estimation of Influence of a Training Instance</title>
@@ -105,6 +106,7 @@
       <bibkey>kobayashi-etal-2020-efficient</bibkey>
       <pwcdataset url="https://paperswithcode.com/dataset/cifar-10">CIFAR-10</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/sst">SST</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/sst-2">SST-2</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/yahoo-answers">Yahoo! Answers</pwcdataset>
     </paper>
     <paper id="7">
@@ -165,7 +167,7 @@
       <author><first>Yaoliang</first><last>Yu</last></author>
       <author><first>Jimmy</first><last>Lin</last></author>
       <pages>83–88</pages>
-      <abstract>Pre-trained language models such as BERT have shown their effectiveness in various tasks. Despite their power, they are known to be computationally intensive, which hinders real-world applications. In this paper, we introduce early exiting BERT for document ranking. With a slight modification, BERT becomes a model with multiple output paths, and each inference sample can exit early from these paths. In this way, computation can be effectively allocated among samples, and overall system latency is significantly reduced while the original quality is maintained. Our experiments on two document ranking datasets demonstrate up to 2.5x inference speedup with minimal quality degradation. The source code of our implementation can be found at https://github.com/castorini/earlyexiting-monobert.</abstract>
+      <abstract>Pre-trained language models such as BERT have shown their effectiveness in various tasks. Despite their power, they are known to be computationally intensive, which hinders real-world applications. In this paper, we introduce early exiting BERT for document ranking. With a slight modification, BERT becomes a model with multiple output paths, and each inference sample can exit early from these paths. In this way, computation can be effectively allocated among samples, and overall system latency is significantly reduced while the original quality is maintained. Our experiments on two document ranking datasets demonstrate up to 2.5x inference speedup with minimal quality degradation. The source code of our implementation can be found at <url>https://github.com/castorini/earlyexiting-monobert</url>.</abstract>
       <url hash="58f3e0f0">2020.sustainlp-1.11</url>
       <doi>10.18653/v1/2020.sustainlp-1.11</doi>
       <video href="https://slideslive.com/38939433"/>
@@ -193,7 +195,7 @@
       <author><first>Norbert</first><last>Kis-Szabó</last></author>
       <author><first>Gábor</first><last>Berend</last></author>
       <pages>97–106</pages>
-      <abstract>We propose the technique of quasi-multitask learning (Q-MTL), a simple and easy to implement modification of standard multitask learning, in which the tasks to be modeled are identical. With this easy modification of a standard neural classifier we can get benefits similar to an ensemble of classifiers with a fraction of the resources required.We illustrate it through a series of sequence labeling experiments over a diverse set of languages, that applying Q-MTL consistently increases the generalization ability of the applied models. The proposed architecture can be regarded as a new regularization technique that encourages the model to develop an internal representation of the problem at hand which is beneficial to multiple output units of the classifier at the same time. Our experiments corroborate that by relying on the proposed algorithm, we can approximate the quality of an ensemble of classifiers at a fraction of computational resources required. Additionally, our results suggest that Q-MTL handles the presence of noisy training labels better than ensembles.</abstract>
+      <abstract>We propose the technique of quasi-multitask learning (Q-MTL), a simple and easy to implement modification of standard multitask learning, in which the tasks to be modeled are identical. With this easy modification of a standard neural classifier we can get benefits similar to an ensemble of classifiers with a fraction of the resources required. We illustrate it through a series of sequence labeling experiments over a diverse set of languages, that applying Q-MTL consistently increases the generalization ability of the applied models. The proposed architecture can be regarded as a new regularization technique that encourages the model to develop an internal representation of the problem at hand which is beneficial to multiple output units of the classifier at the same time. Our experiments corroborate that by relying on the proposed algorithm, we can approximate the quality of an ensemble of classifiers at a fraction of computational resources required. Additionally, our results suggest that Q-MTL handles the presence of noisy training labels better than ensembles.</abstract>
       <url hash="b522c363">2020.sustainlp-1.13</url>
       <doi>10.18653/v1/2020.sustainlp-1.13</doi>
       <video href="https://slideslive.com/38939435"/>
@@ -210,6 +212,7 @@
       <doi>10.18653/v1/2020.sustainlp-1.14</doi>
       <video href="https://slideslive.com/38939436"/>
       <bibkey>zhang-etal-2020-little</bibkey>
+      <pwccode url="https://github.com/crystina-z/a-little-bit-is-worse-than-none" additional="false">crystina-z/a-little-bit-is-worse-than-none</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/ms-marco">MS MARCO</pwcdataset>
     </paper>
     <paper id="15">
@@ -245,7 +248,7 @@
       <author><first>Ravi</first><last>Krishna</last></author>
       <author><first>Kurt</first><last>Keutzer</last></author>
       <pages>124–135</pages>
-      <abstract>Humans read and write hundreds of billions of messages every day. Further, due to the availability of large datasets, large computing systems, and better neural network models, natural language processing (NLP) technology has made significant strides in understanding, proofreading, and organizing these messages. Thus, there is a significant opportunity to deploy NLP in myriad applications to help web users, social networks, and businesses. Toward this end, we consider smartphones and other mobile devices as crucial platforms for deploying NLP models at scale. However, today’s highly-accurate NLP neural network models such as BERT and RoBERTa are extremely computationally expensive, with BERT-base taking 1.7 seconds to classify a text snippet on a Pixel 3 smartphone. To begin to address this problem, we draw inspiration from the computer vision community, where work such as MobileNet has demonstrated that grouped convolutions (e.g. depthwise convolutions) can enable speedups without sacrificing accuracy. We demonstrate how to replace several operations in self-attention layers with grouped convolutions, and we use this technique in a novel network architecture called SqueezeBERT, which runs 4.3x faster than BERT-base on the Pixel 3 while achieving competitive accuracy on the GLUE test set. A PyTorch-based implementation of SqueezeBERT is available as part of the Hugging Face Transformers library: https://huggingface.co/squeezebert</abstract>
+      <abstract>Humans read and write hundreds of billions of messages every day. Further, due to the availability of large datasets, large computing systems, and better neural network models, natural language processing (NLP) technology has made significant strides in understanding, proofreading, and organizing these messages. Thus, there is a significant opportunity to deploy NLP in myriad applications to help web users, social networks, and businesses. Toward this end, we consider smartphones and other mobile devices as crucial platforms for deploying NLP models at scale. However, today’s highly-accurate NLP neural network models such as BERT and RoBERTa are extremely computationally expensive, with BERT-base taking 1.7 seconds to classify a text snippet on a Pixel 3 smartphone. To begin to address this problem, we draw inspiration from the computer vision community, where work such as MobileNet has demonstrated that grouped convolutions (e.g. depthwise convolutions) can enable speedups without sacrificing accuracy. We demonstrate how to replace several operations in self-attention layers with grouped convolutions, and we use this technique in a novel network architecture called SqueezeBERT, which runs 4.3x faster than BERT-base on the Pixel 3 while achieving competitive accuracy on the GLUE test set. A PyTorch-based implementation of SqueezeBERT is available as part of the Hugging Face Transformers library: <url>https://huggingface.co/squeezebert</url></abstract>
       <url hash="5d3de3a3">2020.sustainlp-1.17</url>
       <attachment type="OptionalSupplementaryMaterial" hash="5fe60fd4">2020.sustainlp-1.17.OptionalSupplementaryMaterial.zip</attachment>
       <doi>10.18653/v1/2020.sustainlp-1.17</doi>
@@ -260,7 +263,8 @@
       <pwcdataset url="https://paperswithcode.com/dataset/quora-question-pairs">Quora Question Pairs</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/rte">RTE</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/sst">SST</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/superglue">SuperGLUE</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/sst-2">SST-2</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/wnli">WNLI</pwcdataset>
     </paper>
     <paper id="18">
       <title>Analysis of Resource-efficient Predictive Models for Natural Language Processing</title>
@@ -279,13 +283,12 @@
       <author><first>Aruna</first><last>Balasubramanian</last></author>
       <author><first>Niranjan</first><last>Balasubramanian</last></author>
       <pages>141–148</pages>
-      <abstract>Accurate and reliable measurement of energy consumption is critical for making well-informed design choices when choosing and training large scale NLP models. In this work, we show that existing software-based energy estimations are not accurate because they do not take into account hardware differences and how resource utilization affects energy consumption. We conduct energy measurement experiments with four different models for a question answering task. We quantify the error of existing software-based energy estimations by using a hardware power meter that provides highly accurate energy measurements. Our key takeaway is the need for a more accurate energy estimation model that takes into account hardware variabilities and the non-linear relationship between resource utilization and energy consumption. We release the code and data at https://github.com/csarron/sustainlp2020-energy.</abstract>
+      <abstract>Accurate and reliable measurement of energy consumption is critical for making well-informed design choices when choosing and training large scale NLP models. In this work, we show that existing software-based energy estimations are not accurate because they do not take into account hardware differences and how resource utilization affects energy consumption. We conduct energy measurement experiments with four different models for a question answering task. We quantify the error of existing software-based energy estimations by using a hardware power meter that provides highly accurate energy measurements. Our key takeaway is the need for a more accurate energy estimation model that takes into account hardware variabilities and the non-linear relationship between resource utilization and energy consumption. We release the code and data at <url>https://github.com/csarron/sustainlp2020-energy</url>.</abstract>
       <url hash="8fd7694b">2020.sustainlp-1.19</url>
       <doi>10.18653/v1/2020.sustainlp-1.19</doi>
       <video href="https://slideslive.com/38939441"/>
       <bibkey>cao-etal-2020-towards</bibkey>
       <pwccode url="https://github.com/csarron/sustainlp2020-energy" additional="false">csarron/sustainlp2020-energy</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/squad">SQuAD</pwcdataset>
     </paper>
     <paper id="20">
       <title><fixed-case>F</fixed-case>ast<fixed-case>F</fixed-case>ormers: Highly Efficient Transformer Models for Natural Language Understanding</title>
@@ -297,7 +300,7 @@
       <doi>10.18653/v1/2020.sustainlp-1.20</doi>
       <video href="https://slideslive.com/38939442"/>
       <bibkey>kim-hassan-2020-fastformers</bibkey>
-      <pwccode url="https://github.com/microsoft/fastformers" additional="false">microsoft/fastformers</pwccode>
+      <pwccode url="https://github.com/microsoft/fastformers" additional="true">microsoft/fastformers</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/superglue">SuperGLUE</pwcdataset>
     </paper>
     <paper id="21">
@@ -311,6 +314,7 @@
       <video href="https://slideslive.com/38939443"/>
       <bibkey>quattoni-carreras-2020-comparison</bibkey>
       <pwcdataset url="https://paperswithcode.com/dataset/sst">SST</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/sst-2">SST-2</pwcdataset>
     </paper>
     <paper id="22">
       <title>Label-Efficient Training for Next Response Selection</title>

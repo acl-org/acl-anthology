@@ -26,13 +26,19 @@ Usage: indent.py <in.xml> <out.xml>
 """
 
 import lxml.etree as etree
-import sys
 
 from anthology.utils import indent
 
 if __name__ == "__main__":
-    infilename = sys.argv[1]
-    outfilename = sys.argv[2]
+    import argparse
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("infile")
+    parser.add_argument("outfile", nargs="?")
+    args = parser.parse_args()
+
+    infilename = args.infile
+    outfilename = args.outfile if args.outfile is not None else args.infile
 
     tree = etree.parse(infilename)
     root = tree.getroot()
