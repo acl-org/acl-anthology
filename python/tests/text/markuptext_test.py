@@ -105,7 +105,47 @@ test_cases_markup = (
             "latex": "\\textit{D\\textbf{e\\textit{e\\textbf{e\\textit{e\\textbf{p}}}}}}ly",
         },
     ),
+    (  # Apostrophe character gets turned into a regular, protected apostrophe
+        "BERT’s and <fixed-case>BERT</fixed-case>’s Attention",
+        {
+            "text": "BERT’s and BERT’s Attention",
+            "html": 'BERT’s and <span class="acl-fixed-case">BERT</span>’s Attention',
+            "latex": "BERT{'}s and {BERT}{'}s Attention",
+        },
+    ),
+    (  # Regular quotes get turned into LaTeX quotes (and left untouched otherwise)
+        'This "very normal" assumption',
+        {
+            "text": 'This "very normal" assumption',
+            "html": 'This "very normal" assumption',
+            "latex": "This ``very normal'' assumption",
+        },
+    ),
     (
+        'This "very <b>bold</b>" assumption',
+        {
+            "text": 'This "very bold" assumption',
+            "html": 'This "very <b>bold</b>" assumption',
+            "latex": "This ``very \\textbf{bold}'' assumption",
+        },
+    ),
+    (  # Typographic quotes get turned into their respective LaTeX commands
+        "This “very normal” assumption",
+        {
+            "text": "This “very normal” assumption",
+            "html": "This “very normal” assumption",
+            "latex": "This {\\textquotedblleft}very normal{\\textquotedblright} assumption",
+        },
+    ),
+    (
+        "This “very <b>bold</b>” assumption",
+        {
+            "text": "This “very bold” assumption",
+            "html": "This “very <b>bold</b>” assumption",
+            "latex": "This {\\textquotedblleft}very \\textbf{bold}{\\textquotedblright} assumption",
+        },
+    ),
+    (  # Special characters should always be in braces for BibTeX export
         "Äöøéÿőßû–",
         {
             "text": "Äöøéÿőßû–",
