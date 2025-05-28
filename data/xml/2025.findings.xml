@@ -1173,17 +1173,17 @@
     </paper>
     <paper id="96">
       <title><fixed-case>R</fixed-case>eward<fixed-case>B</fixed-case>ench: Evaluating Reward Models for Language Modeling</title>
-      <author><first>Nathan</first><last>Lambert</last><affiliation>Allen Institute for Artificial Intelligence</affiliation></author>
-      <author><first>Valentina</first><last>Pyatkin</last><affiliation>Allen Institute for Artificial Intelligence and Department of Computer Science</affiliation></author>
-      <author><first>Jacob</first><last>Morrison</last><affiliation>Allen Institute for Artificial Intelligence</affiliation></author>
-      <author><first>Lester James Validad</first><last>Miranda</last><affiliation>Allen Institute for Artificial Intelligence</affiliation></author>
-      <author><first>Bill Yuchen</first><last>Lin</last><affiliation>xAI and University of Washington</affiliation></author>
-      <author><first>Khyathi</first><last>Chandu</last><affiliation>Mistral AI</affiliation></author>
+      <author><first>Nathan</first><last>Lambert</last></author>
+      <author><first>Valentina</first><last>Pyatkin</last></author>
+      <author><first>Jacob</first><last>Morrison</last></author>
+      <author><first>LJ</first><last>Miranda</last></author>
+      <author><first>Bill Yuchen</first><last>Lin</last></author>
+      <author><first>Khyathi</first><last>Chandu</last></author>
       <author><first>Nouha</first><last>Dziri</last></author>
-      <author><first>Sachin</first><last>Kumar</last><affiliation>Ohio State University, Columbus</affiliation></author>
-      <author><first>Tom</first><last>Zick</last><affiliation>Harvard University</affiliation></author>
-      <author><first>Yejin</first><last>Choi</last><affiliation>Computer Science Department, Stanford University and NVIDIA</affiliation></author>
-      <author><first>Noah A.</first><last>Smith</last><affiliation>University of Washington and Allen Institute for Artificial Intelligence</affiliation></author>
+      <author><first>Sachin</first><last>Kumar</last></author>
+      <author><first>Tom</first><last>Zick</last></author>
+      <author><first>Yejin</first><last>Choi</last></author>
+      <author><first>Noah A.</first><last>Smith</last></author>
       <author><first>Hannaneh</first><last>Hajishirzi</last></author>
       <pages>1755-1797</pages>
       <abstract>Reward models (RMs) are at the crux of successfully using RLHF to align pretrained models to human preferences, yet there has been relatively little study that focuses on evaluation of those models. Evaluating reward models presents an opportunity to understand the opaque technologies used for alignment of language models and which values are embedded in them. Resources for reward model training and understanding are sparse in the nascent open-source community around them. To enhance scientific understanding of reward models, we present RewardBench, a benchmark dataset and code-base for evaluation. The RewardBench dataset is a collection of prompt-chosen-rejected trios spanning chat, reasoning, and safety, to benchmark how reward models perform on challenging, structured and out-of-distribution queries. We create specific comparison datasets for RMs that have subtle, but verifiable reasons (e.g. bugs, incorrect facts) why one answer should be preferred to another. On the RewardBench leaderboard, we evaluate RMs trained with a variety of methods, such as the direct MLE training of classifiers and the implicit reward modeling of Direct Preference Optimization (DPO). We present many findings on propensity for refusals, reasoning limitations, and instruction following shortcomings of various reward models towards a better understanding of the RLHF process.</abstract>
@@ -2873,9 +2873,9 @@
     </paper>
     <paper id="230">
       <title><fixed-case>M</fixed-case>ojo<fixed-case>B</fixed-case>ench: Language Modeling and Benchmarks for Mojo</title>
-      <author><first>Md Nishat</first><last>Raihan</last></author>
-      <author><first>Joanna C. S.</first><last>Santos</last><affiliation>University of Notre Dame</affiliation></author>
-      <author><first>Marcos</first><last>Zampieri</last><affiliation>George Mason University</affiliation></author>
+      <author><first>Nishat</first><last>Raihan</last></author>
+      <author><first>Joanna C. S.</first><last>Santos</last></author>
+      <author><first>Marcos</first><last>Zampieri</last></author>
       <pages>4109-4128</pages>
       <abstract>The recently introduced Mojo programming language (PL) by Modular, has received significant attention in the scientific community due to its claimed significant speed boost over Python. Despite advancements in code Large Language Models (LLMs) across various PLs, Mojo remains unexplored in this context. To address this gap, we introduce MojoBench, the first framework for Mojo code generation. MojoBench includes HumanEval-Mojo, a benchmark dataset designed for evaluating code LLMs on Mojo, and Mojo-Coder, the first LLM pretrained and finetuned for Mojo code generation, which supports instructions in 5 natural languages (NLs). Our results show that Mojo-Coder achieves a 30-35% performance improvement over leading models like GPT-4o and Claude-3.5-Sonnet. Furthermore, we provide insights into LLM behavior with underrepresented and unseen PLs, offering potential strategies for enhancing model adaptability. MojoBench contributes to our understanding of LLM capabilities and limitations in emerging programming paradigms fostering more robust code generation systems.</abstract>
       <url hash="f2b35935">2025.findings-naacl.230</url>
@@ -4149,9 +4149,9 @@
     </paper>
     <paper id="334">
       <title>Time-aware <fixed-case>R</fixed-case>e<fixed-case>A</fixed-case>ct Agent for Temporal Knowledge Graph Question Answering</title>
-      <author><first>QianyiHu</first><last>QianyiHu</last></author>
-      <author><first>Xinhui</first><last>Tu</last><affiliation>Central China Normal University</affiliation></author>
-      <author><first>Guo</first><last>Cong</last></author>
+      <author><first>Qianyi</first><last>Hu</last></author>
+      <author><first>Xinhui</first><last>Tu</last></author>
+      <author><first>Cong</first><last>Guo</last></author>
       <author><first>Shunping</first><last>Zhang</last></author>
       <pages>6013-6024</pages>
       <abstract>Temporal knowledge graph question answering (TKGQA) addresses time-sensitive queries using knowledge bases. Although large language models (LLMs) and LLM-based agents such as ReAct have shown potential for TKGQA, they often lack sufficient temporal constraints in the retrieval process. To tackle this challenge, we propose TempAgent, a novel autonomous agent framework built on LLMs that enhances their ability to conduct temporal reasoning and comprehension. By integrating temporal constraints into information retrieval, TempAgent effectively discards irrelevant material and concentrates on extracting pertinent temporal and factual information. We evaluate our framework on the MultiTQ dataset, a real-world multi-granularity TKGQA benchmark, using a fully automated setup. Our experimental results reveal the remarkable effectiveness of our approach: TempAgent achieves a 41.3% improvement over the baseline model and a 32.2% gain compared to the Abstract Reasoning Induction (ARI) method. Moreover, our method attains an accuracy of 70.2% on the @hit1 metric, underscoring its substantial advantage in addressing time-aware TKGQA tasks.</abstract>
@@ -5890,7 +5890,7 @@
       <author><first>Dushyant Singh</first><last>Chauhan</last></author>
       <author><first>Md Shad</first><last>Akhtar</last><affiliation>Indraprastha Institute of Information Technology, Delhi</affiliation></author>
       <pages>8480-8493</pages>
-      <abstract>Sarcasm is a linguistic phenomenon that intends to ridicule a target (e.g., entity, event, or person) in an inherent way. Multimodal Sarcasm Explanation (MuSE) aims at revealing the intended irony in a sarcastic post using a natural language explanation. Though important, existing systems overlooked the significance of the target of sarcasm in generating explanations. In this paper, we propose a <b>T</b>arget-a<b>U</b>gmented sha<b>R</b>ed fusion-<b>B</b>ased sarcasm explanati<b>O</b>n model, aka. . We design a novel shared-fusion mechanism to leverage the inter-modality relationships between an image and its caption. assumes the target of the sarcasm and guides the multimodal shared fusion mechanism in learning intricacies of the intended irony for explanations. We evaluate our proposed model on the dataset. Comparison against multiple baselines and state-of-the-art models signifies the performance improvement of by an average margin of <tex-math>+3.3\%</tex-math>. Moreover, we explore LLMs in zero and one-shot settings for our task and observe that LLM-generated explanation, though remarkable, often fails to capture the critical nuances of the sarcasm. Furthermore, we supplement our study with extensive human evaluation on ‘s generated explanations and find them out to be comparatively better than other systems.</abstract>
+      <abstract>Sarcasm is a linguistic phenomenon that intends to ridicule a target (e.g., entity, event, or person) in an inherent way. Multimodal Sarcasm Explanation (MuSE) aims at revealing the intended irony in a sarcastic post using a natural language explanation. Though important, existing systems overlooked the significance of the target of sarcasm in generating explanations. In this paper, we propose a <b>T</b>arget-a<b>U</b>gmented sha<b>R</b>ed fusion-<b>B</b>ased sarcasm explanati<b>O</b>n model, aka. TURBO. We design a novel shared-fusion mechanism to leverage the inter-modality relationships between an image and its caption. TURBO assumes the target of the sarcasm and guides the multimodal shared fusion mechanism in learning intricacies of the intended irony for explanations. We evaluate our proposed TURBO model on the MORE+ dataset. Comparison against multiple baselines and state-of-the-art models signifies the performance improvement of TURBO by an average margin of +3.3%. Moreover, we explore LLMs in zero and one-shot settings for our task and observe that LLM-generated explanation, though remarkable, often fails to capture the critical nuances of the sarcasm. Furthermore, we supplement our study with extensive human mevaluation on TURBO’s generated explanations and find them out to be comparatively better than other systems.</abstract>
       <url hash="735769c9">2025.findings-naacl.472</url>
       <bibkey>goel-etal-2025-target</bibkey>
     </paper>

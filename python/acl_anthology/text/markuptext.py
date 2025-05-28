@@ -57,7 +57,6 @@ def markup_to_latex(element: etree._Element) -> str:
             text += latex_encode(nested_element.tail)
 
     text = MARKUP_LATEX_CMDS[tag].format(text=text)
-    text = latex_convert_quotes(text)
     return text
 
 
@@ -153,10 +152,10 @@ class MarkupText:
         if self._latex is not None:
             return self._latex
         if isinstance(self._content, str):
-            latex = latex_convert_quotes(latex_encode(self._content))
+            latex = latex_encode(self._content)
         else:
             latex = markup_to_latex(self._content)
-        self._latex = remove_extra_whitespace(latex)
+        self._latex = remove_extra_whitespace(latex_convert_quotes(latex))
         return self._latex
 
     def as_xml(self) -> str:
