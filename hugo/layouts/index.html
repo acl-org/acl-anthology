@@ -149,15 +149,6 @@
       {{ end }}
       </tbody>
     </table>
-
-    <div class="row mb-3">
-      {{ if (fileExists "/data-export/anthology.bib.gz") }}
-      BibTeX:
-      <a class="btn btn-block btn-info" href="{{ "anthology.bib.gz" | relURL }}">compressed ({{ printf "%.2f MB" (div (os.Stat "/data-export/anthology.bib.gz").Size 1000000.0) }})</a>
-      <a class="btn btn-block btn-info" href="{{ "anthology+abstracts.bib.gz" | relURL }}">+ abstracts ({{ printf "%.2f MB" (div (os.Stat "/data-export/anthology+abstracts.bib.gz").Size 1000000.0) }})</a>
-      <a class="btn btn-block btn-info" href="{{ "anthology.bib" | relURL }}">slim plaintext ({{ printf "%.2f MB" (div (os.Stat "/data-export/anthology.bib").Size 1000000.0) }})</a>
-      {{ end }}
-    </div>
   </main>
   </div>
 </div>
