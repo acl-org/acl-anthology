@@ -24,6 +24,7 @@ def test_name_firstlast():
     assert n1.last == "Doe"
     assert n1.as_first_last() == "John Doe"
     assert n1.as_last_first() == "Doe, John"
+    assert n1.as_full() == "John Doe"
     assert n1.as_bibtex() == "Doe, John"
     n2 = Name(last="Doe", first="John")
     assert n1 == n2
@@ -40,13 +41,31 @@ def test_name_onlylast():
     assert n1.last == "Mausam"
     assert n1.as_first_last() == "Mausam"
     assert n1.as_last_first() == "Mausam"
+    assert n1.as_full() == "Mausam"
     assert n1.as_bibtex() == "Mausam"
+
+
+def test_name_onlylast_none_vs_empty_string():
+    n1 = Name(None, "Mausam")
+    n2 = Name("", "Mausam")
+    assert n1.as_first_last() == n2.as_first_last()
+    assert n1.as_last_first() == n2.as_last_first()
+    assert n1.as_full() == n2.as_full()
+    assert n1.as_bibtex() == n2.as_bibtex()
+    assert n1 == n2
 
 
 def test_name_specification():
     n1 = NameSpecification(Name("John", "Doe"))
     n2 = NameSpecification(Name("John", "Doe"))
     assert n1 == n2
+
+
+def test_name_spec_citeproc():
+    n1 = NameSpecification(Name("John", "Doe"))
+    assert n1.citeproc_dict == {"family": "Doe", "given": "John"}
+    n2 = NameSpecification(Name(None, "Mausam"))
+    assert n2.citeproc_dict == {"family": "Mausam"}
 
 
 def test_name_spec_with_affiliation():
@@ -74,6 +93,7 @@ def test_name_with_script():
     assert n1.first == "大文"
     assert n1.last == "陳"
     assert n1.script == "hani"
+    assert n1.as_full() == "陳大文"
     # Script information is NOT distinctive, so names should still compare equal
     assert n1 == n2
 
@@ -162,6 +182,24 @@ def test_name_scoring():
     assert n1.score() < n5.score()
 
 
+def test_name_scoring_umlauts():
+    n1 = Name("Gokhan", "Tur")
+    n2 = Name("Gökhan", "Tür")
+    assert n1.score() < n2.score()
+
+
+def test_name_scoring_dashes():
+    n1 = Name("Pascual", "Martínez Gómez")
+    n2 = Name("Pascual", "Martínez-Gómez")
+    assert n1.score() < n2.score()
+
+
+def test_name_scoring_first_vs_last_name():
+    n1 = Name("Chan Tai", "Man")
+    n2 = Name("Chan", "Tai Man")
+    assert n1.score() > n2.score()
+
+
 def test_name_from_string():
     n1 = Name.from_string("André Rieu")
     n2 = Name.from_string("Rieu, André")
@@ -190,4 +228,4 @@ def test_name_from_any():
 
 def test_name_as_bibtex():
     n1 = Name.from_string("André Rieu")
-    assert n1.as_bibtex() == "Rieu, Andr\\'e"
+    assert n1.as_bibtex() == "Rieu, Andr{\\'e}"

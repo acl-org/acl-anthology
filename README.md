@@ -4,7 +4,7 @@
 [![GitHub contributors](https://img.shields.io/github/contributors/acl-org/acl-anthology)](https://github.com/acl-org/acl-anthology/graphs/contributors)
 [![Good first project issues](https://img.shields.io/github/issues/acl-org/acl-anthology/good%20first%20project)](https://github.com/acl-org/acl-anthology/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3A%22good+first+project%22)
 [![License](https://img.shields.io/github/license/acl-org/acl-anthology)](LICENSE)
-[![acl-anthology-py on PyPI](https://img.shields.io/pypi/v/acl-anthology-py?logo=python&label=acl-anthology-py&labelColor=lightgray&color=3776AB)](https://pypi.org/project/acl-anthology-py/)
+[![acl-anthology on PyPI](https://img.shields.io/pypi/v/acl-anthology?logo=python&label=acl-anthology&labelColor=lightgray&color=3776AB)](https://pypi.org/project/acl-anthology/)
 
 This repository contains:
 
@@ -14,7 +14,7 @@ This repository contains:
 
 The official home of this repository is <https://github.com/acl-org/acl-anthology>.
 
-## Using the acl-anthology-py Python package
+## Using the acl-anthology Python package
 
 Please see the separate [README for the Python package](python/README.md) for detailed information.
 
@@ -26,17 +26,14 @@ These are basic instructions on generating the ACL Anthology website as seen on 
 
 To build the Anthology website, you will need:
 
-+ **Python 3.8** or higher
++ **Python 3.10** or higher
 + Python packages listed in `bin/requirements.txt`; to install, run `pip -r bin/requirements.txt`
-+ [**Hugo 0.58.3**](https://gohugo.io) or higher (can be [downloaded directly from
++ [**Hugo 0.126.0**](https://gohugo.io) or higher (can be [downloaded directly from
   their repo](https://github.com/gohugoio/hugo/releases); the ***extended version*** is required!)
 + [**bibutils**](https://sourceforge.net/p/bibutils/home/Bibutils/) for creating
   non-BibTeX citation formats (not strictly required to build the website, but
   without them you need to invoke the build steps manually as laid out in the
   [detailed README](README_detailed.md))
-+ *optional*: If you install `libyaml-dev` and `Cython` before running `make`
-   the first time, the libyaml C library will be used instead of a python
-   implementation, speeding up the build.
 
 ### Building and deployment with GitHub
 
@@ -118,12 +115,9 @@ shell script `bin/acl-mirror-cronjob.sh` to your needs.
 You will need this software on the server
  - rsync
  - git
- - python3
- - hugo > 0.58
+ - python3 >= 3.10
+ - hugo > 0.126.0
  - python3-venv
-
-If you want the build process to be fast, install `cython3` and
-`libyaml-dev` (see above).
 
 Note that generating the anthology takes quite a bit of RAM, so make
 sure it is available on your machine.

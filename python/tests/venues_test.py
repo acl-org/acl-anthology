@@ -12,16 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import logging
 import pytest
 from pathlib import Path
 from acl_anthology.venues import VenueIndex, Venue
 
 
-all_toy_venue_ids = ("acl", "cl", "humeval", "lrec", "nlma")
+all_toy_venue_ids = ("acl", "cl", "humeval", "lrec", "nlma", "ws")
 
 
 def test_venue_defaults():
-    venue = Venue("foo", "FOO", "Workshop on Foobar", Path("foo.yaml"))
+    venue = Venue("foo", None, "FOO", "Workshop on Foobar", Path("foo.yaml"))
     assert venue.id == "foo"
     assert venue.acronym == "FOO"
     assert venue.name == "Workshop on Foobar"
@@ -30,11 +31,12 @@ def test_venue_defaults():
     assert not venue.is_toplevel
     assert venue.oldstyle_letter is None
     assert venue.url is None
+    assert venue.item_ids == list()
 
 
 def test_venue_save(tmp_path):
     path = tmp_path / "foo.yaml"
-    venue = Venue("foo", "FOO", "Workshop on Foobar", path)
+    venue = Venue("foo", None, "FOO", "Workshop on Foobar", path)
     venue.save()
     assert path.is_file()
     with open(path, "r") as f:
@@ -48,7 +50,7 @@ name: Workshop on Foobar
 @pytest.mark.parametrize("venue_id", all_toy_venue_ids)
 def test_venue_roundtrip_yaml(anthology_stub, tmp_path, venue_id):
     yaml_in = anthology_stub.datadir / "yaml" / "venues" / f"{venue_id}.yaml"
-    venue = Venue.load_from_yaml(yaml_in)
+    venue = Venue.load_from_yaml(yaml_in, anthology_stub)
     yaml_out = tmp_path / f"{venue_id}.yaml"
     venue.save(yaml_out)
     assert yaml_out.is_file()
@@ -67,9 +69,23 @@ def test_venueindex_cl(anthology):
     assert venue.is_acl
     assert venue.is_toplevel
     assert venue.oldstyle_letter == "J"
+    assert venue.item_ids == [
+        ("J89", "1", None),
+        ("J89", "2", None),
+        ("J89", "3", None),
+        ("J89", "4", None),
+    ]
 
 
 def test_venueindex_iter(anthology):
     index = VenueIndex(anthology)
     venue_ids = index.keys()
     assert set(venue_ids) == set(all_toy_venue_ids)
+
+
+def test_venueindex_noindex(anthology, caplog):
+    """Accessing venues with no_item_ids=True should not load XML files."""
+    with caplog.at_level(logging.DEBUG):
+        index = VenueIndex(anthology, no_item_ids=True)
+        _ = index.get("cl").name
+    assert not any("XML data file" in rec.message for rec in caplog.records)

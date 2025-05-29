@@ -14,9 +14,9 @@
 
 from __future__ import annotations
 
-import codecs
 import re
-from typing import Optional, TypeAlias, TYPE_CHECKING
+from functools import lru_cache
+from typing import cast, Optional, TypeAlias, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from ..people.name import NameSpecification
@@ -25,8 +25,33 @@ if TYPE_CHECKING:
     SerializableAsBibTeX: TypeAlias = None | str | MarkupText | list[NameSpecification]
     """Any type that can be supplied to `make_bibtex_entry`."""
 
-import latexcodec  # noqa: F401
 
+from pylatexenc.latexencode import (
+    UnicodeToLatexEncoder,
+    UnicodeToLatexConversionRule,
+    RULE_DICT,
+)
+
+LATEXENC = UnicodeToLatexEncoder(
+    conversion_rules=[
+        UnicodeToLatexConversionRule(
+            RULE_DICT,
+            {
+                ord("’"): "'",  # defaults to \textquoteright
+                ord("–"): "--",  # defaults to \textendash
+                ord("—"): "---",  # defaults to \textemdash
+                ord("í"): "\\'i",  # defaults to using dotless \i
+                ord("ì"): "\\`i",
+                ord("î"): "\\^i",
+                ord("ï"): '\\"i',
+            },
+        ),
+        "defaults",
+    ],
+    replacement_latex_protection="braces-all",
+    unknown_char_policy="keep",
+    unknown_char_warning=False,
+)
 
 BIBTEX_FIELD_NEEDS_ENCODING = {"journal", "address", "publisher", "note"}
 """Any BibTeX field whose value should be LaTeX-encoded first."""
@@ -47,8 +72,39 @@ BIBTEX_MONTHS = {
 }
 """A mapping of month names to BibTeX macros."""
 
-RE_OPENING_QUOTE = re.compile(r"(?<!\\)\"\b")
-RE_CLOSING_QUOTE = re.compile(r"(?<!\\)\"")
+RE_OPENING_QUOTE_DOUBLE = re.compile(
+    r"""
+     (\A|(?<=\s))  # must be start of the string or come after whitespace
+     ({''}|'')     # match double apostrophe, optionally in braces
+     (?!}|\s)      # must not come before whitespace or closing brace }
+     """,
+    re.X,
+)
+RE_OPENING_QUOTE_SINGLE = re.compile(
+    r"""
+     (\A|(?<=\s))  # must be start of the string or come after whitespace
+     ({'}|')       # match single apostrophe, optionally in braces
+     (?!'|}|\s)    # must not come before whitespace, closing brace, or another apostrophe
+     """,
+    re.X,
+)
+RE_CLOSING_QUOTE_DOUBLE = re.compile(
+    r"""
+     (?<!\\)       # must not come after backslash
+     {''}          # match double apostrophe in braces
+     (?=\W|\Z)     # must be end of the string or come before a non-word character
+     """,
+    re.X,
+)
+RE_CLOSING_QUOTE_SINGLE = re.compile(
+    r"""
+     (?<!\\)       # must not come after backslash
+     {'}           # match single apostrophe in braces
+     (?=\W|\Z)     # must be end of the string or come before a non-word character
+     """,
+    re.X,
+)
+
 RE_HYPHENS_BETWEEN_NUMBERS = re.compile(r"(?<=[0-9])(-|–|—)(?=[0-9])")
 
 
@@ -88,6 +144,7 @@ def has_unbalanced_braces(string: str) -> bool:
     return c != 0
 
 
+@lru_cache
 def latex_encode(text: Optional[str]) -> str:
     """
     Arguments:
@@ -98,7 +155,7 @@ def latex_encode(text: Optional[str]) -> str:
     """
     if text is None:
         return ""
-    text = str(codecs.encode(text, "ulatex+ascii", "keep"))
+    text = cast(str, LATEXENC.unicode_to_latex(text))
     return text
 
 
@@ -108,14 +165,19 @@ def latex_convert_quotes(text: str) -> str:
         text: An arbitrary string.
 
     Returns:
-        The input string with regular quotes converted into LaTeX quotes.
+        The input string with LaTeX quotes converted into proper opening and closing quotes, removing braces around them, if necessary.
+
+    Note:
+        This is called during the conversion from our XML markup to LaTeX. Straight quotation marks (`"`) will have been converted to double apostrophes, usually in braces (`{''}`), by pylatexenc; this function applies regexes to turn them into appropriate opening/closing quotes with the braces removed.
 
     Examples:
-        >>> latex_convert_quotes('This "great" example')
+        >>> latex_convert_quotes("This {''}great{''} example")
         "This ``great'' example"
     """
-    text = RE_OPENING_QUOTE.sub("``", text)
-    text = RE_CLOSING_QUOTE.sub("''", text)
+    text = RE_OPENING_QUOTE_DOUBLE.sub("``", text)
+    text = RE_OPENING_QUOTE_SINGLE.sub("`", text)
+    text = RE_CLOSING_QUOTE_DOUBLE.sub("''", text)
+    text = RE_CLOSING_QUOTE_SINGLE.sub("'", text)
     return text
 
 

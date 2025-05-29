@@ -65,7 +65,7 @@ pre-commit-autofix: .flag_installed
 
 .PHONY: test-all-python-versions
 test-all-python-versions:
-	@for py in 3.10 3.11 3.12; do \
+	@for py in 3.10 3.11 3.12 3.13; do \
 	  poetry env use $$py ; \
 	  poetry install --with dev --quiet ; \
 	  poetry run pytest -m "not integration" ; \

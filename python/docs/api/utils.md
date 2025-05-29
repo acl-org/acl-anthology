@@ -1,5 +1,9 @@
 # utils
 
+## utils.citation
+
+::: acl_anthology.utils.citation
+
 ## utils.ids
 
 ::: acl_anthology.utils.ids

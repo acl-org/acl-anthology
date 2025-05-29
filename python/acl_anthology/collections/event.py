@@ -20,7 +20,7 @@ from lxml import etree
 from lxml.builder import E
 from typing import Any, Iterator, Optional, TYPE_CHECKING
 
-from ..files import AttachmentReference
+from ..files import EventFileReference
 from ..people import NameSpecification
 from ..text import MarkupText
 from ..utils.ids import AnthologyIDTuple, parse_id, build_id_from_tuple
@@ -57,7 +57,7 @@ class Event:
     colocated_ids: list[AnthologyIDTuple] = field(
         factory=list, repr=lambda x: f"<list of {len(x)} AnthologyIDTuple objects>"
     )
-    links: dict[str, AttachmentReference] = field(factory=dict, repr=False)
+    links: dict[str, EventFileReference] = field(factory=dict, repr=False)
     talks: list[Talk] = field(factory=list, repr=False)
 
     title: Optional[MarkupText] = field(default=None)
@@ -100,17 +100,19 @@ class Event:
                     if meta.tag == "title":
                         kwargs["title"] = MarkupText.from_xml(meta)
                     elif meta.tag in ("location", "dates"):
-                        kwargs[meta.tag] = str(meta.text)
+                        kwargs[meta.tag] = str(meta.text) if meta.text else None
             elif element.tag == "links":
                 kwargs["links"] = {}
                 for url in element:
                     type_ = str(url.get("type", "attachment"))
-                    kwargs["links"][type_] = AttachmentReference.from_xml(url)
+                    kwargs["links"][type_] = EventFileReference.from_xml(url)
             elif element.tag == "talk":
                 kwargs["talks"].append(Talk.from_xml(element))
             elif element.tag == "colocated":
                 kwargs["colocated_ids"] = [
-                    parse_id(str(volume_id.text)) for volume_id in element
+                    parse_id(str(volume_id.text))
+                    for volume_id in element
+                    if volume_id.tag == "volume-id"
                 ]
             else:
                 raise ValueError(f"Unsupported element for Event: <{element.tag}>")
@@ -169,7 +171,7 @@ class Talk:
     title: MarkupText = field()
     type: Optional[str] = field(default=None)
     speakers: list[NameSpecification] = field(factory=list)
-    attachments: dict[str, AttachmentReference] = field(factory=dict)
+    attachments: dict[str, EventFileReference] = field(factory=dict)
 
     @classmethod
     def from_xml(cls, element: etree._Element) -> Talk:
@@ -186,7 +188,7 @@ class Talk:
                 kwargs["speakers"].append(NameSpecification.from_xml(meta))
             elif meta.tag == "url":
                 type_ = str(meta.get("type", "attachment"))
-                kwargs["attachments"][type_] = AttachmentReference.from_xml(meta)
+                kwargs["attachments"][type_] = EventFileReference.from_xml(meta)
             else:
                 raise ValueError(f"Unsupported element for Talk: <{meta.tag}>")
         return cls(**kwargs)

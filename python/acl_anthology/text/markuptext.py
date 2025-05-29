@@ -21,6 +21,7 @@ from collections import defaultdict
 from copy import deepcopy
 from lxml import etree
 from typing import Iterator, Optional
+from xml.sax.saxutils import escape as xml_escape
 
 from ..utils import (
     latex_encode,
@@ -56,7 +57,6 @@ def markup_to_latex(element: etree._Element) -> str:
             text += latex_encode(nested_element.tail)
 
     text = MARKUP_LATEX_CMDS[tag].format(text=text)
-    text = latex_convert_quotes(text)
     return text
 
 
@@ -80,6 +80,7 @@ class MarkupText:
     _html: Optional[str] = field(init=False, default=None)
     _latex: Optional[str] = field(init=False, default=None)
     _text: Optional[str] = field(init=False, default=None)
+    _xml: Optional[str] = field(init=False, default=None)
 
     def __str__(self) -> str:
         return self.as_text()
@@ -88,7 +89,7 @@ class MarkupText:
         return f"<MarkupText {self.as_html()!r}>"
 
     def __rich_repr__(self) -> Iterator[str]:
-        yield self.as_html()
+        yield self.as_xml()
 
     @property
     def contains_markup(self) -> bool:
@@ -101,13 +102,12 @@ class MarkupText:
             The plain text with any markup stripped. The only transformation that will be performed is replacing TeX-math expressions with their corresponding Unicode representation, if possible.
         """
         if isinstance(self._content, str):
-            return self._content
+            return remove_extra_whitespace(self._content)
         if self._text is not None:
             return self._text
         element = deepcopy(self._content)
         for sub in element.iterfind(".//tex-math"):
             sub.text = TexMath.to_unicode(sub)
-            sub.tail = None  # tail is contained within the return value of to_unicode()
         text = etree.tostring(element, encoding="unicode", method="text")
         self._text = remove_extra_whitespace(text)
         return self._text
@@ -122,7 +122,7 @@ class MarkupText:
                 `<a href="...">` tags, but in simply `<span>` tags.
         """
         if isinstance(self._content, str):
-            return self._content
+            return xml_escape(remove_extra_whitespace(self._content))
         if self._html is not None:
             return self._html
         element = deepcopy(self._content)
@@ -152,11 +152,22 @@ class MarkupText:
         if self._latex is not None:
             return self._latex
         if isinstance(self._content, str):
-            self._latex = latex_convert_quotes(latex_encode(self._content))
+            latex = latex_encode(self._content)
         else:
             latex = markup_to_latex(self._content)
-            self._latex = remove_extra_whitespace(latex)
+        self._latex = remove_extra_whitespace(latex_convert_quotes(latex))
         return self._latex
+
+    def as_xml(self) -> str:
+        """
+        Returns:
+            Text with markup in the original XML format.
+        """
+        if isinstance(self._content, str):
+            return xml_escape(self._content)
+        if self._xml is None:
+            self._xml = stringify_children(self._content)
+        return self._xml
 
     @classmethod
     def from_string(cls, text: str) -> MarkupText:
@@ -181,7 +192,7 @@ class MarkupText:
         if len(element):
             return cls(deepcopy(element))
         else:
-            return cls(str(element.text))
+            return cls(str(element.text) if element.text is not None else "")
 
     def to_xml(self, tag: str = "span") -> etree._Element:
         """

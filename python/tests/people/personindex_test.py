@@ -54,6 +54,25 @@ def test_load_variant_list_correct_variants(index):
     assert pid[0] in index
 
 
+def test_load_variant_list_correct_ids(index):
+    # If no explicit ID is defined, the ID should be based on the canonical
+    # name in the variants list
+    index._load_variant_list()
+    index.is_data_loaded = True
+    n1 = Name("Susan", "Warwick-Armstrong")
+    pid = index.name_to_ids[n1]
+    assert pid == ["susan-armstrong"]
+
+
+def test_load_variant_find_people_single_name(index):
+    # People with a single name should correctly be found
+    index._load_variant_list()
+    index.is_data_loaded = True
+    n1 = Name(None, "Srinivas")
+    pid = index.name_to_ids[n1]
+    assert pid == ["srinivas-bangalore"]
+
+
 def test_add_person(index):
     p1 = Person("yang-liu", index.parent, [Name("Yang", "Liu")])
     index.add_person(p1)
@@ -122,6 +141,24 @@ def test_get_or_create_person_with_name_merging(index):
     assert person2.canonical_name == ns2.name
 
 
+def test_get_or_create_person_with_explicit_canonical_name(index):
+    index._load_variant_list()
+    # This name is defined as canonical in the variants list
+    ns1 = NameSpecification(Name("Emily", "Prud’hommeaux"))
+    # This one is not, but scores higher according to our heuristics
+    ns2 = NameSpecification(Name("Emily", "Prud’Hommeaux"))
+    assert (
+        ns2.name.score() > ns1.name.score()
+    ), "This test assumes that `ns2` will score higher than `ns1`."
+    person1 = index.get_or_create_person(ns1)
+    person2 = index.get_or_create_person(ns2)
+    assert person1 is person2
+    assert person2.has_name(ns1.name)
+    assert person2.has_name(ns2.name)
+    # Canonical name should still be the one defined in variants list
+    assert person2.canonical_name == ns1.name
+
+
 def test_similar_names_defined_in_variant_list(index):
     index._load_variant_list()
     similar = index.similar.subset("pranav-a")
@@ -156,12 +193,39 @@ def test_build_personindex_automatically(index_with_full_anthology):
     assert len(persons) == 1
 
 
+def test_canonical_name_is_never_a_variant(index_with_full_anthology):
+    index = index_with_full_anthology
+    for person in index.values():
+        assert person.canonical_name.script is None
+
+
 def test_get_person_coauthors(index_with_full_anthology):
     index = index_with_full_anthology
     person = index.get_by_name(Name("Kathleen", "Dahlgren"))[0]
     coauthors = index.find_coauthors(person)
     assert len(coauthors) == 1
     assert coauthors[0].canonical_name == Name("Joyce", "McDowell")
+
+    person = index.get_by_name(Name("Preslav", "Nakov"))[0]
+    coauthors = index.find_coauthors(person)
+    assert len(coauthors) == 2
+    # Both volumes where Preslav Nakov is editor have frontmatter, so should still be counted
+    coauthors = index.find_coauthors(person, include_volumes=False)
+    assert len(coauthors) == 2
+
+
+def test_get_person_coauthors_counter(index_with_full_anthology):
+    index = index_with_full_anthology
+    person = index.get_by_name(Name("Kathleen", "Dahlgren"))[0]
+    coauthors = index.find_coauthors_counter(person)
+    assert len(coauthors) == 1
+    assert coauthors["joyce-mcdowell"] == 1
+
+    person = index.get_by_name(Name("Preslav", "Nakov"))[0]
+    coauthors = index.find_coauthors_counter(person)
+    assert len(coauthors) == 2
+    assert coauthors["joyce-mcdowell"] == 0
+    assert coauthors["aline-villavicencio"] == 2
 
 
 def test_get_by_namespec(index_with_full_anthology):
@@ -175,3 +239,11 @@ def test_get_by_namespec(index_with_full_anthology):
     person = index.get_by_namespec(ns2)
     assert person.id == "yang-liu-microsoft"
     assert person.canonical_name == Name("Yang", "Liu")
+
+
+def test_get_by_name_variants(index_with_full_anthology):
+    # It should be possible to find a person by a name variant
+    index = index_with_full_anthology
+    persons = index.get_by_name(Name("洋", "刘"))
+    assert len(persons) == 1
+    assert persons[0].id == "yang-liu-ict"

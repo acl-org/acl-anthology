@@ -12,25 +12,58 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import pytest
 from acl_anthology.collections import EventIndex
 
 
 def test_all_defined_events(anthology):
     index = EventIndex(anthology)
-    expected_ids = {"acl-2022", "nlma-2022", "cl-1989", "lrec-2006"}
+    expected_ids = {"acl-2022", "nlma-2022", "cl-1989", "lrec-2006", "ws-2022"}
     event_ids = set(index.keys())
     assert event_ids == expected_ids
 
 
-def test_implicit_events(anthology):
+def test_are_events_correctly_defined_as_explicit_implicit(anthology):
     index = EventIndex(anthology)
     assert index["acl-2022"].is_explicit
+    assert index["ws-2022"].is_explicit
     assert not index["nlma-2022"].is_explicit
     assert not index["cl-1989"].is_explicit
     assert not index["lrec-2006"].is_explicit
 
 
-def test_explicit_event(anthology):
+def test_implicit_event_data(anthology):
+    index = EventIndex(anthology)
+    event = index["nlma-2022"]
+    assert (
+        event.title.as_text() == "Workshop on Natural Logic Meets Machine Learning (2022)"
+    )
+    assert event.location is None
+    assert event.dates is None
+    assert event.colocated_ids == [("2022.naloma", "1", None)]
+
+
+def test_implicit_and_explicit_event_data(anthology):
+    index = EventIndex(anthology)
+    event = index["ws-2022"]
+    # assert event.title.as_text() == "Other Workshops and Events (2022)"
+    assert event.location is None
+    assert event.dates is None
+    assert event.colocated_ids == [
+        ("2022.nonexistant", "1", None),
+        ("2022.naloma", "1", None),
+    ]
+
+
+@pytest.mark.skip
+def test_event_should_always_get_title(anthology):
+    index = EventIndex(anthology)
+    event = index["ws-2022"]
+    # Currently not created when event is implicitly defined...
+    assert event.title.as_text() == "Other Workshops and Events (2022)"
+
+
+def test_explicit_event_data(anthology):
     index = EventIndex(anthology)
     event = index["acl-2022"]
     assert (
@@ -57,6 +90,6 @@ def test_event_by_volume(anthology):
     assert index.by_volume("2022.acl-demo") == [index["acl-2022"]]
     assert index.by_volume("L06-1") == [index["lrec-2006"]]
     events = index.by_volume("2022.naloma-1")
-    assert {event.id for event in events} == {"acl-2022", "nlma-2022"}
+    assert {event.id for event in events} == {"acl-2022", "nlma-2022", "ws-2022"}
     # This volume is defined under <colocated>, even though it doesn't exist in the toy data
     assert index.by_volume("2022.bigscience-1") == [index["acl-2022"]]

@@ -56,3 +56,30 @@ def test_person_papers(anthology):
     assert len(person.item_ids) == 3
     assert len(list(person.papers())) == 2
     assert len(list(person.volumes())) == 1
+
+
+def test_person_with_name_variants(anthology):
+    # Name variants should be recorded as names of that person
+    person = anthology.get_person("yang-liu-ict")
+    assert person.has_name(Name("Yang", "Liu"))
+    assert person.has_name(Name("洋", "刘"))
+
+
+def test_person_is_explicit(anthology):
+    person = anthology.get_person("yang-liu-ict")
+    assert person.is_explicit
+    person = anthology.get_person("nicoletta-calzolari")
+    assert not person.is_explicit
+    person = anthology.get_person("srinivas-bangalore")
+    assert person.is_explicit
+
+
+def test_person_equality(anthology_stub):
+    n = Name("Yang", "Liu")
+    person1 = Person("yang-liu", anthology_stub, [n])
+    person2 = Person("yang-liu", anthology_stub, [n])
+    person3 = Person("yang-liu-mit", anthology_stub, [n])
+    assert person1 == person2
+    assert person1 != person3
+    assert person2 != person3
+    assert hash(person1) == hash(person2)

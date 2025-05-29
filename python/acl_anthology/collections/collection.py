@@ -133,7 +133,8 @@ class Collection(SlottedDict[Volume]):
         log.debug(f"Parsing XML data file: {self.path}")
         current_volume = cast(Volume, None)  # noqa: F841
         for _, element in etree.iterparse(
-            self.path, tag=("meta", "frontmatter", "paper", "volume", "event")
+            self.path,
+            tag=("meta", "frontmatter", "paper", "volume", "event", "collection"),
         ):
             discard_element = True
             if (
@@ -150,6 +151,11 @@ class Collection(SlottedDict[Volume]):
             elif element.tag == "event":
                 self._set_event_from_xml(element)
                 element.clear()
+            elif element.tag == "collection":
+                if element.get("id") != self.id:
+                    raise ValueError(
+                        f"File {self.path} contains Collection '{element.get('id')}'"
+                    )
             else:
                 # Keep element around; should only apply to <event><meta> ...
                 discard_element = False
@@ -160,7 +166,11 @@ class Collection(SlottedDict[Volume]):
         if self.event is not None:
             # Events are implicitly linked to volumes defined in the same collection
             self.event.colocated_ids = [
-                volume.full_id_tuple for volume in self.data.values()
+                volume.full_id_tuple
+                for volume in self.data.values()
+                # Edge case: in case the <colocated> block lists a volume in
+                # the same collection, don't add it twice
+                if volume.full_id_tuple not in self.event.colocated_ids
             ] + self.event.colocated_ids
 
         self.is_data_loaded = True

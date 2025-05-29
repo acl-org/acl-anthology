@@ -58,6 +58,30 @@ test_cases_markup = (
         },
     ),
     (
+        "Workshop on Topic A &amp; B",
+        {
+            "text": "Workshop on Topic A & B",
+            "html": "Workshop on Topic A &amp; B",
+            "latex": "Workshop on Topic A {\\&} B",
+        },
+    ),
+    (
+        "Title with\n\n line breaks",
+        {
+            "text": "Title with line breaks",
+            "html": "Title with line breaks",
+            "latex": "Title with line breaks",
+        },
+    ),
+    (
+        "<span>Title with\n\n line breaks</span>",
+        {
+            "text": "Title with line breaks",
+            "html": "<span>Title with line breaks</span>",
+            "latex": "Title with line breaks",
+        },
+    ),
+    (
         "<fixed-case>U</fixed-case>pstream <fixed-case>M</fixed-case>itigation <fixed-case>I</fixed-case>s <i><fixed-case>N</fixed-case>ot</i> <fixed-case>A</fixed-case>ll <fixed-case>Y</fixed-case>ou <fixed-case>N</fixed-case>eed",
         {
             "text": "Upstream Mitigation Is Not All You Need",
@@ -81,14 +105,76 @@ test_cases_markup = (
             "latex": "\\textit{D\\textbf{e\\textit{e\\textbf{e\\textit{e\\textbf{p}}}}}}ly",
         },
     ),
+    (  # Apostrophe character gets turned into a regular, protected apostrophe
+        "BERT’s and <fixed-case>BERT</fixed-case>’s Attention",
+        {
+            "text": "BERT’s and BERT’s Attention",
+            "html": 'BERT’s and <span class="acl-fixed-case">BERT</span>’s Attention',
+            "latex": "BERT{'}s and {BERT}{'}s Attention",
+        },
+    ),
+    (  # Regular quotes get turned into LaTeX quotes (and left untouched otherwise)
+        'This "very normal" assumption',
+        {
+            "text": 'This "very normal" assumption',
+            "html": 'This "very normal" assumption',
+            "latex": "This ``very normal'' assumption",
+        },
+    ),
     (
+        'This "very <b>bold</b>" assumption',
+        {
+            "text": 'This "very bold" assumption',
+            "html": 'This "very <b>bold</b>" assumption',
+            "latex": "This ``very \\textbf{bold}'' assumption",
+        },
+    ),
+    (  # Typographic quotes get turned into their respective LaTeX commands
+        "This “very normal” assumption",
+        {
+            "text": "This “very normal” assumption",
+            "html": "This “very normal” assumption",
+            "latex": "This {\\textquotedblleft}very normal{\\textquotedblright} assumption",
+        },
+    ),
+    (
+        "This “very <b>bold</b>” assumption",
+        {
+            "text": "This “very bold” assumption",
+            "html": "This “very <b>bold</b>” assumption",
+            "latex": "This {\\textquotedblleft}very \\textbf{bold}{\\textquotedblright} assumption",
+        },
+    ),
+    (  # Special characters should always be in braces for BibTeX export
         "Äöøéÿőßû–",
         {
             "text": "Äöøéÿőßû–",
             "html": "Äöøéÿőßû–",
-            # this is what the modified latexcodec from the acl-anthology repo produces:
-            # "latex": '{\\"A}{\\"o}{\\o}{\\\'e}{\\"y}{\\H{o}}{\\ss}{\\^u}{--}',
-            "latex": '\\"A\\"o\\o \\\'e\\"y\\H o\\ss \\^u--',
+            "latex": '{\\"A}{\\"o}{\\o}{\\\'e}{\\"y}{\\H{o}}{\\ss}{\\^u}{--}',
+        },
+    ),
+    (
+        "Hajič, Jan and Woźniak, Michał",
+        {
+            "text": "Hajič, Jan and Woźniak, Michał",
+            "html": "Hajič, Jan and Woźniak, Michał",
+            "latex": "Haji{\\v{c}}, Jan and Wo{\\'z}niak, Micha{\\l}",
+        },
+    ),
+    (
+        "Žabokrtský, Zdeněk and Ševčíková, Magda",
+        {
+            "text": "Žabokrtský, Zdeněk and Ševčíková, Magda",
+            "html": "Žabokrtský, Zdeněk and Ševčíková, Magda",
+            "latex": "{\\v{Z}}abokrtsk{\\'y}, Zden{\\v{e}}k and {\\v{S}}ev{\\v{c}}{\\'i}kov{\\'a}, Magda",
+        },
+    ),
+    (
+        "íìïîı ÍÌÏÎİ",
+        {
+            "text": "íìïîı ÍÌÏÎİ",
+            "html": "íìïîı ÍÌÏÎİ",
+            "latex": "{\\'i}{\\`i}{\\\"i}{\\^i}{\\i} {\\'I}{\\`I}{\\\"I}{\\^I}{\\.I}",
         },
     ),
     (
@@ -97,6 +183,14 @@ test_cases_markup = (
             "text": "陳大文",
             "html": "陳大文",
             "latex": "陳大文",
+        },
+    ),
+    (
+        "",
+        {
+            "text": "",
+            "html": "",
+            "latex": "",
         },
     ),
 )
@@ -110,8 +204,9 @@ def test_markup(inp, out):
     assert markup.as_text() == out["text"]
     assert markup.as_html() == out["html"]
     assert markup.as_latex() == out["latex"]
+    assert markup.as_xml() == inp
     assert etree.tostring(markup.to_xml("title"), encoding="unicode") == xml
-    assert markup.contains_markup == (out["text"] != out["html"])
+    assert markup.contains_markup == ("<" in out["html"])
 
 
 def test_simple_string():
@@ -121,6 +216,7 @@ def test_simple_string():
     assert markup.as_text() == text
     assert markup.as_html() == text
     assert markup.as_latex() == text
+    assert markup.as_xml() == text
     assert (
         etree.tostring(markup.to_xml("span"), encoding="unicode")
         == f"<span>{text}</span>"
