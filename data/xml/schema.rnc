@@ -12,11 +12,12 @@ MarkupText = (text | b | i | url | fixed-case | tex-math )+
 first = element first { xsd:string { pattern="(\S(.*\S)?)?" } }
 last = element last { xsd:string { pattern="\S(.*\S)?" } }
 affiliation = element affiliation { text }
-orcid = element orcid { text }
 google-scholar = element google-scholar{ text }
 semantic-scholar = element semantic-scholar { text }
 Variant = element variant { attribute script { xsd:string }, (first? & last) }
-Person = attribute id { xsd:NCName }?, (first? & last & Variant? & affiliation? & orcid? & google-scholar? & semantic-scholar? )
+Person = attribute id { xsd:NCName }?,
+  attribute orcid { xsd:string { pattern = "\d{4}-\d{4}-\d{4}-\d{3}[0-9X]" } }?,
+  (first? & last & Variant? & affiliation? & google-scholar? & semantic-scholar? )
 
 local-filename = xsd:string { pattern="[A-Za-z0-9._\-]+" }
 bibtex-key = xsd:string { pattern="[A-Za-z0-9\-]+" }

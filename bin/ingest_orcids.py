@@ -31,6 +31,7 @@ import click
 import yaml
 import sys
 import os
+import re
 from pathlib import Path
 import lxml.etree as etree
 from typing import Dict, List
@@ -114,9 +115,9 @@ def main(
         )
         sys.exit(1)
 
-    assert len(papers) == len(volume_node.findall('./paper')), (
-        f"Number of papers in YAML ({len(papers)}) does not match number in XML ({len(volume_node.findall('./paper'))})"
-    )
+    assert len(papers) == len(
+        volume_node.findall('./paper')
+    ), f"Number of papers in YAML ({len(papers)}) does not match number in XML ({len(volume_node.findall('./paper'))})"
 
     for paper, paper_node in zip(papers, volume_node.findall('./paper')):
         # paper_num = int(paper["id"])
@@ -137,12 +138,24 @@ def main(
                 name += last.text or ""
             return name
 
-        for author_yaml, author_node in zip(paper['authors'], paper_node.findall('./author')):
-            print(f"- Author YAML={author_yaml['first_name']} {author_yaml['last_name']} XML={get_author_xml(author_node)}", file=sys.stderr)
+        for author_yaml, author_node in zip(
+            paper['authors'], paper_node.findall('./author')
+        ):
+            print(
+                f"- Author YAML={author_yaml['first_name']} {author_yaml['last_name']} XML={get_author_xml(author_node)}",
+                file=sys.stderr,
+            )
             if orcid := author_yaml.get('orcid'):
-                orcid = orcid.split('/')[-1]  # Extract the ORCID from the URL if it's a full URL
-                # Check if the ORCID is already set in the XML
-                # Set the ORCID attribute
+                # grab ORCID pattern from orcid: \d{4}-\d{4}-\d{4}-\d{3}[0-9X]
+                orcid_pattern = r'\d{4}-\d{4}-\d{4}-\d{3}[0-9X]'
+                match = re.match(orcid_pattern, orcid)
+                if match:
+                    # If the ORCID is in the expected format, use it directly
+                    orcid = match.group(0)
+                else:
+                    print(f"Invalid ORCID format: {orcid}", file=sys.stderr)
+                    continue
+
                 author_node.attrib['orcid'] = orcid
 
     indent(root_node)
