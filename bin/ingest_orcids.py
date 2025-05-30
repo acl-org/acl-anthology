@@ -148,7 +148,7 @@ def main(
             if orcid := author_yaml.get('orcid'):
                 # grab ORCID pattern from orcid: \d{4}-\d{4}-\d{4}-\d{3}[0-9X]
                 orcid_pattern = r'\d{4}-\d{4}-\d{4}-\d{3}[0-9X]'
-                match = re.match(orcid_pattern, orcid)
+                match = re.search(orcid_pattern, orcid)
                 if match:
                     # If the ORCID is in the expected format, use it directly
                     orcid = match.group(0)
