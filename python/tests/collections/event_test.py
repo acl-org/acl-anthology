@@ -17,13 +17,9 @@ from attrs import define
 from lxml import etree
 
 from acl_anthology.collections import Event, Talk
+from acl_anthology.files import EventFileReference
 from acl_anthology.text import MarkupText
 from acl_anthology.utils.xml import indent
-
-
-@define
-class AttachmentReferenceMock:
-    name: str
 
 
 @define
@@ -99,8 +95,8 @@ def test_event_all_attribs():
             ("2023.baz", "1", None),
             ("2023.asdf", "1", None),
         ],
-        talks=[Talk("Invited talk")],
-        links={"Website": AttachmentReferenceMock("http://foobar.com")},
+        talks=[Talk(MarkupText.from_string("Invited talk"))],
+        links={"Website": EventFileReference("http://foobar.com")},
     )
     assert event.collection_id == "2023.li"
     assert event.title == event_title
@@ -154,6 +150,23 @@ def test_event_volumes(anthology):
         list(anthology.events.get("acl-2022").volumes())
 
 
+def test_event_add_colocated(anthology):
+    event = anthology.events.get("lrec-2006")
+    assert len(event.colocated_ids) == 1
+    volume = anthology.get_volume("J89-1")
+
+    # Adding colocated volume should update Event & EventIndex
+    event.add_colocated(volume)
+    assert len(event.colocated_ids) == 2
+    assert volume.full_id_tuple in event.colocated_ids
+    assert event in anthology.events.by_volume(volume)
+
+    # Adding the same volume a second time shouldn't change anything
+    event.add_colocated(volume)
+    event.add_colocated(volume.full_id_tuple)
+    assert len(event.colocated_ids) == 2
+
+
 test_cases_talk_xml = (
     """<talk>
   <title>Keynote 1: Language in the human brain</title>
@@ -172,7 +185,7 @@ test_cases_talk_xml = (
 
 
 def test_talk_minimum_attribs():
-    title = "On the Development of Software Tests"
+    title = MarkupText.from_string("On the Development of Software Tests")
     talk = Talk(title)
     assert talk.title == title
     assert talk.type is None

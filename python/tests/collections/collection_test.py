@@ -1,4 +1,4 @@
-# Copyright 2023-2024 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2025 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,15 +17,17 @@ from lxml import etree
 from pathlib import Path
 
 from acl_anthology import Anthology
-from acl_anthology.collections import Collection, CollectionIndex
+from acl_anthology.collections import Collection, CollectionIndex, VolumeType
+from acl_anthology.people import NameSpecification
 from acl_anthology.utils import xml
+from acl_anthology.text import MarkupText
 
 
 test_cases_xml_collections = (
     # (filename, # volumes, # papers, has event?)
     ("2022.acl.xml", 5, 779, True),
     ("2022.naloma.xml", 1, 6, False),
-    ("J89.xml", 4, 62, False),
+    ("J89.xml", 4, 61, False),
     ("L06.xml", 1, 5, False),
 )
 
@@ -38,8 +40,8 @@ def collection_index(anthology):
     return CollectionIndex(parent=anthology)
 
 
-def test_empty_collection(collection_index):
-    collection = Collection("empty", parent=collection_index, path=Path("."))
+def test_collection_instantiate_empty(collection_index):
+    collection = Collection("2000.empty", parent=collection_index, path=Path("."))
     assert not collection.is_data_loaded
     collection.is_data_loaded = True
     assert isinstance(collection.root, Anthology)
@@ -48,13 +50,22 @@ def test_empty_collection(collection_index):
     assert collection.get_event() is None
 
 
+def test_collection_should_raise_on_invalid_id(collection_index):
+    with pytest.raises(ValueError):
+        collection = Collection("2000-empty", parent=collection_index, path=Path("."))
+
+    collection = Collection("2000.empty", parent=collection_index, path=Path("."))
+    with pytest.raises(ValueError):
+        collection.id = "2099-empty"
+
+
 @pytest.mark.parametrize(
     "filename, no_volumes, no_papers, has_event", test_cases_xml_collections
 )
 def test_collection_load(
-    collection_index, datadir, filename, no_volumes, no_papers, has_event
+    collection_index, shared_datadir, filename, no_volumes, no_papers, has_event
 ):
-    infile = datadir / "xml" / filename
+    infile = shared_datadir / "anthology" / "xml" / filename
     collection = Collection(
         filename.replace(".xml", ""), parent=collection_index, path=infile
     )
@@ -68,17 +79,22 @@ def test_collection_load(
         assert collection.get_event() is None
 
 
-def test_collection_load_id_mismatch(collection_index, datadir):
+@pytest.mark.filterwarnings(
+    "ignore::ResourceWarning"
+)  # lxml doesn't properly close XML file here
+def test_collection_load_id_mismatch(collection_index, shared_datadir):
     collection = Collection(
-        "2019.emnlp", parent=collection_index, path=datadir / "xml" / "2022.acl.xml"
+        "2019.emnlp",
+        parent=collection_index,
+        path=shared_datadir / "anthology" / "xml" / "2022.acl.xml",
     )
     with pytest.raises(ValueError):
         collection.load()
 
 
 @pytest.mark.parametrize("filename", test_cases_xml_roundtrip)
-def test_collection_validate_schema(collection_index, datadir, filename):
-    infile = datadir / "xml" / filename
+def test_collection_validate_schema(collection_index, shared_datadir, filename):
+    infile = shared_datadir / "anthology" / "xml" / filename
     collection = Collection(
         filename.replace(".xml", ""), parent=collection_index, path=infile
     )
@@ -86,8 +102,8 @@ def test_collection_validate_schema(collection_index, datadir, filename):
 
 
 @pytest.mark.parametrize("filename", test_cases_xml_roundtrip)
-def test_collection_roundtrip_save(collection_index, datadir, tmp_path, filename):
-    infile = datadir / "xml" / filename
+def test_collection_roundtrip_save(collection_index, shared_datadir, tmp_path, filename):
+    infile = shared_datadir / "anthology" / "xml" / filename
     outfile = tmp_path / filename
     # Load & save collection
     collection = Collection(
@@ -98,5 +114,224 @@ def test_collection_roundtrip_save(collection_index, datadir, tmp_path, filename
     # Compare
     assert outfile.is_file()
     expected = etree.parse(infile)
-    generated = etree.parse(outfile)
-    xml.assert_equals(generated.getroot(), expected.getroot())
+    out = etree.parse(outfile)
+    xml.assert_equals(out.getroot(), expected.getroot())
+
+
+def test_collection_create_volume_implicit(collection_index):
+    collection = collection_index.get("2022.acl")
+    volume = collection.create_volume(
+        "keynotes",
+        title=MarkupText.from_string("Keynotes from ACL 2022"),
+    )
+    assert volume.id in collection
+    assert volume.year == "2022"
+    assert volume.id == "keynotes"
+    assert volume.full_id == "2022.acl-keynotes"
+    assert volume.type == VolumeType.PROCEEDINGS
+
+
+def test_collection_create_volume_explicit(collection_index):
+    collection = collection_index.get("1989.cl")
+    volume = collection.create_volume(
+        id="99",
+        title=MarkupText.from_string("Special Issue"),
+        year="1989",
+        type="journal",
+        journal_issue="99",
+        venue_ids=["cl"],
+    )
+    assert volume.id in collection
+    assert volume.year == "1989"
+    assert volume.id == "99"
+    assert volume.full_id == "1989.cl-99"
+    assert volume.type == VolumeType.JOURNAL
+    assert volume.journal_issue == "99"
+    assert "cl" in volume.venue_ids
+
+
+def test_collection_create_volume_should_fail_in_oldstyle_volumes(collection_index):
+    collection = collection_index.get("L06")
+    with pytest.raises(ValueError):
+        _ = collection.create_volume(
+            "keynotes",
+            title=MarkupText.from_string("Keynotes from LREC 2006"),
+        )
+
+
+def test_collection_create_volume_should_fail_if_already_exists(collection_index):
+    collection = collection_index.get("2022.acl")
+    with pytest.raises(ValueError):
+        _ = collection.create_volume(
+            "long",
+            title=MarkupText.from_string("Long papers from ACL 2022"),
+        )
+
+
+@pytest.mark.parametrize("pre_load", (True, False))
+def test_collection_create_volume_should_update_person(anthology, pre_load):
+    if pre_load:
+        anthology.people.load()  # otherwise we test creation, not updating
+
+    collection = anthology.collections.get("2022.acl")
+    editors = [NameSpecification("Rada Mihalcea")]
+    volume = collection.create_volume(
+        "keynotes",
+        title=MarkupText.from_string("Keynotes from ACL 2022"),
+        editors=editors,
+    )
+    assert volume.editors == editors
+
+    # Volume should have been added to the person object
+    person = anthology.resolve(editors[0])
+    assert volume.full_id_tuple in person.item_ids
+
+
+@pytest.mark.parametrize("pre_load", (True, False))
+def test_collection_create_volume_should_update_personindex(anthology, pre_load):
+    if pre_load:
+        anthology.people.load()  # otherwise we test creation, not updating
+
+    collection = anthology.collections.get("2022.acl")
+    editors = [NameSpecification("Nonexistant, Guy Absolutely")]
+    volume = collection.create_volume(
+        "keynotes",
+        title=MarkupText.from_string("Keynotes from ACL 2022"),
+        editors=editors,
+    )
+    assert volume.editors == editors
+
+    # New editor should exist in the person index
+    person = anthology.resolve(editors[0])
+    assert volume.full_id_tuple in person.item_ids
+
+
+@pytest.mark.parametrize(
+    "pre_load, reset",
+    (
+        (True, True),
+        pytest.param(True, False, marks=pytest.mark.xfail(reason="not implemented")),
+        (False, False),
+        (False, True),
+    ),
+)
+def test_collection_create_volume_should_create_event(anthology, pre_load, reset):
+    if pre_load:
+        anthology.events.load()  # otherwise we test creation, not updating
+
+    collection = anthology.collections.create("2000.empty")
+    volume = collection.create_volume(
+        "1",
+        title=MarkupText.from_string("Empty volume"),
+        venue_ids=["acl"],
+    )
+
+    if reset:
+        anthology.reset_indices()
+
+    # New implicit event should exist in the event index
+    assert "acl-2000" in anthology.events
+    assert volume.full_id_tuple in anthology.events["acl-2000"].colocated_ids
+    assert volume.full_id_tuple in anthology.events.reverse
+    assert anthology.events.reverse[volume.full_id_tuple] == {"acl-2000"}
+
+
+@pytest.mark.parametrize(
+    "pre_load, reset",
+    (
+        (True, True),
+        pytest.param(True, False, marks=pytest.mark.xfail(reason="not implemented")),
+        (False, False),
+        (False, True),
+    ),
+)
+def test_collection_create_volume_should_update_event(anthology, pre_load, reset):
+    if pre_load:
+        anthology.events.load()  # otherwise we test creation, not updating
+
+    collection = anthology.collections.get("2022.acl")
+    collection.is_data_loaded = True
+    volume = collection.create_volume(
+        "keynotes",
+        title=MarkupText.from_string("Keynotes from ACL 2022"),
+        venue_ids=["acl"],
+    )
+
+    if reset:
+        anthology.reset_indices()
+
+    # New volume should be added to existing event
+    assert "acl-2022" in anthology.events
+    assert volume.full_id_tuple in anthology.events["acl-2022"].colocated_ids
+    assert volume.full_id_tuple in anthology.events.reverse
+    assert anthology.events.reverse[volume.full_id_tuple] == {"acl-2022"}
+
+
+@pytest.mark.parametrize(
+    "pre_load, reset",
+    (
+        (True, True),
+        pytest.param(True, False, marks=pytest.mark.xfail(reason="not implemented")),
+        (False, False),
+        (False, True),
+    ),
+)
+def test_collection_create_volume_should_update_venue(anthology, pre_load, reset):
+    if pre_load:
+        anthology.venues.load()  # otherwise we test creation, not updating
+
+    collection = anthology.collections.create("2000.empty")
+    volume = collection.create_volume(
+        "1",
+        title=MarkupText.from_string("Empty volume"),
+        venue_ids=["acl"],
+    )
+
+    if reset:
+        anthology.reset_indices()
+
+    # Nev volume should be added to existing venue
+    assert volume.full_id_tuple in anthology.venues["acl"].item_ids
+
+
+def test_collection_create_event_oldstyle_ids(collection_index):
+    collection = collection_index.get("L06")
+
+    # For old-style ID collections, an ID must be explicitly given
+    with pytest.raises(ValueError):
+        _ = collection.create_event()
+
+    event = collection.create_event(id="lrec-2006")
+    assert event.id == "lrec-2006"
+
+    # Trying to create yet another event in the same collection should raise
+    with pytest.raises(ValueError):
+        _ = collection.create_event(id="lrecagain-2006")
+
+
+def test_collection_create_event_newstyle_ids(collection_index):
+    collection = collection_index.get("1989.cl")
+
+    # For new-style ID collections, an explicit event ID is not required
+    event = collection.create_event()
+    assert event.id == "cl-1989"
+
+    # Trying to create yet another event in the same collection should raise
+    with pytest.raises(ValueError):
+        _ = collection.create_event(id="cl-1989")
+
+
+@pytest.mark.parametrize("pre_load", (True, False))
+def test_collection_create_event_should_update_eventindex(pre_load, anthology):
+    if pre_load:
+        anthology.events.load()  # otherwise we test creation, not updating
+
+    collection = anthology.collections.get("L06")
+    event = collection.create_event(id="lrec-2006")
+
+    if pre_load:
+        # Volume should automatically have been added
+        assert event.colocated_ids == [collection.get("1").full_id_tuple]
+    else:
+        # If event index wasn't loaded, it's not
+        assert event.colocated_ids == []
