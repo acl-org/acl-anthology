@@ -1,4 +1,4 @@
-# Copyright 2023-2024 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2025 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -24,6 +24,8 @@ if TYPE_CHECKING:
 if sys.version_info >= (3, 11):
 
     class AnthologyException(Exception):
+        """Base class from which all other exceptions defined here inherit."""
+
         def __init__(self, msg: str):
             super().__init__(msg)
 

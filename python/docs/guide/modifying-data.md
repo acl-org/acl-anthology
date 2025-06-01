@@ -185,6 +185,20 @@ the gory details), it's best to ensure that:
    `event.add_colocated(volume)`.
 
 
+### Parsing markup
+
+MarkupText can be instantiated from strings representing LaTeX via
+[`MarkupText.from_latex()`][acl_anthology.text.markuptext.MarkupText.from_latex].
+This can be useful for titles and abstracts if they contain LaTeX commands, but
+in practice, it may be unknown if they actually do.  In that case, using
+[`MarkupText.from_latex_maybe()`][acl_anthology.text.markuptext.MarkupText.from_latex_maybe]
+may be preferable, which will e.g. prevent percentage signs `%` from being
+interpreted as starting a LaTeX comment, and apply a heuristic to decide if a
+tilde `~` should be interpreted as a literal character or as a LaTeX
+non-breaking space.
+
+
+
 ## Saving changes
 
 {==TODO==}

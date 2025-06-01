@@ -1,4 +1,4 @@
-# Copyright 2023-2024 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2025 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,12 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Functions implementing the conversion to LaTeX/BibTeX formats."""
+"""Functions implementing conversions to and from LaTeX/BibTeX formats."""
 
 from __future__ import annotations
 
 import re
 from functools import lru_cache
+from lxml import etree
 from typing import cast, Optional, TypeAlias, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -27,12 +28,36 @@ if TYPE_CHECKING:
     SerializableAsBibTeX: TypeAlias = None | str | MarkupText | list[NameSpecification]
     """Any type that can be supplied to `make_bibtex_entry`."""
 
+from .logging import get_logger
+from .xml import append_text
 
 from pylatexenc.latexencode import (
     UnicodeToLatexEncoder,
     UnicodeToLatexConversionRule,
     RULE_DICT,
 )
+from pylatexenc.latexwalker import (
+    LatexWalker,
+    LatexNode,
+    LatexCharsNode,
+    LatexGroupNode,
+    LatexMacroNode,
+    LatexMathNode,
+    LatexSpecialsNode,
+    get_default_latex_context_db as get_default_latexwalker_context_db,
+)
+from pylatexenc.macrospec import MacroSpec
+from pylatexenc.latex2text import (
+    LatexNodes2Text,
+    MacroTextSpec,
+    get_default_latex_context_db as get_default_latex2text_context_db,
+)
+
+log = get_logger()
+
+################################################################################
+### UNICODE TO LATEX (BIBTEX)
+################################################################################
 
 LATEXENC = UnicodeToLatexEncoder(
     conversion_rules=[
@@ -54,6 +79,7 @@ LATEXENC = UnicodeToLatexEncoder(
     unknown_char_policy="keep",
     unknown_char_warning=False,
 )
+"""A UnicodeToLatexEncoder instance intended for BibTeX generation."""
 
 BIBTEX_FIELD_NEEDS_ENCODING = {"journal", "address", "publisher", "note"}
 """Any BibTeX field whose value should be LaTeX-encoded first."""
@@ -211,3 +237,201 @@ def namespecs_to_bibtex(namespecs: list[NameSpecification]) -> str:
         A BibTeX-formatted string representing the given names.
     """
     return "  and\n      ".join(spec.name.as_bibtex() for spec in namespecs)
+
+
+################################################################################
+### LATEX TO UNICODE/XML
+################################################################################
+
+# The logic implemented here is largely based on our old
+# `bin/latex_to_unicode.py` which was mainly authored by David Chiang.
+
+LATEX_MACRO_TO_XMLTAG = {
+    "emph": "i",
+    "em": "i",
+    "textit": "i",
+    "it": "i",
+    "textsl": "i",
+    "sl": "i",
+    "textbf": "b",
+    "bf": "b",
+    "url": "url",
+}
+"""A mapping of LaTeX macros to Anthology XML tags."""
+
+LATEX_CITE_MACROS = {"cite", "citep", "citet", "newcite", "citeauthor", "citeyear"}
+"""A set of LaTeX macros that will be treated as citation macros."""
+
+LW_CONTEXT = get_default_latexwalker_context_db()
+LW_CONTEXT.add_context_category(
+    "unhandled special characters",
+    prepend=True,
+    macros=[
+        MacroSpec("textcommabelow", "{"),
+    ],
+)
+LW_CONTEXT.add_context_category(
+    "common macros",
+    prepend=True,
+    macros=[
+        MacroSpec("href", "{{"),
+    ],
+)
+
+L2T_CONTEXT = get_default_latex2text_context_db()
+L2T_CONTEXT.add_context_category(
+    "citations",
+    prepend=True,
+    macros=[
+        MacroTextSpec(macro, simplify_repl=r"(CITATION)") for macro in LATEX_CITE_MACROS
+    ],
+)
+L2T_CONTEXT.add_context_category(
+    "unhandled special characters",
+    prepend=True,
+    macros=[
+        MacroTextSpec("textcommabelow", simplify_repl="%s\N{COMBINING COMMA BELOW}"),
+        MacroTextSpec("hwithstroke", simplify_repl="ħ"),
+        MacroTextSpec("Hwithstroke", simplify_repl="Ħ"),
+    ],
+)
+L2T_CONTEXT.add_context_category(
+    "common macros",
+    prepend=True,
+    macros=[
+        # \href: drop the URL but keep the text – we could append the URL in a
+        # <url> tag, but this cannot be done here, we would have to add this to
+        # _parse_nodelist_to_element as another special case
+        MacroTextSpec("href", simplify_repl=r"%(2)s")
+    ],
+)
+LATEX_TO_TEXT = LatexNodes2Text(strict_latex_spaces=True, latex_context=L2T_CONTEXT)
+
+
+def _is_trivial_math(node: LatexMathNode) -> bool:
+    """Helper function to determine whether or not a LatexMathNode contains only 'trivial' content that doesn't require a <tex-math> node.
+
+    Currently, a math node is considered 'trivial' if it only contains numbers, spaces, and a few allowed characters (e.g. commas, dots, percentage signs).
+    """
+    content = node.latex_verbatim().strip("$").replace(r"\%", "%")
+    return all(c.isspace() or c.isdigit() or c in (".,@%~") for c in content)
+
+
+def _should_wrap_in_fixed_case(node: LatexGroupNode) -> bool:
+    """Helper function to determine whether or not a LatexGroupNode should produce a <fixed-case> tag."""
+    if len(node.nodelist) == 0 or node.delimiters != ("{", "}"):
+        return False
+    if node.latex_verbatim().startswith("{\\"):
+        # {\...} does *not* protect case
+        return False
+    if node.nodelist[0].isNodeType(LatexMathNode):
+        # Don't mark {$...$}
+        return False
+    if node.nodelist[0].isNodeType(LatexSpecialsNode):
+        # Don't mark {``}, {--}, etc.
+        return False
+    return True
+
+
+def _parse_nodelist_to_element(
+    nodelist: list[LatexNode],
+    element: etree._Element,
+    use_fixed_case: bool,
+    in_macro: bool = False,
+) -> None:
+    """Parse a list of LaTeX nodes into an XML element using the Anthology markup format.
+
+    Arguments:
+        nodelist: The list of parsed LaTeX nodes.
+        element: An XML element into which the parsed nodes will be added.
+        use_fixed_case: Flag indicating whether <fixed-case> protection should be applied.
+        in_macro: Flag indicating whether this function was called by recursing into a macro node. (Do not set this manually.)
+
+    Returns:
+        None; the XML element is modified in-place.
+    """
+    for node in nodelist:
+        if node is None:
+            continue  # pragma: no cover
+        elif node.isNodeType(LatexCharsNode):
+            # Plain text
+            append_text(element, node.chars)
+        elif node.isNodeType(LatexMacroNode):
+            # LaTeX macro
+            if (tag := LATEX_MACRO_TO_XMLTAG.get(node.macroname)) is not None:
+                # This macro should get its own XML tag (e.g. \textbf -> <b>)
+                subelem = etree.SubElement(element, tag)
+                subnodes = node.nodeargd.argnlist
+                _parse_nodelist_to_element(
+                    subnodes, subelem, use_fixed_case, in_macro=True
+                )
+            elif node.macroname in LATEX_CITE_MACROS:
+                # A citation command such as \cite{...}
+                append_text(element, LATEX_TO_TEXT.macro_node_to_text(node))
+            elif node.macroname == "\\":
+                # Special case: explicit linebreak \\
+                append_text(element, "\n")
+            else:
+                # This macro either represents a special characters, such as
+                # \v{c} or \"I, or is some other macro we do not explicitly
+                # handle; in both cases, we fall back on Latex2Text’s default
+                # conversion, which can be influenced by L2T_CONTEXT
+                append_text(element, LATEX_TO_TEXT.macro_node_to_text(node))
+        elif node.isNodeType(LatexGroupNode):
+            # Bracketed group, such as {...} or [...]
+            if not in_macro and _should_wrap_in_fixed_case(node):
+                # Protect this with <fixed-case>, then recurse
+                subelem = etree.SubElement(element, "fixed-case")
+                _parse_nodelist_to_element(node.nodelist, subelem, False)
+            elif node.delimiters == ("{", "}"):
+                # Just recurse
+                _parse_nodelist_to_element(node.nodelist, element, use_fixed_case)
+            else:
+                # Skip [...] or <...> groups
+                pass
+        elif node.isNodeType(LatexMathNode):
+            # Math node
+            if _is_trivial_math(node):
+                # Just append as text
+                append_text(element, LATEX_TO_TEXT.math_node_to_text(node))
+            else:
+                # Keep verbatim, but wrap in <tex-math>
+                subelem = etree.SubElement(element, "tex-math")
+                subelem.text = node.latex_verbatim().strip("$")
+        elif node.isNodeType(LatexSpecialsNode):
+            # TODO: Is this always the correct way?
+            append_text(element, LATEX_TO_TEXT.specials_node_to_text(node))
+        else:
+            # Comments or environments
+            log.warning(f"Unhandled node type: {node.nodeType}")
+
+
+def parse_latex_to_xml(
+    latex_input: str, use_fixed_case: bool = True, use_heuristics: bool = False
+) -> etree._Element:
+    """Convert a string with LaTeX markup into the Anthology XML format.
+
+    Arguments:
+        latex_input: A string potentially including LaTeX markup.
+        use_fixed_case: Flag indicating whether <fixed-case> protection should be applied.
+        use_heuristics: If True, will apply some heuristics to determine if certain symbols should be interpreted as plain text rather than LaTeX; e.g., it will prevent percentage signs from being interpreted as LaTeX comments.  Set this to True when dealing with inputs that could either be plain text or LaTeX.
+
+    Returns:
+        An XML element representing the given LaTeX input in the Anthology XML format for markup strings.
+
+    Note:
+        This is a potentially lossy conversion, as the Anthology XML format only represents a small subset of LaTeX commands.  Unhandled commands will be dropped, but emit a warning in the logger.
+    """
+    if use_heuristics:
+        # % is probably percent (not a comment delimiter)
+        latex_input = re.sub(r"(?<!\\)%", r"\%", latex_input)
+
+        # Use a heuristic to decide whether ~ means "approximately" or is a tie
+        latex_input = re.sub(r"(?<=[ (])~(?=\d)", r"\\textasciitilde ", latex_input)
+        latex_input = re.sub(r"^~(?=\d)", r"\\textasciitilde ", latex_input)
+
+    element = etree.Element("root")
+    walker = LatexWalker(latex_input, latex_context=LW_CONTEXT)
+    nodelist, *_ = walker.get_latex_nodes()
+    _parse_nodelist_to_element(nodelist, element, use_fixed_case)
+    return element
