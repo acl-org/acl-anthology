@@ -46,10 +46,11 @@ from pylatexenc.latexwalker import (
     LatexSpecialsNode,
     get_default_latex_context_db as get_default_latexwalker_context_db,
 )
-from pylatexenc.macrospec import MacroSpec
+from pylatexenc.macrospec import MacroSpec, SpecialsSpec
 from pylatexenc.latex2text import (
     LatexNodes2Text,
     MacroTextSpec,
+    SpecialsTextSpec,
     get_default_latex_context_db as get_default_latex2text_context_db,
 )
 
@@ -64,7 +65,10 @@ LATEXENC = UnicodeToLatexEncoder(
         UnicodeToLatexConversionRule(
             RULE_DICT,
             {
+                ord("‘"): "`",  # defaults to \textquoteleft
                 ord("’"): "'",  # defaults to \textquoteright
+                ord("“"): "``",  # defaults to \textquotedblleft
+                ord("”"): "''",  # defaults to \textquotedblright
                 ord("–"): "--",  # defaults to \textendash
                 ord("—"): "---",  # defaults to \textemdash
                 ord("í"): "\\'i",  # defaults to using dotless \i
@@ -100,10 +104,39 @@ BIBTEX_MONTHS = {
 }
 """A mapping of month names to BibTeX macros."""
 
-RE_OPENING_QUOTE_DOUBLE = re.compile(r"(?<!\\)({''}|'')\b")
-RE_OPENING_QUOTE_SINGLE = re.compile(r"(?<!\\)({'}|')\b")
-RE_CLOSING_QUOTE_DOUBLE = re.compile(r"(?<!\\){''}")
-RE_CLOSING_QUOTE_SINGLE = re.compile(r"(?<!\\){'}")
+RE_OPENING_QUOTE_DOUBLE = re.compile(
+    r"""
+     (\A|(?<=\s))    # must be start of the string or come after whitespace
+     ({``}|{''}|'')  # match double apostrophe, optionally in braces
+     (?!}|\s)        # must not come before whitespace or closing brace }
+     """,
+    re.X,
+)
+RE_OPENING_QUOTE_SINGLE = re.compile(
+    r"""
+     (\A|(?<=\s))  # must be start of the string or come after whitespace
+     ({`}|{'}|')   # match single apostrophe, optionally in braces
+     (?!'|}|\s)    # must not come before whitespace, closing brace, or another apostrophe
+     """,
+    re.X,
+)
+RE_CLOSING_QUOTE_DOUBLE = re.compile(
+    r"""
+     (?<!\\)       # must not come after backslash
+     {''}          # match double apostrophe in braces
+     (?=\W|\Z)     # must be end of the string or come before a non-word character
+     """,
+    re.X,
+)
+RE_CLOSING_QUOTE_SINGLE = re.compile(
+    r"""
+     (?<!\\)       # must not come after backslash
+     {'}           # match single apostrophe in braces
+     (?=\W|\Z)     # must be end of the string or come before a non-word character
+     """,
+    re.X,
+)
+
 RE_HYPHENS_BETWEEN_NUMBERS = re.compile(r"(?<=[0-9])(-|–|—)(?=[0-9])")
 
 
@@ -269,6 +302,10 @@ LW_CONTEXT.add_context_category(
     macros=[
         MacroSpec("textcommabelow", "{"),
     ],
+    specials=[
+        SpecialsSpec("`"),
+        SpecialsSpec("'"),
+    ],
 )
 LW_CONTEXT.add_context_category(
     "common macros",
@@ -293,6 +330,10 @@ L2T_CONTEXT.add_context_category(
         MacroTextSpec("textcommabelow", simplify_repl="%s\N{COMBINING COMMA BELOW}"),
         MacroTextSpec("hwithstroke", simplify_repl="ħ"),
         MacroTextSpec("Hwithstroke", simplify_repl="Ħ"),
+    ],
+    specials=[
+        SpecialsTextSpec("`", "‘"),
+        SpecialsTextSpec("'", "’"),
     ],
 )
 L2T_CONTEXT.add_context_category(

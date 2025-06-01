@@ -1,11 +1,15 @@
 # Changelog
 
-## Unreleased
+## [Unreleased]
 
 ### Added
 
 - MarkupText can now be instantiated from strings (potentially) containing LaTeX markup.
   - This reimplements functionality used at ingestion time previously found in `bin/latex_to_unicode.py`.
+
+### Changed
+
+- MarkupText: Typographic quotes now convert to/from LaTeX quotes more consistently.
 
 ## [0.5.2] — 2025-05-16
 

@@ -106,6 +106,30 @@ test_cases_markup = (
         },
     ),
     (
+        'This "very <b>bold</b>" assumption',
+        {
+            "text": 'This "very bold" assumption',
+            "html": 'This "very <b>bold</b>" assumption',
+            "latex": "This ``very \\textbf{bold}'' assumption",
+        },
+    ),
+    (  # Typographic quotes get turned into normal LaTeX quotes as well
+        "This “very normal” assumption",
+        {
+            "text": "This “very normal” assumption",
+            "html": "This “very normal” assumption",
+            "latex": "This ``very normal'' assumption",
+        },
+    ),
+    (
+        "This “very <b>bold</b>” assumption",
+        {
+            "text": "This “very bold” assumption",
+            "html": "This “very <b>bold</b>” assumption",
+            "latex": "This ``very \\textbf{bold}'' assumption",
+        },
+    ),
+    (  # Special characters should always be in braces for BibTeX export
         "Äöøéÿőßû–",
         {
             "text": "Äöøéÿőßû–",
@@ -282,12 +306,20 @@ test_cases_markup_from_latex = (
         "ħĦ",
     ),
     (
-        "\\textquotesingle \\textquotedblleft \\textquotedblright",
-        "'“”",
+        "\\textquotesingle \\textquotedblleft \\textquotedblright \\textquoteleft \\textquoteright",
+        "'“”‘’",
     ),
     (
-        "\\$42 x`x",
-        "$42 x`x",  # TODO: latex_to_unicode.py converts ` to ‘ but I'm not sure why
+        "\\$42",
+        "$42",
+    ),
+    (  # LaTeX quotes should be turned into typographic quotes
+        "``Double'' quotes ``within'' text and \\textbf{``markup''}",
+        "“Double” quotes “within” text and <b>“markup”</b>",
+    ),
+    (
+        "`Single' quotes `within' text and \\textbf{`markup'}",
+        "‘Single’ quotes ‘within’ text and <b>‘markup’</b>",
     ),
     (  # Non-ASCII characters should remain unchanged
         "陳大文",
