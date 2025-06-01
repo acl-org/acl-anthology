@@ -16,6 +16,22 @@ body:
         what is in the PDF, instead use the "Fix data" button on the paper page,
         which will help automate the correction. Thanks!
   - type: textarea
+    id: author_name_script_variant
+    attributes:
+      label: Author Name (only if published in another script)
+      description: |
+        If you publish using your name written in a non-Latin script, please provide it here with a UTF-8 encoding.
+      placeholder: ex. अंकुर
+    validations:
+      required: false
+  - type: checkboxes
+    id: author_name_script_variant_direction
+    attributes:
+      label: Is the authors name read right to left? (only if published in another script)
+      options:
+        - label: Script is read right-to-left.
+          required: false
+  - type: textarea
     id: name_pages_affected
     attributes:
       label: Author Pages
@@ -24,6 +40,7 @@ body:
       placeholder: ex. https://aclanthology.org/people/m/matt-post/
     validations:
       required: true
+
   - type: textarea
     id: author_orcid
     attributes:
