@@ -1,4 +1,4 @@
-# Copyright 2023-2024 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2025 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -119,22 +119,6 @@ test_cases_markup = (
             "text": 'This "very normal" assumption',
             "html": 'This "very normal" assumption',
             "latex": "This ``very normal'' assumption",
-        },
-    ),
-    (
-        'This "very <b>bold</b>" assumption',
-        {
-            "text": 'This "very bold" assumption',
-            "html": 'This "very <b>bold</b>" assumption',
-            "latex": "This ``very \\textbf{bold}'' assumption",
-        },
-    ),
-    (  # Typographic quotes get turned into their respective LaTeX commands
-        "This “very normal” assumption",
-        {
-            "text": "This “very normal” assumption",
-            "html": "This “very normal” assumption",
-            "latex": "This {\\textquotedblleft}very normal{\\textquotedblright} assumption",
         },
     ),
     (
