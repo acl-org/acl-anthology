@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+### Added
+
+- MarkupText can now be instantiated from strings (potentially) containing LaTeX markup.
+  - This reimplements functionality used at ingestion time previously found in `bin/latex_to_unicode.py`.
+
 ## [0.5.2] — 2025-05-16
 
 This release adds support for Python 3.13 and initial functionality for creating new proceedings.
