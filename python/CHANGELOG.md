@@ -8,10 +8,12 @@
   - This reimplements functionality used at ingestion time previously found in `bin/latex_to_unicode.py`.
 - Paper objects now have a `type` attribute indicating if they are frontmatter, backmatter, or a regular paper.
   - This adds support for the `<paper type="backmatter">` attribute that was previously ignored, and slightly refactors how frontmatter is identified, making it more explicit rather than just relying on the paper ID.
+- Paper now exposes `<mrf>` elements, currently only used in a single collection, as "attachments" of type "mrf".
 
 ### Changed
 
 - MarkupText: Typographic quotes now convert to/from LaTeX quotes more consistently.
+- Paper attachments without a type attribute in the XML now give their type as an empty string (instead of defaulting to "attachment"), in order to be able to reconstruct whether there was an explicit type attribute or not.
 
 ## [0.5.2] — 2025-05-16
 

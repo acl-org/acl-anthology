@@ -605,7 +605,7 @@ class Paper:
             if element.tag in ("bibkey", "doi", "pages"):
                 kwargs[element.tag] = element.text
             elif element.tag == "attachment":
-                type_ = str(element.get("type", "attachment"))
+                type_ = str(element.get("type", ""))
                 kwargs["attachments"].append(
                     (type_, AttachmentReference.from_xml(element))
                 )
@@ -658,7 +658,7 @@ class Paper:
             elif element.tag in ("abstract", "title"):
                 kwargs[element.tag] = MarkupText.from_xml(element)
             elif element.tag == "attachment":
-                type_ = str(element.get("type", "attachment"))
+                type_ = str(element.get("type", ""))
                 kwargs["attachments"].append(
                     (type_, AttachmentReference.from_xml(element))
                 )
@@ -687,9 +687,9 @@ class Paper:
                     kwargs["videos"] = []
                 kwargs["videos"].append(VideoReference.from_xml(element))
             elif element.tag == ("mrf"):
-                # TODO: this field is currently ignored
-                log.debug(
-                    f"Paper {paper.get('id')!r}: Tag '{element.tag}' is currently ignored"
+                # consider an attachment of type "mrf"
+                kwargs["attachments"].append(
+                    ("mrf", AttachmentReference.from_xml(element))
                 )
             else:
                 raise AnthologyXMLError(
@@ -735,8 +735,13 @@ class Paper:
             if (value := getattr(self, tag)) is not None:
                 paper.append(getattr(E, tag)(value))
         for type_, attachment in self.attachments:
-            elem = attachment.to_xml("attachment")
-            elem.set("type", type_)
+            if type_ == "mrf":  # rarely used <mrf> tag
+                elem = attachment.to_xml("mrf")
+                elem.set("src", "latexml")
+            else:
+                elem = attachment.to_xml("attachment")
+                if type_:
+                    elem.set("type", type_)
             paper.append(elem)
         for video in self.videos:
             paper.append(video.to_xml("video"))
