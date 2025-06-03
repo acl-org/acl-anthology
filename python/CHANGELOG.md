@@ -4,6 +4,7 @@
 
 ### Added
 
+- Collections now use a minimal-diff algorithm when saving back to XML, ensuring that `save()` can be called without generating unnecessary changes in the XML files.
 - MarkupText can now be instantiated from strings (potentially) containing LaTeX markup.
   - This reimplements functionality used at ingestion time previously found in `bin/latex_to_unicode.py`.
 - Paper objects now have a `type` attribute indicating if they are frontmatter, backmatter, or a regular paper.

@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import filecmp
 import pytest
 from lxml import etree
 from pathlib import Path
@@ -106,8 +107,11 @@ def test_collection_validate_schema(collection_index, shared_datadir, filename):
     collection.validate_schema()
 
 
+@pytest.mark.parametrize("minimal_diff", (True, False))
 @pytest.mark.parametrize("filename", test_cases_xml_roundtrip)
-def test_collection_roundtrip_save(collection_index, shared_datadir, tmp_path, filename):
+def test_collection_roundtrip_save(
+    collection_index, shared_datadir, tmp_path, filename, minimal_diff
+):
     infile = shared_datadir / "anthology" / "xml" / filename
     outfile = tmp_path / filename
     # Load & save collection
@@ -115,12 +119,24 @@ def test_collection_roundtrip_save(collection_index, shared_datadir, tmp_path, f
         filename.replace(".xml", ""), parent=collection_index, path=infile
     )
     collection.load()
-    collection.save(path=outfile)
+    collection.save(path=outfile, minimal_diff=minimal_diff)
     # Compare
     assert outfile.is_file()
-    expected = etree.parse(infile)
-    out = etree.parse(outfile)
-    xml.assert_equals(out.getroot(), expected.getroot())
+    if not minimal_diff:
+        # Tests for logical equivalence
+        expected = etree.parse(collection.path)
+        result = etree.parse(outfile)
+        xml.assert_equals(result.getroot(), expected.getroot())
+    else:
+        # Tests for byte-level equivalence
+        if not filecmp.cmp(outfile, infile):
+            # Assertion failed, but assert on the lines so we see a diff
+            with (
+                open(outfile, "r", encoding="utf-8") as f,
+                open(infile, "r", encoding="utf-8") as g,
+            ):
+                out_lines, exp_lines = f.readlines(), g.readlines()
+            assert exp_lines == out_lines
 
 
 def test_collection_create_volume_implicit(collection_index):
