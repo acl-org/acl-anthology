@@ -188,7 +188,8 @@ class PaperDeletionNotice:
             A serialization of this deletion notice in Anthology XML format.
         """
         return cast(
-            etree._Element, getattr(E, self.type.value)(self.note, date=self.date)
+            etree._Element,
+            getattr(E, self.type.value)(self.note if self.note else "", date=self.date),
         )
 
 
