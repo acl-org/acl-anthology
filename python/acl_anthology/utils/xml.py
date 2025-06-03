@@ -64,6 +64,17 @@ TAGS_WITH_ORDER_SEMANTICS = {
 """XML tags that may appear multiple times per parent tag, and whose relative order matters even if their parent tag belongs to `TAGS_WITH_UNORDERED_CHILDREN`."""
 
 
+TAGS_WITHOUT_LINEBREAKS = {
+    "author",
+    "editor",
+    "speaker",
+    "title",
+    "booktitle",
+    "variant",
+}
+"""XML tags that should always be serialized without line breaks."""
+
+
 def _filter_children(elems: Iterable[etree._Element]) -> list[etree._Element]:
     """Filter child elements that contribute no information.
 
@@ -180,14 +191,18 @@ def indent(elem: etree._Element, level: int = 0, internal: bool = False) -> None
     Note:
         Adapted from [https://stackoverflow.com/a/33956544](https://stackoverflow.com/a/33956544).
     """
+    if isinstance(elem, etree._Comment):
+        return
+
     # tags that have no internal linebreaks (including children)
-    oneline = elem.tag in ("author", "editor", "speaker", "title", "booktitle", "variant")
+    oneline = elem.tag in TAGS_WITHOUT_LINEBREAKS
 
     elem.text = clean_whitespace(elem.text, lambda x: x.lstrip())
+    is_markup = elem.tag in TAGS_WITH_MARKUP
 
     if len(elem):  # children
         # Set indent of first child for tags with no text
-        if not oneline and (not elem.text or not elem.text.strip()):
+        if not oneline and not is_markup and (not elem.text or not elem.text.strip()):
             elem.text = "\n" + (level + 1) * "  "
 
         if not elem.tail or not elem.tail.strip():
@@ -196,14 +211,23 @@ def indent(elem: etree._Element, level: int = 0, internal: bool = False) -> None
             else:
                 elem.tail = "\n"
 
-        # recurse
-        for child in elem:
-            indent(child, level + 1, internal=(internal or oneline))
+        if is_markup:
+            child = elem[-1]
+        else:
+            # recurse
+            for child in elem:
+                indent(
+                    child,
+                    level + 1,
+                    internal=(internal or oneline),
+                )
 
         # Clean up the last child
         if oneline:
             child.tail = clean_whitespace(child.tail, lambda x: x.rstrip())
-        elif not internal and (not child.tail or not child.tail.strip()):
+        elif (
+            not is_markup and not internal and (not child.tail or not child.tail.strip())
+        ):
             child.tail = "\n" + level * "  "
     else:
         elem.text = clean_whitespace(elem.text, lambda x: x.strip())

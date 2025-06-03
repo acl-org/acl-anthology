@@ -18,6 +18,7 @@
 - Paper attachments without a type attribute in the XML now give their type as an empty string (instead of defaulting to "attachment"), in order to be able to reconstruct whether there was an explicit type attribute or not.
 - Made `utils.xml.assert_equals` more robust and added some explicit tests for it.
   - Fixed a bug where `utils.xml.assert_equals` did not take into account that the relative order of some XML tags matters, e.g. `<author>` or `<editor>`, and would still consider them equal if those were reordered.
+- Made `utils.xml.indent` more robust to a few edge cases.
 
 ## [0.5.2] — 2025-05-16
 

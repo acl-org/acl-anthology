@@ -241,9 +241,7 @@ test_cases_xml = (
   <author><first/><last>None</last></author>
   <editor><first>Marcel</first><last>Bollmann</last></editor>
   <pages>0</pages>
-  <abstract>
-    <b>Look</b> at <i>this</i>!
-  </abstract>
+  <abstract><b>Look</b> at <i>this</i>!</abstract>
   <url hash="d6a71220">2023.fake-volume.max</url>
   <erratum id="1" hash="21a4921f">2023.fake-volume.maxe2</erratum>
   <revision id="1" href="2023.fake-volume.max" hash="21e2f21f"/>

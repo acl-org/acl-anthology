@@ -14,9 +14,11 @@
 
 import pytest
 from lxml import etree
+
 from acl_anthology.utils import xml
 
-test_cases_xml = (
+
+test_cases_stringify_children = (
     (
         "<span>Lorem <b>ipsum</b> <i>dolor</i> sit <b>a<i>men</i></b></span>",
         None,
@@ -57,14 +59,21 @@ test_cases_indent = (
     ),
     (
         "<title>With <b>nested <i>markup with subsequent closing tags</i></b></title>",
-        """<title>With <b>nested <i>markup with subsequent closing tags</i></b></title>
-""",
+        "<title>With <b>nested <i>markup with subsequent closing tags</i></b></title>\n",
+    ),
+    (
+        "<abstract>Text where URL is followed by text: <url>https://aclanthology.org/</url>!</abstract>",
+        "<abstract>Text where URL is followed by text: <url>https://aclanthology.org/</url>!</abstract>\n",
+    ),
+    (
+        "<abstract>Text that ends in a URL: <url>https://aclanthology.org/</url></abstract>",
+        "<abstract>Text that ends in a URL: <url>https://aclanthology.org/</url></abstract>\n",
     ),
 )
 
 
-@pytest.mark.parametrize("inp, child, out", test_cases_xml)
-def test_stringify_children(inp, child, out):
+@pytest.mark.parametrize("inp, child, out", test_cases_stringify_children)
+def test_xml_stringify_children(inp, child, out):
     element = etree.fromstring(inp)
     if child is not None:
         element = element.find(child)
@@ -72,7 +81,7 @@ def test_stringify_children(inp, child, out):
 
 
 @pytest.mark.parametrize("inp, out", test_cases_indent)
-def test_indent(inp, out):
+def test_xml_indent(inp, out):
     element = etree.fromstring(inp)
     xml.indent(element)
     assert etree.tostring(element, encoding="unicode") == out
