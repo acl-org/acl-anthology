@@ -13,7 +13,10 @@
 ### Changed
 
 - MarkupText: Typographic quotes now convert to/from LaTeX quotes more consistently.
+- Names: Fixed some inconsistencies where `<first/>`, `<first></first>`, and a missing "first" tag would not be considered fully equivalent (within `Name` and `utils.xml.assert_equals`).
 - Paper attachments without a type attribute in the XML now give their type as an empty string (instead of defaulting to "attachment"), in order to be able to reconstruct whether there was an explicit type attribute or not.
+- Made `utils.xml.assert_equals` more robust and added some explicit tests for it.
+  - Fixed a bug where `utils.xml.assert_equals` did not take into account that the relative order of some XML tags matters, e.g. `<author>` or `<editor>`, and would still consider them equal if those were reordered.
 
 ## [0.5.2] — 2025-05-16
 

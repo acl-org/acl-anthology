@@ -16,7 +16,7 @@
 
 import itertools as it
 from lxml import etree
-from typing import Callable, Optional
+from typing import Callable, Iterable, Optional
 from xml.sax.saxutils import escape as xml_escape
 
 
@@ -44,11 +44,56 @@ TAGS_WITH_UNORDERED_CHILDREN = {
     "speaker",
     "variant",
 }
-"""XML tags whose child elements can logically appear in arbitrary order."""
+"""XML tags that may contain child elements that can logically appear in arbitrary order."""
+
+
+TAGS_WITH_ORDER_SEMANTICS = {
+    "author",
+    "editor",
+    "speaker",
+    "erratum",
+    "revision",
+    "talk",
+    "venue",
+    # These maybe shouldn't matter, but currently do:
+    "attachment",
+    "award",
+    "video",
+    "pwcdataset",
+}
+"""XML tags that may appear multiple times per parent tag, and whose relative order matters even if their parent tag belongs to `TAGS_WITH_UNORDERED_CHILDREN`."""
+
+
+def _filter_children(elems: Iterable[etree._Element]) -> list[etree._Element]:
+    """Filter child elements that contribute no information.
+
+    This includes superfluous empty XML elements, such as <first/> tags, as well as XML comments.
+    """
+    taglist = (
+        "abstract",
+        "address",
+        "affiliation",
+        "colocated",
+        "dates",
+        "first",
+        "pages",
+        "publisher",
+    )
+    return [
+        x
+        for x in elems
+        if not (x.tag in taglist and not x.text) and not isinstance(x, etree._Comment)
+    ]
 
 
 def _sort_children(x: etree._Element) -> tuple[str, str]:
     """Turn an XML element into a key for sorting purposes."""
+    if x.tag in TAGS_WITH_ORDER_SEMANTICS:
+        # We return the same sorting key for all tags whose relative order
+        # should not be changed. This guarantees that their original order will
+        # not be changed due to Python's sort stability:
+        # <https://docs.python.org/3/howto/sorting.html#sort-stability-and-complex-sorts>
+        return (x.tag, "")
     return (x.tag, etree.tostring(x, encoding="unicode"))
 
 
@@ -62,21 +107,24 @@ def assert_equals(elem: etree._Element, other: etree._Element) -> None:
     Raises:
         AssertionError: If the two elements are not logically equivalent.
     """
-    assert elem.tag == other.tag, "Tags don't match"
-    assert elem.attrib == other.attrib, "Attributes don't match"
-    assert elem.text == other.text, "Text doesn't match"
+    assert elem.tag == other.tag
+    assert elem.attrib == other.attrib
+    assert elem.text == other.text or (not elem.text and not other.text)
     if elem.tag in TAGS_WITH_MARKUP:
-        assert etree.tostring(elem, encoding="unicode") == etree.tostring(
-            other, encoding="unicode"
+        # Should render identically, except maybe for trailing whitespace
+        assert (
+            etree.tostring(elem, encoding="unicode").rstrip()
+            == etree.tostring(other, encoding="unicode").rstrip()
         )
     else:
-        elem_children, other_children = list(elem), list(other)
+        elem_children = _filter_children(elem)
+        other_children = _filter_children(other)
         if elem_children and elem.tag in TAGS_WITH_UNORDERED_CHILDREN:
             elem_children = sorted(elem_children, key=_sort_children)
             other_children = sorted(other_children, key=_sort_children)
         assert [child.tag for child in elem_children] == [
             child.tag for child in other_children
-        ], "Child element tags doesn't match"
+        ]
         for elem_child, other_child in zip(elem_children, other_children):
             assert_equals(elem_child, other_child)
 
