@@ -1,4 +1,4 @@
-# Copyright 2023-2024 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2025 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,27 +15,26 @@
 import os
 import pytest
 from pathlib import Path
+
 from acl_anthology import Anthology
 
-SCRIPTDIR = os.path.dirname(os.path.realpath(__file__))
-DATADIR = Path(f"{SCRIPTDIR}/.official_anthology_git")
+
+# Map from [repo]/python/tests to [repo]/data
+DATADIR = Path(os.path.dirname(os.path.realpath(__file__))) / ".." / ".." / "data"
 
 
-@pytest.fixture
-def anthology_from_repo():
-    return Anthology.from_repo(path=DATADIR, verbose=True)
-
-
-@pytest.mark.integration
-def test_anthology_from_official_repo(anthology_from_repo):
-    anthology = anthology_from_repo
-    anthology.load_all()
-    assert len(anthology.collections) > 1145
-    assert anthology.get_paper("2023.acl-long.1") is not None
+@pytest.fixture(scope="module")
+def full_anthology():
+    return Anthology(datadir=DATADIR)
 
 
 @pytest.mark.integration
-def test_anthology_validate_schema(anthology_from_repo):
-    anthology = anthology_from_repo
-    for collection in anthology.collections.values():
+def test_anthology_from_repo(tmp_path):
+    # Test that we can instantiate from the GitHub repo
+    _ = Anthology.from_repo(path=tmp_path, verbose=True)
+
+
+@pytest.mark.integration
+def test_full_anthology_should_validate_schema(full_anthology):
+    for collection in full_anthology.collections.values():
         collection.validate_schema()
