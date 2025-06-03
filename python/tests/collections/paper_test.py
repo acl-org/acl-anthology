@@ -16,7 +16,7 @@ import attrs
 import copy
 import pytest
 from acl_anthology.collections import CollectionIndex
-from acl_anthology.collections.types import VolumeType
+from acl_anthology.collections.types import PaperType, VolumeType
 from acl_anthology.files import AttachmentReference, PDFReference
 from acl_anthology.people import NameSpecification
 from acl_anthology.text import MarkupText
@@ -158,7 +158,7 @@ def test_paper_bibtype():
     assert paper.bibtype == "article"
     volume.type = VolumeType.PROCEEDINGS
     assert paper.bibtype == "inproceedings"
-    paper.id = "0"
+    paper.type = PaperType.FRONTMATTER
     assert paper.bibtype == "proceedings"
     volume.type = VolumeType.JOURNAL
     assert paper.bibtype == "book"

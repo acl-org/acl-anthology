@@ -40,7 +40,7 @@ from ..utils.citation import citeproc_render_html, render_acl_citation
 from ..utils.ids import build_id, is_valid_item_id, AnthologyIDTuple
 from ..utils.latex import make_bibtex_entry
 from ..utils.logging import get_logger
-from .types import PaperDeletionType, VolumeType
+from .types import PaperDeletionType, PaperType, VolumeType
 
 if TYPE_CHECKING:
     from ..anthology import Anthology
@@ -248,6 +248,7 @@ class Paper:
         pages: Page numbers of this paper within its volume.
         paperswithcode: Links to code implementations and datasets as provided by [Papers with Code](https://paperswithcode.com/).
         pdf: A reference to the paper's PDF.
+        type: The paper's type, currently used to mark frontmatter and backmatter.
     """
 
     id: str = field(converter=int_to_str)
@@ -302,6 +303,7 @@ class Paper:
         default=None, on_setattr=attrs.setters.frozen, repr=False
     )
     pdf: Optional[PDFReference] = field(default=None, repr=False)
+    type: PaperType = field(default=PaperType.PAPER, repr=False, converter=PaperType)
 
     @id.validator
     def _check_id(self, _: Any, value: str) -> None:
@@ -336,7 +338,7 @@ class Paper:
     @property
     def is_frontmatter(self) -> bool:
         """Returns True if this paper represents a volume's frontmatter."""
-        return self.id == constants.FRONTMATTER_ID
+        return self.type == PaperType.FRONTMATTER
 
     @property
     def root(self) -> Anthology:
@@ -591,6 +593,7 @@ class Paper:
         """Instantiates a new paper from a `<frontmatter>` block in the XML."""
         kwargs: dict[str, Any] = {
             "id": constants.FRONTMATTER_ID,
+            "type": PaperType.FRONTMATTER,
             "parent": parent,
             # A frontmatter's title is the parent volume's title
             "title": parent.title,
@@ -631,6 +634,7 @@ class Paper:
         # Remainder of this function assumes paper.tag == "paper"
         kwargs: dict[str, Any] = {
             "id": str(paper.get("id")),
+            "type": PaperType(paper.get("type", "paper")),
             "parent": parent,
             "authors": [],
             "editors": [],
@@ -638,10 +642,6 @@ class Paper:
         }
         if (ingest_date := paper.get("ingest-date")) is not None:
             kwargs["ingest_date"] = str(ingest_date)
-        if paper.get("type") is not None:
-            # TODO: this is currently ignored
-            log.debug(f"Paper {paper.get('id')!r}: Type attribute is currently ignored")
-            # kwargs["type"] = str(paper_type)
         for element in paper:
             if element.tag in (
                 "bibkey",
@@ -713,6 +713,8 @@ class Paper:
             paper = etree.Element("paper", attrib={"id": self.id})
         if self.ingest_date is not None:
             paper.set("ingest-date", self.ingest_date)
+        if self.type == PaperType.BACKMATTER:
+            paper.set("type", "backmatter")
         if not self.is_frontmatter:
             paper.append(self.title.to_xml("title"))
             for name_spec in self.authors:
