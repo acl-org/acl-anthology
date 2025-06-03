@@ -15,6 +15,16 @@
 from enum import Enum
 
 
+class EventLinkingType(Enum):
+    """How a volume ID was connected to an Event."""
+
+    EXPLICIT = "explicit"
+    """Volume ID is explicitly listed in <colocated> block in XML."""
+
+    INFERRED = "inferred"
+    """Volume ID was inferred to belong to Event through venue association."""
+
+
 class PaperDeletionType(Enum):
     """Type of deletion of a paper."""
 

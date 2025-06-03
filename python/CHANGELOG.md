@@ -12,6 +12,7 @@
 
 ### Changed
 
+- Event: `colocated_ids` has changed from listing VolumeIDs to listing tuples of `(VolumeID, EventLinkingType)`, where EventLinkingType now makes clear if the association between the VolumeID and the Event was inferred or explicitly defined in the XML (in a `<colocated>` block).
 - MarkupText: Typographic quotes now convert to/from LaTeX quotes more consistently.
 - Names: Fixed some inconsistencies where `<first/>`, `<first></first>`, and a missing "first" tag would not be considered fully equivalent (within `Name` and `utils.xml.assert_equals`).
 - Paper attachments without a type attribute in the XML now give their type as an empty string (instead of defaulting to "attachment"), in order to be able to reconstruct whether there was an explicit type attribute or not.
