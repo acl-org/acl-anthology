@@ -1,4 +1,4 @@
-# Copyright 2023-2024 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2025 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,9 +14,8 @@
 
 from __future__ import annotations
 
-from attrs import define, field
+from attrs import define, field, validators as v
 from collections import ChainMap, defaultdict
-from os import PathLike
 from pathlib import Path
 from typing import Iterator, Optional, TYPE_CHECKING
 import yaml
@@ -32,6 +31,7 @@ except ImportError:  # pragma: no cover
     from yaml import Loader, Dumper  # type: ignore
 
 if TYPE_CHECKING:
+    from _typeshed import StrPath
     from .anthology import Anthology
     from .collections.volume import Volume
 
@@ -50,11 +50,11 @@ class SIG:
     """
 
     parent: SIGIndex = field(repr=False, eq=False)
-    id: str
-    acronym: str
-    name: str
-    path: Path
-    url: Optional[str] = field(default=None)
+    id: str = field(converter=str)
+    acronym: str = field(converter=str)
+    name: str = field(converter=str)
+    path: Path = field(converter=Path)
+    url: Optional[str] = field(default=None, validator=v.optional(v.instance_of(str)))
     meetings: list[str | SIGMeeting] = field(factory=list, repr=False)
 
     @property
@@ -86,7 +86,7 @@ class SIG:
                 yield volume
 
     @classmethod
-    def load_from_yaml(cls, parent: SIGIndex, path: PathLike[str]) -> SIG:
+    def load_from_yaml(cls, parent: SIGIndex, path: StrPath) -> SIG:
         """Instantiates a SIG from its YAML file.
 
         Arguments:
@@ -122,7 +122,7 @@ class SIG:
                     )
         return sig
 
-    def save(self, path: Optional[PathLike[str]] = None) -> None:
+    def save(self, path: Optional[StrPath] = None) -> None:
         """Saves this SIG as a YAML file.
 
         Arguments:
@@ -188,7 +188,7 @@ class SIGIndex(SlottedDict[SIG]):
     reverse: dict[AnthologyIDTuple, set[str]] = field(
         init=False, repr=False, factory=lambda: defaultdict(set)
     )
-    is_data_loaded: bool = field(init=False, repr=False, default=False)
+    is_data_loaded: bool = field(init=False, repr=True, default=False)
 
     def load(self) -> None:
         """Loads and parses the `sigs/*.yaml` files.

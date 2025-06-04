@@ -34,6 +34,17 @@ def test_venue_defaults():
     assert venue.item_ids == list()
 
 
+def test_venue_set_itemids():
+    venue = Venue("foo", None, "FOO", "Workshop on Foobar", Path("foo.yaml"))
+    venue.item_ids = [("2099.foo", "long", None), ("2099.foo", "short", None)]
+
+    with pytest.raises(TypeError):
+        venue.item_ids = ["2099.foo-long", "2099.foo-short"]
+
+    with pytest.raises(TypeError):
+        venue.item_ids = "$§§$§$"
+
+
 def test_venue_save(tmp_path):
     path = tmp_path / "foo.yaml"
     venue = Venue("foo", None, "FOO", "Workshop on Foobar", path)
