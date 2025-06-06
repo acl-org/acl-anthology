@@ -91,12 +91,12 @@ def main(
     # print(f"Found {len(papers)} archival papers", file=sys.stderr)
 
     # for paper in papers:
-        # print("PAPER:", paper['id'], file=sys.stderr)
-        # for author in paper['authors']:
-        #     print(
-        #         f"  {author['first_name']} {author['last_name']} ({author.get('institution', '')})",
-        #         file=sys.stderr,
-        #     )
+    # print("PAPER:", paper['id'], file=sys.stderr)
+    # for author in paper['authors']:
+    #     print(
+    #         f"  {author['first_name']} {author['last_name']} ({author.get('institution', '')})",
+    #         file=sys.stderr,
+    #     )
 
     collection_id, volume_name = full_volume_id.split('-')
 
@@ -122,7 +122,7 @@ def main(
     num_added = 0
     for paper, paper_node in zip(papers, volume_node.findall('./paper')):
         # paper_num = int(paper["id"])
-        paper_num = int(paper_node.attrib['id'])
+        # paper_num = int(paper_node.attrib['id'])
         # print(f"PAPER: YAML={paper_num}", file=sys.stderr)
 
         def get_author_xml(author_xml):
@@ -159,7 +159,10 @@ def main(
     indent(root_node)
     tree = etree.ElementTree(root_node)
     tree.write(collection_file, encoding='UTF-8', xml_declaration=True, with_tail=True)
-    print(f"Added {num_added} ORCIDs for {full_volume_id} to {collection_file}", file=sys.stderr)
+    print(
+        f"Added {num_added} ORCIDs for {full_volume_id} to {collection_file}",
+        file=sys.stderr,
+    )
 
 
 if __name__ == '__main__':
