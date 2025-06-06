@@ -21,8 +21,8 @@
     <paper id="1">
       <title>Words That Stick: Using Keyword Cohesion to Improve Text Segmentation</title>
       <author><first>Amit</first><last>Maraj</last></author>
-      <author><first>Miguel</first><last>Vargas Martin</last><affiliation>Ontario Tech University</affiliation></author>
-      <author><first>Masoud</first><last>Makrehchi</last><affiliation>Ontario Tech University</affiliation></author>
+      <author orcid="0000-0001-8169-6836"><first>Miguel</first><last>Vargas Martin</last><affiliation>Ontario Tech University</affiliation></author>
+      <author orcid="0000-0003-0287-9568"><first>Masoud</first><last>Makrehchi</last><affiliation>Ontario Tech University</affiliation></author>
       <pages>1-9</pages>
       <abstract>Text Segmentation (TS) is the idea of segmenting bodies of text into coherent blocks, mostly defined by the topics each segment contains. Historically, techniques in this area have been unsupervised, with more success recently coming from supervised methods instead. Although these approaches see better performance, they require training data and upfront training time. We propose a new method called Coherence, where we use strong sentence embeddings to pull representational keywords as the main constructor of sentences when comparing them to one another. Additionally, we include a storage of previously found keywords for the purposes of creating a more accurate segment representation instead of just the immediate sentence in question. With our system, we show improved results over current state-of-the-art unsupervised techniques when analyzed using Pk and WindowDiff scores. Because its unsupervised, Coherence requires no fine-tuning.</abstract>
       <url hash="d0c2b3fd">2024.conll-1.1</url>
@@ -31,7 +31,7 @@
     </paper>
     <paper id="2">
       <title>Investigating large language models for their competence in extracting grammatically sound sentences from transcribed noisy utterances</title>
-      <author><first>Alina</first><last>Wróblewska</last></author>
+      <author orcid="0000-0002-2589-9900"><first>Alina</first><last>Wróblewska</last></author>
       <pages>10-23</pages>
       <abstract>Selectively processing noisy utterances while effectively disregarding speech-specific elements poses no considerable challenge for humans, as they exhibit remarkable cognitive abilities to separate semantically significant content from speech-specific noise (i.e. filled pauses, disfluencies, and restarts). These abilities may be driven by mechanisms based on acquired grammatical rules that compose abstract syntactic-semantic structures within utterances. Segments without syntactic and semantic significance are consistently disregarded in these structures. The structures, in tandem with lexis, likely underpin language comprehension and thus facilitate effective communication.In our study, grounded in linguistically motivated experiments, we investigate whether large language models (LLMs) can effectively perform analogical speech comprehension tasks. In particular, we examine the ability of LLMs to extract well-structured utterances from transcriptions of noisy dialogues. We conduct two evaluation experiments in the Polish language scenario, using a dataset presumably unfamiliar to LLMs to mitigate the risk of data contamination. Our results show that not all extracted utterances are correctly structured, indicating that either LLMs do not fully acquire syntactic-semantic rules or they acquire them but cannot apply them effectively. We conclude that the ability of LLMs to comprehend noisy utterances is still relatively superficial compared to human proficiency in processing them.</abstract>
       <url hash="8701f0ad">2024.conll-1.2</url>
@@ -45,7 +45,7 @@
       <author><first>Farhad</first><last>Moghimifar</last><affiliation>Monash University</affiliation></author>
       <author><first>Suraj</first><last>Sharma</last></author>
       <author><first>Yuan-Fang</first><last>Li</last><affiliation>Monash University and Oracle</affiliation></author>
-      <author><first>Weiqing</first><last>Wang</last></author>
+      <author orcid="0000-0002-9578-819X"><first>Weiqing</first><last>Wang</last></author>
       <author><first>Reza</first><last>Haf</last><affiliation>Monash University</affiliation></author>
       <pages>24-35</pages>
       <abstract>Sociocultural norms serve as guiding principles for personal conduct in social interactions within a particular society or culture. The study of norm discovery has seen significant development over the last few years, with various interesting approaches. However, it is difficult to adopt these approaches to discover norms in a new culture, as they rely either on human annotations or real-world dialogue contents. This paper presents a robust automatic norm discovery pipeline, which utilizes the cultural knowledge of GPT-3.5 Turbo (ChatGPT) along with several social factors. By using these social factors and ChatGPT, our pipeline avoids the use of human dialogues that tend to be limited to specific scenarios, as well as the use of human annotations that make it difficult and costly to enlarge the dataset. The resulting database - Multi-cultural Norm Base (MNB) - covers 6 distinct cultures, with over 150k sociocultural norm statements in total. A state-of-the-art Large Language Model (LLM), Llama 3, fine-tuned with our proposed dataset, shows remarkable results on various downstream tasks, outperforming models fine-tuned on other datasets significantly.</abstract>
@@ -65,11 +65,11 @@
     </paper>
     <paper id="5">
       <title>Global-Pruner: A Stable and Efficient Pruner for Retraining-Free Pruning of Encoder-Based Language Models</title>
-      <author><first>Guangzhen</first><last>Yao</last></author>
-      <author><first>Yuehan</first><last>Wang</last></author>
-      <author><first>Hui</first><last>Xu</last></author>
-      <author><first>Long</first><last>Zhang</last></author>
-      <author><first>MiaoQI</first><last>MiaoQI</last></author>
+      <author orcid="0009-0002-1323-6998"><first>Guangzhen</first><last>Yao</last></author>
+      <author orcid="0009-0001-2244-5276"><first>Yuehan</first><last>Wang</last></author>
+      <author orcid="0000-0003-2970-3984"><first>Hui</first><last>Xu</last></author>
+      <author orcid="0009-0008-7827-4921"><first>Long</first><last>Zhang</last></author>
+      <author orcid="0000-0002-5932-4435"><first>MiaoQI</first><last>MiaoQI</last></author>
       <pages>46-55</pages>
       <abstract>Large language models (LLMs) have achieved significant success in complex tasks across various domains, but they come with high computational costs and inference latency issues. Pruning, as an effective method, can significantly reduce inference costs. However, current pruning algorithms for encoder-based language models often focus on locally optimal solutions, neglecting a comprehensive exploration of the global solution space. This oversight can lead to instability in the solution process, thereby affecting the overall performance of the model. To address these challenges, we propose a structured pruning algorithm named G-Pruner (Global Pruner), comprising two integral components: PPOM (Proximal Policy Optimization Mask) and CG²MT (Conjugate Gradient Squared Mask Tuning), utilizing a global optimization strategy. This strategy not only eliminates the need for retraining but also ensures the algorithm’s stability and adaptability to environmental changes, effectively addressing the issue of focusing solely on immediate optima while neglecting long-term effects. This method is evaluated on the GLUE and SQuAD benchmarks using BERTBASE and DistilBERT models. The experimental results indicate that without any retraining, G-Pruner achieves significant accuracy improvements on the SQuAD<tex-math>_{2.0}</tex-math> task with a FLOPs constraint of 60%, demonstrating a 6.02% increase in F1 score compared with baseline algorithms.</abstract>
       <url hash="5fc9744d">2024.conll-1.5</url>
@@ -78,8 +78,8 @@
     </paper>
     <paper id="6">
       <title>Transformer verbatim in-context retrieval across time and scale</title>
-      <author><first>Kristijan</first><last>Armeni</last><affiliation>Johns Hopkins University</affiliation></author>
-      <author><first>Marko</first><last>Pranjić</last><affiliation>Jozef Stefan Institute and Jozef Stefan International Postgraduate School</affiliation></author>
+      <author orcid="0000-0001-8391-8965"><first>Kristijan</first><last>Armeni</last><affiliation>Johns Hopkins University</affiliation></author>
+      <author orcid="0000-0002-8645-9714"><first>Marko</first><last>Pranjić</last><affiliation>Jozef Stefan Institute and Jozef Stefan International Postgraduate School</affiliation></author>
       <author><first>Senja</first><last>Pollak</last></author>
       <pages>56-68</pages>
       <abstract>To predict upcoming text, language models must in some cases retrieve in-context information verbatim. In this report, we investigated how the ability of language models to retrieve arbitrary in-context nouns developed during training (across time) and as language models trained on the same dataset increase in size (across scale). We then asked whether learning of in-context retrieval correlates with learning of more challenging zero-shot benchmarks. Furthermore, inspired by semantic effects in human short-term memory, we evaluated the retrieval with respect to a major semantic component of target nouns, namely whether they denote a concrete or abstract entity, as rated by humans. We show that verbatim in-context retrieval developed in a sudden transition early in the training process, after about 1% of the training tokens. This was observed across model sizes (from 14M and up to 12B parameters), and the transition occurred slightly later for the two smallest models. We further found that the development of verbatim in-context retrieval is positively correlated with the learning of zero-shot benchmarks. Around the transition point, all models showed the advantage of retrieving concrete nouns as opposed to abstract nouns. In all but two smallest models, the advantage dissipated away toward the end of training.</abstract>
@@ -95,7 +95,7 @@
       <author><first>Timo</first><last>Schick</last><affiliation>Facebook</affiliation></author>
       <author><first>Zhengbao</first><last>Jiang</last><affiliation>School of Computer Science, Carnegie Mellon University</affiliation></author>
       <author><first>Maria</first><last>Lomeli</last><affiliation>Meta</affiliation></author>
-      <author><first>Patrick</first><last>Lewis</last></author>
+      <author orcid="0000-0002-2192-9543"><first>Patrick</first><last>Lewis</last></author>
       <author><first>Gautier</first><last>Izacard</last></author>
       <author><first>Edouard</first><last>Grave</last><affiliation>Facebook</affiliation></author>
       <author><first>Sebastian</first><last>Riedel</last><affiliation>Google and University College London</affiliation></author>
@@ -122,8 +122,8 @@
     </paper>
     <paper id="9">
       <title>Critical Questions Generation: Motivation and Challenges</title>
-      <author><first>Blanca</first><last>Calvo Figueras</last><affiliation>Universidad del País Vasco</affiliation></author>
-      <author><first>Rodrigo</first><last>Agerri</last><affiliation>University of the Basque Country</affiliation></author>
+      <author orcid="0000-0001-6939-3576"><first>Blanca</first><last>Calvo Figueras</last><affiliation>Universidad del País Vasco</affiliation></author>
+      <author orcid="0000-0002-7303-7598"><first>Rodrigo</first><last>Agerri</last><affiliation>University of the Basque Country</affiliation></author>
       <pages>105-116</pages>
       <abstract>The development of Large Language Models (LLMs) has brought impressive performances on mitigation strategies against misinformation, such as counterargument generation. However, LLMs are still seriously hindered by outdated knowledge and by their tendency to generate hallucinated content. In order to circumvent these issues, we propose a new task, namely, Critical Questions Generation, consisting of processing an argumentative text to generate the critical questions (CQs) raised by it.In argumentation theory CQs are tools designed to lay bare the blind spots of an argument by pointing at the information it could be missing.Thus, instead of trying to deploy LLMs to produce knowledgeable and relevant counterarguments, we use them to question arguments, without requiring any external knowledge.Research on CQs Generation using LLMs requires a reference dataset for large scale experimentation. Thus, in this work we investigate two complementary methods to create such a resource: (i) instantiating CQs templates as defined by Walton’s argumentation theory and (ii), using LLMs as CQs generators. By doing so, we contribute with a procedure to establish what is a valid CQ and conclude that, while LLMs are reasonable CQ generators, they still have a wide margin for improvement in this task.</abstract>
       <url hash="760a4b80">2024.conll-1.9</url>
@@ -143,7 +143,7 @@
     <paper id="11">
       <title>Causal <fixed-case>ATE</fixed-case> Mitigates Unintended Bias in Controlled Text Generation</title>
       <author><first>Rahul</first><last>Madhavan</last><affiliation>Indian Institute of Management, Ahmedabad, Indian Institute of Technology, Madras, Dhirubhai Ambani Institute Of Information and Communication Technology and Indian Institute of Science, Bangalore</affiliation></author>
-      <author><first>Kahini</first><last>Wadhawan</last></author>
+      <author orcid="0000-0002-7221-7220"><first>Kahini</first><last>Wadhawan</last></author>
       <pages>130-142</pages>
       <abstract>We study attribute control in language models through the method of Causal Average Treatment Effect (Causal ATE). Existing methodsfor the attribute control task in Language Models(LMs) check for the co-occurrence of words in a sentence with the attribute of interest, and control for them. However, spurious correlation of the words with the attribute in the training dataset, can cause models to hallucinate the presence of the attribute when presented with the spurious correlate during inference. We show that the simple perturbation-based method of Causal ATE removes this unintended effect. Specifically, we ground it in the problem of toxicity mitigation, where a significant challenge lies in the inadvertent bias that often emerges towards protected groups post detoxification. We show that this unintended bias can be solved by the use of the Causal ATE metric. We provide experimental validations for our claims and release our code (anonymously) here: [github.com/causalate-mitigates-bias](https://github.com/causalate-mitigates-bias/causal-ate-mitigates-bias).</abstract>
       <url hash="467da957">2024.conll-1.11</url>
@@ -154,7 +154,7 @@
       <title>On Functional Competence of <fixed-case>LLM</fixed-case>s for Linguistic Disambiguation</title>
       <author><first>Raihan</first><last>Kibria</last></author>
       <author><first>Sheikh Intiser Uddin</first><last>Dipta</last></author>
-      <author><first>Muhammad Abdullah</first><last>Adnan</last><affiliation>Bangladesh University of Engineering and Technology</affiliation></author>
+      <author orcid="0000-0003-3219-9053"><first>Muhammad Abdullah</first><last>Adnan</last><affiliation>Bangladesh University of Engineering and Technology</affiliation></author>
       <pages>143-160</pages>
       <abstract>We study some Large Language Models to explore their deficiencies in resolving sense ambiguities. In this connection, we evaluate their performance on well-known word sense disambiguation datasets. Word Sense Disambiguation (WSD) has been a long-standing NLP problem, which has given rise to many evaluation datasets and models over the decades. Recently the emergence of Large Language Models (LLM) raises much hope in improving accuracy. In this work, we evaluate word sense disambiguation capabilities of four LLMs: OpenAI’s ChatGPT-3.5, Mistral’s 7b parameter model, Meta’s Llama 70b, and Google’s Gemini Pro. We evaluate many well-established datasets containing a variety of texts and senses on these. After observing the performances of some datasets, we selectively study some failure cases and identify the reasons for failures. We explore human judgments that would correct these failures. Our findings suggest that many failure cases are related to a lack of world knowledge and the reasoning to amalgamate this knowledge rather than the lack of linguistic knowledge. We categorize the judgments so that the next generation of LLMs can improve by incorporating deeper world knowledge and reasoning. We conclude that word sense disambiguation could serve as a guide for probing the reasoning power of LLMs to measure their functional competency. We also list the accuracy of these datasets. We find that on many occasions, accuracy drops to below 70%, which is much less than that of well-performing existing models.</abstract>
       <url hash="b5485806">2024.conll-1.12</url>
@@ -194,7 +194,7 @@
     <paper id="16">
       <title><fixed-case>T</fixed-case>p<fixed-case>T</fixed-case>-<fixed-case>ADE</fixed-case>: Transformer Based Two-Phase <fixed-case>ADE</fixed-case> Extraction</title>
       <author><first>Suryamukhi</first><last>Kuchibhotla</last><affiliation>Indian Institute of Technology, Hyderabad, Dhirubhai Ambani Institute Of Information and Communication Technology</affiliation></author>
-      <author><first>Manish</first><last>Singh</last></author>
+      <author orcid="0000-0002-7919-2206"><first>Manish</first><last>Singh</last></author>
       <pages>209-218</pages>
       <abstract>Extracting adverse reactions to medications or treatments is a crucial activity in the biomedical domain. The task involves identifying mentions of drugs and their adverse effects/events in raw text, which is challenging due to the unstructured nature of clinical narratives. In this paper, we propose TpT-ADE, a novel joint two-phase transformer model combined with natural language processing (NLP) techniques, to identify adverse events (AEs) caused by drugs. In the first phase of TpT-ADE, entities are extracted and are grounded with their standard terms using the Unified Medical Language System (UMLS) knowledge base. In the second phase, entity and relation classification is performed to determine the presence of a relationship between the drug and AE pairs. TpT-ADE also identifies the intensity of AE entities by constructing a parts-of-speech (POS) embedding model. Unlike previous approaches that use complex classifiers, TpT-ADE employs a shallow neural network and yet outperforms the state-of-the-art methods on the standard ADE corpus.</abstract>
       <url hash="d677d414">2024.conll-1.16</url>
@@ -204,8 +204,8 @@
     <paper id="17">
       <title>The Effect of Surprisal on Reading Times in Information Seeking and Repeated Reading</title>
       <author><first>Keren</first><last>Gruteke Klein</last></author>
-      <author><first>Yoav</first><last>Meiri</last></author>
-      <author><first>Omer</first><last>Shubi</last></author>
+      <author orcid="0009-0009-8669-8502"><first>Yoav</first><last>Meiri</last></author>
+      <author orcid="0000-0002-2961-5012"><first>Omer</first><last>Shubi</last></author>
       <author><first>Yevgeni</first><last>Berzak</last></author>
       <pages>219-230</pages>
       <abstract>The effect of surprisal on processing difficulty has been a central topic of investigation in psycholinguistics. Here, we use eyetracking data to examine three language processing regimes that are common in daily life but have not been addressed with respect to this question: information seeking, repeated processing, and the combination of the two. Using standard regime-agnostic surprisal estimates we find that the prediction of surprisal theory regarding the presence of a linear effect of surprisal on processing times, extends to these regimes. However, when using surprisal estimates from regime-specific contexts that match the contexts and tasks given to humans, we find that in information seeking, such estimates do not improve the predictive power of processing times compared to standard surprisals. Further, regime-specific contexts yield near zero surprisal estimates with no predictive power for processing times in repeated reading. These findings point to misalignments of task and memory representations between humans and current language models, and question the extent to which such models can be used for estimating cognitively relevant quantities. We further discuss theoretical challenges posed by these results.</abstract>
@@ -241,7 +241,7 @@
       <author><first>Nguyen Quang</first><last>Vinh</last></author>
       <author><first>Thanh-Do</first><last>Nguyen</last></author>
       <author><first>Vinh Van</first><last>Nguyen</last><affiliation>Vietnam National University Hanoi</affiliation></author>
-      <author><first>Nam Khac-Hoai</first><last>Bui</last><affiliation>Viettel Group</affiliation></author>
+      <author orcid="0000-0002-3427-8460"><first>Nam Khac-Hoai</first><last>Bui</last><affiliation>Viettel Group</affiliation></author>
       <pages>259-268</pages>
       <abstract>This study introduces Simple Reasoning with Code (SiRC), a novel instruction fine-tuning method for solving mathematical reasoning problems, particularly effective for Vietnamese, which is considered a low-resource language. Specifically, solving mathematical problems requires strategic and logical reasoning, which remains challenging in this research area. This paper presents a simple yet effective instruction fine-tuning method for mathematical reasoning. Unlike previous approaches, our proposed method effectively combines chain-of-thought reasoning with code transfer methods without requiring a sophisticated inference procedure. Furthermore, we focus on exploiting small open-source large language models (LLMs) for the Vietnamese language. In this regard, we first introduce a trainable Vietnamese math reasoning dataset, which is named ViMath-InstructCode. The proposed dataset is then used for fine-tuning open-source LLMs (e.g., less than 10 billion parameters). Experiments conducted on our custom ViMath-Bench dataset, the largest benchmarking dataset focusing on Vietnamese mathematical problems, indicate the promising results of our proposed method. Our source code and dataset are available for further exploitation.</abstract>
       <url hash="52e9c757">2024.conll-1.20</url>
@@ -251,9 +251,9 @@
     <paper id="21">
       <title>Generalizations across filler-gap dependencies in neural language models</title>
       <author><first>Katherine</first><last>Howitt</last><affiliation>University of Maryland, College Park</affiliation></author>
-      <author><first>Sathvik</first><last>Nair</last></author>
+      <author orcid="0000-0002-4467-9049"><first>Sathvik</first><last>Nair</last></author>
       <author><first>Allison</first><last>Dods</last><affiliation>University of Maryland, College Park</affiliation></author>
-      <author><first>Robert Melvin</first><last>Hopkins</last></author>
+      <author orcid="0009-0005-9015-5333"><first>Robert Melvin</first><last>Hopkins</last></author>
       <pages>269-279</pages>
       <abstract>Humans develop their grammars by making structural generalizations from finite input. We ask how filler-gap dependencies (FGDs), which share a structural generalization despite diverse surface forms, might arise from the input. We explicitly control the input to a neural language model (NLM) to uncover whether the model posits a shared representation for FGDs. We show that while NLMs do have success differentiating grammatical from ungrammatical FGDs, they rely on superficial properties of the input, rather than on a shared generalization. Our work highlights the need for specific linguistic inductive biases to model language acquisition.</abstract>
       <url hash="23f7e587">2024.conll-1.21</url>
@@ -262,12 +262,12 @@
     </paper>
     <paper id="22">
       <title>Of Models and Men: Probing Neural Networks for Agreement Attraction with Psycholinguistic Data</title>
-      <author><first>Maxim</first><last>Bazhukov</last><affiliation>Higher School of Economics</affiliation></author>
+      <author orcid="0000-0003-3810-0915"><first>Maxim</first><last>Bazhukov</last><affiliation>Higher School of Economics</affiliation></author>
       <author><first>Ekaterina</first><last>Voloshina</last><affiliation>Göteborg University and Chalmers University of Technology</affiliation></author>
       <author><first>Sergey</first><last>Pletenev</last></author>
       <author><first>Arseny</first><last>Anisimov</last></author>
       <author><first>Oleg</first><last>Serikov</last><affiliation>King Abdullah University of Science and Technology</affiliation></author>
-      <author><first>Svetlana</first><last>Toldova</last><affiliation>Higher School of Economics</affiliation></author>
+      <author orcid="0000-0002-5777-9161"><first>Svetlana</first><last>Toldova</last><affiliation>Higher School of Economics</affiliation></author>
       <pages>280-290</pages>
       <abstract>Interpretability studies have played an important role in the field of NLP. They focus on the problems of how models encode information or, for instance, whether linguistic capabilities allow them to prefer grammatical sentences to ungrammatical. Recently, several studies examined whether the models demonstrate patterns similar to humans and whether they are sensitive to the phenomena of interference like humans’ grammaticality judgements, including the phenomenon of agreement attraction.In this paper, we probe BERT and GPT models on the syntactic phenomenon of agreement attraction in Russian using the psycholinguistic data with syncretism. Working on the language with syncretism between some plural and singular forms allows us to differentiate between the effects of the surface form and of the underlying grammatical feature. Thus we can further investigate models’ sensitivity to this phenomenon and examine if the patterns of their behaviour are similar to human patterns. Moreover, we suggest a new way of comparing models’ and humans’ responses via statistical testing. We show that there are some similarities between models’ and humans’ results, while GPT is somewhat more aligned with human responses than BERT. Finally, preliminary results suggest that surface form syncretism influences attraction, perhaps more so than grammatical form syncretism.</abstract>
       <url hash="a376a481">2024.conll-1.22</url>
@@ -278,7 +278,7 @@
       <title>Is Structure Dependence Shaped for Efficient Communication?: A Case Study on Coordination</title>
       <author><first>Kohei</first><last>Kajikawa</last><affiliation>The University of Tokyo</affiliation></author>
       <author><first>Yusuke</first><last>Kubota</last></author>
-      <author><first>Yohei</first><last>Oseki</last><affiliation>University of Tokyo</affiliation></author>
+      <author orcid="0000-0002-1189-1588"><first>Yohei</first><last>Oseki</last><affiliation>University of Tokyo</affiliation></author>
       <pages>291-302</pages>
       <abstract>Natural language exhibits various universal properties.But why do these universals exist?One explanation is that they arise from functional pressures to achieve <i>efficient communication</i>, a view which attributes cross-linguistic properties to domain-general cognitive abilities.This hypothesis has successfully addressed some syntactic universal properties such as compositionality and Greenbergian word order universals.However, more abstract syntactic universals have not been explored from the perspective of efficient communication.Among such universals, the most notable one is <i>structure dependence</i>, that is, grammar-internal operations crucially depend on hierarchical representations.This property has traditionally been taken to be central to natural language and to involve domain-specific knowledge irreducible to communicative efficiency. In this paper, we challenge the conventional view by investigating whether structure dependence realizes efficient communication, focusing on coordinate structures.We design three types of artificial languages: (i) one with a structure-dependent reduction operation, which is similar to natural language, (ii) one without any reduction operations, and (iii) one with a linear (rather than structure-dependent) reduction operation.We quantify the communicative efficiency of these languages.The results demonstrate that the language with the structure-dependent reduction operation is significantly more communicatively efficient than the counterfactual languages.This suggests that the existence of structure-dependent properties can be explained from the perspective of efficient communication.</abstract>
       <url hash="6533765d">2024.conll-1.23</url>
@@ -287,8 +287,8 @@
     </paper>
     <paper id="24">
       <title>Large Language Model Recall Uncertainty is Modulated by the Fan Effect</title>
-      <author><first>Jesse</first><last>Roberts</last><affiliation>Tennessee Technological University</affiliation></author>
-      <author><first>Kyle</first><last>Moore</last><affiliation>Vanderbilt University</affiliation></author>
+      <author orcid="0000-0002-6210-0678"><first>Jesse</first><last>Roberts</last><affiliation>Tennessee Technological University</affiliation></author>
+      <author orcid="0000-0002-3255-7394"><first>Kyle</first><last>Moore</last><affiliation>Vanderbilt University</affiliation></author>
       <author><first>Douglas</first><last>Fisher</last><affiliation>Vanderbilt University and Vanderbilt University</affiliation></author>
       <author><first>Oseremhen</first><last>Ewaleifoh</last></author>
       <author><first>Thao</first><last>Pham</last></author>
@@ -302,7 +302,7 @@
       <title>Continuous Attentive Multimodal Prompt Tuning for Few-Shot Multimodal Sarcasm Detection</title>
       <author><first>Soumyadeep</first><last>Jana</last></author>
       <author><first>Animesh</first><last>Dey</last></author>
-      <author><first>Ranbir Singh</first><last>Sanasam</last><affiliation>Indian Institute of Technology, Guwahati, Dhirubhai Ambani Institute Of Information and Communication Technology</affiliation></author>
+      <author orcid="0000-0003-0484-2144"><first>Ranbir Singh</first><last>Sanasam</last><affiliation>Indian Institute of Technology, Guwahati, Dhirubhai Ambani Institute Of Information and Communication Technology</affiliation></author>
       <pages>314-326</pages>
       <abstract>With the steep rise in multimodal content on social media, multimodal sarcasm detection has gained widespread attention from research communities. Existing studies depend on large-scale data, which is challenging to obtain and expensive to annotate. Thus, investigating this problem in a few-shot scenario is required. Overtly complex multimodal models are prone to overfitting on in-domain data, which hampers their performance on out-of-distribution (OOD) data. To address these issues, we propose Continuous Attentive Multimodal Prompt Tuning model (CAMP), that leverages the prompt tuning paradigm to handle few-shot multimodal sarcasm detection. To overcome the siloed learning process of continuous prompt tokens, we design a novel, continuous multimodal attentive prompt where the continuous tokens intricately engage with both image and text tokens, enabling the assimilation of knowledge from different input modalities. Experimental results indicate that our method outperforms other multimodal baseline methods in the few-shot setting and OOD scenarios.</abstract>
       <url hash="d7c43722">2024.conll-1.25</url>
@@ -322,7 +322,7 @@
     </paper>
     <paper id="27">
       <title><fixed-case>T</fixed-case>ext2<fixed-case>A</fixed-case>fford: Probing Object Affordance Prediction abilities of Language Models solely from Text</title>
-      <author><first>Sayantan</first><last>Adak</last></author>
+      <author orcid="0000-0001-5307-8811"><first>Sayantan</first><last>Adak</last></author>
       <author><first>Daivik</first><last>Agrawal</last></author>
       <author><first>Animesh</first><last>Mukherjee</last><affiliation>Indian Institute of Technology Kharagpur</affiliation></author>
       <author><first>Somak</first><last>Aditya</last><affiliation>Indian Institute of Technology Kharagpur</affiliation></author>
@@ -336,7 +336,7 @@
       <title>How Are Metaphors Processed by Language Models? The Case of Analogies</title>
       <author><first>Joanne</first><last>Boisson</last></author>
       <author><first>Asahi</first><last>Ushio</last></author>
-      <author><first>Hsuvas</first><last>Borkakoty</last><affiliation>Cardiff University</affiliation></author>
+      <author orcid="0000-0003-3262-0127"><first>Hsuvas</first><last>Borkakoty</last><affiliation>Cardiff University</affiliation></author>
       <author><first>Kiamehr</first><last>Rezaee</last></author>
       <author><first>Dimosthenis</first><last>Antypas</last></author>
       <author><first>Zara</first><last>Siddique</last></author>
@@ -350,8 +350,8 @@
     </paper>
     <paper id="29">
       <title>Further Compressing Distilled Language Models via Frequency-aware Partial Sparse Coding of Embeddings</title>
-      <author><first>Kohki</first><last>Tamura</last><affiliation>The University of Tokyo</affiliation></author>
-      <author><first>Naoki</first><last>Yoshinaga</last><affiliation>Institute of Industrial Science, the University of Tokyo</affiliation></author>
+      <author orcid="0000-0002-5940-9885"><first>Kohki</first><last>Tamura</last><affiliation>The University of Tokyo</affiliation></author>
+      <author orcid="0000-0002-2160-2604"><first>Naoki</first><last>Yoshinaga</last><affiliation>Institute of Industrial Science, the University of Tokyo</affiliation></author>
       <author><first>Masato</first><last>Neishi</last></author>
       <pages>388-399</pages>
       <abstract>Although pre-trained language models (PLMs) are effective for natural language understanding (NLU) tasks, they demand a huge computational resource, thus preventing us from deploying them on edge devices. Researchers have therefore applied compression techniques for neural networks, such as pruning, quantization, and knowledge distillation, to the PLMs. Although these generic techniques can reduce the number of internal parameters of hidden layers in the PLMs, the embedding layers tied to the tokenizer arehard to compress, occupying a non-negligible portion of the compressed model. In this study, aiming to further compress PLMs reduced by the generic techniques, we exploit frequency-aware sparse coding to compress the embedding layers of the PLMs fine-tuned to downstream tasks. To minimize the impact of the compression on the accuracy, we retain the embeddings of common tokens as they are and use them to reconstruct embeddings of rare tokens by locally linear mapping. Experimental results on the GLUE and JGLUE benchmarks for language understanding in English and Japanese confirmed that our method can further compress the fine-tuned DistilBERT models models while maintaining accuracy.</abstract>
@@ -361,7 +361,7 @@
     </paper>
     <paper id="30">
       <title>Translating Across Cultures: <fixed-case>LLM</fixed-case>s for Intralingual Cultural Adaptation</title>
-      <author><first>Pushpdeep</first><last>Singh</last><affiliation>Tata Consultancy Services Limited, India</affiliation></author>
+      <author orcid="0000-0002-2265-8167"><first>Pushpdeep</first><last>Singh</last><affiliation>Tata Consultancy Services Limited, India</affiliation></author>
       <author><first>Mayur</first><last>Patidar</last><affiliation>Tata Consultancy Services Limited, India</affiliation></author>
       <author><first>Lovekesh</first><last>Vig</last></author>
       <pages>400-418</pages>
@@ -373,12 +373,12 @@
     <paper id="31">
       <title>Explaining the Hardest Errors of Contextual Embedding Based Classifiers</title>
       <author><first>Claudio Moisés Valiense De</first><last>Andrade</last><affiliation>Universidade Federal de Minas Gerais, Universidade Federal de Minas Gerais</affiliation></author>
-      <author><first>Washington</first><last>Cunha</last><affiliation>Universidade Federal de Minas Gerais and Universidade Federal de Minas Gerais</affiliation></author>
+      <author orcid="0000-0002-1988-8412"><first>Washington</first><last>Cunha</last><affiliation>Universidade Federal de Minas Gerais and Universidade Federal de Minas Gerais</affiliation></author>
       <author><first>Guilherme</first><last>Fonseca</last></author>
       <author><first>Ana Clara Souza</first><last>Pagano</last></author>
       <author><first>Luana De Castro</first><last>Santos</last></author>
-      <author><first>Adriana Silvina</first><last>Pagano</last><affiliation>Universidade Federal de Minas Gerais, Universidade Federal de Minas Gerais</affiliation></author>
-      <author><first>Leonardo Chaves Dutra Da</first><last>Rocha</last><affiliation>Universidade Federal de São João del-Rei</affiliation></author>
+      <author orcid="0000-0002-3150-3503"><first>Adriana Silvina</first><last>Pagano</last><affiliation>Universidade Federal de Minas Gerais, Universidade Federal de Minas Gerais</affiliation></author>
+      <author orcid="0000-0002-4913-4902"><first>Leonardo Chaves Dutra Da</first><last>Rocha</last><affiliation>Universidade Federal de São João del-Rei</affiliation></author>
       <author><first>Marcos André</first><last>Gonçalves</last><affiliation>Universidade Federal de Minas Gerais, Universidade Federal de Minas Gerais</affiliation></author>
       <pages>419-434</pages>
       <abstract>We seek to explain the causes of the misclassification of the most challenging documents, namely those that no classifier using state-of-the-art, very semantically-separable contextual embedding representations managed to predict accurately. To do so, we propose a taxonomy of incorrect predictions, which we used to perform qualitative human evaluation. We posed two (research) questions, considering three sentiment datasets in two different domains – movie and product reviews. Evaluators with two different backgrounds evaluated documents by comparing the predominant sentiment assigned by the model to the label in the gold dataset in order to decide on a likely misclassification reason. Based on a high inter-evaluator agreement (81.7%), we observed significant differences between the product and movie review domains, such as the prevalence of ambivalence in product reviews and sarcasm in movie reviews. Our analysis also revealed an unexpectedly high rate of incorrect labeling in the gold dataset (up to 33%) and a significant amount of incorrect prediction by the model due to a series of linguistic phenomena (including amplified words, contrastive markers, comparative sentences, and references to world knowledge). Overall, our taxonomy and methodology allow us to explain between 80%-85% of the errors with high confidence (agreement) – enabling us to point out where future efforts to improve models should be concentrated.</abstract>
@@ -390,7 +390,7 @@
       <title>A Multimodal Large Language Model “Foresees” Objects Based on Verb Information but Not Gender</title>
       <author><first>Shuqi</first><last>Wang</last><affiliation>The Chinese University of Hong Kong</affiliation></author>
       <author><first>Xufeng</first><last>Duan</last></author>
-      <author><first>Zhenguang</first><last>Cai</last></author>
+      <author orcid="0000-0002-4097-6038"><first>Zhenguang</first><last>Cai</last></author>
       <pages>435-441</pages>
       <abstract>This study employs the classical psycholinguistics paradigm, the visual world eye-tracking paradigm (VWP), to explore the predictive capabilities of LLAVA, a multimodal large language model (MLLM), and compare them with human anticipatory gaze behaviors. Specifically, we examine the attention weight distributions of LLAVA when presented with visual displays and English sentences containing verb and gender cues. Our findings reveal that LLAVA, like humans, can predictively attend to objects relevant to verbs, but fails to demonstrate gender-based anticipatory attention. Layer-wise analysis indicates that the middle layers of the model are more related to predictive attention than the early or late layers. This study is pioneering in applying psycholinguistic paradigms to compare the multimodal predictive attention of humans and MLLMs, revealing both similarities and differences between them.</abstract>
       <url hash="67a8081f">2024.conll-1.32</url>
@@ -402,11 +402,11 @@
       <author><first>Zhiwei</first><last>Liu</last><affiliation>Salesforce AI Research</affiliation></author>
       <author><first>Weiran</first><last>Yao</last><affiliation>SalesForce.com</affiliation></author>
       <author><first>Jianguo</first><last>Zhang</last><affiliation>SalesForce AI Research</affiliation></author>
-      <author><first>Zuxin</first><last>Liu</last><affiliation>Salesforce AI Research</affiliation></author>
-      <author><first>Liangwei</first><last>Yang</last></author>
+      <author orcid="0000-0001-7412-5074"><first>Zuxin</first><last>Liu</last><affiliation>Salesforce AI Research</affiliation></author>
+      <author orcid="0000-0001-5660-766X"><first>Liangwei</first><last>Yang</last></author>
       <author><first>Rithesh</first><last>R N</last><affiliation>SalesForce.com</affiliation></author>
       <author><first>Tian</first><last>Lan</last><affiliation>SalesForce</affiliation></author>
-      <author><first>Ming</first><last>Zhu</last><affiliation>SalesForce.com</affiliation></author>
+      <author orcid="0000-0002-9128-076X"><first>Ming</first><last>Zhu</last><affiliation>SalesForce.com</affiliation></author>
       <author><first>Juntao</first><last>Tan</last><affiliation>Rutgers University</affiliation></author>
       <author><first>Shirley</first><last>Kokane</last><affiliation>SalesForce.com</affiliation></author>
       <author><first>Thai Quoc</first><last>Hoang</last><affiliation>Salesforce Research</affiliation></author>
@@ -424,7 +424,7 @@
     <paper id="34">
       <title>Image-conditioned human language comprehension and psychometric benchmarking of visual language models</title>
       <author><first>Subha Nawer</first><last>Pushpita</last></author>
-      <author><first>Roger P.</first><last>Levy</last><affiliation>Massachusetts Institute of Technology</affiliation></author>
+      <author orcid="0000-0002-4493-8864"><first>Roger P.</first><last>Levy</last><affiliation>Massachusetts Institute of Technology</affiliation></author>
       <pages>447-457</pages>
       <abstract>Large language model (LLM)s’ next-word predictions have shown impressive performance in capturing human expectations during real-time language comprehension. This finding has enabled a line of research on psychometric benchmarking of LLMs against human language-comprehension data in order to reverse-engineer humans’ linguistic subjective probability distributions and representations. However, to date, this work has exclusively involved unimodal (language-only) comprehension data, whereas much human language use takes place in rich multimodal contexts. Here we extend psychometric benchmarking to visual language models (VLMs). We develop a novel experimental paradigm, <tex-math>\textit{Image-Conditioned Maze Reading}</tex-math>, in which participants first view an image and then read a text describing an image within the Maze paradigm, yielding word-by-word reaction-time measures with high signal-to-noise ratio and good localization of expectation-driven language processing effects. We find a large facilitatory effect of correct image context on language comprehension, not only for words such as concrete nouns that are directly grounded in the image but even for ungrounded words in the image descriptions. Furthermore, we find that VLM surprisal captures most to all of this effect. We use these findings to benchmark a range of VLMs, showing that models with lower perplexity generally have better psychometric performance, but that among the best VLMs tested perplexity and psychometric performance dissociate. Overall, our work offers new possibilities for connecting psycholinguistics with multimodal LLMs for both scientific and engineering goals.</abstract>
       <url hash="d684404c">2024.conll-1.34</url>
@@ -437,7 +437,7 @@
       <author><first>Kamala</first><last>Sreepada</last></author>
       <author><first>Ruolan Leslie</first><last>Famularo</last></author>
       <author><first>Sharon</first><last>Goldwater</last><affiliation>University of Edinburgh</affiliation></author>
-      <author><first>Naomi</first><last>Feldman</last><affiliation>University of Maryland, College Park</affiliation></author>
+      <author orcid="0000-0001-9988-7497"><first>Naomi</first><last>Feldman</last><affiliation>University of Maryland, College Park</affiliation></author>
       <pages>458-463</pages>
       <abstract>State of the art models in automatic speech recognition have shown remarkable improvements due to modern self-supervised (SSL) transformer-based architectures such as wav2vec 2.0 (Baevski et al., 2020). However, how these models encode phonetic information is still not well understood. We explore whether SSL speech models display a linguistic property that characterizes human speech perception: language specificity. We show that while wav2vec 2.0 displays an overall language specificity effect when tested on Hindi vs. English, it does not resemble human speech perception when tested on finer-grained differences in Hindi speech contrasts.</abstract>
       <url hash="d8f0f12c">2024.conll-1.35</url>
@@ -446,8 +446,8 @@
     </paper>
     <paper id="36">
       <title>One-Vs-Rest Neural Network <fixed-case>E</fixed-case>nglish Grapheme Segmentation: A Linguistic Perspective</title>
-      <author><first>Samuel</first><last>Rose</last></author>
-      <author><first>Nina</first><last>Dethlefs</last><affiliation>University of Hull</affiliation></author>
+      <author orcid="0000-0002-3600-4244"><first>Samuel</first><last>Rose</last></author>
+      <author orcid="0000-0002-6917-5066"><first>Nina</first><last>Dethlefs</last><affiliation>University of Hull</affiliation></author>
       <author><first>C.</first><last>Kambhampati</last></author>
       <pages>464-469</pages>
       <abstract>Grapheme-to-Phoneme (G2P) correspondences form foundational frameworks of tasks such as text-to-speech (TTS) synthesis or automatic speech recognition. The G2P process involves taking words in their written form and generating their pronunciation. In this paper, we critique the status quo definition of a grapheme, currently a forced alignment process relating a single character to either a phoneme or a blank unit, that underlies the majority of modern approaches. We develop a linguistically-motivated redefinition from simple concepts such as vowel and consonant count and word length and offer a proof-of-concept implementation based on a multi-binary neural classification task. Our model achieves state-of-the-art results with a 31.86% Word Error Rate on a standard benchmark, while generating linguistically meaningful grapheme segmentations.</abstract>
@@ -457,9 +457,9 @@
     </paper>
     <paper id="37">
       <title><fixed-case>C</fixed-case>rowd<fixed-case>C</fixed-case>ounter: A benchmark type-specific multi-target counterspeech dataset</title>
-      <author><first>Punyajoy</first><last>Saha</last></author>
+      <author orcid="0000-0002-3952-2514"><first>Punyajoy</first><last>Saha</last></author>
       <author><first>Abhilash</first><last>Datta</last></author>
-      <author><first>Abhik</first><last>Jana</last><affiliation>IIT Bhubaneswar</affiliation></author>
+      <author orcid="0000-0002-4485-0002"><first>Abhik</first><last>Jana</last><affiliation>IIT Bhubaneswar</affiliation></author>
       <author><first>Animesh</first><last>Mukherjee</last><affiliation>Indian Institute of Technology Kharagpur</affiliation></author>
       <pages>470-488</pages>
       <abstract>Counterspeech presents a viable alternative to banning or suspending users for hate speech while upholding freedom of expression. However, writing effective counterspeech is challenging for moderators/users. Hence, developing suggestion tools for writing counterspeech is the need of the hour. One critical challenge in developing such a tool is the lack of quality and diversity of the responses in the existing datasets. Hence, we introduce a new dataset - CrowdCounter containing 3,425 hate speech-counterspeech pairs spanning six different counterspeech types (empathy, humor, questioning, warning, shaming, contradiction), which is the first of its kind. The design of our annotation platform itself encourages annotators to write type-specific, non-redundant and high-quality counterspeech. We evaluate two frameworks for generating counterspeech responses - vanilla and type-controlled prompts - across four large language models. In terms of metrics, we evaluate the responses using relevance, diversity and quality. We observe that Flan-T5 is the best model in the vanilla framework across different models. Type-specific prompts enhance the relevance of the responses, although they might reduce the language quality. DialoGPT proves to be the best at following the instructions and generating the type-specific counterspeech accurately.</abstract>
@@ -469,7 +469,7 @@
     </paper>
     <paper id="38">
       <title>Solving the Challenge Set without Solving the Task: On <fixed-case>W</fixed-case>inograd Schemas as a Test of Pronominal Coreference Resolution</title>
-      <author><first>Ian</first><last>Porada</last><affiliation>McGill University</affiliation></author>
+      <author orcid="0000-0002-2000-2869"><first>Ian</first><last>Porada</last><affiliation>McGill University</affiliation></author>
       <author><first>Jackie CK</first><last>Cheung</last><affiliation>McGill University, Mila Research Institute and Microsoft</affiliation></author>
       <pages>489-506</pages>
       <abstract>Challenge sets such as the Winograd Schema Challenge (WSC) are used to benchmark systems’ ability to resolve ambiguities in natural language. If one assumes as in existing work that solving a given challenge set is at least as difficult as solving some more general task, then high performance on the challenge set should indicate high performance on the general task overall. However, we show empirically that this assumption of difficulty does not always hold. In particular, we demonstrate that despite the strong performance of prompted language models (LMs) on the WSC and its variants, these same modeling techniques perform relatively poorly at resolving certain pronominal ambiguities attested in OntoNotes and related datasets that are perceived to be easier. Motivated by these findings, we propose a method for ensembling a prompted LM with a supervised, task-specific system that is overall more accurate at resolving pronominal coreference across datasets. Finally, we emphasize that datasets involving the same linguistic phenomenon draw on distinct, but overlapping, capabilities, and evaluating on any one dataset alone does not provide a complete picture of a system’s overall capability.</abstract>
@@ -480,7 +480,7 @@
     <paper id="39">
       <title>Advancing <fixed-case>A</fixed-case>rabic Sentiment Analysis: <fixed-case>A</fixed-case>r<fixed-case>S</fixed-case>en Benchmark and the Improved Fuzzy Deep Hybrid Network</title>
       <author><first>Yang</first><last>Fang</last><affiliation>Huaibei Normal University</affiliation></author>
-      <author><first>Cheng</first><last>Xu</last></author>
+      <author orcid="0000-0002-4675-9122"><first>Cheng</first><last>Xu</last></author>
       <author><first>Shuhao</first><last>Guan</last></author>
       <author><first>Nan</first><last>Yan</last><affiliation>Georgia Institute of Technology</affiliation></author>
       <author><first>Yuke</first><last>Mei</last><affiliation>Wuhu Institute of Technology</affiliation></author>
