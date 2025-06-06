@@ -88,15 +88,15 @@ def main(
 
     # Load the papers.yaml file, skipping non-archival papers
     papers = [p for p in parse_paper_yaml(paper_yaml) if p["archival"]]
-    print(f"Found {len(papers)} archival papers", file=sys.stderr)
+    # print(f"Found {len(papers)} archival papers", file=sys.stderr)
 
-    for paper in papers:
-        print("PAPER:", paper['id'], file=sys.stderr)
-        for author in paper['authors']:
-            print(
-                f"  {author['first_name']} {author['last_name']} ({author.get('institution', '')})",
-                file=sys.stderr,
-            )
+    # for paper in papers:
+        # print("PAPER:", paper['id'], file=sys.stderr)
+        # for author in paper['authors']:
+        #     print(
+        #         f"  {author['first_name']} {author['last_name']} ({author.get('institution', '')})",
+        #         file=sys.stderr,
+        #     )
 
     collection_id, volume_name = full_volume_id.split('-')
 
@@ -119,14 +119,11 @@ def main(
         volume_node.findall('./paper')
     ), f"Number of papers in YAML ({len(papers)}) does not match number in XML ({len(volume_node.findall('./paper'))})"
 
+    num_added = 0
     for paper, paper_node in zip(papers, volume_node.findall('./paper')):
         # paper_num = int(paper["id"])
         paper_num = int(paper_node.attrib['id'])
-        print(f"PAPER: YAML={paper_num}", file=sys.stderr)
-
-        # assert paper_num == paper_id_xml, (
-        #     f"Paper ID mismatch: YAML={paper_num}, XML={paper_id_xml}"
-        # )
+        # print(f"PAPER: YAML={paper_num}", file=sys.stderr)
 
         def get_author_xml(author_xml):
             name = ""
@@ -141,10 +138,10 @@ def main(
         for author_yaml, author_node in zip(
             paper['authors'], paper_node.findall('./author')
         ):
-            print(
-                f"- Author YAML={author_yaml['first_name']} {author_yaml['last_name']} XML={get_author_xml(author_node)}",
-                file=sys.stderr,
-            )
+            # print(
+            #     f"- Author YAML={author_yaml['first_name']} {author_yaml['last_name']} XML={get_author_xml(author_node)}",
+            #     file=sys.stderr,
+            # )
             if orcid := author_yaml.get('orcid'):
                 # grab ORCID pattern from orcid: \d{4}-\d{4}-\d{4}-\d{3}[0-9X]
                 orcid_pattern = r'\d{4}-\d{4}-\d{4}-\d{3}[0-9X]'
@@ -152,6 +149,7 @@ def main(
                 if match:
                     # If the ORCID is in the expected format, use it directly
                     orcid = match.group(0)
+                    num_added += 1
                 else:
                     print(f"Invalid ORCID format: {orcid}", file=sys.stderr)
                     continue
@@ -161,6 +159,7 @@ def main(
     indent(root_node)
     tree = etree.ElementTree(root_node)
     tree.write(collection_file, encoding='UTF-8', xml_declaration=True, with_tail=True)
+    print(f"Added {num_added} ORCIDs for {full_volume_id} to {collection_file}", file=sys.stderr)
 
 
 if __name__ == '__main__':
