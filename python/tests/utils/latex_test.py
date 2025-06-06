@@ -17,15 +17,24 @@ from acl_anthology.people.name import Name, NameSpecification
 from acl_anthology.text import MarkupText
 from acl_anthology.utils import latex
 
-test_cases_latex = (
+# Tests helper function used during conversion of our XML markup to LaTeX.
+# Straight quotation marks (") will have been converted to double apostrophes,
+# usually in braces ({''}), by pylatexenc; the function tested here applies
+# heuristics to turn them into appropriate opening/closing quotes with the
+# braces removed.
+test_cases_latex_convert_quotes = (
     ("{''}This is a quotation.{''}", "``This is a quotation.''"),
+    ("''This is a quotation.''", "``This is a quotation.''"),
     ("This is a {''}quotation{''}.", "This is a ``quotation''."),
     ("Can you 'please' {'}convert{'} this?", "Can you `please' `convert' this?"),
     ("My name is ''陳大文''.", "My name is ``陳大文''."),
+    ("This isn't a quotation.", "This isn't a quotation."),
+    ("But ''\\textbf{this}'' is", "But ``\\textbf{this}'' is"),
+    ("But {''}\\textbf{this}{''} is", "But ``\\textbf{this}'' is"),
 )
 
 
-@pytest.mark.parametrize("inp, out", test_cases_latex)
+@pytest.mark.parametrize("inp, out", test_cases_latex_convert_quotes)
 def test_latex_convert_quotes(inp, out):
     assert latex.latex_convert_quotes(inp) == out
 

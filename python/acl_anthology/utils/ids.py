@@ -14,6 +14,7 @@
 
 """Functions for manipulating Anthology IDs."""
 
+import re
 from typing import Optional
 
 
@@ -22,6 +23,12 @@ AnthologyIDTuple = tuple[str, Optional[str], Optional[str]]
 
 AnthologyID = str | AnthologyIDTuple
 """Any type that can be parsed into an Anthology ID."""
+
+RE_COLLECTION_ID = re.compile(r"([0-9]{4}\.[a-z0-9]+)|([A-Z][0-9]{2})")
+"""A regular expression matching any valid collection ID."""
+
+RE_ITEM_ID = re.compile(r"[a-z0-9]+")
+"""A regular expression matching any valid volume or paper ID."""
 
 
 def build_id(
@@ -171,6 +178,26 @@ def parse_id(anthology_id: AnthologyID) -> AnthologyIDTuple:
         else:
             paper_id = rest[1:].lstrip("0")
             return (collection_id, rest[0], paper_id if paper_id else "0")
+
+
+def is_valid_collection_id(id_: str) -> bool:
+    """Validate that a string is formatted like a proper collection ID.
+
+    Returns:
+        True if the string is valid, False otherwise.
+    """
+    return RE_COLLECTION_ID.fullmatch(id_) is not None
+
+
+def is_valid_item_id(id_: str) -> bool:
+    """Validate that a string is a valid volume or paper ID.
+
+    Volume or paper IDs must only consist of lower-case ASCII characters and digits.
+
+    Returns:
+        True if the string is valid, False otherwise.
+    """
+    return RE_ITEM_ID.fullmatch(id_) is not None
 
 
 def infer_year(anthology_id: AnthologyID) -> str:
