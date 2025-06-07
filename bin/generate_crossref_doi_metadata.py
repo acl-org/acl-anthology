@@ -188,7 +188,7 @@ def main(volumes):
                         make_simple_element("surname", text=name_part.text, parent=pn)
 
         if editor_index == 0:
-            print("FATAL: Found no editors", file=sys.stderr)
+            print(f"WARNING: Found no editors for volume {full_volume_id}, skipping", file=sys.stderr)
             sys.exit(1)
 
         # Assemble Event Metadata
@@ -243,9 +243,9 @@ def main(volumes):
                 if is_newstyle_id(full_volume_id):
                     url = f"{full_volume_id}.{paper_id}"
                 elif len(full_volume_id) == 6:
-                    url = f"{full_volume_id}{paper_id:02d}"
+                    url = f"{full_volume_id}{int(paper_id):02d}"
                 elif len(full_volume_id) == 5:
-                    url = f"{full_volume_id}{paper_id:03d}"
+                    url = f"{full_volume_id}{int(paper_id):03d}"
 
             cp = make_simple_element("conference_paper", parent=c)
 
