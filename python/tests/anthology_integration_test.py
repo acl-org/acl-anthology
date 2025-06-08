@@ -92,17 +92,13 @@ def test_full_anthology_roundtrip_xml(
     else:
         # Test for byte-level equivalence
         if not filecmp.cmp(outfile, collection.path):
-            # Assertion likely to fail, but assert on the lines so we see an
-            # actual diff in the pytest output
+            # Assertion will fail, but assert on the actual lines so we see a
+            # diff in the pytest output
             with (
                 open(outfile, "r", encoding="utf-8") as f,
                 open(collection.path, "r", encoding="utf-8") as g,
             ):
                 out_lines, exp_lines = f.readlines(), g.readlines()
-
-            # A few old files do not have the <?xml ...> declaration; ignore that
-            if not exp_lines[0].startswith("<?xml"):
-                out_lines.pop(0)  # this *will* start with <?xml ...>
 
             assert exp_lines == out_lines
 
