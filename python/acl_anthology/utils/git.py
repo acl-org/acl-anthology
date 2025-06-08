@@ -36,13 +36,13 @@ def clone_or_pull_from_repo(repo_url: str, local_path: StrPath, verbose: bool) -
 
     Arguments:
         repo_url: The URL of a Git repo.
-        local_path: The local path containing the repo.  If it doesn't exist, we will attempt to clone the repo into it; if it exists, we assume it already contains the repo and will attempt to pull from 'origin'.
+        local_path: The local path containing the repo.  If `{local_path}/.git` exists, we assume it already contains the repo and will attempt to pull from 'origin'; otherwise, we will attempt to clone the repo into `local_path`.
         verbose: If True, will show a progress display.
     """
     path = Path(local_path)
     progress = RichRemoteProgress() if verbose else None
     log.debug(f"Using local repository folder: {path}")
-    if path.exists():
+    if (path / ".git").exists():
         repo = Repo(path)
         if repo.remote().url != repo_url:
             log.error(
