@@ -33,13 +33,17 @@ Warning (August 2020): not yet tested with CL, but should work!
 
 Authors: Arya D. McCarthy, Matt Post, Marcel Bollmann
 """
+# mypy: disable-error-code="union-attr"
+#       ^---- Reason for this and most "type: ignore" comments:
+#             code never checks if etree functions return None
+
 import os
 import shutil
 import logging
 import lxml.etree as etree
 
 from pathlib import Path
-from typing import List, Optional, Tuple
+from typing import Any, Optional, cast
 
 from acl_anthology import Anthology
 from acl_anthology.files import PDFReference
@@ -75,7 +79,7 @@ def collapse_spaces(text: str) -> str:
     return " ".join(text.split())
 
 
-def get_volume_info(xml: Path) -> str:
+def get_volume_info(xml: Path) -> etree._Element:
     logging.info("Getting volume info from {}".format(xml))
     # So far, their XML for the volume doesn't play nicely with xml.etree. Thus, we hack.
     paper = etree.Element("paper")
@@ -104,23 +108,23 @@ def get_paperid(xml: Path, count: int, issue_count: int) -> str:
     return f"{issue_count}.{count}"  # after dash in new anth id
 
 
-def get_title(xml_front_node: etree.Element) -> str:
-    nsmap = xml_front_node.nsmap
+def get_title(xml_front_node: etree._Element) -> str:
+    nsmap = {k: v for k, v in xml_front_node.nsmap.items() if k is not None}
 
     article_meta = xml_front_node.find("article-meta", nsmap)
     title_group = article_meta.find("title-group", nsmap)
     title = title_group.find("article-title", nsmap)
-    title_text = collapse_spaces("".join(title.itertext()))
+    title_text = collapse_spaces("".join(title.itertext()))  # type: ignore[arg-type]
     return title_text
 
 
-def get_abstract(xml_front_node: etree.Element) -> str:
-    nsmap = xml_front_node.nsmap
+def get_abstract(xml_front_node: etree._Element) -> Optional[str]:
+    nsmap = {k: v for k, v in xml_front_node.nsmap.items() if k is not None}
 
     article_meta = xml_front_node.find("article-meta", nsmap)
     abstract = article_meta.find("abstract", nsmap)
     if abstract is not None:
-        abstract_text = collapse_spaces("".join(abstract.itertext()))
+        abstract_text = collapse_spaces("".join(abstract.itertext()))  # type: ignore[arg-type]
         # 2022/June abstracts all started with "Abstract "
         if abstract_text.startswith("Abstract "):
             abstract_text = abstract_text[9:]
@@ -129,48 +133,50 @@ def get_abstract(xml_front_node: etree.Element) -> str:
         return None
 
 
-def get_authors(xml_front_node: etree.Element) -> List[Tuple[str, str]]:
-    nsmap = xml_front_node.nsmap
+def get_authors(xml_front_node: etree._Element) -> list[tuple[str | None, str]]:
+    nsmap = {k: v for k, v in xml_front_node.nsmap.items() if k is not None}
 
     article_meta = xml_front_node.find("article-meta", nsmap)
     contrib_group = article_meta.find("contrib-group", nsmap)
     authors = []
     for author in contrib_group.findall("contrib", nsmap):
         string_name = author.find("name", nsmap)
-        try:
-            given_names = string_name.find("given-names", nsmap).text
-        except AttributeError:
-            given_names = ""  # Special case for Mausam, and potentially Madonna.
-        surname = string_name.find("surname", nsmap).text
-        try:
-            suffix = string_name.find("suffix", nsmap).text
-            surname = surname + " " + suffix
-        except AttributeError:
-            pass
+        if (node := string_name.find("given-names", nsmap)) is not None:
+            given_names = str(node.text) if node.text else None
+        else:
+            given_names = None  # Special case for Mausam, and potentially Madonna.
+        surname = cast(str, string_name.find("surname", nsmap).text)
+        if (node := string_name.find("suffix", nsmap)) is not None:
+            if node.text is not None:
+                surname = f"{surname} {node.text}"
         authors.append((given_names, surname))
     return authors
 
 
-def get_pages(xml_front_node: etree.Element) -> Tuple[str, str]:
-    nsmap = xml_front_node.nsmap
+def get_pages(xml_front_node: etree._Element) -> tuple[str, str]:
+    nsmap = {k: v for k, v in xml_front_node.nsmap.items() if k is not None}
 
     article_meta = xml_front_node.find("article-meta", nsmap)
     fpage = article_meta.find("fpage", nsmap)
     lpage = article_meta.find("lpage", nsmap)
+    assert fpage.text is not None and lpage.text is not None
     return fpage.text, lpage.text
 
 
-def get_doi(xml_front_node: etree.Element) -> str:
-    nsmap = xml_front_node.nsmap
+def get_doi(xml_front_node: etree._Element) -> str:
+    nsmap = {k: v for k, v in xml_front_node.nsmap.items() if k is not None}
 
     article_meta = xml_front_node.find("article-meta", nsmap)
     doi_ = article_meta.find("*[@pub-id-type='doi']", nsmap)
+    assert doi_.text is not None
     return doi_.text
 
 
-def get_article_journal_info(xml_front_node: etree.Element, is_tacl: bool) -> str:
+def get_article_journal_info(
+    xml_front_node: etree._Element, is_tacl: bool
+) -> tuple[str, str | None, str]:
     """ """
-    nsmap = xml_front_node.nsmap
+    nsmap = {k: v for k, v in xml_front_node.nsmap.items() if k is not None}
 
     journal_meta = xml_front_node.find("journal-meta", nsmap)
 
@@ -192,7 +198,8 @@ def get_article_journal_info(xml_front_node: etree.Element, is_tacl: bool) -> st
         "Association of Computational Linguistics",
         "Association for Computational Linguistics",
     )
-    volume_text = volume.text.lstrip("0")  # Sometimes we find "06" instead of "6"
+    assert volume.text is not None
+    volume_text = str(volume.text).lstrip("0")  # Sometimes we find "06" instead of "6"
 
     if is_tacl:
         issue_text = None
@@ -200,7 +207,8 @@ def get_article_journal_info(xml_front_node: etree.Element, is_tacl: bool) -> st
         format_string = "{journal}, Volume {volume}"
     else:
         issue = article_meta.find("issue", nsmap)
-        issue_text = issue.text
+        assert issue.text is not None
+        issue_text = str(issue.text)
 
         string_date_text = None
         for pub_date in article_meta.findall("pub-date", nsmap):
@@ -212,7 +220,7 @@ def get_article_journal_info(xml_front_node: etree.Element, is_tacl: bool) -> st
             break
 
         if string_date_text is None:
-            print("Fatal: found no year/date", file=sys.stderr)
+            logging.critical("Found no year/date")
             sys.exit(1)
 
         format_string = "{journal}, Volume {volume}, Issue {issue} - {date}"
@@ -227,13 +235,15 @@ def get_article_journal_info(xml_front_node: etree.Element, is_tacl: bool) -> st
     return format_string.format(**data), issue_text, volume_text
 
 
-def process_xml(xml: Path, is_tacl: bool) -> Optional[etree.Element]:
+def process_xml(xml: Path, is_tacl: bool) -> tuple[dict[str, Any], str, str | None, str]:
     """ """
     logging.info("Reading {}".format(xml))
 
     tree = etree.parse(open(str(xml)))
     root = tree.getroot()
-    front = root.find("front", root.nsmap)
+    nsmap = {k: v for k, v in root.nsmap.items() if k is not None}
+    front = root.find("front", nsmap)
+    assert isinstance(front, etree._Element)
 
     info, issue, volume = get_article_journal_info(front, is_tacl)
 
