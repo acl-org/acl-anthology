@@ -68,11 +68,11 @@ def main():
         issue_body = issue["body"]
         if "### Author ORCID" not in issue_body:
             issue_body_list = issue_body.split("### Type of Author Metadata Correction")
-            issue_body_list.insert(1, "### Author ORCID\n\n-Add ORCID here-\n\n### Institution of highest (anticipated) degree\n\n-Add insitution here-\n\n### Author Name (only if published in another script)\n\n -add author name here if needed-\n\n### Is the authors name read right to left? (only if published in another script)\n\n- [ ] Script is read right-to-left.\n\n### Type of Author Metadata Correction")
+            issue_body_list.insert(1, "### Author ORCID\n\n-Add ORCID here-\n\n### Institution of highest (anticipated) degree\n\n-Add insitution here-\n\n### Author Name (only if published in another script)\n\n -add author name here if needed-\n\n### Is the author's name read right to left? (only if published in another script)\n\n- [ ] Script is read right-to-left.\n\n### Type of Author Metadata Correction")
             issue_body = "".join(issue_body_list)
             edit_body_of_issue(number, issue_body)
             
-            add_comment_to_issue(number, "Hi! We have just added a few new fields to help us manage our database of author pages better. You can see the new fields in the body of the issue. Please fill these out and let us know when done so that we can continue working on your issue. Thank you for your coperation!")
+            add_comment_to_issue(number, "Hi! We have just added a few new fields to help us manage our author database and decrease ambiguity on future imports. Please fill out the fields that have been added to the body of this issue, and leave a comment when you are finished. We will then proceed with processing this request.")
 
 
 if __name__ == '__main__':
