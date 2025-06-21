@@ -1,6 +1,8 @@
 # Changelog
 
-## [Unreleased]
+## [0.5.3] — 2025-06-22
+
+This release adds more functionality for ingesting new proceedings and modifying existing data.
 
 ### Added
 
