@@ -4,7 +4,25 @@
 
 ### Added
 
+- MarkupText can now be instantiated from strings (potentially) containing LaTeX markup.
+  - This reimplements functionality used at ingestion time previously found in `bin/latex_to_unicode.py`.
+
+### Changed
+
+- MarkupText: Typographic quotes now convert to/from LaTeX quotes more consistently.
+
+## [0.5.2] — 2025-05-16
+
+This release adds support for Python 3.13 and initial functionality for creating new proceedings.
+
+### Added
+
 - Support for Python 3.13.
+- Papers are now indexed by their bibkeys and can be retrieved via `Anthology.get_paper_by_bibkey()`.
+- Bibkeys can now be generated and updated, guaranteeing uniqueness.
+- Collections, Volumes, Papers, and Events can now be newly created with functions on their respective parent objects.
+  - Event creation currently has some unintuitive behaviour due to the existence of implicit event creation and linking; see docs.
+- FileReferences can now be instantiated from files, and functions for checksum computation have been added.
 
 ## [0.5.1] — 2025-01-02
 

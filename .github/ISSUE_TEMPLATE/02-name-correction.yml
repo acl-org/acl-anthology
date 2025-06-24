@@ -20,21 +20,70 @@ body:
     attributes:
       label: Author Pages
       description: |
-        Which author page(s) are affected by this correction? Please only give one or more URLs of author pages here.
+        Which author page(s) are affected by this correction? Please list the URL of every affected author page here.
       placeholder: ex. https://aclanthology.org/people/m/matt-post/
     validations:
       required: true
+
+  - type: textarea
+    id: author_orcid
+    attributes:
+      label: Author ORCID
+      description: |
+        Please provide a valid ORCID link here. This will be used to help match future papers to your Anthology ID.
+      placeholder: ex. https://orcid.org/my-orcid?orcid=0009-0003-8868-7504
+    validations:
+      required: true
+  - type: textarea
+    id: author_highest_degree_institution
+    attributes:
+      label: Institution of highest (anticipated) degree
+      description: |
+        Please provide the name of the school or university where you have or will receive your highest degree (e.g.,
+        current affiliation for students, Ph.D. institution for faculty and industry researchers). This will be used
+        to form your author page ID, if needed.
+      placeholder: ex. Johns Hopkins University (https://www.jhu.edu/)
+    validations:
+      required: true
+  - type: textarea
+    id: author_name_script_variant
+    attributes:
+      label: Author Name (only if published in another script)
+      description: |
+        If you publish using your name written in a non-Latin script, please provide it here with a UTF-8 encoding.
+      placeholder: ex. अंकुर
+    validations:
+      required: false
+  - type: checkboxes
+    id: author_name_script_variant_direction
+    attributes:
+      label: Is the authors name read right to left? (only if published in another script)
+      options:
+        - label: Script is read right-to-left.
+          required: false
   - type: checkboxes
     id: name_correction_type
     attributes:
       label: Type of Author Metadata Correction
       description: "Please indicate which issue(s) should be corrected regarding the author page(s)."
       options:
-        - label: The author page wrongly conflates different people with the same name.
-        - label: This author has multiple pages with different spellings of their name.
+        - label: The author page includes papers from two or more different people.
+        - label: A single author has multiple pages with different spellings or variants of their name.
         - label: This author has permanently changed their name.
     validations:
       required: true
+  - type: checkboxes
+    id: name_correction_check
+    attributes:
+      label: Confirming that Paper Metadata is Correct
+      description: |
+        Anthology policy is that author metadata should match what is displayed
+        on the PDF. To fix discrepancies, **this is not the correct issue template to use.**
+        Instead, please use the "Fix data" button on the affected paper page(s) to
+        correct the name displayed on the ACL Anthology.
+      options:
+        - label: I have made sure that the names given for each of the author's papers match the name shown on the PDF.
+          required: True
   - type: textarea
     id: name_change_description
     attributes:
