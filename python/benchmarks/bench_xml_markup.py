@@ -19,7 +19,7 @@ from pathlib import Path
 
 REPEAT = 1_000
 SCRIPTDIR = os.path.dirname(os.path.realpath(__file__))
-XMLFILE = Path(f"{SCRIPTDIR}/../tests/toy_anthology/xml/2022.acl.xml")
+XMLFILE = Path(f"{SCRIPTDIR}/../tests/data/anthology/xml/2022.acl.xml")
 
 # An example from 2022.acl.xml
 tree = etree.parse(XMLFILE)
@@ -38,8 +38,8 @@ def element_tostring():
 
 __benchmarks__ = [
     (
-        element_deepcopy,
         element_tostring,
-        "XML: deepcopy <abstract> vs. convert to string",
+        element_deepcopy,
+        "XML <abstract>: deepcopy instead of etree.tostring",
     ),
 ]

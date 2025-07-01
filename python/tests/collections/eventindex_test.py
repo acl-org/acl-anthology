@@ -55,7 +55,7 @@ def test_implicit_and_explicit_event_data(anthology):
     ]
 
 
-@pytest.mark.skip
+@pytest.mark.xfail(reason="bug: event title not created when event is implicitly defined")
 def test_event_should_always_get_title(anthology):
     index = EventIndex(anthology)
     event = index["ws-2022"]

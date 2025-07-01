@@ -1,4 +1,4 @@
-# Copyright 2019-2024 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2019-2025 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -24,8 +24,10 @@ from typing import Iterator, Optional
 from xml.sax.saxutils import escape as xml_escape
 
 from ..utils import (
+    clean_unicode,
     latex_encode,
     latex_convert_quotes,
+    parse_latex_to_xml,
     remove_extra_whitespace,
     stringify_children,
 )
@@ -57,7 +59,6 @@ def markup_to_latex(element: etree._Element) -> str:
             text += latex_encode(nested_element.tail)
 
     text = MARKUP_LATEX_CMDS[tag].format(text=text)
-    text = latex_convert_quotes(text)
     return text
 
 
@@ -153,10 +154,10 @@ class MarkupText:
         if self._latex is not None:
             return self._latex
         if isinstance(self._content, str):
-            latex = latex_convert_quotes(latex_encode(self._content))
+            latex = latex_encode(self._content)
         else:
             latex = markup_to_latex(self._content)
-        self._latex = remove_extra_whitespace(latex)
+        self._latex = remove_extra_whitespace(latex_convert_quotes(latex))
         return self._latex
 
     def as_xml(self) -> str:
@@ -171,15 +172,50 @@ class MarkupText:
         return self._xml
 
     @classmethod
-    def from_string(cls, text: str) -> MarkupText:
+    def from_string(cls, text: str, clean: bool = True) -> MarkupText:
         """
         Arguments:
             text: A simple text string without any markup.
+            clean: If True, applies the Anthology's [Unicode normalization][acl_anthology.utils.text.clean_unicode].
 
         Returns:
             Instantiated MarkupText object corresponding to the string.
         """
+        if clean:
+            return cls(clean_unicode(text))
         return cls(text)
+
+    @classmethod
+    def from_latex(cls, text: str, clean: bool = True) -> MarkupText:
+        """
+        Arguments:
+            text: A text string potentially containing LaTeX markup.
+            clean: If True, applies the Anthology's [Unicode normalization][acl_anthology.utils.text.clean_unicode].
+
+        Returns:
+            Instantiated MarkupText object corresponding to the string.
+        """
+        if clean:
+            text = clean_unicode(text)
+        element = parse_latex_to_xml(text, use_heuristics=False)
+        return cls.from_xml(element)
+
+    @classmethod
+    def from_latex_maybe(cls, text: str, clean: bool = True) -> MarkupText:
+        """
+        Like `from_latex()`, but can be used if it is unclear if the string is plain text or LaTeX.  Will prevent percentage signs being interpreted as LaTeX comments, and apply a heuristic to decide if a tilde is literal or a non-breaking space.
+
+        Arguments:
+            text: A text string potentially in plain text or LaTeX format.
+            clean: If True, applies the Anthology's [Unicode normalization][acl_anthology.utils.text.clean_unicode].
+
+        Returns:
+            Instantiated MarkupText object corresponding to the string.
+        """
+        if clean:
+            text = clean_unicode(text)
+        element = parse_latex_to_xml(text, use_heuristics=True)
+        return cls.from_xml(element)
 
     @classmethod
     def from_xml(cls, element: etree._Element) -> MarkupText:
