@@ -148,7 +148,7 @@ belong to the conference or to colocated workshops:
 Event(
     id='acl-2022',
     is_explicit=True,
-    colocated_ids=<list of 34 AnthologyIDTuple objects>,
+    colocated_ids=<list of 34 tuples>,
     title=MarkupText('60th Annual Meeting of the Association for Computational Linguistics'),
     location='Dublin, Ireland',
     dates='May 22–27, 2022'
@@ -177,9 +177,9 @@ event (`ws-2020`), as well as the EMNLP 2020 event.
 >>> volume = anthology.get("2020.blackboxnlp-1")
 >>> volume.get_events()
 [
-    Event(id='blackboxnlp-2020', colocated_ids=<list of 1 AnthologyIDTuple objects>, ...),
-    Event(id='ws-2020', colocated_ids=<list of 105 AnthologyIDTuple objects>, ...),
-    Event(id='emnlp-2020', colocated_ids=<list of 27 AnthologyIDTuple objects>, ...)
+    Event(id='blackboxnlp-2020', colocated_ids=<list of 1 tuples>, ...),
+    Event(id='ws-2020', colocated_ids=<list of 105 tuples>, ...),
+    Event(id='emnlp-2020', colocated_ids=<list of 27 tuples>, ...)
 ]
 ```
 
