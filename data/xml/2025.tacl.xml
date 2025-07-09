@@ -151,5 +151,318 @@
       <url hash="27951ace">2025.tacl-1.9</url>
       <bibkey>strobl-etal-2025-transformers</bibkey>
     </paper>
+    <paper id="10">
+      <title>Navigating Cultural Chasms: Exploring and Unlocking the Cultural <fixed-case>POV</fixed-case> of Text-To-Image Models</title>
+      <author><first>Mor</first><last>Ventura</last></author>
+      <author><first>Eyal</first><last>Ben-David</last></author>
+      <author><first>Anna</first><last>Korhonen</last></author>
+      <author><first>Roi</first><last>Reichart</last></author>
+      <doi>10.1162/tacl_a_00732</doi>
+      <abstract>Text-To-Image (TTI) models, such as DALL-E and StableDiffusion, have demonstrated remarkable prompt-based image generation capabilities. Multilingual encoders may have a substantial impact on the cultural agency of these models, as language is a conduit of culture. In this study, we explore the cultural perception embedded in TTI models by characterizing culture across three tiers: cultural dimensions, cultural domains, and cultural concepts. Based on this ontology, we derive prompt templates to unlock the cultural knowledge in TTI models, and propose a comprehensive suite of evaluation techniques, including intrinsic evaluations using the CLIP space, extrinsic evaluations with a Visual-Question-Answer models and human assessments, to evaluate the cultural content of TTI-generated images. To bolster our research, we introduce the CulText2I dataset, based on six diverse TTI models and spanning ten languages. Our experiments provide insights regarding Do, What, Which, and How research questions about the nature of cultural encoding in TTI models, paving the way for cross-cultural applications of these models.1</abstract>
+      <pages>142–166</pages>
+      <url hash="03600f89">2025.tacl-1.10</url>
+      <bibkey>ventura-etal-2025-navigating</bibkey>
+    </paper>
+    <paper id="11">
+      <title>Benchmarking Uncertainty Quantification Methods for Large Language Models with <fixed-case>LM</fixed-case>-Polygraph</title>
+      <author><first>Roman</first><last>Vashurin</last></author>
+      <author><first>Ekaterina</first><last>Fadeeva</last></author>
+      <author><first>Artem</first><last>Vazhentsev</last></author>
+      <author><first>Lyudmila</first><last>Rvanova</last></author>
+      <author><first>Daniil</first><last>Vasilev</last></author>
+      <author><first>Akim</first><last>Tsvigun</last></author>
+      <author><first>Sergey</first><last>Petrakov</last></author>
+      <author><first>Rui</first><last>Xing</last></author>
+      <author><first>Abdelrahman</first><last>Sadallah</last></author>
+      <author><first>Kirill</first><last>Grishchenkov</last></author>
+      <author><first>Alexander</first><last>Panchenko</last></author>
+      <author><first>Timothy</first><last>Baldwin</last></author>
+      <author><first>Preslav</first><last>Nakov</last></author>
+      <author><first>Maxim</first><last>Panov</last></author>
+      <author><first>Artem</first><last>Shelmanov</last></author>
+      <doi>10.1162/tacl_a_00737</doi>
+      <abstract>The rapid proliferation of large language models (LLMs) has stimulated researchers to seek effective and efficient approaches to deal with LLM hallucinations and low-quality outputs. Uncertainty quantification (UQ) is a key element of machine learning applications in dealing with such challenges. However, research to date on UQ for LLMs has been fragmented in terms of techniques and evaluation methodologies. In this work, we address this issue by introducing a novel benchmark that implements a collection of state-of-the-art UQ baselines and offers an environment for controllable and consistent evaluation of novel UQ techniques over various text generation tasks. Our benchmark also supports the assessment of confidence normalization methods in terms of their ability to provide interpretable scores. Using our benchmark, we conduct a large-scale empirical investigation of UQ and normalization techniques across eleven tasks, identifying the most effective approaches.</abstract>
+      <pages>220–248</pages>
+      <url hash="f312e884">2025.tacl-1.11</url>
+      <bibkey>vashurin-etal-2025-benchmarking</bibkey>
+    </paper>
+    <paper id="12">
+      <title>Supervised Neural Topic Modeling with Label Alignment</title>
+      <author><first>Ruihao</first><last>Chen</last></author>
+      <author><first>Hegang</first><last>Chen</last></author>
+      <author><first>Yuyin</first><last>Lu</last></author>
+      <author><first>Yanghui</first><last>Rao</last></author>
+      <author><first>Chunjiang</first><last>Zhu</last></author>
+      <doi>10.1162/tacl_a_00738</doi>
+      <abstract>Neural topic modeling is a scalable automated technique for text data mining. In various downstream tasks of topic modeling, it is preferred that the discovered topics well align with labels. However, due to the lack of guidance from labels, unsupervised neural topic models are less powerful in this situation. Existing supervised neural topic models often adopt a label-free prior to generate the latent document-topic distributions and use them to predict the labels and thus achieve label-topic alignment indirectly. Such a mechanism faces the following issues: 1) The label-free prior leads to topics blending the latent patterns of multiple labels; and 2) One is unable to intuitively identify the explicit relationships between labels and the discovered topics. To tackle these problems, we develop a novel supervised neural topic model which utilizes a chain-structured graphical model with a label-conditioned prior. Soft indicators are introduced to explicitly construct the label-topic relationships. To obtain well-organized label-topic relationships, we formalize an entropy-regularized optimal transport problem on the embedding space and model them as the transport plan. Moreover, our proposed method can be flexibly integrated with most existing unsupervised neural topic models. Experimental results on multiple datasets demonstrate that our model can greatly enhance the alignment between labels and topics while maintaining good topic quality.</abstract>
+      <pages>249–263</pages>
+      <url hash="1eac2900">2025.tacl-1.12</url>
+      <bibkey>chen-etal-2025-supervised</bibkey>
+    </paper>
+    <paper id="13">
+      <title>From Robustness to Improved Generalization and Calibration in Pre-trained Language Models</title>
+      <author><first>Josip</first><last>Jukić</last></author>
+      <author><first>Jan</first><last>Šnajder</last></author>
+      <doi>10.1162/tacl_a_00739</doi>
+      <abstract>Enforcing representation smoothness in pre-trained language models (PLMs) through Jacobian and Hessian regularization provides an effective approach for enhancing both robustness and generalization. Although such regularization methods have proven effective in computer vision, their application in natural language processing, where PLM inputs are derived from a discrete domain, poses unique challenges. We introduce JacHess, a regularization approach for PLMs that minimizes the norms of the Jacobian and Hessian matrices in intermediate representations, using embeddings as substitutes for discrete token inputs. JacHess supports dual-mode regularization, alternating between fine-tuning with labeled data and regularization with unlabeled data. We evaluate JacHess on the GLUE benchmark and demonstrate that it consistently and significantly improves in-distribution generalization and enhances performance under domain shift. Across diverse PLMs, JacHess outperforms comparable representation-based regularization methods and unregularized fine-tuning, while also improving model calibration. Our findings, coupled with a computationally efficient estimator for the Jacobian and Hessian norms, position JacHess as a robust and widely applicable solution for enhancing PLM performance.</abstract>
+      <pages>264–280</pages>
+      <url hash="6b22509e">2025.tacl-1.13</url>
+      <bibkey>jukic-snajder-2025-robustness</bibkey>
+    </paper>
+    <paper id="14">
+      <title>How “Real” is Your Real-Time Simultaneous Speech-to-Text Translation System?</title>
+      <author><first>Sara</first><last>Papi</last></author>
+      <author><first>Peter</first><last>Polák</last></author>
+      <author><first>Dominik</first><last>Macháček</last></author>
+      <author><first>Ondřej</first><last>Bojar</last></author>
+      <doi>10.1162/tacl_a_00740</doi>
+      <abstract>Simultaneous speech-to-text translation (SimulST) translates source-language speech into target-language text concurrently with the speaker’s speech, ensuring low latency for better user comprehension. Despite its intended application to unbounded speech, most research has focused on human pre-segmented speech, simplifying the task and overlooking significant challenges. This narrow focus, coupled with widespread terminological inconsistencies, is limiting the applicability of research outcomes to real-world applications, ultimately hindering progress in the field. Our extensive literature review of 110 papers not only reveals these critical issues in current research but also serves as the foundation for our key contributions. We: 1) define the steps and core components of a SimulST system, proposing a standardized terminology and taxonomy; 2) conduct a thorough analysis of community trends; and 3) offer concrete recommendations and future directions to bridge the gaps in existing literature, from evaluation frameworks to system architectures, for advancing the field towards more realistic and effective SimulST solutions.</abstract>
+      <pages>281–313</pages>
+      <url hash="7c1ac702">2025.tacl-1.14</url>
+      <bibkey>papi-etal-2025-real</bibkey>
+    </paper>
+    <paper id="15">
+      <title>Self-Rationalization in the Wild: A Large-scale Out-of-Distribution Evaluation on <fixed-case>NLI</fixed-case>-related tasks</title>
+      <author><first>Jing</first><last>Yang</last></author>
+      <author><first>Max</first><last>Glockner</last></author>
+      <author><first>Anderson</first><last>Rocha</last></author>
+      <author><first>Iryna</first><last>Gurevych</last></author>
+      <doi>10.1162/tacl_a_00741</doi>
+      <abstract>Free-text explanations are expressive and easy to understand, but many datasets lack annotated explanation data, making it challenging to train models for explainable predictions. To address this, we investigate how to use existing explanation datasets for self-rationalization and evaluate models’ out-of-distribution (OOD) performance. We fine-tune T5-Large and OLMo-7B models and assess the impact of fine-tuning data quality, the number of fine-tuning samples, and few-shot selection methods. The models are evaluated on 19 diverse OOD datasets across three tasks: natural language inference (NLI), fact-checking, and hallucination detection in abstractive summarization. For the generated explanation evaluation, we conduct a human study on 13 selected models and study its correlation with the Acceptability score (T5-11B) and three other LLM-based reference-free metrics. Human evaluation shows that the Acceptability score correlates most strongly with human judgments, demonstrating its effectiveness in evaluating free-text explanations. Our findings reveal: 1) few annotated examples effectively adapt models for OOD explanation generation; 2) compared to sample selection strategies, fine-tuning data source has a larger impact on OOD performance; and 3) models with higher label prediction accuracy tend to produce better explanations, as reflected by higher Acceptability scores.1</abstract>
+      <pages>314–342</pages>
+      <url hash="64e2c72e">2025.tacl-1.15</url>
+      <bibkey>yang-etal-2025-self</bibkey>
+    </paper>
+    <paper id="16">
+      <title><fixed-case>DEAR</fixed-case>: Disentangled Event-Agnostic Representation Learning for Early Fake News Detection</title>
+      <author><first>Xiao</first><last>Pu</last></author>
+      <author><first>Hao</first><last>Wu</last></author>
+      <author><first>Xiuli</first><last>Bi</last></author>
+      <author><first>Yu</first><last>Wu</last></author>
+      <author><first>Xinbo</first><last>Gao</last></author>
+      <doi>10.1162/tacl_a_00743</doi>
+      <abstract>Detecting fake news early is challenging due to the absence of labeled articles for emerging events in training data. To address this, we propose a Disentangled Event-Agnostic Representation (DEAR) learning approach. Our method begins with a BERT-based adaptive multi-grained semantic encoder that captures hierarchical and comprehensive textual representations of the input news content. To effectively separate latent authenticity-related and event-specific knowledge within the news content, we employ a disentanglement architecture. To further enhance the decoupling effect, we introduce a cross-perturbation mechanism that perturbs authenticity-related representation with the event-specific one, and vice versa, deriving a robust and discerning authenticity-related signal. Additionally, we implement a refinement learning scheme to minimize potential interactions between two decoupled representations, ensuring that the authenticity signal remains strong and unaffected by event-specific details. Experimental results demonstrate that our approach effectively mitigates the impact of event-specific influence, outperforming state-of-the-art methods. In particular, it achieves a 6.0% improvement in accuracy on the PHEME dataset over MDDA, a similar approach that decouples latent content and style knowledge, in scenarios involving articles from unseen events different from the topics of the training set.</abstract>
+      <pages>343–356</pages>
+      <url hash="7d778286">2025.tacl-1.16</url>
+      <bibkey>pu-etal-2025-dear</bibkey>
+    </paper>
+    <paper id="17">
+      <title><fixed-case>LLM</fixed-case> Reading Tea Leaves: Automatically Evaluating Topic Models with Large Language Models</title>
+      <author><first>Xiaohao</first><last>Yang</last></author>
+      <author><first>He</first><last>Zhao</last></author>
+      <author><first>Dinh</first><last>Phung</last></author>
+      <author><first>Wray</first><last>Buntine</last></author>
+      <author><first>Lan</first><last>Du</last></author>
+      <doi>10.1162/tacl_a_00744</doi>
+      <abstract>Topic modeling has been a widely used tool for unsupervised text analysis. However, comprehensive evaluations of a topic model remain challenging. Existing evaluation methods are either less comparable across different models (e.g., perplexity) or focus on only one specific aspect of a model (e.g., topic quality or document representation quality) at a time, which is insufficient to reflect the overall model performance. In this paper, we propose WALM (Word Agreement with Language Model), a new evaluation method for topic modeling that considers the semantic quality of document representations and topics in a joint manner, leveraging the power of Large Language Models (LLMs). With extensive experiments involving different types of topic models, WALM is shown to align with human judgment and can serve as a complementary evaluation method to the existing ones, bringing a new perspective to topic modeling. Our software package is available at https://github.com/Xiaohao-Yang/Topic_Model_Evaluation.</abstract>
+      <pages>357–375</pages>
+      <url hash="ccb33666">2025.tacl-1.17</url>
+      <bibkey>yang-etal-2025-llm</bibkey>
+    </paper>
+    <paper id="18">
+      <title>The <fixed-case>T</fixed-case>hai <fixed-case>U</fixed-case>niversal <fixed-case>D</fixed-case>ependency Treebank</title>
+      <author><first>Panyut</first><last>Sriwirote</last></author>
+      <author><first>Wei Qi</first><last>Leong</last></author>
+      <author><first>Charin</first><last>Polpanumas</last></author>
+      <author><first>Santhawat</first><last>Thanyawong</last></author>
+      <author><first>William Chandra</first><last>Tjhi</last></author>
+      <author><first>Wirote</first><last>Aroonmanakun</last></author>
+      <author><first>Attapol T.</first><last>Rutherford</last></author>
+      <doi>10.1162/tacl_a_00745</doi>
+      <abstract>Automatic dependency parsing of Thai sentences has been underexplored, as evidenced by the lack of large Thai dependency treebanks with complete dependency structures and the lack of a published evaluation of state-of-the-art models, especially transformer-based parsers. In this work, we addressed these gaps by introducing the Thai Universal Dependency Treebank (TUD), a new Thai treebank consisting of 3,627 trees annotated according to the Universal Dependencies (UD) framework. We then benchmarked 92 dependency parsing models that incorporate pretrained transformers on Thai-PUD and our TUD, achieving state-of-the-art results and shedding light on the optimal model components for Thai dependency parsing. Our error analysis of the models also reveals that polyfunctional words, serial verb construction, and lack of rich morphosyntactic features present main challenges for Thai dependency parsing.</abstract>
+      <pages>376–391</pages>
+      <url hash="5e3922b4">2025.tacl-1.18</url>
+      <bibkey>sriwirote-etal-2025-thai</bibkey>
+    </paper>
+    <paper id="19">
+      <title>Diverse <fixed-case>AI</fixed-case> Feedback For Large Language Model Alignment</title>
+      <author><first>Tianshu</first><last>Yu</last></author>
+      <author><first>Ting-En</first><last>Lin</last></author>
+      <author><first>Yuchuan</first><last>Wu</last></author>
+      <author><first>Min</first><last>Yang</last></author>
+      <author><first>Fei</first><last>Huang</last></author>
+      <author><first>Yongbin</first><last>Li</last></author>
+      <doi>10.1162/tacl_a_00746</doi>
+      <abstract>Recent advances in large language models (LLMs) focus on aligning models with human values to minimize harmful content. However, existing methods often rely on a single type of feedback, such as preferences, annotated labels, or critiques, which can lead to overfitting and suboptimal performance. In this paper, we propose Diverse AIFeedback (DAIF), a novel approach that integrates three types of feedback—critique, refinement, and preference—tailored to tasks of varying uncertainty levels. Through an analysis of information gain, we show that critique feedback is most effective for low-uncertainty tasks, refinement feedback for medium-uncertainty tasks, and preference feedback for high-uncertainty tasks. Training with this diversified feedback reduces overfitting and improves alignment. Experimental results across three tasks—question answering, dialog generation, and text summarization–demonstrate that DAIF outperforms traditional methods relying on a single feedback type.1</abstract>
+      <pages>392–407</pages>
+      <url hash="47bd59e8">2025.tacl-1.19</url>
+      <bibkey>yu-etal-2025-diverse</bibkey>
+    </paper>
+    <paper id="20">
+      <title>How Much Semantic Information is Available in Large Language Model Tokens?</title>
+      <author><first>David A.</first><last>Haslett</last></author>
+      <author><first>Zhenguang G.</first><last>Cai</last></author>
+      <doi>10.1162/tacl_a_00747</doi>
+      <abstract>Large language models segment many words into multiple tokens, and companies that make those models claim that meaningful subword tokens are essential. To investigate whether subword tokens bear meaning, we segmented tens of thousands of words from each of 41 languages according to three generations of GPT tokenizers. We found that words sharing tokens are more semantically similar than expected by chance or expected from length alone, that tokens capture morphological information even when they don’t look like morphemes, and that tokens capture more information than is explained by morphology. In languages that use a script other than the Latin alphabet, GPT-4 tokens are uninformative, but GPT-4o has improved this situation. These results suggest that comparing tokens to morphemes overlooks the wider variety of semantic information available in word form and that standard tokenization methods successfully capture much of that information.</abstract>
+      <pages>408–423</pages>
+      <url hash="6972d475">2025.tacl-1.20</url>
+      <bibkey>haslett-cai-2025-much</bibkey>
+    </paper>
+    <paper id="21">
+      <title>Phonetic Reconstruction of the Consonant System of Middle <fixed-case>C</fixed-case>hinese via Mixed Integer Optimization</title>
+      <author><first>Xiaoxi</first><last>Luo</last></author>
+      <author><first>Weiwei</first><last>Sun</last></author>
+      <doi>10.1162/tacl_a_00742</doi>
+      <abstract>This paper is concerned with phonetic reconstruction of the consonant system of Middle Chinese. We propose to cast the problem as a Mixed Integer Programming problem, which is able to automatically explore homophonic information from ancient rhyme dictionaries and phonetic information from modern Chinese dialects, the descendants of Middle Chinese. Numerical evaluation on a wide range of synthetic and real data demonstrates the effectiveness and robustness of the new method. We apply the method to information from Guǎngyùn and 20 modern Chinese dialects to obtain a new phonetic reconstruction result. A linguistically motivated discussion of this result is also provided.1</abstract>
+      <pages>424–441</pages>
+      <url hash="af1b5b97">2025.tacl-1.21</url>
+      <bibkey>luo-sun-2025-phonetic</bibkey>
+    </paper>
+    <paper id="22">
+      <title>Anchored Preference Optimization and Contrastive Revisions: Addressing Underspecification in Alignment</title>
+      <author><first>Karel</first><last>D’Oosterlinck</last></author>
+      <author><first>Winnie</first><last>Xu</last></author>
+      <author><first>Chris</first><last>Develder</last></author>
+      <author><first>Thomas</first><last>Demeester</last></author>
+      <author><first>Amanpreet</first><last>Singh</last></author>
+      <author><first>Christopher</first><last>Potts</last></author>
+      <author><first>Douwe</first><last>Kiela</last></author>
+      <author><first>Shikib</first><last>Mehri</last></author>
+      <doi>10.1162/tacl_a_00748</doi>
+      <abstract>Large Language Models (LLMs) are often aligned using contrastive alignment objectives and preference pair datasets. The interaction between model, paired data, and objective makes alignment a complicated procedure, sometimes producing subpar results. We study this and find that (i) preference data gives a better learning signal when the underlying responses are contrastive, and (ii) alignment objectives lead to better performance when they specify more control over the model during training. Based on these insights, we introduce Contrastive Learning from AI Revisions (CLAIR), a data-creation method which leads to more contrastive preference pairs, and Anchored Preference Optimization (APO), a controllable and more stable alignment objective. We align Llama-3-8B-Instruct using various comparable datasets and alignment objectives and measure MixEval-Hard scores, which correlate highly with human judgments. The CLAIR preferences lead to the strongest performance out of all datasets, and APO consistently outperforms less controllable objectives. Our best model, trained on 32K CLAIR preferences with APO, improves Llama-3-8B-Instruct by 7.65%, closing the gap with GPT4-turbo by 45%. Our code and datasets are available.</abstract>
+      <pages>442–460</pages>
+      <url hash="4f76efe4">2025.tacl-1.22</url>
+      <bibkey>d-oosterlinck-etal-2025-anchored</bibkey>
+    </paper>
+    <paper id="23">
+      <title><fixed-case>TANQ</fixed-case>: An Open Domain Dataset of Table Answered Questions</title>
+      <author><first>Mubashara</first><last>Akhtar</last></author>
+      <author><first>Chenxi</first><last>Pang</last></author>
+      <author><first>Andreea</first><last>Marzoca</last></author>
+      <author><first>Yasemin</first><last>Altun</last></author>
+      <author><first>Julian Martin</first><last>Eisenschlos</last></author>
+      <doi>10.1162/tacl_a_00749</doi>
+      <abstract>Language models, potentially augmented with tool usage such as retrieval, are becoming the go-to means of answering questions. Understanding and answering questions in real-world settings often requires retrieving information from different sources, processing and aggregating data to extract insights, and presenting complex findings in form of structured artifacts such as novel tables, charts, or infographics. In this paper, we introduce TANQ,1 the first open-domain question answering dataset where the answers require building tables from information across multiple sources. We release the full source attribution for every cell in the resulting table and benchmark state-of-the-art language models in open, oracle, and closed book setups. Our best-performing baseline, Gemini Flash, reaches an overall F1 score of 60.7, lagging behind human performance by 12.3 points. We analyze baselines’ performance across different dataset attributes such as different skills required for this task, including multi-hop reasoning, math operations, and unit conversions. We further discuss common failures in model-generated answers, suggesting that TANQ is a complex task with many challenges ahead.</abstract>
+      <pages>461–480</pages>
+      <url hash="163c18ef">2025.tacl-1.23</url>
+      <bibkey>akhtar-etal-2025-tanq</bibkey>
+    </paper>
+    <paper id="24">
+      <title>Few-Shot Multilingual Open-Domain <fixed-case>QA</fixed-case> from Five Examples</title>
+      <author><first>Fan</first><last>Jiang</last></author>
+      <author><first>Tom</first><last>Drummond</last></author>
+      <author><first>Trevor</first><last>Cohn</last></author>
+      <doi>10.1162/tacl_a_00750</doi>
+      <abstract>Recent approaches to multilingual open- domain question answering (MLODQA) have achieved promising results given abundant language-specific training data. However, the considerable annotation cost limits the application of these methods for underrepresented languages. We introduce a few-shot learning approach to synthesize large-scale multilingual data from large language models (LLMs). Our method begins with large-scale self-supervised pre-training using WikiData, followed by training on high-quality synthetic multilingual data generated by prompting LLMs with few-shot supervision. The final model, FsModQA, significantly outperforms existing few-shot and supervised baselines in MLODQA and cross-lingual and monolingual retrieval. We further show our method can be extended for effective zero-shot adaptation to new languages through a cross-lingual prompting strategy with only English-supervised data, making it a general and applicable solution for MLODQA tasks without costly large-scale annotation.</abstract>
+      <pages>481–504</pages>
+      <url hash="71eb3b8d">2025.tacl-1.24</url>
+      <bibkey>jiang-etal-2025-shot</bibkey>
+    </paper>
+    <paper id="25">
+      <title>Navigating the Landscape of Hint Generation Research: From the Past to the Future</title>
+      <author><first>Anubhav</first><last>Jangra</last></author>
+      <author><first>Jamshid</first><last>Mozafari</last></author>
+      <author><first>Adam</first><last>Jatowt</last></author>
+      <author><first>Smaranda</first><last>Muresan</last></author>
+      <doi>10.1162/tacl_a_00751</doi>
+      <abstract>Digital education has gained popularity in the last decade, especially after the COVID-19 pandemic. With the improving capabilities of large language models to reason and communicate with users, envisioning intelligent tutoring systems that can facilitate self-learning is not very far-fetched. One integral component to fulfill this vision is the ability to give accurate and effective feedback via hints to scaffold the learning process. In this survey article, we present a comprehensive review of prior research on hint generation, aiming to bridge the gap between research in education and cognitive science, and research in AI and Natural Language Processing. Informed by our findings, we propose a formal definition of the hint generation task, and discuss the roadmap of building an effective hint generation system aligned with the formal definition, including open challenges, future directions and ethical considerations.</abstract>
+      <pages>505–528</pages>
+      <url hash="95ec0e26">2025.tacl-1.25</url>
+      <bibkey>jangra-etal-2025-navigating</bibkey>
+    </paper>
+    <paper id="26">
+      <title>Know Your Limits: A Survey of Abstention in Large Language Models</title>
+      <author><first>Bingbing</first><last>Wen</last></author>
+      <author><first>Jihan</first><last>Yao</last></author>
+      <author><first>Shangbin</first><last>Feng</last></author>
+      <author><first>Chenjun</first><last>Xu</last></author>
+      <author><first>Yulia</first><last>Tsvetkov</last></author>
+      <author><first>Bill</first><last>Howe</last></author>
+      <author><first>Lucy Lu</first><last>Wang</last></author>
+      <doi>10.1162/tacl_a_00754</doi>
+      <abstract>Abstention, the refusal of large language models (LLMs) to provide an answer, is increasingly recognized for its potential to mitigate hallucinations and enhance safety in LLM systems. In this survey, we introduce a framework to examine abstention from three perspectives: the query, the model, and human values. We organize the literature on abstention methods, benchmarks, and evaluation metrics using this framework, and discuss merits and limitations of prior work. We further identify and motivate areas for future research, such as whether abstention can be achieved as a meta-capability that transcends specific tasks or domains, and opportunities to optimize abstention abilities in specific contexts. In doing so, we aim to broaden the scope and impact of abstention methodologies in AI systems.1</abstract>
+      <pages>529–556</pages>
+      <url hash="a79d0aa7">2025.tacl-1.26</url>
+      <bibkey>wen-etal-2025-know</bibkey>
+    </paper>
+    <paper id="27">
+      <title><fixed-case>T</fixed-case>axo<fixed-case>P</fixed-case>ro: A Plug-In <fixed-case>L</fixed-case>o<fixed-case>RA</fixed-case>-based Cross-Domain Method for Low-Resource Taxonomy Completion</title>
+      <author><first>Hongyuan</first><last>Xu</last></author>
+      <author><first>Yuhang</first><last>Niu</last></author>
+      <author><first>Ciyi</first><last>Liu</last></author>
+      <author><first>Yanlong</first><last>Wen</last></author>
+      <author><first>Xiaojie</first><last>Yuan</last></author>
+      <doi>10.1162/tacl_a_00755</doi>
+      <abstract>Low-resource taxonomy completion aims to automatically insert new concepts into the existing taxonomy, in which only a few in-domain training samples are available. Recent studies have achieved considerable progress by incorporating prior knowledge from pre-trained language models (PLMs). However, these studies tend to overly rely on such knowledge and neglect the shareable knowledge across different taxonomies. In this paper, we propose TaxoPro, a plug-in LoRA-based cross-domain method, that captures shareable knowledge from the high- resource taxonomy to improve PLM-based low-resource taxonomy completion techniques. To prevent negative interference between domain-specific and domain-shared knowledge, TaxoPro decomposes cross- domain knowledge into domain-shared and domain-specific components, storing them using low-rank matrices (LoRA). Additionally, TaxoPro employs two auxiliary losses to regulate the flow of shareable knowledge. Experimental results demonstrate that TaxoPro improves PLM-based techniques, achieving state-of-the-art performance in completing low-resource taxonomies. Code is available at https://github.com/cyclexu/TaxoPro.</abstract>
+      <pages>557–576</pages>
+      <url hash="90030777">2025.tacl-1.27</url>
+      <bibkey>xu-etal-2025-taxopro</bibkey>
+    </paper>
+    <paper id="28">
+      <title>Exploring Practical Gaps in Using Cross Entropy to Implement Maximum Mutual Information Criterion for Rationalization</title>
+      <author><first>Wei</first><last>Liu</last></author>
+      <author><first>Zhiying</first><last>Deng</last></author>
+      <author><first>Zhongyu</first><last>Niu</last></author>
+      <author><first>Jun</first><last>Wang</last></author>
+      <author><first>Haozhao</first><last>Wang</last></author>
+      <author><first>Ruixuan</first><last>Li</last></author>
+      <doi>10.1162/tacl_a_00758</doi>
+      <abstract>Rationalization is a framework that aims to build self-explanatory NLP models by extracting a subset of human-intelligible pieces of their inputting texts. It involves a cooperative game where a selector selects the most human-intelligible parts of the input as the rationale, followed by a predictor that makes predictions based on these selected rationales. Existing literature uses the cross-entropy between the model’s predictions and the ground-truth labels to measure the informativeness of the selected rationales, guiding the selector to choose better ones. In this study, we first theoretically analyze the objective of rationalization by decomposing it into two parts: the model-agnostic informativeness of the rationale candidates and the predictor’s degree of fit. We then provide various empirical evidence to support that, under this framework, the selector tends to sample from a limited small region, causing the predictor to overfit these localized areas. This results in a significant mismatch between the cross-entropy objective and the informativeness of the rationale candidates, leading to suboptimal solutions. To address this issue, we propose a simple yet effective method that introduces random vicinal1 perturbations to the selected rationale candidates. This approach broadens the predictor’s assessment to a vicinity around the selected rationale candidate. Compared to recent competitive methods, our method significantly improves rationale quality (by up to 6.6%) across six widely used classification datasets. The term “vicinal” is borrowed from vicinal risk minimization (Chapelle et al., 2000); “vicinal” means neighboring or adjacent.</abstract>
+      <pages>577–594</pages>
+      <url hash="f04fab15">2025.tacl-1.28</url>
+      <bibkey>liu-etal-2025-exploring</bibkey>
+    </paper>
+    <paper id="29">
+      <title>A Comparative Approach for Auditing Multilingual Phonetic Transcript Archives</title>
+      <author><first>Farhan</first><last>Samir</last></author>
+      <author><first>Emily P.</first><last>Ahn</last></author>
+      <author><first>Shreya</first><last>Prakash</last></author>
+      <author><first>Márton</first><last>Soskuthy</last></author>
+      <author><first>Vered</first><last>Shwartz</last></author>
+      <author><first>Jian</first><last>Zhu</last></author>
+      <doi>10.1162/tacl_a_00759</doi>
+      <abstract>Curating datasets that span multiple languages is challenging. To make the collection more scalable, researchers often incorporate one or more imperfect classifiers in the process, like language identification models. These models, however, are prone to failure, resulting in some language partitions being unreliable for downstream tasks. We introduce a statistical test, the Preference Proportion Test, for identifying such unreliable partitions. By annotating only 20 samples for a language partition, we are able to identify systematic transcription errors for 10 language partitions in a recent large multilingual transcribed audio archive, X-IPAPack (Zhu et al., 2024). We find that filtering these low-quality partitions out when training models for the downstream task of phonetic transcription brings substantial benefits, most notably a 25.7% relative improvement on transcribing recordings in out-of-distribution languages. Our work contributes an effective method for auditing multilingual audio archives.1</abstract>
+      <pages>595–612</pages>
+      <url hash="17f6b6df">2025.tacl-1.29</url>
+      <bibkey>samir-etal-2025-comparative</bibkey>
+    </paper>
+    <paper id="30">
+      <title>Understanding Epistemic Language with a Language-augmented <fixed-case>B</fixed-case>ayesian Theory of Mind</title>
+      <author><first>Lance</first><last>Ying</last></author>
+      <author><first>Tan</first><last>Zhi-Xuan</last></author>
+      <author><first>Lionel</first><last>Wong</last></author>
+      <author><first>Vikash</first><last>Mansinghka</last></author>
+      <author><first>Joshua B.</first><last>Tenenbaum</last></author>
+      <doi>10.1162/tacl_a_00752</doi>
+      <abstract>How do people understand and evaluate claims about others’ beliefs, even though these beliefs cannot be directly observed? In this paper, we introduce a cognitive model of epistemic language interpretation, grounded in Bayesian inferences about other agents’ goals, beliefs, and intentions: a language-augmented Bayesian theory-of-mind (LaBToM). By translating natural language into an epistemic “language-of-thought” with grammar-constrained LLM decoding, then evaluating these translations against the inferences produced by inverting a generative model of rational action and perception, LaBToM captures graded plausibility judgments of epistemic claims. We validate our model in an experiment where participants watch an agent navigate a maze to find keys hidden in boxes needed to reach their goal, then rate sentences about the agent’s beliefs. In contrast with multimodal LLMs (GPT-4o, Gemini Pro) and ablated models, our model correlates highly with human judgments for a wide range of expressions, including modal language, uncertainty expressions, knowledge claims, likelihood comparisons, and attributions of false belief.</abstract>
+      <pages>613–637</pages>
+      <url hash="554cc4ad">2025.tacl-1.30</url>
+      <bibkey>ying-etal-2025-understanding</bibkey>
+    </paper>
+    <paper id="31">
+      <title>Culturally Aware and Adapted <fixed-case>NLP</fixed-case>: A Taxonomy and a Survey of the State of the Art</title>
+      <author><first>Chen Cecilia</first><last>Liu</last></author>
+      <author><first>Iryna</first><last>Gurevych</last></author>
+      <author><first>Anna</first><last>Korhonen</last></author>
+      <doi>10.1162/tacl_a_00760</doi>
+      <abstract>The surge of interest in culture in NLP has inspired much recent research, but a shared understanding of “culture” remains unclear, making it difficult to evaluate progress in this emerging area. Drawing on prior research in NLP and related fields, we propose a fine-grained taxonomy of elements in culture that can provide a systematic framework for analyzing and understanding research progress. Using the taxonomy, we survey existing resources and methods for culturally aware and adapted NLP, providing an overview of the state of the art and the research gaps that still need to be filled.</abstract>
+      <pages>652–689</pages>
+      <url hash="cb0f7ac8">2025.tacl-1.31</url>
+      <bibkey>liu-etal-2025-culturally</bibkey>
+    </paper>
+    <paper id="32">
+      <title>Sense-specific Historical Word Usage Generation</title>
+      <author><first>Pierluigi</first><last>Cassotti</last></author>
+      <author><first>Nina</first><last>Tahmasebi</last></author>
+      <doi>10.1162/tacl_a_00761</doi>
+      <abstract>Large-scale sense-annotated corpora are important for a range of tasks but are hard to come by. Dictionaries that record and describe the vocabulary of a language often offer a small set of real-world example sentences for each sense of a word. However, on their own, these sentences are too few to be used as diachronic sense-annotated corpora. We propose a targeted strategy for training and evaluating generative models producing historically and semantically accurate word usages given any word, sense definition, and year triple. Our results demonstrate that fine-tuned models can generate usages with the same properties as real-world example sentences from a reference dictionary. Thus the generated usages will be suitable for training and testing computational models where large-scale sense-annotated corpora are needed but currently unavailable.</abstract>
+      <pages>690–708</pages>
+      <url hash="586ae717">2025.tacl-1.32</url>
+      <bibkey>cassotti-tahmasebi-2025-sense</bibkey>
+    </paper>
+    <paper id="33">
+      <title><fixed-case>NLP</fixed-case> Security and Ethics, in the Wild</title>
+      <author><first>Heather</first><last>Lent</last></author>
+      <author><first>Erick</first><last>Galinkin</last></author>
+      <author><first>Yiyi</first><last>Chen</last></author>
+      <author><first>Jens Myrup</first><last>Pedersen</last></author>
+      <author><first>Leon</first><last>Derczynski</last></author>
+      <author><first>Johannes</first><last>Bjerva</last></author>
+      <doi>10.1162/tacl_a_00762</doi>
+      <abstract>As NLP models are used by a growing number of end-users, an area of increasing importance is NLP Security (NLPSec): assessing the vulnerability of models to malicious attacks and developing comprehensive countermeasures against them. While work at the intersection of NLP and cybersecurity has the potential to create safer NLP for all, accidental oversights can result in tangible harm (e.g., breaches of privacy or proliferation of malicious models). In this emerging field, however, the research ethics of NLP have not yet faced many of the long-standing conundrums pertinent to cybersecurity, until now. We thus examine contemporary works across NLPSec, and explore their engagement with cybersecurity’s ethical norms. We identify trends across the literature, ultimately finding alarming gaps on topics like harm minimization and responsible disclosure. To alleviate these concerns, we provide concrete recommendations to help NLP researchers navigate this space more ethically, bridging the gap between traditional cybersecurity and NLP ethics, which we frame as “white hat NLP”. The goal of this work is to help cultivate an intentional culture of ethical research for those working in NLP Security.</abstract>
+      <pages>709–743</pages>
+      <url hash="4f1bf968">2025.tacl-1.33</url>
+      <bibkey>lent-etal-2025-nlp</bibkey>
+    </paper>
   </volume>
 </collection>
