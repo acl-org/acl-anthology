@@ -270,9 +270,8 @@ class AnthologyMetadataUpdater:
                                 issue.edit(state="closed", state_reason="not_planned")
 
                             self.stats["closed_issues"] += 1
-                            continue
 
-                   continue
+                    continue
 
                 self.stats["relevant_issues"] += 1
 
