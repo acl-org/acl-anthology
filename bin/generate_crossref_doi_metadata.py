@@ -27,17 +27,23 @@ the ACL $1 USD.
 
 See also https://github.com/acl-org/acl-anthology/wiki/DOI
 
-Usage: python3 bin/generate_crossref_doi_metadata.py <list of volume IDs>
+Usage: python3 generate_crossref_doi_metadata.py <list of volume IDs>
 
 It's best to use this with the get_volumes_for_event.py script, which takes an
 XML file and returns all volumes and colocated workshops found within it.
-This is great for after an ACL main conference has completed, e.g.,
+This is perfect
 
-    python3 bin/generate_crossref_doi_metadata.py $(bin/get_volumes_for_event.py data/xml/2024.emnlp.xml)
+    python3 generate_crossref_doi_metadata.py $(bin/get_volumes_for_event.py data/xml/2024.emnlp.xml)
 
-From the above it should be clear that you can also pass it a list of volume IDs:
+e.g.,
 
-    python3 bin/generate_crossref_doi_metadata.py P19-1 P19-2 P19-3 P19-4 > acl2019_dois.xml
+    python3 generate_crossref_doi_metadata.py P19-1 P19-2 P19-3 P19-4 > acl2019_dois.xml
+
+Here's an example of how to use it to get all main conference volumes plus linked workshops:
+
+    ./bin/generate_crossref_doi_metadata.py 2022.emnlp-{main,tutorials,demos,industry} $(grep "<volume-id" data/xml/2022.emnlp.xml | perl -pe "s/<\/?volume-id>//g") > emnlp-2022.dois.xml
+
+Here, I had to manually list the main volumes (easy), and then grabbed the "<volume-id>" lines to get the workshops, all in one file.
 
 Limitations:
 - This script does not inject the DOI data into the Anthology XML.

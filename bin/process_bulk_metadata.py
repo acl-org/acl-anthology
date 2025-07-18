@@ -270,7 +270,13 @@ class AnthologyMetadataUpdater:
                                 issue.edit(state="closed", state_reason="not_planned")
 
                             self.stats["closed_issues"] += 1
-
+                            continue
+                    else:
+                        if verbose:
+                            print(
+                                f"-> Skipping #{issue.number} (no JSON block)",
+                                file=sys.stderr,
+                            )
                     continue
 
                 self.stats["relevant_issues"] += 1

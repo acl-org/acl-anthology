@@ -251,7 +251,7 @@
       <abstract>Generating captions for images is a task that has recently received considerable attention. Another type of visual inputs are abstract scenes or object layouts where the only information provided is a set of objects and their locations. This type of imagery is commonly found in many applications in computer graphics, virtual reality, and storyboarding. We explore in this paper OBJ2TEXT, a sequence-to-sequence model that encodes a set of objects and their locations as an input sequence using an LSTM network, and decodes this representation using an LSTM language model. We show in our paper that this model despite using a sequence encoder can effectively represent complex spatial object-object relationships and produce descriptions that are globally coherent and semantically relevant. We test our approach for the task of describing object layouts in the MS-COCO dataset by producing sentences given only object annotations. We additionally show that our model combined with a state-of-the-art object detector can improve the accuracy of an image captioning model.</abstract>
       <video href="D17-1017.mp4"/>
       <bibkey>yin-ordonez-2017-obj2text</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/coco">COCO (Common Objects in Context)</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/coco">MS COCO</pwcdataset>
     </paper>
     <paper id="18">
       <title>End-to-end Neural Coreference Resolution</title>
@@ -925,10 +925,10 @@
       <video href="D17-1070.mp4"/>
       <bibkey>conneau-etal-2017-supervised</bibkey>
       <pwccode url="https://github.com/facebookresearch/InferSent" additional="true">facebookresearch/InferSent</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/coco">COCO (Common Objects in Context)</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/glue">GLUE</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/imagenet">ImageNet</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/mrpc">MRPC</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/coco">MS COCO</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/multinli">MultiNLI</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/sick">SICK</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/snli">SNLI</pwcdataset>
@@ -1276,7 +1276,7 @@ and the code is available at <url>https://github.com/qizhex/RACE_AR_baselines</u
       <doi>10.18653/v1/D17-1097</doi>
       <abstract>In this paper, we make a simple observation that questions about images often contain premises – objects and relationships implied by the question – and that reasoning about premises can help Visual Question Answering (VQA) models respond more intelligently to irrelevant or previously unseen questions. When presented with a question that is irrelevant to an image, state-of-the-art VQA models will still answer purely based on learned language biases, resulting in non-sensical or even misleading answers. We note that a visual question is irrelevant to an image if at least one of its premises is false (i.e. not depicted in the image). We leverage this observation to construct a dataset for Question Relevance Prediction and Explanation (QRPE) by searching for false premises. We train novel question relevance detection models and show that models that reason about premises consistently outperform models that do not. We also find that forcing standard VQA models to reason about premises during training can lead to improvements on tasks requiring compositional reasoning.</abstract>
       <bibkey>mahendru-etal-2017-promise</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/coco">COCO (Common Objects in Context)</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/coco">MS COCO</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/visual-genome">Visual Genome</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/visual-question-answering">Visual Question Answering</pwcdataset>
     </paper>
@@ -1292,8 +1292,8 @@ and the code is available at <url>https://github.com/qizhex/RACE_AR_baselines</u
       <attachment type="attachment" hash="1fcd4b47">D17-1098.Attachment.zip</attachment>
       <abstract>Existing image captioning models do not generalize well to out-of-domain images containing novel scenes or objects. This limitation severely hinders the use of these models in real world applications dealing with images in the wild. We address this problem using a flexible approach that enables existing deep captioning architectures to take advantage of image taggers at test time, without re-training. Our method uses constrained beam search to force the inclusion of selected tag words in the output, and fixed, pretrained word embeddings to facilitate vocabulary expansion to previously unseen tag words. Using this approach we achieve state of the art results for out-of-domain captioning on MSCOCO (and improved results for in-domain captioning). Perhaps surprisingly, our results significantly outperform approaches that incorporate the same tag predictions into the learning algorithm. We also show that we can significantly improve the quality of generated ImageNet captions by leveraging ground-truth labels.</abstract>
       <bibkey>anderson-etal-2017-guided</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/coco">COCO (Common Objects in Context)</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/flickr30k">Flickr30k</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/coco">MS COCO</pwcdataset>
     </paper>
     <paper id="99">
       <title>Zero-Shot Activity Recognition with Verb Attribute Induction</title>
@@ -3252,8 +3252,8 @@ and the code is available at <url>https://github.com/qizhex/RACE_AR_baselines</u
       <video href="D17-1254.mp4"/>
       <bibkey>gan-etal-2017-learning</bibkey>
       <pwcdataset url="https://paperswithcode.com/dataset/bookcorpus">BookCorpus</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/coco">COCO (Common Objects in Context)</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/mpqa-opinion-corpus">MPQA Opinion Corpus</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/coco">MS COCO</pwcdataset>
     </paper>
     <paper id="255">
       <title>Repeat before Forgetting: Spaced Repetition for Efficient and Effective Training of Neural Networks</title>
@@ -4148,7 +4148,7 @@ and <i>efficiency</i> of on-line policy optimization compared to other companion
       <abstract>Language is increasingly being used to de-fine rich visual recognition problems with supporting image collections sourced from the web. Structured prediction models are used in these tasks to take advantage of correlations between co-occurring labels and visual input but risk inadvertently encoding social biases found in web corpora. In this work, we study data and models associated with multilabel object classification and visual semantic role labeling. We find that (a) datasets for these tasks contain significant gender bias and (b) models trained on these datasets further amplify existing bias. For example, the activity cooking is over 33% more likely to involve females than males in a training set, and a trained model further amplifies the disparity to 68% at test time. We propose to inject corpus-level constraints for calibrating existing structured prediction models and design an algorithm based on Lagrangian relaxation for collective inference. Our method results in almost no performance loss for the underlying recognition task but decreases the magnitude of bias amplification by 47.5% and 40.5% for multilabel classification and visual semantic role labeling, respectively。</abstract>
       <bibkey>zhao-etal-2017-men</bibkey>
       <pwccode url="https://github.com/uclanlp/reducingbias" additional="true">uclanlp/reducingbias</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/coco">COCO (Common Objects in Context)</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/coco">MS COCO</pwcdataset>
     </paper>
   </volume>
   <volume id="2" type="proceedings">
