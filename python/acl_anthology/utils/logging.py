@@ -15,6 +15,7 @@
 """Functions for convenient logging."""
 
 import logging
+from rich.console import Console
 from rich.logging import RichHandler
 from typing import cast
 from ..config import config
@@ -65,7 +66,9 @@ def setup_rich_logging(**kwargs: object) -> SeverityTracker:
     )
     log_config.update(kwargs)
     tracker = SeverityTracker()
-    cast(list[logging.Handler], log_config["handlers"]).extend([RichHandler(), tracker])
+    cast(list[logging.Handler], log_config["handlers"]).extend(
+        [RichHandler(console=Console(stderr=True)), tracker]
+    )
     logging.basicConfig(**log_config)  # type: ignore
     logging.captureWarnings(True)
     return tracker
