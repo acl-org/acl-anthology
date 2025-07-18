@@ -1,4 +1,4 @@
-# Copyright 2023-2024 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2025 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -24,6 +24,7 @@ from ..text import MarkupText
 from ..utils.ids import AnthologyID, AnthologyIDTuple, parse_id
 from ..utils.logging import get_logger
 from .event import Event
+from .types import EventLinkingType
 from .volume import Volume
 
 if TYPE_CHECKING:
@@ -79,11 +80,10 @@ class EventIndex(SlottedDict[Event]):
             return
 
         if event.id in self.data:
-            for co_id in self.data[event.id].colocated_ids:
-                if co_id not in event.colocated_ids:
-                    event.colocated_ids.append(co_id)
+            for co_id, co_type in self.data[event.id].colocated_ids:
+                event.add_colocated(co_id, co_type)
         self.data[event.id] = event
-        for volume_fid in event.colocated_ids:
+        for volume_fid, _ in event.colocated_ids:
             self.reverse[volume_fid].add(event.id)
 
     def load(self) -> None:
@@ -104,11 +104,10 @@ class EventIndex(SlottedDict[Event]):
                     if explicit_event.id in self.data:
                         # This event has already been implicitly created in another file
                         # See https://github.com/acl-org/acl-anthology/issues/2743#issuecomment-2453501562
-                        for co_id in self.data[explicit_event.id].colocated_ids:
-                            if co_id not in explicit_event.colocated_ids:
-                                explicit_event.colocated_ids.append(co_id)
+                        for co_id, co_type in self.data[explicit_event.id].colocated_ids:
+                            explicit_event.add_colocated(co_id, co_type)
                     self.data[explicit_event.id] = explicit_event
-                    for volume_fid in explicit_event.colocated_ids:
+                    for volume_fid, _ in explicit_event.colocated_ids:
                         self.reverse[volume_fid].add(explicit_event.id)
 
                 for volume in collection.volumes():
@@ -125,12 +124,12 @@ class EventIndex(SlottedDict[Event]):
                                 event_id,
                                 collection,
                                 is_explicit=False,
-                                colocated_ids=[volume_fid],
+                                colocated_ids=[(volume_fid, EventLinkingType.INFERRED)],
                                 title=MarkupText.from_string(event_name),
                             )
-                        elif volume_fid not in event.colocated_ids:
+                        else:
                             # Add implicit connection to existing event
-                            event.colocated_ids.append(volume_fid)
+                            event.add_colocated(volume_fid, EventLinkingType.INFERRED)
                         self.reverse[volume_fid].add(event_id)
             except Exception as exc:
                 log.exception(exc)
