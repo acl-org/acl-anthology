@@ -37,6 +37,7 @@ class Person:
         parent: The parent Anthology instance to which this person belongs.
         names: A list of names under which this person has published.
         item_ids: A list of volume and/or paper IDs this person has authored or edited.
+        orcid: The person's ORCID, if known.
         comment: A comment for disambiguation purposes; can be stored in `name_variants.yaml`.
         is_explicit: True if this person has names explicitly defined in `name_variants.yaml`.  Note this does _not_ necessarily mean an explicit ID was defined for the person there.
     """
@@ -47,6 +48,7 @@ class Person:
     item_ids: list[AnthologyIDTuple] = field(
         factory=list, repr=lambda x: f"<list of {len(x)} AnthologyIDTuple objects>"
     )
+    orcid: Optional[str] = field(default=None)
     comment: Optional[str] = field(default=None)
     is_explicit: Optional[bool] = field(default=False)  # TODO: why can this be None?
 
