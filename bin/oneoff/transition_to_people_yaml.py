@@ -112,7 +112,7 @@ def refactor(anthology, name_variants):
             log.debug(f"Removing ID '{pid}' ('{person.comment}')")
             for paper in person.papers():
                 # Remove their ID from the XML
-                for namespec in it.chain(paper.authors, paper.editors):
+                for namespec in it.chain(paper.authors, paper.get_editors()):
                     if namespec.id == pid:
                         namespec.id = None
                         c_removed += 1
