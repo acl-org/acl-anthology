@@ -300,9 +300,7 @@ class Paper:
     language: Optional[str] = field(default=None, repr=False)
     note: Optional[str] = field(default=None, repr=False)
     pages: Optional[str] = field(default=None, repr=False)
-    paperswithcode: Optional[PapersWithCodeReference] = field(
-        default=None, on_setattr=attrs.setters.frozen, repr=False
-    )
+    paperswithcode: Optional[PapersWithCodeReference] = field(default=None, repr=False)
     pdf: Optional[PDFReference] = field(default=None, repr=False)
     type: PaperType = field(default=PaperType.PAPER, repr=False, converter=PaperType)
 
