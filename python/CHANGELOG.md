@@ -1,5 +1,11 @@
 # Changelog
 
+## [UNRELEASED]
+
+### Changed
+
+- `PapersWithCodeReference.code` will now always correctly be `None` if neither name or URL for a code repository are given, instead of `(None, '')` which was previously possible.
+
 ## [0.5.3] — 2025-06-22
 
 This release adds more functionality for ingesting new proceedings and modifying existing data.

@@ -212,7 +212,7 @@ class PapersWithCodeReference:
         pwc_tuple = (elem.text, elem.get("url", ""))
         if elem.tag == "pwccode":
             self.community_code = xsd_boolean(elem.get("additional", ""))
-            self.code = pwc_tuple
+            self.code = pwc_tuple if any(pwc_tuple) else None
         elif elem.tag == "pwcdataset":
             self.datasets.append(pwc_tuple)
         else:  # pragma: no cover
@@ -226,15 +226,19 @@ class PapersWithCodeReference:
             A serialization of all PapersWithCode information as a list of corresponding XML tags in the Anthology XML format.
         """
         elements = []
-        if self.code is not None:
-            args = [self.code[0]] if self.code[0] is not None else []
-            elements.append(
-                E.pwccode(
-                    *args,
-                    url=self.code[1],
-                    additional=str(self.community_code).lower(),
+        if self.code or self.community_code:
+            additional = str(self.community_code).lower()
+            if self.code is None:
+                elements.append(E.pwccode(url="", additional=additional))
+            else:
+                args = [self.code[0]] if self.code[0] is not None else []
+                elements.append(
+                    E.pwccode(
+                        *args,
+                        url=self.code[1],
+                        additional=additional,
+                    )
                 )
-            )
         for dataset in self.datasets:
             args = [dataset[0]] if dataset[0] is not None else []
             elements.append(E.pwcdataset(*args, url=dataset[1]))
