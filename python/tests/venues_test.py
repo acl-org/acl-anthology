@@ -50,7 +50,7 @@ def test_venue_save(tmp_path):
     venue = Venue("foo", None, "FOO", "Workshop on Foobar", path)
     venue.save()
     assert path.is_file()
-    with open(path, "r") as f:
+    with open(path, "r", encoding="utf-8") as f:
         out = f.read()
     expected = """acronym: FOO
 name: Workshop on Foobar
@@ -65,7 +65,10 @@ def test_venue_roundtrip_yaml(anthology_stub, tmp_path, venue_id):
     yaml_out = tmp_path / f"{venue_id}.yaml"
     venue.save(yaml_out)
     assert yaml_out.is_file()
-    with open(yaml_in, "r") as f, open(yaml_out, "r") as g:
+    with (
+        open(yaml_in, "r", encoding="utf-8") as f,
+        open(yaml_out, "r", encoding="utf-8") as g,
+    ):
         expected = f.read()
         out = g.read()
     assert out == expected
