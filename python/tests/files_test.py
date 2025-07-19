@@ -110,7 +110,7 @@ test_cases_pwc = (
     (
         # This happens, so it needs to be handled
         ('<pwccode url="" additional="true"/>',),
-        (None, ""),
+        None,
         True,
         [],
     ),
