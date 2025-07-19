@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
+# Copyright 2021 Robert Stojnic
+# Copyright 2023–2025 Matt Post, Marcel Bollmann
+#
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -18,42 +21,17 @@
 Used to import the links to code and data from Papers with Code (paperswithcode.com)
 """
 
-import logging
 import json
-import lxml.etree as etree
 import os
 import logging as log
+from pathlib import Path
 import requests
 import sys
 
-
-def format_str(x):
-    """Format as string if a value is missing or bool."""
-    if x is None:
-        return ""
-    elif isinstance(x, bool):
-        return "true" if x else "false"
-    else:
-        return str(x)
-
-
-def shift_tails(element):
-    """Shift XML children tails to preserve the exact formatting"""
-    children = list(element)
-    children[-1].tail = children[-2].tail
-    children[-2].tail = children[-3].tail
-
-
-def remove_and_shift_tails(element, child):
-    """Remove element and make tails consistent"""
-    children = list(element)
-    inx = children.index(child)
-
-    if inx > 0:
-        children[inx - 1].tail = children[inx].tail
-
-    element.remove(child)
-
+from acl_anthology import Anthology
+from acl_anthology.files import PapersWithCodeReference
+from acl_anthology.utils.ids import parse_id
+from acl_anthology.utils.logging import setup_rich_logging
 
 if __name__ == "__main__":
     import argparse
@@ -64,7 +42,7 @@ if __name__ == "__main__":
     )
     args = ap.parse_args()
 
-    logging.basicConfig(level=logging.INFO)
+    setup_rich_logging(level=log.INFO)
 
     if args.infile:
         with open(args.infile, "r") as f:
@@ -78,62 +56,54 @@ if __name__ == "__main__":
             log.warning("Couldn't fetch metadata from Papers with Code (server error).")
             sys.exit(1)
 
-    data_base = "data/xml"
+    datadir = Path(os.path.dirname(os.path.abspath(__file__))) / ".." / "data"
+    anthology = Anthology(datadir=datadir)
 
-    for xml_filename in os.listdir(data_base):
-        # skip any non-xml files
-        if not xml_filename.endswith(".xml"):
+    # Iterate over all papers in the JSON response
+    changed_collections = set()
+    ids_with_pwc_reference = set()
+
+    for full_id, pwc_data in pwc_meta.items():
+        if full_id.endswith(".pdf"):
+            full_id = full_id[:-4]
+        try:
+            parsed_id = parse_id(full_id)
+        except ValueError:
+            log.error(f"Failed to parse Anthology ID: {full_id}")
             continue
 
-        full_path = os.path.join(data_base, xml_filename)
+        if paper := anthology.get_paper(parsed_id):
+            pwc_code = pwc_data["code"]
+            reference = PapersWithCodeReference(
+                code=(pwc_code["name"], pwc_code["url"]) if pwc_code["url"] else None,
+                community_code=bool(pwc_code["additional"]),
+                datasets=[
+                    (pwc_ds["name"], pwc_ds["url"]) for pwc_ds in pwc_data["datasets"]
+                ],
+            )
+            if (
+                reference.code is None
+                and not reference.community_code
+                and not reference.datasets
+            ):
+                reference = None
+            else:
+                ids_with_pwc_reference.add(full_id)
 
-        # load
-        with open(full_path) as f:
-            tree = etree.parse(f)
+            if paper.paperswithcode != reference:
+                paper.paperswithcode = reference
+                changed_collections.add(parsed_id[0])
 
-        # track if we modified
-        old_content = etree.tostring(
-            tree, encoding="UTF-8", xml_declaration=True, with_tail=True
-        ).decode("utf8")
+    # Sanity-check that there are no other papers with PwC references
+    all_pwc = {
+        paper.full_id for paper in anthology.papers() if paper.paperswithcode is not None
+    }
+    for full_id in all_pwc - ids_with_pwc_reference:
+        paper = anthology.get_paper(full_id)
+        paper.paperswithcode = None
+        changed_collections.add(paper.full_id_tuple[0])
 
-        for volume in tree.findall("volume"):
-            for paper in volume.findall("paper"):
-                acl_url = paper.find("url")
-                if acl_url is not None:
-                    acl_id = acl_url.text
-                else:
-                    # skip if we cannot construct the id
-                    continue
-
-                # start by removing any old entries
-                for old in paper.findall("pwccode"):
-                    remove_and_shift_tails(paper, old)
-                for old in paper.findall("pwcdataset"):
-                    remove_and_shift_tails(paper, old)
-
-                if acl_id in pwc_meta:
-                    pwc = pwc_meta[acl_id]
-                    pwc_code = pwc["code"]
-                    if pwc_code["url"] or pwc_code["additional"]:
-                        code = etree.SubElement(paper, "pwccode")
-                        code.set("url", format_str(pwc_code["url"]))
-                        code.set("additional", format_str(pwc_code["additional"]))
-                        if pwc_code["name"]:
-                            code.text = pwc_code["name"]
-                        shift_tails(paper)
-
-                    for pwc_data in pwc["datasets"]:
-                        data = etree.SubElement(paper, "pwcdataset")
-                        data.set("url", pwc_data["url"])
-                        data.text = pwc_data["name"]
-                        shift_tails(paper)
-
-        new_content = etree.tostring(
-            tree, encoding="UTF-8", xml_declaration=True, with_tail=True
-        ).decode("utf8")
-
-        if old_content != new_content:
-            with open(full_path, "w") as outfile:
-                outfile.write(new_content + "\n")  # all files end with newline
-
-            log.info(f"Modified Papers with Code metadata in {full_path}")
+    # Save changes
+    for collection_id in changed_collections:
+        log.info(f"Modified Papers with Code metadata in {collection_id}")
+        anthology.get_collection(collection_id).save()
