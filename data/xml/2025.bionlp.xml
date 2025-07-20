@@ -1,0 +1,456 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2025.bionlp">
+  <volume id="1" ingest-date="2025-07-20" type="proceedings">
+    <meta>
+      <booktitle>ACL 2025</booktitle>
+      <editor><first>Dina</first><last>Demner-Fushman</last></editor>
+      <editor><first>Sophia</first><last>Ananiadou</last></editor>
+      <editor><first>Makoto</first><last>Miwa</last></editor>
+      <editor><first>Junichi</first><last>Tsujii</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Viena, Austria</address>
+      <month>August</month>
+      <year>2025</year>
+      <url hash="fd0a8a95">2025.bionlp-1</url>
+      <venue>bionlp</venue>
+      <venue>ws</venue>
+      <isbn>979-8-89176-275-6</isbn>
+    </meta>
+    <frontmatter>
+      <url hash="9d628c45">2025.bionlp-1.0</url>
+      <bibkey>bionlp-ws-2025-1</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Understanding the Impact of Confidence in Retrieval Augmented Generation: A Case Study in the Medical Domain</title>
+      <author><first>Shintaro</first><last>Ozaki</last><affiliation>Nara Institute of Science and Technology</affiliation></author>
+      <author><first>Yuta</first><last>Kato</last><affiliation>The University of Tokyo</affiliation></author>
+      <author><first>Siyuan</first><last>Feng</last><affiliation>The University of Tokyo, Department of Language and Information Sciences</affiliation></author>
+      <author><first>Masayo</first><last>Tomita</last><affiliation>The University of Tokyo</affiliation></author>
+      <author><first>Kazuki</first><last>Hayashi</last><affiliation>Nara Institute of Science and Technology</affiliation></author>
+      <author><first>Wataru</first><last>Hashimoto</last><affiliation>Nara Institute of Science and Technology</affiliation></author>
+      <author><first>Ryoma</first><last>Obara</last><affiliation>NEC</affiliation></author>
+      <author><first>Masafumi</first><last>Oyamada</last><affiliation>NEC</affiliation></author>
+      <author><first>Katsuhiko</first><last>Hayashi</last><affiliation>The University of Tokyo</affiliation></author>
+      <author><first>Hidetaka</first><last>Kamigaito</last><affiliation>Nara Institute of Science and Technology</affiliation></author>
+      <author><first>Taro</first><last>Watanabe</last><affiliation>Nara Institute of Science and Technology</affiliation></author>
+      <pages>1-17</pages>
+      <abstract>Retrieval Augmented Generation (RAG) complements the knowledge of Large Language Models (LLMs) by leveraging external information to enhance response accuracy for queries. This approach is widely applied in several fields by taking its advantage of injecting the most up-to-date information, and researchers are focusing on understanding and improving this aspect to unlock the full potential of RAG in such high-stakes applications.However, despite the potential of RAG to address these needs, the mechanisms behind the confidence levels of its outputs remain underexplored.Our study focuses on the impact of RAG, specifically examining whether RAG increases the confidence of LLM outputs in the medical domain.We conduct this analysis across various configurations and models.We evaluate confidence by treating the model’s predicted probability as its output and calculating several evaluation metrics which include calibration error method, entropy, best probability, and accuracy.Experimental results across multiple datasets confirmed that certain models possess the capability to judge for themselves whether an inserted document relates to the correct answer. These results suggest that evaluating models based on their output probabilities determine whether they function as generators in the RAG framework.Our approach allows to evaluate whether the models handle retrieved documents.</abstract>
+      <url hash="c80101c5">2025.bionlp-1.1</url>
+      <attachment type="SupplementaryMaterial" hash="31d7426a">2025.bionlp-1.1.SupplementaryMaterial.txt</attachment>
+      <bibkey>ozaki-etal-2025-understanding</bibkey>
+    </paper>
+    <paper id="2">
+      <title>Effect of Multilingual and Domain-adapted Continual Pre-training on Few-shot Promptability</title>
+      <author><first>Ken</first><last>Yano</last><affiliation>The National Institute of Advanced Industrial Science and Technology</affiliation></author>
+      <author><first>Makoto</first><last>Miwa</last><affiliation>Toyota Technological Institute</affiliation></author>
+      <pages>18-26</pages>
+      <abstract>Continual Pre-training (CPT) can help pre-trained large language models (LLMs) effectively adapt to new or under-trained domains or low-resource languages without re-training from scratch.Nevertheless, during CPT, the model’s few-shot transfer ability is known to be affected for emergent tasks.We verified this by comparing the performance between the few-shot and fine-tuning settings on the same tasks.We used Llama3-ELAINE-medLLM, which was continually pre-trained on Llama3-8B, targeted for the biomedical domain, and adapted for multilingual languages (English, Japanese, and Chinese).We compared the performance of Llama3-ELAINE-medLLM and Llama3-8B in three emergent tasks: two related domain tasks, entity recognition (NER) and machine translation (MT), and one out-of-domain task, summarization (SUM). Our experimental results show that degradation in few-shot transfer ability does not necessarily indicate the model’s underlying potential on the same task after fine-tuning.</abstract>
+      <url hash="f920ce88">2025.bionlp-1.2</url>
+      <attachment type="SupplementaryMaterial" hash="2cd6a632">2025.bionlp-1.2.SupplementaryMaterial.zip</attachment>
+      <attachment type="SupplementaryMaterial" hash="b194921b">2025.bionlp-1.2.SupplementaryMaterial.txt</attachment>
+      <bibkey>yano-miwa-2025-effect</bibkey>
+    </paper>
+    <paper id="3">
+      <title><fixed-case>M</fixed-case>ed<fixed-case>S</fixed-case>umm<fixed-case>RAG</fixed-case>: Domain-Specific Retrieval for Medical Summarization</title>
+      <author><first>Guanting</first><last>Luo</last><affiliation>The University of Osaka</affiliation></author>
+      <author><first>Yuki</first><last>Arase</last><affiliation>Institute of Science Tokyo</affiliation></author>
+      <pages>27-33</pages>
+      <abstract>Medical text summarization faces significant challenges due to the complexity and domain-specific nature of the language. Although large language models have achieved significant success in general domains, their effectiveness in the medical domain remains limited. This limitation stems from their insufficient understanding of domain-specific terminology and difficulty in interpreting complex medical relationships, which often results in suboptimal summarization quality. To address these challenges, we propose MedSummRAG, a novel retrieval-augmented generation (RAG) framework that integrates external knowledge to enhance summarization. Our approach employs a fine-tuned dense retriever, trained with contrastive learning, to retrieve relevant documents for medical summarization. The retrieved documents are then integrated with the input text to generate high-quality summaries. Experimental results show that MedSummRAG achieves significant improvements in ROUGE scores on both zero/few-shot and fine-tuned language models, outperforming baseline methods. These findings underscore the importance of RAG and domain adaptation of the retriever for medical text summarization. The source code of this paper can be obtained from: https://github.com/guantingluo98/MedSummRAG</abstract>
+      <url hash="5a2e7d66">2025.bionlp-1.3</url>
+      <attachment type="SupplementaryMaterial" hash="431bb38c">2025.bionlp-1.3.SupplementaryMaterial.zip</attachment>
+      <attachment type="SupplementaryMaterial" hash="eb244228">2025.bionlp-1.3.SupplementaryMaterial.txt</attachment>
+      <bibkey>luo-arase-2025-medsummrag</bibkey>
+    </paper>
+    <paper id="4">
+      <title>Enhancing Stress Detection on Social Media Through Multi-Modal Fusion of Text and Synthesized Visuals</title>
+      <author><first>Efstathia</first><last>Soufleri</last><affiliation>Athena RC</affiliation></author>
+      <author><first>Sophia</first><last>Ananiadou</last><affiliation>University of Manchester</affiliation></author>
+      <pages>34-43</pages>
+      <abstract>Social media platforms generate an enormous volume of multi-modal data, yet stress detection research has predominantly relied on text-based analysis. In this work, we propose a novel framework that integrates textual content with synthesized visual cues to enhance stress detection. Using the generative model DALL·E, we synthesize images from social media posts, which are then fused with text through the multi-modal capabilities of a pre-trained CLIP model. Our approach is evaluated on the Dreaddit dataset, where a classifier trained on frozen CLIP features achieves 94.90% accuracy, and full fine-tuning further improves performance to 98.41%. These results underscore the integration of synthesized visuals with textual data not only enhances stress detection but also offers a robust method over traditional text-only methods, paving the way for innovative approaches in mental health monitoring and social media analytics.</abstract>
+      <url hash="925bca56">2025.bionlp-1.4</url>
+      <attachment type="SupplementaryMaterial" hash="1814f640">2025.bionlp-1.4.SupplementaryMaterial.txt</attachment>
+      <bibkey>soufleri-ananiadou-2025-enhancing</bibkey>
+    </paper>
+    <paper id="5">
+      <title>Fine-tuning <fixed-case>LLM</fixed-case>s to Extract Epilepsy Seizure Frequency Data from Health Records</title>
+      <author><first>Ben</first><last>Holgate</last><affiliation>King’s College London</affiliation></author>
+      <author><first>Joe</first><last>Davies</last><affiliation>King’s College London</affiliation></author>
+      <author><first>Shichao</first><last>Fang</last><affiliation>King’s College London</affiliation></author>
+      <author><first>Joel</first><last>Winston</last><affiliation>King’s College London</affiliation></author>
+      <author><first>James</first><last>Teo</last><affiliation>King’s College London</affiliation></author>
+      <author><first>Mark</first><last>Richardson</last><affiliation>King’s College London</affiliation></author>
+      <pages>44-55</pages>
+      <abstract>We developed a new methodology of extracting the frequency of a patient’s epilepsy seizures from unstructured, free-text outpatient clinic letters by: first, devising a singular unit of measurement for seizure frequency; and second, fine-tuning a generative Large Language Model (LLM) on our bespoke annotated dataset. We measured frequency by the number of seizures per month: one seizure or more requires an integer; and less than one a decimal. This approach enables us to track whether a patient”s seizures are improving or not over time. We found fine-tuning improves the F1 score of our best-performing LLM, Ministral-8B-Instruct-2410, by around three times compared to an untrained model. We also found Ministral demonstrated an impressive ability for mathematical reasoning.</abstract>
+      <url hash="0b846c08">2025.bionlp-1.5</url>
+      <attachment type="SupplementaryMaterial" hash="6df14bd5">2025.bionlp-1.5.SupplementaryMaterial.txt</attachment>
+      <bibkey>holgate-etal-2025-fine</bibkey>
+    </paper>
+    <paper id="6">
+      <title><fixed-case>A</fixed-case>da<fixed-case>B</fixed-case>io<fixed-case>BERT</fixed-case>: Adaptive Token Sequence Learning for Biomedical Named Entity Recognition</title>
+      <author><first>Sumit</first><last>Kumar</last><affiliation>Indian Institute of Science Education and Research Bhopal</affiliation></author>
+      <author><first>Tanmay</first><last>Basu</last><affiliation>Indian Institute of Science Education and Research Bhopal</affiliation></author>
+      <pages>56-62</pages>
+      <abstract>Accurate identification and labeling of biomedical entities, such as diseases, genes, chemical and species, within scientific texts are crucial for understanding complex relationships. We propose Adaptive BERT or AdaBioBERT, a robust named entity recognition (NER) model that builds upon BioBERT (Biomedical Bidirectional Encoded Representation from Transformers) based on an adaptive loss function to learn different types of biomedical token sequence. This adaptive loss function combines the standard Cross Entropy (CE) loss and Conditional Random Field (CRF) loss to optimize both token level accuracy and sequence-level coherence. AdaBioBERT captures rich semantic nuances by leveraging pre-trained contextual embeddings from BioBERT. On the other hand, the CRF loss of AdaBioBERT ensures proper identification of complex multi-token biomedical entities in a sequence and the CE loss can capture the simple unigram entities in a sequence. The empirical analysis on multiple standard biomedical coprora demonstrates that AdaBioBERT performs better than the state of the arts for most of the datasets in terms of macro and micro averaged F1 score.’</abstract>
+      <url hash="97d2bd19">2025.bionlp-1.6</url>
+      <attachment type="SupplementaryMaterial" hash="e352a4fc">2025.bionlp-1.6.SupplementaryMaterial.txt</attachment>
+      <attachment type="SupplementaryMaterial" hash="f61cc08b">2025.bionlp-1.6.SupplementaryMaterial.zip</attachment>
+      <bibkey>kumar-basu-2025-adabiobert</bibkey>
+    </paper>
+    <paper id="7">
+      <title>Transformer-Based Medical Statement Classification in Doctor-Patient Dialogues</title>
+      <author><first>Farnod</first><last>Bahrololloomi</last><affiliation>RheinMain University of Applied Sciences</affiliation></author>
+      <author><first>Johannes</first><last>Luderschmidt</last><affiliation>RheinMain University of Applied Sciences</affiliation></author>
+      <author><first>Biying</first><last>Fu</last><affiliation>RheinMain University of Applied Sciences</affiliation></author>
+      <pages>63-73</pages>
+      <abstract>The classification of medical statements in German doctor-patient interactions presents significant challenges for automated medical information extraction, particularly due to complex domain-specific terminology and the limited availability of specialized training data. To address this, we introduce a manually annotated dataset specifically designed for distinguishing medical from non-medical statements. This dataset incorporates the nuances of German medical terminology and provides a valuable foundation for further research in this domain. We systematically evaluate Transformer-based models and multimodal embedding techniques, comparing them against traditional embedding-based machine learning (ML) approaches and domain-specific models such as medBERT.de. Our empirical results show that Transformer-based architectures, such as the Sentence-BERT model combined with a support vector machine (SVM), achieve the highest accuracy of 79.58% and a weighted F1-Score of 78.81%, demonstrating an average performance improvement of up to 10% over domain-specific counterparts. Additionally, we highlight the potential of lightweight ML-models for resource-efficient deployment on mobile devices, enabling real-time medical information processing in practical settings. These findings emphasize the importance of embedding selection for optimizing classification performance in the medical domain and establish a robust foundation for the development of advanced, domain-adapted German language models.</abstract>
+      <url hash="29ce56d1">2025.bionlp-1.7</url>
+      <attachment type="SupplementaryMaterial" hash="52862d44">2025.bionlp-1.7.SupplementaryMaterial.zip</attachment>
+      <attachment type="SupplementaryMaterial" hash="e2ad63b2">2025.bionlp-1.7.SupplementaryMaterial.txt</attachment>
+      <bibkey>bahrololloomi-etal-2025-transformer</bibkey>
+    </paper>
+    <paper id="8">
+      <title><fixed-case>P</fixed-case>re<fixed-case>C</fixed-case>lin<fixed-case>IE</fixed-case>: An Annotated Corpus for Information Extraction in Preclinical Studies</title>
+      <author><first>Simona</first><last>Doneva</last><affiliation>University of Zurich</affiliation></author>
+      <author><first>Hanna</first><last>Hubarava</last><affiliation>University of Zurich</affiliation></author>
+      <author><first>Pia</first><last>Härvelid</last><affiliation>University of Zurich, Switzerland</affiliation></author>
+      <author><first>Wolfgang</first><last>Zürrer</last><affiliation>University of Zurich</affiliation></author>
+      <author><first>Julia</first><last>Bugajska</last><affiliation>University of Zurich</affiliation></author>
+      <author><first>Bernard</first><last>Hild</last><affiliation>University of Zurich</affiliation></author>
+      <author><first>David</first><last>Brüschweiler</last><affiliation>University of Zurich, Switzerland</affiliation></author>
+      <author><first>Gerold</first><last>Schneider</last><affiliation>University of Zurich</affiliation></author>
+      <author><first>Tilia</first><last>Ellendorff</last><affiliation>University of Zurich</affiliation></author>
+      <author><first>Benjamin</first><last>Ineichen</last><affiliation>University of Zurich, Center for Reproducible Science</affiliation></author>
+      <pages>74-87</pages>
+      <abstract>Animal research, sometimes referred to as preclinical research, plays a vital role in bridging the gap between basic science and clinical applications. However, the rapid increase in publications and the complexity of reported findings make it increasingly difficult for researchers to extract and assess relevant information. While automation through natural language processing (NLP) holds great potential for addressing this challenge, progress is hindered by the absence of high-quality, comprehensive annotated resources specific to preclinical studies. To fill this gap, we introduce PreClinIE, a fully open manually annotated dataset. The corpus consists of abstracts and methods sections from 725 publications, annotated for study rigor indicators (e.g., random allocation) and other study characteristics (e.g., species). We describe the data collection and annotation process, outlining the challenges of working with preclinical literature. By providing this resource, we aim to accelerate the development of NLP tools that enhance literature mining in preclinical research.</abstract>
+      <url hash="a7c6f135">2025.bionlp-1.8</url>
+      <attachment type="SupplementaryMaterial" hash="f3d60f7c">2025.bionlp-1.8.SupplementaryMaterial.zip</attachment>
+      <attachment type="SupplementaryMaterial" hash="51e8fe26">2025.bionlp-1.8.SupplementaryMaterial.txt</attachment>
+      <bibkey>doneva-etal-2025-preclinie</bibkey>
+    </paper>
+    <paper id="9">
+      <title>Benchmarking zero-shot biomedical relation triplet extraction across language model architectures</title>
+      <author><first>Frederik</first><last>Gade</last><affiliation>Technical University of Denmark</affiliation></author>
+      <author><first>Ole</first><last>Lund</last><affiliation>Technical University of Denmark</affiliation></author>
+      <author><first>Marie Lisandra</first><last>Mendoza</last><affiliation>Novo Nordisk Research Centre Oxford</affiliation></author>
+      <pages>88-100</pages>
+      <abstract>Many language models (LMs) in the literature claim excellent zero-shot and/or few-shot capabilities for named entity recognition (NER) and relation extraction (RE) tasks and assert their ability to generalize beyond their training datasets. However, these claims have yet to be tested across different model architectures. This paper presents a performance evaluation of zero-shot relation triplet extraction (NER followed by RE of the entities) for both small and large LMs, utilizing 13,867 texts from 61 biomedical corpora and encompassing 151 unique entity types. This comprehensive evaluation offers valuable insights into the practical applicability and performance of LMs within the intricate domain of biomedical relation triplet extraction, highlighting their effectiveness in managing a diverse range of relations and entity types. Gemini 1.5 Pro, the largest LM included in the study, was the top-performing zero-shot model, achieving an average partial match micro F1 of 0.492 for NER, followed closely by SciLitLLM 1.5 14B with a score of 0.475. Fine-tuned models generally outperformed others on the corpora they were trained on, even in a few-shot setting, but struggled to generalize across all datasets with similar entity types. No models achieved an F1 score above 0.5 for the RTE task on any dataset, and their scores fluctuated based on the specific class of entity and the dataset involved. This observation highlights that there is still large room for improvement on the zero-shot utility of LMs in biomedical RTE applications.</abstract>
+      <url hash="69d072cd">2025.bionlp-1.9</url>
+      <attachment type="SupplementaryMaterial" hash="10ffad97">2025.bionlp-1.9.SupplementaryMaterial.txt</attachment>
+      <bibkey>gade-etal-2025-benchmarking</bibkey>
+    </paper>
+    <paper id="10">
+      <title><fixed-case>R</fixed-case>ad<fixed-case>QA</fixed-case>-<fixed-case>DPO</fixed-case>: A Radiology Question Answering System with Encoder-Decoder Models Enhanced by Direct Preference Optimization</title>
+      <author><first>Md Sultan Al</first><last>Nahian</last><affiliation>University of Kentucky</affiliation></author>
+      <author><first>Ramakanth</first><last>Kavuluru</last><affiliation>University of Kentucky</affiliation></author>
+      <pages>101-113</pages>
+      <abstract>Extractive question answering over clinical text is a crucial need to help deal with the deluge of clinical text generated in hospitals. While encoder models (e.g., BERT) have been popular for this reading comprehension–style question answering task, recently encoder-decoder models (e.g., T5) are on the rise. There is also the emergence of preference optimization techniques to align decoder-only LLMs with human preferences. In this paper, we combine encoder-decoder models with the direct preference optimization (DPO) method for the RadQA radiology question answering task. Our approach achieves a 12–15 F1 point improvement over previous state-of-the-art models. To the best of our knowledge, this effort is the first to show that DPO method also works for reading comprehension via novel heuristics to generate preference data without human inputs.</abstract>
+      <url hash="6f9d891b">2025.bionlp-1.10</url>
+      <attachment type="SupplementaryMaterial" hash="e39e5bc3">2025.bionlp-1.10.SupplementaryMaterial.zip</attachment>
+      <attachment type="SupplementaryMaterial" hash="b5390a1c">2025.bionlp-1.10.SupplementaryMaterial.txt</attachment>
+      <bibkey>nahian-kavuluru-2025-radqa</bibkey>
+    </paper>
+    <paper id="11">
+      <title>Gender-Neutral Large Language Models for Medical Applications: Reducing Bias in <fixed-case>P</fixed-case>ub<fixed-case>M</fixed-case>ed Abstracts</title>
+      <author><first>Elizabeth</first><last>Schaefer</last><affiliation>Yale University</affiliation></author>
+      <author><first>Kirk</first><last>Roberts</last><affiliation>University of Texas Health Science Center at Houston</affiliation></author>
+      <pages>114-123</pages>
+      <abstract>This paper presents a pipeline for mitigating gender bias in large language models (LLMs) used in medical literature by neutralizing gendered occupational pronouns. A set of 379,000 PubMed abstracts from 1965-1980 was processed to identify and modify pronouns tied to professions. We developed a BERT-based model, Modern Occupational Bias Elimination with Refined Training, or MOBERT, trained on these neutralized abstracts, and compared it with 1965BERT, trained on the original dataset. MOBERT achieved a 70% inclusive replacement rate, while 1965BERT reached only 4%. A further analysis of MOBERT revealed that pronoun replacement accuracy correlated with the frequency of occupational terms in the training data. We propose expanding the dataset and refining the pipeline to improve performance and ensure more equitable language modeling in medical applications.</abstract>
+      <url hash="b4b90cb6">2025.bionlp-1.11</url>
+      <attachment type="SupplementaryMaterial" hash="9c34387c">2025.bionlp-1.11.SupplementaryMaterial.zip</attachment>
+      <attachment type="SupplementaryMaterial" hash="d35ba64c">2025.bionlp-1.11.SupplementaryMaterial.txt</attachment>
+      <bibkey>schaefer-roberts-2025-gender</bibkey>
+    </paper>
+    <paper id="12">
+      <title>Error Detection in Medical Note through Multi Agent Debate</title>
+      <author><first>Abdine</first><last>Maiga</last><affiliation>University College London</affiliation></author>
+      <author><first>Anoop</first><last>Shah</last><affiliation>University College London</affiliation></author>
+      <author><first>Emine</first><last>Yilmaz</last><affiliation>UCL &amp; Amazon</affiliation></author>
+      <pages>124-135</pages>
+      <abstract>Large Language Models (LLMs) have approached human-level performance in text generation and summarization, yet their application in clinical settings remains constrained by potential inaccuracies that could lead to serious consequences. This work addresses the critical safety weaknesses in medical documentation systems by focusing on detecting subtle errors that require specialized medical expertise. We introduce a novel multi-agent debating framework that achieves 78.8% accuracy on medical error detection, significantly outperforming both single-agent approaches and previous multi-agent systems. Our framework leverages specialized LLM agents with asymmetric access to complementary medical knowledge sources (Mayo Clinic and WebMD), engaging them in structured debate to identify inaccuracies in clinical notes. A judge agent evaluates these arguments based solely on their medical reasoning quality, with agent-specific performance metrics incorporated as feedback for developing situation-specific trust models.</abstract>
+      <url hash="4560c2cd">2025.bionlp-1.12</url>
+      <attachment type="SupplementaryMaterial" hash="163118d1">2025.bionlp-1.12.SupplementaryMaterial.txt</attachment>
+      <bibkey>maiga-etal-2025-error</bibkey>
+    </paper>
+    <paper id="13">
+      <title>Accelerating Cross-Encoders in Biomedical Entity Linking</title>
+      <author><first>Javier</first><last>Sanz-Cruzado</last><affiliation>University of Glasgow</affiliation></author>
+      <author><first>Jake</first><last>Lever</last><affiliation>University of Glasgow</affiliation></author>
+      <pages>136-147</pages>
+      <abstract>Biomedical entity linking models disambiguate mentions in text by matching them with unique biomedical concepts. This problem is commonly addressed using a two-stage pipeline comprising an inexpensive candidate generator, which filters a subset of suitable entities for a mention, and a costly but precise reranker that provides the final matching between the mention and the concept. With the goal of applying two-stage entity linking at scale, we explore the construction of effective cross-encoder reranker models, capable of scoring multiple mention-entity pairs simultaneously. Through experiments on four entity linking datasets, we show that our cross-encoder models provide between 2.7 to 36.97 times faster training speeds and 3.42 to 26.47 times faster inference speeds than a base cross-encoder model capable of scoring only one entity, while achieving similar accuracy (differences between -3.42% to 2.76% Acc@1).</abstract>
+      <url hash="c0330039">2025.bionlp-1.13</url>
+      <attachment type="SupplementaryMaterial" hash="70d643bd">2025.bionlp-1.13.SupplementaryMaterial.txt</attachment>
+      <attachment type="SupplementaryMaterial" hash="a7264280">2025.bionlp-1.13.SupplementaryMaterial.zip</attachment>
+      <bibkey>sanz-cruzado-lever-2025-accelerating</bibkey>
+    </paper>
+    <paper id="14">
+      <title>Advancing Biomedical Claim Verification by Using Large Language Models with Better Structured Prompting Strategies</title>
+      <author><first>Siting</first><last>Liang</last><affiliation>German Research Center for Artificial Intelligence</affiliation></author>
+      <author><first>Daniel</first><last>Sonntag</last><affiliation>German Research Center for Artificial Intelligence</affiliation></author>
+      <pages>148-166</pages>
+      <abstract>In this work, we propose a structured four-step prompting strategy that explicitly guides large language models (LLMs) through (1) claim comprehension, (2) evidence analysis, (3) intermediate conclusion, and (4) entailment decision-making to improve the accuracy of biomedical claim verification. This strategy leverages compositional and human-like reasoning to enhance logical consistency and factual grounding to reduce reliance on memorizing few-Shot exemplars and help LLMs generalize reasoning patterns across different biomedical claim verification tasks. Through extensive evaluation on biomedical NLI benchmarks, we analyze the individual contributions of each reasoning step. Our findings demonstrate that comprehension, evidence analysis, and intermediate conclusion each play distinct yet complementary roles. Systematic prompting and carefully designed step-wise instructions not only unlock the latent cognitive abilities of LLMs but also enhance interpretability by making it easier to trace errors and understand the model’s reasoning process. Our research aims to improve the reliability of AI-driven biomedical claim verification.</abstract>
+      <url hash="88c4bab1">2025.bionlp-1.14</url>
+      <attachment type="SupplementaryMaterial" hash="79866266">2025.bionlp-1.14.SupplementaryMaterial.txt</attachment>
+      <bibkey>liang-sonntag-2025-advancing</bibkey>
+    </paper>
+    <paper id="15">
+      <title>A Retrieval-Based Approach to Medical Procedure Matching in <fixed-case>R</fixed-case>omanian</title>
+      <author><first>Andrei</first><last>Niculae</last><affiliation>National University of Science and Technology Politehnica Bucharest</affiliation></author>
+      <author><first>Adrian</first><last>Cosma</last><affiliation>National University of Science and Technology Politehnica Bucharest</affiliation></author>
+      <author><first>Emilian</first><last>Radoi</last><affiliation>National University of Science and Technology Politehnica Bucharest</affiliation></author>
+      <pages>167-175</pages>
+      <abstract>Accurately mapping medical procedure names from healthcare providers to standardized terminology used by insurance companies is a crucial yet complex task. Inconsistencies in naming conventions lead to missclasified procedures, causing administrative inefficiencies and insurance claim problems in private healthcare settings. Many companies still use human resources for manual mapping, while there is a clear opportunity for automation. This paper proposes a retrieval-based architecture leveraging sentence embeddings for medical name matching in the Romanian healthcare system. This challenge is significantly more difficult in underrepresented languages such as Romanian, where existing pretrained language models lack domain-specific adaptation to medical text. We evaluate multiple embedding models, including Romanian, multilingual, and medical-domain-specific representations, to identify the most effective solution for this task. Our findings contribute to the broader field of medical NLP for low-resource languages such as Romanian.</abstract>
+      <url hash="d71fc6d0">2025.bionlp-1.15</url>
+      <attachment type="SupplementaryMaterial" hash="7a29c7e5">2025.bionlp-1.15.SupplementaryMaterial.zip</attachment>
+      <attachment type="SupplementaryMaterial" hash="f613ebe4">2025.bionlp-1.15.SupplementaryMaterial.txt</attachment>
+      <bibkey>niculae-etal-2025-retrieval</bibkey>
+    </paper>
+    <paper id="16">
+      <title>Improving Barrett’s Oesophagus Surveillance Scheduling with Large Language Models: A Structured Extraction Approach</title>
+      <author><first>Xinyue</first><last>Zhang</last><affiliation>King’s College London</affiliation></author>
+      <author><first>Agathe</first><last>Zecevic</last><affiliation>Guy’s and St Thomas’ NHS Foundation Trust</affiliation></author>
+      <author><first>Sebastian</first><last>Zeki</last><affiliation>Guy’s and St Thomas’ NHS Foundation Trust</affiliation></author>
+      <author><first>Angus</first><last>Roberts</last><affiliation>King’s College London</affiliation></author>
+      <pages>176-189</pages>
+      <abstract>Gastroenterology (GI) cancer surveillance scheduling relies on extracting structured data from unstructured clinical texts, such as endoscopy and pathology reports. Traditional Natural Language Processing (NLP) models have been employed for this task, but recent advancements in Large Language Models (LLMs) present a new opportunity for automation without requiring extensive labeled datasets. In this study, we propose an LLM-based entity extraction and rule-based decision support framework for Barrett’s Oesophagus (BO) surveillance timing prediction. Our approach processes endoscopy and pathology reports to extract clinically relevant information and structures it into a standardised format, which is then used to determine appropriate surveillance intervals. We evaluate multiple state-of-the-art LLMs on real-world clinical datasets from two hospitals, assessing their performance in accuracy and running time cost. The results demonstrate that LLMs, particularly Phi-4 and (DeepSeek distilled) Qwen-2.5, can effectively automate the extraction of BO surveillance-related information with high accuracy, while Phi-4 is also efficient during inference. We also compared the trade-offs between LLMs and fine-tuned non-LLMs. Our findings indicate that LLM extraction based methods can support clinical decision-making by providing justifications from report extractions, reducing manual workload, and improving guideline adherence in BO surveillance scheduling.</abstract>
+      <url hash="410d6ec3">2025.bionlp-1.16</url>
+      <attachment type="SupplementaryMaterial" hash="7d4f2c53">2025.bionlp-1.16.SupplementaryMaterial.zip</attachment>
+      <attachment type="SupplementaryMaterial" hash="b6b73e8d">2025.bionlp-1.16.SupplementaryMaterial.txt</attachment>
+      <bibkey>zhang-etal-2025-improving-barretts</bibkey>
+    </paper>
+    <paper id="17">
+      <title>Prompting Large Language Models for <fixed-case>I</fixed-case>talian Clinical Reports: A Benchmark Study</title>
+      <author><first>Livia</first><last>Lilli</last><affiliation>Fondazione Policlinico Universitario Agostino Gemelli IRCCS</affiliation></author>
+      <author><first>Carlotta</first><last>Masciocchi</last><affiliation>Fondazione Policlinico Universitario Agostino Gemelli IRCCS</affiliation></author>
+      <author><first>Antonio</first><last>Marchetti</last><affiliation>Fondazione Policlinico Universitario Agostino Gemelli IRCCS</affiliation></author>
+      <author><first>Giovanni</first><last>Arcuri</last><affiliation>Fondazione Policlinico Universitario Agostino Gemelli IRCCS</affiliation></author>
+      <author><first>Stefano</first><last>Patarnello</last><affiliation>Fondazione Policlinico Universitario Agostino Gemelli IRCCS</affiliation></author>
+      <pages>190-200</pages>
+      <abstract>Large Language Models (LLMs) have significantly impacted medical Natural Language Processing (NLP), enabling automated information extraction from unstructured clinical texts. However, selecting the most suitable approach requires careful evaluation of different model architectures, such as generative LLMs and BERT-based models, along with appropriate adaptation strategies, including prompting techniques, or fine-tuning. Several studies explored different LLM implementations, highlighting their effectiveness in medical domain, including complex diagnostics patterns as for example in rheumatology. However, their application to Italian remains limited, serving as a key example of the broader gap in non-English language research. In this study, we present a task-specific benchmark analysis comparing generative LLMs and BERT-based models, on real-world Italian clinical reports. We evaluated zero-shot prompting, in-context learning (ICL), and fine-tuning across eight diagnostic categories in the rheumatology area. Results show that ICL improves performance over zero-shot-prompting, particularly for Mixtral and Gemma models. Overall, BERT fine-tuning present the highest performance, while ICL outperforms BERT in specific diagnoses, such as renal and systemic, suggesting that prompting can be a potential alternative when labeled data is scarce.</abstract>
+      <url hash="6600ef62">2025.bionlp-1.17</url>
+      <attachment type="SupplementaryMaterial" hash="70af474b">2025.bionlp-1.17.SupplementaryMaterial.txt</attachment>
+      <attachment type="SupplementaryMaterial" hash="984f43b0">2025.bionlp-1.17.SupplementaryMaterial.zip</attachment>
+      <bibkey>lilli-etal-2025-prompting</bibkey>
+    </paper>
+    <paper id="18">
+      <title><fixed-case>Q</fixed-case>o<fixed-case>LAS</fixed-case>: A <fixed-case>R</fixed-case>eddit Corpus of Health-Related Quality of Life Aspects of Mental Disorders</title>
+      <author><first>Lynn</first><last>Greschner</last><affiliation>University of Bamberg</affiliation></author>
+      <author><first>Amelie</first><last>Wührl</last><affiliation>University of Stuttgart</affiliation></author>
+      <author><first>Roman</first><last>Klinger</last><affiliation>University of Bamberg</affiliation></author>
+      <pages>201-216</pages>
+      <abstract>Quality of Life (QoL) refers to a person’s subjective perception of various aspects of their life. For medical practitioners, it is one of the most important concepts for treatment decisions. Therefore, it is essential to understand in which aspects a medical condition affects a patient’s subjective perception of their life. With this paper, we focus on the under-resourced domain of mental health-related QoL, and contribute the first corpus to study and model this concept: We (1) annotate 240 Reddit posts with a set of 11 QoL aspects (such as ‘independence’, ‘mood’, or ‘relationships’) and their sentiment polarity. Based on this novel corpus, we (2) evaluate a pipeline to detect QoL mentions and classify them into aspects using open-domain aspect-based sentiment analysis. We find that users frequently discuss health-related QoL in their posts, focusing primarily on the aspects ‘relationships’ and ‘selfimage’. Our method reliably predicts such mentions and their sentiment, however, detecting fine-grained individual aspects remains challenging. An analysis of a large corpus of automatically labeled data reveals that social media content contains novel aspects pertinent to patients that are not covered by existing QoL taxonomies.</abstract>
+      <url hash="c07c31f2">2025.bionlp-1.18</url>
+      <attachment type="SupplementaryMaterial" hash="7af6df5c">2025.bionlp-1.18.SupplementaryMaterial.txt</attachment>
+      <bibkey>greschner-etal-2025-qolas</bibkey>
+    </paper>
+    <paper id="19">
+      <title><fixed-case>LLM</fixed-case>s as Medical Safety Judges: Evaluating Alignment with Human Annotation in Patient-Facing <fixed-case>QA</fixed-case></title>
+      <author><first>Yella</first><last>Diekmann</last><affiliation>Department of Computer Science, Emory University</affiliation></author>
+      <author><first>Chase</first><last>Fensore</last><affiliation>Department of Computer Science, Emory University</affiliation></author>
+      <author><first>Rodrigo</first><last>Carrillo-Larco</last><affiliation>Rollins School of Public Health, Emory University</affiliation></author>
+      <author><first>Eduard</first><last>Castejon Rosales</last><affiliation>Department of Family and Preventive Medicine, Emory University School of Medicine</affiliation></author>
+      <author><first>Sakshi</first><last>Shiromani</last><affiliation>Department of Ophthalmology, Emory University School of Medicine</affiliation></author>
+      <author><first>Rima</first><last>Pai</last><affiliation>Rollins School of Public Health, Emory University</affiliation></author>
+      <author><first>Megha</first><last>Shah</last><affiliation>Department of Family and Preventive Medicine, Emory University School of Medicine</affiliation></author>
+      <author><first>Joyce</first><last>Ho</last><affiliation>Department of Computer Science, Emory University</affiliation></author>
+      <pages>217-224</pages>
+      <abstract>The increasing deployment of LLMs in patient-facing medical QA raises concerns about the reliability and safety of their responses. Traditional evaluation methods rely on expert human annotation, which is costly, time-consuming, and difficult to scale. This study explores the feasibility of using LLMs as automated judges for medical QA evaluation. We benchmark LLMs against human annotators across eight qualitative safety metrics and introduce adversarial question augmentation to assess LLMs’ robustness in evaluating medical responses. Our findings reveal that while LLMs achieve high accuracy in objective metrics such as scientific consensus and grammaticality, they struggle with more subjective categories like empathy and extent of harm. This work contributes to the ongoing discussion on automating safety assessments in medical AI and informs the development of more reliable evaluation methodologies.</abstract>
+      <url hash="10561041">2025.bionlp-1.19</url>
+      <attachment type="SupplementaryMaterial" hash="6efd9589">2025.bionlp-1.19.SupplementaryMaterial.txt</attachment>
+      <attachment type="SupplementaryMaterial" hash="e3b9febc">2025.bionlp-1.19.SupplementaryMaterial.zip</attachment>
+      <bibkey>diekmann-etal-2025-llms</bibkey>
+    </paper>
+    <paper id="20">
+      <title>Effective Multi-Task Learning for Biomedical Named Entity Recognition</title>
+      <author><first>João</first><last>Ruano</last><affiliation>Priberam</affiliation></author>
+      <author><first>Gonçalo</first><last>Correia</last><affiliation>Priberam</affiliation></author>
+      <author><first>Leonor</first><last>Barreiros</last><affiliation>Priberam</affiliation></author>
+      <author><first>Afonso</first><last>Mendes</last><affiliation>Priberam Informática, SA.</affiliation></author>
+      <pages>225-239</pages>
+      <abstract>Biomedical Named Entity Recognition presents significant challenges due to the complexity of biomedical terminology and inconsistencies in annotation across datasets. This paper introduces SRU-NER (Slot-based Recurrent Unit NER), a novel approach designed to handle nested named entities while integrating multiple datasets through an effective multi-task learning strategy. SRU-NER mitigates annotation gaps by dynamically adjusting loss computation to avoid penalizing predictions of entity types absent in a given dataset. Through extensive experiments, including a cross-corpus evaluation and human assessment of the model’s predictions, SRU-NER achieves competitive performance in biomedical and general-domain NER tasks, while improving cross-domain generalization.</abstract>
+      <url hash="e7c7ddc6">2025.bionlp-1.20</url>
+      <attachment type="SupplementaryMaterial" hash="2bd90fbb">2025.bionlp-1.20.SupplementaryMaterial.txt</attachment>
+      <attachment type="SupplementaryMaterial" hash="16042e20">2025.bionlp-1.20.SupplementaryMaterial.zip</attachment>
+      <bibkey>ruano-etal-2025-effective</bibkey>
+    </paper>
+    <paper id="21">
+      <title>Can Large Language Models Classify and Generate Antimicrobial Resistance Genes?</title>
+      <author><first>Hyunwoo</first><last>Yoo</last><affiliation>Drexel University</affiliation></author>
+      <author><first>Haebin</first><last>Shin</last><affiliation>KAIST AI</affiliation></author>
+      <author><first>Gail</first><last>Rosen</last><affiliation>Drexel University</affiliation></author>
+      <pages>240-248</pages>
+      <abstract>This study explores the application of generative Large Language Models (LLMs) in DNA sequence analysis, highlighting their advantages over encoder-based models like DNABERT2 and Nucleotide Transformer. While encoder models excel in classification, they struggle to integrate external textual information. In contrast, generative LLMs can incorporate domain knowledge, such as BLASTn annotations, to improve classification accuracy even without fine-tuning. We evaluate this capability on antimicrobial resistance (AMR) gene classification, comparing generative LLMs with encoder-based baselines. Results show that LLMs significantly enhance classification when supplemented with textual information. Additionally, we demonstrate their potential in DNA sequence generation, further expanding their applicability. Our findings suggest that LLMs offer a novel paradigm for integrating biological sequences with external knowledge, bridging gaps in traditional classification methods.</abstract>
+      <url hash="a86b727a">2025.bionlp-1.21</url>
+      <attachment type="SupplementaryMaterial" hash="5a3a2164">2025.bionlp-1.21.SupplementaryMaterial.txt</attachment>
+      <bibkey>yoo-etal-2025-large</bibkey>
+    </paper>
+    <paper id="22">
+      <title><fixed-case>C</fixed-case>ase<fixed-case>R</fixed-case>eport<fixed-case>C</fixed-case>ollective: A Large-Scale <fixed-case>LLM</fixed-case>-Extracted Dataset for Structured Medical Case Reports</title>
+      <author><first>Xiao Yu Cindy</first><last>Zhang</last><affiliation>University of British Columbia</affiliation></author>
+      <author><first>Melissa</first><last>Fong</last><affiliation>University of British Columbia</affiliation></author>
+      <author><first>Wyeth</first><last>Wasserman</last><affiliation>University of British Columbia</affiliation></author>
+      <author><first>Jian</first><last>Zhu</last><affiliation>University of British Columbia</affiliation></author>
+      <pages>249-262</pages>
+      <abstract>Case reports provide critical insights into rare and atypical diseases, but extracting structured knowledge remains challenging due to unstructured text and domain-specific terminology. We introduce CaseReportCollective, an LLM-extracted dataset of 85,961 open-access case reports spanning 37 years across 14 medical domains, validated through programmatic and human evaluation. Our dataset reveals key publication and demographic trends, including a significant increase in open-access case reports over the past decade, shifts in focus from oncology to COVID-19, and sex disparities in reporting across different medical conditions. Over time, the gap between male and female case reports has narrowed, suggesting greater equity in case reporting. Using textbf{CaseReportCollective}, we further explore embedding-based retrieval for similar medical topics through accumulated similarity scores across extracted structured information. We also conducted detailed error analyses on the retrieval ranking, finding that high-reported topics dominate retrieval. Such retrieval is driven by lexical overlap rather than underlying clinical relevance, often failing to distinguish between semantically similar yet mechanistically distinct conditions. Future work should focus on clinical-aware embeddings adjusted for long-tailed case distributions to improve retrieval accuracy.</abstract>
+      <url hash="16784a35">2025.bionlp-1.22</url>
+      <attachment type="SupplementaryMaterial" hash="17bef7c5">2025.bionlp-1.22.SupplementaryMaterial.txt</attachment>
+      <bibkey>zhang-etal-2025-casereportcollective</bibkey>
+    </paper>
+    <paper id="23">
+      <title>Enhancing Antimicrobial Drug Resistance Classification by Integrating Sequence-Based and Text-Based Representations</title>
+      <author><first>Hyunwoo</first><last>Yoo</last><affiliation>Drexel University</affiliation></author>
+      <author><first>Bahrad</first><last>Sokhansanj</last><affiliation>Drexel University</affiliation></author>
+      <author><first>James</first><last>Brown</last><affiliation>Drexel University</affiliation></author>
+      <pages>263-273</pages>
+      <abstract>Antibiotic resistance identification is essential for public health, medical treatment, and drug development. Traditional sequence-based models struggle with accurate resistance prediction due to the lack of biological context. To address this, we propose an NLP-based model that integrates genetic sequences with structured textual annotations, including gene family classifications and resistance mechanisms. Our approach leverages pretrained language models for both genetic sequences and biomedical text, aligning biological metadata with sequence-based embeddings. We construct a novel dataset based on the Antibiotic Resistance Ontology (ARO), consolidating gene sequences with resistance-related textual information. Experiments show that incorporating domain knowledge significantly improves classification accuracy over sequence-only models, reducing reliance on exhaustive laboratory testing. By integrating genetic sequence processing with biomedical text understanding, our approach provides a scalable and interpretable solution for antibiotic resistance prediction.</abstract>
+      <url hash="44e11907">2025.bionlp-1.23</url>
+      <attachment type="SupplementaryMaterial" hash="945659d5">2025.bionlp-1.23.SupplementaryMaterial.txt</attachment>
+      <bibkey>yoo-etal-2025-enhancing</bibkey>
+    </paper>
+    <paper id="24">
+      <title>Questioning Our Questions: How Well Do Medical <fixed-case>QA</fixed-case> Benchmarks Evaluate Clinical Capabilities of Language Models?</title>
+      <author><first>Siun</first><last>Kim</last><affiliation>Seoul Natoinal University Hospital</affiliation></author>
+      <author><first>Hyung-Jin</first><last>Yoon</last><affiliation>Biomedical Engineering, Seoul National University College of Medicine</affiliation></author>
+      <pages>274-296</pages>
+      <abstract>Recent advances in large language models (LLMs) have led to impressive performance on medical question-answering (QA) benchmarks. However, the extent to which these benchmarks reflect real-world clinical capabilities remains uncertain. To address this gap, we systematically analyzed the correlation between LLM performance on major medical QA benchmarks (e.g., MedQA, MedMCQA, PubMedQA, and MMLU medicine subjects) and clinical performance in real-world settings. Our dataset included 702 clinical evaluations of 85 LLMs from 168 studies. Benchmark scores demonsrated a moderate correlation with clinical performance (Spearman’s rho = 0.59), albeit substantially lower than inter-benchmark correlations. Among them, MedQA was the most predictive but failed to capture essential competencies such as patient communication, longitudinal care, and clinical information extraction. Using Bayesian hierarchical modeling, we estimated representative clinical performance and identified GPT-4 and GPT-4o as consistently top-performing models, often matching or exceeding human physicians. Despite longstanding concerns about the clinical validity of medical QA benchmarks, this study offers the first quantitative analysis of their alignment with real-world clinical performance.</abstract>
+      <url hash="5fde0c3b">2025.bionlp-1.24</url>
+      <attachment type="SupplementaryMaterial" hash="9255bdb0">2025.bionlp-1.24.SupplementaryMaterial.txt</attachment>
+      <attachment type="SupplementaryMaterial" hash="0f2d15ae">2025.bionlp-1.24.SupplementaryMaterial.zip</attachment>
+      <bibkey>kim-yoon-2025-questioning</bibkey>
+    </paper>
+    <paper id="25">
+      <title>Beyond Citations: Integrating Finding-Based Relations for Improved Biomedical Article Representations</title>
+      <author><first>Yuan</first><last>Liang</last><affiliation>Queen Mary University of London</affiliation></author>
+      <author><first>Massimo</first><last>Poesio</last><affiliation>Queen Mary University of London and University of Utrecht</affiliation></author>
+      <author><first>Roonak</first><last>Rezvani</last><affiliation>Recursion</affiliation></author>
+      <pages>297-306</pages>
+      <abstract>High-quality scientific article embeddings are essential for tasks like document retrieval, citation recommendation, and classification. Traditional citation-based approaches assume citations reflect semantic similarity—an assumption that introduces bias and noise. Recent models like SciNCL and SPECTER2 have attempted to refine citation-based representations but still struggle with noisy citation edges and fail to fully leverage textual information. To address these limitations, we propose a hybrid approach that combines Finding-Citation Graphs (FCG) with contrastive learning. Our method improves triplet selection by filtering out less important citations and incorporating finding similarity relations, leading to better semantic relationship capture. Evaluated on the SciRepEval benchmark, our approach consistently outperforms citation-only baselines, showing the value of text-based semantic structures. While we do not surpass state-of-the-art models in most tasks, our results reveal the limitations of purely citation-based embeddings and suggest paths for improvement through enhanced semantic integration and domain-specific adaptations.</abstract>
+      <url hash="a80661bf">2025.bionlp-1.25</url>
+      <attachment type="SupplementaryMaterial" hash="c9a3fe6c">2025.bionlp-1.25.SupplementaryMaterial.txt</attachment>
+      <bibkey>liang-etal-2025-beyond</bibkey>
+    </paper>
+    <paper id="26">
+      <title>Converting Annotated Clinical Cases into Structured Case Report Forms</title>
+      <author><first>Pietro</first><last>Ferrazzi</last><affiliation>University of Padova</affiliation></author>
+      <author><first>Alberto</first><last>Lavelli</last><affiliation>FBK</affiliation></author>
+      <author><first>Bernardo</first><last>Magnini</last><affiliation>FBK</affiliation></author>
+      <pages>307-318</pages>
+      <abstract>Case Report Forms (CRFs) are largely used in medical research as they ensure accuracy, reliability, and validity of results in clinical studies. However, publicly available, well-annotated CRF datasets are scarce, limiting the development of CRF slot filling systems able to fill in a CRF from clinical notes. To mitigate the scarcity of CRF datasets, we propose to take advantage of available datasets annotated for information extraction tasks and to convert them into structured CRFs. We present a semi-automatic conversion methodology, which has been applied to the E3C dataset in two languages (English and Italian), resulting in a new, high-quality dataset for CRF slot filling. Through several experiments on the created dataset, we report that slot filling achieves 59.7% for Italian and 67.3% for English on a closed Large Language Models (zero-shot) and worse performances on three families of open-source models, showing that filling CRFs is challenging even for recent state-of-the-art LLMs.</abstract>
+      <url hash="bb3e2e37">2025.bionlp-1.26</url>
+      <attachment type="SupplementaryMaterial" hash="f2e2ead5">2025.bionlp-1.26.SupplementaryMaterial.zip</attachment>
+      <attachment type="SupplementaryMaterial" hash="5d1ea0d1">2025.bionlp-1.26.SupplementaryMaterial.txt</attachment>
+      <bibkey>ferrazzi-etal-2025-converting</bibkey>
+    </paper>
+    <paper id="27">
+      <title><fixed-case>M</fixed-case>u<fixed-case>C</fixed-case>o<fixed-case>S</fixed-case>: Efficient Drug–Target Discovery via Multi-Context-Aware Sampling in Knowledge Graphs</title>
+      <author><first>Haji</first><last>Gul</last><affiliation>UBD</affiliation></author>
+      <author><first>Abdul</first><last>Naim</last><affiliation>UBD</affiliation></author>
+      <author><first>Ajaz</first><last>Bhat</last><affiliation>UBD</affiliation></author>
+      <pages>319-327</pages>
+      <abstract>Accurate prediction of drug–target interactions is critical for accelerating drug discovery. In this work, we frame drug–target prediction as a link prediction task on heterogeneous biomedical knowledge graphs (KG) that integrate drugs, proteins, diseases, pathways, and other relevant entities. Conventional KG embedding methods such as TransE and ComplEx-SE are hindered by their reliance on computationally intensive negative sampling and their limited generalization to unseen drug–target pairs. To address these challenges, we propose Multi-Context-Aware Sampling (MuCoS), a novel framework that prioritizes high-density neighbours to capture salient structural patterns and integrates these with contextual embeddings derived from BERT. By unifying structural and textual modalities and selectively sampling highly informative patterns, MuCoS circumvents the need for negative sampling, significantly reducing computational overhead while enhancing predictive accuracy for novel drug–target associations and drug targets. Extensive experiments on the KEGG50k and PharmKG-8k datasets demonstrate that MuCoS outperforms baselines, achieving up to a 13% improvement in MRR for general relation prediction on KEGG50k, a 22% improvement on PharmKG-8k, and a 6% gain in dedicated drug–target relation prediction on KEGG50k.</abstract>
+      <url hash="08983335">2025.bionlp-1.27</url>
+      <attachment type="SupplementaryMaterial" hash="4532e9c3">2025.bionlp-1.27.SupplementaryMaterial.zip</attachment>
+      <attachment type="SupplementaryMaterial" hash="cd70a3f2">2025.bionlp-1.27.SupplementaryMaterial.txt</attachment>
+      <bibkey>gul-etal-2025-mucos</bibkey>
+    </paper>
+    <paper id="28">
+      <title>Overcoming Data Scarcity in Named Entity Recognition: Synthetic Data Generation with Large Language Models</title>
+      <author><first>An</first><last>Dao</last><affiliation>The University of Tokyo</affiliation></author>
+      <author><first>Hiroki</first><last>Teranishi</last><affiliation>RIKEN Center for Advanced Intelligence Project</affiliation></author>
+      <author><first>Yuji</first><last>Matsumoto</last><affiliation>Riken Center for Advanced Intelligence Project</affiliation></author>
+      <author><first>Florian</first><last>Boudin</last><affiliation>Nantes University</affiliation></author>
+      <author><first>Akiko</first><last>Aizawa</last><affiliation>National Institute of Informatics</affiliation></author>
+      <pages>328-340</pages>
+      <abstract>Named Entity Recognition (NER) is crucial for extracting domain-specific entities from text, particularly in biomedical and chemical fields. Developing high-quality NER models in specialized domains is challenging due to the limited availability of annotated data, with manual annotation being a key method of data construction. However, manual annotation is time-consuming and requires domain expertise, making it difficult in specialized domains. Traditional data augmentation (DA) techniques also rely on annotated data to some extent, further limiting their effectiveness. In this paper, we propose a novel approach to synthetic data generation for NER using large language models (LLMs) to generate sentences based solely on a set of example entities. This method simplifies the augmentation process and is effective even with a limited set of entities.We evaluate our approach using BERT-based models on the BC4CHEMD, BC5CDR, and TDMSci datasets, demonstrating that synthetic data significantly improves model performance and robustness, particularly in low-resource settings. This work provides a scalable solution for enhancing NER in specialized domains, overcoming the limitations of manual annotation and traditional augmentation methods.</abstract>
+      <url hash="e346e1f9">2025.bionlp-1.28</url>
+      <attachment type="SupplementaryMaterial" hash="29366aa1">2025.bionlp-1.28.SupplementaryMaterial.txt</attachment>
+      <attachment type="SupplementaryMaterial" hash="13f43304">2025.bionlp-1.28.SupplementaryMaterial.zip</attachment>
+      <bibkey>dao-etal-2025-overcoming</bibkey>
+    </paper>
+    <paper id="29">
+      <title><fixed-case>P</fixed-case>et<fixed-case>EVAL</fixed-case>: A veterinary free text electronic health records benchmark</title>
+      <author><first>Sean</first><last>Farrell</last><affiliation>Durham University</affiliation></author>
+      <author><first>Alan</first><last>Radford</last><affiliation>University of Liverpool</affiliation></author>
+      <author><first>Noura</first><last>Al Moubayed</last><affiliation>Durham University</affiliation></author>
+      <author><first>Peter-John</first><last>Noble</last><affiliation>University of Liverpool</affiliation></author>
+      <pages>341-353</pages>
+      <abstract>We introduce PetEVAL, the first benchmark dataset derived from real-world, free-text veterinary electronic health records (EHRs). PetEVAL comprises 17,600 professionally annotated EHRs from first-opinion veterinary practices across the UK, partitioned into training (11,000), evaluation (1,600), and test (5,000) sets with distinct clinic distributions to assess model generalisability. Each record is annotated with International Classification of Disease 11 (ICD-11) syndromic chapter labels (20,408 labels), disease Named Entity Recognition (NER) tags (429 labels), and anonymisation NER tags (8,244 labels). PetEVAL enables evaluating Natural Language Processing (NLP) tools across applications, including syndrome surveillance and disease outbreak detection. We implement a multistage anonymisation protocol, replacing identifiable information with clinically relevant pseudonyms while establishing the first definition of identifiers in veterinary free text. PetEVAL introduces three core tasks: syndromic classification, disease entity recognition, and anonymisation. We provide baseline results using BERT-base, PetBERT, and LLaMA 3.1 8B generative models. Our experiments demonstrate the unique challenges of veterinary text, showcasing the importance of domain-specific approaches. By fostering advancements in veterinary informatics and epidemiology, we envision PetEVAL catalysing innovations in veterinary care, animal health, and comparative biomedical research through access to real-world, annotated veterinary clinical data.</abstract>
+      <url hash="9ce5b160">2025.bionlp-1.29</url>
+      <attachment type="SupplementaryMaterial" hash="ef7124cb">2025.bionlp-1.29.SupplementaryMaterial.txt</attachment>
+      <attachment type="SupplementaryMaterial" hash="7b35a31d">2025.bionlp-1.29.SupplementaryMaterial.zip</attachment>
+      <bibkey>farrell-etal-2025-peteval</bibkey>
+    </paper>
+    <paper id="30">
+      <title>Virtual <fixed-case>CRISPR</fixed-case>: Can <fixed-case>LLM</fixed-case>s Predict <fixed-case>CRISPR</fixed-case> Screen Results?</title>
+      <author><first>Steven</first><last>Song</last><affiliation>University of Chicago</affiliation></author>
+      <author><first>Abdalla</first><last>Abdrabou</last><affiliation>Chan Zuckerberg Biohub Chicago</affiliation></author>
+      <author><first>Asmita</first><last>Dabholkar</last><affiliation>University of Illinois Urbana-Champaign</affiliation></author>
+      <author><first>Kastan</first><last>Day</last><affiliation>University of Illinois Urbana-Champaign</affiliation></author>
+      <author><first>Pavan</first><last>Dharmoju</last><affiliation>Northwestern University</affiliation></author>
+      <author><first>Jason</first><last>Perera</last><affiliation>Chan Zuckerberg Biohub Chicago</affiliation></author>
+      <author><first>Volodymyr</first><last>Kindratenko</last><affiliation>University of Illinois Urbana-Champaign</affiliation></author>
+      <author><first>Aly</first><last>Khan</last><affiliation>University of Chicago</affiliation></author>
+      <pages>354-364</pages>
+      <abstract>CRISPR-Cas systems enable systematic investigation of gene function, but experimental CRISPR screens are resource-intensive. Here, we investigate the potential of Large Language Models (LLMs) to predict the outcomes of CRISPR screens in silico, thereby prioritizing experiments and accelerating biological discovery. We introduce a benchmark dataset derived from BioGRID-ORCS and manually curated sources, and evaluate the performance of several LLMs across various prompting strategies, including chain-of-thought and few-shot learning. Furthermore, we develop a novel, efficient prediction framework using LLM-derived embeddings, achieving significantly improved performance and scalability compared to direct prompting. Our results demonstrate the feasibility of using LLMs to guide CRISPR screen experiments.</abstract>
+      <url hash="20eada0e">2025.bionlp-1.30</url>
+      <attachment type="SupplementaryMaterial" hash="b80917d4">2025.bionlp-1.30.SupplementaryMaterial.zip</attachment>
+      <attachment type="SupplementaryMaterial" hash="83c2e286">2025.bionlp-1.30.SupplementaryMaterial.txt</attachment>
+      <bibkey>song-etal-2025-virtual</bibkey>
+    </paper>
+    <paper id="31">
+      <title>Overview of the <fixed-case>B</fixed-case>io<fixed-case>L</fixed-case>ay<fixed-case>S</fixed-case>umm 2025 Shared Task on Lay Summarization of Biomedical Research Articles and Radiology Reports</title>
+      <author><first>Chenghao</first><last>Xiao</last><affiliation>Durham University</affiliation></author>
+      <author><first>Kun</first><last>Zhao</last><affiliation>University of Pittsburgh</affiliation></author>
+      <author><first>Xiao</first><last>Wang</last><affiliation>University of Manchester</affiliation></author>
+      <author><first>Siwei</first><last>Wu</last><affiliation>University of Manchester</affiliation></author>
+      <author><first>Sixing</first><last>Yan</last><affiliation>Hong Kong Baptist University</affiliation></author>
+      <author><first>Tomas</first><last>Goldsack</last><affiliation>University of Sheffield</affiliation></author>
+      <author><first>Sophia</first><last>Ananiadou</last><affiliation>University of Manchester</affiliation></author>
+      <author><first>Noura</first><last>Al Moubayed</last><affiliation>Durham University</affiliation></author>
+      <author><first>Liang</first><last>Zhan</last><affiliation>University of Pittsburgh</affiliation></author>
+      <author><first>William K.</first><last>Cheung</last><affiliation>Hong Kong Baptist University</affiliation></author>
+      <author><first>Chenghua</first><last>Lin</last><affiliation>Department of Computer Science, University of Manchester</affiliation></author>
+      <pages>365-377</pages>
+      <abstract>This paper presents the setup and results of the third edition of the BioLaySumm shared task on Lay Summarization of Biomedical Research Articles and Radiology Reports, hosted at the BioNLP Workshop at ACL 2025. In this task edition, we aim to build on the first two editions’ successes by further increasing research interest in this important task and encouraging participants to explore novel approaches that will help advance the state-of-the-art. Specifically, we introduce the new task of Radiology Report Generation with Layman’s terms, which is parallel to the task of lay summarization of biomedical articles in the first two editions. Overall, our results show that a broad range of innovative approaches were adopted by task participants, including inspiring explorations of latest RL techniques adopted in the training of general-domain large reasoning models.</abstract>
+      <url hash="059921cf">2025.bionlp-1.31</url>
+      <attachment type="SupplementaryMaterial" hash="436528cc">2025.bionlp-1.31.SupplementaryMaterial.txt</attachment>
+      <bibkey>xiao-etal-2025-overview</bibkey>
+    </paper>
+    <paper id="32">
+      <title>Overview of the <fixed-case>C</fixed-case>lin<fixed-case>IQL</fixed-case>ink 2025 Shared Task on Medical Question-Answering</title>
+      <author><first>Brandon</first><last>Colelough</last><affiliation>NIH</affiliation></author>
+      <author><first>Davis</first><last>Bartels</last><affiliation>National Institutes of Health</affiliation></author>
+      <author><first>Dina</first><last>Demner-Fushman</last><affiliation>National Library of Medicine</affiliation></author>
+      <pages>378-387</pages>
+      <abstract>In this paper, we present an overview of CLINIQLINK a shared task, collocated with the 24th BioNLP workshop at ACL 2025, designed to stress-test large language models (LLMs) on medically-oriented question answering aimed at the level of a General Practitioner. The challenge supplies 4 978 expert-verified, medical source-grounded question–answer pairs that cover seven formats - true/false, multiple choice, unordered list, short answer, short-inverse, multi-hop, and multi-hop-inverse. Participating systems, bundled in Docker or Apptainer images, are executed on the CodaBench platform or the University of Maryland’s Zaratan cluster. An automated harness (Task 1) scores closed-ended items by exact match and open-ended items with a three-tier embedding metric. A subsequent physician panel (Task 2) audits the top model responses.</abstract>
+      <url hash="698d5efe">2025.bionlp-1.32</url>
+      <attachment type="SupplementaryMaterial" hash="af75f410">2025.bionlp-1.32.SupplementaryMaterial.txt</attachment>
+      <bibkey>colelough-etal-2025-overview</bibkey>
+    </paper>
+    <paper id="33">
+      <title><fixed-case>SMAFIRA</fixed-case> Shared Task at the <fixed-case>B</fixed-case>io<fixed-case>NLP</fixed-case>’2025 Workshop: Assessing the Similarity of the Research Goal</title>
+      <author><first>Mariana</first><last>Neves</last><affiliation>German Federal Institute for Risk Assessment</affiliation></author>
+      <author><first>Iva</first><last>Sovadinova</last><affiliation>Masaryk University</affiliation></author>
+      <author><first>Susanne</first><last>Fieberg</last><affiliation>German Federal Institute for Risk Assessment</affiliation></author>
+      <author><first>Celine</first><last>Heinl</last><affiliation>German Federal Institute for Risk Assessment</affiliation></author>
+      <author><first>Diana</first><last>Rubel</last><affiliation>German Federal Institute for Risk Assessment</affiliation></author>
+      <author><first>Gilbert</first><last>Schönfelder</last><affiliation>German Federal Institute for Risk Assessment</affiliation></author>
+      <author><first>Bettina</first><last>Bert</last><affiliation>German Federal Institute for Risk Assessment</affiliation></author>
+      <pages>388-395</pages>
+      <abstract>We organized the SMAFIRA Shared in the scope of the BioNLP’2025 Workshop. Given two articles, our goal was to collect annotations about the similarity of their research goal. The test sets consisted of a list of reference articles and their corresponding top 20 similar articles from PubMed. The task consisted in annotating the similar articles regarding the similarity of their research goal with respect to the one from the corresponding reference article. The assessment of the similarity was based on three labels: "“similar”", "“uncertain”", or "“not similar”". We released two batches of test sets: (a) a first batch of 25 reference articles for five diseases; and (b) a second batch of 80 reference articles for 16 diseases. We collected manual annotations from two teams (RCX and Bf3R) and automatic predictions from two large language models (GPT-4omini and Llama3.3). The preliminary evaluation showed a rather low agreement between the annotators, however, some pairs could potentially be part of a future dataset.</abstract>
+      <url hash="888501ca">2025.bionlp-1.33</url>
+      <attachment type="SupplementaryMaterial" hash="fcbeca57">2025.bionlp-1.33.SupplementaryMaterial.txt</attachment>
+      <bibkey>neves-etal-2025-smafira</bibkey>
+    </paper>
+    <paper id="34">
+      <title>Overview of the <fixed-case>A</fixed-case>rch<fixed-case>EHR</fixed-case>-<fixed-case>QA</fixed-case> 2025 Shared Task on Grounded Question Answering from Electronic Health Records</title>
+      <author><first>Sarvesh</first><last>Soni</last><affiliation>National Library of Medicine</affiliation></author>
+      <author><first>Soumya</first><last>Gayen</last><affiliation>NLM NIH</affiliation></author>
+      <author><first>Dina</first><last>Demner-Fushman</last><affiliation>National Library of Medicine</affiliation></author>
+      <pages>396-405</pages>
+      <abstract>This paper presents an overview of the ArchEHR-QA 2025 shared task, which was organized with the 24th BioNLP Workshop at ACL 2025. The goal of this shared task is to develop automated responses to patients’ questions by generating answers that are grounded in key clinical evidence from patients’ electronic health records (EHRs). A total of 29 teams participated in the task, collectively submitting 75 systems, with 24 teams providing their system descriptions. The submitted systems encompassed diverse architectures (including approaches that select the most relevant evidence prior to answer generation), leveraging both proprietary and open-weight large language models, as well as employing various tuning strategies such as fine-tuning and few-shot learning. In this paper, we describe the task setup, the dataset used, the evaluation criteria, and the baseline systems. Furthermore, we summarize the methodologies adopted by participating teams and present a comprehensive evaluation and analysis of the submitted systems.</abstract>
+      <url hash="89e64928">2025.bionlp-1.34</url>
+      <attachment type="SupplementaryMaterial" hash="fddf0635">2025.bionlp-1.34.SupplementaryMaterial.txt</attachment>
+      <bibkey>soni-etal-2025-overview</bibkey>
+    </paper>
+  </volume>
+</collection>
