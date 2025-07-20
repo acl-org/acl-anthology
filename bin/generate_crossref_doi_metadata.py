@@ -188,7 +188,10 @@ def main(volumes):
                         make_simple_element("surname", text=name_part.text, parent=pn)
 
         if editor_index == 0:
-            print("FATAL: Found no editors", file=sys.stderr)
+            print(
+                f"WARNING: Found no editors for volume {full_volume_id}, skipping",
+                file=sys.stderr,
+            )
             sys.exit(1)
 
         # Assemble Event Metadata
@@ -243,21 +246,28 @@ def main(volumes):
                 if is_newstyle_id(full_volume_id):
                     url = f"{full_volume_id}.{paper_id}"
                 elif len(full_volume_id) == 6:
-                    url = f"{full_volume_id}{paper_id:02d}"
+                    url = f"{full_volume_id}{int(paper_id):02d}"
                 elif len(full_volume_id) == 5:
-                    url = f"{full_volume_id}{paper_id:03d}"
+                    url = f"{full_volume_id}{int(paper_id):03d}"
 
-            cp = make_simple_element("conference_paper", parent=c)
-
-            # contributors
-            contribs = make_simple_element("contributors", parent=cp)
-            author_index = 0
             if paper_type == "paper":
                 contributor_list = paper.findall("./author")
             elif paper_type == "frontmatter":
                 # Frontmatter's contributors are the editors
                 contributor_list = meta.findall("./editor")
 
+            if len(contributor_list) == 0:
+                print(
+                    f"WARNING: Found no contributors for {paper_type} {full_volume_id}.{paper_id}, skipping",
+                    file=sys.stderr,
+                )
+                continue
+
+            cp = make_simple_element("conference_paper", parent=c)
+            contribs = make_simple_element("contributors", parent=cp)
+
+            # contributors
+            author_index = 0
             for author in contributor_list:
                 pn = make_simple_element(
                     "person_name",
