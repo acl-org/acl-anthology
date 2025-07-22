@@ -16,7 +16,7 @@ import attrs
 import copy
 import pytest
 from acl_anthology.collections import CollectionIndex
-from acl_anthology.collections.types import VolumeType
+from acl_anthology.collections.types import PaperType, VolumeType
 from acl_anthology.files import AttachmentReference, PDFReference
 from acl_anthology.people import NameSpecification
 from acl_anthology.text import MarkupText
@@ -158,7 +158,7 @@ def test_paper_bibtype():
     assert paper.bibtype == "article"
     volume.type = VolumeType.PROCEEDINGS
     assert paper.bibtype == "inproceedings"
-    paper.id = "0"
+    paper.type = PaperType.FRONTMATTER
     assert paper.bibtype == "proceedings"
     volume.type = VolumeType.JOURNAL
     assert paper.bibtype == "book"
@@ -241,9 +241,7 @@ test_cases_xml = (
   <author><first/><last>None</last></author>
   <editor><first>Marcel</first><last>Bollmann</last></editor>
   <pages>0</pages>
-  <abstract>
-    <b>Look</b> at <i>this</i>!
-  </abstract>
+  <abstract><b>Look</b> at <i>this</i>!</abstract>
   <url hash="d6a71220">2023.fake-volume.max</url>
   <erratum id="1" hash="21a4921f">2023.fake-volume.maxe2</erratum>
   <revision id="1" href="2023.fake-volume.max" hash="21e2f21f"/>
