@@ -18,7 +18,7 @@ This script returns a list of all authors who have at least one paper outside th
 provided list of volume IDs. The purpose is to find new authors, i.e., by providing
 a list of the newest volumes.
 
-e.g., 
+e.g.,
 
     ./find_new_authors.py 2025.acl-{long,short,demo,srw,tutorials,industry} 2025.findings-acl
 
