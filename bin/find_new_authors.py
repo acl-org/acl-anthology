@@ -32,7 +32,6 @@ import sys
 from acl_anthology import Anthology
 
 
-
 def find_new_people(volume_ids, first_only=False):
     """
     Given a list of volumes, returns people who have authored papers only within
