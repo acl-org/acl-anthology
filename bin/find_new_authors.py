@@ -59,7 +59,6 @@ def find_new_people(volumes, first_only=False):
     # Now, iterate through the new authors
     new_people_list = list(new_people.keys())
     for person in new_people_list:
-        new_papers = new_people[person]
         for existing_paper_tuple in person.item_ids:
             paper = anthology.get_paper(existing_paper_tuple)
             if not paper:
