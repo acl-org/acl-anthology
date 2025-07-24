@@ -31,7 +31,12 @@ import sys
 from acl_anthology import Anthology
 
 
-def find_new_people(volumes):
+def find_new_people(volumes, first_only=False):
+    """
+    Given a list of volumes, returns people who have authored papers only within
+    that list. If first_only==True, only new first-authors are returned.
+    """
+
     anthology = Anthology(datadir=Path(__file__).parent / ".." / "data")
     new_people = defaultdict(list)
     # setup_rich_logging()
@@ -43,13 +48,13 @@ def find_new_people(volumes):
             continue
 
         for paper in volume.papers():
-            if not paper.authors:
-                continue
-
             # Check if the author is new in this volume
-            for author in paper.authors:
-                person = anthology.resolve(author)
-                new_people[person].append(paper.full_id)
+            if len(paper.authors):
+                for author in paper.authors:
+                    person = anthology.resolve(author)
+                    new_people[person].append(paper.full_id)
+                    if first_only:
+                        break
 
     # Now, iterate through the new authors
     new_people_list = list(new_people.keys())
@@ -60,8 +65,8 @@ def find_new_people(volumes):
             if not paper:
                 # print(f"Paper {existing_paper_tuple} not found for author {author.name}.", file=sys.stderr)
                 continue
-            full_id = paper.full_id
-            if full_id not in new_papers:
+            volume_id = paper.parent.full_id
+            if volume_id not in volumes:
                 # This author has papers outside the specified volumes
                 del new_people[person]
                 break
@@ -74,9 +79,10 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description="Find new authors in specified volumes")
     parser.add_argument("volumes", nargs="+", help="List of volumes to consider")
+    parser.add_argument("--first-only", "-f", action="store_true", help="Only return new first authors")
     args = parser.parse_args()
 
-    new_people = find_new_people(args.volumes)
+    new_people = find_new_people(args.volumes, args.first_only)
     for person in new_people:
         papers = [f"https://aclanthology.org/{id}" for id in new_people[person]]
         print(
