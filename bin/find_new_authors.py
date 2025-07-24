@@ -78,7 +78,9 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description="Find new authors in specified volumes")
     parser.add_argument("volumes", nargs="+", help="List of volumes to consider")
-    parser.add_argument("--first-only", "-f", action="store_true", help="Only return new first authors")
+    parser.add_argument(
+        "--first-only", "-f", action="store_true", help="Only return new first authors"
+    )
     args = parser.parse_args()
 
     new_people = find_new_people(args.volumes, args.first_only)
