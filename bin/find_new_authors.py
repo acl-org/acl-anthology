@@ -14,15 +14,16 @@
 # limitations under the License.
 
 """
-This script returns a list of all authors who have at least one paper outside the
-provided list of volume IDs. The purpose is to find new authors, i.e., by providing
-a list of the newest volumes.
+This script returns a list of all authors whose papers are entirely within the set
+of provided volume IDs. The motivation of the script is to identify new first authors
+at a conference, which is accomplished by providing a list of the newest volumes, e.g.,
 
 e.g.,
 
     ./find_new_authors.py 2025.acl-{long,short,demo,srw,tutorials,industry} 2025.findings-acl
 
-will output all authors who have a paper in at least one of the above volumes and nowhere else.
+There is also a flag, --first-only, which will return only the authors who (a) are first authors
+in the provided volume set and (b) have no papers outside the provided set.
 """
 
 from collections import defaultdict
@@ -31,7 +32,8 @@ import sys
 from acl_anthology import Anthology
 
 
-def find_new_people(volumes, first_only=False):
+
+def find_new_people(volume_ids, first_only=False):
     """
     Given a list of volumes, returns people who have authored papers only within
     that list. If first_only==True, only new first-authors are returned.
@@ -41,36 +43,32 @@ def find_new_people(volumes, first_only=False):
     new_people = defaultdict(list)
     # setup_rich_logging()
 
-    for volume_name in volumes:
-        volume = anthology.get_volume(volume_name)
+    # First, build a list of the people publishing in the provided volume set.
+    for volume_id in volume_ids:
+        volume = anthology.get_volume(volume_id)
         if not volume:
-            print(f"Volume {volume_name} not found in the anthology.", file=sys.stderr)
+            print(f"Volume {volume_id} not found in the anthology.", file=sys.stderr)
             continue
 
         for paper in volume.papers():
-            # Check if the author is new in this volume
-            if len(paper.authors):
-                for author in paper.authors:
-                    person = anthology.resolve(author)
-                    new_people[person].append(paper.full_id)
-                    if first_only:
-                        break
+            for author in paper.authors:
+                person = anthology.resolve(author)
+                new_people[person].append(paper.full_id)
+                # If we're only looking for first authors, we can stop here
+                if first_only:
+                    break
 
-    # Now, iterate through the new authors
-    new_people_list = list(new_people.keys())
-    for person in new_people_list:
-        for existing_paper_tuple in person.item_ids:
-            paper = anthology.get_paper(existing_paper_tuple)
-            if not paper:
-                # print(f"Paper {existing_paper_tuple} not found for author {author.name}.", file=sys.stderr)
-                continue
-            volume_id = paper.parent.full_id
-            if volume_id not in volumes:
-                # This author has papers outside the specified volumes
-                del new_people[person]
-                break
+    def has_no_papers_outside_volumes(person):
+        """Return true if all a person's papers are inside the specified volume set."""
+        return all(paper.parent.full_id in volume_ids for paper in person.papers())
 
-    return new_people
+    # From the generated list of people who have a paper _inside_ the volume set,
+    # filter out all those who have papers outside the volume set.
+    return {
+        person: item_ids
+        for (person, item_ids) in new_people.items()
+        if has_no_papers_outside_volumes(person)
+    }
 
 
 if __name__ == "__main__":
