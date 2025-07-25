@@ -1,4 +1,4 @@
-# Copyright 2023-2024 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2025 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -110,7 +110,7 @@ class Name:
         # Penalize first names that are longer than last names (this is
         # intended to make a difference when a person has both "C, A B" and "B
         # C, A" as names)
-        if self.first is not None and len(self.first) > len(self.last):
+        if self.first and len(self.first) > len(self.last):
             score += 0.5
         return score
 
@@ -227,7 +227,7 @@ class Name:
         elem = etree.Element(tag)
         elem.extend(
             (
-                E.first(self.first) if self.first is not None else E.first(),
+                E.first(self.first) if self.first else E.first(),
                 E.last(self.last),
             )
         )
@@ -338,7 +338,7 @@ class NameSpecification:
             elem.set("id", self.id)
         elem.extend(
             (
-                E.first(self.first) if self.first is not None else E.first(),
+                E.first(self.first) if self.first else E.first(),
                 E.last(self.last),
             )
         )
