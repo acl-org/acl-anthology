@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2025.gitt">
+  <volume id="1" ingest-date="2025-07-26" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of the 3rd Workshop on Gender-Inclusive Translation Technologies (GITT 2025)</booktitle>
+      <editor><first>Janiça</first><last>Hackenbuchner</last></editor>
+      <editor><first>Luisa</first><last>Bentivogli</last></editor>
+      <editor><first>Joke</first><last>Daems</last></editor>
+      <editor><first>Chiara</first><last>Manna</last></editor>
+      <editor><first>Beatrice</first><last>Savoldi</last></editor>
+      <editor><first>Eva</first><last>Vanmassenhove</last></editor>
+      <publisher>European Association for Machine Translation</publisher>
+      <address>Geneva, Switzerland</address>
+      <month>June</month>
+      <year>2025</year>
+      <url hash="32aebd0f">2025.gitt-1</url>
+      <venue>gitt</venue>
+      <venue>ws</venue>
+      <isbn>978-2-9701897-4-9</isbn>
+    </meta>
+    <frontmatter>
+      <url hash="9f1b5d12">2025.gitt-1.0</url>
+      <bibkey>gitt-2025-1</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Are We Paying Attention to Her? Investigating Gender Disambiguation and Attention in Machine Translation</title>
+      <author><first>Chiara</first><last>Manna</last></author>
+      <author><first>Afra</first><last>Alishahi</last></author>
+      <author><first>Frédéric</first><last>Blain</last></author>
+      <author><first>Eva</first><last>Vanmassenhove</last></author>
+      <pages>1–16</pages>
+      <abstract>While gender bias in modern Neural Machine Translation (NMT) systems has received much attention, the traditional evaluation metrics for these systems do not fully capture the extent to which models integrate contextual gender cues. We propose a novel evaluation metric called Minimal Pair Accuracy (MPA) which measures the reliance of models on gender cues for gender disambiguation. We evaluate a number of NMT models using this metric, we show that they ignore available gender cues in most cases in favour of (statistical) stereotypical gender interpretation. We further show that in anti-stereotypical cases, these models tend to more consistently take male gender cues into account while ignoring the female cues. Finally, we analyze the attention head weights in the encoder component of these models and show that while all models to some extent encode gender information, the male gender cues elicit a more diffused response compared to the more concentrated and specialized responses to female gender cues.</abstract>
+      <url hash="7e9325d4">2025.gitt-1.1</url>
+      <bibkey>manna-etal-2025-paying</bibkey>
+    </paper>
+    <paper id="2">
+      <title>Gender Bias in <fixed-case>E</fixed-case>nglish-to-<fixed-case>G</fixed-case>reek Machine Translation</title>
+      <author><first>Eleni</first><last>Gkovedarou</last></author>
+      <author><first>Joke</first><last>Daems</last></author>
+      <author><first>Luna De</first><last>Bruyne</last></author>
+      <pages>17–45</pages>
+      <abstract>As the demand for inclusive language increases, concern has grown over the susceptibility of machine translation (MT) systems to reinforce gender stereotypes. This study investigates gender bias in two commercial MT systems, Google Translate and DeepL, focusing on the understudied English-to-Greek language pair. We address three aspects of gender bias: i) male bias, ii) occupational stereotyping, and iii) errors in anti-stereotypical translations. Additionally, we explore the potential of prompted GPT-4o as a bias mitigation tool that provides both gender-explicit and gender-neutral alternatives when necessary. To achieve this, we introduce GendEL, a manually crafted bilingual dataset of 240 gender-ambiguous and unambiguous sentences that feature stereotypical occupational nouns and adjectives. We find persistent gender bias in translations by both MT systems; while they perform well in cases where gender is explicitly defined, with DeepL outperforming both Google Translate and GPT-4o in feminine gender-unambiguous sentences, they are far from producing gender-inclusive or neutral translations when the gender is unspecified. GPT-4o shows promise, generating appropriate gendered and neutral alternatives for most ambiguous cases, though residual biases remain evident. As one of the first comprehensive studies on gender bias in English-to-Greek MT, we provide both our data and code at [github link].</abstract>
+      <url hash="daf9827f">2025.gitt-1.2</url>
+      <bibkey>gkovedarou-etal-2025-gender</bibkey>
+    </paper>
+    <paper id="3">
+      <title>An <fixed-case>LLM</fixed-case>-as-a-judge Approach for Scalable Gender-Neutral Translation Evaluation</title>
+      <author><first>Andrea</first><last>Piergentili</last></author>
+      <author><first>Beatrice</first><last>Savoldi</last></author>
+      <author><first>Matteo</first><last>Negri</last></author>
+      <author><first>Luisa</first><last>Bentivogli</last></author>
+      <pages>46–63</pages>
+      <abstract>Gender-neutral translation (GNT) aims to avoid expressing the gender of human referents when the source text lacks explicit cues about the gender of those referents. Evaluating GNT automatically is particularly challenging, with current solutions being limited to monolingual classifiers. Such solutions are not ideal because they do not factor in the source sentence and require dedicated data and fine-tuning to scale to new languages. In this work, we address such limitations by investigating the use of large language models (LLMs) as evaluators of GNT. Specifically, we explore two prompting approaches: one in which LLMs generate sentence-level assessments only, and another—akin to a chain-of-thought approach—where they first produce detailed phrase-level annotations before a sentence-level judgment. Through extensive experiments on multiple languages with five models, both open and proprietary, we show that LLMs can serve as evaluators of GNT. Moreover, we find that prompting for phrase-level annotations before sentence-level assessments consistently improves the accuracy of all models, providing a better and more scalable alternative to current solutions.</abstract>
+      <url hash="c380dbd0">2025.gitt-1.3</url>
+      <bibkey>piergentili-etal-2025-llm</bibkey>
+    </paper>
+    <paper id="4">
+      <title>Did <fixed-case>I</fixed-case> (she) or <fixed-case>I</fixed-case> (he) buy this? Or rather <fixed-case>I</fixed-case> (she/he)? Towards first-person gender neutral translation by <fixed-case>LLM</fixed-case>s</title>
+      <author><first>Maja</first><last>Popović</last></author>
+      <author><first>Ekaterina</first><last>Lapshinova-Koltunski</last></author>
+      <author><first>Anastasiia</first><last>Göldner</last></author>
+      <pages>64–73</pages>
+      <abstract>This paper presents an analysis of gender in first-person mentions translated from English into two Slavic languages with the help of three LLMs and two different prompts. We explore if LLMs are able to generate Amazon product reviews with gender neutral first person forms. Apart from the overall question about the ability to produce gender neutral translations, we look into the impact of a prompt with a specific instruction which is supposed to reduce the gender bias in LLMs output translations. Our results show that although we are able to achieve a reduction in gender bias, our specific prompt cause also a number of errors. Analysing those emerging problems qualitatively, we formulate suggestions that could be helpful for the development of better prompting strategies in the future work on gender bias reduction.</abstract>
+      <url hash="51015e99">2025.gitt-1.4</url>
+      <bibkey>popovic-etal-2025-buy</bibkey>
+    </paper>
+    <paper id="5">
+      <title>Gender-Neutral Machine Translation Strategies in Practice</title>
+      <author><first>Hillary</first><last>Dawkins</last></author>
+      <author><first>Isar</first><last>Nejadgholi</last></author>
+      <author><first>Chi-Kiu</first><last>Lo</last></author>
+      <pages>74–88</pages>
+      <abstract>Gender-inclusive machine translation (MT) should preserve gender ambiguity in the source to avoid misgendering and representational harms. While gender ambiguity often occurs naturally in notional gender languages such as English, maintaining that gender neutrality in grammatical gender languages is a challenge. Here we assess the sensitivity of 21 MT systems to the need for gender neutrality in response to gender ambiguity in three translation directions of varying difficulty. The specific gender-neutral strategies that are observed in practice are categorized and discussed. Additionally, we examine the effect of binary gender stereotypes on the use of gender-neutral translation. In general, we report a disappointing absence of gender-neutral translations in response to gender ambiguity. However, we observe a small handful of MT systems that switch to gender neutral translation using specific strategies, depending on the target language.</abstract>
+      <url hash="9f5f2c38">2025.gitt-1.5</url>
+      <bibkey>dawkins-etal-2025-gender</bibkey>
+    </paper>
+    <paper id="6">
+      <title>Gender-inclusive language and machine translation: from <fixed-case>S</fixed-case>panish into <fixed-case>I</fixed-case>talian</title>
+      <author><first>Antonella</first><last>Bove</last></author>
+      <pages>89–90</pages>
+      <abstract>Gender-inclusive language is a discursive practice that introduces the use of new forms and strategies to make women and different non-binary gender identities more visible. Spanish uses gender doublets (los niños y las niñas, los/as candidatos/as), the neomorpheme -e, and typographic signs such as @ and x. Similarly, Italian employs gender doublets (i bambini e le bambine, i/le candidati/e), the schwa (ə) as a neomorpheme, and the asterisk (*) as a typographic sign. Strategies like gender doublet and the @ sign aims at making women visible from a binary perspective; the others are intended to give visibility to non-binary gender identities as well (Escandell-Vidal 2020, Giusti 2022). Without a clear and agreed standard, inclusive translation poses a significant challenge and a great social responsibility for translation professionals. Hence, it is crucial to study and evaluate the quality of the outputs generated by machine translation systems (Kornacki &amp; Pietrzak 2025, Pfalzgraf 2024). This paper contributes to the understanding of this phenomenon by analyzing the interaction between artificial intelligence systems and Spanish inclusive strategies in translation into Italian within an augmented translation perspective (Kornacki &amp; Pietrzak 2025). The methodology involved three main steps: data collection, annotation, and analysis. Academic texts originally written in Spanish were gathered from which specific segments were extracted. Using segment-level analysis allowed for the creation of a more diverse corpus. In total, 20 instances were collected for each inclusive language strategy examined: fully split forms, half-split forms, the neomorpheme -e, the typographic sign @ and x. These segments were then translated using four artificial intelligence systems: two neural translation systems (DeepL and Google Translate) and two generative AI systems (ChatGPT and Gemini).</abstract>
+      <url hash="a940d557">2025.gitt-1.6</url>
+      <bibkey>bove-2025-gender</bibkey>
+    </paper>
+    <paper id="7">
+      <title>Evaluating Gender Bias in <fixed-case>D</fixed-case>utch <fixed-case>NLP</fixed-case>: Insights from <fixed-case>R</fixed-case>ob<fixed-case>BERT</fixed-case>-2023 and the <fixed-case>HONEST</fixed-case> Framework</title>
+      <author><first>Marie</first><last>Dewulf</last></author>
+      <pages>91–92</pages>
+      <abstract>This study investigates gender bias in the Dutch RobBERT-2023 language model using an adapted version of the HONEST framework, which assesses harmful sentence completions. By translating and expanding HONEST templates to include non-binary and gender-neutral language, we systematically evaluate whether RobBERT-2023 exhibits biased or harmful outputs across gender identities. Our findings reveal that while the model’s overall bias score is relatively low, non-binary identities are disproportionately affected by derogatory language.</abstract>
+      <url hash="85fd9f8f">2025.gitt-1.7</url>
+      <bibkey>dewulf-2025-evaluating</bibkey>
+    </paper>
+  </volume>
+</collection>
