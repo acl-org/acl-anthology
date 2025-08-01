@@ -493,12 +493,118 @@ def export_events(anthology, builddir, dryrun):
             data["title"] = event.title.as_text()
         else:
             data["title"] = f"{anthology.venues[main_venue].name} ({data['year']})"
+        
+        # Add talks data if available
+        if event.talks:
+            talks_data = []
+            for idx, talk in enumerate(event.talks, 1):
+                talk_id = f"{event.id}.talk-{idx}"
+                talk_data = {
+                    "id": talk_id,
+                    "title": talk.title.as_text(),
+                    "title_html": remove_extra_whitespace(talk.title.as_html(allow_url=False)),
+                    "speakers": [],  # Process speakers differently
+                    "type": talk.type,
+                }
+                # Process speakers - NameSpecification objects contain Name objects
+                for speaker in talk.speakers:
+                    speaker_dict = {
+                        "id": speaker.id if speaker.id else "",
+                        "full_name": speaker.name.as_first_last(),
+                        "first": speaker.name.first if speaker.name.first else "",
+                        "last": speaker.name.last,
+                    }
+                    talk_data["speakers"].append(speaker_dict)
+                # Add video URL if available
+                if "video" in talk.attachments:
+                    talk_data["video_url"] = talk.attachments["video"].url
+                # Add other attachments
+                attachments = []
+                for att_type, attachment in talk.attachments.items():
+                    if att_type != "video":
+                        attachments.append({
+                            "type": att_type,
+                            "url": attachment.url
+                        })
+                if attachments:
+                    talk_data["attachments"] = attachments
+                talks_data.append(talk_data)
+            data["talks"] = talks_data
 
         all_events[event.id] = data
 
     if not dryrun:
         with open(f"{builddir}/data/events.json", "wb") as f:
             f.write(ENCODER.encode(all_events))
+
+
+def export_talks(anthology, builddir, dryrun):
+    # Export individual talk data files
+    all_talks = {}
+    print("Exporting talks...")
+    
+    os.makedirs(f"{builddir}/data/talks", exist_ok=True)
+    
+    for event in anthology.events.values():
+        if not event.talks:
+            continue
+            
+        for idx, talk in enumerate(event.talks, 1):
+            talk_id = f"{event.id}.talk-{idx}"
+            
+            # Create talk data
+            talk_data = {
+                "id": talk_id,
+                "event_id": event.id,
+                "event_title": event.title.as_text() if event.title else f"{event.id}",
+                "title": talk.title.as_text(),
+                "title_html": remove_extra_whitespace(talk.title.as_html(allow_url=False)),
+                "speakers": [],
+                "type": talk.type,
+            }
+            
+            # Process speakers
+            for speaker in talk.speakers:
+                speaker_data = {
+                    "id": speaker.id if speaker.id else "",
+                    "full_name": speaker.name.as_first_last(),
+                    "first": speaker.name.first if speaker.name.first else "",
+                    "last": speaker.name.last,
+                }
+                talk_data["speakers"].append(speaker_data)
+            
+            # Add video URL if available
+            if "video" in talk.attachments:
+                talk_data["video_url"] = talk.attachments["video"].url
+                talk_data["video_name"] = talk.attachments["video"].name
+            
+            # Add other attachments
+            attachments = []
+            for att_type, attachment in talk.attachments.items():
+                if att_type != "video":
+                    attachments.append({
+                        "type": att_type,
+                        "url": attachment.url,
+                        "name": attachment.name if hasattr(attachment, 'name') else att_type
+                    })
+            if attachments:
+                talk_data["attachments"] = attachments
+            
+            # Add location and dates from event
+            if event.location:
+                talk_data["location"] = event.location
+            if event.dates:
+                talk_data["dates"] = event.dates
+                
+            all_talks[talk_id] = talk_data
+            
+            # Write individual talk file
+            if not dryrun:
+                with open(f"{builddir}/data/talks/{talk_id}.json", "wb") as f:
+                    f.write(ENCODER.encode(talk_data))
+    
+    # Note: Not creating combined talks.json to avoid Hugo data collisions
+    # Individual talk files in build/data/talks/ are sufficient
 
 
 def export_sigs(anthology, builddir, dryrun):
@@ -551,6 +657,7 @@ def export_anthology(anthology, builddir, clean=False, dryrun=False):
     export_people(anthology, builddir, dryrun)
     export_venues(anthology, builddir, dryrun)
     export_events(anthology, builddir, dryrun)
+    export_talks(anthology, builddir, dryrun)
     export_sigs(anthology, builddir, dryrun)
 
 

@@ -1,0 +1,10 @@
+{{ range $talk_id, $talk := .Site.Data.talks }}
+   {{ $page := dict
+      "kind" "page"
+      "path" $talk_id
+      "slug" $talk_id
+      "params" (dict "talk_id" $talk_id)
+      "title" $talk.title
+   }}
+   {{ $.AddPage $page }}
+{{ end }}
