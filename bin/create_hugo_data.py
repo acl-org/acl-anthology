@@ -495,51 +495,51 @@ def export_events(anthology, builddir, dryrun):
             data["title"] = f"{anthology.venues[main_venue].name} ({data['year']})"
 
         # Add talks data if available
-        if event.talks:
-            talks_data = []
-            for idx, talk in enumerate(event.talks, 1):
-                # Generate talk ID from video filename if available, otherwise use default pattern
-                if "video" in talk.attachments and talk.attachments["video"].name:
-                    # Extract talk ID from video filename like "2022.acl-keynote.2.mp4"
-                    video_name = talk.attachments["video"].name
-                    if video_name.endswith(".mp4"):
-                        # Remove .mp4 extension to get the talk ID
-                        talk_id = video_name[:-4]
-                    else:
-                        talk_id = video_name
+        talks_data = []
+        for idx, talk in enumerate(event.talks or [], 1):
+            # Generate talk ID from video filename if available, otherwise use default pattern
+            if "video" in talk.attachments and talk.attachments["video"].name:
+                # Extract talk ID from video filename like "2022.acl-keynote.2.mp4"
+                video_name = talk.attachments["video"].name
+                if video_name.endswith(".mp4"):
+                    # Remove .mp4 extension to get the talk ID
+                    talk_id = video_name[:-4]
                 else:
-                    # Fallback to sequential numbering if no video
-                    talk_id = f"{event.id}.talk-{idx}"
+                    talk_id = video_name
+            else:
+                # Fallback to sequential numbering if no video
+                talk_id = f"{event.id}.talk-{idx}"
 
-                talk_data = {
-                    "id": talk_id,
-                    "title": talk.title.as_text(),
-                    "title_html": remove_extra_whitespace(
-                        talk.title.as_html(allow_url=False)
-                    ),
-                    "speakers": [],  # Process speakers differently
-                    "type": talk.type,
+            talk_data = {
+                "id": talk_id,
+                "title": talk.title.as_text(),
+                "title_html": remove_extra_whitespace(
+                    talk.title.as_html(allow_url=False)
+                ),
+                "speakers": [],  # Process speakers differently
+                "type": talk.type,
+            }
+            # Process speakers - NameSpecification objects contain Name objects
+            for speaker in talk.speakers:
+                speaker_dict = {
+                    "id": speaker.id if speaker.id else "",
+                    "full_name": speaker.name.as_first_last(),
+                    "first": speaker.name.first if speaker.name.first else "",
+                    "last": speaker.name.last,
                 }
-                # Process speakers - NameSpecification objects contain Name objects
-                for speaker in talk.speakers:
-                    speaker_dict = {
-                        "id": speaker.id if speaker.id else "",
-                        "full_name": speaker.name.as_first_last(),
-                        "first": speaker.name.first if speaker.name.first else "",
-                        "last": speaker.name.last,
-                    }
-                    talk_data["speakers"].append(speaker_dict)
-                # Add video URL if available
-                if "video" in talk.attachments:
-                    talk_data["video_url"] = talk.attachments["video"].url
-                # Add other attachments
-                attachments = []
-                for att_type, attachment in talk.attachments.items():
-                    if att_type != "video":
-                        attachments.append({"type": att_type, "url": attachment.url})
-                if attachments:
-                    talk_data["attachments"] = attachments
-                talks_data.append(talk_data)
+                talk_data["speakers"].append(speaker_dict)
+            # Add video URL if available
+            if "video" in talk.attachments:
+                talk_data["video_url"] = talk.attachments["video"].url
+            # Add other attachments
+            attachments = []
+            for att_type, attachment in talk.attachments.items():
+                if att_type != "video":
+                    attachments.append({"type": att_type, "url": attachment.url})
+            if attachments:
+                talk_data["attachments"] = attachments
+            talks_data.append(talk_data)
+        if talks_data:
             data["talks"] = talks_data
 
         all_events[event.id] = data
