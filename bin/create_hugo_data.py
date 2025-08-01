@@ -532,7 +532,13 @@ def export_events(anthology, builddir, dryrun):
             attachments = []
             for att_type, attachment in talk.attachments.items():
                 if att_type != "video":
-                    attachments.append({"type": att_type, "url": attachment.url})
+                    attachments.append(
+                        {
+                            "filename": attachment.name,
+                            "type": att_type.capitalize(),
+                            "url": attachment.url,
+                        }
+                    )
             if attachments:
                 talk_data["attachments"] = attachments
             talks_data.append(talk_data)
@@ -602,13 +608,9 @@ def export_talks(anthology, builddir, dryrun):
                 if att_type != "video":
                     attachments.append(
                         {
-                            "type": att_type,
+                            "filename": attachment.name,
+                            "type": att_type.capitalize(),
                             "url": attachment.url,
-                            "name": (
-                                attachment.name
-                                if hasattr(attachment, 'name')
-                                else att_type
-                            ),
                         }
                     )
             if attachments:
