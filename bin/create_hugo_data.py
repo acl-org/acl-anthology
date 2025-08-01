@@ -519,11 +519,9 @@ def export_events(anthology, builddir, dryrun):
                 "speakers": [],  # Process speakers differently
                 "type": talk.type,
             }
-            # Process speakers - NameSpecification objects contain Name objects
+            # Process speakers - NameSpecification objects
             for speaker in talk.speakers:
-                speaker_dict = person_to_dict(
-                    speaker.id if speaker.id else "", speaker.name
-                )
+                speaker_dict = person_to_dict(speaker.id if speaker.id else "", speaker)
                 talk_data["speakers"].append(speaker_dict)
             # Add video URL if available
             if "video" in talk.attachments:
@@ -553,11 +551,9 @@ def export_events(anthology, builddir, dryrun):
 
 
 def export_talks(anthology, builddir, dryrun):
-    # Export individual talk data files
+    # Export talks data
     all_talks = {}
     print("Exporting talks...")
-
-    os.makedirs(f"{builddir}/data/talks", exist_ok=True)
 
     for event in anthology.events.values():
         if not event.talks:
@@ -592,9 +588,7 @@ def export_talks(anthology, builddir, dryrun):
 
             # Process speakers
             for speaker in talk.speakers:
-                speaker_data = person_to_dict(
-                    speaker.id if speaker.id else "", speaker.name
-                )
+                speaker_data = person_to_dict(speaker.id if speaker.id else "", speaker)
                 talk_data["speakers"].append(speaker_data)
 
             # Add video URL if available
@@ -624,13 +618,9 @@ def export_talks(anthology, builddir, dryrun):
 
             all_talks[talk_id] = talk_data
 
-            # Write individual talk file
-            if not dryrun:
-                with open(f"{builddir}/data/talks/{talk_id}.json", "wb") as f:
-                    f.write(ENCODER.encode(talk_data))
-
-    # Note: Not creating combined talks.json to avoid Hugo data collisions
-    # Individual talk files in build/data/talks/ are sufficient
+    if not dryrun:
+        with open(f"{builddir}/data/talks.json", "wb") as f:
+            f.write(ENCODER.encode(all_talks))
 
 
 def export_sigs(anthology, builddir, dryrun):
