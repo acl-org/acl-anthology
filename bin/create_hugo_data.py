@@ -498,7 +498,19 @@ def export_events(anthology, builddir, dryrun):
         if event.talks:
             talks_data = []
             for idx, talk in enumerate(event.talks, 1):
-                talk_id = f"{event.id}.talk-{idx}"
+                # Generate talk ID from video filename if available, otherwise use default pattern
+                if "video" in talk.attachments and talk.attachments["video"].name:
+                    # Extract talk ID from video filename like "2022.acl-keynote.2.mp4"
+                    video_name = talk.attachments["video"].name
+                    if video_name.endswith(".mp4"):
+                        # Remove .mp4 extension to get the talk ID
+                        talk_id = video_name[:-4]
+                    else:
+                        talk_id = video_name
+                else:
+                    # Fallback to sequential numbering if no video
+                    talk_id = f"{event.id}.talk-{idx}"
+
                 talk_data = {
                     "id": talk_id,
                     "title": talk.title.as_text(),
@@ -549,7 +561,18 @@ def export_talks(anthology, builddir, dryrun):
             continue
 
         for idx, talk in enumerate(event.talks, 1):
-            talk_id = f"{event.id}.talk-{idx}"
+            # Generate talk ID from video filename if available, otherwise use default pattern
+            if "video" in talk.attachments and talk.attachments["video"].name:
+                # Extract talk ID from video filename like "2022.acl-keynote.2.mp4"
+                video_name = talk.attachments["video"].name
+                if video_name.endswith(".mp4"):
+                    # Remove .mp4 extension to get the talk ID
+                    talk_id = video_name[:-4]
+                else:
+                    talk_id = video_name
+            else:
+                # Fallback to sequential numbering if no video
+                talk_id = f"{event.id}.talk-{idx}"
 
             # Create talk data
             talk_data = {
