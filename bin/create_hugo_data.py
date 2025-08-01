@@ -521,12 +521,9 @@ def export_events(anthology, builddir, dryrun):
             }
             # Process speakers - NameSpecification objects contain Name objects
             for speaker in talk.speakers:
-                speaker_dict = {
-                    "id": speaker.id if speaker.id else "",
-                    "full_name": speaker.name.as_first_last(),
-                    "first": speaker.name.first if speaker.name.first else "",
-                    "last": speaker.name.last,
-                }
+                speaker_dict = person_to_dict(
+                    speaker.id if speaker.id else "", speaker.name
+                )
                 talk_data["speakers"].append(speaker_dict)
             # Add video URL if available
             if "video" in talk.attachments:
@@ -589,12 +586,9 @@ def export_talks(anthology, builddir, dryrun):
 
             # Process speakers
             for speaker in talk.speakers:
-                speaker_data = {
-                    "id": speaker.id if speaker.id else "",
-                    "full_name": speaker.name.as_first_last(),
-                    "first": speaker.name.first if speaker.name.first else "",
-                    "last": speaker.name.last,
-                }
+                speaker_data = person_to_dict(
+                    speaker.id if speaker.id else "", speaker.name
+                )
                 talk_data["speakers"].append(speaker_data)
 
             # Add video URL if available

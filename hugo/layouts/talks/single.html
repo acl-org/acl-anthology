@@ -2,7 +2,7 @@
 {{ $talk := index .Site.Data.talks .Params.talk_id }}
   <meta content="{{ $talk.title }}" name="citation_title" >
 {{ range $talk.speakers }}
-  <meta content="{{ .full_name }}" name="citation_author" >
+  <meta content="{{ .full }}" name="citation_author" >
 {{ end }}
 {{ with $talk.event_id }}
   {{ $event := index $.Site.Data.events . }}
@@ -16,7 +16,7 @@
   <meta property="og:type" content="video.other" />
   <meta property="og:site_name" content="ACL Anthology" />
   <meta property="og:url" content="{{ .Permalink }}" />
-  <meta property="og:description" content="{{ range $talk.speakers }}{{ .full_name }}{{ end }}. {{ $talk.event_title }}." />
+  <meta property="og:description" content="{{ range $talk.speakers }}{{ .full }}{{ end }}. {{ $talk.event_title }}." />
 {{ end }}
 
 {{ define "javascript" }}
@@ -89,7 +89,7 @@
       {{ if $speaker.id }}
         {{ partial "author_link.html" (dict "ctx" $ "person" $speaker) | chomp }}
       {{ else }}
-        {{ $speaker.full_name }}
+        {{ $speaker.full }}
       {{ end }}{{ if ne (add $index 1) $len }}, {{ end }}
     {{ end }}
   </p>
@@ -195,7 +195,7 @@
         <div class="modal-body">
           {{ $authors := slice }}
           {{ range $talk.speakers }}
-            {{ $authors = $authors | append .full_name }}
+            {{ $authors = $authors | append .full }}
           {{ end }}
           <pre id="citeBibtexContent" class="bg-light border p-2" style="max-height: 50vh;">@misc{{ printf "{%s" ($talk_id | replace "." "-") }},
     title = {{ printf "{%s}" $talk.title }},
