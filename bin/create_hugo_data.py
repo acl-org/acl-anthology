@@ -33,7 +33,7 @@ Options:
 """
 
 from docopt import docopt
-from collections import Counter, defaultdict
+from collections import Counter
 from functools import cache
 import logging as log
 import msgspec
