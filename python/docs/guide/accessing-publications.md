@@ -46,7 +46,7 @@ anthology.get("2022.acl-long.220")  # returns the Paper '2022.acl-long.220'
 
 As you can see above, Anthology IDs like `2022.acl-long.220` can be split into parts
 representing the _collection_, _volume_, and _paper_.  You can use the utility
-functions in [`utils.ids`](../api/utils.md#utilsids) to convert IDs between strings
+functions in [`utils.ids`](../api/utils.ids.md) to convert IDs between strings
 and tuples:
 
 ```python
@@ -75,20 +75,17 @@ paper.full_id_tuple                   # returns ('2022.acl', 'long', '220')
 
 ## Looking up publications
 
-As we saw above, all collections, volumes, and papers can be accessed by calling
-[`anthology.get()`][acl_anthology.anthology.Anthology.get] with their Anthology
-ID.  If you know that you are looking for a specific type of item, you can also use:
+If you know that you are looking for a specific type of item, you can also use:
 
+- [`anthology.get_collection()`][acl_anthology.anthology.Anthology.get_collection] to only look up collections
 - [`anthology.get_volume()`][acl_anthology.anthology.Anthology.get_volume] to only look up volumes
 - [`anthology.get_paper()`][acl_anthology.anthology.Anthology.get_paper] to only look up papers
 
 ### Working with containers
 
-You can also store and work with the child objects (representing
-e.g. collections or volumes) directly.  Following the [data
-hierarchy](#data-hierarchy) described above, child objects of the
-[`Anthology`][acl_anthology.anthology.Anthology] class are also organized in a
-hierarchical fashion:
+Following the [data hierarchy](#data-hierarchy) described above, child objects
+of the [`Anthology`][acl_anthology.anthology.Anthology] class are also organized
+in a hierarchical fashion:
 
 - The [`CollectionIndex`][acl_anthology.collections.index.CollectionIndex] is a container mapping collection IDs to [`Collection`][acl_anthology.collections.collection.Collection] objects. _(The index is accessible as `anthology.collections`.)_
 - [`Collection`][acl_anthology.collections.collection.Collection] objects are containers mapping volume IDs to [`Volume`][acl_anthology.collections.volume.Volume] objects.
@@ -104,9 +101,9 @@ anthology.collections["2022.acl"]["long"]["220"]  # same
 
 !!! tip
 
-    **The rule of thumb is that all containers provide dictionary-like functionality.**
+    As a general rule, all containers provide **complete dictionary-like functionality**.
 
-This means that, among other things, the following all work as they would with a regular dictionary object:
+The following all work as they would with a regular dictionary object:
 
 ```python
 volume = anthology.get_volume("2022.acl-long")
@@ -168,8 +165,8 @@ Events can be accessed through
 [`anthology.get_event()`][acl_anthology.anthology.Anthology.get_event] or via
 `anthology.events`, which is the
 [`EventIndex`][acl_anthology.collections.eventindex.EventIndex]. Event IDs are
-typically of the form `{venue}-{year}`; e.g., "acl-2022" is the event ID for ACL
-2022:
+currently required to be of the form `{venue}-{year}`; e.g., "acl-2022" is the
+event ID for ACL 2022:
 
 ```python
 event = anthology.get_event("acl-2022")
@@ -183,12 +180,13 @@ Papers and volumes can infer their associated events via
 ```
 
 
-## Loading the entire Anthology data
+## Explicitly loading data
 
-The Anthology metadata is distributed across many individual XML and YAML files
-_(over 1,500 files as of October 2023)_, and loading all of this data can take a
-bit of time and memory.  Fortunately, you normally don't need to worry about
-that, as the Anthology library only loads files on-demand as they are required.
+The Anthology metadata is distributed across many individual XML and YAML files,
+and loading all of this data can take a bit of time and memory.  Fortunately,
+you normally don't need to worry about that, as the Anthology library
+**implements lazy-loading** and only loads files on-demand as they are required.
+
 For example, if you access the paper with ID `2022.acl-long.220`, the library
 will load the file `xml/2022.acl.xml` from the data directory, which (hopefully)
 contains the metadata for the requested paper.
@@ -200,12 +198,21 @@ anyway, it _can_ be faster to load the entire Anthology data at once:
 anthology.load_all()
 ```
 
-!!! warning
+!!! tip
 
-    It is **_never required_** to call this function, and calling it **may**
-    or **may not** provide a speed-up, depending on what kind of data you are
+    It should **_never be required_** to call `.load_all()`, and calling it may
+    or may not provide a speed-up, depending on what kind of data you are
     accessing and in which manner.
 
-When developing or modifying the Anthology data, this function can also be
+The following actions currently will trigger the entire Anthology data to be
+loaded, so you may want to use `.load_all()` if you are planning to do any of
+the following:
+
+- Accessing [persons][acl_anthology.people.person.Person] or the
+  [PersonIndex][acl_anthology.people.index.PersonIndex].
+- Accessing [venue][acl_anthology.venues.Venue] objects.
+- Accessing the [BibkeyIndex][acl_anthology.collections.bibkeys.BibkeyIndex].
+
+When developing or modifying the Anthology data, `.load_all()` can also be
 useful to check that the library can read and process the entirety of the data
 in the data directory without errors.

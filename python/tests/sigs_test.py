@@ -12,8 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import itertools as it
+import pytest
 from pathlib import Path
 from acl_anthology.sigs import SIGIndex, SIGMeeting, SIG
+
+
+all_toy_sigs = ("sigdat", "sigsem")
 
 
 def test_sig_defaults():
@@ -53,15 +58,33 @@ ShortName: FOO
     assert out == expected
 
 
-def test_sig_roundtrip_yaml(anthology_stub, tmp_path):
-    yaml_in = anthology_stub.datadir / "yaml" / "sigs" / "sigsem.yaml"
+@pytest.mark.parametrize(
+    ("sig_id", "strip_comments"),
+    (
+        pytest.param(
+            *args,
+            marks=(
+                pytest.mark.xfail(reason="YAML comments are not preserved")
+                if args[-1] is False
+                else ()
+            ),
+        )
+        for args in it.product(all_toy_sigs, (True, False))
+    ),
+)
+def test_sig_roundtrip_yaml(anthology_stub, tmp_path, sig_id, strip_comments):
+    yaml_in = anthology_stub.datadir / "yaml" / "sigs" / f"{sig_id}.yaml"
+    yaml_out = tmp_path / f"{sig_id}.yaml"
     sig = SIG.load_from_yaml(None, yaml_in)
-    yaml_out = tmp_path / "sigsem.yaml"
     sig.save(yaml_out)
-    assert yaml_out.is_file()
+
     with open(yaml_in, "r") as f, open(yaml_out, "r") as g:
-        # Comments will unfortunately be deleted upon saving ...
-        expected = "\n".join(line.split("#")[0].rstrip() for line in f.readlines()) + "\n"
+        if strip_comments:
+            expected = (
+                "\n".join(line.split("#")[0].rstrip() for line in f.readlines()) + "\n"
+            )
+        else:
+            expected = f.read()
         out = g.read()
     assert out == expected
 
@@ -92,5 +115,5 @@ def test_sig_by_volume(anthology):
     assert index.by_volume("2022.acl-long") == []
     assert index.by_volume("2022.acl-demo") == [index["sigdat"]]
     sigs = index.by_volume("2022.naloma-1")
-    assert len(sigs) == 2
-    assert set(sig.id for sig in sigs) == {"sigdat", "sigsem"}
+    assert len(sigs) == len(all_toy_sigs)
+    assert set(sig.id for sig in sigs) == set(all_toy_sigs)
