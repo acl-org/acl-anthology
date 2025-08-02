@@ -1,6 +1,5 @@
 {{ define "main" }}
-{{ $first_letter := slicestr .Params.name 0 1 }}
-{{ $person := index .Site.Data.people $first_letter .Params.name }}
+{{ $person := index .Site.Data.people .Params.name }}
 <section id="main">
   <h2 id="title">
     <!-- {{- .Title -}} -->
@@ -24,7 +23,7 @@
     {{ $len := (len .) }}
     {{ range $index, $sim_id := . }}
     {{ trim (partial "author_link.html" (dict "ctx" $ "person" (dict "id" $sim_id))) " \n" | safeHTML }}
-    {{ $sim_person := index $.Site.Data.people (slicestr $sim_id 0 1) $sim_id }}{{ with $sim_person.comment }}({{.}}){{ end }}{{ if ne (add $index 1) $len }}, {{ end }}
+    {{ $sim_person := index $.Site.Data.people $sim_id }}{{ with $sim_person.comment }}({{.}}){{ end }}{{ if ne (add $index 1) $len }}, {{ end }}
     {{ end }}
   </p>
   {{ end }}
