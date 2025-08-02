@@ -17,7 +17,7 @@
 from __future__ import annotations
 
 import sys
-from attrs import define, field, validators as v, Factory
+from attrs import define, field, validators as v
 from lxml import etree
 from lxml.builder import E
 from pathlib import Path
@@ -191,55 +191,3 @@ class VideoReference(FileReference):
         if not self.permission:
             elem.set("permission", "false")
         return elem
-
-
-@define
-class PapersWithCodeReference:
-    """Class aggregating [Papers with Code](https://paperswithcode.com/) (PwC) links in a paper.
-
-    Attributes:
-        code: An official code repository, given as a tuple of the form `(name, url)`.
-        community_code: Whether the PwC page of the paper has additional, community-provided code links.
-        datasets: A list of datasets on PwC, given as tuples of the form `(name, url)`.
-    """
-
-    code: Optional[tuple[str | None, str]] = field(default=None)
-    community_code: bool = field(default=False)
-    datasets: list[tuple[str | None, str]] = Factory(list)
-
-    def append_from_xml(self, elem: etree._Element) -> None:
-        """Appends information from a `<pwccode>` or `<pwcdataset>` block to this reference."""
-        pwc_tuple = (elem.text, elem.get("url", ""))
-        if elem.tag == "pwccode":
-            self.community_code = xsd_boolean(elem.get("additional", ""))
-            self.code = pwc_tuple if any(pwc_tuple) else None
-        elif elem.tag == "pwcdataset":
-            self.datasets.append(pwc_tuple)
-        else:  # pragma: no cover
-            raise ValueError(
-                f"Unsupported element for PapersWithCodeReference: <{elem.tag}>"
-            )
-
-    def to_xml_list(self) -> list[etree._Element]:
-        """
-        Returns:
-            A serialization of all PapersWithCode information as a list of corresponding XML tags in the Anthology XML format.
-        """
-        elements = []
-        if self.code or self.community_code:
-            additional = str(self.community_code).lower()
-            if self.code is None:
-                elements.append(E.pwccode(url="", additional=additional))
-            else:
-                args = [self.code[0]] if self.code[0] is not None else []
-                elements.append(
-                    E.pwccode(
-                        *args,
-                        url=self.code[1],
-                        additional=additional,
-                    )
-                )
-        for dataset in self.datasets:
-            args = [dataset[0]] if dataset[0] is not None else []
-            elements.append(E.pwcdataset(*args, url=dataset[1]))
-        return elements

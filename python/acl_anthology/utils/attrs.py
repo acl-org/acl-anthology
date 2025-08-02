@@ -73,7 +73,6 @@ def auto_validate_types(
         AttachmentReference,
         EventFileReference,
         VideoReference,
-        PapersWithCodeReference,
     )
     from ..people import Name, NameSpecification
     from ..text import MarkupText
@@ -89,7 +88,6 @@ def auto_validate_types(
             AttachmentReference,
             EventFileReference,
             VideoReference,
-            PapersWithCodeReference,
             MarkupText,
             Name,
             NameSpecification,

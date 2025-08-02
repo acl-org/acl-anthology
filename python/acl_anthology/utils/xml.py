@@ -60,7 +60,6 @@ TAGS_WITH_ORDER_SEMANTICS = {
     "attachment",
     "award",
     "video",
-    "pwcdataset",
 }
 """XML tags that may appear multiple times per parent tag, and whose relative order matters even if their parent tag belongs to `TAGS_WITH_UNORDERED_CHILDREN`."""
 

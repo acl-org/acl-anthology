@@ -2,9 +2,9 @@
 
 ## [UNRELEASED]
 
-### Changed
+### Removed
 
-- `PapersWithCodeReference.code` will now always correctly be `None` if neither name or URL for a code repository are given, instead of `(None, '')` which was previously possible.
+- `PapersWithCodeReference` has been removed as Papers with Code is no longer functional.
 
 ## [0.5.3] — 2025-06-22
 

@@ -30,7 +30,6 @@ LIST_ELEMENTS = (
     "revision",
     "erratum",
     "award",
-    "pwcdataset",
     "video",
     "venue",
 )
@@ -65,12 +64,6 @@ def parse_element(xml_element):
                 elif tag == "last":
                     last = subelement.text or ""
             value = (first, last, id_)
-        elif tag == "pwccode":
-            value = {
-                "url": element.get("url"),
-                "additional": element.get("additional"),
-                "name": element.text,
-            }
         else:
             value = element.text
 
@@ -105,12 +98,6 @@ def parse_single_element(element):
             elif tag == "last":
                 last = subelement.text or ""
         value = (first, last, id_)
-    elif tag == "pwccode":
-        value = {
-            "url": element.get("url"),
-            "additional": element.get("additional"),
-            "name": element.text,
-        }
     else:
         value = element.text
 
