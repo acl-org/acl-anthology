@@ -12,12 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import filecmp
 import pytest
 from lxml import etree
 from pathlib import Path
 
 from acl_anthology import Anthology
-from acl_anthology.collections import Collection, CollectionIndex, VolumeType
+from acl_anthology.collections import (
+    Collection,
+    CollectionIndex,
+    EventLinkingType,
+    VolumeType,
+)
 from acl_anthology.people import NameSpecification
 from acl_anthology.utils import xml
 from acl_anthology.text import MarkupText
@@ -101,8 +107,11 @@ def test_collection_validate_schema(collection_index, shared_datadir, filename):
     collection.validate_schema()
 
 
+@pytest.mark.parametrize("minimal_diff", (True, False))
 @pytest.mark.parametrize("filename", test_cases_xml_roundtrip)
-def test_collection_roundtrip_save(collection_index, shared_datadir, tmp_path, filename):
+def test_collection_roundtrip_save(
+    collection_index, shared_datadir, tmp_path, filename, minimal_diff
+):
     infile = shared_datadir / "anthology" / "xml" / filename
     outfile = tmp_path / filename
     # Load & save collection
@@ -110,12 +119,24 @@ def test_collection_roundtrip_save(collection_index, shared_datadir, tmp_path, f
         filename.replace(".xml", ""), parent=collection_index, path=infile
     )
     collection.load()
-    collection.save(path=outfile)
+    collection.save(path=outfile, minimal_diff=minimal_diff)
     # Compare
     assert outfile.is_file()
-    expected = etree.parse(infile)
-    out = etree.parse(outfile)
-    xml.assert_equals(out.getroot(), expected.getroot())
+    if not minimal_diff:
+        # Tests for logical equivalence
+        expected = etree.parse(collection.path)
+        result = etree.parse(outfile)
+        xml.assert_equals(result.getroot(), expected.getroot())
+    else:
+        # Tests for byte-level equivalence
+        if not filecmp.cmp(outfile, infile):
+            # Assertion failed, but assert on the lines so we see a diff
+            with (
+                open(outfile, "r", encoding="utf-8") as f,
+                open(infile, "r", encoding="utf-8") as g,
+            ):
+                out_lines, exp_lines = f.readlines(), g.readlines()
+            assert exp_lines == out_lines
 
 
 def test_collection_create_volume_implicit(collection_index):
@@ -231,7 +252,9 @@ def test_collection_create_volume_should_create_event(anthology, pre_load, reset
 
     # New implicit event should exist in the event index
     assert "acl-2000" in anthology.events
-    assert volume.full_id_tuple in anthology.events["acl-2000"].colocated_ids
+    assert (volume.full_id_tuple, EventLinkingType.INFERRED) in anthology.events[
+        "acl-2000"
+    ].colocated_ids
     assert volume.full_id_tuple in anthology.events.reverse
     assert anthology.events.reverse[volume.full_id_tuple] == {"acl-2000"}
 
@@ -262,7 +285,9 @@ def test_collection_create_volume_should_update_event(anthology, pre_load, reset
 
     # New volume should be added to existing event
     assert "acl-2022" in anthology.events
-    assert volume.full_id_tuple in anthology.events["acl-2022"].colocated_ids
+    assert (volume.full_id_tuple, EventLinkingType.INFERRED) in anthology.events[
+        "acl-2022"
+    ].colocated_ids
     assert volume.full_id_tuple in anthology.events.reverse
     assert anthology.events.reverse[volume.full_id_tuple] == {"acl-2022"}
 
@@ -331,7 +356,9 @@ def test_collection_create_event_should_update_eventindex(pre_load, anthology):
 
     if pre_load:
         # Volume should automatically have been added
-        assert event.colocated_ids == [collection.get("1").full_id_tuple]
+        assert event.colocated_ids == [
+            (collection.get("1").full_id_tuple, EventLinkingType.INFERRED)
+        ]
     else:
         # If event index wasn't loaded, it's not
         assert event.colocated_ids == []

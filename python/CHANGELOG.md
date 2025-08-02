@@ -1,15 +1,27 @@
 # Changelog
 
-## [Unreleased]
+## [0.5.3] — 2025-06-22
+
+This release adds more functionality for ingesting new proceedings and modifying existing data.
 
 ### Added
 
+- Collections now use a minimal-diff algorithm when saving back to XML, ensuring that `save()` can be called without generating unnecessary changes in the XML files.
 - MarkupText can now be instantiated from strings (potentially) containing LaTeX markup.
   - This reimplements functionality used at ingestion time previously found in `bin/latex_to_unicode.py`.
+- Paper objects now have a `type` attribute indicating if they are frontmatter, backmatter, or a regular paper.
+  - This adds support for the `<paper type="backmatter">` attribute that was previously ignored, and slightly refactors how frontmatter is identified, making it more explicit rather than just relying on the paper ID.
+- Paper now exposes `<mrf>` elements, currently only used in a single collection, as "attachments" of type "mrf".
 
 ### Changed
 
+- Event: `colocated_ids` has changed from listing VolumeIDs to listing tuples of `(VolumeID, EventLinkingType)`, where EventLinkingType now makes clear if the association between the VolumeID and the Event was inferred or explicitly defined in the XML (in a `<colocated>` block).
 - MarkupText: Typographic quotes now convert to/from LaTeX quotes more consistently.
+- Names: Fixed some inconsistencies where `<first/>`, `<first></first>`, and a missing "first" tag would not be considered fully equivalent (within `Name` and `utils.xml.assert_equals`).
+- Paper attachments without a type attribute in the XML now give their type as an empty string (instead of defaulting to "attachment"), in order to be able to reconstruct whether there was an explicit type attribute or not.
+- Made `utils.xml.assert_equals` more robust and added some explicit tests for it.
+  - Fixed a bug where `utils.xml.assert_equals` did not take into account that the relative order of some XML tags matters, e.g. `<author>` or `<editor>`, and would still consider them equal if those were reordered.
+- Made `utils.xml.indent` more robust to a few edge cases.
 
 ## [0.5.2] — 2025-05-16
 
