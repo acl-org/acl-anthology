@@ -11,8 +11,8 @@ Our central guiding corrections principle is that **we view the content of PDFs 
 
 This view drives four main types of corrections:
 
-* [_Your papers are split across two or more author pages_](#merging-author-papers). For example, you have published papers under variations of your name, or changed your name after marrying.
-* [_Your papers are mixed with someone else's_](#splitting-author-pages). We can help you disambiguate them.
+* [_You have more than one author page_](#merging-author-pages). This occurs if you published papers under different variations of your name, or if you changed your name.
+* [_Your papers are mixed with someone else's_](#splitting-author-pages). If multiple people publish under the same name, we need to manually disambiguate them.
 * [_There are problems with the PDF_](#pdf-corrections). We can process corrections, revisions, errata, and retractions.
 * [_The PDF is fine, but there are problems with the metadata_](#metadata-corrections). Errors in the title, abstract, author names, or list of authors.
 
@@ -48,10 +48,12 @@ In such cases, we will ask authors to arrange for this permission to be conveyed
 
 ### Merging author pages
 
+If you have published papers under different names, you will end up with multiple author profiles in the Anthology. We can merge these into a single page under your preferred name.
+
 Please pay careful attention to the following steps.
 
 1. **Ensure that each name is correct**. We treat the information on the PDF as authoritative; this means that the metadata should reflect exactly what is printed on the PDF. A common situation is that the name recorded in Anthology metadata (e.g., John P. Hancock) will not match what is displayed on the PDF (John Hancock). This needs to be corrected first. Please review your papers and [follow the steps here](#metadata-corrections) to correct any discrepancies. Sometimes, this will resolve the split pages.
-2. Obtain [an ORCID](https://orcid.org) (pronounced `/ˈɔɹ.kɪd/`, like the flower). This is required to help with matching of future papers.
+2. Obtain [an ORCID](https://orcid.org). This is required to help with matching of future papers.
 3. Fill out [an author page correction](https://github.com/acl-org/acl-anthology/issues/new?template=02-name-correction.yml). A Github issue is our preferred mechanism, but you can also email [the Anthology director](mailto:anthology@aclweb.org).
 4. Finally, to avoid issues in the future, ensure that the name you use on papers is properly recorded in your profile in publication management systems such as [Open Review](https://openreview.net), [Softconf](https://softconf.com), [EasyChair](https://easychair.org), and so on.
 
