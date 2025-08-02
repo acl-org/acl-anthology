@@ -77,8 +77,9 @@ RewriteRule ^files/(.*)$ anthology-files/files/$1 [L,NC]
 # Thumbnails (e.g., /thumb/P17-1069.jpg loads anthology-files/thumb/P17-1069.jpg)
 RewriteRule ^thumb/(.*)$ anthology-files/thumb/$1 [L,NC]
 
-# Author pages (e.g., people/arya-d-mccarthy loads people/a/arya-d-mccarthy)
-RewriteRule ^people/([a-z])([\-a-z0-9]*)$ people/$1/$1$2/ [L,NC]
+# Author pages. A request for the old-style URL /people/m/matt-post should give a 301 redirect
+# to /people/matt-post.
+RewriteRule ^people/([a-z])/$1([\-a-z0-9]*)$ people/$1/$1$2/ [R=301,L,NC]
 
 # Videos
 ## match old-style URLs, e.g., /N13-1001.mp4 -> anthology-files/videos/N/N13-1001.mp4
