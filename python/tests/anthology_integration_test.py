@@ -70,6 +70,14 @@ def test_full_anthology_should_validate_schema(full_anthology):
 
 
 @pytest.mark.integration
+@pytest.mark.xfail(
+    raises=FileNotFoundError, reason="Main data folder not yet transitioned to new format"
+)
+def test_full_anthology_should_build_personindex(full_anthology):
+    full_anthology.people.build()
+
+
+@pytest.mark.integration
 @pytest.mark.parametrize("minimal_diff", (True, False))
 def test_full_anthology_roundtrip_xml(
     full_anthology, full_anthology_collection_id, tmp_path, minimal_diff
