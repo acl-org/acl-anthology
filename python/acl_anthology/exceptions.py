@@ -78,10 +78,10 @@ class AnthologyXMLError(AnthologyException, ValueError):
         self.tag = tag
 
 
-class NameIDUndefinedError(AnthologyException):
-    """Raised when an author ID was requested that is not defined.
+class NameSpecResolutionError(AnthologyException):
+    """Raised when a NameSpecification cannot be resolved to a person.
 
-    This can happen when an `<author>` or `<editor>` was used with an ID which was not defined in `people.yaml`, or when trying to look up a NameSpecification that does not correspond to any Person in the PersonIndex.
+    This should never happen with a NameSpecification from the loaded Anthology data, but might happen if a NameSpecification is manually created.
 
     Attributes:
         name_spec (NameSpecification): The name specification that raised the error.
@@ -90,6 +90,18 @@ class NameIDUndefinedError(AnthologyException):
     def __init__(self, name_spec: NameSpecification, message: str) -> None:
         super().__init__(message)
         self.name_spec = name_spec
+
+
+class PersonUndefinedError(NameSpecResolutionError):
+    """Raised when a person ID or name must be explicitly defined, but isn't.
+
+    This can happen when an `<author>` or `<editor>` is used with an ID which was not defined in `people.yaml`, or when the name used together with this ID was not listed among the possible names in `people.yaml`.
+
+    Attributes:
+        name_spec (NameSpecification): The name specification that raised the error.
+    """
+
+    pass
 
 
 class SchemaMismatchWarning(UserWarning):

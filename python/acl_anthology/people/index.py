@@ -31,7 +31,7 @@ except ImportError:  # pragma: no cover
     from yaml import Loader, Dumper  # type: ignore
 
 from ..containers import SlottedDict
-from ..exceptions import AnthologyException, NameIDUndefinedError
+from ..exceptions import AnthologyException, NameSpecResolutionError, PersonUndefinedError
 from ..utils.ids import AnthologyIDTuple, is_verified_person_id
 from ..utils.logging import get_logger
 from . import Person, Name, NameSpecification
@@ -95,7 +95,7 @@ class PersonIndex(SlottedDict[Person]):
     def get_by_namespec(self, name_spec: NameSpecification) -> Person:
         """Access persons by their name specification.
 
-        See [get_or_create_person()][acl_anthology.people.index.PersonIndex.get_or_create_person] for exceptions that can be raised by this function.
+        See [resolve_namespec()][acl_anthology.people.index.PersonIndex.resolve_namespec] for exceptions that can be raised by this function.
 
         Parameters:
             name_spec: A name specification.
@@ -105,7 +105,7 @@ class PersonIndex(SlottedDict[Person]):
         """
         if not self.is_data_loaded:
             self.load()
-        return self.get_or_create_person(name_spec, create=False)
+        return self.resolve_namespec(name_spec)
 
     def find_coauthors(
         self, person: str | Person, include_volumes: bool = True
@@ -147,13 +147,9 @@ class PersonIndex(SlottedDict[Person]):
                 and not cast("Volume", item).has_frontmatter
             ):
                 continue
-            coauthors.update(
-                self.get_or_create_person(ns, create=False).id for ns in item.editors
-            )
+            coauthors.update(self.resolve_namespec(ns).id for ns in item.editors)
             if hasattr(item, "authors"):
-                coauthors.update(
-                    self.get_or_create_person(ns, create=False).id for ns in item.authors
-                )
+                coauthors.update(self.resolve_namespec(ns).id for ns in item.authors)
         del coauthors[person.id]
         return coauthors
 
@@ -194,7 +190,7 @@ class PersonIndex(SlottedDict[Person]):
                 context: Paper | Volume = volume
                 try:
                     for name_spec in volume.editors:
-                        person = self.get_or_create_person(name_spec)
+                        person = self.resolve_namespec(name_spec, allow_creation=True)
                         person.item_ids.append(volume.full_id_tuple)
                     for paper in volume.papers():
                         context = paper
@@ -206,7 +202,7 @@ class PersonIndex(SlottedDict[Person]):
                             else paper.get_editors()
                         )
                         for name_spec in name_specs:
-                            person = self.get_or_create_person(name_spec)
+                            person = self.resolve_namespec(name_spec, allow_creation=True)
                             person.item_ids.append(paper.full_id_tuple)
                 except Exception as exc:
                     note = f"Raised in {context.__class__.__name__} {context.full_id}; {name_spec}"
@@ -276,31 +272,34 @@ class PersonIndex(SlottedDict[Person]):
             if is_verified_person_id(pid):
                 self.slugs_to_verified_ids[name.slugify()].append(pid)
 
-    def get_or_create_person(
-        self, name_spec: NameSpecification, create: bool = True
+    def resolve_namespec(
+        self, name_spec: NameSpecification, allow_creation: bool = False
     ) -> Person:
-        """Get the person represented by a name specification, or create a new one if needed.
+        """Resolve a name specification to a person, potentially creating it.
 
         Parameters:
             name_spec: The name specification on the paper, volume, etc.
-            create: If False, will not create a new Person object, but instead raise `NameIDUndefinedError` if no person matching `name_spec` exists.  Defaults to True.
+            allow_creation: If True, will instantiate a new Person object with an unverified ID if no person matching `name_spec` exists.  Defaults to False.
 
         Returns:
-            The person represented by `name_spec`.  This will try to use the `id` attribute if it is set, look up the name in the index otherwise, or try to find a matching person by way of an ID clash.  If all of these fail, it will create a new person and return that.
+            The person represented by `name_spec`.  If `name_spec.id` is set, this will determine the person to resolve to.  Otherwise, the slugified name will be used to find a matching person; an explicitly-defined (verified) person can be returned if exactly one such person exists and does not have `disable_name_matching` set.  In all other cases, it will resolve to an unverified person.
 
         Raises:
-            NameIDUndefinedError: If there is an explicit `id` attribute, but the ID has not been defined.
+            NameSpecResolutionError: If `name_spec` cannot be resolved to a Person and `allow_creation` is False.
+            PersonUndefinedError: If `name_spec.id` is set, but either the ID or the name used with the ID has not been defined in `people.yaml`. (Inherits from NameSpecResolutionError)
         """
         name = name_spec.name
         if (pid := name_spec.id) is not None:
             # Explicit ID given – should be explicitly defined in people.yaml
             if pid not in self.data or not (person := self.data[pid]).is_explicit:
-                raise NameIDUndefinedError(
-                    name_spec,
-                    f"Name '{name}' used with ID '{pid}' that wasn't defined in people.yaml",
+                raise PersonUndefinedError(
+                    name_spec, f"ID '{pid}' wasn't defined in people.yaml"
                 )
-            # TODO: Name also needs to have been defined in people.yaml!
-            person.add_name(name)
+            if name not in person.names:
+                raise PersonUndefinedError(
+                    name_spec,
+                    f"ID '{pid}' was used with name '{name}' that wasn't defined in people.yaml",
+                )
         else:
             # No explicit ID given – generate slug for name matching
             slug = name.slugify()
@@ -336,14 +335,14 @@ class PersonIndex(SlottedDict[Person]):
                         else:
                             person.add_name(name)
                         self.name_to_ids[name].append(pid)
-                elif create:
+                elif allow_creation:
                     # Unverified ID doesn't exist yet; create it
                     person = Person(id=pid, parent=self.parent, names=[name])
                     self.add_person(person)
                 else:
-                    raise NameIDUndefinedError(
+                    raise NameSpecResolutionError(
                         name_spec,
-                        f"Name '{name}' generated ID '{pid}' that doesn't exist",
+                        f"NameSpecification resolved to ID '{pid}' which doesn't exist",
                     )
 
         # Make sure that name variants specified here are registered
@@ -366,7 +365,7 @@ class PersonIndex(SlottedDict[Person]):
             return
 
         for namespec in namespecs:
-            person = self.get_or_create_person(namespec)
+            person = self.resolve_namespec(namespec, allow_creation=True)
             person.item_ids.append(item_id)
 
     def save(self, path: StrPath) -> None:

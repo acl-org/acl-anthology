@@ -13,7 +13,7 @@
 # limitations under the License.
 
 import pytest
-from acl_anthology.exceptions import NameIDUndefinedError
+from acl_anthology.exceptions import NameSpecResolutionError
 from acl_anthology.people import Name, NameSpecification, Person, PersonIndex
 
 
@@ -138,7 +138,7 @@ def test_get_by_namespec(index_with_full_anthology):
     index = index_with_full_anthology
     ns1 = NameSpecification(Name("Yang", "Liu"))
     ns2 = NameSpecification(Name("Yang", "Liu"), id="yang-liu-microsoft")
-    with pytest.raises(NameIDUndefinedError):
+    with pytest.raises(NameSpecResolutionError):
         index.get_by_namespec(ns1)
     person = index.get_by_namespec(ns2)
     assert person.id == "yang-liu-microsoft"
