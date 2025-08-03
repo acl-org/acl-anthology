@@ -53,7 +53,7 @@ class SIG:
     id: str = field(converter=str)
     acronym: str = field(converter=str)
     name: str = field(converter=str)
-    path: Path = field(converter=Path)
+    path: Path = field(converter=Path, eq=False)
     url: Optional[str] = field(default=None, validator=v.optional(v.instance_of(str)))
     meetings: list[str | SIGMeeting] = field(factory=list, repr=False)
 
@@ -158,7 +158,7 @@ class SIG:
                 yaml.dump({"Meetings": values_meetings}, f, Dumper=Dumper, width=999)
 
 
-@define
+@define(unsafe_hash=True)
 class SIGMeeting:
     """A meeting of a SIG that doesn't have a volume in the Anthology.
 

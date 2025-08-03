@@ -26,7 +26,6 @@
       <abstract>Deep neural language models such as BERT have enabled substantial recent advances in many natural language processing tasks. However, due to the effort and computational cost involved in their pre-training, such models are typically introduced only for a small number of high-resource languages such as English. While multilingual models covering large numbers of languages are available, recent work suggests monolingual training can produce better models, and our understanding of the tradeoffs between mono- and multilingual training is incomplete. In this paper, we introduce a simple, fully automated pipeline for creating language-specific BERT models from Wikipedia data and introduce 42 new such models, most for languages up to now lacking dedicated deep neural language models. We assess the merits of these models using cloze tests and the state-of-the-art UDify parser on Universal Dependencies data, contrasting performance with results using the multilingual BERT (mBERT) model. We find that the newly introduced WikiBERT models outperform mBERT in cloze tests for nearly all languages, and that UDify using WikiBERT models outperforms the parser using mBERT on average, with the language-specific models showing substantially improved performance for some languages, yet limited improvement or a decrease in performance for others. All of the methods and models introduced in this work are available under open licenses from <url>https://github.com/turkunlp/wikibert</url>.</abstract>
       <url hash="7cca7cfa">2021.nodalida-main.1</url>
       <bibkey>pyysalo-etal-2021-wikibert</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/universal-dependencies">Universal Dependencies</pwcdataset>
     </paper>
     <paper id="2">
       <title><fixed-case>E</fixed-case>st<fixed-case>BERT</fixed-case>: A Pretrained Language-Specific <fixed-case>BERT</fixed-case> for <fixed-case>E</fixed-case>stonian</title>
@@ -49,7 +48,6 @@
       <abstract>In this work, we show the process of building a large-scale training set from digital and digitized collections at a national library. The resulting Bidirectional Encoder Representations from Transformers (BERT)-based language model for Norwegian outperforms multilingual BERT (mBERT) models in several token and sequence classification tasks for both Norwegian Bokmål and Norwegian Nynorsk. Our model also improves the mBERT performance for other languages present in the corpus such as English, Swedish, and Danish. For languages not included in the corpus, the weights degrade moderately while keeping strong multilingual properties. Therefore, we show that building high-quality models within a memory institution using somewhat noisy optical character recognition (OCR) content is feasible, and we hope to pave the way for other memory institutions to follow.</abstract>
       <url hash="51be5fb2">2021.nodalida-main.3</url>
       <bibkey>kummervold-etal-2021-operationalizing</bibkey>
-      <pwccode url="https://github.com/NBAiLab/notram" additional="true">NBAiLab/notram</pwccode>
     </paper>
     <paper id="4">
       <title>Large-Scale Contextualised Language Modelling for <fixed-case>N</fixed-case>orwegian</title>
@@ -62,8 +60,6 @@
       <abstract>We present the ongoing NorLM initiative to support the creation and use of very large contextualised language models for Norwegian (and in principle other Nordic languages), including a ready-to-use software environment, as well as an experience report for data preparation and training. This paper introduces the first large-scale monolingual language models for Norwegian, based on both the ELMo and BERT frameworks. In addition to detailing the training process, we present contrastive benchmark results on a suite of NLP tasks for Norwegian. For additional background and access to the data, models, and software, please see: <url>http://norlm.nlpl.eu</url></abstract>
       <url hash="a9eecc98">2021.nodalida-main.4</url>
       <bibkey>kutuzov-etal-2021-large</bibkey>
-      <pwccode url="https://github.com/ltgoslo/NorBERT" additional="true">ltgoslo/NorBERT</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/norne">NorNE</pwcdataset>
     </paper>
     <paper id="5">
       <title>Extremely low-resource machine translation for closely related languages</title>
@@ -93,7 +89,6 @@
       <abstract>Being able to generate accurate word alignments is useful for a variety of tasks. While statistical word aligners can work well, especially when parallel training data are plentiful, multilingual embedding models have recently been shown to give good results in unsupervised scenarios. We evaluate an ensemble method for word alignment on four language pairs and demonstrate that by combining multiple tools, taking advantage of their different approaches, substantial gains can be made. This holds for settings ranging from very low-resource to high-resource. Furthermore, we introduce a new gold alignment test set for Icelandic and a new easy-to-use tool for creating manual word alignments.</abstract>
       <url hash="4c03e2e2">2021.nodalida-main.7</url>
       <bibkey>steingrimsson-etal-2021-combalign</bibkey>
-      <pwccode url="https://github.com/steinst/alignman" additional="false">steinst/alignman</pwccode>
     </paper>
     <paper id="8">
       <title>Understanding Cross-Lingual Syntactic Transfer in Multilingual Recurrent Neural Networks</title>
@@ -103,7 +98,6 @@
       <abstract>It is now established that modern neural language models can be successfully trained on multiple languages simultaneously without changes to the underlying architecture, providing an easy way to adapt a variety of NLP models to low-resource languages. But what kind of knowledge is really shared among languages within these models? Does multilingual training mostly lead to an alignment of the lexical representation spaces or does it also enable the sharing of purely grammatical knowledge? In this paper we dissect different forms of cross-lingual transfer and look for its most determining factors, using a variety of models and probing tasks. We find that exposing our LMs to a related language does not always increase grammatical knowledge in the target language, and that optimal conditions for lexical-semantic transfer may not be optimal for syntactic transfer.</abstract>
       <url hash="0ee17946">2021.nodalida-main.8</url>
       <bibkey>dhar-bisazza-2021-understanding</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/xnli">XNLI</pwcdataset>
     </paper>
     <paper id="9">
       <title>Speaker Verification Experiments for Adults and Children Using Shared Embedding Spaces</title>
@@ -115,8 +109,6 @@
       <abstract>For children, the system trained on a large corpus of adult speakers performed worse than a system trained on a much smaller corpus of children’s speech. This is due to the acoustic mismatch between training and testing data. To capture more acoustic variability we trained a shared system with mixed data from adults and children. The shared system yields the best EER for children with no degradation for adults. Thus, the single system trained with mixed data is applicable for speaker verification for both adults and children.</abstract>
       <url hash="7084e940">2021.nodalida-main.9</url>
       <bibkey>kaseva-etal-2021-speaker</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/voxceleb1">VoxCeleb1</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/voxceleb2">VoxCeleb2</pwcdataset>
     </paper>
     <paper id="10">
       <title>Spectral modification for recognition of children’s speech undermismatched conditions</title>
@@ -156,7 +148,6 @@
       <abstract>The current recipe for better model performance within NLP is to increase model size and training data. While it gives us models with increasingly impressive results, it also makes it more difficult to train and deploy state-of-the-art models for NLP due to increasing computational costs. Model compression is a field of research that aims to alleviate this problem. The field encompasses different methods that aim to preserve the performance of a model while decreasing the size of it. One such method is knowledge distillation. In this article, we investigate the effect of knowledge distillation for named entity recognition models in Swedish. We show that while some sequence tagging models benefit from knowledge distillation, not all models do. This prompts us to ask questions about in which situations and for which models knowledge distillation is beneficial. We also reason about the effect of knowledge distillation on computational costs.</abstract>
       <url hash="257f7716">2021.nodalida-main.13</url>
       <bibkey>hagstrom-johansson-2021-knowledge</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/conll-2003">CoNLL 2003</pwcdataset>
     </paper>
     <paper id="14">
       <title>Fine-grained Named Entity Annotation for <fixed-case>F</fixed-case>innish</title>
@@ -168,8 +159,6 @@
       <abstract>We introduce a corpus with fine-grained named entity annotation for Finnish, following the OntoNotes guidelines to create a resource that is cross-lingually compatible with existing annotations for other languages. We combine and extend two NER corpora recently introduced for Finnish and revise their custom annotation scheme through a combination of automatic and manual processing steps. The resulting corpus consists of nearly 500,000 tokens annotated for over 50,000 mentions categorized into the 18 OntoNotes name and numeric entity types. We evaluate this resource and demonstrate its compatibility with the English OntoNotes annotations by training state-of-the-art mono-, bi- and multilingual deep learning models, finding both that the corpus allows highly accurate recognition of OntoNotes types at 93% F-score and that a comparable level of tagging accuracy can be achieved by a bilingual Finnish-English NER model.</abstract>
       <url hash="94e80954">2021.nodalida-main.14</url>
       <bibkey>luoma-etal-2021-fine</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/finer">Finer</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/ontonotes-5-0">OntoNotes 5.0</pwcdataset>
     </paper>
     <paper id="15">
       <title>Survey and reproduction of computational approaches to dating of historical texts</title>
@@ -179,7 +168,6 @@
       <abstract>Finding the year of writing for a historical text is of crucial importance to historical research. However, the year of original creation is rarely explicitly stated and must be inferred from the text content, historical records, and codicological clues. Given a transcribed text, machine learning has successfully been used to estimate the year of production. In this paper, we present an overview of several estimation approaches for historical text archives spanning from the 12th century until today.</abstract>
       <url hash="8ac91571">2021.nodalida-main.15</url>
       <bibkey>boldsen-wahlberg-2021-survey</bibkey>
-      <pwccode url="https://github.com/fredrikwahlberg/nodalida21" additional="false">fredrikwahlberg/nodalida21</pwccode>
     </paper>
     <paper id="16">
       <title>Multilingual and Zero-Shot is Closing in on Monolingual Web Register Classification</title>
@@ -202,7 +190,6 @@
       <abstract>We train neural models for morphological analysis, generation and lemmatization for morphologically rich languages. We present a method for automatically extracting substantially large amount of training data from FSTs for 22 languages, out of which 17 are endangered. The neural models follow the same tagset as the FSTs in order to make it possible to use them as fallback systems together with the FSTs. The source code, models and datasets have been released on Zenodo.</abstract>
       <url hash="46730d67">2021.nodalida-main.17</url>
       <bibkey>hamalainen-etal-2021-neural</bibkey>
-      <pwccode url="https://github.com/mikahama/uralicNLP" additional="false">mikahama/uralicNLP</pwccode>
     </paper>
     <paper id="18">
       <title><fixed-case>C</fixed-case>o<fixed-case>D</fixed-case>e<fixed-case>R</fixed-case>oo<fixed-case>M</fixed-case>or: A new dataset for non-inflectional morphology studies of <fixed-case>S</fixed-case>wedish</title>
@@ -221,7 +208,6 @@
       <abstract>Quantitative studies of historical syntax require large amounts of syntactically annotated data, which are rarely available. The application of NLP methods could reduce manual annotation effort, provided that they achieve sufficient levels of accuracy. The present study investigates the automatic identification of chunks in historical German texts. Because no training data exists for this task, chunks are extracted from modern and historical constituency treebanks and used to train a CRF-based neural sequence labeling tool. The evaluation shows that the neural chunker outperforms an unlexicalized baseline and achieves overall F-scores between 90% and 94% for different historical data sets when POS tags are used as feature. The conducted experiments demonstrate the usefulness of including historical training data while also highlighting the importance of reducing boundary errors to improve annotation precision.</abstract>
       <url hash="386f07dc">2021.nodalida-main.19</url>
       <bibkey>ortmann-2021-chunking</bibkey>
-      <pwccode url="https://github.com/rubcompling/nodalida2021" additional="false">rubcompling/nodalida2021</pwccode>
     </paper>
     <paper id="20">
       <title>Part-of-speech tagging of <fixed-case>S</fixed-case>wedish texts in the neural era</title>
@@ -231,8 +217,6 @@
       <abstract>We train and test five open-source taggers, which use different methods, on three Swedish corpora, which are of comparable size but use different tagsets. The KB-Bert tagger achieves the highest accuracy for part-of-speech and morphological tagging, while being fast enough for practical use. We also compare the performance across tagsets and across different genres in one of the corpora. We perform manual error analysis and perform a statistical analysis of factors which affect how difficult specific tags are. Finally, we test ensemble methods, showing that a small (but not significant) improvement over the best-performing tagger can be achieved.</abstract>
       <url hash="6d1695d8">2021.nodalida-main.20</url>
       <bibkey>adesam-berdicevskis-2021-part</bibkey>
-      <pwccode url="https://github.com/aleksandrsberdicevskis/swetagging2021" additional="false">aleksandrsberdicevskis/swetagging2021</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/universal-dependencies">Universal Dependencies</pwcdataset>
     </paper>
     <paper id="21">
       <title>De-identification of Privacy-related Entities in Job Postings</title>
@@ -243,8 +227,6 @@
       <abstract>De-identification is the task of detecting privacy-related entities in text, such as person names, emails and contact data. It has been well-studied within the medical domain. The need for de-identification technology is increasing, as privacy-preserving data handling is in high demand in many domains. In this paper, we focus on job postings. We present JobStack, a new corpus for de-identification of personal data in job vacancies on Stackoverflow. We introduce baselines, comparing Long-Short Term Memory (LSTM) and Transformer models. To improve these baselines, we experiment with BERT representations, and distantly related auxiliary data via multi-task learning. Our results show that auxiliary data helps to improve de-identification performance. While BERT representations improve performance, surprisingly “vanilla” BERT turned out to be more effective than BERT trained on Stackoverflow-related data.</abstract>
       <url hash="a59b2641">2021.nodalida-main.21</url>
       <bibkey>jensen-etal-2021-de</bibkey>
-      <pwccode url="https://github.com/kris927b/JobStack" additional="false">kris927b/JobStack</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/jobstack">JobStack</pwcdataset>
     </paper>
     <paper id="22">
       <title>Creating and Evaluating a Synthetic <fixed-case>N</fixed-case>orwegian Clinical Corpus for De-Identification</title>
@@ -255,7 +237,6 @@
       <abstract>Building tools to remove sensitive information such as personal names, addresses, and telephone numbers - so called Protected Health Information (PHI) - from clinical free text is an important task to make clinical texts available for research. These de-identification tools must be assessed regarding their quality in the form of the measurements precision and re- call. To assess such tools, gold standards - annotated clinical text - must be available. Such gold standards exist for larger languages. For Norwegian, how- ever, there are no such resources. Therefore, an already existing Norwegian synthetic clinical corpus, NorSynthClinical, has been extended with PHIs and annotated by two annotators, obtaining an inter-annotator agreement of 0.94 F1-measure. In total, the corpus has 409 annotated PHI instances and is called NorSynthClinical PHI. A de-identification hybrid tool (machine learning and rule-based meth- ods) for Norwegian was developed and trained with open available resources, and obtained an overall F1-measure of 0.73 and a recall of 0.62, when tested using NorSynthClinical PHI. NorSynthClinical PHI is made open and available at Github to be used by the research community.</abstract>
       <url hash="0c83f294">2021.nodalida-main.22</url>
       <bibkey>brathen-etal-2021-creating</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/norne">NorNE</pwcdataset>
     </paper>
     <paper id="23">
       <title>Applying and Sharing pre-trained <fixed-case>BERT</fixed-case>-models for Named Entity Recognition and Classification in <fixed-case>S</fixed-case>wedish Electronic Patient Records</title>
@@ -265,7 +246,6 @@
       <abstract>To be able to share the valuable information in electronic patient records (EPR) they first need to be de-identified in order to protect the privacy of their subjects. Named entity recognition and classification (NERC) is an important part of this process. In recent years, general-purpose language models pre-trained on large amounts of data, in particular BERT, have achieved state of the art results in NERC, among other NLP tasks. So far, however, no attempts have been made at applying BERT for NERC on Swedish EPR data. This study attempts to fine-tune one Swedish BERT-model and one multilingual BERT-model for NERC on a Swedish EPR corpus. The aim is to assess the applicability of BERT-models for this task as well as to compare the two models in a domain-specific Swedish language task. With the Swedish model, recall of 0.9220 and precision of 0.9226 is achieved. This is an improvement to previous results on the same corpus since the high recall does not sacrifice precision. As the models also perform relatively well when fine-tuned with pseudonymised data, it is concluded that there is good potential in using this method in a shareable de-identification system for Swedish clinical text.</abstract>
       <url hash="f0fb8bd2">2021.nodalida-main.23</url>
       <bibkey>grancharova-dalianis-2021-applying</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/blue">BLUE</pwcdataset>
     </paper>
     <paper id="24">
       <title>An Unsupervised method for <fixed-case>OCR</fixed-case> Post-Correction and Spelling Normalisation for <fixed-case>F</fixed-case>innish</title>
@@ -276,7 +256,6 @@
       <abstract>Historical corpora are known to contain errors introduced by OCR (optical character recognition) methods used in the digitization process, often said to be degrading the performance of NLP systems. Correcting these errors manually is a time-consuming process and a great part of the automatic approaches have been relying on rules or supervised machine learning. We build on previous work on fully automatic unsupervised extraction of parallel data to train a character-based sequence-to-sequence NMT (neural machine translation) model to conduct OCR error correction designed for English, and adapt it to Finnish by proposing solutions that take the rich morphology of the language into account. Our new method shows increased performance while remaining fully unsupervised, with the added benefit of spelling normalisation. The source code and models are available on GitHub and Zenodo.</abstract>
       <url hash="32120e37">2021.nodalida-main.24</url>
       <bibkey>duong-etal-2021-unsupervised</bibkey>
-      <pwccode url="https://github.com/ruathudo/post-ocr-correction" additional="false">ruathudo/post-ocr-correction</pwccode>
     </paper>
     <paper id="25">
       <title>Learning to Lemmatize in the Word Representation Space</title>
@@ -315,12 +294,6 @@
       <abstract>Pre-trained neural language models give high performance on natural language inference (NLI) tasks. But whether they actually understand the meaning of the processed sequences is still unclear. We propose a new diagnostics test suite which allows to assess whether a dataset constitutes a good testbed for evaluating the models’ meaning understanding capabilities. We specifically apply controlled corruption transformations to widely used benchmarks (MNLI and ANLI), which involve removing entire word classes and often lead to non-sensical sentence pairs. If model accuracy on the corrupted data remains high, then the dataset is likely to contain statistical biases and artefacts that guide prediction. Inversely, a large decrease in model accuracy indicates that the original dataset provides a proper challenge to the models’ reasoning capabilities. Hence, our proposed controls can serve as a crash test for developing high quality data for NLI tasks.</abstract>
       <url hash="c358f7c4">2021.nodalida-main.28</url>
       <bibkey>talman-etal-2021-nli</bibkey>
-      <pwccode url="https://github.com/Helsinki-NLP/nli-data-sanity-check" additional="false">Helsinki-NLP/nli-data-sanity-check</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/anli">ANLI</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/glue">GLUE</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/multinli">MultiNLI</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/snli">SNLI</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/superglue">SuperGLUE</pwcdataset>
     </paper>
     <paper id="29">
       <title><fixed-case>F</fixed-case>innish Paraphrase Corpus</title>
@@ -338,11 +311,6 @@
       <abstract>In this paper, we introduce the first fully manually annotated paraphrase corpus for Finnish containing 53,572 paraphrase pairs harvested from alternative subtitles and news headings. Out of all paraphrase pairs in our corpus 98% are manually classified to be paraphrases at least in their given context, if not in all contexts. Additionally, we establish a manual candidate selection method and demonstrate its feasibility in high quality paraphrase selection in terms of both cost and quality.</abstract>
       <url hash="9656cd1e">2021.nodalida-main.29</url>
       <bibkey>kanerva-etal-2021-finnish</bibkey>
-      <pwccode url="https://github.com/TurkuNLP/Turku-paraphrase-corpus" additional="false">TurkuNLP/Turku-paraphrase-corpus</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/finnish-paraphrase-corpus">Finnish Paraphrase Corpus</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/mrpc">MRPC</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/opusparcus">Opusparcus</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/parade">PARADE</pwcdataset>
     </paper>
     <paper id="30">
       <title>Negation in <fixed-case>N</fixed-case>orwegian: an annotated dataset</title>
@@ -355,8 +323,6 @@
       <abstract>This paper introduces NorecNeg – the first annotated dataset of negation for Norwegian. Negation cues and their in-sentence scopes have been annotated across more than 11K sentences spanning more than 400 documents for a subset of the Norwegian Review Corpus (NoReC). In addition to providing in-depth discussion of the annotation guidelines, we also present a first set of benchmark results based on a graph-parsing approach.</abstract>
       <url hash="b9a0e3b7">2021.nodalida-main.30</url>
       <bibkey>maehlum-etal-2021-negation</bibkey>
-      <pwccode url="https://github.com/ltgoslo/norec_neg" additional="false">ltgoslo/norec_neg</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/norec">NoReC</pwcdataset>
     </paper>
     <paper id="31">
       <title>What Taggers Fail to Learn, Parsers Need the Most</title>
@@ -394,7 +360,6 @@
       <abstract>Accurate translation requires document-level information, which is ignored by sentence-level machine translation. Recent work has demonstrated that document-level consistency can be improved with automatic post-editing (APE) using only target-language (TL) information. We study an extended APE model that additionally integrates source context. A human evaluation of fluency and adequacy in English–Russian translation reveals that the model with access to source context significantly outperforms monolingual APE in terms of adequacy, an effect largely ignored by automatic evaluation metrics. Our results show that TL-only modelling increases fluency without improving adequacy, demonstrating the need for conditioning on source text for automatic post-editing. They also highlight blind spots in automatic methods for targeted evaluation and demonstrate the need for human assessment to evaluate document-level translation quality reliably.</abstract>
       <url hash="1e1ba1c4">2021.nodalida-main.34</url>
       <bibkey>wang-etal-2021-exploring</bibkey>
-      <pwccode url="https://github.com/zippotju/context-aware-bilingual-repair-for-neural-machine-translation" additional="false">zippotju/context-aware-bilingual-repair-for-neural-machine-translation</pwccode>
     </paper>
     <paper id="35">
       <title><fixed-case>C</fixed-case>hinese Character Decomposition for Neural <fixed-case>MT</fixed-case> with Multi-Word Expressions</title>
@@ -406,7 +371,6 @@
       <abstract>Chinese character decomposition has been used as a feature to enhance Machine Translation (MT) models, combining radicals into character and word level models. Recent work has investigated ideograph or stroke level embedding. However, questions remain about different decomposition levels of Chinese character representations, radical and strokes, best suited for MT. To investigate the impact of Chinese decomposition embedding in detail, i.e., radical, stroke, and intermediate levels, and how well these decompositions represent the meaning of the original character sequences, we carry out analysis with both automated and human evaluation of MT. Furthermore, we investigate if the combination of decomposed Multiword Expressions (MWEs) can enhance the model learning. MWE integration into MT has seen more than a decade of exploration. However, decomposed MWEs has not previously been explored.</abstract>
       <url hash="a1d9007f">2021.nodalida-main.35</url>
       <bibkey>han-etal-2021-chinese</bibkey>
-      <pwccode url="https://github.com/poethan/MWE4MT" additional="false">poethan/MWE4MT</pwccode>
     </paper>
     <paper id="36">
       <title>Grapheme-Based Cross-Language Forced Alignment: Results with <fixed-case>U</fixed-case>ralic Languages</title>
@@ -417,8 +381,6 @@
       <abstract>Forced alignment is an effective process to speed up linguistic research. However, most forced aligners are language-dependent, and under-resourced languages rarely have enough resources to train an acoustic model for an aligner. We present a new Finnish grapheme-based forced aligner and demonstrate its performance by aligning multiple Uralic languages and English as an unrelated language. We show that even a simple non-expert created grapheme-to-phoneme mapping can result in useful word alignments.</abstract>
       <url hash="091b5464">2021.nodalida-main.36</url>
       <bibkey>leinonen-etal-2021-grapheme</bibkey>
-      <pwccode url="https://github.com/aalto-speech/finnish-forced-alignment" additional="false">aalto-speech/finnish-forced-alignment</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/librispeech">LibriSpeech</pwcdataset>
     </paper>
     <paper id="37">
       <title>Boosting Neural Machine Translation from <fixed-case>F</fixed-case>innish to <fixed-case>N</fixed-case>orthern <fixed-case>S</fixed-case>ámi with Rule-Based Backtranslation</title>
@@ -472,7 +434,6 @@
       <abstract>Multilingual pretrained language models are rapidly gaining popularity in NLP systems for non-English languages. Most of these models feature an important corpus sampling step in the process of accumulating training data in different languages, to ensure that the signal from better resourced languages does not drown out poorly resourced ones. In this study, we train multiple multilingual recurrent language models, based on the ELMo architecture, and analyse both the effect of varying corpus size ratios on downstream performance, as well as the performance difference between monolingual models for each language, and broader multilingual language models. As part of this effort, we also make these trained models available for public use.</abstract>
       <url hash="c73e3d0a">2021.nodalida-main.41</url>
       <bibkey>ravishankar-etal-2021-multilingual</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/xnli">XNLI</pwcdataset>
     </paper>
     <paper id="42">
       <title>Should we Stop Training More Monolingual Models, and Simply Use Machine Translation Instead?</title>
@@ -483,7 +444,6 @@
       <abstract>Most work in NLP makes the assumption that it is desirable to develop solutions in the native language in question. There is consequently a strong trend towards building native language models even for low-resource languages. This paper questions this development, and explores the idea of simply translating the data into English, thereby enabling the use of pretrained, and large-scale, English language models. We demonstrate empirically that a large English language model coupled with modern machine translation outperforms native language models in most Scandinavian languages. The exception to this is Finnish, which we assume is due to inferior translation quality. Our results suggest that machine translation is a mature technology, which raises a serious counter-argument for training native language models for low-resource languages. This paper therefore strives to make a provocative but important point. As English language models are improving at an unprecedented pace, which in turn improves machine translation, it is from an empirical and environmental stand-point more effective to translate data from low-resource languages into English, than to build language models for such languages.</abstract>
       <url hash="1c261ece">2021.nodalida-main.42</url>
       <bibkey>isbister-etal-2021-stop</bibkey>
-      <pwccode url="https://github.com/timpal0l/ScandiSent" additional="false">timpal0l/ScandiSent</pwccode>
     </paper>
     <paper id="43">
       <title>Error Analysis of using <fixed-case>BART</fixed-case> for Multi-Document Summarization: A Study for <fixed-case>E</fixed-case>nglish and <fixed-case>G</fixed-case>erman Language</title>
@@ -494,8 +454,6 @@
       <abstract>Recent research using pre-trained language models for multi-document summarization task lacks deep investigation of potential erroneous cases and their possible application on other languages. In this work, we apply a pre-trained language model (BART) for multi-document summarization (MDS) task using both fine-tuning and without fine-tuning. We use two English datasets and one German dataset for this study. First, we reproduce the multi-document summaries for English language by following one of the recent studies. Next, we show the applicability of the model to German language by achieving state-of-the-art performance on German MDS. We perform an in-depth error analysis of the followed approach for both languages, which leads us to identifying most notable errors, from made-up facts and topic delimitation, and quantifying the amount of extractiveness.</abstract>
       <url hash="dea8bea8">2021.nodalida-main.43</url>
       <bibkey>johner-etal-2021-error</bibkey>
-      <pwccode url="https://github.com/uhh-lt/multi-summ-german" additional="false">uhh-lt/multi-summ-german</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/cnn-daily-mail-1">CNN/Daily Mail</pwcdataset>
     </paper>
     <paper id="44">
       <title>Grammatical Error Generation Based on Translated Fragments</title>
@@ -506,8 +464,6 @@
       <abstract>We perform neural machine translation of sentence fragments in order to create large amounts of training data for English grammatical error correction. Our method aims at simulating mistakes made by second language learners, and produces a wider range of non-native style language in comparison to a state-of-the-art baseline model. We carry out quantitative and qualitative evaluation. Our method is shown to outperform the baseline on data with a high proportion of errors.</abstract>
       <url hash="9a88f400">2021.nodalida-main.44</url>
       <bibkey>sjoblom-etal-2021-grammatical</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/opensubtitles">OpenSubtitles</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/locness-corpus">WI-LOCNESS</pwcdataset>
     </paper>
     <paper id="45">
       <title>Creating Data in <fixed-case>I</fixed-case>celandic for Text Normalization</title>
@@ -543,7 +499,6 @@
       <revision id="1" href="2021.nodalida-main.46v1" hash="ae5c62ef"/>
       <revision id="2" href="2021.nodalida-main.46v2" hash="d90398be" date="2021-06-04">This revision amends an incorrect name in one of the cited works.</revision>
       <bibkey>stromberg-derczynski-etal-2021-danish</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/dagw">DAGW</pwcdataset>
     </paper>
     <paper id="47">
       <title><fixed-case>D</fixed-case>an<fixed-case>FEVER</fixed-case>: claim verification dataset for <fixed-case>D</fixed-case>anish</title>
@@ -553,9 +508,6 @@
       <abstract>We present a dataset, DanFEVER, intended for multilingual misinformation research. The dataset is in Danish and has the same format as the well-known English FEVER dataset. It can be used for testing methods in multilingual settings, as well as for creating models in production for the Danish language.</abstract>
       <url hash="b787c42b">2021.nodalida-main.47</url>
       <bibkey>norregaard-derczynski-2021-danfever</bibkey>
-      <pwccode url="https://github.com/StrombergNLP/danfever" additional="false">StrombergNLP/danfever</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/danfever">DanFEVER</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/fever">FEVER</pwcdataset>
     </paper>
     <paper id="48">
       <title>The <fixed-case>I</fixed-case>celandic <fixed-case>W</fixed-case>ord <fixed-case>W</fixed-case>eb: A language technology-focused redesign of a lexicosemantic database</title>
@@ -603,8 +555,6 @@
       <abstract>Norway has a large amount of dialectal variation, as well as a general tolerance to its use in the public sphere. There are, however, few available resources to study this variation and its change over time and in more informal areas, on social media. In this paper, we propose a first step to creating a corpus of dialectal variation of written Norwegian. We collect a small corpus of tweets and manually annotate them as Bokmål, Nynorsk, any dialect, or a mix. We further perform preliminary experiments with state-of-the-art models, as well as an analysis of the data to expand this corpus in the future. Finally, we make the annotations available for future work.</abstract>
       <url hash="1f13a7c8">2021.nodalida-main.51</url>
       <bibkey>barnes-etal-2021-nordial</bibkey>
-      <pwccode url="https://github.com/jerbarnes/norwegian_dialect" additional="false">jerbarnes/norwegian_dialect</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/nordial">NorDial</pwcdataset>
     </paper>
     <paper id="52">
       <title>The <fixed-case>S</fixed-case>wedish <fixed-case>W</fixed-case>inogender Dataset</title>
@@ -617,8 +567,6 @@
       <abstract>We introduce the SweWinogender test set, a diagnostic dataset to measure gender bias in coreference resolution. It is modelled after the English Winogender benchmark, and is released with reference statistics on the distribution of men and women between occupations and the association between gender and occupation in modern corpus material. The paper discusses the design and creation of the dataset, and presents a small investigation of the supplementary statistics.</abstract>
       <url hash="4924bf48">2021.nodalida-main.52</url>
       <bibkey>hansson-etal-2021-swedish</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/wsc">WSC</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/winobias">WinoBias</pwcdataset>
     </paper>
     <paper id="53">
       <title><fixed-case>D</fixed-case>a<fixed-case>NLP</fixed-case>: An open-source toolkit for <fixed-case>D</fixed-case>anish Natural Language Processing</title>
@@ -630,8 +578,6 @@
       <abstract>We present an open-source toolkit for Danish Natural Language Processing, enabling easy access to Danish NLP’s latest advancements. The toolkit features wrapper-functions for loading models and datasets in a unified way using third-party NLP frameworks. The toolkit is developed to enhance community building, understanding the need from industry and knowledge sharing. As an example of this, we present Angry Tweets: An Annotation Game to create awareness of Danish NLP and create a new sentiment-annotated dataset.</abstract>
       <url hash="92f983af">2021.nodalida-main.53</url>
       <bibkey>pauli-etal-2021-danlp</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/angry-tweets">Angry Tweets</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/dane">DaNE</pwcdataset>
     </paper>
     <paper id="54">
       <title><fixed-case>HB</fixed-case> <fixed-case>D</fixed-case>eid - <fixed-case>HB</fixed-case> De-identification tool demonstrator</title>

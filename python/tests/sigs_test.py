@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import itertools as it
 import pytest
 from pathlib import Path
 from acl_anthology.sigs import SIGIndex, SIGMeeting, SIG
@@ -50,7 +49,7 @@ def test_sig_save(tmp_path):
     sig = SIG(None, "foo", "FOO", "Special Interest Group on Foobar", path)
     sig.save()
     assert path.is_file()
-    with open(path, "r") as f:
+    with open(path, "r", encoding="utf-8") as f:
         out = f.read()
     expected = """Name: Special Interest Group on Foobar
 ShortName: FOO
@@ -59,26 +58,25 @@ ShortName: FOO
 
 
 @pytest.mark.parametrize(
-    ("sig_id", "strip_comments"),
+    "strip_comments",
     (
+        True,
         pytest.param(
-            *args,
-            marks=(
-                pytest.mark.xfail(reason="YAML comments are not preserved")
-                if args[-1] is False
-                else ()
-            ),
-        )
-        for args in it.product(all_toy_sigs, (True, False))
+            False, marks=pytest.mark.xfail(reason="YAML comments are not preserved")
+        ),
     ),
 )
+@pytest.mark.parametrize("sig_id", all_toy_sigs)
 def test_sig_roundtrip_yaml(anthology_stub, tmp_path, sig_id, strip_comments):
     yaml_in = anthology_stub.datadir / "yaml" / "sigs" / f"{sig_id}.yaml"
     yaml_out = tmp_path / f"{sig_id}.yaml"
     sig = SIG.load_from_yaml(None, yaml_in)
     sig.save(yaml_out)
 
-    with open(yaml_in, "r") as f, open(yaml_out, "r") as g:
+    with (
+        open(yaml_in, "r", encoding="utf-8") as f,
+        open(yaml_out, "r", encoding="utf-8") as g,
+    ):
         if strip_comments:
             expected = (
                 "\n".join(line.split("#")[0].rstrip() for line in f.readlines()) + "\n"
