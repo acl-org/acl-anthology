@@ -225,7 +225,11 @@ class PersonIndex(SlottedDict[Person]):
         self.is_data_loaded = True
 
     def _load_people_index(self) -> None:
-        """Loads and parses the `people.yaml` file."""
+        """Loads and parses the `people.yaml` file.
+
+        Raises:
+            KeyError: If `people.yaml` contains a malformed person ID; or if a person is listed without any names.
+        """
         filename = self.parent.datadir / Path(PEOPLE_INDEX_FILE)
         merge_list: list[tuple[str, str]] = []
 
@@ -233,6 +237,8 @@ class PersonIndex(SlottedDict[Person]):
             data = yaml.load(f, Loader=Loader)
 
         for pid, entry in data.items():
+            if not is_verified_person_id(pid):
+                raise KeyError(f"Invalid person ID in people.yaml: {pid}")
             self.add_person(
                 Person(
                     id=pid,

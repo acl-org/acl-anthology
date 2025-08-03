@@ -15,9 +15,9 @@
 from __future__ import annotations
 
 from attrs import define, field
-from typing import Iterator, Optional, TYPE_CHECKING
+from typing import Any, Iterator, Optional, TYPE_CHECKING
 from ..utils.attrs import auto_validate_types
-from ..utils.ids import AnthologyIDTuple, build_id_from_tuple
+from ..utils.ids import AnthologyIDTuple, build_id_from_tuple, is_valid_orcid
 from . import Name
 
 if TYPE_CHECKING:
@@ -49,7 +49,7 @@ class Person:
     item_ids: list[AnthologyIDTuple] = field(
         factory=list, repr=lambda x: f"<list of {len(x)} AnthologyIDTuple objects>"
     )
-    orcid: Optional[str] = field(default=None)
+    orcid: Optional[str] = field(default=None)  # validator defined below
     comment: Optional[str] = field(default=None)
     degree: Optional[str] = field(default=None)
     disable_name_matching: Optional[bool] = field(default=False, converter=bool)
@@ -62,6 +62,11 @@ class Person:
 
     def __hash__(self) -> int:
         return hash(self.id)
+
+    @orcid.validator
+    def _check_orcid(self, _: Any, value: Optional[str]) -> None:
+        if value is not None and not is_valid_orcid(value):
+            raise ValueError("ORCID is not valid (wrong format or checksum)")
 
     @property
     def canonical_name(self) -> Name:

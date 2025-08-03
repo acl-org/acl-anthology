@@ -1,4 +1,4 @@
-# Copyright 2023-2024 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2025 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,6 +14,7 @@
 
 """Functions for manipulating Anthology IDs."""
 
+import functools
 import re
 from typing import Optional
 
@@ -32,6 +33,9 @@ RE_ITEM_ID = re.compile(r"[a-z0-9]+")
 
 RE_VERIFIED_PERSON_ID = re.compile(r"[a-z0-9][\-a-z0-9]+")
 """A regular expression matching any valid verified person ID."""
+
+RE_ORCID = re.compile(r"[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{3}[0-9X]")
+"""A regular expression matching any string that looks like an ORCID."""
 
 
 def build_id(
@@ -201,6 +205,22 @@ def is_valid_item_id(id_: str) -> bool:
         True if the string is valid, False otherwise.
     """
     return RE_ITEM_ID.fullmatch(id_) is not None
+
+
+def is_valid_orcid(orcid: str) -> bool:
+    """Validate that a string looks like an ORCID and has the correct checksum.
+
+    Returns:
+        True if the ORCID validates, False otherwise.
+    """
+    if RE_ORCID.fullmatch(orcid) is None:
+        return False
+    # <https://support.orcid.org/hc/en-us/articles/360006897674-Structure-of-the-ORCID-Identifier>
+    total = functools.reduce(
+        lambda x, y: (x + int(y)) * 2, orcid[:-1].replace("-", ""), 0
+    )
+    checksum = (12 - (total % 11)) % 11
+    return orcid[-1] == str(checksum) if checksum < 10 else orcid[-1] == "X"
 
 
 def is_verified_person_id(id_: str) -> bool:
