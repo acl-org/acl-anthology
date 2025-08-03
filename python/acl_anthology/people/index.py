@@ -31,8 +31,8 @@ except ImportError:  # pragma: no cover
     from yaml import Loader, Dumper  # type: ignore
 
 from ..containers import SlottedDict
-from ..exceptions import AnthologyException, AmbiguousNameError, NameIDUndefinedError
-from ..utils.ids import AnthologyIDTuple
+from ..exceptions import AnthologyException, NameIDUndefinedError
+from ..utils.ids import AnthologyIDTuple, is_verified_person_id
 from ..utils.logging import get_logger
 from . import Person, Name, NameSpecification
 
@@ -42,7 +42,7 @@ if TYPE_CHECKING:
     from ..collections import Paper, Volume
 
 log = get_logger()
-VARIANTS_FILE = "yaml/name_variants.yaml"
+PEOPLE_INDEX_FILE = "yaml/people.yaml"
 
 
 @define
@@ -63,6 +63,7 @@ class PersonIndex(SlottedDict[Person]):
         parent: The parent Anthology instance to which this index belongs.
         verbose: If False, will not show progress bar when building the index from scratch.
         name_to_ids: A mapping of [Name][acl_anthology.people.name.Name] instances to person IDs.
+        slugs_to_verified_ids: A mapping of strings (representing slugified names) to person IDs.
         similar: A [disjoint-set structure][scipy.cluster.hierarchy.DisjointSet] of persons with similar names.
         is_data_loaded: A flag indicating whether the index has been constructed.
     """
@@ -70,6 +71,9 @@ class PersonIndex(SlottedDict[Person]):
     parent: Anthology = field(repr=False, eq=False)
     verbose: bool = field(default=True)
     name_to_ids: dict[Name, list[str]] = field(
+        init=False, repr=False, factory=lambda: defaultdict(list)
+    )
+    slugs_to_verified_ids: dict[str, list[str]] = field(
         init=False, repr=False, factory=lambda: defaultdict(list)
     )
     similar: DisjointSet = field(init=False, repr=False, factory=DisjointSet)
@@ -165,6 +169,7 @@ class PersonIndex(SlottedDict[Person]):
         """Resets the index."""
         self.data = {}
         self.name_to_ids = defaultdict(list)
+        self.slugs_to_verified_ids = defaultdict(list)
         self.similar = DisjointSet()
         self.is_data_loaded = False
 
@@ -175,8 +180,7 @@ class PersonIndex(SlottedDict[Person]):
             Exceptions raised during the index creation are sent to the logger, and only a generic exception is raised at the end.
         """
         self.reset()
-        # Load variant list, so IDs defined there are added first
-        self._load_variant_list()
+        self._load_people_index()
         # Go through every single volume/paper and add authors/editors
         iterator = track(
             self.parent.collections.values(),
@@ -220,6 +224,43 @@ class PersonIndex(SlottedDict[Person]):
             )
         self.is_data_loaded = True
 
+    def _load_people_index(self) -> None:
+        """Loads and parses the `people.yaml` file."""
+        filename = self.parent.datadir / Path(PEOPLE_INDEX_FILE)
+        merge_list: list[tuple[str, str]] = []
+
+        with open(filename, "r", encoding="utf-8") as f:
+            data = yaml.load(f, Loader=Loader)
+
+        for pid, entry in data.items():
+            self.add_person(
+                Person(
+                    id=pid,
+                    parent=self.parent,
+                    names=[Name.from_dict(n) for n in entry.pop("names")],
+                    orcid=entry.pop("orcid", None),
+                    comment=entry.pop("comment", None),
+                    degree=entry.pop("degree", None),
+                    disable_name_matching=entry.pop("disable_name_matching", False),
+                    is_explicit=True,
+                )
+            )
+            for similar_id in entry.pop("similar", []):
+                merge_list.append((pid, similar_id))
+
+            # Check for unprocessed keys to catch errors
+            if entry:
+                log.warning(
+                    f"people.yaml: entry '{pid}' has unknown keys: {entry.keys()}"
+                )
+
+        # Process IDs with similar names
+        for pid_list in self.slugs_to_verified_ids.values():
+            for pid in pid_list[1:]:
+                self.similar.merge(pid_list[0], pid)
+        for a, b in merge_list:
+            self.similar.merge(a, b)
+
     def add_person(self, person: Person) -> None:
         """Add a new person to the index.
 
@@ -232,6 +273,8 @@ class PersonIndex(SlottedDict[Person]):
         self.similar.add(pid)
         for name in person.names:
             self.name_to_ids[name].append(pid)
+            if is_verified_person_id(pid):
+                self.slugs_to_verified_ids[name.slugify()].append(pid)
 
     def get_or_create_person(
         self, name_spec: NameSpecification, create: bool = True
@@ -246,50 +289,55 @@ class PersonIndex(SlottedDict[Person]):
             The person represented by `name_spec`.  This will try to use the `id` attribute if it is set, look up the name in the index otherwise, or try to find a matching person by way of an ID clash.  If all of these fail, it will create a new person and return that.
 
         Raises:
-            AmbiguousNameError: If there are multiple known IDs for the given name, but there is no explicit `id` attribute.
             NameIDUndefinedError: If there is an explicit `id` attribute, but the ID has not been defined.
         """
         name = name_spec.name
         if (pid := name_spec.id) is not None:
-            # Explicit ID given; should already exist from name_variants.yaml
-            person = self.data.get(pid)
-            if person is None or not person.is_explicit:
-                exc1 = NameIDUndefinedError(
-                    name_spec, f"Name '{name}' used with ID '{pid}' that doesn't exist"
+            # Explicit ID given – should be explicitly defined in people.yaml
+            if pid not in self.data or not (person := self.data[pid]).is_explicit:
+                raise NameIDUndefinedError(
+                    name_spec,
+                    f"Name '{name}' used with ID '{pid}' that wasn't defined in people.yaml",
                 )
-                exc1.add_note("Did you forget to define the ID in name_variants.yaml?")
-                raise exc1
+            # TODO: Name also needs to have been defined in people.yaml!
             person.add_name(name)
-        elif pid_list := self.name_to_ids[name]:
-            # Name already exists in the index, but has no explicit ID
-            if len(pid_list) > 1:
-                exc2 = AmbiguousNameError(
-                    name,
-                    f"Name '{name.as_first_last()}' is ambiguous, but was used without an ID",
-                )
-                exc2.add_note(f"Known IDs are: {', '.join(pid_list)}")
-                raise exc2
-            pid = pid_list[0]
-            person = self.data[pid]
         else:
-            # Name not in the index and has no explicit ID
-            pid = self.generate_id(name)
-            try:
-                # If the auto-generated ID already exists, we assume it's the same person
-                person = self.data[pid]
-                # If the name scores higher than the current canonical one, we
-                # also assume we should set this as the canonical one
-                if (not person.is_explicit) and (
-                    name.score() > person.canonical_name.score()
-                ):
-                    person.set_canonical_name(name)
-                else:
+            # No explicit ID given – generate slug for name matching
+            slug = name.slugify()
+
+            # Check if the slugified name matches any verified IDs
+            matching_ids = self.slugs_to_verified_ids.get(slug, [])
+            if (
+                len(matching_ids) == 1
+                and not (person := self.data[matching_ids[0]]).disable_name_matching
+            ):
+                # Slug unambiguously maps to person and name matching not disabled
+                pid = person.id
+                if name not in person.names:
+                    # TODO – currently this loses information that this name
+                    # wasn't defined explicitly in people.yaml and just matched
+                    # via the slug
                     person.add_name(name)
-                self.name_to_ids[name].append(pid)
-            except KeyError:
-                if create:
-                    # If the auto-generated ID doesn't exist yet, then and only
-                    # then do we create a new person
+                    self.name_to_ids[name].append(pid)
+
+            else:
+                # Resolve to unverified ID
+                pid = f"unverified/{slug}"
+
+                if pid in self.data:
+                    # Unverified ID already exists; assume it's the same person
+                    person = self.data[pid]
+                    if name not in person.names:
+                        # If the name scores higher than the current canonical
+                        # one, we also assume we should set this as the
+                        # canonical one
+                        if name.score() > person.canonical_name.score():
+                            person.set_canonical_name(name)
+                        else:
+                            person.add_name(name)
+                        self.name_to_ids[name].append(pid)
+                elif create:
+                    # Unverified ID doesn't exist yet; create it
                     person = Person(id=pid, parent=self.parent, names=[name])
                     self.add_person(person)
                 else:
@@ -297,26 +345,15 @@ class PersonIndex(SlottedDict[Person]):
                         name_spec,
                         f"Name '{name}' generated ID '{pid}' that doesn't exist",
                     )
+
         # Make sure that name variants specified here are registered
         for name in name_spec.variants:
+            # TODO – currently this loses information that this name wasn't
+            # defined explicitly in people.yaml and just added through a variant
             person.add_name(name)
             if name not in self.name_to_ids:
                 self.name_to_ids[name].append(pid)
         return person
-
-    @staticmethod
-    def generate_id(name: Name) -> str:
-        """Generates and returns an ID from the given name.
-
-        Warning:
-            This **intentionally doesn't guarantee uniqueness** of the generated ID.
-            If two names generate identical IDs with this method, we assume they
-            refer to the same person.  This happens e.g. when there are missing
-            accents in one version, or when we have an inconsistent first/last split
-            for multiword names.  These cases have in practice always referred to
-            the same person.
-        """
-        return name.slugify()
 
     def _add_to_index(
         self, namespecs: Iterable[NameSpecification], item_id: AnthologyIDTuple
@@ -331,55 +368,6 @@ class PersonIndex(SlottedDict[Person]):
         for namespec in namespecs:
             person = self.get_or_create_person(namespec)
             person.item_ids.append(item_id)
-
-    def _load_variant_list(self) -> None:
-        """Loads and parses the `name_variant.yaml` file.
-
-        Raises:
-            AmbiguousNameError: If there are ambiguous "canonical" names without explicit, unique IDs for each one.
-        """
-        filename = self.parent.datadir / Path(VARIANTS_FILE)
-        merge_list: list[tuple[str, str]] = []
-        with open(filename, "r", encoding="utf-8") as f:
-            variant_list = yaml.load(f, Loader=Loader)
-        for entry in variant_list:
-            # Every entry must have a "canonical" name
-            canonical = Name.from_dict(entry["canonical"])
-            # If it doesn't define an ID, we have to create one
-            if (pid := entry.get("id")) is None:
-                pid = self.generate_id(canonical)
-                if pid in self.data:
-                    raise AmbiguousNameError(
-                        canonical,
-                        (
-                            f"While parsing {filename}: "
-                            f"name '{canonical.as_first_last()}' is ambiguous, but the "
-                            f"automatically generated ID '{pid}' already exists."
-                        ),
-                    )
-            # Parse all the variant names, and make sure canonical stays at index 0
-            names = [canonical] + [
-                Name.from_dict(var) for var in entry.get("variants", [])
-            ]
-            # Now we can create a new person from this entry...
-            person = Person(
-                id=pid,
-                parent=self.parent,
-                names=names,
-                comment=entry.get("comment", None),
-                is_explicit=True,
-            )
-            # ...and add it to the index
-            self.add_person(person)
-            for similar_id in entry.get("similar", []):
-                merge_list.append((pid, similar_id))
-
-        # Process IDs with similar names
-        for name, pid_list in self.name_to_ids.items():
-            for pid in pid_list[1:]:
-                self.similar.merge(pid_list[0], pid)
-        for a, b in merge_list:
-            self.similar.merge(a, b)
 
     def save(self, path: StrPath) -> None:
         """Save the entire index.

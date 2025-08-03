@@ -18,7 +18,7 @@ import sys
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from .people import Name, NameSpecification
+    from .people import NameSpecification
     from .utils.ids import AnthologyIDTuple
 
 if sys.version_info >= (3, 11):
@@ -38,19 +38,6 @@ else:
 
         def add_note(self, note: str) -> None:
             self.__notes__.append(note)
-
-
-class AmbiguousNameError(AnthologyException):
-    """Raised when an ambiguous name would need an explicit and unique ID, but does not have one.
-
-    Attributes:
-        name (Name): The name that raised the error.
-    """
-
-    def __init__(self, name: Name, message: str) -> None:
-        super().__init__(message)
-        self.name = name
-        self.add_note("Did you forget to add an explicit/unique ID to this name?")
 
 
 class AnthologyDuplicateIDError(AnthologyException, ValueError):
@@ -94,7 +81,7 @@ class AnthologyXMLError(AnthologyException, ValueError):
 class NameIDUndefinedError(AnthologyException):
     """Raised when an author ID was requested that is not defined.
 
-    This can happen when an `<author>` or `<editor>` was used with an ID which was not defined in `name_variants.yaml`, or when trying to look up a NameSpecification that does not correspond to any Person in the PersonIndex.
+    This can happen when an `<author>` or `<editor>` was used with an ID which was not defined in `people.yaml`, or when trying to look up a NameSpecification that does not correspond to any Person in the PersonIndex.
 
     Attributes:
         name_spec (NameSpecification): The name specification that raised the error.
