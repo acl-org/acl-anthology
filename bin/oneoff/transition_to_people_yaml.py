@@ -27,6 +27,7 @@ Options:
   -h, --help               Display this helpful text.
 """
 
+from collections import defaultdict
 from docopt import docopt
 from importlib.metadata import version as get_version
 import itertools as it
@@ -90,6 +91,11 @@ def refactor(anthology, name_variants):
     new_people_dict = {}
     c_removed, c_added = 0, 0
 
+    # These two are to infer if we need to set disable_name_matching: true somewhere
+    names_to_ids = defaultdict(list)
+    names_with_catchall_id = []
+    c_disable_name_matching = 0
+
     for pid, person in anthology.people.items():
         # We only consider people who are currently defined in name_variants.yaml
         if not person.is_explicit:
@@ -116,6 +122,10 @@ def refactor(anthology, name_variants):
                     if namespec.id == pid:
                         namespec.id = None
                         c_removed += 1
+
+            # Record the name(s) of this person so we can check later if this ID
+            # was important for disambiguation
+            names_with_catchall_id.extend(person.names)
 
             # Don't process this person further
             continue
@@ -164,6 +174,9 @@ def refactor(anthology, name_variants):
         if c > 0:
             log.debug(f"Added explicit ID '{pid}' to {c} papers")
 
+        for name in person.names:
+            names_to_ids[name].append(pid)
+
         # Construct entry for new people.yaml
         entry = {
             # First name is always the canonical one
@@ -180,11 +193,23 @@ def refactor(anthology, name_variants):
 
         new_people_dict[pid] = entry
 
+    for name in names_with_catchall_id:
+        pids = names_to_ids.get(name, [])
+        if len(pids) == 1:
+            # There is only one "verified" person with this name, but there was
+            # a catch-all ID ("May refer to several people") with this name too,
+            # so we need to disable name matching under the new system
+            new_people_dict[pids[0]]["disable_name_matching"] = True
+            c_disable_name_matching += 1
+
     log.info(
         f"Removed {c_removed:>5d} explicit IDs from the XML ('May refer to several people' etc.)"
     )
     log.info(f"  Added {c_added:>5d} explicit IDs to the XML")
     log.info(f"Created {len(new_people_dict):>5d} entries for people.yaml")
+    log.info(
+        f"        {c_disable_name_matching:>5d} of those have `disable_name_matching: true`"
+    )
 
     return new_people_dict
 
