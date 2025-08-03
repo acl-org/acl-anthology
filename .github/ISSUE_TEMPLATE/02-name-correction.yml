@@ -8,20 +8,29 @@ body:
   - type: markdown
     attributes:
       value: >
-        This form will report issues with author pages—for example, if a name needs to be disambiguated,
-        or if two versions of a name should be mapped to the same individual.
-        For cases where an individual has published under multiple name variants, submitting a pull request
-        that modifies [`name_variants.yaml`](https://github.com/acl-org/acl-anthology/blob/master/data/yaml/name_variants.yaml)
-        directly will expedite the process. If an author name listed for a paper does not match
-        what is in the PDF, instead use the "Fix data" button on the paper page,
-        which will help automate the correction. Thanks!
+        This form will report issues with author pages. There are two situations: (1) merging and (2) splitting.
+        Merging gathers all of an author's papers under a single name, even if they were published under variants
+        of the author's name, while splitting allows the separation of papers published under the same
+        name but belonging to different people.
+  - type: checkboxes
+    id: name_correction_check
+    attributes:
+      label: Confirming that Paper Metadata is Correct
+      description: |
+        Anthology policy is that the recorded metadata should match what is displayed on the PDF.
+        Prior to submitting an author correction, you must ensure that all affected papers have the correct
+        author metadata. This can be done using the "Fix data" button on each paper page (e.g., https://aclanthology.org/1962.earlymt-1.6/).
+        This button will lead you through creation of Github issues, using a separate template.
+      options:
+        - label: I confirm that all affected papers have correct author metadata.
+          required: True
   - type: textarea
     id: name_pages_affected
     attributes:
       label: Author Pages
       description: |
         Which author page(s) are affected by this correction? Please list the URL of every affected author page here.
-      placeholder: ex. https://aclanthology.org/people/m/matt-post/
+      placeholder: ex. https://aclanthology.org/people/matt-post
     validations:
       required: true
 
@@ -30,7 +39,7 @@ body:
     attributes:
       label: Author ORCID
       description: |
-        Please provide a valid ORCID link here. This will be used to help match future papers to your Anthology ID.
+        Provide a valid [ORCID](https://orcid.org) link here. This will be used to help match future papers to your Anthology ID.
       placeholder: ex. https://orcid.org/my-orcid?orcid=0009-0003-8868-7504
     validations:
       required: true
@@ -39,7 +48,7 @@ body:
     attributes:
       label: Institution of highest (anticipated) degree
       description: |
-        Please provide the name of the school or university where you have or will receive your highest degree (e.g.,
+        Provide the name of the school or university where you have or will receive your highest degree (e.g.,
         current affiliation for students, Ph.D. institution for faculty and industry researchers). This will be used
         to form your author page ID, if needed.
       placeholder: ex. Johns Hopkins University (https://www.jhu.edu/)
@@ -65,32 +74,20 @@ body:
     id: name_correction_type
     attributes:
       label: Type of Author Metadata Correction
-      description: "Please indicate which issue(s) should be corrected regarding the author page(s)."
+      description: What kind of request is this?
       options:
-        - label: The author page includes papers from two or more different people.
-        - label: A single author has multiple pages with different spellings or variants of their name.
-        - label: This author has permanently changed their name.
+        - label: "Split/disambiguate: The author page includes papers from two or more different people."
+        - label: "Merge profiles: A single author has multiple profiles with different spellings or variants of their name."
+        - label: "Name change: This author has permanently changed their name."
     validations:
       required: true
-  - type: checkboxes
-    id: name_correction_check
-    attributes:
-      label: Confirming that Paper Metadata is Correct
-      description: |
-        Anthology policy is that author metadata should match what is displayed
-        on the PDF. To fix discrepancies, **this is not the correct issue template to use.**
-        Instead, please use the "Fix data" button on the affected paper page(s) to
-        correct the name displayed on the ACL Anthology.
-      options:
-        - label: I have made sure that the names given for each of the author's papers match the name shown on the PDF.
-          required: True
   - type: textarea
     id: name_change_description
     attributes:
       label: Supporting Information
       description: |
         We may need further information to address your problem.
-          - For disambiguations, **please provide a link to every paper of yours** in the Anthology (third party sites such as Google Scholar are not useful).
-          - For merging name pages, after ensuring every name matches the PDF, make sure to list which name is the preferred / canonical one.
+          - For splitting pages, **please provide a link to every paper of yours** in the Anthology (third party sites such as Google Scholar are not useful).
+          - For merging pages, after ensuring every name matches the PDF, make sure to list which name is the preferred / canonical one.
     validations:
       required: true
