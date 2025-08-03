@@ -33,7 +33,7 @@ from ..utils.ids import infer_year, is_valid_collection_id
 from ..utils.logging import get_logger
 from ..utils import xml
 from .event import Event
-from .types import VolumeType
+from .types import EventLinkingType, VolumeType
 from .volume import Volume
 from .paper import Paper
 
@@ -284,20 +284,22 @@ class Collection(SlottedDict[Volume]):
         if self.event is not None:
             # Events are implicitly linked to volumes defined in the same collection
             self.event.colocated_ids = [
-                volume.full_id_tuple
+                (volume.full_id_tuple, EventLinkingType.INFERRED)
                 for volume in self.data.values()
                 # Edge case: in case the <colocated> block lists a volume in
                 # the same collection, don't add it twice
-                if volume.full_id_tuple not in self.event.colocated_ids
+                if (volume.full_id_tuple, EventLinkingType.EXPLICIT)
+                not in self.event.colocated_ids
             ] + self.event.colocated_ids
 
         self.is_data_loaded = True
 
-    def save(self, path: Optional[StrPath] = None) -> None:
+    def save(self, path: Optional[StrPath] = None, minimal_diff: bool = True) -> None:
         """Saves this collection as an XML file.
 
         Arguments:
             path: The filename to save to. If None, defaults to `self.path`.
+            minimal_diff: If True (default), will compare against an existing XML file in `self.path` to minimize the difference, i.e., to prevent noise from changes in the XML that make no semantic difference.  See [`utils.xml.ensure_minimal_diff`][acl_anthology.utils.xml.ensure_minimal_diff] for details.
         """
         if path is None:
             path = self.path
@@ -306,6 +308,10 @@ class Collection(SlottedDict[Volume]):
             collection.append(volume.to_xml(with_papers=True))
         if self.event is not None and self.event.is_explicit:
             collection.append(self.event.to_xml())
+        if self.path.is_file() and minimal_diff:
+            reference = etree.parse(self.path).getroot()
+            xml.indent(collection)  # allows for better checking for equivalence
+            xml.ensure_minimal_diff(collection, reference)
         xml.indent(collection)
         with open(path, "wb") as f:
             f.write(etree.tostring(collection, xml_declaration=True, encoding="UTF-8"))
