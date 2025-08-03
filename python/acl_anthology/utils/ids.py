@@ -30,6 +30,9 @@ RE_COLLECTION_ID = re.compile(r"([0-9]{4}\.[a-z0-9]+)|([A-Z][0-9]{2})")
 RE_ITEM_ID = re.compile(r"[a-z0-9]+")
 """A regular expression matching any valid volume or paper ID."""
 
+RE_VERIFIED_PERSON_ID = re.compile(r"[a-z0-9][\-a-z0-9]+")
+"""A regular expression matching any valid verified person ID."""
+
 
 def build_id(
     collection_id: str, volume_id: Optional[str] = None, paper_id: Optional[str] = None
@@ -198,6 +201,18 @@ def is_valid_item_id(id_: str) -> bool:
         True if the string is valid, False otherwise.
     """
     return RE_ITEM_ID.fullmatch(id_) is not None
+
+
+def is_verified_person_id(id_: str) -> bool:
+    """Validate that a string is formatted like a verified person ID.
+
+    Returns:
+        True if this ID can refer to a verified person.
+
+    Warning:
+        Does not perform any kind of input validation.
+    """
+    return RE_VERIFIED_PERSON_ID.fullmatch(id_) is not None
 
 
 def infer_year(anthology_id: AnthologyID) -> str:

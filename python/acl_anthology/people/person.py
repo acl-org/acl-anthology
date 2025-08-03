@@ -30,16 +30,17 @@ class Person:
     """A natural person.
 
     Info:
-        All information about persons is currently derived from [name specifications][acl_anthology.people.name.NameSpecification] on volumes and papers, and not stored explicitly. This means that Person objects **cannot be used to make changes** to Anthology data; change the information on papers instead.
+        The connection between persons and Anthology items is currently derived from [name specifications][acl_anthology.people.name.NameSpecification] on volumes and papers, and not stored explicitly. This means that Person objects **cannot be used to make changes to paper metadata**, e.g. which person a paper is associated with; change the information on papers instead.
 
     Attributes:
         id: A unique ID for this person.
         parent: The parent Anthology instance to which this person belongs.
         names: A list of names under which this person has published.
         item_ids: A list of volume and/or paper IDs this person has authored or edited.
-        orcid: The person's ORCID, if known.
-        comment: A comment for disambiguation purposes; can be stored in `name_variants.yaml`.
-        is_explicit: True if this person has names explicitly defined in `name_variants.yaml`.  Note this does _not_ necessarily mean an explicit ID was defined for the person there.
+        orcid: The person's ORCID.
+        comment: A comment for disambiguation purposes.
+        degree: The person's institution of highest degree, for disambiguation purposes.
+        is_explicit: True if this person's ID was explicitly defined in `people.yaml`.
     """
 
     id: str = field()
@@ -50,7 +51,9 @@ class Person:
     )
     orcid: Optional[str] = field(default=None)
     comment: Optional[str] = field(default=None)
-    is_explicit: Optional[bool] = field(default=False)  # TODO: why can this be None?
+    degree: Optional[str] = field(default=None)
+    disable_name_matching: Optional[bool] = field(default=False, converter=bool)
+    is_explicit: Optional[bool] = field(default=False, converter=bool)
 
     def __eq__(self, other: object) -> bool:
         if not isinstance(other, Person):
