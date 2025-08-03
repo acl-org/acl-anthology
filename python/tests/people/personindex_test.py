@@ -1,4 +1,4 @@
-# Copyright 2023-2024 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2025 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -103,6 +103,11 @@ def test_canonical_name_is_never_a_variant(index_with_full_anthology):
     index = index_with_full_anthology
     for person in index.values():
         assert person.canonical_name.script is None
+
+
+# TODO: add tests for resolve_namespec()
+# - test name resolution logic
+# - test exceptions that can be raised
 
 
 def test_get_person_coauthors(index_with_full_anthology):

@@ -31,7 +31,11 @@ except ImportError:  # pragma: no cover
     from yaml import Loader, Dumper  # type: ignore
 
 from ..containers import SlottedDict
-from ..exceptions import AnthologyException, NameSpecResolutionError, PersonUndefinedError
+from ..exceptions import (
+    AnthologyException,
+    NameSpecResolutionError,
+    PersonDefinitionError,
+)
 from ..utils.ids import AnthologyIDTuple, is_verified_person_id
 from ..utils.logging import get_logger
 from . import Person, Name, NameSpecification
@@ -286,22 +290,38 @@ class PersonIndex(SlottedDict[Person]):
 
         Raises:
             NameSpecResolutionError: If `name_spec` cannot be resolved to a Person and `allow_creation` is False.
-            PersonUndefinedError: If `name_spec.id` is set, but either the ID or the name used with the ID has not been defined in `people.yaml`. (Inherits from NameSpecResolutionError)
+            PersonDefinitionError: If `name_spec.id` is set, but either the ID or the name used with the ID has not been defined in `people.yaml`. (Inherits from NameSpecResolutionError)
         """
         name = name_spec.name
         if (pid := name_spec.id) is not None:
             # Explicit ID given – should be explicitly defined in people.yaml
             if pid not in self.data or not (person := self.data[pid]).is_explicit:
-                raise PersonUndefinedError(
+                raise PersonDefinitionError(
                     name_spec, f"ID '{pid}' wasn't defined in people.yaml"
                 )
             if name not in person.names:
-                raise PersonUndefinedError(
+                raise PersonDefinitionError(
                     name_spec,
                     f"ID '{pid}' was used with name '{name}' that wasn't defined in people.yaml",
                 )
+            if name_spec.orcid is not None and name_spec.orcid != person.orcid:
+                raise PersonDefinitionError(
+                    name_spec,
+                    f"ID '{pid}' was used with ORCID '{name_spec.orcid}', but people.yaml has '{person.orcid}'",
+                )
         else:
-            # No explicit ID given – generate slug for name matching
+            # No explicit ID given
+            if name_spec.orcid is not None:
+                exc1 = NameSpecResolutionError(
+                    name_spec,
+                    "NameSpecification defines an ORCID without an ID",
+                )
+                exc1.add_note(
+                    "To specify an ORCID on a paper, the person needs to have an entry in `people.yaml` and be used with an explicit ID."
+                )
+                raise exc1
+
+            # Generate slug for name matching
             slug = name.slugify()
 
             # Check if the slugified name matches any verified IDs
