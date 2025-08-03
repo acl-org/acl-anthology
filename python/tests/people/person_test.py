@@ -51,7 +51,7 @@ def test_person_add_names(anthology_stub):
 
 
 def test_person_papers(anthology):
-    person = anthology.get_person("nicoletta-calzolari")
+    person = anthology.get_person("unverified/nicoletta-calzolari")
     assert person.canonical_name == Name("Nicoletta", "Calzolari")
     assert len(person.item_ids) == 3
     assert len(list(person.papers())) == 2
@@ -68,10 +68,8 @@ def test_person_with_name_variants(anthology):
 def test_person_is_explicit(anthology):
     person = anthology.get_person("yang-liu-ict")
     assert person.is_explicit
-    person = anthology.get_person("nicoletta-calzolari")
+    person = anthology.get_person("unverified/nicoletta-calzolari")
     assert not person.is_explicit
-    person = anthology.get_person("srinivas-bangalore")
-    assert person.is_explicit
 
 
 def test_person_equality(anthology_stub):

@@ -168,7 +168,7 @@ def test_paper_remove_author(anthology):
     paper = anthology.get_paper("2022.acl-demo.2")
     ns = paper.authors[-1]
     person = anthology.resolve(ns)
-    assert person.id == "iryna-gurevych"
+    assert person.id == "unverified/iryna-gurevych"
     assert paper.full_id_tuple in person.item_ids
 
     # Removing last author from paper
