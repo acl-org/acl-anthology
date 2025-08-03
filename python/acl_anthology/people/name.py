@@ -114,17 +114,13 @@ class Name:
             score += 0.5
         return score
 
+    @cache
     def slugify(self) -> str:
         """
         Returns:
             A [slugified string](https://github.com/un33k/python-slugify#how-to-use) of the full name.
         """
-        if not (name := self.as_first_last()):
-            # Only necessary because of <https://github.com/acl-org/acl-anthology/issues/2725>
-            slug = "none"
-        else:
-            slug = slugify(name)
-        return slug
+        return slugify(self.as_first_last())
 
     @classmethod
     def from_dict(cls, name: dict[str, str]) -> Name:
