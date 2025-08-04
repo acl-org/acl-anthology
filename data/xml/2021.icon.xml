@@ -40,7 +40,6 @@
       <abstract>Subword-based neural machine translation decreases the number of out-of-vocabulary (OOV) words and also keeps the translation quality if input sentences include OOV words. The subword-based NMT decomposes a word into shorter units to solve the OOV problem, but it does not work well for non-compositional proper nouns due to the construction of the shorter unit from words. Furthermore, the lack of translation also occurs in proper noun translation. The proposed method applies the Named Entity (NE) fea-ture vector to Factored Transformer for accurate proper noun translation. The proposed method uses two features which are input sentences in subwords unit and the feature obtained from Named Entity Recognition (NER). The pro-posed method improves the problem of non-compositional proper nouns translation included a low-frequency word. According to the experiments, the proposed method using the best NE feature vector outperformed the baseline sub-word-based transformer model by more than 9.6 points in proper noun accuracy and 2.5 points in the BLEU score.</abstract>
       <url hash="5e9e7788">2021.icon-main.2</url>
       <bibkey>takai-etal-2021-named</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/jparacrawl">JParaCrawl</pwcdataset>
     </paper>
     <paper id="3">
       <title>Multi-Task Learning for Improving Gender Accuracy in Neural Machine Translation</title>
@@ -52,7 +51,6 @@
       <abstract>Machine Translation is highly impacted by social biases present in data sets, indicating that it reflects and amplifies stereotypes. In this work, we study mitigating gender bias by jointly learning the translation, the part-of-speech, and the gender of the target language with different morphological complexity. This approach has shown improvements up to 6.8 points in gender accuracy without significantly impacting the translation quality.</abstract>
       <url hash="9af85dd7">2021.icon-main.3</url>
       <bibkey>escolano-etal-2021-multi</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/universal-dependencies">Universal Dependencies</pwcdataset>
     </paper>
     <paper id="4">
       <title>Small Batch Sizes Improve Training of Low-Resource Neural <fixed-case>MT</fixed-case></title>
@@ -82,7 +80,6 @@
       <abstract>In this paper, we explore various approaches to build Hindi to Bengali Neural Machine Translation (NMT) systems for the educational domain. Translation of educational content poses several challenges, such as unavailability of gold standard data for model building, extensive uses of domain-specific terms, as well as the presence of noise in the form of spontaneous speech as the corpus is prepared from subtitle data and noise due to the process of corpus creation through back-translation. We create an educational parallel corpus by crawling lecture subtitles and translating them into Hindi and Bengali using Google translate. We also create a clean parallel corpus by post-editing synthetic corpus via annotation and crowd-sourcing. We build NMT systems on the prepared corpus with domain adaptation objectives. We also explore data augmentation methods by automatically cleaning synthetic corpus and using it to further train the models. We experiment with combining domain adaptation objective with multilingual NMT. We report BLEU and TER scores of all the models on a manually created Hindi-Bengali educational testset. Our experiments show that the multilingual domain adaptation model outperforms all the other models by achieving 34.8 BLEU and 0.466 TER scores.</abstract>
       <url hash="dcf9ecc1">2021.icon-main.6</url>
       <bibkey>appicharla-etal-2021-edumt</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/samanantar">Samanantar</pwcdataset>
     </paper>
     <paper id="7">
       <title>Assessing Post-editing Effort in the <fixed-case>E</fixed-case>nglish-<fixed-case>H</fixed-case>indi Direction</title>
@@ -118,8 +115,6 @@
       <abstract>In recent times, machine translation models can learn to perform implicit bridging between language pairs never seen explicitly during training and showing that transfer learning helps for languages with constrained resources. This work investigates the low resource machine translation via transfer learning from multilingual pre-trained models i.e. mBART-50 and mT5-base in the pretext of Indo-Aryan (Assamese and Bengali) and Tibeto-Burman (Manipuri) languages via finetuning as a downstream task. Assamese and Manipuri were absent in the pretraining of both mBART-50 and the mT5 models. However, the experimental results attest that the finetuning from these pre-trained models surpasses the multilingual model trained from scratch.</abstract>
       <url hash="ae020c47">2021.icon-main.9</url>
       <bibkey>singh-etal-2021-transferability</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/flores-101">FLoRes-101</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/pmindia">PMIndia</pwcdataset>
     </paper>
     <paper id="10">
       <title>Generating Slogans with Linguistic Features using Sequence-to-Sequence Transformer</title>
@@ -138,8 +133,6 @@
       <abstract>Linguistic Acceptability is the task of determining whether a sentence is grammatical or ungrammatical. It has applications in several use cases like Question-Answering, Natural Language Generation, Neural Machine Translation, where grammatical correctness is crucial. In this paper we aim to understand the decision-making process of BERT (Devlin et al., 2019) in distinguishing between Linguistically Acceptable sentences (LA) and Linguistically Unacceptable sentences (LUA).We leverage Layer Integrated Gradients Attribution Scores (LIG) to explain the Linguistic Acceptability criteria that are learnt by BERT on the Corpus of Linguistic Acceptability (CoLA) (Warstadt et al., 2018) benchmark dataset. Our experiments on 5 categories of sentences lead to the following interesting findings: 1) LIG for LA are significantly smaller in comparison to LUA, 2) There are specific subtrees of the Constituency Parse Tree (CPT) for LA and LUA which contribute larger LIG, 3) Across the different categories of sentences we observed around 88% to 100% of the Correctly classified sentences had positive LIG, indicating a strong positive relationship to the prediction confidence of the model, and 4) Around 43% of the Misclassified sentences had negative LIG, which we believe can become correctly classified sentences if the LIG are parameterized in the loss function of the model.</abstract>
       <url hash="1e1f0c87">2021.icon-main.11</url>
       <bibkey>nayak-timmapathini-2021-using</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/cola">CoLA</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/glue">GLUE</pwcdataset>
     </paper>
     <paper id="12">
       <title>The Importance of Context in Very Low Resource Language Modeling</title>
@@ -185,8 +178,6 @@
       <abstract>Deep Contextual Language Models (LMs) like ELMO, BERT, and their successors dominate the landscape of Natural Language Processing due to their ability to scale across multiple tasks rapidly by pre-training a single model, followed by task-specific fine-tuning. Furthermore, multilingual versions of such models like XLM-R and mBERT have given promising results in zero-shot cross-lingual transfer, potentially enabling NLP applications in many under-served and under-resourced languages. Due to this initial success, pre-trained models are being used as ‘Universal Language Models’ as the starting point across diverse tasks, domains, and languages. This work explores the notion of ‘Universality’ by identifying seven dimensions across which a universal model should be able to scale, that is, perform equally well or reasonably well, to be useful across diverse settings. We outline the current theoretical and empirical results that support model performance across these dimensions, along with extensions that may help address some of their current limitations. Through this survey, we lay the foundation for understanding the capabilities and limitations of massive contextual language models and help discern research gaps and directions for future work to make these LMs inclusive and fair to diverse applications, users, and linguistic phenomena.</abstract>
       <url hash="2f972ce6">2021.icon-main.15</url>
       <bibkey>bhatt-etal-2021-universality</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/xnli">XNLI</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/xtreme">XTREME</pwcdataset>
     </paper>
     <paper id="16">
       <title>Towards Explainable Dialogue System: Explaining Intent Classification using Saliency Techniques</title>
@@ -197,7 +188,6 @@
       <abstract>Deep learning based methods have shown tremendous success in several Natural Language Processing (NLP) tasks. The recent trends in the usage of Deep Learning based models for natural language tasks have definitely produced incredible performance for several application areas. However, one major problem that most of these models face is the lack of transparency, i.e. the actual decision process of the underlying model is not explainable. In this paper, at first we solve a very fundamental problem of Natural Language Understanding (NLU), i.e. intent detection using a Bi-directional Long Short Term Memory (BiLSTM). In order to determine the defining features that lead to a specific intent class, we use the Layerwise Relevance Propagation (LRP) algorithm to find the defining feature(s). In the process, we conclude that saliency method of eLRP (epsilon Layerwise Relevance Propagation) is a prominent process for highlighting the important features of the input responsible for the current classification which results in significant insights to the inner workings, such as the reasons for misclassification by the black box model.</abstract>
       <url hash="79f1ddcc">2021.icon-main.16</url>
       <bibkey>joshi-etal-2021-towards</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/atis">ATIS</pwcdataset>
     </paper>
     <paper id="17">
       <title>Comparing in context: Improving cosine similarity measures with a metric tensor</title>
@@ -231,7 +221,6 @@
       <abstract>The mental disorder of online users is determined using social media posts. The major challenge in this domain is to avail the ethical clearance for using the user-generated text on social media platforms. Academic researchers identified the problem of insufficient and unlabeled data for mental health classification. To handle this issue, we have studied the effect of data augmentation techniques on domain-specific user-generated text for mental health classification. Among the existing well-established data augmentation techniques, we have identified Easy Data Augmentation (EDA), conditional BERT, and Back-Translation (BT) as the potential techniques for generating additional text to improve the performance of classifiers. Further, three different classifiers- Random Forest (RF), Support Vector Machine (SVM) and Logistic Regression (LR) are employed for analyzing the impact of data augmentation on two publicly available social media datasets. The experimental results show significant improvements in classifiers’ performance when trained on the augmented data.</abstract>
       <url hash="00b49dd7">2021.icon-main.19</url>
       <bibkey>ansari-etal-2021-data</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/dreaddit">Dreaddit</pwcdataset>
     </paper>
     <paper id="20">
       <title><fixed-case>VAE</fixed-case> based Text Style Transfer with Pivot Words Enhancement Learning</title>
@@ -244,9 +233,6 @@
       <abstract>Text Style Transfer (TST) aims to alter the underlying style of the source text to another specific style while keeping the same content. Due to the scarcity of high-quality parallel training data, unsupervised learning has become a trending direction for TST tasks. In this paper, we propose a novel VAE based Text Style Transfer with pivOt Words Enhancement leaRning (VT-STOWER) method which utilizes Variational AutoEncoder (VAE) and external style embeddings to learn semantics and style distribution jointly. Additionally, we introduce pivot words learning, which is applied to learn decisive words for a specific style and thereby further improve the overall performance of the style transfer. The proposed VT-STOWER can be scaled to different TST scenarios given very limited and non-parallel training data with a novel and flexible style strength control mechanism. Experiments demonstrate that the VT-STOWER outperforms the state-of-the-art on sentiment, formality, and code-switching TST tasks.</abstract>
       <url hash="6d4feb0e">2021.icon-main.20</url>
       <bibkey>xu-etal-2021-vae</bibkey>
-      <pwccode url="https://github.com/fe1ixxu/vt-stower" additional="false">fe1ixxu/vt-stower</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/gyafc">GYAFC</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/lince">LinCE</pwcdataset>
     </paper>
     <paper id="21">
       <title><fixed-case>MRE</fixed-case> : Multi Relationship Extractor for Persona based Empathetic Conversational Model</title>
@@ -256,7 +242,6 @@
       <abstract>Artificial intelligence(AI) has come a long way in aiding the user requirements in many fields and domains. However, the current AI systems do not generate human- like response for user query. Research in these areas have started gaining traction recently with explorations on persona or empathy based response selection. But the combination of both the parameters in an open domain haven’t been explored in detail by the research community. The current work highlights the effect of persona on empathetic response. This research paper concentrates on improving the response selection model for PEC dataset, containing both persona information and empathetic response. This is achieved using an enhanced multi relationship extractor and phrase based information for the selection of response.</abstract>
       <url hash="8a436d83">2021.icon-main.21</url>
       <bibkey>natarajan-nargund-2021-mre</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/pec">PEC</pwcdataset>
     </paper>
     <paper id="22">
       <title>An End-to-End Speech Recognition for the <fixed-case>N</fixed-case>epali Language</title>
@@ -287,7 +272,6 @@
       <abstract>Indian English (IE), on the surface, seems quite similar to standard English. However, closer observation shows that it has actually been influenced by the surrounding vernacular languages at several levels from phonology to vocabulary and syntax. Due to this, automatic speech recognition (ASR) systems developed for American or British varieties of English result in poor performance on Indian English data. The most prominent feature of Indian English is the characteristic pronunciation of the speakers. The systems are unable to learn these acoustic variations while modelling and cannot parse the non-standard articulation of non-native speakers. For this purpose, we propose a new phone dictionary developed based on the Indian language Common Phone Set (CPS). The dictionary maps the phone set of American English to existing Indian phones based on perceptual similarity. This dictionary is named Indian English Common Phone Set (IE-CPS). Using this, we build an Indian English ASR system and compare its performance with an American English ASR system on speech data of both varieties of English. Our experiments on the IE-CPS show that it is quite effective at modelling the pronunciation of the average speaker of Indian English. ASR systems trained on Indian English data perform much better when modelled using IE-CPS, achieving a reduction in the word error rate (WER) of upto 3.95% when used in place of CMUdict. This shows the need for a different lexicon for Indian English.</abstract>
       <url hash="3084ab3a">2021.icon-main.24</url>
       <bibkey>jain-etal-2021-ie</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/librispeech">LibriSpeech</pwcdataset>
     </paper>
     <paper id="25">
       <title>An Investigation of Hybrid architectures for Low Resource Multilingual Speech Recognition system in <fixed-case>I</fixed-case>ndian context</title>
@@ -320,8 +304,6 @@
       <url hash="b308199a">2021.icon-main.27</url>
       <attachment type="OptionalSupplementaryMaterial" hash="9206305c">2021.icon-main.27.OptionalSupplementaryMaterial.pdf</attachment>
       <bibkey>robbins-etal-2021-towards</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/coco">MS COCO</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/textcaps">TextCaps</pwcdataset>
     </paper>
     <paper id="28">
       <title>Image Caption Generation Framework for <fixed-case>A</fixed-case>ssamese News using Attention Mechanism</title>
@@ -331,9 +313,6 @@
       <abstract>Automatic caption generation is an artificial intelligence problem that falls at the intersection of computer vision and natural language processing. Although significant works have been reported in image captioning, the contribution is limited to English and few major languages with sufficient resources. But, no work on image captioning has been reported in a resource-constrained language like Assamese. With this inspiration, we propose an encoder-decoder based framework for image caption generation in the Assamese news domain. The VGG-16 pre-trained model at the encoder side and LSTM with an attention mechanism are employed at the decoder side to generate the Assamese caption. We train the proposed model on the dataset built in-house consisting of 10,000 images with a single caption for each image. We describe our experimental methodology, quantitative and qualitative results which validate the effectiveness of our model for caption generation. The proposed model shows a BLEU score of 12.1 outperforming the baseline model.</abstract>
       <url hash="9742f99f">2021.icon-main.28</url>
       <bibkey>das-singh-2021-image</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/banglalekhaimagecaptions">BanglaLekhaImageCaptions</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/coco">MS COCO</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/visual-genome">Visual Genome</pwcdataset>
     </paper>
     <paper id="29">
       <title>An Efficient Keyframes Selection Based Framework for Video Captioning</title>
@@ -347,8 +326,6 @@
       <url hash="6fb72d38">2021.icon-main.29</url>
       <attachment type="OptionalSupplementaryMaterial" hash="4e5435c6">2021.icon-main.29.OptionalSupplementaryMaterial.pdf</attachment>
       <bibkey>singh-etal-2021-efficient</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/hindi-msr-vtt">Hindi MSR-VTT</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/msvd">MSVD</pwcdataset>
     </paper>
     <paper id="30">
       <title>A Scaled Encoder Decoder Network for Image Captioning in <fixed-case>H</fixed-case>indi</title>
@@ -369,7 +346,6 @@
       <abstract>Social media platforms like Facebook, Twitter, and Instagram have a significant impact on several aspects of society. Memes are a new type of social media communication found on social platforms. Even though memes are primarily used to distribute humorous content, certain memes propagate hate speech through dark humor. It is critical to properly analyze and filter out these toxic memes from social media. But the presence of sarcasm and humor in an implicit way analyzes memes more challenging. This paper proposes an end-to-end neural network architecture that learns the complex association between text and image of a meme. For this purpose, we use a recent SemEval-2020 Task-8 multimodal dataset. We proposed an end-to-end CNN-based deep neural network architecture with two sub-modules viz. (i)Co-attention based sub-module and (ii) Multimodal Factorized Bilinear Pooling(MFB) sub-module to represent the textual and visual features of a meme in a more fine-grained way. We demonstrated the effectiveness of our proposed work through extensive experiments. The experimental results show that our proposed model achieves a 36.81% macro F1-score, outperforming all the baseline models.</abstract>
       <url hash="ac5e0f11">2021.icon-main.31</url>
       <bibkey>kumari-etal-2021-co</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/memotion-analysis">SemEval-2020 Task-8</pwcdataset>
     </paper>
     <paper id="32">
       <title>How effective is incongruity? Implications for code-mixed sarcasm detection</title>
@@ -379,7 +355,6 @@
       <abstract>The presence of sarcasm in conversational systems and social media like chatbots, Facebook, Twitter, etc. poses several challenges for downstream NLP tasks. This is attributed to the fact that the intended meaning of a sarcastic text is contrary to what is expressed. Further, the use of code-mix language to express sarcasm is increasing day by day. Current NLP techniques for code-mix data have limited success due to the use of different lexicon, syntax, and scarcity of labeled corpora. To solve the joint problem of code-mixing and sarcasm detection, we propose the idea of capturing incongruity through sub-word level embeddings learned via fastText. Empirical results show that our proposed model achieves an F1-score on code-mix Hinglish dataset comparable to pretrained multilingual models while training 10x faster and using a lower memory footprint.</abstract>
       <url hash="20d96e29">2021.icon-main.32</url>
       <bibkey>shah-maurya-2021-effective</bibkey>
-      <pwccode url="https://github.com/likemycode/codemix" additional="false">likemycode/codemix</pwccode>
     </paper>
     <paper id="33">
       <title>Contrastive Learning of Sentence Representations</title>
@@ -390,7 +365,6 @@
       <abstract>Learning sentence representations which capture rich semantic meanings has been crucial for many NLP tasks. Pre-trained language models such as BERT have achieved great success in NLP, but sentence embeddings extracted directly from these models do not perform well without fine-tuning. We propose Contrastive Learning of Sentence Representations (CLSR), a novel approach which applies contrastive learning to learn universal sentence representations on top of pre-trained language models. CLSR utilizes semantic similarity of two sentences to construct positive instance for contrastive learning. Semantic information that has been captured by the pre-trained models is kept by getting sentence embeddings from these models with proper pooling strategy. An encoder followed by a linear projection takes these embeddings as inputs and is trained under a contrastive objective. To evaluate the performance of CLSR, we run experiments on a range of pre-trained language models and their variants on a series of Semantic Contextual Similarity tasks. Results show that CLSR gains significant performance improvements over existing SOTA language models.</abstract>
       <url hash="d76b5a2d">2021.icon-main.33</url>
       <bibkey>qiu-etal-2021-contrastive</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/snli">SNLI</pwcdataset>
     </paper>
     <paper id="34">
       <title>Classifying Verses of the <fixed-case>Q</fixed-case>uran using Doc2vec</title>
@@ -412,8 +386,6 @@
       <abstract>Abbreviations and contractions are commonly found in text across different domains. For example, doctors’ notes contain many contractions that can be personalized based on their choices. Existing spelling correction models are not suitable to handle expansions because of many reductions of characters in words. In this work, we propose ABB-BERT, a BERT-based model, which deals with an ambiguous language containing abbreviations and contractions. ABB-BERT can rank them from thousands of options and is designed for scale. It is trained on Wikipedia text, and the algorithm allows it to be fine-tuned with little compute to get better performance for a domain or person. We are publicly releasing the training dataset for abbreviations and contractions derived from Wikipedia.</abstract>
       <url hash="7ee5b48e">2021.icon-main.35</url>
       <bibkey>kacker-etal-2021-abb</bibkey>
-      <pwccode url="https://github.com/prateek-kacker/ABB-BERT" additional="false">prateek-kacker/ABB-BERT</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/glue">GLUE</pwcdataset>
     </paper>
     <paper id="36">
       <title>Training data reduction for multilingual Spoken Language Understanding systems</title>
@@ -465,9 +437,6 @@
       <abstract>This paper applies contextualized word embedding models to a long-standing problem in the natural language parsing community, namely prepositional phrase attachment. Following past formulations of this problem, we use data sets in which the attachment decision is both a binary-valued choice as well as a multi-valued choice. We present a deep learning architecture that fine-tunes the output of a contextualized word embedding model for the purpose of predicting attachment decisions. We present experiments on two commonly used datasets that outperform the previous best results, using only the original training data and the unannotated full sentence context.</abstract>
       <url hash="917dfc0a">2021.icon-main.40</url>
       <bibkey>ratnaparkhi-kumar-2021-resolving</bibkey>
-      <pwccode url="https://github.com/adwaitratnaparkhi/ppa_transformer" additional="false">adwaitratnaparkhi/ppa_transformer</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/framenet">FrameNet</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/penn-treebank">Penn Treebank</pwcdataset>
     </paper>
     <paper id="41">
       <title>Multi-Source Cross-Lingual Constituency Parsing</title>
@@ -481,7 +450,6 @@
       <abstract>Pretrained multilingual language models have become a key part of cross-lingual transfer for many natural language processing tasks, even those without bilingual information. This work further investigates the cross-lingual transfer ability of these models for constituency parsing and focuses on multi-source transfer. Addressing structure and label set diversity problems, we propose the integration of typological features into the parsing model and treebank normalization. We trained the model on eight languages with diverse structures and use transfer parsing for an additional six low-resource languages. The experimental results show that the treebank normalization is essential for cross-lingual transfer performance and the typological features introduce further improvement. As a result, our approach improves the baseline F1 of multi-source transfer by 5 on average.</abstract>
       <url hash="5d4ebc51">2021.icon-main.41</url>
       <bibkey>kaing-etal-2021-multi</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/penn-treebank">Penn Treebank</pwcdataset>
     </paper>
     <paper id="42">
       <title><fixed-case>K</fixed-case>annada Sandhi Generator for <fixed-case>L</fixed-case>opa and Adesha Sandhi</title>
@@ -541,7 +509,6 @@
       <abstract>Finding the correct sense of a word is of great importance in many textual data related applications such as information retrieval, text mining and natural language processing. We have proposed one novel Word Sense Disambiguation (WSD) method according to its context. Based on collocation extraction score, the proposed method extracts three different features for each sense definition of a target word. These features create a feature vector and all the feature vectors create a sense matrix. Here, Restricted Boltzmann Machine (RBM) is used to enhance the sense matrix. Comparison of the proposed WSD method is made with current state-of-the-art systems using SENSEVAL and Sem Eval datasets. The proposed WSD method shows the practical implementation by applying on query-based text summary. For evaluation on query-based text summary, the proposed WSD method uses DUC datasets containing news-wire articles. Finally, the experimental analysis shows that our proposed WSD method performs better as compared to the current systems.</abstract>
       <url hash="16b97da9">2021.icon-main.47</url>
       <bibkey>rahman-borah-2021-method</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/word-sense-disambiguation-a-unified">Word Sense Disambiguation: a Unified Evaluation Framework and Empirical Comparison</pwcdataset>
     </paper>
     <paper id="48">
       <title>Encoder Decoder Approach to Automated Essay Scoring For Deeper Semantic Analysis</title>
@@ -573,7 +540,6 @@
       <abstract>Extractive summarization of lengthy legal documents requires an appropriate sentence scoring mechanism. This mechanism should capture both the local semantics of a sentence as well as the global document-level context of a sentence. The search for an appropriate sentence embedding that can enable an effective scoring mechanism has been the focus of several research works in this domain. In this work, we propose an improved sentence embedding approach that combines a Legal Bert-based local embedding of the sentence with an anonymous random walk-based entire document embedding. Such combined features help effectively capture the local and global information present in a sentence. The experimental results suggest that the proposed sentence embedding approach can be very beneficial for the appropriate representation of sentences in legal documents, improving the sentence scoring mechanism required for extractive summarization of these documents.</abstract>
       <url hash="5f8b8659">2021.icon-main.50</url>
       <bibkey>jain-etal-2021-cawesumm</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/billsum">BillSum</pwcdataset>
     </paper>
     <paper id="51">
       <title>Multi-document Text Summarization using Semantic Word and Sentence Similarity: A Combined Approach</title>
@@ -592,7 +558,6 @@
       <abstract>Metaphors are creative cognitive constructs that are employed in everyday conversation to describe abstract concepts and feelings. Prevalent conceptual metaphors such as WAR, MONSTER, and DARKNESS in COVID-19 online discourse sparked a multi-faceted debate over their efficacy in communication, resultant psychological impact on listeners, and their appropriateness in social discourse. In this work, we investigate metaphors used in discussions around COVID-19 on Indian Twitter. We observe subtle transitions in metaphorical mappings as the pandemic progressed. Our experiments, however, didn’t indicate any affective impact of WAR metaphors on the COVID-19 discourse.</abstract>
       <url hash="af988472">2021.icon-main.52</url>
       <bibkey>khaliq-etal-2021-covid</bibkey>
-      <pwccode url="https://github.com/makflakes/covid-metaphors-of-india" additional="false">makflakes/covid-metaphors-of-india</pwccode>
     </paper>
     <paper id="53">
       <title>Studies Towards Language Independent Fake News Detection</title>
@@ -613,7 +578,6 @@
       <abstract>This paper proposes a method to summarize news events from multiple sources. We pose event summarization as a clustering-based optimization problem and solve it using particle swarm optimization. The proposed methodology uses the search capability of particle swarm optimization, detecting the number of clusters automatically. Experiments are conducted with the Wikipedia Current Events Portal dataset and evaluated using the well-known ROUGE-1, ROUGE-2, and ROUGE-L scores. The obtained results show the efficacy of the proposed methodology over the state-of-the-art methods. It attained improvement of 33.42%, 81.75%, and 57.58% in terms of ROUGE-1, ROUGE-2, and ROUGE-L, respectively.</abstract>
       <url hash="03c9449f">2021.icon-main.54</url>
       <bibkey>mishra-etal-2021-wikipedia</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/wcep">WCEP</pwcdataset>
     </paper>
     <paper id="55">
       <title>Automated Evidence Collection for Fake News Detection</title>
@@ -623,10 +587,6 @@
       <abstract>Fake news, misinformation, and unverifiable facts on social media platforms propagate disharmony and affect society, especially when dealing with an epidemic like COVID-19. The task of Fake News Detection aims to tackle the effects of such misinformation by classifying news items as fake or real. In this paper, we propose a novel approach that improves over the current automatic fake news detection approaches by automatically gathering evidence for each claim. Our approach extracts supporting evidence from the web articles and then selects appropriate text to be treated as evidence sets. We use a pre-trained summarizer on these evidence sets and then use the extracted summary as supporting evidence to aid the classification task. Our experiments, using both machine learning and deep learning-based methods, help perform an extensive evaluation of our approach. The results show that our approach outperforms the state-of-the-art methods in fake news detection to achieve an F1-score of 99.25 over the dataset provided for the CONSTRAINT-2021 Shared Task. We also release the augmented dataset, our code and models for any further research.</abstract>
       <url hash="5c7b8493">2021.icon-main.55</url>
       <bibkey>rawat-kanojia-2021-automated</bibkey>
-      <pwccode url="https://github.com/rawat-mrinal06/fake_news" additional="false">rawat-mrinal06/fake_news</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/covid-19-fake-news-dataset">COVID-19 Fake News Dataset</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/fever">FEVER</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/liar">LIAR</pwcdataset>
     </paper>
     <paper id="56">
       <title>Prediction of Video Game Development Problems Based on Postmortems using Different Word Embedding Techniques</title>
@@ -649,7 +609,6 @@
       <abstract>Building machine learning models for low resource languages is extremely challenging due to the lack of available training data (either un-annotated or annotated). To support such scenarios, zero-shot cross lingual transfer is used where the machine learning model is trained on a resource rich language and is directly tested on the resource poor language. In this paper, we present a technique which improves the performance of zero-shot cross lingual transfer. Our method performs multi-task pre-finetuning on a resource rich language using a multilingual pre-trained model. The pre-finetuned model is then tested in a zero-shot manner on the resource poor languages. We test the performance of our method on 8 languages and for two tasks, namely, Intent Classification (IC) &amp; Named Entity Recognition (NER) using the MultiAtis++ dataset. The results showed that our method improves IC performance in 7 out of 8 languages and NER performance in 4 languages. Our method also leads to faster convergence during finetuning. The usage of pre-finetuning demonstrates a data efficient way for supporting new languages and geographies across the world.</abstract>
       <url hash="5ca81a21">2021.icon-main.57</url>
       <bibkey>yerramilli-etal-2021-multi</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/glue">GLUE</pwcdataset>
     </paper>
     <paper id="58">
       <title>Sentiment Analysis For <fixed-case>B</fixed-case>engali Using Transformer Based Models</title>
@@ -709,7 +668,6 @@
       <url hash="6b5336d3">2021.icon-main.63</url>
       <attachment type="OptionalSupplementaryMaterial" hash="a977a9b7">2021.icon-main.63.OptionalSupplementaryMaterial.zip</attachment>
       <bibkey>swenor-kalita-2021-using</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/imdb-movie-reviews">IMDb Movie Reviews</pwcdataset>
     </paper>
     <paper id="64">
       <title>Retrofitting of Pre-trained Emotion Words with <fixed-case>VAD</fixed-case>-dimensions and the <fixed-case>P</fixed-case>lutchik Emotions</title>
@@ -730,9 +688,6 @@
       <url hash="92f6aa35">2021.icon-main.65</url>
       <attachment type="OptionalSupplementaryMaterial" hash="06e232f2">2021.icon-main.65.OptionalSupplementaryMaterial.pdf</attachment>
       <bibkey>jayanthi-etal-2021-evaluating</bibkey>
-      <pwccode url="https://github.com/murali1996/el_tod" additional="false">murali1996/el_tod</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/acronym-identification">Acronym Identification</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/mkqa">MKQA</pwcdataset>
     </paper>
     <paper id="66">
       <title>Cascading Adaptors to Leverage <fixed-case>E</fixed-case>nglish Data to Improve Performance of Question Answering for Low-Resource Languages</title>
@@ -744,9 +699,6 @@
       <url hash="085cbdfe">2021.icon-main.66</url>
       <attachment type="OptionalSupplementaryMaterial" hash="e4af0acd">2021.icon-main.66.OptionalSupplementaryMaterial.pdf</attachment>
       <bibkey>pandya-etal-2021-cascading</bibkey>
-      <pwccode url="https://github.com/Bhavik-Ardeshna/Question-Answering-for-Low-Resource-Languages" additional="false">Bhavik-Ardeshna/Question-Answering-for-Low-Resource-Languages</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/mlqa">MLQA</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/xquad">XQuAD</pwcdataset>
     </paper>
     <paper id="67">
       <title>ea<fixed-case>VQA</fixed-case>: An Experimental Analysis on Visual Question Answering Models</title>
@@ -756,7 +708,6 @@
       <abstract>Visual Question Answering (VQA) has recently become a popular research area. VQA problem lies in the boundary of Computer Vision and Natural Language Processing research domains. In VQA research, the dataset is a very important aspect because of its variety in image types i.e. natural and synthetic and also question answer source i.e. originated from human source or computer-generated question answer. Various details about each dataset is given in this paper, which can help future researchers to a great extent. In this paper, we discussed and compared the experimental performance of Stacked Attention Network Model (SANM) and bidirectional LSTM and MUTAN based fusion models. As per the experimental results, MUTAN accuracy and loss are 29% and 3.5 respectively. SANM model is giving 55% accuracy and a loss of 2.2 whereas VQA model is giving 59% accuracy and 1.9 loss.</abstract>
       <url hash="020562f0">2021.icon-main.67</url>
       <bibkey>chowdhury-soni-2021-eavqa</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/visual-question-answering">Visual Question Answering</pwcdataset>
     </paper>
     <paper id="68">
       <title>Deep Embedding of Conversation Segments</title>
@@ -789,7 +740,6 @@
       <url hash="6714e35f">2021.icon-main.70</url>
       <attachment type="OptionalSupplementaryMaterial" hash="98538499">2021.icon-main.70.OptionalSupplementaryMaterial.pdf</attachment>
       <bibkey>gorijala-etal-2021-device</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/conll">CoNLL++</pwcdataset>
     </paper>
     <paper id="71">
       <title>Weakly Supervised Extraction of Tasks from Text</title>
@@ -938,9 +888,6 @@
       <abstract>Image Captioning as a task that has seen major updates over time. In recent methods, visual-linguistic grounding of the image-text pair is leveraged. This includes either generating the textual description of the objects and entities present within the image in constrained manner, or generating detailed description of these entities as a paragraph. But there is still a long way to go towards being able to generate text that is not only semantically richer, but also contains real world knowledge in it. This is the motivation behind exploring image2tweet generation through the lens of existing image-captioning approaches. At the same time, there is little research in image captioning in Indian languages like Hindi. In this paper, we release Hindi and English datasets for the task of tweet generation given an image. The aim is to generate a specialized text like a tweet, that is not a direct result of visual-linguistic grounding that is usually leveraged in similar tasks, but conveys a message that factors-in not only the visual content of the image, but also additional real world contextual information associated with the event described within the image as closely as possible. Further, We provide baseline DL models on our data and invite researchers to build more sophisticated systems for the problem.</abstract>
       <url hash="5153e5f2">2021.icon-main.84</url>
       <bibkey>jha-etal-2021-image2tweet</bibkey>
-      <pwccode url="https://github.com/git-rishabh-jha/image2tweet" additional="false">git-rishabh-jha/image2tweet</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/flickr30k">Flickr30k</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/coco">MS COCO</pwcdataset>
     </paper>
   </volume>
   <volume id="multigen" ingest-date="2022-09-21" type="proceedings">
@@ -1006,7 +953,6 @@
       <url hash="1fa46446">2021.icon-multigen.3</url>
       <attachment type="OptionalSupplementaryMaterial" hash="ec1486f6">2021.icon-multigen.3.OptionalSupplementaryMaterial.zip</attachment>
       <bibkey>benhur-etal-2021-hypers</bibkey>
-      <pwccode url="https://github.com/seanbenhur/multilingual_aggresive_gender_bias_communal_bias_identifcation" additional="false">seanbenhur/multilingual_aggresive_gender_bias_communal_bias_identifcation</pwccode>
     </paper>
     <paper id="4">
       <title>Beware Haters at <fixed-case>C</fixed-case>om<fixed-case>MA</fixed-case>@<fixed-case>ICON</fixed-case>: Sequence and Ensemble Classifiers for Aggression, Gender Bias and Communal Bias Identification in <fixed-case>I</fixed-case>ndian Languages</title>

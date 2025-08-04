@@ -42,6 +42,9 @@ class DefaultConfig:
     video_location_template: str = "${url_prefix}/{}"
     """URL formatting template for videos."""
 
+    volume_page_template: str = "${url_prefix}/{}/"
+    """URL formatting template for volume landing pages."""
+
     logger_name: str = "acl-anthology"
     """Name of logger to which the library sends log messages."""
 
@@ -52,5 +55,5 @@ class DefaultConfig:
 config = OmegaConf.structured(DefaultConfig)
 """A [structured configuration instance](https://omegaconf.readthedocs.io/en/latest/structured_config.html) that is used by all `acl_anthology` classes."""
 
-dirs = PlatformDirs("acl-anthology-py")
+dirs = PlatformDirs("acl-anthology")
 """A [PlatformDirs instance](https://platformdirs.readthedocs.io/en/latest/api.html#platformdirs) that returns platform-specific directories for storing data."""

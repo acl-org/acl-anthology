@@ -38,7 +38,8 @@
       <author><first>Elisabeth</first><last>Steffen</last><affiliation>Hochschule für Technik und Wirtschaft Berlin</affiliation></author>
       <author><first>Helena</first><last>Mihaljevic</last><affiliation>Hochschule für Technik und Wirtschaft Berlin</affiliation></author>
       <pages>13-27</pages>
-      <abstract>To protect users from massive hateful content, existing works studied automated hate speech detection. Despite the existing efforts, one question remains: do automated hate speech detectors conform to social media content policies? A platform’s content policies are a checklist of content moderated by the social media platform. Because content moderation rules are often uniquely defined, existing hate speech datasets cannot directly answer this question. This work seeks to answer this question by creating HateModerate, a dataset for testing the behaviors of automated content moderators against content policies. First, we engage 28 annotators and GPT in a six-step annotation process, resulting in a list of hateful and non-hateful test suites matching each of Facebook’s 41 hate speech policies. Second, we test the performance of state-of-the-art hate speech detectors against HateModerate, revealing substantial failures these models have in their conformity to the policies. Third, using HateModerate, we augment the training data of a top-downloaded hate detector on HuggingFace. We observe significant improvement in the models’ conformity to content policies while having comparable scores on the original test data. Our dataset and code can be found in the attachment.</abstract>
+      <abstract>The automated detection of conspiracy theories online typically relies on supervised learning. However, creating respective training data requires expertise, time and mental resilience, given the often harmful content. Moreover, available datasets are predominantly in English and often keyword-based, introducing a token-level bias into the models. Our work addresses the task of detecting conspiracy theories in German Telegram messages. We compare the performance of supervised fine-tuning approaches using BERT-like models with prompt-based approaches using Llama2, GPT-3.5, and GPT-4 which require little or no additional training data. We use a dataset of ∼4, 000 messages collected during the COVID-19 pandemic, without the use of keyword filters.
+Our findings demonstrate that both approaches can be leveraged effectively: For supervised fine-tuning, we report an F1 score of ∼ 0.8 for the positive class, making our model comparable to recent models trained on keyword-focused English corpora. We demonstrate our model’s adaptability to intra-domain temporal shifts, achieving F1 scores of ∼0.7. Among prompting variants, the best model is GPT-4, achieving an F1 score of ∼0.8 for the positive class in a zero-shot setting and equipped with a custom conspiracy theory definition.</abstract>
       <url hash="749567fa">2024.woah-1.2</url>
       <bibkey>pustet-etal-2024-detection</bibkey>
       <doi>10.18653/v1/2024.woah-1.2</doi>
@@ -168,10 +169,10 @@
     </paper>
     <paper id="13">
       <title>Improving aggressiveness detection using a data augmentation technique based on a Diffusion Language Model</title>
-      <author><first>Antonio</first><last>Reyes-Ramírez</last><affiliation>Mathematics Research Center (CIMAT)</affiliation></author>
-      <author><first>Mario</first><last>Aragón</last><affiliation>Centro Singular de Investigación en Tecnoloxias Intelixentes (CiTIUS), Universidade de Santiago de Compostela</affiliation></author>
-      <author><first>Fernando</first><last>Sánchez-Vega</last><affiliation>Mathematics Research Center (CIMAT)</affiliation></author>
-      <author><first>Adrian</first><last>López-Monroy</last><affiliation>Mathematics Research Center (CIMAT)</affiliation></author>
+      <author><first>Antonio D.</first><last>Reyes-Ramírez</last></author>
+      <author><first>Mario Ezra</first><last>Aragón</last></author>
+      <author><first>Fernando</first><last>Sánchez-Vega</last></author>
+      <author><first>A. Pastor</first><last>López-Monroy</last></author>
       <pages>171-177</pages>
       <abstract>Cyberbullying has grown in recent years, largely attributed to the proliferation of social media users. This phenomenon manifests in various forms, such as hate speech and offensive language, increasing the necessity of effective detection models to tackle this problem. Most approaches focus on supervised algorithms, which have an important drawback—they heavily depend on the availability of ample training data. This paper attempts to tackle this insufficient data problem using data augmentation (DA) techniques. Concretely, we propose a novel data augmentation technique based on a Diffusion Language Model (DLA). We compare our proposed method against well-known DA techniques, such as contextual augmentation and Easy Data Augmentation (EDA). Our findings reveal a slight but promising improvement, leading to more robust results with very low variance. Additionally, we provide a comprehensive qualitative analysis using classification errors, and complementary analysis, shedding light on the nuances of our approach.</abstract>
       <url hash="aa773895">2024.woah-1.13</url>
@@ -256,6 +257,7 @@
       <url hash="20a37f0f">2024.woah-1.19</url>
       <bibkey>dementieva-etal-2024-toxicity</bibkey>
       <doi>10.18653/v1/2024.woah-1.19</doi>
+      <video href="2024.woah-1.19.mp4"/>
     </paper>
     <paper id="20">
       <title>A Strategy Labelled Dataset of Counterspeech</title>
@@ -301,13 +303,15 @@
       <author><first>Diyi</first><last>Liu</last><affiliation>University of Oxford</affiliation></author>
       <author><first>Samuel</first><last>Fraiberger</last><affiliation>World Bank, NYU, MIT</affiliation></author>
       <author><first>Ralph</first><last>Schroeder</last><affiliation>University of Oxford</affiliation></author>
-      <author><first>Scott</first><last>Hale</last><affiliation>University of Oxford</affiliation></author>
+      <author><first>Scott A.</first><last>Hale</last><affiliation>University of Oxford</affiliation></author>
       <author><first>Paul</first><last>Röttger</last><affiliation>University of Oxford</affiliation></author>
       <pages>283-311</pages>
       <abstract>Perceptions of hate can vary greatly across cultural contexts. Hate speech (HS) datasets, however, have traditionally been developed by language. This hides potential cultural biases, as one language may be spoken in different countries home to different cultures. In this work, we evaluate cultural bias in HS datasets by leveraging two interrelated cultural proxies: language and geography. We conduct a systematic survey of HS datasets in eight languages and confirm past findings on their English-language bias, but also show that this bias has been steadily decreasing in the past few years. For three geographically-widespread languages—English, Arabic and Spanish—we then leverage geographical metadata from tweets to approximate geo-cultural contexts by pairing language and country information. We find that HS datasets for these languages exhibit a strong geo-cultural bias, largely overrepresenting a handful of countries (e.g., US and UK for English) relative to their prominence in both the broader social media population and the general population speaking these languages. Based on these findings, we formulate recommendations for the creation of future HS datasets.</abstract>
-      <url hash="38be5508">2024.woah-1.23</url>
+      <url hash="204b4a6d">2024.woah-1.23</url>
       <bibkey>tonneau-etal-2024-languages</bibkey>
       <doi>10.18653/v1/2024.woah-1.23</doi>
+      <revision id="1" href="2024.woah-1.23v1" hash="38be5508"/>
+      <revision id="2" href="2024.woah-1.23v2" hash="204b4a6d" date="2025-06-10">Minor updates.</revision>
     </paper>
     <paper id="24">
       <title><fixed-case>SGH</fixed-case>ate<fixed-case>C</fixed-case>heck: Functional Tests for Detecting Hate Speech in Low-Resource Languages of <fixed-case>S</fixed-case>ingapore</title>

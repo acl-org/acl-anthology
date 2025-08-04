@@ -90,16 +90,12 @@ endif
 #######################################################
 
 # hugo version check
-HUGO_VERSION_MIN=114
+HUGO_VERSION_MIN=126
 HUGO_VERSION=$(shell hugo version | sed 's/^.* v0\.\(.*\)\..*/\1/')
 HUGO_VERSION_TOO_LOW:=$(shell [[ $(HUGO_VERSION_MIN) -gt $(HUGO_VERSION) ]] && echo true)
 ifeq ($(HUGO_VERSION_TOO_LOW),true)
   $(error "incorrect hugo version installed! Need hugo 0.$(HUGO_VERSION_MIN), but only found hugo 0.$(HUGO_VERSION)!")
 endif
-
-# check whether bibtools are installed; used by the endnote and mods targets.
-HAS_XML2END=$(shell which xml2end > /dev/null && echo true || echo false)
-HAS_BIB2XML=$(shell which bib2xml > /dev/null && echo true || echo false)
 
 
 VENV := "venv/bin/activate"
@@ -124,14 +120,10 @@ build/.sitemap: venv/bin/activate build/.hugo
 venv: venv/bin/activate
 
 # installs dependencies if requirements.txt have been updated.
-# checks whether libyaml is enabled to ensure fast build times.
 venv/bin/activate: bin/requirements.txt
 	test -d venv || python3 -m venv venv
 	. $(VENV) && pip3 install wheel
 	. $(VENV) && pip3 install -Ur bin/requirements.txt
-	@. $(VENV) && python3 -c "from yaml import CLoader" 2> /dev/null || ( \
-	    echo "WARNING     No libyaml bindings enabled for pyyaml, your build will be several times slower than needed";\
-	    echo "            see the README on GitHub for more information")
 	touch venv/bin/activate
 
 .PHONY: all
@@ -163,79 +155,37 @@ build/.static: build/.basedirs $(shell find hugo -type f)
 	@perl -pi -e "s|ANTHOLOGYDIR|$(ANTHOLOGYDIR)|g" build/website/index.html
 	@touch build/.static
 
-.PHONY: yaml
-yaml: build/.yaml
+.PHONY: hugo_data
+hugo_data: build/.data
 
-build/.yaml: build/.basedirs $(sourcefiles) venv/bin/activate
-	@echo "INFO     Generating YAML files for Hugo..."
-	. $(VENV) && python3 bin/create_hugo_yaml.py --clean
-	@touch build/.yaml
+build/.data: build/.basedirs $(sourcefiles) venv/bin/activate
+	@echo "INFO     Generating data files for Hugo..."
+	. $(VENV) && python3 bin/create_hugo_data.py --clean
+	@touch build/.data
 
-.PHONY: hugo_pages
-hugo_pages: build/.pages
-
-build/.pages: build/.basedirs build/.yaml venv/bin/activate
-	@echo "INFO     Creating page templates for Hugo..."
-	. $(VENV) && python3 bin/create_hugo_pages.py --clean
-	@touch build/.pages
-
-.PHONY: bibtex
-bibtex:	build/.bibtex
-
-.PHONY: mods
-mods: build/.mods
-
-.PHONY: endnote
-endnote: build/.endnote
+.PHONY: bib
+bib:	build/.bib
 
 #######################################################
-build/.bibtex: build/.basedirs $(sourcefiles) venv/bin/activate
-	@echo "INFO     Creating BibTeX files..."
-	. $(VENV) && python3 bin/create_bibtex.py --clean
-	@touch build/.bibtex
-
 # Disable citation targets (except for 3 bibtex per volume) by setting NOBIB=true
 ifeq (true, $(NOBIB))
-$(info WARNING: not creating citation materials; this is not suitable for release!)
-build/.mods: build/.bibtex
-	touch build/.mods
-build/.endnote: build/.bibtex
-	touch build/.endnote
+$(info WARNING: not creating full citation materials; this is not suitable for release!)
+build/.bib:
+	@touch build/.bib
 else
 
-build/.mods: build/.bibtex
-	@if [ $(HAS_BIB2XML) = false ]; then \
-	    echo "bib2xml not found, please install bibtools"; \
-            echo "alternatively, build the site without endnote files by running make hugo"; \
-	    exit 1; \
-	fi
-	@echo "INFO     Converting BibTeX files to MODS XML..."
-	@find build/data-export -name '*.bib' -print0 | \
-	      xargs -0 -n 1 -P 8 bin/bib2xml_wrapper >/dev/null
-	@touch build/.mods
-
-build/.endnote: build/.mods
-	@if [ $(HAS_XML2END) = false ]; then \
-	    echo "xml2end not found, please install bibtools"; \
-            echo "alternatively, build the site without endnote files by running make hugo"; \
-	    exit 1; \
-	fi
-	@echo "INFO     Converting MODS XML files to EndNote..."
-	@find build/data-export -name '*.xml' -print0 | \
-	      xargs -0 -n 1 -P 8 bin/xml2end_wrapper >/dev/null
-	@touch build/.endnote
+build/.bib: build/.basedirs build/.data venv/bin/activate
+	@echo "INFO     Creating extra bibliographic files..."
+	. $(VENV) && python3 bin/create_extra_bib.py --clean
+	@touch build/.bib
 endif
 # end if block to conditionally disable bibtex generation
 #######################################################
 
-
-%.endf: %.xml
-	xml2end $< 2>&1 > $@
-
 .PHONY: hugo
 hugo: build/.hugo
 
-build/.hugo: build/.static build/.pages build/.bibtex build/.mods build/.endnote
+build/.hugo: build/.static build/.data build/.bib
 	@echo "INFO     Running Hugo... this may take a while."
 	@cd build && \
 	    hugo -b $(ANTHOLOGYHOST)/$(ANTHOLOGYDIR) \
@@ -267,7 +217,7 @@ clean:
 	rm -rf build venv
 
 .PHONY: check
-check: venv pytest
+check: venv
 	@if grep -rl '	' data/xml; then \
 	    echo "check error: found a tab character in the above XML files!"; \
 	    exit 1; \
@@ -277,10 +227,6 @@ check: venv pytest
 	  && SKIP=no-commit-to-branch pre-commit run --all-files \
 	  && black --check $(pysources) \
 	  && ruff check $(pysources)
-
-.PHONY: pytest
-pytest: venv
-	. $(VENV) && PYTHONPATH=bin/ python -m pytest tests --cov-report term --cov=anthology tests
 
 .PHONY: check_staged_xml
 check_staged_xml:
@@ -301,11 +247,14 @@ autofix: check_staged_xml venv/bin/activate
 	 EXIT_STATUS=0 ;\
 	 pre-commit run || EXIT_STATUS=$$? ;\
 	 PRE_DIFF=`git diff --no-ext-diff --no-color` ;\
-	 ruff --fix --show-fixes $(pysources) || EXIT_STATUS=$$? ;\
+	 ruff check --fix --show-fixes $(pysources) || EXIT_STATUS=$$? ;\
 	 black $(pysources) || EXIT_STATUS=$$? ;\
 	 POST_DIFF=`git diff --no-ext-diff --no-color` ;\
 	 [ "$${PRE_DIFF}" = "$${POST_DIFF}" ] || EXIT_STATUS=1 ;\
 	 [ $${EXIT_STATUS} -eq 0 ]
+
+.PHONY: reformat
+reformat: autofix
 
 .PHONY: serve
 serve:

@@ -1,4 +1,4 @@
-# Copyright 2023-2024 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2025 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,14 +16,10 @@ import pytest
 from attrs import define
 from lxml import etree
 
-from acl_anthology.collections import Event, Talk
+from acl_anthology.collections import Event, EventLinkingType, Talk
+from acl_anthology.files import EventFileReference
 from acl_anthology.text import MarkupText
 from acl_anthology.utils.xml import indent
-
-
-@define
-class AttachmentReferenceMock:
-    name: str
 
 
 @define
@@ -95,12 +91,12 @@ def test_event_all_attribs():
         location="Online",
         dates="August 17-19, 2023",
         colocated_ids=[
-            ("2023.foobar", "1", None),
-            ("2023.baz", "1", None),
-            ("2023.asdf", "1", None),
+            (("2023.foobar", "1", None), EventLinkingType.EXPLICIT),
+            (("2023.baz", "1", None), EventLinkingType.EXPLICIT),
+            (("2023.asdf", "1", None), EventLinkingType.EXPLICIT),
         ],
-        talks=[Talk("Invited talk")],
-        links={"Website": AttachmentReferenceMock("http://foobar.com")},
+        talks=[Talk(MarkupText.from_string("Invited talk"))],
+        links={"Website": EventFileReference("http://foobar.com")},
     )
     assert event.collection_id == "2023.li"
     assert event.title == event_title
@@ -112,10 +108,10 @@ def test_event_to_xml_dont_list_colocated_volumes_of_parent():
         id="li-2023",
         parent=CollectionStub("2023.li"),
         colocated_ids=[
-            ("2023.baz", "1", None),
-            ("2023.li", "main", None),
-            ("2023.li", "side", None),
-            ("2023.ling", "1", None),
+            (("2023.baz", "1", None), EventLinkingType.EXPLICIT),
+            (("2023.li", "main", None), EventLinkingType.INFERRED),
+            (("2023.li", "side", None), EventLinkingType.INFERRED),
+            (("2023.ling", "1", None), EventLinkingType.EXPLICIT),
         ],
     )
     out = event.to_xml()
@@ -147,11 +143,30 @@ def test_event_volumes(anthology):
     assert len(event.colocated_ids) == 4
     volumes = list(event.volumes())
     assert len(volumes) == 4
-    assert {vol.full_id_tuple for vol in volumes} == set(event.colocated_ids)
+    assert {vol.full_id_tuple for vol in volumes} == set(
+        x[0] for x in event.colocated_ids
+    )
     with pytest.raises(ValueError):
         # acl-2022 lists co-located volumes that we don't have in the toy
         # dataset, so trying to access them should raise an error
         list(anthology.events.get("acl-2022").volumes())
+
+
+def test_event_add_colocated(anthology):
+    event = anthology.events.get("lrec-2006")
+    assert len(event.colocated_ids) == 1
+    volume = anthology.get_volume("J89-1")
+
+    # Adding colocated volume should update Event & EventIndex
+    event.add_colocated(volume)
+    assert len(event.colocated_ids) == 2
+    assert (volume.full_id_tuple, EventLinkingType.EXPLICIT) in event.colocated_ids
+    assert event in anthology.events.by_volume(volume)
+
+    # Adding the same volume a second time shouldn't change anything
+    event.add_colocated(volume)
+    event.add_colocated(volume.full_id_tuple)
+    assert len(event.colocated_ids) == 2
 
 
 test_cases_talk_xml = (
@@ -172,7 +187,7 @@ test_cases_talk_xml = (
 
 
 def test_talk_minimum_attribs():
-    title = "On the Development of Software Tests"
+    title = MarkupText.from_string("On the Development of Software Tests")
     talk = Talk(title)
     assert talk.title == title
     assert talk.type is None

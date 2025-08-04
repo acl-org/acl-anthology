@@ -1,4 +1,4 @@
-# Copyright 2023-2024 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2025 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,9 +15,9 @@
 from __future__ import annotations
 
 from attrs import define, field, asdict
-from collections import defaultdict
+from collections.abc import Iterable
+from collections import Counter, defaultdict
 import itertools as it
-from os import PathLike
 from pathlib import Path
 from rich.progress import track
 from scipy.cluster.hierarchy import DisjointSet  # type: ignore
@@ -32,10 +32,12 @@ except ImportError:  # pragma: no cover
 
 from ..containers import SlottedDict
 from ..exceptions import AnthologyException, AmbiguousNameError, NameIDUndefinedError
+from ..utils.ids import AnthologyIDTuple
 from ..utils.logging import get_logger
 from . import Person, Name, NameSpecification
 
 if TYPE_CHECKING:
+    from _typeshed import StrPath
     from ..anthology import Anthology
     from ..collections import Paper, Volume
 
@@ -48,6 +50,14 @@ class PersonIndex(SlottedDict[Person]):
     """Index object through which all persons (authors/editors) can be accessed.
 
     Provides dictionary-like functionality mapping person IDs to [Person][acl_anthology.people.person.Person] objects.
+
+    Info:
+        All information about persons is currently derived from [name specifications][acl_anthology.people.name.NameSpecification] on volumes and papers, and not stored explicitly. This means:
+
+        1. Loading this index requires parsing the entire Anthology data.
+        2. Nothing in this index should be modified to make changes to Anthology data; change the information on papers instead.
+
+        See the [guide on accessing author/editor information](../guide/accessing-authors.md) for more information.
 
     Attributes:
         parent: The parent Anthology instance to which this index belongs.
@@ -63,7 +73,7 @@ class PersonIndex(SlottedDict[Person]):
         init=False, repr=False, factory=lambda: defaultdict(list)
     )
     similar: DisjointSet = field(init=False, repr=False, factory=DisjointSet)
-    is_data_loaded: bool = field(init=False, repr=False, default=False)
+    is_data_loaded: bool = field(init=False, repr=True, default=False)
 
     def get_by_name(self, name: Name) -> list[Person]:
         """Access persons by their name.
@@ -93,31 +103,55 @@ class PersonIndex(SlottedDict[Person]):
             self.load()
         return self.get_or_create_person(name_spec, create=False)
 
-    def find_coauthors(self, person: str | Person) -> list[Person]:
+    def find_coauthors(
+        self, person: str | Person, include_volumes: bool = True
+    ) -> list[Person]:
         """Find all persons who co-authored or co-edited items with the given person.
 
         Parameters:
             person: A person ID _or_ Person instance.
+            include_volumes: If set to False, will not consider co-editorship on volumes, unless they have frontmatter.
 
         Returns:
             A list of all persons who are co-authors; can be empty.
+        """
+        coauthors = self.find_coauthors_counter(person, include_volumes=include_volumes)
+        return [self.data[pid] for pid in coauthors]
+
+    def find_coauthors_counter(
+        self, person: str | Person, include_volumes: bool = True
+    ) -> Counter[str]:
+        """Find the count of co-authored or co-edited items per person.
+
+        Parameters:
+            person: A person ID _or_ Person instance.
+            include_volumes: If set to False, will not consider co-editorship on volumes, unless they have frontmatter.
+
+        Returns:
+            A Counter mapping **IDs** of other persons Y to the number of papers this person has co-authored with Y.
         """
         if not self.is_data_loaded:
             self.load()
         if isinstance(person, str):
             person = self.data[person]
-        coauthors = set()
+        coauthors: Counter[str] = Counter()
         for item_id in person.item_ids:
             item = cast("Volume | Paper", self.parent.get(item_id))
-            coauthors |= set(
+            if (
+                not include_volumes
+                and item.full_id_tuple[-1] is None  # item is a Volume
+                and not cast("Volume", item).has_frontmatter
+            ):
+                continue
+            coauthors.update(
                 self.get_or_create_person(ns, create=False).id for ns in item.editors
             )
             if hasattr(item, "authors"):
-                coauthors |= set(
+                coauthors.update(
                     self.get_or_create_person(ns, create=False).id for ns in item.authors
                 )
-        coauthors.remove(person.id)
-        return [self.data[pid] for pid in coauthors]
+        del coauthors[person.id]
+        return coauthors
 
     def load(self) -> None:
         """Loads or builds the index."""
@@ -138,8 +172,7 @@ class PersonIndex(SlottedDict[Person]):
         """Load the entire Anthology data and build an index of persons.
 
         Important:
-            Exceptions raised during the index creation are sent to the logger, and **not** re-raised.
-            Use the [SeverityTracker][acl_anthology.utils.logging.SeverityTracker] to check if an exception occurred.
+            Exceptions raised during the index creation are sent to the logger, and only a generic exception is raised at the end.
         """
         self.reset()
         # Load variant list, so IDs defined there are added first
@@ -151,13 +184,14 @@ class PersonIndex(SlottedDict[Person]):
             disable=(not show_progress),
             description="Building person index...",
         )
+        raised_exception = False
         for collection in iterator:
             for volume in collection.volumes():
                 context: Paper | Volume = volume
                 try:
                     for name_spec in volume.editors:
                         person = self.get_or_create_person(name_spec)
-                        person.item_ids.add(volume.full_id_tuple)
+                        person.item_ids.append(volume.full_id_tuple)
                     for paper in volume.papers():
                         context = paper
                         name_specs = (
@@ -169,7 +203,7 @@ class PersonIndex(SlottedDict[Person]):
                         )
                         for name_spec in name_specs:
                             person = self.get_or_create_person(name_spec)
-                            person.item_ids.add(paper.full_id_tuple)
+                            person.item_ids.append(paper.full_id_tuple)
                 except Exception as exc:
                     note = f"Raised in {context.__class__.__name__} {context.full_id}; {name_spec}"
                     # If this is merged into a single if-statement (with "or"),
@@ -179,6 +213,11 @@ class PersonIndex(SlottedDict[Person]):
                     elif sys.version_info >= (3, 11):
                         exc.add_note(note)
                     log.exception(exc)
+                    raised_exception = True
+        if raised_exception:
+            raise Exception(
+                "An exception was raised while building PersonIndex; check the logger for details."
+            )
         self.is_data_loaded = True
 
     def add_person(self, person: Person) -> None:
@@ -212,16 +251,17 @@ class PersonIndex(SlottedDict[Person]):
         """
         name = name_spec.name
         if (pid := name_spec.id) is not None:
-            try:
-                person = self.data[pid]
-                person.add_name(name)
-            except KeyError:
+            # Explicit ID given; should already exist from name_variants.yaml
+            person = self.data.get(pid)
+            if person is None or not person.is_explicit:
                 exc1 = NameIDUndefinedError(
                     name_spec, f"Name '{name}' used with ID '{pid}' that doesn't exist"
                 )
                 exc1.add_note("Did you forget to define the ID in name_variants.yaml?")
                 raise exc1
+            person.add_name(name)
         elif pid_list := self.name_to_ids[name]:
+            # Name already exists in the index, but has no explicit ID
             if len(pid_list) > 1:
                 exc2 = AmbiguousNameError(
                     name,
@@ -232,20 +272,24 @@ class PersonIndex(SlottedDict[Person]):
             pid = pid_list[0]
             person = self.data[pid]
         else:
+            # Name not in the index and has no explicit ID
             pid = self.generate_id(name)
             try:
                 # If the auto-generated ID already exists, we assume it's the same person
                 person = self.data[pid]
                 # If the name scores higher than the current canonical one, we
                 # also assume we should set this as the canonical one
-                if name.score() > person.canonical_name.score():
+                if (not person.is_explicit) and (
+                    name.score() > person.canonical_name.score()
+                ):
                     person.set_canonical_name(name)
                 else:
                     person.add_name(name)
                 self.name_to_ids[name].append(pid)
             except KeyError:
                 if create:
-                    # If it doesn't, only then do we create a new perosn
+                    # If the auto-generated ID doesn't exist yet, then and only
+                    # then do we create a new person
                     person = Person(id=pid, parent=self.parent, names=[name])
                     self.add_person(person)
                 else:
@@ -253,6 +297,11 @@ class PersonIndex(SlottedDict[Person]):
                         name_spec,
                         f"Name '{name}' generated ID '{pid}' that doesn't exist",
                     )
+        # Make sure that name variants specified here are registered
+        for name in name_spec.variants:
+            person.add_name(name)
+            if name not in self.name_to_ids:
+                self.name_to_ids[name].append(pid)
         return person
 
     @staticmethod
@@ -268,6 +317,20 @@ class PersonIndex(SlottedDict[Person]):
             the same person.
         """
         return name.slugify()
+
+    def _add_to_index(
+        self, namespecs: Iterable[NameSpecification], item_id: AnthologyIDTuple
+    ) -> None:
+        """Add persons to the index.
+
+        This function exists for internal use when creating new volumes or papers.  It should not be called manually.
+        """
+        if not self.is_data_loaded:
+            return
+
+        for namespec in namespecs:
+            person = self.get_or_create_person(namespec)
+            person.item_ids.append(item_id)
 
     def _load_variant_list(self) -> None:
         """Loads and parses the `name_variant.yaml` file.
@@ -304,6 +367,7 @@ class PersonIndex(SlottedDict[Person]):
                 parent=self.parent,
                 names=names,
                 comment=entry.get("comment", None),
+                is_explicit=True,
             )
             # ...and add it to the index
             self.add_person(person)
@@ -317,7 +381,7 @@ class PersonIndex(SlottedDict[Person]):
         for a, b in merge_list:
             self.similar.merge(a, b)
 
-    def save(self, path: PathLike[str]) -> None:
+    def save(self, path: StrPath) -> None:
         """Save the entire index.
 
         CURRENTLY UNTESTED; DO NOT USE.
@@ -335,7 +399,7 @@ class PersonIndex(SlottedDict[Person]):
                 ),
             }
             if person.item_ids:
-                attrib["items"] = list(person.item_ids)
+                attrib["items"] = person.item_ids
             if len(person.names) > 1:
                 attrib["variants"] = [
                     asdict(

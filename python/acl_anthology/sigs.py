@@ -1,4 +1,4 @@
-# Copyright 2023-2024 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2025 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,15 +14,16 @@
 
 from __future__ import annotations
 
-from attrs import define, field
+from attrs import define, field, validators as v
 from collections import ChainMap, defaultdict
-from os import PathLike
 from pathlib import Path
 from typing import Iterator, Optional, TYPE_CHECKING
 import yaml
 
+from .collections import Volume
 from .containers import SlottedDict
 from .utils import ids
+from .utils.ids import AnthologyID, AnthologyIDTuple
 
 try:
     from yaml import CLoader as Loader, CDumper as Dumper
@@ -30,6 +31,7 @@ except ImportError:  # pragma: no cover
     from yaml import Loader, Dumper  # type: ignore
 
 if TYPE_CHECKING:
+    from _typeshed import StrPath
     from .anthology import Anthology
     from .collections.volume import Volume
 
@@ -48,11 +50,11 @@ class SIG:
     """
 
     parent: SIGIndex = field(repr=False, eq=False)
-    id: str
-    acronym: str
-    name: str
-    path: Path
-    url: Optional[str] = field(default=None)
+    id: str = field(converter=str)
+    acronym: str = field(converter=str)
+    name: str = field(converter=str)
+    path: Path = field(converter=Path, eq=False)
+    url: Optional[str] = field(default=None, validator=v.optional(v.instance_of(str)))
     meetings: list[str | SIGMeeting] = field(factory=list, repr=False)
 
     @property
@@ -84,7 +86,7 @@ class SIG:
                 yield volume
 
     @classmethod
-    def load_from_yaml(cls, parent: SIGIndex, path: PathLike[str]) -> SIG:
+    def load_from_yaml(cls, parent: SIGIndex, path: StrPath) -> SIG:
         """Instantiates a SIG from its YAML file.
 
         Arguments:
@@ -120,7 +122,7 @@ class SIG:
                     )
         return sig
 
-    def save(self, path: Optional[PathLike[str]] = None) -> None:
+    def save(self, path: Optional[StrPath] = None) -> None:
         """Saves this SIG as a YAML file.
 
         Arguments:
@@ -156,7 +158,7 @@ class SIG:
                 yaml.dump({"Meetings": values_meetings}, f, Dumper=Dumper, width=999)
 
 
-@define
+@define(unsafe_hash=True)
 class SIGMeeting:
     """A meeting of a SIG that doesn't have a volume in the Anthology.
 
@@ -183,7 +185,10 @@ class SIGIndex(SlottedDict[SIG]):
     """
 
     parent: Anthology = field(repr=False, eq=False)
-    is_data_loaded: bool = field(init=False, repr=False, default=False)
+    reverse: dict[AnthologyIDTuple, set[str]] = field(
+        init=False, repr=False, factory=lambda: defaultdict(set)
+    )
+    is_data_loaded: bool = field(init=False, repr=True, default=False)
 
     def load(self) -> None:
         """Loads and parses the `sigs/*.yaml` files.
@@ -196,4 +201,22 @@ class SIGIndex(SlottedDict[SIG]):
         for yamlpath in self.parent.datadir.glob("yaml/sigs/*.yaml"):
             sig = SIG.load_from_yaml(self, yamlpath)
             self.data[sig.id] = sig
+
+            for meeting in sig.meetings:
+                if isinstance(meeting, str):
+                    volume_fid = ids.parse_id(meeting)
+                    self.reverse[volume_fid].add(sig.id)
+
         self.is_data_loaded = True
+
+    def by_volume(self, volume: Volume | AnthologyID) -> list[SIG]:
+        """Find SIGs associated with a volume."""
+        if not self.is_data_loaded:
+            self.load()
+
+        if isinstance(volume, Volume):
+            volume_fid = volume.full_id_tuple
+        else:
+            volume_fid = ids.parse_id(volume)
+
+        return [self.data[sig_id] for sig_id in self.reverse[volume_fid]]

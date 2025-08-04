@@ -7,7 +7,7 @@ on:
 
 jobs:
   add-review-checklist:
-    if : ${{ github.event_name == 'pull_request_target' && github.event.action == 'opened' && startsWith(github.event.pull_request.title, 'ingestion') == true}}
+    if : ${{ github.event_name == 'pull_request_target' && github.event.action == 'opened' && startsWith(github.event.pull_request.title, 'ingest') == true}}
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
@@ -43,5 +43,4 @@ jobs:
                 repo: context.repo.repo,
                 body: updated_body,
               });
-
               console.log('Updated body:', updated_body);

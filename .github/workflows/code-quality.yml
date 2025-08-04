@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - python-dev
     paths:
       - '.pre-commit-config.yaml'
       - '.codecov.yml'
@@ -22,8 +23,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.10", "3.11", "3.12"]
-        poetry-version: ["1.7.1"]
+        python-version: ["3.10", "3.11", "3.12", "3.13"]
+        poetry-version: ["2.1.3"]
         os: [ubuntu-latest, macos-latest, windows-latest]
     runs-on: ${{ matrix.os }}
     steps:
@@ -34,25 +35,25 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - name: Install Poetry
-        uses: abatilo/actions-poetry@v2
+        uses: abatilo/actions-poetry@v3
         with:
           poetry-version: ${{ matrix.poetry-version }}
       - name: Setup a local virtual environment (if no poetry.toml file)
         run: |
           poetry config virtualenvs.create true --local
           poetry config virtualenvs.in-project true --local
-      - uses: actions/cache@v3
-        name: Cache virtual environment based on Poetry lockfile
-        with:
-          path: ./.venv
-          key: venv-${{ hashFiles('poetry.lock') }}
       - name: Install dependencies
-        run: poetry install --with dev --verbose
+        run: poetry install --with dev --no-cache --verbose
       - name: Cache pre-commit hooks based on pre-commit config
         uses: actions/cache@v3
         with:
           path: ~/.cache/pre-commit
           key: pre-commit|${{ matrix.os }}|${{ matrix.python-version }}|${{ hashFiles('~/.pre-commit-config.yaml') }}
+      - name: Print information about CI environment (for debugging)
+        run: |
+          locale
+          poetry run python -c "import locale; print(locale.getpreferredencoding())"
+          poetry env info
 
       # Run all checks and tests
       - name: Run pre-commit hooks
@@ -61,14 +62,20 @@ jobs:
           SKIP: no-commit-to-branch
       - name: Run type checker
         run: poetry run mypy acl_anthology
+      # Running 'import TexSoup' is a terrible hack that seems to fix import
+      # errors from pytest, probably through byte-compiling the package
       - name: Run tests
-        run: poetry run pytest -m "not integration" --cov=acl_anthology --cov-report=xml
+        run: |
+          poetry run python -c "import TexSoup"
+          poetry run pytest -m "not integration" --cov=acl_anthology --cov-report=xml --trace-config
 
       # Run integration tests, but only run on latest Python version to save time
       - name: Run integration tests
-        if: ${{ matrix.python-version == '3.12' }}
+        if: ${{ matrix.python-version == '3.13' }}
         run: poetry run pytest -m "integration" --cov=acl_anthology --cov-report=xml --cov-append
 
       # Coverage report
       - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}

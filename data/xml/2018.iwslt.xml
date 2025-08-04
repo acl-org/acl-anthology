@@ -40,7 +40,6 @@
       <abstract>Mining parallel sentences from comparable corpora is of great interest for many downstream tasks. In the BUCC 2017 shared task, systems performed well by training on gold standard parallel sentences. However, we often want to mine parallel sentences without bilingual supervision. We present a simple approach relying on bilingual word embeddings trained in an unsupervised fashion. We incorporate orthographic similarity in order to handle words with similar surface forms. In addition, we propose a dynamic threshold method to decide if a candidate sentence-pair is parallel which eliminates the need to fine tune a static value for different datasets. Since we do not employ any language specific engineering our approach is highly generic. We show that our approach is effective, on three language-pairs, without the use of any bilingual signal which is important because parallel sentence mining is most useful in low resource scenarios.</abstract>
       <url hash="cb9f14e0">2018.iwslt-1.2</url>
       <bibkey>hangya-etal-2018-unsupervised</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/bucc">BUCC</pwcdataset>
     </paper>
     <paper id="3">
       <title>Word Rewarding for Adequate Neural Machine Translation</title>
@@ -52,7 +51,6 @@
       <abstract>To improve the translation adequacy in neural machine translation (NMT), we propose a rewarding model with target word prediction using bilingual dictionaries inspired by the success of decoder constraints in statistical machine translation. In particular, the model first predicts a set of target words promising for translation; then boosts the probabilities of the predicted words to give them better chances to be output. Our rewarding model minimally interacts with the decoder so that it can be easily applied to the decoder of an existing NMT system. Extensive evaluation under both resource-rich and resource-poor settings shows that (1) BLEU score improves more than 10 points with oracle prediction, (2) BLEU score improves about 1.0 point with target word prediction using bilingual dictionaries created either manually or automatically, (3) hyper-parameters of our model are relatively easy to optimize, and (4) undergeneration problem can be alleviated in exchange for increasing over-generated words.</abstract>
       <url hash="9085e853">2018.iwslt-1.3</url>
       <bibkey>takebayashi-etal-2018-word</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/aspec">ASPEC</pwcdataset>
     </paper>
     <paper id="4">
       <title>Analyzing Knowledge Distillation in Neural Machine Translation</title>
@@ -108,7 +106,6 @@
       <abstract>We propose a method to transfer knowledge across neural machine translation (NMT) models by means of a shared dynamic vocabulary. Our approach allows to extend an initial model for a given language pair to cover new languages by adapting its vocabulary as long as new data become available (i.e., introducing new vocabulary items if they are not included in the initial model). The parameter transfer mechanism is evaluated in two scenarios: i) to adapt a trained single language NMT system to work with a new language pair and ii) to continuously add new language pairs to grow to a multilingual NMT system. In both the scenarios our goal is to improve the translation performance, while minimizing the training convergence time. Preliminary experiments spanning five languages with different training data sizes (i.e., 5k and 50k parallel sentences) show a significant performance gain ranging from +3.85 up to +13.63 BLEU in different language directions. Moreover, when compared with training an NMT model from scratch, our transfer-learning approach allows us to reach higher performance after training up to 4% of the total training steps.</abstract>
       <url hash="759dc34d">2018.iwslt-1.8</url>
       <bibkey>lakew-etal-2018-transfer</bibkey>
-      <pwccode url="" additional="true"/>
     </paper>
     <paper id="9">
       <title>Machine Translation Human Evaluation: an investigation of evaluation based on Post-Editing and its relation with Direct Assessment</title>
@@ -145,7 +142,6 @@
       <abstract>In this paper we present the ADAPT system built for the Basque to English Low Resource MT Evaluation Campaign. Basque is a low-resourced, morphologically-rich language. This poses a challenge for Neural Machine Translation models which usually achieve better performance when trained with large sets of data. Accordingly, we used synthetic data to improve the translation quality produced by a model built using only authentic data. Our proposal uses back-translated data to: (a) create new sentences, so the system can be trained with more data; and (b) translate sentences that are close to the test set, so the model can be fine-tuned to the document to be translated.</abstract>
       <url hash="42692a7e">2018.iwslt-1.11</url>
       <bibkey>poncelas-etal-2018-adapt</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/wmt-2016">WMT 2016</pwcdataset>
     </paper>
     <paper id="12">
       <title>The <fixed-case>U</fixed-case>niversity of <fixed-case>H</fixed-case>elsinki submissions to the <fixed-case>IWSLT</fixed-case> 2018 low-resource translation task</title>
@@ -154,7 +150,6 @@
       <abstract>This paper presents the University of Helsinki submissions to the Basque–English low-resource translation task. Our primary system is a standard bilingual Transformer system, trained on the available parallel data and various types of synthetic data. We describe the creation of the synthetic datasets, some of which use a pivoting approach, in detail. One of our contrastive submissions is a multilingual model trained on comparable data, but without the synthesized parts. Our bilingual model with synthetic data performed best, obtaining 25.25 BLEU on the test data.</abstract>
       <url hash="feedf477">2018.iwslt-1.12</url>
       <bibkey>scherrer-2018-university</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/opensubtitles">OpenSubtitles</pwcdataset>
     </paper>
     <paper id="13">
       <title>The <fixed-case>M</fixed-case>e<fixed-case>MAD</fixed-case> Submission to the <fixed-case>IWSLT</fixed-case> 2018 Speech Translation Task</title>
@@ -167,7 +162,6 @@
       <abstract>This paper describes the MeMAD project entry to the IWSLT Speech Translation Shared Task, addressing the translation of English audio into German text. Between the pipeline and end-to-end model tracks, we participated only in the former, with three contrastive systems. We tried also the latter, but were not able to finish our end-to-end model in time. All of our systems start by transcribing the audio into text through an automatic speech recognition (ASR) model trained on the TED-LIUM English Speech Recognition Corpus (TED-LIUM). Afterwards, we feed the transcripts into English-German text-based neural machine translation (NMT) models. Our systems employ three different translation models trained on separate training sets compiled from the English-German part of the TED Speech Translation Corpus (TED-TRANS) and the OPENSUBTITLES2018 section of the OPUS collection. In this paper, we also describe the experiments leading up to our final systems. Our experiments indicate that using OPENSUBTITLES2018 in training significantly improves translation performance. We also experimented with various preand postprocessing routines for the NMT module, but we did not have much success with these. Our best-scoring system attains a BLEU score of 16.45 on the test set for this year’s task.</abstract>
       <url hash="9b99e769">2018.iwslt-1.13</url>
       <bibkey>sulubacak-etal-2018-memad</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/ted-lium-3">TED-LIUM</pwcdataset>
     </paper>
     <paper id="14">
       <title>Prompsit’s Submission to the <fixed-case>IWSLT</fixed-case> 2018 Low Resource Machine Translation Task</title>
@@ -331,7 +325,6 @@
       <abstract>Data selection techniques applied to neural machine translation (NMT) aim to increase the performance of a model by retrieving a subset of sentences for use as training data. One of the possible data selection techniques are transductive learning methods, which select the data based on the test set, i.e. the document to be translated. A limitation of these methods to date is that using the source-side test set does not by itself guarantee that sentences are selected with correct translations, or translations that are suitable given the test-set domain. Some corpora, such as subtitle corpora, may contain parallel sentences with inaccurate translations caused by localization or length restrictions. In order to try to fix this problem, in this paper we propose to use an approximated target-side in addition to the source-side when selecting suitable sentence-pairs for training a model. This approximated target-side is built by pre-translating the source-side. In this work, we explore the performance of this general idea for one specific data selection approach called Feature Decay Algorithms (FDA). We train German-English NMT models on data selected by using the test set (source), the approximated target side, and a mixture of both. Our findings reveal that models built using a combination of outputs of FDA (using the test set and an approximated target side) perform better than those solely using the test set. We obtain a statistically significant improvement of more than 1.5 BLEU points over a model trained with all data, and more than 0.5 BLEU points over a strong FDA baseline that uses source-side information only.</abstract>
       <url hash="3b09452f">2018.iwslt-1.26</url>
       <bibkey>poncelas-etal-2018-data</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/wmt-2015">WMT 2015</pwcdataset>
     </paper>
     <paper id="27">
       <title>Multi-paraphrase Augmentation to Leverage Neural Caption Translation</title>
@@ -343,7 +336,6 @@
       <abstract>Paraphrasing has been proven to improve translation quality in machine translation (MT) and has been widely studied alongside with the development of statistical MT (SMT). In this paper, we investigate and utilize neural paraphrasing to improve translation quality in neural MT (NMT), which has not yet been much explored. Our first contribution is to propose a new way of creating a multi-paraphrase corpus through visual description. After that, we also proposed to construct neural paraphrase models which initiate expert models and utilize them to leverage NMT. Here, we diffuse the image information by using image-based paraphrasing without using the image itself. Our proposed image-based multi-paraphrase augmentation strategies showed improvement against a vanilla NMT baseline.</abstract>
       <url hash="f7f681b3">2018.iwslt-1.27</url>
       <bibkey>effendi-etal-2018-multi</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/coco">MS COCO</pwcdataset>
     </paper>
     <paper id="28">
       <title>Using Spoken Word Posterior Features in Neural Machine Translation</title>

@@ -1,4 +1,4 @@
-# Copyright 2023-2024 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2025 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,19 +14,52 @@
 
 """Classes for representing and resolving file references."""
 
+from __future__ import annotations
+
 import sys
-from attrs import define, field, Factory
+from attrs import define, field, validators as v, Factory
 from lxml import etree
 from lxml.builder import E
-from typing import cast, Optional
+from pathlib import Path
+from typing import cast, ClassVar, Optional, TYPE_CHECKING
+from zlib import crc32
 
 if sys.version_info >= (3, 11):
     from typing import Self
 else:
     from typing_extensions import Self
 
+if TYPE_CHECKING:
+    from _typeshed import StrPath
+
 from .config import config
 from .utils.xml import xsd_boolean
+
+
+def compute_checksum(value: bytes) -> str:
+    """Compute the checksum of a byte string.
+
+    Parameters:
+        value: Any byte string.
+
+    Returns:
+        The checksum of the byte string as an eight-character, hex-formatted string.
+    """
+    checksum = crc32(value) & 0xFFFFFFFF
+    return f"{checksum:08x}"
+
+
+def compute_checksum_from_file(path: StrPath) -> str:
+    """Compute the checksum of a file.
+
+    Parameters:
+        path: The path to a file.
+
+    Returns:
+        The checksum of the file's contents.
+    """
+    with open(path, "rb") as f:
+        return compute_checksum(f.read())
 
 
 @define
@@ -41,9 +74,11 @@ class FileReference:
         checksum (Optional[str]): The CRC32 checksum for the file.  Only specified for internal filenames.
     """
 
-    name: str = field()
-    checksum: Optional[str] = field(default=None)
-    template_field: str = field(repr=False, default="")
+    name: str = field(converter=str)
+    checksum: Optional[str] = field(
+        default=None, validator=v.optional(v.instance_of(str))
+    )
+    template_field: ClassVar[str] = ""
 
     @property
     def is_local(self) -> bool:
@@ -58,8 +93,36 @@ class FileReference:
         return cast(str, config[self.template_field]).format(self.name)
 
     @classmethod
+    def from_file(cls, filename: StrPath) -> Self:
+        """Instantiate a new file reference from a file.
+
+        This automatically computes the checksum for the file and determines its name.
+
+        The name of the returned reference will depend on the configured template string; for example, if this function is called on the [PDFReference][acl_anthology.files.PDFReference] class and given a filename ending in `".pdf"`, and [`config.pdf_location_template`][acl_anthology.config.DefaultConfig] ends in `".pdf"`, this means the filename should and will be stored _without_ the `".pdf"` suffix.
+
+        Parameters:
+            filename: The path to the file.
+
+        Returns:
+            A file reference for the given file.
+
+        Raises:
+            FileNotFoundError: If filename does not point to an existing file.
+        """
+        if not (path := Path(filename)).is_file():
+            raise FileNotFoundError(f"Not a file: {filename}")
+
+        if cast(str, config[cls.template_field]).endswith(path.suffix):
+            name = path.stem
+        else:
+            name = path.name
+
+        checksum = compute_checksum_from_file(path)
+        return cls(name=name, checksum=checksum)
+
+    @classmethod
     def from_xml(cls, elem: etree._Element) -> Self:
-        """Instantiates a new file reference from a corresponding XML element."""
+        """Instantiate a new file reference from a corresponding XML element."""
         checksum = elem.get("hash")
         return cls(name=str(elem.text), checksum=str(checksum) if checksum else None)
 
@@ -82,14 +145,14 @@ class FileReference:
 class PDFReference(FileReference):
     """Reference to a PDF file."""
 
-    template_field: str = field(repr=False, default="pdf_location_template")
+    template_field: ClassVar[str] = "pdf_location_template"
 
 
 @define
 class PDFThumbnailReference(FileReference):
     """Reference to a PDF thumbnail image."""
 
-    template_field: str = field(repr=False, default="pdf_thumbnail_location_template")
+    template_field: ClassVar[str] = "pdf_thumbnail_location_template"
 
 
 @define
@@ -98,24 +161,22 @@ class AttachmentReference(FileReference):
 
     # TODO: attachments must be local files according to the schema
 
-    template_field: str = field(repr=False, default="attachment_location_template")
+    template_field: ClassVar[str] = "attachment_location_template"
 
 
 @define
 class EventFileReference(FileReference):
     """Reference to an event-related file."""
 
-    template_field: str = field(repr=False, default="event_location_template")
+    template_field: ClassVar[str] = "event_location_template"
 
 
 @define
 class VideoReference(FileReference):
     """Reference to a video."""
 
-    # TODO: videos can only be remote URLs according to the schema
-
-    template_field: str = field(repr=False, default="attachment_location_template")
-    permission: bool = field(default=True)
+    template_field: ClassVar[str] = "video_location_template"
+    permission: bool = field(default=True, converter=bool)
 
     @classmethod
     def from_xml(cls, elem: etree._Element) -> Self:
@@ -154,7 +215,7 @@ class PapersWithCodeReference:
             self.code = pwc_tuple
         elif elem.tag == "pwcdataset":
             self.datasets.append(pwc_tuple)
-        else:
+        else:  # pragma: no cover
             raise ValueError(
                 f"Unsupported element for PapersWithCodeReference: <{elem.tag}>"
             )

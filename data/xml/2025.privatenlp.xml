@@ -1,0 +1,120 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2025.privatenlp">
+  <volume id="main" ingest-date="2025-04-26" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of the Sixth Workshop on Privacy in Natural Language Processing</booktitle>
+      <editor><first>Ivan</first><last>Habernal</last></editor>
+      <editor><first>Sepideh</first><last>Ghanavati</last></editor>
+      <editor><first>Vijayanta</first><last>Jain</last></editor>
+      <editor><first>Timour</first><last>Igamberdiev</last></editor>
+      <editor><first>Shomir</first><last>Wilson</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Albuquerque, New Mexico</address>
+      <month>April</month>
+      <year>2025</year>
+      <url hash="436d048d">2025.privatenlp-main</url>
+      <venue>privatenlp</venue>
+      <venue>ws</venue>
+      <isbn>979-8-89176-246-6</isbn>
+      <doi>10.18653/v1/2025.privatenlp-main</doi>
+    </meta>
+    <frontmatter>
+      <url hash="64a6dae2">2025.privatenlp-main.0</url>
+      <bibkey>privatenlp-ws-2025-main</bibkey>
+      <doi>10.18653/v1/2025.privatenlp-main.0</doi>
+    </frontmatter>
+    <paper id="1">
+      <title><fixed-case>TUNI</fixed-case>: A Textual Unimodal Detector for Identity Inference in <fixed-case>CLIP</fixed-case> Models</title>
+      <author><first>Songze</first><last>Li</last><affiliation>Southeast University</affiliation></author>
+      <author><first>Ruoxi</first><last>Cheng</last></author>
+      <author><first>Xiaojun</first><last>Jia</last><affiliation>Nanyang Technological University</affiliation></author>
+      <pages>1-13</pages>
+      <abstract>The widespread usage of large-scale multimodal models like CLIP has heightened concerns about the leakage of PII. Existing methods for identity inference in CLIP models require querying the model with full PII, including textual descriptions of the person and corresponding images (e.g., the name and the face photo of the person). However, applying images may risk exposing personal information to target models, as the image might not have been previously encountered by the target model.Additionally, previous MIAs train shadow models to mimic the behaviors of the target model, which incurs high computational costs, especially for large CLIP models. To address these challenges, we propose a textual unimodal detector (TUNI) in CLIP models, a novel technique for identity inference that: 1) only utilizes text data to query the target model; and 2) eliminates the need for training shadow models. Extensive experiments of TUNI across various CLIP model architectures and datasets demonstrate its superior performance over baselines, albeit with only text data.</abstract>
+      <url hash="d21cb5db">2025.privatenlp-main.1</url>
+      <bibkey>li-etal-2025-tuni</bibkey>
+      <doi>10.18653/v1/2025.privatenlp-main.1</doi>
+    </paper>
+    <paper id="2">
+      <title><fixed-case>TAROT</fixed-case>: Task-Oriented Authorship Obfuscation Using Policy Optimization Methods</title>
+      <author><first>Gabriel</first><last>Loiseau</last><affiliation>INRIA</affiliation></author>
+      <author><first>Damien</first><last>Sileo</last><affiliation>INRIA</affiliation></author>
+      <author><first>Damien</first><last>Riquet</last><affiliation>Vade</affiliation></author>
+      <author><first>Maxime</first><last>Meyer</last></author>
+      <author><first>Marc</first><last>Tommasi</last><affiliation>Lille University and INRIA</affiliation></author>
+      <pages>14-31</pages>
+      <abstract>Authorship obfuscation aims to disguise the identity of an author within a text by altering the writing style, vocabulary, syntax, and other linguistic features associated with the text author. This alteration needs to balance privacy and utility. While strong obfuscation techniques can effectively hide the author’s identity, they often degrade the quality and usefulness of the text for its intended purpose. Conversely, maintaining high utility tends to provide insufficient privacy, making it easier for an adversary to de-anonymize the author. Thus, achieving an optimal trade-off between these two conflicting objectives is crucial. In this paper, we propose **TAROT**: **T**ask-Oriented **A**utho**r**ship **O**bfuscation Using Policy Op**t**imization, a new unsupervised authorship obfuscation method whose goal is to optimize the privacy-utility trade-off by regenerating the entire text considering its downstream utility. Our approach leverages policy optimization as a fine-tuning paradigm over small language models in order to rewrite texts by preserving author identity and downstream task utility. We show that our approach largely reduces the accuracy of attackers while preserving utility. We make our code and models publicly available.</abstract>
+      <url hash="66c602c9">2025.privatenlp-main.2</url>
+      <bibkey>loiseau-etal-2025-tarot</bibkey>
+      <doi>10.18653/v1/2025.privatenlp-main.2</doi>
+    </paper>
+    <paper id="3">
+      <title>Balancing Privacy and Utility in Personal <fixed-case>LLM</fixed-case> Writing Tasks: An Automated Pipeline for Evaluating Anonymizations</title>
+      <author><first>Stefan</first><last>Pasch</last><affiliation>Hankuk University of Foreign Studies</affiliation></author>
+      <author><first>Min Chul</first><last>Cha</last><affiliation>Hankuk University of Foreign Studies</affiliation></author>
+      <pages>32-41</pages>
+      <abstract>Large language models (LLMs) are widely used for personalized tasks involving sensitive information, raising privacy concerns. While anonymization techniques exist, their impact on response quality remains underexplored. This paper introduces a fully automated evaluation framework to assess anonymization strategies in LLM-generated responses. We generate synthetic prompts for three personal tasks—personal introductions, cover letters, and email writing—and apply anonymization techniques that preserve fluency while enabling entity backmapping. We test three anonymization strategies: simple masking, adding context to masked entities, and pseudonymization. Results show minimal response quality loss (roughly 1 point on a 10-point scale) while achieving 97%-99% entity masking. Responses generated with Llama 3.3:70b perform best with simple entity masking, while GPT-4o benefits from contextual cues. This study provides a framework and empirical insights into balancing privacy protection and response quality in LLM applications.</abstract>
+      <url hash="688d2b7e">2025.privatenlp-main.3</url>
+      <bibkey>pasch-cha-2025-balancing</bibkey>
+      <doi>10.18653/v1/2025.privatenlp-main.3</doi>
+    </paper>
+    <paper id="4">
+      <title>Named Entity Inference Attacks on Clinical <fixed-case>LLM</fixed-case>s: Exploring Privacy Risks and the Impact of Mitigation Strategies</title>
+      <author><first>Adam</first><last>Sutton</last></author>
+      <author><first>Xi</first><last>Bai</last></author>
+      <author><first>Kawsar</first><last>Noor</last></author>
+      <author><first>Thomas</first><last>Searle</last></author>
+      <author><first>Richard</first><last>Dobson</last><affiliation>King’s College London, University of London and University College London, University of London</affiliation></author>
+      <pages>42-52</pages>
+      <abstract>Transformer-based Large Language Models (LLMs) have achieved remarkable success across various domains, including clinical language processing, where they enable state-of-the-art performance in numerous tasks. Like all deep learning models, LLMs are susceptible to inference attacks that exploit sensitive attributes seen during training. AnonCAT, a RoBERTa-based masked language model, has been fine-tuned to de-identify sensitive clinical textual data. The community has a responsibility to explore the privacy risks of these models. This work proposes an attack method to infer sensitive named entities used in the training of AnonCAT models. We perform three experiments; the privacy implications of generating multiple names, the impact of white-box and black-box on attack inference performance, and the privacy-enhancing effects of Differential Privacy (DP) when applied to AnonCAT. By providing real textual predictions and privacy leakage metrics, this research contributes to understanding and mitigating the potential risks associated with exposing LLMs in sensitive domains like healthcare.</abstract>
+      <url hash="46023208">2025.privatenlp-main.4</url>
+      <bibkey>sutton-etal-2025-named</bibkey>
+      <doi>10.18653/v1/2025.privatenlp-main.4</doi>
+    </paper>
+    <paper id="5">
+      <title>Inspecting the Representation Manifold of Differentially-Private Text</title>
+      <author><first>Stefan</first><last>Arnold</last></author>
+      <pages>53-59</pages>
+      <abstract>Differential Privacy (DP) for text has recently taken the form of text paraphrasing using language models and temperature sampling to better balance privacy and utility. However, the geometric distortion of DP regarding the structure and complexity in the representation space remains unexplored. By estimating the intrinsic dimension of paraphrased text across varying privacy budgets, we find that word-level methods severely raise the representation manifold, while sentence-level methods produce paraphrases whose manifolds are topologically more consistent with human-written paraphrases. Among sentence-level methods, masked paraphrasing, compared to causal paraphrasing, demonstrates superior preservation of structural complexity, suggesting that autoregressive generation propagates distortions from unnatural word choices that cascade and inflate the representation space.</abstract>
+      <url hash="ab0d36bb">2025.privatenlp-main.5</url>
+      <bibkey>arnold-2025-inspecting</bibkey>
+      <doi>10.18653/v1/2025.privatenlp-main.5</doi>
+    </paper>
+    <paper id="6">
+      <title>Beyond Reconstruction: Generating Privacy-Preserving Clinical Letters</title>
+      <author><first>Libo</first><last>Ren</last></author>
+      <author><first>Samuel</first><last>Belkadi</last></author>
+      <author><first>Lifeng</first><last>Han</last></author>
+      <author><first>Warren</first><last>Del-Pinto</last><affiliation>University of Manchester</affiliation></author>
+      <author><first>Goran</first><last>Nenadic</last><affiliation>University of Manchester</affiliation></author>
+      <pages>60-74</pages>
+      <abstract>Due to the sensitive nature of clinical letters, their use in model training, medical research, and education is limited. This work aims to generate diverse, de-identified, and high-quality synthetic clinical letters to enhance privacy protection. This study explores various pre-trained language models (PLMs) for text masking and generation, employing various masking strategies with a focus on Bio_ClinicalBERT. Both qualitative and quantitative methods are used for evaluation, supplemented by a downstream Named Entity Recognition (NER) task. Our results indicate that encoder-only models outperform encoder-decoder models. General-domain and clinical-domain PLMs exhibit comparable performance when clinical information is preserved. Preserving clinical entities and document structure yields better performance than fine-tuning alone. Masking stopwords enhances text quality, whereas masking nouns or verbs has a negative impact. BERTScore proves to be the most reliable quantitative evaluation metric in our task. Contextual information has minimal impact, indicating that synthetic letters can effectively replace original ones in downstream tasks. Unlike previous studies that focus primarily on reconstructing original letters or training a privacy-detection and substitution model, this project provides a framework for generating diverse clinical letters while embedding privacy detection, enabling sensitive dataset expansion and facilitating the use of real-world clinical data. Our codes and trained models will be publicly available at https://github.com/HECTA-UoM/Synthetic4Health.</abstract>
+      <url hash="dbcb8116">2025.privatenlp-main.6</url>
+      <bibkey>ren-etal-2025-beyond</bibkey>
+      <doi>10.18653/v1/2025.privatenlp-main.6</doi>
+    </paper>
+    <paper id="7">
+      <title>Beyond De-Identification: A Structured Approach for Defining and Detecting Indirect Identifiers in Medical Texts</title>
+      <author><first>Ibrahim</first><last>Baroud</last><affiliation>Technische Universität Berlin</affiliation></author>
+      <author><first>Lisa</first><last>Raithel</last><affiliation>Technische Universität Berlin</affiliation></author>
+      <author><first>Sebastian</first><last>Möller</last></author>
+      <author><first>Roland</first><last>Roller</last><affiliation>German Research Center for AI</affiliation></author>
+      <pages>75-85</pages>
+      <abstract>Sharing sensitive texts for scientific purposes requires appropriate techniques to protect the privacy of patients and healthcare personnel. Anonymizing textual data is particularly challenging due to the presence of diverse unstructured direct and indirect identifiers. To mitigate the risk of re-identification, this work introduces a schema of nine categories of indirect identifiers designed to account for different potential adversaries, including acquaintances, family members and medical staff. Using this schema, we annotate 100 MIMIC-III discharge summaries and propose baseline models for identifying indirect identifiers. We will release the annotation guidelines, annotation spans (6,199 annotations in total) and the corresponding MIMIC-III document IDs to support further research in this area.</abstract>
+      <url hash="8c0a1328">2025.privatenlp-main.7</url>
+      <bibkey>baroud-etal-2025-beyond</bibkey>
+      <doi>10.18653/v1/2025.privatenlp-main.7</doi>
+    </paper>
+    <paper id="8">
+      <title>Investigating User Perspectives on Differentially Private Text Privatization</title>
+      <author><first>Stephen</first><last>Meisenbacher</last></author>
+      <author><first>Alexandra</first><last>Klymenko</last></author>
+      <author><first>Alexander</first><last>Karpp</last><affiliation>Technische Universität München</affiliation></author>
+      <author><first>Florian</first><last>Matthes</last><affiliation>Technische Universität München</affiliation></author>
+      <pages>86-105</pages>
+      <abstract>Recent literature has seen a considerable uptick in *Differentially Private Natural Language Processing* (DP NLP). This includes DP text privatization, where potentially sensitive input texts are transformed under DP to achieve privatized output texts that ideally mask sensitive information *and* maintain original semantics. Despite continued work to address the open challenges in DP text privatization, there remains a scarcity of work addressing user perceptions of this technology, a crucial aspect which serves as the final barrier to practical adoption. In this work, we conduct a survey study with 721 laypersons around the globe, investigating how the factors of *scenario*, *data sensitivity*, *mechanism type*, and *reason for data collection* impact user preferences for text privatization. We learn that while all these factors play a role in influencing privacy decisions, users are highly sensitive to the utility and coherence of the private output texts. Our findings highlight the socio-technical factors that must be considered in the study of DP NLP, opening the door to further user-based investigations going forward.</abstract>
+      <url hash="ffa1e4c4">2025.privatenlp-main.8</url>
+      <bibkey>meisenbacher-etal-2025-investigating</bibkey>
+      <doi>10.18653/v1/2025.privatenlp-main.8</doi>
+    </paper>
+  </volume>
+</collection>

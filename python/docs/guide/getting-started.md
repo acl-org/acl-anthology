@@ -7,15 +7,12 @@ fetching data from the main ACL Anthology repository, you will also need to have
 ## Installation
 
 The library is available as a [PyPI
-package](https://pypi.org/project/acl-anthology-py/) and can therefore simply be
+package](https://pypi.org/project/acl-anthology/) and can therefore simply be
 installed via pip:
 
 ```bash
-pip install acl-anthology-py
+pip install acl-anthology
 ```
-
-Alternatively, you can [download releases from
-Github](https://github.com/acl-org/acl-anthology/releases/).
 
 ## Instantiating the Anthology
 
@@ -51,8 +48,6 @@ data directory with the same structure as the [`data/` directory of the official
 repo](https://github.com/acl-org/acl-anthology/tree/master/data).
 
 ## Examples
-
-This section demonstrates how to use the `anthology` object by way of examples.
 
 ### Finding a paper by its ID
 
@@ -135,8 +130,10 @@ NameSpecification(name=Name(first='Dan', last='Klein'), ...)
 >>> person = anthology.resolve(paper.authors[-1])
 ```
 
-[Accessing Authors/Editors](accessing-authors.md) describes the intricacies of
-working with names and people in more detail.
+!!! info
+
+    [Accessing Authors/Editors](accessing-authors.md) describes the intricacies of
+    working with names and people in more detail.
 
 ### Finding all papers from an event
 
@@ -151,7 +148,7 @@ belong to the conference or to colocated workshops:
 Event(
     id='acl-2022',
     is_explicit=True,
-    colocated_ids=<list of 34 AnthologyIDTuple objects>,
+    colocated_ids=<list of 34 tuples>,
     title=MarkupText('60th Annual Meeting of the Association for Computational Linguistics'),
     location='Dublin, Ireland',
     dates='May 22–27, 2022'
@@ -180,15 +177,15 @@ event (`ws-2020`), as well as the EMNLP 2020 event.
 >>> volume = anthology.get("2020.blackboxnlp-1")
 >>> volume.get_events()
 [
-    Event(id='blackboxnlp-2020', colocated_ids=<list of 1 AnthologyIDTuple objects>, ...),
-    Event(id='ws-2020', colocated_ids=<list of 105 AnthologyIDTuple objects>, ...),
-    Event(id='emnlp-2020', colocated_ids=<list of 27 AnthologyIDTuple objects>, ...)
+    Event(id='blackboxnlp-2020', colocated_ids=<list of 1 tuples>, ...),
+    Event(id='ws-2020', colocated_ids=<list of 105 tuples>, ...),
+    Event(id='emnlp-2020', colocated_ids=<list of 27 tuples>, ...)
 ]
 ```
 
 <!-- {==What about SIGs or venues? No way to find all papers yet==} -->
 
-### Getting the BibTeX entry for a paper
+### Working with BibTeX entries
 
 To generate the BibTeX entry for a paper, simply call [`Paper.to_bibtex()`][acl_anthology.collections.paper.Paper.to_bibtex]:
 
@@ -218,6 +215,14 @@ To also include the abstract in the BibTeX entry:
 
 ```pycon
 >>> print(paper.to_bibtex(with_abstract=True))
+```
+
+You can also find a paper by its citation key:
+
+```pycon
+>>> paper = anthology.get_paper_by_bibkey("kitaev-etal-2022-learned")
+>>> print(paper.full_id)
+2022.acl-long.220
 ```
 
 ### Searching for papers by keywords in title

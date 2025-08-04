@@ -12,10 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import attrs
+import copy
 import pytest
 from acl_anthology.collections import CollectionIndex
-from acl_anthology.collections.types import VolumeType
-from acl_anthology.files import PDFReference
+from acl_anthology.collections.types import PaperType, VolumeType
+from acl_anthology.files import AttachmentReference, PDFReference
+from acl_anthology.people import NameSpecification
 from acl_anthology.text import MarkupText
 from acl_anthology.utils.xml import indent
 from lxml import etree
@@ -30,7 +33,7 @@ from acl_anthology.collections.paper import (
 
 
 class VolumeStub:
-    title = "Generic volume"
+    title = MarkupText.from_string("Generic volume")
     editors = []
 
 
@@ -58,6 +61,96 @@ def test_paper_get_events(anthology):
     assert paper.get_events() == [anthology.events["acl-2022"]]
 
 
+def test_paper_attachments(anthology):
+    paper = anthology.get_paper("2022.acl-long.48")
+    assert paper is not None
+    assert len(paper.attachments) == 2
+    attachments = sorted((att_type, att.name) for (att_type, att) in paper.attachments)
+    assert attachments == [
+        ("software", "2022.acl-long.48.software.txt"),
+        ("software", "2022.acl-long.48.software.zip"),
+    ]
+
+
+def test_paper_attachments_set(anthology):
+    paper = anthology.get_paper("2022.acl-long.48")
+    assert paper is not None
+    assert len(paper.attachments) == 2
+
+    attachments = copy.deepcopy(paper.attachments)
+    paper.attachments = attachments
+    assert len(paper.attachments) == 2
+
+    paper.attachments = []
+    assert len(paper.attachments) == 0
+
+
+def test_paper_attachments_set_should_raise_on_invalid_items(anthology):
+    paper = anthology.get_paper("2022.acl-long.42")
+
+    with pytest.raises(TypeError):
+        paper.attachments = [("software", "2022.acl-long.42.software.txt")]
+
+    with pytest.raises(TypeError):
+        paper.attachments = [AttachmentReference(name="2022.acl-long.42.software.txt")]
+
+    with pytest.raises(TypeError):
+        paper.attachments = (
+            "software",
+            AttachmentReference(name="2022.acl-long.42.software.txt"),
+        )
+
+    # this is the correct way:
+    paper.attachments = [
+        ("software", AttachmentReference(name="2022.acl-long.42.software.txt"))
+    ]
+    assert len(paper.attachments) == 1
+
+
+def test_paper_attachments_append(anthology):
+    paper = anthology.get_paper("2022.acl-long.48")
+
+    # list modifications cannot automatically be validated...
+    paper.attachments.append("something invalid")
+
+    # ...but manually triggering validation should raise an error
+    with pytest.raises(TypeError):
+        attrs.validate(paper)
+
+
+def test_paper_change_id(anthology):
+    paper = anthology.get_paper("2022.acl-long.48")
+    paper.id = "14308"  # okay
+    paper.id = "xxx"  # okay
+
+    with pytest.raises(ValueError):
+        paper.id = "x-42"  # invalid format
+
+    # BUT: currently no automatic check if ID already exists, so this works
+    paper.id = "1"
+
+
+test_cases_language = (
+    ("2022.acl-short.11", None, None),
+    ("2022.naloma-1.3", "fra", "French"),
+    ("2022.naloma-1.4", "en-US", "English (United States)"),
+)
+
+
+@pytest.mark.parametrize("paper_id, language, language_name", test_cases_language)
+def test_paper_language(anthology, paper_id, language, language_name):
+    paper = anthology.get_paper(paper_id)
+    assert paper is not None
+    if language is None:
+        assert paper.language is None
+    else:
+        assert paper.language == language
+    if language_name is None:
+        assert paper.language_name is None
+    else:
+        assert paper.language_name == language_name
+
+
 def test_paper_bibtype():
     volume = VolumeStub()
     volume.type = VolumeType.JOURNAL
@@ -65,10 +158,41 @@ def test_paper_bibtype():
     assert paper.bibtype == "article"
     volume.type = VolumeType.PROCEEDINGS
     assert paper.bibtype == "inproceedings"
-    paper.id = "0"
+    paper.type = PaperType.FRONTMATTER
     assert paper.bibtype == "proceedings"
     volume.type = VolumeType.JOURNAL
     assert paper.bibtype == "book"
+
+
+def test_paper_remove_author(anthology):
+    paper = anthology.get_paper("2022.acl-demo.2")
+    ns = paper.authors[-1]
+    person = anthology.resolve(ns)
+    assert person.id == "iryna-gurevych"
+    assert paper.full_id_tuple in person.item_ids
+
+    # Removing last author from paper
+    paper.authors = paper.authors[:-1]
+    # Person should be updated after resetting indices
+    anthology.reset_indices()
+    person = anthology.resolve(ns)
+    assert paper.full_id_tuple not in person.item_ids
+
+
+def test_paper_add_author(anthology):
+    paper = anthology.get_paper("2022.acl-demo.2")
+    # This person exists, but is not an author on this paper
+    ns = NameSpecification("Maya Varma")
+    assert ns not in paper.authors
+    person = anthology.resolve(ns)
+    assert paper.full_id_tuple not in person.item_ids
+
+    # Adding this author to the paper
+    paper.authors.insert(0, ns)
+    # Person should be updated after resetting indices
+    anthology.reset_indices()
+    person = anthology.resolve(ns)
+    assert paper.full_id_tuple in person.item_ids
 
 
 test_cases_xml = (
@@ -91,6 +215,13 @@ test_cases_xml = (
   <bibkey>nn-1989-briefly</bibkey>
 </paper>
 """,
+    """<paper id="9">
+  <title>Briefly Noted</title>
+  <url hash="166bd6c1">J89-1009</url>
+  <issue>42</issue>
+  <bibkey>nn-1989-briefly</bibkey>
+</paper>
+""",
     """<paper id="6">
   <title>Domain Adaptation in Multilingual and Multi-Domain Monolingual Settings for Complex Word Identification</title>
   <author><first>George-Eduard</first><last>Zaharia</last></author>
@@ -110,18 +241,17 @@ test_cases_xml = (
   <author><first/><last>None</last></author>
   <editor><first>Marcel</first><last>Bollmann</last></editor>
   <pages>0</pages>
-  <abstract>
-    <b>Look</b> at <i>this</i>!
-  </abstract>
+  <abstract><b>Look</b> at <i>this</i>!</abstract>
   <url hash="d6a71220">2023.fake-volume.max</url>
   <erratum id="1" hash="21a4921f">2023.fake-volume.maxe2</erratum>
   <revision id="1" href="2023.fake-volume.max" hash="21e2f21f"/>
   <revision id="2" href="2023.fake-volume.maxv2" hash="bc27f0f5" date="2023-10-03">Some explanation</revision>
   <doi>10.18653/v1/2023.fake-volume.max</doi>
-  <language>Klingon</language>
+  <language>fra</language>
   <note>This is not a real paper, obviously.</note>
   <attachment hash="a6a7a5a4" type="website">2023.fake-attachment</attachment>
   <attachment hash="12345678" type="software">2023.fake-software</attachment>
+  <attachment hash="12345690" type="software">2023.extra-software</attachment>
   <video href="2023.fake-video.mp4"/>
   <award>Most ridiculous entry</award>
   <removed date="2023-09-30">Removed immediately for being fake</removed>
@@ -141,11 +271,13 @@ def test_paper_roundtrip_xml(xml):
     assert etree.tostring(out, encoding="unicode") == xml
 
 
-def test_paper_to_bibtex_inproceedings(anthology):
-    paper = anthology.get("2022.acl-long.268")
-    expected = """@inproceedings{alvarez-mellado-lignos-2022-detecting,
+test_cases_paper_to_bibtex = (
+    (
+        "2022.acl-long.268",
+        True,
+        """@inproceedings{alvarez-mellado-lignos-2022-detecting,
     title = "Detecting Unassimilated Borrowings in {S}panish: {A}n Annotated Corpus and Approaches to Modeling",
-    author = "\\'Alvarez-Mellado, Elena  and
+    author = "{\\'A}lvarez-Mellado, Elena  and
       Lignos, Constantine",
     editor = "Muresan, Smaranda  and
       Nakov, Preslav  and
@@ -158,12 +290,15 @@ def test_paper_to_bibtex_inproceedings(anthology):
     url = "https://aclanthology.org/2022.acl-long.268/",
     doi = "10.18653/v1/2022.acl-long.268",
     pages = "3868--3888",
-    abstract = "This work presents a new resource for borrowing identification and analyzes the performance and errors of several models on this task. We introduce a new annotated corpus of Spanish newswire rich in unassimilated lexical borrowings---words from one language that are introduced into another without orthographic adaptation---and use it to evaluate how several sequence labeling models (CRF, BiLSTM-CRF, and Transformer-based models) perform. The corpus contains 370,000 tokens and is larger, more borrowing-dense, OOV-rich, and topic-varied than previous corpora available for this task. Our results show that a BiLSTM-CRF model fed with subword embeddings along with either Transformer-based embeddings pretrained on codeswitched data or a combination of contextualized word embeddings outperforms results obtained by a multilingual BERT-based model."
-}"""
-    assert paper.to_bibtex(with_abstract=True) == expected
-    expected_without_abstract = """@inproceedings{alvarez-mellado-lignos-2022-detecting,
+    abstract = "This work presents a new resource for borrowing identification and analyzes the performance and errors of several models on this task. We introduce a new annotated corpus of Spanish newswire rich in unassimilated lexical borrowings{---}words from one language that are introduced into another without orthographic adaptation{---}and use it to evaluate how several sequence labeling models (CRF, BiLSTM-CRF, and Transformer-based models) perform. The corpus contains 370,000 tokens and is larger, more borrowing-dense, OOV-rich, and topic-varied than previous corpora available for this task. Our results show that a BiLSTM-CRF model fed with subword embeddings along with either Transformer-based embeddings pretrained on codeswitched data or a combination of contextualized word embeddings outperforms results obtained by a multilingual BERT-based model."
+}""",
+    ),
+    (
+        "2022.acl-long.268",
+        False,
+        """@inproceedings{alvarez-mellado-lignos-2022-detecting,
     title = "Detecting Unassimilated Borrowings in {S}panish: {A}n Annotated Corpus and Approaches to Modeling",
-    author = "\\'Alvarez-Mellado, Elena  and
+    author = "{\\'A}lvarez-Mellado, Elena  and
       Lignos, Constantine",
     editor = "Muresan, Smaranda  and
       Nakov, Preslav  and
@@ -176,13 +311,12 @@ def test_paper_to_bibtex_inproceedings(anthology):
     url = "https://aclanthology.org/2022.acl-long.268/",
     doi = "10.18653/v1/2022.acl-long.268",
     pages = "3868--3888"
-}"""
-    assert paper.to_bibtex(with_abstract=False) == expected_without_abstract
-
-
-def test_paper_to_bibtex_proceedings(anthology):
-    paper = anthology.get("2022.acl-short.0")
-    expected = """@proceedings{acl-2022-association-linguistics,
+}""",
+    ),
+    (
+        "2022.acl-short.0",
+        False,
+        """@proceedings{acl-2022-short,
     title = "Proceedings of the 60th Annual Meeting of the Association for Computational Linguistics (Volume 2: Short Papers)",
     editor = "Muresan, Smaranda  and
       Nakov, Preslav  and
@@ -192,33 +326,151 @@ def test_paper_to_bibtex_proceedings(anthology):
     address = "Dublin, Ireland",
     publisher = "Association for Computational Linguistics",
     url = "https://aclanthology.org/2022.acl-short.0/"
-}"""
-    assert paper.to_bibtex() == expected
-
-
-def test_paper_to_bibtex_article(anthology):
-    paper = anthology.get("J89-2002")
-    expected = """@article{oshaughnessy-1989-parsing,
+}""",
+    ),
+    (
+        "J89-2002",
+        True,
+        """@article{oshaughnessy-1989-parsing,
     title = "Parsing with a Small Dictionary for Applications such as Text to Speech",
-    author = "O'Shaughnessy, Douglas D.",
+    author = "O{'}Shaughnessy, Douglas D.",
+    editor = "Allen, James F.",
     journal = "Computational Linguistics",
     volume = "15",
     number = "2",
     year = "1989",
     url = "https://aclanthology.org/J89-2002/",
     pages = "97--108"
-}"""
-    assert paper.to_bibtex(with_abstract=True) == expected
-
-
-def test_paper_to_bibtex_journal(anthology):
-    paper = anthology.get("J89-4000")
-    expected = """@book{cl-1989-linguistics-15-number-4,
+}""",
+    ),
+    (
+        "J89-4000",
+        False,
+        """@book{cl-1989-linguistics-15-number-4,
     title = "Computational Linguistics, Volume 15, Number 4, {D}ecember 1989",
     year = "1989",
     url = "https://aclanthology.org/J89-4000/"
-}"""
-    assert paper.to_bibtex() == expected
+}""",
+    ),
+)
+
+
+@pytest.mark.parametrize("full_id, with_abstract, expected", test_cases_paper_to_bibtex)
+def test_paper_to_bibtex(anthology, full_id, with_abstract, expected):
+    paper = anthology.get(full_id)
+    assert paper.to_bibtex(with_abstract=with_abstract) == expected
+
+
+test_cases_papercitation = (
+    # Journal article
+    (
+        "J89-4001",
+        'Andrew Haas. 1989. <a href="https://aclanthology.org/J89-4001/">A Parsing Algorithm for Unification Grammar</a>. <i>Computational Linguistics</i>, 15(4):219–232.',
+    ),
+    # Journal article, single page
+    (
+        "J89-1004",
+        'Martha Evens. 1989. <a href="https://aclanthology.org/J89-1004/">Book Reviews: An Artificial Intelligence Approach to Legal Reasoning</a>. <i>Computational Linguistics</i>, 15(1):53.',
+    ),
+    # Journal article, no page numbers
+    (
+        "J89-1005",
+        'Barron Brainerd. 1989. <a href="https://aclanthology.org/J89-1005/">Book Reviews: Mathematics of Language</a>. <i>Computational Linguistics</i>, 15(1).',
+    ),
+    # Journal article, issue number defined at paper level
+    (
+        "J89-3003",
+        'Tomek Strzalkowski and Nick Cercone. 1989. <a href="https://aclanthology.org/J89-3003/">Non-singular Concepts in Natural Language Discourse</a>. <i>Computational Linguistics</i>, 15(10):171–186.',
+    ),
+    # Journal article, no author
+    (
+        "J89-2015",
+        'James F. Allen (ed.). 1989. <a href="https://aclanthology.org/J89-2015/">Abstracts of Current Literature</a>. <i>Computational Linguistics</i>, 15(2).',
+    ),
+    # Journal article, no author, no editor
+    (
+        "J89-1009",
+        '<a href="https://aclanthology.org/J89-1009/">Briefly Noted</a>. 1989. <i>Computational Linguistics</i>, 15(1).',
+    ),
+    # Journal frontmatter
+    (
+        "J89-2000",
+        'James F. Allen. 1989. <i><a href="https://aclanthology.org/J89-2000/">Computational Linguistics, Volume 15, Number 2, June 1989</a></i>.',
+    ),
+    # Conference proceedings
+    (
+        "2022.acl-short.0",
+        'Smaranda Muresan, Preslav Nakov, and Aline Villavicencio. 2022. <i><a href="https://aclanthology.org/2022.acl-short.0/">Proceedings of the 60th Annual Meeting of the Association for Computational Linguistics (Volume 2: Short Papers)</a></i>. Association for Computational Linguistics, Dublin, Ireland.',
+    ),
+    # Article in proceedings, two authors, with page numbers
+    (
+        "2022.acl-long.268",
+        'Elena Álvarez-Mellado and Constantine Lignos. 2022. <a href="https://aclanthology.org/2022.acl-long.268/">Detecting Unassimilated Borrowings in Spanish: An Annotated Corpus and Approaches to Modeling</a>. In <i>Proceedings of the 60th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)</i>, pages 3868–3888, Dublin, Ireland. Association for Computational Linguistics.',
+    ),
+    # Article in proceedings, many authors, no page numbers
+    (
+        "L06-1060",
+        'Brian Roark, Mary Harper, Eugene Charniak, Bonnie Dorr, Mark Johnson, Jeremy Kahn, Yang Liu, Mari Ostendorf, John Hale, Anna Krasnyanskaya, Matthew Lease, Izhak Shafran, Matthew Snover, Robin Stewart, and Lisa Yung. 2006. <a href="https://aclanthology.org/L06-1060/">SParseval: Evaluation Metrics for Parsing Speech</a>. In <i>Proceedings of the Fifth International Conference on Language Resources and Evaluation (LREC’06)</i>, Genoa, Italy. European Language Resources Association (ELRA).',
+    ),
+    # Article in proceedings, one author, single page
+    (
+        "2022.naloma-1.1",
+        'Tim Fernando. 2022. <a href="https://aclanthology.org/2022.naloma-1.1/">Strings from neurons to language</a>. In <i>Proceedings of the 3rd Natural Logic Meets Machine Learning Workshop (NALOMA III)</i>, page 10, Galway, Ireland. Association for Computational Linguistics.',
+    ),
+)
+
+
+@pytest.mark.parametrize("full_id, expected", test_cases_papercitation)
+def test_paper_to_citation(anthology, full_id, expected):
+    paper = anthology.get(full_id)
+    citation = paper.to_citation()
+    assert citation == expected
+
+
+test_cases_papercitation_markdown = (
+    # Journal article
+    (
+        "J89-4001",
+        "[A Parsing Algorithm for Unification Grammar](https://aclanthology.org/J89-4001/) (Haas, CL 1989)",
+    ),
+    # Journal article, no author
+    (
+        "J89-2015",
+        "[Abstracts of Current Literature](https://aclanthology.org/J89-2015/) (CL 1989)",
+    ),
+    # Journal article, no author, no editor
+    (
+        "J89-1009",
+        "[Briefly Noted](https://aclanthology.org/J89-1009/) (CL 1989)",
+    ),
+    # Conference proceedings
+    (
+        "2022.acl-short.0",
+        "[Proceedings of the 60th Annual Meeting of the Association for Computational Linguistics (Volume 2: Short Papers)](https://aclanthology.org/2022.acl-short.0/) (Muresan et al., ACL 2022)",
+    ),
+    # Article in proceedings, two authors
+    (
+        "2022.acl-long.268",
+        "[Detecting Unassimilated Borrowings in Spanish: An Annotated Corpus and Approaches to Modeling](https://aclanthology.org/2022.acl-long.268/) (Álvarez-Mellado & Lignos, ACL 2022)",
+    ),
+    # Article in proceedings, many authors
+    (
+        "L06-1060",
+        "[SParseval: Evaluation Metrics for Parsing Speech](https://aclanthology.org/L06-1060/) (Roark et al., LREC 2006)",
+    ),
+    # Article in proceedings, single author
+    (
+        "2022.naloma-1.1",
+        "[Strings from neurons to language](https://aclanthology.org/2022.naloma-1.1/) (Fernando, NALOMA 2022)",
+    ),
+)
+
+
+@pytest.mark.parametrize("full_id, expected", test_cases_papercitation_markdown)
+def test_paper_to_markdown_citation(anthology, full_id, expected):
+    paper = anthology.get(full_id)
+    citation = paper.to_markdown_citation()
+    assert citation == expected
 
 
 test_cases_paperdeletionnotice = (
@@ -292,6 +544,16 @@ def test_papererratum_to_xml(xml, id_, pdf_name, pdf_checksum, date):
     assert etree.tostring(erratum.to_xml(), encoding="unicode") == xml
 
 
+def test_papererratum_must_get_pdfreference():
+    with pytest.raises(TypeError):
+        _ = PaperErratum("42", "erratum.pdf")
+
+
+def test_papererratum_must_be_local():
+    with pytest.raises(ValueError):
+        _ = PaperErratum("42", PDFReference(name="https://aclanthology.org/somefile.pdf"))
+
+
 test_cases_paperrevision = (
     (
         '<revision id="1" href="Q15-1022v1" hash="f16c56cd"/>',
@@ -341,3 +603,17 @@ def test_paperrevision_to_xml(xml, id_, pdf_name, pdf_checksum, date, note):
         id_, note=note, pdf=PDFReference(name=pdf_name, checksum=pdf_checksum), date=date
     )
     assert etree.tostring(revision.to_xml(), encoding="unicode") == xml
+
+
+def test_paperrevision_must_get_pdfreference():
+    with pytest.raises(TypeError):
+        _ = PaperRevision("42", note=None, pdf="revision.pdf")
+
+
+def test_paperrevision_must_be_local():
+    with pytest.raises(ValueError):
+        _ = PaperRevision(
+            "42",
+            note=None,
+            pdf=PDFReference(name="https://aclanthology.org/somefile.pdf"),
+        )

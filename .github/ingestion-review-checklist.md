@@ -10,3 +10,8 @@
 1. [ ] Skim through the complete listing, looking for mis-parsed author names.
 1. [ ] Download the frontmatter and verify that the table of contents matches at least three randomly-selected papers
 1. [ ] Download 3–5 PDFs (including the first and last one) and make sure they are correct (title, authors, page numbers).
+
+After the PR is closed, for ACL events:
+- [ ] Generate the DOIs for all volumes (`generate_crossref_doi_metadata.py`)
+- [ ] Upload to [Crossref](https://doi.crossref.org/servlet/home)
+- [ ] Add the DOIs to the XML in a separate PR (`add_dois.py`)
