@@ -26,7 +26,7 @@ These kinds of corrections bring the information presented in the Anthology in l
 A request to change paper metadata can be submitted in two ways.
 
 - _Have us do the work_. You can submit an issue to Anthology staff.
-   -  _(Preferred)_ Navigate to the paper’s page in the ACL Anthology (e.g., [https://aclanthology.org/K17-1003](K17-1003)). From there, click the yellow “Fix data” button. This will display a dialog that you can use to correct the title, abstract, and author information. Submitting this form will fill a Github issue template with a JSON data block. We process these semiautomatically on a weekly basis.
+   -  _(Preferred)_ Navigate to the paper’s page in the ACL Anthology (e.g., [K17-1003](https://aclanthology.org/K17-1003)). From there, click the yellow “Fix data” button. This will display a dialog that you can use to correct the title, abstract, and author information. Submitting this form will fill a Github issue template with a JSON data block. We process these semiautomatically on a weekly basis.
    -  If your issue is sensitive, you can alternately contact us via email at anthology@aclweb.org.
       Please be sure to include a link to the paper page in the Anthology in your email. These are typically
       processed on a monthly basis, in batches of corrections.
