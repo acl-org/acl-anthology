@@ -25,19 +25,14 @@ These kinds of corrections bring the information presented in the Anthology in l
 
 A request to change paper metadata can be submitted in two ways.
 
-1. (Preferred) Navigate to the paper's page in the ACL Anthology (e.g., [K17-1003](https://aclanthology.org/K17-1003/)). From there, click the yellow "Fix data" button. This will display a dialog that you can use to correct the title and abstract and fix issues with the author list.
-
-   Submitting this form will create a Github issue with a JSON data block. This will then be validated by Anthology staff, and processed by a semi-automatic bulk corrections script on a regular basis (usually every Friday).
-
-2. If you would like to expedite the process and are familiar with [git](https://git-scm.com), you can make the correction yourself and file a [pull request (PR)](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests).
-
-    * First, locate your file amongst our [authoritative XML files](https://github.com/acl-org/acl-anthology/tree/master/data/xml). The name of your file is the portion of the Anthology ID that comes before the hyphen. As an example, if the Anthology ID of your paper is `P19-10171`, then the file you will need to edit is [data/xml/P19.xml](https://github.com/acl-org/acl-anthology/blob/master/data/xml/P19.xml); if the Anthology ID of your paper is `2021.iwslt-1.28`, then the file you will need to edit is [data/xml/2021.iwslt.xml](https://github.com/acl-org/acl-anthology/blob/master/data/xml/2021.iwslt.xml).
-    * Find your entry in the XML file, and use Github's edit button to fix it and then to issue a PR against our `master` branch.
-    * For larger XML files, you may have to fork the repository first. [More information can be found here](https://help.github.com/en/github/managing-files-in-a-repository/editing-files-in-another-users-repository).
-    * Create the pull request. Anthology staff will review the PR and merge it into the master branch.
+- _Have us do the work_. You can submit an issue to Anthology staff.
+   -  _(Preferred)_ Navigate to the paper’s page in the ACL Anthology (e.g., [K17-1003](https://aclanthology.org/K17-1003)). From there, click the yellow “Fix data” button. This will display a dialog that you can use to correct the title, abstract, and author information. Submitting this form will fill a Github issue template with a JSON data block. We process these semiautomatically on a weekly basis.
+   -  If your issue is sensitive, you can alternately contact us via email at anthology@aclweb.org.
+      Please be sure to include a link to the paper page in the Anthology in your email. These are typically
+      processed on a monthly basis, in batches of corrections.
+- _Make the change yourself_. [Follow the instructions here](https://github.com/acl-org/acl-anthology/wiki/Issuing-Pull-Requests-For-Corrections) to make the changes yourself and create a pull request against the Anthology repository. These are typically processed every few days, as we see them.
 
 Metadata changes are generally accepted if they are consistent with the PDF, which we take as authoritative.
-However, please see the following note.
 
 **Note on changes to author metadata**
 
@@ -90,7 +85,6 @@ Please take note of the following points regarding revisions and retractions.
 * The landing page for the work will indicate the availability of the erratum or revision.
 * We cannot currently regenerate the full volumes, which will continue to contain only the original papers.
 * We have no control over how downstream consumers of the Anthology, such as search engine, process the changes.
-
 
 #### Revisions and errata
 
