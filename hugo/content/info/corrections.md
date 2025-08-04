@@ -25,14 +25,14 @@ These kinds of corrections bring the information presented in the Anthology in l
 
 A request to change paper metadata can be submitted in two ways.
 
-- Have us do the work. Please note that in order to reduce our workload, we process corrections in batches, merging them at the beginning of each month.
-   -  _(Preferred)_ Please file a Github issue. This is best done by navigating to the paper's page and clicking the "Fix data" button, which will take you to a filled-out template for a Github issue.
+- _Have us do the work_. You can submit an issue to Anthology staff.
+   -  _(Preferred)_ Navigate to the paper’s page in the ACL Anthology (e.g., [https://aclanthology.org/K17-1003](K17-1003)). From there, click the yellow “Fix data” button. This will display a dialog that you can use to correct the title, abstract, and author information. Submitting this form will fill a Github issue template with a JSON data block. We process these semiautomatically on a weekly basis.
    -  If your issue is sensitive, you can alternately contact us via email at anthology@aclweb.org.
-      Please be sure to include a link to the paper page in the Anthology in your email.
-- Make the change yourself. The advantage here is that your request can be approved and made live as soon as we see it. You can do this by [following the instructions here](https://github.com/acl-org/acl-anthology/wiki/Issuing-Pull-Requests-For-Corrections).
+      Please be sure to include a link to the paper page in the Anthology in your email. These are typically
+      processed on a monthly basis, in batches of corrections.
+- _Make the change yourself_. [Follow the instructions here](https://github.com/acl-org/acl-anthology/wiki/Issuing-Pull-Requests-For-Corrections) to make the changes yourself and create a pull request against the Anthology repository. These are typically processed every few days, as we see them.
 
-The Anthology team will attend to the correction. Metadata changes are generally accepted if they are consistent with the PDF, which we take as authoritative. Corrections are typically processed in monthly batches that are merged at the beginning of each month.
-However, please see the following note.
+Metadata changes are generally accepted if they are consistent with the PDF, which we take as authoritative.
 
 **Note on changes to author metadata**
 
