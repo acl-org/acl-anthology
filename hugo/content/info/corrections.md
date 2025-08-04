@@ -2,18 +2,19 @@
 Title: Requesting Corrections
 linktitle: Corrections
 subtitle: How to submit corrections to the Anthology
-date: 2025-02-10
+date: 2025-08-02
 ---
 
 ### What type of correction do I need?
 
 Our central guiding corrections principle is that **we view the content of PDFs as authoritative**. If you see errors or inconsistencies in the metadata (author list, title, abstract), you need to first check to see if it matches the PDF.
 
-This view drives three main types of corrections:
+This view drives four main types of corrections:
 
-* [_PDF corrections_](#pdf-corrections). The PDF itself can be in error.
-* [_Metadata only_](#metadata-corrections). Information presented in the Anthology may be different from the PDF. Examples include errors in the title, abstract, or author list.
-* [_Author disambiguation_](#author-disambiguation). An author's papers might be spread across multiple author pages (one person, multiple pages), or a single author page might contain papers from different people (multiple people, one page).
+* [_You have more than one author page_](#merging-author-pages). This occurs if you published papers under different variations of your name, or if you changed your name.
+* [_Your papers are mixed with someone else's_](#splitting-author-pages). If multiple people publish under the same name, we need to manually disambiguate them.
+* [_There are problems with the PDF_](#pdf-corrections). We can process corrections, revisions, errata, and retractions.
+* [_The PDF is fine, but there are problems with the metadata_](#metadata-corrections). Errors in the title, abstract, author names, or list of authors.
 
 Below we describe the process for addressing these types of corrections, in order of the frequency we encounter them.
 
@@ -45,25 +46,31 @@ Because it is beyond our ability to keep track of the many differing policies go
 We reserve the right to seek permission or corroboration from the associated conference or workshop program chairs in unusual situations, such as removing or adding an author to a PDF revision.
 In such cases, we will ask authors to arrange for this permission to be conveyed to us, either (ideally) on the corresponding Github issue or via email.
 
-### Author disambiguation
+### Merging author pages
 
-The Anthology builds author pages based on the string form of names found in paper metadata.
-These pages are housed under https://aclanthology.org/people/, e.g., [Aravand Joshi](https://aclanthology.org/people/aravind-joshi).
+If you have published papers under different names, you will end up with multiple author profiles in the Anthology. We can merge these into a single page under your preferred name.
 
-There are two types of author disambiguation:
+Please pay careful attention to the following steps.
 
-**One person, multiple author pages**.
-This situation occurs when a person has multiple papers written under different names.
-Often, these names are minor variations of each other (e.g., including or excluding a middle initial).
-Sometimes, this is a simple mistake in the metadata that can be handled using the procedure described above.
-However, if the metadata for the papers is correct, then we need to manually link the author pages.
+1. **Ensure that each name is correct**. We treat the information on the PDF as authoritative; this means that the metadata should reflect exactly what is printed on the PDF. A common situation is that the name recorded in Anthology metadata (e.g., John P. Hancock) will not match what is displayed on the PDF (John Hancock). This needs to be corrected first. Please review your papers and [follow the steps here](#metadata-corrections) to correct any discrepancies. Sometimes, this will resolve the split pages.
+2. Obtain [an ORCID](https://orcid.org). This is required to help with matching of future papers.
+3. Fill out [an author page correction](https://github.com/acl-org/acl-anthology/issues/new?template=02-name-correction.yml). A Github issue is our preferred mechanism, but you can also email [the Anthology director](mailto:anthology@aclweb.org).
+4. Finally, to avoid issues in the future, ensure that the name you use on papers is properly recorded in your profile in publication management systems such as [Open Review](https://openreview.net), [Softconf](https://softconf.com), [EasyChair](https://easychair.org), and so on.
 
-**Multiple people, single author page**.
-In this situation, many different people have published under the same name.
-An example is [Yang Liu](https://aclanthology.org/people/yang-liu).
-In this case, we have to manually assign IDs to the papers to create a separate author page, typically using their Ph.D. granting institution (e.g., [Yang Liu of Edinburgh](https://aclanthology.org/people/y/yang-liu-edinburgh/).
+Anthology staff will address your issue as quickly as possible.
+An example merged author profile is [Aravand Joshi](https://aclanthology.org/people/aravind-joshi).
 
-Both situations can be addressed by [filing an Author Page request](https://github.com/acl-org/acl-anthology/issues/new?template=02-name-correction.yml).
+### Splitting author pages
+
+When multiple authors publish under the same name, we disambiguate them by manually assigning an ID to one or more of the authors, and then associating that ID with each of their papers.
+
+We need the following information from you:
+1. Your [ORCID](https://orcid.org/), which will help us assign future papers to you correctly.
+2. The name of the institution from which you received your highest degree (e.g., where you got your Ph.D.), or where you expect to receive it (for students).
+
+Anthology staff will assign an ID to you comprising your canonical name (e.g., [yang-liu]() for "Yang Liu") and this institution. This page will be associated with your ORCID and will become your permanent Anthology author page.
+
+To file a author split request, we prefer you to use [this Github issue](https://github.com/acl-org/acl-anthology/issues/new?template=02-name-correction.yml). A link to this template can also be found on any author page under the "Fix author" button. An example different authors published under the same name is [Yang Liu (of Edinburgh)](https://aclanthology.org/people/yang-liu-edinburgh/) and [Yang Liu (of Peking University)](https://aclanthology.org/people/yang-liu-pk).
 
 ### PDF corrections
 
