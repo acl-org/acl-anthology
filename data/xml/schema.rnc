@@ -10,7 +10,7 @@ tex-math = element tex-math { text }
 a = element a {
   attribute href { xsd:anyURI } & text
 }
-MarkupText = (text | b | i | url | fixed-case | tex-math | a)+
+MarkupText = (text | b | i | url | fixed-case | tex-math)+
 
 first = element first { xsd:string { pattern="(\S(.*\S)?)?" } }
 last = element last { xsd:string { pattern="\S(.*\S)?" } }
