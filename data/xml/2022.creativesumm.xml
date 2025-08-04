@@ -24,9 +24,6 @@
       <abstract>Summarizing Interactive Digital Narratives (IDN) presents some unique challenges to existing text summarization models especially around capturing interactive elements in addition to important plot points. In this paper, we describe the first IDN dataset (IDN-Sum) designed specifically for training and testing IDN text summarization algorithms. Our dataset is generated using random playthroughs of 8 IDN episodes, taken from 2 different IDN games, and consists of 10,000 documents. Playthrough documents are annotated through automatic alignment with fan-sourced summaries using a commonly used alignment algorithm. We also report and discuss results from experiments applying common baseline extractive text summarization algorithms to this dataset. Qualitative analysis of the results reveals shortcomings in common annotation approaches and evaluation methods when applied to narrative and interactive narrative datasets. The dataset is released as open source for future researchers to train and test their own approaches for IDN text.</abstract>
       <url hash="7e6498a3">2022.creativesumm-1.1</url>
       <bibkey>revi-etal-2022-idn</bibkey>
-      <pwccode url="https://github.com/ashwathytr/idn-sum" additional="false">ashwathytr/idn-sum</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/cnn-daily-mail-1">CNN/Daily Mail</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/crd3">CRD3</pwcdataset>
     </paper>
     <paper id="2">
       <title>Summarization of Long Input Texts Using Multi-Layer Neural Network</title>
@@ -45,7 +42,6 @@
       <abstract>We present the results of the Workshop on Automatic Summarization for Creative Writing 2022 Shared Task on summarization of chapters from novels. In this task, we finetune a pretrained transformer model for long documents called LongformerEncoderDecoder which supports seq2seq tasks for long inputs which can be up to 16k tokens in length. We use the Booksum dataset for longform narrative summarization for training and validation, which maps chapters from novels, plays and stories to highly abstractive human written summaries. We use a summary of summaries approach to generate the final summaries for the blind test set, in which we recursively divide the text into paragraphs, summarize them, concatenate all resultant summaries and repeat this process until either a specified summary length is reached or there is no significant change in summary length in consecutive iterations. Our best model achieves a ROUGE-1 F-1 score of 29.75, a ROUGE-2 F-1 score of 7.89 and a BERT F-1 score of 54.10 on the shared task blind test dataset.</abstract>
       <url hash="1c741c93">2022.creativesumm-1.3</url>
       <bibkey>kashyap-2022-coling</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/booksum">BookSum</pwcdataset>
     </paper>
     <paper id="4">
       <title><fixed-case>TEAM</fixed-case> <fixed-case>UFAL</fixed-case> @ <fixed-case>C</fixed-case>reative<fixed-case>S</fixed-case>umm 2022: <fixed-case>BART</fixed-case> and <fixed-case>S</fixed-case>am<fixed-case>S</fixed-case>um based few-shot approach for creative Summarization</title>
@@ -55,7 +51,6 @@
       <abstract>This system description paper details TEAM UFAL’s approach for the SummScreen, TVMegasite subtask of the CreativeSumm shared task. The subtask deals with creating summaries for dialogues from TV Soap operas. We utilized BART based pre-trained model fine-tuned on SamSum dialouge summarization dataset. Few examples from AutoMin dataset and the dataset provided by the organizers were also inserted into the data as a few-shot learning objective. The additional data was manually broken into chunks based on different boundaries in summary and the dialogue file. For inference we choose a similar strategy as the top-performing team at AutoMin 2021, where the data is split into chunks, either on [SCENE_CHANGE] or exceeding a pre-defined token length, to accommodate the maximum token possible in the pre-trained model for one example. The final training strategy was chosen based on how natural the responses looked instead of how well the model performed on an automated evaluation metrics such as ROGUE.</abstract>
       <url hash="9b5de168">2022.creativesumm-1.4</url>
       <bibkey>kumar-rosa-2022-team</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/summscreen">SummScreen</pwcdataset>
     </paper>
     <paper id="5">
       <title>Long Input Dialogue Summarization with Sketch Supervision for Summarization of Primetime Television Transcripts</title>
@@ -67,7 +62,6 @@
       <abstract>This paper presents our entry to the CreativeSumm 2022 shared task. Specifically tackling the problem of prime-time television screenplay summarization based on the SummScreen Forever Dreaming dataset. Our approach utilizes extended Longformers combined with sketch supervision including categories specifically for scene descriptions. Our system was able to produce the shortest summaries out of all submissions. While some problems with factual consistency still remain, the system was scoring highest among competitors in the ROUGE and BERTScore evaluation categories.</abstract>
       <url hash="529fa29e">2022.creativesumm-1.5</url>
       <bibkey>kees-etal-2022-long</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/summscreen">SummScreen</pwcdataset>
     </paper>
     <paper id="6">
       <title><fixed-case>AMRTVS</fixed-case>umm: <fixed-case>AMR</fixed-case>-augmented Hierarchical Network for <fixed-case>TV</fixed-case> Transcript Summarization</title>
@@ -90,7 +84,6 @@
       <abstract>This paper documents our approach for the Creative-Summ 2022 shared task for Automatic Summarization of Creative Writing. For this purpose, we develop an automatic summarization pipeline where we leverage a denoising autoencoder for pretraining sequence-to-sequence models and fine-tune it on a large-scale abstractive screenplay summarization dataset to summarize TV transcripts from primetime shows. Our pipeline divides the input transcript into smaller conversational blocks, removes redundant text, summarises the conversational blocks, obtains the block-wise summaries, cleans, structures, and then integrates the summaries to create the meeting minutes. Our proposed system achieves some of the best scores across multiple metrics(lexical, semantical) in the Creative-Summ shared task.</abstract>
       <url hash="01b6fdde">2022.creativesumm-1.7</url>
       <bibkey>upadhyay-etal-2022-automatic</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/summscreen">SummScreen</pwcdataset>
     </paper>
     <paper id="8">
       <title>The <fixed-case>C</fixed-case>reative<fixed-case>S</fixed-case>umm 2022 Shared Task: A Two-Stage Summarization Model using Scene Attributes</title>
@@ -115,7 +108,6 @@
       <abstract>The Creative Summarization Shared Task at COLING 2022 aspires to generate summaries given long-form texts from creative writing. This paper presents the system architecture and the results of our participation in the Scriptbase track that focuses on generating movie plots given movie scripts. The core innovation in our model employs a two-stage hierarchical architecture for movie script summarization. In the first stage, a heuristic extraction method is applied to extract actions and essential dialogues, which reduces the average length of input movie scripts by 66% from about 24K to 8K tokens. In the second stage, a state-of-the-art encoder-decoder model, Longformer-Encoder-Decoder (LED), is trained with effective fine-tuning methods, BitFit and NoisyTune. Evaluations on the unseen test set indicate that our system outperforms both zero-shot LED baselines as well as other participants on various automatic metrics and ranks 1st in the Scriptbase track.</abstract>
       <url hash="fab1f657">2022.creativesumm-1.9</url>
       <bibkey>pu-etal-2022-two</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/lra">LRA</pwcdataset>
     </paper>
     <paper id="10">
       <title><fixed-case>CREATIVESUMM</fixed-case>: Shared Task on Automatic Summarization for Creative Writing</title>
@@ -133,8 +125,6 @@
       <abstract>This paper introduces the shared task of summrizing documents in several creative domains, namely literary texts, movie scripts, and television scripts. Summarizing these creative documents requires making complex literary interpretations, as well as understanding non-trivial temporal dependencies in texts containing varied styles of plot development and narrative structure. This poses unique challenges and is yet underexplored for text summarization systems. In this shared task, we introduce four sub-tasks and their corresponding datasets, focusing on summarizing books, movie scripts, primetime television scripts, and daytime soap opera scripts. We detail the process of curating these datasets for the task, as well as the metrics used for the evaluation of the submissions. As part of the CREATIVESUMM workshop at COLING 2022, the shared task attracted 18 submissions in total. We discuss the submissions and the baselines for each sub-task in this paper, along with directions for facilitating future work.</abstract>
       <url hash="4c801c44">2022.creativesumm-1.10</url>
       <bibkey>agarwal-etal-2022-creativesumm</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/scrolls">SCROLLS</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/summscreen">SummScreen</pwcdataset>
     </paper>
   </volume>
 </collection>
