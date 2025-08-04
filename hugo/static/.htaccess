@@ -79,7 +79,7 @@ RewriteRule ^thumb/(.*)$ anthology-files/thumb/$1 [L,NC]
 # Author pages. A request for the old-style URL /people/m/matt-post should give a 301 redirect
 # to /people/matt-post. Note that this works for any letter prefix, but this can't be avoided
 # since the pattern-match can't match source side.
-RewriteRule ^people/[a-z]/([a-z0-9])([\-a-z0-9]+)/?$ people/$1$2/ [R=301,L,NC]
+RewriteRule ^people/[a-z]/([\-a-z0-9]+)/?$ people/$1/ [R=301,L,NC]
 
 # Videos
 ## match old-style URLs, e.g., /N13-1001.mp4 -> anthology-files/videos/N/N13-1001.mp4
