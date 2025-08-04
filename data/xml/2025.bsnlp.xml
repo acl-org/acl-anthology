@@ -1,0 +1,316 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2025.bsnlp">
+  <volume id="1" ingest-date="2025-07-20" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of the 10th Workshop on Slavic Natural Language Processing (Slavic NLP 2025)</booktitle>
+      <editor><first>Jakub</first><last>Piskorski</last></editor>
+      <editor><first>Pavel</first><last>Přibáň</last></editor>
+      <editor><first>Preslav</first><last>Nakov</last></editor>
+      <editor><first>Roman</first><last>Yangarber</last></editor>
+      <editor><first>Michal</first><last>Marcinczuk</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Vienna, Austria</address>
+      <month>July</month>
+      <year>2025</year>
+      <url hash="b01563f4">2025.bsnlp-1</url>
+      <venue>bsnlp</venue>
+      <venue>ws</venue>
+      <isbn>978-1-959429-57-9</isbn>
+    </meta>
+    <frontmatter>
+      <url hash="1a2b7a35">2025.bsnlp-1.0</url>
+      <bibkey>bsnlp-ws-2025-1</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Identifying Filled Pauses in Speech Across South and <fixed-case>W</fixed-case>est <fixed-case>S</fixed-case>lavic Languages</title>
+      <author><first>Nikola</first><last>Ljubešić</last><affiliation>Jožef Stefan Institute</affiliation></author>
+      <author><first>Ivan</first><last>Porupski</last><affiliation>Jožef Stefan Institute</affiliation></author>
+      <author><first>Peter</first><last>Rupnik</last><affiliation>Jožef Stefan Institute</affiliation></author>
+      <author><first>Taja</first><last>Kuzman</last><affiliation>Jožef Stefan Institute</affiliation></author>
+      <pages>1-8</pages>
+      <abstract>Filled pauses are among the most common paralinguistic features of speech, yet they are mainly omitted from transcripts. We propose a transformer-based approach for detecting filled pauses directly from the speech signal, fine-tuned on Slovenian and evaluated across South and West Slavic languages. Our results show that speech transformers achieve excellent performance in detecting filled pauses when evaluated in the in-language scenario. We further evaluate cross-lingual capabilities of the model on two closely related South Slavic languages (Croatian and Serbian) and two less closely related West Slavic languages (Czech and Polish). Our results reveal strong cross-lingual generalization capabilities of the model, with only minor performance drops. Moreover, error analysis reveals that the model outperforms human annotators in recall and F1 score, while trailing slightly in precision. In addition to evaluating the capabilities of speech transformers for filled pause detection across Slavic languages, we release new multilingual test datasets and make our fine-tuned model publicly available to support further research and applications in spoken language processing.</abstract>
+      <url hash="73f0a150">2025.bsnlp-1.1</url>
+      <bibkey>ljubesic-etal-2025-identifying</bibkey>
+    </paper>
+    <paper id="2">
+      <title>Few-Shot Prompting, Full-Scale Confusion: Evaluating Large Language Models for Humor Detection in <fixed-case>C</fixed-case>roatian Tweets</title>
+      <author><first>Petra</first><last>Bago</last><affiliation>University of Zagreb, Faculty of Humanities and Social Sciences</affiliation></author>
+      <author><first>Nikola</first><last>Bakarić</last><affiliation>University of Applied Sciences Velika Gorica</affiliation></author>
+      <pages>9-16</pages>
+      <abstract>Humor detection in low-resource languages is hampered by cultural nuance and subjective annotation. We test two large language models, GPT-4 and Gemini 2.5 Flash, on labeling humor in 6,000 Croatian tweets with expert gold labels generated through a rigorous annotation pipeline. LLM–human agreement (κ = 0.28) matches human–human agreement (κ = 0.27), while LLM–LLM agreement is substantially higher (κ = 0.63). Although concordance with expert adjudication is lower, additional metrics imply that the models equal a second human annotator while working far faster and at negligible cost. These findings suggest, even with simple prompting, LLMs can efficiently bootstrap subjective datasets and serve as practical annotation assistants in linguistically under-represented settings.</abstract>
+      <url hash="25672d76">2025.bsnlp-1.2</url>
+      <bibkey>bago-bakaric-2025-shot</bibkey>
+    </paper>
+    <paper id="3">
+      <title><fixed-case>G</fixed-case>iga<fixed-case>E</fixed-case>mbeddings — Efficient <fixed-case>R</fixed-case>ussian Language Embedding Model</title>
+      <author><first>Egor</first><last>Kolodin</last><affiliation>Salute Devices; Moscow Institute of Physics and Technology</affiliation></author>
+      <author><first>Anastasia</first><last>Ianina</last><affiliation>Moscow Institute of Physics and Technology</affiliation></author>
+      <pages>17-24</pages>
+      <abstract>We introduce GigaEmbeddings, a novel framework for training high-performance Russian-focused text embeddings through hierarchical instruction tuning of the decoder-only LLM designed specifically for Russian language (GigaChat-3B). Our three-stage pipeline, comprising large-scale contrastive pre-training in web-scale corpora, fine-tuning with hard negatives, and multitask generalization across retrieval, classification, and clustering tasks, addresses key limitations of existing methods by unifying diverse objectives and leveraging synthetic data generation. Architectural innovations include bidirectional attention for contextual modeling, latent attention pooling for robust sequence aggregation, and strategic pruning of 25% of transformer layers to enhance efficiency without compromising performance. Evaluated on the ruMTEB benchmark spanning 23 multilingual tasks, GigaEmbeddings achieves state-of-the-art results (69.1 avg. score), outperforming strong baselines with a larger number of parameters.</abstract>
+      <url hash="55afabcc">2025.bsnlp-1.3</url>
+      <bibkey>kolodin-ianina-2025-gigaembeddings</bibkey>
+    </paper>
+    <paper id="4">
+      <title><fixed-case>PL</fixed-case>-Guard: Benchmarking Language Model Safety for <fixed-case>P</fixed-case>olish</title>
+      <author><first>Aleksandra</first><last>Krasnodebska</last><affiliation>NASK National Research Institute</affiliation></author>
+      <author><first>Karolina</first><last>Seweryn</last><affiliation>Warsaw University of Technology</affiliation></author>
+      <author><first>Szymon</first><last>Łukasik</last><affiliation>NASK National Research Institute</affiliation></author>
+      <author><first>Wojciech</first><last>Kusa</last><affiliation>NASK National Research Institute</affiliation></author>
+      <pages>25-37</pages>
+      <abstract>We present a benchmark dataset for evaluating language model safety in Polish, addressing the underrepresentation of medium-resource languages in existing safety assessments. Our dataset includes both original and adversarially perturbed examples. We fine-tune and evaluate multiple models—LlamaGuard-3-8B, a HerBERT-based classifier, and PLLuM—and find that the HerBERT-based model outperforms others, especially under adversarial conditions.</abstract>
+      <url hash="649de1ab">2025.bsnlp-1.4</url>
+      <bibkey>krasnodebska-etal-2025-pl</bibkey>
+    </paper>
+    <paper id="5">
+      <title>Dialects, Topic Models, and Border Effects: The <fixed-case>R</fixed-case>usyn Case</title>
+      <author><first>Achim</first><last>Rabus</last><affiliation>University of Freiburg</affiliation></author>
+      <author><first>Yves</first><last>Scherrer</last><affiliation>University of Oslo</affiliation></author>
+      <pages>38-43</pages>
+      <abstract>In this contribution, we present, discuss, and apply a data-driven approach for analyzing varieties of the Slavic minority language Carpathian Rusyn spoken in different countries in the Carpathian region. Using topic modeling, a method originally developed for text mining, we show that the Rusyn varieties are subject to border effects, i.e., vertical convergence and horizontal divergence, due to language contacts with their respective umbrella languages Polish, Slovak and Standard Ukrainian. Additionally, we show that the method is suitable for uncovering fieldworker isoglosses, i.e., different transcription principles in an otherwise homogeneous dataset.</abstract>
+      <url hash="4864d636">2025.bsnlp-1.5</url>
+      <bibkey>rabus-scherrer-2025-dialects</bibkey>
+    </paper>
+    <paper id="6">
+      <title>Towards Open Foundation Language Model and Corpus for <fixed-case>M</fixed-case>acedonian: A Low-Resource Language</title>
+      <author><first>Stefan</first><last>Krsteski</last><affiliation>EPFL</affiliation></author>
+      <author><first>Borjan</first><last>Sazdov</last><affiliation>Faculty of Electrical Engineering and Information Technologies, Emteq Labs</affiliation></author>
+      <author><first>Matea</first><last>Tashkovska</last><affiliation>EPFL</affiliation></author>
+      <author><first>Branislav</first><last>Gerazov</last><affiliation>Faculty of Electrical Engineering and Information Technologies, Ss. Cyril and Methodius University in Skopje</affiliation></author>
+      <author><first>Hristijan</first><last>Gjoreski</last><affiliation>Faculty of Electrical Engineering and Information Technologies, Emteq Labs</affiliation></author>
+      <pages>44-57</pages>
+      <abstract>The increase in technological adoption worldwide comes with demands for novel tools to be used by the general population. Large Language Models (LLMs) provide a great opportunity in this respect, but their capabilities remain limited for low-resource languages, restricting applications in countries where such languages are spoken. We create several resources to facilitate the adoption of LLMs and to support research advancements for Macedonian. We collect the largest Macedonian corpus to date, consisting of 40GB of textual data and totaling 3.5B words. To support conversational applications, we collect a 106k-instance instruction dataset, carefully built to be culturally grounded. For evaluation, we construct a Macedonian evaluation suite covering seven benchmarks. Finally, we train domestic-yak, a state-of-the-art 8B-parameter model, on our curated datasets and evaluate it against eight baseline models using the newly constructed benchmark suite. Our model outperforms all existing models in the 8B parameter range across all benchmarks, and achieves performance comparable to models up to 10× larger. Furthermore, a qualitative analysis with native speakers reveals that our model is preferred over larger counterparts, receiving higher ratings for grammatical correctness and cultural appropriateness. All datasets, code, and model weights are openly released, setting a foundation for advancing LLMs in similarly underrepresented languages. These resources are publicly available at https://github.com/LVSTCK for source code, and at https://huggingface.co/LVSTCK for pretrained model weights and data.</abstract>
+      <url hash="4810aff3">2025.bsnlp-1.6</url>
+      <bibkey>krsteski-etal-2025-towards</bibkey>
+    </paper>
+    <paper id="7">
+      <title>Towards compact and efficient <fixed-case>S</fixed-case>lovak summarization models</title>
+      <author><first>Sebastian</first><last>Petrik</last><affiliation>Slovak University of Technology in Bratislava</affiliation></author>
+      <author><first>Giang</first><last>Nguyen</last><affiliation>Slovak University of Technology in Bratislava</affiliation></author>
+      <pages>58-68</pages>
+      <abstract>Language models, especially LLMs, often face significant limitations due to their high resource demands. While various model compression methods have emerged, their application to smaller models in multilingual and low-resource settings remains understudied. Our work evaluates selected decoder and embedding pruning methods on T5-based models for abstractive summarization in English and Slovak using a parallel dataset. The results reveal differences in model performance degradation and expand the limited Slovak summarization resources and models.</abstract>
+      <url hash="44e0191f">2025.bsnlp-1.7</url>
+      <bibkey>petrik-nguyen-2025-towards</bibkey>
+    </paper>
+    <paper id="8">
+      <title>Adapting Definition Modeling for New Languages: A Case Study on <fixed-case>B</fixed-case>elarusian</title>
+      <author><first>Daniela</first><last>Kazakouskaya</last><affiliation>University of Helsinki</affiliation></author>
+      <author><first>Timothee</first><last>Mickus</last><affiliation>University of Helsinki</affiliation></author>
+      <author><first>Janine</first><last>Siewert</last><affiliation>University of Helsinki</affiliation></author>
+      <pages>69-75</pages>
+      <abstract>Definition modeling, the task of generating new definitions for words in context, holds great prospect as a means to assist the work of lexicographers in documenting a broader variety of lects and languages, yet much remains to be done in order to assess how we can leverage pre-existing models for as-of-yet unsupported languages. In this work, we focus on adapting existing models to Belarusian, for which we propose a novel dataset of 43,150 definitions. Our experiments demonstrate that adapting a definition modeling systems requires minimal amounts of data, but that there currently are gaps in what automatic metrics do capture.</abstract>
+      <url hash="a95d445f">2025.bsnlp-1.8</url>
+      <bibkey>kazakouskaya-etal-2025-adapting</bibkey>
+    </paper>
+    <paper id="9">
+      <title>Bridging the Gap with <fixed-case>R</fixed-case>ed<fixed-case>SQL</fixed-case>: A <fixed-case>R</fixed-case>ussian Text-to-<fixed-case>SQL</fixed-case> Benchmark for Domain-Specific Applications</title>
+      <author><first>Irina</first><last>Brodskaya</last><affiliation>Moscow Institute of Physics and Technology</affiliation></author>
+      <author><first>Elena</first><last>Tutubalina</last><affiliation>HSE University, Russia and Kazan Federal University, Russia and AIRI, Russia and Insilico Medicine Hong Kong, Hong Kong</affiliation></author>
+      <author><first>Oleg</first><last>Somov</last><affiliation>MIPT</affiliation></author>
+      <pages>76-83</pages>
+      <abstract>We present the first domain-specific text-to-SQL benchmark in Russian, targeting fields with high operational load where rapid decision-making is critical. The benchmark spans across 9 domains, including healthcare, aviation, and others, and comprises 409 curated query pairs. It is designed to test model generalization under domain shift, introducing challenges such as specialized terminology and complex schema structures. Evaluation of state-of-the-art large language models (LLM) reveals significant performance drop in comparison to open-domain academic benchmarks, highlighting the need for domain-aware approaches in text-to-SQL. The benchmark is available at: https://github.com/BrodskaiaIrina/functional-text2sql-subsets</abstract>
+      <url hash="4244e46d">2025.bsnlp-1.9</url>
+      <bibkey>brodskaya-etal-2025-bridging</bibkey>
+    </paper>
+    <paper id="10">
+      <title>Can information theory unravel the subtext in a Chekhovian short story?</title>
+      <author><first>J. Nathanael</first><last>Philipp</last><affiliation>Sächsische Akademie der Wissenschaften zu Leipzig</affiliation></author>
+      <author><first>Olav</first><last>Mueller-Reichau</last><affiliation>Universität Leipzig</affiliation></author>
+      <author><first>Matthias</first><last>Irmer</last><affiliation>Digital Science</affiliation></author>
+      <author><first>Michael</first><last>Richter</last><affiliation>Leipzig University</affiliation></author>
+      <author><first>Max</first><last>Kölbl</last><affiliation>Leipzig University</affiliation></author>
+      <pages>84-90</pages>
+      <abstract>In this study, we investigate whether information-theoretic measures such as surprisal can quantify the elusive notion of subtext in a Chekhovian short story. Specifically, we conduct a series of experiments for which we enrich the original text once with (different types of) meaningful glosses and once with fake glosses. For the different texts thus created, we calculate the surprisal values using two methods: using either a bag-of-words model or a large language model. We observe enrichment effects depending on the method, but no interpretable subtext effect.</abstract>
+      <url hash="45862e3e">2025.bsnlp-1.10</url>
+      <bibkey>philipp-etal-2025-information</bibkey>
+    </paper>
+    <paper id="11">
+      <title>When the Dictionary Strikes Back: A Case Study on <fixed-case>S</fixed-case>lovak Migration Location Term Extraction and <fixed-case>NER</fixed-case> via Rule-Based vs. <fixed-case>LLM</fixed-case> Methods</title>
+      <author><first>Miroslav</first><last>Blšták</last><affiliation>Kempelen Institute of Intelligent Technologies</affiliation></author>
+      <author><first>Jaroslav</first><last>Kopčan</last><affiliation>Kempelen Institute of Intelligent Technologies</affiliation></author>
+      <author><first>Marek</first><last>Suppa</last><affiliation>Comenius University in Bratislava</affiliation></author>
+      <author><first>Samuel</first><last>Havran</last><affiliation>Central European University, Vienna</affiliation></author>
+      <author><first>Andrej</first><last>Findor</last><affiliation>Comenius University in Bratislava</affiliation></author>
+      <author><first>Martin</first><last>Takac</last><affiliation>Comenius University in Bratislava</affiliation></author>
+      <author><first>Marian</first><last>Simko</last><affiliation>Kempelen Institute of Intelligent Technologies</affiliation></author>
+      <pages>91-100</pages>
+      <abstract>This study explores the task of automatically extracting migration-related locations (source and destination) from media articles, focusing on the challenges posed by Slovak, a low-resource and morphologically complex language. We present the first comparative analysis of rule-based dictionary approaches (NLP4SK) versus Large Language Models (LLMs, e.g. SlovakBERT, GPT-4o) for both geographical relevance classification (Slovakia-focused migration) and specific source/target location extraction. To facilitate this research and future work, we introduce the first manually annotated Slovak dataset tailored for migration-focused locality detection. Our results show that while a fine-tuned SlovakBERT model achieves high accuracy for classification, specialized rule-based methods still have the potential to outperform LLMs for specific extraction tasks, though improved LLM performance with few-shot examples suggests future competitiveness as research in this area continues to evolve.</abstract>
+      <url hash="f598ecdd">2025.bsnlp-1.11</url>
+      <bibkey>blstak-etal-2025-dictionary</bibkey>
+    </paper>
+    <paper id="12">
+      <title><fixed-case>DIACU</fixed-case>: A dataset for the <fixed-case>DIA</fixed-case>chronic analysis of Church <fixed-case>S</fixed-case>lavonic</title>
+      <author><first>Maria</first><last>Cassese</last><affiliation>ISTI - CNR</affiliation></author>
+      <author><first>Giovanni</first><last>Puccetti</last><affiliation>information Science and Technologies Institute “A. Faedo”</affiliation></author>
+      <author><first>Marianna</first><last>Napolitano</last><affiliation>Università di Modena e Reggio Emilia</affiliation></author>
+      <author><first>Andrea</first><last>Esuli</last><affiliation>ISTI-CNR</affiliation></author>
+      <pages>101-107</pages>
+      <abstract>The Church Slavonic language has evolved over time without being formalized into a precise grammar. Therefore, there is currently no clearly outlined history of this language tracing its evolution. However, in recent years, there has been a greater effort to digitize these resources, partly motivated by increased sensitivity with respect to the need to preserve multilingual knowledge. To exploit them, we propose DIACU (DIAchronic Analysis of Church Slavonic), a comprehensive collection of several existing corpora in Church Slavonic. In this work, we thoroughly describe the collection of this novel dataset and test its effectiveness as a training set for attributing Slavonic texts to specific periods. The dataset and the code of the experiments is available at https://github.com/MariaCassese/DIACU.</abstract>
+      <url hash="255fa4c3">2025.bsnlp-1.12</url>
+      <bibkey>cassese-etal-2025-diacu</bibkey>
+    </paper>
+    <paper id="13">
+      <title>Characterizing Linguistic Shifts in <fixed-case>C</fixed-case>roatian News via Diachronic Word Embeddings</title>
+      <author><first>David</first><last>Dukić</last><affiliation>University of Zagreb, Faculty of Electrical Engineering and Computing</affiliation></author>
+      <author><first>Ana</first><last>Barić</last><affiliation>University of Zagreb, Faculty of Electrical Engineering and Computing</affiliation></author>
+      <author><first>Marko</first><last>Čuljak</last><affiliation>University of Zagreb</affiliation></author>
+      <author><first>Josip</first><last>Jukić</last><affiliation>University of Zagreb, Faculty of Electrical Engineering and Computing</affiliation></author>
+      <author><first>Martin</first><last>Tutek</last><affiliation>Technion</affiliation></author>
+      <pages>108-115</pages>
+      <abstract>Measuring how semantics of words change over time improves our understanding of how cultures and perspectives change. Diachronic word embeddings help us quantify this shift, although previous studies leveraged substantial temporally annotated corpora. In this work, we use a corpus of 9.5 million Croatian news articles spanning the past 25 years and quantify semantic change using skip-gram word embeddings trained on five-year periods. Our analysis finds that word embeddings capture linguistic shifts of terms pertaining to major topics in this timespan (COVID-19, Croatia joining the European Union, technological advancements). We also find evidence that embeddings from post-2020 encode increased positivity in sentiment analysis tasks, contrasting studies reporting a decline in mental health over the same period.</abstract>
+      <url hash="047dc44b">2025.bsnlp-1.13</url>
+      <bibkey>dukic-etal-2025-characterizing</bibkey>
+    </paper>
+    <paper id="14">
+      <title>What Makes You <fixed-case>CLIC</fixed-case>: Detection of <fixed-case>C</fixed-case>roatian Clickbait Headliness</title>
+      <author><first>Marija</first><last>Andelic</last><affiliation>University of Zagreb, Faculty of Electrical Engineering and Computing</affiliation></author>
+      <author><first>Dominik</first><last>Sipek</last><affiliation>University of Zagreb, Faculty of Electrical Engineering and Computing</affiliation></author>
+      <author><first>Laura</first><last>Majer</last><affiliation>University of Zagreb, Faculty of Electrical Engineering and Computing</affiliation></author>
+      <author><first>Jan</first><last>Snajder</last><affiliation>University of Zagreb, Faculty of Electrical Engineering and Computing, Unska 3, 10000 Zagreb</affiliation></author>
+      <pages>116-123</pages>
+      <abstract>Online news outlets operate predominantly on an advertising-based revenue model, compelling journalists to create headlines that are often scandalous, intriguing, and provocative – commonly referred to as clickbait. Automatic detection of clickbait headlines is essential for preserving information quality and reader trust in digital media and requires both contextual understanding and world knowledge. For this task, particularly in less-resourced languages, it remains unclear whether fine-tuned methods or in-context learning (ICL) yield better results. In this paper, we compile clic, a novel dataset for clickbait detection of Croatian news headlines spanning a 20-year period and encompassing mainstream and fringe outlets. Furthermore, we fine-tune the BERTić model on the task of clickbait detection for Croatian and compare its performance to LLM-based ICL methods with prompts both in Croatian and English. Finally, we analyze the linguistic properties of clickbait. We find that nearly half of the analyzed headlines contain clickbait, and that finetuned models deliver better results than general LLMs.</abstract>
+      <url hash="42951e8a">2025.bsnlp-1.14</url>
+      <bibkey>andelic-etal-2025-makes</bibkey>
+    </paper>
+    <paper id="15">
+      <title>Gender Representation Bias Analysis in <fixed-case>LLM</fixed-case>-Generated <fixed-case>C</fixed-case>zech and <fixed-case>S</fixed-case>lovenian Texts</title>
+      <author><first>Erik</first><last>Derner</last><affiliation>ELLIS Alicante</affiliation></author>
+      <author><first>Kristina</first><last>Batistič</last><affiliation>Independent Researcher</affiliation></author>
+      <pages>124-135</pages>
+      <abstract>Large language models (LLMs) often reflect social biases present in their training data, including imbalances in how different genders are represented. While most prior work has focused on English, gender representation bias remains underexplored in morphologically rich languages where grammatical gender is pervasive. We present a method for detecting and quantifying such bias in Czech and Slovenian, using LLMs to classify gendered person references in LLM-generated narratives. Applying this method to outputs from a range of models, we find substantial variation in gender balance. While some models produce near-equal proportions of male and female references, others exhibit strong male overrepresentation. Our findings highlight the need for fine-grained bias evaluation in under-represented languages and demonstrate the potential of LLM-based annotation in this space. We make our code and data publicly available.</abstract>
+      <url hash="6ddb5fab">2025.bsnlp-1.15</url>
+      <bibkey>derner-batistic-2025-gender</bibkey>
+    </paper>
+    <paper id="16">
+      <title><fixed-case>REPA</fixed-case>: <fixed-case>R</fixed-case>ussian Error Types Annotation for Evaluating Text Generation and Judgment Capabilities</title>
+      <author><first>Alexander</first><last>Pugachev</last><affiliation>Higher School of Economics</affiliation></author>
+      <author><first>Alena</first><last>Fenogenova</last><affiliation>SaluteDevices</affiliation></author>
+      <author><first>Vladislav</first><last>Mikhailov</last><affiliation>University of Oslo</affiliation></author>
+      <author><first>Ekaterina</first><last>Artemova</last><affiliation>Toloka.AI</affiliation></author>
+      <pages>136-150</pages>
+      <abstract>Recent advances in large language models (LLMs) have introduced the novel paradigm of using LLMs as judges, where an LLM evaluates and scores the outputs of another LLM, often correlating highly with human preferences. However, the use of LLM-as-a-judge has been primarily studied in English. In this paper, we evaluate this framework in Russian by introducing the Russian Error tyPes Annotation dataset (REPA, (eng: turnip)), a dataset of 1,000 user queries and 2,000 LLM-generated responses. Human annotators labeled each response pair, expressing their preferences across ten specific error types, as well as selecting an overall preference. We rank six generative LLMs across the error types using three rating systems based on human preferences. We also evaluate responses using eight LLM judges in zero-shot and few-shot settings. We describe the results of analyzing the judges and position and length biases. Our findings reveal a notable gap between LLM judge performance in Russian and English. However, rankings based on human and LLM preferences show partial alignment, suggesting that while current LLM judges struggle with fine-grained evaluation in Russian, there is potential for improvement.</abstract>
+      <url hash="c4953166">2025.bsnlp-1.16</url>
+      <bibkey>pugachev-etal-2025-repa</bibkey>
+    </paper>
+    <paper id="17">
+      <title><fixed-case>F</fixed-case>ine‐<fixed-case>T</fixed-case>uned Transformers for Detection and Classification of Persuasion Techniques in <fixed-case>S</fixed-case>lavic Languages</title>
+      <author><first>Ekaterina</first><last>Loginova</last><affiliation>Oplot</affiliation></author>
+      <pages>151-156</pages>
+      <abstract>This paper details a system developed for the SlavicNLP 2025 Shared Task on the Detection and Classification of Persuasion Techniques in Texts for Slavic Languages (Bulgarian, Croatian, Polish, Russian and Slovene). The shared task comprises two subtasks: binary detection of persuasive content within text fragments and multi-class, multi-label identification of specific persuasion techniques at the token level. Our primary approach for both subtasks involved fine-tuning pre-trained multilingual Transformer models. For Subtask 1 (paragraph‐level binary detection) we fine‐tuned a multilingual Transformer sequence classifier, its training augmented by a set of additional labelled data. For Subtask 2 (token‐level multi‐label classification) we re‐cast the problem as named‐entity recognition. The resulting systems reached F1 score of 0.92 in paragraph‐level detection (ranked third on average). We present our system architecture, data handling, training procedures, and official results, alongside areas for future improvement.</abstract>
+      <url hash="a4c60fa1">2025.bsnlp-1.17</url>
+      <bibkey>loginova-2025-fine</bibkey>
+    </paper>
+    <paper id="18">
+      <title>Rubic2: Ensemble Model for <fixed-case>R</fixed-case>ussian Lemmatization</title>
+      <author><first>Ilia</first><last>Afanasev</last><affiliation>MTS Artificial Intelligence Center LLC, National Research University Higher School of Economics</affiliation></author>
+      <author><first>Anna</first><last>Glazkova</last><affiliation>University of Tyumen</affiliation></author>
+      <author><first>Olga</first><last>Lyashevskaya</last><affiliation>Higher School of Economics</affiliation></author>
+      <author><first>Dmitry</first><last>Morozov</last><affiliation>Novosibirsk State University</affiliation></author>
+      <author><first>Ivan</first><last>Smal</last><affiliation>Novosibirsk State University</affiliation></author>
+      <author><first>Natalia</first><last>Vlasova</last><affiliation>A. K. Ailamazyan Program Systems Institute of RAS</affiliation></author>
+      <pages>157-170</pages>
+      <abstract>Pre-trained language models have significantly advanced natural language processing (NLP), particularly in analyzing languages with complex morphological structures. This study addresses lemmatization for the Russian language, the errors in which can critically affect the performance of information retrieval, question answering, and other tasks. We present the results of experiments on generative lemmatization using pre-trained language models. Our findings demonstrate that combining generative models with the existing solutions allows achieving performance that surpasses current results for the lemmatization of Russian. This paper also introduces Rubic2, a new ensemble approach that combines the generative BART-base model, fine-tuned on a manually annotated data set of 2.1 million tokens, with the neural model called Rubic which is currently used for morphological annotation and lemmatization in the Russian National Corpus. Extensive experiments show that Rubic2 outperforms current solutions for the lemmatization of Russian, offering superior results across various text domains and contributing to advancements in NLP applications.</abstract>
+      <url hash="e6bce4ab">2025.bsnlp-1.18</url>
+      <bibkey>afanasev-etal-2025-rubic2</bibkey>
+    </paper>
+    <paper id="19">
+      <title>Gradient Flush at <fixed-case>S</fixed-case>lavic <fixed-case>NLP</fixed-case> 2025 Task: Leveraging <fixed-case>S</fixed-case>lavic <fixed-case>BERT</fixed-case> and Translation for Persuasion Techniques Classification</title>
+      <author><first>Sergey</first><last>Senichev</last><affiliation>MTS AI</affiliation></author>
+      <author><first>Aleksandr</first><last>Boriskin</last><affiliation>MTS AI</affiliation></author>
+      <author><first>Nikita</first><last>Krayko</last><affiliation>MTS AI</affiliation></author>
+      <author><first>Daria</first><last>Galimzianova</last><affiliation>MTS AI</affiliation></author>
+      <pages>171-176</pages>
+      <abstract>The task of persuasion techniques detection is limited by several challenges, such as insufficient training data and ambiguity in labels. In this paper, we describe a solution for the Slavic NLP 2025 Shared Task. It utilizes multilingual XLM-RoBERTa, that was trained on 100 various languages, and Slavic BERT, a model fine-tuned on four languages of the Slavic group. We suggest to augment the training dataset with related data from previous shared tasks, as well as some automatic translations from English and German. The resulting solutions are ranked among the top 3 for Russian in the Subtask 1 and for all languages in the Subtask 2. We release the code for our solution - https://github.com/ssenichev/ACL_SlavicNLP2025.</abstract>
+      <url hash="05b995bf">2025.bsnlp-1.19</url>
+      <bibkey>senichev-etal-2025-gradient</bibkey>
+    </paper>
+    <paper id="20">
+      <title>Empowering Persuasion Detection in <fixed-case>S</fixed-case>lavic Texts through Two-Stage Generative Reasoning</title>
+      <author><first>Xin</first><last>Zou</last><affiliation>Dalian University of Technology</affiliation></author>
+      <author><first>Chuhan</first><last>Wang</last><affiliation>Dalian University of Technology</affiliation></author>
+      <author><first>Dailin</first><last>Li</last><affiliation>Dalian University of Technology</affiliation></author>
+      <author><first>Yanan</first><last>Wang</last><affiliation>Dalian University of Technology</affiliation></author>
+      <author><first>Jian</first><last>Wang</last><affiliation>Dalian University of Technology</affiliation></author>
+      <author><first>Hongfei</first><last>Lin</last><affiliation>Dalian University of Technology</affiliation></author>
+      <pages>177-182</pages>
+      <abstract>This paper presents our submission to Subtask 2 (multi-label classification of persuasion techniques) of the Shared Task on Detection and Classification of Persuasion Techniques in Slavic Languages at SlavNLP 2025. Our method leverages a teacher–student framework based on large language models (LLMs): a Qwen3 32B teacher model generates natural language explanations for annotated persuasion techniques, and a Qwen2.5 32B student model is fine-tuned to replicate both the teacher’s rationales and the final label predictions. We train our models on the official shared task dataset, supplemented by annotated resources from SemEval 2023 Task 3 and CLEF 2024 Task 3 covering English, Russian, and Polish to improve cross-lingual robustness. Our final system ranks 4th on BG, SI, and HR, and 5th on PL in terms of micro-F1 score among all participating teams.</abstract>
+      <url hash="0b45aa5d">2025.bsnlp-1.20</url>
+      <bibkey>zou-etal-2025-empowering</bibkey>
+    </paper>
+    <paper id="21">
+      <title>Hierarchical Classification of Propaganda Techniques in <fixed-case>S</fixed-case>lavic Texts in Hyperbolic Space</title>
+      <author><first>Christopher</first><last>Brückner</last><affiliation>Charles University, Faculty of Mathematics and Physics, Institute of Formal and Applied Linguistics</affiliation></author>
+      <author><first>Pavel</first><last>Pecina</last><affiliation>Charles University, Faculty of Mathematics and Physics, Institute of Formal and Applied Linguistics</affiliation></author>
+      <pages>183-189</pages>
+      <abstract>Classification problems can often be tackled by modeling label hierarchies with broader categories in a graph and solving the task via node classification. While recent advances have shown that hyperbolic space is more suitable than Euclidean space for learning graph representations, this concept has yet to be applied to text classification, where node features first need to be extracted from text embeddings. A prototype of such an architecture is this contribution to the Slavic NLP 2025 shared task on the multi-label classification of persuasion techniques in parliamentary debates and social media posts. We do not achieve state-of-the-art performance, but outline the benefits of this hierarchical node classification approach and the advantages of hyperbolic graph embeddings</abstract>
+      <url hash="5cf59e3d">2025.bsnlp-1.21</url>
+      <bibkey>bruckner-pecina-2025-hierarchical</bibkey>
+    </paper>
+    <paper id="22">
+      <title>Team <fixed-case>INSA</fixed-case>ntive at <fixed-case>S</fixed-case>lavic<fixed-case>NLP</fixed-case>-2025 Shared Task: Data Augmentation and Enhancement via Explanations for Persuasion Technique Classification</title>
+      <author><first>Yutong</first><last>Wang</last><affiliation>INSA Lyon - LIRIS UMR 5205 CNRS</affiliation></author>
+      <author><first>Diana</first><last>Nurbakova</last><affiliation>National Institute of Applied Sciences of Lyon, INSA Lyon - University of Lyon - LIRIS</affiliation></author>
+      <author><first>Sylvie</first><last>Calabretto</last><affiliation>LIRIS-INSA Lyon</affiliation></author>
+      <pages>190-201</pages>
+      <abstract>This study investigates the automatic detection and classification of persuasion techniques across five Slavic languages (Bulgarian, Croatian, Polish, Russian, and Slovenian), addressing two subtasks: binary detection of persuasion techniques in text fragments (Subtask 1) and multi-label classification of specific technique types (Subtask 2). To overcome limited training resources, we implemented a multi-level cross-lingual augmentation strategy utilizing GPT-4o for non-Slavic to Slavic conversion and intra-Slavic language migration. We employ XLM-RoBERTa architecture with two LLM-enhanced variants that use explanations to improve classification performance. The experimental results demonstrate varied performance across languages and tasks, with our approach achieving first place in the Russian subtask 1 and second place in Bulgarian subtask 2, confirming that larger parameter models excel in complex classification tasks. These findings highlight the significant potential of LLMs for enhancing multilingual classification and the persistent difficulties in ensuring consistent cross-linguistic performance.</abstract>
+      <url hash="268243e6">2025.bsnlp-1.22</url>
+      <bibkey>wang-etal-2025-team</bibkey>
+    </paper>
+    <paper id="23">
+      <title><fixed-case>LLM</fixed-case>s for Detection and Classification of Persuasion Techniques in <fixed-case>S</fixed-case>lavic Parliamentary Debates and Social Media Texts</title>
+      <author><first>Julia</first><last>Jose</last><affiliation>New York University</affiliation></author>
+      <author><first>Rachel</first><last>Greenstadt</last><affiliation>New York University</affiliation></author>
+      <pages>202-216</pages>
+      <abstract>We present an LLM-based method for the Slavic NLP 2025 shared task on detection and classification of persuasion techniques in parliamentary debates and social media. Our system uses OpenAI’s GPT models (gpt-4o-mini) and reasoning models (o4-mini) with chain-of-thought prompting, enforcing a geq 0.99 confidence threshold for verbatim span extraction. For subtask 1, each paragraph in the text is labeled “true” if any of the 25 persuasion techniques is present. For subtask 2, the model returns the full set of techniques used per paragraph. Across Bulgarian, Croatian, Polish, Russian, and Slovenian, we achieve Subtask 1 micro-F1 of 81.7%, 83.3%, 81.6%, 73.5%, 62.0%, respectively, and Subtask 2 F1 of 41.0%, 44.4%, 41.9%, 29.3%, 29.9%, respectively. Our system ranked in the top 2 for Subtask 2 and top 7 for Subtask 1.</abstract>
+      <url hash="6180e60c">2025.bsnlp-1.23</url>
+      <bibkey>jose-greenstadt-2025-llms</bibkey>
+    </paper>
+    <paper id="24">
+      <title>Fine-Tuned Transformer-Based Weighted Soft Voting Ensemble for Persuasion Technique Classification in <fixed-case>S</fixed-case>lavic Languages</title>
+      <author><first>Mahshar</first><last>Yahan</last><affiliation>Lecturer</affiliation></author>
+      <author><first>Sakib</first><last>Sarker</last><affiliation>Lecturer</affiliation></author>
+      <author><first>Mohammad</first><last>Islam</last><affiliation>Assistant Professor</affiliation></author>
+      <pages>217-223</pages>
+      <abstract>This paper explores detecting persuasion techniques in Slavic languages using both single transformer models and weighted soft voting ensemble methods. We focused on identifying the presence of persuasion in Bulgarian, Polish, Slovene, and Russian text fragments. We have applied various preprocessing steps to improve model performance. Our experiments show that weighted soft voting ensembles consistently outperform single models in most languages, achieving F1-scores of 0.867 for Bulgarian, 0.902 for Polish, and 0.804 for Russian. For Slovene, the single SlovakBERT model performed best with an F1-score of 0.823, just ahead of the ensemble. These results demonstrate that combining monolingual and multilingual transformer models is effective for robust persuasion detection in low-resource Slavic languages.</abstract>
+      <url hash="c72cc6e4">2025.bsnlp-1.24</url>
+      <bibkey>yahan-etal-2025-fine</bibkey>
+    </paper>
+    <paper id="25">
+      <title>Robust Detection of Persuasion Techniques in <fixed-case>S</fixed-case>lavic Languages via Multitask Debiasing and Walking Embeddings</title>
+      <author><first>Ewelina</first><last>Ksiezniak</last><affiliation>Poznań University of Economics and Business</affiliation></author>
+      <author><first>Krzysztof</first><last>Wecel</last><affiliation>Poznan University of Economics and Business</affiliation></author>
+      <author><first>Marcin</first><last>Sawinski</last><affiliation>Poznań University of Economics and Business</affiliation></author>
+      <pages>224-230</pages>
+      <abstract>We present our solution to Subtask 1 of the Shared Task on the Detection and Classification of Persuasion Techniques in Texts for Slavic Languages. Our approach integrates fine-tuned multilingual transformer models with two complementary robustness-oriented strategies: Walking Embeddings and Content-Debiasing. With the first, we tried to understand the change in embeddings when various manipulation techniques were applied. The latter leverages a supervised contrastive objective over semantically equivalent yet stylistically divergent text pairs, generated via GPT-4. We conduct extensive experiments, including 5-fold cross-validation and out-of-domain evaluation, and explore the impact of contrastive loss weighting.</abstract>
+      <url hash="4011c7d1">2025.bsnlp-1.25</url>
+      <bibkey>ksiezniak-etal-2025-robust</bibkey>
+    </paper>
+    <paper id="26">
+      <title>Multilabel Classification of Persuasion Techniques with self-improving <fixed-case>LLM</fixed-case> agent: <fixed-case>S</fixed-case>lavic<fixed-case>NLP</fixed-case> 2025 Shared Task</title>
+      <author><first>Marcin</first><last>Sawinski</last><affiliation>Poznań University of Economics and Business</affiliation></author>
+      <author><first>Krzysztof</first><last>Wecel</last><affiliation>Poznan University of Economics and Business</affiliation></author>
+      <author><first>Ewelina</first><last>Ksiezniak</last><affiliation>Poznań University of Economics and Business</affiliation></author>
+      <pages>231-253</pages>
+      <abstract>We present a system for the SlavicNLP 2025 Shared Task on multilabel classification of 25 persuasion techniques across Slavic languages. We investigate the effectiveness of in-context learning with one-shot classification, automatic prompt refinement, and supervised fine-tuning using self-generated annotations. Our findings highlight the potential of LLM-based system to generalize across languages and label sets with minimal supervision.</abstract>
+      <url hash="2a609795">2025.bsnlp-1.26</url>
+      <bibkey>sawinski-etal-2025-multilabel</bibkey>
+    </paper>
+    <paper id="27">
+      <title><fixed-case>S</fixed-case>lavic<fixed-case>NLP</fixed-case> 2025 Shared Task: Detection and Classification of Persuasion Techniques in Parliamentary Debates and Social Media</title>
+      <author><first>Jakub</first><last>Piskorski</last><affiliation>Polish Academy of Sciences</affiliation></author>
+      <author><first>Dimitar</first><last>Dimitrov</last><affiliation>University of Sofia “St. Kliment Ohridski”</affiliation></author>
+      <author><first>Filip</first><last>Dobranić</last><affiliation>Institute of Contemporary History</affiliation></author>
+      <author><first>Marina</first><last>Ernst</last><affiliation>University of Koblenz</affiliation></author>
+      <author><first>Jacek</first><last>Haneczok</last><affiliation>Erste Group IT</affiliation></author>
+      <author><first>Ivan</first><last>Koychev</last><affiliation>Sofia University “St. Kliment Ohridski”</affiliation></author>
+      <author><first>Nikola</first><last>Ljubešić</last><affiliation>Jožef Stefan Institute</affiliation></author>
+      <author><first>Michal</first><last>Marcinczuk</last><affiliation>Samurai Labs</affiliation></author>
+      <author><first>Arkadiusz</first><last>Modzelewski</last><affiliation>Polish-Japanese Academy of Information Technology</affiliation></author>
+      <author><first>Ivo</first><last>Moravski</last><affiliation>Sofia University</affiliation></author>
+      <author><first>Roman</first><last>Yangarber</last><affiliation>University of Helsinki</affiliation></author>
+      <pages>254-275</pages>
+      <abstract>We present SlavicNLP 2025 Shared Task on Detection and Classification of Persuasion Techniques in Parliamentary Debates and Social Media. The task is structured into two subtasks: (1) Detection, to determine whether a given text fragment contains persuasion techniques, and (2) Classification, to determine for a given text fragment which persuasion techniques are present therein using a taxonomy of 25 persuasion technique taxonomy. The task focuses on two text genres, namely, parliamentary debates revolving around widely discussed topics, and social media, in five languages: Bulgarian, Croatian, Polish, Russian and Slovene. This task contributes to the broader effort of detecting and understanding manipulative attempts in various contexts. There were 15 teams that registered to participate in the task, of which 9 teams submitted a total of circa 220 system responses and described their approaches in 9 system description papers.</abstract>
+      <url hash="957d928c">2025.bsnlp-1.27</url>
+      <bibkey>piskorski-etal-2025-slavicnlp</bibkey>
+    </paper>
+  </volume>
+</collection>

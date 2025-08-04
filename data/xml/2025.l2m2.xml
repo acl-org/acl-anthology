@@ -1,0 +1,206 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2025.l2m2">
+  <volume id="1" ingest-date="2025-07-22" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of the First Workshop on Large Language Model Memorization (L2M2)</booktitle>
+      <editor><first>Robin</first><last>Jia</last></editor>
+      <editor><first>Eric</first><last>Wallace</last></editor>
+      <editor><first>Yangsibo</first><last>Huang</last></editor>
+      <editor><first>Tiago</first><last>Pimentel</last></editor>
+      <editor><first>Pratyush</first><last>Maini</last></editor>
+      <editor><first>Verna</first><last>Dankers</last></editor>
+      <editor><first>Johnny</first><last>Wei</last></editor>
+      <editor><first>Pietro</first><last>Lesci</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Vienna, Austria</address>
+      <month>August</month>
+      <year>2025</year>
+      <url hash="899abffe">2025.l2m2-1</url>
+      <venue>l2m2</venue>
+      <venue>ws</venue>
+      <isbn>979-8-89176-278-7</isbn>
+    </meta>
+    <frontmatter>
+      <url hash="be0b558c">2025.l2m2-1.0</url>
+      <bibkey>l2m2-ws-2025-1</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Factual Knowledge in Language Models: Robustness and Anomalies under Simple Temporal Context Variations</title>
+      <author><first>Hichem Ammar</first><last>Khodja</last><affiliation>Université d’Aix-Marseille</affiliation></author>
+      <author><first>Frederic</first><last>Bechet</last><affiliation>Académie d’Aix-Marseille</affiliation></author>
+      <author><first>Quentin</first><last>Brabant</last><affiliation>Orange-labs</affiliation></author>
+      <author><first>Alexis</first><last>Nasr</last><affiliation>Aix Marseille University</affiliation></author>
+      <author><first>Gwénolé</first><last>Lecorvé</last><affiliation>Orange</affiliation></author>
+      <pages>1-22</pages>
+      <abstract>This paper explores the robustness of language models (LMs) to variations in the temporal context within factual knowledge. It examines whether LMs can correctly associate a temporal context with a past fact valid over a defined period, by asking them to differentiate correct from incorrect contexts. The LMs’ ability to distinguish is analyzed along two dimensions: the distance of the incorrect context from the validity period and the granularity of the context. To this end, a dataset called TimeStress is introduced, enabling the evaluation of 18 diverse LMs. Results reveal that the best LM achieves a perfect distinction for only 11% of the studied facts, with errors, certainly rare, but critical that humans would not make. This work highlights the limitations of current LMs in temporal representation.</abstract>
+      <url hash="2f66ec90">2025.l2m2-1.1</url>
+      <bibkey>khodja-etal-2025-factual</bibkey>
+    </paper>
+    <paper id="2">
+      <title>Memorization in Language Models through the Lens of Intrinsic Dimension</title>
+      <author><first>Stefan</first><last>Arnold</last></author>
+      <pages>23-28</pages>
+      <abstract>Language Models (LMs) are prone to memorizing parts of their data during training and unintentionally emitting them at generation time, raising concerns about privacy leakage and disclosure of intellectual property. While previous research has identified properties such as context length, parameter size, and duplication frequency, as key drivers of unintended memorization, little is known about how the latent structure modulates this rate of memorization. We investigate the role of Intrinsic Dimension (ID), a geometric proxy for the structural complexity of a sequence in latent space, in modulating memorization. Our findings suggest that ID acts as a suppressive signal for memorization: compared to low-ID sequences, high-ID sequences are less likely to be memorized, particularly in overparameterized models and under sparse exposure. These findings highlight the interaction between scale, exposure, and complexity in shaping memorization.</abstract>
+      <url hash="79e2b975">2025.l2m2-1.2</url>
+      <bibkey>arnold-2025-memorization</bibkey>
+    </paper>
+    <paper id="3">
+      <title>From Data to Knowledge: Evaluating How Efficiently Language Models Learn Facts</title>
+      <author><first>Daniel</first><last>Christoph</last></author>
+      <author><first>Max</first><last>Ploner</last><affiliation>Humboldt Universität Berlin</affiliation></author>
+      <author><first>Patrick</first><last>Haller</last><affiliation>Humboldt Universität Berlin</affiliation></author>
+      <author><first>Alan</first><last>Akbik</last><affiliation>Humboldt Universität Berlin</affiliation></author>
+      <pages>29-46</pages>
+      <abstract>Sample efficiency is a crucial property of language models with practical implications for training efficiency. In real-world text, information follows a long-tailed distribution. Yet, we expect models to learn and recall frequent and infrequent facts. Sample efficient models are better equipped to handle this challenge of learning and retaining rare information without requiring excessive exposure. This study analyzes multiple models of varying architectures and sizes, all trained on the same pre-training data. By annotating relational facts with their frequencies in the training corpus, we examine how model performance varies with fact frequency. Our findings show that most models perform similarly on high-frequency facts but differ notably on low-frequency facts. This analysis provides new insights into the relationship between model architecture, size, and factual learning efficiency.</abstract>
+      <url hash="4958363b">2025.l2m2-1.3</url>
+      <bibkey>christoph-etal-2025-data</bibkey>
+    </paper>
+    <paper id="4">
+      <title>Towards a Principled Evaluation of Knowledge Editors</title>
+      <author><first>Sebastian</first><last>Pohl</last></author>
+      <author><first>Max</first><last>Ploner</last><affiliation>Humboldt Universität Berlin</affiliation></author>
+      <author><first>Alan</first><last>Akbik</last><affiliation>Humboldt Universität Berlin</affiliation></author>
+      <pages>47-60</pages>
+      <abstract>Model editing has been gaining increasing attention over the past few years. For Knowledge Editing in particular, more challenging evaluation datasets have recently been released. These datasets use different methodologies to score the success of editors. Yet, it remains under-explored how robust these methodologies are and whether they unfairly favor some editors. Moreover, the disruptive impact of these editors on overall model capabilities remains a constant blind spot.We address both of these problems and show that choosing different metrics and evaluation methodologies as well as different edit batch sizes can lead to a different ranking of knowledge editors. Crucially we demonstrate this effect also on general language understanding tasks evaluated alongside the knowledge editing tasks. Further we include a manual assessment of the string matching based evaluation method for knowledge editing that is favored by recently released datasets, revealing a tendency to produce false positive matches.</abstract>
+      <url hash="46314270">2025.l2m2-1.4</url>
+      <bibkey>pohl-etal-2025-towards</bibkey>
+    </paper>
+    <paper id="5">
+      <title>On the Way to <fixed-case>LLM</fixed-case> Personalization: Learning to Remember User Conversations</title>
+      <author><first>Lucie Charlotte</first><last>Magister</last><affiliation>University of Cambridge</affiliation></author>
+      <author><first>Katherine</first><last>Metcalf</last><affiliation>Apple</affiliation></author>
+      <author><first>Yizhe</first><last>Zhang</last><affiliation>Apple</affiliation></author>
+      <author><first>Maartje</first><last>Ter Hoeve</last><affiliation>Apple</affiliation></author>
+      <pages>61-77</pages>
+      <abstract>Large Language Models (LLMs) have quickly become an invaluable assistant for a variety of tasks. However, their effectiveness is constrained by their ability to tailor responses to human preferences and behaviors via personalization. Prior work in LLM personalization has largely focused on style transfer or incorporating small factoids about the user, as knowledge injection remains an open challenge. In this paper, we explore injecting knowledge of prior conversations into LLMs to enable future work on less redundant, personalized conversations. We identify two real-world constraints: (1) conversations are sequential in time and must be treated as such during training, and (2) per-user personalization is only viable in parameter-efficient settings. To this aim, we propose PLUM, a pipeline performing data augmentation for up-sampling conversations as question-answer pairs, that are then used to finetune a low-rank adaptation adapter with a weighted cross entropy loss. Even in this first exploration of the problem, we perform competitively with baselines such as RAG, attaining an accuracy of 81.5% across 100 conversations.</abstract>
+      <url hash="08f93f1c">2025.l2m2-1.5</url>
+      <bibkey>magister-etal-2025-way</bibkey>
+    </paper>
+    <paper id="6">
+      <title>From Teacher to Student: Tracking Memorization Through Model Distillation</title>
+      <author><first>Simardeep</first><last>Singh</last></author>
+      <pages>78-82</pages>
+      <abstract>Large language models (LLMs) are known to memorize parts of their training data, raising important concerns around privacy and security. While previous research has focused on studying memorization in pre-trained models, much less is known about how knowledge distillation (KD) affects memorization.In this study, we explore how different KD methods influence the memorization of fine-tuned task data when a large teacher model is distilled into smaller student variants.This study demonstrates that distilling a larger teacher model, fine-tuned on a dataset, into a smaller variant not only lowers computational costs and model size but also significantly reduces the memorization risks compared to standard fine-tuning approaches.</abstract>
+      <url hash="7a58db75">2025.l2m2-1.6</url>
+      <bibkey>singh-2025-teacher</bibkey>
+    </paper>
+    <paper id="7">
+      <title>Understanding Verbatim Memorization in <fixed-case>LLM</fixed-case>s Through Circuit Discovery</title>
+      <author><first>Ilya</first><last>Lasy</last><affiliation>Technische Universität Wien</affiliation></author>
+      <author><first>Peter</first><last>Knees</last><affiliation>TU Wien</affiliation></author>
+      <author><first>Stefan</first><last>Woltran</last></author>
+      <pages>83-94</pages>
+      <abstract>Underlying mechanisms of memorization in LLMs—the verbatim reproduction of training data—remain poorly understood. What exact part of the network decides to retrieve a token that we would consider as start of memorization sequence? How exactly is the models’ behaviour different when producing memorized sentence vs non-memorized? In this work we approach these questions from mechanistic interpretability standpoint by utilizing transformer circuits—the minimal computational subgraphs that perform specific functions within the model. Through carefully constructed contrastive datasets, we identify points where model generation diverges from memorized content and isolate the specific circuits responsible for two distinct aspects of memorization. We find that circuits that initiate memorization can also maintain it once started, while circuits that only maintain memorization cannot trigger its initiation. Intriguingly, memorization prevention mechanisms transfer robustly across different text domains, while memorization induction appears more context-dependent.</abstract>
+      <url hash="525e3879">2025.l2m2-1.7</url>
+      <bibkey>lasy-etal-2025-understanding</bibkey>
+    </paper>
+    <paper id="8">
+      <title>Quantifying Memorization in Continual Pre-training with <fixed-case>J</fixed-case>apanese General or Industry-Specific Corpora</title>
+      <author><first>Hiromu</first><last>Takahashi</last><affiliation>Independent Researcher</affiliation></author>
+      <author><first>Shotaro</first><last>Ishihara</last><affiliation>Nikkei Inc.</affiliation></author>
+      <pages>95-105</pages>
+      <abstract>Despite the growing concern about memorization of training data using large language models (LLMs), there has been insufficient analysis under conditions using non-English or industry-specific corpora.This study focuses on continual pre-training, a common approach in building non-English LLMs, and quantifies memorization of training data.Specifically, we trained two models based on Llama 3 using Japanese Wikipedia (general) and Japanese financial news articles (industry-specific).Experiments showed a tendency for the amount of memorization to increase as training progressed, similar to the empirical findings for English.This trend was clear in the industry-specific corpus, suggesting potential risks when using valuable, non-general industry corpora.We also identified issues specific to Japanese, and emphasized the importance of analysis other than in English.</abstract>
+      <url hash="1b767917">2025.l2m2-1.8</url>
+      <bibkey>takahashi-ishihara-2025-quantifying</bibkey>
+    </paper>
+    <paper id="9">
+      <title>Memorization is Language-Sensitive: Analyzing Memorization and Inference Risks of <fixed-case>LLM</fixed-case>s in a Multilingual Setting</title>
+      <author><first>Ali</first><last>Satvaty</last></author>
+      <author><first>Anna</first><last>Visman</last><affiliation>University of Groningen</affiliation></author>
+      <author><first>Dan</first><last>Seidel</last><affiliation>University of Groningen</affiliation></author>
+      <author><first>Suzan</first><last>Verberne</last><affiliation>Universiteit Leiden</affiliation></author>
+      <author><first>Fatih</first><last>Turkmen</last><affiliation>University of Groningen</affiliation></author>
+      <pages>106-126</pages>
+      <abstract>Large Language Models (LLMs) are known to memorize and reproduce parts of their training data during inference, raising significant privacy and safety concerns. While this phenomenon has been extensively studied to explain its contributing factors and countermeasures, its implications in multilingual contexts remain largely unexplored.In this work, we investigate cross-lingual differences in memorization behaviors of multilingual LLMs.Specifically, we examine both discoverable memorization and susceptibility to perplexity ratio attacks using Pythia models of varying sizes, evaluated on two parallel multilingual datasets.Our results reveal that lower-resource languages consistently exhibit higher vulnerability to perplexity ratio attacks, indicating greater privacy risks. In contrast, patterns of discoverable memorization appear to be influenced more strongly by the model’s pretraining or fine-tuning phases than by language resource level alone.These findings highlight the nuanced interplay between language resource availability and memorization in multilingual LLMs, providing insights toward developing safer and more privacy-preserving language models across diverse linguistic settings.</abstract>
+      <url hash="2c7c373c">2025.l2m2-1.9</url>
+      <bibkey>satvaty-etal-2025-memorization</bibkey>
+    </paper>
+    <paper id="10">
+      <title>Quantifying Memorization and Parametric Response Rates in Retrieval-Augmented Vision-Language Models</title>
+      <author><first>Peter</first><last>Carragher</last><affiliation>CMU, Carnegie Mellon University</affiliation></author>
+      <author><first>Abhinand</first><last>Jha</last></author>
+      <author><first>Raghav</first><last>R</last></author>
+      <author><first>Kathleen M.</first><last>Carley</last></author>
+      <pages>127-141</pages>
+      <abstract>Large Language Models (LLMs) demonstrate remarkable capabilities in question answering (QA), but metrics for assessing their reliance on memorization versus retrieval remain underdeveloped. Moreover, while finetuned models are state-of-the-art on closed-domain tasks, general-purpose models like GPT-4o exhibit strong zero-shot performance. This raises questions about the trade-offs between memorization, generalization, and retrieval. In this work, we analyze the extent to which multimodal retrieval-augmented VLMs memorize training data compared to baseline VLMs. Using the WebQA benchmark, we contrast finetuned models with baseline VLMs on multihop retrieval and question answering, examining the impact of finetuning on data memorization. To quantify memorization in end-to-end retrieval and QA systems, we propose several proxy metrics by investigating instances where QA succeeds despite retrieval failing. In line with existing work, we find that finetuned models rely more heavily on memorization than retrieval-augmented VLMs, and achieve higher accuracy as a result (72% vs 52% on WebQA test set). Finally, we present the first empirical comparison of the parametric effect between text and visual modalities. Here, we find that image-based questions have parametric response rates that are consistently 15-25% higher than for text-based questions in the WebQA dataset. As such, our measures pose a challenge for future work, both to account for differences in model memorization across different modalities and more generally to reconcile memorization and generalization in joint Retrieval-QA tasks.</abstract>
+      <url hash="1712ed01">2025.l2m2-1.10</url>
+      <bibkey>carragher-etal-2025-quantifying</bibkey>
+    </paper>
+    <paper id="11">
+      <title>Empirical Evaluation of Loss Masking to Selectively Prevent Memorization</title>
+      <author><first>Tagore Rao</first><last>Kosireddy</last></author>
+      <author><first>Evan</first><last>Lucas</last><affiliation>Michigan Technological University</affiliation></author>
+      <pages>142-149</pages>
+      <abstract>Large language models are known to memorize training data under certain training conditions. It can be desirable to selectively prevent personal information from being memorized; and one such method of selectively preventing memorization that has been proposed is <i>loss masking</i>. To the best of the authors knowledge, at the time of writing, although this method has been alluded to, there has not been a thorough empirical evaluation of the utility of this method. We describe the method of loss masking and demonstrate its performance through a set of experiments on a small autoregressive language model. We base one experiment on previous work finding memorized personal information in language models and another experiment on searching for backdoor watermarking trigger words and phrases. Overall, we find that loss masking is highly effective at selectively preventing memorization of sensitive information.</abstract>
+      <url hash="86019642">2025.l2m2-1.11</url>
+      <bibkey>kosireddy-lucas-2025-empirical</bibkey>
+    </paper>
+    <paper id="12">
+      <title>Bring Your Own Knowledge: A Survey of Methods for <fixed-case>LLM</fixed-case> Knowledge Expansion</title>
+      <author><first>Mingyang</first><last>Wang</last></author>
+      <author><first>Alisa</first><last>Stoll</last></author>
+      <author><first>Lukas</first><last>Lange</last><affiliation>Robert Bosch GmbH, Bosch</affiliation></author>
+      <author><first>Heike</first><last>Adel</last><affiliation>Hochschule der Medien (University of Applied Sciences)</affiliation></author>
+      <author><first>Hinrich</first><last>Schuetze</last></author>
+      <author><first>Jannik</first><last>Strötgen</last><affiliation>Karlsruhe University of Applied Sciences</affiliation></author>
+      <pages>150-168</pages>
+      <abstract>Adapting large language models (LLMs) to new and diverse knowledge is essential for their lasting effectiveness in real-world applications. This survey provides an overview of state-of-the-art methods for expanding the knowledge of LLMs, focusing on integrating various knowledge types, including factual information, domain expertise, language proficiency, and user preferences. We explore techniques, such as continual learning, model editing, and retrieval-based explicit adaptation, while discussing challenges like knowledge consistency and scalability. Designed as a guide for researchers and practitioners, this survey sheds light on opportunities for advancing LLMs as adaptable and robust knowledge systems.</abstract>
+      <url hash="d7b28e89">2025.l2m2-1.12</url>
+      <bibkey>wang-etal-2025-bring</bibkey>
+    </paper>
+    <paper id="13">
+      <title>Memorization: A Close Look at Books</title>
+      <author><first>Iris</first><last>Ma</last><affiliation>University of California, Irvine</affiliation></author>
+      <author><first>Ian</first><last>Domingo</last></author>
+      <author><first>Alberto</first><last>Krone-Martins</last><affiliation>University of California, Irvine</affiliation></author>
+      <author><first>Pierre</first><last>Baldi</last></author>
+      <author><first>Cristina</first><last>Lopes</last><affiliation>University of California, Irvine</affiliation></author>
+      <pages>169-182</pages>
+      <abstract>To what extent can entire books be extracted from LLMs? Using the Llama 3 70B family of models, and the “prefix-prompting” extractiontechnique, we were able to auto-regressively reconstruct, with a very high level of similarity, one entire book (Alice’s Adventures in Wonderland) from just the first 500 tokens. We were also able to obtain high extraction rates on several other books, piece-wise. However, these successes do not extend uniformly to all books. We show that extraction rates of books correlate with book popularity and thus, likely duplication in the training data. We also confirm the undoing of mitigations in the instruction-tuned Llama 3.1, following recent work (Nasr et al., 2025). We further find that this undoing comes from changes to only a tiny fraction of weights concentrated primarily in the lower transformer blocks. Our results provide evidence of the limits of current regurgitation mitigation strategies and introduce a framework for studying how fine-tuning affects the retrieval of verbatim memorization in aligned LLMs.</abstract>
+      <url hash="78f3a0dc">2025.l2m2-1.13</url>
+      <bibkey>ma-etal-2025-memorization</bibkey>
+    </paper>
+    <paper id="14">
+      <title>Memory Tokens: Large Language Models Can Generate Reversible Sentence Embeddings</title>
+      <author><first>Ignacio</first><last>Sastre</last><affiliation>Universidad de la República</affiliation></author>
+      <author><first>Aiala</first><last>Rosá</last><affiliation>Universidad de la República</affiliation></author>
+      <pages>183-189</pages>
+      <abstract>In this work, we observe an interesting phenomenon: it is possible to generate reversible sentence embeddings that allow an LLM to reconstruct the original text exactly, without modifying the model’s weights. This is achieved by introducing a special memory token, whose embedding is optimized through training on a fixed sequence. When prompted with this embedding, the model reconstructs the fixed sequence exactly. We evaluate this phenomenon across English and Spanish datasets, sequences of up to approximately 240 tokens, and model scales ranging from 100M to 8B parameters. Notably, Llama 3.1 8B successfully reconstructs all tested sequences. Our findings highlight an interesting capability of LLMs and suggest potential applications in memory-based retrieval, compression, and controlled text generation.</abstract>
+      <url hash="120e1951">2025.l2m2-1.14</url>
+      <bibkey>sastre-rosa-2025-memory</bibkey>
+    </paper>
+    <paper id="15">
+      <title>Robust Data Watermarking in Language Models by Injecting Fictitious Knowledge</title>
+      <author><first>Xinyue</first><last>Cui</last><affiliation>University of Southern California</affiliation></author>
+      <author><first>Johnny</first><last>Wei</last><affiliation>University of Southern California</affiliation></author>
+      <author><first>Swabha</first><last>Swayamdipta</last><affiliation>University of Southern California</affiliation></author>
+      <author><first>Robin</first><last>Jia</last><affiliation>University of Southern California</affiliation></author>
+      <pages>190-204</pages>
+      <abstract>Data watermarking in language models injects traceable signals, such as specific token sequences or stylistic patterns, into copyrighted text, allowing copyright holders to track and verify training data ownership. Previous data watermarking techniques primarily focus on effective memorization during pretraining, while overlooking challenges that arise in other stages of the LLM lifecycle, such as the risk of watermark filtering during data preprocessing and verification difficulties due to API-only access. To address these challenges, we propose a novel data watermarking approach that injects plausible yet fictitious knowledge into training data using generated passages describing a fictitious entity and its associated attributes. Our watermarks are designed to be memorized by the LLM through seamlessly integrating in its training data, making them harder to detect lexically during preprocessing. We demonstrate that our watermarks can be effectively memorized by LLMs, and that increasing our watermarks’ density, length, and diversity of attributes strengthens their memorization. We further show that our watermarks remain effective after continual pretraining and supervised finetuning. Finally, we show that our data watermarks can be evaluated even under API-only access via question answering.</abstract>
+      <url hash="60bab52f">2025.l2m2-1.15</url>
+      <bibkey>cui-etal-2025-l2m2-robust</bibkey>
+    </paper>
+    <paper id="16">
+      <title>Better Aligned with Survey Respondents or Training Data? Unveiling Political Leanings of <fixed-case>LLM</fixed-case>s on <fixed-case>U</fixed-case>.<fixed-case>S</fixed-case>. <fixed-case>S</fixed-case>upreme <fixed-case>C</fixed-case>ourt Cases</title>
+      <author><first>Shanshan</first><last>Xu</last><affiliation>Technische Universität München</affiliation></author>
+      <author><first>Santosh</first><last>T.y.s.s</last></author>
+      <author><first>Yanai</first><last>Elazar</last><affiliation>Allen Institute for Artificial Intelligence and Department of Computer Science</affiliation></author>
+      <author><first>Quirin</first><last>Vogel</last><affiliation>Alpen-Adria Universität Klagenfurt</affiliation></author>
+      <author><first>Barbara</first><last>Plank</last><affiliation>Ludwig-Maximilians-Universität München</affiliation></author>
+      <author><first>Matthias</first><last>Grabmair</last><affiliation>Technische Universität München</affiliation></author>
+      <pages>205-226</pages>
+      <abstract>Recent works have shown that Large Language Models (LLMs) have a tendency to memorize patterns and biases present in their training data, raising important questions about how such memorized content influences model behavior. One such concern is the emergence of political bias in LLM outputs. In this paper, we investigate the extent to which LLMs’ political leanings reflect memorized patterns from their pretraining corpora. We propose a method to quantitatively evaluate political leanings embedded in the large pretraining corpora. Subsequently we investigate to whom are the LLMs’ political leanings more aligned with, their pretrainig corpora or the surveyed human opinions. As a case study, we focus on probing the political leanings of LLMs in 32 U.S. Supreme Court cases, addressing contentious topics such as abortion and voting rights. Our findings reveal that LLMs strongly reflect the political leanings in their training data, and no strong correlation is observed with their alignment to human opinions as expressed in surveys. These results underscore the importance of responsible curation of training data, and the methodology for auditing the memorization in LLMs to ensure human-AI alignment.</abstract>
+      <url hash="7cf7ec79">2025.l2m2-1.16</url>
+      <bibkey>xu-etal-2025-better</bibkey>
+    </paper>
+    <paper id="17">
+      <title>Capacity Matters: a Proof-of-Concept for Transformer Memorization on Real-World Data</title>
+      <author><first>Anton</first><last>Changalidis</last><affiliation>Maastricht University</affiliation></author>
+      <author><first>Aki</first><last>Härmä</last><affiliation>Maastricht University</affiliation></author>
+      <pages>227-238</pages>
+      <abstract>This paper studies how the model architecture and data configurations influence the empirical memorization capacity of generative transformers. The models are trained using synthetic text datasets derived from the Systematized Nomenclature of Medicine (SNOMED) knowledge graph: triplets, representing static connections, and sequences, simulating complex relation patterns. The results show that embedding size is the primary determinant of learning speed and capacity, while additional layers provide limited benefits and may hinder performance on simpler datasets. Activation functions play a crucial role, and Softmax demonstrates greater stability and capacity. Furthermore, increasing the complexity of the data set seems to improve the final memorization. These insights improve our understanding of transformer memory mechanisms and provide a framework for optimizing model design with structured real-world data.</abstract>
+      <url hash="448d1a32">2025.l2m2-1.17</url>
+      <bibkey>changalidis-harma-2025-capacity</bibkey>
+    </paper>
+  </volume>
+</collection>

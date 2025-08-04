@@ -40,7 +40,7 @@ from ..utils.citation import citeproc_render_html, render_acl_citation
 from ..utils.ids import build_id, is_valid_item_id, AnthologyIDTuple
 from ..utils.latex import make_bibtex_entry
 from ..utils.logging import get_logger
-from .types import PaperDeletionType, VolumeType
+from .types import PaperDeletionType, PaperType, VolumeType
 
 if TYPE_CHECKING:
     from ..anthology import Anthology
@@ -188,7 +188,8 @@ class PaperDeletionNotice:
             A serialization of this deletion notice in Anthology XML format.
         """
         return cast(
-            etree._Element, getattr(E, self.type.value)(self.note, date=self.date)
+            etree._Element,
+            getattr(E, self.type.value)(self.note if self.note else "", date=self.date),
         )
 
 
@@ -248,6 +249,7 @@ class Paper:
         pages: Page numbers of this paper within its volume.
         paperswithcode: Links to code implementations and datasets as provided by [Papers with Code](https://paperswithcode.com/).
         pdf: A reference to the paper's PDF.
+        type: The paper's type, currently used to mark frontmatter and backmatter.
     """
 
     id: str = field(converter=int_to_str)
@@ -302,6 +304,7 @@ class Paper:
         default=None, on_setattr=attrs.setters.frozen, repr=False
     )
     pdf: Optional[PDFReference] = field(default=None, repr=False)
+    type: PaperType = field(default=PaperType.PAPER, repr=False, converter=PaperType)
 
     @id.validator
     def _check_id(self, _: Any, value: str) -> None:
@@ -336,7 +339,7 @@ class Paper:
     @property
     def is_frontmatter(self) -> bool:
         """Returns True if this paper represents a volume's frontmatter."""
-        return self.id == constants.FRONTMATTER_ID
+        return self.type == PaperType.FRONTMATTER
 
     @property
     def root(self) -> Anthology:
@@ -591,6 +594,7 @@ class Paper:
         """Instantiates a new paper from a `<frontmatter>` block in the XML."""
         kwargs: dict[str, Any] = {
             "id": constants.FRONTMATTER_ID,
+            "type": PaperType.FRONTMATTER,
             "parent": parent,
             # A frontmatter's title is the parent volume's title
             "title": parent.title,
@@ -602,7 +606,7 @@ class Paper:
             if element.tag in ("bibkey", "doi", "pages"):
                 kwargs[element.tag] = element.text
             elif element.tag == "attachment":
-                type_ = str(element.get("type", "attachment"))
+                type_ = str(element.get("type", ""))
                 kwargs["attachments"].append(
                     (type_, AttachmentReference.from_xml(element))
                 )
@@ -631,6 +635,7 @@ class Paper:
         # Remainder of this function assumes paper.tag == "paper"
         kwargs: dict[str, Any] = {
             "id": str(paper.get("id")),
+            "type": PaperType(paper.get("type", "paper")),
             "parent": parent,
             "authors": [],
             "editors": [],
@@ -638,10 +643,6 @@ class Paper:
         }
         if (ingest_date := paper.get("ingest-date")) is not None:
             kwargs["ingest_date"] = str(ingest_date)
-        if paper.get("type") is not None:
-            # TODO: this is currently ignored
-            log.debug(f"Paper {paper.get('id')!r}: Type attribute is currently ignored")
-            # kwargs["type"] = str(paper_type)
         for element in paper:
             if element.tag in (
                 "bibkey",
@@ -658,7 +659,7 @@ class Paper:
             elif element.tag in ("abstract", "title"):
                 kwargs[element.tag] = MarkupText.from_xml(element)
             elif element.tag == "attachment":
-                type_ = str(element.get("type", "attachment"))
+                type_ = str(element.get("type", ""))
                 kwargs["attachments"].append(
                     (type_, AttachmentReference.from_xml(element))
                 )
@@ -687,9 +688,9 @@ class Paper:
                     kwargs["videos"] = []
                 kwargs["videos"].append(VideoReference.from_xml(element))
             elif element.tag == ("mrf"):
-                # TODO: this field is currently ignored
-                log.debug(
-                    f"Paper {paper.get('id')!r}: Tag '{element.tag}' is currently ignored"
+                # consider an attachment of type "mrf"
+                kwargs["attachments"].append(
+                    ("mrf", AttachmentReference.from_xml(element))
                 )
             else:
                 raise AnthologyXMLError(
@@ -713,6 +714,8 @@ class Paper:
             paper = etree.Element("paper", attrib={"id": self.id})
         if self.ingest_date is not None:
             paper.set("ingest-date", self.ingest_date)
+        if self.type == PaperType.BACKMATTER:
+            paper.set("type", "backmatter")
         if not self.is_frontmatter:
             paper.append(self.title.to_xml("title"))
             for name_spec in self.authors:
@@ -733,8 +736,13 @@ class Paper:
             if (value := getattr(self, tag)) is not None:
                 paper.append(getattr(E, tag)(value))
         for type_, attachment in self.attachments:
-            elem = attachment.to_xml("attachment")
-            elem.set("type", type_)
+            if type_ == "mrf":  # rarely used <mrf> tag
+                elem = attachment.to_xml("mrf")
+                elem.set("src", "latexml")
+            else:
+                elem = attachment.to_xml("attachment")
+                if type_:
+                    elem.set("type", type_)
             paper.append(elem)
         for video in self.videos:
             paper.append(video.to_xml("video"))
