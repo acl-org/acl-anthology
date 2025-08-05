@@ -25,8 +25,6 @@
       <abstract>In the last decade, the field of Neural Language Modelling has witnessed enormous changes, with the development of novel models through the use of Transformer architectures. However, even these models struggle to model long sequences due to memory constraints and increasing computational complexity. Coreference annotations over the training data can provide context far beyond the modelling limitations of such language models. In this paper we present an extension over the Transformer-block architecture used in neural language models, specifically in GPT2, in order to incorporate entity annotations during training. Our model, GPT2E, extends the Transformer layers architecture of GPT2 to Entity-Transformers, an architecture designed to handle coreference information when present. To that end, we achieve richer representations for entity mentions, with insignificant training cost. We show the comparative model performance between GPT2 and GPT2E in terms of Perplexity on the CoNLL 2012 and LAMBADA datasets as well as the key differences in the entity representations and their effects in downstream tasks such as Named Entity Recognition. Furthermore, our approach can be adopted by the majority of Transformer-based language models.</abstract>
       <url hash="53b4125e">2020.crac-1.1</url>
       <bibkey>stylianou-vlahavas-2020-e</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/conll-2012-1">CoNLL-2012</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/lambada">LAMBADA</pwcdataset>
     </paper>
     <paper id="2">
       <title>It’s absolutely divine! Can fine-grained sentiment analysis benefit from coreference resolution?</title>
@@ -65,7 +63,6 @@
       <abstract>Until recently, coreference resolution has been a critical task on the pipeline of any NLP task involving deep language understanding, such as machine translation, chatbots, summarization or sentiment analysis. However, nowadays, those end tasks are learned end-to-end by deep neural networks without adding any explicit knowledge about coreference. Thus, coreference resolution is used less in the training of other NLP tasks or trending pretrained language models. In this paper we present a new approach to face coreference resolution as a sequence to sequence task based on the Transformer architecture. This approach is simple and universal, compatible with any language or dataset (regardless of singletons) and easier to integrate with current language models architectures. We test it on the ARRAU corpus, where we get 65.6 F1 CoNLL. We see this approach not as a final goal, but a means to pretrain sequence to sequence language models (T5) on coreference resolution.</abstract>
       <url hash="df9e8fb8">2020.crac-1.5</url>
       <bibkey>urbizu-etal-2020-sequence</bibkey>
-      <pwccode url="https://github.com/gorka96/text2cor" additional="false">gorka96/text2cor</pwccode>
     </paper>
     <paper id="6">
       <title><fixed-case>T</fixed-case>wi<fixed-case>C</fixed-case>onv: A Coreference-annotated Corpus of <fixed-case>T</fixed-case>witter Conversations</title>
@@ -75,7 +72,6 @@
       <abstract>This article introduces TwiConv, an English coreference-annotated corpus of microblog conversations from Twitter. We describe the corpus compilation process and the annotation scheme, and release the corpus publicly, along with this paper. We manually annotated nominal coreference in 1756 tweets arranged in 185 conversation threads. The annotation achieves satisfactory annotation agreement results. We also present a new method for mapping the tweet contents with distributed stand-off annotations, which can easily be adapted to different annotation tasks.</abstract>
       <url hash="ef43979d">2020.crac-1.6</url>
       <bibkey>aktas-kohnert-2020-twiconv</bibkey>
-      <pwccode url="https://github.com/berfingit/twiconv" additional="false">berfingit/twiconv</pwccode>
     </paper>
     <paper id="7">
       <title>Integrating knowledge graph embeddings to improve mention representation for bridging anaphora resolution</title>
@@ -86,8 +82,6 @@
       <abstract>Lexical semantics and world knowledge are crucial for interpreting bridging anaphora. Yet, existing computational methods for acquiring and injecting this type of information into bridging resolution systems suffer important limitations. Based on explicit querying of external knowledge bases, earlier approaches are computationally expensive (hence, hardly scalable) and they map the data to be processed into high-dimensional spaces (careful handling of the curse of dimensionality and overfitting has to be in order). In this work, we take a different and principled approach which naturally addresses these issues. Specifically, we convert the external knowledge source (in this case, WordNet) into a graph, and learn embeddings of the graph nodes of low dimension to capture the crucial features of the graph topology and, at the same time, rich semantic information. Once properly identified from the mention text spans, these low dimensional graph node embeddings are combined with distributional text-based embeddings to provide enhanced mention representations. We illustrate the effectiveness of our approach by evaluating it on commonly used datasets, namely ISNotes and BASHI. Our enhanced mention representations yield significant accuracy improvements on both datasets when compared to different standalone text-based mention representations.</abstract>
       <url hash="c8653c94">2020.crac-1.7</url>
       <bibkey>pandit-etal-2020-integrating</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/bashi">BASHI</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/isnotes">ISNotes</pwcdataset>
     </paper>
     <paper id="8">
       <title>Reference to Discourse Topics: Introducing “Global” Shell Nouns</title>
@@ -105,7 +99,6 @@
       <abstract>We evaluate a rule-based (Lee et al., 2013) and neural (Lee et al., 2018) coreference system on Dutch datasets of two domains: literary novels and news/Wikipedia text. The results provide insight into the relative strengths of data-driven and knowledge-driven systems, as well as the influence of domain, document length, and annotation schemes. The neural system performs best on news/Wikipedia text, while the rule-based system performs best on literature. The neural system shows weaknesses with limited training data and long documents, while the rule-based system is affected by annotation differences. The code and models used in this paper are available at <url>https://github.com/andreasvc/crac2020</url></abstract>
       <url hash="79582ba6">2020.crac-1.9</url>
       <bibkey>poot-van-cranenburgh-2020-benchmark</bibkey>
-      <pwccode url="https://github.com/andreasvc/crac2020" additional="false">andreasvc/crac2020</pwccode>
     </paper>
     <paper id="10">
       <title>Partially-supervised Mention Detection</title>
@@ -125,8 +118,6 @@
       <abstract>No neural coreference resolver for Arabic exists, in fact we are not aware of any learning-based coreference resolver for Arabic since (Björkelund and Kuhn, 2014). In this paper, we introduce a coreference resolution system for Arabic based on Lee et al’s end-to-end architecture combined with the Arabic version of bert and an external mention detector. As far as we know, this is the first neural coreference resolution system aimed specifically to Arabic, and it substantially outperforms the existing state-of-the-art on OntoNotes 5.0 with a gain of 15.2 points conll F1. We also discuss the current limitations of the task for Arabic and possible approaches that can tackle these challenges.</abstract>
       <url hash="0b21fc05">2020.crac-1.11</url>
       <bibkey>aloraini-etal-2020-neural</bibkey>
-      <pwccode url="https://github.com/juntaoy/aracoref" additional="false">juntaoy/aracoref</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/conll-2012-1">CoNLL-2012</pwcdataset>
     </paper>
     <paper id="12">
       <title>Enhanced Labelling in Active Learning for Coreference Resolution</title>
@@ -137,7 +128,6 @@
       <abstract>In this paper we describe our attempt to increase the amount of information that can be retrieved through active learning sessions compared to previous approaches. We optimise the annotator’s labelling process using active learning in the context of coreference resolution. Using simulated active learning experiments, we suggest three adjustments to ensure the labelling time is spent as efficiently as possible. All three adjustments provide more information to the machine learner than the baseline, though a large impact on the F1 score over time is not observed. Compared to previous models, we report a marginal F1 improvement on the final coreference models trained using for two out of the three approaches tested when applied to the English OntoNotes 2012 Coreference Resolution data. Our best-performing model achieves 58.01 F1, an increase of 0.93 F1 over the baseline model.</abstract>
       <url hash="1549d32f">2020.crac-1.12</url>
       <bibkey>espeland-etal-2020-enhanced</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/conll-2012-1">CoNLL-2012</pwcdataset>
     </paper>
     <paper id="13">
       <title>Reference in Team Communication for Robot-Assisted Disaster Response: An Initial Analysis</title>
@@ -167,7 +157,6 @@
       <abstract>We present a study focusing on variation of coreferential devices in English original TED talks and news texts and their German translations. Using exploratory techniques we contemplate a diverse set of coreference devices as features which we assume indicate language-specific and register-based variation as well as potential translation strategies. Our findings reflect differences on both dimensions with stronger variation along the lines of register than between languages. By exposing interactions between text type and cross-linguistic variation, they can also inform multilingual NLP applications, especially machine translation.</abstract>
       <url hash="c9f60242">2020.crac-1.15</url>
       <bibkey>lapshinova-koltunski-etal-2020-coreference</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/parcorfull">ParCorFull</pwcdataset>
     </paper>
     <paper id="16">
       <title>Sequence-to-Sequence Networks Learn the Meaning of Reflexive Anaphora</title>
@@ -177,8 +166,6 @@
       <abstract>Reflexive anaphora present a challenge for semantic interpretation: their meaning varies depending on context in a way that appears to require abstract variables. Past work has raised doubts about the ability of recurrent networks to meet this challenge. In this paper, we explore this question in the context of a fragment of English that incorporates the relevant sort of contextual variability. We consider sequence-to-sequence architectures with recurrent units and show that such networks are capable of learning semantic interpretations for reflexive anaphora which generalize to novel antecedents. We explore the effect of attention mechanisms and different recurrent unit types on the type of training data that is needed for success as measured in two ways: how much lexical support is needed to induce an abstract reflexive meaning (i.e., how many distinct reflexive antecedents must occur during training) and what contexts must a noun phrase occur in to support generalization of reflexive interpretation to this noun phrase?</abstract>
       <url hash="1e38af45">2020.crac-1.16</url>
       <bibkey>frank-petty-2020-sequence</bibkey>
-      <pwccode url="https://github.com/clay-lab/transductions" additional="false">clay-lab/transductions</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/scan">SCAN</pwcdataset>
     </paper>
     <paper id="17">
       <title>A Dataset for Anaphora Analysis in <fixed-case>F</fixed-case>rench Emails</title>

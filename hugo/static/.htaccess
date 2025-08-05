@@ -20,8 +20,9 @@ AddDefaultCharset utf-8
 ErrorDocument 404 /ANTHOLOGYDIR/404.html
 
 RewriteEngine On
+# This allows prefixes to work for previews (preview.aclanthology.org/ANTHOLOGYDIR))
+RewriteBase /ANTHOLOGYDIR
 
-#
 # EXTERNAL REDIRECTIONS
 #
 # These rules contain external redirections: to HTTPS, to the canonical URLs, and others.
@@ -32,7 +33,6 @@ RewriteCond %{HTTPS} !=on [OR]
 RewriteCond %{HTTP_HOST} acl\.ldc\.upenn\.edu [OR]
 RewriteCond %{HTTP_HOST} www\.aclanthology\.org [NC]
 RewriteRule ^(.*)$ https://aclanthology.org/$1 [R=301,L]
-
 
 ## Nested file paths
 # Redirect old nested file paths (e.g., P/P17/P17-1069.pdf -> https://www.aclweb.org/anthology/P17-1069.pdf)
@@ -46,7 +46,6 @@ RewriteRule ^[A-Za-z]/[A-Za-z]\d{2}/([A-Za-z])(\d{2})\-(\d{4})(/|\.[a-z]+)?$ htt
 RewriteCond %{HTTP_HOST} ^aclanthology\.org$
 RewriteRule ^papers/[A-Za-z]/[A-Za-z]\d{2}/([A-Za-z])(\d{2})\-(\d{4})/?$ https://aclanthology.org/$1$2-$3 [R=301,L]
 
-#
 # INTERNAL RETRIEVALS
 #
 # These rules take valid external URLS (which are often virtual targets) and retrieve their target.
@@ -77,8 +76,10 @@ RewriteRule ^files/(.*)$ anthology-files/files/$1 [L,NC]
 # Thumbnails (e.g., /thumb/P17-1069.jpg loads anthology-files/thumb/P17-1069.jpg)
 RewriteRule ^thumb/(.*)$ anthology-files/thumb/$1 [L,NC]
 
-# Author pages (e.g., people/arya-d-mccarthy loads people/a/arya-d-mccarthy)
-RewriteRule ^people/([a-z])([\-a-z0-9]*)$ people/$1/$1$2/ [L,NC]
+# Author pages. A request for the old-style URL /people/m/matt-post should give a 301 redirect
+# to /people/matt-post. Note that this works for any letter prefix, but this can't be avoided
+# since the pattern-match can't match source side.
+RewriteRule ^people/[a-z]/([\-a-z0-9]+)/?$ people/$1/ [R=301,L,NC]
 
 # Videos
 ## match old-style URLs, e.g., /N13-1001.mp4 -> anthology-files/videos/N/N13-1001.mp4
