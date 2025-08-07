@@ -11,8 +11,8 @@ Our central guiding corrections principle is that **we view the content of PDFs 
 
 This view drives four main types of corrections:
 
-* [_Your papers are split across two or more author pages_](#merging-author-papers). For example, you have published papers under variations of your name, or changed your name after marrying.
-* [_Your papers are mixed with someone else's_](#splitting-author-pages). We can help you disambiguate them.
+* [_You have more than one author page_](#merging-author-pages). This occurs if you published papers under different variations of your name, or if you changed your name.
+* [_Your papers are mixed with someone else's_](#splitting-author-pages). If multiple people publish under the same name, we need to manually disambiguate them.
 * [_There are problems with the PDF_](#pdf-corrections). We can process corrections, revisions, errata, and retractions.
 * [_The PDF is fine, but there are problems with the metadata_](#metadata-corrections). Errors in the title, abstract, author names, or list of authors.
 
@@ -25,19 +25,14 @@ These kinds of corrections bring the information presented in the Anthology in l
 
 A request to change paper metadata can be submitted in two ways.
 
-1. (Preferred) Navigate to the paper's page in the ACL Anthology (e.g., [K17-1003](https://aclanthology.org/K17-1003/)). From there, click the yellow "Fix data" button. This will display a dialog that you can use to correct the title and abstract and fix issues with the author list.
-
-   Submitting this form will create a Github issue with a JSON data block. This will then be validated by Anthology staff, and processed by a semi-automatic bulk corrections script on a regular basis (usually every Friday).
-
-2. If you would like to expedite the process and are familiar with [git](https://git-scm.com), you can make the correction yourself and file a [pull request (PR)](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests).
-
-    * First, locate your file amongst our [authoritative XML files](https://github.com/acl-org/acl-anthology/tree/master/data/xml). The name of your file is the portion of the Anthology ID that comes before the hyphen. As an example, if the Anthology ID of your paper is `P19-10171`, then the file you will need to edit is [data/xml/P19.xml](https://github.com/acl-org/acl-anthology/blob/master/data/xml/P19.xml); if the Anthology ID of your paper is `2021.iwslt-1.28`, then the file you will need to edit is [data/xml/2021.iwslt.xml](https://github.com/acl-org/acl-anthology/blob/master/data/xml/2021.iwslt.xml).
-    * Find your entry in the XML file, and use Github's edit button to fix it and then to issue a PR against our `master` branch.
-    * For larger XML files, you may have to fork the repository first. [More information can be found here](https://help.github.com/en/github/managing-files-in-a-repository/editing-files-in-another-users-repository).
-    * Create the pull request. Anthology staff will review the PR and merge it into the master branch.
+- _Have us do the work_. You can submit an issue to Anthology staff.
+   -  _(Preferred)_ Navigate to the paper’s page in the ACL Anthology (e.g., [K17-1003](https://aclanthology.org/K17-1003)). From there, click the yellow “Fix data” button. This will display a dialog that you can use to correct the title, abstract, and author information. Submitting this form will fill a Github issue template with a JSON data block. We process these semiautomatically on a weekly basis.
+   -  If your issue is sensitive, you can alternately contact us via email at anthology@aclweb.org.
+      Please be sure to include a link to the paper page in the Anthology in your email. These are typically
+      processed on a monthly basis, in batches of corrections.
+- _Make the change yourself_. [Follow the instructions here](https://github.com/acl-org/acl-anthology/wiki/Issuing-Pull-Requests-For-Corrections) to make the changes yourself and create a pull request against the Anthology repository. These are typically processed every few days, as we see them.
 
 Metadata changes are generally accepted if they are consistent with the PDF, which we take as authoritative.
-However, please see the following note.
 
 **Note on changes to author metadata**
 
@@ -48,10 +43,12 @@ In such cases, we will ask authors to arrange for this permission to be conveyed
 
 ### Merging author pages
 
+If you have published papers under different names, you will end up with multiple author profiles in the Anthology. We can merge these into a single page under your preferred name.
+
 Please pay careful attention to the following steps.
 
 1. **Ensure that each name is correct**. We treat the information on the PDF as authoritative; this means that the metadata should reflect exactly what is printed on the PDF. A common situation is that the name recorded in Anthology metadata (e.g., John P. Hancock) will not match what is displayed on the PDF (John Hancock). This needs to be corrected first. Please review your papers and [follow the steps here](#metadata-corrections) to correct any discrepancies. Sometimes, this will resolve the split pages.
-2. Obtain [an ORCID](https://orcid.org) (pronounced `/ˈɔɹ.kɪd/`, like the flower). This is required to help with matching of future papers.
+2. Obtain [an ORCID](https://orcid.org). This is required to help with matching of future papers.
 3. Fill out [an author page correction](https://github.com/acl-org/acl-anthology/issues/new?template=02-name-correction.yml). A Github issue is our preferred mechanism, but you can also email [the Anthology director](mailto:anthology@aclweb.org).
 4. Finally, to avoid issues in the future, ensure that the name you use on papers is properly recorded in your profile in publication management systems such as [Open Review](https://openreview.net), [Softconf](https://softconf.com), [EasyChair](https://easychair.org), and so on.
 
@@ -88,7 +85,6 @@ Please take note of the following points regarding revisions and retractions.
 * The landing page for the work will indicate the availability of the erratum or revision.
 * We cannot currently regenerate the full volumes, which will continue to contain only the original papers.
 * We have no control over how downstream consumers of the Anthology, such as search engine, process the changes.
-
 
 #### Revisions and errata
 
