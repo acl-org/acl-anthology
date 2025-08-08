@@ -24,8 +24,6 @@
       <abstract>We adapt BLiMP (Benchmark of Linguistic Minimal Pairs) language model evaluation framework to the context of poetry, introducing the first of a series of tasks titled Benchmark of Poetic Minimal Pairs (BPoMP). The tasks presented herein use one genre of English-language poetry, the limerick (five-lines, rhyme scheme AABBA). Following the BLiMP schema, the BPoMP tasks use 10,000 minimal pairs of limerick/corrupted limerick. The latter is created by (1) shuffling two rhyming end-of-the-line words, (2) shuffling two rhyming lines, (3) replacing end-of-the-line word by a non-rhyming synonym. Our general task is detection of the original limerick, which we believe tests a language model’s capacity to utilize “end rhymes”, a common feature of poetry. We evaluate Transformer-based models by checking if they assign a higher probability to the non-corrupted limerick in each minimal pair. We find that the models identify the original limerick at rates better than chance, but with a nontrivial gap relative to human accuracy (average of 98.3% across tasks). The publicly available curated set of limericks accompanying this paper is an additional contribution. In general, we see this as a first step to create a community of NLP activity around the rigorous computational study of poetry.</abstract>
       <url hash="2410b907">2021.ranlp-1.1</url>
       <bibkey>abdibayev-etal-2021-bpomp</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/blimp">BLiMP</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/bookcorpus">BookCorpus</pwcdataset>
     </paper>
     <paper id="2">
       <title>Ontology Population Reusing Resources for Dialogue Intent Detection: Generic and Multilingual Approach</title>
@@ -84,7 +82,6 @@
       <abstract>In this paper, we propose a definition and taxonomy of various types of non-standard textual content – generally referred to as “noise” – in Natural Language Processing (NLP). While data pre-processing is undoubtedly important in NLP, especially when dealing with user-generated content, a broader understanding of different sources of noise and how to deal with them is an aspect that has been largely neglected. We provide a comprehensive list of potential sources of noise, categorise and describe them, and show the impact of a subset of standard pre-processing strategies on different tasks. Our main goal is to raise awareness of non-standard content – which should not always be considered as “noise” – and of the need for careful, task-dependent pre-processing. This is an alternative to blanket, all-encompassing solutions generally applied by researchers through “standard” pre-processing pipelines. The intention is for this categorisation to serve as a point of reference to support NLP researchers in devising strategies to clean, normalise or embrace non-standard content.</abstract>
       <url hash="4b18a85c">2021.ranlp-1.7</url>
       <bibkey>al-sharou-etal-2021-towards</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/olid">OLID</pwcdataset>
     </paper>
     <paper id="8">
       <title>Comparing Supervised Machine Learning Techniques for Genre Analysis in Software Engineering Research Articles</title>
@@ -127,7 +124,6 @@
       <abstract>We address the compositionality challenge presented by the SCAN benchmark. Using data augmentation and a modification of the standard seq2seq architecture with attention, we achieve SOTA results on all the relevant tasks from the benchmark, showing the models can generalize to words used in unseen contexts. We propose an extension of the benchmark by a harder task, which cannot be solved by the proposed method.</abstract>
       <url hash="7f51c1a5">2021.ranlp-1.11</url>
       <bibkey>auersperger-pecina-2021-solving</bibkey>
-      <pwccode url="https://github.com/michal-au/scan-around-twice" additional="false">michal-au/scan-around-twice</pwccode>
     </paper>
     <paper id="12">
       <title><fixed-case>P</fixed-case>y<fixed-case>E</fixed-case>uro<fixed-case>V</fixed-case>oc: A Tool for Multilingual Legal Document Classification with <fixed-case>E</fixed-case>uro<fixed-case>V</fixed-case>oc Descriptors</title>
@@ -138,7 +134,6 @@
       <abstract>EuroVoc is a multilingual thesaurus that was built for organizing the legislative documentary of the European Union institutions. It contains thousands of categories at different levels of specificity and its descriptors are targeted by legal texts in almost thirty languages. In this work we propose a unified framework for EuroVoc classification on 22 languages by fine-tuning modern Transformer-based pretrained language models. We study extensively the performance of our trained models and show that they significantly improve the results obtained by a similar tool - JEX - on the same dataset. The code and the fine-tuned models were open sourced, together with a programmatic interface that eases the process of loading the weights of a trained model and of classifying a new document.</abstract>
       <url hash="499b00f2">2021.ranlp-1.12</url>
       <bibkey>avram-etal-2021-pyeurovoc</bibkey>
-      <pwccode url="https://github.com/racai-ai/pyeurovoc" additional="true">racai-ai/pyeurovoc</pwccode>
     </paper>
     <paper id="13">
       <title><fixed-case>TEASER</fixed-case>: Towards Efficient Aspect-based <fixed-case>SE</fixed-case>ntiment Analysis and Recognition</title>
@@ -180,9 +175,6 @@
       <abstract>Emotion Classification is the task of automatically associating a text with a human emotion. State-of-the-art models are usually learned using annotated corpora or rely on hand-crafted affective lexicons. We present an emotion classification model that does not require a large annotated corpus to be competitive. We experiment with pretrained language models in both a zero-shot and few-shot configuration. We build several of such models and consider them as biased, noisy annotators, whose individual performance is poor. We aggregate the predictions of these models using a Bayesian method originally developed for modelling crowdsourced annotations. Next, we show that the resulting system performs better than the strongest individual model. Finally, we show that when trained on few labelled data, our systems outperform fully-supervised models.</abstract>
       <url hash="373b1be2">2021.ranlp-1.16</url>
       <bibkey>basile-etal-2021-probabilistic</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/dailydialog">DailyDialog</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/multinli">MultiNLI</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/xnli">XNLI</pwcdataset>
     </paper>
     <paper id="17">
       <title>Cross-Lingual Wolastoqey-<fixed-case>E</fixed-case>nglish Definition Modelling</title>
@@ -213,7 +205,6 @@
       <abstract>Split-and-rephrase is a challenging task that promotes the transformation of a given complex input sentence into multiple shorter sentences retaining equivalent meaning. This rewriting approach conceptualizes that shorter sentences benefit human readers and improve NLP downstream tasks attending as a preprocessing step. This work presents a complete pipeline capable of performing the split-and-rephrase method in a cross-lingual manner. We trained sequence-to-sequence neural models as from English corpora and applied them to predict the transformations in English and Brazilian Portuguese sentences jointly with BERT’s masked language modeling. Contrary to traditional approaches that seek training models with extensive vocabularies, we present a non-trivial way to construct symbolic ones generalized solely by grammatical classes (POS tags) and their respective recurrences, reducing the amount of necessary training data. This pipeline contribution showed competitive results encouraging the expansion of the method to languages other than English.</abstract>
       <url hash="bec29466">2021.ranlp-1.19</url>
       <bibkey>berlanga-neto-ruiz-2021-split</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/wikisplit">WikiSplit</pwcdataset>
     </paper>
     <paper id="20">
       <title>On the Contribution of Per-<fixed-case>ICD</fixed-case> Attention Mechanisms to Classify Health Records in Languages with Fewer Resources than <fixed-case>E</fixed-case>nglish</title>
@@ -226,7 +217,6 @@
       <abstract>We introduce a multi-label text classifier with per-label attention for the classification of Electronic Health Records according to the International Classification of Diseases. We apply the model on two Electronic Health Records datasets with Discharge Summaries in two languages with fewer resources than English, Spanish and Swedish. Our model leverages the BERT Multilingual model (specifically the Wikipedia, as the model have been trained with 104 languages, including Spanish and Swedish, with the largest Wikipedia dumps) to share the language modelling capabilities across the languages. With the per-label attention, the model can compute the relevance of each word from the EHR towards the prediction of each label. For the experimental framework, we apply 157 labels from Chapter XI – Diseases of the Digestive System of the ICD, which makes the attention especially important as the model has to discriminate between similar diseases. 1 <url>https://github.com/google-research/bert/blob/master/multilingual.md#list-of-languages</url></abstract>
       <url hash="d06ba45b">2021.ranlp-1.20</url>
       <bibkey>blanco-etal-2021-contribution</bibkey>
-      <pwccode url="https://github.com/google-research/bert" additional="true">google-research/bert</pwccode>
     </paper>
     <paper id="21">
       <title>Can the Transformer Be Used as a Drop-in Replacement for <fixed-case>RNN</fixed-case>s in Text-Generating <fixed-case>GAN</fixed-case>s?</title>
@@ -279,7 +269,6 @@
       <abstract>Natural language understanding is an important task in modern dialogue systems. It becomes more important with the rapid extension of the dialogue systems’ functionality. In this work, we present an approach to zero-shot transfer learning for the tasks of intent classification and slot-filling based on pre-trained language models. We use deep contextualized models feeding them with utterances and natural language descriptions of user intents to get text embeddings. These embeddings then used by a small neural network to produce predictions for intent and slot probabilities. This architecture achieves new state-of-the-art results in two zero-shot scenarios. One is a single language new skill adaptation and another one is a cross-lingual adaptation.</abstract>
       <url hash="9ed2b786">2021.ranlp-1.25</url>
       <bibkey>burnyshev-etal-2021-infobert</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/sgd">SGD</pwcdataset>
     </paper>
     <paper id="26">
       <title>Active Learning for Assisted Corpus Construction: A Case Study in Knowledge Discovery from Biomedical Text</title>
@@ -330,7 +319,6 @@
       <abstract>This study describes the development of a Portuguese Community-Question Answering benchmark in the domain of Diabetes Mellitus using a Recognizing Question Entailment (RQE) approach. Given a premise question, RQE aims to retrieve semantically similar, already answered, archived questions. We build a new Portuguese benchmark corpus with 785 pairs between premise questions and archived answered questions marked with relevance judgments by medical experts. Based on the benchmark corpus, we leveraged and evaluated several RQE approaches ranging from traditional information retrieval methods to novel large pre-trained language models and ensemble techniques using learn-to-rank approaches. Our experimental results show that a supervised transformer-based method trained with multiple languages and for multiple tasks (MUSE) outperforms the alternatives. Our results also show that ensembles of methods (stacking) as well as a traditional (light) information retrieval method (BM25) can produce competitive results. Finally, among the tested strategies, those that exploit only the question (not the answer), provide the best effectiveness-efficiency trade-off. Code is publicly available.</abstract>
       <url hash="cf99b93f">2021.ranlp-1.28</url>
       <bibkey>castro-ferreira-etal-2021-evaluating</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/medquad">MedQuAD</pwcdataset>
     </paper>
     <paper id="29">
       <title>On the Usability of Transformers-based Models for a <fixed-case>F</fixed-case>rench Question-Answering Task</title>
@@ -341,9 +329,6 @@
       <abstract>For many tasks, state-of-the-art results have been achieved with Transformer-based architectures, resulting in a paradigmatic shift in practices from the use of task-specific architectures to the fine-tuning of pre-trained language models. The ongoing trend consists in training models with an ever-increasing amount of data and parameters, which requires considerable resources. It leads to a strong search to improve resource efficiency based on algorithmic and hardware improvements evaluated only for English. This raises questions about their usability when applied to small-scale learning problems, for which a limited amount of training data is available, especially for under-resourced languages tasks. The lack of appropriately sized corpora is a hindrance to applying data-driven and transfer learning-based approaches with strong instability cases. In this paper, we establish a state-of-the-art of the efforts dedicated to the usability of Transformer-based models and propose to evaluate these improvements on the question-answering performances of French language which have few resources. We address the instability relating to data scarcity by investigating various training strategies with data augmentation, hyperparameters optimization and cross-lingual transfer. We also introduce a new compact model for French FrALBERT which proves to be competitive in low-resource settings.</abstract>
       <url hash="09c969d4">2021.ranlp-1.29</url>
       <bibkey>cattan-etal-2021-usability</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/ccnet">CCNet</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/fquad">FQuAD</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/french-wikipedia">French Wikipedia</pwcdataset>
     </paper>
     <paper id="30">
       <title>Classification of Code-Mixed Text Using Capsule Networks</title>
@@ -363,7 +348,6 @@
       <abstract>Character-based word-segmentation models have been extensively applied to agglutinative languages, including Thai, due to their high performance. These models estimate word boundaries from a character sequence. However, a character unit in sequences has no essential meaning, compared with word, subword, and character cluster units. We propose a Thai word-segmentation model that uses various types of information, including words, subwords, and character clusters, from a character sequence. Our model applies multiple attentions to refine segmentation inferences by estimating the significant relationships among characters and various unit types. The experimental results indicate that our model can outperform other state-of-the-art Thai word-segmentation models.</abstract>
       <url hash="d2d99700">2021.ranlp-1.31</url>
       <bibkey>chay-intr-etal-2021-character</bibkey>
-      <pwccode url="https://github.com/tchayintr/thwcc-attn" additional="false">tchayintr/thwcc-attn</pwccode>
     </paper>
     <paper id="32">
       <title>Are Language-Agnostic Sentence Representations Actually Language-Agnostic?</title>
@@ -384,7 +368,6 @@
       <abstract>This paper details experiments we performed on the Universal Dependencies 2.7 corpora in order to investigate the dominant word order in the available languages. For this purpose, we used a graph rewriting tool, GREW, which allowed us to go beyond the surface annotations and identify the implicit subjects. We first measured the distribution of the six different word orders (SVO, SOV, VSO, VOS, OVS, OSV) in the corpora and investigated when there was a significant difference in the corpora within a given language. Then, we compared the obtained results with information provided in the WALS database (Dryer and Haspelmath, 2013) and in ( ̈Ostling, 2015). Finally, we examined the impact of using a graph rewriting tool for this task. The tools and resources used for this research are all freely available.</abstract>
       <url hash="ed424de7">2021.ranlp-1.33</url>
       <bibkey>choi-etal-2021-investigating</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/universal-dependencies">Universal Dependencies</pwcdataset>
     </paper>
     <paper id="34">
       <title><fixed-case>RED</fixed-case>: A Novel Dataset for <fixed-case>R</fixed-case>omanian Emotion Detection from Tweets</title>
@@ -394,7 +377,6 @@
       <abstract>In Romanian language there are some resources for automatic text comprehension, but for Emotion Detection, not lexicon-based, there are none. To cover this gap, we extracted data from Twitter and created the first dataset containing tweets annotated with five types of emotions: joy, fear, sadness, anger and neutral, with the intent of being used for opinion mining and analysis tasks. In this article we present some features of our novel dataset, and create a benchmark to achieve the first supervised machine learning model for automatic Emotion Detection in Romanian short texts. We investigate the performance of four classical machine learning models: Multinomial Naive Bayes, Logistic Regression, Support Vector Classification and Linear Support Vector Classification. We also investigate more modern approaches like fastText, which makes use of subword information. Lastly, we fine-tune the Romanian BERT for text classification and our experiments show that the BERT-based model has the best performance for the task of Emotion Detection from Romanian tweets. Keywords: Emotion Detection, Twitter, Romanian, Supervised Machine Learning</abstract>
       <url hash="3c209b17">2021.ranlp-1.34</url>
       <bibkey>ciobotaru-dinu-2021-red</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/isear">ISEAR</pwcdataset>
     </paper>
     <paper id="35">
       <title>Assessing the Eligibility of Backtranslated Samples Based on Semantic Similarity for the Paraphrase Identification Task</title>
@@ -404,7 +386,6 @@
       <abstract>In the domain of natural language augmentation, the eligibility of generated samples remains not well understood. To gather insights around this eligibility issue, we apply a transformer-based similarity calculation within the BET framework based on backtranslation, in the context of automated paraphrase detection. While providing a rigorous statistical foundation to BET, we push their results by analyzing statistically the impacts of the level of qualification, and several sample sizes. We conducted a vast amount of experiments on the MRPC corpus using six pre-trained models: BERT, XLNet, Albert, RoBERTa, Electra, and DeBerta. We show that our method improves significantly these “base” models while using only a fraction of the corpus. Our results suggest that using some of those smaller pre-trained models, namely RoBERTa base and Electra base, helps us reach F1 scores very close to their large counterparts, as reported on the GLUE benchmark. On top of acting as a regularizer, the proposed method is efficient in dealing with data scarcity with improvements of around 3% in F1 score for most pre-trained models, and more than 7.5% in the case of Electra.</abstract>
       <url hash="aa5c2077">2021.ranlp-1.35</url>
       <bibkey>corbeil-abdi-ghavidel-2021-assessing</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/glue">GLUE</pwcdataset>
     </paper>
     <paper id="36">
       <title>Fine-tuning Neural Language Models for Multidimensional Opinion Mining of <fixed-case>E</fixed-case>nglish-<fixed-case>M</fixed-case>altese Social Data</title>
@@ -438,9 +419,6 @@
       <abstract>Edit-based text simplification systems have attained much attention in recent years due to their ability to produce simplification solutions that are interpretable, as well as requiring less training examples compared to traditional seq2seq systems. Edit-based systems learn edit operations at a word level, but it is well known that many of the operations performed when simplifying text are of a syntactic nature. In this paper we propose to add syntactic information into a well known edit-based system. We extend the system with a graph convolutional network module that mimics the dependency structure of the sentence, thus giving the model an explicit representation of syntax. We perform a series of experiments in English, Spanish and Italian, and report improvements of the state of the art in four out of five datasets. Further analysis shows that syntactic information is always beneficial, and suggest that syntax is more helpful in complex sentences.</abstract>
       <url hash="d0a5c594">2021.ranlp-1.38</url>
       <bibkey>cumbicus-pineda-etal-2021-syntax</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/newsela">Newsela</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/turkcorpus">TurkCorpus</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/wikilarge">WikiLarge</pwcdataset>
     </paper>
     <paper id="39">
       <title>On Generating Fact-Infused Question Variations</title>
@@ -451,8 +429,6 @@
       <abstract>To fully model human-like ability to ask questions, automatic question generation (QG) models must be able to produce multiple expressions of the same question with different levels of detail. Unfortunately, existing datasets available for learning QG do not include paraphrases or question variations affecting a model’s ability to learn this capability. We present FIRS, a dataset containing human-generated fact-infused rewrites of questions from the widely-used SQuAD dataset to address this limitation. Questions in FIRS were obtained by combining a given question with facts of entities referenced in the question. We study a double encoder-decoder model, Fact-Infused Question Generator (FIQG), for learning to generate fact-infused questions from a given question. Experimental results show that FIQG effectively incorporates information from facts to add more detail to a given question. To the best of our knowledge, ours is the first study to present fact-infusion as a novel form of question paraphrasing.</abstract>
       <url hash="d696a278">2021.ranlp-1.39</url>
       <bibkey>deschamps-etal-2021-generating</bibkey>
-      <pwccode url="https://github.com/nus-ids/ranlp21-fiqv" additional="false">nus-ids/ranlp21-fiqv</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/hotpotqa">HotpotQA</pwcdataset>
     </paper>
     <paper id="40">
       <title>Event Prominence Extraction Combining a Knowledge-Based Syntactic Parser and a <fixed-case>BERT</fixed-case> Classifier for <fixed-case>D</fixed-case>utch</title>
@@ -472,7 +448,6 @@
       <abstract>Mental health is getting more and more attention recently, depression being a very common illness nowadays, but also other disorders like anxiety, obsessive-compulsive disorders, feeding disorders, autism, or attention-deficit/hyperactivity disorders. The huge amount of data from social media and the recent advances of deep learning models provide valuable means to automatically detecting mental disorders from plain text. In this article, we experiment with state-of-the-art methods on the SMHD mental health conditions dataset from Reddit (Cohan et al., 2018). Our contribution is threefold: using a dataset consisting of more illnesses than most studies, focusing on general text rather than mental health support groups and classification by posts rather than individuals or groups. For the automatic classification of the diseases, we employ three deep learning models: BERT, RoBERTa and XLNET. We double the baseline established by Cohan et al. (2018), on just a sample of their dataset. We improve the results obtained by Jiang et al. (2020) on post-level classification. The accuracy obtained by the eating disorder classifier is the highest due to the pregnant presence of discussions related to calories, diets, recipes etc., whereas depression had the lowest F1 score, probably because depression is more difficult to identify in linguistic acts.</abstract>
       <url hash="bcbf0f49">2021.ranlp-1.41</url>
       <bibkey>dinu-moldovan-2021-automatic</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/smhd">SMHD</pwcdataset>
     </paper>
     <paper id="42">
       <title>A Pre-trained Transformer and <fixed-case>CNN</fixed-case> Model with Joint Language <fixed-case>ID</fixed-case> and Part-of-Speech Tagging for Code-Mixed Social-Media Text</title>
@@ -501,7 +476,6 @@
       <abstract>Large transformer models, such as BERT, achieve state-of-the-art results in machine reading comprehension (MRC) for open-domain question answering (QA). However, transformers have a high computational cost for inference which makes them hard to apply to online QA systems for applications like voice assistants. To reduce computational cost and latency, we propose decoupling the transformer MRC model into input-component and cross-component. The decoupling allows for part of the representation computation to be performed offline and cached for online use. To retain the decoupled transformer accuracy, we devised a knowledge distillation objective from a standard transformer model. Moreover, we introduce learned representation compression layers which help reduce by four times the storage requirement for the cache. In experiments on the SQUAD 2.0 dataset, a decoupled transformer reduces the computational cost and latency of open-domain MRC by 30-40% with only 1.2 points worse F1-score compared to a standard transformer.</abstract>
       <url hash="0ed36cde">2021.ranlp-1.44</url>
       <bibkey>elfdaeel-peshterliev-2021-decoupled</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/mrpc">MRPC</pwcdataset>
     </paper>
     <paper id="45">
       <title>Towards Task-Agnostic Privacy- and Utility-Preserving Models</title>
@@ -524,7 +498,6 @@
       <abstract>This paper presents the preliminary results of an ongoing project that analyzes the growing body of scientific research published around the COVID-19 pandemic. In this research, a general-purpose semantic model is used to double annotate a batch of 500 sentences that were manually selected from the CORD-19 corpus. Afterwards, a baseline text-mining pipeline is designed and evaluated via a large batch of 100,959 sentences. We present a qualitative analysis of the most interesting facts automatically extracted and highlight possible future lines of development. The preliminary results show that general-purpose semantic models are a useful tool for discovering fine-grained knowledge in large corpora of scientific documents.</abstract>
       <url hash="bb0bc177">2021.ranlp-1.46</url>
       <bibkey>estevanell-valladares-etal-2021-knowledge</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/cord-19">CORD-19</pwcdataset>
     </paper>
     <paper id="47">
       <title>Online Learning over Time in Adaptive Neural Machine Translation</title>
@@ -571,9 +544,6 @@
       <abstract>The widespread presence of offensive language on social media motivated the development of systems capable of recognizing such content automatically. Apart from a few notable exceptions, most research on automatic offensive language identification has dealt with English. To address this shortcoming, we introduce MOLD, the Marathi Offensive Language Dataset. MOLD is the first dataset of its kind compiled for Marathi, thus opening a new domain for research in low-resource Indo-Aryan languages. We present results from several machine learning experiments on this dataset, including zero-short and other transfer learning experiments on state-of-the-art cross-lingual transformers from existing data in Bengali, English, and Hindi.</abstract>
       <url hash="0805223a">2021.ranlp-1.50</url>
       <bibkey>gaikwad-etal-2021-cross</bibkey>
-      <pwccode url="https://github.com/tharindudr/mold" additional="false">tharindudr/mold</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/mold">MOLD</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/olid">OLID</pwcdataset>
     </paper>
     <paper id="51">
       <title>Relying on Discourse Analysis to Answer Complex Questions by Neural Machine Reading Comprehension</title>
@@ -584,8 +554,6 @@
       <abstract>Machine reading comprehension (MRC) is one of the most challenging tasks in natural language processing domain. Recent state-of-the-art results for MRC have been achieved with the pre-trained language models, such as BERT and its modifications. Despite the high performance of these models, they still suffer from the inability to retrieve correct answers from the detailed and lengthy passages. In this work, we introduce a novel scheme for incorporating the discourse structure of the text into a self-attention network, and, thus, enrich the embedding obtained from the standard BERT encoder with the additional linguistic knowledge. We also investigate the influence of different types of linguistic information on the model’s ability to answer complex questions that require deep understanding of the whole text. Experiments performed on the SQuAD benchmark and more complex question answering datasets have shown that linguistic enhancing boosts the performance of the standard BERT model significantly.</abstract>
       <url hash="eb8a2048">2021.ranlp-1.51</url>
       <bibkey>galitsky-etal-2021-relying</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/newsqa">NewsQA</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/quac">QuAC</pwcdataset>
     </paper>
     <paper id="52">
       <title>A Dynamic Head Importance Computation Mechanism for Neural Machine Translation</title>
@@ -633,8 +601,6 @@
       <abstract>From statistical to neural models, a wide variety of topic modelling algorithms have been proposed in the literature. However, because of the diversity of datasets and metrics, there have not been many efforts to systematically compare their performance on the same benchmarks and under the same conditions. In this paper, we present a selection of 9 topic modelling techniques from the state of the art reflecting a diversity of approaches to the task, an overview of the different metrics used to compare their performance, and the challenges of conducting such a comparison. We empirically evaluate the performance of these models on different settings reflecting a variety of real-life conditions in terms of dataset size, number of topics, and distribution of topics, following identical preprocessing and evaluation processes. Using both metrics that rely on the intrinsic characteristics of the dataset (different coherence metrics), as well as external knowledge (word embeddings and ground-truth topic labels), our experiments reveal several shortcomings regarding the common practices in topic models evaluation.</abstract>
       <url hash="52778976">2021.ranlp-1.55</url>
       <bibkey>harrando-etal-2021-apples</bibkey>
-      <pwccode url="https://github.com/d2klab/tomodapi" additional="false">d2klab/tomodapi</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/yahoo-answers">Yahoo! Answers</pwcdataset>
     </paper>
     <paper id="56">
       <title>Claim Verification Using a Multi-<fixed-case>GAN</fixed-case> Based Model</title>
@@ -645,7 +611,6 @@
       <abstract>This article describes research on claim verification carried out using a multiple GAN-based model. The proposed model consists of three pairs of generators and discriminators. The generator and discriminator pairs are responsible for generating synthetic data for supported and refuted claims and claim labels. A theoretical discussion about the proposed model is provided to validate the equilibrium state of the model. The proposed model is applied to the FEVER dataset, and a pre-trained language model is used for the input text data. The synthetically generated data helps to gain information that improves classification performance over state of the art baselines. The respective F1 scores after applying the proposed method on FEVER 1.0 and FEVER 2.0 datasets are 0.65+-0.018 and 0.65+-0.051.</abstract>
       <url hash="d58d01a0">2021.ranlp-1.56</url>
       <bibkey>hatua-etal-2021-claim</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/fever">FEVER</pwcdataset>
     </paper>
     <paper id="57">
       <title>Semi-Supervised and Unsupervised Sense Annotation via Translations</title>
@@ -658,7 +623,6 @@
       <abstract>Acquisition of multilingual training data continues to be a challenge in word sense disambiguation (WSD). To address this problem, unsupervised approaches have been proposed to automatically generate sense annotations for training supervised WSD systems. We present three new methods for creating sense-annotated corpora which leverage translations, parallel bitexts, lexical resources, as well as contextual and synset embeddings. Our semi-supervised method applies machine translation to transfer existing sense annotations to other languages. Our two unsupervised methods refine sense annotations produced by a knowledge-based WSD system via lexical translations in a parallel corpus. We obtain state-of-the-art results on standard WSD benchmarks.</abstract>
       <url hash="1aff20b4">2021.ranlp-1.57</url>
       <bibkey>hauer-etal-2021-semi</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/word-sense-disambiguation-a-unified">Word Sense Disambiguation: a Unified Evaluation Framework and Empirical Comparison</pwcdataset>
     </paper>
     <paper id="58">
       <title>Personality Predictive Lexical Cues and Their Correlations</title>
@@ -774,13 +738,6 @@
       <abstract>The language models nowadays are in the center of natural language processing progress. These models are mostly of significant size. There are successful attempts to reduce them, but at least some of these attempts rely on randomness. We propose a novel distillation procedure leveraging on multiple teachers usage which alleviates random seed dependency and makes the models more robust. We show that this procedure applied to TinyBERT and DistilBERT models improves their worst case results up to 2% while keeping almost the same best-case ones. The latter fact keeps true with a constraint on computational time, which is important to lessen the carbon footprint. In addition, we present the results of an application of the proposed procedure to a computer vision model ResNet, which shows that the statement keeps true in this totally different domain.</abstract>
       <url hash="1ac71d55">2021.ranlp-1.68</url>
       <bibkey>ilichev-etal-2021-multiple</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/cifar-10">CIFAR-10</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/cola">CoLA</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/glue">GLUE</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/mrpc">MRPC</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/qnli">QNLI</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/sst">SST</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/sst-2">SST-2</pwcdataset>
     </paper>
     <paper id="69">
       <title><fixed-case>BERT</fixed-case> Embeddings for Automatic Readability Assessment</title>
@@ -789,8 +746,6 @@
       <abstract>Automatic readability assessment (ARA) is the task of evaluating the level of ease or difficulty of text documents for a target audience. For researchers, one of the many open problems in the field is to make such models trained for the task show efficacy even for low-resource languages. In this study, we propose an alternative way of utilizing the information-rich embeddings of BERT models with handcrafted linguistic features through a combined method for readability assessment. Results show that the proposed method outperforms classical approaches in readability assessment using English and Filipino datasets, obtaining as high as 12.4% increase in F1 performance. We also show that the general information encoded in BERT embeddings can be used as a substitute feature set for low-resource languages like Filipino with limited semantic and syntactic NLP tools to explicitly extract feature values for the task.</abstract>
       <url hash="1f607fca">2021.ranlp-1.69</url>
       <bibkey>imperial-2021-bert</bibkey>
-      <pwccode url="https://github.com/imperialite/BERT-Embeddings-For-ARA" additional="false">imperialite/BERT-Embeddings-For-ARA</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/onestopenglish">OneStopEnglish</pwcdataset>
     </paper>
     <paper id="70">
       <title>Semantic-Based Opinion Summarization</title>
@@ -800,7 +755,6 @@
       <abstract>The amount of information available online can be overwhelming for users to digest, specially when dealing with other users’ comments when making a decision about buying a product or service. In this context, opinion summarization systems are of great value, extracting important information from the texts and presenting them to the user in a more understandable manner. It is also known that the usage of semantic representations can benefit the quality of the generated summaries. This paper aims at developing opinion summarization methods based on Abstract Meaning Representation of texts in the Brazilian Portuguese language. Four different methods have been investigated, alongside some literature approaches. The results show that a Machine Learning-based method produced summaries of higher quality, outperforming other literature techniques on manually constructed semantic graphs. We also show that using parsed graphs over manually annotated ones harmed the output. Finally, an analysis of how important different types of information are for the summarization process suggests that using Sentiment Analysis features did not improve summary quality.</abstract>
       <url hash="d91f4849">2021.ranlp-1.70</url>
       <bibkey>inacio-pardo-2021-semantic</bibkey>
-      <pwccode url="https://github.com/superar/semopinions" additional="false">superar/semopinions</pwccode>
     </paper>
     <paper id="71">
       <title>Using Collaborative Filtering to Model Argument Selection</title>
@@ -887,7 +841,6 @@
       <abstract>Authors of text tend to predominantly use a single sense for a lemma that can differ among different authors. This might not be captured with an author-agnostic word sense disambiguation (WSD) model that was trained on multiple authors. Our work finds that WordNet’s first senses, the predominant senses of our dataset’s genre, and the predominant senses of an author can all be different and therefore, author-agnostic models could perform well over the entire dataset, but poorly on individual authors. In this work, we explore methods for personalizing WSD models by tailoring existing state-of-the-art models toward an individual by exploiting the author’s sense distributions. We propose a novel WSD dataset and show that personalizing a WSD system with knowledge of an author’s sense distributions or predominant senses can greatly increase its performance.</abstract>
       <url hash="c0a4be71">2021.ranlp-1.79</url>
       <bibkey>king-cook-2021-now</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/word-sense-disambiguation-a-unified">Word Sense Disambiguation: a Unified Evaluation Framework and Empirical Comparison</pwcdataset>
     </paper>
     <paper id="80">
       <title>Multilingual Image Corpus: Annotation Protocol</title>
@@ -896,13 +849,6 @@
       <abstract>In this paper, we present work in progress aimed at the development of a new image dataset with annotated objects. The Multilingual Image Corpus consists of an ontology of visual objects (based on WordNet) and a collection of thematically related images annotated with segmentation masks and object classes. We identified 277 dominant classes and 1,037 parent and attribute classes, and grouped them into 10 thematic domains such as sport, medicine, education, food, security, etc. For the selected classes a large-scale web image search is being conducted in order to compile a substantial collection of high-quality copyright free images. The focus of the paper is the annotation protocol which we established to facilitate the annotation process: the Ontology of visual objects and the conventions for image selection and for object segmentation. The dataset is designed both for image classification and object detection and for semantic segmentation. In addition, the object annotations will be supplied with multilingual descriptions by using freely available wordnets.</abstract>
       <url hash="98f815e5">2021.ranlp-1.80</url>
       <bibkey>koeva-2021-multilingual</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/coco">COCO (Common Objects in Context)</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/caltech-256">Caltech-256</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/imagenet">ImageNet</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/labelme">LabelMe</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/modanet">ModaNet</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/silhouettes">Silhouettes</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/tiny-images">Tiny Images</pwcdataset>
     </paper>
     <paper id="81">
       <title><fixed-case>ELERRANT</fixed-case>: Automatic Grammatical Error Type Classification for <fixed-case>G</fixed-case>reek</title>
@@ -913,7 +859,6 @@
       <abstract>In this paper, we introduce the Greek version of the automatic annotation tool ERRANT (Bryant et al., 2017), which we named ELERRANT. ERRANT functions as a rule-based error type classifier and was used as the main evaluation tool of the systems participating in the BEA-2019 (Bryant et al., 2019) shared task. Here, we discuss grammatical and morphological differences between English and Greek and how these differences affected the development of ELERRANT. We also introduce the first Greek Native Corpus (GNC) and the Greek WikiEdits Corpus (GWE), two new evaluation datasets with errors from native Greek learners and Wikipedia Talk Pages edits respectively. These two datasets are used for the evaluation of ELERRANT. This paper is a sole fragment of a bigger picture which illustrates the attempt to solve the problem of low-resource languages in NLP, in our case Greek.</abstract>
       <url hash="be6d4c7f">2021.ranlp-1.81</url>
       <bibkey>korre-etal-2021-elerrant</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/wikiconv">WikiConv</pwcdataset>
     </paper>
     <paper id="82">
       <title>Neural Machine Translation for <fixed-case>S</fixed-case>inhala-<fixed-case>E</fixed-case>nglish Code-Mixed Text</title>
@@ -979,7 +924,6 @@
       <abstract>This paper deliberates on the process of building the first constituency-to-dependency conversion tool of Turkish. The starting point of this work is a previous study in which 10,000 phrase structure trees were manually transformed into Turkish from the original PennTreebank corpus. Within the scope of this project, these Turkish phrase structure trees were automatically converted into UD-style dependency structures, using both a rule-based algorithm and a machine learning algorithm specific to the requirements of the Turkish language. The results of both algorithms were compared and the machine learning approach proved to be more accurate than the rule-based algorithm. The output was revised by a team of linguists. The refined versions were taken as gold standard annotations for the evaluation of the algorithms. In addition to its contribution to the UD Project with a large dataset of 10,000 Turkish dependency trees, this project also fulfills the important gap of a Turkish conversion tool, enabling the quick compilation of dependency corpora which can be used for the training of better dependency parsers.</abstract>
       <url hash="2115f3f5">2021.ranlp-1.87</url>
       <bibkey>kuzgun-etal-2021-constituency</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/penn-treebank">Penn Treebank</pwcdataset>
     </paper>
     <paper id="88">
       <title>Making Your Tweets More Fancy: Emoji Insertion to Texts</title>
@@ -1001,7 +945,6 @@
       <abstract>Recent task-oriented dialogue systems learn a model from annotated dialogues, and such dialogues are in turn collected and annotated so that they are consistent with certain domain knowledge. However, in real scenarios, domain knowledge is subject to frequent changes, and initial training dialogues may soon become obsolete, resulting in a significant decrease in the model performance. In this paper, we investigate the relationship between training dialogues and domain knowledge, and propose Dialogue Domain Adaptation, a methodology aiming at adapting initial training dialogues to changes intervened in the domain knowledge. We focus on slot-value changes (e.g., when new slot values are available to describe domain entities) and define an experimental setting for dialogue domain adaptation. First, we show that current state-of-the-art models for dialogue state tracking are still poorly robust to slot-value changes of the domain knowledge. Then, we compare different domain adaptation strategies, showing that simple techniques are effective to reduce the gap between training dialogues and domain knowledge.</abstract>
       <url hash="5bb8fd9f">2021.ranlp-1.89</url>
       <bibkey>labruna-magnini-2021-addressing</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/multiwoz">MultiWOZ</pwcdataset>
     </paper>
     <paper id="90">
       <title>Developing a Clinical Language Model for <fixed-case>S</fixed-case>wedish: Continued Pretraining of Generic <fixed-case>BERT</fixed-case> with In-Domain Data</title>
@@ -1029,7 +972,6 @@
       <abstract>Our study focuses on language generation by considering various information representing the meaning of utterances as multiple conditions of generation. Generating an utterance from a Meaning representation (MR) usually passes two steps: sentence planning and surface realization. However, we propose a simple one-stage framework to generate utterances directly from MR. Our model is based on GPT2 and generates utterances with flat conditions on slot and value pairs, which does not need to determine the structure of the sentence. We evaluate several systems in the E2E dataset with 6 automatic metrics. Our system is a simple method, but it demonstrates comparable performance to previous systems in automated metrics. In addition, using only 10% of the dataset without any other techniques, our model achieves comparable performance, and shows the possibility of performing zero-shot generation and expanding to other datasets.</abstract>
       <url hash="10bcee15">2021.ranlp-1.92</url>
       <bibkey>lee-2021-transforming</bibkey>
-      <pwccode url="https://github.com/rungjoo/TransMC-data2text" additional="false">rungjoo/TransMC-data2text</pwccode>
     </paper>
     <paper id="93">
       <title>Frustration Level Annotation in <fixed-case>L</fixed-case>atvian Tweets with Non-Lexical Means of Expression</title>
@@ -1048,7 +990,6 @@
       <abstract>In this paper, we propose a system combination method for grammatical error correction (GEC), based on nonlinear integer programming (IP). Our method optimizes a novel F score objective based on error types, and combines multiple end-to-end GEC systems. The proposed IP approach optimizes the selection of a single best system for each grammatical error type present in the data. Experiments of the IP approach on combining state-of-the-art standalone GEC systems show that the combined system outperforms all standalone systems. It improves F0.5 score by 3.61% when combining the two best participating systems in the BEA 2019 shared task, and achieves F0.5 score of 73.08%. We also perform experiments to compare our IP approach with another state-of-the-art system combination method for GEC, demonstrating IP’s competitive combination capability.</abstract>
       <url hash="228f77b1">2021.ranlp-1.94</url>
       <bibkey>lin-ng-2021-system</bibkey>
-      <pwccode url="https://github.com/nusnlp/gec_ip" additional="false">nusnlp/gec_ip</pwccode>
     </paper>
     <paper id="95">
       <title>Multilingual Learning for Mild Cognitive Impairment Screening from a Clinical Speech Task</title>
@@ -1089,7 +1030,6 @@
       <abstract>Being able to accurately perform Question Difficulty Estimation (QDE) can improve the accuracy of students’ assessment and better their learning experience. Traditional approaches to QDE are either subjective or introduce a long delay before new questions can be used to assess students. Thus, recent work proposed machine learning-based approaches to overcome these limitations. They use questions of known difficulty to train models capable of inferring the difficulty of questions from their text. Once trained, they can be used to perform QDE of newly created questions. Existing approaches employ supervised models which are domain-dependent and require a large dataset of questions of known difficulty for training. Therefore, they cannot be used if such a dataset is not available ( for new courses on an e-learning platform). In this work, we experiment with the possibility of performing QDE from text in an unsupervised manner. Specifically, we use the uncertainty of calibrated question answering models as a proxy of human-perceived difficulty. Our experiments show promising results, suggesting that model uncertainty could be successfully leveraged to perform QDE from text, reducing both costs and elapsed time.</abstract>
       <url hash="78a2e15e">2021.ranlp-1.97</url>
       <bibkey>loginova-etal-2021-towards</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/race">RACE</pwcdataset>
     </paper>
     <paper id="98">
       <title><fixed-case>G</fixed-case>e<fixed-case>SERA</fixed-case>: General-domain Summary Evaluation by Relevance Analysis</title>
@@ -1128,10 +1068,6 @@
       <abstract>In this paper, we present NEREL, a Russian dataset for named entity recognition and relation extraction. NEREL is significantly larger than existing Russian datasets: to date it contains 56K annotated named entities and 39K annotated relations. Its important difference from previous datasets is annotation of nested named entities, as well as relations within nested entities and at the discourse level. NEREL can facilitate development of novel models that can extract relations between nested named entities, as well as relations on both sentence and document levels. NEREL also contains the annotation of events involving named entities and their roles in the events. The NEREL collection is available via <url>https://github.com/nerel-ds/NEREL</url>.</abstract>
       <url hash="6d26cec5">2021.ranlp-1.100</url>
       <bibkey>loukachevitch-etal-2021-nerel</bibkey>
-      <pwccode url="https://github.com/nerel-ds/nerel" additional="false">nerel-ds/nerel</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/conll-2003">CoNLL 2003</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/docred">DocRED</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/nne">NNE</pwcdataset>
     </paper>
     <paper id="101">
       <title>Active Learning for Interactive Relation Extraction in a <fixed-case>F</fixed-case>rench Newspaper’s Articles</title>
@@ -1256,9 +1192,6 @@
       <abstract>Recently, pre-trained language representation models such as BERT and RoBERTa have achieved significant results in a wide range of natural language processing (NLP) tasks, however, it requires extremely high computational cost. Curriculum Learning (CL) is one of the potential solutions to alleviate this problem. CL is a training strategy where training samples are given to models in a meaningful order instead of random sampling. In this work, we propose a new CL method which gradually increases the block-size of input text for training the self-attention mechanism of BERT and its variants using the maximum available batch-size. Experiments in low-resource settings show that our approach outperforms the baseline in terms of convergence speed and final performance on downstream tasks.</abstract>
       <url hash="961140b4">2021.ranlp-1.112</url>
       <bibkey>nagatsuka-etal-2021-pre</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/glue">GLUE</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/qnli">QNLI</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/wikitext-2">WikiText-2</pwcdataset>
     </paper>
     <paper id="113">
       <title><fixed-case>COVID</fixed-case>-19 in <fixed-case>B</fixed-case>ulgarian Social Media: Factuality, Harmfulness, Propaganda, and Framing</title>
@@ -1271,7 +1204,6 @@
       <abstract>With the emergence of the COVID-19 pandemic, the political and the medical aspects of disinformation merged as the problem got elevated to a whole new level to become the first global infodemic. Fighting this infodemic is currently ranked very high on the list of priorities of the World Health Organization, with dangers ranging from promoting fake cures, rumors, and conspiracy theories to spreading xenophobia and panic. With this in mind, we studied how COVID-19 is discussed in Bulgarian social media in terms of factuality, harmfulness, propaganda, and framing. We found that most Bulgarian tweets contain verifiable factual claims, are factually true, are of potential public interest, are not harmful, and are too trivial to fact-check; moreover, zooming into harmful tweets, we found that they spread not only rumors but also panic. We further analyzed articles shared in Bulgarian partisan pro/con-COVID-19 Facebook groups and found that propaganda is more prevalent in skeptical articles, which use doubt, flag waving, and slogans to convey their message; in contrast, concerned ones appeal to emotions, fear, and authority; moreover, skeptical articles frame the issue as one of quality of life, policy, legality, economy, and politics, while concerned articles focus on health &amp; safety. We release our manually and automatically analyzed datasets to enable further research.</abstract>
       <url hash="c01c91d0">2021.ranlp-1.113</url>
       <bibkey>nakov-etal-2021-covid</bibkey>
-      <pwccode url="https://gitlab.com/sshaar/covid-19-in-bulgarian-social-media" additional="false">sshaar/covid-19-in-bulgarian-social-media</pwccode>
     </paper>
     <paper id="114">
       <title>A Second Pandemic? Analysis of Fake News about <fixed-case>COVID</fixed-case>-19 Vaccines in <fixed-case>Q</fixed-case>atar</title>
@@ -1293,11 +1225,6 @@
       <abstract>Distantly supervised datasets for relation extraction mostly focus on sentence-level extraction, and they cover very few relations. In this work, we propose cross-document relation extraction, where the two entities of a relation tuple appear in two different documents that are connected via a chain of common entities. Following this idea, we create a dataset for two-hop relation extraction, where each chain contains exactly two documents. Our proposed dataset covers a higher number of relations than the publicly available sentence-level datasets. We also propose a hierarchical entity graph convolutional network (HEGCN) model for this task that improves performance by 1.1% F1 score on our two-hop relation extraction dataset, compared to some strong neural baselines.</abstract>
       <url hash="e6651f2a">2021.ranlp-1.115</url>
       <bibkey>nayak-ng-2021-hierarchical</bibkey>
-      <pwccode url="https://github.com/nusnlp/MHRE" additional="false">nusnlp/MHRE</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/thred">THRED</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/docred">DocRED</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/fewrel-2-0">FewRel 2.0</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/wikihop">WikiHop</pwcdataset>
     </paper>
     <paper id="116">
       <title>Improving Distantly Supervised Relation Extraction with Self-Ensemble Noise Filtering</title>
@@ -1308,7 +1235,6 @@
       <abstract>Distantly supervised models are very popular for relation extraction since we can obtain a large amount of training data using the distant supervision method without human annotation. In distant supervision, a sentence is considered as a source of a tuple if the sentence contains both entities of the tuple. However, this condition is too permissive and does not guarantee the presence of relevant relation-specific information in the sentence. As such, distantly supervised training data contains much noise which adversely affects the performance of the models. In this paper, we propose a self-ensemble filtering mechanism to filter out the noisy samples during the training process. We evaluate our proposed framework on the New York Times dataset which is obtained via distant supervision. Our experiments with multiple state-of-the-art neural relation extraction models show that our proposed filtering mechanism improves the robustness of the models and increases their F1 scores.</abstract>
       <url hash="698ef6ca">2021.ranlp-1.116</url>
       <bibkey>nayak-etal-2021-improving</bibkey>
-      <pwccode url="https://github.com/nayakt/SENF4DSRE" additional="false">nayakt/SENF4DSRE</pwccode>
     </paper>
     <paper id="117">
       <title>Learning Entity-Likeness with Multiple Approximate Matches for Biomedical <fixed-case>NER</fixed-case></title>
@@ -1319,7 +1245,6 @@
       <abstract>Biomedical Named Entities are complex, so approximate matching has been used to improve entity coverage. However, the usual approximate matching approach fetches only one matching result, which is often noisy. In this work, we propose a method for biomedical NER that fetches multiple approximate matches for a given phrase to leverage their variations to estimate entity-likeness. The model uses pooling to discard the unnecessary information from the noisy matching results, and learn the entity-likeness of the phrase with multiple approximate matches. Experimental results on three benchmark datasets from the biomedical domain, BC2GM, NCBI-disease, and BC4CHEMD, demonstrate the effectiveness. Our model improves the average by up to +0.21 points compared to a BioBERT-based NER.</abstract>
       <url hash="3ea5a289">2021.ranlp-1.117</url>
       <bibkey>nguyen-le-etal-2021-learning</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/conll-2003">CoNLL 2003</pwcdataset>
     </paper>
     <paper id="118">
       <title>Extending a Text-to-Pictograph System to <fixed-case>F</fixed-case>rench and to Arasaac</title>
@@ -1331,7 +1256,6 @@
       <abstract>We present an adaptation of the Text-to-Picto system, initially designed for Dutch, and extended to English and Spanish. The original system, aimed at people with an intellectual disability, automatically translates text into pictographs (Sclera and Beta). We extend it to French and add a large set of Arasaac pictographs linked to WordNet 3.1. To carry out this adaptation, we automatically link the pictographs and their metadata to synsets of two French WordNets and leverage this information to translate words into pictographs. We automatically and manually evaluate our system with different corpora corresponding to different use cases, including one for medical communication between doctors and patients. The system is also compared to similar systems in other languages.</abstract>
       <url hash="918dcd2f">2021.ranlp-1.118</url>
       <bibkey>norre-etal-2021-extending</bibkey>
-      <pwccode url="https://github.com/vincentccl/picto" additional="false">vincentccl/picto</pwccode>
     </paper>
     <paper id="119">
       <title>Transfer-based Enrichment of a <fixed-case>H</fixed-case>ungarian Named Entity Dataset</title>
@@ -1372,7 +1296,6 @@
       <abstract>Terminological consistency is an essential requirement for industrial translation. High-quality, hand-crafted terminologies contain entries in their nominal forms. Integrating such a terminology into machine translation is not a trivial task. The MT system must be able to disambiguate homographs on the source side and choose the correct wordform on the target side. In this work, we propose a simple but effective method for homograph disambiguation and a method of wordform selection by introducing multi-choice lexical constraints. We also propose a metric to measure the terminological consistency of the translation. Our results have a significant improvement over the current SOTA in terms of terminological consistency without any loss of the BLEU score. All the code used in this work will be published as open-source.</abstract>
       <url hash="d8241a53">2021.ranlp-1.122</url>
       <bibkey>oz-sukhareva-2021-towards</bibkey>
-      <pwccode url="https://github.com/term-integration-mt/term-integration-mt" additional="false">term-integration-mt/term-integration-mt</pwccode>
     </paper>
     <paper id="123">
       <title><fixed-case>O</fixed-case>ffend<fixed-case>ES</fixed-case>: A New Corpus in <fixed-case>S</fixed-case>panish for Offensive Language Research</title>
@@ -1395,7 +1318,6 @@
       <abstract>This work investigates neural machine translation (NMT) systems for translating English user reviews into Croatian and Serbian, two similar morphologically complex languages. Two types of reviews are used for testing the systems: IMDb movie reviews and Amazon product reviews. Two types of training data are explored: large out-of-domain bilingual parallel corpora, as well as small synthetic in-domain parallel corpus obtained by machine translation of monolingual English Amazon reviews into the target languages. Both automatic scores and human evaluation show that using the synthetic in-domain corpus together with a selected sub-set of out-of-domain data is the best option. Separated results on IMDb and Amazon reviews indicate that MT systems perform differently on different review types so that user reviews generally should not be considered as a homogeneous genre. Nevertheless, more detailed research on larger amount of different reviews covering different domains/topics is needed to fully understand these differences.</abstract>
       <url hash="d1c16114">2021.ranlp-1.124</url>
       <bibkey>popovic-etal-2021-machine</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/imdb-movie-reviews">IMDb Movie Reviews</pwcdataset>
     </paper>
     <paper id="125">
       <title>Multilingual Coreference Resolution with Harmonized Annotations</title>
@@ -1414,7 +1336,6 @@
       <abstract>Many automatic semantic relation extraction tools extract subject-predicate-object triples from unstructured text. However, a large quantity of these triples merely represent background knowledge. We explore using full texts of biomedical publications to create a training corpus of informative and important semantic triples based on the notion that the main contributions of an article are summarized in its abstract. This corpus is used to train a deep learning classifier to identify important triples, and we suggest that an importance ranking for semantic triples could also be generated.</abstract>
       <url hash="49a01627">2021.ranlp-1.126</url>
       <bibkey>preiss-2021-predicting</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/cord-19">CORD-19</pwcdataset>
     </paper>
     <paper id="127">
       <title>Unknown Intent Detection Using Multi-Objective Optimization on Deep Learning Classifiers</title>
@@ -1437,8 +1358,6 @@
       <abstract>In this paper, we aim at improving Czech sentiment with transformer-based models and their multilingual versions. More concretely, we study the task of polarity detection for the Czech language on three sentiment polarity datasets. We fine-tune and perform experiments with five multilingual and three monolingual models. We compare the monolingual and multilingual models’ performance, including comparison with the older approach based on recurrent neural networks. Furthermore, we test the multilingual models and their ability to transfer knowledge from English to Czech (and vice versa) with zero-shot cross-lingual classification. Our experiments show that the huge multilingual models can overcome the performance of the monolingual models. They are also able to detect polarity in another language without any training data, with performance not worse than 4.4 % compared to state-of-the-art monolingual trained models. Moreover, we achieved new state-of-the-art results on all three datasets.</abstract>
       <url hash="0db38fe1">2021.ranlp-1.128</url>
       <bibkey>priban-steinberger-2021-multilingual</bibkey>
-      <pwccode url="https://github.com/pauli31/improving-czech-sentiment-transformers" additional="false">pauli31/improving-czech-sentiment-transformers</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/imdb-movie-reviews">IMDb Movie Reviews</pwcdataset>
     </paper>
     <paper id="129">
       <title>Metric Learning in Multilingual Sentence Similarity Measurement for Document Alignment</title>
@@ -1469,8 +1388,6 @@
       <abstract>Natural language inference is a method of finding inferences in language texts. Understanding the meaning of a sentence and its inference is essential in many language processing applications. In this context, we consider the inference problem for a Dravidian language, Malayalam. Siamese networks train the text hypothesis pairs with word embeddings and language agnostic embeddings, and the results are evaluated against classification metrics for binary classification into entailment and contradiction classes. XLM-R embeddings based Siamese architecture using gated recurrent units and bidirectional long short term memory networks provide promising results for this classification problem.</abstract>
       <url hash="c908650c">2021.ranlp-1.131</url>
       <bibkey>renjit-idicula-2021-siamese</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/multinli">MultiNLI</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/snli">SNLI</pwcdataset>
     </paper>
     <paper id="132">
       <title>A Call for Clarity in Contemporary Authorship Attribution Evaluation</title>
@@ -1498,7 +1415,6 @@
       <abstract>The aim of vocabulary inventory prediction is to predict a learner’s whole vocabulary based on a limited sample of query words. This paper approaches the problem starting from the 2-parameter Item Response Theory (IRT) model, giving each word in the vocabulary a difficulty and discrimination parameter. The discrimination parameter is evaluated on the sub-problem of question item selection, familiar from the fields of Computerised Adaptive Testing (CAT) and active learning. Next, the effect of the discrimination parameter on prediction performance is examined, both in a binary classification setting, and in an information retrieval setting. Performance is compared with baselines based on word frequency. A number of different generalisation scenarios are examined, including generalising word difficulty and discrimination using word embeddings with a predictor network and testing on out-of-dataset data.</abstract>
       <url hash="512a125b">2021.ranlp-1.134</url>
       <bibkey>robertson-2021-word</bibkey>
-      <pwccode url="https://github.com/frankier/vocabirt" additional="false">frankier/vocabirt</pwccode>
     </paper>
     <paper id="135">
       <title><fixed-case>F</fixed-case>ren<fixed-case>L</fixed-case>y<fixed-case>S</fixed-case>: A Tool for the Automatic Simplification of <fixed-case>F</fixed-case>rench General Language Texts</title>
@@ -1581,8 +1497,6 @@
       <abstract>Toxic comments contain forms of non-acceptable language targeted towards groups or individuals. These types of comments become a serious concern for government organizations, online communities, and social media platforms. Although there are some approaches to handle non-acceptable language, most of them focus on supervised learning and the English language. In this paper, we deal with toxic comment detection as a semi-supervised strategy over a heterogeneous graph. We evaluate the approach on a toxic dataset of the Portuguese language, outperforming several graph-based methods and achieving competitive results compared to transformer architectures.</abstract>
       <url hash="3954ad1d">2021.ranlp-1.142</url>
       <bibkey>saraiva-etal-2021-semi</bibkey>
-      <pwccode url="https://github.com/rafaelanchieta/toxic" additional="false">rafaelanchieta/toxic</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/told-br">ToLD-Br</pwcdataset>
     </paper>
     <paper id="143">
       <title>Graph-based Argument Quality Assessment</title>
@@ -1631,8 +1545,6 @@
       <abstract>The deception in the text can be of different forms in different domains, including fake news, rumor tweets, and spam emails. Irrespective of the domain, the main intent of the deceptive text is to deceit the reader. Although domain-specific deception detection exists, domain-independent deception detection can provide a holistic picture, which can be crucial to understand how deception occurs in the text. In this paper, we detect deception in a domain-independent setting using deep learning architectures. Our method outperforms the State-of-the-Art performance of most benchmark datasets with an overall accuracy of 93.42% and F1-Score of 93.22%. The domain-independent training allows us to capture subtler nuances of deceptive writing style. Furthermore, we analyze how much in-domain data may be helpful to accurately detect deception, especially for the cases where data may not be readily available to train. Our results and analysis indicate that there may be a universal pattern of deception lying in-between the text independent of the domain, which can create a novel area of research and open up new avenues in the field of deception detection.</abstract>
       <url hash="d366f906">2021.ranlp-1.147</url>
       <bibkey>shahriar-etal-2021-domain</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/fakenewsnet">FakeNewsNet</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/liar">LIAR</pwcdataset>
     </paper>
     <paper id="148">
       <title>Towards Domain-Generalizable Paraphrase Identification by Avoiding the Shortcut Learning</title>
@@ -1642,7 +1554,6 @@
       <abstract>In this paper, we investigate the Domain Generalization (DG) problem for supervised Paraphrase Identification (PI). We observe that the performance of existing PI models deteriorates dramatically when tested in an out-of-distribution (OOD) domain. We conjecture that it is caused by shortcut learning, i.e., these models tend to utilize the cue words that are unique for a particular dataset or domain. To alleviate this issue and enhance the DG ability, we propose a PI framework based on Optimal Transport (OT). Our method forces the network to learn the necessary features for all the words in the input, which alleviates the shortcut learning problem. Experimental results show that our method improves the DG ability for the PI models.</abstract>
       <url hash="587cec72">2021.ranlp-1.148</url>
       <bibkey>shen-lam-2021-towards</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/parade">PARADE</pwcdataset>
     </paper>
     <paper id="149">
       <title>Czert – <fixed-case>C</fixed-case>zech <fixed-case>BERT</fixed-case>-like Model for Language Representation</title>
@@ -1656,7 +1567,6 @@
       <abstract>This paper describes the training process of the first Czech monolingual language representation models based on BERT and ALBERT architectures. We pre-train our models on more than 340K of sentences, which is 50 times more than multilingual models that include Czech data. We outperform the multilingual models on 9 out of 11 datasets. In addition, we establish the new state-of-the-art results on nine datasets. At the end, we discuss properties of monolingual and multilingual models based upon our results. We publish all the pre-trained and fine-tuned models freely for the research community.</abstract>
       <url hash="380cf52a">2021.ranlp-1.149</url>
       <bibkey>sido-etal-2021-czert</bibkey>
-      <pwccode url="https://github.com/kiv-air/Czert" additional="false">kiv-air/Czert</pwccode>
     </paper>
     <paper id="150">
       <title>Exploring <fixed-case>G</fixed-case>erman Multi-Level Text Simplification</title>
@@ -1667,8 +1577,6 @@
       <abstract>We report on experiments in automatic text simplification (ATS) for German with multiple simplification levels along the Common European Framework of Reference for Languages (CEFR), simplifying standard German into levels A1, A2 and B1. For that purpose, we investigate the use of source labels and pretraining on standard German, allowing us to simplify standard language to a specific CEFR level. We show that these approaches are especially effective in low-resource scenarios, where we are able to outperform a standard transformer baseline. Moreover, we introduce copy labels, which we show can help the model make a distinction between sentences that require further modifications and sentences that can be copied as-is.</abstract>
       <url hash="e98f430e">2021.ranlp-1.150</url>
       <bibkey>spring-etal-2021-exploring</bibkey>
-      <pwccode url="https://github.com/zurichnlp/ranlp2021-german-ats" additional="false">zurichnlp/ranlp2021-german-ats</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/newsela">Newsela</pwcdataset>
     </paper>
     <paper id="151">
       <title>Exploring Reliability of Gold Labels for Emotion Detection in <fixed-case>T</fixed-case>witter</title>
@@ -1714,9 +1622,6 @@
       <abstract>We study the task of learning and evaluating Chinese idiom embeddings. We first construct a new evaluation dataset that contains idiom synonyms and antonyms. Observing that existing Chinese word embedding methods may not be suitable for learning idiom embeddings, we further present a BERT-based method that directly learns embedding vectors for individual idioms. We empirically compare representative existing methods and our method. We find that our method substantially outperforms existing methods on the evaluation dataset we have constructed.</abstract>
       <url hash="f175af3e">2021.ranlp-1.155</url>
       <bibkey>tan-jiang-2021-learning</bibkey>
-      <pwccode url="https://github.com/VisualJoyce/ChengyuBERT" additional="false">VisualJoyce/ChengyuBERT</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/cos960">COS960</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/chid">ChID</pwcdataset>
     </paper>
     <paper id="156">
       <title>Does <fixed-case>BERT</fixed-case> Understand Idioms? A Probing-Based Empirical Study of <fixed-case>BERT</fixed-case> Encodings of Idioms</title>
@@ -1757,7 +1662,6 @@
       <abstract>Opinion prediction is an emerging research area with diverse real-world applications, such as market research and situational awareness. We identify two lines of approaches to the problem of opinion prediction. One uses topic-based sentiment analysis with time-series modeling, while the other uses static embedding of text. The latter approaches seek user-specific solutions by generating user fingerprints. Such approaches are useful in predicting user’s reactions to unseen content. In this work, we propose a novel dynamic fingerprinting method that leverages contextual embedding of user’s comments conditioned on relevant user’s reading history. We integrate BERT variants with a recurrent neural network to generate predictions. The results show up to 13% improvement in micro F1-score compared to previous approaches. Experimental results show novel insights that were previously unknown such as better predictions for an increase in dynamic history length, the impact of the nature of the article on performance, thereby laying the foundation for further research.</abstract>
       <url hash="2527aad1">2021.ranlp-1.159</url>
       <bibkey>tumarada-etal-2021-opinion</bibkey>
-      <pwccode url="https://github.com/kishoret04/opinionprediction" additional="false">kishoret04/opinionprediction</pwccode>
     </paper>
     <paper id="160">
       <title>Can Multilingual Transformers Fight the <fixed-case>COVID</fixed-case>-19 Infodemic?</title>
@@ -1795,7 +1699,6 @@
       <abstract>The task of automatic diagnosis encoding into standard medical classifications and ontologies, is of great importance in medicine - both to support the daily tasks of physicians in the preparation and reporting of clinical documentation, and for automatic processing of clinical reports. In this paper we investigate the application and performance of different deep learning transformers for automatic encoding in ICD-10 of clinical texts in Bulgarian. The comparative analysis attempts to find which approach is more efficient to be used for fine-tuning of pretrained BERT family transformer to deal with a specific domain terminology on a rare language as Bulgarian. On the one side are used SlavicBERT and MultiligualBERT, that are pretrained for common vocabulary in Bulgarian, but lack medical terminology. On the other hand in the analysis are used BioBERT, ClinicalBERT, SapBERT, BlueBERT, that are pretrained for medical terminology in English, but lack training for language models in Bulgarian, and more over for vocabulary in Cyrillic. In our research study all BERT models are fine-tuned with additional medical texts in Bulgarian and then applied to the classification task for encoding medical diagnoses in Bulgarian into ICD-10 codes. Big corpora of diagnosis in Bulgarian annotated with ICD-10 codes is used for the classification task. Such an analysis gives a good idea of which of the models would be suitable for tasks of a similar type and domain. The experiments and evaluation results show that both approaches have comparable accuracy.</abstract>
       <url hash="14d875db">2021.ranlp-1.162</url>
       <bibkey>velichkov-etal-2021-comparative</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/blue">BLUE</pwcdataset>
     </paper>
     <paper id="163">
       <title>Mistake Captioning: A Machine Learning Approach for Detecting Mistakes and Generating Instructive Feedback</title>
@@ -1827,7 +1730,6 @@
       <abstract>FrameNet is a lexical semantic resource based on the linguistic theory of frame semantics. A number of framenet development strategies have been reported previously and all of them involve exploration of corpora and a fair amount of manual work. Despite previous efforts, there does not exist a well-thought-out automatic/semi-automatic methodology for frame construction. In this paper we propose a data-driven methodology for identification and semi-automatic construction of frames. As a proof of concept, we report on our initial attempts to build a wider-scale framenet for the legal domain (LawFN) using the proposed methodology. The constructed frames are stored in a lexical database and together with the annotated example sentences they have been made available through a web interface.</abstract>
       <url hash="c532124f">2021.ranlp-1.165</url>
       <bibkey>virk-etal-2021-data</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/framenet">FrameNet</pwcdataset>
     </paper>
     <paper id="166">
       <title>A Deep Learning System for Automatic Extraction of Typological Linguistic Information from Descriptive Grammars</title>
@@ -1839,7 +1741,6 @@
       <abstract>Linguistic typology is an area of linguistics concerned with analysis of and comparison between natural languages of the world based on their certain linguistic features. For that purpose, historically, the area has relied on manual extraction of linguistic feature values from textural descriptions of languages. This makes it a laborious and time expensive task and is also bound by human brain capacity. In this study, we present a deep learning system for the task of automatic extraction of linguistic features from textual descriptions of natural languages. First, textual descriptions are manually annotated with special structures called semantic frames. Those annotations are learned by a recurrent neural network, which is then used to annotate un-annotated text. Finally, the annotations are converted to linguistic feature values using a separate rule based module. Word embeddings, learned from general purpose text, are used as a major source of knowledge by the recurrent neural network. We compare the proposed deep learning system to a previously reported machine learning based system for the same task, and the deep learning system wins in terms of F1 scores with a fair margin. Such a system is expected to be a useful contribution for the automatic curation of typological databases, which otherwise are manually developed.</abstract>
       <url hash="f0d31c7a">2021.ranlp-1.166</url>
       <bibkey>virk-etal-2021-deep</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/framenet">FrameNet</pwcdataset>
     </paper>
     <paper id="167">
       <title>Recognizing and Splitting Conditional Sentences for Automation of Business Processes Management</title>
@@ -1881,7 +1782,6 @@
       <abstract>Nowadays, social media platforms use classification models to cope with hate speech and abusive language. The problem of these models is their vulnerability to bias. A prevalent form of bias in hate speech and abusive language datasets is annotator bias caused by the annotator’s subjective perception and the complexity of the annotation task. In our paper, we develop a set of methods to measure annotator bias in abusive language datasets and to identify different perspectives on abusive language. We apply these methods to four different abusive language datasets. Our proposed approach supports annotation processes of such datasets and future research addressing different perspectives on the perception of abusive language.</abstract>
       <url hash="fe3fbb54">2021.ranlp-1.170</url>
       <bibkey>wich-etal-2021-investigating</bibkey>
-      <pwccode url="https://github.com/mawic/annotator-bias-abusive-language" additional="false">mawic/annotator-bias-abusive-language</pwccode>
     </paper>
     <paper id="171">
       <title>Rules Ruling Neural Networks - Neural vs. Rule-Based Grammar Checking for a Low Resource Language</title>
@@ -1924,7 +1824,6 @@
       <abstract>Claim verification is challenging because it requires first to find textual evidence and then apply claim-evidence entailment to verify a claim. Previous works evaluate the entailment step based on the retrieved evidence, whereas we hypothesize that the entailment prediction can provide useful signals for evidence retrieval, in the sense that if a sentence supports or refutes a claim, the sentence must be relevant. We propose a novel model that uses the entailment score to express the relevancy. Our experiments verify that leveraging entailment prediction improves ranking multiple pieces of evidence.</abstract>
       <url hash="cba32698">2021.ranlp-1.174</url>
       <bibkey>yang-etal-2021-improving-evidence</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/fever">FEVER</pwcdataset>
     </paper>
     <paper id="175">
       <title>Sentence Structure and Word Relationship Modeling for Emphasis Selection</title>
@@ -1934,7 +1833,6 @@
       <abstract>Emphasis Selection is a newly proposed task which focuses on choosing words for emphasis in short sentences. Traditional methods only consider the sequence information of a sentence while ignoring the rich sentence structure and word relationship information. In this paper, we propose a new framework that considers sentence structure via a sentence structure graph and word relationship via a word similarity graph. The sentence structure graph is derived from the parse tree of a sentence. The word similarity graph allows nodes to share information with their neighbors since we argue that in emphasis selection, similar words are more likely to be emphasized together. Graph neural networks are employed to learn the representation of each node of these two graphs. Experimental results demonstrate that our framework can achieve superior performance.</abstract>
       <url hash="ed2f11b3">2021.ranlp-1.175</url>
       <bibkey>yang-lam-2021-sentence</bibkey>
-      <pwccode url="https://github.com/lhryang/emphasis-selection" additional="false">lhryang/emphasis-selection</pwccode>
     </paper>
     <paper id="176">
       <title>Utterance Position-Aware Dialogue Act Recognition</title>
@@ -1973,7 +1871,6 @@
       <abstract>Neural sequence-to-sequence (Seq2Seq) models and BERT have achieved substantial improvements in abstractive document summarization (ADS) without and with pre-training, respectively. However, they sometimes repeatedly attend to unimportant source phrases while mistakenly ignore important ones. We present reconstruction mechanisms on two levels to alleviate this issue. The sequence-level reconstructor reconstructs the whole document from the hidden layer of the target summary, while the word embedding-level one rebuilds the average of word embeddings of the source at the target side to guarantee that as much critical information is included in the summary as possible. Based on the assumption that inverse document frequency (IDF) measures how important a word is, we further leverage the IDF weights in our embedding-level reconstructor. The proposed frameworks lead to promising improvements for ROUGE metrics and human rating on both the CNN/Daily Mail and Newsroom summarization datasets.</abstract>
       <url hash="a4ea0745">2021.ranlp-1.178</url>
       <bibkey>you-etal-2021-abstractive</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/newsroom">NEWSROOM</pwcdataset>
     </paper>
     <paper id="179">
       <title>Interpretable Propaganda Detection in News Articles</title>
@@ -2028,7 +1925,6 @@
       <abstract>The analytical description of charts is an exciting and important research area with many applications in academia and industry. Yet, this challenging task has received limited attention from the computational linguistics research community. This paper proposes AutoChart, a large dataset for the analytical description of charts, which aims to encourage more research into this important area. Specifically, we offer a novel framework that generates the charts and their analytical description automatically. We conducted extensive human and machine evaluation on the generated charts and descriptions and demonstrate that the generated texts are informative, coherent, and relevant to the corresponding charts.</abstract>
       <url hash="d9891030">2021.ranlp-1.183</url>
       <bibkey>zhu-etal-2021-autochart</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/autochart">AutoChart</pwcdataset>
     </paper>
     <paper id="184">
       <title>A Comparative Study on Abstractive and Extractive Approaches in Summarization of <fixed-case>E</fixed-case>uropean Legislation Documents</title>
@@ -2052,7 +1948,6 @@
       <abstract>Moderation of reader comments is a significant problem for online news platforms. Here, we experiment with models for automatic moderation, using a dataset of comments from a popular Croatian newspaper. Our analysis shows that while comments that violate the moderation rules mostly share common linguistic and thematic features, their content varies across the different sections of the newspaper. We therefore make our models topic-aware, incorporating semantic features from a topic model into the classification decision. Our results show that topic information improves the performance of the model, increases its confidence in correct outputs, and helps us understand the model’s outputs.</abstract>
       <url hash="e8df95e0">2021.ranlp-1.185</url>
       <bibkey>zosa-etal-2021-comments</bibkey>
-      <pwccode url="https://github.com/ezosa/topic-aware-moderation" additional="false">ezosa/topic-aware-moderation</pwccode>
     </paper>
   </volume>
   <volume id="srw" ingest-date="2021-11-18" type="proceedings">
@@ -2090,9 +1985,6 @@
       <abstract>Code-mixed language plays a crucial role in communication in multilingual societies. Though the recent growth of web users has greatly boosted the use of such mixed languages, the current generation of dialog systems is primarily monolingual. This increase in usage of code-mixed language has prompted dialog systems in a similar language. We present our work in Code-Mixed Dialog Generation, an unexplored task in code-mixed languages, generating utterances in code-mixed language rather than a single language that is more often just English. We present a new synthetic corpus in code-mix for dialogs, CM-DailyDialog, by converting an existing English-only dialog corpus to a mixed Hindi-English corpus. We then propose a baseline approach where we show the effectiveness of using mBART like multilingual sequence-to-sequence transformers for code-mixed dialog generation. Our best performing dialog models can conduct coherent conversations in Hindi-English mixed language as evaluated by human and automatic metrics setting new benchmarks for the Code-Mixed Dialog Generation task.</abstract>
       <url hash="d661856f">2021.ranlp-srw.2</url>
       <bibkey>agarwal-etal-2021-towards-code-mixed</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/dailydialog">DailyDialog</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/lince">LinCE</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/phinc">PHINC</pwcdataset>
     </paper>
     <paper id="3">
       <title><fixed-case>H</fixed-case>inglish to <fixed-case>E</fixed-case>nglish Machine Translation using Multilingual Transformers</title>
@@ -2103,7 +1995,6 @@
       <abstract>Code-Mixed language plays a very important role in communication in multilingual societies and with the recent increase in internet users especially in multilingual societies, the usage of such mixed language has also increased. However, the cross translation be- tween the Hinglish Code-Mixed and English and vice-versa has not been explored very extensively. With the recent success of large pretrained language models, we explore the possibility of using multilingual pretrained transformers like mBART and mT5 for exploring one such task of code-mixed Hinglish to English machine translation. Further, we compare our approach with the only baseline over the PHINC dataset and report a significant jump from 15.3 to 29.5 in BLEU scores, a 92.8% improvement over the same dataset.</abstract>
       <url hash="9285ccaa">2021.ranlp-srw.3</url>
       <bibkey>agarwal-etal-2021-hinglish-english</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/phinc">PHINC</pwcdataset>
     </paper>
     <paper id="4">
       <title><fixed-case>S</fixed-case>i<fixed-case>POS</fixed-case>: A Benchmark Dataset for <fixed-case>S</fixed-case>indhi Part-of-Speech Tagging</title>
@@ -2185,9 +2076,6 @@
       <abstract>Temporal commonsense reasoning is a challenging task as it requires temporal knowledge usually not explicit in text. In this work, we propose an ensemble model for temporal commonsense reasoning. Our model relies on pre-trained contextual representations from transformer-based language models (i.e., BERT), and on a variety of training methods for enhancing model generalization: 1) multi-step fine-tuning using carefully selected auxiliary tasks and datasets, and 2) a specifically designed temporal masked language model task aimed to capture temporal commonsense knowledge. Our model greatly outperforms the standard fine-tuning approach and strong baselines on the MC-TACO dataset.</abstract>
       <url hash="f00f65dd">2021.ranlp-srw.12</url>
       <bibkey>kimura-etal-2021-towards-language</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/cosmosqa">CosmosQA</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/mc-taco">MC-TACO</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/swag">SWAG</pwcdataset>
     </paper>
     <paper id="13">
       <title>Text Preprocessing and its Implications in a Digital Humanities Project</title>
@@ -2233,7 +2121,6 @@
       <abstract>The need to deploy large-scale pre-trained models on edge devices under limited computational resources has led to substantial research to compress these large models. However, less attention has been given to compress the task-specific models. In this work, we investigate the different methods of unstructured pruning on task-specific models for Aspect-based Sentiment Analysis (ABSA) tasks. Specifically, we analyze differences in the learning dynamics of pruned models by using the standard pruning techniques to achieve high-performing sparse networks. We develop a hypothesis to demonstrate the effectiveness of local pruning over global pruning considering a simple CNN model. Later, we utilize the hypothesis to demonstrate the efficacy of the pruned state-of-the-art model compared to the over-parameterized state-of-the-art model under two settings, the first considering the baselines for the same task used for generating the hypothesis, i.e., aspect extraction and the second considering a different task, i.e., sentiment analysis. We also provide discussion related to the generalization of the pruning hypothesis.</abstract>
       <url hash="0c3c3ac6">2021.ranlp-srw.17</url>
       <bibkey>mishra-chakraborty-2021-local-pruning</bibkey>
-      <pwccode url="https://github.com/abhishekkumarm98/local_vs_global-pruning" additional="false">abhishekkumarm98/local_vs_global-pruning</pwccode>
     </paper>
     <paper id="18">
       <title>On Reducing Repetition in Abstractive Summarization</title>
@@ -2243,7 +2130,6 @@
       <abstract>Repetition in natural language generation reduces the informativeness of text and makes it less appealing. Various techniques have been proposed to alleviate it. In this work, we explore and propose techniques to reduce repetition in abstractive summarization. First, we explore the application of unlikelihood training and embedding matrix regularizers from previous work on language modeling to abstractive summarization. Next, we extend the coverage and temporal attention mechanisms to the token level to reduce repetition. In our experiments on the CNN/Daily Mail dataset, we observe that these techniques reduce the amount of repetition and increase the informativeness of the summaries, which we confirm via human evaluation.</abstract>
       <url hash="e29ee0fa">2021.ranlp-srw.18</url>
       <bibkey>nair-singh-2021-reducing-repetition</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/cnn-daily-mail-1">CNN/Daily Mail</pwcdataset>
     </paper>
     <paper id="19">
       <title>Improving Abstractive Summarization with Commonsense Knowledge</title>
@@ -2253,8 +2139,6 @@
       <abstract>Large scale pretrained models have demonstrated strong performances on several natural language generation and understanding benchmarks. However, introducing commonsense into them to generate more realistic text remains a challenge. Inspired from previous work on commonsense knowledge generation and generative commonsense reasoning, we introduce two methods to add commonsense reasoning skills and knowledge into abstractive summarization models. Both methods beat the baseline on ROUGE scores, demonstrating the superiority of our models over the baseline. Human evaluation results suggest that summaries generated by our methods are more realistic and have fewer commonsensical errors.</abstract>
       <url hash="e22a129f">2021.ranlp-srw.19</url>
       <bibkey>nair-singh-2021-improving-abstractive</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/commongen">CommonGen</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/conceptnet">ConceptNet</pwcdataset>
     </paper>
     <paper id="20">
       <title>A Dataset for Research on Modelling Depression Severity in Online Forum Data</title>
@@ -2293,8 +2177,6 @@
       <abstract>The wide reach of social media platforms, such as Twitter, have enabled many users to share their thoughts, opinions and emotions on various topics online. The ability to detect these emotions automatically would allow social scientists, as well as, businesses to better understand responses from nations and costumers. In this study we introduce a dataset of 30,000 Persian Tweets labeled with Ekman’s six basic emotions (Anger, Fear, Happiness, Sadness, Hatred, and Wonder). This is the first publicly available emotion dataset in the Persian language. In this paper, we explain the data collection and labeling scheme used for the creation of this dataset. We also analyze the created dataset, showing the different features and characteristics of the data. Among other things, we investigate co-occurrence of different emotions in the dataset, and the relationship between sentiment and emotion of textual instances. The dataset is publicly available at <url>https://github.com/nazaninsbr/Persian-Emotion-Detection</url>.</abstract>
       <url hash="25c566a6">2021.ranlp-srw.23</url>
       <bibkey>sabri-etal-2021-emopars-collection</bibkey>
-      <pwccode url="https://github.com/nazaninsbr/persian-emotion-detection" additional="false">nazaninsbr/persian-emotion-detection</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/emopars">EmoPars</pwcdataset>
     </paper>
     <paper id="24">
       <title>A Review on Document Information Extraction Approaches</title>
@@ -2346,7 +2228,6 @@
       <abstract>In education, quiz questions have become an important tool for assessing the knowledge of students. Yet, manually preparing such questions is a tedious task, and thus automatic question generation has been proposed as a possible alternative. So far, the vast majority of research has focused on generating the question text, relying on question answering datasets with readily picked answers, and the problem of how to come up with answer candidates in the first place has been largely ignored. Here, we aim to bridge this gap. In particular, we propose a model that can generate a specified number of answer candidates for a given passage of text, which can then be used by instructors to write questions manually or can be passed as an input to automatic answer-aware question generators. Our experiments show that our proposed answer candidate generation model outperforms several baselines.</abstract>
       <url hash="a7047ccf">2021.ranlp-srw.28</url>
       <bibkey>vachev-etal-2021-generating-answer</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/exams">EXAMS</pwcdataset>
     </paper>
     <paper id="29">
       <title>Toward Discourse-Aware Models for Multilingual Fake News Detection</title>
