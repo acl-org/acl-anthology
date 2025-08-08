@@ -66,15 +66,17 @@ class PersonIndex(SlottedDict[Person]):
     Attributes:
         parent: The parent Anthology instance to which this index belongs.
         verbose: If False, will not show progress bar when building the index from scratch.
-        name_to_ids: A mapping of [Name][acl_anthology.people.name.Name] instances to person IDs.
-        slugs_to_verified_ids: A mapping of strings (representing slugified names) to person IDs.
+        by_orcid: A mapping of ORCIDs (as strings) to person IDs.
+        by_name: A mapping of [Name][acl_anthology.people.name.Name] instances to lists of person IDs.
+        slugs_to_verified_ids: A mapping of strings (representing slugified names) to lists of person IDs.
         similar: A [disjoint-set structure][scipy.cluster.hierarchy.DisjointSet] of persons with similar names.
         is_data_loaded: A flag indicating whether the index has been constructed.
     """
 
     parent: Anthology = field(repr=False, eq=False)
     verbose: bool = field(default=True)
-    name_to_ids: dict[Name, list[str]] = field(
+    by_orcid: dict[str, str] = field(init=False, repr=False, default={})
+    by_name: dict[Name, list[str]] = field(
         init=False, repr=False, factory=lambda: defaultdict(list)
     )
     slugs_to_verified_ids: dict[str, list[str]] = field(
@@ -94,7 +96,7 @@ class PersonIndex(SlottedDict[Person]):
         """
         if not self.is_data_loaded:
             self.load()
-        return [self.data[pid] for pid in self.name_to_ids[name]]
+        return [self.data[pid] for pid in self.by_name[name]]
 
     def get_by_namespec(self, name_spec: NameSpecification) -> Person:
         """Access persons by their name specification.
@@ -110,6 +112,21 @@ class PersonIndex(SlottedDict[Person]):
         if not self.is_data_loaded:
             self.load()
         return self.resolve_namespec(name_spec)
+
+    def get_by_orcid(self, orcid: str) -> Person | None:
+        """Access persons by their ORCID.
+
+        Parameters:
+            orcid: A string representing an ORCID.
+
+        Returns:
+            The person with that ORCID, if it exists, otherwise None.
+        """
+        if not self.is_data_loaded:
+            self.load()
+        if orcid in self.by_orcid:
+            return self.data[self.by_orcid[orcid]]
+        return None
 
     def find_coauthors(
         self, person: str | Person, include_volumes: bool = True
@@ -168,7 +185,8 @@ class PersonIndex(SlottedDict[Person]):
     def reset(self) -> None:
         """Resets the index."""
         self.data = {}
-        self.name_to_ids = defaultdict(list)
+        self.by_orcid = {}
+        self.by_name = defaultdict(list)
         self.slugs_to_verified_ids = defaultdict(list)
         self.similar = DisjointSet()
         self.is_data_loaded = False
@@ -277,8 +295,10 @@ class PersonIndex(SlottedDict[Person]):
             raise KeyError(f"A Person with ID '{pid}' already exists in the index")
         self.data[pid] = person
         self.similar.add(pid)
+        if person.orcid is not None:
+            self.by_orcid[person.orcid] = pid
         for name in person.names:
-            self.name_to_ids[name].append(pid)
+            self.by_name[name].append(pid)
             if is_verified_person_id(pid):
                 self.slugs_to_verified_ids[name.slugify()].append(pid)
 
@@ -343,7 +363,7 @@ class PersonIndex(SlottedDict[Person]):
                     # wasn't defined explicitly in people.yaml and just matched
                     # via the slug
                     person.add_name(name)
-                    self.name_to_ids[name].append(pid)
+                    self.by_name[name].append(pid)
 
             else:
                 # Resolve to unverified ID
@@ -360,7 +380,7 @@ class PersonIndex(SlottedDict[Person]):
                             person.set_canonical_name(name)
                         else:
                             person.add_name(name)
-                        self.name_to_ids[name].append(pid)
+                        self.by_name[name].append(pid)
                 elif allow_creation:
                     # Unverified ID doesn't exist yet; create it
                     person = Person(id=pid, parent=self.parent, names=[name])
@@ -376,8 +396,8 @@ class PersonIndex(SlottedDict[Person]):
             # TODO – currently this loses information that this name wasn't
             # defined explicitly in people.yaml and just added through a variant
             person.add_name(name)
-            if name not in self.name_to_ids:
-                self.name_to_ids[name].append(pid)
+            if name not in self.by_name:
+                self.by_name[name].append(pid)
         return person
 
     def _add_to_index(

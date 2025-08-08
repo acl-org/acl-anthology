@@ -45,10 +45,10 @@ def test_load_people_index_registers_names(index):
     index.is_data_loaded = True
     n1 = Name("Steven", "Krauwer")
     n2 = Name("S.", "Krauwer")
-    assert n1 in index.name_to_ids
-    assert n2 in index.name_to_ids
-    pid = index.name_to_ids[n1]
-    assert pid == index.name_to_ids[n2]
+    assert n1 in index.by_name
+    assert n2 in index.by_name
+    pid = index.by_name[n1]
+    assert pid == index.by_name[n2]
     assert pid[0] in index
 
 
@@ -57,8 +57,8 @@ def test_add_person(index):
     index.add_person(p1)
     index.is_data_loaded = True  # to prevent it attempting to build itself
     assert "yang-liu" in index
-    assert Name("Yang", "Liu") in index.name_to_ids
-    assert index.name_to_ids[Name("Yang", "Liu")] == ["yang-liu"]
+    assert Name("Yang", "Liu") in index.by_name
+    assert index.by_name[Name("Yang", "Liu")] == ["yang-liu"]
     assert index.get_by_name(Name("Yang", "Liu"))[0] is p1
     assert index.get_by_namespec(NameSpecification(Name("Yang", "Liu"))) is p1
     assert index.get("yang-liu") is p1
@@ -88,7 +88,7 @@ def test_build_personindex(index_with_full_anthology):
     index.build(show_progress=False)
     assert index.is_data_loaded
     assert "yang-liu-microsoft" in index
-    assert Name("Nicoletta", "Calzolari") in index.name_to_ids
+    assert Name("Nicoletta", "Calzolari") in index.by_name
 
 
 def test_build_personindex_automatically(index_with_full_anthology):
@@ -156,3 +156,10 @@ def test_get_by_name_variants(index_with_full_anthology):
     persons = index.get_by_name(Name("洋", "刘"))
     assert len(persons) == 1
     assert persons[0].id == "yang-liu-ict"
+
+
+def test_get_by_orcid(index_with_full_anthology):
+    index = index_with_full_anthology
+    person = index.get_by_orcid("0000-0003-2598-8150")
+    assert person is not None
+    assert person.id == "marcel-bollmann"
