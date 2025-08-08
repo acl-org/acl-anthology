@@ -31,7 +31,7 @@ RE_COLLECTION_ID = re.compile(r"([0-9]{4}\.[a-z0-9]+)|([A-Z][0-9]{2})")
 RE_ITEM_ID = re.compile(r"[a-z0-9]+")
 """A regular expression matching any valid volume or paper ID."""
 
-RE_VERIFIED_PERSON_ID = re.compile(r"[a-z0-9][\-a-z0-9]+")
+RE_VERIFIED_PERSON_ID = re.compile(r"[a-z][\-a-z0-9]+")
 """A regular expression matching any valid verified person ID."""
 
 RE_ORCID = re.compile(r"[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{3}[0-9X]")
