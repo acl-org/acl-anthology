@@ -1,5 +1,26 @@
 # Changelog
 
+## [Unreleased]
+
+This release implements the new [name resolution and author ID logic](https://github.com/acl-org/acl-anthology/wiki/Author-Page-Plan), and is therefore fundamentally incompatible with ACL Anthology data before the switch to this new system.
+
+### Added
+
+- NameSpecification now provides an `orcid` field.
+- Person now provides `orcid` and `degree` fields, as well as the `disable_name_matching` for the new name resolution logic.
+- PersonIndex:
+  - Now also indexes Person objects by ORCID, and provides `by_orcid` and `get_by_orcid()`.
+  - Now also keeps a mapping of name slugs to (verified) person IDs, via `slugs_to_verified_ids` (mostly for internal use).
+  - Added `ingest_namespec()` to implement the [matching logic on ingestion](https://github.com/acl-org/acl-anthology/wiki/Author-Page-Plan#ingestion) of new volumes.
+
+### Changed
+
+- Several breaking changes to PersonIndex for the new author ID system:
+  - Loading the index now expects a `people.yaml` file instead of `name_variants.yaml`.
+  - Renamed `get_or_create_person()` to `resolve_namespec()` and refactored it to reflect the [new name resolution logic](https://github.com/acl-org/acl-anthology/wiki/Author-Page-Plan#proposed-name-resolution-logic).
+  - Renamed `name_to_ids` to `by_name`, in line with the new `by_orcid` field.
+  - Changed the type of exceptions that can be raised; `AmbiguousNameError` was replaced by `NameSpecResolutionError` and `PersonDefinitionError`.
+
 ## [0.5.3] — 2025-06-22
 
 This release adds more functionality for ingesting new proceedings and modifying existing data.

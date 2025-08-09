@@ -75,6 +75,7 @@ class PersonIndex(SlottedDict[Person]):
 
     parent: Anthology = field(repr=False, eq=False)
     verbose: bool = field(default=True)
+    # TODO: could the following fields be made private and have getters that check for self.is_data_loaded?
     by_orcid: dict[str, str] = field(init=False, repr=False, default={})
     by_name: dict[Name, list[str]] = field(
         init=False, repr=False, factory=lambda: defaultdict(list)
