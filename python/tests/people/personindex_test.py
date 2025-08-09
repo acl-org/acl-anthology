@@ -13,7 +13,7 @@
 # limitations under the License.
 
 import pytest
-from acl_anthology.exceptions import NameSpecResolutionError
+from acl_anthology.exceptions import NameSpecResolutionError, PersonDefinitionError
 from acl_anthology.people import Name, NameSpecification, Person, PersonIndex
 
 
@@ -23,7 +23,7 @@ def index(anthology_stub):
 
 
 @pytest.fixture
-def index_with_full_anthology(anthology):
+def index_with_toy_anthology(anthology):
     return PersonIndex(anthology)
 
 
@@ -82,8 +82,8 @@ def test_similar_names_through_same_canonical_name(index):
     }
 
 
-def test_build_personindex(index_with_full_anthology):
-    index = index_with_full_anthology
+def test_build_personindex(index_with_toy_anthology):
+    index = index_with_toy_anthology
     assert not index.is_data_loaded
     index.build(show_progress=False)
     assert index.is_data_loaded
@@ -91,27 +91,22 @@ def test_build_personindex(index_with_full_anthology):
     assert Name("Nicoletta", "Calzolari") in index.by_name
 
 
-def test_build_personindex_automatically(index_with_full_anthology):
-    index = index_with_full_anthology
+def test_build_personindex_automatically(index_with_toy_anthology):
+    index = index_with_toy_anthology
     assert not index.is_data_loaded
     persons = index.get_by_name(Name("Nicoletta", "Calzolari"))
     assert index.is_data_loaded
     assert len(persons) == 1
 
 
-def test_canonical_name_is_never_a_variant(index_with_full_anthology):
-    index = index_with_full_anthology
+def test_canonical_name_is_never_a_variant(index_with_toy_anthology):
+    index = index_with_toy_anthology
     for person in index.values():
         assert person.canonical_name.script is None
 
 
-# TODO: add tests for resolve_namespec()
-# - test name resolution logic
-# - test exceptions that can be raised
-
-
-def test_get_person_coauthors(index_with_full_anthology):
-    index = index_with_full_anthology
+def test_get_person_coauthors(index_with_toy_anthology):
+    index = index_with_toy_anthology
     person = index.get_by_name(Name("Kathleen", "Dahlgren"))[0]
     coauthors = index.find_coauthors(person)
     assert len(coauthors) == 1
@@ -125,8 +120,8 @@ def test_get_person_coauthors(index_with_full_anthology):
     assert len(coauthors) == 2
 
 
-def test_get_person_coauthors_counter(index_with_full_anthology):
-    index = index_with_full_anthology
+def test_get_person_coauthors_counter(index_with_toy_anthology):
+    index = index_with_toy_anthology
     person = index.get_by_name(Name("Kathleen", "Dahlgren"))[0]
     coauthors = index.find_coauthors_counter(person)
     assert len(coauthors) == 1
@@ -139,8 +134,8 @@ def test_get_person_coauthors_counter(index_with_full_anthology):
     assert coauthors["unverified/aline-villavicencio"] == 2
 
 
-def test_get_by_namespec(index_with_full_anthology):
-    index = index_with_full_anthology
+def test_get_by_namespec(index_with_toy_anthology):
+    index = index_with_toy_anthology
     ns1 = NameSpecification(Name("Yang", "Liu"))
     ns2 = NameSpecification(Name("Yang", "Liu"), id="yang-liu-microsoft")
     with pytest.raises(NameSpecResolutionError):
@@ -150,16 +145,158 @@ def test_get_by_namespec(index_with_full_anthology):
     assert person.canonical_name == Name("Yang", "Liu")
 
 
-def test_get_by_name_variants(index_with_full_anthology):
+def test_get_by_name_variants(index_with_toy_anthology):
     # It should be possible to find a person by a name variant
-    index = index_with_full_anthology
+    index = index_with_toy_anthology
     persons = index.get_by_name(Name("洋", "刘"))
     assert len(persons) == 1
     assert persons[0].id == "yang-liu-ict"
 
 
-def test_get_by_orcid(index_with_full_anthology):
-    index = index_with_full_anthology
+def test_get_by_orcid(index_with_toy_anthology):
+    index = index_with_toy_anthology
     person = index.get_by_orcid("0000-0003-2598-8150")
     assert person is not None
     assert person.id == "marcel-bollmann"
+
+
+##############################################################################
+### Tests for name resolution logic
+##############################################################################
+
+test_cases_resolve_namespec = (
+    #### "No match" cases
+    (  # Name does not exist in people.yaml
+        {"first": "Matthew", "last": "Stevens"},
+        {},
+        "unverified/matthew-stevens",
+    ),
+    (  # Person with explicit ID does not exist in people.yaml
+        {"first": "Matthew", "last": "Stevens"},
+        {"id": "matthew-stevens"},
+        PersonDefinitionError,
+    ),
+    #### "One match" cases
+    (  # Name exists in people.yaml, unambiguous
+        {"first": "Steven", "last": "Krauwer"},
+        {},
+        "steven-krauwer",
+    ),
+    (  # Name exists in people.yaml, unambiguous, but not as canonical name
+        {"first": "Emily T.", "last": "Prud’hommeaux"},
+        {},
+        "emily-prudhommeaux",
+    ),
+    (  # Person unambiguous, but has `disable_name_matching: true`
+        {"first": "Pranav", "last": "Anand"},
+        {},
+        "unverified/pranav-anand",
+    ),
+    (  # `disable_name_matching: true` doesn't affect NameSpecs with explicit ID
+        {"first": "Pranav", "last": "Anand"},
+        {"id": "pranav-anand"},
+        "pranav-anand",
+    ),
+    (  # Name exists in people.yaml with an ORCID, unambiguous
+        {"first": "Marcel", "last": "Bollmann"},
+        {},
+        "marcel-bollmann",
+    ),
+    (  # ... with explicit ID
+        {"first": "Marcel", "last": "Bollmann"},
+        {"id": "marcel-bollmann"},
+        "marcel-bollmann",
+    ),
+    (  # ... with explicit ID & ORCID
+        {"first": "Marcel", "last": "Bollmann"},
+        {"id": "marcel-bollmann", "orcid": "0000-0003-2598-8150"},
+        "marcel-bollmann",
+    ),
+    (  # ... with explicit ID & ORCID, but ORCID doesn't match
+        {"first": "Marcel", "last": "Bollmann"},
+        {"id": "marcel-bollmann", "orcid": "0000-0002-7491-7669"},
+        PersonDefinitionError,
+    ),
+    (  # ... with explicit ID & ORCID, but name isn't listed in people.yaml
+        {"first": "Marc Marcel", "last": "Bollmann"},
+        {"id": "marcel-bollmann", "orcid": "0000-0003-2598-8150"},
+        PersonDefinitionError,
+    ),
+    (  # Name matches an existing, unambiguous name via slugification
+        {"first": "Stèven", "last": "Kräuwer"},
+        {},
+        "steven-krauwer",
+    ),
+    (  # ... even when it's not the canonical name
+        {"first": "Emily T.", "last": "Prüd’hommeaux"},
+        {},
+        "emily-prudhommeaux",
+    ),
+    (  # ... even with different first/last split
+        {"first": "Emily", "last": "T. Prud’hommeaux"},
+        {},
+        "emily-prudhommeaux",
+    ),
+    #### "2+ matches" cases
+    (  # Name exists in people.yaml for several people
+        {"first": "Yang", "last": "Liu"},
+        {},
+        "unverified/yang-liu",
+    ),
+    (  # ... will resolve to known person with explicit ID
+        {"first": "Yang", "last": "Liu"},
+        {"id": "yang-liu-icsi"},
+        "yang-liu-icsi",
+    ),
+    (  # ... affiliation is NOT used in any way for name resolution
+        {"first": "Yang", "last": "Liu"},
+        {"affiliation": "Microsoft Cognitive Services Research"},
+        "unverified/yang-liu",
+    ),
+    #### Malformed name specifications
+    (  # Person with explicit ORCID, but no explicit ID (always disallowed)
+        {"first": "Matthew", "last": "Stevens"},
+        {"orcid": "0000-0002-7491-7669"},
+        NameSpecResolutionError,
+    ),
+    (  # ... even if the person exists (ID is still required)
+        {"first": "Marcel", "last": "Bollmann"},
+        {"orcid": "0000-0003-2598-8150"},
+        NameSpecResolutionError,
+    ),
+)
+
+
+@pytest.mark.parametrize(
+    "name_dict, namespec_params, expected_result",
+    test_cases_resolve_namespec,
+)
+def test_resolve_namespec(
+    name_dict, namespec_params, expected_result, index_with_toy_anthology
+):
+    index = index_with_toy_anthology
+    index._load_people_index()
+    name = Name.from_dict(name_dict)
+    namespec = NameSpecification(name, **namespec_params)
+
+    if isinstance(expected_result, str):
+        person = index.resolve_namespec(namespec, allow_creation=True)
+        assert person.has_name(name)
+        assert person.id == expected_result
+    elif isinstance(expected_result, type):
+        with pytest.raises(expected_result):
+            index.resolve_namespec(namespec, allow_creation=True)
+    else:
+        raise ValueError(
+            f"Test cannot take expected result of type {type(expected_result)}"
+        )
+
+
+def test_resolve_namespec_disallow_creation(index_with_toy_anthology):
+    index = index_with_toy_anthology
+    index._load_people_index()
+    # If we would map to an unverified ID but allow_creation is False, should raise
+    with pytest.raises(NameSpecResolutionError):
+        index.resolve_namespec(
+            NameSpecification(Name("Matthew", "Stevens")), allow_creation=False
+        )
