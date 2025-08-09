@@ -304,10 +304,48 @@ class PersonIndex(SlottedDict[Person]):
             if is_verified_person_id(pid):
                 self.slugs_to_verified_ids[name.slugify()].append(pid)
 
+    def ingest_namespec(self, name_spec: NameSpecification) -> NameSpecification:
+        """Update a name specification for ingestion, potentially filling in the ID field.
+
+        If the name specification contains an ORCID but doesn't have an ID yet, this will find the person with this ORCID and fill in their ID; if it doesn't exist yet, it will create a new person with a "verified" ID and fill in the new, generated ID.  The supplied name specification will be modified in-place, but also returned.
+
+        Parameters:
+            name_spec: The name specification on the paper, volume, etc.
+
+        Returns:
+            The name specification as it should be used for the new ingestion material.
+        """
+        if name_spec.orcid is None or name_spec.id is not None:
+            return name_spec
+
+        if (person := self.get_by_orcid(name_spec.orcid)) is not None:
+            name_spec.id = person.id
+            # Make sure the name used here is listed for this person
+            person.add_name(name_spec.name)
+        else:
+            # Need to create a new person; generate name slug for the ID
+            pid = name_spec.name.slugify()
+            if pid in self.data:
+                # ID is already in use; add last four digits of ORCID to disambiguate
+                pid = f"{pid}-{name_spec.orcid[-4:]}"
+
+            self.add_person(
+                Person(
+                    id=pid,
+                    parent=self.parent,
+                    names=[name_spec.name] + name_spec.variants,
+                    orcid=name_spec.orcid,
+                    is_explicit=True,
+                )
+            )
+            name_spec.id = pid
+
+        return name_spec
+
     def resolve_namespec(
         self, name_spec: NameSpecification, allow_creation: bool = False
     ) -> Person:
-        """Resolve a name specification to a person, potentially creating it.
+        """Resolve a name specification to a person, potentially creating a new unverified person instance.
 
         Parameters:
             name_spec: The name specification on the paper, volume, etc.

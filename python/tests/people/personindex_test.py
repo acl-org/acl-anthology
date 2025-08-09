@@ -166,6 +166,7 @@ def test_get_by_orcid(index_with_toy_anthology):
 ### Tests for name resolution logic
 ##############################################################################
 
+# Format: (Name, NameSpecification attributes, expected ID or Exception)
 test_cases_resolve_namespec = (
     #### "No match" cases
     (  # Name does not exist in people.yaml
@@ -319,3 +320,77 @@ def test_resolve_namespec_name_scoring_for_unverified_ids(index):
     assert person2 is person1
     # ... and also updates their canonical name, as it scores higher!
     assert person2.canonical_name == Name("René", "Müller")
+
+
+##############################################################################
+### Tests for ingestion logic
+##############################################################################
+
+# Format: (Name, NameSpecification attributes, expected ID)
+test_cases_ingest_namespec = (
+    (  # No ORCID in the ingestion material
+        {"first": "Matthew", "last": "Stevens"},
+        {},
+        None,
+    ),
+    #### ORCID in the ingestion material, matches a person in our `people.yaml`
+    (
+        {"first": "Marcel", "last": "Bollmann"},
+        {"orcid": "0000-0003-2598-8150"},
+        "marcel-bollmann",
+    ),
+    (  # ... even if the name wasn't recorded yet in `people.yaml`
+        {"first": "Marc Marcel", "last": "Bollmann"},
+        {"orcid": "0000-0003-2598-8150"},
+        "marcel-bollmann",
+    ),
+    #### ORCID in the ingestion material, no match in our `people.yaml`
+    (  # Person should be created
+        {"first": "Matt", "last": "Post"},
+        {"orcid": "0000-0002-1297-6794"},
+        "matt-post",
+    ),
+    (  # It shouldn't matter if other persons with the same name exist, only ORCID matters
+        {"first": "Yang", "last": "Liu"},
+        {"orcid": "0000-0003-4154-7507"},
+        "yang-liu",  # this ID is actually not defined in people.yaml!
+    ),
+    (  # When generated ID is already taken, append the last four digits of ORCID
+        {"first": "Marcel", "last": "Bollmann"},
+        {"orcid": "0000-0003-3750-1098"},
+        "marcel-bollmann-1098",
+    ),
+    #### Edge cases
+    (  # If function is already called with an ID for some reason, nothing happens
+        {"first": "Marcel", "last": "Bollmann"},
+        {"id": "marcel-bollmann"},
+        "marcel-bollmann",
+    ),
+)
+
+
+@pytest.mark.parametrize(
+    "name_dict, namespec_params, expected_result",
+    test_cases_ingest_namespec,
+)
+def test_ingest_namespec(
+    name_dict, namespec_params, expected_result, index_with_toy_anthology
+):
+    index = index_with_toy_anthology
+    index._load_people_index()
+    name = Name.from_dict(name_dict)
+    namespec = NameSpecification(name, **namespec_params)
+    index.ingest_namespec(namespec)
+
+    assert namespec.id == expected_result
+    if namespec.id is not None:
+        # Should also exist in (or have been added to) index
+        assert namespec.id in index
+        # ... with the name given here
+        assert index[namespec.id].has_name(name)
+
+
+def test_ingest_namespec_returns_namespec(index_with_toy_anthology):
+    ns1 = NameSpecification(Name("Matt", "Post"), orcid="0000-0002-1297-6794")
+    ns2 = index_with_toy_anthology.ingest_namespec(ns1)
+    assert ns1 is ns2
