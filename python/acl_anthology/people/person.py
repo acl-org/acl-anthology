@@ -15,7 +15,8 @@
 from __future__ import annotations
 
 from attrs import define, field
-from typing import Any, Iterator, Optional, TYPE_CHECKING
+from enum import Enum
+from typing import Any, Iterator, Optional, Sequence, TYPE_CHECKING
 from ..utils.attrs import auto_validate_types
 from ..utils.ids import AnthologyIDTuple, build_id_from_tuple, is_valid_orcid
 from . import Name
@@ -23,6 +24,25 @@ from . import Name
 if TYPE_CHECKING:
     from ..anthology import Anthology
     from ..collections import Paper, Volume
+
+
+class NameLink(Enum):
+    """How a Name was connected to a Person."""
+
+    EXPLICIT = "explicit"
+    """Name is explicitly listed in `people.yaml` file."""
+
+    INFERRED = "inferred"
+    """Name was connected to this Person via slug matching heuristic."""
+
+
+def _name_list_converter(
+    name_list: Sequence[Name | tuple[Name, NameLink]],
+) -> list[tuple[Name, NameLink]]:
+    return [
+        (item, NameLink.EXPLICIT) if isinstance(item, Name) else item
+        for item in name_list
+    ]
 
 
 @define(field_transformer=auto_validate_types)
@@ -35,17 +55,19 @@ class Person:
     Attributes:
         id: A unique ID for this person.
         parent: The parent Anthology instance to which this person belongs.
-        names: A list of names under which this person has published.
         item_ids: A list of volume and/or paper IDs this person has authored or edited.
         orcid: The person's ORCID.
         comment: A comment for disambiguation purposes.
         degree: The person's institution of highest degree, for disambiguation purposes.
-        is_explicit: True if this person's ID was explicitly defined in `people.yaml`.
+        disable_name_matching: If True, no items should be assigned to this person unless they explicitly specify this person's ID.
+        is_explicit: If True, this person's ID is explicitly defined in `people.yaml`.
     """
 
     id: str = field()
     parent: Anthology = field(repr=False, eq=False)
-    names: list[Name] = field(factory=list)
+    _names: list[tuple[Name, NameLink]] = field(
+        factory=list, converter=_name_list_converter
+    )
     item_ids: list[AnthologyIDTuple] = field(
         factory=list, repr=lambda x: f"<list of {len(x)} AnthologyIDTuple objects>"
     )
@@ -69,6 +91,14 @@ class Person:
             raise ValueError("ORCID is not valid (wrong format or checksum)")
 
     @property
+    def names(self) -> list[Name]:
+        return [name for (name, _) in self._names]
+
+    @names.setter
+    def names(self, values: list[Name]) -> None:
+        self._names = _name_list_converter(values)
+
+    @property
     def canonical_name(self) -> Name:
         """
         Returns:
@@ -77,7 +107,7 @@ class Person:
         try:
             # By convention, the first entry of `self.names` is treated as the
             # canonical entry
-            return self.names[0]
+            return self._names[0][0]
         except IndexError:
             raise ValueError(f"No names defined for person '{self.id}'")
 
@@ -85,14 +115,35 @@ class Person:
     def canonical_name(self, name: Name) -> None:
         self.set_canonical_name(name)
 
-    def add_name(self, name: Name) -> None:
+    def add_name(self, name: Name, inferred: bool = False) -> None:
         """Add a name for this person.
 
         Parameters:
             name: Name that can refer to this person.
+            inferred: If True, will be marked as `NameLinkingType.INFERRED`, which will e.g. cause this name to not be written to `people.yaml`.  Used when building the [`PersonIndex`][acl_anthology.people.index.PersonIndex] from the XML data; you probably don't want to set this manually.  Defaults to False.
         """
-        if name not in self.names:
-            self.names.append(name)
+        link_type = NameLink.INFERRED if inferred else NameLink.EXPLICIT
+        if not self.has_name(name):
+            self._names.append((name, link_type))
+        elif (name, link_type) not in self._names:
+            # ensure that name is re-inserted at same position
+            idx = self.names.index(name)
+            del self._names[idx]
+            self._names.insert(idx, (name, link_type))
+
+    def remove_name(self, name: Name) -> None:
+        """Remove an explicit name for this person.
+
+        Warning:
+            If the name is still used on a paper or volume with the ID of this person, this may result in an Exception during index building.  Names that were implicitly linked to this person cannot be removed this way, as the name would simply reappear on next load.
+
+        Parameters:
+            name: Name that should be removed from this person.
+
+        Raises:
+            ValueError: If this name was not explicitly linked to this person.
+        """
+        self._names.remove((name, NameLink.EXPLICIT))
 
     def has_name(self, name: Name) -> bool:
         """
@@ -102,19 +153,19 @@ class Person:
         Returns:
             True if the given name can refer to this person.
         """
-        return name in self.names
+        return any(existing_name == name for (existing_name, _) in self._names)
 
-    def set_canonical_name(self, name: Name) -> None:
+    def set_canonical_name(self, name: Name, inferred: bool = False) -> None:
         """Set the canonical name for this person.
 
         Parameters:
             name: Name that should be treated as canonical for this person.
         """
-        try:
-            self.names.pop(self.names.index(name))
-        except ValueError:
-            pass
-        self.names.insert(0, name)
+        link_type = NameLink.INFERRED if inferred else NameLink.EXPLICIT
+        if not self.has_name(name):
+            self._names.insert(0, (name, link_type))
+        else:
+            self._names = [(name, link_type)] + [x for x in self._names if x[0] != name]
 
     def papers(self) -> Iterator[Paper]:
         """Returns an iterator over all papers associated with this person.

@@ -13,7 +13,7 @@
 # limitations under the License.
 
 import pytest
-from acl_anthology.people import Name, Person
+from acl_anthology.people import Name, NameLink, Person
 
 
 def test_person_names(anthology_stub):
@@ -27,7 +27,7 @@ def test_person_names(anthology_stub):
     assert not person.has_name(n3)
 
 
-def test_person_canonical_names(anthology_stub):
+def test_person_canonical_name(anthology_stub):
     n1 = Name("Yang", "Liu")
     n2 = Name("Y.", "Liu")
     person = Person("yang-liu", anthology_stub, [n1, n2])
@@ -37,7 +37,7 @@ def test_person_canonical_names(anthology_stub):
     assert len(person.names) == 2
 
 
-def test_person_add_names(anthology_stub):
+def test_person_add_name(anthology_stub):
     n1 = Name("Yang", "Liu")
     n2 = Name("Y.", "Liu")
     person = Person("yang-liu", anthology_stub, [n1])
@@ -49,6 +49,28 @@ def test_person_add_names(anthology_stub):
     person.add_name(n3)
     assert person.canonical_name == n2
     assert len(person.names) == 3
+
+
+def test_person_remove_name(anthology_stub):
+    n1 = Name("Yang", "Liu")
+    n2 = Name("Y.", "Liu")
+    person = Person("yang-liu", anthology_stub, [n1, n2])
+    assert person.has_name(n2)
+    person.remove_name(n2)
+    assert not person.has_name(n2)
+    assert len(person.names) == 1
+
+
+def test_person_names_explicit_vs_inferred(anthology_stub):
+    n1 = Name("Yang", "Liu")
+    n2 = Name("Y.", "Liu")
+    person = Person("yang-liu", anthology_stub, [n1])
+    assert (n1, NameLink.EXPLICIT) in person._names
+    person.set_canonical_name(n2)
+    assert (n2, NameLink.EXPLICIT) in person._names
+    n3 = Name("Yang X.", "Liu")
+    person.add_name(n3, inferred=True)
+    assert (n3, NameLink.INFERRED) in person._names
 
 
 def test_person_no_name(anthology_stub):

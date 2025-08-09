@@ -20,6 +20,8 @@ This release implements the new [name resolution and author ID logic](https://gi
   - Renamed `get_or_create_person()` to `resolve_namespec()` and refactored it to reflect the [new name resolution logic](https://github.com/acl-org/acl-anthology/wiki/Author-Page-Plan#proposed-name-resolution-logic).
   - Renamed `name_to_ids` to `by_name`, in line with the new `by_orcid` field.
   - Changed the type of exceptions that can be raised; `AmbiguousNameError` was replaced by `NameSpecResolutionError` and `PersonDefinitionError`.
+- Person now stores names as tuples of `(Name, NameLink)`, the latter of which indicates if the name was explicitly defined in `people.yaml` or inferred by the name resolution logic (e.g. via slug matching).  As a consequence, `Person.names` can no longer be modified in-place; use `Person.add_name()`, `Person.remove_name()`, or the setter of `Person.names`.
+
 
 ## [0.5.3] — 2025-06-22
 

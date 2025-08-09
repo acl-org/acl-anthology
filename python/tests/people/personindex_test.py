@@ -14,7 +14,7 @@
 
 import pytest
 from acl_anthology.exceptions import NameSpecResolutionError, PersonDefinitionError
-from acl_anthology.people import Name, NameSpecification, Person, PersonIndex
+from acl_anthology.people import Name, NameLink, NameSpecification, Person, PersonIndex
 
 
 @pytest.fixture
@@ -320,6 +320,54 @@ def test_resolve_namespec_name_scoring_for_unverified_ids(index):
     assert person2 is person1
     # ... and also updates their canonical name, as it scores higher!
     assert person2.canonical_name == Name("René", "Müller")
+
+
+test_cases_namelink = (
+    # Names that are explicitly defined in people.yaml should always have
+    # NameLink.EXPLICIT after resolve_namespec()
+    (
+        {"first": "Steven", "last": "Krauwer"},
+        NameLink.EXPLICIT,
+    ),
+    (
+        {"first": "S.", "last": "Krauwer"},
+        NameLink.EXPLICIT,
+    ),
+    (
+        {"first": "Marcel", "last": "Bollmann"},
+        NameLink.EXPLICIT,
+    ),
+    # Names that are matched via slugification should always have
+    # NameLink.INFERRED after resolve_namespec()
+    (
+        {"first": "Stèven", "last": "Kräuwer"},
+        NameLink.INFERRED,
+    ),
+    (
+        {"first": "Emily T.", "last": "Prüd’hommeaux"},
+        NameLink.INFERRED,
+    ),
+    (
+        {"first": "Emily", "last": "T. Prud’hommeaux"},
+        NameLink.INFERRED,
+    ),
+)
+
+
+@pytest.mark.parametrize("name_dict, expected_namelink", test_cases_namelink)
+def test_check_namelink_after_resolve_namespec(
+    name_dict, expected_namelink, index_with_toy_anthology
+):
+    index = index_with_toy_anthology
+    index._load_people_index()
+    name = Name.from_dict(name_dict)
+    namespec = NameSpecification(name)
+    person = index.resolve_namespec(namespec, allow_creation=True)
+
+    assert (
+        name,
+        expected_namelink,
+    ) in person._names  # maybe provide a function for this?
 
 
 ##############################################################################

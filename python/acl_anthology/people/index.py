@@ -38,7 +38,7 @@ from ..exceptions import (
 )
 from ..utils.ids import AnthologyIDTuple, is_verified_person_id
 from ..utils.logging import get_logger
-from . import Person, Name, NameSpecification
+from . import Person, Name, NameLink, NameSpecification
 
 if TYPE_CHECKING:
     from _typeshed import StrPath
@@ -366,7 +366,7 @@ class PersonIndex(SlottedDict[Person]):
                 raise PersonDefinitionError(
                     name_spec, f"ID '{pid}' wasn't defined in people.yaml"
                 )
-            if name not in person.names:
+            if not person.has_name(name):
                 raise PersonDefinitionError(
                     name_spec,
                     f"ID '{pid}' was used with name '{name}' that wasn't defined in people.yaml",
@@ -399,11 +399,8 @@ class PersonIndex(SlottedDict[Person]):
             ):
                 # Slug unambiguously maps to person and name matching not disabled
                 pid = person.id
-                if name not in person.names:
-                    # TODO – currently this loses information that this name
-                    # wasn't defined explicitly in people.yaml and just matched
-                    # via the slug
-                    person.add_name(name)
+                if not person.has_name(name):
+                    person.add_name(name, inferred=True)
                     self.by_name[name].append(pid)
 
             else:
@@ -413,18 +410,20 @@ class PersonIndex(SlottedDict[Person]):
                 if pid in self.data:
                     # Unverified ID already exists; assume it's the same person
                     person = self.data[pid]
-                    if name not in person.names:
+                    if not person.has_name(name):
                         # If the name scores higher than the current canonical
                         # one, we also assume we should set this as the
                         # canonical one
                         if name.score() > person.canonical_name.score():
-                            person.set_canonical_name(name)
+                            person.set_canonical_name(name, inferred=True)
                         else:
-                            person.add_name(name)
+                            person.add_name(name, inferred=True)
                         self.by_name[name].append(pid)
                 elif allow_creation:
                     # Unverified ID doesn't exist yet; create it
-                    person = Person(id=pid, parent=self.parent, names=[name])
+                    person = Person(
+                        id=pid, parent=self.parent, names=[(name, NameLink.INFERRED)]
+                    )
                     self.add_person(person)
                 else:
                     raise NameSpecResolutionError(
@@ -434,9 +433,8 @@ class PersonIndex(SlottedDict[Person]):
 
         # Make sure that name variants specified here are registered
         for name in name_spec.variants:
-            # TODO – currently this loses information that this name wasn't
-            # defined explicitly in people.yaml and just added through a variant
-            person.add_name(name)
+            if not person.has_name(name):
+                person.add_name(name, inferred=True)
             if name not in self.by_name:
                 self.by_name[name].append(pid)
         return person
