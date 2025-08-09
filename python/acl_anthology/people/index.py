@@ -226,7 +226,7 @@ class PersonIndex(SlottedDict[Person]):
                         for name_spec in name_specs:
                             person = self.resolve_namespec(name_spec, allow_creation=True)
                             person.item_ids.append(paper.full_id_tuple)
-                except Exception as exc:
+                except Exception as exc:  # pragma: no cover
                     note = f"Raised in {context.__class__.__name__} {context.full_id}; {name_spec}"
                     # If this is merged into a single if-statement (with "or"),
                     # the type checker complains ¯\_(ツ)_/¯
@@ -256,7 +256,9 @@ class PersonIndex(SlottedDict[Person]):
 
         for pid, entry in data.items():
             if not is_verified_person_id(pid):
-                raise KeyError(f"Invalid person ID in people.yaml: {pid}")
+                raise KeyError(
+                    f"Invalid person ID in people.yaml: {pid}"
+                )  # pragma: no cover
             self.add_person(
                 Person(
                     id=pid,
@@ -276,7 +278,7 @@ class PersonIndex(SlottedDict[Person]):
             if entry:
                 log.warning(
                     f"people.yaml: entry '{pid}' has unknown keys: {entry.keys()}"
-                )
+                )  # pragma: no cover
 
         # Process IDs with similar names
         for pid_list in self.slugs_to_verified_ids.values():

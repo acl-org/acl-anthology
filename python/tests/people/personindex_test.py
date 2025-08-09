@@ -89,6 +89,7 @@ def test_build_personindex(index_with_toy_anthology):
     assert index.is_data_loaded
     assert "yang-liu-microsoft" in index
     assert Name("Nicoletta", "Calzolari") in index.by_name
+    assert "0000-0003-2598-8150" in index.by_orcid
 
 
 def test_build_personindex_automatically(index_with_toy_anthology):
@@ -99,7 +100,7 @@ def test_build_personindex_automatically(index_with_toy_anthology):
     assert len(persons) == 1
 
 
-def test_canonical_name_is_never_a_variant(index_with_toy_anthology):
+def test_canonical_name_never_has_script(index_with_toy_anthology):
     index = index_with_toy_anthology
     for person in index.values():
         assert person.canonical_name.script is None
@@ -107,7 +108,8 @@ def test_canonical_name_is_never_a_variant(index_with_toy_anthology):
 
 def test_get_person_coauthors(index_with_toy_anthology):
     index = index_with_toy_anthology
-    person = index.get_by_name(Name("Kathleen", "Dahlgren"))[0]
+    index.load()
+    person = index.by_name[Name("Kathleen", "Dahlgren")][0]
     coauthors = index.find_coauthors(person)
     assert len(coauthors) == 1
     assert coauthors[0].canonical_name == Name("Joyce", "McDowell")
@@ -122,8 +124,7 @@ def test_get_person_coauthors(index_with_toy_anthology):
 
 def test_get_person_coauthors_counter(index_with_toy_anthology):
     index = index_with_toy_anthology
-    person = index.get_by_name(Name("Kathleen", "Dahlgren"))[0]
-    coauthors = index.find_coauthors_counter(person)
+    coauthors = index.find_coauthors_counter("unverified/kathleen-dahlgren")
     assert len(coauthors) == 1
     assert coauthors["unverified/joyce-mcdowell"] == 1
 
@@ -158,6 +159,7 @@ def test_get_by_orcid(index_with_toy_anthology):
     person = index.get_by_orcid("0000-0003-2598-8150")
     assert person is not None
     assert person.id == "marcel-bollmann"
+    assert index.get_by_orcid("0000-0000-0000-0000") is None
 
 
 ##############################################################################
@@ -300,3 +302,20 @@ def test_resolve_namespec_disallow_creation(index_with_toy_anthology):
         index.resolve_namespec(
             NameSpecification(Name("Matthew", "Stevens")), allow_creation=False
         )
+
+
+def test_resolve_namespec_name_scoring_for_unverified_ids(index):
+    # Person does not exist, will create an unverified ID
+    person1 = index.resolve_namespec(
+        NameSpecification(Name("Rene", "Muller")), allow_creation=True
+    )
+    assert person1.id == "unverified/rene-muller"
+    assert person1.canonical_name == Name("Rene", "Muller")
+    # Name resolves to the same person as above
+    person2 = index.resolve_namespec(
+        NameSpecification(Name("René", "Müller")), allow_creation=True
+    )
+    assert person2.id == "unverified/rene-muller"
+    assert person2 is person1
+    # ... and also updates their canonical name, as it scores higher!
+    assert person2.canonical_name == Name("René", "Müller")

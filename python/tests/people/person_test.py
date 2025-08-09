@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import pytest
 from acl_anthology.people import Name, Person
 
 
@@ -50,6 +51,42 @@ def test_person_add_names(anthology_stub):
     assert len(person.names) == 3
 
 
+def test_person_no_name(anthology_stub):
+    person = Person("yang-liu", anthology_stub, [])
+    assert len(person.names) == 0
+    with pytest.raises(ValueError):
+        person.canonical_name
+    name = Name("Yang", "Liu")
+    person.set_canonical_name(name)
+    assert len(person.names) == 1
+    assert person.canonical_name == name
+
+
+def test_person_set_canonical_name(anthology_stub):
+    person = Person("rene-muller", anthology_stub, [Name("Rene", "Muller")])
+    assert len(person.names) == 1
+    name = Name("René", "Müller")
+    person.set_canonical_name(name)
+    assert len(person.names) == 2
+    assert person.canonical_name == name
+
+
+def test_person_orcid(anthology_stub):
+    person = Person(
+        "marcel-bollmann",
+        anthology_stub,
+        [Name("Marcel", "Bollmann")],
+        orcid="0000-0002-1297-6794",
+    )
+    assert person.orcid == "0000-0002-1297-6794"
+    person.orcid = "0000-0003-2598-8150"
+    assert person.orcid == "0000-0003-2598-8150"
+    with pytest.raises(ValueError):
+        person.orcid = "https://orcid.org/0000-0003-2598-8150"
+    with pytest.raises(ValueError):
+        person.orcid = "0000-0003-2598-815X"
+
+
 def test_person_papers(anthology):
     person = anthology.get_person("unverified/nicoletta-calzolari")
     assert person.canonical_name == Name("Nicoletta", "Calzolari")
@@ -80,4 +117,5 @@ def test_person_equality(anthology_stub):
     assert person1 == person2
     assert person1 != person3
     assert person2 != person3
+    assert person2 != "yang-liu"  # comparison with non-Person object is always False
     assert hash(person1) == hash(person2)

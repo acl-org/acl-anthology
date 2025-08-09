@@ -78,7 +78,7 @@ class Person:
             # By convention, the first entry of `self.names` is treated as the
             # canonical entry
             return self.names[0]
-        except KeyError:
+        except IndexError:
             raise ValueError(f"No names defined for person '{self.id}'")
 
     @canonical_name.setter
@@ -129,7 +129,7 @@ class Person:
                 if paper is None:
                     raise ValueError(
                         f"Person {self.id} lists associated paper {build_id_from_tuple(anthology_id)}, which doesn't exist"
-                    )
+                    )  # pragma: no cover
                 yield paper
 
     def volumes(self) -> Iterator[Volume]:
@@ -141,5 +141,5 @@ class Person:
                 if volume is None:
                     raise ValueError(
                         f"Person {self.id} lists associated volume {build_id_from_tuple(anthology_id)}, which doesn't exist"
-                    )
+                    )  # pragma: no cover
                 yield volume
