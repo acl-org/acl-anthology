@@ -256,8 +256,6 @@ test_cases_xml = (
   <award>Most ridiculous entry</award>
   <removed date="2023-09-30">Removed immediately for being fake</removed>
   <bibkey>why-would-you-cite-this</bibkey>
-  <pwccode url="https://github.com/acl-org/fake-repo" additional="false">acl-org/fake-repo</pwccode>
-  <pwcdataset url="https://paperswithcode.com/dataset/fake-dataset">FaKe-DaTaSeT</pwcdataset>
 </paper>
 """,
 )

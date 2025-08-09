@@ -1,5 +1,11 @@
 # Changelog
 
+## [UNRELEASED]
+
+### Removed
+
+- `PapersWithCodeReference` has been removed as Papers with Code is no longer functional.
+
 ## [0.5.3] — 2025-06-22
 
 This release adds more functionality for ingesting new proceedings and modifying existing data.
