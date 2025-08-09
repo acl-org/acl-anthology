@@ -74,7 +74,7 @@ class Volume(SlottedDict[Paper]):
         shorttitle: A shortened form of the title. (Aliased to `shortbooktitle` for initialization.)
     """
 
-    id: str = field(converter=int_to_str)
+    id: str = field(converter=int_to_str)  # validator defined below
     parent: Collection = field(repr=False, eq=False)
     type: VolumeType = field(repr=False, converter=VolumeType)
     title: MarkupText = field(alias="booktitle")
