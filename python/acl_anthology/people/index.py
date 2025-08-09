@@ -14,7 +14,7 @@
 
 from __future__ import annotations
 
-from attrs import define, field, asdict
+from attrs import define, field
 from collections.abc import Iterable
 from collections import Counter, defaultdict
 import itertools as it
@@ -22,7 +22,7 @@ from pathlib import Path
 from rich.progress import track
 from scipy.cluster.hierarchy import DisjointSet  # type: ignore
 import sys
-from typing import cast, Any, TYPE_CHECKING
+from typing import cast, Any, Optional, TYPE_CHECKING
 import yaml
 
 try:
@@ -39,6 +39,7 @@ from ..exceptions import (
 from ..utils.ids import AnthologyIDTuple, is_verified_person_id
 from ..utils.logging import get_logger
 from . import Person, Name, NameLink, NameSpecification
+from .name import _YAMLName
 
 if TYPE_CHECKING:
     from _typeshed import StrPath
@@ -66,6 +67,7 @@ class PersonIndex(SlottedDict[Person]):
     Attributes:
         parent: The parent Anthology instance to which this index belongs.
         verbose: If False, will not show progress bar when building the index from scratch.
+        path: The path to `people.yaml`.
         by_orcid: A mapping of ORCIDs (as strings) to person IDs.
         by_name: A mapping of [Name][acl_anthology.people.name.Name] instances to lists of person IDs.
         slugs_to_verified_ids: A mapping of strings (representing slugified names) to lists of person IDs.
@@ -75,6 +77,7 @@ class PersonIndex(SlottedDict[Person]):
 
     parent: Anthology = field(repr=False, eq=False)
     verbose: bool = field(default=True)
+    path: Path = field(init=False)
     # TODO: could the following fields be made private and have getters that check for self.is_data_loaded?
     by_orcid: dict[str, str] = field(init=False, repr=False, default={})
     by_name: dict[Name, list[str]] = field(
@@ -85,6 +88,10 @@ class PersonIndex(SlottedDict[Person]):
     )
     similar: DisjointSet = field(init=False, repr=False, factory=DisjointSet)
     is_data_loaded: bool = field(init=False, repr=True, default=False)
+
+    @path.default
+    def _path(self) -> Path:
+        return self.parent.datadir / Path(PEOPLE_INDEX_FILE)
 
     def get_by_name(self, name: Name) -> list[Person]:
         """Access persons by their name.
@@ -244,15 +251,14 @@ class PersonIndex(SlottedDict[Person]):
         self.is_data_loaded = True
 
     def _load_people_index(self) -> None:
-        """Loads and parses the `people.yaml` file.
+        """Load and parse the `people.yaml` file.
 
         Raises:
             KeyError: If `people.yaml` contains a malformed person ID; or if a person is listed without any names.
         """
-        filename = self.parent.datadir / Path(PEOPLE_INDEX_FILE)
         merge_list: list[tuple[str, str]] = []
 
-        with open(filename, "r", encoding="utf-8") as f:
+        with open(self.path, "r", encoding="utf-8") as f:
             data = yaml.load(f, Loader=Loader)
 
         for pid, entry in data.items():
@@ -268,6 +274,7 @@ class PersonIndex(SlottedDict[Person]):
                     orcid=entry.pop("orcid", None),
                     comment=entry.pop("comment", None),
                     degree=entry.pop("degree", None),
+                    similar_ids=entry.get("similar", []),
                     disable_name_matching=entry.pop("disable_name_matching", False),
                     is_explicit=True,
                 )
@@ -453,37 +460,33 @@ class PersonIndex(SlottedDict[Person]):
             person = self.resolve_namespec(namespec, allow_creation=True)
             person.item_ids.append(item_id)
 
-    def save(self, path: StrPath) -> None:
-        """Save the entire index.
-
-        CURRENTLY UNTESTED; DO NOT USE.
+    def save(self, path: Optional[StrPath] = None) -> None:
+        """Save the `people.yaml` file.
 
         Arguments:
-            path: The filename to save to.
+            path: The filename to save to. If None, defaults to the parent Anthology's `people.yaml` file.
         """
-        data = []
+        if path is None:
+            path = self.path
+
+        data = {}
         for person in self.values():
+            if not person.is_explicit:
+                continue
+
             attrib: dict[str, Any] = {
-                "id": person.id,
-                "canonical": asdict(
-                    person.canonical_name,
-                    filter=lambda a, v: not (a.name == "script" and v is None),
-                ),
+                "names": [
+                    _YAMLName(name)
+                    for (name, link_type) in person._names
+                    if link_type == NameLink.EXPLICIT
+                ],
+                "comment": person.comment,
+                "degree": person.degree,
+                "disable_name_matching": person.disable_name_matching,
+                "orcid": person.orcid,
+                "similar": person.similar_ids,
             }
-            if person.item_ids:
-                attrib["items"] = person.item_ids
-            if len(person.names) > 1:
-                attrib["variants"] = [
-                    asdict(
-                        name, filter=lambda a, v: not (a.name == "script" and v is None)
-                    )
-                    for name in person.names[1:]
-                ]
-            similar = self.similar.subset(person.id)
-            if len(similar) > 1:
-                attrib["similar"] = [id_ for id_ in similar if id_ != person.id]
-            if person.comment is not None:
-                attrib["comment"] = person.comment
-            data.append(attrib)
+            data[person.id] = {k: v for k, v in attrib.items() if v}
+
         with open(path, "w", encoding="utf-8") as f:
-            yaml.dump(data, f, Dumper=Dumper)
+            yaml.dump(data, f, allow_unicode=True, Dumper=Dumper)

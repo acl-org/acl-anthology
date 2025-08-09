@@ -7,7 +7,7 @@ This release implements the new [name resolution and author ID logic](https://gi
 ### Added
 
 - NameSpecification now provides an `orcid` field.
-- Person now provides `orcid` and `degree` fields, as well as the `disable_name_matching` for the new name resolution logic.
+- Person now provides `orcid`, `degree`, `disable_name_matching`, and `similar_ids` fields that correspond to the respective fields in the new `people.yaml`.
 - PersonIndex:
   - Now also indexes Person objects by ORCID, and provides `by_orcid` and `get_by_orcid()`.
   - Now also keeps a mapping of name slugs to (verified) person IDs, via `slugs_to_verified_ids` (mostly for internal use).
@@ -20,6 +20,7 @@ This release implements the new [name resolution and author ID logic](https://gi
   - Renamed `get_or_create_person()` to `resolve_namespec()` and refactored it to reflect the [new name resolution logic](https://github.com/acl-org/acl-anthology/wiki/Author-Page-Plan#proposed-name-resolution-logic).
   - Renamed `name_to_ids` to `by_name`, in line with the new `by_orcid` field.
   - Changed the type of exceptions that can be raised; `AmbiguousNameError` was replaced by `NameSpecResolutionError` and `PersonDefinitionError`.
+  - Changed the previously experimental `save()` function to serialize the `people.yaml` file.
 - Person now stores names as tuples of `(Name, NameLink)`, the latter of which indicates if the name was explicitly defined in `people.yaml` or inferred by the name resolution logic (e.g. via slug matching).  As a consequence, `Person.names` can no longer be modified in-place; use `Person.add_name()`, `Person.remove_name()`, or the setter of `Person.names`.
 
 

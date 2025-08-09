@@ -442,3 +442,24 @@ def test_ingest_namespec_returns_namespec(index_with_toy_anthology):
     ns1 = NameSpecification(Name("Matt", "Post"), orcid="0000-0002-1297-6794")
     ns2 = index_with_toy_anthology.ingest_namespec(ns1)
     assert ns1 is ns2
+
+
+##############################################################################
+### Tests for saving people.yaml
+##############################################################################
+
+
+def test_people_roundtrip_yaml(index_with_toy_anthology, tmp_path):
+    index = index_with_toy_anthology
+    index.load()
+    yaml_in = index.path
+    yaml_out = tmp_path / "people.yaml"
+    index.save(yaml_out)
+    assert yaml_out.is_file()
+    with (
+        open(yaml_in, "r", encoding="utf-8") as f,
+        open(yaml_out, "r", encoding="utf-8") as g,
+    ):
+        expected = f.read()
+        out = g.read()
+    assert out == expected

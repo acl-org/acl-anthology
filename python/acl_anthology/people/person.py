@@ -59,6 +59,7 @@ class Person:
         orcid: The person's ORCID.
         comment: A comment for disambiguation purposes.
         degree: The person's institution of highest degree, for disambiguation purposes.
+        similar_ids: A list of person IDs with names that should be considered similar to this one.  Do **not** use this to _find_ people with similar names; that should be done via [`PersonIndex.similar`][acl_anthology.people.index.PersonIndex].  This attribute can be used to explicitly add more "similar IDs" to `PersonIndex.similar`.
         disable_name_matching: If True, no items should be assigned to this person unless they explicitly specify this person's ID.
         is_explicit: If True, this person's ID is explicitly defined in `people.yaml`.
     """
@@ -74,6 +75,7 @@ class Person:
     orcid: Optional[str] = field(default=None)  # validator defined below
     comment: Optional[str] = field(default=None)
     degree: Optional[str] = field(default=None)
+    similar_ids: list[str] = field(factory=list)
     disable_name_matching: Optional[bool] = field(default=False, converter=bool)
     is_explicit: Optional[bool] = field(default=False, converter=bool)
 
