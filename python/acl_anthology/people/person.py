@@ -17,12 +17,14 @@ from __future__ import annotations
 import attrs
 from attrs import define, field
 from enum import Enum
+import itertools as it
 from typing import Any, Iterator, Optional, Sequence, TYPE_CHECKING
 from ..utils.attrs import auto_validate_types
 from ..utils.ids import (
     AnthologyIDTuple,
     build_id_from_tuple,
     is_valid_orcid,
+    is_verified_person_id,
 )
 from . import Name
 
@@ -79,9 +81,9 @@ class Person:
         orcid: The person's ORCID.
         comment: A comment for disambiguation purposes.
         degree: The person's institution of highest degree, for disambiguation purposes.
-        similar_ids: A list of person IDs with names that should be considered similar to this one.  Do **not** use this to _find_ people with similar names; that should be done via [`PersonIndex.similar`][acl_anthology.people.index.PersonIndex].  This attribute can be used to explicitly add more "similar IDs" to `PersonIndex.similar`.
+        similar_ids: A list of person IDs with names that should be considered similar to this one.  Do **not** use this to _find_ people with similar names; that should be done via [`PersonIndex.similar`][acl_anthology.people.index.PersonIndex].  This attribute can be used to explicitly add more "similar IDs" that are not automatically derived via similar names.
         disable_name_matching: If True, no items should be assigned to this person unless they explicitly specify this person's ID.
-        is_explicit: If True, this person's ID is explicitly defined in `people.yaml`.
+        is_explicit: If True, this person's ID is explicitly defined in `people.yaml`.  You probably want to use [`make_explicit()`][acl_anthology.people.person.Person.make_explicit] rather than change this attribute.
     """
 
     id: str = field(
@@ -199,6 +201,36 @@ class Person:
             self._names.insert(0, (name, link_type))
         else:
             self._names = [(name, link_type)] + [x for x in self._names if x[0] != name]
+
+    def make_explicit(self, id: str) -> None:
+        """Turn this person that was implicitly created into an explicitly-represented one.
+
+        This will result in this person having an explicit entry in `people.yaml` with all names that are currently associated with this person.  It will also add their new explicit ID to all papers and volumes currently associated with this person.
+
+        Parameters:
+            id: The new ID for this person, which must match [`RE_VERIFIED_PERSON_ID`][acl_anthology.utils.ids.RE_VERIFIED_PERSON_ID].
+        """
+        if self.is_explicit:
+            raise Exception(
+                "Person is already explicit"
+            )  # TODO: more explicit Exception type?
+        if not is_verified_person_id(id):
+            raise ValueError(f"Not a valid verified-person ID: {id}")
+
+        # Set person's ID on associated Anthology items
+        for paper in self.papers():
+            for namespec in it.chain(paper.authors, paper.editors):
+                if namespec.id is None and self.has_name(namespec.name):
+                    namespec.id = id
+        for volume in self.volumes():
+            for namespec in volume.editors:
+                if namespec.id is None and self.has_name(namespec.name):
+                    namespec.id = id
+
+        # Update ID – will automatically update index
+        self.id = id
+        self.is_explicit = True
+        self._names = [(name, NameLink.EXPLICIT) for name, _ in self._names]
 
     def papers(self) -> Iterator[Paper]:
         """Returns an iterator over all papers associated with this person.

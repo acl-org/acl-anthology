@@ -507,7 +507,7 @@ def test_ingest_namespec_returns_namespec(index_with_toy_anthology):
 ##############################################################################
 
 
-def test_people_roundtrip_yaml(index_with_toy_anthology, tmp_path):
+def test_people_yaml_roundtrip(index_with_toy_anthology, tmp_path):
     index = index_with_toy_anthology
     index.load()
     yaml_in = index.path
@@ -521,3 +521,57 @@ def test_people_roundtrip_yaml(index_with_toy_anthology, tmp_path):
         expected = f.read()
         out = g.read()
     assert out == expected
+
+
+def test_add_fields_to_people_yaml(index_with_toy_anthology, tmp_path):
+    index = index_with_toy_anthology
+    index.load()
+    yaml_out = tmp_path / "people.add_fields.yaml"
+
+    # Modifications
+    person = index["marcel-bollmann"]
+    person.add_name(Name("Marc Marcel", "Bollmann"))
+    person.degree = "Ruhr-Universität Bochum"
+
+    # Test that modifications are saved to people.yaml
+    index.save(yaml_out)
+    assert yaml_out.is_file()
+    with open(yaml_out, "r", encoding="utf-8") as f:
+        out = f.read()
+
+    assert (
+        """
+marcel-bollmann:
+  degree: Ruhr-Universität Bochum
+  names:
+  - {first: Marcel, last: Bollmann}
+  - {first: Marc Marcel, last: Bollmann}
+  orcid: 0000-0003-2598-8150"""
+        in out
+    )
+
+
+def test_add_person_to_people_yaml(index_with_toy_anthology, tmp_path):
+    index = index_with_toy_anthology
+    index.load()
+    yaml_out = tmp_path / "people.add_fields.yaml"
+
+    # Modifications
+    person = index["unverified/preslav-nakov"]
+    person.make_explicit("preslav-nakov")
+    person.orcid = "0000-0002-3600-1510"
+
+    # Test that modifications are saved to people.yaml
+    index.save(yaml_out)
+    assert yaml_out.is_file()
+    with open(yaml_out, "r", encoding="utf-8") as f:
+        out = f.read()
+
+    assert (
+        """
+preslav-nakov:
+  names:
+  - {first: Preslav, last: Nakov}
+  orcid: 0000-0002-3600-1510"""
+        in out
+    )

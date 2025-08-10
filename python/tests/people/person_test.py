@@ -131,6 +131,14 @@ def test_person_is_explicit(anthology):
     assert not person.is_explicit
 
 
+def test_person_make_explicit(anthology):
+    person = anthology.get_person("unverified/nicoletta-calzolari")
+    assert not person.is_explicit
+    person.make_explicit("nicoletta-calzolari")
+    assert person.is_explicit
+    assert person.id == "nicoletta-calzolari"
+
+
 def test_person_equality(anthology_stub):
     n = Name("Yang", "Liu")
     person1 = Person("yang-liu", anthology_stub, [n])
