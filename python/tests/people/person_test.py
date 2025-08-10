@@ -109,12 +109,27 @@ def test_person_orcid(anthology_stub):
         person.orcid = "0000-0003-2598-815X"
 
 
-def test_person_papers(anthology):
+def test_person_papers_unverified(anthology):
     person = anthology.get_person("unverified/nicoletta-calzolari")
     assert person.canonical_name == Name("Nicoletta", "Calzolari")
     assert len(person.item_ids) == 3
     assert len(list(person.papers())) == 2
     assert len(list(person.volumes())) == 1
+
+
+def test_person_papers_verified(anthology):
+    person = anthology.get_person("yang-liu-ict")
+    assert person.canonical_name == Name("Yang", "Liu")
+    assert len(person.item_ids) == 2
+    assert len(list(person.papers())) == 2
+
+
+def test_person_update_id_should_update_connected_papers(anthology):
+    person = anthology.get_person("yang-liu-ict")
+    person.update_id("yang-liu-new")
+    namespec = anthology.get(person.item_ids[0]).authors[-1]
+    assert namespec.name == Name("Yang", "Liu")
+    assert namespec.id == "yang-liu-new"
 
 
 def test_person_with_name_variants(anthology):

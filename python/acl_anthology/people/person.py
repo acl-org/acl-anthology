@@ -19,6 +19,7 @@ from attrs import define, field
 from enum import Enum
 import itertools as it
 from typing import Any, Iterator, Optional, Sequence, TYPE_CHECKING
+from ..exceptions import AnthologyException
 from ..utils.attrs import auto_validate_types
 from ..utils.ids import (
     AnthologyIDTuple,
@@ -29,6 +30,7 @@ from ..utils.ids import (
 from . import Name
 
 if TYPE_CHECKING:
+    from . import NameSpecification
     from ..anthology import Anthology
     from ..collections import Paper, Volume
 
@@ -202,35 +204,60 @@ class Person:
         else:
             self._names = [(name, link_type)] + [x for x in self._names if x[0] != name]
 
-    def make_explicit(self, id: str) -> None:
+    def make_explicit(self, new_id: str) -> None:
         """Turn this person that was implicitly created into an explicitly-represented one.
 
         This will result in this person having an explicit entry in `people.yaml` with all names that are currently associated with this person.  It will also add their new explicit ID to all papers and volumes currently associated with this person.
 
         Parameters:
-            id: The new ID for this person, which must match [`RE_VERIFIED_PERSON_ID`][acl_anthology.utils.ids.RE_VERIFIED_PERSON_ID].
+            new_id: The new ID for this person, which must match [`RE_VERIFIED_PERSON_ID`][acl_anthology.utils.ids.RE_VERIFIED_PERSON_ID].
+
+        Raises:
+            AnthologyException: If `self.explicit` is already True.
+            ValueError: If the supplied ID is not valid, or if it already exists in the PersonIndex.
         """
         if self.is_explicit:
-            raise Exception(
-                "Person is already explicit"
-            )  # TODO: more explicit Exception type?
-        if not is_verified_person_id(id):
-            raise ValueError(f"Not a valid verified-person ID: {id}")
+            raise AnthologyException("Person is already explicit")
 
-        # Set person's ID on associated Anthology items
+        self.is_explicit = True
+        self.update_id(new_id)
+        self._names = [(name, NameLink.EXPLICIT) for name, _ in self._names]
+
+    def update_id(self, new_id: str) -> None:
+        """Update the ID of this person, including on all of their associated papers.
+
+        In contrast to simply changing the `id` attribute, this function will go through all associated papers and update the ID attribute there.
+
+        Parameters:
+            new_id: The new ID for this person, which must match [`RE_VERIFIED_PERSON_ID`][acl_anthology.utils.ids.RE_VERIFIED_PERSON_ID].
+
+        Raises:
+            AnthologyException: If `self.is_explicit` is False.
+            ValueError: If the supplied ID is not valid, or if it already exists in the PersonIndex.
+        """
+        if not self.is_explicit:
+            exc = AnthologyException("Can only update ID for explicit person")
+            exc.add_note("Did you want to use make_explicit() instead?")
+            raise exc
+        if not is_verified_person_id(new_id):
+            raise ValueError(f"Not a valid verified-person ID: {new_id}")
+
+        old_id = self.id
+
+        def namespec_refers_to_self(namespec: NameSpecification) -> bool:
+            if is_verified_person_id(old_id):
+                return namespec.id == old_id
+            return namespec.id is None and self.has_name(namespec.name)
+
+        self.id = new_id  # will update PersonIndex
         for paper in self.papers():
             for namespec in it.chain(paper.authors, paper.editors):
-                if namespec.id is None and self.has_name(namespec.name):
-                    namespec.id = id
+                if namespec_refers_to_self(namespec):
+                    namespec.id = new_id
         for volume in self.volumes():
             for namespec in volume.editors:
-                if namespec.id is None and self.has_name(namespec.name):
-                    namespec.id = id
-
-        # Update ID – will automatically update index
-        self.id = id
-        self.is_explicit = True
-        self._names = [(name, NameLink.EXPLICIT) for name, _ in self._names]
+                if namespec_refers_to_self(namespec):
+                    namespec.id = new_id
 
     def papers(self) -> Iterator[Paper]:
         """Returns an iterator over all papers associated with this person.
