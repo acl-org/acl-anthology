@@ -193,8 +193,10 @@ class Collection(SlottedDict[Volume]):
         )
         volume.is_data_loaded = True
 
-        # For convenience, if editors were given, we add them to the index here
+        # If editors were given, we fill in their ID & add them to the index
         if volume.editors:
+            for namespec in volume.editors:
+                self.root.people.ingest_namespec(namespec)
             self.root.people._add_to_index(volume.editors, volume.full_id_tuple)
 
         self.data[id] = volume
