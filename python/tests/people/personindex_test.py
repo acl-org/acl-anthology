@@ -76,6 +76,7 @@ def test_similar_names_defined_in_people_index(index_stub):
     index = index_stub
     index.reset()
     index._load_people_index()
+    index.is_data_loaded = True
     similar = index.similar.subset("pranav-a")
     assert similar == {"pranav-a", "pranav-anand"}
 
@@ -84,6 +85,7 @@ def test_similar_names_through_same_canonical_name(index_stub):
     index = index_stub
     index.reset()
     index._load_people_index()
+    index.is_data_loaded = True
     similar = index.similar.subset("yang-liu-ict")
     assert similar == {
         "yang-liu-icsi",

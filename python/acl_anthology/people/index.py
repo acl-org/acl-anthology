@@ -78,20 +78,43 @@ class PersonIndex(SlottedDict[Person]):
     parent: Anthology = field(repr=False, eq=False)
     verbose: bool = field(default=True)
     path: Path = field(init=False)
-    # TODO: could the following fields be made private and have getters that check for self.is_data_loaded?
-    by_orcid: dict[str, str] = field(init=False, repr=False, default={})
-    by_name: dict[Name, list[str]] = field(
+    _by_orcid: dict[str, str] = field(init=False, repr=False, default={})
+    _by_name: dict[Name, list[str]] = field(
         init=False, repr=False, factory=lambda: defaultdict(list)
     )
-    slugs_to_verified_ids: dict[str, list[str]] = field(
+    _slugs_to_verified_ids: dict[str, list[str]] = field(
         init=False, repr=False, factory=lambda: defaultdict(list)
     )
-    similar: DisjointSet = field(init=False, repr=False, factory=DisjointSet)
+    _similar: DisjointSet = field(init=False, repr=False, factory=DisjointSet)
     is_data_loaded: bool = field(init=False, repr=True, default=False)
 
     @path.default
     def _path(self) -> Path:
         return self.parent.datadir / Path(PEOPLE_INDEX_FILE)
+
+    @property
+    def by_orcid(self) -> dict[str, str]:
+        if not self.is_data_loaded:
+            self.load()
+        return self._by_orcid
+
+    @property
+    def by_name(self) -> dict[Name, list[str]]:
+        if not self.is_data_loaded:
+            self.load()
+        return self._by_name
+
+    @property
+    def similar(self) -> DisjointSet:
+        if not self.is_data_loaded:
+            self.load()
+        return self._similar
+
+    @property
+    def slugs_to_verified_ids(self) -> dict[str, list[str]]:
+        if not self.is_data_loaded:
+            self.load()
+        return self._slugs_to_verified_ids
 
     def get_by_name(self, name: Name) -> list[Person]:
         """Access persons by their name.
@@ -104,7 +127,7 @@ class PersonIndex(SlottedDict[Person]):
         """
         if not self.is_data_loaded:
             self.load()
-        return [self.data[pid] for pid in self.by_name[name]]
+        return [self.data[pid] for pid in self._by_name[name]]
 
     def get_by_namespec(self, name_spec: NameSpecification) -> Person:
         """Access persons by their name specification.
@@ -132,8 +155,8 @@ class PersonIndex(SlottedDict[Person]):
         """
         if not self.is_data_loaded:
             self.load()
-        if orcid in self.by_orcid:
-            return self.data[self.by_orcid[orcid]]
+        if orcid in self._by_orcid:
+            return self.data[self._by_orcid[orcid]]
         return None
 
     def find_coauthors(
@@ -193,10 +216,10 @@ class PersonIndex(SlottedDict[Person]):
     def reset(self) -> None:
         """Resets the index."""
         self.data = {}
-        self.by_orcid = {}
-        self.by_name = defaultdict(list)
-        self.slugs_to_verified_ids = defaultdict(list)
-        self.similar = DisjointSet()
+        self._by_orcid = {}
+        self._by_name = defaultdict(list)
+        self._slugs_to_verified_ids = defaultdict(list)
+        self._similar = DisjointSet()
         self.is_data_loaded = False
 
     def build(self, show_progress: bool = False) -> None:
@@ -289,11 +312,11 @@ class PersonIndex(SlottedDict[Person]):
                 )  # pragma: no cover
 
         # Process IDs with similar names
-        for pid_list in self.slugs_to_verified_ids.values():
+        for pid_list in self._slugs_to_verified_ids.values():
             for pid in pid_list[1:]:
-                self.similar.merge(pid_list[0], pid)
+                self._similar.merge(pid_list[0], pid)
         for a, b in merge_list:
-            self.similar.merge(a, b)
+            self._similar.merge(a, b)
 
     def add_person(self, person: Person) -> None:
         """Add a new person to the index.
@@ -307,17 +330,17 @@ class PersonIndex(SlottedDict[Person]):
         if (pid := person.id) in self.data:
             raise ValueError(f"A Person with ID '{pid}' already exists in the index")
         self.data[pid] = person
-        self.similar.add(pid)
+        self._similar.add(pid)
         if person.orcid is not None:
-            if person.orcid in self.by_orcid:
+            if person.orcid in self._by_orcid:
                 raise ValueError(
-                    f"ORCID '{person.orcid}' already assigned to person '{self.by_orcid[person.orcid]}'"
+                    f"ORCID '{person.orcid}' already assigned to person '{self._by_orcid[person.orcid]}'"
                 )
-            self.by_orcid[person.orcid] = pid
+            self._by_orcid[person.orcid] = pid
         for name in person.names:
-            self.by_name[name].append(pid)
+            self._by_name[name].append(pid)
             if is_verified_person_id(pid):
-                self.slugs_to_verified_ids[name.slugify()].append(pid)
+                self._slugs_to_verified_ids[name.slugify()].append(pid)
 
     def _update_id(self, old_id: str, new_id: str) -> None:
         """Update a person ID in the index.
@@ -333,10 +356,10 @@ class PersonIndex(SlottedDict[Person]):
         person = self.data.pop(old_id)
         self.data[new_id] = person
         # Note: cannot remove from DisjointSet
-        self.similar.add(new_id)
-        self.similar.merge(old_id, new_id)
+        self._similar.add(new_id)
+        self._similar.merge(old_id, new_id)
         if person.orcid is not None:
-            self.by_orcid[person.orcid] = new_id
+            self._by_orcid[person.orcid] = new_id
         for name in person.names:
             self._remove_name(old_id, name)
             self._add_name(new_id, name)
@@ -348,10 +371,10 @@ class PersonIndex(SlottedDict[Person]):
         """
         if not self.is_data_loaded:
             return
-        if old is not None and old in self.by_orcid:
-            del self.by_orcid[old]
+        if old is not None and old in self._by_orcid:
+            del self._by_orcid[old]
         if new is not None:
-            self.by_orcid[new] = pid
+            self._by_orcid[new] = pid
 
     def _add_name(self, pid: str, name: Name) -> None:
         """Add a name for a person to the index.
@@ -360,9 +383,9 @@ class PersonIndex(SlottedDict[Person]):
         """
         if not self.is_data_loaded:
             return
-        self.by_name[name].append(pid)
+        self._by_name[name].append(pid)
         if is_verified_person_id(pid):
-            self.slugs_to_verified_ids[name.slugify()].append(pid)
+            self._slugs_to_verified_ids[name.slugify()].append(pid)
 
     def _remove_name(self, pid: str, name: Name) -> None:
         """Remove a name for a person from the index.
@@ -372,9 +395,9 @@ class PersonIndex(SlottedDict[Person]):
         if not self.is_data_loaded:
             return
         try:
-            self.by_name[name].remove(pid)
+            self._by_name[name].remove(pid)
             if is_verified_person_id(pid):
-                self.slugs_to_verified_ids[name.slugify()].remove(pid)
+                self._slugs_to_verified_ids[name.slugify()].remove(pid)
         except ValueError:
             pass
 
@@ -465,7 +488,7 @@ class PersonIndex(SlottedDict[Person]):
             slug = name.slugify()
 
             # Check if the slugified name matches any verified IDs
-            matching_ids = self.slugs_to_verified_ids.get(slug, [])
+            matching_ids = self._slugs_to_verified_ids.get(slug, [])
             if (
                 len(matching_ids) == 1
                 and not (person := self.data[matching_ids[0]]).disable_name_matching
@@ -474,7 +497,7 @@ class PersonIndex(SlottedDict[Person]):
                 pid = person.id
                 if not person.has_name(name):
                     person.add_name(name, inferred=True)
-                    self.by_name[name].append(pid)
+                    self._by_name[name].append(pid)
 
             else:
                 # Resolve to unverified ID
@@ -491,7 +514,7 @@ class PersonIndex(SlottedDict[Person]):
                             person.set_canonical_name(name, inferred=True)
                         else:
                             person.add_name(name, inferred=True)
-                        self.by_name[name].append(pid)
+                        self._by_name[name].append(pid)
                 elif allow_creation:
                     # Unverified ID doesn't exist yet; create it
                     person = Person(
@@ -508,8 +531,8 @@ class PersonIndex(SlottedDict[Person]):
         for name in name_spec.variants:
             if not person.has_name(name):
                 person.add_name(name, inferred=True)
-            if name not in self.by_name:
-                self.by_name[name].append(pid)
+            if name not in self._by_name:
+                self._by_name[name].append(pid)
         return person
 
     def _add_to_index(
