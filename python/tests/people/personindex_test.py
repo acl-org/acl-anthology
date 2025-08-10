@@ -18,16 +18,18 @@ from acl_anthology.people import Name, NameLink, NameSpecification, Person, Pers
 
 
 @pytest.fixture
-def index(anthology_stub):
+def index_stub(anthology_stub):
     return PersonIndex(anthology_stub)
 
 
 @pytest.fixture
-def index_with_toy_anthology(anthology):
+def index(anthology):
     return PersonIndex(anthology)
 
 
-def test_load_people_index(index):
+def test_load_people_index(index_stub):
+    index = index_stub
+    index.reset()
     index._load_people_index()
     index.is_data_loaded = True
     for pid in (
@@ -40,7 +42,9 @@ def test_load_people_index(index):
         assert pid in index
 
 
-def test_load_people_index_registers_names(index):
+def test_load_people_index_registers_names(index_stub):
+    index = index_stub
+    index.reset()
     index._load_people_index()
     index.is_data_loaded = True
     n1 = Name("Steven", "Krauwer")
@@ -52,7 +56,9 @@ def test_load_people_index_registers_names(index):
     assert pid[0] in index
 
 
-def test_add_person(index):
+def test_add_person(index_stub):
+    index = index_stub
+    index.reset()
     p1 = Person("yang-liu", index.parent, [Name("Yang", "Liu")])
     index.add_person(p1)
     index.is_data_loaded = True  # to prevent it attempting to build itself
@@ -62,17 +68,21 @@ def test_add_person(index):
     assert index.get_by_name(Name("Yang", "Liu"))[0] is p1
     assert index.get_by_namespec(NameSpecification(Name("Yang", "Liu"))) is p1
     assert index.get("yang-liu") is p1
-    with pytest.raises(KeyError):
+    with pytest.raises(ValueError):
         index.add_person(Person("yang-liu", index.parent))
 
 
-def test_similar_names_defined_in_people_index(index):
+def test_similar_names_defined_in_people_index(index_stub):
+    index = index_stub
+    index.reset()
     index._load_people_index()
     similar = index.similar.subset("pranav-a")
     assert similar == {"pranav-a", "pranav-anand"}
 
 
-def test_similar_names_through_same_canonical_name(index):
+def test_similar_names_through_same_canonical_name(index_stub):
+    index = index_stub
+    index.reset()
     index._load_people_index()
     similar = index.similar.subset("yang-liu-ict")
     assert similar == {
@@ -82,8 +92,7 @@ def test_similar_names_through_same_canonical_name(index):
     }
 
 
-def test_build_personindex(index_with_toy_anthology):
-    index = index_with_toy_anthology
+def test_build_personindex(index):
     assert not index.is_data_loaded
     index.build(show_progress=False)
     assert index.is_data_loaded
@@ -92,22 +101,19 @@ def test_build_personindex(index_with_toy_anthology):
     assert "0000-0003-2598-8150" in index.by_orcid
 
 
-def test_build_personindex_automatically(index_with_toy_anthology):
-    index = index_with_toy_anthology
+def test_build_personindex_automatically(index):
     assert not index.is_data_loaded
     persons = index.get_by_name(Name("Nicoletta", "Calzolari"))
     assert index.is_data_loaded
     assert len(persons) == 1
 
 
-def test_canonical_name_never_has_script(index_with_toy_anthology):
-    index = index_with_toy_anthology
+def test_canonical_name_never_has_script(index):
     for person in index.values():
         assert person.canonical_name.script is None
 
 
-def test_get_person_coauthors(index_with_toy_anthology):
-    index = index_with_toy_anthology
+def test_get_person_coauthors(index):
     index.load()
     person = index.by_name[Name("Kathleen", "Dahlgren")][0]
     coauthors = index.find_coauthors(person)
@@ -122,8 +128,7 @@ def test_get_person_coauthors(index_with_toy_anthology):
     assert len(coauthors) == 2
 
 
-def test_get_person_coauthors_counter(index_with_toy_anthology):
-    index = index_with_toy_anthology
+def test_get_person_coauthors_counter(index):
     coauthors = index.find_coauthors_counter("unverified/kathleen-dahlgren")
     assert len(coauthors) == 1
     assert coauthors["unverified/joyce-mcdowell"] == 1
@@ -135,8 +140,7 @@ def test_get_person_coauthors_counter(index_with_toy_anthology):
     assert coauthors["unverified/aline-villavicencio"] == 2
 
 
-def test_get_by_namespec(index_with_toy_anthology):
-    index = index_with_toy_anthology
+def test_get_by_namespec(index):
     ns1 = NameSpecification(Name("Yang", "Liu"))
     ns2 = NameSpecification(Name("Yang", "Liu"), id="yang-liu-microsoft")
     with pytest.raises(NameSpecResolutionError):
@@ -146,16 +150,14 @@ def test_get_by_namespec(index_with_toy_anthology):
     assert person.canonical_name == Name("Yang", "Liu")
 
 
-def test_get_by_name_variants(index_with_toy_anthology):
+def test_get_by_name_variants(index):
     # It should be possible to find a person by a name variant
-    index = index_with_toy_anthology
     persons = index.get_by_name(Name("洋", "刘"))
     assert len(persons) == 1
     assert persons[0].id == "yang-liu-ict"
 
 
-def test_get_by_orcid(index_with_toy_anthology):
-    index = index_with_toy_anthology
+def test_get_by_orcid(index):
     person = index.get_by_orcid("0000-0003-2598-8150")
     assert person is not None
     assert person.id == "marcel-bollmann"
@@ -332,10 +334,8 @@ test_cases_resolve_namespec = (
     "name_dict, namespec_params, expected_result",
     test_cases_resolve_namespec,
 )
-def test_resolve_namespec(
-    name_dict, namespec_params, expected_result, index_with_toy_anthology
-):
-    index = index_with_toy_anthology
+def test_resolve_namespec(name_dict, namespec_params, expected_result, index):
+    index.reset()
     index._load_people_index()
     name = Name.from_dict(name_dict)
     namespec = NameSpecification(name, **namespec_params)
@@ -353,8 +353,8 @@ def test_resolve_namespec(
         )
 
 
-def test_resolve_namespec_disallow_creation(index_with_toy_anthology):
-    index = index_with_toy_anthology
+def test_resolve_namespec_disallow_creation(index):
+    index.reset()
     index._load_people_index()
     # If we would map to an unverified ID but allow_creation is False, should raise
     with pytest.raises(NameSpecResolutionError):
@@ -363,15 +363,15 @@ def test_resolve_namespec_disallow_creation(index_with_toy_anthology):
         )
 
 
-def test_resolve_namespec_name_scoring_for_unverified_ids(index):
+def test_resolve_namespec_name_scoring_for_unverified_ids(index_stub):
     # Person does not exist, will create an unverified ID
-    person1 = index.resolve_namespec(
+    person1 = index_stub.resolve_namespec(
         NameSpecification(Name("Rene", "Muller")), allow_creation=True
     )
     assert person1.id == "unverified/rene-muller"
     assert person1.canonical_name == Name("Rene", "Muller")
     # Name resolves to the same person as above
-    person2 = index.resolve_namespec(
+    person2 = index_stub.resolve_namespec(
         NameSpecification(Name("René", "Müller")), allow_creation=True
     )
     assert person2.id == "unverified/rene-muller"
@@ -413,10 +413,8 @@ test_cases_namelink = (
 
 
 @pytest.mark.parametrize("name_dict, expected_namelink", test_cases_namelink)
-def test_check_namelink_after_resolve_namespec(
-    name_dict, expected_namelink, index_with_toy_anthology
-):
-    index = index_with_toy_anthology
+def test_check_namelink_after_resolve_namespec(name_dict, expected_namelink, index):
+    index.reset()
     index._load_people_index()
     name = Name.from_dict(name_dict)
     namespec = NameSpecification(name)
@@ -479,10 +477,8 @@ test_cases_ingest_namespec = (
     "name_dict, namespec_params, expected_result",
     test_cases_ingest_namespec,
 )
-def test_ingest_namespec(
-    name_dict, namespec_params, expected_result, index_with_toy_anthology
-):
-    index = index_with_toy_anthology
+def test_ingest_namespec(name_dict, namespec_params, expected_result, index):
+    index.reset()
     index._load_people_index()
     name = Name.from_dict(name_dict)
     namespec = NameSpecification(name, **namespec_params)
@@ -496,9 +492,9 @@ def test_ingest_namespec(
         assert index[namespec.id].has_name(name)
 
 
-def test_ingest_namespec_returns_namespec(index_with_toy_anthology):
+def test_ingest_namespec_returns_namespec(index):
     ns1 = NameSpecification(Name("Matt", "Post"), orcid="0000-0002-1297-6794")
-    ns2 = index_with_toy_anthology.ingest_namespec(ns1)
+    ns2 = index.ingest_namespec(ns1)
     assert ns1 is ns2
 
 
@@ -507,8 +503,7 @@ def test_ingest_namespec_returns_namespec(index_with_toy_anthology):
 ##############################################################################
 
 
-def test_people_yaml_roundtrip(index_with_toy_anthology, tmp_path):
-    index = index_with_toy_anthology
+def test_people_yaml_roundtrip(index, tmp_path):
     index.load()
     yaml_in = index.path
     yaml_out = tmp_path / "people.yaml"
@@ -523,8 +518,7 @@ def test_people_yaml_roundtrip(index_with_toy_anthology, tmp_path):
     assert out == expected
 
 
-def test_add_fields_to_people_yaml(index_with_toy_anthology, tmp_path):
-    index = index_with_toy_anthology
+def test_add_fields_to_people_yaml(index, tmp_path):
     index.load()
     yaml_out = tmp_path / "people.add_fields.yaml"
 
@@ -551,8 +545,7 @@ marcel-bollmann:
     )
 
 
-def test_add_person_to_people_yaml(index_with_toy_anthology, tmp_path):
-    index = index_with_toy_anthology
+def test_add_person_to_people_yaml(index, tmp_path):
     index.load()
     yaml_out = tmp_path / "people.add_fields.yaml"
 

@@ -300,12 +300,19 @@ class PersonIndex(SlottedDict[Person]):
 
         Parameters:
             person: The person to add, which should not exist in the index yet.
+
+        Raises:
+            ValueError: If a person with the same ID or ORCID already exists in the index.
         """
         if (pid := person.id) in self.data:
-            raise KeyError(f"A Person with ID '{pid}' already exists in the index")
+            raise ValueError(f"A Person with ID '{pid}' already exists in the index")
         self.data[pid] = person
         self.similar.add(pid)
         if person.orcid is not None:
+            if person.orcid in self.by_orcid:
+                raise ValueError(
+                    f"ORCID '{person.orcid}' already assigned to person '{self.by_orcid[person.orcid]}'"
+                )
             self.by_orcid[person.orcid] = pid
         for name in person.names:
             self.by_name[name].append(pid)
