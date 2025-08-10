@@ -99,10 +99,10 @@
     </paper>
     <paper id="7">
       <title>Beyond Retrieval: Topic-based Alignment of Scientific Papers to Research Proposal</title>
-      <author><first>Rudra</first><last>Palit</last></author>
-      <author><first>Manasi</first><last>Patwardhan</last><affiliation>Tata Consultancy Services Limited, India</affiliation></author>
+      <author><first>Rudra Nath</first><last>Palit</last></author>
+      <author><first>Manasi</first><last>Patwardhan</last></author>
       <author><first>Lovekesh</first><last>Vig</last></author>
-      <author><first>Gautam</first><last>Shroff</last><affiliation>Tata Consultancy Services Limited, India</affiliation></author>
+      <author><first>Gautam</first><last>Shroff</last></author>
       <pages>70-83</pages>
       <abstract>The inception of a research agenda typically commences with the creation of a comprehensive research proposal. The efficacy of the proposal often hinges on its ability to connect with the existing scientific literature that supports its ideas. To effectively assess the relevance of existing articles to a research proposal, it is imperative to categorize these articles into high-level thematic groups, referred to as topics, that align with the proposal. This paper introduces a novel task of aligning scientific articles, relevant to a proposal, with researcher-provided proposal topics. Additionally, we construct a dataset to serve as a benchmark for this task. We establish human and Large Language Model (LLM) baselines and propose a novel three-stage approach to address this challenge. We synthesize and use pseudo-labels that map proposal topics to text spans from cited articles to train Language Models (LMs) for two purposes: (i) as a retriever, to extract relevant text spans from cited articles for each topic, and (ii) as a classifier, to categorize the articles into the proposal topics. Our retriever-classifier pipeline, which employs very small open-source LMs fine-tuned with our constructed dataset, achieves results comparable to a vanilla paid LLM-based classifier, demonstrating its efficacy. However, a notable gap of 23.57 F1 score between our approach and the human baseline highlights the complexity of this task and emphasizes the need for further research.</abstract>
       <url hash="cf1500a8">2024.sdp-1.7</url>
@@ -317,7 +317,7 @@
     <paper id="27">
       <title><fixed-case>C</fixed-case>o<fixed-case>SAE</fixed-case>mb: Contrastive Section-aware Aspect Embeddings for Scientific Articles</title>
       <author><first>Shruti</first><last>Singh</last><affiliation>IIT Gandhinagar</affiliation></author>
-      <author><first>Mayank</first><last>Singh</last><affiliation>Indian Institute of Technology Gandhinagar</affiliation></author>
+      <author id="mayank-singh"><first>Mayank</first><last>Singh</last><affiliation>Indian Institute of Technology Gandhinagar</affiliation></author>
       <pages>283-292</pages>
       <abstract>Research papers are long documents that contain information about various aspects such as background, prior work, methodology, and results. Existing works on scientific document representation learning only leverage the title and abstract of the paper. We present CoSAEmb, a model that learns representations from the full text of 97402 scientific papers from the S2ORC dataset. We present a novel supervised contrastive training framework for long documents using triplet loss and margin gradation. Our framework can be used to learn representations of long documents with any existing encoder-only transformer model without retraining it from scratch. CoSAEmb shows improved performance on information retrieval from the paper’s full text in comparison to models trained only on paper titles and abstracts. We also evaluate CoSAEmb on SciRepEval and CSFCube benchmarks, showing comparable performance with existing state-of-the-art models.</abstract>
       <url hash="44929adb">2024.sdp-1.27</url>

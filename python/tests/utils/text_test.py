@@ -32,6 +32,15 @@ test_cases_whitespace = (
     (" Lorem  ipsum   dolor      sit\n\n\n amen", "Lorem ipsum dolor sit amen"),
 )
 
+test_cases_clean_unicode = (
+    ("break\u00adable", "breakable"),  # soft hyphen
+    ("break‐able", "break-able"),  # dash
+    ("bı́r", "bír"),  # combining diacritic on ı vs. composed character í
+    ("afﬁrm", "affirm"),  # ligature
+    ("see： here", "see: here"),  # wide colon
+    ("fn²", "fn²"),  # unchanged
+)
+
 
 @pytest.mark.parametrize("inp, out", test_cases_pages)
 def test_interpret_pages(inp, out):
@@ -41,3 +50,8 @@ def test_interpret_pages(inp, out):
 @pytest.mark.parametrize("inp, out", test_cases_whitespace)
 def test_remove_extra_whitespace(inp, out):
     assert text.remove_extra_whitespace(inp) == out
+
+
+@pytest.mark.parametrize("inp, out", test_cases_clean_unicode)
+def test_clean_unicode(inp, out):
+    assert text.clean_unicode(inp) == out

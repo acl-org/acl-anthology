@@ -55,11 +55,13 @@ class Venue:
     parent: Anthology = field(repr=False, eq=False)
     acronym: str = field(converter=str)
     name: str = field(converter=str)
-    path: Path = field(converter=Path)
+    path: Path = field(converter=Path, eq=False)
     is_acl: bool = field(default=False, converter=bool)
     is_toplevel: bool = field(default=False, converter=bool)
     item_ids: list[AnthologyIDTuple] = field(
-        factory=list, repr=lambda x: f"<list of {len(x)} AnthologyIDTuple objects>"
+        factory=list,
+        repr=lambda x: f"<list of {len(x)} AnthologyIDTuple objects>",
+        eq=False,
     )
     oldstyle_letter: Optional[str] = field(
         default=None, validator=v.optional(v.matches_re("^[A-Z]$"))

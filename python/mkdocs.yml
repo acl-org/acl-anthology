@@ -9,6 +9,7 @@ markdown_extensions:
   - footnotes
   - pymdownx.betterem
   - pymdownx.critic
+  - pymdownx.details
   - pymdownx.smartsymbols
   - pymdownx.superfences:
       custom_fences:
@@ -91,7 +92,7 @@ plugins:
       default_handler: python
       handlers:
         python:
-          import:
+          inventories:
             - https://docs.python.org/3/objects.inv
             - https://lxml.de/apidoc/objects.inv
             - https://omegaconf.readthedocs.io/en/latest/objects.inv

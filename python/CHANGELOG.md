@@ -1,5 +1,56 @@
 # Changelog
 
+## [Unreleased]
+
+This release implements the new [name resolution and author ID logic](https://github.com/acl-org/acl-anthology/wiki/Author-Page-Plan), and is therefore fundamentally incompatible with ACL Anthology data before the switch to this new system.
+
+### Added
+
+- NameSpecification now provides an `orcid` field.
+- Person:
+  - Now provides `orcid`, `degree`, `disable_name_matching`, and `similar_ids` fields that correspond to the respective fields in the new `people.yaml`.
+  - Changing `id`, `orcid`, `names`, or using `add_name()` or `remove_names()` will now automatically update the PersonIndex.
+  - Added `update_id()` that updates a person's ID on all of their connected papers.
+  - Added `make_explicit()` that makes all necessary changes to change an implicit ("unverified/") to an explicit Person.
+- PersonIndex:
+  - Now also indexes Person objects by ORCID, and provides `by_orcid` and `get_by_orcid()`.
+  - Now also keeps a mapping of name slugs to (verified) person IDs, via `slugs_to_verified_ids` (mostly for internal use).
+  - Added `ingest_namespec()` to implement the [matching logic on ingestion](https://github.com/acl-org/acl-anthology/wiki/Author-Page-Plan#ingestion) of new volumes.
+  - Added `create_person()` to instantiate a new Person and add it to the index.
+
+### Changed
+
+- Several breaking changes to PersonIndex for the new author ID system:
+  - Loading the index now expects a `people.yaml` file instead of `name_variants.yaml`.
+  - Renamed `get_or_create_person()` to `resolve_namespec()` and refactored it to reflect the [new name resolution logic](https://github.com/acl-org/acl-anthology/wiki/Author-Page-Plan#proposed-name-resolution-logic).
+  - Renamed `name_to_ids` to `by_name`, in line with the new `by_orcid` field.
+  - Changed the type of exceptions that can be raised; `AmbiguousNameError` was replaced by `NameSpecResolutionError` and `PersonDefinitionError`.
+  - Changed the previously experimental `save()` function to serialize the `people.yaml` file.
+- Person now stores names as tuples of `(Name, NameLink)`, the latter of which indicates if the name was explicitly defined in `people.yaml` or inferred by the name resolution logic (e.g. via slug matching).  As a consequence, `Person.names` can no longer be modified in-place; use `Person.add_name()`, `Person.remove_name()`, or the setter of `Person.names`.
+
+## [0.5.3] — 2025-06-22
+
+This release adds more functionality for ingesting new proceedings and modifying existing data.
+
+### Added
+
+- Collections now use a minimal-diff algorithm when saving back to XML, ensuring that `save()` can be called without generating unnecessary changes in the XML files.
+- MarkupText can now be instantiated from strings (potentially) containing LaTeX markup.
+  - This reimplements functionality used at ingestion time previously found in `bin/latex_to_unicode.py`.
+- Paper objects now have a `type` attribute indicating if they are frontmatter, backmatter, or a regular paper.
+  - This adds support for the `<paper type="backmatter">` attribute that was previously ignored, and slightly refactors how frontmatter is identified, making it more explicit rather than just relying on the paper ID.
+- Paper now exposes `<mrf>` elements, currently only used in a single collection, as "attachments" of type "mrf".
+
+### Changed
+
+- Event: `colocated_ids` has changed from listing VolumeIDs to listing tuples of `(VolumeID, EventLinkingType)`, where EventLinkingType now makes clear if the association between the VolumeID and the Event was inferred or explicitly defined in the XML (in a `<colocated>` block).
+- MarkupText: Typographic quotes now convert to/from LaTeX quotes more consistently.
+- Names: Fixed some inconsistencies where `<first/>`, `<first></first>`, and a missing "first" tag would not be considered fully equivalent (within `Name` and `utils.xml.assert_equals`).
+- Paper attachments without a type attribute in the XML now give their type as an empty string (instead of defaulting to "attachment"), in order to be able to reconstruct whether there was an explicit type attribute or not.
+- Made `utils.xml.assert_equals` more robust and added some explicit tests for it.
+  - Fixed a bug where `utils.xml.assert_equals` did not take into account that the relative order of some XML tags matters, e.g. `<author>` or `<editor>`, and would still consider them equal if those were reordered.
+- Made `utils.xml.indent` more robust to a few edge cases.
+
 ## [0.5.2] — 2025-05-16
 
 This release adds support for Python 3.13 and initial functionality for creating new proceedings.

@@ -12,7 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import difflib
+import itertools as it
 import pytest
+import reprlib
+from unittest.mock import Mock
 
 pytest.register_assert_rewrite("acl_anthology.utils.xml")
 
@@ -21,6 +25,7 @@ from acl_anthology import Anthology  # noqa: E402
 
 class AnthologyStub:
     datadir = None
+    people = Mock()
 
 
 @pytest.fixture
@@ -34,3 +39,18 @@ def anthology_stub(shared_datadir):
     stub = AnthologyStub()
     stub.datadir = shared_datadir / "anthology"
     return stub
+
+
+def pytest_assertrepr_compare(op, left, right):
+    # Use difflib output to show diff between lists
+    if isinstance(left, list) and isinstance(right, list) and op == "==":
+        short = reprlib.Repr(maxlist=1, maxlevel=1)
+        return [
+            x
+            for x in it.chain(
+                [f"{short.repr(left)} == {short.repr(right)}"],
+                difflib.unified_diff(
+                    left, right, fromfile="left", tofile="right", n=1, lineterm=""
+                ),
+            )
+        ]

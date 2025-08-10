@@ -3,14 +3,10 @@
 
 # ALIASES
 
-[private]
 alias ds := docs-serve
-
-[private]
 alias ft := fix-and-test
-
-[private]
 alias ta := test-all
+alias py := repl
 
 # Install the project dependencies
 install:
@@ -29,25 +25,28 @@ install-hooks: _deps
 check: _deps && typecheck
   poetry run pre-commit run --all-files
 
-# Run checks (twice in case of failure) and all tests
-fix-and-test: _deps && typecheck test-all
+# Run checks (twice in case of failure, so autofixes are applied)
+fix: _deps && typecheck
   @poetry run pre-commit run -a || poetry run pre-commit run -a
 
+# Run checks (twice in case of failure) and all tests
+fix-and-test: fix test-all
+
 # Run all tests
-test-all: _deps
-  poetry run pytest -m "not integration"
+test-all *FLAGS: _deps
+  poetry run pytest -m "not integration" {{FLAGS}}
 
 # Run all tests and generate coverage report
 test-with-coverage: _deps
   poetry run pytest -m "not integration" --cov=acl_anthology --cov-report=xml
 
 # Run tests that operate on the acl-org/acl-anthology repo
-test-integration: _deps
-  poetry run pytest -m "integration"
+test-integration *FLAGS='-v': _deps
+  poetry run pytest {{FLAGS}} -m "integration"
 
 # Run only test functions containing TERM
-test TERM: _deps
-  poetry run pytest -v -k _{{TERM}}
+test TERM *FLAGS: _deps
+  poetry run pytest -k _{{TERM}} {{FLAGS}}
 
 # Run all tests on all supported Python versions
 test-all-python-versions: _deps
@@ -70,6 +69,14 @@ test-only-xfail: _deps
 typecheck: _deps
   poetry run mypy acl_anthology
 
+# Run benchmarks
+benchmark: _deps
+  poetry run richbench --percentage benchmarks/
+  @echo ""
+  @echo "  Note: Benchmark descriptions should be interpreted as 'Is it faster to...' or"
+  @echo "        'What is the performance impact if we...', with the highlighted columns"
+  @echo "        showing the delta."
+
 # Build the documentation
 docs: _deps
   poetry run mkdocs build
@@ -79,7 +86,7 @@ docs-serve: _deps
   poetry run mkdocs serve
 
 # Open a Python REPL with an Anthology object pre-instantiated
-py: _deps
+repl: _deps
   poetry run python -i repl_with_anthology.py
 
 run-tui: _deps

@@ -13,12 +13,9 @@
 # limitations under the License.
 
 import pytest
-import os
 from lxml.etree import RelaxNG
 from acl_anthology import Anthology
 from acl_anthology.people import Name
-
-SCRIPTDIR = os.path.dirname(os.path.realpath(__file__))
 
 
 def test_instantiate(shared_datadir):
@@ -145,10 +142,10 @@ def test_get_event(anthology):
 
 
 def test_get_person(anthology):
-    person = anthology.get_person("yang-liu-edinburgh")
+    person = anthology.get_person("yang-liu-microsoft")
     assert person is not None
     assert person.canonical_name == Name("Yang", "Liu")
-    assert person.comment == "Edinburgh"
+    assert person.comment == "Microsoft Cognitive Services Research"
 
 
 def test_find_people(anthology):

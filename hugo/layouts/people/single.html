@@ -1,6 +1,5 @@
 {{ define "main" }}
-{{ $first_letter := slicestr .Params.name 0 1 }}
-{{ $person := index .Site.Data.people $first_letter .Params.name }}
+{{ $person := index .Site.Data.people .Params.name }}
 <section id="main">
   <h2 id="title">
     <!-- {{- .Title -}} -->
@@ -24,7 +23,7 @@
     {{ $len := (len .) }}
     {{ range $index, $sim_id := . }}
     {{ trim (partial "author_link.html" (dict "ctx" $ "person" (dict "id" $sim_id))) " \n" | safeHTML }}
-    {{ $sim_person := index $.Site.Data.people (slicestr $sim_id 0 1) $sim_id }}{{ with $sim_person.comment }}({{.}}){{ end }}{{ if ne (add $index 1) $len }}, {{ end }}
+    {{ $sim_person := index $.Site.Data.people $sim_id }}{{ with $sim_person.comment }}({{.}}){{ end }}{{ if ne (add $index 1) $len }}, {{ end }}
     {{ end }}
   </p>
   {{ end }}
@@ -121,7 +120,7 @@
 
       <a class="btn btn-warning btn-lg btn-secondary btn-block mb-2" title="Correct problems with the author page" href="https://github.com/acl-org/acl-anthology/issues/new?assignees=anthology-assist&labels=correction%2Cmetadata&projects=&template=02-name-correction.yml&title=Author+Page%3A+{{ .Params.name }}">
         <span class="d-none d-sm-inline"><i class="fas fa-edit"></i></span>
-        <span class="pl-md-2">Fix data</span>
+        <span class="pl-md-2">Fix author</span>
       </a>
     </div>
   </div>

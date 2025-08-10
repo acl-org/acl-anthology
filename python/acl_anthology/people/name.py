@@ -1,4 +1,4 @@
-# Copyright 2023-2024 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2025 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -21,6 +21,12 @@ from lxml.builder import E
 import re
 from slugify import slugify
 from typing import Any, Optional, cast, TypeAlias
+import yaml
+
+try:
+    from yaml import CDumper as Dumper
+except ImportError:  # pragma: no cover
+    from yaml import Dumper  # type: ignore
 
 from ..utils.latex import latex_encode
 
@@ -110,21 +116,17 @@ class Name:
         # Penalize first names that are longer than last names (this is
         # intended to make a difference when a person has both "C, A B" and "B
         # C, A" as names)
-        if self.first is not None and len(self.first) > len(self.last):
+        if self.first and len(self.first) > len(self.last):
             score += 0.5
         return score
 
+    @cache
     def slugify(self) -> str:
         """
         Returns:
             A [slugified string](https://github.com/un33k/python-slugify#how-to-use) of the full name.
         """
-        if not (name := self.as_first_last()):
-            # Only necessary because of <https://github.com/acl-org/acl-anthology/issues/2725>
-            slug = "none"
-        else:
-            slug = slugify(name)
-        return slug
+        return slugify(self.as_first_last())
 
     @classmethod
     def from_dict(cls, name: dict[str, str]) -> Name:
@@ -227,7 +229,7 @@ class Name:
         elem = etree.Element(tag)
         elem.extend(
             (
-                E.first(self.first) if self.first is not None else E.first(),
+                E.first(self.first) if self.first else E.first(),
                 E.last(self.last),
             )
         )
@@ -250,8 +252,9 @@ class NameSpecification:
 
     Attributes:
         name: The person's name.
-        id: Unique ID for the person that this name refers to.  Defaults to `None`.
-        affiliation: Professional affiliation.  Defaults to `None`.
+        id: Unique ID for the person that this name refers to.
+        orcid: An ORCID that was supplied together with this name.
+        affiliation: Professional affiliation.
         variants: Variant spellings of this name in different scripts.
 
     Note:
@@ -263,6 +266,7 @@ class NameSpecification:
 
     name: Name = field(converter=_Name_from)
     id: Optional[str] = field(default=None, validator=v.optional(v.instance_of(str)))
+    orcid: Optional[str] = field(default=None, validator=v.optional(v.instance_of(str)))
     affiliation: Optional[str] = field(
         default=None, validator=v.optional(v.instance_of(str))
     )
@@ -321,6 +325,7 @@ class NameSpecification:
         return cls(
             Name(first, cast(str, last)),
             id=person.get("id"),
+            orcid=person.get("orcid"),
             affiliation=affiliation,
             variants=variants,
         )
@@ -336,9 +341,11 @@ class NameSpecification:
         elem = etree.Element(tag)
         if self.id is not None:
             elem.set("id", self.id)
+        if self.orcid is not None:
+            elem.set("orcid", self.orcid)
         elem.extend(
             (
-                E.first(self.first) if self.first is not None else E.first(),
+                E.first(self.first) if self.first else E.first(),
                 E.last(self.last),
             )
         )
@@ -347,3 +354,21 @@ class NameSpecification:
         for variant in self.variants:
             elem.append(variant.to_xml())
         return elem
+
+
+class _YAMLName(yaml.YAMLObject):
+    """YAMLObject representing names.
+
+    This exists to serialize names in "flow" style (i.e. one-liner `{first: ..., last: ...}`) without having to force flow style on the entire YAML document.
+    """
+
+    yaml_dumper = Dumper
+    yaml_tag = "tag:yaml.org,2002:map"  # serialize like a dictionary
+    yaml_flow_style = True  # force flow style
+
+    def __init__(self, name: Name) -> None:
+        if name.first is not None:
+            self.first = name.first
+        self.last = name.last
+        if name.script is not None:
+            self.script = name.script
