@@ -312,6 +312,65 @@ class PersonIndex(SlottedDict[Person]):
             if is_verified_person_id(pid):
                 self.slugs_to_verified_ids[name.slugify()].append(pid)
 
+    def _update_id(self, old_id: str, new_id: str) -> None:
+        """Update a person ID in the index.
+
+        Will change all indices to remove the old ID and replace it with the new one.  Will be called automatically from Person; do not call manually.
+
+        Parameters:
+            old_id: A person ID that already exists in the index.
+            new_id: The new person ID it should be changed to, which mustn't exist in the index.
+        """
+        if not self.is_data_loaded:
+            return
+        person = self.data.pop(old_id)
+        self.data[new_id] = person
+        # Note: cannot remove from DisjointSet
+        self.similar.add(new_id)
+        self.similar.merge(old_id, new_id)
+        if person.orcid is not None:
+            self.by_orcid[person.orcid] = new_id
+        for name in person.names:
+            self._remove_name(old_id, name)
+            self._add_name(new_id, name)
+
+    def _update_orcid(self, pid: str, old: Optional[str], new: Optional[str]) -> None:
+        """Update a person's ORCID in the index.
+
+        Will be called automatically from Person; do not call manually.
+        """
+        if not self.is_data_loaded:
+            return
+        if old is not None and old in self.by_orcid:
+            del self.by_orcid[old]
+        if new is not None:
+            self.by_orcid[new] = pid
+
+    def _add_name(self, pid: str, name: Name) -> None:
+        """Add a name for a person to the index.
+
+        Will be called automatically from Person; do not call manually.
+        """
+        if not self.is_data_loaded:
+            return
+        self.by_name[name].append(pid)
+        if is_verified_person_id(pid):
+            self.slugs_to_verified_ids[name.slugify()].append(pid)
+
+    def _remove_name(self, pid: str, name: Name) -> None:
+        """Remove a name for a person from the index.
+
+        Will be called automatically from Person; do not call manually.
+        """
+        if not self.is_data_loaded:
+            return
+        try:
+            self.by_name[name].remove(pid)
+            if is_verified_person_id(pid):
+                self.slugs_to_verified_ids[name.slugify()].remove(pid)
+        except ValueError:
+            pass
+
     def ingest_namespec(self, name_spec: NameSpecification) -> NameSpecification:
         """Update a name specification for ingestion, potentially filling in the ID field.
 

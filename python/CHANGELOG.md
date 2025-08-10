@@ -8,6 +8,7 @@ This release implements the new [name resolution and author ID logic](https://gi
 
 - NameSpecification now provides an `orcid` field.
 - Person now provides `orcid`, `degree`, `disable_name_matching`, and `similar_ids` fields that correspond to the respective fields in the new `people.yaml`.
+- Person: Changing `id`, `orcid`, `names`, or using `add_name()` or `remove_names()` will now automatically update the PersonIndex.
 - PersonIndex:
   - Now also indexes Person objects by ORCID, and provides `by_orcid` and `get_by_orcid()`.
   - Now also keeps a mapping of name slugs to (verified) person IDs, via `slugs_to_verified_ids` (mostly for internal use).

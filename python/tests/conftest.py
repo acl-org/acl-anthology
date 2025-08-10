@@ -16,6 +16,7 @@ import difflib
 import itertools as it
 import pytest
 import reprlib
+from unittest.mock import Mock
 
 pytest.register_assert_rewrite("acl_anthology.utils.xml")
 
@@ -24,6 +25,7 @@ from acl_anthology import Anthology  # noqa: E402
 
 class AnthologyStub:
     datadir = None
+    people = Mock()
 
 
 @pytest.fixture

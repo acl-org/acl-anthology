@@ -163,6 +163,64 @@ def test_get_by_orcid(index_with_toy_anthology):
 
 
 ##############################################################################
+### Tests for changing Person attributes that should update the index
+##############################################################################
+
+
+def test_person_id_change_should_update_index(anthology):
+    index = anthology.people
+    person = index["marcel-bollmann"]
+    person.id = "marcel-bollmann-rub"
+    assert "marcel-bollmann" not in index
+    assert "marcel-bollmann-rub" in index
+    assert index.by_orcid["0000-0003-2598-8150"] == "marcel-bollmann-rub"
+    assert index.by_name[Name("Marcel", "Bollmann")] == ["marcel-bollmann-rub"]
+
+
+def test_person_orcid_change_should_update_index(anthology):
+    index = anthology.people
+    person = index["yang-liu-ict"]
+    orcid = "0000-0003-4154-7507"
+    assert orcid not in index.by_orcid
+    person.orcid = orcid
+    assert orcid in index.by_orcid
+    assert index.by_orcid[orcid] == "yang-liu-ict"
+
+
+def test_person_add_name_should_update_index(anthology):
+    index = anthology.people
+    person = index["marcel-bollmann"]
+    name = Name("Marc Marcel", "Bollmann")
+    assert not index.by_name[name]
+    person.add_name(name)
+    assert index.by_name[name] == ["marcel-bollmann"]
+    assert index.slugs_to_verified_ids[name.slugify()] == ["marcel-bollmann"]
+
+
+def test_person_remove_name_should_update_index(anthology):
+    index = anthology.people
+    person = index["steven-krauwer"]
+    name = Name("S.", "Krauwer")
+    assert index.by_name[name] == ["steven-krauwer"]
+    person.remove_name(name)
+    assert not index.by_name[name]
+    assert not index.slugs_to_verified_ids[name.slugify()]
+
+
+def test_person_setting_names_should_update_index(anthology):
+    index = anthology.people
+    person = index["steven-krauwer"]
+    names = [Name("Steven", "Krauwer"), Name("Steven J.", "Krauwer")]
+    person.names = names
+    # previously existing name
+    assert index.by_name[names[0]] == ["steven-krauwer"]
+    # added name
+    assert index.by_name[names[1]] == ["steven-krauwer"]
+    # removed name
+    assert not index.by_name[Name("S.", "Krauwer")]
+
+
+##############################################################################
 ### Tests for name resolution logic
 ##############################################################################
 

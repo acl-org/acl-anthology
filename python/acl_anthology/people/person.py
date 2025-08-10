@@ -14,11 +14,16 @@
 
 from __future__ import annotations
 
+import attrs
 from attrs import define, field
 from enum import Enum
 from typing import Any, Iterator, Optional, Sequence, TYPE_CHECKING
 from ..utils.attrs import auto_validate_types
-from ..utils.ids import AnthologyIDTuple, build_id_from_tuple, is_valid_orcid
+from ..utils.ids import (
+    AnthologyIDTuple,
+    build_id_from_tuple,
+    is_valid_orcid,
+)
 from . import Name
 
 if TYPE_CHECKING:
@@ -45,12 +50,27 @@ def _name_list_converter(
     ]
 
 
+def _update_person_index(person: Person, attr: attrs.Attribute[Any], value: str) -> str:
+    """Update the [PersonIndex][acl_anthology.people.index.PersonIndex].
+
+    Intended to be called from `on_setattr` of an [attrs.field][].
+    """
+    index = person.parent.people
+    if attr.name == "id":
+        index._update_id(person.id, value)
+    elif attr.name == "orcid":
+        index._update_orcid(person.id, person.orcid, value)
+    return value
+
+
 @define(field_transformer=auto_validate_types)
 class Person:
     """A natural person.
 
     Info:
-        The connection between persons and Anthology items is currently derived from [name specifications][acl_anthology.people.name.NameSpecification] on volumes and papers, and not stored explicitly. This means that Person objects **cannot be used to make changes to paper metadata**, e.g. which person a paper is associated with; change the information on papers instead.
+        The connection between persons and Anthology items is derived from [name specifications][acl_anthology.people.name.NameSpecification] on volumes and papers, and not stored explicitly. This means that Person objects **cannot be used to make changes to paper metadata**, e.g. which person a paper is associated with or under which name; change the information on papers instead.
+
+        Person objects **can** be used to make changes to metadata that appears in `people.yaml`, such as ORCID, comment, degree, and alternative names for this person.
 
     Attributes:
         id: A unique ID for this person.
@@ -64,7 +84,9 @@ class Person:
         is_explicit: If True, this person's ID is explicitly defined in `people.yaml`.
     """
 
-    id: str = field()
+    id: str = field(
+        on_setattr=attrs.setters.pipe(attrs.setters.validate, _update_person_index)
+    )
     parent: Anthology = field(repr=False, eq=False)
     _names: list[tuple[Name, NameLink]] = field(
         factory=list, converter=_name_list_converter
@@ -72,7 +94,10 @@ class Person:
     item_ids: list[AnthologyIDTuple] = field(
         factory=list, repr=lambda x: f"<list of {len(x)} AnthologyIDTuple objects>"
     )
-    orcid: Optional[str] = field(default=None)  # validator defined below
+    orcid: Optional[str] = field(
+        default=None,
+        on_setattr=attrs.setters.pipe(attrs.setters.validate, _update_person_index),
+    )  # validator defined below
     comment: Optional[str] = field(default=None)
     degree: Optional[str] = field(default=None)
     similar_ids: list[str] = field(factory=list)
@@ -98,6 +123,10 @@ class Person:
 
     @names.setter
     def names(self, values: list[Name]) -> None:
+        for name, _ in self._names:
+            self.parent.people._remove_name(self.id, name)
+        for name in values:
+            self.parent.people._add_name(self.id, name)
         self._names = _name_list_converter(values)
 
     @property
@@ -127,6 +156,7 @@ class Person:
         link_type = NameLink.INFERRED if inferred else NameLink.EXPLICIT
         if not self.has_name(name):
             self._names.append((name, link_type))
+            self.parent.people._add_name(self.id, name)
         elif (name, link_type) not in self._names:
             # ensure that name is re-inserted at same position
             idx = self.names.index(name)
@@ -146,6 +176,7 @@ class Person:
             ValueError: If this name was not explicitly linked to this person.
         """
         self._names.remove((name, NameLink.EXPLICIT))
+        self.parent.people._remove_name(self.id, name)
 
     def has_name(self, name: Name) -> bool:
         """
