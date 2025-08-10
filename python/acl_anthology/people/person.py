@@ -19,7 +19,7 @@ from attrs import define, field
 from enum import Enum
 import itertools as it
 from typing import Any, Iterator, Optional, Sequence, TYPE_CHECKING
-from ..exceptions import AnthologyException
+from ..exceptions import AnthologyException, AnthologyInvalidIDError
 from ..utils.attrs import auto_validate_types
 from ..utils.ids import (
     AnthologyIDTuple,
@@ -233,14 +233,16 @@ class Person:
 
         Raises:
             AnthologyException: If `self.is_explicit` is False.
-            ValueError: If the supplied ID is not valid, or if it already exists in the PersonIndex.
+            AnthologyInvalidIDError: If the supplied ID is not valid, or if it already exists in the PersonIndex.
         """
         if not self.is_explicit:
             exc = AnthologyException("Can only update ID for explicit person")
             exc.add_note("Did you want to use make_explicit() instead?")
             raise exc
         if not is_verified_person_id(new_id):
-            raise ValueError(f"Not a valid verified-person ID: {new_id}")
+            raise AnthologyInvalidIDError(
+                new_id, f"Not a valid verified-person ID: {new_id}"
+            )
 
         old_id = self.id
 

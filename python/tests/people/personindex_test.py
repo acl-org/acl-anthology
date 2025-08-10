@@ -166,6 +166,27 @@ def test_get_by_orcid(index):
     assert index.get_by_orcid("0000-0000-0000-0000") is None
 
 
+def test_create_person(index):
+    person = index.create_person(
+        id="matt-post",
+        names=[Name("Matt", "Post")],
+        orcid="0000-0002-1297-6794",
+    )
+    assert person.id in index
+    assert person.id == "matt-post"
+    assert person.orcid == "0000-0002-1297-6794"
+    assert person.is_explicit
+
+
+def test_create_person_should_fail_on_duplicate_orcid(index):
+    with pytest.raises(ValueError):
+        index.create_person(
+            id="marcel-bollmann-twin",
+            names=[Name("Marcel", "Bollmann")],
+            orcid="0000-0003-2598-8150",  # already assigned to "marcel-bollmann"
+        )
+
+
 ##############################################################################
 ### Tests for changing Person attributes that should update the index
 ##############################################################################
@@ -547,14 +568,41 @@ marcel-bollmann:
     )
 
 
-def test_add_person_to_people_yaml(index, tmp_path):
+def test_add_person_to_people_yaml_via_make_explicit(index, tmp_path):
     index.load()
-    yaml_out = tmp_path / "people.add_fields.yaml"
+    yaml_out = tmp_path / "people.make_explicit.yaml"
 
     # Modifications
     person = index["unverified/preslav-nakov"]
     person.make_explicit("preslav-nakov")
     person.orcid = "0000-0002-3600-1510"
+
+    # Test that modifications are saved to people.yaml
+    index.save(yaml_out)
+    assert yaml_out.is_file()
+    with open(yaml_out, "r", encoding="utf-8") as f:
+        out = f.read()
+
+    assert (
+        """
+preslav-nakov:
+  names:
+  - {first: Preslav, last: Nakov}
+  orcid: 0000-0002-3600-1510"""
+        in out
+    )
+
+
+def test_add_person_to_people_yaml_via_create_person(index, tmp_path):
+    index.load()
+    yaml_out = tmp_path / "people.create_person.yaml"
+
+    # Modifications
+    index.create_person(
+        id="preslav-nakov",
+        names=[Name("Preslav", "Nakov")],
+        orcid="0000-0002-3600-1510",
+    )
 
     # Test that modifications are saved to people.yaml
     index.save(yaml_out)

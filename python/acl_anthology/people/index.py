@@ -33,6 +33,7 @@ except ImportError:  # pragma: no cover
 from ..containers import SlottedDict
 from ..exceptions import (
     AnthologyException,
+    AnthologyInvalidIDError,
     NameSpecResolutionError,
     PersonDefinitionError,
 )
@@ -277,7 +278,7 @@ class PersonIndex(SlottedDict[Person]):
         """Load and parse the `people.yaml` file.
 
         Raises:
-            KeyError: If `people.yaml` contains a malformed person ID; or if a person is listed without any names.
+            AnthologyInvalidIDError: If `people.yaml` contains a malformed person ID; or if a person is listed without any names.
         """
         merge_list: list[tuple[str, str]] = []
 
@@ -286,8 +287,8 @@ class PersonIndex(SlottedDict[Person]):
 
         for pid, entry in data.items():
             if not is_verified_person_id(pid):
-                raise KeyError(
-                    f"Invalid person ID in people.yaml: {pid}"
+                raise AnthologyInvalidIDError(
+                    pid, f"Invalid person ID in people.yaml: {pid}"
                 )  # pragma: no cover
             self.add_person(
                 Person(
@@ -325,10 +326,12 @@ class PersonIndex(SlottedDict[Person]):
             person: The person to add, which should not exist in the index yet.
 
         Raises:
-            ValueError: If a person with the same ID or ORCID already exists in the index.
+            AnthologyInvalidIDError: If a person with the same ID or ORCID already exists in the index.
         """
         if (pid := person.id) in self.data:
-            raise ValueError(f"A Person with ID '{pid}' already exists in the index")
+            raise AnthologyInvalidIDError(
+                pid, f"A Person with ID '{pid}' already exists in the index"
+            )
         self.data[pid] = person
         self._similar.add(pid)
         if person.orcid is not None:
@@ -341,6 +344,44 @@ class PersonIndex(SlottedDict[Person]):
             self._by_name[name].append(pid)
             if is_verified_person_id(pid):
                 self._slugs_to_verified_ids[name.slugify()].append(pid)
+
+    def create_person(
+        self,
+        id: str,
+        names: list[Name],
+        **kwargs: Any,
+    ) -> Person:
+        """Create a new explicit person and add it to the index.
+
+        Parameters:
+            id: The ID of the new person.
+            names: A list of names for the new person; must contain at least one.
+            **kwargs: Any valid list or optional attribute of [Person][acl_anthology.people.person.Person].
+
+        Returns:
+            The created [Person][acl_anthology.people.person.Person] object.
+
+        Raises:
+            AnthologyInvalidIDError: If a person with the given ID already exists, or the ID is not a well-formed verified-person ID.
+            ValueError: If the list of names is empty.
+        """
+        if not self.is_data_loaded:
+            self.load()
+        if id in self.data:
+            raise AnthologyInvalidIDError(
+                id, f"A Person with ID '{id}' already exists in the index"
+            )
+        if not is_verified_person_id(id):
+            raise AnthologyInvalidIDError(id, f"Not a valid verified-person ID: {id}")
+        if not names:
+            raise ValueError("List of names cannot be empty")
+
+        kwargs["parent"] = self.parent
+        kwargs["is_explicit"] = True
+
+        person = Person(id=id, names=names, **kwargs)
+        self.add_person(person)
+        return person
 
     def _update_id(self, old_id: str, new_id: str) -> None:
         """Update a person ID in the index.

@@ -16,6 +16,7 @@ This release implements the new [name resolution and author ID logic](https://gi
   - Now also indexes Person objects by ORCID, and provides `by_orcid` and `get_by_orcid()`.
   - Now also keeps a mapping of name slugs to (verified) person IDs, via `slugs_to_verified_ids` (mostly for internal use).
   - Added `ingest_namespec()` to implement the [matching logic on ingestion](https://github.com/acl-org/acl-anthology/wiki/Author-Page-Plan#ingestion) of new volumes.
+  - Added `create_person()` to instantiate a new Person and add it to the index.
 
 ### Changed
 
