@@ -83,7 +83,7 @@ class PersonIndex(SlottedDict[Person]):
     _by_name: dict[Name, list[str]] = field(
         init=False, repr=False, factory=lambda: defaultdict(list)
     )
-    _slugs_to_verified_ids: dict[str, list[str]] = field(
+    _slugs_to_verified_ids: dict[str, set[str]] = field(
         init=False, repr=False, factory=lambda: defaultdict(list)
     )
     _similar: DisjointSet = field(init=False, repr=False, factory=DisjointSet)
@@ -112,7 +112,7 @@ class PersonIndex(SlottedDict[Person]):
         return self._similar
 
     @property
-    def slugs_to_verified_ids(self) -> dict[str, list[str]]:
+    def slugs_to_verified_ids(self) -> dict[str, set[str]]:
         if not self.is_data_loaded:
             self.load()
         return self._slugs_to_verified_ids
@@ -219,7 +219,7 @@ class PersonIndex(SlottedDict[Person]):
         self.data = {}
         self._by_orcid = {}
         self._by_name = defaultdict(list)
-        self._slugs_to_verified_ids = defaultdict(list)
+        self._slugs_to_verified_ids = defaultdict(set)
         self._similar = DisjointSet()
         self.is_data_loaded = False
 
@@ -313,7 +313,8 @@ class PersonIndex(SlottedDict[Person]):
                 )  # pragma: no cover
 
         # Process IDs with similar names
-        for pid_list in self._slugs_to_verified_ids.values():
+        for pid_set in self._slugs_to_verified_ids.values():
+            pid_list = list(pid_set)
             for pid in pid_list[1:]:
                 self._similar.merge(pid_list[0], pid)
         for a, b in merge_list:
@@ -343,7 +344,7 @@ class PersonIndex(SlottedDict[Person]):
         for name in person.names:
             self._by_name[name].append(pid)
             if is_verified_person_id(pid):
-                self._slugs_to_verified_ids[name.slugify()].append(pid)
+                self._slugs_to_verified_ids[name.slugify()].add(pid)
 
     def create_person(
         self,
@@ -426,7 +427,7 @@ class PersonIndex(SlottedDict[Person]):
             return
         self._by_name[name].append(pid)
         if is_verified_person_id(pid):
-            self._slugs_to_verified_ids[name.slugify()].append(pid)
+            self._slugs_to_verified_ids[name.slugify()].add(pid)
 
     def _remove_name(self, pid: str, name: Name) -> None:
         """Remove a name for a person from the index.
@@ -439,7 +440,7 @@ class PersonIndex(SlottedDict[Person]):
             self._by_name[name].remove(pid)
             if is_verified_person_id(pid):
                 self._slugs_to_verified_ids[name.slugify()].remove(pid)
-        except ValueError:
+        except KeyError:
             pass
 
     def ingest_namespec(self, name_spec: NameSpecification) -> NameSpecification:
@@ -529,7 +530,7 @@ class PersonIndex(SlottedDict[Person]):
             slug = name.slugify()
 
             # Check if the slugified name matches any verified IDs
-            matching_ids = self._slugs_to_verified_ids.get(slug, [])
+            matching_ids = list(self._slugs_to_verified_ids.get(slug, []))
             if (
                 len(matching_ids) == 1
                 and not (person := self.data[matching_ids[0]]).disable_name_matching

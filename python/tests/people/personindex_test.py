@@ -219,7 +219,7 @@ def test_person_add_name_should_update_index(anthology):
     assert not index.by_name[name]
     person.add_name(name)
     assert index.by_name[name] == ["marcel-bollmann"]
-    assert index.slugs_to_verified_ids[name.slugify()] == ["marcel-bollmann"]
+    assert index.slugs_to_verified_ids[name.slugify()] == set(["marcel-bollmann"])
 
 
 def test_person_remove_name_should_update_index(anthology):
