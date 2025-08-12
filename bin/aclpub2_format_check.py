@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
 """
-Last updated 2023-11-23 by Matt Post.
+Last updated 2024-08-07 by Matt Post
 
 TODO:
-- Ensure no LaTeX in titles (e.g., \emph{...})
+- Ensure no LaTeX in titles
 - If there is only a single name, it should be the last name, not the first
 - Clean TeX from abstracts, too (e.g., 2023.findings-emnlp.439)
 
@@ -65,9 +66,11 @@ and this script will look for the above files relative to the
 anthology directory.
 """
 
+import re
 import sys
 import yaml
 import logging
+from datetime import datetime
 from pathlib import Path
 
 logging.basicConfig(format="%(message)s", level=logging.INFO)
@@ -84,12 +87,15 @@ class CounterHandler(logging.Handler):
 
     def emit(self, record):
         self.count += 1
-        print(self.format(record), file=sys.stderr)
+
+
+#        print(self.format(record), file=sys.stderr)
+
+logger.addHandler(CounterHandler(logging.WARNING))
+logger.addHandler(CounterHandler(logging.ERROR))
 
 
 def main(args):
-    logger.addHandler(CounterHandler(logging.WARNING))
-    logger.addHandler(CounterHandler(logging.ERROR))
 
     rootdir = Path(args.import_dir)
 
@@ -105,18 +111,42 @@ def main(args):
             rootdir = Path(config["import_dir"])
             logger.info(f"Using import directory '{rootdir}'")
 
-    # conference details
+    ## CONFERENCE DETAILS
+    # make sure file exists
     if not (
         conference_details_path := rootdir / "inputs" / "conference_details.yml"
     ).exists():
         logger.error(f"x File '{conference_details_path}' does not exist")
-    else:
+    elif args.verbose:
         logger.info(f"✓ Found {conference_details_path}")
+
+    conference_details = yaml.safe_load(conference_details_path.read_text())
+    anthology_venue_id = str(conference_details.get("anthology_venue_id", ""))
+    volume_name = str(conference_details["volume_name"])
+
+    # every volume needs editors
+    if "editors" not in conference_details:
+        logger.error("No editors found in conference_details")
+    # look for the current year in the venue id
+    if anthology_venue_id.endswith(str(datetime.now().year % 100)):
+        logger.error(
+            "It looks like you may have the year in the venue ID. The venue ID is not tied to the year, but groups volumes from the same venue across years, e.g., KnowledgeNLP = https://aclanthology.org/venues/knowledgenlp"
+        )
+    # volume name must match this format
+    if not re.fullmatch(r'[a-z0-9]+', volume_name):
+        logger.error(
+            "Volume name can only have a-z0-9 (most single-volume workshops use 1 or main)"
+        )
+    if volume_name.lower() == "findings":
+        logger.error(
+            f"You have anthology_venue_id={anthology_venue_id} and volume_name={volume_name}, but this should probably be the other way around (Findings is the venue)"
+        )
+    #
 
     # papers.yml
     if not (papers_path := rootdir / "inputs" / "papers.yml").exists():
         logger.fatal(f"File '{papers_path}' not found")
-    else:
+    elif args.verbose:
         logger.info(f"✓ Found {papers_path}")
 
     # Read through papers.yml. At the top level of the file is a list
@@ -125,14 +155,22 @@ def main(args):
     # sure that exists.
     papers = yaml.safe_load(papers_path.read_text())
     for paper in papers:
+        paper_id = paper["id"]
+
         # For each file, there should be a file {rootdir}/watermarked_pdfs/{id}.pdf
         if "archival" not in paper or paper['archival']:
             if not (
                 pdf_path := rootdir / "watermarked_pdfs" / f'{paper["id"]}.pdf'
             ).exists():
                 logger.error(f"Paper file '{pdf_path}' not found")
-            else:
+            elif args.verbose:
                 logger.info(f"✓ Found PDF file {pdf_path}")
+
+        for author in paper.get("authors", []):
+            if "@" in author.get("name", ""):
+                logger.error(
+                    f"Paper ID {paper_id}: Author name '{author['name']}' contains an email address"
+                )
 
         if "attachments" in paper:
             for attachment in paper["attachments"]:
@@ -140,13 +178,13 @@ def main(args):
                     attachment_path := rootdir / "attachments" / attachment["file"]
                 ).exists():
                     logger.error(f"Attachment file '{attachment_path}' not found")
-                else:
+                elif args.verbose:
                     logger.info(f"✓ Found attachment file {attachment_path}")
 
     # Check for frontmatter
     if not (frontmatter_path := rootdir / "watermarked_pdfs" / "0.pdf").exists():
         logger.error(f"Frontmatter {frontmatter_path} not found")
-    else:
+    elif args.verbose:
         logger.info(f"✓ Found frontmatter at {frontmatter_path}")
 
     # If there were any warnings or errors, exit with a non-zero status
@@ -155,7 +193,7 @@ def main(args):
         if isinstance(handler, CounterHandler):
             if handler.count > 0:
                 print(
-                    f"Script found {handler.count} warnings or errors. Please fix them before submitting."
+                    f"FAILURE: script found {handler.count} warnings or errors. Please fix them before submitting."
                 )
                 sys.exit(1)
 
@@ -168,9 +206,16 @@ if __name__ == "__main__":
     )
     parser.add_argument(
         "--import-dir",
+        "-i",
         type=str,
-        default="output",
+        default=".",
         help="Root directory for Anthology import",
+    )
+    parser.add_argument(
+        "-v",
+        "--verbose",
+        action="store_true",
+        help="Print successes in addition to errors.",
     )
     args = parser.parse_args()
 

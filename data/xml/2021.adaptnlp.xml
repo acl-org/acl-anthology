@@ -28,15 +28,6 @@
       <abstract>When tackling a task in a given domain, it has been shown that adapting a model to the domain using raw text data before training on the supervised task improves performance versus solely training on the task. The downside is that a lot of domain data is required and if we want to tackle tasks in n domains, we require n models each adapted on domain data before task learning. Storing and using these models separately can be prohibitive for low-end devices. In this paper we show that domain adaptation can be generalised to cover multiple domains. Specifically, a single model can be trained across various domains at the same time with minimal drop in performance, even when we use less data and resources. Thus, instead of training multiple models, we can train a single multidomain model saving on computational resources and training time.</abstract>
       <url hash="4739a758">2021.adaptnlp-1.1</url>
       <bibkey>maronikolakis-schutze-2021-multidomain</bibkey>
-      <pwccode url="https://github.com/antmarakis/multidomain_green_nlp" additional="false">antmarakis/multidomain_green_nlp</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/ag-news">AG News</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/imdb-movie-reviews">IMDb Movie Reviews</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/multinli">MultiNLI</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/pubmed-rct">PubMed RCT</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/realnews">RealNews</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/sarc">SARC</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/scicite">SciCite</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/talkdown">TalkDown</pwcdataset>
     </paper>
     <paper id="2">
       <title>Pseudo-Label Guided Unsupervised Domain Adaptation of Contextual Embeddings</title>
@@ -48,7 +39,6 @@
       <abstract>Contextual embedding models such as BERT can be easily fine-tuned on labeled samples to create a state-of-the-art model for many downstream tasks. However, the fine-tuned BERT model suffers considerably from unlabeled data when applied to a different domain. In unsupervised domain adaptation, we aim to train a model that works well on a target domain when provided with labeled source samples and unlabeled target samples. In this paper, we propose a pseudo-label guided method for unsupervised domain adaptation. Two models are fine-tuned on labeled source samples as pseudo labeling models. To learn representations for the target domain, one of those models is adapted by masked language modeling from the target domain. Then those models are used to assign pseudo-labels to target samples. We train the final model with those samples. We evaluate our method on named entity segmentation and sentiment analysis tasks. These experiments show that our approach outperforms baseline methods.</abstract>
       <url hash="3f6deeac">2021.adaptnlp-1.2</url>
       <bibkey>chen-etal-2021-pseudo</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/conll-2003">CoNLL 2003</pwcdataset>
     </paper>
     <paper id="3">
       <title>Conditional Adversarial Networks for Multi-Domain Text Classification</title>
@@ -59,7 +49,6 @@
       <abstract>In this paper, we propose conditional adversarial networks (CANs), a framework that explores the relationship between the shared features and the label predictions to impose stronger discriminability to the learned features, for multi-domain text classification (MDTC). The proposed CAN introduces a conditional domain discriminator to model the domain variance in both the shared feature representations and the class-aware information simultaneously, and adopts entropy conditioning to guarantee the transferability of the shared features. We provide theoretical analysis for the CAN framework, showing that CAN’s objective is equivalent to minimizing the total divergence among multiple joint distributions of shared features and label predictions. Therefore, CAN is a theoretically sound adversarial network that discriminates over multiple distributions. Evaluation results on two MDTC benchmarks show that CAN outperforms prior methods. Further experiments demonstrate that CAN has a good ability to generalize learned knowledge to unseen domains.</abstract>
       <url hash="48d8b934">2021.adaptnlp-1.3</url>
       <bibkey>wu-etal-2021-conditional</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/multi-domain-sentiment-dataset-v2-0">Multi-Domain Sentiment</pwcdataset>
     </paper>
     <paper id="4">
       <title>The impact of domain-specific representations on <fixed-case>BERT</fixed-case>-based multi-domain spoken language understanding</title>
@@ -92,7 +81,6 @@
       <abstract>While high performance have been obtained for high-resource languages, performance on low-resource languages lags behind. In this paper we focus on the parsing of the low-resource language Frisian. We use a sample of code-switched, spontaneously spoken data, which proves to be a challenging setup. We propose to train a parser specifically tailored towards the target domain, by selecting instances from multiple treebanks. Specifically, we use Latent Dirichlet Allocation (LDA), with word and character N-grams. We use a deep biaffine parser initialized with mBERT. The best single source treebank (nl_alpino) resulted in an LAS of 54.7 whereas our data selection outperformed the single best transfer treebank and led to 55.6 LAS on the test data. Additional experiments consisted of removing diacritics from our Frisian data, creating more similar training data by cropping sentences and running our best model using XLM-R. These experiments did not lead to a better performance.</abstract>
       <url hash="10615d45">2021.adaptnlp-1.6</url>
       <bibkey>braggaar-van-der-goot-2021-challenges</bibkey>
-      <pwccode url="https://github.com/anouck96/parsingfrisian" additional="false">anouck96/parsingfrisian</pwccode>
     </paper>
     <paper id="7">
       <title>Genres, Parsers, and <fixed-case>BERT</fixed-case>: The Interaction Between Parsers and <fixed-case>BERT</fixed-case> Models in Cross-Genre Constituency Parsing in <fixed-case>E</fixed-case>nglish and <fixed-case>S</fixed-case>wedish</title>
@@ -101,7 +89,6 @@
       <abstract>Genre and domain are often used interchangeably, but are two different properties of a text. Successful parser adaptation requires both cross-domain and cross-genre sensitivity (Rehbein and Bildhauer, 2017). While the impact domain differences have on parser performance degradation is more easily measurable in respect to lexical differences, impact of genre differences can be more nuanced. With the predominance of pre-trained language models (LMs; e.g. BERT (Devlin et al., 2019)), there are now additional complexities in developing cross-genre sensitive models due to the infusion of linguistic characteristics derived from, usually, a third genre. We perform a systematic set of experiments using two neural constituency parsers to examine how different parsers behave in combination with different BERT models with varying source and target genres in English and Swedish. We find that there is extensive difficulty in predicting the best source due to the complex interactions between genres, parsers, and LMs. Additionally, the influence of the data used to derive the underlying BERT model heavily influences how best to create more robust and effective cross-genre parsing models.</abstract>
       <url hash="59593bcc">2021.adaptnlp-1.7</url>
       <bibkey>dakota-2021-genres</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/bookcorpus">BookCorpus</pwcdataset>
     </paper>
     <paper id="8">
       <title>Cross-Lingual Transfer with <fixed-case>MAML</fixed-case> on Trees</title>
@@ -117,7 +104,6 @@
       <abstract>In meta-learning, the knowledge learned from previous tasks is transferred to new ones, but this transfer only works if tasks are related. Sharing information between unrelated tasks might hurt performance, and it is unclear how to transfer knowledge across tasks that have a hierarchical structure. Our research extends a meta-learning model, MAML, by exploiting hierarchical task relationships. Our algorithm, TreeMAML, adapts the model to each task with a few gradient steps, but the adaptation follows the hierarchical tree structure: in each step, gradients are pooled across tasks clusters and subsequent steps follow down the tree. We also implement a clustering algorithm that generates the tasks tree without previous knowledge of the task structure, allowing us to make use of implicit relationships between the tasks. We show that TreeMAML successfully trains natural language processing models for cross-lingual Natural Language Inference by taking advantage of the language phylogenetic tree. This result is useful since most languages in the world are under-resourced and the improvement on cross-lingual transfer allows the internationalization of NLP models.</abstract>
       <url hash="f50a11fb">2021.adaptnlp-1.8</url>
       <bibkey>garcia-etal-2021-cross</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/xnli">XNLI</pwcdataset>
     </paper>
     <paper id="9">
       <title>Addressing Zero-Resource Domains Using Document-Level Context in Neural Machine Translation</title>
@@ -139,15 +125,6 @@
       <abstract>Retrieval question answering (ReQA) is the task of retrieving a sentence-level answer to a question from an open corpus (Ahmad et al.,2019).This dataset paper presents MultiReQA, a new multi-domain ReQA evaluation suite composed of eight retrieval QA tasks drawn from publicly available QA datasets. We explore systematic retrieval based evaluation and transfer learning across domains over these datasets using a number of strong base-lines including two supervised neural models, based on fine-tuning BERT and USE-QA models respectively, as well as a surprisingly effective information retrieval baseline, BM25. Five of these tasks contain both training and test data, while three contain test data only. Performing cross training on the five tasks with training data shows that while a general model covering all domains is achievable, the best performance is often obtained by training exclusively on in-domain data.</abstract>
       <url hash="f40b2593">2021.adaptnlp-1.10</url>
       <bibkey>guo-etal-2021-multireqa</bibkey>
-      <pwccode url="https://github.com/google-research-datasets/MultiReQA" additional="false">google-research-datasets/MultiReQA</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/bioasq">BioASQ</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/hotpotqa">HotpotQA</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/mrqa-2019">MRQA</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/natural-questions">Natural Questions</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/reqa">ReQA</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/squad">SQuAD</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/searchqa">SearchQA</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/triviaqa">TriviaQA</pwcdataset>
     </paper>
     <paper id="11">
       <title>Domain adaptation in practice: Lessons from a real-world information extraction pipeline</title>
@@ -178,8 +155,6 @@
       <abstract>We present a locality preserving loss (LPL) that improves the alignment between vector space embeddings while separating uncorrelated representations. Given two pretrained embedding manifolds, LPL optimizes a model to project an embedding and maintain its local neighborhood while aligning one manifold to another. This reduces the overall size of the dataset required to align the two in tasks such as crosslingual word alignment. We show that the LPL-based alignment between input vector spaces acts as a regularizer, leading to better and consistent accuracy than the baseline, especially when the size of the training set is small. We demonstrate the effectiveness of LPL-optimized alignment on semantic text similarity (STS), natural language inference (SNLI), multi-genre language inference (MNLI) and cross-lingual word alignment (CLA) showing consistent improvements, finding up to 16% improvement over our baseline in lower resource settings.</abstract>
       <url hash="7ff3f115">2021.adaptnlp-1.13</url>
       <bibkey>ganesan-etal-2021-locality</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/multinli">MultiNLI</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/snli">SNLI</pwcdataset>
     </paper>
     <paper id="14">
       <title>On the Hidden Negative Transfer in Sequential Transfer Learning for Domain Adaptation from News to Tweets</title>
@@ -192,7 +167,6 @@
       <abstract>Transfer Learning has been shown to be a powerful tool for Natural Language Processing (NLP) and has outperformed the standard supervised learning paradigm, as it takes benefit from the pre-learned knowledge. Nevertheless, when transfer is performed between less related domains, it brings a negative transfer, i.e. hurts the transfer performance. In this research, we shed light on the hidden negative transfer occurring when transferring from the News domain to the Tweets domain, through quantitative and qualitative analysis. Our experiments on three NLP taks: Part-Of-Speech tagging, Chunking and Named Entity recognition, reveal interesting insights.</abstract>
       <url hash="6a4303f3">2021.adaptnlp-1.14</url>
       <bibkey>meftah-etal-2021-hidden</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/tweebank">Tweebank</pwcdataset>
     </paper>
     <paper id="15">
       <title>Trajectory-Based Meta-Learning for Out-Of-Vocabulary Word Embedding Learning</title>
@@ -202,8 +176,6 @@
       <abstract>Word embedding learning methods require a large number of occurrences of a word to accurately learn its embedding. However, out-of-vocabulary (OOV) words which do not appear in the training corpus emerge frequently in the smaller downstream data. Recent work formulated OOV embedding learning as a few-shot regression problem and demonstrated that meta-learning can improve results obtained. However, the algorithm used, model-agnostic meta-learning (MAML) is known to be unstable and perform worse when a large number of gradient steps are used for parameter updates. In this work, we propose the use of Leap, a meta-learning algorithm which leverages the entire trajectory of the learning process instead of just the beginning and the end points, and thus ameliorates these two issues. In our experiments on a benchmark OOV embedding learning dataset and in an extrinsic evaluation, Leap performs comparably or better than MAML. We go on to examine which contexts are most beneficial to learn an OOV embedding from, and propose that the choice of contexts may matter more than the meta-learning employed.</abstract>
       <url hash="86928266">2021.adaptnlp-1.15</url>
       <bibkey>buck-vlachos-2021-trajectory</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/wikitext-103">WikiText-103</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/wikitext-2">WikiText-2</pwcdataset>
     </paper>
     <paper id="16">
       <title>Dependency Parsing Evaluation for Low-resource Spontaneous Speech</title>
@@ -213,7 +185,6 @@
       <abstract>How well can a state-of-the-art parsing system, developed for the written domain, perform when applied to spontaneous speech data involving different interlocutors? This study addresses this question in a low-resource setting using child-parent conversations from the CHILDES databse. Specifically, we focus on dependency parsing evaluation for utterances of one specific child (18 - 27 months) and her parents. We first present a semi-automatic adaption of the dependency annotation scheme in CHILDES to that of the Universal Dependencies project, an annotation style that is more commonly applied in dependency parsing. Our evaluation demonstrates that an outof-domain biaffine parser trained only on written texts performs well with parent speech. There is, however, much room for improvement on child utterances, particularly at 18 and 21 months, due to cases of omission and repetition that are prevalent in child speech. By contrast, parsers trained or fine-tuned with in-domain spoken data on a much smaller scale can achieve comparable results for parent speech and improve the weak parsing performance for child speech at these earlier ages</abstract>
       <url hash="cc584520">2021.adaptnlp-1.16</url>
       <bibkey>liu-prudhommeaux-2021-dependency</bibkey>
-      <pwccode url="https://github.com/zoeyliu18/parsing_speech" additional="false">zoeyliu18/parsing_speech</pwccode>
     </paper>
     <paper id="17">
       <title>An Empirical Study of Compound <fixed-case>PCFG</fixed-case>s</title>
@@ -223,8 +194,6 @@
       <abstract>Compound probabilistic context-free grammars (C-PCFGs) have recently established a new state of the art for phrase-structure grammar induction. However, due to the high time-complexity of chart-based representation and inference, it is difficult to investigate them comprehensively. In this work, we rely on a fast implementation of C-PCFGs to conduct evaluation complementary to that of (CITATION). We highlight three key findings: (1) C-PCFGs are data-efficient, (2) C-PCFGs make the best use of global sentence-level information in preterminal rule probabilities, and (3) the best configurations of C-PCFGs on English do not always generalize to morphology-rich languages.</abstract>
       <url hash="b99b0c8f">2021.adaptnlp-1.17</url>
       <bibkey>zhao-titov-2021-empirical</bibkey>
-      <pwccode url="https://github.com/zhaoyanpeng/cpcfg" additional="true">zhaoyanpeng/cpcfg</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/english-web-treebank">English Web Treebank</pwcdataset>
     </paper>
     <paper id="18">
       <title>User Factor Adaptation for User Embedding via Multitask Learning</title>
@@ -237,7 +206,6 @@
       <abstract>Language varies across users and their interested fields in social media data: words authored by a user across his/her interests may have different meanings (e.g., cool) or sentiments (e.g., fast). However, most of the existing methods to train user embeddings ignore the variations across user interests, such as product and movie categories (e.g., drama vs. action). In this study, we treat the user interest as domains and empirically examine how the user language can vary across the user factor in three English social media datasets. We then propose a user embedding model to account for the language variability of user interests via a multitask learning framework. The model learns user language and its variations without human supervision. While existing work mainly evaluated the user embedding by extrinsic tasks, we propose an intrinsic evaluation via clustering and evaluate user embeddings by an extrinsic task, text classification. The experiments on the three English-language social media datasets show that our proposed approach can generally outperform baselines via adapting the user factor.</abstract>
       <url hash="6f377a88">2021.adaptnlp-1.18</url>
       <bibkey>huang-etal-2021-user</bibkey>
-      <pwccode url="https://github.com/xiaoleihuang/UserEmbedding" additional="false">xiaoleihuang/UserEmbedding</pwccode>
     </paper>
     <paper id="19">
       <title>On the Effectiveness of Dataset Embeddings in Mono-lingual,Multi-lingual and Zero-shot Conditions</title>
@@ -258,7 +226,6 @@
       <abstract>A principal barrier to training temporal relation extraction models in new domains is the lack of varied, high quality examples and the challenge of collecting more. We present a method of automatically collecting distantly-supervised examples of temporal relations. We scrape and automatically label event pairs where the temporal relations are made explicit in text, then mask out those explicit cues, forcing a model trained on this data to learn other signals. We demonstrate that a pre-trained Transformer model is able to transfer from the weakly labeled examples to human-annotated benchmarks in both zero-shot and few-shot settings, and that the masking scheme is important in improving generalization.</abstract>
       <url hash="97258218">2021.adaptnlp-1.20</url>
       <bibkey>zhao-etal-2021-effective</bibkey>
-      <pwccode url="https://github.com/xyz-zy/xdomain-temprel" additional="true">xyz-zy/xdomain-temprel</pwccode>
     </paper>
     <paper id="21">
       <title>Zero-Shot Cross-Lingual Dependency Parsing through Contextual Embedding Transformation</title>
@@ -268,7 +235,6 @@
       <abstract>Linear embedding transformation has been shown to be effective for zero-shot cross-lingual transfer tasks and achieve surprisingly promising results. However, cross-lingual embedding space mapping is usually studied in static word-level embeddings, where a space transformation is derived by aligning representations of translation pairs that are referred from dictionaries. We move further from this line and investigate a contextual embedding alignment approach which is sense-level and dictionary-free. To enhance the quality of the mapping, we also provide a deep view of properties of contextual embeddings, i.e., the anisotropy problem and its solution. Experiments on zero-shot dependency parsing through the concept-shared space built by our embedding transformation substantially outperform state-of-the-art methods using multilingual embeddings.</abstract>
       <url hash="063c51f4">2021.adaptnlp-1.21</url>
       <bibkey>xu-koehn-2021-zero</bibkey>
-      <pwccode url="https://github.com/fe1ixxu/ZeroShot-CrossLing-Parsing" additional="false">fe1ixxu/ZeroShot-CrossLing-Parsing</pwccode>
     </paper>
     <paper id="22">
       <title>Gradual Fine-Tuning for Low-Resource Domain Adaptation</title>
@@ -282,7 +248,6 @@
       <abstract>Fine-tuning is known to improve NLP models by adapting an initial model trained on more plentiful but less domain-salient examples to data in a target domain. Such domain adaptation is typically done using one stage of fine-tuning. We demonstrate that gradually fine-tuning in a multi-step process can yield substantial further gains and can be applied without modifying the model or learning objective.</abstract>
       <url hash="84f585ac">2021.adaptnlp-1.22</url>
       <bibkey>xu-etal-2021-gradual</bibkey>
-      <pwccode url="https://github.com/fe1ixxu/Gradual-Finetune" additional="true">fe1ixxu/Gradual-Finetune</pwccode>
     </paper>
     <paper id="23">
       <title>Analyzing the Domain Robustness of Pretrained Language Models, Layer by Layer</title>

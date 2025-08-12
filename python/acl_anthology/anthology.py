@@ -1,4 +1,4 @@
-# Copyright 2023-2024 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2025 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -20,40 +20,44 @@ import pkgutil
 import sys
 import warnings
 from lxml.etree import RelaxNG
-from os import PathLike
 from pathlib import Path
 from rich.progress import track
 from slugify import slugify
-from typing import cast, overload, Iterator, Optional
+from typing import cast, overload, Iterator, Optional, TypeAlias, TYPE_CHECKING
 
 if sys.version_info >= (3, 11):
     from typing import Self
 else:
     from typing_extensions import Self
 
+if TYPE_CHECKING:
+    from _typeshed import StrPath
+
 from .config import config, dirs
-from .exceptions import SchemaMismatchWarning
+from .exceptions import AnthologyException, SchemaMismatchWarning
 from .utils import git
 from .utils.ids import AnthologyID, parse_id
+from .utils.logging import get_logger
 from .collections import CollectionIndex, Collection, Volume, Paper, Event, EventIndex
 from .people import PersonIndex, Person, Name, NameSpecification, ConvertableIntoName
 from .sigs import SIGIndex
 from .venues import VenueIndex
 
+NameSpecificationOrIter: TypeAlias = NameSpecification | Iterator[NameSpecification]
+PersonOrList: TypeAlias = Person | list[Person]
 
-NameSpecificationOrIter = NameSpecification | Iterator[NameSpecification]
-PersonOrList = Person | list[Person]
+log = get_logger()
 
 
 class Anthology:
     """An instance of the ACL Anthology data.
 
     Attributes:
-        datadir (PathLike[str]): The path to the data folder.
-        verbose (bool): If False, will not show progress bars during longer operations.
+        datadir: The path to the data folder.
+        verbose: If False, will not show progress bars during longer operations.
     """
 
-    def __init__(self, datadir: PathLike[str], verbose: bool = True) -> None:
+    def __init__(self, datadir: StrPath, verbose: bool = True) -> None:
         if not Path(datadir).is_dir():
             raise FileNotFoundError(f"Not a directory: {datadir}")
 
@@ -95,7 +99,7 @@ class Anthology:
     def from_repo(
         cls,
         repo_url: str = "https://github.com/acl-org/acl-anthology.git",
-        path: Optional[PathLike[str]] = None,
+        path: Optional[StrPath] = None,
         verbose: bool = True,
     ) -> Self:
         """Instantiates the Anthology from a Git repo.
@@ -119,26 +123,31 @@ class Anthology:
     def load_all(self) -> Self:
         """Load all Anthology data files.
 
-        Calling this function is **not strictly necessary.** If you
-        access Anthology data through object methods or
-        [SlottedDict][acl_anthology.containers.SlottedDict]
-        functionality, data will be loaded on-the-fly as required.
-        However, if you know that your program will load all data files
-        (particularly the XML files) eventually, for example by
-        iterating over all volumes/papers, loading everything at once
-        with this function can result in a considerable speed-up.
+        **Calling this function is not strictly necessary.** If you access Anthology data through object methods or [SlottedDict][acl_anthology.containers.SlottedDict] functionality, data will be loaded on-the-fly as required. However, if you know that your program will load all data files (particularly the XML files) eventually, for example by iterating over all volumes/papers, loading everything at once with this function can result in a considerable speed-up.
+
+        Important:
+            Exceptions raised during the index creation are sent to the logger, and only a generic exception is raised at the end.
         """
         was_gc_enabled = False
         if config["disable_gc"]:
             was_gc_enabled = gc.isenabled()
             gc.disable()
+        elem = None
+        raised_exception = False
         try:
+            indices_to_load = (
+                self.collections.bibkeys,
+                self.people,
+                self.events,
+                self.sigs,
+                self.venues,
+            )
             iterator = track(
                 it.chain(
                     self.collections.values(),
-                    (self.people, self.events, self.sigs, self.venues),
+                    indices_to_load,
                 ),
-                total=len(self.collections) + 4,
+                total=len(self.collections) + len(indices_to_load),
                 disable=(not self.verbose),
                 description="Loading Anthology data...",
             )
@@ -146,13 +155,39 @@ class Anthology:
                 self.events.verbose = False
                 self.people.verbose = False
             for elem in iterator:
-                elem.load()  # type: ignore
+                try:
+                    elem.load()  # type: ignore
+                except Exception as exc:
+                    if elem is not None:
+                        note = f"Raised in {elem!r}"
+                        # If this is merged into a single if-statement (with "or"),
+                        # the type checker complains ¯\_(ツ)_/¯
+                        if isinstance(exc, AnthologyException):
+                            exc.add_note(note)
+                        elif sys.version_info >= (3, 11):
+                            exc.add_note(note)
+                    log.exception(exc)
+                    raised_exception = True
             if self.verbose:
                 self.events.verbose = True
                 self.people.verbose = True
         finally:
             if was_gc_enabled:
                 gc.enable()
+        if raised_exception:
+            raise Exception(
+                "An exception was raised during loading; check the logger for details."
+            )
+        return self
+
+    def reset_indices(self) -> Self:
+        """Reset all non-collection indices.
+
+        Intended to be used after modifying data, to make sure all indices correctly reflect the changes.
+        """
+        self.events.reset()
+        self.people.reset()
+        self.venues.reset()
         return self
 
     @property
@@ -216,6 +251,18 @@ class Anthology:
             return volume
         return volume.get(paper_id)
 
+    def get_collection(self, full_id: AnthologyID) -> Optional[Collection]:
+        """Access a collection by its ID or the ID of a contained volume or paper.
+
+        Parameters:
+            full_id: An Anthology ID.
+
+        Returns:
+            The collection associated with the given ID.
+        """
+        (collection_id, *_) = parse_id(full_id)
+        return self.collections.get(collection_id)
+
     def get_volume(self, full_id: AnthologyID) -> Optional[Volume]:
         """Access a volume by its ID or the ID of a contained paper.
 
@@ -238,13 +285,24 @@ class Anthology:
             full_id: An Anthology ID that refers to a paper.
 
         Returns:
-            The volume associated with the given ID.
+            The paper associated with the given ID.
         """
         (collection_id, volume_id, paper_id) = parse_id(full_id)
         volume = self.get_volume((collection_id, volume_id, None))
         if volume is None or paper_id is None:
             return None
         return volume.get(paper_id)
+
+    def get_paper_by_bibkey(self, bibkey: str) -> Optional[Paper]:
+        """Access a paper by its citation key/bibkey.
+
+        Parameters:
+            bibkey: A bibkey belonging to an Anthology paper, e.g. 'devlin-etal-2019-bert'.
+
+        Returns:
+            The paper associated with the given bibkey.
+        """
+        return self.collections.bibkeys.get(bibkey)
 
     def get_event(self, event_id: str) -> Optional[Event]:
         """Access an event by its ID.
@@ -314,3 +372,10 @@ class Anthology:
         if isinstance(name_spec, NameSpecification):
             return self.people.get_by_namespec(name_spec)
         return [self.people.get_by_namespec(ns) for ns in name_spec]
+
+    def create_collection(self, id: str) -> Collection:  # pragma: no cover
+        """Create a new [Collection][acl_anthology.collections.collection.Collection] object.
+
+        Alias for [`CollectionIndex.create()`][acl_anthology.collections.index.CollectionIndex.create].
+        """
+        return self.collections.create(id)

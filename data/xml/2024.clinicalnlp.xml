@@ -1,0 +1,877 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2024.clinicalnlp">
+  <volume id="1" ingest-date="2024-06-20" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of the 6th Clinical Natural Language Processing Workshop</booktitle>
+      <editor><first>Tristan</first><last>Naumann</last></editor>
+      <editor><first>Asma</first><last>Ben Abacha</last></editor>
+      <editor><first>Steven</first><last>Bethard</last></editor>
+      <editor><first>Kirk</first><last>Roberts</last></editor>
+      <editor><first>Danielle</first><last>Bitterman</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Mexico City, Mexico</address>
+      <month>June</month>
+      <year>2024</year>
+      <url hash="492bde1e">2024.clinicalnlp-1</url>
+      <venue>clinicalnlp</venue>
+      <venue>ws</venue>
+    </meta>
+    <frontmatter>
+      <url hash="0281dd68">2024.clinicalnlp-1.0</url>
+      <bibkey>clinicalnlp-2024-clinical</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Exploring Robustness in Doctor-Patient Conversation Summarization: An Analysis of Out-of-Domain <fixed-case>SOAP</fixed-case> Notes</title>
+      <author><first>Yu-Wen</first><last>Chen</last><affiliation>Columbia University</affiliation></author>
+      <author><first>Julia</first><last>Hirschberg</last><affiliation>Columbia University</affiliation></author>
+      <pages>1-9</pages>
+      <abstract>Summarizing medical conversations poses unique challenges due to the specialized domain and the difficulty of collecting in-domain training data. In this study, we investigate the performance of state-of-the-art doctor-patient conversation generative summarization models on the out-of-domain data. We divide the summarization model of doctor-patient conversation into two configurations: (1) a general model, without specifying subjective (S), objective (O), and assessment (A) and plan (P) notes; (2) a SOAP-oriented model that generates a summary with SOAP sections. We analyzed the limitations and strengths of the fine-tuning language model-based methods and GPTs on both configurations. We also conducted a Linguistic Inquiry and Word Count analysis to compare the SOAP notes from different datasets. The results exhibit a strong correlation for reference notes across different datasets, indicating that format mismatch (i.e., discrepancies in word distribution) is not the main cause of performance decline on out-of-domain data. Lastly, a detailed analysis of SOAP notes is included to provide insights into missing information and hallucinations introduced by the models.</abstract>
+      <url hash="185096e0">2024.clinicalnlp-1.1</url>
+      <bibkey>chen-hirschberg-2024-exploring</bibkey>
+      <doi>10.18653/v1/2024.clinicalnlp-1.1</doi>
+      <video href="2024.clinicalnlp-1.1.mp4"/>
+    </paper>
+    <paper id="2">
+      <title>Efficient Medical Question Answering with Knowledge-Augmented Question Generation</title>
+      <author><first>Julien</first><last>Khlaut</last></author>
+      <author><first>Corentin</first><last>Dancette</last><affiliation>Raidium</affiliation></author>
+      <author><first>Elodie</first><last>Ferreres</last></author>
+      <author><first>Benani</first><last>Alaedine</last></author>
+      <author><first>Herent</first><last>Herent</last><affiliation>Ecole Normale Supérieure de Paris</affiliation></author>
+      <author><first>Pierre</first><last>Manceron</last><affiliation>Raidium</affiliation></author>
+      <pages>10-20</pages>
+      <abstract>In the expanding field of language model applications, medical knowledge representation remains a significant challenge due to the specialized nature of the domain. Large language models, such as GPT-4, obtain reasonable scores on medical question-answering tasks, but smaller models are far behind.In this work, we introduce a method to improve the proficiency of a small language model in the medical domain by employing a two-fold approach. We first fine-tune the model on a corpus of medical textbooks. Then, we use GPT-4 to generate questions similar to the downstream task, prompted with textbook knowledge, and use them to fine-tune the model. Additionally, we introduce ECN-QA, a novel Medical QA dataset containing “progressive questions” composed of related sequential questions. We show the benefits of our training strategy on this dataset.The study’s findings highlight the potential of small language models in the medical domain when appropriately fine-tuned.</abstract>
+      <url hash="c9bb1666">2024.clinicalnlp-1.2</url>
+      <bibkey>khlaut-etal-2024-efficient</bibkey>
+      <doi>10.18653/v1/2024.clinicalnlp-1.2</doi>
+    </paper>
+    <paper id="3">
+      <title>Gemini Goes to <fixed-case>M</fixed-case>ed School: Exploring the Capabilities of Multimodal Large Language Models on Medical Challenge Problems &amp; Hallucinations</title>
+      <author><first>Ankit</first><last>Pal</last><affiliation>Saama AI Research Lab</affiliation></author>
+      <author><first>Malaikannan</first><last>Sankarasubbu</last></author>
+      <pages>21-46</pages>
+      <abstract>Large language models have the potential to be valuable in the healthcare industry, but it’s crucial to verify their safety and effectiveness through rigorous evaluation. In our study, we evaluated LLMs, including Google’s Gemini, across various medical tasks. Despite Gemini’s capabilities, it underperformed compared to leading models like MedPaLM 2 and GPT-4, particularly in medical visual question answering (VQA), with a notable accuracy gap (Gemini at 61.45% vs. GPT-4V at 88%). Our analysis revealed that Gemini is highly susceptible to hallucinations, overconfidence, and knowledge gaps, which indicate risks if deployed uncritically. We also performed a detailed analysis by medical subject and test type, providing actionable feedback for developers and clinicians. To mitigate risks, we implemented effective prompting strategies, improving performance, and contributed to the field by releasing a Python module for medical LLM evaluation and establishing a leaderboard on Hugging Face for ongoing research and development. Python module can be found at https://github.com/promptslab/RosettaEval</abstract>
+      <url hash="a6a7e7b0">2024.clinicalnlp-1.3</url>
+      <bibkey>pal-sankarasubbu-2024-gemini</bibkey>
+      <doi>10.18653/v1/2024.clinicalnlp-1.3</doi>
+    </paper>
+    <paper id="4">
+      <title>Retrieval augmented text-to-<fixed-case>SQL</fixed-case> generation for epidemiological question answering using electronic health records</title>
+      <author><first>Angelo</first><last>Ziletti</last><affiliation>Bayer Ag</affiliation></author>
+      <author><first>Leonardo</first><last>DAmbrosi</last><affiliation>Bayer Ag</affiliation></author>
+      <pages>47-53</pages>
+      <abstract>Electronic health records (EHR) and claims data are rich sources of real-world data that reflect patient health status and healthcare utilization. Querying these databases to answer epidemiological questions is challenging due to the intricacy of medical terminology and the need for complex SQL queries. Here, we introduce an end-to-end methodology that combines text-to-SQL generation with retrieval augmented generation (RAG) to answer epidemiological questions using EHR and claims data. We show that our approach, which integrates a medical coding step into the text-to-SQL process, significantly improves the performance over simple prompting. Our findings indicate that although current language models are not yet sufficiently accurate for unsupervised use, RAG offers a promising direction for improving their capabilities, as shown in a realistic industry setting.</abstract>
+      <url hash="3265947a">2024.clinicalnlp-1.4</url>
+      <bibkey>ziletti-dambrosi-2024-retrieval</bibkey>
+      <doi>10.18653/v1/2024.clinicalnlp-1.4</doi>
+    </paper>
+    <paper id="5">
+      <title><fixed-case>C</fixed-case>linical<fixed-case>M</fixed-case>amba: A Generative Clinical Language Model on Longitudinal Clinical Notes</title>
+      <author><first>Zhichao</first><last>Yang</last><affiliation>University of Massachusetts, Amherst</affiliation></author>
+      <author><first>Avijit</first><last>Mitra</last></author>
+      <author><first>Sunjae</first><last>Kwon</last></author>
+      <author><first>Hong</first><last>Yu</last><affiliation>Columbia University</affiliation></author>
+      <pages>54-63</pages>
+      <abstract>The advancement of natural language processing (NLP) systems in healthcare hinges on language models’ ability to interpret the intricate information contained within clinical notes. This process often requires integrating information from various time points in a patient’s medical history. However, most earlier clinical language models were pretrained with a context length limited to roughly one clinical document. In this study, We introduce ClinicalMamba, a specialized version of the Mamba language model, pretrained on a vast corpus of longitudinal clinical notes to address the unique linguistic characteristics and information processing needs of the medical domain. ClinicalMamba models, with 130 million and 2.8 billion parameters, demonstrate superior performance in modeling clinical language across extended text lengths compared to Mamba and other clinical models based on longformer and Llama. With few-shot learning, ClinicalMamba achieves notable benchmarks in speed and performance, outperforming existing clinical language models and large language models like GPT-4 in longitudinal clinical tasks.</abstract>
+      <url hash="a6b23249">2024.clinicalnlp-1.5</url>
+      <bibkey>yang-etal-2024-clinicalmamba</bibkey>
+      <doi>10.18653/v1/2024.clinicalnlp-1.5</doi>
+    </paper>
+    <paper id="6">
+      <title>Working Alliance Transformer for Psychotherapy Dialogue Classification</title>
+      <author><first>Baihan</first><last>Lin</last><affiliation>Columbia University and IBM, International Business Machines</affiliation></author>
+      <author><first>Guillermo</first><last>Cecchi</last><affiliation>International Business Machines</affiliation></author>
+      <author><first>Djallel</first><last>Bouneffouf</last></author>
+      <pages>64-69</pages>
+      <abstract>As a predictive measure of the treatment outcome in psychotherapy, the working alliance measures the agreement of the patient and the therapist in terms of their bond, task and goal. Long been a clinical quantity estimated by the patients’ and therapists’ self-evaluative reports, we believe that the working alliance can be better characterized using natural language processing technique directly in the dialogue transcribed in each therapy session. In this work, we propose the Working Alliance Transformer (WAT), a Transformer-based classification model that has a psychological state encoder which infers the working alliance scores by projecting the embedding of the dialogues turns onto the embedding space of the clinical inventory for working alliance. We evaluate our method in a real-world dataset with over 950 therapy sessions with anxiety, depression, schizophrenia and suicidal patients and demonstrate an empirical advantage of using information about therapeutic states in the sequence classification task of psychotherapy dialogues.</abstract>
+      <url hash="1d6439f5">2024.clinicalnlp-1.6</url>
+      <bibkey>lin-etal-2024-working</bibkey>
+      <doi>10.18653/v1/2024.clinicalnlp-1.6</doi>
+    </paper>
+    <paper id="7">
+      <title>Building A <fixed-case>G</fixed-case>erman Clinical Named Entity Recognition System without In-domain Training Data</title>
+      <author><first>Siting</first><last>Liang</last><affiliation>German Research Center for AI</affiliation></author>
+      <author><first>Daniel</first><last>Sonntag</last><affiliation>German Research Center for AI and Carl von Ossietzky Universität Oldenburg</affiliation></author>
+      <pages>70-81</pages>
+      <abstract>Clinical Named Entity Recognition (NER) is essential for extracting important medical insights from clinical narratives. Given the challenges in obtaining expert training datasets for real-world clinical applications related to data protection regulations and the lack of standardised entity types, this work represents a collaborative initiative aimed at building a German clinical NER system with a focus on addressing these obstacles effectively. In response to the challenge of training data scarcity, we propose a Conditional Relevance Learning (CRL) approach in low-resource transfer learning scenarios. CRL effectively leverages a pre-trained language model and domain-specific open resources, enabling the acquisition of a robust base model tailored for clinical NER tasks, particularly in the face of changing label sets. This flexibility empowers the implementation of a Multilayered Semantic Annotation (MSA) schema in our NER system, capable of organizing a diverse array of entity types, thus significantly boosting the NER system’s adaptability and utility across various clinical domains. In the case study, we demonstrate how our NER system can be applied to overcome resource constraints and comply with data privacy regulations. Lacking prior training on in-domain data, feedback from expert users in respective domains is essential in identifying areas for system refinement. Future work will focus on the integration of expert feedback to improve system performance in specific clinical contexts.</abstract>
+      <url hash="941efe54">2024.clinicalnlp-1.7</url>
+      <bibkey>liang-sonntag-2024-building</bibkey>
+      <doi>10.18653/v1/2024.clinicalnlp-1.7</doi>
+    </paper>
+    <paper id="8">
+      <title><fixed-case>DAIC</fixed-case>-<fixed-case>WOZ</fixed-case>: On the Validity of Using the Therapist’s prompts in Automatic Depression Detection from Clinical Interviews</title>
+      <author><first>Sergio</first><last>Burdisso</last><affiliation>Idiap Research Institute</affiliation></author>
+      <author><first>Ernesto</first><last>Reyes-Ramírez</last></author>
+      <author><first>Esaú</first><last>Villatoro-tello</last><affiliation>Idiap Research Institute</affiliation></author>
+      <author><first>Fernando</first><last>Sánchez-Vega</last><affiliation>Center for Research in Mathematics (CIMAT)</affiliation></author>
+      <author><first>Adrian</first><last>Lopez Monroy</last></author>
+      <author><first>Petr</first><last>Motlicek</last></author>
+      <pages>82-90</pages>
+      <abstract>Automatic depression detection from conversational data has gained significant interest in recent years.The DAIC-WOZ dataset, interviews conducted by a human-controlled virtual agent, has been widely used for this task.Recent studies have reported enhanced performance when incorporating interviewer’s prompts into the model.In this work, we hypothesize that this improvement might be mainly due to a bias present in these prompts, rather than the proposed architectures and methods.Through ablation experiments and qualitative analysis, we discover that models using interviewer’s prompts learn to focus on a specific region of the interviews, where questions about past experiences with mental health issues are asked, and use them as discriminative shortcuts to detect depressed participants. In contrast, models using participant responses gather evidence from across the entire interview.Finally, to highlight the magnitude of this bias, we achieve a 0.90 F1 score by intentionally exploiting it, the highest result reported to date on this dataset using only textual information.Our findings underline the need for caution when incorporating interviewers’ prompts into models, as they may inadvertently learn to exploit targeted prompts, rather than learning to characterize the language and behavior that are genuinely indicative of the patient’s mental health condition.</abstract>
+      <url hash="ee12bdf7">2024.clinicalnlp-1.8</url>
+      <bibkey>burdisso-etal-2024-daic</bibkey>
+      <doi>10.18653/v1/2024.clinicalnlp-1.8</doi>
+      <video href="2024.clinicalnlp-1.8.mp4"/>
+    </paper>
+    <paper id="9">
+      <title>Parameter-Efficient Fine-Tuning of <fixed-case>LL</fixed-case>a<fixed-case>MA</fixed-case> for the Clinical Domain</title>
+      <author><first>Aryo</first><last>Gema</last><affiliation>University of Edinburgh, University of Edinburgh</affiliation></author>
+      <author><first>Pasquale</first><last>Minervini</last><affiliation>University of Edinburgh, University of Edinburgh</affiliation></author>
+      <author><first>Luke</first><last>Daines</last><affiliation>University of Edinburgh, University of Edinburgh</affiliation></author>
+      <author><first>Tom</first><last>Hope</last><affiliation>Allen Institute for Artificial Intelligence and Hebrew University, Hebrew University of Jerusalem</affiliation></author>
+      <author><first>Beatrice</first><last>Alex</last><affiliation>University of Edinburgh, University of Edinburgh</affiliation></author>
+      <pages>91-104</pages>
+      <abstract>Adapting pretrained language models to novel domains, such as clinical applications, traditionally involves retraining their entire set of parameters. Parameter-Efficient Fine-Tuning (PEFT) techniques for fine-tuning language models significantly reduce computational requirements by selectively fine-tuning small subsets of parameters. In this study, we propose a two-step PEFT framework and evaluate it in the clinical domain. Our approach combines a specialised PEFT adapter layer designed for clinical domain adaptation with another adapter specialised for downstream tasks. We evaluate the framework on multiple clinical outcome prediction datasets, comparing it to clinically trained language models. Our framework achieves a better AUROC score averaged across all clinical downstream tasks compared to clinical language models. In particular, we observe large improvements of 4-5% AUROC in large-scale multilabel classification tasks, such as diagnoses and procedures classification. To our knowledge, this study is the first to provide an extensive empirical analysis of the interplay between PEFT techniques and domain adaptation in an important real-world domain of clinical applications.</abstract>
+      <url hash="f81852bc">2024.clinicalnlp-1.9</url>
+      <bibkey>gema-etal-2024-parameter</bibkey>
+      <doi>10.18653/v1/2024.clinicalnlp-1.9</doi>
+    </paper>
+    <paper id="10">
+      <title>A Multilevel Analysis of <fixed-case>P</fixed-case>ub<fixed-case>M</fixed-case>ed-only <fixed-case>BERT</fixed-case>-based Biomedical Models</title>
+      <author><first>Vicente</first><last>Sanchez Carmona</last><affiliation>Ricoh Software Research Center Beijing</affiliation></author>
+      <author><first>Shanshan</first><last>Jiang</last></author>
+      <author><first>Bin</first><last>Dong</last></author>
+      <pages>105-110</pages>
+      <abstract>Biomedical NLP models play a big role in the automatic extraction of information from biomedical documents, such as COVID research papers. Three landmark models have led the way in this area: BioBERT, MSR BiomedBERT, and BioLinkBERT. However, their shallow evaluation –a single mean score– forbid us to better understand how the contributions proposed in each model advance the Biomedical NLP field. We show through a Multilevel Analysis how we can assess these contributions. Our analyses across 5000 fine-tuned models show that, actually, BiomedBERT’s true effect is bigger than BioLinkBERT’s effect, and the success of BioLinkBERT does not seem to be due to its contribution –the Link function– but due to an unknown factor.</abstract>
+      <url hash="328cb574">2024.clinicalnlp-1.10</url>
+      <bibkey>sanchez-carmona-etal-2024-multilevel</bibkey>
+      <doi>10.18653/v1/2024.clinicalnlp-1.10</doi>
+      <video href="2024.clinicalnlp-1.10.mp4"/>
+    </paper>
+    <paper id="11">
+      <title>A Privacy-Preserving Corpus for Occupational Health in <fixed-case>S</fixed-case>panish: Evaluation for <fixed-case>NER</fixed-case> and Classification Tasks</title>
+      <author><first>Claudio</first><last>Aracena</last></author>
+      <author><first>Luis</first><last>Miranda</last><affiliation>Pontificia Universidad Catolica de Chile and Pontificia Universidad Catolica de Chile</affiliation></author>
+      <author><first>Thomas</first><last>Vakili</last><affiliation>Stockholm University</affiliation></author>
+      <author><first>Fabián</first><last>Villena</last><affiliation>Universidad de Chile</affiliation></author>
+      <author><first>Tamara</first><last>Quiroga</last></author>
+      <author><first>Fredy</first><last>Núñez-Torres</last><affiliation>Pontificia Universidad Catolica de Chile</affiliation></author>
+      <author><first>Victor</first><last>Rocco</last></author>
+      <author><first>Jocelyn</first><last>Dunstan</last><affiliation>Universidad de Chile</affiliation></author>
+      <pages>111-121</pages>
+      <abstract>Annotated corpora are essential to reliable natural language processing. While they are expensive to create, they are essential for building and evaluating systems. This study introduces a new corpus of 2,869 medical and admission reports collected by an occupational insurance and health provider. The corpus has been carefully annotated for personally identifiable information (PII) and is shared, masking this information. Two annotators adhered to annotation guidelines during the annotation process, and a referee later resolved annotation conflicts in a consolidation process to build a gold standard subcorpus. The inter-annotator agreement values, measured in F1, range between 0.86 and 0.93 depending on the selected subcorpus. The value of the corpus is demonstrated by evaluating its use for NER of PII and a classification task. The evaluations find that fine-tuned models and GPT-3.5 reach F1 of 0.911 and 0.720 in NER of PII, respectively. In the case of the insurance coverage classification task, using the original or de-identified corpus results in similar performance. The annotated data are released in de-identified form.</abstract>
+      <url hash="70726a1c">2024.clinicalnlp-1.11</url>
+      <bibkey>aracena-etal-2024-privacy</bibkey>
+      <doi>10.18653/v1/2024.clinicalnlp-1.11</doi>
+      <video href="2024.clinicalnlp-1.11.mp4"/>
+    </paper>
+    <paper id="12">
+      <title><fixed-case>DERA</fixed-case>: Enhancing Large Language Model Completions with Dialog-Enabled Resolving Agents</title>
+      <author><first>Varun</first><last>Nair</last><affiliation>Curai Health</affiliation></author>
+      <author><first>Elliot</first><last>Schumacher</last><affiliation>Curai Health</affiliation></author>
+      <author><first>Geoffrey</first><last>Tso</last><affiliation>Stanford University</affiliation></author>
+      <author><first>Anitha</first><last>Kannan</last><affiliation>Curai Health</affiliation></author>
+      <pages>122-161</pages>
+      <abstract>Large language models (LLMs) have emerged as valuable tools for many natural language understanding tasks. In safety-critical applications such as healthcare, the utility of these models is governed by their ability to generate factually accurate and complete outputs. In this work, we present dialog-enabled resolving agents (DERA). DERA is a paradigm made possible by the increased conversational abilities of LLMs. It provides a simple, interpretable forum for models to communicate feedback and iteratively improve output. We frame our dialog as a discussion between two agent types – a Researcher, who processes information and identifies crucial problem components, and a Decider, who has the autonomy to integrate the Researcher’s information and makes judgments on the final output.We test DERA against three clinically-focused tasks, with GPT-4 serving as our LLM. DERA shows significant improvement over the base GPT-4 performance in both human expert preference evaluations and quantitative metrics for medical conversation summarization and care plan generation. In a new finding, we also show that GPT-4’s performance (70%) on an open-ended version of the MedQA question-answering (QA) dataset (Jin 2021; USMLE) is well above the passing level (60%), with DERA showing similar performance. We will release the open-ended MedQA dataset.</abstract>
+      <url hash="651439c4">2024.clinicalnlp-1.12</url>
+      <bibkey>nair-etal-2024-dera</bibkey>
+      <doi>10.18653/v1/2024.clinicalnlp-1.12</doi>
+      <video href="2024.clinicalnlp-1.12.mp4"/>
+    </paper>
+    <paper id="13">
+      <title><fixed-case>L</fixed-case>lama<fixed-case>MTS</fixed-case>: Optimizing Metastasis Detection with Llama Instruction Tuning and <fixed-case>BERT</fixed-case>-Based Ensemble in <fixed-case>I</fixed-case>talian Clinical Reports</title>
+      <author><first>Livia</first><last>Lilli</last><affiliation>Catholic University of the Sacred Heart</affiliation></author>
+      <author><first>Stefano</first><last>Patarnello</last></author>
+      <author><first>Carlotta</first><last>Masciocchi</last></author>
+      <author><first>Valeria</first><last>Masiello</last></author>
+      <author><first>Fabio</first><last>Marazzi</last></author>
+      <author><first>Tagliaferri</first><last>Luca</last></author>
+      <author><first>Nikola</first><last>Capocchiano</last><affiliation>Catholic University of the Sacred Heart</affiliation></author>
+      <pages>162-171</pages>
+      <abstract>Information extraction from Electronic Health Records (EHRs) is a crucial task in healthcare, and the lack of resources and language specificity pose significant challenges. This study addresses the limited availability of Italian Natural Language Processing (NLP) tools for clinical applications and the computational demand of large language models (LLMs) for training. We present LlamaMTS, an instruction-tuned Llama for the Italian language, leveraging the LoRA technique. It is ensembled with a BERT-based model to classify EHRs based on the presence or absence of metastasis in patients affected by Breast cancer. Through our evaluation analysis, we discovered that LlamaMTS exhibits superior performance compared to both zero-shot LLMs and other Italian BERT-based models specifically fine-tuned on the same metastatic task. LlamaMTS demonstrates promising results in resource-constrained environments, offering a practical solution for information extraction from Italian EHRs in oncology, potentially improving patient care and outcomes.</abstract>
+      <url hash="17295804">2024.clinicalnlp-1.13</url>
+      <bibkey>lilli-etal-2024-llamamts</bibkey>
+      <doi>10.18653/v1/2024.clinicalnlp-1.13</doi>
+    </paper>
+    <paper id="14">
+      <title>Using Structured Health Information for Controlled Generation of Clinical Cases in <fixed-case>F</fixed-case>rench</title>
+      <author><first>Hugo</first><last>Boulanger</last><affiliation>CEA</affiliation></author>
+      <author><first>Nicolas</first><last>Hiebel</last><affiliation>Université Paris-Saclay</affiliation></author>
+      <author><first>Olivier</first><last>Ferret</last><affiliation>CEA</affiliation></author>
+      <author><first>Karën</first><last>Fort</last><affiliation>Sorbonne Université / LORIA</affiliation></author>
+      <author><first>Aurélie</first><last>Névéol</last><affiliation>LISN-CNRS / Université Paris Saclay</affiliation></author>
+      <pages>172-184</pages>
+      <abstract>Text generation opens up new prospects for overcoming the lack of open corpora in fields such as healthcare, where data sharing is bound by confidentiality. In this study, we compare the performance of encoder-decoder and decoder-only language models for the controlled generation of clinical cases in French. To do so, we fine-tuned several pre-trained models on French clinical cases for each architecture and generate clinical cases conditioned by patient demographic information (gender and age) and clinical features.Our results suggest that encoder-decoder models are easier to control than decoder-only models, but more costly to train.</abstract>
+      <url hash="4147de44">2024.clinicalnlp-1.14</url>
+      <bibkey>boulanger-etal-2024-using</bibkey>
+      <doi>10.18653/v1/2024.clinicalnlp-1.14</doi>
+      <video href="2024.clinicalnlp-1.14.mp4"/>
+    </paper>
+    <paper id="15">
+      <title>Large Language Models Provide Human-Level Medical Text Snippet Labeling</title>
+      <author><first>Ibtihel</first><last>Amara</last><affiliation>McGill University</affiliation></author>
+      <author><first>Haiyang</first><last>Yu</last><affiliation>Research, Google</affiliation></author>
+      <author><first>Fan</first><last>Zhang</last><affiliation>Google</affiliation></author>
+      <author><first>Yuchen</first><last>Liu</last></author>
+      <author><first>Benny</first><last>Li</last></author>
+      <author><first>Chang</first><last>Liu</last><affiliation>Google</affiliation></author>
+      <author><first>Rupesh</first><last>Kartha</last></author>
+      <author><first>Akshay</first><last>Goel</last></author>
+      <pages>185-195</pages>
+      <abstract>This study evaluates the proficiency of Large Language Models (LLMs) in accurately labeling clinical document excerpts. Our focus is on the assignment of potential or confirmed diagnoses and medical procedures to snippets of medical text sourced from unstructured clinical patient records. We explore how the performance of LLMs compare against human annotators in classifying these excerpts. Employing a few-shot, chain-of-thought prompting approach with the MIMIC-III dataset, Med-PaLM 2 showcases annotation accuracy comparable to human annotators, achieving a notable precision rate of approximately 92% relative to the gold standard labels established by human experts.</abstract>
+      <url hash="4e29c191">2024.clinicalnlp-1.15</url>
+      <bibkey>amara-etal-2024-large</bibkey>
+      <doi>10.18653/v1/2024.clinicalnlp-1.15</doi>
+    </paper>
+    <paper id="16">
+      <title>Conversational Topic Recommendation in Counseling and Psychotherapy with Decision Transformer and Large Language Models</title>
+      <author><first>Aylin</first><last>Gunal</last></author>
+      <author><first>Baihan</first><last>Lin</last><affiliation>Columbia University and IBM, International Business Machines</affiliation></author>
+      <author><first>Djallel</first><last>Bouneffouf</last></author>
+      <pages>196-201</pages>
+      <abstract>Given the increasing demand for mental health assistance, artificial intelligence (AI), particularly large language models (LLMs), may be valuable for integration into automated clinical support systems. In this work, we leverage a decision transformer architecture for topic recommendation in counseling conversations between patients and mental health professionals. The architecture is utilized for offline reinforcement learning, and we extract states (dialogue turn embeddings), actions (conversation topics), and rewards (scores measuring the alignment between patient and therapist) from previous turns within a conversation to train a decision transformer model. We demonstrate an improvement over baseline reinforcement learning methods, and propose a novel system of utilizing our model’s output as synthetic labels for fine-tuning a large language model for the same task. Although our implementation based on LLaMA-2 7B has mixed results, future work can undoubtedly build on the design.</abstract>
+      <url hash="6805146c">2024.clinicalnlp-1.16</url>
+      <bibkey>gunal-etal-2024-conversational</bibkey>
+      <doi>10.18653/v1/2024.clinicalnlp-1.16</doi>
+    </paper>
+    <paper id="17">
+      <title>Leveraging <fixed-case>W</fixed-case>ikidata for Biomedical Entity Linking in a Low-Resource Setting: A Case Study for <fixed-case>G</fixed-case>erman</title>
+      <author><first>Faizan E</first><last>Mustafa</last><affiliation>QUIBIQ GmbH</affiliation></author>
+      <author><first>Corina</first><last>Dima</last><affiliation>Universität Stuttgart</affiliation></author>
+      <author><first>Juan</first><last>Ochoa</last><affiliation>Duale Hochschule Baden-Württemberg Stuttgart, QuiBiQ. de, Permediq and PerMediQ GmbH</affiliation></author>
+      <author><first>Steffen</first><last>Staab</last><affiliation>University of Stuttgart</affiliation></author>
+      <pages>202-207</pages>
+      <abstract>Biomedical Entity Linking (BEL) is a challenging task for low-resource languages, due to the lack of appropriate resources: datasets, knowledge bases (KBs), and pre-trained models. In this paper, we propose an approach to create a biomedical knowledge base for German BEL using UMLS information from Wikidata, that provides good coverage and can be easily extended to further languages. As a further contribution, we adapt several existing approaches for use in the German BEL setup, and report on their results. The chosen methods include a sparse model using character n-grams, a multilingual biomedical entity linker, and two general-purpose text retrieval models. Our results show that a language-specific KB that provides good coverage leads to most improvement in entity linking performance, irrespective of the used model. The finetuned German BEL model, newly created UMLS<tex-math>_{Wikidata}</tex-math> KB as well as the code to reproduce our results are publicly available.</abstract>
+      <url hash="1cf18239">2024.clinicalnlp-1.17</url>
+      <bibkey>mustafa-etal-2024-leveraging</bibkey>
+      <doi>10.18653/v1/2024.clinicalnlp-1.17</doi>
+      <video href="2024.clinicalnlp-1.17.mp4"/>
+    </paper>
+    <paper id="18">
+      <title>Revisiting Clinical Outcome Prediction for <fixed-case>MIMIC</fixed-case>-<fixed-case>IV</fixed-case></title>
+      <author><first>Tom</first><last>Röhr</last><affiliation>Berliner Hochschule für Technik</affiliation></author>
+      <author><first>Alexei</first><last>Figueroa</last><affiliation>Berliner Hochschule für Technik</affiliation></author>
+      <author><first>Jens-Michalis</first><last>Papaioannou</last></author>
+      <author><first>Conor</first><last>Fallon</last><affiliation>Berliner Hochschule für Technik</affiliation></author>
+      <author><first>Keno</first><last>Bressem</last><affiliation>German Heart Center Munich</affiliation></author>
+      <author><first>Wolfgang</first><last>Nejdl</last><affiliation>L3S Research Center and Universität Hannover</affiliation></author>
+      <author><first>Alexander</first><last>Löser</last></author>
+      <pages>208-217</pages>
+      <abstract>Clinical Decision Support Systems assist medical professionals in providing optimal care for patients.A prominent data source used for creating tasks for such systems is the Medical Information Mart for Intensive Care (MIMIC).MIMIC contains electronic health records (EHR) gathered in a tertiary hospital in the United States.The majority of past work is based on the third version of MIMIC, although the fourth is the most recent version.This new version, not only introduces more data into MIMIC, but also increases the variety of patients.While MIMIC-III is limited to intensive care units, MIMIC-IV also offers EHRs from the emergency department.In this work, we investigate how to adapt previous work to update clinical outcome prediction for MIMIC-IV.We revisit several established tasks, including prediction of diagnoses, procedures, length-of-stay, and also introduce a novel task: patient routing prediction.Furthermore, we quantitatively and qualitatively evaluate all tasks on several bio-medical transformer encoder models.Finally, we provide narratives for future research directions in the clinical outcome prediction domain. We make our source code publicly available to reproduce our experiments, data, and tasks.</abstract>
+      <url hash="f63ec4b4">2024.clinicalnlp-1.18</url>
+      <bibkey>rohr-etal-2024-revisiting</bibkey>
+      <doi>10.18653/v1/2024.clinicalnlp-1.18</doi>
+      <video href="2024.clinicalnlp-1.18.mp4"/>
+    </paper>
+    <paper id="19">
+      <title>Can <fixed-case>LLM</fixed-case>s Correct Physicians, Yet? Investigating Effective Interaction Methods in the Medical Domain</title>
+      <author><first>Burcu</first><last>Sayin</last><affiliation>University of Trento</affiliation></author>
+      <author><first>Pasquale</first><last>Minervini</last><affiliation>University of Edinburgh, University of Edinburgh</affiliation></author>
+      <author><first>Jacopo</first><last>Staiano</last><affiliation>University of Trento</affiliation></author>
+      <author><first>Andrea</first><last>Passerini</last><affiliation>University of Trento</affiliation></author>
+      <pages>218-237</pages>
+      <abstract>We explore the potential of Large Language Models (LLMs) to assist and potentially correct physicians in medical decision-making tasks. We evaluate several LLMs, including Meditron, Llama2, and Mistral, to analyze the ability of these models to interact effectively with physicians across different scenarios. We consider questions from PubMedQA and several tasks, ranging from binary (yes/no) responses to long answer generation, where the answer of the model is produced after an interaction with a physician. Our findings suggest that prompt design significantly influences the downstream accuracy of LLMs and that LLMs can provide valuable feedback to physicians, challenging incorrect diagnoses and contributing to more accurate decision-making. For example, when the physician is accurate 38% of the time, Mistral can produce the correct answer, improving accuracy up to 74% depending on the prompt being used, while Llama2 and Meditron models exhibit greater sensitivity to prompt choice. Our analysis also uncovers the challenges of ensuring that LLM-generated suggestions are pertinent and useful, emphasizing the need for further research in this area.</abstract>
+      <url hash="596a859b">2024.clinicalnlp-1.19</url>
+      <bibkey>sayin-etal-2024-llms</bibkey>
+      <doi>10.18653/v1/2024.clinicalnlp-1.19</doi>
+      <video href="2024.clinicalnlp-1.19.mp4"/>
+    </paper>
+    <paper id="20">
+      <title>Leveraging pre-trained large language models for aphasia detection in <fixed-case>E</fixed-case>nglish and <fixed-case>C</fixed-case>hinese speakers</title>
+      <author><first>Yan</first><last>Cong</last><affiliation>Purdue University</affiliation></author>
+      <author><first>Jiyeon</first><last>Lee</last><affiliation>Purdue University</affiliation></author>
+      <author><first>Arianna</first><last>LaCroix</last><affiliation>Purdue University</affiliation></author>
+      <pages>238-245</pages>
+      <abstract>We explore the utility of pre-trained Large Language Models (LLMs) in detecting the presence, subtypes, and severity of aphasia across English and Mandarin Chinese speakers. Our investigation suggests that even without fine-tuning or domain-specific training, pre-trained LLMs can offer some insights on language disorders, regardless of speakers’ first language. Our analysis also reveals noticeable differences between English and Chinese LLMs. While the English LLMs exhibit near-chance level accuracy in subtyping aphasia, the Chinese counterparts demonstrate less than satisfactory performance in distinguishing between individuals with and without aphasia. This research advocates for the importance of linguistically tailored and specified approaches in leveraging LLMs for clinical applications, especially in the context of multilingual populations.</abstract>
+      <url hash="5d12c6a4">2024.clinicalnlp-1.20</url>
+      <bibkey>cong-etal-2024-leveraging</bibkey>
+      <doi>10.18653/v1/2024.clinicalnlp-1.20</doi>
+      <video href="2024.clinicalnlp-1.20.mp4"/>
+    </paper>
+    <paper id="21">
+      <title>Fusion of Domain-Adapted Vision and Language Models for Medical Visual Question Answering</title>
+      <author><first>Cuong</first><last>Ha</last></author>
+      <author><first>Shima</first><last>Asaadi</last></author>
+      <author><first>Sanjeev Kumar</first><last>Karn</last><affiliation>Siemens Healthineers</affiliation></author>
+      <author><first>Oladimeji</first><last>Farri</last></author>
+      <author><first>Tobias</first><last>Heimann</last><affiliation>Siemens Healthineers</affiliation></author>
+      <author><first>Thomas</first><last>Runkler</last><affiliation>Technische Universität München and Siemens Corporate Research</affiliation></author>
+      <pages>246-257</pages>
+      <abstract>Vision-language models, while effective in general domains and showing strong performance in diverse multi-modal applications like visual question-answering (VQA), struggle to maintain the same level of effectiveness in more specialized domains, e.g., medical. We propose a medical vision-language model that integrates large vision and language models adapted for the medical domain. This model goes through three stages of parameter-efficient training using three separate biomedical and radiology multi-modal visual and text datasets. The proposed model achieves state-of-the-art performance on the SLAKE 1.0 medical VQA (MedVQA) dataset with an overall accuracy of 87.5% and demonstrates strong performance on another MedVQA dataset, VQA-RAD, achieving an overall accuracy of 73.2%.</abstract>
+      <url hash="33a2d27a">2024.clinicalnlp-1.21</url>
+      <bibkey>ha-etal-2024-fusion</bibkey>
+      <doi>10.18653/v1/2024.clinicalnlp-1.21</doi>
+      <video href="2024.clinicalnlp-1.21.mp4"/>
+    </paper>
+    <paper id="22">
+      <title><fixed-case>LLM</fixed-case>-Based Section Identifiers Excel on Open Source but Stumble in Real World Applications</title>
+      <author><first>Saranya</first><last>Krishnamoorthy</last></author>
+      <author><first>Ayush</first><last>Singh</last></author>
+      <author><first>Shabnam</first><last>Tafreshi</last><affiliation>University of Maryland: ARLIS</affiliation></author>
+      <pages>258-270</pages>
+      <abstract>Electronic health records (EHR) even though a boon for healthcare practitioners, are grow- ing convoluted and longer every day. Sifting around these lengthy EHRs is taxing and be- comes a cumbersome part of physician-patient interaction. Several approaches have been pro- posed to help alleviate this prevalent issue ei- ther via summarization or sectioning, however, only a few approaches have truly been helpful in the past. With the rise of automated methods, machine learning (ML) has shown promise in solving the task of identifying relevant sections in EHR. However, most ML methods rely on labeled data which is difficult to get in health- care. Large language models (LLMs) on the other hand, have performed impressive feats in natural language processing (NLP), that too in a zero-shot manner, i.e. without any labeled data. To that end, we propose using LLMs to identify relevant section headers. We find that GPT-4 can effectively solve the task on both zero and few-shot settings as well as segment dramatically better than state-of-the-art meth- ods. Additionally, we also annotate a much harder real world dataset and find that GPT-4 struggles to perform well, alluding to further research and harder benchmarks.</abstract>
+      <url hash="0f826646">2024.clinicalnlp-1.22</url>
+      <bibkey>krishnamoorthy-etal-2024-llm</bibkey>
+      <doi>10.18653/v1/2024.clinicalnlp-1.22</doi>
+    </paper>
+    <paper id="23">
+      <title>Adapting <fixed-case>A</fixed-case>bstract <fixed-case>M</fixed-case>eaning <fixed-case>R</fixed-case>epresentation Parsing to the Clinical Narrative – the <fixed-case>SPRING</fixed-case> <fixed-case>THYME</fixed-case> parser</title>
+      <author><first>Jon</first><last>Cai</last><affiliation>University of Colorado at Boulder</affiliation></author>
+      <author><first>Kristin</first><last>Wright-Bettner</last><affiliation>University of Colorado at Boulder</affiliation></author>
+      <author><first>Martha</first><last>Palmer</last><affiliation>University of Colorado at Boulder</affiliation></author>
+      <author><first>Guergana</first><last>Savova</last><affiliation>Harvard University</affiliation></author>
+      <author><first>James</first><last>Martin</last></author>
+      <pages>271-282</pages>
+      <abstract>This paper is dedicated to the design and evaluation of the first AMR parser tailored for clinical notes. Our objective was to facilitate the precise transformation of the clinical notes into structured AMR expressions, thereby enhancing the interpretability and usability of clinical text data at scale. Leveraging the colon cancer dataset from the Temporal Histories of Your Medical Events (THYME) corpus, we adapted a state-of-the-art AMR parser utilizing continuous training. Our approach incorporates data augmentation techniques to enhance the accuracy of AMR structure predictions. Notably, through this learning strategy, our parser achieved an impressive F1 score of 88% on the THYME corpus’s colon cancer dataset. Moreover, our research delved into the efficacy of data required for domain adaptation within the realm of clinical notes, presenting domain adaptation data requirements for AMR parsing. This exploration not only underscores the parser’s robust performance but also highlights its potential in facilitating a deeper understanding of clinical narratives through structured semantic representations.</abstract>
+      <url hash="8fc233cc">2024.clinicalnlp-1.23</url>
+      <bibkey>cai-etal-2024-adapting</bibkey>
+      <doi>10.18653/v1/2024.clinicalnlp-1.23</doi>
+      <video href="2024.clinicalnlp-1.23.mp4"/>
+    </paper>
+    <paper id="24">
+      <title><fixed-case>SERPENT</fixed-case>-<fixed-case>VLM</fixed-case> : Self-Refining Radiology Report Generation Using Vision Language Models</title>
+      <author><first>Manav</first><last>Kapadnis</last></author>
+      <author><first>Sohan</first><last>Patnaik</last></author>
+      <author><first>Abhilash</first><last>Nandy</last><affiliation>Indian Institute of Technology Kharagpur</affiliation></author>
+      <author><first>Sourjyadip</first><last>Ray</last></author>
+      <author><first>Pawan</first><last>Goyal</last><affiliation>IIT Kharagpur</affiliation></author>
+      <author><first>Debdoot</first><last>Sheet</last><affiliation>Indian Institute of Technology Kharagpur</affiliation></author>
+      <pages>283-291</pages>
+      <abstract>Radiology Report Generation (R2Gen) demonstrates how Multi-modal Large Language Models (MLLMs) can automate the creation of accurate and coherent radiological reports. Existing methods often hallucinate details in text-based reports that don’t accurately reflect the image content. To mitigate this, we introduce a novel strategy, SERPENT-VLM (SElf Refining Radiology RePort GENeraTion using Vision Language Models), which improves the R2Gen task by integrating a self-refining mechanism into the MLLM framework. We employ a unique self-supervised loss that leverages similarity between pooled image representations and the contextual representations of the generated radiological text, alongside the standard Causal Language Modeling objective, to refine image-text representations. This allows the model to scrutinize and align the generated text through dynamic interaction between a given image and the generated text, therefore reducing hallucination and continuously enhancing nuanced report generation. SERPENT-VLM outperforms existing baselines such as LlaVA-Med, BiomedGPT, etc., achieving SoTA performance on the IU X-ray and Radiology Objects in COntext (ROCO) datasets, and also proves to be robust against noisy images. A qualitative case study emphasizes the significant advancements towards more sophisticated MLLM frameworks for R2Gen, opening paths for further research into self-supervised refinement in the medical imaging domain.</abstract>
+      <url hash="30a316f1">2024.clinicalnlp-1.24</url>
+      <bibkey>kapadnis-etal-2024-serpent</bibkey>
+      <doi>10.18653/v1/2024.clinicalnlp-1.24</doi>
+      <video href="2024.clinicalnlp-1.24.mp4"/>
+    </paper>
+    <paper id="25">
+      <title><fixed-case>ERD</fixed-case>: A Framework for Improving <fixed-case>LLM</fixed-case> Reasoning for Cognitive Distortion Classification</title>
+      <author><first>Sehee</first><last>Lim</last><affiliation>Yonsei University</affiliation></author>
+      <author><first>Yejin</first><last>Kim</last></author>
+      <author><first>Chi-Hyun</first><last>Choi</last><affiliation>EverEx</affiliation></author>
+      <author><first>Jy-yong</first><last>Sohn</last><affiliation>Yonsei University</affiliation></author>
+      <author><first>Byung-Hoon</first><last>Kim</last><affiliation>Yonsei University Health System, Yonsei University Health System and EverEx</affiliation></author>
+      <pages>292-300</pages>
+      <abstract>Improving the accessibility of psychotherapy with the aid of Large Language Models (LLMs) is garnering a significant attention in recent years. Recognizing cognitive distortions from the interviewee’s utterances can be an essential part of psychotherapy, especially for cognitive behavioral therapy. In this paper, we propose ERD, which improves LLM-based cognitive distortion classification performance with the aid of additional modules of (1) extracting the parts related to cognitive distortion, and (2) debating the reasoning steps by multiple agents. Our experimental results on a public dataset show that ERD improves the multi-class F1 score as well as binary specificity score. Regarding the latter score, it turns out that our method is effective in debiasing the baseline method which has high false positive rate, especially when the summary of multi-agent debate is provided to LLMs.</abstract>
+      <url hash="0002abe2">2024.clinicalnlp-1.25</url>
+      <bibkey>lim-etal-2024-erd</bibkey>
+      <doi>10.18653/v1/2024.clinicalnlp-1.25</doi>
+    </paper>
+    <paper id="26">
+      <title>Leveraging Prompt-Learning for Structured Information Extraction from Crohn’s Disease Radiology Reports in a Low-Resource Language</title>
+      <author><first>Liam</first><last>Hazan</last></author>
+      <author><first>Naama</first><last>Gavrielov</last></author>
+      <author><first>Roi</first><last>Reichart</last><affiliation>Technion, Israel Institute of Technology</affiliation></author>
+      <author><first>Talar</first><last>Hagopian</last></author>
+      <author><first>Mary-Louise</first><last>Greer</last></author>
+      <author><first>Ruth</first><last>Cytter-Kuint</last></author>
+      <author><first>Gili</first><last>Focht</last><affiliation>Hebrew University of Jerusalem</affiliation></author>
+      <author><first>Dan</first><last>Turner</last></author>
+      <author><first>Moti</first><last>Freiman</last><affiliation>Technion, Technion</affiliation></author>
+      <pages>301-309</pages>
+      <abstract>Automatic conversion of free-text radiology reports into structured data using Natural Language Processing (NLP) techniques is crucial for analyzing diseases on a large scale. While effective for tasks in widely spoken languages like English, generative large language models (LLMs) typically underperform with less common languages and can pose potential risks to patient privacy. Fine-tuning local NLP models is hindered by the skewed nature of real-world medical datasets, where rare findings represent a significant data imbalance. We introduce SMP-BERT, a novel prompt learning method that leverages the structured nature of reports to overcome these challenges. In our studies involving a substantial collection of Crohn’s disease radiology reports in Hebrew (over 8,000 patients and 10,000 reports), SMP-BERT greatly surpassed traditional fine-tuning methods in performance, notably in detecting infrequent conditions (AUC: 0.99 vs 0.94, F1: 0.84 vs 0.34). SMP-BERT empowers more accurate AI diagnostics available for low-resource languages.</abstract>
+      <url hash="98d9c4fb">2024.clinicalnlp-1.26</url>
+      <bibkey>hazan-etal-2024-leveraging</bibkey>
+      <revision id="1" href="2024.clinicalnlp-1.26v1" hash="10a12469"/>
+      <revision id="2" href="2024.clinicalnlp-1.26v2" hash="98d9c4fb" date="2024-07-14">Acknowledgments update.</revision>
+      <doi>10.18653/v1/2024.clinicalnlp-1.26</doi>
+      <video href="2024.clinicalnlp-1.26.mp4"/>
+    </paper>
+    <paper id="27">
+      <title>Context Aggregation with Topic-focused Summarization for Personalized Medical Dialogue Generation</title>
+      <author><first>Zhengyuan</first><last>Liu</last><affiliation>I2R</affiliation></author>
+      <author><first>Siti</first><last>Salleh</last><affiliation>, A*STAR</affiliation></author>
+      <author><first>Pavitra</first><last>Krishnaswamy</last><affiliation>Institute for Infocomm Research</affiliation></author>
+      <author><first>Nancy</first><last>Chen</last></author>
+      <pages>310-321</pages>
+      <abstract>In the realm of dialogue systems, generated responses often lack personalization. This is particularly true in the medical domain, where research is limited by scarce available domain-specific data and the complexities of modeling medical context and persona information. In this work, we investigate the potential of harnessing large language models for personalized medical dialogue generation. In particular, to better aggregate the long conversational context, we adopt topic-focused summarization to distill core information from the dialogue history, and use such information to guide the conversation flow and generated content. Drawing inspiration from real-world telehealth conversations, we outline a comprehensive pipeline encompassing data processing, profile construction, and domain adaptation. This work not only highlights our technical approach but also shares distilled insights from the data preparation and model construction phases.</abstract>
+      <url hash="ba2381d7">2024.clinicalnlp-1.27</url>
+      <bibkey>liu-etal-2024-context</bibkey>
+      <doi>10.18653/v1/2024.clinicalnlp-1.27</doi>
+    </paper>
+    <paper id="28">
+      <title>Evaluating Lexicon Incorporation for Depression Symptom Estimation</title>
+      <author><first>Kirill</first><last>Milintsevich</last><affiliation>Université de Caen Basse Normandie and University of Tartu</affiliation></author>
+      <author><first>Gaël</first><last>Dias</last><affiliation>University of Caen Normandy</affiliation></author>
+      <author><first>Kairit</first><last>Sirts</last><affiliation>institute of computer science, University of Tartu</affiliation></author>
+      <pages>322-328</pages>
+      <abstract>This paper explores the impact of incorporating sentiment, emotion, and domain-specific lexicons into a transformer-based model for depression symptom estimation. Lexicon information is added by marking the words in the input transcripts of patient-therapist conversations as well as in social media posts. Overall results show that the introduction of external knowledge within pre-trained language models can be beneficial for prediction performance, while different lexicons show distinct behaviours depending on the targeted task. Additionally, new state-of-the-art results are obtained for the estimation of depression level over patient-therapist interviews.</abstract>
+      <url hash="7cd47975">2024.clinicalnlp-1.28</url>
+      <bibkey>milintsevich-etal-2024-evaluating</bibkey>
+      <doi>10.18653/v1/2024.clinicalnlp-1.28</doi>
+      <video href="2024.clinicalnlp-1.28.mp4"/>
+    </paper>
+    <paper id="29">
+      <title>Semi-automatic Construction of a Word Complexity Lexicon for <fixed-case>J</fixed-case>apanese Medical Terminology</title>
+      <author><first>Soichiro</first><last>Sugihara</last></author>
+      <author><first>Tomoyuki</first><last>Kajiwara</last><affiliation>Ehime University</affiliation></author>
+      <author><first>Takashi</first><last>Ninomiya</last><affiliation>Ehime University</affiliation></author>
+      <author><first>Shoko</first><last>Wakamiya</last><affiliation>Nara Institute of Science and Technology</affiliation></author>
+      <author><first>Eiji</first><last>Aramaki</last><affiliation>Nara Institute of Science and Technology, Japan</affiliation></author>
+      <pages>329-333</pages>
+      <abstract>We construct a word complexity lexicon for medical terms in Japanese.To facilitate communication between medical practitioners and patients, medical text simplification is being studied.Medical text simplification is a natural language processing task that paraphrases complex technical terms into expressions that patients can understand.However, in contrast to English, where this task is being actively studied, there are insufficient language resources in Japanese.As a first step in advancing research on medical text simplification in Japanese, we annotate the 370,000 words from a large-scale medical terminology lexicon with a five-point scale of complexity for patients.</abstract>
+      <url hash="5d176035">2024.clinicalnlp-1.29</url>
+      <bibkey>sugihara-etal-2024-semi</bibkey>
+      <doi>10.18653/v1/2024.clinicalnlp-1.29</doi>
+    </paper>
+    <paper id="30">
+      <title><fixed-case>TEAM</fixed-case> <fixed-case>MIPAL</fixed-case> at <fixed-case>MEDIQA</fixed-case>-<fixed-case>M</fixed-case>3<fixed-case>G</fixed-case> 2024: Large <fixed-case>VQA</fixed-case> Models for Dermatological Diagnosis</title>
+      <author><first>Hyeonjin</first><last>Kim</last><affiliation>Seoul National University</affiliation></author>
+      <author><first>Min</first><last>Kim</last><affiliation>Seoul National University</affiliation></author>
+      <author><first>Jae</first><last>Jang</last></author>
+      <author><first>KiYoon</first><last>Yoo</last><affiliation>Seoul National University</affiliation></author>
+      <author><first>Nojun</first><last>Kwak</last><affiliation>Seoul National University</affiliation></author>
+      <pages>334-338</pages>
+      <abstract>This paper describes the methods used for the NAACL 2024 workshop MEDIQA-M3G shared task for generating medical answers from image and query data for skin diseases. MedVInT-Decoder, LLaVA, and LLaVA-Med are chosen as base models. Finetuned with the task dataset on the dermatological domain, MedVInT-Decoder achieved a BLEU score of 3.82 during competition, while LLaVA and LLaVA-Med reached 6.98 and 4.62 afterward, respectively.</abstract>
+      <url hash="c5b9ba1c">2024.clinicalnlp-1.30</url>
+      <bibkey>kim-etal-2024-team</bibkey>
+      <doi>10.18653/v1/2024.clinicalnlp-1.30</doi>
+    </paper>
+    <paper id="31">
+      <title><fixed-case>M</fixed-case>edi<fixed-case>F</fixed-case>act at <fixed-case>MEDIQA</fixed-case>-<fixed-case>M</fixed-case>3<fixed-case>G</fixed-case> 2024: Medical Question Answering in Dermatology with Multimodal Learning</title>
+      <author><first>Nadia</first><last>Saeed</last></author>
+      <pages>339-345</pages>
+      <abstract>The MEDIQA-M3G 2024 challenge necessitates novel solutions for Multilingual &amp; Multimodal Medical Answer Generation in dermatology (wai Yim et al., 2024a). This paper addresses the limitations of traditional methods by proposing a weakly supervised learning approach for open-ended medical question-answering (QA). Our system leverages readily available MEDIQA-M3G images via a VGG16-CNN-SVM model, enabling multilingual (English, Chinese, Spanish) learning of informative skin condition representations. Using pre-trained QA models, we further bridge the gap between visual and textual information through multimodal fusion. This approach tackles complex, open-ended questions even without predefined answer choices. We empower the generation of comprehensive answers by feeding the ViT-CLIP model with multiple responses alongside images. This work advances medical QA research, paving the way for clinical decision support systems and ultimately improving healthcare delivery.</abstract>
+      <url hash="bbe181e0">2024.clinicalnlp-1.31</url>
+      <bibkey>saeed-2024-medifact</bibkey>
+      <doi>10.18653/v1/2024.clinicalnlp-1.31</doi>
+    </paper>
+    <paper id="32">
+      <title><fixed-case>M</fixed-case>edi<fixed-case>F</fixed-case>act at <fixed-case>MEDIQA</fixed-case>-<fixed-case>CORR</fixed-case> 2024: Why <fixed-case>AI</fixed-case> Needs a Human Touch</title>
+      <author><first>Nadia</first><last>Saeed</last></author>
+      <pages>346-352</pages>
+      <abstract>Accurate representation of medical information is crucial for patient safety, yet artificial intelligence (AI) systems, such as Large Language Models (LLMs), encounter challenges in error-free clinical text interpretation. This paper presents a novel approach submitted to the MEDIQA-CORR 2024 shared task k (Ben Abacha et al., 2024a), focusing on the automatic correction of single-word errors in clinical notes. Unlike LLMs that rely on extensive generic data, our method emphasizes extracting contextually relevant information from available clinical text data. Leveraging an ensemble of extractive and abstractive question-answering approaches, we construct a supervised learning framework with domain-specific feature engineering. Our methodology incorporates domain expertise to enhance error correction accuracy. By integrating domain expertise and prioritizing meaningful information extraction, our approach underscores the significance of a human-centric strategy in adapting AI for healthcare.</abstract>
+      <url hash="01df5ce6">2024.clinicalnlp-1.32</url>
+      <bibkey>saeed-2024-medifact-mediqa</bibkey>
+      <doi>10.18653/v1/2024.clinicalnlp-1.32</doi>
+    </paper>
+    <paper id="33">
+      <title><fixed-case>K</fixed-case>now<fixed-case>L</fixed-case>ab_<fixed-case>AIM</fixed-case>ed at <fixed-case>MEDIQA</fixed-case>-<fixed-case>CORR</fixed-case> 2024: Chain-of-Though (<fixed-case>C</fixed-case>o<fixed-case>T</fixed-case>) prompting strategies for medical error detection and correction</title>
+      <author><first>Zhaolong</first><last>Wu</last></author>
+      <author><first>Abul</first><last>Hasan</last><affiliation>University College London, University of London</affiliation></author>
+      <author><first>Jinge</first><last>Wu</last></author>
+      <author><first>Yunsoo</first><last>Kim</last></author>
+      <author><first>Jason</first><last>Cheung</last><affiliation>University of Hong Kong</affiliation></author>
+      <author><first>Teng</first><last>Zhang</last></author>
+      <author><first>Honghan</first><last>Wu</last><affiliation>University College London, University of London</affiliation></author>
+      <pages>353-359</pages>
+      <abstract>This paper describes our submission to the MEDIQA-CORR 2024 shared task for automatically detecting and correcting medical errors in clinical notes. We report results for three methods of few-shot In-Context Learning (ICL) augmented with Chain-of-Thought (CoT) and reason prompts using a large language model (LLM). In the first method, we manually analyse a subset of train and validation dataset to infer three CoT prompts by examining error types in the clinical notes. In the second method, we utilise the training dataset to prompt the LLM to deduce reasons about their correctness or incorrectness. The constructed CoTs and reasons are then augmented with ICL examples to solve the tasks of error detection, span identification, and error correction. Finally, we combine the two methods using a rule-based ensemble method. Across the three sub-tasks, our ensemble method achieves a ranking of 3rd for both sub-task 1 and 2, while securing 7th place in sub-task 3 among all submissions.</abstract>
+      <url hash="84b1c003">2024.clinicalnlp-1.33</url>
+      <bibkey>wu-etal-2024-knowlab</bibkey>
+      <doi>10.18653/v1/2024.clinicalnlp-1.33</doi>
+    </paper>
+    <paper id="34">
+      <title><fixed-case>P</fixed-case>rompt<fixed-case>M</fixed-case>ind Team at <fixed-case>EHRSQL</fixed-case>-2024: Improving Reliability of <fixed-case>SQL</fixed-case> Generation using Ensemble <fixed-case>LLM</fixed-case>s</title>
+      <author><first>Satya</first><last>Gundabathula</last><affiliation>Google</affiliation></author>
+      <author><first>Sriram</first><last>Kolar</last><affiliation>Inchworks</affiliation></author>
+      <pages>360-366</pages>
+      <abstract>This paper presents our approach to the EHRSQL-2024 shared task, which aims to develop a reliable Text-to-SQL system for electronic health records. We propose two approaches that leverage large language models (LLMs) for prompting and fine-tuning to generate EHRSQL queries. In both techniques, we concentrate on bridging the gap between the real-world knowledge on which LLMs are trained and the domain-specific knowledge required for the task. The paper provides the results of each approach individually, demonstrating that they achieve high execution accuracy. Additionally, we show that an ensemble approach further enhances generation reliability by reducing errors. This approach secured us 2nd place in the shared task competition. The methodologies outlined in this paper are designed to be transferable to domain-specific Text-to-SQL problems that emphasize both accuracy and reliability.</abstract>
+      <url hash="398c749c">2024.clinicalnlp-1.34</url>
+      <bibkey>gundabathula-kolar-2024-promptmind</bibkey>
+      <doi>10.18653/v1/2024.clinicalnlp-1.34</doi>
+    </paper>
+    <paper id="35">
+      <title><fixed-case>P</fixed-case>rompt<fixed-case>M</fixed-case>ind Team at <fixed-case>MEDIQA</fixed-case>-<fixed-case>CORR</fixed-case> 2024: Improving Clinical Text Correction with Error Categorization and <fixed-case>LLM</fixed-case> Ensembles</title>
+      <author><first>Satya</first><last>Gundabathula</last><affiliation>Google</affiliation></author>
+      <author><first>Sriram</first><last>Kolar</last><affiliation>Inchworks</affiliation></author>
+      <pages>367-373</pages>
+      <abstract>This paper describes our approach to the MEDIQA-CORR shared task, which involves error detection and correction in clinical notes curated by medical professionals. This task involves handling three subtasks: detecting the presence of errors, identifying the specific sentence containing the error, and correcting it. Through our work, we aim to assess the capabilities of Large Language Models (LLMs) trained on a vast corpora of internet data that contain both factual and unreliable information. We propose to comprehensively address all subtasks together, and suggest employing a unique prompt-based in-context learning strategy. We will evaluate its efficacy in this specialized task demanding a combination of general reasoning and medical knowledge. In medical systems where prediction errors can have grave consequences, we propose leveraging self-consistency and ensemble methods to enhance error correction and error detection performance.</abstract>
+      <url hash="16d5d762">2024.clinicalnlp-1.35</url>
+      <bibkey>gundabathula-kolar-2024-promptmind-team</bibkey>
+      <doi>10.18653/v1/2024.clinicalnlp-1.35</doi>
+      <video href="2024.clinicalnlp-1.35.mp4"/>
+    </paper>
+    <paper id="36">
+      <title>Maven at <fixed-case>MEDIQA</fixed-case>-<fixed-case>CORR</fixed-case> 2024: Leveraging <fixed-case>RAG</fixed-case> and Medical <fixed-case>LLM</fixed-case> for Error Detection and Correction in Medical Notes</title>
+      <author><first>Suramya</first><last>Jadhav</last></author>
+      <author><first>Abhay</first><last>Shanbhag</last></author>
+      <author><first>Sumedh</first><last>Joshi</last></author>
+      <author><first>Atharva</first><last>Date</last></author>
+      <author><first>Sheetal</first><last>Sonawane</last></author>
+      <pages>374-381</pages>
+      <abstract>Addressing the critical challenge of identifying and rectifying medical errors in clinical notes, we present a novel approach tailored for the MEDIQA-CORR task @ NAACL-ClinicalNLP 2024, which comprises three subtasks: binary classification, span identification, and natural language generation for error detection and correction. Binary classification involves detecting whether the text contains a medical error; span identification entails identifying the text span associated with any detected error; and natural language generation focuses on providing a free text correction if a medical error exists. Our proposed architecture leverages Named Entity Recognition (NER) for identifying disease-related terms, Retrieval-Augmented Generation (RAG) for contextual understanding from external datasets, and a quantized and fine-tuned Palmyra model for error correction. Our model achieved a global rank of 5 with an aggregate score of 0.73298, calculated as the mean of ROUGE-1-F, BERTScore, and BLEURT scores.</abstract>
+      <url hash="5d1d7628">2024.clinicalnlp-1.36</url>
+      <bibkey>jadhav-etal-2024-maven</bibkey>
+      <doi>10.18653/v1/2024.clinicalnlp-1.36</doi>
+    </paper>
+    <paper id="37">
+      <title><fixed-case>LAIL</fixed-case>ab at Chemotimelines 2024: Finetuning sequence-to-sequence language models for temporal relation extraction towards cancer patient undergoing chemotherapy treatment</title>
+      <author><first>Shohreh</first><last>Haddadan</last><affiliation>Moffitt Cancer Research center</affiliation></author>
+      <author><first>Tuan-Dung</first><last>Le</last><affiliation>University of South Florida and Moffitt Cancer Research Center</affiliation></author>
+      <author><first>Thanh</first><last>Duong</last></author>
+      <author><first>Thanh</first><last>Thieu</last><affiliation>Moffitt Cancer Center and Research Institute</affiliation></author>
+      <pages>382-393</pages>
+      <abstract>In this paper, we report our effort to tackle the challenge of extracting chemotimelines from EHR notes across a dataset of three cancer types. We focus on the two subtasks: 1) detection and classification of temporal relations given the annotated chemotherapy events and time expressions and 2) directly extracting patient chemotherapy timelines from EHR notes. We address both subtasks using Large Language Models. Our best-performing methods in both subtasks use Flan-T5, an instruction-tuned language model. Our proposed system achieves the highest average score in both subtasks. Our results underscore the effectiveness of finetuning general-domain large language models in domain-specific and unseen tasks.</abstract>
+      <url hash="7f490b8d">2024.clinicalnlp-1.37</url>
+      <bibkey>haddadan-etal-2024-lailab</bibkey>
+      <doi>10.18653/v1/2024.clinicalnlp-1.37</doi>
+      <video href="2024.clinicalnlp-1.37.mp4"/>
+    </paper>
+    <paper id="38">
+      <title>Lexicans at Chemotimelines 2024: Chemotimeline Chronicles - Leveraging Large Language Models (<fixed-case>LLM</fixed-case>s) for Temporal Relations Extraction in Oncological Electronic Health Records</title>
+      <author><first>Vishakha</first><last>Sharma</last><affiliation>Roche Diagnostics</affiliation></author>
+      <author><first>Andres</first><last>Fernandez</last></author>
+      <author><first>Andrei</first><last>Ioanovici</last></author>
+      <author><first>David</first><last>Talby</last><affiliation>John Snow Labs</affiliation></author>
+      <author><first>Frederik</first><last>Buijs</last></author>
+      <pages>394-405</pages>
+      <abstract>Automatic generation of chemotherapy treatment timelines from electronic health records (EHRs) notes not only streamlines clinical workflows but also promotes better coordination and improvements in cancer treatment and quality of care. This paper describes the submission to the Chemotimelines 2024 shared task that aims to automatically build a chemotherapy treatment timeline for each patient using their complete set of EHR notes, spanning various sources such as primary care provider, oncology, discharge summaries, emergency department, pathology, radiology, and more. We report results from two large language models (LLMs), namely Llama 2 and Mistral 7B, applied to the shared task data using zero-shot prompting.</abstract>
+      <url hash="f341e1f9">2024.clinicalnlp-1.38</url>
+      <bibkey>sharma-etal-2024-lexicans</bibkey>
+      <doi>10.18653/v1/2024.clinicalnlp-1.38</doi>
+    </paper>
+    <paper id="39">
+      <title>Team <fixed-case>NLP</fixed-case>eers at Chemotimelines 2024: Evaluation of two timeline extraction methods, can generative <fixed-case>LLM</fixed-case> do it all or is smaller model fine-tuning still relevant ?</title>
+      <author><first>Nesrine</first><last>Bannour</last></author>
+      <author><first>Judith Jeyafreeda</first><last>Andrew</last></author>
+      <author><first>Marc</first><last>Vincent</last><affiliation>Institut Imagine</affiliation></author>
+      <pages>406-416</pages>
+      <abstract>This paper presents our two deep learning-based approaches to participate in subtask 1 of the Chemotimelines 2024 Shared task. The first uses a fine-tuning strategy on a relatively small general domain Masked Language Model (MLM) model, with additional normalization steps obtained using a simple Large Language Model (LLM) prompting technique. The second is an LLM-based approach combining advanced automated prompt search with few-shot in-context learning using the DSPy framework.Our results confirm the continued relevance of the smaller MLM fine-tuned model. It also suggests that the automated few-shot LLM approach can perform close to the fine-tuning-based method without extra LLM normalization and be advantageous under scarce data access conditions. We finally hint at the possibility to choose between lower training examples or lower computing resources requirements when considering both methods.</abstract>
+      <url hash="892fde36">2024.clinicalnlp-1.39</url>
+      <bibkey>bannour-etal-2024-team</bibkey>
+      <doi>10.18653/v1/2024.clinicalnlp-1.39</doi>
+    </paper>
+    <paper id="40">
+      <title><fixed-case>KCL</fixed-case>ab at Chemotimelines 2024: End-to-end system for chemotherapy timeline extraction – Subtask2</title>
+      <author><first>Yukun</first><last>Tan</last><affiliation>The University of Texas MD Anderson Cancer Center</affiliation></author>
+      <author><first>Merve</first><last>Dede</last><affiliation>The University of Texas MD Anderson Cancer Center</affiliation></author>
+      <author><first>Ken</first><last>Chen</last><affiliation>The University of Texas MD Anderson Cancer Center and The University of Texas MD Anderson Cancer Center</affiliation></author>
+      <pages>417-421</pages>
+      <abstract>This paper presents our participation in the Chemotimelines 2024 subtask2, focusing on the development of an end-to-end system for chemotherapy timeline extraction. We initially adopt a basic framework from subtask2, utilizing Apache cTAKES for entity recognition and a BERT-based model for classifying the temporal relationship between chemotherapy events and associated times. Subsequently, we enhance this pipeline through two key directions: first, by expanding the exploration of the system, achieved by extending the search dictionary of cTAKES with the UMLS database; second, by reducing false positives through preprocessing of clinical notes and implementing filters to reduce the potential errors from the BERT-based model. To validate the effectiveness of our framework, we conduct extensive experiments using clinical notes from breast, ovarian, and melanoma cancer cases. Our results demonstrate improvements over the previous approach.</abstract>
+      <url hash="173966d0">2024.clinicalnlp-1.40</url>
+      <bibkey>tan-etal-2024-kclab</bibkey>
+      <doi>10.18653/v1/2024.clinicalnlp-1.40</doi>
+    </paper>
+    <paper id="41">
+      <title>Project <fixed-case>PRIMUS</fixed-case> at <fixed-case>EHRSQL</fixed-case> 2024 : Text-to-<fixed-case>SQL</fixed-case> Generation using Large Language Model for <fixed-case>EHR</fixed-case> Analysis</title>
+      <author><first>Sourav</first><last>Joy</last></author>
+      <author><first>Rohan</first><last>Ahmed</last></author>
+      <author><first>Argha</first><last>Saha</last><affiliation>Shahjalal University of Science and Technology</affiliation></author>
+      <author><first>Minhaj</first><last>Habil</last></author>
+      <author><first>Utsho</first><last>Das</last></author>
+      <author><first>Partha</first><last>Bhowmik</last></author>
+      <pages>422-427</pages>
+      <abstract>This paper explores the application of the sqlcoders model, a pre-trained neural network, for automatic SQL query generation from natural language questions. We focus on the model’s internal functionality and demonstrate its effectiveness on a domain-specific validation dataset provided by EHRSQL. The sqlcoders model, based on transformers with attention mechanisms, has been trained on paired examples of natural language questions and corresponding SQL queries. It takes advantage of a carefully crafted prompt that incorporates the database schema alongside the question to guide the model towards the desired output format.</abstract>
+      <url hash="e3f4fb32">2024.clinicalnlp-1.41</url>
+      <bibkey>joy-etal-2024-project</bibkey>
+      <doi>10.18653/v1/2024.clinicalnlp-1.41</doi>
+    </paper>
+    <paper id="42">
+      <title><fixed-case>NYUL</fixed-case>angone at Chemotimelines 2024: Utilizing Open-Weights Large Language Models for Chemotherapy Event Extraction</title>
+      <author><first>Jeff</first><last>Zhang</last><affiliation>New York University</affiliation></author>
+      <author><first>Yin</first><last>Aphinyanaphongs</last><affiliation>NYU Langone</affiliation></author>
+      <author><first>Anthony</first><last>Cardillo</last></author>
+      <pages>428-430</pages>
+      <abstract>The extraction of chemotherapy treatment timelines from clinical narratives poses significant challenges due to the complexity of medical language and patient-specific treatment regimens. This paper describes the NYULangone team’s approach to Subtask 2 of the Chemotimelines 2024 shared task, focusing on leveraging a locally hosted Large Language Model (LLM), Mixtral 8x7B (Mistral AI, France), to interpret and extract relevant events from clinical notes without relying on domain-specific training data. Despite facing challenges due to the task’s complexity and the current capacity of open-source AI, our methodology highlights the future potential of local foundational LLMs in specialized domains like biomedical data processing.</abstract>
+      <url hash="c4282d59">2024.clinicalnlp-1.42</url>
+      <bibkey>zhang-etal-2024-nyulangone</bibkey>
+      <doi>10.18653/v1/2024.clinicalnlp-1.42</doi>
+    </paper>
+    <paper id="43">
+      <title><fixed-case>AIRI</fixed-case> <fixed-case>NLP</fixed-case> Team at <fixed-case>EHRSQL</fixed-case> 2024 Shared Task: T5 and Logistic Regression to the Rescue</title>
+      <author><first>Oleg</first><last>Somov</last></author>
+      <author><first>Alexey</first><last>Dontsov</last><affiliation>Artificial Intelligence Research Institute</affiliation></author>
+      <author><first>Elena</first><last>Tutubalina</last><affiliation>Kazan Federal University</affiliation></author>
+      <pages>431-438</pages>
+      <abstract>This paper presents a system developed for the Clinical NLP 2024 Shared Task, focusing on reliable text-to-SQL modeling on Electronic Health Records (EHRs). The goal is to create a model that accurately generates SQL queries for answerable questions while avoiding incorrect responses and handling unanswerable queries. Our approach comprises three main components: a query correspondence model, a text-to-SQL model, and an SQL verifier.For the query correspondence model, we trained a logistic regression model using hand-crafted features to distinguish between answerable and unanswerable queries. As for the text-to-SQL model, we utilized T5-3B as a pretrained language model, further fine-tuned on pairs of natural language questions and corresponding SQL queries. Finally, we applied the SQL verifier to inspect the resulting SQL queries.During the evaluation stage of the shared task, our system achieved an accuracy of 68.9 % (metric version without penalty), positioning it at the fifth-place ranking. While our approach did not surpass solutions based on large language models (LMMs) like ChatGPT, it demonstrates the promising potential of domain-specific specialized models that are more resource-efficient. The code is publicly available at https://github.com/runnerup96/EHRSQL-text2sql-solution.</abstract>
+      <url hash="6ce8913b">2024.clinicalnlp-1.43</url>
+      <bibkey>somov-etal-2024-airi</bibkey>
+      <doi>10.18653/v1/2024.clinicalnlp-1.43</doi>
+    </paper>
+    <paper id="44">
+      <title><fixed-case>IKIM</fixed-case> at <fixed-case>MEDIQA</fixed-case>-<fixed-case>M</fixed-case>3<fixed-case>G</fixed-case> 2024: Multilingual Visual Question-Answering for Dermatology through <fixed-case>VLM</fixed-case> Fine-tuning and <fixed-case>LLM</fixed-case> Translations</title>
+      <author><first>Marie</first><last>Bauer</last><affiliation>Universität Duisburg-Essen</affiliation></author>
+      <author><first>Constantin</first><last>Seibold</last><affiliation>University Medicine Essen</affiliation></author>
+      <author><first>Jens</first><last>Kleesiek</last><affiliation>Institute for AI in Medicine (IKIM), University Medicine Essen</affiliation></author>
+      <author><first>Amin</first><last>Dada</last></author>
+      <pages>439-447</pages>
+      <abstract>This paper presents our solution to the MEDIQA-M3G Challenge at NAACL-ClinicalNLP 2024. We participated in all three languages, ranking first in Chinese and Spanish and third in English. Our approach utilizes LLaVA-med, an open-source, medical vision-language model (VLM) for visual question-answering in Chinese, and Mixtral-8x7B-instruct, a Large Language Model (LLM) for a subsequent translation into English and Spanish. In addition to our final method, we experiment with alternative approaches: Training three different models for each language instead of translating the results from one model, using different combinations and numbers of input images, and additional training on publicly available data that was not part of the original challenge training set.</abstract>
+      <url hash="3fa44477">2024.clinicalnlp-1.44</url>
+      <bibkey>bauer-etal-2024-ikim</bibkey>
+      <doi>10.18653/v1/2024.clinicalnlp-1.44</doi>
+    </paper>
+    <paper id="45">
+      <title><fixed-case>NEUI</fixed-case> at <fixed-case>MEDIQA</fixed-case>-<fixed-case>M</fixed-case>3<fixed-case>G</fixed-case> 2024: Medical <fixed-case>VQA</fixed-case> through consensus</title>
+      <author><first>Ricardo</first><last>García</last><affiliation>The Dalle Molle Institute for Artificial Intelligence</affiliation></author>
+      <author><first>Oscar</first><last>Lithgow-Serrano</last><affiliation>The Swiss AI Lab (IDSIA)</affiliation></author>
+      <pages>448-460</pages>
+      <abstract>This document describes our solution to the MEDIQA-M3G: Multilingual &amp; Multimodal Medical Answer Generation. To build our solution, we leveraged two pre-trained models, a Visual Language Model (VLM) and a Large Language Model (LLM). We fine-tuned both models using the MEDIQA-M3G and MEDIQA-CORR training datasets, respectively. In the first stage, the VLM provides singular responses for each pair of image &amp; text inputs in a case. In the second stage, the LLM consolidates the VLM responses using it as context among the original text input. By changing the original English case content field in the context component of the second stage to the one in Spanish, we adapt the pipeline to generate submissions in English and Spanish. We performed an ablation study to explore the impact of the different models’ capabilities, such as multimodality and reasoning, on the MEDIQA-M3G task. Our approach favored privacy and feasibility by adopting open-source and self-hosted small models and ranked 4th in English and 2nd in Spanish.</abstract>
+      <url hash="9380c8b7">2024.clinicalnlp-1.45</url>
+      <bibkey>garcia-lithgow-serrano-2024-neui</bibkey>
+      <doi>10.18653/v1/2024.clinicalnlp-1.45</doi>
+    </paper>
+    <paper id="46">
+      <title><fixed-case>V</fixed-case>erba<fixed-case>N</fixed-case>ex<fixed-case>AI</fixed-case> at <fixed-case>MEDIQA</fixed-case>-<fixed-case>CORR</fixed-case>: Efficacy of <fixed-case>GRU</fixed-case> with <fixed-case>B</fixed-case>io<fixed-case>W</fixed-case>ord<fixed-case>V</fixed-case>ec and <fixed-case>C</fixed-case>linical<fixed-case>BERT</fixed-case> in Error Correction in Clinical Notes</title>
+      <author><first>Juan</first><last>Pajaro</last><affiliation>Pontificia Universidad Javeriana</affiliation></author>
+      <author><first>Edwin</first><last>Puertas</last><affiliation>Universidad Tecnologica de Bolivar</affiliation></author>
+      <author><first>David</first><last>Villate</last></author>
+      <author><first>Laura</first><last>Estrada</last></author>
+      <author><first>Laura</first><last>Tinjaca</last></author>
+      <pages>461-469</pages>
+      <abstract>The automatic identification of medical errors in clinical notes is crucial for improving the quality of healthcare services.LLMs emerge as a powerful artificial intelligence tool for automating this task. However, LLMs present vulnerabilities, high costs, and sometimes a lack of transparency. This article addresses the detection of medical errors through the fine-tuning approach, conducting a comprehensive comparison between various models and exploring in depth the components of the machine learning pipeline. The results obtained with the fine-tuned ClinicalBert and Gated recurrent units (Gru) models show an accuracy of 0.56 and 0.55, respectively. This approach not only mitigates the problems associated with the use of LLMs but also demonstrates how exhaustive iteration in critical phases of the pipeline, especially in feature selection, can facilitate the automation of clinical record analysis.</abstract>
+      <url hash="e3fbdb23">2024.clinicalnlp-1.46</url>
+      <bibkey>pajaro-etal-2024-verbanexai</bibkey>
+      <doi>10.18653/v1/2024.clinicalnlp-1.46</doi>
+      <video href="2024.clinicalnlp-1.46.mp4"/>
+    </paper>
+    <paper id="47">
+      <title><fixed-case>HSE</fixed-case> <fixed-case>NLP</fixed-case> Team at <fixed-case>MEDIQA</fixed-case>-<fixed-case>CORR</fixed-case> 2024 Task: In-Prompt Ensemble with Entities and Knowledge Graph for Medical Error Correction</title>
+      <author><first>Airat</first><last>Valiev</last><affiliation>Higher School of Economics</affiliation></author>
+      <author><first>Elena</first><last>Tutubalina</last><affiliation>Kazan Federal University</affiliation></author>
+      <pages>470-482</pages>
+      <abstract>This paper presents our LLM-based system designed for the MEDIQA-CORR @ NAACL-ClinicalNLP 2024 Shared Task 3, focusing on medical error detection and correction in medical records. Our approach consists of three key components: entity extraction, prompt engineering, and ensemble. First, we automatically extract biomedical entities such as therapies, diagnoses, and biological species. Next, we explore few-shot learning techniques and incorporate graph information from the MeSH database for the identified entities. Finally, we investigate two methods for ensembling: (i) combining the predictions of three previous LLMs using an AND strategy within a prompt and (ii) integrating the previous predictions into the prompt as separate ‘expert’ solutions, accompanied by trust scores representing their performance. The latter system ranked second with a BERTScore score of 0.8059 and third with an aggregated score of 0.7806 out of the 15 teams’ solutions in the shared task.</abstract>
+      <url hash="90f74e91">2024.clinicalnlp-1.47</url>
+      <bibkey>valiev-tutubalina-2024-hse</bibkey>
+      <doi>10.18653/v1/2024.clinicalnlp-1.47</doi>
+    </paper>
+    <paper id="48">
+      <title>Wonder at Chemotimelines 2024: <fixed-case>M</fixed-case>ed<fixed-case>T</fixed-case>imeline: An End-to-End <fixed-case>NLP</fixed-case> System for Timeline Extraction from Clinical Narratives</title>
+      <author><first>Liwei</first><last>Wang</last><affiliation>UTHealth Houston</affiliation></author>
+      <author><first>Qiuhao</first><last>Lu</last><affiliation>UTHealth Houston</affiliation></author>
+      <author><first>Rui</first><last>Li</last></author>
+      <author><first>Sunyang</first><last>Fu</last><affiliation>UTHealth Houston</affiliation></author>
+      <author><first>Hongfang</first><last>Liu</last><affiliation>Mayo Clinic</affiliation></author>
+      <pages>483-487</pages>
+      <abstract>Extracting timeline information from clinical narratives is critical for cancer research and practice using electronic health records (EHRs). In this study, we apply MedTimeline, our end-to-end hybrid NLP system combining large language model, deep learning with knowledge engineering, to the ChemoTimeLine challenge subtasks. Our experiment results in 0.83, 0.90, 0.84, and 0.53, 0.63, 0.39, respectively, for subtask1 and subtask2 in breast, melanoma and ovarian cancer.</abstract>
+      <url hash="1c3d26c1">2024.clinicalnlp-1.48</url>
+      <bibkey>wang-etal-2024-wonder</bibkey>
+      <doi>10.18653/v1/2024.clinicalnlp-1.48</doi>
+    </paper>
+    <paper id="49">
+      <title><fixed-case>E</fixed-case>dinburgh Clinical <fixed-case>NLP</fixed-case> at <fixed-case>MEDIQA</fixed-case>-<fixed-case>CORR</fixed-case> 2024: Guiding Large Language Models with Hints</title>
+      <author><first>Aryo</first><last>Gema</last><affiliation>University of Edinburgh, University of Edinburgh</affiliation></author>
+      <author><first>Chaeeun</first><last>Lee</last><affiliation>University of Edinburgh, University of Edinburgh</affiliation></author>
+      <author><first>Pasquale</first><last>Minervini</last><affiliation>University of Edinburgh, University of Edinburgh</affiliation></author>
+      <author><first>Luke</first><last>Daines</last><affiliation>University of Edinburgh, University of Edinburgh</affiliation></author>
+      <author><first>T.</first><last>Simpson</last><affiliation>University of Edinburgh, University of Edinburgh</affiliation></author>
+      <author><first>Beatrice</first><last>Alex</last><affiliation>University of Edinburgh, University of Edinburgh</affiliation></author>
+      <pages>488-501</pages>
+      <abstract>The MEDIQA-CORR 2024 shared task aims to assess the ability of Large Language Models (LLMs) to identify and correct medical errors in clinical notes. In this study, we evaluate the capability of general LLMs, specifically GPT-3.5 and GPT-4, to identify and correct medical errors with multiple prompting strategies. Recognising the limitation of LLMs in generating accurate corrections only via prompting strategies, we propose incorporating error-span predictions from a smaller, fine-tuned model in two ways: 1) by presenting it as a hint in the prompt and 2) by framing it as multiple-choice questions from which the LLM can choose the best correction. We found that our proposed prompting strategies significantly improve the LLM’s ability to generate corrections. Our best-performing solution with 8-shot + CoT + hints ranked sixth in the shared task leaderboard. Additionally, our comprehensive analyses show the impact of the location of the error sentence, the prompted role, and the position of the multiple-choice option on the accuracy of the LLM. This prompts further questions about the readiness of LLM to be implemented in real-world clinical settings.</abstract>
+      <url hash="eaad176b">2024.clinicalnlp-1.49</url>
+      <bibkey>gema-etal-2024-edinburgh-clinical</bibkey>
+      <doi>10.18653/v1/2024.clinicalnlp-1.49</doi>
+    </paper>
+    <paper id="50">
+      <title><fixed-case>UM</fixed-case>ass-<fixed-case>B</fixed-case>io<fixed-case>NLP</fixed-case> at <fixed-case>MEDIQA</fixed-case>-<fixed-case>M</fixed-case>3<fixed-case>G</fixed-case> 2024: <fixed-case>D</fixed-case>erm<fixed-case>P</fixed-case>rompt - A Systematic Exploration of Prompt Engineering with <fixed-case>GPT</fixed-case>-4<fixed-case>V</fixed-case> for Dermatological Diagnosis</title>
+      <author><first>Parth</first><last>Vashisht</last></author>
+      <author><first>Abhilasha</first><last>Lodha</last></author>
+      <author><first>Mukta</first><last>Maddipatla</last><affiliation>Department of Computer Science, University of Massachusetts at Amherst</affiliation></author>
+      <author><first>Zonghai</first><last>Yao</last><affiliation>University of Massachusetts at Amherst</affiliation></author>
+      <author><first>Avijit</first><last>Mitra</last></author>
+      <author><first>Zhichao</first><last>Yang</last><affiliation>University of Massachusetts, Amherst</affiliation></author>
+      <author><first>Sunjae</first><last>Kwon</last></author>
+      <author><first>Junda</first><last>Wang</last></author>
+      <author><first>Hong</first><last>Yu</last><affiliation>Columbia University</affiliation></author>
+      <pages>502-525</pages>
+      <abstract>This paper presents our team’s participation in the MEDIQA-ClinicalNLP 2024 shared task B. We present a novel approach to diagnosing clinical dermatology cases by integrating large multimodal models, specifically leveraging the capabilities of GPT-4V under a retriever and a re-ranker framework. Our investigation reveals that GPT-4V, when used as a retrieval agent, can accurately retrieve the correct skin condition 85% of the time using dermatological images and brief patient histories. Additionally, we empirically show that Naive Chain-of-Thought (CoT) works well for retrieval while Medical Guidelines Grounded CoT is required for accurate dermatological diagnosis. Further, we introduce a Multi-Agent Conversation (MAC) framework and show it’s superior performance and potential over the best CoT strategy. The experiments suggest that using naive CoT for retrieval and multi-agent conversation for critique-based diagnosis, GPT-4V can lead to an early and accurate diagnosis of dermatological conditions. The implications of this work extend to improving diagnostic workflows, supporting dermatological education, and enhancing patient care by providing a scalable, accessible, and accurate diagnostic tool.</abstract>
+      <url hash="31557d9c">2024.clinicalnlp-1.50</url>
+      <bibkey>vashisht-etal-2024-umass</bibkey>
+      <doi>10.18653/v1/2024.clinicalnlp-1.50</doi>
+    </paper>
+    <paper id="51">
+      <title><fixed-case>KU</fixed-case>-<fixed-case>DMIS</fixed-case> at <fixed-case>MEDIQA</fixed-case>-<fixed-case>CORR</fixed-case> 2024: Exploring the Reasoning Capabilities of Small Language Models in Medical Error Correction</title>
+      <author><first>Hyeon</first><last>Hwang</last></author>
+      <author><first>Taewhoo</first><last>Lee</last><affiliation>Korea University</affiliation></author>
+      <author><first>Hyunjae</first><last>Kim</last><affiliation>Korea University</affiliation></author>
+      <author><first>Jaewoo</first><last>Kang</last><affiliation>Korea University</affiliation></author>
+      <pages>526-536</pages>
+      <abstract>Recent advancements in large language models (LM) like OpenAI’s GPT-4 have shown promise in healthcare, particularly in medical question answering and clinical applications. However, their deployment raises privacy concerns and their size limits use in resource-constrained environments.Smaller open-source LMs have emerged as alternatives, but their reliability in medicine remains underexplored.This study evaluates small LMs in the medical field using the MEDIQA-CORR 2024 task, which assesses the ability of models to identify and correct errors in clinical notes. Initially, zero-shot inference and simple fine-tuning of small models resulted in poor performance. When fine-tuning with chain-of-thought (CoT) reasoning using synthetic data generated by GPT-4, their performance significantly improved. Meerkat-7B, a small LM trained with medical CoT reasoning, demonstrated notable performance gains. Our model outperforms other small non-commercial LMs and some larger models, achieving a 73.36 aggregate score on MEDIQA-CORR 2024.</abstract>
+      <url hash="fd881aab">2024.clinicalnlp-1.51</url>
+      <bibkey>hwang-etal-2024-ku</bibkey>
+      <doi>10.18653/v1/2024.clinicalnlp-1.51</doi>
+    </paper>
+    <paper id="52">
+      <title><fixed-case>CLD</fixed-case>-<fixed-case>MEC</fixed-case> at <fixed-case>MEDIQA</fixed-case>- <fixed-case>CORR</fixed-case> 2024 Task: <fixed-case>GPT</fixed-case>-4 Multi-Stage Clinical Chain of Thought Prompting for Medical Errors Detection and Correction</title>
+      <author><first>Renad</first><last>Alzghoul</last></author>
+      <author><first>Ayaabdelhaq</first><last>Ayaabdelhaq</last></author>
+      <author><first>Abdulrahman</first><last>Tabaza</last></author>
+      <author><first>Ahmad</first><last>Altamimi</last></author>
+      <pages>537-556</pages>
+      <abstract>This paper demonstrates CLD-MEC team submission to the MEDIQA-CORR 2024 shared task for identifying and correcting medical errors from clinical notes. We developed a framework to track two main types of medical errors: diagnostics and medical management-related errors. The tracking framework is implied utilizing a GPT-4 multi-stage prompting-based pipeline that ends with the three downstream tasks: classification of medical error existence (Task 1), identification of error location (Task 2), and correction error (Task 3). Throughout the pipeline, we employed clinical Chain of Thought (CoT) and Chain-of-Verification (CoVe) techniques to mitigate the hallucination and enforce the clinical context learning. The model performance is acceptable, given it is based on zero-shot learning. In addition, we developed a RAG system injected with clinical practice guidelines as an external knowledge datastore. Our RAG is based on the Bio_ClinicalBERT as a vector embedding model. However, our RAG system failed to get the desired results. We proposed recommendations to be investigated in future research work to overcome the limitations of our approach.</abstract>
+      <url hash="eb0865a8">2024.clinicalnlp-1.52</url>
+      <bibkey>alzghoul-etal-2024-cld</bibkey>
+      <doi>10.18653/v1/2024.clinicalnlp-1.52</doi>
+    </paper>
+    <paper id="53">
+      <title>Overview of the 2024 Shared Task on Chemotherapy Treatment Timeline Extraction</title>
+      <author><first>Jiarui</first><last>Yao</last><affiliation>Boston Children’s Hospital</affiliation></author>
+      <author><first>Harry</first><last>Hochheiser</last><affiliation>University of Pittsburgh</affiliation></author>
+      <author><first>WonJin</first><last>Yoon</last><affiliation>Harvard University</affiliation></author>
+      <author><first>Eli</first><last>Goldner</last></author>
+      <author><first>Guergana</first><last>Savova</last><affiliation>Harvard University</affiliation></author>
+      <pages>557-569</pages>
+      <abstract>The 2024 Shared Task on Chemotherapy Treatment Timeline Extraction aims to advance the state of the art of clinical event timeline extraction from the Electronic Health Records (EHRs). Specifically, this edition focuses on chemotherapy event timelines from EHRs of patients with breast, ovarian and skin cancers. These patient-level timelines present a novel challenge which involves tasks such as the extraction of relevant events, time expressions and temporal relations from each document and then summarizing over the documents. De-identified EHRs for 57,530 patients with breast and ovarian cancer spanning 2004-2020, and approximately 15,946 patients with melanoma spanning 2010-2020 were made available to participants after executing a Data Use Agreement. A subset of patients is annotated for gold entities, time expressions, temporal relations and patient-level timelines. The rest is considered unlabeled data. In Subtask1, gold chemotherapy event mentions and time expressions are provided (along with the EHR notes). Participants are asked to build the patient-level timelines using gold annotations as input. Thus, the subtask seeks to explore the topics of temporal relations extraction and timeline creation if event and time expression input is perfect. In Subtask2, which is the realistic real-world setting, only EHR notes are provided. Thus, the subtask aims at developing an end-to-end system for chemotherapy treatment timeline extraction from patient’s EHR notes. There were 18 submissions for Subtask 1 and 9 submissions for Subtask 2. The organizers provided a baseline system. The teams employed a variety of methods including Logistic Regression, TF-IDF, n-grams, transformer models, zero-shot prompting with Large Language Models (LLMs), and instruction tuning. The gap in performance between prompting LLMs and finetuning smaller-sized LMs indicates that for a challenging task such as patient-level chemotherapy timeline extraction, more sophisticated LLMs or prompting techniques are necessary in order to achieve optimal results as finetuing smaller-sized LMs outperforms by a wide margin.</abstract>
+      <url hash="a4802ba5">2024.clinicalnlp-1.53</url>
+      <bibkey>yao-etal-2024-overview</bibkey>
+      <doi>10.18653/v1/2024.clinicalnlp-1.53</doi>
+      <video href="2024.clinicalnlp-1.53.mp4"/>
+    </paper>
+    <paper id="54">
+      <title><fixed-case>I</fixed-case>ryo<fixed-case>NLP</fixed-case> at <fixed-case>MEDIQA</fixed-case>-<fixed-case>CORR</fixed-case> 2024: Tackling the Medical Error Detection &amp; Correction Task on the Shoulders of Medical Agents</title>
+      <author><first>Jean-Philippe</first><last>Corbeil</last></author>
+      <pages>570-580</pages>
+      <abstract>In natural language processing applied to the clinical domain, utilizing large language models has emerged as a promising avenue for error detection and correction on clinical notes, a knowledge-intensive task for which annotated data is scarce. This paper presents MedReAct’N’MedReFlex, which leverages a suite of four LLM-based medical agents. The MedReAct agent initiates the process by observing, analyzing, and taking action, generating trajectories to guide the search to target a potential error in the clinical notes. Subsequently, the MedEval agent employs five evaluators to assess the targeted error and the proposed correction. In cases where MedReAct’s actions prove insufficient, the MedReFlex agent intervenes, engaging in reflective analysis and proposing alternative strategies. Finally, the MedFinalParser agent formats the final output, preserving the original style while ensuring the integrity of the error correction process. One core component of our method is our RAG pipeline based on our ClinicalCorp corpora. Among other well-known sources containing clinical guidelines and information, we preprocess and release the open-source MedWiki dataset for clinical RAG application. Our results demonstrate the central role of our RAG approach with ClinicalCorp leveraged through the MedReAct’N’MedReFlex framework. It achieved the ninth rank on the MEDIQA-CORR 2024 final leaderboard.</abstract>
+      <url hash="28d48e7d">2024.clinicalnlp-1.54</url>
+      <bibkey>corbeil-2024-iryonlp</bibkey>
+      <doi>10.18653/v1/2024.clinicalnlp-1.54</doi>
+    </paper>
+    <paper id="55">
+      <title>Overview of the <fixed-case>MEDIQA</fixed-case>-<fixed-case>M</fixed-case>3<fixed-case>G</fixed-case> 2024 Shared Task on Multilingual Multimodal Medical Answer Generation</title>
+      <author><first>Wen-wai</first><last>Yim</last></author>
+      <author><first>Asma</first><last>Ben Abacha</last><affiliation>Microsoft, USA</affiliation></author>
+      <author><first>Yujuan</first><last>Fu</last><affiliation>University of Washington</affiliation></author>
+      <author><first>Zhaoyi</first><last>Sun</last></author>
+      <author><first>Fei</first><last>Xia</last><affiliation>University of Washington, Seattle</affiliation></author>
+      <author><first>Meliha</first><last>Yetisgen</last><affiliation>University of Washington</affiliation></author>
+      <author><first>Martin</first><last>Krallinger</last><affiliation>Barcelona Supercomputing Center</affiliation></author>
+      <pages>581-589</pages>
+      <abstract>Remote patient care provides opportunities for expanding medical access, saving healthcare costs, and offering on-demand convenient services. In the MEDIQA-M3G 2024 Shared Task, researchers explored solutions for the specific task of dermatological consumer health visual question answering, where user generated queries and images are used as input and a free-text answer response is generated as output. In this novel challenge, eight teams with a total of 48 submissions were evaluated across three language test sets. In this work, we provide a summary of the dataset, as well as results and approaches. We hope that the insights learned here will inspire future research directions that can lead to technology that deburdens clinical workload and improves care.</abstract>
+      <url hash="14975668">2024.clinicalnlp-1.55</url>
+      <bibkey>yim-etal-2024-overview</bibkey>
+      <doi>10.18653/v1/2024.clinicalnlp-1.55</doi>
+    </paper>
+    <paper id="56">
+      <title><fixed-case>EM</fixed-case>_<fixed-case>M</fixed-case>ixers at <fixed-case>MEDIQA</fixed-case>-<fixed-case>CORR</fixed-case> 2024: Knowledge-Enhanced Few-Shot In-Context Learning for Medical Error Detection and Correction</title>
+      <author><first>Swati</first><last>Rajwal</last></author>
+      <author><first>Eugene</first><last>Agichtein</last><affiliation>Amazon and Emory University</affiliation></author>
+      <author><first>Abeed</first><last>Sarker</last><affiliation>Emory University</affiliation></author>
+      <pages>590-595</pages>
+      <abstract>This paper describes our submission to MEDIQA-CORR 2024 shared task for automatic identification and correction of medical errors in a given clinical text. We report results from two approaches: the first uses a few-shot in-context learning (ICL) with a Large Language Model (LLM) and the second approach extends the idea by using a knowledge-enhanced few-shot ICL approach. We used Azure OpenAI GPT-4 API as the LLM and Wikipedia as the external knowledge source. We report evaluation metrics (accuracy, ROUGE, BERTScore, BLEURT) across both approaches for validation and test datasets. Of the two approaches implemented, our experimental results show that the knowledge-enhanced few-shot ICL approach with GPT-4 performed better with error flag (subtask A) and error sentence detection (subtask B) with accuracies of 68% and 64%, respectively on the test dataset. These results positioned us fourth in subtask A and second in subtask B, respectively in the shared task.</abstract>
+      <url hash="3adeaa9f">2024.clinicalnlp-1.56</url>
+      <bibkey>rajwal-etal-2024-em</bibkey>
+      <doi>10.18653/v1/2024.clinicalnlp-1.56</doi>
+    </paper>
+    <paper id="57">
+      <title>Overview of the <fixed-case>MEDIQA</fixed-case>-<fixed-case>CORR</fixed-case> 2024 Shared Task on Medical Error Detection and Correction</title>
+      <author><first>Asma</first><last>Ben Abacha</last><affiliation>Microsoft, USA</affiliation></author>
+      <author><first>Wen-wai</first><last>Yim</last></author>
+      <author><first>Yujuan</first><last>Fu</last><affiliation>University of Washington</affiliation></author>
+      <author><first>Zhaoyi</first><last>Sun</last></author>
+      <author><first>Fei</first><last>Xia</last><affiliation>University of Washington, Seattle</affiliation></author>
+      <author><first>Meliha</first><last>Yetisgen</last><affiliation>University of Washington</affiliation></author>
+      <pages>596-603</pages>
+      <abstract>Automatic detection and correction of medical errors enables a more rigorous validation of medical documentation as well as clinical notes generated by large language models. Such solutions can ensure the accuracy and medical coherence of clinical texts and enhance patient care and health outcomes. The MEDIQA-CORR 2024 shared task focused on detecting and correcting different types of medical errors in clinical texts. Seventeen teams participated in the shared task and experimented with a broad range of approaches and models. In this paper, we describe the MEDIQA-CORR task, datasets, and the participants’ results and methods.</abstract>
+      <url hash="29db28ef">2024.clinicalnlp-1.57</url>
+      <bibkey>ben-abacha-etal-2024-overview</bibkey>
+      <doi>10.18653/v1/2024.clinicalnlp-1.57</doi>
+    </paper>
+    <paper id="58">
+      <title><fixed-case>UTSA</fixed-case>-<fixed-case>NLP</fixed-case> at <fixed-case>C</fixed-case>hemo<fixed-case>T</fixed-case>imelines 2024: Evaluating Instruction-Tuned Language Models for Temporal Relation Extraction</title>
+      <author><first>Xingmeng</first><last>Zhao</last></author>
+      <author><first>Anthony</first><last>Rios</last><affiliation>University of Texas at San Antonio</affiliation></author>
+      <pages>604-615</pages>
+      <abstract>This paper presents our approach for the 2024 ChemoTimelines shared task. Specifically, we explored using Large Language Models (LLMs) for temporal relation extraction. We evaluate multiple model variations based on how the training data is used. For instance, we transform the task into a question-answering problem and use QA pairs to extract chemo-related events and their temporal relations. Next, we add all the documents to each question-answer pair as examples in our training dataset. Finally, we explore adding unlabeled data for continued pretraining. Each addition is done iteratively. Our results show that adding the document helps, but unlabeled data does not yield performance improvements, possibly because we used only 1% of the available data. Moreover, we find that instruction-tuned models still substantially underperform more traditional systems (e.g., EntityBERT).</abstract>
+      <url hash="97282f3e">2024.clinicalnlp-1.58</url>
+      <bibkey>zhao-rios-2024-utsa</bibkey>
+      <doi>10.18653/v1/2024.clinicalnlp-1.58</doi>
+      <video href="2024.clinicalnlp-1.58.mp4"/>
+    </paper>
+    <paper id="59">
+      <title><fixed-case>W</fixed-case>ang<fixed-case>L</fixed-case>ab at <fixed-case>MEDIQA</fixed-case>-<fixed-case>CORR</fixed-case> 2024: Optimized <fixed-case>LLM</fixed-case>-based Programs for Medical Error Detection and Correction</title>
+      <author><first>Augustin</first><last>Toma</last><affiliation>University of Toronto</affiliation></author>
+      <author><first>Ronald</first><last>Xie</last></author>
+      <author><first>Steven</first><last>Palayew</last><affiliation>University of Toronto</affiliation></author>
+      <author><first>Patrick</first><last>Lawler</last></author>
+      <author><first>Bo</first><last>Wang</last><affiliation>Vector Institute</affiliation></author>
+      <pages>616-623</pages>
+      <abstract>Medical errors in clinical text pose significant risks to patient safety. The MEDIQA-CORR 2024 shared task focuses on detecting and correcting these errors across three subtasks: identifying the presence of an error, extracting the erroneous sentence, and generating a corrected sentence. In this paper, we present our approach that achieved top performance in all three subtasks. For the MS dataset, which contains subtle errors, we developed a retrieval-based system leveraging external medical question-answering datasets. For the UW dataset, reflecting more realistic clinical notes, we created a pipeline of modules to detect, localize, and correct errors. Both approaches utilized the DSPy framework for optimizing prompts and few-shot examples in large language model (LLM) based programs. Our results demonstrate the effectiveness of LLM based programs for medical error correction. However, our approach has limitations in addressing the full diversity of potential errors in medical documentation. We discuss the implications of our work and highlight future research directions to advance the robustness and applicability of medical error detection and correction systems.</abstract>
+      <url hash="ed8df4fc">2024.clinicalnlp-1.59</url>
+      <bibkey>toma-etal-2024-wanglab</bibkey>
+      <doi>10.18653/v1/2024.clinicalnlp-1.59</doi>
+    </paper>
+    <paper id="60">
+      <title><fixed-case>W</fixed-case>ang<fixed-case>L</fixed-case>ab at <fixed-case>MEDIQA</fixed-case>-<fixed-case>M</fixed-case>3<fixed-case>G</fixed-case> 2024: Multimodal Medical Answer Generation using Large Language Models</title>
+      <author><first>Ronald</first><last>Xie</last></author>
+      <author><first>Steven</first><last>Palayew</last><affiliation>University of Toronto</affiliation></author>
+      <author><first>Augustin</first><last>Toma</last><affiliation>University of Toronto</affiliation></author>
+      <author><first>Gary</first><last>Bader</last><affiliation>University of Toronto</affiliation></author>
+      <author><first>Bo</first><last>Wang</last><affiliation>Vector Institute</affiliation></author>
+      <pages>624-634</pages>
+      <abstract>This paper outlines our submission to the MEDIQA2024 Multilingual and Multimodal Medical Answer Generation (M3G) shared task. We report results for two standalone solutions under the English category of the task, the first involving two consecutive API calls to the Claude 3 Opus API and the second involving training an image-disease label joint embedding in the style of CLIP for image classification. These two solutions scored 1st and 2nd place respectively on the competition leaderboard, substantially outperforming the next best solution. Additionally, we discuss insights gained from post-competition experiments. While the performance of these two described solutions have significant room for improvement due to the difficulty of the shared task and the challenging nature of medical visual question answering in general, we identify the multi-stage LLM approach and the CLIP image classification approach as promising avenues for further investigation.</abstract>
+      <url hash="3f088f41">2024.clinicalnlp-1.60</url>
+      <bibkey>toma-etal-2024-wanglab-mediqa</bibkey>
+      <doi>10.18653/v1/2024.clinicalnlp-1.60</doi>
+      <video href="2024.clinicalnlp-1.60.mp4"/>
+    </paper>
+    <paper id="61">
+      <title><fixed-case>LG</fixed-case> <fixed-case>AI</fixed-case> Research &amp; <fixed-case>KAIST</fixed-case> at <fixed-case>EHRSQL</fixed-case> 2024: Self-Training Large Language Models with Pseudo-Labeled Unanswerable Questions for a Reliable Text-to-<fixed-case>SQL</fixed-case> System on <fixed-case>EHR</fixed-case>s</title>
+      <author><first>Yongrae</first><last>Jo</last></author>
+      <author><first>Seongyun</first><last>Lee</last></author>
+      <author><first>Minju</first><last>Seo</last><affiliation>Korea Advanced Institute of Science &amp; Technology</affiliation></author>
+      <author><first>Sung Ju</first><last>Hwang</last><affiliation>Korea Advanced Institute of Science and Technology and AITRICS</affiliation></author>
+      <author><first>Moontae</first><last>Lee</last><affiliation>University of Illinois, Chicago</affiliation></author>
+      <pages>635-643</pages>
+      <abstract>Text-to-SQL models are pivotal for making Electronic Health Records (EHRs) accessible to healthcare professionals without SQL knowledge. With the advancements in large language models, these systems have become more adept at translating complex questions into SQL queries. Nonetheless, the critical need for reliability in healthcare necessitates these models to accurately identify unanswerable questions or uncertain predictions, preventing misinformation. To address this problem, we present a self-training strategy using pseudo-labeled unanswerable questions to enhance the reliability of text-to-SQL models for EHRs. This approach includes a two-stage training process followed by a filtering method based on the token entropy and query execution. Our methodology’s effectiveness is validated by our top performance in the EHRSQL 2024 shared task, showcasing the potential to improve healthcare decision-making through more reliable text-to-SQL systems.</abstract>
+      <url hash="2e56cee4">2024.clinicalnlp-1.61</url>
+      <bibkey>jo-etal-2024-lg</bibkey>
+      <doi>10.18653/v1/2024.clinicalnlp-1.61</doi>
+    </paper>
+    <paper id="62">
+      <title>Overview of the <fixed-case>EHRSQL</fixed-case> 2024 Shared Task on Reliable Text-to-<fixed-case>SQL</fixed-case> Modeling on Electronic Health Records</title>
+      <author><first>Gyubok</first><last>Lee</last><affiliation>Korea Advanced Institute of Science and Technology</affiliation></author>
+      <author><first>Sunjun</first><last>Kweon</last></author>
+      <author><first>Seongsu</first><last>Bae</last><affiliation>Korea Advanced Institute of Science and Technology</affiliation></author>
+      <author><first>Edward</first><last>Choi</last><affiliation>Korea Advanced Institute of Science and Technology</affiliation></author>
+      <pages>644-654</pages>
+      <abstract>Electronic Health Records (EHRs) are relational databases that store the entire medical histories of patients within hospitals. They record numerous aspects of patients’ medical care, from hospital admission and diagnosis to treatment and discharge. While EHRs are vital sources of clinical data, exploring them beyond a predefined set of queries requires skills in query languages like SQL. To make information retrieval more accessible, one strategy is to build a question-answering system, possibly leveraging text-to-SQL models that can automatically translate natural language questions into corresponding SQL queries and use these queries to retrieve the answers. The EHRSQL 2024 shared task aims to advance and promote research in developing a question-answering system for EHRs using text-to-SQL modeling, capable of reliably providing requested answers to various healthcare professionals to improve their clinical work processes and satisfy their needs. Among more than 100 participants who applied to the shared task, eight teams completed the entire shared task processes and demonstrated a wide range of methods to effectively solve this task. In this paper, we describe the task of reliable text-to-SQL modeling, the dataset, and the methods and results of the participants. We hope this shared task will spur further research and insights into developing reliable question-answering systems for EHRs.</abstract>
+      <url hash="13a0e052">2024.clinicalnlp-1.62</url>
+      <bibkey>lee-etal-2024-overview</bibkey>
+      <doi>10.18653/v1/2024.clinicalnlp-1.62</doi>
+      <video href="2024.clinicalnlp-1.62.mp4"/>
+    </paper>
+    <paper id="63">
+      <title>Saama Technologies at <fixed-case>EHRSQL</fixed-case> 2024: <fixed-case>SQL</fixed-case> Generation through Classification Answer Selector by <fixed-case>LLM</fixed-case></title>
+      <author><first>Mohammed</first><last>Jabir</last></author>
+      <author><first>Kamal</first><last>Kanakarajan</last></author>
+      <author><first>Malaikannan</first><last>Sankarasubbu</last></author>
+      <pages>655-671</pages>
+      <abstract>The EHRSQL task aims to develop a dependable text-to-SQL model for Electronic Health Records (EHR) databases, which are crucial sources of clinical data that store patients’ medical histories in hospitals. Large language models (LLM) have been proven to exhibit state-of-the-art performance for text-to-SQL tasks across various domains. To this end, we have developed a framework, SQL Generation through Classification Answer Selector by LLM (SCAS), which comprises two modules. The CAS module determines the answerability of the question, while the SG model generates the SQL query exclusively for answerable questions. Our system ranked 7th on the leaderboard with a Reliability Score of 53.21 on the official test set.</abstract>
+      <url hash="a3704abc">2024.clinicalnlp-1.63</url>
+      <bibkey>jabir-etal-2024-saama</bibkey>
+      <doi>10.18653/v1/2024.clinicalnlp-1.63</doi>
+      <video href="2024.clinicalnlp-1.63.mp4"/>
+    </paper>
+    <paper id="64">
+      <title><fixed-case>KU</fixed-case>-<fixed-case>DMIS</fixed-case> at <fixed-case>EHRSQL</fixed-case> 2024 : Generating <fixed-case>SQL</fixed-case> query via question templatization in <fixed-case>EHR</fixed-case></title>
+      <author><first>Hajung</first><last>Kim</last></author>
+      <author><first>Chanhwi</first><last>Kim</last></author>
+      <author><first>Hoonick</first><last>Lee</last><affiliation>Korea University</affiliation></author>
+      <author><first>Kyochul</first><last>Jang</last></author>
+      <author><first>Jiwoo</first><last>Lee</last></author>
+      <author><first>Kyungjae</first><last>Lee</last></author>
+      <author><first>Gangwoo</first><last>Kim</last></author>
+      <author><first>Jaewoo</first><last>Kang</last><affiliation>Korea University</affiliation></author>
+      <pages>672-686</pages>
+      <abstract>Transforming natural language questions into SQL queries is crucial for precise data retrieval from electronic health record (EHR) databases. A significant challenge in this process is detecting and rejecting unanswerable questions that request information outside the database’s scope or exceed the system’s capabilities. In this paper, we introduce a novel text-to-SQL framework that focuses on standardizing the structure of questions into a templated format. Our framework begins by fine-tuning GPT-3.5-turbo, a powerful large language model (LLM), with detailed prompts involving the table schemas of the EHR database system. Our approach shows promising results on the EHRSQL-2024 benchmark dataset, part of the ClinicalNLP shared task. Although fine-tuning GPT achieves third place on the development set, it struggled with the diverse questions in the test set. With our framework, we improve our system’s adaptability and achieve fourth position in the official leaderboard of the EHRSQL-2024 challenge.</abstract>
+      <url hash="83583fb7">2024.clinicalnlp-1.64</url>
+      <bibkey>kim-etal-2024-ku</bibkey>
+      <revision id="1" href="2024.clinicalnlp-1.64v1" hash="7a5553aa"/>
+      <revision id="2" href="2024.clinicalnlp-1.64v2" hash="83583fb7" date="2024-07-14">Typo correction.</revision>
+      <doi>10.18653/v1/2024.clinicalnlp-1.64</doi>
+    </paper>
+    <paper id="65">
+      <title><fixed-case>P</fixed-case>rob<fixed-case>G</fixed-case>ate at <fixed-case>EHRSQL</fixed-case> 2024: Enhancing <fixed-case>SQL</fixed-case> Query Generation Accuracy through Probabilistic Threshold Filtering and Error Handling</title>
+      <author><first>Sangryul</first><last>Kim</last><affiliation>Korea Advanced Institute of Science &amp; Technology</affiliation></author>
+      <author><first>Donghee</first><last>Han</last><affiliation>Korea Advanced Institute of Science &amp; Technology</affiliation></author>
+      <author><first>Sehyun</first><last>Kim</last></author>
+      <pages>687-696</pages>
+      <abstract>Recently, deep learning-based language models have significantly enhanced text-to-SQL tasks, with promising applications in retrieving patient records within the medical domain. One notable challenge in such applications is discerning unanswerable queries. Through fine-tuning model, we demonstrate the feasibility of converting medical record inquiries into SQL queries. Additionally, we introduce an entropy-based method to identify and filter out unanswerable results. We further enhance result quality by filtering low-confidence SQL through log probability-based distribution, while grammatical and schema errors are mitigated by executing queries on the actual database.We experimentally verified that our method can filter unanswerable questions, which can be widely utilized even when the parameters of the model are not accessible, and that it can be effectively utilized in practice.</abstract>
+      <url hash="ca0aca12">2024.clinicalnlp-1.65</url>
+      <bibkey>kim-etal-2024-probgate</bibkey>
+      <doi>10.18653/v1/2024.clinicalnlp-1.65</doi>
+      <video href="2024.clinicalnlp-1.65.mp4"/>
+    </paper>
+    <paper id="66">
+      <title><fixed-case>LTRC</fixed-case>-<fixed-case>IIITH</fixed-case> at <fixed-case>EHRSQL</fixed-case> 2024: Enhancing Reliability of Text-to-<fixed-case>SQL</fixed-case> Systems through Abstention and Confidence Thresholding</title>
+      <author><first>Jerrin</first><last>Thomas</last></author>
+      <author><first>Pruthwik</first><last>Mishra</last><affiliation>IIIT-Hyderabad</affiliation></author>
+      <author><first>Dipti</first><last>Sharma</last><affiliation>IIIT Hyderabad</affiliation></author>
+      <author><first>Parameswari</first><last>Krishnamurthy</last></author>
+      <pages>697-702</pages>
+      <abstract>In this paper, we present our work in the EHRSQL 2024 shared task which tackles reliable text-to-SQL modeling on Electronic Health Records. Our proposed system tackles the task with three modules - abstention module, text-to-SQL generation module, and reliability module. The abstention module identifies whether the question is answerable given the database schema. If the question is answerable, the text-to-SQL generation module generates the SQL query and associated confidence score. The reliability module has two key components - confidence score thresholding, which rejects generations with confidence below a pre-defined level, and error filtering, which identifies and excludes SQL queries that result in execution errors. In the official leaderboard for the task, our system ranks 6th. We have also made the source code public.</abstract>
+      <url hash="42ec2c7a">2024.clinicalnlp-1.66</url>
+      <bibkey>thomas-etal-2024-ltrc</bibkey>
+      <doi>10.18653/v1/2024.clinicalnlp-1.66</doi>
+    </paper>
+    <paper id="67">
+      <title><fixed-case>LTRC</fixed-case>-<fixed-case>IIITH</fixed-case> at <fixed-case>MEDIQA</fixed-case>-<fixed-case>M</fixed-case>3<fixed-case>G</fixed-case> 2024: Medical Visual Question Answering with Vision-Language Models</title>
+      <author><first>Jerrin</first><last>Thomas</last></author>
+      <author><first>Sushvin</first><last>Marimuthu</last></author>
+      <author><first>Parameswari</first><last>Krishnamurthy</last></author>
+      <pages>703-707</pages>
+      <abstract>In this paper, we present our work to the MEDIQA-M3G 2024 shared task, which tackles multilingual and multimodal medical answer generation. Our system consists of a lightweight Vision-and-Language Transformer (ViLT) model which is fine-tuned for the clinical dermatology visual question-answering task. In the official leaderboard for the task, our system ranks 6th. After the challenge, we experiment with training the ViLT model on more data. We also explore the capabilities of large Vision-Language Models (VLMs) such as Gemini and LLaVA.</abstract>
+      <url hash="5c214552">2024.clinicalnlp-1.67</url>
+      <bibkey>thomas-etal-2024-ltrc-iiith</bibkey>
+      <doi>10.18653/v1/2024.clinicalnlp-1.67</doi>
+    </paper>
+  </volume>
+</collection>

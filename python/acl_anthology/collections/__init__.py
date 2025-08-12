@@ -1,4 +1,4 @@
-# Copyright 2023-2024 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2025 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,19 +14,24 @@
 
 from .index import CollectionIndex
 from .collection import Collection
+from .bibkeys import BibkeyIndex
 from .eventindex import EventIndex
 from .event import Event, Talk
 from .volume import Volume
-from .types import VolumeType
+from .types import EventLinkingType, PaperDeletionType, PaperType, VolumeType
 from .paper import Paper
 
 
 __all__ = [
+    "BibkeyIndex",
     "Collection",
     "CollectionIndex",
     "Event",
     "EventIndex",
+    "EventLinkingType",
     "Paper",
+    "PaperDeletionType",
+    "PaperType",
     "Talk",
     "Volume",
     "VolumeType",

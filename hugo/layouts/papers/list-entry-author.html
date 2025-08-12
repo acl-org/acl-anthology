@@ -1,5 +1,5 @@
-{{ $volume_id := index (split .Params.anthology_id "-") 0 }}
-{{ $paper := index (index $.Site.Data.papers $volume_id) .Params.anthology_id }}
+{{ $collection_id := index (split .Params.anthology_id "-") 0 }}
+{{ $paper := index (index $.Site.Data.papers $collection_id) .Params.anthology_id }}
 <p class="d-sm-flex align-items-stretch">
   <span class="d-block mr-2 text-nowrap list-button-row">
     {{- with $paper.pdf -}}
@@ -7,8 +7,8 @@
       pdf
     </a>
     {{- end -}}
-    {{- if (fileExists (printf "/data-export/%s.bib" .Params.anthology_id)) -}}
-    <a class="badge badge-secondary align-middle mr-1" href="{{ (printf "/%s.bib" .Params.anthology_id) | relURL }}" data-toggle="tooltip" data-placement="top" title="Export to BibTeX">
+    {{- if (fileExists (printf "/data-export/volumes/%s.bib" $paper.parent_volume_id)) -}}
+    <a class="badge badge-secondary align-middle mr-1" href="{{ (printf "%s.bib" .Params.anthology_id) | relURL }}" data-toggle="tooltip" data-placement="top" title="Export to BibTeX">
       bib
     </a>
     {{- end -}}
@@ -49,7 +49,7 @@
     <br />
     {{- with $paper.parent_volume_id -}}
     {{ $volume := index $.Site.Data.volumes . }}
-    {{ $volume_page := printf "/volumes/%s.md" . }}
+    {{ $volume_page := printf "/volumes/%s" . }}
     <a href="{{ relref $ $volume_page }}" class="text-muted">{{ $volume.title }}</a>
     {{- end -}}
   </span>

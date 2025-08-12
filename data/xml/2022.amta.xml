@@ -38,7 +38,6 @@
       <url hash="f1da3e1d">2022.amta-research.2</url>
       <abstract>Preservation of domain knowledge from the source to target is crucial in any translation workflow. It is common in the translation industry to receive highly-specialized projects, where there is hardly any parallel in-domain data. In such scenarios where there is insufficient in-domain data to fine-tune Machine Translation (MT) models, producing translations that are consistent with the relevant context is challenging. In this work, we propose leveraging state-of-the-art pretrained language models (LMs) for domain-specific data augmentation for MT, simulating the domain characteristics of either (a) a small bilingual dataset, or (b) the monolingual source text to be translated. Combining this idea with back-translation, we can generate huge amounts of synthetic bilingual in-domain data for both use cases. For our investigation, we used the state-of-the-art MT architecture, Transformer. We employed mixed fine-tuning to train models that significantly improve translation of in-domain texts. More specifically, our proposed methods achieved improvements of approximately 5-6 BLEU and 2-3 BLEU, respectively, on Arabic-to-English and English-to-Arabic language pairs. Furthermore, the outcome of human evaluation corroborates the automatic evaluation results.</abstract>
       <bibkey>moslem-etal-2022-domain</bibkey>
-      <pwccode url="https://github.com/ymoslem/mt-lm" additional="false">ymoslem/mt-lm</pwccode>
     </paper>
     <paper id="3">
       <title>Strategies for Adapting Multilingual Pre-training for Domain-Specific Machine Translation</title>
@@ -58,8 +57,6 @@
       <url hash="12daf4b3">2022.amta-research.4</url>
       <abstract>Very large language models have been shown to translate with few-shot in-context examples. However, they have not achieved state-of-art results for translating out of English. In this work, we investigate an extremely lightweight fixed-parameter method for conditioning a large language model to better translate into the target language. Our method introduces additional embeddings, known as prefix embeddings which do not interfere with the existing weights of the model. Using unsupervised and weakly semi-supervised methods that train only 0.0001% of the model parameters, the simple method improves ~0.2-1.3 BLEU points across 3 domains and 3 languages. We analyze the resulting embeddings’ training dynamics, and where they lie in the embedding space, and show that our trained embeddings can be used for both in-context translation, and diverse generation of the target sentence.</abstract>
       <bibkey>sia-duh-2022-prefix</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/mtnt">MTNT</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/the-pile">The Pile</pwcdataset>
     </paper>
     <paper id="5">
       <title>Fast Vocabulary Projection Method via Clustering for Multilingual Machine Translation on <fixed-case>GPU</fixed-case></title>
@@ -74,18 +71,16 @@
       <bibkey>amer-etal-2022-fast</bibkey>
     </paper>
     <paper id="6">
-      <title>Language Tokens: Simply Improving Zero-Shot Multi-Aligned Translation in Encoder-Decoder Models</title>
-      <author><first>Muhammad</first><last>N ElNokrashy</last></author>
+      <title>Language Tokens: A Frustratingly Simple Approach Improves Zero-Shot Performance of Multilingual Translation</title>
+      <author><first>Muhammad</first><last>ElNokrashy</last></author>
       <author><first>Amr</first><last>Hendy</last></author>
       <author><first>Mohamed</first><last>Maher</last></author>
       <author><first>Mohamed</first><last>Afify</last></author>
-      <author><first>Hany</first><last>Hassan</last></author>
+      <author><first>Hany</first><last>Hassan Awadalla</last></author>
       <pages>70-82</pages>
       <url hash="c4e3b27e">2022.amta-research.6</url>
-      <abstract>This paper proposes a simple and effective method to improve direct translation for the zero-shot case and when direct data is available. We modify the input tokens at both the encoder and decoder to include signals for the source and target languages. We show a performance gain when training from scratch, or finetuning a pretrained model with the proposed setup. In in-house experiments, our method shows nearly a 10.0 BLEU points difference depending on the stoppage criteria. In a WMT-based setting, we see 1.3 and 0.4 BLEU points improvement for the zero-shot setting, and when using direct data for training, respectively, while from-English performance improves by 4.17 and 0.85 BLEU points. In the low-resource setting, we see a 1.5 ∼ 1.7 point improvement when finetuning on directly translated domain data.</abstract>
+      <abstract>This paper proposes a simple yet effective method to improve direct (X-to-Y) translation for both cases: zero-shot and when direct data is available. We modify the input tokens at both the encoder and decoder to include signals for the source and target languages. We show a performance gain when training from scratch, or finetuning a pretrained model with the pro- posed setup. In the experiments, our method shows nearly 10.0 BLEU points gain on in-house datasets depending on the checkpoint selection criteria. In a WMT evaluation campaign, From- English performance improves by 4.17 and 2.87 BLEU points, in the zero-shot setting, and when direct data is available for training, respectively. While X-to-Y improves by 1.29 BLEU over the zero-shot baseline, and 0.44 over the many-to-many baseline. In the low-resource setting, we see a 1.5 ∼ 1.7 point improvement when finetuning on X-to-Y domain data.</abstract>
       <bibkey>n-elnokrashy-etal-2022-language</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/ccaligned">CCAligned</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/ccmatrix">CCMatrix</pwcdataset>
     </paper>
     <paper id="7">
       <title>Low Resource Chat Translation: A Benchmark for <fixed-case>H</fixed-case>indi–<fixed-case>E</fixed-case>nglish Language Pair</title>
@@ -99,11 +94,6 @@
       <url hash="e5ae2d94">2022.amta-research.7</url>
       <abstract>Chatbots or conversational systems are used in various sectors such as banking, healthcare, e-commerce, customer support, etc. These chatbots are mainly available for resource-rich languages like English, often limiting their widespread usage to multilingual users. Therefore, making these services or agents available in non-English languages has become essential for their broader applicability. Machine Translation (MT) could be an effective way to develop multilingual chatbots. Further, to help users be confident about a product, feedback and recommendation from the end-user community are essential. However, these question-answers (QnA) can be in a different language than the users. The use of MT systems can reduce these issues to a large extent. In this paper, we provide a benchmark setup for Chat and QnA translation for English-Hindi, a relatively low-resource language pair. We first create the English-Hindi parallel corpus comprising of synthetic and gold standard parallel sentences. Thereafter, we develop several sentence-level and context-level neural machine translation (NMT) models, and measure their effectiveness on the newly created datasets. We achieve a BLEU score of 58.7 and 62.6 on the English-Hindi and Hindi-English subset of the gold-standard version of the WMT20 Chat dataset. Further, we achieve BLEU scores of 52.9 and 76.9 on the gold-standard Multi-modal Dialogue Dataset (MMD) English-Hindi and Hindi-English datasets. For QnA, we achieve a BLEU score of 49.9. Further, we achieve BLEU scores of 50.3 and 50.4 on question and answers subsets, respectively. We also perform thorough qualitative analysis of the outputs by the real users.</abstract>
       <bibkey>gain-etal-2022-low</bibkey>
-      <pwccode url="https://github.com/babangain/en_hi_chat_qna_translation" additional="false">babangain/en_hi_chat_qna_translation</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/bmeld">BMELD</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/mmd">MMD</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/samanantar">Samanantar</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/taskmaster-1">Taskmaster-1</pwcdataset>
     </paper>
     <paper id="8">
       <title>How Robust is Neural Machine Translation to Language Imbalance in Multilingual Tokenizer Training?</title>
@@ -128,7 +118,6 @@
       <url hash="fd2826f2">2022.amta-research.9</url>
       <abstract>Neural Machine Translation (NMT) is an open vocabulary problem. As a result, dealing with the words not occurring during training (a.k.a. out-of-vocabulary (OOV) words) have long been a fundamental challenge for NMT systems. The predominant method to tackle this problem is Byte Pair Encoding (BPE) which splits words, including OOV words, into sub-word segments. BPE has achieved impressive results for a wide range of translation tasks in terms of automatic evaluation metrics. While it is often assumed that by using BPE, NMT systems are capable of handling OOV words, the effectiveness of BPE in translating OOV words has not been explicitly measured. In this paper, we study to what extent BPE is successful in translating OOV words at the word-level. We analyze the translation quality of OOV words based on word type, number of segments, cross-attention weights, and the frequency of segment n-grams in the training data. Our experiments show that while careful BPE settings seem to be fairly useful in translating OOV words across datasets, a considerable percentage of OOV words are translated incorrectly. Furthermore, we highlight the slightly higher effectiveness of BPE in translating OOV words for special cases, such as named-entities and when the languages involved are linguistically close to each other.</abstract>
       <bibkey>araabi-etal-2022-effective</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/flores-101">FLoRes-101</pwcdataset>
     </paper>
     <paper id="10">
       <title>On the Effectiveness of Quasi Character-Level Models for Machine Translation</title>
@@ -160,8 +149,6 @@
       <url hash="093ab615">2022.amta-research.12</url>
       <abstract>Neural Machine Translation (NMT) models are known to suffer from noisy inputs. To make models robust, we generate adversarial augmentation samples that attack the model and preserve the source-side meaning at the same time. To generate such samples, we propose a doubly-trained architecture that pairs two NMT models of opposite translation directions with a joint loss function, which combines the target-side attack and the source-side semantic similarity constraint. The results from our experiments across three different language pairs and two evaluation metrics show that these adversarial samples improve model robustness.</abstract>
       <bibkey>tan-etal-2022-doubly</bibkey>
-      <pwccode url="https://github.com/steventan0110/NMTModelAttack" additional="false">steventan0110/NMTModelAttack</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/wmt-2014">WMT 2014</pwcdataset>
     </paper>
     <paper id="13">
       <title>Limitations and Challenges of Unsupervised Cross-lingual Pre-training</title>
@@ -301,7 +288,6 @@
       <url hash="bd5843c5">2022.amta-research.24</url>
       <abstract>Obtaining meaningful quality scores for machine translation systems through human evaluation remains a challenge given the high variability between human evaluators, partly due to subjective expectations for translation quality for different language pairs. We propose a new metric called XSTS that is more focused on semantic equivalence and a cross-lingual calibration method that enables more consistent assessment. We demonstrate the effectiveness of these novel contributions in large scale evaluation studies across up to 14 language pairs, with translation both into and out of English.</abstract>
       <bibkey>licht-etal-2022-consistent</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/flores">FLoRes</pwcdataset>
     </paper>
     <paper id="25">
       <title>Evaluating Machine Translation in Cross-lingual <fixed-case>E</fixed-case>-Commerce Search</title>
@@ -349,7 +335,6 @@
       <url hash="bfe7c146">2022.amta-upg.2</url>
       <abstract>Human evaluation remains a critical step in selecting the best MT model for a job. The common approach is to have a reviewer analyze a number of segments translated by the compared models, assigning them categories and also post-editing some of them when needed. In other words, a reviewer is asked to make numerous decisions regarding very similar, out-of-context translations. It can easily result in arbitrary choices. We propose a new methodology that is centered around a real-life post-editing of a set of cohesive homogeneous texts. The homogeneity is established using a number of metrics on a set of preselected same-genre documents. The key assumption is that two or more identical in length homogeneous texts take approximately the same time and effort when edited by the same editor. Hence, if one text requires more work (edit distance, time spent), it is an indication of a relatively lower quality of machine translation used for this text. See details in the attached file.</abstract>
       <bibkey>korotaev-ryabchikov-2022-picking</bibkey>
-      <pwccode url="https://github.com/effectiff-tech/homogeneity-scripts" additional="false">effectiff-tech/homogeneity-scripts</pwccode>
     </paper>
     <paper id="3">
       <title>Post-editing of Machine-Translated Patents: High Tech with High Stakes</title>
@@ -658,7 +643,6 @@
       <url hash="181d7d5f">2022.amta-upg.32</url>
       <abstract>Despite a narrowed performance gap with direct approaches, cascade solutions, involving automatic speech recognition (ASR) and machine translation (MT) are still largely employed in speech translation (ST). Direct approaches employing a single model to translate the input speech signal suffer from the critical bottleneck of data scarcity. In addition, multiple industry applications display speech transcripts alongside translations, making cascade approaches more realistic and practical. In the context of cascaded simultaneous ST, we propose several solutions to adapt a neural MT network to take as input the transcripts output by an ASR system. Adaptation is achieved by enriching speech transcripts and MT data sets so that they more closely resemble each other, thereby improving the system robustness to error propagation and enhancing result legibility for humans. We address aspects such as sentence boundaries, capitalisation, punctuation, hesitations, repetitions, homophones, etc. while taking into account the low latency requirement of simultaneous ST systems.</abstract>
       <bibkey>bertin-lemee-etal-2022-robust</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/europarl-st">Europarl-ST</pwcdataset>
     </paper>
     <paper id="33">
       <title>Speech-to-Text and Evaluation of Multiple Machine Translation Systems</title>
@@ -715,7 +699,6 @@
       <url hash="c08b8e8a">2022.amta-coco4mt.2</url>
       <abstract>This paper proposes an efficient and semi-automated method for human-in-the-loop post- editing for machine translation (MT) corpus generation. The method is based on online training of a custom MT quality estimation metric on-the-fly as linguists perform post-edits. The online estimator is used to prioritize worse hypotheses for post-editing, and auto-close best hypothe- ses without post-editing. This way, significant improvements can be achieved in the resulting quality of post-edits at a lower cost due to reduced human involvement. The trained estimator can also provide an online sanity check mechanism for post-edits and remove the need for ad- ditional linguists to review them or work on the same hypotheses. In this paper, the effect of prioritizing with the proposed method on the resulting MT corpus quality is presented versus scheduling hypotheses randomly. As demonstrated by experiments, the proposed method im- proves the lifecycle of MT models by focusing the linguist effort on production samples and hypotheses, which matter most for expanding MT corpora to be used for re-training them</abstract>
       <bibkey>yuksel-etal-2022-efficient</bibkey>
-      <pwccode url="https://github.com/aixplain/Efficient-MT" additional="false">aixplain/Efficient-MT</pwccode>
     </paper>
     <paper id="3">
       <title>Building and Analysis of <fixed-case>T</fixed-case>amil Lyric Corpus with Semantic Representation</title>

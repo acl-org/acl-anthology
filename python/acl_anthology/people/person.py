@@ -14,8 +14,9 @@
 
 from __future__ import annotations
 
-from attrs import define, field, Factory
+from attrs import define, field
 from typing import Iterator, Optional, TYPE_CHECKING
+from ..utils.attrs import auto_validate_types
 from ..utils.ids import AnthologyIDTuple, build_id_from_tuple
 from . import Name
 
@@ -24,25 +25,38 @@ if TYPE_CHECKING:
     from ..collections import Paper, Volume
 
 
-@define
+@define(field_transformer=auto_validate_types)
 class Person:
     """A natural person.
+
+    Info:
+        All information about persons is currently derived from [name specifications][acl_anthology.people.name.NameSpecification] on volumes and papers, and not stored explicitly. This means that Person objects **cannot be used to make changes** to Anthology data; change the information on papers instead.
 
     Attributes:
         id: A unique ID for this person.
         parent: The parent Anthology instance to which this person belongs.
         names: A list of names under which this person has published.
-        item_ids: A set of volume and/or paper IDs this person has authored or edited.
+        item_ids: A list of volume and/or paper IDs this person has authored or edited.
         comment: A comment for disambiguation purposes; can be stored in `name_variants.yaml`.
+        is_explicit: True if this person has names explicitly defined in `name_variants.yaml`.  Note this does _not_ necessarily mean an explicit ID was defined for the person there.
     """
 
-    id: str
+    id: str = field()
     parent: Anthology = field(repr=False, eq=False)
-    names: list[Name] = Factory(list)
-    item_ids: set[AnthologyIDTuple] = field(
-        factory=set, repr=lambda x: f"<set of {len(x)} AnthologyIDTuple objects>"
+    names: list[Name] = field(factory=list)
+    item_ids: list[AnthologyIDTuple] = field(
+        factory=list, repr=lambda x: f"<list of {len(x)} AnthologyIDTuple objects>"
     )
     comment: Optional[str] = field(default=None)
+    is_explicit: Optional[bool] = field(default=False)  # TODO: why can this be None?
+
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, Person):
+            return False
+        return self.id == other.id
+
+    def __hash__(self) -> int:
+        return hash(self.id)
 
     @property
     def canonical_name(self) -> Name:
@@ -93,7 +107,11 @@ class Person:
         self.names.insert(0, name)
 
     def papers(self) -> Iterator[Paper]:
-        """Returns an iterator over all papers associated with this person."""
+        """Returns an iterator over all papers associated with this person.
+
+        Note:
+            This will return papers where this person is an author, as well as frontmatter of volumes where they are an editor. It will _not_ include all other papers in volumes they have edited.
+        """
         for anthology_id in self.item_ids:
             paper_id = anthology_id[-1]
             if paper_id is not None:

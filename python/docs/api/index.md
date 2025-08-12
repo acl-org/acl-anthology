@@ -1,3 +1,3 @@
 # API Documentation
 
-This is the API documentation for acl-anthology-py.
+This is the API documentation for the acl-anthology Python package.

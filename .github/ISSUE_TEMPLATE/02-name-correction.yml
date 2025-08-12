@@ -1,28 +1,84 @@
-name: Correction to Author Metadata
+name: Correction to Author Page
 description: Fix issues with author pages.
-title: "Author Metadata: {replace with author name}"
+title: "Author Page: {replace with author name}"
 labels: ["correction", "metadata"]
 assignees:
   - anthology-assist
 body:
+  - type: markdown
+    attributes:
+      value: >
+        This form will report issues with author pages. There are two situations: (1) merging and (2) splitting.
+        Merging gathers all of an author's papers under a single name, even if they were published under variants
+        of the author's name, while splitting allows the separation of papers published under the same
+        name but belonging to different people.
+  - type: checkboxes
+    id: name_correction_check
+    attributes:
+      label: Confirming that Paper Metadata is Correct
+      description: |
+        Anthology policy is that the recorded metadata should match what is displayed on the PDF.
+        Prior to submitting an author correction, you must ensure that all affected papers have the correct
+        author metadata. This can be done using the "Fix data" button on each paper page (e.g., https://aclanthology.org/1962.earlymt-1.6/).
+        This button will lead you through creation of Github issues, using a separate template.
+      options:
+        - label: I confirm that all affected papers have correct author metadata.
+          required: True
   - type: textarea
     id: name_pages_affected
     attributes:
       label: Author Pages
       description: |
-        Which author page(s) are affected by this correction? Please only give one or more URLs of author pages here.
-      placeholder: ex. https://aclanthology.org/people/m/matt-post/
+        Which author page(s) are affected by this correction? Please list the URL of every affected author page here.
+      placeholder: ex. https://aclanthology.org/people/matt-post
     validations:
       required: true
+
+  - type: textarea
+    id: author_orcid
+    attributes:
+      label: Author ORCID
+      description: |
+        Provide a valid [ORCID](https://orcid.org) link here. This will be used to help match future papers to your Anthology ID.
+      placeholder: ex. https://orcid.org/my-orcid?orcid=0009-0003-8868-7504
+    validations:
+      required: true
+  - type: textarea
+    id: author_highest_degree_institution
+    attributes:
+      label: Institution of highest (anticipated) degree
+      description: |
+        Provide the name of the school or university where you have or will receive your highest degree (e.g.,
+        current affiliation for students, Ph.D. institution for faculty and industry researchers). This will be used
+        to form your author page ID, if needed.
+      placeholder: ex. Johns Hopkins University (https://www.jhu.edu/)
+    validations:
+      required: true
+  - type: textarea
+    id: author_name_script_variant
+    attributes:
+      label: Author Name (only if published in another script)
+      description: |
+        If you publish using your name written in a non-Latin script, please provide it here with a UTF-8 encoding.
+      placeholder: ex. अंकुर
+    validations:
+      required: false
+  - type: checkboxes
+    id: author_name_script_variant_direction
+    attributes:
+      label: Is the authors name read right to left? (only if published in another script)
+      options:
+        - label: Script is read right-to-left.
+          required: false
   - type: checkboxes
     id: name_correction_type
     attributes:
       label: Type of Author Metadata Correction
-      description: "Please indicate which issue(s) should be corrected regarding the author page(s)."
+      description: What kind of request is this?
       options:
-        - label: The author page wrongly conflates different people with the same name.
-        - label: This author has multiple pages with different spellings of their name.
-        - label: This author has permanently changed their name.
+        - label: "Split/disambiguate: The author page includes papers from two or more different people."
+        - label: "Merge profiles: A single author has multiple profiles with different spellings or variants of their name."
+        - label: "Name change: This author has permanently changed their name."
     validations:
       required: true
   - type: textarea
@@ -30,10 +86,8 @@ body:
     attributes:
       label: Supporting Information
       description: |
-        Please provide as much information as possible to help us fix the issue.  For example:
-          - Describe what the correct author page(s) should look like.
-          - Provide a link to the academic website of the author(s) that helps us verify their current name.
-          - If there are multiple people with the same name, list the Anthology IDs of all papers belonging to one person, as well as their affiliation, if possible.  _(The affiliation of an author can help us disambiguate their publications in the future.)_
-          - If there are multiple names for the same person, indicate which spelling of the name is the preferred one.  _(We can merge author pages with different names if they refer to the same person, but note that we consider the name as written in the PDF as the canonical one for that publication.)_
+        We may need further information to address your problem.
+          - If you want to split author pages, **please provide a link to every paper of yours** in the Anthology (third party sites such as Google Scholar are not useful).
+          - If you are asking to merge author pages, after ensuring every name matches the PDF, make sure to list which name is the preferred / canonical one.
     validations:
       required: true

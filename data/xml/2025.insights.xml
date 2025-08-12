@@ -1,0 +1,212 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2025.insights">
+  <volume id="1" ingest-date="2025-04-26" type="proceedings">
+    <meta>
+      <booktitle>The Sixth Workshop on Insights from Negative Results in NLP</booktitle>
+      <editor><first>Aleksandr</first><last>Drozd</last></editor>
+      <editor><first>João</first><last>Sedoc</last></editor>
+      <editor><first>Shabnam</first><last>Tafreshi</last></editor>
+      <editor><first>Arjun</first><last>Akula</last></editor>
+      <editor><first>Raphael</first><last>Shu</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Albuquerque, New Mexico</address>
+      <month>May</month>
+      <year>2025</year>
+      <url hash="da736474">2025.insights-1</url>
+      <venue>insights</venue>
+      <venue>ws</venue>
+      <isbn>979-8-89176-240-4</isbn>
+      <doi>10.18653/v1/2025.insights-1</doi>
+    </meta>
+    <frontmatter>
+      <url hash="1c83a2e2">2025.insights-1.0</url>
+      <bibkey>insights-ws-2025-1</bibkey>
+      <doi>10.18653/v1/2025.insights-1.0</doi>
+    </frontmatter>
+    <paper id="1">
+      <title>Challenging Assumptions in Learning Generic Text Style Embeddings</title>
+      <author><first>Phil</first><last>Ostheimer</last><affiliation>RPTU Kaiserslautern-Landau</affiliation></author>
+      <author><first>Marius</first><last>Kloft</last><affiliation>RPTU Kaiserslautern-Landau</affiliation></author>
+      <author><first>Sophie</first><last>Fellenz</last><affiliation>RPTU Kaiserslautern-Landau</affiliation></author>
+      <pages>1-6</pages>
+      <abstract>Recent advancements in language representation learning primarily emphasize language modeling for deriving meaningful representations, often neglecting style-specific considerations. This study addresses this gap by creating generic, sentence-level style embeddings crucial for style-centric tasks. Our approach is grounded on the premise that low-level text style changes can compose any high-level style. We hypothesize that applying this concept to representation learning enables the development of versatile text style embeddings. By fine-tuning a general-purpose text encoder using contrastive learning and standard cross-entropy loss, we aim to capture these low-level style shifts, anticipating that they offer insights applicable to high-level text styles. The outcomes prompt us to reconsider the underlying assumptions as the results do not always show that the learned style representations capture high-level text styles.</abstract>
+      <url hash="101f8c80">2025.insights-1.1</url>
+      <bibkey>ostheimer-etal-2025-challenging</bibkey>
+      <doi>10.18653/v1/2025.insights-1.1</doi>
+    </paper>
+    <paper id="2">
+      <title>In-Context Learning on a Budget: A Case Study in Token Classification</title>
+      <author><first>Uri</first><last>Berger</last><affiliation>The Hebrew University of Jerusalem, University of Melbourne</affiliation></author>
+      <author><first>Tal</first><last>Baumel</last><affiliation>Microsoft</affiliation></author>
+      <author><first>Gabriel</first><last>Stanovsky</last><affiliation>The Hebrew University of Jerusalem</affiliation></author>
+      <pages>7-14</pages>
+      <abstract>Few shot in-context learning (ICL) typically assumes access to large annotated training sets. However, in many real world scenarios, such as domain adaptation, there is only a limited budget to annotate a small number of samples, with the goal of maximizing downstream performance. We study various methods for selecting samples to annotate within a predefined budget, focusing on token classification tasks, which are expensive to annotate and are relatively less studied in ICL setups. Across various tasks, models, and datasets, we observe that no method significantly outperforms the others, with most yielding similar results, including random sample selection for annotation. Moreover, we demonstrate that a relatively small annotated sample pool can achieve performance comparable to using the entire training set. We hope that future work adopts our realistic paradigm which takes annotation budget into account.</abstract>
+      <url hash="31c65e6e">2025.insights-1.2</url>
+      <bibkey>berger-etal-2025-context</bibkey>
+      <doi>10.18653/v1/2025.insights-1.2</doi>
+    </paper>
+    <paper id="3">
+      <title>Reassessing Graph Linearization for Sequence-to-sequence <fixed-case>AMR</fixed-case> Parsing: On the Advantages and Limitations of Triple-Based</title>
+      <author><first>Jeongwoo</first><last>Kang</last><affiliation>Université Grenoble Alpes</affiliation></author>
+      <author><first>Maximin</first><last>Coavoux</last><affiliation>CNRS, Univ Grenoble Alpes</affiliation></author>
+      <author><first>Didier</first><last>Schwab</last><affiliation>Univ. Grenoble Alpes</affiliation></author>
+      <author><first>Cédric</first><last>Lopez</last><affiliation>Emvista</affiliation></author>
+      <pages>15-23</pages>
+      <abstract>Sequence-to-sequence models are widely used to train Abstract Meaning Representation (Banarescu et al.,2013, AMR) parsers. To train such models, AMR graphs have to be linearized into a one-line text format. While Penman encoding is widely used for this purpose, we argue that it has limitations: 1) for deep graphs, some closely related nodes are located far apart in the linearized text 2) Penman’s tree-based encoding necessitates inverse roles to handle node re-entrancy, doubling the number of relation types to predict. To address these issues, we propose a triple-based linearization method and compare its efficiency by training an AMR parser with both approaches. Although triple is well suited to represent a graph, our results show that it does not yet improve performance on deeper or longer graphs. It suggests room for improvement in its design to better compete with Penman’s concise representation and explicit encoding of a nested graph structure.</abstract>
+      <url hash="4fda41c2">2025.insights-1.3</url>
+      <bibkey>kang-etal-2025-reassessing</bibkey>
+      <doi>10.18653/v1/2025.insights-1.3</doi>
+    </paper>
+    <paper id="4">
+      <title>Corrective In-Context Learning: Evaluating Self-Correction in Large Language Models</title>
+      <author><first>Mario</first><last>Sanz-Guerrero</last><affiliation>Johannes Gutenberg University Mainz</affiliation></author>
+      <author><first>Katharina</first><last>Von Der Wense</last><affiliation>University of Colorado Boulder</affiliation></author>
+      <pages>24-33</pages>
+      <abstract>In-context learning (ICL) has transformed the use of large language models (LLMs) for NLP tasks, enabling few-shot learning by conditioning on labeled examples without finetuning. Despite its effectiveness, ICL is prone to errors, especially for challenging examples. With the goal of improving the performance of ICL, we propose *corrective in-context learning* (CICL), an approach that incorporates a model’s incorrect predictions alongside ground truth corrections into the prompt, aiming to enhance classification accuracy through self-correction. However, contrary to our hypothesis, extensive experiments on text classification tasks demonstrate that CICL consistently underperforms standard ICL, with performance degrading as the proportion of corrections in the prompt increases. Our findings indicate that CICL introduces confusion by disrupting the model’s task understanding, rather than refining its predictions. Additionally, we observe that presenting harder examples in standard ICL does not improve performance, suggesting that example difficulty alone may not be a reliable criterion for effective selection. By presenting these negative results, we provide important insights into the limitations of self-corrective mechanisms in LLMs and offer directions for future research.</abstract>
+      <url hash="5cc88121">2025.insights-1.4</url>
+      <bibkey>s-a-n-z-g-u-e-r-r-e-r-o-von-der-wense-2025-corrective</bibkey>
+      <doi>10.18653/v1/2025.insights-1.4</doi>
+    </paper>
+    <paper id="5">
+      <title>Do Prevalent Bias Metrics Capture Allocational Harms from <fixed-case>LLM</fixed-case>s?</title>
+      <author><first>Hannah</first><last>Cyberey</last><affiliation>University of Virginia</affiliation></author>
+      <author><first>Yangfeng</first><last>Ji</last><affiliation>University of Virginia</affiliation></author>
+      <author><first>David</first><last>Evans</last><affiliation>University of Virginia</affiliation></author>
+      <pages>34-45</pages>
+      <abstract>Allocational harms occur when resources or opportunities are unfairly withheld from specific groups. Many proposed bias measures ignore the discrepancy between predictions, which are what the proposed methods consider, and decisions that are made as a result of those predictions. Our work examines the reliability of current bias metrics in assessing allocational harms arising from predictions of large language models (LLMs). We evaluate their predictive validity and utility for model selection across ten LLMs and two allocation tasks. Our results reveal that commonly-used bias metrics based on average performance gap and distribution distance fail to reliably capture group disparities in allocation outcomes. Our work highlights the need to account for how model predictions are used in decisions, in particular in contexts where they are influenced by how limited resources are allocated.</abstract>
+      <url hash="c6276486">2025.insights-1.5</url>
+      <bibkey>cyberey-etal-2025-prevalent</bibkey>
+      <doi>10.18653/v1/2025.insights-1.5</doi>
+    </paper>
+    <paper id="6">
+      <title>Language-Specific Neurons Do Not Facilitate Cross-Lingual Transfer</title>
+      <author><first>Soumen Kumar</first><last>Mondal</last><affiliation>IIT Bombay</affiliation></author>
+      <author><first>Sayambhu</first><last>Sen</last><affiliation>Amazon</affiliation></author>
+      <author><first>Abhishek</first><last>Singhania</last><affiliation>Amazon</affiliation></author>
+      <author><first>Preethi</first><last>Jyothi</last><affiliation>Indian Institute of Technology Bombay</affiliation></author>
+      <pages>46-62</pages>
+      <abstract>Multilingual large language models (LLMs) aim towards robust natural language understanding across diverse languages, yet their performance significantly degrades on low-resource languages. This work explores whether existing techniques to identify language-specific neurons can be leveraged to enhance cross-lingual task performance of low-resource languages. We conduct detailed experiments covering existing language-specific neuron identification techniques (such as LanguageActivation Probability Entropy and activation probability-based thresholding) andneuron-specific LoRA fine-tuning with models like Llama 3.1 and Mistral Nemo. We find that such neuron-specific interventions are insufficient to yield cross-lingual improvements on downstream tasks (XNLI, XQuAD) in low-resource languages. This study highlights the challenges in achieving cross-lingual generalization and provides critical insights for multilingual LLMs.</abstract>
+      <url hash="1a805cac">2025.insights-1.6</url>
+      <bibkey>mondal-etal-2025-language</bibkey>
+      <doi>10.18653/v1/2025.insights-1.6</doi>
+    </paper>
+    <paper id="7">
+      <title><fixed-case>M</fixed-case>onte <fixed-case>C</fixed-case>arlo Sampling for Analyzing In-Context Examples</title>
+      <author><first>Stephanie</first><last>Schoch</last><affiliation>University of Virginia</affiliation></author>
+      <author><first>Yangfeng</first><last>Ji</last><affiliation>University of Virginia</affiliation></author>
+      <pages>63-78</pages>
+      <abstract>Prior works have shown that in-context learning is brittle to presentation factors such as the order, number, and choice of selected examples. However, ablation-based guidance on selecting the number of examples may ignore the interplay between different presentation factors. In this work we develop a Monte Carlo sampling-based method to study the impact of number of examples while explicitly accounting for effects from order and selected examples. We find that previous guidance on how many in-context examples to select does not always generalize across different sets of selected examples and orderings, and whether one-shot settings outperform zero-shot settings is highly dependent on the selected example. Additionally, inspired by data valuation, we apply our sampling method to in-context example selection to select examples that perform well across different orderings. We find a negative result, that while performance is robust to ordering and number of examples, there is an unexpected performance degradation compared to random sampling.</abstract>
+      <url hash="7286b045">2025.insights-1.7</url>
+      <bibkey>schoch-ji-2025-monte</bibkey>
+      <doi>10.18653/v1/2025.insights-1.7</doi>
+    </paper>
+    <paper id="8">
+      <title>Does Training on Synthetic Data Make Models Less Robust?</title>
+      <author><first>Lingze</first><last>Zhang</last><affiliation>Brown University</affiliation></author>
+      <author><first>Ellie</first><last>Pavlick</last><affiliation>Brown University</affiliation></author>
+      <pages>79-85</pages>
+      <abstract>An increasingly common practice is to train large language models (LLMs) using synthetic data. Often this synthetic data is produced by the same or similar LLMs as those it is being used to train. This raises the question of whether the synthetic data might in fact exacerbate certain “blindspots” by reinforcing heuristics that the LLM already encodes. In this paper, we conduct simulated experiments on the natural language inference (NLI) task with Llama-2-7B-hf models. We use MultiNLI as the general task and HANS, a targeted evaluation set designed to measure the presence of specific heuristic strategies for NLI, as our “blindspot” task. Our goal is to determine whether performance disparities between the general and blind spot tasks emerge. Our results indicate that synthetic data does not reinforce blindspots in the way we expected. Specifically, we see that, while fine-tuning with synthetic data doesn’t necessarily reduce the use of the heuristic, it also does not make it worse as we hypothesized.</abstract>
+      <url hash="f670adb7">2025.insights-1.8</url>
+      <bibkey>zhang-pavlick-2025-training</bibkey>
+      <doi>10.18653/v1/2025.insights-1.8</doi>
+    </paper>
+    <paper id="9">
+      <title>Bridging the Faithfulness Gap in Prototypical Models</title>
+      <author><first>Andrew</first><last>Koulogeorge</last><affiliation>Carnegie Mellon University</affiliation></author>
+      <author><first>Sean</first><last>Xie</last><affiliation>Dartmouth College</affiliation></author>
+      <author><first>Saeed</first><last>Hassanpour</last><affiliation>Dartmouth College</affiliation></author>
+      <author><first>Soroush</first><last>Vosoughi</last><affiliation>Dartmouth</affiliation></author>
+      <pages>86-99</pages>
+      <abstract>Prototypical Network-based Language Models (PNLMs) have been introduced as a novel approach for enhancing interpretability in deep learning models for NLP. In this work, we show that, despite the transparency afforded by their case-based reasoning architecture, current PNLMs are, in fact, not faithful, i.e. their explanations do not accurately reflect the underlying model’s reasoning process. By adopting an axiomatic approach grounded in the seminal works’ definition of faithfulness, we identify two specific points in the architecture of PNLMs where unfaithfulness may occur. To address this, we introduce Faithful Alignment (FA), a two-part framework that ensures the faithfulness of PNLMs’ explanations. We then demonstrate that FA achieves this goal without compromising model performance across a variety of downstream tasks and ablation studies.</abstract>
+      <url hash="a3e526a1">2025.insights-1.9</url>
+      <bibkey>koulogeorge-etal-2025-bridging</bibkey>
+      <doi>10.18653/v1/2025.insights-1.9</doi>
+    </paper>
+    <paper id="10">
+      <title>Aligning Sizes of Intermediate Layers by <fixed-case>L</fixed-case>o<fixed-case>RA</fixed-case> Adapter for Knowledge Distillation</title>
+      <author><first>Takeshi</first><last>Suzuki</last><affiliation>Institute of Science Tokyo</affiliation></author>
+      <author><first>Hiroaki</first><last>Yamada</last><affiliation>Institute of Science Tokyo</affiliation></author>
+      <author><first>Takenobu</first><last>Tokunaga</last><affiliation>Institute of Science Tokyo</affiliation></author>
+      <pages>100-105</pages>
+      <abstract>Intermediate Layer Distillation (ILD) is a variant of Knowledge Distillation (KD), a method for compressing neural networks.ILD requires mapping to align the intermediate layer sizes of the teacher and student models to compute the loss function in training, while this mapping is not used during inference.This inconsistency may reduce the effectiveness of learning in intermediate layers.In this study, we propose LoRAILD, which uses LoRA adapters to eliminate the inconsistency.However, our experimental results show that LoRAILD does not outperform existing methods.Furthermore, contrary to previous studies, we observe that conventional ILD does not outperform vanilla KD.Our analysis of the distilled models’ intermediate layers suggests that ILD does not improve language models’ performance.</abstract>
+      <url hash="331f6e34">2025.insights-1.10</url>
+      <bibkey>suzuki-etal-2025-aligning</bibkey>
+      <doi>10.18653/v1/2025.insights-1.10</doi>
+    </paper>
+    <paper id="11">
+      <title><fixed-case>LLM</fixed-case>s are not Zero-Shot Reasoners for Biomedical Information Extraction</title>
+      <author><first>Aishik</first><last>Nagar</last><affiliation>ASUS Global Pte. Ltd.</affiliation></author>
+      <author><first>Viktor</first><last>Schlegel</last><affiliation>ASUS AICS</affiliation></author>
+      <author><first>Thanh-Tung</first><last>Nguyen</last><affiliation>ASUS</affiliation></author>
+      <author><first>Hao</first><last>Li</last><affiliation>University of Manchester</affiliation></author>
+      <author><first>Yuping</first><last>Wu</last><affiliation>University of Manchester</affiliation></author>
+      <author><first>Kuluhan</first><last>Binici</last><affiliation>National University of Singapore</affiliation></author>
+      <author><first>Stefan</first><last>Winkler</last><affiliation>ASUS Intelligent Cloud Services (AICS)</affiliation></author>
+      <pages>106-120</pages>
+      <abstract>Large Language Models (LLMs) are increasingly adopted for applications in healthcare, reaching the performance of domain experts on tasks such as question answering and document summarisation. Despite their success on these tasks, it is unclear how well LLMs perform on tasks that are traditionally pursued in the biomedical domain, such as structured information extration. To bridge this gap, in this paper, we systematically benchmark LLM performance in Medical Classification and Named Entity Recognition (NER) tasks. We aim to disentangle the contribution of different factors to the performance, particularly the impact of LLMs’ task knowledge and reasoning capabilities, their (parametric) domain knowledge, and addition of external knowledge. To this end, we evaluate various open LLMs—including BioMistral and Llama-2 models—on a diverse set of biomedical datasets, using standard prompting, Chain-of-Thought (CoT) and Self-Consistency based reasoning as well as Retrieval-Augmented Generation (RAG) with PubMed and Wikipedia corpora. Counter-intuitively, our results reveal that standard prompting consistently outperforms more complex techniques across both tasks, laying bare the limitations in the current application of CoT, self-consistency and RAG in the biomedical domain. Our findings suggest that advanced prompting methods developed for knowledge- or reasoning-intensive tasks, such as CoT or RAG, are not easily portable to biomedical tasks where precise structured outputs are required. This highlights the need for more effective integration of external knowledge and reasoning mechanisms in LLMs to enhance their performance in real-world biomedical applications.</abstract>
+      <url hash="dd9f4bd0">2025.insights-1.11</url>
+      <bibkey>nagar-etal-2025-llms</bibkey>
+      <doi>10.18653/v1/2025.insights-1.11</doi>
+    </paper>
+    <paper id="12">
+      <title>Exploring Limitations of <fixed-case>LLM</fixed-case> Capabilities with Multi-Problem Evaluation</title>
+      <author><first>Zhengxiang</first><last>Wang</last><affiliation>Stony Brook University</affiliation></author>
+      <author><first>Jordan</first><last>Kodner</last><affiliation>Stony Brook University</affiliation></author>
+      <author><first>Owen</first><last>Rambow</last><affiliation>Stony Brook University</affiliation></author>
+      <pages>121-140</pages>
+      <abstract>We propose using prompts made up of multiple problems to evaluate LLM capabilities, an approach we call multi-problem evaluation. We examine 7 LLMs on 4 related task types constructed from 6 existing classification benchmarks. We find that while LLMs can generally perform multiple homogeneous classifications at once (Batch Classification) as well as when they do so separately, they perform significantly worse on two selection tasks that are conceptually equivalent to Batch Classification and involve selecting indices of text falling into each class label, either independently or altogether. We show that such a significant performance drop is due to LLMs’ inability to adequately combine index selection with text classification. Such a drop is surprisingly observed across all LLMs attested, under zero-shot, few-shot, and CoT settings, and even with a novel synthetic dataset, potentially reflecting an inherent capability limitation with modern LLMs.</abstract>
+      <url hash="3e5c7094">2025.insights-1.12</url>
+      <bibkey>wang-etal-2025-exploring</bibkey>
+      <doi>10.18653/v1/2025.insights-1.12</doi>
+    </paper>
+    <paper id="13">
+      <title>Exploring Multimodal Language Models for Sustainability Disclosure Extraction: A Comparative Study</title>
+      <author><first>Tanay</first><last>Gupta</last><affiliation>TCS Research</affiliation></author>
+      <author><first>Tushar</first><last>Goel</last><affiliation>TCS Research</affiliation></author>
+      <author><first>Ishan</first><last>Verma</last><affiliation>TCS Research</affiliation></author>
+      <pages>141-149</pages>
+      <abstract>Sustainability metrics have increasingly become a crucial non-financial criterion in investment decision-making. Organizations worldwide are recognizing the importance of sustainability and are proactively highlighting their efforts through specialized sustainability reports. Unlike traditional annual reports, these sustainability disclosures are typically text-heavy and are often expressed as infographics, complex tables, and charts. The non-machine-readable nature of these reports presents a significant challenge for efficient information extraction. The rapid advancement of Vision Language Models (VLMs) has raised the question whether these VLMs can address such challenges in domain specific task. In this study, we demonstrate the application of VLMs for extracting sustainability information from dedicated sustainability reports. Our experiments highlight the limitations in the performance of several open-source VLMs in extracting information about sustainability disclosures from different type of pages.</abstract>
+      <url hash="2bbb81b2">2025.insights-1.13</url>
+      <bibkey>gupta-etal-2025-exploring</bibkey>
+      <doi>10.18653/v1/2025.insights-1.13</doi>
+    </paper>
+    <paper id="14">
+      <title>Self Knowledge-Tracing for Tool Use (<fixed-case>SKT</fixed-case>-Tool): Helping <fixed-case>LLM</fixed-case> Agents Understand Their Capabilities in Tool Use</title>
+      <author><first>Joshua</first><last>Vigel</last><affiliation>Algoverse</affiliation></author>
+      <author><first>Renpei</first><last>Cai</last><affiliation>Algoverse</affiliation></author>
+      <author><first>Eleanor</first><last>Chen</last><affiliation>Algoverse</affiliation></author>
+      <author><first>Anish</first><last>Neema</last><affiliation>Algoverse</affiliation></author>
+      <author><first>Austen</first><last>Liao</last><affiliation>Algoverse</affiliation></author>
+      <author><first>Kevin</first><last>Zhu</last><affiliation>Algoverse</affiliation></author>
+      <author><first>Sean</first><last>O’brien</last><affiliation>Algoverse</affiliation></author>
+      <pages>150-156</pages>
+      <abstract>Large Language Models (LLMs) enhanced with tool use and APIs improve task performance but often misuse them, leading to inefficiency and unnecessary cost. We propose Self Knowledge-Tracing for Tool Use (SKT-Tool), a method enabling LLMs to assess their capabilities and make informed API usage decisions using knowledge tracing (KT). Our teacher-student framework helps LLMs optimize API calls in real-time without fine-tuning. Experiments across multiple datasets show that SKT-Tool significantly reduces API calls while maintaining accuracy, offering a scalable and cost-effective solution for tool-augmented LLMs. We conclude by analyzing shortcomings in this method and identifying directions for future work.</abstract>
+      <url hash="7c0f2e46">2025.insights-1.14</url>
+      <bibkey>vigel-etal-2025-self</bibkey>
+      <doi>10.18653/v1/2025.insights-1.14</doi>
+    </paper>
+    <paper id="15">
+      <title>Error Reflection Prompting: Can Large Language Models Successfully Understand Errors?</title>
+      <author><first>Jason</first><last>Li</last><affiliation>Algoverse</affiliation></author>
+      <author><first>Lauren</first><last>Yraola</last><affiliation>Algoverse</affiliation></author>
+      <author><first>Kevin</first><last>Zhu</last><affiliation>Algoverse</affiliation></author>
+      <author><first>Sean</first><last>O’brien</last><affiliation>Algoverse</affiliation></author>
+      <pages>157-170</pages>
+      <abstract>Prompting methods for language models, such as Chain-of-thought (CoT), present intuitive step-by-step processes for problem solving. These methodologies aim to equip models with a better understanding of the correct procedures for addressing a given task. Despite these advancements, CoT lacks the ability of reflection and error correction, potentially causing a model to perpetuate mistakes and errors. Therefore, inspired by the human ability for said tasks, we propose Error Reflection Prompting (ERP) to further enhance reasoning in language models. Building upon CoT, ERP is a method comprised of an incorrect answer, error recognition, and a correct answer. This process enables the model to recognize types of errors and the steps that lead to incorrect answers, allowing the model to better discern which steps to avoid and which to take. The model is able to generate the error outlines itself with automated ERP generation, allowing for error recognition and correction to be integrated into the reasoning chain and produce scalability and reliability in the process. The results demonstrate that ERP serves as a versatile supplement to conventional CoT, ultimately contributing to more robust and capable reasoning abilities along with increased interpretability in how models ultimately reach their errors.</abstract>
+      <url hash="64870d79">2025.insights-1.15</url>
+      <bibkey>li-etal-2025-error</bibkey>
+      <doi>10.18653/v1/2025.insights-1.15</doi>
+    </paper>
+    <paper id="16">
+      <title>Evaluating Robustness of <fixed-case>LLM</fixed-case>s to Numerical Variations in Mathematical Reasoning</title>
+      <author><first>Yuli</first><last>Yang</last><affiliation>Institute of Science Tokyo</affiliation></author>
+      <author><first>Hiroaki</first><last>Yamada</last><affiliation>Institute of Science Tokyo</affiliation></author>
+      <author><first>Takenobu</first><last>Tokunaga</last><affiliation>Institute of Science Tokyo</affiliation></author>
+      <pages>171-180</pages>
+      <abstract>Evaluating an LLM’s robustness against numerical perturbation is a good way to know if the LLM actually performs reasoning or just replicates patterns learned. We propose a novel method to augment math word problems (MWPs), producing numerical variations at a large scale utilizing templates. We also propose an automated error classification framework for scalable error analysis, distinguishing calculation errors from reasoning errors. Our experiments using the methods show LLMs are weak against numerical variations, suggesting they are not fully capable of generating valid reasoning steps, often failing in arithmetic operations.</abstract>
+      <url hash="4565ee5e">2025.insights-1.16</url>
+      <bibkey>yang-etal-2025-evaluating</bibkey>
+      <doi>10.18653/v1/2025.insights-1.16</doi>
+    </paper>
+  </volume>
+</collection>

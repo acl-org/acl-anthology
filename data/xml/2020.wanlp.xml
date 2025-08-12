@@ -32,7 +32,6 @@
       <abstract>In this paper we present the natural language processing components of our German-Arabic speech-to-speech translation system which is being deployed in the context of interpretation during psychiatric, diagnostic interviews. For this purpose we have built a pipe-lined speech-to-speech translation system consisting of automatic speech recognition, text post-processing/segmentation, machine translation and speech synthesis systems. We have implemented two pipe-lines, from German to Arabic and Arabic to German, in order to be able to conduct interpreted two-way dialogues between psychiatrists and potential patients. All systems in our pipeline have been realized as all-neural end-to-end systems, using different architectures suitable for the different components. The speech recognition systems use an encoder/decoder + attention architecture, the text segmentation component and the machine translation system are based on the Transformer architecture, and for the speech synthesis systems we use Tacotron 2 for generating spectrograms and WaveGlow as vocoder. The speech translation is deployed in a server-based speech translation application that implements a turn based translation between a German speaking psychiatrist administrating the Mini-International Neuropsychiatric Interview (M.I.N.I.) and an Arabic speaking person answering the interview. As this is a very specific domain, in addition to the linguistic challenges posed by translating between Arabic and German, we also focus in this paper on the methods we implemented for adapting our speech translation system to the domain of this psychiatric interview.</abstract>
       <url hash="c276811b">2020.wanlp-1.1</url>
       <bibkey>hussain-etal-2020-german</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/jw300">JW300</pwcdataset>
     </paper>
     <paper id="2">
       <title>Hate Speech Detection in Saudi Twittersphere: A Deep Learning Approach</title>
@@ -61,8 +60,6 @@
       <abstract>We propose a novel architecture for labelling character sequences that achieves state-of-the-art results on the Tashkeela Arabic diacritization benchmark. The core is a two-level recurrence hierarchy that operates on the word and character levels separately—enabling faster training and inference than comparable traditional models. A cross-level attention module further connects the two and opens the door for network interpretability. The task module is a softmax classifier that enumerates valid combinations of diacritics. This architecture can be extended with a recurrent decoder that optionally accepts priors from partially diacritized text, which improves results. We employ extra tricks such as sentence dropout and majority voting to further boost the final result. Our best model achieves a WER of 5.34%, outperforming the previous state-of-the-art with a 30.56% relative error reduction.</abstract>
       <url hash="0ba9d8a3">2020.wanlp-1.4</url>
       <bibkey>alkhamissi-etal-2020-deep</bibkey>
-      <pwccode url="https://github.com/BKHMSI/deep-diacritization" additional="false">BKHMSI/deep-diacritization</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/arabic-text-diacritization">Arabic Text Diacritization</pwcdataset>
     </paper>
     <paper id="5">
       <title>A Semi-Supervised <fixed-case>BERT</fixed-case> Approach for <fixed-case>A</fixed-case>rabic Named Entity Recognition</title>
@@ -84,8 +81,6 @@
       <abstract>Conversational models have witnessed a significant research interest in the last few years with the advancements in sequence generation models. A challenging aspect in developing human-like conversational models is enabling the sense of empathy in bots, making them infer emotions from the person they are interacting with. By learning to develop empathy, chatbot models are able to provide human-like, empathetic responses, thus making the human-machine interaction close to human-human interaction. Recent advances in English use complex encoder-decoder language models that require large amounts of empathetic conversational data. However, research has not produced empathetic bots for Arabic. Furthermore, there is a lack of Arabic conversational data labeled with empathy. To address these challenges, we create an Arabic conversational dataset that comprises empathetic responses. However, the dataset is not large enough to develop very complex encoder-decoder models. To address the limitation of data scale, we propose a special encoder-decoder composed of a Long Short-Term Memory (LSTM) Sequence-to-Sequence (Seq2Seq) with Attention. The experiments showed success of our proposed empathy-driven Arabic chatbot in generating empathetic responses with a perplexity of 38.6, an empathy score of 3.7, and a fluency score of 3.92.</abstract>
       <url hash="80ebe47a">2020.wanlp-1.6</url>
       <bibkey>naous-etal-2020-empathy</bibkey>
-      <pwccode url="https://github.com/aub-mind/Arabic-Empathetic-Chatbot" additional="false">aub-mind/Arabic-Empathetic-Chatbot</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/empatheticdialogues">EmpatheticDialogues</pwcdataset>
     </paper>
     <paper id="7">
       <title>Machine Generation and Detection of <fixed-case>A</fixed-case>rabic Manipulated and Fake News</title>
@@ -97,7 +92,6 @@
       <abstract>Fake news and deceptive machine-generated text are serious problems threatening modern societies, including in the Arab world. This motivates work on detecting false and manipulated stories online. However, a bottleneck for this research is lack of sufficient data to train detection models. We present a novel method for automatically generating Arabic manipulated (and potentially fake) news stories. Our method is simple and only depends on availability of true stories, which are abundant online, and a part of speech tagger (POS). To facilitate future work, we dispense with both of these requirements altogether by providing AraNews, a novel and large POS-tagged news dataset that can be used off-the-shelf. Using stories generated based on AraNews, we carry out a human annotation study that casts light on the effects of machine manipulation on text veracity. The study also measures human ability to detect Arabic machine manipulated text generated by our method. Finally, we develop the first models for detecting manipulated Arabic news and achieve state-of-the-art results on Arabic fake news detection (macro F1=70.06). Our models and data are publicly available.</abstract>
       <url hash="4f287af9">2020.wanlp-1.7</url>
       <bibkey>nagoudi-etal-2020-machine</bibkey>
-      <pwccode url="https://github.com/UBC-NLP/wanlp2020_arabic_fake_news_detection" additional="false">UBC-NLP/wanlp2020_arabic_fake_news_detection</pwccode>
     </paper>
     <paper id="8">
       <title>Transliteration of <fixed-case>J</fixed-case>udeo-<fixed-case>A</fixed-case>rabic Texts into <fixed-case>A</fixed-case>rabic Script Using Recurrent Neural Networks</title>
@@ -134,7 +128,6 @@
       <abstract>Arabic dialect identification is a complex problem for a number of inherent properties of the language itself. In this paper, we present the experiments conducted, and the models developed by our competing team, Mawdoo3 AI, along the way to achieving our winning solution to subtask 1 of the Nuanced Arabic Dialect Identification (NADI) shared task. The dialect identification subtask provides 21,000 country-level labeled tweets covering all 21 Arab countries. An unlabeled corpus of 10M tweets from the same domain is also presented by the competition organizers for optional use. Our winning solution itself came in the form of an ensemble of different training iterations of our pre-trained BERT model, which achieved a micro-averaged F1-score of 26.78% on the subtask at hand. We publicly release the pre-trained language model component of our winning solution under the name of Multi-dialect-Arabic-BERT model, for any interested researcher out there.</abstract>
       <url hash="940a20c6">2020.wanlp-1.10</url>
       <bibkey>talafha-etal-2020-multi</bibkey>
-      <pwccode url="https://github.com/mawdoo3/Multi-dialect-Arabic-BERT" additional="false">mawdoo3/Multi-dialect-Arabic-BERT</pwccode>
     </paper>
     <paper id="11">
       <title>On the Importance of Tokenization in <fixed-case>A</fixed-case>rabic Embedding Models</title>
@@ -144,7 +137,6 @@
       <abstract>Arabic, like other highly inflected languages, encodes a large amount of information in its morphology and word structure. In this work, we propose two embedding strategies that modify the tokenization phase of traditional word embedding models (Word2Vec) and contextual word embedding models (BERT) to take into account Arabic’s relatively complex morphology. In Word2Vec, we segment words into subwords during training time and then compose word-level representations from the subwords during test time. We train our embeddings on Arabic Wikipedia and show that they perform better than a Word2Vec model on multiple Arabic natural language processing datasets while being approximately 60% smaller in size. Moreover, we showcase our embeddings’ ability to produce accurate representations of some out-of-vocabulary words that were not encountered before. In BERT, we modify the tokenization layer of Google’s pretrained multilingual BERT model by incorporating information on morphology. By doing so, we achieve state of the art performance on two Arabic NLP datasets without pretraining.</abstract>
       <url hash="7873ec4d">2020.wanlp-1.11</url>
       <bibkey>alkaoud-syed-2020-importance</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/labr">LABR</pwcdataset>
     </paper>
     <paper id="12">
       <title>Tracing Traditions: Automatic Extraction of Isnads from Classical <fixed-case>A</fixed-case>rabic Texts</title>
@@ -194,8 +186,6 @@
       <abstract>In this paper we propose a multi-task sequence prediction system, based on recurrent neural networks and used to annotate on multiple levels an Arabizi Tunisian corpus. The annotation performed are text classification, tokenization, PoS tagging and encoding of Tunisian Arabizi into CODA* Arabic orthography. The system is learned to predict all the annotation levels in cascade, starting from Arabizi input. We evaluate the system on the TIGER German corpus, suitably converting data to have a multi-task problem, in order to show the effectiveness of our neural architecture. We show also how we used the system in order to annotate a Tunisian Arabizi corpus, which has been afterwards manually corrected and used to further evaluate sequence models on Tunisian data. Our system is developed for the Fairseq framework, which allows for a fast and easy use for any other sequence prediction problem.</abstract>
       <url hash="2470379e">2020.wanlp-1.16</url>
       <bibkey>gugliotta-etal-2020-multi</bibkey>
-      <pwccode url="https://github.com/eligugliotta/tarc" additional="false">eligugliotta/tarc</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/tarc">TArC</pwcdataset>
     </paper>
     <paper id="17">
       <title><fixed-case>A</fixed-case>ra<fixed-case>WEAT</fixed-case>: Multidimensional Analysis of Biases in <fixed-case>A</fixed-case>rabic Word Embeddings</title>
@@ -238,7 +228,6 @@
       <abstract>Globalization has caused the rise of the code-switching phenomenon among multilingual societies. In Arab countries, code-switching between Arabic and English has become frequent, especially through social media platforms. Consequently, research in Natural Language Processing (NLP) systems increased to tackle such a phenomenon. One of the significant challenges of developing code-switched NLP systems is the lack of data itself. In this paper, we propose an open source trained bilingual contextual word embedding models of FLAIR, BERT, and ELECTRA. We also propose a novel contextual word embedding model called KERMIT, which can efficiently map Arabic and English words inside one vector space in terms of data usage. We applied intrinsic and extrinsic evaluation methods to compare the performance of the models. Our results show that FLAIR and FastText achieve the highest results in the sentiment analysis task. However, KERMIT is the best-achieving model on the intrinsic evaluation and named entity recognition. Also, it outperforms the other transformer-based models on question answering task.</abstract>
       <url hash="6774d10d">2020.wanlp-1.20</url>
       <bibkey>sabty-etal-2020-contextual</bibkey>
-      <pwccode url="https://github.com/csabty/code-switch-arabic-english-contextual-embeddings" additional="false">csabty/code-switch-arabic-english-contextual-embeddings</pwccode>
     </paper>
     <paper id="21">
       <title>Improving <fixed-case>A</fixed-case>rabic Text Categorization Using Transformer Training Diversification</title>
@@ -252,7 +241,6 @@
       <abstract>Automatic categorization of short texts, such as news headlines and social media posts, has many applications ranging from content analysis to recommendation systems. In this paper, we use such text categorization i.e., labeling the social media posts to categories like ‘sports’, ‘politics’, ‘human-rights’ among others, to showcase the efficacy of models across different sources and varieties of Arabic. In doing so, we show that diversifying the training data, whether by using diverse training data for the specific task (an increase of 21% macro F1) or using diverse data to pre-train a BERT model (26% macro F1), leads to overall improvements in classification effectiveness. In our work, we also introduce two new Arabic text categorization datasets, where the first is composed of social media posts from a popular Arabic news channel that cover Twitter, Facebook, and YouTube, and the second is composed of tweets from popular Arabic accounts. The posts in the former are nearly exclusively authored in modern standard Arabic (MSA), while the tweets in the latter contain both MSA and dialectal Arabic.</abstract>
       <url hash="ab2499d3">2020.wanlp-1.21</url>
       <bibkey>chowdhury-etal-2020-improving-arabic</bibkey>
-      <pwccode url="https://github.com/shammur/arabic_news_text_classification_datasets" additional="false">shammur/arabic_news_text_classification_datasets</pwccode>
     </paper>
     <paper id="22">
       <title>Team <fixed-case>A</fixed-case>lexa at <fixed-case>NADI</fixed-case> Shared Task</title>
@@ -371,7 +359,6 @@
       <abstract>In the last few years, deep learning has proved to be a very effective paradigm to discover patterns in large data sets. Unfortunately, deep learning training on small data sets is not the best option because most of the time traditional machine learning algorithms could get better scores. Now, we can train the neural network on a large data set then fine-tune on a smaller data set using the transfer learning technique. In this paper, we present our system for NADI shared Task: Country-level Dialect Identification, Our system is based on fine-tuning of BERT and it achieves 22.85 F1-score on Test Set and our rank is 5th out of 18 teams.</abstract>
       <url hash="10518206">2020.wanlp-1.33</url>
       <bibkey>mansour-etal-2020-arabic</bibkey>
-      <pwccode url="https://github.com/zeyad3ezzat/nadi-shared-task" additional="false">zeyad3ezzat/nadi-shared-task</pwccode>
     </paper>
     <paper id="34">
       <title><fixed-case>LTG</fixed-case>-<fixed-case>ST</fixed-case> at <fixed-case>NADI</fixed-case> Shared Task 1: <fixed-case>A</fixed-case>rabic Dialect Identification using a Stacking Classifier</title>

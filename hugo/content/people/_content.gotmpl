@@ -1,0 +1,10 @@
+{{ range $person_id, $person := .Site.Data.people }}
+   {{ $page := dict
+      "kind" "page"
+      "path" $person_id
+      "slug" $person_id
+      "params" (dict "name" $person_id "lastname" $person.last)
+      "title" $person.full
+   }}
+   {{ $.AddPage $page }}
+{{ end }}

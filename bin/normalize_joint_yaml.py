@@ -43,7 +43,7 @@ with open("joint.yaml") as f:
     data = yaml.load(f, Loader=Loader)
 
 for venue, venue_data in data.items():
-    if type(venue_data) is list:
+    if isinstance(venue_data, list):
         newdata = {}
         for volume in venue_data:
             year = int(infer_year(volume.split("-")[0]))

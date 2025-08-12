@@ -1,0 +1,25 @@
+name: Bulk Correction to Paper Metadata
+description: Fix typos or errors in a paper's title, abstract, or author names.
+labels: ["correction", "metadata"]
+assignees:
+  - anthology-assist
+body:
+  - type: markdown
+    attributes:
+      value: >
+        **This form is not meant to be used manually.** Instead, it is activated by clicking the yellow "Fix data" button found on each paper page in the Anthology (e.g., https://aclanthology.org/K17-1003/). Clicking this button displays a UI tool for modifying the title, abstract, and author list. Submission of that form will automatically populate the title above and data block below.
+  - type: markdown
+    attributes:
+      value: >
+        Corrections will be processed in bulk on a weekly basis after verification by Anthology staff.
+  - type: textarea
+    id: data
+    attributes:
+      label: JSON data block
+      description: The JSON data below reflects the changes that were submitted via the paper page dialog.
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: |
+        **Important:** If you request an author name correction for yourself, please help ensure your name is correct for future publications by setting it correctly in Softconf/OpenReview.

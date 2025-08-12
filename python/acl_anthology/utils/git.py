@@ -1,4 +1,4 @@
-# Copyright 2023-2024 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2025 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,12 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+"""Functions implementing the automatic cloning of the Anthology repository."""
+
+from __future__ import annotations
+
 from git.repo import Repo
 from git import RemoteProgress
-from os import PathLike
 from pathlib import Path
 from rich.progress import Progress
-from typing import Optional
+from typing import Optional, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from _typeshed import StrPath
 
 from .logging import get_logger
 
@@ -25,20 +31,18 @@ from .logging import get_logger
 log = get_logger()
 
 
-def clone_or_pull_from_repo(
-    repo_url: str, local_path: PathLike[str], verbose: bool
-) -> None:
+def clone_or_pull_from_repo(repo_url: str, local_path: StrPath, verbose: bool) -> None:
     """Clones a Git repository, or pulls from remote if it already exists.
 
     Arguments:
         repo_url: The URL of a Git repo.
-        local_path: The local path containing the repo.  If it doesn't exist, we will attempt to clone the repo into it; if it exists, we assume it already contains the repo and will attempt to pull from 'origin'.
+        local_path: The local path containing the repo.  If `{local_path}/.git` exists, we assume it already contains the repo and will attempt to pull from 'origin'; otherwise, we will attempt to clone the repo into `local_path`.
         verbose: If True, will show a progress display.
     """
     path = Path(local_path)
     progress = RichRemoteProgress() if verbose else None
     log.debug(f"Using local repository folder: {path}")
-    if path.exists():
+    if (path / ".git").exists():
         repo = Repo(path)
         if repo.remote().url != repo_url:
             log.error(

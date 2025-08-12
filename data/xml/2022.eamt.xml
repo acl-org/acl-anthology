@@ -43,7 +43,6 @@
       <pages>7–8</pages>
       <url hash="e7f82669">2022.eamt-1.2</url>
       <bibkey>gangi-2022-neural</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/must-c">MuST-C</pwcdataset>
     </paper>
     <paper id="3">
       <title>Domain Adaptation for Neural Machine Translation</title>
@@ -85,11 +84,11 @@
     </paper>
     <paper id="7">
       <title>Passing Parser Uncertainty to the Transformer: Labeled Dependency Distributions for Neural Machine Translation</title>
-      <author><first>Dongqi</first><last>Pu</last></author>
+      <author><first>Dongqi</first><last>Liu</last></author>
       <author><first>Khalil</first><last>Sima’an</last></author>
       <pages>41–50</pages>
       <abstract>Existing syntax-enriched neural machine translation (NMT) models work either with the single most-likely unlabeled parse or the set of n-best unlabeled parses coming out of an external parser. Passing a single or n-best parses to the NMT model risks propagating parse errors. Furthermore, unlabeled parses represent only syntactic groupings without their linguistically relevant categories. In this paper we explore the question: Does passing both parser uncertainty and labeled syntactic knowledge to the Transformer improve its translation performance? This paper contributes a novel method for infusing the whole labeled dependency distributions (LDD) of the source sentence’s dependency forest into the self-attention mechanism of the encoder of the Transformer. A range of experimental results on three language pairs demonstrate that the proposed approach outperforms both the vanilla Transformer as well as the single best-parse Transformer model across several evaluation metrics.</abstract>
-      <url hash="15be0b3e">2022.eamt-1.7</url>
+      <url hash="f5310b32">2022.eamt-1.7</url>
       <bibkey>pu-simaan-2022-passing</bibkey>
     </paper>
     <paper id="8">
@@ -169,7 +168,6 @@
       <abstract>We explore the roles and interactions of the hyper-parameters governing regularization, and propose a range of values applicable to low-resource neural machine translation. We demonstrate that default or recommended values for high-resource settings are not optimal for low-resource ones, and that more aggressive regularization is needed when resources are scarce, in proportion to their scarcity. We explain our observations by the generalization abilities of sharp vs. flat basins in the loss landscape of a neural network. Results for four regularization factors corroborate our claim: batch size, learning rate, dropout rate, and gradient clipping. Moreover, we show that optimal results are obtained when using several of these factors, and that our findings generalize across datasets of different sizes and languages.</abstract>
       <url hash="1ace8bb6">2022.eamt-1.14</url>
       <bibkey>alex-r-atrio-popescu-belis-2022-interaction</bibkey>
-      <pwccode url="https://github.com/alexratrio/reg-factors" additional="false">alexratrio/reg-factors</pwccode>
     </paper>
     <paper id="15">
       <title>Controlling Extra-Textual Attributes about Dialogue Participants: A Case Study of <fixed-case>E</fixed-case>nglish-to-<fixed-case>P</fixed-case>olish Neural Machine Translation</title>
@@ -209,7 +207,6 @@
       <abstract>Deep learning models have significantly advanced the state of the art of question answering systems. However, the majority of datasets available for training such models have been annotated by humans, are open-domain, and are composed primarily in English. To deal with these limitations, we introduce a pipeline that creates synthetic data from natural text. To illustrate the domain-adaptability of our approach, as well as its multilingual potential, we use our pipeline to obtain synthetic data in English and Dutch. We combine the synthetic data with non-synthetic data (SQuAD 2.0) and evaluate multilingual BERT models on the question answering task. Models trained with synthetically augmented data demonstrate a clear improvement in performance when evaluated on the domain-specific test set, compared to the models trained exclusively on SQuAD 2.0. We expect our work to be beneficial for training domain-specific question-answering systems when the amount of available data is limited.</abstract>
       <url hash="dafdccfd">2022.eamt-1.18</url>
       <bibkey>kramchaninova-defauw-2022-synthetic</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/squad">SQuAD</pwcdataset>
     </paper>
     <paper id="19">
       <title>Automatic Discrimination of Human and Neural Machine Translation: A Study with Multiple Pre-Trained Models and Longer Context</title>
@@ -220,7 +217,6 @@
       <abstract>We address the task of automatically distinguishing between human-translated (HT) and machine translated (MT) texts. Following recent work, we fine-tune pre-trained language models (LMs) to perform this task. Our work differs in that we use state-of-the-art pre-trained LMs, as well as the test sets of the WMT news shared tasks as training data, to ensure the sentences were not seen during training of the MT system itself. Moreover, we analyse performance for a number of different experimental setups, such as adding translationese data, going beyond the sentence-level and normalizing punctuation. We show that (i) choosing a state-of-the-art LM can make quite a difference: our best baseline system (DeBERTa) outperforms both BERT and RoBERTa by over 3% accuracy, (ii) adding translationese data is only beneficial if there is not much data available, (iii) considerable improvements can be obtained by classifying at the document-level and (iv) normalizing punctuation and thus avoiding (some) shortcuts has no impact on model performance.</abstract>
       <url hash="9cd42b6f">2022.eamt-1.19</url>
       <bibkey>van-der-werff-etal-2022-automatic</bibkey>
-      <pwccode url="https://github.com/tobiasvanderwerff/HT-vs-MT" additional="false">tobiasvanderwerff/HT-vs-MT</pwccode>
     </paper>
     <paper id="20">
       <title>A Taxonomy and Study of Critical Errors in Machine Translation</title>
@@ -311,7 +307,6 @@
       <abstract>Availability of the user reviews in vernacular languages is helpful for the users to get information regarding the products. Since most of the e-commerce websites allow the reviews in English language only, it is important to provide the translated versions of the reviews to the non-English speaking users. Translation of the user reviews from English to vernacular languages is a challenging task, predominantly due to the lack of sufficient in-domain datasets. In this paper, we present a pre-training based efficient technique which is used to adapt and improve the single multilingual neural machine translation (NMT) model for the low-resource language pairs. The pre-trained model contains a special synthetic cross-lingual decoder. The decoder for the pre-training is trained over the cross-lingual target samples where the phrases are replaced with their translated counterparts. After pre-training, the model is adapted to multiple samples of the low-resource language pairs using incremental learning that does not require full training from the very scratch. We perform the experiments over eight low-resource and three high resource language pairs from the generic domain, and two language pairs from the product review domains. Through our synthetic multilingual decoder based pre-training, we achieve improvements of upto 4.35 BLEU points compared to the baseline and 2.13 BLEU points compared to the previous code-switched pre-trained models. The review domain outputs from the proposed model are evaluated in real time by human evaluators in the e-commerce company Flipkart.</abstract>
       <url hash="cc5f0cc7">2022.eamt-1.27</url>
       <bibkey>gupta-etal-2022-pre</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/wmt-2014">WMT 2014</pwcdataset>
     </paper>
     <paper id="28">
       <title>Error Annotation in Post-Editing Machine Translation: Investigating the Impact of Text-to-Speech Technology</title>
@@ -334,7 +329,6 @@
       <abstract>Recent developments in machine translation and speech translation are opening up opportunities for computer-assisted translation tools with extended automation functions. Subtitling tools are recently being adapted for post-editing by providing automatically generated subtitles, and featuring not only machine translation, but also automatic segmentation and synchronisation. But what do professional subtitlers think of post-editing automatically generated subtitles? In this work, we conduct a survey to collect subtitlers’ impressions and feedback on the use of automatic subtitling in their workflows. Our findings show that, despite current limitations stemming mainly from speech processing errors, automatic subtitling is seen rather positively and has potential for the future.</abstract>
       <url hash="ee216af7">2022.eamt-1.29</url>
       <bibkey>karakanta-etal-2022-post</bibkey>
-      <pwccode url="https://github.com/fatalinha/subtitlers-have-a-say" additional="false">fatalinha/subtitlers-have-a-say</pwccode>
     </paper>
     <paper id="30">
       <title>Working with Pre-translated Texts: Preliminary Findings from a Survey on Post-editing and Revision Practices in <fixed-case>S</fixed-case>wiss Corporate In-house Language Services</title>

@@ -1,4 +1,4 @@
-# Copyright 2023-2024 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2025 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,12 +14,13 @@
 
 from __future__ import annotations
 
-from attrs import define, field, Factory
+from attrs import define, field, validators as v
+from functools import cache, cached_property
 from lxml import etree
 from lxml.builder import E
 import re
 from slugify import slugify
-from typing import Optional, cast
+from typing import Any, Optional, cast, TypeAlias
 
 from ..utils.latex import latex_encode
 
@@ -27,6 +28,9 @@ from ..utils.latex import latex_encode
 @define(frozen=True)
 class Name:
     """A person's name.
+
+    Note:
+        Name objects are _frozen_, meaning they are immutable.  This allows them to be used as dictionary keys, but means that in order to change a name somewhere, you need to replace it with a new `Name` instance.
 
     Attributes:
         first: First name part. Can be given as `None` for people who
@@ -40,16 +44,20 @@ class Name:
         >>> Name(None, "Mausam")
     """
 
-    first: Optional[str]
-    last: str
-    script: Optional[str] = field(default=None, repr=False, eq=False)
+    first: Optional[str] = field(
+        eq=lambda x: x if x else None, validator=v.optional(v.instance_of(str))
+    )
+    last: str = field(validator=v.instance_of(str))
+    script: Optional[str] = field(
+        default=None, repr=False, eq=False, validator=v.optional(v.instance_of(str))
+    )
 
     def as_first_last(self) -> str:
         """
         Returns:
             The person's full name in the form '{first} {last}'.
         """
-        if self.first is None:
+        if not self.first:
             return self.last
         return f"{self.first} {self.last}"
 
@@ -58,10 +66,24 @@ class Name:
         Returns:
             The person's full name in the form '{last}, {first}'.
         """
-        if self.first is None:
+        if not self.first:
             return self.last
         return f"{self.last}, {self.first}"
 
+    def as_full(self) -> str:
+        """
+        Builds the full name, determining the appropriate format based on the script.
+
+        Returns:
+            For Han names, this will be '{last}{first}'; for other scripts (or if no script is given), this will be '{first} {last}'.
+        """
+        if not self.first:
+            return self.last
+        if self.script == "hani":
+            return f"{self.last}{self.first}"
+        return f"{self.first} {self.last}"
+
+    @cache
     def as_bibtex(self) -> str:
         """
         Returns:
@@ -69,22 +91,27 @@ class Name:
         """
         return latex_encode(self.as_last_first())
 
-    def score(self) -> int:
+    def score(self) -> float:
         """
         Returns:
             A score for this name that is intended for comparing different names that generate the same ID.  Names that are more likely to be the correct canonical variant should return higher scores via this function.
         """
         name = self.as_first_last()
         # Prefer longer variants
-        score = len(name)
-        # Prefer variants with non-ASCII characters
-        score += sum((ord(c) > 127) for c in name)
+        score = float(len(name))
+        # Prefer variants with non-ASCII characters or dashes
+        score += sum((ord(c) > 127 or c == "-") for c in name)
         # Penalize upper-case characters after word boundaries
         score -= sum(any(c.isupper() for c in w[1:]) for w in re.split(r"\W+", name))
         # Penalize lower-case characters at word boundaries
         score -= sum(w[0].islower() if w else 0 for w in re.split(r"\W+", name))
         if name[0].islower():  # extra penalty for first name
             score -= 1
+        # Penalize first names that are longer than last names (this is
+        # intended to make a difference when a person has both "C, A B" and "B
+        # C, A" as names)
+        if self.first and len(self.first) > len(self.last):
+            score += 0.5
         return score
 
     def slugify(self) -> str:
@@ -186,7 +213,7 @@ class Name:
             return cls(*name)
         elif isinstance(name, str):
             return cls.from_string(name)
-        else:
+        else:  # pragma: no cover
             raise TypeError(f"Cannot instantiate Name from {type(name)}")
 
     def to_xml(self, tag: str = "variant") -> etree._Element:
@@ -200,7 +227,7 @@ class Name:
         elem = etree.Element(tag)
         elem.extend(
             (
-                E.first(self.first) if self.first is not None else E.first(),
+                E.first(self.first) if self.first else E.first(),
                 E.last(self.last),
             )
         )
@@ -209,8 +236,12 @@ class Name:
         return elem
 
 
-ConvertableIntoName = Name | str | tuple[Optional[str], str] | dict[str, str]
+ConvertableIntoName: TypeAlias = Name | str | tuple[Optional[str], str] | dict[str, str]
 """A type that can be converted into a Name instance."""
+
+
+def _Name_from(value: Any) -> Name:
+    return Name.from_(value)
 
 
 @define
@@ -230,10 +261,21 @@ class NameSpecification:
         (for this functionality, see [Person][acl_anthology.people.person.Person]).
     """
 
-    name: Name
-    id: Optional[str] = field(default=None)
-    affiliation: Optional[str] = field(default=None)
-    variants: list[Name] = Factory(list)
+    name: Name = field(converter=_Name_from)
+    id: Optional[str] = field(default=None, validator=v.optional(v.instance_of(str)))
+    affiliation: Optional[str] = field(
+        default=None, validator=v.optional(v.instance_of(str))
+    )
+    variants: list[Name] = field(
+        factory=list,
+        validator=v.deep_iterable(
+            member_validator=v.instance_of(Name),
+            iterable_validator=v.instance_of(list),
+        ),
+    )
+
+    def __hash__(self) -> int:
+        return hash((self.name, self.id, self.affiliation, tuple(self.variants)))
 
     @property
     def first(self) -> Optional[str]:
@@ -244,6 +286,13 @@ class NameSpecification:
     def last(self) -> str:
         """The last name component."""
         return self.name.last
+
+    @cached_property
+    def citeproc_dict(self) -> dict[str, str]:
+        """A citation object corresponding to this name for use with CiteProcJSON."""
+        if not self.name.first:
+            return {"family": self.name.last}
+        return {"family": self.name.last, "given": self.name.first}
 
     @classmethod
     def from_xml(cls, person: etree._Element) -> NameSpecification:
@@ -289,7 +338,7 @@ class NameSpecification:
             elem.set("id", self.id)
         elem.extend(
             (
-                E.first(self.first) if self.first is not None else E.first(),
+                E.first(self.first) if self.first else E.first(),
                 E.last(self.last),
             )
         )

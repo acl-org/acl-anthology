@@ -27,22 +27,22 @@ the ACL $1 USD.
 
 See also https://github.com/acl-org/acl-anthology/wiki/DOI
 
-Usage: python3 generate_crossref_doi_metadata.py <list of volume IDs>
-e.g.,
+Usage: python3 bin/generate_crossref_doi_metadata.py <list of volume IDs>
 
-    python3 generate_crossref_doi_metadata.py P19-1 P19-2 P19-3 P19-4 > acl2019_dois.xml
+It's best to use this with the get_volumes_for_event.py script, which takes an
+XML file and returns all volumes and colocated workshops found within it.
+This is great for after an ACL main conference has completed, e.g.,
 
-Here's an example of how to use it to get all main conference volumes plus linked workshops:
+    python3 bin/generate_crossref_doi_metadata.py $(bin/get_volumes_for_event.py data/xml/2024.emnlp.xml)
 
-    ./bin/generate_crossref_doi_metadata.py 2022.emnlp-{main,tutorials,demos,industry} $(grep "<volume-id" data/xml/2022.emnlp.xml | perl -pe "s/<\/?volume-id>//g") > emnlp-2022.dois.xml
+From the above it should be clear that you can also pass it a list of volume IDs:
 
-Here, I had to manually list the main volumes (easy), and then grabbed the "<volume-id>" lines to get the workshops, all in one file.
+    python3 bin/generate_crossref_doi_metadata.py P19-1 P19-2 P19-3 P19-4 > acl2019_dois.xml
 
 Limitations:
 - This script does not inject the DOI data into the Anthology XML.
   For this, use `bin/add_dois.py <list of volume IDs>`.
 - Doesn't properly handle existing ISBN information.
-- Doesn't currently submit the frontmatter.
 
 Tested:
 - against 2018 workshop and conference data (working)
@@ -188,7 +188,10 @@ def main(volumes):
                         make_simple_element("surname", text=name_part.text, parent=pn)
 
         if editor_index == 0:
-            print("FATAL: Found no editors", file=sys.stderr)
+            print(
+                f"WARNING: Found no editors for volume {full_volume_id}, skipping",
+                file=sys.stderr,
+            )
             sys.exit(1)
 
         # Assemble Event Metadata
@@ -225,25 +228,47 @@ def main(volumes):
             "resource", parent=dd, text=CANONICAL_URL_TEMPLATE.format(full_volume_id)
         )
 
-        for paper in v.findall("./paper"):
-            ## Individual Paper Data
-            paper_id = paper.attrib["id"]
+        artifacts = v.findall("./frontmatter") + v.findall("./paper")
+        for paper in artifacts:  # v.findall("./paper"):
+            paper_type = paper.tag
+            ## Individual Paper and Frontmatter Data
+            if paper_type == "frontmatter":
+                paper_id = "0"
+            elif paper_type == "paper":
+                paper_id = paper.attrib["id"]
+            else:
+                print(f"* Skipping unknown artifact {paper.tag}", file=sys.stderr)
+                continue
+
             if paper.find("./url") is not None:
                 url = paper.find("./url").text
             else:
                 if is_newstyle_id(full_volume_id):
                     url = f"{full_volume_id}.{paper_id}"
                 elif len(full_volume_id) == 6:
-                    url = f"{full_volume_id}{paper_id:02d}"
+                    url = f"{full_volume_id}{int(paper_id):02d}"
                 elif len(full_volume_id) == 5:
-                    url = f"{full_volume_id}{paper_id:03d}"
+                    url = f"{full_volume_id}{int(paper_id):03d}"
+
+            if paper_type == "paper":
+                contributor_list = paper.findall("./author")
+            elif paper_type == "frontmatter":
+                # Frontmatter's contributors are the editors
+                contributor_list = meta.findall("./editor")
+
+            if len(contributor_list) == 0:
+                print(
+                    f"WARNING: Found no contributors for {paper_type} {full_volume_id}.{paper_id}, skipping",
+                    file=sys.stderr,
+                )
+                continue
 
             cp = make_simple_element("conference_paper", parent=c)
+            contribs = make_simple_element("contributors", parent=cp)
 
             # contributors
-            contribs = make_simple_element("contributors", parent=cp)
             author_index = 0
-            for author in paper.findall("./author"):
+            for author in contributor_list:
                 pn = make_simple_element(
                     "person_name",
                     parent=contribs,
@@ -264,11 +289,10 @@ def main(volumes):
                     elif name_part.tag == "last":
                         make_simple_element("surname", text=name_part.text, parent=pn)
 
-            for title in paper.iter(tag="title"):
-                o_titles = make_simple_element("titles", parent=cp)
-                make_simple_element(
-                    "title", parent=o_titles, text=formatter.as_text(title)
-                )
+            title = paper.find("./title")
+            title_text = formatter.as_text(title) if title is not None else "Front Matter"
+            o_titles = make_simple_element("titles", parent=cp)
+            make_simple_element("title", parent=o_titles, text=title_text)
 
             pd = make_simple_element("publication_date", parent=cp)
             o_year = make_simple_element("year", parent=pd)

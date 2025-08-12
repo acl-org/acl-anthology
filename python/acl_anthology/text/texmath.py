@@ -32,16 +32,19 @@ TEX_TO_HTML: dict[str, Tuple[str, dict[str, str]]] = {
     "text": ("span", {"class": "font-weight-normal"}),
     "mathbf": ("strong", {}),
     "textbf": ("strong", {}),
+    "bf": ("strong", {}),  # not a correct use of this command, but sometimes observed
     "boldsymbol": ("strong", {}),
     "mathit": ("em", {}),
     "textit": ("em", {}),
+    "it": ("em", {}),  # not a correct use of this command, but sometimes observed
     "emph": ("em", {}),
     "textsc": ("span", {"style": "font-variant: small-caps;"}),
     "texttt": ("span", {"class": "text-monospace"}),
+    "tt": ("span", {"class": "text-monospace"}),
     "textsubscript": ("sub", {}),
     "textsuperscript": ("sup", {}),
 }
-REMOVED_COMMANDS = ("bf", "rm", "it", "sc")
+REMOVED_COMMANDS = ("bf", "rm", "it", "sc", "sf", "mathcal")
 
 
 def _append_text(text: str, trg: etree._Element) -> None:
@@ -155,7 +158,7 @@ class _TexMath:
         elif name == "frac":
             self._parse_fraction(args, trg)
         # Handle commands with simple HTML tag substitutions
-        elif name in TEX_TO_HTML:
+        elif name in TEX_TO_HTML and args:
             elem_name, elem_attrib = TEX_TO_HTML[name]
             sx = etree.Element(elem_name, attrib=elem_attrib)
             self._parse(args, sx)
@@ -165,12 +168,12 @@ class _TexMath:
             pass
         # Give up, but preserve element
         else:
-            log.warn(f"Unknown TeX-math command: {code}")
+            log.warning(f"Unknown TeX-math command: {code}")
             self._append_unparsed(code, trg)
 
     def _parse_fraction(self, args: list[TexEverything], trg: etree._Element) -> None:
         if len(args) != 2:
-            log.warn(f"Couldn't parse \\frac: got {len(args)} arguments, expected 2")
+            log.warning(f"Couldn't parse \\frac: got {len(args)} arguments, expected 2")
             self._append_unparsed(TexCmd("frac", args=args), trg)
         else:
             # Represent numerator of fraction as superscript
@@ -187,7 +190,7 @@ class _TexMath:
     def _parse_text(self, code: str | TexText, trg: etree._Element) -> SxscriptStatus:
         text = str(code)
         # TexSoup doesn't parse any non-alpha command as a command. Ex: \$
-        # However it does seperate them into their own text part. Ex: 'r\\&dd' -> ['r', '\\&', 'dd']
+        # However it does separate them into their own text part. Ex: 'r\\&dd' -> ['r', '\\&', 'dd']
         # Therefore try to do command mapping replacement of all text beginning with \ and of length 2
         if len(text) == 2 and text[0] == "\\":
             text = self.cmd_map.get(text[1], text)
@@ -267,7 +270,7 @@ class _TexMath:
         if not self.loaded:
             self.load_symbols()
         element = self.to_html(element)
-        return etree.tostring(element, encoding="unicode", method="text")
+        return etree.tostring(element, encoding="unicode", method="text", with_tail=False)
 
 
 TexMath = _TexMath()

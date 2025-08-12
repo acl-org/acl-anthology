@@ -25,7 +25,6 @@
       <abstract>Domain knowledge is important to understand both the lexical and relational associations of words in natural language text, especially for domain-specific tasks like Natural Language Inference (NLI) in the medical domain, where due to the lack of a large annotated dataset such knowledge cannot be implicitly learned during training. However, because of the linguistic idiosyncrasies of clinical texts (e.g., shorthand jargon), solely relying on domain knowledge from an external knowledge base (e.g., UMLS) can lead to wrong inference predictions as it disregards contextual information and, hence, does not return the most relevant mapping. To remedy this, we devise a knowledge adaptive approach for medical NLI that encodes the premise/hypothesis texts by leveraging supplementary external knowledge, alongside the UMLS, based on the word contexts. By incorporating refined domain knowledge at both the lexical and relational levels through a multi-source attention mechanism, it is able to align the token-level interactions between the premise and hypothesis more effectively. Comprehensive experiments and case study on the recently released MedNLI dataset are conducted to validate the effectiveness of the proposed approach.</abstract>
       <url hash="8ca8aa9b">2020.starsem-1.1</url>
       <bibkey>chowdhury-etal-2020-improving</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/mimic-iii">MIMIC-III</pwcdataset>
     </paper>
     <paper id="2">
       <title>Reading Comprehension as Natural Language Inference:A Semantic Analysis</title>
@@ -39,8 +38,6 @@
       <abstract>In the recent past, Natural language Inference (NLI) has gained significant attention, particularly given its promise for downstream NLP tasks. However, its true impact is limited and has not been well studied. Therefore, in this paper, we explore the utility of NLI for one of the most prominent downstream tasks, viz. Question Answering (QA). We transform one of the largest available MRC dataset (RACE) to an NLI form, and compare the performances of a state-of-the-art model (RoBERTa) on both these forms. We propose new characterizations of questions, and evaluate the performance of QA and NLI models on these categories. We highlight clear categories for which the model is able to perform better when the data is presented in a coherent entailment form, and a structured question-answer concatenation form, respectively.</abstract>
       <url hash="709f5577">2020.starsem-1.2</url>
       <bibkey>mishra-etal-2020-reading</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/multinli">MultiNLI</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/snli">SNLI</pwcdataset>
     </paper>
     <paper id="3">
       <title>Learning as Abduction: Trainable Natural Logic Theorem Prover for Natural Language Inference</title>
@@ -49,8 +46,6 @@
       <abstract>Tackling Natural Language Inference with a logic-based method is becoming less and less common. While this might have been counterintuitive several decades ago, nowadays it seems pretty obvious. The main reasons for such a conception are that (a) logic-based methods are usually brittle when it comes to processing wide-coverage texts, and (b) instead of automatically learning from data, they require much of manual effort for development. We make a step towards to overcome such shortcomings by modeling learning from data as abduction: reversing a theorem-proving procedure to abduce semantic relations that serve as the best explanation for the gold label of an inference problem. In other words, instead of proving sentence-level inference relations with the help of lexical relations, the lexical relations are proved taking into account the sentence-level inference relations. We implement the learning method in a tableau theorem prover for natural language and show that it improves the performance of the theorem prover on the SICK dataset by 1.4% while still maintaining high precision (&gt;94%). The obtained results are competitive with the state of the art among logic-based systems.</abstract>
       <url hash="01c7085e">2020.starsem-1.3</url>
       <bibkey>abzianidze-2020-learning</bibkey>
-      <pwccode url="https://github.com/kovvalsky/LangPro" additional="false">kovvalsky/LangPro</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/sick">SICK</pwcdataset>
     </paper>
     <paper id="4">
       <title>Automatic Learning of Modality Exclusivity Norms with Crosslingual Word Embeddings</title>
@@ -71,8 +66,6 @@
       <abstract>In this paper, we propose a novel method for learning cross-lingual word embeddings, that incorporates sub-word information during training, and is able to learn high-quality embeddings from modest amounts of monolingual data and a bilingual lexicon. This method could be particularly well-suited to learning cross-lingual embeddings for lower-resource, morphologically-rich languages, enabling knowledge to be transferred from rich- to lower-resource languages. We evaluate our proposed approach simulating lower-resource languages for bilingual lexicon induction, monolingual word similarity, and document classification. Our results indicate that incorporating sub-word information indeed leads to improvements, and in the case of document classification, performance better than, or on par with, strong benchmark approaches.</abstract>
       <url hash="b2c89beb">2020.starsem-1.5</url>
       <bibkey>hakimi-parizi-cook-2020-joint</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/mldoc">MLDoc</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/rcv1">RCV1</pwcdataset>
     </paper>
     <paper id="6">
       <title>Semantic Structural Decomposition for Neural Machine Translation</title>
@@ -83,8 +76,6 @@
       <abstract>Building on recent advances in semantic parsing and text simplification, we investigate the use of semantic splitting of the source sentence as preprocessing for machine translation. We experiment with a Transformer model and evaluate using large-scale crowd-sourcing experiments. Results show a significant increase in fluency on long sentences on an English-to- French setting with a training corpus of 5M sentence pairs, while retaining comparable adequacy. We also perform a manual analysis which explores the tradeoff between adequacy and fluency in the case where all sentence lengths are considered.</abstract>
       <url hash="e26db7a4">2020.starsem-1.6</url>
       <bibkey>sulem-etal-2020-semantic</bibkey>
-      <pwccode url="https://github.com/eliorsulem/semantic-structural-decomposition-for-nmt" additional="false">eliorsulem/semantic-structural-decomposition-for-nmt</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/wikisplit">WikiSplit</pwcdataset>
     </paper>
     <paper id="7">
       <title>Token Sequence Labeling vs. Clause Classification for <fixed-case>E</fixed-case>nglish Emotion Stimulus Detection</title>
@@ -94,7 +85,6 @@
       <abstract>Emotion stimulus detection is the task of finding the cause of an emotion in a textual description, similar to target or aspect detection for sentiment analysis. Previous work approached this in three ways, namely (1) as text classification into an inventory of predefined possible stimuli (“Is the stimulus category A or B?”), (2) as sequence labeling of tokens (“Which tokens describe the stimulus?”), and (3) as clause classification (“Does this clause contain the emotion stimulus?”). So far, setting (3) has been evaluated broadly on Mandarin and (2) on English, but no comparison has been performed. Therefore, we analyze whether clause classification or token sequence labeling is better suited for emotion stimulus detection in English. We propose an integrated framework which enables us to evaluate the two different approaches comparably, implement models inspired by state-of-the-art approaches in Mandarin, and test them on four English data sets from different domains. Our results show that token sequence labeling is superior on three out of four datasets, in both clause-based and token sequence-based evaluation. The only case in which clause classification performs better is one data set with a high density of clause annotations. Our error analysis further confirms quantitatively and qualitatively that clauses are not the appropriate stimulus unit in English.</abstract>
       <url hash="0ae3d7b3">2020.starsem-1.7</url>
       <bibkey>oberlander-klinger-2020-token</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/ecpe-xia-and-ding-2019">Xia and Ding, 2019</pwcdataset>
     </paper>
     <paper id="8">
       <title>Knowledge Graphs meet Moral Values</title>
@@ -106,7 +96,6 @@
       <abstract>Operationalizing morality is crucial for understanding multiple aspects of society that have moral values at their core – such as riots, mobilizing movements, public debates, etc. Moral Foundations Theory (MFT) has become one of the most adopted theories of morality partly due to its accompanying lexicon, the Moral Foundation Dictionary (MFD), which offers a base for computationally dealing with morality. In this work, we exploit the MFD in a novel direction by investigating how well moral values are captured by KGs. We explore three widely used KGs, and provide concept-level analogues for the MFD. Furthermore, we propose several Personalized PageRank variations in order to score all the concepts and entities in the KGs with respect to their relevance to the different moral values. Our promising results help to progress the operationalization of morality in both NLP and KG communities.</abstract>
       <url hash="64bf6b72">2020.starsem-1.8</url>
       <bibkey>hulpus-etal-2020-knowledge</bibkey>
-      <pwccode url="https://github.com/dwslab/morality-in-knowledge-graphs" additional="false">dwslab/morality-in-knowledge-graphs</pwccode>
     </paper>
     <paper id="9">
       <title>Natural Language Inference with Mixed Effects</title>
@@ -119,9 +108,6 @@
       <revision id="1" href="2020.starsem-1.9v1" hash="ce2bf94a"/>
       <revision id="2" href="2020.starsem-1.9v2" hash="0316aee6" date="2021-01-04">Fixes page length violation</revision>
       <bibkey>gantt-etal-2020-natural</bibkey>
-      <pwccode url="https://github.com/wgantt/nli-mixed-models" additional="false">wgantt/nli-mixed-models</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/meganegraising">MegaNegRaising</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/megaveridicality">MegaVeridicality</pwcdataset>
     </paper>
     <paper id="10">
       <title>On the Systematicity of Probing Contextualized Word Representations: The Case of Hypernymy in <fixed-case>BERT</fixed-case></title>
@@ -134,7 +120,6 @@
       <abstract>Contextualized word representations have become a driving force in NLP, motivating widespread interest in understanding their capabilities and the mechanisms by which they operate. Particularly intriguing is their ability to identify and encode conceptual abstractions. Past work has probed BERT representations for this competence, finding that BERT can correctly retrieve noun hypernyms in cloze tasks. In this work, we ask the question: <i>do probing studies shed light on systematic knowledge in BERT representations?</i> As a case study, we examine hypernymy knowledge encoded in BERT representations. In particular, we demonstrate through a simple consistency probe that the ability to correctly retrieve hypernyms in cloze tasks, as used in prior work, does not correspond to systematic knowledge in BERT. Our main conclusion is cautionary: even if BERT demonstrates high probing accuracy for a particular competence, it does not necessarily follow that BERT ‘understands’ a concept, and it cannot be expected to systematically generalize across applicable contexts.</abstract>
       <url hash="d5175d88">2020.starsem-1.10</url>
       <bibkey>ravichander-etal-2020-systematicity</bibkey>
-      <pwccode url="https://github.com/abhilasharavichander/probe-generalization" additional="false">abhilasharavichander/probe-generalization</pwccode>
     </paper>
     <paper id="11">
       <title>Topology of Word Embeddings: Singularities Reflect Polysemy</title>
@@ -164,7 +149,6 @@
       <abstract>Explanation generation introduced as the world tree corpus (Jansen et al., 2018) is an emerging NLP task involving multi-hop inference for explaining the correct answer in multiple-choice QA. It is a challenging task evidenced by low state-of-the-art performances(below 60% in F-score) demonstrated on the task. Of the state-of-the-art approaches, fine-tuned transformer-based (Vaswani et al., 2017) BERT models have shown great promise toward continued system performance improvements compared with approaches relying on surface-level cues alone that demonstrate performance saturation. In this work, we take a novel direction by addressing a particular linguistic characteristic of the data — we introduce a novel and lightweight focus feature in the transformer-based model and examine task improvements. Our evaluations reveal a significantly positive impact of this lightweight focus feature achieving the highest scores, second only to a significantly computationally intensive system.</abstract>
       <url hash="ee5221d7">2020.starsem-1.13</url>
       <bibkey>mulang-etal-2020-fine</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/worldtree">Worldtree</pwcdataset>
     </paper>
     <paper id="14">
       <title><fixed-case>PISA</fixed-case>: A measure of Preference In Selection of Arguments to model verb argument recoverability</title>
@@ -174,7 +158,6 @@
       <abstract>Our paper offers a computational model of the semantic recoverability of verb arguments, tested in particular on direct objects and Instruments. Our fully distributional model is intended to improve on older taxonomy-based models, which require a lexicon in addition to the training corpus. We computed the selectional preferences of 99 transitive verbs and 173 Instrument verbs as the mean value of the pairwise cosines between their arguments (a weighted mean between all the arguments, or an unweighted mean with the topmost k arguments). Results show that our model can predict the recoverability of objects and Instruments, providing a similar result to that of taxonomy-based models but at a much cheaper computational cost.</abstract>
       <url hash="656f804c">2020.starsem-1.14</url>
       <bibkey>cappelli-lenci-2020-pisa</bibkey>
-      <pwccode url="https://github.com/ellepannitto/pisa" additional="false">ellepannitto/pisa</pwccode>
     </paper>
     <paper id="15">
       <title>Learning Negation Scope from Syntactic Structure</title>
@@ -193,7 +176,6 @@
       <abstract>We introduce a new dataset for training and evaluating grounded language models. Our data is collected within a virtual reality environment and is designed to emulate the quality of language data to which a pre-verbal child is likely to have access: That is, naturalistic, spontaneous speech paired with richly grounded visuospatial context. We use the collected data to compare several distributional semantics models for verb learning. We evaluate neural models based on 2D (pixel) features as well as feature-engineered models based on 3D (symbolic, spatial) features, and show that neither modeling approach achieves satisfactory performance. Our results are consistent with evidence from child language acquisition that emphasizes the difficulty of learning verbs from naive distributional data. We discuss avenues for future work on cognitively-inspired grounded language learning, and release our corpus with the intent of facilitating research on the topic.</abstract>
       <url hash="c9249de6">2020.starsem-1.16</url>
       <bibkey>ebert-pavlick-2020-visuospatial</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/new-brown-corpus">New Brown Corpus</pwcdataset>
     </paper>
     <paper id="17">
       <title>Find or Classify? Dual Strategy for Slot-Value Predictions on Multi-Domain Dialog State Tracking</title>
@@ -208,7 +190,6 @@
       <abstract>Dialog state tracking (DST) is a core component in task-oriented dialog systems. Existing approaches for DST mainly fall into one of two categories, namely, ontology-based and ontology-free methods. An ontology-based method selects a value from a candidate-value list for each target slot, while an ontology-free method extracts spans from dialog contexts. Recent work introduced a BERT-based model to strike a balance between the two methods by pre-defining categorical and non-categorical slots. However, it is not clear enough which slots are better handled by either of the two slot types, and the way to use the pre-trained model has not been well investigated. In this paper, we propose a simple yet effective dual-strategy model for DST, by adapting a single BERT-style reading comprehension model to jointly handle both the categorical and non-categorical slots. Our experiments on the MultiWOZ datasets show that our method significantly outperforms the BERT-based counterpart, finding that the key is a deep interaction between the domain-slot and context information. When evaluated on noisy (MultiWOZ 2.0) and cleaner (MultiWOZ 2.1) settings, our method performs competitively and robustly across the two different settings. Our method sets the new state of the art in the noisy setting, while performing more robustly than the best model in the cleaner setting. We also conduct a comprehensive error analysis on the dataset, including the effects of the dual strategy for each slot, to facilitate future research.</abstract>
       <url hash="0fd9fcc6">2020.starsem-1.17</url>
       <bibkey>zhang-etal-2020-find</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/multiwoz">MultiWOZ</pwcdataset>
     </paper>
     <paper id="18">
       <title>“where is this relationship going?”: Understanding Relationship Trajectories in Narrative Text</title>
@@ -218,9 +199,6 @@
       <abstract>We examine a new commonsense reasoning task: given a narrative describing a social interaction that centers on two protagonists, systems make inferences about the underlying relationship trajectory. Specifically, we propose two evaluation tasks: Relationship Outlook Prediction MCQ and Resolution Prediction MCQ. In Relationship Outlook Prediction, a system maps an interaction to a relationship outlook that captures how the interaction is expected to change the relationship. In Resolution Prediction, a system attributes a given relationship outlook to a particular resolution that explains the outcome. These two tasks parallel two real-life questions that people frequently ponder upon as they navigate different social situations: “where is this relationship going?” and “how did we end up here?”. To facilitate the investigation of human social relationships through these two tasks, we construct a new dataset, Social Narrative Tree, which consists of 1250 stories documenting a variety of daily social interactions. The narratives encode a multitude of social elements that interweave to give rise to rich commonsense knowledge of how relationships evolve with respect to social interactions. We establish baseline performances using language models and the accuracies are significantly lower than human performance. The results demonstrate that models need to look beyond syntactic and semantic signals to comprehend complex human relationships.</abstract>
       <url hash="f12f6dd5">2020.starsem-1.18</url>
       <bibkey>you-goldwasser-2020-relationship</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/event2mind">Event2Mind</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/rocstories">ROCStories</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/swag">SWAG</pwcdataset>
     </paper>
     <paper id="19">
       <title>Large Scale Author Obfuscation Using <fixed-case>S</fixed-case>iamese Variational Auto-Encoder: The <fixed-case>S</fixed-case>iam<fixed-case>AO</fixed-case> System</title>
@@ -230,7 +208,6 @@
       <abstract>Author obfuscation is the task of masking the author of a piece of text, with applications in privacy. Recent advances in deep neural networks have boosted author identification performance making author obfuscation more challenging. Existing approaches to author obfuscation are largely heuristic. Obfuscation can, however, be thought of as the construction of adversarial examples to attack author identification, suggesting that the deep learning architectures used for adversarial attacks could have application here. Current architectures are proposed to construct adversarial examples against classification-based models, which in author identification would exclude the high-performing similarity-based models employed when facing large number of authorial classes. In this paper, we propose the first deep learning architecture for constructing adversarial examples against similarity-based learners, and explore its application to author obfuscation. We analyse the output from both success in obfuscation and language acceptability, as well as comparing the performance with some common baselines, and showing promising results in finding a balance between safety and soundness of the perturbed texts.</abstract>
       <url hash="cc47636f">2020.starsem-1.19</url>
       <bibkey>saedi-dras-2020-large</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/glue">GLUE</pwcdataset>
     </paper>
   </volume>
 </collection>

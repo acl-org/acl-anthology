@@ -12,8 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import pytest
 from pathlib import Path
 from acl_anthology.sigs import SIGIndex, SIGMeeting, SIG
+
+
+all_toy_sigs = ("sigdat", "sigsem")
 
 
 def test_sig_defaults():
@@ -45,7 +49,7 @@ def test_sig_save(tmp_path):
     sig = SIG(None, "foo", "FOO", "Special Interest Group on Foobar", path)
     sig.save()
     assert path.is_file()
-    with open(path, "r") as f:
+    with open(path, "r", encoding="utf-8") as f:
         out = f.read()
     expected = """Name: Special Interest Group on Foobar
 ShortName: FOO
@@ -53,15 +57,32 @@ ShortName: FOO
     assert out == expected
 
 
-def test_sig_roundtrip_yaml(anthology_stub, tmp_path):
-    yaml_in = anthology_stub.datadir / "yaml" / "sigs" / "sigsem.yaml"
+@pytest.mark.parametrize(
+    "strip_comments",
+    (
+        True,
+        pytest.param(
+            False, marks=pytest.mark.xfail(reason="YAML comments are not preserved")
+        ),
+    ),
+)
+@pytest.mark.parametrize("sig_id", all_toy_sigs)
+def test_sig_roundtrip_yaml(anthology_stub, tmp_path, sig_id, strip_comments):
+    yaml_in = anthology_stub.datadir / "yaml" / "sigs" / f"{sig_id}.yaml"
+    yaml_out = tmp_path / f"{sig_id}.yaml"
     sig = SIG.load_from_yaml(None, yaml_in)
-    yaml_out = tmp_path / "sigsem.yaml"
     sig.save(yaml_out)
-    assert yaml_out.is_file()
-    with open(yaml_in, "r") as f, open(yaml_out, "r") as g:
-        # Comments will unfortunately be deleted upon saving ...
-        expected = "\n".join(line.split("#")[0].rstrip() for line in f.readlines()) + "\n"
+
+    with (
+        open(yaml_in, "r", encoding="utf-8") as f,
+        open(yaml_out, "r", encoding="utf-8") as g,
+    ):
+        if strip_comments:
+            expected = (
+                "\n".join(line.split("#")[0].rstrip() for line in f.readlines()) + "\n"
+            )
+        else:
+            expected = f.read()
         out = g.read()
     assert out == expected
 
@@ -85,3 +106,12 @@ def test_sigindex_sigsem(anthology):
     )
     volume = next(sig.volumes())
     assert volume.full_id == "2022.naloma-1"
+
+
+def test_sig_by_volume(anthology):
+    index = SIGIndex(anthology)
+    assert index.by_volume("2022.acl-long") == []
+    assert index.by_volume("2022.acl-demo") == [index["sigdat"]]
+    sigs = index.by_volume("2022.naloma-1")
+    assert len(sigs) == len(all_toy_sigs)
+    assert set(sig.id for sig in sigs) == set(all_toy_sigs)

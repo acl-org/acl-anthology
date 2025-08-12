@@ -1,7 +1,7 @@
 exclude: ^hugo/static/.*$
 repos:
 - repo: https://github.com/pre-commit/pre-commit-hooks
-  rev: v4.5.0
+  rev: v5.0.0
   hooks:
     - id: check-ast
     - id: check-merge-conflict
@@ -20,28 +20,28 @@ repos:
     - id: trailing-whitespace
 
 - repo: https://github.com/Lucas-C/pre-commit-hooks
-  rev: v1.5.4
+  rev: v1.5.5
   hooks:
     - id: insert-license
       files: ^python/.*\.py$
-      args: ['--license-filepath', 'python/LICENSE.header', '--use-current-year']
+      args: ['--license-filepath', 'python/LICENSE.header', '--allow-past-years']
 
 - repo: https://github.com/psf/black-pre-commit-mirror
-  rev: 23.9.1
+  rev: 25.1.0
   hooks:
     - id: black
       files: ^python/.*\.py$
       args: ['--config', 'python/pyproject.toml']
 
 - repo: https://github.com/astral-sh/ruff-pre-commit
-  rev: v0.0.292
+  rev: v0.9.6
   hooks:
     - id: ruff
       files: ^python/.*\.py$
       args: ['--config', 'python/pyproject.toml']
 
 - repo: https://github.com/python-poetry/poetry
-  rev: '1.6.0'
+  rev: '2.1.3'
   hooks:
     - id: poetry-check
       args: ['--lock', '--directory=python']
