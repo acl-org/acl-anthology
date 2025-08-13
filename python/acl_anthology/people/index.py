@@ -14,10 +14,12 @@
 
 from __future__ import annotations
 
+import attrs
 from attrs import define, field
 from collections.abc import Iterable
 from collections import Counter, defaultdict
 import itertools as it
+import msgpack
 from pathlib import Path
 from rich.progress import track
 from scipy.cluster.hierarchy import DisjointSet  # type: ignore
@@ -30,6 +32,7 @@ try:
 except ImportError:  # pragma: no cover
     from yaml import Loader, Dumper  # type: ignore
 
+from ..config import config
 from ..containers import SlottedDict
 from ..exceptions import (
     AnthologyException,
@@ -44,7 +47,7 @@ from .name import _YAMLName
 
 if TYPE_CHECKING:
     from _typeshed import StrPath
-    from ..anthology import Anthology
+    from ..anthology import Anthology, CacheDict
     from ..collections import Paper, Volume
 
 log = get_logger()
@@ -92,6 +95,10 @@ class PersonIndex(SlottedDict[Person]):
     @path.default
     def _path(self) -> Path:
         return self.parent.datadir / Path(PEOPLE_INDEX_FILE)
+
+    @property
+    def _cache_file(self) -> Path:
+        return cast(Path, config.cache_path) / "PersonIndex.cache"
 
     @property
     def by_orcid(self) -> dict[str, str]:
@@ -208,9 +215,9 @@ class PersonIndex(SlottedDict[Person]):
 
     def load(self) -> None:
         """Loads or builds the index."""
-        # This function exists so we can later add the option to read the index
-        # from a cache if it doesn't need re-building.
         if self.is_data_loaded:
+            return
+        if not config.disable_caching and self._load_cache():
             return
         self.build(show_progress=self.verbose)
 
@@ -273,6 +280,8 @@ class PersonIndex(SlottedDict[Person]):
                 "An exception was raised while building PersonIndex; check the logger for details."
             )
         self.is_data_loaded = True
+        if not config.disable_caching:
+            self._save_cache()
 
     def _load_people_index(self) -> None:
         """Load and parse the `people.yaml` file.
@@ -621,3 +630,60 @@ class PersonIndex(SlottedDict[Person]):
 
         with open(path, "w", encoding="utf-8") as f:
             yaml.dump(data, f, allow_unicode=True, Dumper=Dumper)
+
+    def _compute_cache_dict(self) -> CacheDict:
+        """Compute the cache dictionary for this index.
+
+        If the return value is identical between a saved cache file and this instance, the data can be loaded from the cache.
+        """
+        return self.parent._compute_cache_dict(depends_on=["xml/*", "yaml/people.yaml"])
+
+    def _save_cache(self) -> None:
+        """Save the entire PersonIndex to a cache file."""
+        config.cache_path.mkdir(parents=True, exist_ok=True)
+
+        with open(self._cache_file, "wb") as f:
+            # The first saved message is the cache key
+            msgpack.pack(self._compute_cache_dict(), f)
+            # We serialize each Person in the index as a single message
+            for person in self.values():
+                msgpack.pack(
+                    attrs.asdict(
+                        person,
+                        filter=lambda attr, value: value and attr.name != "parent",
+                        value_serializer=lambda _, __, value: (
+                            value if not isinstance(value, NameLink) else value.value
+                        ),
+                    ),
+                    f,
+                )
+
+    def _load_cache(self) -> bool:
+        """Load the entire PersonIndex from a cache file, if possible.
+
+        Checks if the cache file exists and only loads it if its key is compatible with this Anthology instance (i.e. no files that this cache depends on appear to have changed).
+
+        Returns:
+            True if the PersonIndex could be loaded from a cache file.
+        """
+        if not self._cache_file.exists():
+            return False
+
+        with open(self._cache_file, "rb") as f:
+            unpacker = msgpack.Unpacker(f, use_list=False)
+            cache_key = next(unpacker)
+            if cache_key != self._compute_cache_dict():
+                # Cache invalid
+                return False
+
+            # Load from cache
+            self.reset()
+            print(f"Loading PersonIndex from cache file {self._cache_file}")
+            for data in unpacker:
+                data["names"] = (
+                    (Name.from_dict(x[0]), NameLink(x[1])) for x in data.pop("_names")
+                )
+                self.add_person(Person(parent=self.parent, **data))
+
+        self.is_data_loaded = True
+        return True
