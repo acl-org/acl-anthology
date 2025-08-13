@@ -680,6 +680,57 @@ tomli = {version = "*", optional = true, markers = "python_full_version <= \"3.1
 toml = ["tomli ; python_full_version <= \"3.11.0a6\""]
 
 [[package]]
+name = "dawg2"
+version = "0.13.2"
+description = "Fast and memory efficient DAWG (DAFSA) for Python"
+optional = false
+python-versions = ">=3.9"
+groups = ["tui"]
+files = [
+    {file = "dawg2-0.13.2-cp310-cp310-macosx_10_9_universal2.whl", hash = "sha256:3f7c07d294584d499ed187c209f5d920b145db173998265187ef6eee41e7205c"},
+    {file = "dawg2-0.13.2-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:19d1665a4cfb9010a527504795d68aa780c4368476b00cf134077b59dc17711a"},
+    {file = "dawg2-0.13.2-cp310-cp310-manylinux_2_24_i686.manylinux_2_28_i686.whl", hash = "sha256:f4c5ec35e2dc4f752a9ec15773a1bd93009f0048524f5c4caa5a1d00a74383ef"},
+    {file = "dawg2-0.13.2-cp310-cp310-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:9f557b93d646ccb0111c17ad85b9e3c81621616e3acd7128eb627bfd25dc9ae7"},
+    {file = "dawg2-0.13.2-cp310-cp310-musllinux_1_2_i686.whl", hash = "sha256:94ea323481b21ade57156ee5e3c22b65a3dacad7df36e8431c7424b7cbd3d38a"},
+    {file = "dawg2-0.13.2-cp310-cp310-musllinux_1_2_x86_64.whl", hash = "sha256:1c9d259b38db6e571827ee42ac94409944d1ab5a4f3418b18c0725446bf892b2"},
+    {file = "dawg2-0.13.2-cp310-cp310-win32.whl", hash = "sha256:d35d60f763e9ef633d945ee37dbc1dff7b97b3f0e61531810134875ee2102402"},
+    {file = "dawg2-0.13.2-cp310-cp310-win_amd64.whl", hash = "sha256:bf51b49e6baead6448f5d1179a730bd619080e1b317d2cb903ece32744fca479"},
+    {file = "dawg2-0.13.2-cp311-cp311-macosx_10_9_universal2.whl", hash = "sha256:0e7b0620047e0bd52373c0134a5074b55429539281551ab9e1a7693251a9abba"},
+    {file = "dawg2-0.13.2-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:3a197d5887794ca20a3a19236a21ce16df522a38319fcc210fda29e7e2254984"},
+    {file = "dawg2-0.13.2-cp311-cp311-manylinux_2_24_i686.manylinux_2_28_i686.whl", hash = "sha256:1469d9c40e13134bfebe2f65e3464a1909c053c1983b0002ec6afc74e87af1d7"},
+    {file = "dawg2-0.13.2-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:66c3b324cd48d1e90661a82a3a0aa195fde2b601c7467b68728ac83b470c3aff"},
+    {file = "dawg2-0.13.2-cp311-cp311-musllinux_1_2_i686.whl", hash = "sha256:cb14517c4e198d89a98b62d621a48db5e66a1d1da12709d9870af3c126f6c277"},
+    {file = "dawg2-0.13.2-cp311-cp311-musllinux_1_2_x86_64.whl", hash = "sha256:49c8709bfa52defc14b386f7ae03d5c87629b64e6138951d4cb03f62ccde381f"},
+    {file = "dawg2-0.13.2-cp311-cp311-win32.whl", hash = "sha256:ee46b53448fa3869ffe1cf0118491e32b40cd18ce234aa69097f9dbc103c0ece"},
+    {file = "dawg2-0.13.2-cp311-cp311-win_amd64.whl", hash = "sha256:c1f95802c9e86a957538464318beab2dad8f781fdc12a225bc512ef6c69b1beb"},
+    {file = "dawg2-0.13.2-cp312-cp312-macosx_10_13_universal2.whl", hash = "sha256:dd3dde0112466e989908864a81e312aded3c2e01c373b9707070de810a96ba77"},
+    {file = "dawg2-0.13.2-cp312-cp312-macosx_10_13_x86_64.whl", hash = "sha256:42de0d33b3c4063a2b91357f5f671a62a1bc154924b32aca7dc3c2a8bb87e8aa"},
+    {file = "dawg2-0.13.2-cp312-cp312-manylinux_2_24_i686.manylinux_2_28_i686.whl", hash = "sha256:f1910c95cc5acf7a23849e60b3a312a3791f5c5dd7217760e34ed1f704c22946"},
+    {file = "dawg2-0.13.2-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:71691918aa0df857015c6f5e42ce97bb24c39f5ce1868323b7c82bdd4479bee6"},
+    {file = "dawg2-0.13.2-cp312-cp312-musllinux_1_2_i686.whl", hash = "sha256:a6d815e306fb3a722144e517b053c818e13bb93f2493f3c67ec745b74bf9594a"},
+    {file = "dawg2-0.13.2-cp312-cp312-musllinux_1_2_x86_64.whl", hash = "sha256:191dff2ffd32341c718312923c298fae1bdb061cf70d97a458d47e6e26c556ac"},
+    {file = "dawg2-0.13.2-cp312-cp312-win32.whl", hash = "sha256:625d703b8c61a6b545c00b3ecc1565a82dc50a0c33ba9df37abbbd2d53a11d88"},
+    {file = "dawg2-0.13.2-cp312-cp312-win_amd64.whl", hash = "sha256:776cbc7fbfa9d396bd88c374881c229844dccf4d9a79ec35cef1edd2f762ab4a"},
+    {file = "dawg2-0.13.2-cp313-cp313-macosx_10_13_universal2.whl", hash = "sha256:39615ac1279d26ec308ec2b957d39e1ae4b368b362ca80601eb9bed4d54192b3"},
+    {file = "dawg2-0.13.2-cp313-cp313-macosx_10_13_x86_64.whl", hash = "sha256:72fed0d6c8e3748783257428f7f4f651fd1160e74c1a026509667bd03f1b37c6"},
+    {file = "dawg2-0.13.2-cp313-cp313-manylinux_2_24_i686.manylinux_2_28_i686.whl", hash = "sha256:8616b2e2b82463be2c9b0e13a683c495e22cd046a8d9f68e9663fea30e082736"},
+    {file = "dawg2-0.13.2-cp313-cp313-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:850683594823bace15c9380612d17a9277b7e7e0ba447bd6a69a0c84171f09a2"},
+    {file = "dawg2-0.13.2-cp313-cp313-musllinux_1_2_i686.whl", hash = "sha256:7bd912441daffbe6b3a7cf9f228f06b02ec49881ad592461f2b459298a4c08ba"},
+    {file = "dawg2-0.13.2-cp313-cp313-musllinux_1_2_x86_64.whl", hash = "sha256:f88cc8c89a570c798b659ba5a2c29624b5ef971df7da0a3e59b6fb2de7f90e88"},
+    {file = "dawg2-0.13.2-cp313-cp313-win32.whl", hash = "sha256:0e1527e80512cbd9aa3f30824e352713744c1334caa46bb90cb14207ab592444"},
+    {file = "dawg2-0.13.2-cp313-cp313-win_amd64.whl", hash = "sha256:07e240735c3460d204ff2f4a7ac3d414145f16b99aa4f097c842b739a45d47f2"},
+    {file = "dawg2-0.13.2-cp39-cp39-macosx_10_9_universal2.whl", hash = "sha256:aa0e44b8dbe03b2b1b1524ef41823919002c6ef221b9f9864c3f68b57eb170d6"},
+    {file = "dawg2-0.13.2-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:64a7923200c299ae90f1d0689aeafaf7583d5c20268d6bc6c0b1fbe2cabda549"},
+    {file = "dawg2-0.13.2-cp39-cp39-manylinux_2_24_i686.manylinux_2_28_i686.whl", hash = "sha256:ae19d63afcae40246a3dfbb6086039b0a5173c0174c48a32b748791b3f3ff807"},
+    {file = "dawg2-0.13.2-cp39-cp39-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:acc70a4b46c55e303ef983544c2f0613a381421e0f42f9c9e6c565669fa310f1"},
+    {file = "dawg2-0.13.2-cp39-cp39-musllinux_1_2_i686.whl", hash = "sha256:3265b48eb296e33d610b7f6497a7aa1d9cb8d08e6b14b0c9e9c38b8d35d8469b"},
+    {file = "dawg2-0.13.2-cp39-cp39-musllinux_1_2_x86_64.whl", hash = "sha256:5f3080c0a9f06afbbc2c436ea3ac14fed641ea1e81a8696fffde4a9b08fa2bc8"},
+    {file = "dawg2-0.13.2-cp39-cp39-win32.whl", hash = "sha256:341d6363121072fb294d6d99b7231c4aae155446dc8baeeb55fb1a5b08e3b377"},
+    {file = "dawg2-0.13.2-cp39-cp39-win_amd64.whl", hash = "sha256:af79a70af181570c343079046496ca8c13333c5b73c8ad69c12f133866b1a816"},
+    {file = "dawg2-0.13.2.tar.gz", hash = "sha256:e34912e95dc7808eac91b1008542bb4b129ec0c5933d9e3f16a41b79395483b2"},
+]
+
+[[package]]
 name = "diskcache"
 version = "5.6.3"
 description = "Disk Cache -- Disk and file backed persistent cache."
@@ -2946,14 +2997,14 @@ files = [
 
 [[package]]
 name = "textual"
-version = "3.2.0"
+version = "3.7.1"
 description = "Modern Text User Interface framework"
 optional = false
 python-versions = "<4.0.0,>=3.8.1"
 groups = ["tui"]
 files = [
-    {file = "textual-3.2.0-py3-none-any.whl", hash = "sha256:c857c6d8dfc9aa915e09df99d227cbe1da3a7ea500b45af9f6b3ecb810c00d77"},
-    {file = "textual-3.2.0.tar.gz", hash = "sha256:d2f3b0c39e02535bb5f2aec1c45e10bd3ee7508ed1e240b7505c3cf02a6f00ed"},
+    {file = "textual-3.7.1-py3-none-any.whl", hash = "sha256:ab5d153f4f65e77017977fa150d0376409e0acf5f1d2e25e2e4ab9de6c0d61ff"},
+    {file = "textual-3.7.1.tar.gz", hash = "sha256:a76ba0c8a6c194ef24fd5c3681ebfddca55e7127c064a014128c84fbd7f5d271"},
 ]
 
 [package.dependencies]
@@ -2963,7 +3014,7 @@ rich = ">=13.3.3"
 typing-extensions = ">=4.4.0,<5.0.0"
 
 [package.extras]
-syntax = ["tree-sitter (>=0.23.0) ; python_version >= \"3.9\"", "tree-sitter-bash (>=0.23.0) ; python_version >= \"3.9\"", "tree-sitter-css (>=0.23.0) ; python_version >= \"3.9\"", "tree-sitter-go (>=0.23.0) ; python_version >= \"3.9\"", "tree-sitter-html (>=0.23.0) ; python_version >= \"3.9\"", "tree-sitter-java (>=0.23.0) ; python_version >= \"3.9\"", "tree-sitter-javascript (>=0.23.0) ; python_version >= \"3.9\"", "tree-sitter-json (>=0.24.0) ; python_version >= \"3.9\"", "tree-sitter-markdown (>=0.3.0) ; python_version >= \"3.9\"", "tree-sitter-python (>=0.23.0) ; python_version >= \"3.9\"", "tree-sitter-regex (>=0.24.0) ; python_version >= \"3.9\"", "tree-sitter-rust (>=0.23.0) ; python_version >= \"3.9\"", "tree-sitter-sql (>=0.3.0,<0.3.8) ; python_version >= \"3.9\"", "tree-sitter-toml (>=0.6.0) ; python_version >= \"3.9\"", "tree-sitter-xml (>=0.7.0) ; python_version >= \"3.9\"", "tree-sitter-yaml (>=0.6.0) ; python_version >= \"3.9\""]
+syntax = ["tree-sitter (>=0.23.0) ; python_version >= \"3.9\"", "tree-sitter-bash (>=0.23.0) ; python_version >= \"3.9\"", "tree-sitter-css (>=0.23.0) ; python_version >= \"3.9\"", "tree-sitter-go (>=0.23.0) ; python_version >= \"3.9\"", "tree-sitter-html (>=0.23.0) ; python_version >= \"3.9\"", "tree-sitter-java (>=0.23.0) ; python_version >= \"3.9\"", "tree-sitter-javascript (>=0.23.0) ; python_version >= \"3.9\"", "tree-sitter-json (>=0.24.0) ; python_version >= \"3.9\"", "tree-sitter-markdown (>=0.3.0) ; python_version >= \"3.9\"", "tree-sitter-python (>=0.23.0) ; python_version >= \"3.9\"", "tree-sitter-regex (>=0.24.0) ; python_version >= \"3.9\"", "tree-sitter-rust (>=0.23.0,<=0.23.2) ; python_version >= \"3.9\"", "tree-sitter-sql (>=0.3.0,<0.3.8) ; python_version >= \"3.9\"", "tree-sitter-toml (>=0.6.0) ; python_version >= \"3.9\"", "tree-sitter-xml (>=0.7.0) ; python_version >= \"3.9\"", "tree-sitter-yaml (>=0.6.0) ; python_version >= \"3.9\""]
 
 [[package]]
 name = "textual-dev"
@@ -3388,4 +3439,4 @@ propcache = ">=0.2.1"
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.10, !=3.11.0, <3.14"
-content-hash = "3c809f636760a5f6cd37a3357a9e3c57406b0b9fa2fcb21d1fb6ada82fd2f06c"
+content-hash = "27c71687111d4564ada67e784c048ef73e1e714b6113ad6572f031a1e6a3f913"

@@ -12,6 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from .editor import AnthologyEditor
+from .app import AnthologyApp
 
-__all__ = ["AnthologyEditor"]
+__all__ = ["AnthologyApp"]
