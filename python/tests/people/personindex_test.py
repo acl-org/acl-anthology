@@ -13,6 +13,10 @@
 # limitations under the License.
 
 import pytest
+from copy import deepcopy
+from unittest.mock import patch
+
+from acl_anthology.config import config
 from acl_anthology.exceptions import (
     AnthologyInvalidIDError,
     NameSpecResolutionError,
@@ -568,7 +572,7 @@ def test_ingest_namespec_returns_namespec(index):
 
 
 ##############################################################################
-### Tests for saving people.yaml
+### Tests for saving people.yaml & caching
 ##############################################################################
 
 
@@ -664,3 +668,30 @@ preslav-nakov:
   orcid: 0000-0002-3600-1510"""
         in out
     )
+
+
+def test_peopleindex_caching(index, tmp_path, monkeypatch):
+    monkeypatch.setattr(config, "cache_path", tmp_path / "cache")
+    monkeypatch.setattr(config, "disable_caching", False)
+    assert not index._cache_file.is_file()
+
+    with patch.object(PersonIndex, "build", wraps=index.build) as mock:
+        index.load()
+        # Should have called build()
+        mock.assert_called_once()
+
+    # Should have created the cache file
+    assert index._cache_file.is_file()
+
+    # Store _by_name mapping and reset index
+    old_index_by_name = deepcopy(index._by_name)
+    index.reset()
+    assert not index._by_name
+
+    with patch.object(PersonIndex, "build", wraps=index.build) as mock:
+        index.load()
+        # Should NOT have called build(), but used the cache file
+        mock.assert_not_called()
+
+    # Should have the same _by_name mapping as before
+    assert old_index_by_name == index._by_name
