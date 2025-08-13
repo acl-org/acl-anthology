@@ -70,6 +70,25 @@ def test_full_anthology_should_validate_schema(full_anthology):
 
 
 @pytest.mark.integration
+@pytest.mark.xfail(
+    raises=FileNotFoundError, reason="Main data folder not yet transitioned to new format"
+)
+def test_full_anthology_roundtrip_people_yaml(full_anthology, tmp_path):
+    full_anthology.people.build()
+    yaml_in = full_anthology.people.path
+    yaml_out = tmp_path / "people.yaml"
+    full_anthology.people.save(yaml_out)
+    assert yaml_out.is_file()
+    with (
+        open(yaml_in, "r", encoding="utf-8") as f,
+        open(yaml_out, "r", encoding="utf-8") as g,
+    ):
+        expected = f.read()
+        out = g.read()
+    assert out == expected
+
+
+@pytest.mark.integration
 @pytest.mark.parametrize("minimal_diff", (True, False))
 def test_full_anthology_roundtrip_xml(
     full_anthology, full_anthology_collection_id, tmp_path, minimal_diff

@@ -16,7 +16,9 @@ are some rules of thumb when making modifications to the data:
    whenever possible, rather than instantiating them directly.
 2. You can modify objects by simply modifying their attributes, as long as the
    object in question has an explicit representation in the Anthology data.
-    - This includes collections, volumes, papers, events, but not e.g. persons.
+    - This includes collections, volumes, papers, events.
+    - It also includes persons where `Person.is_explicit == True`, as those have
+      an explicit representation in `people.yaml`.
 3. Saving data is always non-destructive and will avoid introducing unnecessary
    changes (e.g. no needless reordering of XML tags).  {==This is currently only
    true & tested for XML files, not for the YAML files.==}
@@ -38,6 +40,10 @@ just fetch the paper and set its `doi` attribute:
 >>> paper = anthology.get("2022.acl-long.99")
 >>> paper.doi = '10.18653/v1/2022.acl-long.99'
 ```
+
+!!! tip "Rule of thumb"
+
+    For all `collections` objects, setting attributes should either raise a `TypeError`, or "do the right thing."  However, be careful when modifying _list_ attributes in-place, as no input validation is performed in that case.
 
 ### Simple attributes
 
@@ -65,9 +71,6 @@ date of ingestion is stored as a string, but the following will also work:
 '2025-01-08'
 ```
 
-**As a general rule, setting attributes of `collections` objects should either
-raise a `TypeError`, or "do the right thing."**
-
 ### List attributes
 
 List attributes can be modified the same way as other attributes; for example,
@@ -80,26 +83,24 @@ to the author list:
 >>> paper.authors.append(spec)
 ```
 
-To change an existing author's name, you just need to remember that names are
-immutable:
+To change an existing author's name, you just need to remember that **names are
+immutable**:
 
 ```pycon
 >>> paper.authors[0].name.first = "Marc Marcel"             # will NOT work
 >>> paper.authors[0].name = Name("Bollmann, Marc Marcel")   # works
 ```
 
-!!! danger
-
-    Input validation or conversion cannot be done when modifying mutable
-    attributes such as lists (only when _setting_ them).  That means you won't
-    get an (immediate) error if you e.g. append the wrong type of object to a
-    list attribute.
+There is **no input validation or conversion** when modifying mutable attributes
+such as lists (only when _setting_ them).  That means you won't get an
+immediate error if you e.g. append the wrong type of object to a list
+attribute!
 
 ### Things to keep in mind
 
 #### Citation keys
 If a paper's title or author list has changed, you might want to recreate its
-citation key (or 'bibkey').  This can be done by simply calling
+citation key (or 'bibkey').  This can be done by calling
 [`Paper.refresh_bibkey()`][acl_anthology.collections.paper.Paper.refresh_bibkey].
 If the auto-generated bibkey is identical to the current one, the bibkey will
 not change.
@@ -122,6 +123,35 @@ the new data.
 
 
 ## Modifying people
+
+A person can be _explicit_ (has an entry in `people.yaml`) or _inferred_ (was instantiated from a name specification without an ID).  To make modifications to persons, it is important to remember that:
+
+1. Only an _explicit_ person's attributes can be meaningfully modified.
+
+2. Changing which person a paper/volume is assigned to should be done by modifying the name specification on the paper/volume, not by changing anything on the Person object.
+
+### Creating a new person
+
+Manually creating a new person (that will get saved to `people.yaml` and can
+have an ORCID and other metadata) can be done in two ways:
+
+1. By calling [`PersonIndex.create_person()`][acl_anthology.people.index.PersonIndex.create_person].  The returned Person is _not_ linked to any papers/volumes, but you can set their ID afterwards on name specifications.
+
+2. By calling [`make_explicit()`][acl_anthology.people.person.Person.make_explicit] on a currently _inferred_ person.  This will not only add this person to the database, but also **set their ID on all papers/volumes** currently associated with them.
+
+### Merging two persons
+
+**Situation:** An author has published on multiple names, but two separate persons get instantiated for them.  Let's call them `p1` and `p2`.
+
+1. If neither of them are _explicit_ yet, we can start by calling `p1.make_explicit("their-new-author-id")`.  This will create an entry in `people.yaml` with all current names of `p1` and add the new ID to all papers and volumes currently inferred to belong to `p1`.
+
+2. Iterate through `p2.papers()` and `p2.volumes()` and add `p1`'s new ID to the name specifications that are currently resolved to `p2`.  {==TODO: It's currently a bit tricky to find the _name specification_ referring to a person; might want to make this more convenient.==}
+
+3. Save both the PersonIndex and the changed collections. {==TODO: A save-all function would be really convenient here.==}
+
+### Disambiguating a person
+
+**Situation:** A person is currently associated with papers/volumes that actually belong to different people.
 
 {==TODO==}
 
@@ -148,20 +178,52 @@ paper = volume.create_paper(
 ```
 
 All attributes that can be set on these objects can also be supplied as keyword
-parameters to the `create_` functions; alternatively, they can be set on the
-object after it has been created.
+parameters to the `create_` functions, and it is **strongly recommended to
+supply the author/editor list** here.
 
 Some required attributes don't _need_ to be supplied on these functions:
 
+- A Paper's `id` will be set to the next-highest numeric ID that doesn't already
+  exist in the volume, starting at `"1"`.
+- A Paper's `bibkey` will be automatically generated if not explicitly set.
 - A Volume's `year` attribute will be derived from the collection ID (e.g.,
   `"2049"` in a collection with ID `"2049.acl"`).
 - A Volume's `type` will default to
   [PROCEEDINGS][acl_anthology.collections.types.VolumeType].
-- A Paper's `id` will be set to the next-highest numeric ID that doesn't already
-  exist in the volume, starting at `"1"`.
-- A Paper's `bibkey` will be automatically generated if not explicitly set.
-  (But if you didn't supply an `authors` list when creating the paper, you will
-  want to call `refresh_bibkey()` on the Paper after setting the authors.)
+
+??? info "If you don't supply an author list here..."
+
+    If you don't supply `authors` or `editors` when calling a `create_` function, or you need to modify those afterwards for some reason, you will need to perform these steps manually (which are otherwise handled by the `create_` function):
+
+    - Call `anthology.people.ingest_namespec()` on each NameSpecification.
+    - Call `refresh_bibkey()` on the Paper.
+
+### Specifying authors
+
+Authors need to be specified by creating [name
+specifications](accessing-authors.md#name-specifications), for example:
+
+```python
+NameSpecification(Name("Marcel", "Bollmann"), orcid="0000-0003-2598-8150")
+```
+
+If an ORCID is supplied, the NameSpecification also needs to have an explicit ID
+referring to an entry in the author database (`people.yaml`).  **The library
+handles this automatically** as long as you supply the author/editor list to the
+`create_` function.
+
+For example, if you create a paper in the following way...
+
+```python
+paper = volume.create_paper(
+    title=MarkupText.from_string("The past and future of the ACL Anthology"),
+    authors=[NameSpecification(Name("Marcel", "Bollmann"), orcid="0000-0003-2598-8150")],
+)
+```
+
+...the name specification will automatically be updated with an ID referring to
+the person with the supplied ORCID, creating this person (and a new person ID)
+in `people.yaml` if necessary.
 
 ### New events
 
@@ -187,6 +249,11 @@ the gory details), it's best to ensure that:
    `event.add_colocated(volume)`.
 
 
+### Connecting to venues and SIGs
+
+{==TODO==}
+
+
 ### Parsing markup
 
 MarkupText can be instantiated from strings representing LaTeX via
@@ -199,6 +266,7 @@ interpreted as starting a LaTeX comment, and apply a heuristic to decide if a
 tilde `~` should be interpreted as a literal character or as a LaTeX
 non-breaking space.
 
+{==TODO: fixed-casing==}
 
 
 ## Saving changes
@@ -213,4 +281,7 @@ non-breaking space.
   non-destructive through [integration tests on the entire Anthology
   data](https://github.com/acl-org/acl-anthology/blob/master/python/tests/anthology_integration_test.py).
 
-{==TODO: changes to YAML files, `Anthology.save_all()`, etc. ==}
+- **Changes to the person database (`people.yaml`)** can be saved by calling
+  [`PersonIndex.save()`][acl_anthology.people.index.PersonIndex.save].
+
+{==TODO: changes to other YAML files, `Anthology.save_all()`, etc. ==}
