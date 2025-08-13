@@ -16,12 +16,7 @@
 
 from attrs import define
 from omegaconf import OmegaConf
-from pathlib import Path
 from platformdirs import PlatformDirs
-
-
-dirs = PlatformDirs("acl-anthology")
-"""A [PlatformDirs instance](https://platformdirs.readthedocs.io/en/latest/api.html#platformdirs) that returns platform-specific directories for storing data."""
 
 
 @define
@@ -56,12 +51,9 @@ class DefaultConfig:
     disable_gc: bool = True
     """If True, disables garbage collection while parsing XML files and building indices.  This typically results in a considerable speed-up, but if it happens to cause problems, it can be disabled here."""
 
-    cache_path: Path = dirs.user_cache_path
-    """Path where cache files should be saved/loaded."""
-
-    disable_caching: bool = False
-    """If True, disables both saving & loading of cache files."""
-
 
 config = OmegaConf.structured(DefaultConfig)
 """A [structured configuration instance](https://omegaconf.readthedocs.io/en/latest/structured_config.html) that is used by all `acl_anthology` classes."""
+
+dirs = PlatformDirs("acl-anthology")
+"""A [PlatformDirs instance](https://platformdirs.readthedocs.io/en/latest/api.html#platformdirs) that returns platform-specific directories for storing data."""

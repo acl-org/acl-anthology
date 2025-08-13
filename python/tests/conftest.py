@@ -20,10 +20,7 @@ from unittest.mock import Mock
 
 pytest.register_assert_rewrite("acl_anthology.utils.xml")
 
-from acl_anthology import Anthology, config  # noqa: E402
-
-# Disable caching by default when testing
-config.disable_caching = True
+from acl_anthology import Anthology  # noqa: E402
 
 
 class AnthologyStub:
