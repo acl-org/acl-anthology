@@ -27,13 +27,19 @@ Options:
   -h, --help               Display this helpful text.
 """
 
+import concurrent.futures
 import datetime
 from docopt import docopt
 import gzip
 import logging as log
+import os
+import msgspec
 from pathlib import Path
 import re
 from rich.progress import track
+import shutil
+import subprocess
+
 
 from acl_anthology import config
 from acl_anthology.utils.ids import infer_year
@@ -101,7 +107,7 @@ def create_bibtex(builddir, clean=False) -> None:
             )
             concise_contents = re.sub(
                 rf'url = "{config.url_prefix}/(.*)"',
-                rf"url = {abbrev_url} # {\1}",
+                rf"url = {abbrev_url} # {{\1}}",
                 concise_contents,
             )
 
