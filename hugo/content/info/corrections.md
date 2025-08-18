@@ -97,7 +97,7 @@ For requests to change paper *content* (either a revision or an erratum), again,
 	Its intended audience is users of the Anthology, and should therefore be written from a neutral, scientific perspective.
 - If the metadata also needs to change, please also follow the instructions in the previous section.
 - If possible, when generating your revision, it would be good to add the proper proceedings header and footer stamps, as well as the correct page numbering.
-  Unfortunately, we cannot provide any assistance with this task.
+  Unfortunately, we cannot provide any assistance with this task, but [this template from the ACLPUB2 repo](https://github.com/rycolab/aclpub2/blob/main/aclpub2/templates/watermarked_pdf.tex) may be helpful for this.
 
 For revisions, the brief summary should allow readers to find the changed parts, but need not be too detailed.
 Here are some good examples:
