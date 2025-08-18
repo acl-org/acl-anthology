@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 
 """Usage: update_author-page_issues.py
 
@@ -8,10 +9,11 @@ Set your OS environment variable "GITHUB_TOKEN" to your personal token or hardco
 """
 
 import os
+import textwrap
 import requests
 
 # Configuration
-GITHUB_TOKEN = os.getenv("GITHUB_TOKEN") #Can hardcode token here
+GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")  # Can hardcode token here
 REPO_OWNER = 'acl-org'
 REPO_NAME = 'acl-anthology'
 
@@ -20,8 +22,9 @@ BASE_URL = f'https://api.github.com/repos/{REPO_OWNER}/{REPO_NAME}'
 
 HEADERS = {
     'Authorization': f'token {GITHUB_TOKEN}',
-    'Accept': 'application/vnd.github.v3+json'
+    'Accept': 'application/vnd.github.v3+json',
 }
+
 
 def get_issues_with_title(title):
     issues_url = f'{BASE_URL}/issues'
@@ -41,12 +44,14 @@ def get_issues_with_title(title):
 
     return issues
 
+
 def add_comment_to_issue(issue_number, comment):
     url = f'{BASE_URL}/issues/{issue_number}/comments'
     payload = {'body': comment}
     response = requests.post(url, headers=HEADERS, json=payload)
     response.raise_for_status()
     print(f'Comment added to issue #{issue_number}')
+
 
 def edit_body_of_issue(issue_number, new_body):
     url = f'https://api.github.com/repos/{REPO_OWNER}/{REPO_NAME}/issues/{issue_number}'
@@ -55,25 +60,63 @@ def edit_body_of_issue(issue_number, new_body):
     response.raise_for_status()
     print(f'Edited body of issue (ID: {issue_number}) updated.')
 
-def main():
+
+def main(issue_ids):
     print('🔎 Fetching issues...')
-    issues = get_issues_with_title("Author Page:")
+    issues = get_issues_with_title("Author Page:") + get_issues_with_title("Author Metadata:")
+    print(f"Found {len(issues)} issues.")
 
     for issue in issues:
         number = issue["number"]
-        print(f'---\nProcessing issue #{number}: {issue["title"]}')
-        
 
-        
+        if issue_ids and number not in issue_ids:
+            # print(f"Skipping issue #{number}: {issue['title']}")
+            continue
+
+        print(f'---\nProcessing issue #{number}: {issue["title"]}')
+
         issue_body = issue["body"]
         if "### Author ORCID" not in issue_body:
             issue_body_list = issue_body.split("### Type of Author Metadata Correction")
-            issue_body_list.insert(1, "### Author ORCID\n\n-Add ORCID here-\n\n### Institution of highest (anticipated) degree\n\n-Add insitution here-\n\n### Author Name (only if published in another script)\n\n -add author name here if needed-\n\n### Is the author's name read right to left? (only if published in another script)\n\n- [ ] Script is read right-to-left.\n\n### Type of Author Metadata Correction")
+            issue_body_list.insert(
+                1,
+                textwrap.dedent("""
+                    ### Author ORCID
+
+                    -Add ORCID here-
+
+                    ### Institution of highest (anticipated) degree
+
+                    -Add insitution here-
+                                
+                    ### Your papers (if required, see comment below)
+                    
+                    -Provide Anthology IDs or Anthology URLs here-
+
+                    ### Type of Author Metadata Correction
+                """),
+            )
             issue_body = "".join(issue_body_list)
             edit_body_of_issue(number, issue_body)
-            
-            add_comment_to_issue(number, "Hi! We have just added a few new fields to help us manage our author database and decrease ambiguity on future imports. Please fill out the fields that have been added to the body of this issue, and leave a comment when you are finished. We will then proceed with processing this request.")
+
+            add_comment_to_issue(
+                number,
+                textwrap.dedent("""
+                    Hello: we are attempting to close out a large backlog of author page requests. As part of these efforts,
+                    we are collecting additional information which will help us assign papers to the correct author
+                    in the future. Please modify the updated description above with the requested information.
+
+                    If you are requesting to split an author page (i.e., your page has some papers that are not yours),
+                    please also provide a list of your papers, in the form of Anthology IDs or URLS 
+                    (e.g., 2023.wmt-1.13 or https://aclanthology.org/2023.wmt-1.13/).
+                """)
+            )
 
 
 if __name__ == '__main__':
-    main()
+    import argparse
+    parser = argparse.ArgumentParser(description='Update author page issues')
+    parser.add_argument('issue_ids', nargs='+', type=int, help='List of issue IDs to update')
+    args = parser.parse_args()
+
+    main(args.issue_ids)
