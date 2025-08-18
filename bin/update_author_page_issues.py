@@ -63,7 +63,9 @@ def edit_body_of_issue(issue_number, new_body):
 
 def main(issue_ids):
     print('🔎 Fetching issues...')
-    issues = get_issues_with_title("Author Metadata:") + get_issues_with_title("Author Page:")
+    issues = get_issues_with_title("Author Metadata:") + get_issues_with_title(
+        "Author Page:"
+    )
     print(f"Found {len(issues)} issues.")
 
     for issue in issues:
@@ -81,7 +83,8 @@ def main(issue_ids):
             issue_body_list = issue_body.split("### Type of Author Metadata Correction")
             issue_body_list.insert(
                 1,
-                textwrap.dedent("""
+                textwrap.dedent(
+                    """
                     ### Author ORCID
 
                     -Add ORCID here-
@@ -95,25 +98,31 @@ def main(issue_ids):
                     -Provide Anthology IDs or Anthology URLs here-
 
                     ### Type of Author Metadata Correction
-                """),
+                """
+                ),
             )
             issue_body = "".join(issue_body_list)
             edit_body_of_issue(number, issue_body)
 
             add_comment_to_issue(
                 number,
-                textwrap.dedent("""
+                textwrap.dedent(
+                    """
                     Hello: we are attempting to close out a large backlog of author page requests. As part of these efforts, we are collecting additional information ([ORCID](https://orcid.org/) and degree institution) which will help us assign papers to the correct author in the future. Please modify the updated description above with the requested information.
 
                     If you are requesting to split an author page (i.e., your page has some papers that are not yours), please also provide a list of your papers, in the form of Anthology IDs or URLS (e.g., 2023.wmt-1.13 or https://aclanthology.org/2023.wmt-1.13/). We are unable to match papers to Google or Semantic Scholar profiles.
-                """)
+                """
+                ),
             )
 
 
 if __name__ == '__main__':
     import argparse
+
     parser = argparse.ArgumentParser(description='Update author page issues')
-    parser.add_argument('issue_ids', nargs='*', type=int, help='List of issue IDs to update')
+    parser.add_argument(
+        'issue_ids', nargs='*', type=int, help='List of issue IDs to update'
+    )
     args = parser.parse_args()
 
     main(args.issue_ids)
