@@ -20,6 +20,7 @@ from lxml import etree
 from lxml.builder import E
 from typing import Any, Iterator, Optional, TYPE_CHECKING
 
+from .types import EventLinkingType
 from ..constants import RE_EVENT_ID
 from ..files import EventFileReference
 from ..people import NameSpecification
@@ -99,7 +100,7 @@ class Event:
         is_explicit: True if this event was defined explicitly in the XML.
 
     Attributes: List Attributes:
-        colocated_ids: Volume IDs of proceedings that were colocated with this event.
+        colocated_ids: Tuples of volume IDs and their [`EventLinkingType`][acl_anthology.collections.types.EventLinkingType] that are colocated with this event.
         links: Links to materials for this event paper. The dictionary key specifies the type of link (e.g., "handbook" or "website").
         talks: Zero or more references to talks belonging to this event.
 
@@ -113,9 +114,9 @@ class Event:
     parent: Collection = field(repr=False, eq=False)
     is_explicit: bool = field(default=False, converter=bool)
 
-    colocated_ids: list[AnthologyIDTuple] = field(
+    colocated_ids: list[tuple[AnthologyIDTuple, EventLinkingType]] = field(
         factory=list,
-        repr=lambda x: f"<list of {len(x)} AnthologyIDTuple objects>",
+        repr=lambda x: f"<list of {len(x)} tuples>",
     )
     links: dict[str, EventFileReference] = field(factory=dict, repr=False)
     talks: list[Talk] = field(
@@ -143,7 +144,7 @@ class Event:
 
     def volumes(self) -> Iterator[Volume]:
         """Returns an iterator over all volumes co-located with this event."""
-        for anthology_id in self.colocated_ids:
+        for anthology_id, _ in self.colocated_ids:
             volume = self.root.get_volume(anthology_id)
             if volume is None:
                 raise ValueError(
@@ -152,13 +153,18 @@ class Event:
                 )
             yield volume
 
-    def add_colocated(self, volume: Volume | AnthologyID) -> None:
+    def add_colocated(
+        self,
+        volume: Volume | AnthologyID,
+        type_: EventLinkingType = EventLinkingType.EXPLICIT,
+    ) -> None:
         """Add a co-located volume to this event.
 
-        Will do nothing if the given volume is already co-located with this event.
+        If the given volume is already co-located with this event and type_ is 'explicit', this will change its type to 'explicit'; otherwise, it will do nothing.
 
         Parameters:
             volume: The ID or Volume object to co-locate with this event.
+            type_: Whether this volume is/should be explicitly linked in the XML or is inferred. (Defaults to 'explicit'.)
         """
         from .volume import Volume
 
@@ -167,10 +173,16 @@ class Event:
         else:
             volume_id = parse_id(volume)
 
-        if volume_id in self.colocated_ids:
-            return
+        for idx, (existing_id, existing_type) in enumerate(self.colocated_ids):
+            if volume_id == existing_id:
+                if (
+                    existing_type == EventLinkingType.INFERRED
+                    and type_ == EventLinkingType.EXPLICIT
+                ):
+                    self.colocated_ids[idx] = (volume_id, type_)
+                return
 
-        self.colocated_ids.append(volume_id)
+        self.colocated_ids.append((volume_id, type_))
 
         # Update the event index as well
         if self.root.events.is_data_loaded:
@@ -201,7 +213,7 @@ class Event:
                 kwargs["talks"].append(Talk.from_xml(element))
             elif element.tag == "colocated":
                 kwargs["colocated_ids"] = [
-                    parse_id(str(volume_id.text))
+                    (parse_id(str(volume_id.text)), EventLinkingType.EXPLICIT)
                     for volume_id in element
                     if volume_id.tag == "volume-id"
                 ]
@@ -239,10 +251,11 @@ class Event:
         # <colocated>
         if self.colocated_ids:
             colocated = E.colocated()
-            for id_tuple in self.colocated_ids:
-                if id_tuple[0] != self.parent.id:
+            for id_tuple, el_type in self.colocated_ids:
+                if el_type == EventLinkingType.EXPLICIT:
                     colocated.append(
                         getattr(E, "volume-id")(build_id_from_tuple(id_tuple))
                     )
-            elem.append(colocated)
+            if len(colocated):
+                elem.append(colocated)
         return elem
