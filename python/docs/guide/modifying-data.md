@@ -130,6 +130,14 @@ A person can be _explicit_ (has an entry in `people.yaml`) or _inferred_ (was in
 
 2. Changing which person a paper/volume is assigned to should be done by modifying the name specification on the paper/volume, not by changing anything on the Person object.
 
+??? info "A note on terminology"
+
+    Within the library, the term **explicit** refers to a person that has an entry in `people.yaml`, whereas **inferred** refers to a person that was instantiated automatically while loading the XML data files (and has no entry in `people.yaml`).
+
+    Currently, all inferred persons have IDs beginning with `unverified/`, while IDs of explicit persons _must not_ begin with `unverified/`.
+
+    In practice, this means that "inferred" persons are currently equivalent to "unverified" persons, but the library intentionally uses terminology that is agnostic to the semantics of the ID.  If the semantics of whom we consider "(un)verified" change, the terminology in the library needn't change, as it only refers to the technical aspect of where the ID came from (`people.yaml` vs. implicit instantiation).
+
 ### Creating a new person
 
 Manually creating a new person (that will get saved to `people.yaml` and can
@@ -139,49 +147,40 @@ have an ORCID and other metadata) can be done in two ways:
 
 2. By calling [`make_explicit()`][acl_anthology.people.person.Person.make_explicit] on a currently _inferred_ person.  This will not only add this person to the database, but also **set their ID on all papers/volumes** currently associated with them.
 
-### Merging two persons
+### Example: Merging two persons
 
-**Situation:** An author has published on multiple names, but two separate persons get instantiated for them.  Let's call them `p1` and `p2`.
+**Situation:** An author has published under multiple names, and therefore two separate persons get instantiated for them (let's call them `p1` and `p2`).  We want to merge them into a single person.
 
-1. If neither of them are _explicit_ yet, we can start by calling `p1.make_explicit("their-new-author-id")`.  This will create an entry in `people.yaml` with all current names of `p1` and add the new ID to all papers and volumes currently inferred to belong to `p1`.
+1. If neither `p1` nor `p2` are _explicit_: Call [`p1.make_explicit()`][acl_anthology.people.person.Person.make_explicit].  This will create an entry in `people.yaml` with all current names of `p1` and add the new ID to all papers and volumes currently inferred to belong to `p1`.
 
-2. Iterate through `p2.papers()` and `p2.volumes()` and add `p1`'s new ID to the name specifications that are currently resolved to `p2`.  {==TODO: It's currently a bit tricky to find the _name specification_ referring to a person; might want to make this more convenient.==}
+2. Iterate through `p2.papers()` and `p2.volumes()` {==(TODO: a function to iterate through all items, no matter the type)==} and add `p1`'s new ID to the name specifications that are currently resolved to `p2`.  {==TODO: It's currently a bit tricky to find the _name specification_ referring to a person; should add a function for this.==}
 
-3. Save both the PersonIndex and the changed collections. {==TODO: A save-all function would be really convenient here.==}
+3. Save both the PersonIndex and the changed collections. {==TODO: The library current cannot track which collections have actually changed, so there is no "save all" function yet.==}
 
-### Disambiguating a person
+### Example: Disambiguating a person
 
-**Situation:** A person is currently associated with papers/volumes that actually belong to different people.
+**Situation:** A person `p1` is currently associated with papers/volumes that actually belong to different people, who just happened to publish under the same name.  We want to create a new person instance for the other author with the same name.
 
-{==TODO==}
+1. Call [`anthology.people.create_person()`][acl_anthology.people.index.PersonIndex.create_person] for all persons who do not have an explicit ID yet, giving all the names that can refer to this person.  Also supply the ORCID when calling this function, if it is known.
+
+2. For each person, iterate through the papers that actually belong to them and update the name specification that currently resolves to `p1` by setting the explicit ID of the correct newly-created person.  {==TODO: Same as above: It's currently a bit tricky to find the _name specification_ referring to a person; should add a function for this.==}
 
 
 ## Ingesting new proceedings
 
-{==TODO==}
+Proceedings can be ingested almost entirely via functionality from this library;
+in particular, no data files (XML or YAML) need to be saved manually.  _(The
+only functionality that is currently not part of this library is the fixed-caser
+for paper titles, which is described below.)_
 
 ### New collections, volumes, and papers
 
 Creating new objects from `acl_anthology.collections` should be done with
-`create_` functions from their respective parent objects.  Here is a minimal
-example to create a new paper in an entirely new collection:
+`create_` functions from their respective parent objects.
 
-```python
-collection = anthology.create_collection("2049.acl")
-volume = collection.create_volume(
-    id="long",
-    title=MarkupText.from_string("Proceedings of the ..."),
-)
-paper = volume.create_paper(
-    title=MarkupText.from_string("GPT-5000 is all you need")
-)
-```
-
-All attributes that can be set on these objects can also be supplied as keyword
-parameters to the `create_` functions, and it is **strongly recommended to
-supply the author/editor list** here.
-
-Some required attributes don't _need_ to be supplied on these functions:
+All attributes that can be set on these objects (Volumes, Papers, etc.) can also
+be supplied as keyword parameters to the `create_` functions.  Some required
+attributes don't _need_ to be supplied here:
 
 - A Paper's `id` will be set to the next-highest numeric ID that doesn't already
   exist in the volume, starting at `"1"`.
@@ -191,12 +190,58 @@ Some required attributes don't _need_ to be supplied on these functions:
 - A Volume's `type` will default to
   [PROCEEDINGS][acl_anthology.collections.types.VolumeType].
 
+However, it is **strongly recommended to supply the author/editor list** when
+calling a `create_` function, as this will resolve person IDs and create correct
+bibkeys automatically.
+
+!!! example
+
+    Here is an example for how to create a new paper in an entirely new collection:
+
+    ```python
+    collection = anthology.create_collection("2049.acl")
+    volume = collection.create_volume(
+        id="long",
+        title=MarkupText.from_latex_maybe("Proceedings of the ..."),
+        venue_ids=["acl"],
+    )
+    paper = volume.create_paper(
+        title=MarkupText.from_latex_maybe("GPT$^{\\infty}$ is all you need"),
+        authors=[NameSpecification(first="John", last="Doe")],
+    )
+    ```
+
+    When all volumes and papers have been added, the XML file is written by calling:
+
+    ```python
+    collection.save()
+    ```
+
 ??? info "If you don't supply an author list here..."
 
     If you don't supply `authors` or `editors` when calling a `create_` function, or you need to modify those afterwards for some reason, you will need to perform these steps manually (which are otherwise handled by the `create_` function):
 
     - Call `anthology.people.ingest_namespec()` on each NameSpecification.
     - Call `refresh_bibkey()` on the Paper.
+
+### Specifying titles and abstracts
+
+Paper titles and abstracts always need to be **supplied as [MarkupText][acl_anthology.text.markuptext.MarkupText]**.  Simple strings can be instantiated with [`MarkupText.from_string()`][acl_anthology.text.markuptext.MarkupText.from_string].  For titles and abstracts containing LaTeX commands, [`MarkupText.from_latex()`][acl_anthology.text.markuptext.MarkupText.from_latex] can be used.  In practice, however, it may be unknown if text actually contains LaTeX markup.  In that case, using [`MarkupText.from_latex_maybe()`][acl_anthology.text.markuptext.MarkupText.from_latex_maybe] may be preferable, which will e.g. prevent percentage signs `%` from being interpreted as starting a LaTeX comment, and apply a heuristic to decide if a tilde `~` should be interpreted as a literal character or as a LaTeX non-breaking space.  {==TODO: We might want to make `as_latex_maybe()` the default instantiator for MarkupText, which would greatly simplify the instantiation of this in what is probably the most common use case.==}
+
+Paper titles should also have our **fixed-casing algorithm** applied to protect certain characters e.g. by wrapping them in braces in BibTeX entries.  **The fixed-caser is currently not part of this Python library.**  There are two options for running the fixed-casing on a new ingestion:
+
+1. _Outside the ingestion script:_ Run [`bin/fixedcase/protect.py`](https://github.com/acl-org/acl-anthology/blob/master/bin/fixedcase/protect.py) on the new XML files produced by the ingestion script.
+
+2. _Within the ingestion script:_ Convert titles to XML, run `fixedcase.protect()`, then set the title again from the modified XML element:
+
+    ```python
+    import fixedcase
+
+    xml_title = paper.title.to_xml("title")
+    fixedcase.protect(xml_title)
+    paper.title = MarkupText.from_xml(xml_title)
+    ```
+
 
 ### Specifying authors
 
@@ -208,22 +253,27 @@ NameSpecification(Name("Marcel", "Bollmann"), orcid="0000-0003-2598-8150")
 ```
 
 If an ORCID is supplied, the NameSpecification also needs to have an explicit ID
-referring to an entry in the author database (`people.yaml`).  **The library
-handles this automatically** as long as you supply the author/editor list to the
-`create_` function.
+referring to an entry in `people.yaml`.  **The library can add an ID
+automatically** as long as you supply the author/editor list to the `create_`
+function, so there is typically **no need to call `create_person()`** during
+ingestion!
 
-For example, if you create a paper in the following way...
+!!! example
 
-```python
-paper = volume.create_paper(
-    title=MarkupText.from_string("The past and future of the ACL Anthology"),
-    authors=[NameSpecification(Name("Marcel", "Bollmann"), orcid="0000-0003-2598-8150")],
-)
-```
+    If you create a paper in the following way...
 
-...the name specification will automatically be updated with an ID referring to
-the person with the supplied ORCID, creating this person (and a new person ID)
-in `people.yaml` if necessary.
+    ```python
+    paper = volume.create_paper(
+        title=MarkupText.from_string("The past and future of the ACL Anthology"),
+        authors=[NameSpecification(Name("Marcel", "Bollmann"), orcid="0000-0003-2598-8150")],
+    )
+    ```
+
+    ...the name specification will automatically be updated with an ID referring to this person in one of two ways:
+
+    - If a person with this ORCID already exists in `people.yaml`, their ID will be filled in.
+    - If a person with this ORCID does not exist in `people.yaml`, a new entry with this ORCID will be added to `people.yaml` with an auto-generated person ID.  The ID is a slug of the person's name; if necessary to avoid an ID clash, the last four digits of their ORCID will be appended.
+
 
 ### New events
 
@@ -251,22 +301,9 @@ the gory details), it's best to ensure that:
 
 ### Connecting to venues and SIGs
 
-{==TODO==}
+Volumes can be connected to venues by modifying the volume's `venue_ids` list. {==TODO: adding new venues==}
 
-
-### Parsing markup
-
-MarkupText can be instantiated from strings representing LaTeX via
-[`MarkupText.from_latex()`][acl_anthology.text.markuptext.MarkupText.from_latex].
-This can be useful for titles and abstracts if they contain LaTeX commands, but
-in practice, it may be unknown if they actually do.  In that case, using
-[`MarkupText.from_latex_maybe()`][acl_anthology.text.markuptext.MarkupText.from_latex_maybe]
-may be preferable, which will e.g. prevent percentage signs `%` from being
-interpreted as starting a LaTeX comment, and apply a heuristic to decide if a
-tilde `~` should be interpreted as a literal character or as a LaTeX
-non-breaking space.
-
-{==TODO: fixed-casing==}
+{==TODO: connecting to SIGs; we may want to refactor how SIGs are represented before introducing this functionality.==}
 
 
 ## Saving changes
