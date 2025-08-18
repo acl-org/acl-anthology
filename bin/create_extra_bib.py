@@ -140,7 +140,7 @@ def create_bibtex(builddir, clean=False) -> None:
             # Remove whitespace to save space and keep things under 50 MB
             concise_contents = re.sub(r",\n +", ",", concise_contents)
             concise_contents = re.sub(r"  and\n +", " and ", concise_contents)
-            concise_contents = re.sub(r",\n}", "}", concise_contents)
+            concise_contents = re.sub(r",?\n}", "}", concise_contents)
 
             print(concise_contents, file=file_anthology_raw)
 
