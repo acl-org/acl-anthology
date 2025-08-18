@@ -304,7 +304,7 @@ class Collection(SlottedDict[Volume]):
             minimal_diff: If True (default), will compare against an existing XML file in `self.path` to minimize the difference, i.e., to prevent noise from changes in the XML that make no semantic difference.  See [`utils.xml.ensure_minimal_diff`][acl_anthology.utils.xml.ensure_minimal_diff] for details.
         """
         if path is None:
-            path = self.path
+            path = self.path  # pragma: no cover
         collection = etree.Element("collection", {"id": self.id})
         for volume in self.volumes():
             collection.append(volume.to_xml(with_papers=True))

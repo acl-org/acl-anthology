@@ -27,6 +27,7 @@ This release implements the new [name resolution and author ID logic](https://gi
   - Changed the type of exceptions that can be raised; `AmbiguousNameError` was replaced by `NameSpecResolutionError` and `PersonDefinitionError`.
   - Changed the previously experimental `save()` function to serialize the `people.yaml` file.
 - Person now stores names as tuples of `(Name, NameLink)`, the latter of which indicates if the name was explicitly defined in `people.yaml` or inferred by the name resolution logic (e.g. via slug matching).  As a consequence, `Person.names` can no longer be modified in-place; use `Person.add_name()`, `Person.remove_name()`, or the setter of `Person.names`.
+- Setting a canonical name for a Person changed from `.set_canonical_name()` to `Person.canonical_name = ...`
 
 ## [0.5.3] — 2025-06-22
 

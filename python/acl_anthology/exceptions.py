@@ -117,4 +117,4 @@ class SchemaMismatchWarning(UserWarning):
         super().__init__(
             "Data directory contains a different schema.rnc as this library; "
             "you might need to update the data or the acl-anthology library."
-        )
+        )  # pragma: no cover

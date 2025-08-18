@@ -13,7 +13,11 @@
 # limitations under the License.
 
 import pytest
-from acl_anthology.exceptions import NameSpecResolutionError, PersonDefinitionError
+from acl_anthology.exceptions import (
+    AnthologyInvalidIDError,
+    NameSpecResolutionError,
+    PersonDefinitionError,
+)
 from acl_anthology.people import Name, NameLink, NameSpecification, Person, PersonIndex
 
 
@@ -24,7 +28,7 @@ def index_stub(anthology_stub):
 
 @pytest.fixture
 def index(anthology):
-    return PersonIndex(anthology)
+    return anthology.people
 
 
 def test_load_people_index(index_stub):
@@ -110,6 +114,15 @@ def test_build_personindex_automatically(index):
     assert len(persons) == 1
 
 
+@pytest.mark.parametrize(
+    "name", ("by_orcid", "by_name", "similar", "slugs_to_verified_ids")
+)
+def test_build_personindex_automatically_on_property_access(index, name):
+    assert not index.is_data_loaded
+    _ = getattr(index, name)
+    assert index.is_data_loaded
+
+
 def test_canonical_name_never_has_script(index):
     for person in index.values():
         assert person.canonical_name.script is None
@@ -166,6 +179,15 @@ def test_get_by_orcid(index):
     assert index.get_by_orcid("0000-0000-0000-0000") is None
 
 
+def test_change_orcid(index):
+    person = index.get_by_orcid("0000-0003-2598-8150")
+    assert person is not None
+    assert person.id == "marcel-bollmann"
+    person.orcid = "0000-0002-2909-0906"
+    assert index.get_by_orcid("0000-0003-2598-8150") is None
+    assert index.get_by_orcid("0000-0002-2909-0906") is person
+
+
 def test_create_person(index):
     person = index.create_person(
         id="matt-post",
@@ -184,6 +206,30 @@ def test_create_person_should_fail_on_duplicate_orcid(index):
             id="marcel-bollmann-twin",
             names=[Name("Marcel", "Bollmann")],
             orcid="0000-0003-2598-8150",  # already assigned to "marcel-bollmann"
+        )
+
+
+def test_create_person_should_fail_on_duplicate_id(index):
+    with pytest.raises(AnthologyInvalidIDError):
+        index.create_person(
+            id="marcel-bollmann",  # already exists
+            names=[Name("Marcel", "Bollmann")],
+        )
+
+
+def test_create_person_should_fail_on_unverified_id(index):
+    with pytest.raises(AnthologyInvalidIDError):
+        index.create_person(
+            id="unverified/john-doe",  # cannot create this manually
+            names=[Name("John", "Doe")],
+        )
+
+
+def test_create_person_should_fail_on_empty_names(index):
+    with pytest.raises(ValueError):
+        index.create_person(
+            id="john-doe-new",
+            names=[],  # cannot be empty
         )
 
 

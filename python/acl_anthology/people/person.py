@@ -148,7 +148,22 @@ class Person:
 
     @canonical_name.setter
     def canonical_name(self, name: Name) -> None:
-        self.set_canonical_name(name)
+        self._set_canonical_name(name)
+
+    def _set_canonical_name(self, name: Name, inferred: bool = False) -> None:
+        """Set the canonical name for this person.
+
+        Outside of the library, use Person.canonical_name = ...
+
+        Parameters:
+            name: Name that should be treated as canonical for this person.
+            inferred: Marks the canonical name as inferred (used inside the name slug matching algorithm).
+        """
+        link_type = NameLink.INFERRED if inferred else NameLink.EXPLICIT
+        if not self.has_name(name):
+            self._names.insert(0, (name, link_type))
+        else:
+            self._names = [(name, link_type)] + [x for x in self._names if x[0] != name]
 
     def add_name(self, name: Name, inferred: bool = False) -> None:
         """Add a name for this person.
@@ -191,18 +206,6 @@ class Person:
             True if the given name can refer to this person.
         """
         return any(existing_name == name for (existing_name, _) in self._names)
-
-    def set_canonical_name(self, name: Name, inferred: bool = False) -> None:
-        """Set the canonical name for this person.
-
-        Parameters:
-            name: Name that should be treated as canonical for this person.
-        """
-        link_type = NameLink.INFERRED if inferred else NameLink.EXPLICIT
-        if not self.has_name(name):
-            self._names.insert(0, (name, link_type))
-        else:
-            self._names = [(name, link_type)] + [x for x in self._names if x[0] != name]
 
     def make_explicit(self, new_id: str) -> None:
         """Turn this person that was implicitly created into an explicitly-represented one.

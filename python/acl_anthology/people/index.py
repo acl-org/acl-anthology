@@ -271,7 +271,7 @@ class PersonIndex(SlottedDict[Person]):
         if raised_exception:
             raise Exception(
                 "An exception was raised while building PersonIndex; check the logger for details."
-            )
+            )  # pragma: no cover
         self.is_data_loaded = True
 
     def _load_people_index(self) -> None:
@@ -553,7 +553,7 @@ class PersonIndex(SlottedDict[Person]):
                         # one, we also assume we should set this as the
                         # canonical one
                         if name.score() > person.canonical_name.score():
-                            person.set_canonical_name(name, inferred=True)
+                            person._set_canonical_name(name, inferred=True)
                         else:
                             person.add_name(name, inferred=True)
                         self._by_name[name].append(pid)
@@ -598,7 +598,7 @@ class PersonIndex(SlottedDict[Person]):
             path: The filename to save to. If None, defaults to the parent Anthology's `people.yaml` file.
         """
         if path is None:
-            path = self.path
+            path = self.path  # pragma: no cover
 
         data = {}
         for person in self.values():
