@@ -68,12 +68,13 @@ def main(issue_ids):
 
     for issue in issues:
         number = issue["number"]
+        title = issue["title"]
 
         if issue_ids and number not in issue_ids:
             # print(f"Skipping issue #{number}: {issue['title']}")
             continue
 
-        print(f'---\nProcessing issue #{number}: {issue["title"]}')
+        print(f'---\nProcessing issue #{number}: {title}')
 
         issue_body = issue["body"]
         if "### Author ORCID" not in issue_body:
@@ -102,14 +103,9 @@ def main(issue_ids):
             add_comment_to_issue(
                 number,
                 textwrap.dedent("""
-                    Hello: we are attempting to close out a large backlog of author page requests. As part of these efforts,
-                    we are collecting additional information ([ORCID](https://orcid.org/) and degree institution) which will 
-                    help us assign papers to the correct author in the future. Please modify the updated description above 
-                    with the requested information.
+                    Hello: we are attempting to close out a large backlog of author page requests. As part of these efforts, we are collecting additional information ([ORCID](https://orcid.org/) and degree institution) which will help us assign papers to the correct author in the future. Please modify the updated description above with the requested information.
 
-                    If you are requesting to split an author page (i.e., your page has some papers that are not yours),
-                    please also provide a list of your papers, in the form of Anthology IDs or URLS 
-                    (e.g., 2023.wmt-1.13 or https://aclanthology.org/2023.wmt-1.13/).
+                    If you are requesting to split an author page (i.e., your page has some papers that are not yours), please also provide a list of your papers, in the form of Anthology IDs or URLS (e.g., 2023.wmt-1.13 or https://aclanthology.org/2023.wmt-1.13/). We are unable to match papers to Google or Semantic Scholar profiles.
                 """)
             )
 
@@ -117,7 +113,7 @@ def main(issue_ids):
 if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser(description='Update author page issues')
-    parser.add_argument('issue_ids', nargs='+', type=int, help='List of issue IDs to update')
+    parser.add_argument('issue_ids', nargs='*', type=int, help='List of issue IDs to update')
     args = parser.parse_args()
 
     main(args.issue_ids)
