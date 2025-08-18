@@ -63,7 +63,7 @@ def edit_body_of_issue(issue_number, new_body):
 
 def main(issue_ids):
     print('🔎 Fetching issues...')
-    issues = get_issues_with_title("Author Page:") + get_issues_with_title("Author Metadata:")
+    issues = get_issues_with_title("Author Metadata:") + get_issues_with_title("Author Page:")
     print(f"Found {len(issues)} issues.")
 
     for issue in issues:
@@ -103,8 +103,9 @@ def main(issue_ids):
                 number,
                 textwrap.dedent("""
                     Hello: we are attempting to close out a large backlog of author page requests. As part of these efforts,
-                    we are collecting additional information which will help us assign papers to the correct author
-                    in the future. Please modify the updated description above with the requested information.
+                    we are collecting additional information ([ORCID](https://orcid.org/) and degree institution) which will 
+                    help us assign papers to the correct author in the future. Please modify the updated description above 
+                    with the requested information.
 
                     If you are requesting to split an author page (i.e., your page has some papers that are not yours),
                     please also provide a list of your papers, in the form of Anthology IDs or URLS 
