@@ -33,7 +33,7 @@ from ..utils.ids import infer_year, is_valid_collection_id
 from ..utils.logging import get_logger
 from ..utils import xml
 from .event import Event
-from .types import EventLinkingType, VolumeType
+from .types import EventLink, VolumeType
 from .volume import Volume
 from .paper import Paper
 
@@ -290,11 +290,11 @@ class Collection(SlottedDict[Volume]):
         if self.event is not None:
             # Events are implicitly linked to volumes defined in the same collection
             self.event.colocated_ids = [
-                (volume.full_id_tuple, EventLinkingType.INFERRED)
+                (volume.full_id_tuple, EventLink.INFERRED)
                 for volume in self.data.values()
                 # Edge case: in case the <colocated> block lists a volume in
                 # the same collection, don't add it twice
-                if (volume.full_id_tuple, EventLinkingType.EXPLICIT)
+                if (volume.full_id_tuple, EventLink.EXPLICIT)
                 not in self.event.colocated_ids
             ] + self.event.colocated_ids
 

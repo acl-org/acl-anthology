@@ -21,7 +21,7 @@ from acl_anthology import Anthology
 from acl_anthology.collections import (
     Collection,
     CollectionIndex,
-    EventLinkingType,
+    EventLink,
     VolumeType,
 )
 from acl_anthology.people import NameSpecification
@@ -265,7 +265,7 @@ def test_collection_create_volume_should_create_event(anthology, pre_load, reset
 
     # New implicit event should exist in the event index
     assert "acl-2000" in anthology.events
-    assert (volume.full_id_tuple, EventLinkingType.INFERRED) in anthology.events[
+    assert (volume.full_id_tuple, EventLink.INFERRED) in anthology.events[
         "acl-2000"
     ].colocated_ids
     assert volume.full_id_tuple in anthology.events.reverse
@@ -298,7 +298,7 @@ def test_collection_create_volume_should_update_event(anthology, pre_load, reset
 
     # New volume should be added to existing event
     assert "acl-2022" in anthology.events
-    assert (volume.full_id_tuple, EventLinkingType.INFERRED) in anthology.events[
+    assert (volume.full_id_tuple, EventLink.INFERRED) in anthology.events[
         "acl-2022"
     ].colocated_ids
     assert volume.full_id_tuple in anthology.events.reverse
@@ -372,7 +372,7 @@ def test_collection_create_event_should_update_eventindex(pre_load, anthology):
     if pre_load:
         # Volume should automatically have been added
         assert event.colocated_ids == [
-            (collection.get("1").full_id_tuple, EventLinkingType.INFERRED)
+            (collection.get("1").full_id_tuple, EventLink.INFERRED)
         ]
     else:
         # If event index wasn't loaded, it's not

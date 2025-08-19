@@ -20,7 +20,7 @@ from lxml import etree
 from lxml.builder import E
 from typing import Any, Iterator, Optional, TYPE_CHECKING
 
-from .types import EventLinkingType
+from .types import EventLink
 from ..constants import RE_EVENT_ID
 from ..files import EventFileReference
 from ..people import NameSpecification
@@ -117,7 +117,7 @@ class Event:
     parent: Collection = field(repr=False, eq=False)
     is_explicit: bool = field(default=False, converter=bool)  # TODO: freeze?
 
-    colocated_ids: list[tuple[AnthologyIDTuple, EventLinkingType]] = field(
+    colocated_ids: list[tuple[AnthologyIDTuple, EventLink]] = field(
         factory=list,
         repr=lambda x: f"<list of {len(x)} tuples>",
     )
@@ -166,7 +166,7 @@ class Event:
     def add_colocated(
         self,
         volume: Volume | AnthologyID,
-        type_: EventLinkingType = EventLinkingType.EXPLICIT,
+        type_: EventLink = EventLink.EXPLICIT,
     ) -> None:
         """Add a co-located volume to this event.
 
@@ -185,15 +185,12 @@ class Event:
 
         for idx, (existing_id, existing_type) in enumerate(self.colocated_ids):
             if volume_id == existing_id:
-                if (
-                    existing_type == EventLinkingType.INFERRED
-                    and type_ == EventLinkingType.EXPLICIT
-                ):
+                if existing_type == EventLink.INFERRED and type_ == EventLink.EXPLICIT:
                     self.colocated_ids[idx] = (volume_id, type_)
                 return
 
         self.colocated_ids.append((volume_id, type_))
-        if type_ == EventLinkingType.EXPLICIT:
+        if type_ == EventLink.EXPLICIT:
             self.collection.is_modified = True
 
         # Update the event index as well
@@ -225,7 +222,7 @@ class Event:
                 kwargs["talks"].append(Talk.from_xml(element))
             elif element.tag == "colocated":
                 kwargs["colocated_ids"] = [
-                    (parse_id(str(volume_id.text)), EventLinkingType.EXPLICIT)
+                    (parse_id(str(volume_id.text)), EventLink.EXPLICIT)
                     for volume_id in element
                     if volume_id.tag == "volume-id"
                 ]
@@ -264,7 +261,7 @@ class Event:
         if self.colocated_ids:
             colocated = E.colocated()
             for id_tuple, el_type in self.colocated_ids:
-                if el_type == EventLinkingType.EXPLICIT:
+                if el_type == EventLink.EXPLICIT:
                     colocated.append(
                         getattr(E, "volume-id")(build_id_from_tuple(id_tuple))
                     )
