@@ -14,8 +14,12 @@
 
 import pytest
 from lxml.etree import RelaxNG
+from unittest.mock import patch
+
 from acl_anthology import Anthology
-from acl_anthology.people import Name
+from acl_anthology.collections import Collection
+from acl_anthology.people import PersonIndex, Name
+from acl_anthology.venues import VenueIndex
 
 
 def test_instantiate(shared_datadir):
@@ -176,3 +180,26 @@ def test_load_all(anthology):
     assert anthology.people.is_data_loaded
     assert anthology.sigs.is_data_loaded
     assert anthology.venues.is_data_loaded
+
+
+def test_save_all(anthology):
+    anthology.load_all()
+    anthology.collections["J89"].is_modified = True
+    anthology.collections["2022.acl"].is_modified = True
+    with (
+        patch.object(Collection, "save", autospec=True) as mock,
+        patch.object(PersonIndex, "save") as people_mock,
+        patch.object(VenueIndex, "save") as venue_mock,
+        pytest.warns(UserWarning),
+    ):
+        anthology.save_all()
+
+        # Get the instances that called save (first argument is self)
+        called_instances = [call[0][0] for call in mock.call_args_list]
+        assert anthology.collections["J89"] in called_instances
+        assert anthology.collections["2022.acl"] in called_instances
+        assert mock.call_count == 2  # no other instances have called save
+
+        # Check the others
+        people_mock.assert_called_once()
+        venue_mock.assert_called_once()

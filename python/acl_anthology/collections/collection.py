@@ -63,6 +63,7 @@ class Collection(SlottedDict[Volume]):
     Attributes: Non-Init Attributes:
         event: An event represented by this collection.
         is_data_loaded: A flag indicating whether the XML file has already been loaded.
+        is_modified: A flag indicating whether any of the data in this collection has been modified after loading.
     """
 
     id: str = field(converter=int_to_str)
@@ -75,6 +76,7 @@ class Collection(SlottedDict[Volume]):
         validator=v.optional(v.instance_of(Event)),
     )
     is_data_loaded: bool = field(init=False, repr=True, default=False)
+    is_modified: bool = field(init=False, repr=False, default=False)
 
     @id.validator
     def _check_id(self, _: Any, value: str) -> None:
