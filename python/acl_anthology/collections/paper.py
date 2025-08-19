@@ -296,7 +296,12 @@ class Paper:
         default=None, repr=False, validator=v.optional(v.instance_of(PaperDeletionNotice))
     )
     doi: Optional[str] = field(default=None, repr=False)
-    ingest_date: Optional[str] = field(default=None, repr=False)
+    ingest_date: Optional[str] = field(
+        default=None,
+        repr=False,
+        converter=date_to_str,
+        validator=v.optional(v.matches_re(constants.RE_ISO_DATE)),
+    )
     issue: Optional[str] = field(default=None, repr=False)
     journal: Optional[str] = field(default=None, repr=False)
     language: Optional[str] = field(default=None, repr=False)

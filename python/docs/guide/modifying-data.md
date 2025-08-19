@@ -43,22 +43,33 @@ just fetch the paper and set its `doi` attribute:
 
 !!! tip "Rule of thumb"
 
-    For all `collections` objects, setting attributes should either raise a `TypeError`, or "do the right thing."  However, be careful when modifying _list_ attributes in-place, as no input validation is performed in that case.
+    As a general rule, all classes perform **automatic input conversion and validation**.  This means that setting attributes should either "do the right thing" or raise a `TypeError`.  The main exception currently is modifying attributes in-place, e.g. appending to lists, as no input validation is performed then.
 
 ### Simple attributes
 
 Attributes generally perform **input validation**.  For example, since a paper's
-title needs to be a [`MarkupText`][acl_anthology.text.markuptext.MarkupText],
-the following won't work and will raise a `TypeError`:
+PDF attribute needs to be an instance of
+[`PDFReference`][acl_anthology.files.PDFReference], trying to set it to a path
+won't work and will raise a `TypeError`:
 
 ```pycon
->>> paper.title = "Computational Historical Linguistics and Language Diversity"
+>>> paper.pdf = Path("2025.test-1.pdf")  # TypeError
 ```
 
 However, some attributes also provide **input converters** that perform simpler
-conversions automatically.  For example, a
-[`Volume`][acl_anthology.collections.volume.Volume]'s year of publication or
-date of ingestion is stored as a string, but the following will also work:
+conversions automatically.  For example, paper titles and abstracts are stored
+as [`MarkupText`][acl_anthology.text.markuptext.MarkupText] objects, but setting
+such an attribute to a string will automatically convert it:
+
+```pycon
+>>> paper.title = "Improving the ACL Anthology"
+>>> paper.title
+MarkupText('Improving the ACL Anthology')
+```
+
+The same applies to a [`Volume`][acl_anthology.collections.volume.Volume]'s year
+of publication or date of ingestion, which both are stored as strings, but the
+following will also work:
 
 ```pycon
 >>> volume = anthology.get("2022.acl-long")
@@ -226,7 +237,29 @@ bibkeys automatically.
 
 ### Specifying titles and abstracts
 
-Paper titles and abstracts always need to be **supplied as [MarkupText][acl_anthology.text.markuptext.MarkupText]**.  Simple strings can be instantiated with [`MarkupText.from_string()`][acl_anthology.text.markuptext.MarkupText.from_string].  For titles and abstracts containing LaTeX commands, [`MarkupText.from_latex()`][acl_anthology.text.markuptext.MarkupText.from_latex] can be used.  In practice, however, it may be unknown if text actually contains LaTeX markup.  In that case, using [`MarkupText.from_latex_maybe()`][acl_anthology.text.markuptext.MarkupText.from_latex_maybe] may be preferable, which will e.g. prevent percentage signs `%` from being interpreted as starting a LaTeX comment, and apply a heuristic to decide if a tilde `~` should be interpreted as a literal character or as a LaTeX non-breaking space.  {==TODO: We might want to make `as_latex_maybe()` the default instantiator for MarkupText, which would greatly simplify the instantiation of this in what is probably the most common use case.==}
+Paper titles and abstracts are stored internally as [MarkupText][acl_anthology.text.markuptext.MarkupText], but it is possible to simply set them to a string value, in which case **heuristic markup conversion will be performed**.  Generally, for setting attributes that expect MarkupText, the following applies:
+
+- Supplying a string value `s` is equivalent to using [`MarkupText.from_(s)`][acl_anthology.text.markuptext.MarkupText.from_], which will parse and convert simple markup.  Currently, only LaTeX markup is supported.
+
+- If the heuristic conversion is not desired (or you want to make more explicit that you're converting from LaTeX), other builder methods of MarkupText can be used, such as [`MarkupText.from_latex()`][acl_anthology.text.markuptext.MarkupText.from_latex], or [`MarkupText.from_string()`][acl_anthology.text.markuptext.MarkupText.from_string] for plain strings
+
+!!! example
+
+    Setting a paper's title to a string automatically parses LaTeX markup contained in the string:
+
+    ```pycon
+    >>> paper.title = "Towards $\\infty$"
+    >>> paper.title
+    MarkupText('Towards <tex-math>\\infty</tex-math>')
+    ```
+
+    If this is not desired, MarkupText can be explicitly instantiated with one of its builder methods, for example:
+
+    ```pycon
+    >>> paper.title = MarkupText.from_string("Towards $\\infty$")
+    >>> paper.title  # No markup parsing here
+    MarkupText('Towards $\\infty$')
+    ```
 
 Paper titles should also have our **fixed-casing algorithm** applied to protect certain characters e.g. by wrapping them in braces in BibTeX entries.  **The fixed-caser is currently not part of this Python library.**  There are two options for running the fixed-casing on a new ingestion:
 
