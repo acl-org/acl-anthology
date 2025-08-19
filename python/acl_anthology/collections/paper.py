@@ -15,7 +15,7 @@
 from __future__ import annotations
 
 import attrs
-from attrs import define, field, validators as v
+from attrs import define, field, converters, validators as v
 import datetime
 from functools import cached_property
 import langcodes
@@ -34,7 +34,7 @@ from ..files import (
     VideoReference,
 )
 from ..people import NameSpecification
-from ..text import MarkupText
+from ..text import MarkupText, to_markuptext
 from ..utils.attrs import auto_validate_types, date_to_str, int_to_str
 from ..utils.citation import citeproc_render_html, render_acl_citation
 from ..utils.ids import build_id, is_valid_item_id, AnthologyIDTuple
@@ -257,7 +257,7 @@ class Paper:
     bibkey: str = field(
         on_setattr=attrs.setters.pipe(attrs.setters.validate, _update_bibkey_index),
     )
-    title: MarkupText = field()
+    title: MarkupText = field(converter=to_markuptext)
 
     attachments: list[tuple[str, AttachmentReference]] = field(
         factory=list,
@@ -289,7 +289,9 @@ class Paper:
     )
     videos: list[VideoReference] = field(factory=list, repr=False)
 
-    abstract: Optional[MarkupText] = field(default=None)
+    abstract: Optional[MarkupText] = field(
+        default=None, converter=converters.optional(to_markuptext)
+    )
     deletion: Optional[PaperDeletionNotice] = field(
         default=None, repr=False, validator=v.optional(v.instance_of(PaperDeletionNotice))
     )

@@ -433,9 +433,10 @@ def test_markup_behaves_like_string():
     markup = MarkupText.from_latex(
         "TTCS$^{\mathcal{E}}$: a Vectorial Resource for Computing Conceptual Similarity"
     )
-    plain_text = "TTCSℰ: a Vectorial Resource for Computing Conceptual Similarity"
-    assert markup == plain_text  # disregards markup
-    assert markup != MarkupText.from_string(plain_text)  # does not disregard markup
+    assert (
+        markup
+        == "TTCS<tex-math>^{\mathcal{E}}</tex-math>: a Vectorial Resource for Computing Conceptual Similarity"
+    )
     assert markup == MarkupText.from_latex(
         "TTCS$^{\mathcal{E}}$: a Vectorial Resource for Computing Conceptual Similarity"
     )
@@ -444,3 +445,12 @@ def test_markup_behaves_like_string():
     assert markup.endswith("Similarity")
     assert markup < "XTCS"
     assert markup < MarkupText.from_string("XTCS")
+
+
+def test_markup_cannot_be_instantiated_from_unsupported_types():
+    with pytest.raises(TypeError):
+        MarkupText(42)
+    with pytest.raises(TypeError):
+        MarkupText(["foo", "bar"])
+    with pytest.raises(TypeError):
+        MarkupText(MarkupText("foo"))

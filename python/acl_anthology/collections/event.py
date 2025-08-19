@@ -15,7 +15,7 @@
 
 from __future__ import annotations
 
-from attrs import define, field, validators as v
+from attrs import define, field, converters, validators as v
 from lxml import etree
 from lxml.builder import E
 from typing import Any, Iterator, Optional, TYPE_CHECKING
@@ -24,7 +24,7 @@ from .types import EventLinkingType
 from ..constants import RE_EVENT_ID
 from ..files import EventFileReference
 from ..people import NameSpecification
-from ..text import MarkupText
+from ..text import MarkupText, to_markuptext
 from ..utils.attrs import auto_validate_types
 from ..utils.ids import AnthologyID, AnthologyIDTuple, parse_id, build_id_from_tuple
 
@@ -44,7 +44,7 @@ class Talk:
         attachments: Links to attachments for this talk. The dictionary key specifies the type of attachment (e.g., "video" or "slides").
     """
 
-    title: MarkupText = field()
+    title: MarkupText = field(converter=to_markuptext)
     type: Optional[str] = field(default=None)
     speakers: list[NameSpecification] = field(factory=list)
     attachments: dict[str, EventFileReference] = field(factory=dict)
@@ -128,7 +128,9 @@ class Event:
         ),
     )
 
-    title: Optional[MarkupText] = field(default=None)
+    title: Optional[MarkupText] = field(
+        default=None, converter=converters.optional(to_markuptext)
+    )
     location: Optional[str] = field(default=None)
     dates: Optional[str] = field(default=None)
 

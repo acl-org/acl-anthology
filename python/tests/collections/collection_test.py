@@ -143,11 +143,12 @@ def test_collection_create_volume_implicit(collection_index):
     collection = collection_index.get("2022.acl")
     volume = collection.create_volume(
         "keynotes",
-        title=MarkupText.from_string("Keynotes from ACL 2022"),
+        title="Keynotes from ACL 2022",
     )
     assert volume.id in collection
     assert volume.year == "2022"
     assert volume.id == "keynotes"
+    assert volume.title == "Keynotes from ACL 2022"
     assert volume.full_id == "2022.acl-keynotes"
     assert volume.type == VolumeType.PROCEEDINGS
 
@@ -165,10 +166,17 @@ def test_collection_create_volume_explicit(collection_index):
     assert volume.id in collection
     assert volume.year == "1989"
     assert volume.id == "99"
+    assert volume.title == "Special Issue"
     assert volume.full_id == "1989.cl-99"
     assert volume.type == VolumeType.JOURNAL
     assert volume.journal_issue == "99"
     assert "cl" in volume.venue_ids
+
+
+def test_collection_create_volume_should_parse_markup(collection_index):
+    collection = collection_index.get("2022.acl")
+    volume = collection.create_volume("infinity", title="Special issue on $\\infty$")
+    assert volume.title.as_text() == "Special issue on ∞"
 
 
 def test_collection_create_volume_should_fail_in_oldstyle_volumes(collection_index):

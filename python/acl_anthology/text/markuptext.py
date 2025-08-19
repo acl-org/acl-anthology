@@ -16,7 +16,7 @@
 
 from __future__ import annotations
 
-from attrs import define, field
+from attrs import define, field, validators as v
 from collections import defaultdict
 from copy import deepcopy
 from functools import total_ordering
@@ -69,7 +69,7 @@ class MarkupText:
     """Text with optional markup.
 
     Warning:
-        This class **should not be instantiated directly,** but only through its class method constructors.
+        This class **should not be instantiated directly.**  Use its class method constructors instead.
 
     Example:
         ```python
@@ -87,7 +87,7 @@ class MarkupText:
         title.startswith("A ")  # True
         ```
 
-        In all cases, if a string is involved, these operate on the [plain text representation][acl_anthology.text.markuptext.MarkupText.as_text] of the class, which disregards all markup.  If comparing against another MarkupText object, the markup will be taken into account as well.
+        These operate on the [stringified XML representation][acl_anthology.text.markuptext.MarkupText.as_xml] of the class.
     """
 
     # IMPLEMENTATION NOTE: Deepcopy-ing (or newly instantiating) etree._Element
@@ -97,29 +97,29 @@ class MarkupText:
     # check everywhere whether we're dealing with etree._Element or str), but
     # much faster. ---For further optimization, we could explore if there's an
     # alternative that doesn't require deepcopy-ing XML elements at all.
-    _content: etree._Element | str = field()
+    _content: etree._Element | str = field(validator=v.instance_of((etree._Element, str)))
 
     # For caching
-    _html: Optional[str] = field(init=False, default=None, eq=False)
-    _latex: Optional[str] = field(init=False, default=None, eq=False)
-    _text: Optional[str] = field(init=False, default=None, eq=False)
-    _xml: Optional[str] = field(init=False, default=None, eq=False)
+    _html: Optional[str] = field(init=False, default=None)
+    _latex: Optional[str] = field(init=False, default=None)
+    _text: Optional[str] = field(init=False, default=None)
+    _xml: Optional[str] = field(init=False, default=None)
 
     def __contains__(self, key: object) -> bool:
         if isinstance(key, str):
-            return key in self.as_text()
+            return key in self.as_xml()
         return False
 
     def __eq__(self, other: object) -> bool:
         if isinstance(other, str):
-            return self.as_text() == other
+            return self.as_xml() == other
         elif isinstance(other, MarkupText):
             return self.as_xml() == other.as_xml()
         return False
 
     def __lt__(self, other: object) -> bool:
         if isinstance(other, str):
-            return self.as_text() < other
+            return self.as_xml() < other
         elif isinstance(other, MarkupText):
             return self.as_xml() < other.as_xml()
         return False
@@ -268,8 +268,7 @@ class MarkupText:
         """
         if len(element):
             return cls(deepcopy(element))
-        else:
-            return cls(str(element.text) if element.text is not None else "")
+        return cls(str(element.text) if element.text is not None else "")
 
     @classmethod
     def from_(cls, content: etree._Element | str) -> MarkupText:
@@ -320,9 +319,9 @@ class MarkupText:
     ) -> bool:
         """Return True if the string ends with the specified suffix, False otherwise.
 
-        Equivalent to `self.as_text().endswith(...)`.
+        Equivalent to `self.as_xml().endswith(...)`.
         """
-        return self.as_text().endswith(suffix, start, end)
+        return self.as_xml().endswith(suffix, start, end)
 
     def startswith(
         self,
@@ -332,6 +331,13 @@ class MarkupText:
     ) -> bool:
         """Return True if the string starts with the specified prefix, False otherwise.
 
-        Equivalent to `self.as_text().startswith(...)`.
+        Equivalent to `self.as_xml().startswith(...)`.
         """
-        return self.as_text().startswith(prefix, start, end)
+        return self.as_xml().startswith(prefix, start, end)
+
+
+def to_markuptext(value: object) -> MarkupText:
+    if isinstance(value, MarkupText):
+        return value
+    # MarkupText.from_ already raises TypeError, so let's not duplicate that here
+    return MarkupText.from_(value)  # type: ignore[arg-type]

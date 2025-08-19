@@ -95,7 +95,7 @@ def test_event_all_attribs():
             (("2023.baz", "1", None), EventLinkingType.EXPLICIT),
             (("2023.asdf", "1", None), EventLinkingType.EXPLICIT),
         ],
-        talks=[Talk(MarkupText.from_string("Invited talk"))],
+        talks=[Talk("Invited talk")],
         links={"Website": EventFileReference("http://foobar.com")},
     )
     assert event.collection_id == "2023.li"

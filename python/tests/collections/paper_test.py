@@ -45,11 +45,10 @@ def index(anthology_stub):
 
 
 def test_paper_minimum_attribs():
-    paper_title = MarkupText.from_string("A minimal example")
     parent = None
-    paper = Paper("42", parent, bibkey="nn-1900-minimal", title=paper_title)
+    paper = Paper("42", parent, bibkey="nn-1900-minimal", title="A minimal example")
     assert not paper.is_deleted
-    assert paper.title == paper_title
+    assert paper.title == "A minimal example"
 
 
 def test_paper_web_url(anthology):
@@ -156,7 +155,7 @@ def test_paper_language(anthology, paper_id, language, language_name):
 def test_paper_bibtype():
     volume = VolumeStub()
     volume.type = VolumeType.JOURNAL
-    paper = Paper("1", volume, bibkey="", title=MarkupText.from_string(""))
+    paper = Paper("1", volume, bibkey="", title="")
     assert paper.bibtype == "article"
     volume.type = VolumeType.PROCEEDINGS
     assert paper.bibtype == "inproceedings"
