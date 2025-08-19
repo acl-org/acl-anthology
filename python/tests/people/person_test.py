@@ -158,6 +158,7 @@ def test_person_update_id_should_update_connected_papers(anthology):
     namespec = anthology.get(person.item_ids[0]).authors[-1]
     assert namespec.name == Name("Yang", "Liu")
     assert namespec.id == "yang-liu-new"
+    assert anthology.collections["2022.acl"].is_modified
 
 
 def test_person_cannot_update_id_when_inferred(anthology):
@@ -197,6 +198,11 @@ def test_person_make_explicit(anthology):
     person.make_explicit("nicoletta-calzolari")
     assert person.is_explicit
     assert person.id == "nicoletta-calzolari"
+    # IDs have been added to these collections:
+    assert anthology.collections["J89"].is_modified
+    assert anthology.collections["L06"].is_modified
+    # But not this one:
+    assert not anthology.collections["2022.acl"].is_modified
 
 
 def test_person_make_explicit_should_raise_when_explicit(anthology):

@@ -83,6 +83,7 @@ def test_collection_load(
         assert collection.get_event() is not None
     else:
         assert collection.get_event() is None
+    assert not collection.is_modified
 
 
 @pytest.mark.filterwarnings(
@@ -141,10 +142,12 @@ def test_collection_roundtrip_save(
 
 def test_collection_create_volume_implicit(collection_index):
     collection = collection_index.get("2022.acl")
+    assert not collection.is_modified
     volume = collection.create_volume(
         "keynotes",
         title="Keynotes from ACL 2022",
     )
+    assert collection.is_modified
     assert volume.id in collection
     assert volume.year == "2022"
     assert volume.id == "keynotes"
@@ -155,6 +158,7 @@ def test_collection_create_volume_implicit(collection_index):
 
 def test_collection_create_volume_explicit(collection_index):
     collection = collection_index.get("1989.cl")
+    assert not collection.is_modified
     volume = collection.create_volume(
         id="99",
         title=MarkupText.from_string("Special Issue"),
@@ -163,6 +167,7 @@ def test_collection_create_volume_explicit(collection_index):
         journal_issue="99",
         venue_ids=["cl"],
     )
+    assert collection.is_modified
     assert volume.id in collection
     assert volume.year == "1989"
     assert volume.id == "99"
@@ -344,9 +349,11 @@ def test_collection_create_event_oldstyle_ids(collection_index):
 
 def test_collection_create_event_newstyle_ids(collection_index):
     collection = collection_index.get("1989.cl")
+    assert not collection.is_modified
 
     # For new-style ID collections, an explicit event ID is not required
     event = collection.create_event()
+    assert collection.is_modified
     assert event.id == "cl-1989"
 
     # Trying to create yet another event in the same collection should raise

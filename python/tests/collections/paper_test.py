@@ -33,10 +33,15 @@ from acl_anthology.collections.paper import (
 )
 
 
+class CollectionStub:
+    is_modified = False
+
+
 class VolumeStub:
     title = MarkupText.from_string("Generic volume")
     editors = []
     full_id_tuple = ("2099", "stub", None)
+    parent = CollectionStub()
 
 
 @pytest.fixture
@@ -129,6 +134,28 @@ def test_paper_change_id(anthology):
 
     # BUT: currently no automatic check if ID already exists, so this works
     paper.id = "1"
+
+
+@pytest.mark.parametrize(
+    "attr_name",
+    (
+        "id",
+        "bibkey",
+        "title",
+        "attachments",
+        "authors",
+        "awards",
+        "abstract",
+        "doi",
+        "ingest_date",
+        "type",
+    ),
+)
+def test_paper_setattr_sets_collection_is_modified(anthology, attr_name):
+    paper = anthology.get_paper("2022.acl-long.48")
+    assert not paper.collection.is_modified
+    setattr(paper, attr_name, getattr(paper, attr_name))
+    assert paper.collection.is_modified
 
 
 test_cases_language = (

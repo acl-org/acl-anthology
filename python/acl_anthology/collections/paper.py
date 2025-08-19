@@ -15,7 +15,7 @@
 from __future__ import annotations
 
 import attrs
-from attrs import define, field, converters, validators as v
+from attrs import define, field, converters, setters, validators as v
 import datetime
 from functools import cached_property
 import langcodes
@@ -35,7 +35,12 @@ from ..files import (
 )
 from ..people import NameSpecification
 from ..text import MarkupText, to_markuptext
-from ..utils.attrs import auto_validate_types, date_to_str, int_to_str
+from ..utils.attrs import (
+    auto_validate_types,
+    date_to_str,
+    int_to_str,
+    track_modifications,
+)
 from ..utils.citation import citeproc_render_html, render_acl_citation
 from ..utils.ids import build_id, is_valid_item_id, AnthologyIDTuple
 from ..utils.latex import make_bibtex_entry
@@ -45,7 +50,7 @@ from .types import PaperDeletionType, PaperType, VolumeType
 if TYPE_CHECKING:
     from ..anthology import Anthology
     from ..utils.latex import SerializableAsBibTeX
-    from . import Event, Volume
+    from . import Event, Volume, Collection
 
 log = get_logger()
 
@@ -215,7 +220,10 @@ def _update_bibkey_index(paper: Paper, attr: attrs.Attribute[Any], value: str) -
     return value
 
 
-@define(field_transformer=auto_validate_types)
+@define(
+    field_transformer=auto_validate_types,
+    on_setattr=[setters.convert, setters.validate, track_modifications],
+)
 class Paper:
     """A paper entry.
 
@@ -255,7 +263,7 @@ class Paper:
     id: str = field(converter=int_to_str)  # validator defined below
     parent: Volume = field(repr=False, eq=False)
     bibkey: str = field(
-        on_setattr=attrs.setters.pipe(attrs.setters.validate, _update_bibkey_index),
+        on_setattr=[setters.validate, track_modifications, _update_bibkey_index],
     )
     title: MarkupText = field(converter=to_markuptext)
 
@@ -308,7 +316,7 @@ class Paper:
     note: Optional[str] = field(default=None, repr=False)
     pages: Optional[str] = field(default=None, repr=False)
     paperswithcode: Optional[PapersWithCodeReference] = field(
-        default=None, on_setattr=attrs.setters.frozen, repr=False
+        default=None, on_setattr=setters.frozen, repr=False
     )
     pdf: Optional[PDFReference] = field(default=None, repr=False)
     type: PaperType = field(default=PaperType.PAPER, repr=False, converter=PaperType)
@@ -317,6 +325,11 @@ class Paper:
     def _check_id(self, _: Any, value: str) -> None:
         if not is_valid_item_id(value):
             raise AnthologyInvalidIDError(value, "not a valid paper ID")
+
+    @property
+    def collection(self) -> Collection:
+        """The collection this paper belongs to."""
+        return self.parent.parent
 
     @property
     def collection_id(self) -> str:

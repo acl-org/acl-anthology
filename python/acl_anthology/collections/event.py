@@ -15,7 +15,7 @@
 
 from __future__ import annotations
 
-from attrs import define, field, converters, validators as v
+from attrs import define, field, converters, setters, validators as v
 from lxml import etree
 from lxml.builder import E
 from typing import Any, Iterator, Optional, TYPE_CHECKING
@@ -25,7 +25,7 @@ from ..constants import RE_EVENT_ID
 from ..files import EventFileReference
 from ..people import NameSpecification
 from ..text import MarkupText, to_markuptext
-from ..utils.attrs import auto_validate_types
+from ..utils.attrs import auto_validate_types, track_modifications
 from ..utils.ids import AnthologyID, AnthologyIDTuple, parse_id, build_id_from_tuple
 
 if TYPE_CHECKING:
@@ -87,7 +87,10 @@ class Talk:
         return elem
 
 
-@define(field_transformer=auto_validate_types)
+@define(
+    field_transformer=auto_validate_types,
+    on_setattr=[setters.convert, setters.validate, track_modifications],
+)
 class Event:
     """An event, such as a meeting or a conference.
 
@@ -112,7 +115,7 @@ class Event:
 
     id: str = field(validator=v.matches_re(RE_EVENT_ID))
     parent: Collection = field(repr=False, eq=False)
-    is_explicit: bool = field(default=False, converter=bool)
+    is_explicit: bool = field(default=False, converter=bool)  # TODO: freeze?
 
     colocated_ids: list[tuple[AnthologyIDTuple, EventLinkingType]] = field(
         factory=list,
@@ -133,6 +136,11 @@ class Event:
     )
     location: Optional[str] = field(default=None)
     dates: Optional[str] = field(default=None)
+
+    @property
+    def collection(self) -> Collection:
+        """The collection this event belongs to."""
+        return self.parent
 
     @property
     def collection_id(self) -> str:
@@ -185,6 +193,8 @@ class Event:
                 return
 
         self.colocated_ids.append((volume_id, type_))
+        if type_ == EventLinkingType.EXPLICIT:
+            self.collection.is_modified = True
 
         # Update the event index as well
         if self.root.events.is_data_loaded:

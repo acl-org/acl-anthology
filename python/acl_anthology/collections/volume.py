@@ -15,7 +15,7 @@
 from __future__ import annotations
 
 import datetime
-from attrs import define, field, converters, validators
+from attrs import define, field, converters, setters, validators
 from lxml import etree
 from lxml.builder import E
 from typing import Any, Iterator, Optional, cast, TYPE_CHECKING
@@ -29,7 +29,12 @@ from ..files import PDFReference
 from ..people import NameSpecification
 from ..text import MarkupText, to_markuptext
 from ..venues import Venue
-from ..utils.attrs import auto_validate_types, date_to_str, int_to_str
+from ..utils.attrs import (
+    auto_validate_types,
+    date_to_str,
+    int_to_str,
+    track_modifications,
+)
 from ..utils.ids import build_id, is_valid_item_id, AnthologyIDTuple
 from .paper import Paper
 from .types import VolumeType
@@ -40,7 +45,10 @@ if TYPE_CHECKING:
     from . import Collection, Event
 
 
-@define(field_transformer=auto_validate_types)
+@define(
+    field_transformer=auto_validate_types,
+    on_setattr=[setters.convert, setters.validate, track_modifications],
+)
 class Volume(SlottedDict[Paper]):
     """A publication volume.
 
@@ -116,6 +124,11 @@ class Volume(SlottedDict[Paper]):
     def frontmatter(self) -> Paper | None:
         """Returns the volume's frontmatter, if any."""
         return self.data.get(constants.FRONTMATTER_ID)
+
+    @property
+    def collection(self) -> Collection:
+        """The collection this volume belongs to."""
+        return self.parent
 
     @property
     def collection_id(self) -> str:
@@ -295,6 +308,7 @@ class Volume(SlottedDict[Paper]):
             self.root.people._add_to_index(paper.editors, paper.full_id_tuple)
 
         self.data[id] = paper
+        self.parent.is_modified = True
         return paper
 
     def _add_paper_from_xml(self, element: etree._Element) -> None:

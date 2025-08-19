@@ -235,6 +235,27 @@ def test_volume_set_ingest_date(anthology):
     assert volume.ingest_date == "2026-03-01"
 
 
+@pytest.mark.parametrize(
+    "attr_name",
+    (
+        "id",
+        "title",
+        "year",
+        "editors",
+        "venue_ids",
+        "address",
+        "ingest_date",
+        "pdf",
+        "shorttitle",
+    ),
+)
+def test_volume_setattr_sets_collection_is_modified(anthology, attr_name):
+    volume = anthology.get_volume("2022.acl-long")
+    assert not volume.parent.is_modified
+    setattr(volume, attr_name, getattr(volume, attr_name))
+    assert volume.parent.is_modified
+
+
 def test_volume_venues_j89(anthology):
     volume = anthology.get_volume("J89-1")
     assert volume.venue_ids == ["cl"]
@@ -342,12 +363,14 @@ def test_volume_generate_paper_id(anthology):
 
 def test_volume_create_paper_implicit(anthology):
     volume = anthology.get_volume("2022.acl-long")
+    assert not volume.collection.is_modified
     authors = [NameSpec("Bollmann, Marcel")]
     paper = volume.create_paper(
         title="The awesome paper I have never written",
         authors=authors,
         ingest_date="2025-01-07",
     )
+    assert volume.collection.is_modified
     assert paper.authors == authors
     assert paper.title.as_text() == "The awesome paper I have never written"
     assert paper.ingest_date == "2025-01-07"
@@ -362,6 +385,7 @@ def test_volume_create_paper_implicit(anthology):
 
 def test_volume_create_paper_explicit(anthology):
     volume = anthology.get_volume("2022.acl-long")
+    assert not volume.collection.is_modified
     authors = [NameSpec("Bollmann, Marcel")]
     paper = volume.create_paper(
         title="The awesome paper I have never written",
@@ -370,6 +394,7 @@ def test_volume_create_paper_explicit(anthology):
         id="701",
         bibkey="bollmann-2022-the-awesome",
     )
+    assert volume.collection.is_modified
     assert paper.authors == authors
     assert paper.title.as_text() == "The awesome paper I have never written"
     assert paper.ingest_date == "2025-01-07"

@@ -202,6 +202,7 @@ class Collection(SlottedDict[Volume]):
             self.root.people._add_to_index(volume.editors, volume.full_id_tuple)
 
         self.data[id] = volume
+        self.is_modified = True
         return volume
 
     def create_event(
@@ -244,6 +245,7 @@ class Collection(SlottedDict[Volume]):
             **kwargs,
         )
         self.root.events._add_to_index(self.event)
+        self.is_modified = True
         return self.event
 
     def load(self) -> None:
@@ -297,6 +299,7 @@ class Collection(SlottedDict[Volume]):
             ] + self.event.colocated_ids
 
         self.is_data_loaded = True
+        self.is_modified = False
 
     def save(self, path: Optional[StrPath] = None, minimal_diff: bool = True) -> None:
         """Saves this collection as an XML file.

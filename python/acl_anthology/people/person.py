@@ -15,7 +15,7 @@
 from __future__ import annotations
 
 import attrs
-from attrs import define, field
+from attrs import define, field, setters
 from enum import Enum
 import itertools as it
 from typing import Any, Iterator, Optional, Sequence, TYPE_CHECKING
@@ -88,9 +88,7 @@ class Person:
         is_explicit: If True, this person's ID is explicitly defined in `people.yaml`.  You probably want to use [`make_explicit()`][acl_anthology.people.person.Person.make_explicit] rather than change this attribute.
     """
 
-    id: str = field(
-        on_setattr=attrs.setters.pipe(attrs.setters.validate, _update_person_index)
-    )
+    id: str = field(on_setattr=[setters.validate, _update_person_index])
     parent: Anthology = field(repr=False, eq=False)
     _names: list[tuple[Name, NameLink]] = field(
         factory=list, converter=_name_list_converter
@@ -100,7 +98,7 @@ class Person:
     )
     orcid: Optional[str] = field(
         default=None,
-        on_setattr=attrs.setters.pipe(attrs.setters.validate, _update_person_index),
+        on_setattr=[setters.validate, _update_person_index],
     )  # validator defined below
     comment: Optional[str] = field(default=None)
     degree: Optional[str] = field(default=None)
@@ -259,10 +257,12 @@ class Person:
             for namespec in it.chain(paper.authors, paper.editors):
                 if namespec_refers_to_self(namespec):
                     namespec.id = new_id
+                    paper.collection.is_modified = True
         for volume in self.volumes():
             for namespec in volume.editors:
                 if namespec_refers_to_self(namespec):
                     namespec.id = new_id
+                    volume.collection.is_modified = True
 
     def papers(self) -> Iterator[Paper]:
         """Returns an iterator over all papers associated with this person.

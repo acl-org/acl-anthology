@@ -152,9 +152,20 @@ def test_event_volumes(anthology):
         list(anthology.events.get("acl-2022").volumes())
 
 
+@pytest.mark.parametrize(
+    "attr_name", ("id", "colocated_ids", "links", "talks", "title", "location", "dates")
+)
+def test_event_setattr_sets_collection_is_modified(anthology, attr_name):
+    event = anthology.events.get("lrec-2006")
+    assert not event.collection.is_modified
+    setattr(event, attr_name, getattr(event, attr_name))
+    assert event.collection.is_modified
+
+
 def test_event_add_colocated(anthology):
     event = anthology.events.get("lrec-2006")
     assert len(event.colocated_ids) == 1
+    assert not event.collection.is_modified
     volume = anthology.get_volume("J89-1")
 
     # Adding colocated volume should update Event & EventIndex
@@ -162,6 +173,7 @@ def test_event_add_colocated(anthology):
     assert len(event.colocated_ids) == 2
     assert (volume.full_id_tuple, EventLinkingType.EXPLICIT) in event.colocated_ids
     assert event in anthology.events.by_volume(volume)
+    assert event.collection.is_modified
 
     # Adding the same volume a second time shouldn't change anything
     event.add_colocated(volume)
