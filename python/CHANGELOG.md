@@ -6,6 +6,7 @@ This release implements the new [name resolution and author ID logic](https://gi
 
 ### Added
 
+- Anthology now provides `save_all()` to conveniently save all data files.  The library tracks modifications to collection objects to only write XML files that have actually changed.
 - NameSpecification now provides an `orcid` field.
 - Person:
   - Now provides `orcid`, `degree`, `disable_name_matching`, and `similar_ids` fields that correspond to the respective fields in the new `people.yaml`.
@@ -17,6 +18,8 @@ This release implements the new [name resolution and author ID logic](https://gi
   - Now also keeps a mapping of name slugs to (verified) person IDs, via `slugs_to_verified_ids` (mostly for internal use).
   - Added `ingest_namespec()` to implement the [matching logic on ingestion](https://github.com/acl-org/acl-anthology/wiki/Author-Page-Plan#ingestion) of new volumes.
   - Added `create_person()` to instantiate a new Person and add it to the index.
+- MarkupText now provides a `from_()` class method that calls the appropriate builder method, using heuristic markup parsing if instantiated from a string.
+- MarkupText now supports some common string methods, such as `__contains__`, `endswith`, `startswith`.
 
 ### Changed
 
@@ -28,6 +31,8 @@ This release implements the new [name resolution and author ID logic](https://gi
   - Changed the previously experimental `save()` function to serialize the `people.yaml` file.
 - Person now stores names as tuples of `(Name, NameLink)`, the latter of which indicates if the name was explicitly defined in `people.yaml` or inferred by the name resolution logic (e.g. via slug matching).  As a consequence, `Person.names` can no longer be modified in-place; use `Person.add_name()`, `Person.remove_name()`, or the setter of `Person.names`.
 - Setting a canonical name for a Person changed from `.set_canonical_name()` to `Person.canonical_name = ...`
+- Attributes that expect a MarkupText, such as `Volume.title` or `Paper.abstract`, can now be set to a string, in which case the string will be automatically converted to MarkupText, including markup parsing.
+- EventLinkingType renamed to EventLink.
 
 ## [0.5.3] — 2025-06-22
 
