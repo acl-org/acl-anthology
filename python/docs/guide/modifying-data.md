@@ -12,16 +12,18 @@ the Anthology.**  The implementation of this is complicated by the various
 indices and objects such as persons that cross-reference other objects.  Here
 are some rules of thumb when making modifications to the data:
 
-1. To create new objects, use `create_` functions provided by the library
+1. To **create new objects**, use `create_` functions provided by the library
    whenever possible, rather than instantiating them directly.
-2. You can modify objects by simply modifying their attributes, as long as the
-   object in question has an explicit representation in the Anthology data.
+2. You can modify objects by simply **modifying their attributes**, as long as
+   the object in question has an explicit representation in the Anthology data.
     - This includes collections, volumes, papers, events.
     - It also includes persons where `Person.is_explicit == True`, as those have
       an explicit representation in `people.yaml`.
-3. Saving data is always non-destructive and will avoid introducing unnecessary
-   changes (e.g. no needless reordering of XML tags).  {==This is currently only
-   true & tested for XML files, not for the YAML files.==}
+3. **Saving data is always non-destructive**.  In XML files, it will also avoid
+   introducing unnecessary changes (e.g. no needless reordering of tags).  The
+   only exception to this is saving SIG YAML files, as they currently frequently
+   contain comments, which will be lost when saving these files through the
+   library.
 4. If you need to refer to indices such as
    [PersonIndex][acl_anthology.people.index.PersonIndex],
    [EventIndex][acl_anthology.collections.eventindex.EventIndex], or
@@ -341,17 +343,35 @@ Volumes can be connected to venues by modifying the volume's `venue_ids` list. {
 
 ## Saving changes
 
-- **Changes to a collection/volume/paper** can be saved by calling
-  [`Collection.save()`][acl_anthology.collections.collection.Collection.save].
-  This will use a [minimal-diff
-  algorithm][acl_anthology.utils.xml.ensure_minimal_diff] by default to avoid
-  introducing "noise" in the diffs, i.e. changes to the XML that do not make a
-  semantic difference, such as reordering certain tags, attributes, or
-  introducing/deleting certain empty tags.  It is also guaranteed to be
-  non-destructive through [integration tests on the entire Anthology
-  data](https://github.com/acl-org/acl-anthology/blob/master/python/tests/anthology_integration_test.py).
+!!! tip "Rule of thumb"
 
-- **Changes to the person database (`people.yaml`)** can be saved by calling
-  [`PersonIndex.save()`][acl_anthology.people.index.PersonIndex.save].
+    Call [`anthology.save_all()`][acl_anthology.anthology.Anthology.save_all] to save all metadata changes.
 
-{==TODO: changes to other YAML files, `Anthology.save_all()`, etc. ==}
+Calling [`save_all()`][acl_anthology.anthology.Anthology.save_all] will write
+XML and YAML files to the Anthology's data directory, with the following
+caveats:
+
+- **Collections will track if they have been modified** to prevent writing XML
+  files unnecessarily.  As with modifying attributes in general, this requires
+  that you have _set_ an attribute; modifying attributes in-place, e.g. lists,
+  will not be detected.
+
+  - Saving a collection manually can be done by calling
+    [`Collection.save()`][acl_anthology.collections.collection.Collection.save].
+
+  - Saving a collection uses a [minimal-diff
+    algorithm][acl_anthology.utils.xml.ensure_minimal_diff] by default to avoid
+    introducing "noise" in the diffs, i.e. changes to the XML that do not make a
+    semantic difference, such as reordering certain tags, attributes, or
+    introducing/deleting certain empty tags.  It is also guaranteed to be
+    non-destructive through [integration tests on the entire Anthology
+    data](https://github.com/acl-org/acl-anthology/blob/master/python/tests/anthology_integration_test.py).
+
+- **YAML files will always be written**.  Serializing all YAML files is much
+  faster than serializing all XML files, so they are written unconditionally,
+  without tracking changes.
+
+- **SIG YAML files are currently not written automatically**.  This is because
+  the current format of the SIG YAML files is a bit arcane, and existing files
+  use a lot of comments, which would be deleted upon writing these files.
+  {==This may change in the future.==}
