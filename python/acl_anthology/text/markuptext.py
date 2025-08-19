@@ -19,8 +19,9 @@ from __future__ import annotations
 from attrs import define, field
 from collections import defaultdict
 from copy import deepcopy
+from functools import total_ordering
 from lxml import etree
-from typing import Iterator, Optional
+from typing import Iterator, Optional, SupportsIndex
 from xml.sax.saxutils import escape as xml_escape
 
 from ..utils import (
@@ -63,10 +64,30 @@ def markup_to_latex(element: etree._Element) -> str:
 
 
 @define(repr=False)
+@total_ordering
 class MarkupText:
     """Text with optional markup.
 
-    This class **should not be instantiated directly,** but only through its class method constructors.  This is because the internal representation of the markup text may change at any time.
+    Warning:
+        This class **should not be instantiated directly,** but only through its class method constructors.
+
+    Example:
+        ```python
+        title = MarkupText.from_("A Structured Review of the Validity of BLEU")
+        title = MarkupText.from_("TTCS$^{\\mathcal{E}}$: a Vectorial Resource for Computing Conceptual Similarity")
+        ```
+
+    Note:
+        This class implements a limited subset of string methods to make common operations more convenient, for example:
+
+        ```python
+        title = MarkupText.from_string("A Structured Review of the Validity of BLEU")
+        title == "A Structured Review of the Validity of BLEU"  # True
+        "BLEU" in title  # True
+        title.startswith("A ")  # True
+        ```
+
+        In all cases, if a string is involved, these operate on the [plain text representation][acl_anthology.text.markuptext.MarkupText.as_text] of the class, which disregards all markup.  If comparing against another MarkupText object, the markup will be taken into account as well.
     """
 
     # IMPLEMENTATION NOTE: Deepcopy-ing (or newly instantiating) etree._Element
@@ -79,10 +100,29 @@ class MarkupText:
     _content: etree._Element | str = field()
 
     # For caching
-    _html: Optional[str] = field(init=False, default=None)
-    _latex: Optional[str] = field(init=False, default=None)
-    _text: Optional[str] = field(init=False, default=None)
-    _xml: Optional[str] = field(init=False, default=None)
+    _html: Optional[str] = field(init=False, default=None, eq=False)
+    _latex: Optional[str] = field(init=False, default=None, eq=False)
+    _text: Optional[str] = field(init=False, default=None, eq=False)
+    _xml: Optional[str] = field(init=False, default=None, eq=False)
+
+    def __contains__(self, key: object) -> bool:
+        if isinstance(key, str):
+            return key in self.as_text()
+        return False
+
+    def __eq__(self, other: object) -> bool:
+        if isinstance(other, str):
+            return self.as_text() == other
+        elif isinstance(other, MarkupText):
+            return self.as_xml() == other.as_xml()
+        return False
+
+    def __lt__(self, other: object) -> bool:
+        if isinstance(other, str):
+            return self.as_text() < other
+        elif isinstance(other, MarkupText):
+            return self.as_xml() < other.as_xml()
+        return False
 
     def __str__(self) -> str:
         return self.as_text()
@@ -231,6 +271,29 @@ class MarkupText:
         else:
             return cls(str(element.text) if element.text is not None else "")
 
+    @classmethod
+    def from_(cls, content: etree._Element | str) -> MarkupText:
+        """Instantiate MarkupText from an XML element or a string, heuristically parsing any supported markup.
+
+        - If called with an XML element, assumes it uses the Anthology's markup format and calls [`from_xml()`][acl_anthology.text.markuptext.MarkupText.from_xml].
+        - If called with a string, assumes the string might contain markup and will try to intelligently parse it.  At the moment, only LaTeX markup is supported, which means that the effect of this is identical to calling [`from_latex_maybe()`][acl_anthology.text.markuptext.MarkupText.from_latex_maybe], but this may change if we support different types of markup in the future.
+
+        Note:
+            If you want more fine-grained control over markup detection, call one of the more specific builder functions instead.
+
+        Arguments:
+            content: A string potentially containing markup, or an XML element containing valid MarkupText according to the schema.
+
+        Returns:
+            Instantiated MarkupText object corresponding to the content.
+        """
+        if isinstance(content, etree._Element):
+            return cls.from_xml(content)
+        elif isinstance(content, str):
+            return cls.from_latex_maybe(content)
+        else:  # pragma: no cover
+            raise TypeError(f"Cannot instantiate MarkupText from {type(content)}")
+
     def to_xml(self, tag: str = "span") -> etree._Element:
         """
         Arguments:
@@ -246,3 +309,29 @@ class MarkupText:
             element = deepcopy(self._content)
             element.tag = tag
         return element
+
+    ### STRING METHODS
+
+    def endswith(
+        self,
+        suffix: str | tuple[str, ...],
+        start: Optional[SupportsIndex] = None,
+        end: Optional[SupportsIndex] = None,
+    ) -> bool:
+        """Return True if the string ends with the specified suffix, False otherwise.
+
+        Equivalent to `self.as_text().endswith(...)`.
+        """
+        return self.as_text().endswith(suffix, start, end)
+
+    def startswith(
+        self,
+        prefix: str | tuple[str, ...],
+        start: Optional[SupportsIndex] = None,
+        end: Optional[SupportsIndex] = None,
+    ) -> bool:
+        """Return True if the string starts with the specified prefix, False otherwise.
+
+        Equivalent to `self.as_text().startswith(...)`.
+        """
+        return self.as_text().startswith(prefix, start, end)

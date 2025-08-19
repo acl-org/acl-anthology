@@ -205,11 +205,12 @@ def test_markup_from_xml(inp, out):
     assert markup.as_html() == out["html"]
     assert markup.as_latex() == out["latex"]
     assert markup.as_xml() == inp
+    assert MarkupText.from_(element) == markup
     assert etree.tostring(markup.to_xml("title"), encoding="unicode") == xml
     assert markup.contains_markup == ("<" in out["html"])
 
 
-def test_simple_string():
+def test_markup_from_simple_string():
     text = "Some ASCII text without markup"
     markup = MarkupText.from_string(text)
     assert not markup.contains_markup
@@ -217,10 +218,12 @@ def test_simple_string():
     assert markup.as_html() == text
     assert markup.as_latex() == text
     assert markup.as_xml() == text
+    assert markup == text
     assert (
         etree.tostring(markup.to_xml("span"), encoding="unicode")
         == f"<span>{text}</span>"
     )
+    assert MarkupText.from_(text) == markup
 
 
 test_cases_markup_from_latex = (
@@ -424,3 +427,20 @@ def test_markup_from_latex_maybe(inp, out1, out2):
     assert markup.as_xml() == out1
     markup = MarkupText.from_latex_maybe(inp)
     assert markup.as_xml() == out2
+
+
+def test_markup_behaves_like_string():
+    markup = MarkupText.from_latex(
+        "TTCS$^{\mathcal{E}}$: a Vectorial Resource for Computing Conceptual Similarity"
+    )
+    plain_text = "TTCSℰ: a Vectorial Resource for Computing Conceptual Similarity"
+    assert markup == plain_text  # disregards markup
+    assert markup != MarkupText.from_string(plain_text)  # does not disregard markup
+    assert markup == MarkupText.from_latex(
+        "TTCS$^{\mathcal{E}}$: a Vectorial Resource for Computing Conceptual Similarity"
+    )
+    assert "Vectorial" in markup
+    assert markup.startswith("TTCS")
+    assert markup.endswith("Similarity")
+    assert markup < "XTCS"
+    assert markup < MarkupText.from_string("XTCS")
