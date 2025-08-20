@@ -156,7 +156,7 @@ A person can be _explicit_ (has an entry in `people.yaml`) or _inferred_ (was in
 Manually creating a new person (that will get saved to `people.yaml` and can
 have an ORCID and other metadata) can be done in two ways:
 
-1. By calling [`PersonIndex.create_person()`][acl_anthology.people.index.PersonIndex.create_person].  The returned Person is _not_ linked to any papers/volumes, but you can set their ID afterwards on name specifications.
+1. By calling [`PersonIndex.create()`][acl_anthology.people.index.PersonIndex.create].  The returned Person is _not_ linked to any papers/volumes, but you can set their ID afterwards on name specifications.
 
 2. By calling [`make_explicit()`][acl_anthology.people.person.Person.make_explicit] on a currently _inferred_ person.  This will not only add this person to the database, but also **set their ID on all papers/volumes** currently associated with them.
 
@@ -174,7 +174,7 @@ have an ORCID and other metadata) can be done in two ways:
 
 **Situation:** A person `p1` is currently associated with papers/volumes that actually belong to different people, who just happened to publish under the same name.  We want to create a new person instance for the other author with the same name.
 
-1. Call [`anthology.people.create_person()`][acl_anthology.people.index.PersonIndex.create_person] for all persons who do not have an explicit ID yet, giving all the names that can refer to this person.  Also supply the ORCID when calling this function, if it is known.
+1. Call [`anthology.people.create()`][acl_anthology.people.index.PersonIndex.create] for all persons who do not have an explicit ID yet, giving all the names that can refer to this person.  Also supply the ORCID when calling this function, if it is known.
 
 2. For each person, iterate through the papers that actually belong to them and update the name specification that currently resolves to `p1` by setting the explicit ID of the correct newly-created person.  {==TODO: Same as above: It's currently a bit tricky to find the _name specification_ referring to a person; should add a function for this.==}
 
@@ -290,7 +290,7 @@ NameSpecification(Name("Marcel", "Bollmann"), orcid="0000-0003-2598-8150")
 If an ORCID is supplied, the NameSpecification also needs to have an explicit ID
 referring to an entry in `people.yaml`.  **The library can add an ID
 automatically** as long as you supply the author/editor list to the `create_`
-function, so there is typically **no need to call `create_person()`** during
+function, so there is typically **no need to call `create()`** during
 ingestion!
 
 !!! example

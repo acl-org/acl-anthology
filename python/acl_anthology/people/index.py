@@ -346,7 +346,7 @@ class PersonIndex(SlottedDict[Person]):
             if is_verified_person_id(pid):
                 self._slugs_to_verified_ids[name.slugify()].add(pid)
 
-    def create_person(
+    def create(
         self,
         id: str,
         names: list[Name],
