@@ -20,6 +20,7 @@ This release implements the new [name resolution and author ID logic](https://gi
   - Added `PersonIndex.create` to instantiate a new Person and add it to the index.
 - MarkupText now provides a `from_()` class method that calls the appropriate builder method, using heuristic markup parsing if instantiated from a string.
 - MarkupText now supports some common string methods, such as `__contains__`, `endswith`, `startswith`.
+- Venues can now be created via `VenueIndex.create()`.
 
 ### Changed
 

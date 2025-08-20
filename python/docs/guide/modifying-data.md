@@ -336,7 +336,11 @@ the gory details), it's best to ensure that:
 
 ### Connecting to venues and SIGs
 
-Volumes can be connected to venues by modifying the volume's `venue_ids` list. {==TODO: adding new venues==}
+Volumes can be connected to venues by modifying the volume's `venue_ids` list.
+New venues can be added by calling
+[`VenueIndex.create()`][acl_anthology.venues.VenueIndex.create], which will also
+create a corresponding YAML file upon saving.  Afterwards, the ID used when
+instantiating the venue can be used in a volume's `venue_ids`.
 
 {==TODO: connecting to SIGs; we may want to refactor how SIGs are represented before introducing this functionality.==}
 

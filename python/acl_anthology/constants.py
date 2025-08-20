@@ -29,5 +29,8 @@ UNKNOWN_INGEST_DATE = date(1900, 1, 1)
 RE_EVENT_ID = r"^[a-z0-9]+-[0-9]{4}$"
 """A regular expression matching a valid event ID."""
 
+RE_VENUE_ID = r"^[a-z][a-z0-9]+$"
+"""A regular expression matching a valid venue ID."""
+
 RE_ISO_DATE = r"^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
 """A regular expression matching a date in ISO format."""

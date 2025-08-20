@@ -74,8 +74,26 @@ def test_venue_roundtrip_yaml(anthology_stub, tmp_path, venue_id):
     assert out == expected
 
 
+def test_venueindex_create(anthology):
+    index = anthology.venues
+    venue = index.create(
+        id="acla", acronym="ACLA", name="ACL Anthology Workshop", is_acl=True
+    )
+    assert "acla" in index
+    assert index["acla"] is venue
+    assert venue.acronym == "ACLA"
+    assert venue.name == "ACL Anthology Workshop"
+    assert venue.is_acl
+    assert venue.path.name == "acla.yaml"
+
+
+def test_venueindex_create_with_invalid_id(anthology):
+    with pytest.raises(ValueError):
+        anthology.venues.create(id="acl-a", acronym="ACLA", name="ACL Anthology Workshop")
+
+
 def test_venueindex_cl(anthology):
-    index = VenueIndex(anthology)
+    index = anthology.venues
     venue = index.get("cl")
     assert venue.id == "cl"
     assert venue.acronym == "CL"
