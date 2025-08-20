@@ -431,14 +431,14 @@ def test_markup_from_latex_maybe(inp, out1, out2):
 
 def test_markup_behaves_like_string():
     markup = MarkupText.from_latex(
-        "TTCS$^{\mathcal{E}}$: a Vectorial Resource for Computing Conceptual Similarity"
+        "TTCS$^{\\mathcal{E}}$: a Vectorial Resource for Computing Conceptual Similarity"
     )
     assert (
         markup
-        == "TTCS<tex-math>^{\mathcal{E}}</tex-math>: a Vectorial Resource for Computing Conceptual Similarity"
+        == "TTCS<tex-math>^{\\mathcal{E}}</tex-math>: a Vectorial Resource for Computing Conceptual Similarity"
     )
     assert markup == MarkupText.from_latex(
-        "TTCS$^{\mathcal{E}}$: a Vectorial Resource for Computing Conceptual Similarity"
+        "TTCS$^{\\mathcal{E}}$: a Vectorial Resource for Computing Conceptual Similarity"
     )
     assert "Vectorial" in markup
     assert markup.startswith("TTCS")
