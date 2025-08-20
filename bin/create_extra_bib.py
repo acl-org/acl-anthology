@@ -40,11 +40,14 @@ from rich.progress import track
 import shutil
 import subprocess
 
+
 from acl_anthology import config
 from acl_anthology.utils.ids import infer_year
 from acl_anthology.utils.logging import setup_rich_logging
 from create_hugo_data import make_progress
 
+abbrev_acl = "a"
+abbrev_url = "u"
 
 BIB2XML = None
 XML2END = None
@@ -73,10 +76,10 @@ def create_bibtex(builddir, clean=False) -> None:
 
         # Add some shortcuts to the uncompressed consolidated bib file
         print(
-            "@string{acl = {Association for Computational Linguistics}}",
+            "@string{a = {Association for Computational Linguistics}}",
             file=file_anthology_raw,
         )
-        print(f"@string{{anth = {{{config.url_prefix}/}}}}", file=file_anthology_raw)
+        print(f"@string{{u = {{{config.url_prefix}/}}}}", file=file_anthology_raw)
         print(file=file_anthology_raw)
 
         for volume_file in track(
@@ -100,11 +103,11 @@ def create_bibtex(builddir, clean=False) -> None:
             # Replace verbose text with abbreviations to get the file under 50 MB for Overleaf
             concise_contents = bibtex.replace(
                 'publisher = "Association for Computational Linguistics",',
-                "publisher = acl,",
+                f"publisher = {abbrev_acl},",
             )
             concise_contents = re.sub(
                 rf'url = "{config.url_prefix}/(.*)"',
-                r"url = anth # {\1}",
+                rf"url = {abbrev_url} # {{\1}}",
                 concise_contents,
             )
 
