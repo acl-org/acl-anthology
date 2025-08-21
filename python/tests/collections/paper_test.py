@@ -207,6 +207,7 @@ test_cases_xml = (
   <title>Strings from neurons to language</title>
   <author><first>Tim</first><last>Fernando</last></author>
   <pages>1–10</pages>
+  <abstract/>
   <url hash="61daae5b">2022.naloma-1.1</url>
   <bibkey>fernando-2022-strings</bibkey>
 </paper>
