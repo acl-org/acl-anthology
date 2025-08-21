@@ -17,6 +17,7 @@ import copy
 import pytest
 from acl_anthology.collections import CollectionIndex
 from acl_anthology.collections.types import PaperType, VolumeType
+from acl_anthology.exceptions import AnthologyXMLError
 from acl_anthology.files import AttachmentReference, PDFReference
 from acl_anthology.people import NameSpecification
 from acl_anthology.text import MarkupText
@@ -35,6 +36,7 @@ from acl_anthology.collections.paper import (
 class VolumeStub:
     title = MarkupText.from_string("Generic volume")
     editors = []
+    full_id_tuple = ("2099", "stub", None)
 
 
 @pytest.fixture
@@ -168,7 +170,7 @@ def test_paper_remove_author(anthology):
     paper = anthology.get_paper("2022.acl-demo.2")
     ns = paper.authors[-1]
     person = anthology.resolve(ns)
-    assert person.id == "iryna-gurevych"
+    assert person.id == "unverified/iryna-gurevych"
     assert paper.full_id_tuple in person.item_ids
 
     # Removing last author from paper
@@ -269,6 +271,18 @@ def test_paper_roundtrip_xml(xml):
     out = paper.to_xml()
     indent(out)
     assert etree.tostring(out, encoding="unicode") == xml
+
+
+def test_paper_from_xml_invalid_tag():
+    xml = """<paper id="9">
+  <title>Briefly Noted</title>
+  <speaker><first>John</first><last>Doe</last></speaker>
+  <url hash="166bd6c1">J89-1009</url>
+  <bibkey>nn-1989-briefly</bibkey>
+</paper>
+"""
+    with pytest.raises(AnthologyXMLError):
+        Paper.from_xml(VolumeStub(), etree.fromstring(xml))
 
 
 test_cases_paper_to_bibtex = (

@@ -100,3 +100,14 @@ def test_is_valid_item_id():
     assert not ids.is_valid_item_id("main.42")
     assert not ids.is_valid_item_id("acl ")
     assert not ids.is_valid_item_id("")
+
+
+def test_is_valid_orcid():
+    assert ids.is_valid_orcid("0000-0002-1825-0097")
+    assert ids.is_valid_orcid("0000-0001-5109-3700")
+    assert ids.is_valid_orcid("0000-0002-1694-233X")
+    assert not ids.is_valid_orcid("0000-0002-1825-009X")
+    assert not ids.is_valid_orcid("0000-0001-5109-3701")
+    assert not ids.is_valid_orcid("0000-0002-1694-2339")
+    assert not ids.is_valid_orcid("000000021694233X")
+    assert not ids.is_valid_orcid("0002-1694-233X")

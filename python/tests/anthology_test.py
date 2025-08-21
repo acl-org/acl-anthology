@@ -142,10 +142,10 @@ def test_get_event(anthology):
 
 
 def test_get_person(anthology):
-    person = anthology.get_person("yang-liu-edinburgh")
+    person = anthology.get_person("yang-liu-microsoft")
     assert person is not None
     assert person.canonical_name == Name("Yang", "Liu")
-    assert person.comment == "Edinburgh"
+    assert person.comment == "Microsoft Cognitive Services Research"
 
 
 def test_find_people(anthology):
