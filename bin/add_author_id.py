@@ -3,9 +3,11 @@
 """Add an author ID to NameSpecification entries using the acl_anthology module.
 
 This script adds the name ID to all papers matching the first and last name.
+It will use the module to find the list of papers to edit. Alternately, you
+provide it with the list of papers.
 
 Usage:
-    ./add_author_id.py <id> "Last name[, First name]"
+    ./add_author_id.py <id> "Last name[, First name]" [--paper-ids 2028.acl-main.74 ...]
 """
 
 from __future__ import annotations
@@ -24,30 +26,42 @@ import lxml.etree as ET
 
 
 def main(args: argparse.Namespace) -> None:
-    anthology = Anthology(args.data_dir, verbose=True)
 
     last_name, first_name = args.name.split(", ") if ", " in args.name else (args.name, None)
 
-    people = anthology.find_people(args.name)
-    if not people:
-        print(f"No person found matching name {args.name}")
-
-    # find the person with the non-explicit ID
-    for person in people:
-        if not person.is_explicit:
-            break
-    print(f"Found person: {person}")
-
-    if not person:
-        print(f"No person found matching name {args.name} with an explicit ID")
-        return
+    anthology = Anthology(args.data_dir, verbose=True)
 
     # Build a collection of the set of papers to modify within each XML file
     collection_to_paper_map = defaultdict(list)
-    for paper in person.papers():
-        collection_to_paper_map[paper.collection_id].append(paper.full_id_tuple)
 
-    print(collection_to_paper_map)
+    if args.paper_ids:
+        for paper_id in args.paper_ids:
+            paper = anthology.get_paper(paper_id)
+            if paper:
+                collection_to_paper_map[paper.collection_id].append(paper.full_id_tuple)
+
+    else:
+        people = anthology.find_people(args.name)
+        if not people:
+            print(f"No person found matching name {args.name}")
+
+        # find the person with the non-explicit ID
+        for person in people:
+            if not person.is_explicit:
+                break
+
+        if not person:
+            print(f"No person found matching name {args.name} with an explicit ID")
+            return
+
+        for paper in person.papers():
+            collection_to_paper_map[paper.collection_id].append(paper.full_id_tuple)
+
+    if collection_to_paper_map:
+        print(f"Will edit the following paper IDs:")
+        for paper_id_tuples in collection_to_paper_map.values():
+            for paper_id in paper_id_tuples:
+                print(f" - {paper_id}")
 
     # Now iterate over those files and the papers within them
     for collection_id, paper_id_tuples in collection_to_paper_map.items():
@@ -72,14 +86,12 @@ def main(args: argparse.Namespace) -> None:
                     author_first_name = None
                 author_last_name = author_xml.find("./last").text
 
-                print("Found", first_name, last_name)
-
                 if author_last_name == last_name and author_first_name == first_name:
                     paper_id = (
                         paper_xml.attrib["id"] if paper_xml.text == "paper" else "0"
                     )
-                    anth_id = f"{xml_file}/{paper_id}"
-                    print(f"Adding {args.id} to {anth_id}...")
+                    paper_id = anthology.get_paper(paper_tuple).full_id
+                    print(f"Adding {args.id} to {author_first_name} {author_last_name} on paper {paper_id}...")
                     author_xml.attrib["id"] = args.id
 
         indent(tree.getroot())
@@ -105,7 +117,8 @@ def main(args: argparse.Namespace) -> None:
 if __name__ == "__main__":
     parser = argparse.ArgumentParser("Add an author ID to all of an author's papers")
     parser.add_argument("id", help="Author ID to add")
-    parser.add_argument("--name", "-n", help="Author's name (last[, first])")
+    parser.add_argument("name", help="Author's name (last[, first])")
+    parser.add_argument("--paper-ids", nargs="*", help="List of paper IDs to modify")
     parser.add_argument(
         "--data-dir",
         default=None,
