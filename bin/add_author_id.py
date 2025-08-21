@@ -24,12 +24,13 @@ First use case was the Bill Byrne separation of July 2022.
 
 Usage:
 
-    ./add_author_id.py bill-byrne --last-name Byrne
+    ./add_author_id.py bill-byrne --last-name Byrne --first-name Bill
 """
 
 import argparse
 import os
 
+from pathlib import Path
 from anthology.utils import indent
 from itertools import chain
 
@@ -37,10 +38,7 @@ import lxml.etree as ET
 
 
 def main(args):
-    for xml_file in os.listdir(args.data_dir):
-        if not xml_file.endswith(".xml"):
-            continue
-
+    for xml_file in Path(args.data_dir).glob("**/*.xml"):
         changed_one = False
 
         tree = ET.parse(xml_file)
@@ -53,7 +51,11 @@ def main(args):
                 if "id" in author_xml.attrib:
                     continue
                 last_name = author_xml.find("./last").text
-                if last_name == args.last_name:
+                try:
+                    first_name = author_xml.find("./first").text
+                except AttributeError:
+                    first_name = ""
+                if last_name == args.last_name and first_name == args.first_name:
                     paper_id = (
                         paper_xml.attrib["id"] if paper_xml.text == "paper" else "0"
                     )
@@ -71,6 +73,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("id", help="Author ID to add")
     parser.add_argument("--last-name", help="Author's last name")
+    parser.add_argument("--first-name", help="Author's first name")
     parser.add_argument("--confirm", action="store_true", help="Confirm each instance")
     parser.add_argument(
         "--data-dir", default=os.path.join(os.path.dirname(__file__), "..", "data", "xml")
