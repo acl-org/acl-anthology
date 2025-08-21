@@ -107,7 +107,7 @@ class MarkupText:
 
     def __contains__(self, key: object) -> bool:
         if isinstance(key, str):
-            return key in self.as_xml()
+            return (key in self.as_text()) or (key in self.as_xml())
         return False  # pragma: no cover
 
     def __eq__(self, other: object) -> bool:
@@ -123,6 +123,9 @@ class MarkupText:
         elif isinstance(other, MarkupText):
             return self.as_xml() < other.as_xml()
         return False  # pragma: no cover
+
+    def __len__(self) -> int:
+        return len(self.as_text())
 
     def __str__(self) -> str:
         return self.as_text()
