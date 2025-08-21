@@ -241,7 +241,8 @@ class MarkupText:
         """
         if isinstance(self._content, str):
             element = etree.Element(tag)
-            element.text = self._content
+            if self._content:
+                element.text = self._content
         else:
             element = deepcopy(self._content)
             element.tag = tag
