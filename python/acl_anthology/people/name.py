@@ -132,7 +132,7 @@ class Name:
     def from_dict(cls, name: dict[str, str]) -> Name:
         """
         Parameters:
-            name: A dictionary with "first" and "last" keys.
+            name: A dictionary with "first", "last", and "script" keys.  Only "last" is required.
 
         Returns:
             A corresponding Name object.
@@ -140,6 +140,7 @@ class Name:
         return cls(
             name.get("first"),
             name["last"],
+            script=name.get("script"),
         )
 
     @classmethod

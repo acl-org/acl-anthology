@@ -96,7 +96,9 @@ class Person:
         factory=list, converter=_name_list_converter
     )
     item_ids: list[AnthologyIDTuple] = field(
-        factory=list, repr=lambda x: f"<list of {len(x)} AnthologyIDTuple objects>"
+        factory=list,
+        converter=list,
+        repr=lambda x: f"<list of {len(x)} AnthologyIDTuple objects>",
     )
     orcid: Optional[str] = field(
         default=None,
@@ -104,7 +106,7 @@ class Person:
     )  # validator defined below
     comment: Optional[str] = field(default=None)
     degree: Optional[str] = field(default=None)
-    similar_ids: list[str] = field(factory=list)
+    similar_ids: list[str] = field(factory=list, converter=list)
     disable_name_matching: Optional[bool] = field(default=False, converter=bool)
     is_explicit: Optional[bool] = field(default=False, converter=bool)
 

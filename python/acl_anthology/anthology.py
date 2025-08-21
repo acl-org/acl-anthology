@@ -43,6 +43,7 @@ from .people import PersonIndex, Person, Name, NameSpecification, ConvertableInt
 from .sigs import SIGIndex
 from .venues import VenueIndex
 
+CacheDict: TypeAlias = dict[str, str | tuple[int, int]]
 NameSpecificationOrIter: TypeAlias = NameSpecification | Iterator[NameSpecification]
 PersonOrList: TypeAlias = Person | list[Person]
 
@@ -94,6 +95,26 @@ class Anthology:
             datadir_schema = f.read()
         if datadir_schema != expected_schema:
             warnings.warn(SchemaMismatchWarning())
+
+    def _compute_cache_dict(self, depends_on: list[str]) -> CacheDict:
+        """Compute a dictionary of file stats for caching purposes.
+
+        Arguments:
+            depends_on: A list of files or glob patterns in the Anthology's data directory that the cache depends on.
+
+        Returns:
+            A dictionary containing {'datadir': self.datadir} plus an entry with stats for every file that matches the supplied glob patterns.
+        """
+        cache_dict: CacheDict = {"datadir": str(self.datadir.resolve())}
+        for pattern in depends_on:
+            for path in self.datadir.glob(pattern):
+                if path.is_file():
+                    stat = path.stat()
+                    cache_dict[str(path.relative_to(self.datadir))] = (
+                        stat.st_size,
+                        int(stat.st_mtime),
+                    )
+        return cache_dict
 
     @classmethod
     def from_repo(
