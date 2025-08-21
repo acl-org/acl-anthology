@@ -34,7 +34,7 @@ fix-and-test: fix test-all
 
 # Run all tests
 test-all *FLAGS: _deps
-  poetry run pytest -m "not integration" {{FLAGS}}
+  poetry run pytest -m "not integration" --stepwise {{FLAGS}}
 
 # Run all tests and generate coverage report
 test-with-coverage: _deps
