@@ -83,7 +83,7 @@ RewriteRule ^people/[a-z]/([\-a-z0-9]+)/?$ people/$1/ [R=301,L,NC]
 
 # If the requested author page does not exist, soft-redirect [303 See Other] to the unverified/ URL
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^people/([^/]+)/?$ /people/unverified/$1/ [L,R=303]
+RewriteRule ^people/([^/]+)/?$ people/unverified/$1/ [L,R=303]
 
 # Videos
 ## match old-style URLs, e.g., /N13-1001.mp4 -> anthology-files/videos/N/N13-1001.mp4
