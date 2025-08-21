@@ -6,7 +6,7 @@
       <editor><first>Hansi</first><last>Hettiarachchi</last></editor>
       <editor><first>Tharindu</first><last>Ranasinghe</last></editor>
       <editor><first>Paul</first><last>Rayson</last></editor>
-      <editor><first>Ruslan</first><last>Mitkov</last></editor>
+      <editor id="ruslan-mitkov"><first>Ruslan</first><last>Mitkov</last></editor>
       <editor><first>Mohamed</first><last>Gaber</last></editor>
       <editor><first>Damith</first><last>Premasiri</last></editor>
       <editor><first>Fiona Anting</first><last>Tan</last></editor>
@@ -49,9 +49,9 @@
       <author><first>Imane</first><last>Momayiz</last></author>
       <author><first>Xuguang</first><last>Ren</last></author>
       <author><first>Eric</first><last>Moulines</last></author>
-      <author><first>Preslav</first><last>Nakov</last></author>
+      <author id="preslav-nakov"><first>Preslav</first><last>Nakov</last></author>
       <author><first>Michalis</first><last>Vazirgiannis</last></author>
-      <author><first>Eric</first><last>Xing</last></author>
+      <author id="eric-xing"><first>Eric</first><last>Xing</last></author>
       <pages>9–30</pages>
       <abstract>We introduce Atlas-Chat, the first-ever collection of LLMs specifically developed for dialectal Arabic. Focusing on Moroccan Arabic, also known as Darija, we construct our instruction dataset by consolidating existing Darija language resources, creating novel datasets both manually and synthetically, and translating English instructions with stringent quality control. Atlas-Chat-2B, 9B, and 27B models, fine-tuned on the dataset, exhibit superior ability in following Darija instructions and performing standard NLP tasks. Notably, our models outperform both state-of-the-art and Arabic-specialized LLMs like LLaMa, Jais, and AceGPT, e.g., our 9B model gains a 13% performance boost over a larger 13B model on DarijaMMLU, in our newly introduced evaluation suite for Darija covering both discriminative and generative tasks. Furthermore, we perform an experimental analysis of various fine-tuning strategies and base model choices to determine optimal configurations. All our resources are publicly accessible, and we believe our work offers comprehensive design methodologies of instruction-tuning for low-resource languages, which are often neglected in favor of data-rich languages by contemporary LLMs.</abstract>
       <url hash="ec78512d">2025.loreslm-1.2</url>
@@ -124,7 +124,7 @@
     <paper id="9">
       <title><fixed-case>F</fixed-case>ilipino Benchmarks for Measuring Sexist and Homophobic Bias in Multilingual Language Models from <fixed-case>S</fixed-case>outheast <fixed-case>A</fixed-case>sia</title>
       <author><first>Lance Calvin Lim</first><last>Gamboa</last></author>
-      <author><first>Mark</first><last>Lee</last></author>
+      <author id="mark-lee"><first>Mark</first><last>Lee</last></author>
       <pages>123–134</pages>
       <abstract>Bias studies on multilingual models confirm the presence of gender-related stereotypes in masked models processing languages with high NLP resources. We expand on this line of research by introducing Filipino CrowS-Pairs and Filipino WinoQueer: benchmarks that assess both sexist and anti-queer biases in pretrained language models (PLMs) handling texts in Filipino, a low-resource language from the Philippines. The benchmarks consist of 7,074 new challenge pairs resulting from our cultural adaptation of English bias evaluation datasets—a process that we document in detail to guide similar forthcoming efforts. We apply the Filipino benchmarks on masked and causal multilingual models, including those pretrained on Southeast Asian data, and find that they contain considerable amounts of bias. We also find that for multilingual models, the extent of bias learned for a particular language is influenced by how much pretraining data in that language a model was exposed to. Our benchmarks and insights can serve as a foundation for future work analyzing and mitigating bias in multilingual models.</abstract>
       <url hash="3794ac85">2025.loreslm-1.9</url>
@@ -264,7 +264,7 @@
       <title>Exploiting Task Reversibility of <fixed-case>DRS</fixed-case> Parsing and Generation: Challenges and Insights from a Multi-lingual Perspective</title>
       <author><first>Muhammad Saad</first><last>Amin</last></author>
       <author><first>Luca</first><last>Anselma</last></author>
-      <author><first>Alessandro</first><last>Mazzei</last></author>
+      <author id="alessandro-mazzei"><first>Alessandro</first><last>Mazzei</last></author>
       <pages>268–286</pages>
       <abstract>Semantic parsing and text generation exhibit reversible properties when utilizing Discourse Representation Structures (DRS). However, both processes—text-to-DRS parsing and DRS-to-text generation—are susceptible to errors. In this paper, we exploit the reversible nature of DRS to explore both error propagation, which is commonly seen in pipeline methods, and the less frequently studied potential for error correction. We investigate two pipeline approaches: Parse-Generate-Parse (PGP) and Generate-Parse-Generate (GPG), utilizing pre-trained language models where the output of one model becomes the input for the next. Our evaluation uses the Parallel Meaning Bank dataset, focusing on Urdu as a low-resource language, Italian as a mid-resource language, and English serving as a high-resource baseline. Our analysis highlights that while pipelines are theoretically suited for error correction, they more often propagate errors, with Urdu exhibiting the greatest sensitivity, Italian showing a moderate effect, and English demonstrating the highest stability. This variation highlights the unique challenges faced by low-resource languages in semantic processing tasks. Further, our findings suggest that these pipeline methods support the development of more linguistically balanced datasets, enabling a comprehensive assessment across factors like sentence structure, length, type, polarity, and voice. Our cross-linguistic analysis provides valuable insights into the behavior of DRS processing in low-resource contexts, demonstrating both the potential and limitations of reversible pipeline approaches.</abstract>
       <url hash="b75a4d59">2025.loreslm-1.22</url>
@@ -355,7 +355,7 @@
     <paper id="30">
       <title>Controlled Evaluation of Syntactic Knowledge in Multilingual Language Models</title>
       <author><first>Daria</first><last>Kryvosheieva</last></author>
-      <author><first>Roger</first><last>Levy</last></author>
+      <author id="roger-levy"><first>Roger</first><last>Levy</last></author>
       <pages>402–413</pages>
       <abstract>Language models (LMs) are capable of acquiring elements of human-like syntactic knowledge. Targeted syntactic evaluation tests have been employed to measure how well they form generalizations about syntactic phenomena in high-resource languages such as English. However, we still lack a thorough understanding of LMs’ capacity for syntactic generalizations in low-resource languages, which are responsible for much of the diversity of syntactic patterns worldwide. In this study, we develop targeted syntactic evaluation tests for three low-resource languages (Basque, Hindi, and Swahili) and use them to evaluate five families of open-access multilingual Transformer LMs. We find that some syntactic tasks prove relatively easy for LMs while others (agreement in sentences containing indirect objects in Basque, agreement across a prepositional phrase in Swahili) are challenging. We additionally uncover issues with publicly available Transformers, including a bias toward the habitual aspect in Hindi in multilingual BERT and underperformance compared to similar-sized models in XGLM-4.5B.</abstract>
       <url hash="ba8c2722">2025.loreslm-1.30</url>
@@ -388,7 +388,7 @@
       <title>When <fixed-case>LLM</fixed-case>s Struggle: Reference-less Translation Evaluation for Low-resource Languages</title>
       <author><first>Archchana</first><last>Sindhujan</last></author>
       <author><first>Diptesh</first><last>Kanojia</last></author>
-      <author><first>Constantin</first><last>Orasan</last></author>
+      <author id="constantin-orasan"><first>Constantin</first><last>Orasan</last></author>
       <author><first>Shenbin</first><last>Qian</last></author>
       <pages>437–459</pages>
       <abstract>This paper investigates the reference-less evaluation of machine translation for low-resource language pairs, known as quality estimation (QE). Segment-level QE is a challenging cross-lingual language understanding task that provides a quality score (0 -100) to the translated output. We comprehensively evaluate large language models (LLMs) in zero/few-shot scenarios and perform instruction fine-tuning using a novel prompt based on annotation guidelines. Our results indicate that prompt-based approaches are outperformed by the encoder-based fine-tuned QE models. Our error analysis reveals tokenization issues, along with errors due to transliteration and named entities, and argues for refinement in LLM pre-training for cross-lingual tasks. We release the data, and models trained publicly for further research.</abstract>

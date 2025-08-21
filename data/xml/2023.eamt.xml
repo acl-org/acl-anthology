@@ -14,10 +14,10 @@
       <editor><first>Sergi Alvarez</first><last>Vidal</last></editor>
       <editor><first>Nora</first><last>Aranberri</last></editor>
       <editor><first>Mara</first><last>Nunziatini</last></editor>
-      <editor><first>Carla Parra</first><last>Escartín</last></editor>
-      <editor><first>Mikel</first><last>Forcada</last></editor>
-      <editor><first>Maja</first><last>Popovic</last></editor>
-      <editor><first>Carolina</first><last>Scarton</last></editor>
+      <editor id="carla-parra-escartin"><first>Carla Parra</first><last>Escartín</last></editor>
+      <editor id="mikel-l-forcada"><first>Mikel</first><last>Forcada</last></editor>
+      <editor id="maja-popovic"><first>Maja</first><last>Popovic</last></editor>
+      <editor id="carolina-scarton"><first>Carolina</first><last>Scarton</last></editor>
       <editor><first>Helena</first><last>Moniz</last></editor>
       <publisher>European Association for Machine Translation</publisher>
       <address>Tampere, Finland</address>
@@ -41,7 +41,7 @@
       <title>Tailoring Domain Adaptation for Machine Translation Quality Estimation</title>
       <author><first>Javad Pourmostafa Roshan</first><last>Sharami</last></author>
       <author><first>Dimitar</first><last>Shterionov</last></author>
-      <author><first>Frédéric</first><last>Blain</last></author>
+      <author id="frederic-blain"><first>Frédéric</first><last>Blain</last></author>
       <author><first>Eva</first><last>Vanmassenhove</last></author>
       <author><first>Mirella De</first><last>Sisto</last></author>
       <author><first>Chris</first><last>Emmery</last></author>
@@ -54,7 +54,7 @@
     <paper id="3">
       <title>Example-Based Machine Translation from Textto a Hierarchical Representation of Sign Language</title>
       <author><first>Elise</first><last>Bertin-Lemée</last></author>
-      <author><first>Annelies</first><last>Braffort</last></author>
+      <author id="annelies-braffort"><first>Annelies</first><last>Braffort</last></author>
       <author><first>Camille</first><last>Challant</last></author>
       <author><first>Claire</first><last>Danet</last></author>
       <author><first>Michael</first><last>Filhol</last></author>
@@ -66,9 +66,9 @@
     <paper id="4">
       <title>Unsupervised Feature Selection for Effective Parallel Corpus Filtering</title>
       <author><first>Mikko</first><last>Aulamo</last></author>
-      <author><first>Ona</first><last>de Gibert</last></author>
+      <author id="ona-de-gibert"><first>Ona</first><last>de Gibert</last></author>
       <author><first>Sami</first><last>Virpioja</last></author>
-      <author><first>Jörg</first><last>Tiedemann</last></author>
+      <author id="jorg-tiedemann"><first>Jörg</first><last>Tiedemann</last></author>
       <pages>31–38</pages>
       <abstract>This work presents an unsupervised method of selecting filters and threshold values for the OpusFilter parallel corpus cleaning toolbox. The method clusters sentence pairs into noisy and clean categories and uses the features of the noisy cluster center as filtering parameters. Our approach utilizes feature importance analysis to disregard filters that do not differentiate between clean and noisy data. A randomly sampled subset of a given corpus is used for filter selection and ineffective filters are not run for the full corpus. We use a set of automatic evaluation metrics to assess the quality of translation models trained with data filtered by our method and data filtered with OpusFilter’s default parameters. The trained models cover English-German and English-Ukrainian in both directions. The proposed method outperforms the default parameters in all translation directions for almost all evaluation metrics.</abstract>
       <url hash="88e6b0d5">2023.eamt-1.4</url>
@@ -87,7 +87,7 @@
       <title><fixed-case>BLEU</fixed-case> Meets <fixed-case>COMET</fixed-case>: Combining Lexical and Neural Metrics Towards Robust Machine Translation Evaluation</title>
       <author><first>Taisiya</first><last>Glushkova</last></author>
       <author><first>Chrysoula</first><last>Zerva</last></author>
-      <author><first>André F. T.</first><last>Martins</last></author>
+      <author id="andre-f-t-martins"><first>André F. T.</first><last>Martins</last></author>
       <pages>47–58</pages>
       <abstract>Although neural-based machine translation evaluation metrics, such as COMET or BLEURT, have achieved strong correlations with human judgements, they are sometimes unreliable in detecting certain phenomena that can be considered as critical errors, such as deviations in entities and numbers. In contrast, traditional evaluation metrics such as BLEU or chrF, which measure lexical or character overlap between translation hypotheses and human references, have lower correlations with human judgements but are sensitive to such deviations. In this paper, we investigate several ways of combining the two approaches in order to increase robustness of state-of-the-art evaluation methods to translations with critical errors. We show that by using additional information during training, such as sentence-level features and word-level tags, the trained metrics improve their capability to penalize translations with specific troublesome phenomena, which leads to gains in correlations with humans and on the recent DEMETR benchmark on several language pairs.</abstract>
       <url hash="2db75d15">2023.eamt-1.6</url>
@@ -97,7 +97,7 @@
       <title>Exploiting large pre-trained models for low-resource neural machine translation</title>
       <author><first>Aarón</first><last>Galiano-Jiménez</last></author>
       <author><first>Felipe</first><last>Sánchez-Martínez</last></author>
-      <author><first>Víctor M.</first><last>Sánchez-Cartagena</last></author>
+      <author id="victor-m-sanchez-cartagena"><first>Víctor M.</first><last>Sánchez-Cartagena</last></author>
       <author><first>Juan Antonio</first><last>Pérez-Ortiz</last></author>
       <pages>59–68</pages>
       <abstract>Pre-trained models have drastically changed the field of natural language processing by providing a way to leverage large-scale language representations to various tasks. Some pre-trained models offer general-purpose representations, while others are specialized in particular tasks, like neural machine translation (NMT). Multilingual NMT-targeted systems are often fine-tuned for specific language pairs, but there is a lack of evidence-based best-practice recommendations to guide this process. Moreover, the trend towards even larger pre-trained models has made it challenging to deploy them in the computationally restrictive environments typically found in developing regions where low-resource languages are usually spoken. We propose a pipeline to tune the mBART50 pre-trained model to 8 diverse low-resource language pairs, and then distil the resulting system to obtain lightweight and more sustainable models. Our pipeline conveniently exploits back-translation, synthetic corpus filtering, and knowledge distillation to deliver efficient, yet powerful bilingual translation models 13 times smaller than the original pre-trained ones, but with close performance in terms of BLEU.</abstract>
@@ -157,7 +157,7 @@
       <author><first>Beatriz</first><last>Silva</last></author>
       <author><first>Marianna</first><last>Buchicchio</last></author>
       <author><first>José G. C.</first><last>de Souza</last></author>
-      <author><first>André F. T.</first><last>Martins</last></author>
+      <author id="andre-f-t-martins"><first>André F. T.</first><last>Martins</last></author>
       <pages>115–124</pages>
       <abstract>This paper aims to investigate the effectiveness of the k-Nearest Neighbor Machine Translation model (kNN-MT) in real-world scenarios. kNN-MT is a retrieval-augmented framework that combines the advantages of parametric models with non-parametric datastores built using a set of parallel sentences. Previous studies have primarily focused on evaluating the model using only the BLEU metric and have not tested kNN-MT in real world scenarios. Our study aims to fill this gap by conducting a comprehensive analysis on various datasets comprising different language pairs and different domains, using multiple automatic metrics and expert evaluated Multidimensional Quality Metrics (MQM). We compare kNN-MT with two alternate strategies: fine-tuning all the model parameters and adapter-based finetuning. Finally, we analyze the effect of the datastore size on translation quality, and we examine the number of entries necessary to bootstrap and configure the index.</abstract>
       <url hash="60c208d3">2023.eamt-1.12</url>
@@ -166,7 +166,7 @@
     <paper id="13">
       <title>Evaluation of <fixed-case>C</fixed-case>hinese-<fixed-case>E</fixed-case>nglish Machine Translation of Emotion-Loaded Microblog Texts: A Human Annotated Dataset for the Quality Assessment of Emotion Translation</title>
       <author><first>Shenbin</first><last>Qian</last></author>
-      <author><first>Constantin</first><last>Orasan</last></author>
+      <author id="constantin-orasan"><first>Constantin</first><last>Orasan</last></author>
       <author><first>Felix Do</first><last>Carmo</last></author>
       <author><first>Qiuliang</first><last>Li</last></author>
       <author><first>Diptesh</first><last>Kanojia</last></author>
@@ -181,7 +181,7 @@
       <author><first>Romain</first><last>Silvestri</last></author>
       <author><first>Georgios</first><last>Vernikos</last></author>
       <author><first>Ljiljana</first><last>Dolamic</last></author>
-      <author><first>Andrei</first><last>Popescu-Belis</last></author>
+      <author id="andrei-popescu-belis"><first>Andrei</first><last>Popescu-Belis</last></author>
       <pages>137–146</pages>
       <abstract>Subword tokenization is the de-facto standard for tokenization in neural language models and machine translation systems. Three advantages are frequently put forward in favor of subwords: shorter encoding of frequent tokens, compositionality of subwords, and ability to deal with unknown words. As their relative importance is not entirely clear yet, we propose a tokenization approach that enables us to separate frequency (the first advantage) from compositionality, thanks to the use of Huffman coding, which tokenizes words using a fixed amount of symbols. Experiments with CS-DE, EN-FR and EN-DE NMT show that frequency alone accounts for approximately 90% of the BLEU scores reached by BPE, hence compositionality has less importance than previously thought.</abstract>
       <url hash="0dafc96c">2023.eamt-1.14</url>
@@ -191,7 +191,7 @@
       <title>What Works When in Context-aware Neural Machine Translation?</title>
       <author><first>Harritxu</first><last>Gete</last></author>
       <author><first>Thierry</first><last>Etchegoyhen</last></author>
-      <author><first>Gorka</first><last>Labaka</last></author>
+      <author id="gorka-labaka"><first>Gorka</first><last>Labaka</last></author>
       <pages>147–156</pages>
       <abstract>Document-level Machine Translation has emerged as a promising means to enhance automated translation quality, but it is currently unclear how effectively context-aware models use the available context during translation. This paper aims to provide insight into the current state of models based on input concatenation, with an in-depth evaluation on English–German and English–French standard datasets. We notably evaluate the impact of data bias, antecedent part-of-speech, context complexity, and the syntactic function of the elements involved in discursive phenomena. Our experimental results indicate that the selected models do improve the overall translation in context, with varying sensitivity to the different factors we examined. We notably show that the selected context-aware models operate markedly better on regular syntactic configurations involving subject antecedents and pronouns, with degraded performance as the configurations become more dissimilar.</abstract>
       <url hash="8ad9deb4">2023.eamt-1.15</url>
@@ -209,7 +209,7 @@
     <paper id="17">
       <title>The <fixed-case>MT</fixed-case>@<fixed-case>BZ</fixed-case> corpus: machine translation &amp; legal language</title>
       <author><first>Flavia</first><last>De Camillis</last></author>
-      <author><first>Egon W.</first><last>Stemle</last></author>
+      <author id="egon-stemle"><first>Egon W.</first><last>Stemle</last></author>
       <author><first>Elena</first><last>Chiocchetti</last></author>
       <author><first>Francesco</first><last>Fernicola</last></author>
       <pages>171–180</pages>
@@ -260,7 +260,7 @@
       <title>Adaptive Machine Translation with Large Language Models</title>
       <author><first>Yasmin</first><last>Moslem</last></author>
       <author><first>Rejwanul</first><last>Haque</last></author>
-      <author><first>John D.</first><last>Kelleher</last></author>
+      <author id="john-kelleher"><first>John D.</first><last>Kelleher</last></author>
       <author><first>Andy</first><last>Way</last></author>
       <pages>227–237</pages>
       <abstract>Consistency is a key requirement of high-quality translation. It is especially important to adhere to pre-approved terminology and adapt to corrected translations in domain-specific projects. Machine translation (MT) has achieved significant progress in the area of domain adaptation. However, real-time adaptation remains challenging. Large-scale language models (LLMs) have recently shown interesting capabilities of in-context learning, where they learn to replicate certain input-output text generation patterns, without further fine-tuning. By feeding an LLM at inference time with a prompt that consists of a list of translation pairs, it can then simulate the domain and style characteristics. This work aims to investigate how we can utilize in-context learning to improve real-time adaptive MT. Our extensive experiments show promising results at translation time. For example, GPT-3.5 can adapt to a set of in-domain sentence pairs and/or terminology while translating a new sentence. We observe that the translation quality with few-shot in-context learning can surpass that of strong encoder-decoder MT systems, especially for high-resource languages. Moreover, we investigate whether we can combine MT from strong encoder-decoder models with fuzzy matches, which can further improve translation quality, especially for less supported languages. We conduct our experiments across five diverse language pairs, namely English-to-Arabic (EN-AR), English-to-Chinese (EN-ZH), English-to-French (EN-FR), English-to-Kinyarwanda (EN-RW), and English-to-Spanish (EN-ES).</abstract>
@@ -271,7 +271,7 @@
       <title>Segment-based Interactive Machine Translation at a Character Level</title>
       <author><first>Angel</first><last>Navarro</last></author>
       <author><first>Miguel</first><last>Domingo</last></author>
-      <author><first>Francisco</first><last>Casacuberta</last></author>
+      <author id="francisco-casacuberta"><first>Francisco</first><last>Casacuberta</last></author>
       <pages>239–248</pages>
       <abstract>To produce high quality translations, human translators need to review and correct machine translation hypothesis in what it is known as post-editing. In order to reduce the human effort of this process, interactive machine translation proposed a collaborative framework in which human and machine work together to generate the translations. Among the many protocols proposed throughout the years, the segment-based one established a paradigm in which the post-editor was allowed to validate correct word sequences from a translation hypothesis and introduced a word correction to help the system improve the next hypothesis. In this work we propose an extension to this protocol: instead of having to the type the complete word correction, the system will complete the user’s correction while they are typing. We evaluated our proposal under a simulated environment, achieving a significant reduction of the human effort.</abstract>
       <url hash="9966b096">2023.eamt-1.23</url>
@@ -306,7 +306,7 @@
     <paper id="27">
       <title>Analysing Mistranslation of Emotions in Multilingual Tweets by Online <fixed-case>MT</fixed-case> Tools</title>
       <author><first>Hadeel</first><last>Saadany</last></author>
-      <author><first>Constantin</first><last>Orasan</last></author>
+      <author id="constantin-orasan"><first>Constantin</first><last>Orasan</last></author>
       <author><first>Rocio Caro</first><last>Quintana</last></author>
       <author><first>Felix Do</first><last>Carmo</last></author>
       <author><first>Leonardo</first><last>Zilio</last></author>
@@ -419,7 +419,7 @@
       <title>How can machine translation help generate <fixed-case>A</fixed-case>rab melodic improvisation?</title>
       <author><first>Fadi</first><last>Al-Ghawanmeh</last></author>
       <author><first>Alexander</first><last>Jensenius</last></author>
-      <author><first>Kamel</first><last>Smaili</last></author>
+      <author id="kamel-smaili"><first>Kamel</first><last>Smaili</last></author>
       <pages>385–392</pages>
       <abstract>This article presents a system to generate Arab music improvisation using machine translation. To reach this goal, we developed a machine translation model to translate a vocal improvisation into an automatic instrumental oud (Arab lute) response. Given the melodic and non-metric musical form, it was necessary to develop efficient textual representations for classical machine translation models to be as successful as NLP applications. We experimented with SMT and NMT to train our parallel corpus (Vocal to Instrumental) of 6991 sentences. The best model was then used to generate improvisation by iteratively translating thThis article presents a system to generate Arab music improvisation using machine translation (MT). To reach this goal, we developed a MT model to translate a vocal improvisation into an automatic instrumental oud (Arab lute) response. Given the melodic and non-metric musical form, it was necessary to develop efficient textual representations in order for classical MT models to be as successful as in common NLP applications. We experimented with Statistical and Neural MT to train our parallel corpus (Vocal to Instrument) of 6991 sentences. The best model was then used to generate improvisation by iteratively translating the translations of the most common patterns of each maqām (n-grams), producing elaborated variations conditioned to listener feedback. We constructed a dataset of 717 instrumental improvisations to extract their n-grams. Objective evaluation of MT was conducted at two levels: a sentence-level evaluation using the BLEU metric, and a higher level evaluation using musically informed metrics. Objective measures were consistent with one another. Subjective evaluations by experts from the maqām music tradition were promising, and a useful reference for understanding objective results.e translations of the most common patterns of each maqām (n-grams), producing elaborated variations conditioned to listener feedback. We constructed a dataset of 717 instrumental improvisations to extract their n-grams. Objective evaluation of machine translation was conducted at two levels: a sentence-level evaluation using the BLEU metric, and a higher level evaluation using musically informed metrics. Objective measures were consistent with one another. Subjective evaluations by experts from the maqām music tradition were promising, and a useful reference for understanding objective results.</abstract>
       <url hash="1e2f1719">2023.eamt-1.38</url>
@@ -492,7 +492,7 @@
       <author><first>João</first><last>Godinho</last></author>
       <author><first>Pedro</first><last>Coelho</last></author>
       <author><first>Helena</first><last>Moniz</last></author>
-      <author><first>Alon</first><last>Lavie</last></author>
+      <author id="alon-lavie"><first>Alon</first><last>Lavie</last></author>
       <pages>451–460</pages>
       <abstract>This paper illustrates a new methodology based on Test Suites (Avramidis et al., 2018) with focus on Business Critical Errors (BCEs) (Stewart et al., 2022) to evaluate the output of Machine Translation (MT) and Quality Estimation (QE) systems. We demonstrate the value of relying on semi-automatic evaluation done through scalable BCE-focused Test Suites to monitor both MT and QE systems’ performance for 8 language pairs (LPs) and a total of 4 error categories. This approach allows us to not only track the impact of new features and implementations in a real business environment, but also to identify strengths and weaknesses in models regarding different error types, and subsequently know what to improve henceforth.</abstract>
       <url hash="fc868183">2023.eamt-1.44</url>
@@ -505,7 +505,7 @@
       <author><first>Meegan</first><last>Gower</last></author>
       <author><first>Sneha</first><last>Rautmare</last></author>
       <author><first>Nishtha</first><last>Jain</last></author>
-      <author><first>John</first><last>Kelleher</last></author>
+      <author id="john-kelleher"><first>John</first><last>Kelleher</last></author>
       <pages>461–470</pages>
       <abstract>In the context of an epidemiological study involving multilingual social media, this paper reports on the ability of machine translation systems to preserve content relevant for a document classification task designed to determine whether the social media text is related to covid. The results indicate that machine translation does provide a feasible basis for scaling epidemiological social media surveillance to multiple languages. Moreover, a qualitative error analysis revealed that the majority of classification errors are not caused by MT errors.</abstract>
       <url hash="6f4a12ab">2023.eamt-1.45</url>
@@ -613,7 +613,7 @@
       <author><first>Victor Ubieto</first><last>Nogales</last></author>
       <author><first>Santiago Egea</first><last>Gomez</last></author>
       <author><first>Ineke</first><last>Schuurman</last></author>
-      <author><first>Gorka</first><last>Labaka</last></author>
+      <author id="gorka-labaka"><first>Gorka</first><last>Labaka</last></author>
       <author><first>Adrián</first><last>Núnez-Marcos</last></author>
       <author><first>Irene</first><last>Murtagh</last></author>
       <author><first>Euan</first><last>McGill</last></author>
@@ -639,16 +639,16 @@
       <title><fixed-case>M</fixed-case>a<fixed-case>C</fixed-case>o<fixed-case>C</fixed-case>u: Massive collection and curation of monolingual and bilingual data: focus on under-resourced languages</title>
       <author><first>Marta</first><last>Bañón</last></author>
       <author><first>Mălina</first><last>Chichirău</last></author>
-      <author><first>Miquel</first><last>Esplà-Gomis</last></author>
+      <author id="miquel-espla-gomis"><first>Miquel</first><last>Esplà-Gomis</last></author>
       <author><first>Mikel</first><last>Forcada</last></author>
       <author><first>Aarón</first><last>Galiano-Jiménez</last></author>
       <author><first>Taja</first><last>Kuzman</last></author>
       <author><first>Nikola</first><last>Ljubešić</last></author>
       <author><first>Rik</first><last>van Noord</last></author>
       <author><first>Leopoldo Pla</first><last>Sempere</last></author>
-      <author><first>Gema</first><last>Ramírez-Sánchez</last></author>
+      <author id="gema-ramirez-sanchez"><first>Gema</first><last>Ramírez-Sánchez</last></author>
       <author><first>Peter</first><last>Rupnik</last></author>
-      <author><first>Vit</first><last>Suchomel</last></author>
+      <author id="vit-suchomel"><first>Vit</first><last>Suchomel</last></author>
       <author><first>Antonio</first><last>Toral</last></author>
       <author><first>Jaume</first><last>Zaragoza-Bernabeu</last></author>
       <pages>505–506</pages>
@@ -664,7 +664,7 @@
       <author><first>Alessia</first><last>Battisti</last></author>
       <author><first>Michèle</first><last>Berger</last></author>
       <author><first>Richard</first><last>Bowden</last></author>
-      <author><first>Annelies</first><last>Braffort</last></author>
+      <author id="annelies-braffort"><first>Annelies</first><last>Braffort</last></author>
       <author><first>Necati Cihan</first><last>Camgoz</last></author>
       <author><first>Cristina</first><last>España-Bonet</last></author>
       <author><first>Roman</first><last>Grundkiewicz</last></author>
@@ -716,7 +716,7 @@
     <paper id="60">
       <title><fixed-case>PROPICTO</fixed-case>: Developing Speech-to-Pictograph Translation Systems to Enhance Communication Accessibility</title>
       <author><first>Lucía</first><last>Ormaechea</last></author>
-      <author><first>Pierrette</first><last>Bouillon</last></author>
+      <author id="pierrette-bouillon"><first>Pierrette</first><last>Bouillon</last></author>
       <author><first>Maximin</first><last>Coavoux</last></author>
       <author><first>Emmanuelle</first><last>Esperança-Rodier</last></author>
       <author><first>Johanna</first><last>Gerlach</last></author>
@@ -738,8 +738,8 @@
       <author><first>Nikolay</first><last>Bogoychev</last></author>
       <author><first>Shaoxiong</first><last>Ji</last></author>
       <author><first>Graeme</first><last>Nail</last></author>
-      <author><first>Gema</first><last>Ramírez-Sánchez</last></author>
-      <author><first>Jörg</first><last>Tiedemann</last></author>
+      <author id="gema-ramirez-sanchez"><first>Gema</first><last>Ramírez-Sánchez</last></author>
+      <author id="jorg-tiedemann"><first>Jörg</first><last>Tiedemann</last></author>
       <author><first>Jelmer</first><last>van der Linde</last></author>
       <author><first>Jaume</first><last>Zaragoza</last></author>
       <pages>517–518</pages>

@@ -77,7 +77,7 @@
       <title>Parameter-Efficient Abstractive Question Answering over Tables or Text</title>
       <author><first>Vaishali</first><last>Pal</last></author>
       <author><first>Evangelos</first><last>Kanoulas</last></author>
-      <author><first>Maarten</first><last>de Rijke</last></author>
+      <author id="maarten-de-rijke"><first>Maarten</first><last>de Rijke</last></author>
       <pages>41-53</pages>
       <abstract>A long-term ambition of information seeking QA systems is to reason over multi-modal contexts and generate natural answers to user queries. Today, memory intensive pre-trained language models are adapted to downstream tasks such as QA by fine-tuning the model on QA data in a specific modality like unstructured text or structured tables. To avoid training such memory-hungry models while utilizing a uniform architecture for each modality, parameter-efficient adapters add and train small task-specific bottle-neck layers between transformer layers. In this work, we study parameter-efficient abstractive QA in encoder-decoder models over structured tabular data and unstructured textual data using only 1.5% additional parameters for each modality. We also ablate over adapter layers in both encoder and decoder modules to study the efficiency-performance trade-off and demonstrate that reducing additional trainable parameters down to 0.7%-1.0% leads to comparable results. Our models out-perform current state-of-the-art models on tabular QA datasets such as Tablesum and FeTaQA, and achieve comparable performance on a textual QA dataset such as NarrativeQA using significantly less trainable parameters than fine-tuning.</abstract>
       <url hash="fd968a0b">2022.dialdoc-1.5</url>
@@ -140,7 +140,7 @@
       <author><first>Etsuko</first><last>Ishii</last></author>
       <author><first>Samuel</first><last>Cahyawijaya</last></author>
       <author><first>Zihan</first><last>Liu</last></author>
-      <author><first>Genta Indra</first><last>Winata</last></author>
+      <author id="genta-indra-winata"><first>Genta Indra</first><last>Winata</last></author>
       <author><first>Andrea</first><last>Madotto</last></author>
       <author><first>Dan</first><last>Su</last></author>
       <author><first>Pascale</first><last>Fung</last></author>
@@ -186,7 +186,7 @@
       <author><first>Junan</first><last>Li</last></author>
       <author><first>Hongyuan</first><last>Lu</last></author>
       <author><first>Xixin</first><last>Wu</last></author>
-      <author><first>Helen</first><last>Meng</last></author>
+      <author id="helen-meng"><first>Helen</first><last>Meng</last></author>
       <pages>123-129</pages>
       <abstract>MultiDoc2Dial presents an important challenge on modeling dialogues grounded with multiple documents. This paper proposes a pipeline system of “retrieve, re-rank, and generate”, where each component is individually optimized. This enables the passage re-ranker and response generator to fully exploit training with ground-truth data. Furthermore, we use a deep cross-encoder trained with localized hard negative passages from the retriever. For the response generator, we use grounding span prediction as an auxiliary task to be jointly trained with the main task of response generation. We also adopt a passage dropout and regularization technique to improve response generation performance. Experimental results indicate that the system clearly surpasses the competitive baseline and our team CPII-NLP ranked 1st among the public submissions on ALL four leaderboards based on the sum of F1, SacreBLEU, METEOR and RougeL scores.</abstract>
       <url hash="804578aa">2022.dialdoc-1.13</url>
@@ -226,7 +226,7 @@
       <author><first>Ali</first><last>Satvaty</last></author>
       <author><first>Sadra</first><last>Sabouri</last></author>
       <author><first>Ehsaneddin</first><last>Asgari</last></author>
-      <author><first>Hossein</first><last>Sameti</last></author>
+      <author id="hossein-sameti"><first>Hossein</first><last>Sameti</last></author>
       <pages>142-147</pages>
       <abstract>Information-seeking dialogue systems, including knowledge identification and response generation, aim to respond to users with fluent, coherent, and informative answers based on users’ needs. This paper discusses our proposed approach, <tex-math>Docalog</tex-math>, for the DialDoc-22 (MultiDoc2Dial) shared task. <tex-math>Docalog</tex-math> identifies the most relevant knowledge in the associated document, in a multi-document setting. <tex-math>Docalog</tex-math>, is a three-stage pipeline consisting of <i>(1) a document retriever model (DR. TEIT)</i>, <i>(2) an answer span prediction model</i>, and <i>(3) an ultimate span picker</i> deciding on the most likely answer span, out of all predicted spans. In the test phase of MultiDoc2Dial 2022, <tex-math>Docalog</tex-math> achieved f1-scores of 36.07% and 28.44% and SacreBLEU scores of 23.70% and 20.52%, respectively on the <i>MDD-SEEN</i> and <i>MDD-UNSEEN</i> folds.</abstract>
       <url hash="29fe31f8">2022.dialdoc-1.16</url>
@@ -243,7 +243,7 @@
       <author><first>Aditya Srikanth</first><last>Veerubhotla</last></author>
       <author><first>Ritam</first><last>Dutt</last></author>
       <author><first>Teruko</first><last>Mitamura</last></author>
-      <author><first>Eric</first><last>Nyberg</last></author>
+      <author id="eric-nyberg"><first>Eric</first><last>Nyberg</last></author>
       <pages>148-154</pages>
       <abstract>In this paper, we present our submission to the DialDoc shared task based on the MultiDoc2Dial dataset. MultiDoc2Dial is a conversational question answering dataset that grounds dialogues in multiple documents. The task involves grounding a user’s query in a document followed by generating an appropriate response. We propose several improvements over the baseline’s retriever-reader architecture to aid in modeling goal-oriented dialogues grounded in multiple documents. Our proposed approach employs sparse representations for passage retrieval, a passage re-ranker, the fusion-in-decoder architecture for generation, and a curriculum learning training paradigm. Our approach shows a 12 point improvement in BLEU score compared to the baseline RAG model.</abstract>
       <url hash="608448d9">2022.dialdoc-1.17</url>
