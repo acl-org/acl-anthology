@@ -264,6 +264,16 @@ class Person:
                     namespec.id = new_id
                     volume.collection.is_modified = True
 
+    def anthology_items(self) -> Iterator[Paper | Volume]:
+        """Returns an iterator over all Anthology items associated with this person, regardless of their type."""
+        for anthology_id in self.item_ids:
+            item = self.parent.get(anthology_id)
+            if item is None:
+                raise ValueError(
+                    f"Person {self.id} lists associated item {build_id_from_tuple(anthology_id)}, which doesn't exist"
+                )  # pragma: no cover
+            yield item
+
     def papers(self) -> Iterator[Paper]:
         """Returns an iterator over all papers associated with this person.
 

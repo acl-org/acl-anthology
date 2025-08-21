@@ -176,6 +176,11 @@ class Volume(SlottedDict[Paper]):
         """The URL of this volume's landing page on the ACL Anthology website."""
         return cast(str, config["volume_page_template"]).format(self.full_id)
 
+    @property
+    def namespecs(self) -> list[NameSpecification]:
+        """All name specifications on this volume."""
+        return self.editors
+
     def get_events(self) -> list[Event]:
         """
         Returns:

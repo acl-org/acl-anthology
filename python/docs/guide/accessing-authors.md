@@ -174,10 +174,12 @@ You can get a set of all items associated with a person:
 {('Q18', '1', '28'), ('2020.findings', 'emnlp', '158'), ('W11', '15', '16'), ...}
 ```
 
-For convenience, you can also use
-[`Person.volumes()`][acl_anthology.people.person.Person.volumes] and
-[`Person.papers()`][acl_anthology.people.person.Person.papers] to iterate over
-the set of volumes/papers that person is associated with.
+You can iterate over
+[`Person.anthology_items()`][acl_anthology.people.person.Person.anthology_items]
+to get the actual items the person is associated with. If you know that you only
+want to iterate over papers or volumes, you can also use
+[`Person.volumes()`][acl_anthology.people.person.Person.volumes] or
+[`Person.papers()`][acl_anthology.people.person.Person.papers] instead.
 
 ## An Entity-Relationship diagram
 

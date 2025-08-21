@@ -192,6 +192,8 @@ def test_volume_attributes_2022acl_demo(anthology):
     assert volume.venue_acronym == "ACL"
     assert not volume.is_workshop
     assert isinstance(volume.frontmatter, Paper) and volume.frontmatter.id == "0"
+    assert len(volume.editors) == 3
+    assert volume.editors == volume.namespecs
 
 
 def test_volume_attributes_j89(anthology):

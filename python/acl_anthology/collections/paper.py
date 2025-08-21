@@ -464,6 +464,11 @@ class Paper:
         """The URL of this paper's landing page on the ACL Anthology website."""
         return cast(str, config["paper_page_template"]).format(self.full_id)
 
+    @property
+    def namespecs(self) -> list[NameSpecification]:
+        """All name specifications on this paper."""
+        return self.authors + self.editors
+
     def get_editors(self) -> list[NameSpecification]:
         """
         Returns:

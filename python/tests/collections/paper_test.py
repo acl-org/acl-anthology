@@ -61,6 +61,20 @@ def test_paper_web_url(anthology):
     assert paper.web_url == "https://aclanthology.org/2022.acl-demo.2/"
 
 
+def test_paper_namespecs():
+    authors = [NameSpecification("John", "Doe")]
+    editors = [NameSpecification("Jane", "Doe")]
+    paper = Paper(
+        "42",
+        None,
+        bibkey="nn-2025-conthrived",
+        title="A conthrived example just for testing",
+        authors=authors,
+        editors=editors,
+    )
+    assert paper.namespecs == authors + editors
+
+
 def test_paper_get_events(anthology):
     paper = anthology.get_paper("2022.acl-demo.2")
     assert paper is not None
