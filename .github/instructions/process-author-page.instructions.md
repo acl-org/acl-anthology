@@ -89,7 +89,7 @@ Use the `bin/add_author_id.py` script to efficiently add the ID to all papers be
 
 ```bash
 # Add ID to all papers by the author's first and last name
-bin/add_author_id.py matt-post-rochester --first-name "Matt" --last-name "Post"
+bin/add_author_id.py matt-post-rochester "Post, Matt" --paper-ids [list of Anthology paper ids]
 ```
 
 This will add the `id` attribute to matching `<author>` tags:
@@ -119,13 +119,13 @@ Then, use the `bin/add_author_id.py` script to efficiently add the ID to all unt
 
 ```bash
 # Add ID to all papers by the author's first and last name
-bin/add_author_id.py matt-post --first-name "Matt" --last-name "Post"
+bin/add_author_id.py matt-post "Post, Matt"
 ```
 
 ### Helper Tools
 
-- `bin/add_author_id.py author-id --last-name "LastName"` - Bulk add ID to matching authors
-- `bin/add_explicit_author_id.py` - Add IDs based on existing disambiguation
+- `bin/add_author_id.py author-id "Last name, first name"` - Bulk add ID to matching authors
+- `bin/add_author_id.py author-id "Last name, first name" --paper-ids ...` - Bulk add ID to matching authors to specific papers (to prevent over-matching on the author name)
 
 ## Validation & Testing
 
@@ -155,7 +155,7 @@ make hugo_data
 
 ### Merge Example
 ```yaml
-# Merging "John P. Smith" and "John Smith" 
+# Merging "John P. Smith" and "John Smith"
 - canonical: {first: John P., last: Smith}
   orcid: 0000-0002-1234-5678
   institution: Stanford University
@@ -221,10 +221,9 @@ For each paper belonging to the disambiguated author, add `id` attribute to XML:
 - Use existing XML formatting tools to maintain consistency
 
 **Tools available**:
-- `bin/add_author_id.py author-id --last-name "LastName"` - Bulk add ID to author
-- `bin/add_explicit_author_id.py` - Add IDs based on existing disambiguation
+- `bin/add_author_id.py author-id "Last name, first name"` - Bulk add ID to author
 
-#### 4.3 Handle Remaining Papers  
+#### 4.3 Handle Remaining Papers
 For papers that don't belong to the author with the explicit ID:
 1. **Option A**: Leave unchanged (they remain under generic ID)
 2. **Option B**: Create another explicit ID for the other author if requested
@@ -242,7 +241,7 @@ If multiple authors have similar names, add `similar` field:
 
 ### Author ID Format
 - **Structure**: `firstname-lastname-institution`
-- **Rules**: 
+- **Rules**:
   - Lowercase only
   - Hyphens replace spaces and special characters
   - Institution should be recognizable abbreviation
@@ -285,7 +284,7 @@ make site
 - **Name variants**: `data/yaml/name_variants.yaml`
 - **XML metadata**: `data/xml/{collection}.xml` (e.g., `2020.acl.xml`)
 - **Validation script**: `make check`
-- **Author ID tools**: `bin/add_author_id.py`, `bin/add_explicit_author_id.py`
+- **Author ID tools**: `bin/add_author_id.py`
 
 ## Examples
 
@@ -299,7 +298,7 @@ make site
   - {first: J. P., last: Smith}
 ```
 
-### Split Example  
+### Split Example
 ```yaml
 # Splitting "Yang Liu" into institution-specific profiles
 - canonical: {first: Yang, last: Liu}
