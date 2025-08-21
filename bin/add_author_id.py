@@ -15,7 +15,6 @@ from __future__ import annotations
 import argparse
 from collections import defaultdict
 from itertools import chain
-from typing import Set
 from pathlib import Path
 
 from acl_anthology.anthology import Anthology
@@ -27,7 +26,9 @@ import lxml.etree as ET
 
 def main(args: argparse.Namespace) -> None:
 
-    last_name, first_name = args.name.split(", ") if ", " in args.name else (args.name, None)
+    last_name, first_name = (
+        args.name.split(", ") if ", " in args.name else (args.name, None)
+    )
 
     anthology = Anthology(args.data_dir, verbose=True)
 
@@ -58,7 +59,7 @@ def main(args: argparse.Namespace) -> None:
             collection_to_paper_map[paper.collection_id].append(paper.full_id_tuple)
 
     if collection_to_paper_map:
-        print(f"Will edit the following paper IDs:")
+        print("Will edit the following paper IDs:")
         for paper_id_tuples in collection_to_paper_map.values():
             for paper_id in paper_id_tuples:
                 print(f" - {paper_id}")
@@ -73,7 +74,9 @@ def main(args: argparse.Namespace) -> None:
             _, volume_id, paper_id = paper_tuple
 
             # Get the paper
-            paper_xml = tree.getroot().find(f"./volume[@id='{volume_id}']/paper[@id='{paper_id}']")
+            paper_xml = tree.getroot().find(
+                f"./volume[@id='{volume_id}']/paper[@id='{paper_id}']"
+            )
 
             for author_xml in chain(
                 paper_xml.findall("./author"), paper_xml.findall("./editor")
@@ -91,7 +94,9 @@ def main(args: argparse.Namespace) -> None:
                         paper_xml.attrib["id"] if paper_xml.text == "paper" else "0"
                     )
                     paper_id = anthology.get_paper(paper_tuple).full_id
-                    print(f"Adding {args.id} to {author_first_name} {author_last_name} on paper {paper_id}...")
+                    print(
+                        f"Adding {args.id} to {author_first_name} {author_last_name} on paper {paper_id}..."
+                    )
                     author_xml.attrib["id"] = args.id
 
         indent(tree.getroot())
@@ -99,7 +104,7 @@ def main(args: argparse.Namespace) -> None:
 
     """
     Once we have the module published, we should be able to modify this to use
-    it to write the changed XML files, instead of the above.    
+    it to write the changed XML files, instead of the above.
     """
     # for paper in person.papers():
     #     print("PAPER", paper.full_id)
