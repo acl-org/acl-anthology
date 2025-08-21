@@ -103,7 +103,7 @@ class Event:
         is_explicit: True if this event was defined explicitly in the XML.
 
     Attributes: List Attributes:
-        colocated_ids: Tuples of volume IDs and their [`EventLinkingType`][acl_anthology.collections.types.EventLinkingType] that are colocated with this event.
+        colocated_ids: Tuples of volume IDs and their [`EventLink`][acl_anthology.collections.types.EventLink] that are colocated with this event.
         links: Links to materials for this event paper. The dictionary key specifies the type of link (e.g., "handbook" or "website").
         talks: Zero or more references to talks belonging to this event.
 

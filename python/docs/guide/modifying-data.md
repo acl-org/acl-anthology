@@ -168,7 +168,7 @@ have an ORCID and other metadata) can be done in two ways:
 
 2. Iterate through `p2.papers()` and `p2.volumes()` {==(TODO: a function to iterate through all items, no matter the type)==} and add `p1`'s new ID to the name specifications that are currently resolved to `p2`.  {==TODO: It's currently a bit tricky to find the _name specification_ referring to a person; should add a function for this.==}
 
-3. Save both the PersonIndex and the changed collections. {==TODO: The library current cannot track which collections have actually changed, so there is no "save all" function yet.==}
+3. Save the changes, e.g. via `Anthology.save_all()`.
 
 ### Example: Disambiguating a person
 

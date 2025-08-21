@@ -117,11 +117,7 @@ for name variants _written in a different script_, such as:
 ### Looking up name specifications
 
 In contrast to names, name specifications will _always_ resolve to a _single_
-person.  This is enforced by our metadata checks; if name specifications are
-ambiguous, they _must_ be resolved before the data can appear in the ACL
-Anthology.
-
-To look up name specifications, use
+person.  To look up name specifications, use
 [`anthology.resolve`][acl_anthology.anthology.Anthology.resolve], which will
 return the person that is being referred to:
 
