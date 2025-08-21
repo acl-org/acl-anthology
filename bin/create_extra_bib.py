@@ -36,6 +36,7 @@ import os
 import msgspec
 from pathlib import Path
 import re
+from rich.console import Console
 from rich.progress import track
 import shutil
 import subprocess
@@ -48,6 +49,7 @@ from create_hugo_data import make_progress
 
 BIB2XML = None
 XML2END = None
+CONSOLE = Console(stderr=True)
 
 # Max shard size in MiB
 MAX_SHARD_MB = 49
@@ -89,6 +91,7 @@ def create_bibtex(builddir, clean=False) -> None:
                 reverse=True,
             ),
             description="Create anthology.bib.gz...  ",
+            console=CONSOLE,
         ):
             with open(volume_file, "r") as f:
                 bibtex = f.read()
@@ -124,6 +127,7 @@ def create_bibtex(builddir, clean=False) -> None:
                 reverse=True,
             ),
             description="       +abstracts.bib.gz... ",
+            console=CONSOLE,
         ):
             with open(collection_file, "rb") as f:
                 data = msgspec.json.decode(f.read())
@@ -351,7 +355,7 @@ if __name__ == "__main__":
         )
 
     log_level = log.DEBUG if args["--debug"] else log.INFO
-    tracker = setup_rich_logging(level=log_level)
+    tracker = setup_rich_logging(console=CONSOLE, level=log_level)
 
     max_workers = int(args["--max-workers"]) if args["--max-workers"] else None
     if (BIB2XML := shutil.which("bib2xml")) is None:
