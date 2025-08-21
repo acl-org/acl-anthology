@@ -81,8 +81,6 @@ def main(args: argparse.Namespace) -> None:
             for author_xml in chain(
                 paper_xml.findall("./author"), paper_xml.findall("./editor")
             ):
-                if "id" in author_xml.attrib:
-                    continue
                 try:
                     author_first_name = author_xml.find("./first").text
                 except AttributeError:
