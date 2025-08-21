@@ -156,7 +156,7 @@ def test_get_person_coauthors_counter(index):
 
 
 def test_get_by_namespec(index):
-    ns1 = NameSpecification(Name("Yang", "Liu"))
+    ns1 = NameSpecification(Name("Li", "Feng"))  # does not exist
     ns2 = NameSpecification(Name("Yang", "Liu"), id="yang-liu-microsoft")
     with pytest.raises(NameSpecResolutionError):
         index.get_by_namespec(ns1)

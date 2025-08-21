@@ -116,7 +116,7 @@ def test_papers(anthology):
         count += 1
         found.add(paper.collection_id)
     assert expected == found
-    assert count == 851
+    assert count == 852
 
 
 def test_papers_by_collection_id(anthology):
@@ -124,7 +124,7 @@ def test_papers_by_collection_id(anthology):
     for paper in anthology.papers("2022.naloma"):
         assert paper.collection_id == "2022.naloma"
         count += 1
-    assert count == 6
+    assert count == 7
 
 
 def test_papers_by_volume_id(anthology):

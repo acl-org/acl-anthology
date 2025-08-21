@@ -234,6 +234,8 @@ def test_person_merge_with_explicit(anthology):
     namespec = anthology.get_paper(("2022.naloma", "1", "6")).authors[0]
     assert namespec.id == "yang-liu-microsoft"
 
+    anthology.reset_indices()
+
 
 def test_person_equality(anthology_stub):
     n = Name("Yang", "Liu")

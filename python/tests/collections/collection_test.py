@@ -32,7 +32,7 @@ from acl_anthology.text import MarkupText
 test_cases_xml_collections = (
     # (filename, # volumes, # papers, has event?)
     ("2022.acl.xml", 5, 779, True),
-    ("2022.naloma.xml", 1, 6, False),
+    ("2022.naloma.xml", 1, 7, False),
     ("J89.xml", 4, 61, False),
     ("L06.xml", 1, 5, False),
 )
