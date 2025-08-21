@@ -13,7 +13,7 @@
 # limitations under the License.
 
 import pytest
-from acl_anthology.collections import EventIndex, EventLinkingType
+from acl_anthology.collections import EventIndex, EventLink
 
 
 def test_all_defined_events(anthology):
@@ -40,9 +40,7 @@ def test_implicit_event_data(anthology):
     )
     assert event.location is None
     assert event.dates is None
-    assert event.colocated_ids == [
-        (("2022.naloma", "1", None), EventLinkingType.INFERRED)
-    ]
+    assert event.colocated_ids == [(("2022.naloma", "1", None), EventLink.INFERRED)]
 
 
 def test_implicit_and_explicit_event_data(anthology):
@@ -52,8 +50,8 @@ def test_implicit_and_explicit_event_data(anthology):
     assert event.location is None
     assert event.dates is None
     assert event.colocated_ids == [
-        (("2022.nonexistant", "1", None), EventLinkingType.EXPLICIT),
-        (("2022.naloma", "1", None), EventLinkingType.INFERRED),
+        (("2022.nonexistant", "1", None), EventLink.EXPLICIT),
+        (("2022.naloma", "1", None), EventLink.INFERRED),
     ]
 
 
@@ -75,15 +73,15 @@ def test_explicit_event_data(anthology):
     assert event.location == "Dublin, Ireland"
     assert event.dates == "May 22–27, 2022"
     assert event.colocated_ids == [
-        (("2022.acl", "long", None), EventLinkingType.INFERRED),
-        (("2022.acl", "short", None), EventLinkingType.INFERRED),
-        (("2022.acl", "srw", None), EventLinkingType.INFERRED),
-        (("2022.acl", "demo", None), EventLinkingType.INFERRED),
-        (("2022.acl", "tutorials", None), EventLinkingType.INFERRED),
-        (("2022.findings", "acl", None), EventLinkingType.EXPLICIT),
-        (("2022.bigscience", "1", None), EventLinkingType.EXPLICIT),
-        (("2022.naloma", "1", None), EventLinkingType.EXPLICIT),
-        (("2022.wit", "1", None), EventLinkingType.EXPLICIT),
+        (("2022.acl", "long", None), EventLink.INFERRED),
+        (("2022.acl", "short", None), EventLink.INFERRED),
+        (("2022.acl", "srw", None), EventLink.INFERRED),
+        (("2022.acl", "demo", None), EventLink.INFERRED),
+        (("2022.acl", "tutorials", None), EventLink.INFERRED),
+        (("2022.findings", "acl", None), EventLink.EXPLICIT),
+        (("2022.bigscience", "1", None), EventLink.EXPLICIT),
+        (("2022.naloma", "1", None), EventLink.EXPLICIT),
+        (("2022.wit", "1", None), EventLink.EXPLICIT),
     ]
 
 

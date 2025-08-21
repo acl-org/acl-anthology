@@ -117,11 +117,7 @@ for name variants _written in a different script_, such as:
 ### Looking up name specifications
 
 In contrast to names, name specifications will _always_ resolve to a _single_
-person.  This is enforced by our metadata checks; if name specifications are
-ambiguous, they _must_ be resolved before the data can appear in the ACL
-Anthology.
-
-To look up name specifications, use
+person.  To look up name specifications, use
 [`anthology.resolve`][acl_anthology.anthology.Anthology.resolve], which will
 return the person that is being referred to:
 
@@ -178,10 +174,12 @@ You can get a set of all items associated with a person:
 {('Q18', '1', '28'), ('2020.findings', 'emnlp', '158'), ('W11', '15', '16'), ...}
 ```
 
-For convenience, you can also use
-[`Person.volumes()`][acl_anthology.people.person.Person.volumes] and
-[`Person.papers()`][acl_anthology.people.person.Person.papers] to iterate over
-the set of volumes/papers that person is associated with.
+You can iterate over
+[`Person.anthology_items()`][acl_anthology.people.person.Person.anthology_items]
+to get the actual items the person is associated with. If you know that you only
+want to iterate over papers or volumes, you can also use
+[`Person.volumes()`][acl_anthology.people.person.Person.volumes] or
+[`Person.papers()`][acl_anthology.people.person.Person.papers] instead.
 
 ## An Entity-Relationship diagram
 
