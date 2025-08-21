@@ -164,9 +164,9 @@ have an ORCID and other metadata) can be done in two ways:
 
 **Situation:** An author has published under multiple names, and therefore two separate persons get instantiated for them (let's call them `p1` and `p2`).  We want to merge them into a single person.
 
-1. If neither `p1` nor `p2` are _explicit_: Call [`p1.make_explicit()`][acl_anthology.people.person.Person.make_explicit].  This will create an entry in `people.yaml` with all current names of `p1` and add the new ID to all papers and volumes currently inferred to belong to `p1`.
+1. If neither person is _explicit_ yet: Call [`p1.make_explicit()`][acl_anthology.people.person.Person.make_explicit].  This will create an entry in `people.yaml` with all current names of `p1` add the new ID to all papers and volumes currently inferred to belong to either `p1`.
 
-2. Iterate through `p2.papers()` and `p2.volumes()` {==(TODO: a function to iterate through all items, no matter the type)==} and add `p1`'s new ID to the name specifications that are currently resolved to `p2`.  {==TODO: It's currently a bit tricky to find the _name specification_ referring to a person; should add a function for this.==}
+2. `p1` can now assumed to be explicit.  If `p2` is not explicit, call [`p2.merge_with_explicit(p1)`][acl_anthology.people.person.Person.merge_with_explicit].  This will add all of `p2`'s names to `p1` and set `p1`'s ID on all papers and volumes currently inferred to belong to `p2`.
 
 3. Save the changes, e.g. via `Anthology.save_all()`.
 
@@ -176,8 +176,7 @@ have an ORCID and other metadata) can be done in two ways:
 
 1. Call [`anthology.people.create()`][acl_anthology.people.index.PersonIndex.create] for all persons who do not have an explicit ID yet, giving all the names that can refer to this person.  Also supply the ORCID when calling this function, if it is known.
 
-2. For each person, iterate through the papers that actually belong to them and update the name specification that currently resolves to `p1` by setting the explicit ID of the correct newly-created person.  {==TODO: Same as above: It's currently a bit tricky to find the _name specification_ referring to a person; should add a function for this.==}
-
+2. For each person, go through the papers that actually belong to them and update the name specification where `namespec.id == p1` by setting the explicit ID of the correct newly-created person. {==TODO==}
 
 ## Ingesting new proceedings
 

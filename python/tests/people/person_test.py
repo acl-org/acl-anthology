@@ -143,40 +143,46 @@ def test_person_papers_verified(anthology):
     assert len(list(person.papers())) == 2
 
 
-def test_person_update_id(anthology):
+def test_person_change_id(anthology):
     person = anthology.get_person("marcel-bollmann")
-    person.update_id("marcel-bollmann-rub")
+    person.change_id("marcel-bollmann-rub")
     assert anthology.get_person("marcel-bollmann") is None
     assert anthology.get_person("marcel-bollmann-rub") is person
-    person.update_id("marcel-bollmann")
+    person.change_id("marcel-bollmann")
     assert anthology.get_person("marcel-bollmann") is person
     assert anthology.get_person("marcel-bollmann-rub") is None
 
 
-def test_person_update_id_should_update_connected_papers(anthology):
+def test_person_change_id_should_update_connected_papers(anthology):
     person = anthology.get_person("yang-liu-ict")
-    person.update_id("yang-liu-new")
+    person.change_id("yang-liu-new")
     namespec = anthology.get(person.item_ids[0]).authors[-1]
     assert namespec.name == Name("Yang", "Liu")
     assert namespec.id == "yang-liu-new"
     assert anthology.collections["2022.acl"].is_modified
 
 
-def test_person_cannot_update_id_when_inferred(anthology):
+def test_person_cannot_change_id_when_inferred(anthology):
     person = anthology.get_person("unverified/nicoletta-calzolari")
     assert not person.is_explicit
     with pytest.raises(AnthologyException):
-        person.update_id("nicoletta-calzolari")
+        person.change_id("nicoletta-calzolari")
 
 
-def test_person_cannot_update_id_with_invalid_id(anthology):
+def test_person_cannot_change_id_with_invalid_id(anthology):
     person = anthology.get_person("marcel-bollmann")
     with pytest.raises(AnthologyInvalidIDError):
-        person.update_id("Marcel-Bollmann")
+        person.change_id("Marcel-Bollmann")
     with pytest.raises(AnthologyInvalidIDError):
-        person.update_id("42-marcel-bollmann")
+        person.change_id("42-marcel-bollmann")
     with pytest.raises(AnthologyInvalidIDError):
-        person.update_id("marcel bollmann")
+        person.change_id("marcel bollmann")
+
+
+def test_person_cannot_change_id_to_existing_id(anthology):
+    person = anthology.get_person("marcel-bollmann")
+    with pytest.raises(AnthologyInvalidIDError):
+        person.change_id("yang-liu-ict")
 
 
 def test_person_with_name_variants(anthology):
@@ -211,6 +217,22 @@ def test_person_make_explicit_should_raise_when_explicit(anthology):
     assert person.is_explicit
     with pytest.raises(AnthologyException):
         person.make_explicit("marcel-bollmann")
+
+
+def test_person_merge_with_explicit(anthology):
+    # Pre-conditions
+    person1 = anthology.get_person("unverified/yang-liu")
+    assert not person1.is_explicit
+    assert person1.item_ids == [("2022.naloma", "1", "6")]
+    person2 = anthology.get_person("yang-liu-microsoft")
+    assert person2.item_ids == [("2022.acl", "long", "226")]
+
+    # Test merging
+    person1.merge_with_explicit(person2)
+    assert not person1.item_ids
+    assert person2.item_ids == [("2022.acl", "long", "226"), ("2022.naloma", "1", "6")]
+    namespec = anthology.get_paper(("2022.naloma", "1", "6")).authors[0]
+    assert namespec.id == "yang-liu-microsoft"
 
 
 def test_person_equality(anthology_stub):

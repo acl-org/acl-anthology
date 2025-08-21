@@ -392,9 +392,16 @@ class PersonIndex(SlottedDict[Person]):
         Parameters:
             old_id: A person ID that already exists in the index.
             new_id: The new person ID it should be changed to, which mustn't exist in the index.
+
+        Raises:
+            KeyError: If the new ID already exists.
         """
         if not self.is_data_loaded:
             return
+        if new_id in self.data:
+            raise KeyError(
+                f"Tried to add ID '{new_id}' to PersonIndex which already exists"
+            )
         person = self.data.pop(old_id)
         self.data[new_id] = person
         # Note: cannot remove from DisjointSet
