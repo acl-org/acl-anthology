@@ -29,13 +29,13 @@ All author page requests **must** include:
 git checkout master
 git pull origin master
 
-# Create branch using the pattern: author-page-{author_id}
+# Create branch using the pattern: author-page-{author_id} where author_id is the unique identifier for the author
 git checkout -b author-page-{author_id}
 ```
 
 **Branch naming examples**:
-- Merge: `author-page-matt-post`
-- Split: `author-page-matt-post-rochester`
+- `author-page-matt-post`: often used when merging multiple pages under a single canonical name variant
+- `author-page-matt-post-rochester`: used when we need to split a page, disambiguating one author (using their institution) from others
 
 ## Request Type 1: Merging Author Pages
 
@@ -58,6 +58,7 @@ git checkout -b author-page-{author_id}
    - Canonical name should be the author's preferred variant
    - Include all name variants found in the XML files
    - The `institution` field should be included for future use
+   - There is no need to list the canonical version under the variants list
 
 ## Request Type 2: Splitting Author Pages
 
@@ -67,9 +68,48 @@ git checkout -b author-page-{author_id}
 
 ### Steps:
 
-#### 2.1 Create Author ID for Requester
+#### 2.1 Create a base Author ID for all the names
 
-Add entry to `data/yaml/name_variants.yaml`:
+First, add a "generic" entry to `data/yaml/name_variants.yaml`. For example:
+
+```yaml
+- canonical: {first: Matt, last: Post}
+  id: matt-post
+  comment: "May refer to several people"
+```
+
+This should be added roughly sorted into the YAML file. This helps avoid merge conflicts,
+if multiple authors are processed independently at the same time.
+
+#### 2.3 Tag all authors with that name string using the tag.
+
+Use the `bin/add_author_id.py` script to efficiently add the ID to all papers that have this author name.
+Continuing with our "matt-post" example:
+
+```bash
+# Add ID to all papers by the author's first and last name
+bin/add_author_id.py matt-post "Post, Matt"
+```
+
+This will add the `id` attribute to matching `<author>` tags. For example, this entry
+
+```xml
+<!-- Before -->
+<author><first>Matt</first><last>Post</last></author>
+
+will become this:
+
+<!-- After -->
+<author id="matt-post"><first>Matt</first><last>Post</last></author>
+```
+
+**Note**: The script automatically maintains proper XML formatting and preserves indentation.
+
+#### 2.4 Create an Author ID for the Requester
+
+Now that all names are tagged, we want to select out those of the request and tag them with a new ID.
+
+First, add an entry to `data/yaml/name_variants.yaml`:
 ```yaml
 - canonical: {first: Matt, last: Post}
   id: matt-post-rochester  # Format: firstname-lastname-institution
@@ -83,43 +123,24 @@ Add entry to `data/yaml/name_variants.yaml`:
 - Use recognizable institution abbreviation
 - Examples: `yang-liu-umich`, `john-smith-stanford`, `jane-doe-google`
 
-#### 2.2 Tag Author's Papers
+#### 2.5 Tag Author's Papers
 
-Use the `bin/add_author_id.py` script to efficiently add the ID to all papers belonging to the requester:
+Use the `bin/add_author_id.py` script again, but this time with the `--paper-ids` flag.
 
 ```bash
 # Add ID to all papers by the author's first and last name
 bin/add_author_id.py matt-post-rochester "Post, Matt" --paper-ids [list of Anthology paper ids]
 ```
 
-This will add the `id` attribute to matching `<author>` tags:
+This will change the `id` attribute from the generic one to the specific one for the
+requesting author:
 
 ```xml
 <!-- Before -->
-<author><first>Matt</first><last>Post</last></author>
+<author id="matt-post"><first>Matt</first><last>Post</last></author>
 
 <!-- After -->
 <author id="matt-post-rochester"><first>Matt</first><last>Post</last></author>
-```
-
-**Note**: The script automatically maintains proper XML formatting and preserves indentation.
-
-#### 2.3 Handle Remaining Papers
-
-For papers that don't belong to the requester (the "other" Matt Post):
-
-If there is no entry in the YAML file, create one.
-```yaml
-- canonical: {first: Matt, last: Post}
-  id: matt-post
-  comment: "May refer to several people"
-```
-
-Then, use the `bin/add_author_id.py` script to efficiently add the ID to all untagged papers:
-
-```bash
-# Add ID to all papers by the author's first and last name
-bin/add_author_id.py matt-post "Post, Matt"
 ```
 
 ### Helper Tools
@@ -134,9 +155,6 @@ bin/add_author_id.py matt-post "Post, Matt"
 ```bash
 # Validate XML schema compliance
 make check
-
-# Test data generation
-make hugo_data
 ```
 
 ### Common Issues to Avoid
@@ -187,9 +205,7 @@ make hugo_data
 git add data/yaml/name_variants.yaml data/xml/*.xml
 
 # Commit with reference to issue number
-git commit -m "Process author page request for {Author Name}
-
-Closes #{issue_number}
+git commit -m "Process author page request for {Author Name} (closes #{issue_number})
 
 - {Brief description of changes made}
 "
@@ -200,7 +216,7 @@ git push origin author-page-{author_id}
 
 ### 2. Create Pull Request
 
-- **Title**: `Author page: {Author Name} ({merge|split})`
+- **Title**: `Author page: {Author Name}`
 - **Body**: Reference the GitHub issue number and summarize changes
 - **Labels**: Add appropriate labels (`author-page`, `merge` or `split`)
 
@@ -223,19 +239,6 @@ For each paper belonging to the disambiguated author, add `id` attribute to XML:
 **Tools available**:
 - `bin/add_author_id.py author-id "Last name, first name"` - Bulk add ID to author
 
-#### 4.3 Handle Remaining Papers
-For papers that don't belong to the author with the explicit ID:
-1. **Option A**: Leave unchanged (they remain under generic ID)
-2. **Option B**: Create another explicit ID for the other author if requested
-
-#### 4.4 Update Similar Authors (if applicable)
-If multiple authors have similar names, add `similar` field:
-```yaml
-- canonical: {first: Yang, last: Liu}
-  id: yang-liu-umich
-  orcid: 0000-0000-0000-0000
-  similar: [yang-liu-edinburgh, yang-liu-pk]
-```
 
 ## ID Generation Rules
 
@@ -259,12 +262,6 @@ Common patterns:
 ```bash
 # Validate XML schema compliance
 make check
-
-# Test site generation with changes
-make hugo_data
-
-# Full build test (if making significant changes)
-make site
 ```
 
 ### Formatting Consistency
@@ -285,35 +282,6 @@ make site
 - **XML metadata**: `data/xml/{collection}.xml` (e.g., `2020.acl.xml`)
 - **Validation script**: `make check`
 - **Author ID tools**: `bin/add_author_id.py`
-
-## Examples
-
-### Merge Example
-```yaml
-# Merging "John P. Smith" and "John Smith" profiles
-- canonical: {first: John P., last: Smith}
-  orcid: 0000-0002-1234-5678
-  variants:
-  - {first: John, last: Smith}
-  - {first: J. P., last: Smith}
-```
-
-### Split Example
-```yaml
-# Splitting "Yang Liu" into institution-specific profiles
-- canonical: {first: Yang, last: Liu}
-  id: yang-liu-umich
-  orcid: 0000-0003-1234-5678
-  comment: University of Michigan
-  similar: [yang-liu-edinburgh]
-```
-
-With corresponding XML updates:
-```xml
-<author id="yang-liu-umich"><first>Yang</first><last>Liu</last></author>
-```
-
-**Note**: Maintain single-line format for author tags as shown above.
 
 ## Post-Processing
 
