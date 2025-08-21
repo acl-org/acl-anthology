@@ -168,9 +168,11 @@ class VenueIndex(SlottedDict[Venue]):
         if "item_ids" in kwargs:
             raise KeyError(
                 "Cannot specify `item_ids` for Venue; add its ID to the volume(s) instead."
-            )
+            )  # pragma: no cover
         if "oldstyle_letter" in kwargs:
-            raise KeyError("Cannot specify a new venue with an old-style letter.")
+            raise KeyError(
+                "Cannot specify a new venue with an old-style letter."
+            )  # pragma: no cover
 
         kwargs["parent"] = self.parent
         kwargs["path"] = self.parent.datadir / "yaml" / "venues" / f"{id}.yaml"

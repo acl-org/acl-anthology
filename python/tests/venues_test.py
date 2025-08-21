@@ -15,6 +15,8 @@
 import logging
 import pytest
 from pathlib import Path
+from unittest.mock import patch
+
 from acl_anthology.venues import VenueIndex, Venue
 
 
@@ -121,3 +123,11 @@ def test_venueindex_noindex(anthology, caplog):
         index = VenueIndex(anthology, no_item_ids=True)
         _ = index.get("cl").name
     assert not any("XML data file" in rec.message for rec in caplog.records)
+
+
+def test_venueindex_save(anthology):
+    index = VenueIndex(anthology)
+    index.load()
+    with patch.object(Venue, "save") as mock:
+        index.save()
+        assert mock.call_count == len(index)

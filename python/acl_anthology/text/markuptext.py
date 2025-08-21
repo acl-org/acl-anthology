@@ -108,21 +108,21 @@ class MarkupText:
     def __contains__(self, key: object) -> bool:
         if isinstance(key, str):
             return key in self.as_xml()
-        return False
+        return False  # pragma: no cover
 
     def __eq__(self, other: object) -> bool:
         if isinstance(other, str):
             return self.as_xml() == other
         elif isinstance(other, MarkupText):
             return self.as_xml() == other.as_xml()
-        return False
+        return False  # pragma: no cover
 
     def __lt__(self, other: object) -> bool:
         if isinstance(other, str):
             return self.as_xml() < other
         elif isinstance(other, MarkupText):
             return self.as_xml() < other.as_xml()
-        return False
+        return False  # pragma: no cover
 
     def __str__(self) -> str:
         return self.as_text()
