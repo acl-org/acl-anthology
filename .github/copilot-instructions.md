@@ -13,7 +13,7 @@ The ACL Anthology is a digital archive of NLP/CL research papers with both a sta
 
 ### Build Process Pipeline
 1. **XML Processing**: `bin/create_hugo_data.py` converts XML → JSON for Hugo templates
-2. **Bibliography Generation**: `bin/create_extra_bib.py` creates BibTeX/MODS/Endnote exports  
+2. **Bibliography Generation**: `bin/create_extra_bib.py` creates BibTeX/MODS/Endnote exports
 3. **Hugo Site Generation**: Hugo processes JSON data → static HTML site
 4. **Asset Management**: PDF files, attachments managed separately with checksums
 
@@ -31,7 +31,7 @@ Key build targets in `Makefile`:
 - **VOLUME**: volume name (`main`, `short`, `1`, etc.)
 - **NUMBER**: paper number within volume
 
-### Legacy Format (pre-2020)  
+### Legacy Format (pre-2020)
 - Various letter-based schemes (P19-1234, W19-5012, etc.)
 - Limited paper capacity, inflexible venue encoding
 
@@ -54,7 +54,7 @@ Key build targets in `Makefile`:
 # Python package tests
 cd python && poetry run pytest
 
-# Full site build test  
+# Full site build test
 make check site
 
 # Integration tests on full data
@@ -71,7 +71,7 @@ pytest -m integration
 ### Script Naming Conventions
 - `add_*.py` - Add new metadata fields
 - `fix_*.py` - Correct existing data
-- `ingest_*.py` - Import data from external sources  
+- `ingest_*.py` - Import data from external sources
 - `create_*.py` - Generate derived files
 
 ### Hugo Data Export Pattern
@@ -129,5 +129,5 @@ make all
 ## File Locations for Common Tasks
 - **Add new venue**: `data/yaml/venues/{venue-id}.yaml`
 - **Fix paper metadata**: Edit `data/xml/{collection}.xml` directly
-- **Modify site templates**: `hugo/layouts/` 
+- **Modify site templates**: `hugo/layouts/`
 - **Update build process**: `Makefile` and `bin/create_hugo_data.py`
