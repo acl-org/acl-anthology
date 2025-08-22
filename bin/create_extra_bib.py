@@ -29,7 +29,6 @@ Options:
 
 import concurrent.futures
 import datetime
-from textwrap import dedent
 from docopt import docopt
 import gzip
 import logging as log
@@ -115,13 +114,10 @@ def create_bibtex(builddir, clean=False) -> None:
 
 
 # filepath: /Users/mattpost/src/acl-anthology/bin/create_extra_bib.py
-def create_shards(builddir: str, max_shard_mb: int = MAX_SHARD_MB, prefix: str = "anthology") -> None:
-    """Split data-export/<prefix>.bib into numbered shards each <= max_shard_mb MiB.
-
-    Simpler, context-free parsing:
-    - Header = all lines before the first line that begins with '@'
-    - Entries = split on any line that begins with '@'
-    """
+def create_shards(
+    builddir: str, max_shard_mb: int = MAX_SHARD_MB, prefix: str = "anthology"
+) -> None:
+    """Split data-export/<prefix>.bib into numbered shards each <= max_shard_mb MiB."""
     max_bytes = int(max_shard_mb * 1024 * 1024)
     bib_path = Path(f"{builddir}/data-export/{prefix}.bib")
     if not bib_path.exists():
@@ -174,25 +170,43 @@ def create_shards(builddir: str, max_shard_mb: int = MAX_SHARD_MB, prefix: str =
     if current_shard:
         shards.append(current_shard)
 
+    def extract_year(entry: str):
+        """Extract the year from a string containing a BibTeX entry containing field year = "XXXX"."""
+        match = re.search(r'year = "(\d{4})"', entry)
+        return int(match.group(1)) if match else None
+
     # Write shards with header + shard list comment
     shard_filenames = [f"{prefix}-{i}.bib" for i in range(1, len(shards) + 1)]
-    shard_header = dedent(f"""
-        % This file is one of two or more shards of the consolidated anthology.bib file.
-        % The shards have been created to fit under Overleaf's 50 MB file limit.
-    """)
-    for shard in shard_filenames:
-        shard_header += f"% - {config.url_prefix}/{shard}\n"
-    shard_header += "\n"
+    shard_ranges = []
+    for shard_entries in shards:
+        top_year = extract_year(shard_entries[0])
+        bottom_year = extract_year(shard_entries[-1])
+        shard_ranges.append(
+            f"{bottom_year}-{top_year}" if top_year and bottom_year else ""
+        )
 
+    shard_header_lines = [
+        "% This file is one of multiple shards of the consolidated anthology.bib file.",
+        "% The shards have been created to fit under size limits.",
+        "%",
+    ]
+    for fname, yr in zip(shard_filenames, shard_ranges):
+        shard_header_lines.append(f"% - {config.url_prefix}/{fname} ({yr})")
+    shard_header = "\n".join(shard_header_lines)
+
+    # Write shards with header + shard list comment
     for i, shard_entries in enumerate(shards, start=1):
         out_path = bib_path.with_name(f"{prefix}-{i}.bib")
         with open(out_path, "wt", encoding="utf-8") as fh:
-            fh.write(header)
-            fh.write(shard_header)
+            fh.write(shard_header + "\n%\n")
+            fh.write("% Original file:\n")
+            fh.write(header.strip() + "\n\n")
             fh.write("\n\n".join(shard_entries))
             fh.write("\n")
 
-    log.info(f"Wrote {len(shards)} shards for {bib_path.name}: {', '.join(shard_filenames)}")
+    log.info(
+        f"Wrote {len(shards)} shards for {bib_path.name}: {', '.join(shard_filenames)}"
+    )
 
 
 def convert_bibtex(builddir, max_workers=None):
