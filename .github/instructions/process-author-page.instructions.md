@@ -9,9 +9,45 @@ This guide provides instructions for processing GitHub issues requesting author 
 ## Prerequisites & Requirements
 
 All author page requests **must** include:
+- **GitHub issue number** (e.g., `#123`)
+- **The author ID** (e.g., `matt-post` or `matt-post-rochester`)
 - **Valid ORCID ID** (format: `0000-0000-0000-0000`)
 - **Institution** where highest (anticipated) degree was/will be obtained
-- **Clear identification** of which papers belong to the author
+- **Requested action** (merge or split)
+- **Clear identification** of which papers belong to the author (in the case of a split)
+
+Ideally, this input will be in the form of a JSON object. Here is an example input for merging:
+
+```json
+{
+    "github_issue": "#123",
+    "canonical": "Post, Matt",
+    "variants": [
+        "Post, Matthew",
+        "Post, Matthew J"
+    ],
+    "author_id": "matt-post", 
+    "orcid": "0000-0000-0000-0000",
+    "institution": "University of Rochester",
+    "action": "merge",
+}
+```
+
+and for splitting:
+
+```json
+{
+    "github_issue": "#123",
+    "author_id": "matt-post-rochester",
+    "orcid": "0000-0000-0000-0000",
+    "institution": "University of Rochester",
+    "action": "split",
+    "papers": [
+        "2024.acl-main.17",
+        "2018.wmt-1.67"
+    ]
+}
+```
 
 ## Workflow Overview
 
@@ -54,10 +90,29 @@ git checkout -b author-page-{author_id}
      - {first: Matthew, last: Post}
    ```
 
-2. **Important notes**:
-   - Canonical name should be the author's preferred variant
-   - Include all name variants found in the XML files
-   - The `institution` field should be included for future use
+2. **Check out the branch, merging off master**:
+
+```bash
+# Ensure master is up to date
+git checkout master
+git pull origin master
+
+# Create branch using the pattern: author-page-{author_id}
+git checkout -b author-page-{author_id}
+```
+
+3. **Commit to the branch, noting the Github issue being closed**
+
+```bash
+git add data/yaml/name_variants.yaml
+git commit -m "Merging author pages for {author_name} (closes #{issue_number})"
+```
+
+**Important notes**:
+- Canonical name should be the author's preferred variant
+- Include all name variants found in the XML files
+- The `institution` field should be included for future use
+- Do not create an `id` field (this is only for splitting)
 
 ## Request Type 2: Splitting Author Pages
 
