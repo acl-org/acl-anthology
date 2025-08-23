@@ -98,7 +98,7 @@ def create_bibtex(builddir, clean=False) -> None:
             # Replace verbose text with abbreviations to get the file under 50 MB for Overleaf
             concise_contents = bibtex.replace(
                 'publisher = "Association for Computational Linguistics",',
-                f"publisher = acl,",
+                "publisher = acl,",
             )
             concise_contents = re.sub(
                 rf'url = "{config.url_prefix}/(.*)"',
