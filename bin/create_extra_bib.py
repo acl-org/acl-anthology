@@ -49,8 +49,8 @@ from create_hugo_data import make_progress
 BIB2XML = None
 XML2END = None
 
-# Max shard size in MiB (default 45)
-MAX_SHARD_MB = 45
+# Max shard size in MiB
+MAX_SHARD_MB = 49
 
 
 def create_bibtex(builddir, clean=False) -> None:
@@ -65,16 +65,21 @@ def create_bibtex(builddir, clean=False) -> None:
         ) as file_anthology_raw,
         gzip.open(
             f"{builddir}/data-export/anthology.bib.gz", "wt", encoding="utf-8"
-        ) as file_anthology,
+        ) as file_anthology_gzip,
     ):
         # Add a header to each consolidated bibfile
-        for outfh in file_anthology_raw, file_anthology:
+        for outfh in file_anthology_raw, file_anthology_gzip:
             print(
                 f"% {config.url_prefix}/{Path(outfh.name).name} generated on {datetime.date.today().isoformat()}\n",
                 file=outfh,
             )
 
         # Add some shortcuts to the uncompressed consolidated bib file
+        print(
+            "@string{acl = {Association for Computational Linguistics}}",
+            file=file_anthology_raw,
+        )
+        print(f"@string{{anth = {{{config.url_prefix}/}}}}", file=file_anthology_raw)
         print(file=file_anthology_raw)
 
         for volume_file in track(
@@ -88,8 +93,26 @@ def create_bibtex(builddir, clean=False) -> None:
             with open(volume_file, "r") as f:
                 bibtex = f.read()
 
-            print(bibtex, file=file_anthology)
-            print(bibtex, file=file_anthology_raw)
+            # Space saver (https://github.com/acl-org/acl-anthology/issues/3016) for the
+            # uncompressed consolidated bibfile.
+            # Replace verbose text with abbreviations to get the file under 50 MB for Overleaf
+            concise_contents = bibtex.replace(
+                'publisher = "Association for Computational Linguistics",',
+                f"publisher = acl,",
+            )
+            concise_contents = re.sub(
+                rf'url = "{config.url_prefix}/(.*)"',
+                r"url = anth # {\1}",
+                concise_contents,
+            )
+
+            # Remove whitespace to save space and keep things under 50 MB
+            concise_contents = re.sub(r",\n +", ",", concise_contents)
+            concise_contents = re.sub(r"  and\n +", " and ", concise_contents)
+            concise_contents = re.sub(r",?\n}", "}", concise_contents)
+
+            print(concise_contents, file=file_anthology_raw)
+            print(bibtex, file=file_anthology_gzip)
 
     with gzip.open(
         f"{builddir}/data-export/anthology+abstracts.bib.gz", "wt", encoding="utf-8"
@@ -124,18 +147,9 @@ def create_shards(
         log.warning(f"{bib_path} not found; skipping shard generation")
         return
 
-    content = bib_path.read_text(encoding="utf-8")
-
-    # Break into lines and find first entry line beginning with '@'
-    lines = content.splitlines(keepends=True)
-    first_entry_idx = 0
-    for i, ln in enumerate(lines):
-        if ln.lstrip().startswith("@"):
-            first_entry_idx = i
-            break
-
-    header = "".join(lines[:first_entry_idx])
-    entries_text = "".join(lines[first_entry_idx:])
+    with bib_path.open(encoding="utf-8") as f:
+        header = f.readline()
+        entries_text = f.read()
 
     # Split entries at each next line starting with '@' (preserves the leading '@')
     entries = re.split(r'(?=@[A-Za-z]+)', entries_text)
@@ -151,7 +165,7 @@ def create_shards(
     current_size = header_bytes_len
 
     for entry in entries:
-        entry_bytes = ("\n" + entry + "\n\n").encode("utf-8")
+        entry_bytes = (entry + "\n").encode("utf-8")
         # Close current shard if this entry would overflow it
         if current_shard and (current_size + len(entry_bytes) > max_bytes):
             shards.append(current_shard)
@@ -179,8 +193,17 @@ def create_shards(
     shard_filenames = [f"{prefix}-{i}.bib" for i in range(1, len(shards) + 1)]
     shard_ranges = []
     for shard_entries in shards:
-        top_year = extract_year(shard_entries[0])
-        bottom_year = extract_year(shard_entries[-1])
+        # entries may be missing the year, so search from the front and
+        # back until we have one for the range
+        for e in shard_entries:
+            top_year = extract_year(e)
+            if top_year:
+                break
+        for e in reversed(shard_entries):
+            bottom_year = extract_year(e)
+            if bottom_year:
+                break
+
         shard_ranges.append(
             f"{bottom_year}-{top_year}" if top_year and bottom_year else ""
         )
@@ -201,7 +224,7 @@ def create_shards(
             fh.write(shard_header + "\n%\n")
             fh.write("% Original file:\n")
             fh.write(header.strip() + "\n\n")
-            fh.write("\n\n".join(shard_entries))
+            fh.write("\n".join(shard_entries))
             fh.write("\n")
 
     log.info(
