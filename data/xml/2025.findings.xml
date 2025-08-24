@@ -10841,7 +10841,7 @@
       <author><first>Xufang</first><last>Luo</last><affiliation>Microsoft Research</affiliation></author>
       <author><first>Qianhui</first><last>Wu</last><affiliation>Microsoft</affiliation></author>
       <author><first>Chin-Yew</first><last>Lin</last><affiliation>Microsoft</affiliation></author>
-      <author><first>Dongsheng</first><last>Li</last><affiliation>Microsoft Research Asia</affiliation></author>
+      <author id="dongsheng-li-fudan"><first>Dongsheng</first><last>Li</last><affiliation>Microsoft Research Asia</affiliation></author>
       <author><first>Yuqing</first><last>Yang</last><affiliation>Research, Microsoft</affiliation></author>
       <author><first>Yongfeng</first><last>Huang</last><affiliation>Tsinghua University, Tsinghua University</affiliation></author>
       <author><first>Lili</first><last>Qiu</last><affiliation>Microsoft and University of Texas at Austin</affiliation></author>
@@ -18026,7 +18026,7 @@
       <author><first>Kai</first><last>Lu</last></author>
       <author><first>Zeyu</first><last>Xiong</last><affiliation>National University of Defense Technology</affiliation></author>
       <author><first>Xinwang</first><last>Liu</last><affiliation>National University of Defense Technology</affiliation></author>
-      <author><first>Dongsheng</first><last>Li</last><affiliation>National University of Defense Technology</affiliation></author>
+      <author id="dongsheng-li"><first>Dongsheng</first><last>Li</last><affiliation>National University of Defense Technology</affiliation></author>
       <pages>16159-16179</pages>
       <abstract>Using large language models (LLMs) has a potential risk of privacy leakage since the data with sensitive information may be used for fine-tuning the LLMs. Differential privacy (DP) provides theoretical guarantees of privacy protection, but its practical application in LLMs still has the problem of privacy-utility trade-off. Researchers synthesized data with strong generation capabilities closed-source LLMs (i.e., GPT-4) under DP to alleviate this problem, but this method is not so flexible in fitting the given privacy distributions without fine-tuning. Besides, such methods can hardly balance the diversity of synthetic data and its relevance to target privacy data without accessing so much private data. To this end, this paper proposes DPGA-TextSyn, combining general LLMs with genetic algorithm (GA) to produce relevant and diverse synthetic text under DP constraints. First, we integrate the privacy gene (i.e., metadata) to generate better initial samples. Then, to achieve survival of the fittest and avoid homogeneity, we use privacy nearest neighbor voting and similarity suppression to select elite samples. In addition, we expand elite samples via genetic strategies such as mutation, crossover, and generation to expand the search scope of GA. Experiments show that this method significantly improves the performance of the model in downstream tasks while ensuring privacy.</abstract>
       <url hash="2abfcebf">2025.findings-acl.831</url>
@@ -20926,7 +20926,7 @@
       <author><first>Qiunan</first><last>Du</last><affiliation>National University of Defense Technology</affiliation></author>
       <author><first>Xinwang</first><last>Liu</last><affiliation>National University of Defense Technology</affiliation></author>
       <author><first>Minlie</first><last>Huang</last></author>
-      <author><first>Dongsheng</first><last>Li</last><affiliation>National University of Defense Technology</affiliation></author>
+      <author id="dongsheng-li"><first>Dongsheng</first><last>Li</last><affiliation>National University of Defense Technology</affiliation></author>
       <pages>20243-20255</pages>
       <abstract>LLMs face privacy risks when handling sensitive data. To ensure privacy, researchers use differential privacy (DP) to provide protection by adding noise during LLM training. However, users may be hesitant to share complete data with LLMs. Researchers follow local DP to sanitize the text on the user side and feed non-sensitive text to LLMs. The sanitization usually uses a fixed non-sensitive token list or a fixed noise distribution, which induces the risk of being attacked or semantic distortion. We argue that the token’s protection level should be adaptively adjusted according to its semantic-based information to balance the privacy-utility trade-off. In this paper, we propose DYNTEXT, an LDP-based Dynamic Text sanitization for privacy-preserving LLM inference, which dynamically constructs semantic-aware adjacency lists of sensitive tokens to sample non-sensitive tokens for perturbation. Specifically, DYNTEXT first develops a semantic-based density modeling under DP to extract each token’s density information. We propose token-level smoothing sensitivity by combining the idea of global sensitivity (GS) and local sensitivity (LS), which dynamically adjusts the noise scale to avoid excessive noise in GS and privacy leakage in LS. Then, we dynamically construct an adjacency list for each sensitive token based on its semantic density information. Finally, we apply the replacement mechanism to sample non-sensitive, semantically similar tokens from the adjacency list to replace sensitive tokens. Experiments show that DYNTEXT excels strong baselines on three datasets.</abstract>
       <url hash="b39a86ec">2025.findings-acl.1038</url>
@@ -21861,7 +21861,7 @@
       <author><first>Zejiang</first><last>He</last></author>
       <author><first>Liu</first><last>Liu</last><affiliation>Suqian University</affiliation></author>
       <author><first>Zhigang</first><last>Sun</last><affiliation>National University of Defense Technology</affiliation></author>
-      <author><first>Dongsheng</first><last>Li</last><affiliation>National University of Defense Technology</affiliation></author>
+      <author id="dongsheng-li"><first>Dongsheng</first><last>Li</last><affiliation>National University of Defense Technology</affiliation></author>
       <pages>21475-21487</pages>
       <abstract>With the emergence of new topics on social media as sources of rumor dissemination, addressing the distribution shifts between source and target domains remains a crucial task in cross-domain rumor detection. Existing feature alignment methods, which aim to reduce the discrepancies between domains, are often susceptible to task interference during training. Additionally, data distribution alignment methods, which rely on existing data to synthesize new training samples, inherently introduce noise. To deal with these challenges, a new cross-domain rumor detection method, MONTROSE, is proposed. It combines LLM-driven Monte Carlo Tree Search (MCTS) data synthesis to generate high-quality synthetic data for the target domain and a domain-sharpness-aware (DSAM) self-refinement approach to train rumor detection models with these synthetic data effectively. Experiments demonstrate the superior performance of MONTROSE in cross-domain rumor detection.</abstract>
       <url hash="84e6972b">2025.findings-acl.1106</url>
