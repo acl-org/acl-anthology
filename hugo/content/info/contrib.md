@@ -20,7 +20,6 @@ We are happy to accept volumes from vetted venues within the fields of speech an
 For these situations, it's best to file a Github issue and/or contact the Anthology director directly (links elsewhere on this page).
 We can also help resolve questions.
 
-
 ### Overview of the Submission Process
 
 Please note the following important dates.
@@ -104,13 +103,14 @@ If you are submitting a new venue, please be sure to also include the following 
 
 ### Submit your data
 
-After your conference management software has collected all the camera-ready papers and associated attachments, you will arrange all the volumes of your proceedings into one of two formats.
-If you're using Softconf, this will likely be the original ACLPUB format, as described in the [ACLPUB → Anthology documentation](https://acl-org.github.io/ACLPUB/anthology.html), because Softconf has built-in support for this.
-More recently, ACL has moved to using [aclpub2](https://github.com/rycolab/aclpub2/blob/main/README.md), which can be run standalone, but is designed to work with [ARR](https://aclrollingreview.org) and OpenReview.
+After your conference management software has collected all the camera-ready papers and associated attachments, you will arrange them into one of two formats.
+1. _ACLPUB_. If you're using Softconf, this will likely be the original ACLPUB format, as described in the [ACLPUB → Anthology documentation](https://acl-org.github.io/ACLPUB/anthology.html), because Softconf has built-in support for this.
+2. _aclpub2_. More recently, ACL has moved to using [aclpub2](https://github.com/rycolab/aclpub2/blob/main/README.md), which can be run standalone, but is designed to work with [ARR](https://aclrollingreview.org) and OpenReview.
 
-We request that you organize your data into a single folder for each volume you are submitting (e.g., acl-long, acl-short, GEM, WMT, etc).
-A link to this directory (web or FTP is preferred but we can also use proprietary services Dropbox or Google Drive) should be posted to the ingestion request Github issue you created, or alternately shared with the Anthology Director via email.
-This should be done **two weeks prior to your desired publication date** (which was negotiated when you first contacted us) to give us time to process it.
+If you are submitting multiple volumes (e.g., main conference volumes and workshops), please group each volume's directory inside a single top-level folder for sharing.
+A link to this directory should be posted to the ingestion request Github issue you created, or alternately shared with the Anthology Director via email.
+We prefer sharing via HTTP or FTP since these allow automated downloaded, but we can accommodate other methods, such as Dropbox or Google Drive.
+This sharing should be done **two weeks prior to your desired publication date** (which was negotiated when you first contacted us) to give us time to process it.
 
 If you are using aclpub2, we suggest you run our [format checker](https://github.com/acl-org/acl-anthology/blob/master/bin/aclpub2_format_check.py) on each directory, which will surface errors.
 
