@@ -11,8 +11,15 @@ It is intended for publication chairs of main conferences and standalone events,
 
 Please note that this document does not describe how to manage the submissions and review process, or even how to assemble proceedings from accepted papers.
 For complete information about the conference management process, especially for ACL conference publication chairs, please see [our official documentation](https://acl-org.github.io/ACLPUB/).
-That documentat focuses on [Softconf](https://softconf.com) for conference management and [ACLPUB](https://acl-org.github.io/ACLPUB/) (which is integrated into Softconf) for proceedings generation.
+That document focuses on [Softconf](https://softconf.com) for conference management and [ACLPUB](https://acl-org.github.io/ACLPUB/) (which is integrated into Softconf) for proceedings generation.
 More recently, ACL has moved to using [OpenReview](https://openreview.net), and a new software tool, [aclpub2](https://github.com/rycolab/aclpub2/blob/main/README.md), has been built for proceedings generation.
+However, we continue to support both.
+
+It is also common for people to submit older proceedings or journals.
+We are happy to accept volumes from vetted venues within the fields of speech and natural language processing and computational linguistics.
+For these situations, it's best to file a Github issue and/or contact the Anthology director directly (links elsewhere on this page).
+We can also help resolve questions.
+
 
 ### Overview of the Submission Process
 
