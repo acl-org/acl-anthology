@@ -1,14 +1,24 @@
 ---
 Title: Information for Submitters
 linktitle: Submitting
-subtitle: General information on submitting proceedings to the ACL Anthology (for event chairs)
-date: "2023-06-21"
+subtitle: General information for submitting proceedings to the ACL Anthology (for event chairs)
+date: "2025-08-26"
 ---
 
-This page contains general information about submitting the proceedings of a conference to the ACL Anthology.
-(For information about the complete conference management process, particularly for ACL conference publications chairs, please refer to [the official documentation](https://acl-org.github.io/ACLPUB/).)
+This page contains general information about submitting proceedings of a conference to the ACL Anthology.
 It is intended for publication chairs of main conferences and standalone events, who have the responsibility of delivering the proceedings for all main conference and workshop volumes to the Anthology director.
 **Chairs of workshops** attached to a larger conference should also read this page, but should work through their main conference publication chair instead of directly with the Anthology.
+
+Please note that this document does not describe how to manage the submissions and review process, or even how to assemble proceedings from accepted papers.
+For complete information about the conference management process, especially for ACL conference publication chairs, please see [our official documentation](https://acl-org.github.io/ACLPUB/).
+That document focuses on [Softconf](https://softconf.com) for conference management and [ACLPUB](https://acl-org.github.io/ACLPUB/) (which is integrated into Softconf) for proceedings generation.
+More recently, ACL has moved to using [OpenReview](https://openreview.net), and a new software tool, [aclpub2](https://github.com/rycolab/aclpub2/blob/main/README.md), has been built for proceedings generation.
+However, we continue to support both.
+
+It is also common for people to submit older proceedings or journals.
+We are happy to accept volumes from vetted venues within the fields of speech and natural language processing and computational linguistics.
+For these situations, it's best to file a Github issue and/or contact the Anthology director directly (links elsewhere on this page).
+We can also help resolve questions.
 
 ### Overview of the Submission Process
 
@@ -93,9 +103,16 @@ If you are submitting a new venue, please be sure to also include the following 
 
 ### Submit your data
 
-After your conference management software has collected all the camera-ready papers and associated attachments, you will arrange all the volumes of your proceedings into ACLPUB format, as described in the [ACLPUB → Anthology documentation](https://acl-org.github.io/ACLPUB/anthology.html).
-The end result is a `data` directory containing ACLPUB proceedings, one for each conference.
-A link to this directory (preferably via a file sharing service, such as Dropbox or Google Drive) should be sent to the Anthology Director **two weeks prior to your desired publication date** (which was negotiated when you first contacted us).
+After your conference management software has collected all the camera-ready papers and associated attachments, you will arrange them into one of two formats.
+1. _ACLPUB_. If you're using Softconf, this will likely be the original ACLPUB format, as described in the [ACLPUB → Anthology documentation](https://acl-org.github.io/ACLPUB/anthology.html), because Softconf has built-in support for this.
+2. _aclpub2_. More recently, ACL has moved to using [aclpub2](https://github.com/rycolab/aclpub2/blob/main/README.md), which can be run standalone, but is designed to work with [ARR](https://aclrollingreview.org) and OpenReview.
+
+If you are submitting multiple volumes (e.g., main conference volumes and workshops), please group each volume's directory inside a single top-level folder for sharing.
+A link to this directory should be posted to the ingestion request Github issue you created, or alternately shared with the Anthology Director via email.
+We prefer sharing via HTTP or FTP since these allow automated downloaded, but we can accommodate other methods, such as Dropbox or Google Drive.
+This sharing should be done **two weeks prior to your desired publication date** (which was negotiated when you first contacted us) to give us time to process it.
+
+If you are using aclpub2, we suggest you run our [format checker](https://github.com/acl-org/acl-anthology/blob/master/bin/aclpub2_format_check.py) on each directory, which will surface errors.
 
 The remaining steps are handled by Anthology staff and use [Anthology tools](https://github.com/acl-org/acl-anthology/tree/master/bin/):
 
@@ -115,6 +132,7 @@ Otherwise, for copyright transfers, please use the form at:
 
 Forms should be signed by authors and saved using the ACL Anthology identifiers as names.
 Please place these into a folder (e.g., `copyright-transfers/P11-1001.pdf`) and then deliver them in bulk to the Anthology Editor when submitting the proceedings.
+In aclpub2, copyrights should be listed as paper attachments with a type of 'copyright'.
 
 For both current and legacy events, it is good practice for the organizers to attempt to obtain copyright transfers for their materials, but we will ingest materials even if no copyright transfers are on file.
 
