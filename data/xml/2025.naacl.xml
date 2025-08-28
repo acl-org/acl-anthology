@@ -6229,14 +6229,14 @@
     </paper>
     <paper id="454">
       <title><fixed-case>S</fixed-case>eq1<fixed-case>F</fixed-case>1<fixed-case>B</fixed-case>: Efficient Sequence-Level Pipeline Parallelism for Large Language Model Training</title>
-      <author><first>Sun</first><last>Ao</last></author>
-      <author><first>Weilin</first><last>Zhao</last><affiliation>Tsinghua University, Tsinghua University</affiliation></author>
-      <author><first>Xu</first><last>Han</last><affiliation>Tsinghua University, Tsinghua University</affiliation></author>
-      <author><first>Cheng</first><last>Yang</last><affiliation>Beijing University of Posts and Telecommunications</affiliation></author>
-      <author><first>Xinrong</first><last>Zhang</last><affiliation>ByteDance Inc.</affiliation></author>
-      <author><first>Zhiyuan</first><last>Liu</last><affiliation>Tsinghua University</affiliation></author>
-      <author><first>Chuan</first><last>Shi</last><affiliation>Beijing University of Post and Telecommunication, Tsinghua University</affiliation></author>
-      <author><first>Maosong</first><last>Sun</last><affiliation>Tsinghua University</affiliation></author>
+      <author><first>Ao</first><last>Sun</last></author>
+      <author><first>Weilin</first><last>Zhao</last></author>
+      <author><first>Xu</first><last>Han</last></author>
+      <author><first>Cheng</first><last>Yang</last></author>
+      <author><first>Xinrong</first><last>Zhang</last></author>
+      <author><first>Zhiyuan</first><last>Liu</last></author>
+      <author><first>Chuan</first><last>Shi</last></author>
+      <author><first>Maosong</first><last>Sun</last></author>
       <pages>8998-9008</pages>
       <abstract>Training large language models (LLMs) heavily relies on distributed training strategies, among which pipeline parallelism (PP) plays a crucial role. As training sequences extend to 32k or even 128k tokens, current PP methods face severe bottlenecks, including substantial pipeline bubbles and high memory footprint, greatly hindering training throughput and model scalability. This paper introduces a sequence-level one-forward-one-backward (1F1B) PP method, named Seq1F1B, tailored for training LLMs on long sequences with high training throughput and memory efficiency. Unlike typical PP methods, which adopt batch-level pipeline schedule, Seq1F1B schedules the pipeline of training LLMs at the sequence level. It uses a computational strategy to partition sequences appropriately, significantly reducing pipeline bubbles and memory footprint. Compared to competitive PP baselines such as Megatron 1F1B PP, Seq1F1B achieves 1.14X training throughput with half memory footprint.Notably, Seq1F1B trains an LLM with 30B parameters on sequences up to 64k tokens using 64X NVIDIA A100 GPUs without using recomputation strategies, a feat unachievable with existing methods.We have released our code on GitHub to facilitate further research and development in LLM training on long sequences: https://github.com/thunlp/Seq1F1B.</abstract>
       <url hash="39a94508">2025.naacl-long.454</url>
