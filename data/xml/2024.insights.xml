@@ -26,7 +26,7 @@
       <author><first>Haotian</first><last>Ye</last><affiliation>LMU Munich</affiliation></author>
       <author><first>Yihong</first><last>Liu</last><affiliation>LMU Munich</affiliation></author>
       <author><first>Chunlan</first><last>Ma</last><affiliation>LMU Munich</affiliation></author>
-      <author><first>Hinrich</first><last>Schütze</last><affiliation>Center for Information and Language Processing, University of Munich</affiliation></author>
+      <author id="hinrich-schutze"><first>Hinrich</first><last>Schütze</last><affiliation>Center for Information and Language Processing, University of Munich</affiliation></author>
       <pages>1-7</pages>
       <abstract>Transformer-based pre-trained language models (PLMs) have achieved remarkable performance in various natural language processing (NLP) tasks. However, pre-training such models can take considerable resources that are almost only available to high-resource languages. On the contrary, static word embeddings are easier to train in terms of computing resources and the amount of data required. In this paper, we introduce MoSECroT (Model Stitching with Static Word Embeddings for Crosslingual Zero-shot Transfer, a novel and challenging task that is especially relevant to low-resource languages for which static word embeddings are available. To tackle the task, we present the first framework that leverages relative representations to construct a common space for the embeddings of a source language PLM and the static word embeddings of a target language. In this way, we can train the PLM on source-language training data and perform zero-shot transfer to the target language by simply swapping the embedding layer. However, through extensive experiments on two classification datasets, we show that although our proposed framework is competitive with weak baselines when addressing MoSECroT, it fails to achieve competitive results compared with some strong baselines. In this paper, we attempt to explain this negative result and provide several thoughts on possible improvement.</abstract>
       <url hash="50df66cc">2024.insights-1.1</url>
@@ -104,7 +104,7 @@
       <author><first>Tatsuya</first><last>Hiraoka</last><affiliation>Fujitsu Limited (Fujitsu Research)</affiliation></author>
       <author><first>Rico</first><last>Sennrich</last><affiliation>University of Zurich</affiliation></author>
       <author><first>Yuval</first><last>Pinter</last><affiliation>Ben-Gurion University of the Negev</affiliation></author>
-      <author><first>Naoaki</first><last>Okazaki</last><affiliation>Tokyo Institute of Technology</affiliation></author>
+      <author id="naoaki-okazaki"><first>Naoaki</first><last>Okazaki</last><affiliation>Tokyo Institute of Technology</affiliation></author>
       <pages>48-50</pages>
       <abstract>We explore threshold vocabulary trimming in Byte-Pair Encoding subword tokenization, a tokenization postprocessing step that replaces rare subwords with their component subwords. The technique is available in popular tokenization libraries but has not been subjected to rigorous scientific scrutiny. While the removal of rare subwords is suggested as best practice in model implementations, both as a means to reduce model size and for improving model performance through robustness, our experiments indicate that, across a large space of hyperparameter settings, vocabulary trimming fails to consistently improve model performance, and is even prone to incurring heavy degradation.</abstract>
       <url hash="e8990150">2024.insights-1.7</url>
@@ -148,7 +148,7 @@
       <author><first>Brian</first><last>Davis</last><affiliation>Dublin City University</affiliation></author>
       <author><first>Fabio</first><last>Cozman</last><affiliation>Universidade de Sao Paulo</affiliation></author>
       <author><first>Adriana</first><last>Pagano</last><affiliation>Federal University of Minas Gerais</affiliation></author>
-      <author><first>Thiago</first><last>Castro Ferreira</last><affiliation>Federal University of Minas Gerais</affiliation></author>
+      <author id="thiago-castro-ferreira"><first>Thiago</first><last>Castro Ferreira</last><affiliation>Federal University of Minas Gerais</affiliation></author>
       <pages>73-81</pages>
       <abstract>Neural end-to-end surface realizers output more fluent texts than classical architectures. However, they tend to suffer from adequacy problems, in particular hallucinations in numerical referring expression generation. This poses a problem to language generation in sensitive domains, as is the case of robot journalism covering COVID-19 and Amazon deforestation. We propose an approach whereby numerical referring expressions are converted from digits to plain word form descriptions prior to being fed to state-of-the-art Large Language Models. We conduct automatic and human evaluations to report the best strategy to numerical superficial realization. Code and data are publicly available.</abstract>
       <url hash="ad3c7b73">2024.insights-1.10</url>
@@ -170,7 +170,7 @@
     <paper id="12">
       <title>Can probing classifiers reveal the learning by contact center large language models?: No, it doesn’t!</title>
       <author><first>Varun</first><last>Nathan</last><affiliation>Observe.AI</affiliation></author>
-      <author><first>Ayush</first><last>Kumar</last><affiliation>Observe.AI</affiliation></author>
+      <author id="ayush-kumar"><first>Ayush</first><last>Kumar</last><affiliation>Observe.AI</affiliation></author>
       <author><first>Digvijay</first><last>Ingle</last><affiliation>Observe.AI, India</affiliation></author>
       <pages>92-100</pages>
       <abstract>Fine-tuning large language models (LLMs) with domain-specific instruction dataset has emerged as an effective method to enhance their domain-specific understanding. Yet, there is limited work that examines the core characteristics acquired during this process. In this study, we benchmark the fundamental characteristics learned by contact-center (CC) domain specific instruction fine-tuned LLMs with out-of-the-box (OOB) LLMs via probing tasks encompassing conversational, channel, and automatic speech recognition (ASR) properties. We explore different LLM architectures (Flan-T5 and Llama) and sizes (3B, 7B, 11B, 13B). Our findings reveal remarkable effectiveness of CC-LLMs on the in-domain downstream tasks, with improvement in response acceptability by over 48% compared to OOB-LLMs. However, we observe that the performance of probing classifiers are relatively similar and does not reflect the performance of in-domain downstream tasks. A similar observation is also noted on SentEval dataset that assess capabilities of models in terms of surface, syntactic, and semantic information through probing tasks. Our study challenges the premise that probing classifiers can reveal the fundamental characteristics learned by large language models and is reflective of the downstream task performance, via a case-study of LLMs tuned for contact center domain.</abstract>
@@ -218,7 +218,7 @@
       <title>The Paradox of Preference: A Study on <fixed-case>LLM</fixed-case> Alignment Algorithms and Data Acquisition Methods</title>
       <author><first>Rishikesh</first><last>Devanathan</last><affiliation>Observe.AI</affiliation></author>
       <author><first>Varun</first><last>Nathan</last><affiliation>Observe.AI</affiliation></author>
-      <author><first>Ayush</first><last>Kumar</last><affiliation>Observe.AI</affiliation></author>
+      <author id="ayush-kumar"><first>Ayush</first><last>Kumar</last><affiliation>Observe.AI</affiliation></author>
       <pages>135-147</pages>
       <abstract>This research investigates the impact of preference annotation acquisition methods on the performance of LLM alignment algorithms, including Direct Preference Optimization (DPO), Identity Preference Optimization (IPO), and Conservative DPO (cDPO), compared to Supervised Fine-Tuning (SFT) in NLP tasks. We analyze the influence of LLM and human-based preferences on algorithm performance, considering data volume and quality. Additionally, we assess DPO’s vulnerability to overfitting and IPO’s resilience against it, addressing four main research questions. Using the GAIR dataset and Zephyr-7b as the SFT model, we reveal unexpected negative outcomes. Specifically, DPO trained on LLM preferences outperforms human preferences, contrary to expectations. Moreover, there’s no correlation between preference data volume or quality and algorithm performance. Contrary to expectations, DPO shows no overfitting in both human and LLM preference datasets. Surprisingly, cDPO doesn’t fare better than DPO under flip noise. Our findings highlight the complexities of preference annotation methods and underscore the importance of scrutinizing negative results in NLP algorithm research.</abstract>
       <url hash="2fab5011">2024.insights-1.16</url>
@@ -241,7 +241,7 @@
     <paper id="18">
       <title>Multi-Task Learning with Adapters for Plausibility Prediction: Bridging the Gap or Falling into the Trenches?</title>
       <author><first>Annerose</first><last>Eichel</last><affiliation>University of Stuttgart</affiliation></author>
-      <author><first>Sabine</first><last>Schulte Im Walde</last><affiliation>University of Stuttgart</affiliation></author>
+      <author id="sabine-schulte-im-walde"><first>Sabine</first><last>Schulte Im Walde</last><affiliation>University of Stuttgart</affiliation></author>
       <pages>154-168</pages>
       <abstract>We present a multi-task learning approach to predicting semantic plausibility by leveraging 50+ adapters categorized into 17 tasks within an efficient training framework. Across four plausibility datasets in English of varying size and linguistic constructions, we compare how models provided with knowledge from a range of NLP tasks perform in contrast to models without external information. Our results show that plausibility prediction benefits from complementary knowledge (e.g., provided by syntactic tasks) are significant but non-substantial, while performance may be hurt when injecting knowledge from an unsuitable task. Similarly important, we find that knowledge transfer may be hindered by class imbalance, and demonstrate the positive yet minor effect of balancing training data, even at the expense of size.</abstract>
       <url hash="ee9a8358">2024.insights-1.18</url>
