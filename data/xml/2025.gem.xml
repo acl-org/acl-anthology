@@ -4,7 +4,7 @@
     <meta>
       <booktitle>Proceedings of the Fourth Workshop on Generation, Evaluation and Metrics (GEM²)</booktitle>
       <editor><first>Ofir</first><last>Arviv</last><affiliation>IBM Research</affiliation></editor>
-      <editor id="miruna-clinciu"><first>Miruna</first><last>Clinciu</last><affiliation>Heriot Watt University</affiliation></editor>
+      <editor><first>Miruna</first><last>Clinciu</last><affiliation>Heriot Watt University</affiliation></editor>
       <editor><first>Kaustubh</first><last>Dhole</last><affiliation>Emory University</affiliation></editor>
       <editor><first>Rotem</first><last>Dror</last><affiliation>University of Haifa</affiliation></editor>
       <editor><first>Sebastian</first><last>Gehrmann</last><affiliation>Bloomberg</affiliation></editor>
@@ -66,7 +66,7 @@
       <author><first>Sualeha</first><last>Farid</last><affiliation>University of Michigan - Ann Arbor</affiliation></author>
       <author><first>Abdul Hameed</first><last>Azeemi</last></author>
       <author><first>Awais</first><last>Athar</last><affiliation>European Bioinformatics Institute - European Molecular Biology Laboratory (EMBL-EBI)</affiliation></author>
-      <author id="agha-ali-raza"><first>Agha Ali</first><last>Raza</last><affiliation>Lahore University of Management Sciences</affiliation></author>
+      <author><first>Agha Ali</first><last>Raza</last><affiliation>Lahore University of Management Sciences</affiliation></author>
       <pages>30-45</pages>
       <abstract>This paper presents a novel methodology for generating synthetic Preference Optimization (PO) datasets using multi-model workflows. We evaluate the effectiveness and potential of these workflows in automating and enhancing the dataset generation process. PO dataset generation requires two modules: (1) <tex-math>\textit{response evaluation}</tex-math>, and (2) <tex-math>\textit{response generation}</tex-math>. In the <tex-math>\textit{response evaluation}</tex-math> module, the responses from Large Language Models (LLMs) are evaluated and ranked - a task typically carried out by human annotators that we automate using LLMs. We assess the response evaluation module in a 2 step process. In step 1, we assess LLMs as evaluators using three distinct prompting strategies. In step 2, we apply the winning prompting strategy to compare the performance of LLM-as-a-Judge, LLMs-as-a-Jury, and LLM Debate. Our evaluation shows that GPT-4o-as-a-Judge is more consistent across all datasets. For the <tex-math>\textit{response generation}</tex-math> module, we use the identified LLM evaluator configuration and compare different configurations of the LLM Feedback Loop. We use the win rate to determine the best multi-model configuration for generation. Experimenting with various configurations, we find that the LLM Feedback Loop, with Llama as the generator and Gemma as the reviewer, achieves a notable 71.8% and 73.8% win rate over single-model Llama and Gemma, respectively. After identifying the best configurations for both modules, we generate our PO datasets using the above pipeline.</abstract>
       <url hash="2f063e2a">2025.gem-1.4</url>
@@ -90,7 +90,7 @@
     </paper>
     <paper id="6">
       <title><fixed-case>HEDS</fixed-case> 3.0: The Human Evaluation Data Sheet Version 3.0</title>
-      <author id="anja-belz"><first>Anya</first><last>Belz</last><affiliation>Dublin City University</affiliation></author>
+      <author><first>Anya</first><last>Belz</last><affiliation>Dublin City University</affiliation></author>
       <author><first>Craig</first><last>Thomson</last><affiliation>Dublin City University and University of Aberdeen</affiliation></author>
       <pages>60-81</pages>
       <abstract>This paper presents a new version of the Human Evaluation Datasheet (HEDS), numbered 3.0 This update is the result of our experience using HEDS in the context of numerous recent human evaluation experiments, including reproduction studies, and of feedback collected from other researchers. Our main overall goal was to improve clarity, and to enable users to complete the datasheet more consistently and comparably. The HEDS 3.0 package consists of the digital data sheet, documentation, and code for exporting completed data sheets as latex files, all available from the HEDS 3.0 GitHub.</abstract>
@@ -164,7 +164,7 @@
       <title>Evaluating <fixed-case>LLM</fixed-case>s with Multiple Problems at once</title>
       <author><first>Zhengxiang</first><last>Wang</last><affiliation>State University of New York at Stony Brook</affiliation></author>
       <author><first>Jordan</first><last>Kodner</last><affiliation>State University of New York, Stony Brook</affiliation></author>
-      <author id="owen-rambow"><first>Owen</first><last>Rambow</last><affiliation>Stony Brook University</affiliation></author>
+      <author><first>Owen</first><last>Rambow</last><affiliation>Stony Brook University</affiliation></author>
       <pages>178-199</pages>
       <abstract>This paper shows the benefits and fruitfulness of evaluating LLMs with multiple problems at once, a paradigm we call multi-problem evaluation (MPE). Unlike conventional single-problem evaluation, where a prompt presents a single problem and expects one specific answer, MPE places multiple problems together in a single prompt and assesses how well an LLM answers all these problems in a single output. Leveraging 6 classification and 12 reasoning benchmarks that already exist, we introduce a new benchmark called ZeMPE (Zero-shot Multi-Problem Evaluation), comprising 53,100 zero-shot multi-problem prompts. We experiment with a total of 13 LLMs from 5 model families on ZeMPE to present a comprehensive and systematic MPE. Our results show that LLMs are capable of handling multiple problems from a single data source as well as handling them separately, but there are conditions this multiple problem handling capability falls short. In addition, we perform in-depth further analyses and explore model-level factors that may enable multiple problem handling capabilities in LLMs. We release our corpus and code to facilitate future research.</abstract>
       <url hash="da2a5018">2025.gem-1.14</url>
@@ -232,7 +232,7 @@
     <paper id="23">
       <title><fixed-case>IRS</fixed-case>um: One Model to Rule Summarization and Retrieval</title>
       <author><first>Sotaro</first><last>Takeshita</last><affiliation>Universität Mannheim</affiliation></author>
-      <author id="simone-paolo-ponzetto"><first>Simone Paolo</first><last>Ponzetto</last><affiliation>Universität Mannheim</affiliation></author>
+      <author><first>Simone Paolo</first><last>Ponzetto</last><affiliation>Universität Mannheim</affiliation></author>
       <author><first>Kai</first><last>Eckert</last><affiliation>Mannheim University of Applied Sciences</affiliation></author>
       <pages>262-275</pages>
       <abstract>Applications that store a large number of documents often have summarization and retrieval functionalities to help users digest large amounts of information efficiently. Currently, such systems need to run two task-specific models, for summarization and retrieval, redundantly on the same set of documents. An efficient approach to amend this redundancy would be to reuse hidden representations produced during the summary generation for retrieval. However, our experiment shows that existing models, including recent large language models, do not produce retrieval-friendly embeddings during summarization due to a lack of a contrastive objective during their training. To this end, we introduce a simple, cost-effective training strategy which integrates a contrastive objective into standard summarization training without requiring additional annotations. We empirically show that our model can perform on par or even outperform in some cases compared to the combination of two task-specific models while improving throughput and FLOPs by up to 17% and 20%, respectively.</abstract>
@@ -294,7 +294,7 @@
     <paper id="30">
       <title>Using <fixed-case>LLM</fixed-case> Judgements for Sanity Checking Results and Reproducibility of Human Evaluations in <fixed-case>NLP</fixed-case></title>
       <author><first>Rudali</first><last>Huidrom</last></author>
-      <author id="anja-belz"><first>Anya</first><last>Belz</last><affiliation>Dublin City University</affiliation></author>
+      <author><first>Anya</first><last>Belz</last><affiliation>Dublin City University</affiliation></author>
       <pages>354-365</pages>
       <abstract>Human-like evaluation by LLMs of NLP systems is currently attracting a lot of interest, and correlations with human reference evaluations are often remarkably strong. However, this is not always the case, for unclear reasons which means that without also meta-evaluating against human evaluations (incurring the very cost automatic evaluation is intended to avoid), we don’t know if an LLM-as-judge evaluation is reliable or not. In this paper, we explore a type of evaluation scenario where this may not matter, because it comes with a built-in reliability check. We apply different LLM-as-judge methods to sets of three comparable human evaluations: (i) an original human evaluation, and (ii) two reproductions of it which produce contradicting reproducibility results. We find that in each case, the different LLM-as-judge methods (i) strongly agree with each other, and (ii) strongly agree with the results of one reproduction, while strongly disagreeing with the other. In combination, we take this to mean that a set of LLMs can be used to sanity check contradictory reproducibility results <i>if</i> the LLMs agree with each other, <i>and</i> the agreement of the LLMs with one set of results, and the disagreement with the other, are both strong.</abstract>
       <url hash="3e13d4a9">2025.gem-1.30</url>
@@ -323,8 +323,8 @@
       <author><first>Kristof</first><last>Varga</last><affiliation>NA</affiliation></author>
       <author><first>Győző Zijian</first><last>Yang</last><affiliation>Hungarian Research Centre for Linguistics</affiliation></author>
       <author><first>Enikő</first><last>Héja</last><affiliation>Hungarian Research Centre for Linguistics</affiliation></author>
-      <author id="tamas-varadi"><first>Tamás</first><last>Váradi</last><affiliation>Nyelvtudományi Kutatóközpont</affiliation></author>
-      <author id="gabor-proszeky"><first>Gábor</first><last>Prószéky</last><affiliation>Hungarian Research Centre for Linguistics, Pazmany Peter Catholic University and MorphoLogic</affiliation></author>
+      <author><first>Tamás</first><last>Váradi</last><affiliation>Nyelvtudományi Kutatóközpont</affiliation></author>
+      <author><first>Gábor</first><last>Prószéky</last><affiliation>Hungarian Research Centre for Linguistics, Pazmany Peter Catholic University and MorphoLogic</affiliation></author>
       <pages>385-403</pages>
       <abstract>In this study, we introduce the Hungarian Generative Model Evaluation (HuGME) benchmark, a new framework designed to assess the linguistic proficiency of large language models (LLMs) in Hungarian. HuGME evaluates models across a diverse set of linguistic and reasoning skills, including bias, toxicity, faithfulness, relevance, summarization, prompt alignment, readability, spelling, grammaticality, and domain-specific knowledge through tasks like TruthfulQA and MMLU. We applied HuGME to a range of Hungarian LLMs, including those developed in-house as well as several publicly available models that claim Hungarian language proficiency. This paper presents the comparative results of these evaluations, shedding light on the capabilities of current LLMs in processing the Hungarian language. Through our analysis, we aim to both showcase the current state of Hungarian linguistic processing in LLMs and provide a foundational resource for future advancements in the field.</abstract>
       <url hash="a801409e">2025.gem-1.32</url>
@@ -412,7 +412,7 @@
       <title>Event-based evaluation of abstractive news summarization</title>
       <author><first>Huiling</first><last>You</last></author>
       <author><first>Samia</first><last>Touileb</last><affiliation>University of Bergen</affiliation></author>
-      <author id="lilja-ovrelid"><first>Lilja</first><last>Øvrelid</last><affiliation>Dept. of Informatics, University of Oslo</affiliation></author>
+      <author><first>Lilja</first><last>Øvrelid</last><affiliation>Dept. of Informatics, University of Oslo</affiliation></author>
       <author><first>Erik</first><last>Velldal</last><affiliation>University of Oslo</affiliation></author>
       <pages>504-510</pages>
       <abstract>An abstractive summary of a news article contains its most important information in a condensed version. The evaluation of automatically generated summaries by generative language models relies heavily on human-authored summaries as gold references, by calculating overlapping units or similarity scores. News articles report events, and ideally so should the summaries. In this work, we propose to evaluate the quality of abstractive summaries by calculating overlapping events between generated summaries, reference summaries, and the original news articles. We experiment on a richly annotated Norwegian dataset comprising both events annotations and summaries authored by expert human annotators. Our approach provides more insight into the event information contained in the summaries.</abstract>
@@ -435,7 +435,7 @@
       <author><first>Yeon Su</first><last>Park</last><affiliation>Korea Advanced Institute of Science &amp; Technology</affiliation></author>
       <author><first>Sunwoo</first><last>Kim</last><affiliation>Korea Advanced Institute of Science &amp; Technology</affiliation></author>
       <author><first>Shin</first><last>Yoo</last></author>
-      <author id="alice-oh"><first>Alice</first><last>Oh</last><affiliation>Google and Korea Advanced Institute of Science and Technology</affiliation></author>
+      <author><first>Alice</first><last>Oh</last><affiliation>Google and Korea Advanced Institute of Science and Technology</affiliation></author>
       <pages>522-531</pages>
       <abstract>Evaluating the performance and biases of large language models (LLMs) through role-playing scenarios is becoming increasingly common, as LLMs often exhibit biased behaviors in these contexts. Building on this line of research, we introduce PapersPlease, a benchmark consisting of 3,700 moral dilemmas designed to investigate LLMs’ decision-making in prioritizing various levels of human needs. In our setup, LLMs act as immigration inspectors deciding whether to approve or deny entry based on the short narratives of people. These narratives are constructed using the Existence, Relatedness, and Growth (ERG) theory, which categorizes human needs into three hierarchical levels. Our analysis of six LLMs reveals statistically significant patterns in decision-making, suggesting that LLMs encode implicit preferences. Additionally, our evaluation of the impact of incorporating social identities into the narratives shows varying responsiveness based on both motivational needs and identity cues, with some models exhibiting higher denial rates for marginalized identities. All data is publicly available at https://github.com/yeonsuuuu28/papers-please.</abstract>
       <url hash="73fe3ad7">2025.gem-1.47</url>
@@ -465,7 +465,7 @@
     </paper>
     <paper id="50">
       <title><fixed-case>R</fixed-case>epro<fixed-case>H</fixed-case>um #0729-04: Human Evaluation Reproduction Report for “<fixed-case>M</fixed-case>em<fixed-case>S</fixed-case>um: Extractive Summarization of Long Documents Using Multi-Step Episodic <fixed-case>M</fixed-case>arkov Decision Processes”</title>
-      <author id="simeon-junker"><first>Simeon</first><last>Junker</last><affiliation>Universität Bielefeld</affiliation></author>
+      <author><first>Simeon</first><last>Junker</last><affiliation>Universität Bielefeld</affiliation></author>
       <pages>561-567</pages>
       <abstract>Human evaluation is indispensable in natural language processing (NLP), as automatic metrics are known to not always align well with human judgments.However, the reproducibility of human evaluations can be problematic since results are susceptible to many factors, the details of which are often missing from the respective works.As part of the ReproHum project, this work aims to reproduce the human evaluation of a single criterion in the paper “MemSum: Extractive Summarization of Long Documents Using Multi-Step Episodic Markov Decision Processes” (Gu et al, 2022).The results of our reproduction differ noticeably from those of the original study. To explain this discrepancy, we discuss differences in the experimental setup, as well as more general characteristics of the selected domain and the generated summaries.</abstract>
       <url hash="ec9e5502">2025.gem-1.50</url>
@@ -523,7 +523,7 @@
       <title><fixed-case>R</fixed-case>epro<fixed-case>H</fixed-case>um #0067-01: A Reproduction of the Evaluation of Cross-Lingual Summarization</title>
       <author><first/><last>Supryadi</last><affiliation>Tianjin University</affiliation></author>
       <author><first>Chuang</first><last>Liu</last><affiliation>National Supercomputing Center in Tianjin</affiliation></author>
-      <author id="deyi-xiong"><first>Deyi</first><last>Xiong</last><affiliation>Tianjin University</affiliation></author>
+      <author><first>Deyi</first><last>Xiong</last><affiliation>Tianjin University</affiliation></author>
       <pages>609-614</pages>
       <abstract>Human evaluation is crucial as it offers a nuanced understanding that automated metrics often miss. By reproducing human evaluation, we can gain a better understanding of the original results. This paper is part of the ReproHum project, where our goal is to reproduce human evaluations from previous studies. We report the reproduction results of the human evaluation of cross-lingual summarization conducted by (CITATION). By comparing the original and reproduction studies, we find that our overall evaluation findings are largely consistent with those of the previous study. However, there are notable differences in evaluation scores between the two studies for certain model outputs. These discrepancies highlight the importance of carefully selecting evaluation methodologies and human annotators.</abstract>
       <url hash="8a15c028">2025.gem-1.56</url>
@@ -563,7 +563,7 @@
     <paper id="60">
       <title>Bridging the <fixed-case>LLM</fixed-case> Accessibility Divide? Performance, Fairness, and Cost of Closed versus Open <fixed-case>LLM</fixed-case>s for Automated Essay Scoring</title>
       <author><first>Kezia</first><last>Oketch</last></author>
-      <author id="john-p-lalor"><first>John P.</first><last>Lalor</last><affiliation>University of Notre Dame</affiliation></author>
+      <author><first>John P.</first><last>Lalor</last><affiliation>University of Notre Dame</affiliation></author>
       <author><first>Yi</first><last>Yang</last><affiliation>Hong Kong University of Science and Technology</affiliation></author>
       <author><first>Ahmed</first><last>Abbasi</last><affiliation>University of Notre Dame</affiliation></author>
       <pages>655-669</pages>
@@ -623,7 +623,7 @@
     <paper id="66">
       <title><fixed-case>P</fixed-case>ersona<fixed-case>T</fixed-case>win: A Multi-Tier Prompt Conditioning Framework for Generating and Evaluating Personalized Digital Twins</title>
       <author><first>Sihan</first><last>Chen</last><affiliation>CMU, Carnegie Mellon University</affiliation></author>
-      <author id="john-p-lalor"><first>John P.</first><last>Lalor</last><affiliation>University of Notre Dame</affiliation></author>
+      <author><first>John P.</first><last>Lalor</last><affiliation>University of Notre Dame</affiliation></author>
       <author><first>Yi</first><last>Yang</last><affiliation>Hong Kong University of Science and Technology</affiliation></author>
       <author><first>Ahmed</first><last>Abbasi</last><affiliation>University of Notre Dame</affiliation></author>
       <pages>774-788</pages>
@@ -635,7 +635,7 @@
       <title>Coreference as an indicator of context scope in multimodal narrative</title>
       <author><first>Nikolai</first><last>Ilinykh</last><affiliation>Göteborg University</affiliation></author>
       <author><first>Shalom</first><last>Lappin</last></author>
-      <author id="asad-sayeed"><first>Asad B.</first><last>Sayeed</last><affiliation>University of Gothenburg</affiliation></author>
+      <author><first>Asad B.</first><last>Sayeed</last><affiliation>University of Gothenburg</affiliation></author>
       <author><first>Sharid</first><last>Loáiciga</last><affiliation>University of Gothenburg, Sweden</affiliation></author>
       <pages>789-807</pages>
       <abstract>We demonstrate that large multimodal language models differ substantially from humans in the distribution of coreferential expressions in a visual storytelling task. We introduce a number of metrics to quantify the characteristics of coreferential patterns in both human- and machine-written texts. Humans distribute coreferential expressions in a way that maintains consistency across texts and images, interleaving references to different entities in a highly varied way. Machines are less able to track mixed references, despite achieving perceived improvements in generation quality. Materials, metrics, and code for our study are available at https://github.com/GU-CLASP/coreference-context-scope.</abstract>
@@ -656,7 +656,7 @@
       <title><fixed-case>MCQF</fixed-case>ormat<fixed-case>B</fixed-case>ench: Robustness Tests for Multiple-Choice Questions</title>
       <author><first>Hiroo</first><last>Takizawa</last><affiliation>Graduate University for Advanced Studies</affiliation></author>
       <author><first>Saku</first><last>Sugawara</last><affiliation>National Institute of Informatics</affiliation></author>
-      <author id="akiko-aizawa"><first>Akiko</first><last>Aizawa</last><affiliation>National Institute of Informatics</affiliation></author>
+      <author><first>Akiko</first><last>Aizawa</last><affiliation>National Institute of Informatics</affiliation></author>
       <pages>824-846</pages>
       <abstract>Multiple-choice questions (MCQs) are often used to evaluate large language models (LLMs). They measure LLMs’ general common sense and reasoning abilities, as well as their knowledge in specific domains such as law and medicine. However, the robustness of LLMs to various question formats in MCQs has not been thoroughly evaluated. While there are studies on the sensitivity of LLMs to input variations, research into their responsiveness to different question formats is still limited. In this study, we propose a method to construct tasks to comprehensively evaluate the robustness against format changes of MCQs by decomposing the answering process into several steps. Using this dataset, we evaluate nine LLMs, such as Llama3-70B and Mixtral-8x7B. We find the lack of robustness to differences in the format of MCQs. It is crucial to consider whether the format of MCQs influences their evaluation scores when assessing LLMs using MCQ datasets.</abstract>
       <url hash="27febfae">2025.gem-1.69</url>
@@ -707,7 +707,7 @@
       <author><first>Luciano Del</first><last>Corro</last><affiliation>Microsoft Research</affiliation></author>
       <author><first>Arindam</first><last>Mitra</last><affiliation>Research, Microsoft</affiliation></author>
       <author><first>Tejas Indulal</first><last>Dhamecha</last><affiliation>Adobe Systems</affiliation></author>
-      <author id="ahmed-hassan"><first>Ahmed Hassan</first><last>Awadallah</last><affiliation>Microsoft Research</affiliation></author>
+      <author><first>Ahmed Hassan</first><last>Awadallah</last><affiliation>Microsoft Research</affiliation></author>
       <author><first>Monojit</first><last>Choudhury</last><affiliation>Mohamed bin Zayed University of Artificial Intelligence</affiliation></author>
       <author><first>Vishrav</first><last>Chaudhary</last><affiliation>Microsoft</affiliation></author>
       <author><first>Sunayana</first><last>Sitaram</last><affiliation>Microsoft</affiliation></author>
@@ -740,7 +740,7 @@
     <paper id="76">
       <title>An Analysis of Datasets, Metrics and Models in Keyphrase Generation</title>
       <author><first>Florian</first><last>Boudin</last><affiliation>University of Nantes</affiliation></author>
-      <author id="akiko-aizawa"><first>Akiko</first><last>Aizawa</last><affiliation>National Institute of Informatics</affiliation></author>
+      <author><first>Akiko</first><last>Aizawa</last><affiliation>National Institute of Informatics</affiliation></author>
       <pages>973-973</pages>
       <abstract>Keyphrase generation refers to the task of producing a set of words or phrases that summarises the content of a document. Continuous efforts have been dedicated to this task over the past few years, spreading across multiple lines of research, such as model architectures, data resources, and use-case scenarios. Yet, the current state of keyphrase generation remains unknown as there has been no attempt to review and analyse previous work. In this paper, we bridge this gap by presenting an analysis of over 50 research papers on keyphrase generation, offering a comprehensive overview of recent progress, limitations, and open challenges. Our findings highlight several critical issues in current evaluation practices, such as the concerning similarity among commonly-used benchmark datasets and inconsistencies in metric calculations leading to overestimated performances. Additionally, we address the limited availability of pre-trained models by releasing a strong PLM-based model for keyphrase generation as an effort to facilitate future research.</abstract>
       <url hash="0dd2486a">2025.gem-1.76</url>
@@ -762,7 +762,7 @@
     </paper>
     <paper id="78">
       <title>The 2025 <fixed-case>R</fixed-case>epro<fixed-case>NLP</fixed-case> Shared Task on Reproducibility of Evaluations in <fixed-case>NLP</fixed-case>: Overview and Results</title>
-      <author id="anja-belz"><first>Anya</first><last>Belz</last><affiliation>Dublin City University</affiliation></author>
+      <author><first>Anya</first><last>Belz</last><affiliation>Dublin City University</affiliation></author>
       <author><first>Craig</first><last>Thomson</last><affiliation>Dublin City University and University of Aberdeen</affiliation></author>
       <author><first>Javier</first><last>González Corbelle</last><affiliation>Universidad de Santiago de Compostela</affiliation></author>
       <author><first>Malo</first><last>Ruelle</last></author>

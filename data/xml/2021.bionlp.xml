@@ -4,9 +4,9 @@
     <meta>
       <booktitle>Proceedings of the 20th Workshop on Biomedical Language Processing</booktitle>
       <editor><first>Dina</first><last>Demner-Fushman</last></editor>
-      <editor id="k-bretonnel-cohen"><first>Kevin Bretonnel</first><last>Cohen</last></editor>
+      <editor><first>Kevin Bretonnel</first><last>Cohen</last></editor>
       <editor><first>Sophia</first><last>Ananiadou</last></editor>
-      <editor id="junichi-tsujii"><first>Junichi</first><last>Tsujii</last></editor>
+      <editor><first>Junichi</first><last>Tsujii</last></editor>
       <publisher>Association for Computational Linguistics</publisher>
       <address>Online</address>
       <month>June</month>
@@ -21,8 +21,8 @@
     <paper id="1">
       <title>Improving <fixed-case>BERT</fixed-case> Model Using Contrastive Learning for Biomedical Relation Extraction</title>
       <author><first>Peng</first><last>Su</last></author>
-      <author id="yifan-peng-cmu"><first>Yifan</first><last>Peng</last></author>
-      <author id="k-vijay-shanker"><first>K.</first><last>Vijay-Shanker</last></author>
+      <author><first>Yifan</first><last>Peng</last></author>
+      <author><first>K.</first><last>Vijay-Shanker</last></author>
       <pages>1–10</pages>
       <abstract>Contrastive learning has been used to learn a high-quality representation of the image in computer vision. However, contrastive learning is not widely utilized in natural language processing due to the lack of a general method of data augmentation for text data. In this work, we explore the method of employing contrastive learning to improve the text representation from the BERT model for relation extraction. The key knob of our framework is a unique contrastive pre-training step tailored for the relation extraction tasks by seamlessly integrating linguistic knowledge into the data augmentation. Furthermore, we investigate how large-scale data constructed from the external knowledge bases can enhance the generality of contrastive pre-training of BERT. The experimental results on three relation extraction benchmark datasets demonstrate that our method can improve the BERT model representation and achieve state-of-the-art performance. In addition, we explore the interpretability of models by showing that BERT with contrastive pre-training relies more on rationales for prediction. Our code and data are publicly available at: <url>https://github.com/AnonymousForNow</url>.</abstract>
       <url hash="49dfb9f0">2021.bionlp-1.1</url>
@@ -44,8 +44,8 @@
     <paper id="3">
       <title>Scalable Few-Shot Learning of Robust Biomedical Name Representations</title>
       <author><first>Pieter</first><last>Fivez</last></author>
-      <author id="simon-suster"><first>Simon</first><last>Suster</last></author>
-      <author id="walter-daelemans"><first>Walter</first><last>Daelemans</last></author>
+      <author><first>Simon</first><last>Suster</last></author>
+      <author><first>Walter</first><last>Daelemans</last></author>
       <pages>23–29</pages>
       <abstract>Recent research on robust representations of biomedical names has focused on modeling large amounts of fine-grained conceptual distinctions using complex neural encoders. In this paper, we explore the opposite paradigm: training a simple encoder architecture using only small sets of names sampled from high-level biomedical concepts. Our encoder post-processes pretrained representations of biomedical names, and is effective for various types of input representations, both domain-specific or unsupervised. We validate our proposed few-shot learning approach on multiple biomedical relatedness benchmarks, and show that it allows for continual learning, where we accumulate information from various conceptual hierarchies to consistently improve encoder performance. Given these findings, we propose our approach as a low-cost alternative for exploring the impact of conceptual distinctions on robust biomedical name representations.</abstract>
       <url hash="15454166">2021.bionlp-1.3</url>
@@ -66,8 +66,8 @@
     <paper id="5">
       <title>Are we there yet? Exploring clinical domain knowledge of <fixed-case>BERT</fixed-case> models</title>
       <author><first>Madhumita</first><last>Sushil</last></author>
-      <author id="simon-suster"><first>Simon</first><last>Suster</last></author>
-      <author id="walter-daelemans"><first>Walter</first><last>Daelemans</last></author>
+      <author><first>Simon</first><last>Suster</last></author>
+      <author><first>Walter</first><last>Daelemans</last></author>
       <pages>41–53</pages>
       <abstract>We explore whether state-of-the-art BERT models encode sufficient domain knowledge to correctly perform domain-specific inference. Although BERT implementations such as BioBERT are better at domain-based reasoning than those trained on general-domain corpora, there is still a wide margin compared to human performance on these tasks. To bridge this gap, we explore whether supplementing textual domain knowledge in the medical NLI task: a) by further language model pretraining on the medical domain corpora, b) by means of lexical match algorithms such as the BM25 algorithm, c) by supplementing lexical retrieval with dependency relations, or d) by using a trained retriever module, can push this performance closer to that of humans. We do not find any significant difference between knowledge supplemented classification as opposed to the baseline BERT models, however. This is contrary to the results for evidence retrieval on other tasks such as open domain question answering (QA). By examining the retrieval output, we show that the methods fail due to unreliable knowledge retrieval for complex domain-specific reasoning. We conclude that the task of unsupervised text retrieval to bridge the gap in existing information to facilitate inference is more complex than what the state-of-the-art methods can solve, and warrants extensive research in the future.</abstract>
       <url hash="f0859d2d">2021.bionlp-1.5</url>
@@ -181,7 +181,7 @@
       <author><first>Yannis</first><last>Katsis</last></author>
       <author><first>Tyler</first><last>Baldwin</last></author>
       <author><first>Ho-Cheol</first><last>Kim</last></author>
-      <author id="chun-nan-hsu"><first>Chun-Nan</first><last>Hsu</last></author>
+      <author><first>Chun-Nan</first><last>Hsu</last></author>
       <pages>126–130</pages>
       <abstract>NLP has emerged as an essential tool to extract knowledge from the exponentially increasing volumes of biomedical texts. Many NLP tasks, such as named entity recognition and named entity normalization, are especially challenging in the biomedical domain partly because of the prolific use of acronyms. Long names for diseases, bacteria, and chemicals are often replaced by acronyms. We propose Biomedical Local Acronym Resolver (BLAR), a high-performing acronym resolver that leverages state-of-the-art (SOTA) pre-trained language models to accurately resolve local acronyms in biomedical texts. We test BLAR on the Ab3P corpus and achieve state-of-the-art results compared to the current best-performing local acronym resolution algorithms and models.</abstract>
       <url hash="dbce5654">2021.bionlp-1.14</url>
@@ -190,7 +190,7 @@
     </paper>
     <paper id="15">
       <title>Claim Detection in Biomedical <fixed-case>T</fixed-case>witter Posts</title>
-      <author id="amelie-wuhrl"><first>Amelie</first><last>Wührl</last></author>
+      <author><first>Amelie</first><last>Wührl</last></author>
       <author><first>Roman</first><last>Klinger</last></author>
       <pages>131–142</pages>
       <abstract>Social media contains unfiltered and unique information, which is potentially of great value, but, in the case of misinformation, can also do great harm. With regards to biomedical topics, false information can be particularly dangerous. Methods of automatic fact-checking and fake news detection address this problem, but have not been applied to the biomedical domain in social media yet. We aim to fill this research gap and annotate a corpus of 1200 tweets for implicit and explicit biomedical claims (the latter also with span annotations for the claim phrase). With this corpus, which we sample to be related to COVID-19, measles, cystic fibrosis, and depression, we develop baseline models which detect tweets that contain a claim automatically. Our analyses reveal that biomedical tweets are densely populated with claims (45 % in a corpus sampled to contain 1200 tweets focused on the domains mentioned above). Baseline classification experiments with embedding-based classifiers and BERT-based transfer learning demonstrate that the detection is challenging, however, shows acceptable performance for the identification of explicit expressions of claims. Implicit claim tweets are more challenging to detect.</abstract>
@@ -234,7 +234,7 @@
     </paper>
     <paper id="19">
       <title>Word-Level Alignment of Paper Documents with their Electronic Full-Text Counterparts</title>
-      <author id="mark-christoph-muller"><first>Mark-Christoph</first><last>Müller</last></author>
+      <author><first>Mark-Christoph</first><last>Müller</last></author>
       <author><first>Sucheta</first><last>Ghosh</last></author>
       <author><first>Ulrike</first><last>Wittig</last></author>
       <author><first>Maja</first><last>Rey</last></author>
@@ -260,7 +260,7 @@
     <paper id="21">
       <title><fixed-case>E</fixed-case>ntity<fixed-case>BERT</fixed-case>: Entity-centric Masking Strategy for Model Pretraining for the Clinical Domain</title>
       <author><first>Chen</first><last>Lin</last></author>
-      <author id="timothy-miller"><first>Timothy</first><last>Miller</last></author>
+      <author><first>Timothy</first><last>Miller</last></author>
       <author><first>Dmitriy</first><last>Dligach</last></author>
       <author><first>Steven</first><last>Bethard</last></author>
       <author><first>Guergana</first><last>Savova</last></author>
@@ -273,8 +273,8 @@
     <paper id="22">
       <title>Contextual explanation rules for neural clinical classifiers</title>
       <author><first>Madhumita</first><last>Sushil</last></author>
-      <author id="simon-suster"><first>Simon</first><last>Suster</last></author>
-      <author id="walter-daelemans"><first>Walter</first><last>Daelemans</last></author>
+      <author><first>Simon</first><last>Suster</last></author>
+      <author><first>Walter</first><last>Daelemans</last></author>
       <pages>202–212</pages>
       <abstract>Several previous studies on explanation for recurrent neural networks focus on approaches that find the most important input segments for a network as its explanations. In that case, the manner in which these input segments combine with each other to form an explanatory pattern remains unknown. To overcome this, some previous work tries to find patterns (called rules) in the data that explain neural outputs. However, their explanations are often insensitive to model parameters, which limits the scalability of text explanations. To overcome these limitations, we propose a pipeline to explain RNNs by means of decision lists (also called rules) over skipgrams. For evaluation of explanations, we create a synthetic sepsis-identification dataset, as well as apply our technique on additional clinical and sentiment analysis datasets. We find that our technique persistently achieves high explanation fidelity and qualitatively interpretable rules.</abstract>
       <url hash="f1f86a29">2021.bionlp-1.22</url>
@@ -283,7 +283,7 @@
     </paper>
     <paper id="23">
       <title>Exploring Word Segmentation and Medical Concept Recognition for <fixed-case>C</fixed-case>hinese Medical Texts</title>
-      <author><first>Yang</first><last>Liu</last></author>
+      <author id="yang-liu"><first>Yang</first><last>Liu</last></author>
       <author><first>Yuanhe</first><last>Tian</last></author>
       <author><first>Tsung-Hui</first><last>Chang</last></author>
       <author><first>Song</first><last>Wu</last></author>
@@ -298,7 +298,7 @@
     <paper id="24">
       <title><fixed-case>B</fixed-case>io<fixed-case>M</fixed-case>-Transformers: Building Large Biomedical Language Models with <fixed-case>BERT</fixed-case>, <fixed-case>ALBERT</fixed-case> and <fixed-case>ELECTRA</fixed-case></title>
       <author><first>Sultan</first><last>Alrowili</last></author>
-      <author id="k-vijay-shanker"><first>Vijay</first><last>Shanker</last></author>
+      <author><first>Vijay</first><last>Shanker</last></author>
       <pages>221–227</pages>
       <abstract>The impact of design choices on the performance of biomedical language models recently has been a subject for investigation. In this paper, we empirically study biomedical domain adaptation with large transformer models using different design choices. We evaluate the performance of our pretrained models against other existing biomedical language models in the literature. Our results show that we achieve state-of-the-art results on several biomedical domain tasks despite using similar or less computational cost compared to other models in the literature. Our findings highlight the significant effect of design choices on improving the performance of biomedical language models.</abstract>
       <url hash="1d8c8f58">2021.bionlp-1.24</url>
@@ -330,7 +330,7 @@
       <title>Measuring the relative importance of full text sections for information retrieval from scientific literature.</title>
       <author><first>Lana</first><last>Yeganova</last></author>
       <author><first>Won Gyu</first><last>Kim</last></author>
-      <author id="donald-c-comeau"><first>Donald</first><last>Comeau</last></author>
+      <author><first>Donald</first><last>Comeau</last></author>
       <author><first>W John</first><last>Wilbur</last></author>
       <author><first>Zhiyong</first><last>Lu</last></author>
       <pages>247–256</pages>
@@ -344,10 +344,10 @@
       <author><first>Khalil</first><last>Mrini</last></author>
       <author><first>Franck</first><last>Dernoncourt</last></author>
       <author><first>Seunghyun</first><last>Yoon</last></author>
-      <author id="trung-bui"><first>Trung</first><last>Bui</last></author>
+      <author><first>Trung</first><last>Bui</last></author>
       <author><first>Walter</first><last>Chang</last></author>
       <author><first>Emilia</first><last>Farcas</last></author>
-      <author id="ndapandula-nakashole"><first>Ndapa</first><last>Nakashole</last></author>
+      <author><first>Ndapa</first><last>Nakashole</last></author>
       <pages>257–262</pages>
       <abstract>In this paper, we describe our approach to question summarization and multi-answer summarization in the context of the 2021 MEDIQA shared task (Ben Abacha et al., 2021). We propose two kinds of transfer learning for the abstractive summarization of medical questions. First, we train on HealthCareMagic, a large question summarization dataset collected from an online healthcare service platform. Second, we leverage the ability of the BART encoder-decoder architecture to model both generation and classification tasks to train on the task of Recognizing Question Entailment (RQE) in the medical domain. We show that both transfer learning methods combined achieve the highest ROUGE scores. Finally, we cast the question-driven extractive summarization of multiple relevant answer documents as an Answer Sentence Selection (AS2) problem. We show how we can preprocess the MEDIQA-AnS dataset such that it can be trained in an AS2 setting. Our AS2 model is able to generate extractive summaries achieving high ROUGE scores.</abstract>
       <url hash="5cf6ffad">2021.bionlp-1.28</url>
@@ -393,7 +393,7 @@
     </paper>
     <paper id="32">
       <title>Optum at <fixed-case>MEDIQA</fixed-case> 2021: Abstractive Summarization of Radiology Reports using simple <fixed-case>BART</fixed-case> Finetuning</title>
-      <author id="ravikumar-kondadadi"><first>Ravi</first><last>Kondadadi</last></author>
+      <author><first>Ravi</first><last>Kondadadi</last></author>
       <author><first>Sahil</first><last>Manchanda</last></author>
       <author><first>Jason</first><last>Ngo</last></author>
       <author><first>Ronan</first><last>McCormack</last></author>
@@ -418,7 +418,7 @@
       <title><fixed-case>NLM</fixed-case> at <fixed-case>MEDIQA</fixed-case> 2021: Transfer Learning-based Approaches for Consumer Question and Multi-Answer Summarization</title>
       <author><first>Shweta</first><last>Yadav</last></author>
       <author><first>Mourad</first><last>Sarrouti</last></author>
-      <author id="deepak-gupta"><first>Deepak</first><last>Gupta</last></author>
+      <author><first>Deepak</first><last>Gupta</last></author>
       <pages>291–301</pages>
       <abstract>The quest for seeking health information has swamped the web with consumers’ healthrelated questions, which makes the need for efficient and reliable question answering systems more pressing. The consumers’ questions, however, are very descriptive and contain several peripheral information (like patient’s medical history, demographic information, etc.), that are often not required for answering the question. Furthermore, it contributes to the challenges of understanding natural language questions for automatic answer retrieval. Also, it is crucial to provide the consumers with the exact and relevant answers, rather than the entire pool of answer documents to their question. One of the cardinal tasks in achieving robust consumer health question answering systems is the question summarization and multi-document answer summarization. This paper describes the participation of the U.S. National Library of Medicine (NLM) in Consumer Question and Multi-Answer Summarization tasks of the MEDIQA 2021 challenge at NAACL-BioNLP workshop. In this work, we exploited the capabilities of pre-trained transformer models and introduced a transfer learning approach for the abstractive Question Summarization and extractive Multi-Answer Summarization tasks by first pre-training our model on a task-specific summarization dataset followed by fine-tuning it for both the tasks via incorporating medical entities. We achieved the second, sixth and the fourth position for the Question Summarization task in terms ROUGE-1, ROUGE-2 and ROUGE-L scores respectively.</abstract>
       <url hash="a89f2507">2021.bionlp-1.34</url>
@@ -444,8 +444,8 @@
       <author><first>Minh-Quang</first><last>Nguyen</last></author>
       <author><first>Huy-Son</first><last>Nguyen</last></author>
       <author><first>Linh Nguyen Tran</first><last>Ngoc</last></author>
-      <author id="quang-thuy-ha"><first>Quang-Thuy</first><last>Ha</last></author>
-      <author id="mai-vu-tran"><first>Mai-Vu</first><last>Tran</last></author>
+      <author><first>Quang-Thuy</first><last>Ha</last></author>
+      <author><first>Mai-Vu</first><last>Tran</last></author>
       <pages>311–319</pages>
       <abstract>This paper describes a system developed to summarize multiple answers challenge in the MEDIQA 2021 shared task collocated with the BioNLP 2021 Workshop. We propose an extractive summarization architecture based on several scores and state-of-the-art techniques. We also present our novel prosper-thy-neighbour strategies to improve performance. Our model has been proven to be effective with the best ROUGE-1/ROUGE-L scores, being the shared task runner up by ROUGE-2 F1 score (over 13 participated teams).</abstract>
       <url hash="da0b8e70">2021.bionlp-1.36</url>
@@ -456,7 +456,7 @@
       <title><fixed-case>MNLP</fixed-case> at <fixed-case>MEDIQA</fixed-case> 2021: Fine-Tuning <fixed-case>PEGASUS</fixed-case> for Consumer Health Question Summarization</title>
       <author><first>Jooyeon</first><last>Lee</last></author>
       <author><first>Huong</first><last>Dang</last></author>
-      <author id="ozlem-uzuner"><first>Ozlem</first><last>Uzuner</last></author>
+      <author><first>Ozlem</first><last>Uzuner</last></author>
       <author><first>Sam</first><last>Henry</last></author>
       <pages>320–327</pages>
       <abstract>This paper details a Consumer Health Question (CHQ) summarization model submitted to MEDIQA 2021 for shared task 1: Question Summarization. Many CHQs are composed of multiple sentences with typos or unnecessary information, which can interfere with automated question answering systems. Question summarization mitigates this issue by removing this unnecessary information, aiding automated systems in generating a more accurate summary. Our summarization approach focuses on applying multiple pre-processing techniques, including question focus identification on the input and the development of an ensemble method to combine question focus with an abstractive summarization method. We use the state-of-art abstractive summarization model, PEGASUS (Pre-training with Extracted Gap-sentences for Abstractive Summarization), to generate abstractive summaries. Our experiments show that using our ensemble method, which combines abstractive summarization with question focus identification, improves performance over using summarization alone. Our model shows a ROUGE-2 F-measure of 11.14% against the official test dataset.</abstract>
@@ -466,7 +466,7 @@
     </paper>
     <paper id="38">
       <title><fixed-case>UET</fixed-case>fishes at <fixed-case>MEDIQA</fixed-case> 2021: Standing-on-the-Shoulders-of-Giants Model for Abstractive Multi-answer Summarization</title>
-      <author id="hoang-quynh-le"><first>Hoang-Quynh</first><last>Le</last></author>
+      <author><first>Hoang-Quynh</first><last>Le</last></author>
       <author><first>Quoc-An</first><last>Nguyen</last></author>
       <author><first>Quoc-Hung</first><last>Duong</last></author>
       <author><first>Minh-Quang</first><last>Nguyen</last></author>

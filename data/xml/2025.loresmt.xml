@@ -3,11 +3,11 @@
   <volume id="1" ingest-date="2025-04-26" type="proceedings">
     <meta>
       <booktitle>Proceedings of the Eighth Workshop on Technologies for Machine Translation of Low-Resource Languages (LoResMT 2025)</booktitle>
-      <editor id="atul-kr-ojha"><first>Atul Kr.</first><last>Ojha</last></editor>
+      <editor><first>Atul Kr.</first><last>Ojha</last></editor>
       <editor><first>Chao-hong</first><last>Liu</last></editor>
       <editor><first>Ekaterina</first><last>Vylomova</last></editor>
       <editor><first>Flammie</first><last>Pirinen</last></editor>
-      <editor id="jonathan-washington"><first>Jonathan</first><last>Washington</last></editor>
+      <editor><first>Jonathan</first><last>Washington</last></editor>
       <editor><first>Nathaniel</first><last>Oco</last></editor>
       <editor><first>Xiaobing</first><last>Zhao</last></editor>
       <publisher>Association for Computational Linguistics</publisher>
@@ -28,7 +28,7 @@
     <paper id="1">
       <title>Comparative Evaluation of Machine Translation Models Using Human-Translated Social Media Posts as References: Human-Translated Datasets</title>
       <author><first>Shareefa Ahmed</first><last>Al Amer</last></author>
-      <author id="mark-lee"><first>Mark G.</first><last>Lee</last></author>
+      <author><first>Mark G.</first><last>Lee</last></author>
       <author><first>Phillip</first><last>Smith</last><affiliation>University of Birmingham</affiliation></author>
       <pages>1-9</pages>
       <abstract>Machine translation (MT) of social media text presents unique challenges due to its informal nature, linguistic variations, and rapid evolution of language trends. In this paper, we propose a human-translated English dataset to Arabic, Italian, and Spanish, and a human-translated Arabic dataset to Modern Standard Arabic (MSA) and English. We also perform a comprehensive analysis of three publicly accessible MT models using human translations as a reference. We investigate the impact of social media informality on translation quality by translating the MSA version of the text and comparing BLEU and METEOR scores with the direct translation of the original social media posts. Our findings reveal that MarianMT provides the closest translations to human for Italian and Spanish among the three models, with METEOR scores of 0.583 and 0.640, respectively, while Google Translate provides the closest translations for Arabic, with a METEOR score of 0.354. By comparing the translation of the original social media posts with the MSA version, we confirm that the informality of social media text significantly impacts translation quality, with an increase of 12 percentage points in METEOR scores over the original posts. Additionally, we investigate inter-model alignment and the degree to which the output of these MT models align.</abstract>
@@ -59,7 +59,7 @@
       <title>From Text to Multi-Modal: Advancing Low-Resource-Language Translation through Synthetic Data Generation and Cross-Modal Alignments</title>
       <author><first>Bushi</first><last>Xiao</last></author>
       <author><first>Qian</first><last>Shen</last></author>
-      <author id="daisy-zhe-wang"><first>Daisy Zhe</first><last>Wang</last><affiliation>University of Florida</affiliation></author>
+      <author><first>Daisy Zhe</first><last>Wang</last><affiliation>University of Florida</affiliation></author>
       <pages>24-35</pages>
       <abstract>In this study, we propose a novel paradigm for multi-modal low resource language dataset generation that eliminates dependency on existing parallel multi-modal datasets. Leveraging advances in large image-generation models, we introduce a systematic pipeline that transforms text-only parallel corpora into rich multi-modal translation datasets. We then validate the generated content through human evaluation. We design and implement a new MMT model framework suitable for our new generated dataset. The model contains a verification mechanism with a large language model to ensure consistency between visual content and textual translations. Experimental results across four African low-resource languages with less than 10k training corpus demonstrate significant improvements over NLLB baselines, with average gains of up to 9.8% in BLEU score and 4.3% in METEOR score. Our method shows particular effectiveness in correctly translating concrete objects and contextual elements, suggesting its potential for improving low-resource machine translation through visual grounding.</abstract>
       <url hash="5922b07e">2025.loresmt-1.4</url>
@@ -104,7 +104,7 @@
       <author><first>Junyoung</first><last>Lee</last><affiliation>Home Team Science and Technology Agency</affiliation></author>
       <author><first>Marco</first><last>Cognetta</last><affiliation>Tokyo Institute of Technology, Tokyo Institute of Technology and Google</affiliation></author>
       <author><first>Sangwhan</first><last>Moon</last><affiliation>Google and Tokyo Institute of Technology</affiliation></author>
-      <author id="naoaki-okazaki"><first>Naoaki</first><last>Okazaki</last><affiliation>Institute of Science Tokyo</affiliation></author>
+      <author><first>Naoaki</first><last>Okazaki</last><affiliation>Institute of Science Tokyo</affiliation></author>
       <pages>66-80</pages>
       <abstract>Subword tokenization, where text is represented in an intermediate form between full words and characters, is ubiquitous in modern NLP due to its ability to represent any input sentence with a small vocabulary. However for Korean, where there are 11,172 base characters (*syllables*) in its alphabet, it is difficult to have a vocabulary large enough to succinctly encode text while fitting within parameter-budget constraints. This motivates us to explore an alternative representation for Korean which relies on the decompositional nature of Korean syllables: a syllable can be uniquely decomposed into a sequence of two or three subcharacters (*jamo*), of which there are only 68.Using jamo as the basis for subword tokenization (e.g., byte-pair encoding) leads to shorter tokenized sequences with fewer vocabulary parameters, exposes the model to sub-syllable-level morphological information, and increases the amount of augmentation gained from subword regularization. We evaluate jamo-level subword tokenization on several Korean translation tasks and find that jamo-level subword models consistently outperform syllable- and byte-level models in low-resource and restricted-vocabulary settings.</abstract>
       <url hash="d7613539">2025.loresmt-1.8</url>
@@ -130,8 +130,8 @@
       <author><first>Ryan Andrew</first><last>Chi</last></author>
       <author><first>Lucas</first><last>Huang</last></author>
       <author><first>Ethan A</first><last>Chi</last><affiliation>Hudson River Trading</affiliation></author>
-      <author id="r-thomas-mccoy"><first>R. Thomas</first><last>McCoy</last><affiliation>Yale University</affiliation></author>
-      <author id="dragomir-radev"><first>Dragomir</first><last>Radev</last><affiliation>Yale University</affiliation></author>
+      <author><first>R. Thomas</first><last>McCoy</last><affiliation>Yale University</affiliation></author>
+      <author><first>Dragomir</first><last>Radev</last><affiliation>Yale University</affiliation></author>
       <pages>105-114</pages>
       <abstract>We introduce ModeLing, a novel benchmark of Linguistics Olympiad-style puzzles which tests few-shot reasoning in AI systems. Solving these puzzles necessitates inferring aspects of a language’s grammatical structure from a small number of examples. Such puzzles provide a natural testbed for language models, as they require compositional generalization and few-shot inductive reasoning. Consisting solely of new puzzles written specifically for this work, ModeLing has no risk of appearing in the training data of existing AI systems: this ameliorates the risk of data leakage, a potential confounder for many prior evaluations of reasoning. Evaluating several large open source language models and GPT on our benchmark, we observe non-negligible accuracy, demonstrating few-shot emergent reasoning ability which cannot merely be attributed to shallow memorization. However, imperfect model performance suggests that ModeLing can be used to measure further progress in linguistic reasoning.</abstract>
       <url hash="0c1c115b">2025.loresmt-1.10</url>
@@ -165,7 +165,7 @@
       <title>Low-Resource Transliteration for <fixed-case>R</fixed-case>oman-<fixed-case>U</fixed-case>rdu and <fixed-case>U</fixed-case>rdu Using Transformer-Based Models</title>
       <author><first>Umer</first><last>Butt</last><affiliation>German Research Center for AI and Universität des Saarlandes</affiliation></author>
       <author><first>Stalin</first><last>Varanasi</last></author>
-      <author id="gunter-neumann"><first>Günter</first><last>Neumann</last><affiliation>German Research Center for AI</affiliation></author>
+      <author><first>Günter</first><last>Neumann</last><affiliation>German Research Center for AI</affiliation></author>
       <pages>144-153</pages>
       <abstract>As the Information Retrieval (IR) field increasingly recognizes the importance of inclusivity, addressing the needs of low-resource languages remains a significant challenge. Transliteration between Urdu and its Romanized form, Roman Urdu, remains underexplored despite the widespread use of both scripts in South Asia. Prior work using RNNs on the Roman-Urdu-Parl dataset showed promising results but suffered from poor domain adaptability and limited evaluation. We propose a transformer-based approach using the m2m100 multilingual translation model, enhanced with masked language modeling (MLM) pretraining and fine-tuning on both Roman-Urdu-Parl and the domain diverse Dakshina dataset. To address previous evaluation flaws, we introduce rigorous dataset splits and assess performance using BLEU, character-level BLEU, and CHRF. Our model achieves strong transliteration performance, with Char-BLEU scores of 96.37 for Urdu→Roman-Urdu and 97.44 for Roman-Urdu→Urdu. These results outperform both RNN baselines and GPT-4o Mini and demonstrate the effectiveness of multilingual transfer learning for low-resource transliteration tasks.</abstract>
       <url hash="b940b564">2025.loresmt-1.13</url>
@@ -179,7 +179,7 @@
       <author><first>Alex</first><last>Miłowski</last></author>
       <author><first>Thom</first><last>Vaughan</last></author>
       <author><first>Sara</first><last>Hincapie-Monsalve</last></author>
-      <author id="pedro-ortiz-suarez"><first>Pedro</first><last>Ortiz Suarez</last></author>
+      <author><first>Pedro</first><last>Ortiz Suarez</last></author>
       <author><first>Kurt</first><last>Bollacker</last></author>
       <pages>154-160</pages>
       <abstract>The MLCommons Datasets Working Group presents a comprehensive initiative to advance the development and accessibility of artificial intelligence (AI) training and testing resources. This paper introduces three key projects aimed at addressing critical gaps in the AI data ecosystem: the Unsupervised People’s Speech Dataset, containing over 821,000 hours of speech across 89+ languages; a strategic collaboration with Common Crawl to enhance web crawling capabilities for low-resource languages; and a framework for knowledge graph extraction evaluation. By focusing on languages other than English (LOTE) and creating permissively licensed, high-quality datasets, these initiatives aim to democratize AI development and improve model performance across diverse linguistic contexts. This work represents a significant step toward more inclusive and capable AI systems that can serve global communities.</abstract>
@@ -206,7 +206,7 @@
       <author><first>Nadia</first><last>Hajipour</last><affiliation>Institute for Humanities and Cultural Studies</affiliation></author>
       <author><first>Sadra</first><last>Sabouri</last></author>
       <author><first>Ehsaneddin</first><last>Asgari</last><affiliation>Qatar Computing Research Institute and University of California, Berkeley</affiliation></author>
-      <author id="hossein-sameti"><first>Hossein</first><last>Sameti</last><affiliation>Sharif University of Technology</affiliation></author>
+      <author><first>Hossein</first><last>Sameti</last><affiliation>Sharif University of Technology</affiliation></author>
       <pages>171-182</pages>
       <abstract>The Pahlavi language, aka Middle Persian, is a critical part of Persian cultural and historical heritage which bridges the Old Persian and Modern Persian (Farsi). However, due to its limited digital presence and the scarcity of comprehensive linguistic resources, Pahlavi is at risk of extinction. As an early attempt to preserve this language, this study introduces a framework to translate English text into Pahlavi. Our approach combines grammar-guided term extraction with zero-shot translation, leveraging large language models (LLMs) to generate syntactically and semantically accurate Pahlavi sentences.This framework aims to preserve the Pahlavi language and serves as a model for reviving other endangered languages with similar characteristics. Finally using our framework, we generate a novel dataset of 360 expert-validated parallel English-Pahlavi texts.</abstract>
       <url hash="4edf13c2">2025.loresmt-1.16</url>

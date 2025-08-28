@@ -14,7 +14,7 @@
       <editor><first>Meishan</first><last>Zhang</last></editor>
       <editor><first>Wei</first><last>Lu</last></editor>
       <editor><first>N.</first><last>Siddharth</last></editor>
-      <editor id="lilja-ovrelid"><first>Lilja</first><last>Øvrelid</last></editor>
+      <editor><first>Lilja</first><last>Øvrelid</last></editor>
       <editor><first>Nianwen</first><last>Xue</last></editor>
       <editor><first>Yue</first><last>Zhang</last></editor>
       <publisher>Association for Computational Linguistics</publisher>
@@ -71,7 +71,7 @@
       <title>Regular-pattern-sensitive <fixed-case>CRF</fixed-case>s for Distant Label Interactions</title>
       <author><first>Sean</first><last>Papay</last></author>
       <author><first>Roman</first><last>Klinger</last></author>
-      <author id="sebastian-pado"><first>Sebastian</first><last>Padó</last></author>
+      <author><first>Sebastian</first><last>Padó</last></author>
       <pages>26-35</pages>
       <abstract>While LLMs have grown popular in sequence labeling, linear-chain conditionalrandom fields (CRFs) remain a popular alternativewith the ability to directly model interactions between labels.However, the Markov assumption limits them to interactions between adjacent labels.Weighted finite-state transducers (FSTs), in contrast, can modeldistant label–label interactions, but exact label inference is intractable in general.In this work, we present regular-pattern-sensitiveCRFs (RPCRFs), a method of enriching standardlinear-chain CRFs with the ability to learnlong-distance label interactions through user-specified patterns.This approach allows users to write regular-expressionlabel patterns concisely specifying which types of interactionsthe model should take into account, allowingthe model to learn from data whether and inwhich contexts these patterns occur. The resultcan be interpreted alternatively as a CRF augmented with additional,non-local potentials,or as a finite-state transducer whose structureis defined by a set of easily-interpretable patterns.Critically, exact training and inferenceare tractable for many pattern sets. We detailhow an RPCRF can be automatically constructed from a set of user-specified patterns,and demonstrate the model’s effectiveness ona sequence of three synthetic sequence modeling datasets.</abstract>
       <url hash="d2e4eb26">2025.xllm-1.4</url>
@@ -139,7 +139,7 @@
     <paper id="10">
       <title>Seamlessly Integrating Tree-Based Positional Embeddings into Transformer Models for Source Code Representation</title>
       <author><first>Patryk</first><last>Bartkowiak</last></author>
-      <author id="filip-gralinski"><first>Filip</first><last>Graliński</last></author>
+      <author><first>Filip</first><last>Graliński</last></author>
       <pages>91-98</pages>
       <abstract>Transformer-based models have demonstrated significant success in various source code representation tasks. Nonetheless, traditional positional embeddings employed by these models inadequately capture the hierarchical structure intrinsic to source code, typically represented as Abstract Syntax Trees (ASTs). To address this, we propose a novel tree-based positional embedding approach that explicitly encodes hierarchical relationships derived from ASTs, including node depth and sibling indices. These hierarchical embeddings are integrated into the transformer architecture, specifically enhancing the CodeBERTa model. We thoroughly evaluate our proposed model through masked language modeling (MLM) pretraining and clone detection fine-tuning tasks. Experimental results indicate that our Tree-Enhanced CodeBERTa consistently surpasses the baseline model in terms of loss, accuracy, F1 score, precision, and recall, emphasizing the importance of incorporating explicit structural information into transformer-based representations of source code.</abstract>
       <url hash="b361a217">2025.xllm-1.10</url>
@@ -201,7 +201,7 @@
       <title>Do we still need Human Annotators? Prompting Large Language Models for Aspect Sentiment Quad Prediction</title>
       <author><first>Nils Constantin</first><last>Hellwig</last></author>
       <author><first>Jakob</first><last>Fehle</last></author>
-      <author id="udo-kruschwitz"><first>Udo</first><last>Kruschwitz</last></author>
+      <author><first>Udo</first><last>Kruschwitz</last></author>
       <author><first>Christian</first><last>Wolff</last></author>
       <pages>153-172</pages>
       <abstract>Aspect sentiment quad prediction (ASQP) facilitates a detailed understanding of opinions expressed in a text by identifying the opinion term, aspect term, aspect category and sentiment polarity for each opinion. However, annotating a full set of training examples to fine-tune models for ASQP is a resource-intensive process. In this study, we explore the capabilities of large language models (LLMs) for zero- and few-shot learning on the ASQP task across five diverse datasets. We report F1 scores almost up to par with those obtained with state-of-the-art fine-tuned models and exceeding previously reported zero- and few-shot performance. In the 20-shot setting on the Rest16 restaurant domain dataset, LLMs achieved an F1 score of 51.54, compared to 60.39 by the best-performing fine-tuned method MVP. Additionally, we report the performance of LLMs in target aspect sentiment detection (TASD), where the F1 scores were close to fine-tuned models, achieving 68.93 on Rest16 in the 30-shot setting, compared to 72.76 with MVP. While human annotators remain essential for achieving optimal performance, LLMs can reduce the need for extensive manual annotation in ASQP tasks.</abstract>
@@ -213,7 +213,7 @@
       <title>Can <fixed-case>LLM</fixed-case>s Interpret and Leverage Structured Linguistic Representations? A Case Study with <fixed-case>AMR</fixed-case>s</title>
       <author><first>Ankush</first><last>Raut</last></author>
       <author><first>Xiaofeng</first><last>Zhu</last></author>
-      <author id="maria-leonor-pacheco"><first>Maria Leonor</first><last>Pacheco</last></author>
+      <author><first>Maria Leonor</first><last>Pacheco</last></author>
       <pages>173-185</pages>
       <abstract>This paper evaluates the ability of Large Language Models (LLMs) to leverage contextual information in the form of structured linguistic representations. Specifically, we examine the impact of encoding both short and long contexts using Abstract Meaning Representation (AMR) structures across a diverse set of language tasks. We perform our analysis using 8-bit quantized and instruction-tuned versions of Llama 3.1 (8B), Phi-3, and Mistral 7B. Our results indicate that, for tasks involving short contexts, augmenting the prompt with the AMR of the original language context often degrades the performance of the underlying LLM. However, for tasks that involve long contexts, such as dialogue summarization in the SAMSum dataset, this enhancement improves LLM performance, for example, by increasing the zero-shot cosine similarity score of Llama 3.1 from 66% to 76%. This improvement is more evident in the newer and larger LLMs, but does not extend to the older or smaller ones. In addition, we observe that LLMs can effectively reconstruct the original text from a linearized AMR, achieving a cosine similarity of 81% in the best-case scenario.</abstract>
       <url hash="6c9a4672">2025.xllm-1.16</url>
@@ -322,7 +322,7 @@
       <author><first>Diganta</first><last>Biswas</last></author>
       <author><first>Dipanjan</first><last>Saha</last></author>
       <author><first>Dipankar</first><last>Das</last></author>
-      <author id="sivaji-bandyopadhyay"><first>Sivaji</first><last>Bandyopadhyay</last></author>
+      <author><first>Sivaji</first><last>Bandyopadhyay</last></author>
       <pages>283-287</pages>
       <abstract>Event extraction from text is a complex taskthat involves the identification of event triggersand their supporting arguments. Whenapplied to speech, this task becomes evenmore challenging due to the continuous natureof audio signals and the need for robustAutomatic Speech Recognition (ASR). Thispaper proposes an approach that integratesASR with event extraction by utilizing theWhisper model for speech recognition and aText2Event2 Transformer for extracting eventsfrom English audio samples. The Whispermodel is used to generate transcripts from audio,which are then fed into the Text2Event2Transformer to identify event triggers and theirarguments. This approach combines two difficulttasks into one, streamlining the processof extracting structured event information directlyfrom audio. Our approach leverages arobust ASR system (Whisper) followed by aparameter-efficient transformer (Text2Event2fine-tuned via LoRA) to extract structuredevents from raw speech. Unlike prior worktrained on gold textual input, our pipeline istrained end-to-end on noisy ASR outputs. Despitesignificant resource constraints and datanoise, our system ranked first in the ACL 2025XLLM Shared Task II.</abstract>
       <url hash="246bea30">2025.xllm-1.24</url>
