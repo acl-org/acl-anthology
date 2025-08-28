@@ -83,14 +83,14 @@
     </paper>
     <paper id="4">
       <title>Ambiguity Detection and Uncertainty Calibration for Question Answering with Large Language Models</title>
-      <author><first>Zhengyan</first><last>Shi</last></author>
+      <author id="zhengyan-shi"><first>Zhengyan</first><last>Shi</last></author>
       <author><first>Giuseppe</first><last>Castellucci</last><affiliation>Amazon</affiliation></author>
       <author><first>Simone</first><last>Filice</last><affiliation>Technology Innovation Institute</affiliation></author>
       <author><first>Saar</first><last>Kuzi</last><affiliation>Amazon</affiliation></author>
       <author><first>Elad</first><last>Kravi</last></author>
       <author><first>Eugene</first><last>Agichtein</last><affiliation>Emory University</affiliation></author>
       <author><first>Oleg</first><last>Rokhlenko</last></author>
-      <author><first>Shervin</first><last>Malmasi</last><affiliation>Amazon</affiliation></author>
+      <author id="shervin-malmasi"><first>Shervin</first><last>Malmasi</last><affiliation>Amazon</affiliation></author>
       <pages>41-55</pages>
       <abstract>Large Language Models (LLMs) have demonstrated excellent capabilities in Question Answering (QA) tasks, yet their ability to identify and address ambiguous questions remains underdeveloped. Ambiguities in user queries often lead to inaccurate or misleading answers, undermining user trust in these systems. Despite prior attempts using prompt-based methods, performance has largely been equivalent to random guessing, leaving a significant gap in effective ambiguity detection. To address this, we propose a novel framework for detecting ambiguous questions within LLM-based QA systems. We first prompt an LLM to generate multiple answers to a question, and then analyze them to infer the ambiguity. We propose to use a lightweight Random Forest model, trained on a bootstrapped and shuffled 6-shot examples dataset. Experimental results on ASQA, PACIFIC, and ABG-COQA datasets demonstrate the effectiveness of our approach, with accuracy up to 70.8%. Furthermore, our framework enhances the confidence calibration of LLM outputs, leading to more trustworthy QA systems able to handle complex questions.</abstract>
       <url hash="07ccc700">2025.trustnlp-main.4</url>
@@ -103,7 +103,7 @@
       <author><first>Zhiyu</first><last>Xue</last><affiliation>University of California, Santa Barbara</affiliation></author>
       <author><first>Xitong</first><last>Zhang</last><affiliation>Qualcomm Inc, QualComm</affiliation></author>
       <author><first>Rongrong</first><last>Wang</last><affiliation>Michigan State University</affiliation></author>
-      <author><first>Kristen</first><last>Johnson</last><affiliation>Michigan State University</affiliation></author>
+      <author id="kristen-johnson"><first>Kristen</first><last>Johnson</last><affiliation>Michigan State University</affiliation></author>
       <pages>56-65</pages>
       <abstract>Self-correction is one of the most amazing emerging capabilities of Large Language Models (LLMs), enabling LLMs to self-modify an inappropriate output given a natural language feedback which describes the problems of that output. Moral self-correction is a post-hoc approach correcting unethical generations without requiring a gradient update, making it both computationally lightweight and capable of preserving the language modeling ability. Previous works have shown that LLMs can self-debias, and it has been reported that small models, i.e., those with less than 22B parameters, are <i>not</i> capable of moral self-correction.However, there is no direct proof as to why such smaller models fall short of moral self-correction, though previous research hypothesizes that larger models are skilled in following instructions and understanding abstract social norms.In this paper, we empirically validate this hypothesis in the context of social stereotyping, through meticulous prompting.Our experimental results indicate that <b>(i)</b> surprisingly, 3.8B LLMs with proper safety alignment fine-tuning can achieve very good moral self-correction performance, highlighting the significant effects of safety alignment; and <b>(ii)</b> small LLMs are indeed weaker than larger-scale models in terms of comprehending social norms and self-explanation through CoT, but all scales of LLMs show bad self-correction performance given unethical instructions.</abstract>
       <url hash="c1e38d24">2025.trustnlp-main.5</url>
@@ -260,7 +260,7 @@
       <author><first>Yi</first><last>Yang</last><affiliation>Hong Kong University of Science and Technology</affiliation></author>
       <author><first>Hanyu</first><last>Duan</last></author>
       <author><first>Ahmed</first><last>Abbasi</last><affiliation>University of Notre Dame</affiliation></author>
-      <author><first>John P.</first><last>Lalor</last><affiliation>University of Notre Dame</affiliation></author>
+      <author id="john-p-lalor"><first>John P.</first><last>Lalor</last><affiliation>University of Notre Dame</affiliation></author>
       <author><first>Kar Yan</first><last>Tam</last></author>
       <pages>276-290</pages>
       <abstract>Transformer-based pretrained large language models (PLM) such as BERT and GPT have achieved remarkable success in NLP tasks. However, PLMs are prone to encoding stereotypical biases. Although a burgeoning literature has emerged on stereotypical bias mitigation in PLMs, such as work on debiasing gender and racial stereotyping, how such biases manifest and behave internally within PLMs remains largely unknown. Understanding the internal stereotyping mechanisms may allow better assessment of model fairness and guide the development of effective mitigation strategies. In this work, we focus on attention heads, a major component of the Transformer architecture, and propose a bias analysis framework to explore and identify a small set of biased heads that are found to contribute to a PLM’s stereotypical bias. We conduct extensive experiments to validate the existence of these biased heads and to better understand how they behave. We investigate gender and racial bias in the English language in two types of Transformer-based PLMs: the encoder-based BERT model and the decoder-based autoregressive GPT model, LLaMA-2 (7B), and LLaMA-2-Chat (7B). Overall, the results shed light on understanding the bias behavior in pretrained language models.</abstract>

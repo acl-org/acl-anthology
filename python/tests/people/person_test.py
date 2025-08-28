@@ -12,7 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from acl_anthology.people import Name, Person
+import pytest
+from acl_anthology.exceptions import AnthologyException, AnthologyInvalidIDError
+from acl_anthology.people import Name, NameLink, Person
 
 
 def test_person_names(anthology_stub):
@@ -26,22 +28,22 @@ def test_person_names(anthology_stub):
     assert not person.has_name(n3)
 
 
-def test_person_canonical_names(anthology_stub):
+def test_person_canonical_name(anthology_stub):
     n1 = Name("Yang", "Liu")
     n2 = Name("Y.", "Liu")
     person = Person("yang-liu", anthology_stub, [n1, n2])
     assert person.canonical_name == n1
-    person.set_canonical_name(n2)
+    person.canonical_name = n2
     assert person.canonical_name == n2
     assert len(person.names) == 2
 
 
-def test_person_add_names(anthology_stub):
+def test_person_add_name(anthology_stub):
     n1 = Name("Yang", "Liu")
     n2 = Name("Y.", "Liu")
     person = Person("yang-liu", anthology_stub, [n1])
     assert person.canonical_name == n1
-    person.set_canonical_name(n2)
+    person.canonical_name = n2
     assert person.canonical_name == n2
     assert len(person.names) == 2
     n3 = Name("Yang X.", "Liu")
@@ -50,12 +52,129 @@ def test_person_add_names(anthology_stub):
     assert len(person.names) == 3
 
 
-def test_person_papers(anthology):
-    person = anthology.get_person("nicoletta-calzolari")
+def test_person_remove_name(anthology_stub):
+    n1 = Name("Yang", "Liu")
+    n2 = Name("Y.", "Liu")
+    person = Person("yang-liu", anthology_stub, [n1, n2])
+    assert person.has_name(n2)
+    person.remove_name(n2)
+    assert not person.has_name(n2)
+    assert len(person.names) == 1
+
+
+def test_person_names_explicit_vs_inferred(anthology_stub):
+    n1 = Name("Yang", "Liu")
+    n2 = Name("Y.", "Liu")
+    person = Person("yang-liu", anthology_stub, [n1])
+    assert (n1, NameLink.EXPLICIT) in person._names
+    person.canonical_name = n2
+    assert (n2, NameLink.EXPLICIT) in person._names
+    n3 = Name("Yang X.", "Liu")
+    person.add_name(n3, inferred=True)
+    assert (n3, NameLink.INFERRED) in person._names
+
+
+def test_person_add_name_explicit_vs_inferred(anthology_stub):
+    n1 = Name("Yang", "Liu")
+    n2 = Name("Y.", "Liu")
+    n3 = Name("Yang X.", "Liu")
+    person = Person("yang-liu", anthology_stub, [n1])
+    person.add_name(n2, inferred=True)
+    person.add_name(n3, inferred=False)
+    assert person._names[1] == (n2, NameLink.INFERRED)
+    assert person._names[2] == (n3, NameLink.EXPLICIT)
+    # Calling add_name() with an existing name, but different "inferred" flag,
+    # should overwrite the NameLink value but keep the name in the same position
+    person.add_name(n2, inferred=False)
+    assert person._names[1] == (n2, NameLink.EXPLICIT)
+    person.add_name(n3, inferred=True)
+    assert person._names[2] == (n3, NameLink.INFERRED)
+
+
+def test_person_no_name(anthology_stub):
+    person = Person("yang-liu", anthology_stub, [])
+    assert len(person.names) == 0
+    with pytest.raises(ValueError):
+        person.canonical_name
+    name = Name("Yang", "Liu")
+    person.canonical_name = name
+    assert len(person.names) == 1
+    assert person.canonical_name == name
+
+
+def test_person_set_canonical_name(anthology_stub):
+    person = Person("rene-muller", anthology_stub, [Name("Rene", "Muller")])
+    assert len(person.names) == 1
+    name = Name("René", "Müller")
+    person.canonical_name = name
+    assert len(person.names) == 2
+    assert person.canonical_name == name
+
+
+def test_person_orcid(anthology_stub):
+    person = Person(
+        "marcel-bollmann",
+        anthology_stub,
+        [Name("Marcel", "Bollmann")],
+        orcid="0000-0002-1297-6794",
+    )
+    assert person.orcid == "0000-0002-1297-6794"
+    person.orcid = "0000-0003-2598-8150"
+    assert person.orcid == "0000-0003-2598-8150"
+    with pytest.raises(ValueError):
+        person.orcid = "https://orcid.org/0000-0003-2598-8150"
+    with pytest.raises(ValueError):
+        person.orcid = "0000-0003-2598-815X"
+
+
+def test_person_papers_unverified(anthology):
+    person = anthology.get_person("unverified/nicoletta-calzolari")
     assert person.canonical_name == Name("Nicoletta", "Calzolari")
     assert len(person.item_ids) == 3
     assert len(list(person.papers())) == 2
     assert len(list(person.volumes())) == 1
+
+
+def test_person_papers_verified(anthology):
+    person = anthology.get_person("yang-liu-ict")
+    assert person.canonical_name == Name("Yang", "Liu")
+    assert len(person.item_ids) == 2
+    assert len(list(person.papers())) == 2
+
+
+def test_person_update_id(anthology):
+    person = anthology.get_person("marcel-bollmann")
+    person.update_id("marcel-bollmann-rub")
+    assert anthology.get_person("marcel-bollmann") is None
+    assert anthology.get_person("marcel-bollmann-rub") is person
+    person.update_id("marcel-bollmann")
+    assert anthology.get_person("marcel-bollmann") is person
+    assert anthology.get_person("marcel-bollmann-rub") is None
+
+
+def test_person_update_id_should_update_connected_papers(anthology):
+    person = anthology.get_person("yang-liu-ict")
+    person.update_id("yang-liu-new")
+    namespec = anthology.get(person.item_ids[0]).authors[-1]
+    assert namespec.name == Name("Yang", "Liu")
+    assert namespec.id == "yang-liu-new"
+
+
+def test_person_cannot_update_id_when_inferred(anthology):
+    person = anthology.get_person("unverified/nicoletta-calzolari")
+    assert not person.is_explicit
+    with pytest.raises(AnthologyException):
+        person.update_id("nicoletta-calzolari")
+
+
+def test_person_cannot_update_id_with_invalid_id(anthology):
+    person = anthology.get_person("marcel-bollmann")
+    with pytest.raises(AnthologyInvalidIDError):
+        person.update_id("Marcel-Bollmann")
+    with pytest.raises(AnthologyInvalidIDError):
+        person.update_id("42-marcel-bollmann")
+    with pytest.raises(AnthologyInvalidIDError):
+        person.update_id("marcel bollmann")
 
 
 def test_person_with_name_variants(anthology):
@@ -68,10 +187,23 @@ def test_person_with_name_variants(anthology):
 def test_person_is_explicit(anthology):
     person = anthology.get_person("yang-liu-ict")
     assert person.is_explicit
-    person = anthology.get_person("nicoletta-calzolari")
+    person = anthology.get_person("unverified/nicoletta-calzolari")
     assert not person.is_explicit
-    person = anthology.get_person("srinivas-bangalore")
+
+
+def test_person_make_explicit(anthology):
+    person = anthology.get_person("unverified/nicoletta-calzolari")
+    assert not person.is_explicit
+    person.make_explicit("nicoletta-calzolari")
     assert person.is_explicit
+    assert person.id == "nicoletta-calzolari"
+
+
+def test_person_make_explicit_should_raise_when_explicit(anthology):
+    person = anthology.get_person("marcel-bollmann")
+    assert person.is_explicit
+    with pytest.raises(AnthologyException):
+        person.make_explicit("marcel-bollmann")
 
 
 def test_person_equality(anthology_stub):
@@ -82,4 +214,5 @@ def test_person_equality(anthology_stub):
     assert person1 == person2
     assert person1 != person3
     assert person2 != person3
+    assert person2 != "yang-liu"  # comparison with non-Person object is always False
     assert hash(person1) == hash(person2)

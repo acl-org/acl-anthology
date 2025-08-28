@@ -252,7 +252,7 @@ class Paper:
         type: The paper's type, currently used to mark frontmatter and backmatter.
     """
 
-    id: str = field(converter=int_to_str)
+    id: str = field(converter=int_to_str)  # validator defined below
     parent: Volume = field(repr=False, eq=False)
     bibkey: str = field(
         on_setattr=attrs.setters.pipe(attrs.setters.validate, _update_bibkey_index),

@@ -463,7 +463,7 @@ def test_volume_remove_editor(anthology):
     volume = anthology.get_volume("2022.acl-long")
     ns = volume.editors[1]
     person = anthology.resolve(ns)
-    assert person.id == "preslav-nakov"
+    assert person.id == "unverified/preslav-nakov"
     assert volume.full_id_tuple in person.item_ids
 
     # Removing editor from volume

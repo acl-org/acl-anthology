@@ -141,6 +141,12 @@ def test_name_spec_to_xml_onlylast():
     assert etree.tostring(element, encoding="unicode") == xml
 
 
+def test_name_spec_to_xml_with_id_and_orcid():
+    xml = '<editor id="mausam" orcid="0000-0003-4088-4296"><first/><last>Mausam</last></editor>'
+    element = NameSpecification.from_xml(etree.fromstring(xml)).to_xml("editor")
+    assert etree.tostring(element, encoding="unicode") == xml
+
+
 def test_name_variant_from_xml():
     xml = """
         <variant script="hani">

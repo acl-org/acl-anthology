@@ -3,12 +3,12 @@
   <volume id="1" ingest-date="2023-04-29" type="proceedings">
     <meta>
       <booktitle>Proceedings of the Sixth Workshop on Technologies for Machine Translation of Low-Resource Languages (LoResMT 2023)</booktitle>
-      <editor><first>Atul Kr.</first><last>Ojha</last></editor>
+      <editor id="atul-kr-ojha"><first>Atul Kr.</first><last>Ojha</last></editor>
       <editor><first>Chao-hong</first><last>Liu</last></editor>
       <editor><first>Ekaterina</first><last>Vylomova</last></editor>
       <editor><first>Flammie</first><last>Pirinen</last></editor>
       <editor><first>Jade</first><last>Abbott</last></editor>
-      <editor><first>Jonathan</first><last>Washington</last></editor>
+      <editor id="jonathan-washington"><first>Jonathan</first><last>Washington</last></editor>
       <editor><first>Nathaniel</first><last>Oco</last></editor>
       <editor><first>Valentin</first><last>Malykh</last></editor>
       <editor><first>Varvara</first><last>Logacheva</last></editor>
@@ -28,7 +28,7 @@
       <title>Train Global, Tailor Local: Minimalist Multilingual Translation into Endangered Languages</title>
       <author><first>Zhong</first><last>Zhou</last><affiliation>Carnegie Mellon University</affiliation></author>
       <author><first>Jan</first><last>Niehues</last><affiliation>Karlsruhe Institut of Technology</affiliation></author>
-      <author><first>Alexander</first><last>Waibel</last><affiliation>Carnegie Mellon</affiliation></author>
+      <author id="alex-waibel"><first>Alexander</first><last>Waibel</last><affiliation>Carnegie Mellon</affiliation></author>
       <pages>1-15</pages>
       <abstract>In many humanitarian scenarios, translation into severely low resource languages often does not require a universal translation engine, but a dedicated text-specific translation engine. For example, healthcare records, hygienic procedures, government communication, emergency procedures and religious texts are all limited texts. While generic translation engines for all languages do not exist, translation of multilingually known limited texts into new, endangered languages may be possible and reduce human translation effort. We attempt to leverage translation resources from rich resource languages to efficiently produce best possible translation quality for well known texts, which is available in multiple languages, in a new, severely low resource language. We examine two approaches: 1.) best selection of seed sentences to jump start translations in a new language in view of best generalization to the remainder of a larger targeted text(s), and 2.) we adapt large general multilingual translation engines from many other languages to focus on a specific text in a new, unknown language. We find that adapting large pretrained multilingual models to the domain/text first and then to the severely low resource language works best. If we also select a best set of seed sentences, we can improve average chrF performance on new test languages from a baseline of 21.9 to 50.7, while reducing the number of seed sentences to only ∼1,000 in the new, unknown language.</abstract>
       <url hash="e1d2c61e">2023.loresmt-1.1</url>
@@ -65,10 +65,10 @@
     </paper>
     <paper id="4">
       <title>A Simplified Training Pipeline for Low-Resource and Unsupervised Machine Translation</title>
-      <author><first>Àlex R.</first><last>Atrio</last><affiliation>Heig-vd / Hes-so &amp; Epfl</affiliation></author>
+      <author id="alex-r-atrio"><first>Àlex R.</first><last>Atrio</last><affiliation>Heig-vd / Hes-so &amp; Epfl</affiliation></author>
       <author><first>Alexis</first><last>Allemann</last><affiliation>Heig-vd / Hes-so</affiliation></author>
       <author><first>Ljiljana</first><last>Dolamic</last><affiliation>armasuisse S&amp;T</affiliation></author>
-      <author><first>Andrei</first><last>Popescu-Belis</last><affiliation>Heig-vd / Hes-so</affiliation></author>
+      <author id="andrei-popescu-belis"><first>Andrei</first><last>Popescu-Belis</last><affiliation>Heig-vd / Hes-so</affiliation></author>
       <pages>47-58</pages>
       <url hash="9daf6f42">2023.loresmt-1.4</url>
       <bibkey>atrio-etal-2023-simplified</bibkey>
@@ -80,7 +80,7 @@
       <title>Language-Family Adapters for Low-Resource Multilingual Neural Machine Translation</title>
       <author><first>Alexandra</first><last>Chronopoulou</last><affiliation>LMU Munich</affiliation></author>
       <author><first>Dario</first><last>Stojanovski</last><affiliation>Microsoft</affiliation></author>
-      <author><first>Alexander</first><last>Fraser</last><affiliation>Ludwig-Maximilians-Universität München</affiliation></author>
+      <author id="alexander-fraser"><first>Alexander</first><last>Fraser</last><affiliation>Ludwig-Maximilians-Universität München</affiliation></author>
       <pages>59-72</pages>
       <abstract>Large multilingual models trained with self-supervision achieve state-of-the-art results in a wide range of natural language processing tasks. Self-supervised pretrained models are often fine-tuned on parallel data from one or multiple language pairs for machine translation. Multilingual fine-tuning improves performance on low-resource languages but requires modifying the entire model and can be prohibitively expensive. Training a new adapter on each language pair or training a single adapter on all language pairs without updating the pretrained model has been proposed as a parameter-efficient alternative. However, the former does not permit any sharing between languages, while the latter shares parameters for all languages and is susceptible to negative interference. In this paper, we propose training language-family adapters on top of mBART-50 to facilitate cross-lingual transfer. Our approach outperforms related baselines, yielding higher translation scores on average when translating from English to 17 different low-resource languages. We also show that language-family adapters provide an effective method to translate to languages unseen during pretraining.</abstract>
       <url hash="a847d0f5">2023.loresmt-1.5</url>
@@ -156,7 +156,7 @@
     <paper id="10">
       <title>Evaluating Sentence Alignment Methods in a Low-Resource Setting: An <fixed-case>E</fixed-case>nglish-<fixed-case>Y</fixed-case>orù<fixed-case>B</fixed-case>á Study Case</title>
       <author><first>Edoardo</first><last>Signoroni</last><affiliation>NLP Centre, Faculty of Informatics, Masaryk University</affiliation></author>
-      <author><first>Pavel</first><last>Rychlý</last><affiliation>NLP Centre, Faculty of Informatics, Masaryk University</affiliation></author>
+      <author id="pavel-rychly"><first>Pavel</first><last>Rychlý</last><affiliation>NLP Centre, Faculty of Informatics, Masaryk University</affiliation></author>
       <pages>123-129</pages>
       <abstract>Parallel corpora are still crucial to train effective Machine Translation systems. This is even more true for low-resource language pairs, for which Neural Machine Translation has been shown to be less robust to domain mismatch and noise. Due to time and resource constraints, parallel corpora are mostly created with sentence alignment methods which automatically infer alignments. Recent work focused on state-of-the-art pre-trained sentence embeddings-based methods which are available only for a tiny fraction of the world’s languages. In this paper, we evaluate the performance of four widely used algorithms on the low-resource English-Yorùbá language pair against a multidomain benchmark parallel corpus on two experiments involving 1-to-1 alignments with and without reordering. We find that, at least for this language pair, earlier and simpler methods are more suited to the task, all the while not requiring additional data or resources. We also report that the methods we evaluated perform differently across distinct domains, thus indicating that some approach may be better for a specific domain or textual structure.</abstract>
       <url hash="fccd5197">2023.loresmt-1.10</url>
