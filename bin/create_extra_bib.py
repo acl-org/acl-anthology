@@ -41,15 +41,18 @@ from rich.progress import track
 import shutil
 import subprocess
 
+
 from acl_anthology import config
 from acl_anthology.utils.ids import infer_year
 from acl_anthology.utils.logging import setup_rich_logging
 from create_hugo_data import make_progress
 
-
 BIB2XML = None
 XML2END = None
 CONSOLE = Console(stderr=True)
+
+# Max shard size in MiB
+MAX_SHARD_MB = 49
 
 
 def create_bibtex(builddir, clean=False) -> None:
@@ -64,10 +67,10 @@ def create_bibtex(builddir, clean=False) -> None:
         ) as file_anthology_raw,
         gzip.open(
             f"{builddir}/data-export/anthology.bib.gz", "wt", encoding="utf-8"
-        ) as file_anthology,
+        ) as file_anthology_gzip,
     ):
         # Add a header to each consolidated bibfile
-        for outfh in file_anthology_raw, file_anthology:
+        for outfh in file_anthology_raw, file_anthology_gzip:
             print(
                 f"% {config.url_prefix}/{Path(outfh.name).name} generated on {datetime.date.today().isoformat()}\n",
                 file=outfh,
@@ -90,13 +93,8 @@ def create_bibtex(builddir, clean=False) -> None:
             description="Create anthology.bib.gz...  ",
             console=CONSOLE,
         ):
-            # reset this each time
-            abbrev = None
-            volume_id = volume_file.stem
-
             with open(volume_file, "r") as f:
                 bibtex = f.read()
-            print(bibtex, file=file_anthology)
 
             # Space saver (https://github.com/acl-org/acl-anthology/issues/3016) for the
             # uncompressed consolidated bibfile.
@@ -111,41 +109,13 @@ def create_bibtex(builddir, clean=False) -> None:
                 concise_contents,
             )
 
-            # Abbreviate the booktitle by extracting it and printing it before
-            # the first entry in each volume
-            if concise_contents.startswith("@proceedings"):
-                # Grab the title string and create the alias
-                first_bibkey_comp = re.match(
-                    r'@proceedings{([a-z0-9]*)-', concise_contents
-                ).group(1)
-                abbrev = f"{first_bibkey_comp.upper()}:{infer_year(volume_id)}:{volume_id.split('-')[-1]}"
-                try:
-                    booktitle = re.match(
-                        r"@proceedings{[a-z0-9-]*,\n    title = \"(.*)\",",
-                        concise_contents,
-                    ).group(1)
-                    print(
-                        f"@string{{{abbrev} = {{{booktitle}}}}}",
-                        file=file_anthology_raw,
-                    )
-                except AttributeError:
-                    log.warning(f"Could not find title for {volume_id}")
-                    abbrev = None
-
-                if abbrev is not None and "booktitle" in concise_contents:
-                    # substitute the alias for the booktitle
-                    concise_contents = re.sub(
-                        r"    booktitle = (\".*\"),",
-                        f"    booktitle = {abbrev},",
-                        concise_contents,
-                    )
-
             # Remove whitespace to save space and keep things under 50 MB
             concise_contents = re.sub(r",\n +", ",", concise_contents)
             concise_contents = re.sub(r"  and\n +", " and ", concise_contents)
             concise_contents = re.sub(r",?\n}", "}", concise_contents)
 
             print(concise_contents, file=file_anthology_raw)
+            print(bibtex, file=file_anthology_gzip)
 
     with gzip.open(
         f"{builddir}/data-export/anthology+abstracts.bib.gz", "wt", encoding="utf-8"
@@ -168,6 +138,102 @@ def create_bibtex(builddir, clean=False) -> None:
                 for entry in data.values():
                     if bibtex := entry.get("bibtex"):
                         print(bibtex, file=file_anthology_with_abstracts)
+
+
+# filepath: /Users/mattpost/src/acl-anthology/bin/create_extra_bib.py
+def create_shards(
+    builddir: str, max_shard_mb: int = MAX_SHARD_MB, prefix: str = "anthology"
+) -> None:
+    """Split data-export/<prefix>.bib into numbered shards each <= max_shard_mb MiB."""
+    max_bytes = int(max_shard_mb * 1024 * 1024)
+    bib_path = Path(f"{builddir}/data-export/{prefix}.bib")
+    if not bib_path.exists():
+        log.warning(f"{bib_path} not found; skipping shard generation")
+        return
+
+    with bib_path.open(encoding="utf-8") as f:
+        header = f.readline()
+        entries_text = f.read()
+
+    # Split entries at each next line starting with '@' (preserves the leading '@')
+    entries = re.split(r'(?=@[A-Za-z]+)', entries_text)
+    entries = [e.strip() for e in entries if e.strip()]
+
+    if not entries:
+        log.warning(f"No entries parsed from {bib_path}; skipping shards")
+        return
+
+    shards = []
+    current_shard = []
+    header_bytes_len = len(header.encode("utf-8"))
+    current_size = header_bytes_len
+
+    for entry in entries:
+        entry_bytes = (entry + "\n").encode("utf-8")
+        # Close current shard if this entry would overflow it
+        if current_shard and (current_size + len(entry_bytes) > max_bytes):
+            shards.append(current_shard)
+            current_shard = []
+            current_size = header_bytes_len
+
+        # Warn if a single entry is larger than the shard limit
+        if not current_shard and len(entry_bytes) > max_bytes:
+            log.warning(
+                f"Single BibTeX entry exceeds {max_shard_mb} MiB; it will occupy a single shard."
+            )
+
+        current_shard.append(entry)
+        current_size += len(entry_bytes)
+
+    if current_shard:
+        shards.append(current_shard)
+
+    def extract_year(entry: str):
+        """Extract the year from a string containing a BibTeX entry containing field year = "XXXX"."""
+        match = re.search(r'year = "(\d{4})"', entry)
+        return int(match.group(1)) if match else None
+
+    # Write shards with header + shard list comment
+    shard_filenames = [f"{prefix}-{i}.bib" for i in range(1, len(shards) + 1)]
+    shard_ranges = []
+    for shard_entries in shards:
+        # entries may be missing the year, so search from the front and
+        # back until we have one for the range
+        for e in shard_entries:
+            top_year = extract_year(e)
+            if top_year:
+                break
+        for e in reversed(shard_entries):
+            bottom_year = extract_year(e)
+            if bottom_year:
+                break
+
+        shard_ranges.append(
+            f"{bottom_year}-{top_year}" if top_year and bottom_year else ""
+        )
+
+    shard_header_lines = [
+        "% This file is one of multiple shards of the consolidated anthology.bib file.",
+        "% The shards have been created to fit under size limits.",
+        "%",
+    ]
+    for fname, yr in zip(shard_filenames, shard_ranges):
+        shard_header_lines.append(f"% - {config.url_prefix}/{fname} ({yr})")
+    shard_header = "\n".join(shard_header_lines)
+
+    # Write shards with header + shard list comment
+    for i, shard_entries in enumerate(shards, start=1):
+        out_path = bib_path.with_name(f"{prefix}-{i}.bib")
+        with open(out_path, "wt", encoding="utf-8") as fh:
+            fh.write(shard_header + "\n%\n")
+            fh.write("% Original file:\n")
+            fh.write(header.strip() + "\n\n")
+            fh.write("\n".join(shard_entries))
+            fh.write("\n")
+
+    log.info(
+        f"Wrote {len(shards)} shards for {bib_path.name}: {', '.join(shard_filenames)}"
+    )
 
 
 def convert_bibtex(builddir, max_workers=None):
@@ -298,6 +364,9 @@ if __name__ == "__main__":
         log.error("xml2end not found; please install bibutils for Endnote conversion")
 
     create_bibtex(args["--builddir"], clean=args["--clean"])
+    # Generate chunked shards in addition to the consolidated file
+    create_shards(args["--builddir"], max_shard_mb=MAX_SHARD_MB, prefix="anthology")
+
     if BIB2XML and XML2END:
         convert_bibtex(args["--builddir"], max_workers=max_workers)
 
