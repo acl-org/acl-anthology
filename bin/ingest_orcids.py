@@ -125,25 +125,57 @@ def main(
         # paper_num = int(paper_node.attrib['id'])
         # print(f"PAPER: YAML={paper_num}", file=sys.stderr)
 
-        def get_author_xml(author_xml):
-            name = ""
-            if (first := author_xml.find('first')) is not None:
-                name += first.text or ""
-            if (last := author_xml.find('last')) is not None:
-                if name:
-                    name += " "
-                name += last.text or ""
-            return name
+        def get_author_name_xml(author_xml):
+            """
+            Returns "Last, First Name" for matching.
+            """
+            names = []
+            if (first := author_xml.find("first")) is not None:
+                names.append(first.text.lower())
+            else:
+                names.append("")
+            if (last := author_xml.find("last")) is not None:
+                names.append(last.text.lower())
+            else:
+                names.append("")
+
+            return tuple(names)
+
+        yaml_authors = paper['authors']
+        xml_authors = paper_node.findall('./author')
+
+        if len(yaml_authors) != len(xml_authors):
+            print(f"* Author count mismatch for paper {paper['id']}: YAML={len(yaml_authors)} XML={len(xml_authors)}", file=sys.stderr)
+            continue
+
+        def match_names(yaml_name_tuple, xml_name_tuple):
+            """Match a YAML name tuple to the XML name tuple"""
+
+            xml_name_forward = f"{xml_name_tuple[0]} {xml_name_tuple[1]}"
+            xml_name_reverse = f"{xml_name_tuple[1]} {xml_name_tuple[0]}"
+
+            yaml_first, yaml_last = yaml_name_tuple
+
+            return xml_name_forward.endswith(yaml_last) or xml_name_reverse.endswith(yaml_last)
 
         for author_yaml, author_node in zip(
             paper['authors'], paper_node.findall('./author')
         ):
             # Check that the author names match
-            # We want to do this robustly, since author order
-            print(
-                f"- Author YAML={author_yaml['first_name']} {author_yaml['last_name']} XML={get_author_xml(author_node)}",
-                file=sys.stderr,
-            )
+            # We want to do this robustly, since author order may have changed
+            yaml_name_tuple = (author_yaml['first_name'].lower(), author_yaml['last_name'].lower())
+            yaml_name = yaml_name_tuple[0] + " " + yaml_name_tuple[1]
+
+            if not match_names(yaml_name_tuple, get_author_name_xml(author_node)):
+                print(
+                    f"* Author name mismatch for paper {paper['id']}: YAML={yaml_name} XML={get_author_name_xml(author_node)}",
+                    file=sys.stderr,
+                )
+            else:
+                print(
+                    f"- Author YAML={yaml_name} XML={get_author_name_xml(author_node)}",
+                    file=sys.stderr,
+                )
             if orcid := author_yaml.get('orcid'):
                 # grab ORCID pattern from orcid: \d{4}-\d{4}-\d{4}-\d{3}[0-9X]
                 orcid_pattern = r'\d{4}-\d{4}-\d{4}-\d{3}[0-9X]'
