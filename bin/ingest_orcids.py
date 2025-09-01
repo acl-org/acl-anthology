@@ -148,7 +148,10 @@ def main(
         xml_authors = paper_node.findall('./author')
 
         if len(yaml_authors) != len(xml_authors):
-            print(f"* Author count mismatch for paper {paper['id']}: YAML={len(yaml_authors)} XML={len(xml_authors)}", file=sys.stderr)
+            print(
+                f"* Author count mismatch for paper {paper['id']}: YAML={len(yaml_authors)} XML={len(xml_authors)}",
+                file=sys.stderr,
+            )
             continue
 
         def match_names(yaml_name_tuple, xml_name_tuple):
@@ -159,14 +162,19 @@ def main(
 
             yaml_first, yaml_last = yaml_name_tuple
 
-            return xml_name_forward.endswith(yaml_last) or xml_name_reverse.endswith(yaml_last)
+            return xml_name_forward.endswith(yaml_last) or xml_name_reverse.endswith(
+                yaml_last
+            )
 
         for author_yaml, author_node in zip(
             paper['authors'], paper_node.findall('./author')
         ):
             # Check that the author names match
             # We want to do this robustly, since author order may have changed
-            yaml_name_tuple = (author_yaml['first_name'].lower(), author_yaml['last_name'].lower())
+            yaml_name_tuple = (
+                author_yaml['first_name'].lower(),
+                author_yaml['last_name'].lower(),
+            )
             yaml_name = yaml_name_tuple[0] + " " + yaml_name_tuple[1]
 
             if not match_names(yaml_name_tuple, get_author_name_xml(author_node)):

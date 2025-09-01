@@ -327,7 +327,9 @@ def proceeding2xml(anthology_id: str, meta: Dict[str, Any], frontmatter):
                 author = correct_names(author)
                 # if 'orcid' is present as a field, add it as an attribute
                 if 'orcid' in author.keys():
-                    name_node = make_simple_element(field, parent=frontmatter_node, attrib={'orcid': author['orcid']})
+                    name_node = make_simple_element(
+                        field, parent=frontmatter_node, attrib={'orcid': author['orcid']}
+                    )
                 else:
                     name_node = make_simple_element(field, parent=frontmatter_node)
 
