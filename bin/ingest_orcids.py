@@ -131,7 +131,10 @@ def main(
             """
             names = []
             if (first := author_xml.find("first")) is not None:
-                names.append(first.text.lower())
+                try:
+                    names.append(first.text.lower())
+                except AttributeError:
+                    names.append("")
             else:
                 names.append("")
             if (last := author_xml.find("last")) is not None:
