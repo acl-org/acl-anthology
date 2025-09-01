@@ -138,10 +138,12 @@ def main(
         for author_yaml, author_node in zip(
             paper['authors'], paper_node.findall('./author')
         ):
-            # print(
-            #     f"- Author YAML={author_yaml['first_name']} {author_yaml['last_name']} XML={get_author_xml(author_node)}",
-            #     file=sys.stderr,
-            # )
+            # Check that the author names match
+            # We want to do this robustly, since author order
+            print(
+                f"- Author YAML={author_yaml['first_name']} {author_yaml['last_name']} XML={get_author_xml(author_node)}",
+                file=sys.stderr,
+            )
             if orcid := author_yaml.get('orcid'):
                 # grab ORCID pattern from orcid: \d{4}-\d{4}-\d{4}-\d{3}[0-9X]
                 orcid_pattern = r'\d{4}-\d{4}-\d{4}-\d{3}[0-9X]'
