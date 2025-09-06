@@ -3,8 +3,7 @@
 {{ $paper := index (index .Site.Data.papers $volume_id) .Params.anthology_id }}
   <meta content="{{ $paper.title }}" name="citation_title" >
 {{ range $paper.author }}
-  {{ $first_letter := slicestr .id 0 1 }}
-  <meta content="{{ (index $.Site.Data.people $first_letter .id).full }}" name="citation_author" >
+  <meta content="{{ (index $.Site.Data.people .id).full }}" name="citation_author" >
 {{ end }}
 {{ with $paper.parent_volume_id }}
   {{ $volume := index $.Site.Data.volumes . }}

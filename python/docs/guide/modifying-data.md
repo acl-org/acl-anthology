@@ -7,25 +7,26 @@
 
 ## Rules of thumb
 
-The aim of this library is to also make it easy to modify or create data in the
-Anthology.  This is complicated by the various indices and objects such as
-persons that cross-reference other objects.  Here are some rules of thumb when
-making modifications to the data:
+**The aim of this library is to also make it easy to modify or create data in
+the Anthology.**  The implementation of this is complicated by the various
+indices and objects such as persons that cross-reference other objects.  Here
+are some rules of thumb when making modifications to the data:
 
 1. To create new objects, use `create_` functions provided by the library
    whenever possible, rather than instantiating them directly.
 2. You can modify objects by simply modifying their attributes, as long as the
    object in question has an explicit representation in the Anthology data.
     - This includes collections, volumes, papers, events, but not e.g. persons.
-3. If you need to refer to indices such as
+3. Saving data is always non-destructive and will avoid introducing unnecessary
+   changes (e.g. no needless reordering of XML tags).  {==This is currently only
+   true & tested for XML files, not for the YAML files.==}
+4. If you need to refer to indices such as
    [PersonIndex][acl_anthology.people.index.PersonIndex],
    [EventIndex][acl_anthology.collections.eventindex.EventIndex], or
    [VenueIndex][acl_anthology.venues.VenueIndex] after making modifications, you
    should call
    [`Anthology.reset_indices()`][acl_anthology.anthology.Anthology.reset_indices]
    first.
-
-{==TODO: how/where to call `save()`==}
 
 ## Modifying publications
 
@@ -64,8 +65,8 @@ date of ingestion is stored as a string, but the following will also work:
 '2025-01-08'
 ```
 
-As a general rule, setting attributes of `collections` objects should either
-raise a `TypeError`, or "do the right thing."
+**As a general rule, setting attributes of `collections` objects should either
+raise a `TypeError`, or "do the right thing."**
 
 ### List attributes
 
@@ -83,12 +84,13 @@ To change an existing author's name, you just need to remember that names are
 immutable:
 
 ```pycon
->>> paper.authors[0].name = Name("Bollmann, Marcel")
+>>> paper.authors[0].name.first = "Marc Marcel"             # will NOT work
+>>> paper.authors[0].name = Name("Bollmann, Marc Marcel")   # works
 ```
 
 !!! danger
 
-    Input validation or conversion cannot be done when _modifying_ mutable
+    Input validation or conversion cannot be done when modifying mutable
     attributes such as lists (only when _setting_ them).  That means you won't
     get an (immediate) error if you e.g. append the wrong type of object to a
     list attribute.
@@ -201,4 +203,14 @@ non-breaking space.
 
 ## Saving changes
 
-{==TODO==}
+- **Changes to a collection/volume/paper** can be saved by calling
+  [`Collection.save()`][acl_anthology.collections.collection.Collection.save].
+  This will use a [minimal-diff
+  algorithm][acl_anthology.utils.xml.ensure_minimal_diff] by default to avoid
+  introducing "noise" in the diffs, i.e. changes to the XML that do not make a
+  semantic difference, such as reordering certain tags, attributes, or
+  introducing/deleting certain empty tags.  It is also guaranteed to be
+  non-destructive through [integration tests on the entire Anthology
+  data](https://github.com/acl-org/acl-anthology/blob/master/python/tests/anthology_integration_test.py).
+
+{==TODO: changes to YAML files, `Anthology.save_all()`, etc. ==}

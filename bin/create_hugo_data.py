@@ -33,7 +33,7 @@ Options:
 """
 
 from docopt import docopt
-from collections import Counter, defaultdict
+from collections import Counter
 from functools import cache
 import logging as log
 import msgspec
@@ -166,10 +166,11 @@ def paper_to_dict(paper):
         data["attachment"] = [
             {
                 "filename": attachment[1].name,
-                "type": attachment[0].capitalize(),
+                "type": attachment[0].capitalize() if attachment[0] else "Attachment",
                 "url": attachment[1].url,
             }
             for attachment in paper.attachments
+            if attachment[0] != "mrf"  # exclude <mrf>
         ]
     if paper.awards:
         data["award"] = paper.awards
@@ -352,7 +353,7 @@ def export_people(anthology, builddir, dryrun):
         task = progress.add_task("Exporting people...", total=ppl_count)
 
         # Here begins the actual serialization
-        people = defaultdict(dict)
+        people = {}
         for person_id, person in anthology.people.items():
             cname = person.canonical_name
             papers = sorted(
@@ -398,13 +399,12 @@ def export_people(anthology, builddir, dryrun):
             similar = anthology.people.similar.subset(person_id)
             if len(similar) > 1:
                 data["similar"] = list(similar - {person_id})
-            people[person_id[0]][person_id] = data
+            people[person_id] = data
             progress.update(task, advance=1)
 
         if not dryrun:
-            for first_letter, people_list in people.items():
-                with open(f"{builddir}/data/people/{first_letter}.json", "wb") as f:
-                    f.write(ENCODER.encode(people_list))
+            with open(f"{builddir}/data/people.json", "wb") as f:
+                f.write(ENCODER.encode(people))
             progress.update(task, advance=100)
 
 

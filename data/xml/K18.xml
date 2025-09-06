@@ -82,7 +82,6 @@
       <abstract>Thematic role hierarchy is a widely used linguistic tool to describe interactions between semantic roles and their syntactic realizations. Despite decades of dedicated research and numerous thematic hierarchy suggestions in the literature, this concept has not been used in NLP so far due to incompatibility and limited scope of existing hierarchies. We introduce an empirical framework for thematic hierarchy induction and evaluate several role ranking strategies on English and German full-text corpus data. We hypothesize that global thematic hierarchy induction is feasible, that a hierarchy can be induced from just fractions of training data and that resulting hierarchies apply cross-lingually. We evaluate these assumptions empirically.</abstract>
       <doi>10.18653/v1/K18-1006</doi>
       <bibkey>kuznetsov-gurevych-2018-corpus</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/universal-dependencies">Universal Dependencies</pwcdataset>
     </paper>
     <paper id="7">
       <title>Adversarially Regularising Neural <fixed-case>NLI</fixed-case> Models to Integrate Logical Background Knowledge</title>
@@ -93,9 +92,6 @@
       <abstract>Adversarial examples are inputs to machine learning models designed to cause the model to make a mistake. They are useful for understanding the shortcomings of machine learning models, interpreting their results, and for regularisation. In NLP, however, most example generation strategies produce input text by using known, pre-specified semantic transformations, requiring significant manual effort and in-depth understanding of the problem and domain. In this paper, we investigate the problem of automatically generating adversarial examples that violate a set of given First-Order Logic constraints in Natural Language Inference (NLI). We reduce the problem of identifying such adversarial examples to a combinatorial optimisation problem, by maximising a quantity measuring the degree of violation of such constraints and by using a language model for generating linguistically-plausible examples. Furthermore, we propose a method for adversarially regularising neural NLI models for incorporating background knowledge. Our results show that, while the proposed method does not always improve results on the SNLI and MultiNLI datasets, it significantly and consistently increases the predictive accuracy on adversarially-crafted datasets – up to a 79.6% relative improvement – while drastically reducing the number of background knowledge violations. Furthermore, we show that adversarial examples transfer among model architectures, and that the proposed adversarial training procedure improves the robustness of NLI models to adversarial examples.</abstract>
       <doi>10.18653/v1/K18-1007</doi>
       <bibkey>minervini-riedel-2018-adversarially</bibkey>
-      <pwccode url="https://github.com/uclmr/adversarial-nli" additional="true">uclmr/adversarial-nli</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/multinli">MultiNLI</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/snli">SNLI</pwcdataset>
     </paper>
     <paper id="8">
       <title>From Strings to Other Things: Linking the Neighborhood and Transposition Effects in Word Reading</title>
@@ -107,7 +103,6 @@
       <abstract>We investigate the relation between the transposition and deletion effects in word reading, i.e., the finding that readers can successfully read “SLAT” as “SALT”, or “WRK” as “WORK”, and the neighborhood effect. In particular, we investigate whether lexical orthographic neighborhoods take into account transposition and deletion in determining neighbors. If this is the case, it is more likely that the neighborhood effect takes place early during processing, and does not solely rely on similarity of internal representations. We introduce a new neighborhood measure, rd20, which can be used to quantify neighborhood effects over arbitrary feature spaces. We calculate the rd20 over large sets of words in three languages using various feature sets and show that feature sets that do not allow for transposition or deletion explain more variance in Reaction Time (RT) measurements. We also show that the rd20 can be calculated using the hidden state representations of an Multi-Layer Perceptron, and show that these explain less variance than the raw features. We conclude that the neighborhood effect is unlikely to have a perceptual basis, but is more likely to be the result of items co-activating after recognition. All code is available at: <url>www.github.com/clips/conll2018</url></abstract>
       <doi>10.18653/v1/K18-1008</doi>
       <bibkey>tulkens-etal-2018-strings</bibkey>
-      <pwccode url="https://github.com/clips/conll2018" additional="false">clips/conll2018</pwccode>
     </paper>
     <paper id="9">
       <title>Global Attention for Name Tagging</title>
@@ -120,7 +115,6 @@
       <abstract>Many name tagging approaches use local contextual information with much success, but can fail when the local context is ambiguous or limited. We present a new framework to improve name tagging by utilizing local, document-level, and corpus-level contextual information. For each word, we retrieve document-level context from other sentences within the same document and corpus-level context from sentences in other documents. We propose a model that learns to incorporate document-level and corpus-level contextual information alongside local contextual information via document-level and corpus-level attentions, which dynamically weight their respective contextual information and determines the influence of this information through gating mechanisms. Experiments on benchmark datasets show the effectiveness of our approach, which achieves state-of-the-art results for Dutch, German, and Spanish on the CoNLL-2002 and CoNLL-2003 datasets. We will make our code and pre-trained models publicly available for research purposes.</abstract>
       <doi>10.18653/v1/K18-1009</doi>
       <bibkey>zhang-etal-2018-global</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/conll-2003">CoNLL 2003</pwcdataset>
     </paper>
     <paper id="10">
       <title>Pervasive Attention: 2<fixed-case>D</fixed-case> Convolutional Neural Networks for Sequence-to-Sequence Prediction</title>
@@ -132,7 +126,6 @@
       <abstract>Current state-of-the-art machine translation systems are based on encoder-decoder architectures, that first encode the input sequence, and then generate an output sequence based on the input encoding. Both are interfaced with an attention mechanism that recombines a fixed encoding of the source tokens based on the decoder state. We propose an alternative approach which instead relies on a single 2D convolutional neural network across both sequences. Each layer of our network re-codes source tokens on the basis of the output sequence produced so far. Attention-like properties are therefore pervasive throughout the network. Our model yields excellent results, outperforming state-of-the-art encoder-decoder systems, while being conceptually simpler and having fewer parameters.</abstract>
       <doi>10.18653/v1/K18-1010</doi>
       <bibkey>elbayad-etal-2018-pervasive</bibkey>
-      <pwccode url="https://github.com/elbayadm/attn2d" additional="true">elbayadm/attn2d</pwccode>
     </paper>
     <paper id="11">
       <title>Comparing Attention-Based Convolutional and Recurrent Neural Networks: Success and Limitations in Machine Reading Comprehension</title>
@@ -146,8 +139,6 @@
       <abstract>We propose a machine reading comprehension model based on the compare-aggregate framework with two-staged attention that achieves state-of-the-art results on the MovieQA question answering dataset. To investigate the limitations of our model as well as the behavioral difference between convolutional and recurrent neural networks, we generate adversarial examples to confuse the model and compare to human performance. Furthermore, we assess the generalizability of our model by analyzing its differences to human inference, drawing upon insights from cognitive science.</abstract>
       <doi>10.18653/v1/K18-1011</doi>
       <bibkey>blohm-etal-2018-comparing</bibkey>
-      <pwccode url="https://github.com/DigitalPhonetics/reading-comprehension" additional="false">DigitalPhonetics/reading-comprehension</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/movieqa">MovieQA</pwcdataset>
     </paper>
     <paper id="12">
       <title>Uncovering Code-Mixed Challenges: A Framework for Linguistically Driven Question Generation and Neural Based Question Answering</title>
@@ -183,7 +174,6 @@
       <abstract>This study focuses on acquisition of commonsense knowledge. A previous study proposed a commonsense knowledge base completion (CKB completion) method that predicts a confidence score of for triplet-style knowledge for improving the coverage of CKBs. To improve the accuracy of CKB completion and expand the size of CKBs, we formulate a new commonsense knowledge base generation task (CKB generation) and propose a joint learning method that incorporates both CKB completion and CKB generation. Experimental results show that the joint learning method improved completion accuracy and the generation model created reasonable knowledge. Our generation model could also be used to augment data and improve the accuracy of completion.</abstract>
       <doi>10.18653/v1/K18-1014</doi>
       <bibkey>saito-etal-2018-commonsense</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/conceptnet">ConceptNet</pwcdataset>
     </paper>
     <paper id="15">
       <title>Active Learning for Interactive Neural Machine Translation of Data Streams</title>
@@ -194,7 +184,6 @@
       <abstract>We study the application of active learning techniques to the translation of unbounded data streams via interactive neural machine translation. The main idea is to select, from an unbounded stream of source sentences, those worth to be supervised by a human agent. The user will interactively translate those samples. Once validated, these data is useful for adapting the neural machine translation model. We propose two novel methods for selecting the samples to be validated. We exploit the information from the attention mechanism of a neural machine translation system. Our experiments show that the inclusion of active learning techniques into this pipeline allows to reduce the effort required during the process, while increasing the quality of the translation system. Moreover, it enables to balance the human effort required for achieving a certain translation quality. Moreover, our neural system outperforms classical approaches by a large margin.</abstract>
       <doi>10.18653/v1/K18-1015</doi>
       <bibkey>peris-casacuberta-2018-active</bibkey>
-      <pwccode url="https://github.com/lvapeab/nmt-keras" additional="false">lvapeab/nmt-keras</pwccode>
     </paper>
     <paper id="16">
       <title>Churn Intent Detection in Multilingual Chatbot Conversations and Social Media</title>
@@ -210,7 +199,6 @@
       <abstract>We propose a new method to detect when users express the intent to leave a service, also known as churn. While previous work focuses solely on social media, we show that this intent can be detected in chatbot conversations. As companies increasingly rely on chatbots they need an overview of potentially churny users. To this end, we crowdsource and publish a dataset of churn intent expressions in chatbot interactions in German and English. We show that classifiers trained on social media data can detect the same intent in the context of chatbots. We introduce a classification architecture that outperforms existing work on churn intent detection in social media. Moreover, we show that, using bilingual word embeddings, a system trained on combined English and German data outperforms monolingual approaches. As the only existing dataset is in English, we crowdsource and publish a novel dataset of German tweets. We thus underline the universal aspect of the problem, as examples of churn intent in English help us identify churn in German tweets and chatbot conversations.</abstract>
       <doi>10.18653/v1/K18-1016</doi>
       <bibkey>abbet-etal-2018-churn</bibkey>
-      <pwccode url="https://github.com/swisscom/churn-intent-DE" additional="false">swisscom/churn-intent-DE</pwccode>
     </paper>
     <paper id="17">
       <title>Learning Text Representations for 500<fixed-case>K</fixed-case> Classification Tasks on Named Entity Disambiguation</title>
@@ -222,7 +210,6 @@
       <abstract>Named Entity Disambiguation algorithms typically learn a single model for all target entities. In this paper we present a word expert model and train separate deep learning models for each target entity string, yielding 500K classification tasks. This gives us the opportunity to benchmark popular text representation alternatives on this massive dataset. In order to face scarce training data we propose a simple data-augmentation technique and transfer-learning. We show that bag-of-word-embeddings are better than LSTMs for tasks with scarce training data, while the situation is reversed when having larger amounts. Transferring a LSTM which is learned on all datasets is the most effective context representation option for the word experts in all frequency bands. The experiments show that our system trained on out-of-domain Wikipedia data surpass comparable NED systems which have been trained on in-domain training data.</abstract>
       <doi>10.18653/v1/K18-1017</doi>
       <bibkey>barrena-etal-2018-learning</bibkey>
-      <pwccode url="https://github.com/anderbarrena/500kNED" additional="false">anderbarrena/500kNED</pwccode>
     </paper>
     <paper id="18">
       <title>Hierarchical Attention Based Position-Aware Network for Aspect-Level Sentiment Analysis</title>
@@ -234,8 +221,6 @@
       <abstract>Aspect-level sentiment analysis aims to identify the sentiment of a specific target in its context. Previous works have proved that the interactions between aspects and the contexts are important. On this basis, we also propose a succinct hierarchical attention based mechanism to fuse the information of targets and the contextual words. In addition, most existing methods ignore the position information of the aspect when encoding the sentence. In this paper, we argue that the position-aware representations are beneficial to this task. Therefore, we propose a hierarchical attention based position-aware network (HAPN), which introduces position embeddings to learn the position-aware representations of sentences and further generate the target-specific representations of contextual words. The experimental results on SemEval 2014 dataset show that our approach outperforms the state-of-the-art methods.</abstract>
       <doi>10.18653/v1/K18-1018</doi>
       <bibkey>li-etal-2018-hierarchical</bibkey>
-      <pwccode url="https://github.com/DUT-LiuYang/Aspect-Sentiment-Analysis" additional="false">DUT-LiuYang/Aspect-Sentiment-Analysis</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/semeval-2014-task-4-sub-task-2">SemEval-2014 Task-4</pwcdataset>
     </paper>
     <paper id="19">
       <title>Bidirectional Generative Adversarial Networks for Neural Machine Translation</title>
@@ -259,7 +244,6 @@
       <abstract>Named-entity Recognition (NER) is an important task in the NLP field , and is widely used to solve many challenges. However, in many scenarios, not all of the entities are explicitly mentioned in the text. Sometimes they could be inferred from the context or from other indicative words. Consider the following sentence: “CMA can easily hydrolyze into free acetic acid.” Although water is not mentioned explicitly, one can infer that H2O is an entity involved in the process. In this work, we present the problem of Latent Entities Extraction (LEE). We present several methods for determining whether entities are discussed in a text, even though, potentially, they are not explicitly written. Specifically, we design a neural model that handles extraction of multiple entities jointly. We show that our model, along with multi-task learning approach and a novel task grouping algorithm, reaches high performance in identifying latent entities. Our experiments are conducted on a large biological dataset from the biochemical field. The dataset contains text descriptions of biological processes, and for each process, all of the involved entities in the process are labeled, including implicitly mentioned ones. We believe LEE is a task that will significantly improve many NER and subsequent applications and improve text understanding and inference.</abstract>
       <doi>10.18653/v1/K18-1020</doi>
       <bibkey>shoshan-radinsky-2018-latent</bibkey>
-      <pwccode url="https://github.com/EylonSho/LatentEntitiesExtraction" additional="false">EylonSho/LatentEntitiesExtraction</pwccode>
     </paper>
     <paper id="21">
       <title>Generalizing <fixed-case>P</fixed-case>rocrustes Analysis for Better Bilingual Dictionary Induction</title>
@@ -272,7 +256,6 @@
       <abstract>Most recent approaches to bilingual dictionary induction find a linear alignment between the word vector spaces of two languages. We show that projecting the two languages onto a third, latent space, rather than directly onto each other, while equivalent in terms of expressivity, makes it easier to learn approximate alignments. Our modified approach also allows for supporting languages to be included in the alignment process, to obtain an even better performance in low resource settings.</abstract>
       <doi>10.18653/v1/K18-1021</doi>
       <bibkey>kementchedjhieva-etal-2018-generalizing</bibkey>
-      <pwccode url="https://github.com/YovaKem/generalized-procrustes-MUSE" additional="false">YovaKem/generalized-procrustes-MUSE</pwccode>
     </paper>
     <paper id="22">
       <title>Simple Unsupervised Keyphrase Extraction using Sentence Embeddings</title>
@@ -286,7 +269,6 @@
       <abstract>Keyphrase extraction is the task of automatically selecting a small set of phrases that best describe a given free text document. Supervised keyphrase extraction requires large amounts of labeled training data and generalizes very poorly outside the domain of the training data. At the same time, unsupervised systems have poor accuracy, and often do not generalize well, as they require the input document to belong to a larger corpus also given as input. Addressing these drawbacks, in this paper, we tackle keyphrase extraction from single documents with EmbedRank: a novel unsupervised method, that leverages sentence embeddings. EmbedRank achieves higher F-scores than graph-based state of the art systems on standard datasets and is suitable for real-time processing of large amounts of Web data. With EmbedRank, we also explicitly increase coverage and diversity among the selected keyphrases by introducing an embedding-based maximal marginal relevance (MMR) for new phrases. A user study including over 200 votes showed that, although reducing the phrases’ semantic overlap leads to no gains in F-score, our high diversity selection is preferred by humans.</abstract>
       <doi>10.18653/v1/K18-1022</doi>
       <bibkey>bennani-smires-etal-2018-simple</bibkey>
-      <pwccode url="https://github.com/swisscom/ai-research-keyphrase-extraction" additional="true">swisscom/ai-research-keyphrase-extraction</pwccode>
     </paper>
     <paper id="23">
       <title>A Temporally Sensitive Submodularity Framework for Timeline Summarization</title>
@@ -323,7 +305,6 @@
       <abstract>Natural human communication is nuanced and inherently multi-modal. Humans possess specialised sensoria for processing vocal, visual, and linguistic, and para-linguistic information, but form an intricately fused percept of the multi-modal data stream to provide a holistic representation. Analysis of emotional content in face-to-face communication is a cognitive task to which humans are particularly attuned, given its sociological importance, and poses a difficult challenge for machine emulation due to the subtlety and expressive variability of cross-modal cues. Inspired by the empirical success of recent so-called End-To-End Memory Networks and related works, we propose an approach based on recursive multi-attention with a shared external memory updated over multiple gated iterations of analysis. We evaluate our model across several large multi-modal datasets and show that global contextualised memory with gated memory update can effectively achieve emotion recognition.</abstract>
       <doi>10.18653/v1/K18-1025</doi>
       <bibkey>beard-etal-2018-multi</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/cmu-mosei">CMU-MOSEI</pwcdataset>
     </paper>
     <paper id="26">
       <title>Using Sparse Semantic Embeddings Learned from Multimodal Text and Image Data to Model Human Conceptual Knowledge</title>
@@ -336,7 +317,6 @@
       <abstract>Distributional models provide a convenient way to model semantics using dense embedding spaces derived from unsupervised learning algorithms. However, the dimensions of dense embedding spaces are not designed to resemble human semantic knowledge. Moreover, embeddings are often built from a single source of information (typically text data), even though neurocognitive research suggests that semantics is deeply linked to both language and perception. In this paper, we combine multimodal information from both text and image-based representations derived from state-of-the-art distributional models to produce sparse, interpretable vectors using Joint Non-Negative Sparse Embedding. Through in-depth analyses comparing these sparse models to human-derived behavioural and neuroimaging data, we demonstrate their ability to predict interpretable linguistic descriptions of human ground-truth semantic knowledge.</abstract>
       <doi>10.18653/v1/K18-1026</doi>
       <bibkey>derby-etal-2018-using</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/imagenet">ImageNet</pwcdataset>
     </paper>
     <paper id="27">
       <title>Similarity Dependent <fixed-case>C</fixed-case>hinese Restaurant Process for Cognate Identification in Multilingual Wordlists</title>
@@ -358,7 +338,6 @@
       <abstract>Following the recent success of word embeddings, it has been argued that there is no such thing as an ideal representation for words, as different models tend to capture divergent and often mutually incompatible aspects like semantics/syntax and similarity/relatedness. In this paper, we show that each embedding model captures more information than directly apparent. A linear transformation that adjusts the similarity order of the model without any external resource can tailor it to achieve better results in those aspects, providing a new perspective on how embeddings encode divergent linguistic information. In addition, we explore the relation between intrinsic and extrinsic evaluation, as the effect of our transformations in downstream tasks is higher for unsupervised systems than for supervised ones.</abstract>
       <doi>10.18653/v1/K18-1028</doi>
       <bibkey>artetxe-etal-2018-uncovering</bibkey>
-      <pwccode url="https://github.com/artetxem/uncovec" additional="true">artetxem/uncovec</pwccode>
     </paper>
     <paper id="29">
       <title>Comparing Models of Associative Meaning: An Empirical Investigation of Reference in Simple Language Games</title>
@@ -371,7 +350,6 @@
       <abstract>Simple reference games are of central theoretical and empirical importance in the study of situated language use. Although language provides rich, compositional truth-conditional semantics to facilitate reference, speakers and listeners may sometimes lack the overall lexical and cognitive resources to guarantee successful reference through these means alone. However, language also has rich associational structures that can serve as a further resource for achieving successful reference. Here we investigate this use of associational information in a setting where only associational information is available: a simplified version of the popular game Codenames. Using optimal experiment design techniques, we compare a range of models varying in the type of associative information deployed and in level of pragmatic sophistication against human behavior. In this setting we find that listeners’ behavior reflects direct bigram collocational associations more strongly than word-embedding or semantic knowledge graph-based associations and that there is little evidence for pragmatically sophisticated behavior on the part of either speakers or listeners. More generally, we demonstrate the effective use of simple tasks to derive insights into the nature of complex linguistic phenomena.</abstract>
       <doi>10.18653/v1/K18-1029</doi>
       <bibkey>shen-etal-2018-comparing</bibkey>
-      <pwccode url="https://github.com/heyyjudes/codenames-language-game" additional="false">heyyjudes/codenames-language-game</pwccode>
     </paper>
     <paper id="30">
       <title>Sequence Classification with Human Attention</title>
@@ -385,8 +363,6 @@
       <abstract>Learning attention functions requires large volumes of data, but many NLP tasks simulate human behavior, and in this paper, we show that human attention really does provide a good inductive bias on many attention functions in NLP. Specifically, we use estimated human attention derived from eye-tracking corpora to regularize attention functions in recurrent neural networks. We show substantial improvements across a range of tasks, including sentiment analysis, grammatical error detection, and detection of abusive language.</abstract>
       <doi>10.18653/v1/K18-1030</doi>
       <bibkey>barrett-etal-2018-sequence</bibkey>
-      <pwccode url="https://github.com/coastalcph/Sequence_classification_with_human_attention" additional="false">coastalcph/Sequence_classification_with_human_attention</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/fce">FCE</pwcdataset>
     </paper>
     <paper id="31">
       <title>Sentence-Level Fluency Evaluation: References Help, But Can Be Spared!</title>
@@ -410,8 +386,6 @@
       <abstract>Inducing sparseness while training neural networks has been shown to yield models with a lower memory footprint but similar effectiveness to dense models. However, sparseness is typically induced starting from a dense model, and thus this advantage does not hold during training. We propose techniques to enforce sparseness upfront in recurrent sequence models for NLP applications, to also benefit training. First, in language modeling, we show how to increase hidden state sizes in recurrent layers without increasing the number of parameters, leading to more expressive models. Second, for sequence labeling, we show that word embeddings with predefined sparseness lead to similar performance as dense embeddings, at a fraction of the number of trainable parameters.</abstract>
       <doi>10.18653/v1/K18-1032</doi>
       <bibkey>demeester-etal-2018-predefined</bibkey>
-      <pwccode url="https://github.com/tdmeeste/SparseSeqModels" additional="false">tdmeeste/SparseSeqModels</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/penn-treebank">Penn Treebank</pwcdataset>
     </paper>
     <paper id="33">
       <title>Learning to Actively Learn Neural Machine Translation</title>
@@ -435,7 +409,6 @@
       <abstract>We propose a post-OCR text correction approach for digitising texts in Romanised Sanskrit. Owing to the lack of resources our approach uses OCR models trained for other languages written in Roman. Currently, there exists no dataset available for Romanised Sanskrit OCR. So, we bootstrap a dataset of 430 images, scanned in two different settings and their corresponding ground truth. For training, we synthetically generate training images for both the settings. We find that the use of copying mechanism (Gu et al., 2016) yields a percentage increase of 7.69 in Character Recognition Rate (CRR) than the current state of the art model in solving monotone sequence-to-sequence tasks (Schnober et al., 2016). We find that our system is robust in combating OCR-prone errors, as it obtains a CRR of 87.01% from an OCR output with CRR of 35.76% for one of the dataset settings. A human judgement survey performed on the models shows that our proposed model results in predictions which are faster to comprehend and faster to improve for a human than the other systems.</abstract>
       <doi>10.18653/v1/K18-1034</doi>
       <bibkey>krishna-etal-2018-upcycle</bibkey>
-      <pwccode url="https://github.com/majumderb/sanskrit-ocr" additional="false">majumderb/sanskrit-ocr</pwccode>
     </paper>
     <paper id="35">
       <title>Weakly-Supervised Neural Semantic Parsing with a Generative Ranker</title>
@@ -456,7 +429,6 @@
       <abstract>Neural morphological tagging has been regarded as an extension to POS tagging task, treating each morphological tag as a monolithic label and ignoring its internal structure. We propose to view morphological tags as composite labels and explicitly model their internal structure in a neural sequence tagger. For this, we explore three different neural architectures and compare their performance with both CRF and simple neural multiclass baselines. We evaluate our models on 49 languages and show that the neural architecture that models the morphological labels as sequences of morphological category values performs significantly better than both baselines establishing state-of-the-art results in morphological tagging for most languages.</abstract>
       <doi>10.18653/v1/K18-1036</doi>
       <bibkey>tkachenko-sirts-2018-modeling</bibkey>
-      <pwccode url="https://github.com/AleksTk/seq-morph-tagger" additional="false">AleksTk/seq-morph-tagger</pwccode>
     </paper>
     <paper id="37">
       <title>Evolutionary Data Measures: Understanding the Difficulty of Text Classification Tasks</title>
@@ -468,10 +440,6 @@
       <abstract>Classification tasks are usually analysed and improved through new model architectures or hyperparameter optimisation but the underlying properties of datasets are discovered on an ad-hoc basis as errors occur. However, understanding the properties of the data is crucial in perfecting models. In this paper we analyse exactly which characteristics of a dataset best determine how difficult that dataset is for the task of text classification. We then propose an intuitive measure of difficulty for text classification datasets which is simple and fast to calculate. We empirically prove that this measure generalises to unseen data by comparing it to state-of-the-art datasets and results. This measure can be used to analyse the precise source of errors in a dataset and allows fast estimation of how difficult a dataset is to learn. We searched for this measure by training 12 classical and neural network based models on 78 real-world datasets, then use a genetic algorithm to discover the best measure of difficulty. Our difficulty-calculating code and datasets are publicly available.</abstract>
       <doi>10.18653/v1/K18-1037</doi>
       <bibkey>collins-etal-2018-evolutionary</bibkey>
-      <pwccode url="https://github.com/Wluper/edm" additional="false">Wluper/edm</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/sst">SST</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/sst-2">SST-2</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/yahoo-answers">Yahoo! Answers</pwcdataset>
     </paper>
     <paper id="38">
       <title>Vectorial Semantic Spaces Do Not Encode Human Judgments of Intervention Similarity</title>
@@ -495,8 +463,6 @@
       <abstract>Recent work has shown how to learn better visual-semantic embeddings by leveraging image descriptions in more than one language. Here, we investigate in detail which conditions affect the performance of this type of grounded language learning model. We show that multilingual training improves over bilingual training, and that low-resource languages benefit from training with higher-resource languages. We demonstrate that a multilingual model can be trained equally well on either translations or comparable sentence pairs, and that annotating the same set of images in multiple language enables further improvements via an additional caption-caption ranking objective.</abstract>
       <doi>10.18653/v1/K18-1039</doi>
       <bibkey>kadar-etal-2018-lessons</bibkey>
-      <pwccode url="https://github.com/kadarakos/mulisera" additional="false">kadarakos/mulisera</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/multi30k">Multi30K</pwcdataset>
     </paper>
     <paper id="40">
       <title>Unsupervised Sentence Compression using Denoising Auto-Encoders</title>
@@ -507,7 +473,6 @@
       <abstract>In sentence compression, the task of shortening sentences while retaining the original meaning, models tend to be trained on large corpora containing pairs of verbose and compressed sentences. To remove the need for paired corpora, we emulate a summarization task and add noise to extend sentences and train a denoising auto-encoder to recover the original, constructing an end-to-end training regime without the need for any examples of compressed sentences. We conduct a human evaluation of our model on a standard text summarization dataset and show that it performs comparably to a supervised baseline based on grammatical correctness and retention of meaning. Despite being exposed to no target data, our unsupervised models learn to generate imperfect but reasonably readable sentence summaries. Although we underperform supervised models based on ROUGE scores, our models are competitive with a supervised baseline based on human evaluation for grammatical correctness and retention of meaning.</abstract>
       <doi>10.18653/v1/K18-1040</doi>
       <bibkey>fevry-phang-2018-unsupervised</bibkey>
-      <pwccode url="https://github.com/zphang/usc_dae" additional="false">zphang/usc_dae</pwccode>
     </paper>
     <paper id="41">
       <title>Resources to Examine the Quality of Word Embedding Models Trained on n-Gram Data</title>
@@ -529,7 +494,6 @@
       <abstract>In this paper, we propose a new linguistically-based approach to answering non-factoid open-domain questions from unstructured data. First, we elaborate on an architecture for textual encoding based on which we introduce a deep end-to-end neural model. This architecture benefits from a bilateral attention mechanism which helps the model to focus on a question and the answer sentence at the same time for phrasal answer extraction. Second, we feed the output of a constituency parser into the model directly and integrate linguistic constituents into the network to help it concentrate on chunks of an answer rather than on its single words for generating more natural output. By optimizing this architecture, we managed to obtain near-to-human-performance results and competitive to a state-of-the-art system on SQuAD and MS-MARCO datasets respectively.</abstract>
       <doi>10.18653/v1/K18-1042</doi>
       <bibkey>aghaebrahimian-2018-linguistically</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/ms-marco">MS MARCO</pwcdataset>
     </paper>
     <paper id="43">
       <title><fixed-case>DIMSIM</fixed-case>: An Accurate <fixed-case>C</fixed-case>hinese Phonetic Similarity Algorithm Based on Learned High Dimensional Encoding</title>
@@ -542,7 +506,6 @@
       <abstract>Phonetic similarity algorithms identify words and phrases with similar pronunciation which are used in many natural language processing tasks. However, existing approaches are designed mainly for Indo-European languages and fail to capture the unique properties of Chinese pronunciation. In this paper, we propose a high dimensional encoded phonetic similarity algorithm for Chinese, DIMSIM. The encodings are learned from annotated data to separately map initial and final phonemes into n-dimensional coordinates. Pinyin phonetic similarities are then calculated by aggregating the similarities of initial, final and tone. DIMSIM demonstrates a 7.5X improvement on mean reciprocal rank over the state-of-the-art phonetic similarity approaches.</abstract>
       <doi>10.18653/v1/K18-1043</doi>
       <bibkey>li-etal-2018-dimsim</bibkey>
-      <pwccode url="https://github.com/System-T/DimSim" additional="false">System-T/DimSim</pwccode>
     </paper>
     <paper id="44">
       <title>Challenge or Empower: Revisiting Argumentation Quality in a News Editorial Corpus</title>
@@ -565,7 +528,6 @@
       <abstract>Word order is clearly a vital part of human language, but it has been used comparatively lightly in distributional vector models. This paper presents a new method for incorporating word order information into word vector embedding models by combining the benefits of permutation-based order encoding with the more recent method of skip-gram with negative sampling. The new method introduced here is called Embeddings Augmented by Random Permutations (EARP). It operates by applying permutations to the coordinates of context vector representations during the process of training. Results show an 8% improvement in accuracy on the challenging Bigger Analogy Test Set, and smaller but consistent improvements on other analogy reference sets. These findings demonstrate the importance of order-based information in analogical retrieval tasks, and the utility of random permutations as a means to augment neural embeddings.</abstract>
       <doi>10.18653/v1/K18-1045</doi>
       <bibkey>cohen-widdows-2018-bringing</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/conll-2003">CoNLL 2003</pwcdataset>
     </paper>
     <paper id="46">
       <title>Aggregated Semantic Matching for Short Text Entity Linking</title>
@@ -590,7 +552,6 @@
       <abstract>We present two categories of model-agnostic adversarial strategies that reveal the weaknesses of several generative, task-oriented dialogue models: Should-Not-Change strategies that evaluate over-sensitivity to small and semantics-preserving edits, as well as Should-Change strategies that test if a model is over-stable against subtle yet semantics-changing modifications. We next perform adversarial training with each strategy, employing a max-margin approach for negative generative examples. This not only makes the target dialogue model more robust to the adversarial inputs, but also helps it perform significantly better on the original inputs. Moreover, training on all strategies combined achieves further improvements, achieving a new state-of-the-art performance on the original task (also verified via human evaluation). In addition to adversarial training, we also address the robustness task at the model-level, by feeding it subword units as both inputs and outputs, and show that the resulting model is equally competitive, requires only 1/4 of the original vocabulary size, and is robust to one of the adversarial strategies (to which the original model is vulnerable) even without adversarial training.</abstract>
       <doi>10.18653/v1/K18-1047</doi>
       <bibkey>niu-bansal-2018-adversarial</bibkey>
-      <pwccode url="https://github.com/WolfNiu/AdversarialDialogue" additional="false">WolfNiu/AdversarialDialogue</pwccode>
     </paper>
     <paper id="48">
       <title>Improving Response Selection in Multi-Turn Dialogue Systems by Incorporating Domain Knowledge</title>
@@ -603,7 +564,6 @@
       <abstract>Building systems that can communicate with humans is a core problem in Artificial Intelligence. This work proposes a novel neural network architecture for response selection in an end-to-end multi-turn conversational dialogue setting. The architecture applies context level attention and incorporates additional external knowledge provided by descriptions of domain-specific words. It uses a bi-directional Gated Recurrent Unit (GRU) for encoding context and responses and learns to attend over the context words given the latent response representation and vice versa. In addition, it incorporates external domain specific information using another GRU for encoding the domain keyword descriptions. This allows better representation of domain-specific keywords in responses and hence improves the overall performance. Experimental results show that our model outperforms all other state-of-the-art methods for response selection in multi-turn conversations.</abstract>
       <doi>10.18653/v1/K18-1048</doi>
       <bibkey>chaudhuri-etal-2018-improving</bibkey>
-      <pwccode url="https://github.com/SmartDataAnalytics/AK-DE-biGRU" additional="false">SmartDataAnalytics/AK-DE-biGRU</pwccode>
     </paper>
     <paper id="49">
       <title>The Lifted Matrix-Space Model for Semantic Composition</title>
@@ -615,10 +575,6 @@
       <abstract>Tree-structured neural network architectures for sentence encoding draw inspiration from the approach to semantic composition generally seen in formal linguistics, and have shown empirical improvements over comparable sequence models by doing so. Moreover, adding multiplicative interaction terms to the composition functions in these models can yield significant further improvements. However, existing compositional approaches that adopt such a powerful composition function scale poorly, with parameter counts exploding as model dimension or vocabulary size grows. We introduce the Lifted Matrix-Space model, which uses a global transformation to map vector word embeddings to matrices, which can then be composed via an operation based on matrix-matrix multiplication. Its composition function effectively transmits a larger number of activations across layers with relatively few model parameters. We evaluate our model on the Stanford NLI corpus, the Multi-Genre NLI corpus, and the Stanford Sentiment Treebank and find that it consistently outperforms TreeLSTM (Tai et al., 2015), the previous best known composition function for tree-structured models.</abstract>
       <doi>10.18653/v1/K18-1049</doi>
       <bibkey>chung-etal-2018-lifted</bibkey>
-      <pwccode url="https://github.com/NYU-MLL/spinn" additional="true">NYU-MLL/spinn</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/multinli">MultiNLI</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/snli">SNLI</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/sst">SST</pwcdataset>
     </paper>
     <paper id="50">
       <title>End-to-End Neural Entity Linking</title>
@@ -630,10 +586,6 @@
       <abstract>Entity Linking (EL) is an essential task for semantic text understanding and information extraction. Popular methods separately address the Mention Detection (MD) and Entity Disambiguation (ED) stages of EL, without leveraging their mutual dependency. We here propose the first neural end-to-end EL system that jointly discovers and links entities in a text document. The main idea is to consider all possible spans as potential mentions and learn contextual similarity scores over their entity candidates that are useful for both MD and ED decisions. Key components are context-aware mention embeddings, entity embeddings and a probabilistic mention - entity map, without demanding other engineered features. Empirically, we show that our end-to-end method significantly outperforms popular systems on the Gerbil platform when enough training data is available. Conversely, if testing datasets follow different annotation conventions compared to the training set (e.g. queries/ tweets vs news documents), our ED model coupled with a traditional NER system offers the best or second best EL accuracy.</abstract>
       <doi>10.18653/v1/K18-1050</doi>
       <bibkey>kolitsas-etal-2018-end</bibkey>
-      <pwccode url="https://github.com/dalab/end2end_neural_el" additional="false">dalab/end2end_neural_el</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/aida-conll-yago">AIDA CoNLL-YAGO</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/conll-1">CoNLL</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/ipm-nel">IPM NEL</pwcdataset>
     </paper>
     <paper id="51">
       <title>Modelling Salient Features as Directions in Fine-Tuned Semantic Spaces</title>
@@ -645,7 +597,6 @@
       <abstract>In this paper we consider semantic spaces consisting of objects from some particular domain (e.g. IMDB movie reviews). Various authors have observed that such semantic spaces often model salient features (e.g. how scary a movie is) as directions. These feature directions allow us to rank objects according to how much they have the corresponding feature, and can thus play an important role in interpretable classifiers, recommendation systems, or entity-oriented search engines, among others. Methods for learning semantic spaces, however, are mostly aimed at modelling similarity. In this paper, we argue that there is an inherent trade-off between capturing similarity and faithfully modelling features as directions. Following this observation, we propose a simple method to fine-tune existing semantic spaces, with the aim of improving the quality of their feature directions. Crucially, our method is fully unsupervised, requiring only a bag-of-words representation of the objects as input.</abstract>
       <doi>10.18653/v1/K18-1051</doi>
       <bibkey>ager-etal-2018-modelling</bibkey>
-      <pwccode url="https://github.com/ThomasAger/Modelling-Salient-Features-as-Directions-in-Fine-Tuned-Semantic-Spaces" additional="false">ThomasAger/Modelling-Salient-Features-as-Directions-in-Fine-Tuned-Semantic-Spaces</pwccode>
     </paper>
     <paper id="52">
       <title>Model Transfer with Explicit Knowledge of the Relation between Class Definitions</title>
@@ -656,7 +607,6 @@
       <abstract>This paper investigates learning methods for multi-class classification using labeled data for the target classification scheme and another labeled data for a similar but different classification scheme (support scheme). We show that if we have prior knowledge about the relation between support and target classification schemes in the form of a class correspondence table, we can use it to improve the model performance further than the simple multi-task learning approach. Instead of learning the individual classification layers for the support and target schemes, the proposed method converts the class label of each example on the support scheme into a set of candidate class labels on the target scheme via the class correspondence table, and then uses the candidate labels to learn the classification layer for the target scheme. We evaluate the proposed method on two tasks in NLP. The experimental results show that our method effectively learns the target schemes especially for the classes that have a tight connection to certain support classes.</abstract>
       <doi>10.18653/v1/K18-1052</doi>
       <bibkey>yoshikawa-iwakura-2018-model</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/genia">GENIA</pwcdataset>
     </paper>
     <paper id="53">
       <title>Aiming to Know You Better Perhaps Makes Me a More Engaging Dialogue Partner</title>
@@ -667,7 +617,6 @@
       <abstract>There have been several attempts to define a plausible motivation for a chit-chat dialogue agent that can lead to engaging conversations. In this work, we explore a new direction where the agent specifically focuses on discovering information about its interlocutor. We formalize this approach by defining a quantitative metric. We propose an algorithm for the agent to maximize it. We validate the idea with human evaluation where our system outperforms various baselines. We demonstrate that the metric indeed correlates with the human judgments of engagingness.</abstract>
       <doi>10.18653/v1/K18-1053</doi>
       <bibkey>zemlyanskiy-sha-2018-aiming</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/dailydialog">DailyDialog</pwcdataset>
     </paper>
     <paper id="54">
       <title>Neural Maximum Subgraph Parsing for Cross-Domain Semantic Dependency Analysis</title>
@@ -682,8 +631,6 @@
       <abstract>We present experiments for cross-domain semantic dependency analysis with a neural Maximum Subgraph parser. Our parser targets 1-endpoint-crossing, pagenumber-2 graphs which are a good fit to semantic dependency graphs, and utilizes an efficient dynamic programming algorithm for decoding. For disambiguation, the parser associates words with BiLSTM vectors and utilizes these vectors to assign scores to candidate dependencies. We conduct experiments on the data sets from SemEval 2015 as well as Chinese CCGBank. Our parser achieves very competitive results for both English and Chinese. To improve the parsing performance on cross-domain texts, we propose a data-oriented method to explore the linguistic generality encoded in English Resource Grammar, which is a precisionoriented, hand-crafted HPSG grammar, in an implicit way. Experiments demonstrate the effectiveness of our data-oriented method across a wide range of conditions.</abstract>
       <doi>10.18653/v1/K18-1054</doi>
       <bibkey>chen-etal-2018-neural</bibkey>
-      <pwccode url="https://github.com/draplater/msg-parser" additional="false">draplater/msg-parser</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/penn-treebank">Penn Treebank</pwcdataset>
     </paper>
     <paper id="55">
       <title>From Random to Supervised: A Novel Dropout Mechanism Integrated with Global Information</title>
@@ -697,10 +644,6 @@
       <abstract>Dropout is used to avoid overfitting by randomly dropping units from the neural networks during training. Inspired by dropout, this paper presents GI-Dropout, a novel dropout method integrating with global information to improve neural networks for text classification. Unlike the traditional dropout method in which the units are dropped randomly according to the same probability, we aim to use explicit instructions based on global information of the dataset to guide the training process. With GI-Dropout, the model is supposed to pay more attention to inapparent features or patterns. Experiments demonstrate the effectiveness of the dropout with global information on seven text classification tasks, including sentiment analysis and topic classification.</abstract>
       <doi>10.18653/v1/K18-1055</doi>
       <bibkey>xu-etal-2018-random</bibkey>
-      <pwccode url="https://gitlab.com/xusong19960424/global_cnn" additional="false">xusong19960424/global_cnn</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/mpqa-opinion-corpus">MPQA Opinion Corpus</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/sst">SST</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/sst-2">SST-2</pwcdataset>
     </paper>
     <paper id="56">
       <title>Sequence to Sequence Mixture Model for Diverse Machine Translation</title>
@@ -747,7 +690,6 @@
       <bibkey>zeman-etal-2018-conll</bibkey>
       <revision id="1" href="K18-2001v1" hash="8bf6876e"/>
       <revision id="2" href="K18-2001v2" hash="a0efe08d" date="2022-02-11">Added missing acknowledgment.</revision>
-      <pwcdataset url="https://paperswithcode.com/dataset/universal-dependencies">Universal Dependencies</pwcdataset>
     </paper>
     <paper id="2">
       <title>The 2018 Shared Task on Extrinsic Parser Evaluation: On the Downstream Utility of <fixed-case>E</fixed-case>nglish <fixed-case>U</fixed-case>niversal <fixed-case>D</fixed-case>ependency Parsers</title>
@@ -761,7 +703,6 @@
       <abstract>We summarize empirical results and tentative conclusions from the Second Extrinsic Parser Evaluation Initiative (EPE 2018). We review the basic task setup, downstream applications involved, and end-to-end results for seventeen participating teams. Based on in-depth quantitative and qualitative analysis, we correlate intrinsic evaluation results at different layers of morph-syntactic analysis with observed downstream behavior.</abstract>
       <doi>10.18653/v1/K18-2002</doi>
       <bibkey>fares-etal-2018-2018</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/universal-dependencies">Universal Dependencies</pwcdataset>
     </paper>
     <paper id="3">
       <title><fixed-case>CEA</fixed-case> <fixed-case>LIST</fixed-case>: Processing Low-Resource Languages for <fixed-case>C</fixed-case>o<fixed-case>NLL</fixed-case> 2018</title>
@@ -772,7 +713,6 @@
       <abstract>In this paper, we describe the system used for our first participation at the CoNLL 2018 shared task. The submitted system largely reused the state of the art parser from CoNLL 2017 (<url>https://github.com/tdozat/Parser-v2</url>). We enhanced this system for morphological features predictions, and we used all available resources to provide accurate models for low-resource languages. We ranked 5th of 27 participants in MLAS for building morphology aware dependency trees, 2nd for morphological features only, and 3rd for tagging (UPOS) and parsing (LAS) low-resource languages.</abstract>
       <doi>10.18653/v1/K18-2003</doi>
       <bibkey>duthoo-mesnard-2018-cea</bibkey>
-      <pwccode url="https://github.com/tdozat/Parser-v2" additional="false">tdozat/Parser-v2</pwccode>
     </paper>
     <paper id="4">
       <title>Semi-Supervised Neural System for Tagging, Parsing and Lematization</title>
@@ -783,8 +723,6 @@
       <abstract>This paper describes the ICS PAS system which took part in CoNLL 2018 shared task on Multilingual Parsing from Raw Text to Universal Dependencies. The system consists of jointly trained tagger, lemmatizer, and dependency parser which are based on features extracted by a biLSTM network. The system uses both fully connected and dilated convolutional neural architectures. The novelty of our approach is the use of an additional loss function, which reduces the number of cycles in the predicted dependency graphs, and the use of self-training to increase the system performance. The proposed system, i.e. ICS PAS (Warszawa), ranked 3th/4th in the official evaluation obtaining the following overall results: 73.02 (LAS), 60.25 (MLAS) and 64.44 (BLEX).</abstract>
       <doi>10.18653/v1/K18-2004</doi>
       <bibkey>rybak-wroblewska-2018-semi</bibkey>
-      <pwccode url="https://github.com/360er0/COMBO" additional="false">360er0/COMBO</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/universal-dependencies">Universal Dependencies</pwcdataset>
     </paper>
     <paper id="5">
       <title>Towards Better <fixed-case>UD</fixed-case> Parsing: Deep Contextualized Word Embeddings, Ensemble, and Treebank Concatenation</title>
@@ -798,8 +736,6 @@
       <abstract>This paper describes our system (HIT-SCIR) submitted to the CoNLL 2018 shared task on Multilingual Parsing from Raw Text to Universal Dependencies. We base our submission on Stanford’s winning system for the CoNLL 2017 shared task and make two effective extensions: 1) incorporating deep contextualized word embeddings into both the part of speech tagger and parser; 2) ensembling parsers trained with different initialization. We also explore different ways of concatenating treebanks for further improvements. Experimental results on the development data show the effectiveness of our methods. In the final evaluation, our system was ranked first according to LAS (75.84%) and outperformed the other systems by a large margin.</abstract>
       <doi>10.18653/v1/K18-2005</doi>
       <bibkey>che-etal-2018-towards</bibkey>
-      <pwccode url="https://github.com/HIT-SCIR/ELMoForManyLangs" additional="false">HIT-SCIR/ELMoForManyLangs</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/universal-dependencies">Universal Dependencies</pwcdataset>
     </paper>
     <paper id="6">
       <title>Joint Learning of <fixed-case>POS</fixed-case> and Dependencies for Multilingual <fixed-case>U</fixed-case>niversal <fixed-case>D</fixed-case>ependency Parsing</title>
@@ -812,8 +748,6 @@
       <abstract>This paper describes the system of team LeisureX in the CoNLL 2018 Shared Task: Multilingual Parsing from Raw Text to Universal Dependencies. Our system predicts the part-of-speech tag and dependency tree jointly. For the basic tasks, including tokenization, lemmatization and morphology prediction, we employ the official baseline model (UDPipe). To train the low-resource languages, we adopt a sampling method based on other richresource languages. Our system achieves a macro-average of 68.31% LAS F1 score, with an improvement of 2.51% compared with the UDPipe.</abstract>
       <doi>10.18653/v1/K18-2006</doi>
       <bibkey>li-etal-2018-joint-learning</bibkey>
-      <pwccode url="https://github.com/bcmi220/joint_stackptr" additional="false">bcmi220/joint_stackptr</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/universal-dependencies">Universal Dependencies</pwcdataset>
     </paper>
     <paper id="7">
       <title>Multilingual <fixed-case>U</fixed-case>niversal <fixed-case>D</fixed-case>ependency Parsing from Raw Text with Low-Resource Language Enhancement</title>
@@ -825,7 +759,6 @@
       <abstract>This paper describes the system of our team Phoenix for participating CoNLL 2018 Shared Task: Multilingual Parsing from Raw Text to Universal Dependencies. Given the annotated gold standard data in CoNLL-U format, we train the tokenizer, tagger and parser separately for each treebank based on an open source pipeline tool UDPipe. Our system reads the plain texts for input, performs the pre-processing steps (tokenization, lemmas, morphology) and finally outputs the syntactic dependencies. For the low-resource languages with no training data, we use cross-lingual techniques to build models with some close languages instead. In the official evaluation, our system achieves the macro-averaged scores of 65.61%, 52.26%, 55.71% for LAS, MLAS and BLEX respectively.</abstract>
       <doi>10.18653/v1/K18-2007</doi>
       <bibkey>wu-etal-2018-multilingual</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/universal-dependencies">Universal Dependencies</pwcdataset>
     </paper>
     <paper id="8">
       <title>An Improved Neural Network Model for Joint <fixed-case>POS</fixed-case> Tagging and Dependency Parsing</title>
@@ -836,8 +769,6 @@
       <abstract>We propose a novel neural network model for joint part-of-speech (POS) tagging and dependency parsing. Our model extends the well-known BIST graph-based dependency parser (Kiperwasser and Goldberg, 2016) by incorporating a BiLSTM-based tagging component to produce automatically predicted POS tags for the parser. On the benchmark English Penn treebank, our model obtains strong UAS and LAS scores at 94.51% and 92.87%, respectively, producing 1.5+% absolute improvements to the BIST graph-based parser, and also obtaining a state-of-the-art POS tagging accuracy at 97.97%. Furthermore, experimental results on parsing 61 “big” Universal Dependencies treebanks from raw texts show that our model outperforms the baseline UDPipe (Straka and Strakova, 2017) with 0.8% higher average POS tagging score and 3.6% higher average LAS score. In addition, with our model, we also obtain state-of-the-art downstream task scores for biomedical event extraction and opinion analysis applications. Our code is available together with all pre-trained models at: <url>https://github.com/datquocnguyen/jPTDP</url></abstract>
       <doi>10.18653/v1/K18-2008</doi>
       <bibkey>nguyen-verspoor-2018-improved</bibkey>
-      <pwccode url="https://github.com/datquocnguyen/jPTDP" additional="false">datquocnguyen/jPTDP</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/penn-treebank">Penn Treebank</pwcdataset>
     </paper>
     <paper id="9">
       <title><fixed-case>IBM</fixed-case> Research at the <fixed-case>C</fixed-case>o<fixed-case>NLL</fixed-case> 2018 Shared Task on Multilingual Parsing</title>
@@ -851,7 +782,6 @@
       <abstract>This paper presents the IBM Research AI submission to the CoNLL 2018 Shared Task on Parsing Universal Dependencies. Our system implements a new joint transition-based parser, based on the Stack-LSTM framework and the Arc-Standard algorithm, that handles tokenization, part-of-speech tagging, morphological tagging and dependency parsing in one single model. By leveraging a combination of character-based modeling of words and recursive composition of partially built linguistic structures we qualified 13th overall and 7th in low resource. We also present a new sentence segmentation neural architecture based on Stack-LSTMs that was the 4th best overall.</abstract>
       <doi>10.18653/v1/K18-2009</doi>
       <bibkey>wan-etal-2018-ibm</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/universal-dependencies">Universal Dependencies</pwcdataset>
     </paper>
     <paper id="10">
       <title><fixed-case>U</fixed-case>niversal <fixed-case>D</fixed-case>ependency Parsing with a General Transition-Based <fixed-case>DAG</fixed-case> Parser</title>
@@ -864,8 +794,6 @@
       <abstract>This paper presents our experiments with applying TUPA to the CoNLL 2018 UD shared task. TUPA is a general neural transition-based DAG parser, which we use to present the first experiments on recovering enhanced dependencies as part of the general parsing task. TUPA was designed for parsing UCCA, a cross-linguistic semantic annotation scheme, exhibiting reentrancy, discontinuity and non-terminal nodes. By converting UD trees and graphs to a UCCA-like DAG format, we train TUPA almost without modification on the UD parsing task. The generic nature of our approach lends itself naturally to multitask learning.</abstract>
       <doi>10.18653/v1/K18-2010</doi>
       <bibkey>hershcovich-etal-2018-universal</bibkey>
-      <pwccode url="https://github.com/CoNLL-UD-2018/HUJI" additional="false">CoNLL-UD-2018/HUJI</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/universal-dependencies">Universal Dependencies</pwcdataset>
     </paper>
     <paper id="11">
       <title>82 Treebanks, 34 Models: <fixed-case>U</fixed-case>niversal <fixed-case>D</fixed-case>ependency Parsing with Multi-Treebank Models</title>
@@ -893,7 +821,6 @@
       <abstract>We introduce tree-stack LSTM to model state of a transition based parser with recurrent neural networks. Tree-stack LSTM does not use any parse tree based or hand-crafted features, yet performs better than models with these features. We also develop new set of embeddings from raw features to enhance the performance. There are 4 main components of this model: stack’s σ-LSTM, buffer’s β-LSTM, actions’ LSTM and tree-RNN. All LSTMs use continuous dense feature vectors (embeddings) as an input. Tree-RNN updates these embeddings based on transitions. We show that our model improves performance with low resource languages compared with its predecessors. We participate in CoNLL 2018 UD Shared Task as the “KParse” team and ranked 16th in LAS, 15th in BLAS and BLEX metrics, of 27 participants parsing 82 test sets from 57 languages.</abstract>
       <doi>10.18653/v1/K18-2012</doi>
       <bibkey>kirnap-etal-2018-tree</bibkey>
-      <pwccode url="https://github.com/kirnap/ku-dependency-parser2" additional="false">kirnap/ku-dependency-parser2</pwccode>
     </paper>
     <paper id="13">
       <title><fixed-case>T</fixed-case>urku Neural Parser Pipeline: An End-to-End System for the <fixed-case>C</fixed-case>o<fixed-case>NLL</fixed-case> 2018 Shared Task</title>
@@ -907,7 +834,6 @@
       <abstract>In this paper we describe the TurkuNLP entry at the CoNLL 2018 Shared Task on Multilingual Parsing from Raw Text to Universal Dependencies. Compared to the last year, this year the shared task includes two new main metrics to measure the morphological tagging and lemmatization accuracies in addition to syntactic trees. Basing our motivation into these new metrics, we developed an end-to-end parsing pipeline especially focusing on developing a novel and state-of-the-art component for lemmatization. Our system reached the highest aggregate ranking on three main metrics out of 26 teams by achieving 1st place on metric involving lemmatization, and 2nd on both morphological tagging and parsing.</abstract>
       <doi>10.18653/v1/K18-2013</doi>
       <bibkey>kanerva-etal-2018-turku</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/universal-dependencies">Universal Dependencies</pwcdataset>
     </paper>
     <paper id="14">
       <title><fixed-case>SE</fixed-case>x <fixed-case>B</fixed-case>i<fixed-case>ST</fixed-case>: A Multi-Source Trainable Parser with Deep Contextualized Lexical Representations</title>
@@ -920,7 +846,6 @@
       <abstract>We describe the SEx BiST parser (Semantically EXtended Bi-LSTM parser) developed at Lattice for the CoNLL 2018 Shared Task (Multilingual Parsing from Raw Text to Universal Dependencies). The main characteristic of our work is the encoding of three different modes of contextual information for parsing: (i) Treebank feature representations, (ii) Multilingual word representations, (iii) ELMo representations obtained via unsupervised learning from external resources. Our parser performed well in the official end-to-end evaluation (73.02 LAS – 4th/26 teams, and 78.72 UAS – 2nd/26); remarkably, we achieved the best UAS scores on all the English corpora by applying the three suggested feature representations. Finally, we were also ranked 1st at the optional event extraction task, part of the 2018 Extrinsic Parser Evaluation campaign.</abstract>
       <doi>10.18653/v1/K18-2014</doi>
       <bibkey>lim-etal-2018-sex</bibkey>
-      <pwccode url="https://github.com/jujbob/multilingual-models" additional="false">jujbob/multilingual-models</pwccode>
     </paper>
     <paper id="15">
       <title>The <fixed-case>SLT</fixed-case>-Interactions Parsing System at the <fixed-case>C</fixed-case>o<fixed-case>NLL</fixed-case> 2018 Shared Task</title>
@@ -944,8 +869,6 @@
       <abstract>This paper describes Stanford’s system at the CoNLL 2018 UD Shared Task. We introduce a complete neural pipeline system that takes raw text as input, and performs all tasks required by the shared task, ranging from tokenization and sentence segmentation, to POS tagging and dependency parsing. Our single system submission achieved very competitive performance on big treebanks. Moreover, after fixing an unfortunate bug, our corrected system would have placed the 2nd, 1st, and 3rd on the official evaluation metrics LAS, MLAS, and BLEX, and would have outperformed all submission systems on low-resource treebank categories on all metrics by a large margin. We further show the effectiveness of different model components through extensive ablation studies.</abstract>
       <doi>10.18653/v1/K18-2016</doi>
       <bibkey>qi-etal-2018-universal</bibkey>
-      <pwccode url="https://github.com/stanfordnlp/stanfordnlp" additional="false">stanfordnlp/stanfordnlp</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/universal-dependencies">Universal Dependencies</pwcdataset>
     </paper>
     <paper id="17">
       <title><fixed-case>NLP</fixed-case>-Cube: End-to-End Raw Text Processing With Neural Networks</title>
@@ -957,8 +880,6 @@
       <abstract>We introduce NLP-Cube: an end-to-end Natural Language Processing framework, evaluated in CoNLL’s “Multilingual Parsing from Raw Text to Universal Dependencies 2018” Shared Task. It performs sentence splitting, tokenization, compound word expansion, lemmatization, tagging and parsing. Based entirely on recurrent neural networks, written in Python, this ready-to-use open source system is freely available on GitHub. For each task we describe and discuss its specific network architecture, closing with an overview on the results obtained in the competition.</abstract>
       <doi>10.18653/v1/K18-2017</doi>
       <bibkey>boros-etal-2018-nlp</bibkey>
-      <pwccode url="https://github.com/adobe/NLP-Cube" additional="false">adobe/NLP-Cube</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/universal-dependencies">Universal Dependencies</pwcdataset>
     </paper>
     <paper id="18">
       <title>Towards <fixed-case>J</fixed-case>oint<fixed-case>UD</fixed-case>: Part-of-speech Tagging and Lemmatization using Recurrent Neural Networks</title>
@@ -970,8 +891,6 @@
       <abstract>This paper describes our submission to CoNLL UD Shared Task 2018. We have extended an LSTM-based neural network designed for sequence tagging to additionally generate character-level sequences. The network was jointly trained to produce lemmas, part-of-speech tags and morphological features. Sentence segmentation, tokenization and dependency parsing were handled by UDPipe 1.2 baseline. The results demonstrate the viability of the proposed multitask architecture, although its performance still remains far from state-of-the-art.</abstract>
       <doi>10.18653/v1/K18-2018</doi>
       <bibkey>arakelyan-etal-2018-towards</bibkey>
-      <pwccode url="https://github.com/YerevaNN/JointUD" additional="false">YerevaNN/JointUD</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/universal-dependencies">Universal Dependencies</pwcdataset>
     </paper>
     <paper id="19">
       <title><fixed-case>CUNI</fixed-case> x-ling: Parsing Under-Resourced Languages in <fixed-case>C</fixed-case>o<fixed-case>NLL</fixed-case> 2018 <fixed-case>UD</fixed-case> Shared Task</title>
@@ -982,8 +901,6 @@
       <abstract>This is a system description paper for the CUNI x-ling submission to the CoNLL 2018 UD Shared Task. We focused on parsing under-resourced languages, with no or little training data available. We employed a wide range of approaches, including simple word-based treebank translation, combination of delexicalized parsers, and exploitation of available morphological dictionaries, with a dedicated setup tailored to each of the languages. In the official evaluation, our submission was identified as the clear winner of the Low-resource languages category.</abstract>
       <doi>10.18653/v1/K18-2019</doi>
       <bibkey>rosa-marecek-2018-cuni</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/opensubtitles">OpenSubtitles</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/universal-dependencies">Universal Dependencies</pwcdataset>
     </paper>
     <paper id="20">
       <title><fixed-case>UDP</fixed-case>ipe 2.0 Prototype at <fixed-case>C</fixed-case>o<fixed-case>NLL</fixed-case> 2018 <fixed-case>UD</fixed-case> Shared Task</title>
@@ -993,7 +910,6 @@
       <abstract>UDPipe is a trainable pipeline which performs sentence segmentation, tokenization, POS tagging, lemmatization and dependency parsing. We present a prototype for UDPipe 2.0 and evaluate it in the CoNLL 2018 UD Shared Task: Multilingual Parsing from Raw Text to Universal Dependencies, which employs three metrics for submission ranking. Out of 26 participants, the prototype placed first in the MLAS ranking, third in the LAS ranking and third in the BLEX ranking. In extrinsic parser evaluation EPE 2018, the system ranked first in the overall score.</abstract>
       <doi>10.18653/v1/K18-2020</doi>
       <bibkey>straka-2018-udpipe</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/universal-dependencies">Universal Dependencies</pwcdataset>
     </paper>
     <paper id="21">
       <title>Universal Morpho-Syntactic Parsing and the Contribution of Lexica: Analyzing the <fixed-case>ONLP</fixed-case> Lab Submission to the <fixed-case>C</fixed-case>o<fixed-case>NLL</fixed-case> 2018 Shared Task</title>
@@ -1005,7 +921,6 @@
       <abstract>We present the contribution of the ONLP lab at the Open University of Israel to the UD shared task on multilingual parsing from raw text to Universal Dependencies. Our contribution is based on a transition-based parser called ‘yap – yet another parser’, which includes a standalone morphological model, a standalone dependency model, and a joint morphosyntactic model. In the task we used <i>yap</i>‘s standalone dependency parser to parse input morphologically disambiguated by UDPipe, and obtained the official score of 58.35 LAS. In our follow up investigation we use yap to show how the incorporation of morphological and lexical resources may improve the performance of end-to-end raw-to-dependencies parsing in the case of a <i>morphologically-rich</i> and <i>low-resource</i> language, Modern Hebrew. Our results on Hebrew underscore the importance of CoNLL-UL, a UD-compatible standard for accessing external lexical resources, for enhancing end-to-end UD parsing, in particular for morphologically rich and low-resource languages. We thus encourage the community to create, convert, or make available more such lexica in future tasks.</abstract>
       <doi>10.18653/v1/K18-2021</doi>
       <bibkey>seker-etal-2018-universal</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/universal-dependencies">Universal Dependencies</pwcdataset>
     </paper>
     <paper id="22">
       <title><fixed-case>SP</fixed-case>arse: <fixed-case>K</fixed-case>oç <fixed-case>U</fixed-case>niversity Graph-Based Parsing System for the <fixed-case>C</fixed-case>o<fixed-case>NLL</fixed-case> 2018 Shared Task</title>
@@ -1017,7 +932,6 @@
       <abstract>We present SParse, our Graph-Based Parsing model submitted for the CoNLL 2018 Shared Task: Multilingual Parsing from Raw Text to Universal Dependencies (Zeman et al., 2018). Our model extends the state-of-the-art biaffine parser (Dozat and Manning, 2016) with a structural meta-learning module, SMeta, that combines local and global label predictions. Our parser has been trained and run on Universal Dependencies datasets (Nivre et al., 2016, 2018) and has 87.48% LAS, 78.63% MLAS, 78.69% BLEX and 81.76% CLAS (Nivre and Fang, 2017) score on the Italian-ISDT dataset and has 72.78% LAS, 59.10% MLAS, 61.38% BLEX and 61.72% CLAS score on the Japanese-GSD dataset in our official submission. All other corpora are evaluated after the submission deadline, for whom we present our unofficial test results.</abstract>
       <doi>10.18653/v1/K18-2022</doi>
       <bibkey>onder-etal-2018-sparse</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/universal-dependencies">Universal Dependencies</pwcdataset>
     </paper>
     <paper id="23">
       <title><fixed-case>ELM</fixed-case>o<fixed-case>L</fixed-case>ex: Connecting <fixed-case>ELM</fixed-case>o and Lexicon Features for Dependency Parsing</title>
@@ -1033,7 +947,6 @@
       <abstract>In this paper, we present the details of the neural dependency parser and the neural tagger submitted by our team ‘ParisNLP’ to the CoNLL 2018 Shared Task on parsing from raw text to Universal Dependencies. We augment the deep Biaffine (BiAF) parser (Dozat and Manning, 2016) with novel features to perform competitively: we utilize an indomain version of ELMo features (Peters et al., 2018) which provide context-dependent word representations; we utilize disambiguated, embedded, morphosyntactic features from lexicons (Sagot, 2018), which complements the existing feature set. Henceforth, we call our system ‘ELMoLex’. In addition to incorporating character embeddings, ELMoLex benefits from pre-trained word vectors, ELMo and morphosyntactic features (whenever available) to correctly handle rare or unknown words which are prevalent in languages with complex morphology. ELMoLex ranked 11th by Labeled Attachment Score metric (70.64%), Morphology-aware LAS metric (55.74%) and ranked 9th by Bilexical dependency metric (60.70%).</abstract>
       <doi>10.18653/v1/K18-2023</doi>
       <bibkey>jawahar-etal-2018-elmolex</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/universal-dependencies">Universal Dependencies</pwcdataset>
     </paper>
     <paper id="24">
       <title>A Morphology-Based Representation Model for <fixed-case>LSTM</fixed-case>-Based Dependency Parsing of Agglutinative Languages</title>
@@ -1046,8 +959,6 @@
       <abstract>We propose two word representation models for agglutinative languages that better capture the similarities between words which have similar tasks in sentences. Our models highlight the morphological features in words and embed morphological information into their dense representations. We have tested our models on an LSTM-based dependency parser with character-based word embeddings proposed by Ballesteros et al. (2015). We participated in the CoNLL 2018 Shared Task on multilingual parsing from raw text to universal dependencies as the BOUN team. We show that our morphology-based embedding models improve the parsing performance for most of the agglutinative languages.</abstract>
       <doi>10.18653/v1/K18-2024</doi>
       <bibkey>ozates-etal-2018-morphology</bibkey>
-      <pwccode url="https://github.com/CoNLL-UD-2018/BOUN" additional="false">CoNLL-UD-2018/BOUN</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/universal-dependencies">Universal Dependencies</pwcdataset>
     </paper>
     <paper id="25">
       <title><fixed-case>A</fixed-case>nt<fixed-case>NLP</fixed-case> at <fixed-case>C</fixed-case>o<fixed-case>NLL</fixed-case> 2018 Shared Task: A Graph-Based Parser for <fixed-case>U</fixed-case>niversal <fixed-case>D</fixed-case>ependency Parsing</title>

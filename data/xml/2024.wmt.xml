@@ -245,7 +245,7 @@
       <author><first>Koki</first><last>Natsumi</last><affiliation>NAIST</affiliation></author>
       <author><first>Kai</first><last>Sato</last><affiliation>Tohoku university</affiliation></author>
       <author><first>Kazuki</first><last>Yano</last><affiliation>Tohoku University</affiliation></author>
-      <author><first>Ryosuke</first><last>Takahashi</last><affiliation>Tohoku University</affiliation></author>
+      <author id="ryosuke-takahashi-tohoku"><first>Ryosuke</first><last>Takahashi</last><affiliation>Tohoku University</affiliation></author>
       <author><first>Subaru</first><last>Kimura</last><affiliation>Tohoku University</affiliation></author>
       <author><first>Tomomasa</first><last>Hara</last><affiliation>Tohoku University</affiliation></author>
       <author><first>Yusuke</first><last>Sakai</last><affiliation>Nara Institute of Science and Technology</affiliation></author>
@@ -1455,7 +1455,7 @@
       <title>Reducing Redundancy in <fixed-case>J</fixed-case>apanese-to-<fixed-case>E</fixed-case>nglish Translation: A Multi-Pipeline Approach for Translating Repeated Elements in <fixed-case>J</fixed-case>apanese</title>
       <author><first>Qiao</first><last>Wang</last><affiliation>Waseda University</affiliation></author>
       <author><first>Yixuan</first><last>Huang</last><affiliation>Graduate School of International Culture and Communication Studies Waseda University</affiliation></author>
-      <author><first>Zheng</first><last>Yuan</last><affiliation>King’s College London</affiliation></author>
+      <author id="zheng-yuan-cambridge"><first>Zheng</first><last>Yuan</last><affiliation>King’s College London</affiliation></author>
       <pages>1047-1055</pages>
       <abstract>This paper presents a multi-pipeline Japanese-to-English machine translation (MT) system designed to address the challenge of translating repeated elements from Japanese into fluent and lexically diverse English. The system is developed as part of the Non-Repetitive Translation Task at WMT24, which focuses on minimizing redundancy while maintaining high translation quality. Our approach utilizes MeCab, the de facto NLP tool for Japanese, for the identification of repeated elements, and Claude Sonnet 3.5, a large language model (LLM), for translation and proofreading. The system effectively accomplishes the shared task by identifying and translating in a diversified manner 89.79% of the 470 repeated instances in the testing dataset, and achieving an average translation quality score of 4.60 out of 5, significantly surpassing the baseline score of 3.88. Analysis also revealed the challenges encountered, particularly in identifying standalone noun-suffix elements and occasional cases of consistent translations or mistranslations.</abstract>
       <url hash="3fd17baf">2024.wmt-1.107</url>
@@ -1633,14 +1633,16 @@
     <paper id="122">
       <title>Post-edits Are Preferences Too</title>
       <author><first>Nathaniel</first><last>Berger</last><affiliation>Heidelberg University</affiliation></author>
-      <author><first>Stefan</first><last>Riezler</last><affiliation>Heidelberg University</affiliation></author>
       <author><first>Miriam</first><last>Exel</last><affiliation>SAP SE</affiliation></author>
       <author><first>Matthias</first><last>Huck</last><affiliation>SAP SE</affiliation></author>
+      <author><first>Stefan</first><last>Riezler</last><affiliation>Heidelberg University</affiliation></author>
       <pages>1289-1300</pages>
       <abstract>Preference Optimization (PO) techniques are currently one of the state of the art techniques for fine-tuning large language models (LLMs) on pairwise preference feedback from human annotators. However, in machine translation, this sort of feedback can be difficult to solicit. Additionally, Kreuzer et al. (2018) have shown that, for machine translation, pairwise preferences are less reliable than other forms of human feedback, such as 5-point ratings.We examine post-edits to see if they can be a source of reliable human preferences by construction. In PO, a human annotator is shown sequences $s_1$ and $s_2$ and asked for a preference judgment, while for post-editing, editors create $s_1$ and know that it should be better than $s_2$. We attempt to use these implicit preferences for PO and show that it helps the model move towards post-edit like hypotheses and away from machine translation-like hypotheses. Furthermore, we show that best results are obtained by pre-training the model with supervised fine-tuning (SFT) on post-edits in order to promote post-edit like hypotheses to the top output ranks.</abstract>
-      <url hash="c65f8d6e">2024.wmt-1.122</url>
+      <url hash="0482be0a">2024.wmt-1.122</url>
       <bibkey>berger-etal-2024-post</bibkey>
       <doi>10.18653/v1/2024.wmt-1.122</doi>
+      <revision id="1" href="2024.wmt-1.122v1" hash="c65f8d6e"/>
+      <revision id="2" href="2024.wmt-1.122v2" hash="0482be0a" date="2025-08-14">Added acknowledgements section to thank the compute cluster used for experiments, as required by German Research Foundation (DFG) grant. Updated author order.</revision>
     </paper>
     <paper id="123">
       <title>Translating Step-by-Step: Decomposing the Translation Process for Improved Translation Quality of Long-Form Texts</title>
