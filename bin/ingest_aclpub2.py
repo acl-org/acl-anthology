@@ -305,6 +305,16 @@ def join_names(author, fields=["first_name", "middle_name"]):
     return " ".join(names)
 
 
+def trim_orcid(orcid: str) -> str:
+    """
+    Match the ORCID ID out of a potentially longer URL.
+    """
+    match = re.match(r'.*(\d{4}-\d{4}-\d{4}-\d{3}[\dX]).*', orcid)
+    if match is not None:
+        return match.group(1)
+    return orcid
+
+
 def proceeding2xml(anthology_id: str, meta: Dict[str, Any], frontmatter):
     """
     Creates the XML meta block for a volume from the paper YAML data structure.
@@ -325,13 +335,15 @@ def proceeding2xml(anthology_id: str, meta: Dict[str, Any], frontmatter):
             authors = meta['editors']
             for author in authors:
                 author = correct_names(author)
+
                 # if 'orcid' is present as a field, add it as an attribute
+                attrib = {}
                 if 'orcid' in author.keys():
-                    name_node = make_simple_element(
-                        field, parent=frontmatter_node, attrib={'orcid': author['orcid']}
-                    )
-                else:
-                    name_node = make_simple_element(field, parent=frontmatter_node)
+                    attrib = {'orcid': trim_orcid(author['orcid'])}
+
+                name_node = make_simple_element(
+                    field, parent=frontmatter_node, attrib=attrib
+                )
 
                 make_simple_element('first', join_names(author), parent=name_node)
                 make_simple_element('last', author['last_name'], parent=name_node)
@@ -408,7 +420,11 @@ def paper2xml(
             for author in authors:
                 author = correct_names(author)
 
-                name_node = make_simple_element(field, parent=paper)
+                attrib = {}
+                if 'orcid' in author.keys():
+                    attrib = {'orcid': trim_orcid(author['orcid'])}
+
+                name_node = make_simple_element(field, parent=paper, attrib=attrib)
 
                 # swap names (<last> can't be empty)
                 first_name = join_names(author)
@@ -877,7 +893,6 @@ def create_xml(
     help='Directory contains proceedings need to be ingested',
 )
 @click.option(
-    '-p',
     '--pdfs_dir',
     default=os.path.join(os.environ['HOME'], 'anthology-files', 'pdf'),
     help='Root path for placement of PDF files',
