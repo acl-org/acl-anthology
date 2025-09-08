@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <collection id="2025.dmr">
-  <volume id="1" ingest-date="2025-07-27" type="proceedings">
+  <volume id="1" ingest-date="2025-09-06" type="proceedings">
     <meta>
       <booktitle>Proceedings of the Sixth International Workshop on Designing Meaning Representations</booktitle>
       <editor><first>Kenneth</first><last>Lai</last></editor>
@@ -25,6 +25,7 @@
       <author><first>Federica</first><last>Gamba</last></author>
       <author><first>Hana</first><last>Hledíková</last></author>
       <pages>1–12</pages>
+      <abstract>Uniform Meaning Representation (UMR) is a semantic framework designed to represent the meaning of texts in a structured and interpretable manner. In this paper, we evaluate the results of the automatic conversion of existing resources to UMR, focusing on Czech (PDT-C treebank) and Latin (LDT treebank). We present both quantitative and qualitative evaluations based on a comparison between manually and automatically generated UMR structures for a sample of Czech and Latin sentences. The findings indicate comparable results of the automatic conversion for both languages. The key challenges prove to be the higher level of semantic abstraction required by UMR and the fact that UMR allows for capturing semantic structure in multiple ways, potentially with varying levels of granularity.</abstract>
       <url hash="bd7bcbf0">2025.dmr-1.1</url>
       <bibkey>stepanek-etal-2025-comparing</bibkey>
     </paper>
@@ -34,6 +35,7 @@
       <author><first>Mina</first><last>Yang</last></author>
       <author><first>Shira</first><last>Wein</last></author>
       <pages>13–18</pages>
+      <abstract>The graph-based semantic representation Abstract Meaning Representation (AMR) incorporates Proposition Bank (PropBank) sense IDs to indicate the senses of nodes in the graph and specify their associated arguments. While this contributes to the semantic information captured in an AMR graph, the utility of incorporating sense IDs into AMR graphs has not been analyzed from a technological perspective, i.e. how useful sense IDs are to generating text from AMRs and how accurately senses are induced by AMR parsers. In this work, we examine the effects of altering or removing the sense IDs in the AMR graphs, by perturbing the sense data passed to AMR-to-text generation models. Additionally, for text-to-AMR parsing, we quantitatively and qualitatively verify the accuracy of sense IDs produced from state-of-the-art models. Our investigation reveals that sense IDs do contribute a small amount to accurate AMR-to-text generation, meaning they enhance AMR technologies, but may be disregarded when their reliance prohibits multilingual corpus development.</abstract>
       <url hash="40cd33e0">2025.dmr-1.2</url>
       <bibkey>hoang-etal-2025-role</bibkey>
     </paper>
@@ -42,6 +44,7 @@
       <author><first>Miles</first><last>Frank</last></author>
       <author><first>Lenhart</first><last>Schubert</last></author>
       <pages>19–29</pages>
+      <abstract>Deriving structured semantic representations from unrestricted text, in a format suitable for sound, explainable reasoning, is an important goal for achieving AGI. Consequently much effort has been invested in this goal, but the proposed representations fall short in various ways. Unscoped Logical Form (ULF) is a strictly typed, loss-free semantic representation close to surface form and conducive to linguistic inference. ULF can be further resolved into the more precise Episodic Logic. Previous transformer language models have shown promise in the task of parsing English to ULF, but suffered from a lack of a substantial dataset for training. We present a new fine-tuned language model parser for ULF, trained on a greatly expanded dataset of ULFs automatically derived from Brown corpus Treebank parse trees. Additionally, the model uses Parameter Efficient Fine Tuning (PEFT) to leverage a substantially larger base model than its predecessor while maintaining fast training times. We find that training on automatically derived ULFs substantially improves parser performance from the existing smaller dataset (from SEMBLEU score of 0.43 to 0.68), or even the previously used larger, generatively augmented ULF dataset, used with a transition parser (from SEMBLEU score of 0.49 to 0.68).</abstract>
       <url hash="8337b554">2025.dmr-1.3</url>
       <bibkey>frank-schubert-2025-boosting</bibkey>
     </paper>
@@ -51,6 +54,7 @@
       <author><first>Baber</first><last>Khalid</last></author>
       <author><first>Matthew</first><last>Stone</last></author>
       <pages>30–37</pages>
+      <abstract>Task-oriented dialogue (TOD) requires capabilities such as lookahead planning, reasoning, and belief state tracking, which continue to present challenges for end-to-end methods based on large language models (LLMs). As a possible method of addressing these concerns, we are exploring the integration of structured semantic representations with planning inferences. As a first step in this project, we describe an algorithm for generating Minimal Recursion Semantics (MRS) from dependency parses, obtained from a machine learning (ML) syntactic parser, and validate its performance on a challenging cooking domain. Specifically, we compare predicate-argument relations recovered by our approach with predicate-argument relations annotated using Abstract Meaning Representation (AMR). Our system is consistent with the gold standard in 94.1% of relations.</abstract>
       <url hash="0f712e94">2025.dmr-1.4</url>
       <bibkey>george-etal-2025-using</bibkey>
     </paper>
@@ -60,6 +64,7 @@
       <author><first>Maxime</first><last>Amblard</last></author>
       <author><first>Bruno</first><last>Guillaume</last></author>
       <pages>38–48</pages>
+      <abstract>We propose different modular evaluation metrics for Layered Meaning Representation, defined as YARN, a semantic formalism encoded using rich structures that generalize AMR graphs. While existing metrics like SMATCH evaluate graph-based semantic representations such as AMR, they cannot directly handle YARN’s more complex structures. We make full use of the modular nature of YARN to propose two families of metrics, depending on the linguistic features and type of semantic phenomenon targeted. The first one, SMATCHY, extends the AMR SMATCH metric. We also propose YARNBLEU, based on the SEMBLEU metric for AMR. We evaluate both families on a small dataset of human annotated YARN structures, adding random modifications simulating annotation mistakes and show that SMATCHY provides a more consistent and reliable approach with respect to the type of modifications considered.</abstract>
       <url hash="419fbf50">2025.dmr-1.5</url>
       <bibkey>de-vergnette-etal-2025-evaluation</bibkey>
     </paper>
@@ -71,6 +76,7 @@
       <author><first>Alex C.</first><last>Fang</last></author>
       <author><first>Chongwon</first><last>Park</last></author>
       <pages>49–58</pages>
+      <abstract>The ISO working group on semantic annotation aims to adopt the UMR formalism to represent dynamic information involving motions and their embedding grounds. The paper details how ISO’s XML-based temporal and spatial annotations, involving motions and spatio-temporally conditioned event-paths, will be converted to AMR or UMR forms. It also attempts to enrich the representation of dynamic information with the integrated spatio-temporal annotation scheme that accommodates first-order dynamic logic, as briefly noted. The main motivation of such an effort is to make spatio-temporal annotations and related dynamic information easily understandable by artificial agents like robots to act. Our approach bridges ISO’s richly specified standards with the task-oriented expressiveness of UMR and dynamic logic. This integration paves the way for seamless downstream use of spatio-temporal annotations in dialogue systems, simulation environments, and embodied agents.</abstract>
       <url hash="beefefa8">2025.dmr-1.6</url>
       <bibkey>lee-etal-2025-representing</bibkey>
     </paper>
