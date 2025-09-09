@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2025.unidive">
+  <volume id="1" ingest-date="2025-09-08" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of The UniDive 2025 Shared Task on Multilingual Morpho-Syntactic Parsing</booktitle>
+      <editor><first>Omer</first><last>Goldman</last></editor>
+      <editor><first>Leonie</first><last>Weissweiler</last></editor>
+      <editor><first>Reut</first><last>Tsarfaty</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Ljubljana, Slovenia</address>
+      <month>August</month>
+      <year>2025</year>
+      <url hash="246a2c33">2025.unidive-1</url>
+      <venue>unidive</venue>
+      <venue>ws</venue>
+      <venue>syntaxfest</venue>
+      <isbn>979-8-89176-320-3</isbn>
+    </meta>
+    <frontmatter>
+      <url hash="4d94ba9e">2025.unidive-1.0</url>
+      <bibkey>unidive-ws-2025-1</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Findings of the <fixed-case>U</fixed-case>ni<fixed-case>D</fixed-case>ive 2025 shared task on multilingual Morpho-Syntactic Parsing</title>
+      <author><first>Omer</first><last>Goldman</last><affiliation>Bar Ilan University</affiliation></author>
+      <author><first>Leonie</first><last>Weissweiler</last><affiliation>Uppsala University</affiliation></author>
+      <author><first>Kutay</first><last>Acar</last><affiliation>Istanbul Technical University</affiliation></author>
+      <author><first>Diego</first><last>Alves</last><affiliation>Saarland University</affiliation></author>
+      <author><first>Anna</first><last>Baczkowska</last><affiliation>University of Gdansk</affiliation></author>
+      <author orcid="0000-0003-4607-7305"><first>Gulsen</first><last>Eryigit</last></author>
+      <author><first>Lenka</first><last>Krippnerová</last><affiliation>Charles University</affiliation></author>
+      <author><first>Adriana</first><last>Pagano</last><affiliation>Federal University of Minas Gerais</affiliation></author>
+      <author><first>Tanja</first><last>Samardžić</last><affiliation>University of Zurich</affiliation></author>
+      <author><first>Luigi</first><last>Talamo</last><affiliation>Saarland University</affiliation></author>
+      <author><first>Alina</first><last>Wróblewska</last><affiliation>Polish Academy of Sciences</affiliation></author>
+      <author><first>Daniel</first><last>Zeman</last><affiliation>Charles University</affiliation></author>
+      <author><first>Joakim</first><last>Nivre</last><affiliation>Uppsala University</affiliation></author>
+      <author><first>Reut</first><last>Tsarfay</last><affiliation>Bar-Ilan University</affiliation></author>
+      <pages>1-18</pages>
+      <abstract>This paper details the findings of the 2025 UniDive shared task on multilingual morphosyntactic parsing. It introduces a new representation in which morphology and syntax are modelled jointly to form dependency trees of contentful elements, each characterized by features determined by grammatical words and morphemes. This schema allows bypassing the theoretical debate over the definition of “words” and it encourages development of parsers for typologically diverse languages. The data for the task, spanning 9 languages, was annotated based on existing Universal Dependencies (UD) treebanks that were adapted to the new format. We accompany the data with a new metric, MSLAS, that combines syntactic LAS with F1 over grammatical features. The task received two submissions, which together with three baselines give a detailed view on the ability of multi-task encoder models to cope with the task at hand. The best performing system, UM, achieved 78.7 MSLAS macro-averaged over all languages, improving by 31.4 points over the few-shot prompting baseline.</abstract>
+      <url hash="1cddb335">2025.unidive-1.1</url>
+      <bibkey>goldman-etal-2025-findings</bibkey>
+    </paper>
+    <paper id="2">
+      <title>A Joint Multitask Model for Morpho-Syntactic Parsing</title>
+      <author><first>Demian Inostroza</first><last>Améstica</last></author>
+      <author><first>Meladel</first><last>Mistica</last><affiliation>The University of Melbourne</affiliation></author>
+      <author orcid="0000-0002-4058-5459"><first>Ekaterina</first><last>Vylomova</last><affiliation>The University of Melbourne</affiliation></author>
+      <author><first>Chris</first><last>Guest</last><affiliation>The University of Melbourne</affiliation></author>
+      <author><first>Kemal</first><last>Kurniawan</last><affiliation>University of Melbourne</affiliation></author>
+      <pages>19-26</pages>
+      <abstract>We present a joint multitask model for the Uni-Dive 2025 Morpho-Syntactic Parsing shared task, where systems predict both morphological and syntactic analyses following novel UD annotation scheme. Our system uses a shared XLM-RoBERTa encoder with three specialized decoders for content word identification, dependency parsing, and morphosyntactic feature prediction. Our model achieves the best overall performance on the shared task’s leaderboard covering nine typologically diverse languages, with an average MSLAS score of 78.7%, LAS of 80.1%, and Feats F1 of 90.3%. Our ablation studies show that matching the task’s gold tokenization and content word identification are crucial to model performance. Error analysis reveals that our model struggles with core grammatical cases (particularly Nom–Acc) and nominal features across languages.</abstract>
+      <url hash="92e6a449">2025.unidive-1.2</url>
+      <bibkey>amestica-etal-2025-joint</bibkey>
+    </paper>
+    <paper id="3">
+      <title>Typology-aware Multilingual Morphosyntactic Parsing with Functional Node Filtering</title>
+      <author><first>Kutay</first><last>Acar</last><affiliation>Istanbul Technical University</affiliation></author>
+      <author orcid="0000-0003-4607-7305"><first>Gulsen</first><last>Eryigit</last></author>
+      <pages>27-33</pages>
+      <abstract>This paper presents a system for the UniDive Morphosyntactic Parsing (MSP) Shared Task, where it ranked second overall among participating teams. The task introduces a morphosyntactic representation that jointly models syntactic dependencies and morphological features by treating content-bearing elements as graph nodes and encoding functional elements as feature annotations, posing challenges for conventional parsers and necessitating more flexible, linguistically informed approaches. The proposed system combines a typology-aware, multitask parser with a multilingual content/function classifier to handle structural variance across languages. The architecture uses adapter modules and language embeddings to encode typological information. Evaluations across 9 typologically varied languages confirm that the system can accurately replicate both universal and language-specific morphosyntactic patterns.</abstract>
+      <url hash="c3848a58">2025.unidive-1.3</url>
+      <bibkey>acar-eryigit-2025-typology</bibkey>
+    </paper>
+  </volume>
+</collection>
