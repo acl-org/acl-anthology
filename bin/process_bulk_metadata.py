@@ -220,6 +220,9 @@ class AnthologyMetadataUpdater:
         closed_issues = []
 
         for issue in issues:
+            if "metadata correction" not in issue.title.lower():
+                continue
+
             self.stats["visited_issues"] += 1
             try:
                 if ids and issue.number not in ids:
