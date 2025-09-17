@@ -248,7 +248,7 @@ def main(args):
         repo.git.add(get_xml_file(args.anthology_id))
         if repo.is_dirty(index=True, working_tree=True, untracked_files=True):
             repo.index.commit(
-                f"Add revision for {args.anthology_id} (closes #{args.issue})"
+                f"Add {change_type} for {args.anthology_id} (closes #{args.issue})"
             )
 
 
