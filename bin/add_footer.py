@@ -13,7 +13,9 @@ Copyright 2025, Matt Post
 """
 
 
-import io, re, argparse
+import io
+import re
+import argparse
 from pathlib import Path
 from pypdf import PdfReader, PdfWriter
 from reportlab.pdfgen import canvas
@@ -21,13 +23,14 @@ from reportlab.pdfgen import canvas
 # Defaults tuned for ACL footer look
 DEFAULT_BOTTOM_MARGIN_PT = 14
 DEFAULT_LINE_SPACING = 1.2
-DEFAULT_FOOTER_SIZE = 9       # footer text size
-DEFAULT_PAGENUM_SIZE = 11     # page number size
+DEFAULT_FOOTER_SIZE = 9  # footer text size
+DEFAULT_PAGENUM_SIZE = 11  # page number size
 
 FONT_REG = "Times-Roman"
 FONT_ITAL = "Times-Italic"
 
 TAG_RE = re.compile(r"(</?i>)")
+
 
 def parse_inline_italics(s):
     """Yield (text, is_italic) spans from a string with <i>…</i> regions."""
@@ -41,6 +44,7 @@ def parse_inline_italics(s):
         elif tok:
             yield tok, italic
 
+
 def measure_line(c, line, size):
     """Total width of a mixed-style line."""
     w = 0.0
@@ -48,6 +52,7 @@ def measure_line(c, line, size):
         font = FONT_ITAL if it else FONT_REG
         w += c.stringWidth(txt, font, size)
     return w
+
 
 def draw_rich_centered(c, page_w, y, line, size):
     """Draw a mixed-style line centered at y."""
@@ -59,13 +64,17 @@ def draw_rich_centered(c, page_w, y, line, size):
         c.drawString(x, y, txt)
         x += c.stringWidth(txt, font, size)
 
+
 def mk_footer_overlay(w, h, text_block, bottom_margin, size, line_spacing):
     """Footer block near bottom: render lines in given order, stacking downward."""
     buf = io.BytesIO()
     c = canvas.Canvas(buf, pagesize=(w, h))
     lines = text_block.split("\n") if text_block else []
     if not lines:
-        c.showPage(); c.save(); buf.seek(0); return buf
+        c.showPage()
+        c.save()
+        buf.seek(0)
+        return buf
 
     line_h = size * line_spacing
     # Start y so that the FIRST line appears above subsequent lines,
@@ -74,8 +83,11 @@ def mk_footer_overlay(w, h, text_block, bottom_margin, size, line_spacing):
     for line in lines:
         draw_rich_centered(c, w, y, line, size)
         y -= line_h  # next line goes BELOW
-    c.showPage(); c.save(); buf.seek(0)
+    c.showPage()
+    c.save()
+    buf.seek(0)
     return buf
+
 
 def mk_pagenum_overlay(w, h, page_num, bottom_margin, size):
     buf = io.BytesIO()
@@ -86,12 +98,22 @@ def mk_pagenum_overlay(w, h, page_num, bottom_margin, size):
     x = (w - tw) / 2.0
     y = bottom_margin
     c.drawString(x, y, text)
-    c.showPage(); c.save(); buf.seek(0)
+    c.showPage()
+    c.save()
+    buf.seek(0)
     return buf
 
 
-def process(input_pdf, output_pdf, text_block, page_start,
-            bottom_margin, footer_size, pagenum_size, line_spacing):
+def process(
+    input_pdf,
+    output_pdf,
+    text_block,
+    page_start,
+    bottom_margin,
+    footer_size,
+    pagenum_size,
+    line_spacing,
+):
     reader = PdfReader(str(input_pdf))
     writer = PdfWriter()
 
@@ -120,7 +142,9 @@ def process(input_pdf, output_pdf, text_block, page_start,
             fkey = (w, h, "footer", footer_size, footer_bottom, line_spacing, text_block)
             if fkey not in footer_cache:
                 footer_cache[fkey] = PdfReader(
-                    mk_footer_overlay(w, h, text_block, footer_bottom, footer_size, line_spacing)
+                    mk_footer_overlay(
+                        w, h, text_block, footer_bottom, footer_size, line_spacing
+                    )
                 ).pages[0]
             page.merge_page(footer_cache[fkey])
 
@@ -130,28 +154,62 @@ def process(input_pdf, output_pdf, text_block, page_start,
         writer.write(f)
 
 
-
 def main():
-    ap = argparse.ArgumentParser(description="Add ACL-like footer (first page) and optional page numbers (all pages).")
-    ap.add_argument("--page-number", "-p", type=int, metavar="N",
-                        help="Enable page numbers starting at N (e.g., -p 5).")
-    ap.add_argument("--bottom-margin", type=float, default=14, help="Baseline distance from bottom (pt).")
-    ap.add_argument("--footer-size", type=float, default=DEFAULT_FOOTER_SIZE, help="Footer font size (pt).")
-    ap.add_argument("--pagenum-size", type=float, default=DEFAULT_PAGENUM_SIZE, help="Page number font size (pt).")
-    ap.add_argument("--line-spacing", type=float, default=1.2, help="Footer line spacing multiplier.")
+    ap = argparse.ArgumentParser(
+        description="Add ACL-like footer (first page) and optional page numbers (all pages)."
+    )
+    ap.add_argument(
+        "--page-number",
+        "-p",
+        type=int,
+        metavar="N",
+        help="Enable page numbers starting at N (e.g., -p 5).",
+    )
+    ap.add_argument(
+        "--bottom-margin",
+        type=float,
+        default=14,
+        help="Baseline distance from bottom (pt).",
+    )
+    ap.add_argument(
+        "--footer-size",
+        type=float,
+        default=DEFAULT_FOOTER_SIZE,
+        help="Footer font size (pt).",
+    )
+    ap.add_argument(
+        "--pagenum-size",
+        type=float,
+        default=DEFAULT_PAGENUM_SIZE,
+        help="Page number font size (pt).",
+    )
+    ap.add_argument(
+        "--line-spacing", type=float, default=1.2, help="Footer line spacing multiplier."
+    )
     ap.add_argument("input_pdf", type=Path)
     ap.add_argument("output_pdf", type=Path)
-    ap.add_argument("text_block", nargs="?", default="", help="Footer text for FIRST page only. Use \\n for newlines. Use <i>…</i> for inline italics.")
+    ap.add_argument(
+        "text_block",
+        nargs="?",
+        default="",
+        help="Footer text for FIRST page only. Use \\n for newlines. Use <i>…</i> for inline italics.",
+    )
     args = ap.parse_args()
 
     # normalize literal "\n"
-    args.text_block = args.text_block.replace("\\n","\n")
+    args.text_block = args.text_block.replace("\\n", "\n")
 
     process(
-        args.input_pdf, args.output_pdf, args.text_block, args.page_number,
-        args.bottom_margin, args.footer_size, args.pagenum_size, args.line_spacing,
-
+        args.input_pdf,
+        args.output_pdf,
+        args.text_block,
+        args.page_number,
+        args.bottom_margin,
+        args.footer_size,
+        args.pagenum_size,
+        args.line_spacing,
     )
+
 
 if __name__ == "__main__":
     main()
