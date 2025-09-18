@@ -56,7 +56,7 @@
   <header>ACL Anthology • PDF Footer/Watermark Tool</header>
   <main>
     <h1>Add ACL-style footer & page numbers</h1>
-    <p class="lead">Upload a PDF and optionally add page numbers plus a first-page footer block. Inline italics: wrap spans in <code>&lt;i&gt;...&lt;/i&gt;</code>. Separate footer lines with the Enter key.</p>
+  <p class="lead">Upload a PDF and optionally add page numbers plus a first-page footer block. Inline italics: wrap spans in <code>&lt;i&gt;...&lt;/i&gt;</code>. Press Enter for a new footer line; lines are sent as literal <code>\n</code> sequences to the server.</p>
     <form id="wmForm" class="card" autocomplete="off">
       <div class="grid">
         <div>
@@ -69,8 +69,8 @@
           </div>
         </div>
         <div>
-          <label for="footerText">Footer (first page only)</label>
-          <textarea id="footerText" name="footerText" placeholder="<i>Proceedings of ...</i>\nJuly 2025 · ACL" spellcheck="true"></textarea>
+            <label for="footerText">Footer (first page only)</label>
+            <textarea id="footerText" name="footerText" placeholder="Example: <i>Proceedings of ACL 2025 (Pages 1–10)</i>" spellcheck="true"></textarea>
         </div>
       </div>
       <div style="margin-top:1rem; display:flex; flex-wrap:wrap; gap:2rem; align-items:flex-start;">
@@ -90,6 +90,11 @@
         <button type="button" class="secondary" id="resetBtn" title="Clear form">Reset</button>
         <div class="status" id="status" aria-live="polite"></div>
       </div>
+      <div id="previewWrap" style="margin-top:1.25rem; display:none;">
+        <label style="display:flex; align-items:center; gap:.5rem; font-size:.7rem; font-weight:600; letter-spacing:.05em; color:var(--muted);">Sanitized Preview <span id="removedInfo" style="font-weight:400; color:#64748b;"></span></label>
+        <div id="footerPreview" style="font-family: 'Times New Roman', Times, serif; font-size:13px; background:var(--panel-alt); border:1px solid #2a3140; border-radius:8px; padding:12px 10px; line-height:1.25; text-align:center; white-space:pre-line; min-height:40px;">
+        </div>
+      </div>
       <p class="notice">Nothing is permanently stored; processing happens in-memory / temporary files and the result is streamed back. Avoid uploading sensitive material.<br/>Source script: <code>add_footer.py</code>.</p>
     </form>
   </main>
@@ -101,8 +106,12 @@
     const fileInput = document.getElementById('pdf');
     const fileInfo = document.getElementById('fileInfo');
     const status = document.getElementById('status');
-    const submitBtn = document.getElementById('submitBtn');
+  const submitBtn = document.getElementById('submitBtn');
     const resetBtn = document.getElementById('resetBtn');
+  const footerInput = document.getElementById('footerText');
+  const preview = document.getElementById('footerPreview');
+  const previewWrap = document.getElementById('previewWrap');
+  const removedInfo = document.getElementById('removedInfo');
 
     const MAX_SIZE = 25 * 1024 * 1024; // 25MB
 
@@ -143,6 +152,42 @@
     fileInput.addEventListener('change', e => handleFiles(e.target.files));
     resetBtn.addEventListener('click', () => { form.reset(); fileInfo.textContent='No file selected'; setStatus(''); });
 
+    function sanitizeFooter(raw){
+      if(!raw) return {clean:'', removed:0};
+      let beforeLen = raw.length;
+      // Normalize line breaks
+      let s = raw.replace(/\r\n?/g,'\n');
+      // Replace various Unicode space-ish chars with normal space
+      s = s.replace(/[\u00A0\u2000-\u200B\u202F\u205F\u3000]/g,' ');
+      // Remove zero-width joiners & directional marks
+      s = s.replace(/[\u200C\u200D\uFEFF\u202A-\u202E\u2066-\u2069]/g,'');
+      // Remove other control chars except tab/newline
+      s = s.replace(/[\x00-\x08\x0B-\x1F\x7F]/g,'');
+      // Collapse runs of spaces
+      s = s.replace(/ {2,}/g,' ');
+      // Trim each line's edges
+      s = s.split('\n').map(l=>l.trimEnd()).join('\n');
+      // Remove leading/trailing blank lines
+      s = s.replace(/^\n+|\n+$/g,'');
+      let removed = beforeLen - s.length;
+      return {clean:s, removed};
+    }
+
+    function updatePreview(){
+      const {clean, removed} = sanitizeFooter(footerInput.value);
+      if(clean || removed){
+        previewWrap.style.display='block';
+        preview.textContent = clean || '(empty)';
+        removedInfo.textContent = removed ? `(${removed} hidden chars removed)` : '';
+      } else {
+        previewWrap.style.display='none';
+        removedInfo.textContent='';
+      }
+    }
+
+    footerInput.addEventListener('input', updatePreview);
+    footerInput.addEventListener('blur', updatePreview);
+
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       if(!fileInput.files.length){ setStatus('Choose a PDF first','error'); return; }
@@ -151,7 +196,10 @@
       try {
         const fd = new FormData();
         fd.append('pdf', fileInput.files[0]);
-        fd.append('footer_text', document.getElementById('footerText').value.trim());
+  const {clean} = sanitizeFooter(footerInput.value);
+  // Encode actual newlines as literal \n so backend add_footer.py (already converts literal \n to real newline) can re-expand safely.
+  const encoded = clean.replace(/\n/g, '\\n');
+  fd.append('footer_text', encoded);
         const pstart = document.getElementById('pageStart').value.trim();
         if(pstart) fd.append('page_start', pstart);
         const resp = await fetch('/cgi-bin/watermark.cgi', { method:'POST', body: fd });
@@ -174,6 +222,9 @@
         submitBtn.disabled = false; submitBtn.textContent='Generate PDF';
       }
     });
+
+    // Initialize preview if prefilled (unlikely)
+    updatePreview();
   })();
   </script>
 </body>
