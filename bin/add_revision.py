@@ -1,7 +1,7 @@
 #! /usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# Copyright 2019 Matt Post <post@cs.jhu.edu>
+# Copyright 2019–2025 Matt Post <post@cs.jhu.edu>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -41,6 +41,7 @@ import os
 import shutil
 import sys
 import tempfile
+import io
 
 from git.repo.base import Repo
 
@@ -58,6 +59,64 @@ from anthology.utils import (
 import lxml.etree as ET
 
 from datetime import datetime
+from pypdf import PdfReader, PdfWriter
+from reportlab.pdfgen import canvas
+
+WATERMARK_FONT = "Times-Roman"
+WATERMARK_SIZE = 16
+WATERMARK_LEFT_OFFSET_PT = 27  # distance from left edge in points (50% increase for margin)
+WATERMARK_GRAY = 0.55  # medium gray like arXiv
+
+
+def _make_vertical_watermark_page(w, h, text):
+    """Return a single-page PDF with vertical (rotated 90° CCW) watermark at left."""
+    buf = io.BytesIO()
+    c = canvas.Canvas(buf, pagesize=(w, h))
+    c.saveState()
+    c.setFont(WATERMARK_FONT, WATERMARK_SIZE)
+    c.setFillGray(WATERMARK_GRAY)
+    # Translate slightly from left then rotate so text reads bottom-to-top along left side.
+    c.translate(WATERMARK_LEFT_OFFSET_PT, 0)
+    c.rotate(90)
+    text_w = c.stringWidth(text, WATERMARK_FONT, WATERMARK_SIZE)
+    # Center along original page height (which becomes horizontal span after rotation)
+    x_draw = (h - text_w) / 2.0
+    y_draw = 0
+    c.drawString(x_draw, y_draw, text)
+    c.restoreState()
+    c.showPage()
+    c.save()
+    buf.seek(0)
+    return buf
+
+
+def add_revision_watermark(pdf_path, anth_id, revno, date):
+    """Return path to temp PDF with watermark added to first page (revisions only)."""
+    reader = PdfReader(pdf_path)
+    if not reader.pages:
+        return pdf_path
+    writer = PdfWriter()
+    first = reader.pages[0]
+    w = float(first.mediabox.width)
+    h = float(first.mediabox.height)
+    # Format date as DD-Mon-YYYY (e.g., 17-Sep-2025) for watermark display only.
+    try:
+        dt = datetime.strptime(date, "%Y-%m-%d")
+        display_date = dt.strftime("%d %b %Y")
+    except ValueError:
+        # If already in some unexpected format, just use original string.
+        display_date = date
+    text = f"ACL Anthology ID {anth_id} / revision {revno} / {display_date}"
+    overlay = PdfReader(_make_vertical_watermark_page(w, h, text)).pages[0]
+    first.merge_page(overlay)
+    writer.add_page(first)
+    for p in reader.pages[1:]:
+        writer.add_page(p)
+    fd, tmp_path = tempfile.mkstemp(suffix=".pdf")
+    os.close(fd)
+    with open(tmp_path, "wb") as out_f:
+        writer.write(out_f)
+    return tmp_path
 
 
 def validate_file_type(path):
@@ -101,7 +160,7 @@ def add_revision(
 
     change_letter = "e" if change_type == "erratum" else "v"
 
-    checksum = compute_hash_from_file(pdf_path)
+    # checksum will be computed after potential watermark insertion
 
     # Files for old-style IDs are stored under anthology-files/pdf/P/P19/*
     # Files for new-style IDs are stored under anthology-files/pdf/2020.acl/*
@@ -129,6 +188,14 @@ def add_revision(
         revno = 1 if change_type == "erratum" else 2
         for revision in revisions:
             revno = int(revision.attrib["id"]) + 1
+
+        # Insert watermark for revisions before computing checksum / updating XML
+        watermarked_temp_path = None
+        if change_type == "revision":
+            watermarked_temp_path = add_revision_watermark(pdf_path, anth_id, revno, date)
+            pdf_path = watermarked_temp_path
+
+        checksum = compute_hash_from_file(pdf_path)
 
         if not dry_run:
             # Update the URL hash on the <url> tag
@@ -201,6 +268,13 @@ def add_revision(
     if change_type == "revision":
         maybe_copy(pdf_path, canonical_path)
 
+    # Cleanup temp watermarked file if created
+    if 'watermarked_temp_path' in locals() and watermarked_temp_path and os.path.exists(watermarked_temp_path):
+        try:
+            os.remove(watermarked_temp_path)
+        except OSError:
+            pass
+
 
 def main(args):
     change_type = "erratum" if args.erratum else "revision"
@@ -222,6 +296,7 @@ def main(args):
         args.explanation,
         change_type=change_type,
         dry_run=args.dry_run,
+        date=args.date,
     )
 
     if args.path.startswith("http"):
