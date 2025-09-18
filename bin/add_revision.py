@@ -64,7 +64,9 @@ from reportlab.pdfgen import canvas
 
 WATERMARK_FONT = "Times-Roman"
 WATERMARK_SIZE = 16
-WATERMARK_LEFT_OFFSET_PT = 27  # distance from left edge in points (50% increase for margin)
+WATERMARK_LEFT_OFFSET_PT = (
+    27  # distance from left edge in points (50% increase for margin)
+)
 WATERMARK_GRAY = 0.55  # medium gray like arXiv
 
 
@@ -269,7 +271,11 @@ def add_revision(
         maybe_copy(pdf_path, canonical_path)
 
     # Cleanup temp watermarked file if created
-    if 'watermarked_temp_path' in locals() and watermarked_temp_path and os.path.exists(watermarked_temp_path):
+    if (
+        'watermarked_temp_path' in locals()
+        and watermarked_temp_path
+        and os.path.exists(watermarked_temp_path)
+    ):
         try:
             os.remove(watermarked_temp_path)
         except OSError:
