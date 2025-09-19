@@ -5,12 +5,12 @@
     <!-- {{- .Title -}} -->
     <span class="font-weight-normal">{{ $person.first }}</span> <span class="font-weight-bold">{{ $person.last }}</span>
     {{ with $person.orcid }}
-      <a href="https://orcid.org/{{.}}" title="ORCID profile for {{ $person.full | htmlEscape }}" target="_blank" rel="noopener">
-      <img src="https://i0.wp.com/info.orcid.org/wp-content/uploads/2021/12/orcid_16x16.gif?resize=16%2C16&ssl=1" alt="ORCID icon" class="align-middle mr-1"/>
+      <a href="https://orcid.org/{{.}}" title="ORCID profile" target="_blank" rel="noopener">
+        <i class="fa-brands fa-orcid" style="font-size:1rem; line-height:1; vertical-align:middle;"></i>
       </a>
     {{ else }}
       <a href="https://aclanthology.org/info/verification" title="How to verify an author" target="_blank" rel="noopener">
-      <i class="fas fa-question-circle" title="No ORCID ID available for {{ $person.full | htmlEscape }}"></i>
+      <i class="fas fa-question-circle" style="font-size:1rem; line-height:1; vertical-align:middle;"></i>
       </a>
     {{ end }}
   </h2>
