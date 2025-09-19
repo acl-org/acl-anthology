@@ -488,9 +488,6 @@ def parse_element(
         return attrib
 
     for element in xml_element:
-        if element.tag is etree.Comment:
-            continue
-
         # parse value
         tag = element.tag.lower()
         if tag in dont_parse_elements:
