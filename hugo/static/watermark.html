@@ -173,12 +173,33 @@
       return {clean:s, removed};
     }
 
+    function escapeHTML(s){
+      return s.replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]));
+    }
+
+    function renderPreview(clean){
+      // We only allow <i> and </i>. Escape everything first, then unescape allowed tags.
+      let esc = escapeHTML(clean);
+      // Re-enable <i> tags (case-insensitive not needed; we enforce lowercase in UI if we want)
+      esc = esc.replace(/&lt;i&gt;/g,'<i>').replace(/&lt;\/i&gt;/g,'</i>');
+      // Convert newlines to <br>
+      esc = esc.replace(/\n/g,'<br>');
+      return esc || '(empty)';
+    }
+
     function updatePreview(){
       const {clean, removed} = sanitizeFooter(footerInput.value);
       if(clean || removed){
         previewWrap.style.display='block';
-        preview.textContent = clean || '(empty)';
-        removedInfo.textContent = removed ? `(${removed} hidden chars removed)` : '';
+        preview.innerHTML = renderPreview(clean);
+        // Italic balance check
+        const openCount = (clean.match(/<i>/g) || []).length;
+        const closeCount = (clean.match(/<\/i>/g) || []).length;
+        let warn = '';
+        if(openCount !== closeCount){
+          warn = ' (unbalanced <i> tags)';
+        }
+        removedInfo.textContent = [removed ? `(${removed} hidden chars removed)` : '', warn].filter(Boolean).join(' ');
       } else {
         previewWrap.style.display='none';
         removedInfo.textContent='';
