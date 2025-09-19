@@ -8,6 +8,16 @@
   {{ with $person.comment }}
   <p class="font-weight-light text-muted">{{.}}</p>
   {{ end }}
+  {{ with $person.orcid }}
+  /* display orcid with icon according to branding specs */
+  <p class="font-weight-light text-muted">
+    ORCID iD:
+    <a href="https://orcid.org/{{.}}" title="ORCID profile for {{ $person.full | htmlEscape }}" target="_blank" rel="noopener">
+      <img src="/images/orcid_16x16.gif.webp" alt="ORCID icon" class="align-middle mr-1"/>
+      <span class="align-middle">{{.}}</span>
+    </a>
+  </p>
+  {{ end }}
   {{ with $person.variant_entries }}
   <p class="font-weight-light text-muted">
     <span class="font-italic">Also published as:</span>
