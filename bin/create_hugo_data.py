@@ -398,6 +398,8 @@ def export_people(anthology, builddir, dryrun):
                     data["full"] = f"{data['full']} ({', '.join(diff_script_variants)})"
             if person.comment is not None:
                 data["comment"] = person.comment
+            if person.orcid is not None:
+                data["orcid"] = person.orcid
             similar = anthology.people.similar.subset(person_id)
             if len(similar) > 1:
                 data["similar"] = list(similar - {person_id})
