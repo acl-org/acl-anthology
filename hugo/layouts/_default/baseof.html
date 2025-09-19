@@ -22,9 +22,8 @@
     {{ $sass_options := (dict "includePaths" (slice "assets/css" "assets/css/vendor/bootstrap/scss")) }}
     {{ $style := resources.Get "css/main.scss" | toCSS $sass_options | minify | fingerprint }}
     <link rel="stylesheet" href="{{ $style.RelPermalink }}" media="screen" />
-    <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.0/css/all.css" integrity="sha384-XLYVh3ZsmvjnjODXg/qvDYjcINmPLORACP+Tk6qA3jNLbStl84PzAeEz2Su02511$" crossorigin="anonymous"> -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.0/css/all.css" integrity="sha384-XLYVh3ZsmvjnjODXg/qvDYjcINmPLORACP+Tk6qA3jNLbStl84PzAeEz2Su02511$" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ relURL "css/academicons.min.css" }}">
-    <script src="https://kit.fontawesome.com/0bb771974e.js" crossorigin="anonymous"></script>
 
     {{ block "meta" . }}{{ end }}
   </head>
