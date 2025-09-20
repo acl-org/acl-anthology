@@ -128,7 +128,53 @@ def retrieve_url(remote_url: str, local_path: str):
     if outdir != "" and not os.path.exists(outdir):
         os.makedirs(outdir)
 
-    if remote_url.startswith("http"):
+    # Handle Google Drive share links like:
+    # - https://drive.google.com/file/d/<FILE_ID>/view?usp=sharing
+    # - https://drive.google.com/open?id=<FILE_ID>
+    if "drive.google.com" in remote_url:
+
+        def _extract_gdrive_id(url: str) -> Optional[str]:
+            m = re.search(r"/file/d/([^/]+)/", url)
+            if not m:
+                m = re.search(r"[?&]id=([^&]+)", url)
+            return m.group(1) if m else None
+
+        def _download_gdrive(file_id: str, dest: str) -> None:
+            session = requests.Session()
+            base = "https://drive.google.com/uc?export=download"
+            headers = {'User-Agent': 'acl-anthology/0.0.1'}
+            resp = session.get(
+                base, params={"id": file_id}, stream=True, headers=headers, timeout=100
+            )
+            # If Google adds a virus-scan confirmation, a cookie named download_warning_* appears.
+            token = None
+            for k, v in resp.cookies.items():
+                if k.startswith("download_warning"):
+                    token = v
+                    break
+            if token:
+                resp = session.get(
+                    base,
+                    params={"id": file_id, "confirm": token},
+                    stream=True,
+                    headers=headers,
+                    timeout=100,
+                )
+            resp.raise_for_status()
+            with open(dest, "wb") as f:
+                for chunk in resp.iter_content(32768):
+                    if chunk:
+                        f.write(chunk)
+
+        file_id = _extract_gdrive_id(remote_url)
+        if not file_id:
+            raise ValueError(
+                f"Could not parse Google Drive file ID from URL: {remote_url}"
+            )
+        _download_gdrive(file_id, local_path)
+        return True
+
+    elif remote_url.startswith("http"):
         import urllib.request
 
         cookieProcessor = urllib.request.HTTPCookieProcessor()

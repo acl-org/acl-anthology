@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2025.clasp">
+  <volume id="main" ingest-date="2025-09-06" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of the 2025 CLASP Conference on Language models And RePresentations (LARP)</booktitle>
+      <editor><first>Nikolai</first><last>Ilinykh</last></editor>
+      <editor><first>Mattias</first><last>Appelgren</last></editor>
+      <editor><first>Erik</first><last>Lagerstedt</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Gothenburg, Sweden</address>
+      <month>September</month>
+      <year>2025</year>
+      <url hash="47821b6b">2025.clasp-main</url>
+      <venue>clasp</venue>
+      <venue>ws</venue>
+      <isbn>979-8-89176-249-7</isbn>
+    </meta>
+    <frontmatter>
+      <url hash="af4056f7">2025.clasp-main.0</url>
+      <bibkey>clasp-ws-2025-main</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Simple Morphology, Complex Models: A Benchmark Study and Error Analysis of <fixed-case>POS</fixed-case> Tagging for Martinican Creole</title>
+      <author><first>Ludovic</first><last>Mompelat</last><affiliation>University of Miami</affiliation></author>
+      <pages>1-10</pages>
+      <abstract>Part-of-speech (POS) tagging is a foundational task in NLP pipelines, but its development for Creole languages remains limited due to sparse annotated data and structural divergence from high-resource languages. This paper presents the first POS tagging benchmarks for Martinican Creole (MC) as well as a linguistically motivated evaluation framework, comparing three fine-tuned transformer-based models (mBERT, XLM-Roberta, and CreoleVal). Rather than focusing solely on aggregate metrics, we perform detailed error analysis, examining model specific confusion patterns, lexical disambiguation, and out-of-vocabulary behavior. Our results yield F1 scores of 0.92 for mBERT (best on the X tag and connector distinctions), 0.91 for XLM-Roberta (strongest on numeric tags and conjunction structures), and 0.94 for CreoleVal (leading on both functional and content categories and lowest OOV error rate). We propose future directions involving model fusion, targeted and linguistically motivated annotation, and reward-guided Large Language Models data augmentation to improve our current tagger. Our linguistically grounded error analysis for MC exposes key tagging challenges and demonstrates how targeted annotation and ensemble methods can meaningfully boost accuracy in under-resourced settings.</abstract>
+      <url hash="11b148b4">2025.clasp-main.1</url>
+      <bibkey>mompelat-2025-simple</bibkey>
+    </paper>
+    <paper id="2">
+      <title><fixed-case>E</fixed-case>vent<fixed-case>H</fixed-case>op<fixed-case>NLI</fixed-case>: A Functional Dataset for Systematically Diagnosing Logical Failures in <fixed-case>LLM</fixed-case> Temporal Reasoning</title>
+      <author><first>Ved</first><last>Mathai</last></author>
+      <author orcid="0000-0002-5989-3574"><first>Janet B.</first><last>Pierrehumbert</last><affiliation>University of Oxford</affiliation></author>
+      <pages>11-27</pages>
+      <abstract>This paper presents EventHopNLI, a simplified functional diagnostic dataset for the task of event temporal ordering. This paper uses this diagnostic dataset to improve the interpretability of the performance of attention-based language models on this task. Existing datasets based on natural data have multiple overlapping linguistic features. Simplifying and isolating these features improves interpretability. EventHopNLI is a programmatically-created NLI dataset that systematically varies over various complexity factors such as number of events, number of logical hops etc. Even though EventHopNLI is highly simplified, it still proves challenging to language models. Being functional, the dataset is dynamic. This reduces the risk that the data is available to language models during training. We ablate over the different complexity parameters and illustrate different shortcomings of attention-based models at this task. We discuss the performance of RoBERTa-large, Llama-405B and GPT-4o.</abstract>
+      <url hash="a5120b83">2025.clasp-main.2</url>
+      <bibkey>mathai-pierrehumbert-2025-eventhopnli</bibkey>
+    </paper>
+    <paper id="3">
+      <title>Combining Information State Update, Harel Statecharts and <fixed-case>LLM</fixed-case>s for controllable and flexible Conversational <fixed-case>AI</fixed-case></title>
+      <author><first>Vladislav</first><last>Maraev</last><affiliation>Göteborg University</affiliation></author>
+      <author><first>Alexander</first><last>Berman</last><affiliation>Göteborg University</affiliation></author>
+      <author orcid="0000-0002-5459-054X"><first>Staffan</first><last>Larsson</last><affiliation>Göteborg University</affiliation></author>
+      <pages>28-37</pages>
+      <abstract>The rise of LLM-based approaches to dialogue systems has created an increased need for controllable dialogue. This paper addresses this need by presenting an implementation of a dialogue system based on information state update approach according to Larsson (2002). This enables the integration of rule-based handling of dialogue, expressed by Harel’s statecharts (1987), and Larsson’s theoretical account grounded in theories of dialogue, expressed by information state update rules. We demonstrate how our approach applies to dialogue domains involving form-filling. We also propose how LLMs can be employed to inject domain knowledge and be used in various components of a hybrid dialogue system, while maintaining control over the overall dialogue logic.</abstract>
+      <url hash="f930162d">2025.clasp-main.3</url>
+      <bibkey>maraev-etal-2025-combining</bibkey>
+    </paper>
+    <paper id="4">
+      <title>Towards Neuro-Symbolic Approaches for Referring Expression Generation</title>
+      <author orcid="0009-0001-1227-2543"><first>Manar</first><last>Ali</last><affiliation>Universität Bielefeld</affiliation></author>
+      <author><first>Marika</first><last>Sarzotti</last><affiliation>University of Trento</affiliation></author>
+      <author orcid="0009-0003-2529-9213"><first>Simeon</first><last>Junker</last><affiliation>Universität Bielefeld</affiliation></author>
+      <author orcid="0000-0002-9613-5713"><first>Hendrik</first><last>Buschmeier</last><affiliation>Universität Bielefeld</affiliation></author>
+      <author orcid="0000-0002-1384-1218"><first>Sina</first><last>Zarrieß</last><affiliation>Bielefeld University</affiliation></author>
+      <pages>38-50</pages>
+      <abstract>Referring Expression Generation (REG) has a long-standing tradition in computational linguistics, and often aims to develop cognitively plausible models of language generation and dialogue modeling, in a multimodal context. Traditional approaches to reference have been mostly symbolic, recent ones have been mostly neural. Inspired by the recent interest in neuro-symbolic approaches in both fields – language and vision – we revisit REG from these perspectives. We review relevant neuro-symbolic approaches to language generation on the one hand and vision on the other hand, exploring possible future directions for cognitively plausible models of reference generation/reference game modeling.</abstract>
+      <url hash="e6ef5b49">2025.clasp-main.4</url>
+      <bibkey>ali-etal-2025-towards</bibkey>
+    </paper>
+    <paper id="5">
+      <title>Extracting a Prototypical Argumentative Pattern in Financial <fixed-case>Q</fixed-case>&amp;As</title>
+      <author orcid="0009-0007-8918-1440"><first>Giulia</first><last>D’Agostino</last></author>
+      <author orcid="0000-0003-1877-6002"><first>Michiel</first><last>Van Der Meer</last></author>
+      <author orcid="0000-0002-6849-1374"><first>Chris</first><last>Reed</last><affiliation>University of Dundee</affiliation></author>
+      <pages>51-64</pages>
+      <abstract>Argumentative patterns are recurrent strategies adopted to pursue a definite communicative goal in a discussion. For instance, in Q&amp;A exchanges during financial conference calls, a pattern called Request of Confirmation of Inference (ROCOI) helps streamline conversations by requesting explicit verification of inferences drawn from a statement.Our work presents two ROCOI extraction approaches from interrogative units: sequence labeling and text-to-text generation. We experiment with multiple models for each task formulation to explore which models can effectively and robustly perform pattern extraction. Results indicate that machine-based ROCOI extraction is an achievable task, though variation among metrics that are designed for different evaluation dimensions makes obtaining a clear picture difficult. We find that overall, ROCOI extraction is performed best via sequence labeling, though with ample room for improvement. We encourage future work to extend the study to new argumentative patterns.</abstract>
+      <url hash="c569932f">2025.clasp-main.5</url>
+      <bibkey>dagostino-etal-2025-extracting</bibkey>
+    </paper>
+  </volume>
+</collection>
