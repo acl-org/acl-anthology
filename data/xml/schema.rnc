@@ -13,13 +13,12 @@ first = element first { xsd:string { pattern="(\S(.*\S)?)?" } }
 last = element last { xsd:string { pattern="\S(.*\S)?" } }
 affiliation = element affiliation { text }
 Variant = element variant { attribute script { xsd:string }, (first? & last) }
-# Allow canonical https ORCID URL or bare 16-digit hyphenated ORCID iD with checksum (last char may be X)
+# Store bare 16-digit hyphenated ORCID iD with checksum (last char may be X)
 OrcidId = xsd:string { pattern="([0-9]{4}-){3}[0-9]{3}[0-9X]" }
-OrcidUrl = xsd:anyURI { pattern="https://orcid\.org/([0-9]{4}-){3}[0-9]{3}[0-9X]" }
 
 Person =
   attribute id { xsd:NCName }?,
-  attribute orcid { OrcidUrl | OrcidId }?,
+  attribute orcid { OrcidId }?,
   (first? & last & Variant? & affiliation?)
 
 local-filename = xsd:string { pattern="[A-Za-z0-9._\-]+" }
