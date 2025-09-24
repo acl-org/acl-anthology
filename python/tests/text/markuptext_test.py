@@ -205,7 +205,10 @@ def test_markup_from_xml(inp, out):
     assert markup.as_html() == out["html"]
     assert markup.as_latex() == out["latex"]
     assert markup.as_xml() == inp
-    assert etree.tostring(markup.to_xml("title"), encoding="unicode") == xml
+    if inp == "":
+        assert etree.tostring(markup.to_xml("title"), encoding="unicode") == "<title/>"
+    else:
+        assert etree.tostring(markup.to_xml("title"), encoding="unicode") == xml
     assert markup.contains_markup == ("<" in out["html"])
 
 
