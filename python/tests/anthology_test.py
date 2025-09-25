@@ -176,3 +176,11 @@ def test_load_all(anthology):
     assert anthology.people.is_data_loaded
     assert anthology.sigs.is_data_loaded
     assert anthology.venues.is_data_loaded
+
+
+def test_compute_cache_dict(anthology):
+    datadir = str(anthology.datadir.resolve())
+    assert anthology._compute_cache_dict([]) == {"datadir": datadir}
+    cache_dict = anthology._compute_cache_dict(["yaml/*"])
+    assert len(list(cache_dict.keys())) == 2
+    assert "yaml/people.yaml" in cache_dict

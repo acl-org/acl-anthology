@@ -249,7 +249,6 @@ class Collection(SlottedDict[Volume]):
         if self.is_data_loaded:
             return
 
-        log.debug(f"Parsing XML data file: {self.path}")
         current_volume = cast(Volume, None)  # noqa: F841
         for _, element in etree.iterparse(
             self.path,
