@@ -807,7 +807,7 @@ def create_xml(
 
         for path, type_ in paper['attachments']:
             # skip copyrights
-            if type_ == "copyright":
+            if "copyright" in type_:
                 continue
 
             make_simple_element(
