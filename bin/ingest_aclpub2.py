@@ -992,7 +992,7 @@ def main(
         people=people,
         papers=papers,
         volume_type=volume_type,
-        is_workshop=workshop is not None,
+        is_workshop=workshop,
     )
 
     if parent_event is not None:
