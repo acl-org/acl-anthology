@@ -2,36 +2,23 @@
 Title: Anthology development and API
 linktitle: API
 subtitle: Information on how to programmatically access Anthology data
-date: "2019-11-15"
+date: "2025-09-26"
 ---
 
-### API
+### Data organization
 
-All Anthology data is stored under [the data directory](https://github.com/acl-org/acl-anthology/tree/master/data).
+All the data in the ACL Anthology is stored under [the data directory](https://github.com/acl-org/acl-anthology/tree/master/data) in our Github repository.
 In the `xml` directory are the files that contain all the Anthology metadata, in a format described below.
-The `yaml` directory contains various other important information.
+The `yaml` directory contains various other important information relating to authors and venues.
+
+### Python API
 
 In addition, we have a Python API that defines objects for papers, authors, volumes, and so on.
-This is all accessible by an `Anthology` object that can be access in the following manner.
-First, clone [the Anthology Github repo](https://github.com/acl-org/acl-anthology) and setup your environment:
+This can be installed via pip from [PyPI](https://pypi.org/project/acl-anthology/) or built from source.
+For more information on that, please see our extensive developer documentation which is linked from the PyPi page.
 
-```bash
-git clone https://github.com/acl-org/acl-anthology
-export ACLANTHOLOGY=$(pwd)/acl-anthology
-export PYTHONPATH+=:$ACLANTHOLOGY/bin
-```
-
-You can now access the Anthology from Python:
-
-```python
-from anthology import Anthology
-
-anthology = Anthology(importdir='acl-anthology/data')
-for id_, paper in anthology.papers.items():
-  print(paper.anthology_id, paper.get_title('text')
-```
-
-See the script [create_hugo_yaml.py](https://github.com/acl-org/acl-anthology/blob/master/bin/create_hugo_yaml.py) to see how to iterate over the Anthology object and access other information such as authors and volumes.
+In addition to the documentation, there are many examples of using the module in the scripts our `bin` directory.
+The [create_hugo_yaml.py](https://github.com/acl-org/acl-anthology/blob/master/bin/create_hugo_yaml.py), for example, demonstrates how we generate YAML data structures to build our static site.
 
 ### Authoritative XML format
 
