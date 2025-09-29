@@ -692,6 +692,7 @@ def create_xml(
     proceedings_pdf_dest_path: str,
     people,
     papers: List[Dict[str, str]],
+    volume_type: str = "proceedings",
     is_workshop=False,
 ) -> None:
     venue_name = meta['anthology_venue_id'].lower()
@@ -703,7 +704,7 @@ def create_xml(
 
     volume_node = make_simple_element(
         'volume',
-        attrib={'id': volume_name, 'ingest-date': ingest_date, "type": "proceedings"},
+        attrib={'id': volume_name, 'ingest-date': ingest_date, "type": volume_type},
     )
     # Replace the existing one if present
     root_node.find(f"./volume[@id='{volume_name}']")
@@ -928,6 +929,14 @@ def create_xml(
     default=None,
     help='Event ID (e.g., naacl-2025) workshop was colocated with',
 )
+@click.option(
+    '-j',
+    '--journal',
+    'volume_type',
+    flag_value='journal',
+    default='proceedings',
+    help='Set volume type to journal (default: proceedings)',
+)
 def main(
     ingestion_dir,
     pdfs_dir,
@@ -936,6 +945,7 @@ def main(
     ingest_date,
     workshop,
     parent_event,
+    volume_type,
 ):
     anthology_datadir = Path(sys.argv[0]).parent / ".." / "data"
     # anthology = Anthology(
@@ -981,6 +991,7 @@ def main(
         proceedings_pdf_dest_path=proceedings_pdf_dest_path,
         people=people,
         papers=papers,
+        volume_type=volume_type,
         is_workshop=workshop is not None,
     )
 
