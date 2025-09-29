@@ -15,7 +15,7 @@ The `yaml` directory contains various other important information relating to au
 
 In addition, we have a Python API that defines objects for papers, authors, volumes, and so on.
 This can be installed via pip from [PyPI](https://pypi.org/project/acl-anthology/) or built from source.
-For more information on that, please see our extensive developer documentation which is linked from the PyPi page.
+For more information on that, please see our [extensive developer documentation](https://acl-anthology.readthedocs.io/).
 
 In addition to the documentation, there are many examples of using the module in the scripts our `bin` directory.
 The [create_hugo_yaml.py](https://github.com/acl-org/acl-anthology/blob/master/bin/create_hugo_yaml.py), for example, demonstrates how we generate YAML data structures to build our static site.

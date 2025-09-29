@@ -11,4 +11,4 @@ All of this data is accessible via [the ACL Anthology Python module on PyPI](htt
 pip install acl-anthology
 ```
 
-Please see our [developer documentation]({{<relref "/info/development.md" >}}) for more information.
+Please see our [repository documentation]({{<relref "/info/development.md" >}}) or the [Python module documentation](https://acl-anthology.readthedocs.io/) for more information.
