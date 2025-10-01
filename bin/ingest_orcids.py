@@ -159,7 +159,20 @@ def main(
             continue
 
         def match_names(yaml_name_tuple, xml_name_tuple):
-            """Match a YAML name tuple to the XML name tuple"""
+            """Match a YAML name tuple to the XML name tuple.
+
+            Basic sanity check on name matching: we ensure that the YAML last name
+            ends the XML string that concatenates names in both directions.
+
+            e.g.,
+
+            YAML: "Post"
+            XML: ("Matt Post", "Post Matt")
+            match: True
+
+            We do both directions because of issues with Chinese names which have inconsistent
+            conventions.
+            """
 
             xml_name_forward = f"{xml_name_tuple[0]} {xml_name_tuple[1]}"
             xml_name_reverse = f"{xml_name_tuple[1]} {xml_name_tuple[0]}"
