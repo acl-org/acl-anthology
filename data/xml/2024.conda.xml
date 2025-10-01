@@ -27,7 +27,7 @@
       <author><first>Chuang</first><last>Liu</last><affiliation>Tianjin University</affiliation></author>
       <author><first>Renren</first><last>Jin</last></author>
       <author><first>Mark</first><last>Steedman</last><affiliation>University of Edinburgh</affiliation></author>
-      <author><first>Deyi</first><last>Xiong</last><affiliation>Tianjin University</affiliation></author>
+      <author orcid="0000-0002-2353-5038"><first>Deyi</first><last>Xiong</last><affiliation>Tianjin University</affiliation></author>
       <pages>1-12</pages>
       <abstract>Chinese LLMs demonstrate impressive performance on NLP tasks, particularly on discipline knowledge benchmarks, with some results approaching those of GPT-4. Previous research has viewed these advancements as potential outcomes of data contamination or leakage, prompting efforts to create new detection methods and address evaluation issues in LLM benchmarks. However, there has been a lack of comprehensive assessment of the evolution of Chinese LLMs. To address this gap, this paper offers a thorough investigation of Chinese LLMs on discipline knowledge evaluation, delving into the advancements of various LLMs, including a group of related models and others. Specifically, we have conducted six assessments ranging from knowledge memorization to comprehension for robustness, encompassing tasks like predicting incomplete questions and options, identifying behaviors by the contaminational fine-tuning, and answering rephrased questions. Experimental findings indicate a positive correlation between the release time of LLMs and their memorization capabilities, but they struggle with variations in original question-options pairs. Additionally, our findings suggest that question descriptions have a more significant impact on LLMs’ performance.</abstract>
       <url hash="c02a0e92">2024.conda-1.1</url>
@@ -37,8 +37,8 @@
     <paper id="2">
       <title>Confounders in Instance Variation for the Analysis of Data Contamination</title>
       <author><first>Behzad</first><last>Mehrbakhsh</last><affiliation>Universidad Politécnica de Valencia</affiliation></author>
-      <author><first>Dario</first><last>Garigliotti</last><affiliation>University of Bergen</affiliation></author>
-      <author><first>Fernando</first><last>Martínez-Plumed</last><affiliation>Universitat Politècnica de València</affiliation></author>
+      <author orcid="0000-0002-0331-000X"><first>Dario</first><last>Garigliotti</last><affiliation>University of Bergen</affiliation></author>
+      <author orcid="0000-0003-2902-6477"><first>Fernando</first><last>Martínez-Plumed</last><affiliation>Universitat Politècnica de València</affiliation></author>
       <author><first>Jose</first><last>Hernandez-Orallo</last><affiliation>Universitat Politecnica de Valencia</affiliation></author>
       <pages>13-21</pages>
       <abstract>Test contamination is a serious problem for the evaluation of large language models (LLMs) because it leads to the overestimation of their performance and a quick saturation of benchmarks, even before the actual capability is achieved. One strategy to address this issue is the (adversarial) generation of variations, by including different exemplars and different rephrasings of the questions. However, these two interventions can lead to instances that can be more difficult (accumulating on the expected loss of performance by partly removing the contamination) but also to instances that can be less difficult (cancelling the expected loss of performance), which would make contamination undetectable. Understanding these two phenomena in terms of instance difficulty is critical to determine and measure contamination. In this paper we conduct a comprehensive analysis of these two interventions on an addition task with fine-tuned LLAMA-2 models.</abstract>
@@ -49,7 +49,7 @@
     <paper id="3">
       <title>A Taxonomy for Data Contamination in Large Language Models</title>
       <author><first>Medha</first><last>Palavalli</last></author>
-      <author><first>Amanda</first><last>Bertsch</last><affiliation>Carnegie Mellon University</affiliation></author>
+      <author orcid="0000-0002-1368-1111"><first>Amanda</first><last>Bertsch</last><affiliation>Carnegie Mellon University</affiliation></author>
       <author><first>Matthew</first><last>Gormley</last><affiliation>Solventum and School of Computer Science, Carnegie Mellon University</affiliation></author>
       <pages>22-40</pages>
       <abstract>Large language models pretrained on extensive web corpora demonstrate remarkable performance across a wide range of downstream tasks. However, a growing concern is data contamination, where evaluation datasets may unintentionally be contained in the pretraining corpus, inflating model performance. Decontamination, the process of detecting and removing such data, is a potential solution; yet these contaminants may originate from altered versions of the test set, evading detection during decontamination. How different types of contamination impact the performance of language models on downstream tasks is not fully understood. We present a taxonomy that categorizes the various types of contamination encountered by LLMs during the pretraining phase and identify which types pose the highest risk. We analyze the impact of contamination on two key NLP tasks—summarization and question answering—revealing how different types of contamination influence task performance during evaluation.</abstract>
