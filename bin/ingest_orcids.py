@@ -69,11 +69,11 @@ def parse_paper_yaml(paper_path: str) -> List[Dict[str, str]]:
 @click.argument(
     'full_volume_id',
     type=str,
-    required=True,
+    required=False,
 )
 def main(
     paper_yaml: str,
-    full_volume_id: str,
+    full_volume_id: str = None,
 ):
     anthology_datadir = Path(sys.argv[0]).parent / ".." / "data"
     # anthology = Anthology(
@@ -85,6 +85,10 @@ def main(
 
     # people = AnthologyIndex(srcdir=anthology_datadir)
     # people.bibkeys = load_bibkeys(anthology_datadir)
+
+    if full_volume_id is None:
+        full_volume_id = Path(paper_yaml).name.replace(".yaml", "")
+        print(f"Taking full volume ID from file name: {full_volume_id}", file=sys.stderr)
 
     # Load the papers.yaml file, skipping non-archival papers
     papers = [p for p in parse_paper_yaml(paper_yaml) if p["archival"]]
@@ -155,7 +159,20 @@ def main(
             continue
 
         def match_names(yaml_name_tuple, xml_name_tuple):
-            """Match a YAML name tuple to the XML name tuple"""
+            """Match a YAML name tuple to the XML name tuple.
+
+            Basic sanity check on name matching: we ensure that the YAML last name
+            ends the XML string that concatenates names in both directions.
+
+            e.g.,
+
+            YAML: "Post"
+            XML: ("Matt Post", "Post Matt")
+            match: True
+
+            We do both directions because of issues with Chinese names which have inconsistent
+            conventions.
+            """
 
             xml_name_forward = f"{xml_name_tuple[0]} {xml_name_tuple[1]}"
             xml_name_reverse = f"{xml_name_tuple[1]} {xml_name_tuple[0]}"
