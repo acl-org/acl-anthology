@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ACL Anthology PDF Watermark / Footer Tool</title>
+  <style>
+    :root {
+      --bg: #0f1115;
+      --panel: #1b1f27;
+      --panel-alt: #232a35;
+      --accent: #3b82f6;
+      --accent-hover: #2563eb;
+      --danger: #dc2626;
+      --ok: #16a34a;
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --radius: 12px;
+      --focus: 0 0 0 3px rgba(59,130,246,0.35);
+      font-family: system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,sans-serif;
+    }
+    html, body { height: 100%; margin: 0; background: var(--bg); color: var(--text); }
+    body { display: flex; flex-direction: column; }
+    header { padding: 1.25rem 2rem; font-size: 1.25rem; font-weight: 600; letter-spacing:.5px; }
+    main { width: 100%; max-width: 960px; margin: 0 auto 3rem; padding: 0 2rem 2rem; box-sizing: border-box; }
+    h1 { margin: .25rem 0 1.5rem; font-size: clamp(1.6rem,2.4vw,2.3rem); }
+    p.lead { margin-top: 0; color: var(--muted); line-height: 1.4; max-width: 60ch; }
+    .card { background: radial-gradient(circle at 25% 15%, #222a35, #161b22); border: 1px solid #2a3140; padding: 1.25rem 1.5rem 1.75rem; border-radius: var(--radius); box-shadow: 0 4px 18px -6px rgba(0,0,0,0.55), 0 2px 4px -1px rgba(0,0,0,0.35); }
+    .grid { display: grid; gap: 1.25rem; grid-template-columns: 1fr 1fr; }
+    @media (max-width: 860px) { .grid { grid-template-columns: 1fr; } }
+    label { font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; font-weight: 600; display: block; margin-bottom: .35rem; color: var(--muted); }
+    textarea, input[type=number] { width: 100%; background: var(--panel-alt); color: var(--text); border: 1px solid #2e3643; border-radius: 8px; padding: .85rem 1rem; font-size: .95rem; line-height: 1.4; resize: vertical; min-height: 140px; box-sizing: border-box; }
+    input[type=number] { min-height: unset; padding: .65rem .85rem; width: 160px; }
+    textarea:focus, input:focus { outline: none; box-shadow: var(--focus); border-color: var(--accent); }
+    .drop { position: relative; border: 2px dashed #334155; border-radius: var(--radius); padding: 2rem 1.5rem; text-align: center; background: linear-gradient(145deg,#1e2530,#14181f); transition: border-color .25s, background .25s; cursor: pointer; }
+    .drop.dragover { border-color: var(--accent); background: linear-gradient(145deg,#233044,#18202a); }
+    .drop input[type=file] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+    .file-info { font-size: .85rem; margin-top: .75rem; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .actions { margin-top: 1.75rem; display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; }
+    button { background: var(--accent); color: #fff; border: none; font-weight: 600; letter-spacing:.3px; padding: .85rem 1.3rem; font-size: .95rem; border-radius: 8px; cursor: pointer; display:inline-flex; align-items:center; gap:.55rem; box-shadow: 0 2px 6px -1px rgba(0,0,0,.5), 0 1px 2px rgba(0,0,0,.25); }
+    button:hover { background: var(--accent-hover); }
+    button:focus { outline: none; box-shadow: var(--focus); }
+    button.secondary { background: #334155; }
+    button.secondary:hover { background: #475569; }
+    .status { font-size: .85rem; color: var(--muted); margin-left: auto; display: flex; gap:.6rem; align-items:center; }
+    .status span[data-state="ok"] { color: var(--ok); }
+    .status span[data-state="error"] { color: var(--danger); }
+    .notice { margin-top: 1.5rem; font-size: .75rem; line-height: 1.3; color: #64748b; }
+    code { background:#1e2530; padding: .15rem .4rem; border-radius: 4px; font-size: .7rem; }
+    footer { margin-top: auto; padding: 2rem; text-align: center; font-size: .7rem; color: #475569; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <header>ACL Anthology • PDF Footer/Watermark Tool</header>
+  <main>
+    <h1>Add ACL-style footer & page numbers</h1>
+  <p class="lead">Upload a PDF and optionally add page numbers plus a first-page footer block. Inline italics: wrap spans in <code>&lt;i&gt;...&lt;/i&gt;</code>. Press Enter for a new footer line; lines are sent as literal <code>\n</code> sequences to the server.</p>
+    <form id="wmForm" class="card" autocomplete="off">
+      <div class="grid">
+        <div>
+          <label for="pdf">PDF File</label>
+          <div id="drop" class="drop" tabindex="0" aria-label="Drag and drop a PDF or click to choose">
+            <strong>Drop PDF here</strong><br/>
+            <span style="font-size:.8rem; color:var(--muted);">(or click to browse)</span>
+            <input type="file" id="pdf" name="pdf" accept="application/pdf" required />
+            <div class="file-info" id="fileInfo">No file selected</div>
+          </div>
+        </div>
+        <div>
+            <label for="footerText">Footer (first page only)</label>
+            <textarea id="footerText" name="footerText" placeholder="Example: <i>Proceedings of ACL 2025 (Pages 1–10)</i>" spellcheck="true"></textarea>
+        </div>
+      </div>
+      <div style="margin-top:1rem; display:flex; flex-wrap:wrap; gap:2rem; align-items:flex-start;">
+        <div>
+          <label for="pageStart">Starting page number (optional)</label>
+          <input type="number" id="pageStart" name="pageStart" min="1" inputmode="numeric" placeholder="e.g. 5" />
+        </div>
+        <div style="flex:1 1 320px; max-width:560px;">
+          <label>Preview Tips</label>
+          <div style="font-size:.72rem; line-height:1.25; background:var(--panel-alt); padding:.75rem .85rem; border:1px solid #2a3140; border-radius:8px;">
+            Use <code>&lt;i&gt;italics&lt;/i&gt;</code>. Multi‑line footers are centered. Page numbers appear on every page. Footer sits above the number.<br/>Maximum upload size: 25MB.
+          </div>
+        </div>
+      </div>
+      <div class="actions">
+        <button type="submit" id="submitBtn">Generate PDF</button>
+        <button type="button" class="secondary" id="resetBtn" title="Clear form">Reset</button>
+        <div class="status" id="status" aria-live="polite"></div>
+      </div>
+      <div id="previewWrap" style="margin-top:1.25rem; display:none;">
+        <label style="display:flex; align-items:center; gap:.5rem; font-size:.7rem; font-weight:600; letter-spacing:.05em; color:var(--muted);">Sanitized Preview <span id="removedInfo" style="font-weight:400; color:#64748b;"></span></label>
+        <div id="footerPreview" style="font-family: 'Times New Roman', Times, serif; font-size:13px; background:var(--panel-alt); border:1px solid #2a3140; border-radius:8px; padding:12px 10px; line-height:1.25; text-align:center; white-space:pre-line; min-height:40px;">
+        </div>
+      </div>
+      <p class="notice">Nothing is permanently stored; processing happens in-memory / temporary files and the result is streamed back. Avoid uploading sensitive material.<br/>Source script: <code>add_footer.py</code>.</p>
+    </form>
+  </main>
+  <footer>&copy; 2025 ACL Anthology. Tool generated dynamically.</footer>
+  <script>
+  (function(){
+    const form = document.getElementById('wmForm');
+    const drop = document.getElementById('drop');
+    const fileInput = document.getElementById('pdf');
+    const fileInfo = document.getElementById('fileInfo');
+    const status = document.getElementById('status');
+  const submitBtn = document.getElementById('submitBtn');
+    const resetBtn = document.getElementById('resetBtn');
+  const footerInput = document.getElementById('footerText');
+  const preview = document.getElementById('footerPreview');
+  const previewWrap = document.getElementById('previewWrap');
+  const removedInfo = document.getElementById('removedInfo');
+
+    const MAX_SIZE = 25 * 1024 * 1024; // 25MB
+
+    function setStatus(msg, type){
+      status.textContent = msg || '';
+      status.dataset.state = type || '';
+    }
+
+    function humanSize(bytes){
+      if(bytes < 1024) return bytes + ' B';
+      const units=['KB','MB','GB'];
+      let u=-1; do { bytes/=1024; ++u; } while(bytes>=1024 && u<units.length-1);
+      return bytes.toFixed(1)+' '+units[u];
+    }
+
+    function handleFiles(files){
+      if(!files || !files.length) return;
+      const f = files[0];
+      if(f.type !== 'application/pdf' && !f.name.toLowerCase().endsWith('.pdf')){
+        setStatus('File must be a PDF','error');
+        fileInput.value='';
+        fileInfo.textContent='No file selected';
+        return;
+      }
+      if(f.size > MAX_SIZE){
+        setStatus('File exceeds 25MB limit','error');
+        fileInput.value='';
+        fileInfo.textContent='No file selected';
+        return;
+      }
+      fileInfo.textContent = f.name + ' (' + humanSize(f.size) + ')';
+      setStatus('Ready','ok');
+    }
+
+    drop.addEventListener('dragover', e => { e.preventDefault(); drop.classList.add('dragover'); });
+    drop.addEventListener('dragleave', e => { drop.classList.remove('dragover'); });
+    drop.addEventListener('drop', e => { e.preventDefault(); drop.classList.remove('dragover'); handleFiles(e.dataTransfer.files); fileInput.files = e.dataTransfer.files; });
+    fileInput.addEventListener('change', e => handleFiles(e.target.files));
+    resetBtn.addEventListener('click', () => { form.reset(); fileInfo.textContent='No file selected'; setStatus(''); });
+
+    function sanitizeFooter(raw){
+      if(!raw) return {clean:'', removed:0};
+      let beforeLen = raw.length;
+      // Normalize line breaks
+      let s = raw.replace(/\r\n?/g,'\n');
+      // Replace various Unicode space-ish chars with normal space
+      s = s.replace(/[\u00A0\u2000-\u200B\u202F\u205F\u3000]/g,' ');
+      // Remove zero-width joiners & directional marks
+      s = s.replace(/[\u200C\u200D\uFEFF\u202A-\u202E\u2066-\u2069]/g,'');
+      // Remove other control chars except tab/newline
+      s = s.replace(/[\x00-\x08\x0B-\x1F\x7F]/g,'');
+      // Collapse runs of spaces
+      s = s.replace(/ {2,}/g,' ');
+      // Trim each line's edges
+      s = s.split('\n').map(l=>l.trimEnd()).join('\n');
+      // Remove leading/trailing blank lines
+      s = s.replace(/^\n+|\n+$/g,'');
+      let removed = beforeLen - s.length;
+      return {clean:s, removed};
+    }
+
+    function updatePreview(){
+      const {clean, removed} = sanitizeFooter(footerInput.value);
+      if(clean || removed){
+        previewWrap.style.display='block';
+        preview.textContent = clean || '(empty)';
+        removedInfo.textContent = removed ? `(${removed} hidden chars removed)` : '';
+      } else {
+        previewWrap.style.display='none';
+        removedInfo.textContent='';
+      }
+    }
+
+    footerInput.addEventListener('input', updatePreview);
+    footerInput.addEventListener('blur', updatePreview);
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if(!fileInput.files.length){ setStatus('Choose a PDF first','error'); return; }
+      setStatus('Uploading…','');
+      submitBtn.disabled = true; submitBtn.textContent='Working…';
+      try {
+        const fd = new FormData();
+        fd.append('pdf', fileInput.files[0]);
+  const {clean} = sanitizeFooter(footerInput.value);
+  // Encode actual newlines as literal \n so backend add_footer.py (already converts literal \n to real newline) can re-expand safely.
+  const encoded = clean.replace(/\n/g, '\\n');
+  fd.append('footer_text', encoded);
+        const pstart = document.getElementById('pageStart').value.trim();
+        if(pstart) fd.append('page_start', pstart);
+        const resp = await fetch('/cgi-bin/watermark.cgi', { method:'POST', body: fd });
+        if(!resp.ok){
+          const txt = await resp.text();
+          throw new Error(txt || ('HTTP '+resp.status));
+        }
+        // Expect a PDF
+        const blob = await resp.blob();
+        if(blob.type !== 'application/pdf'){ throw new Error('Unexpected response type'); }
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url; a.download = (fileInput.files[0].name.replace(/\.pdf$/i,'') + '.watermarked.pdf');
+        document.body.appendChild(a); a.click(); a.remove();
+        setStatus('Done','ok');
+      } catch(err){
+        console.error(err);
+        setStatus(err.message || 'Error','error');
+      } finally {
+        submitBtn.disabled = false; submitBtn.textContent='Generate PDF';
+      }
+    });
+
+    // Initialize preview if prefilled (unlikely)
+    updatePreview();
+  })();
+  </script>
+</body>
+</html>
