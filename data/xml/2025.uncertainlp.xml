@@ -1,0 +1,303 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2025.uncertainlp">
+  <volume id="main" ingest-date="2025-10-28" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of the 2nd Workshop on Uncertainty-Aware NLP (UncertaiNLP 2025)</booktitle>
+      <editor><first>Noidea</first><last>Noidea</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Suzhou, China</address>
+      <month>November</month>
+      <year>2025</year>
+      <url hash="4871c4c0">2025.uncertainlp-main</url>
+      <venue>uncertainlp</venue>
+      <venue>ws</venue>
+      <isbn>979-8-89176-349-4</isbn>
+    </meta>
+    <frontmatter>
+      <url hash="a93277e0">2025.uncertainlp-main.0</url>
+      <bibkey>uncertainlp-ws-2025-main</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Uncertainty-driven Partial Diacritization for <fixed-case>A</fixed-case>rabic Text</title>
+      <author><first>Humaid</first><last>Ali Alblooshi</last></author>
+      <author><first>Artem</first><last>Shelmanov</last></author>
+      <author><first>Hanan</first><last>Aldarmaki</last></author>
+      <pages>1-10</pages>
+      <abstract>We present an uncertainty-based approach to Partial Diacritization (PD) for Arabic text. We evaluate three uncertainty metrics for this task: Softmax Response, BALD via MC-dropout, and Mahalanobis Distance. We further introduce a lightweight Confident Error Regularizer to improve model calibration. Our preliminary exploration illustrates possible ways to use uncertainty estimation for selectively retaining or discarding diacritics in Arabic text with an analysis of performance in terms of correlation with diacritic error rates. For instance, the model can be used to detect words with high diacritic error rates which tend to have higher uncertainty scores at inference time. On the Tashkeela dataset, the method maintains low Diacritic Error Rate while reducing the amount of visible diacritics on the text by up to 50% with thresholding-based retention.</abstract>
+      <url hash="bd34c3a5">2025.uncertainlp-main.1</url>
+      <bibkey>ali-alblooshi-etal-2025-uncertainty</bibkey>
+    </paper>
+    <paper id="2">
+      <title>Phases of Uncertainty: Confidence–Calibration Dynamics in Language Model Training</title>
+      <author><first>Aneesh</first><last>Durai</last></author>
+      <pages>11-16</pages>
+      <abstract>Autoregressive language models achieve strong performance across a wide range of natural language processing (NLP) tasks, yet their uncertainty estimates remain poorly understood, particularly during training. Prior work has primarily evaluated calibration and out-of-distribution (OOD) robustness at the final checkpoint, overlooking the dynamics that unfold earlier. We introduce a phase-based framework for tracking uncertainty metrics—including expected calibration error (ECE) and Kullback–Leibler (KL) divergence—across distinct stages of training. Using GPT-2 models trained across multiple random seeds, we find that uncertainty dynamics follow a consistent set of phases: models begin conservative and relatively well calibrated, but later phases introduce a paradoxical decoupling where confidence increases even as calibration worsens, especially under distribution shift. This paradox implies that the final checkpoint is not always the most reliable for deployment and motivates phase-aware strategies such as dynamic checkpoint selection or targeted calibration. Our findings highlight that uncertainty should be understood as a training-dependent property rather than a static one, opening new directions for scaling this framework to larger models, tasks, and distribution shift scenarios.</abstract>
+      <url hash="1f013f1a">2025.uncertainlp-main.2</url>
+      <bibkey>durai-2025-phases</bibkey>
+    </paper>
+    <paper id="3">
+      <title>Beyond Human Judgment: A <fixed-case>B</fixed-case>ayesian Evaluation of <fixed-case>LLM</fixed-case>s’ Moral Values Understanding</title>
+      <author><first>Maciej</first><last>Skorski</last></author>
+      <author><first>Alina</first><last>Landowska</last></author>
+      <pages>17-26</pages>
+      <abstract>How do Large Language Models understand moral dimensions compared to humans?This first comprehensive large-scale Bayesian evaluation of leading language models provides the answer. In contrast to prior approaches based on deterministic ground truth (obtained via majority or inclusion consensus), we obtain the labels by modelling annotators’ disagreement to capture both aleatoric uncertainty (inherent human disagreement) and epistemic uncertainty (model domain sensitivity).We evaluated Claude Sonnet 4, DeepSeek-V3, and Llama 4 Maverick across 250K+ annotations from nearly 700 annotators in 100K+ texts spanning social networks, news, and discussion forums. Our GPU-optimized Bayesian framework processed 1M+ model queries, revealing that AI models generally rank among the top 25% of annotators in terms of balanced accuracy, substantially better than average humans.Importantly, we find that AI produces far fewer false negatives than humans, highlighting their more sensitive moral detection capabilities.</abstract>
+      <url hash="99d8cee6">2025.uncertainlp-main.3</url>
+      <bibkey>skorski-landowska-2025-beyond</bibkey>
+    </paper>
+    <paper id="4">
+      <title>Do Large Language Models Know When Not to Answer in Medical <fixed-case>QA</fixed-case>?</title>
+      <author><first>Sravanthi</first><last>Machcha</last></author>
+      <author><first>Sushrita</first><last>Yerra</last></author>
+      <author><first>Sharmin</first><last>Sultana</last></author>
+      <author><first>Hong</first><last>Yu</last></author>
+      <author><first>Zonghai</first><last>Yao</last></author>
+      <pages>27-35</pages>
+      <abstract>Uncertainty awareness is essential for large language models (LLMs), particularly in safety-critical domains such as medicine where erroneous or hallucinatory outputs can cause harm. Yet most evaluations remain centered on accuracy, offering limited insight into model confidence and its relation to abstention. In this work, we present preliminary experiments that combine conformal prediction with abstention-augmented and perturbed variants of medical QA datasets. Our early results suggest a positive link between uncertainty estimates and abstention decisions, with this effect amplified under higher difficulty and adversarial perturbations. These findings highlight abstention as a practical handle for probing model reliability in medical QA.</abstract>
+      <url hash="40336ae4">2025.uncertainlp-main.4</url>
+      <bibkey>machcha-etal-2025-large</bibkey>
+    </paper>
+    <paper id="5">
+      <title>The Geometry of Creative Variability: How Credal Sets Expose Calibration Gaps in Language Models</title>
+      <author><first>Esteban</first><last>Garces Arias</last></author>
+      <author><first>Julian</first><last>Rodemann</last></author>
+      <author><first>Christian</first><last>Heumann</last></author>
+      <pages>36-50</pages>
+      <abstract>Understanding uncertainty in large language models remains a fundamental challenge, particularly in creative tasks where multiple valid outputs exist. We present a geometric framework using credal sets—convex hulls of probability distributions—to quantify and decompose uncertainty in neural text generation, calibrated against human creative variation. Analyzing 500 creative writing prompts from the dataset with 10 unique human continuations each, we evaluate four language models across five decoding strategies, generating 100,000 stories. Our credal set analysis reveals substantial gaps in capturing human creative variation, with the best model-human calibration reaching only 0.434 (Gemma-2B with temperature 0.7). We decompose total uncertainty into <i>epistemic</i> and <i>aleatoric</i> components, finding that the choice of decoding strategy contributes 39.4% to 72.0% of total epistemic uncertainty. Model scale shows weak correlation with calibration quality and no significant difference exists between base and instruction-tuned models in calibration quality. Our geometric framework provides actionable insights for improving generation systems for human-AI creative alignment. We release our complete experimental framework at <url>https://github.com/EstebanGarces/uncertainHuman</url>.</abstract>
+      <url hash="e3611057">2025.uncertainlp-main.5</url>
+      <bibkey>garces-arias-etal-2025-geometry</bibkey>
+    </paper>
+    <paper id="6">
+      <title>Certain but not Probable? Differentiating Certainty from Probability in <fixed-case>LLM</fixed-case> Token Outputs for Probabilistic Scenarios</title>
+      <author><first>Autumn</first><last>Toney</last></author>
+      <author><first>Ryan</first><last>Wails</last></author>
+      <pages>51-60</pages>
+      <abstract>Reliable uncertainty quantification (UQ) is essential for ensuring trustworthy downstream use of large language models, especially when they are deployed in decision-support and other knowledge-intensive applications. Model certainty can be estimated from token logits, with derived probability and entropy values offering insight into performance on the prompt task. However, this approach may be inadequate for probabilistic scenarios, where the probabilities of token outputs are expected to align with the theoretical probabilities of the possible outcomes. We investigate the relationship between token certainty and alignment with theoretical probability distributions in well-defined probabilistic scenarios. Using GPT-4.1 and DeepSeek-Chat, we evaluate model responses to ten prompts involving probability (e.g., roll a six-sided die), both with and without explicit probability cues in the prompt (e.g., roll a fair six-sided die). We measure two dimensions: (1) response validity with respect to scenario constraints, and (2) alignment between token-level output probabilities and theoretical probabilities. Our results indicate that, while both models achieve perfect in-domain response accuracy across all prompt scenarios, their token-level probability and entropy values consistently diverge from the corresponding theoretical distributions.</abstract>
+      <url hash="11db0e19">2025.uncertainlp-main.6</url>
+      <bibkey>toney-wails-2025-certain</bibkey>
+    </paper>
+    <paper id="7">
+      <title>The Benefits of Being Uncertain: Perplexity as a Signal for Naturalness in Multilingual Machine Translation</title>
+      <author><first>Timothy</first><last>Pistotti</last></author>
+      <author><first>Michael</first><last>J. Witbrock</last></author>
+      <author><first>Dr</first><last>Padriac Amato Tahua O’Leary</last></author>
+      <author><first>Jason</first><last>Brown</last></author>
+      <pages>61-65</pages>
+      <abstract>Model-internal uncertainty metrics like perplexity potentially offer low-cost signals for Machine Translation Quality Estimation (TQE). This paper analyses perplexity in the No Language Left Behind (NLLB) multilingual model. We quantify a significant model-human perplexity gap, where the model is consistently more confident in its own, often literal, machine-generated translation than in diverse, high-quality human versions. We then demonstrate that the utility of perplexity as a TQE signal is highly context-dependent, being strongest for low-resource pairs. Finally, we present an illustrative case study where a flawed translation is refined by providing potentially useful information in a targeted prompt, simulating a knowledge-based repair. We show that as the translation’s quality and naturalness improve (a +0.15 COMET score increase), its perplexity also increases, challenging the simple assumption that lower perplexity indicates higher quality and motivating a more nuanced view of uncertainty as signalling a text’s departure from rigid translationese.</abstract>
+      <url hash="984489f1">2025.uncertainlp-main.7</url>
+      <bibkey>pistotti-etal-2025-benefits</bibkey>
+    </paper>
+    <paper id="8">
+      <title>Asking a Language Model for Diverse Responses</title>
+      <author><first>Sergey</first><last>Troshin</last></author>
+      <author><first>Irina</first><last>Saparina</last></author>
+      <author><first>Antske</first><last>Fokkens</last></author>
+      <author><first>Vlad</first><last>Niculae</last></author>
+      <pages>66-72</pages>
+      <abstract>Large language models increasingly rely on explicit reasoning chains and can produce multiple plausible responses for a given context. We study the candidate sampler that produces the set of plausible responses contrasting the ancestral (parallel) sampling against two alternatives: enumeration, which asks the model to produce <tex-math>n</tex-math> candidates in one pass, and iterative sampling, which proposes candidates sequentially while conditioning on the currently generated response set. Under matched budgets, we compare these samplers on quality, lexical and computation flow diversity, and efficiency. Our empirical results demonstrate that enumeration and iterative strategies result in higher diversity at comparable quality. Our findings highlight the potential of simple non-independent sampling strategies to improve response diversity without sacrificing generation quality.</abstract>
+      <url hash="4e0c5825">2025.uncertainlp-main.8</url>
+      <bibkey>troshin-etal-2025-asking</bibkey>
+    </paper>
+    <paper id="9">
+      <title>Learning to vary: Teaching <fixed-case>LM</fixed-case>s to reproduce human linguistic variability in next-word prediction</title>
+      <author><first>Tobias</first><last>Groot</last></author>
+      <author><first>Salo</first><last>Lacunes</last></author>
+      <author><first>Evgenia</first><last>Ilia</last></author>
+      <pages>73-88</pages>
+      <abstract>Natural language generation (NLG) tasks are often subject to inherent variability; e.g. predicting the next word given a context has multiple valid responses, evident when asking multiple humans to complete the task. While having language models (LMs) that are aligned pluralistically, so that they are able to reproduce well the inherent diversity in perspectives of an entire population of interest is clearly beneficial, Ilia and Aziz (2024) show that LMs do not reproduce this type of linguistic variability well. They speculate this inability might stem from the lack of consistent training of LMs with data reflecting this type of inherent variability. As such, we investigate whether training LMs on multiple plausible word continuations per context can improve their ability to reproduce human linguistic variability for next-word prediction. We employ fine-tuning techniques for pre-trained and instruction-tuned models; and demonstrate their potential when fine-tuning GPT-2 and Mistral-7B-IT, using Provo Corpus. Our evaluation, which measures divergence among empirically estimated human and model next-word distributions across contexts before and after fine-tuning, shows that our multi-label fine-tuning improves the LMs’ ability to reproduce linguistic variability; both for contexts that admit higher and lower variability.</abstract>
+      <url hash="ca17a913">2025.uncertainlp-main.9</url>
+      <bibkey>groot-etal-2025-learning</bibkey>
+    </paper>
+    <paper id="10">
+      <title><fixed-case>HALLUCINOGEN</fixed-case>: Benchmarking Hallucination in Implicit Reasoning within Large Vision Language Models</title>
+      <author><first>Ashish</first><last>Seth</last></author>
+      <author><first>Dinesh</first><last>Manocha</last></author>
+      <author><first>Chirag</first><last>Agarwal</last></author>
+      <pages>89-102</pages>
+      <abstract>Large Vision-Language Models (LVLMs) have demonstrated remarkable performance in complex multimodal tasks. However, these models still suffer from hallucinations, particularly when required to implicitly recognize or infer diverse visual entities from images for complex vision-language tasks. To address this challenge, we propose HALLUCINOGEN, a novel visual question answering (VQA) benchmark that employs contextual reasoning prompts as hallucination attacks to evaluate the extent of hallucination in state-of-the-art LVLMs. Our benchmark provides a comprehensive study of the implicit reasoning capabilities of these models by first categorizing visual entities based on the ease of recognition in an image as either salient (prominent, visibly recognizable objects such as a car) or latent entities (such as identifying a disease from a chest X-ray), which are not readily visible and require domain knowledge or contextual reasoning for accurate inference. Next, we design hallucination attacks for both types of entities to assess hallucinations in LVLMs while performing various vision-language tasks, such as locating or reasoning about specific entities within an image, where models must perform implicit reasoning by verifying the existence of the queried entity within the image before generating responses. Finally, our extensive evaluations of eleven LVLMs, including powerful open-source models (like LLaMA-3.2 and DeepSeek-V2), commercial models like Gemini, and two hallucination mitigation strategies across multiple datasets, demonstrate that current LVLMs remain susceptible to hallucination attacks.</abstract>
+      <url hash="fb29bb1c">2025.uncertainlp-main.10</url>
+      <bibkey>seth-etal-2025-hallucinogen</bibkey>
+    </paper>
+    <paper id="11">
+      <title>Uncertainty in Semantic Language Modeling with <fixed-case>PIXELS</fixed-case></title>
+      <author><first>Stefania</first><last>Radu</last></author>
+      <author><first>Marco</first><last>Zullich</last></author>
+      <author><first>Matias</first><last>Valdenegro-Toro</last></author>
+      <pages>103-119</pages>
+      <abstract>Pixel-based language models aim to solve the vocabulary bottleneck problem in language modeling, but the challenge of uncertainty quantification remains open. The novelty of this work consists of analysing uncertainty and confidence in pixel-based language models across 18 languages and 7 scripts, all part of 3 semantically challenging tasks. This is achieved through several methods such as Monte Carlo Dropout, Transformer Attention, and Ensemble Learning. The results suggest that pixel-based models underestimate uncertainty when reconstructing patches. The uncertainty is also influenced by the script, with Latin languages displaying lower uncertainty. The findings on ensemble learning show better performance when applying hyperparameter tuning during the named entity recognition and question-answering tasks across 16 languages.</abstract>
+      <url hash="95783386">2025.uncertainlp-main.11</url>
+      <bibkey>radu-etal-2025-uncertainty</bibkey>
+    </paper>
+    <paper id="12">
+      <title>Confidence Calibration in Large Language Model-Based Entity Matching</title>
+      <author><first>Iris</first><last>Kamsteeg</last></author>
+      <author><first>Juan</first><last>Cardenas-Cartagena</last></author>
+      <author><first>Floris</first><last>van Beers</last></author>
+      <author><first>Tsegaye</first><last>Misikir Tashu</last></author>
+      <author><first>Matias</first><last>Valdenegro-Toro</last></author>
+      <pages>120-137</pages>
+      <abstract>This research aims to explore the intersection of Large Language Models and confidence calibration in Entity Matching. To this end, we perform an empirical study to compare baseline RoBERTa confidences for an Entity Matching task against confidences that are calibrated using Temperature Scaling, Monte Carlo Dropout and Ensembles. We use the Abt-Buy, DBLP-ACM, iTunes-Amazon and Company datasets. The findings indicate that the proposed modified RoBERTa model exhibits a slight overconfidence, with Expected Calibration Error scores ranging from 0.0043 to 0.0552 across datasets. We find that this overconfidence can be mitigated using Temperature Scaling, reducing Expected Calibration Error scores by up to 23.83%.</abstract>
+      <url hash="77b21df3">2025.uncertainlp-main.12</url>
+      <bibkey>kamsteeg-etal-2025-confidence</bibkey>
+    </paper>
+    <paper id="13">
+      <title>Consensus or Conflict? Fine-Grained Evaluation of Conflicting Answers in Question-Answering</title>
+      <author><first>Eviatar</first><last>Nachshoni</last></author>
+      <author><first>Arie</first><last>Cattan</last></author>
+      <author><first>Shmuel</first><last>Amar</last></author>
+      <author><first>Ori</first><last>Shapira</last></author>
+      <author><first>Ido</first><last>Dagan</last></author>
+      <pages>138-159</pages>
+      <abstract>Large Language Models (LLMs) have demonstrated strong performance in question answering (QA) tasks. However, Multi-Answer Question Answering (MAQA), where a question may have several valid answers, remains challenging. Traditional QA settings often assume consistency across evidences, but MAQA can involve conflicting answers. Constructing datasets that reflect such conflicts is costly and labor-intensive, while existing benchmarks often rely on synthetic data, restrict the task to yes/no questions, or apply unverified automated annotation. To advance research in this area, we extend the conflict-aware MAQA setting to require models not only to identify all valid answers, but also to detect specific conflicting answer pairs, if any. To support this task, we introduce a novel cost-effective methodology for leveraging fact-checking datasets to construct NATCONFQA, a new benchmark for realistic, conflict-aware MAQA, enriched with detailed conflict labels, for all answer pairs. We evaluate eight high-end LLMs on NATCONFQA, revealing their fragility in handling various types of conflicts and the flawed strategies they employ to resolve them.</abstract>
+      <url hash="12503ab1">2025.uncertainlp-main.13</url>
+      <bibkey>nachshoni-etal-2025-consensus</bibkey>
+    </paper>
+    <paper id="14">
+      <title>Demystify Verbosity Compensation Behavior of Large Language Models</title>
+      <author><first>Yusen</first><last>Zhang</last></author>
+      <author><first>Sarkar</first><last>Snigdha Sarathi Das</last></author>
+      <author><first>Rui</first><last>Zhang</last></author>
+      <pages>160-178</pages>
+      <abstract>Recent work has revealed Large Language Models (LLMs) often exhibit undesirable behaviors, such as hallucination and toxicity, limiting their reliability and broader adoption. In this paper, we discover an understudied type of undesirable behavior of LLMs, which we term Verbosity Compensation (VC). VC is similar to the hesitation behavior of humans under uncertainty, compensating with excessive words such as repeating questions, introducing ambiguity, or providing excessive enumeration. We present the first work that analyzes Verbosity Compensation, explores its causes, and proposes a simple mitigating approach. Our experiments on five datasets of knowledge and reasoning-based QA tasks with 14 LLMs, reveal three conclusions. 1) A pervasive presence of VC across all models and all datasets. 2) The large performance gap between verbose and concise responses. We also demonstrate that this difference does not naturally diminish as LLM capability increases. 3) Higher uncertainty exhibited by VC responses across all five datasets, suggesting a strong connection between verbosity and model uncertainty. We propose a simple yet effective cascade algorithm that replaces the verbose responses with the other model-generated responses, alleviating the VC of the Mistral model from 63.81% to 16.16% on the Qasper dataset.</abstract>
+      <url hash="d54f8eac">2025.uncertainlp-main.14</url>
+      <bibkey>zhang-etal-2025-demystify</bibkey>
+    </paper>
+    <paper id="15">
+      <title>On the Role of Unobserved Sequences on Sample-based Uncertainty Quantification for <fixed-case>LLM</fixed-case>s</title>
+      <author><first>Lucie</first><last>Kunitomo-Jacquin</last></author>
+      <author><first>Edison</first><last>Marrese-Taylor</last></author>
+      <author><first>Ken</first><last>Fukuda</last></author>
+      <pages>179-183</pages>
+      <abstract>Quantifying uncertainty in large language models (LLMs) is important for safety-critical applications because it helps spot incorrect answers, known as hallucinations. One major trend of uncertainty quantification methods is based on estimating the entropy of the distribution of the LLM’s potential output sequences. This estimation is based on a set of output sequences and associated probabilities obtained by querying the LLM several times. In this paper, we advocate and experimentally and show that the probability of unobserved sequences plays a crucial role, and we recommend future research to integrate it to enhance such LLM uncertainty quantification methods.</abstract>
+      <url hash="ea810bda">2025.uncertainlp-main.15</url>
+      <bibkey>kunitomo-jacquin-etal-2025-role</bibkey>
+    </paper>
+    <paper id="16">
+      <title>Confidence-Based Response Abstinence: Improving <fixed-case>LLM</fixed-case> Trustworthiness via Activation-Based Uncertainty Estimation</title>
+      <author><first>Zhiqi</first><last>Huang</last></author>
+      <author><first>Vivek</first><last>Datla</last></author>
+      <author><first>Chenyang</first><last>Zhu</last></author>
+      <author><first>Alfy</first><last>Samuel</last></author>
+      <author><first>Daben</first><last>Liu</last></author>
+      <author><first>Anoop</first><last>Kumar</last></author>
+      <author><first>Ritesh</first><last>Soni</last></author>
+      <pages>184-193</pages>
+      <abstract>We propose a method for confidence estimation in retrieval-augmented generation (RAG) systems that aligns closely with the correctness of large language model (LLM) outputs. Confidence estimation is especially critical in high-stakes domains such as finance and healthcare, where the cost of an incorrect answer outweighs that of not answering the question. Our approach extends prior uncertainty quantification methods by leveraging raw feed-forward network (FFN) activations as auto-regressive signals, avoiding the information loss inherent in token logits and probabilities after projection and softmax normalization. We model confidence prediction as a sequence classification task, and regularize training with a Huber loss term to improve robustness against noisy supervision. Applied in a real-world financial industry customer-support setting with complex knowledge bases, our method outperforms strong baselines and maintains high accuracy under strict latency constraints. Experiments on Llama 3.1 8B model show that using activations from only the 16th layer preserves accuracy while reducing response latency. Our results demonstrate that activation-based confidence modeling offers a scalable, architecture-aware path toward trustworthy RAG deployment.</abstract>
+      <url hash="eaaf1d93">2025.uncertainlp-main.16</url>
+      <bibkey>huang-etal-2025-confidence</bibkey>
+    </paper>
+    <paper id="17">
+      <title>Amortized <fixed-case>B</fixed-case>ayesian Meta-Learning for Low-Rank Adaptation of Large Language Models</title>
+      <author><first>Liyi</first><last>Zhang</last></author>
+      <author><first>Jake</first><last>C. Snell</last></author>
+      <author><first>Thomas</first><last>L. Griffiths</last></author>
+      <pages>194-199</pages>
+      <abstract>Fine-tuning large language models (LLMs) with low-rank adaptaion (LoRA) is a cost-effective way to incorporate information from a specific dataset. However, it is often unclear how well the fine-tuned LLM will generalize, i.e., how well it will perform on unseen datasets. Methods have been proposed to improve generalization by optimizing with in-context prompts, or by using meta-learning to fine-tune LLMs. However, these methods are expensive in memory and computation, requiring either long-context prompts or saving copies of parameters and using second-order gradient updates. To address these challenges, we propose Amortized Bayesian Meta-Learning for LoRA (ABMLL). This method builds on amortized Bayesian meta-learning for smaller models, adapting this approach to LLMs while maintaining its computational efficiency. We reframe task-specific and global parameters in the context of LoRA and use a set of new hyperparameters to balance reconstruction accuracy and the fidelity of task-specific parameters to the global ones. ABMLL provides effective generalization and scales to large models such as Llama3-8B. Furthermore, as a result of using a Bayesian framework, ABMLL provides improved uncertainty quantification. We test ABMLL on Unified-QA and Crossfit datasets and find that it outperforms existing methods on these benchmarks in terms of both accuracy and expected calibration error.</abstract>
+      <url hash="cdd5d718">2025.uncertainlp-main.17</url>
+      <bibkey>zhang-etal-2025-amortized</bibkey>
+    </paper>
+    <paper id="18">
+      <title>Towards Trustworthy Summarization of Cardiovascular Articles: A Factuality-and-Uncertainty-Aware Biomedical <fixed-case>LLM</fixed-case> Approach</title>
+      <author><first>Eleni</first><last>Partalidou</last></author>
+      <author><first>Tatiana</first><last>Passali</last></author>
+      <author><first>Chrysoula</first><last>Zerva</last></author>
+      <author><first>Grigorios</first><last>Tsoumakas</last></author>
+      <author><first>Sophia</first><last>Ananiadou</last></author>
+      <pages>200-207</pages>
+      <abstract>While large, biomedical documents with complex terminology are in need of being understood more easily and efficiently, summarizing this kind of content can be problematic, as Large Language Models (LLMs) aren’t always trustworthy. Considering the importance of comprehending Cardiovascular Diseases, we study in depth the ability of different state-of-the-art biomedical LLMs to generate factual and certain summaries in this topic, and examine which generation choices can influence their trustworthiness. To that end, besides using factuality metrics, we employ techniques for token-level uncertainty estimation, an area that has received little attention from the scientific community. Our results reveal dissimilarities between LLMs and generation methods, and highlight connections between factuality and uncertainty metrics, thereby laying the groundwork for further investigation in the area.</abstract>
+      <url hash="16df3adf">2025.uncertainlp-main.18</url>
+      <bibkey>partalidou-etal-2025-towards</bibkey>
+    </paper>
+    <paper id="19">
+      <title>Causal Understanding by <fixed-case>LLM</fixed-case>s: The Role of Uncertainty</title>
+      <author><first>Oscar</first><last>William Lithgow-Serrano</last></author>
+      <author><first>Vani</first><last>Kanjirangat</last></author>
+      <author><first>Alessandro</first><last>Antonucci</last></author>
+      <pages>208-228</pages>
+      <abstract>Recent papers show LLMs achieve near-random accuracy in causal relation classification, raising questions about whether such failures arise from limited pretraining exposure or deeper representational gaps. We investigate this under uncertainty-based evaluation, testing whether pretraining exposure to causal examples improves causal understanding using &gt;18K PubMed sentences—half from The Pile corpus, half post-2024—across seven models (Pythia-1.4B/7B/12B, GPT-J-6B, Dolly-7B/12B, Qwen-7B). We analyze model behavior through: (i) causal classification, where the model identifies causal relationships in text, and (ii) verbatim memorization probing, where we assess whether the model prefers previously seen causal statements over their paraphrases. Models perform four-way classification (direct/conditional/correlational/no-relationship) and select between originals and their generated paraphrases. Results show almost identical accuracy on seen/unseen sentences (p&gt;0.05), no memorization bias (24.8% original selection), output distribution over the possible options almost flat — with entropic values near the maximum (1.35/1.39), confirming random guessing. Instruction-tuned models show severe miscalibration (Qwen: &gt;95% confidence, 32.8% accuracy, ECE=0.49). Conditional relations induce highest entropy (+11% vs direct). These findings suggest that failures in causal understanding arise from the lack of structured causal representation, rather than insufficient exposure to causal examples during pretraining.</abstract>
+      <url hash="6b122acd">2025.uncertainlp-main.19</url>
+      <bibkey>william-lithgow-serrano-etal-2025-causal</bibkey>
+    </paper>
+    <paper id="20">
+      <title>It Depends: Resolving Referential Ambiguity in Minimal Contexts with Commonsense Knowledge</title>
+      <author><first>Lukas</first><last>Ellinger</last></author>
+      <author><first>Georg</first><last>Groh</last></author>
+      <pages>229-246</pages>
+      <abstract>Ambiguous words or underspecified references require interlocutors to resolve them, often by relying on shared context and commonsense knowledge. Therefore, we systematically investigate whether Large Language Models (LLMs) can leverage commonsense to resolve referential ambiguity in multi-turn conversations and analyze their behavior when ambiguity persists. Further, we study how requests for simplified language affect this capacity. Using a novel multilingual evaluation dataset, we test DeepSeek v3, GPT-4o, Qwen3-32B, GPT-4o-mini, and Llama-3.1-8B via LLM-as-Judge and human annotations. Our findings indicate that current LLMs struggle to resolve ambiguity effectively: they tend to commit to a single interpretation or cover all possible references, rather than hedging or seeking clarification. This limitation becomes more pronounced under simplification prompts, which drastically reduce the use of commonsense reasoning and diverse response strategies. Fine-tuning Llama-3.1-8B with Direct Preference Optimization substantially improves ambiguity resolution across all request types. These results underscore the need for advanced fine-tuning to improve LLMs’ handling of ambiguity and to ensure robust performance across diverse communication styles.</abstract>
+      <url hash="4fff79f1">2025.uncertainlp-main.20</url>
+      <bibkey>ellinger-groh-2025-depends</bibkey>
+    </paper>
+    <paper id="21">
+      <title>Read Your Own Mind: Reasoning Helps Surface Self-Confidence Signals in <fixed-case>LLM</fixed-case>s</title>
+      <author><first>Jakub</first><last>Podolak</last></author>
+      <author><first>Rajeev</first><last>Verma</last></author>
+      <pages>247-258</pages>
+      <abstract>We study the source of uncertainty in DeepSeek R1-32B by analyzing its self-reported verbal confidence on question answering (QA) tasks. In the default answer-then-confidence setting, the model is regularly over-confident, whereas semantic entropy - obtained by sampling many responses - remains reliable. We hypothesize that this is because of semantic entropy’s larger test-time compute, which lets us explore the model’s predictive distribution. We show that granting DeepSeek the budget to explore its distribution by forcing a long chain-of-thought before the final answer greatly improves its verbal score effectiveness, even on simple fact-retrieval questions that normally require no reasoning. Our analysis concludes that reliable uncertainty estimation requires explicit exploration of the generative space, and self-reported confidence is trustworthy only after such exploration.</abstract>
+      <url hash="1baef98c">2025.uncertainlp-main.21</url>
+      <bibkey>podolak-verma-2025-read</bibkey>
+    </paper>
+    <paper id="22">
+      <title>Calibrating Language Models for Neural Ranking under Noisy Supervision with Relaxed Labels</title>
+      <author><first>Arnab</first><last>Sharma</last></author>
+      <author><first>Daniel</first><last>Vollmers</last></author>
+      <author><first>Axel-Cyrille</first><last>Ngonga Ngomo</last></author>
+      <pages>259-272</pages>
+      <abstract>In recent years, we have seen an increased usage of neural ranking models in the information retrieval domain. Although language model-based rankers have shown significant progress in performing ranking tasks, little to no work has addressed the issue of fine-tuning them in the presence of label noise in the training data. In a general learning setting, training models in the presence of noisy labeled data is studied extensively. To this end, confidence calibration approaches have shown significant promise; however, their usage in training neural ranking models is relatively less studied. In this work, we address this gap by adapting and analyzing regularization-based calibration approaches to reduce the effect of label noise in ranking tasks. Specifically, we study label relaxation in neural ranking models. We demonstrate the effectiveness of this approach by performing extensive evaluations comparing the label relaxation approach to standard loss functions. Additionally, we analyze the calibration error associated with the loss functions.After evaluating on five different noise levels, two different ranking models, and four diverse ranking datasets, the results suggest that label relaxation can improve the performance of the ranking models under noisy labels. Furthermore, we find that label relaxation reduces calibration error, although it suggests a better metric to be used for neural ranking models.</abstract>
+      <url hash="8e63e50d">2025.uncertainlp-main.22</url>
+      <bibkey>sharma-etal-2025-calibrating</bibkey>
+    </paper>
+    <paper id="23">
+      <title><fixed-case>ERGO</fixed-case>: Entropy-guided Resetting for Generation Optimization in Multi-turn Language Models</title>
+      <author><first>Haziq</first><last>Mohammad Khalid</last></author>
+      <author><first>Athikash</first><last>Jeyaganthan</last></author>
+      <author><first>Timothy</first><last>Do</last></author>
+      <author><first>Yicheng</first><last>Fu</last></author>
+      <author><first>Vasu</first><last>Sharma</last></author>
+      <author><first>Sean</first><last>O’Brien</last></author>
+      <author><first>Kevin</first><last>Zhu</last></author>
+      <pages>273-286</pages>
+      <abstract>Large Language Models (LLMs) suffer significant performance degradation in multi-turn conversations when information is presented incrementally. Given that multi-turn conversations characterize everyday interactions with LLMs, this degradation poses a severe challenge to real world usability. We hypothesize that abrupt increases in model uncertainty signal misalignment in multi-turn LLM interactions, and we exploit this insight to dynamically realign conversational context. We introduce ERGO (Entropy-guided Resetting for Generation Optimization), which continuously quantifies internal uncertainty via Shannon entropy over next token distributions and triggers adaptive prompt consolidation when a sharp spike in entropy is detected. By treating uncertainty as a first class signal rather than a nuisance to eliminate, ERGO embraces variability in language and modeling, representing and responding to uncertainty. In multi-turn tasks with incrementally revealed instructions, ERGO yields a 56.6% average performance gain over standard baselines, increases aptitude (peak performance capability) by 24.7%, and decreases unreliability (variability in performance) by 35.3%, demonstrating that uncertainty aware interventions can improve both accuracy and reliability in conversational AI.</abstract>
+      <url hash="8f625688">2025.uncertainlp-main.23</url>
+      <bibkey>mohammad-khalid-etal-2025-ergo</bibkey>
+    </paper>
+    <paper id="24">
+      <title>Towards Open-Ended Discovery for Low-Resource <fixed-case>NLP</fixed-case></title>
+      <author><first>Bonaventure</first><last>F. P. Dossou</last></author>
+      <author><first>Henri</first><last>Aïdasso</last></author>
+      <pages>287-297</pages>
+      <abstract>Natural language processing (NLP) for low-resource languages remains fundamentally constrained by the lack of textual corpora, standardized orthographies, and scalable annotation pipelines. While recent advances in large language models have improved cross-lingual transfer, they remain inaccessible to underrepresented communities due to their reliance on massive, pre-collected data and centralized infrastructure. In this position paper, we argue for a paradigm shift toward open-ended, interactive language discovery, where AI systems learn new languages dynamically through dialogue rather than static datasets. We contend that the future of language technology, particularly for low-resource and under-documented languages, must move beyond static data collection pipelines toward interactive, uncertainty-driven discovery, where learning emerges dynamically from human-machine collaboration instead of being limited to pre-existing datasets. We propose a framework grounded in joint human-machine uncertainty, combining epistemic uncertainty from the model with hesitation cues and confidence signals from human speakers to guide interaction, query selection, and memory retention. This paper is a call to action: we advocate a rethinking of how AI engages with human knowledge in under-documented languages, moving from extractive data collection toward participatory, co-adaptive learning processes that respect and empower communities while discovering and preserving the world’s linguistic diversity. This vision aligns with principles of human-centered AI and participatory design, emphasizing interactive, cooperative model building between AI systems and speakers.</abstract>
+      <url hash="61e88b16">2025.uncertainlp-main.24</url>
+      <bibkey>f-p-dossou-aidasso-2025-towards</bibkey>
+    </paper>
+    <paper id="25">
+      <title>Can Vision-Language Models Infer Speaker’s Ignorance? The Role of Visual and Linguistic Cues</title>
+      <author><first>Ye-eun</first><last>Cho</last></author>
+      <author><first>Yunho</first><last>Maeng</last></author>
+      <pages>298-308</pages>
+      <abstract>This study investigates whether vision-language models (VLMs) can perform pragmatic inference, focusing on ignorance implicatures, utterances that imply the speaker’s lack of precise knowledge. To test this, we systematically manipulated contextual cues: the visually depicted situation (visual cue) and QUD-based linguistic prompts (linguistic cue). When only visual cues were provided, three state-of-the-art VLMs (GPT-4o, Gemini 1.5 Pro, and Claude 3.5 sonnet) produced interpretations largely based on the lexical meaning of the modified numerals. When linguistic cues were added to enhance contextual informativeness, Claude exhibited more human-like inference by integrating both types of contextual cues. In contrast, GPT and Gemini favored precise, literal interpretations. Although the influence of contextual cues increased, they treated each contextual cue independently and aligned them with semantic features rather than engaging in context-driven reasoning. These findings suggest that although the models differ in how they handle contextual cues, Claude’s ability to combine multiple cues may signal emerging pragmatic competence in multimodal models.</abstract>
+      <url hash="4f861d24">2025.uncertainlp-main.25</url>
+      <bibkey>cho-maeng-2025-vision</bibkey>
+    </paper>
+    <paper id="26">
+      <title><fixed-case>D</fixed-case>e<fixed-case>LT</fixed-case>a: A Decoding Strategy based on Logit Trajectory Prediction Improves Factuality and Reasoning Ability</title>
+      <author><first>Yunzhen</first><last>He</last></author>
+      <author><first>Yusuke</first><last>Takase</last></author>
+      <author><first>Hidetoshi</first><last>Shimodaira</last></author>
+      <pages>309-321</pages>
+      <abstract>Large Language Models (LLMs) are increasingly being used in real-world applications. However, concerns about the reliability of the content they generate persist, as it frequently deviates from factual correctness or exhibits deficiencies in logical reasoning. This paper proposes a novel decoding strategy aimed at enhancing both factual accuracy and inferential reasoning without requiring any modifications to the architecture or pre-trained parameters of LLMs. Our approach adjusts next-token probabilities by analyzing the trajectory of logits from lower to higher layers in Transformers and applying linear regression. We find that this Decoding by Logit Trajectory-based approach (DeLTa) effectively reinforces factuality and reasoning while mitigating incorrect generation. Experiments on TruthfulQA demonstrate that DeLTa attains up to a 4.9% improvement over the baseline. Furthermore, it enhances performance by up to 8.1% on StrategyQA and 7.3% on GSM8K, both of which demand strong reasoning capabilities.</abstract>
+      <url hash="8c4598b6">2025.uncertainlp-main.26</url>
+      <bibkey>he-etal-2025-delta</bibkey>
+    </paper>
+    <paper id="27">
+      <title>Investigating Factuality in Long-Form Text Generation: The Roles of Self-Known and Self-Unknownan</title>
+      <author><first>Lifu</first><last>Tu</last></author>
+      <author><first>Rui</first><last>Meng</last></author>
+      <author><first>Shafiq</first><last>Joty</last></author>
+      <author><first>Yingbo</first><last>Zhou</last></author>
+      <author><first>Semih</first><last>Yavuz</last></author>
+      <pages>322-336</pages>
+      <abstract>Large language models (LLMs) have demonstrated strong capabilities in text understanding and generation. However, they often lack factuality, producing a mixture of true and false in- formation, especially in long-form generation. In this work, we investigates the factuality of long-form text generation across various large language models (LLMs), including GPT-4, Gemini-1.5-Pro, Claude-3-Opus, Llama-3-70B, and Mistral. Our analysis reveals that factuality tend to decline in later sentences of the generated text, accompanied by a rise in the number of unsupported claims. Furthermore, we explore the effectiveness of different evaluation settings to assess whether LLMs can accurately judge the correctness of their own outputs: Self- Known (the percentage of supported atomic claims, decomposed from LLM outputs, that the corresponding LLMs judge as correct) and Self-Unknown (the percentage of unsupported atomic claims that the corresponding LLMs judge as incorrect). The results indicate that even advanced models fail to achieve perfect Self-Known scores, while their Self-Unknown scores remain notably above zero, reflecting ongoing uncertainty in their self-assessments. Moreover, we find a correlation between higher Self-Known scores and improved factuality, while higher Self-Unknown scores are associated with lower factuality. Even without sig nificant changes in the models’ self-judgment (Self-Known and Self-Unknown), the number of unsupported claims can increases, likely as an artifact of long-form generation. Additional Retrieval-Augmented Generation (RAG) experiments also show the limitations of current LLMs in long-form generation, and provide the more research is needed to improve factuality in long-form text generation.</abstract>
+      <url hash="9a2cf094">2025.uncertainlp-main.27</url>
+      <bibkey>tu-etal-2025-investigating</bibkey>
+    </paper>
+  </volume>
+</collection>
