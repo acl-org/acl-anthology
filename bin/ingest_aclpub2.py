@@ -81,7 +81,7 @@ def disambiguate_name(node, anth_id, people):
     """
     There may be multiple matching names. If so, ask the ingester to choose
     which one is the disambiguated one. Ideally, this would be determined
-    automatically from metadata or providing orcids or other disambiguators.
+    automatically from metadata or providing orcid ids or other disambiguators.
     """
     name = PersonName.from_element(node)
     ids = people.get_ids(name)
@@ -307,11 +307,11 @@ def join_names(author, fields=["first_name", "middle_name"]):
 
 def trim_orcid(orcid: str) -> str:
     """
-    Match the ORCID ID out of a potentially longer URL.
+    Match the ORCID iD out of a potentially longer URL.
     """
-    match = re.match(r'.*(\d{4}-\d{4}-\d{4}-\d{3}[\dX]).*', orcid)
+    match = re.match(r'.*(\d{4}-\d{4}-\d{4}-\d{3}[\dX]).*', orcid, re.IGNORECASE)
     if match is not None:
-        return match.group(1)
+        return match.group(1).upper()
     return orcid
 
 
