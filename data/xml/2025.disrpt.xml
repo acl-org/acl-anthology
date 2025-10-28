@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2025.disrpt">
+  <volume id="1" ingest-date="2025-10-28" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of the 4th Shared Task on Discourse Relation Parsing and Treebanking (DISRPT 2025)</booktitle>
+      <editor><first>Chloé</first><last>Braud</last><affiliation>CNRS, IRIT, University of Toulouse</affiliation></editor>
+      <editor><first>Yang Janet</first><last>Liu</last><affiliation>Georgetown University</affiliation></editor>
+      <editor><first>Philippe</first><last>Muller</last><affiliation>IRIT, University of Toulouse</affiliation></editor>
+      <editor><first>Amir</first><last>Zeldes</last><affiliation>Georgetown University</affiliation></editor>
+      <editor><first>Chuyuan</first><last>Li</last><affiliation>University of British Columbia</affiliation></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Suzhou, China</address>
+      <month>November</month>
+      <year>2025</year>
+      <url hash="7062c330">2025.disrpt-1</url>
+      <venue>disrpt</venue>
+      <venue>ws</venue>
+      <isbn>979-8-89176-344-9</isbn>
+    </meta>
+    <frontmatter>
+      <url hash="e6ae4fa1">2025.disrpt-1.0</url>
+      <bibkey>disrpt-ws-2025-1</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>The <fixed-case>DISRPT</fixed-case> 2025 Shared Task on Elementary Discourse Unit Segmentation, Connective Detection, and Relation Classification</title>
+      <author><first>Chloé</first><last>Braud</last><affiliation>IRIT, CNRS</affiliation></author>
+      <author><first>Amir</first><last>Zeldes</last><affiliation>Georgetown University</affiliation></author>
+      <author><first>Chuyuan</first><last>Li</last><affiliation>The University of British Columbia</affiliation></author>
+      <author><first>Yang Janet</first><last>Liu</last><affiliation>University of Pittsburgh</affiliation></author>
+      <author><first>Philippe</first><last>Muller</last><affiliation>IRIT, University of Toulouse</affiliation></author>
+      <pages>1-20</pages>
+      <abstract>In 2025, we held the fourth iteration of the DISRPT Shared Task (Discourse Relation Parsing and Treebanking) dedicated to discourse parsing across formalisms. Following the success of the 2019, 2021, and 2023 tasks on Elementary Discourse Unit Segmentation, Connective Detection, and Relation Classification, this iteration added 13 new datasets, including three new languages (Czech, Polish, Nigerian Pidgin) and two new frameworks: the ISO framework and Enhanced Rhetorical Structure Theory, in addition to the previously included frameworks: RST, SDRT, DEP, and PDTB. In this paper, we review the data included in DISRPT 2025, which covers 39 datasets across 16 languages, survey and compare submitted systems, and report on system performance on each task for both treebanked and plain-tokenized versions of the data. The best systems obtain a mean accuracy of 71.19% for relation classification, a mean F1 of 91.57 (Treebanked Track) and 87.38 (Plain Track) for segmentation, and a mean F1 of 81.53 (Treebanked Track) and 79.92 (Plain Track) for connective identification. The data and trained models of several participants can be found at https://huggingface.co/multilingual-discourse-hub.</abstract>
+      <url hash="e392b199">2025.disrpt-1.1</url>
+      <bibkey>braud-etal-2025-disrpt</bibkey>
+    </paper>
+    <paper id="2">
+      <title><fixed-case>D</fixed-case>is<fixed-case>C</fixed-case>u<fixed-case>T</fixed-case> and <fixed-case>D</fixed-case>isc<fixed-case>R</fixed-case>e<fixed-case>T</fixed-case>: <fixed-case>MELODI</fixed-case> at <fixed-case>DISRPT</fixed-case> 2025 Multilingual discourse segmentation, connective tagging and relation classification</title>
+      <author><first>Robin</first><last>Pujol</last><affiliation>IRIT, University of Toulouse</affiliation></author>
+      <author><first>Firmin</first><last>Rousseau</last><affiliation>IRIT, université de Toulouse</affiliation></author>
+      <author><first>Philippe</first><last>Muller</last><affiliation>IRIT, University of Toulouse</affiliation></author>
+      <author><first>Chloé</first><last>Braud</last><affiliation>IRIT, CNRS</affiliation></author>
+      <pages>21-35</pages>
+      <abstract>This paper presents the results obtained by the MELODI team for the three tasks proposed within the DISRPT 2025 shared task on discourse: segmentation, connective identification, and relation classification. The competition involves corpora in various languages, in several underlying frameworks, and datasets are given with or without sentence segmentation. This year, for the ranked, closed track, the campaign adds as a constraint to train only one model for each task, with an upper bound on the size of the model (no more than 4B parameters).An additional open track authorizes any size of, possibly non public, models that will not be reproduced by the organizers and thus not ranked.We compared several fine-tuning approaches either based on encoder-only transformer-based models, or auto-regressive generative ones. To be able to train one model on the variety of corpora, we explored various ways of combining data – by framework, language or language groups, with different sequential orderings –, and the addition of features to guide the model. For the closed track, our final submitted system is based on XLM-RoBERTa large for relation identification, and on InfoXLM for segmentation and connective identification. Our experiments demonstrate that building a single, multilingual model does not necessarily degrade the performance compared to language-specific systems, with at best 64.06% for relation identification, 90.19% for segmentation and 81.15% for connective identification (on average on the development sets), results that are similar or higher that the ones obtained in previous campaigns.We also found that a generative approach could give even higher results on relation identification, with at best 64.65% on the dev sets.</abstract>
+      <url hash="b9327a45">2025.disrpt-1.2</url>
+      <bibkey>pujol-etal-2025-discut</bibkey>
+    </paper>
+    <paper id="3">
+      <title><fixed-case>CL</fixed-case>a<fixed-case>C</fixed-case> at <fixed-case>DISRPT</fixed-case> 2025: Hierarchical Adapters for Cross-Framework Multi-lingual Discourse Relation Classification</title>
+      <author><first>Nawar</first><last>Turk</last><affiliation>Concordia University</affiliation></author>
+      <author><first>Daniele</first><last>Comitogianni</last><affiliation>Concordia University</affiliation></author>
+      <author><first>Leila</first><last>Kosseim</last><affiliation>Concordia University</affiliation></author>
+      <pages>36-47</pages>
+      <abstract>We present our submission to Task 3 (Discourse Relation Classification) of the DISRPT 2025 shared task. Task 3 introduces a unified set of 17 discourse relation labels across 39 corpora in 16 languages and six discourse frameworks, posing significant multilingual and cross‐formalism challenges. We first benchmark the task by fine‐tuning multilingual BERT‐based models (mBERT, XLM‐RoBERTa‐Base, and XLM‐RoBERTa‐Large) with two argument‐ordering strategies and progressive unfreezing ratios to establish strong baselines. We then evaluate prompt‐based large language models (namely Claude Opus 4.0) in zero‐shot and few‐shot settings to understand how LLMs respond to the newly proposed unified labels. Finally, we introduce HiDAC, a Hierarchical Dual‐Adapter Contrastive learning model. Results show that while larger transformer models achieve higher accuracy, the improvements are modest, and that unfreezing the top 75% of encoder layers yields performance comparable to full fine‐tuning while training far fewer parameters. Prompt‐based models lag significantly behind fine‐tuned transformers, and HiDAC achieves the highest overall accuracy (67.5%) while remaining more parameter‐efficient than full fine‐tuning.</abstract>
+      <url hash="3c011fd1">2025.disrpt-1.3</url>
+      <attachment type="SupplementaryMaterial" hash="273f8184">2025.disrpt-1.3.SupplementaryMaterial.zip</attachment>
+      <bibkey>turk-etal-2025-clac</bibkey>
+    </paper>
+    <paper id="4">
+      <title><fixed-case>D</fixed-case>e<fixed-case>D</fixed-case>is<fixed-case>C</fixed-case>o at the <fixed-case>DISRPT</fixed-case> 2025 Shared Task: A System for Discourse Relation Classification</title>
+      <author><first>Zhuoxuan</first><last>Ju</last><affiliation>Georgetown University</affiliation></author>
+      <author><first>Jingni</first><last>Wu</last><affiliation>Georgetown University</affiliation></author>
+      <author><first>Abhishek</first><last>Purushothama</last><affiliation>Georgetown University</affiliation></author>
+      <author><first>Amir</first><last>Zeldes</last><affiliation>Georgetown University</affiliation></author>
+      <pages>48-62</pages>
+      <abstract>This paper presents DeDisCo, Georgetown University’s entry in the DISRPT 2025 shared task on discourse relation classification. We test two approaches, using an mt5-based encoder and a decoder based approach using the openly available Qwen model. We also experiment on training with augmented dataset for low-resource languages using matched data translated automatically from English, as well as using some additional linguistic features inspired by entries in previous editions of the Shared Task. Our system achieves a macro-accuracy score of 71.28, and we provide some interpretation and error analysis for our results.</abstract>
+      <url hash="dff47e40">2025.disrpt-1.4</url>
+      <attachment type="SupplementaryMaterial" hash="54c1530d">2025.disrpt-1.4.SupplementaryMaterial.zip</attachment>
+      <bibkey>ju-etal-2025-dedisco</bibkey>
+    </paper>
+    <paper id="5">
+      <title><fixed-case>HITS</fixed-case> at <fixed-case>DISRPT</fixed-case> 2025: Discourse Segmentation, Connective Detection, and Relation Classification</title>
+      <author><first>Souvik</first><last>Banerjee</last><affiliation>Heidelberg Institute For Theoretical Studies (HITS)</affiliation></author>
+      <author><first>Yi</first><last>Fan</last><affiliation>Heidelberg Institute for Theoretical Studies</affiliation></author>
+      <author><first>Michael</first><last>Strube</last><affiliation>Heidelberg Institute for Theoretical Studies</affiliation></author>
+      <pages>63-78</pages>
+      <abstract>This paper describes the submission of the HITS team to the DISRPT 2025 shared task. The shared task includes three sub-tasks: (1) discourse unit segmentation across formalisms, (2) cross-lingual discourse connective identification, and (3) cross-formalism discourse relation classification. This paper presents our strategies for the DISRPT 2025 Shared Task. In Task 1, our approach involves fine-tuning through multilingual joint training on linguistically motivated language groups. We incorporated two key techniques to improve model performance: a weighted loss function to address the task’s significant class imbalance and Fast Gradient Method (FGM) adversarial training to boost the model’s robustness. In task 2, our approach involves building an ensemble of three encoder models whose embeddings are smartly fused together with a multi-head attention layer. We also add Part-Of-Speech tags and dependency relations present in the training file as linguistic features. A CRF layer is added after the classification layer to account for dependencies between adjacent labels. To account for label imbalance, we use focal loss and label smoothing. This ensures our model is robust and flexible enough to handle different languages. In task 3, we use two-stage fine-tuning framework designed to transfer the nuanced reasoning capabilities of a very large “teacher” model to a compact “student” model so that the smaller model can learn complex discourse relationships. The fine-tuning process follows a curriculum learning framework. In such a framework the model learns to perform increasingly harder tasks. In our case, the model first learns to look at the discourse units and then predict the label followed by looking at Chain-Of-Thought reasoning for harder examples. This way it can learn to internalise such reasoning and increase prediction accuracy on the harder samples.</abstract>
+      <url hash="be91166b">2025.disrpt-1.5</url>
+      <bibkey>banerjee-etal-2025-hits</bibkey>
+    </paper>
+    <paper id="6">
+      <title><fixed-case>S</fixed-case>e<fixed-case>C</fixed-case>o<fixed-case>R</fixed-case>el: Multilingual Discourse Analysis in <fixed-case>DISRPT</fixed-case> 2025</title>
+      <author><first>Sobha</first><last>Lalitha Devi</last><affiliation>AU-KBC Research Centre, Anna University</affiliation></author>
+      <author><first>Pattabhi</first><last>Rk Rao</last><affiliation>AU-KBC Research centre</affiliation></author>
+      <author><first>Vijay</first><last>Sundar Ram</last><affiliation>AU-KBC, Anna University, Chennai</affiliation></author>
+      <pages>79-86</pages>
+      <abstract>The work presented here describes our participation in DISRPT 2025 shared task in three tasks, Task1: Discourse Unit Segmentation across Formalisms, Task 2: Discourse Connective Identification across Languages and Task 3: Discourse Relation Classification across Formalisms. We have fine-tuned XLM-RoBERTa, a language model to address these three tasks. We have come up with one single multilingual language model for each task. Our system handles data in both the formats .conllu and .tok and different discourse formalisms. We have obtained encouraging results. The performance on test data in the three tasks is similar to the results obtained for the development data.</abstract>
+      <url hash="e37e47eb">2025.disrpt-1.6</url>
+      <attachment type="SupplementaryMaterial" hash="c1d270e1">2025.disrpt-1.6.SupplementaryMaterial.docx</attachment>
+      <bibkey>lalitha-devi-etal-2025-secorel</bibkey>
+    </paper>
+  </volume>
+</collection>
