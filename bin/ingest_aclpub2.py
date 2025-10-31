@@ -462,14 +462,15 @@ def paper2xml(
                 if value is not None:
                     make_simple_element(field, text=value, parent=paper)
             except Exception as e:
-                print("* ERROR:", e, file=sys.stderr)
+                print("* WARNING:", e, file=sys.stderr)
                 print(
                     f"* Couldn't process {field}='{value}' for {anthology_id}, please check the abstract in the papers.yaml file for this paper",
                     file=sys.stderr,
                 )
-                for key, value in paper_item.items():
-                    print(f"* -> {key} => {value}", file=sys.stderr)
-                sys.exit(2)
+#                for key, value in paper_item.items():
+#                    print(f"* -> {key} => {value}", file=sys.stderr)
+#                sys.exit(2)
+                continue
     return paper
 
 
