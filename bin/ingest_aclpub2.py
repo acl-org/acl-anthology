@@ -981,7 +981,7 @@ def main(
         proceedings_pdf_dest_path=proceedings_pdf_dest_path,
         people=people,
         papers=papers,
-        is_workshop=workshop is not None,
+        is_workshop=workshop,
     )
 
     if parent_event is not None:
