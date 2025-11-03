@@ -46,10 +46,10 @@ jobs:
       shell: bash
       run: echo "branch=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_OUTPUT
       id: extract_branch
-    - name: list volumes
+    - name: list changes
       shell: bash
-      run: echo "volumes=$(git diff --name-only $GITHUB_REF origin/master | python ./bin/volumes_from_diff.py https://preview.aclanthology.org/${{ steps.extract_branch.outputs.branch }}/volumes)" >> $GITHUB_OUTPUT
-      id: list_volumes
+      run: echo "changes=$(git diff --name-only $GITHUB_REF origin/master | python ./bin/get_changes_from_git_diff.py https://preview.aclanthology.org/${{ steps.extract_branch.outputs.branch }})" >> $GITHUB_OUTPUT
+      id: list_changes
 #    - name: list volumes debug
 #      shell: bash
 #      run: |
@@ -68,7 +68,7 @@ jobs:
         message: |
           Build successful. Some useful links:
           * Complete site preview: https://preview.aclanthology.org/${{ steps.extract_branch.outputs.branch }}
-          * Potential volumes of interest: ${{ steps.list_volumes.outputs.volumes }}
+          * Potential changes of interest: ${{ steps.list_changes.outputs.changes }}
 
           This preview will be removed when the branch is merged.
         repo-token: ${{ secrets.GITHUB_TOKEN }}

@@ -405,12 +405,17 @@ def main(args):
         else:
             root_node = make_simple_element("collection", attrib={"id": collection_id})
 
+        if args.is_journal:
+            volume_type = "journal"
+        else:
+            volume_type = "proceedings"
+
         volume_node = make_simple_element(
             "volume",
             attrib={
                 "id": volume_name,
                 "ingest-date": args.ingest_date,
-                "type": "proceedings",
+                "type": volume_type,
             },
         )
 
@@ -457,14 +462,19 @@ def main(args):
                     publisher_node = make_simple_element("publisher", meta["publisher"])
                 meta_node.append(publisher_node)
 
-                # Look for the address in the bib file, then the meta file
+                # address
                 address_node = paper_node.find("address")
                 if address_node is None:
-                    address_node = make_simple_element("address", meta["location"])
+                    address_node = make_simple_element("address", meta['location'])
                 meta_node.append(address_node)
 
-                meta_node.append(paper_node.find("month"))
+                # month
+                month_node = paper_node.find("month")
+                if month_node is not None:
+                    meta_node.append(month_node)
+
                 meta_node.append(paper_node.find("year"))
+
                 if book_dest_path is not None:
                     make_simple_element(
                         "url",
@@ -475,6 +485,12 @@ def main(args):
 
                 # Add the venue tag
                 make_simple_element("venue", venue_name, parent=meta_node)
+
+                # Add the journal-volume tag
+                if args.is_journal:
+                    make_simple_element("journal-volume", volume_name, parent=meta_node)
+
+                # Add the workshop tag
                 if args.is_workshop:
                     make_simple_element("venue", "ws", parent=meta_node)
 
@@ -582,6 +598,9 @@ if __name__ == "__main__":
     )
     parser.add_argument(
         "--is-workshop", "-w", action="store_true", help="Venue is a workshop"
+    )
+    parser.add_argument(
+        "--is-journal", "-j", action="store_true", help="Venue is a journal"
     )
     parser.add_argument(
         "--dry-run", "-n", action="store_true", help="Don't actually copy anything."
