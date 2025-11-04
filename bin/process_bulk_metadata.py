@@ -158,7 +158,10 @@ class AnthologyMetadataUpdater:
                 last = author_spec.get("last")
                 if first is not None or last is not None:
                     for node in existing_nodes:
-                        if node.findtext("first") == first and node.findtext("last") == last:
+                        if (
+                            node.findtext("first") == first
+                            and node.findtext("last") == last
+                        ):
                             existing_nodes.remove(node)
                             return node
 
@@ -219,7 +222,9 @@ class AnthologyMetadataUpdater:
                     make_simple_element("last", text=last_value, parent=author_node)
 
                 if author.get("affiliation"):
-                    append_text_elements("affiliation", author["affiliation"], author_node)
+                    append_text_elements(
+                        "affiliation", author["affiliation"], author_node
+                    )
                 elif existing_node is not None:
                     for elem in existing_node.findall("affiliation"):
                         author_node.append(copy.deepcopy(elem))
