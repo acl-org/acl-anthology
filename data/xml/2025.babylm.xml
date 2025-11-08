@@ -24,10 +24,12 @@
       <url hash="40196cd6">2025.babylm-main</url>
       <venue>babylm</venue>
       <isbn>TODO</isbn>
+      <doi>10.18653/v1/2025.babylm-main</doi>
     </meta>
     <frontmatter>
       <url hash="bb11848c">2025.babylm-main.0</url>
       <bibkey>babylm-2025-main</bibkey>
+      <doi>10.18653/v1/2025.babylm-main.0</doi>
     </frontmatter>
     <paper id="1">
       <title>Rethinking the Role of Text Complexity in Language Model Pretraining</title>
@@ -37,6 +39,7 @@
       <abstract>Improving pretraining data quality and size is known to boost downstream performance, but the role of text complexity—how hard a text is to read—remains less explored. We reduce surface-level complexity (shorter sentences, simpler words, simpler structure) while keeping core content approximately constant and ask: (i) How does complexity affect language modeling across model sizes? (ii) Can useful representations be learned from simpler text alone? (iii) How does pretraining text complexity influence downstream language understanding? We simplify human-written texts using a large language model, pretrain causal models (28M–500M) from scratch on original vs. simplified data, and evaluate them in fine-tuning and zero-shot setups. We find that perplexity is sensitive to the interaction between model capacity and text complexity—smaller models degrade far less on simpler texts—while text complexity has little impact on fine-tuning evaluations, with zero-shot evaluations indicating that simpler texts benefit performance on linguistic knowledge tasks, whereas more complex texts favor tasks requiring world knowledge and entity tracking. Our findings suggest that different types of data diversity affect transfer and zero-shot performance differently, providing insight into tailoring data curation to specific goals.</abstract>
       <url hash="baec26ff">2025.babylm-main.1</url>
       <bibkey>velasco-roque-2025-rethinking</bibkey>
+      <doi>10.18653/v1/2025.babylm-main.1</doi>
     </paper>
     <paper id="2">
       <title>Contrastive Decoding for Synthetic Data Generation in Low-Resource Language Modeling</title>
@@ -47,6 +50,7 @@
       <abstract>Large language models (LLMs) are trained on huge amounts of textual data, and concerns have been raised that the limits of such data may soon be reached. A potential solution is to train on synthetic data sampled from LLMs. In this work, we build on this idea and investigate the benefits of *contrastive decoding* for generating synthetic data. In a controlled setting, we experiment with sampling corpora using the relative difference between a GOOD and BAD model trained on the same original corpus of 100 million words. By amplifying the signal from a model that has better performance, we create a synthetic corpus and mix it with the original training data. Our findings show that training on a mixture of synthesized and real data improves performance on the language modeling objective and a range of downstream tasks.In particular, we see that training with a mix of synthetic data from contrastive decoding benefits tasks that require more *reasoning skills*, while synthetic data from traditional sampling helps more on tasks requiring surface-level *linguistic* capabilities.</abstract>
       <url hash="58893e4e">2025.babylm-main.2</url>
       <bibkey>ulm-etal-2025-contrastive</bibkey>
+      <doi>10.18653/v1/2025.babylm-main.2</doi>
     </paper>
     <paper id="3">
       <title>Unifying Mixture of Experts and Multi-Head Latent Attention for Efficient Language Models</title>
@@ -58,6 +62,7 @@
       <abstract>We present MoE-MLA-RoPE, a novel architecture combination that combines Mixture of Experts (MoE) with Multi-head Latent Attention (MLA) and Rotary Position Embeddings (RoPE) for efficient small language models. Our approach addresses the fundamental trade-off between model capacity and computational efficiency through three key innovations: (1) fine-grained expert routing with 64 micro-experts and top-<tex-math>k</tex-math> selection, enabling flexible specialization through <tex-math>\binom{62}{6} \approx 3.6 \times 10^{7}</tex-math> possible expert combinations; (2) shared expert isolation that dedicates 2 always active experts for common patterns while routing to 6 of 62 specialized experts; and (3) gradient-conflict-free load balancing that maintains expert utilization without interfering with primary loss optimization. Extensive experiments on models ranging from 17M to 202M parameters demonstrate that with compression ratio <tex-math>r=d/2</tex-math> achieves 68% KV cache memory reduction and 3.2× inference speedup while maintaining competitive perplexity (0.8% degradation). Compared to the parameters with 53.9M parameters, improves the validation loss by 6.9% over the vanilla transformers while using 42% fewer active parameters per forward pass. FLOP-matched experiments reveal even larger gains: 11.1% improvement with 3.2× inference acceleration. Automated evaluation using GPT-4 as a judge confirms quality improvements in generation, with higher scores on coherence (8.1/10), creativity (7.9/10) and grammatical correctness (8.2/10). Our results establish that architectural synergy, not parameter scaling, defines the efficiency frontier for resource-constrained language model deployment.</abstract>
       <url hash="a8b9dd1a">2025.babylm-main.3</url>
       <bibkey>mehta-etal-2025-unifying</bibkey>
+      <doi>10.18653/v1/2025.babylm-main.3</doi>
     </paper>
     <paper id="4">
       <title>Are <fixed-case>B</fixed-case>aby<fixed-case>LM</fixed-case>s Deaf to <fixed-case>G</fixed-case>ricean Maxims? A Pragmatic Evaluation of Sample-efficient Language Models</title>
@@ -69,6 +74,7 @@
       <abstract>Implicit meanings are integral to human communication, making it essential for language models to be capable of identifying and interpreting them. Grice (1975) proposed a set of conversational maxims that guide cooperative dialogue, noting that speakers may deliberately violate these principles to express meanings beyond literal words, and that listeners, in turn, recognize such violations to draw pragmatic inferences.Building on Surian et al. (1996)’s study of children’s sensitivity to violations of Gricean maxims, we introduce a novel benchmark to test whether language models pretrained on &lt;10M and &lt;100M tokens can distinguish maxim-adhering from maxim-violating utterances. We compare these BabyLMs across five maxims and situate their performance relative to children and a Large Language Model (LLM) pretrained on 3T tokens.We find that overall, models trained on &lt;100M tokens outperform those trained on &lt;10M, yet fall short of child-level and LLM competence. Our results suggest that modest data increases improve some aspects of pragmatic behavior, leading to finer-grained differentiation between pragmatic dimensions.</abstract>
       <url hash="c2f69d01">2025.babylm-main.4</url>
       <bibkey>askari-etal-2025-babylms</bibkey>
+      <doi>10.18653/v1/2025.babylm-main.4</doi>
     </paper>
     <paper id="5">
       <title>Model Merging to Maintain Language-Only Performance in Developmentally Plausible Multimodal Models</title>
@@ -79,6 +85,7 @@
       <abstract>State-of-the-art vision-and-language models consist of many parameters and learn from enormous datasets, surpassing the amounts of linguistic data that children are exposed to as they acquire a language. This paper presents our approach to the multimodal track of the BabyLM challenge addressing this discrepancy. We develop language-only and multimodal models in low-resource settings using developmentally plausible datasets, with our multimodal models outperforming previous BabyLM baselines. One finding in the multimodal language model literature is that these models tend to underperform in <i>language-only</i> tasks. Therefore, we focus on maintaining language-only abilities in multimodal models. To this end, we experiment with <i>model merging</i>, where we fuse the parameters of multimodal models with those of language-only models using weighted linear interpolation. Our results corroborate the findings that multimodal models underperform in language-only benchmarks that focus on grammar, and model merging with text-only models can help alleviate this problem to some extent, while maintaining multimodal performance.</abstract>
       <url hash="bb5e6295">2025.babylm-main.5</url>
       <bibkey>takmaz-etal-2025-model</bibkey>
+      <doi>10.18653/v1/2025.babylm-main.5</doi>
     </paper>
     <paper id="6">
       <title><fixed-case>T</fixed-case>af<fixed-case>BERT</fixed-case>a: Learning Grammatical Rules from Small-Scale Language Acquisition Data in <fixed-case>H</fixed-case>ebrew</title>
@@ -88,6 +95,7 @@
       <abstract>We present TafBERTa, a compact RoBERTa based language model tailored for Hebrew child-directed speech (CDS). This work builds upon the BabyBERTa framework to address data scarcity and morphological complexity in Hebrew. Focusing on determiner-noun grammatical agreement phenomena, we show that TafBERTa achieves competitive performance compared to large-scale Hebrew language models while requiring significantly less data and computational resources. As part of this work, we also introduce a new corpus of Hebrew CDS, HTBerman, aligned with morphological metadata and our new grammatical evaluation benchmark for Hebrew, HeCLiMP, based on minimal pairs. Our results demonstrate the effectiveness of TafBERTa in grammaticality judgments and its potential for efficient NLP in low-resource settings.</abstract>
       <url hash="fa46ea18">2025.babylm-main.6</url>
       <bibkey>gelboim-sulem-2025-tafberta</bibkey>
+      <doi>10.18653/v1/2025.babylm-main.6</doi>
     </paper>
     <paper id="7">
       <title><fixed-case>FORGETTER</fixed-case> with forgetful hyperparameters and recurring sleeps can continue to learn beyond normal overtfitting limits</title>
@@ -97,6 +105,7 @@
       <abstract>LLMs suffer from considerable computational costs in training.A more biologically plausible curriculum learning may help to decrease the learning costs.Here we propose a FORGETTER training algorithm,in which a model forgets the variables for optimization after a sleepand the hyperparameters are set toward forgetting memory:rather large weight decay and learning rates as well as small but optimized batch sizes.By limiting minGemma model to 512 input length and speeding up the development cycle,we compared normal and FORGETTER learning algorithms by using more than a thousand different models.Specifically, we found and utilized the “120-rule” that the models with about 120 (Query) heads in total, irrespective of the head number per layer, outperform.The improvement by using the FORGETTER algorithm is far bigger than that by optimizing the model structure.Specifically, FORGETTER models can learn beyond the data size where the normal learning overfits.The FORGETTER also works for CIFAR10 image classification.These results suggest that forgetting can be beneficial for pretraining deep neural networks by avoiding overfitting.</abstract>
       <url hash="87be48cd">2025.babylm-main.7</url>
       <bibkey>rui-miura-2025-forgetter</bibkey>
+      <doi>10.18653/v1/2025.babylm-main.7</doi>
     </paper>
     <paper id="8">
       <title>Large Language Models and Children Have Different Learning Trajectories in Determiner Acquisition</title>
@@ -108,6 +117,7 @@
       <abstract>Large language models are often compared to human learners based on the amount of training data required or the end state capabilities of a learner, yet less attention has been given to differences in their language learning process. This study uses determiner acquisition as a case study to characterize how LLMs and children differ in their learning processes. By analyzing annotated speech samples from specified age ranges of four children and intermediate training checkpoints of the Pythia-70m language model, we trace the learners’ learning paths of definite and indefinite determiner use. Our results reveal a divergence: the children first produce the indefinite determiner, while the model first produces the definite determiner. This difference reflects underlying differences in the learning goals and mechanisms of models and children. Framing language learning as movement over distributions of linguistic features makes the learning process visible and offers an alternative approach for comparing humans and language models.</abstract>
       <url hash="9b2cebd1">2025.babylm-main.8</url>
       <bibkey>fiandra-etal-2025-large</bibkey>
+      <doi>10.18653/v1/2025.babylm-main.8</doi>
     </paper>
     <paper id="9">
       <title>Design and Analysis of few Million Parameter Transformer-based Language Models trained over a few Million Tokens Dataset</title>
@@ -117,6 +127,7 @@
       <abstract>In this work, we systematically explore training methods and perform hyperparameter tuning to identify key language model parameters upper bounded by 28 million. These models are designed to generate a broad spectrum of basic general knowledge in simple and coherent English with limited generalization ability. We use the Simple English Wikipedia as the training dataset, selecting samples between 64 and 512 words, which provides a high-quality, compressed representation of general knowledge in basic English. Through hyperparameter tuning, we identify the best-performing architecture, yielding the lowest training loss, as a decoder-only Transformer with rotary positional encoding, multi-head attention, root-mean-square normalization, Gaussian error linear unit activation, post-normalization, no interleaved group query attention, an embedding dimension of 512, 8 layers, 8 attention heads, a feedforward dimension of 2048, and zero dropout. Models trained with a learning rate decaying linearly from <tex-math>10^{-4}</tex-math> to <tex-math>10^{-5}</tex-math> over 64 epochs achieve a training loss of 0.1, which appears sufficient for reproducing text more effectively than models trained to losses of 0.2 or 0.5. Fine-tuning on rephrased text further demonstrates that the model retains its ability to produce simple and coherent English covering broad basic knowledge, while exhibiting limited generalization capability.</abstract>
       <url hash="90b0a968">2025.babylm-main.9</url>
       <bibkey>hsiao-dutta-2025-design</bibkey>
+      <doi>10.18653/v1/2025.babylm-main.9</doi>
     </paper>
     <paper id="10">
       <title>What is the Best Sequence Length for <fixed-case>B</fixed-case>aby<fixed-case>LM</fixed-case>?</title>
@@ -128,6 +139,7 @@
       <abstract>Transformer language models typically operate with a fixed-length context window, which has grown in step with large-scale pretraining datasets. In the BabyLM Challenge, however, many past submissions have defaulted to using much shorter sequence lengths. We examine the impact of sequence length on BabyLM pretraining, to answer the simple question: what sequence length should we be using when training Baby LMs? Using 100M-word training data and fixed compute budgets, we compare 125M-parameter Mamba and OPT models, finding that although longer is often better, the optimal length depends on both task and architecture. Shorter sequences are sufficient for grammatical generalization tasks whereas longer contexts benefit morphological analogical reasoning tasks.</abstract>
       <url hash="b43026ad">2025.babylm-main.10</url>
       <bibkey>salhan-etal-2025-best</bibkey>
+      <doi>10.18653/v1/2025.babylm-main.10</doi>
     </paper>
     <paper id="11">
       <title><fixed-case>B</fixed-case>it<fixed-case>M</fixed-case>ar: Low-Bit Multimodal Fusion with Episodic Memory for Edge Devices</title>
@@ -141,6 +153,7 @@
       <abstract>Cross-attention transformers and other multimodal vision-language models excel at grounding and generation; however, their extensive, full-precision backbones make it challenging to deploy them on edge devices. Memory-augmented architectures enhance the utilization of past context; however, most works rarely pair them with aggressive edge-oriented quantization. We introduce BitMar, a quantized multimodal transformer that proposes an external human-like episodic memory for effective image-text generation on hardware with limited resources. BitMar utilizes 1.58-bit encoders, one for text (BitNet-style) and one for vision (DiNOv2-based), to create compact embeddings that are combined and used to query a fixed-size key-value episodic memory. During vector retrieval, the BitNet decoder applies per‐layer conditioning, which increases the contextual relevance of generated content. The decoder also employs attention sinks with a sliding‐window mechanism to process long or streaming inputs under tight memory budgets. The combination of per-layer conditioning and sliding-window attention achieves a strong quality–speed trade–off, delivering competitive captioning and multimodal understanding at low latency with a small model footprint. These characteristics make BitMar well-suited for edge deployment.</abstract>
       <url hash="9f58f646">2025.babylm-main.11</url>
       <bibkey>aman-etal-2025-bitmar</bibkey>
+      <doi>10.18653/v1/2025.babylm-main.11</doi>
     </paper>
     <paper id="12">
       <title>Exploring smaller batch sizes for a high-performing <fixed-case>B</fixed-case>aby<fixed-case>LM</fixed-case> model architecture</title>
@@ -151,6 +164,7 @@
       <abstract>We explore the conditions under which the highest-performing entry to the BabyLM task in 2023, Every Layer Counts BERT or ELC-BERT, is best-performing given more constrained resources than the original run, with a particular focus on batch size. ELC-BERT’s relative success, as an instance of model engineering compared to more cognitively-motivated architectures, could be taken as evidence that the “lowest-hanging” fruit is to be found from non-linguistic machine learning approaches. We find that if we take away the advantage of training time from ELC-BERT, the advantage of the architecture mostly disappears, but some hyperparameter combinations nevertheless differentiate themselves in performance.</abstract>
       <url hash="d866eaac">2025.babylm-main.12</url>
       <bibkey>loaiciga-etal-2025-exploring</bibkey>
+      <doi>10.18653/v1/2025.babylm-main.12</doi>
     </paper>
     <paper id="13">
       <title><fixed-case>BL</fixed-case>i<fixed-case>SS</fixed-case>: Evaluating Bilingual Learner Competence in Second Language Small Language Models</title>
@@ -163,6 +177,7 @@
       <abstract>Cross-lingual extensions of the BabyLM Shared Task beyond English incentivise the development of Small Language Models that simulate a much wider range of language acquisition scenarios, including code-switching, simultaneous and successive bilingualism and second language acquisition. However, to our knowledge, there is no benchmark of the formal competence of cognitively-inspired models of L2 acquisition, or <b>L2LMs</b>. To address this, we introduce a <b>Benchmark of Learner Interlingual Syntactic Structure (BLiSS)</b>. BLiSS consists of 1.5M naturalistic minimal pairs dataset derived from errorful sentence–correction pairs in parallel learner corpora. These are systematic patterns –overlooked by standard benchmarks of the formal competence of Language Models – which we use to evaluate L2LMs trained in a variety of training regimes on specific properties of L2 learner language to provide a linguistically-motivated framework for controlled measure of the interlanguage competence of L2LMs.</abstract>
       <url hash="2e7f6503">2025.babylm-main.13</url>
       <bibkey>gao-etal-2025-bliss</bibkey>
+      <doi>10.18653/v1/2025.babylm-main.13</doi>
     </paper>
     <paper id="14">
       <title>Sample-Efficient Language Modeling with Linear Attention and Lightweight Enhancements</title>
@@ -173,6 +188,7 @@
       <abstract>We study architectural and optimization techniques for sample-efficient language modeling under the constraints of the BabyLM 2025 shared task. Our model, <b>BLaLM</b>, replaces self-attention with a linear-time mLSTM token mixer and explores lightweight enhancements, including short convolutions, sliding window attention with dynamic modulation, and Hedgehog feature maps. To support training in low-resource settings, we curate a high-quality corpus emphasizing readability and pedagogical structure. Experiments across both strict and strict-small tracks show that (1) linear attention combined with sliding window attention consistently improves zero-shot performance, and (2) the Muon optimizer stabilizes convergence and reduces perplexity over AdamW. These results highlight effective strategies for efficient language modeling without relying on scale.</abstract>
       <url hash="02f7048a">2025.babylm-main.14</url>
       <bibkey>haller-etal-2025-sample</bibkey>
+      <doi>10.18653/v1/2025.babylm-main.14</doi>
     </paper>
     <paper id="15">
       <title>Looking to Learn: Token-wise Dynamic Gating for Low-Resource Vision-Language Modelling</title>
@@ -184,6 +200,7 @@
       <abstract>Training vision-language models on cognitively-plausible amounts of data requires rethinking how models integrate multimodal information. Within the constraints of the Vision track for the BabyLM Challenge 2025, we propose a lightweight decoder-based architecture with (1) token-wise dynamic gating for adaptive fusion of linguistic and visual cues, (2) feature modulation and channel attention to maximise the utility of limited visual information and (3) auxiliary contrastive objectives for visual grounding. Evaluation on five benchmarks (BLiMP, BLiMP Supplement, EWoK, Winoground and VQA) shows competitive or superior performance to multimodal baselines. More notably, our dynamic gate discovers interpretable patterns without explicit supervision, favouring visual cues for content words and linguistic cues for function words. While we identify limitations in the Challenge constraints, such as the information bottleneck created by global image embeddings and training instability from the dataset split, our findings establish dynamic gating as a powerful tool for efficient multimodal learning, offering both interpretability and performance even under severe constraints.</abstract>
       <url hash="9d887409">2025.babylm-main.15</url>
       <bibkey>ganescu-etal-2025-looking</bibkey>
+      <doi>10.18653/v1/2025.babylm-main.15</doi>
     </paper>
     <paper id="16">
       <title>A Comparison of Elementary Baselines for <fixed-case>B</fixed-case>aby<fixed-case>LM</fixed-case></title>
@@ -193,6 +210,7 @@
       <abstract>This paper explores multiple simple baselines for the BabyLM challenge, covering random models, elementary predictions based on frequency, n-gram language models, LSTM with several tokenizers (BPE, Unigram, SuperBPE), and GPT-BERT, the winning architecture from the prior BabyLM edition. The evaluation is focused on the BLiMP and BLiMP-Supplement benchmarks. Our experiments show that Strict-Small can sometimes outperform Strict, the fact that performance can be highly sensitive to tokenization and the importance of data efficiency. A simple word-frequency baseline scored unexpectedly high, which led to identifying an evaluation artifact in the pipeline: a system that returns identical logits for both sentences in a minimal pair can achieve maximal accuracy.</abstract>
       <url hash="a3d37299">2025.babylm-main.16</url>
       <bibkey>papusoi-nisioi-2025-comparison</bibkey>
+      <doi>10.18653/v1/2025.babylm-main.16</doi>
     </paper>
     <paper id="17">
       <title>Two ways into the hall of mirrors: Language exposure and lossy memory drive cross-linguistic grammaticality illusions in language models</title>
@@ -204,6 +222,7 @@
       <abstract>Readers of English — but not Dutch or German — consistently show a grammaticality illusion: they find ungrammatical double-center-embedded sentences easier to process than corresponding grammatical sentences. If pre-trained language model (LM) surprisal mimics these cross-linguistic patterns, this implies that language statistics explain the effect; if, however, the illusion requires memory constraints such as lossy context surprisal (LCS), this suggests a critical role for memory. We evaluate LMs in Dutch, German, and English. We find that both factors influence LMs’ susceptibility to grammaticality illusions, and neither fully account for human-like processing patterns.</abstract>
       <url hash="a91c1162">2025.babylm-main.17</url>
       <bibkey>mccurdy-etal-2025-two</bibkey>
+      <doi>10.18653/v1/2025.babylm-main.17</doi>
     </paper>
     <paper id="18">
       <title>What did you say? Generating Child-Directed Speech Questions to Train <fixed-case>LLM</fixed-case>s</title>
@@ -214,6 +233,7 @@
       <abstract>Child-Directed Speech (CDS) holds unique linguistic properties that distinguish it from other types of textual corpora. Language models trained using CDS often obtain superior results compared with the same size of different types of data. Several studies have aimed at modifying non-CDS data to mimic its linguistic properties to match the hypothesized advantageous aspects of CDS. Here, we propose to adapt the non-CDS portions of the training data to include questions similar to CDS interaction. We modify the data by adding artificially generated questions to the data and methodically analyzing the change in performance using each modified dataset. Our results show that artificial question generation strongly depends on the properties of the original dataset. While the performance improves for question-related measures, the overall performance is negatively affected as a result of the reduced syntactic diversity.</abstract>
       <url hash="2b508c80">2025.babylm-main.18</url>
       <bibkey>poh-etal-2025-say</bibkey>
+      <doi>10.18653/v1/2025.babylm-main.18</doi>
     </paper>
     <paper id="19">
       <title>Beyond Repetition: Text Simplification and Curriculum Learning for Data-Constrained Pretraining</title>
@@ -223,6 +243,7 @@
       <abstract>Most language model pretraining studies assume large data volumes, leaving open how to improve pretraining in data-constrained settings beyond repeated exposure. In such settings, the effects of training data order and of including alternative versions of the same text remain underexplored. We address this by studying curriculum learning in pretraining, focusing on text-complexity ordering and data augmentation via simplification. We ask: (1) Does simplifying texts enhance representation quality more than reusing the original data?; and (2) Does ordering data by text complexity yield better representations? To answer, we simplify a high-quality English dataset using a large language model and test four data schedules: (1) repeated exposure, (2) low-to-high complexity, (3) high-to-low, and (4) interleaved. We analyze models’ representation quality from a sample-efficiency perspective via fine-tuning, as well as its zero-shot performance on linguistic knowledge, entity tracking, world knowledge, and commonsense reasoning. Our findings show that adding simplified data improves fine-tuning and zero-shot performance over repeated exposure baseline: smaller models benefit from low-to-high complexity, while larger models perform better with interleaved ordering.</abstract>
       <url hash="d0a8a8e3">2025.babylm-main.19</url>
       <bibkey>roque-velasco-2025-beyond</bibkey>
+      <doi>10.18653/v1/2025.babylm-main.19</doi>
     </paper>
     <paper id="20">
       <title><fixed-case>C</fixed-case>ur<fixed-case>LL</fixed-case>: A Developmental Framework to Evaluate Continual Learning in Language Models</title>
@@ -234,6 +255,7 @@
       <abstract>We introduce a comprehensive continual learning dataset and benchmark CurLL grounded in human developmental trajectories from ages 5–10, enabling systematic and fine-grained assessment of models’ ability to progressively acquire new skills. CurLL spans five developmental stages (0–4) covering ages 5–10, with a skill graph of 32 high-level skills, 128 sub-skills, 350+ goals, and 1,300+ indicators explicitly modeling prerequisite relationships. We generate a 23.4B-token synthetic dataset with controlled skill progression, vocabulary complexity, and format diversity, comprising paragraphs, comprehension-based QA (CQA), skill-testing QA (CSQA), and instruction–response (IR) pairs. Stage-wise token counts range from 2.12B to 6.78B tokens, supporting precise analysis of forgetting, forward transfer, and backward transfer. Using a 135M-parameter transformer trained under independent, joint, and sequential (continual) setups, we show trade-offs in skill retention and transfer efficiency. By mirroring human learning patterns and providing fine-grained control over skill dependencies, this work advances continual learning evaluations for language models.</abstract>
       <url hash="8da1cc4f">2025.babylm-main.20</url>
       <bibkey>tankala-etal-2025-curll</bibkey>
+      <doi>10.18653/v1/2025.babylm-main.20</doi>
     </paper>
     <paper id="21">
       <title>A Morpheme-Aware Child-Inspired Language Model</title>
@@ -243,6 +265,7 @@
       <abstract>Most tokenization methods in language models rely on subword units that lack explicit linguistic correspondence. In this work, we investigate the impact of using morpheme-based tokens in a small language model, comparing them to the widely used frequency-based method, BPE. We apply the morpheme-based tokenization method to both 10-million and 100-million word datasets from the BabyLM Challenge. Our results show that using a morphological tokenizer improves EWoK (basic world knowledge) performance by around 20% and entity tracking by around 40%, highlighting the impact of morphological information in developing smaller language models. We also apply curriculum learning, in which morphological information is gradually introduced during training, mirroring the vocabulary-building stage in infants that precedes morphological processing. The results are consistent with previous research: curriculum learning yields slight improvements for some tasks, but performance degradation in others.</abstract>
       <url hash="d8ffcb56">2025.babylm-main.21</url>
       <bibkey>bolucu-can-2025-morpheme</bibkey>
+      <doi>10.18653/v1/2025.babylm-main.21</doi>
     </paper>
     <paper id="22">
       <title>Do Syntactic Categories Help in Developmentally Motivated Curriculum Learning for Language Models?</title>
@@ -253,6 +276,7 @@
       <abstract>We examine the syntactic properties of BabyLM corpus, and age-groups within CHILDES. While we find that CHILDES does not exhibit strong syntactic differentiation by age, we show that the syntactic knowledge about the training data can be helpful in interpreting model performance on linguistic tasks. For curriculum learning, we explore developmental and several alternative cognitively inspired curriculum approaches. We find that some curricula help with reading tasks, but the main performance improvement come from using the subset of syntactically categorizable data, rather than the full noisy corpus.</abstract>
       <url hash="0379efc7">2025.babylm-main.22</url>
       <bibkey>guven-etal-2025-syntactic</bibkey>
+      <doi>10.18653/v1/2025.babylm-main.22</doi>
     </paper>
     <paper id="23">
       <title><fixed-case>S</fixed-case>lovak<fixed-case>B</fixed-case>aby<fixed-case>LM</fixed-case>: Replication of the <fixed-case>B</fixed-case>aby<fixed-case>LM</fixed-case> and Sample-efficient Pretraining for a Low-Resource Language</title>
@@ -262,6 +286,7 @@
       <abstract>In recent years, we can observe a trend of creating various specific language models (LMs) within the Slavic language family with the Bert architecture. However, with an increasing number of parameters of LM, a larger amount of text is required for good performance, which can hinder the development and creation of LMs for specific languages. Our research is looking for a solution in Curriculum learning(CL) methods that can help us build better models with a lower amount of text in comparison with current LMs, which can help in better prtraining of models with low resource languages(LRL). Therefore, we replicate the BabyLM Challenge in the Slovak language (Dataset: https://huggingface.co/datasets/ubokri/SlovakBabyLM, Code: https://github.com/baucek/Slovakbabylm/tree/main). Additionally, apply CL to test and see the difference in the application of CL methods on the English and Slovak languages and evaluate whether the CL improves performance of LM. Our experiments show that the use of CL methods as preprocessing methods is significant for improving model performance in sentiment analysis and question answering.</abstract>
       <url hash="6beeb986">2025.babylm-main.23</url>
       <bibkey>kris-suppa-2025-slovakbabylm</bibkey>
+      <doi>10.18653/v1/2025.babylm-main.23</doi>
     </paper>
     <paper id="24">
       <title>Single layer tiny Co4 outpaces <fixed-case>GPT</fixed-case>-2 and <fixed-case>GPT</fixed-case>-<fixed-case>BERT</fixed-case></title>
@@ -272,6 +297,7 @@
       <abstract>We show that a tiny <tex-math>Co^{4}</tex-math> machine (CITATION) with a single layer, two heads, and 8M parameters, operating at <tex-math>O(N)</tex-math> computational cost (where <i>N</i> is the number of input tokens), in just 2 epochs outpaces GPT-2 (124M, 12 layers, <tex-math>O(N^2)</tex-math>) and GPT-BERT (30M, 12 layers, <tex-math>O(N^2)</tex-math>), both trained for 10 epochs. <tex-math>Co^{4}</tex-math> achieves orders-of-magnitude greater training efficiency on 10M tokens, demonstrating sample-efficient pretraining. On the BabyLM challenge evaluation pipeline, <tex-math>Co^{4}</tex-math> performs comparably or better across complex benchmarks, showing strong zero-shot and fine-tuning performance on SuperGLUE tasks. Specifically, <tex-math>Co^{4}</tex-math> outperforms GPT-2 in 5 out of 7 zero-shot metrics and 6 out of 7 fine-tuning tasks, and GPT-BERT in 4 out of 7 metrics in both cases. These results strongly suggest a need to rethink prevailing deep learning paradigms and associated scaling laws.</abstract>
       <url hash="e054a8dd">2025.babylm-main.24</url>
       <bibkey>zain-etal-2025-single</bibkey>
+      <doi>10.18653/v1/2025.babylm-main.24</doi>
     </paper>
     <paper id="25">
       <title>Teacher Demonstrations in a <fixed-case>B</fixed-case>aby<fixed-case>LM</fixed-case>’s Zone of Proximal Development for Contingent Multi-Turn Interaction</title>
@@ -287,6 +313,7 @@
       <abstract>Multi-turn dialogues between a child and caregiver are characterized by a property called contingency – prompt, direct, and meaningful exchanges between interlocutors. We introduce ContingentChat, a Teacher–Student framework that benchmarks and improves multi-turn contingency in a BabyLM trained on 100M words. Using a novel alignment dataset for post-training, BabyLM generates responses that are more grammatical and cohesive. Experiments with adaptive Teacher decoding strategies show limited additional gains. ContingentChat highlights the positive benefits of targeted post-training on dialogue quality and presents contingency as a challenging goal for BabyLMs.</abstract>
       <url hash="c1abb53e">2025.babylm-main.25</url>
       <bibkey>salhan-etal-2025-teacher</bibkey>
+      <doi>10.18653/v1/2025.babylm-main.25</doi>
     </paper>
     <paper id="26">
       <title>Influence-driven Curriculum Learning for Pre-training on Limited Data</title>
@@ -298,6 +325,7 @@
       <abstract>Curriculum learning, a training technique where data is presented to the model in order of example difficulty (e.g., from simpler to more complex documents), has shown limited success for pre-training language models. In this work, we investigate whether curriculum learning becomes competitive if we replace conventional human-centered difficulty metrics with one that more closely corresponds to example difficulty as observed during model training. Specifically, we experiment with sorting training examples by their training data influence, a score which estimates the effect of individual training examples on the model’s output. Models trained on our curricula are able to outperform ones trained in random order by over 10 percentage points in benchmarks, confirming that curriculum learning is beneficial for language model pre-training, as long as a more model-centric notion of difficulty is adopted.</abstract>
       <url hash="c98a2c6b">2025.babylm-main.26</url>
       <bibkey>schoenegger-etal-2025-influence</bibkey>
+      <doi>10.18653/v1/2025.babylm-main.26</doi>
     </paper>
     <paper id="27">
       <title>Understanding and Enhancing Mamba-Transformer Hybrids for Memory Recall and Language Modeling</title>
@@ -312,6 +340,7 @@
       <abstract>Hybrid models that combine state space models (SSMs) with attention mechanisms have demonstrated strong performance by leveraging the efficiency of SSMs and the high recall ability of attention. However, the underlying reasons for these benefits remain insufficiently understood. In this work, we investigate hybrid architectures through the lens of memory utilization and overall performance, and propose a complementary method to further enhance their effectiveness. We focus in particular on the distinction between sequential and parallel integration of SSM and attention layers. Our analysis reveals that sequential hybrids perform better on shorter contexts, whereas parallel hybrids are more effective for longer contexts. Among various configurations, parallel hybrids using a cross-attention to combine SSM and attention outputs perform best. We also introduce a data-centric approach to further improve model performance: continual training on datasets with paraphrases. This method strikes the best balance across various other datasets, enhancing memory recall while preserving other capabilities. It generalizes well across different base models, including pure SSMs, and outperforms architectural modifications aimed at enhancing recall.</abstract>
       <url hash="734f1ca0">2025.babylm-main.27</url>
       <bibkey>lee-etal-2025-understanding</bibkey>
+      <doi>10.18653/v1/2025.babylm-main.27</doi>
     </paper>
     <paper id="28">
       <title>Findings of the Third <fixed-case>B</fixed-case>aby<fixed-case>LM</fixed-case> Challenge: Accelerating Language Modeling Research with Cognitively Plausible Data</title>
@@ -333,6 +362,7 @@
       <abstract>This report summarizes the findings from the 3rd BabyLM Challenge and the 1st BabyLM Workshop. The BabyLM Challenge is a shared task aimed at closing the data efficiency gap between human and machine language learners. The goal is to improve the performance of language models given a fixed training budget of no more than 100 million words. This year, the challenge was held as part of an expanded BabyLM Workshop that invited paper submissions on topics relevant to the BabyLM effort, including sample-efficient pretraining and cognitive modeling for LMs. For the challenge, we kept the text-only and text–image tracks from previous years, but also introduced a new <i>interaction</i> track, where student models are allowed to learn from feedback from larger teacher models. Furthermore, we introduce a new set of evaluation tasks to assess the “human likeness” of models on a cognitive and linguistic level, limit the total amount of training compute allowed, and measure performance on intermediate checkpoints. We observe that new training objectives and architectures tend to produce the best-performing approaches, and that interaction with teacher models can yield high-quality language models. The strict and interaction tracks saw submissions that outperformed the best-performing methods from previous years. We do not observe a complete correlation between training FLOPs and performance. %, suggesting that some methods can produce real gains beyond allowing us to spend more compute. This year’s BabyLM Challenge shows that there is still room to innovate in a data-constrained setting, and that community-driven research can yield actionable insights for language modeling.</abstract>
       <url hash="884336e0">2025.babylm-main.28</url>
       <bibkey>charpentier-etal-2025-findings</bibkey>
+      <doi>10.18653/v1/2025.babylm-main.28</doi>
     </paper>
     <paper id="29">
       <title>Dialogue Is Not Enough to Make a Communicative <fixed-case>B</fixed-case>aby<fixed-case>LM</fixed-case> (But Neither Is Developmentally Inspired Reinforcement Learning)</title>
@@ -347,6 +377,7 @@
       <abstract>We investigate whether pre-training exclusively on dialogue data results in formally and functionally apt small language models. Based on this pre-trained llamalogue model, we employ a variety of fine-tuning strategies to enforce “more communicative” text generations by our models. Although our models underperform on most standard BabyLM benchmarks, they excel at dialogue continuation prediction in a minimal pair setting. While PPO fine-tuning has mixed to adversarial effects on our models, DPO fine-tuning further improves their performance on our custom dialogue benchmark.</abstract>
       <url hash="d647bc84">2025.babylm-main.29</url>
       <bibkey>padovani-etal-2025-dialogue</bibkey>
+      <doi>10.18653/v1/2025.babylm-main.29</doi>
     </paper>
     <paper id="30">
       <title><fixed-case>CLASS</fixed-case>-<fixed-case>IT</fixed-case>: Conversational and Lecture-Aligned Small-Scale Instruction Tuning for <fixed-case>B</fixed-case>aby<fixed-case>LM</fixed-case>s</title>
@@ -357,6 +388,7 @@
       <abstract>This work investigates whether small-scale LMs can benefit from instruction tuning (IT). We compare conversational and question–answering IT datasets, applied either in a merged or sequential curriculum, using decoder-only models with 100M and 140M parameters. Evaluation spans both fine-tuning (SuperGLUE) and zero-shot (BLiMP, EWoK, WUGs, entity tracking, and psycholinguistic correlation) settings. Results show that IT yields small but consistent gains in fine-tuning scenarios, with sequential curricula outperforming merged data; however, improvements do not consistently transfer to zero-shot tasks, suggesting a trade-off between interaction-focused adaptation and broad linguistic generalization. These results highlight both the potential and the constraints of adapting human-inspired learning strategies to low-resource LMs, and point toward hybrid, curriculum-based approaches for enhancing generalization under ecological training limits.</abstract>
       <url hash="8cdae2f3">2025.babylm-main.30</url>
       <bibkey>capone-etal-2025-class</bibkey>
+      <doi>10.18653/v1/2025.babylm-main.30</doi>
     </paper>
     <paper id="31">
       <title>Mask and You Shall Receive: Optimizing Masked Language Modeling For Pretraining <fixed-case>B</fixed-case>aby<fixed-case>LM</fixed-case>s</title>
@@ -366,6 +398,7 @@
       <abstract>We describe our strategy for the 2025 edition of the BabyLM Challenge. Our main contribution is that of an improved form of Masked Language Modeling (MLM), which adapts the probabilities of the tokens masked according to the model’s ability to predict them. The results show a substantial increase in performance on (Super)GLUE tasks over the standard MLM. We also incorporate sub-token embeddings, finding that this increases the model’s morphological generalization capabilities. Our submission beats the baseline in the strict-small track.</abstract>
       <url hash="ff80dca6">2025.babylm-main.31</url>
       <bibkey>edman-fraser-2025-mask</bibkey>
+      <doi>10.18653/v1/2025.babylm-main.31</doi>
     </paper>
     <paper id="32">
       <title>Once Upon a Time: Interactive Learning for Storytelling with Small Language Models</title>
@@ -377,6 +410,7 @@
       <abstract>Children efficiently acquire language not just by listening, but by interacting with others in their social environment. Conversely, large language models are typically trained with next-word prediction on massive amounts of text. Motivated by this contrast, we investigate whether language models can be trained with less data by learning not only from next-word prediction but also from high-level, cognitively inspired feedback. We train a student model to generate stories, which a teacher model rates on readability, narrative coherence, and creativity. By varying the amount of pretraining before the feedback loop, we assess the impact of this interactive learning on formal and functional linguistic competence. We find that the high-level feedback is highly data efficient: With just 1 M words of input in interactive learning, storytelling skills can improve as much as with 410 M words of next-word prediction.</abstract>
       <url hash="88368660">2025.babylm-main.32</url>
       <bibkey>martins-etal-2025-upon</bibkey>
+      <doi>10.18653/v1/2025.babylm-main.32</doi>
     </paper>
     <paper id="33">
       <title>You are an <fixed-case>LLM</fixed-case> teaching a smaller model everything you know: Multi-task pretraining of language models with <fixed-case>LLM</fixed-case>-designed study plans</title>
@@ -387,6 +421,7 @@
       <abstract>This paper proposes a multi-task pre-training of language models without any text corpora.The method leverages an existing Large Language Model (LLM) to generate a diverse corpus containing training data for 56 automatically designed tasks and uses generated labels to enhance the training signal.The method does not rely on hidden states or even output distributions of the teacher model, so may be employed in scenarios when the teacher LLM is available only through an API.The conducted experiments show that models trained on the proposed synthetic corpora achieve competitive or superior performance compared to those trained on same-sized human-written texts.</abstract>
       <url hash="455bce8a">2025.babylm-main.33</url>
       <bibkey>kamzela-etal-2025-llm</bibkey>
+      <doi>10.18653/v1/2025.babylm-main.33</doi>
     </paper>
     <paper id="34">
       <title>Active Curriculum Language Modeling over a Hybrid Pre-training Method</title>
@@ -397,6 +432,7 @@
       <abstract>We apply the Active Curriculum Language Modeling (ACLM) method to the constrained pretraining setting of the 2025 BabyLM Challenge, where models are limited by both data and compute budgets. Using GPT-BERT (Charpentier and Samuel, 2024) as the base architecture, we investigate the impact of surprisal-based example selection for constructing a training curriculum. In addition, we conduct a targeted hyperparameter search over tokenizer size and batch size. Our approach yields stable pretrained models that surpass the official baseline on multiple evaluation tasks, demonstrating ACLM’s potential for improving performance and generalization in low-resource pretraining scenarios.</abstract>
       <url hash="5b619c57">2025.babylm-main.34</url>
       <bibkey>fysikoudi-etal-2025-active</bibkey>
+      <doi>10.18653/v1/2025.babylm-main.34</doi>
     </paper>
     <paper id="35">
       <title>Linguistic Units as Tokens: Intrinsic and Extrinsic Evaluation with <fixed-case>B</fixed-case>aby<fixed-case>LM</fixed-case></title>
@@ -409,6 +445,7 @@
       <abstract>Tokenization is often treated as a preprocessing step, yet in data-limited settings it directly shapes what a model can learn. We compare four segmentation strategies in the BabyLM Challenge: frequency-based BPE, morphology-aware MorPiece and ParadigmFinder, and syllable-based SylliTok. Evaluation combines two perspectives. First, an intrinsic test on the SIGMORPHON 2022 segmentation benchmark, adapted to English, measures how closely each tokenizer aligns with morpheme boundaries. Second, extrinsic tests train GPT-2 on the 10M BabyLM corpus and evaluate on the 2025 benchmark. No single tokenizer dominates. BPE remains strong on syntax-heavy tasks. ParadigmFinder excels in semantic composition and age-of-acquisition alignment. MorPiece shows advantages in discourse tracking. Morphology-aware tokenizers achieve the best intrinsic segmentation scores, and these gains translate into more robust generalisation in comprehension tasks. These results highlight tokenization as a core modeling decision, with direct consequences for compression, morphology, and the path to humanlike learning.</abstract>
       <url hash="3a6559af">2025.babylm-main.35</url>
       <bibkey>fusco-etal-2025-linguistic</bibkey>
+      <doi>10.18653/v1/2025.babylm-main.35</doi>
     </paper>
     <paper id="36">
       <title>Batch-wise Convergent Pre-training: Step-by-Step Learning Inspired by Child Language Development</title>
@@ -422,6 +459,7 @@
       <abstract>Human children acquire language from a substantially smaller amount of linguistic input than that typically required for training large language models (LLMs). This gap motivates the search for more efficient pre-training methods. Inspired by child development, curriculum learning, which progresses from simple to complex data, has been widely adopted. In this study, we propose a pre-training framework that mirrors child language acquisition, advancing step by step from words to sentences while retaining prior knowledge. We investigate whether this improves retention and efficiency under limited resources. Our approach is implemented through four components: (i) a curriculum-aligned dataset, (ii) a batch-wise convergence loop, (iii) a distance-controlled loss to mitigate forgetting, and (iv) a constraint-controlled optimizer for stability. Experiments on the BabyLM benchmark show that the proposed method performs slightly below the official baselines in overall accuracy, with larger gaps on grammar-oriented evaluations such as BLiMP. Nonetheless, it yields small but consistent gains on morphology- and discourse-related tasks (e.g., WUG-ADJ, Entity Tracking), suggesting that the approach affects different linguistic aspects unevenly under limited data conditions.</abstract>
       <url hash="551b6945">2025.babylm-main.36</url>
       <bibkey>yoshida-etal-2025-batch</bibkey>
+      <doi>10.18653/v1/2025.babylm-main.36</doi>
     </paper>
     <paper id="37">
       <title>Pretraining Language Models with <fixed-case>L</fixed-case>o<fixed-case>RA</fixed-case> and Artificial Languages</title>
@@ -432,6 +470,7 @@
       <abstract>Large language models (LLMs) require a substantial amount of training data, which contrasts with the data-efficient learning observed in humans. In our submission to the BabyLM Challenge, we address this disparity by proposing a parameter-efficient pretraining approach for language acquisition from limited data. Our approach involves initializing the model with token embeddings trained by a shallow model, followed by tuning the non-embedding parameters with non-linguistic data to introduce structural biases. Then, we freeze the resulting model and pretrain it on the 10M-token BabyLM corpus using LoRA adapters. Experiments on small corpora demonstrate that our approach improves upon classic pretraining of the entire model.</abstract>
       <url hash="a66bcc24">2025.babylm-main.37</url>
       <bibkey>kumar-etal-2025-pretraining</bibkey>
+      <doi>10.18653/v1/2025.babylm-main.37</doi>
     </paper>
     <paper id="38">
       <title>Masked Diffusion Language Models with Frequency-Informed Training</title>
@@ -444,6 +483,7 @@
       <abstract>We present a masked diffusion language modeling framework for data-efficient training for the BabyLM 2025 Challenge. Our approach applies diffusion training objectives to language modeling under strict data constraints, incorporating frequency-informed masking that prioritizes learning from rare tokens while maintaining theoretical validity. We explore multiple noise scheduling strategies, including two-mode approaches, and investigate different noise weighting schemes within the NELBO objective. We evaluate our method on the BabyLM benchmark suite, measuring linguistic competence, world knowledge, and human-likeness. Results show performance competitive to hybrid autoregressive-masked baselines, demonstrating that diffusion-based training offers a viable alternative for data-restricted language learning.</abstract>
       <url hash="ab4ce80f">2025.babylm-main.38</url>
       <bibkey>kosmopoulou-etal-2025-masked</bibkey>
+      <doi>10.18653/v1/2025.babylm-main.38</doi>
     </paper>
     <paper id="39">
       <title><fixed-case>M</fixed-case>o<fixed-case>EP</fixed-case>: Modular Expert Paths for Sample-Efficient Language Modeling</title>
@@ -452,6 +492,7 @@
       <abstract>Training language models under tight compute budgets with small training datasets remains challenging for dense decoder-only Transformers, where every token activates the full stack of model parameters. We introduce MoEP (Modular Expert Paths), a sparse decoder-only architecture that enables more selective token activation, which increases model performance and accelerates learning without increasing the total number of parameters. We show that combining model parallelism with Mixture-of-Experts (MoE) style linear projections and a lightweight top-k router outperforms the GPT-2 baseline and stabilizes evaluation performance more quickly.</abstract>
       <url hash="855cca9d">2025.babylm-main.39</url>
       <bibkey>tapaninaho-2025-moep</bibkey>
+      <doi>10.18653/v1/2025.babylm-main.39</doi>
     </paper>
     <paper id="40">
       <title><fixed-case>R</fixed-case>ecombi<fixed-case>T</fixed-case>ext: Compositional Data Augmentation for Enhancing <fixed-case>LLM</fixed-case> Pre-Training Datasets in Low-Resource Scenarios</title>
@@ -463,6 +504,7 @@
       <abstract>We introduce RecombiText Augmentation (RTA), a novel purely statistical NLP method for compositional data augmentation for data-efficient LLM pre-training in low-resource scenarios. RTA identifies lexically and semantically similar sentences within the corpus and generates synthetic sentence pairs from them while preserving underlying patterns from the corpus. We pre-train GPT-2 and RoBERTa language models on a domain-specific, low-resource corpus of 10 million words, with different proportions of augmented data. We compare our RTA-augmented model variants to a baseline model trained on the full original dataset. Zero-shot results show that the language models pre-trained on synthetic data improve in entity tracking, self-paced reading, and morphological generalization benchmarks. In other tasks, the performance is comparable to the baseline model. We demonstrate that it is possible to expand low-resource datasets by two- to four-fold without compromising benchmark performance, solely through statistical processing of the available data.</abstract>
       <url hash="14cb63fd">2025.babylm-main.40</url>
       <bibkey>tampier-etal-2025-recombitext</bibkey>
+      <doi>10.18653/v1/2025.babylm-main.40</doi>
     </paper>
   </volume>
 </collection>

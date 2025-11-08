@@ -16,10 +16,12 @@
       <venue>mathnlp</venue>
       <venue>ws</venue>
       <isbn>979-8-89176-348-7</isbn>
+      <doi>10.18653/v1/2025.mathnlp-main</doi>
     </meta>
     <frontmatter>
       <url hash="97b179a9">2025.mathnlp-main.0</url>
       <bibkey>mathnlp-ws-2025-main</bibkey>
+      <doi>10.18653/v1/2025.mathnlp-main.0</doi>
     </frontmatter>
     <paper id="1">
       <title>Syntactic Blind Spots: How Misalignment Leads to <fixed-case>LLM</fixed-case>s’ Mathematical Errors</title>
@@ -30,6 +32,7 @@
       <abstract>Large Language Models (LLMs) demonstrate strong mathematical problem-solving abilities but frequently fail on problems that deviate syntactically from their training distribution. We identify a systematic failure mode, syntactic blind spots, in which models misapply familiar reasoning strategies to problems that are semantically straightforward but phrased in unfamiliar ways. These errors are not due to gaps in mathematical competence, but rather reflect a brittle coupling between surface form and internal representation. To test this, we rephrase incorrectly answered questions using syntactic templates drawn from correct examples. These rephrasings, which preserve semantics while reducing structural complexity, often lead to correct answers. We quantify syntactic complexity using a metric based on Dependency Locality Theory (DLT), and show that higher DLT scores are associated with increased failure rates across multiple datasets. Our findings suggest that many reasoning errors stem from structural misalignment rather than conceptual difficulty, and that syntax-aware interventions can reveal and mitigate these inductive failures.</abstract>
       <url hash="1af7cedb">2025.mathnlp-main.1</url>
       <bibkey>williamson-etal-2025-syntactic</bibkey>
+      <doi>10.18653/v1/2025.mathnlp-main.1</doi>
     </paper>
     <paper id="2">
       <title>Step-<fixed-case>KTO</fixed-case>: Optimizing Mathematical Reasoning through Stepwise Binary Feedback</title>
@@ -51,6 +54,7 @@
       <abstract>Large language models (LLMs) have recently demonstrated remarkable success in mathematical reasoning. Despite progress in methods like chain-of-thought prompting and self-consistency sampling, these advances often focus on final correctness without ensuring that the underlying reasoning process is coherent and reliable. This paper introduces Step-KTO, a training framework that combines process-level and outcome-level binary feedback to guide LLMs toward more trustworthy reasoning trajectories. By providing binary evaluations for both the intermediate reasoning steps and the final answer, Step-KTO encourages the model to adhere to logical progressions rather than relying on superficial shortcuts. Our experiments on challenging mathematical benchmarks show that Step-KTO significantly improves both final answer accuracy and the quality of intermediate reasoning steps. For example, on the MATH-500 dataset, Step-KTO achieves a notable improvement in Pass@1 accuracy over strong baselines. These results highlight the promise of integrating stepwise process feedback into LLM training, paving the way toward more interpretable and dependable reasoning capabilities.</abstract>
       <url hash="0948225f">2025.mathnlp-main.2</url>
       <bibkey>lin-etal-2025-step</bibkey>
+      <doi>10.18653/v1/2025.mathnlp-main.2</doi>
     </paper>
     <paper id="3">
       <title><fixed-case>B</fixed-case>loom<fixed-case>W</fixed-case>ise: Enhancing Problem-Solving capabilities of Large Language Models using Bloom’s-Taxonomy-Inspired Prompts</title>
@@ -61,6 +65,7 @@
       <abstract>Despite the remarkable capabilities of large language models (LLMs) across a range of tasks, mathematical reasoning remains a challenging frontier. Motivated by the observation that humans learn more effectively when prompted not what to think but how to think, we introduce BloomWise, a cognitively-inspired prompting technique designed to enhance LLMs’ performance on mathematical problem solving while making their solutions more explainable. BloomWise encourages LLMs to generate solutions - in the form of explanations - by progressing through a sequence of cognitive operations-from basic (e.g., remembering) to more advanced reasoning skills (e.g., evaluating) - mirroring how humans build understanding. The process iterates through these levels, halting early if a convergence criterion is met: specifically, if two or more consecutive levels yield the same answer, the solution from the earliest such level is output; otherwise, the process continues until all levels are completed. Through extensive experiments across five popular math reasoning datasets, we demonstrate the effectiveness of BloomWise. We also present comprehensive ablation studies to analyze the strengths of each component within our system.</abstract>
       <url hash="52dc7514">2025.mathnlp-main.3</url>
       <bibkey>zoumpoulidi-etal-2025-bloomwise</bibkey>
+      <doi>10.18653/v1/2025.mathnlp-main.3</doi>
     </paper>
     <paper id="4">
       <title>Scalability of <fixed-case>LLM</fixed-case>-Based Multi-Agent Systems for Scientific Code Generation: A Preliminary Study</title>
@@ -76,6 +81,7 @@
       <abstract>Recent studies indicate that LLM-based Multi-Agent Systems (MAS) encounter scalability challenges in complex mathematical problem-solving or coding tasks, exhibiting issues such as inconsistent role adherence and ineffective inter-agent communication. Moreover, the performance advantages of LLM-based MAS over a single agent employing test-time scaling methods (e.g., majority voting) remain marginal. This raises a critical question: Can LLM-based MAS scale effectively to achieve performance comparable to standalone LLMs or even Large Reasoning Models (LRMs) under optimal test-time compute?In this paper, we conduct a preliminary investigation into the scalability of LLM-based MAS for scientific code generation. We propose a simple yet scalable two-player framework based on iterative critic-in-the-loop refinement. Our experiments demonstrate that a minimalist actor-critic framework based on DeepSeek-V3 can outperform DeepSeek-R1 under equivalent computational budgets. Surprisingly, more complex frameworks fail to yield significant gains. These findings corroborate recent insights into multi-agent system limitations and highlight the importance of scalable workflows for advancing scientific code generation.</abstract>
       <url hash="c339dfce">2025.mathnlp-main.4</url>
       <bibkey>wang-etal-2025-scalability</bibkey>
+      <doi>10.18653/v1/2025.mathnlp-main.4</doi>
     </paper>
     <paper id="5">
       <title><fixed-case>FIRMA</fixed-case>: Bidirectional Formal-Informal Mathematical Language Alignment with Proof-Theoretic Grounding</title>
@@ -84,6 +90,7 @@
       <abstract>While large language models excel at gener- ating plausible mathematical text, they often produce subtly incorrect formal translations that violate proof-theoretic constraints. We present FIRMA (Formal-Informal Reasoning in Mathematical Alignment), a bidirectional translation system between formal and informal mathematical language that leverages proof-theoretic interpretability hierarchies and specialized architectural components for proof preservation. Unlike existing approaches that treat this as pure sequence-to-sequence translation, FIRMA introduces a hierarchical architecture with complexity-aware routing, proof-preserving attention mechanisms, and multi-objective training that balances formal correctness with natural readability. Through progressive complexity training on curated datasets from Lean 4 and formal mathematics repositories, we evaluate FIRMA on 200 translation samples across complexity levels and compare against two baseline systems. Our analysis shows statistically significant improvements of 277.8% over BFS-Prover- V1-7B and 6307.5% over REAL-Prover on overall translation quality metrics. Ablation studies on 50 samples demonstrate that each architectural component contributes substan- tially to performance, with removal of any component resulting in 83-85% performance degradation. We release our code at https://github.com/smfatima3/FIRMA</abstract>
       <url hash="2fc33691">2025.mathnlp-main.5</url>
       <bibkey>fatima-2025-firma</bibkey>
+      <doi>10.18653/v1/2025.mathnlp-main.5</doi>
     </paper>
     <paper id="6">
       <title><fixed-case>CHECK</fixed-case>-<fixed-case>MAT</fixed-case>: Probing the Mathematical Reasoning and Rubric-Alignment of Vision-Language Models on Handwritten Solutions</title>
@@ -92,6 +99,7 @@
       <abstract>The application of contemporary NLP models for inference over mathematical text remains a critical and under-explored area. While Vision-Language Models (VLMs) have shown promise, a significant gap exists in their ability to perform nuanced, rubric-based assessment of handwritten mathematical arguments, a task requiring the joint interpretation of visual, textual, and symbolic modalities. This paper directly addresses the need for robust evaluation tasks in this domain. This paper introduces CHECK-MAT, a new benchmark and methodology for the automated, rubric-based assessment of handwritten mathematical solutions using Vision-Language Models (VLMs). Composed of 122 real-world solutions from a high-stakes national exam, CHECK-MAT evaluates the capacity of VLMs to emulate expert graders by identifying logical flaws and applying detailed grading rubrics. Our systematic evaluation of seven state-of-the-art VLMs serves as a direct instance of probing the mathematical understanding of state-of-the-art models. We reveal key limitations in their ability to parse complex notation and align with human grading rubrics, which we frame as a challenge in understanding the linguistic analysis of mathematical discourse. Our work contributes a robust benchmark to the NLP community and offers critical insights for developing models with more sophisticated mathematical reasoning capabilities. You can find code in https://github.com/Karifannaa/Auto-check-EGE-math.</abstract>
       <url hash="4d94aa6c">2025.mathnlp-main.6</url>
       <bibkey>khrulev-2025-check</bibkey>
+      <doi>10.18653/v1/2025.mathnlp-main.6</doi>
     </paper>
     <paper id="7">
       <title><fixed-case>R</fixed-case>o<fixed-case>M</fixed-case>ath: A Mathematical Reasoning Benchmark in <fixed-case>R</fixed-case>omanian</title>
@@ -102,6 +110,7 @@
       <abstract>Mathematics has long been conveyed through natural language, primarily for human understanding. With the rise of mechanized mathematics and proof assistants, there is a growing need to understand informal mathematical text, yet most existing benchmarks focus solely on English, overlooking other languages. This paper introduces RoMath, a Romanian mathematical reasoning benchmark suite comprising three subsets: Baccalaureate, Competitions and Synthetic, which cover a range of mathematical domains and difficulty levels, aiming to improve non-English language models and promote multilingual AI development. By focusing on Romanian, a low-resource language with unique linguistic features, RoMath addresses the limitations of Anglo-centric models and emphasizes the need for dedicated resources beyond simple automatic translation. We benchmark several open-weight language models, highlighting the importance of creating resources for underrepresented languages. The code and datasets are available for research purposes.</abstract>
       <url hash="7a13ebf6">2025.mathnlp-main.7</url>
       <bibkey>cosma-etal-2025-romath</bibkey>
+      <doi>10.18653/v1/2025.mathnlp-main.7</doi>
     </paper>
     <paper id="8">
       <title>Into The Limits of Logic: Alignment Methods for Formal Logical Reasoning</title>
@@ -111,6 +120,7 @@
       <abstract>We implement Large Language Model Alignment algorithms to formal logic reasoning tasks involving natural-language (NL) to first-order logic (FOL) translation, formal logic inference, and premise retranslation. These methodologies were implemented using task-specific preference datasets created based on the FOLIO datasets and LLM generations. Alignment was based on DPO, this algorithm was implemented and tested on off-the-shelf and pre-aligned models, showing promising results for higher quality NL-FOL parsing, as well as general alignment strategies. In addition, we introduce a new similarity metric (<tex-math>LogicSim</tex-math>) between LLM-generated responses and gold standard values, that measures logic-relevant information such as premise count and overlap between answers and expands evaluation of NL-FOL translation pipelines. Our results show that LLMs still struggle with logical inference, however alignment benefits semantic parsing and retranslation of results from formal logic to natural language.</abstract>
       <url hash="1a3fdb2c">2025.mathnlp-main.8</url>
       <bibkey>fernando-lopez-ponce-bel-enguix-2025-limits</bibkey>
+      <doi>10.18653/v1/2025.mathnlp-main.8</doi>
     </paper>
     <paper id="9">
       <title>Formula-Text Cross-Retrieval: A Benchmarking Study of Dense Embedding Methods for Mathematical Information Retrieval</title>
@@ -119,6 +129,7 @@
       <abstract>Mathematical information retrieval requires understanding the complex relationship between natural language and formulae. This paper presents a benchmarking study on Formula-Text Cross-Retrieval, comparing a sparse baseline (BM25), off-the-shelf dense embeddings (OpenAI, BGE), and a fine-tuned dual-encoder model. Our model, trained with a contrastive objective on the ARQAR dataset, significantly outperforms all baselines, achieving state-of-the-art results. Ablation studies confirm the importance of linearization, a shared-weight architecture, and the Multiple Negatives Ranking loss. The work provides a strong foundation for mathematical NLP applications.</abstract>
       <url hash="0e0cda77">2025.mathnlp-main.9</url>
       <bibkey>li-2025-formula</bibkey>
+      <doi>10.18653/v1/2025.mathnlp-main.9</doi>
     </paper>
     <paper id="10">
       <title><fixed-case>B</fixed-case>angla<fixed-case>MATH</fixed-case> : A <fixed-case>B</fixed-case>angla benchmark dataset for testing <fixed-case>LLM</fixed-case> mathematical reasoning at grades 6, 7, and 8</title>
@@ -129,6 +140,7 @@
       <abstract>Large Language Models (LLMs) have tremendous potential to play a key role in supporting mathematical reasoning, with growing use in education and AI research. However, most existing benchmarks are limited to English, creating a significant gap for low-resource languages. For example, Bangla is spoken by nearly 250 million people who would collectively benefit from LLMs capable of native fluency. To address this, we present BanglaMATH, a dataset of 1.7k Bangla math word problems across topics such as Arithmetic, Algebra, Geometry, and Logical Reasoning, sourced from Bangla elementary school workbooks and annotated with details like grade level and number of reasoning steps. We have designed BanglaMATH to evaluate the mathematical capabilities of both commercial and open-source LLMs in Bangla, and we find that Gemini 2.5 Flash and DeepSeek V3 are the only models to achieve strong performance, with <tex-math>\ge</tex-math> 80% accuracy across three elementary school grades. Furthermore, we assess the robustness and language bias of these top-performing LLMs by augmenting the original problems with distracting information, and translating the problems into English. We show that both LLMs fail to maintain robustness and exhibit significant performance bias in Bangla. Our study underlines current limitations of LLMs in handling arithmetic and mathematical reasoning in low-resource languages, and highlights the need for further research on multilingual and equitable mathematical understanding.</abstract>
       <url hash="7da79544">2025.mathnlp-main.10</url>
       <bibkey>prama-etal-2025-banglamath</bibkey>
+      <doi>10.18653/v1/2025.mathnlp-main.10</doi>
     </paper>
     <paper id="11">
       <title>Logically Constrained Decoding</title>
@@ -138,6 +150,7 @@
       <abstract>Constrained decoding is a state-of-the-art technique for restrictingthe output of an Large Language Model (LLM) to obey syntactic rules,e.g., a regular expression or context-free grammar.In this paper, we propose a method for extending constrained decodingbeyond syntactic constraints, to enforcing formal, logical constraintsthat reflect some world model being reasoned about.We demonstrate proof-of-concept implementations for the game of chess,and for propositional resolution proofs:we constrain the LLM’s decoding such that the LLM is free to outputwhatever tokens it wants, as long as it does not make illegalmoves (chess) or unsound proof steps (resolution).We believe this technique holds promise for improving LLMs’ generationof precise, formal reasoning, as is particularly necessary formathematics.</abstract>
       <url hash="6369d630">2025.mathnlp-main.11</url>
       <bibkey>ma-hu-2025-logically</bibkey>
+      <doi>10.18653/v1/2025.mathnlp-main.11</doi>
     </paper>
     <paper id="12">
       <title>Modeling Tactics as Operators: Effect-Grounded Representations for Lean Theorem Proving</title>
@@ -147,6 +160,7 @@
       <abstract>Interactive theorem provers (ITPs) such as Lean expose proof construction as a sequence of tactics applied to proof states. Existing machine learning approaches typically treat tactics either as surface tokens or as labels conditioned on the current state, eliding their operator-like semantics. This paper introduces a representation learning framework in which tactics are characterized by the changes they induce on proof states. Using a stepwise Lean proof corpus, we construct <i>delta contexts</i>—token-level additions/removals and typed structural edits—and train simple distributional models (<tex-math>\Delta</tex-math>-SGNS and CBOW-<tex-math>\Delta</tex-math>) to learn tactic embeddings grounded in these state transitions. Experiments on tactic retrieval and operator-style analogy tests show that <tex-math>\Delta</tex-math>-supervision yields more interpretable and generalizable embeddings than surface-only baselines. Our findings suggest that capturing the semantics of tactics requires modeling their state-transformational effects, rather than relying on distributional co-occurrence alone.</abstract>
       <url hash="821b6580">2025.mathnlp-main.12</url>
       <bibkey>samoylov-vosoughi-2025-modeling</bibkey>
+      <doi>10.18653/v1/2025.mathnlp-main.12</doi>
     </paper>
     <paper id="13">
       <title><fixed-case>U</fixed-case>ni<fixed-case>M</fixed-case>ath-<fixed-case>C</fixed-case>o<fixed-case>T</fixed-case>: A Unified Framework for Multimodal Mathematical Reasoning with Re-Inference Affirmation</title>
@@ -158,6 +172,7 @@
       <abstract>Large Language Models (LLMs) have achieved considerable success in text-based mathematical reasoning, yet their potential remains underexplored in the multimodal mathematics domain where joint text and image understanding is imperative. A key bottleneck hindering progress is the scarcity of high-quality, genuinely multimodal benchmarks. To address this gap, we construct a unified benchmark by consolidating and curating three public multimodal mathematics datasets. We subsequently propose the UniMath-CoT framework, which establishes a robust performance baseline by combining Chain-of-Thought (CoT) principles with efficient Supervised Fine-Tuning (SFT) based on Low-Rank Adaptation (LoRA). Furthermore, to bolster the model’s reasoning robustness, we introduce an innovative verification mechanism, AARI (Answer Affirmation by Re-Inference), which leverages a specialized re-inference protocol to have the model self-scrutinize and validate its initial conclusions. Our comprehensive experiments show that this integrated strategy substantially boosts performance, surpassing a wide range of open-source models and markedly closing the gap with leading proprietary systems.</abstract>
       <url hash="d061b313">2025.mathnlp-main.13</url>
       <bibkey>lu-etal-2025-unimath</bibkey>
+      <doi>10.18653/v1/2025.mathnlp-main.13</doi>
     </paper>
     <paper id="14">
       <title>An in-depth human study of the mathematical reasoning abilities in Large Language Models</title>
@@ -168,6 +183,7 @@
       <abstract>We study the generalization capabilities of large language models (LLM) through the lens of mathematical reasoning, asking if these models can recognize that two structures are the same even when they do not share the same nomenclature. We propose a human study to evaluate if LLMs reproduce proofs that they have most likely seen during training, but when the symbols do not match the ones seen. To test this in a controlled scenario, we look at proofs in <i>propositional calculus</i>, foundational for other logic systems, semantically complete and widely discussed online. We replace the implication operator (<tex-math>\rightarrow</tex-math>) with an unrelated, arbitrary symbol (<tex-math>\spadesuit</tex-math>) and ask experts to evaluate how the output of a selection of LLMs changes in terms of compliance, correctness, extensiveness and coherence. Our results show that nearly all our tested models produce lower quality proofs in this test, in particular open-weights models, suggesting the abilities of these LLMs to reason in this context have important limitations.</abstract>
       <url hash="d0392980">2025.mathnlp-main.14</url>
       <bibkey>dias-alexiou-etal-2025-depth</bibkey>
+      <doi>10.18653/v1/2025.mathnlp-main.14</doi>
     </paper>
     <paper id="15">
       <title>Synthetic Proofs with Tool-Integrated Reasoning: Contrastive Alignment for <fixed-case>LLM</fixed-case> Mathematics with Lean</title>
@@ -180,6 +196,7 @@
       <abstract>Modern mathematical reasoning benchmarks primarily focus on answer finding rather than proof verification, creating a gap in evaluating the proving capabilities of large language models (LLMs). We present a methodology for generating diverse mathematical proof tasks using formal tools. Our approach combines Lean-based synthetic problem generation with a Tool-Integrated Reasoning (TiR) framework for partial (sampling-based) proof validation, and it uses contrastive preference optimization to align the model’s proof outputs. Experiments on the Qwen-2.5 family of models demonstrate meaningful improvements in mathematical reasoning, particularly for smaller models. Our aligned models achieve up to a 57% higher success rate than baselines on the MiniF2F benchmark (across 0.5B, 1.5B, and 7B parameter models). These results highlight the potential of synthetic data and integrated validation for advancing LLM-based mathematical reasoning.</abstract>
       <url hash="09703f0f">2025.mathnlp-main.15</url>
       <bibkey>obozov-etal-2025-synthetic</bibkey>
+      <doi>10.18653/v1/2025.mathnlp-main.15</doi>
     </paper>
   </volume>
 </collection>
