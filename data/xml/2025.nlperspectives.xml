@@ -16,10 +16,12 @@
       <venue>nlperspectives</venue>
       <venue>ws</venue>
       <isbn>979-8-89176-350-0</isbn>
+      <doi>10.18653/v1/2025.nlperspectives-1</doi>
     </meta>
     <frontmatter>
       <url hash="8a0051d8">2025.nlperspectives-1.0</url>
       <bibkey>nlperspectives-ws-2025-1</bibkey>
+      <doi>10.18653/v1/2025.nlperspectives-1.0</doi>
     </frontmatter>
     <paper id="1">
       <title>A Disaggregated Dataset on <fixed-case>E</fixed-case>nglish Offensiveness Containing Spans</title>
@@ -32,6 +34,7 @@
       <abstract>Toxicity labels at sub-document granularity and disaggregated labels lead to more nuanced and personalized toxicity classification and facilitate analysis. We re-annotate a subset of 1983 posts of the Jigsaw Toxic Comment Classification Challenge and provide disaggregated toxicity labels and spans that identify inappropriate language and targets of toxic statements. Manual analysis shows that five annotations per instance effectively capture meaningful disagreement patterns and allow for finer distinctions between genuine disagreement and that arising from annotation error or inconsistency. Our main findings are: (1) Disagreement often stems from divergent interpretations of edge-case toxicity (2) Disagreement is especially high in cases of toxic statements involving non-human targets (3) Disagreement on whether a passage consists of inappropriate language occurs not only on inherently questionable terms, but also on words that may be inappropriate in specific contexts while remaining acceptable in others (4) Transformer-based models effectively learn from aggregated data that reduces false negative classifications by being more sensitive towards minority opinions for posts to be toxic. We publish the new annotations under the CC BY 4.0 license.</abstract>
       <url hash="5bcd0779">2025.nlperspectives-1.1</url>
       <bibkey>pachinger-etal-2025-disaggregated</bibkey>
+      <doi>10.18653/v1/2025.nlperspectives-1.1</doi>
     </paper>
     <paper id="2">
       <title><fixed-case>CINEMETRIC</fixed-case>: A Framework for Multi-Perspective Evaluation of Conversational Agents using Human-<fixed-case>AI</fixed-case> Collaboration</title>
@@ -42,6 +45,7 @@
       <abstract>Despite advances in conversational systems, the evaluation of such systems remains a challenging problem. Current evaluation paradigms often rely on costly homogeneous human annotators or oversimplified automated metrics, leading to a critical gap in socially aligned conversational agents, where pluralistic values (i.e., acknowledging diverse human experiences) are essential to reflect the inherently subjective and contextual nature of dialogue quality. In this paper, we propose CINEMETRIC, a novel framework that operationalizes pluralistic alignment by leveraging the perspectivist capacities of large language models. Our approach introduces a mechanism where LLMs simulate a diverse set of evaluators, each with distinct personas constructed by matching real human annotators to movie characters based on both demographic profiles and annotation behaviors. These role-played characters independently assess subjective tasks, offering a scalable and human-aligned alternative to traditional evaluation. Empirical results show that our approach consistently outperforms baseline methods, including LLM as a Judge and as a Personalized Judge, across multiple LLMs, showing high and consistent agreement with human ground truth. CINEMETRIC improves accuracy by up to 20% and reduces mean absolute error in toxicity prediction, demonstrating its effectiveness in capturing human-like perspectives.</abstract>
       <url hash="a40a2a18">2025.nlperspectives-1.2</url>
       <bibkey>javadi-etal-2025-cinemetric</bibkey>
+      <doi>10.18653/v1/2025.nlperspectives-1.2</doi>
     </paper>
     <paper id="3">
       <title>Towards a Perspectivist Understanding of Irony through Rhetorical Figures</title>
@@ -58,6 +62,7 @@
       <abstract>Irony is a subjective and pragmatically complex phenomenon, often conveyed through rhetorical figures and interpreted differently across individuals. In this study, we adopt a perspectivist approach, accounting for the socio-demographic background of annotators, to investigate whether specific rhetorical strategies promote a shared perception of irony within demographic groups, and whether Large Language Models (LLMs) reflect specific perspectives. Focusing on the Italian subset of the perspectivist MultiPICo dataset, we manually annotate rhetorical figures in ironic replies using a linguistically grounded taxonomy. The annotation is carried out by expert annotators balanced by generation and gender, enabling us to analyze inter-group agreement and polarization. Our results show that some rhetorical figures lead to higher levels of agreement, suggesting that certain rhetorical strategies are more effective in promoting a shared perception of irony. We fine-tune multilingual LLMs for rhetorical figure classification, and evaluate whether their outputs align with different demographic perspectives. Results reveal that models show varying degrees of alignment with specific groups, reflecting potential perspectivist behavior in model predictions. These findings highlight the role of rhetorical figures in structuring irony perception and underscore the importance of socio-demographics in both annotation and model evaluation.</abstract>
       <url hash="11a9175a">2025.nlperspectives-1.3</url>
       <bibkey>balestrucci-etal-2025-towards</bibkey>
+      <doi>10.18653/v1/2025.nlperspectives-1.3</doi>
     </paper>
     <paper id="4">
       <title>From Disagreement to Understanding: The Case for Ambiguity Detection in <fixed-case>NLI</fixed-case></title>
@@ -67,6 +72,7 @@
       <abstract>This position paper argues that annotation disagreement in Natural Language Inference (NLI) is not mere noise but often reflects meaningful variation, especially when triggered by ambiguity in the premise or hypothesis. While underspecified guidelines and annotator behavior contribute to variation, content-based ambiguity provides a process-independent signal of divergent human perspectives. We call for a shift toward ambiguity-aware NLI that first identifies ambiguous input pairs, classifies their types, and only then proceeds to inference. To support this shift, we present a framework that incorporates ambiguity detection and classification prior to inference. We also introduce a unified taxonomy that synthesizes existing taxonomies, illustrates key subtypes with examples, and motivates targeted detection methods that better align models with human interpretation. Although current resources lack datasets explicitly annotated for ambiguity and subtypes, this gap presents an opportunity: by developing new annotated resources and exploring unsupervised approaches to ambiguity detection, we enable more robust, explainable, and human-aligned NLI systems.</abstract>
       <url hash="a7a67993">2025.nlperspectives-1.4</url>
       <bibkey>jayaweera-dorr-2025-disagreement</bibkey>
+      <doi>10.18653/v1/2025.nlperspectives-1.4</doi>
     </paper>
     <paper id="5">
       <title>Balancing Quality and Variation: Spam Filtering Distorts Data Label Distributions</title>
@@ -78,6 +84,7 @@
       <abstract>For datasets to accurately represent diverse opinions in a population, they must preserve variation in data labels while filtering out spam or low-quality responses. How can we balance annotator reliability and representation? We empirically evaluate how a range of heuristics for annotator filtering affect the preservation of variation on subjective tasks. We find that these methods, designed for contexts in which variation from a single ground-truth label is considered noise, often remove annotators who disagree instead of spam annotators, introducing suboptimal tradeoffs between accuracy and label diversity. We find that conservative settings for annotator removal (&lt;5%) are best, after which all tested methods increase the mean absolute error from the true average label. We analyze performance on synthetic spam to observe that these methods often assume spam annotators are less random than real spammers tend to be: most spammers are distributionally indistinguishable from real annotators, and the minority that are distinguishable tend to give fixed answers, not random ones. Thus, tasks requiring the preservation of variation reverse the intuition of existing spam filtering methods: spammers tend to be less random than non-spammers, so metrics that assume variation is spam fare worse. These results highlight the need for spam removal methods that account for label diversity.</abstract>
       <url hash="fa2cbc33">2025.nlperspectives-1.5</url>
       <bibkey>fleisig-etal-2025-balancing</bibkey>
+      <doi>10.18653/v1/2025.nlperspectives-1.5</doi>
     </paper>
     <paper id="6">
       <title>Consistency is Key: Disentangling Label Variation in Natural Language Processing with Intra-Annotator Agreement</title>
@@ -90,6 +97,7 @@
       <abstract>We commonly use agreement measures to assess the utility of judgements made by human annotators in Natural Language Processing (NLP) tasks. While inter-annotator agreement is frequently used as an indication of label reliability by measuring consistency between annotators, we argue for the additional use of intra-annotator agreement to measure label stability (and annotator consistency) over time. However, in a systematic review, we find that the latter is rarely reported in this field. Calculating these measures can act as important quality control and could provide insights into why annotators disagree. We conduct exploratory annotation experiments to investigate the relationships between these measures and perceptions of subjectivity and ambiguity in text items, finding that annotators provide inconsistent responses around 25% of the time across four different NLP tasks.</abstract>
       <url hash="98111ec1">2025.nlperspectives-1.6</url>
       <bibkey>abercrombie-etal-2025-consistency</bibkey>
+      <doi>10.18653/v1/2025.nlperspectives-1.6</doi>
     </paper>
     <paper id="7">
       <title>Revisiting Active Learning under (Human) Label Variation</title>
@@ -103,6 +111,7 @@
       <abstract>Access to high-quality labeled data remains a limiting factor in applied supervised learning. Active learning (AL), a popular approach to optimizing the use of limited annotation budgets in training ML models, often relies on at least one of several simplifying assumptions, which rarely hold in practice when acknowledging human label variation (HLV). Label variation (LV), i.e., differing labels for the same instance, is common, especially in natural language processing. Yet annotation frameworks often still rest on the assumption of a single ground truth, overlooking HLV, i.e., the occurrence of plausible differences in annotations, as an informative signal. In this paper, we examine foundational assumptions about truth and label nature, highlighting the need to decompose observed LV into signal (e.g., HLV) and noise (e.g., annotation error). We survey how the AL and (H)LV communities have addressed—or neglected—these distinctions and propose a conceptual framework for incorporating HLV throughout the AL loop, including instance selection, annotator choice, and label representation. We further discuss the integration of large language models (LLM) as annotators. Our work aims to lay a conceptual foundation for (H)LV-aware active learning, better reflecting the complexities of real-world annotation.</abstract>
       <url hash="04d05261">2025.nlperspectives-1.7</url>
       <bibkey>gruber-etal-2025-revisiting</bibkey>
+      <doi>10.18653/v1/2025.nlperspectives-1.7</doi>
     </paper>
     <paper id="8">
       <title>Weak Ensemble Learning from Multiple Annotators for Subjective Text Classification</title>
@@ -113,6 +122,7 @@
       <abstract>With the rise of online platforms, moderating harmful or offensive user-generated content has become increasingly critical. As manual moderation is infeasible at scale, machine learning models are widely used to support this process. However, subjective tasks, such as offensive language detection, often suffer from annotator disagreement, resulting in noisy supervision that hinders training and evaluation. We propose Weak Ensemble Learning (WEL), a novel framework that explicitly models annotator disagreement by constructing and aggregating weak predictors derived from diverse annotator perspectives. WEL enables robust learning from subjective and inconsistent labels without requiring annotator metadata. Experiments on four benchmark datasets show that WEL outperforms strong baselines across multiple metrics, demonstrating its effectiveness and flexibility across domains and annotation conditions.</abstract>
       <url hash="b5f9c02d">2025.nlperspectives-1.8</url>
       <bibkey>huang-etal-2025-weak</bibkey>
+      <doi>10.18653/v1/2025.nlperspectives-1.8</doi>
     </paper>
     <paper id="9">
       <title>Aligning <fixed-case>NLP</fixed-case> Models with Target Population Perspectives using <fixed-case>PAIR</fixed-case>: Population-Aligned Instance Replication</title>
@@ -126,6 +136,7 @@
       <abstract>Models trained on crowdsourced annotations may not reflect population views, if those who work as annotators do not represent the broader population. In this paper, we propose PAIR: Population-Aligned Instance Replication, a post-processing method that adjusts training data to better reflect target population characteristics without collecting additional annotations. Using simulation studies on offensive language and hate speech detection with varying annotator compositions, we show that non-representative pools degrade model calibration while leaving accuracy largely unchanged. PAIR corrects these calibration problems by replicating annotations from underrepresented annotator groups to match population proportions. We conclude with recommendations for improving the representativity of training data and model performance.</abstract>
       <url hash="b0967f01">2025.nlperspectives-1.9</url>
       <bibkey>eckman-etal-2025-aligning</bibkey>
+      <doi>10.18653/v1/2025.nlperspectives-1.9</doi>
     </paper>
     <paper id="10">
       <title>Hypernetworks for Perspectivist Adaptation</title>
@@ -136,6 +147,7 @@
       <abstract>The task of perspective-aware classification introduces a bottleneck in terms of parametric efficiency that did not get enough recognition in existing studies. In this article, we aim to address this issue by applying an existing architecture, the hypernetwork+adapters combination, to perspectivist classification. Ultimately, we arrive at a solution that can compete with specialized models in adopting user perspectives on hate speech and toxicity detection, while also making use of considerably fewer parameters. Our solution is architecture-agnostic and can be applied to a wide range of base models out of the box.</abstract>
       <url hash="17ef0df0">2025.nlperspectives-1.10</url>
       <bibkey>ignatev-etal-2025-hypernetworks</bibkey>
+      <doi>10.18653/v1/2025.nlperspectives-1.10</doi>
     </paper>
     <paper id="11">
       <title><fixed-case>SAGE</fixed-case>: Steering Dialog Generation with Future-Aware State-Action Augmentation</title>
@@ -145,6 +157,7 @@
       <abstract>Recent advances in large language models have enabled impressive task-oriented applications, yet building emotionally intelligent chatbots for natural, strategic conversations remains challenging. Current approaches often assume a single “ground truth” for emotional responses, overlooking the subjectivity of human emotion. We present a novel perspectivist approach, SAGE, that models multiple perspectives in dialogue generation using latent variables. At its core is the State-Action Chain (SAC), which augments standard fine-tuning with latent variables capturing diverse emotional states and conversational strategies between turns, in a future-looking manner. During inference, these variables are generated before each response, enabling multi-perspective control while preserving natural interactions. We also introduce a self-improvement pipeline combining dialogue tree search, LLM-based reward modeling, and targeted fine-tuning to optimize conversational trajectories. Experiments show improved LLM-based judgments while maintaining strong general LLM performance. The discrete latent variables further enable search-based strategies and open avenues for state-level reinforcement learning in dialogue systems, where learning can occur at the state level rather than the token level.</abstract>
       <url hash="17fbfbdf">2025.nlperspectives-1.11</url>
       <bibkey>zhang-jaitly-2025-sage</bibkey>
+      <doi>10.18653/v1/2025.nlperspectives-1.11</doi>
     </paper>
     <paper id="12">
       <title>Calibration as a Proxy for Fairness and Efficiency in a Perspectivist Ensemble Approach to Irony Detection</title>
@@ -157,6 +170,7 @@
       <abstract>Identifying subjective phenomena, such as irony in language, poses unique challenges, as these tasks involve subjective interpretation shaped by both cultural and individual perspectives. Unlike conventional models that rely on aggregated annotations, perspectivist approaches aim to capture the diversity of viewpoints by leveraging the knowledge of specific annotator groups, promoting fairness and representativeness. However, such models often incur substantial computational costs, particularly when fine-tuning large-scale pre-trained language models. We also observe that the fine-tuning process can negatively impact fairness, producing certain perspective models that are underrepresented and have limited influence on the outcome. To address these, we explore two complementary strategies: (i) the adoption of traditional machine learning algorithms—such as Support Vector Machines, Random Forests, and XGBoost—as lightweight alternatives; and (ii) the application of calibration techniques to reduce imbalances in inference generation across perspectives. Our results demonstrate up to 12× faster processing with no statistically significant drop in accuracy. Notably, calibration significantly enhances fairness, reducing inter-group bias and leading to more balanced predictions across diverse social perspectives.</abstract>
       <url hash="053027cb">2025.nlperspectives-1.12</url>
       <bibkey>jesus-etal-2025-calibration</bibkey>
+      <doi>10.18653/v1/2025.nlperspectives-1.12</doi>
     </paper>
     <paper id="13">
       <title>Non-directive corpus annotation to reveal individual perspectives with underspecified guidelines: the case of mental workload</title>
@@ -169,6 +183,7 @@
       <abstract>This paper investigates personal perceptions of mental workload through an innovative, non-directive corpus annotation method, allowing individuals of diverse profiles to define their own dimensions of annotation based on their personal perception. It contrasts with traditional approaches guided by explicit objectives and strict guidelines. Mental workload, a multifaceted concept in psychology, is characterized through various academic definitions and models. Our research, aligned with the principles of the perspectivist approach, aims to examine the degree to which individuals share a common understanding of this concept when reading the same texts. It seeks to compare the corpus produced by this non-directive annotation method. The participants, mainly employees of a large French enterprise and some academic experts on mental workload, were given the freedom to propose labels and annotate a set of texts. The experimental protocol revealed notable similarities in labels, segments, and overall annotation behavior, despite the absence of predefined guidelines. These findings suggest that individuals, given the freedom, tend to develop overlapping representations of mental workload. Furthermore, they demonstrate how non-directive annotation can uncover shared and diverse perceptions of complex concepts like mental workload, contributing to a richer understanding of how such perceptions are constructed across different individuals.</abstract>
       <url hash="ea21d5cf">2025.nlperspectives-1.13</url>
       <bibkey>arsenteva-etal-2025-non</bibkey>
+      <doi>10.18653/v1/2025.nlperspectives-1.13</doi>
     </paper>
     <paper id="14">
       <title><fixed-case>B</fixed-case>o<fixed-case>N</fixed-case> Appetit Team at <fixed-case>L</fixed-case>e<fixed-case>W</fixed-case>i<fixed-case>D</fixed-case>i-2025: Best-of-N Test-time Scaling Can Not Stomach Annotation Disagreements (Yet)</title>
@@ -180,6 +195,7 @@
       <abstract>Test-time scaling is a family of techniques to improve LLM outputs at inference time by performing extra computation. To the best of our knowledge, test-time scaling has been limited to domains with verifiably correct answers, like mathematics and coding. We transfer test-time scaling to the LeWiDi-2025 tasks to evaluate annotation disagreements. We experiment with three test-time scaling methods: two benchmark algorithms (Model Averaging and Majority Voting), and a Best-of-N (BoN) sampling method. The two benchmark methods improve LLM performance consistently on the LeWiDi tasks, but the BoN method does not. Our experiments suggest that the BoN method does not currently transfer from mathematics to LeWiDi tasks, and we analyze potential reasons for this gap.</abstract>
       <url hash="9d9a0604">2025.nlperspectives-1.14</url>
       <bibkey>ruiz-etal-2025-bon</bibkey>
+      <doi>10.18653/v1/2025.nlperspectives-1.14</doi>
     </paper>
     <paper id="15">
       <title><fixed-case>D</fixed-case>e<fixed-case>M</fixed-case>e<fixed-case>V</fixed-case>a at <fixed-case>L</fixed-case>e<fixed-case>W</fixed-case>i<fixed-case>D</fixed-case>i-2025: Modeling Perspectives with In-Context Learning and Label Distribution Learning</title>
@@ -192,6 +208,7 @@
       <abstract>This system paper presents the DeMeVa team’s approaches to the third edition of the Learning with Disagreements shared task (LeWiDi 2025; Leonardelli et al., 2025). We explore two directions: in-context learning (ICL) with large language models, where we compare example sampling strategies; and label distribution learning (LDL) methods with RoBERTa (Liu et al., 2019b), where we evaluate several fine-tuning methods. Our contributions are twofold: (1) we show that ICL can effectively predict annotator-specific annotations (perspectivist annotations), and that aggregating these predictions into soft labels yields competitive performance; and (2) we argue that LDL methods are promising for soft label predictions and merit further exploration by the perspectivist community.</abstract>
       <url hash="595c6676">2025.nlperspectives-1.15</url>
       <bibkey>ignatev-etal-2025-demeva</bibkey>
+      <doi>10.18653/v1/2025.nlperspectives-1.15</doi>
     </paper>
     <paper id="16">
       <title><fixed-case>L</fixed-case>e<fixed-case>W</fixed-case>i<fixed-case>D</fixed-case>i-2025 at <fixed-case>NLP</fixed-case>erspectives: The Third Edition of the Learning with Disagreements Shared Task</title>
@@ -210,6 +227,7 @@
       <abstract>Many researchers have reached the conclusion that ai models should be trained to be aware of the possibility of variation and disagreement in human judgments, and evaluated as per their ability to recognize such variation. The LeWiDi series of shared tasks on Learning With Disagreements was established to promote this approach to training and evaluating ai models, by making suitable datasets more accessible and by developing evaluation methods. The third edition of the task builds on this goal by extending the LeWiDi benchmark to four datasets spanning paraphrase identification, irony detection, sarcasm detection, and natural language inference, with labeling schemes that include not only categorical judgments as in previous editions, but ordinal judgments as well. Another novelty is that we adopt two complementary paradigms to evaluate disagreement-aware systems: the soft-label approach, in which models predict population-level distributions of judgments, and the perspectivist approach, in which models predict the interpretations of individual annotators. Crucially, we moved beyond standard metrics such as cross-entropy, and tested new evaluation metrics for the two paradigms. The task attracted diverse participation, and the results provide insights into the strengths and limitations of methods to modeling variation. Together, these contributions strengthen LeWiDi as a framework and provide new resources, benchmarks, and findings to support the development of disagreement-aware technologies.</abstract>
       <url hash="5e11b38c">2025.nlperspectives-1.16</url>
       <bibkey>leonardelli-etal-2025-lewidi</bibkey>
+      <doi>10.18653/v1/2025.nlperspectives-1.16</doi>
     </paper>
     <paper id="17">
       <title><fixed-case>LPI</fixed-case>-<fixed-case>RIT</fixed-case> at <fixed-case>L</fixed-case>e<fixed-case>W</fixed-case>i<fixed-case>D</fixed-case>i-2025: Improving Distributional Predictions via Metadata and Loss Reweighting with <fixed-case>D</fixed-case>is<fixed-case>C</fixed-case>o</title>
@@ -222,6 +240,7 @@
       <abstract>The Learning With Disagreements (LeWiDi) 2025 shared task aims to model annotator disagreement through soft label distribution prediction and perspectivist evaluation, which focuses on modeling individual annotators. We adapt DisCo (Distribution from Context), a neural architecture that jointly models item-level and annotator-level label distributions, and present detailed analysis and improvements. In this paper, we extend DisCo by introducing annotator metadata embeddings, enhancing input representations, and multi-objective training losses to capture disagreement patterns better. Through extensive experiments, we demonstrate substantial improvements in both soft and perspectivist evaluation metrics across three datasets. We also conduct in-depth calibration and error analyses that reveal when and why disagreement-aware modeling improves. Our findings show that disagreement can be better captured by conditioning on annotator demographics and by optimizing directly for distributional metrics, yielding consistent improvements across datasets.</abstract>
       <url hash="7b23605c">2025.nlperspectives-1.17</url>
       <bibkey>sawkar-etal-2025-lpi</bibkey>
+      <doi>10.18653/v1/2025.nlperspectives-1.17</doi>
     </paper>
     <paper id="18">
       <title><fixed-case>M</fixed-case>c<fixed-case>M</fixed-case>aster at <fixed-case>L</fixed-case>e<fixed-case>W</fixed-case>i<fixed-case>D</fixed-case>i-2025: Demographic-Aware <fixed-case>R</fixed-case>o<fixed-case>BERT</fixed-case>a</title>
@@ -234,6 +253,7 @@
       <abstract>We present our submission to the Learning With Disagreements (LeWiDi) 2025 shared task. Our team implemented a variety of BERT-based models that encode annotator meta-data in combination with text to predict soft-label distributions and individual annotator labels. We show across four tasks that a combination of demographic factors leads to improved performance, however through ablations across all demographic variables we find that in some cases, a single variable performs best. Our approach placed 4th in the overall competition.</abstract>
       <url hash="b6a71069">2025.nlperspectives-1.18</url>
       <bibkey>sawkar-etal-2025-mcmaster</bibkey>
+      <doi>10.18653/v1/2025.nlperspectives-1.18</doi>
     </paper>
     <paper id="19">
       <title><fixed-case>NLP</fixed-case>-<fixed-case>R</fixed-case>es<fixed-case>T</fixed-case>eam at <fixed-case>L</fixed-case>e<fixed-case>W</fixed-case>i<fixed-case>D</fixed-case>i-2025:Performance Shifts in Perspective Aware Models based on Evaluation Metrics</title>
@@ -244,6 +264,7 @@
       <abstract>Recent works in Natural Language Processing have focused on developing methods to model annotator perspectives within subjective datasets, aiming to capture opinion diversity. This has led to the development of various approaches that learn from disaggregated labels, leading to the question of what factors most influence the performance of these models. While dataset characteristics are a critical factor, the choice of evaluation metric is equally crucial, especially given the fluid and evolving concept of perspectivism. A model considered state-of-the-art under one evaluation scheme may not maintain its top-tier status when assessed with a different set of metrics, highlighting a potential challenge between model performance and the evaluation framework. This paper presents a performance analysis of annotator modeling approaches using the evaluation metrics of the 2025 Learning With Disagreement (LeWiDi) shared task and additional metrics. We evaluate five annotator-aware models under the same configurations. Our findings demonstrate a significant metric-induced shift in model rankings. Across four datasets, no single annotator modeling approach consistently outperformed others using a single metric, revealing that the “best” model is highly dependent on the chosen evaluation metric. This study systematically shows that evaluation metrics are not agnostic in the context of perspectivist model assessment.</abstract>
       <url hash="53afdf0f">2025.nlperspectives-1.19</url>
       <bibkey>sarumi-etal-2025-nlp</bibkey>
+      <doi>10.18653/v1/2025.nlperspectives-1.19</doi>
     </paper>
     <paper id="20">
       <title>Opt-<fixed-case>ICL</fixed-case> at <fixed-case>L</fixed-case>e<fixed-case>W</fixed-case>i<fixed-case>D</fixed-case>i-2025: Maximizing In-Context Signal from Rater Examples via Meta-Learning</title>
@@ -253,6 +274,7 @@
       <abstract>Many natural language processing (NLP) tasks involve subjectivity, ambiguity, or legitimate disagreement between annotators. In this paper, we outline our system for modeling human variation. Our system leverages language models’ (LLMs) in-context learning abilities, along with a two-step meta-learning training procedure for 1) post-training on many datasets requiring in-context learning and 2) specializing the model via in-context meta-learning to the particular data distribution of interest. We also evaluate the performance of our system submission to the Learning With Disagreements (LeWiDi) competition, where it was the overall winner on both tasks. Additionally, we perform an ablation study to measure the importance of each system component. We find that including rater examples in-context is crucial for our system’s performance, dataset-specific fine-tuning is helpful on the larger datasets, post-training on other in-context datasets is helpful on one of the competition datasets, and that performance improves with model scale.</abstract>
       <url hash="18cb10f7">2025.nlperspectives-1.20</url>
       <bibkey>sorensen-choi-2025-opt</bibkey>
+      <doi>10.18653/v1/2025.nlperspectives-1.20</doi>
     </paper>
     <paper id="21">
       <title><fixed-case>P</fixed-case>romotion<fixed-case>G</fixed-case>o at <fixed-case>L</fixed-case>e<fixed-case>W</fixed-case>i<fixed-case>D</fixed-case>i-2025: Enhancing Multilingual Irony Detection with Data-Augmented Ensembles and <fixed-case>L</fixed-case>1 Loss</title>
@@ -263,6 +285,7 @@
       <abstract>This paper presents our system for the Learning with Disagreements (LeWiDi-2025) shared task (Leonardelli et al., 2025), which targets the challenges of interpretative variation in multilingual irony detection. We introduce a unified framework that models annotator disagreement through soft-label prediction, multilingual adaptation and robustness-oriented training. Our approach integrates tailored data augmentation strategies (i.e., lexical swaps, prompt-based reformulation and back-translation) with an ensemble learning scheme to enhance sensitivity to contextual and cultural nuances. To better align predictions with human-annotated probability distributions, we compare multiple loss functions, including cross-entropy, Kullback—Leibler divergence and L1 loss, the latter showing the strongest compatibility with the Average Manhattan Distance evaluation metric. Comprehensive ablation studies reveal that data augmentation and ensemble learning consistently improve performance across languages, with their combination delivering the largest gains. The results demonstrate the effectiveness of combining augmentation diversity, metric-compatible optimisation and ensemble aggregation for tackling interpretative variation in multilingual irony detection.</abstract>
       <url hash="09feeb92">2025.nlperspectives-1.21</url>
       <bibkey>huang-etal-2025-promotiongo</bibkey>
+      <doi>10.18653/v1/2025.nlperspectives-1.21</doi>
     </paper>
     <paper id="22">
       <title>twinhter at <fixed-case>L</fixed-case>e<fixed-case>W</fixed-case>i<fixed-case>D</fixed-case>i-2025: Integrating Annotator Perspectives into <fixed-case>BERT</fixed-case> for Learning with Disagreements</title>
@@ -272,6 +295,7 @@
       <abstract>Annotator-provided information during labeling can reflect differences in how texts are understood and interpreted, though such variation may also arise from inconsistencies or errors. To make use of this information, we build a BERT-based model that integrates annotator perspectives and evaluate it on four datasets from the third edition of the Learning With Disagreements (LeWiDi) shared task. For each original data point, we create a new (text, annotator) pair, optionally modifying the text to reflect the annotator’s perspective when additional information is available. The text and annotator features are embedded separately and concatenated before classification, enabling the model to capture individual interpretations of the same input. Our model achieves first place on both tasks for the Par and VariErrNLI datasets. More broadly, it performs very well on datasets where annotators provide rich information and the number of annotators is relatively small, while still maintaining competitive results on datasets with limited annotator information and a larger annotator pool.</abstract>
       <url hash="3dac3566">2025.nlperspectives-1.22</url>
       <bibkey>nguyen-thin-2025-twinhter</bibkey>
+      <doi>10.18653/v1/2025.nlperspectives-1.22</doi>
     </paper>
     <paper id="23">
       <title>Uncertain (Mis)Takes at <fixed-case>L</fixed-case>e<fixed-case>W</fixed-case>i<fixed-case>D</fixed-case>i-2025: Modeling Human Label Variation With Semantic Entropy</title>
@@ -281,6 +305,7 @@
       <abstract>The VariErrNLI task requires detecting the degree to which each Natural Language Inference (NLI) label is acceptable to a group of annotators. This paper presents an approach to VariErrNLI which incorporates measures of uncertainty, namely Semantic Entropy (SE), to model human label variation. Our method is based on the assumption that if two labels are plausible alternatives, then their explanations must be non-contradictory. We measure SE over Large Language Model (LLM)-generated explanations for a given NLI label, which represents the model uncertainty over the semantic space of possible explanations for that label. The system employs SE scores combined with an encoding of the inputs and generated explanations, and reaches a 0.31 Manhattan distance score on the test set, ranking joint first in the soft evaluation of VariErrNLI.</abstract>
       <url hash="32c9bad9">2025.nlperspectives-1.23</url>
       <bibkey>staliunaite-vlachos-2025-uncertain</bibkey>
+      <doi>10.18653/v1/2025.nlperspectives-1.23</doi>
     </paper>
   </volume>
 </collection>
