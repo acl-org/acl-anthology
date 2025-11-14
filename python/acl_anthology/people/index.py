@@ -367,6 +367,7 @@ class PersonIndex(SlottedDict[Person]):
                 parent=self.parent,
                 names=names,
                 comment=entry.get("comment", None),
+                institution=entry.get("institution", None),
                 is_explicit=True,
             )
             # ...and add it to the index
