@@ -394,12 +394,8 @@ def export_people(anthology, builddir, dryrun):
                         diff_script_variants.append(n.as_full())
                 if diff_script_variants:
                     data["full"] = f"{data['full']} ({', '.join(diff_script_variants)})"
-            # The comment appears parenthetically in the link to other people.
-            # Use the institution if the comment field is not defined.
             if person.comment is not None:
                 data["comment"] = person.comment
-            elif person.institution is not None:
-                data["comment"] = person.institution
             similar = anthology.people.similar.subset(person_id)
             if len(similar) > 1:
                 data["similar"] = list(similar - {person_id})
