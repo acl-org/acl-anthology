@@ -38,7 +38,6 @@ class Person:
         names: A list of names under which this person has published.
         item_ids: A list of volume and/or paper IDs this person has authored or edited.
         comment: A comment for disambiguation purposes; can be stored in `name_variants.yaml`.
-        institution: The institution from which the person received their highest degree; can be stored in `name_variants.yaml`.
         is_explicit: True if this person has names explicitly defined in `name_variants.yaml`.  Note this does _not_ necessarily mean an explicit ID was defined for the person there.
     """
 
@@ -49,7 +48,6 @@ class Person:
         factory=list, repr=lambda x: f"<list of {len(x)} AnthologyIDTuple objects>"
     )
     comment: Optional[str] = field(default=None)
-    institution: Optional[str] = field(default=None)
     is_explicit: Optional[bool] = field(default=False)  # TODO: why can this be None?
 
     def __eq__(self, other: object) -> bool:
