@@ -89,12 +89,13 @@ class AnthologyMetadataUpdater:
         ```
         """
         # For some reason, the issue body has \r\n line endings
-        issue_body = issue_body.replace("\r", "")
+        if issue_body is not None:
+            issue_body = issue_body.replace("\r", "")
 
-        if (
-            match := re.search(r"```json\n(.*?)\n```", issue_body, re.DOTALL)
-        ) is not None:
-            return json.loads(match[1])
+            if (
+                match := re.search(r"```json\n(.*?)\n```", issue_body, re.DOTALL)
+            ) is not None:
+                return json.loads(match[1])
 
         return None
 
