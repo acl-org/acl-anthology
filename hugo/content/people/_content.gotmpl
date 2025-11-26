@@ -2,7 +2,7 @@
    {{ $page := dict
       "kind" "page"
       "path" $person_id
-      "slug" $person_id
+      "slug" (index (split $person_id "/") 0)
       "params" (dict "name" $person_id "lastname" $person.last)
       "title" $person.full
    }}
