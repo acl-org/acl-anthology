@@ -11,7 +11,7 @@ This release implements the new [name resolution and author ID logic](https://gi
   - Now provides `orcid`, `degree`, `disable_name_matching`, and `similar_ids` fields that correspond to the respective fields in the new `people.yaml`.
   - Changing `id`, `orcid`, `names`, or using `add_name()` or `remove_names()` will now automatically update the PersonIndex.
   - Added `update_id()` that updates a person's ID on all of their connected papers.
-  - Added `make_explicit()` that makes all necessary changes to change an implicit ("unverified/") to an explicit Person.
+  - Added `make_explicit()` that makes all necessary changes to change an implicit ("/unverified") to an explicit Person.
 - PersonIndex:
   - Now also indexes Person objects by ORCID, and provides `by_orcid` and `get_by_orcid()`.
   - Now also keeps a mapping of name slugs to (verified) person IDs, via `slugs_to_verified_ids` (mostly for internal use).

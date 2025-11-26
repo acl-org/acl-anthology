@@ -51,6 +51,11 @@ log = get_logger()
 PEOPLE_INDEX_FILE = "yaml/people.yaml"
 
 
+UNVERIFIED_PID_FORMAT = "{pid}/unverified"
+"""Format string for unverified person IDs."""
+# Note: Changing this will require changes in Hugo templates etc. as well!
+
+
 @define
 class PersonIndex(SlottedDict[Person]):
     """Index object through which all persons (authors/editors) can be accessed.
@@ -543,7 +548,7 @@ class PersonIndex(SlottedDict[Person]):
 
             else:
                 # Resolve to unverified ID
-                pid = f"unverified/{slug}"
+                pid = UNVERIFIED_PID_FORMAT.format(pid=slug)
 
                 if pid in self.data:
                     # Unverified ID already exists; assume it's the same person

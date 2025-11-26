@@ -134,7 +134,7 @@ A person can be _explicit_ (has an entry in `people.yaml`) or _inferred_ (was in
 
     Within the library, the term **explicit** refers to a person that has an entry in `people.yaml`, whereas **inferred** refers to a person that was instantiated automatically while loading the XML data files (and has no entry in `people.yaml`).
 
-    Currently, all inferred persons have IDs beginning with `unverified/`, while IDs of explicit persons _must not_ begin with `unverified/`.
+    Currently, all inferred persons have IDs ending with `/unverified`, while IDs of explicit persons _must not_ end with `/unverified`.  (More specifically, they may not even contain a slash.)
 
     In practice, this means that "inferred" persons are currently equivalent to "unverified" persons, but the library intentionally uses terminology that is agnostic to the semantics of the ID.  If the semantics of whom we consider "(un)verified" change, the terminology in the library needn't change, as it only refers to the technical aspect of where the ID came from (`people.yaml` vs. implicit instantiation).
 

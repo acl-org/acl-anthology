@@ -14,7 +14,8 @@
 
 from .name import Name, NameSpecification, ConvertableIntoName
 from .person import Person, NameLink
-from .index import PersonIndex
+from .index import PersonIndex, UNVERIFIED_PID_FORMAT
+
 
 __all__ = [
     "ConvertableIntoName",
@@ -23,4 +24,5 @@ __all__ = [
     "NameSpecification",
     "Person",
     "PersonIndex",
+    "UNVERIFIED_PID_FORMAT",
 ]

@@ -19,7 +19,7 @@ from acl_anthology.collections import CollectionIndex
 from acl_anthology.collections.types import PaperType, VolumeType
 from acl_anthology.exceptions import AnthologyXMLError
 from acl_anthology.files import AttachmentReference, PDFReference
-from acl_anthology.people import NameSpecification
+from acl_anthology.people import NameSpecification, UNVERIFIED_PID_FORMAT
 from acl_anthology.text import MarkupText
 from acl_anthology.utils.xml import indent
 from lxml import etree
@@ -170,7 +170,7 @@ def test_paper_remove_author(anthology):
     paper = anthology.get_paper("2022.acl-demo.2")
     ns = paper.authors[-1]
     person = anthology.resolve(ns)
-    assert person.id == "unverified/iryna-gurevych"
+    assert person.id == UNVERIFIED_PID_FORMAT.format(pid="iryna-gurevych")
     assert paper.full_id_tuple in person.item_ids
 
     # Removing last author from paper

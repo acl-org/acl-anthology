@@ -14,7 +14,7 @@
 
 import pytest
 from acl_anthology.exceptions import AnthologyException, AnthologyInvalidIDError
-from acl_anthology.people import Name, NameLink, Person
+from acl_anthology.people import Name, NameLink, Person, UNVERIFIED_PID_FORMAT
 
 
 def test_person_names(anthology_stub):
@@ -128,7 +128,7 @@ def test_person_orcid(anthology_stub):
 
 
 def test_person_papers_unverified(anthology):
-    person = anthology.get_person("unverified/nicoletta-calzolari")
+    person = anthology.get_person(UNVERIFIED_PID_FORMAT.format(pid="nicoletta-calzolari"))
     assert person.canonical_name == Name("Nicoletta", "Calzolari")
     assert len(person.item_ids) == 3
     assert len(list(person.papers())) == 2
@@ -161,7 +161,7 @@ def test_person_update_id_should_update_connected_papers(anthology):
 
 
 def test_person_cannot_update_id_when_inferred(anthology):
-    person = anthology.get_person("unverified/nicoletta-calzolari")
+    person = anthology.get_person(UNVERIFIED_PID_FORMAT.format(pid="nicoletta-calzolari"))
     assert not person.is_explicit
     with pytest.raises(AnthologyException):
         person.update_id("nicoletta-calzolari")
@@ -187,12 +187,12 @@ def test_person_with_name_variants(anthology):
 def test_person_is_explicit(anthology):
     person = anthology.get_person("yang-liu-ict")
     assert person.is_explicit
-    person = anthology.get_person("unverified/nicoletta-calzolari")
+    person = anthology.get_person(UNVERIFIED_PID_FORMAT.format(pid="nicoletta-calzolari"))
     assert not person.is_explicit
 
 
 def test_person_make_explicit(anthology):
-    person = anthology.get_person("unverified/nicoletta-calzolari")
+    person = anthology.get_person(UNVERIFIED_PID_FORMAT.format(pid="nicoletta-calzolari"))
     assert not person.is_explicit
     person.make_explicit("nicoletta-calzolari")
     assert person.is_explicit
