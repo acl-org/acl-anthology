@@ -143,6 +143,8 @@ class MarkupText:
                 parsed_elem = TexMath.to_html(sub)
                 parsed_elem.tail = sub.tail
                 sub.getparent().replace(sub, parsed_elem)  # type: ignore
+            elif len(sub) == 0 and sub.text is None:
+                sub.text = ""
         self._html = remove_extra_whitespace(stringify_children(element))
         return self._html
 
