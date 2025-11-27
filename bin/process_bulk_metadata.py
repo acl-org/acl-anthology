@@ -34,6 +34,7 @@ Options:
 
 import sys
 import os
+import copy
 from datetime import datetime
 from github import Github
 import git
@@ -88,12 +89,13 @@ class AnthologyMetadataUpdater:
         ```
         """
         # For some reason, the issue body has \r\n line endings
-        issue_body = issue_body.replace("\r", "")
+        if issue_body is not None:
+            issue_body = issue_body.replace("\r", "")
 
-        if (
-            match := re.search(r"```json\n(.*?)\n```", issue_body, re.DOTALL)
-        ) is not None:
-            return json.loads(match[1])
+            if (
+                match := re.search(r"```json\n(.*?)\n```", issue_body, re.DOTALL)
+            ) is not None:
+                return json.loads(match[1])
 
         return None
 
@@ -132,38 +134,107 @@ class AnthologyMetadataUpdater:
                     paper_node.replace(node, new_node)
 
         if "authors" in changes:
-            """
-            Every author has an id, but for a small subset, these ids are explicit, since they're used for disambiguation. To distinguish these, we need to find the subset of the authors in the current XML that have explicit ID attributes. We then use this below to set the ID.
-            """
-            real_ids = set()
-            for author in changes["authors"]:
-                id_ = author.get("id", None)
+            author_tag = "editor" if paper_id == "0" else "author"
 
-                author_tag = "editor" if paper_id == "0" else "author"
-                if id_:
-                    existing_author = paper_node.find(f"{author_tag}[@id='{id_}']")
-                    if existing_author is not None:
-                        real_ids.add(id_)
-
-            # remove existing author nodes
-            for author_node in paper_node.findall(author_tag):
+            existing_nodes = list(paper_node.findall(author_tag))
+            for author_node in existing_nodes:
                 paper_node.remove(author_node)
+
+            def match_existing(author_spec):
+                id_ = author_spec.get("id")
+                if id_:
+                    for node in existing_nodes:
+                        if node.get("id") == id_:
+                            existing_nodes.remove(node)
+                            return node
+
+                orcid = author_spec.get("orcid")
+                if orcid:
+                    for node in existing_nodes:
+                        if node.get("orcid") == orcid:
+                            existing_nodes.remove(node)
+                            return node
+
+                first = author_spec.get("first")
+                last = author_spec.get("last")
+                if first is not None or last is not None:
+                    for node in existing_nodes:
+                        if (
+                            node.findtext("first") == first
+                            and node.findtext("last") == last
+                        ):
+                            existing_nodes.remove(node)
+                            return node
+
+                if existing_nodes:
+                    return existing_nodes.pop(0)
+                return None
+
+            def append_text_elements(tag, values, parent):
+                if isinstance(values, list):
+                    for value in values:
+                        if value:
+                            make_simple_element(tag, text=value, parent=parent)
+                elif values:
+                    make_simple_element(tag, text=values, parent=parent)
 
             prev_sibling = paper_node.find("title")
 
             for author in changes["authors"]:
+                existing_node = match_existing(author)
+
                 attrib = {}
-                if "id" in real_ids:
-                    # if the ID was explicitly represented, preserve it
-                    attrib["id"] = author["id"]
-                # create author_node and add as sibling after insertion_point
+
+                id_value = None
+                if existing_node is not None and existing_node.get("id"):
+                    id_value = existing_node.get("id")
+                    if author.get("id"):
+                        id_value = author["id"]
+                elif author.get("id") and existing_node is None:
+                    id_value = author["id"]
+
+                if id_value:
+                    attrib["id"] = id_value
+
+                orcid_value = None
+                if author.get("orcid"):
+                    orcid_value = author["orcid"]
+                elif existing_node is not None and existing_node.get("orcid"):
+                    orcid_value = existing_node.get("orcid")
+
+                if orcid_value:
+                    attrib["orcid"] = orcid_value
+
                 author_node = make_simple_element(
                     author_tag, attrib=attrib, parent=paper_node, sibling=prev_sibling
                 )
                 prev_sibling = author_node
-                for key in ["first", "last", "affiliation", "variant"]:
-                    if key in author and author[key]:
-                        make_simple_element(key, text=author[key], parent=author_node)
+
+                first_value = author.get("first")
+                if first_value is None and existing_node is not None:
+                    first_value = existing_node.findtext("first")
+                if first_value:
+                    make_simple_element("first", text=first_value, parent=author_node)
+
+                last_value = author.get("last")
+                if last_value is None and existing_node is not None:
+                    last_value = existing_node.findtext("last")
+                if last_value:
+                    make_simple_element("last", text=last_value, parent=author_node)
+
+                if author.get("affiliation"):
+                    append_text_elements(
+                        "affiliation", author["affiliation"], author_node
+                    )
+                elif existing_node is not None:
+                    for elem in existing_node.findall("affiliation"):
+                        author_node.append(copy.deepcopy(elem))
+
+                if author.get("variant"):
+                    append_text_elements("variant", author["variant"], author_node)
+                elif existing_node is not None:
+                    for elem in existing_node.findall("variant"):
+                        author_node.append(copy.deepcopy(elem))
 
         return tree
 
@@ -220,6 +291,9 @@ class AnthologyMetadataUpdater:
         closed_issues = []
 
         for issue in issues:
+            if "metadata correction" not in issue.title.lower():
+                continue
+
             self.stats["visited_issues"] += 1
             try:
                 if ids and issue.number not in ids:

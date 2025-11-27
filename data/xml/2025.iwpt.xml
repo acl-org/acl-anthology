@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2025.iwpt">
+  <volume id="1" ingest-date="2025-07-27" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of the 18th International Conference on Parsing Technologies (IWPT, SyntaxFest 2025)</booktitle>
+      <editor><first>Kenji</first><last>Sagae</last></editor>
+      <editor><first>Stephan</first><last>Oepen</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Ljubljana, Slovenia</address>
+      <month>August</month>
+      <year>2025</year>
+      <url hash="4d85a5b1">2025.iwpt-1</url>
+      <venue>iwpt</venue>
+      <venue>syntaxfest</venue>
+      <isbn>979-8-89176-294-7</isbn>
+    </meta>
+    <frontmatter>
+      <url hash="6c5ba862">2025.iwpt-1.0</url>
+      <bibkey>iwpt-syntaxfest-2025-1</bibkey>
+      <revision id="1" href="2025.iwpt-1.0v1" hash="6082824c"/>
+      <revision id="2" href="2025.iwpt-1.0v2" hash="6c5ba862" date="2025-09-05">Typo correction.</revision>
+    </frontmatter>
+    <paper id="1">
+      <title>An Efficient Parser for Bounded-Order Product-Free <fixed-case>L</fixed-case>ambek Categorial Grammar via Term Graph</title>
+      <author><first>Jinman</first><last>Zhao</last><affiliation>Department of Computer Science, University of Toronto</affiliation></author>
+      <author><first>Gerald</first><last>Penn</last><affiliation>Department of Computer Science, University of Toronto</affiliation></author>
+      <pages>1-10</pages>
+      <abstract>Lambek Categorial Grammar (LCG) parsing has been proved to be an NP-complete problem. However, in the bounded-order case, the complexity can be reduced to polynomial time. (CITATION) first introduced the term graph, a simple graphical representation for LCG parsing, but his algorithm for using it remained largely inscrutable. (CITATION) later proposed a polynomial algorithm for bounded-order LCG parsing based on cyclic linear logic, yet both approaches remain largely theoretical, with no open-source implementations available. In this work, we combine the term-graph representation with insights from cyclic linear logic to develop a novel parsing algorithm for bounded-order LCG. Furthermore, we release our parser as an open-source tool.</abstract>
+      <url hash="c45b9831">2025.iwpt-1.1</url>
+      <bibkey>zhao-penn-2025-efficient</bibkey>
+    </paper>
+    <paper id="2">
+      <title>Step-by-step Instructions and a Simple Tabular Output Format Improve the Dependency Parsing Accuracy of <fixed-case>LLM</fixed-case>s</title>
+      <author><first>Hiroshi</first><last>Matsuda</last><affiliation>National Institute for Japanese Language and Linguistics</affiliation></author>
+      <author><first>Chunpeng</first><last>Ma</last><affiliation>Recruit Holdings</affiliation></author>
+      <author><first>Masayuki</first><last>Asahara</last><affiliation>National Institute for Japanese Language and Linguistics, Japan</affiliation></author>
+      <pages>11-19</pages>
+      <abstract>Recent advances in large language models (LLMs) have enabled impressive performance in various tasks. However, standard prompting often struggles to produce structurally valid and accurate outputs, especially in dependency parsing. We propose a novel step-by-step instruction strategy, where universal part-of-speech tagging precedes the prediction of syntactic heads and dependency labels, and a simplified CoNLL-U like output format, our method achieves state-of-the-art accuracy on Universal Dependencies datasets across 17 languages without hallucination or contamination. We further show that multilingual fine-tuning simultaneously improves cross-language generalization performance. Our results highlight the effectiveness of explicit reasoning steps in LLM-based parsing and offer a scalable, format-consistent alternative to bracket-based approaches.</abstract>
+      <url hash="c0cc77ba">2025.iwpt-1.2</url>
+      <bibkey>matsuda-etal-2025-step</bibkey>
+    </paper>
+    <paper id="3">
+      <title><fixed-case>CCG</fixed-case> Revisited: A Multilingual Empirical Study of the <fixed-case>K</fixed-case>uhlmann-<fixed-case>S</fixed-case>atta Algorithm</title>
+      <author><first>Paul</first><last>He</last><affiliation>University of Toronto</affiliation></author>
+      <author><first>Gerald</first><last>Penn</last><affiliation>Department of Computer Science, University of Toronto</affiliation></author>
+      <pages>20-25</pages>
+      <abstract>We revisit the polynomial-time CCG parsing algorithm introduced by Kuhlmann &amp; Satta (2014), and provide a publicly available implementation of it. We evaluate its empirical performance against a naive CKY-style parser across the Parallel Meaning Bank (PMB) corpus. While the fast parser is slightly slower on average, relative to the size of the PMB, but the trend improves as a function of sentence length, and the PMB is large enough to witness an inversion. Our analysis quantifies this crossover and highlights the importance of derivational context decomposition in practical parsing scenarios.</abstract>
+      <url hash="7d4c403e">2025.iwpt-1.3</url>
+      <bibkey>he-penn-2025-ccg</bibkey>
+    </paper>
+    <paper id="4">
+      <title>High-Accuracy Transition-Based Constituency Parsing</title>
+      <author><first>John</first><last>Bauer</last><affiliation>Stanford University</affiliation></author>
+      <author><first>Christopher D.</first><last>Manning</last><affiliation/></author>
+      <pages>26-39</pages>
+      <abstract>Constituency parsers have improved markedly in recent years, with the F1 accuracy on the venerable Penn Treebank reaching 96.47, half of the error rate of the first transformer model in 2017. However, while dependency parsing frequently uses transition-based parsers, it is unclear whether transition-based parsing can still provide state-of-the-art results for constituency parsing. Despite promising work by Liu and Zhang in 2017 using an in-order transition-based parser, recent work uses other methods, mainly CKY charts built over LLM encoders. Starting from previous work, we implement self-training and a dynamic oracle to make a language-agnostic transition-based constituency parser. We test on seven languages; using Electra embeddings as the input layer on Penn Treebank, with a self-training dataset built from Wikipedia, our parser achieves a new SOTA F1 of 96.61.</abstract>
+      <url hash="abc93c8b">2025.iwpt-1.4</url>
+      <bibkey>bauer-manning-2025-high</bibkey>
+    </paper>
+    <paper id="5">
+      <title>Crosslingual Dependency Parsing of <fixed-case>H</fixed-case>awaiian and <fixed-case>C</fixed-case>ook <fixed-case>I</fixed-case>slands <fixed-case>M</fixed-case>āori using <fixed-case>U</fixed-case>niversal <fixed-case>D</fixed-case>ependencies</title>
+      <author><first>Gabriel H.</first><last>Gilbert</last></author>
+      <author><first>Rolando</first><last>Coto-Solano</last></author>
+      <author><first>Sally Akevai</first><last>Nicholas</last></author>
+      <author><first>Lauren</first><last>Houchens</last></author>
+      <author><first>Sabrina</first><last>Barton</last></author>
+      <author><first>Trinity</first><last>Pryor</last></author>
+      <pages>40-50</pages>
+      <abstract>This paper presents the first Universal Dependency (UD) treebank for ʻŌlelo Hawaiʻi (Hawaiian). We discuss some of the difficulties in describing Hawaiian grammar using UD, and train models for automatic parsing. We also combined this data with UD parses from another Eastern Polynesian language, Cook Islands Māori, to train a crosslingual Polynesian parser using UDPipe2. The crosslingual parser produced a statistically significant improvement of 2.4% in the labeled attachment score (LAS) when parsing Hawaiian, and this improvement didn’t produce a negative impact in the LAS of Cook Islands Māori. We will use this parser to accelerate the linguistic documentation of Hawaiian.</abstract>
+      <url hash="cc836a12">2025.iwpt-1.5</url>
+      <bibkey>gilbert-etal-2025-crosslingual</bibkey>
+    </paper>
+  </volume>
+</collection>

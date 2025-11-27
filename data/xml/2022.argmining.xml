@@ -28,7 +28,6 @@
       <abstract>The growing interest in developing corpora of persuasive texts has promoted applications in automated systems, e.g., debating and essay scoring systems; however, there is little prior work mining image persuasiveness from an argumentative perspective. To expand persuasiveness mining into a multi-modal realm, we present a multi-modal dataset, ImageArg, consisting of annotations of image persuasiveness in tweets. The annotations are based on a persuasion taxonomy we developed to explore image functionalities and the means of persuasion. We benchmark image persuasiveness tasks on ImageArg using widely-used multi-modal learning methods. The experimental results show that our dataset offers a useful resource for this rich and challenging topic, and there is ample room for modeling improvement.</abstract>
       <url hash="cd65473c">2022.argmining-1.1</url>
       <bibkey>liu-etal-2022-imagearg</bibkey>
-      <pwccode url="https://github.com/meiqiguo/argmining2022-imagearg" additional="false">meiqiguo/argmining2022-imagearg</pwccode>
     </paper>
     <paper id="2">
       <title>Data Augmentation for Improving the Prediction of Validity and Novelty of Argumentative Conclusions</title>
@@ -52,8 +51,6 @@
       <abstract>In scientific papers, arguments are essential for explaining authors’ findings. As substrates of the reasoning process, arguments are often decorated with discourse indicators such as “which shows that” or “suggesting that”. However, it remains understudied whether discourse indicators by themselves can be used as an effective marker of the local argument components (LACs) in the body text that support the main claim in the abstract, i.e., the global argument. In this work, we investigate whether discourse indicators reflect the global premise and conclusion. We construct a set of regular expressions for over 100 word- and phrase-level discourse indicators and measure the alignment of LACs extracted by discourse indicators with the global arguments. We find a positive correlation between the alignment of local premises and local conclusions. However, compared to a simple textual intersection baseline, discourse indicators achieve lower ROUGE recall and have limited capability of extracting LACs relevant to the global argument; thus their role in scientific reasoning is less salient as expected.</abstract>
       <url hash="336e1609">2022.argmining-1.3</url>
       <bibkey>gao-etal-2022-discourse</bibkey>
-      <pwccode url="https://github.com/charizardacademy/discourse-indicator" additional="false">charizardacademy/discourse-indicator</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/s2orc">S2ORC</pwcdataset>
     </paper>
     <paper id="4">
       <title>Analyzing Culture-Specific Argument Structures in Learner Essays</title>
@@ -65,7 +62,6 @@
       <abstract>Language education has been shown to benefit from computational argumentation, for example, from methods that assess quality dimensions of language learners’ argumentative essays, such as their organization and argument strength. So far, however, little attention has been paid to cultural differences in learners’ argument structures originating from different origins and language capabilities. This paper extends prior studies of learner argumentation by analyzing differences in the argument structure of essays from culturally diverse learners. Based on the ICLE corpus containing essays written by English learners of 16 different mother tongues, we train natural language processing models to mine argumentative discourse units (ADUs) as well as to assess the essays’ quality in terms of organization and argument strength. The extracted ADUs and the predicted quality scores enable us to look into the similarities and differences of essay argumentation across different English learners. In particular, we analyze the ADUs from learners with different mother tongues, different levels of arguing proficiency, and different context cultures.</abstract>
       <url hash="4ea29ca5">2022.argmining-1.4</url>
       <bibkey>chen-etal-2022-analyzing</bibkey>
-      <pwccode url="https://github.com/webis-de/argmining22-culture-arg" additional="false">webis-de/argmining22-culture-arg</pwccode>
     </paper>
     <paper id="5">
       <title>Perturbations and Subpopulations for Testing Robustness in Token-Based Argument Unit Recognition</title>
@@ -76,7 +72,6 @@
       <abstract>Argument Unit Recognition and Classification aims at identifying argument units from text and classifying them as pro or against. One of the design choices that need to be made when developing systems for this task is what the unit of classification should be: segments of tokens or full sentences. Previous research suggests that fine-tuning language models on the token-level yields more robust results for classifying sentences compared to training on sentences directly. We reproduce the study that originally made this claim and further investigate what exactly token-based systems learned better compared to sentence-based ones. We develop systematic tests for analysing the behavioural differences between the token-based and the sentence-based system. Our results show that token-based models are generally more robust than sentence-based models both on manually perturbed examples and on specific subpopulations of the data.</abstract>
       <url hash="7b07b750">2022.argmining-1.5</url>
       <bibkey>kamp-etal-2022-perturbations</bibkey>
-      <pwccode url="https://github.com/jbkamp/repo-rob-token-aur" additional="false">jbkamp/repo-rob-token-aur</pwccode>
     </paper>
     <paper id="6">
       <title>A Unified Representation and a Decoupled Deep Learning Architecture for Argumentation Mining of Students’ Persuasive Essays</title>
@@ -86,7 +81,6 @@
       <abstract>We develop a novel unified representation for the argumentation mining task facilitating the extracting from text and the labelling of the non-argumentative units and argumentation components—premises, claims, and major claims—and the argumentative relations—premise to claim or premise in a support or attack relation, and claim to major-claim in a for or against relation—in an end-to-end machine learning pipeline. This tightly integrated representation combines the component and relation identification sub-problems and enables a unitary solution for detecting argumentation structures. This new representation together with a new deep learning architecture composed of a mixed embedding method, a multi-head attention layer, two biLSTM layers, and a final linear layer obtain state-of-the-art accuracy on the Persuasive Essays dataset. Also, we have introduced a decoupled solution to identify the entities and relations first, and on top of that, a second model is used to detect distance between the detected related components. An augmentation of the corpus (paragraph version) by including copies of major claims has further increased the performance.</abstract>
       <url hash="0bd37971">2022.argmining-1.6</url>
       <bibkey>sazid-mercer-2022-unified</bibkey>
-      <pwccode url="https://github.com/tawsifsazid/unified-representation-for-argumentation-mining" additional="false">tawsifsazid/unified-representation-for-argumentation-mining</pwccode>
     </paper>
     <paper id="7">
       <title>Overview of the 2022 Validity and Novelty Prediction Shared Task</title>
@@ -99,10 +93,6 @@
       <abstract>This paper provides an overview of the Argument Validity and Novelty Prediction Shared Task that was organized as part of the 9th Workshop on Argument Mining (ArgMining 2022). The task focused on the prediction of the validity and novelty of a conclusion given a textual premise. Validity is defined as the degree to which the conclusion is justified with respect to the given premise. Novelty defines the degree to which the conclusion contains content that is new in relation to the premise. Six groups participated in the task, submitting overall 13 system runs for the subtask of binary classification and 2 system runs for the subtask of relative classification. The results reveal that the task is challenging, with best results obtained for Validity prediction in the range of 75% F1 score, for Novelty prediction of 70% F1 score and for correctly predicting both Validity and Novelty of 45% F1 score. In this paper we summarize the task definition and dataset. We give an overview of the results obtained by the participating systems, as well as insights to be gained from the diverse contributions.</abstract>
       <url hash="c4e1e111">2022.argmining-1.7</url>
       <bibkey>heinisch-etal-2022-overview</bibkey>
-      <pwccode url="https://github.com/phhei/argsvalidnovel" additional="false">phhei/argsvalidnovel</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/valnov-subtask-a">ValNov Subtask A</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/valnov-subtask-b">ValNov Subtask B</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/conceptnet">ConceptNet</pwcdataset>
     </paper>
     <paper id="8">
       <title>Will It Blend? Mixing Training Paradigms &amp; Prompting for Argument Quality Prediction</title>
@@ -115,7 +105,6 @@
       <abstract>This paper describes our contributions to the Shared Task of the 9th Workshop on Argument Mining (2022). Our approach uses Large Language Models for the task of Argument Quality Prediction. We perform prompt engineering using GPT-3, and also investigate the training paradigms multi-task learning, contrastive learning, and intermediate-task training. We find that a mixed prediction setup outperforms single models. Prompting GPT-3 works best for predicting argument validity, and argument novelty is best estimated by a model trained using all three training paradigms.</abstract>
       <url hash="e672898a">2022.argmining-1.8</url>
       <bibkey>van-der-meer-etal-2022-will</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/multinli">MultiNLI</pwcdataset>
     </paper>
     <paper id="9">
       <title><fixed-case>KEV</fixed-case>i<fixed-case>N</fixed-case>: A Knowledge Enhanced Validity and Novelty Classifier for Arguments</title>
@@ -130,7 +119,6 @@
       <abstract>The ArgMining 2022 Shared Task is concerned with predicting the validity and novelty of an inference for a given premise and conclusion pair. We propose two feed-forward network based models (KEViN1 and KEViN2), which combine features generated from several pretrained transformers and the WikiData knowledge graph. The transformers are used to predict entailment and semantic similarity, while WikiData is used to provide a semantic measure between concepts in the premise-conclusion pair. Our proposed models show significant improvement over RoBERTa, with KEViN1 outperforming KEViN2 and obtaining second rank on both subtasks (A and B) of the ArgMining 2022 Shared Task.</abstract>
       <url hash="97298fea">2022.argmining-1.9</url>
       <bibkey>saadat-yazdi-etal-2022-kevin</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/valnov-subtask-a">ValNov Subtask A</pwcdataset>
     </paper>
     <paper id="10">
       <title>Argument Novelty and Validity Assessment via Multitask and Transfer Learning</title>
@@ -140,7 +128,6 @@
       <abstract>An argument is a constellation of premises reasoning towards a certain conclusion. The automatic generation of conclusions is becoming a very prominent task, raising the need for automatic measures to assess the quality of these generated conclusions. The SharedTask at the 9th Workshop on Argument Mining proposes a new task to assess the novelty and validity of a conclusion given a set of premises. In this paper, we present a multitask learning approach that transfers the knowledge learned from the natural language inference task to the tasks at hand. Evaluation results indicate the importance of both knowledge transfer and joint learning, placing our approach in the fifth place with strong results compared to baselines.</abstract>
       <url hash="98fef1ad">2022.argmining-1.10</url>
       <bibkey>alshomary-stahl-2022-argument</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/multinli">MultiNLI</pwcdataset>
     </paper>
     <paper id="11">
       <title>Is Your Perspective Also My Perspective? Enriching Prediction with Subjectivity</title>
@@ -149,7 +136,6 @@
       <abstract>Although argumentation can be highly subjective, the common practice with supervised machine learning is to construct and learn from an aggregated ground truth formed from individual judgments by majority voting, averaging, or adjudication. This approach leads to a neglect of individual, but potentially important perspectives and in many cases cannot do justice to the subjective character of the tasks. One solution to this shortcoming are multi-perspective approaches, which have received very little attention in the field of argument mining so far. In this work we present PerspectifyMe, a method to incorporate perspectivism by enriching a task with subjectivity information from the data annotation process. We exemplify our approach with the use case of classifying argument concreteness, and provide first promising results for the recently published CIMT PartEval Argument Concreteness Corpus.</abstract>
       <url hash="eed54443">2022.argmining-1.11</url>
       <bibkey>romberg-2022-perspective</bibkey>
-      <pwccode url="https://github.com/juliaromberg/argmining2022" additional="false">juliaromberg/argmining2022</pwccode>
     </paper>
     <paper id="12">
       <title>Boundary Detection and Categorization of Argument Aspects via Supervised Learning</title>
@@ -159,7 +145,6 @@
       <abstract>Aspect-based argument mining (ABAM) is the task of automatic _detection_ and _categorization_ of argument aspects, i.e. the parts of an argumentative text that contain the issue-specific key rationale for its conclusion. From empirical data, overlapping but not congruent sets of aspect categories can be derived for different topics. So far, two supervised approaches to detect aspect boundaries, and a smaller number of unsupervised clustering approaches to categorize groups of similar aspects have been proposed. With this paper, we introduce the Argument Aspect Corpus (AAC) that contains token-level annotations of aspects in 3,547 argumentative sentences from three highly debated topics. This dataset enables both the supervised learning of boundaries and categorization of argument aspects. During the design of our annotation process, we noticed that it is not clear from the outset at which contextual unit aspects should be coded. We, thus, experiment with classification at the token, chunk, and sentence level granularity. Our finding is that the chunk level provides the most useful information for applications. At the same time, it produces the best performing results in our tested supervised learning setups.</abstract>
       <url hash="a345671e">2022.argmining-1.12</url>
       <bibkey>ruckdeschel-wiedemann-2022-boundary</bibkey>
-      <pwccode url="https://github.com/leibniz-hbi/argument-aspect-corpus-v1" additional="false">leibniz-hbi/argument-aspect-corpus-v1</pwccode>
     </paper>
     <paper id="13">
       <title>Predicting the Presence of Reasoning Markers in Argumentative Text</title>
@@ -186,8 +171,6 @@
       <abstract>The successful application of argument mining in the legal domain can dramatically impact many disciplines related to law. For this purpose, we present Demosthenes, a novel corpus for argument mining in legal documents, composed of 40 decisions of the Court of Justice of the European Union on matters of fiscal state aid. The annotation specifies three hierarchical levels of information: the argumentative elements, their types, and their argument schemes. In our experimental evaluation, we address 4 different classification tasks, combining advanced language models and traditional classifiers.</abstract>
       <url hash="eb46b184">2022.argmining-1.14</url>
       <bibkey>grundler-etal-2022-detecting</bibkey>
-      <pwccode url="https://github.com/adele-project/demosthenes" additional="false">adele-project/demosthenes</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/demosthenes">Demosthenes</pwcdataset>
     </paper>
     <paper id="15">
       <title>Multimodal Argument Mining: A Case Study in Political Debates</title>
@@ -199,7 +182,6 @@
       <abstract>We propose a study on multimodal argument mining in the domain of political debates. We collate and extend existing corpora and provide an initial empirical study on multimodal architectures, with a special emphasis on input encoding methods. Our results provide interesting indications about future directions in this important domain.</abstract>
       <url hash="1f3bd4b2">2022.argmining-1.15</url>
       <bibkey>mancini-etal-2022-multimodal</bibkey>
-      <pwccode url="https://github.com/federicoruggeri/multimodal-am" additional="false">federicoruggeri/multimodal-am</pwccode>
     </paper>
     <paper id="16">
       <title>A Robustness Evaluation Framework for Argument Mining</title>
@@ -229,9 +211,6 @@
       <abstract>False medical information on social media poses harm to people’s health. While the need for biomedical fact-checking has been recognized in recent years, user-generated medical content has received comparably little attention. At the same time, models for other text genres might not be reusable, because the claims they have been trained with are substantially different. For instance, claims in the SciFact dataset are short and focused: “Side effects associated with antidepressants increases risk of stroke”. In contrast, social media holds naturally-occurring claims, often embedded in additional context: "‘If you take antidepressants like SSRIs, you could be at risk of a condition called serotonin syndrome’ Serotonin syndrome nearly killed me in 2010. Had symptoms of stroke and seizure.” This showcases the mismatch between real-world medical claims and the input that existing fact-checking systems expect. To make user-generated content checkable by existing models, we propose to reformulate the social-media input in such a way that the resulting claim mimics the claim characteristics in established datasets. To accomplish this, our method condenses the claim with the help of relational entity information and either compiles the claim out of an entity-relation-entity triple or extracts the shortest phrase that contains these elements. We show that the reformulated input improves the performance of various fact-checking models as opposed to checking the tweet text in its entirety.</abstract>
       <url hash="d8f1bc1d">2022.argmining-1.18</url>
       <bibkey>wuhrl-klinger-2022-entity</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/covid-fact">COVID-Fact</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/pubhealth">PUBHEALTH</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/scifact">SciFact</pwcdataset>
     </paper>
     <paper id="19">
       <title><fixed-case>Q</fixed-case>uali<fixed-case>A</fixed-case>ssistant: Extracting Qualia Structures from Texts</title>

@@ -1,0 +1,221 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2025.llmsec">
+  <volume id="1" ingest-date="2025-08-05" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of the The First Workshop on LLM Security (LLMSEC)</booktitle>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Vienna, Austria</address>
+      <month>August</month>
+      <year>2025</year>
+      <url hash="d80eafdc">2025.llmsec-1</url>
+      <venue>llmsec</venue>
+      <venue>ws</venue>
+      <isbn>979-8-89176-279-4</isbn>
+      <editor><first>Leon</first><last>Derczynski</last></editor>
+      <editor><first>Jekaterina</first><last>Novikova</last></editor>
+      <editor><first>Muhao</first><last>Chen</last></editor>
+    </meta>
+    <frontmatter>
+      <url hash="5c1562c9">2025.llmsec-1.0</url>
+      <bibkey>llmsec-ws-2025-1</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title><fixed-case>UTF</fixed-case>: Under-trained Tokens as Fingerprints —— a Novel Approach to <fixed-case>LLM</fixed-case> Identification</title>
+      <author><first>Jiacheng</first><last>Cai</last><affiliation>Shanghai Jiao Tong University</affiliation></author>
+      <author><first>Jiahao</first><last>Yu</last><affiliation>Shanghai Jiao Tong University</affiliation></author>
+      <author><first>Yangguang</first><last>Shao</last><affiliation>University of Chinese Academy of Sciences</affiliation></author>
+      <author><first>Yuhang</first><last>Wu</last><affiliation>Northwestern University</affiliation></author>
+      <author><first>Xinyu</first><last>Xing</last><affiliation>Northwestern University</affiliation></author>
+      <pages>1-6</pages>
+      <abstract>Fingerprinting large language models (LLMs) is essential for verifying model ownership, ensuring authenticity, and preventing misuse. Traditional fingerprinting methods often require significant computational overhead or white-box verification access. In this paper, we introduce UTF, a novel and efficient approach to fingerprinting LLMs by leveraging under-trained tokens. Under-trained tokens are tokens that the model has not fully learned during its training phase. By utilizing these tokens, we perform supervised fine-tuning to embed specific input-output pairs into the model. This process allows the LLM to produce predetermined outputs when presented with certain inputs, effectively embedding a unique fingerprint. Our method has minimal overhead and impact on model’s performance, and does not require white-box access to target model’s ownership identification. Compared to existing fingerprinting methods, UTF is also more effective and robust to fine-tuning and random guess.</abstract>
+      <url hash="541e4fcf">2025.llmsec-1.1</url>
+      <attachment type="SupplementaryMaterial" hash="6dd214be">2025.llmsec-1.1.SupplementaryMaterial.zip</attachment>
+      <attachment type="SupplementaryMaterial" hash="54f0c75b">2025.llmsec-1.1.SupplementaryMaterial.txt</attachment>
+      <bibkey>cai-etal-2025-utf</bibkey>
+    </paper>
+    <paper id="2">
+      <title><fixed-case>R</fixed-case>ed<fixed-case>H</fixed-case>it: Adaptive Red-Teaming of Large Language Models via Search, Reasoning, and Preference Optimization</title>
+      <author><first>Mohsen</first><last>Sorkhpour</last><affiliation>Cyber Science Lab, University of Guelph</affiliation></author>
+      <author><first>Abbas</first><last>Yazdinejad</last><affiliation>Cyber Science Lab, University of Guelph</affiliation></author>
+      <author><first>Ali</first><last>Dehghantanha</last><affiliation>University of Guelph</affiliation></author>
+      <pages>7-16</pages>
+      <abstract>Red-teaming has become a critical component of Large Language Models (LLMs) security amid increasingly sophisticated adversarial techniques. However, existing methods often depend on hard-coded strategies that quickly become obsolete against novel attack patterns, requiring constant updates.Moreover, current automated red-teaming approaches typically lack effective reasoning ca- pabilities, leading to lower attack success rates and longer training times. In this paper, we propose RedHit, a multi-round, automated, and adaptive red-teaming framework that integrates Monte Carlo Tree Search (MCTS), Chain-of-Thought (CoT) reasoning, and Direct Preference Optimization (DPO) to enhance the adversarial capabilities of an Adversarial LLM (ALLM). RedHit formulates prompt injection as a tree search problem, where the goal is to discover adversarial prompts capable of bypassing target model defenses. Each search step is guided by an Evaluator module that dynamically scores model responses using multi-detector feedback, yielding fine-grained reward signals. MCTS is employed to explore the space of adversarial prompts, incrementally constructing a Prompt Search Tree (PST) in which each node stores an adversarial prompt, its response, a reward, and other control properties. Prompts are generated via a locally hosted IndirectPromptGenerator module, which uses CoT-enabled prompt transformation to create multi-perspective, semantically equivalent variants for deeper tree exploration. CoT reasoning improves MCTS exploration by injecting strategic insights derived from past interactions, enabling RedHit to adapt dynamically to the target LLM’s defenses. Furthermore, DPO fine-tunes ALLM using preference data collected from previous attack rounds, progressively enhancing its ability to generate more effective prompts. Red-Hit leverages the Garak framework to evaluate each adversarial prompt and compute rewards,demonstrating robust and adaptive adversarial behavior across multiple attack rounds.</abstract>
+      <url hash="322f55e1">2025.llmsec-1.2</url>
+      <attachment type="SupplementaryMaterial" hash="324969f0">2025.llmsec-1.2.SupplementaryMaterial.txt</attachment>
+      <attachment type="SupplementaryMaterial" hash="ccd07932">2025.llmsec-1.2.SupplementaryMaterial.zip</attachment>
+      <bibkey>sorkhpour-etal-2025-redhit</bibkey>
+    </paper>
+    <paper id="3">
+      <title>Using Humor to Bypass Safety Guardrails in Large Language Models</title>
+      <author><first>Pedro</first><last>Cisneros-Velarde</last><affiliation>VMware Research</affiliation></author>
+      <pages>17-25</pages>
+      <abstract>In this paper, we show it is possible to bypass the safety guardrails of large language models (LLMs) through a humorous prompt including the unsafe request. In particular, our method does not edit the unsafe request and follows a fixed template—it is simple to implement and does not need additional LLMs to craft prompts. Extensive experiments show the effectiveness of our method across different LLMs. We also show that both removing and adding more humor to our method can reduce its effectiveness—excessive humor possibly distracts the LLM from fulfilling its unsafe request. Thus, we argue that LLM jailbreaking occurs when there is a proper balance between focus on the unsafe request and presence of humor.</abstract>
+      <url hash="a06af9f0">2025.llmsec-1.3</url>
+      <attachment type="SupplementaryMaterial" hash="a1a26f34">2025.llmsec-1.3.SupplementaryMaterial.txt</attachment>
+      <bibkey>cisneros-velarde-2025-using</bibkey>
+    </paper>
+    <paper id="4">
+      <title><fixed-case>L</fixed-case>ong<fixed-case>S</fixed-case>afety: Enhance Safety for Long-Context <fixed-case>LLM</fixed-case>s</title>
+      <author><first>Mianqiu</first><last>Huang</last><affiliation>Fudan University</affiliation></author>
+      <author><first>Xiaoran</first><last>Liu</last><affiliation>Fudan University</affiliation></author>
+      <author><first>Shaojun</first><last>Zhou</last><affiliation>Fudan University</affiliation></author>
+      <author><first>Mozhi</first><last>Zhang</last><affiliation>Fudan University</affiliation></author>
+      <author><first>Qipeng</first><last>Guo</last><affiliation>Amazon Shanghai AI Lab</affiliation></author>
+      <author><first>Linyang</first><last>Li</last><affiliation>Fudan University</affiliation></author>
+      <author><first>Pengyu</first><last>Wang</last><affiliation>Fudan University</affiliation></author>
+      <author><first>Yang</first><last>Gao</last><affiliation>Shanghai AI Lab</affiliation></author>
+      <author><first>Chenkun</first><last>Tan</last><affiliation>Fudan University</affiliation></author>
+      <author><first>Linlin</first><last>Li</last><affiliation>Huawei Technologies Co., Ltd.</affiliation></author>
+      <author><first>Qun</first><last>Liu</last><affiliation>Huawei Noah’s Ark Lab</affiliation></author>
+      <author><first>Yaqian</first><last>Zhou</last><affiliation>Fudan University</affiliation></author>
+      <author><first>Xipeng</first><last>Qiu</last><affiliation>Fudan University</affiliation></author>
+      <author><first>Xuanjing</first><last>Huang</last><affiliation>Fudan University</affiliation></author>
+      <pages>26-47</pages>
+      <abstract>Recent advancements in model architectures and length extrapolation techniques have significantly extended the context length of large language models (LLMs), paving the way for their application in increasingly complex tasks. However, despite the growing capabilities of long-context LLMs, the safety issues in long-context scenarios remain underexplored. While safety alignment in short context has been widely studied, the safety concerns of long-context LLMs have not been adequately addressed. In this work, we introduce ${textbf{LongSafety}}$, a comprehensive safety alignment dataset for long-context LLMs, containing 10 tasks and 17k samples, with an average length of 40.9k tokens. Our experiments demonstrate that training with LongSafety can enhance long-context safety performance while enhancing short-context safety and preserving general capabilities. Furthermore, we demonstrate that long-context safety does not equal long-context alignment with short-context safety data and LongSafety has generalizing capabilities in context length and long-context safety scenarios.</abstract>
+      <url hash="600021fe">2025.llmsec-1.4</url>
+      <attachment type="SupplementaryMaterial" hash="eaea9806">2025.llmsec-1.4.SupplementaryMaterial.txt</attachment>
+      <bibkey>huang-etal-2025-longsafety</bibkey>
+    </paper>
+    <paper id="5">
+      <title><fixed-case>A</fixed-case>rithm<fixed-case>A</fixed-case>ttack: Evaluating Robustness of <fixed-case>LLM</fixed-case>s to Noisy Context in Math Problem Solving</title>
+      <author><first>Zain</first><last>Ul Abedin</last><affiliation>University of Bonn</affiliation></author>
+      <author><first>Shahzeb</first><last>Qamar</last><affiliation>University of Bonn</affiliation></author>
+      <author><first>Lucie</first><last>Flek</last><affiliation>CAISA Lab, University of Bonn</affiliation></author>
+      <author><first>Akbar</first><last>Karimi</last><affiliation>University of Bonn</affiliation></author>
+      <pages>48-53</pages>
+      <abstract>While Large Language Models (LLMs) have shown impressive capabilities in math problem-solving tasks, their robustness to noisy inputs is not well-studied. We propose ArithmAttack to examine how robust the LLMs are when they encounter noisy prompts that contain extra noise in the form of punctuation marks. While being easy to implement, ArithmAttack does not cause any information loss since words are not added or deleted from the context. We evaluate the robustness of eight LLMs, including LLama3, Mistral, Mathstral, and DeepSeek on noisy GSM8K and MultiArith datasets. Our experiments suggest that all the studied models show vulnerability to such noise, with more noise leading to poorer performances.</abstract>
+      <url hash="a10ea1c8">2025.llmsec-1.5</url>
+      <attachment type="SupplementaryMaterial" hash="7c32234b">2025.llmsec-1.5.SupplementaryMaterial.zip</attachment>
+      <attachment type="SupplementaryMaterial" hash="e8878c96">2025.llmsec-1.5.SupplementaryMaterial.txt</attachment>
+      <bibkey>ul-abedin-etal-2025-arithmattack</bibkey>
+    </paper>
+    <paper id="6">
+      <title><fixed-case>X</fixed-case>-Guard: Multilingual Guard Agent for Content Moderation</title>
+      <author><first>Bibek</first><last>Upadhayay</last><affiliation>University of new Haven</affiliation></author>
+      <author><first>Vahid</first><last>Behzadan</last><affiliation>University of New Haven</affiliation></author>
+      <pages>54-86</pages>
+      <abstract>Large Language Models (LLMs) have rapidly become integral to numerous applications in critical domains where reliability is paramount. Despite significant advances in safety frameworks and guardrails, current protective measures exhibit crucial vulnerabilities, particularly in multilingual contexts. Existing safety systems remain susceptible to adversarial attacks in low-resource languages and through code-switching techniques, primarily due to their English-centric design. Furthermore, the development of effective multilingual guardrails is constrained by the scarcity of diverse cross-lingual training data. Even recent solutions like Llama Guard-3, while offering multilingual support, lack transparency in their decision-making processes. We address these challenges by introducing X-Guard agent, a transparent multilingual safety agent designed to provide content moderation across diverse linguistic contexts. X-Guard effectively defends against both conventional low-resource language attacks and sophisticated code-switching attacks. Our approach includes: curating and enhancing multiple open-source safety datasets with explicit evaluation rationales; employing a jury of judges methodology to mitigate individual judge LLM provider biases; creating a comprehensive multilingual safety dataset spanning 132 languages with 5 million data points; and developing a two-stage architecture combining a custom-finetuned mBART-50 translation module with an evaluation X-Guard 3B model trained through supervised finetuning and GRPO training. Our empirical evaluations demonstrate X-Guard’s effectiveness in detecting unsafe content across multiple languages while maintaining transparency throughout the safety evaluation process. Our work represents a significant advancement in creating robust, transparent, and linguistically inclusive safety systems for LLMs and its integrated systems. We have publicly released our dataset and models at this {href{https://github.com/UNHSAILLab/X-Guard-Multilingual-Guard-Agent-for-Content-Moderation}{URL}}.</abstract>
+      <url hash="94d28b81">2025.llmsec-1.6</url>
+      <attachment type="SupplementaryMaterial" hash="3df3ed7e">2025.llmsec-1.6.SupplementaryMaterial.txt</attachment>
+      <bibkey>upadhayay-behzadan-2025-x</bibkey>
+    </paper>
+    <paper id="7">
+      <title><fixed-case>R</fixed-case>eal<fixed-case>H</fixed-case>arm: A Collection of Real-World Language Model Application Failures</title>
+      <author><first>Pierre</first><last>Le Jeune</last><affiliation>Giskard AI</affiliation></author>
+      <author><first>Jiaen</first><last>Liu</last><affiliation>Giskard AI</affiliation></author>
+      <author><first>Luca</first><last>Rossi</last><affiliation>Giskard AI</affiliation></author>
+      <author><first>Matteo</first><last>Dora</last><affiliation>Giskard AI</affiliation></author>
+      <pages>87-100</pages>
+      <abstract>Language model deployments in consumer-facing applications introduce numerous risks. While existing research on harms and hazards of such applications follows top-down approaches derived from regulatory frameworks and theoretical analyses, empirical evidence of real-world failure modes remains underexplored. In this work, we introduce RealHarm, a dataset of annotated problematic interactions with AI agents built from a systematic review of publicly reported incidents. Analyzing harms, causes, and hazards specifically from the deployer’s perspective, we find that reputational damage constitutes the predominant organizational harm, while misinformation emerges as the most common hazard category. We empirically evaluate state-of-the-art guardrails and content moderation systems to probe whether such systems would have prevented the incidents, revealing a significant gap in the protection of AI applications.</abstract>
+      <url hash="7f3bcb35">2025.llmsec-1.7</url>
+      <attachment type="SupplementaryMaterial" hash="78c073fe">2025.llmsec-1.7.SupplementaryMaterial.txt</attachment>
+      <attachment type="SupplementaryMaterial" hash="da9d6d26">2025.llmsec-1.7.SupplementaryMaterial.zip</attachment>
+      <bibkey>le-jeune-etal-2025-realharm</bibkey>
+    </paper>
+    <paper id="8">
+      <title>Bypassing <fixed-case>LLM</fixed-case> Guardrails: An Empirical Analysis of Evasion Attacks against Prompt Injection and Jailbreak Detection Systems</title>
+      <author><first>William</first><last>Hackett</last><affiliation>Mindgard</affiliation></author>
+      <author><first>Lewis</first><last>Birch</last><affiliation>Mindgard</affiliation></author>
+      <author><first>Stefan</first><last>Trawicki</last><affiliation>Mindgard</affiliation></author>
+      <author><first>Neeraj</first><last>Suri</last><affiliation>Lancaster University</affiliation></author>
+      <author><first>Peter</first><last>Garraghan</last><affiliation>Mindgard</affiliation></author>
+      <pages>101-114</pages>
+      <abstract>Large Language Models (LLMs) guardrail systems are designed to protect against prompt injection and jailbreak attacks. However, they remain vulnerable to evasion techniques. We demonstrate two approaches for bypassing LLM prompt injection and jailbreak detection systems via traditional character injection methods and algorithmic Adversarial Machine Learning (AML) evasion techniques. Through testing against six prominent protection systems, including Microsoft’s Azure Prompt Shield and Meta’s Prompt Guard, we show that both methods can be used to evade detection while maintaining adversarial utility achieving in some instances up to 100% evasion success. Furthermore, we demonstrate that adversaries can enhance Attack Success Rates (ASR) against black-box targets by leveraging word importance ranking computed by offline white-box models. Our findings reveal vulnerabilities within current LLM protection mechanisms and highlight the need for more robust guardrail systems.</abstract>
+      <url hash="4d6c24df">2025.llmsec-1.8</url>
+      <attachment type="SupplementaryMaterial" hash="43b22de8">2025.llmsec-1.8.SupplementaryMaterial.zip</attachment>
+      <attachment type="SupplementaryMaterial" hash="c1ae73a9">2025.llmsec-1.8.SupplementaryMaterial.txt</attachment>
+      <attachment type="SupplementaryMaterial" hash="43b22de8">2025.llmsec-1.8.SupplementaryMaterial.zip</attachment>
+      <bibkey>hackett-etal-2025-bypassing</bibkey>
+    </paper>
+    <paper id="9">
+      <title>1-2-3 Check: Enhancing Contextual Privacy in <fixed-case>LLM</fixed-case> via Multi-Agent Reasoning</title>
+      <author><first>Wenkai</first><last>Li</last><affiliation>Carnegie Mellon University</affiliation></author>
+      <author><first>Liwen</first><last>Sun</last><affiliation>Carnegie Mellon University</affiliation></author>
+      <author><first>Zhenxiang</first><last>Guan</last><affiliation>Carnegie Mellon University</affiliation></author>
+      <author><first>Xuhui</first><last>Zhou</last><affiliation>Carnegie Mellon University</affiliation></author>
+      <author><first>Maarten</first><last>Sap</last><affiliation>Carnegie Mellon University</affiliation></author>
+      <pages>115-128</pages>
+      <abstract>Addressing contextual privacy concerns remains challenging in interactive settings where large language models (LLMs) process information from multiple sources. Building on the theory of contextual integrity, we introduce a multi-agent framework that decomposes privacy reasoning into specialized subtasks—extraction, classification—reducing the information load on any single agent while enabling iterative validation and more reliable adherence to contextual privacy norms. Experiments on the ConfAIde benchmark with two LLMs (GPT-4, Llama3) demonstrate that our multi-agent system substantially reduces private information leakage (36% reduction) while maintaining the fidelity of public content compared to a single-agent system, showing the promise of multi-agent frameworks towards contextual privacy with LLMs.</abstract>
+      <url hash="76360ba7">2025.llmsec-1.9</url>
+      <attachment type="SupplementaryMaterial" hash="9c32e93e">2025.llmsec-1.9.SupplementaryMaterial.txt</attachment>
+      <bibkey>li-etal-2025-1</bibkey>
+    </paper>
+    <paper id="10">
+      <title>Fine-Tuning Lowers Safety and Disrupts Evaluation Consistency</title>
+      <author><first>Kathleen C.</first><last>Fraser</last><affiliation>National Research Council Canada</affiliation></author>
+      <author><first>Hillary</first><last>Dawkins</last><affiliation>National Research Council Canada</affiliation></author>
+      <author><first>Isar</first><last>Nejadgholi</last><affiliation>National Research Council Canada</affiliation></author>
+      <author><first>Svetlana</first><last>Kiritchenko</last><affiliation>National Research Council Canada</affiliation></author>
+      <pages>129-141</pages>
+      <abstract>Fine-tuning a general-purpose large language model (LLM) for a specific domain or task has become a routine procedure for ordinary users. However, fine-tuning is known to remove the safety alignment features of the model, even when the fine-tuning data does not contain any harmful content. We consider this to be a critical failure mode of LLMs due to the widespread uptake of fine-tuning, combined with the benign nature of the “attack”. Most well-intentioned developers are likely unaware that they are deploying an LLM with reduced safety. On the other hand, this known vulnerability can be easily exploited by malicious actors intending to bypass safety guardrails. To make any meaningful progress in mitigating this issue, we first need reliable and reproducible safety evaluations. In this work, we investigate how robust a safety benchmark is to trivial variations in the experimental procedure, and the stochastic nature of LLMs. Our initial experiments expose surprising variance in the results of the safety evaluation, even when seemingly inconsequential changes are made to the fine-tuning setup. Our observations have serious implications for how researchers in this field should report results to enable meaningful comparisons in the future.</abstract>
+      <url hash="9c7d5c10">2025.llmsec-1.10</url>
+      <attachment type="SupplementaryMaterial" hash="082b0801">2025.llmsec-1.10.SupplementaryMaterial.txt</attachment>
+      <bibkey>fraser-etal-2025-fine</bibkey>
+    </paper>
+    <paper id="11">
+      <title><fixed-case>SPADE</fixed-case>: Structured Prompting Augmentation for Dialogue Enhancement in Machine-Generated Text Detection</title>
+      <author><first>Haoyi</first><last>Li</last><affiliation>The University of Melbourne</affiliation></author>
+      <author><first>Angela</first><last>Yuan</last><affiliation>The University of Melbourne</affiliation></author>
+      <author><first>Soyeon</first><last>Han</last><affiliation>The University of Melbourne</affiliation></author>
+      <author><first>Chirstopher</first><last>Leckie</last><affiliation>The University of Melbourne</affiliation></author>
+      <pages>142-167</pages>
+      <abstract>The increasing capability of large language models (LLMs) to generate synthetic content has heightened concerns about their misuse, driving the development of Machine-Generated Text (MGT) detection models. However, these detectors face significant challenges due to the lack of high-quality synthetic datasets for training. To address this issue, we propose SPADE, a structured framework for detecting synthetic dialogues using prompt-based adversarial samples. Our proposed methods yield 14 new dialogue datasets, which we benchmark against eight MGT detection models. The results demonstrate improved generalization performance when utilizing a mixed dataset produced by proposed augmentation frameworks, offering a practical approach to enhancing LLM application security. Considering that real-world agents lack knowledge of future opponent utterances, we simulate online dialogue detection and examine the relationship between chat history length and detection accuracy. Our open-source datasets can be downloaded.</abstract>
+      <url hash="fb464306">2025.llmsec-1.11</url>
+      <attachment type="SupplementaryMaterial" hash="eded3422">2025.llmsec-1.11.SupplementaryMaterial.txt</attachment>
+      <bibkey>li-etal-2025-spade</bibkey>
+    </paper>
+    <paper id="12">
+      <title>Weakest Link in the Chain: Security Vulnerabilities in Advanced Reasoning Models</title>
+      <author><first>Arjun</first><last>Krishna</last><affiliation>University of Waterloo</affiliation></author>
+      <author><first>Erick</first><last>Galinkin</last><affiliation>NVIDIA</affiliation></author>
+      <author><first>Aaditya</first><last>Rastogi</last><affiliation>University of Waterloo</affiliation></author>
+      <pages>168-175</pages>
+      <abstract>The introduction of advanced reasoning capabilities have improved the problem-solving performance of large language models, particularly on math and coding benchmarks. However, it remains unclear whether these reasoning models are more or less vulnerable to adversarial prompt attacks than their non-reasoning counterparts. In this work, we present a systematic evaluation of weaknesses in advanced reasoning models compared to similar non-reasoning models across a diverse set of prompt-based attack categories. Using experimental data, we find that on average the reasoning-augmented models are slightly more robust than non-reasoning models (42.51% vs 45.53% attack success rate, lower is better). However, this overall trend masks significant category-specific differences: for certain attack types the reasoning models are substantially more vulnerable (e.g., up to 32 percentage points worse on a tree-of-attacks prompt), while for others they are markedly more robust (e.g., 29.8 points better on cross-site scripting injection). Our findings highlight the nuanced security implications of advanced reasoning in language models and emphasize the importance of stress-testing safety across diverse adversarial techniques.</abstract>
+      <url hash="7299f374">2025.llmsec-1.12</url>
+      <attachment type="SupplementaryMaterial" hash="8102ca49">2025.llmsec-1.12.SupplementaryMaterial.zip</attachment>
+      <attachment type="SupplementaryMaterial" hash="3e07c72e">2025.llmsec-1.12.SupplementaryMaterial.txt</attachment>
+      <bibkey>krishna-etal-2025-weakest</bibkey>
+    </paper>
+    <paper id="13">
+      <title><fixed-case>CAPTURE</fixed-case>: Context-Aware Prompt Injection Testing and Robustness Enhancement</title>
+      <author><first>Gauri</first><last>Kholkar</last><affiliation>Pure Storage</affiliation></author>
+      <author><first>Ratinder</first><last>Ahuja</last><affiliation>Ratinder Ahuja</affiliation></author>
+      <pages>176-188</pages>
+      <abstract>Prompt injection remains a major security risk for large language models. However, the efficacy of existing guardrail models in context-aware settings remains underexplored, as they often rely on static attack benchmarks. Additionally, they have over-defense tendencies. We introduce CAPTURE, a novel context-aware benchmark assessing both attack detection and over-defense tendencies with minimal in-domain examples. Our experiments reveal that current prompt injection guardrail models suffer from high false negatives in adversarial cases and excessive false positives in benign scenarios, highlighting critical limitations. To demonstrate our framework’s utility, we train CAPTUREGUARD on our generated data. This new model drastically reduces both false negative and false positive rates on our context-aware datasets while also generalizing effectively to external benchmarks, establishing a path toward more robust and practical prompt injection defenses.</abstract>
+      <url hash="c352af43">2025.llmsec-1.13</url>
+      <attachment type="SupplementaryMaterial" hash="6d50e368">2025.llmsec-1.13.SupplementaryMaterial.zip</attachment>
+      <attachment type="SupplementaryMaterial" hash="a6196d8e">2025.llmsec-1.13.SupplementaryMaterial.txt</attachment>
+      <bibkey>kholkar-ahuja-2025-capture</bibkey>
+    </paper>
+    <paper id="14">
+      <title>Shortcut Learning in Safety: The Impact of Keyword Bias in Safeguards</title>
+      <author><first>Panuthep</first><last>Tasawong</last><affiliation>School of Information Science and Technology, Vidyasirimedhi Institute of Science and Technology, Thailand</affiliation></author>
+      <author><first>Napat</first><last>Laosaengpha</last><affiliation>Chulalongkorn University</affiliation></author>
+      <author><first>Wuttikorn</first><last>Ponwitayarat</last><affiliation>VISTEC</affiliation></author>
+      <author><first>Sitiporn</first><last>Lim</last><affiliation>School of Information Science and Technology, Vidyasirimedhi Institute of Science and Technology, Thailand</affiliation></author>
+      <author><first>Potsawee</first><last>Manakul</last><affiliation>University of Cambridge</affiliation></author>
+      <author><first>Samuel</first><last>Cahyawijaya</last><affiliation>Cohere</affiliation></author>
+      <author><first>Can</first><last>Udomcharoenchaikit</last><affiliation>School of Information Science and Technology, Vidyasirimedhi Institute of Science and Technology, Thailand</affiliation></author>
+      <author><first>Peerat</first><last>Limkonchotiwat</last><affiliation>AI Singapore</affiliation></author>
+      <author><first>Ekapol</first><last>Chuangsuwanich</last><affiliation>Chulalongkorn University</affiliation></author>
+      <author><first>Sarana</first><last>Nutanong</last><affiliation>School of Information Science and Technology, Vidyasirimedhi Institute of Science and Technology, Thailand</affiliation></author>
+      <pages>189-197</pages>
+      <abstract>This paper investigates the problem of shortcut learning in safety guardrails for large language models (LLMs). It reveals that current safeguard models often rely excessively on superficial cues, such as specific keywords that are spuriously correlated with training labels, rather than genuinely understanding the input’s semantics or intent. As a result, their performance degrades significantly when there is a shift in keyword distribution. The paper also examines the impact of reducing shortcut reliance, showing that merely minimizing shortcut influence is insufficient. To build robust safeguard models, it is equally crucial to promote the use of intended features.</abstract>
+      <url hash="c399025d">2025.llmsec-1.14</url>
+      <attachment type="SupplementaryMaterial" hash="4bdcb8a2">2025.llmsec-1.14.SupplementaryMaterial.zip</attachment>
+      <attachment type="SupplementaryMaterial" hash="6c2fc3a0">2025.llmsec-1.14.SupplementaryMaterial.txt</attachment>
+      <bibkey>tasawong-etal-2025-shortcut</bibkey>
+    </paper>
+    <paper id="15">
+      <title>Beyond Words: Multilingual and Multimodal Red Teaming of <fixed-case>MLLM</fixed-case>s</title>
+      <author><first>Erik</first><last>Derner</last><affiliation>ELLIS Alicante</affiliation></author>
+      <author><first>Kristina</first><last>Batistič</last><affiliation>Independent Researcher</affiliation></author>
+      <pages>198-206</pages>
+      <abstract>Multimodal large language models (MLLMs) are increasingly deployed in real-world applications, yet their safety remains underexplored, particularly in multilingual and visual contexts. In this work, we present a systematic red teaming framework to evaluate MLLM safeguards using adversarial prompts translated into seven languages and delivered via four input modalities: plain text, jailbreak prompt + text, text rendered as an image, and jailbreak prompt + text rendered as an image. We find that rendering prompts as images increases attack success rates and reduces refusal rates, with the effect most pronounced in lower-resource languages such as Slovenian, Czech, and Valencian. Our results suggest that vision-based multilingual attacks expose a persistent gap in current alignment strategies, highlighting the need for robust multilingual and multimodal MLLM safety evaluation and mitigation of these risks. We make our code and data available.</abstract>
+      <url hash="8816b170">2025.llmsec-1.15</url>
+      <attachment type="SupplementaryMaterial" hash="dbcec10e">2025.llmsec-1.15.SupplementaryMaterial.zip</attachment>
+      <attachment type="SupplementaryMaterial" hash="32927340">2025.llmsec-1.15.SupplementaryMaterial.txt</attachment>
+      <bibkey>derner-batistic-2025-beyond</bibkey>
+    </paper>
+  </volume>
+</collection>
