@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [0.5.4] — 2025-11-27
 
 This release only exists to provide necessary functionality for transitioning to the [new author ID system](https://github.com/acl-org/acl-anthology/wiki/Author-Page-Plan).
 
