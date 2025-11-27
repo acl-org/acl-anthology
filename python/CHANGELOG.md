@@ -6,7 +6,11 @@ This release only exists to provide necessary functionality for transitioning to
 
 ### Added
 
-- NameSpecification: Will now read & write ORCIDs recorded in the XML.
+- NameSpecification now provides an `orcid` field.
+
+### Changed
+
+- Updated the XML schema to match the data folder.
 
 ## [0.5.3] — 2025-06-22
 
