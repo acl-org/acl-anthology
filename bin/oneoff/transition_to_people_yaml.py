@@ -30,9 +30,11 @@ Options:
 from collections import defaultdict
 from docopt import docopt
 from importlib.metadata import version as get_version
+import functools
 import itertools as it
 import logging as log
 import os
+import re
 import sys
 from pathlib import Path
 import yaml
@@ -45,6 +47,26 @@ except ImportError:  # pragma: no cover
 from acl_anthology import Anthology
 from acl_anthology.people import Name
 from acl_anthology.utils.logging import setup_rich_logging
+
+
+RE_ORCID = re.compile(r"[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{3}[0-9X]")
+"""A regular expression matching any string that looks like an ORCID."""
+
+
+def is_valid_orcid(orcid: str) -> bool:
+    """Validate that a string looks like an ORCID and has the correct checksum.
+
+    Returns:
+        True if the ORCID validates, False otherwise.
+    """
+    if RE_ORCID.fullmatch(orcid) is None:
+        return False
+    # <https://support.orcid.org/hc/en-us/articles/360006897674-Structure-of-the-ORCID-Identifier>
+    total = functools.reduce(
+        lambda x, y: (x + int(y)) * 2, orcid[:-1].replace("-", ""), 0
+    )
+    checksum = (12 - (total % 11)) % 11
+    return orcid[-1] == str(checksum) if checksum < 10 else orcid[-1] == "X"
 
 
 def parse_variant_list(anthology):
@@ -76,6 +98,13 @@ class YAMLName(yaml.YAMLObject):
     yaml_tag = "tag:yaml.org,2002:map"  # serialize like a dictionary
     yaml_flow_style = True  # force flow style
 
+    def __eq__(self, other):
+        return (
+            getattr(self, 'first', '') == getattr(other, 'first', '')
+            and getattr(self, 'last', '') == getattr(other, 'last', '')
+            and getattr(self, 'script', '') == getattr(other, 'script', '')
+        )
+
     def __init__(self, first, last, script):
         if first is not None:
             self.first = first
@@ -99,6 +128,7 @@ def refactor(anthology, name_variants):
 
     # This is for comparing to the ORCIDs stored in the XML
     orcid_to_id = {}
+    invalid_orcids = set()
 
     # PART A
     # ======
@@ -155,25 +185,35 @@ def refactor(anthology, name_variants):
         }  # Case 1
 
         for paper in person.papers():
-            for namespec in it.chain(paper.authors, paper.get_editors()):
+            namespecs = list(
+                it.chain(paper.authors, paper.get_editors())
+                if paper.is_frontmatter
+                else it.chain(paper.authors, paper.editors)
+            )
+
+            found_explicit_id = False
+            for namespec in namespecs:
                 if namespec.id == pid:
                     names_to_keep.add(namespec.name)  # Case 2
-                    break
-            else:
+                    found_explicit_id = True
+
+            if not found_explicit_id:
                 # Does *not* already have an explicit ID in the XML; add it.
                 # ---
                 # NOTE: Doing this in a separate loop to avoid the edge case where
                 # a paper might have two authors with identical names,
                 # disambiguated by their ID---not sure if that ever happens, but
                 # better be safe than sorry.
-                for namespec in it.chain(paper.authors, paper.get_editors()):
+                found_matching_name = False
+                for namespec in namespecs:
                     if person.has_name(namespec.name):
+                        found_matching_name = True
                         if namespec.name in names_to_keep:  # Avoid case 3
                             namespec.id = pid
                             c += 1
                             c_added += 1
-                        break
-                else:
+
+                if not found_matching_name:
                     # Should never happen
                     log.error(
                         f"Did not find '{pid}' on paper '{paper.full_id}' connected to them",
@@ -186,20 +226,28 @@ def refactor(anthology, name_variants):
             names_to_ids[name].append(pid)
 
         # Construct entry for new people.yaml
+        canonical = Name.from_dict(orig_entry["canonical"])
         entry = {
             # First name is always the canonical one
             "names": [
-                name_to_yaml(name) for name in person.names if name in names_to_keep
+                name_to_yaml(name)
+                for name in it.chain((canonical,), names_to_keep - {canonical})
             ],
         }
         if person.comment is not None:
             entry["comment"] = person.comment
         # These are keys we copy over from the old name_variants.yaml
-        for key in ("degree", "similar", "orcid"):
+        for key in ("degree", "similar"):
             if key in orig_entry:
                 entry[key] = orig_entry[key]
-                if key == "orcid":
-                    orcid_to_id[orig_entry[key]] = pid
+
+        if "orcid" in orig_entry:
+            orcid = orig_entry["orcid"]
+            if is_valid_orcid(orcid):
+                entry["orcid"] = orcid
+                orcid_to_id[orcid] = pid
+            else:
+                invalid_orcids.add(orcid)
 
         new_people_dict[pid] = entry
 
@@ -211,23 +259,28 @@ def refactor(anthology, name_variants):
         # Look at the namespecs directly attached to this paper
         for namespec in it.chain(paper.authors, paper.editors):
             if (orcid := namespec.orcid) is not None:
+                # Is it valid?
+                if not is_valid_orcid(orcid):
+                    namespec.orcid = None
+                    invalid_orcids.add(orcid)
+                    continue
+
                 # Does namespec have an explicit ID?
                 if (pid := namespec.id) is not None:
                     if "orcid" not in new_people_dict[pid]:
                         # ORCID not recorded yet!
                         new_people_dict[pid]["orcid"] = orcid
+                        orcid_to_id[orcid] = pid
                     elif orcid != new_people_dict[pid]["orcid"]:
                         # ORCID recorded, but doesn’t match...
-                        log.error(
+                        log.warning(
                             f"Person {pid} stored with ORCID {new_people_dict[pid]['orcid']} != {orcid} found on {paper.full_id}"
                         )
                 else:
                     # No explicit ID recorded — do we know the ORCID already?
                     if orcid in orcid_to_id:
-                        # Yes — add that ID to this namespec
+                        # Yes — use the known person
                         pid = orcid_to_id[orcid]
-                        namespec.id = pid
-                        c_added += 1
                         # ...and make sure this particular name is connected with the person
                         name = name_to_yaml(namespec.name)
                         if name not in new_people_dict[pid]["names"]:
@@ -244,6 +297,9 @@ def refactor(anthology, name_variants):
                             pid = f"{pid}-{orcid[-4:]}"
                         new_people_dict[pid] = entry
                         orcid_to_id[orcid] = pid
+                    # Add the ID to the namespec
+                    namespec.id = pid
+                    c_added += 1
 
     # Check where we need to set "disable_name_matching: true"
     for name in names_with_catchall_id:
@@ -263,6 +319,7 @@ def refactor(anthology, name_variants):
     log.info(
         f"        {c_disable_name_matching:>5d} of those have `disable_name_matching: true`"
     )
+    log.info(f"Removed {len(invalid_orcids):>5d} unique invalid ORCIDs")
 
     return new_people_dict
 
@@ -314,6 +371,8 @@ Then re-run this script.""",
         log.info("Writing new people.yaml...")
         with open(datadir / "yaml" / "people.yaml", "w", encoding="utf-8") as f:
             yaml.dump(new_people_dict, f, allow_unicode=True, Dumper=Dumper)
+        vf = anthology.datadir / "yaml" / "name_variants.yaml"
+        vf.unlink()
     else:
         log.warning("Not writing people.yaml; use -y/--write-yaml flag")
 
