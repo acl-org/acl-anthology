@@ -221,7 +221,7 @@ def test_person_make_explicit_should_raise_when_explicit(anthology):
 
 def test_person_merge_with_explicit(anthology):
     # Pre-conditions
-    person1 = anthology.get_person("unverified/yang-liu")
+    person1 = anthology.get_person(UNVERIFIED_PID_FORMAT.format("yang-liu"))
     assert not person1.is_explicit
     assert person1.item_ids == [("2022.naloma", "1", "6")]
     person2 = anthology.get_person("yang-liu-microsoft")
