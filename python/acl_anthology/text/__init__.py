@@ -12,9 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from .markuptext import MarkupText
+from .markuptext import MarkupText, to_markuptext
 from .stopwords import StopWords
 from .texmath import TexMath
 
 
-__all__ = ["MarkupText", "StopWords", "TexMath"]
+__all__ = ["MarkupText", "StopWords", "TexMath", "to_markuptext"]

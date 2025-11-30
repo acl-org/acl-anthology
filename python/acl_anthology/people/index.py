@@ -351,7 +351,7 @@ class PersonIndex(SlottedDict[Person]):
             if is_verified_person_id(pid):
                 self._slugs_to_verified_ids[name.slugify()].add(pid)
 
-    def create_person(
+    def create(
         self,
         id: str,
         names: list[Name],
@@ -397,9 +397,16 @@ class PersonIndex(SlottedDict[Person]):
         Parameters:
             old_id: A person ID that already exists in the index.
             new_id: The new person ID it should be changed to, which mustn't exist in the index.
+
+        Raises:
+            KeyError: If the new ID already exists.
         """
         if not self.is_data_loaded:
             return
+        if new_id in self.data:
+            raise KeyError(
+                f"Tried to add ID '{new_id}' to PersonIndex which already exists"
+            )
         person = self.data.pop(old_id)
         self.data[new_id] = person
         # Note: cannot remove from DisjointSet

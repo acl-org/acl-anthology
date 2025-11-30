@@ -15,7 +15,7 @@
 from __future__ import annotations
 
 import datetime
-from attrs import define, field, validators
+from attrs import define, field, converters, setters, validators
 from lxml import etree
 from lxml.builder import E
 from typing import Any, Iterator, Optional, cast, TYPE_CHECKING
@@ -27,9 +27,14 @@ from ..containers import SlottedDict
 from ..exceptions import AnthologyDuplicateIDError, AnthologyInvalidIDError
 from ..files import PDFReference
 from ..people import NameSpecification
-from ..text import MarkupText
+from ..text import MarkupText, to_markuptext
 from ..venues import Venue
-from ..utils.attrs import auto_validate_types, date_to_str, int_to_str
+from ..utils.attrs import (
+    auto_validate_types,
+    date_to_str,
+    int_to_str,
+    track_modifications,
+)
 from ..utils.ids import build_id, is_valid_item_id, AnthologyIDTuple
 from .paper import Paper
 from .types import VolumeType
@@ -40,7 +45,10 @@ if TYPE_CHECKING:
     from . import Collection, Event
 
 
-@define(field_transformer=auto_validate_types)
+@define(
+    field_transformer=auto_validate_types,
+    on_setattr=[setters.convert, setters.validate, track_modifications],
+)
 class Volume(SlottedDict[Paper]):
     """A publication volume.
 
@@ -77,7 +85,7 @@ class Volume(SlottedDict[Paper]):
     id: str = field(converter=int_to_str)  # validator defined below
     parent: Collection = field(repr=False, eq=False)
     type: VolumeType = field(repr=False, converter=VolumeType)
-    title: MarkupText = field(alias="booktitle")
+    title: MarkupText = field(alias="booktitle", converter=to_markuptext)
     year: str = field(
         converter=int_to_str, validator=validators.matches_re(r"^[0-9]{4}$")
     )
@@ -101,7 +109,10 @@ class Volume(SlottedDict[Paper]):
     pdf: Optional[PDFReference] = field(default=None, repr=False)
     publisher: Optional[str] = field(default=None, repr=False)
     shorttitle: Optional[MarkupText] = field(
-        default=None, alias="shortbooktitle", repr=False
+        default=None,
+        alias="shortbooktitle",
+        repr=False,
+        converter=converters.optional(to_markuptext),
     )
 
     @id.validator
@@ -113,6 +124,11 @@ class Volume(SlottedDict[Paper]):
     def frontmatter(self) -> Paper | None:
         """Returns the volume's frontmatter, if any."""
         return self.data.get(constants.FRONTMATTER_ID)
+
+    @property
+    def collection(self) -> Collection:
+        """The collection this volume belongs to."""
+        return self.parent
 
     @property
     def collection_id(self) -> str:
@@ -159,6 +175,11 @@ class Volume(SlottedDict[Paper]):
     def web_url(self) -> str:
         """The URL of this volume's landing page on the ACL Anthology website."""
         return cast(str, config["volume_page_template"]).format(self.full_id)
+
+    @property
+    def namespecs(self) -> list[NameSpecification]:
+        """All name specifications on this volume."""
+        return self.editors
 
     def get_events(self) -> list[Event]:
         """
@@ -244,7 +265,7 @@ class Volume(SlottedDict[Paper]):
 
     def create_paper(
         self,
-        title: MarkupText,
+        title: MarkupText | str,
         id: Optional[str] = None,
         bibkey: str = constants.NO_BIBKEY,
         **kwargs: Any,
@@ -252,7 +273,7 @@ class Volume(SlottedDict[Paper]):
         """Create a new [Paper][acl_anthology.collections.paper.Paper] object in this volume.
 
         Parameters:
-            title: The title of the new paper.
+            title: The title of the new paper.  If given as a string, it will be [heuristically parsed for markup][acl_anthology.text.markuptext.MarkupText.from_].
             id: The ID of the new paper (optional); if None, will generate the next-highest numeric ID that doesn't already exist in this volume.
             bibkey: The citation key of the new paper (optional); defaults to [`constants.NO_BIBKEY`][acl_anthology.constants.NO_BIBKEY], in which case a non-clashing citation key will be automatically generated (recommended!).
             **kwargs: Any valid list or optional attribute of [Paper][acl_anthology.collections.paper.Paper].
@@ -271,7 +292,12 @@ class Volume(SlottedDict[Paper]):
             )
 
         kwargs["parent"] = self
-        paper = Paper(id=id, bibkey=bibkey, title=title, **kwargs)
+        paper = Paper(
+            id=id,
+            bibkey=bibkey,
+            title=title,
+            **kwargs,
+        )
 
         # Necessary because on_setattr is not called during initialization:
         paper.bibkey = bibkey  # triggers bibkey generating (if necessary) & indexing
@@ -287,6 +313,7 @@ class Volume(SlottedDict[Paper]):
             self.root.people._add_to_index(paper.editors, paper.full_id_tuple)
 
         self.data[id] = paper
+        self.parent.is_modified = True
         return paper
 
     def _add_paper_from_xml(self, element: etree._Element) -> None:

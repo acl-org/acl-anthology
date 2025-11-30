@@ -180,6 +180,20 @@ class Anthology:
             )
         return self
 
+    def save_all(self) -> Self:
+        """Save all Anthology data files."""
+        for collection in self.collections.values():
+            if collection.is_modified:
+                collection.save()
+        self.people.save()
+        self.venues.save()
+        warnings.warn(
+            UserWarning(
+                "SIG metadata is not yet automatically saved.  Call `.sigs.save()` manually if you need this."
+            )
+        )
+        return self
+
     def reset_indices(self) -> Self:
         """Reset all non-collection indices.
 

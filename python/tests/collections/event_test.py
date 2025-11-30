@@ -16,7 +16,7 @@ import pytest
 from attrs import define
 from lxml import etree
 
-from acl_anthology.collections import Event, EventLinkingType, Talk
+from acl_anthology.collections import Event, EventLink, Talk
 from acl_anthology.files import EventFileReference
 from acl_anthology.text import MarkupText
 from acl_anthology.utils.xml import indent
@@ -91,11 +91,11 @@ def test_event_all_attribs():
         location="Online",
         dates="August 17-19, 2023",
         colocated_ids=[
-            (("2023.foobar", "1", None), EventLinkingType.EXPLICIT),
-            (("2023.baz", "1", None), EventLinkingType.EXPLICIT),
-            (("2023.asdf", "1", None), EventLinkingType.EXPLICIT),
+            (("2023.foobar", "1", None), EventLink.EXPLICIT),
+            (("2023.baz", "1", None), EventLink.EXPLICIT),
+            (("2023.asdf", "1", None), EventLink.EXPLICIT),
         ],
-        talks=[Talk(MarkupText.from_string("Invited talk"))],
+        talks=[Talk("Invited talk")],
         links={"Website": EventFileReference("http://foobar.com")},
     )
     assert event.collection_id == "2023.li"
@@ -108,10 +108,10 @@ def test_event_to_xml_dont_list_colocated_volumes_of_parent():
         id="li-2023",
         parent=CollectionStub("2023.li"),
         colocated_ids=[
-            (("2023.baz", "1", None), EventLinkingType.EXPLICIT),
-            (("2023.li", "main", None), EventLinkingType.INFERRED),
-            (("2023.li", "side", None), EventLinkingType.INFERRED),
-            (("2023.ling", "1", None), EventLinkingType.EXPLICIT),
+            (("2023.baz", "1", None), EventLink.EXPLICIT),
+            (("2023.li", "main", None), EventLink.INFERRED),
+            (("2023.li", "side", None), EventLink.INFERRED),
+            (("2023.ling", "1", None), EventLink.EXPLICIT),
         ],
     )
     out = event.to_xml()
@@ -152,16 +152,28 @@ def test_event_volumes(anthology):
         list(anthology.events.get("acl-2022").volumes())
 
 
+@pytest.mark.parametrize(
+    "attr_name", ("id", "colocated_ids", "links", "talks", "title", "location", "dates")
+)
+def test_event_setattr_sets_collection_is_modified(anthology, attr_name):
+    event = anthology.events.get("lrec-2006")
+    assert not event.collection.is_modified
+    setattr(event, attr_name, getattr(event, attr_name))
+    assert event.collection.is_modified
+
+
 def test_event_add_colocated(anthology):
     event = anthology.events.get("lrec-2006")
     assert len(event.colocated_ids) == 1
+    assert not event.collection.is_modified
     volume = anthology.get_volume("J89-1")
 
     # Adding colocated volume should update Event & EventIndex
     event.add_colocated(volume)
     assert len(event.colocated_ids) == 2
-    assert (volume.full_id_tuple, EventLinkingType.EXPLICIT) in event.colocated_ids
+    assert (volume.full_id_tuple, EventLink.EXPLICIT) in event.colocated_ids
     assert event in anthology.events.by_volume(volume)
+    assert event.collection.is_modified
 
     # Adding the same volume a second time shouldn't change anything
     event.add_colocated(volume)
