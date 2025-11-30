@@ -91,6 +91,7 @@ class CollectionIndex(SlottedDict[Collection]):
             path=self.parent.datadir / "xml" / f"{id}.xml",
         )
         collection.is_data_loaded = True
+        collection.is_modified = True
         self.data[id] = collection
 
         return collection

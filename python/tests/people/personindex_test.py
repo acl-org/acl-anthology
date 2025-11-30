@@ -165,7 +165,7 @@ def test_get_person_coauthors_counter(index):
 
 
 def test_get_by_namespec(index):
-    ns1 = NameSpecification(Name("Yang", "Liu"))
+    ns1 = NameSpecification(Name("Li", "Feng"))  # does not exist
     ns2 = NameSpecification(Name("Yang", "Liu"), id="yang-liu-microsoft")
     with pytest.raises(NameSpecResolutionError):
         index.get_by_namespec(ns1)
@@ -198,7 +198,7 @@ def test_change_orcid(index):
 
 
 def test_create_person(index):
-    person = index.create_person(
+    person = index.create(
         id="matt-post",
         names=[Name("Matt", "Post")],
         orcid="0000-0002-1297-6794",
@@ -211,7 +211,7 @@ def test_create_person(index):
 
 def test_create_person_should_fail_on_duplicate_orcid(index):
     with pytest.raises(ValueError):
-        index.create_person(
+        index.create(
             id="marcel-bollmann-twin",
             names=[Name("Marcel", "Bollmann")],
             orcid="0000-0003-2598-8150",  # already assigned to "marcel-bollmann"
@@ -220,7 +220,7 @@ def test_create_person_should_fail_on_duplicate_orcid(index):
 
 def test_create_person_should_fail_on_duplicate_id(index):
     with pytest.raises(AnthologyInvalidIDError):
-        index.create_person(
+        index.create(
             id="marcel-bollmann",  # already exists
             names=[Name("Marcel", "Bollmann")],
         )
@@ -228,7 +228,7 @@ def test_create_person_should_fail_on_duplicate_id(index):
 
 def test_create_person_should_fail_on_unverified_id(index):
     with pytest.raises(AnthologyInvalidIDError):
-        index.create_person(
+        index.create(
             id=UNVERIFIED_PID_FORMAT.format(
                 pid="john-doe"
             ),  # cannot create this manually
@@ -238,7 +238,7 @@ def test_create_person_should_fail_on_unverified_id(index):
 
 def test_create_person_should_fail_on_empty_names(index):
     with pytest.raises(ValueError):
-        index.create_person(
+        index.create(
             id="john-doe-new",
             names=[],  # cannot be empty
         )
@@ -655,7 +655,7 @@ def test_add_person_to_people_yaml_via_create_person(index, tmp_path):
     yaml_out = tmp_path / "people.create_person.yaml"
 
     # Modifications
-    index.create_person(
+    index.create(
         id="preslav-nakov",
         names=[Name("Preslav", "Nakov")],
         orcid="0000-0002-3600-1510",

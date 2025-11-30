@@ -209,6 +209,11 @@ class SIGIndex(SlottedDict[SIG]):
 
         self.is_data_loaded = True
 
+    def save(self) -> None:
+        """Save all SIG metadata to `sigs/*.yaml` files."""
+        for sig in self.values():
+            sig.save()
+
     def by_volume(self, volume: Volume | AnthologyID) -> list[SIG]:
         """Find SIGs associated with a volume."""
         if not self.is_data_loaded:
