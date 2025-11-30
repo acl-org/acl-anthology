@@ -294,7 +294,7 @@ def refactor(anthology, name_variants):
                         pid = namespec.name.slugify()
                         if pid in new_people_dict:
                             # ID is already in use; add last four digits of ORCID to disambiguate
-                            pid = f"{pid}-{orcid[-4:]}"
+                            pid = f"{pid}-{orcid[-4:].lower()}"
                         new_people_dict[pid] = entry
                         orcid_to_id[orcid] = pid
                     # Add the ID to the namespec
