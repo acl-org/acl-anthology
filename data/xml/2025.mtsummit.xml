@@ -1,0 +1,879 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2025.mtsummit">
+  <volume id="1" ingest-date="2025-08-07" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of Machine Translation Summit XX: Volume 1</booktitle>
+      <editor><first>Pierrette</first><last>Bouillon</last></editor>
+      <editor><first>Johanna</first><last>Gerlach</last></editor>
+      <editor><first>Sabrina</first><last>Girletti</last></editor>
+      <editor><first>Lise</first><last>Volkart</last></editor>
+      <editor><first>Raphael</first><last>Rubino</last></editor>
+      <editor><first>Rico</first><last>Sennrich</last></editor>
+      <editor><first>Ana C.</first><last>Farinha</last></editor>
+      <editor><first>Marco</first><last>Gaido</last></editor>
+      <editor><first>Joke</first><last>Daems</last></editor>
+      <editor><first>Dorothy</first><last>Kenny</last></editor>
+      <editor><first>Helena</first><last>Moniz</last></editor>
+      <editor><first>Sara</first><last>Szoc</last></editor>
+      <publisher>European Association for Machine Translation</publisher>
+      <address>Geneva, Switzerland</address>
+      <month>June</month>
+      <year>2025</year>
+      <url hash="4da0c343">2025.mtsummit-1</url>
+      <venue>mtsummit</venue>
+      <isbn>978-2-9701897-0-1</isbn>
+    </meta>
+    <frontmatter>
+      <url hash="027a0590">2025.mtsummit-1.0</url>
+      <bibkey>mtsummit-2025-1</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Robust, interpretable and efficient <fixed-case>MT</fixed-case> evaluation with fine-tuned metrics</title>
+      <author><first>Ricardo</first><last>Rei</last></author>
+      <pages>1–1</pages>
+      <abstract>None</abstract>
+      <url hash="1c36d13e">2025.mtsummit-1.1</url>
+      <bibkey>rei-2025-robust</bibkey>
+    </paper>
+    <paper id="2">
+      <title>Direct Speech Translation in Constrained Contexts: the Simultaneous and Subtitling Scenarios</title>
+      <author><first>Sara</first><last>Papi</last></author>
+      <pages>2–3</pages>
+      <abstract>None</abstract>
+      <url hash="9d19f54c">2025.mtsummit-1.2</url>
+      <bibkey>papi-2025-direct</bibkey>
+    </paper>
+    <paper id="3">
+      <title>Investigating Length Issues in Document-level Machine Translation</title>
+      <author><first>Ziqian</first><last>Peng</last></author>
+      <author><first>Rachel</first><last>Bawden</last></author>
+      <author><first>François</first><last>Yvon</last></author>
+      <pages>4–23</pages>
+      <abstract>Transformer architectures are increasingly effective at processing and generating very long chunks of texts, opening new perspectives for document-level machine translation (MT). In this work, we challenge the ability of MT systems to handle texts comprising up to several thousands of tokens. We design and implement a new approach designed to precisely measure the effect of length increments on MT outputs. Our experiments with two representative architectures unambiguously show that (a) translation performance decreases with the length of the input text; (b) the position of sentences within the document matters and translation quality is higher for sentences occurring earlier in a document. We further show that manipulating the distribution of document lengths and of positional embeddings only marginally mitigates such problems. Our results suggest that even though document-level MT is computationally feasible, it does not yet match the performance of sentence-based MT.</abstract>
+      <url hash="9264d553">2025.mtsummit-1.3</url>
+      <bibkey>peng-etal-2025-investigating</bibkey>
+    </paper>
+    <paper id="4">
+      <title>Investigating the translation capabilities of Large Language Models trained on parallel data only</title>
+      <author><first>Javier García</first><last>Gilabert</last></author>
+      <author><first>Carlos</first><last>Escolano</last></author>
+      <author><first>Aleix</first><last>Sant</last></author>
+      <author><first>Francesca De Luca</first><last>Fornaciari</last></author>
+      <author><first>Audrey</first><last>Mash</last></author>
+      <author><first>Xixian</first><last>Liao</last></author>
+      <author><first>Maite</first><last>Melero</last></author>
+      <pages>24–53</pages>
+      <abstract>In recent years, Large Language Models (LLMs) have demonstrated exceptional proficiency across a broad spectrum of Natural Language Processing (NLP) tasks, including Machine Translation. However, previous methods predominantly relied on iterative processes such as instruction fine-tuning or continual pre-training, leaving unexplored the challenges of training LLMs solely on parallel data. In this work, we introduce Plume (Parallel Language Model), a collection of three 2B LLMs featuring varying vocabulary sizes (32k, 128k, and 256k) trained exclusively on Catalan-centric parallel examples. These models perform comparably to previous encoder-decoder architectures on 16 supervised translation directions and 56 zero-shot ones. Utilizing this set of models, we conduct a thorough investigation into the translation capabilities of LLMs, probing their performance, the role of vocabulary size, the impact of the different elements of the prompt, and their cross-lingual representation space. We find that larger vocabulary sizes improve zero-shot performance and that different layers specialize in distinct aspects of the prompt, such as language-specific tags. We further show that as the vocabulary size grows, a larger number of attention heads can be pruned with minimal loss in translation quality, achieving a reduction of over 64.7% in attention heads.</abstract>
+      <url hash="3e388abc">2025.mtsummit-1.4</url>
+      <bibkey>gilabert-etal-2025-investigating</bibkey>
+    </paper>
+    <paper id="5">
+      <title>Improve Fluency Of Neural Machine Translation Using Large Language Models</title>
+      <author><first>Jianfei</first><last>He</last></author>
+      <author><first>Wenbo</first><last>Pan</last></author>
+      <author><first>Jijia</first><last>Yang</last></author>
+      <author><first>Sen</first><last>Peng</last></author>
+      <author><first>Xiaohua</first><last>Jia</last></author>
+      <pages>54–64</pages>
+      <abstract>Large language models (LLMs) demonstrate significant capabilities in many natural language processing. However, their performance in machine translation is still behind the models that are specially trained for machine translation with an encoder-decoder architecture. This paper investigates how to improve neural machine translation (NMT) with LLMs. Our proposal is based on an empirical insight that NMT gets worse fluency than human translation. We propose to use LLMs to enhance the fluency of NMT’s generation by integrating a language model at the target side. we use contrastive learning to constrain fluency so that it does not exceed the LLMs. Our experiments on three language pairs show that this method can improve the performance of NMT. Our empirical analysis further demonstrates that this method improves the fluency at the target side. Our experiments also show that some straightforward post-processing methods using LLMs, such as re-ranking and refinement, are not effective.</abstract>
+      <url hash="1b8934d1">2025.mtsummit-1.5</url>
+      <bibkey>he-etal-2025-improve</bibkey>
+    </paper>
+    <paper id="6">
+      <title>Optimizing the Training Schedule of Multilingual <fixed-case>NMT</fixed-case> using Reinforcement Learning</title>
+      <author><first>Alexis</first><last>Allemann</last></author>
+      <author><first>Àlex R.</first><last>Atrio</last></author>
+      <author><first>Andrei</first><last>Popescu-Belis</last></author>
+      <pages>65–80</pages>
+      <abstract>Multilingual NMT is a viable solution for translating low-resource languages (LRLs) when data from high-resource languages (HRLs) from the same language family is available. However, the training schedule, i.e. the order of presentation of languages, has an impact on the quality of such systems. Here, in a many-to-one translation setting, we propose to apply two algorithms that use reinforcement learning to optimize the training schedule of NMT: (1) Teacher-Student Curriculum Learning and (2) Deep Q Network. The former uses an exponentially smoothed estimate of the returns of each action based on the loss on monolingual or multilingual development subsets, while the latter estimates rewards using an additional neural network trained from the history of actions selected in different states of the system, together with the rewards received. On a 8-to-1 translation dataset with LRLs and HRLs, our second method improves BLEU and COMET scores with respect to both random selection of monolingual batches and shuffled multilingual batches, by adjusting the number of presentations of LRL vs. HRL batches.</abstract>
+      <url hash="085d0d32">2025.mtsummit-1.6</url>
+      <bibkey>allemann-etal-2025-optimizing</bibkey>
+    </paper>
+    <paper id="7">
+      <title>Languages Transferred Within the Encoder: On Representation Transfer in Zero-Shot Multilingual Translation</title>
+      <author><first>Zhi</first><last>Qu</last></author>
+      <author><first>Chenchen</first><last>Ding</last></author>
+      <author><first>Taro</first><last>Watanabe</last></author>
+      <pages>81–98</pages>
+      <abstract>Understanding representation transfer in multilingual neural machine translation (MNMT) can reveal the reason for the zero-shot translation deficiency. In this work, we systematically analyze the representational issue of MNMT models. We first introduce the identity pair, translating a sentence to itself, to address the lack of the base measure in multilingual investigations, as the identity pair can reflect the representation of a language within the model. Then, we demonstrate that the encoder transfers the source language to the representational subspace of the target language instead of the language-agnostic state. Thus, the zero-shot translation deficiency arises because the representation of a translation is entangled with other languages and not transferred to the target language effectively. Based on our findings, we propose two methods: 1) low-rank language-specific embedding at the encoder, and 2) language-specific contrastive learning of the representation at the decoder. The experimental results on Europarl-15, TED-19, and OPUS-100 datasets show that our methods substantially enhance the performance of zero-shot translations without sacrifices in supervised directions by improving language transfer capacity, thereby providing practical evidence to support our conclusions. Codes are available at https://github.com/zhiqu22/ZeroTrans.</abstract>
+      <url hash="b0da2be4">2025.mtsummit-1.7</url>
+      <bibkey>qu-etal-2025-languages</bibkey>
+    </paper>
+    <paper id="8">
+      <title>Decoding Machine Translationese in <fixed-case>E</fixed-case>nglish-<fixed-case>C</fixed-case>hinese News: <fixed-case>LLM</fixed-case>s vs. <fixed-case>NMT</fixed-case>s</title>
+      <author><first>Delu</first><last>Kong</last></author>
+      <author><first>Lieve</first><last>Macken</last></author>
+      <pages>99–112</pages>
+      <abstract>This study explores Machine Translationese (MTese) — the linguistic peculiarities of machine translation outputs — focusing on the under-researched English-to-Chinese language pair in news texts. We construct a large dataset consisting of 4 sub-corpora and employ a comprehensive five-layer feature set. Then, a chi-square ranking algorithm is applied for feature selection in both classification and clustering tasks. Our findings confirm the presence of MTese in both Neural Machine Translation systems (NMTs) and Large Language Models (LLMs). Original Chinese texts are nearly perfectly distinguishable from both LLM and NMT outputs. Notable linguistic patterns in MT outputs are shorter sentence lengths and increased use of adversative conjunctions. Comparing LLMs and NMTs, we achieve approximately 70% classification accuracy, with LLMs exhibiting greater lexical diversity and NMTs using more brackets. Additionally, translation-specific LLMs show lower lexical diversity but higher usage of causal conjunctions compared to generic LLMs. Lastly, we find no significant differences between LLMs developed by Chinese firms and their foreign counterparts.</abstract>
+      <url hash="35e1ebb6">2025.mtsummit-1.8</url>
+      <bibkey>kong-macken-2025-decoding</bibkey>
+    </paper>
+    <paper id="9">
+      <title><fixed-case>OJ</fixed-case>4<fixed-case>OCRMT</fixed-case>: A Large Multilingual Dataset for <fixed-case>OCR</fixed-case>-<fixed-case>MT</fixed-case> Evaluation</title>
+      <author><first>Paul</first><last>McNamee</last></author>
+      <author><first>Kevin</first><last>Duh</last></author>
+      <author><first>Cameron</first><last>Carpenter</last></author>
+      <author><first>Ron</first><last>Colaianni</last></author>
+      <author><first>Nolan</first><last>King</last></author>
+      <author><first>Kenton</first><last>Murray</last></author>
+      <pages>113–125</pages>
+      <abstract>We introduce OJ4OCRMT, an Optical Character Recognition (OCR) dataset for Machine Translation (MT). The dataset supports research on automatic extraction, recognition, and translation of text from document images. The Official Journal of the European Union (OJEU), is the official gazette for the EU. Tens of thousands of pages of legislative acts and regulatory notices are published annually, and parallel translations are available in each of the official languages. Due to its large size, high degree of multilinguality, and carefully produced human translations, the OJEU is a singular resource for language processing research. We have assembled a large collection of parallel pages from the OJEU and have created a dataset to support translation of document images. In this work we introduce the dataset, describe the design decisions which we undertook, and report baseline performance figures for the translation task. It is our hope that this dataset will significantly add to the comparatively few resources presently available for evaluating OCR-MT systems.</abstract>
+      <url hash="5e2e5542">2025.mtsummit-1.9</url>
+      <bibkey>mcnamee-etal-2025-oj4ocrmt</bibkey>
+    </paper>
+    <paper id="10">
+      <title>Context-Aware or Context-Insensitive? Assessing <fixed-case>LLM</fixed-case>s’ Performance in Document-Level Translation</title>
+      <author><first>Wafaa</first><last>Mohammed</last></author>
+      <author><first>Vlad</first><last>Niculae</last></author>
+      <pages>126–137</pages>
+      <abstract>Large language models (LLMs) are increasingly strong contenders in machine translation. In this work, we focus on document-level translation, where some words cannot be translated without context from outside the sentence. Specifically, we investigate the ability of prominent LLMs to utilize the document context during translation through a perturbation analysis (analyzing models’ robustness to perturbed and randomized document context) and an attribution analysis (examining the contribution of relevant context to the translation). We conduct an extensive evaluation across nine LLMs from diverse model families and training paradigms, including translation-specialized LLMs, alongside two encoder-decoder transformer baselines. We find that LLMs’ improved document-translation performance compared to encoder-decoder models is not reflected in pronoun translation performance. Our analysis highlight the need for context-aware finetuning of LLMs with a focus on relevant parts of the context to improve their reliability for document-level translation.</abstract>
+      <url hash="9507594a">2025.mtsummit-1.10</url>
+      <bibkey>mohammed-niculae-2025-context</bibkey>
+    </paper>
+    <paper id="11">
+      <title>Context-Aware Monolingual Evaluation of Machine Translation</title>
+      <author><first>Silvio</first><last>Picinini</last></author>
+      <author><first>Sheila</first><last>Castilho</last></author>
+      <pages>138–149</pages>
+      <abstract>This paper explores the potential of context-aware monolingual evaluation for assessing machine translation (MT) when no source is given for reference. To this end, we compare monolingual with bilingual evaluations (with source text), under two scenarios: the evaluation of a single MT system, and the comparative evaluation of pairwise MT systems. Four professional translators performed both monolingual and bilingual evaluations by assigning ratings and annotating errors, and providing feedback on their experience. Our findings suggest that context-aware monolingual evaluation achieves comparable outcomes to bilingual evaluations, and highlight the feasibility and potential of monolingual evaluation as an efficient approach to assessing MT.</abstract>
+      <url hash="d81b357f">2025.mtsummit-1.11</url>
+      <bibkey>picinini-castilho-2025-context</bibkey>
+    </paper>
+    <paper id="12">
+      <title>Culture-aware machine translation: the case study of low-resource language pair <fixed-case>C</fixed-case>atalan-<fixed-case>C</fixed-case>hinese</title>
+      <author><first>Xixian</first><last>Liao</last></author>
+      <author><first>Carlos</first><last>Escolano</last></author>
+      <author><first>Audrey</first><last>Mash</last></author>
+      <author><first>Francesca De Luca</first><last>Fornaciari</last></author>
+      <author><first>Javier García</first><last>Gilabert</last></author>
+      <author><first>Miguel Claramunt</first><last>Argote</last></author>
+      <author><first>Ella</first><last>Bohman</last></author>
+      <author><first>Maite</first><last>Melero</last></author>
+      <pages>150–161</pages>
+      <abstract>High-quality machine translation requires datasets that not only ensure linguistic accuracy but also capture regional and cultural nuances. While many existing benchmarks, such as FLORES-200, rely on English as a pivot language, this approach can overlook the specificity of direct language pairs, particularly for underrepresented combinations like Catalan-Chinese. In this study, we demonstrate that even with a relatively small dataset of approximately 1,000 sentences, we can significantly improve MT localization. To this end, we introduce a dataset specifically designed to enhance Catalan-to-Chinese translation by prioritizing regionally and culturally specific topics. Unlike pivot-based datasets, our data source ensures a more faithful representation of Catalan linguistic and cultural elements, leading to more accurate translations of local terms and expressions. Using this dataset, we demonstrate better performance over the English-pivot FLORES-200 dev set and achieve competitive results on the FLORES-200 devtest set when evaluated with neural-based metrics. We release this dataset as both a human-preference resource and a benchmark for Catalan-Chinese translation. Additionally, we include Spanish translations for each sentence, facilitating extensions to Spanish-Chinese translation tasks.</abstract>
+      <url hash="173c3e83">2025.mtsummit-1.12</url>
+      <bibkey>liao-etal-2025-culture</bibkey>
+    </paper>
+    <paper id="13">
+      <title>Instruction-tuned Large Language Models for Machine Translation in the Medical Domain</title>
+      <author><first>Miguel</first><last>Rios</last></author>
+      <pages>162–172</pages>
+      <abstract>Large Language Models (LLMs) have shown promising results on machine translation for high resource language pairs and domains. However, in specialised domains (e.g. medical) LLMs have shown lower performance compared to standard neural machine translation models. The consistency in the machine translation of terminology is crucial for users, researchers, and translators in specialised domains. In this study, we compare the performance between baseline LLMs and instruction-tuned LLMs in the medical domain. In addition, we introduce terminology from specialised medical dictionaries into the instruction formatted datasets for fine-tuning LLMs. The instruction-tuned LLMs significantly outperform the baseline models with automatic metrics. Moreover, the instruction-tuned LLMs produce fewer errors compared to the baseline based on automatic error annotation.</abstract>
+      <url hash="ba96c747">2025.mtsummit-1.13</url>
+      <bibkey>rios-2025-instruction</bibkey>
+    </paper>
+    <paper id="14">
+      <title>Lingonberry Giraffe: Lexically-Sound Beam Search for Explainable Translation of Compound Words</title>
+      <author><first>Théo</first><last>Salmenkivi-Friberg</last></author>
+      <author><first>Iikka</first><last>Hauhio</last></author>
+      <pages>173–189</pages>
+      <abstract>We present a hybrid rule-based and neural method for translating Finnish compound words into English. We use a lightweight set of rules to split a Finnish word into its constituent parts and determine the possible translations of those words using a dictionary. We then use an NMT model to rank these alternatives to determine the final output. Since the number of translations that takes into account different spellings, inflections, and word separators can be very large, we use beam search for the ranking when the number of translations is over a threshold. We find that our method is an improvement over using the same NMT model for end-to-end translation in both automatic and human evaluation. We conclude that our method retains the good qualities of rule-based translation such as explainability and controllability while keeping the rules lightweight.</abstract>
+      <url hash="7f51a917">2025.mtsummit-1.14</url>
+      <bibkey>salmenkivi-friberg-hauhio-2025-lingonberry</bibkey>
+    </paper>
+    <paper id="15">
+      <title>Testing <fixed-case>LLM</fixed-case>s’ Capabilities in Annotating Translations Based on an Error Typology Designed for <fixed-case>LSP</fixed-case> Translation: First Experiments with <fixed-case>C</fixed-case>hat<fixed-case>GPT</fixed-case></title>
+      <author><first>Joachim</first><last>Minder</last></author>
+      <author><first>Guillaume</first><last>Wisniewski</last></author>
+      <author><first>Natalie</first><last>Kübler</last></author>
+      <pages>190–203</pages>
+      <abstract>This study investigates the capabilities of large language models (LLMs), specifically ChatGPT, in annotating MT outputs based on an error typology. In contrast to previous work focusing mainly on general language, we explore ChatGPT’s ability to identify and categorise errors in specialised translations. By testing two different prompts and based on a customised error typology, we compare ChatGPT annotations with human expert evaluations of translations produced by DeepL and ChatGPT itself. The results show that, for translations generated by DeepL, recall and precision are quite high. However, the degree of accuracy in error categorisation depends on the prompt’s specific features and its level of detail, ChatGPT performing very well with a detailed prompt. When evaluating its own translations, ChatGPT achieves significantly poorer results, revealing limitations with self-assessment. These results highlight both the potential and the limitations of LLMs for translation evaluation, particularly in specialised domains. Our experiments pave the way for future research on open-source LLMs, which could produce annotations of comparable or even higher quality. In the future, we also aim to test the practical effectiveness of this automated evaluation in the context of translation training, particularly by optimising the process of human evaluation by teachers and by exploring the impact of annotations by LLMs on students’ post-editing and translation learning.</abstract>
+      <url hash="16588239">2025.mtsummit-1.15</url>
+      <bibkey>minder-etal-2025-testing</bibkey>
+    </paper>
+    <paper id="16">
+      <title>Name Consistency in <fixed-case>LLM</fixed-case>-based Machine Translation of Historical Texts</title>
+      <author><first>Dominic P.</first><last>Fischer</last></author>
+      <author><first>Martin</first><last>Volk</last></author>
+      <pages>204–219</pages>
+      <abstract>Large Language Models (LLMs) excel at translating 16th-century letters from Latin and Early New High German to modern English and German. While they perform well at translating well-known historical city names (e.g., Lutetia –&gt; Paris), their ability to handle person names (e.g., Theodor Bibliander) or lesser-known toponyms (e.g., Augusta Vindelicorum –&gt; Augsburg) remains unclear. This study investigates LLM-based translations of person and place names across various frequency bands in a corpus of 16th-century letters. Our results show that LLMs struggle with person names, achieving accuracies around 60%, but perform better with place names, reaching accuracies around 90%. We further demonstrate that including a translation suggestion for the proper noun in the prompt substantially boosts accuracy, yielding highly reliable results.</abstract>
+      <url hash="f4b8e3b6">2025.mtsummit-1.16</url>
+      <bibkey>fischer-volk-2025-name</bibkey>
+    </paper>
+    <paper id="17">
+      <title>Non-autoregressive Modeling for Sign-gloss to Texts Translation</title>
+      <author><first>Fan</first><last>Zhou</last></author>
+      <author><first>Tim Van</first><last>de Cruys</last></author>
+      <pages>220–230</pages>
+      <abstract>Automatic sign language translation has seen significant advancements, driven by progress in computer vision and natural language processing. While end to end sign-to-text translation systems are available, many systems still rely on a gloss-based representation–an intermediate symbolic representation that functions as a bridge between sign language and its written counterpart. This paper focuses on the gloss-to-text (gloss2text) task, a key step in the sign-to-text translation pipeline, which has traditionally been addressed using autoregressive (AR) modeling approaches. In this study, we propose the use of non-autoregressive (NAR) modeling techniques, including non-autoregressive Transformer (NAT) and diffusion models, tailored to the unique characteristics of gloss2text. Specifically, we introduce PointerLevT, a novel NAT-based model designed to enhance performance in this task. Our experiments demonstrate that NAR models achieve higher accuracy than pre-trained AR models with less data, while also matching the performance of fine-tuned AR models such as mBART. Furthermore, we evaluate inference speed and find that NAR models benefit from parallel generation, resulting in faster inference. However, they require more time to achieve an optimal balance between accuracy and speed, particularly in the multistep denoising process of diffusion models.</abstract>
+      <url hash="0954a343">2025.mtsummit-1.17</url>
+      <bibkey>zhou-de-cruys-2025-non</bibkey>
+    </paper>
+    <paper id="18">
+      <title>Exploring the Feasibility of Multilingual Grammatical Error Correction with a Single <fixed-case>LLM</fixed-case> up to 9<fixed-case>B</fixed-case> parameters: A Comparative Study of 17 Models</title>
+      <author><first>Dawid</first><last>Wiśniewski</last></author>
+      <author><first>Antoni</first><last>Solarski</last></author>
+      <author><first>Artur</first><last>Nowakowski</last></author>
+      <pages>231–247</pages>
+      <abstract>Recent language models can successfully solve various language-related tasks, and many understand inputs stated in different languages. In this paper, we explore the performance of 17 popular models used to correct grammatical issues in texts stated in English, German, Italian, and Swedish when using a single model to correct texts in all those languages. We analyze the outputs generated by these models, focusing on decreasing the number of grammatical errors while keeping the changes small. The conclusions drawn help us understand what problems occur among those models and which models can be recommended for multilingual grammatical error correction tasks. We list six models that improve grammatical correctness in all four languages and show that Gemma 9B is currently the best performing one for the languages considered.</abstract>
+      <url hash="e422ce6a">2025.mtsummit-1.18</url>
+      <bibkey>wisniewski-etal-2025-exploring</bibkey>
+    </paper>
+    <paper id="19">
+      <title>Do Not Change Me: On Transferring Entities Without Modification in Neural Machine Translation - a Multilingual Perspective</title>
+      <author><first>Dawid</first><last>Wiśniewski</last></author>
+      <author><first>Mikołaj</first><last>Pokrywka</last></author>
+      <author><first>Zofia</first><last>Rostek</last></author>
+      <pages>248–264</pages>
+      <abstract>Current machine translation models provide us with high-quality outputs in most scenarios. However, they still face some specific problems, such as detecting which entities should not be changed during translation. In this paper, we explore the abilities of popular NMT models, including models from the OPUS project, Google Translate, MADLAD, and EuroLLM, to preserve entities such as URL addresses, IBAN numbers, or emails when producing translations between four languages: English, German, Polish, and Ukrainian. We investigate the quality of popular NMT models in terms of accuracy, discuss errors made by the models, and examine the reasons for errors. Our analysis highlights specific categories, such as emojis, that pose significant challenges for many models considered. In addition to the analysis, we propose a new multilingual synthetic dataset of 36,000 sentences that can help assess the quality of entity transfer across nine categories and four aforementioned languages.</abstract>
+      <url hash="0890a89b">2025.mtsummit-1.19</url>
+      <bibkey>wisniewski-etal-2025-change</bibkey>
+    </paper>
+    <paper id="20">
+      <title>Intrinsic vs. Extrinsic Evaluation of <fixed-case>C</fixed-case>zech Sentence Embeddings: Semantic Relevance Doesn’t Help with <fixed-case>MT</fixed-case> Evaluation</title>
+      <author><first>Petra</first><last>Barančíková</last></author>
+      <author><first>Ondřej</first><last>Bojar</last></author>
+      <pages>265–275</pages>
+      <abstract>In this paper, we compare Czech-specific and multilingual sentence embedding models through intrinsic and extrinsic evaluation paradigms. For intrinsic evaluation, we employ Costra, a complex sentence transformation dataset, and several Semantic Textual Similarity (STS) benchmarks to assess the ability of the embeddings to capture linguistic phenomena such as semantic similarity, temporal aspects, and stylistic variations. In the extrinsic evaluation, we fine-tune each embedding model using COMET-based metrics for machine translation evaluation. Our experiments reveal an interesting disconnect: models that excel in intrinsic semantic similarity tests do not consistently yield superior performance on downstream translation evaluation tasks. Conversely, models with seemingly over-smoothed embedding spaces can, through fine-tuning, achieve excellent results. These findings highlight the complex relationship between semantic property probes and downstream task, emphasizing the need for more research into “operationalizable semantics” in sentence embeddings, or more in-depth downstream tasks datasets (here translation evaluation).</abstract>
+      <url hash="a03907ed">2025.mtsummit-1.20</url>
+      <bibkey>barancikova-bojar-2025-intrinsic</bibkey>
+    </paper>
+    <paper id="21">
+      <title>Metaphors in Literary Machine Translation: Close but no cigar?</title>
+      <author><first>Alina</first><last>Karakanta</last></author>
+      <author><first>Mayra</first><last>Nas</last></author>
+      <author><first>Aletta G.</first><last>Dorst</last></author>
+      <pages>276–286</pages>
+      <abstract>The translation of metaphorical language presents a challenge in Natural Language Processing as a result of its complexity and variability in terms of linguistic forms, communicative functions, and cultural embeddedness. This paper investigates the performance of different state-of-the-art Machine Translation (MT) systems and Large Language Models (LLMs) in metaphor translation in literary texts (English-&gt;Dutch), examining how metaphorical language is handled by the systems and the types of errors identified by human evaluators. While commercial MT systems perform better in terms of translation quality based on automatic metrics, the human evaluation demonstrates that open-source, literary-adapted NMT systems translate metaphors equally accurately. Still, the accuracy of metaphor translation ranges between 64-80%, with lexical and meaning errors being the most prominent. Our findings indicate that metaphors remain a challenge for MT systems and adaptation to the literary domain is crucial for improving metaphor translation in literary texts.</abstract>
+      <url hash="91dc920e">2025.mtsummit-1.21</url>
+      <bibkey>karakanta-etal-2025-metaphors</bibkey>
+    </paper>
+    <paper id="22">
+      <title>Synthetic Fluency: Hallucinations, Confabulations, and the Creation of <fixed-case>I</fixed-case>rish<fixed-case>W</fixed-case>ords in <fixed-case>LLM</fixed-case>-Generated Translations</title>
+      <author><first>Sheila</first><last>Castilho</last></author>
+      <author><first>Zoe</first><last>Fitzsimmons</last></author>
+      <author><first>Claire</first><last>Holton</last></author>
+      <author><first>Aoife Mc</first><last>Donagh</last></author>
+      <pages>287–299</pages>
+      <abstract>This study examines hallucinations in Large Language Model (LLM) translations into Irish, specifically focusing on instances where the models generate novel, non-existent words. We classify these hallucinations within verb and noun categories, identifying six distinct patterns among the latter. Additionally, we analyse whether these hallucinations adhere to Irish morphological rules and what linguistic tendencies they exhibit. Our findings show that while both GPT-4.o and GPT-4.o Mini produce similar types of hallucinations, the Mini model generates them at a significantly higher frequency. Beyond classification, the discussion raises speculative questions about the implications of these hallucinations for the Irish language. Rather than seeking definitive answers, we offer food for thought regarding the increasing use of LLMs and their potential role in shaping Irish vocabulary and linguistic evolution. We aim to prompt discussion on how such technologies might influence language over time, particularly in the context of low-resource, morphologically rich languages.</abstract>
+      <url hash="585f6396">2025.mtsummit-1.22</url>
+      <bibkey>castilho-etal-2025-synthetic</bibkey>
+    </paper>
+    <paper id="23">
+      <title>Patent Claim Translation via Continual Pre-training of Large Language Models with Parallel Data</title>
+      <author><first>Haruto</first><last>Azami</last></author>
+      <author><first>Minato</first><last>Kondo</last></author>
+      <author><first>Takehito</first><last>Utsuro</last></author>
+      <author><first>Masaaki</first><last>Nagata</last></author>
+      <pages>300–314</pages>
+      <abstract>Recent advancements in large language models (LLMs) have enabled their application across various domains. However, in the field of patent translation, Transformer encoder-decoder based models remain the standard approach, and the potential of LLMs for translation tasks has not been thoroughly explored. In this study, we conducted patent claim translation using an LLM fine-tuned with parallel data through continual pre-training and supervised fine-tuning, following the methodology proposed by Guo et al. (2024) and Kondo et al. (2024). Comparative evaluation against the Transformer encoder-decoder based translations revealed that the LLM achieved high scores for both BLEU and COMET. This demonstrated improvements in addressing issues such as omissions and repetitions. Nonetheless, hallucination errors, which were not observed in the traditional models, occurred in some cases and negatively affected the translation quality. This study highlights the promise of LLMs for patent translation while identifying the challenges that warrant further investigation.</abstract>
+      <url hash="a317aea9">2025.mtsummit-1.23</url>
+      <bibkey>azami-etal-2025-patent</bibkey>
+    </paper>
+    <paper id="24">
+      <title>The Devil is in the Details: Assessing the Effects of Machine-Translation on <fixed-case>LLM</fixed-case> Performance in Domain-Specific Texts</title>
+      <author><first>Javier</first><last>Osorio</last></author>
+      <author><first>Afraa</first><last>Alshammari</last></author>
+      <author><first>Naif</first><last>Alatrush</last></author>
+      <author><first>Dagmar</first><last>Heintze</last></author>
+      <author><first>Amber</first><last>Converse</last></author>
+      <author><first>Sultan</first><last>Alsarra</last></author>
+      <author><first>Latifur</first><last>Khan</last></author>
+      <author><first>Patrick T.</first><last>Brandt</last></author>
+      <author><first>Vito</first><last>D’Orazio</last></author>
+      <pages>315–332</pages>
+      <abstract>Conflict scholars increasingly use computational tools to track violence and cooperation at a global scale. To study foreign locations, researchers often use machine translation (MT) tools, but rarely evaluate the quality of the MT output or its effects on Large Language Model (LLM) performance. Using a domain-specific multi-lingual parallel corpus, this study evaluates the quality of several MT tools for text in English, Arabic, and Spanish. Using ConfliBERT, a domain-specific LLM, the study evaluates the effect of MT texts on model performance, and finds that MT texts tend to yield better results than native texts. The MT quality assessment reveals considerable translation-induced distortions, reductions in vocabulary size and text specialization, and changes in syntactical structure. Regression analysis at the sentence-level reveals that such distortions, particularly reductions in general and domain vocabulary rarity, artificially boost LLM performance by simplifying the MT output. This finding cautions researchers and practitioners about uncritically relying on MT tools without considering MT-induced data loss.</abstract>
+      <url hash="fe79a6ed">2025.mtsummit-1.24</url>
+      <bibkey>osorio-etal-2025-devil</bibkey>
+    </paper>
+    <paper id="25">
+      <title>Improving <fixed-case>J</fixed-case>apanese-<fixed-case>E</fixed-case>nglish Patent Claim Translation with Clause Segmentation Models based on Word Alignment</title>
+      <author><first>Masato</first><last>Nishimura</last></author>
+      <author><first>Kosei</first><last>Buma</last></author>
+      <author><first>Takehito</first><last>Utsuro</last></author>
+      <author><first>Masaaki</first><last>Nagata</last></author>
+      <pages>333–343</pages>
+      <abstract>In patent documents, patent claims represent a particularly important section as they define the scope of the claims. However, due to the length and unique formatting of these sentences, neural machine translation (NMT) systems are prone to translation errors, such as omissions and repetitions. To address these challenges, this study proposes a translation method that first segments the source sentences into multiple shorter clauses using a clause segmentation model tailored to facilitate translation. These segmented clauses are then translated using a clause translation model specialized for clause-level translation. Finally, the translated clauses are rearranged and edited into the final translation using a reordering and editing model. In addition, this study proposes a method for constructing clause-level parallel corpora required for training the clause segmentation and clause translation models. This method leverages word alignment tools to create clause-level data from sentence-level parallel corpora. Experimental results demonstrate that the proposed method achieves statistically significant improvements in BLEU scores compared to conventional NMT models. Furthermore, for sentences where conventional NMT models exhibit omissions and repetitions, the proposed method effectively suppresses these errors, enabling more accurate translations.</abstract>
+      <url hash="9cbf8e41">2025.mtsummit-1.25</url>
+      <bibkey>nishimura-etal-2025-improving</bibkey>
+    </paper>
+    <paper id="26">
+      <title>Progressive Perturbation with <fixed-case>KTO</fixed-case> for Enhanced Machine Translation of <fixed-case>I</fixed-case>ndian Languages</title>
+      <author><first>Yash</first><last>Bhaskar</last></author>
+      <author><first>Ketaki</first><last>Shetye</last></author>
+      <author><first>Vandan</first><last>Mujadia</last></author>
+      <author><first>Dipti Misra</first><last>Sharma</last></author>
+      <author><first>Parameswari</first><last>Krishnamurthy</last></author>
+      <pages>344–352</pages>
+      <abstract>This study addresses the critical challenge of data scarcity in machine translation for Indian languages, particularly given their morphological complexity and limited parallel data. We investigate an effective strategy to maximize the utility of existing data by generating negative samples from positive training instances using a progressive perturbation approach. This is used for aligning the model with preferential data using Kahneman-Tversky Optimization (KTO). Comparing it against traditional Supervised Fine-Tuning (SFT), we demonstrate how generating negative samples and leveraging KTO enhances data efficiency. By creating rejected samples through progressively perturbed translations from the available dataset, we fine-tune the Llama 3.1 Instruct 8B model using QLoRA across 16 language directions, including English, Hindi, Bangla, Tamil, Telugu, and Santali. Our results show that KTO-based preference alignment with progressive perturbation consistently outperforms SFT, achieving significant gains in translation quality with an average BLEU increase of 1.84 to 2.47 and CHRF increase of 2.85 to 4.01 compared to SFT for selected languages, while using the same positive training samples and under similar computational constraints. This highlights the potential of our negative sample generation strategy within KTO, especially in low resource scenarios.</abstract>
+      <url hash="7deef279">2025.mtsummit-1.26</url>
+      <bibkey>bhaskar-etal-2025-progressive</bibkey>
+    </paper>
+    <paper id="27">
+      <title>Leveraging Visual Scene Graph to Enhance Translation Quality in Multimodal Machine Translation</title>
+      <author><first>Ali</first><last>Hatami</last></author>
+      <author><first>Mihael</first><last>Arcan</last></author>
+      <author><first>Paul</first><last>Buitelaar</last></author>
+      <pages>353–364</pages>
+      <abstract>Despite significant advancements in Multimodal Machine Translation, understanding and effectively utilising visual scenes within multimodal models remains a complex challenge. Extracting comprehensive and relevant visual features requires extensive and detailed input data to ensure the model accurately captures objects, their attributes, and relationships within a scene. In this paper, we explore using visual scene graphs extracted from images to enhance the performance of translation models. We investigate this approach for integrating Visual Scene Graph information into translation models, focusing on representing this information in a semantic structure rather than relying on raw image data. The performance of our approach was evaluated on the Multi30K dataset for English into German, French, and Czech translations using BLEU, chrF2, TER and COMET metrics. Our results demonstrate that utilising visual scene graph information improves translation performance. Using information on semantic structure can improve the multimodal baseline model, leading to better contextual understanding and translation accuracy.</abstract>
+      <url hash="a3f93bef">2025.mtsummit-1.27</url>
+      <bibkey>hatami-etal-2025-leveraging</bibkey>
+    </paper>
+    <paper id="28">
+      <title>Are <fixed-case>AI</fixed-case> agents the new machine translation frontier? Challenges and opportunities of single- and multi-agent systems for multilingual digital communication</title>
+      <author><first>Vicent</first><last>Briva-Iglesias</last></author>
+      <pages>365–377</pages>
+      <abstract>The rapid evolution of artificial intelligence (AI) has introduced AI agents as a disruptive paradigm across various industries, yet their application in machine translation (MT) remains underexplored. This paper describes and analyses the potential of single- and multi-agent systems for MT, reflecting on how they could enhance multilingual digital communication. While single-agent systems are well-suited for simpler translation tasks, multi-agent systems, which involve multiple specialized AI agents collaborating in a structured manner, may offer a promising solution for complex scenarios requiring high accuracy, domain-specific knowledge, and contextual awareness. To demonstrate the feasibility of multi-agent workflows in MT, we are conducting a pilot study in legal MT. The study employs a multi-agent system involving four specialized AI agents for (i) translation, (ii) adequacy review, (iii) fluency review, and (iv) final editing. Our findings suggest that multi-agent systems may have the potential to significantly improve domain-adaptability and contextual awareness, with comparable translation quality to traditional MT or single-agent systems. This paper also sets the stage for future research into multi-agent applications in MT, integration into professional translation workflows, and shares a demo of the system analyzed in the paper.</abstract>
+      <url hash="797ff193">2025.mtsummit-1.28</url>
+      <bibkey>briva-iglesias-2025-ai</bibkey>
+    </paper>
+    <paper id="29">
+      <title>byt<fixed-case>F</fixed-case>: How Good Are Byte Level N-Gram <fixed-case>F</fixed-case>-Scores for Automatic Machine Translation Evaluation?</title>
+      <author><first>Raj</first><last>Dabre</last></author>
+      <author><first>Kaing</first><last>Hour</last></author>
+      <author><first>Haiyue</first><last>Song</last></author>
+      <pages>378–387</pages>
+      <abstract>Recently, chrF and chrF++ have become the preferred metric over BLEU for automatic n-gram evaluation of machine translation. Since they focus on character-level n-grams, it appears to have better correlations with human judgments for translating into morphologically rich languages compared to word-level metrics. However, for non-Latin languages with sub-character-level structures, we can go one step further namely bytes. To this end, we propose bytF to capture sub-character-level information, where we consider byte-level n-grams. Furthermore, we augment it to bytF+ and bytF++ where we consider character and word n-gram backoffs. On machine translation metric meta-evaluation datasets from English into 5 Indian languages, Chinese and Japanese, we show that bytF and its variants are comparable (give minimum difference) or significantly better (give maximum difference) correlated than chrF and chrF++ with human judgments at the segment level. We often observe that backing off to characters and words for bytF and to words for chrF does not have the highest correlation with humans. Furthermore, we also observe that using default n-gram values often leads to scores having poorer correlations with humans, indicating the need for well studied and tuned n-gram metrics for efficacy.</abstract>
+      <url hash="33387a3d">2025.mtsummit-1.29</url>
+      <bibkey>dabre-etal-2025-bytf</bibkey>
+    </paper>
+    <paper id="30">
+      <title>Quality Estimation and Post-Editing Using <fixed-case>LLM</fixed-case>s For <fixed-case>I</fixed-case>ndic Languages: How Good Is It?</title>
+      <author><first>Anushka</first><last>Singh</last></author>
+      <author><first>Aarya</first><last>Pakhale</last></author>
+      <author><first>Mitesh M.</first><last>Khapra</last></author>
+      <author><first>Raj</first><last>Dabre</last></author>
+      <pages>388–398</pages>
+      <abstract>Recently, there have been increasing efforts on Quality Estimation (QE) and Post-Editing (PE) using Large Language Models (LLMs) for Machine Translation (MT). However, the focus has mainly been on high resource languages and the approaches either rely on prompting or combining existing QE models with LLMs, instead of single end-to-end systems. In this paper, we investigate the efficacy of end-to-end QE and PE systems for low-resource languages taking 5 Indian languages as a use-case. We augment existing QE data containing multidimentional quality metric (MQM) error annotations with explanations of errors and PEs with the help of proprietary LLMs (GPT-4), following which we fine-tune Gemma-2-9B, an open-source multilingual LLM to perform QE and PE jointly. While our models attain QE capabilities competitive with or surpassing existing models in both referenceful and referenceless settings, we observe that they still struggle with PE. Further investigation reveals that this occurs because our models lack the ability to accurately identify fine-grained errors in the translation, despite being excellent indicators of overall quality. This opens up opportunities for research in end-to-end QE and PE for low-resource languages.</abstract>
+      <url hash="1a097d8d">2025.mtsummit-1.30</url>
+      <bibkey>singh-etal-2025-quality</bibkey>
+    </paper>
+    <paper id="31">
+      <title>Revisiting Post-Editing for <fixed-case>E</fixed-case>nglish-<fixed-case>C</fixed-case>hinese Machine Translation</title>
+      <author><first>Hari</first><last>Venkatesan</last></author>
+      <pages>399–406</pages>
+      <abstract>Given the rapid strides in quality made by automated translation since the advent of Neural Machine Translation, questions regarding the need and role of Post-Editing (PE) may need revisiting. This paper discusses this in light of a survey of opinions from two cohorts of post-graduate students of translation. The responses indicate that the role of PE may need further elaboration in terms of aspects such as grammar, lexis and style, with lexis and style being the main sites requiring human intervention. Also, contrary to expectations, responses generally show marked hesitation in considering quasi-texts as final without PE even in case of disposable texts. The discussion here pertains to English-Chinese translation, but may resonate with other language pairs as well.</abstract>
+      <url hash="ffa539b0">2025.mtsummit-1.31</url>
+      <bibkey>venkatesan-2025-revisiting</bibkey>
+    </paper>
+    <paper id="32">
+      <title>Is it <fixed-case>AI</fixed-case> or <fixed-case>PE</fixed-case> that worry translation professionals: results from a Human-Centered <fixed-case>AI</fixed-case> survey</title>
+      <author><first>Miguel A.</first><last>Jiménez-Crespo</last></author>
+      <author><first>Stephanie A.</first><last>Rodríguez</last></author>
+      <pages>407–419</pages>
+      <abstract>Translation technologies have historically been developed without substantial input from professionals (e.g. O’Brien 2012). Conversely, the emerging human-centered AI (HCAI) paradigm emphasizes the importance of including end-users in the “process of conceiving, designing, testing, deploying, and iterating” technologies (Vallor 2024: 17). Therefore, early research engagement on the attitudes, needs and opinions of professionals on AI implementation is essential because incorporating them at later stages “results in issues and missed opportunities, which may be expensive to recover from due to the cost, time, resources, and energy spent” (Winslow and Garibay 2004: 123). To this end, this article presents a qualitative analysis of professional translators’ attitudes towards AI in the future, centered around the role of MT and post-editing (PE). The discussion draws on data collected from open ended questions included in a larger survey on control and autonomy from a HCAI perspective, which were thematically coded and qualitatively examined. The thematic analysis indicates that predominant concerns regarding the future of the AI-driven translation industry still revolves around longstanding issues in PE and MT literature, such as PE, translation quality, communicating and educating LSP, clients, users, and the broader public, maintaining human control over the final product or creativity. This is explained to some extent to the relatively small rates of integration of AI technologies into translation workflows to date (e.g. ELIA 2024; Rivas Ginel et al 2024; GALA 2024; Jimenez-Crespo 2024), or the fact the professional report using AI primarily for tasks related to translation, but not necessarily to PE the output of LLMs or NMT (Rivas Ginel and Moorkens 2025).</abstract>
+      <url hash="a37df803">2025.mtsummit-1.32</url>
+      <bibkey>jimenez-crespo-rodriguez-2025-ai</bibkey>
+    </paper>
+    <paper id="33">
+      <title>Prompt engineering in translation: How do student translators leverage <fixed-case>G</fixed-case>en<fixed-case>AI</fixed-case> tools for translation tasks</title>
+      <author><first>Jia</first><last>Zhang</last></author>
+      <author><first>Xiaoyu</first><last>Zhao</last></author>
+      <author><first>Stephen</first><last>Doherty</last></author>
+      <pages>420–431</pages>
+      <abstract>GenAI, though not developed specifically for translation, has shown the potential to produce translations as good as, if not better than, contemporary neural machine translation systems. In the context of tertiary-level translator education, the integration of GenAI has renewed debate in curricula and pedagogy. Despite divergent opinions among educators, it is evident that translation students, like many other students, are using GenAI tools to facilitate translation tasks as they use MT tools. We thus argue for the benefits of guiding students in using GenAI in an informed, critical, and ethical manner. To provide insights for tailored curriculum and pedagogy, it is insightful to investigate what students use GenAI for and how they use it. This study is among the first to investigate translation students’ prompting behaviours. For thematic and discourse analysis, we collected prompts in GenAI tools generated by a representative sample of postgraduate student participants for eight months. The findings revealed that students had indeed used GenAI in various translation tasks, but their prompting behaviours were intuitive and uninformed. Our findings suggest an urgent need for translation educators to consider students’ agency and critical engagement with GenAI tools.</abstract>
+      <url hash="2f8c5165">2025.mtsummit-1.33</url>
+      <bibkey>zhang-etal-2025-prompt-engineering</bibkey>
+    </paper>
+    <paper id="34">
+      <title>Can postgraduate translation students identify machine-generated text?</title>
+      <author><first>Michael</first><last>Farrell</last></author>
+      <pages>432–441</pages>
+      <abstract>Given the growing use of generative artificial intelligence as a tool for creating multilingual content and bypassing traditional translation methods, this study explores the ability of linguistically trained individuals to discern machine-generated output from human-written text (HT). After brief training sessions on the textual anomalies characteristic of synthetic text (ST), twenty-three postgraduate translation students analysed excerpts of Italian prose and assigned likelihood scores to indicate whether they believed they were human-written or AI-generated. The results show that, on average, the students struggled to distinguish between HT and ST, with only two participants achieving notable accuracy. Closer analysis revealed that the students often identified textual anomalies in both HT and ST, although features such as low burstiness and self-contradiction were more frequently associated with ST. These findings suggest the need for improvements in the preparatory training. Moreover, the study raises questions about the necessity of editing synthetic text to make it sound more human-like and recommends further research to determine whether AI-generated text is already sufficiently natural-sounding not to require further refinement.</abstract>
+      <url hash="b9259bab">2025.mtsummit-1.34</url>
+      <bibkey>farrell-2025-postgraduate</bibkey>
+    </paper>
+    <paper id="35">
+      <title><fixed-case>MT</fixed-case> or not <fixed-case>MT</fixed-case>? Do translation specialists know a machine-translated text when they see one?</title>
+      <author><first>Rudy</first><last>Loock</last></author>
+      <author><first>Nathalie</first><last>Moulard</last></author>
+      <author><first>Quentin</first><last>Pacinella</last></author>
+      <pages>442–454</pages>
+      <abstract>In this article, we investigate translation specialists’ capacity to identify raw machine translation (MT) output in comparison with so-called “human” translations produced without any use of MT. Specifically, we measure this capacity via an online activity, based on different criteria: (i) degree of expertise (translation students vs. professionals with at least 5 years’ experience), (ii) MT engine (DeepL, Google Translate, Reverso, ChatGPT), and (iii) length of input (1-3 sentences). A complementary, qualitative analysis, based on participants’ feedback, provides interesting insight on how they discriminate between raw MT output and human translations.</abstract>
+      <url hash="694cef5f">2025.mtsummit-1.35</url>
+      <bibkey>loock-etal-2025-mt</bibkey>
+    </paper>
+    <paper id="36">
+      <title>The Challenge of Translating Culture-Specific Items: Evaluating <fixed-case>MT</fixed-case> and <fixed-case>LLM</fixed-case>s Compared to Human Translators</title>
+      <author><first>Bojana</first><last>Budimir</last></author>
+      <pages>455–467</pages>
+      <abstract>We evaluate state-of-the-art Large Language Models (LLM’s) ChatGPT-4o, Gemini 1.5 Flash, and Google Translate, by focusing on the translation of culture-specific items (CSIs) between an underrepresented language pair: the Flemish variant of Dutch and Serbian. Using a corpus derived from three Flemish novels we analyze CSIs in three cultural domains: Material Culture, Proper Names, and Social Culture. Translation strategies are examined on a spectrum that goes from conservation to substitution. Quantitative analysis explores strategy distribution, while qualitative analysis investigates errors, linguistic accuracy, and cultural adaptation. Despite advancements, models struggle to balance cultural nuances with understandability for the target readers. Gemini aligns most closely with human translation strategies, while Google Translate shows significant limitations. These findings underscore the challenges of translating CSIs—particularly Proper Names—in low-resource languages and offer insights for improving machine translation models.</abstract>
+      <url hash="612ca481">2025.mtsummit-1.36</url>
+      <bibkey>budimir-2025-challenge</bibkey>
+    </paper>
+    <paper id="37">
+      <title>Investigating the Integration of <fixed-case>LLM</fixed-case>s into Trainee Translators’ Practice and Learning: A Questionnaire-based Study on Translator-<fixed-case>AI</fixed-case> Interaction</title>
+      <author><first>Xindi</first><last>Hao</last></author>
+      <author><first>Shuyin</first><last>Zhang</last></author>
+      <pages>468–484</pages>
+      <abstract>In recent years, large language models (LLMs) have drawn significant attention from translators, including trainee translators, who are increasingly adopting LLMs in their translation practice and learning. Despite this growing interest, to the best of our knowledge, no LLM has yet been specifically designed for (trainee) translators. While numerous LLMs are available on the market, their potential in performing translation-related tasks is yet to be fully discovered. This highlights a pressing need for a tailored LLM translator guide, conceptualized as an aggregator or directory of multiple LLMs and designed to support trainee translators in selecting and navigating the most suitable models for different scenarios in their translation tasks. As an initial step towards the development of such a guide, this study, aims to identify the scenarios in which trainee translators regularly use LLMs. It employs questionnaire-based research to examine the frequency of LLM usage by trainee translators, the average number of prompts, and their satisfaction with the performance of LLMs across the various scenarios identified. The findings give an insight into when and where trainee translators might integrate LLMs into their workflows, identify the limitations of current LLMs in assisting translators’ work, and shed light on a future design for an LLM translator guide.</abstract>
+      <url hash="05353aa5">2025.mtsummit-1.37</url>
+      <bibkey>hao-zhang-2025-investigating</bibkey>
+    </paper>
+    <paper id="38">
+      <title>Introducing Quality Estimation to Machine Translation Post-editing Workflow: An Empirical Study on Its Usefulness</title>
+      <author><first>Siqi</first><last>Liu</last></author>
+      <author><first>Guangrong</first><last>Dai</last></author>
+      <author><first>Dechao</first><last>Li</last></author>
+      <pages>485–495</pages>
+      <abstract>This preliminary study investigates the usefulness of sentence-level Quality Estimation (QE) in English-Chinese Machine Translation Post-Editing (MTPE), focusing on its impact on post-editing speed and student translators’ perceptions. The study also explores the interaction effects between QE and MT quality, as well as between QE and translation expertise. The findings reveal that QE significantly reduces post-editing time. The interaction effects examined were not significant, suggesting that QE consistently improves MTPE efficiency across MT outputs of medium and high quality and among student translators with varying levels of expertise. In addition to indicating potentially problematic segments, QE serves multiple functions in MTPE, such as validating translators’ evaluation of MT quality and enabling them to double-check translation outputs. However, interview data suggest that inaccurate QE may hinder the post-editing processes. This research provides new insights into the strengths and limitations of QE, facilitating its more effective integration into MTPE workflows to enhance translators’ productivity.</abstract>
+      <url hash="cfacaf77">2025.mtsummit-1.38</url>
+      <bibkey>liu-etal-2025-introducing</bibkey>
+    </paper>
+    <paper id="39">
+      <title>Human- or machine-translated subtitles: Who can tell them apart?</title>
+      <author><first>Ekaterina</first><last>Lapshinova-Koltunski</last></author>
+      <author><first>Sylvia</first><last>Jaki</last></author>
+      <author><first>Maren</first><last>Bolz</last></author>
+      <author><first>Merle</first><last>Sauter</last></author>
+      <pages>496–505</pages>
+      <abstract>This contribution investigates whether machine-translated subtitles can be easily distinguished from human-translated ones. For this, we run an experiment using two versions of German subtitles for an English television series: (1)produced manually by professional subtitlers, and (2) translated automatically with a Large Language Model (LLM), i.e., GPT4. Our participants were students of translation studies with varying experience in subtitling and the use of machine translation. We asked participants to guess if the subtitles for a selection of video clips had been translated manually or automatically. Apart from analysing whether machine-translated subtitles are distinguishable from human-translated ones, we also seek for indicators of the differences between human and machine translations. Our results show that although it is overall hard to differentiate between human and machine translations, there are some differences. Notably, the more experience the humans have with translation and subtitling, the more able they are to tell apart the two translation variants.</abstract>
+      <url hash="2665875a">2025.mtsummit-1.39</url>
+      <bibkey>lapshinova-koltunski-etal-2025-human</bibkey>
+    </paper>
+    <paper id="40">
+      <title>Extending <fixed-case>CREAMT</fixed-case>: Leveraging Large Language Models for Literary Translation Post-Editing</title>
+      <author><first>Antonio</first><last>Castaldo</last></author>
+      <author><first>Sheila</first><last>Castilho</last></author>
+      <author><first>Joss</first><last>Moorkens</last></author>
+      <author><first>Johanna</first><last>Monti</last></author>
+      <pages>506–515</pages>
+      <abstract>Post-editing machine translation (MT) for creative texts, such as literature, requires balancing efficiency with the preservation of creativity and style. While neural MT systems struggle with these challenges, large language models (LLMs) offer improved capabilities for context-aware and creative translation. This study evaluates the feasibility of post-editing literary translations generated by LLMs. Using a custom research tool, we collaborated with professional literary translators to analyze editing time, quality, and creativity. Our results indicate that post-editing (PE) LLM-generated translations significantly reduce editing time compared to human translation while maintaining a similar level of creativity. The minimal difference in creativity between PE and MT, combined with substantial productivity gains, suggests that LLMs may effectively support literary translators.</abstract>
+      <url hash="64a891cb">2025.mtsummit-1.40</url>
+      <bibkey>castaldo-etal-2025-extending</bibkey>
+    </paper>
+    <paper id="41">
+      <title>To <fixed-case>MT</fixed-case> or not to <fixed-case>MT</fixed-case>: An eye-tracking study on the reception by <fixed-case>D</fixed-case>utch readers of different translation and creativity levels</title>
+      <author><first>Kyo</first><last>Gerrits</last></author>
+      <author><first>Ana Guerberof</first><last>Arenas</last></author>
+      <pages>516–537</pages>
+      <abstract>This article presents the results of a pilot study involving the reception of a fictional short story translated from English into Dutch under four conditions: machine translation (MT), post-editing (PE), human translation (HT) and original source text (ST). The aim is to understand how creativity and errors in different translation modalities affect readers, specifically regarding cognitive load. Eight participants filled in a questionnaire, read a story using an eye-tracker, and conducted a retrospective think-aloud (RTA) interview. The results show that units of creative potential (UCP) increase cognitive load and that this is the highest in HT and the lowest in MT; no effect of error was observed. Triangulating the data with RTAs leads us to hypothesize that the higher cognitive load in UCPs is linked to increases in reader enjoyment and immersion. The effect of translation creativity on cognitive load in different translation modalities at word-level is novel and opens up new avenues for further research.</abstract>
+      <url hash="273b1df8">2025.mtsummit-1.41</url>
+      <bibkey>gerrits-arenas-2025-mt</bibkey>
+    </paper>
+    <paper id="42">
+      <title>Translation Analytics for Freelancers: <fixed-case>I</fixed-case>. Introduction, Data Preparation, Baseline Evaluations</title>
+      <author><first>Yuri</first><last>Balashov</last></author>
+      <author><first>Alex</first><last>Balashov</last></author>
+      <author><first>Shiho Fukuda</first><last>Koski</last></author>
+      <pages>538–565</pages>
+      <abstract>This is the first in a series of papers exploring the rapidly expanding new opportunities arising from recent progress in language technologies for individual translators and language service providers with modest resources. The advent of advanced neural machine translation systems, large language models, and their integration into workflows via computer-assisted translation tools and translation management systems have reshaped the translation landscape. These advancements enable not only translation but also quality evaluation, error spotting, glossary generation, and adaptation to domain-specific needs, creating new technical opportunities for freelancers. In this series, we aim to empower translators with actionable methods to harness these advancements. Our approach emphasizes Translation Analytics, a suite of evaluation techniques traditionally reserved for large-scale industry applications but now becoming increasingly available for smaller-scale users. This first paper introduces a practical framework for adapting automatic evaluation metrics — such as BLEU, chrF, TER, and COMET — to freelancers’ needs. We illustrate the potential of these metrics using a trilingual corpus derived from a real-world project in the medical domain and provide statistical analysis correlating human evaluations with automatic scores. Our findings emphasize the importance of proactive engagement with emerging technologies to not only adapt but thrive in the evolving professional environment.</abstract>
+      <url hash="5941bf72">2025.mtsummit-1.42</url>
+      <bibkey>balashov-etal-2025-translation</bibkey>
+    </paper>
+    <paper id="43">
+      <title><fixed-case>ITALERT</fixed-case>: Assessing the Quality of <fixed-case>LLM</fixed-case>s and <fixed-case>NMT</fixed-case> in Translating <fixed-case>I</fixed-case>talian Emergency Response Text</title>
+      <author><first>Maria Carmen</first><last>Staiano</last></author>
+      <author><first>Lifeng</first><last>Han</last></author>
+      <author><first>Johanna</first><last>Monti</last></author>
+      <author><first>Francesca</first><last>Chiusaroli</last></author>
+      <pages>566–577</pages>
+      <abstract>This paper presents the outcomes of an initial investigation into the performance of Large Language Models (LLMs) and Neural Machine Translation (NMT) systems in translating high-stakes messages. The research employed a novel bilingual corpus, ITALERT (Italian Emergency Response Text) and applied a human-centric post-editing based metric (HOPE) to assess translation quality systematically. The initial dataset contains eleven texts in Italian and their corresponding English translations, both extracted from the national communication campaign website of the Italian Civil Protection Department. The texts deal with eight crisis scenarios: flooding, earthquake, forest fire, volcanic eruption, tsunami, industrial accident, nuclear risk, and dam failure. The dataset has been carefully compiled to ensure usability and clarity for evaluating machine translation (MT) systems in crisis settings. Our findings show that current LLMs and NMT models, such as ChatGPT (OpenAI’s GPT-4o model) and Google MT, face limitations in translating emergency texts, particularly in maintaining the appropriate register, resolving context ambiguities, and managing domain-specific terminology.</abstract>
+      <url hash="46ac7ec1">2025.mtsummit-1.43</url>
+      <bibkey>staiano-etal-2025-italert</bibkey>
+    </paper>
+    <paper id="44">
+      <title>Optimising <fixed-case>C</fixed-case>hat<fixed-case>GPT</fixed-case> for creativity in literary translation: A case study from <fixed-case>E</fixed-case>nglish into <fixed-case>D</fixed-case>utch, <fixed-case>C</fixed-case>hinese, <fixed-case>C</fixed-case>atalan and <fixed-case>S</fixed-case>panish</title>
+      <author><first>Shuxiang</first><last>Du</last></author>
+      <author><first>Ana Guerberof</first><last>Arenas</last></author>
+      <author><first>Antonio</first><last>Toral</last></author>
+      <author><first>Kyo</first><last>Gerrits</last></author>
+      <author><first>Josep Marco</first><last>Borillo</last></author>
+      <pages>578–591</pages>
+      <abstract>This study examines the variability of ChatGPT’s machine translation (MT) outputs across six different configurations in four languages, with a focus on creativity in a literary text. We evaluate GPT translations in different text granularity levels, temperature settings and prompting strategies with a Creativity Score formula. We found that prompting ChatGPT with a minimal instruction yields the best creative translations, with Translate the following text into [TG] creatively at the temperature of 1.0 outperforming other configurations and DeepL in Spanish, Dutch, and Chinese. Nonetheless, ChatGPT consistently underperforms compared to human translation (HT). All the code and data are available at Repository URL will be provided with camera-ready version.</abstract>
+      <url hash="9f6a1a9f">2025.mtsummit-1.44</url>
+      <bibkey>du-etal-2025-optimising</bibkey>
+    </paper>
+    <paper id="45">
+      <title>Improving <fixed-case>MT</fixed-case>-enabled Triage Performance with Multiple <fixed-case>MT</fixed-case> Outputs</title>
+      <author><first>Marianna J.</first><last>Martindale</last></author>
+      <author><first>Marine</first><last>Carpuat</last></author>
+      <pages>592–607</pages>
+      <abstract>Recent advances in Machine Translation (MT) quality may motivate adoption in a variety of use cases, but the success of MT deployment depends not only on intrinsic model quality but on how well the model, as deployed, helps users meet the objectives of their use case. This work focuses on a specific triage use case, MT-enabled scanning in intelligence analysis. After describing the use case with its objectives and failure modes, we present a user study to establish a baseline performance level and measure the mitigating effects of a simple intervention, providing additional MT outputs. We find significant improvements in relevance judgment accuracy with outputs from two distinct neural MT models and significant improvements in relevant entity identification with the addition of a rule-based MT. Users also like seeing multiple MT outputs, making it an appealing way to improve MT-enabled scanning performance.</abstract>
+      <url hash="6138038c">2025.mtsummit-1.45</url>
+      <bibkey>martindale-carpuat-2025-improving</bibkey>
+    </paper>
+    <paper id="46">
+      <title>The <fixed-case>GAMETRAPP</fixed-case> project: <fixed-case>S</fixed-case>panish scholars’ perspectives and attitudes towards neural machine translation and post-editing</title>
+      <author><first>Cristina</first><last>Toledo-Báez</last></author>
+      <author><first>Luis Carlos</first><last>Marín-Navarro</last></author>
+      <pages>608–618</pages>
+      <abstract>The GAMETRAPP project (2022-2025), funded by the Spanish Ministry of Science and Innovation and led by the University of Málaga, aims to introduce and promote post-editing (PE) practices of machine-translated research abstracts among Spanish scholars. To this aim, the GAMETRAPP project is developing a gamified environment —specifically, an escape room—integrated into a responsive web app. As part of the design of both the gamified environment and the web app, this paper presents the results of a questionnaire distributed to Spanish scholars in order to explore their perspectives and attitudes towards neural machine translation (NMT) and PE. A total of 253 responses were collected from scholars affiliated with 42 Spanish public universities. A two-stage participant selection process was applied: the analysis focuses on scholars who self-reported a CEFR level of C1 or C2 in English proficiency. (n = 152), and, within this group, a comparison was conducted between scholars from linguistic disciplines (23%, n = 35) and those from non-linguistic disciplines (77%, n = 117). Statistically significant differences between these groups were identified using the Mann-Whitney U test in IBM SPSS. The results indicate a widespread and continued use of language technologies, particularly those related to NMT. However, only 34.2% of scholars from non-linguistic disciplines are familiar with PE as a concept, although 59.8% report that they do post-edit their scientific abstracts. Furthermore, 62.9% of scholars from linguistic disciplines and 47.9% from non-linguistic disciplines believe it is necessary to create an app that trains scholars in post-editing Spanish abstracts into English. Sentiment analysis conducted with Atlas.ti on the 29 qualitative responses to the open-ended question suggests overall neutral attitudes toward NMT and PE for both groups of scholars. In conclusion, while both groups engage with NMT tools, there is a clear need for training—especially among scholars from non-linguistic disciplines—to familiarize them with PE concepts and to help develop basic PE literacy skills.</abstract>
+      <url hash="248f538f">2025.mtsummit-1.46</url>
+      <bibkey>toledo-baez-marin-navarro-2025-gametrapp</bibkey>
+    </paper>
+    <paper id="47">
+      <title>Using Translation Techniques to Characterize <fixed-case>MT</fixed-case> Outputs</title>
+      <author><first>Sergi</first><last>Alvarez-Vidal</last></author>
+      <author><first>Maria Do</first><last>Campo</last></author>
+      <author><first>Christian</first><last>Olalla-Soler</last></author>
+      <author><first>Pilar</first><last>Sánchez-Gijón</last></author>
+      <pages>619–627</pages>
+      <abstract>While current NMT and GPT models improve fluency and context awareness, they struggle with creative texts, where figurative language and stylistic choices are crucial. Current evaluation methods fail to capture these nuances, which requires a more descriptive approach. We propose a taxonomy based on translation techniques to assess machine-generated translations more comprehensively. The pilot study we conducted comparing human machine-produced translations reveals that human translations employ a wider range of techniques, enhancing naturalness and cultural adaptation. NMT and GPT models, even with prompting, tend to simplify content and introduce accuracy errors. Our findings highlight the need for refined frameworks that consider stylistic and contextual accuracy, ultimately bridging the gap between human and machine translation performance.</abstract>
+      <url hash="e2fb3ab0">2025.mtsummit-1.47</url>
+      <bibkey>alvarez-vidal-etal-2025-using</bibkey>
+    </paper>
+  </volume>
+  <volume id="2" ingest-date="2025-08-07" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of Machine Translation Summit XX: Volume 2</booktitle>
+      <editor><first>Pierrette</first><last>Bouillon</last></editor>
+      <editor><first>Johanna</first><last>Gerlach</last></editor>
+      <editor><first>Sabrina</first><last>Girletti</last></editor>
+      <editor><first>Lise</first><last>Volkart</last></editor>
+      <editor><first>Raphael</first><last>Rubino</last></editor>
+      <editor><first>Rico</first><last>Sennrich</last></editor>
+      <editor><first>Samuel</first><last>Läubli</last></editor>
+      <editor><first>Martin</first><last>Volk</last></editor>
+      <editor><first>Miquel</first><last>Esplà-Gomis</last></editor>
+      <editor><first>Vincent</first><last>Vandeghinste</last></editor>
+      <editor><first>Helena</first><last>Moniz</last></editor>
+      <editor><first>Sara</first><last>Szoc</last></editor>
+      <publisher>European Association for Machine Translation</publisher>
+      <address>Geneva, Switzerland</address>
+      <month>June</month>
+      <year>2025</year>
+      <url hash="c5f6d991">2025.mtsummit-2</url>
+      <venue>mtsummit</venue>
+      <isbn>978-2-9701897-1-8</isbn>
+    </meta>
+    <frontmatter>
+      <url hash="2ba2d5aa">2025.mtsummit-2.0</url>
+      <bibkey>mtsummit-2025-2</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Using <fixed-case>AI</fixed-case> Tools in Multimedia Localization Workflows: a Productivity Evaluation</title>
+      <author><first>Ashley</first><last>Mondello</last></author>
+      <author><first>Romina</first><last>Cini</last></author>
+      <author><first>Sahil</first><last>Rasane</last></author>
+      <author><first>Alina</first><last>Karakanta</last></author>
+      <author><first>Laura</first><last>Casanellas</last></author>
+      <pages>1–7</pages>
+      <abstract>Multimedia localization workflows are inherently complex, and the demand for localized content continues to grow. This demand has attracted Language Service Providers (LSPs) to expand their activities into multimedia localization, offering subtitling and voice-over services. While a wide array of AI tools is available for these tasks, their value in increasing productivity in multimedia workflows for LSPs remains uncertain. This study evaluates the productivity, quality, cost, and time efficiency of three multimedia localization workflows, each incorporating varying levels of AI automation. Our findings indicate that workflows merely replacing human vendors with AI tools may result in quality degradation without justifying the productivity gains. In contrast, integrated workflows using specialized tools enhance productivity while maintaining quality, despite requiring additional training and adjustments to established practices.</abstract>
+      <url hash="2cacf048">2025.mtsummit-2.1</url>
+      <bibkey>mondello-etal-2025-using</bibkey>
+    </paper>
+    <paper id="2">
+      <title>Replacing the Irreplaceable: A Case Study on the Limitations of <fixed-case>MT</fixed-case> and <fixed-case>AI</fixed-case> Translation during the 2023 <fixed-case>G</fixed-case>aza-<fixed-case>I</fixed-case>srael Conflict</title>
+      <author><first>Abeer</first><last>Alfaify</last></author>
+      <pages>8–17</pages>
+      <abstract>Despite the remarkable development of artificial intelligence (AI) and machine translation (MT) in recent years, which has made them more efficient, less costly and easier to navigate, they still struggle to match the abilities of human translators. The limitations shown by AI and MT, which have been detected in various domain-specific texts and contexts, sustain the debate over whether they can fully replace human translators. Nevertheless, very few studies have examined the translation abilities of AI and MT during conflicts and high-stakes contexts. This paper explores some of these limitations that were detected during the 2023 Gaza-Israel conflict, illustrating significant examples from X (formerly Twitter). These examples showcase limitations in 1) translating cultural references, 2) avoiding critical errors in high-stakes context, 3) preventing bias and intervention, and 4) translating cursive handwriting. This is done through a combination of descriptive, comparative and experimental analysis methods, highlighting risks and implications associated with using these tools in such sensitive contexts, while contributing to the broader discussion on whether advances in AI and MT will diminish the need for human translators.</abstract>
+      <url hash="f35485be">2025.mtsummit-2.2</url>
+      <bibkey>alfaify-2025-replacing</bibkey>
+    </paper>
+    <paper id="3">
+      <title>Speech-to-Speech Translation Pipelines for Conversations in Low-Resource Languages</title>
+      <author><first>Andrei</first><last>Popescu-Belis</last></author>
+      <author><first>Alexis</first><last>Allemann</last></author>
+      <author><first>Teo</first><last>Ferrari</last></author>
+      <author><first>Gopal</first><last>Krishnamani</last></author>
+      <pages>18–27</pages>
+      <abstract>The popularity of automatic speech-to-speech translation for human conversations is growing, but the quality varies significantly depending on the language pair. In a context of community interpreting for low-resource languages, namely Turkish and Pashto to/from French, we collected fine-tuning and testing data, and compared systems using several automatic metrics (BLEU, COMET, and BLASER) and human assessments. The pipelines consist of automatic speech recognition, machine translation, and speech synthesis, with local models and cloud-based commercial ones. Some components have been fine-tuned on our data. We evaluated over 60 pipelines and determined the best one for each direction. We also found that the ranks of components are generally independent of the rest of the pipeline.</abstract>
+      <url hash="38a46bbf">2025.mtsummit-2.3</url>
+      <bibkey>popescu-belis-etal-2025-speech</bibkey>
+    </paper>
+    <paper id="4">
+      <title><fixed-case>A</fixed-case>rabizi vs <fixed-case>LLM</fixed-case>s: Can the Genie Understand the Language of Aladdin?</title>
+      <author><first>Perla</first><last>Al Almaoui</last></author>
+      <author><first>Pierrette</first><last>Bouillon</last></author>
+      <author><first>Simon</first><last>Hengchen</last></author>
+      <pages>28–41</pages>
+      <abstract>In an era of rapid technological advancements, communication continues to evolve as new linguistic phenomena emerge. Among these is Arabizi, a hybrid form of Arabic that incorporates Latin characters and numbers to represent the spoken dialects of Arab communities. Arabizi is Widely used on social media and allows people to communicate in an informal and dynamic way, but it poses significant challenges for machine translation due to its lack of formal structure and deeply embedded cultural nuances. This case study is motivated by a growing need to translate Arabizi for gisting purpose. It evaluates the capacity of different LLMs’ to decode and translate Arabizi, focusing on multiple Arabic dialects that have rarely been studied up until now. Using a combination of human evaluators and automatic metrics, this research project investigates the model’s performance in translating Arabizi into both Modern Standard Arabic and English. Key questions explored include which dialects are translated most effectively and whether translations into English surpass those into Arabic.</abstract>
+      <url hash="8c9088dd">2025.mtsummit-2.4</url>
+      <bibkey>almaoui-etal-2025-arabizi</bibkey>
+    </paper>
+    <paper id="5">
+      <title>Cultural Transcreation in <fixed-case>A</fixed-case>sian Languages with Prompt-Based <fixed-case>LLM</fixed-case>s</title>
+      <author><first>Helena</first><last>Wu</last></author>
+      <author><first>Beatriz</first><last>Silva</last></author>
+      <author><first>Vera</first><last>Cabarrão</last></author>
+      <author><first>Helena</first><last>Moniz</last></author>
+      <pages>42–51</pages>
+      <abstract>This research explores Cultural Transcreation (CT) for East Asian languages, focusing primarily on Mandarin Chinese (ZH) and the customer service (CS) market. We combined Large Language Models (LLMs) with prompt engineering to develop a CT product that, aligned with the Augmented Translation concept, enhances multilingual CS communication, enables professionals to engage with their target audience effortlessly, and improves overall service quality. Through a series of preparatory steps, including guideline establishment, benchmark validation, iterative prompt refinement, and LLM testing, we integrated the CT product into the CS platform, assessed its performance, and refined prompts based on a pilot feedback. The results highlight its success in empowering agents, regardless of linguistic or cultural expertise, to bridge effective communication gaps through AI-assisted cultural rephrasing, thus achieving its market launch. Beyond CS, the study extends the concept of transcreation and prompt-based LLM applications to other fields, discussing its performance in the language conversion of website content and advertising.</abstract>
+      <url hash="05fb6cc9">2025.mtsummit-2.5</url>
+      <bibkey>wu-etal-2025-cultural</bibkey>
+    </paper>
+    <paper id="6">
+      <title>A comparison of translation performance between <fixed-case>D</fixed-case>eep<fixed-case>L</fixed-case> and Supertext</title>
+      <author><first>Alex</first><last>Flückiger</last></author>
+      <author><first>Chantal</first><last>Amrhein</last></author>
+      <author><first>Tim</first><last>Graf</last></author>
+      <author><first>Frédéric</first><last>Odermatt</last></author>
+      <author><first>Martin</first><last>Pömsl</last></author>
+      <author><first>Philippe</first><last>Schläpfer</last></author>
+      <author><first>Florian</first><last>Schottmann</last></author>
+      <author><first>Samuel</first><last>Läubli</last></author>
+      <pages>52–57</pages>
+      <abstract>As strong machine translation (MT) systems are increasingly based on large language models (LLMs), reliable quality benchmarking requires methods that capture their ability to leverage extended context. This study compares two commercial MT systems – DeepL and Supertext – by assessing their performance on unsegmented texts. We evaluate translation quality across four language directions with professional translators assessing segments with full document-level context. While segment-level assessments indicate no strong preference between the systems in most cases, document-level analysis reveals a preference for Supertext in three out of four language directions, suggesting superior consistency across longer texts. We advocate for more context-sensitive evaluation methodologies to ensure that MT quality assessments reflect real-world usability. We release all evaluation data and scripts for further analysis and reproduction at https://github.com/supertext/evaluation_deepl_supertext.</abstract>
+      <url hash="f0fdc002">2025.mtsummit-2.6</url>
+      <bibkey>fluckiger-etal-2025-comparison</bibkey>
+    </paper>
+    <paper id="7">
+      <title>Leveraging <fixed-case>LLM</fixed-case>s for Cross-Locale Adaptation: a Workflow Proposal on <fixed-case>S</fixed-case>panish Variants</title>
+      <author><first>Vera Senderowicz</first><last>Guerra</last></author>
+      <pages>58–66</pages>
+      <abstract>Localization strategies can differ widely between languages, but the necessity and efficiency of maintaining distinct strategies for closely related variants of the same language is debatable. This paper explores the potential for unifying localization strategies across different Spanish locales, leveraging Large Language Models, prompting techniques, and specialized linguistic resources to perform cross-locale adaptations from a chosen baseline. In this study, we examine and develop vocabulary, terminology, grammar, and style transformation methods from Latin American into Mexican and Argentine Spanish. Our findings suggest that parting from a core translation and then following an automated adaptation process to unify localization strategies is feasible for Spanish diverse variants, regardless of the type of divergence each of them has from the baseline locale. However, even if the need for human post-editing is then minimal compared to a fully ‘manual’ cross-locale adaptation, the linguistic review remains crucial, particularly for editing style nuances.</abstract>
+      <url hash="e3d1895c">2025.mtsummit-2.7</url>
+      <bibkey>guerra-2025-leveraging</bibkey>
+    </paper>
+    <paper id="8">
+      <title><fixed-case>S</fixed-case>peech<fixed-case>T</fixed-case>: Findings of the First Mentorship in Speech Translation</title>
+      <author><first>Yasmin</first><last>Moslem</last></author>
+      <author><first>Juan Julián Cea</first><last>Morán</last></author>
+      <author><first>Mariano</first><last>Gonzalez-Gomez</last></author>
+      <author><first>Muhammad Hazim Al</first><last>Farouq</last></author>
+      <author><first>Farah</first><last>Abdou</last></author>
+      <author><first>Satarupa</first><last>Deb</last></author>
+      <pages>67–74</pages>
+      <abstract>This work presents the details and findings of the first mentorship in speech translation (SpeechT), which took place in December 2024 and January 2025. To fulfil the mentorship requirements, the participants engaged in key activities, including data preparation, modelling, and advanced research. The participants explored data augmentation techniques and compared end-to-end and cascaded speech translation systems. The projects covered various languages other than English, including Arabic, Bengali, Galician, Indonesian, Japanese, and Spanish.</abstract>
+      <url hash="09d853af">2025.mtsummit-2.8</url>
+      <bibkey>moslem-etal-2025-speecht</bibkey>
+    </paper>
+    <paper id="9">
+      <title><fixed-case>Z</fixed-case>u<fixed-case>B</fixed-case>idasoa: Participatory Research for the Development of Linguistic Technologies Adapted to the Needs of Migrants in the <fixed-case>B</fixed-case>asque Country</title>
+      <author><first>Xabier</first><last>Soto</last></author>
+      <author><first>Ander</first><last>Egurtzegi</last></author>
+      <author><first>Maite</first><last>Oronoz</last></author>
+      <author><first>Urtzi</first><last>Etxeberria</last></author>
+      <pages>75–76</pages>
+      <abstract>Recent years have witnessed the development of advanced language technologies, including the use of audio and images as part of multimodal systems. However, these models are not adapted to the specific needs of migrants and Non-Governmental Organizations (NGOs) communicating in multilingual scenarios. In this project, we focus on the situation of migrants arriving in the Basque Country, nearby the western border between Spain and France. For identifying migrants’ needs, we have met with several organisations helping them in different stages, including: sea rescue; primary care in refugee camps and in situ; assistance with asylum demands; other administrative issues; and human rights defence in retention centres. In these interviews, Darija has been identified as the most spoken language among the under-served ones. Considering this, we have started the development of a Machine Translation (MT) system between Basque and Darija (Moroccan Arabic), based on open-source corpora. In this paper, we present the description of the project and the main results of the participatory research developed in the initial stage.</abstract>
+      <url hash="ae69dda9">2025.mtsummit-2.9</url>
+      <bibkey>soto-etal-2025-zubidasoa</bibkey>
+    </paper>
+    <paper id="10">
+      <title>Machine Translation to Inform Asylum Seekers: Intermediate Findings from the <fixed-case>M</fixed-case>a<fixed-case>TIAS</fixed-case> Project</title>
+      <author><first>Lieve</first><last>Macken</last></author>
+      <author><first>Ella</first><last>van Hest</last></author>
+      <author><first>Arda</first><last>Tezcan</last></author>
+      <author><first>Michaël</first><last>Lumingu</last></author>
+      <author><first>Katrijn</first><last>Maryns</last></author>
+      <author><first>July De</first><last>Wilde</last></author>
+      <pages>77–78</pages>
+      <abstract>We present key interim findings from the ongoing MaTIAS project, which focuses on developing a multilingual notification system for asylum reception centres in Belgium. This system integrates machine translation (MT) to enable staff to provide practical information to residents in their native language, thus fostering more effective communication. Our discussion focuses on three key aspects: the development of the multilingual messaging platform, the types of messages the system is designed to handle, and the evaluation of potential MT systems for integration.</abstract>
+      <url hash="684b81ad">2025.mtsummit-2.10</url>
+      <bibkey>macken-etal-2025-machine</bibkey>
+    </paper>
+    <paper id="11">
+      <title><fixed-case>CAT</fixed-case>-<fixed-case>GPT</fixed-case>: A Skopos-Driven, <fixed-case>LLM</fixed-case>-Based Computer-Assisted Translation Tool</title>
+      <author><first>Paşa Abdullah</first><last>Bayramoğlu</last></author>
+      <pages>79–80</pages>
+      <abstract>This paper introduces CAT-GPT, an innovative Computer-Assisted Translation (CAT) tool designed to address context-awareness and terminological consistency challenges often encountered in standard CAT workflows. Grounded in Skopos theory (Vermeer, 2014) and powered by a Large Language Model (LLM) backend, CAT-GPT integrates context-sensitive segmentation, automatically generated and adjustable translation instructions, and an advanced machine translation component. Comparative observations with a widely used CAT tool (e.g., Trados Studio) suggest that CAT-GPT reduces post-editing effort and improves text-level coherence, especially in specialized or domain-specific scenarios.</abstract>
+      <url hash="0951302d">2025.mtsummit-2.11</url>
+      <bibkey>bayramoglu-2025-cat</bibkey>
+    </paper>
+    <paper id="12">
+      <title><fixed-case>MTUOC</fixed-case> server: integrating several <fixed-case>NMT</fixed-case> and <fixed-case>LLM</fixed-case>s into professional translation workflows</title>
+      <author><first>Antoni</first><last>Oliver</last></author>
+      <pages>81–82</pages>
+      <abstract>In this paper, we present the latest version of MTUOC-server and MTUOC-multiserver, a robust tool capable of launching one or more translation servers. It supports a wide range of NMT systems and LLM models, both commercial and open-source, and is compatible with several communication protocols, broadening the range of tools it can work with. This server is a component of the MTUOC project and is distributed under an free license.</abstract>
+      <url hash="0bdc0e74">2025.mtsummit-2.12</url>
+      <bibkey>oliver-2025-mtuoc</bibkey>
+    </paper>
+    <paper id="13">
+      <title><fixed-case>OPAL</fixed-case> Enable: Revolutionizing Localization Through Advanced <fixed-case>AI</fixed-case></title>
+      <author><first>Mara</first><last>Nunziatini</last></author>
+      <author><first>Konstantinos</first><last>Karageorgos</last></author>
+      <author><first>Aaron</first><last>Schliem</last></author>
+      <author><first>Mikaela</first><last>Grace</last></author>
+      <pages>83–85</pages>
+      <abstract>This paper discusses the capabilities and benefits of OPAL Enable, an advanced AI suite designed to modernize localization processes. The suite comprises Machine Translation, AI Post-Editing, and AI Quality Estimation tools, integrated into renowned translation management systems. The paper provides an in-depth analysis of these features, detailing their procedural order, and the time and cost savings they offer. It emphasizes the customization potential of OPAL Enable to meet client-specific requirements, increase scalability, and expedite workflows.</abstract>
+      <url hash="60799df5">2025.mtsummit-2.13</url>
+      <bibkey>nunziatini-etal-2025-opal</bibkey>
+    </paper>
+    <paper id="14">
+      <title><fixed-case>U</fixed-case>ni<fixed-case>O</fixed-case>r <fixed-case>PET</fixed-case>: An Online Platform for Translation Post-Editing</title>
+      <author><first>Antonio</first><last>Castaldo</last></author>
+      <author><first>Sheila</first><last>Castilho</last></author>
+      <author><first>Joss</first><last>Moorkens</last></author>
+      <author><first>Johanna</first><last>Monti</last></author>
+      <pages>86–88</pages>
+      <abstract>UniOr PET is a browser-based platform for machine translation post-editing and a modern successor to the original PET tool. It features a user-friendly interface that records detailed editing actions, including time spent, additions, and deletions. Fully compatible with PET, UniOr PET introduces two advanced timers for more precise tracking of editing time and computes widely used metrics such as hTER, BLEU, and ChrF, providing comprehensive insights into translation quality and post-editing productivity. Designed with translators and researchers in mind, UniOr PET combines the strengths of its predecessor with enhanced functionality for efficient and user-friendly post-editing projects.</abstract>
+      <url hash="d0c320e4">2025.mtsummit-2.14</url>
+      <bibkey>castaldo-etal-2025-unior</bibkey>
+    </paper>
+    <paper id="15">
+      <title><fixed-case>FLORES</fixed-case>+ Mayas: Generating Textual Resources to Foster the Development of Language Technologies for <fixed-case>M</fixed-case>ayan Languages</title>
+      <author><first>Andrés</first><last>Lou</last></author>
+      <author><first>Juan Antonio</first><last>Pérez-Ortiz</last></author>
+      <author><first>Felipe</first><last>Sánchez-Martínez</last></author>
+      <author><first>Miquel</first><last>Esplà-Gomis</last></author>
+      <author><first>Víctor M.</first><last>Sánchez-Cartagena</last></author>
+      <pages>89–90</pages>
+      <abstract>A significant percentage of the population of Guatemala and Mexico belongs to various Mayan indigenous communities, for whom language barriers lead to social, economic, and digital exclusion. The Mayan languages spoken by these communities remain severely underrepresented in terms of digital resources, which prevents them from leveraging the latest advances in artificial intelligence. This project addresses that problem by means of: 1) the digitisation and release of multiple printed linguistic resources; 2) the development of a high-quality parallel machine translation (MT) evaluation corpus for six Mayan languages. In doing so, we are paving the way for the development of MT systems that will facilitate the access for Mayan speakers to essential services such as healthcare or legal aid. The resources are produced with the essential participation of indigenous communities, whereby native speakers provide the necessary translation services, QA, and linguistic expertise. The project is funded by the Google Academic Research Awards and carried out in collaboration with the Proyecto Lingüístico Francisco Marroquín Foundation in Guatemala.</abstract>
+      <url hash="86879e3c">2025.mtsummit-2.15</url>
+      <bibkey>lou-etal-2025-flores</bibkey>
+    </paper>
+    <paper id="16">
+      <title><fixed-case>P</fixed-case>ro<fixed-case>M</fixed-case>ut: The Evolution of <fixed-case>NMT</fixed-case> Didactic Tools</title>
+      <author><first>Pilar</first><last>Sánchez-Gijón</last></author>
+      <author><first>Gema</first><last>Ramírez-Sánchez</last></author>
+      <pages>91–92</pages>
+      <abstract>Neural Machine Translation intensifies educational challenges in translation technologies. The MultiTraiNMT project developed MutNMT, an open-source, didactic platform for training and evaluating NMT systems. Building upon it, LT-LiDER introduces ProMut which implements three main novel features: migration of the core NMT framework from JoeyNMT to MarianNMT, close integration with OPUS datasets, engines and connectors and the addition of a researcher profile for larger datasets and extended training processes and evaluation.</abstract>
+      <url hash="20897031">2025.mtsummit-2.16</url>
+      <bibkey>sanchez-gijon-ramirez-sanchez-2025-promut</bibkey>
+    </paper>
+    <paper id="17">
+      <title>The <fixed-case>B</fixed-case>ridge<fixed-case>AI</fixed-case> Project</title>
+      <author><first>Helena</first><last>Moniz</last></author>
+      <author><first>António</first><last>Novais</last></author>
+      <author><first>Joana</first><last>Lamego</last></author>
+      <author><first>Nuno</first><last>André</last></author>
+      <pages>93–94</pages>
+      <abstract>This paper presents an updated overview of the ‘BridgeAI’ project, a science-for-policy initiative funded by the Portuguese Foundation for Science and Technology (FCT) and the Recovery and Resilience Programme. In its second stage of implementation, BridgeAI continues to build upon its original goals, working towards a strategy to align AI research, policy, regulatory frameworks, and practical application. The project provides Portugal with an evidence-based framework to implement the EU Artificial Intelligence (AI) Act (AIA), ensuring responsible AI innovation through multidisciplinary collaboration. BridgeAI connects academia, industry, public administration, and civil society to create actionable insights and regulatory recommendations. This paper details the project’s latest advancements, key recommendations, and future directions.</abstract>
+      <url hash="377c5035">2025.mtsummit-2.17</url>
+      <bibkey>moniz-etal-2025-bridgeai</bibkey>
+    </paper>
+    <paper id="18">
+      <title><fixed-case>D</fixed-case>e<fixed-case>MINT</fixed-case>: Automated Language Debriefing for <fixed-case>E</fixed-case>nglish Learners via <fixed-case>AI</fixed-case> Chatbot Analysis of Meeting Transcripts</title>
+      <author><first>Miquel</first><last>Esplà-Gomis</last></author>
+      <author><first>Felipe</first><last>Sánchez-Martínez</last></author>
+      <author><first>Víctor M.</first><last>Sánchez-Cartagena</last></author>
+      <author><first>Juan Antonio</first><last>Pérez-Ortiz</last></author>
+      <pages>95–96</pages>
+      <abstract>The objective of the DeMINT project is to develop a conversational tutoring system aimed at enhancing non-native English speakers’ language skills through post-meeting analysis of the transcriptions of video conferences in which they have participated. This paper describes the model developed and the results obtained through a human evaluation conducted with learners of English as a second language.</abstract>
+      <url hash="3b411ba7">2025.mtsummit-2.18</url>
+      <bibkey>espla-gomis-etal-2025-demint</bibkey>
+    </paper>
+    <paper id="19">
+      <title><fixed-case>GAMETRAPP</fixed-case> project in progress: Designing a virtual escape room to enhance skills in research abstract post-editing</title>
+      <author><first>Cristina</first><last>Toledo-Báez</last></author>
+      <author><first>Luis Carlos</first><last>Marín-Navarro</last></author>
+      <pages>97–98</pages>
+      <abstract>The “App for post-editing neural machine translation using gamification” (GAMETRAPP) project (TED2021-129789B-I00), funded by the Spanish Ministry of Science and Innovation (2022–2025) and led by the University of Málaga, has been in progress for two and a half years. The project is developing a web application that incorporates a gamified environment, specifically a virtual escape room, to bring post-editing practice closer to scholars. This paper outlines the methodological process followed and provides a brief description of the virtual escape room.</abstract>
+      <url hash="89782e22">2025.mtsummit-2.19</url>
+      <bibkey>toledo-baez-marin-navarro-2025-gametrapp-project</bibkey>
+    </paper>
+    <paper id="20">
+      <title><fixed-case>AI</fixed-case>4<fixed-case>C</fixed-case>ulture platform: upskilling experts on multilingual / -modal tools</title>
+      <author><first>Tom</first><last>Vanallemeersch</last></author>
+      <author><first>Sara</first><last>Szoc</last></author>
+      <author><first>Marthe</first><last>Lamote</last></author>
+      <author><first>Frederic</first><last>Everaert</last></author>
+      <author><first>Eirini</first><last>Kaldeli</last></author>
+      <pages>99–100</pages>
+      <abstract>The AI4Culture project, funded by the European Commission (2023-2025), developed a platform (https://ai4culture.eu) to educate cultural heritage (CH) professionals in AI technologies. Acting as an online capacity building hub, the platform describes openly labeled data sets and deployable and reusable tools applying AI technologies in tasks relevant to the CH sector. It also offers tutorials for tools and recipes for the combination of tools. In addition, the platform allows users to contribute their own resources. The resources described by project partners involve applications for optical or handwritten character recognition (OCR, HTR), generation and validation of subtitles, machine translation, image analysis, and semantic linking. The partners customized various tools to enhance the usability of interfaces and components. Here, we zoom in on the use case of correcting OCR/HTR output using various means (such as an unstructured manual transcription) to facilitate multilingual accessibility and create structured ground truth (text lines with image coordinates).</abstract>
+      <url hash="25131ab6">2025.mtsummit-2.20</url>
+      <bibkey>vanallemeersch-etal-2025-ai4culture</bibkey>
+    </paper>
+    <paper id="21">
+      <title><fixed-case>HPLT</fixed-case>’s Second Data Release</title>
+      <author><first>Nikolay</first><last>Arefyev</last></author>
+      <author><first>Mikko</first><last>Aulamo</last></author>
+      <author><first>Marta</first><last>Bañón</last></author>
+      <author><first>Laurie</first><last>Burchell</last></author>
+      <author><first>Pinzhen</first><last>Chen</last></author>
+      <author><first>Mariia</first><last>Fedorova</last></author>
+      <author><first>Ona</first><last>de Gibert</last></author>
+      <author><first>Liane</first><last>Guillou</last></author>
+      <author><first>Barry</first><last>Haddow</last></author>
+      <author><first>Jan</first><last>Hajič</last></author>
+      <author><first>Jindřich</first><last>Helcl</last></author>
+      <author><first>Erik</first><last>Henriksson</last></author>
+      <author><first>Andrey</first><last>Kutuzov</last></author>
+      <author><first>Veronika</first><last>Laippala</last></author>
+      <author><first>Bhavitvya</first><last>Malik</last></author>
+      <author><first>Farrokh</first><last>Mehryary</last></author>
+      <author><first>Vladislav</first><last>Mikhailov</last></author>
+      <author><first>Amanda</first><last>Myntti</last></author>
+      <author><first>Dayyán</first><last>O’Brien</last></author>
+      <author><first>Stephan</first><last>Oepen</last></author>
+      <author><first>Sampo</first><last>Pyysalo</last></author>
+      <author><first>Gema</first><last>Ramírez-Sánchez</last></author>
+      <author><first>David</first><last>Samuel</last></author>
+      <author><first>Pavel</first><last>Stepachev</last></author>
+      <author><first>Jörg</first><last>Tiedemann</last></author>
+      <author><first>Dušan</first><last>Variš</last></author>
+      <author><first>Jaume</first><last>Zaragoza-Bernabeu</last></author>
+      <pages>101–102</pages>
+      <abstract>We describe the progress of the High Performance Language Technologies (HPLT) project, a 3-year EU-funded project that started in September 2022. We focus on the up-to-date results on the release of free text datasets derived from web crawls, one of the central objectives of the project. The second release used a revised processing pipeline, and an enlarged set of input crawls. From 4.5 petabytes of web crawls we extracted 7.6T tokens of monolingual text in 193 languages, plus 380 million parallel sentences in 51 language pairs. We also release MultiHPLT, a cross-combination of the parallel data, which produces 1,275 pairs, as well as releasing the containing documents for all parallel sentences in order to enable research in document-level MT. We report changes in the pipeline, analysis and evaluation results for the second parallel data release based on machine translation systems. All datasets are released under a permissive CC0 licence.</abstract>
+      <url hash="085dff58">2025.mtsummit-2.21</url>
+      <bibkey>arefyev-etal-2025-hplts</bibkey>
+    </paper>
+    <paper id="22">
+      <title><fixed-case>M</fixed-case>a<fixed-case>TOS</fixed-case>: Machine Translation for Open Science</title>
+      <author><first>Rachel</first><last>Bawden</last></author>
+      <author><first>Maud</first><last>Bénard</last></author>
+      <author><first>Maud</first><last>Bénard</last></author>
+      <author><first>José Cornejo</first><last>Cárcamo</last></author>
+      <author><first>Nicolas</first><last>Dahan</last></author>
+      <author><first>Manon</first><last>Delorme</last></author>
+      <author><first>Mathilde</first><last>Huguin</last></author>
+      <author><first>Natalie</first><last>Kübler</last></author>
+      <author><first>Paul</first><last>Lerner</last></author>
+      <author><first>Alexandra</first><last>Mestivier</last></author>
+      <author><first>Joachim</first><last>Minder</last></author>
+      <author><first>Jean-François</first><last>Nominé</last></author>
+      <author><first>Ziqian</first><last>Peng</last></author>
+      <author><first>Laurent</first><last>Romary</last></author>
+      <author><first>Panagiotis</first><last>Tsolakis</last></author>
+      <author><first>Lichao</first><last>Zhu</last></author>
+      <author><first>François</first><last>Yvon</last></author>
+      <pages>103–104</pages>
+      <abstract>This paper is a short presentation of MaTOS, a project focusing on the automatic translation of scholarly documents. Its main aims are threefold: (a) to develop resources (term lists and corpora) for high-quality machine translation; (b) to study methods for translating complete, structured documents in a cohesive and consistent manner; (c) to propose novel metrics to evaluate machine translation in technical domains. Publications and resources are available on the project web site: https://anr-matos.gihub.io.</abstract>
+      <url hash="2823bc0b">2025.mtsummit-2.22</url>
+      <bibkey>bawden-etal-2025-matos</bibkey>
+    </paper>
+    <paper id="23">
+      <title>Prompt-based Explainable Quality Estimation for <fixed-case>E</fixed-case>nglish-<fixed-case>M</fixed-case>alayalam</title>
+      <author><first>Archchana</first><last>Sindhujan</last></author>
+      <author><first>Diptesh</first><last>Kanojia</last></author>
+      <author><first>Constantin</first><last>Orăsan</last></author>
+      <pages>105–106</pages>
+      <abstract>The aim of this project was to curate data for the English-Malayalam language pair for the tasks of Quality Estimation (QE) and Automatic Post-Editing (APE) of Machine Translation. Whilst the primary aim of the project was to create a dataset for a low-resource language pair, we plan to use this dataset to investigate different zero-shot and few-shot prompting strategies including chain-of-thought, towards a unified explainable QE-APE framework.</abstract>
+      <url hash="6929c193">2025.mtsummit-2.23</url>
+      <bibkey>sindhujan-etal-2025-prompt</bibkey>
+    </paper>
+    <paper id="24">
+      <title><fixed-case>MT</fixed-case>x<fixed-case>G</fixed-case>ames: Machine Translation Post-Editing in Video Game Translation - Findings on User Experience and Preliminary Results on Productivity</title>
+      <author><first>Judith</first><last>Brenner</last></author>
+      <pages>107–108</pages>
+      <abstract>MTxGames is a doctoral research project examining three different translation modes with varying degrees of machine translation post-editing when translating video game texts. For realistic experimental conditions, data elicitation took place at the workplaces of professional game translators. In a mixed-methods approach, quantitative data was elicited through keylogging, eye-tracking, error annotation, and questionnaires as well as qualitative data through interviews. Aspects to be analyzed are translation productivity, cognitive effort, translation quality, and translators’ user experience.</abstract>
+      <url hash="8c994ab5">2025.mtsummit-2.24</url>
+      <bibkey>brenner-2025-mtxgames</bibkey>
+    </paper>
+    <paper id="25">
+      <title>Machine translation as support for epistemic capacities: Findings from the <fixed-case>DECA</fixed-case> project</title>
+      <author><first>Maarit</first><last>Koponen</last></author>
+      <author><first>Nina</first><last>Havumetsä</last></author>
+      <author><first>Juha</first><last>Lång</last></author>
+      <author><first>Mary</first><last>Nurminen</last></author>
+      <pages>109–110</pages>
+      <abstract>The DECA project consortium investigates epistemic capacities, defined as an individual’s access to reliable knowledge, their ability to participate in knowledge production, and society’s capacity to make informed, sustainable policy decisions. As a tool both for accessing information across language barriers and for producing multilingual information, machine translation also plays a potential role in supporting these epistemic capacities. In this paper, we present an overview of DECA’s research on two perspectives: 1) how migrants use machine translation to access information, and 2) how journalists use machine translation in their work.</abstract>
+      <url hash="be2fa486">2025.mtsummit-2.25</url>
+      <bibkey>koponen-etal-2025-machine</bibkey>
+    </paper>
+    <paper id="26">
+      <title>Reverso Define: An <fixed-case>AI</fixed-case>-Powered Contextual Dictionary for Professionals</title>
+      <author><first>Quentin</first><last>Pleplé</last></author>
+      <author><first>Théo</first><last>Hoffenberg</last></author>
+      <pages>111–112</pages>
+      <abstract>We present Reverso Define, an innovative English dictionary designed to support translation professionals with AI-powered, context-aware definitions. Built using a hybrid approach combining Large Language Models and expert linguists, it offers precise definitions with special attention to multi-word expressions and domain-specific terminology. The system provides comprehensive coverage of technical domains relevant to professional translators while maintaining daily updates to address emerging terminology needs. It also provides indicative translations in 26 languages linked to each meaning, and variants within languages, when appropriate, and has links to Reverso Context, the range of contextual and corpus-based bilingual dictionaries, and Reverso Synonyms. We will show the various ways to use it with concrete examples and give some insights on its design and creation process.</abstract>
+      <url hash="bcb5b3ff">2025.mtsummit-2.26</url>
+      <bibkey>pleple-hoffenberg-2025-reverso</bibkey>
+    </paper>
+    <paper id="27">
+      <title>Reverso Documents, The New Generation Document Translation Platform</title>
+      <author><first>Théo</first><last>Hoffenberg</last></author>
+      <author><first>Elodie</first><last>Segrestan</last></author>
+      <pages>113–114</pages>
+      <abstract>Reverso Documents is a widely-adopted translation and post-editing platform that combines advanced machine translation with extensive document format support and layout preservation capabilities. The system features AI-based rephrasing, bilingual dictionaries, and translation memory integration, enabling both professional translators and general users to work efficiently with complex documents. Used by millions globally, it provides API access for workflow integration and batch processing. The upcoming 2025 release will introduce LLM-based translation with customizable settings, allowing for enhanced control over translation outputs while maintaining document structure and translation quality.</abstract>
+      <url hash="7c5259b1">2025.mtsummit-2.27</url>
+      <bibkey>hoffenberg-segrestan-2025-reverso</bibkey>
+    </paper>
+    <paper id="28">
+      <title>e<fixed-case>STÓR</fixed-case>: Curating <fixed-case>I</fixed-case>rish Datasets for Machine Translation</title>
+      <author><first>Abigail</first><last>Walsh</last></author>
+      <author><first>Órla Ní</first><last>Loinsigh</last></author>
+      <author><first>Jane</first><last>Adkins</last></author>
+      <author><first>Ornait</first><last>O’Connell</last></author>
+      <author><first>Mark</first><last>Andrade</last></author>
+      <author><first>Teresa</first><last>Clifford</last></author>
+      <author><first>Federico</first><last>Gaspari</last></author>
+      <author><first>Jane</first><last>Dunne</last></author>
+      <author><first>Brian</first><last>Davis</last></author>
+      <pages>115–116</pages>
+      <abstract>Minority languages such as Irish are massively under-resourced, particularly in terms of high-quality domain-relevant data, limiting the capabilities of machine translation (MT) engines, even those integrating large language models (LLMs). The eSTÓR project, described in this paper, focuses on the collection and curation of high-quality Irish text data for diverse domains.</abstract>
+      <url hash="341cc8be">2025.mtsummit-2.28</url>
+      <bibkey>walsh-etal-2025-estor</bibkey>
+    </paper>
+  </volume>
+  <event id="mtsummit-2025">
+    <colocated>
+      <volume-id>2025.aielpl-1</volume-id>
+      <volume-id>2025.at4ssl-1</volume-id>
+      <volume-id>2025.ctt-1</volume-id>
+      <volume-id>2025.gitt-1</volume-id>
+      <volume-id>2025.pslt-1</volume-id>
+    </colocated>
+  </event>
+</collection>

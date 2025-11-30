@@ -28,7 +28,7 @@ The revision process is as follows.
 
 Usage:
 
-  add_revision.py [-e] paper_id URL_OR_PATH.pdf "Short explanation".
+  add_revision.py [-e] [-i GITHUB_ISSUE] paper_id URL_OR_PATH.pdf "Short explanation".
 
 `-e` denotes erratum instead of revision.
 By default, a dry run happens.
@@ -41,6 +41,8 @@ import os
 import shutil
 import sys
 import tempfile
+
+from git.repo.base import Repo
 
 from anthology.utils import (
     deconstruct_anthology_id,
@@ -225,6 +227,30 @@ def main(args):
     if args.path.startswith("http"):
         os.remove(input_file_path)
 
+    """
+    If a Github issue was passed as an argument, do the following.
+    First ensure, that we are on a branch named "corrections-YYYY-MM".
+    Then, create a commit with the message "Add revision for {anthology_id} (closes {issue})"
+    Use the Github module to create the brnach (if not existing), change to it,
+    and create the commit.
+    """
+    if args.issue:
+        repo = Repo(".", search_parent_directories=True)
+        # Create the branch if it doesn't exist, based off main (or master)
+        branch_name = f"corrections-{args.date[:7]}"
+        existing_heads = [h.name for h in repo.heads]
+        base_branch = "master"
+        if branch_name not in existing_heads:
+            repo.create_head(branch_name, getattr(repo.heads, base_branch).commit)
+        # Change to the new branch
+        repo.git.checkout(branch_name)
+        # Stage changed files
+        repo.git.add(get_xml_file(args.anthology_id))
+        if repo.is_dirty(index=True, working_tree=True, untracked_files=True):
+            repo.index.commit(
+                f"Add {change_type} for {args.anthology_id} (closes #{args.issue})"
+            )
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -235,6 +261,13 @@ if __name__ == "__main__":
         "path", type=str, help="Path to the revised paper ID (can be URL)"
     )
     parser.add_argument("explanation", help="Brief description of the changes.")
+    parser.add_argument(
+        "--issue",
+        "-i",
+        type=int,
+        default=None,
+        help="GitHub issue number associated with this revision.",
+    )
     parser.add_argument(
         "--erratum",
         "-e",

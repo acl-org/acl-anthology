@@ -39,6 +39,7 @@ import logging as log
 import msgspec
 from omegaconf import OmegaConf
 import os
+from rich.console import Console
 from rich.progress import (
     Progress,
     TextColumn,
@@ -60,6 +61,7 @@ from acl_anthology.utils.text import (
 
 
 BIBLIMIT = None
+CONSOLE = Console(stderr=True)
 ENCODER = msgspec.json.Encoder()
 SCRIPTDIR = os.path.dirname(os.path.realpath(__file__))
 
@@ -93,7 +95,7 @@ def make_progress():
         TaskProgressColumn(show_speed=True),
         TimeRemainingColumn(elapsed_when_finished=True),
     ]
-    return Progress(*columns)
+    return Progress(*columns, console=CONSOLE)
 
 
 @cache
@@ -567,7 +569,7 @@ if __name__ == "__main__":
         )
 
     log_level = log.DEBUG if args["--debug"] else log.INFO
-    tracker = setup_rich_logging(level=log_level)
+    tracker = setup_rich_logging(console=CONSOLE, level=log_level)
 
     if limit := args["--bib-limit"]:
         BIBLIMIT = int(limit)

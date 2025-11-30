@@ -18,7 +18,14 @@ from acl_anthology.exceptions import (
     NameSpecResolutionError,
     PersonDefinitionError,
 )
-from acl_anthology.people import Name, NameLink, NameSpecification, Person, PersonIndex
+from acl_anthology.people import (
+    Name,
+    NameLink,
+    NameSpecification,
+    Person,
+    PersonIndex,
+    UNVERIFIED_PID_FORMAT,
+)
 
 
 @pytest.fixture
@@ -144,15 +151,17 @@ def test_get_person_coauthors(index):
 
 
 def test_get_person_coauthors_counter(index):
-    coauthors = index.find_coauthors_counter("unverified/kathleen-dahlgren")
+    coauthors = index.find_coauthors_counter(
+        UNVERIFIED_PID_FORMAT.format(pid="kathleen-dahlgren")
+    )
     assert len(coauthors) == 1
-    assert coauthors["unverified/joyce-mcdowell"] == 1
+    assert coauthors[UNVERIFIED_PID_FORMAT.format(pid="joyce-mcdowell")] == 1
 
     person = index.get_by_name(Name("Preslav", "Nakov"))[0]
     coauthors = index.find_coauthors_counter(person)
     assert len(coauthors) == 2
-    assert coauthors["unverified/joyce-mcdowell"] == 0
-    assert coauthors["unverified/aline-villavicencio"] == 2
+    assert coauthors[UNVERIFIED_PID_FORMAT.format(pid="joyce-mcdowell")] == 0
+    assert coauthors[UNVERIFIED_PID_FORMAT.format(pid="aline-villavicencio")] == 2
 
 
 def test_get_by_namespec(index):
@@ -220,7 +229,9 @@ def test_create_person_should_fail_on_duplicate_id(index):
 def test_create_person_should_fail_on_unverified_id(index):
     with pytest.raises(AnthologyInvalidIDError):
         index.create(
-            id="unverified/john-doe",  # cannot create this manually
+            id=UNVERIFIED_PID_FORMAT.format(
+                pid="john-doe"
+            ),  # cannot create this manually
             names=[Name("John", "Doe")],
         )
 
@@ -301,7 +312,7 @@ test_cases_resolve_namespec = (
     (  # Name does not exist in people.yaml
         {"first": "Matthew", "last": "Stevens"},
         {},
-        "unverified/matthew-stevens",
+        UNVERIFIED_PID_FORMAT.format(pid="matthew-stevens"),
     ),
     (  # Person with explicit ID does not exist in people.yaml
         {"first": "Matthew", "last": "Stevens"},
@@ -322,7 +333,7 @@ test_cases_resolve_namespec = (
     (  # Person unambiguous, but has `disable_name_matching: true`
         {"first": "Pranav", "last": "Anand"},
         {},
-        "unverified/pranav-anand",
+        UNVERIFIED_PID_FORMAT.format(pid="pranav-anand"),
     ),
     (  # `disable_name_matching: true` doesn't affect NameSpecs with explicit ID
         {"first": "Pranav", "last": "Anand"},
@@ -373,7 +384,7 @@ test_cases_resolve_namespec = (
     (  # Name exists in people.yaml for several people
         {"first": "Yang", "last": "Liu"},
         {},
-        "unverified/yang-liu",
+        UNVERIFIED_PID_FORMAT.format(pid="yang-liu"),
     ),
     (  # ... will resolve to known person with explicit ID
         {"first": "Yang", "last": "Liu"},
@@ -383,7 +394,7 @@ test_cases_resolve_namespec = (
     (  # ... affiliation is NOT used in any way for name resolution
         {"first": "Yang", "last": "Liu"},
         {"affiliation": "Microsoft Cognitive Services Research"},
-        "unverified/yang-liu",
+        UNVERIFIED_PID_FORMAT.format(pid="yang-liu"),
     ),
     #### Malformed name specifications
     (  # Person with explicit ORCID, but no explicit ID (always disallowed)
@@ -437,13 +448,13 @@ def test_resolve_namespec_name_scoring_for_unverified_ids(index_stub):
     person1 = index_stub.resolve_namespec(
         NameSpecification(Name("Rene", "Muller")), allow_creation=True
     )
-    assert person1.id == "unverified/rene-muller"
+    assert person1.id == UNVERIFIED_PID_FORMAT.format(pid="rene-muller")
     assert person1.canonical_name == Name("Rene", "Muller")
     # Name resolves to the same person as above
     person2 = index_stub.resolve_namespec(
         NameSpecification(Name("René", "Müller")), allow_creation=True
     )
-    assert person2.id == "unverified/rene-muller"
+    assert person2.id == UNVERIFIED_PID_FORMAT.format(pid="rene-muller")
     assert person2 is person1
     # ... and also updates their canonical name, as it scores higher!
     assert person2.canonical_name == Name("René", "Müller")
@@ -619,7 +630,7 @@ def test_add_person_to_people_yaml_via_make_explicit(index, tmp_path):
     yaml_out = tmp_path / "people.make_explicit.yaml"
 
     # Modifications
-    person = index["unverified/preslav-nakov"]
+    person = index[UNVERIFIED_PID_FORMAT.format(pid="preslav-nakov")]
     person.make_explicit("preslav-nakov")
     person.orcid = "0000-0002-3600-1510"
 
