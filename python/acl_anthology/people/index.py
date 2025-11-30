@@ -478,7 +478,7 @@ class PersonIndex(SlottedDict[Person]):
             pid = name_spec.name.slugify()
             if pid in self.data:
                 # ID is already in use; add last four digits of ORCID to disambiguate
-                pid = f"{pid}-{name_spec.orcid[-4:]}"
+                pid = f"{pid}-{name_spec.orcid[-4:].lower()}"
 
             self.add_person(
                 Person(
