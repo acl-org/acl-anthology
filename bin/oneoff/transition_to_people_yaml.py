@@ -140,6 +140,7 @@ def refactor(anthology, name_variants):
             continue
 
         orig_entry = name_variants[pid]
+        orcid = orig_entry.get("orcid", None)
 
         # name_variants.yaml may define IDs that are actually never used
         if not person.item_ids:
@@ -212,6 +213,14 @@ def refactor(anthology, name_variants):
                             namespec.id = pid
                             c += 1
                             c_added += 1
+                            # Also check if there is an ORCID here, and if so, record it
+                            if namespec.orcid is not None:
+                                if orcid is not None and orcid != namespec.orcid:
+                                    log.error(
+                                        f"Person {pid} stored with ORCID {orcid} != {namespec.orcid} found on {paper.full_id}"
+                                    )
+                                else:
+                                    orcid = namespec.orcid
 
                 if not found_matching_name:
                     # Should never happen
@@ -241,11 +250,15 @@ def refactor(anthology, name_variants):
             if key in orig_entry:
                 entry[key] = orig_entry[key]
 
-        if "orcid" in orig_entry:
-            orcid = orig_entry["orcid"]
+        if orcid is not None:
             if is_valid_orcid(orcid):
-                entry["orcid"] = orcid
-                orcid_to_id[orcid] = pid
+                if orcid in orcid_to_id:
+                    log.error(
+                        f"Can't assign ORCID {orcid} to {pid}; already assigned to {orcid_to_id[orcid]}"
+                    )
+                else:
+                    entry["orcid"] = orcid
+                    orcid_to_id[orcid] = pid
             else:
                 invalid_orcids.add(orcid)
 
@@ -253,8 +266,8 @@ def refactor(anthology, name_variants):
 
     # PART B
     # ======
-    # Iterate over all papers with recorded ORCIDs, and check if they match an
-    # existing ID, or create one if necessary.
+    # Iterate over all papers with recorded ORCIDs that aren't assigned to
+    # explicit IDs, and create one for them.
     for paper in anthology.papers():
         # Look at the namespecs directly attached to this paper
         for namespec in it.chain(paper.authors, paper.editors):
@@ -267,15 +280,7 @@ def refactor(anthology, name_variants):
 
                 # Does namespec have an explicit ID?
                 if (pid := namespec.id) is not None:
-                    if "orcid" not in new_people_dict[pid]:
-                        # ORCID not recorded yet!
-                        new_people_dict[pid]["orcid"] = orcid
-                        orcid_to_id[orcid] = pid
-                    elif orcid != new_people_dict[pid]["orcid"]:
-                        # ORCID recorded, but doesn’t match...
-                        log.warning(
-                            f"Person {pid} stored with ORCID {new_people_dict[pid]['orcid']} != {orcid} found on {paper.full_id}"
-                        )
+                    pass  # This was handled in PART A
                 else:
                     # No explicit ID recorded — do we know the ORCID already?
                     if orcid in orcid_to_id:
