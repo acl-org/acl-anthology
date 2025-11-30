@@ -97,6 +97,13 @@ def refactor(anthology, name_variants):
     names_with_catchall_id = []
     c_disable_name_matching = 0
 
+    # This is for comparing to the ORCIDs stored in the XML
+    orcid_to_id = {}
+
+    # PART A
+    # ======
+    # Iterate over all entries in name_variants.yaml and map them to the new author
+    # system, adding/changing IDs on their papers accordingly.
     for pid, person in anthology.people.items():
         # We only consider people who are currently defined in name_variants.yaml
         if not person.is_explicit:
@@ -191,9 +198,54 @@ def refactor(anthology, name_variants):
         for key in ("degree", "similar", "orcid"):
             if key in orig_entry:
                 entry[key] = orig_entry[key]
+                if key == "orcid":
+                    orcid_to_id[orig_entry[key]] = pid
 
         new_people_dict[pid] = entry
 
+    # PART B
+    # ======
+    # Iterate over all papers with recorded ORCIDs, and check if they match an
+    # existing ID, or create one if necessary.
+    for paper in anthology.papers():
+        # Look at the namespecs directly attached to this paper
+        for namespec in it.chain(paper.authors, paper.editors):
+            if (orcid := namespec.orcid) is not None:
+                # Does namespec have an explicit ID?
+                if (pid := namespec.id) is not None:
+                    if "orcid" not in new_people_dict[pid]:
+                        # ORCID not recorded yet!
+                        new_people_dict[pid]["orcid"] = orcid
+                    elif orcid != new_people_dict[pid]["orcid"]:
+                        # ORCID recorded, but doesn’t match...
+                        log.error(
+                            f"Person {pid} stored with ORCID {new_people_dict[pid]['orcid']} != {orcid} found on {paper.full_id}"
+                        )
+                else:
+                    # No explicit ID recorded — do we know the ORCID already?
+                    if orcid in orcid_to_id:
+                        # Yes — add that ID to this namespec
+                        pid = orcid_to_id[orcid]
+                        namespec.id = pid
+                        c_added += 1
+                        # ...and make sure this particular name is connected with the person
+                        name = name_to_yaml(namespec.name)
+                        if name not in new_people_dict[pid]["names"]:
+                            new_people_dict[pid]["names"].append(name)
+                    else:
+                        # No — create that person
+                        entry = {
+                            "names": [name_to_yaml(namespec.name)],
+                            "orcid": orcid,
+                        }
+                        pid = namespec.name.slugify()
+                        if pid in new_people_dict:
+                            # ID is already in use; add last four digits of ORCID to disambiguate
+                            pid = f"{pid}-{orcid[-4:]}"
+                        new_people_dict[pid] = entry
+                        orcid_to_id[orcid] = pid
+
+    # Check where we need to set "disable_name_matching: true"
     for name in names_with_catchall_id:
         pids = names_to_ids.get(name, [])
         if len(pids) == 1:
