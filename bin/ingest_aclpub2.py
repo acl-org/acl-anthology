@@ -285,7 +285,7 @@ def correct_names(author):
     """
     A set of corrections we apply to upstream name parsing.
     """
-    if "middle_name" in author and author["middle_name"].lower() == "de":
+    if author.get("middle_name") is not None and author["middle_name"].lower() == "de":
         author["last_name"] = author["middle_name"] + " " + author["last_name"]
         del author["middle_name"]
 
