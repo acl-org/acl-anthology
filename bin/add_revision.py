@@ -237,7 +237,7 @@ def main(args):
     if args.issue:
         repo = Repo(".", search_parent_directories=True)
         # Create the branch if it doesn't exist, based off main (or master)
-        branch_name = f"corrections-{args.date[:7]}"
+        branch_name = args.branch
         existing_heads = [h.name for h in repo.heads]
         base_branch = "master"
         if branch_name not in existing_heads:
@@ -286,6 +286,11 @@ if __name__ == "__main__":
     parser.add_argument(
         "--dry-run", "-n", action="store_true", default=False, help="Just a dry run."
     )
+    parser.add_argument("--branch", "-b", default=None, help="Branch name.")
+
     args = parser.parse_args()
+
+    if args.branch is None:
+        args.branch = f"corrections-{args.date[:7]}"
 
     main(args)
