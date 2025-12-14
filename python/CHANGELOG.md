@@ -7,7 +7,6 @@ This release implements the new [name resolution and author ID logic](https://gi
 ### Added
 
 - Anthology now provides `save_all()` to conveniently save all data files.  The library tracks modifications to collection objects to only write XML files that have actually changed.
-- NameSpecification now provides an `orcid` field.
 - Person:
   - Now provides `orcid`, `degree`, `disable_name_matching`, and `similar_ids` fields that correspond to the respective fields in the new `people.yaml`.
   - Changing `id`, `orcid`, `names`, or using `add_name()` or `remove_names()` will now automatically update the PersonIndex.
@@ -35,6 +34,18 @@ This release implements the new [name resolution and author ID logic](https://gi
 - Setting a canonical name for a Person changed from `.set_canonical_name()` to `Person.canonical_name = ...`
 - Attributes that expect a MarkupText, such as `Volume.title` or `Paper.abstract`, can now be set to a string, in which case the string will be automatically converted to MarkupText, including markup parsing.
 - EventLinkingType renamed to EventLink.
+
+## [0.5.4] — 2025-11-27
+
+This release only exists to provide necessary functionality for transitioning to the [new author ID system](https://github.com/acl-org/acl-anthology/wiki/Author-Page-Plan).
+
+### Added
+
+- NameSpecification now provides an `orcid` field.
+
+### Changed
+
+- Updated the XML schema to match the data folder.
 
 ## [0.5.3] — 2025-06-22
 
