@@ -260,6 +260,7 @@ def refactor(anthology, name_variants):
                     entry["orcid"] = orcid
                     orcid_to_id[orcid] = pid
             else:
+                log.warning(f"Removing invalid ORCID: {orcid}")
                 invalid_orcids.add(orcid)
 
         new_people_dict[pid] = entry
@@ -275,6 +276,7 @@ def refactor(anthology, name_variants):
                 # Is it valid?
                 if not is_valid_orcid(orcid):
                     namespec.orcid = None
+                    log.warning(f"Removing invalid ORCID: {orcid}")
                     invalid_orcids.add(orcid)
                     continue
 
