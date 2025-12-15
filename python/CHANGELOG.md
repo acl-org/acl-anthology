@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.5.4] — 2025-11-27
+
+This release only exists to provide necessary functionality for transitioning to the [new author ID system](https://github.com/acl-org/acl-anthology/wiki/Author-Page-Plan).
+
+### Added
+
+- NameSpecification now provides an `orcid` field.
+
+### Changed
+
+- Updated the XML schema to match the data folder.
+
 ## [0.5.3] — 2025-06-22
 
 This release adds more functionality for ingesting new proceedings and modifying existing data.

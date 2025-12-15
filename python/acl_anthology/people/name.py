@@ -250,8 +250,9 @@ class NameSpecification:
 
     Attributes:
         name: The person's name.
-        id: Unique ID for the person that this name refers to.  Defaults to `None`.
-        affiliation: Professional affiliation.  Defaults to `None`.
+        id: Unique ID for the person that this name refers to.
+        orcid: An ORCID that was supplied together with this name.
+        affiliation: Professional affiliation.
         variants: Variant spellings of this name in different scripts.
 
     Note:
@@ -263,6 +264,7 @@ class NameSpecification:
 
     name: Name = field(converter=_Name_from)
     id: Optional[str] = field(default=None, validator=v.optional(v.instance_of(str)))
+    orcid: Optional[str] = field(default=None, validator=v.optional(v.instance_of(str)))
     affiliation: Optional[str] = field(
         default=None, validator=v.optional(v.instance_of(str))
     )
@@ -321,6 +323,7 @@ class NameSpecification:
         return cls(
             Name(first, cast(str, last)),
             id=person.get("id"),
+            orcid=person.get("orcid"),
             affiliation=affiliation,
             variants=variants,
         )
@@ -336,6 +339,8 @@ class NameSpecification:
         elem = etree.Element(tag)
         if self.id is not None:
             elem.set("id", self.id)
+        if self.orcid is not None:
+            elem.set("orcid", self.orcid)
         elem.extend(
             (
                 E.first(self.first) if self.first else E.first(),

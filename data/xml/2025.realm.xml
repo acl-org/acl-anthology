@@ -13,15 +13,15 @@
       <address>Vienna, Austria</address>
       <month>July</month>
       <year>2025</year>
-      <url hash="8b8df39b">2025.realm-1</url>
+      <url hash="4a82fd58">2025.realm-1</url>
       <venue>realm</venue>
       <venue>ws</venue>
       <isbn>979-8-89176-264-0</isbn>
       <doi>10.18653/v1/2025.realm-1</doi>
     </meta>
     <frontmatter>
-      <url hash="0d78c4bb">2025.realm-1.0</url>
-      <bibkey>realm-ws-2025-1</bibkey>
+      <url hash="11a64410">2025.realm-1.0</url>
+      <bibkey>realm-2025-1</bibkey>
       <doi>10.18653/v1/2025.realm-1.0</doi>
     </frontmatter>
     <paper id="1">
@@ -31,7 +31,7 @@
       <author orcid="0000-0002-2014-6619"><first>Roman</first><last>Klinger</last><affiliation>Otto-Friedrich Universität Bamberg</affiliation></author>
       <pages>1-16</pages>
       <abstract>Author profiling is the task of inferring characteristics about individuals by analyzing content they share. Supervised machine learning still dominates automatic systems that perform this task, despite the popularity of prompting large language models to address natural language understanding tasks. One reason is that the classification instances consist of large amounts of posts, potentially a whole user profile, which may exceed the input length of Transformers. Even if a model can use a large context window, the entirety of posts makes the application of API-accessed black box systems costly and slow, next to issues which come with such “needle-in-the-haystack” tasks. To mitigate this limitation, we propose a new method for author profiling which aims at distinguishing relevant from irrelevant content first, followed by the actual user profiling only with relevant data. To circumvent the need for relevance-annotated data, we optimize this relevance filter via reinforcement learning with a reward function that utilizes the zero-shot capabilities of large language models. We evaluate our method for Big Five personality trait prediction on two Twitter corpora. On publicly available real-world data with a skewed label distribution, our method shows similar efficacy to using all posts in a user profile, but with a substantially shorter context. An evaluation on a version of these data balanced with artificial posts shows that the filtering to relevant posts leads to a significantly improved accuracy of the predictions.</abstract>
-      <url hash="c614fc6e">2025.realm-1.1</url>
+      <url hash="e669c145">2025.realm-1.1</url>
       <bibkey>hofmann-etal-2025-prompt</bibkey>
       <doi>10.18653/v1/2025.realm-1.1</doi>
     </paper>
@@ -46,7 +46,7 @@
       <author><first>Yanjun</first><last>Qi</last><affiliation>University of Virginia</affiliation></author>
       <pages>17-32</pages>
       <abstract>Developing language model-based dialogue agents requires effective data to train models that can follow specific task logic. However, most existing data simulation methods focus on increasing diversity in language, topics, or dialogue acts at the utterance level, largely neglecting a critical aspect of task logic diversity at the dialogue level. This paper proposes a novel data simulation method designed to enhance the diversity of synthetic dialogues by focusing on task execution logic. Our method uses LLMs to generate decision tree-structured task plans, which enables the derivation of diverse dialogue trajectories for a given task. Each trajectory, referred to as a “dialog flow”, guides the generation of a multi-turn dialogue that follows a unique trajectory. We apply this method to generate a task-oriented dialogue dataset comprising 3,886 dialogue flows across 15 different domains. We validate the effectiveness of this dataset using the next action prediction task, where models fine-tuned on our dataset outperform strong baselines, including GPT-4. Upon acceptance of this paper, we plan to release the code and data publicly.</abstract>
-      <url hash="37c6b702">2025.realm-1.2</url>
+      <url hash="750a5a3d">2025.realm-1.2</url>
       <bibkey>du-etal-2025-dflow</bibkey>
       <doi>10.18653/v1/2025.realm-1.2</doi>
     </paper>
@@ -57,7 +57,7 @@
       <author><first>Jianpeng</first><last>Cheng</last><affiliation>Meta</affiliation></author>
       <pages>33-51</pages>
       <abstract>While server-side Large Language Models (LLMs) demonstrate proficiency in function calling and complex reasoning, deploying Small Language Models (SLMs) directly on devices brings opportunities to improve latency and privacy but also introduces unique challenges for accuracy and memory. We introduce CAMPHOR, an innovative on-device SLM multi-agent framework designed to handle multiple user inputs and reason over personal context locally, ensuring privacy is maintained. CAMPHOR employs a hierarchical architecture where a high-order reasoning agent decomposes complex tasks and coordinates expert agents responsible for personal context retrieval, tool interaction, and dynamic plan generation. By implementing parameter sharing across agents and leveraging prompt compression, we significantly reduce model size, latency, and memory usage. To validate our approach, we present a novel dataset capturing multi-agent task trajectories centered on personalized mobile assistant use-cases. Our experiments reveal that fine-tuned SLM agents not only surpass closed-source LLMs in task completion F1 by ~35% but also eliminate the need for server-device communication, all while enhancing privacy.</abstract>
-      <url hash="49832926">2025.realm-1.3</url>
+      <url hash="7d6373c0">2025.realm-1.3</url>
       <bibkey>fu-etal-2025-camphor</bibkey>
       <doi>10.18653/v1/2025.realm-1.3</doi>
     </paper>
@@ -69,7 +69,7 @@
       <author><first>Hassan</first><last>Sawaf</last><affiliation>aiXplain</affiliation></author>
       <pages>52-62</pages>
       <abstract>Agentic AI systems use specialized agents to handle tasks within complex workflows, enabling automation and efficiency. However, optimizing these systems often requires labor-intensive, manual adjustments to refine roles, tasks, and interactions. This paper introduces a framework for autonomously optimizing Agentic AI solutions across industries, such as NLG-driven enterprise applications. The system employs agents for Refinement, Execution, Evaluation, Modification, and Documentation, leveraging iterative feedback loops powered by an LLM (Llama 3.2-3B). The framework achieves optimal performance without human input by autonomously generating and testing hypotheses to improve system configurations. This approach enhances scalability and adaptability, offering a robust solution for real-world applications in dynamic environments. Case studies across diverse domains illustrate the transformative impact of this framework, showcasing significant improvements in output quality, relevance, and actionability. All data for these case studies, including original and evolved agent codes, along with their outputs, are here: https://anonymous.4open.science/r/evolver-1D11</abstract>
-      <url hash="464ac422">2025.realm-1.4</url>
+      <url hash="14f461b3">2025.realm-1.4</url>
       <bibkey>yuksel-etal-2025-multi</bibkey>
       <doi>10.18653/v1/2025.realm-1.4</doi>
     </paper>
@@ -82,7 +82,7 @@
       <author><first>Jian</first><last>Yuan</last><affiliation>Facebook</affiliation></author>
       <pages>63-79</pages>
       <abstract>We present an agentic framework, Thinker, which achieves state of art performance in challenging reasoning tasks for realistic customer service scenarios that involve complex business logic and human interactions via long horizons. On the <tex-math>\tau</tex-math>-bench retail dataset, Thinker achieves 82.6% success rate with GPT-4o (version 2024-06-01) (baseline: 68.3%), and 81.9% success rate with Llama-3.1 405B (baseline: 49.6%), without any fine-tuning. Thinker effectively closes the gap in reasoning capabilities between the base models by introducing proper structure.The key features of the Thinker framework are: (1) State-Machine Augmented Generation (SMAG), which represents business logic as state machines and the LLM uses state machines as tools. (2) Delegation of tasks from the main reasoning loop to LLM-powered tools.(3) Adaptive context management.Our prompting-only solution achieves signficant gains, while still maintaining a simple and standard agentic architecture with a ReAct style reasoning loop. The key is to innovate on the tool interface design, as exemplified by SMAG and the LLM-powered tools.</abstract>
-      <url hash="85aa56f3">2025.realm-1.5</url>
+      <url hash="faec6d2e">2025.realm-1.5</url>
       <bibkey>wu-etal-2025-art</bibkey>
       <doi>10.18653/v1/2025.realm-1.5</doi>
     </paper>
@@ -93,7 +93,7 @@
       <author orcid="0000-0002-9905-3991"><first>Felix</first><last>Aller</last></author>
       <pages>80-88</pages>
       <abstract>Extracting structured information from complex unstructured documents is an essential but challenging task in today’s industrial applications. Complex document content, e.g., irregular table layout, and cross-referencing, can lead to unexpected failures in classical extractors based on Optical Character Recognition (OCR) or Large Language Models (LLMs). In this paper, we propose the AID-agent framework that synergistically integrates OCR with LLMs to enhance text processing capabilities. Specifically, the AID-agent maintains a customizable toolset, which not only provides external processing tools for complex documents but also enables customization for domain and task-specific tool requirements. In the empirical validation on a real-world use case, the proposed AID-agent demonstrates superior performance compared to conventional OCR and LLM-based approaches.</abstract>
-      <url hash="3296712c">2025.realm-1.6</url>
+      <url hash="b82f40fa">2025.realm-1.6</url>
       <bibkey>li-etal-2025-aid</bibkey>
       <doi>10.18653/v1/2025.realm-1.6</doi>
     </paper>
@@ -106,7 +106,7 @@
       <author><first>Larry</first><last>Heck</last><affiliation>Georgia Institute of Technology</affiliation></author>
       <pages>89-96</pages>
       <abstract>This paper introduces Hidden Forms (hFORMS), a dataset of natural language commands paired with user interfaces with masked visual context. By obscuring specific UI elements, the dataset challenges Computer-Using Agents to parse natural language instructions and infer the correct bounding box locations by leveraging UI context. Furthermore, hFORMS contains three distinct masking strategies representing progressive difficulty levels. Additionally, we explore parameter-efficient fine-tuning approaches using Vision-Language models from the Llama and Qwen series, demonstrating that fine-tuning on mobile domains results in more than 5x improvement in zero-shot domain adaptation performance when identifying bounding boxes on the desktop and web domains.</abstract>
-      <url hash="8fd25707">2025.realm-1.7</url>
+      <url hash="b574ca86">2025.realm-1.7</url>
       <bibkey>sundar-etal-2025-hidden</bibkey>
       <doi>10.18653/v1/2025.realm-1.7</doi>
     </paper>
@@ -117,7 +117,7 @@
       <author><first>Douglas</first><last>Fisher</last><affiliation>Vanderbilt University and Vanderbilt University</affiliation></author>
       <pages>97-108</pages>
       <abstract>In this paper, we evaluate whether LLMs learn to make human-like preference judgements in strategic scenarios as compared with known empirical results. Solar and Mistral are shown to exhibit stable value-based preference consistent with humans and exhibit human-like preference for cooperation in the prisoner’s dilemma (including stake-size effect) and traveler’s dilemma (including penalty-size effect). We establish a relationship between model size, value-based preference, and superficiality. Finally, results here show that models tending to be less brittle have relied on sliding window attention suggesting a potential link. Additionally, we contribute a novel method for constructing preference relations from arbitrary LLMs and support for a hypothesis regarding human behavior in the traveler’s dilemma.</abstract>
-      <url hash="c2e7291e">2025.realm-1.8</url>
+      <url hash="e91513a8">2025.realm-1.8</url>
       <bibkey>roberts-etal-2025-large</bibkey>
       <doi>10.18653/v1/2025.realm-1.8</doi>
     </paper>
@@ -127,7 +127,7 @@
       <author orcid="0000-0001-9895-6956"><first>R. Patrick</first><last>Xian</last><affiliation>Certivize AI</affiliation></author>
       <pages>109-130</pages>
       <abstract>Agentic systems powered by large language models (LLMs) are becoming progressively more complex and capable. Their increasing agency and expanding deployment settings attract growing attention to effective governance policies, monitoring, and control protocols. Based on the emerging landscape of the agentic market, we analyze potential liability issues arising from the delegated use of LLM agents and their extended systems through a principal-agent perspective. Our analysis complements existing risk-based studies on artificial agency and covers the spectrum of important aspects of the principal-agent relationship and their potential consequences at deployment. Furthermore, we motivate method developments for technical governance along the directions of interpretability and behavior evaluations, reward and conflict management, and the mitigation of misalignment and misconduct through principled engineering of detection and fail-safe mechanisms. By illustrating the outstanding issues in AI liability for LLM-based agentic systems, we aim to inform the system design, auditing, and tracing to enhance transparency and liability attribution.</abstract>
-      <url hash="0dbd1deb">2025.realm-1.9</url>
+      <url hash="7694edbd">2025.realm-1.9</url>
       <bibkey>gabison-xian-2025-inherent</bibkey>
       <doi>10.18653/v1/2025.realm-1.9</doi>
     </paper>
@@ -138,7 +138,7 @@
       <author orcid="0000-0002-0350-0313"><first>Jie</first><last>Yang</last></author>
       <pages>131-142</pages>
       <abstract>Intelligent agents designed for interactive environments face significant challenges in text-based games, a domain that demands complex reasoning and adaptability. While agents based on large language models (LLMs) using self-reflection have shown promise, they struggle when initially successful and exhibit reduced effectiveness when using smaller LLMs. We introduce Sweet&amp;Sour, a novel approach that addresses these limitations in existing reflection methods by incorporating positive experiences and managed memory to enrich the context available to the agent at decision time. Our comprehensive analysis spans both closed- and open-source LLMs and demonstrates the effectiveness of Sweet&amp;Sour in improving agent performance, particularly in scenarios where previous approaches fall short.</abstract>
-      <url hash="ec5df29d">2025.realm-1.10</url>
+      <url hash="e2d3f075">2025.realm-1.10</url>
       <bibkey>lippmann-etal-2025-positive</bibkey>
       <doi>10.18653/v1/2025.realm-1.10</doi>
     </paper>
@@ -151,7 +151,7 @@
       <author><first>Stefano</first><last>D’Amato</last></author>
       <pages>143-159</pages>
       <abstract>In e-commerce, behavioral data is collected for decision making which can be costly and slow. Simulation with LLM powered agents is emerging as a promising alternative for representing human population behavior. However, LLMs are known to exhibit certain biases, such as brand bias, review rating bias and limited representation of certain groups in the population, hence they need to be carefully benchmarked and aligned to user behavior. Ultimately, our goal is to synthesise an agent population and verify that it collectively approximates a real sample of humans. To this end, we propose a framework that: (i) creates synthetic shopping agents by automatically mining personas from anonymised historical shopping data, (ii) equips agents with retail-specific tools to synthesise shopping sessions and (iii) introduces a novel alignment suite measuring distributional differences between humans and shopping agents at the group (i.e. population) level rather than the traditional “individual” level. Experimental results demonstrate that using personas improves performance on the alignment suite, though a gap remains to human behaviour. We showcase an initial application of our framework for automated agentic A/B testing and compare the findings to human results. Finally, we discuss applications, limitations and challenges setting the stage for impactful future work.</abstract>
-      <url hash="a9b24e8c">2025.realm-1.11</url>
+      <url hash="640a675f">2025.realm-1.11</url>
       <bibkey>mansour-etal-2025-paars</bibkey>
       <doi>10.18653/v1/2025.realm-1.11</doi>
     </paper>
@@ -161,7 +161,7 @@
       <author orcid="0000-0003-4441-9842"><first>Guido</first><last>Germano</last><affiliation>University College London, University of London</affiliation></author>
       <pages>160-169</pages>
       <abstract>Reinforcement learning (RL) offers adaptive solutions to portfolio optimization, yet standard methods such as proximal policy optimization (PPO) rely exclusively on historical price data and overlook the impact of investor sentiment. We introduce sentiment-augmented PPO (SAPPO), a reinforcement learning framework that incorporates real-time sentiment signals extracted from Refinitiv financial news. Daily sentiment scores are generated using LLaMA 3.3. SAPPO integrates these signals into the PPO advantage function via a sentiment-weighted term, enabling allocation strategies that respond to both price movements and market sentiment. Experiments on a three-asset portfolio demonstrate that SAPPO increases the Sharpe ratio from 1.55 to 1.90 and reduces drawdowns relative to PPO. The optimal configuration uses a sentiment influence parameter <tex-math>\lambda = 0.1</tex-math>, as validated through ablation studies and statistically significant <tex-math>t</tex-math>-tests (<tex-math>p &lt; 0.001</tex-math>). These findings show that sentiment-aware reinforcement learning improves trading performance and offers a robust alternative to purely price-based strategies.</abstract>
-      <url hash="140e9954">2025.realm-1.12</url>
+      <url hash="0eb02422">2025.realm-1.12</url>
       <bibkey>kirtac-germano-2025-leveraging</bibkey>
       <doi>10.18653/v1/2025.realm-1.12</doi>
     </paper>
@@ -171,7 +171,7 @@
       <author orcid="0009-0008-1837-7670"><first>Xiao</first><last>Zhang</last><affiliation>CISPA Helmholtz Center for Information Security</affiliation></author>
       <pages>170-183</pages>
       <abstract>Large Language Models (LLMs) are increasingly deployed in critical domains, but their vulnerability to jailbreak attacks remains a significant concern. In this paper, we propose a multi-agent, multi-turn jailbreak strategy that systematically bypasses LLM safety mechanisms by decomposing harmful queries into seemingly benign sub-tasks. Built upon a role-based agentic framework consisting of a Question Decomposer, a Sub-Question Answerer, and an Answer Combiner, we demonstrate how LLMs can be manipulated to generate prohibited content without prompt manipulations. Our results show a drastic increase in attack success, often exceeding 90% across various LLMs, including GPT-3.5-Turbo, Gemma-2-9B, and Mistral-7B. We further analyze attack consistency across multiple runs and vulnerability across content categories. Compared to existing widely used jailbreak techniques, our multi-agent method consistently achieves the highest attack success rate across all evaluated models. These findings reveal a critical flaw in the current safety architecture of multi-agent LLM systems: their lack of holistic context awareness. By revealing this weakness, we argue for an urgent need to develop multi-turn, context-aware, and robust defenses to address this emerging threat vector.</abstract>
-      <url hash="0d2eda62">2025.realm-1.13</url>
+      <url hash="df0474c8">2025.realm-1.13</url>
       <bibkey>srivastav-zhang-2025-safe</bibkey>
       <doi>10.18653/v1/2025.realm-1.13</doi>
     </paper>
@@ -186,7 +186,7 @@
       <author><first>Irina</first><last>Piontkovskaya</last><affiliation>Huawei Technologies Ltd.</affiliation></author>
       <pages>184-199</pages>
       <abstract>While open-source large language models (LLMs) have advanced in leveraging third-party tools, significant challenges remain in real-world API usage, where behavior is unpredictable or poorly specified. Existing benchmarks often fail to capture this complexity. We propose ToolReflection, a novel method that improves LLMs’ ability to self-correct API calls by utilizing real-time API feedback. We also introduce new datasets specifically designed to test model performance under realistic conditions. In ToolReflection, models undergo instruction tuning on a dataset augmented with self-generated errors and corrections. Our evaluation across ToolAlpaca, ToolBench benchmarks, and three newly developed datasets (GPT4Tools-OOD, GPT4Tools-OOD-Hard, and Multistep-100) demonstrates its effectiveness. ToolReflection boosts overall success rates by 25.4% on GPT4Tools-OOD, 56.2% on GPT4Tools-OOD-Hard, and 4% on Multistep-100, outperforming original models. On ToolAlpaca, we show a 14% improvement in the “Simulated” setting and 10.5% in the “Real-world” scenario. Our error analysis highlights ToolReflection significantly enhances recovery from incorrect tool calls, even with incomplete or erroneous API documentation. We have released the code, prompts, and data at https://github.com/polgrisha/ToolReflection.</abstract>
-      <url hash="ba335d0f">2025.realm-1.14</url>
+      <url hash="1d4a791a">2025.realm-1.14</url>
       <bibkey>polyakov-etal-2025-toolreflection</bibkey>
       <doi>10.18653/v1/2025.realm-1.14</doi>
     </paper>
@@ -199,7 +199,7 @@
       <author orcid="0000-0003-1061-9512"><first>Rama</first><last>Doddipatla</last><affiliation>Toshiba Europe LTD</affiliation></author>
       <pages>200-227</pages>
       <abstract>Embodied agents performing complex tasks are susceptible to execution failures, motivating the need for effective failure recovery mechanisms. In this work, we introduce a conditional multi-stage failure recovery framework that employs zero-shot chain prompting. The framework is structured into four error-handling stages, with three operating during task execution and one functioning as a post-execution reflection phase.Our approach utilises the reasoning capabilities of LLMs to analyse execution challenges within their environmental context and devise strategic solutions.We evaluate our method on the TfD benchmark of the TEACH dataset and achieve state-of-the-art performance, outperforming a baseline without error recovery by 11.5% and surpassing the strongest existing model by 19%.</abstract>
-      <url hash="8d3d5c77">2025.realm-1.15</url>
+      <url hash="926e9e67">2025.realm-1.15</url>
       <bibkey>farag-etal-2025-conditional</bibkey>
       <doi>10.18653/v1/2025.realm-1.15</doi>
     </paper>
@@ -211,7 +211,7 @@
       <author><first>Jackson</first><last>Lukas</last></author>
       <pages>228-249</pages>
       <abstract>Large Language Models (LLMs) have shown impressive capabilities in text generation and reasoning but still struggle with overthinking and analysis paralysis in interactive, multi-step tasks. In this paper, we introduce two complementary contributions aimed at mitigating these challenges. First, we propose Think, Validate, Consensus (TVC)—a multi-agent system inspired by Rational Speech Act (RSA) theory—that enables LLMs to recursively model each other’s mental states and detect overthinking in interactive environments. We take inspiration from RSA to model the recursive reasoning about communicative intent that underlies human collaboration, complementing models of individual reasoning. Second, we present Snap-Think, a dual-mode mechanism that combines fast, intuitive interaction (System 1) with slower, deliberative reasoning (System 2) to break free from reasoning loops detected by TVC. We evaluate our approach using New York Times Connections puzzles and demonstrate significant improvements: Snap-Think achieves 98% solve rate on GPT-4o compared to Chain-of-Thought’s 72%, while maintaining superior semantic grounding and efficiency over traditional strategies. Our findings suggest that integrating human-inspired cognitive frameworks into LLM architectures can effectively counteract overthinking and enhance complex problem-solving capabilities. We make our code available at: https://github.com/Chrislai502/the_amazing_connections</abstract>
-      <url hash="20871366">2025.realm-1.16</url>
+      <url hash="980158ca">2025.realm-1.16</url>
       <bibkey>pandian-etal-2025-snap</bibkey>
       <doi>10.18653/v1/2025.realm-1.16</doi>
     </paper>
@@ -222,7 +222,7 @@
       <author><first>Zijie</first><last>He</last></author>
       <pages>250-258</pages>
       <abstract>The rapid proliferation of heterogeneous data in government and industry presents increasing challenges for users seeking to retrieve actionable insights across both structured and unstructured sources. To address this, this paper presents InfoTech Assistant, a novel multimodal conversational framework that enables natural language interaction with both semantic document retrieval and structured database querying. The system integrates Large Language Models (LLMs) with Retrieval-Augmented Generation (RAG) and schema-aware Text-to-SQL capabilities, enabling dual-mode processing of user input for unstructured explanations and relational analytics. The architecture features a modular, locally deployed backend built with Flask and optimized for Graphics Processor Unit (GPU) acceleration, supporting low latency, privacy preserving inference. User queries are dynamically routed through an intent-aware processing pipeline, leveraging sentence embeddings, schema metadata, and prompt engineering strategies. A pilot deployment using infrastructure datasets from the Federal Highway Administration (FHWA) InfoHighway portal demonstrates the system’s effectiveness in real-world domain-specific retrieval. The assistant ingests FHWA technology documents and National Bridge Inventory (NBI) text records, tables, and images organized in a hybrid schema supporting both semantic and SQL-driven interaction. Evaluation results show 95% accuracy in RAG-based semantic tasks and 88.6% success in translating natural language into executable SQL queries. These findings underscore the potential of hybrid LLM-based agents for scalable, secure knowledge access in critical public-sector and industrial applications.</abstract>
-      <url hash="71d99f75">2025.realm-1.17</url>
+      <url hash="e64662ae">2025.realm-1.17</url>
       <bibkey>gadiraju-etal-2025-conversational</bibkey>
       <doi>10.18653/v1/2025.realm-1.17</doi>
     </paper>
@@ -239,7 +239,7 @@
       <author><first>Yassine</first><last>Benajiba</last></author>
       <pages>259-271</pages>
       <abstract>Recent works have demonstrated that incorporating search during inference can significantly improve reasoning capabilities of language agents. Some approaches may make use of the ground truth or rely on model’s own generated feedback. The search algorithm uses this feedback to then produce values that will update its criterion for exploring and exploiting various reasoning paths. In this study, we investigate how search and model’s self-feedback can be leveraged for reasoning tasks. First, we explore differences in ground-truth feedback and self-feedback during search for math reasoning. Second, we observe limitations in applying search techniques to more complex tasks like tool-calling and design domain-specific approaches to address these gaps. Our experiments reveal challenges related to generalization when solely relying on self-feedback during search. For search to work effectively, either access to the ground-truth is needed or feedback mechanisms need to be carefully designed for the specific task.</abstract>
-      <url hash="2a4a07e3">2025.realm-1.18</url>
+      <url hash="db800391">2025.realm-1.18</url>
       <bibkey>k-etal-2025-study</bibkey>
       <doi>10.18653/v1/2025.realm-1.18</doi>
     </paper>
@@ -250,7 +250,7 @@
       <author><first>Yaroslav</first><last>Zharov</last><affiliation>JetBrains</affiliation></author>
       <pages>272-288</pages>
       <abstract>Benchmarks for Software Engineering (SE) AI agents, most notably SWE-bench, have catalyzed progress in programming capabilities of AI agents. However, they overlook critical developer workflows such as Version Control System (VCS) operations. To address this issue, we present GitGoodBench, a novel benchmark for evaluating AI agent performance on Version Control System (VCS) tasks. GitGoodBench covers three core Git scenarios extracted from permissive open-source Python, Java, and Kotlin repositories. Our benchmark provides three datasets: a comprehensive evaluation suite (900 samples), a rapid prototyping version (120 samples), and a training corpus (17,469 samples). We establish baseline performance on the prototyping version of our benchmark using GPT-4o equipped with custom tools, achieving a 21.11% solve rate overall. We expect GitGoodBench to serve as a crucial stepping stone toward truly comprehensive SE agents that go beyond mere programming.</abstract>
-      <url hash="642a651d">2025.realm-1.19</url>
+      <url hash="9ff7cb25">2025.realm-1.19</url>
       <bibkey>lindenbauer-etal-2025-gitgoodbench</bibkey>
       <doi>10.18653/v1/2025.realm-1.19</doi>
     </paper>
@@ -262,7 +262,7 @@
       <author><first>Jiarong</first><last>He</last></author>
       <pages>289-297</pages>
       <abstract>This paper focuses on intelligent Q&amp;A assistants in gaming, providing timely and accurate services by integrating structured game knowledge graphs, semi-structured FAQ pairs, and unstructured real-time online content. It offers personalized emotional companionship through customized virtual characters and provides gameplay guidance, data queries, and product recommendations through in-game tools. We propose a Tiered Conversational Q&amp;A Agent (TCQA<tex-math>^2</tex-math>), characterized by high precision, personalized chat, low response latency, efficient token cost and low-risk responses. Parallel modules in each tier cut latency via distributed tasks. Multiple retrievers and short-term memory boost multi-turn Q&amp;A. Hallucination and safety checks improve response quality. Player tags and long-term memory enable personalization. Real-world evaluations show TCQA<tex-math>^2</tex-math> outperforms prompt-engineered LLMs and RAG-based agents in gaming Q&amp;A, personalized dialogue, and risk mitigation.</abstract>
-      <url hash="eff00724">2025.realm-1.20</url>
+      <url hash="1f081e00">2025.realm-1.20</url>
       <bibkey>chen-etal-2025-tcqa2</bibkey>
       <doi>10.18653/v1/2025.realm-1.20</doi>
     </paper>
@@ -273,7 +273,7 @@
       <author><first>Jan</first><last>Batzner</last><affiliation>Technical University of Munich</affiliation></author>
       <pages>298-308</pages>
       <abstract>This paper finds that agentic AI systems intensify existing challenges to traditional public sector oversight mechanisms — which rely on siloed compliance units and episodic approvals rather than continuous, integrated supervision. We identify five governance dimensions essential for responsible agent deployment: cross-departmental implementation, comprehensive evaluation, enhanced security protocols, operational visibility, and systematic auditing. We evaluate the capacity of existing oversight structures to meet these challenges, via a mixed-methods approach consisting of a literature review and interviews with civil servants in AI-related roles. We find that agent oversight poses intensified versions of three existing governance challenges: continuous oversight, deeper integration of governance and operational capabilities, and interdepartmental coordination. We propose approaches that both adapt institutional mechanisms and design agent architectures compatible with public sector constraints.</abstract>
-      <url hash="5a242afe">2025.realm-1.21</url>
+      <url hash="65929552">2025.realm-1.21</url>
       <bibkey>schmitz-etal-2025-oversight</bibkey>
       <doi>10.18653/v1/2025.realm-1.21</doi>
     </paper>
@@ -284,7 +284,7 @@
       <author orcid="0000-0003-1129-2750"><first>Matthew</first><last>Shardlow</last><affiliation>The Manchester Metropolitan University</affiliation></author>
       <pages>309-326</pages>
       <abstract>Aspect-category sentiment analysis provides granular insights by identifying specific themes within product reviews that are associated with particular opinions. Supervised learning approaches dominate the field. However, data is scarce and expensive to annotate for new domains. We argue that leveraging large language models in a zero-shot setting is beneficial where the time and resources required for dataset annotation are limited. Furthermore, annotation bias may lead to strong results using supervised methods but transfer poorly to new domains in contexts that lack annotations and demand reproducibility. In our work, we propose novel techniques that combine multiple chain-of-thought agents by leveraging large language models’ token-level uncertainty scores. We experiment with the 3B and 70B+ parameter size variants of Llama and Qwen models, demonstrating how these approaches can fulfil practical needs and opening a discussion on how to gauge accuracy in label-scarce conditions.</abstract>
-      <url hash="ad8dfaac">2025.realm-1.22</url>
+      <url hash="b8859a35">2025.realm-1.22</url>
       <bibkey>ventirozos-etal-2025-sure</bibkey>
       <doi>10.18653/v1/2025.realm-1.22</doi>
     </paper>
@@ -294,7 +294,7 @@
       <author><first>Yongzhen</first><last>Mu</last></author>
       <pages>327-333</pages>
       <abstract>As mobile devices become central to modern life, elderly users often struggle with their complexity, leading to digital divide. This paper explores how the integration of Human-Computer Interaction (HCI) principles and Natural Language Processing (NLP) techniques can enhance the way elderly users learn to use smartphones. To demonstrate this approach, we present AgeMate, a prototype mobile agent designed to support seniors in acquiring smartphone skills more intuitively and effectively. Specifically, we investigate how personalizedfeedback generated by large language models (LLMs), appropriate granularity in instructional content, and mechanisms for preventing and correcting user errors can contribute to more adaptive and user-friendly learning experiences for elderly users. Rather than focusing solely on system performance, our study emphasizes the instructional value of NLP-enhanced interaction: enabling step-by-step, conversational teaching tailored to users’ real-time context. By analyzing usage patterns and interaction challenges, we propose design strategies that bridge the gap between accessibility and intelligent guidance to better support elderly users in digital environments.</abstract>
-      <url hash="ff36d430">2025.realm-1.23</url>
+      <url hash="d52acba9">2025.realm-1.23</url>
       <bibkey>chen-mu-2025-bridging</bibkey>
       <doi>10.18653/v1/2025.realm-1.23</doi>
     </paper>
@@ -305,7 +305,7 @@
       <author><first>Ramtin</first><last>Pedarsani</last><affiliation>University of California, Santa Barbara</affiliation></author>
       <pages>334-345</pages>
       <abstract>While parameter-efficient fine-tuning (PEFT) techniques like Low-Rank Adaptation (LoRA) offer computationally efficient adaptations of Large Language Models (LLMs), their practical deployment often assumes centralized data and training environments. However, real-world scenarios frequently involve distributed, privacy-sensitive datasets that require decentralized solutions. Federated learning (FL) addresses data privacy by coordinating model updates across clients, but it is typically based on centralized aggregation through a parameter server, which can introduce bottlenecks and communication constraints. Decentralized learning, in contrast, eliminates this dependency by enabling direct collaboration between clients, improving scalability and efficiency in distributed environments. Despite its advantages, decentralized LLM fine-tuning remains underexplored. In this work, we propose Dec-LoRA, an algorithm for decentralized fine-tuning of LLMs based on LoRA. Through extensive experiments on BERT and LLaMA-2 models, we show that Dec-LoRA maintains performance comparable to centralized LoRA across various conditions, including data heterogeneity and quantization constraints. This highlights its potential for scalable LLM fine-tuning in decentralized environments.</abstract>
-      <url hash="72f71e8a">2025.realm-1.24</url>
+      <url hash="49d9cb35">2025.realm-1.24</url>
       <bibkey>ghiasvand-etal-2025-decentralized</bibkey>
       <doi>10.18653/v1/2025.realm-1.24</doi>
     </paper>
@@ -317,7 +317,7 @@
       <author orcid="0000-0001-7824-4628"><first>Reza</first><last>Abbasi-Asl</last><affiliation>University of California, San Francisco</affiliation></author>
       <pages>346-355</pages>
       <abstract>Temporal progression is an integral part of knowledge accumulation and update. Web search is frequently adopted as the grounding for agent knowledge, yet an improper configuration affects the quality of the agent’s responses. Here, we assess the agent behavior using distinct date-controlled tools (DCTs) as a stress test to measure the knowledge variability of large language model (LLM) agents. We demonstrate the temporal effects of an LLM agent as a writing assistant, which uses web search to complete scientific publication abstracts. We show that the temporality of search engines translates into tool-dependent agent performance but can be alleviated with base model choice and explicit reasoning instructions such as chain-of-thought prompting. Our results indicate that agent design and evaluations should take a dynamical view and implement effective measures to account for the temporal influence of external resources to improve agent reliability.</abstract>
-      <url hash="0439e1a1">2025.realm-1.25</url>
+      <url hash="f18bd032">2025.realm-1.25</url>
       <bibkey>xian-etal-2025-measuring</bibkey>
       <doi>10.18653/v1/2025.realm-1.25</doi>
     </paper>
@@ -328,7 +328,7 @@
       <author><first>Toshifumi</first><last>Nishijima</last></author>
       <pages>356-366</pages>
       <abstract>This study proposes VisTRA (Visual Tool-use Reasoning Analyzer), a framework for analyzing how Visual Language Models (VLMs) utilize tools in VQA tasks involving small objects in high-resolution images. While tools like object detection and zoom functionality are essential for small object VQA, their potential errors necessitate careful verification of outputs. Our framework provides systematic evaluation of VLMs’ tool-use capabilities through analysis of verification patterns. Using the V* bench dataset, we find that direct acceptance of tool outputs correlates with decreased VQA accuracy, while lower-performing models exhibit higher frequencies of cyclic verification loops. These findings offer insights for improving tool verification mechanisms in VLM architectures focused on small object detection tasks.</abstract>
-      <url hash="8319354b">2025.realm-1.26</url>
+      <url hash="c1556dc3">2025.realm-1.26</url>
       <bibkey>sugiyama-etal-2025-vistra</bibkey>
       <doi>10.18653/v1/2025.realm-1.26</doi>
     </paper>
@@ -338,7 +338,7 @@
       <author><first>Marek</first><last>Rei</last><affiliation>Imperial College London</affiliation></author>
       <pages>367-385</pages>
       <abstract>Large language models (LLMs) are increasingly used as autonomous agents, tackling tasks from robotics to web navigation. Their performance depends on the underlying ‘base agent‘. Existing methods, however, struggle with long-context reasoning and goal adherence. We introduce ‘StateAct‘, a novel and efficient ‘base agent‘ that enhances decision-making through (1) ‘self-prompting‘, which reinforces task goals at every step, and (2) ‘chain-of-states‘, an extension of chain-of-thought that tracks state information over time. StateAct outperforms ReAct, the previous best ‘base agent‘, by over 10% on Alfworld, 30% on Textcraft, and 7% on Webshop across multiple frontier LLMs. We also demonstrate that StateAct can be used as a drop-in replacement for ReAct with with advanced LLM agent methods such as test-time scaling, yielding an additional 12% gain on Textcraft. By improving efficiency and long-range reasoning without requiring additional training or retrieval, StateAct provides a scalable foundation for LLM agents. We open source our code to support further research at https://github.com/ai-nikolai/stateact.</abstract>
-      <url hash="4e3d2cdd">2025.realm-1.27</url>
+      <url hash="a39342b3">2025.realm-1.27</url>
       <bibkey>rozanov-rei-2025-stateact</bibkey>
       <doi>10.18653/v1/2025.realm-1.27</doi>
     </paper>
@@ -350,7 +350,7 @@
       <author><first>Byung-Hak</first><last>Kim</last><affiliation>CJ</affiliation></author>
       <pages>386-400</pages>
       <abstract>Highlight summarization in baseball requires balancing statistical analysis with narrative coherence. Traditional approaches—such as Win Probability Added (WPA)-based ranking or computer vision-driven event detection—can identify scoring plays but often miss strategic depth, momentum shifts, and storyline progression. Manual curation remains the gold standard but is resource-intensive and not scalable.We introduce <tex-math>\textbf{DIAMOND}</tex-math>, an <tex-math>\textbf{LLM-driven agent for context-aware baseball highlight summarization}</tex-math> that integrates <tex-math>\textbf{structured sports analytics with natural language reasoning}</tex-math>. DIAMOND leverages sabermetric features—Win Expectancy, WPA, and Leverage Index—to quantify play importance, while an LLM module enhances selection based on contextual narrative value. This hybrid approach ensures both <tex-math>\textbf{quantitative rigor and qualitative richness}</tex-math>, surpassing the limitations of purely statistical or vision-based systems.Evaluated on five diverse Korean Baseball Organization League games, DIAMOND improves F1-score from 42.9% (WPA-only) to 84.8%, outperforming both commercial and statistical baselines. Though limited in scale, our results highlight the potential of modular, interpretable agent-based frameworks for event-level summarization in sports and beyond.</abstract>
-      <url hash="3802dd5f">2025.realm-1.28</url>
+      <url hash="a2996db2">2025.realm-1.28</url>
       <bibkey>kang-etal-2025-diamond</bibkey>
       <doi>10.18653/v1/2025.realm-1.28</doi>
     </paper>
@@ -360,7 +360,7 @@
       <author orcid="0000-0002-6210-0678"><first>Jesse</first><last>Roberts</last><affiliation>Tennessee Technological University</affiliation></author>
       <pages>401-410</pages>
       <abstract>What if artificial intelligence could not only solve problems for which it was trained but also teach itself to tackle novel tasks? In this paper, we finetune Llama 3.1 using reinforcement learning on the grid-world game Frozen Lake and investigate its ability to solve maps it has never encountered—a phenomenon recently termed In-Context Reinforcement Learning (ICRL). Without additional training, the transformer demonstrates the capacity to adapt to both in-distribution and out-of-distribution environment parameterizations. Moreover, it remains effective when trained on data that blends optimal and suboptimal behavior, combines strategies from its context (behavior-stitching), and dynamically adapts to non-stationary environments. These proof-of-concept findings suggest that in-context learning via reinforcement-tuned transformers may form the basis of a promising general-purpose problem-solver.</abstract>
-      <url hash="8145cf07">2025.realm-1.29</url>
+      <url hash="4891650e">2025.realm-1.29</url>
       <bibkey>rentschler-roberts-2025-rl</bibkey>
       <doi>10.18653/v1/2025.realm-1.29</doi>
     </paper>
@@ -371,7 +371,7 @@
       <author><first>Hinrich</first><last>Schuetze</last></author>
       <pages>411-427</pages>
       <abstract>We introduce CTIM-Rover, an AI agent for Software Engineering (SE) built on top of AutoCodeRover (Zhang et al., 2024) that extends agentic reasoning frameworks with an episodic memory, more specifically, a general and repository-level Cross-Task-Instance Memory (CTIM). While existing open-source SE agents mostly rely on ReAct (Yao et al., 2023b), Reflexion (Shinn et al., 2023), or Code-Act (Wang et al., 2024), all of these reasoning and planning frameworks inefficiently discard their long-term memory after a single task instance. As repository-level understanding is pivotal for identifying all locations requiring a patch for fixing a bug, we hypothesize that SE is particularly well positioned to benefit from CTIM. For this, we build on the Experiential Learning (EL) approach ExpeL (Zhao et al., 2024), proposing a Mixture-Of-Experts (MoEs) inspired approach to create both a general-purpose and repository-level CTIM . We find that CTIM-Rover does not outperform AutoCodeRover in any configuration and thus conclude that neither ExpeL nor DoT-Bank (Lingam et al., 2024) scale to real-world SE problems. Our analysis indicates noise introduced by distracting CTIM items or exemplar trajectories as the likely source of the performance degradation.</abstract>
-      <url hash="feebfbc7">2025.realm-1.30</url>
+      <url hash="2e7d9465">2025.realm-1.30</url>
       <bibkey>lindenbauer-etal-2025-knowledge</bibkey>
       <doi>10.18653/v1/2025.realm-1.30</doi>
     </paper>
@@ -387,7 +387,7 @@
       <author><first>Sunishchal</first><last>Dev</last><affiliation>RAND Corporation and Algoverse Coding Academy LLC</affiliation></author>
       <pages>428-453</pages>
       <abstract>Large language models (LLMs) have shown remarkable capabilities across various tasks, yet their potential to reason about and construct scientific methodologies remains under explored. This work introduces a novel benchmark evaluating LLMs’ capacity to predict methodological details in AI research papers. We construct a dataset of 88 papers with redacted methodology sections and zero-shot prompt several state-of-the-art LLMs to generate methodology predictions. Our evaluation framework then employs a LLM-as-judge system with multiple LLM judges, majority voting, and self-omission techniques to minimize biases. We validate our LLM judge scores against human judgments. We then briefly analyze the judging results of our zero-shot prediction pipeline, suggesting that even state-of-the-art LLMs struggle with the task of methodology generation without more advanced techniques. This benchmark lays the groundwork for future research into evaluating LLMs’ potential for aiding in AI research.</abstract>
-      <url hash="d012171c">2025.realm-1.31</url>
+      <url hash="30b0a7f6">2025.realm-1.31</url>
       <bibkey>li-etal-2025-frontierscience</bibkey>
       <doi>10.18653/v1/2025.realm-1.31</doi>
     </paper>
@@ -399,7 +399,7 @@
       <author orcid="0000-0002-7230-4164"><first>Nigel</first><last>Collier</last><affiliation>University of Cambridge</affiliation></author>
       <pages>454-470</pages>
       <abstract>Event forecasting is a challenging task that requires temporal reasoning over historical data. Although iterative reasoning agents following the ReAct paradigm bring improvements to event forecasting tasks, they also increase the cost of each prediction and bring challenges in tracing the information that contributes to the prediction. In this study, we simplify the ReAct framework into a retrieval-augmented generation (RAG) pipeline. Surprisingly, the RAG outperforms ReAct with only 10% of the token costs. Furthermore, our experiments reveal that structured statistical contexts significantly enhance forecasting accuracy, whereas introducing unstructured semantic information (e.g., news article titles) negatively impacts performance. In-depth analyses further highlight that the iterative reasoning traces impair forecasting accuracy in smaller-scale models but benefit larger models (e.g., 70B) in the event forecasting task. These insights underscore existing limitations in large language models’ temporal and semantic reasoning abilities, providing critical guidance for developing more cost-effective and reliable forecasting systems.</abstract>
-      <url hash="83b990d1">2025.realm-1.32</url>
+      <url hash="5c93c3af">2025.realm-1.32</url>
       <bibkey>zhang-etal-2025-power</bibkey>
       <doi>10.18653/v1/2025.realm-1.32</doi>
     </paper>
@@ -409,9 +409,19 @@
       <author><first>Larry</first><last>Heck</last><affiliation>Georgia Institute of Technology</affiliation></author>
       <pages>471-485</pages>
       <abstract>Large language models (LLMs) have demonstrated remarkable reasoning capabilities when prompted with strategies such as Chain-of-Thought (CoT). However, these approaches focus on token-level output without considering internal weight dynamics. We introduce Weight-of-Thought (WoT) reasoning, a novel approach that examines neural network weights before inference to identify reasoning pathways. Unlike existing methods, WoT explores the weight space through graph-based message passing, multi-step reasoning processes, and attention mechanisms. Our implementation creates an interconnected graph of reasoning nodes. Experiments on diverse reasoning tasks (syllogistic, mathematical, algebraic, combinatorial, and geometric) demonstrate that WoT achieves superior performance compared to traditional methods, particularly for complex problems. This approach leads to both improved performance and greater interpretability of the reasoning process, offering a promising direction for enhancing LLM reasoning capabilities.</abstract>
-      <url hash="7ecb8e24">2025.realm-1.33</url>
+      <url hash="e96e19ed">2025.realm-1.33</url>
       <bibkey>punjwani-heck-2025-weight</bibkey>
       <doi>10.18653/v1/2025.realm-1.33</doi>
+    </paper>
+    <paper id="34">
+      <title>Preventing Rogue Agents Improves Multi-Agent Collaboration</title>
+      <author><first>Ohav</first><last>Barbi</last><affiliation>Tel Aviv University</affiliation></author>
+      <author><first>Ori</first><last>Yoran</last><affiliation>Tel Aviv University</affiliation></author>
+      <author><first>Mor</first><last>Geva</last><affiliation>Tel Aviv University and Google Research</affiliation></author>
+      <pages>486-511</pages>
+      <abstract>Multi-agent systems, where specialized agents collaborate to solve a shared task hold great potential, from increased modularity to simulating complex environments. However, they also have a major caveat – a single agent can cause the entire system to fail. Consider a simple game where the knowledge to solve the task is distributed between agents, which share information in a communication channel. At each round, any of the agents can terminate the game and make the final prediction, even if they are uncertain about the outcome of their action. Detection of such rogue agents __before they act__ may prevent the system’s failure. In this work, we propose to __monitor__ agents during action prediction and __intervene__ when a future error is likely to occur. To test our approach, we introduce WhoDunitEnv, a multi-agent collaboration environment that allows modular control over task complexity and communication structure. Experiments on WhoDunitEnv, code generation tasks and the GovSim environment for resource sustainability show that our approach leads to substantial performance gains up to 17.4%, 2.5% and 20%, respectively. Thorough analysis shows that our monitors successfully identify critical points of agent confusion and our interventions effectively stop agent errors from propagating.</abstract>
+      <url hash="36f9e6de">2025.realm-1.34</url>
+      <bibkey>barbi-etal-2025-preventing</bibkey>
     </paper>
   </volume>
 </collection>
