@@ -6,8 +6,8 @@
       <editor><first>Yves</first><last>Scherrer</last></editor>
       <editor><first>Tommi</first><last>Jauhiainen</last></editor>
       <editor><first>Nikola</first><last>Ljubešić</last></editor>
-      <editor id="preslav-nakov"><first>Preslav</first><last>Nakov</last></editor>
-      <editor id="jorg-tiedemann"><first>Jörg</first><last>Tiedemann</last></editor>
+      <editor><first>Preslav</first><last>Nakov</last></editor>
+      <editor><first>Jörg</first><last>Tiedemann</last></editor>
       <editor><first>Marcos</first><last>Zampieri</last></editor>
       <publisher>Association for Computational Linguistics</publisher>
       <address>Dubrovnik, Croatia</address>
@@ -24,7 +24,7 @@
       <title>Analyzing Zero-Shot transfer Scenarios across <fixed-case>S</fixed-case>panish variants for Hate Speech Detection</title>
       <author><first>Galo</first><last>Castillo-lópez</last><affiliation>Université Paris-Saclay</affiliation></author>
       <author><first>Arij</first><last>Riabi</last><affiliation>Inria; Sorbonne université</affiliation></author>
-      <author id="djame-seddah"><first>Djamé</first><last>Seddah</last><affiliation>Inria</affiliation></author>
+      <author><first>Djamé</first><last>Seddah</last><affiliation>Inria</affiliation></author>
       <pages>1-13</pages>
       <abstract>Hate speech detection in online platforms has been widely studied inthe past. Most of these works were conducted in English and afew rich-resource languages. Recent approaches tailored forlow-resource languages have explored the interests of zero-shot cross-lingual transfer learning models in resource-scarce scenarios. However, languages variations between geolects such as AmericanEnglish and British English, Latin-American Spanish, and EuropeanSpanish is still a problem for NLP models that often relies on(latent) lexical information for their classification tasks. Moreimportantly, the cultural aspect, crucial for hate speech detection,is often overlooked. In this work, we present the results of a thorough analysis of hatespeech detection models performance on different variants of Spanish,including a new hate speech toward immigrants Twitter data set we built to cover these variants. Using mBERT and Beto, a monolingual Spanish Bert-based language model, as the basis of our transfer learning architecture, our results indicate that hate speech detection models for a given Spanish variant are affected when different variations of such language are not considered. Hate speech expressions could vary from region to region where the same language is spoken. Our new dataset, models and guidelines are freely available.</abstract>
       <url hash="3006d030">2023.vardial-1.1</url>
@@ -35,7 +35,7 @@
     <paper id="2">
       <title>Optimizing the Size of Subword Vocabularies in Dialect Classification</title>
       <author><first>Vani</first><last>Kanjirangat</last><affiliation>Idsia</affiliation></author>
-      <author id="tanja-samardzic"><first>Tanja</first><last>Samardžić</last><affiliation>University of Zurich</affiliation></author>
+      <author><first>Tanja</first><last>Samardžić</last><affiliation>University of Zurich</affiliation></author>
       <author><first>Ljiljana</first><last>Dolamic</last><affiliation>armasuisse S&amp;T</affiliation></author>
       <author><first>Fabio</first><last>Rinaldi</last><affiliation>IDSIA, Swiss AI Institute</affiliation></author>
       <pages>14-30</pages>
@@ -58,8 +58,8 @@
     <paper id="5">
       <title>Does Manipulating Tokenization Aid Cross-Lingual Transfer? A Study on <fixed-case>POS</fixed-case> Tagging for Non-Standardized Languages</title>
       <author><first>Verena</first><last>Blaschke</last><affiliation>LMU Munich</affiliation></author>
-      <author id="hinrich-schutze"><first>Hinrich</first><last>Schütze</last><affiliation>Center for Information and Language Processing, University of Munich</affiliation></author>
-      <author id="barbara-plank"><first>Barbara</first><last>Plank</last><affiliation>LMU Munich</affiliation></author>
+      <author><first>Hinrich</first><last>Schütze</last><affiliation>Center for Information and Language Processing, University of Munich</affiliation></author>
+      <author><first>Barbara</first><last>Plank</last><affiliation>LMU Munich</affiliation></author>
       <pages>40-54</pages>
       <abstract>One of the challenges with finetuning pretrained language models (PLMs) is that their tokenizer is optimized for the language(s) it was pretrained on, but brittle when it comes to previously unseen variations in the data. This can for instance be observed when finetuning PLMs on one language and evaluating them on data in a closely related language variety with no standardized orthography. Despite the high linguistic similarity, tokenization no longer corresponds to meaningful representations of the target data, leading to low performance in, e.g., part-of-speech tagging. In this work, we finetune PLMs on seven languages from three different families and analyze their zero-shot performance on closely related, non-standardized varieties. We consider different measures for the divergence in the tokenization of the source and target data, and the way they can be adjusted by manipulating the tokenization during the finetuning step. Overall, we find that the similarity between the percentage of words that get split into subwords in the source and target data (the split word ratio difference) is the strongest predictor for model performance on target data.</abstract>
       <url hash="167ef85c">2023.vardial-1.5</url>
@@ -163,7 +163,7 @@
     <paper id="15">
       <title>Dialect and Variant Identification as a Multi-Label Classification Task: A Proposal Based on Near-Duplicate Analysis</title>
       <author><first>Gabriel</first><last>Bernier-colborne</last><affiliation>National Research Council Canada</affiliation></author>
-      <author id="cyril-goutte"><first>Cyril</first><last>Goutte</last><affiliation>National Research Council Canada</affiliation></author>
+      <author><first>Cyril</first><last>Goutte</last><affiliation>National Research Council Canada</affiliation></author>
       <author><first>Serge</first><last>Leger</last><affiliation>National Research Council</affiliation></author>
       <pages>142-151</pages>
       <abstract>We argue that dialect identification should be treated as a multi-label classification problem rather than the single-class setting prevalent in existing collections and evaluations. In order to avoid extensive human re-labelling of the data, we propose an analysis of ambiguous near-duplicates in an existing collection covering four variants of French.We show how this analysis helps us provide multiple labels for a significant subset of the original data, therefore enriching the annotation with minimal human intervention. The resulting data can then be used to train dialect identifiers in a multi-label setting. Experimental results show that on the enriched dataset, the multi-label classifier produces similar accuracy to the single-label classifier on test cases that are unambiguous (single label), but it increases the macro-averaged F1-score by 0.225 absolute (71% relative gain) on ambiguous texts with multiple labels. On the original data, gains on the ambiguous test cases are smaller but still considerable (+0.077 absolute, 20% relative gain), and accuracy on non-ambiguous test cases is again similar in this case. This supports our thesis that modelling dialect identification as a multi-label problem potentially has a positive impact.</abstract>
@@ -281,7 +281,7 @@
       <author><first>Mourhaf</first><last>Kazzaz</last><affiliation>Universität Tübingen</affiliation></author>
       <author><first>Nikola</first><last>Ljubešić</last><affiliation>Jožef Stefan Institute</affiliation></author>
       <author><first>Kai</first><last>North</last><affiliation>George Mason University</affiliation></author>
-      <author id="barbara-plank"><first>Barbara</first><last>Plank</last><affiliation>LMU Munich</affiliation></author>
+      <author><first>Barbara</first><last>Plank</last><affiliation>LMU Munich</affiliation></author>
       <author><first>Yves</first><last>Scherrer</last><affiliation>University of Helsinki</affiliation></author>
       <author><first>Marcos</first><last>Zampieri</last><affiliation>George Mason University</affiliation></author>
       <pages>251-261</pages>

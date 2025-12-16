@@ -5,7 +5,7 @@
       <booktitle>Proceedings of the Third BlackboxNLP Workshop on Analyzing and Interpreting Neural Networks for NLP</booktitle>
       <editor><first>Afra</first><last>Alishahi</last></editor>
       <editor><first>Yonatan</first><last>Belinkov</last></editor>
-      <editor id="grzegorz-chrupala"><first>Grzegorz</first><last>Chrupała</last></editor>
+      <editor><first>Grzegorz</first><last>Chrupała</last></editor>
       <editor><first>Dieuwke</first><last>Hupkes</last></editor>
       <editor><first>Yuval</first><last>Pinter</last></editor>
       <editor><first>Hassan</first><last>Sajjad</last></editor>
@@ -22,7 +22,7 @@
     <paper id="1">
       <title><fixed-case>BERT</fixed-case>ering <fixed-case>RAMS</fixed-case>: What and How Much does <fixed-case>BERT</fixed-case> Already Know About Event Arguments? - A Study on the <fixed-case>RAMS</fixed-case> Dataset</title>
       <author><first>Varun</first><last>Gangal</last></author>
-      <author id="eduard-hovy"><first>Eduard</first><last>Hovy</last></author>
+      <author><first>Eduard</first><last>Hovy</last></author>
       <pages>1–10</pages>
       <abstract>Using the attention map based probing framework from (Clark et al., 2019), we observe that, on the RAMS dataset (Ebner et al., 2020), BERT’s attention heads have modest but well above-chance ability to spot event arguments sans any training or domain finetuning, varying from a low of 17.77% for Place to a high of 51.61% for Artifact. Next, we find that linear combinations of these heads, estimated with approx. 11% of available total event argument detection supervision, can push performance well higher for some roles — highest two being Victim (68.29% Accuracy) and Artifact (58.82% Accuracy). Furthermore, we investigate how well our methods do for cross-sentence event arguments. We propose a procedure to isolate “best heads” for cross-sentence argument detection separately of those for intra-sentence arguments. The heads thus estimated have superior cross-sentence performance compared to their jointly estimated equivalents, albeit only under the unrealistic assumption that we already know the argument is present in another sentence. Lastly, we seek to isolate to what extent our numbers stem from lexical frequency based associations between gold arguments and roles. We propose NONCE, a scheme to create adversarial test examples by replacing gold arguments with randomly generated “nonce” words. We find that learnt linear combinations are robust to NONCE, though individual best heads can be more sensitive.</abstract>
       <url hash="22c98ad3">2020.blackboxnlp-1.1</url>
@@ -33,7 +33,7 @@
     <paper id="2">
       <title>Emergent Language Generalization and Acquisition Speed are not tied to Compositionality</title>
       <author><first>Eugene</first><last>Kharitonov</last></author>
-      <author id="marco-baroni"><first>Marco</first><last>Baroni</last></author>
+      <author><first>Marco</first><last>Baroni</last></author>
       <pages>11–15</pages>
       <abstract>Studies of discrete languages emerging when neural agents communicate to solve a joint task often look for evidence of compositional structure. This stems for the expectation that such a structure would allow languages to be acquired faster by the agents and enable them to generalize better. We argue that these beneficial properties are only loosely connected to compositionality. In two experiments, we demonstrate that, depending on the task, non-compositional languages might show equal, or better, generalization performance and acquisition speed than compositional ones. Further research in the area should be clearer about what benefits are expected from compositionality, and how the latter would lead to them.</abstract>
       <url hash="30a2f114">2020.blackboxnlp-1.2</url>
@@ -126,7 +126,7 @@
     <paper id="10">
       <title>The Explanation Game: Towards Prediction Explainability through Sparse Communication</title>
       <author><first>Marcos</first><last>Treviso</last></author>
-      <author id="andre-f-t-martins"><first>André F. T.</first><last>Martins</last></author>
+      <author><first>André F. T.</first><last>Martins</last></author>
       <pages>107–118</pages>
       <abstract>Explainability is a topic of growing importance in NLP. In this work, we provide a unified perspective of explainability as a communication problem between an explainer and a layperson about a classifier’s decision. We use this framework to compare several explainers, including gradient methods, erasure, and attention mechanisms, in terms of their communication success. In addition, we reinterpret these methods in the light of classical feature selection, and use this as inspiration for new embedded explainers, through the use of selective, sparse attention. Experiments in text classification and natural language inference, using different configurations of explainers and laypeople (including both machines and humans), reveal an advantage of attention-based explainers over gradient and erasure methods, and show that selective attention is a simpler alternative to stochastic rationalizers. Human experiments show strong results on text classification with post-hoc explainers trained to optimize communication success.</abstract>
       <url hash="b97a2a97">2020.blackboxnlp-1.10</url>
@@ -162,7 +162,7 @@
       <title>Controlling the Imprint of Passivization and Negation in Contextualized Representations</title>
       <author><first>Hande</first><last>Celikkanat</last></author>
       <author><first>Sami</first><last>Virpioja</last></author>
-      <author id="jorg-tiedemann"><first>Jörg</first><last>Tiedemann</last></author>
+      <author><first>Jörg</first><last>Tiedemann</last></author>
       <author><first>Marianna</first><last>Apidianaki</last></author>
       <pages>136–148</pages>
       <abstract>Contextualized word representations encode rich information about syntax and semantics, alongside specificities of each context of use. While contextual variation does not always reflect actual meaning shifts, it can still reduce the similarity of embeddings for word instances having the same meaning. We explore the imprint of two specific linguistic alternations, namely passivization and negation, on the representations generated by neural models trained with two different objectives: masked language modeling and translation. Our exploration methodology is inspired by an approach previously proposed for removing societal biases from word vectors. We show that passivization and negation leave their traces on the representations, and that neutralizing this information leads to more similar embeddings for words that should preserve their meaning in the transformation. We also find clear differences in how the respective features generalize across datasets.</abstract>
@@ -244,7 +244,7 @@
     <paper id="20">
       <title>Exploring Neural Entity Representations for Semantic Information</title>
       <author><first>Andrew</first><last>Runge</last></author>
-      <author id="eduard-hovy"><first>Eduard</first><last>Hovy</last></author>
+      <author><first>Eduard</first><last>Hovy</last></author>
       <pages>204–216</pages>
       <abstract>Neural methods for embedding entities are typically extrinsically evaluated on downstream tasks and, more recently, intrinsically using probing tasks. Downstream task-based comparisons are often difficult to interpret due to differences in task structure, while probing task evaluations often look at only a few attributes and models. We address both of these issues by evaluating a diverse set of eight neural entity embedding methods on a set of simple probing tasks, demonstrating which methods are able to remember words used to describe entities, learn type, relationship and factual information, and identify how frequently an entity is mentioned. We also compare these methods in a unified framework on two entity linking tasks and discuss how they generalize to different model architectures and datasets.</abstract>
       <url hash="3b1958b1">2020.blackboxnlp-1.20</url>
@@ -253,7 +253,7 @@
     </paper>
     <paper id="21">
       <title><fixed-case>BERT</fixed-case>s of a feather do not generalize together: Large variability in generalization across models with similar test set performance</title>
-      <author id="r-thomas-mccoy"><first>R. Thomas</first><last>McCoy</last></author>
+      <author><first>R. Thomas</first><last>McCoy</last></author>
       <author><first>Junghyun</first><last>Min</last></author>
       <author><first>Tal</first><last>Linzen</last></author>
       <pages>217–227</pages>
@@ -276,7 +276,7 @@
     <paper id="23">
       <title>Discovering the Compositional Structure of Vector Representations with Role Learning Networks</title>
       <author><first>Paul</first><last>Soulos</last></author>
-      <author id="r-thomas-mccoy"><first>R. Thomas</first><last>McCoy</last></author>
+      <author><first>R. Thomas</first><last>McCoy</last></author>
       <author><first>Tal</first><last>Linzen</last></author>
       <author><first>Paul</first><last>Smolensky</last></author>
       <pages>238–254</pages>
@@ -301,7 +301,7 @@
       <title>Investigating Novel Verb Learning in <fixed-case>BERT</fixed-case>: Selectional Preference Classes and Alternation-Based Syntactic Generalization</title>
       <author><first>Tristan</first><last>Thrush</last></author>
       <author><first>Ethan</first><last>Wilcox</last></author>
-      <author id="roger-levy"><first>Roger</first><last>Levy</last></author>
+      <author><first>Roger</first><last>Levy</last></author>
       <pages>265–275</pages>
       <abstract>Previous studies investigating the syntactic abilities of deep learning models have not targeted the relationship between the strength of the grammatical generalization and the amount of evidence to which the model is exposed during training. We address this issue by deploying a novel word-learning paradigm to test BERT’s few-shot learning capabilities for two aspects of English verbs: alternations and classes of selectional preferences. For the former, we fine-tune BERT on a single frame in a verbal-alternation pair and ask whether the model expects the novel verb to occur in its sister frame. For the latter, we fine-tune BERT on an incomplete selectional network of verbal objects and ask whether it expects unattested but plausible verb/object pairs. We find that BERT makes robust grammatical generalizations after just one or two instances of a novel word in fine-tuning. For the verbal alternation tests, we find that the model displays behavior that is consistent with a transitivity bias: verbs seen few times are expected to take direct objects, but verbs seen with direct objects are not expected to occur intransitively.</abstract>
       <url hash="82f892db">2020.blackboxnlp-1.25</url>
@@ -313,7 +313,7 @@
       <author><first>Benjamin</first><last>Newman</last></author>
       <author><first>John</first><last>Hewitt</last></author>
       <author><first>Percy</first><last>Liang</last></author>
-      <author id="christopher-d-manning"><first>Christopher D.</first><last>Manning</last></author>
+      <author><first>Christopher D.</first><last>Manning</last></author>
       <pages>276–291</pages>
       <abstract>Extrapolation to unseen sequence lengths is a challenge for neural generative models of language. In this work, we characterize the effect on length extrapolation of a modeling decision often overlooked: predicting the end of the generative process through the use of a special end-of-sequence (EOS) vocabulary item. We study an oracle setting - forcing models to generate to the correct sequence length at test time - to compare the length-extrapolative behavior of networks trained to predict EOS (+EOS) with networks not trained to (-EOS). We find that -EOS substantially outperforms +EOS, for example extrapolating well to lengths 10 times longer than those seen at training time in a bracket closing task, as well as achieving a 40% improvement over +EOS in the difficult SCAN dataset length generalization task. By comparing the hidden states and dynamics of -EOS and +EOS models, we observe that +EOS models fail to generalize because they (1) unnecessarily stratify their hidden states by their linear position is a sequence (structures we call length manifolds) or (2) get stuck in clusters (which we refer to as length attractors) once the EOS token is the highest-probability prediction.</abstract>
       <url hash="9400b4dc">2020.blackboxnlp-1.26</url>

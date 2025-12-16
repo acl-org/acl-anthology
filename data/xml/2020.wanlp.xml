@@ -26,8 +26,8 @@
       <author><first>Mohammed</first><last>Mediani</last></author>
       <author><first>Moritz</first><last>Behr</last></author>
       <author><first>M. Amin</first><last>Cheragui</last></author>
-      <author id="sebastian-stuker"><first>Sebastian</first><last>Stüker</last></author>
-      <author id="alex-waibel"><first>Alexander</first><last>Waibel</last></author>
+      <author><first>Sebastian</first><last>Stüker</last></author>
+      <author><first>Alexander</first><last>Waibel</last></author>
       <pages>1–11</pages>
       <abstract>In this paper we present the natural language processing components of our German-Arabic speech-to-speech translation system which is being deployed in the context of interpretation during psychiatric, diagnostic interviews. For this purpose we have built a pipe-lined speech-to-speech translation system consisting of automatic speech recognition, text post-processing/segmentation, machine translation and speech synthesis systems. We have implemented two pipe-lines, from German to Arabic and Arabic to German, in order to be able to conduct interpreted two-way dialogues between psychiatrists and potential patients. All systems in our pipeline have been realized as all-neural end-to-end systems, using different architectures suitable for the different components. The speech recognition systems use an encoder/decoder + attention architecture, the text segmentation component and the machine translation system are based on the Transformer architecture, and for the speech synthesis systems we use Tacotron 2 for generating spectrograms and WaveGlow as vocoder. The speech translation is deployed in a server-based speech translation application that implements a turn based translation between a German speaking psychiatrist administrating the Mini-International Neuropsychiatric Interview (M.I.N.I.) and an Arabic speaking person answering the interview. As this is a very specific domain, in addition to the linguistic challenges posed by translating between Arabic and German, we also focus in this paper on the methods we implemented for adapting our speech translation system to the domain of this psychiatric interview.</abstract>
       <url hash="c276811b">2020.wanlp-1.1</url>
@@ -45,7 +45,7 @@
     <paper id="3">
       <title>Is it Great or Terrible? Preserving Sentiment in Neural Machine Translation of <fixed-case>A</fixed-case>rabic Reviews</title>
       <author><first>Hadeel</first><last>Saadany</last></author>
-      <author id="constantin-orasan"><first>Constantin</first><last>Orasan</last></author>
+      <author><first>Constantin</first><last>Orasan</last></author>
       <pages>24–37</pages>
       <abstract>Since the advent of Neural Machine Translation (NMT) approaches there has been a tremendous improvement in the quality of automatic translation. However, NMT output still lacks accuracy in some low-resource languages and sometimes makes major errors that need extensive postediting. This is particularly noticeable with texts that do not follow common lexico-grammatical standards, such as user generated content (UGC). In this paper we investigate the challenges involved in translating book reviews from Arabic into English, with particular focus on the errors that lead to incorrect translation of sentiment polarity. Our study points to the special characteristics of Arabic UGC, examines the sentiment transfer errors made by Google Translate of Arabic UGC to English, analyzes why the problem occurs, and proposes an error typology specific of the translation of Arabic UGC. Our analysis shows that the output of online translation tools of Arabic UGC can either fail to transfer the sentiment at all by producing a neutral target text, or completely flips the sentiment polarity of the target word or phrase and hence delivers a wrong affect message. We address this problem by fine-tuning an NMT model with respect to sentiment polarity showing that this approach can significantly help with correcting sentiment errors detected in the online translation of Arabic UGC.</abstract>
       <url hash="fdbc990f">2020.wanlp-1.3</url>
@@ -54,7 +54,7 @@
     <paper id="4">
       <title>Deep Diacritization: Efficient Hierarchical Recurrence for Improved <fixed-case>A</fixed-case>rabic Diacritization</title>
       <author><first>Badr</first><last>AlKhamissi</last></author>
-      <author id="muhammad-elnokrashy"><first>Muhammad</first><last>ElNokrashy</last></author>
+      <author><first>Muhammad</first><last>ElNokrashy</last></author>
       <author><first>Mohamed</first><last>Gabr</last></author>
       <pages>38–48</pages>
       <abstract>We propose a novel architecture for labelling character sequences that achieves state-of-the-art results on the Tashkeela Arabic diacritization benchmark. The core is a two-level recurrence hierarchy that operates on the word and character levels separately—enabling faster training and inference than comparable traditional models. A cross-level attention module further connects the two and opens the door for network interpretability. The task module is a softmax classifier that enumerates valid combinations of diacritics. This architecture can be extended with a recurrent decoder that optionally accepts priors from partially diacritized text, which improves results. We employ extra tricks such as sentence dropout and majority voting to further boost the final result. Our best model achieves a WER of 5.34%, outperforming the previous state-of-the-art with a 30.56% relative error reduction.</abstract>
@@ -141,7 +141,7 @@
     <paper id="12">
       <title>Tracing Traditions: Automatic Extraction of Isnads from Classical <fixed-case>A</fixed-case>rabic Texts</title>
       <author><first>Ryan</first><last>Muther</last></author>
-      <author id="david-a-smith"><first>David</first><last>Smith</last></author>
+      <author><first>David</first><last>Smith</last></author>
       <pages>130–138</pages>
       <abstract>We present our work on automatically detecting isnads, the chains of authorities for a re-port that serve as citations in hadith and other classical Arabic texts. We experiment with both sequence labeling methods for identifying isnads in a single pass and a hybrid “retrieve-and-tag” approach, in which a retrieval model first identifies portions of the text that are likely to contain start points for isnads, then a sequence labeling model identifies the exact starting locations within these much smaller retrieved text chunks. We find that the usefulness of full-document sequence to sequence models is limited due to memory limitations and the ineffectiveness of such models at modeling very long documents. We conclude by sketching future improvements on the tagging task and more in-depth analysis of the people and relationships involved in the social network that influenced the evolution of the written tradition over time.</abstract>
       <url hash="06d6fd7d">2020.wanlp-1.12</url>
@@ -181,7 +181,7 @@
       <title>Multi-Task Sequence Prediction For <fixed-case>T</fixed-case>unisian <fixed-case>A</fixed-case>rabizi Multi-Level Annotation</title>
       <author><first>Elisa</first><last>Gugliotta</last></author>
       <author><first>Marco</first><last>Dinarelli</last></author>
-      <author id="olivier-kraif"><first>Olivier</first><last>Kraif</last></author>
+      <author><first>Olivier</first><last>Kraif</last></author>
       <pages>178–191</pages>
       <abstract>In this paper we propose a multi-task sequence prediction system, based on recurrent neural networks and used to annotate on multiple levels an Arabizi Tunisian corpus. The annotation performed are text classification, tokenization, PoS tagging and encoding of Tunisian Arabizi into CODA* Arabic orthography. The system is learned to predict all the annotation levels in cascade, starting from Arabizi input. We evaluate the system on the TIGER German corpus, suitably converting data to have a multi-task problem, in order to show the effectiveness of our neural architecture. We show also how we used the system in order to annotate a Tunisian Arabizi corpus, which has been afterwards manually corrected and used to further evaluate sequence models on Tunisian data. Our system is developed for the Fairseq framework, which allows for a fast and easy use for any other sequence prediction problem.</abstract>
       <url hash="2470379e">2020.wanlp-1.16</url>
@@ -191,7 +191,7 @@
       <title><fixed-case>A</fixed-case>ra<fixed-case>WEAT</fixed-case>: Multidimensional Analysis of Biases in <fixed-case>A</fixed-case>rabic Word Embeddings</title>
       <author><first>Anne</first><last>Lauscher</last></author>
       <author><first>Rafik</first><last>Takieddin</last></author>
-      <author id="simone-paolo-ponzetto"><first>Simone Paolo</first><last>Ponzetto</last></author>
+      <author><first>Simone Paolo</first><last>Ponzetto</last></author>
       <author><first>Goran</first><last>Glavaš</last></author>
       <pages>192–199</pages>
       <abstract>Recent work has shown that distributional word vector spaces often encode human biases like sexism or racism. In this work, we conduct an extensive analysis of biases in Arabic word embeddings by applying a range of recently introduced bias tests on a variety of embedding spaces induced from corpora in Arabic. We measure the presence of biases across several dimensions, namely: embedding models (Skip-Gram, CBOW, and FastText) and vector sizes, types of text (encyclopedic text, and news vs. user-generated content), dialects (Egyptian Arabic vs. Modern Standard Arabic), and time (diachronic analyses over corpora from different time periods). Our analysis yields several interesting findings, e.g., that implicit gender bias in embeddings trained on Arabic news corpora steadily increases over time (between 2007 and 2017). We make the Arabic bias specifications (AraWEAT) publicly available.</abstract>
@@ -202,7 +202,7 @@
       <title>Parallel resources for <fixed-case>T</fixed-case>unisian <fixed-case>A</fixed-case>rabic Dialect Translation</title>
       <author><first>Saméh</first><last>Kchaou</last></author>
       <author><first>Rahma</first><last>Boujelbane</last></author>
-      <author id="lamia-hadrich-belguith"><first>Lamia</first><last>Hadrich-Belguith</last></author>
+      <author><first>Lamia</first><last>Hadrich-Belguith</last></author>
       <pages>200–206</pages>
       <abstract>The difficulty of processing dialects is clearly observed in the high cost of building representative corpus, in particular for machine translation. Indeed, all machine translation systems require a huge amount and good management of training data, which represents a challenge in a low-resource setting such as the Tunisian Arabic dialect. In this paper, we present a data augmentation technique to create a parallel corpus for Tunisian Arabic dialect written in social media and standard Arabic in order to build a Machine Translation (MT) model. The created corpus was used to build a sentence-based translation model. This model reached a BLEU score of 15.03% on a test set, while it was limited to 13.27% utilizing the corpus without augmentation.</abstract>
       <url hash="69de3825">2020.wanlp-1.18</url>
@@ -332,7 +332,7 @@
     <paper id="31">
       <title>The <fixed-case>QMUL</fixed-case>/<fixed-case>HRBDT</fixed-case> contribution to the <fixed-case>NADI</fixed-case> <fixed-case>A</fixed-case>rabic Dialect Identification Shared Task</title>
       <author><first>Abdulrahman</first><last>Aloraini</last></author>
-      <author id="massimo-poesio"><first>Massimo</first><last>Poesio</last></author>
+      <author><first>Massimo</first><last>Poesio</last></author>
       <author><first>Ayman</first><last>Alhelbawy</last></author>
       <pages>295–301</pages>
       <abstract>We present the Arabic dialect identification system that we used for the country-level subtask of the NADI challenge. Our model consists of three components: BiLSTM-CNN, character-level TF-IDF, and topic modeling features. We represent each tweet using these features and feed them into a deep neural network. We then add an effective heuristic that improves the overall performance. We achieved an F1-Macro score of 20.77% and an accuracy of 34.32% on the test set. The model was also evaluated on the Arabic Online Commentary dataset, achieving results better than the state-of-the-art.</abstract>
