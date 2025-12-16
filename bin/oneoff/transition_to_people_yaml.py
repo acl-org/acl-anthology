@@ -213,20 +213,25 @@ def refactor(anthology, name_variants):
                             namespec.id = pid
                             c += 1
                             c_added += 1
-                            # Also check if there is an ORCID here, and if so, record it
-                            if namespec.orcid is not None:
-                                if orcid is not None and orcid != namespec.orcid:
-                                    log.error(
-                                        f"Person {pid} stored with ORCID {orcid} != {namespec.orcid} found on {paper.full_id}"
-                                    )
-                                else:
-                                    orcid = namespec.orcid
 
                 if not found_matching_name:
                     # Should never happen
                     log.error(
                         f"Did not find '{pid}' on paper '{paper.full_id}' connected to them",
                     )
+
+            # Also check if there is an ORCID here, and if so, record it
+            if orcid is None:
+                for namespec in namespecs:
+                    if namespec.id == pid and namespec.orcid is not None:
+                        # Is it valid?
+                        if not is_valid_orcid(namespec.orcid):
+                            namespec.orcid = None
+                            log.warning(f"Removing invalid ORCID: {namespec.orcid}")
+                            invalid_orcids.add(namespec.orcid)
+                        else:
+                            orcid = namespec.orcid
+                        break
 
         if c > 0:
             log.debug(f"Added explicit ID '{pid}' to {c} papers")
@@ -282,7 +287,11 @@ def refactor(anthology, name_variants):
 
                 # Does namespec have an explicit ID?
                 if (pid := namespec.id) is not None:
-                    pass  # This was handled in PART A
+                    # This was handled in PART A, but double-check for consistency
+                    if orcid_to_id.get(orcid) != pid:
+                        log.error(
+                            f"ORCID {orcid} used with {pid}, but assigned to {orcid_to_id.get(orcid)}"
+                        )
                 else:
                     # No explicit ID recorded — do we know the ORCID already?
                     if orcid in orcid_to_id:
