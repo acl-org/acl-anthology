@@ -3,7 +3,7 @@
   <volume id="1" ingest-date="2021-05-24" type="proceedings">
     <meta>
       <booktitle>Proceedings of Deep Learning Inside Out (DeeLIO): The 2nd Workshop on Knowledge Extraction and Integration for Deep Learning Architectures</booktitle>
-      <editor><first>Eneko</first><last>Agirre</last></editor>
+      <editor id="eneko-agirre"><first>Eneko</first><last>Agirre</last></editor>
       <editor><first>Marianna</first><last>Apidianaki</last></editor>
       <editor><first>Ivan</first><last>Vulić</last></editor>
       <publisher>Association for Computational Linguistics</publisher>
@@ -47,8 +47,8 @@
       <author><first>Vidhisha</first><last>Balachandran</last></author>
       <author><first>Bhuwan</first><last>Dhingra</last></author>
       <author><first>Haitian</first><last>Sun</last></author>
-      <author><first>Michael</first><last>Collins</last></author>
-      <author><first>William</first><last>Cohen</last></author>
+      <author id="michael-collins"><first>Michael</first><last>Collins</last></author>
+      <author id="william-cohen"><first>William</first><last>Cohen</last></author>
       <pages>25–30</pages>
       <abstract>Existing work shows the benefits of integrating KBs with textual evidence for QA only on questions that are answerable by KBs alone (Sun et al., 2019). In contrast, real world QA systems often have to deal with questions that might not be directly answerable by KBs. Here, we investigate the effect of integrating background knowledge from KBs for the Natural Questions (NQ) task. We create a subset of the NQ data, Factual Questions (FQ), where the questions have evidence in the KB in the form of paths that link question entities to answer entities but still must be answered using text, to facilitate further research into KB integration methods. We propose and analyze a simple, model-agnostic approach for incorporating KB paths into text-based QA systems and establish a strong upper bound on FQ for our method using an oracle retriever. We show that several variants of Personalized PageRank based fact retrievers lead to a low recall of answer entities and consequently fail to improve QA performance. Our results suggest that fact retrieval is a bottleneck for integrating KBs into real world QA datasets</abstract>
       <url hash="249681a0">2021.deelio-1.3</url>
@@ -102,7 +102,7 @@
     <paper id="8">
       <title>Enhancing Multiple-Choice Question Answering with Causal Knowledge</title>
       <author><first>Dhairya</first><last>Dalal</last></author>
-      <author><first>Mihael</first><last>Arcan</last></author>
+      <author id="mihael-arcan"><first>Mihael</first><last>Arcan</last></author>
       <author><first>Paul</first><last>Buitelaar</last></author>
       <pages>70–80</pages>
       <abstract>The task of causal question answering aims to reason about causes and effects over a provided real or hypothetical premise. Recent approaches have converged on using transformer-based language models to solve question answering tasks. However, pretrained language models often struggle when external knowledge is not present in the premise or when additional context is required to answer the question. To the best of our knowledge, no prior work has explored the efficacy of augmenting pretrained language models with external causal knowledge for multiple-choice causal question answering. In this paper, we present novel strategies for the representation of causal knowledge. Our empirical results demonstrate the efficacy of augmenting pretrained models with external causal knowledge. We show improved performance on the COPA (Choice of Plausible Alternatives) and WIQA (What If Reasoning Over Procedural Text) benchmark tasks. On the WIQA benchmark, our approach is competitive with the state-of-the-art and exceeds it within the evaluation subcategories of In-Paragraph and Out-of-Paragraph perturbations.</abstract>
@@ -127,7 +127,7 @@
       <author><first>Seojin</first><last>Bang</last></author>
       <author><first>Wen</first><last>Xiao</last></author>
       <author><first>Giuseppe</first><last>Carenini</last></author>
-      <author><first>Raymond</first><last>Ng</last></author>
+      <author id="raymond-ng"><first>Raymond</first><last>Ng</last></author>
       <author><first>Young ji</first><last>Lee</last></author>
       <pages>96–107</pages>
       <abstract>Text classification has wide-ranging applications in various domains. While neural network approaches have drastically advanced performance in text classification, they tend to be powered by a large amount of training data, and interpretability is often an issue. As a step towards better accuracy and interpretability especially on small data, in this paper we present a new knowledge-infused attention mechanism, called KW-ATTN (KnoWledge-infused ATTentioN) to incorporate high-level concepts from external knowledge bases into Neural Network models. We show that KW-ATTN outperforms baseline models using only words as well as other approaches using concepts by classification accuracy, which indicates that high-level concepts help model prediction. Furthermore, crowdsourced human evaluation suggests that additional concept information helps interpretability of the model.</abstract>
@@ -174,7 +174,7 @@
     <paper id="14">
       <title>Predicting Numerals in Natural Language Text Using a Language Model Considering the Quantitative Aspects of Numerals</title>
       <author><first>Taku</first><last>Sakamoto</last></author>
-      <author><first>Akiko</first><last>Aizawa</last></author>
+      <author id="akiko-aizawa"><first>Akiko</first><last>Aizawa</last></author>
       <pages>140–150</pages>
       <abstract>Numerical common sense (NCS) is necessary to fully understand natural language text that includes numerals. NCS is knowledge about the numerical features of objects in text, such as size, weight, or color. Existing neural language models treat numerals in a text as string tokens in the same way as other words. Therefore, they cannot reflect the quantitative aspects of numerals in the training process, making it difficult to learn NCS. In this paper, we measure the NCS acquired by existing neural language models using a masked numeral prediction task as an evaluation task. In this task, we use two evaluation metrics to evaluate the language models in terms of the symbolic and quantitative aspects of the numerals, respectively. We also propose methods to reflect not only the symbolic aspect but also the quantitative aspect of numerals in the training of language models, using a loss function that depends on the magnitudes of the numerals and a regression model for the masked numeral prediction task. Finally, we quantitatively evaluate our proposed approaches on four datasets with different properties using the two metrics. Compared with methods that use existing language models, the proposed methods reduce numerical absolute errors, although exact match accuracy was reduced. This result confirms that the proposed methods, which use the magnitudes of the numerals for model training, are an effective way for models to capture NCS.</abstract>
       <url hash="88527634">2021.deelio-1.14</url>

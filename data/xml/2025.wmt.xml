@@ -65,8 +65,8 @@
       <author><first>Maksym</first><last>Ivashechkin</last><affiliation>University of Surrey</affiliation></author>
       <author><first>Neha</first><last>Tarigopula</last><affiliation>Idiap Research Institute</affiliation></author>
       <author><first>Biao</first><last>Zhang</last><affiliation>Google</affiliation></author>
-      <author><first>Anne</first><last>Göhring</last><affiliation>University of Zurich</affiliation></author>
-      <author><first>Annette</first><last>Rios</last><affiliation>University of Zurich</affiliation></author>
+      <author id="anne-gohring"><first>Anne</first><last>Göhring</last><affiliation>University of Zurich</affiliation></author>
+      <author id="annette-rios-gonzales"><first>Annette</first><last>Rios</last><affiliation>University of Zurich</affiliation></author>
       <author><first>Rico</first><last>Sennrich</last><affiliation>University of Zurich</affiliation></author>
       <author><first>Sarah</first><last>Ebling</last><affiliation>University of Zurich</affiliation></author>
       <pages>64-80</pages>
@@ -108,7 +108,7 @@
       <title><fixed-case>O</fixed-case>pen<fixed-case>WHO</fixed-case>: A Document-Level Parallel Corpus for Health Translation in Low-Resource Languages</title>
       <author><first>Raphael</first><last>Merx</last><affiliation>University of Melbourne</affiliation></author>
       <author><first>Hanna</first><last>Suominen</last><affiliation>The Australian National University and University of Turku</affiliation></author>
-      <author><first>Trevor</first><last>Cohn</last><affiliation>University of Melbourne</affiliation></author>
+      <author id="trevor-cohn"><first>Trevor</first><last>Cohn</last><affiliation>University of Melbourne</affiliation></author>
       <author><first>Ekaterina</first><last>Vylomova</last><affiliation>University of Melbourne</affiliation></author>
       <pages>142-160</pages>
       <abstract>Health machine translation (MT) is a high-stakes domain characterised by widespread deployment and domain-specific vocabulary. However, there is a lack of MT evaluation datasets for low-resource languages in the health domain. To address this gap, we introduce OpenWHO, a document-level parallel corpus of 2,978 documents and 26,824 sentences from the World Health Organization’s e-learning platform. Sourced from expert-authored, professionally translated materials shielded from web-crawling, OpenWHO spans a diverse range of over 20 languages, of which nine are low-resource. Leveraging this new resource, we evaluate modern large language models (LLMs) against traditional MT models. Our findings reveal that LLMs consistently outperform traditional MT models, with Gemini 2.5 Flash achieving a +4.79 ChrF point improvement over NLLB-54B on our low-resource test set. Further, we investigate how LLM context utilisation affects accuracy, finding that the benefits of document-level translation are most pronounced in specialised domains like health. We release the OpenWHO corpus to encourage further research into low-resource MT in the health domain.</abstract>
@@ -119,8 +119,8 @@
     <paper id="9">
       <title>Factors Affecting Translation Quality in In-context Learning for Multilingual Medical Domain</title>
       <author><first>Jonathan</first><last>Mutal</last><affiliation>Unige</affiliation></author>
-      <author><first>Raphael</first><last>Rubino</last><affiliation>UNIGE</affiliation></author>
-      <author><first>Pierrette</first><last>Bouillon</last><affiliation>UNIGE FTI</affiliation></author>
+      <author id="raphael-rubino"><first>Raphael</first><last>Rubino</last><affiliation>UNIGE</affiliation></author>
+      <author id="pierrette-bouillon"><first>Pierrette</first><last>Bouillon</last><affiliation>UNIGE FTI</affiliation></author>
       <pages>161-179</pages>
       <abstract>Multilingual machine translation in the medical domain presents critical challenges due to limited parallel data, domain-specific terminology, and the high stakes associated with translation accuracy. In this paper, we explore the potential of in-context learning (ICL) with general-purpose large language models (LLMs) as an alternative to fine-tuning. Focusing on the medical domain and low-resource languages, we evaluate an instruction-tuned LLM on a translation task across 16 languages. We address four research questions centered on prompt design, examining the impact of the number of examples, the domain and register of examples, and the example selection strategy. Our results show that prompting with one to three examples from the same register and domain as the test input leads to the largest improvements in translation quality, as measured by automatic metrics, while translation quality gains plateau with an increased number of examples. Furthermore, we find that example selection methods - lexical and embedding based - do not yield significant benefits over random selection if the register of selected examples does not match that of the test input.</abstract>
       <url hash="792754ba">2025.wmt-1.9</url>
@@ -190,7 +190,7 @@
       <author><first>David</first><last>Dale</last><affiliation>Meta AI</affiliation></author>
       <author><first>Pontus</first><last>Stenetorp</last><affiliation>University College London</affiliation></author>
       <author><first>Mikel</first><last>Artetxe</last><affiliation>Reka AI</affiliation></author>
-      <author><first>Marta R.</first><last>Costa-Jussà</last><affiliation>Meta AI</affiliation></author>
+      <author id="marta-r-costa-jussa"><first>Marta R.</first><last>Costa-Jussà</last><affiliation>Meta AI</affiliation></author>
       <pages>253-268</pages>
       <abstract>Multilingual toxicity detection remains a significant challenge due to the scarcity of training data and resources for many languages. While prior work has leveraged the translate-test paradigm to support cross-lingual transfer across a range of classification tasks, the utility of translation in supporting toxicity detection at scale remains unclear.In this work, we conduct a comprehensive comparison of translation-based and language-specific/multilingual classification pipelines.We find that translation-based pipelines consistently outperform out-of-distribution classifiers in 81.3% of cases (13 of 16 languages), with translation benefits strongly correlated with both the resource level of the target language and the quality of the machine translation (MT) system.Our analysis reveals that traditional classifiers continue to outperform LLM-based judgment methods, with this advantage being particularly pronounced for low-resource languages, where translate-classify methods dominate translate-judge approaches in 6 out of 7 cases.We show that MT-specific fine-tuning on LLMs yields lower refusal rates compared to standard instruction-tuned models, but it can negatively impact toxicity detection accuracy for low-resource languages.These findings offer actionable guidance for practitioners developing scalable multilingual content moderation systems.</abstract>
       <url hash="39903f83">2025.wmt-1.15</url>
@@ -216,10 +216,10 @@
       <title><fixed-case>D</fixed-case>oc<fixed-case>HPLT</fixed-case>: A Massively Multilingual Document-Level Translation Dataset</title>
       <author><first>Dayyán</first><last>O’Brien</last><affiliation>University of Edinburgh</affiliation></author>
       <author><first>Bhavitvya</first><last>Malik</last><affiliation>University of Edinburgh</affiliation></author>
-      <author><first>Ona</first><last>de Gibert</last><affiliation>University of Helsinki</affiliation></author>
+      <author id="ona-de-gibert"><first>Ona</first><last>de Gibert</last><affiliation>University of Helsinki</affiliation></author>
       <author><first>Pinzhen</first><last>Chen</last><affiliation>University of Edinburgh and Aveni</affiliation></author>
       <author><first>Barry</first><last>Haddow</last><affiliation>University of Edinburgh and Aveni</affiliation></author>
-      <author><first>Jörg</first><last>Tiedemann</last><affiliation>University of Helsinki</affiliation></author>
+      <author id="jorg-tiedemann"><first>Jörg</first><last>Tiedemann</last><affiliation>University of Helsinki</affiliation></author>
       <pages>286-300</pages>
       <abstract>Existing document-level machine translation resources are only available for a handful of languages, mostly high-resourced ones. To facilitate the training and evaluation of document-level translation and, more broadly, long-context modeling for global communities, we create DocHPLT, the largest publicly available document-level translation dataset to date. It contains 124 million aligned document pairs across 50 languages paired with English, comprising 4.26 billion sentences. By adding pivoted alignments, practitioners can obtain 2500 additional pairs not involving English. Unlike previous reconstruction-based approaches that piece together documents from sentence-level data, we modify an existing web extraction pipeline to preserve complete document integrity from the source, retaining all content, including unaligned portions. After our preliminary experiments identify the optimal training context strategy for document-level translation, we demonstrate that LLMs fine-tuned on DocHPLT substantially outperform off-the-shelf instruction-tuned baselines, with particularly dramatic improvements for under-resourced languages. We open-source the dataset under a permissive license, providing essential infrastructure for advancing multilingual document-level translation.</abstract>
       <url hash="4d4f220a">2025.wmt-1.17</url>
@@ -231,7 +231,7 @@
       <author><first>Yasser</first><last>Hamidullah</last><affiliation>DFKI</affiliation></author>
       <author><first>Shakib</first><last>Yazdani</last><affiliation>German Research Center for Artificial Intelligence (DFKI)</affiliation></author>
       <author><first>Cennet</first><last>Oguz</last><affiliation>German Research Center for Artificial Intelligence (DFKI), Saarland Informatics Campus</affiliation></author>
-      <author><first>Josef</first><last>Van Genabith</last><affiliation>DFKI</affiliation></author>
+      <author id="josef-van-genabith"><first>Josef</first><last>Van Genabith</last><affiliation>DFKI</affiliation></author>
       <author><first>Cristina</first><last>España-Bonet</last><affiliation>DFKI GmbH</affiliation></author>
       <pages>301-313</pages>
       <abstract>Sign language translation (SLT) is typically trained with text in a single spoken language, which limits scalability and cross-language generalization. Earlier approaches have replaced gloss supervision with text-based sentence embeddings, but up to now, these remain tied to a specific language and modality. In contrast, here we employ language-agnostic, multimodal embeddings trained on text and speech from multiple languages to supervise SLT, enabling direct multilingual translation. To address data scarcity, we propose a coupled augmentation method that combines multilingual target augmentations (i.e. translations into many languages) with video-level perturbations, improving model robustness. Experiments show consistent BLEURT gains over text-only sentence embedding supervision, with larger improvements in low-resource settings. Our results demonstrate that language-agnostic embedding supervision, combined with coupled augmentation, provides a scalable and semantically robust alternative to traditional SLT training.</abstract>
@@ -255,7 +255,7 @@
     <paper id="20">
       <title>Implementing and Evaluating Multi-source Retrieval-Augmented Translation</title>
       <author><first>Tommi</first><last>Nieminen</last><affiliation>University of Helsinki</affiliation></author>
-      <author><first>Jörg</first><last>Tiedemann</last><affiliation>University of Helsinki</affiliation></author>
+      <author id="jorg-tiedemann"><first>Jörg</first><last>Tiedemann</last><affiliation>University of Helsinki</affiliation></author>
       <author><first>Sami</first><last>Virpioja</last><affiliation>University of Helsinki</affiliation></author>
       <pages>327-339</pages>
       <abstract>In recent years, neural machine translation (NMT) systems have been integrated with external databases with the aim of improving machine translation (MT) quality and enforcing domain-specific terminology and other conventions in the MT output. Most of the work in incorporating external knowledge with NMT has concentrated on integrating a single source of information, usually either a terminology database or a translation memory. However, in real-life translation scenarios, all relevant knowledge sources should be used in parallel. In this article, we evaluate different methods of integrating external knowledge from multiple sources in a single NMT system. In addition to training single models trained to utilize multiple kinds of information, we also ensemble models that have been trained to utilize a single type of information. We evaluate our models against state-of-the-art LLMs using an extensive purpose-built English to Finnish test suite.</abstract>
@@ -267,7 +267,7 @@
       <title>A Cross-Lingual Perspective on Neural Machine Translation Difficulty</title>
       <author><first>Esther</first><last>Ploeger</last><affiliation>Aalborg University</affiliation></author>
       <author><first>Johannes</first><last>Bjerva</last><affiliation>Department of Computer Science, Aalborg University</affiliation></author>
-      <author><first>Jörg</first><last>Tiedemann</last><affiliation>University of Helsinki</affiliation></author>
+      <author id="jorg-tiedemann"><first>Jörg</first><last>Tiedemann</last><affiliation>University of Helsinki</affiliation></author>
       <author><first>Robert</first><last>Oestling</last><affiliation>Department of Linguistics, Stockholm University</affiliation></author>
       <pages>340-354</pages>
       <abstract>Intuitively, machine translation (MT) between closely related languages, such as Swedish and Danish, is easier than MT between more distant pairs, such as Finnish and Danish. Yet, the notions of ‘closely related’ languages and ‘easier’ translation have so far remained underspecified. Moreover, in the context of neural MT, this assumption was almost exclusively evaluated in scenarios where English was either the source or target language, leaving a broader cross-lingual view unexplored. In this work, we present a controlled study of language similarity and neural MT difficulty for 56 European translation directions. We test a range of language similarity metrics, some of which are reasonable predictors of MT difficulty. On a text-level, we reassess previously introduced indicators of MT difficulty, and find that they are not well-suited to our domain, or neural MT more generally. Ultimately, we hope that this work inspires further cross-lingual investigations of neural MT difficulty</abstract>
@@ -281,7 +281,7 @@
       <author><first>Ekaterina</first><last>Artemova</last><affiliation>Toloka.AI</affiliation></author>
       <author><first>Eleftherios</first><last>Avramidis</last><affiliation>German Research Center for Artificial Intelligence (DFKI)</affiliation></author>
       <author><first>Rachel</first><last>Bawden</last><affiliation>Inria</affiliation></author>
-      <author><first>Ondřej</first><last>Bojar</last><affiliation>Charles University, MFF UFAL</affiliation></author>
+      <author id="ondrej-bojar"><first>Ondřej</first><last>Bojar</last><affiliation>Charles University, MFF UFAL</affiliation></author>
       <author><first>Konstantin</first><last>Dranch</last><affiliation>Custom.MT</affiliation></author>
       <author><first>Anton</first><last>Dvorkovich</last><affiliation>Yandex</affiliation></author>
       <author><first>Sergey</first><last>Dukanov</last><affiliation>Dubformer</affiliation></author>
@@ -300,7 +300,7 @@
       <author><first>Stefano</first><last>Perrella</last><affiliation>Sapienza University of Rome</affiliation></author>
       <author><first>Lorenzo</first><last>Proietti</last><affiliation>Sapienza University of Rome</affiliation></author>
       <author><first>Martin</first><last>Popel</last><affiliation>Charles University, Faculty of Mathematics and Physics, UFAL</affiliation></author>
-      <author><first>Maja</first><last>Popović</last><affiliation>IU University</affiliation></author>
+      <author id="maja-popovic"><first>Maja</first><last>Popović</last><affiliation>IU University</affiliation></author>
       <author><first>Parker</first><last>Riley</last><affiliation>Google</affiliation></author>
       <author><first>Mariya</first><last>Shmatova</last><affiliation>Toloka AI</affiliation></author>
       <author><first>Steinthór</first><last>Steingrímsson</last><affiliation>The Árni Magnússon Institute for Icelandic Studies</affiliation></author>
@@ -342,19 +342,19 @@
     </paper>
     <paper id="24">
       <title>Findings of the <fixed-case>WMT</fixed-case>25 Shared Task on Automated Translation Evaluation Systems: Linguistic Diversity is Challenging and References Still Help</title>
-      <author><first>Alon</first><last>Lavie</last><affiliation>Unbabel/Carnegie Mellon University</affiliation></author>
+      <author id="alon-lavie"><first>Alon</first><last>Lavie</last><affiliation>Unbabel/Carnegie Mellon University</affiliation></author>
       <author><first>Greg</first><last>Hanneman</last><affiliation>currently none</affiliation></author>
       <author><first>Sweta</first><last>Agrawal</last><affiliation>Instituto de Telecomunicações</affiliation></author>
       <author><first>Diptesh</first><last>Kanojia</last><affiliation>University of Surrey</affiliation></author>
       <author><first>Chi-Kiu</first><last>Lo</last><affiliation>National Research Council of Canada</affiliation></author>
       <author><first>Vilém</first><last>Zouhar</last><affiliation>ETH Zurich, Charles University</affiliation></author>
-      <author><first>Frederic</first><last>Blain</last><affiliation>Tilburg University</affiliation></author>
+      <author id="frederic-blain"><first>Frederic</first><last>Blain</last><affiliation>Tilburg University</affiliation></author>
       <author><first>Chrysoula</first><last>Zerva</last><affiliation>Instituto de Instituto de Telecomunicações, Instituto Superior Técnico, University of Lisbon</affiliation></author>
       <author><first>Eleftherios</first><last>Avramidis</last><affiliation>German Research Center for Artificial Intelligence (DFKI)</affiliation></author>
       <author><first>Sourabh</first><last>Deoghare</last><affiliation>IIT Bombay</affiliation></author>
       <author><first>Archchana</first><last>Sindhujan</last><affiliation>PhD student</affiliation></author>
       <author><first>Jiayi</first><last>Wang</last><affiliation>University College London</affiliation></author>
-      <author><first>David Ifeoluwa</first><last>Adelani</last><affiliation>McGill University / MILA</affiliation></author>
+      <author id="david-ifeoluwa-adelani"><first>David Ifeoluwa</first><last>Adelani</last><affiliation>McGill University / MILA</affiliation></author>
       <author><first>Brian</first><last>Thompson</last><affiliation>Amazon</affiliation></author>
       <author><first>Tom</first><last>Kocmi</last><affiliation>Cohere</affiliation></author>
       <author><first>Markus</first><last>Freitag</last><affiliation>Google Research</affiliation></author>
@@ -370,7 +370,7 @@
       <author><first>Marco</first><last>Gaido</last><affiliation>Fondazione Bruno Kessler, University of Trento</affiliation></author>
       <author><first>Roman</first><last>Grundkiewicz</last><affiliation>Microsoft Research</affiliation></author>
       <author><first>Thamme</first><last>Gowda</last><affiliation>Microsoft</affiliation></author>
-      <author><first>Matteo</first><last>Negri</last><affiliation>Fondazione Bruno Kessler</affiliation></author>
+      <author id="matteo-negri"><first>Matteo</first><last>Negri</last><affiliation>Fondazione Bruno Kessler</affiliation></author>
       <pages>484-494</pages>
       <abstract>We present the results of the first edition of the Model Compression shared task, organized as part of the 10th Conference on Machine Translation (WMT25). The task challenged participants to compress Large Language Models (LLMs) toward enabling practical deployment in resource-constrained scenarios, while minimizing loss in translation performance. In this edition, participants could choose to compete in either a constrained track, which required compressing a specific model (Aya Expanse 8B) evaluated on a limited set of language pairs (Czech→German, Japanese→Chinese, and English→Arabic), or an unconstrained track, which placed no restrictions on the model and allowed submissions for any of the 15 language directions covered by the General MT task (GenMT). We received 12 submissions from three teams, all in the constrained track. They proposed different compression solutions and covered various language combinations: all targeted Czech→German, while one covered all the language pairs. Evaluation was conducted separately for each language, measuring translation quality using COMET and MetricX, model size, and inference speed on an Nvidia A100 GPU.</abstract>
       <url hash="9ea702e0">2025.wmt-1.25</url>
@@ -396,12 +396,12 @@
       <title>Findings of the <fixed-case>WMT</fixed-case> 2025 Shared Task <fixed-case>LLM</fixed-case>s with Limited Resources for <fixed-case>S</fixed-case>lavic Languages: <fixed-case>MT</fixed-case> and <fixed-case>QA</fixed-case></title>
       <author><first>Shu</first><last>Okabe</last><affiliation>TUM Heilbronn</affiliation></author>
       <author><first>Daryna</first><last>Dementieva</last><affiliation>Technical University of Munich</affiliation></author>
-      <author><first>Marion</first><last>Di Marco</last><affiliation>TUM</affiliation></author>
+      <author id="marion-weller-di-marco"><first>Marion</first><last>Di Marco</last><affiliation>TUM</affiliation></author>
       <author><first>Lukas</first><last>Edman</last><affiliation>TU Munich</affiliation></author>
       <author><first>Katharina</first><last>Haemmerl</last><affiliation>Technical University of Munich</affiliation></author>
       <author><first>Marko</first><last>Měškank</last><affiliation>WITAJ-Sprachzentrum</affiliation></author>
       <author><first>Anita</first><last>Hendrichowa</last><affiliation>WITAJ-Sprachzentrum</affiliation></author>
-      <author><first>Alexander</first><last>Fraser</last><affiliation>Ludwig-Maximilians-Universität München</affiliation></author>
+      <author id="alexander-fraser"><first>Alexander</first><last>Fraser</last><affiliation>Ludwig-Maximilians-Universität München</affiliation></author>
       <pages>503-519</pages>
       <abstract>We present the findings of the WMT 2025 Shared Task LLMs with Limited Resources for Slavic Languages. This shared task focuses on training LLMs using limited data and compute resources for three Slavic languages: Upper Sorbian (hsb), Lower Sorbian (dsb), and Ukrainian (uk), with the objective to develop and improve LLMs for these languages. We consider two tasks which are to be evaluated jointly: Machine Translation (MT) and Multiple-Choice Question Answering (QA). In total, three teams participated in this shared task, with submissions from all three teams for the Sorbian languages and one submission for Ukrainian. All submissions led to an improvement compared to the baseline Qwen2.5-3B model through varying fine-tuning strategies. We note, however, that training purely on MT degrades original QA capabilities. We also report further analyses on the submissions, including MT evaluation using advanced neural metrics for Ukrainian, as well as manual annotation and comparison to the current Sorbian machine translator.</abstract>
       <url hash="745507d1">2025.wmt-1.27</url>
@@ -447,11 +447,11 @@
     <paper id="30">
       <title>Findings of the <fixed-case>WMT</fixed-case>25 Terminology Translation Task: Terminology is Useful Especially for Good <fixed-case>MT</fixed-case>s</title>
       <author><first>Kirill</first><last>Semenov</last><affiliation>University of Zurich</affiliation></author>
-      <author id="xu-huang"><first>Xu</first><last>Huang</last><affiliation>Nanjing University</affiliation></author>
+      <author><first>Xu</first><last>Huang</last><affiliation>Nanjing University</affiliation></author>
       <author><first>Vilém</first><last>Zouhar</last><affiliation>ETH Zurich, Charles University</affiliation></author>
       <author><first>Nathaniel</first><last>Berger</last><affiliation>Heidelberg University</affiliation></author>
       <author><first>Dawei</first><last>Zhu</last><affiliation>Saarland Univeristy</affiliation></author>
-      <author><first>Arturo</first><last>Oncevay</last><affiliation>JPMorgan</affiliation></author>
+      <author id="arturo-oncevay"><first>Arturo</first><last>Oncevay</last><affiliation>JPMorgan</affiliation></author>
       <author><first>Pinzhen</first><last>Chen</last><affiliation>University of Edinburgh and Aveni</affiliation></author>
       <pages>554-576</pages>
       <abstract>The WMT25 Terminology Translation Task releases new resources in high-stakes domains and investigates the capabilities of translation systems to accurately and consistently translate specialized terms. This year, we feature new domain and language coverage over previous editions, introducing two distinct tracks: (1) sentence-level translation in the information technology domain for English→German, English→Russian, and English→Spanish, and (2) document-level translation in the finance domain for English↔Traditional Chinese with a document-level one-to-many dictionary. Participants are challenged to translate texts under three modes: no terminology, proper terminology, and random terminology, allowing for a causal analysis of terminology utility. Evaluation combines overall quality, terminology accuracy, and terminology consistency. This shared task attracted broad participation, with 13 teams submitting 20 systems in Track 1 and 4 teams participating in Track 2. The results show that providing proper terminology consistently boosts both overall translation quality and term accuracy, whereas reliance on random terminology yields smaller gains. Despite the near-saturation of sentence-level benchmarks, document-level finance translation still fallsshort, indicating an urgent need for long-form evaluation and more robust metrics tailored to professional domains.</abstract>
@@ -515,7 +515,7 @@
       <author><first>Yara</first><last>Khater</last><affiliation>CHAPSVISION</affiliation></author>
       <author><first>Ramzi</first><last>Rahli</last><affiliation>CHAPSVISION</affiliation></author>
       <author><first>Anna</first><last>Rebollo</last><affiliation>CHAPSVISION</affiliation></author>
-      <author><first>Josep</first><last>Crego</last><affiliation>CHAPSVISION</affiliation></author>
+      <author id="josep-m-crego"><first>Josep</first><last>Crego</last><affiliation>CHAPSVISION</affiliation></author>
       <pages>599-606</pages>
       <abstract>We present an English-to-Japanese translationsystem built upon the EuroLLM-9B (Martinset al., 2025) model. The training process involvestwo main stages: continue pretraining(CPT) and supervised fine-tuning (SFT). Afterboth stages, we further tuned the model using adevelopment set to optimize performance. Fortraining data, we employed both basic filteringtechniques and high-quality filtering strategiesto ensure data cleanness. Additionally, we classifyboth the training data and development datainto four different domains and we train andfine-tune with domain specific prompts duringsystem training. Finally, we applied MinimumBayes Risk (MBR) decoding and paragraph-levelreranking for post-processing to enhancetranslation quality.</abstract>
       <url hash="5b262c9c">2025.wmt-1.35</url>
@@ -632,7 +632,7 @@
       <author><first>Miroslav</first><last>Hrabal</last><affiliation>Charles University</affiliation></author>
       <author><first>Josef</first><last>Jon</last><affiliation>Charles University</affiliation></author>
       <author><first>Martin</first><last>Popel</last><affiliation>Charles University, Faculty of Mathematics and Physics, UFAL</affiliation></author>
-      <author><first>Ondřej</first><last>Bojar</last><affiliation>Charles University, MFF UFAL</affiliation></author>
+      <author id="ondrej-bojar"><first>Ondřej</first><last>Bojar</last><affiliation>Charles University, MFF UFAL</affiliation></author>
       <pages>680-687</pages>
       <abstract>This paper describes the CUNI submissions to the WMT25 General Translation task, namely for the English to Czech, English to Serbian, Czech to German and Czech to Ukrainian language pairs. We worked in multiple teams, each with a different approach, spanning from traditional, smaller Transformer NMT models trained on both sentence and document level, to fine-tuning LLMs using LoRA and CPO. We show that these methods are effective in improving automatic MT evaluation scores compared to the base pretrained models.</abstract>
       <url hash="d86f26e3">2025.wmt-1.44</url>
@@ -698,7 +698,7 @@
       <author><first>Wentao</first><last>Chen</last><affiliation>GTCOM</affiliation></author>
       <author><first>Conghu</first><last>Yuan</last><affiliation>GTCOM</affiliation></author>
       <author><first>Huan</first><last>Liu</last><affiliation>GTCOM</affiliation></author>
-      <author><first>Degen</first><last>Huang</last><affiliation>DLUT</affiliation></author>
+      <author id="degen-huang"><first>Degen</first><last>Huang</last><affiliation>DLUT</affiliation></author>
       <pages>732-739</pages>
       <abstract>This paper presents the submission from Dalian University of Technology (DLUT) and Global Tone Communication Technology Co., Ltd. (GTCOM) to the WMT25 General Machine Translation Task. Amidst the paradigm shift from specialized encoder-decoder models to general-purpose Large Language Models (LLMs), this work conducts a systematic comparison of both approaches across five language pairs. For traditional Neural Machine Translation (NMT), we build strong baselines using deep Transformer architectures enhanced with data augmentation. For the LLM paradigm, we explore zero-shot performance and two distinct supervised fine-tuning (SFT) strategies: direct translation and translation refinement. Our key findings reveal a significant discrepancy between lexical and semantic evaluation metrics: while strong NMT systems remain competitive in BLEU scores, fine-tuned LLMs demonstrate marked superiority in semantic fidelity as measured by COMET. Furthermore, we find that fine-tuning LLMs for direct translation is more effective than for refinement, suggesting that teaching the core task directly is preferable to correcting baseline outputs.</abstract>
       <url hash="14690a74">2025.wmt-1.49</url>
@@ -769,7 +769,7 @@
       <author><first>Tom</first><last>Kocmi</last><affiliation>Cohere</affiliation></author>
       <author><first>Arkady</first><last>Arkhangorodsky</last><affiliation>DiDi Labs</affiliation></author>
       <author><first>Alexandre</first><last>Berard</last><affiliation>Naver Labs Europe</affiliation></author>
-      <author><first>Phil</first><last>Blunsom</last><affiliation>University of Oxford</affiliation></author>
+      <author id="phil-blunsom"><first>Phil</first><last>Blunsom</last><affiliation>University of Oxford</affiliation></author>
       <author><first>Samuel</first><last>Cahyawijaya</last><affiliation>The Hong Kong University of Science and Technology</affiliation></author>
       <author><first>Théo</first><last>Dehaze</last><affiliation>Cohere</affiliation></author>
       <author><first>Marzieh</first><last>Fadaee</last><affiliation>Cohere for AI</affiliation></author>
@@ -791,7 +791,7 @@
     </paper>
     <paper id="56">
       <title><fixed-case>GENDER</fixed-case>1<fixed-case>PERSON</fixed-case>: Test Suite for Estimating Gender Bias of First-person Singular Forms</title>
-      <author><first>Maja</first><last>Popović</last><affiliation>IU University</affiliation></author>
+      <author id="maja-popovic"><first>Maja</first><last>Popović</last><affiliation>IU University</affiliation></author>
       <author><first>Ekaterina</first><last>Lapshinova-Koltunski</last><affiliation>University of Hildesheim</affiliation></author>
       <pages>800-822</pages>
       <abstract>The gender1person test suite is designed to measure gender bias in translating singular first-person forms from English into two Slavic languages, Russian and Serbian. The test suite consists of 1,000 Amazon product reviews, uniformly distributed over 10 different product categories. Bias is measured through a gender score ranging from -100 (all reviews are feminine) to 100 (all reviews are masculine). The test suite shows that the majority of the systems participating in the WMT-2025 task for these two target languages prefer the masculine writer’s gender. There is no single system which is biased towards the feminine variant. Furthermore, for each language pair, there are seven systems that are considered balanced, having the gender scores between -10 and 10.Finally, the analysis of different products showed that the choice of the writer’s gender depends to a large extent on the product. Moreover, it is demonstrated that even the systems with overall balanced scores are actually biased, but in different ways for different product categories.</abstract>
@@ -813,7 +813,7 @@
     <paper id="58">
       <title><fixed-case>R</fixed-case>o<fixed-case>CS</fixed-case>-<fixed-case>MT</fixed-case> v2 at <fixed-case>WMT</fixed-case> 2025: Robust Challenge Set for Machine Translation</title>
       <author><first>Rachel</first><last>Bawden</last><affiliation>Inria</affiliation></author>
-      <author><first>Benoît</first><last>Sagot</last><affiliation>Inria</affiliation></author>
+      <author id="benoit-sagot"><first>Benoît</first><last>Sagot</last><affiliation>Inria</affiliation></author>
       <pages>834-849</pages>
       <abstract>RoCS-MT (Robust Challenge Set for Machine Translation) was initially proposed at the test suites track of WMT 2023. Designed to challenge MT systems’ translation performance on user-generated content (UGC), it contains examples sourced from English Reddit, with manually normalised versions, aligned labelled annotation spans and reference translations in five languages. In this article, we describe version 2 of RoCS-MT in the context of the 2025 WMT test suites track. This new version contains several improvements on the initial version including (i) minor corrections of normalisation, (ii) corrections to reference translations and addition of alternative references to accommodate for different possible genders (e.g. of speakers) and (iii) a redesign and re-annotation of normalisation spans for further analysis of different non-standard UGC phenomena. We describe these changes and provide results and preliminary analysis of the MT submissions to the 2025 general translation task.</abstract>
       <url hash="b1f46819">2025.wmt-1.58</url>
@@ -886,7 +886,7 @@
       <author><first>Chinonso</first><last>Osuji</last><affiliation>ADAPT Research Centre, Dublin City University</affiliation></author>
       <author><first>Sheila</first><last>Castilho</last><affiliation>Dublin City University</affiliation></author>
       <author><first>Brian</first><last>Davis</last><affiliation>Dublin City University</affiliation></author>
-      <author><first>Thiago</first><last>Castro Ferreira</last><affiliation>Federal University of Minas Gerais</affiliation></author>
+      <author id="thiago-castro-ferreira"><first>Thiago</first><last>Castro Ferreira</last><affiliation>Federal University of Minas Gerais</affiliation></author>
       <pages>905-912</pages>
       <abstract>In this paper, we present our submission to the Tenth Conference on Machine Translation (WMT25) Shared Task on Automated Translation Quality Evaluation. Our systems are built upon the COMET framework and trained to predict segment-level ESA scores using augmented long-context data. To construct long-context training examples, we concatenate multiple in-domain sentences and compute a weighted average of their scores. We further integrate human judgment datasets MQM, SQM, and DA) through score normalisation and train multilingual models on the source, hypothesis, and reference translations. Experimental results demonstrate that incorporating long-context information yields higher correlations with human judgments compared to models trained exclusively on short segments.</abstract>
       <url hash="707eb72c">2025.wmt-1.64</url>
@@ -902,7 +902,7 @@
       <author><first>Henrique</first><last>Lopes Cardoso</last><affiliation>University of Porto</affiliation></author>
       <author><first>Pontus</first><last>Stenetorp</last><affiliation>University College London</affiliation></author>
       <author><first>Colin</first><last>Cherry</last><affiliation>Google</affiliation></author>
-      <author><first>David Ifeoluwa</first><last>Adelani</last><affiliation>McGill University / MILA</affiliation></author>
+      <author id="david-ifeoluwa-adelani"><first>David Ifeoluwa</first><last>Adelani</last><affiliation>McGill University / MILA</affiliation></author>
       <pages>913-919</pages>
       <abstract>This paper presents the evaluation of submissions to the WMT 2025 Metrics Shared Task on the SSA-MTE challenge set, a large-scale benchmark for machine translation evaluation (MTE) in Sub-Saharan African languages. The SSA-MTE test sets contains over 12,768 human-annotated adequacy scores across 11 language pairs sourced from English, French, and Portuguese, spanning 6 commercial and open-source MT systems. Results show that correlations with human judgments remain generally low, with most systems falling below the 0.4 Spearman threshold for medium-level agreement. Performance varies widely across language pairs, with most correlations under 0.4; in some extremely low-resource cases, such as Portuguese–Emakhuwa, correlations drop to around 0.1, underscoring the difficulty of evaluating MT for very low-resource African languages. These findings highlight the urgent need for more research on robust, generalizable MT evaluation methods tailored for African languages.</abstract>
       <url hash="277afc3b">2025.wmt-1.65</url>
@@ -938,13 +938,13 @@
       <author><first>Miroslav</first><last>Hrabal</last><affiliation>Charles University</affiliation></author>
       <author><first>Ondrej</first><last>Glembek</last><affiliation>Phrase a.s.</affiliation></author>
       <author><first>Aleš</first><last>Tamchyna</last><affiliation>Memsource</affiliation></author>
-      <author><first>Almut Silja</first><last>Hildebrand</last><affiliation>Amazon</affiliation></author>
+      <author id="almut-silja-hildebrand"><first>Almut Silja</first><last>Hildebrand</last><affiliation>Amazon</affiliation></author>
       <author><first>Alan</first><last>Eckhard</last><affiliation>Phrase a.s.</affiliation></author>
       <author><first>Miroslav</first><last>Štola</last><affiliation>Phrase a.s.</affiliation></author>
       <author><first>Sergio</first><last>Penkale</last><affiliation>Phrase a.s.</affiliation></author>
       <author><first>Zuzana</first><last>Šimečková</last><affiliation>Phrase a.s.</affiliation></author>
-      <author><first>Ondřej</first><last>Bojar</last><affiliation>Charles University, MFF UFAL</affiliation></author>
-      <author><first>Alon</first><last>Lavie</last><affiliation>Phrase a.s.</affiliation></author>
+      <author id="ondrej-bojar"><first>Ondřej</first><last>Bojar</last><affiliation>Charles University, MFF UFAL</affiliation></author>
+      <author id="alon-lavie"><first>Alon</first><last>Lavie</last><affiliation>Phrase a.s.</affiliation></author>
       <author><first>Craig</first><last>Stewart</last><affiliation>Phrase a.s.</affiliation></author>
       <pages>934-944</pages>
       <abstract>This paper describes the joint effort of Phrase a.s. and Charles University’sInstitute of Formal and Applied Linguistics (CUNI/UFAL) on the WMT25Automated Translation Quality Evaluation Systems Shared Task. Both teamsparticipated both in a collaborative and competitive manner, i.e. they eachsubmitted a system of their own as well as a contrastive joint system ensemble.In Task~1, we show that such an ensembling—if chosen in a clever way—canlead to a performance boost. We present the analysis of various kinds ofsystems comprising both “traditional” NN-based approach, as well as differentflavours of LLMs—off-the-shelf commercial models, their fine-tuned versions,but also in-house, custom-trained alternative models. In Tasks~2 and~3 we showPhrase’s approach to tackling the tasks via various GPT models: Error SpanAnnotation via the complete MQM solution using non-reasoning models (includingfine-tuned versions) in Task~2, and using reasoning models in Task~3.</abstract>
@@ -1062,7 +1062,7 @@
       <title>Iterative Layer Pruning for Efficient Translation Inference</title>
       <author><first>Yasmin</first><last>Moslem</last><affiliation>ADAPT Centre, Trinity College Dublin</affiliation></author>
       <author><first>Muhammad Hazim</first><last>Al Farouq</last><affiliation>Kreasof AI</affiliation></author>
-      <author><first>John</first><last>Kelleher</last><affiliation>ADAPT Centre, Trinity College Dublin</affiliation></author>
+      <author id="john-kelleher"><first>John</first><last>Kelleher</last><affiliation>ADAPT Centre, Trinity College Dublin</affiliation></author>
       <pages>1022-1027</pages>
       <abstract>Large language models (LLMs) have transformed many areas of natural language processing, including machine translation. However, efficient deployment of LLMs remains challenging due to their intensive computational requirements. In this paper, we address this challenge and present our submissions to the Model Compression track at the Conference on Machine Translation (WMT 2025). In our experiments, we investigate iterative layer pruning guided by layer importance analysis. We evaluate this method using the Aya-Expanse-8B model for translation from Czech to German, and from English to Egyptian Arabic. Our approach achieves substantial reductions in model size and inference time, while maintaining the translation quality of the baseline models.</abstract>
       <url hash="735d422b">2025.wmt-1.78</url>
@@ -1097,7 +1097,7 @@
     <paper id="80">
       <title>A <fixed-case>F</fixed-case>rench Version of the <fixed-case>OLDI</fixed-case> Seed Corpus</title>
       <author><first>Malik</first><last>Marmonier</last><affiliation>Inria</affiliation></author>
-      <author><first>Benoît</first><last>Sagot</last><affiliation>Inria</affiliation></author>
+      <author id="benoit-sagot"><first>Benoît</first><last>Sagot</last><affiliation>Inria</affiliation></author>
       <author><first>Rachel</first><last>Bawden</last><affiliation>Inria</affiliation></author>
       <pages>1048-1060</pages>
       <abstract>We present the first French partition of the OLDI Seed Corpus, our submission to the WMT 2025 Open Language Data Initiative (OLDI) shared task. We detail its creation process, which involved using multiple machine translation systems and a custom-built interface for post-editing by qualified native speakers. We also highlight the unique translation challenges presented by the source data, which combines highly technical, encyclopedic terminology with the stylistic irregularities characteristic of user-generated content taken from Wikipedia. This French corpus is not an end in itself, but is intended as a crucial pivot resource to facilitate the collection of parallel corpora for the under-resourced regional languages of France.</abstract>
@@ -1158,7 +1158,7 @@
       <author><first>Akylai</first><last>Musaeva</last><affiliation>Kyrgyz-Turkish Manas University</affiliation></author>
       <author><first>Meerim</first><last>Emil Kyzy</last><affiliation>Independent researcher</affiliation></author>
       <author><first>Gulaiym</first><last>Chagataeva</last><affiliation>Independent researcher</affiliation></author>
-      <author><first>Jonathan</first><last>Washington</last><affiliation>Swarthmore College</affiliation></author>
+      <author id="jonathan-washington"><first>Jonathan</first><last>Washington</last><affiliation>Swarthmore College</affiliation></author>
       <pages>1088-1102</pages>
       <abstract>We present a Kyrgyz language seed dataset as part of our contribution to the WMT25 Open Language Data Initiative (OLDI) shared task. This paper details the process of collecting and curating English–Kyrgyz translations, highlighting the main challenges encountered in translating into a morphologically rich, low-resource language. We demonstrate the quality of the dataset through fine-tuning experiments, showing consistent improvements in machine translation performance across multiple models. Comparisons with bilingual and MNMT Kyrgyz-English baselines reveal that, for some models, our dataset enables performance surpassing pretrained baselines in both English–Kyrgyz and Kyrgyz–English translation directions. These results validate the dataset’s utility and suggest that it can serve as a valuable resource for the Kyrgyz MT community and other related low-resource languages.</abstract>
       <url hash="1d7a401e">2025.wmt-1.84</url>
@@ -1173,7 +1173,7 @@
       <author><first>Colin</first><last>Cherry</last><affiliation>Google</affiliation></author>
       <author><first>Geza</first><last>Kovacs</last><affiliation>Google</affiliation></author>
       <author><first>Hadar</first><last>Shemtov</last><affiliation>Google Deepmind</affiliation></author>
-      <author><first>Partha</first><last>Talukdar</last><affiliation>Google Research and IISc</affiliation></author>
+      <author id="partha-talukdar"><first>Partha</first><last>Talukdar</last><affiliation>Google Research and IISc</affiliation></author>
       <author><first>Dinesh</first><last>Tewari</last><affiliation>Google</affiliation></author>
       <author><first>Baba Mamadi</first><last>Diane</last><affiliation>NKO USA INC</affiliation></author>
       <author><first>Djibrila</first><last>Diane</last><affiliation>NKO USA INC</affiliation></author>
@@ -1297,7 +1297,7 @@
       <author><first>Haranath</first><last>Mondal</last><affiliation>Jadavpur University</affiliation></author>
       <author><first>Dipanjan</first><last>Saha</last><affiliation>Jadavpur University</affiliation></author>
       <author><first>Dipankar</first><last>Das</last><affiliation>Jadavpur University</affiliation></author>
-      <author><first>Sivaji</first><last>Bandyopadhyay</last><affiliation>JADAVPUR UNIVERSITY</affiliation></author>
+      <author id="sivaji-bandyopadhyay"><first>Sivaji</first><last>Bandyopadhyay</last><affiliation>JADAVPUR UNIVERSITY</affiliation></author>
       <pages>1201-1209</pages>
       <abstract>Low-resource Indic languages such as Assamese, Manipuri, Mizo, and Bodo face persistent challenges in NMT due to limited parallel data, diverse scripts, and complex morphology. We address these issues in the WMT $2025$ shared task by introducing a unified multilingual NMT framework that combines rigorous language-specific preprocessing with parameter-efficient adaptation of large-scale models. Our pipeline integrates the NLLB-$200$ and IndicTrans$2$ architectures, fine-tuned using LoRA and DoRA, reducing trainable parameters by over 90% without degrading translation quality. A comprehensive preprocessing suite, including Unicode normalization, semantic filtering, transliteration, and noise reduction, ensures high-quality inputs, while script-aware post-processing mitigates evaluation bias from orthographic mismatches. Experiments across English-Indic directions demonstrate that NLLB-$200$ achieves superior results for Assamese, Manipuri, and Mizo, whereas IndicTrans$2$ excels in English-Bodo. Evaluated using BLEU, chrF, METEOR, ROUGE-L, and TER, our approach yields consistent improvements over baselines, underscoring the effectiveness of combining efficient fine-tuning with linguistically informed preprocessing for low-resource Indic MT.</abstract>
       <url hash="5858a8cc">2025.wmt-1.95</url>
@@ -1389,7 +1389,7 @@
     <paper id="103">
       <title>A Preliminary Exploration of Phrase-Based <fixed-case>SMT</fixed-case> and Multi-<fixed-case>BPE</fixed-case> Segmentations through Concatenated Tokenised Corpora for Low-Resource <fixed-case>I</fixed-case>ndian Languages</title>
       <author><first>Saumitra</first><last>Yadav</last><affiliation>International Institute of Information Technology, Hyderabad</affiliation></author>
-      <author><first>Manish</first><last>Shrivastava</last><affiliation>International Institute of Information Technology Hyderabad</affiliation></author>
+      <author id="manish-shrivastava"><first>Manish</first><last>Shrivastava</last><affiliation>International Institute of Information Technology Hyderabad</affiliation></author>
       <pages>1253-1258</pages>
       <abstract>This paper describes our methodology and findings in building Machine Translation (MT) systems for submission to the WMT 2025 Shared Task on Low-Resource Indic Language Translation. Our primary aim was to evaluate the effectiveness of a phrase-based Statistical Machine Translation (SMT) system combined with a less common subword segmentation strategy for languages with very limited parallel data. We applied multiple Byte Pair Encoding (BPE) merge operations to the parallel corpora and concatenated the outputs to improve vocabulary coverage. We built systems for the English–Nyishi, English–Khasi, and English–Assamese language pairs. Although the approach showed potential as a data augmentation method, its performance in BLEU scores was not competitive with other shared task systems. This paper outlines our system architecture, data processing pipeline, and evaluation results, and provides an analysis of the challenges, positioning our work as an exploratory benchmark for future research in this area.</abstract>
       <url hash="3b27016c">2025.wmt-1.103</url>
