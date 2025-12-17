@@ -105,9 +105,9 @@
     <paper id="8">
       <title>Enhancing Cross-Language Code Translation via Task-Specific Embedding Alignment in Retrieval-Augmented Generation</title>
       <author orcid="0000-0002-1421-3643"><first>Manish</first><last>Bhattarai</last><affiliation>Los Alamos National Laboratory</affiliation></author>
-      <author><first>Minh N.</first><last>Vu</last><affiliation>Los Alamos National Laboratory</affiliation></author>
+      <author><first>Minh</first><last>Vu</last><affiliation>Los Alamos National Laboratory</affiliation></author>
       <author><first>Javier</first><last>E. Santos</last><affiliation>Los Alamos National Laboratory</affiliation></author>
-      <author><first>Ismael</first><last>Ismael</last><affiliation>Los Alamos National Laboratory</affiliation></author>
+      <author><first>Ismael</first><last>Boureima</last><affiliation>Los Alamos National Laboratory</affiliation></author>
       <author><first>Daniel</first><last>O’Malley</last><affiliation>Los Alamos National Laboratory</affiliation></author>
       <pages>107-117</pages>
       <abstract>We introduce a novel method to enhance cross-language code translation from Fortran to C++ by integrating task-specific embedding alignment into a Retrieval-Augmented Generation (RAG) framework. Unlike conventional retrieval approaches that utilize generic embeddings agnostic to the downstream task, our strategy aligns the retrieval model directly with the objective of maximizing translation quality, as quantified by the CodeBLEU metric. This alignment ensures that the embeddings are semantically and syntactically meaningful for the specific code translation task. Our methodology involves constructing a dataset of 25,000 Fortran code snippets sourced from Stack-V2 dataset and generating their corresponding C++ translations using the LLaMA 3.1-8B language model. We compute pairwise CodeBLEU scores between the generated translations and ground truth examples to capture fine-grained similarities. These scores serve as supervision signals in a contrastive learning framework, where we optimize the embedding model to retrieve Fortran-C++ pairs that are most beneficial for improving the language model’s translation performance. By integrating these CodeBLEU-optimized embeddings into the RAG framework, our approach significantly enhances both retrieval accuracy and code generation quality over methods employing generic embeddings. On the HPC Fortran2C++ dataset, our method elevates the average CodeBLEU score from 0.64 to 0.73, achieving a 14% relative improvement. On the Numerical Recipes dataset, we observe an increase from 0.52 to 0.60, marking a 15% relative improvement. Importantly, these gains are realized without any fine-tuning of the language model, underscoring the efficiency and practicality of our approach.</abstract>
@@ -204,15 +204,15 @@
       <title><fixed-case>HEAL</fixed-case>: Hierarchical Embedding Alignment Loss for Improved Retrieval and Representation Learning</title>
       <author orcid="0000-0002-1421-3643"><first>Manish</first><last>Bhattarai</last><affiliation>Los Alamos National Laboratory</affiliation></author>
       <author orcid="0009-0005-5045-9527"><first>Ryan</first><last>Barron</last><affiliation>, University of Maryland, Baltimore County and Los Alamos National Laboratory</affiliation></author>
-      <author><first>Maksim E.</first><last>Eren</last></author>
-      <author><first>Minh N.</first><last>Vu</last><affiliation>Los Alamos National Laboratory</affiliation></author>
+      <author><first>Maksim</first><last>Eren</last></author>
+      <author><first>Minh</first><last>Vu</last><affiliation>Los Alamos National Laboratory</affiliation></author>
       <author orcid="0009-0002-0307-1958"><first>Vesselin</first><last>Grantcharov</last></author>
-      <author><first>Ismael</first><last>Ismael</last><affiliation>Los Alamos National Laboratory</affiliation></author>
+      <author><first>Ismael</first><last>Boureima</last><affiliation>Los Alamos National Laboratory</affiliation></author>
       <author><first>Valentin</first><last>Stanev</last></author>
       <author orcid="0000-0003-1383-8120"><first>Cynthia</first><last>Matuszek</last><affiliation>University of Maryland, Baltimore County</affiliation></author>
-      <author><first>Vladimir I</first><last>Valtchinov</last></author>
+      <author><first>Vladimir</first><last>Valtchinov</last></author>
       <author><first>Kim</first><last>Rasmussen</last></author>
-      <author orcid="0000-0001-8636-4603"><first>Boian S.</first><last>Alexandrov</last></author>
+      <author orcid="0000-0001-8636-4603"><first>Boian</first><last>Alexandrov</last></author>
       <pages>205-214</pages>
       <abstract>Retrieval-Augmented Generation (RAG) enhances Large Language Models (LLMs) by integrating external document retrieval to provide domain-specific or up-to-date knowledge. The effectiveness of RAG depends on the relevance of retrieved documents, which is influenced by the semantic alignment of embeddings with the domain’s specialized content. Although full fine-tuning can align language models to specific domains, it is computationally intensive and demands substantial data. This paper introduces Hierarchical Embedding Alignment Loss (HEAL), a novel method that leverages hierarchical fuzzy clustering with matrix factorization within contrastive learning to efficiently align LLM embeddings with domain-specific content. HEAL computes level/depth-wise contrastive losses and incorporates hierarchical penalties to align embeddings with the underlying relationships in label hierarchies. This approach enhances retrieval relevance and document classification, effectively reducing hallucinations in LLM outputs. In our experiments, we benchmark and evaluate HEAL across diverse domains, including Healthcare, Material Science, Cyber-security, and Applied Maths.</abstract>
       <url hash="343af9b6">2025.knowledgenlp-1.19</url>
