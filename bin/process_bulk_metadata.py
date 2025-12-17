@@ -16,26 +16,38 @@
 # limitations under the License.
 
 """
+Creates bulk pull request with all approved metadata corrections applied to the XML data
+
 Queries the Github API for all issues in the acl-org/acl-anthology repository.
-It then goes through them, looking for ones that have both "metadata" and "correction"
-labels, a "JSON code block" in the description, and are approved by at least one member
-of the anthology group. It then creates a new PR on a branch labeled bulk-corrections-YYYY-MM-DD,
+It then goes through them, looking for ones that
+- have metadata correction in the issue title,
+- have both "metadata" and "correction" labels,
+- a "JSON code block" in the description, and
+- are approved by at least one member of the anthology group.
+It then creates a new PR on a branch labeled bulk-corrections-YYYY-MM-DD,
 where it makes a single PR from changes from all matching issues.
 
-Usage: process_bulk_metadata.py [-v] [--skip-validation] [--dry-run] [--close-old-issues] [ids...]
+Usage: process_bulk_metadata.py [-q] [--skip-validation] [--dry-run] [--close-old-issues] [ids...]
 
 Options:
-    -v, --verbose            Verbose output
+    -q, --quiet              Suppress output
     --skip-validation        Skip requirement of "approved" tag
     --dry-run                Dry run (do not create PRs)
     --close-old-issues       Close old metadata requests with a comment (those without a JSON block)
     ids                      Specific issue IDs to process (default: all)
+
+TODO:
+- fix reordering bug
+- use python library to do it
+- ensure valid XML (e.g. "Buy&Hold")
 """
 
 import sys
 import os
 import copy
 from datetime import datetime
+from typing import List
+
 from github import Github
 import git
 import json
@@ -67,7 +79,7 @@ class AnthologyMetadataUpdater:
         """Check if issue has approval from anthology team member."""
         return "approved" in [label.name for label in issue.get_labels()]
 
-    def _parse_metadata_changes(self, issue_body):
+    def _parse_metadata_changes(self, issue_body: str) -> None | dict:
         """Parse the metadata changes from issue body.
 
         Expected format:
@@ -99,7 +111,9 @@ class AnthologyMetadataUpdater:
 
         return None
 
-    def _apply_changes_to_xml(self, xml_repo_path, anthology_id, changes):
+    def _apply_changes_to_xml(
+        self, xml_repo_path: str, anthology_id: str, changes: dict, verbose: bool
+    ) -> ET._ElementTree:
         """Apply the specified changes to XML file."""
 
         tree = ET.parse(xml_repo_path)
@@ -108,7 +122,9 @@ class AnthologyMetadataUpdater:
 
         _, volume_id, paper_id = deconstruct_anthology_id(anthology_id)
 
-        if paper_id == "0":
+        is_frontmatter = paper_id == "0"
+
+        if is_frontmatter:
             paper_node = tree.getroot().find(f"./volume[@id='{volume_id}']/meta")
         else:
             paper_node = tree.getroot().find(
@@ -118,7 +134,7 @@ class AnthologyMetadataUpdater:
             raise Exception(f"-> Paper not found in XML file: {xml_repo_path}")
 
         # Apply changes to XML
-        if paper_id != "0":
+        if not is_frontmatter:
             # frontmatter has no title or abstract
             for key in ["title", "abstract"]:
                 if key in changes:
@@ -134,13 +150,37 @@ class AnthologyMetadataUpdater:
                     paper_node.replace(node, new_node)
 
         if "authors" in changes:
+            if verbose and "authors_new" in changes:
+                # Check that author changes provided as list and as string match: otherwise something might be wrong
+                a_from_list = " | ".join(
+                    [
+                        author['first'] + "  " + author['last']
+                        for author in changes["authors"]
+                    ]
+                )
+                a_new = changes["authors_new"]  #  First  Last | First F  Last Last
+                if a_from_list != a_new:
+                    print(
+                        f"  !! Author information in list and string don't match: "
+                        f"{anthology_id}: please check again !!",
+                        file=sys.stderr,
+                    )
+
             author_tag = "editor" if paper_id == "0" else "author"
 
             existing_nodes = list(paper_node.findall(author_tag))
             for author_node in existing_nodes:
                 paper_node.remove(author_node)
 
-            def match_existing(author_spec):
+            def match_existing(author_spec: dict) -> ET._Element | None:
+                """
+                Match existing XML node to author_spec derived from issue text
+
+                Using heuristics: (1) explicit id match (2) explicit orcid match
+                (3) explicit name match (exact match including split)
+                If nothing matches, backup to next author node in XML
+                """
+                # todo: do smarter matching to fix reordering bug
                 id_ = author_spec.get("id")
                 if id_:
                     for node in existing_nodes:
@@ -167,10 +207,25 @@ class AnthologyMetadataUpdater:
                             return node
 
                 if existing_nodes:
+                    # Backup solution to use next available node can lead to errors:
+                    if verbose:
+                        # print a warning unless either first or last matches this node
+                        backup_node = existing_nodes[0]
+                        b_f = backup_node.findtext("first")
+                        b_l = backup_node.findtext("last")
+                        if b_f != first and b_l != last:
+                            print(
+                                f"  Potentially dangerous node selection for "
+                                f"'{first}  {last}': '{b_f}  {b_l}'",
+                                file=sys.stderr,
+                            )
+
                     return existing_nodes.pop(0)
                 return None
 
-            def append_text_elements(tag, values, parent):
+            def append_text_elements(
+                tag: str, values: List[str] | str, parent: ET._Element
+            ) -> None:
                 if isinstance(values, list):
                     for value in values:
                         if value:
@@ -178,7 +233,10 @@ class AnthologyMetadataUpdater:
                 elif values:
                     make_simple_element(tag, text=values, parent=parent)
 
-            prev_sibling = paper_node.find("title")
+            if is_frontmatter:
+                prev_sibling = paper_node.find("booktitle")
+            else:
+                prev_sibling = paper_node.find("title")
 
             for author in changes["authors"]:
                 existing_node = match_existing(author)
@@ -187,14 +245,17 @@ class AnthologyMetadataUpdater:
 
                 id_value = None
                 if existing_node is not None and existing_node.get("id"):
+                    # if xml had id: use it or if issue had it too, id from issue supersedes
                     id_value = existing_node.get("id")
                     if author.get("id"):
                         id_value = author["id"]
                 elif author.get("id") and existing_node is None:
+                    # no node found and id in issue found
                     id_value = author["id"]
 
                 if id_value:
                     attrib["id"] = id_value
+                    # todo no check performed whether id ever defined in name_variants.yaml?
 
                 orcid_value = None
                 if author.get("orcid"):
@@ -210,6 +271,8 @@ class AnthologyMetadataUpdater:
                 )
                 prev_sibling = author_node
 
+                # below <author> add <first>,<last>,<affiliation>, <variant>
+                # filled either from existing node or from issue data (author)
                 first_value = author.get("first")
                 if first_value is None and existing_node is not None:
                     first_value = existing_node.findtext("first")
@@ -223,6 +286,7 @@ class AnthologyMetadataUpdater:
                     make_simple_element("last", text=last_value, parent=author_node)
 
                 if author.get("affiliation"):
+                    # this will take an affiliation from the issue text and insert it...  potentially overwriting existing!!!
                     append_text_elements(
                         "affiliation", author["affiliation"], author_node
                     )
@@ -265,27 +329,7 @@ class AnthologyMetadataUpdater:
             state='open', labels=['metadata', 'correction']
         )
 
-        # Create new branch off "master"
-        # base_branch = self.local_repo.head.reference
-        base_branch = self.local_repo.heads.master
-
-        today = datetime.now().strftime("%Y-%m-%d")
-        new_branch_name = f"bulk-corrections-{today}"
-
-        # If the branch exists, use it, else create it
-        if new_branch_name in self.local_repo.heads:
-            ref = self.local_repo.heads[new_branch_name]
-            print(f"Using existing branch {new_branch_name}", file=sys.stderr)
-        else:
-            # Create new branch
-            ref = self.local_repo.create_head(new_branch_name, base_branch)
-            print(f"Created branch {new_branch_name} from {base_branch}", file=sys.stderr)
-
-        # store the current branch
-        current_branch = self.local_repo.head.reference
-
-        # switch to that branch
-        self.local_repo.head.reference = ref
+        current_branch, new_branch_name, today = self.prepare_and_switch_branch()
 
         # record which issues were successfully processed and need closing
         closed_issues = []
@@ -317,33 +361,9 @@ class AnthologyMetadataUpdater:
 
                 if not json_block:
                     if close_old_issues:
-                        # for old issues, filed without a JSON block, we append a comment
-                        # alerting them to how to file a new issue using the new format.
-                        # If possible, we first parse the Anthology ID out of the title:
-                        # Metadata correction for {anthology_id}. We can then use this to
-                        # post a link to the original paper so they can go through the
-                        # automated process.
-                        anthology_id = None
-                        match = re.search(r"Paper Metadata: [\{]?(.*)[\}]?", issue.title)
-                        if match:
-                            anthology_id = match[1]
-                        if anthology_id:
-                            if verbose:
-                                print(
-                                    f"-> Closing issue {issue.number} with a link to the new process",
-                                    file=sys.stderr,
-                                )
-                            if not dry_run:
-                                url = f"https://aclanthology.org/{anthology_id}"
-                                issue.create_comment(
-                                    close_old_issue_comment.format(
-                                        anthology_id=anthology_id, url=url
-                                    )
-                                )
-                                # close the issue as "not planned"
-                                issue.edit(state="closed", state_reason="not_planned")
-
-                            self.stats["closed_issues"] += 1
+                        self.add_comment_to_issue_without_json(
+                            issue, dry_run=dry_run, verbose=verbose
+                        )
 
                     continue
 
@@ -368,7 +388,7 @@ class AnthologyMetadataUpdater:
 
                 try:
                     tree = self._apply_changes_to_xml(
-                        xml_repo_path, anthology_id, json_block
+                        xml_repo_path, anthology_id, json_block, verbose
                     )
                 except Exception as e:
                     print(
@@ -426,6 +446,57 @@ class AnthologyMetadataUpdater:
         # Switch back to original branch
         self.local_repo.head.reference = current_branch
         self.stats["closed_issues"] = len(closed_issues)
+
+    def add_comment_to_issue_without_json(self, issue, dry_run: bool, verbose: bool):
+        # for old issues, filed without a JSON block, we append a comment
+        # alerting them to how to file a new issue using the new format.
+        # If possible, we first parse the Anthology ID out of the title:
+        # Metadata correction for {anthology_id}. We can then use this to
+        # post a link to the original paper so they can go through the
+        # automated process.
+        anthology_id = None
+        match = re.search(r"Paper Metadata: [\{]?(.*)[\}]?", issue.title)
+        if match:
+            anthology_id = match[1]
+        if anthology_id:
+            if verbose:
+                print(
+                    f"-> Closing issue {issue.number} with a link to the new process",
+                    file=sys.stderr,
+                )
+            if not dry_run:
+                url = f"https://aclanthology.org/{anthology_id}"
+                issue.create_comment(
+                    close_old_issue_comment.format(anthology_id=anthology_id, url=url)
+                )
+                # close the issue as "not planned"
+                issue.edit(state="closed", state_reason="not_planned")
+
+            self.stats["closed_issues"] += 1
+
+    def prepare_and_switch_branch(self):
+        # Create new branch off "master"
+        # base_branch = self.local_repo.head.reference
+        base_branch = self.local_repo.heads.master
+
+        today = datetime.now().strftime("%Y-%m-%d")
+        new_branch_name = f"bulk-corrections-{today}"
+
+        # If the branch exists, use it, else create it
+        if new_branch_name in self.local_repo.heads:
+            ref = self.local_repo.heads[new_branch_name]
+            print(f"Using existing branch {new_branch_name}", file=sys.stderr)
+        else:
+            # Create new branch
+            ref = self.local_repo.create_head(new_branch_name, base_branch)
+            print(f"Created branch {new_branch_name} from {base_branch}", file=sys.stderr)
+
+        # store the current branch
+        current_branch = self.local_repo.head.reference
+
+        # switch to that branch
+        self.local_repo.head.reference = ref
+        return current_branch, new_branch_name, today
 
 
 if __name__ == "__main__":
