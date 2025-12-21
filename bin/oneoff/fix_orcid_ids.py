@@ -19,7 +19,6 @@ import requests
 CACHE = {}
 def fetch_names(orcid):
     if orcid in CACHE:
-        print(f"Serving {orcid} from cache", file=sys.stderr)
         return CACHE[orcid]
 
     sleep(0.1)
@@ -79,10 +78,24 @@ def fetch_names(orcid):
     return CACHE[orcid]
 
 
-def edit_distance(s1, s2):
-    """Compute levenshtein distance between two strings."""
-    matcher = SequenceMatcher(None, s1.lower(), s2.lower())
-    return int((1 - matcher.ratio()) * max(len(s1), len(s2)))
+def edit_distance(a: str, b: str) -> int:
+    a, b = a.lower(), b.lower()
+
+    if a == b:
+        return 0
+    if len(a) < len(b):
+        a, b = b, a  # ensure a is longer
+    # now len(a) >= len(b)
+    prev = list(range(len(b) + 1))
+    for i, ca in enumerate(a, start=1):
+        curr = [i]
+        for j, cb in enumerate(b, start=1):
+            ins = curr[j - 1] + 1
+            delete = prev[j] + 1
+            subst = prev[j - 1] + (ca != cb)
+            curr.append(min(ins, delete, subst))
+        prev = curr
+    return prev[-1]
 
 
 import unicodedata
@@ -107,24 +120,20 @@ def munge_names(name):
             variants.update(munge_names(n))
         return variants
 
-    variants = set()
-    variants.add(name)
+    variants = []
+    variants.append(name)
 
     parts = name.split()
     if len(parts) > 2:
         # remove middle names/initials
-        first = parts[0]
-        last = parts[-1]
-        variants.add(f"{first} {last}")
+        variants.append(f"{parts[0]} {parts[-1]}")
 
     if len(parts) == 2:
         # last first
-        first = parts[0]
-        last = parts[-1]
-        variants.add(f"{last} {first}")
-
+        variants.append(f"{parts[1]} {parts[0]}")
     # remove diacritics
-    variants.add(remove_diacritics(name))
+    if any(ord(c) > 127 for c in name):
+        variants.append(remove_diacritics(name))
 
     return variants
 
@@ -140,15 +149,16 @@ if __name__ == "__main__":
 
     # load completed items
     completed = {}
-    with open(out_file) as f:
-        for line in f:
-            line = line.rstrip()
-            parts = line.split("\t")
-            if len(parts) == 6:
-                distance, anthology_name, orcid_name, all_orcid_names, orcid, anthology_id = line.split("\t")
-                key = (anthology_id, orcid)
-                completed[key] = line
-        print("Loaded", len(completed), "completed items", file=sys.stderr)
+    if Path(out_file).exists():
+        with open(out_file) as f:
+            for line in f:
+                line = line.rstrip()
+                parts = line.split("\t")
+                if len(parts) == 6:
+                    distance, anthology_name, orcid_name, all_orcid_names, orcid, anthology_id = line.split("\t")
+                    key = (anthology_id, orcid)
+                    completed[key] = line
+            print("Loaded", len(completed), "completed items", file=sys.stderr)
 
     # get script directory
     data_dir = Path(__file__).parent.resolve().parent.parent
@@ -168,26 +178,34 @@ if __name__ == "__main__":
 
             if author.orcid:
                 if (anthology_id, author.orcid) in completed:
-                    print("Skipping completed:", anthology_id, author.orcid, file=sys.stderr)
                     continue
 
                 # Query the ORCID API
                 names = fetch_names(author.orcid)
 
                 # compute distance for each name, sort by distnace, print best match
+                results = []
+                exact_match_found = False
+                for name in munge_names(anthology_name):
+                    for orcid_name in munge_names(names):
+                        distance = edit_distance(name, orcid_name)
+                        results.append((orcid_name, distance))
+
+                        if distance == 0:
+                            exact_match_found = True
+                            break
+                    if exact_match_found:
+                        break
                 results = sorted(
-                    [
-                        (orcid_name, edit_distance(name, orcid_name))
-                        for name in munge_names(anthology_name)
-                        for orcid_name in munge_names(names)
-                    ],
+                    results,
                     key=lambda x: x[1]
                 )
 
                 orcid_name, distance = results[0]
-                all_orcid_names = ", ".join([n for n, d in results])
+                all_orcid_names = ", ".join([f"{n} ({d})" for n, d in results])
 
                 # write to file "distances.tsv"
                 print(distance, anthology_name, orcid_name, all_orcid_names, author.orcid, paper.full_id, sep="\t", file=out_fh)
+                out_fh.flush()
 
                 print(distance, anthology_name, orcid_name, all_orcid_names, author.orcid, paper.full_id, sep="\t")
