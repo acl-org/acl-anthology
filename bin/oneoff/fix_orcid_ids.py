@@ -1,0 +1,193 @@
+#!/usr/bin/env python3
+
+"""
+Go through every paper in the Anthology, and find every <author>
+with an orcid attribute. For each such author, query the ORCID
+API and check that the name matches using string edit distance.
+Print out tuples of (Anthology ID, author name, ORCID, distance).
+Make sure to use the acl-anthology package from PyPI.
+"""
+
+#!/usr/bin/env python3
+
+from difflib import SequenceMatcher
+import sys
+from time import sleep
+import requests
+
+
+CACHE = {}
+def fetch_names(orcid):
+    if orcid in CACHE:
+        print(f"Serving {orcid} from cache", file=sys.stderr)
+        return CACHE[orcid]
+
+    sleep(0.1)
+
+    url = f"https://pub.orcid.org/v3.0/{orcid}/person"
+    headers = {
+        "Accept": "application/json"
+    }
+
+    # check for 404 error
+    try:
+        r = requests.get(url, headers=headers, timeout=10)
+    except requests.exceptions.HTTPError as e:
+        r.raise_for_status()
+        # chck if 404
+        if e.response.status_code == 404:
+            print(f"HTTP error for ORCID {orcid}: {e}", file=sys.stderr)
+            CACHE[orcid] = ["404"]
+            return CACHE[orcid]
+
+    data = r.json()
+
+    names = []
+
+    name_block = data.get("name", {})
+    try:
+        given = name_block.get("given-names", {}).get("value")
+    except AttributeError:
+        given = ""
+    try: 
+        family = name_block.get("family-name", {}).get("value")
+    except AttributeError:
+        family = ""
+
+    if given and family:
+        name = f"{given} {family}"
+    elif given:
+        name = given
+    elif family:
+        name = family
+    else:
+        name = ""
+
+    names.append(name)
+
+    other_names = (
+        data.get("other-names", {})
+            .get("other-name", [])
+    )
+
+    for on in other_names:
+        content = on.get("content")
+        if content:
+            names.append(content)
+
+    CACHE[orcid] = names
+    return CACHE[orcid]
+
+
+def edit_distance(s1, s2):
+    """Compute levenshtein distance between two strings."""
+    matcher = SequenceMatcher(None, s1.lower(), s2.lower())
+    return int((1 - matcher.ratio()) * max(len(s1), len(s2)))
+
+
+import unicodedata
+def remove_diacritics(input_str):
+    nfkd_form = unicodedata.normalize('NFKD', input_str)
+    only_ascii = nfkd_form.encode('ASCII', 'ignore')
+    return only_ascii.decode('ASCII')
+
+
+def munge_names(name):
+    """
+    Generate name variants:
+    - original
+    - remove middle names/initials
+    - last first
+    - remove diacritics
+    """
+    # if input is a list, return chained recursive call
+    if isinstance(name, list):
+        variants = set()
+        for n in name:
+            variants.update(munge_names(n))
+        return variants
+
+    variants = set()
+    variants.add(name)
+
+    parts = name.split()
+    if len(parts) > 2:
+        # remove middle names/initials
+        first = parts[0]
+        last = parts[-1]
+        variants.add(f"{first} {last}")
+
+    if len(parts) == 2:
+        # last first
+        first = parts[0]
+        last = parts[-1]
+        variants.add(f"{last} {first}")
+
+    # remove diacritics
+    variants.add(remove_diacritics(name))
+
+    return variants
+
+
+if __name__ == "__main__":
+    import os
+    import sys
+    import requests
+    from pathlib import Path
+    from acl_anthology import Anthology
+
+    out_file = "distances.tsv"
+
+    # load completed items
+    completed = {}
+    with open(out_file) as f:
+        for line in f:
+            line = line.rstrip()
+            parts = line.split("\t")
+            if len(parts) == 6:
+                distance, anthology_name, orcid_name, all_orcid_names, orcid, anthology_id = line.split("\t")
+                key = (anthology_id, orcid)
+                completed[key] = line
+        print("Loaded", len(completed), "completed items", file=sys.stderr)
+
+    # get script directory
+    data_dir = Path(__file__).parent.resolve().parent.parent
+    anthology = Anthology(datadir=data_dir / "data")
+
+    out_fh = open(out_file, "a")
+
+    for paper in anthology.papers():
+        anthology_id = paper.full_id
+
+        for author in paper.authors:
+
+            if author.first:
+                anthology_name = f"{author.first} {author.last}"
+            else:
+                anthology_name = author.last
+
+            if author.orcid:
+                if (anthology_id, author.orcid) in completed:
+                    print("Skipping completed:", anthology_id, author.orcid, file=sys.stderr)
+                    continue
+
+                # Query the ORCID API
+                names = fetch_names(author.orcid)
+
+                # compute distance for each name, sort by distnace, print best match
+                results = sorted(
+                    [
+                        (orcid_name, edit_distance(name, orcid_name))
+                        for name in munge_names(anthology_name)
+                        for orcid_name in munge_names(names)
+                    ],
+                    key=lambda x: x[1]
+                )
+
+                orcid_name, distance = results[0]
+                all_orcid_names = ", ".join([n for n, d in results])
+
+                # write to file "distances.tsv"
+                print(distance, anthology_name, orcid_name, all_orcid_names, author.orcid, paper.full_id, sep="\t", file=out_fh)
+
+                print(distance, anthology_name, orcid_name, all_orcid_names, author.orcid, paper.full_id, sep="\t")
