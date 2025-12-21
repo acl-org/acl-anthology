@@ -113,9 +113,9 @@ def munge_names(name):
     """
     # if input is a list, return chained recursive call
     if isinstance(name, list):
-        variants = set()
+        variants = []
         for n in name:
-            variants.update(munge_names(n))
+            variants.extend(munge_names(n))
         return variants
 
     variants = []
