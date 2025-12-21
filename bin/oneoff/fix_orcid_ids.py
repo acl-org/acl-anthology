@@ -149,8 +149,9 @@ if __name__ == "__main__":
             for line in f:
                 line = line.rstrip()
                 parts = line.split("\t")
-                if len(parts) == 6:
+                if len(parts) == 7:
                     (
+                        pct,
                         distance,
                         anthology_name,
                         orcid_name,
@@ -203,25 +204,21 @@ if __name__ == "__main__":
                 orcid_name, distance = results[0]
                 all_orcid_names = ", ".join([f"{n} ({d})" for n, d in results])
 
+                pct = 100 * distance / len(anthology_name)
+
                 # write to file "distances.tsv"
-                print(
-                    distance,
+                output_line = [
+                    f"{pct:.1f}",
+                    str(distance),
                     anthology_name,
                     orcid_name,
                     all_orcid_names,
                     author.orcid,
                     paper.full_id,
-                    sep="\t",
-                    file=out_fh,
-                )
+                ]
+                print(*output_line, sep="\t")
+                print(*output_line, file=out_fh, sep="\t")
                 out_fh.flush()
 
-                print(
-                    distance,
-                    anthology_name,
-                    orcid_name,
-                    all_orcid_names,
-                    author.orcid,
-                    paper.full_id,
-                    sep="\t",
-                )
+    out_fh.close()
+
