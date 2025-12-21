@@ -10,13 +10,14 @@ Make sure to use the acl-anthology package from PyPI.
 
 #!/usr/bin/env python3
 
-from difflib import SequenceMatcher
 import sys
 from time import sleep
 import requests
 
 
 CACHE = {}
+
+
 def fetch_names(orcid):
     if orcid in CACHE:
         return CACHE[orcid]
@@ -24,9 +25,7 @@ def fetch_names(orcid):
     sleep(0.1)
 
     url = f"https://pub.orcid.org/v3.0/{orcid}/person"
-    headers = {
-        "Accept": "application/json"
-    }
+    headers = {"Accept": "application/json"}
 
     # check for 404 error
     try:
@@ -48,7 +47,7 @@ def fetch_names(orcid):
         given = name_block.get("given-names", {}).get("value")
     except AttributeError:
         given = ""
-    try: 
+    try:
         family = name_block.get("family-name", {}).get("value")
     except AttributeError:
         family = ""
@@ -64,10 +63,7 @@ def fetch_names(orcid):
 
     names.append(name)
 
-    other_names = (
-        data.get("other-names", {})
-            .get("other-name", [])
-    )
+    other_names = data.get("other-names", {}).get("other-name", [])
 
     for on in other_names:
         content = on.get("content")
@@ -99,6 +95,8 @@ def edit_distance(a: str, b: str) -> int:
 
 
 import unicodedata
+
+
 def remove_diacritics(input_str):
     nfkd_form = unicodedata.normalize('NFKD', input_str)
     only_ascii = nfkd_form.encode('ASCII', 'ignore')
@@ -139,7 +137,6 @@ def munge_names(name):
 
 
 if __name__ == "__main__":
-    import os
     import sys
     import requests
     from pathlib import Path
@@ -155,7 +152,14 @@ if __name__ == "__main__":
                 line = line.rstrip()
                 parts = line.split("\t")
                 if len(parts) == 6:
-                    distance, anthology_name, orcid_name, all_orcid_names, orcid, anthology_id = line.split("\t")
+                    (
+                        distance,
+                        anthology_name,
+                        orcid_name,
+                        all_orcid_names,
+                        orcid,
+                        anthology_id,
+                    ) = line.split("\t")
                     key = (anthology_id, orcid)
                     completed[key] = line
             print("Loaded", len(completed), "completed items", file=sys.stderr)
@@ -196,16 +200,30 @@ if __name__ == "__main__":
                             break
                     if exact_match_found:
                         break
-                results = sorted(
-                    results,
-                    key=lambda x: x[1]
-                )
+                results = sorted(results, key=lambda x: x[1])
 
                 orcid_name, distance = results[0]
                 all_orcid_names = ", ".join([f"{n} ({d})" for n, d in results])
 
                 # write to file "distances.tsv"
-                print(distance, anthology_name, orcid_name, all_orcid_names, author.orcid, paper.full_id, sep="\t", file=out_fh)
+                print(
+                    distance,
+                    anthology_name,
+                    orcid_name,
+                    all_orcid_names,
+                    author.orcid,
+                    paper.full_id,
+                    sep="\t",
+                    file=out_fh,
+                )
                 out_fh.flush()
 
-                print(distance, anthology_name, orcid_name, all_orcid_names, author.orcid, paper.full_id, sep="\t")
+                print(
+                    distance,
+                    anthology_name,
+                    orcid_name,
+                    all_orcid_names,
+                    author.orcid,
+                    paper.full_id,
+                    sep="\t",
+                )
