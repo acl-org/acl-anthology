@@ -11,9 +11,10 @@ Make sure to use the acl-anthology package from PyPI.
 #!/usr/bin/env python3
 
 import sys
-from time import sleep
 import requests
+import unicodedata
 
+from time import sleep
 
 CACHE = {}
 
@@ -92,9 +93,6 @@ def edit_distance(a: str, b: str) -> int:
             curr.append(min(ins, delete, subst))
         prev = curr
     return prev[-1]
-
-
-import unicodedata
 
 
 def remove_diacritics(input_str):
