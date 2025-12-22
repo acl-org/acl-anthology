@@ -9,6 +9,12 @@ Then save the file back to disk using the library.
 """
 
 
+def delete_orcid_id(
+    pct, distance, anthology_name, orcid_name, all_orcid_names, orcid, anthology_id
+):
+    return float(pct) == 0.0
+
+
 if __name__ == "__main__":
     import sys
     from pathlib import Path
@@ -21,6 +27,8 @@ if __name__ == "__main__":
     if Path(out_file).exists():
         with open(out_file) as f:
             for line in f:
+                # pct match, distance, anthology_name, orcid_name,
+                # all_orcid_names, orcid, anthology_id
                 parts = line.rstrip().split("\t")
                 if len(parts) == 7:
                     name = parts[2]
@@ -53,7 +61,7 @@ if __name__ == "__main__":
                     parts = db.get(key)
                     pct = float(parts[0])
 
-                    if pct != 0.0:
+                    if delete_orcid_id(*parts):
                         print(
                             f"Deleting ORCID {author.orcid} for {name} in {anthology_id} with pct {pct:.1f}",
                             file=sys.stderr,
