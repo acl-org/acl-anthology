@@ -12,7 +12,19 @@ Then save the file back to disk using the library.
 def delete_orcid_id(
     pct, distance, anthology_name, orcid_name, all_orcid_names, orcid, anthology_id
 ):
-    return float(pct) == 0.0
+    """
+    Docstring for delete_orcid_id
+    
+    :param pct: The levenshtein distance divided by the length of the anthology name
+    :param distance: The levenshtein distance between the anthology name and best-matching ORCID name
+    :param anthology_name: The name as listed in the paper metadata
+    :param orcid_name: The best-matching name from the ORCID record
+    :param all_orcid_names: All names returned by ORCID in the format "name (distance), name (distance), ..."
+    :param orcid: The ORCID identifier
+    :param anthology_id: The Anthology ID of the paper
+    :return: True if the ORCID ID should be deleted, False otherwise
+    """
+    return float(pct) != 0.0
 
 
 if __name__ == "__main__":
