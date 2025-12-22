@@ -23,8 +23,16 @@ def delete_orcid_id(
     :param orcid: The ORCID identifier
     :param anthology_id: The Anthology ID of the paper
     :return: True if the ORCID ID should be deleted, False otherwise
+
+    We should delete if:
+    - the pct match is not 0
+
+    Other things to consider:
+    - if every word in the Anthology name is found in the set of words from the ORCID names, allow it
     """
-    return float(pct) != 0.0
+    delete = float(pct) != 0.0
+
+    return delete
 
 
 if __name__ == "__main__":
