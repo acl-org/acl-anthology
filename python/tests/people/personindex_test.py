@@ -244,6 +244,19 @@ def test_create_person_should_fail_on_empty_names(index):
         )
 
 
+def test_add_to_index_should_fail_on_duplicate_namespecs(index):
+    with pytest.raises(NameSpecResolutionError):
+        index._add_to_index(
+            [
+                NameSpecification(Name("John", "Doe")),
+                NameSpecification(Name("Jane", "Doe")),
+                NameSpecification(Name("John", "Doe")),
+            ],
+            ("1999.cl", "1", "5"),
+            during_build=True,
+        )
+
+
 ##############################################################################
 ### Tests for changing Person attributes that should update the index
 ##############################################################################
