@@ -11,68 +11,9 @@ Make sure to use the acl-anthology package from PyPI.
 #!/usr/bin/env python3
 
 import sys
-import requests
 import unicodedata
 
-from time import sleep
-
-CACHE = {}
-
-
-def fetch_names(orcid):
-    if orcid in CACHE:
-        return CACHE[orcid]
-
-    sleep(0.1)
-
-    url = f"https://pub.orcid.org/v3.0/{orcid}/person"
-    headers = {"Accept": "application/json"}
-
-    # check for 404 error
-    try:
-        r = requests.get(url, headers=headers, timeout=10)
-    except requests.exceptions.HTTPError as e:
-        r.raise_for_status()
-        # chck if 404
-        if e.response.status_code == 404:
-            print(f"HTTP error for ORCID {orcid}: {e}", file=sys.stderr)
-            CACHE[orcid] = ["404"]
-            return CACHE[orcid]
-
-    data = r.json()
-
-    names = []
-
-    name_block = data.get("name", {})
-    try:
-        given = name_block.get("given-names", {}).get("value")
-    except AttributeError:
-        given = ""
-    try:
-        family = name_block.get("family-name", {}).get("value")
-    except AttributeError:
-        family = ""
-
-    if given and family:
-        name = f"{given} {family}"
-    elif given:
-        name = given
-    elif family:
-        name = family
-    else:
-        name = ""
-
-    names.append(name)
-
-    other_names = data.get("other-names", {}).get("other-name", [])
-
-    for on in other_names:
-        content = on.get("content")
-        if content:
-            names.append(content)
-
-    CACHE[orcid] = names
-    return CACHE[orcid]
+from fetch_orcid_names import fetch_names
 
 
 def edit_distance(a: str, b: str) -> int:
@@ -136,7 +77,6 @@ def munge_names(name):
 
 if __name__ == "__main__":
     import sys
-    import requests
     from pathlib import Path
     from acl_anthology import Anthology
 
@@ -174,7 +114,7 @@ if __name__ == "__main__":
 
         for author in paper.authors:
 
-            anthology_name = author.as_first_last()
+            anthology_name = author.name.as_first_last()
 
             if author.orcid:
                 if (anthology_id, author.orcid) in completed:
@@ -201,7 +141,7 @@ if __name__ == "__main__":
                 orcid_name, distance = results[0]
                 all_orcid_names = ", ".join([f"{n} ({d})" for n, d in results])
 
-                pct = 100 * distance / len(anthology_name)
+                pct = 100 * distance / max(len(anthology_name), len(orcid_name))
 
                 # write to file "distances.tsv"
                 output_line = [
