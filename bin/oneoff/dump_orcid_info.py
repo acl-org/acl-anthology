@@ -174,10 +174,7 @@ if __name__ == "__main__":
 
         for author in paper.authors:
 
-            if author.first:
-                anthology_name = f"{author.first} {author.last}"
-            else:
-                anthology_name = author.last
+            anthology_name = author.as_first_last()
 
             if author.orcid:
                 if (anthology_id, author.orcid) in completed:
