@@ -11,9 +11,7 @@ Then save the file back to disk using the library.
 from collections import Counter
 
 
-def delete_orcid_id(
-    pct, distance, anthology_name, orcid_name, all_orcid_names, orcid, anthology_id
-):
+def delete_orcid_id(pct, count):
     """
     Docstring for delete_orcid_id
 
@@ -30,7 +28,7 @@ def delete_orcid_id(
     This number was chosen by manual inspection of the sorted results.
     https://github.com/acl-org/acl-anthology/pull/6859#issuecomment-3682339570
     """
-    delete = float(pct) > 66.7
+    delete = float(pct) > 66.7 and count == 1
 
     return delete
 
