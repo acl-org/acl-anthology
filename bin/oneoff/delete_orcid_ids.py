@@ -14,7 +14,7 @@ def delete_orcid_id(
 ):
     """
     Docstring for delete_orcid_id
-    
+
     :param pct: The levenshtein distance divided by the length of the anthology name
     :param distance: The levenshtein distance between the anthology name and best-matching ORCID name
     :param anthology_name: The name as listed in the paper metadata
