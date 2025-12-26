@@ -1,0 +1,247 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2025.alta">
+  <volume id="main" ingest-date="2025-12-13" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of the 23rd Annual Workshop of the Australasian Language Technology Association</booktitle>
+      <editor><first>Jonathan K.</first><last>Kummerfeld</last></editor>
+      <editor><first>Aditya</first><last>Joshi</last></editor>
+      <editor><first>Mark</first><last>Dras</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Sydney, Australia</address>
+      <month>November</month>
+      <year>2025</year>
+      <url hash="33fa6aa5">2025.alta-main</url>
+      <venue>alta</venue>
+      <venue>ws</venue>
+      <isbn>1834-7037</isbn>
+    </meta>
+    <frontmatter>
+      <url hash="75d41e07">2025.alta-main.0</url>
+      <bibkey>alta-2025-main</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Robustness of Neurosymbolic Reasoners on First-Order Logic Problems</title>
+      <author><first>Hannah</first><last>Bansal</last></author>
+      <author><first>Kemal</first><last>Kurniawan</last></author>
+      <author><first>Lea</first><last>Frermann</last></author>
+      <pages>1-12</pages>
+      <abstract>Recent trends in NLP aim to improve reasoning capabilities in Large Language Models (LLMs), with key focus on generalization and robustness to variations in tasks. Counterfactual task variants introduce minimal but semantically meaningful changes to otherwise valid first-order logic (FOL) problem instances altering a single predicate or swapping roles of constants to probe whether a reasoning system can maintain logical consistency under perturbation. Previous studies showed that LLMs becomes brittle on counterfactual variations, suggesting that they often rely on spurious surface patterns to generate responses. In this work, we explore if a neurosymbolic (NS) approach that integrates an LLM and a symbolic logical solver could mitigate this problem. Experiments across LLMs of varying sizes show that NS methods are more robust but perform worse overall that purely neural methods. We then propose NSCoT that combines an NS method and Chain-of-Thought (CoT) prompting and demonstrate that while it improves performance, NSCoT still lags behind standard CoT. Our analysis opens research directions for future work.</abstract>
+      <url hash="de6a15e5">2025.alta-main.1</url>
+      <bibkey>bansal-etal-2025-robustness</bibkey>
+    </paper>
+    <paper id="2">
+      <title><fixed-case>N</fixed-case>ek Minit: Harnessing Pragmatic Metacognitive Prompting for Explainable Sarcasm Detection of <fixed-case>A</fixed-case>ustralian and <fixed-case>I</fixed-case>ndian <fixed-case>E</fixed-case>nglish</title>
+      <author><first>Ishmanbir</first><last>Singh</last></author>
+      <author><first>Dipankar</first><last>Srirag</last></author>
+      <author><first>Aditya</first><last>Joshi</last></author>
+      <pages>13-27</pages>
+      <abstract>Sarcasm is a challenge to sentiment analysis because of the incongruity between stated and implied sentiment. The challenge is exacerbated when the implication may be relevant to a specific country or geographical region. Pragmatic metacognitive prompting (PMP) is a cognition-inspired technique that has been used for pragmatic reasoning. In this paper, we harness PMP for explainable sarcasm detection for Australian and Indian English, alongside a benchmark dataset for standard English. We manually add sarcasm explanations to an existing sarcasm-labeled dataset for Australian and Indian English called BESSTIE, and compare the performance for explainable sarcasm detection for them with FLUTE, a standard English dataset containing sarcasm explanations. Our approach utilising PMP when evaluated on two open-weight LLMs (GEMMA and LLAMA) achieves statistically significant performance improvement across all tasks and datasets when compared with four alternative prompting strategies. We also find that alternative techniques such as agentic prompting mitigate context-related failures by enabling external knowledge retrieval. The focused contribution of our work is utilising PMP in generating sarcasm explanations for varieties of English.</abstract>
+      <url hash="02bb172b">2025.alta-main.2</url>
+      <bibkey>singh-etal-2025-nek</bibkey>
+    </paper>
+    <paper id="3">
+      <title>Some Odd Adversarial Perturbations and the Notion of Adversarial Closeness</title>
+      <author><first>Shakila Mahjabin</first><last>Tonni</last></author>
+      <author><first>Pedro</first><last>Faustini</last></author>
+      <author><first>Mark</first><last>Dras</last></author>
+      <pages>28-44</pages>
+      <abstract>Deep learning models for language are vulnerable to adversarial examples. However, the perturbations introduced can sometimes seem odd or very noticeable to humans, which can make them less effective, a notion captured in some recent investigations as a property of '(non-)suspicion’. In this paper, we focus on three main types of perturbations that may raise suspicion: changes to named entities, inconsistent morphological inflections, and the use of non-English words. We define a notion of adversarial closeness and collect human annotations to construct two new datasets. We then use these datasets to investigate whether these kinds of perturbations have a disproportionate effect on human judgements. Following that, we propose new constraints to include in a constraint-based optimisation approach to adversarial text generation. Our human evaluation shows that these do improve the process by preventing the generation of especially odd or marked texts.</abstract>
+      <url hash="dc5de6f2">2025.alta-main.3</url>
+      <bibkey>tonni-etal-2025-odd</bibkey>
+    </paper>
+    <paper id="4">
+      <title>Thinker-<fixed-case>DDM</fixed-case>: Modeling Deliberation for Machine Translation with a Drift-Diffusion Process</title>
+      <author><first>Hongbin</first><last>Na</last></author>
+      <author><first>Zimu</first><last>Wang</last></author>
+      <author><first>Mieradilijiang</first><last>Maimaiti</last></author>
+      <author><first>Tong</first><last>Chen</last></author>
+      <author><first>Wei</first><last>Wang</last></author>
+      <author><first>Tao</first><last>Shen</last></author>
+      <author><first>Ling</first><last>Chen</last></author>
+      <pages>45-63</pages>
+      <abstract>Large language models (LLMs) have demonstrated promising potential in various downstream tasks, including machine translation. However, prior work on LLM-based machine translation has mainly focused on better utilizing training data, demonstrations, or pre-defined and universal knowledge to improve performance, with a lack of consideration of decision-making like human translators. In this paper, we incorporate Thinker with the Drift-Diffusion Model (Thinker-DDM) to address this issue. We then redefine the Drift-Diffusion process to emulate human translators’ dynamic decision-making under constrained resources. We conduct extensive experiments under the high-resource, low-resource, and commonsense translation settings using the WMT22 and CommonMT datasets, in which Thinker-DDM outperforms baselines in the first two scenarios. We also perform additional analysis and evaluation on commonsense translation to illustrate the high effectiveness and efficacy of the proposed method.</abstract>
+      <url hash="03692c30">2025.alta-main.4</url>
+      <bibkey>na-etal-2025-thinker</bibkey>
+    </paper>
+    <paper id="5">
+      <title>Can an <fixed-case>LLM</fixed-case> Elicit Information from Users in Simple Optimization Modelling Dialogues?</title>
+      <author><first>Yelaman</first><last>Abdullin</last></author>
+      <author><first>Diego</first><last>Mollá</last></author>
+      <author><first>Bahadorreza</first><last>Ofoghi</last></author>
+      <author><first>Vicky</first><last>Mak-Hau</last></author>
+      <author><first>John</first><last>Yearwood</last></author>
+      <pages>64-75</pages>
+      <abstract>For a natural language dialogue system to engage in a goal-oriented conversation, it must elicit information from a user. Research on large language models (LLMs) often focuses on aligning them with user goals. Consequently, studies show these models can serve as chat assistants and answer the user questions. However, their information-elicitation abilities remain understudied. This work evaluates these abilities in goal-oriented dialogues for optimisation modelling. We compare two GPT-4-based settings that generate conversations between a modeller and a user over NL4Opt, a collection of simple optimisation problem descriptions, and analyse the modeller’s information elicitation. In the first, the modeller LLM has access to problem details and asks targeted questions, simulating an informed modeller. In the second, the LLM infers problem details through interaction — asking clarifying questions, interpreting responses, and gradually constructing an understanding of the task. This comparison assesses whether LLMs can elicit information and navigate problem discovery without prior knowledge of the problem. We compare modeller turns in both settings using human raters across criteria at the whole-dialogue and turn levels. Results show that a non-informed LLM can elicit information nearly as well as an informed one, producing high-quality dialogues. In particular, the success levels of both agents in the system without modeller access to the problem details are comparable to those in a system with full access. Dialogues rate well on coherence, and a post-annotation error analysis identified useful types for improving quality. GPT-4’s capability to elicit information in optimisation modelling dialogues suggests newer LLMs may possess even greater capability.</abstract>
+      <url hash="1efa91a8">2025.alta-main.5</url>
+      <bibkey>abdullin-etal-2025-llm</bibkey>
+    </paper>
+    <paper id="6">
+      <title><fixed-case>SHIELD</fixed-case>: Classifier-Guided Prompting for Robust and Safer <fixed-case>LVLM</fixed-case>s</title>
+      <author><first>Juan</first><last>Ren</last></author>
+      <author><first>Mark</first><last>Dras</last></author>
+      <author><first>Usman</first><last>Naseem</last></author>
+      <pages>76-89</pages>
+      <abstract>Large Vision-Language Models (LVLMs) unlock powerful multimodal reasoning but also expand the attack surface, particularly through adversarial inputs that conceal harmful goals in benign prompts. We propose SHIELD, a lightweight, model-agnostic preprocessing framework that couples fine-grained safety classification with category-specific guidance and explicit actions (Block, Reframe, and Forward). Unlike binary moderators, SHIELD composes tailored safety prompts that enforce nuanced refusals or safe redirections without retraining. Across five benchmarks and five representative LVLMs, SHIELD consistently lowers jailbreak and non-following rates while preserving utility. Our method is plug-and-play, incurs negligible overhead, and is easily extendable to new attack types—serving as a practical safety patch for both weakly and strongly aligned LVLMs.</abstract>
+      <url hash="5ed954f8">2025.alta-main.6</url>
+      <bibkey>ren-etal-2025-shield</bibkey>
+    </paper>
+    <paper id="7">
+      <title>Understanding Multilingual <fixed-case>ASR</fixed-case> Systems: The Role of Language Families and Typological Features in Seamless and Whisper</title>
+      <author><first>Simon</first><last>Gonzalez</last></author>
+      <author><first>Tao</first><last>Hoang</last></author>
+      <author><first>Maria Myung-Hee</first><last>Kim</last></author>
+      <author><first>Bradley</first><last>Donnelly</last></author>
+      <author><first>Jennifer</first><last>Biggs</last></author>
+      <author><first>Tim</first><last>Cawley</last></author>
+      <pages>90-100</pages>
+      <abstract>This study investigates the extent to which linguistic typology influences the performance of two automatic speech recognition (ASR) systems across diverse language families. Using the FLEURS corpus and typological features from the World Atlas of Language Structures (WALS), we analysed 40 languages grouped by phonological, morphological, syntactic, and semantic domains. We evaluated two state-of-the-art multilingual ASR systems, Whisper and Seamless, to examine how their performance, measured by word error rate (WER), correlates with linguistic structures. Random Forests and Mixed Effects Models were used to quantify feature impact and statistical significance. Results reveal that while both systems leverage typological patterns, they differ in their sensitivity to specific domains. Our findings highlight how structural and functional linguistic features shape ASR performance, offering insights into model generalisability and typology-aware system development.</abstract>
+      <url hash="e9993400">2025.alta-main.7</url>
+      <bibkey>gonzalez-etal-2025-understanding</bibkey>
+    </paper>
+    <paper id="8">
+      <title>An <fixed-case>LLM</fixed-case>-based Framework for Domain-Specific Information Extraction: A Case Study in Computer Science and Chemistry</title>
+      <author><first>Xungang</first><last>Gu</last></author>
+      <author><first>Yangjie</first><last>Tian</last></author>
+      <author><first>Ning</first><last>Li</last></author>
+      <author><first>Meng</first><last>Liu</last></author>
+      <author><first>Ruohua</first><last>Xu</last></author>
+      <author><first>He</first><last>Zhang</last></author>
+      <author><first>Hanqiu</first><last>Liu</last></author>
+      <author><first>Yongpan</first><last>Sheng</last></author>
+      <author><first>Ming</first><last>Liu</last></author>
+      <pages>101-111</pages>
+      <abstract>Information extraction (IE) in specialized domains like computer science and chemistry is challenged by the poor generalization of traditional models and the knowledge deficits of general-purpose Large Language Models (LLMs). We introduce a robust, LLM-based framework featuring two core contributions: an end-to-end training and inference paradigm that combines continual pre-training (CPT) for knowledge injection, supervised fine-tuning (SFT) for task alignment, and retrieval-augmented generation (RAG) for inference-time enhancement; and a novel LLM-assisted data annotation pipeline for the efficient creation of high-quality training data. Comprehensive experiments demonstrate that while fine-tuning alone yields strong in-domain performance, our complete framework exhibits superior robustness and generalization. It consistently achieves state-of-the-art results in challenging domain-shift and novel-schema scenarios, validating our integrated approach for building adaptable and high-performance domain-specific IE systems.</abstract>
+      <url hash="99497749">2025.alta-main.8</url>
+      <bibkey>gu-etal-2025-llm</bibkey>
+    </paper>
+    <paper id="9">
+      <title>Simple and Effective Baselines for Code Summarisation Evaluation</title>
+      <author><first>Jade</first><last>Robinson</last></author>
+      <author><first>Jonathan K.</first><last>Kummerfeld</last></author>
+      <pages>112-131</pages>
+      <abstract>Code documentation is useful, but writing it is time-consuming. Different techniques for generating code summaries have emerged, but comparing them is difficult because human evaluation is expensive and automatic metrics are unreliable. In this paper, we introduce a simple new baseline in which we ask an LLM to give an overall score to a summary. Unlike n-gram and embedding-based baselines, our approach is able to consider the code when giving a score. This allows us to also make a variant that does not consider the reference summary at all, which could be used for other tasks, e.g., to evaluate the quality of documentation in code bases. We find that our method is as good or better than prior metrics, though we recommend using it in conjunction with embedding-based methods to avoid the risk of LLM-specific bias.</abstract>
+      <url hash="962f56f5">2025.alta-main.9</url>
+      <bibkey>robinson-kummerfeld-2025-simple</bibkey>
+    </paper>
+    <paper id="10">
+      <title><fixed-case>MAPLE</fixed-case>: Multi-Agent Adaptive Planning with Long-Term Memory for Table Reasoning</title>
+      <author><first>Ye</first><last>Bai</last></author>
+      <author><first>Minghan</first><last>Wang</last></author>
+      <author><first>Thuy-Trang</first><last>Vu</last></author>
+      <pages>132-158</pages>
+      <abstract>Information extraction from the scientific literature is a long-standing technique for transforming unstructured knowledge hidden in text into structured data, which can then be used for further analytics and decision-making in downstream tasks. A large body of scientific literature discusses Trust in AI, where factors contributing to human trust in artificial intelligence (AI) applications and technology are studied. It explores questions such as why people may or may not trust a self-driving car, and what factors influence such trust. The relationships of these factors with human trust in AI applications are complex. We explore this space through the lens of information extraction. That is, we investigate how to extract these factors from the literature that studies them. The outcome could inform technology developers to improve the acceptance rate of their products. Our results indicate that (1) while NER is largely considered a solved problem in many domains, it is far from solved in extracting factors of human trust in AI from the relevant scientific literature; and, (2) supervised learning is more effective for this task than prompt-based LLMs.</abstract>
+      <url hash="fde7a1fd">2025.alta-main.10</url>
+      <bibkey>bai-etal-2025-maple</bibkey>
+    </paper>
+    <paper id="11">
+      <title>A Dataset and Benchmark on Extraction of Novel Concepts on Trust in <fixed-case>AI</fixed-case> from Scientific Literature</title>
+      <author><first>Melanie</first><last>McGrath</last></author>
+      <author><first>Harrison</first><last>Bailey</last></author>
+      <author><first>Necva</first><last>Bölücü</last></author>
+      <author><first>Xiang</first><last>Dai</last></author>
+      <author><first>Sarvnaz</first><last>Karimi</last></author>
+      <author><first>Andreas</first><last>Duenser</last></author>
+      <author><first>Cécile</first><last>Paris</last></author>
+      <pages>159-175</pages>
+      <abstract>This study investigates the extent to which linguistic typology influences the performance of two automatic speech recognition (ASR) systems across diverse language families. Using the FLEURS corpus and typological features from the World Atlas of Language Structures (WALS), we analysed 40 languages grouped by phonological, morphological, syntactic, and semantic domains. We evaluated two state-of-the-art multilingual ASR systems, Whisper and Seamless, to examine how their performance, measured by word error rate (WER), correlates with linguistic structures. Random Forests and Mixed Effects Models were used to quantify feature impact and statistical significance. Results reveal that while both systems leverage typological patterns, they differ in their sensitivity to specific domains. Our findings highlight how structural and functional linguistic features shape ASR performance, offering insights into model generalisability and typology-aware system development.</abstract>
+      <url hash="b68da8f2">2025.alta-main.11</url>
+      <bibkey>mcgrath-etal-2025-dataset</bibkey>
+    </paper>
+    <paper id="12">
+      <title><fixed-case>LLM</fixed-case>s for Argument Mining: Detection, Extraction, and Relationship Classification of pre-defined Arguments in Online Comments</title>
+      <author><first>Matteo</first><last>Guida</last></author>
+      <author><first>Yulia</first><last>Otmakhova</last></author>
+      <author><first>Eduard</first><last>Hovy</last></author>
+      <author><first>Lea</first><last>Frermann</last></author>
+      <pages>176-191</pages>
+      <abstract>Automated large-scale analysis of public discussions around contested issues like abortion requires detecting and understanding the use of arguments. While Large Language Models (LLMs) have shown promise in language processing tasks, their performance in mining topic-specific, pre-defined arguments in online comments remains underexplored. We evaluate four state-of-the-art LLMs on three argument mining tasks using datasets comprising over 2,000 opinion comments across six polarizing topics. Quantitative evaluation suggests an overall strong performance across the three tasks, especially for large and fine-tuned LLMs, albeit at a significant environmental cost. However, a detailed error analysis revealed systematic shortcomings on long and nuanced comments and emotionally charged language, raising concerns for downstream applications like content moderation or opinion analysis. Our results highlight both the promise and current limitations of LLMs for automated argument analysis in online comments.</abstract>
+      <url hash="23c5cc06">2025.alta-main.12</url>
+      <bibkey>guida-etal-2025-llms</bibkey>
+    </paper>
+    <paper id="13">
+      <title>Graph-Score: A Graph-grounded Metric for Audio Captioning</title>
+      <author><first>Manh</first><last>Luong</last></author>
+      <author><first>Gholamreza</first><last>Haffari</last></author>
+      <author><first>Dinh</first><last>Phung</last></author>
+      <author><first>Lizhen</first><last>Qu</last></author>
+      <pages>192-201</pages>
+      <abstract>Evaluating audio captioning systems is a challenging problem since the evaluation process must consider numerous semantic alignments of candidate captions, such as sound event matching and the temporal relationship among them. The existing metrics fail to take these alignments into account as they consider either statistical overlap (BLEU, SPICE, CIDEr) or latent representation similarity (FENSE). To tackle the aforementioned issues of the current metrics, we propose the graph-score, which grounds audio captions to semantic graphs, for better measuring the performance of AAC systems. Our proposed metric achieves the highest agreement with human judgment on the pairwise benchmark datasets. Furthermore, we contribute high-quality benchmark datasets to make progress in developing evaluation metrics for the audio captioning task.</abstract>
+      <url hash="3a40e60b">2025.alta-main.13</url>
+      <bibkey>luong-etal-2025-graph</bibkey>
+    </paper>
+    <paper id="14">
+      <title>Overview of the 2024 <fixed-case>ALTA</fixed-case> Shared Task: Normalise Adverse Drug Events</title>
+      <author><first>Diego</first><last>Mollá</last></author>
+      <author><first>Xiang</first><last>Dai</last></author>
+      <author><first>Sarvnaz</first><last>Karimi</last></author>
+      <author><first>Cécile</first><last>Paris</last></author>
+      <pages>202-207</pages>
+      <abstract>The ALTA shared tasks have been running annually since 2010. In 2025, the task focuses on the normalisation of Adverse Drug Events (ADE) found in forum posts to their corresponding standard term specified by the Medical Dictionary for Regulatory Activities (MedDRA). This is a comprehensive ontology of ADEs, which contains more ADE descriptions than those mentioned in the available training dataset. This makes the task more challenging than a straightforward supervised classification. We present the task, the evaluation criteria, and the results of the systems participating in the shared task.</abstract>
+      <url hash="fbae8da3">2025.alta-main.14</url>
+      <bibkey>molla-etal-2025-overview</bibkey>
+    </paper>
+    <paper id="15">
+      <title>Team <fixed-case>M</fixed-case>ono<fixed-case>L</fixed-case>ink at the <fixed-case>ALTA</fixed-case> Shared Task 2025: Synonym-Aware Retrieval with Guideline-Aware Re-Ranking for <fixed-case>M</fixed-case>ed<fixed-case>DRA</fixed-case> Normalization</title>
+      <author><first>James C.</first><last>Douglas</last></author>
+      <pages>208-215</pages>
+      <abstract>We describe Team MonoLink’s system for the ALTA 2025 Shared Task on normalizing patient-authored adverse drug event (ADE) mentions to MedDRA Lowest Level Terms (LLTs). Our pipeline combines recall-oriented, synonym-augmented candidate retrieval with cross-encoder re-ranking and a guideline-aware LLM discriminator. On the official hidden test set, our submission tied for first place, achieving an Accuracy@1 of 39.8%, Accuracy@5 of 78.3%, and Accuracy@10 of 85.5%.</abstract>
+      <url hash="6c378541">2025.alta-main.15</url>
+      <bibkey>douglas-2025-team</bibkey>
+    </paper>
+    <paper id="16">
+      <title>A Hybrid System for Comprehensive and Consistent Automated <fixed-case>M</fixed-case>ed<fixed-case>DRA</fixed-case> Coding of Adverse Drug Event</title>
+      <author><first>Abir</first><last>Naskar</last></author>
+      <author><first>Liuliu</first><last>Chen</last></author>
+      <author><first>Jemina</first><last>Kang</last></author>
+      <author><first>Mike</first><last>Conway</last></author>
+      <pages>216-223</pages>
+      <abstract>Normalization of Adverse Drug Events (ADEs), or linking adverse event mentions to standardized dictionary terms, is crucial for harmonizing diverse clinical and patient-reported descriptions, enabling reliable aggregation, accurate signal detection, and effective pharmacovigilance across heterogeneous data sources. The ALTA 2025 shared task focuses on mapping extracted ADEs from documents to a standardized list of MedDRA phrases. This paper presents a system that combines rulebased methods, zero-shot and fine-tuned large language models (LLMs), along with promptbased approaches using the latest commercial LLMs to address this task. Our final system achieves an Accuracy@1 score of 0.3494, ranking second on the shared task leaderboard.</abstract>
+      <url hash="ae65f58f">2025.alta-main.16</url>
+      <bibkey>naskar-etal-2025-hybrid</bibkey>
+    </paper>
+    <paper id="17">
+      <title><fixed-case>SC</fixed-case>a<fixed-case>LER</fixed-case>@<fixed-case>ALTA</fixed-case> 2025: Hybrid and Bi-Encoder Approaches for Adverse Drug Event Mention Normalization</title>
+      <author><first>Shelke Akshay</first><last>Babasaheb</last></author>
+      <author><first>Anand Kumar</first><last>Madasamy</last></author>
+      <pages>224-229</pages>
+      <abstract>This paper describes the system developed by Team Scaler for the ALTA 2025 Shared Task on Adverse Drug Event (ADE) Mention Normalization. The task aims to normalize freetext mentions of adverse events to standardized MedDRA concepts. We present and compare two architectures: (1) a Hybrid Candidate Generation + Neural Reranker approach using a pretrained PubMedBERT model, and (2) a BiEncoder model based on SapBERT, fine-tuned to align ADE mentions with MedDRA concepts. The hybrid approach retrieves candidate terms through semantic similarity search and refines the ranking using a neural reranker, while the bi-encoder jointly embeds mentions and concepts into a shared semantic space. On the development set, the hybrid reranker achieves Accuracy@1 = 0.3840, outperforming the bi-encoder (Accuracy@1 = 0.3298). The bi-encoder system was used for official submission and ranked third overall in the competition. Our analysis highlights the complementary strengths of both retrieval-based and embedding-based normalization strategies.</abstract>
+      <url hash="2f3aff3b">2025.alta-main.17</url>
+      <bibkey>babasaheb-madasamy-2025-scaler</bibkey>
+    </paper>
+    <paper id="18">
+      <title><fixed-case>DRAGON</fixed-case>: Dual-Encoder Retrieval with Guided Ontology Reasoning for Medical Normalization</title>
+      <author><first>Dao Sy Duy</first><last>Minh</last></author>
+      <author><first>Nguyen Lam Phu</first><last>Quy</last></author>
+      <author><first>Pham Phu</first><last>Hoa</last></author>
+      <author><first>Tran Chi</first><last>Nguyen</last></author>
+      <author><first>Huynh Trung</first><last>Kiet</last></author>
+      <author><first>Truong Bao</first><last>Tran</last></author>
+      <pages>230-239</pages>
+      <abstract>Adverse Drug Event (ADE) normalization to standardized medical terminologies such as MedDRA presents significant challenges due to lexical and semantic gaps between colloquial user-generated content and formal medical vocabularies. This paper presents our submission to the ALTA 2025 Shared Task on ADE normalization, evaluated using Accuracy@k metrics. Our approach employs distinct methodologies for the development and test phase. In the development phase, we propose a three-stage neural architecture: (1) bi-encoder training to establish semantic representations, (2) lexical-aware fine-tuning to capture morphological patterns alongside semantic similarity, and (3) crossencoder re-ranking for fine-grained discrimination, enabling the model to leverage both distributional semantics and lexical cues through explicit interaction modeling. For the test phase, we utilize the trained bi-encoder from stage (1) for efficient candidate retrieval, then adopt an alternative re-ranking pipeline leveraging large language models with tool-augmented retrieval and multi-stage reasoning. Specifically, a capable model performs reasoning-guided candidate selection over the retrieved top-k results, a lightweight model provides iterative feedback based on reasoning traces, and an automated verification module ensures output correctness with self-correction mechanisms. Our system achieves competitive performance on both development and test benchmarks, demonstrating the efficacy of neural retrieval-reranking architectures and the versatility of LLM-augmented neural pipelines for medical entity normalization tasks.</abstract>
+      <url hash="ebf40b0d">2025.alta-main.18</url>
+      <bibkey>minh-etal-2025-dragon</bibkey>
+    </paper>
+    <paper id="19">
+      <title>A Hybrid Retrieval System for Adverse Event Concept Normalization Integrating Contextual Scoring, Lexical Augmentation, and Semantic Fine-Tuning</title>
+      <author><first>Saipriya Dipika</first><last>Vaidyanathan</last></author>
+      <pages>240-244</pages>
+      <abstract>This paper presents a fully automated pipeline for normalizing adverse drug event (ADE) mentions identified in user-generated medical texts, to MedDRA concepts. The core approach here is a hybrid retrieval architecture combining domain-specific phrase normalization, synonym augmentation, and explicit mappings for key symptoms, thereby improving coverage of lexical variants. For candidate generation, the system employs a blend of exact dictionary lookups and fuzzy matching, supplemented by drug-specific contextual scoring. A sentencetransformer model (distilroberta-v1) was finetuned on augmented phrases, with reciprocal rank fusion unifying multiple retrieval signals.</abstract>
+      <url hash="8468d0dc">2025.alta-main.19</url>
+      <bibkey>vaidyanathan-2025-hybrid</bibkey>
+    </paper>
+    <paper id="20">
+      <title>Alignment of Large Language Models with Human Preferences and Values</title>
+      <author><first>Usman</first><last>Naseem</last></author>
+      <author><first>Gautam Siddharth</first><last>Kashyap</last></author>
+      <author><first>Kaixuan</first><last>Ren</last></author>
+      <author><first>Yiran</first><last>Zhang</last></author>
+      <author><first>Utsav</first><last>Maskey</last></author>
+      <author><first>Juan</first><last>Ren</last></author>
+      <author><first>Afrozah</first><last>Nadeem</last></author>
+      <pages>245-245</pages>
+      <abstract>Large Language Models (LLMs) have demonstrated remarkable capabilities, yet their reliability and alignment with human expectations remain unresolved challenges. This tutorial introduces the foundations of alignment and provides participants with a conceptual and practical understanding of the field. Core principles such as values, safety, reasoning, and pluralism will be presented through intuitive explanations, worked examples, and case studies. The aim is to equip attendees with the ability to reason about alignment goals, understand how existing methods operate in practice, and critically evaluate their strengths and limitations.</abstract>
+      <url hash="5a61aed2">2025.alta-main.20</url>
+      <bibkey>naseem-etal-2025-alignment</bibkey>
+    </paper>
+  </volume>
+</collection>
