@@ -8,6 +8,8 @@ determine whether to retain the orcid or delete it.
 Then save the file back to disk using the library.
 """
 
+from collections import Counter
+
 
 def delete_orcid_id(
     pct, distance, anthology_name, orcid_name, all_orcid_names, orcid, anthology_id
@@ -28,7 +30,7 @@ def delete_orcid_id(
     This number was chosen by manual inspection of the sorted results.
     https://github.com/acl-org/acl-anthology/pull/6859#issuecomment-3682339570
     """
-    delete = float(pct) > 58.8
+    delete = float(pct) > 66.7
 
     return delete
 
@@ -42,6 +44,7 @@ if __name__ == "__main__":
 
     # load completed items from the distances TSV file
     db = {}
+    counts = Counter()
     if Path(out_file).exists():
         with open(out_file) as f:
             for line in f:
@@ -54,6 +57,7 @@ if __name__ == "__main__":
                     orcid = parts[-2]
                     key = (anthology_id, name, orcid)
                     db[key] = parts
+                    counts[key] += 1
             print("Loaded", len(db), "completed items", file=sys.stderr)
 
     anthology = Anthology(datadir=Path(__file__).parent.parent.parent / "data")
@@ -76,10 +80,11 @@ if __name__ == "__main__":
 
                     parts = db.get(key)
                     pct = float(parts[0])
+                    count = counts.get(key, 1)
 
-                    if delete_orcid_id(*parts):
+                    if delete_orcid_id(pct, count):
                         print(
-                            f"Deleting ORCID {author.orcid} for {name} in {anthology_id} with pct {pct:.1f}",
+                            f"Deleting ORCID {author.orcid} for {name} in {anthology_id} with pct={pct:.1f} count={count}",
                             file=sys.stderr,
                         )
                         author.orcid = None
