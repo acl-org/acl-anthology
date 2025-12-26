@@ -86,10 +86,5 @@ if __name__ == "__main__":
                             file=sys.stderr,
                         )
                         author.orcid = None
-                    elif pct > 70:
-                        print(
-                            f"NOT deleting ORCID {author.orcid} for {name} in {anthology_id} with pct={pct:.1f} count={count}",
-                            file=sys.stderr,
-                        )
 
         collection.save()
