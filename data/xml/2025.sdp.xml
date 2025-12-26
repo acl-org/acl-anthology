@@ -326,7 +326,7 @@
       <author orcid="0000-0002-1133-065X"><first>Junjun</first><last>Wang</last></author>
       <author><first>Kunlong</first><last>Chen</last></author>
       <author orcid="0000-0002-3051-5879"><first>Zhaoqun</first><last>Chen</last></author>
-      <author orcid="0009-0009-2694-2649"><first>Peng</first><last>He</last></author>
+      <author><first>Peng</first><last>He</last></author>
       <author orcid="0000-0002-1650-9640"><first>Wenlu</first><last>Zheng</last></author>
       <pages>276-280</pages>
       <abstract>The ClimateCheck shared task addresses the critical challenge of grounding social media claims about climate change in scientific literature. This paper details our winning approach. For abstract retrieval, we propose a multi-stage pipeline: (1) initial candidate generation from a corpus of ~400,000 abstracts using BM25; (2) fine-grained reranking of these candidates using an ensemble of BGE-Reranker cross-encoder models, fine-tuned with a specialized training set incorporating both random and hard negative samples; and (3) final list selection based on an RRF-ensembled score. For the verification aspect, we leverage Gemini 2.5 Pro to classify the relationship (Supports, Refutes, Not Enough Information) between claims and the retrieved abstracts, guided by carefully engineered prompts. Our system achieved first place in both subtasks, demonstrating the efficacy of combining robust sparse retrieval, powerful neural rerankers, strategic negative sampling, and LLM-based semantic analysis for connecting social media discourse to scientific evidence. Part of the example code: <url>https://anonymous.4open.science/r/climatecheck_solution-1120</url></abstract>
