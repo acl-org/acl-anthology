@@ -55,7 +55,7 @@ if __name__ == "__main__":
                     orcid = parts[-2]
                     key = (anthology_id, name, orcid)
                     db[key] = parts
-                    counts[key] += 1
+                    counts[(name, orcid)] += 1
             print("Loaded", len(db), "completed items", file=sys.stderr)
 
     anthology = Anthology(datadir=Path(__file__).parent.parent.parent / "data")
@@ -78,7 +78,7 @@ if __name__ == "__main__":
 
                     parts = db.get(key)
                     pct = float(parts[0])
-                    count = counts.get(key, 1)
+                    count = counts.get((name, author.orcid), 1)
 
                     if delete_orcid_id(pct, count):
                         print(
@@ -86,5 +86,10 @@ if __name__ == "__main__":
                             file=sys.stderr,
                         )
                         author.orcid = None
+                    elif pct > 70:
+                        print(
+                            f"NOT deleting ORCID {author.orcid} for {name} in {anthology_id} with pct={pct:.1f} count={count}",
+                            file=sys.stderr,
+                        )
 
         collection.save()
