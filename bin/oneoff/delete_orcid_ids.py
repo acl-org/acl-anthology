@@ -24,13 +24,11 @@ def delete_orcid_id(
     :param anthology_id: The Anthology ID of the paper
     :return: True if the ORCID ID should be deleted, False otherwise
 
-    We should delete if:
-    - the pct match is not 0
-
-    Other things to consider:
-    - if every word in the Anthology name is found in the set of words from the ORCID names, allow it
+    We currently just delete if the pct match is over 58.8%.
+    This number was chosen by manual inspection of the sorted results.
+    https://github.com/acl-org/acl-anthology/pull/6859#issuecomment-3682339570
     """
-    delete = float(pct) != 0.0
+    delete = float(pct) > 58.8
 
     return delete
 
@@ -58,7 +56,8 @@ if __name__ == "__main__":
                     db[key] = parts
             print("Loaded", len(db), "completed items", file=sys.stderr)
 
-    anthology = Anthology.from_repo()
+    anthology = Anthology(datadir=Path(__file__).parent.parent.parent / "data")
+    # anthology = Anthology.from_repo()
 
     # iterate through all collections, then all papers,
     # deleting ORCIDs as needed
@@ -66,10 +65,7 @@ if __name__ == "__main__":
         for paper in collection.papers():
             anthology_id = paper.full_id
             for author in paper.authors:
-                if author.first:
-                    name = f"{author.first} {author.last}"
-                else:
-                    name = author.last
+                name = author.name.as_first_last()
 
                 if author.orcid:
                     key = (anthology_id, name, author.orcid)
