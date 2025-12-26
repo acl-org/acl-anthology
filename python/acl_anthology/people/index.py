@@ -248,9 +248,9 @@ class PersonIndex(SlottedDict[Person]):
             for volume in collection.volumes():
                 context: Paper | Volume = volume
                 try:
-                    for name_spec in volume.editors:
-                        person = self.resolve_namespec(name_spec, allow_creation=True)
-                        person.item_ids.append(volume.full_id_tuple)
+                    self._add_to_index(
+                        volume.editors, volume.full_id_tuple, during_build=True
+                    )
                     for paper in volume.papers():
                         context = paper
                         name_specs = (
@@ -260,11 +260,11 @@ class PersonIndex(SlottedDict[Person]):
                             if not paper.is_frontmatter
                             else paper.get_editors()
                         )
-                        for name_spec in name_specs:
-                            person = self.resolve_namespec(name_spec, allow_creation=True)
-                            person.item_ids.append(paper.full_id_tuple)
+                        self._add_to_index(
+                            name_specs, paper.full_id_tuple, during_build=True
+                        )
                 except Exception as exc:  # pragma: no cover
-                    note = f"Raised in {context.__class__.__name__} {context.full_id}; {name_spec}"
+                    note = f"Raised in {context.__class__.__name__} {context.full_id}"
                     # If this is merged into a single if-statement (with "or"),
                     # the type checker complains ¯\_(ツ)_/¯
                     if isinstance(exc, AnthologyException):
@@ -478,7 +478,7 @@ class PersonIndex(SlottedDict[Person]):
             pid = name_spec.name.slugify()
             if pid in self.data:
                 # ID is already in use; add last four digits of ORCID to disambiguate
-                pid = f"{pid}-{name_spec.orcid[-4:]}"
+                pid = f"{pid}-{name_spec.orcid[-4:].lower()}"
 
             self.add_person(
                 Person(
@@ -590,18 +590,33 @@ class PersonIndex(SlottedDict[Person]):
         return person
 
     def _add_to_index(
-        self, namespecs: Iterable[NameSpecification], item_id: AnthologyIDTuple
+        self,
+        namespecs: Iterable[NameSpecification],
+        item_id: AnthologyIDTuple,
+        during_build: bool = False,
     ) -> None:
         """Add persons to the index.
 
-        This function exists for internal use when creating new volumes or papers.  It should not be called manually.
+        This function should not be called manually.  It exists for internal use when registering new volumes or papers.  It encapsulates the resolution of all namespecs on an item, both to reduce repetition and to enable checks, e.g. that an item does not have two namespecs that resolve to the same person (which would indicate a logical error that we can't easily catch elsewhere).
+
+        Arguments:
+            namespecs: The NameSpecifications to register.
+            item_id: The item to register for the NameSpecifications.
+            during_build: If True, we are calling this during build and should not expect the index to be fully loaded yet.
         """
-        if not self.is_data_loaded:
+        if not (during_build or self.is_data_loaded):
             return
 
+        seen_ids = set()
         for namespec in namespecs:
             person = self.resolve_namespec(namespec, allow_creation=True)
             person.item_ids.append(item_id)
+            if person.id in seen_ids:
+                raise NameSpecResolutionError(
+                    namespec,
+                    f"More than one NameSpecification resolves to '{person.id}' on the same item ({item_id})",
+                )
+            seen_ids.add(person.id)
 
     def save(self, path: Optional[StrPath] = None) -> None:
         """Save the `people.yaml` file.

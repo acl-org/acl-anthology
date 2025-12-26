@@ -81,7 +81,7 @@ class AnthologyXMLError(AnthologyException, ValueError):
 class NameSpecResolutionError(AnthologyException):
     """Raised when a NameSpecification cannot be resolved to a person.
 
-    This should never happen with a NameSpecification from the loaded Anthology data, but might happen if a NameSpecification is manually created.
+    This can happen when a NameSpecification would be resolved to the same person as another NameSpecification _on the same item_.  It might also happen if a NameSpecification is manually created (and e.g. uses an ID that is not defined).
 
     Attributes:
         name_spec (NameSpecification): The name specification that raised the error.
