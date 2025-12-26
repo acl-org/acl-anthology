@@ -1,8 +1,17 @@
 #!/usr/bin/env python3
 
+"""
+Script to query ORCID's API to fetch names associated with ORCID iDs.
+
+This script created Dec. 2025 to help with the transition to the new
+author representation (issue #6859).
+"""
+
+
 import sys
 import requests
 from time import sleep
+
 
 CACHE = {}
 

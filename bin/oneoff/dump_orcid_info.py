@@ -6,9 +6,10 @@ with an orcid attribute. For each such author, query the ORCID
 API and check that the name matches using string edit distance.
 Print out tuples of (Anthology ID, author name, ORCID, distance).
 Make sure to use the acl-anthology package from PyPI.
-"""
 
-#!/usr/bin/env python3
+This script created Dec. 2025 to help with the transition to the new
+author representation (issue #6859).
+"""
 
 import sys
 import unicodedata
