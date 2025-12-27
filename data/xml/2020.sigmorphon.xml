@@ -22,14 +22,14 @@
       <author><first>Ekaterina</first><last>Vylomova</last></author>
       <author><first>Jennifer</first><last>White</last></author>
       <author><first>Elizabeth</first><last>Salesky</last></author>
-      <author id="sabrina-j-mielke"><first>Sabrina J.</first><last>Mielke</last></author>
+      <author><first>Sabrina J.</first><last>Mielke</last></author>
       <author><first>Shijie</first><last>Wu</last></author>
       <author><first>Edoardo Maria</first><last>Ponti</last></author>
       <author><first>Rowan Hall</first><last>Maudslay</last></author>
       <author><first>Ran</first><last>Zmigrod</last></author>
       <author><first>Josef</first><last>Valvoda</last></author>
       <author><first>Svetlana</first><last>Toldova</last></author>
-      <author id="francis-tyers"><first>Francis</first><last>Tyers</last></author>
+      <author><first>Francis</first><last>Tyers</last></author>
       <author><first>Elena</first><last>Klyachko</last></author>
       <author><first>Ilya</first><last>Yegorov</last></author>
       <author><first>Natalia</first><last>Krizhanovsky</last></author>
@@ -45,7 +45,7 @@
       <author><first>Hilaria</first><last>Cruz</last></author>
       <author><first>Eleanor</first><last>Chodroff</last></author>
       <author><first>Ryan</first><last>Cotterell</last></author>
-      <author id="miikka-silfverberg"><first>Miikka</first><last>Silfverberg</last></author>
+      <author><first>Miikka</first><last>Silfverberg</last></author>
       <author><first>Mans</first><last>Hulden</last></author>
       <pages>1–39</pages>
       <abstract>A broad goal in natural language processing (NLP) is to develop a system that has the capacity to process any natural language. Most systems, however, are developed using data from just one language such as English. The SIGMORPHON 2020 shared task on morphological reinflection aims to investigate systems’ ability to generalize across typologically distinct languages, many of which are low resource. Systems were developed using data from 45 languages and just 5 language families, fine-tuned with data from an additional 45 languages and 10 language families (13 in total), and evaluated on all 90 languages. A total of 22 systems (19 neural) from 10 teams were submitted to the task. All four winning systems were neural (two monolingual transformers and two massively multilingual RNN-based models with gated attention). Most teams demonstrate utility of data hallucination and augmentation, ensembles, and multilingual training for low-resource languages. Non-neural learners and manually designed grammars showed competitive and even superior performance on some languages (such as Ingrian, Tajik, Tagalog, Zarma, Lingala), especially with very limited data. Some language families (Afro-Asiatic, Niger-Congo, Turkic) were relatively easy for most systems and achieved over 90% mean accuracy while others were more challenging.</abstract>
@@ -59,7 +59,7 @@
       <author><first>Kyle</first><last>Gorman</last></author>
       <author><first>Lucas F.E.</first><last>Ashby</last></author>
       <author><first>Aaron</first><last>Goyzueta</last></author>
-      <author id="arya-d-mccarthy"><first>Arya</first><last>McCarthy</last></author>
+      <author><first>Arya</first><last>McCarthy</last></author>
       <author><first>Shijie</first><last>Wu</last></author>
       <author><first>Daniel</first><last>You</last></author>
       <pages>40–50</pages>
@@ -71,8 +71,8 @@
     </paper>
     <paper id="3">
       <title>The <fixed-case>SIGMORPHON</fixed-case> 2020 Shared Task on Unsupervised Morphological Paradigm Completion</title>
-      <author id="katharina-von-der-wense"><first>Katharina</first><last>Kann</last></author>
-      <author id="arya-d-mccarthy"><first>Arya D.</first><last>McCarthy</last></author>
+      <author><first>Katharina</first><last>Kann</last></author>
+      <author><first>Arya D.</first><last>McCarthy</last></author>
       <author><first>Garrett</first><last>Nicolai</last></author>
       <author><first>Mans</first><last>Hulden</last></author>
       <pages>51–62</pages>
@@ -85,7 +85,7 @@
     <paper id="4">
       <title>One-Size-Fits-All Multilingual Models</title>
       <author><first>Ben</first><last>Peters</last></author>
-      <author id="andre-f-t-martins"><first>André F. T.</first><last>Martins</last></author>
+      <author><first>André F. T.</first><last>Martins</last></author>
       <pages>63–69</pages>
       <abstract>This paper presents DeepSPIN’s submissions to Tasks 0 and 1 of the SIGMORPHON 2020 Shared Task. For both tasks, we present multilingual models, training jointly on data in all languages. We perform no language-specific hyperparameter tuning – each of our submissions uses the same model for all languages. Our basic architecture is the sparse sequence-to-sequence model with entmax attention and loss, which allows our models to learn sparse, local alignments while still being trainable with gradient-based techniques. For Task 1, we achieve strong performance with both RNN- and transformer-based sparse models. For Task 0, we extend our RNN-based model to a multi-encoder set-up in which separate modules encode the lemma and inflection sequences. Despite our models’ lack of language-specific tuning, they tie for first in Task 0 and place third in Task 1.</abstract>
       <url hash="c577bb7e">2020.sigmorphon-1.4</url>
@@ -126,7 +126,7 @@
     <paper id="8">
       <title>The <fixed-case>NYU</fixed-case>-<fixed-case>CUB</fixed-case>oulder Systems for <fixed-case>SIGMORPHON</fixed-case> 2020 Task 0 and Task 2</title>
       <author><first>Assaf</first><last>Singer</last></author>
-      <author id="katharina-von-der-wense"><first>Katharina</first><last>Kann</last></author>
+      <author><first>Katharina</first><last>Kann</last></author>
       <pages>90–98</pages>
       <abstract>We describe the NYU-CUBoulder systems for the SIGMORPHON 2020 Task 0 on typologically diverse morphological inflection and Task 2 on unsupervised morphological paradigm completion. The former consists of generating morphological inflections from a lemma and a set of morphosyntactic features describing the target form. The latter requires generating entire paradigms for a set of given lemmas from raw text alone. We model morphological inflection as a sequence-to-sequence problem, where the input is the sequence of the lemma’s characters with morphological tags, and the output is the sequence of the inflected form’s characters. First, we apply a transformer model to the task. Second, as inflected forms share most characters with the lemma, we further propose a pointer-generator transformer model to allow easy copying of input characters.</abstract>
       <url hash="d60711c9">2020.sigmorphon-1.8</url>
@@ -136,7 +136,7 @@
     <paper id="9">
       <title>The <fixed-case>IMS</fixed-case>–<fixed-case>CUB</fixed-case>oulder System for the <fixed-case>SIGMORPHON</fixed-case> 2020 Shared Task on Unsupervised Morphological Paradigm Completion</title>
       <author><first>Manuel</first><last>Mager</last></author>
-      <author id="katharina-von-der-wense"><first>Katharina</first><last>Kann</last></author>
+      <author><first>Katharina</first><last>Kann</last></author>
       <pages>99–105</pages>
       <abstract>In this paper, we present the systems of the University of Stuttgart IMS and the University of Colorado Boulder (IMS–CUBoulder) for SIGMORPHON 2020 Task 2 on unsupervised morphological paradigm completion (Kann et al., 2020). The task consists of generating the morphological paradigms of a set of lemmas, given only the lemmas themselves and unlabeled text. Our proposed system is a modified version of the baseline introduced together with the task. In particular, we experiment with substituting the inflection generation component with an LSTM sequence-to-sequence model and an LSTM pointer-generator network. Our pointer-generator system obtains the best score of all seven submitted systems on average over all languages, and outperforms the official baseline, which was best overall, on Bulgarian and Kannada.</abstract>
       <url hash="4704eca8">2020.sigmorphon-1.9</url>
@@ -156,7 +156,7 @@
     <paper id="11">
       <title><fixed-case>KU</fixed-case>-<fixed-case>CST</fixed-case> at the <fixed-case>SIGMORPHON</fixed-case> 2020 Task 2 on Unsupervised Morphological Paradigm Completion</title>
       <author><first>Manex</first><last>Agirrezabal</last></author>
-      <author id="jurgen-wedekind"><first>Jürgen</first><last>Wedekind</last></author>
+      <author><first>Jürgen</first><last>Wedekind</last></author>
       <pages>111–116</pages>
       <abstract>We present a model for the unsupervised dis- covery of morphological paradigms. The goal of this model is to induce morphological paradigms from the bible (raw text) and a list of lemmas. We have created a model that splits each lemma in a stem and a suffix, and then we try to create a plausible suffix list by con- sidering lemma pairs. Our model was not able to outperform the official baseline, and there is still room for improvement, but we believe that the ideas presented here are worth considering.</abstract>
       <url hash="53f2349d">2020.sigmorphon-1.11</url>
@@ -179,7 +179,7 @@
     <paper id="13">
       <title>Frustratingly Easy Multilingual Grapheme-to-Phoneme Conversion</title>
       <author><first>Nikhil</first><last>Prabhu</last></author>
-      <author id="katharina-von-der-wense"><first>Katharina</first><last>Kann</last></author>
+      <author><first>Katharina</first><last>Kann</last></author>
       <pages>123–127</pages>
       <abstract>In this paper, we describe two CU-Boulder submissions to the SIGMORPHON 2020 Task 1 on multilingual grapheme-to-phoneme conversion (G2P). Inspired by the high performance of a standard transformer model (Vaswani et al., 2017) on the task, we improve over this approach by adding two modifications: (i) Instead of training exclusively on G2P, we additionally create examples for the opposite direction, phoneme-to-grapheme conversion (P2G). We then perform multi-task training on both tasks. (ii) We produce ensembles of our models via majority voting. Our approaches, though being conceptually simple, result in systems that place 6th and 8th amongst 23 submitted systems, and obtain the best results out of all systems on Lithuanian and Modern Greek, respectively.</abstract>
       <url hash="b67caf54">2020.sigmorphon-1.13</url>
@@ -216,7 +216,7 @@
       <title>One Model to Pronounce Them All: Multilingual Grapheme-to-Phoneme Conversion With a Transformer Ensemble</title>
       <author><first>Kaili</first><last>Vesik</last></author>
       <author><first>Muhammad</first><last>Abdul-Mageed</last></author>
-      <author id="miikka-silfverberg"><first>Miikka</first><last>Silfverberg</last></author>
+      <author><first>Miikka</first><last>Silfverberg</last></author>
       <pages>146–152</pages>
       <abstract>The task of grapheme-to-phoneme (G2P) conversion is important for both speech recognition and synthesis. Similar to other speech and language processing tasks, in a scenario where only small-sized training data are available, learning G2P models is challenging. We describe a simple approach of exploiting model ensembles, based on multilingual Transformers and self-training, to develop a highly effective G2P solution for 15 languages. Our models are developed as part of our participation in the SIGMORPHON 2020 Shared Task 1 focused at G2P. Our best models achieve 14.99 word error rate (WER) and 3.30 phoneme error rate (PER), a sizeable improvement over the shared task competitive baselines.</abstract>
       <url hash="5e9e06c6">2020.sigmorphon-1.16</url>
