@@ -23,6 +23,7 @@ from rich.progress import track
 from scipy.cluster.hierarchy import DisjointSet  # type: ignore
 import sys
 from typing import cast, Any, Optional, TYPE_CHECKING
+import warnings
 import yaml
 
 try:
@@ -35,6 +36,7 @@ from ..exceptions import (
     AnthologyException,
     AnthologyInvalidIDError,
     NameSpecResolutionError,
+    NameSpecResolutionWarning,
     PersonDefinitionError,
 )
 from ..utils.ids import AnthologyIDTuple, is_verified_person_id
@@ -612,10 +614,11 @@ class PersonIndex(SlottedDict[Person]):
             person = self.resolve_namespec(namespec, allow_creation=True)
             person.item_ids.append(item_id)
             if person.id in seen_ids:
-                raise NameSpecResolutionError(
-                    namespec,
-                    f"More than one NameSpecification resolves to '{person.id}' on the same item ({item_id})",
-                )
+                message = f"More than one NameSpecification resolves to '{person.id}' on the same item ({item_id})"
+                if person.is_explicit:
+                    raise NameSpecResolutionError(namespec, message)
+                else:
+                    warnings.warn(NameSpecResolutionWarning(namespec, message))
             seen_ids.add(person.id)
 
     def save(self, path: Optional[StrPath] = None) -> None:

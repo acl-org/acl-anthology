@@ -92,6 +92,20 @@ class NameSpecResolutionError(AnthologyException):
         self.name_spec = name_spec
 
 
+class NameSpecResolutionWarning(UserWarning):
+    """Same as `NameSpecResolutionError`, but for less critical issues that shouldn't be blockers.
+
+    This can happen when a NameSpecification would be resolved to the same person as another NameSpecification _on the same item_, but the person is implicit (unverified).
+
+    Attributes:
+        name_spec (NameSpecification): The name specification that raised the error.
+    """
+
+    def __init__(self, name_spec: NameSpecification, message: str) -> None:
+        super().__init__(message)
+        self.name_spec = name_spec
+
+
 class PersonDefinitionError(NameSpecResolutionError):
     """Raised when a NameSpecification defines an ID, but either the ID or one of its fields is not compatible with the definition in `people.yaml`.
 
