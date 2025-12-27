@@ -16,6 +16,7 @@ import pytest
 from acl_anthology.exceptions import (
     AnthologyInvalidIDError,
     NameSpecResolutionError,
+    NameSpecResolutionWarning,
     PersonDefinitionError,
 )
 from acl_anthology.people import (
@@ -244,16 +245,34 @@ def test_create_person_should_fail_on_empty_names(index):
         )
 
 
-def test_add_to_index_should_fail_on_duplicate_namespecs(index):
+def test_add_to_index_behavior_on_duplicate_namespecs(index):
+    index.build()  # since we’re testing with and without IDs
+    example_id = ("1999.cl", "1", "5")
+    # Case 1 – should resolve to different persons
+    index._add_to_index(
+        [
+            NameSpecification(Name("Yang", "Liu"), id="yang-liu-ict"),
+            NameSpecification(Name("Yang", "Liu")),
+        ],
+        example_id,
+    )
+    # Case 2 – should resolve to same unverified person -> warning
+    with pytest.warns(NameSpecResolutionWarning):
+        index._add_to_index(
+            [
+                NameSpecification(Name("Yang", "Liu")),
+                NameSpecification(Name("Yang", "Liu")),
+            ],
+            example_id,
+        )
+    # Case 3 – should resolve to same verified person -> error
     with pytest.raises(NameSpecResolutionError):
         index._add_to_index(
             [
-                NameSpecification(Name("John", "Doe")),
-                NameSpecification(Name("Jane", "Doe")),
-                NameSpecification(Name("John", "Doe")),
+                NameSpecification(Name("Steven", "Krauwer"), id="steven-krauwer"),
+                NameSpecification(Name("S.", "Krauwer"), id="steven-krauwer"),
             ],
-            ("1999.cl", "1", "5"),
-            during_build=True,
+            example_id,
         )
 
 
