@@ -3,9 +3,9 @@
   <volume id="1" ingest-date="2025-09-27" type="proceedings">
     <meta>
       <booktitle>Proceedings of the 26th Annual Meeting of the Special Interest Group on Discourse and Dialogue</booktitle>
-      <editor><first>Frédéric</first><last>Béchet</last></editor>
-      <editor><first>Fabrice</first><last>Lefèvre</last></editor>
-      <editor><first>Nicholas</first><last>Asher</last></editor>
+      <editor id="frederic-bechet"><first>Frédéric</first><last>Béchet</last></editor>
+      <editor id="fabrice-lefevre"><first>Fabrice</first><last>Lefèvre</last></editor>
+      <editor id="nicholas-asher"><first>Nicholas</first><last>Asher</last></editor>
       <editor><first>Seokhwan</first><last>Kim</last></editor>
       <editor><first>Teva</first><last>Merlin</last></editor>
       <publisher>Association for Computational Linguistics</publisher>
@@ -51,8 +51,8 @@
       <title>Zero-Shot Evaluation of Conversational Language Competence in Data-Efficient <fixed-case>LLM</fixed-case>s Across <fixed-case>E</fixed-case>nglish, <fixed-case>M</fixed-case>andarin, and <fixed-case>F</fixed-case>rench</title>
       <author><first>Sheng-Fu</first><last>Wang</last></author>
       <author><first>Ri-Sheng</first><last>Huang</last></author>
-      <author><first>Shu-Kai</first><last>Hsieh</last></author>
-      <author><first>Laurent</first><last>Prévot</last></author>
+      <author id="shu-kai-hsieh"><first>Shu-Kai</first><last>Hsieh</last></author>
+      <author id="laurent-prevot"><first>Laurent</first><last>Prévot</last></author>
       <pages>32–47</pages>
       <abstract>Large Language Models (LLMs) have achieved oustanding performance across various natural language processing tasks, including those from Discourse and Dialogue traditions. However, these achievements are typically obtained thanks to pretraining on huge datasets. In contrast, humans learn to speak and communicate through dialogue and spontaneous speech with only a fraction of the language exposure. This disparity has spurred interest in evaluating whether smaller, more carefully selected and curated pretraining datasets can support robust performance on specific tasks. Drawing inspiration from the BabyLM initiative, we construct small (10M-token) pretraining datasets from different sources, including conversational transcripts and Wikipedia-style text. To assess the impact of these datasets, we develop evaluation benchmarks focusing on discourse and interactional markers, extracted from high-quality spoken corpora in English, French, and Mandarin. Employing a zero-shot classification framework inspired by the BLiMP benchmark, we design tasks wherein the model must determine, between a genuine utterance extracted from a corpus and its minimally altered counterpart, which one is the authentic instance. Our findings reveal that the nature of pretraining data significantly influences model performance on discourse-related tasks. Models pretrained on conversational data exhibit a clear advantage in handling discourse and interactional markers compared to those trained on written or encyclopedic text. Furthermore, the models, trained on small amount spontaneous speech transcripts, perform comparably to standard LLMs.</abstract>
       <url hash="4dc3f03c">2025.sigdial-1.3</url>
@@ -69,7 +69,7 @@
     </paper>
     <paper id="5">
       <title>clem:todd: A Framework for the Systematic Benchmarking of <fixed-case>LLM</fixed-case>-Based Task-Oriented Dialogue System Realisations</title>
-      <author><first>Chalamalasetti</first><last>Kranti</last></author>
+      <author id="kranti-chalamalasetti"><first>Chalamalasetti</first><last>Kranti</last></author>
       <author><first>Sherzod</first><last>Hakimov</last></author>
       <author><first>David</first><last>Schlangen</last></author>
       <pages>62–92</pages>
@@ -87,9 +87,9 @@
       <author><first>Mark</first><last>Gaynor</last></author>
       <author><first>Joe</first><last>Stacey</last></author>
       <author><first>Tristan</first><last>Guigue</last></author>
-      <author><first>Héctor</first><last>Martínez Alonso</last></author>
+      <author id="hector-martinez-alonso"><first>Héctor</first><last>Martínez Alonso</last></author>
       <author><first>Diarmuid</first><last>Ó Séaghdha</last></author>
-      <author><first>Anders</first><last>Johannsen</last></author>
+      <author id="anders-johannsen"><first>Anders</first><last>Johannsen</last></author>
       <pages>93–112</pages>
       <abstract>Programmable task-oriented dialogue (TOD) agents enable language models to follow structured dialogue policies, but their effectiveness hinges on accurate dialogue state tracking (DST). We present PyTOD, an agent that generates executable code to track dialogue state and uses policy and execution feedback for efficient error correction. To achieve this, PyTOD employs a simple constrained decoding approach, using a language model instead of grammar rules to follow API schemata. This leads to state-of-the-art DST performance on the challenging SGD benchmark. Our experiments show that PyTOD surpasses strong baselines in both accuracy and cross-turn consistency, demonstrating the effectiveness of execution-aware state tracking.</abstract>
       <url hash="1099cd62">2025.sigdial-1.6</url>
@@ -102,8 +102,8 @@
       <author><first>Suvodip</first><last>Dey</last></author>
       <author><first>Akul</first><last>Datta</last></author>
       <author><first>Takyoung</first><last>Kim</last></author>
-      <author><first>Gokhan</first><last>Tur</last></author>
-      <author><first>Dilek</first><last>Hakkani-Tur</last></author>
+      <author id="gokhan-tur"><first>Gokhan</first><last>Tur</last></author>
+      <author id="dilek-hakkani-tur"><first>Dilek</first><last>Hakkani-Tur</last></author>
       <pages>113–132</pages>
       <abstract>Task-oriented dialogue (TOD) systems are experiencing a revolution driven by Large Language Models (LLMs), yet the evaluation methodologies for these systems remain insufficient for their growing sophistication. While traditional automatic metrics effectively assessed earlier modular systems, they focus solely on the dialogue level and cannot detect critical intermediate errors that can arise during user-agent interactions. In this paper, we introduce **TD-EVAL** (**T**urn and **D**ialogue-level **Eval**uation), a two-step evaluation framework that unifies fine-grained turn-level analysis with holistic dialogue-level comparisons. At turn-level, we assess each response along three TOD-specific dimensions: *conversation cohesion*, *backend knowledge consistency*, and *policy compliance*. Meanwhile, we design **TOD Agent Arena** that uses pairwise comparisons to provide a measure of dialogue-level quality. Through experiments on MultiWOZ 2.4 and Tau-Bench, we demonstrate that TD-EVAL effectively identifies the conversational errors that conventional metrics miss. Furthermore, TD-EVAL exhibits better alignment with human judgments than traditional and LLM-based metrics. These findings demonstrate that TD-EVAL introduces a new paradigm for TOD system evaluation, efficiently assessing both turn and system levels with an easily reproducible framework for future research.</abstract>
       <url hash="8ebde488">2025.sigdial-1.7</url>
@@ -139,7 +139,7 @@
       <author><first>Do June</first><last>Min</last></author>
       <author><first>Verónica</first><last>Pérez-Rosas</last></author>
       <author><first>Kenneth</first><last>Resnicow</last></author>
-      <author><first>Rada</first><last>Mihalcea</last></author>
+      <author id="rada-mihalcea"><first>Rada</first><last>Mihalcea</last></author>
       <pages>152–158</pages>
       <abstract>Computational models of psychotherapy often ignore vocal cues by relying solely on text. To address this, we propose MISQ, a framework that integrates speech features directly into language models using a speech encoder and lightweight adapter. MISQ improves behavioral analysis in counseling conversations, achieving ~5% relative gains over text-only or indirect speech methods—underscoring the value of vocal signals like tone and prosody.</abstract>
       <url hash="f12541d4">2025.sigdial-1.10</url>
@@ -198,7 +198,7 @@
     </paper>
     <paper id="14">
       <title>Segmenting a Large <fixed-case>F</fixed-case>rench Meeting Corpus into Elementary Discourse Units</title>
-      <author><first>Laurent</first><last>Prévot</last></author>
+      <author id="laurent-prevot"><first>Laurent</first><last>Prévot</last></author>
       <author><first>Roxane</first><last>Bertrand</last></author>
       <author><first>Julie</first><last>Hunter</last></author>
       <pages>183–191</pages>
@@ -311,7 +311,7 @@
       <author><first>Krish</first><last>Sharma</last></author>
       <author><first>Niyar R.</first><last>Barman</last></author>
       <author><first>Akshay</first><last>Chaturvedi</last></author>
-      <author><first>Nicholas</first><last>Asher</last></author>
+      <author id="nicholas-asher"><first>Nicholas</first><last>Asher</last></author>
       <pages>294–310</pages>
       <abstract>We look at reasoning on GSM8k, a dataset of short texts presenting primary school, math problems. We find, with Mirzadeh et al (2024), that current LLM progress on the data set may not be explained by better reasoning but by exposure to a broader pretraining data distribution. We then introduce a novel information source for helping models with less data or inferior training reason better: discourse structure. We show that discourse structure improves performance for models like Llama2 13b by up to 160%. Even for models that have most likely memorized the data set, adding discourse structural information to the model still improves predictions and dramatically improves large model performance on out of distribution examples.</abstract>
       <url hash="3ed704f5">2025.sigdial-1.24</url>
@@ -323,7 +323,7 @@
       <author><first>Yuan</first><last>Liang</last></author>
       <author><first>Yanni</first><last>Lin</last></author>
       <author><first>Juntao</first><last>Yu</last></author>
-      <author><first>Massimo</first><last>Poesio</last></author>
+      <author id="massimo-poesio"><first>Massimo</first><last>Poesio</last></author>
       <pages>311–321</pages>
       <abstract>Coreference Resolution (CR) is crucial for many NLP tasks, but existing LLMs struggle with hallucination and under-performance. In this paper, we investigate the limitations of existing LLM-based approaches to CR—specifically the Question-Answering (QA) Template and Document Template methods—and propose two novel techniques: Reversed Training with Joint Inference and Iterative Document Generation. Our experiments show that Reversed Training improves the QA Template method, while Iterative Document Generation eliminates hallucinations in the generated source text and boosts coreference resolution. Integrating these methods and techniques offers an effective and robust solution to LLM-based coreference resolution</abstract>
       <url hash="c00eba9e">2025.sigdial-1.25</url>
@@ -380,7 +380,7 @@
       <title>Learning to Speak Like a Child: Reinforcing and Evaluating a Child-level Generative Language Model</title>
       <author><first>Enoch</first><last>Levandovsky</last></author>
       <author><first>Anna</first><last>Manaseryan</last></author>
-      <author><first>Casey</first><last>Kennington</last></author>
+      <author id="casey-kennington"><first>Casey</first><last>Kennington</last></author>
       <pages>370–382</pages>
       <abstract>A language model that can generate utterances that are appraised as being within a specific age of a young child who is beginning their language learning journey can be useful in scenarios where child-level language is needed, for example in virtual avatars, interactions with individuals who have disabilities, or developmental robotics. In this paper, we focus on an age range that is not represented in prior work: emergent speakers. We use the CHILDES database to train and tune language models of different parameter sizes using a group relative policy optimization reinforcement learning regime. Our goal is to find the most coherent, yet child-like language model while keeping the number of parameters to as few as possible. We evaluate using metrics of coherency, “toddlerality,” and an evaluation using human subjects who interact with two robot platforms. Our experiments show that even small language models (under 1 billion parameters) can be used effectively to generate child-like utterances.</abstract>
       <url hash="ef01504a">2025.sigdial-1.30</url>
@@ -389,7 +389,7 @@
     <paper id="31">
       <title>Beyond Simple Personas: Evaluating <fixed-case>LLM</fixed-case>s and Relevance Models for Character-Consistent Dialogue</title>
       <author><first>Debaditya</first><last>Pal</last></author>
-      <author><first>David</first><last>Traum</last></author>
+      <author id="david-traum"><first>David</first><last>Traum</last></author>
       <pages>383–396</pages>
       <abstract>Dialogue systems often rely on overly simplistic persona representations, limiting their capacity to portray realistic, nuanced characters. In this paper, we explore how well existing persona-grounding methods capture complex personalities using two character-rich domains—Sgt Blackwell (single-character) and Twins (two-character)—described extensively through detailed narratives. We compare early fusion techniques, Retrieval-Augmented Generation (RAG), and relevance-based approaches. Evaluations across entailment, persona alignment, and hallucination metrics reveal distinct trade-offs: Knowledge Graph fusion notably reduces hallucinations and maintains relevance, Persona fusion strongly preserves relevance but has higher hallucination rates, and RAG provides fast, fluent responses. Our findings emphasize the critical role of structured persona grounding in achieving nuanced personality modeling.</abstract>
       <url hash="eeb0932c">2025.sigdial-1.31</url>
@@ -512,7 +512,7 @@
       <title>On Speakers’ Identities, Autism Self-Disclosures and <fixed-case>LLM</fixed-case>-Powered Robots</title>
       <author><first>Sviatlana</first><last>Hoehn</last></author>
       <author><first>Fred</first><last>Philippy</last></author>
-      <author><first>Elisabeth</first><last>Andre</last></author>
+      <author id="elisabeth-andre"><first>Elisabeth</first><last>Andre</last></author>
       <pages>484–503</pages>
       <abstract>Dialogue agents become more engaging through recipient design, which needs user-specific information. However, a user’s identification with marginalized communities, such as migration or disability background, can elicit biased language. This study compares LLM responses to neurodivergent user personas with disclosed vs. masked neurodivergent identities. A dataset built from public Instagram comments was used to evaluate four open-source models on story generation, dialogue generation, and retrieval-augmented question answering. Our analyses show biases in user’s identity construction across all models and tasks. Binary classifiers trained on each model can distinguish between language generated for prompts with or without self-disclosures, with stronger biases linked to more explicit disclosures. Some models’ safety mechanisms result in denial of service behaviors. LLM’s recipient design to neurodivergent identities relies on stereotypes tied to neurodivergence.</abstract>
       <url hash="0bf54b0c">2025.sigdial-1.40</url>
@@ -549,7 +549,7 @@
       <author><first>Eulalia Puig</first><last>Abril</last></author>
       <author><first>Olga</first><last>Garcia-Bedoya</last></author>
       <author><first>Carolyn</first><last>Dickens</last></author>
-      <author><first>Andrew</first><last>Boyd</last></author>
+      <author id="andrew-boyd"><first>Andrew</first><last>Boyd</last></author>
       <pages>527–537</pages>
       <abstract>We explore the potential of ChatGPT to generate conversations focused on self-care strategies for African-American patients with heart failure, a domain with limited specialized datasets. To simulate patient-health educator dialogues, we employed four prompting strategies: aspects, African American Vernacular English, Social Determinants of Health (SDOH), and SDOH-informed reasoning. Conversations were generated across key self-care aspects— food, exercise, and fluid intake—with varying turn lengths and incorporated patient-specific SDOH attributes such as age, gender, neighborhood, and socioeconomic status. Our findings show that effective prompt design is essential. While incorporating SDOH and reasoning improves dialogue quality, ChatGPT still lacks the empathy and engagement needed for meaningful healthcare communication.</abstract>
       <url hash="c79a8f4b">2025.sigdial-1.43</url>
@@ -558,7 +558,7 @@
     <paper id="44">
       <title>Dialogue Scaffolding: Producing a Realistic Corpus of Human-Computer Open-Domain Dialogues Using a Spoken Dialogue System and <fixed-case>C</fixed-case>hat<fixed-case>GPT</fixed-case></title>
       <author><first>Kevin</first><last>Bowden</last></author>
-      <author><first>Marilyn</first><last>Walker</last></author>
+      <author id="marilyn-walker"><first>Marilyn</first><last>Walker</last></author>
       <pages>538–560</pages>
       <abstract>Researchers in dialogue interaction have had a long-term interest in multi-domain human-computer conversations and how they differ from human-human conversations. Recently, research on dialogue has begun to rely more and more on corpus-based training of neural conversational models, and conversational LLMs such as ChatGPT. However, existing large open-domain dialogue corpora do not accurately capture the characteristics of social human-computer dialogue. This paper addresses this gap by synthesizing a new corpus of 4000 long social dialogues on 200 user-model based topics that we call User-Centric SocialChat (UCSC). We create UCSC with a novel method called Dialogue Scaffolding, where a real dialogue system, that competed successfully in the Alexa Prize, interacts with ChatGPT to generate conversations. The Dialogue Scaffolding method ensures that the dialogues closely resemble the social chat genre of human-computer dialogues. We evaluate UCSC to ensure quality and safety, and we measure lexical diversity and topic consistency to show that the conversations are not repetitive and stay on topic. We evaluate the utility of UCSC by fine-tuning a compact dialogue-level model, PerQy-DLM, and showing that it outperforms competitive fine-tuned models like COSMO, Vicuna, and RedPajama-Chat-3B.</abstract>
       <url hash="8477bd1a">2025.sigdial-1.44</url>
@@ -612,7 +612,7 @@
       <author><first>Xinyi</first><last>Liu</last></author>
       <author><first>Dachun</first><last>Sun</last></author>
       <author><first>Yi</first><last>Fung</last></author>
-      <author><first>Dilek</first><last>Hakkani-Tur</last></author>
+      <author id="dilek-hakkani-tur"><first>Dilek</first><last>Hakkani-Tur</last></author>
       <author><first>Tarek F.</first><last>Abdelzaher</last></author>
       <pages>609–619</pages>
       <abstract>Despite the impressive capabilities of Large Language Models (LLMs), existing Conversational Health Agents (CHAs) remain static and brittle, incapable of adaptive multi-turn reasoning, symptom clarification, or transparent decision-making. This hinders their real-world applicability in clinical diagnosis, where iterative and structured dialogue is essential. We propose DocCHA, a confidence-aware, modular framework that emulates clinical reasoning by decomposing the diagnostic process into three stages: (1) symptom elicitation, (2) history acquisition, and (3) causal graph construction. Each module uses interpretable confidence scores to guide adaptive questioning, prioritize informative clarifications, and refine weak reasoning links. Evaluated on two real-world Chinese consultation datasets (IMCS21, DX), DocCHA consistently outperforms strong prompting-based LLM baselines (GPT-3.5, GPT-4o, LLaMA-3), achieving up to 5.18% higher diagnostic accuracy and over 30% improvement in symptom recall, with only modest increase in dialogue turns. These results demonstrate DocCHA’s effectiveness in enabling structured, transparent, and efficient diagnostic conversations—paving the way for trustworthy LLM-powered clinical assistants in multilingual and resource-constrained settings.</abstract>
@@ -638,7 +638,7 @@
       <author><first>Josue</first><last>Torres-Fonseca</last></author>
       <author><first>Ryan</first><last>Whetten</last></author>
       <author><first>Enoch</first><last>Levandovsky</last></author>
-      <author><first>Casey</first><last>Kennington</last></author>
+      <author id="casey-kennington"><first>Casey</first><last>Kennington</last></author>
       <pages>637–640</pages>
       <abstract>This demo will showcase updates made to the ‘robot-ready spoken dialogue system’ built on the Retico framework. Updates include new modules, logging and real-time monitoring tools, integrations with the Coppelia Sim virtual robot platfrom, integrations with a benchmark, improved documentation, and pypi environment usage.</abstract>
       <url hash="2065cc55">2025.sigdial-1.51</url>
@@ -689,7 +689,7 @@
       <author><first>Ahmed</first><last>Njifenjou</last></author>
       <author><first>Virgile</first><last>Sucal</last></author>
       <author><first>Bassam</first><last>Jabaian</last></author>
-      <author><first>Fabrice</first><last>Lefèvre</last></author>
+      <author id="fabrice-lefevre"><first>Fabrice</first><last>Lefèvre</last></author>
       <pages>697–749</pages>
       <abstract>The prevailing paradigm in the field of Open-Domain Dialogue (ODD) agents predominantly focuses on some high-resource languages such as English or Chinese. Furthermore, the financial and temporal investments required for crowd-sourcing such datasets, in multiple languages, are substantial. Fortunately, advancements in Large Language Models (LLMs), specifically instruction-tuning enabled them to execute tasks based on natural language instructions. Additionally, these models possess the capability to function in various languages within a single thread. Consequently, to generate new data samples in different languages, we propose leveraging these capabilities to replicate the data collection process. We introduce a pipeline for generating ODD data in multiple target languages using LLMs, with demonstrations provided in a unique source language. By eschewing explicit Machine Translation in this approach, we enhance language-specific nuances and cultural specificity. We apply this methodology to the PersonaChat dataset. To further improve the openness of generated dialogues and mimic real life scenarios, we added the notion of speech events corresponding to the type of conversation the speakers are involved in and that of common ground which represents the premises of a conversation.</abstract>
       <url hash="3d8c5a64">2025.sigdial-1.55</url>
