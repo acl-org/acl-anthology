@@ -1591,7 +1591,7 @@
       <author><first>Yichen</first><last>Xu</last></author>
       <author orcid="0000-0001-6486-6020"><first>Qin</first><last>Jin</last><affiliation>Renmin University of China</affiliation></author>
       <author><first>Ji</first><last>Zhang</last><affiliation>Alibaba Group</affiliation></author>
-      <author><first>Fei</first><last>Huang</last><affiliation>Alibaba Group</affiliation></author>
+      <author id="fei-huang"><first>Fei</first><last>Huang</last><affiliation>Alibaba Group</affiliation></author>
       <pages>1882-1898</pages>
       <abstract>Charts are important for presenting and explaining complex data relationships. Recently, multimodal large language models (MLLMs) have shown remarkable capabilities in chart understanding. However, the sheer size of these models limits their use in resource-constrained environments. In this paper, we present TinyChart, an efficient MLLM for chart understanding with only 3B parameters. TinyChart overcomes two key challenges in efficient chart understanding: (1) reduce the burden of learning numerical computations through Program-of-Thoughts (PoT) learning, which trains the model to generate Python programs for numerical calculations, and (2) reduce lengthy vision feature sequences through Vision Token Merging, which gradually merges most similar vision tokens. Extensive experiments demonstrate that our 3B TinyChart achieves SOTA performance on various chart understanding benchmarks including ChartQA, Chart-to-Text, Chart-to-Table, OpenCQA, and ChartX. It outperforms several chart-understanding MLLMs with up to 13B parameters, and close-sourced MLLM GPT-4V on ChartQA, with higher throughput during inference due to a smaller model scale and more efficient vision encoding.</abstract>
       <url hash="ff603c2b">2024.emnlp-main.112</url>
@@ -4482,7 +4482,7 @@
     <paper id="316">
       <title>Predicting Rewards Alongside Tokens: Non-disruptive Parameter Insertion for Efficient Inference Intervention in Large Language Model</title>
       <author><first>Chenhan</first><last>Yuan</last><affiliation>The University of Manchester</affiliation></author>
-      <author><first>Fei</first><last>Huang</last><affiliation>Alibaba Group</affiliation></author>
+      <author id="fei-huang"><first>Fei</first><last>Huang</last><affiliation>Alibaba Group</affiliation></author>
       <author><first>Ru</first><last>Peng</last></author>
       <author><first>Keming</first><last>Lu</last></author>
       <author orcid="0000-0002-6804-1859"><first>Bowen</first><last>Yu</last><affiliation>Alibaba Group</affiliation></author>
@@ -4578,7 +4578,7 @@
       <author><first>Run</first><last>Luo</last></author>
       <author><first>Yunshui</first><last>Li</last></author>
       <author><first>Min</first><last>Yang</last><affiliation>Shenzhen Institutes of Advanced Technology, Chinese Academy of Sciences, Chinese Academy of Sciences</affiliation></author>
-      <author><first>Fei</first><last>Huang</last><affiliation>Alibaba Group</affiliation></author>
+      <author id="fei-huang"><first>Fei</first><last>Huang</last><affiliation>Alibaba Group</affiliation></author>
       <author><first>Yongbin</first><last>Li</last><affiliation>Alibaba Group</affiliation></author>
       <pages>5627-5646</pages>
       <abstract>Long-context modeling capabilities of Large Language Models (LLMs) have garnered widespread attention, leading to the emergence of LLMs with ultra-context windows. Meanwhile, benchmarks for evaluating long-context language models are gradually catching up. However, existing benchmarks employ irrelevant noise texts to artificially extend the length of test cases, diverging from the real-world scenarios of long-context applications. To bridge this gap, we propose a novel long-context benchmark, Loong, aligning with realistic scenarios through extended multi-document question answering (QA). Unlike typical document QA, in Loong’s test cases, each document is relevant to the final answer, ignoring any document will lead to the failure of the answer. Furthermore, Loong introduces four types of tasks with a range of context lengths: Spotlight Locating, Comparison, Clustering, and Chain of Reasoning, to facilitate a more realistic and comprehensive evaluation of long-context understanding. Extensive experiments indicate that existing long-context language models still exhibit considerable potential for enhancement. Retrieval augmented generation (RAG) achieves poor performance, demonstrating that Loong can reliably assess the model’s long-context modeling capabilities.</abstract>
@@ -6585,7 +6585,7 @@
       <author><first>Yingyan</first><last>Hou</last></author>
       <author><first>Yan</first><last>Zhang</last><affiliation>Peking University</affiliation></author>
       <author><first>Pengjun</first><last>Xie</last></author>
-      <author><first>Fei</first><last>Huang</last><affiliation>Alibaba Group</affiliation></author>
+      <author id="fei-huang"><first>Fei</first><last>Huang</last><affiliation>Alibaba Group</affiliation></author>
       <pages>8155-8169</pages>
       <abstract>In-context learning (ICL) has been instrumental in adapting large language models (LLMs) to downstream tasks using correct input-output examples. Recent advances have attempted to improve model performance through principles derived from mistakes, yet these approaches suffer from lack of customization and inadequate error coverage. To address these limitations, we propose Retrieved In-Context Principles (RICP), a novel teacher-student framework. In RICP, the teacher model analyzes mistakes from the student model to generate reasons and insights for preventing similar mistakes. These mistakes are clustered based on their underlying reasons for developing task-level principles, enhancing the error coverage of principles. During inference, the most relevant mistakes for each question are retrieved to create question-level principles, improving the customization of the provided guidance. RICP is orthogonal to existing prompting methods and does not require intervention from the teacher model during inference. Experimental results across seven reasoning benchmarks reveal that RICP effectively enhances performance when applied to various prompting strategies.</abstract>
       <url hash="f4d813b7">2024.emnlp-main.465</url>
@@ -12932,7 +12932,7 @@
       <author><first>Xiaojun</first><last>Quan</last><affiliation>SUN YAT-SEN UNIVERSITY</affiliation></author>
       <author><first>Hehong</first><last>Chen</last></author>
       <author><first>Ji</first><last>Zhang</last><affiliation>Alibaba Group</affiliation></author>
-      <author><first>Fei</first><last>Huang</last><affiliation>Alibaba Group</affiliation></author>
+      <author id="fei-huang"><first>Fei</first><last>Huang</last><affiliation>Alibaba Group</affiliation></author>
       <pages>16658-16680</pages>
       <abstract>Large Language Model (LLM) agents significantly extend the capabilities of standalone LLMs, empowering them to interact with external tools (e.g., APIs, functions) and complete various tasks in a self-directed fashion. The challenge of tool use demands that LLMs not only understand user queries and generate answers accurately but also excel in task planning, tool invocation, and result summarization. While traditional works focus on training a single LLM with all these capabilities, performance limitations become apparent, particularly with smaller models. To overcome these challenges, we propose a novel approach that decomposes the aforementioned capabilities into a planner, caller, and summarizer. Each component is implemented by a single LLM that focuses on a specific capability and collaborates with others to accomplish the task. This modular framework facilitates individual updates and the potential use of smaller LLMs for building each capability. To effectively train this framework, we introduce a two-stage training paradigm. First, we fine-tune a backbone LLM on the entire dataset without discriminating sub-tasks, providing the model with a comprehensive understanding of the task. Second, the fine-tuned LLM is used to instantiate the planner, caller, and summarizer respectively, which are continually fine-tuned on respective sub-tasks. Evaluation across various tool-use benchmarks illustrates that our proposed multi-LLM framework surpasses the traditional single-LLM approach, highlighting its efficacy and advantages in tool learning.</abstract>
       <url hash="9c30c691">2024.emnlp-main.929</url>
@@ -13413,7 +13413,7 @@
       <author><first>Chen</first><last>Li</last></author>
       <author><first>Shaopeng</first><last>Lai</last><affiliation>Alibaba Group</affiliation></author>
       <author><first>Ji</first><last>Zhang</last><affiliation>Alibaba Group</affiliation></author>
-      <author><first>Fei</first><last>Huang</last><affiliation>Alibaba Group</affiliation></author>
+      <author id="fei-huang"><first>Fei</first><last>Huang</last><affiliation>Alibaba Group</affiliation></author>
       <author><first>Min</first><last>Zhang</last><affiliation>Harbin Institute of Technology, Shenzhen</affiliation></author>
       <pages>17446-17467</pages>
       <abstract>This work proposes a simple training-free prompt-free approach to leverage large language models (LLMs) for the Chinese spelling correction (CSC) task, which is totally different from all previous CSC approaches. The key idea is to use an LLM as a pure language model in a conventional manner. The LLM goes through the input sentence from the beginning, and at each inference step, produces a distribution over its vocabulary for deciding the next token, given a partial sentence. To ensure that the output sentence remains faithful to the input sentence, we design a minimal distortion model that utilizes pronunciation or shape similarities between the original and replaced characters. Furthermore, we propose two useful reward strategies to address practical challenges specific to the CSC task. Experiments on five public datasets demonstrate that our approach significantly improves LLM performance, enabling them to compete with state-of-the-art domain-general CSC models.</abstract>
@@ -17267,7 +17267,7 @@
       <author orcid="0009-0009-7282-159X"><first>Chaoya</first><last>Jiang</last><affiliation>Shanghai Jiaotong University, Wuhan University, Tsinghua University, Tsinghua University, Microsoft, University of the Chinese Academy of Sciences, Chinese Academy of Sciences, Beijing University of Aeronautics and Astronautics, South China University of Technology, SUN YAT-SEN UNIVERSITY, University of Electronic Science and Technology of China, Huazhong University of Science and Technology, Harbin Institute of Technology, Shandong University, nanjing university, Beijing University of Posts and Telecommunications, Shanghai Artificial Intelligence Laboratory, Shanghai University of Science and Technology, Tianjin University, Northeastern University, Southeast University, Xi’an Jiaotong University, Xiamen University, Fudan University, Renmin University of China, Nankai University, Meituan, Kuaishou- 快手科技, East China Normal University, Xi’an University of Electronic Science and Technology, Nanjing University of Aeronautics and Astronautics, Nanjing University of Science and Technology, Southern University of Science and Technology, Northwest Polytechnical University Xi’an, Chongqing University, Jilin University, Beijing Normal University, University of Science and Technology Beijing and Zhejiang University</affiliation></author>
       <author orcid="0000-0003-4959-8878"><first>Ming</first><last>Yan</last></author>
       <author><first>Ji</first><last>Zhang</last><affiliation>Alibaba Group</affiliation></author>
-      <author><first>Fei</first><last>Huang</last><affiliation>Alibaba Group</affiliation></author>
+      <author id="fei-huang"><first>Fei</first><last>Huang</last><affiliation>Alibaba Group</affiliation></author>
       <author><first>Chunfeng</first><last>Yuan</last><affiliation>, Institute of automation, Chinese academy of science</affiliation></author>
       <author><first>Bing</first><last>Li</last></author>
       <author><first>Weiming</first><last>Hu</last><affiliation>Institute of automation, Chinese academy of science</affiliation></author>
@@ -19148,7 +19148,7 @@
       <author><first>Xuwei</first><last>Liu</last></author>
       <author><first>Shuguang</first><last>Han</last></author>
       <author><first>Guoqiang</first><last>Wu</last></author>
-      <author><first>Fei</first><last>Huang</last></author>
+      <author id="fei-huang"><first>Fei</first><last>Huang</last></author>
       <author orcid="0009-0007-0713-5089"><first>Jufeng</first><last>Chen</last></author>
       <pages>697-711</pages>
       <abstract>Unlike professional Business-to-Consumer (B2C) e-commerce platforms (e.g., Amazon), Consumer-to-Consumer (C2C) platforms (e.g., Facebook marketplace) are mainly targeting individual sellers who usually lack sufficient experience in e-commerce. Individual sellers often struggle to compose proper descriptions for selling products. With the recent advancement of Multimodal Large Language Models (MLLMs), we attempt to integrate such state-of-the-art generative AI technologies into the product listing process. To this end, we develop IPL, an Intelligent Product Listing tool tailored to generate descriptions using various product attributes such as category, brand, color, condition, etc. IPL enables users to compose product descriptions by merely uploading photos of the selling product. More importantly, it can imitate the content style of our C2C platform Xianyu. This is achieved by employing domain-specific instruction tuning on MLLMs, and by adopting the multi-modal Retrieval-Augmented Generation (RAG) process. A comprehensive empirical evaluation demonstrates that the underlying model of IPL significantly outperforms the base model in domain-specific tasks while producing less hallucination. IPL has been successfully deployed in our production system, where 72% of users have their published product listings based on the generated content, and those product listings are shown to have a quality score 5.6% higher than those without AI assistance.</abstract>
@@ -19901,7 +19901,7 @@
       <author><first>Huan</first><last>Lin</last><affiliation>Alibaba Group</affiliation></author>
       <author><first>Baosong</first><last>Yang</last></author>
       <author><first>Pengjun</first><last>Xie</last></author>
-      <author><first>Fei</first><last>Huang</last><affiliation>Alibaba Group</affiliation></author>
+      <author id="fei-huang"><first>Fei</first><last>Huang</last><affiliation>Alibaba Group</affiliation></author>
       <author><first>Meishan</first><last>Zhang</last><affiliation>Harbin Institute of Technology (Shenzhen), China and Tianjin University, China</affiliation></author>
       <author orcid="0000-0002-7360-8864"><first>Wenjie</first><last>Li</last><affiliation>The Hong Kong Polytechnic University, The Hong Kong Polytechnic University</affiliation></author>
       <author><first>Min</first><last>Zhang</last><affiliation>Harbin Institute of Technology, Shenzhen</affiliation></author>

@@ -587,7 +587,7 @@
       <author><first>Bin</first><last>Bi</last></author>
       <author><first>Songfang</first><last>Huang</last></author>
       <author><first>Wenming</first><last>Xiao</last></author>
-      <author><first>Fei</first><last>Huang</last></author>
+      <author id="fei-huang"><first>Fei</first><last>Huang</last></author>
       <pages>503–513</pages>
       <abstract>Vision-language pre-training (VLP) on large-scale image-text pairs has achieved huge success for the cross-modal downstream tasks. The most existing pre-training methods mainly adopt a two-step training procedure, which firstly employs a pre-trained object detector to extract region-based visual features, then concatenates the image representation and text embedding as the input of Transformer to train. However, these methods face problems of using task-specific visual representation of the specific object detector for generic cross-modal understanding, and the computation inefficiency of two-stage pipeline. In this paper, we propose the first end-to-end vision-language pre-trained model for both V+L understanding and generation, namely E2E-VLP, where we build a unified Transformer framework to jointly learn visual representation, and semantic alignments between image and text. We incorporate the tasks of object detection and image captioning into pre-training with a unified Transformer encoder-decoder architecture for enhancing visual learning. An extensive set of experiments have been conducted on well-established vision-language downstream tasks to demonstrate the effectiveness of this novel VLP paradigm.</abstract>
       <url hash="f8ad6328">2021.acl-long.42</url>
@@ -649,7 +649,7 @@
       <author><first>Nguyen</first><last>Bach</last></author>
       <author><first>Tao</first><last>Wang</last></author>
       <author><first>Zhongqiang</first><last>Huang</last></author>
-      <author><first>Fei</first><last>Huang</last></author>
+      <author id="fei-huang"><first>Fei</first><last>Huang</last></author>
       <author><first>Kewei</first><last>Tu</last></author>
       <pages>550–564</pages>
       <abstract>Knowledge distillation is a critical technique to transfer knowledge between models, typically from a large model (the teacher) to a more fine-grained one (the student). The objective function of knowledge distillation is typically the cross-entropy between the teacher and the student’s output distributions. However, for structured prediction problems, the output space is exponential in size; therefore, the cross-entropy objective becomes intractable to compute and optimize directly. In this paper, we derive a factorized form of the knowledge distillation objective for structured prediction, which is tractable for many typical choices of the teacher and student models. In particular, we show the tractability and empirical effectiveness of structural knowledge distillation between sequence labeling and dependency parsing models under four different scenarios: 1) the teacher and student share the same factorization form of the output structure scoring function; 2) the student factorization produces more fine-grained substructures than the teacher factorization; 3) the teacher factorization produces more fine-grained substructures than the student factorization; 4) the factorization forms from the teacher and the student are incompatible.</abstract>
@@ -1984,7 +1984,7 @@
       <author><first>Nguyen</first><last>Bach</last></author>
       <author><first>Tao</first><last>Wang</last></author>
       <author><first>Zhongqiang</first><last>Huang</last></author>
-      <author><first>Fei</first><last>Huang</last></author>
+      <author id="fei-huang"><first>Fei</first><last>Huang</last></author>
       <author><first>Kewei</first><last>Tu</last></author>
       <pages>1800–1812</pages>
       <abstract>Recent advances in Named Entity Recognition (NER) show that document-level contexts can significantly improve model performance. In many application scenarios, however, such contexts are not available. In this paper, we propose to find external contexts of a sentence by retrieving and selecting a set of semantically relevant texts through a search engine, with the original sentence as the query. We find empirically that the contextual representations computed on the retrieval-based input view, constructed through the concatenation of a sentence and its external contexts, can achieve significantly improved performance compared to the original input view based only on the sentence. Furthermore, we can improve the model performance of both input views by Cooperative Learning, a training method that encourages the two input views to produce similar contextual representations or output label distributions. Experiments show that our approach can achieve new state-of-the-art performance on 8 NER data sets across 5 domains.</abstract>
@@ -2883,7 +2883,7 @@
       <author><first>Nguyen</first><last>Bach</last></author>
       <author><first>Tao</first><last>Wang</last></author>
       <author><first>Zhongqiang</first><last>Huang</last></author>
-      <author><first>Fei</first><last>Huang</last></author>
+      <author id="fei-huang"><first>Fei</first><last>Huang</last></author>
       <author><first>Kewei</first><last>Tu</last></author>
       <pages>2643–2660</pages>
       <abstract>Pretrained contextualized embeddings are powerful word representations for structured prediction tasks. Recent work found that better word representations can be obtained by concatenating different types of embeddings. However, the selection of embeddings to form the best concatenated representation usually varies depending on the task and the collection of candidate embeddings, and the ever-increasing number of embedding types makes it a more difficult problem. In this paper, we propose Automated Concatenation of Embeddings (ACE) to automate the process of finding better concatenations of embeddings for structured prediction tasks, based on a formulation inspired by recent progress on neural architecture search. Specifically, a controller alternately samples a concatenation of embeddings, according to its current belief of the effectiveness of individual embedding types in consideration for a task, and updates the belief based on a reward. We follow strategies in reinforcement learning to optimize the parameters of the controller and compute the reward based on the accuracy of a task model, which is fed with the sampled concatenation as input and trained on a task dataset. Empirical results on 6 tasks and 21 datasets show that our approach outperforms strong baselines and achieves state-of-the-art performance with fine-tuned embeddings in all the evaluations.</abstract>
@@ -2899,7 +2899,7 @@
       <author><first>Nguyen</first><last>Bach</last></author>
       <author><first>Tao</first><last>Wang</last></author>
       <author><first>Zhongqiang</first><last>Huang</last></author>
-      <author><first>Fei</first><last>Huang</last></author>
+      <author id="fei-huang"><first>Fei</first><last>Huang</last></author>
       <author><first>Kewei</first><last>Tu</last></author>
       <pages>2661–2674</pages>
       <abstract>In structured prediction problems, cross-lingual transfer learning is an efficient way to train quality models for low-resource languages, and further improvement can be obtained by learning from multiple source languages. However, not all source models are created equal and some may hurt performance on the target language. Previous work has explored the similarity between source and target sentences as an approximate measure of strength for different source models. In this paper, we propose a multi-view framework, by leveraging a small number of labeled target sentences, to effectively combine multiple source models into an aggregated source view at different granularity levels (language, sentence, or sub-structure), and transfer it to a target view based on a task-specific model. By encouraging the two views to interact with each other, our framework can dynamically adjust the confidence level of each source model and improve the performance of both views during training. Experiments for three structured prediction tasks on sixteen data sets show that our framework achieves significant improvement over all existing approaches, including these with access to additional source language data.</abstract>
@@ -3084,7 +3084,7 @@
       <author><first>Chen</first><last>Hui</last></author>
       <author><first>Tou</first><last>Huaixiao</last></author>
       <author><first>Mosha</first><last>Chen</last></author>
-      <author><first>Fei</first><last>Huang</last></author>
+      <author id="fei-huang"><first>Fei</first><last>Huang</last></author>
       <author><first>Huajun</first><last>Chen</last></author>
       <pages>2828–2839</pages>
       <abstract>Event Detection (ED) aims to identify event trigger words from a given text and classify it into an event type. Most current methods to ED rely heavily on training instances, and almost ignore the correlation of event types. Hence, they tend to suffer from data scarcity and fail to handle new unseen event types. To address these problems, we formulate ED as a process of event ontology population: linking event instances to pre-defined event types in event ontology, and propose a novel ED framework entitled OntoED with ontology embedding. We enrich event ontology with linkages among event types, and further induce more event-event correlations. Based on the event ontology, OntoED can leverage and propagate correlation knowledge, particularly from data-rich to data-poor event types. Furthermore, OntoED can be applied to new unseen event types, by establishing linkages to existing ones. Experiments indicate that OntoED is more predominant and robust than previous approaches to ED, especially in data-scarce scenarios.</abstract>
@@ -3327,7 +3327,7 @@
     <paper id="237">
       <title>A Semantic-based Method for Unsupervised Commonsense Question Answering</title>
       <author><first>Yilin</first><last>Niu</last></author>
-      <author><first>Fei</first><last>Huang</last></author>
+      <author id="fei-huang"><first>Fei</first><last>Huang</last></author>
       <author><first>Jiaming</first><last>Liang</last></author>
       <author><first>Wenkai</first><last>Chen</last></author>
       <author><first>Xiaoyan</first><last>Zhu</last></author>
@@ -4318,7 +4318,7 @@ The source code has been made available at \url{https://github.com/liam0949/DCLO
       <author><first>Yijia</first><last>Liu</last></author>
       <author><first>Bin</first><last>Bi</last></author>
       <author><first>Songfang</first><last>Huang</last></author>
-      <author><first>Fei</first><last>Huang</last></author>
+      <author id="fei-huang"><first>Fei</first><last>Huang</last></author>
       <author><first>Luo</first><last>Si</last></author>
       <pages>3980–3994</pages>
       <abstract>Existing work in multilingual pretraining has demonstrated the potential of cross-lingual transferability by training a unified Transformer encoder for multiple languages. However, much of this work only relies on the shared vocabulary and bilingual contexts to encourage the correlation across languages, which is loose and implicit for aligning the contextual representations between languages. In this paper, we plug a cross-attention module into the Transformer encoder to explicitly build the interdependence between languages. It can effectively avoid the degeneration of predicting masked words only conditioned on the context in its own language. More importantly, when fine-tuning on downstream tasks, the cross-attention module can be plugged in or out on-demand, thus naturally benefiting a wider range of cross-lingual tasks, from language understanding to generation. As a result, the proposed cross-lingual model delivers new state-of-the-art results on various cross-lingual understanding tasks of the XTREME benchmark, covering text classification, sequence labeling, question answering, and sentence retrieval. For cross-lingual generation tasks, it also outperforms all existing cross-lingual models and state-of-the-art Transformer variants on WMT14 English-to-German and English-to-French translation datasets, with gains of up to 1 2 BLEU.</abstract>
@@ -5336,7 +5336,7 @@ The source code has been made available at \url{https://github.com/liam0949/DCLO
       <author><first>Nguyen</first><last>Bach</last></author>
       <author><first>Tao</first><last>Wang</last></author>
       <author><first>Zhongqiang</first><last>Huang</last></author>
-      <author><first>Fei</first><last>Huang</last></author>
+      <author id="fei-huang"><first>Fei</first><last>Huang</last></author>
       <author><first>Kewei</first><last>Tu</last></author>
       <pages>4909–4920</pages>
       <abstract>Zero-shot sequence labeling aims to build a sequence labeler without human-annotated datasets. One straightforward approach is utilizing existing systems (source models) to generate pseudo-labeled datasets and train a target sequence labeler accordingly. However, due to the gap between the source and the target languages/domains, this approach may fail to recover the true labels. In this paper, we propose a novel unified framework for zero-shot sequence labeling with minimum risk training and design a new decomposable risk function that models the relations between the predicted labels from the source models and the true labels. By making the risk function trainable, we draw a connection between minimum risk training and latent variable model learning. We propose a unified learning algorithm based on the expectation maximization (EM) algorithm. We extensively evaluate our proposed approaches on cross-lingual/domain sequence labeling tasks over twenty-one datasets. The results show that our approaches outperform state-of-the-art baseline systems.</abstract>
@@ -6931,7 +6931,7 @@ The source code has been made available at \url{https://github.com/liam0949/DCLO
       <author><first>Ming</first><last>Yan</last></author>
       <author><first>Wei</first><last>Wang</last></author>
       <author><first>Songfang</first><last>Huang</last></author>
-      <author><first>Fei</first><last>Huang</last></author>
+      <author id="fei-huang"><first>Fei</first><last>Huang</last></author>
       <author><first>Luo</first><last>Si</last></author>
       <pages>6309–6318</pages>
       <abstract>Large pre-trained language models achieve state-of-the-art results when fine-tuned on downstream NLP tasks. However, they almost exclusively focus on text-only representation, while neglecting cell-level layout information that is important for form image understanding. In this paper, we propose a new pre-training approach, StructuralLM, to jointly leverage cell and layout information from scanned documents. Specifically, we pre-train StructuralLM with two new designs to make the most of the interactions of cell and layout information: 1) each cell as a semantic unit; 2) classification of cell positions. The pre-trained StructuralLM achieves new state-of-the-art results in different types of downstream tasks, including form understanding (from 78.95 to 85.14), document visual question answering (from 72.59 to 83.94) and document image classification (from 94.43 to 96.08).</abstract>
@@ -9471,7 +9471,7 @@ The source code has been made available at \url{https://github.com/liam0949/DCLO
       <author><first>Hangyu</first><last>Li</last></author>
       <author><first>Yongbin</first><last>Li</last></author>
       <author><first>Jian</first><last>Sun</last></author>
-      <author><first>Fei</first><last>Huang</last></author>
+      <author id="fei-huang"><first>Fei</first><last>Huang</last></author>
       <author><first>Luo</first><last>Si</last></author>
       <author><first>Xiaodan</first><last>Zhu</last></author>
       <pages>879–885</pages>
