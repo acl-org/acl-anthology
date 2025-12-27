@@ -16,7 +16,7 @@ from __future__ import annotations
 
 from attrs import define, field, validators as v, asdict
 from pathlib import Path
-from typing import Iterator, Optional, TYPE_CHECKING
+from typing import Any, Iterator, Optional, TYPE_CHECKING
 import yaml
 
 try:
@@ -26,6 +26,7 @@ except ImportError:  # pragma: no cover
 
 from .utils.attrs import auto_validate_types
 from .utils.ids import AnthologyIDTuple, build_id_from_tuple
+from .constants import RE_VENUE_ID
 from .containers import SlottedDict
 
 if TYPE_CHECKING:
@@ -51,7 +52,7 @@ class Venue:
         url: A website URL for the venue.
     """
 
-    id: str = field(converter=str)
+    id: str = field(converter=str, validator=v.matches_re(RE_VENUE_ID))
     parent: Anthology = field(repr=False, eq=False)
     acronym: str = field(converter=str)
     name: str = field(converter=str)
@@ -134,7 +135,7 @@ class VenueIndex(SlottedDict[Venue]):
     is_data_loaded: bool = field(init=False, repr=True, default=False)
 
     def load(self) -> None:
-        """Loads and parses the `venues/*.yaml` files.
+        """Load and parse the `venues/*.yaml` files.
 
         Raises:
             KeyError: If a mandatory key is missing in a YAML file.
@@ -149,8 +150,38 @@ class VenueIndex(SlottedDict[Venue]):
         self.build()
         self.is_data_loaded = True
 
+    def create(self, id: str, acronym: str, name: str, **kwargs: Any) -> Venue:
+        """Create a new venue and add it to the index.
+
+        Parameters:
+            id: The ID of the new venue.
+            acronym: The acronym of the new venue.
+            name: The name of the new venue.
+            **kwargs: Any valid optional attribute of [Venue][acl_anthology.venues.Venue], with the exception of `path`, which is automatically set based on the venue ID, as well as `item_ids` and `oldstyle_letter`, which cannot be set.
+
+        Returns:
+            The created [Venue][acl_anthology.venues.Venue] object.
+
+        Raises:
+            KeyError: If an invalid attribute is supplied in `**kwargs`.
+        """
+        if "item_ids" in kwargs:
+            raise KeyError(
+                "Cannot specify `item_ids` for Venue; add its ID to the volume(s) instead."
+            )  # pragma: no cover
+        if "oldstyle_letter" in kwargs:
+            raise KeyError(
+                "Cannot specify a new venue with an old-style letter."
+            )  # pragma: no cover
+
+        kwargs["parent"] = self.parent
+        kwargs["path"] = self.parent.datadir / "yaml" / "venues" / f"{id}.yaml"
+        venue = Venue(id=id, acronym=acronym, name=name, **kwargs)
+        self.data[id] = venue
+        return venue
+
     def reset(self) -> None:
-        """Resets the index."""
+        """Reset the index."""
         self.data = {}
         self.is_data_loaded = False
 

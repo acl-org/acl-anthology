@@ -39,6 +39,7 @@ def test_collectionindex_create_collection(anthology_stub):
     assert collection.id == "2099.acl"
     assert collection.parent is index
     assert collection.id in index
+    assert collection.is_modified
 
 
 def test_collectionindex_create_collection_should_raise_with_oldstyle_ids(anthology_stub):

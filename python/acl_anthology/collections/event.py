@@ -15,17 +15,17 @@
 
 from __future__ import annotations
 
-from attrs import define, field, validators as v
+from attrs import define, field, converters, setters, validators as v
 from lxml import etree
 from lxml.builder import E
 from typing import Any, Iterator, Optional, TYPE_CHECKING
 
-from .types import EventLinkingType
+from .types import EventLink
 from ..constants import RE_EVENT_ID
 from ..files import EventFileReference
 from ..people import NameSpecification
-from ..text import MarkupText
-from ..utils.attrs import auto_validate_types
+from ..text import MarkupText, to_markuptext
+from ..utils.attrs import auto_validate_types, track_modifications
 from ..utils.ids import AnthologyID, AnthologyIDTuple, parse_id, build_id_from_tuple
 
 if TYPE_CHECKING:
@@ -44,7 +44,7 @@ class Talk:
         attachments: Links to attachments for this talk. The dictionary key specifies the type of attachment (e.g., "video" or "slides").
     """
 
-    title: MarkupText = field()
+    title: MarkupText = field(converter=to_markuptext)
     type: Optional[str] = field(default=None)
     speakers: list[NameSpecification] = field(factory=list)
     attachments: dict[str, EventFileReference] = field(factory=dict)
@@ -87,7 +87,10 @@ class Talk:
         return elem
 
 
-@define(field_transformer=auto_validate_types)
+@define(
+    field_transformer=auto_validate_types,
+    on_setattr=[setters.convert, setters.validate, track_modifications],
+)
 class Event:
     """An event, such as a meeting or a conference.
 
@@ -100,7 +103,7 @@ class Event:
         is_explicit: True if this event was defined explicitly in the XML.
 
     Attributes: List Attributes:
-        colocated_ids: Tuples of volume IDs and their [`EventLinkingType`][acl_anthology.collections.types.EventLinkingType] that are colocated with this event.
+        colocated_ids: Tuples of volume IDs and their [`EventLink`][acl_anthology.collections.types.EventLink] that are colocated with this event.
         links: Links to materials for this event paper. The dictionary key specifies the type of link (e.g., "handbook" or "website").
         talks: Zero or more references to talks belonging to this event.
 
@@ -112,9 +115,9 @@ class Event:
 
     id: str = field(validator=v.matches_re(RE_EVENT_ID))
     parent: Collection = field(repr=False, eq=False)
-    is_explicit: bool = field(default=False, converter=bool)
+    is_explicit: bool = field(default=False, converter=bool)  # TODO: freeze?
 
-    colocated_ids: list[tuple[AnthologyIDTuple, EventLinkingType]] = field(
+    colocated_ids: list[tuple[AnthologyIDTuple, EventLink]] = field(
         factory=list,
         repr=lambda x: f"<list of {len(x)} tuples>",
     )
@@ -128,9 +131,16 @@ class Event:
         ),
     )
 
-    title: Optional[MarkupText] = field(default=None)
+    title: Optional[MarkupText] = field(
+        default=None, converter=converters.optional(to_markuptext)
+    )
     location: Optional[str] = field(default=None)
     dates: Optional[str] = field(default=None)
+
+    @property
+    def collection(self) -> Collection:
+        """The collection this event belongs to."""
+        return self.parent
 
     @property
     def collection_id(self) -> str:
@@ -156,7 +166,7 @@ class Event:
     def add_colocated(
         self,
         volume: Volume | AnthologyID,
-        type_: EventLinkingType = EventLinkingType.EXPLICIT,
+        type_: EventLink = EventLink.EXPLICIT,
     ) -> None:
         """Add a co-located volume to this event.
 
@@ -175,14 +185,13 @@ class Event:
 
         for idx, (existing_id, existing_type) in enumerate(self.colocated_ids):
             if volume_id == existing_id:
-                if (
-                    existing_type == EventLinkingType.INFERRED
-                    and type_ == EventLinkingType.EXPLICIT
-                ):
+                if existing_type == EventLink.INFERRED and type_ == EventLink.EXPLICIT:
                     self.colocated_ids[idx] = (volume_id, type_)
                 return
 
         self.colocated_ids.append((volume_id, type_))
+        if type_ == EventLink.EXPLICIT:
+            self.collection.is_modified = True
 
         # Update the event index as well
         if self.root.events.is_data_loaded:
@@ -213,7 +222,7 @@ class Event:
                 kwargs["talks"].append(Talk.from_xml(element))
             elif element.tag == "colocated":
                 kwargs["colocated_ids"] = [
-                    (parse_id(str(volume_id.text)), EventLinkingType.EXPLICIT)
+                    (parse_id(str(volume_id.text)), EventLink.EXPLICIT)
                     for volume_id in element
                     if volume_id.tag == "volume-id"
                 ]
@@ -252,7 +261,7 @@ class Event:
         if self.colocated_ids:
             colocated = E.colocated()
             for id_tuple, el_type in self.colocated_ids:
-                if el_type == EventLinkingType.EXPLICIT:
+                if el_type == EventLink.EXPLICIT:
                     colocated.append(
                         getattr(E, "volume-id")(build_id_from_tuple(id_tuple))
                     )

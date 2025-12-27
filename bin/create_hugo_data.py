@@ -39,6 +39,7 @@ import logging as log
 import msgspec
 from omegaconf import OmegaConf
 import os
+from rich.console import Console
 from rich.progress import (
     Progress,
     TextColumn,
@@ -60,6 +61,7 @@ from acl_anthology.utils.text import (
 
 
 BIBLIMIT = None
+CONSOLE = Console(stderr=True)
 ENCODER = msgspec.json.Encoder()
 SCRIPTDIR = os.path.dirname(os.path.realpath(__file__))
 
@@ -93,7 +95,7 @@ def make_progress():
         TaskProgressColumn(show_speed=True),
         TimeRemainingColumn(elapsed_when_finished=True),
     ]
-    return Progress(*columns)
+    return Progress(*columns, console=CONSOLE)
 
 
 @cache
@@ -396,6 +398,8 @@ def export_people(anthology, builddir, dryrun):
                     data["full"] = f"{data['full']} ({', '.join(diff_script_variants)})"
             if person.comment is not None:
                 data["comment"] = person.comment
+            if person.orcid is not None:
+                data["orcid"] = person.orcid
             similar = anthology.people.similar.subset(person_id)
             if len(similar) > 1:
                 data["similar"] = list(similar - {person_id})
@@ -567,7 +571,7 @@ if __name__ == "__main__":
         )
 
     log_level = log.DEBUG if args["--debug"] else log.INFO
-    tracker = setup_rich_logging(level=log_level)
+    tracker = setup_rich_logging(console=CONSOLE, level=log_level)
 
     if limit := args["--bib-limit"]:
         BIBLIMIT = int(limit)
