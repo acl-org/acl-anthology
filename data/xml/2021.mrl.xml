@@ -21,7 +21,7 @@
     </frontmatter>
     <paper id="1">
       <title>Language Models are Few-shot Multilingual Learners</title>
-      <author><first>Genta Indra</first><last>Winata</last></author>
+      <author id="genta-indra-winata"><first>Genta Indra</first><last>Winata</last></author>
       <author><first>Andrea</first><last>Madotto</last></author>
       <author><first>Zhaojiang</first><last>Lin</last></author>
       <author><first>Rosanne</first><last>Liu</last></author>
@@ -38,8 +38,8 @@
       <title>Learning Contextualised Cross-lingual Word Embeddings and Alignments for Extremely Low-Resource Languages Using Parallel Corpora</title>
       <author><first>Takashi</first><last>Wada</last></author>
       <author><first>Tomoharu</first><last>Iwata</last></author>
-      <author><first>Yuji</first><last>Matsumoto</last></author>
-      <author><first>Timothy</first><last>Baldwin</last></author>
+      <author id="yuji-matsumoto"><first>Yuji</first><last>Matsumoto</last></author>
+      <author id="timothy-baldwin"><first>Timothy</first><last>Baldwin</last></author>
       <author><first>Jey Han</first><last>Lau</last></author>
       <pages>16–31</pages>
       <abstract>We propose a new approach for learning contextualised cross-lingual word embeddings based on a small parallel corpus (e.g. a few hundred sentence pairs). Our method obtains word embeddings via an LSTM encoder-decoder model that simultaneously translates and reconstructs an input sentence. Through sharing model parameters among different languages, our model jointly trains the word embeddings in a common cross-lingual space. We also propose to combine word and subword embeddings to make use of orthographic similarities across different languages. We base our experiments on real-world data from endangered languages, namely Yongning Na, Shipibo-Konibo, and Griko. Our experiments on bilingual lexicon induction and word alignment tasks show that our model outperforms existing methods by a large margin for most language pairs. These results demonstrate that, contrary to common belief, an encoder-decoder translation model is beneficial for learning cross-lingual representations even in extremely low-resource conditions. Furthermore, our model also works well on high-resource conditions, achieving state-of-the-art performance on a German-English word-alignment task.</abstract>
@@ -51,7 +51,7 @@
     <paper id="3">
       <title>Clustering Monolingual Vocabularies to Improve Cross-Lingual Generalization</title>
       <author><first>Riccardo</first><last>Bassani</last></author>
-      <author><first>Anders</first><last>Søgaard</last></author>
+      <author id="anders-sogaard"><first>Anders</first><last>Søgaard</last></author>
       <author><first>Tejaswini</first><last>Deoskar</last></author>
       <pages>32–40</pages>
       <abstract>Multilingual language models exhibit better performance for some languages than for others (Singh et al., 2019), and many languages do not seem to benefit from multilingual sharing at all, presumably as a result of poor multilingual segmentation (Pyysal o et al., 2020). This work explores the idea of learning multilingual language models based on clustering of monolingual segments. We show significant improvements over standard multilingual segmentation and training across nine languages on a question answering task, both in a small model regime and for a model of the size of BERT-base.</abstract>
@@ -64,7 +64,7 @@
       <title>Do not neglect related languages: The case of low-resource <fixed-case>O</fixed-case>ccitan cross-lingual word embeddings</title>
       <author><first>Lisa</first><last>Woller</last></author>
       <author><first>Viktor</first><last>Hangya</last></author>
-      <author><first>Alexander</first><last>Fraser</last></author>
+      <author id="alexander-fraser"><first>Alexander</first><last>Fraser</last></author>
       <pages>41–50</pages>
       <abstract>Cross-lingual word embeddings (CLWEs) have proven indispensable for various natural language processing tasks, e.g., bilingual lexicon induction (BLI). However, the lack of data often impairs the quality of representations. Various approaches requiring only weak cross-lingual supervision were proposed, but current methods still fail to learn good CLWEs for languages with only a small monolingual corpus. We therefore claim that it is necessary to explore further datasets to improve CLWEs in low-resource setups. In this paper we propose to incorporate data of related high-resource languages. In contrast to previous approaches which leverage independently pre-trained embeddings of languages, we (i) train CLWEs for the low-resource and a related language jointly and (ii) map them to the target language to build the final multilingual space. In our experiments we focus on Occitan, a low-resource Romance language which is often neglected due to lack of resources. We leverage data from French, Spanish and Catalan for training and evaluate on the Occitan-English BLI task. By incorporating supporting languages our method outperforms previous approaches by a large margin. Furthermore, our analysis shows that the degree of relatedness between an incorporated language and the low-resource language is critically important.</abstract>
       <url hash="00966483">2021.mrl-1.4</url>
@@ -75,7 +75,7 @@
     <paper id="5">
       <title>Specializing Multilingual Language Models: An Empirical Study</title>
       <author><first>Ethan C.</first><last>Chau</last></author>
-      <author><first>Noah A.</first><last>Smith</last></author>
+      <author id="noah-a-smith"><first>Noah A.</first><last>Smith</last></author>
       <pages>51–61</pages>
       <abstract>Pretrained multilingual language models have become a common tool in transferring NLP capabilities to low-resource languages, often with adaptations. In this work, we study the performance, extensibility, and interaction of two such adaptations: vocabulary augmentation and script transliteration. Our evaluations on part-of-speech tagging, universal dependency parsing, and named entity recognition in nine diverse low-resource languages uphold the viability of these approaches while raising new questions around how to optimally adapt multilingual models to low-resource settings.</abstract>
       <url hash="22575101">2021.mrl-1.5</url>
@@ -135,7 +135,7 @@
       <title>On the Cross-lingual Transferability of Contextualized Sense Embeddings</title>
       <author><first>Kiamehr</first><last>Rezaee</last></author>
       <author><first>Daniel</first><last>Loureiro</last></author>
-      <author><first>Jose</first><last>Camacho-Collados</last></author>
+      <author id="jose-camacho-collados"><first>Jose</first><last>Camacho-Collados</last></author>
       <author><first>Mohammad Taher</first><last>Pilehvar</last></author>
       <pages>107–115</pages>
       <abstract>In this paper we analyze the extent to which contextualized sense embeddings, i.e., sense embeddings that are computed based on contextualized word embeddings, are transferable across languages. To this end, we compiled a unified cross-lingual benchmark for Word Sense Disambiguation. We then propose two simple strategies to transfer sense-specific knowledge across languages and test them on the benchmark. Experimental results show that this contextualized knowledge can be effectively transferred to similar languages through pre-trained multilingual language models, to the extent that they can out-perform monolingual representations learnednfrom existing language-specific data.</abstract>
@@ -258,7 +258,7 @@
       <author><first>Soojin</first><last>Chung</last></author>
       <author><first>Hyunsoo</first><last>Woo</last></author>
       <author><first>Min</first><last>Song</last></author>
-      <author><first>Jinho D.</first><last>Choi</last></author>
+      <author id="jinho-d-choi"><first>Jinho D.</first><last>Choi</last></author>
       <pages>224–237</pages>
       <abstract>This paper presents a English-Korean parallel dataset that collects 381K news articles where 1,400 of them, comprising 10K sentences, are manually labeled for crosslingual named entity recognition (NER). The annotation guidelines for the two languages are developed in parallel, that yield the inter-annotator agreement scores of 91 and 88% for English and Korean respectively, indicating sublime quality annotation in our dataset. Three types of crosslingual learning approaches, direct model transfer, embedding projection, and annotation projection, are used to develop zero-shot Korean NER models. Our best model gives the F1-score of 51% that is very encouraging, considering the extremely distinct natures of these two languages. This is pioneering work that explores zero-shot cross-lingual learning between English and Korean and provides rich parallel annotation for a core NLP task such as named entity recognition.</abstract>
       <url hash="1073cb2a">2021.mrl-1.19</url>
@@ -324,7 +324,7 @@
       <title>Cross-Lingual Training of Dense Retrievers for Document Retrieval</title>
       <author><first>Peng</first><last>Shi</last></author>
       <author><first>Rui</first><last>Zhang</last></author>
-      <author><first>He</first><last>Bai</last></author>
+      <author id="richard-he-bai"><first>He</first><last>Bai</last></author>
       <author><first>Jimmy</first><last>Lin</last></author>
       <pages>251–253</pages>
       <abstract>Dense retrieval has shown great success for passage ranking in English. However, its effectiveness for non-English languages remains unexplored due to limitation in training resources. In this work, we explore different transfer techniques for document ranking from English annotations to non-English languages. Our experiments reveal that zero-shot model-based transfer using mBERT improves search quality. We find that weakly-supervised target language transfer is competitive compared to generation-based target language transfer, which requires translation models.</abstract>
