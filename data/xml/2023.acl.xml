@@ -1092,7 +1092,7 @@
       <author><first>Yangyi</first><last>Chen</last><affiliation>UIUC</affiliation></author>
       <author><first>Lifan</first><last>Yuan</last><affiliation>Huazhong University of Science and Technology</affiliation></author>
       <author><first>Ganqu</first><last>Cui</last><affiliation>Tsinghua University</affiliation></author>
-      <author><first>Zhiyuan</first><last>Liu</last><affiliation>Tsinghua University</affiliation></author>
+      <author id="zhiyuan-liu"><first>Zhiyuan</first><last>Liu</last><affiliation>Tsinghua University</affiliation></author>
       <author><first>Heng</first><last>Ji</last><affiliation>University of Illinois at Urbana-Champaign and Amazon (Amazon Scholar)</affiliation></author>
       <pages>1343-1367</pages>
       <abstract>Pre-trained language models (PLMs) may fail in giving reliable estimates of their predictive uncertainty. We take a close look into this problem, aiming to answer two questions: (1) Do PLMs learn to become calibrated in the training process? (2) How effective are existing calibration methods? For the first question, we conduct fine-grained control experiments to study the dynamic change in PLMs’ calibration performance in training. We consider six factors as control variables, including dataset difficulty, available training samples, training steps, the number of tunable parameters, model scale, and pretraining. We observe a consistent change in calibration performance across six factors. We find that PLMs don’t learn to become calibrated in training, evidenced by the continual increase in confidence, no matter whether the predictions are correct or not. We highlight that our finding somewhat contradicts two established conclusions: (a) Larger PLMs are more calibrated; (b) Pretraining improves model calibration. Next, we study the effectiveness of existing calibration methods in mitigating the overconfidence issue. Besides unlearnable calibration methods (e.g., label smoothing), we adapt and extend two recently proposed learnable methods that directly collect data to train models to have reasonable confidence estimations. Experimental results show that learnable methods significantly reduce PLMs’ confidence in wrong predictions.</abstract>
@@ -1920,7 +1920,7 @@
       <author><first>Zichun</first><last>Yu</last><affiliation>Tsinghua University</affiliation></author>
       <author><first>Chenyan</first><last>Xiong</last><affiliation>Microsoft Research</affiliation></author>
       <author orcid="0000-0001-6335-1076"><first>Shi</first><last>Yu</last><affiliation>Tsinghua University</affiliation></author>
-      <author><first>Zhiyuan</first><last>Liu</last><affiliation>Tsinghua University</affiliation></author>
+      <author id="zhiyuan-liu"><first>Zhiyuan</first><last>Liu</last><affiliation>Tsinghua University</affiliation></author>
       <pages>2421-2436</pages>
       <abstract>Retrieval augmentation can aid language models (LMs) in knowledge-intensive tasks by supplying them with external information. Prior works on retrieval augmentation usually jointly fine-tune the retriever and the LM, making them closely coupled. In this paper, we explore the scheme of generic retrieval plug-in: the retriever is to assist target LMs that may not be known beforehand or are unable to be fine-tuned together. To retrieve useful documents for unseen target LMs, we propose augmentation-adapted retriever (AAR), which learns LM’s preferences obtained from a known source LM. Experiments on the MMLU and PopQA datasets demonstrate that our AAR trained with a small source LM is able to significantly improve the zero-shot generalization of larger target LMs ranging from 250M Flan-T5 to 175B InstructGPT. Further analysis indicates that the preferences of different LMs overlap, enabling AAR trained with a single source LM to serve as a generic plug-in for various target LMs. Our code is open-sourced at <url>https://github.com/OpenMatch/Augmentation-Adapted-Retriever</url>.</abstract>
       <url hash="e1ca9bf2">2023.acl-long.136</url>
@@ -4379,7 +4379,7 @@
       <author><first>Yifan</first><last>Luo</last><affiliation>Beijing University of Posts and Telecommunications</affiliation></author>
       <author orcid="0000-0003-3260-4119"><first>Huadong</first><last>Wang</last><affiliation>Tsinghua University</affiliation></author>
       <author><first>Xingyi</first><last>Cheng</last><affiliation>Tencent</affiliation></author>
-      <author><first>Zhiyuan</first><last>Liu</last><affiliation>Tsinghua University</affiliation></author>
+      <author id="zhiyuan-liu"><first>Zhiyuan</first><last>Liu</last><affiliation>Tsinghua University</affiliation></author>
       <author><first>Maosong</first><last>Sun</last><affiliation>Tsinghua University</affiliation></author>
       <pages>5626-5643</pages>
       <abstract>Pre-trained language models (PLMs) have shown unprecedented potential in various fields, especially as the backbones for question-answering (QA) systems. However, they tend to be easily deceived by tricky questions such as “How many eyes does the sun have?”. Such frailties of PLMs often allude to the lack of knowledge within them. In this paper, we find that the PLMs already possess the knowledge required to rebut such questions, and the key is how to activate the knowledge. To systematize this observation, we investigate the PLMs’ responses to one kind of tricky questions, i.e., the false premises questions (FPQs). We annotate a FalseQA dataset containing 2365 human-written FPQs, with the corresponding explanations for the false premises and the revised true premise questions. Using FalseQA, we discover that PLMs are capable of discriminating FPQs by fine-tuning on moderate numbers (e.g., 256) of examples. PLMs also generate reasonable explanations for the false premise, which serve as rebuttals. Further replaying a few general questions during training allows PLMs to excel on FPQs and general questions simultaneously. Our work suggests that once the rebuttal ability is stimulated, knowledge inside the PLMs can be effectively utilized to handle FPQs, which incentivizes the research on PLM-based QA systems. The FalseQA dataset and code are available at <url>https://github.com/thunlp/FalseQA</url> .</abstract>
@@ -6575,7 +6575,7 @@
       <author><first>Zhengyan</first><last>Zhang</last><affiliation>Tsinghua University</affiliation></author>
       <author><first>Yingfa</first><last>Chen</last><affiliation>Natural Language Processing Lab at Tsinghua University</affiliation></author>
       <author orcid="0000-0002-5727-143X"><first>Xiaozhi</first><last>Wang</last><affiliation>Tsinghua University</affiliation></author>
-      <author><first>Zhiyuan</first><last>Liu</last><affiliation>Tsinghua University</affiliation></author>
+      <author id="zhiyuan-liu"><first>Zhiyuan</first><last>Liu</last><affiliation>Tsinghua University</affiliation></author>
       <author><first>Maosong</first><last>Sun</last><affiliation>Tsinghua University</affiliation></author>
       <pages>8272-8285</pages>
       <abstract>For many real-world applications, the user-generated inputs usually contain various noises due to speech recognition errors caused by linguistic variations or typographical errors (typos). Thus, it is crucial to test model performance on data with realistic input noises to ensure robustness and fairness. However, little study has been done to construct such benchmarks for Chinese, where various language-specific input noises happen in the real world. In order to fill this important gap, we construct READIN: a Chinese multi-task benchmark with REalistic And Diverse Input Noises. READIN contains four diverse tasks and requests annotators to re-enter the original test data with two commonly used Chinese input methods: Pinyin input and speech input. We designed our annotation pipeline to maximize diversity, for example by instructing the annotators to use diverse input method editors (IMEs) for keyboard noises and recruiting speakers from diverse dialectical groups for speech noises. We experiment with a series of strong pretrained language models as well as robust training methods, we find that these models often suffer significant performance drops on READIN even with robustness methods like data augmentation. As the first large-scale attempt in creating a benchmark with noises geared towards user-generated inputs, we believe that READIN serves as an important complement to existing Chinese NLP benchmarks. The source code and dataset can be obtained from <url>https://github.com/thunlp/READIN</url>.</abstract>
@@ -7122,7 +7122,7 @@
       <author orcid="0000-0003-3260-4119"><first>Huadong</first><last>Wang</last><affiliation>Tsinghua University</affiliation></author>
       <author orcid="0000-0003-3170-5647"><first>Ruobing</first><last>Xie</last><affiliation>WeChat, Tencent</affiliation></author>
       <author orcid="0000-0002-4400-4033"><first>Fanchao</first><last>Qi</last><affiliation>DeepLang AI</affiliation></author>
-      <author><first>Zhiyuan</first><last>Liu</last><affiliation>Tsinghua University</affiliation></author>
+      <author id="zhiyuan-liu"><first>Zhiyuan</first><last>Liu</last><affiliation>Tsinghua University</affiliation></author>
       <author><first>Maosong</first><last>Sun</last><affiliation>Tsinghua University</affiliation></author>
       <author orcid="0000-0002-5899-5165"><first>Jie</first><last>Zhou</last><affiliation>Tencent Inc.</affiliation></author>
       <pages>8968-8988</pages>
@@ -8517,7 +8517,7 @@
       <author><first>Deming</first><last>Ye</last><affiliation>Tsinghua University</affiliation></author>
       <author><first>Chaojun</first><last>Xiao</last><affiliation>Tsinghua University</affiliation></author>
       <author><first>Xu</first><last>Han</last><affiliation>Tsinghua University</affiliation></author>
-      <author><first>Zhiyuan</first><last>Liu</last><affiliation>Tsinghua University</affiliation></author>
+      <author id="zhiyuan-liu"><first>Zhiyuan</first><last>Liu</last><affiliation>Tsinghua University</affiliation></author>
       <author><first>Peng</first><last>Li</last><affiliation>Institute for AI Industry Research (AIR), Tsinghua University, China</affiliation></author>
       <author><first>Maosong</first><last>Sun</last><affiliation>Tsinghua University</affiliation></author>
       <author orcid="0000-0002-5899-5165"><first>Jie</first><last>Zhou</last><affiliation>Tencent Inc.</affiliation></author>
@@ -12105,7 +12105,7 @@
       <author><first>Wentao</first><last>Li</last><affiliation>Tsinghua University</affiliation></author>
       <author><first>Ning</first><last>Ding</last><affiliation>Tsinghua University</affiliation></author>
       <author><first>Longtao</first><last>Huang</last><affiliation>Alibaba Group</affiliation></author>
-      <author><first>Zhiyuan</first><last>Liu</last><affiliation>Tsinghua University</affiliation></author>
+      <author id="zhiyuan-liu"><first>Zhiyuan</first><last>Liu</last><affiliation>Tsinghua University</affiliation></author>
       <author><first>Maosong</first><last>Sun</last><affiliation>Tsinghua University</affiliation></author>
       <pages>15072-15087</pages>
       <abstract>With the evergrowing sizes of pre-trained models (PTMs), it has been an emerging practice to only provide the inference APIs for users, namely model-as-a-service (MaaS) setting. To adapt PTMs with model parameters frozen, most current approaches focus on the input side, seeking powerful prompts to stimulate models for correct answers. However, we argue that input-side adaptation could be arduous due to the lack of gradient signals and they usually require thousands of API queries, resulting in high computation and time costs. Specifically, DecT first extracts prompt-stimulated output scores for initial predictions. On top of that, we train an additional decoder network on the output representations to incorporate posterior data knowledge. By gradient-based optimization, DecT can be trained within several seconds and requires only one PTM query per sample. Empirically, we conduct extensive natural language understanding experiments and show that DecT significantly outperforms state-of-the-art algorithms with a 200x speed-up. Our code is available at <url>https://github.com/thunlp/DecT</url>.</abstract>
@@ -12390,7 +12390,7 @@
       <author><first>Xiaobin</first><last>Wang</last><affiliation>Alibaba Group</affiliation></author>
       <author><first>Shengding</first><last>Hu</last><affiliation>Tsinghua University</affiliation></author>
       <author><first>Haitao</first><last>Zheng</last><affiliation>Tsinghua University, Shenzhen International Graduate School.</affiliation></author>
-      <author><first>Zhiyuan</first><last>Liu</last><affiliation>Tsinghua University</affiliation></author>
+      <author id="zhiyuan-liu"><first>Zhiyuan</first><last>Liu</last><affiliation>Tsinghua University</affiliation></author>
       <author><first>Pengjun</first><last>Xie</last><affiliation>Alibaba Group</affiliation></author>
       <pages>15428-15444</pages>
       <abstract>Consistently scaling pre-trained language models (PLMs) imposes substantial burdens on model adaptation, necessitating more efficient alternatives to conventional fine-tuning. Given the advantage of prompting in the zero-shot setting and the observed performance fluctuation among different prompts, we explore the instance-level prompt and their generalizability.By searching through the prompt space, we first validate the assumption that for every instance, there is almost always a lottery prompt that induces the correct prediction from the PLM, and such prompt can be obtained at a low cost thanks to the inherent ability of PLMs.Meanwhile, it is shown that some strong lottery prompts have high performance over the whole training set, and they are equipped with distinguishable linguistic features. Lastly, we attempt to generalize the searched strong lottery prompts to unseen data with prompt ensembling method. Experiments are conducted on various types of NLP classification tasks and demonstrate that the proposed method can achieve comparable results with other gradient-free and optimization-free baselines.</abstract>
@@ -12590,7 +12590,7 @@
       <author><first>Xu</first><last>Han</last><affiliation>Tsinghua University</affiliation></author>
       <author><first>Chi-Min</first><last>Chan</last><affiliation>Tsinghua University</affiliation></author>
       <author><first>Yankai</first><last>Lin</last><affiliation>Gaoling School of Artificial Intelligence, Renmin University of China</affiliation></author>
-      <author><first>Zhiyuan</first><last>Liu</last><affiliation>Tsinghua University</affiliation></author>
+      <author id="zhiyuan-liu"><first>Zhiyuan</first><last>Liu</last><affiliation>Tsinghua University</affiliation></author>
       <author><first>Xiangyang</first><last>Li</last><affiliation>8618768170166</affiliation></author>
       <author><first>Zhonghua</first><last>Li</last><affiliation>Huawei</affiliation></author>
       <author><first>Zhao</first><last>Cao</last><affiliation>Huawei</affiliation></author>
@@ -13443,7 +13443,7 @@
       <author><first>Xingtai</first><last>Lv</last><affiliation>Tsinghua University</affiliation></author>
       <author><first>Ning</first><last>Ding</last><affiliation>Tsinghua University</affiliation></author>
       <author><first>Yujia</first><last>Qin</last><affiliation>Tsinghua University</affiliation></author>
-      <author><first>Zhiyuan</first><last>Liu</last><affiliation>Tsinghua University</affiliation></author>
+      <author id="zhiyuan-liu"><first>Zhiyuan</first><last>Liu</last><affiliation>Tsinghua University</affiliation></author>
       <author><first>Maosong</first><last>Sun</last><affiliation>Tsinghua University</affiliation></author>
       <pages>270-282</pages>
       <abstract>Recent studies show that large-scale pre-trained language models could be efficaciously adapted to particular tasks in a parameter-efficient manner. The trained lightweight set of parameters, such as adapters, can be easily stored and shared as a capability equipped with the corresponding models. Owning many lightweight parameters, we focus on transferring them between tasks to acquire an improvement in performance of new tasks, the key point of which is to obtain the similarity between tasks. In this paper, we explore 5 parameter-efficient weight ensembling methods to achieve such transferability and verify the effectiveness of them. These methods extract the information of datasets and trained lightweight parameters from different perspectives to obtain the similarity between tasks, and weight the existing lightweight parameters according to the comparability to acquire a suitable module for the initialization of new tasks. We apply them to three parameter-efficient tuning methods and test them on a wide set of downstream tasks. Experimental results show that our methods show an improvement of 5%~8% over baselines and could largely facilitate task-level knowledge transfer.</abstract>
@@ -15766,7 +15766,7 @@
       <author><first>Weilin</first><last>Zhao</last><affiliation>Tsinghua University</affiliation></author>
       <author><first>Xingtai</first><last>Lv</last><affiliation>Tsinghua University</affiliation></author>
       <author><first>Zhen</first><last>Zhang</last><affiliation>Tsinghua University</affiliation></author>
-      <author><first>Zhiyuan</first><last>Liu</last><affiliation>Tsinghua University</affiliation></author>
+      <author id="zhiyuan-liu"><first>Zhiyuan</first><last>Liu</last><affiliation>Tsinghua University</affiliation></author>
       <author><first>Maosong</first><last>Sun</last><affiliation>Tsinghua University</affiliation></author>
       <pages>274-281</pages>
       <abstract>The scale of large pre-trained models (PTMs) poses significant challenges in adapting to downstream tasks due to the high optimization overhead and storage costs associated with full-parameter fine-tuning. To address this, many studies explore parameter-efficient tuning methods, also framed as “delta tuning” in Ding et al. (2022), which updates only a small subset of parameters, known as “delta modules”, while keeping the backbone model’s parameters fixed. However, the practicality and flexibility of delta tuning have been limited due to existing implementations that directly modify the code of the backbone PTMs and hard-code specific delta tuning methods for each PTM. In this paper, we present OpenDelta, an open-source library that overcomes these limitations by providing a plug-and-play implementation of various delta tuning methods. Our novel techniques eliminate the need to modify the backbone PTMs’ code, making OpenDelta compatible with different, even novel PTMs. OpenDelta is designed to be simple, modular, and extensible, providing a comprehensive platform for researchers and practitioners to adapt large PTMs efficiently.</abstract>
