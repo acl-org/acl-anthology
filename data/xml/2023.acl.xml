@@ -1092,7 +1092,7 @@
       <author><first>Yangyi</first><last>Chen</last><affiliation>UIUC</affiliation></author>
       <author><first>Lifan</first><last>Yuan</last><affiliation>Huazhong University of Science and Technology</affiliation></author>
       <author><first>Ganqu</first><last>Cui</last><affiliation>Tsinghua University</affiliation></author>
-      <author><first>Zhiyuan</first><last>Liu</last><affiliation>Tsinghua University</affiliation></author>
+      <author id="zhiyuan-liu"><first>Zhiyuan</first><last>Liu</last><affiliation>Tsinghua University</affiliation></author>
       <author><first>Heng</first><last>Ji</last><affiliation>University of Illinois at Urbana-Champaign and Amazon (Amazon Scholar)</affiliation></author>
       <pages>1343-1367</pages>
       <abstract>Pre-trained language models (PLMs) may fail in giving reliable estimates of their predictive uncertainty. We take a close look into this problem, aiming to answer two questions: (1) Do PLMs learn to become calibrated in the training process? (2) How effective are existing calibration methods? For the first question, we conduct fine-grained control experiments to study the dynamic change in PLMs’ calibration performance in training. We consider six factors as control variables, including dataset difficulty, available training samples, training steps, the number of tunable parameters, model scale, and pretraining. We observe a consistent change in calibration performance across six factors. We find that PLMs don’t learn to become calibrated in training, evidenced by the continual increase in confidence, no matter whether the predictions are correct or not. We highlight that our finding somewhat contradicts two established conclusions: (a) Larger PLMs are more calibrated; (b) Pretraining improves model calibration. Next, we study the effectiveness of existing calibration methods in mitigating the overconfidence issue. Besides unlearnable calibration methods (e.g., label smoothing), we adapt and extend two recently proposed learnable methods that directly collect data to train models to have reasonable confidence estimations. Experimental results show that learnable methods significantly reduce PLMs’ confidence in wrong predictions.</abstract>
@@ -1920,7 +1920,7 @@
       <author><first>Zichun</first><last>Yu</last><affiliation>Tsinghua University</affiliation></author>
       <author><first>Chenyan</first><last>Xiong</last><affiliation>Microsoft Research</affiliation></author>
       <author orcid="0000-0001-6335-1076"><first>Shi</first><last>Yu</last><affiliation>Tsinghua University</affiliation></author>
-      <author><first>Zhiyuan</first><last>Liu</last><affiliation>Tsinghua University</affiliation></author>
+      <author id="zhiyuan-liu"><first>Zhiyuan</first><last>Liu</last><affiliation>Tsinghua University</affiliation></author>
       <pages>2421-2436</pages>
       <abstract>Retrieval augmentation can aid language models (LMs) in knowledge-intensive tasks by supplying them with external information. Prior works on retrieval augmentation usually jointly fine-tune the retriever and the LM, making them closely coupled. In this paper, we explore the scheme of generic retrieval plug-in: the retriever is to assist target LMs that may not be known beforehand or are unable to be fine-tuned together. To retrieve useful documents for unseen target LMs, we propose augmentation-adapted retriever (AAR), which learns LM’s preferences obtained from a known source LM. Experiments on the MMLU and PopQA datasets demonstrate that our AAR trained with a small source LM is able to significantly improve the zero-shot generalization of larger target LMs ranging from 250M Flan-T5 to 175B InstructGPT. Further analysis indicates that the preferences of different LMs overlap, enabling AAR trained with a single source LM to serve as a generic plug-in for various target LMs. Our code is open-sourced at <url>https://github.com/OpenMatch/Augmentation-Adapted-Retriever</url>.</abstract>
       <url hash="e1ca9bf2">2023.acl-long.136</url>
@@ -2378,7 +2378,7 @@
       <author orcid="0000-0003-0933-1853"><first>Can</first><last>Ma</last><affiliation>Institute of Information Engineering, CAS</affiliation></author>
       <author orcid="0000-0002-3779-5885"><first>Rongyu</first><last>Cao</last><affiliation>Alibaba Group</affiliation></author>
       <author><first>Binhua</first><last>Li</last><affiliation>Alibaba Group</affiliation></author>
-      <author orcid="0000-0002-3709-5053"><first>Fei</first><last>Huang</last><affiliation>Alibaba DAMO Academy</affiliation></author>
+      <author id="fei-huang-cmu" orcid="0000-0002-3709-5053"><first>Fei</first><last>Huang</last><affiliation>Alibaba DAMO Academy</affiliation></author>
       <author><first>Yongbin</first><last>Li</last><affiliation>Alibaba Group</affiliation></author>
       <pages>2983-3000</pages>
       <abstract>There are three problems existing in the popular data-to-text datasets. First, the large-scale datasets either contain noise or lack real application scenarios. Second, the datasets close to real applications are relatively small in size. Last, current datasets bias in the English language while leaving other languages underexplored.To alleviate these limitations, in this paper, we present CATS, a pragmatic Chinese answer-to-sequence dataset with large scale and high quality. The dataset aims to generate textual descriptions for the answer in the practical TableQA system. Further, to bridge the structural gap between the input SQL and table and establish better semantic alignments, we propose a Unified Graph Transformation approach to establish a joint encoding space for the two hybrid knowledge resources and convert this task to a graph-to-text problem. The experiment results demonstrate the effectiveness of our proposed method. Further analysis on CATS attests to both the high quality and challenges of the dataset</abstract>
@@ -2569,7 +2569,7 @@
       <author><first>Hongyi</first><last>Yuan</last><affiliation>Tsinghua University</affiliation></author>
       <author id="zheng-yuan" orcid="0000-0001-7179-2437"><first>Zheng</first><last>Yuan</last><affiliation>Alibaba Group</affiliation></author>
       <author orcid="0000-0002-6676-3057"><first>Chuanqi</first><last>Tan</last><affiliation>Alibaba Group</affiliation></author>
-      <author orcid="0000-0002-3709-5053"><first>Fei</first><last>Huang</last><affiliation>Alibaba DAMO Academy</affiliation></author>
+      <author id="fei-huang-cmu" orcid="0000-0002-3709-5053"><first>Fei</first><last>Huang</last><affiliation>Alibaba DAMO Academy</affiliation></author>
       <author><first>Songfang</first><last>Huang</last><affiliation>Alibaba DAMO Academy</affiliation></author>
       <pages>3246-3264</pages>
       <abstract>Language models with the Transformers structure have shown great performance in natural language processing. However, there still poses problems when fine-tuning pre-trained language models on downstream tasks, such as over-fitting or representation collapse. In this work, we propose HyPe, a simple yet effective fine-tuning technique to alleviate such problems by perturbing hidden representations of Transformers layers. Unlike previous works that only add noise to inputs or parameters, we argue that the hidden representations of Transformers layers convey more diverse and meaningful language information. Therefore, making the Transformers layers more robust to hidden representation perturbations can further benefit the fine-tuning of PLMs en bloc. We conduct extensive experiments and analyses on GLUE and other natural language inference datasets. Results demonstrate that HyPe outperforms vanilla fine-tuning and enhances generalization of hidden representations from different layers. In addition, HyPe acquires negligible computational overheads, and is better than and compatible with previous state-of-the-art fine-tuning techniques.</abstract>
@@ -3288,7 +3288,7 @@
       <author><first>Xiaobin</first><last>Wang</last><affiliation>Alibaba Group</affiliation></author>
       <author orcid="0000-0001-5374-0318"><first>Zaiqiao</first><last>Meng</last><affiliation>University of Glasgow</affiliation></author>
       <author><first>Pengjun</first><last>Xie</last><affiliation>Alibaba Group</affiliation></author>
-      <author orcid="0000-0002-3709-5053"><first>Fei</first><last>Huang</last><affiliation>Alibaba DAMO Academy</affiliation></author>
+      <author id="fei-huang-cmu" orcid="0000-0002-3709-5053"><first>Fei</first><last>Huang</last><affiliation>Alibaba DAMO Academy</affiliation></author>
       <author><first>Yong</first><last>Jiang</last><affiliation>Alibaba DAMO Academy</affiliation></author>
       <pages>4261-4276</pages>
       <abstract>This paper focuses on the task of cross domain few-shot named entity recognition (NER), which aims to adapt the knowledge learned from source domain to recognize named entities in target domain with only a few labeled examples. To address this challenging task, we propose MANNER, a variational memory-augmented few-shot NER model. Specifically, MANNER uses a memory module to store information from the source domain and then retrieve relevant information from the memory to augment few-shot task in the target domain. In order to effectively utilize the information from memory, MANNER uses optimal transport to retrieve and process information from memory, which can explicitly adapt the retrieved information from source domain to target domain and improve the performance in the cross domain few-shot setting. We conduct experiments on English and Chinese cross domain few-shot NER datasets, and the experimental results demonstrate that MANNER can achieve superior performance.</abstract>
@@ -4169,7 +4169,7 @@
       <author orcid="0000-0001-9458-696X"><first>Yunzhi</first><last>Yao</last><affiliation>Zhejiang University</affiliation></author>
       <author orcid="0000-0002-4049-8478"><first>Shumin</first><last>Deng</last><affiliation>National University of Singapore</affiliation></author>
       <author orcid="0000-0002-6676-3057"><first>Chuanqi</first><last>Tan</last><affiliation>Alibaba Group</affiliation></author>
-      <author orcid="0000-0002-3709-5053"><first>Fei</first><last>Huang</last><affiliation>Alibaba DAMO Academy</affiliation></author>
+      <author id="fei-huang-cmu" orcid="0000-0002-3709-5053"><first>Fei</first><last>Huang</last><affiliation>Alibaba DAMO Academy</affiliation></author>
       <author><first>Huajun</first><last>Chen</last><affiliation>Zhejiang University</affiliation></author>
       <pages>5368-5393</pages>
       <abstract>Reasoning, as an essential ability for complex problem-solving, can provide back-end support for various real-world applications, such as medical diagnosis, negotiation, etc. This paper provides a comprehensive survey of cutting-edge research on reasoning with language model prompting. We introduce research works with comparisons and summaries and provide systematic resources to help beginners. We also discuss the potential reasons for emerging such reasoning abilities and highlight future research directions. Resources are available at <url>https://github.com/zjunlp/Prompt4ReasoningPapers</url> (updated periodically).</abstract>
@@ -4379,7 +4379,7 @@
       <author><first>Yifan</first><last>Luo</last><affiliation>Beijing University of Posts and Telecommunications</affiliation></author>
       <author orcid="0000-0003-3260-4119"><first>Huadong</first><last>Wang</last><affiliation>Tsinghua University</affiliation></author>
       <author><first>Xingyi</first><last>Cheng</last><affiliation>Tencent</affiliation></author>
-      <author><first>Zhiyuan</first><last>Liu</last><affiliation>Tsinghua University</affiliation></author>
+      <author id="zhiyuan-liu"><first>Zhiyuan</first><last>Liu</last><affiliation>Tsinghua University</affiliation></author>
       <author><first>Maosong</first><last>Sun</last><affiliation>Tsinghua University</affiliation></author>
       <pages>5626-5643</pages>
       <abstract>Pre-trained language models (PLMs) have shown unprecedented potential in various fields, especially as the backbones for question-answering (QA) systems. However, they tend to be easily deceived by tricky questions such as “How many eyes does the sun have?”. Such frailties of PLMs often allude to the lack of knowledge within them. In this paper, we find that the PLMs already possess the knowledge required to rebut such questions, and the key is how to activate the knowledge. To systematize this observation, we investigate the PLMs’ responses to one kind of tricky questions, i.e., the false premises questions (FPQs). We annotate a FalseQA dataset containing 2365 human-written FPQs, with the corresponding explanations for the false premises and the revised true premise questions. Using FalseQA, we discover that PLMs are capable of discriminating FPQs by fine-tuning on moderate numbers (e.g., 256) of examples. PLMs also generate reasonable explanations for the false premise, which serve as rebuttals. Further replaying a few general questions during training allows PLMs to excel on FPQs and general questions simultaneously. Our work suggests that once the rebuttal ability is stimulated, knowledge inside the PLMs can be effectively utilized to handle FPQs, which incentivizes the research on PLM-based QA systems. The FalseQA dataset and code are available at <url>https://github.com/thunlp/FalseQA</url> .</abstract>
@@ -4999,7 +4999,7 @@
       <author orcid="0000-0003-1219-2436"><first>Yi</first><last>Dai</last><affiliation>Tsinghua University</affiliation></author>
       <author><first>Hao</first><last>Lang</last><affiliation>Alibaba Group</affiliation></author>
       <author><first>Yinhe</first><last>Zheng</last><affiliation>miHoYo</affiliation></author>
-      <author orcid="0000-0002-3709-5053"><first>Fei</first><last>Huang</last><affiliation>Alibaba DAMO Academy</affiliation></author>
+      <author id="fei-huang-cmu" orcid="0000-0002-3709-5053"><first>Fei</first><last>Huang</last><affiliation>Alibaba DAMO Academy</affiliation></author>
       <author><first>Yongbin</first><last>Li</last><affiliation>Alibaba Group</affiliation></author>
       <pages>6362-6382</pages>
       <abstract>Real-world data often have an open long-tailed distribution, and building a unified QA model supporting various tasks is vital for practical QA applications. However, it is non-trivial to extend previous QA approaches since they either require access to seen tasks of adequate samples or do not explicitly model samples from unseen tasks. In this paper, we define Open Long-Tailed QA (OLTQA) as learning from long-tailed distributed data and optimizing performance over seen and unseen QA tasks. We propose an OLTQA model that encourages knowledge sharing between head, tail and unseen tasks, and explicitly mines knowledge from a large pre-trained language model (LM).Specifically, we organize our model through a pool of fine-grained components and dynamically combine these components for an input to facilitate knowledge sharing.A retrieve-then-rerank frame is further introduced to select in-context examples, which guild the LM to generate text that express knowledge for QA tasks. Moreover, a two-stage training approach is introduced to pre-train the framework by knowledge distillation (KD) from the LM and then jointly train the frame and a QA model through an adaptive mutual KD method. On a large-scale OLTQA dataset we curate from 43 existing QA datasets, our model consistently outperforms the state-of-the-art.</abstract>
@@ -6251,7 +6251,7 @@
       <author><first>Yuchuan</first><last>Wu</last><affiliation>Alibaba Group</affiliation></author>
       <author><first>Wentao</first><last>Ma</last><affiliation>Alibaba Group</affiliation></author>
       <author><first>Chao</first><last>Wang</last><affiliation>Alibaba Group</affiliation></author>
-      <author orcid="0000-0002-3709-5053"><first>Fei</first><last>Huang</last><affiliation>Alibaba DAMO Academy</affiliation></author>
+      <author id="fei-huang-cmu" orcid="0000-0002-3709-5053"><first>Fei</first><last>Huang</last><affiliation>Alibaba DAMO Academy</affiliation></author>
       <author><first>Yongbin</first><last>Li</last><affiliation>Alibaba Group</affiliation></author>
       <pages>7900-7913</pages>
       <abstract>Recently, speech-text pre-training methods have shown remarkable success in many speech and natural language processing tasks. However, most previous pre-trained models are usually tailored for one or two specific tasks, but fail to conquer a wide range of speech-text tasks. In addition, existing speech-text pre-training methods fail to explore the contextual information within a dialogue to enrich utterance representations. In this paper, we propose Speech-text Pre-training for spoken dialog understanding with ExpliCiT cRoss-Modal Alignment (SPECTRA), which is the first-ever speech-text dialog pre-training model. Concretely, to consider the temporality of speech modality, we design a novel temporal position prediction task to capture the speech-text alignment. This pre-training task aims to predict the start and end time of each textual word in the corresponding speech waveform. In addition, to learn the characteristics of spoken dialogs, we generalize a response selection task from textual dialog pre-training to speech-text dialog pre-training scenarios. Experimental results on four different downstream speech-text tasks demonstrate the superiority of SPECTRA in learning speech-text alignment and multi-turn dialog context.</abstract>
@@ -6575,7 +6575,7 @@
       <author><first>Zhengyan</first><last>Zhang</last><affiliation>Tsinghua University</affiliation></author>
       <author><first>Yingfa</first><last>Chen</last><affiliation>Natural Language Processing Lab at Tsinghua University</affiliation></author>
       <author orcid="0000-0002-5727-143X"><first>Xiaozhi</first><last>Wang</last><affiliation>Tsinghua University</affiliation></author>
-      <author><first>Zhiyuan</first><last>Liu</last><affiliation>Tsinghua University</affiliation></author>
+      <author id="zhiyuan-liu"><first>Zhiyuan</first><last>Liu</last><affiliation>Tsinghua University</affiliation></author>
       <author><first>Maosong</first><last>Sun</last><affiliation>Tsinghua University</affiliation></author>
       <pages>8272-8285</pages>
       <abstract>For many real-world applications, the user-generated inputs usually contain various noises due to speech recognition errors caused by linguistic variations or typographical errors (typos). Thus, it is crucial to test model performance on data with realistic input noises to ensure robustness and fairness. However, little study has been done to construct such benchmarks for Chinese, where various language-specific input noises happen in the real world. In order to fill this important gap, we construct READIN: a Chinese multi-task benchmark with REalistic And Diverse Input Noises. READIN contains four diverse tasks and requests annotators to re-enter the original test data with two commonly used Chinese input methods: Pinyin input and speech input. We designed our annotation pipeline to maximize diversity, for example by instructing the annotators to use diverse input method editors (IMEs) for keyboard noises and recruiting speakers from diverse dialectical groups for speech noises. We experiment with a series of strong pretrained language models as well as robust training methods, we find that these models often suffer significant performance drops on READIN even with robustness methods like data augmentation. As the first large-scale attempt in creating a benchmark with noises geared towards user-generated inputs, we believe that READIN serves as an important complement to existing Chinese NLP benchmarks. The source code and dataset can be obtained from <url>https://github.com/thunlp/READIN</url>.</abstract>
@@ -7122,7 +7122,7 @@
       <author orcid="0000-0003-3260-4119"><first>Huadong</first><last>Wang</last><affiliation>Tsinghua University</affiliation></author>
       <author orcid="0000-0003-3170-5647"><first>Ruobing</first><last>Xie</last><affiliation>WeChat, Tencent</affiliation></author>
       <author orcid="0000-0002-4400-4033"><first>Fanchao</first><last>Qi</last><affiliation>DeepLang AI</affiliation></author>
-      <author><first>Zhiyuan</first><last>Liu</last><affiliation>Tsinghua University</affiliation></author>
+      <author id="zhiyuan-liu"><first>Zhiyuan</first><last>Liu</last><affiliation>Tsinghua University</affiliation></author>
       <author><first>Maosong</first><last>Sun</last><affiliation>Tsinghua University</affiliation></author>
       <author orcid="0000-0002-5899-5165"><first>Jie</first><last>Zhou</last><affiliation>Tencent Inc.</affiliation></author>
       <pages>8968-8988</pages>
@@ -7728,7 +7728,7 @@
     <paper id="539">
       <title><fixed-case>D</fixed-case>ecomp<fixed-case>E</fixed-case>val: Evaluating Generated Texts as Unsupervised Decomposed Question Answering</title>
       <author><first>Pei</first><last>Ke</last><affiliation>Tsinghua University</affiliation></author>
-      <author><first>Fei</first><last>Huang</last><affiliation>Tsinghua University</affiliation></author>
+      <author id="fei-huang"><first>Fei</first><last>Huang</last><affiliation>Tsinghua University</affiliation></author>
       <author><first>Fei</first><last>Mi</last><affiliation>Huawei</affiliation></author>
       <author><first>Yasheng</first><last>Wang</last><affiliation>Huawei Noah’s Ark Lab</affiliation></author>
       <author orcid="0000-0002-7000-1792"><first>Qun</first><last>Liu</last><affiliation>Huawei Noah’s Ark Lab</affiliation></author>
@@ -8517,7 +8517,7 @@
       <author><first>Deming</first><last>Ye</last><affiliation>Tsinghua University</affiliation></author>
       <author><first>Chaojun</first><last>Xiao</last><affiliation>Tsinghua University</affiliation></author>
       <author><first>Xu</first><last>Han</last><affiliation>Tsinghua University</affiliation></author>
-      <author><first>Zhiyuan</first><last>Liu</last><affiliation>Tsinghua University</affiliation></author>
+      <author id="zhiyuan-liu"><first>Zhiyuan</first><last>Liu</last><affiliation>Tsinghua University</affiliation></author>
       <author><first>Peng</first><last>Li</last><affiliation>Institute for AI Industry Research (AIR), Tsinghua University, China</affiliation></author>
       <author><first>Maosong</first><last>Sun</last><affiliation>Tsinghua University</affiliation></author>
       <author orcid="0000-0002-5899-5165"><first>Jie</first><last>Zhou</last><affiliation>Tencent Inc.</affiliation></author>
@@ -9989,7 +9989,7 @@
       <author orcid="0000-0002-7977-5540"><first>Qinghao</first><last>Ye</last><affiliation>Alibaba Group</affiliation></author>
       <author><first>Chenliang</first><last>Li</last><affiliation>Alibaba Group</affiliation></author>
       <author><first>Songfang</first><last>Huang</last><affiliation>Alibaba DAMO Academy</affiliation></author>
-      <author orcid="0000-0002-3709-5053"><first>Fei</first><last>Huang</last><affiliation>Alibaba DAMO Academy</affiliation></author>
+      <author id="fei-huang-cmu" orcid="0000-0002-3709-5053"><first>Fei</first><last>Huang</last><affiliation>Alibaba DAMO Academy</affiliation></author>
       <author><first>Zhangzikang</first><last>Li</last><affiliation>Southeast University</affiliation></author>
       <author orcid="0000-0003-0140-7366"><first>Yu</first><last>Zhang</last><affiliation>Southeast University</affiliation></author>
       <pages>12427-12440</pages>
@@ -10804,7 +10804,7 @@
       <author><first>Binyuan</first><last>Hui</last><affiliation>Alibaba Group</affiliation></author>
       <author><first>ZhiChao</first><last>Yin</last><affiliation>The University of Science and Technology of China</affiliation></author>
       <author><first>Min</first><last>Yang</last><affiliation>Chinese Academy of Sciences</affiliation></author>
-      <author orcid="0000-0002-3709-5053"><first>Fei</first><last>Huang</last><affiliation>Alibaba DAMO Academy</affiliation></author>
+      <author id="fei-huang-cmu" orcid="0000-0002-3709-5053"><first>Fei</first><last>Huang</last><affiliation>Alibaba DAMO Academy</affiliation></author>
       <author><first>Yongbin</first><last>Li</last><affiliation>Alibaba Group</affiliation></author>
       <pages>13402-13416</pages>
       <abstract>Perceiving multi-modal information and fulfilling dialogues with humans is a long-term goal of artificial intelligence. Pre-training is commonly regarded as an effective approach for multi-modal dialogue. However, due to the limited availability of multi-modal dialogue data, there is still scarce research on multi-modal dialogue pre-training. Yet another intriguing challenge emerges from the encompassing nature of multi-modal dialogue, which involves various modalities and tasks. Moreover, new forms of tasks may arise at unpredictable points in the future. Hence, it is essential for designed multi-modal dialogue models to possess sufficient flexibility to adapt to such scenarios. This paper proposes PaCE, a unified, structured, compositional multi-modal dialogue pre-training framework. It utilizes a combination of several fundamental experts to accommodate multiple dialogue-related tasks and can be pre-trained using limited dialogue and extensive non-dialogue multi-modal data. Furthermore, we propose a progressive training method where old experts from the past can assist new experts, facilitating the expansion of their capabilities. Experimental results demonstrate that PaCE achieves state-of-the-art results on eight multi-modal dialog benchmarks.</abstract>
@@ -11813,7 +11813,7 @@
       <author><first>Wei</first><last>Ye</last><affiliation>Peking University</affiliation></author>
       <author orcid="0000-0001-9442-5912"><first>Haiyang</first><last>Xu</last><affiliation>Alibaba Damo Academy</affiliation></author>
       <author><first>Songfang</first><last>Huang</last><affiliation>Alibaba DAMO Academy</affiliation></author>
-      <author orcid="0000-0002-3709-5053"><first>Fei</first><last>Huang</last><affiliation>Alibaba DAMO Academy</affiliation></author>
+      <author id="fei-huang-cmu" orcid="0000-0002-3709-5053"><first>Fei</first><last>Huang</last><affiliation>Alibaba DAMO Academy</affiliation></author>
       <author><first>Shikun</first><last>Zhang</last><affiliation>Peking University</affiliation></author>
       <pages>14660-14679</pages>
       <abstract>In this paper, we reconsider the problem of (partial) false negative samples from the Mutual Information (MI) Maximization perspective, the traditional contrastive loss (like InfoNCE loss) will equally push away the anchor of all positive samples and negative samples regardless of their possible semantic similarities. We theoretically show that InfoNCE loss will not only maximize the MI between the anchor and positive samples but minimize the MI between the anchor and false negative samples even though they share similar semantic which could provide a possible theoretical explanation for the observation of the existence of false negative samples in the cross-modal contrastive learning will decrease the downstream task performance of VLP models. Above analysis motivate us to propose the VLP model with a novel Semantic Awared Contrastive Learning framework named SACL where different negative samples are assigned with different contrastive weights according to the semantic similarity between them and the anchor.</abstract>
@@ -12105,7 +12105,7 @@
       <author><first>Wentao</first><last>Li</last><affiliation>Tsinghua University</affiliation></author>
       <author><first>Ning</first><last>Ding</last><affiliation>Tsinghua University</affiliation></author>
       <author><first>Longtao</first><last>Huang</last><affiliation>Alibaba Group</affiliation></author>
-      <author><first>Zhiyuan</first><last>Liu</last><affiliation>Tsinghua University</affiliation></author>
+      <author id="zhiyuan-liu"><first>Zhiyuan</first><last>Liu</last><affiliation>Tsinghua University</affiliation></author>
       <author><first>Maosong</first><last>Sun</last><affiliation>Tsinghua University</affiliation></author>
       <pages>15072-15087</pages>
       <abstract>With the evergrowing sizes of pre-trained models (PTMs), it has been an emerging practice to only provide the inference APIs for users, namely model-as-a-service (MaaS) setting. To adapt PTMs with model parameters frozen, most current approaches focus on the input side, seeking powerful prompts to stimulate models for correct answers. However, we argue that input-side adaptation could be arduous due to the lack of gradient signals and they usually require thousands of API queries, resulting in high computation and time costs. Specifically, DecT first extracts prompt-stimulated output scores for initial predictions. On top of that, we train an additional decoder network on the output representations to incorporate posterior data knowledge. By gradient-based optimization, DecT can be trained within several seconds and requires only one PTM query per sample. Empirically, we conduct extensive natural language understanding experiments and show that DecT significantly outperforms state-of-the-art algorithms with a 200x speed-up. Our code is available at <url>https://github.com/thunlp/DecT</url>.</abstract>
@@ -12390,7 +12390,7 @@
       <author><first>Xiaobin</first><last>Wang</last><affiliation>Alibaba Group</affiliation></author>
       <author><first>Shengding</first><last>Hu</last><affiliation>Tsinghua University</affiliation></author>
       <author><first>Haitao</first><last>Zheng</last><affiliation>Tsinghua University, Shenzhen International Graduate School.</affiliation></author>
-      <author><first>Zhiyuan</first><last>Liu</last><affiliation>Tsinghua University</affiliation></author>
+      <author id="zhiyuan-liu"><first>Zhiyuan</first><last>Liu</last><affiliation>Tsinghua University</affiliation></author>
       <author><first>Pengjun</first><last>Xie</last><affiliation>Alibaba Group</affiliation></author>
       <pages>15428-15444</pages>
       <abstract>Consistently scaling pre-trained language models (PLMs) imposes substantial burdens on model adaptation, necessitating more efficient alternatives to conventional fine-tuning. Given the advantage of prompting in the zero-shot setting and the observed performance fluctuation among different prompts, we explore the instance-level prompt and their generalizability.By searching through the prompt space, we first validate the assumption that for every instance, there is almost always a lottery prompt that induces the correct prediction from the PLM, and such prompt can be obtained at a low cost thanks to the inherent ability of PLMs.Meanwhile, it is shown that some strong lottery prompts have high performance over the whole training set, and they are equipped with distinguishable linguistic features. Lastly, we attempt to generalize the searched strong lottery prompts to unseen data with prompt ensembling method. Experiments are conducted on various types of NLP classification tasks and demonstrate that the proposed method can achieve comparable results with other gradient-free and optimization-free baselines.</abstract>
@@ -12590,7 +12590,7 @@
       <author><first>Xu</first><last>Han</last><affiliation>Tsinghua University</affiliation></author>
       <author><first>Chi-Min</first><last>Chan</last><affiliation>Tsinghua University</affiliation></author>
       <author><first>Yankai</first><last>Lin</last><affiliation>Gaoling School of Artificial Intelligence, Renmin University of China</affiliation></author>
-      <author><first>Zhiyuan</first><last>Liu</last><affiliation>Tsinghua University</affiliation></author>
+      <author id="zhiyuan-liu"><first>Zhiyuan</first><last>Liu</last><affiliation>Tsinghua University</affiliation></author>
       <author><first>Xiangyang</first><last>Li</last><affiliation>8618768170166</affiliation></author>
       <author><first>Zhonghua</first><last>Li</last><affiliation>Huawei</affiliation></author>
       <author><first>Zhao</first><last>Cao</last><affiliation>Huawei</affiliation></author>
@@ -13443,7 +13443,7 @@
       <author><first>Xingtai</first><last>Lv</last><affiliation>Tsinghua University</affiliation></author>
       <author><first>Ning</first><last>Ding</last><affiliation>Tsinghua University</affiliation></author>
       <author><first>Yujia</first><last>Qin</last><affiliation>Tsinghua University</affiliation></author>
-      <author><first>Zhiyuan</first><last>Liu</last><affiliation>Tsinghua University</affiliation></author>
+      <author id="zhiyuan-liu"><first>Zhiyuan</first><last>Liu</last><affiliation>Tsinghua University</affiliation></author>
       <author><first>Maosong</first><last>Sun</last><affiliation>Tsinghua University</affiliation></author>
       <pages>270-282</pages>
       <abstract>Recent studies show that large-scale pre-trained language models could be efficaciously adapted to particular tasks in a parameter-efficient manner. The trained lightweight set of parameters, such as adapters, can be easily stored and shared as a capability equipped with the corresponding models. Owning many lightweight parameters, we focus on transferring them between tasks to acquire an improvement in performance of new tasks, the key point of which is to obtain the similarity between tasks. In this paper, we explore 5 parameter-efficient weight ensembling methods to achieve such transferability and verify the effectiveness of them. These methods extract the information of datasets and trained lightweight parameters from different perspectives to obtain the similarity between tasks, and weight the existing lightweight parameters according to the comparability to acquire a suitable module for the initialization of new tasks. We apply them to three parameter-efficient tuning methods and test them on a wide set of downstream tasks. Experimental results show that our methods show an improvement of 5%~8% over baselines and could largely facilitate task-level knowledge transfer.</abstract>
@@ -15766,7 +15766,7 @@
       <author><first>Weilin</first><last>Zhao</last><affiliation>Tsinghua University</affiliation></author>
       <author><first>Xingtai</first><last>Lv</last><affiliation>Tsinghua University</affiliation></author>
       <author><first>Zhen</first><last>Zhang</last><affiliation>Tsinghua University</affiliation></author>
-      <author><first>Zhiyuan</first><last>Liu</last><affiliation>Tsinghua University</affiliation></author>
+      <author id="zhiyuan-liu"><first>Zhiyuan</first><last>Liu</last><affiliation>Tsinghua University</affiliation></author>
       <author><first>Maosong</first><last>Sun</last><affiliation>Tsinghua University</affiliation></author>
       <pages>274-281</pages>
       <abstract>The scale of large pre-trained models (PTMs) poses significant challenges in adapting to downstream tasks due to the high optimization overhead and storage costs associated with full-parameter fine-tuning. To address this, many studies explore parameter-efficient tuning methods, also framed as “delta tuning” in Ding et al. (2022), which updates only a small subset of parameters, known as “delta modules”, while keeping the backbone model’s parameters fixed. However, the practicality and flexibility of delta tuning have been limited due to existing implementations that directly modify the code of the backbone PTMs and hard-code specific delta tuning methods for each PTM. In this paper, we present OpenDelta, an open-source library that overcomes these limitations by providing a plug-and-play implementation of various delta tuning methods. Our novel techniques eliminate the need to modify the backbone PTMs’ code, making OpenDelta compatible with different, even novel PTMs. OpenDelta is designed to be simple, modular, and extensible, providing a comprehensive platform for researchers and practitioners to adapt large PTMs efficiently.</abstract>
