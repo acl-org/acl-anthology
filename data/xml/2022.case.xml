@@ -3,8 +3,8 @@
   <volume id="1" ingest-date="2022-12-07" type="proceedings">
     <meta>
       <booktitle>Proceedings of the 5th Workshop on Challenges and Applications of Automated Extraction of Socio-political Events from Text (CASE)</booktitle>
-      <editor><first>Ali</first><last>Hürriyetoğlu</last></editor>
-      <editor><first>Hristo</first><last>Tanev</last></editor>
+      <editor id="ali-hurriyetoglu"><first>Ali</first><last>Hürriyetoğlu</last></editor>
+      <editor id="hristo-tanev"><first>Hristo</first><last>Tanev</last></editor>
       <editor><first>Vanni</first><last>Zavarella</last></editor>
       <editor><first>Erdem</first><last>Yörük</last></editor>
       <publisher>Association for Computational Linguistics</publisher>
@@ -37,7 +37,7 @@
       <author><first>Huiling</first><last>You</last></author>
       <author><first>David</first><last>Samuel</last></author>
       <author><first>Samia</first><last>Touileb</last></author>
-      <author><first>Lilja</first><last>Øvrelid</last></author>
+      <author id="lilja-ovrelid"><first>Lilja</first><last>Øvrelid</last></author>
       <pages>7-15</pages>
       <abstract>Event extraction involves the detection and extraction of both the event triggers and the corresponding arguments. Existing systems often decompose event extraction into multiple subtasks, without considering their possible interactions. In this paper, we propose EventGraph, a joint framework for event extraction, which encodes events as graphs. We represent event triggers and arguments as nodes in a semantic graph. Event extraction therefore becomes a graph parsing problem, which provides the following advantages: 1) performing event detection and argument extraction jointly; 2) detecting and extracting multiple events from a piece of text; 3) capturing the complicated interaction between event arguments and triggers. Experimental results on ACE2005 show that our model is competitive to state-of-the-art systems and has substantially improved the results on argument extraction. Additionally, we create two new datasets from ACE2005 where we keep the entire text spans for event arguments, instead of just the head word(s). Our code and models will be released as open-source.</abstract>
       <url hash="520bef61">2022.case-1.2</url>
@@ -59,8 +59,8 @@
     <paper id="4">
       <title>A Hybrid Knowledge and Transformer-Based Model for Event Detection with Automatic Self-Attention Threshold, Layer and Head Selection</title>
       <author><first>Thierry</first><last>Desot</last></author>
-      <author><first>Orphee</first><last>De Clercq</last></author>
-      <author><first>Veronique</first><last>Hoste</last></author>
+      <author id="orphee-de-clercq"><first>Orphee</first><last>De Clercq</last></author>
+      <author id="veronique-hoste"><first>Veronique</first><last>Hoste</last></author>
       <pages>21-31</pages>
       <abstract>Event and argument role detection are frequently conceived as separate tasks. In this work we conceive both processes as one taskin a hybrid event detection approach. Its main component is based on automatic keyword extraction (AKE) using the self-attention mechanism of a BERT transformer model. As a bottleneck for AKE is defining the threshold of the attention values, we propose a novel method for automatic self-attention thresholdselection. It is fueled by core event information, or simply the verb and its arguments as the backbone of an event. These are outputted by a knowledge-based syntactic parser. In a secondstep the event core is enriched with other semantically salient words provided by the transformer model. Furthermore, we propose an automatic self-attention layer and head selectionmechanism, by analyzing which self-attention cells in the BERT transformer contribute most to the hybrid event detection and which linguistic tasks they represent. This approach was integrated in a pipeline event extraction approachand outperforms three state of the art multi-task event extraction methods.</abstract>
       <url hash="4224d53d">2022.case-1.4</url>
@@ -95,7 +95,7 @@
     <paper id="7">
       <title><fixed-case>LTRC</fixed-case> @ Causal News Corpus 2022: Extracting and Identifying Causal Elements using Adapters</title>
       <author><first>Hiranmai</first><last>Sri Adibhatla</last></author>
-      <author><first>Manish</first><last>Shrivastava</last></author>
+      <author id="manish-shrivastava"><first>Manish</first><last>Shrivastava</last></author>
       <pages>50-55</pages>
       <abstract>Causality detection and identification is centered on identifying semantic and cognitive connections in a sentence. In this paper, we describe the effort of team LTRC for Causal News Corpus - Event Causality Shared Task 2022 at the 5th Workshop on Challenges and Applications of Automated Extraction of Socio-political Events from Text (CASE 2022). The shared task consisted of two subtasks: 1) identifying if a sentence contains a causality relation, and 2) identifying spans of text that correspond to cause, effect and signals. We fine-tuned transformer-based models with adapters for both subtasks. Our best-performing models obtained a binary F1 score of 0.853 on held-out data for subtask 1 and a macro F1 score of 0.032 on held-out data for subtask 2. Our approach is ranked third in subtask 1 and fourth in subtask 2. The paper describes our experiments, solutions, and analysis in detail.</abstract>
       <url hash="9fec7e31">2022.case-1.7</url>
@@ -124,7 +124,7 @@
       <author><first>Esau</first><last>Villatoro-tello</last></author>
       <author><first>Martin</first><last>Fajcik</last></author>
       <author><first>Muskaan</first><last>Singh</last></author>
-      <author><first>Pavel</first><last>Smrz</last></author>
+      <author id="pavel-smrz"><first>Pavel</first><last>Smrz</last></author>
       <author><first>Petr</first><last>Motlicek</last></author>
       <pages>61-69</pages>
       <abstract>In this paper, we describe our participation in the subtask 1 of CASE-2022, Event Causality Identification with Casual News Corpus. We address the Causal Relation Identification (CRI) task by exploiting a set of simple yet complementary techniques for fine-tuning language models (LMs) on a few annotated examples (i.e., a few-shot configuration).We follow a prompt-based prediction approach for fine-tuning LMs in which the CRI task is treated as a masked language modeling problem (MLM). This approach allows LMs natively pre-trained on MLM tasks to directly generate textual responses to CRI-specific prompts. We compare the performance of this method against ensemble techniques trained on the entire dataset. Our best-performing submission was fine-tuned with only 256 instances per class, 15.7% of the all available data, and yet obtained the second-best precision (0.82), third-best accuracy (0.82), and an F1-score (0.85) very close to what was reported by the winner team (0.86).</abstract>
@@ -141,7 +141,7 @@
       <author><first>Esau</first><last>Villatoro-tello</last></author>
       <author><first>Sergio</first><last>Burdisso</last></author>
       <author><first>Petr</first><last>Motlicek</last></author>
-      <author><first>Pavel</first><last>Smrz</last></author>
+      <author id="pavel-smrz"><first>Pavel</first><last>Smrz</last></author>
       <pages>70-78</pages>
       <abstract>In this paper, we describe our shared task submissions for Subtask 2 in CASE-2022, Event Causality Identification with Casual News Corpus. The challenge focused on the automatic detection of all cause-effect-signal spans present in the sentence from news-media. We detect cause-effect-signal spans in a sentence using T5 — a pre-trained autoregressive language model. We iteratively identify all cause-effect-signal span triplets, always conditioning the prediction of the next triplet on the previously predicted ones. To predict the triplet itself, we consider different causal relationships such as cause→effect→signal. Each triplet component is generated via a language model conditioned on the sentence, the previous parts of the current triplet, and previously predicted triplets. Despite training on an extremely small dataset of 160 samples, our approach achieved competitive performance, being placed second in the competition. Furthermore, we show that assuming either cause→effect or effect→cause order achieves similar results.</abstract>
       <url hash="d87d57ac">2022.case-1.10</url>
@@ -228,7 +228,7 @@
     <paper id="17">
       <title>Zero-Shot Ranking Socio-Political Texts with Transformer Language Models to Reduce Close Reading Time</title>
       <author><first>Kiymet</first><last>Akdemir</last></author>
-      <author><first>Ali</first><last>Hürriyetoğlu</last></author>
+      <author id="ali-hurriyetoglu"><first>Ali</first><last>Hürriyetoğlu</last></author>
       <pages>124-132</pages>
       <abstract>We approach the classification problem as an entailment problem and apply zero-shot ranking to socio-political texts. Documents that are ranked at the top can be considered positively classified documents and this reduces the close reading time for the information extraction process. We use Transformer Language Models to get the entailment probabilities and investigate different types of queries. We find that DeBERTa achieves higher mean average precision scores than RoBERTa and when declarative form of the class label is used as a query, it outperforms dictionary definition of the class label. We show that one can reduce the close reading time by taking some percentage of the ranked documents that the percentage depends on how much recall they want to achieve. However, our findings also show that percentage of the documents that should be read increases as the topic gets broader.</abstract>
       <url hash="61b2ad34">2022.case-1.17</url>
@@ -288,7 +288,7 @@
       <author><first>Huiling</first><last>You</last></author>
       <author><first>David</first><last>Samuel</last></author>
       <author><first>Samia</first><last>Touileb</last></author>
-      <author><first>Lilja</first><last>Øvrelid</last></author>
+      <author id="lilja-ovrelid"><first>Lilja</first><last>Øvrelid</last></author>
       <pages>155-160</pages>
       <abstract>This paper presents our submission to the 2022 edition of the CASE 2021 shared task 1, subtask 4. The EventGraph system adapts an end-to-end, graph-based semantic parser to the task of Protest Event Extraction and more specifically subtask 4 on event trigger and argument extraction. We experiment with various graphs, encoding the events as either “labeled-edge” or “node-centric” graphs. We show that the “node-centric” approach yields best results overall, performing well across the three languages of the task, namely English, Spanish, and Portuguese. EventGraph is ranked 3rd for English and Portuguese, and 4th for Spanish.</abstract>
       <url hash="96e63159">2022.case-1.22</url>
@@ -363,7 +363,7 @@
       <title>Event Causality Identification with Causal News Corpus - Shared Task 3, <fixed-case>CASE</fixed-case> 2022</title>
       <author><first>Fiona Anting</first><last>Tan</last></author>
       <author><first>Hansi</first><last>Hettiarachchi</last></author>
-      <author><first>Ali</first><last>Hürriyetoğlu</last></author>
+      <author id="ali-hurriyetoglu"><first>Ali</first><last>Hürriyetoğlu</last></author>
       <author><first>Tommaso</first><last>Caselli</last></author>
       <author><first>Onur</first><last>Uca</last></author>
       <author><first>Farhana Ferdousi</first><last>Liza</last></author>
@@ -378,8 +378,8 @@
     <paper id="29">
       <title>Tracking <fixed-case>COVID</fixed-case>-19 protest events in the <fixed-case>U</fixed-case>nited <fixed-case>S</fixed-case>tates. Shared Task 2: Event Database Replication, <fixed-case>CASE</fixed-case> 2022</title>
       <author><first>Vanni</first><last>Zavarella</last></author>
-      <author><first>Hristo</first><last>Tanev</last></author>
-      <author><first>Ali</first><last>Hürriyetoğlu</last></author>
+      <author id="hristo-tanev"><first>Hristo</first><last>Tanev</last></author>
+      <author id="ali-hurriyetoglu"><first>Ali</first><last>Hürriyetoğlu</last></author>
       <author><first>Peratham</first><last>Wiriyathammabhum</last></author>
       <author><first>Bertrand</first><last>De Longueville</last></author>
       <pages>209-216</pages>
@@ -391,8 +391,8 @@
     </paper>
     <paper id="30">
       <title>Challenges and Applications of Automated Extraction of Socio-political Events from Text (<fixed-case>CASE</fixed-case> 2022): Workshop and Shared Task Report</title>
-      <author><first>Ali</first><last>Hürriyetoğlu</last></author>
-      <author><first>Hristo</first><last>Tanev</last></author>
+      <author id="ali-hurriyetoglu"><first>Ali</first><last>Hürriyetoğlu</last></author>
+      <author id="hristo-tanev"><first>Hristo</first><last>Tanev</last></author>
       <author><first>Vanni</first><last>Zavarella</last></author>
       <author><first>Reyyan</first><last>Yeniterzi</last></author>
       <author><first>Osman</first><last>Mutlu</last></author>
@@ -406,7 +406,7 @@
     </paper>
     <paper id="31">
       <title>Extended Multilingual Protest News Detection - Shared Task 1, <fixed-case>CASE</fixed-case> 2021 and 2022</title>
-      <author><first>Ali</first><last>Hürriyetoğlu</last></author>
+      <author id="ali-hurriyetoglu"><first>Ali</first><last>Hürriyetoğlu</last></author>
       <author><first>Osman</first><last>Mutlu</last></author>
       <author><first>Fırat</first><last>Duruşan</last></author>
       <author><first>Onur</first><last>Uca</last></author>

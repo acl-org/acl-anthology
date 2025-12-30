@@ -3,7 +3,7 @@
   <volume id="main" ingest-date="2025-10-28" type="proceedings">
     <meta>
       <booktitle>Proceedings of the 5th Workshop on Multilingual Representation Learning (MRL 2025)</booktitle>
-      <editor><first>David Ifeoluwa</first><last>Adelani</last></editor>
+      <editor id="david-ifeoluwa-adelani"><first>David Ifeoluwa</first><last>Adelani</last></editor>
       <editor><first>Catherine</first><last>Arnett</last></editor>
       <editor><first>Duygu</first><last>Ataman</last></editor>
       <editor><first>Tyler A.</first><last>Chang</last></editor>
@@ -47,7 +47,7 @@
       <author><first>Kangli</first><last>Wei</last></author>
       <author><first>Fei</first><last>Li</last></author>
       <author><first>Chong</first><last>Teng</last></author>
-      <author><first>Donghong</first><last>Ji</last></author>
+      <author id="donghong-ji"><first>Donghong</first><last>Ji</last></author>
       <pages>11-33</pages>
       <abstract>Natural Language Inference (NLI) is a fundamental task in natural language processing. While NLI has developed many sub-directions such as sentence-level NLI, document-level NLI and cross-lingual NLI, Cross-Document Cross-Lingual NLI (CDCL-NLI) remains largely unexplored. In this paper, we propose a novel paradigm: CDCL-NLI, which extends traditional NLI capabilities to multi-document, multilingual scenarios. To support this task, we construct a high-quality CDCL-NLI dataset including 25,410 instances and spanning 26 languages. To address the limitations of previous methods on CDCL-NLI task, we further propose an innovative method that integrates RST-enhanced graph fusion with interpretability-aware prediction. Our approach leverages RST (Rhetorical Structure Theory) within heterogeneous graph neural networks for cross-document context modeling, and employs a structure-aware semantic alignment based on lexical chains for cross-lingual understanding. For NLI interpretability, we develop an EDU (Elementary Discourse Unit)-level attribution framework that produces extractive explanations. Extensive experiments demonstrate our approach”s superior performance, achieving significant improvements over both conventional NLI models as well as large language models. Our work sheds light on the study of NLI and will bring research interest on cross-document cross-lingual context understanding, hallucination elimination and interpretability inference. Our dataset and code are available at https://anonymous.4open.science/r/CDCL-NLI-637E/ for peer review.</abstract>
       <url hash="02566cb9">2025.mrl-main.2</url>
@@ -147,7 +147,7 @@
       <author><first>Jonah</first><last>Dauvet</last></author>
       <author><first>Min</first><last>Ma</last></author>
       <author><first>Jessica</first><last>Ojo</last></author>
-      <author><first>David Ifeoluwa</first><last>Adelani</last></author>
+      <author id="david-ifeoluwa-adelani"><first>David Ifeoluwa</first><last>Adelani</last></author>
       <pages>149-160</pages>
       <abstract>Automatic speech translation (AST) promotes seamless communication among speakers of different languages. While current state-of-the-art models excel with high-resource languages, their performance on low-resource languages (LRLs) is not well-established. We investigate this by evaluating state-of-the-art models on 10 LRLs with varying data amounts (10-30+ hours). Through six finetuning strategies and experimenting with three main AST paradigms, we observe that: (1) The latest Large Language Models (LLMs) may struggle with LRLs. (2) Comprehensive experiments suggest that for LRLs, more AST finetuning data is not always beneficial. (3) Our 2-Stage with ASR corrector finetuning recipe can substantially improve AST performance on LRLs, achieving up to a 5.8x BLEU score boost on translating related languages to English, while on par with the best monolingual finetuning in BLEU score when translating the target language to English. (4) We share effective engineering practices, including how to effectively adapt AST models to unseen languages.</abstract>
       <url hash="1182c174">2025.mrl-main.11</url>
@@ -193,7 +193,7 @@
     <paper id="15">
       <title>On the Consistency of Multilingual Context Utilization in Retrieval-Augmented Generation</title>
       <author><first>Jirui</first><last>Qi</last></author>
-      <author><first>Raquel</first><last>Fernández</last></author>
+      <author id="raquel-fernandez"><first>Raquel</first><last>Fernández</last></author>
       <author><first>Arianna</first><last>Bisazza</last></author>
       <pages>199-225</pages>
       <abstract>Retrieval-augmented generation (RAG) with large language models (LLMs) has demonstrated strong performance in multilingual question-answering (QA) tasks by leveraging relevant passages retrieved from corpora. In multilingual RAG (mRAG), the retrieved passages can be written in languages other than that of the query entered by the user, making it challenging for LLMs to effectively utilize the provided information. Recent research suggests that retrieving passages from multilingual corpora can improve RAG performance, particularly for low-resource languages. However, the extent to which LLMs can leverage different kinds of multilingual contexts to generate accurate answers, independently from retrieval quality, remains understudied. In this paper, we conduct an extensive assessment of LLMs’ ability to (i) make consistent use of a relevant passage regardless of its language, (ii) respond in the expected language, and (iii) focus on the relevant passage even when multiple ‘distracting passages’ in different languages are provided in the context. Our experiments with four LLMs across three QA datasets covering 48 languages reveal a surprising ability of LLMs to extract relevant information from passages in a different language than the query, but a much weaker ability to produce a full answer in the correct language. Our analysis, based on both accuracy and feature attribution techniques, further shows that distracting passages negatively impact answer quality regardless of their language. However, distractors in the query language exert a slightly stronger influence. Taken together, our findings deepen the understanding of how LLMs utilize context in mRAG systems, providing directions for future improvements. All codes and data are released at https://github.com/Betswish/mRAG-Context-Consistency.</abstract>
@@ -218,7 +218,7 @@
       <author><first>Yusser</first><last>Al Ghussin</last></author>
       <author><first>David</first><last>Mareček</last></author>
       <author><first>Josef Van</first><last>Genabith</last></author>
-      <author><first>Koel</first><last>Dutta Chowdhury</last></author>
+      <author id="koel-dutta-chowdhury"><first>Koel</first><last>Dutta Chowdhury</last></author>
       <pages>243-264</pages>
       <abstract>Multilingual language models excel across languages, yet how they internally encode grammatical tense remains largely unclear. We investigate how decoder-only transformers represent, transfer, and control tense across eight typologically diverse languages: English, German, French, Italian, Portuguese, Hindi, Spanish, and Thai. We construct a synthetic tense-annotated dataset and combine probing, causal analysis, feature disentanglement, and model steering to LLaMA-3.1 8B. We show that tense emerges as a distinct signal from early layers and transfers most strongly within the same language family. Causal tracing reveals that attention outputs around layer 16 consistently carry cross-lingually transferable tense information. Leveraging sparse autoencoders in this subspace, we isolate and steer English tense-related features, improving target-tense prediction accuracy by up to 11%% in a downstream cloze task.</abstract>
       <url hash="fba39bac">2025.mrl-main.17</url>
@@ -335,7 +335,7 @@
       <author><first>Chunlan</first><last>Ma</last></author>
       <author><first>Yihong</first><last>Liu</last></author>
       <author><first>Haotian</first><last>Ye</last></author>
-      <author><first>Hinrich</first><last>Schuetze</last></author>
+      <author id="hinrich-schutze"><first>Hinrich</first><last>Schuetze</last></author>
       <pages>397-410</pages>
       <abstract>Decoder-only large language models (LLMs) excel in high-resource languages across various tasks through few-shot or even zero-shot in-context learning (ICL). However, their performance often does not transfer well to low-resource languages, especially those written in non-Latin scripts. Inspired by recent work that leverages transliteration in encoder-only models, we investigate whether transliteration is also effective in improving LLMs’ performance for low-resource languages written in non-Latin scripts. To this end, we propose three prompt templates, where the target-language text is represented in (1) its original script, (2) Latin script transliteration, or (3) combined. We apply these methods to several representative LLMs of different sizes on various tasks including text classification and sequential labeling. Our findings show that the effectiveness of transliteration varies by task type and model size. For instance, all models benefit from transliterations for sequential labeling (with increases of up to 25%%).</abstract>
       <url hash="2390403e">2025.mrl-main.27</url>
@@ -359,7 +359,7 @@
       <author><first>Belati Jagad Bintang</first><last>Syuhada</last></author>
       <author><first>Randy Zakya</first><last>Suchrady</last></author>
       <author><first>Alham Fikri</first><last>Aji</last></author>
-      <author><first>Genta Indra</first><last>Winata</last></author>
+      <author id="genta-indra-winata"><first>Genta Indra</first><last>Winata</last></author>
       <author><first>Fajri</first><last>Koto</last></author>
       <author><first>Samuel</first><last>Cahyawijaya</last></author>
       <pages>426-437</pages>
@@ -375,7 +375,7 @@
       <author><first>Tack Hwa</first><last>Wong</last></author>
       <author><first>Muhammad Ilham</first><last>Ghozali</last></author>
       <author><first>Fajri</first><last>Koto</last></author>
-      <author><first>Genta Indra</first><last>Winata</last></author>
+      <author id="genta-indra-winata"><first>Genta Indra</first><last>Winata</last></author>
       <author><first>Peerat</first><last>Limkonchotiwat</last></author>
       <author><first>Alham Fikri</first><last>Aji</last></author>
       <author><first>Samuel</first><last>Cahyawijaya</last></author>
@@ -388,7 +388,7 @@
     <paper id="31">
       <title>Relevant for the Right Reasons? Investigating Lexical Biases in Zero-Shot and Instruction-Tuned Rerankers</title>
       <author><first>Yuchen</first><last>Mao</last></author>
-      <author><first>Barbara</first><last>Plank</last></author>
+      <author id="barbara-plank"><first>Barbara</first><last>Plank</last></author>
       <author><first>Robert</first><last>Litschko</last></author>
       <pages>468-482</pages>
       <abstract>Large Language Models (LLMs) show strong potential for reranking documents in information retrieval (IR), but training with monolingual data often leads to monolingual overfitting and lexical bias, limiting generalization in cross-lingual IR (CLIR). To overcome these issues, we investigate instruction-tuning LLaMA-3.1-8B-Instruct on English and multilingual code-switched data, and evaluate on mMARCO and XQuAD-R. Results show that instruction-tuning on code-switched data substantially improves CLIR performance, while monolingual tuning remains more effective for monolingual reranking. We introduce a novel measure to analyze the relationship between lexical overlap and reranking performance, showing that the two factors are correlated. We finally conduct a causal analysis using counterfactual examples, where we evaluate whether rewriting passages that share overlapping keywords with the query causes models to change their relevance predictions. Overall, we find that code-switching serves as an effective and lightweight strategy to improve cross-lingual generalization in LLM-based re-ranking, while our analyses show that lexical overlap remains a major factor that can mislead reranking models.</abstract>
@@ -432,7 +432,7 @@
       <title>Sub-1<fixed-case>B</fixed-case> Language Models for Low-Resource Languages: Training Strategies and Insights for <fixed-case>B</fixed-case>asque</title>
       <author><first>Gorka</first><last>Urbizu</last></author>
       <author><first>Ander</first><last>Corral</last></author>
-      <author><first>Xabier</first><last>Saralegi</last></author>
+      <author id="xabier-saralegi"><first>Xabier</first><last>Saralegi</last></author>
       <author><first>Iñaki</first><last>San Vicente</last></author>
       <pages>519-530</pages>
       <abstract>This work investigates the effectiveness of small autoregressive language models (SLMs) with up to one billion parameters (sub-1B) for natural language processing (NLP) tasks in low-resource languages, focusing on Basque. We analyze optimal training strategies by comparing training from scratch and continual pre-training using state-of-the-art SLM architectures. Our analysis considers factors such as model size and the extent of Basque presence in the pre-training corpus. To assess linguistic capabilities, models are evaluated on 12 NLP tasks using the Harness framework. We also conduct a manual evaluation of fine-tuned models on three downstream natural language generation (NLG) tasks: question answering (QA), summarization, and machine translation (MT). Our findings indicate that continual pre-training on a multilingual SLM substantially enhances linguistic performance compared to training from scratch, particularly in low-resource language settings where available corpora typically contain fewer than one billion words. Additionally, the presence of Basque during the pre-training and larger model sizes contribute positively to performance in NLG tasks.</abstract>
@@ -490,7 +490,7 @@
       <author><first>Jiho</first><last>Jin</last></author>
       <author><first>Dongkwan</first><last>Kim</last></author>
       <author><first>Jamin</first><last>Shin</last></author>
-      <author><first>Alice</first><last>Oh</last></author>
+      <author id="alice-oh"><first>Alice</first><last>Oh</last></author>
       <pages>585-611</pages>
       <abstract>Evaluating text generation capabilities of large language models (LLMs) is challenging, particularly for low-resource languages where methods for direct assessment are scarce. We propose MUG-Eval, a novel framework that evaluates LLMs’ multilingual generation capabilities by transforming existing benchmarks into conversational tasks and measuring the LLMs’ accuracies on those tasks. We specifically designed these conversational tasks to require effective communication in the target language. Then, we simply use task success rate as a proxy for successful conversation generation. Our approach offers two key advantages: it is independent of language-specific NLP tools or annotated datasets, which are limited for most languages, and it does not rely on LLMs-as-judges, whose evaluation quality degrades outside a few high-resource languages. We evaluate 8 LLMs across 30 languages spanning high, mid, and low-resource categories, and we find that MUG-Eval correlates strongly with established benchmarks (r &gt; 0.75) while enabling standardized comparisons across languages and models. Our framework provides a robust and resource-efficient solution for evaluating multilingual generation that can be extended to thousands of languages.</abstract>
       <url hash="dc72b4f1">2025.mrl-main.39</url>
@@ -513,7 +513,7 @@
       <author><first>Axel</first><last>Wisiorek</last></author>
       <author><first>Antonis</first><last>Maronikolakis</last></author>
       <author><first>Özge</first><last>Alaçam</last></author>
-      <author><first>Hinrich</first><last>Schütze</last></author>
+      <author id="hinrich-schutze"><first>Hinrich</first><last>Schütze</last></author>
       <pages>631-651</pages>
       <abstract>Despite substantial efforts, detecting and preventing hate speech online remains an understudied task for marginalized communities, particularly in the Global South, which includes developing societies with increasing internet penetration. In this paper, we aim to provide marginalized communities in societies where the dominant language is low-resource with a privacy-preserving tool to protect themselves from online hate speech by filtering offensive content in their native languages. Our contributions are twofold: 1) we release REACT (REsponsive hate speech datasets Across ConTexts), a collection of high-quality, culturespecific hate speech detection datasets comprising multiple target groups and low-resource languages, curated by experienced data collectors; 2) we propose a few-shot hate speech detection approach based on federated learning (FL), a privacy-preserving method for collaboratively training a central model that exhibits robustness when tackling different target groups and languages. By keeping training local to user devices, we ensure data privacy while leveraging the collective learning benefits of FL. We experiment with both multilingual and monolingual pre-trained representation spaces as backbones to examine the interaction between FL and different model representations. Furthermore, we explore personalized client models tailored to specific target groups and evaluate their performance. Our findings indicate the overall effectiveness of FL across different target groups, and point to personalization as a promising direction.</abstract>
       <url hash="6dbb0efc">2025.mrl-main.41</url>
@@ -523,7 +523,7 @@
     <paper id="42">
       <title>Training of <fixed-case>LLM</fixed-case>-Based List-Wise Multilingual Reranker</title>
       <author><first>Hao</first><last>Yu</last></author>
-      <author><first>David Ifeoluwa</first><last>Adelani</last></author>
+      <author id="david-ifeoluwa-adelani"><first>David Ifeoluwa</first><last>Adelani</last></author>
       <pages>652-663</pages>
       <abstract>Multilingual retrieval-augmented generation (MRAG) systems heavily rely on robust Information Retrieval (IR). Reranking as a key component optimizes the initially retrieved document set to present the most pertinent information to the generative model, addressing context limitations and minimizing hallucinations. We propose an approach that trains Large Language Models (LLMs) as multilingual listwise rerankers through supervised fine-tuning (SFT) on a diverse mixture of multilingual and extended English ranking examples, and enhancing reasoning capabilities through Direct Preference Optimization (DPO) from translated task-specific reasoning processes. Experiments demonstrate that the approach improves accuracy@5 by 20-30% across all six high- mediumand low-resource languages compared to the BM25. The posted training 1B models achieve comparable performance to 7B baseline models while enabling faster inference. Finally, we investigate the effectiveness of different reasoning strategies in DPO with crosslingual and monolingual thinking processes.</abstract>
       <url hash="e5661775">2025.mrl-main.42</url>

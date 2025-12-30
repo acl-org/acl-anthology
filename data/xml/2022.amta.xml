@@ -8,7 +8,7 @@
       <month>September</month>
       <year>2022</year>
       <editor><first>Kevin</first><last>Duh</last></editor>
-      <editor><first>Francisco</first><last>Guzmán</last></editor>
+      <editor id="francisco-guzman"><first>Francisco</first><last>Guzmán</last></editor>
       <url hash="d9ed47cc">2022.amta-research</url>
       <venue>amta</venue>
     </meta>
@@ -21,7 +21,7 @@
       <author><first>Pintu</first><last>Lohar</last></author>
       <author><first>Sinead</first><last>Madden</last></author>
       <author><first>Edmond</first><last>O’Connor</last></author>
-      <author><first>Maja</first><last>Popovic</last></author>
+      <author id="maja-popovic"><first>Maja</first><last>Popovic</last></author>
       <author><first>Tanya</first><last>Habruseva</last></author>
       <pages>1-13</pages>
       <url hash="7b97ae54">2022.amta-research.1</url>
@@ -32,7 +32,7 @@
       <title>Domain-Specific Text Generation for Machine Translation</title>
       <author><first>Yasmin</first><last>Moslem</last></author>
       <author><first>Rejwanul</first><last>Haque</last></author>
-      <author><first>John</first><last>Kelleher</last></author>
+      <author id="john-kelleher"><first>John</first><last>Kelleher</last></author>
       <author><first>Andy</first><last>Way</last></author>
       <pages>14-30</pages>
       <url hash="f1da3e1d">2022.amta-research.2</url>
@@ -64,7 +64,7 @@
       <author><first>Mohamed</first><last>Afify</last></author>
       <author><first>Young Jin</first><last>Kim</last></author>
       <author><first>Hitokazu</first><last>Matsushita</last></author>
-      <author><first>Hany</first><last>Hassan</last></author>
+      <author id="hany-hassan-awadalla"><first>Hany</first><last>Hassan</last></author>
       <pages>58-69</pages>
       <url hash="40cc328d">2022.amta-research.5</url>
       <abstract>Multilingual Neural Machine Translation has been showing great success using transformer models. Deploying these models is challenging because they usually require large vocabulary (vocab) sizes for various languages. This limits the speed of predicting the output tokens in the last vocab projection layer. To alleviate these challenges, this paper proposes a fast vocabulary projection method via clustering which can be used for multilingual transformers on GPUs. First, we offline split the vocab search space into disjoint clusters given the hidden context vector of the decoder output, which results in much smaller vocab columns for vocab projection. Second, at inference time, the proposed method predicts the clusters and candidate active tokens for hidden context vectors at the vocab projection. This paper also includes analysis of different ways of building these clusters in multilingual settings. Our results show end-to-end speed gains in float16 GPU inference up to 25% while maintaining the BLEU score and slightly increasing memory cost. The proposed method speeds up the vocab projection step itself by up to 2.6x. We also conduct an extensive human evaluation to verify the proposed method preserves the quality of the translations from the original model.</abstract>
@@ -72,11 +72,11 @@
     </paper>
     <paper id="6">
       <title>Language Tokens: A Frustratingly Simple Approach Improves Zero-Shot Performance of Multilingual Translation</title>
-      <author><first>Muhammad</first><last>ElNokrashy</last></author>
+      <author id="muhammad-elnokrashy"><first>Muhammad</first><last>ElNokrashy</last></author>
       <author><first>Amr</first><last>Hendy</last></author>
       <author><first>Mohamed</first><last>Maher</last></author>
       <author><first>Mohamed</first><last>Afify</last></author>
-      <author><first>Hany</first><last>Hassan Awadalla</last></author>
+      <author id="hany-hassan-awadalla"><first>Hany</first><last>Hassan Awadalla</last></author>
       <pages>70-82</pages>
       <url hash="c4e3b27e">2022.amta-research.6</url>
       <abstract>This paper proposes a simple yet effective method to improve direct (X-to-Y) translation for both cases: zero-shot and when direct data is available. We modify the input tokens at both the encoder and decoder to include signals for the source and target languages. We show a performance gain when training from scratch, or finetuning a pretrained model with the pro- posed setup. In the experiments, our method shows nearly 10.0 BLEU points gain on in-house datasets depending on the checkpoint selection criteria. In a WMT evaluation campaign, From- English performance improves by 4.17 and 2.87 BLEU points, in the zero-shot setting, and when direct data is available for training, respectively. While X-to-Y improves by 1.29 BLEU over the zero-shot baseline, and 0.44 over the many-to-many baseline. In the low-resource setting, we see a 1.5 ∼ 1.7 point improvement when finetuning on X-to-Y domain data.</abstract>
@@ -103,7 +103,7 @@
       <author><first>James</first><last>Cross</last></author>
       <author><first>Guillaume</first><last>Wenzek</last></author>
       <author><first>Mohit</first><last>Bansal</last></author>
-      <author><first>Francisco</first><last>Guzman</last></author>
+      <author id="francisco-guzman"><first>Francisco</first><last>Guzman</last></author>
       <pages>97-116</pages>
       <url hash="54f7ce3b">2022.amta-research.8</url>
       <abstract>A multilingual tokenizer is a fundamental component of multilingual neural machine translation. It is trained from a multilingual corpus. Since a skewed data distribution is considered to be harmful, a sampling strategy is usually used to balance languages in the corpus. However, few works have systematically answered how language imbalance in tokenizer training affects downstream performance. In this work, we analyze how translation performance changes as the data ratios among languages vary in the tokenizer training corpus. We find that while relatively better performance is often observed when languages are more equally sampled, the downstream performance is more robust to language imbalance than we usually expected. Two features, UNK rate and closeness to the character level, can warn of poor downstream performance before performing the task. We also distinguish language sampling for tokenizer training from sampling for model training and show that the model is more sensitive to the latter.</abstract>
@@ -122,7 +122,7 @@
     <paper id="10">
       <title>On the Effectiveness of Quasi Character-Level Models for Machine Translation</title>
       <author><first>Salvador</first><last>Carrión</last></author>
-      <author><first>Francisco</first><last>Casacuberta</last></author>
+      <author id="francisco-casacuberta"><first>Francisco</first><last>Casacuberta</last></author>
       <pages>131-143</pages>
       <url hash="b53f65d5">2022.amta-research.10</url>
       <abstract>Neural Machine Translation (NMT) models often use subword-level vocabularies to deal with rare or unknown words. Although some studies have shown the effectiveness of purely character-based models, these approaches have resulted in highly expensive models in computational terms. In this work, we explore the benefits of quasi-character-level models for very low-resource languages and their ability to mitigate the effects of the catastrophic forgetting problem. First, we conduct an empirical study on the efficacy of these models, as a function of the vocabulary and training set size, for a range of languages, domains, and architectures. Next, we study the ability of these models to mitigate the effects of catastrophic forgetting in machine translation. Our work suggests that quasi-character-level models have practically the same generalization capabilities as character-based models but at lower computational costs. Furthermore, they appear to help achieve greater consistency between domains than standard subword-level models, although the catastrophic forgetting problem is not mitigated.</abstract>
@@ -153,7 +153,7 @@
     <paper id="13">
       <title>Limitations and Challenges of Unsupervised Cross-lingual Pre-training</title>
       <author><first>Martín</first><last>Quesada Zaragoza</last></author>
-      <author><first>Francisco</first><last>Casacuberta</last></author>
+      <author id="francisco-casacuberta"><first>Francisco</first><last>Casacuberta</last></author>
       <pages>175-187</pages>
       <url hash="b17e42b1">2022.amta-research.13</url>
       <abstract>Cross-lingual alignment methods for monolingual language representations have received notable attention in recent years. However, their use in machine translation pre-training remains scarce. This work tries to shed light on the effects of some of the factors that play a role in cross-lingual pre-training, both for cross-lingual mappings and their integration in supervised neural models. The results show that unsupervised cross-lingual methods are effective at inducing alignment even for distant languages and they benefit noticeably from subword information. However, we find that their effectiveness as pre-training models in machine translation is severely limited due to their cross-lingual signal being easily distorted by the principal network during training. Moreover, the learned bilingual projection is too restrictive to allow said network to learn properly when the embedding weights are frozen.</abstract>
@@ -162,7 +162,7 @@
     <paper id="14">
       <title>Few-Shot Regularization to Tackle Catastrophic Forgetting in Multilingual Machine Translation</title>
       <author><first>Salvador</first><last>Carrión</last></author>
-      <author><first>Francisco</first><last>Casacuberta</last></author>
+      <author id="francisco-casacuberta"><first>Francisco</first><last>Casacuberta</last></author>
       <pages>188-199</pages>
       <url hash="fd8d6bcf">2022.amta-research.14</url>
       <abstract>Increasing the number of tasks supported by a machine learning model without forgetting previously learned tasks is the goal of any lifelong learning system. In this work, we study how to mitigate the effects of the catastrophic forgetting problem to sequentially train a multilingual neural machine translation model using minimal past information. First, we describe the catastrophic forgetting phenomenon as a function of the number of tasks learned (language pairs) and the ratios of past data used during the learning of the new task. Next, we explore the importance of applying oversampling strategies for scenarios where only minimal amounts of past data are available. Finally, we derive a new loss function that minimizes the forgetting of previously learned tasks by actively re-weighting past samples and penalizing weights that deviate too much from the original model. Our work suggests that by using minimal amounts of past data and a simple regularization function, we can significantly mitigate the effects of the catastrophic forgetting phenomenon without increasing the computational costs.</abstract>
@@ -188,9 +188,9 @@
       <title>Refining an Almost Clean Translation Memory Helps Machine Translation</title>
       <author><first>Shivendra</first><last>Bhardwa</last></author>
       <author><first>David</first><last>Alfonso-Hermelo</last></author>
-      <author><first>Philippe</first><last>Langlais</last></author>
+      <author id="philippe-langlais"><first>Philippe</first><last>Langlais</last></author>
       <author><first>Gabriel</first><last>Bernier-Colborne</last></author>
-      <author><first>Cyril</first><last>Goutte</last></author>
+      <author id="cyril-goutte"><first>Cyril</first><last>Goutte</last></author>
       <author><first>Michel</first><last>Simard</last></author>
       <pages>215-226</pages>
       <url hash="38116128">2022.amta-research.16</url>
@@ -200,8 +200,8 @@
     <paper id="17">
       <title>Practical Attacks on Machine Translation using Paraphrase</title>
       <author><first>Elizabeth M</first><last>Merkhofer</last></author>
-      <author><first>John</first><last>Henderson</last></author>
-      <author><first>Abigail</first><last>Gertner</last></author>
+      <author id="john-henderson"><first>John</first><last>Henderson</last></author>
+      <author id="abigail-s-gertner"><first>Abigail</first><last>Gertner</last></author>
       <author><first>Michael</first><last>Doyle</last></author>
       <author><first>Lily</first><last>Wong</last></author>
       <pages>227-239</pages>
@@ -222,10 +222,10 @@
     <paper id="19">
       <title>A Neural Machine Translation Approach to Translate Text to Pictographs in a Medical Speech Translation System - The <fixed-case>B</fixed-case>abel<fixed-case>D</fixed-case>r Use Case</title>
       <author><first>Jonathan</first><last>Mutal</last></author>
-      <author><first>Pierrette</first><last>Bouillon</last></author>
+      <author id="pierrette-bouillon"><first>Pierrette</first><last>Bouillon</last></author>
       <author><first>Magali</first><last>Norré</last></author>
       <author><first>Johanna</first><last>Gerlach</last></author>
-      <author><first>Lucía</first><last>Ormaechea Grijalba</last></author>
+      <author id="lucia-ormaechea"><first>Lucía</first><last>Ormaechea Grijalba</last></author>
       <pages>252-263</pages>
       <url hash="1aa99cc7">2022.amta-research.19</url>
       <abstract>The use of images has been shown to positively affect patient comprehension in medical settings, in particular to deliver specific medical instructions. However, tools that automatically translate sentences into pictographs are still scarce due to the lack of resources. Previous studies have focused on the translation of sentences into pictographs by using WordNet combined with rule-based approaches and deep learning methods. In this work, we showed how we leveraged the BabelDr system, a speech to speech translator for medical triage, to build a speech to pictograph translator using UMLS and neural machine translation approaches. We showed that the translation from French sentences to a UMLS gloss can be viewed as a machine translation task and that a Multilingual Neural Machine Translation system achieved the best results.</abstract>
@@ -281,8 +281,8 @@
       <author><first>Daniel</first><last>Licht</last></author>
       <author><first>Cynthia</first><last>Gao</last></author>
       <author><first>Janice</first><last>Lam</last></author>
-      <author><first>Francisco</first><last>Guzman</last></author>
-      <author><first>Mona</first><last>Diab</last></author>
+      <author id="francisco-guzman"><first>Francisco</first><last>Guzman</last></author>
+      <author id="mona-diab"><first>Mona</first><last>Diab</last></author>
       <author><first>Philipp</first><last>Koehn</last></author>
       <pages>309-321</pages>
       <url hash="bd5843c5">2022.amta-research.24</url>
@@ -400,7 +400,7 @@
       <title>A Multimodal Simultaneous Interpretation Prototype: Who Said What</title>
       <author><first>Xiaolin</first><last>Wang</last></author>
       <author><first>Masao</first><last>Utiyama</last></author>
-      <author><first>Eiichiro</first><last>Sumita</last></author>
+      <author id="eiichiro-sumita"><first>Eiichiro</first><last>Sumita</last></author>
       <pages>132-143</pages>
       <url hash="3054b6c6">2022.amta-upg.10</url>
       <abstract>“Who said what” is essential for users to understand video streams that have more than one speaker, but conventional simultaneous interpretation systems merely present “what was said” in the form of subtitles. Because the translations unavoidably have delays and errors, users often find it difficult to trace the subtitles back to speakers. To address this problem, we propose a multimodal SI system that presents users “who said what”. Our system takes audio-visual approaches to recognize the speaker of each sentence, and then annotates its translation with the textual tag and face icon of the speaker, so that users can quickly understand the scenario. Furthermore, our system is capable of interpreting video streams in real-time on a single desktop equipped with two Quadro RTX 4000 GPUs owing to an efficient sentence-based architecture.</abstract>
@@ -473,7 +473,7 @@
       <author><first>Craig A</first><last>Stewart</last></author>
       <author><first>Madalena</first><last>Gonçalves</last></author>
       <author><first>Marianna</first><last>Buchicchio</last></author>
-      <author><first>Alon</first><last>Lavie</last></author>
+      <author id="alon-lavie"><first>Alon</first><last>Lavie</last></author>
       <pages>231-256</pages>
       <abstract>Frameworks such as Multidimensional Quality Metrics (MQM) provide detailed feedback on translation quality and can pinpoint concrete linguistic errors. The quality of a translation is, however, also closely tied to its utility in a particular use case. Many customers have highly subjective expectations of translation quality. Features such as register, discourse style and brand consistency can be difficult to accommodate given a broadly applied translation solution. In this presentation we will introduce the concept of Business Critical Errors (BCE). Adapted from MQM, the BCE framework provides a perspective on translation quality that allows us to be reactive and adaptive to expectation whilst also maintaining consistency in our translation evaluation. We will demonstrate tooling used at Unbabel that allows us to evaluate the performance of our MT models on BCE using specialized test suites as well as the ability of our AI evaluation models to successfully capture BCE information.</abstract>
       <attachment type="presentation" hash="03ed7c9b">2022.amta-upg.17.Presentation.pdf</attachment>
@@ -500,7 +500,7 @@
     <paper id="20">
       <title>Boosting Neural Machine Translation with Similar Translations</title>
       <author><first>Jitao</first><last>Xu</last></author>
-      <author><first>Josep</first><last>Crego</last></author>
+      <author id="josep-m-crego"><first>Josep</first><last>Crego</last></author>
       <author><first>Jean</first><last>Senellart</last></author>
       <pages>282-292</pages>
       <url hash="dc18e1a3">2022.amta-upg.20</url>
@@ -637,7 +637,7 @@
       <title>Robust Translation of <fixed-case>F</fixed-case>rench Live Speech Transcripts</title>
       <author><first>Elise</first><last>Bertin-Lemée</last></author>
       <author><first>Guillaume</first><last>Klein</last></author>
-      <author><first>Josep</first><last>Crego</last></author>
+      <author id="josep-m-crego"><first>Josep</first><last>Crego</last></author>
       <author><first>Jean</first><last>Senellart</last></author>
       <pages>455-464</pages>
       <url hash="181d7d5f">2022.amta-upg.32</url>
@@ -646,9 +646,9 @@
     </paper>
     <paper id="33">
       <title>Speech-to-Text and Evaluation of Multiple Machine Translation Systems</title>
-      <author><first>Evelyne</first><last>Tzoukermann</last></author>
+      <author id="evelyne-tzoukermann"><first>Evelyne</first><last>Tzoukermann</last></author>
       <author><first>Steven</first><last>Van Guilder</last></author>
-      <author><first>Jennifer</first><last>Doyon</last></author>
+      <author id="jennifer-doyon"><first>Jennifer</first><last>Doyon</last></author>
       <author><first>Ekaterina</first><last>Harke</last></author>
       <pages>465-472</pages>
       <url hash="3ad931b4">2022.amta-upg.33</url>
@@ -660,15 +660,14 @@
     <meta>
       <booktitle>Proceedings of the 15th biennial conference of the Association for Machine Translation in the Americas (Workshop 2: Corpus Generation and Corpus Augmentation for Machine Translation)</booktitle>
       <publisher>Association for Machine Translation in the Americas</publisher>
-      <address/>
       <month>September</month>
       <year>2022</year>
       <editor><first>John E.</first><last>Ortega</last></editor>
       <editor><first>Marine</first><last>Carpuat</last></editor>
       <editor><first>William</first><last>Chen</last></editor>
-      <editor><first>Katharina</first><last>Kann</last></editor>
+      <editor id="katharina-von-der-wense"><first>Katharina</first><last>Kann</last></editor>
       <editor><first>Constantine</first><last>Lignos</last></editor>
-      <editor><first>Maja</first><last>Popovic</last></editor>
+      <editor id="maja-popovic"><first>Maja</first><last>Popovic</last></editor>
       <editor><first>Shabnam</first><last>Tafreshi</last></editor>
       <url hash="440fe20d">2022.amta-coco4mt</url>
       <venue>amta</venue>
@@ -703,7 +702,7 @@
     <paper id="3">
       <title>Building and Analysis of <fixed-case>T</fixed-case>amil Lyric Corpus with Semantic Representation</title>
       <author><first>Karthika</first><last>Ranganathan</last></author>
-      <author><first>Geetha</first><last>T V</last></author>
+      <author id="t-v-geetha"><first>Geetha</first><last>T V</last></author>
       <pages>18-27</pages>
       <url hash="b395a5a2">2022.amta-coco4mt.3</url>
       <abstract>In the new era of modern technology, the cloud has become the library for many things including entertainment, i.e, the availability of lyrics. In order to create awareness about the language and to increase the interest in Tamil film lyrics, a computerized electronic format of Tamil lyrics corpus is necessary for mining the lyric documents. In this paper, the Tamil lyric corpus was collected from various books and lyric websites. Here, we also address the challenges faced while building this corpus. A corpus was created with 15286 documents and stored all the lyric information obtained in the XML format. In this paper, we also explained the Universal Networking Language (UNL) semantic representation that helps to represent the document in a language and domain independent ways. We evaluated this corpus by performing simple statistical analysis for characters, words and a few rhetorical effect analysis. We also evaluated our semantic representation with the existing work and the results are very encouraging.</abstract>

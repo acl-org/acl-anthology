@@ -3,8 +3,8 @@
   <volume id="1" ingest-date="2021-05-10" type="proceedings">
     <meta>
       <booktitle>Proceedings of the 16th International Conference on Natural Language Processing</booktitle>
-      <editor><first>Dipti Misra</first><last>Sharma</last></editor>
-      <editor><first>Pushpak</first><last>Bhattacharya</last></editor>
+      <editor id="dipti-misra-sharma"><first>Dipti Misra</first><last>Sharma</last></editor>
+      <editor id="pushpak-bhattacharyya"><first>Pushpak</first><last>Bhattacharya</last></editor>
       <publisher>NLP Association of India</publisher>
       <address>International Institute of Information Technology, Hyderabad, India</address>
       <month>December</month>
@@ -31,7 +31,7 @@
       <author><first>Arjun</first><last>Roy</last></author>
       <author><first>Kingshuk</first><last>Basak</last></author>
       <author><first>Asif</first><last>Ekbal</last></author>
-      <author><first>Pushpak</first><last>Bhattacharyya</last></author>
+      <author id="pushpak-bhattacharyya"><first>Pushpak</first><last>Bhattacharyya</last></author>
       <pages>9–17</pages>
       <abstract>Fake news, rumor, incorrect information, and misinformation detection are nowadays crucial issues as these might have serious consequences for our social fabrics. Such information is increasing rapidly due to the availability of enormous web information sources including social media feeds, news blogs, online newspapers etc. In this paper, we develop various deep learning models for detecting fake news and classifying them into the pre-defined fine-grained categories. At first, we develop individual models based on Convolutional Neural Network (CNN), and Bi-directional Long Short Term Memory (Bi-LSTM) networks. The representations obtained from these two models are fed into a Multi-layer Perceptron Model (MLP) for the final classification. Our experiments on a benchmark dataset show promising results with an overall accuracy of 44.87%, which outperforms the current state of the arts.</abstract>
       <url hash="d3430c1c">2019.icon-1.2</url>
@@ -50,7 +50,7 @@
     <paper id="4">
       <title>Introducing Aspects of Creativity in Automatic Poetry Generation</title>
       <author><first>Brendan</first><last>Bena</last></author>
-      <author><first>Jugal</first><last>Kalita</last></author>
+      <author id="jugal-kalita"><first>Jugal</first><last>Kalita</last></author>
       <pages>26–35</pages>
       <abstract>Poetry Generation involves teaching systems to automatically generate text that resembles poetic work. A deep learning system can learn to generate poetry on its own by training on a corpus of poems and modeling the particular style of language. In this paper, we propose taking an approach that fine-tunes GPT-2, a pre-trained language model, to our downstream task of poetry generation. We extend prior work on poetry generation by introducing creative elements. Specifically, we generate poems that express emotion and elicit the same in readers, and poems that use the language of dreams—called dream poetry. We are able to produce poems that correctly elicit the emotions of sadness and joy 87.5 and 85 percent, respectively, of the time. We produce dreamlike poetry by training on a corpus of texts that describe dreams. Poems from this model are shown to capture elements of dream poetry with scores of no less than 3.2 on the Likert scale. We perform crowdsourced human-evaluation for all our poems. We also make use of the Coh-Metrix tool, outlining metrics we use to gauge the quality of text generated.</abstract>
       <url hash="2200f374">2019.icon-1.4</url>
@@ -59,9 +59,9 @@
     <paper id="5">
       <title>Incorporating Sub-Word Level Information in Language Invariant Neural Event Detection</title>
       <author><first>Suhan</first><last>Prabhu</last></author>
-      <author id="pranav-goel"><first>Pranav</first><last>Goel</last></author>
+      <author><first>Pranav</first><last>Goel</last></author>
       <author><first>Alok</first><last>Debnath</last></author>
-      <author><first>Manish</first><last>Shrivastava</last></author>
+      <author id="manish-shrivastava"><first>Manish</first><last>Shrivastava</last></author>
       <pages>36–44</pages>
       <abstract>Detection of TimeML events in text have traditionally been done on corpora such as TimeBanks. However, deep learning methods have not been applied to these corpora, because these datasets seldom contain more than 10,000 event mentions. Traditional architectures revolve around highly feature engineered, language specific statistical models. In this paper, we present a Language Invariant Neural Event Detection (ALINED) architecture. ALINED uses an aggregation of both sub-word level features as well as lexical and structural information. This is achieved by combining convolution over character embeddings, with recurrent layers over contextual word embeddings. We find that our model extracts relevant features for event span identification without relying on language specific features. We compare the performance of our language invariant model to the current state-of-the-art in English, Spanish, Italian and French. We outperform the F1-score of the state of the art in English by 1.65 points. We achieve F1-scores of 84.96, 80.87 and 74.81 on Spanish, Italian and French respectively which is comparable to the current states of the art for these languages. We also introduce the automatic annotation of events in Hindi, a low resource language, with an F1-Score of 77.13.</abstract>
       <url hash="dea3fc5f">2019.icon-1.5</url>
@@ -69,10 +69,10 @@
     </paper>
     <paper id="6">
       <title>Event Centric Entity Linking for <fixed-case>H</fixed-case>indi News Articles: A Knowledge Graph Based Approach</title>
-      <author id="pranav-goel"><first>Pranav</first><last>Goel</last></author>
+      <author><first>Pranav</first><last>Goel</last></author>
       <author><first>Suhan</first><last>Prabhu</last></author>
       <author><first>Alok</first><last>Debnath</last></author>
-      <author><first>Manish</first><last>Shrivastava</last></author>
+      <author id="manish-shrivastava"><first>Manish</first><last>Shrivastava</last></author>
       <pages>45–55</pages>
       <abstract>We describe the development of a knowledge graph from an event annotated corpus by presenting a pipeline that identifies and extracts the relations between entities and events from Hindi news articles. Due to the semantic implications of argument identification for events in Hindi, we use a combined syntactic argument and semantic role identification methodology. To the best of our knowledge, no other architecture exists for this purpose. The extracted combined role information is incorporated in a knowledge graph that can be queried via subgraph extraction for basic questions. The architectures presented in this paper can be used for participant extraction and event-entity linking in most Indo-Aryan languages, due to similar syntactic and semantic properties of event arguments.</abstract>
       <url hash="fad8c55e">2019.icon-1.6</url>
@@ -164,7 +164,7 @@
       <title>Dataset for Aspect Detection on Mobile reviews in <fixed-case>H</fixed-case>indi</title>
       <author><first>Pruthwik</first><last>Mishra</last></author>
       <author><first>Ayush</first><last>Joshi</last></author>
-      <author><first>Dipti</first><last>Sharma</last></author>
+      <author id="dipti-misra-sharma"><first>Dipti</first><last>Sharma</last></author>
       <pages>130–134</pages>
       <abstract>In recent years Opinion Mining has become one of the very interesting fields of Language Processing. To extract the gist of a sentence in a shorter and efficient manner is what opinion mining provides. In this paper we focus on detecting aspects for a particular domain. While relevant research work has been done in aspect detection in resource rich languages like English, we are trying to do the same in a relatively resource poor Hindi language. Here we present a corpus of mobile reviews which are labelled with carefully curated aspects. The motivation behind Aspect detection is to get information on a finer level about the data. In this paper we identify all aspects related to the gadget which are present on the reviews given online on various websites. We also propose baseline models to detect aspects in Hindi text after conducting various experiments.</abstract>
       <url hash="74a9e224">2019.icon-1.15</url>
@@ -175,7 +175,7 @@
       <author><first>Zishan</first><last>Ahmad</last></author>
       <author><first>Deeksha</first><last>Varshney</last></author>
       <author><first>Asif</first><last>Ekbal</last></author>
-      <author><first>Pushpak</first><last>Bhattacharyya</last></author>
+      <author id="pushpak-bhattacharyya"><first>Pushpak</first><last>Bhattacharyya</last></author>
       <pages>135–142</pages>
       <abstract>Automatic extraction of disaster-related events and their arguments from natural language text is vital for building a decision support system for crisis management. Event extraction from various news sources is a well-explored area for this objective. However, extracting events alone, without any context, provides only partial help for this purpose. Extracting related arguments like Time, Place, Casualties, etc., provides a complete picture of the disaster event. In this paper, we create a disaster domain dataset in Hindi by annotating disaster-related event and arguments. We also obtain equivalent datasets for Bengali and English from a collaboration. We build a multi-lingual deep learning model for argument extraction in all the three languages. We also compare our multi-lingual system with a similar baseline mono-lingual system trained for each language separately. It is observed that a single multi-lingual system is able to compensate for lack of training data, by using joint training of dataset from different languages in shared space, thus giving a better overall result.</abstract>
       <url hash="3bbd94c7">2019.icon-1.16</url>
@@ -184,9 +184,9 @@
     <paper id="17">
       <title>Development of <fixed-case>POS</fixed-case> tagger for <fixed-case>E</fixed-case>nglish-<fixed-case>B</fixed-case>engali Code-Mixed data</title>
       <author><first>Tathagata</first><last>Raha</last></author>
-      <author><first>Sainik</first><last>Mahata</last></author>
+      <author id="sainik-mahata"><first>Sainik</first><last>Mahata</last></author>
       <author><first>Dipankar</first><last>Das</last></author>
-      <author><first>Sivaji</first><last>Bandyopadhyay</last></author>
+      <author id="sivaji-bandyopadhyay"><first>Sivaji</first><last>Bandyopadhyay</last></author>
       <pages>143–149</pages>
       <abstract>Code-mixed texts are widespread nowadays due to the advent of social media. Since these texts combine two languages to formulate a sentence, it gives rise to various research problems related to Natural Language Processing. In this paper, we try to excavate one such problem, namely, Parts of Speech tagging of code-mixed texts. We have built a system that can POS tag English-Bengali code-mixed data where the Bengali words were written in Roman script. Our approach initially involves the collection and cleaning of English-Bengali code-mixed tweets. These tweets were used as a development dataset for building our system. The proposed system is a modular approach that starts by tagging individual tokens with their respective languages and then passes them to different POS taggers, designed for different languages (English and Bengali, in our case). Tags given by the two systems are later joined together and the final result is then mapped to a universal POS tag set. Our system was checked using 100 manually POS tagged code-mixed sentences and it returned an accuracy of 75.29%.</abstract>
       <url hash="1091f59b">2019.icon-1.17</url>
@@ -195,7 +195,7 @@
     <paper id="18">
       <title>Towards Handling Verb Phrase Ellipsis in <fixed-case>E</fixed-case>nglish-<fixed-case>H</fixed-case>indi Machine Translation</title>
       <author><first>Niyati</first><last>Bafna</last></author>
-      <author><first>Dipti</first><last>Sharma</last></author>
+      <author id="dipti-misra-sharma"><first>Dipti</first><last>Sharma</last></author>
       <pages>150–159</pages>
       <abstract>English-Hindi machine translation systems have difficulty interpreting verb phrase ellipsis (VPE) in English, and commit errors in translating sentences with VPE. We present a solution and theoretical backing for the treatment of English VPE, with the specific scope of enabling English-Hindi MT, based on an understanding of the syntactical phenomenon of verb-stranding verb phrase ellipsis in Hindi (VVPE). We implement a rule-based system to perform the following sub-tasks: 1) Verb ellipsis identification in the English source sentence, 2) Elided verb phrase head identification 3) Identification of verb segment which needs to be induced at the site of ellipsis 4) Modify input sentence; i.e. resolving VPE and inducing the required verb segment. This system obtains 94.83 percent precision and 83.04 percent recall on subtask (1), tested on 3900 sentences from the BNC corpus. This is competitive with state-of-the-art results. We measure accuracy of subtasks (2) and (3) together, and obtain a 91 percent accuracy on 200 sentences taken from the WSJ corpus. Finally, in order to indicate the relevance of ellipsis handling to MT, we carried out a manual analysis of the English-Hindi MT outputs of 100 sentences after passing it through our system. We set up a basic metric (1-5) for this evaluation, where 5 indicates drastic improvement, and obtained an average of 3.55. As far as we know, this is the first attempt to target ellipsis resolution in the context of improving English-Hindi machine translation.</abstract>
       <url hash="7965028d">2019.icon-1.18</url>
@@ -206,7 +206,7 @@
       <author><first>Sovan Kumar</first><last>Sahoo</last></author>
       <author><first>Saumajit</first><last>Saha</last></author>
       <author><first>Asif</first><last>Ekbal</last></author>
-      <author><first>Pushpak</first><last>Bhattacharyya</last></author>
+      <author id="pushpak-bhattacharyya"><first>Pushpak</first><last>Bhattacharyya</last></author>
       <pages>160–169</pages>
       <abstract>In this paper we present a deep multi-task learning framework for multilingual event and argument trigger detection and classification. In our current work, we identify detection and classification of both event and argument triggers as related tasks and follow a multi-tasking approach to solve them simultaneously in contrast to the previous works where these tasks were solved separately or learning some of the above mentioned tasks jointly. We evaluate the proposed approach with multiple low-resource Indian languages. As there were no datasets available for the Indian languages, we have annotated disaster related news data crawled from the online news portal for different low-resource Indian languages for our experiments. Our empirical evaluation shows that multi-task model performs better than the single task model, and classification helps in trigger detection and vice-versa.</abstract>
       <url hash="0d28d267">2019.icon-1.19</url>
@@ -215,7 +215,7 @@
     <paper id="20">
       <title>Converting Sentiment Annotated Data to Emotion Annotated Data</title>
       <author><first>Manasi</first><last>Kulkarni</last></author>
-      <author><first>Pushpak</first><last>Bhattacharyya</last></author>
+      <author id="pushpak-bhattacharyya"><first>Pushpak</first><last>Bhattacharyya</last></author>
       <pages>170–177</pages>
       <abstract>Existing supervised solutions for emotion classification demand large amount of emotion annotated data. Such resources may not be available for many languages. However, it is common to have sentiment annotated data available in these languages. The sentiment information (+1 or -1) is useful to segregate between positive emotions or negative emotions. In this paper, we propose an unsupervised approach for emotion recognition by taking advantage of the sentiment information. Given a sentence and its sentiment information, recognize the best possible emotion for it. For every sentence, the semantic relatedness between the words from sentence and a set of emotion-specific words is calculated using cosine similarity. An emotion vector representing the emotion score for each emotion category of Ekman’s model, is created. It is further improved with the dependency relations and the best possible emotion is predicted. The results show the significant improvement in f-score values for text with sentiment information as input over our baseline as text without sentiment information. We report the weighted f-score on three different datasets with the Ekman’s emotion model. This supports that by leveraging the sentiment value, better emotion annotated data can be created.</abstract>
       <url hash="db481a55">2019.icon-1.20</url>
@@ -234,8 +234,8 @@
     <paper id="22">
       <title>Kunji : A Resource Management System for Higher Productivity in Computer Aided Translation Tools</title>
       <author><first>Priyank</first><last>Gupta</last></author>
-      <author><first>Manish</first><last>Shrivastava</last></author>
-      <author><first>Dipti Misra</first><last>Sharma</last></author>
+      <author id="manish-shrivastava"><first>Manish</first><last>Shrivastava</last></author>
+      <author id="dipti-misra-sharma"><first>Dipti Misra</first><last>Sharma</last></author>
       <author><first>Rashid</first><last>Ahmad</last></author>
       <pages>184–192</pages>
       <abstract>Complex NLP applications, such as machine translation systems, utilize various kinds of resources namely lexical, multiword, domain dictionaries, maps and rules etc. Similarly, translators working on Computer Aided Translation workbenches, also require help from various kinds of resources - glossaries, terminologies, concordances and translation memory in the workbenches in order to increase their productivity. Additionally, translators have to look away from the workbenches for linguistic resources like Named Entities, Multiwords, lexical and lexeme dictionaries in order to get help, as the available resources like concordances, terminologies and glossaries are often not enough. In this paper we present Kunji, a resource management system for translation workbenches and MT modules. This system can be easily integrated in translation workbenches and can also be used as a management tool for resources for MT systems. The described resource management system has been integrated in a translation workbench Transzaar. We also study the impact of providing this resource management system along with linguistic resources on the productivity of translators for English-Hindi language pair. When the linguistic resources like lexeme, NER and MWE dictionaries were made available to translators in addition to their regular translation memories, concordances and terminologies, their productivity increased by 15.61%.</abstract>
@@ -292,7 +292,7 @@
       <author><first>Tanik</first><last>Saikh</last></author>
       <author><first>Arkadipta</first><last>De</last></author>
       <author><first>Asif</first><last>Ekbal</last></author>
-      <author><first>Pushpak</first><last>Bhattacharyya</last></author>
+      <author id="pushpak-bhattacharyya"><first>Pushpak</first><last>Bhattacharyya</last></author>
       <pages>230–238</pages>
       <abstract>Fake news detection is a very prominent and essential task in the field of journalism. This challenging problem is seen so far in the field of politics, but it could be even more challenging when it is to be determined in the multi-domain platform. In this paper, we propose two effective models based on deep learning for solving fake news detection problem in online news contents of multiple domains. We evaluate our techniques on the two recently released datasets, namely Fake News AMT and Celebrity for fake news detection. The proposed systems yield encouraging performance, outperforming the current hand-crafted feature engineering based state-of-the-art system with a significant margin of 3.08% and 9.3% by the two models, respectively. In order to exploit the datasets, available for the related tasks, we perform cross-domain analysis (model trained on FakeNews AMT and tested on Celebrity and vice versa) to explore the applicability of our systems across the domains.</abstract>
       <url hash="166cb9aa">2019.icon-1.27</url>

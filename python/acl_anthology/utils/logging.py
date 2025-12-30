@@ -15,8 +15,9 @@
 """Functions for convenient logging."""
 
 import logging
+from rich.console import Console
 from rich.logging import RichHandler
-from typing import cast
+from typing import cast, Optional
 from ..config import config
 
 
@@ -46,7 +47,9 @@ class SeverityTracker(logging.Handler):
             self.highest = record.levelno
 
 
-def setup_rich_logging(**kwargs: object) -> SeverityTracker:
+def setup_rich_logging(
+    console: Optional[Console] = None, **kwargs: object
+) -> SeverityTracker:
     """Set up a logger that uses rich markup and severity tracking.
 
     This function is intended to be called in a script. It calls [logging.basicConfig][] and is therefore not executed by default, as applications may wish to setup their loggers differently.
@@ -57,6 +60,8 @@ def setup_rich_logging(**kwargs: object) -> SeverityTracker:
     Returns:
         The severity tracker, so that it can be used to check the highest emitted log level.
     """
+    if console is None:
+        console = Console(stderr=True)
     log_config: dict[str, object] = dict(
         level="NOTSET",
         format="%(message)s",
@@ -65,7 +70,9 @@ def setup_rich_logging(**kwargs: object) -> SeverityTracker:
     )
     log_config.update(kwargs)
     tracker = SeverityTracker()
-    cast(list[logging.Handler], log_config["handlers"]).extend([RichHandler(), tracker])
+    cast(list[logging.Handler], log_config["handlers"]).extend(
+        [RichHandler(console=console), tracker]
+    )
     logging.basicConfig(**log_config)  # type: ignore
     logging.captureWarnings(True)
     return tracker

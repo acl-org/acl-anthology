@@ -7,7 +7,7 @@
       <editor><first>Sophie</first><last>Hao</last></editor>
       <editor><first>Jaap</first><last>Jumelet</last></editor>
       <editor><first>Najoung</first><last>Kim</last></editor>
-      <editor><first>Arya</first><last>McCarthy</last></editor>
+      <editor id="arya-d-mccarthy"><first>Arya</first><last>McCarthy</last></editor>
       <editor><first>Hosein</first><last>Mohebbi</last></editor>
       <publisher>Association for Computational Linguistics</publisher>
       <address>Singapore</address>
@@ -52,7 +52,7 @@
       <author><first>Chandan</first><last>Singh</last></author>
       <author><first>John X.</first><last>Morris</last></author>
       <author><first>Jyoti</first><last>Aneja</last></author>
-      <author><first>Alexander</first><last>Rush</last></author>
+      <author id="alexander-m-rush"><first>Alexander</first><last>Rush</last></author>
       <author><first>Jianfeng</first><last>Gao</last></author>
       <pages>31–55</pages>
       <abstract>Large language models (LLMs) have displayed an impressive ability to harness natural language to perform complex tasks. We explore whether we can leverage this ability to find and explain patterns in data. Specifically, given a pre-trained LLM and data examples, we apply interpretable autoprompting (iPrompt) to generate a natural language string explaining the data. iPrompt iteratively generates explanations with an LLM and reranks them based on their performance when used as a prompt. Experiments on a wide range of datasets, from synthetic mathematics to natural language understanding, show that iPrompt can yield meaningful insights by accurately finding dataset explanations that are human-interpretable. Moreover, iPrompt is reasonably efficient, as it does not require access to model gradients and works with relatively small models (e.g. ~6 billion parameters rather than &gt;=100 billion). Finally, experiments with scientific datasets show the potential for iPrompt to aid in scientific discovery.</abstract>
@@ -116,7 +116,7 @@
     <paper id="9">
       <title>Unveiling Multilinguality in Transformer Models: Exploring Language Specificity in Feed-Forward Networks</title>
       <author><first>Sunit</first><last>Bhattacharya</last></author>
-      <author><first>Ondřej</first><last>Bojar</last></author>
+      <author id="ondrej-bojar"><first>Ondřej</first><last>Bojar</last></author>
       <pages>120–126</pages>
       <abstract>Recent research suggests that the feed-forward module within Transformers can be viewed as a collection of key-value memories, where the keys learn to capture specific patterns from the input based on the training examples. The values then combine the output from the ‘memories’ of the keys to generate predictions about the next token. This leads to an incremental process of prediction that gradually converges towards the final token choice near the output layers. This interesting perspective raises questions about how multilingual models might leverage this mechanism. Specifically, for autoregressive models trained on two or more languages, do all neurons (across layers) respond equally to all languages? No! Our hypothesis centers around the notion that during pre-training, certain model parameters learn strong language-specific features, while others learn more language-agnostic (shared across languages) features. To validate this, we conduct experiments utilizing parallel corpora of two languages that the model was initially pre-trained on. Our findings reveal that the layers closest to the network’s input or output tend to exhibit more language-specific behaviour compared to the layers in the middle.</abstract>
       <url hash="1ebb287d">2023.blackboxnlp-1.9</url>
@@ -136,7 +136,7 @@
     <paper id="11">
       <title>Investigating Semantic Subspaces of Transformer Sentence Embeddings through Linear Structural Probing</title>
       <author><first>Dmitry</first><last>Nikolaev</last></author>
-      <author><first>Sebastian</first><last>Padó</last></author>
+      <author id="sebastian-pado"><first>Sebastian</first><last>Padó</last></author>
       <pages>142–154</pages>
       <abstract>The question of what kinds of linguistic information are encoded in different layers of Transformer-based language models is of considerable interest for the NLP community. Existing work, however, has overwhelmingly focused on word-level representations and encoder-only language models with the masked-token training objective. In this paper, we present experiments with semantic structural probing, a method for studying sentence-level representations via finding a subspace of the embedding space that provides suitable task-specific pairwise distances between data-points. We apply our method to language models from different families (encoder-only, decoder-only, encoder-decoder) and of different sizes in the context of two tasks, semantic textual similarity and natural-language inference. We find that model families differ substantially in their performance and layer dynamics, but that the results are largely model-size invariant.</abstract>
       <url hash="3813f932">2023.blackboxnlp-1.11</url>
@@ -157,7 +157,7 @@
       <title>Enhancing Interpretability Using Human Similarity Judgements to Prune Word Embeddings</title>
       <author><first>Natalia</first><last>Flechas Manrique</last></author>
       <author><first>Wanqian</first><last>Bao</last></author>
-      <author><first>Aurelie</first><last>Herbelot</last></author>
+      <author id="aurelie-herbelot"><first>Aurelie</first><last>Herbelot</last></author>
       <author><first>Uri</first><last>Hasson</last></author>
       <pages>169–179</pages>
       <abstract>Interpretability methods in NLP aim to provide insights into the semantics underlying specific system architectures. Focusing on word embeddings, we present a supervised-learning method that, for a given domain (e.g., sports, professions), identifies a subset of model features that strongly improve prediction of human similarity judgments. We show this method keeps only 20-40% of the original embeddings, for 8 independent semantic domains, and that it retains different feature sets across domains. We then present two approaches for interpreting the semantics of the retained features. The first obtains the scores of the domain words (co-hyponyms) on the first principal component of the retained embeddings, and extracts terms whose co-occurrence with the co-hyponyms tracks these scores’ profile. This analysis reveals that humans differentiate e.g. sports based on how gender-inclusive and international they are. The second approach uses the retained sets as variables in a probing task that predicts values along 65 semantically annotated dimensions for a dataset of 535 words. The features retained for professions are best at predicting cognitive, emotional and social dimensions, whereas features retained for fruits or vegetables best predict the gustation (taste) dimension. We discuss implications for alignment between AI systems and human knowledge.</abstract>
@@ -168,7 +168,7 @@
     <paper id="14">
       <title>When Your Language Model Cannot <fixed-case>E</fixed-case>ven Do Determiners Right: Probing for Anti-Presuppositions and the Maximize Presupposition! Principle</title>
       <author><first>Judith</first><last>Sieker</last></author>
-      <author><first>Sina</first><last>Zarrieß</last></author>
+      <author id="sina-zarriess"><first>Sina</first><last>Zarrieß</last></author>
       <pages>180–198</pages>
       <abstract>The increasing interest in probing the linguistic capabilities of large language models (LLMs) has long reached the area of semantics and pragmatics, including the phenomenon of presuppositions. In this study, we investigate a phenomenon that, however, has not yet been investigated, i.e., the phenomenon of anti-presupposition and the principle that accounts for it, the Maximize Presupposition! principle (MP!). Through an experimental investigation using psycholinguistic data and four open-source BERT model variants, we explore how language models handle different anti-presuppositions and whether they apply the MP! principle in their predictions. Further, we examine whether fine-tuning with Natural Language Inference data impacts adherence to the MP! principle. Our findings reveal that LLMs tend to replicate context-based n-grams rather than follow the MP! principle, with fine-tuning not enhancing their adherence. Notably, our results further indicate a striking difficulty of LLMs to correctly predict determiners, in relatively simple linguistic contexts.</abstract>
       <url hash="7e7c4e80">2023.blackboxnlp-1.14</url>
@@ -188,7 +188,7 @@
       <title>The Self-Contained Negation Test Set</title>
       <author><first>David</first><last>Kletz</last></author>
       <author><first>Pascal</first><last>Amsili</last></author>
-      <author><first>Marie</first><last>Candito</last></author>
+      <author id="marie-candito"><first>Marie</first><last>Candito</last></author>
       <pages>212–221</pages>
       <abstract>Several methodologies have recently been proposed to evaluate the ability of Pretrained Language Models (PLMs) to interpret negation. In this article, we build on Gubelmann and Handschuh (2022), which studies the modification of PLMs’ predictions as a function of the polarity of inputs, in English. Crucially, this test uses “self-contained” inputs ending with a masked position: depending on the polarity of a verb in the input, a particular token is either semantically ruled out or allowed at the masked position. By replicating Gubelmann and Handschuh (2022) experiments, we have uncovered flaws that weaken the conclusions that can be drawn from this test. We thus propose an improved version, the Self-Contained Neg Test, which is more controlled, more systematic, and entirely based on examples forming minimal pairs varying only in the presence or absence of verbal negation in English. When applying our test to the roberta and bert base and large models, we show that only roberta-large shows trends that match the expectations, while bert-base is mostly insensitive to negation. For all the tested models though, in a significant number of test instances the top-1 prediction remains the token that is semantically forbidden by the context, which shows how much room for improvement remains for a proper treatment of the negation phenomenon.</abstract>
       <url hash="cd4cd42d">2023.blackboxnlp-1.16</url>
@@ -231,8 +231,8 @@
       <title>Investigating the Encoding of Words in <fixed-case>BERT</fixed-case>’s Neurons Using Feature Textualization</title>
       <author><first>Tanja</first><last>Baeumel</last></author>
       <author><first>Soniya</first><last>Vijayakumar</last></author>
-      <author><first>Josef</first><last>van Genabith</last></author>
-      <author><first>Guenter</first><last>Neumann</last></author>
+      <author id="josef-van-genabith"><first>Josef</first><last>van Genabith</last></author>
+      <author id="gunter-neumann"><first>Guenter</first><last>Neumann</last></author>
       <author><first>Simon</first><last>Ostermann</last></author>
       <pages>261–270</pages>
       <abstract>Pretrained language models (PLMs) form the basis of most state-of-the-art NLP technologies. Nevertheless, they are essentially black boxes: Humans do not have a clear understanding of what knowledge is encoded in different parts of the models, especially in individual neurons. A contrast is in computer vision, where feature visualization provides a decompositional interpretability technique for neurons of vision models. Activation maximization is used to synthesize inherently interpretable visual representations of the information encoded in individual neurons. Our work is inspired by this but presents a cautionary tale on the interpretability of single neurons, based on the first large-scale attempt to adapt activation maximization to NLP, and, more specifically, large PLMs. We propose feature textualization, a technique to produce dense representations of neurons in the PLM word embedding space. We apply feature textualization to the BERT model to investigate whether the knowledge encoded in individual neurons can be interpreted and symbolized. We find that the produced representations can provide insights about the knowledge encoded in individual neurons, but that individual neurons do not represent clear-cut symbolic units of language such as words. Additionally, we use feature textualization to investigate how many neurons are needed to encode words in BERT.</abstract>
@@ -263,7 +263,7 @@
     <paper id="23">
       <title>Not Wacky vs. Definitely Wacky: A Study of Scalar Adverbs in Pretrained Language Models</title>
       <author><first>Isabelle</first><last>Lorge</last></author>
-      <author><first>Janet B.</first><last>Pierrehumbert</last></author>
+      <author id="janet-pierrehumbert"><first>Janet B.</first><last>Pierrehumbert</last></author>
       <pages>296–316</pages>
       <abstract>Vector-space models of word meaning all assume that words occurring in similar contexts have similar meanings. Words that are similar in their topical associations but differ in their logical force tend to emerge as semantically close – creating well-known challenges for NLP applications that involve logical reasoning. Pretrained language models such as BERT, RoBERTa, GPT-2, and GPT-3 hold the promise of performing better on logical tasks than classic static word embeddings. However, reports are mixed about their success. Here, we advance this discussion through a systematic study of scalar adverbs, an under-explored class of words with strong logical force. Using three different tasks involving both naturalistic social media data and constructed examples, we investigate the extent to which BERT, RoBERTa, GPT-2 and GPT-3 exhibit knowledge of these common words. We ask: 1) Do the models distinguish amongst the three semantic categories of MODALITY, FREQUENCY and DEGREE? 2) Do they have implicit representations of full scales from maximally negative to maximally positive? 3) How do word frequency and contextual factors impact model performance? We find that despite capturing some aspects of logical meaning, the models still have obvious shortfalls.</abstract>
       <url hash="1f5216bc">2023.blackboxnlp-1.23</url>
@@ -318,7 +318,7 @@
       <title>Systematic Generalization by Finetuning? Analyzing Pretrained Language Models Using Constituency Tests</title>
       <author><first>Aishik</first><last>Chakraborty</last></author>
       <author><first>Jackie CK</first><last>Cheung</last></author>
-      <author><first>Timothy J.</first><last>O’Donnell</last></author>
+      <author id="timothy-odonnell"><first>Timothy J.</first><last>O’Donnell</last></author>
       <pages>357–366</pages>
       <abstract>Constituents are groups of words that behave as a syntactic unit. Many linguistic phenomena (e.g., question formation, diathesis alternations) require the manipulation and rearrangement of constituents in a sentence. In this paper, we investigate how different finetuning setups affect the ability of pretrained sequence-to-sequence language models such as BART and T5 to replicate constituency tests — transformations that involve manipulating constituents in a sentence. We design multiple evaluation settings by varying the combinations of constituency tests and sentence types that a model is exposed to during finetuning. We show that models can replicate a linguistic transformation on a specific type of sentence that they saw during finetuning, but performance degrades substantially in other settings, showing a lack of systematic generalization. These results suggest that models often learn to manipulate sentences at a surface level unrelated to the constituent-level syntactic structure, for example by copying the first word of a sentence. These results may partially explain the brittleness of pretrained language models in downstream tasks.</abstract>
       <url hash="3a168b5b">2023.blackboxnlp-1.27</url>

@@ -62,8 +62,8 @@
       <author><first>Mandar</first><last>Joshi</last></author>
       <author><first>Danqi</first><last>Chen</last></author>
       <author><first>Yinhan</first><last>Liu</last></author>
-      <author><first>Daniel S.</first><last>Weld</last></author>
-      <author><first>Luke</first><last>Zettlemoyer</last></author>
+      <author id="daniel-s-weld"><first>Daniel S.</first><last>Weld</last></author>
+      <author id="luke-zettlemoyer"><first>Luke</first><last>Zettlemoyer</last></author>
       <author><first>Omer</first><last>Levy</last></author>
       <doi>10.1162/tacl_a_00300</doi>
       <abstract>We present SpanBERT, a pre-training method that is designed to better represent and predict spans of text. Our approach extends BERT by (1) masking contiguous random spans, rather than random tokens, and (2) training the span boundary representations to predict the entire content of the masked span, without relying on the individual token representations within it. SpanBERT consistently outperforms BERT and our better-tuned baselines, with substantial gains on span selection tasks such as question answering and coreference resolution. In particular, with the same training data and model size as BERTlarge, our single model obtains 94.6% and 88.7% F1 on SQuAD 1.1 and 2.0 respectively. We also achieve a new state of the art on the OntoNotes coreference resolution task (79.6% F1), strong performance on the TACRED relation extraction benchmark, and even gains on GLUE.1</abstract>
@@ -75,7 +75,7 @@
       <title>A Graph-based Model for Joint <fixed-case>C</fixed-case>hinese Word Segmentation and Dependency Parsing</title>
       <author><first>Hang</first><last>Yan</last></author>
       <author><first>Xipeng</first><last>Qiu</last></author>
-      <author><first>Xuanjing</first><last>Huang</last></author>
+      <author id="xuan-jing-huang"><first>Xuanjing</first><last>Huang</last></author>
       <doi>10.1162/tacl_a_00301</doi>
       <abstract>Chinese word segmentation and dependency parsing are two fundamental tasks for Chinese natural language processing. The dependency parsing is defined at the word-level. Therefore word segmentation is the precondition of dependency parsing, which makes dependency parsing suffer from error propagation and unable to directly make use of character-level pre-trained language models (such as BERT). In this paper, we propose a graph-based model to integrate Chinese word segmentation and dependency parsing. Different from previous transition-based joint models, our proposed model is more concise, which results in fewer efforts of feature engineering. Our graph-based joint model achieves better performance than previous joint models and state-of-the-art results in both Chinese word segmentation and dependency parsing. Additionally, when BERT is combined, our model can substantially reduce the performance gap of dependency parsing between joint models and gold-segmented word-based models. Our code is publicly available at <url>https://github.com/fastnlp/JointCwsParser</url></abstract>
       <pages>78–92</pages>
@@ -85,7 +85,7 @@
     <paper id="7">
       <title>A Knowledge-Enhanced Pretraining Model for Commonsense Story Generation</title>
       <author><first>Jian</first><last>Guan</last></author>
-      <author id="fei-huang"><first>Fei</first><last>Huang</last></author>
+      <author><first>Fei</first><last>Huang</last></author>
       <author><first>Zhihao</first><last>Zhao</last></author>
       <author><first>Xiaoyan</first><last>Zhu</last></author>
       <author><first>Minlie</first><last>Huang</last></author>
@@ -100,7 +100,7 @@
       <author><first>Shuyan</first><last>Zhou</last></author>
       <author><first>Shruti</first><last>Rijhwani</last></author>
       <author><first>John</first><last>Wieting</last></author>
-      <author><first>Jaime</first><last>Carbonell</last></author>
+      <author id="jaime-g-carbonell"><first>Jaime</first><last>Carbonell</last></author>
       <author><first>Graham</first><last>Neubig</last></author>
       <doi>10.1162/tacl_a_00303</doi>
       <abstract>Cross-lingual entity linking (XEL) is the task of finding referents in a target-language knowledge base (KB) for mentions extracted from source-language texts. The first step of (X)EL is candidate generation, which retrieves a list of plausible candidate entities from the target-language KB for each mention. Approaches based on resources from Wikipedia have proven successful in the realm of relatively high-resource languages, but these do not extend well to low-resource languages with few, if any, Wikipedia pages. Recently, transfer learning methods have been shown to reduce the demand for resources in the low-resource languages by utilizing resources in closely related languages, but the performance still lags far behind their high-resource counterparts. In this paper, we first assess the problems faced by current entity candidate generation methods for low-resource XEL, then propose three improvements that (1) reduce the disconnect between entity mentions and KB entries, and (2) improve the robustness of the model to low-resource scenarios. The methods are simple, but effective: We experiment with our approach on seven XEL datasets and find that they yield an average gain of 16.9% in Top-30 gold candidate recall, compared with state-of-the-art baselines. Our improved model also yields an average gain of 7.9% in in-KB accuracy of end-to-end XEL.1</abstract>
@@ -110,7 +110,7 @@
     </paper>
     <paper id="9">
       <title>Does Syntax Need to Grow on Trees? Sources of Hierarchical Inductive Bias in Sequence-to-Sequence Networks</title>
-      <author><first>R. Thomas</first><last>McCoy</last></author>
+      <author id="r-thomas-mccoy"><first>R. Thomas</first><last>McCoy</last></author>
       <author><first>Robert</first><last>Frank</last></author>
       <author><first>Tal</first><last>Linzen</last></author>
       <doi>10.1162/tacl_a_00304</doi>
@@ -124,7 +124,7 @@
       <author><first>Kai</first><last>Sun</last></author>
       <author><first>Dian</first><last>Yu</last></author>
       <author><first>Dong</first><last>Yu</last></author>
-      <author><first>Claire</first><last>Cardie</last></author>
+      <author id="claire-cardie"><first>Claire</first><last>Cardie</last></author>
       <doi>10.1162/tacl_a_00305</doi>
       <abstract>Machine reading comprehension tasks require a machine reader to answer questions relevant to the given document. In this paper, we present the first free-form multiple-Choice Chinese machine reading Comprehension dataset (C3), containing 13,369 documents (dialogues or more formally written mixed-genre texts) and their associated 19,577 multiple-choice free-form questions collected from Chinese-as-a-second-language examinations. We present a comprehensive analysis of the prior knowledge (i.e., linguistic, domain-specific, and general world knowledge) needed for these real-world problems. We implement rule-based and popular neural methods and find that there is still a significant performance gap between the best performing model (68.5%) and human readers (96.0%), especiallyon problems that require prior knowledge. We further study the effects of distractor plausibility and data augmentation based on translated relevant datasets for English on model performance. We expect C3 to present great challenges to existing systems as answering 86.8% of questions requires both knowledge within and beyond the accompanying document, and we hope that C3 can serve as a platform to study how to leverage various kinds of prior knowledge to better understand a given written or orally oriented text. C3 is available at <url>https://dataset.org/c3/</url>.</abstract>
       <pages>141–155</pages>
@@ -174,7 +174,7 @@
       <author><first>Sarah Ita</first><last>Levitan</last></author>
       <author><first>Michelle</first><last>Levine</last></author>
       <author><first>Marko</first><last>Mandic</last></author>
-      <author><first>Julia</first><last>Hirschberg</last></author>
+      <author id="julia-hirschberg"><first>Julia</first><last>Hirschberg</last></author>
       <doi>10.1162/tacl_a_00311</doi>
       <abstract>Humans rarely perform better than chance at lie detection. To better understand human perception of deception, we created a game framework, LieCatcher, to collect ratings of perceived deception using a large corpus of deceptive and truthful interviews. We analyzed the acoustic-prosodic and linguistic characteristics of language trusted and mistrusted by raters and compared these to characteristics of actual truthful and deceptive language to understand how perception aligns with reality. With this data we built classifiers to automatically distinguish trusted from mistrusted speech, achieving an F1 of 66.1%. We next evaluated whether the strategies raters said they used to discriminate between truthful and deceptive responses were in fact useful. Our results show that, although several prosodic and lexical features were consistently perceived as trustworthy, they were not reliable cues. Also, the strategies that judges reported using in deception detection were not helpful for the task. Our work sheds light on the nature of trusted language and provides insight into the challenging problem of human deception detection.</abstract>
       <pages>199–214</pages>
@@ -255,7 +255,7 @@
       <title>Learning Lexical Subspaces in a Distributional Vector Space</title>
       <author><first>Kushal</first><last>Arora</last></author>
       <author><first>Aishik</first><last>Chakraborty</last></author>
-      <author><first>Jackie C. K.</first><last>Cheung</last></author>
+      <author id="jackie-chi-kit-cheung"><first>Jackie C. K.</first><last>Cheung</last></author>
       <doi>10.1162/tacl_a_00316</doi>
       <abstract>In this paper, we propose LexSub, a novel approach towards unifying lexical and distributional semantics. We inject knowledge about lexical-semantic relations into distributional word embeddings by defining subspaces of the distributional vector space in which a lexical relation should hold. Our framework can handle symmetric attract and repel relations (e.g., synonymy and antonymy, respectively), as well as asymmetric relations (e.g., hypernymy and meronomy). In a suite of intrinsic benchmarks, we show that our model outperforms previous approaches on relatedness tasks and on hypernymy classification and detection, while being competitive on word similarity tasks. It also outperforms previous systems on extrinsic classification tasks that benefit from exploiting lexical relational cues. We perform a series of analyses to understand the behaviors of our model.1Code available at <url>https://github.com/aishikchakraborty/LexSub</url>.</abstract>
       <pages>311–329</pages>
@@ -267,7 +267,7 @@
       <author><first>Ashutosh</first><last>Kumar</last></author>
       <author><first>Kabir</first><last>Ahuja</last></author>
       <author><first>Raghuram</first><last>Vadapalli</last></author>
-      <author><first>Partha</first><last>Talukdar</last></author>
+      <author id="partha-talukdar"><first>Partha</first><last>Talukdar</last></author>
       <doi>10.1162/tacl_a_00318</doi>
       <abstract>Given a sentence (e.g., “I like mangoes”) and a constraint (e.g., sentiment flip), the goal of controlled text generation is to produce a sentence that adapts the input sentence to meet the requirements of the constraint (e.g., “I hate mangoes”). Going beyond such simple constraints, recent work has started exploring the incorporation of complex syntactic-guidance as constraints in the task of controlled paraphrase generation. In these methods, syntactic-guidance is sourced from a separate exemplar sentence. However, this prior work has only utilized limited syntactic information available in the parse tree of the exemplar sentence. We address this limitation in the paper and propose Syntax Guided Controlled Paraphraser (SGCP), an end-to-end framework for syntactic paraphrase generation. We find that Sgcp can generate syntax-conforming sentences while not compromising on relevance. We perform extensive automated and human evaluations over multiple real-world English language datasets to demonstrate the efficacy of Sgcp over state-of-the-art baselines. To drive future research, we have made Sgcp’s source code available.1</abstract>
       <pages>329–345</pages>
@@ -281,8 +281,8 @@
       <author><first>Wojciech</first><last>Stokowiec</last></author>
       <author><first>Wang</first><last>Ling</last></author>
       <author><first>Lingpeng</first><last>Kong</last></author>
-      <author><first>Phil</first><last>Blunsom</last></author>
-      <author><first>Chris</first><last>Dyer</last></author>
+      <author id="phil-blunsom"><first>Phil</first><last>Blunsom</last></author>
+      <author id="chris-dyer"><first>Chris</first><last>Dyer</last></author>
       <doi>10.1162/tacl_a_00319</doi>
       <abstract>We show that Bayes’ rule provides an effective mechanism for creating document translation models that can be learned from only parallel sentences and monolingual documents a compelling benefit because parallel documents are not always available. In our formulation, the posterior probability of a candidate translation is the product of the unconditional (prior) probability of the candidate output document and the “reverse translation probability” of translating the candidate output back into the source language. Our proposed model uses a powerful autoregressive language model as the prior on target language documents, but it assumes that each sentence is translated independently from the target to the source language. Crucially, at test time, when a source document is observed, the document language model prior induces dependencies between the translations of the source sentences in the posterior. The model’s independence assumption not only enables efficient use of available data, but it additionally admits a practical left-to-right beam-search algorithm for carrying out inference. Experiments show that our model benefits from using cross-sentence context in the language model, and it outperforms existing document translation approaches.</abstract>
       <pages>346–360</pages>
@@ -307,7 +307,7 @@
       <author><first>Anhad</first><last>Mohananey</last></author>
       <author><first>Wei</first><last>Peng</last></author>
       <author><first>Sheng-Fu</first><last>Wang</last></author>
-      <author><first>Samuel R.</first><last>Bowman</last></author>
+      <author id="samuel-bowman"><first>Samuel R.</first><last>Bowman</last></author>
       <doi>10.1162/tacl_a_00321</doi>
       <abstract>We introduce The Benchmark of Linguistic Minimal Pairs (BLiMP),1 a challenge set for evaluating the linguistic knowledge of language models (LMs) on major grammatical phenomena in English. BLiMP consists of 67 individual datasets, each containing 1,000 minimal pairs—that is, pairs of minimally different sentences that contrast in grammatical acceptability and isolate specific phenomenon in syntax, morphology, or semantics. We generate the data according to linguist-crafted grammar templates, and human aggregate agreement with the labels is 96.4%. We evaluate n-gram, LSTM, and Transformer (GPT-2 and Transformer-XL) LMs by observing whether they assign a higher probability to the acceptable sentence in each minimal pair. We find that state-of-the-art models identify morphological contrasts related to agreement reliably, but they struggle with some subtle semantic and syntactic phenomena, such as negative polarity items and extraction islands.</abstract>
       <pages>377–392</pages>
@@ -337,7 +337,7 @@
     <paper id="28">
       <title>How Can We Know What Language Models Know?</title>
       <author><first>Zhengbao</first><last>Jiang</last></author>
-      <author><first>Frank F.</first><last>Xu</last></author>
+      <author id="frank-f-xu"><first>Frank F.</first><last>Xu</last></author>
       <author><first>Jun</first><last>Araki</last></author>
       <author><first>Graham</first><last>Neubig</last></author>
       <doi>10.1162/tacl_a_00324</doi>
@@ -350,7 +350,7 @@
       <title>Topic Modeling in Embedding Spaces</title>
       <author><first>Adji B.</first><last>Dieng</last></author>
       <author><first>Francisco J. R.</first><last>Ruiz</last></author>
-      <author><first>David M.</first><last>Blei</last></author>
+      <author id="david-blei"><first>David M.</first><last>Blei</last></author>
       <doi>10.1162/tacl_a_00325</doi>
       <abstract>Topic modeling analyzes documents to learn meaningful patterns of words. However, existing topic models fail to learn interpretable topics when working with large and heavy-tailed vocabularies. To this end, we develop the embedded topic model (etm), a generative model of documents that marries traditional topic models with word embeddings. More specifically, the etm models each word with a categorical distribution whose natural parameter is the inner product between the word’s embedding and an embedding of its assigned topic. To fit the etm, we develop an efficient amortized variational inference algorithm. The etm discovers interpretable topics even with large vocabularies that include rare words and stop words. It outperforms existing document models, such as latent Dirichlet allocation, in terms of both topic quality and predictive performance.</abstract>
       <pages>439–453</pages>
@@ -359,9 +359,9 @@
     </paper>
     <paper id="30">
       <title><fixed-case>T</fixed-case>y<fixed-case>D</fixed-case>i <fixed-case>QA</fixed-case>: A Benchmark for Information-Seeking Question Answering in Typologically Diverse Languages</title>
-      <author><first>Jonathan H.</first><last>Clark</last></author>
+      <author id="jonathan-h-clark"><first>Jonathan H.</first><last>Clark</last></author>
       <author><first>Eunsol</first><last>Choi</last></author>
-      <author><first>Michael</first><last>Collins</last></author>
+      <author id="michael-collins"><first>Michael</first><last>Collins</last></author>
       <author><first>Dan</first><last>Garrette</last></author>
       <author><first>Tom</first><last>Kwiatkowski</last></author>
       <author><first>Vitaly</first><last>Nikolaev</last></author>
@@ -422,8 +422,8 @@
       <author><first>Marina</first><last>Fomicheva</last></author>
       <author><first>Shuo</first><last>Sun</last></author>
       <author><first>Lisa</first><last>Yankovskaya</last></author>
-      <author><first>Frédéric</first><last>Blain</last></author>
-      <author><first>Francisco</first><last>Guzmán</last></author>
+      <author id="frederic-blain"><first>Frédéric</first><last>Blain</last></author>
+      <author id="francisco-guzman"><first>Francisco</first><last>Guzmán</last></author>
       <author><first>Mark</first><last>Fishel</last></author>
       <author><first>Nikolaos</first><last>Aletras</last></author>
       <author><first>Vishrav</first><last>Chaudhary</last></author>
@@ -439,13 +439,13 @@
       <author><first>Jacob</first><last>Andreas</last></author>
       <author><first>John</first><last>Bufe</last></author>
       <author><first>David</first><last>Burkett</last></author>
-      <author><first>Charles</first><last>Chen</last></author>
+      <author id="charles-chen-jr"><first>Charles</first><last>Chen</last></author>
       <author><first>Josh</first><last>Clausman</last></author>
       <author><first>Jean</first><last>Crawford</last></author>
       <author><first>Kate</first><last>Crim</last></author>
       <author><first>Jordan</first><last>DeLoach</last></author>
       <author><first>Leah</first><last>Dorner</last></author>
-      <author><first>Jason</first><last>Eisner</last></author>
+      <author id="jason-eisner"><first>Jason</first><last>Eisner</last></author>
       <author><first>Hao</first><last>Fang</last></author>
       <author><first>Alan</first><last>Guo</last></author>
       <author><first>David</first><last>Hall</last></author>
@@ -512,7 +512,7 @@
     <paper id="39">
       <title>Nested Named Entity Recognition via Second-best Sequence Learning and Decoding</title>
       <author><first>Takashi</first><last>Shibuya</last></author>
-      <author><first>Eduard</first><last>Hovy</last></author>
+      <author id="eduard-hovy"><first>Eduard</first><last>Hovy</last></author>
       <doi>10.1162/tacl_a_00334</doi>
       <abstract>When an entity name contains other names within it, the identification of all combinations of names can become difficult and expensive. We propose a new method to recognize not only outermost named entities but also inner nested ones. We design an objective function for training a neural model that treats the tag sequence for nested entities as the second best path within the span of their parent entity. In addition, we provide the decoding method for inference that extracts entities iteratively from outermost ones to inner ones in an outside-to-inside way. Our method has no additional hyperparameters to the conditional random field based model widely used for flat named entity recognition tasks. Experiments demonstrate that our method performs better than or at least as well as existing methods capable of handling nested entities, achieving F1-scores of 85.82%, 84.34%, and 77.36% on ACE-2004, ACE-2005, and GENIA datasets, respectively.</abstract>
       <pages>605–620</pages>
@@ -612,7 +612,7 @@
       <author><first>Sergey</first><last>Edunov</last></author>
       <author><first>Marjan</first><last>Ghazvininejad</last></author>
       <author><first>Mike</first><last>Lewis</last></author>
-      <author><first>Luke</first><last>Zettlemoyer</last></author>
+      <author id="luke-zettlemoyer"><first>Luke</first><last>Zettlemoyer</last></author>
       <doi>10.1162/tacl_a_00343</doi>
       <abstract>This paper demonstrates that multilingual denoising pre-training produces significant performance gains across a wide variety of machine translation (MT) tasks. We present mBART—a sequence-to-sequence denoising auto-encoder pre-trained on large-scale monolingual corpora in many languages using the BART objective (Lewis et al., 2019). mBART is the first method for pre-training a complete sequence-to-sequence model by denoising full texts in multiple languages, whereas previous approaches have focused only on the encoder, decoder, or reconstructing parts of the text. Pre-training a complete model allows it to be directly fine-tuned for supervised (both sentence-level and document-level) and unsupervised machine translation, with no task- specific modifications. We demonstrate that adding mBART initialization produces performance gains in all but the highest-resource settings, including up to 12 BLEU points for low resource MT and over 5 BLEU points for many document-level and unsupervised models. We also show that it enables transfer to language pairs with no bi-text or that were not in the pre-training corpus, and present extensive analysis of which factors contribute the most to effective pre-training.1</abstract>
       <pages>726–742</pages>
@@ -649,8 +649,8 @@
       <author><first>Daniel</first><last>Fried</last></author>
       <author><first>Dani</first><last>Yogatama</last></author>
       <author><first>Laura</first><last>Rimell</last></author>
-      <author><first>Chris</first><last>Dyer</last></author>
-      <author><first>Phil</first><last>Blunsom</last></author>
+      <author id="chris-dyer"><first>Chris</first><last>Dyer</last></author>
+      <author id="phil-blunsom"><first>Phil</first><last>Blunsom</last></author>
       <doi>10.1162/tacl_a_00345</doi>
       <abstract>Textual representation learners trained on large amounts of data have achieved notable success on downstream tasks; intriguingly, they have also performed well on challenging tests of syntactic competence. Hence, it remains an open question whether scalable learners like BERT can become fully proficient in the syntax of natural language by virtue of data scale alone, or whether they still benefit from more explicit syntactic biases. To answer this question, we introduce a knowledge distillation strategy for injecting syntactic biases into BERT pretraining, by distilling the syntactically informative predictions of a hierarchical—albeit harder to scale—syntactic language model. Since BERT models masked words in bidirectional context, we propose to distill the approximate marginal distribution over words in context from the syntactic LM. Our approach reduces relative error by 2–21% on a diverse set of structured prediction tasks, although we obtain mixed results on the GLUE benchmark. Our findings demonstrate the benefits of syntactic biases, even for representation learners that exploit large amounts of data, and contribute to a better understanding of where syntactic biases are helpful in benchmarks of natural language understanding.</abstract>
       <pages>776–794</pages>
@@ -673,7 +673,7 @@
       <author><first>Ananya B.</first><last>Sai</last></author>
       <author><first>Akash Kumar</first><last>Mohankumar</last></author>
       <author><first>Siddhartha</first><last>Arora</last></author>
-      <author><first>Mitesh M.</first><last>Khapra</last></author>
+      <author id="mitesh-m-khapra"><first>Mitesh M.</first><last>Khapra</last></author>
       <doi>10.1162/tacl_a_00347</doi>
       <abstract>There is an increasing focus on model-based dialog evaluation metrics such as ADEM, RUBER, and the more recent BERT-based metrics. These models aim to assign a high score to all relevant responses and a low score to all irrelevant responses. Ideally, such models should be trained using multiple relevant and irrelevant responses for any given context. However, no such data is publicly available, and hence existing models are usually trained using a single relevant response and multiple randomly selected responses from other contexts (random negatives). To allow for better training and robust evaluation of model-based metrics, we introduce the DailyDialog++ dataset, consisting of (i) five relevant responses for each context and (ii) five adversarially crafted irrelevant responses for each context. Using this dataset, we first show that even in the presence of multiple correct references, n-gram based metrics and embedding based metrics do not perform well at separating relevant responses from even random negatives. While model-based metrics perform better than n-gram and embedding based metrics on random negatives, their performance drops substantially when evaluated on adversarial examples. To check if large scale pretraining could help, we propose a new BERT-based evaluation metric called DEB, which is pretrained on 727M Reddit conversations and then finetuned on our dataset. DEB significantly outperforms existing models, showing better correlation with human judgments and better performance on random negatives (88.27% accuracy). However, its performance again drops substantially when evaluated on adversarial responses, thereby highlighting that even large-scale pretrained evaluation models are not robust to the adversarial examples in our dataset. The dataset1 and code2 are publicly available.</abstract>
       <pages>810–827</pages>
@@ -685,7 +685,7 @@
       <author><first>Phillip</first><last>Keung</last></author>
       <author><first>Julian</first><last>Salazar</last></author>
       <author><first>Yichao</first><last>Lu</last></author>
-      <author><first>Noah A.</first><last>Smith</last></author>
+      <author id="noah-a-smith"><first>Noah A.</first><last>Smith</last></author>
       <doi>10.1162/tacl_a_00348</doi>
       <abstract>We describe an unsupervised method to create pseudo-parallel corpora for machine translation (MT) from unaligned text. We use multilingual BERT to create source and target sentence embeddings for nearest-neighbor search and adapt the model via self-training. We validate our technique by extracting parallel sentence pairs on the BUCC 2017 bitext mining task and observe up to a 24.5 point increase (absolute) in F1 scores over previous unsupervised methods. We then improve an XLM-based unsupervised neural MT system pre-trained on Wikipedia by supplementing it with pseudo-parallel text mined from the same corpus, boosting unsupervised translation performance by up to 3.5 BLEU on the WMT’14 French-English and WMT’16 German-English tasks and outperforming the previous state-of-the-art. Finally, we enrich the IWSLT’15 English-Vietnamese corpus with pseudo-parallel Wikipedia sentence pairs, yielding a 1.2 BLEU improvement on the low-resource MT task. We demonstrate that unsupervised bitext mining is an effective way of augmenting MT datasets and complements existing techniques like initializing with pre-trained contextual embeddings.</abstract>
       <pages>828–841</pages>

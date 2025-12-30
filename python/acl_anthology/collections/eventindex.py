@@ -24,7 +24,7 @@ from ..text import MarkupText
 from ..utils.ids import AnthologyID, AnthologyIDTuple, parse_id
 from ..utils.logging import get_logger
 from .event import Event
-from .types import EventLinkingType
+from .types import EventLink
 from .volume import Volume
 
 if TYPE_CHECKING:
@@ -124,12 +124,12 @@ class EventIndex(SlottedDict[Event]):
                                 event_id,
                                 collection,
                                 is_explicit=False,
-                                colocated_ids=[(volume_fid, EventLinkingType.INFERRED)],
+                                colocated_ids=[(volume_fid, EventLink.INFERRED)],
                                 title=MarkupText.from_string(event_name),
                             )
                         else:
                             # Add implicit connection to existing event
-                            event.add_colocated(volume_fid, EventLinkingType.INFERRED)
+                            event.add_colocated(volume_fid, EventLink.INFERRED)
                         self.reverse[volume_fid].add(event_id)
             except Exception as exc:
                 log.exception(exc)
