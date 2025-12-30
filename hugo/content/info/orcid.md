@@ -2,8 +2,9 @@
 Title: ORCID iD guide
 linktitle: ORCID iDs
 subtitle: Creating an ORCID iD profile
-date: "2025-25-29"
+date: "2025-12-29"
 ---
+
 An [ORCID iD](https://orcid.org) is a persistent digital identifier that distinguishes you from other researchers and links your research outputs and activities to your identity.
 When these iDs are present on ingested papers, it removes the ambiguity that sometimes arises with popular names and name variants.
 
