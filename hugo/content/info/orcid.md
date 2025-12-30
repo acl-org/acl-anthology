@@ -9,8 +9,9 @@ When these iDs are present on ingested papers, it removes the ambiguity that som
 
 We urge every author who is actively publishing papers to create an ORCID iD, and to supply this ID to publication systems such as Open Review. In creating or editing your ORCID iD profile, please consider the following tips to help match your papers to your Anthology page:
 
-- **Add name variants**: This is most important. In your ORCID iD profile, you can set your given and family names, your published name, and any name variants you have published under (e.g., with or without middle initials, maiden names, etc.). Make sure you have at least one Latin variant of your name. This helps the Anthology match your publications even if they are listed under different names.
+- **Add name variants**: This is most important. In your ORCID iD profile, you can set your given and family names, your published name, and any name variants you have published under (e.g., with or without middle initials, maiden names, etc.). https://orcid.org/0000-0002-1831-3457 is a good example. Make sure you have at least one Latin variant of your name. This helps the Anthology match your publications even if they are listed under different names.
 - **Make sure your name is visible**: Ensure that your name is set to be visible to everyone in your ORCID iD profile settings. If your name is private, the Anthology may not be able to access it for matching.
+- **Register at least one personal email address**: This can be kept private but ensures permanent access so that you can update your ORCID record in the future.
 
 In addition, the following information can help us improve matching, should we need to manually disambiguate authors.
 
