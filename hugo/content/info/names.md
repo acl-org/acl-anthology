@@ -4,7 +4,7 @@ linktitle: Names
 subtitle: How the Anthology deals with names
 date: "2025-12-29"
 ---
-This page is a stub. It should describe how the Anthology deals with names, including the following.
+_This page is a stub. It should describe how the Anthology deals with names, including the following._
 
 - PDF metadata and the formation of name slugs
 - Creating author pages
