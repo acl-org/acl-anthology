@@ -1,14 +1,16 @@
 ---
-Title: ORCID iD guide
+Title: ORCID iDs in the ACL Anthology
 linktitle: ORCID iDs
-subtitle: Creating an ORCID iD profile
+subtitle: Best practices for ensuring your papers are correctly linked
 date: "2025-12-29"
 ---
 
 An [ORCID iD](https://orcid.org) is a persistent digital identifier that distinguishes you from other researchers and links your research outputs and activities to your identity.
 When these iDs are present on ingested papers, it removes the ambiguity that sometimes arises with popular names and name variants.
 
-We urge every author who is actively publishing papers to create an ORCID iD, and to supply this ID to publication systems such as Open Review. In creating or editing your ORCID iD profile, please consider the following tips to help match your papers to your Anthology page:
+We urge every author who is actively publishing papers to create an ORCID iD, and to supply this ID to publication systems such as Open Review.[^1] In creating or editing your ORCID iD profile, please consider the following tips to help match your papers to your Anthology page:
+
+[^1]: Visit the [edit page link at Open Review](https://openreview.net/profile/edit) and add your ORCID iD under the "Personal Links" section.
 
 - **Add name variants**: This is most important. In your ORCID iD profile, you can set your given and family names, your published name, and any name variants you have published under (e.g., with or without middle initials, maiden names, etc.). https://orcid.org/0000-0002-1831-3457 is a good example. Make sure you have at least one Latin variant of your name. This helps the Anthology match your publications even if they are listed under different names.
 - **Make sure your name is visible**: Ensure that your name is set to be visible to everyone in your ORCID iD profile settings. If your name is private, the Anthology may not be able to access it for matching.
