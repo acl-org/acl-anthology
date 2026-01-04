@@ -4,8 +4,8 @@
   <h2 id="title">
     <!-- {{- .Title -}} -->
     <span class="font-weight-normal">{{ $person.first }}</span> <span class="font-weight-bold">{{ $person.last }}</span>
-    {{ with $person.orcid }}
-      <a href="https://orcid.org/{{.}}" title="ORCID profile" target="_blank" rel="noopener">
+    {{ if $person.orcid }}
+      <a href="https://orcid.org/{{ $person.orcid }}" title="ORCID profile" target="_blank" rel="noopener">
         <i class="fab fa-orcid fa-sm"></i>
       </a>
     {{ else if not (hasSuffix $person.slug "/unverified") }}
