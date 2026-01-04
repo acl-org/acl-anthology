@@ -6,14 +6,17 @@
       {{- range $.Site.Data.papers -}}
       {{- $.Scratch.Add "paper_count" (len .) -}}
       {{- end -}}
-      <h2 id="title" class="ml-2">Welcome to the ACL Anthology</h2>
+      <h2 id="title" class="ms-2">Welcome to the ACL Anthology</h2>
 
       <aside class="card font-weight-light acl-greeting">
         <div class="card-body">
-          The ACL Anthology currently hosts {{ $.Scratch.Get "paper_count" }} papers on the study of computational linguistics and natural language processing.
+          The ACL Anthology currently hosts {{ $.Scratch.Get "paper_count" }} papers on the study of computational
+          linguistics and natural language processing.
         </div>
         <div class="card-body">
-          <a href="http://groups.google.com/group/acl-anthology?hl=en">Subscribe to the mailing list</a> or the <a href="{{ "posts/index.xml" | relURL }}">RSS news feed</a> to receive announcements and updates to the Anthology.
+          <a href="http://groups.google.com/group/acl-anthology?hl=en">Subscribe to the mailing list</a> or the <a
+            href="{{ " posts/index.xml" | relURL }}">RSS news feed</a> to receive announcements and updates to the
+          Anthology.
         </div>
       </aside>
     </div>
@@ -22,9 +25,7 @@
       <aside class="alert alert-info alert-dismissible acl-news" role="alert">
         <div class="acl-news-date">{{ .PublishDate.Format "January 2006" }}</div>
         {{ .Content }}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </aside>
 
       <main aria-role="main">
@@ -49,7 +50,7 @@
           {{ if (and $venue.is_toplevel $venue.is_acl) }}
           <div class="row mx-0">
             <div class="col acl-row-th">
-              <a href="{{ relref $ (printf "/venues/%s" $venue.slug) }}">{{ $acronym }}</a>
+              <a href="{{ relref $ (printf " /venues/%s" $venue.slug) }}">{{ $acronym }}</a>
             </div>
             <div class="col d-flex flex-wrap px-0">
               <div class="acl-row-block">
@@ -57,13 +58,14 @@
                 {{- $year := string . -}}
                 <span class="acl-td">
                   {{ with index $venue "volumes_by_year" $year }}
-                  <a href="{{ relref $ (printf "/events/%s-%s" $venue.slug $year) }}">
+                  <a href="{{ relref $ (printf " /events/%s-%s" $venue.slug $year) }}">
                     {{- slicestr $year 2 4 -}}
                   </a>
                   {{ end }}
                 </span>
                 {{- if (in $border_years $year) -}}
-                  </div><div class="acl-row-block"> {{/* start a new block */}}
+              </div>
+              <div class="acl-row-block"> {{/* start a new block */}}
                 {{- end -}}
                 {{- end -}}
               </div>
@@ -95,7 +97,7 @@
           {{ if (and $venue.is_toplevel (not $venue.is_acl)) }}
           <div class="row mx-0">
             <div class="col acl-row-th">
-              <a href="{{ relref $ (printf "/venues/%s" $venue.slug) }}">{{ $acronym }}</a>
+              <a href="{{ relref $ (printf " /venues/%s" $venue.slug) }}">{{ $acronym }}</a>
             </div>
             <div class="col d-flex flex-wrap px-0">
               <div class="acl-row-block">
@@ -103,13 +105,14 @@
                 {{- $year := string . -}}
                 <span class="acl-td">
                   {{ with index $venue "volumes_by_year" $year }}
-                  <a href="{{ relref $ (printf "/events/%s-%s" $venue.slug $year) }}">
+                  <a href="{{ relref $ (printf " /events/%s-%s" $venue.slug $year) }}">
                     {{- slicestr $year 2 4 -}}
                   </a>
                   {{ end }}
                 </span>
                 {{- if (in $border_years $year) -}}
-                  </div><div class="acl-row-block"> {{/* start a new block */}}
+              </div>
+              <div class="acl-row-block"> {{/* start a new block */}}
                 {{- end -}}
                 {{- end -}}
               </div>
