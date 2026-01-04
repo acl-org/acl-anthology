@@ -82,6 +82,7 @@ def main(args):
 
 if __name__ == "__main__":
     import argparse
+
     parser = argparse.ArgumentParser(
         description="Recompute page numberings for a volume."
     )
