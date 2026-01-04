@@ -10,7 +10,7 @@
       </a>
     {{ else if not (hasSuffix $person.slug "/unverified") }}
       <a href="{{ ref . `info/verification` }}" title="Author is verified" target="_blank" rel="noopener">
-        <i class="fas fa-check-circle fa-sm" style="opacity: 0.2"></i>
+        <i class="fas fa-check-circle fa-sm" style="color: #90EE90;"></i>
       </a>
     {{ else }}
       <a href="{{ ref . `info/verification` }}" title="How to verify an author" target="_blank" rel="noopener">
