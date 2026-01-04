@@ -15,7 +15,7 @@ An _unverified_ author is one for whom we do not have an explicit entry in our n
 
 1. Create an ORCID iD and populate it.
 
-   We urge every author to create an [ORCID iD](https://orcid.org), and to supply this ID to publication systems such as Open Review. The reason is that we use this information at ingestion time to match appers to an author. This is increasingly important as the size of the global scientific community increases, and ambiguous names proliferate. Please see our simple [ORCID iD guide]({{< ref "/info/orcid">}}) for information that will help match your papers to your Anthology page.
+   We urge every author to create an [ORCID iD](https://orcid.org), and to supply this ID to publication systems such as OpenReview. The reason is that we use this information at ingestion time to match appers to an author. This is increasingly important as the size of the global scientific community increases, and ambiguous names proliferate. Please see our simple [ORCID iD guide]({{< ref "/info/orcid">}}) for information that will help match your papers to your Anthology page.
 
 2. File an issue on Github.
 
