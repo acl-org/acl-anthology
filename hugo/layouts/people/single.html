@@ -72,7 +72,7 @@
 
     <div class="col-lg-3">
       <a class="btn btn-lg btn-secondary btn-block mb-2" href="https://www.semanticscholar.org/search?{{ (querify "q" $person.full) | safeURL }}" title="Search for '{{ $person.full | htmlEscape }}' on Semantic Scholar">
-        <i class="ai ai-semantic-scholar"></i><span class="pl-sm-2">Search</span>
+        <i class="ai ai-semantic-scholar"></i><span class="ps-sm-2">Search</span>
       </a>
 
       {{/* Basic idea of this layout: on tiny displays, these cards are stacked
@@ -88,11 +88,11 @@
               <li class="list-group-item">
                 {{ $co_id := index . 0 }}
                 {{ partial "author_link.html" (dict "ctx" $ "person" (dict "id" $co_id) "class" "align-middle") }}
-                <span class="badge badge-secondary align-middle ml-2">{{ index . 1 }}</span>
+                <span class="badge text-bg-secondary align-middle ms-2">{{ index . 1 }}</span>
               </li>
               {{ end }}
               {{ if gt (len $person.coauthors) 5 }}
-              <li class="list-group-item list-group-toggle-btn py-1" data-toggle="collapse" data-target="#more-coauthors" aria-expanded="false" aria-controls="more-coauthors">
+              <li class="list-group-item list-group-toggle-btn py-1" data-bs-toggle="collapse" data-bs-target="#more-coauthors" aria-expanded="false"  aria-controls="more-coauthors">
                 show all...
               </li>
               <div class="collapse border-top" id="more-coauthors">
@@ -100,7 +100,7 @@
               <li class="list-group-item">
                 {{ $co_id := index . 0 }}
                 {{ partial "author_link.html" (dict "ctx" $ "person" (dict "id" $co_id) "class" "align-middle") }}
-                <span class="badge badge-secondary align-middle ml-2">{{ index . 1 }}</span>
+                <span class="badge text-bg-secondary align-middle ms-2">{{ index . 1 }}</span>
               </li>
               {{ end }}
               </div>
@@ -117,11 +117,11 @@
                 {{ $venue := index . 0 }}
                 <a href="{{ relref $ (printf "/venues/%s" (index $.Site.Data.venues $venue "slug")) }}" class="align-middle">
                   {{- $venue -}}
-                </a><span class="badge badge-secondary align-middle ml-2">{{ index . 1 }}</span>
+                </a><span class="badge text-bg-secondary align-middle ms-2">{{ index . 1 }}</span>
               </li>
               {{ end }}
               {{ if gt (len $person.venues) 5 }}
-              <li class="list-group-item list-group-toggle-btn py-1" data-toggle="collapse" data-target="#more-venues" aria-expanded="false" aria-controls="more-venues">
+              <li class="list-group-item list-group-toggle-btn py-1" data-bs-toggle="collapse" data-bs-target="#more-venues" aria-expanded="false"  aria-controls="more-venues">
                 show all...
               </li>
               <div class="collapse border-top" id="more-venues">
@@ -130,7 +130,7 @@
                 {{ $venue := index . 0 }}
                 <a href="{{ relref $ (printf "/venues/%s" (index $.Site.Data.venues $venue "slug")) }}" class="align-middle">
                   {{- $venue -}}
-                </a><span class="badge badge-secondary align-middle ml-2">{{ index . 1 }}</span>
+                </a><span class="badge text-bg-secondary align-middle ms-2">{{ index . 1 }}</span>
               </li>
               {{ end }}
               </div>
@@ -142,7 +142,7 @@
 
       <a class="btn btn-warning btn-lg btn-secondary btn-block mb-2" title="Correct problems with the author page" href="https://github.com/acl-org/acl-anthology/issues/new?assignees=anthology-assist&labels=correction%2Cauthor-page&projects=&template=02-name-correction.yml&title=Author+Page%3A+{{ .Params.name }}">
         <span class="d-none d-sm-inline"><i class="fas fa-edit"></i></span>
-        <span class="pl-md-2">Fix author</span>
+        <span class="ps-md-2">Fix author</span>
       </a>
     </div>
   </div>

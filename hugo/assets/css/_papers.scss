@@ -1,9 +1,12 @@
 /* Custom styles for pages in papers/ */
 
 .acl-paper-details {
+
   /* This essentially reimplements the old Bootstrap dl-horizontal class */
   dl {
-    &:before, &:after {
+
+    &:before,
+    &:after {
       display: table;
       content: "";
       line-height: 0;
@@ -13,6 +16,7 @@
       clear: left;
       text-align: left;
     }
+
     @include media-breakpoint-up(sm) {
       dt {
         float: left;
@@ -29,8 +33,9 @@
       margin-bottom: .25rem;
 
       &:empty {
-        @extend .text-muted;
+        color: $secondary; // Replaces @extend .text-muted
       }
+
       &:empty::before {
         content: '–';
       }
@@ -48,8 +53,10 @@
 dt.acl-button-row {
   padding-top: .4rem;
 }
+
 dd.acl-button-row .btn {
-  @extend .my-1;
+  margin-top: map-get($spacers, 1);
+  margin-bottom: map-get($spacers, 1); // Replaces @extend .my-1
 }
 
 @include media-breakpoint-down(sm) {
@@ -62,6 +69,7 @@ dd.acl-button-row .btn {
 .sortable-ghost {
   opacity: 0.4;
 }
+
 .author-row {
   display: flex;
   gap: 0.5rem;
@@ -73,15 +81,19 @@ dd.acl-button-row .btn {
   border: 1px solid #ddd;
   border-radius: 4px;
 }
+
 .author-row input {
   flex: 1;
 }
+
 .author-row:active {
   cursor: grabbing;
 }
+
 .drag-handle {
   cursor: grab;
 }
+
 .drag-handle:active {
   cursor: grabbing;
 }
@@ -92,23 +104,58 @@ dd.acl-button-row .btn {
      and disable flexbox to make buttons full-width instead
 */
 .acl-paper-link-block {
-  @extend .col-lg-2;
-  @extend .order-1;
-  @extend .order-lg-last;
-  @extend .mb-3;
-  @extend .mb-lg-0;
-  @extend .d-flex;
-  @extend .d-lg-block;
-  @extend .flex-wrap;
-  @extend .justify-content-around;
+  // Replaces @extend .col-lg-2;
+  @include make-col-ready();
 
-  a, button {
-    @extend .flex-fill;
-    @extend .btn-lg;
-    @extend .btn-lg-block;
-    @extend .mx-1;
-    @extend .mx-lg-0;
-    @extend .mb-2;
+  @include media-breakpoint-up(lg) {
+    @include make-col(2);
+    order: 6; // @extend .order-lg-last (last usually 6 or 12?)
+    margin-bottom: 0 !important; // .mb-lg-0
+    display: block !important; // .d-lg-block
+  }
+
+  // Replaces @extend .order-1
+  order: 1;
+
+  // Replaces @extend .mb-3
+  margin-bottom: map-get($spacers, 3) !important;
+
+  // Replaces @extend .d-flex
+  display: flex !important;
+
+  // Replaces @extend .flex-wrap
+  flex-wrap: wrap !important;
+
+  // Replaces @extend .justify-content-around
+  justify-content: space-around !important;
+
+  a,
+  button {
+    // Replaces @extend .flex-fill
+    flex: 1 1 auto !important;
+
+    // Replaces @extend .btn-lg
+    @include button-size($btn-padding-y-lg, $btn-padding-x-lg, $btn-font-size-lg, $btn-border-radius-lg);
+
+    // Replaces @extend .btn-lg-block (which was custom anyway?)
+    // No, .btn-lg-block was defined below?
+    // Defining properties directly:
+    // .mx-1
+    margin-left: map-get($spacers, 1) !important;
+    margin-right: map-get($spacers, 1) !important;
+
+    @include media-breakpoint-up(lg) {
+      // .mx-lg-0
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+
+      // .btn-lg-block behavior
+      display: block;
+      width: 100%;
+    }
+
+    // .mb-2
+    margin-bottom: map-get($spacers, 2) !important;
   }
 }
 
@@ -123,11 +170,13 @@ dd.acl-button-row .btn {
 .list-pl-responsive {
   padding-left: 24px;
 }
+
 @include media-breakpoint-up(md) {
   .list-pl-responsive {
     padding-left: 32px;
   }
 }
+
 @include media-breakpoint-up(xl) {
   .list-pl-responsive {
     padding-left: 40px; // CSS default
@@ -139,6 +188,7 @@ dd.acl-button-row .btn {
   &[data-toggle-state="hide"] .on-toggle-state-show {
     display: none;
   }
+
   &[data-toggle-state="show"] .on-toggle-state-hide {
     display: none;
   }
