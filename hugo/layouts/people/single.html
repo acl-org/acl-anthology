@@ -8,6 +8,10 @@
       <a href="https://orcid.org/{{.}}" title="ORCID profile" target="_blank" rel="noopener">
         <i class="fab fa-orcid fa-sm"></i>
       </a>
+    {{ else if not (hasSuffix $person.slug "/unverified") }}
+      <a href="{{ ref . `info/verification` }}" title="Author is verified" target="_blank" rel="noopener">
+        <i class="fas fa-check-circle fa-sm" style="opacity: 0.2"></i>
+      </a>
     {{ else }}
       <a href="{{ ref . `info/verification` }}" title="How to verify an author" target="_blank" rel="noopener">
         <i class="fas fa-question-circle fa-sm" style="opacity: 0.2"></i>
