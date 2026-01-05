@@ -52,11 +52,19 @@
     </aside>
     -->
 
-    <div class="d-grid gap-2 mb-3">
+    <div class="row mb-3">
       {{ if (fileExists "/data-export/anthology.bib.gz") }}
+      <div class="col-6 col-xl-12 mb-2">
+        <a class="btn btn-info w-100" href="{{ "anthology.bib.gz" | relURL }}">Full Anthology as BibTeX ({{ printf "%.2f MB" (div (os.Stat "/data-export/anthology.bib.gz").Size 1000000.0) }})</a>
+        <a class="btn btn-info w-100 mt-2" href="{{ "anthology+abstracts.bib.gz" | relURL }}">…with abstracts ({{ printf "%.2f MB" (div (os.Stat "/data-export/anthology+abstracts.bib.gz").Size 1000000.0) }})</a>
+      </div>
       {{ end }}
-      <a class="btn btn-warning w-100" href="{{ "papers/index.xml" | relURL }}">RSS Feed (latest 1000 papers)</a>
-      <a class="btn btn-success w-100" href="{{ ($.Site.GetPage "/faq/feedback.md").RelPermalink }}">Give feedback</a>
+      <div class="col-6 col-xl-12 mb-2">
+        <a class="btn btn-warning w-100" href="{{ "papers/index.xml" | relURL }}">RSS Feed (latest 1000 papers)</a>
+      </div>
+      <div class="col-6 col-xl-12 mb-2">
+        <a class="btn btn-success w-100" href="{{ ($.Site.GetPage "/faq/feedback.md").RelPermalink }}">Give feedback</a>
+      </div>
     </div>
   </div>
   <div class="col-12 col-xl-10 col-xl-width-auto">
@@ -94,7 +102,7 @@
             {{ $year := string . }}
             {{ $event := printf "%s-%s" $venue.slug $year }}
             {{/* this is the actual default case */}}
-            <td class="{{ cond (in $border_years $year) " border-start" "" }}">
+            <td class="{{ cond (in $border_years $year) "border-start" "" }}">
               {{- with index $.Site.Data.events $event -}}
               {{- with index $.Site.Data.events $event "volumes" -}}
               <a href="{{ relref $ (printf "/events/%s" $event) }}">{{ slicestr $year 2 4 }}</a>
@@ -149,7 +157,7 @@
             {{ range $all_years }}
             {{ $year := string . }}
             {{ $event := printf "%s-%s" $venue.slug $year }}
-            <td class="{{ cond (in $border_years $year) " border-start" "" }}">
+            <td class="{{ cond (in $border_years $year) "border-start" "" }}">
               {{- with index $.Site.Data.events $event -}}
               {{- with index $.Site.Data.events $event "volumes" -}}
               <a href="{{ relref $ (printf "/events/%s" $event) }}">{{ slicestr $year 2 4 }}</a>

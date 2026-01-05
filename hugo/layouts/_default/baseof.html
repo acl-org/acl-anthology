@@ -18,7 +18,7 @@
   <title>{{ block "title" . }}{{ with .Title }}{{ . }} - {{ end }}{{ .Site.Title }}{{ end }}</title>
 
   {{ hugo.Generator }}
-  <link href="{{ relURL " aclicon.ico" }}" rel="shortcut icon" type="image/x-icon" />
+  <link href="{{ relURL "aclicon.ico" }}" rel="shortcut icon" type="image/x-icon" />
 
   {{ $sass_options := (dict "transpiler" "dartsass" "includePaths" (slice "assets/css"
   "assets/css/vendor/bootstrap-5/scss")) }}
@@ -27,7 +27,7 @@
   <link rel="stylesheet" href="{{ $style.RelPermalink }}" media="screen" />
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
     integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-  <link rel="stylesheet" href="{{ relURL " css/academicons.min.css" }}">
+  <link rel="stylesheet" href="{{ relURL "css/academicons.min.css" }}">
 
   {{ block "meta" . }}{{ end }}
 </head>

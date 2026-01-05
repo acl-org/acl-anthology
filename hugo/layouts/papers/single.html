@@ -46,8 +46,8 @@
 {{ $paper := index (index .Site.Data.papers $volume_id) .Params.anthology_id }}
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
   integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-<script src="{{ relURL " js/clipboard.min.js" }}"></script>
-<script src="{{ relURL " js/FileSaver.js" }}"></script>
+<script src="{{ relURL "js/clipboard.min.js" }}"></script>
+<script src="{{ relURL "js/FileSaver.js" }}"></script>
 <script>
   document.addEventListener("DOMContentLoaded", function () {
     if (ClipboardJS.isSupported()) {
@@ -120,13 +120,13 @@
     anthology_id: "{{ .Params.anthology_id }}",
     title: "{{ $paper.title_raw }}",
     authors: [
-      {{ range $index, $author:= $paper.author }}
-  {
-    first: "{{ .first }}",
-      last: "{{ .last }}",
+      {{ range $index, $author := $paper.author }}
+      {
+        first: "{{ .first }}",
+        last: "{{ .last }}",
         id: "{{ .id }}"
-  } { { if ne(add $index 1)(len $paper.author) } }, { { end } }
-  { { end } }  
+      }{{ if ne (add $index 1) (len $paper.author) }},{{ end }}
+      {{ end }}
     ],
   abstract: "{{ $paper.abstract_raw }}"
   };
@@ -363,15 +363,15 @@
     const url = baseurl + `&title=${encodeURIComponent(issue_title)}&assignee=${encodeURIComponent(who)}&labels=${encodeURIComponent(labels)}&data=` + encodeURIComponent(param_string);
 
     // Display an error if the URL length string is too long
-     *
-     / TODO: find actual cutoff length
-    f(url.length > 2000) {
-      lert(`The correction string URL is too long to submit (${url.length} chars). Please open a manual correction request at https://github.com/acl-org/acl-anthology/issues/new`);
-      eturn;
-     
-     /
+    /*
+    // TODO: find actual cutoff length
+    if (url.length > 2000) {
+      alert(`The correction string URL is too long to submit (${url.length} chars). Please open a manual correction request at https://github.com/acl-org/acl-anthology/issues/new`);
+      return;
+    }
+    */
 
-      window.open(url, "_blank");
+    window.open(url, "_blank");
     }
 </script>
 {{ end }}
@@ -381,7 +381,6 @@
 {{ $volume_id := index (split .Params.anthology_id "-") 0 }}
 {{ $paper := index (index .Site.Data.papers $volume_id) .Params.anthology_id }}
 <section id="main">
-  <div id="main-container" class="container">
     <div>
       <h2 id="title">
         {{ with $paper.pdf }}
@@ -540,7 +539,7 @@
             {{- $len := (len $volume.venues) -}}
             {{- range $index, $venue := $volume.venues -}}
             {{ $acronym := index $.Site.Data.venues $venue "acronym" }}
-            <a href="{{ relref $ (printf " /venues/%s" ($venue)) }}">
+            <a href="{{ relref $ (printf "/venues/%s" ($venue)) }}">
               {{- $acronym -}}
             </a>
             {{ if ne (add $index 1) $len }} | {{ end }}
@@ -551,7 +550,7 @@
             {{- $len := (len $volume.sigs) -}}
             {{- range $index, $sig := $volume.sigs -}}
             {{ $slug := index $.Site.Data.sigs $sig "slug" }}
-            <a href="{{ relref $ (printf " /sigs/%s" $slug) }}">{{ $sig }}</a>
+            <a href="{{ relref $ (printf "/sigs/%s" $slug) }}">{{ $sig }}</a>
             {{ if ne (add $index 1) $len }} | {{ end }}
             {{- end -}}
           </dd>

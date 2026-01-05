@@ -10,13 +10,13 @@
     </a>
     {{- end -}}
     {{- if and (not $paper.retracted) (fileExists (printf "/data-export/volumes/%s.bib" $paper.parent_volume_id)) -}}
-    <a class="badge text-bg-secondary align-middle me-1" href="{{ (printf " %s.bib" .Params.anthology_id) | relURL }}"
+    <a class="badge text-bg-secondary align-middle me-1" href="{{ (printf "%s.bib" .Params.anthology_id) | relURL }}"
       data-bs-toggle="tooltip" data-bs-placement="top" title="Export to BibTeX">
       bib
     </a>
     {{- end -}}
     {{- with $paper.abstract_html -}}
-    <a class="badge text-bg-info align-middle me-1" href="#abstract-{{ replace $.Params.anthology_id " ." "--" }}"
+    <a class="badge text-bg-info align-middle me-1" href="#abstract-{{ replace $.Params.anthology_id "." "--" }}"
       data-bs-toggle="collapse" aria-expanded="false" aria-controls="abstract-{{ $.Params.anthology_id }}"
       title="Show Abstract">abs</a>
     {{- end -}}
