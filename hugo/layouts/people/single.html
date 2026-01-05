@@ -1,7 +1,6 @@
 {{ define "main" }}
 {{ $person := index .Site.Data.people .Params.name }}
 <section id="main">
-  <div id="main-container" class="container">
     <h2 id="title">
       <!-- {{- .Title -}} -->
       <span class="font-weight-normal">{{ $person.first }}</span> <span class="fw-bold">{{ $person.last }}</span>
@@ -132,6 +131,5 @@
         </a>
       </div>
     </div>
-  </div>
 </section>
 {{ end }}
