@@ -1,149 +1,136 @@
 {{ define "main" }}
 {{ $person := index .Site.Data.people .Params.name }}
-{{ $is_verified := not (hasSuffix $person.slug "/unverified") }}
 <section id="main">
-  <h2 id="title">
-    <!-- {{- .Title -}} -->
-    <span class="font-weight-normal">{{ $person.first }}</span> <span class="font-weight-bold">{{ $person.last }}</span>
-    {{ if $person.orcid }}
-      <a href="https://orcid.org/{{ $person.orcid }}" title="ORCID profile (some papers below may be guesses if they were submitted without ORCID iD)" target="_blank" rel="noopener">
-        <i class="fab fa-orcid fa-xs align-middle text-verified ml-1"></i>
-      </a>
-    {{ else if $is_verified }}
-      <a href="{{ ref . `info/verification` }}" title="Author is verified but has no recorded ORCID iD" target="_blank" rel="noopener">
-        <i class="fas fa-question-circle fa-xs align-middle text-verified ml-1"></i>
-      </a>
-    {{ else }}
-      <a href="{{ ref . `info/verification` }}" title="How to verify an author" target="_blank" rel="noopener">
-        <i class="fas fa-question-circle fa-xs align-middle text-secondary ml-1"></i>
-      </a>
+  <div id="main-container" class="container">
+    <h2 id="title">
+      <!-- {{- .Title -}} -->
+      <span class="font-weight-normal">{{ $person.first }}</span> <span class="fw-bold">{{ $person.last }}</span>
+    </h2>
+    {{ with $person.comment }}
+    <p class="fw-light text-muted">{{.}}</p>
     {{ end }}
-  </h2>
-  {{ with $person.comment }}
-  <p class="font-weight-light text-muted">{{.}}</p>
-  {{ end }}
-  {{ with $person.variant_entries }}
-  <p class="font-weight-light text-muted">
-    <span class="font-italic">Also published as:</span>
-    {{ $len := (len .) }}
-    {{ range $index, $var := . }}
-    {{ $var.first }} <span class="font-weight-normal">{{ $var.last }}</span>{{ if ne (add $index 1) $len }}, {{ end }}
+    {{ with $person.variant_entries }}
+    <p class="fw-light text-muted">
+      <span class="fst-italic">Also published as:</span>
+      {{ $len := (len .) }}
+      {{ range $index, $var := . }}
+      {{ $var.first }} <span class="font-weight-normal">{{ $var.last }}</span>{{ if ne (add $index 1) $len }}, {{ end }}
+      {{ end }}
+    </p>
     {{ end }}
-  </p>
-  {{ end }}
-  {{ with $person.similar_verified }}
-  <p class="font-weight-light text-muted">
-    {{ $len := (len .) }}
-    <span class="font-italic">{{ if $is_verified }}Other people with similar names:{{ else }}Papers on this page may belong to the following people:{{ end }}</span>
-    {{ range $index, $sim_id := . }}
-    {{ trim (partial "author_link.html" (dict "ctx" $ "person" (dict "id" $sim_id))) " \n" | safeHTML }}{{ $sim_person := index $.Site.Data.people $sim_id }}{{ with $sim_person.comment }} ({{.}}){{ end }}{{ if ne (add $index 1) $len }}, {{ end }}
+    {{ with $person.similar }}
+    <p class="font-weight-light text-muted">
+      <span class="font-italic">Other people with similar names:</span>
+      {{ $len := (len .) }}
+      {{ range $index, $sim_id := . }}
+      {{ trim (partial "author_link.html" (dict "ctx" $ "person" (dict "id" $sim_id))) " \n" | safeHTML }}
+      {{ $sim_person := index $.Site.Data.people $sim_id }}{{ with $sim_person.comment }}({{.}}){{ end }}{{ if ne (add
+      $index 1) $len }}, {{ end }}
+      {{ end }}
+    </p>
     {{ end }}
-  </p>
-  {{ end }}
-  {{ with $person.similar_unverified }}
-  <p class="font-weight-light text-muted">
-    {{ $len := (len .) }}
-    <span class="font-italic">Unverified author pages with similar names:</span>
-    {{ range $index, $sim_id := . }}
-    {{ trim (partial "author_link.html" (dict "ctx" $ "person" (dict "id" $sim_id))) " \n" | safeHTML }}{{ $sim_person := index $.Site.Data.people $sim_id }}{{ if ne (add $index 1) $len }}, {{ end }}
-    {{ end }}
-  </p>
-  {{ end }}
-  <hr />
+    <hr />
 
-  <div class="row">
-    <div class="col-lg-9">
-      {{ .Scratch.Set "current_year" "" }}
-      {{ range $person.papers }}
+    <div class="row">
+      <div class="col-lg-9">
+        {{ .Scratch.Set "current_year" "" }}
+        {{ range $person.papers }}
         {{/* Generate a heading per year -- assumes that papers are already sorted by year,
-             which the YAML exporter should take care of */}}
+        which the YAML exporter should take care of */}}
         {{ $paper := index (index $.Site.Data.papers (index (split . "-") 0)) . }}
         {{ if and (not $paper.retracted) (not $paper.removed) }}
-          {{ if ne $paper.year ($.Scratch.Get "current_year") }}
-            <h4>{{ $paper.year }}</h4>
-            {{ $.Scratch.Set "current_year" $paper.year }}
-          {{ end }}
-
-          {{ $page := printf "/papers/%s" . }}
-          {{ ($.Site.GetPage $page).Render "list-entry-author" }}
+        {{ if ne $paper.year ($.Scratch.Get "current_year") }}
+        <h4>{{ $paper.year }}</h4>
+        {{ $.Scratch.Set "current_year" $paper.year }}
         {{ end }}
-      {{ end }}
-    </div>
 
-    <div class="col-lg-3">
-      <a class="btn btn-lg btn-secondary btn-block mb-2" href="https://www.semanticscholar.org/search?{{ (querify "q" $person.full) | safeURL }}" title="Search for '{{ $person.full | htmlEscape }}' on Semantic Scholar">
-        <i class="ai ai-semantic-scholar"></i><span class="ps-sm-2">Search</span>
-      </a>
-
-      {{/* Basic idea of this layout: on tiny displays, these cards are stacked
-           (col-12), on medium-sized displays we display them side-by-side
-           (col-md-6), while on larger displays, they are stacked again (col-lg-12)
-           since they parent div becomes its own column then */}}
-      <div class="row">
-        <div class="col-12 col-md-6 col-lg-12">
-          <div class="card">
-            <h5 class="card-header">Co-authors</h5>
-            <ul class="list-group list-group-flush list-group-compact">
-              {{ range first 5 $person.coauthors }}
-              <li class="list-group-item">
-                {{ $co_id := index . 0 }}
-                {{ partial "author_link.html" (dict "ctx" $ "person" (dict "id" $co_id) "class" "align-middle") }}
-                <span class="badge text-bg-secondary align-middle ms-2">{{ index . 1 }}</span>
-              </li>
-              {{ end }}
-              {{ if gt (len $person.coauthors) 5 }}
-              <li class="list-group-item list-group-toggle-btn py-1" data-bs-toggle="collapse" data-bs-target="#more-coauthors" aria-expanded="false"  aria-controls="more-coauthors">
-                show all...
-              </li>
-              <div class="collapse border-top" id="more-coauthors">
-              {{ range after 5 $person.coauthors }}
-              <li class="list-group-item">
-                {{ $co_id := index . 0 }}
-                {{ partial "author_link.html" (dict "ctx" $ "person" (dict "id" $co_id) "class" "align-middle") }}
-                <span class="badge text-bg-secondary align-middle ms-2">{{ index . 1 }}</span>
-              </li>
-              {{ end }}
-              </div>
-              {{ end }}
-            </ul>
-          </div>
-        </div>
-        <div class="col-12 col-md-6 col-lg-12">
-          <div class="card my-2 my-md-0 my-lg-2">
-            <h5 class="card-header">Venues</h5>
-            <ul class="list-group list-group-flush list-group-compact">
-              {{ range first 5 $person.venues }}
-              <li class="list-group-item">
-                {{ $venue := index . 0 }}
-                <a href="{{ relref $ (printf "/venues/%s" (index $.Site.Data.venues $venue "slug")) }}" class="align-middle">
-                  {{- $venue -}}
-                </a><span class="badge text-bg-secondary align-middle ms-2">{{ index . 1 }}</span>
-              </li>
-              {{ end }}
-              {{ if gt (len $person.venues) 5 }}
-              <li class="list-group-item list-group-toggle-btn py-1" data-bs-toggle="collapse" data-bs-target="#more-venues" aria-expanded="false"  aria-controls="more-venues">
-                show all...
-              </li>
-              <div class="collapse border-top" id="more-venues">
-              {{ range after 5 $person.venues }}
-              <li class="list-group-item">
-                {{ $venue := index . 0 }}
-                <a href="{{ relref $ (printf "/venues/%s" (index $.Site.Data.venues $venue "slug")) }}" class="align-middle">
-                  {{- $venue -}}
-                </a><span class="badge text-bg-secondary align-middle ms-2">{{ index . 1 }}</span>
-              </li>
-              {{ end }}
-              </div>
-              {{ end }}
-            </ul>
-          </div>
-        </div>
+        {{ $page := printf "/papers/%s" . }}
+        {{ ($.Site.GetPage $page).Render "list-entry-author" }}
+        {{ end }}
+        {{ end }}
       </div>
 
-      <a class="btn btn-warning btn-lg btn-secondary btn-block mb-2" title="Correct problems with the author page" href="https://github.com/acl-org/acl-anthology/issues/new?assignees=anthology-assist&labels=correction%2Cauthor-page&projects=&template=02-name-correction.yml&title=Author+Page%3A+{{ .Params.name }}">
-        <span class="d-none d-sm-inline"><i class="fas fa-edit"></i></span>
-        <span class="ps-md-2">Fix author</span>
-      </a>
+      <div class="col-lg-3">
+        <a class="btn btn-lg btn-secondary w-100 mb-2" href="https://www.semanticscholar.org/search?{{ (querify " q"
+          $person.full) | safeURL }}" title="Search for '{{ $person.full | htmlEscape }}' on Semantic Scholar">
+          <i class="ai ai-semantic-scholar"></i><span class="ps-sm-2">Search</span>
+        </a>
+
+        {{/* Basic idea of this layout: on tiny displays, these cards are stacked
+        (col-12), on medium-sized displays we display them side-by-side
+        (col-md-6), while on larger displays, they are stacked again (col-lg-12)
+        since they parent div becomes its own column then */}}
+        <div class="row">
+          <div class="col-12 col-md-6 col-lg-12">
+            <div class="card">
+              <h5 class="card-header">Co-authors</h5>
+              <ul class="list-group list-group-flush list-group-compact">
+                {{ range first 5 $person.coauthors }}
+                <li class="list-group-item">
+                  {{ $co_id := index . 0 }}
+                  {{ partial "author_link.html" (dict "ctx" $ "person" (dict "id" $co_id) "class" "align-middle") }}
+                  <span class="badge text-bg-secondary align-middle ms-2">{{ index . 1 }}</span>
+                </li>
+                {{ end }}
+                {{ if gt (len $person.coauthors) 5 }}
+                <li class="list-group-item list-group-toggle-btn py-1" data-bs-toggle="collapse"
+                  data-bs-target="#more-coauthors" aria-expanded="false" aria-controls="more-coauthors">
+                  show all...
+                </li>
+                <div class="collapse border-top" id="more-coauthors">
+                  {{ range after 5 $person.coauthors }}
+                  <li class="list-group-item">
+                    {{ $co_id := index . 0 }}
+                    {{ partial "author_link.html" (dict "ctx" $ "person" (dict "id" $co_id) "class" "align-middle") }}
+                    <span class="badge text-bg-secondary align-middle ms-2">{{ index . 1 }}</span>
+                  </li>
+                  {{ end }}
+                </div>
+                {{ end }}
+              </ul>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-12">
+            <div class="card my-2 my-md-0 my-lg-2">
+              <h5 class="card-header">Venues</h5>
+              <ul class="list-group list-group-flush list-group-compact">
+                {{ range first 5 $person.venues }}
+                <li class="list-group-item">
+                  {{ $venue := index . 0 }}
+                  <a href="{{ relref $ (printf "/venues/%s" (index $.Site.Data.venues $venue "slug" )) }}"
+                    class="align-middle">
+                    {{- $venue -}}
+                  </a><span class="badge text-bg-secondary align-middle ms-2">{{ index . 1 }}</span>
+                </li>
+                {{ end }}
+                {{ if gt (len $person.venues) 5 }}
+                <li class="list-group-item list-group-toggle-btn py-1" data-bs-toggle="collapse"
+                  data-bs-target="#more-venues" aria-expanded="false" aria-controls="more-venues">
+                  show all...
+                </li>
+                <div class="collapse border-top" id="more-venues">
+                  {{ range after 5 $person.venues }}
+                  <li class="list-group-item">
+                    {{ $venue := index . 0 }}
+                    <a href="{{ relref $ (printf "/venues/%s" (index $.Site.Data.venues $venue "slug" )) }}"
+                      class="align-middle">
+                      {{- $venue -}}
+                    </a><span class="badge text-bg-secondary align-middle ms-2">{{ index . 1 }}</span>
+                  </li>
+                  {{ end }}
+                </div>
+                {{ end }}
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <a class="btn btn-warning btn-lg btn-secondary w-100 mb-2" title="Correct problems with the author page"
+          href="https://github.com/acl-org/acl-anthology/issues/new?assignees=anthology-assist&labels=correction%2Cauthor-page&projects=&template=02-name-correction.yml&title=Author+Page%3A+{{ .Params.name }}">
+          <span class="d-none d-sm-inline"><i class="fas fa-edit"></i></span>
+          <span class="ps-md-2">Fix author</span>
+        </a>
+      </div>
     </div>
   </div>
 </section>
