@@ -50,7 +50,7 @@
           {{ if (and $venue.is_toplevel $venue.is_acl) }}
           <div class="row mx-0">
             <div class="col acl-row-th">
-              <a href="{{ relref $ (printf " /venues/%s" $venue.slug) }}">{{ $acronym }}</a>
+              <a href="{{ relref $ (printf "/venues/%s" $venue.slug) }}">{{ $acronym }}</a>
             </div>
             <div class="col d-flex flex-wrap px-0">
               <div class="acl-row-block">
@@ -58,7 +58,7 @@
                 {{- $year := string . -}}
                 <span class="acl-td">
                   {{ with index $venue "volumes_by_year" $year }}
-                  <a href="{{ relref $ (printf " /events/%s-%s" $venue.slug $year) }}">
+                  <a href="{{ relref $ (printf "/events/%s-%s" $venue.slug $year) }}">
                     {{- slicestr $year 2 4 -}}
                   </a>
                   {{ end }}
@@ -97,7 +97,7 @@
           {{ if (and $venue.is_toplevel (not $venue.is_acl)) }}
           <div class="row mx-0">
             <div class="col acl-row-th">
-              <a href="{{ relref $ (printf " /venues/%s" $venue.slug) }}">{{ $acronym }}</a>
+              <a href="{{ relref $ (printf "/venues/%s" $venue.slug) }}">{{ $acronym }}</a>
             </div>
             <div class="col d-flex flex-wrap px-0">
               <div class="acl-row-block">
@@ -105,7 +105,7 @@
                 {{- $year := string . -}}
                 <span class="acl-td">
                   {{ with index $venue "volumes_by_year" $year }}
-                  <a href="{{ relref $ (printf " /events/%s-%s" $venue.slug $year) }}">
+                  <a href="{{ relref $ (printf "/events/%s-%s" $venue.slug $year) }}">
                     {{- slicestr $year 2 4 -}}
                   </a>
                   {{ end }}
