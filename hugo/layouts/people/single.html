@@ -7,15 +7,15 @@
     <span class="font-weight-normal">{{ $person.first }}</span> <span class="font-weight-bold">{{ $person.last }}</span>
     {{ if $person.orcid }}
       <a href="https://orcid.org/{{ $person.orcid }}" title="ORCID profile" target="_blank" rel="noopener">
-        <i class="fab fa-orcid fa-xs align-middle" style="color: #90EE90; opacity: 0.5;"></i>
+        <i class="fab fa-orcid fa-xs align-middle text-verified"></i>
       </a>
     {{ else if $is_verified }}
       <a href="{{ ref . `info/verification` }}" title="Author is verified" target="_blank" rel="noopener">
-        <i class="fas fa-check-circle fa-xs align-middle" style="color: #90EE90; opacity: 0.5;"></i>
+        <i class="fas fa-check-circle fa-xs align-middle text-verified"></i>
       </a>
     {{ else }}
       <a href="{{ ref . `info/verification` }}" title="How to verify an author" target="_blank" rel="noopener">
-        <i class="fas fa-question-circle fa-xs align-middle" style="opacity: 0.2;"></i>
+        <i class="fas fa-question-circle fa-xs align-middle text-secondary"></i>
       </a>
     {{ end }}
   </h2>
