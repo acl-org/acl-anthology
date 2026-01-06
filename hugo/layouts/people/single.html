@@ -30,12 +30,21 @@
     {{ end }}
   </p>
   {{ end }}
-  {{ with $person.similar }}
+  {{ with $person.similar_verified }}
   <p class="font-weight-light text-muted">
-    <span class="font-italic">Other people with similar names:</span>
     {{ $len := (len .) }}
+    <span class="font-italic">{{ if (hasSuffix $person.slug "/unverified") }}Papers on this page may belong to the following people:{{ else }}Other people with similar names:{{ end }}</span>
     {{ range $index, $sim_id := . }}
     {{ trim (partial "author_link.html" (dict "ctx" $ "person" (dict "id" $sim_id))) " \n" | safeHTML }}{{ $sim_person := index $.Site.Data.people $sim_id }}{{ with $sim_person.comment }} ({{.}}){{ end }}{{ if ne (add $index 1) $len }}, {{ end }}
+    {{ end }}
+  </p>
+  {{ end }}
+  {{ with $person.similar_unverified }}
+  <p class="font-weight-light text-muted">
+    {{ $len := (len .) }}
+    <span class="font-italic">Unverified author pages with similar names:</span>
+    {{ range $index, $sim_id := . }}
+    {{ trim (partial "author_link.html" (dict "ctx" $ "person" (dict "id" $sim_id))) " \n" | safeHTML }}{{ $sim_person := index $.Site.Data.people $sim_id }}{{ if ne (add $index 1) $len }}, {{ end }}
     {{ end }}
   </p>
   {{ end }}
