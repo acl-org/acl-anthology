@@ -10,6 +10,14 @@ $secondary: #dee2e6;
 $yiq-contrasted-threshold: 200;
 
 /* Required Bootstrap components */
+$grid-gutter-width: 30px;
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1140px
+);
+
 @import 'vendor/bootstrap-5/scss/functions';
 @import 'vendor/bootstrap-5/scss/variables';
 @import 'vendor/bootstrap-5/scss/maps';
@@ -27,7 +35,7 @@ $theme-colors: map-merge($theme-colors,
 @import 'vendor/bootstrap-5/scss/reboot';
 @import 'vendor/bootstrap-5/scss/type';
 @import 'vendor/bootstrap-5/scss/images';
-// @import 'vendor/bootstrap-5/scss/code'; // Merged in Reboot?
+@import 'vendor/bootstrap-5/scss/containers';
 @import 'vendor/bootstrap-5/scss/grid';
 @import 'vendor/bootstrap-5/scss/tables';
 @import 'vendor/bootstrap-5/scss/forms';
@@ -114,4 +122,12 @@ ol ol {
   &[aria-expanded=true] {
     display: none;
   }
+}
+
+#main-container {
+  max-width: 1140px;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-left: auto;
+  margin-right: auto;
 }
