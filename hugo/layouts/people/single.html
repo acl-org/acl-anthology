@@ -1,5 +1,6 @@
 {{ define "main" }}
 {{ $person := index .Site.Data.people .Params.name }}
+{{ $is_verified := not (hasSuffix $person.slug "/unverified") }}
 <section id="main">
   <h2 id="title">
     <!-- {{- .Title -}} -->
@@ -8,7 +9,7 @@
       <a href="https://orcid.org/{{ $person.orcid }}" title="ORCID profile" target="_blank" rel="noopener">
         <i class="fab fa-orcid fa-xs align-middle" style="color: #90EE90; opacity: 0.5;"></i>
       </a>
-    {{ else if not (hasSuffix $person.slug "/unverified") }}
+    {{ else if $is_verified }}
       <a href="{{ ref . `info/verification` }}" title="Author is verified" target="_blank" rel="noopener">
         <i class="fas fa-check-circle fa-xs align-middle" style="color: #90EE90; opacity: 0.5;"></i>
       </a>
@@ -33,7 +34,7 @@
   {{ with $person.similar_verified }}
   <p class="font-weight-light text-muted">
     {{ $len := (len .) }}
-    <span class="font-italic">{{ if (hasSuffix $person.slug "/unverified") }}Papers on this page may belong to the following people:{{ else }}Other people with similar names:{{ end }}</span>
+    <span class="font-italic">{{ if $is_verified }}Other people with similar names:{{ else }}Papers on this page may belong to the following people:{{ end }}</span>
     {{ range $index, $sim_id := . }}
     {{ trim (partial "author_link.html" (dict "ctx" $ "person" (dict "id" $sim_id))) " \n" | safeHTML }}{{ $sim_person := index $.Site.Data.people $sim_id }}{{ with $sim_person.comment }} ({{.}}){{ end }}{{ if ne (add $index 1) $len }}, {{ end }}
     {{ end }}
