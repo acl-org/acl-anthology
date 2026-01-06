@@ -1,4 +1,4 @@
-# Copyright 2023-2025 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2026 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -93,16 +93,16 @@ def test_similar_names_defined_in_people_index(index_stub):
     assert similar == {"pranav-a", "pranav-anand"}
 
 
-def test_similar_names_through_same_canonical_name(index_stub):
-    index = index_stub
-    index.reset()
-    index._load_people_index()
-    index.is_data_loaded = True
+def test_similar_names_through_same_canonical_name(index):
+    assert not index.is_data_loaded
+    index.build(show_progress=False)
+    assert index.is_data_loaded
     similar = index.similar.subset("yang-liu-ict")
     assert similar == {
         "yang-liu-icsi",
         "yang-liu-ict",
         "yang-liu-microsoft",
+        "yang-liu/unverified",
     }
 
 
@@ -110,6 +110,7 @@ def test_build_personindex(index):
     assert not index.is_data_loaded
     index.build(show_progress=False)
     assert index.is_data_loaded
+    assert "yang-liu/unverified" in index
     assert "yang-liu-microsoft" in index
     assert Name("Nicoletta", "Calzolari") in index.by_name
     assert "0000-0003-2598-8150" in index.by_orcid
