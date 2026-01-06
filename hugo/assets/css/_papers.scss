@@ -129,10 +129,14 @@ dd.acl-button-row .btn {
   // Replaces @extend .justify-content-around
   justify-content: space-around !important;
 
+  // Fix for massive buttons in BS5 - align to start to avoid stretching
+  align-items: flex-start !important;
+
   a,
   button {
     // Replaces @extend .flex-fill
-    flex: 1 1 auto !important;
+    // Removed flex: 1 1 auto to prevent vertical stretching
+    // flex: 1 1 auto !important;
 
     // Replaces @extend .btn-lg
     @include button-size($btn-padding-y-lg, $btn-padding-x-lg, $btn-font-size-lg, $btn-border-radius-lg);
@@ -195,7 +199,7 @@ dd.acl-button-row .btn {
 }
 
 .list-button-row {
-  min-width: 6.3rem;
+  min-width: 7.5rem;
 }
 
 /* Papers with Code related styles */
