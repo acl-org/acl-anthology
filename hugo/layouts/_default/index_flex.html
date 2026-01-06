@@ -10,13 +10,10 @@
 
       <aside class="card font-weight-light acl-greeting">
         <div class="card-body">
-          The ACL Anthology currently hosts {{ $.Scratch.Get "paper_count" }} papers on the study of computational
-          linguistics and natural language processing.
+          The ACL Anthology currently hosts {{ $.Scratch.Get "paper_count" }} papers on the study of computational linguistics and natural language processing.
         </div>
         <div class="card-body">
-          <a href="http://groups.google.com/group/acl-anthology?hl=en">Subscribe to the mailing list</a> or the <a
-            href="{{ " posts/index.xml" | relURL }}">RSS news feed</a> to receive announcements and updates to the
-          Anthology.
+          <a href="http://groups.google.com/group/acl-anthology?hl=en">Subscribe to the mailing list</a> or the <a href="{{ "posts/index.xml" | relURL }}">RSS news feed</a> to receive announcements and updates to the Anthology.
         </div>
       </aside>
     </div>
@@ -64,8 +61,7 @@
                   {{ end }}
                 </span>
                 {{- if (in $border_years $year) -}}
-              </div>
-              <div class="acl-row-block"> {{/* start a new block */}}
+                  </div><div class="acl-row-block"> {{/* start a new block */}}
                 {{- end -}}
                 {{- end -}}
               </div>
@@ -111,8 +107,7 @@
                   {{ end }}
                 </span>
                 {{- if (in $border_years $year) -}}
-              </div>
-              <div class="acl-row-block"> {{/* start a new block */}}
+                  </div><div class="acl-row-block"> {{/* start a new block */}}
                 {{- end -}}
                 {{- end -}}
               </div>
