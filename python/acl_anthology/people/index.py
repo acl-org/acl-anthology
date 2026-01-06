@@ -1,4 +1,4 @@
-# Copyright 2023-2025 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2026 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -23,6 +23,7 @@ from rich.progress import track
 from scipy.cluster.hierarchy import DisjointSet  # type: ignore
 import sys
 from typing import cast, Any, Optional, TYPE_CHECKING
+import warnings
 import yaml
 
 try:
@@ -35,6 +36,7 @@ from ..exceptions import (
     AnthologyException,
     AnthologyInvalidIDError,
     NameSpecResolutionError,
+    NameSpecResolutionWarning,
     PersonDefinitionError,
 )
 from ..utils.ids import AnthologyIDTuple, is_verified_person_id
@@ -248,9 +250,9 @@ class PersonIndex(SlottedDict[Person]):
             for volume in collection.volumes():
                 context: Paper | Volume = volume
                 try:
-                    for name_spec in volume.editors:
-                        person = self.resolve_namespec(name_spec, allow_creation=True)
-                        person.item_ids.append(volume.full_id_tuple)
+                    self._add_to_index(
+                        volume.editors, volume.full_id_tuple, during_build=True
+                    )
                     for paper in volume.papers():
                         context = paper
                         name_specs = (
@@ -260,11 +262,11 @@ class PersonIndex(SlottedDict[Person]):
                             if not paper.is_frontmatter
                             else paper.get_editors()
                         )
-                        for name_spec in name_specs:
-                            person = self.resolve_namespec(name_spec, allow_creation=True)
-                            person.item_ids.append(paper.full_id_tuple)
+                        self._add_to_index(
+                            name_specs, paper.full_id_tuple, during_build=True
+                        )
                 except Exception as exc:  # pragma: no cover
-                    note = f"Raised in {context.__class__.__name__} {context.full_id}; {name_spec}"
+                    note = f"Raised in {context.__class__.__name__} {context.full_id}"
                     # If this is merged into a single if-statement (with "or"),
                     # the type checker complains ¯\_(ツ)_/¯
                     if isinstance(exc, AnthologyException):
@@ -285,8 +287,6 @@ class PersonIndex(SlottedDict[Person]):
         Raises:
             AnthologyInvalidIDError: If `people.yaml` contains a malformed person ID; or if a person is listed without any names.
         """
-        merge_list: list[tuple[str, str]] = []
-
         with open(self.path, "r", encoding="utf-8") as f:
             data = yaml.load(f, Loader=Loader)
 
@@ -303,27 +303,17 @@ class PersonIndex(SlottedDict[Person]):
                     orcid=entry.pop("orcid", None),
                     comment=entry.pop("comment", None),
                     degree=entry.pop("degree", None),
-                    similar_ids=entry.get("similar", []),
+                    similar_ids=entry.pop("similar", []),
                     disable_name_matching=entry.pop("disable_name_matching", False),
                     is_explicit=True,
                 )
             )
-            for similar_id in entry.pop("similar", []):
-                merge_list.append((pid, similar_id))
 
             # Check for unprocessed keys to catch errors
             if entry:
                 log.warning(
                     f"people.yaml: entry '{pid}' has unknown keys: {entry.keys()}"
                 )  # pragma: no cover
-
-        # Process IDs with similar names
-        for pid_set in self._slugs_to_verified_ids.values():
-            pid_list = list(pid_set)
-            for pid in pid_list[1:]:
-                self._similar.merge(pid_list[0], pid)
-        for a, b in merge_list:
-            self._similar.merge(a, b)
 
     def add_person(self, person: Person) -> None:
         """Add a new person to the index.
@@ -347,9 +337,10 @@ class PersonIndex(SlottedDict[Person]):
                 )
             self._by_orcid[person.orcid] = pid
         for name in person.names:
-            self._by_name[name].append(pid)
-            if is_verified_person_id(pid):
-                self._slugs_to_verified_ids[name.slugify()].add(pid)
+            self._add_name(pid, name, during_build=True)
+        for similar_id in person.similar_ids:
+            self._similar.add(similar_id)  # might not have been added yet
+            self._similar.merge(pid, similar_id)
 
     def create(
         self,
@@ -430,16 +421,28 @@ class PersonIndex(SlottedDict[Person]):
         if new is not None:
             self._by_orcid[new] = pid
 
-    def _add_name(self, pid: str, name: Name) -> None:
+    def _add_name(self, pid: str, name: Name, during_build: bool = False) -> None:
         """Add a name for a person to the index.
 
         Will be called automatically from Person; do not call manually.
         """
-        if not self.is_data_loaded:
+        if not (during_build or self.is_data_loaded):
             return
-        self._by_name[name].append(pid)
+        name_list = self._by_name[name]
+        if pid in name_list:
+            return
+        if name_list:
+            # Merging is transitive, so it's enough to merge with the last one
+            self._similar.merge(pid, name_list[-1])
+        name_list.append(pid)
         if is_verified_person_id(pid):
-            self._slugs_to_verified_ids[name.slugify()].add(pid)
+            verified_id_set = self._slugs_to_verified_ids[name.slugify()]
+            if pid not in verified_id_set:
+                for other_id in verified_id_set:
+                    # Merging is transitive, so it's enough to merge with the last one
+                    self._similar.merge(pid, other_id)
+                    break
+                verified_id_set.add(pid)
 
     def _remove_name(self, pid: str, name: Name) -> None:
         """Remove a name for a person from the index.
@@ -478,7 +481,7 @@ class PersonIndex(SlottedDict[Person]):
             pid = name_spec.name.slugify()
             if pid in self.data:
                 # ID is already in use; add last four digits of ORCID to disambiguate
-                pid = f"{pid}-{name_spec.orcid[-4:]}"
+                pid = f"{pid}-{name_spec.orcid[-4:].lower()}"
 
             self.add_person(
                 Person(
@@ -551,7 +554,7 @@ class PersonIndex(SlottedDict[Person]):
                 pid = person.id
                 if not person.has_name(name):
                     person.add_name(name, inferred=True)
-                    self._by_name[name].append(pid)
+                    self._add_name(pid, name, during_build=True)
 
             else:
                 # Resolve to unverified ID
@@ -568,7 +571,7 @@ class PersonIndex(SlottedDict[Person]):
                             person._set_canonical_name(name, inferred=True)
                         else:
                             person.add_name(name, inferred=True)
-                        self._by_name[name].append(pid)
+                        self._add_name(pid, name, during_build=True)
                 elif allow_creation:
                     # Unverified ID doesn't exist yet; create it
                     person = Person(
@@ -590,18 +593,34 @@ class PersonIndex(SlottedDict[Person]):
         return person
 
     def _add_to_index(
-        self, namespecs: Iterable[NameSpecification], item_id: AnthologyIDTuple
+        self,
+        namespecs: Iterable[NameSpecification],
+        item_id: AnthologyIDTuple,
+        during_build: bool = False,
     ) -> None:
         """Add persons to the index.
 
-        This function exists for internal use when creating new volumes or papers.  It should not be called manually.
+        This function should not be called manually.  It exists for internal use when registering new volumes or papers.  It encapsulates the resolution of all namespecs on an item, both to reduce repetition and to enable checks, e.g. that an item does not have two namespecs that resolve to the same person (which would indicate a logical error that we can't easily catch elsewhere).
+
+        Arguments:
+            namespecs: The NameSpecifications to register.
+            item_id: The item to register for the NameSpecifications.
+            during_build: If True, we are calling this during build and should not expect the index to be fully loaded yet.
         """
-        if not self.is_data_loaded:
+        if not (during_build or self.is_data_loaded):
             return
 
+        seen_ids = set()
         for namespec in namespecs:
             person = self.resolve_namespec(namespec, allow_creation=True)
             person.item_ids.append(item_id)
+            if person.id in seen_ids:
+                message = f"More than one NameSpecification resolves to '{person.id}' on the same item ({item_id})"
+                if person.is_explicit:
+                    raise NameSpecResolutionError(namespec, message)
+                else:
+                    warnings.warn(NameSpecResolutionWarning(namespec, message))
+            seen_ids.add(person.id)
 
     def save(self, path: Optional[StrPath] = None) -> None:
         """Save the `people.yaml` file.

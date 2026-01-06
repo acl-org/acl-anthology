@@ -116,7 +116,7 @@ class Person:
     @orcid.validator
     def _check_orcid(self, _: Any, value: Optional[str]) -> None:
         if value is not None and not is_valid_orcid(value):
-            raise ValueError("ORCID is not valid (wrong format or checksum)")
+            raise ValueError(f"ORCID is not valid (wrong format or checksum): {value}")
 
     @property
     def names(self) -> list[Name]:
