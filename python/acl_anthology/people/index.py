@@ -1,4 +1,4 @@
-# Copyright 2023-2025 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2026 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -287,8 +287,6 @@ class PersonIndex(SlottedDict[Person]):
         Raises:
             AnthologyInvalidIDError: If `people.yaml` contains a malformed person ID; or if a person is listed without any names.
         """
-        merge_list: list[tuple[str, str]] = []
-
         with open(self.path, "r", encoding="utf-8") as f:
             data = yaml.load(f, Loader=Loader)
 
@@ -305,27 +303,17 @@ class PersonIndex(SlottedDict[Person]):
                     orcid=entry.pop("orcid", None),
                     comment=entry.pop("comment", None),
                     degree=entry.pop("degree", None),
-                    similar_ids=entry.get("similar", []),
+                    similar_ids=entry.pop("similar", []),
                     disable_name_matching=entry.pop("disable_name_matching", False),
                     is_explicit=True,
                 )
             )
-            for similar_id in entry.pop("similar", []):
-                merge_list.append((pid, similar_id))
 
             # Check for unprocessed keys to catch errors
             if entry:
                 log.warning(
                     f"people.yaml: entry '{pid}' has unknown keys: {entry.keys()}"
                 )  # pragma: no cover
-
-        # Process IDs with similar names
-        for pid_set in self._slugs_to_verified_ids.values():
-            pid_list = list(pid_set)
-            for pid in pid_list[1:]:
-                self._similar.merge(pid_list[0], pid)
-        for a, b in merge_list:
-            self._similar.merge(a, b)
 
     def add_person(self, person: Person) -> None:
         """Add a new person to the index.
@@ -349,9 +337,10 @@ class PersonIndex(SlottedDict[Person]):
                 )
             self._by_orcid[person.orcid] = pid
         for name in person.names:
-            self._by_name[name].append(pid)
-            if is_verified_person_id(pid):
-                self._slugs_to_verified_ids[name.slugify()].add(pid)
+            self._add_name(pid, name, during_build=True)
+        for similar_id in person.similar_ids:
+            self._similar.add(similar_id)  # might not have been added yet
+            self._similar.merge(pid, similar_id)
 
     def create(
         self,
@@ -432,16 +421,28 @@ class PersonIndex(SlottedDict[Person]):
         if new is not None:
             self._by_orcid[new] = pid
 
-    def _add_name(self, pid: str, name: Name) -> None:
+    def _add_name(self, pid: str, name: Name, during_build: bool = False) -> None:
         """Add a name for a person to the index.
 
         Will be called automatically from Person; do not call manually.
         """
-        if not self.is_data_loaded:
+        if not (during_build or self.is_data_loaded):
             return
-        self._by_name[name].append(pid)
+        name_list = self._by_name[name]
+        if pid in name_list:
+            return
+        if name_list:
+            # Merging is transitive, so it's enough to merge with the last one
+            self._similar.merge(pid, name_list[-1])
+        name_list.append(pid)
         if is_verified_person_id(pid):
-            self._slugs_to_verified_ids[name.slugify()].add(pid)
+            verified_id_set = self._slugs_to_verified_ids[name.slugify()]
+            if pid not in verified_id_set:
+                for other_id in verified_id_set:
+                    # Merging is transitive, so it's enough to merge with the last one
+                    self._similar.merge(pid, other_id)
+                    break
+                verified_id_set.add(pid)
 
     def _remove_name(self, pid: str, name: Name) -> None:
         """Remove a name for a person from the index.
@@ -553,7 +554,7 @@ class PersonIndex(SlottedDict[Person]):
                 pid = person.id
                 if not person.has_name(name):
                     person.add_name(name, inferred=True)
-                    self._by_name[name].append(pid)
+                    self._add_name(pid, name, during_build=True)
 
             else:
                 # Resolve to unverified ID
@@ -570,7 +571,7 @@ class PersonIndex(SlottedDict[Person]):
                             person._set_canonical_name(name, inferred=True)
                         else:
                             person.add_name(name, inferred=True)
-                        self._by_name[name].append(pid)
+                        self._add_name(pid, name, during_build=True)
                 elif allow_creation:
                     # Unverified ID doesn't exist yet; create it
                     person = Person(
