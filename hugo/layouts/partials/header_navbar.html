@@ -4,8 +4,7 @@
       <img src={{ absURL "images/acl-logo.svg" }} width=56 alt="ACL Logo">
       <span class="d-inline ps-2">ACL Anthology</span>
     </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
@@ -18,21 +17,17 @@
           <a class="nav-link" href={{ relref . "/faq" }}>FAQ<span class="visually-hidden">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href={{ relref . "/info/corrections.md" }}>Corrections<span
-              class="visually-hidden">(current)</span></a>
+          <a class="nav-link" href={{ relref . "/info/corrections.md" }}>Corrections<span class="visually-hidden">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href={{ relref . "/info/contrib.md" }}>Submissions<span
-              class="visually-hidden">(current)</span></a>
+          <a class="nav-link" href={{ relref . "/info/contrib.md" }}>Submissions<span class="visually-hidden">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="https://github.com/acl-org/acl-anthology/"><i
-              class="fab fa-github pe-1"></i>Github</a>
+          <a class="nav-link" href="https://github.com/acl-org/acl-anthology/"><i class="fab fa-github pe-1"></i>Github</a>
         </li>
       </ul>
       <form class="d-flex align-items-center my-2 my-lg-0 flex-nowrap" action={{ relURL "search/?" }} method=get>
-        <input id=acl-search-box class="form-control me-sm-2 shadow-sm" name=q type=search placeholder=Search...
-          aria-label=Search>
+        <input id=acl-search-box class="form-control me-sm-2 shadow-sm" name=q type=search placeholder=Search... aria-label=Search>
         <button class="btn btn-outline-primary" type=submit><i class="fas fa-search"></i></button>
       </form>
     </div>
@@ -41,8 +36,7 @@
 {{ if hasPrefix .Site.BaseURL "https://preview.aclanthology.org" }}
 <div role="alert" class="alert alert-danger text-center">
   This is an <b>internal, incomplete preview</b> of a proposed change to the ACL Anthology.
-  For efficiency reasons, we don't generate MODS or Endnote formats, and the preview may be incomplete in other ways, or
-  contain mistakes.
+  For efficiency reasons, we don't generate MODS or Endnote formats, and the preview may be incomplete in other ways, or contain mistakes.
   <b>Do not treat this content as an official publication</b>.
 </div>
 {{ end }}
