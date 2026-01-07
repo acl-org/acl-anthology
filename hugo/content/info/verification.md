@@ -13,7 +13,7 @@ The ORCID icon does not guarantee that all papers on the page belong to that aut
 
 **An _unverified_ author is one for whom we do not have an explicit entry in our names database.** Unverified pages have `/unverified/` appended to the URL. These pages are created automatically when a paper is ingested without ORCID iD information attached to the authors. Unverified author pages do not include a link to an ORCID profile, but instead include a question mark icon <i class="fas fa-question-circle text-secondary"></i> next to the author's name.
 
-For author names in our database that are known to be ambiguous, there will be an `/unverified/` page for any papers which have not been explicitly identified with a verified author.
+Where an author name in our database is known to be ambiguous, there will be an `/unverified/` page listing any papers with that name which have not been explicitly identified with a specific verified author. These can be moved to a verified author page via a "Fix author" request.
 
 ### Verifying an author
 
