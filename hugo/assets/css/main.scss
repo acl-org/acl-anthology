@@ -81,54 +81,41 @@ $theme-colors: map-merge($theme-colors,
 }
 
 /* Fix spacing issues in nested lists */
-ul ul,
-ul ol,
-ol ul,
-ol ol {
-  &+p {
+ul ul, ul ol, ol ul, ol ol {
+  & + p {
     margin-top: 1rem !important;
   }
 }
 
-.col-xl-width-auto {
-  flex-basis: auto;
-  width: auto;
-}
-
+/* On medium and small screens, we don't have enough horizontal space
+   to display both search box and navigation links; therefore, we
+   transform links to lowercase so they fit.
+*/
 .transform-lower-sm {
   text-transform: lowercase;
 }
-
 @include media-breakpoint-up(sm) {
   .transform-lower-sm {
     text-transform: unset !important;
   }
 }
 
-/* For co-author/venue info on people/ pages */
-.list-group-compact {
-  .list-group-item {
-    padding-top: .5rem;
-    padding-bottom: .5rem;
-  }
+/* Adjust the style of the "abs" buttons */
+.abstract-collapse {
+  @extend .mt-2;
 }
 
+/* Simple toggle buttons for list entries */
 .list-group-toggle-btn {
-  @extend .btn;
+  cursor: pointer;
+  @extend .text-primary;
 
   &[aria-expanded=false] {
     @extend .btn-info;
   }
-
   &[aria-expanded=true] {
     display: none;
   }
 }
 
 #main-container {
-  max-width: 1140px;
-  padding-left: 15px;
-  padding-right: 15px;
-  margin-left: auto;
-  margin-right: auto;
-}

@@ -101,9 +101,9 @@
           {{/* this is the actual default case */}}
           <td class="{{ cond (in $border_years $year) "border-start" "" }}">
             {{- with index $.Site.Data.events $event -}}
-            {{- with index $.Site.Data.events $event "volumes" -}}
+              {{- with index $.Site.Data.events $event "volumes" -}}
             <a href="{{ relref $ (printf "/events/%s" $event) }}">{{ slicestr $year 2 4 }}</a>
-            {{- end -}}
+              {{- end -}}
             {{- end -}}
           </td>
           {{ end }}
@@ -155,9 +155,9 @@
           {{ $event := printf "%s-%s" $venue.slug $year }}
           <td class="{{ cond (in $border_years $year) "border-start" "" }}">
             {{- with index $.Site.Data.events $event -}}
-            {{- with index $.Site.Data.events $event "volumes" -}}
+              {{- with index $.Site.Data.events $event "volumes" -}}
             <a href="{{ relref $ (printf "/events/%s" $event) }}">{{ slicestr $year 2 4 }}</a>
-            {{- end -}}
+              {{- end -}}
             {{- end -}}
           </td>
           {{ end }}

@@ -112,15 +112,15 @@
   const paper_params = {
     anthology_id: "{{ .Params.anthology_id }}",
     title: "{{ $paper.title_raw }}",
-    authors: [
-      {{ range $index, $author := $paper.author }}
-      {
-        first: "{{ .first }}",
-        last: "{{ .last }}",
-        id: "{{ .id }}"
-      }{{ if ne (add $index 1) (len $paper.author) }},{{ end }}
-      {{ end }}
-    ],
+        authors: [
+          {{ range $index, $author := $paper.author }}
+          {
+            first: "{{ .first }}",
+            last: "{{ .last }}",
+            id: "{{ .id }}"
+          }{{ if ne (add $index 1) (len $paper.author) }},{{ end }}
+          {{ end }}
+        ],
   abstract: "{{ $paper.abstract_raw }}"
   };
 
@@ -466,17 +466,16 @@
       </div>
       {{ end }}
 
-      {{ with $paper.abstract_html }}
-      <div class="card bg-light mb-2 mb-lg-3">
-        <div class="card-body acl-abstract">
-          <h5 class="card-title">Abstract</h5>
-          <span{{ if $paper.retracted }} class="text-decoration-line-through" {{ end }}>
-            {{ . | safeHTML }}
-            </span>
-        </div>
-      </div>
-      {{ end }}
-
+            {{ with $paper.abstract_html }}
+            <div class="card bg-light mb-2 mb-lg-3">
+              <div class="card-body acl-abstract">
+                <h5 class="card-title">Abstract</h5>
+                <span{{ if $paper.retracted }} class="text-decoration-line-through" {{ end }}>
+                  {{ . | safeHTML }}
+                </span>
+              </div>
+            </div>
+            {{ end }}
       <!-- To avoid cluttering this template with Bootstrap classes, the styling
            for this list is defined in assets/css/_papers.scss -->
       <dl>

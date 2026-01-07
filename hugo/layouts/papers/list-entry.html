@@ -41,11 +41,11 @@
     <strong><a class="align-middle" href="{{ .RelPermalink }}">{{ $paper.title_html | safeHTML }}</a></strong>
     <br />
     {{ with $paper.author }}
-    {{ $len := (len $paper.author) }}
-    {{ range $index, $person := $paper.author }}
-    {{ partial "author_link.html" (dict "ctx" $ "person" $person) }}
-    {{ if ne (add $index 1) $len }} | {{ end }}
-    {{ end }}
+      {{ $len := (len $paper.author) }}
+      {{ range $index, $person := $paper.author }}
+        {{ partial "author_link.html" (dict "ctx" $ "person" $person) }}
+        {{ if ne (add $index 1) $len }} | {{ end }}
+      {{ end }}
     {{ end }}
   </span>
 </p>
