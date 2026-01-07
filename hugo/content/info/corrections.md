@@ -96,8 +96,8 @@ For requests to change paper *content* (either a revision or an erratum), again,
   This summary will be included in the Anthology.
 	Its intended audience is users of the Anthology, and should therefore be written from a neutral, scientific perspective.
 - If the metadata also needs to change, please also follow the instructions in the previous section.
-- If possible, when generating your revision, it would be good to add the proper proceedings header and footer stamps, as well as the correct page numbering.
-  Unfortunately, we cannot provide any assistance with this task, but [this template from the ACLPUB2 repo](https://github.com/rycolab/aclpub2/blob/main/aclpub2/templates/watermarked_pdf.tex) may be helpful for this.
+- If possible, when generating your revision, it would be good to add the proper proceedings header and footer stamps to match the original.
+  A web service providing this feature can be found at [https://aclanthology.org/watermark.html](https://aclanthology.org/watermark.html) ([source code](https://github.com/acl-org/acl-anthology/tree/main/bin/add_footer.py)).
 
 For revisions, the brief summary should allow readers to find the changed parts, but need not be too detailed.
 Here are some good examples:
@@ -111,6 +111,8 @@ We will do our best to process revisions or errata within four weeks, but make n
 Submissions not meeting these standards will be rejected, potentially without notice.
 
 A revision that changes the author list needs permission (see below).
+
+Revisions will be marked with a front-page watermark, similar to the arXiv watermark.
 
 #### Retractions
 

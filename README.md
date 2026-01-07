@@ -122,6 +122,35 @@ You will need this software on the server
 Note that generating the anthology takes quite a bit of RAM, so make
 sure it is available on your machine.
 
+## PDF Watermark / Footer Tool
+
+The Anthology includes a lightweight tool to add an ACL‑style footer (first page) and optional page numbers to arbitrary PDFs.
+
+Components:
+
+* `hugo/static/watermark.html` – Client interface (drag/drop PDF, footer text, starting page number).
+* `hugo/static/cgi-bin/watermark.cgi` – CGI endpoint invoking `bin/add_footer.py`.
+* `bin/add_footer.py` – Core logic (already part of the repository) supporting inline italics with `<i>…</i>` and multi‑line centered layout.
+
+Setup:
+1. Create a python3.10 venv at /opt/venv/watermark
+2. Activate and install dependencies: `pip install pypdf reportlab`
+
+Usage:
+1. Serve the site (or just open the HTML file if CGI is reachable at `/cgi-bin/watermark.cgi`).
+2. Browse to `https://aclanthology.org/watermark.html`.
+3. Provide an optional starting page number and multi‑line footer block (press Enter for new lines). Inline italics via `<i>…</i>`.
+4. Click “Generate PDF” to download the processed file (`*.watermarked.pdf`).
+
+Server / security notes:
+* Upload limit: 25MB (client) / 30MB (server hard cap).
+* Basic validation checks `%PDF-` header.
+* Uses temporary directory per request; no persistence.
+* Requires Python environment satisfying dependencies for `add_footer.py` (pypdf, reportlab).
+* Errors returned as plain text with HTTP status codes.
+
+To disable, simply remove the HTML or CGI script; no other components are affected.
+
 ## Contributing
 
 If you'd like to contribute to the ACL Anthology, please take a look at:
