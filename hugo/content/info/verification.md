@@ -23,4 +23,4 @@ For author names in our database that are known to be ambiguous, there will be a
 
 2. File an issue on GitHub.
 
-   Navigate to the author page in the Anthology. If you are unverified, the URL will contain `/unverified/`. Click the "Fix author" link at the bottom of the links on the righthand side of the page to create an issue from our template. Provide an ORCID iD along with other relevant information. Leave the issue open to be reviewed by Anthology staff.
+   Navigate to the author page in the Anthology. If there is no ORCID icon, click the "Fix author" link at the bottom of the links on the righthand side of the page to create an issue from our template. Provide an ORCID iD along with other relevant information. Leave the issue open to be reviewed by Anthology staff.
