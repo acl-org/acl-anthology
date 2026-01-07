@@ -21,4 +21,4 @@ In addition, the following information can help us improve matching, should we n
 - **Add a few representative publications**: You can add your publications to your ORCID iD profile. This is less important for matching in the Anthology, but it is a good practice to keep your ORCID iD profile complete. Many Anthology papers have DOIs, which simplifies the process.
 - **Add educational history and affiliations**: Adding your educational background and current affiliations can help further distinguish you from other researchers with similar names. It is especially helpful for us to know the institution from which you receive (or expect to receive) your highest degree, since we use this information when disambiguating authors.
 
-In addition to this, make sure that the name you enter into submission mangagement systems (such as Softconf or Open Review) matches one of the ORCID variants, ideally the published name.
+In addition to this, make sure that the name you enter into submission mangagement systems (such as Softconf or OpenReview) matches one of the ORCID variants, ideally the published name.
