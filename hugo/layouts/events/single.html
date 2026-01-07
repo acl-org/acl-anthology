@@ -18,7 +18,7 @@
     <div class="card-body">
       {{ if $event.links }}
       <h4 class="card-title">Links</h4>
-      <ul class="list-pl-responsive">
+      <ul class="list-ps-responsive">
         {{ range $event.links }}
           {{ range $label, $link := . }}
         <li>
@@ -29,15 +29,15 @@
       </ul>
       {{ end }}
       <h4 class="card-title">Volumes</h4>
-      <ul class="list-pl-responsive">
+      <ul class="list-ps-responsive">
         {{ range $volumes }}
         {{ $volume := index $.Site.Data.volumes . }}
         <li>
           {{ if eq hugo.Environment "development" }}
-            <span class="badge badge-light align-middle">{{ . }}</span>
+            <span class="badge text-bg-light align-middle">{{ . }}</span>
           {{ end }}
           <a class="align-middle" href="#{{ . | anchorize }}">{{ $volume.title }}</a>
-          <span class="badge badge-info align-middle ml-1">{{ len $volume.papers }}&nbsp;{{ cond (gt (len $volume.papers) 1) "papers" "paper" }}</span>
+          <span class="badge text-bg-info align-middle ms-1">{{ len $volume.papers }}&nbsp;{{ cond (gt (len $volume.papers) 1) "papers" "paper" }}</span>
         </li>
         {{ end }}
       </ul>
@@ -54,7 +54,7 @@
   {{ end }}
   {{ if (gt $with_abstracts 0) }}
   <button class="btn btn-sm btn-info d-block mb-3" id="toggle-all-abstracts" data-toggle-state="hide" disabled>
-    <span class="on-toggle-state-hide">Show all abstracts<i class="ml-2 fas fa-angle-double-down"></i></span><span class="on-toggle-state-show">Hide all abstracts<i class="ml-2 fas fa-angle-double-up"></i></span></button>
+    <span class="on-toggle-state-hide">Show all abstracts<i class="ms-2 fas fa-angle-double-down"></i></span><span class="on-toggle-state-show">Hide all abstracts<i class="ms-2 fas fa-angle-double-up"></i></span></button>
   {{ end }}
 
   {{ range $volumes }}
@@ -63,14 +63,14 @@
     <small><a href="#" class="text-muted"><i class="fas fa-arrow-up"></i> up</a></small>
 
     <h4 class="d-sm-flex pb-2 border-bottom">
-      <span class="d-block mr-2 list-button-row">
+      <span class="d-block me-2 list-button-row">
       {{- with $volume.pdf -}}
-      <a class="badge badge-primary align-middle mr-1" href="{{ . }}" data-toggle="tooltip" data-placement="top" title="Open full proceedings volume as PDF">pdf&nbsp;(full)</a>
+      <a class="badge text-bg-primary align-middle me-1" href="{{ . }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Open full proceedings volume as PDF">pdf&nbsp;(full)</a>
       <br class="d-none d-sm-inline-block" />
       {{- end -}}
       {{- $bibfile := printf "volumes/%s.bib" . -}}
       {{- if (fileExists (printf "/data-export/%s" $bibfile)) -}}
-      <a class="badge badge-secondary align-middle mr-1" href="{{ relURL $bibfile }}" data-toggle="tooltip" data-placement="top" title="Export to BibTeX">bib&nbsp;(full)</a>
+      <a class="badge text-bg-secondary align-middle me-1" href="{{ relURL $bibfile }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Export to BibTeX">bib&nbsp;(full)</a>
       {{- end -}}
       </span>
     <a class="align-middle" href="{{ relref $ (printf "/volumes/%s" .) }}">{{ $volume.title }}</a></h4>

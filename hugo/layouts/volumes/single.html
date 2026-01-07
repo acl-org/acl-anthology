@@ -44,10 +44,8 @@
       <dd>
         {{- $len := (len $paper.venues) -}}
         {{- range $index, $venue := $paper.venues -}}
-            {{ $acronym := index $.Site.Data.venues $venue "acronym" }}
-          <a href="{{ relref $ (printf "/venues/%s" ($venue)) }}">
-            {{- $acronym -}}
-          </a>
+          {{ $acronym := index $.Site.Data.venues $venue "acronym" }}
+          <a href="{{ relref $ (printf "/venues/%s" ($venue)) }}">{{- $acronym -}}</a>
           {{ if ne (add $index 1) $len }} | {{ end }}
         {{- end -}}
       </dd>
@@ -106,17 +104,17 @@
     <div class="acl-paper-link-block">
       {{ with $paper.pdf }}
       <a class="btn btn-primary" href="{{ . }}" title="Open PDF of '{{ $paper.title | htmlEscape }}'">
-        <i class="far fa-file-pdf"></i><span class="pl-2">PDF&nbsp;<small>(full)</small></span>
+        <i class="far fa-file-pdf"></i><span class="ps-2">PDF&nbsp;<small>(full)</small></span>
       </a>
       {{ end }}
       {{ $bibfile := printf "/volumes/%s.bib" $anthology_id }}
       {{ if (fileExists (printf "/data-export/%s" $bibfile)) }}
       <a class="btn btn-secondary" href="{{ $bibfile | relURL }}" title="Export '{{ $paper.title | htmlEscape }}' to bib format">
-        <i class="fas fa-file-export"></i><span class="pl-2 transform-lower-sm">Bib</span><span class="d-none d-sm-inline">TeX</span>
+        <i class="fas fa-file-export"></i><span class="ps-2 transform-lower-sm">Bib</span><span class="d-none d-sm-inline">TeX</span>
       </a>
       {{ end }}
       <a class="btn btn-secondary" href="https://www.semanticscholar.org/search?{{ (querify "q" $paper.title) | safeURL }}" title="Search for '{{ $paper.title | htmlEscape }}' on Semantic Scholar">
-        <i class="ai ai-semantic-scholar"></i><span class="pl-sm-2 d-none d-sm-inline">Search</span>
+        <i class="ai ai-semantic-scholar"></i><span class="ps-sm-2 d-none d-sm-inline">Search</span>
       </a>
     </div>
   </div>
@@ -124,7 +122,7 @@
 
   {{ if $paper.has_abstracts }}
   <button class="btn btn-sm btn-info d-block mb-3" id="toggle-all-abstracts" data-toggle-state="hide" disabled>
-    <span class="on-toggle-state-hide">Show all abstracts<i class="ml-2 fas fa-angle-double-down"></i></span><span class="on-toggle-state-show">Hide all abstracts<i class="ml-2 fas fa-angle-double-up"></i></span></button>
+    <span class="on-toggle-state-hide">Show all abstracts<i class="ms-2 fas fa-angle-double-down"></i></span><span class="on-toggle-state-show">Hide all abstracts<i class="ms-2 fas fa-angle-double-up"></i></span></button>
   {{ end }}
 
   <div>
