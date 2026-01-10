@@ -395,7 +395,7 @@ def export_people(anthology, builddir, dryrun):
                     )
                     if n.script is not None:
                         diff_script_variants.append(n.as_full())
-                if diff_script_variants:
+                if diff_script_variants and is_verified_person_id(person_id):
                     data["full"] = f"{data['full']} ({', '.join(diff_script_variants)})"
             if person.comment is not None:
                 data["comment"] = person.comment
