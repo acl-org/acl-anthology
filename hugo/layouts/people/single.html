@@ -10,8 +10,8 @@
         <i class="fab fa-orcid fa-xs align-middle text-verified ml-1"></i>
       </a>
     {{ else if $is_verified }}
-      <a href="{{ ref . `info/verification` }}" title="Author is verified" target="_blank" rel="noopener">
-        <i class="fas fa-check-circle fa-xs align-middle text-verified ml-1"></i>
+      <a href="{{ ref . `info/verification` }}" title="Author is verified but has no ORCID iD" target="_blank" rel="noopener">
+        <i class="fas fa-question-circle fa-xs align-middle text-verified ml-1"></i>
       </a>
     {{ else }}
       <a href="{{ ref . `info/verification` }}" title="How to verify an author" target="_blank" rel="noopener">
