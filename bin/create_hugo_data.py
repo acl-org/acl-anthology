@@ -53,6 +53,7 @@ from acl_anthology import Anthology, config
 from acl_anthology.collections.paper import PaperDeletionType
 from acl_anthology.collections.volume import VolumeType
 from acl_anthology.utils.logging import setup_rich_logging
+from acl_anthology.utils.ids import is_verified_person_id
 from acl_anthology.utils.text import (
     interpret_pages,
     month_str2num,
@@ -394,15 +395,19 @@ def export_people(anthology, builddir, dryrun):
                     )
                     if n.script is not None:
                         diff_script_variants.append(n.as_full())
-                if diff_script_variants:
+                if diff_script_variants and is_verified_person_id(person_id):
                     data["full"] = f"{data['full']} ({', '.join(diff_script_variants)})"
             if person.comment is not None:
                 data["comment"] = person.comment
             if person.orcid is not None:
                 data["orcid"] = person.orcid
             similar = anthology.people.similar.subset(person_id)
-            if len(similar) > 1:
-                data["similar"] = list(similar - {person_id})
+            similar.remove(person_id)
+            if similar_verified := [id_ for id_ in similar if is_verified_person_id(id_)]:
+                data["similar_verified"] = sorted(list(similar_verified))
+                similar.difference_update(similar_verified)
+            if similar:  # any remaining IDs are unverified
+                data["similar_unverified"] = sorted(list(similar))
             people[person_id] = data
             progress.update(task, advance=1)
 

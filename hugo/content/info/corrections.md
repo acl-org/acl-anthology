@@ -50,7 +50,7 @@ Please pay careful attention to the following steps.
 1. **Ensure that each name is correct**. We treat the information on the PDF as authoritative; this means that the metadata should reflect exactly what is printed on the PDF. A common situation is that the name recorded in Anthology metadata (e.g., John P. Hancock) will not match what is displayed on the PDF (John Hancock). This needs to be corrected first. Please review your papers and [follow the steps here](#metadata-corrections) to correct any discrepancies. Sometimes, this will resolve the split pages.
 2. Obtain [an ORCID](https://orcid.org). This is required to help with matching of future papers.
 3. Fill out [an author page correction](https://github.com/acl-org/acl-anthology/issues/new?template=02-name-correction.yml). A Github issue is our preferred mechanism, but you can also email [the Anthology director](mailto:anthology@aclweb.org).
-4. Finally, to avoid issues in the future, ensure that the name you use on papers is properly recorded in your profile in publication management systems such as [Open Review](https://openreview.net), [Softconf](https://softconf.com), [EasyChair](https://easychair.org), and so on.
+4. Finally, to avoid issues in the future, ensure that the name you use on papers is properly recorded in your profile in publication management systems such as [OpenReview](https://openreview.net), [Softconf](https://softconf.com), [EasyChair](https://easychair.org), and so on.
 
 Anthology staff will address your issue as quickly as possible.
 An example merged author profile is [Aravand Joshi](https://aclanthology.org/people/aravind-joshi).
