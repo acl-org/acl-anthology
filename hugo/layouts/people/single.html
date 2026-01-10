@@ -6,8 +6,12 @@
     <!-- {{- .Title -}} -->
     <span class="font-weight-normal">{{ $person.first }}</span> <span class="font-weight-bold">{{ $person.last }}</span>
     {{ if $person.orcid }}
-      <a href="https://orcid.org/{{ $person.orcid }}" title="ORCID profile (some papers below may be guesses if they were submitted without ORCID iD)" target="_blank" rel="noopener">
+      <a href="https://orcid.org/{{ $person.orcid }}" title="ORCID profile" target="_blank" rel="noopener">
         <i class="fab fa-orcid fa-xs align-middle text-verified ml-1"></i>
+      </a>
+    {{ else if $is_verified }}
+      <a href="{{ ref . `info/verification` }}" title="Author is verified" target="_blank" rel="noopener">
+        <i class="fas fa-check-circle fa-xs align-middle text-verified ml-1"></i>
       </a>
     {{ else }}
       <a href="{{ ref . `info/verification` }}" title="How to verify an author" target="_blank" rel="noopener">
