@@ -14,6 +14,7 @@ We are grateful to all our contributors whose work makes this collection of scho
 + [Arne Köhn](https://arne.chark.eu) (New Work SE)
 + [Daniel Gildea](https://www.cs.rochester.edu/u/gildea/) (University of Rochester)
 + [Nathan Schneider](http://people.cs.georgetown.edu/nschneid/) (Georgetown University)
++ [Pia Weißenhorn](https://github.com/weissenh)
 
 ### Past Volunteers
 
