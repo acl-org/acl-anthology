@@ -16,17 +16,25 @@
 # limitations under the License.
 
 """
-Used to process paper revisions in the Anthology.
-The revision process is as follows.
+This script process paper revisions submitted to the ACL Anthology
+using our "03-revision-or-errata.yml" template.
+It can either process a GitHub issue directly (using the --issue flag)
+or it can take the pieces (anthology_id, path to PDF, explanation) manually. When provided with a Github issue, it will parse out the
+information, and prompt the user to summarize the explanation, since
+these are often long or unwieldy.
 
+The PDFs are then shuffled as follows:
 - When a first revision is created, the original paper is archived to {anthology_id}v1.pdf
 - The new revision is copied to {anthology_id}v2.pdf
 - The new revision also overwrites the original one at {anthology_id}.pdf.
   This causes it to be returned by the anthology when the base paper format is queried.
 
+A variant of this is applied for subsequent revisions (v3, v4, etc.).
+For errata, we create a file {anthology_id}e1.pdf, {anthology_id}e2.pdf, etc., but do not overwrite the original paper, since errata are separate documents.
+
 Usage:
 
-  # This version will process information from the template and create a PR
+  # Process information from the template and create a PR
   add_revision.py [-e] [-i GITHUB_ISSUE]
 
   # This variant lets you process pieces manually
