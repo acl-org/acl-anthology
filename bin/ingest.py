@@ -290,6 +290,7 @@ def main(args):
 
             potential_names = [
                 os.path.join(meta["path"], "book.pdf"),
+                os.path.join(meta["path"], "cdrom", "book.pdf"),
                 os.path.join(
                     meta["path"],
                     "cdrom",
