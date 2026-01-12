@@ -334,28 +334,7 @@ def proceeding2xml(anthology_id: str, meta: Dict[str, Any], frontmatter):
         if field == 'editor':
             authors = meta['editors']
             for author in authors:
-                author = correct_names(author)
-
-                # if 'orcid' is present as a field, add it as an attribute
-                attrib = {}
-                if 'orcid' in author.keys():
-                    attrib = {'orcid': trim_orcid(author['orcid'])}
-
-                name_node = make_simple_element(
-                    field, parent=frontmatter_node, attrib=attrib
-                )
-
-                make_simple_element('first', join_names(author), parent=name_node)
-                make_simple_element('last', author['last_name'], parent=name_node)
-                # add affiliation
-                if 'institution' in author.keys():
-                    make_simple_element(
-                        'affiliation', author['institution'], parent=name_node
-                    )
-                elif 'affiliation' in author.keys():
-                    make_simple_element(
-                        'affiliation', author['affiliation'], parent=name_node
-                    )
+                create_node_from_author(author, frontmatter_node, fieldname="editor")
         else:
             if field == 'url':
                 if "pdf" in frontmatter:
@@ -378,6 +357,35 @@ def proceeding2xml(anthology_id: str, meta: Dict[str, Any], frontmatter):
                 make_simple_element(field, text=value, parent=frontmatter_node)
 
     return frontmatter_node
+
+
+def create_node_from_author(author, paper_node, fieldname="author"):
+    author = correct_names(author)
+
+    attrib = {}
+    if 'orcid' in author.keys():
+        attrib = {'orcid': trim_orcid(author['orcid'])}
+
+    name_node = make_simple_element(fieldname, parent=paper_node, attrib=attrib)
+
+    # swap names (<last> can't be empty)
+    first_name = join_names(author)
+    try:
+        last_name = author['last_name']
+    except KeyError:
+        print("BAD AUTHOR", author, file=sys.stderr)
+        sys.exit(1)
+    if first_name != "" and last_name == "":
+        first_name, last_name = last_name, first_name
+
+    make_simple_element('first', first_name, parent=name_node)
+    make_simple_element('last', last_name, parent=name_node)
+
+    # add affiliation
+    if 'institution' in author.keys():
+        make_simple_element('affiliation', author['institution'], parent=name_node)
+    elif 'affiliation' in author.keys():
+        make_simple_element('affiliation', author['affiliation'], parent=name_node)
 
 
 def paper2xml(
@@ -418,32 +426,7 @@ def paper2xml(
         if field == 'author':
             authors = paper_item['authors']
             for author in authors:
-                author = correct_names(author)
-
-                attrib = {}
-                if 'orcid' in author.keys():
-                    attrib = {'orcid': trim_orcid(author['orcid'])}
-
-                name_node = make_simple_element(field, parent=paper, attrib=attrib)
-
-                # swap names (<last> can't be empty)
-                first_name = join_names(author)
-                last_name = author['last_name']
-                if first_name != "" and last_name == "":
-                    first_name, last_name = last_name, first_name
-
-                make_simple_element('first', first_name, parent=name_node)
-                make_simple_element('last', last_name, parent=name_node)
-
-                # add affiliation
-                if 'institution' in author.keys():
-                    make_simple_element(
-                        'affiliation', author['institution'], parent=name_node
-                    )
-                elif 'affiliation' in author.keys():
-                    make_simple_element(
-                        'affiliation', author['affiliation'], parent=name_node
-                    )
+                create_node_from_author(author, paper)
         else:
             if field == 'url':
                 value = f'{anthology_id}'
