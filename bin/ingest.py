@@ -216,16 +216,7 @@ def main(args):
     def disambiguate_name(node, anth_id):
         name = PersonName.from_element(node)
         ids = people.get_ids(name)
-        choice = -1
-        if len(ids) > 1:
-            while choice < 0 or choice >= len(ids):
-                print(
-                    f"({anth_id}): ambiguous author {name}; Please choose from the following:"
-                )
-                for i, id_ in enumerate(ids):
-                    print(f"[{i}] {id_} ({people.get_comment(id_)})")
-                choice = int(input("--> "))
-
+        choice = 0 if len(ids) > 1 else -1
         return ids[choice], choice
 
     # Build list of volumes, confirm uniqueness
