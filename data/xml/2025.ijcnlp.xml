@@ -2845,4 +2845,527 @@
       <bibkey>natsumi-etal-2025-agreement</bibkey>
     </paper>
   </volume>
+  <volume id="srw" ingest-date="2026-01-12" type="proceedings">
+    <meta>
+      <booktitle>The 14th International Joint Conference on Natural Language Processing and The 4th Conference of the Asia-Pacific Chapter of the Association for Computational Linguistics</booktitle>
+      <editor><first>Santosh</first><last>T.y.s.s</last></editor>
+      <editor><first>Shuichiro</first><last>Shimizu</last></editor>
+      <editor><first>Yifan</first><last>Gong</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Mumbai, India</address>
+      <month>December</month>
+      <year>2025</year>
+      <url hash="9ae18b55">2025.ijcnlp-srw</url>
+      <venue>ijcnlp</venue>
+      <isbn>979-8-89176-304-3</isbn>
+    </meta>
+    <frontmatter>
+      <url hash="2a921bdd">2025.ijcnlp-srw.0</url>
+      <bibkey>ijcnlp-2025-srw</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Interpretable Sparse Features for Probing Self-Supervised Speech Models</title>
+      <author orcid="0009-0009-8686-9666"><first>Iñigo</first><last>Parra</last></author>
+      <pages>1-9</pages>
+      <abstract>Self-supervised speech models have demonstrated the ability to learn rich acoustic representations. However, interpreting which specific phonological or acoustic features these models leverage within their highly polysemantic activations remains challenging. In this paper, we propose a straightforward and unsupervised probing method for model interpretability. We extract the activations from the final MLP layer of a pretrained HuBERT model and train a sparse autoencoder (SAE) using dictionary learning techniques to generate an over-complete set of latent representations. Analyzing these latent codes, we observe that a small subset of high-variance units consistently aligns with phonetic events, suggesting their potential utility as interpretable acoustic detectors. Our proposed method does not require labeled data beyond raw audio, providing a lightweight and accessible tool to gain insights into the internal workings of self-supervised speech models.</abstract>
+      <url hash="e4802558">2025.ijcnlp-srw.1</url>
+      <bibkey>parra-2025-interpretable</bibkey>
+    </paper>
+    <paper id="2">
+      <title>Learning Dynamics of Meta-Learning in Small Model Pretraining</title>
+      <author orcid="0009-0005-3543-8891"><first>David Demitri</first><last>Africa</last><affiliation>UK AI Security Institute</affiliation></author>
+      <author><first>Yuval</first><last>Weiss</last><affiliation>University of Cambridge</affiliation></author>
+      <author><first>Paula</first><last>Buttery</last><affiliation>University of Cambridge</affiliation></author>
+      <author><first>Richard</first><last>Diehl Martinez</last></author>
+      <pages>10-23</pages>
+      <abstract>Large language models are powerful but costly. We ask whether meta-learning can make the pretraining of small language models not only faster but also more interpretable. We integrate first–order MAML with subset-masked LM pretraining, producing four LLama-style decoder-only models (11M–570M params), and evaluate on multilingual Universal NER. Compared with vanilla training, our hybrid setup (i) reaches the same loss up to 1.6× sooner, (ii) yields modest but consistent average gains on Universal NER at medium/large scales under equal compute (+2–3 percentage points), and (iii) and (iii) reveals phase-like learning dynamics: models first diversify their representations, then compress them in a pattern that aligns with improved episodic accuracy. These observations are correlational, not causal, and we do not claim generality beyond NER or across seeds. We also document a trade-off: perplexity on Paloma (a diverse language modeling benchmark spanning 18 domains) is worse at most scales. Code, checkpoints and analysis logs are released.</abstract>
+      <url hash="39845b06">2025.ijcnlp-srw.2</url>
+      <bibkey>africa-etal-2025-learning</bibkey>
+    </paper>
+    <paper id="3">
+      <title>Efficient Environmental Claim Detection with Hyperbolic Graph Neural Networks</title>
+      <author><first>Darpan</first><last>Aswal</last></author>
+      <author orcid="0000-0002-2653-5092"><first>Manjira</first><last>Sinha</last><affiliation>Tata Consultancy Services Limited, India</affiliation></author>
+      <pages>24-35</pages>
+      <abstract>Transformer based models, specially large language models (LLMs) dominate the field of NLP with their mass adoption in tasks such as text generation, summarization and fake news detection. These models offer ease of deployment and reliability for most applications, however, they require significant amounts of computational power for training as well as inference. This poses challenges in their adoption in resource-constrained applications, specially in the open-source community where compute availability is usually scarce. This work proposes a graph-based approach for Environmental Claim Detection, exploring Graph Neural Networks (GNNs) and Hyperbolic Graph Neural Networks (HGNNs) as lightweight yet effective alternatives to transformer-based models. Re-framing the task as a graph classification problem, we transform claim sentences into dependency parsing graphs, utilizing a combination of word2vec &amp; learnable part-of-speech (POS) tag embeddings for the node features and encoding syntactic dependencies in the edge relations. Our results show that our graph-based models, particularly HGNNs in the poincaré space (P-HGNNs), achieve performance superior to the state-of-the-art on environmental claim detection while using up to **30x fewer parameters**. We also demonstrate that HGNNs benefit vastly from explicitly modeling data in hierarchical (tree-like) structures, enabling them to significantly improve over their euclidean counterparts.</abstract>
+      <url hash="3fcdcd4e">2025.ijcnlp-srw.3</url>
+      <bibkey>aswal-sinha-2025-efficient</bibkey>
+    </paper>
+    <paper id="4">
+      <title>Stacked <fixed-case>L</fixed-case>o<fixed-case>RA</fixed-case>: Isolated Low-Rank Adaptation for Lifelong Knowledge Management</title>
+      <author><first>Heramb Vivek</first><last>Patil</last><affiliation>Birla Institute of Technology and Science, Pilani</affiliation></author>
+      <author><first>Vaishnavee</first><last>Sanam</last></author>
+      <author orcid="0000-0002-5194-201X"><first>Minakshi Pradeep</first><last>Atre</last><affiliation>PVG’s COET &amp; GKPIM Pune</affiliation></author>
+      <pages>36-46</pages>
+      <abstract>Continual learning (CL) presents a significant challenge for large pre-trained models, primarily due to catastrophic forgetting and the high computational cost of sequential knowledge updating. Parameter-Efficient Transfer Learning (PETL) methods offer reduced computational burdens but often struggle to effectively mitigate forgetting. This paper introduces Stacked Low-Rank Adaptation (SLoRA), a novel parameter-efficient approach that leverages the additive composition of task-specific, frozen low-rank adapters to enable modular continual learning with inherent support for explicit knowledge modification. SLoRA was evaluated on vision benchmarks, BERT-base, and the 1-billion-parameter Llama-3.2-1B model. Experiments demonstrated that SLoRA almost completely eliminated catastrophic forgetting, achieving a final average accuracy of 92.75% on Llama-3.2-1B while perfectly preserving prior task performance. Furthermore, SLoRA is computationally efficient, enabling up to a 15x training speed-up over full fine-tuning with 99.7% fewer trainable parameters per update. SLoRA offers a compelling balance of forgetting mitigation, parameter efficiency, and modularity, representing a promising direction for developing adaptable and efficient lifelong knowledgeable foundation models.</abstract>
+      <url hash="ea069369">2025.ijcnlp-srw.4</url>
+      <bibkey>patil-etal-2025-stacked</bibkey>
+    </paper>
+    <paper id="5">
+      <title>On Multilingual Encoder Language Model Compression for Low-Resource Languages</title>
+      <author><first>Daniil</first><last>Gurgurov</last></author>
+      <author orcid="0000-0001-8332-6011"><first>Michal</first><last>Gregor</last><affiliation>Kempelen Institute of Intelligent Technologies</affiliation></author>
+      <author><first>Josef Van</first><last>Genabith</last></author>
+      <author orcid="0000-0002-0899-0657"><first>Simon</first><last>Ostermann</last><affiliation>German Research Center for AI</affiliation></author>
+      <pages>47-58</pages>
+      <abstract>In this paper, we combine two-step knowledge distillation, structured pruning, truncation, and vocabulary trimming for extremely compressing multilingual encoder-only language models for low-resource languages. Our novel approach systematically combines existing techniques and takes them to the extreme, reducing layer depth, feed-forward hidden size, and intermediate layer embedding size to create significantly smaller monolingual models while retaining essential language-specific knowledge. We achieve compression rates of up to 92% while maintaining competitive performance, with average drops of 2–10% for moderate compression and 8–13% at maximum compression in four downstream tasks, including sentiment analysis, topic classification, named entity recognition, and part-of-speech tagging, across three low-resource languages. Notably, the performance degradation correlates with the amount of language-specific data in the teacher model, with larger datasets resulting in smaller performance losses. Additionally, we conduct ablation studies to identify the best practices for multilingual model compression using these techniques.</abstract>
+      <url hash="04910e91">2025.ijcnlp-srw.5</url>
+      <bibkey>gurgurov-etal-2025-multilingual-encoder</bibkey>
+    </paper>
+    <paper id="6">
+      <title>Do We Need Large <fixed-case>VLM</fixed-case>s for Spotting Soccer Actions?</title>
+      <author><first>Ritabrata</first><last>Chakraborty</last></author>
+      <author><first>Rajatsubhra</first><last>Chakraborty</last><affiliation>University of North Carolina at Charlotte</affiliation></author>
+      <author orcid="0000-0001-5633-1843"><first>Avijit</first><last>Dasgupta</last></author>
+      <author orcid="0000-0002-0935-9795"><first>Sandeep</first><last>Chaurasia</last><affiliation>Manipal University Jaipur</affiliation></author>
+      <pages>59-65</pages>
+      <abstract>Traditional video-based tasks like soccer action spotting rely heavily on visual inputs, often requiring complex and computationally expensive models to process dense video data. We propose a shift from this video-centric approach to a text-based task, making it lightweight and scalable by utilizing Large Language Models (LLMs) instead of Vision-Language Models (VLMs). We posit that expert commentary, which provides rich descriptions and contextual cues contains sufficient information to reliably spot key actions in a match. To demonstrate this, we employ a system of three LLMs acting as judges specializing in outcome, excitement, and tactics for spotting actions in soccer matches. Our experiments show that this language-centric approach performs effectively in detecting critical match events coming close to state-of-the-art video-based spotters while using zero video processing compute and similar amount of time to process the entire match.</abstract>
+      <url hash="90a53edc">2025.ijcnlp-srw.6</url>
+      <bibkey>chakraborty-etal-2025-need</bibkey>
+    </paper>
+    <paper id="7">
+      <title><fixed-case>LRMGS</fixed-case>: A Language-Robust Metric for Evaluating Question Answering in Very Low-Resource <fixed-case>I</fixed-case>ndic Languages</title>
+      <author orcid="0000-0002-1785-370X"><first>Anuj</first><last>Kumar</last></author>
+      <author orcid="0000-0003-0186-1446"><first>Satyadev</first><last>Ahlawat</last><affiliation>Indian Institute of Technology Jammu</affiliation></author>
+      <author orcid="0000-0002-3709-7956"><first>Yamuna</first><last>Prasad</last><affiliation>Indian Institute of Technology Jammu</affiliation></author>
+      <author><first>Virendra</first><last>Singh</last><affiliation>Indian Institute of Technology Bombay, Indian Institute of Technology, Bombay</affiliation></author>
+      <pages>66-77</pages>
+      <abstract>Reliable evaluation of Question Answering (QA) systems in low-resource Indic languages presents a significant challenge due to limited annotated datasets, linguistic diversity, and suitable evaluation metrics. Languages such as Sindhi, Manipuri, Dogri, Konkani, and Maithili are particularly underrepresented, creating difficulty in assessing Large Language Models (LLMs) on QA tasks. Existing metrics, including BLEU, ROUGE-L, and BERTScore, are effective in machine translation and high-resource settings; however, they often fail in low-resource QA due to score compression, zero-inflation, and poor scale alignment. To overcome this, LRMGS (Language-Robust Metric for Generative QA) is introduced to capture semantic and lexical agreement while preserving the score scale across languages. LRMGS is evaluated across 8 Indic languages and multiple LLMs, demonstrating consistently higher concordance with reference-based chrF++ scores, measured using the Concordance Correlation Coefficient (CCC). Experimental results indicate that LRMGS provides more accurate discrimination of system performance in very low-resource languages compared to existing metrics. This work establishes a robust and interpretable framework for evaluating QA systems in low-resource Indic languages, supporting more reliable multilingual model assessment.</abstract>
+      <url hash="43f73197">2025.ijcnlp-srw.7</url>
+      <bibkey>kumar-etal-2025-lrmgs</bibkey>
+    </paper>
+    <paper id="8">
+      <title><fixed-case>N</fixed-case>um<fixed-case>P</fixed-case>ert: Numerical Perturbations to Probe Language Models for Veracity Prediction</title>
+      <author orcid="0009-0002-3605-4847"><first>Peter Røysland</first><last>Aarnes</last></author>
+      <author orcid="0000-0002-9777-6758"><first>Vinay</first><last>Setty</last><affiliation>Factiverse and University of Stavanger</affiliation></author>
+      <pages>78-95</pages>
+      <abstract>Large language models show strong performance on knowledge intensive tasks such as fact checking and question answering, yet they often struggle with numerical reasoning. We present a systematic evaluation of state-of-the-art models for veracity prediction on numerical claims and evidence pairs using controlled perturbations, including label flipping probes, to test robustness. Our results indicate that even leading proprietary systems experience accuracy drops of up to 62% under certain perturbations. No model proves to be robust across all conditions. We further find that increasing context length generally reduces accuracy, but when extended context is enriched with perturbed demonstrations, most models substantially recover. These findings highlight critical limitations in numerical fact-checking and suggest that robustness remains an open challenge for current language models.</abstract>
+      <url hash="62c245aa">2025.ijcnlp-srw.8</url>
+      <bibkey>aarnes-setty-2025-numpert</bibkey>
+    </paper>
+    <paper id="9">
+      <title>Testing Simulation Theory in <fixed-case>LLM</fixed-case>s’ Theory of Mind</title>
+      <author><first>Koshiro</first><last>Aoki</last><affiliation>Waseda University</affiliation></author>
+      <author orcid="0000-0002-3598-1027"><first>Daisuke</first><last>Kawahara</last><affiliation>Waseda University</affiliation></author>
+      <pages>96-104</pages>
+      <abstract>Theory of Mind (ToM) is the ability to understand others’ mental states, which is essential for human social interaction. Although recent studies suggest that large language models (LLMs) exhibit human-level ToM capabilities, the underlying mechanisms remain unclear. “Simulation Theory” posits that we infer others’ mental states by simulating their cognitive processes, which has been widely discussed in cognitive science. In this work, we propose a framework for investigating whether the ToM mechanism in LLMs is based on Simulation Theory by analyzing their internal representations. Following this framework, we successfully steered LLMs’ ToM reasoning through modeled perspective-taking and counterfactual interventions. Our results suggest that Simulation Theory may partially explain the ToM mechanism in state-of-the-art LLMs, indicating parallels between human and artificial social reasoning.</abstract>
+      <url hash="afd11edd">2025.ijcnlp-srw.9</url>
+      <bibkey>aoki-kawahara-2025-testing</bibkey>
+    </paper>
+    <paper id="10">
+      <title>Turn-by-Turn Behavior Monitoring in <fixed-case>LM</fixed-case>-Guided Psychotherapy</title>
+      <author><first>Anish Sai</first><last>Chedalla</last><affiliation>University of Arizona</affiliation></author>
+      <author><first>Samina</first><last>Ali</last></author>
+      <author><first>Jiuming</first><last>Chen</last><affiliation>Algoverse AI Research</affiliation></author>
+      <author><first>Starborn0128@gmail.com</first><last>Starborn0128@gmail.com</last><affiliation>NA</affiliation></author>
+      <author><first>Eric</first><last>Xia</last></author>
+      <pages>105-122</pages>
+      <abstract>Large language models (LLMs) have the potential to be powerful instruments for psychotherapy. However, there is a shortage of practical tools to support their use in production. We develop a novel, iterative process of updating conversational context for tracking EIS (Emotional Intelligence Scale) instantaneously, and test Llama-70b. Through this, we show that (1) EIS varies more on psychotherapeutic (emotional support) conversations than control (emotionally unstimulating) conversations and (2) model responses can be systematically classified to identify consistent patterns. Thus, EIS is a valid indicator of empathetic model behavior. Rises in the EIS score correspond to prosocial behavior, and falls correspond to detached, unsocial behavior. These results suggest that psychometric questionnaires like EIS can provide a structured lens for observing empathetic stability of models and offer a foundation for future work on their role in psychotherapy.</abstract>
+      <url hash="7846337c">2025.ijcnlp-srw.10</url>
+      <bibkey>chedalla-etal-2025-turn</bibkey>
+    </paper>
+    <paper id="11">
+      <title><fixed-case>B</fixed-case>ook<fixed-case>A</fixed-case>s<fixed-case>S</fixed-case>um<fixed-case>QA</fixed-case>: An Evaluation Framework for Aspect-Based Book Summarization via Question Answering</title>
+      <author><first>Ryuhei</first><last>Miyazato</last></author>
+      <author orcid="0009-0008-2649-4543"><first>Ting-Ruen</first><last>Wei</last><affiliation>Santa Clara University</affiliation></author>
+      <author orcid="0000-0002-8807-0016"><first>Xuyang</first><last>Wu</last></author>
+      <author><first>Hsin-Tai</first><last>Wu</last></author>
+      <author><first>Kei</first><last>Harada</last><affiliation>University of Electro-Communications</affiliation></author>
+      <pages>123-133</pages>
+      <abstract>Aspect-based summarization aims to generate summaries that highlight specific aspects of a text, enabling more personalized and targeted summaries. However, its application to books remains unexplored due to the difficulty of constructing reference summaries for long text. To address this challenge, we propose BookAsSumQA, a QA-based evaluation framework for aspect-based book summarization. BookAsSumQA automatically generates aspect-specific QA pairs from a narrative knowledge graph to evaluate summary quality based on its question-answering performance. Our experiments using BookAsSumQA revealed that while LLM-based approaches showed higher accuracy on shorter texts, RAG-based methods become more effective as document length increases, making them more efficient and practical for aspect-based book summarization.</abstract>
+      <url hash="a634ca2f">2025.ijcnlp-srw.11</url>
+      <bibkey>miyazato-etal-2025-bookassumqa</bibkey>
+    </paper>
+    <paper id="12">
+      <title>Thesis Proposal: Interpretable Reasoning Enhancement in Large Language Models through Puzzle and Ontological Task Analysis</title>
+      <author orcid="0009-0001-6459-0439"><first>Mihir</first><last>Panchal</last></author>
+      <pages>134-144</pages>
+      <abstract>Large language models (LLMs) excel across diverse natural language processing tasks but remain opaque and unreliable. This thesis investigates how LLM reasoning can be made both interpretable and reliable through systematic analysis of internal dynamics and targeted interventions. Unlike prior work that examines reasoning broadly, this research focuses on two representative domains: puzzle solving, where reasoning steps can be precisely tracked, and ontological inference, where hierarchical structures constrain valid reasoning. The central questions are: (1) How can systematic error patterns in domain specific reasoning be detected through layer wise probing and mitigated through targeted interventions? (2) How can probing frameworks and middle layer analyses reveal and enhance the computational mechanisms underlying inference? By combining probing methods, middle layer investigations, and probe guided interventions, the work aims to uncover interpretable reasoning patterns, identify systematic failure modes, and develop adaptive enhancement strategies. The expected outcome is a domain grounded framework that advances both theoretical understanding of neural reasoning and the design of practical, trustworthy AI systems.</abstract>
+      <url hash="9a13ee68">2025.ijcnlp-srw.12</url>
+      <bibkey>panchal-2025-thesis</bibkey>
+    </paper>
+    <paper id="13">
+      <title>Adaptive Coopetition: Leveraging Coarse Verifier Signals for Resilient Multi-Agent <fixed-case>LLM</fixed-case> Reasoning</title>
+      <author><first>Wendy Yaqiao</first><last>Liu</last></author>
+      <author><first>Rui Jerry</first><last>Huang</last><affiliation>Boston University, Boston University</affiliation></author>
+      <author><first>Anastasia</first><last>Miin</last></author>
+      <author orcid="0009-0002-2173-5666"><first>Lei</first><last>Ding</last><affiliation>University of California, Santa Cruz</affiliation></author>
+      <pages>145-155</pages>
+      <abstract>Inference-time computation is a critical yet challenging paradigm for enhancing the reasoning performance of large language models (LLMs). While existing strategies improve reasoning stability and consistency, they suffer from notable limitations: self-correction often reinforces the model’s initial biases, and Multi-Agent Collaboration (MAC) often fails due to the lack of efficient coordination mechanisms, leading to collective errors. Although high-performing verifiers can detect reasoning errors, making them reliable requires substantial training. To address these challenges, we introduce a novel inference-time framework - **Adaptive Coopetition (AdCo)** - in which LLM agents utilize **an adaptive, UCB-based ‘coopetition’ mechanism**. At each round, agents leverage coarse verifier signals to determine whether to collaborate or compete, further iteratively refining their reasoning based on peer feedback. Without relying on high-performance verifiers, our adaptive strategy achieves significant performance gains on mathematical reasoning benchmarks, yielding **a 20% relative improvement** over baselines on the more challenging dataset. Our approach remains robust and consistent in terms of accuracy under different sample sizes and configurations. This adaptive, signal-guided ‘coopetition’ framework enhances reasoning robustness by leveraging bothmodel knowledge diversity and reasoning trace measure, while also promoting uncertainty-driven exploration, especially when participants have comparable capabilities. From this perspective, our work offers a fresh lens on inference-time computation and paves the way for more resilient multi-agent LLM systems.</abstract>
+      <url hash="5c61947c">2025.ijcnlp-srw.13</url>
+      <bibkey>liu-etal-2025-adaptive</bibkey>
+    </paper>
+    <paper id="14">
+      <title><fixed-case>AI</fixed-case> Through the Human Lens: Investigating Cognitive Theories in Machine Psychology</title>
+      <author><first>Akash</first><last>Kundu</last></author>
+      <author><first>Rishika</first><last>Goswami</last></author>
+      <pages>156-170</pages>
+      <abstract>We investigate whether Large Language Models (LLMs) exhibit human-like cognitive patterns under four established frameworks frompsychology: Thematic Apperception Test (TAT), Framing Bias, Moral Foundations Theory (MFT), and Cognitive Dissonance. We evaluated several proprietary and open-source models using structured prompts and automated scoring. Our findings reveal that these models often produce coherent narratives, show susceptibility to positive framing, exhibit moral judgments aligned with Liberty/Oppression concerns, and demonstrate self-contradictions tempered by extensive rationalization. Such behaviors mirror human cognitive tendencies yetare shaped by their training data and alignment methods. We discuss the implications for AI transparency, ethical deployment, and futurework that bridges cognitive psychology and AI safety.</abstract>
+      <url hash="7455525e">2025.ijcnlp-srw.14</url>
+      <bibkey>kundu-goswami-2025-ai</bibkey>
+    </paper>
+    <paper id="15">
+      <title>Thesis Proposal: A <fixed-case>N</fixed-case>euro<fixed-case>S</fixed-case>ymbolic Approach to Control Task-Oriented Dialog Systems</title>
+      <author><first>Anuja</first><last>Tayal</last></author>
+      <author orcid="0000-0003-1706-2577"><first>Barbara</first><last>Di Eugenio</last><affiliation>University of Illinois, Chicago</affiliation></author>
+      <pages>171-183</pages>
+      <abstract>Developing effective healthcare dialog systems requires controlling conversations to offer clear insight into the system’s understanding and to address the lack of patient-oriented conversational datasets. Moreover, evaluating these systems is equally challenging and requires user studies for robust evaluation. These challenges are even more pronounced when addressing the needs of minority populations with low health literacy and numeracy. This thesis proposal focuses on designing conversational architectures that deliver self-care information to African American patients with heart failure.Neuro-symbolic approaches provide a promising direction by integrating symbolic reasoning with the generative capabilities of Large Language Models (LLMs). In this proposal, we explore various approaches to creating a hybrid dialog model by combining the strengths of task-oriented dialog systems with the integration of neuro-symbolic rules into a Language Model (LM)/LLM-based dialog system, thereby controlling the dialog system. We propose a hybrid conversational system that uses schema graphs to control the flow of dialogue, while leveraging LLMs to generate responses grounded in these schemas. We will also conduct a user study to evaluate the system’s effectiveness.</abstract>
+      <url hash="6d9473e2">2025.ijcnlp-srw.15</url>
+      <bibkey>tayal-di-eugenio-2025-thesis</bibkey>
+    </paper>
+    <paper id="16">
+      <title>Enriching the Low-Resource Neural Machine Translation with Large Language Model</title>
+      <author><first>Sachin</first><last>Giri</last><affiliation>Ehime University</affiliation></author>
+      <author><first>Takashi</first><last>Ninomiya</last><affiliation>Ehime University</affiliation></author>
+      <author><first>Isao</first><last>Goto</last><affiliation>Ehime University</affiliation></author>
+      <pages>184-192</pages>
+      <abstract>Improving the performance of neural machine translation for low-resource languages is challenging due to the limited availability of parallel corpora. However, recently available Large Language Models (LLM) have demonstrated superior performance in various natural language processing tasks, including translation. In this work, we propose to incorporate an LLM into a Machine Translation (MT) model as a prior distribution to leverage its translation capabilities. The LLM acts as a teacher, instructing the student MT model about the target language. We conducted an experiment in four language pairs: English ⇔ German and English ⇔ Hindi. This resulted in improved BLEU and COMET scores in a low-resource setting.</abstract>
+      <url hash="7b9be270">2025.ijcnlp-srw.16</url>
+      <bibkey>giri-etal-2025-enriching</bibkey>
+    </paper>
+    <paper id="17">
+      <title>Investigating Training and Generalization in Faithful Self-Explanations of Large Language Models</title>
+      <author><first>Tomoki</first><last>Doi</last></author>
+      <author><first>Masaru</first><last>Isonuma</last><affiliation>National Institute of Informatics and Tohoku University</affiliation></author>
+      <author orcid="0000-0003-0354-6116"><first>Hitomi</first><last>Yanaka</last><affiliation>the University of Tokyo</affiliation></author>
+      <pages>193-208</pages>
+      <abstract>Large language models have the potential to generate explanations for their own predictions in a variety of styles based on user instructions. Recent research has examined whether these self-explanations faithfully reflect the models’ actual behavior and has found that they often lack faithfulness. However, the question of how to improve faithfulness remains underexplored. Moreover, because different explanation styles have superficially distinct characteristics, it is unclear whether improvements observed in one style also arise when using other styles. This study analyzes the effects of training for faithful self-explanations and the extent to which these effects generalize, using three classification tasks and three explanation styles. We construct one-word constrained explanations that are likely to be faithful using a feature attribution method, and use these pseudo-faithful self-explanations for continual learning on instruction-tuned models. Our experiments demonstrate that training can improve self-explanation faithfulness across all classification tasks and explanation styles, and that these improvements also show signs of generalization to the multi-word settings and to unseen tasks. Furthermore, we find consistent cross-style generalization among three styles, suggesting that training may contribute to a broader improvement in faithful self-explanation ability.</abstract>
+      <url hash="ea4a2df3">2025.ijcnlp-srw.17</url>
+      <bibkey>doi-etal-2025-investigating</bibkey>
+    </paper>
+    <paper id="18">
+      <title>Thesis Proposal: Efficient Methods for Natural Language Generation/Understanding Systems</title>
+      <author orcid="0000-0002-8948-3904"><first>Nalin</first><last>Kumar</last></author>
+      <pages>209-217</pages>
+      <abstract>While Large Language Models (LLMs) have shown remarkable performance in various Natural Language Processing (NLP) tasks, their effectiveness seem to be heavily biased toward high-resource languages. This proposal aims to address this gap by developing efficient training strategies for low-resource languages. We propose various techniques for efficient learning in simluated low-resource settings for English. We then plan to adapt these methods for low-resource languages. We plan to experiment with both natural language generation and understanding models. We evaluate the models on similar benchmarks as the BabyLM challenge for English. For other languages, we plan to use treebanks and translation techniques to create our own silver test set to evaluate the low-resource LMs.</abstract>
+      <url hash="c0bacec3">2025.ijcnlp-srw.18</url>
+      <bibkey>kumar-2025-thesis</bibkey>
+    </paper>
+    <paper id="19">
+      <title>Two Step Automatic Post Editing of Patent Machine Translation based on Pre-trained Encoder Models and <fixed-case>LLM</fixed-case>s</title>
+      <author><first>Kosei</first><last>Buma</last></author>
+      <author><first>Takehito</first><last>Utsuro</last><affiliation>University of Tsukuba</affiliation></author>
+      <author><first>Masaaki</first><last>Nagata</last><affiliation>NTT Corporation</affiliation></author>
+      <pages>218-231</pages>
+      <abstract>We study automatic post-editing for patent translation, where accuracy and traceability are critical, and propose a two-step pipeline that combines a multilingual encoder for token-level error detection with an LLM for targeted correction. As no word-level annotations exist for Japanese–English patents, we create supervised data by injecting synthetic errors into parallel patent sentences and fine-tune mBERT, XLM-RoBERTa, and mDeBERTa as detectors. In the second stage, GPT-4o is prompted to revise translations either freely or under a restricted policy that allows edits only on detector-marked spans. For error detection, evaluation on synthetic errors shows that encoder-based detectors outperform LLMs in both F1 and MCC. For error correction, tests on synthetic, repetition, and omission datasets demonstrate statistically significant BLEU gains over LLM methods for synthetic and repetition errors, while omission errors remain challenging. Overall, pairing compact encoders with an LLM enables more accurate and controllable post-editing for key patent error types, reducing unnecessary rewrites via restricted edits. Future work will focus on strengthening omission modeling to better detect and correct missing content.</abstract>
+      <url hash="ba2c7c89">2025.ijcnlp-srw.19</url>
+      <bibkey>buma-etal-2025-two</bibkey>
+    </paper>
+    <paper id="20">
+      <title>Rethinking Tokenization for Rich Morphology: The Dominance of Unigram over <fixed-case>BPE</fixed-case> and Morphological Alignment</title>
+      <author orcid="0009-0002-0358-397X"><first>Saketh Reddy</first><last>Vemula</last><affiliation>International Institute of Information Technology, Hyderabad, International Institute of Information Technology Hyderabad</affiliation></author>
+      <author><first>Sandipan</first><last>Dandapat</last><affiliation>IIT Hyderabad</affiliation></author>
+      <author><first>Dipti</first><last>Sharma</last></author>
+      <author><first>Parameswari</first><last>Krishnamurthy</last><affiliation>International Institute of Information Technology Hyderabad, Dhirubhai Ambani Institute Of Information and Communication Technology</affiliation></author>
+      <pages>232-252</pages>
+      <abstract>The relationship between tokenizer algorithm (e.g., Byte-Pair Encoding (BPE), Unigram), morphological alignment, tokenization quality (e.g., compression efficiency), and downstream performance remains largely unclear, particularly for languages with complex morphology. In this paper, we conduct a comprehensive evaluation of tokenizers using small-sized BERT models—from pre-training through fine-tuning—for Telugu (agglutinative), along with preliminary evaluation in Hindi (primarily fusional with some agglutination) and English (fusional). To evaluate morphological alignment of tokenizers in Telugu, we create a dataset containing gold morpheme segmentations of 600 derivational and 7000 inflectional word forms.Our experiments reveal two key findings for Telugu. First, the choice of tokenizer algorithm is the most significant factor influencing performance, with Unigram-based tokenizers consistently outperforming BPE across most settings. Second, while better morphological alignment shows a moderate, positive correlation with performance on text classification and structure prediction tasks, its impact is secondary to the tokenizer algorithm. Notably, hybrid approaches that use morphological information for pre-segmentation significantly boost the performance of BPE, though not Unigram. Our results further showcase the need for comprehensive intrinsic evaluation metrics for tokenizers that could explain downstream performance trends consistently.</abstract>
+      <url hash="0c61604f">2025.ijcnlp-srw.20</url>
+      <bibkey>vemula-etal-2025-rethinking</bibkey>
+    </paper>
+    <paper id="21">
+      <title>Are <fixed-case>LLM</fixed-case>s Good for Semantic Role Labeling via Question Answering?: A Preliminary Analysis</title>
+      <author orcid="0009-0007-5947-1586"><first>Ritwik</first><last>Raghav</last></author>
+      <author orcid="0000-0002-4485-0002"><first>Abhik</first><last>Jana</last><affiliation>IIT Bhubaneswar</affiliation></author>
+      <pages>253-258</pages>
+      <abstract>Semantic role labeling (SRL) is a fundamental task in natural language processing that is crucial for achieving deep semantic understanding. Despite the success of large language models (LLMs) in several downstream NLP tasks, key tasks such as SRL remain a challenge for LLMs. Hence, in this study, we attempt to instantiate the efficacy of LLMs for the task of SRL via Question answering. Toward that goal, we investigate the effectiveness of five different LLMs (Llama, Mistral, Qwen, OpenChat, Gemini) using zero-shot and few-shot prompting. Our findings indicate that few-shot prompting enhances the performance of all models. Although Gemini outperformed others by a margin of 11%, Qwen and Llama are not too far behind. Additionally, we conduct a comprehensive error analysis to shed light on the cases where LLMs fail. This study offers valuable insights into the performance of LLMs for structured prediction and the effectiveness of simple prompting techniques in the Question-Answering framework for SRL.</abstract>
+      <url hash="6443b1b0">2025.ijcnlp-srw.21</url>
+      <bibkey>raghav-jana-2025-llms</bibkey>
+    </paper>
+    <paper id="22">
+      <title>Could you <fixed-case>BE</fixed-case> more sarcastic? A Cognitive Approach to Bidirectional Sarcasm Understanding in Language Models</title>
+      <author><first>Veer</first><last>Chheda</last><affiliation>Dwarkadas J. Sanghvi College Of Engineering</affiliation></author>
+      <author><first>Avantika</first><last>Sankhe</last></author>
+      <author><first>Atharva Vinay</first><last>Sankhe</last></author>
+      <pages>259-276</pages>
+      <abstract>Sarcasm is a specific form of ironic speech which can often be hard to understand for language models due to its nuanced nature. Recent improvements in the ability of such models to detect and generate sarcasm motivate us to try a new approach to help language models perceive sarcasm as a speech style, through a human cognitive perspective. In this work, we propose a multi-hop Chain of Thought (CoT) methodology to understand the context of an utterance that follows a dialogue and to perform bidirectional style transfer on that utterance, leveraging the Theory of Mind. We use small language models (SLMs) due to their cost-efficiency and fast response-time. The generated utterances are evaluated using both LLM-as-a-judge and human evaluation, suitable to the open-ended and stylistic nature of the generations. Along with these, we also evaluate scores of automated metrics such as DialogRPT, BLEU and SBERT; drawing valuable insights from them that support our evidence. Based on this, we find that our cognitive approach to sarcasm is an effective way for language models to stylistically understand and generate sarcasm with better authenticity.</abstract>
+      <url hash="3e245b60">2025.ijcnlp-srw.22</url>
+      <bibkey>chheda-etal-2025-sarcastic</bibkey>
+    </paper>
+    <paper id="23">
+      <title>To What Extent Can In-Context Learning Solve Unseen Tasks?</title>
+      <author><first>Ryoma</first><last>Shinto</last></author>
+      <author orcid="0000-0001-5853-3262"><first>Masashi</first><last>Takeshita</last><affiliation>Nagoya University</affiliation></author>
+      <author orcid="0000-0002-8274-0875"><first>Rafal</first><last>Rzepka</last><affiliation>Hokkaido University</affiliation></author>
+      <author><first>Toshihiko</first><last>Itoh</last><affiliation>Hokkaido University, Tokyo Institute of Technology</affiliation></author>
+      <pages>277-288</pages>
+      <abstract>While Large Language Models (LLMs) are known for their In-Context Learning (ICL) capabilities, there is no consensus on the underlying mechanisms. A key point of debate is whether ICL allows models to adapt to unseen tasks without parameter updates—that is, whether they can extrapolate. In this study, we address this question by constructing an arithmetic dataset based on the bivariate linear function <tex-math>z=ax+by</tex-math> to train a model and quantitatively evaluate its interpolation and extrapolation abilities through ICL. Our results show that while extrapolation was not achieved within our experimental design, tasks that were partially learned could be solved. We also found that the model acquires internal representations that can distinguish unseen tasks, and that greater task diversity in the training dataset improves ICL capabilities.</abstract>
+      <url hash="7e1cc29d">2025.ijcnlp-srw.23</url>
+      <bibkey>shinto-etal-2025-extent</bibkey>
+    </paper>
+    <paper id="24">
+      <title>Visualizing and Benchmarking <fixed-case>LLM</fixed-case> Factual Hallucination Tendencies via Internal State Analysis and Clustering</title>
+      <author><first>Nathan</first><last>Mao</last><affiliation>The Harker School</affiliation></author>
+      <author><first>Varun</first><last>Kaushik</last><affiliation>The Harker School</affiliation></author>
+      <author><first>Shreya</first><last>Shivkumar</last></author>
+      <author><first>Parham</first><last>Sharafoleslami</last></author>
+      <author><first>Kevin</first><last>Zhu</last><affiliation>Algoverse AI Research</affiliation></author>
+      <author><first>Sunishchal</first><last>Dev</last><affiliation>RAND Corporation and Algoverse Coding Academy LLC</affiliation></author>
+      <pages>289-298</pages>
+      <abstract>Large Language Models (LLMs) often hallucinate, generating nonsensical or false information that can be especially harmful in sensitive fields such as medicine or law. To study this phenomenon systematically, we introduce FalseCite, a curated dataset designed to capture and benchmark hallucinated responses induced by misleading or fabricated citations. Running GPT-4o-mini, Falcon-7B, and Mistral 7-B through FalseCite, we observed a noticeable increase in hallucination activity for false claims with deceptive citations, especially in GPT-4o-mini. Using the responses from FalseCite, we can also analyze the internal states of hallucinating models, visualizing and clustering the hidden state vectors. From this analysis, we noticed that the hidden state vectors, regardless of hallucination or non-hallucination, tend to trace out a distinct horn-like shape. Our work underscores FalseCite’s potential as a foundation for evaluating and mitigating hallucinations in future LLM research.</abstract>
+      <url hash="7ecf6207">2025.ijcnlp-srw.24</url>
+      <bibkey>mao-etal-2025-visualizing</bibkey>
+    </paper>
+    <paper id="25">
+      <title>Mitigating Forgetting in Continual Learning with Selective Gradient Projection</title>
+      <author><first>Anika</first><last>Singh</last><affiliation>Algoverse AI Research and Glenforest Secondary School</affiliation></author>
+      <author><first>David</first><last>Martinez</last></author>
+      <author><first>Aayush</first><last>Dhaulakhandi</last><affiliation>Algoverse AI Research</affiliation></author>
+      <author><first>Varun</first><last>Chopade</last><affiliation>Old Scona Academic</affiliation></author>
+      <author><first>Likhith</first><last>Malipati</last><affiliation>Algoverse AI Research</affiliation></author>
+      <author><first>Vasu</first><last>Sharma</last><affiliation>Facebook</affiliation></author>
+      <author><first>Kevin</first><last>Zhu</last><affiliation>Algoverse AI Research</affiliation></author>
+      <author><first>Sunishchal</first><last>Dev</last><affiliation>RAND Corporation and Algoverse Coding Academy LLC</affiliation></author>
+      <author orcid="0009-0007-8821-4861"><first>Ryan</first><last>Lagasse</last><affiliation>Lockheed Martin Corp. and Algoverse AI Research</affiliation></author>
+      <pages>299-313</pages>
+      <abstract>As neural networks are increasingly deployed in dynamic environments, they face the challenge of catastrophic forgetting, the tendency to overwrite previously learned knowledge when adapting to new tasks, resulting in severe performance degradation on earlier tasks. We propose Selective Forgetting-Aware Optimization (SFAO), a dynamic method that regulates gradient directions via cosine similarity and per-layer gating, enabling controlled forgetting while balancing plasticity and stability. SFAO selectively projects, accepts, or discards updates using a tunable mechanism with efficient Monte Carlo approximation. Experiments on standard continual learning benchmarks show that SFAO achieves competitive accuracy with markedly lower memory cost, a 90% reduction, and improved forgetting on MNIST datasets, making it suitable for resource-constrained scenarios.</abstract>
+      <url hash="bacfc426">2025.ijcnlp-srw.25</url>
+      <bibkey>singh-etal-2025-mitigating</bibkey>
+    </paper>
+    <paper id="26">
+      <title><fixed-case>V</fixed-case>ariant<fixed-case>B</fixed-case>ench: A Framework for Evaluating <fixed-case>LLM</fixed-case>s on Justifications for Genetic Variant Interpretation</title>
+      <author><first>Humair</first><last>Basharat</last></author>
+      <author><first>Simon</first><last>Plotkin</last></author>
+      <author><first>Charlotte</first><last>Le</last><affiliation>Algoverse AI Research</affiliation></author>
+      <author><first>Kevin</first><last>Zhu</last><affiliation>Algoverse AI Research</affiliation></author>
+      <author><first>Michael</first><last>Pink</last></author>
+      <author><first>Isabella</first><last>Alfaro</last></author>
+      <pages>314-321</pages>
+      <abstract>Accurate classification in high-stakes domains requires not only correct predictions but transparent, traceable reasoning. We instantiate this need in clinical genomics and present VariantBench, a reproducible benchmark and scoring harness that evaluates both the final American College of Medical Genetics and Genomics/Association for Molecular Pathology (ACMG/AMP) labels and criterion-level reasoning fidelity for missense single-nucleotide variants (SNVs). Each case pairs a variant with deterministic, machine-readable evidence aligned to five commonly used criteria (PM2, PP3, PS1, BS1, BA1), enabling consistent evaluation of large language models (LLMs). Unlike prior work that reports only final labels, our framework scores the correctness and faithfulness of per-criterion justifications against numeric evidence. On a balanced 100-variant freeze, Gemini 2.5 Flash and GPT-4o outperform Claude 3 Opus on label accuracy and criterion detection, and both improve materially when the decisive PS1 cue is provided explicitly. Error analyses show models master population-frequency cues yet underuse high-impact rules unless evidence is unambiguous. VariantBench delivers a substrate to track such improvements and compare prompting, calibration, and aggregation strategies in genomics and other rule-governed, safety-critical settings.</abstract>
+      <url hash="3a6a3522">2025.ijcnlp-srw.26</url>
+      <bibkey>basharat-etal-2025-variantbench</bibkey>
+    </paper>
+    <paper id="27">
+      <title>The ‘aftermath’ of compounds: Investigating Compounds and their Semantic Representations</title>
+      <author><first>Swarang</first><last>Joshi</last></author>
+      <pages>322-328</pages>
+      <abstract>This study investigated how well computational embeddings aligned with human semantic judgments in the processing of English compound words. We compared static word vectors (GloVe) and contextualized embeddings (BERT) against human ratings of lexeme meaning dominance (LMD) and semantic transparency (ST) drawn from a psycholinguistic dataset. Using measures of association strength (Edinburgh Associative Thesaurus), frequency (BNC), and predictability (LaDEC), we computed embedding-derived LMD and ST metrics and assessed their relationships with human judgments via Spearman’s correlation and regression analyses. Our results showed that BERT embeddings better captured compositional semantics than GloVe, and that predictability ratings were strong predictors of semantic transparency in both human and model data. These findings advanced computational psycholinguistics by clarifying the factors that drove compound word processing and offered insights into embedding-based semantic modeling.</abstract>
+      <url hash="65b47b67">2025.ijcnlp-srw.27</url>
+      <bibkey>joshi-2025-aftermath</bibkey>
+    </paper>
+  </volume>
+  <volume id="tutorials" ingest-date="2026-01-12" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of the 14th International Joint Conference on Natural Language Processing and the 4th Conference of the Asia-Pacific Chapter of the Association for Computational Linguistics: Tutorial Abstract</booktitle>
+      <editor><first>Benjamin</first><last>Heinzerling</last></editor>
+      <editor><first>Lun-Wei</first><last>Ku</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Mumbai, India</address>
+      <month>December</month>
+      <year>2025</year>
+      <url hash="e6193847">2025.ijcnlp-tutorials</url>
+      <venue>ijcnlp</venue>
+      <isbn>979-8-89176-302-9</isbn>
+    </meta>
+    <frontmatter>
+      <url hash="a446a4a6">2025.ijcnlp-tutorials.0</url>
+      <bibkey>ijcnlp-2025-tutorials</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Source Attribution for Large Language Models</title>
+      <author><first>Vipula</first><last>Rawte</last></author>
+      <author><first>Koustava</first><last>Goswami</last></author>
+      <author><first>Puneet</first><last>Mathur</last></author>
+      <author><first>Nedim</first><last>Lipka</last></author>
+      <pages>1-5</pages>
+      <abstract>As Large Language Models (LLMs) become more widely used for tasks like document summarization, question answering, and information extraction, improving their trustworthiness and interpretability has become increasingly important. One key strategy for achieving this is extbfattribution, a process that tracks the sources of the generated responses. This tutorial will explore various attribution techniques, including model-driven attribution, post-retrieval answering, and post-generation attribution. We will also discuss the challenges involved in implementing these approaches, and also look at the advanced topics such as model-based attribution for complex cases, table attribution, multimodal attribution, and multilingual attribution.</abstract>
+      <url hash="731d1a48">2025.ijcnlp-tutorials.1</url>
+      <bibkey>rawte-etal-2025-source</bibkey>
+    </paper>
+    <paper id="2">
+      <title>Continual Learning in Large Language Models: Foundations to Frontiers</title>
+      <author><first>P. K.</first><last>Srijith</last></author>
+      <author><first>Shrey</first><last>Satapara</last></author>
+      <author><first>Sarath</first><last>Chandar</last></author>
+      <pages>6-17</pages>
+      <abstract>Continual learning (CL) enables deep learning models to learn a sequence of tasks under resource constraint settings, without forgetting previously acquired knowledge. This is particularly useful for multilingual NLP for low-resource languages, where incremental data collection is common and the compute cost is crucial. This tutorial will introduce key CL methodologies and their applications in natural language processing (NLP), covering both foundational techniques and modern challenges posed by large language models (LLMs). This tutorial covers foundational CL strategies based on regularization, replay, and network architecture. We explore NLP-specific CL scenarios such as task-incremental, language-incremental, and joint task-language incremental setups, along with methodologies to address them. A major emphasize of the tutorial is on continual learning for large language models (LLMs), examining challenges in applying CL for LLMs and the benefits it can provide in LLM training and inference. We further explore the connection between several advances in LLM such as model merging and continual learning. This tutorial is suitable for NLP researchers, practitioners, and students interested in lifelong learning, multilingual NLP, or large language models. It is designed as a half-day tutorial at IJCNLP 2025 and fall under the category of Introduction to Non-CL/Non-NLP Topic.</abstract>
+      <url hash="00c7a232">2025.ijcnlp-tutorials.2</url>
+      <bibkey>srijith-etal-2025-continual</bibkey>
+    </paper>
+    <paper id="3">
+      <title><fixed-case>NLP</fixed-case> for Affective Science: Exploring Fundamental Questions on Emotions through Language and Computation</title>
+      <author><first>Krishnapriya</first><last>Vishnubhotla</last></author>
+      <author><first>Saif M.</first><last>Mohammad</last></author>
+      <pages>18-19</pages>
+      <abstract>Affect refers to the fundamental neural processes that generate and regulate emotions, moods, and feeling states. Affect and emotions are central to how we organize meaning, to our behaviour, to our health and well-being, and to our very survival. Despite this, and even though most of us are all intimately familiar with emotions in everyday life, there is much we do not know about how emotions work, and how they impact our lives. Affective Science is a broad interdisciplinary field that explores these and other related questions about affect and emotions.Since language is a powerful mechanism of emotion expression, there is great potential in using language data and computation to shed light on fundamental questions about emotions. However, even though much progress has been made in areas such as sentiment analysis and affective computing, much of the research focus is squarely on automatically classifying pieces of text. In this tutorial, we will present an introduction to Affective Science and argue that NLP is uniquely positioned to contribute to it: to boldly explore a new frontier — to use language and computation to ask fundamental questions about how emotions and affect work. We will cover the broad areas of research within this nascent field of study - Computational Affective Science (CAS).</abstract>
+      <url hash="679842ad">2025.ijcnlp-tutorials.3</url>
+      <bibkey>vishnubhotla-mohammad-2025-nlp</bibkey>
+    </paper>
+    <paper id="4">
+      <title>Human–Agent Teaming for Higher-Order Thinking Augmentation</title>
+      <author><first>Chung-Chi</first><last>Chen</last></author>
+      <pages>20-24</pages>
+      <abstract>Human-agent teaming refers to humans and artificial agents working together toward shared goals, and recent advances in artificial intelligence, including large language models and autonomous robots, have intensified interest in using these agents not only for automation but also to augment higher-order cognition. Higher-order thinking involves complex mental processes such as critical thinking, creative problem solving, abstract reasoning, and metacognition, and intelligent agents hold the potential to act as genuine teammates that complement human strengths and address cognitive limitations. This tutorial synthesizes emerging research on human-agent teaming for cognitive augmentation by outlining the foundations of higher-order thinking and the psychological frameworks that describe it, reviewing key concepts and interaction paradigms in human–AI collaboration, and examining applications across education, healthcare, military decision-making, scientific discovery, and creative industries, where systems such as language models, decision-support tools, multi-agent architectures, explainable AI, and hybrid human–AI methods are used to support complex reasoning and expert judgment. It also discusses the major challenges involved in achieving meaningful augmentation, including the calibration of trust, the need for transparency, the development of shared mental models, the role of human adaptability and training, and broader ethical concerns. The tutorial further identifies gaps such as limited evidence of long-term improvement in human cognitive abilities and insufficient co-adaptation between humans and agents. Finally, it outlines future directions involving real-time cognitive alignment, long-term studies of cognitive development, co-adaptive learning systems, ethics-aware AI teammates, and new benchmarks for evaluating collaborative cognition, offering a comprehensive overview of current progress and a roadmap for advancing human-agent teaming as a means of enhancing higher-order human thinking.</abstract>
+      <url hash="45ccee9a">2025.ijcnlp-tutorials.4</url>
+      <bibkey>chen-2025-human</bibkey>
+    </paper>
+    <paper id="5">
+      <title>Beyond Guardrails: Advanced Safety for Large Language Models — Monolingual, Multilingual and Multimodal Frontiers</title>
+      <author><first>Somnath</first><last>Banerjee</last></author>
+      <author><first>Rima</first><last>Hazra</last></author>
+      <author><first>Animesh</first><last>Mukherjee</last></author>
+      <pages>25-33</pages>
+      <abstract>LLMs are now embedded in workflows that span languages, modalities, and tools. This raises safety challenges that outpace conventional “guardrails”: jailbreaks and prompt injections, attributional safety failures under code-mixing, multimodal bypass via typography and icons, activation-level manipulation, and agentic risks from tool use. This tutorial synthesizes the newest advances (2023–2025) and lays out open research questions around (i) failure modes in monolingual / multilingual / multimodal settings, (ii) training-time and inference-time defenses (rejection SFT, RLHF/RLAIF, decoding-time safety, parameter/activation steering), and (iii) evaluation and red-teaming pipelines balancing safety and utility. We anchor the tutorial with recent results including our safety related papers published at top tier conferences, and connect them to emerging best practices from recent safety tutorials. The target audience is researchers/engineers with basic NLP knowledge who want the latest techniques and a research roadmap; format is half-day with short demos and Q&amp;A.</abstract>
+      <url hash="1158a627">2025.ijcnlp-tutorials.5</url>
+      <bibkey>banerjee-etal-2025-beyond</bibkey>
+    </paper>
+    <paper id="6">
+      <title>Tutorial on Trustworthy Legal Text Processing with <fixed-case>LLM</fixed-case>s: Retrieval, Rhetorical Roles, Summarization, and Trustworthy Generation</title>
+      <author><first>Anand Kumar</first><last>M</last></author>
+      <author><first>Sangeetha</first><last>S</last></author>
+      <author><first>Manikandan</first><last>R</last></author>
+      <author><first>Anjali</first><last>R</last></author>
+      <pages>34-39</pages>
+      <abstract>This half-day tutorial provides a comprehensive overview of Legal Natural Language Processing (NLP) with LLM for participants with a basic understanding of Computational Linguistics or NLP concepts. We introduce how NLP can help analyze and manage legal text by covering five key topics: legal text analysis with LLM insights, legal text retrieval, rhetorical role identification, legal text summarization, and addressing bias and hallucination in legal tasks. Our goals are to explain why these tasks matter for researchers in the legal domain, describe the challenges and open problems, and outline current solutions. This proposed tutorial blends lectures, live examples, and Q&amp;A to help researchers and students see how language technology and LLMs can make legal information more understandable and efficient.</abstract>
+      <url hash="96b9e3a4">2025.ijcnlp-tutorials.6</url>
+      <bibkey>m-etal-2025-tutorial</bibkey>
+    </paper>
+  </volume>
+  <volume id="demo" ingest-date="2026-01-12" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of The 14th International Joint Conference on Natural Language Processing and The 4th Conference of the Asia-Pacific Chapter of the Association for Computational Linguistics: System Demonstrations</booktitle>
+      <editor><first>Xuebo</first><last>Liu</last></editor>
+      <editor><first>Ayu</first><last>Purwarianti</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Mumbai, India</address>
+      <month>December</month>
+      <year>2025</year>
+      <url hash="2e2b3f5d">2025.ijcnlp-demo</url>
+      <venue>ijcnlp</venue>
+      <isbn>979-8-89176-301-2</isbn>
+    </meta>
+    <frontmatter>
+      <url hash="1af5afa2">2025.ijcnlp-demo.0</url>
+      <bibkey>ijcnlp-2025-demo</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title><fixed-case>I</fixed-case>mage<fixed-case>T</fixed-case>ra: Real-Time Translation for Texts in Image and Video</title>
+      <author orcid="0000-0003-4389-2144"><first>Hour</first><last>Kaing</last><affiliation>National Institute of Information and Communications Technology (NICT), National Institute of Advanced Industrial Science and Technology</affiliation></author>
+      <author orcid="0009-0004-5787-1613"><first>Jiannan</first><last>Mao</last><affiliation>National Institute of Information and Communications Technology (NICT), National Institute of Advanced Industrial Science and Technology</affiliation></author>
+      <author orcid="0000-0003-1159-0918"><first>Haiyue</first><last>Song</last><affiliation>National Institute of Information and Communications Technology (NICT)</affiliation></author>
+      <author orcid="0000-0002-7523-208X"><first>Chenchen</first><last>Ding</last><affiliation>Nara Institute of Science and Technology and National Institute of Information and Communications Technology</affiliation></author>
+      <author orcid="0009-0001-4498-7017"><first>Hideki</first><last>Tanaka</last><affiliation>National Institute of Information and Communications Technology (NICT)</affiliation></author>
+      <author><first>Masao</first><last>Utiyama</last><affiliation>National Institute of Information and Communications Technology (NICT), National Institute of Advanced Industrial Science and Technology</affiliation></author>
+      <pages>1-8</pages>
+      <abstract>There has been a growing research interest in in-image machine translation, which involves translating texts in images from one language to another. Recent studies continue to explore pipeline-based systems due to its straightforward construction and the consistent improvement of its underlined components. However, the existing implementation for such pipeline often lack extensibility, composability, and support for real-time translation. Therefore, this work introduces <i/>—an open-source toolkit designed to facilitate the development of the pipeline-based system of in-image machine translation. The toolkit integrates state-of-the-art open-source models and tools, and is designed with a focus on modularity and efficiency, making it particularly well-suited for real-time translation. The toolkit is released at https://github.com/hour/imagetra.</abstract>
+      <url hash="bd45519b">2025.ijcnlp-demo.1</url>
+      <bibkey>kaing-etal-2025-imagetra</bibkey>
+    </paper>
+    <paper id="2">
+      <title>Human-in-the-Loop Generation of Adversarial Texts: A Case Study on <fixed-case>T</fixed-case>ibetan Script</title>
+      <author orcid="0009-0003-4429-3327"><first>Xi</first><last>Cao</last></author>
+      <author><first>Yuan</first><last>Sun</last><affiliation>Minzu University of China</affiliation></author>
+      <author><first>Jiajun</first><last>Li</last></author>
+      <author orcid="0009-0004-3638-6686"><first>Quzong</first><last>Gesang</last></author>
+      <author><first>Nuo</first><last>Qun</last><affiliation>Xizang University</affiliation></author>
+      <author><first>Nyima</first><last>Tashi</last><affiliation>Tibet University</affiliation></author>
+      <pages>9-16</pages>
+      <abstract>DNN-based language models excel across various NLP tasks but remain highly vulnerable to textual adversarial attacks. While adversarial text generation is crucial for NLP security, explainability, evaluation, and data augmentation, related work remains overwhelmingly English-centric, leaving the problem of constructing high-quality and sustainable adversarial robustness benchmarks for lower-resourced languages both difficult and understudied. First, method customization for lower-resourced languages is complicated due to linguistic differences and limited resources. Second, automated attacks are prone to generating invalid or ambiguous adversarial texts. Last but not least, language models continuously evolve and may be immune to parts of previously generated adversarial texts. To address these challenges, we introduce HITL-GAT, an interactive system based on a general approach to human-in-the-loop generation of adversarial texts. Additionally, we demonstrate the utility of HITL-GAT through a case study on Tibetan script, employing three customized adversarial text generation methods and establishing its first adversarial robustness benchmark, providing a valuable reference for other lower-resourced languages.</abstract>
+      <url hash="e12d2b28">2025.ijcnlp-demo.2</url>
+      <bibkey>cao-etal-2025-human</bibkey>
+    </paper>
+    <paper id="3">
+      <title>Real-time Commentator Assistant for Photo Editing Live Streaming</title>
+      <author orcid="0000-0002-3530-6873"><first>Matīss</first><last>Rikters</last><affiliation>National Institute of Advanced Industrial Science and Technology (AIST)</affiliation></author>
+      <author orcid="0000-0002-4242-6881"><first>Goran</first><last>Topić</last><affiliation>AIST, National Institute of Advanced Industrial Science and Technology</affiliation></author>
+      <pages>17-24</pages>
+      <abstract>Live commentary has the potential of making specific broadcasts such as sports or video games more engaging and interesting to watch for spectators. With the recent popularity rise of online live streaming many new categories have entered the space, like art in its many forms or even software development, however, not all live streamers have the capability to be naturally engaging with the audience. We introduce a live commentator assistant system that can discuss what is visible on screen in real time. Our experimental setting is focused on the use-case of a photo editing live stream. We compare several recent vision language models for commentary generation and text to speech models for spoken output, all on relatively modest consumer hardware configurations.</abstract>
+      <url hash="7b76e259">2025.ijcnlp-demo.3</url>
+      <bibkey>rikters-topic-2025-real</bibkey>
+    </paper>
+    <paper id="4">
+      <title>Supporting Plain Language Summarization of Psychological Meta-Analyses with Large Language Models</title>
+      <author><first>Yarik</first><last>Menchaca Resendiz</last></author>
+      <author><first>Martin</first><last>Kerwer</last></author>
+      <author><first>Anita</first><last>Chasiotis</last></author>
+      <author><first>Marlene</first><last>Bodemer</last></author>
+      <author><first>Kai</first><last>Sassenberg</last></author>
+      <author orcid="0000-0002-2014-6619"><first>Roman</first><last>Klinger</last><affiliation>Otto-Friedrich Universität Bamberg</affiliation></author>
+      <pages>25-35</pages>
+      <abstract>Communicating complex scientific findings to non-experts remains a major challenge in fields like psychology, where research is often presented in highly technical language. One effective way to improve accessibility, for non-experts, is through plain language summaries, which summarize key insights into simple and understandable terms. However, the limited number of institutions that produce lay summaries typically relies on psychology experts to create them manually – an approach that ensures high quality but requires significant expertise, time, and effort. In this paper, we introduce the KLARpsy App, a system designed to support psychology experts in creating plain language summaries of psychological meta-analyses using Large Language Models (LLM). Our system generates initial draft summaries based on a 37-criterion guideline developed to ensure clarity for non-experts. All summaries produced through the system are manually validated and edited by KLARpsy authors to ensure factual correctness and readability. We demonstrate how the system integrates LLM-generated content into an expert-in-the-loop workflow. The automatic evaluation showed a mean semantic-similarity score of 0.73 against expert-written summaries, and human evaluation on a 5-point Likert scale averaged above 3 (higher is better), indicate that the generated drafts are of high quality. The application and code are open source.</abstract>
+      <url hash="5af1fd28">2025.ijcnlp-demo.4</url>
+      <bibkey>menchaca-resendiz-etal-2025-supporting</bibkey>
+    </paper>
+    <paper id="5">
+      <title>Standardizing the Measurement of Text Diversity: A Tool and Comparative Analysis</title>
+      <author><first>Chantal</first><last>Shaib</last><affiliation>Northeastern University</affiliation></author>
+      <author><first>Venkata S</first><last>Govindarajan</last><affiliation>Ithaca College</affiliation></author>
+      <author><first>Joe</first><last>Barrow</last><affiliation>Pattern Data</affiliation></author>
+      <author><first>Jiuding</first><last>Sun</last><affiliation>Stanford University</affiliation></author>
+      <author><first>Alexa</first><last>Siu</last><affiliation>Adobe</affiliation></author>
+      <author><first>Byron C</first><last>Wallace</last><affiliation>Northeastern University, Brown University and Northeastern University</affiliation></author>
+      <author><first>Ani</first><last>Nenkova</last><affiliation>Adobe Research</affiliation></author>
+      <pages>36-46</pages>
+      <abstract>The diversity across outputs generated by LLMs shapes perception of their quality and utility. High lexical diversity is often desirable, but there is no standard method to measure this property. Templated answer structures and “canned” responses across different documents are readily noticeable, but difficult to visualize across large corpora. This work aims to standardize measurement of text diversity. Specifically, we empirically investigate the convergent validity of existing scores across English texts, and release diversity, an open-source Python package (https://pypi.org/project/diversity/, https://github.com/cshaib/diversity) for measuring and extracting repetition in text. We also build a platform (https://ai-templates.app) based on diversity for users to interactively explore repetition in text. We find that fast compression algorithms capture information similar to what is measured by slow-to-compute <tex-math>n</tex-math>-gram overlap homogeneity scores. Further, a combination of measures—compression ratios, self-repetition of long <tex-math>n</tex-math>-grams, and Self-BLEU—are sufficient to report, as they have low mutual correlation with each other.</abstract>
+      <url hash="39cefb50">2025.ijcnlp-demo.5</url>
+      <bibkey>shaib-etal-2025-standardizing</bibkey>
+    </paper>
+    <paper id="6">
+      <title><fixed-case>LITMUS</fixed-case>++ : An Agentic System for Predictive Analysis of Low-Resource Languages Across Tasks and Models</title>
+      <author><first>Avni</first><last>Mittal</last><affiliation>Microsoft</affiliation></author>
+      <author><first>Shanu</first><last>Kumar</last><affiliation>Mohamed bin Zayed University of Artificial Intelligence</affiliation></author>
+      <author><first>Sandipan</first><last>Dandapat</last><affiliation>IIT Hyderabad</affiliation></author>
+      <author orcid="0000-0001-7473-7839"><first>Monojit</first><last>Choudhury</last><affiliation>Mohamed bin Zayed University of Artificial Intelligence</affiliation></author>
+      <pages>47-54</pages>
+      <abstract>We present LITMUS++, an agentic system for predicting language-model performance for queries of the form “How will a Model perform on a Task in a Language?”, a persistent challenge in multilingual and low-resource settings, settings where benchmarks are incomplete or unavailable. Unlike static evaluation suites or opaque LLM-as-judge pipelines, LITMUS++ implements an agentic, auditable workflow: a Directed Acyclic Graph of specialized Thought Agents that generate hypotheses, retrieve multilingual evidence, select predictive features, and train lightweight regressors with calibrated uncertainty. The system supports interactive querying through a chat-style interface, enabling users to inspect reasoning traces and cited evidence. Experiments across six tasks and five multilingual scenarios show that LITMUS++ delivers accurate and interpretable performance predictions, including in low-resource and unseen conditions. Code is available at https://github.com/AvniMittal13/litmus_plus_plus.</abstract>
+      <url hash="6bde0f20">2025.ijcnlp-demo.6</url>
+      <bibkey>mittal-etal-2025-litmus</bibkey>
+    </paper>
+    <paper id="7">
+      <title><fixed-case>S</fixed-case>im<fixed-case>A</fixed-case>gents: Bridging Literature and the Universe Via A Multi-Agent Large Language Model System</title>
+      <author orcid="0009-0008-0370-6021"><first>Xiaowen</first><last>Zhang</last><affiliation>Carnegie Mellon University</affiliation></author>
+      <author><first>Zhenyu</first><last>Bi</last><affiliation>Virginia Polytechnic Institute and State University</affiliation></author>
+      <author orcid="0009-0006-7511-0329"><first>Patrick</first><last>LaChance</last></author>
+      <author orcid="0000-0002-1381-8958"><first>Xuan</first><last>Wang</last><affiliation>Virginia Polytechnic Institute and State University</affiliation></author>
+      <author><first>Tiziana</first><last>Di Matteo</last><affiliation>Carnegie-Mellon University</affiliation></author>
+      <author><first>Rupert</first><last>Croft</last></author>
+      <pages>55-66</pages>
+      <abstract>As cosmological simulations and their associated software become increasingly complex, physicists face the challenge of searching through vast amounts of literature and user manuals to extract simulation parameters from dense academic papers, each using different models, and formats. Translating these parameters into executable scripts remains a time-consuming and error-prone process. To improve efficiency in physics research and accelerate the cosmological simulation process, we introduce SimAgents, a multi-agent system designed to automate both parameter configuration from the literature and preliminary analysis for cosmology research. SimAgents is powered by specialized LLM agents capable of physics reasoning, simulation software validation, and tool execution. These agents collaborate through structured communication, ensuring that extracted parameters are physically meaningful, internally consistent, and software-compliant. We also construct a cosmological parameter extraction evaluation dataset by collecting over 40 simulations in published papers from Arxiv and leading journals that cover diverse simulation types. Experiments on the dataset demonstrate a strong performance of SimAgents, highlighting its effectiveness and potential to accelerate scientific research for physicists. Our demonstration video is available at: https://youtu.be/w1zLpm_CaWA. The complete system and dataset are publicly available at https://github.com/xwzhang98/SimAgents.</abstract>
+      <url hash="2d2d09a6">2025.ijcnlp-demo.7</url>
+      <bibkey>zhang-etal-2025-simagents</bibkey>
+    </paper>
+    <paper id="8">
+      <title><fixed-case>S</fixed-case>tance<fixed-case>M</fixed-case>ining: An open-source stance detection library supporting time-series and visualization</title>
+      <author orcid="0009-0006-3845-1394"><first>Benjamin</first><last>Steel</last><affiliation>McGill University, McGill University</affiliation></author>
+      <author><first>Derek</first><last>Ruths</last><affiliation>McGill University</affiliation></author>
+      <pages>67-76</pages>
+      <abstract>Despite the size of the field, stance detection has remained inaccessible to most researchers due to implementation barriers. Here we present a library that allows easy access to an end-to-end stance modelling solution. This library comes complete with everything needed to go from a corpus of documents, to exploring stance trends in a corpus through an interactive dashboard. To support this, we provide stance target extraction, stance detection, stance time-series trend inference, and an exploratory dashboard, all available in an easy-to-use library. We hope that this library can increase the accessibility of stance detection for the wider community of those who could benefit from this method.</abstract>
+      <url hash="4e2a317c">2025.ijcnlp-demo.8</url>
+      <bibkey>steel-ruths-2025-stancemining</bibkey>
+    </paper>
+    <paper id="9">
+      <title><fixed-case>S</fixed-case>hort<fixed-case>C</fixed-case>heck: Checkworthiness Detection of Multilingual <fixed-case>S</fixed-case>hort‐<fixed-case>F</fixed-case>orm Videos</title>
+      <author><first>Henrik</first><last>Vatndal</last></author>
+      <author orcid="0000-0002-9777-6758"><first>Vinay</first><last>Setty</last><affiliation>Factiverse and University of Stavanger</affiliation></author>
+      <pages>77-85</pages>
+      <abstract>Short-form video platforms like TikTok present unique challenges for misinformation detection due to their multimodal, dynamic, and noisy content. We present ShortCheck, a modular, inference-only pipeline with a user-friendly pipeline that automatically identifies checkworthy short-form videos to help human fact-checkers. The system integrates speech transcription, OCR, object and deepfake detection, video-to-text summarization, and claim verification. ShortCheck is validated by evaluating it on two manually annotated datasets with TikTok videos in a multilingual setting. The pipeline achieves promising results with F1-weighted score over 70%. The demo can be accessed live at <url>http://shortcheck.factiverse.ai</url>.</abstract>
+      <url hash="cded4aba">2025.ijcnlp-demo.9</url>
+      <bibkey>vatndal-setty-2025-shortcheck</bibkey>
+    </paper>
+    <paper id="10">
+      <title><fixed-case>C</fixed-case>hart<fixed-case>E</fixed-case>val: <fixed-case>LLM</fixed-case>-Driven Chart Generation Evaluation Using Scene Graph Parsing</title>
+      <author><first>Kanika</first><last>Goswami</last><affiliation>Indira Gandhi Delhi Technical University for Women</affiliation></author>
+      <author><first>Puneet</first><last>Mathur</last><affiliation>Adobe Systems</affiliation></author>
+      <author orcid="0000-0001-9758-0635"><first>Ryan A.</first><last>Rossi</last><affiliation>Adobe Research</affiliation></author>
+      <author orcid="0000-0002-1119-1346"><first>Franck</first><last>Dernoncourt</last><affiliation>Adobe Research</affiliation></author>
+      <author><first>Vivek</first><last>Gupta</last><affiliation>Arizona State University</affiliation></author>
+      <author orcid="0000-0001-7047-9801"><first>Dinesh</first><last>Manocha</last><affiliation>University of Maryland, College Park</affiliation></author>
+      <pages>86-93</pages>
+      <abstract>Accurate assessment of generated chart quality is crucial for automated document creation and editing across diverse applications like finance, medicine, policy making, and education. Current evaluation approaches suffer from significant limitations: human evaluation is costly and difficult to scale, pixel-based metrics ignore data accuracy, while data-centric measures overlook design quality. Recent multimodal LLM evaluators show promise but exhibit concerning inconsistencies due to prompt sensitivity and subjective biases. Existing metrics fail to evaluate chart quality holistically across visual similarity, semantic alignment, and data fidelity, often producing misleading scores that unfairly penalize good charts while rewarding bad ones. We introduce ChartEval, a novel chart evaluation system that compares generated chart images with ground truth by leveraging scene graph parsing to decompose chart images into hierarchical scene graphs of chart objects, attributes, and relations. Subsequently, it applies graph-based similarity measures to compare candidate chart scene graphs against reference scene graphs for measuring chart quality. We demonstrate that our evaluation approach achieves significantly stronger correlation with human judgments compared to existing metrics like GPT-Score, SSIM, and SCRM using a comprehensive benchmark of 4K chart images paired with generation intents and human quality ratings. We demonstrate the utility of the ChartEval system as a reliable automatic chart quality metric on diverse tasks, including language-guided chart editing, chart reconstruction, and text-to-chart synthesis using both open-source and API-based LLMs.</abstract>
+      <url hash="1325a3e3">2025.ijcnlp-demo.10</url>
+      <bibkey>goswami-etal-2025-charteval</bibkey>
+    </paper>
+    <paper id="11">
+      <title><fixed-case>SPORTSQL</fixed-case>: An Interactive System for Real-Time Sports Reasoning and Visualization</title>
+      <author><first>Sebastian</first><last>Martinez</last></author>
+      <author><first>Naman</first><last>Ahuja</last></author>
+      <author><first>Fenil</first><last>Bardoliya</last></author>
+      <author><first>Suparno Roy</first><last>Chowdhury</last></author>
+      <author><first>Chris</first><last>Bryan</last><affiliation>Arizona State University</affiliation></author>
+      <author><first>Vivek</first><last>Gupta</last><affiliation>Arizona State University</affiliation></author>
+      <pages>94-101</pages>
+      <abstract>We present a modular, interactive system, SPORTSQL, for natural language querying and visualization of dynamic sports data, with a focus on the English Premier League (EPL). The system translates user questions into executable SQL over a live, temporally indexeddatabase constructed from real-time Fantasy Premier League (FPL) data. It supports both tabular and visual outputs, leveraging symbolic reasoning capabilities of Large Language Models (LLMs) for query parsing, schema linking, and visualization selection. To evaluate system performance, we introduce the Dynamic Sport Question Answering Benchmark (DSQABENCH), comprising 1,700+ queries annotated with SQL programs, gold answers, and database snapshots. Our demo highlights how non-expert users can seamlessly explore evolving sports statistics through a natural, conversational interface.</abstract>
+      <url hash="4b61ad0d">2025.ijcnlp-demo.11</url>
+      <bibkey>martinez-etal-2025-sportsql</bibkey>
+    </paper>
+  </volume>
 </collection>
