@@ -35,13 +35,13 @@ We are grateful to all our contributors whose work makes this collection of scho
 
 ### Past Directors
 
-+ [Min-Yen Kan](http://www.comp.nus.edu.sg/~kanmy/) (2008&ndash;2018)
-+ [Steven Bird](http://stevenbird.net/) (2001&ndash;2007)
++ [Min-Yen Kan](http://www.comp.nus.edu.sg/~kanmy/) (2008–2018)
++ [Steven Bird](http://stevenbird.net/) (2001–2007)
 + Eduard Hovy, John Nerbonne, Mike Rosner, Nicoletta Calzolari and Doug Arnold (Past Associate Editors)
 
 ### Paid Assistants
 
-+ Ankur Kejriwal (2025–)
++ Ankur Kejriwal (2025—)
 + [David Stap](https://davidstap.github.io) (2020—)
 + Xinru Yan (2020–2025)
 
