@@ -24,14 +24,16 @@ The difficulty is that a single person may publish under multiple name variants 
 
 To create consistent URLs and to support matching across small formatting differences, the Anthology derives a **name slug** from a name. A slug is a normalized, URL-safe representation of a name: lowercased and hyphenated, without any punctuation or diacritics, other than a hyphen separator.
 
-Each slug has the format `{given-names}-{family-name}`, where `given-names` is all given names joined by hyphens.
+Each name slug has the format `{given-names}-{family-name}`, where spaces are replaced by hyphens.
 
-When we manually resolve an ambiguous names to an author, we add a disambiguating third part to the name slug. By convention, this is the name or acronym of the institution where the author earned (or expected to earn) their highest degree at the time they became known to the Anthology.
-For example, if there are two authors named "Alex Smith", one with a Ph.D. from Stanford and the other first publishing while an undergrad at Tsinghua, their slugs would be `alex-smith-stanford` and `alex-smith-tsinghua`, respectively.
+## Person IDs
+
+When we manually resolve an ambiguous names to an author, we add a disambiguating third part to the name slug. By convention, this is the name or acronym of the institution where the author earned (or is expected to earn) their highest degree at the time they became known to the Anthology.
+For example, if there are two authors named "Alex Smith", one with a Ph.D. from Stanford and the other first publishing while an undergrad at Tsinghua, their slugs would be `alex-smith-stanford` and `alex-smith-tsinghua`, respectively. These extended slugs function as unique person IDs.
 
 ## Creating author pages
 
-Author pages are created automatically when the Anthology site is built.
+Author pages are created automatically when the Anthology site is built (following any change to the database).
 This is done by (a) reading names off paper metadata and (b) grouping them according to our internal database of verified authors.
 
 A verified author is one for whom we have an explicit entry in our names database. This can happen either automatically (when a paper is ingested with ORCID iD information attached to the author) or manually (when we intervene to disambiguate authors with similar names or who publish under multiple names).
