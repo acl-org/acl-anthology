@@ -2,7 +2,7 @@
 Title: ORCID iDs in the ACL Anthology
 linktitle: ORCID iDs
 subtitle: Best practices for ensuring your papers are correctly linked
-date: "2025-12-29"
+date: "2025-01-19"
 ---
 
 An [ORCID iD](https://orcid.org) is a persistent digital identifier that distinguishes you from other researchers and links your research outputs and activities to your identity.
