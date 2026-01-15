@@ -2,7 +2,7 @@
 Title: Verified authors
 linktitle: Verification
 subtitle: How the ACL Anthology verifies authors
-date: "2026-01-19"
+date: "2026-01-15"
 ---
 Every author appearing on a paper in the Anthology is given an author page. The ACL Anthology distinguishes between verified and unverified authors.
 
