@@ -281,6 +281,7 @@ def main(args):
 
             potential_names = [
                 os.path.join(meta["path"], "book.pdf"),
+                os.path.join(meta["path"], "cdrom", "book.pdf"),
                 os.path.join(
                     meta["path"],
                     "cdrom",
@@ -367,7 +368,7 @@ def main(args):
                         f"* Warning: no attachment match for {attachment_file}",
                         file=sys.stderr,
                     )
-                    sys.exit(2)
+                    continue
 
                 paper_num, type_, ext = match.groups()
                 paper_num = int(paper_num)
