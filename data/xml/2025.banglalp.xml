@@ -1,0 +1,745 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2025.banglalp">
+  <volume id="1" ingest-date="2026-01-13" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of the Second Workshop on Bangla Language Processing (BLP-2025)</booktitle>
+      <editor><first>Firoj</first><last>Alam</last></editor>
+      <editor><first>Sudipta</first><last>Kar</last></editor>
+      <editor><first>Shammur Absar</first><last>Chowdhury</last></editor>
+      <editor><first>Naeemul</first><last>Hassan</last></editor>
+      <editor><first>Enamul Hoque</first><last>Prince</last></editor>
+      <editor><first>Mohiuddin</first><last>Tasnim</last></editor>
+      <editor><first>Md Rashad Al Hasan</first><last>Rony</last></editor>
+      <editor><first>Md Tahmid Rahman</first><last>Rahman</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Mumbai, India</address>
+      <month>December</month>
+      <year>2025</year>
+      <url hash="85683002">2025.banglalp-1</url>
+      <venue>banglalp</venue>
+      <venue>ws</venue>
+      <isbn>979-8-89176-314-2</isbn>
+    </meta>
+    <frontmatter>
+      <url hash="533ebb4a">2025.banglalp-1.0</url>
+      <bibkey>banglalp-ws-2025-1</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Byte Pair Encoding Is All You Need For Automatic <fixed-case>B</fixed-case>engali Speech Recognition</title>
+      <author orcid="0000-0002-5736-4628"><first>Ahnaf Mozib</first><last>Samin</last></author>
+      <pages>1-7</pages>
+      <abstract>Byte pair encoding (BPE) emerges as an effective tokenization method for tackling the out-of-vocabulary (OOV) challenge in various natural language and speech processing tasks. Recent research highlights the dependency of BPE subword tokenization’s efficacy on the morphological nature of the language, particularly in languages rich in inflectional morphology, where fewer BPE merges suffice for generating highly productive tokens. Motivated by this, our study empirically identifies the optimal number of BPE tokens for Bengali, a language known for its morphological complexity, thus enhancing out-of-distribution automatic speech recognition (ASR) performance. Experimental evaluation reveals that an excessively high number of BPE tokens can lead to overfitting, while approximately 500-1000 tokens result in superior OOV performance. Furthermore, we conduct a comparative analysis of BPE with character-based and unigram-based tokenization methods. By introducing BPE tokenization to Bengali ASR, we achieve a substantial reduction in the word error rate (WER) from 66.44% in our character-based baseline system to 63.80% on the LB-ASRTD eval set and from 46.34% to 42.80% on the SHRUTI eval set, both of which include out-of-distribution data.</abstract>
+      <url hash="18296467">2025.banglalp-1.1</url>
+      <bibkey>samin-2025-byte</bibkey>
+    </paper>
+    <paper id="2">
+      <title><fixed-case>GRASP</fixed-case>-<fixed-case>C</fixed-case>ho<fixed-case>Q</fixed-case>: Knowledge Graph-Based Retrieval Augmentation for Stance Detection in Political Texts with Chain-of-Questions Reasoning</title>
+      <author><first>Rasel</first><last>Mahmud</last></author>
+      <author><first>Md. Abdur Rakib</first><last>Mollah</last><affiliation>Euclido</affiliation></author>
+      <author><first>Aninda Kumar</first><last>Sharma</last><affiliation>American International University - Bangladesh</affiliation></author>
+      <author><first>Omar Faruq</first><last>Osama</last></author>
+      <pages>8-30</pages>
+      <abstract>Political stance detection in understudied socio-political contexts presents a persistent challenge for language models because dynamic contexts and indirect relationships between political entities complicate the accurate alignment of opinions. To address this, we introduce GRASP-ChoQ, an approach that combines structured knowledge graphs with chain-of-questions reasoning to break down interactions in political texts. We support this with BPDisC, a novel dataset of politically charged tweets from Bangladesh during and after the July 2024 protests, along with a knowledge graph that details political entities and events. By using the knowledge graph to provide context, GRASP-ChoQ moves away from making direct predictions and instead uses intermediate reasoning steps. Experiments indicate that our proposed method yields substantial improvements relative to baseline approaches. Notably, the DeepSeek R1 variant, when integrated with GRASP-ChoQ, achieved the highest performance, demonstrating a 40% higher F1 score over zero-shot detection. As a whole, through the proposed framework, the improvement of retrieval augmentation is occurring, which facilitates the adaptive analysis of low-resource discussion of politics.</abstract>
+      <url hash="80d79180">2025.banglalp-1.2</url>
+      <bibkey>mahmud-etal-2025-grasp</bibkey>
+    </paper>
+    <paper id="3">
+      <title>Reveal-<fixed-case>B</fixed-case>angla: A Dataset for Cross-Lingual Multi-Step Reasoning Evaluation</title>
+      <author><first>Khondoker Ittehadul</first><last>Islam</last></author>
+      <author orcid="0000-0001-8715-2987"><first>Gabriele</first><last>Sarti</last></author>
+      <pages>31-43</pages>
+      <abstract>Language models have demonstrated remarkable performance on complex multi-step reasoning tasks. However, their evaluation has been predominantly confined to high-resource languages such as English. In this paper, we introduce a manually translated Bangla multi-step reasoning dataset derived from the English Reveal dataset, featuring both binary and non-binary question types. We conduct a controlled evaluation of English-centric and Bangla-centric multilingual small language models on the original dataset and our translated version to compare their ability to exploit relevant reasoning steps to produce correct answers. Our results show that, in comparable settings, reasoning context is beneficial for more challenging non-binary questions, but models struggle to employ relevant Bangla reasoning steps effectively. We conclude by exploring how reasoning steps contribute to models’ predictions, highlighting different trends across models and languages.</abstract>
+      <url hash="cea0730a">2025.banglalp-1.3</url>
+      <bibkey>islam-sarti-2025-reveal</bibkey>
+    </paper>
+    <paper id="4">
+      <title><fixed-case>B</fixed-case>angla<fixed-case>T</fixed-case>alk: Towards Real-Time Speech Assistance for <fixed-case>B</fixed-case>engali Regional Dialects</title>
+      <author orcid="0009-0008-8473-2116"><first>Jakir</first><last>Hasan</last></author>
+      <author orcid="0000-0002-9176-1782"><first>Shubhashis</first><last>Roy Dipta</last></author>
+      <pages>44-60</pages>
+      <abstract>Real-time speech assistants are becoming increasingly popular for ensuring improved accessibility to information. Bengali, being a low-resource language with a high regional dialectal diversity, has seen limited progress in developing such systems. Existing systems are not optimized for real-time use and focus only on standard Bengali. In this work, we present BanglaTalk, the first real-time speech assistance system for Bengali regional dialects. BanglaTalk follows the client-server architecture and uses the Real-time Transport Protocol (RTP) to ensure low-latency communication. To address dialectal variation, we introduce a dialect-aware ASR system, BRDialect, developed by fine-tuning the IndicWav2Vec model in ten Bengali regional dialects. It outperforms the baseline ASR models by 12.41-33.98% on the RegSpeech12 dataset. Furthermore, BanglaTalk can operate at a low bandwidth of 24 kbps while maintaining an average end-to-end delay of 4.9 seconds. Low bandwidth usage and minimal end-to-end delay make the system both cost-effective and interactive for real-time use cases, enabling inclusive and accessible speech technology for the diverse community of Bengali speakers.</abstract>
+      <url hash="ff90e4a8">2025.banglalp-1.4</url>
+      <bibkey>hasan-roy-dipta-2025-banglatalk</bibkey>
+    </paper>
+    <paper id="5">
+      <title>Read Between the Lines: A Benchmark for Uncovering Political Bias in <fixed-case>B</fixed-case>angla News Articles</title>
+      <author orcid="0009-0002-5656-4860"><first>Nusrat Jahan</first><last>Lia</last></author>
+      <author orcid="0000-0002-9176-1782"><first>Shubhashis</first><last>Roy Dipta</last></author>
+      <author><first>Abdullah Khan</first><last>Zehady</last><affiliation>Ciroos</affiliation></author>
+      <author><first>Naymul</first><last>Islam</last><affiliation>Individual Researcher</affiliation></author>
+      <author><first>Madhusodan</first><last>Chakraborty</last></author>
+      <author><first>Abdullah</first><last>Al Wasif</last></author>
+      <pages>61-79</pages>
+      <abstract>Detecting media bias is crucial, specifically in the South Asian region. Despite this, annotated datasets and computational studies for Bangla political bias research remain scarce. Crucially because, political stance detection in Bangla news requires understanding of linguistic cues, cultural context, subtle biases, rhetorical strategies, code-switching, implicit sentiment, and socio-political background. To address this, we introduce the first benchmark dataset of 200 politically significant and highly debated Bangla news articles, labeled for government-leaning, government-critique, and neutral stances, alongside diagnostic analyses for evaluating large language models (LLMs). Our comprehensive evaluation of 28 proprietary and open-source LLMs shows strong performance in detecting government-critique content (F1 up to 0.83) but substantial difficulty with neutral articles (F1 as low as 0.00). Models also tend to over-predict government-leaning stances, often misinterpreting ambiguous narratives. This dataset and its associated diagnostics provide a foundation for advancing stance detection in Bangla media research and offer insights for improving LLM performance in low-resource languages.</abstract>
+      <url hash="272d22e5">2025.banglalp-1.5</url>
+      <bibkey>lia-etal-2025-read</bibkey>
+    </paper>
+    <paper id="6">
+      <title><fixed-case>B</fixed-case>i<fixed-case>C</fixed-case>ap: <fixed-case>B</fixed-case>angla Image Captioning Using Attention-based Encoder-Decoder Architecture</title>
+      <author orcid="0009-0008-5958-9688"><first>Md Aminul Kader</first><last>Bulbul</last><affiliation>East West University</affiliation></author>
+      <pages>80-90</pages>
+      <abstract>Automatic image captioning has gained significant attention at the intersection of computer vision and natural language processing, yet research in low-resource languages such as Bangla remains limited. This work introduces BiCap, an attention-based encoder–decoder framework designed for Bangla image captioning. The model leverages a pretrained ResNet-50 as the encoder to extract rich visual features and a Long Short-Term Memory (LSTM) network as the decoder to sequentially generate Bangla captions. To overcome the fixed-length bottleneck of traditional encoder–decoder architectures, we integrate Bahdanau attention, enabling the decoder to dynamically focus on salient image regions while producing each word. The model is trained and evaluated on the Chitron dataset, with extensive preprocessing including vocabulary construction, tokenization, and word embedding. Experimental results demonstrate that BiCap achieves superior performance over the existing works (Masud et al., 2025; Hossain et al., 2024; Das et al., 2023; Humaira et al., 2021), yielding higher BLEU, METEOR, ROUGE, CIDEr scores. Improved fluency in human evaluation further confirms that the model generates more contextually accurate and semantically coherent captions, although occasional challenges remain with complex scenes. Recent advances in Vision–Language Models (VLMs), such as CLIP, BLIP, Flamingo, LLaVA, and MiniGPT-4, have redefined state-of-the-art captioning performance in high-resource settings. However, these models require large multimodal corpora and extensive pretraining that are currently unavailable for Bangla. BiCap therefore offers a resource-efficient, interpretable, and practically deployable solution tailored to low-resource multimodal learning.</abstract>
+      <url hash="95bfdd2b">2025.banglalp-1.6</url>
+      <bibkey>bulbul-2025-bicap</bibkey>
+    </paper>
+    <paper id="7">
+      <title>Zero-Shot Multi-Label Classification of <fixed-case>B</fixed-case>angla Documents: Large Decoders Vs. Classic Encoders</title>
+      <author orcid="0000-0002-2766-016X"><first>Souvika</first><last>Sarkar</last><affiliation>Wichita State University</affiliation></author>
+      <author><first>Md Najib</first><last>Hasan</last></author>
+      <author orcid="0000-0001-5744-6925"><first>Santu</first><last>Karmaker</last><affiliation>University of Central Florida</affiliation></author>
+      <pages>91-106</pages>
+      <abstract>Bangla, a language spoken by over 300 million native speakers and ranked as the sixth most spoken language worldwide, presents unique challenges in natural language processing (NLP) due to its complex morphological characteristics and limited resources. Although recent large-decoder-based LLMs, such as GPT, LLaMA, and DeepSeek, have demonstrated excellent performance across many NLP tasks, their effectiveness in Bangla remains largely unexplored. In this paper, we establish the first benchmark comparing large decoder-based LLMs with classic encoder-based models for the Zero-Shot Multi-Label Classification (Zero-Shot-MLC) task in Bangla. Our evaluation of 32 state-of-the-art models reveals that existing so-called powerful encoders and decoders still struggle to achieve high accuracy on the Bangla Zero-Shot-MLC task, suggesting a need for more research and resources for Bangla NLP.</abstract>
+      <url hash="b090d5c1">2025.banglalp-1.7</url>
+      <bibkey>sarkar-etal-2025-zero</bibkey>
+    </paper>
+    <paper id="8">
+      <title>A Hybrid Transformer–Sequential Model for Depression Detection in <fixed-case>B</fixed-case>angla–<fixed-case>E</fixed-case>nglish Code-Mixed Text</title>
+      <author><first>Md Siddikul Imam</first><last>Kawser</last></author>
+      <author><first>Jidan</first><last>Al Abrar</last></author>
+      <author><first>Mehebub Bin</first><last>Kabir</last></author>
+      <author><first>Md. Rayhan</first><last>Chowdhury</last></author>
+      <author><first>Md Ataullah</first><last>Bahari</last><affiliation>University of New Brunswick</affiliation></author>
+      <pages>107-112</pages>
+      <abstract>Depression detection from social media text is critical for early mental health intervention, yet existing NLP systems underperform in low-resource, code-mixed settings. Bangla-English code-mixing, common across South Asian online communities, poses unique challenges due to irregular grammar, transliteration, and scarce labeled data. To address this gap, we introduce DepressiveText, a 7,019-sample dataset of Bangla-English social media posts annotated for depressive signals, with strong inter-annotator agreement (<tex-math>\kappa = 0.84</tex-math>). We further propose a hybrid architecture that combines BanglishBERT embeddings with an LSTM classifier, enabling the model to capture both contextual and sequential cues. Comparative experiments with traditional ML, deep learning, and multilingual transformer baselines demonstrate that our approach achieves the highest performance, with an accuracy of 0.8889. We also employ LIME to enhance interpretability by identifying key lexical triggers. Our findings underscore the effectiveness of hybrid transformer–sequence models for low-resource code-mixed NLP and highlight their potential in real-world mental health applications.</abstract>
+      <url hash="c3f9785a">2025.banglalp-1.8</url>
+      <bibkey>kawser-etal-2025-hybrid</bibkey>
+    </paper>
+    <paper id="9">
+      <title><fixed-case>B</fixed-case>hasa<fixed-case>B</fixed-case>odh: Bridging <fixed-case>B</fixed-case>angla Dialects and <fixed-case>R</fixed-case>omanized Forms through Machine Translation</title>
+      <author orcid="0009-0007-8138-5836"><first>Md. Tofael Ahmed</first><last>Bhuiyan</last></author>
+      <author orcid="0009-0002-8595-5772"><first>Md. Abdur</first><last>Rahman</last></author>
+      <author><first>Abdul Kadar Muhammad</first><last>Masum</last><affiliation>Southeast University</affiliation></author>
+      <pages>113-118</pages>
+      <abstract>While machine translation has made significant strides for high-resource languages, many regional languages and their dialects, such as the Bangla variants Chittagong and Sylhet, remain underserved. Existing resources are often insufficient for robust sentence-level evaluation and overlook the widespread real-world practice of romanization, the common practice of typing native languages using the Latin script in digital communication. To address these gaps, we introduce BhasaBodh, a comprehensive benchmark for Bangla dialectal machine translation. We construct and release a sentence-level parallel dataset for Chittagong and Sylhet dialects aligned with Standard Bangla and English, create a novel romanized version of the dialectal data to facilitate evaluation in realistic multi-script scenarios, and provide the first comprehensive performance baselines by fine-tuning two powerful multilingual models, NLLB-200 and mBART-50, on seven distinct translation tasks. Our experiments reveal that mBART-50 consistently outperforms NLLB-200 on most dialectal and romanized tasks, achieving a BLEU score as high as 87.44 on the Romanized-to-Standard Bangla normalization task. However, complex cross-lingual and cross-script translation remains a significant challenge. BhasaBodh lays the groundwork for future research in low-resource dialectal NLP, offering a valuable resource for developing more inclusive and practical translation systems.</abstract>
+      <url hash="f861fa88">2025.banglalp-1.9</url>
+      <bibkey>bhuiyan-etal-2025-bhasabodh</bibkey>
+    </paper>
+    <paper id="10">
+      <title><fixed-case>C</fixed-case>heck<fixed-case>S</fixed-case>ent-<fixed-case>BN</fixed-case>: A <fixed-case>B</fixed-case>engali Multi-Task Dataset for Claim Checkworthiness and Sentiment Classification from News Headlines</title>
+      <author><first>Pritam</first><last>Pal</last><affiliation>Jadavpur University</affiliation></author>
+      <author orcid="0000-0002-8110-9344"><first>Dipankar</first><last>Das</last><affiliation>Jadavpur University</affiliation></author>
+      <pages>119-130</pages>
+      <abstract>This paper presents **CheckSent-BN** (Claim **Check**worthiness and **Sen**timent Classification in **B**engali **N**ews Headline), a novel multi-task dataset in Bengali comprising approximately 11.5K news headlines annotated for two critical natural language processing (NLP) tasks: claim checkworthiness detection and sentiment classification. To address the lack of high-quality annotated resources in Bengali, we employ a cost-effective annotation strategy that utilizes three large language models (GPT-4o-mini, GPT-4.1-mini, and Llama-4), followed by majority voting and manual verification to ensure label consistency. We provide benchmark results using multilingual and Bengali-focused transformer models under both single-task and multi-task learning (MTL) frameworks. Experimental results show that IndicBERTv2, BanglaBERT, and mDeBERTa model-based frameworks outperform other multilingual models, with IndicBERTv2 achieving the best overall performance in the MTL setting. CheckSent-BN establishes the first comprehensive benchmark for joint claim checkworthiness and sentiment classification in Bengali news headlines, offering a valuable resource for advancing misinformation detection and sentiment-aware analysis in low-resource languages. The CheckSent-BN dataset is available at: https://github.com/pritampal98/check-sent-bn</abstract>
+      <url hash="66e588d8">2025.banglalp-1.10</url>
+      <bibkey>pal-das-2025-checksent</bibkey>
+    </paper>
+    <paper id="11">
+      <title>Advancing Subjectivity Detection in <fixed-case>B</fixed-case>engali News Articles Using Transformer Models with <fixed-case>POS</fixed-case>-Aware Features</title>
+      <author><first>Md Minhazul</first><last>Kabir</last><affiliation>Chittagong University of Engineering and Technology</affiliation></author>
+      <author><first>Kawsar</first><last>Ahmed</last></author>
+      <author><first>Mohammad Ashfak</first><last>Habib</last><affiliation>Chittagong University of Engineering and Technology</affiliation></author>
+      <author orcid="0000-0001-8806-708X"><first>Mohammed Moshiul</first><last>Hoque</last><affiliation>Chittagong University of Engineering and Technology</affiliation></author>
+      <pages>131-141</pages>
+      <abstract>Distinguishing fact from opinion in text is a nuanced but essential task, particularly in news articles where subjectivity can influence interpretation and reception. Identifying whether content is subjective or objective is critical for sentiment analysis, media bias detection, and content moderation. However, progress in this area has been limited for low-resource languages such as Bengali due to a lack of benchmark datasets and tools. To address these constraints, this work presents BeNSD (Bengali News Subjectivity Detection), a novel dataset of 8,655 Bengali news article texts, along with an enhanced transformer-based architecture (<tex-math>POS-Aware-MuRIL</tex-math>) that integrates parts-of-speech (POS) features with MuRIL embeddings at the input level to provide richer contextual representation for subjectivity detection. A range of baseline models is evaluated, and the proposed architecture achieves a macro F1-score of 93.35% in subjectivity detection for the Bengali language.</abstract>
+      <url hash="8214edfe">2025.banglalp-1.11</url>
+      <bibkey>kabir-etal-2025-advancing</bibkey>
+    </paper>
+    <paper id="12">
+      <title>Gen-m<fixed-case>ABSA</fixed-case>-T5: A Multilingual Zero-Shot Generative Framework for Aspect-Based Sentiment Analysis</title>
+      <author orcid="0009-0008-1915-2510"><first>Shabrina Akter</first><last>Shahana</last></author>
+      <author><first>Nuzhat Nairy</first><last>Afrin</last></author>
+      <author orcid="0000-0001-5159-1865"><first>Md Musfique</first><last>Anwar</last></author>
+      <author orcid="0009-0000-0640-8603"><first>Israt</first><last>Jahan</last><affiliation>Jahangirnagar University</affiliation></author>
+      <pages>142-150</pages>
+      <abstract>Aspect-Based Sentiment Analysis (ABSA) identifies sentiments toward specific aspects of an entity. While progress has been substantial for high-resource languages such as English, low-resource languages like Bangla remain underexplored due to limited annotated data and linguistic challenges. We propose Gen-mABSA-T5, a multilingual zero-shot generative framework for ABSA based on Flan-T5, incorporating prompt engineering and Natural Language Inference (NLI). Without task-specific training, Gen-mABSA-T5 achieves state-of-the-art zero-shot accuracy of 61.56% on the large Bangla corpus, 73.50% on SemEval Laptop, and 73.56% on SemEval Restaurant outperforming both English and Bangla task-specific models in zero-shot settings. It delivers reasonable performance against very large general-purpose models on both English and Bangla benchmarks. These results highlight the effectiveness of generative, zero-shot approaches for ABSA in low-resource and multilingual settings.</abstract>
+      <url hash="41ec93fe">2025.banglalp-1.12</url>
+      <bibkey>shahana-etal-2025-gen</bibkey>
+    </paper>
+    <paper id="13">
+      <title>A Comprehensive Text Optimization Approach to <fixed-case>B</fixed-case>angla Summarization</title>
+      <author><first>Irtifa</first><last>Haider</last><affiliation>Jahangirnagar University</affiliation></author>
+      <author><first>Shanjida</first><last>Alam</last></author>
+      <pages>151-160</pages>
+      <abstract>The task of Bengali text optimization demands not only the generation of concise and coherent summaries but also grammatical accuracy, semantic appropriateness, and factual reliability. This study presents a dual-phase optimization framework for Bengali text summarization that integrates entity-preserving preprocessing and abstractive generation with mT5, followed by refinement through sentence ranking, entity consistency enforcement, and optimization with instruction-tuned LLMs such as mBART. Evaluations using ROUGE, BLEU,BERTScore, and human ratings of fluency, adequacy, coherence, and readability show consistent gains over baseline summarizers. By embedding grammatical and factual safe guards into the summarization pipeline, this study establishes a robust and scalable benchmark for Bengali NLP, advancing text optimization research. Our model achieves 0.54 ROUGE-1 and 0.88 BERTScore on BANSData, outperforming recent multilingual baselines.</abstract>
+      <url hash="c72fa64b">2025.banglalp-1.13</url>
+      <bibkey>haider-alam-2025-comprehensive</bibkey>
+    </paper>
+    <paper id="14">
+      <title><fixed-case>BLUCK</fixed-case>: A Benchmark Dataset for <fixed-case>B</fixed-case>engali Linguistic Understanding and Cultural Knowledge</title>
+      <author><first>Daeen</first><last>Kabir</last></author>
+      <author><first>Minhajur Rahman Chowdhury</first><last>Mahim</last></author>
+      <author><first>Sheikh</first><last>Shafayat</last><affiliation>KAIST</affiliation></author>
+      <author><first>Adnan</first><last>Sadik</last></author>
+      <author><first>Arian</first><last>Ahmed</last><affiliation>Korea Advanced Institute of Science &amp; Technology</affiliation></author>
+      <author><first>Eunsu</first><last>Kim</last></author>
+      <author><first>Alice</first><last>Oh</last><affiliation>Google and Korea Advanced Institute of Science and Technology</affiliation></author>
+      <pages>161-179</pages>
+      <abstract>In this work, we introduce BLUCK, a new dataset designed to measure the performance of Large Language Models (LLMs) in Bengali linguistic understanding and cultural knowledge. Our dataset comprises 2366 multiple-choice questions (MCQs) carefully curated from compiled collections of several college and job level examinations and spans 23 categories covering knowledge on Bangladesh’s culture and history and Bengali linguistics. We benchmarked BLUCK using 6 proprietary and 3 open-source LLMs - including GPT-4o, Claude-3.5-Sonnet, Gemini-1.5-Pro, Llama-3.3-70B-Instruct, and DeepSeekV3. Our results show that while these models perform reasonably well overall, they, however, struggles in some areas of Bengali phonetics. Although current LLMs’ performance on Bengali cultural and linguistic contexts is still not comparable to that of mainstream languages like English, our results indicate Bengali’s status as a mid-resource language. Importantly, BLUCK is also the first MCQ-based evaluation benchmark that is centered around native Bengali culture, history, and linguistics.</abstract>
+      <url hash="bf286fc3">2025.banglalp-1.14</url>
+      <bibkey>kabir-etal-2025-bluck</bibkey>
+    </paper>
+    <paper id="15">
+      <title><fixed-case>B</fixed-case>an<fixed-case>H</fixed-case>ate<fixed-case>ME</fixed-case> : Understanding Hate in <fixed-case>B</fixed-case>angla Memes thorough Detection, Categorization, and Target Profiling</title>
+      <author orcid="0009-0008-1693-6088"><first>Md Ayon</first><last>Mia</last><affiliation>Dhaka International University</affiliation></author>
+      <author orcid="0009-0001-6139-5283"><first>Md</first><last>Fahim</last><affiliation>Penta Global Limited and Independent University, Bangladesh</affiliation></author>
+      <pages>180-195</pages>
+      <abstract>Detecting hateful memes is a complex task due to the interplay of text and visuals, with subtle cultural cues often determining whether content is harmful. This challenge is amplified in Bangla, a low-resource language where existing resources provide only binary labels or single dimensions of hate. To bridge this gap, we introduce BanHateME, a comprehensive Bangla hateful meme dataset with hierarchical annotations across three levels: binary hate, hate categories, and targeted groups. The dataset comprises 3,819 culturally grounded memes, annotated with substantial inter-annotator agreement. We further propose a hierarchical loss function that balances predictions across levels, preventing bias toward binary detection at the expense of fine-grained classification. To assess performance, we pair pretrained language and vision models and systematically evaluate three multimodal fusion strategies: summation, concatenation, and co-attention, demonstrating the effectiveness of hierarchical learning and cross-modal alignment. Our work establishes BanHateME as a foundational resource for fine-grained multimodal hate detection in Bangla and contributes key insights for content moderation in low-resource settings.</abstract>
+      <url hash="9d23e248">2025.banglalp-1.15</url>
+      <bibkey>mia-fahim-2025-banhateme</bibkey>
+    </paper>
+    <paper id="16">
+      <title><fixed-case>P</fixed-case>6<fixed-case>J</fixed-case>iggasha: Benchmarking Large Language Models on <fixed-case>B</fixed-case>angla Physics Question Answering with Cross-lingual Evaluation</title>
+      <author><first>S.m.</first><last>Shahriar</last></author>
+      <author><first>Md Tahmid Hasan</first><last>Fuad</last><affiliation>University of Manitoba</affiliation></author>
+      <author orcid="0009-0001-6139-5283"><first>Md</first><last>Fahim</last><affiliation>Penta Global Limited and Independent University, Bangladesh</affiliation></author>
+      <author orcid="0000-0002-8251-5168"><first>Md. Azad</first><last>Hossain</last><affiliation>Chittagong University of Engineering and Technology</affiliation></author>
+      <pages>196-211</pages>
+      <abstract>Understanding scientific concepts in native languages is crucial for educational accessibility and knowledge transfer. In this work, we present a comprehensive evaluation of Large Language Models (LLMs) on Bangla physics questions, introducing P6Jiggasha, a novel dataset of 1,500 multiple-choice questions compiled from HSC physics textbooks, supplementary guides, admission preparation books, and past examination papers from various educational boards. We evaluate three state-of-the-art models—GPT-4.1, Gemini-2.5 Pro, and DeepSeek-R1-Distill-Llama-70B—on both native Bangla questions and their English translations. Our results reveal significant performance variations, with GPT-4.1 achieving 86.67% accuracy on Bangla questions in a single inference, while other models show substantial improvement through multiple inference attempts, with Gemini-2.5 Pro reaching 89.52% after four iterations. We introduce a <i>Cumulative Accuracy@k</i> metric to evaluate iterative reasoning capabilities and provide comprehensive analysis across six physics topics and six question types. Our error analysis reveals systematic cross-lingual inconsistencies where models produce contradictory answers for identical questions across languages. This study provides valuable insights into the capabilities and limitations of current LLMs for low-resource scientific question answering and establishes benchmarks for future research in Bangla natural language processing.</abstract>
+      <url hash="f10637f6">2025.banglalp-1.16</url>
+      <bibkey>shahriar-etal-2025-p6jiggasha</bibkey>
+    </paper>
+    <paper id="17">
+      <title><fixed-case>LP</fixed-case>-<fixed-case>FT</fixed-case>-<fixed-case>L</fixed-case>o<fixed-case>RA</fixed-case>: A Three-Stage <fixed-case>PEFT</fixed-case> Framework for Efficient Domain Adaptation in <fixed-case>B</fixed-case>angla <fixed-case>NLP</fixed-case> Tasks</title>
+      <author><first>Tasnimul Hossain</first><last>Tomal</last><affiliation>Penta Global Limited</affiliation></author>
+      <author><first>Anam Borhan</first><last>Uddin</last><affiliation>Penta Global Ltd.</affiliation></author>
+      <author><first>Intesar</first><last>Tahmid</last><affiliation>Penta Global Limited</affiliation></author>
+      <author orcid="0000-0001-6999-6879"><first>Mir Sazzat</first><last>Hossain</last><affiliation>Independent University, Bangladesh</affiliation></author>
+      <author orcid="0009-0001-6139-5283"><first>Md</first><last>Fahim</last><affiliation>Penta Global Limited and Independent University, Bangladesh</affiliation></author>
+      <author><first>Md Farhad Alam</first><last>Bhuiyan</last><affiliation>Independent University, Bangladesh</affiliation></author>
+      <pages>212-222</pages>
+      <abstract>Adapting large pre-trained language models (LLMs) to downstream tasks typically requires fine-tuning, but fully updating all parameters is computationally prohibitive. Parameter-Efficient Fine-Tuning (PEFT) methods like Low-Rank Adaptation (LoRA) reduce this cost by updating a small subset of parameters. However, the standard approach of jointly training LoRA adapters and a new classifier head from a cold start can lead to training instability, as the classifier chases shifting feature representations. To address this, we propose LP-FT-LoRA, a novel three-stage training framework that decouples head alignment from representation learning to enhance stability and performance. Our framework first aligns the classifier head with the frozen backbone via linear probing, then trains only the LoRA adapters to learn task-specific features, and finally performs a brief joint refinement of the head and adapters. We conduct extensive experiments on five Bangla NLP benchmarks across four open-weight compact transformer models. The results demonstrate that LP-FT-LoRA consistently outperforms standard LoRA fine-tuning and other baselines, achieving state-of-the-art average performance and showing improved generalization on out-of-distribution datasets.</abstract>
+      <url hash="c26d8e3d">2025.banglalp-1.17</url>
+      <bibkey>tomal-etal-2025-lp</bibkey>
+    </paper>
+    <paper id="18">
+      <title>Human–<fixed-case>LLM</fixed-case> Benchmarks for <fixed-case>B</fixed-case>angla Dialect Translation: <fixed-case>S</fixed-case>ylheti and <fixed-case>C</fixed-case>hittagonian on the <fixed-case>B</fixed-case>angla<fixed-case>CHQ</fixed-case>-Summ Corpus</title>
+      <author><first>Nowshin</first><last>Mahjabin</last></author>
+      <author><first>Ahmed Shafin</first><last>Ruhan</last></author>
+      <author><first>Mehreen</first><last>Chowdhury</last></author>
+      <author orcid="0009-0001-6139-5283"><first>Md</first><last>Fahim</last><affiliation>Penta Global Limited and Independent University, Bangladesh</affiliation></author>
+      <author orcid="0000-0002-4315-5243"><first>MD Azam</first><last>Hossain</last><affiliation>Islamic University of Technology</affiliation></author>
+      <pages>223-236</pages>
+      <abstract>Millions in Bangladesh speak Sylheti and Chittagonian (Chatgaiyya) dialects, yet most public health guidance exists only in Standard Bangla, which creates barriers and safety risks. Ad-hoc translation further harms comprehension, while challenges such as scarce data, non-standard spelling, medical terms, numerals, and idioms make accurate translation difficult. We present BanglaCHQ-Prantik, the first benchmark for this setting, extending BanglaCHQ-Summ with human gold references from 17 native translators. We evaluate Qwen 2.5 3B, Gemma 3 1B, GPT-4o mini, and Gemini 2.5 Flash under zero-shot, one-shot, five-shot, and chain-of-thought prompts, using BLEU, ROUGE-1/2/L, and METEOR. Closed-source models (GPT-4o, Gemini 2.5) lead overall, with Gemini 2.5 Flash being strongest. Few-shot prompting helps especially for Sylheti, though errors persist with terminology, numerals, and idioms. The dataset is designed to support both NLP research and public health communication by enabling reliable translation across regional Bangla dialects. To our knowledge, this is the first medical-domain dataset for Sylheti/Chittagonian.</abstract>
+      <url hash="1268fa0c">2025.banglalp-1.18</url>
+      <bibkey>mahjabin-etal-2025-human</bibkey>
+    </paper>
+    <paper id="19">
+      <title><fixed-case>B</fixed-case>an<fixed-case>H</fixed-case>ate: An Up-to-Date and Fine-Grained <fixed-case>B</fixed-case>angla Hate Speech Dataset</title>
+      <author><first>Faisal Hossain</first><last>Raquib</last><affiliation>Rajshahi University of Engineering and Technology</affiliation></author>
+      <author><first>Akm Moshiur Rahman</first><last>Mazumder</last><affiliation>Independent University, Bangladesh</affiliation></author>
+      <author><first>Md Tahmid Hasan</first><last>Fuad</last><affiliation>University of Manitoba</affiliation></author>
+      <author orcid="0009-0004-3725-0342"><first>Md Farhan</first><last>Ishmam</last></author>
+      <author orcid="0009-0001-6139-5283"><first>Md</first><last>Fahim</last><affiliation>Penta Global Limited and Independent University, Bangladesh</affiliation></author>
+      <pages>237-248</pages>
+      <abstract>Online safety in low-resource languages relies on effective hate speech detection, yet Bangla remains critically underexplored. Existing resources focus narrowly on binary classification and fail to capture the evolving, implicit nature of online hate. To address this, we introduce BanHate, a large-scale Bangla hate speech dataset, comprising 19,203 YouTube comments collected between April 2024 and June 2025. Each comment is annotated for binary hate labels, seven fine-grained categories, and seven target groups, reflecting diverse forms of abuse in contemporary Bangla discourse. We develop a tailored pipeline for data collection, filtering, and annotation with majority voting to ensure reliability. To benchmark BanHate, we evaluate a diverse set of open- and closed-source large language models under prompting and LoRA fine-tuning. We find that LoRA substantially improves open-source models, while closed-source models, such as GPT-4o and Gemini, achieve strong performance in binary hate classification, but face challenges in detecting implicit and fine-grained hate. BanHate sets a new benchmark for Bangla hate speech research, providing a foundation for safer moderation in low-resource languages. Our dataset is available at: https://huggingface.co/datasets/aplycaebous/BanHate.</abstract>
+      <url hash="d3a0d674">2025.banglalp-1.19</url>
+      <bibkey>raquib-etal-2025-banhate</bibkey>
+    </paper>
+    <paper id="20">
+      <title><fixed-case>BOIGENRE</fixed-case>: A Large-Scale <fixed-case>B</fixed-case>angla Dataset for Genre Classification from Book Summaries</title>
+      <author><first>Rafi Hassan</first><last>Chowdhury</last></author>
+      <author><first>Rahanuma Ryaan</first><last>Ferdous</last></author>
+      <pages>249-258</pages>
+      <abstract>The classification of literary genres plays a vital role in digital humanities and natural language processing (NLP), supporting tasks such as content organization, recommendation, and linguistic analysis. However, progress for the Bangla language remains limited due to the lack of large, structured datasets. To address this gap, we present BOIGENRE, the first large-scale dataset for Bangla book genre classification, built from publicly available summaries. The dataset contains 25,951 unique samples across 16 genres, showcasing diversity in narrative style, vocabulary, and linguistic expression. We provide statistical insights into text length, lexical richness, and cross-genre vocabulary overlap. To establish benchmarks, we evaluate traditional machine learning, neural, and transformer-based models. Results show that while unigram-based classifiers perform reasonably, transformer models, particularly BanglaBERT, achieve the highest F1-score of 69.62%. By releasing BOIGENRE and baseline results, we offer a valuable resource and foundation for future research in Bangla text classification and low-resource NLP.</abstract>
+      <url hash="b9ba0d5d">2025.banglalp-1.20</url>
+      <bibkey>chowdhury-ferdous-2025-boigenre</bibkey>
+    </paper>
+    <paper id="21">
+      <title><fixed-case>C</fixed-case>hakma<fixed-case>B</fixed-case>ridge: A Five-Way Parallel Corpus for Navigating the Script Divide in an Endangered Language</title>
+      <author orcid="0009-0002-8595-5772"><first>Md. Abdur</first><last>Rahman</last></author>
+      <author orcid="0009-0007-8138-5836"><first>Md. Tofael Ahmed</first><last>Bhuiyan</last></author>
+      <author><first>Abdul Kadar Muhammad</first><last>Masum</last><affiliation>Southeast University</affiliation></author>
+      <pages>259-265</pages>
+      <abstract>The advancement of NLP technologies for low-resource and endangered languages is critically hindered by the scarcity of high-quality, parallel corpora. This is particularly true for languages like Chakma, which also faces the challenge of prevalent non-standard, romanized script usage in digital communication. To address this, we introduce ChakmaBridge, the first five-way parallel corpus for Chakma, containing 807 sentences aligned across English, Standard Bangla, Bengali-script Chakma, Romanized Bangla, and Romanized Chakma. Our dataset is created by augmenting the MELD corpus with LLM-generated romanizations that are rigorously validated by native speakers. We establish robust machine translation baselines across six diverse language and script pairs. Our experiments reveal that a multilingual training approach, combining English and Bangla as source languages, yields a dramatic performance increase, achieving a BLEU score of 0.5228 for Chakma translation, a 124% relative improvement over the best bilingual model. We release ChakmaBridge to facilitate research in low-resource MT and aid in the digital preservation of this endangered language.</abstract>
+      <url hash="c83037a3">2025.banglalp-1.21</url>
+      <bibkey>rahman-etal-2025-chakmabridge</bibkey>
+    </paper>
+    <paper id="22">
+      <title>A Comparative Analysis of Retrieval-Augmented Generation Techniques for <fixed-case>B</fixed-case>engali Standard-to-Dialect Machine Translation Using <fixed-case>LLM</fixed-case>s</title>
+      <author><first>K. M. Jubair</first><last>Sami</last></author>
+      <author><first>Dipto</first><last>Sumit</last></author>
+      <author><first>Ariyan</first><last>Hossain</last><affiliation>BRAC University</affiliation></author>
+      <author orcid="0000-0001-6797-7826"><first>Farig</first><last>Sadeque</last><affiliation>BRAC University</affiliation></author>
+      <pages>266-279</pages>
+      <abstract>Translating from a standard language to its regional dialects is a significant NLP challenge due to scarce data and linguistic variation, a problem prominent in the Bengali language. This paper proposes and compares two novel RAG pipelines for standard-to-dialectal Bengali translation. The first, a Transcript-Based Pipeline, uses large dialect sentence contexts from audio transcripts. The second, a more effective Standardized Sentence-Pairs Pipeline, utilizes structured local_dialect:standard_bengali sentence pairs. We evaluated both pipelines across six Bengali dialects and multiple LLMs using BLEU, ChrF, WER, and BERTScore. Our findings show that the sentence-pair pipeline consistently outperforms the transcript-based one, reducing Word Error Rate (WER) from 76% to 55% for the Chittagong dialect. Critically, this RAG approach enables smaller models (e.g., Llama-3.1-8B) to outperform much larger models (e.g., GPT-OSS-120B), demonstrating that a well-designed retrieval strategy can be more crucial than model size. This work contributes an effective, fine-tuning-free solution for low-resource dialect translation, offering a practical blueprint for preserving linguistic diversity.</abstract>
+      <url hash="841369b9">2025.banglalp-1.22</url>
+      <bibkey>sami-etal-2025-comparative</bibkey>
+    </paper>
+    <paper id="23">
+      <title>Exploring Cross-Lingual Knowledge Transfer via Transliteration-Based <fixed-case>MLM</fixed-case> Fine-Tuning for Critically Low-resource <fixed-case>C</fixed-case>hakma Language</title>
+      <author><first>Adity</first><last>Khisa</last></author>
+      <author orcid="0009-0002-5656-4860"><first>Nusrat Jahan</first><last>Lia</last></author>
+      <author><first>Tasnim Mahfuz</first><last>Nafis</last></author>
+      <author><first>Zarif</first><last>Masud</last><affiliation>Toronto Metropolitan University</affiliation></author>
+      <author><first>Tanzir</first><last>Pial</last><affiliation>State University of New York at Stony Brook</affiliation></author>
+      <author><first>Shebuti</first><last>Rayana</last><affiliation>SUNY at Old Westbury</affiliation></author>
+      <author><first>Ahmedul</first><last>Kabir</last></author>
+      <pages>280-291</pages>
+      <abstract>As an Indo-Aryan language with limited available data, Chakma remains largely underrepresented in language models. In this work, we introduce a novel corpus of contextually coherent Bangla-transliterated Chakma, curated from Chakma literature, and validated by native speakers. Using this dataset, we fine-tune six encoder-based transformer models, including multilingual (mBERT, XLM-RoBERTa, DistilBERT), regional (BanglaBERT, IndicBERT), and monolingual English (DeBERTaV3) variants on masked language modeling (MLM) tasks. Our experiments show that fine-tuned multilingual models outperform their pre-trained counterparts when adapted to Bangla-transliterated Chakma, achieving up to 73.54% token accuracy and a perplexity as low as 2.90. Our analysis further highlights the impact of data quality on model performance and shows the limitations of OCR pipelines for morphologically rich Indic scripts. Our research demonstrates that Bangla-transliterated Chakma can be very effective for transfer learning for Chakma language, and we release our dataset to encourage further research on multilingual language modeling for low-resource languages.</abstract>
+      <url hash="c4eb25ec">2025.banglalp-1.23</url>
+      <bibkey>khisa-etal-2025-exploring</bibkey>
+    </paper>
+    <paper id="24">
+      <title><fixed-case>LLM</fixed-case>s for Low-Resource Dialect Translation Using Context-Aware Prompting: A Case Study on <fixed-case>S</fixed-case>ylheti</title>
+      <author><first>Tabia Tanzin</first><last>Prama</last></author>
+      <pages>292-308</pages>
+      <abstract>Large Language Models (LLMs) have demonstrated strong translation abilities through prompting, even without task-specific training. However, their effectiveness in dialectal and low-resource contexts remains underexplored. This study presents the first systematic investigation of LLM-based Machine Translation (MT) for Sylheti, a dialect of Bangla that is itself low-resource. We evaluate five advanced LLMs (GPT-4.1, GPT-4.1-mini, LLaMA 4, Grok 3, and Deepseek V3.2) across both translation directions (Bangla ↔ Sylheti), and find that these models struggle with dialect-specific vocabulary. To address this, we introduce Sylheti-CAP (Context-Aware Prompting), a three-step framework that embeds a linguistic rulebook, dictionary (core vocabulary and idioms), and authenticity check directly into prompts. Extensive experiments show that Sylheti-CAP consistently improves translation quality across models and prompting strategies. Both automatic metrics and human evaluations confirm its effectiveness, while qualitative analysis reveals notable reductions in hallucinations, ambiguities, and awkward phrasing—establishing Sylheti-CAP as a scalable solution for dialectal and low-resource MT.</abstract>
+      <url hash="36e9d817">2025.banglalp-1.24</url>
+      <bibkey>prama-2025-llms</bibkey>
+    </paper>
+    <paper id="25">
+      <title>Clustering <fixed-case>LLM</fixed-case>-based Word Embeddings to Determine Topics from <fixed-case>B</fixed-case>angla Articles</title>
+      <author><first>Rifat</first><last>Rahman</last><affiliation>Bangladesh University of Engineering and Technology</affiliation></author>
+      <pages>309-321</pages>
+      <abstract>Topic modeling methods identify fundamental themes within textual documents, facilitating an understanding of the insights inside them. Traditional topic modeling approaches are based on the generative probabilistic process that assumes the document-topic and topic-word distribution. Hence, those approaches fail to capture semantic similarities among words inside the documents and are less scalable with the vast number of topics and documents. This paper presents a method for capturing topics from Bangla documents by clustering the word vectors induced from LLM models. Corpus statistics are integrated into the clustering &amp; word reordering process within each cluster or topic to extract the top words. Additionally, we deploy dimensionality reduction techniques, such as PCA, prior to clustering. Finally, we perform a comparative study and identify the best-performing combination of clustering and word embedding methods. Our top-performing combination outperforms the traditional probabilistic topic model in capturing topics and top words per topic, and excels notably in terms of computational efficiency and time complexity.</abstract>
+      <url hash="d7bca5f4">2025.banglalp-1.25</url>
+      <bibkey>rahman-2025-clustering</bibkey>
+    </paper>
+    <paper id="26">
+      <title>Benchmarking Large Language Models on <fixed-case>B</fixed-case>angla Dialect Translation and Dialectal Sentiment Analysis</title>
+      <author><first>Md Mahir</first><last>Jawad</last><affiliation>Penta Global Ltd</affiliation></author>
+      <author><first>Rafid</first><last>Ahmed</last><affiliation>Penta Global Limited</affiliation></author>
+      <author><first>Ishita Sur</first><last>Apan</last><affiliation>Independent University, Bangladesh</affiliation></author>
+      <author><first>Tasnimul Hossain</first><last>Tomal</last><affiliation>Penta Global Limited</affiliation></author>
+      <author><first>Fabiha</first><last>Haider</last><affiliation>Penta Global Limited</affiliation></author>
+      <author orcid="0000-0001-6999-6879"><first>Mir Sazzat</first><last>Hossain</last><affiliation>Independent University, Bangladesh</affiliation></author>
+      <author><first>Md Farhad Alam</first><last>Bhuiyan</last><affiliation>Independent University, Bangladesh</affiliation></author>
+      <pages>322-337</pages>
+      <abstract>We present a novel Bangla Dialect Dataset comprising 600 annotated instances across four major dialects: Chattogram, Barishal, Sylhet, and Noakhali. The dataset was constructed from YouTube comments spanning diverse domains to capture authentic dialectal variations in informal online communication. Each instance includes the original dialectical text, its standard Bangla translation, and sentiment labels (Positive and Negative). We benchmark several state-of-the-art large language models on dialect-to-standard translation and sentiment analysis tasks using zero-shot and few-shot prompting strategies. Our experiments reveal that transliteration significantly improves translation quality for closed-source models, with GPT-4o-mini achieving the highest BLEU score of 0.343 in zero-shot with transliteration. For sentiment analysis, GPT-4o-mini demonstrates perfect precision, recall, and F1 scores (1.000) in few-shot settings. This dataset addresses the critical gap in resources for low-resource Bangla dialects and provides a foundation for developing dialect-aware NLP systems.</abstract>
+      <url hash="3311e940">2025.banglalp-1.26</url>
+      <bibkey>jawad-etal-2025-benchmarking</bibkey>
+    </paper>
+    <paper id="27">
+      <title>Robustness of <fixed-case>LLM</fixed-case>s to Transliteration Perturbations in <fixed-case>B</fixed-case>angla</title>
+      <author><first>Fabiha</first><last>Haider</last><affiliation>Penta Global Limited</affiliation></author>
+      <author orcid="0009-0004-3725-0342"><first>Md Farhan</first><last>Ishmam</last></author>
+      <author><first>Fariha Tanjim</first><last>Shifat</last></author>
+      <author><first>Md Tasmim Rahman</first><last>Adib</last><affiliation>University of Dhaka</affiliation></author>
+      <author orcid="0009-0001-6139-5283"><first>Md</first><last>Fahim</last><affiliation>Penta Global Limited and Independent University, Bangladesh</affiliation></author>
+      <author><first>Md Farhad Alam</first><last>Bhuiyan</last><affiliation>Independent University, Bangladesh</affiliation></author>
+      <pages>338-346</pages>
+      <abstract>Bangla text on the internet often appears in mixed scripts that combine native Bangla characters with their Romanized transliterations. To ensure practical usability, language models should be robust to naturally occurring script mixing. Our work investigates the robustness of current LLMs and Bangla language models under various transliteration-based textual perturbations, <i>i.e.</i>, we augment portions of existing Bangla datasets using transliteration. Specifically, we replace words and sentences with their transliterated text to emulate realistic script mixing, and similarly, replace the top k salient words to emulate adversarial script mixing. Our experiments reveal interesting behavioral insights and vulnerabilities to robustness in language models for Bangla, which can be crucial for deploying such models in real-world scenarios and enhancing their overall robustness.</abstract>
+      <url hash="83d1a903">2025.banglalp-1.27</url>
+      <bibkey>haider-etal-2025-robustness</bibkey>
+    </paper>
+    <paper id="28">
+      <title>Generative Data Augmentation for Improving Semantic Classification</title>
+      <author orcid="0000-0002-0357-7636"><first>Shadman</first><last>Rohan</last></author>
+      <author orcid="0000-0002-4360-1362"><first>Mahmud Elahi</first><last>Akhter</last></author>
+      <author><first>Ibraheem Muhammad</first><last>Moosa</last><affiliation>Pennsylvania State University</affiliation></author>
+      <author orcid="0000-0002-7661-3570"><first>Nabeel</first><last>Mohammed</last><affiliation>North South University</affiliation></author>
+      <author><first>Amin Ahsan</first><last>Ali</last><affiliation>Independent University, Bangladesh</affiliation></author>
+      <author orcid="0000-0001-9941-4817"><first>Akmmahbubur</first><last>Rahman</last><affiliation>Independent University, Bangladesh</affiliation></author>
+      <pages>347-356</pages>
+      <abstract>We study sentence-level generative data augmentation for Bangla semantic classification across four public datasets and three pretrained model families (BanglaBERT, XLM-Indic, mBERT). We evaluate two widely used, reproducible techniques—paraphrasing (mT5-based) and round-trip backtranslation (Bn–En–Bn)—and analyze their impact under realistic class imbalance. Overall, augmentation often helps, but gains are tightly coupled to label quality: paraphrasing typically outperforms backtranslation and yields the most consistent improvements for the monolingual model, whereas multilingual encoders benefit less and can be more sensitive to noisy minority-class expansions. A key empirical observation is that the neutral class appears to be a major source of annotation noise, which degrades decision boundaries and can cap the benefits of augmentation even when positive/negative classes are clean and polarized. We provide practical guidance for Bangla sentiment pipelines: (i) use simple sentence-level augmentation to rebalance classes when labels are reliable; (ii) allocate additional curation and higher inter-annotator agreement targets to the neutral class. Our results indicate when augmentation helps and suggest that data quality—not model choice alone—can become the limiting factor.</abstract>
+      <url hash="fa41fb66">2025.banglalp-1.28</url>
+      <bibkey>rohan-etal-2025-generative</bibkey>
+    </paper>
+    <paper id="29">
+      <title>bn<fixed-case>C</fixed-case>ontext<fixed-case>QA</fixed-case>: Benchmarking Long-Context Question Answering and Challenges in <fixed-case>B</fixed-case>angla</title>
+      <author><first>Adnan</first><last>Ahmad</last></author>
+      <author><first>Labiba</first><last>Adiba</last></author>
+      <author><first>Namirah</first><last>Rasul</last></author>
+      <author><first>Md Tahmid Rahman</first><last>Laskar</last><affiliation>York University and Dialpad Inc.</affiliation></author>
+      <author orcid="0000-0001-5928-4886"><first>Sabbir</first><last>Ahmed</last></author>
+      <pages>357-365</pages>
+      <abstract>Large models have advanced in processing long input sequences, but their ability to consistently use information across extended contexts remains a challenge. Recent studies highlight a positional bias where models prioritize information at the beginning or end of the input while neglecting the middle, resulting in a U-shaped performance curve but this was limited to English. Whether this bias is universal or shaped by language-specific factors remains unclear. In this work, we investigate positional bias in Bangla, a widely spoken but computationally underrepresented language. To support this, we introduce a novel Bangla benchmark dataset, bnContextQA, specifically designed for long-context comprehension. The dataset comprises of 350 long-context QA instances, each paired with 30 context paragraphs, allowing controlled evaluation of information retrieval at different positions. Using this dataset, we assess the performance of LLMs on Bangla across varying passage positions, providing insights into cross-linguistic positional effects. The bnContextQA dataset is publicly available at https://github.com/labiba02/bnContextQA.git to support future research on long-context understanding in Bangla and multilingual LLMs.</abstract>
+      <url hash="bfa6bfbe">2025.banglalp-1.29</url>
+      <bibkey>ahmad-etal-2025-bncontextqa</bibkey>
+    </paper>
+    <paper id="30">
+      <title>Form-aware Poetic Generation for <fixed-case>B</fixed-case>angla</title>
+      <author><first/><last>Amina</last></author>
+      <author><first/><last>Abdullah</last></author>
+      <author><first>Mueeze</first><last>Al Mushabbir</last><affiliation>Islamic University of Technology</affiliation></author>
+      <author orcid="0000-0001-5928-4886"><first>Sabbir</first><last>Ahmed</last></author>
+      <pages>366-372</pages>
+      <abstract>Poetry generation in low-resource languages such as Bangla is particularly challenging due to the scarcity of structured poetic corpora and the complexity of its metrical system (matra). We present a structure-aware framework for Bangla poetry generation using pretrained Bangla large language models (LLMs)–TigerLLM, TituLLM, and BanglaT5–trained on general non-poetic text corpora augmented with rich structural control tokens. These tokens capture rhyme, meter, word count, and line boundaries, enabling unsupervised modeling of poetic form without curated poetry datasets. Unlike prior fixed-pattern approaches, our framework introduces variable control compositions, allowing models to generate flexible poetic structures. Experiments show that explicit structural conditioning improves rhyme consistency and metrical balance while maintaining semantic coherence. Our study provides the first systematic evaluation of Bangla LLMs for form-constrained creative generation, offering insights into structural representation in low-resource poetic modeling.</abstract>
+      <url hash="b30d1395">2025.banglalp-1.30</url>
+      <bibkey>amina-etal-2025-form</bibkey>
+    </paper>
+    <paper id="31">
+      <title>Overview of <fixed-case>BLP</fixed-case>-2025 Task 2: Code Generation in <fixed-case>B</fixed-case>angla</title>
+      <author orcid="0000-0001-6242-398X"><first>Nishat</first><last>Raihan</last></author>
+      <author><first>Mohammad Anas</first><last>Jawad</last><affiliation>University of Illinois at Chicago and Islamic University of Technology</affiliation></author>
+      <author><first>Md Mezbaur</first><last>Rahman</last><affiliation>University of Illinois at Chicago</affiliation></author>
+      <author><first>Noshin</first><last>Ulfat</last></author>
+      <author><first>Pranav</first><last>Gupta</last><affiliation>Lowes Inc</affiliation></author>
+      <author orcid="0000-0001-9808-3913"><first>Mehrab Mustafy</first><last>Rahman</last><affiliation>University of Illinois at Chicago</affiliation></author>
+      <author orcid="0000-0001-5744-6925"><first>Santu</first><last>Karmaker</last><affiliation>University of Central Florida</affiliation></author>
+      <author><first>Marcos</first><last>Zampieri</last><affiliation>George Mason University</affiliation></author>
+      <pages>373-387</pages>
+      <abstract>This paper presents an overview of the BLP 2025 shared task Code Generation in Bangla, organized with the BLP workshop co-located with AACL. The task evaluates Generative AI systems capable of generating executable Python code from natural language prompts written in Bangla. This is the first shared task to address Bangla code generation. It attracted 152 participants across 63 teams, yielding 488 submissions, with 15 system-description papers. Participating teams employed both proprietary and open-source LLMs, with prevalent strategies including prompt engineering, fine-tuning, and machine translation. The top Pass@1 reached 0.99 on the development phase and 0.95 on the test phase. In this report, we detail the task design, data, and evaluation protocol, and synthesize methodological trends observed across submissions. Notably, we observe that the high performance is not based on single models; rather, a pipeline of multiple AI tools and/or methods.</abstract>
+      <url hash="4a38358e">2025.banglalp-1.31</url>
+      <bibkey>raihan-etal-2025-overview</bibkey>
+    </paper>
+    <paper id="32">
+      <title>Overview of <fixed-case>BLP</fixed-case>-2025 Task 1: <fixed-case>B</fixed-case>angla Hate Speech Identification</title>
+      <author orcid="0000-0001-7916-614X"><first>Md Arid</first><last>Hasan</last><affiliation>Department of Computer Science, University of Toronto</affiliation></author>
+      <author orcid="0000-0001-7172-1997"><first>Firoj</first><last>Alam</last><affiliation>Qatar Computing Research Institute</affiliation></author>
+      <author><first>Md Fahad</first><last>Hossain</last><affiliation>Daffodil International University</affiliation></author>
+      <author orcid="0000-0003-0191-7171"><first>Usman</first><last>Naseem</last><affiliation>Macquarie University</affiliation></author>
+      <author orcid="0000-0003-2452-0687"><first>Syed Ishtiaque</first><last>Ahmed</last><affiliation>University of Toronto</affiliation></author>
+      <pages>388-401</pages>
+      <abstract>Online discourse in Bangla is rife with nuanced toxicity expressed through code-mixing, dialectal variation, and euphemism. Effective moderation thus requires fine-grained detection of hate type, target, and severity, rather than a binary label. To address this, we organized the Bangla Hate Speech Identification Shared Task at the BLP 2025 workshop, co-located with IJCNLP-AACL 2025, comprising three subtasks: (1A) hate-type detection, (1B) hate-target detection, and (1C) joint prediction of type, target, and severity in a multi-task setup. The subtasks attracted 161, 103, and 90 participants, with 36, 23, and 20 final submissions, respectively, while a total of 19 teams submitted system description papers. The submitted systems employed a wide range of approaches, ranging from classical machine learning to fine-tuned pretrained models and zero-/few-shot LLMs. We describe the task setup, datasets, and evaluation framework, and summarize participant systems. All datasets and evaluation scripts are publicly released.</abstract>
+      <url hash="e936784e">2025.banglalp-1.32</url>
+      <bibkey>hasan-etal-2025-overview</bibkey>
+    </paper>
+    <paper id="33">
+      <title>Bahash-<fixed-case>AI</fixed-case> at <fixed-case>BLP</fixed-case>-2025 Task 1: <fixed-case>B</fixed-case>angla Hate Speech Detection using Data Augmentation and Pre-trained Model</title>
+      <author orcid="0000-0002-8413-2718"><first>Sahinur Rahman</first><last>Laskar</last><affiliation>UPES</affiliation></author>
+      <author><first>Bishwaraj</first><last>Paul</last><affiliation>Birla Institute of Technology and Science</affiliation></author>
+      <pages>402-407</pages>
+      <abstract>In recent times, internet users are frequently exposed to Hate Speech on social media platforms that have long-lasting negative impacts on their mental wellbeing and also radicalizes the society into an environment of fear and distrust. Many methods have been developed to detect and stop propagation of Hate Speech. However, there is a limitation of annotated data available for Hate Speech in Bengali language. In this work, we have used a pretrained BanglaBERT model on an extended train dataset synthesized via data augmentation techniques. Our team Bahash-AI has achieved 20th, 20th and 17th position of the 3 subtasks out of total 37, 24 and 21 total number of teams who participated in the subtasks 1A, 1B and 1C respectively for Bangla Multi-task Hatespeech Identification Shared Task at BLP Workshop with F1 scores of 0.7028, 0.6954, 0.6969 respectively.</abstract>
+      <url hash="78d6683c">2025.banglalp-1.33</url>
+      <bibkey>laskar-paul-2025-bahash</bibkey>
+    </paper>
+    <paper id="34">
+      <title>Gradient Masters at <fixed-case>BLP</fixed-case>-2025 Task 1: Advancing Low-Resource <fixed-case>NLP</fixed-case> for <fixed-case>B</fixed-case>engali using Ensemble-Based Adversarial Training for Hate Speech Detection</title>
+      <author><first>Syed Mohaiminul</first><last>Hoque</last><affiliation>Center for Computation and Data Sciences,IUB</affiliation></author>
+      <author><first>Naimur</first><last>Rahman</last></author>
+      <author orcid="0009-0006-3961-5610"><first>Md Sakhawat</first><last>Hossain</last><affiliation>Independent</affiliation></author>
+      <pages>408-413</pages>
+      <abstract>This paper introduces the approach of “Gradient Masters” for BLP-2025 Task 1: “Bangla Multitask Hate Speech Identification Shared Task”. We present an ensemble-based fine-tuning strategy for addressing subtasks 1A (hate-type classification) and 1B (target group classification) in YouTube comments. We propose a hybrid approach on a Bangla Language Model, which outperformed the baseline models and secured the 6th position in subtask 1A with a micro F1 score of 73.23% and the third position in subtask 1B with 73.28%. We conducted extensive experiments that evaluated the robustness of the model throughout the development and evaluation phases, including comparisons with other Language Model variants, to measure generalization in low-resource Bangla hate speech scenarios and data set coverage. In addition, we provide a detailed analysis of our findings, exploring misclassification patterns in the detection of hate speech.</abstract>
+      <url hash="69363a2b">2025.banglalp-1.34</url>
+      <bibkey>hoque-etal-2025-gradient</bibkey>
+    </paper>
+    <paper id="35">
+      <title><fixed-case>P</fixed-case>rompt<fixed-case>G</fixed-case>uard at <fixed-case>BLP</fixed-case>-2025 Task 1: A Few-Shot Classification Framework Using Majority Voting and Keyword Similarity for <fixed-case>B</fixed-case>engali Hate Speech Detection</title>
+      <author orcid="0009-0006-9831-8085"><first>Rakib</first><last>Hossan</last></author>
+      <author orcid="0000-0002-9176-1782"><first>Shubhashis</first><last>Roy Dipta</last></author>
+      <pages>414-420</pages>
+      <abstract>The BLP-2025 Task 1A requires Bengali hate speech classification into six categories. Traditional supervised approaches need extensive labeled datasets that are expensive for low-resource languages. We developed PromptGuard, a few-shot framework combining chi-square statistical analysis for keyword extraction with adaptive majority voting for decision-making. We explore statistical keyword selection versus random approaches and adaptive voting mechanisms that extend classification based on consensus quality. Chi-square keywords provide consistent improvements across categories, while adaptive voting benefits ambiguous cases requiring extended classification rounds. PromptGuard achieves a micro-F1 of 67.61, outperforming n-gram baselines (60.75) and random approaches (14.65). Ablation studies confirm chi-square–based keywords show the most consistent impact across all categories.</abstract>
+      <url hash="2e655cd2">2025.banglalp-1.35</url>
+      <bibkey>hossan-roy-dipta-2025-promptguard</bibkey>
+    </paper>
+    <paper id="36">
+      <title><fixed-case>BE</fixed-case>lite at <fixed-case>BLP</fixed-case>-2025 Task 1: Leveraging Ensemble for Multi Task Hate Speech Detection in <fixed-case>B</fixed-case>angla</title>
+      <author><first>Zannatul Fardaush</first><last>Tripty</last><affiliation>Chittagong University of Engineering and Technology</affiliation></author>
+      <author><first>Ibnul Mohammad</first><last>Adib</last></author>
+      <author orcid="0000-0002-3207-6515"><first>Nafiz</first><last>Fahad</last><affiliation>Multimedia University</affiliation></author>
+      <author><first>Muhammad Tanjib</first><last>Hussain</last></author>
+      <author orcid="0000-0002-4468-8260"><first>Md Kishor</first><last>Morol</last><affiliation>New York Institute of Technology</affiliation></author>
+      <pages>421-429</pages>
+      <abstract>The widespread use of the internet has made sharing information on social media more convenient. At the same time, it provides a platform for individuals with malicious intent to easily spread hateful content. Since many users prefer to communicate in their native language, detecting hate speech in Bengali poses a significant challenge. This study aims to identify Bengali hate speech on social media platforms. A shared task on Bengali hate speech detection was organized by the Second Bangla Language Processing Workshop (BLP). To tackle this task, we implemented five traditional machine learning models (LR, SVM, RF, NB, XGB), three deep learning models (CNN, BiLSTM, CNN+BiLSTM), and three transformer-based models (Bangla-BERT, m-BERT, XLM-R). Among all models, a weighted ensemble of transformer models achieved the best performance.Our approach ranked <b>
+          <i>3rd</i></b> in Subtask 1A with a micro-<i>F1</i> score of 0.734, <b>
+          <i>6th</i></b> in Subtask 1B with 0.7315, and, after post-competition experiments, <b>
+          <i>4th</i></b> in Subtask 1C with 0.735.</abstract>
+      <url hash="be2c5a68">2025.banglalp-1.36</url>
+      <bibkey>tripty-etal-2025-belite</bibkey>
+    </paper>
+    <paper id="37">
+      <title>Computational Story Lab at <fixed-case>BLP</fixed-case>-2025 Task 1: <fixed-case>H</fixed-case>ate<fixed-case>S</fixed-case>ense: A Multi-Task Learning Framework for Comprehensive Hate Speech Identification using <fixed-case>LLM</fixed-case>s</title>
+      <author><first>Tabia Tanzin</first><last>Prama</last></author>
+      <author><first>Christopher M.</first><last>Danforth</last><affiliation>University of Vermont</affiliation></author>
+      <author><first>Peter</first><last>Dodds</last><affiliation>Santa Fe Institute and University of Vermont</affiliation></author>
+      <pages>430-442</pages>
+      <abstract>This paper describes HateSense, our multi-task learning framework for the BLP 2025 shared task 1 on Bangla hate speech identification. The task requires not only detecting hate speech but also classifying its type, target, and severity. HateSense integrates binary and multi-label classifiers using both encoder- and decoder-based large language models (LLMs). We experimented with pre-trained encoder models (Bert based models), and decoder models like GPT-4.0, LLaMA 3.1 8B, and Gemma-2 9B. To address challenges such as class imbalance and the linguistic complexity of Bangla, we employed techniques like focal loss and odds ratio preference optimization (ORPO). Experimental results demonstrated that the pre-trained encoders (BanglaBert) achieved state-of-the-art performance. Among different prompting strategies, chain-of-thought (CoT) combined with few-shot prompting proved most effective. Following the HateSense framework, our system attained competitive micro-F1 scores: 0.741 (Task 1A), 0.724 (Task 1B), and 0.7233 (Task 1C). These findings affirm the effectiveness of transformer-based architectures for Bangla hate speech detection and suggest promising avenues for multi-task learning in low-resource languages.</abstract>
+      <url hash="821a2301">2025.banglalp-1.37</url>
+      <bibkey>prama-etal-2025-computational</bibkey>
+    </paper>
+    <paper id="38">
+      <title><fixed-case>CUET</fixed-case>-<fixed-case>NLP</fixed-case>_<fixed-case>Z</fixed-case>enith at <fixed-case>BLP</fixed-case>-2025 Task 1: A Multi-Task Ensemble Approach for Detecting Hate Speech in <fixed-case>B</fixed-case>engali <fixed-case>Y</fixed-case>ou<fixed-case>T</fixed-case>ube Comments</title>
+      <author><first>Md. Refaj</first><last>Hossan</last></author>
+      <author><first>Kawsar</first><last>Ahmed</last></author>
+      <author orcid="0000-0001-8806-708X"><first>Mohammed Moshiul</first><last>Hoque</last><affiliation>Chittagong University of Engineering and Technology</affiliation></author>
+      <pages>443-452</pages>
+      <abstract>Hate speech on social media platforms, particularly in low-resource languages like Bengali, poses a significant challenge due to its nuanced nature and the need to understand its type, severity, and targeted group. To address this, the Bangla Multi-task Hate Speech Identification Shared Task at BLP 2025 adopts a multi-task learning framework that requires systems to classify Bangla YouTube comments across three subtasks simultaneously: type of hate, severity, and targeted group. To tackle these challenges, this work presents BanTriX, a transformer ensemble method that leverages BanglaBERT-I, XLM-R, and BanglaBERT-II. Evaluation results show that the BanTriX, optimized with cross-entropy loss, achieves the highest weighted micro F1-score of 73.78% in Subtask 1C, securing our team 2nd place in the shared task.</abstract>
+      <url hash="1649c285">2025.banglalp-1.38</url>
+      <bibkey>hossan-etal-2025-cuet-nlp-zenith</bibkey>
+    </paper>
+    <paper id="39">
+      <title><fixed-case>T</fixed-case>eam<fixed-case>H</fixed-case>ate<fixed-case>M</fixed-case>ate at <fixed-case>BLP</fixed-case> Task1: Divide and Conquer: A Two-Stage Cascaded Framework with K-Fold Ensembling for Multi-Label <fixed-case>B</fixed-case>angla Hate Speech Classification</title>
+      <author><first>Mahbub Islam</first><last>Mahim</last><affiliation>Jahangirnagar University</affiliation></author>
+      <author><first>Mehedi</first><last>Hasan</last><affiliation>Samsung</affiliation></author>
+      <pages>453-460</pages>
+      <abstract>Detecting hate speech on social media is essential for safeguarding online communities, yet it remains challenging for low-resource languages like Bangla due to class imbalance and subjective annotations. We introduce a two-stage cascaded framework with <tex-math>k</tex-math>-fold ensembling to address the BLP Workshop 2025 Shared Task’s three subtasks: 1A (hate type classification), 1B (target identification), and 1C (joint classification of type, target, and severity). Our solution balances precision and recall, achieving micro-<tex-math>F1</tex-math> scores of 0.7331 on 1A, 0.7356 on 1B, and 0.7392 on 1C, ranking 4th on 1A and 1st on both 1B and 1C. It performs strongly on major classes, although underrepresented labels such as sexism and mild severity remain challenging. Our method makes the optimal use of limited data through <tex-math>k</tex-math>-fold ensembling and delivers overall balanced performance across majority and minority classes by mitigating class imbalance via cascaded layers.</abstract>
+      <url hash="7e41c617">2025.banglalp-1.39</url>
+      <bibkey>mahim-hasan-2025-teamhatemate</bibkey>
+    </paper>
+    <paper id="40">
+      <title><fixed-case>NSU</fixed-case>_<fixed-case>MIL</fixed-case>ab at <fixed-case>BLP</fixed-case>-2025 Task 1: Decoding <fixed-case>B</fixed-case>angla Hate Speech: Fine-Grained Type and Target Detection via Transformer Ensembles</title>
+      <author><first>Md. Mohibur Rahman</first><last>Nabil</last></author>
+      <author orcid="0009-0006-4431-3916"><first>Muhammad Rafsan</first><last>Kabir</last><affiliation>North South University</affiliation></author>
+      <author orcid="0009-0002-0177-9629"><first>Rakib</first><last>Islam</last><affiliation>VISA</affiliation></author>
+      <author orcid="0000-0002-8670-7124"><first>Fuad</first><last>Rahman</last><affiliation>University of Arizona</affiliation></author>
+      <author orcid="0000-0002-7661-3570"><first>Nabeel</first><last>Mohammed</last><affiliation>North South University</affiliation></author>
+      <author orcid="0000-0001-7169-0318"><first>Shafin</first><last>Rahman</last><affiliation>North South University</affiliation></author>
+      <pages>461-467</pages>
+      <abstract>This paper describes our participation in Task 1A and Task 1B of the Task 1A and Task 1B of the BLP Workshop, focused on Bangla Multi-task Hatespeech Identification. Our approach involves systematic evaluation of four transformer models: BanglaBERT, XLM-RoBERTa, IndicBERT, and Bengali Abusive MuRIL. To enhance performance, we implemented an ensemble strategy that averages output probabilities from these transformer models, which consistently outperformed individual models across both tasks. The baseline classical methods demonstrated limitations in capturing complex linguistic cues, underscoring the superiority of transformer-based approaches for low-resource hate speech detection. Our solution initially achieved F1 scores of 0.7235 (ranked 12th) for Task 1A and 0.6981 (ranked 17th) for Task 1B among participating teams. Through post-competition refinements, we improved our Task 1B performance to 0.7331, demonstrating the effectiveness of ensemble methods in Bangla hate speech detection.</abstract>
+      <url hash="0be7b6f7">2025.banglalp-1.40</url>
+      <bibkey>nabil-etal-2025-nsu</bibkey>
+    </paper>
+    <paper id="41">
+      <title>Catalyst at <fixed-case>BLP</fixed-case>-2025 Task 1: Transformer Ensembles and Multi-task Learning Approaches for <fixed-case>B</fixed-case>angla Hate Speech Detection</title>
+      <author><first>Nahid</first><last>Hasan</last></author>
+      <pages>468-475</pages>
+      <abstract>We present a compact, cost-efficient system for the BLP-2025 Bangla Multi-task Hate Speech Identification Task 1, which requires fine-grained predictions across three dimensions: type, target, and severity. Our method pairs strong multilingual transformer encoders with two lightweight strategies: task-appropriate ensembling to stabilize decisions across seeds and backbones; and a multi-task head that shares representations while tailoring outputs to each subtask. As <tex-math>Catalyst</tex-math>, we ranked <tex-math>7^{th}</tex-math> on Subtask 1A with micro-F1 73.05, <tex-math>8^{th}</tex-math> on Subtask 1B with 72.79, and <tex-math>10^{th}</tex-math> on Subtask 1C with 72.40. Despite minimal engineering, careful model selection and straightforward combination rules yield competitive performance and more reliable behavior on minority labels. Ablations show consistent robustness gains from ensembling, while the multi-task head reduces cross-dimension inconsistencies. Error analysis highlights persistent challenges with code-mixed slang, implicit hate, and target ambiguity, motivating domain-adaptive pretraining and improved normalization.</abstract>
+      <url hash="9bf915f4">2025.banglalp-1.41</url>
+      <bibkey>hasan-2025-catalyst</bibkey>
+    </paper>
+    <paper id="42">
+      <title>Heisenberg at <fixed-case>BLP</fixed-case>-2025 Task 1: <fixed-case>B</fixed-case>angla Hate Speech Classification using Pretrained Language Models and Data Augmentation</title>
+      <author><first>Samin</first><last>Yasir</last><affiliation>KONA Software LAB</affiliation></author>
+      <pages>476-484</pages>
+      <abstract>Detecting hate speech in Bangla is challenging due to its complex vocabulary, spelling variations, and region-specific word usage. However, effective detection is essential to ensure safer social media spaces and to take appropriate action against perpetrators. In this study, we report our participation in Subtask A of Task 1: Bangla Hate Speech Detection (Hasan et al., 2025b). In addition to the provided 50K Bangla comments (Hasan et al., 2025a), we collected approximately 4K Bangla comments and employed several data augmentation techniques. We evaluated several transformer-based models (e.g., BanglaBERT, BanglaT5, BanglaHateBERT), achieving the best performance with a micro-F1 score of 71% and securing 18th place in the Evaluation Phase.</abstract>
+      <url hash="793f2d04">2025.banglalp-1.42</url>
+      <bibkey>yasir-2025-heisenberg</bibkey>
+    </paper>
+    <paper id="43">
+      <title>Retriv at <fixed-case>BLP</fixed-case>-2025 Task 1: A Transformer Ensemble and Multi-Task Learning Approach for <fixed-case>B</fixed-case>angla Hate Speech Identification</title>
+      <author><first>Sourav</first><last>Saha</last><affiliation>Chittagong University of Engineering and Technology</affiliation></author>
+      <author><first>K M Nafi</first><last>Asib</last><affiliation>Chittagong University of Engineering and Technology</affiliation></author>
+      <author orcid="0000-0001-8806-708X"><first>Mohammed Moshiul</first><last>Hoque</last><affiliation>Chittagong University of Engineering and Technology</affiliation></author>
+      <pages>485-491</pages>
+      <abstract>This paper addresses the problem of Bangla hate speech identification, a socially impactful yet linguistically challenging task. As part of the Bangla Multi-task Hate Speech Identification shared task at the BLP Workshop, IJCNLP-AACL 2025, we participated in all three subtasks: (1A) hate type classification, (1B) target group identification, and (1C) joint detection of type, severity, and target. For subtasks 1A and 1B, we employed a soft-voting ensemble of transformer models (BanglaBERT, MuRIL, IndicBERTv2). For subtask 1C, we trained three multitask variants and aggregated their predictions through a weighted voting ensemble. Our systems achieved micro-<tex-math>f_{1}</tex-math> scores of 72.75% (1A) and 72.69% (1B), and a weighted micro-<tex-math>f_{1}</tex-math> score of 72.62% (1C). On the shared task leaderboard, these corresponded to 9th, 10th, and 7th positions, respectively. These results highlight the promise of transformer ensembles and weighted multitask frameworks for advancing Bangla hate speech detection in low-resource contexts. We made experimental scripts publicly available for the community.</abstract>
+      <url hash="9cb67623">2025.banglalp-1.43</url>
+      <bibkey>saha-etal-2025-retriv</bibkey>
+    </paper>
+    <paper id="44">
+      <title><fixed-case>C</fixed-case>o<fixed-case>U</fixed-case>-<fixed-case>CU</fixed-case>-<fixed-case>DSG</fixed-case> at <fixed-case>BLP</fixed-case>-2025 Task 1: Leveraging Weighted Probabilistic Fusion of Language Models for <fixed-case>B</fixed-case>angla Hate Speech Detection</title>
+      <author><first>Ashraful</first><last>Alam</last><affiliation>Comilla University</affiliation></author>
+      <author orcid="0000-0002-5190-251X"><first>Abdul</first><last>Aziz</last><affiliation>International Islamic University Chittagong</affiliation></author>
+      <author orcid="0000-0001-6044-842X"><first>Abu Nowshed</first><last>Chy</last><affiliation>University of Chittagong</affiliation></author>
+      <pages>492-497</pages>
+      <abstract>The upsurge of social media and open source platforms has created new avenues for the rapid, global spread of negativity and obscenities targeting individuals and organizations. The process to identify hate speech is critical for the lexical and regional variation as well as the morphological complexity of the texts, especially in low-resource languages, e.g. Bangla. This paper presents our participation in the Hate Speech Detection task at the second workshop on Bangla Language Processing. The objective of this task is not only to detect whether the content is hateful, but also to identify the type of hate, the target group, and its severity. We proposed a Transformer-based weighted probabilistic fusion model to detect the presence of hate speech in Bangla texts. We independently fine-tuned three pre-trained Transformer models, BanglaBERT, XLM-RoBERTa, and MuRIL, to capture diverse linguistic representations. The probability distributions obtained from each model were combined using a weighted fusion strategy, allowing the system to leverage the strengths of all models simultaneously. This fused representation was then used to predict the final labels for the given instances. The experimental results showed that our proposed method obtained competitive performance, ranking 10th in subtask 1A and 15th in subtask 1B among the participants.</abstract>
+      <url hash="668bfbb7">2025.banglalp-1.44</url>
+      <bibkey>alam-etal-2025-cou</bibkey>
+    </paper>
+    <paper id="45">
+      <title><fixed-case>P</fixed-case>erception<fixed-case>L</fixed-case>ab at <fixed-case>BLP</fixed-case>-2025 Task 1: Domain-Adapted <fixed-case>BERT</fixed-case> for <fixed-case>B</fixed-case>angla Hate Speech Detection: Contrasting Single-Shot and Hierarchical Multiclass Classification</title>
+      <author><first>Tamjid Hasan</first><last>Fahim</last></author>
+      <author><first>Kaif Ahmed</first><last>Khan</last></author>
+      <pages>498-507</pages>
+      <abstract>This paper presents PerceptionLab’s approach for the BLP-2025 Shared Task 1A on multiclass Bangla hate speech detection, addressing severe class imbalance and informal online discourse. We perform Domain-Adaptive Pretraining (DAPT) on BERT models using a curated corpus of over 315,000 social media comments to capture slang, non-standard spellings, and contextual nuances of online discourse. To enrich underrepresented categories, we align external resources and construct a novel Bangla sexism dataset of over 6,800 comments via weak supervision and manual verification. Two classification strategies are compared: a single-shot six-way classifier and a two-stage hierarchical model that first separates Hate from Non-hate before fine-grained categorization. Experimental results show that single-shot classification with DAPT-enhanced BUET-BERT achieves the highest micro-F1 score (0.7265), outperforming the hierarchical approach and benchmarked general-purpose Large Language Models. Error analysis reveals persistent challenges in detecting subtle sexism and context-dependent religious hate. Our findings highlight the value of domain adaptation, robust end-to-end modeling, and targeted dataset construction for improving fine-grained hate speech detection in low-resource settings.</abstract>
+      <url hash="ef780814">2025.banglalp-1.45</url>
+      <bibkey>fahim-khan-2025-perceptionlab</bibkey>
+    </paper>
+    <paper id="46">
+      <title><fixed-case>S</fixed-case>yntax<fixed-case>M</fixed-case>ind at <fixed-case>BLP</fixed-case>-2025 Task 1: Leveraging Attention Fusion of <fixed-case>CNN</fixed-case> and <fixed-case>GRU</fixed-case> for Hate Speech Detection</title>
+      <author><first>Md. Shihab Uddin</first><last>Riad</last></author>
+      <pages>508-512</pages>
+      <abstract>This paper describes our system used in theBLP-2025 Task 1: Hate Speech Detection.We participated in Subtask 1A and Subtask1B, addressing hate speech classification inBangla text. Our approach employs a unified architecture that integrates BanglaBERTembeddings with multiple parallel processingbranches based on GRUs and CNNs, followedby attention and dense layers for final classification. The model is designed to capture bothcontextual semantics and local linguistic cues,enabling robust performance across subtasks.The proposed system demonstrated high competitiveness, obtaining 0.7345 micro F1-Score(2nd place) in Subtask 1A and 0.7317 microF1-Score (5th place) in Subtask 1B.</abstract>
+      <url hash="79a47d77">2025.banglalp-1.46</url>
+      <bibkey>riad-2025-syntaxmind</bibkey>
+    </paper>
+    <paper id="47">
+      <title><fixed-case>C</fixed-case>ode_<fixed-case>G</fixed-case>en at <fixed-case>BLP</fixed-case>-2025 Task 1: Enhancing <fixed-case>B</fixed-case>angla Hate Speech Detection with Transformers through Token-Aware Adversarial Contrastive Training and Layer-wise Learning Rate Decay</title>
+      <author orcid="0009-0008-8433-0264"><first>Shifat</first><last>Islam</last></author>
+      <author><first>Abhishek</first><last>Agarwala</last><affiliation>Bangladesh University of Engineering and Technology</affiliation></author>
+      <author><first>Emon</first><last>Ghosh</last><affiliation>United International University</affiliation></author>
+      <pages>513-522</pages>
+      <abstract>Bangla social media contains several types of hate speech and slurs, but automatic detection is tough due to linguistic complexity, data imbalance and limited resources. We address this challenge in the BLP-2025 shared task by combining Token-Aware Adversarial Contrastive Training (TACT) with Layer-wise Learning Rate Decay (LLRD) to fine-tune transformer models like BanglaBERT, MuRIL, mE5-base and Twitter XLM-R. To capture the complementary strengths of each model, we aggregate the model outputs through logits ensembling and get a robust system for multiclass classification. On the official test set, our model achieved F1 scores of 0.7362 for hate type, 0.7335 for severity, and 0.7361 for target ranking, placing it 1st, 2nd, and 3rd, respectively. The findings indicate that adversarial fine-tuning with logits ensemble learning is a robust way to detect hate speech in resource-limited languages and provides valuable insights for multilingual and low-resource NLP research.</abstract>
+      <url hash="a8e6fc93">2025.banglalp-1.47</url>
+      <bibkey>islam-etal-2025-code</bibkey>
+    </paper>
+    <paper id="48">
+      <title><fixed-case>CUET</fixed-case>_<fixed-case>S</fixed-case>ntx_<fixed-case>S</fixed-case>rfrs at <fixed-case>BLP</fixed-case>-2025 Task 1: Combining Hierarchical Classification and Ensemble Learning for <fixed-case>B</fixed-case>engali Hate Speech Detection</title>
+      <author><first>Hafsa Hoque</first><last>Tripty</last></author>
+      <author><first>Laiba</first><last>Tabassum</last></author>
+      <author orcid="0009-0000-4413-4164"><first>Hasan Mesbaul</first><last>Ali Taher</last></author>
+      <author><first>Kawsar</first><last>Ahmed</last></author>
+      <author orcid="0000-0001-8806-708X"><first>Mohammed Moshiul</first><last>Hoque</last><affiliation>Chittagong University of Engineering and Technology</affiliation></author>
+      <pages>523-530</pages>
+      <abstract>Detecting hate speech in Bengali social media content presents considerable challenges, primarily due to the prevalence of informal language and the limited availability of annotated datasets. This study investigates the identification of hate speech in Bengali YouTube comments, focusing on classifying the type, severity, and target group. Multiple machine learning baselines and voting ensemble techniques are evaluated to address these tasks. The methodology involves text preprocessing, feature extraction using TF-IDF and Count vectors, and aggregating predictions from several models. Hierarchical classification with TF-IDF features and majority voting improves the detection of less frequent hate speech categories while maintaining robust overall performance, resulting in an <tex-math>18^{th}</tex-math> place ranking and a micro F1 score of 68.42%. Furthermore, ablation studies assess the impact of preprocessing steps and n-gram selection, providing reproducible baselines for Bengali hate speech detection. All codes and resources are publicly available at https://github.com/Hasan-Mesbaul-Ali-Taher/BLP_25_Task_1</abstract>
+      <url hash="910be7b4">2025.banglalp-1.48</url>
+      <bibkey>tripty-etal-2025-cuet</bibkey>
+    </paper>
+    <paper id="49">
+      <title>Velora at <fixed-case>BLP</fixed-case>-2025 Task 1: Multi-Method Evaluation for Hate Speech Classification in <fixed-case>B</fixed-case>angla Text</title>
+      <author><first>Sad Yeamin</first><last>Sayem</last></author>
+      <author><first>Sabira</first><last>Rahman</last></author>
+      <pages>531-537</pages>
+      <abstract>Hate speech detection in Bangla is challenging due to complex morphology, frequent code mixing, and severe class imbalance across categories such as abuse, sexism, religious and political hate, profanity, and neutrality. The BLP Workshop 2025 Subtask 1A addressed this by classifying Bangla YouTube comments into these categories to support online moderation in low-resource settings. We developed a BanglaBERT-based system with balanced data augmentation and advanced regularization techniques, combined with optimized training strategies for better generalization. On the blind test set, our system achieved a micro F1 score of 0.7013, ranking 21st on the leaderboard. These results indicate that augmentation, robust loss functions, and model refinements can enhance Bangla hate speech detection, though implicit and context-dependent hate speech remains difficult.</abstract>
+      <url hash="e22ec42c">2025.banglalp-1.49</url>
+      <bibkey>sayem-rahman-2025-velora</bibkey>
+    </paper>
+    <paper id="50">
+      <title><fixed-case>P</fixed-case>enta<fixed-case>ML</fixed-case> at <fixed-case>BLP</fixed-case>-2025 Task 1: Linear Probing of Pre-trained Transformer-based Models for <fixed-case>B</fixed-case>angla Hate Speech Detection</title>
+      <author><first>Intesar</first><last>Tahmid</last><affiliation>Penta Global Limited</affiliation></author>
+      <author><first>Rafid</first><last>Ahmed</last><affiliation>Penta Global Limited</affiliation></author>
+      <author><first>Md Mahir</first><last>Jawad</last><affiliation>Penta Global Ltd</affiliation></author>
+      <author><first>Anam Borhan</first><last>Uddin</last><affiliation>Penta Global Ltd.</affiliation></author>
+      <author orcid="0009-0001-6139-5283"><first>Md</first><last>Fahim</last><affiliation>Penta Global Limited and Independent University, Bangladesh</affiliation></author>
+      <author><first>Md Farhad Alam</first><last>Bhuiyan</last><affiliation>Independent University, Bangladesh</affiliation></author>
+      <pages>538-543</pages>
+      <abstract>This paper presents our approach for the BLP Shared Task 1, where we implemented Linear Probing of Pre-trained Transformer-based Models for Bangla Hate Speech Detection. The goal of the task was to customize the existing models so that they’re capable of automatically identifying hate speech in Bangla social media text, with a focus on YouTube comments. Our approach relied on fine-tuning several pre-trained BERT models, adapting them to the shared task dataset for improved classification accuracy. To further enhance performance, we applied linear probing on three of the fine-tuned models, enabling more effective utilization of the learned representations. The combination of these strategies resulted in a consistent top-15 ranking across all subtasks of the competition. Our findings highlight the effectiveness of linear probing as a lightweight yet impactful technique for enhancing hate speech detection in low-resource languages like Bangla.</abstract>
+      <url hash="8ac44005">2025.banglalp-1.50</url>
+      <bibkey>tahmid-etal-2025-pentaml</bibkey>
+    </paper>
+    <paper id="51">
+      <title><fixed-case>H</fixed-case>ate<fixed-case>N</fixed-case>et-<fixed-case>BN</fixed-case> at <fixed-case>BLP</fixed-case>-2025 Task 1: A Hierarchical Attention Approach for <fixed-case>B</fixed-case>angla Hate Speech Detection</title>
+      <author><first>Mohaymen Ul</first><last>Anam</last></author>
+      <author><first>Akm Moshiur Rahman</first><last>Mazumder</last><affiliation>Independent University, Bangladesh</affiliation></author>
+      <author><first>Ashraful</first><last>Islam</last><affiliation>Independent University, Bangladesh</affiliation></author>
+      <author orcid="0000-0001-9941-4817"><first>Akmmahbubur</first><last>Rahman</last><affiliation>Independent University, Bangladesh</affiliation></author>
+      <author orcid="0000-0003-2330-9775"><first>M Ashraful</first><last>Amin</last><affiliation>Independent University, Bangladesh</affiliation></author>
+      <pages>544-550</pages>
+      <abstract>The rise of social media in Bangladesh has increased abusive and hateful content, which is difficult to detect due to the informal nature of Bangla and limited resources. The BLP 2025 shared task addressed this challenge with Subtask 1A (multi-label abuse categories) and Subtask 1B (target identification). We propose a parameter-efficient model using a frozen BanglaBERT backbone with hierarchical attention to capture token level importance across hidden layers. Context vectors are aggregated for classification, combining syntactic and semantic features. On Subtask 1A, our frozen model achieved a micro-F1 of 0.7178, surpassing the baseline of 0.7100, while the unfrozen variant scored 0.7149. Our submissions ranked 15th (Subtask 1A) and 12th (Subtask 1B), showing that layer-wise attention with a frozen backbone can effectively detect abusive Bangla text.</abstract>
+      <url hash="a979a037">2025.banglalp-1.51</url>
+      <bibkey>anam-etal-2025-hatenet</bibkey>
+    </paper>
+    <paper id="52">
+      <title>Ecstasy at <fixed-case>BLP</fixed-case>-2025 Task 1: <fixed-case>TF</fixed-case>-<fixed-case>IDF</fixed-case> Informed Prompt Engineering with <fixed-case>L</fixed-case>o<fixed-case>RA</fixed-case> Fine-tuning for <fixed-case>B</fixed-case>angla Hate Speech Detection</title>
+      <author orcid="0009-0007-9156-1565"><first>Kazi Reyazul</first><last>Hasan</last><affiliation>Bangladesh University of Engineering and Technology</affiliation></author>
+      <author orcid="0009-0000-1677-3604"><first>Mubasshira</first><last>Musarrat</last></author>
+      <author orcid="0000-0003-3219-9053"><first>Muhammad Abdullah</first><last>Adnan</last><affiliation>Bangladesh University of Engineering and Technology</affiliation></author>
+      <pages>551-555</pages>
+      <abstract>We present a hybrid approach for Bangla hate speech detection that combines linguistic analysis with neural fine tuning. Our method first identifies category specific keywords using TF-IDF analysis on 35,522 training samples. These keywords then inform prompt engineering for Llama 3.1 8B model fine tuned with LoRA adapters. We incorporate distinctive Bangla terms directly into classification prompts to guide the model understanding of hate speech patterns. Our system achieved top 5 rankings across all three BLP 2025 Task 1 subtasks including hate type classification, target identification, and multi task prediction. The approach proved particularly effective for culturally specific hate speech patterns unique to Bangla social media discourse.</abstract>
+      <url hash="53244d7b">2025.banglalp-1.52</url>
+      <bibkey>hasan-etal-2025-ecstasy</bibkey>
+    </paper>
+    <paper id="53">
+      <title><fixed-case>C</fixed-case>ode<fixed-case>A</fixed-case>nubad at <fixed-case>BLP</fixed-case>-2025 Task 2: Efficient <fixed-case>B</fixed-case>angla-to-Python Code Generation via Iterative <fixed-case>L</fixed-case>o<fixed-case>RA</fixed-case> Fine-Tuning of Gemma-2</title>
+      <author orcid="0009-0003-2946-4167"><first>Soumyajit</first><last>Roy</last><affiliation>Setu by Pine Labs</affiliation></author>
+      <pages>556-560</pages>
+      <abstract>This paper presents our submission for Task 2 of the Bangla Language Processing (BLP) Workshop, which focuses on generating Python code from Bangla programming prompts in a low-resource setting. We address this challenge by fine-tuning the gemma-2-9b instruction-tuned model using parameter-efficient fine-tuning (PEFT) with QLoRA. We propose an iterative self-improvement strategy that augments the extremely limited training data (74 examples) by reusing verified correct predictions from the development set, alongside LoRA rank experiments (8, 16, 32), observing a clear correlation between rank and accuracy, with rank 32 delivering the best results. Compared to translation-based and retrieval-augmented baselines, our approach achieves significantly higher accuracy, with a pass rate of 47% on the development set and 37% on the hidden test set. These results highlight the effectiveness of combining iterative data augmentation with rank optimisation for specialised, low-resource code generation tasks.</abstract>
+      <url hash="f9e83487">2025.banglalp-1.53</url>
+      <bibkey>roy-2025-codeanubad</bibkey>
+    </paper>
+    <paper id="54">
+      <title>Troopers at <fixed-case>BLP</fixed-case>-2025 Task 2: Reward-Selective Fine-Tuning based Code Generation Approach for <fixed-case>B</fixed-case>angla Prompts</title>
+      <author><first>Musa Tur</first><last>Farazi</last></author>
+      <author><first>Nufayer Jahan</first><last>Reza</last></author>
+      <pages>561-565</pages>
+      <abstract>We present a formally grounded description of a reward-selective fine-tuning (RSFT) pipeline for code generation from Bangla natural-language prompts. The implemented system mines candidate programs via temperature and nucleus sampling, executes candidates in a sandbox and retains programs that pass all unit tests, performs supervised fine-tuning (SFT) on winners using parameter-efficient Low rank adaptation (LoRA) adapters, and augments robustness through fuzzed asserts. We specify the exact objectives and estimators used, provide a Bangla-aware preprocessing recipe, prove simple properties of the sampling budget, and report an ablation showing the effect of inference sample budget <tex-math>K</tex-math> on accuracy. We also include a threat model for safe execution. Our codes are available on GitHub.</abstract>
+      <url hash="08ba189d">2025.banglalp-1.54</url>
+      <bibkey>farazi-reza-2025-troopers</bibkey>
+    </paper>
+    <paper id="55">
+      <title><fixed-case>P</fixed-case>y<fixed-case>B</fixed-case>angla at <fixed-case>BLP</fixed-case>-2025 Task 2: Enhancing <fixed-case>B</fixed-case>angla-to-Python Code Generation with Iterative Self-Correction and Multilingual Agents</title>
+      <author><first>Jahidul</first><last>Islam</last></author>
+      <author><first>Md</first><last>Ataullha</last><affiliation>Green University of Bangladesh</affiliation></author>
+      <author><first>Saiful</first><last>Azad</last><affiliation>Green University of Bangladesh</affiliation></author>
+      <pages>566-570</pages>
+      <abstract>LLMs excel at code generation from English prompts, but this progress has not extended to low-resource languages. This paper addresses the challenge of Bangla-to-Python code generation by introducing BanglaCodeAct, an agent-based framework that leverages multi-agent prompting and iterative self-correction. Unlike prior approaches that rely on task-specific fine-tuning, BanglaCodeAct employs an open-source multilingual LLM within a Thought–Code–Observation loop, enabling the system to dynamically generate, test, and refine code from Bangla instructions. We benchmark several prominent small-parameter open-source LLMs and evaluate their effectiveness on the mHumanEval dataset for Bangla NL2Code. Our results show that Qwen3-8B, when deployed with BanglaCodeAct, achieves the best performance, with a pass@1 accuracy of 94.0% on the development set and 71.6% on the blind test set. These findings establish a new benchmark for Bangla-to-Python translation and highlight the potential of agent-based reasoning for reliable code generation in low-resource languages.. Experimental scripts made publicly available at https://github.com/jahidulzaid/PyBanglaCodeActAgent</abstract>
+      <url hash="b23d0bda">2025.banglalp-1.55</url>
+      <bibkey>islam-etal-2025-pybangla</bibkey>
+    </paper>
+    <paper id="56">
+      <title>Barrier Breakers at <fixed-case>BLP</fixed-case>-2025 Task 2: Enhancing <fixed-case>LLM</fixed-case> Code Generation Capabilities through Test-Driven Development and Code Interpreter</title>
+      <author orcid="0000-0003-1249-2113"><first>Sajed</first><last>Jalil</last></author>
+      <author><first>Shuvo</first><last>Saha</last><affiliation>No Institution</affiliation></author>
+      <author><first>Hossain Mohammad</first><last>Seym</last><affiliation>Islamic University of Technology</affiliation></author>
+      <pages>571-576</pages>
+      <abstract>Over the past few years, improving LLM code generation capabilities has been a key focus in NLP research. Despite Bengali having 242 million native speakers worldwide, it receives little attention when it comes to training LLMs. More recently, various fine-tuning and augmented generation techniques have been employed to significantly enhance code generation performance. However, they require considerable expertise and resources to utilize effectively as an end user. The goal of our work is to democratize access to powerful code generation tools in resource-constrained emerging markets, enabling users to leverage them in their native language.We introduce a novel approach that combines Test-Driven Development (TDD) and Code Interpreter (CI), utilizing open-weight models, which improves the baseline accuracy for code generation with Bengali prompts and achieves an overall accuracy of 85%. Our approach requires no finetuning and proves that even the smallest models in the same family can attain up to 98% accuracy compared to the largest models. All of our results are publicly shared in GitHub for validation and reproducibility.</abstract>
+      <url hash="761d9141">2025.banglalp-1.56</url>
+      <bibkey>jalil-etal-2025-barrier</bibkey>
+    </paper>
+    <paper id="57">
+      <title>Musafir at <fixed-case>BLP</fixed-case>_2025 Task 2: Generating Python Code from <fixed-case>B</fixed-case>angla Prompts using a Multi Model Cascade and Unit Test Validation</title>
+      <author><first>Sakibul</first><last>Hasan</last></author>
+      <author><first>Md Tasin</first><last>Abdullah</last><affiliation>Chittagong University of Engineering and Technology</affiliation></author>
+      <author><first>Abdullah</first><last>Al Mahmud</last></author>
+      <author><first>Ayesha</first><last>Banu</last><affiliation>Chittagong University of Engineering and Technology and Chittagong University of Engineering and Technology</affiliation></author>
+      <pages>577-581</pages>
+      <abstract>This paper presents our approach for the BLP25 Task 2: Code Generation in Bangla. To address the scarcity of Bangla–code training data, we adopt a two-stage pipeline. First, Bangla problem statements are translated into English using a neural translation model optimized for preserving technical semantics. Then, the translated text is passed to a Qwen-based code generation model to produce executable solutions. This translation–generation strategy leverages the strengths of English-centric code models while ensuring fidelity to the original Bangla instructions. Our system achieved competitive performance on the leaderboard, achieving the 3rd place with score of 91.8% while demonstrating that translation-augmented pipelines are effective for low-resource code generation tasks.</abstract>
+      <url hash="b188a95e">2025.banglalp-1.57</url>
+      <bibkey>hasan-etal-2025-musafir</bibkey>
+    </paper>
+    <paper id="58">
+      <title><fixed-case>JU</fixed-case>_<fixed-case>NLP</fixed-case> at <fixed-case>BLP</fixed-case>-2025 Task 2: Leveraging Zero-Shot Prompting for <fixed-case>B</fixed-case>angla Natural Language to Python Code Generation</title>
+      <author><first>Pritam</first><last>Pal</last><affiliation>Jadavpur University</affiliation></author>
+      <author orcid="0000-0002-8110-9344"><first>Dipankar</first><last>Das</last><affiliation>Jadavpur University</affiliation></author>
+      <pages>582-586</pages>
+      <abstract>Code synthesis from natural language problem statements has recently gained popularity with the use of large language models (LLMs). Most of the available systems and benchmarks, however, are developed for English or other high-resource languages, and a gap exists for low-resource languages such as Bangla. Addressing the gap, the Bangla Language Processing (BLP) Workshop at AACL-IJCNLP 2025 featured a shared task on Bangla-to-Python code generation. Participants were asked to design systems that consume Bangla problem statements and generate executable Python programs. A benchmark data set of training, development, and test splits was provided, and evaluation utilized the Pass@1 metric through hidden test cases. We present here a system we developed, using the state-of-the-art LLMs through a zero-shot prompting setup. We report outcomes on several models, including variants of GPT-4 and Llama-4, and specify their relative strengths and weaknesses. Our best-performing system, based on GPT-4.1, achieved a Pass@1 score of 78.6% over the test dataset. We address the challenges of Bangla code generation, morphological richness, cross-lingual understanding, and functional correctness, and outline the potential for future work in multilingual program synthesis.</abstract>
+      <url hash="244d354a">2025.banglalp-1.58</url>
+      <bibkey>pal-das-2025-ju</bibkey>
+    </paper>
+    <paper id="59">
+      <title>Retriv at <fixed-case>BLP</fixed-case>-2025 Task 2: Test-Driven Feedback-Guided Framework for <fixed-case>B</fixed-case>angla-to-Python Code Generation</title>
+      <author><first>K M Nafi</first><last>Asib</last><affiliation>Chittagong University of Engineering and Technology</affiliation></author>
+      <author><first>Sourav</first><last>Saha</last><affiliation>Chittagong University of Engineering and Technology</affiliation></author>
+      <author orcid="0000-0001-8806-708X"><first>Mohammed Moshiul</first><last>Hoque</last><affiliation>Chittagong University of Engineering and Technology</affiliation></author>
+      <pages>587-594</pages>
+      <abstract>Large Language Models (LLMs) have advanced the automated generation of code from natural language prompts. However, low-resource languages (LRLs) like Bangla remain underrepresented due to the limited availability of instruction-to-code datasets and evaluation benchmarks. To address this, the BLP Workshop at IJCNLP-AACL 2025 introduced a shared task on “Code Generation in Bangla”. In this work, we propose a method that combines instruction prompting with a test-driven, feedback-guided iterative refinement process using a fine-tuned Qwen2.5-14B model. The model generates code from Bangla instructions, tests it against unit tests, and iteratively refines any failing outputs through three evaluation passes, using test feedback to guide each step. This approach helped our team “Retriv” to secure 2nd place in the shared task with a Pass@1 score of 0.934. The analysis highlights challenges in Bangla instruction understanding and Python code generation, emphasizing the need for targeted methods in LRLs. We made experimental scripts publicly available for the community.</abstract>
+      <url hash="e0378e0f">2025.banglalp-1.59</url>
+      <bibkey>asib-etal-2025-retriv</bibkey>
+    </paper>
+    <paper id="60">
+      <title><fixed-case>NSU</fixed-case>_<fixed-case>P</fixed-case>ied<fixed-case>P</fixed-case>iper at <fixed-case>BLP</fixed-case>-2025 Task 2: A Chain-of-Thought with Iterative Debugging Approach for Code Generation with <fixed-case>B</fixed-case>angla Instruction</title>
+      <author><first>Ahmad</first><last>Fahmid</last></author>
+      <author><first>Fahim</first><last>Foysal</last></author>
+      <author><first>Wasif</first><last>Haider</last><affiliation>North South University</affiliation></author>
+      <author orcid="0000-0001-7169-0318"><first>Shafin</first><last>Rahman</last><affiliation>North South University</affiliation></author>
+      <author orcid="0000-0001-6486-8181"><first>Md Adnan</first><last>Arefeen</last><affiliation>North South University</affiliation></author>
+      <pages>595-600</pages>
+      <abstract>Code generation from natural language instructions in Bangla is a fundamental task in programming automation, as explored in BLP-2025 Shared Task 2: Code Generation in Bangla. Current code generation models are designed primarily for high-resource languages such as English, which creates major limitations when applied to Bangla. The key challenges are limited training data and difficulty in correctly interpreting Bangla programming instructions. In this paper, to accommodate Bangla instructions, we present a chain of thought (CoT) based prompting approach with Qwen2.5-Coder-14B model. We further introduce few-shot example in the prompt template to improve the accuracy. During competition, an accuracy of 93% is achieved in the shared test set (test_v1.csv) and 82.6% is achieved on the public and private test sets (hidden). After the competition is closed, we implement a debugger prompt technique which refines answers with 3 iterative fixing attempts. Applying this new technique on the public shared test set, our system outperforms by 7% and achieves 100% accuracy on the public test set, highlighting the effectiveness of combining CoT prompting with iterative debugging.</abstract>
+      <url hash="08bdacf4">2025.banglalp-1.60</url>
+      <bibkey>fahmid-etal-2025-nsu</bibkey>
+    </paper>
+    <paper id="61">
+      <title><fixed-case>NALA</fixed-case>_<fixed-case>MAINZ</fixed-case> at <fixed-case>BLP</fixed-case>-2025 Task 2: A Multi-agent Approach for <fixed-case>B</fixed-case>engali Instruction to Python Code Generation</title>
+      <author><first>Hossain Shaikh</first><last>Saadi</last><affiliation>Johannes-Gutenberg Universität Mainz</affiliation></author>
+      <author><first>Faria</first><last>Alam</last></author>
+      <author orcid="0009-0001-3581-8369"><first>Mario</first><last>Sanz-Guerrero</last><affiliation>Johannes-Gutenberg Universität Mainz</affiliation></author>
+      <author orcid="0009-0004-6698-1208"><first>Minh Duc</first><last>Bui</last><affiliation>Johannes-Gutenberg Universität Mainz</affiliation></author>
+      <author><first>Manuel</first><last>Mager</last><affiliation>Johannes-Gutenberg Universität Mainz</affiliation></author>
+      <author><first>Katharina</first><last>von der Wense</last><affiliation>Johannes-Gutenberg Universität Mainz, Johannes-Gutenberg Universität Mainz, University of Colorado, Boulder and New York University</affiliation></author>
+      <pages>601-607</pages>
+      <abstract>This paper presents JGU Mainz’s winning system for the BLP-2025 Shared Task on Code Generation from Bangla Instructions. We propose a multi-agent-based pipeline. First, a code-generation agent produces an initial solution from the input instruction. The candidate program is then executed against the provided unit tests (pytest-style, assert-based). Only the failing cases are forwarded to a debugger agent, which reruns the tests, extracts error traces, and, conditioning on the error messages, the current program, and the relevant test cases, generates a revised solution. Using this approach, our submission achieved first place in the shared task with a Pass@1 score of 95.4. We also make our code public.</abstract>
+      <url hash="62234854">2025.banglalp-1.61</url>
+      <bibkey>saadi-etal-2025-nala</bibkey>
+    </paper>
+    <paper id="62">
+      <title><fixed-case>CUET</fixed-case>_<fixed-case>E</fixed-case>xpelliarmus at <fixed-case>BLP</fixed-case>2025 Task 2: Leveraging Instruction Translation and Refinement for <fixed-case>B</fixed-case>angla-to-Python Code Generation with Open-Source <fixed-case>LLM</fixed-case>s</title>
+      <author orcid="0009-0002-4978-4793"><first>Md Kaf</first><last>Shahrier</last></author>
+      <author><first>Suhana Binta</first><last>Rashid</last></author>
+      <author orcid="0009-0000-4413-4164"><first>Hasan Mesbaul</first><last>Ali Taher</last></author>
+      <author orcid="0000-0001-8806-708X"><first>Mohammed Moshiul</first><last>Hoque</last><affiliation>Chittagong University of Engineering and Technology</affiliation></author>
+      <pages>608-614</pages>
+      <abstract>Large language models (LLMs) have recently shown strong performance in generating code from natural language prompts. However, current benchmarks are primarily focused on English overlooking low-resource languages like Bangla. This creates a critical research gap since there are no well established resources or systematic evaluations for code generation from Bangla instruction. To address the gap, we present a system that generates executable Python code from Bangla instructions. We design a two-stage pipeline where the Bangla instructions are first translated and refined into clear English version to reduce ambiguity and then the python code is generated from the refined instructions with iterative error-correction. For both instruction refinement and code generation we used the open-source GPT-20B OSS model. On the official test set our system achieves competitive results. We also analyze common errors like unclear instruction, logical mistakes, runtime issues and the need for external knowledge beyond the model’s training. Overall, our findings show that a simple translation–refinement pipeline can be an effective and low-cost approach for code generation in low-resource languages.</abstract>
+      <url hash="9a851dd6">2025.banglalp-1.62</url>
+      <bibkey>shahrier-etal-2025-cuet</bibkey>
+    </paper>
+    <paper id="63">
+      <title><fixed-case>A</fixed-case>lpha<fixed-case>B</fixed-case>orno at <fixed-case>BLP</fixed-case>-2025 Task 2: Code Generation with Structured Prompts and Execution Feedback</title>
+      <author orcid="0000-0002-7885-8491"><first>Mohammad Ashfaq Ur</first><last>Rahman</last><affiliation>Independent University, Bangladesh</affiliation></author>
+      <author orcid="0009-0006-7478-0849"><first>Muhtasim Ibteda</first><last>Shochcho</last><affiliation>Independent University, Bangladesh</affiliation></author>
+      <author orcid="0009-0001-6139-5283"><first>Md</first><last>Fahim</last><affiliation>Penta Global Limited and Independent University, Bangladesh</affiliation></author>
+      <pages>615-623</pages>
+      <abstract>This paper explores various prompting strategies in the BLP-2025 Shared Task 2, utilizing a pipeline that first translates Bangla problem descriptions into English with GPT-4o,then applies techniques like zero-shot, few-shot,chain of thought, synthetic test case integration, and a self-repair loop. We evaluated fourLLMs (GPT-4o, Grok-3, Claude 3.7 Sonnet,and Qwen2.5-Coder 14B). Our findings revealthat while traditional methods like few-shotand chain-of-thought prompting provided inconsistent gains, the integration of explicit unittests delivered a substantial performance boostacross all models. The most effective strategycombined zero-shot prompting with these synthetic tests and a self-repair loop, leading GPT4o to achieve a top Pass@1 score of 72.2%.These results represent the value of using explicit constraints and iterative feedback in codegeneration, offering a solid framework that improves the model’s code generation capabilities.</abstract>
+      <url hash="761154cd">2025.banglalp-1.63</url>
+      <bibkey>rahman-etal-2025-alphaborno</bibkey>
+    </paper>
+    <paper id="64">
+      <title><fixed-case>P</fixed-case>y<fixed-case>B</fixed-case>hasha at <fixed-case>BLP</fixed-case>-2025 Task 2: Effectiveness of Semantic-Aware Translation and Ensembling in <fixed-case>B</fixed-case>angla Code Generation</title>
+      <author><first>Foyez Ahmed</first><last>Dewan</last></author>
+      <author><first>Nahid Montasir</first><last>Rifat</last></author>
+      <pages>624-628</pages>
+      <abstract>In this paper, we present our submission to Task 2 of the BLP-2025 shared task on code generation from Bangla instructions. Our approach focused on enhancing instruction quality through translation and improving model performance with a two-stage ensemble strategy. We evaluated two proprietary and several open-source models under three instruction settings: original Bangla instructions, Bangla instructions translated into English using Facebook NLLB, and instructions rewritten in English with GPT-4.1. Experimental results showed that GPT-4.1-rewritten instructions consistently achieved the highest accuracy across models. For final predictions, we used a two-stage ensemble, achieving a <tex-math>\textit{pass@1}</tex-math> score of <tex-math>\textbf{80.0\%}</tex-math> on the hidden test set and securing 12th place on the official leaderboard. Additionally, we conducted a qualitative analysis of selected translations to illustrate how variations in instruction phrasing influenced model outputs.</abstract>
+      <url hash="18f1b515">2025.banglalp-1.64</url>
+      <bibkey>dewan-rifat-2025-pybhasha</bibkey>
+    </paper>
+    <paper id="65">
+      <title><fixed-case>A</fixed-case>dversary<fixed-case>AI</fixed-case> at <fixed-case>BLP</fixed-case>-2025 Task 2: A Think, Refine, and Generate (<fixed-case>T</fixed-case>ri<fixed-case>G</fixed-case>en) System with <fixed-case>L</fixed-case>o<fixed-case>RA</fixed-case> and Self-Refinement for Code Generation</title>
+      <author><first>Omar Faruqe</first><last>Riyad</last><affiliation>Dynamic Solution Innovators Ltd.</affiliation></author>
+      <author><first>Jahedul Alam</first><last>Junaed</last></author>
+      <pages>629-641</pages>
+      <abstract>In this paper, we propose a system for generating Python code from Bangla prompts. Our approach fine-tunes open-source models with parameter-efficient techniques and leverages proprietary models via prompting. To enhance the reasoning of smaller models, we adopt a Chain-of-Thought (CoT) augmented fine-tuning, enabling them to learn intermediate reasoning steps before generating code. A self-refinement loop further improves performance by iteratively critiquing and correcting code based on execution feedback. We also employ few-shot prompting to guide inference more effectively. Applied to both open-source and proprietary models, this pipeline achieved its best results with Gemini 2.5 Pro, where our system ranked 4th on the competition leaderboard with a Pass@1 score of 0.85. We conclude with a detailed analysis of these findings.</abstract>
+      <url hash="afaf9e9f">2025.banglalp-1.65</url>
+      <bibkey>riyad-junaed-2025-adversaryai</bibkey>
+    </paper>
+    <paper id="66">
+      <title><fixed-case>T</fixed-case>eam<fixed-case>B</fixed-case>2<fixed-case>B</fixed-case> at <fixed-case>BLP</fixed-case>-2025 Task 2: <fixed-case>B</fixed-case>angla<fixed-case>F</fixed-case>orge: <fixed-case>LLM</fixed-case> Collaboration with Self-Refinement for <fixed-case>B</fixed-case>angla Code Generation</title>
+      <author orcid="0009-0001-5769-3616"><first>Mahir Labib</first><last>Dihan</last><affiliation>Bangladesh University of Engineering and Technology</affiliation></author>
+      <author orcid="0009-0002-4492-2421"><first>Sadif</first><last>Ahmed</last></author>
+      <author orcid="0009-0008-2620-9538"><first>Md Nafiu</first><last>Rahman</last></author>
+      <pages>642-655</pages>
+      <abstract>Bangla is a low-resource language for code generation, lacking large-scale annotated datasets and tools to transform natural language specifications into executable programs. This makes Bangla-to-code generation a challenging task requiring innovative solutions. To address this, we introduce BanglaForge, a novel framework for generating code from Bangla function descriptions. BanglaForge leverages a retrieval-augmented dual-model collaboration paradigm with self-refinement, combining in-context learning, llm-based translation, systematic prompt engineering, and iterative self-refinement based on execution feedback, where a coder generates initial solutions and a reviewer enhances them for robustness. On the BLP-2025 Bangla Code Generation benchmark, BanglaForge achieves a competitive Pass@1 accuracy of 84.00%, demonstrating the effectiveness of retrieval, model collaboration, and self-refinement for low-resource Bangla code generation.</abstract>
+      <url hash="14de972e">2025.banglalp-1.66</url>
+      <bibkey>dihan-etal-2025-teamb2b</bibkey>
+    </paper>
+    <paper id="67">
+      <title><fixed-case>BRACU</fixed-case>_<fixed-case>CL</fixed-case> at <fixed-case>BLP</fixed-case>-2025 Task 2: <fixed-case>C</fixed-case>ode<fixed-case>M</fixed-case>ist: A Transformer-Based Framework for <fixed-case>B</fixed-case>angla Instruction-to-Code Generation</title>
+      <author orcid="0009-0009-0885-5445"><first>Md. Fahmid-Ul-Alam</first><last>Juboraj</last><affiliation>BRAC University</affiliation></author>
+      <author orcid="0009-0007-9095-5802"><first>Soumik Deb</first><last>Niloy</last><affiliation>BRAC University</affiliation></author>
+      <author orcid="0009-0006-6043-4507"><first>Mahbub</first><last>E Sobhani</last></author>
+      <author orcid="0000-0001-6797-7826"><first>Farig</first><last>Sadeque</last><affiliation>BRAC University</affiliation></author>
+      <pages>656-662</pages>
+      <abstract>This study proposes a hybrid framework for Bangla-to-Python code generation, emphasizing improved code accuracy through a two-phase pipeline: generation and debugging. During development, standalone models such as TigerLLM and StarCoder achieved modest accuracies of 27% and 24%, respectively, while more advanced models, Gemini-1.5-flash and Gemma, reached 60% and 64%. Integrating Gemma with the gpt-oss debugger substantially increased accuracy to 99.75%, highlighting the critical role of a dedicated debugging stage. In testing on unseen data, gpt-oss alone achieved 67%, which improved to 71% with self-debugging. The highest performance, 84%, was obtained by pairing Gemini-2.5-flash as the generator with gpt-oss for debugging. These findings demonstrate that combining a strong generative model with an effective debugging component yields superior and robust code generation results, outperforming existing approaches such as TigerLLM. The full implementation of the framework is publicly available at https://github.com/fahmid-juboraj/Code_generation.</abstract>
+      <url hash="6a298efd">2025.banglalp-1.67</url>
+      <bibkey>juboraj-etal-2025-bracu</bibkey>
+    </paper>
+    <paper id="68">
+      <title><fixed-case>C</fixed-case>ode_<fixed-case>G</fixed-case>en at <fixed-case>BLP</fixed-case>-2025 Task 2: <fixed-case>B</fixed-case>angla<fixed-case>C</fixed-case>ode: A Cross-lingual Benchmark for Code Generation with Translation and Assertion Strategies</title>
+      <author><first>Abhishek</first><last>Agarwala</last><affiliation>Bangladesh University of Engineering and Technology</affiliation></author>
+      <author orcid="0009-0008-8433-0264"><first>Shifat</first><last>Islam</last></author>
+      <author><first>Emon</first><last>Ghosh</last><affiliation>United International University</affiliation></author>
+      <pages>663-668</pages>
+      <abstract>Large Language Models (LLMs) have shown great code-generation capabilities, but their performance in low-resource languages like Bangla is largely unexplored. We participated in BLP-2025 Task 2: Code Generation in Bangla, where we built a pipeline to interpret and execute Bangla instructions using GPT-5. Extensive experiments were conducted with proprietary (GPT-4o Mini, GPT-5 Mini, GPT-5) and open-source (LLaMA 3-8B, TigerLLM-1B-it) models under translation and assertion settings. Results show that GPT-5, with translation and assertion, scored 83.8%, outperformed all baselines, while open-source models lagged due to limited Bangla adaptation. Assertion-based prompting always improved syntactic correctness, and fine-tuning reduced hallucinations across open-source models. We ranked 7th on the official leaderboard with an approach which is competitive and generalizable. Overall, our results show that translation quality, data normalization, and prompt design are key components of low-resource code generation. Furthermore, the proposed BanglaCode benchmark and preprocessing architecture provide a basis for further multilingual code-generation research.</abstract>
+      <url hash="1a0af664">2025.banglalp-1.68</url>
+      <bibkey>agarwala-etal-2025-code</bibkey>
+    </paper>
+  </volume>
+</collection>
