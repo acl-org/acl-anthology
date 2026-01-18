@@ -40,7 +40,7 @@ A verified author is one for whom we have an explicit entry in our names databas
 We then create author pages of two types:
 
 - **Verified author pages**: `https://aclanthology.org/people/{person-id}/`
-- **Unverified author pages**: `https://aclanthology.org/people/unverified/{name-slug}/`
+- **Unverified author pages**: `https://aclanthology.org/people/{name-slug}/unverified/`
 
 The presence of `/unverified/` in the URL is a signal that the page was created automatically from name-only metadata.
 
