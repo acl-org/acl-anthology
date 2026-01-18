@@ -51,6 +51,56 @@
   {{ end }}
   <hr />
 
+  <div class="mx-1 d-none" id="authorCorrectionForm">
+    <h4>Fixing paper assignments</h4>
+    <ol>
+      <li>{{- if $is_verified -}}Please <strong>select all papers</strong> that do <strong><em>not</em></strong> belong to this person.{{- else -}}Please <strong>select all papers</strong> that belong to the same person.{{- end -}}</li>
+      <li>Indicate below <strong>which author they should be assigned to</strong>.</li>
+    </ol>
+
+    <form>
+      <div class="form-group">
+        <label for="authorIdentitySelect">Correct author assignment</label>
+        <select class="form-control" id="authorIdentitySelect">
+          {{ with $person.similar_verified }}
+          <option value="" disabled selected>Please select an option below...</option>
+            {{ range $sim_id := . }}
+            <option value="{{ $sim_id }}">{{ $sim_id }}{{ $sim_person := index $.Site.Data.people $sim_id }}{{ with $sim_person.comment }} ({{.}}){{ end }}</option>
+            {{ end }}
+          {{ end }}
+          <option value="new">A new author who does not have a verified author page yet.</option>
+          <!-- If this is a verified page where "unverified" papers might be listed due to automatic name matching: -->
+          {{- if and ($is_verified) (not $person.similar_verified) (not $person.similar_unverified) -}}
+          <option value="exclude">I don't know, but these papers do not belong to this verified author.</option>
+          {{- end -}}
+          <!---------------------------------------------------------------------------------------------------------->
+        </select>
+      </div>
+      <div class="form-group d-none new-author-form-group">
+        <label for="newAuthorOrcid">Author ORCID iD</label>
+        <input class="form-control" type="text" placeholder="0000-0000-0000-0000" id="newAuthorOrcid">
+        <small class="form-text text-muted">Provide a valid <a href="https://orcid.org/">ORCID iD</a> here.  This will be used to match future papers to this author.</small>
+      </div>
+      <div class="form-group d-none new-author-form-group">
+        <label for="newAuthorInstitution">Author's institution of highest (anticipated) degree</label>
+        <input class="form-control" type="text" placeholder="" id="newAuthorInstitution">
+        <small class="form-text text-muted">Provide the name of the school or the university where the author has received or will receive their highest degree (e.g., Ph.D. institution for researchers, or current affiliation for students).  This will be used to form the new author page ID, if needed.</small>
+      </div>
+      <div class="form-group d-none new-author-form-group">
+        <label for="newAuthorPreferredName">Author's preferred name</label>
+        <select class="form-control" id="newAuthorPreferredName">
+          <option value="{{$person.first}}|{{$person.last}}">{{$person.last}}, {{$person.first}}</option>
+          {{ range $var := $person.variant_entries }}
+          <option value="{{$var.first}}|{{$var.last}}">{{$var.last}}, {{$var.first}}</option>
+          {{ end }}
+        </select>
+      </div>
+    </form>
+
+    <p class="text-right"><strong>TODO: "submit" and "cancel" buttons here</strong></p>
+    <hr />
+  </div>
+
   <div class="row">
     <div class="col-lg-9">
       {{ .Scratch.Set "current_year" "" }}
@@ -140,11 +190,38 @@
         </div>
       </div>
 
-      <a class="btn btn-warning btn-lg btn-secondary btn-block mb-2" title="Correct problems with the author page" href="https://github.com/acl-org/acl-anthology/issues/new?assignees=anthology-assist&labels=correction%2Cmetadata&projects=&template=02-name-correction.yml&title=Author+Page%3A+{{ .Params.name }}">
+      <a class="btn btn-warning btn-lg btn-secondary btn-block mb-2" title="Correct problems with the author page" href=# onclick="toggleEditing()">
         <span class="d-none d-sm-inline"><i class="fas fa-edit"></i></span>
-        <span class="pl-md-2">Fix author</span>
+        <span class="pl-md-2">Fix data</span>
       </a>
     </div>
   </div>
 </section>
+{{ end }}
+
+{{ define "javascript" }}
+<script>
+  let editingMode = false;
+
+  function toggleEditing() {
+      $('.list-button-row').toggleClass('d-none').toggleClass('d-block');
+      $('#authorCorrectionForm').toggleClass('d-none');
+      editingMode = !editingMode;
+  }
+
+  $( document ).ready(function() {
+      $('#authorIdentitySelect').change(function() {
+          let selectedValue = $(this).val();
+          if (selectedValue === 'new') {
+              $('.new-author-form-group').removeClass("d-none");
+          } else {
+              $('.new-author-form-group').addClass("d-none");
+          }
+      });
+
+      if ($('#authorIdentitySelect').val() === 'new'){
+          $('.new-author-form-group').removeClass("d-none");
+      }
+  });
+</script>
 {{ end }}

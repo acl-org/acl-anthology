@@ -1,6 +1,9 @@
 {{ $collection_id := index (split .Params.anthology_id "-") 0 }}
 {{ $paper := index (index $.Site.Data.papers $collection_id) .Params.anthology_id }}
 <p class="d-sm-flex align-items-stretch">
+  <span class="d-none mr-2 pr-2 text-nowrap text-right list-button-row corrections-edit-ui">
+    <input type="checkbox" name="paper_id" value="{{ .Params.anthology_id }}">
+  </span>
   <span class="d-block mr-2 text-nowrap list-button-row">
     {{- with $paper.pdf -}}
     <a class="badge badge-primary align-middle mr-1" href="{{ . }}" data-toggle="tooltip" data-placement="top" title="Open PDF">
