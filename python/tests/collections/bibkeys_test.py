@@ -15,6 +15,7 @@
 
 import pytest
 from acl_anthology.collections import BibkeyIndex
+from acl_anthology.text import MarkupText
 from lxml import etree
 
 
@@ -67,6 +68,13 @@ def test_bibkeys_index_paper(anthology):
     with pytest.raises(ValueError):
         paper2 = anthology.get_paper("2022.acl-long.100")
         index._index_paper(paper.bibkey, paper2)
+
+
+def test_bibkeys_generate_bibkey_with_all_stopwords(anthology):
+    index = anthology.collections.bibkeys
+    paper = anthology.get_paper("2022.acl-long.9")
+    paper.title = MarkupText.from_string("If and or")
+    assert index.generate_bibkey(paper) == "ma-etal-2022-if"
 
 
 @pytest.mark.parametrize("pre_load", (True, False))

@@ -90,6 +90,11 @@ class BibkeyIndex(SlottedDict[Paper]):
                 for word in slugify(paper.title.as_text()).split("-")
                 if not StopWords.contains(word)
             ]
+            # Edge case: ensure title_words is never empty
+            if not title_words:
+                title_words = [
+                    word for word in slugify(paper.title.as_text()).split("-")
+                ] + ["0"]
 
             # Regular papers use {authors}-{year}-{first_title_words}
             bibkey = f"{bibnames}-{paper.year}-{title_words.pop(0)}"
