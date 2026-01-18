@@ -2,7 +2,7 @@
 title: New Author System in the ACL Anthology
 date: "2026-01-19"
 description: >
-    Introducing an ORCID-centered author pages with explicit verification status
+    Introducing ORCID-centered author pages with explicit verification status
 ---
 
 One of the most important jobs in the ACL Anthology is correctly matching papers to authors. When a new volume is ingested, the Anthology receives author information as textual metadata along with each PDF. When the site is built, author pages are created by assembling all papers that share an author.
