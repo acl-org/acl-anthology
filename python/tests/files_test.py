@@ -23,7 +23,6 @@ from acl_anthology.files import (
     PapersWithCodeReference,
 )
 
-
 test_cases_pdf = (
     (
         '<url hash="a8b4ae72">2022.acl-demo.14</url>',

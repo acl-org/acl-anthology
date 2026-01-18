@@ -18,7 +18,6 @@ from unittest.mock import patch
 
 from acl_anthology.sigs import SIGIndex, SIGMeeting, SIG
 
-
 all_toy_sigs = ("sigdat", "sigsem")
 
 

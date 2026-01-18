@@ -19,7 +19,6 @@ from unittest.mock import patch
 
 from acl_anthology.venues import VenueIndex, Venue
 
-
 all_toy_venue_ids = ("acl", "cl", "humeval", "lrec", "nlma", "ws")
 
 

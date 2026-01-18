@@ -20,7 +20,6 @@ from lxml import etree
 from typing import Callable, Iterable, Optional
 from xml.sax.saxutils import escape as xml_escape
 
-
 TAGS_WITH_MARKUP = {
     "b",
     "i",

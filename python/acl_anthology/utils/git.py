@@ -27,7 +27,6 @@ if TYPE_CHECKING:
 
 from .logging import get_logger
 
-
 log = get_logger()
 
 

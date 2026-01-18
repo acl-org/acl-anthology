@@ -646,16 +646,13 @@ def test_add_fields_to_people_yaml(index, tmp_path):
     with open(yaml_out, "r", encoding="utf-8") as f:
         out = f.read()
 
-    assert (
-        """
+    assert """
 marcel-bollmann:
   degree: Ruhr-Universität Bochum
   names:
   - {first: Marcel, last: Bollmann}
   - {first: Marc Marcel, last: Bollmann}
-  orcid: 0000-0003-2598-8150"""
-        in out
-    )
+  orcid: 0000-0003-2598-8150""" in out
 
 
 def test_add_person_to_people_yaml_via_make_explicit(index, tmp_path):
@@ -673,14 +670,11 @@ def test_add_person_to_people_yaml_via_make_explicit(index, tmp_path):
     with open(yaml_out, "r", encoding="utf-8") as f:
         out = f.read()
 
-    assert (
-        """
+    assert """
 preslav-nakov:
   names:
   - {first: Preslav, last: Nakov}
-  orcid: 0000-0002-3600-1510"""
-        in out
-    )
+  orcid: 0000-0002-3600-1510""" in out
 
 
 def test_add_person_to_people_yaml_via_create_person(index, tmp_path):
@@ -700,11 +694,8 @@ def test_add_person_to_people_yaml_via_create_person(index, tmp_path):
     with open(yaml_out, "r", encoding="utf-8") as f:
         out = f.read()
 
-    assert (
-        """
+    assert """
 preslav-nakov:
   names:
   - {first: Preslav, last: Nakov}
-  orcid: 0000-0002-3600-1510"""
-        in out
-    )
+  orcid: 0000-0002-3600-1510""" in out

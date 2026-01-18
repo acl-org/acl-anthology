@@ -23,7 +23,6 @@ from acl_anthology.sigs import SIG
 from acl_anthology.venues import Venue
 from acl_anthology.utils import xml
 
-
 # Map from [repo]/python/tests to [repo]/data
 DATADIR = Path(os.path.dirname(os.path.realpath(__file__))) / ".." / ".." / "data"
 
