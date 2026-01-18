@@ -23,7 +23,7 @@ from lxml.etree import RelaxNG
 from pathlib import Path
 from rich.progress import track
 from slugify import slugify
-from typing import cast, overload, Iterator, Optional, TypeAlias, TYPE_CHECKING
+from typing import cast, overload, Iterable, Iterator, Optional, TypeAlias, TYPE_CHECKING
 
 if sys.version_info >= (3, 11):
     from typing import Self
@@ -54,14 +54,16 @@ class Anthology:
 
     Attributes:
         datadir: The path to the data folder.
-        verbose: If False, will not show progress bars during longer operations.
+        verbose: Whether or not to show progress bars during longer operations.  If this argument is not supplied explicitly, it will default to True _if_ the standard output is a terminal.
     """
 
-    def __init__(self, datadir: StrPath, verbose: bool = True) -> None:
+    def __init__(self, datadir: StrPath, verbose: Optional[bool] = None) -> None:
         if not Path(datadir).is_dir():
             raise FileNotFoundError(f"Not a directory: {datadir}")
 
         self.datadir = Path(datadir)
+        if verbose is None:
+            verbose = sys.stdout.isatty()
         self.verbose = verbose
         self._check_schema_compatibility()
         self._relaxng: Optional[RelaxNG] = None
@@ -143,15 +145,16 @@ class Anthology:
                 self.sigs,
                 self.venues,
             )
-            iterator = track(
-                it.chain(
-                    self.collections.values(),
-                    indices_to_load,
-                ),
-                total=len(self.collections) + len(indices_to_load),
-                disable=(not self.verbose),
-                description="Loading Anthology data...",
+            iterator: Iterable[object] = it.chain(
+                self.collections.values(),
+                indices_to_load,
             )
+            if self.verbose:
+                iterator = track(
+                    iterator,
+                    total=len(self.collections) + len(indices_to_load),
+                    description="Loading Anthology data...",
+                )
             if self.verbose:
                 self.verbose = False
             for elem in iterator:
@@ -255,7 +258,7 @@ class Anthology:
         Returns:
             The object corresponding to the given ID.
         """
-        (collection_id, volume_id, paper_id) = parse_id(full_id)
+        collection_id, volume_id, paper_id = parse_id(full_id)
         collection = self.collections.get(collection_id)
         if collection is None or volume_id is None:
             return collection
@@ -273,7 +276,7 @@ class Anthology:
         Returns:
             The collection associated with the given ID.
         """
-        (collection_id, *_) = parse_id(full_id)
+        collection_id, *_ = parse_id(full_id)
         return self.collections.get(collection_id)
 
     def get_volume(self, full_id: AnthologyID) -> Optional[Volume]:
@@ -285,7 +288,7 @@ class Anthology:
         Returns:
             The volume associated with the given ID.
         """
-        (collection_id, volume_id, _) = parse_id(full_id)
+        collection_id, volume_id, _ = parse_id(full_id)
         collection = self.collections.get(collection_id)
         if collection is None or volume_id is None:
             return None
@@ -300,7 +303,7 @@ class Anthology:
         Returns:
             The paper associated with the given ID.
         """
-        (collection_id, volume_id, paper_id) = parse_id(full_id)
+        collection_id, volume_id, paper_id = parse_id(full_id)
         volume = self.get_volume((collection_id, volume_id, None))
         if volume is None or paper_id is None:
             return None

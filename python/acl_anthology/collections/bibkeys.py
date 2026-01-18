@@ -18,7 +18,7 @@ from attrs import define, field
 import re
 from rich.progress import track
 from slugify import slugify
-from typing import TYPE_CHECKING
+from typing import Iterable, TYPE_CHECKING
 
 from .. import constants
 from ..containers import SlottedDict
@@ -28,6 +28,7 @@ from ..utils.logging import get_logger
 from .paper import Paper
 
 if TYPE_CHECKING:
+    from .collection import Collection
     from .index import CollectionIndex
 
 
@@ -167,12 +168,14 @@ class BibkeyIndex(SlottedDict[Paper]):
         """
         self.reset()
         # Go through every single paper
-        iterator = track(
-            self.parent.values(),
-            total=len(self.parent),
-            disable=(not show_progress),
-            description="Building bibkey index...",
-        )
+        if not show_progress:
+            iterator: Iterable[Collection] = self.parent.values()
+        else:
+            iterator = track(
+                self.parent.values(),
+                total=len(self.parent),
+                description="Building bibkey index...",
+            )
         errors = []
         for collection in iterator:
             for paper in collection.papers():

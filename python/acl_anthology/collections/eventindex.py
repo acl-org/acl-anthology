@@ -17,7 +17,7 @@ from __future__ import annotations
 from attrs import define, field
 from collections import defaultdict
 from rich.progress import track
-from typing import TYPE_CHECKING
+from typing import Iterable, TYPE_CHECKING
 
 from ..containers import SlottedDict
 from ..text import MarkupText
@@ -29,6 +29,7 @@ from .volume import Volume
 
 if TYPE_CHECKING:
     from ..anthology import Anthology
+    from .collection import Collection
 
 log = get_logger()
 
@@ -89,12 +90,14 @@ class EventIndex(SlottedDict[Event]):
         if self.is_data_loaded:
             return
 
-        iterator = track(
-            self.parent.collections.values(),
-            total=len(self.parent.collections),
-            disable=(not self.parent.verbose),
-            description=" Building event index...",
-        )
+        if not self.parent.verbose:
+            iterator: Iterable[Collection] = self.parent.collections.values()
+        else:
+            iterator = track(
+                self.parent.collections.values(),
+                total=len(self.parent.collections),
+                description=" Building event index...",
+            )
         raised_exception = False
         for collection in iterator:
             try:

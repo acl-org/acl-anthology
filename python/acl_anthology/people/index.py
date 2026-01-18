@@ -15,14 +15,13 @@
 from __future__ import annotations
 
 from attrs import define, field
-from collections.abc import Iterable
 from collections import Counter, defaultdict
 import itertools as it
 from pathlib import Path
 from rich.progress import track
 from scipy.cluster.hierarchy import DisjointSet  # type: ignore
 import sys
-from typing import cast, Any, Optional, TYPE_CHECKING
+from typing import cast, Any, Iterable, Optional, TYPE_CHECKING
 import warnings
 import yaml
 
@@ -47,7 +46,7 @@ from .name import _YAMLName
 if TYPE_CHECKING:
     from _typeshed import StrPath
     from ..anthology import Anthology
-    from ..collections import Paper, Volume
+    from ..collections import Paper, Volume, Collection
 
 log = get_logger()
 PEOPLE_INDEX_FILE = "yaml/people.yaml"
@@ -237,12 +236,14 @@ class PersonIndex(SlottedDict[Person]):
         self.reset()
         self._load_people_index()
         # Go through every single volume/paper and add authors/editors
-        iterator = track(
-            self.parent.collections.values(),
-            total=len(self.parent.collections),
-            disable=(not show_progress),
-            description="Building person index...",
-        )
+        if not show_progress:
+            iterator: Iterable[Collection] = self.parent.collections.values()
+        else:
+            iterator = track(
+                self.parent.collections.values(),
+                total=len(self.parent.collections),
+                description="Building person index...",
+            )
         raised_exception = False
         for collection in iterator:
             for volume in collection.volumes():

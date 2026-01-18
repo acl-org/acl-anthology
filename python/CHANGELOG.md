@@ -34,6 +34,7 @@ This release implements the new [name resolution and author ID logic](https://gi
 - Setting a canonical name for a Person changed from `.set_canonical_name()` to `Person.canonical_name = ...`
 - Attributes that expect a MarkupText, such as `Volume.title` or `Paper.abstract`, can now be set to a string, in which case the string will be automatically converted to MarkupText, including markup parsing.
 - EventLinkingType renamed to EventLink.
+- Refactored verbosity handling.  This fixes a bug where empty lines would appear in stdout from Rich's progress bars, even if they were disabled with `verbose=False`.  Also, `verbose=False` is set by default now if stdout is not a TTY.
 
 ## [0.5.4] — 2025-11-27
 
