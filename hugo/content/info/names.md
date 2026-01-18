@@ -2,7 +2,7 @@
 Title: Names in the ACL Anthology
 linktitle: Names
 subtitle: How the Anthology deals with names
-date: "2026-01-17"
+date: "2026-01-15"
 ---
 
 This page explains how the Anthology creates author pages and groups papers by authors. Its main topics include:
