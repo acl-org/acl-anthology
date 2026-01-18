@@ -74,7 +74,6 @@ class PersonIndex(SlottedDict[Person]):
 
     Attributes:
         parent: The parent Anthology instance to which this index belongs.
-        verbose: If False, will not show progress bar when building the index from scratch.
         path: The path to `people.yaml`.
         by_orcid: A mapping of ORCIDs (as strings) to person IDs.
         by_name: A mapping of [Name][acl_anthology.people.name.Name] instances to lists of person IDs.
@@ -84,7 +83,6 @@ class PersonIndex(SlottedDict[Person]):
     """
 
     parent: Anthology = field(repr=False, eq=False)
-    verbose: bool = field(default=True)
     path: Path = field(init=False)
     _by_orcid: dict[str, str] = field(init=False, repr=False, default={})
     _by_name: dict[Name, list[str]] = field(
@@ -219,7 +217,7 @@ class PersonIndex(SlottedDict[Person]):
         # from a cache if it doesn't need re-building.
         if self.is_data_loaded:
             return
-        self.build(show_progress=self.verbose)
+        self.build(show_progress=self.parent.verbose)
 
     def reset(self) -> None:
         """Resets the index."""

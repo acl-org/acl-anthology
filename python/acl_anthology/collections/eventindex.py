@@ -41,13 +41,11 @@ class EventIndex(SlottedDict[Event]):
 
     Attributes:
         parent: The parent Anthology instance to which this index belongs.
-        verbose: If False, will not show progress bar when building the index from scratch.
         reverse: A mapping of volume IDs to a set of associated event IDs.
         is_data_loaded: A flag indicating whether the index has been constructed.
     """
 
     parent: Anthology = field(repr=False, eq=False)
-    verbose: bool = field(default=True)
     reverse: dict[AnthologyIDTuple, set[str]] = field(
         init=False, repr=False, factory=lambda: defaultdict(set)
     )
@@ -94,7 +92,7 @@ class EventIndex(SlottedDict[Event]):
         iterator = track(
             self.parent.collections.values(),
             total=len(self.parent.collections),
-            disable=(not self.verbose),
+            disable=(not self.parent.verbose),
             description=" Building event index...",
         )
         raised_exception = False

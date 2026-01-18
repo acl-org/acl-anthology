@@ -69,10 +69,10 @@ class Anthology:
         self.collections = CollectionIndex(self)
         """The [CollectionIndex][acl_anthology.collections.CollectionIndex] for accessing collections, volumes, and papers."""
 
-        self.events = EventIndex(self, verbose)
+        self.events = EventIndex(self)
         """The [EventIndex][acl_anthology.collections.EventIndex] for accessing events."""
 
-        self.people = PersonIndex(self, verbose)
+        self.people = PersonIndex(self)
         """The [PersonIndex][acl_anthology.people.PersonIndex] for accessing authors and editors."""
 
         self.sigs = SIGIndex(self)
@@ -134,6 +134,7 @@ class Anthology:
             gc.disable()
         elem = None
         raised_exception = False
+        was_verbose = self.verbose
         try:
             indices_to_load = (
                 self.collections.bibkeys,
@@ -152,8 +153,7 @@ class Anthology:
                 description="Loading Anthology data...",
             )
             if self.verbose:
-                self.events.verbose = False
-                self.people.verbose = False
+                self.verbose = False
             for elem in iterator:
                 try:
                     elem.load()  # type: ignore
@@ -168,9 +168,8 @@ class Anthology:
                             exc.add_note(note)
                     log.exception(exc)
                     raised_exception = True
-            if self.verbose:
-                self.events.verbose = True
-                self.people.verbose = True
+            if was_verbose:
+                self.verbose = True
         finally:
             if was_gc_enabled:
                 gc.enable()

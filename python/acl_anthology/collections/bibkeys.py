@@ -146,7 +146,7 @@ class BibkeyIndex(SlottedDict[Paper]):
         # from a cache if it doesn't need re-building.
         if self.is_data_loaded:
             return
-        self.build()
+        self.build(show_progress=self.parent.parent.verbose)
         self.is_data_loaded = True
 
     def reset(self) -> None:
