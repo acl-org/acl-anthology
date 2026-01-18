@@ -1,6 +1,6 @@
 ---
 title: New Author System in the ACL Anthology
-date: "2026-01-19"
+date: "2026-01-17"
 description: >
     Introducing ORCID-centered author pages with explicit verification status
 ---
