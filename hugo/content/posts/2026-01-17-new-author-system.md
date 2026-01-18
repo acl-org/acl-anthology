@@ -15,7 +15,7 @@ Under this system, author pages use two URL patterns:
 - **Verified authors** are those for whom we have an explicit entry in our names database. These pages have the format `https://aclanthology.org/people/{person-id}/`.
 - **Unverified authors** are those for whom we do not have such an entry. These pages have the format `https://aclanthology.org/people/{person-id}/unverified`.
 
-If you notice papers that don’t belong together, you can use the “Fix data” link on the author page to report it.
+If you notice papers that don’t belong together, you can use the “Fix author” link on the author page to report it.
 
 The best way to ensure your papers are correctly attributed is to create an ORCID iD and add it everywhere you submit papers: in particular, to your OpenReview profile and to conference submission systems such as Softconf. 
 
