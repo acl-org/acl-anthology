@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# Copyright 2019-2024 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2019-2026 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -410,6 +410,25 @@ def export_people(anthology, builddir, dryrun):
                 data["similar_unverified"] = sorted(list(similar))
             people[person_id] = data
             progress.update(task, advance=1)
+
+        # Generate redirects _iff_ there's a slug to a verified ID that does not
+        # correspond to an existing (verified OR unverified) person ID
+        extra_slugs = set(anthology.people.slugs_to_verified_ids.keys()) - set(
+            pid.replace("/unverified", "") for pid in people.keys()
+        )
+        for slug in extra_slugs:
+            ids = anthology.people.slugs_to_verified_ids[slug]
+            if len(ids) > 1:
+                target_id = sorted(
+                    ids,
+                    key=lambda pid: len(list(anthology.people[pid].anthology_items())),
+                )[-1]
+            else:
+                target_id = list(ids)[0]
+            if "aliases" in people[target_id]:
+                people[target_id]["aliases"].append(slug)
+            else:
+                people[target_id]["aliases"] = [slug]
 
         if not dryrun:
             with open(f"{builddir}/data/people.json", "wb") as f:
