@@ -1,0 +1,141 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2025.chomps">
+  <volume id="main" ingest-date="2026-01-13" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of the 1st Workshop on Confabulation, Hallucinations and Overgeneration in Multilingual and Practical Settings (CHOMPS 2025)</booktitle>
+      <editor><first>Aman</first><last>Sinha</last></editor>
+      <editor><first>Raúl</first><last>Vázquez</last></editor>
+      <editor><first>Timothee</first><last>Mickus</last></editor>
+      <editor><first>Rohit</first><last>Agarwal</last></editor>
+      <editor><first>Ioana</first><last>Buhnila</last></editor>
+      <editor><first>Patrícia</first><last>Schmidtová</last></editor>
+      <editor><first>Federica</first><last>Gamba</last></editor>
+      <editor><first>Dilip K.</first><last>Prasad</last></editor>
+      <editor><first>Jörg</first><last>Tiedemann</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Mumbai, India</address>
+      <month>December</month>
+      <year>2025</year>
+      <url hash="96315288">2025.chomps-main</url>
+      <venue>chomps</venue>
+      <venue>ws</venue>
+      <isbn>979-8-89176-308-1</isbn>
+    </meta>
+    <frontmatter>
+      <url hash="de52b9ac">2025.chomps-main.0</url>
+      <bibkey>chomps-ws-2025-main</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Task-Aware Evaluation and Error-Overlap Analysis for Large Language Models</title>
+      <author><first>Pranava</first><last>Madhyastha</last></author>
+      <pages>1-10</pages>
+      <abstract>Public leaderboards for large language models often rely on aggregate scores that conceal critical information about model behavior. In this paper, we present a methodology for task-aware evaluation that combines (i) correctness metrics aligned with task semantics compliance checks for instruction-following and numeric equivalence for mathematics with (ii) pairwise error-overlap analysis to identify complementary model pairs. We apply this methodology to 17 outputs of recent state of the art and frontier LLMs across multiple-choice QA, instruction-following, and mathematical reasoning tasks. We observe that task-aware metrics can reorder model rankings relative to generic lexical metrics, and that error-overlap patterns vary substantially across model pairs and scenarios. We finally conclude by discussing implications for model selection, routing strategies, and LLM-as-judge calibration, and release our analysis pipeline to support further investigation.</abstract>
+      <url hash="8a1584c5">2025.chomps-main.1</url>
+      <bibkey>madhyastha-2025-task</bibkey>
+    </paper>
+    <paper id="2">
+      <title>Examining the Faithfulness of Deepseek R1’s Chain-of-Thought Reasoning</title>
+      <author><first>Chrisanna</first><last>Cornish</last></author>
+      <author><first>Anna</first><last>Rogers</last></author>
+      <pages>11-19</pages>
+      <abstract>Chain-of-Thought (CoT) ‘reasoning’ promises to enhance the performance and transparency of Large Language Models (LLMs). Models, such as Deepseek R1, are trained via reinforcement learning to automatically generate CoT explanations in their outputs. Their faithfulness, i.e. how well the explanations actually reflect their internal reasoning process, has been called into doubt by recent studies (Chen et al., 2025a; Chua and Evans, 2025). This paper extends previous work by probing Deepseek R1 with 445 logical puzzles under zero- and few-shot settings. We find that whilst the model explicitly acknowledges a strong harmful hint in 94.6% of cases, it reports less than 2% of helpful hints. Further analysis reveals implicit unfaithfulness as the model significantly reduces answer-rechecking behaviour for helpful hints (p&lt;0.01) despite rarely mentioning them in its CoT, demonstrating a discrepancy between its reported and actual decision process. In line with prior reports for GPT, Claude, Gemini and other models, our results for DeepSeek raise concerns about the use of CoT as an explainability technique.</abstract>
+      <url hash="de21825d">2025.chomps-main.2</url>
+      <bibkey>cornish-rogers-2025-examining</bibkey>
+    </paper>
+    <paper id="3">
+      <title>Better Together: Towards Localizing Fact-Related Hallucinations using Open Small Language Models</title>
+      <author><first>David</first><last>Kletz</last></author>
+      <author><first>Sandra</first><last>Mitrovic</last></author>
+      <author><first>Ljiljana</first><last>Dolamic</last></author>
+      <author><first>Fabio</first><last>Rinaldi</last></author>
+      <pages>20-34</pages>
+      <abstract>In this paper, we explore the potential of Open-source Small Language Models (OSLMs) for localizing hallucinations related to factual accuracy. We first present Lucifer, a dataset designed to enable proper and consistent evaluation of LMs, composed of an automatically constructed portion and a manually curated subset intended for qualitative analysis.We then assess the performance of five OSLMs using four carefully designed prompts. Results are evaluated either individually or merged through a voting-based merging approach. While our results demonstrate that the merging method yields promising performance even with smaller models, our manually curated dataset highlights the inherent difficulty of the task, underscoring the need for further research.</abstract>
+      <url hash="a359ee4f">2025.chomps-main.3</url>
+      <bibkey>kletz-etal-2025-better</bibkey>
+    </paper>
+    <paper id="4">
+      <title>Leveraging <fixed-case>NTP</fixed-case>s for Efficient Hallucination Detection in <fixed-case>VLM</fixed-case>s</title>
+      <author><first>Ofir</first><last>Azachi</last></author>
+      <author><first>Kfir</first><last>Eliyahu</last></author>
+      <author><first>Eyal</first><last>El Ani</last></author>
+      <author><first>Rom</first><last>Himelstein</last></author>
+      <author><first>Roi</first><last>Reichart</last></author>
+      <author><first>Yuval</first><last>Pinter</last></author>
+      <author><first>Nitay</first><last>Calderon</last></author>
+      <pages>35-48</pages>
+      <abstract>Hallucinations of vision-language models (VLMs), which are misalignments between visual content and generated text, undermine the reliability of VLMs. One common approach for detecting them employs the same VLM, or a different one, to assess generated outputs. This process is computationally intensive and increases model latency. In this paper, we explore an efficient on-the-fly method for hallucination detection by training traditional ML models over signals based on the VLM’s next-token probabilities (NTPs). NTPs provide a direct quantification of model uncertainty. We hypothesize that high uncertainty (i.e., a low NTP value) is strongly associated with hallucinations. To test this, we introduce a dataset of 1,400 human-annotated statements derived from VLM-generated content, each labeled as hallucinated or not, and use it to test our NTP-based lightweight method. Our results demonstrate that NTP-based features are valuable predictors of hallucinations, enabling fast and simple ML models to achieve performance comparable to that of strong VLMs. Furthermore, augmenting these NTPs with linguistic NTPs, computed by feeding only the generated text back into the VLM, enhances hallucination detection performance. Finally, integrating hallucination prediction scores from VLMs into the NTP-based models led to better performance than using either VLMs or NTPs alone. We hope this study paves the way for simple, lightweight solutions that enhance the reliability of VLMs. All data is publicly available at https://huggingface.co/datasets/wrom/Language-Vision-Hallucinations.</abstract>
+      <url hash="d2539840">2025.chomps-main.4</url>
+      <bibkey>azachi-etal-2025-leveraging</bibkey>
+    </paper>
+    <paper id="5">
+      <title>Language Confusion and Multilingual Performance: A Case Study of <fixed-case>T</fixed-case>hai-Adapted Large Language Models</title>
+      <author><first>Pakhapoom</first><last>Sarapat</last></author>
+      <author><first>Trapoom</first><last>Ukarapol</last></author>
+      <author><first>Tatsunori</first><last>Hashimoto</last></author>
+      <pages>49-59</pages>
+      <abstract>This paper presents a comprehensive study on the multilingual adaptability of large language models (LLMs), with a focus on the interplay between training strategies and prompt design. Using Thai as a case study, we examine: (RQ1) the extent to which pre-trained models (Base) can adapt to another language through additional fine-tuning; (RQ2) how continual pre-training (CPT) compares to multilingual pre-training (MLLM) in terms of performance on downstream tasks; and (RQ3) how language variation within different components of a structured prompt–task instruction, context input, and output instruction–influences task performance in cross-lingual settings. Our findings reveal that CPT proves to be a promising strategy for enhancing model performance in languages other than English like Thai in monolingual settings, particularly for models that initially lack strong linguistic capabilities. Its effectiveness, however, is highly task-dependent and varies based on the base model’s initial proficiency. In cross-lingual scenarios, MLLMs exhibit superior robustness compared to Base and CPT models, which are more susceptible to context-output language mismatches. Considering the high cost of training multilingual models from scratch, MLLMs remain a critical component for downstream tasks in multilingual settings due to their strong cross-lingual performance.</abstract>
+      <url hash="bea066fe">2025.chomps-main.5</url>
+      <bibkey>sarapat-etal-2025-language</bibkey>
+    </paper>
+    <paper id="6">
+      <title>A Comprehensive Evaluation of Large Language Models for Retrieval-Augmented Generation under Noisy Conditions</title>
+      <author><first>Josue</first><last>Daniel Caldas Velasquez</last></author>
+      <author><first>Elvis</first><last>de Souza</last></author>
+      <pages>60-69</pages>
+      <abstract>Retrieval-Augmented Generation (RAG) has emerged as an effective strategy to ground Large Language Models (LLMs) with reliable, real-time information. This paper investigates the trade-off between cost and performance by evaluating 13 LLMs within a RAG pipeline for the Question Answering (Q&amp;A) task under noisy retrieval conditions. We assess four extractive and nine generative models—spanning both open- and closed-source ones of varying sizes—on a journalistic benchmark specifically designed for RAG. By systematically varying the level of noise injected into the retrieved context, we analyze not only which models perform best, but also their robustness to noisy input. Results show that large open-source generative models (approx. 70B parameters) achieve performance and noise tolerance on par with top-tier closed-source models. However, their computational demands limit their practicality in resource-constrained settings. In contrast, medium-sized open-source models (approx. 7B parameters) emerge as a compelling compromise, balancing efficiency, robustness, and accessibility.</abstract>
+      <url hash="03a709f8">2025.chomps-main.6</url>
+      <bibkey>daniel-caldas-velasquez-de-souza-2025-comprehensive</bibkey>
+    </paper>
+    <paper id="7">
+      <title><fixed-case>SHROOM</fixed-case>-<fixed-case>CAP</fixed-case>: Shared Task on Hallucinations and Related Observable Overgeneration Mistakes in Crosslingual Analyses of Publications</title>
+      <author><first>Aman</first><last>Sinha</last></author>
+      <author><first>Federica</first><last>Gamba</last></author>
+      <author><first>Raúl</first><last>Vázquez</last></author>
+      <author><first>Timothee</first><last>Mickus</last></author>
+      <author><first>Ahana</first><last>Chattopadhyay</last></author>
+      <author><first>Laura</first><last>Zanella</last></author>
+      <author><first>Binesh</first><last>Arakkal Remesh</last></author>
+      <author><first>Yash</first><last>Kankanampati</last></author>
+      <author><first>Aryan</first><last>Chandramania</last></author>
+      <author><first>Rohit</first><last>Agarwal</last></author>
+      <pages>70-80</pages>
+      <abstract>This paper presents an overview of the SHROOM-CAP Shared Task, which focuses on detecting hallucinations and over-generation errors in cross-lingual analyses of scientific publications. SHROOM-CAP covers nine languages: five high-resource (English, French, Hindi, Italian, and Spanish) and four low-resource (Bengali, Gujarati, Malayalam, and Telugu). The task frames hallucination detection as a binary classification problem, where participants must predict whether a given text contains factual inaccuracies and fluency mistakes. We received 1,571 submissions from 5 participating teams during the test phase over the nine languages. In the paper, we present an analysis of the evaluated systems to assess their performance on the hallucination detection task across languages. Our findings reveal a disparity in system performance between high-resource and low-resource languages. Furthermore, we observe that factuality and fluency tend to be closely aligned in high-resource languages, whereas this correlation is less evident in low-resource languages. Overall, SHROOM-CAP underlines that hallucination detection remains a challenging open problem, particularly in low-resource and domain-specific settings.</abstract>
+      <url hash="59faae91">2025.chomps-main.7</url>
+      <bibkey>sinha-etal-2025-shroom</bibkey>
+    </paper>
+    <paper id="8">
+      <title><fixed-case>S</fixed-case>murf<fixed-case>C</fixed-case>at at <fixed-case>SHROOM</fixed-case>-<fixed-case>CAP</fixed-case>: Factual but Awkward? Fluent but Wrong? Tackling Both in <fixed-case>LLM</fixed-case> Scientific <fixed-case>QA</fixed-case></title>
+      <author><first>Timur</first><last>Ionov</last></author>
+      <author><first>Evgenii</first><last>Nikolaev</last></author>
+      <author><first>Artem</first><last>Vazhentsev</last></author>
+      <author><first>Mikhail</first><last>Chaichuk</last></author>
+      <author><first>Anton</first><last>Korznikov</last></author>
+      <author><first>Elena</first><last>Tutubalina</last></author>
+      <author><first>Alexander</first><last>Panchenko</last></author>
+      <author><first>Vasily</first><last>Konovalov</last></author>
+      <author><first>Elisei</first><last>Rykov</last></author>
+      <pages>81-89</pages>
+      <abstract>Large Language Models (LLMs) often generate hallucinations, a critical issue in domains like scientific communication where factual accuracy and fluency are essential. The SHROOM-CAP shared task addresses this challenge by evaluating Factual Mistakes and Fluency Mistakes across diverse languages, extending earlier SHROOM editions to the scientific domain. We present Smurfcat, our system for SHROOM-CAP, which integrates three complementary approaches: uncertainty estimation (white-box and black-box signals), encoder-based classifiers (Multilingual Modern BERT), and decoder-based judges (instruction-tuned LLMs with classification heads). Results show that decoder-based judges achieve the strongest overall performance, while uncertainty methods and encoders provide complementary strengths. Our findings highlight the value of combining uncertainty signals with encoder and decoder architectures for robust, multilingual detection of hallucinations and related errors in scientific publications.</abstract>
+      <url hash="a0973e0f">2025.chomps-main.8</url>
+      <bibkey>ionov-etal-2025-smurfcat</bibkey>
+    </paper>
+    <paper id="9">
+      <title><fixed-case>S</fixed-case>calar_<fixed-case>NITK</fixed-case> at <fixed-case>SHROOM</fixed-case>-<fixed-case>CAP</fixed-case>: Multilingual Factual Hallucination and Fluency Error Detection in Scientific Publications Using Retrieval-Guided Evidence and Attention-Based Feature Fusion</title>
+      <author><first>Anjali</first><last>R</last></author>
+      <pages>90-95</pages>
+      <abstract>One of the key challenges of deploying Large Language Models (LLMs) in multilingual scenarios is maintaining output quality across two conditions: factual correctness and linguistic fluency. LLMs are liable to produce text with factual hallucinations, solid-sounding but false information, and fluency errors that take the form of grammatical mistakes, repetition, or unnatural speech patterns. In this paper, we address a two-framework solution for the end-to-end quality evaluation of LLM-generated text in low-resource languages.(1) For hallucination detection, we introduce a retrieval-augmented classification model that utilizes hybrid document retrieval, along with gradient boosting.(2) For fluency detection, we introduce a deep learning model that combines engineered statistical features with pre-trained semantic embeddings using an attention-based mechanism.</abstract>
+      <url hash="cf034e2f">2025.chomps-main.9</url>
+      <bibkey>r-2025-scalar</bibkey>
+    </paper>
+    <paper id="10">
+      <title>“<fixed-case>AGI</fixed-case>” team at <fixed-case>SHROOM</fixed-case>-<fixed-case>CAP</fixed-case>: Data-Centric Approach to Multilingual Hallucination Detection using <fixed-case>XLM</fixed-case>-<fixed-case>R</fixed-case>o<fixed-case>BERT</fixed-case>a</title>
+      <author><first>Harsh</first><last>Rathwa</last></author>
+      <author><first>Pruthwik</first><last>Mishra</last></author>
+      <author><first>Shrikant</first><last>Malviya</last></author>
+      <pages>96-100</pages>
+      <abstract>The detection of hallucinations in multilingual scientific text generated by Large Language Models (LLMs) presents significant challenges for reliable AI systems. This paper describes our submission to the SHROOM-CAP 2025 shared task on scientific hallucination detection across 9 languages. Unlike most approaches that focus primarily on model architecture, we adopted a data-centric strategy that addressed the critical issue of training data scarcity and imbalance. We unify and balance five existing datasets to create a comprehensive training corpus of 124,821 samples (50% correct, 50% hallucinated), representing a 172x increase over the original SHROOM training data. Our approach fine-tuned XLM-RoBERTa-Large with 560 million parameters on this enhanced dataset, achieves competitive performance across all languages, including <b>2nd place in Gujarati</b> (zero-shot language) with Factuality F1 of 0.5107, and rankings between 4th-6th place across the remaining 8 languages. Our results demonstrate that systematic data curation can significantly outperform architectural innovations alone, particularly for low-resource languages in zero-shot settings.</abstract>
+      <url hash="b0eed078">2025.chomps-main.10</url>
+      <bibkey>rathwa-etal-2025-agi</bibkey>
+    </paper>
+  </volume>
+</collection>
