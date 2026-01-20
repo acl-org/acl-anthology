@@ -19,4 +19,4 @@ If you notice papers that don’t belong together, you can use the “Fix author
 
 The best way to ensure your papers are correctly attributed is to create an ORCID iD and add it everywhere you submit papers: in particular, to your OpenReview profile and to conference submission systems such as Softconf.
 
-For more information, you can read about how we [verify authors]({{< ref "/info/verification" >}}) and how we use [ORCID iDs]({{< ref "/info/orcid" >}}).
+For more information, you can read about [how we verify authors]({{< ref "/info/verification" >}}) and [how we use ORCID iDs]({{< ref "/info/orcid" >}}).
