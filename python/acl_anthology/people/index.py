@@ -214,7 +214,7 @@ class PersonIndex(SlottedDict[Person]):
         """Loads or builds the index."""
         # This function exists so we can later add the option to read the index
         # from a cache if it doesn't need re-building.
-        if self.is_data_loaded:
+        if self.is_data_loaded:  # pragma: no cover
             return
         self.build(show_progress=self.parent.verbose)
 

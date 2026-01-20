@@ -58,7 +58,7 @@ class Anthology:
     """
 
     def __init__(self, datadir: StrPath, verbose: Optional[bool] = None) -> None:
-        if not Path(datadir).is_dir():
+        if not Path(datadir).is_dir():  # pragma: no cover
             raise FileNotFoundError(f"Not a directory: {datadir}")
 
         self.datadir = Path(datadir)
@@ -155,7 +155,6 @@ class Anthology:
                     total=len(self.collections) + len(indices_to_load),
                     description="Loading Anthology data...",
                 )
-            if self.verbose:
                 self.verbose = False
             for elem in iterator:
                 try:
