@@ -26,7 +26,7 @@ The following histogram of name counts shows that most names are unique, but the
 | 14 | 1 | Zhang, Li (only known example) |
 | 25 | 1 | Liu, Yang (only known example) |
 
-To address this, we are introducing a new author system centered on [ORCID iDs](https://orcid.org), a widely used persistent identifier for researchers. Papers with ORCID iDs will be automatically linked together and used to create "verified" author pagers. Authors without ORCID iDs will still have author pages, but these will be marked as "unverified" to indicate that the papers listed may not all belong to the same person.
+To address this, we are introducing a new author system centered on [ORCID iDs](https://orcid.org), a widely used persistent identifier for researchers. Papers with ORCID iDs will be automatically linked together and used to create "verified" author pages. Authors without ORCID iDs will still have author pages, but these will be marked as "unverified" to indicate that the papers listed may not all belong to the same person.
 
 The best way to ensure your papers are correctly attributed is to **create an ORCID iD and add it everywhere you submit papers**: in particular, to your OpenReview profile and to conference submission systems such as Softconf. If you notice papers that don’t belong together, you can use the “Fix author” link on the author page to report it.
 
