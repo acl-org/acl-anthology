@@ -8,7 +8,7 @@ date: "2026-01-15"
 An [ORCID iD](https://orcid.org) is a persistent digital identifier that distinguishes you from other researchers and links your research outputs and activities to your identity.
 When these iDs are present on ingested papers, it removes the ambiguity that sometimes arises with popular names and name variants.
 
-We urge every author who is actively publishing papers to create an ORCID iD, and to supply this ID to publication systems such as OpenReview.[^1] In creating or editing your ORCID iD profile, please consider the following tips to help match your papers to your Anthology page:
+We urge every author who is actively publishing papers to create an ORCID iD, and to <mark>supply this ID to publication systems such as OpenReview</mark>.[^1] In creating or editing your ORCID iD profile, please consider the following tips to help match your papers to your Anthology page:
 
 [^1]: Visit the [edit page link at OpenReview](https://openreview.net/profile/edit) and add your ORCID iD under the "Personal Links" section.
 
