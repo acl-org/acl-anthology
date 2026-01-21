@@ -30,7 +30,9 @@ from .logging import get_logger
 log = get_logger()
 
 
-def clone_or_pull_from_repo(repo_url: str, local_path: StrPath, verbose: bool) -> None:
+def clone_or_pull_from_repo(
+    repo_url: str, local_path: StrPath, verbose: Optional[bool]
+) -> None:
     """Clones a Git repository, or pulls from remote if it already exists.
 
     Arguments:

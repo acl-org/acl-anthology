@@ -6,7 +6,8 @@ This release implements the new [name resolution and author ID logic](https://gi
 
 ### Added
 
-- Anthology now provides `save_all()` to conveniently save all data files.  The library tracks modifications to collection objects to only write XML files that have actually changed.
+- Anthology now provides `save_all()` to conveniently save all data files.  The library tracks modifications to collection objects to only write XML files that have actually changed.  (Tracking changes does not work on _every_ possible modification, though; see the documentation.)
+- `Anthology.from_within_repo()` can be used to quickly instantiate the Anthology from within its own repo.
 - Person:
   - Now provides `orcid`, `degree`, `disable_name_matching`, and `similar_ids` fields that correspond to the respective fields in the new `people.yaml`.
   - Changing `id`, `orcid`, `names`, or using `add_name()` or `remove_names()` will now automatically update the PersonIndex.

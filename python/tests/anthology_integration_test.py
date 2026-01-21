@@ -24,7 +24,9 @@ from acl_anthology.venues import Venue
 from acl_anthology.utils import xml
 
 # Map from [repo]/python/tests to [repo]/data
-DATADIR = Path(os.path.dirname(os.path.realpath(__file__))) / ".." / ".." / "data"
+DATADIR = (
+    Path(os.path.dirname(os.path.realpath(__file__))) / ".." / ".." / "data"
+).resolve()
 
 
 def pytest_generate_tests(metafunc):
@@ -57,9 +59,17 @@ def full_anthology():
 
 
 @pytest.mark.integration
+@pytest.mark.filterwarnings("ignore::acl_anthology.exceptions.SchemaMismatchWarning")
 def test_anthology_from_repo(tmp_path):
     # Test that we can instantiate from the GitHub repo
     _ = Anthology.from_repo(path=tmp_path, verbose=True)
+
+
+@pytest.mark.integration
+def test_anthology_from_within_repo(tmp_path):
+    # Test that instantiating from within repo results in correct data folder
+    anthology = Anthology.from_within_repo()
+    assert anthology.datadir.resolve() == DATADIR
 
 
 @pytest.mark.integration
