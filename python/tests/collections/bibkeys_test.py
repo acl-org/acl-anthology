@@ -19,6 +19,16 @@ from acl_anthology.text import MarkupText
 from lxml import etree
 
 
+def test_bibkeyindex_load(anthology):
+    index = BibkeyIndex(anthology.collections)
+    assert not index.is_data_loaded
+    was_verbose = anthology.verbose
+    anthology.verbose = True
+    index.load()
+    anthology.verbose = was_verbose
+    assert index.is_data_loaded
+
+
 def test_bibkeys_indexing(anthology):
     index = anthology.collections.bibkeys
     index.load()

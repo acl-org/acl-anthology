@@ -108,7 +108,7 @@ def test_similar_names_through_same_canonical_name(index):
 
 def test_build_personindex(index):
     assert not index.is_data_loaded
-    index.build(show_progress=False)
+    index.build(show_progress=True)
     assert index.is_data_loaded
     assert "yang-liu/unverified" in index
     assert "yang-liu-microsoft" in index
