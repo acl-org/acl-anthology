@@ -6,6 +6,7 @@ This release implements the new [name resolution and author ID logic](https://gi
 
 ### Added
 
+- Support for Python 3.14.
 - Anthology now provides `save_all()` to conveniently save all data files.  The library tracks modifications to collection objects to only write XML files that have actually changed.  (Tracking changes does not work on _every_ possible modification, though; see the documentation.)
 - `Anthology.from_within_repo()` can be used to quickly instantiate the Anthology from within its own repo.
 - Person:
