@@ -87,13 +87,13 @@ def _parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--top",
         type=int,
-        default=25,
+        default=0,
         help="Number of most ambiguous names to list explicitly (default: 25).",
     )
     parser.add_argument(
         "--min-shared",
         type=int,
-        default=2,
+        default=1,
         help="Only list names shared by at least this many people (default: 2).",
     )
     parser.add_argument(
@@ -142,7 +142,7 @@ def _print_top_names(
         )
         return
 
-    limit = min(top_n, len(shared_names))
+    limit = min(top_n, len(shared_names)) if top_n > 0 else len(shared_names)
     print(f"\nTop {limit} names shared by >= {min_shared} people:")
     for name, count in shared_names[:limit]:
         print(f"  {name.as_last_first():<40} {count}")
