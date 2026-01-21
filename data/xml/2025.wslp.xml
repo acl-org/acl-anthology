@@ -1,0 +1,144 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2025.wslp">
+  <volume id="main" ingest-date="2026-01-13" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of the Workshop on Sign Language Processing (WSLP)</booktitle>
+      <editor><first>Mohammed</first><last>Hasanuzzaman</last></editor>
+      <editor><first>Facundo Manuel</first><last>Quiroga</last></editor>
+      <editor><first>Ashutosh</first><last>Modi</last></editor>
+      <editor><first>Sabyasachi</first><last>Kamila</last></editor>
+      <editor><first>Keren</first><last>Artiaga</last></editor>
+      <editor><first>Abhinav</first><last>Joshi</last></editor>
+      <editor><first>Sanjeet</first><last>Singh</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>IIT Bombay, Mumbai, India (Co-located with IJCNLP–AACL 2025)</address>
+      <month>December</month>
+      <year>2025</year>
+      <url hash="345ec544">2025.wslp-main</url>
+      <venue>wslp</venue>
+      <venue>ws</venue>
+      <isbn>979-8-89176-304-3</isbn>
+    </meta>
+    <frontmatter>
+      <url hash="8d5bb8c4">2025.wslp-main.0</url>
+      <bibkey>wslp-ws-2025-main</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Overview of the First Workshop on Sign Language Processing (<fixed-case>WSLP</fixed-case> 2025)</title>
+      <author><first>Sanjeet</first><last>Singh</last></author>
+      <author><first>Abhinav</first><last>Joshi</last></author>
+      <author><first>Keren</first><last>Artiaga</last></author>
+      <author><first>Mohammed</first><last>Hasanuzzaman</last></author>
+      <author><first>Facundo Manuel</first><last>Quiroga</last></author>
+      <author><first>Sabyasachi</first><last>Kamila</last></author>
+      <author><first>Ashutosh</first><last>Modi</last></author>
+      <pages>1-5</pages>
+      <abstract>We organized the First Workshop on Sign Language Processing (WSLP 2025), co-located with IJCNLP–AACL 2025 at IIT Bombay, to bring together researchers, linguists, and members of the Deaf community and accelerate computational work on under-resourced sign languages.The workshop accepted ten papers—including two official shared-task submissions—that introduced new large-scale resources (a continuous ISL fingerspelling corpus, cross-lingual HamNoSys corpora), advanced multilingual and motion-aware translation models, explored LLM-based augmentation and glossing strategies, and presented lightweight deployable systems for regional languages such as Odia.We ran a three-track shared task on Indian Sign Language that attracted over sixty registered teams and established the first public leaderboards for sentence-level ISL-to-English translation, isolated word recognition, and word-presence prediction.By centring geographic, linguistic, and organiser diversity, releasing open datasets and benchmarks, and explicitly addressing linguistic challenges unique to visual–spatial languages, we significantly broadened the scope of sign-language processing beyond traditionally dominant European and East-Asian datasets, laying a robust foundation for inclusive, equitable, and deployable sign-language AI in the Global South.</abstract>
+      <url hash="8d5bb8c4">2025.wslp-main.1</url>
+      <bibkey>singh-etal-2025-overview</bibkey>
+    </paper>
+    <paper id="2">
+      <title>Indain Sign Language Recognition and Translation into <fixed-case>O</fixed-case>dia</title>
+      <author><first>Astha Swarupa</first><last>Nayak</last></author>
+      <author><first>Naisargika</first><last>Subudhi</last></author>
+      <author><first>Tannushree</first><last>Rana</last></author>
+      <author><first>Muktikanta</first><last>Sahu</last><affiliation>International Institute of Information Technology Bhubaneswar</affiliation></author>
+      <author id="rakesh-chandra-balabantaray" orcid="0000-0003-0995-0013"><first>Rakesh Chandra</first><last>Balabantaray</last></author>
+      <pages>6-13</pages>
+      <abstract>Sign language is a vital means of communication for the deaf and hard-of-hearing community. However, translating Indian Sign Language (ISL) into regional languages like Odia remains a significant technological challenge due to the language’s rich morphology, agglutinative grammar, and complex script. This work presents a real-time ISL recognition and translation system that converts hand gestures into Odia text, enhancing accessibility and promoting inclusive communication. The system leverages MediaPipe for real-time key-point detection and uses a custom-built dataset of 1,200 samples across 12 ISL gesture classes, captured under diverse Indian backgrounds and lighting conditions to ensure robustness. Both 2D and 3D Convolutional Neural Networks (CNNs) were explored, with the 2D CNN achieving superior performance 98.33% test accuracy compared to the 3D CNN’s 78.33%. Recognized gestures are translated into Odia using a curated gesture-to-text mapping dictionary, seamlessly integrated into a lightweight Tkinter-based GUI. Unlike other resource-heavy systems, this model is optimized for deployment on low-resource devices, making it suitable for rural and educational contexts. Beyond translation, the system can function as an assistive learning tool for students and educators of ISL. This work demonstrates that combining culturally curated datasets with efficient AI models can bridge communication gaps and create regionally adapted, accessible technology for the deaf and mute community in India.</abstract>
+      <url hash="c927eb28">2025.wslp-main.2</url>
+      <bibkey>nayak-etal-2025-indain</bibkey>
+    </paper>
+    <paper id="3">
+      <title>Low-Resource Sign Language Glossing Profits From Data Augmentation</title>
+      <author id="diana-vania-lara-ortiz" orcid="0000-0001-8309-0790"><first>Diana Vania Lara</first><last>Ortiz</last></author>
+      <author id="sebastian-pado"><first>Sebastian</first><last>Padó</last><affiliation>University of Stuttgart, Universität Stuttgart</affiliation></author>
+      <pages>14-19</pages>
+      <abstract><tex-math>\textit{Glossing}</tex-math> is the task of translating from a written language into a sequence of <tex-math>\textit{glosses}</tex-math>, i.e., textual representations of signs from some sign language. While glossing is in principle ‘just’ a machine translation (MT) task, sign languages still lack the large parallel corpora that exist for many written language pairs and underlie the development of dedicated MT systems. In this work, we demonstrate that glossing can be significantly improved through data augmentation. We fine-tune a Spanish transformer model both on a small dedicated corpus 3,000 Spanish–Mexican Sign Language (MSL) gloss sentence pairs, and on a corpus augmented with an English–American Sign Language (ASL) gloss corpus. We obtain the best results when we oversample from the ASL corpus by a factor of ~4, achieving a BLEU increase from 62 to 85 and a TER reduction from 44 to 20. This demonstrates the usefulness of combining corpora in low-resource glossing situations.</abstract>
+      <url hash="c4bf8d4e">2025.wslp-main.3</url>
+      <bibkey>ortiz-pado-2025-low</bibkey>
+    </paper>
+    <paper id="4">
+      <title>Augmenting Sign Language Translation Datasets with Large Language Models</title>
+      <author id="pedro-alejandro-dal-bianco" orcid="0000-0001-7197-8602"><first>Pedro Alejandro Dal</first><last>Bianco</last><affiliation>Universidad Nacional de La Plata</affiliation></author>
+      <author><first>Jean Paul Nunes</first><last>Reinhold</last></author>
+      <author id="facundo-manuel-quiroga" orcid="0000-0003-4495-4327"><first>Facundo Manuel</first><last>Quiroga</last><affiliation>Universidad Nacional de La Plata and Universidad Nacional de La Plata</affiliation></author>
+      <author><first>Franco</first><last>Ronchetti</last><affiliation>Universidad Nacional de La Plata</affiliation></author>
+      <pages>20-26</pages>
+      <abstract>Sign language translation (SLT) is a challenging task due to the scarcity of labeled data and the heavy-tailed distribution of sign language vocabularies. In this paper, we explore a novel data augmentation approach for SLT: using a large language model (LLM) to generate paraphrases of the target language sentences in the training data. We experiment with a Transformer-based SLT model (Signformer) on three datasets spanning German, Greek, and Argentinian Sign Languages. For models trained with augmentation, we adopt a two-stage regime: pre-train on the LLM-augmented corpus and then fine-tune on the original, non-augmented training set. Our augmented training sets, expanded with GPT-4-generated paraphrases, yield mixed results. On a medium-scale German SL corpus (PHOENIX14T), LLM augmentation improves BLEU-4 from 9.56 to 10.33. In contrast, a small-vocabulary Greek SL dataset with a near-perfect baseline (94.38 BLEU) sees a slight drop to 92.22 BLEU, and a complex Argentinian SL corpus with a long-tail vocabulary distribution remains around 1.2 BLEU despite augmentation. We analyze these outcomes in relation to each dataset’s complexity and token frequency distribution, finding that LLM-based augmentation is more beneficial when the dataset contains a richer vocabulary and many infrequent tokens. To our knowledge, this work is the first to apply LLM paraphrasing to SLT, and we discuss these results with respect to prior data augmentation efforts in sign language translation.</abstract>
+      <url hash="444e596d">2025.wslp-main.4</url>
+      <bibkey>bianco-etal-2025-augmenting</bibkey>
+    </paper>
+    <paper id="5">
+      <title>Multilingual Sign Language Translation with Unified Datasets and Pose-Based Transformers</title>
+      <author id="pedro-alejandro-dal-bianco" orcid="0000-0001-7197-8602"><first>Pedro Alejandro Dal</first><last>Bianco</last><affiliation>Universidad Nacional de La Plata</affiliation></author>
+      <author id="oscar-agustin-stanchi" orcid="0000-0003-0294-2053"><first>Oscar Agustín</first><last>Stanchi</last><affiliation>Universidad Nacional de La Plata</affiliation></author>
+      <author id="facundo-manuel-quiroga" orcid="0000-0003-4495-4327"><first>Facundo Manuel</first><last>Quiroga</last><affiliation>Universidad Nacional de La Plata and Universidad Nacional de La Plata</affiliation></author>
+      <author><first>Franco</first><last>Ronchetti</last><affiliation>Universidad Nacional de La Plata</affiliation></author>
+      <pages>27-32</pages>
+      <abstract>Sign languages are highly diverse across countries and regions, yet most Sign Language Translation (SLT) work remains monolingual. We explore a unified, multi-target SLT model trained jointly on four sign languages (German, Greek, Argentinian, Indian) using a standardized data layer. Our model operates on pose keypoints extracted with MediaPipe, yielding a lightweight and dataset-agnostic representation that is less sensitive to backgrounds, clothing, cameras, or signer identity while retaining motion and configuration cues. On RWTH-PHOENIX-Weather 2014T, Greek Sign Language Dataset, LSA-T, and ISLTranslate, naive joint training under a fully shared parameterization performs worse than monolingual baselines; however, a simple two-stage schedule: multilingual pre-training followed by a short language-specific fine-tuning, recovers and surpasses monolingual results on three datasets (PHOENIX14T: <tex-math>+0.15</tex-math> BLEU-4; GSL: <tex-math>+0.74</tex-math>; ISL: <tex-math>+0.10</tex-math>) while narrowing the gap on the most challenging corpus (LSA-T: <tex-math>-0.24</tex-math> vs. monolingual). Scores span from BLEU-4<tex-math>\approx 1</tex-math> on open-domain news (LSA-T) to <tex-math>&gt;90</tex-math> on constrained curricula (GSL), highlighting the role of dataset complexity. We release our code to facilitate training and evaluation of multilingual SLT models.</abstract>
+      <url hash="a3956fbe">2025.wslp-main.5</url>
+      <bibkey>bianco-etal-2025-multilingual</bibkey>
+    </paper>
+    <paper id="6">
+      <title>Continuous Fingerspelling Dataset for <fixed-case>I</fixed-case>ndian <fixed-case>S</fixed-case>ign <fixed-case>L</fixed-case>anguage</title>
+      <author><first>Kirandevraj</first><last>R</last><affiliation>Verisk Analytics</affiliation></author>
+      <author id="vinod-k-kurmi" orcid="0000-0003-0332-5647"><first>Vinod K.</first><last>Kurmi</last><affiliation>IISER Bhopal</affiliation></author>
+      <author id="vinay-p-namboodiri" orcid="0000-0001-5262-9722"><first>Vinay P.</first><last>Namboodiri</last><affiliation>University of Bath</affiliation></author>
+      <author><first>C.v.</first><last>Jawahar</last><affiliation>IIIT Hyderabad</affiliation></author>
+      <pages>33-38</pages>
+      <abstract>Fingerspelling enables signers to represent proper nouns and technical terms letter-by-letter using manual alphabets, yet remains severely under-resourced for Indian Sign Language (ISL). We present the first continuous fingerspelling dataset for ISL, extracted from the ISH News YouTube channel, in which fingerspelling is accompanied by synchronized on-screen text cues. The dataset comprises 1,308 segments from 499 videos, totaling 70.85 minutes and 14,814 characters, with aligned video-text pairs capturing authentic coarticulation patterns. We validated the dataset quality through annotation using a proficient ISL interpreter, achieving a 90.67% exact match rate for 150 samples. We further established baseline recognition benchmarks using a ByT5-small encoder-decoder model, which attains 82.91% Character Error Rate after fine-tuning. This resource supports multiple downstream tasks, including fingerspelling transcription, temporal localization, and sign generation. The dataset is available at the following link: https://kirandevraj.github.io/ISL-Fingerspelling/.</abstract>
+      <url hash="39e5f2d9">2025.wslp-main.6</url>
+      <bibkey>r-etal-2025-continuous</bibkey>
+    </paper>
+    <paper id="7">
+      <title>Enhancing <fixed-case>I</fixed-case>ndian <fixed-case>S</fixed-case>ign <fixed-case>L</fixed-case>anguage Translation via Motion-Aware Modeling</title>
+      <author id="anal-roy-chowdhury" orcid="0000-0003-4785-3038"><first>Anal Roy</first><last>Chowdhury</last><affiliation>Indian Association for the Cultivation of Science</affiliation></author>
+      <author id="debarshi-kumar-sanyal" orcid="0000-0001-8723-5002"><first>Debarshi Kumar</first><last>Sanyal</last><affiliation>Indian Association for the Cultivation of Science</affiliation></author>
+      <pages>39-46</pages>
+      <abstract>Sign language translation (SLT) has witnessed rapid progress in the deep learning community across several sign languages, including German, American, British, and Italian. However, Indian Sign Language (ISL) remains relatively underexplored. Motivated by recent efforts to develop large-scale ISL resources, we investigate how existing SLT models perform on ISL data. Specifically, we evaluate three approaches: (i) training a transformer-based model, (ii) leveraging visual-language pretraining, and (iii) tuning a language model with pre-trained visual and motion representations. Unlike existing methods that primarily use raw video frames, we augment the model with optical flow maps to explicitly capture motion primitives, combined with a multi-scale feature extraction method for encoding spatial features (SpaMo-OF). Our approach achieves promising results, obtaining a BLEU-4 score of 8.58 on the iSign test set, establishing a strong baseline for future ISL translation research.</abstract>
+      <url hash="8ff96d26">2025.wslp-main.7</url>
+      <bibkey>chowdhury-sanyal-2025-enhancing</bibkey>
+    </paper>
+    <paper id="8">
+      <title>Pose-Based Temporal Convolutional Networks for Isolated <fixed-case>I</fixed-case>ndian <fixed-case>S</fixed-case>ign <fixed-case>L</fixed-case>anguage Word Recognition</title>
+      <author><first>Tatigunta Bhavi Teja</first><last>Reddy</last></author>
+      <author><first>Vidhya</first><last>Kamakshi</last><affiliation>National Institute of Technology Calicut</affiliation></author>
+      <pages>47-50</pages>
+      <abstract>This paper presents a lightweight and efficient baseline for isolated Indian Sign Language (ISL) word recognition developed forthe WSLP-AACL-2025 Shared Task. Wepropose a two-stage framework combiningskeletal landmark extraction via MediaPipeHolistic with a Temporal Convolutional Network (TCN) for temporal sequence classification. The system processes pose-basedinput sequences instead of raw video, significantly reducing computation and memorycosts. Trained on the WSLP-AACL-2025dataset containing 4,398 isolated sign videosacross 4,361 word classes, our model achieves54% top-1 and 78% top-5 accuracy.</abstract>
+      <url hash="09530bfb">2025.wslp-main.8</url>
+      <bibkey>reddy-kamakshi-2025-pose</bibkey>
+    </paper>
+    <paper id="9">
+      <title>Cross-Linguistic Phonological Similarity Analysis in Sign Languages Using <fixed-case>H</fixed-case>am<fixed-case>N</fixed-case>o<fixed-case>S</fixed-case>ys</title>
+      <author id="abhishek-bharadwaj-varanasi" orcid="0009-0002-9961-1073"><first>Abhishek Bharadwaj</first><last>Varanasi</last><affiliation>Tata Consultancy Services Limited, India</affiliation></author>
+      <author id="manjira-sinha" orcid="0000-0002-2653-5092"><first>Manjira</first><last>Sinha</last><affiliation>Tata Consultancy Services Limited, India</affiliation></author>
+      <author><first>Tirthankar</first><last>Dasgupta</last></author>
+      <pages>51-66</pages>
+      <abstract>This paper presents a cross-linguistic analysis of phonological similarity in sign languages using symbolic representations from the Hamburg Notation System (HamNoSys). We construct a dataset of 1000 signs each from British Sign Language (BSL), German Sign Language (DGS), French Sign Language (LSF), and Greek Sign Language (GSL), and compute pairwise phonological similarity using normalized edit distance over HamNoSys strings. Our analysis reveals both universal and language-specific patterns in handshape usage, movement dynamics, non-manual features, and spatial articulation. We explore intra and inter-language similarity distributions, phonological clustering, and co-occurrence structures across feature types. The findings offer insights into the structural organization of sign language phonology and highlight typological variation shaped by linguistic and cultural factors.</abstract>
+      <url hash="537753b5">2025.wslp-main.9</url>
+      <bibkey>varanasi-etal-2025-cross</bibkey>
+    </paper>
+    <paper id="10">
+      <title>Pose-Based Sign Language Spotting via an End-to-End Encoder Architecture</title>
+      <author id="samuel-ebimobowei-johnny" orcid="0009-0000-6153-4266"><first>Samuel Ebimobowei</first><last>Johnny</last><affiliation>Carnegie Mellon University</affiliation></author>
+      <author><first>Blessed</first><last>Guda</last></author>
+      <author><first>Emmanuel</first><last>Aaron</last></author>
+      <author><first>Assane</first><last>Gueye</last><affiliation>Carnegie Mellon University</affiliation></author>
+      <pages>67-72</pages>
+      <abstract>Automatic Sign Language Recognition (ASLR) has emerged as a vital field for bridging the gap between deaf and hearing communities. However, the problem of sign-to-sign retrieval or detecting a specific sign within a sequence of continuous signs remains largely unexplored. We define this novel task as Sign Language Spotting. In this paper, we present a first step toward sign language retrieval by addressing the challenge of detecting the presence or absence of a query sign video within a sentence-level gloss or sign video. Unlike conventional approaches that rely on intermediate gloss recognition or text-based matching, we propose an end-to-end model that directly operates on pose keypoints extracted from sign videos. Our architecture employs an encoder-only backbone with a binary classification head to determine whether the query sign appears within the target sequence. By focusing on pose representations instead of raw RGB frames, our method significantly reduces computational cost and mitigates visual noise. We evaluate our approach on the Word Presence Prediction dataset from the WSLP 2025 shared task, achieving 61.88% accuracy and 60.00% F1-score. These results demonstrate the effectiveness of our pose-based framework for Sign Language Spotting, establishing a strong foundation for future research in automatic sign language retrieval and verification.</abstract>
+      <url hash="1b4b4f3a">2025.wslp-main.10</url>
+      <bibkey>johnny-etal-2025-pose</bibkey>
+    </paper>
+    <paper id="11">
+      <title>Finetuning Pre-trained Language Models for Bidirectional Sign Language Gloss to Text Translation</title>
+      <author><first>Arshia</first><last>Kermani</last></author>
+      <author><first>Habib</first><last>Irani</last></author>
+      <author><first>Vangelis</first><last>Metsis</last><affiliation>Texas State University</affiliation></author>
+      <pages>73-81</pages>
+      <abstract>Sign Language Translation (SLT) is a crucial technology for fostering communication accessibility for the Deaf and Hard-of-Hearing (DHH) community. A dominant approach in SLT involves a two-stage pipeline: first, transcribing video to sign language glosses, and then translating these glosses into natural text. This second stage, gloss-to-text translation, is a challenging, low-resource machine translation task due to data scarcity and significant syntactic divergence. While prior work has often relied on training translation models from scratch, we show that fine-tuning large, pre-trained language models (PLMs) offers a more effective and data-efficient paradigm. In this work, we conduct a comprehensive bidirectional evaluation of several PLMs (T5, Flan-T5, mBART, and Llama) on this task. We use a collection of popular SLT datasets (RWTH-PHOENIX-14T, SIGNUM, and ASLG-PC12) and evaluate performance using standard machine translation metrics. Our results show that fine-tuned PLMs consistently and significantly outperform Transformer models trained from scratch, establishing new state-of-the-art results. Crucially, our bidirectional analysis reveals a significant performance gap, with Text-to-Gloss translation posing a greater challenge than Gloss-to-Text. We conclude that leveraging the linguistic knowledge of pre-trained models is a superior strategy for gloss translation and provides a more practical foundation for building robust, real-world SLT systems.</abstract>
+      <url hash="0cda5989">2025.wslp-main.11</url>
+      <bibkey>kermani-etal-2025-finetuning</bibkey>
+    </paper>
+  </volume>
+</collection>

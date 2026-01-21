@@ -1,7 +1,7 @@
 #! /usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# Copyright 2019 Matt Post <post@cs.jhu.edu>
+# Copyright 2026 Matt Post <post@cs.jhu.edu>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,33 +16,43 @@
 # limitations under the License.
 
 """
-Used to add revisions to the Anthology.
-Assumes all files have a base format like ANTHOLOGY_ROOT/P/P18/P18-1234.pdf format.
-The revision process is as follows.
+This script process paper revisions submitted to the ACL Anthology
+using our "03-revision-or-errata.yml" template.
+It can either process a GitHub issue directly (using the --issue flag)
+or it can take the pieces (anthology_id, path to PDF, explanation) manually. When provided with a Github issue, it will parse out the
+information, and prompt the user to summarize the explanation, since
+these are often long or unwieldy.
 
-- The original paper is named as above.
-- When a first revision is created, the original paper is archived to PYY-XXXXv1.pdf.
-- The new revision is copied to PYY-XXXXvN, where N is the next revision ID (usually 2).
-  The new revision is also copied to PYY-XXXX.pdf.
+The PDFs are then shuffled as follows:
+- When a first revision is created, the original paper is archived to {anthology_id}v1.pdf
+- The new revision is copied to {anthology_id}v2.pdf
+- The new revision also overwrites the original one at {anthology_id}.pdf.
   This causes it to be returned by the anthology when the base paper format is queried.
+
+A variant of this is applied for subsequent revisions (v3, v4, etc.).
+For errata, we create a file {anthology_id}e1.pdf, {anthology_id}e2.pdf, etc., but do not overwrite the original paper, since errata are separate documents.
 
 Usage:
 
-  add_revision.py [-e] [-i GITHUB_ISSUE] paper_id URL_OR_PATH.pdf "Short explanation".
+  # Process information from the template and create a PR
+  add_revision.py [-e] [-i GITHUB_ISSUE]
+
+  # This variant lets you process pieces manually
+  add_revision [-e] paper_id URL_OR_PATH.pdf "Short explanation".
 
 `-e` denotes erratum instead of revision.
-By default, a dry run happens.
-When you are ready, add `--do`.
 """
 
 import argparse
 import filetype
 import os
+import re
 import shutil
 import sys
 import tempfile
 
 from git.repo.base import Repo
+from github import Github, GithubException
 
 from anthology.utils import (
     deconstruct_anthology_id,
@@ -58,6 +68,89 @@ from anthology.utils import (
 import lxml.etree as ET
 
 from datetime import datetime
+
+
+DEFAULT_GITHUB_REPO = os.environ.get("ANTHOLOGY_GITHUB_REPO", "acl-org/acl-anthology")
+GITHUB_TOKEN_ENV_VARS = ("GITHUB_TOKEN", "GH_TOKEN")
+TRAILING_URL_CHARS = ").,]>\""
+
+
+def _get_github_repo(repo_name):
+    token = _get_github_token()
+    if not token:
+        print(
+            "-> FATAL: set GITHUB_TOKEN or GH_TOKEN before using --issue",
+            file=sys.stderr,
+        )
+        sys.exit(1)
+
+    client = Github(token)
+    try:
+        return client.get_repo(repo_name)
+    except GithubException as exc:
+        print(
+            f"-> FATAL: unable to access GitHub repo {repo_name}: {exc}",
+            file=sys.stderr,
+        )
+        sys.exit(1)
+
+
+def _get_github_token():
+    for env_var in GITHUB_TOKEN_ENV_VARS:
+        token = os.environ.get(env_var)
+        if token:
+            return token
+    return None
+
+
+def _parse_issue_form_sections(body):
+    sections = {}
+    current_key = None
+    for line in body.splitlines():
+        if line.startswith("### "):
+            current_key = line[4:].strip().lower()
+            sections[current_key] = []
+        elif current_key is not None:
+            sections[current_key].append(line.rstrip())
+    return {key: "\n".join(value).strip() for key, value in sections.items()}
+
+
+def _extract_first_url(value):
+    if not value:
+        return None
+    match = re.search(r"(https?://\S+)", value)
+    if match:
+        return match.group(1).rstrip(TRAILING_URL_CHARS)
+    return None
+
+
+def fetch_issue_revision_metadata(
+    issue_number, repo_name=DEFAULT_GITHUB_REPO, github_repo=None
+):
+    """Fetch GitHub issue metadata and extract relevant revision fields."""
+    repo = github_repo or _get_github_repo(repo_name)
+    try:
+        issue = repo.get_issue(number=issue_number)
+    except GithubException as exc:
+        print(
+            f"-> FATAL: unable to fetch issue #{issue_number} from {repo_name}: {exc}",
+            file=sys.stderr,
+        )
+        sys.exit(1)
+
+    body = issue.body or ""
+    sections = _parse_issue_form_sections(body)
+    description = sections.get("brief description of changes", "").strip()
+    metadata = {
+        "anthology_id": sections.get("anthology id", "").strip() or None,
+        "pdf_url": _extract_first_url(sections.get("pdf of the revision or erratum", "")),
+        "description": description,
+        "title": issue.title or "",
+        "issue_url": issue.html_url,
+        "raw_body": body,
+    }
+
+    return metadata
 
 
 def validate_file_type(path):
@@ -205,26 +298,64 @@ def add_revision(
 def main(args):
     change_type = "erratum" if args.erratum else "revision"
 
-    print(f"Processing {change_type} to {args.anthology_id}...")
+    repo_name = args.repo or DEFAULT_GITHUB_REPO
+
+    github_repo = None
+    if args.issue:
+        github_repo = _get_github_repo(repo_name)
+        issue_metadata = fetch_issue_revision_metadata(args.issue, repo_name, github_repo)
+        anthology_id = issue_metadata.get("anthology_id")
+
+        pdf_url = issue_metadata.get("pdf_url")
+
+        print(
+            f"-> Issue #{args.issue} description from {repo_name}:\n"
+            f"   Anthology ID: {anthology_id or 'not provided'}\n"
+            f"   PDF URL: {pdf_url or 'not provided'}\n"
+        )
+
+        description = issue_metadata.get("description") or ""
+        if description:
+            print("\nReported brief description:\n" + description + "\n")
+        else:
+            print("\nNo brief description found in the issue body.\n")
+
+        user_summary = input(
+            "Enter the summary to store in the Anthology (press Enter to reuse the description): "
+        ).strip()
+        explanation_text = user_summary or description
+
+    else:
+        # make sure anthology_id, explanation, and path are provided
+        if args.anthology_id is None or args.path is None or args.explanation is None:
+            print(
+                "-> FATAL: anthology_id, path, and explanation are required if not using --issue",
+                file=sys.stderr,
+            )
+            sys.exit(1)
+
+        anthology_id = args.anthology_id
+        pdf_url = args.path
+        explanation_text = args.explanation
 
     # TODO: make sure path exists, or download URL to temp file
-    if args.path.startswith("http"):
+    if pdf_url.startswith("http"):
         _, input_file_path = tempfile.mkstemp()
-        retrieve_url(args.path, input_file_path)
+        retrieve_url(pdf_url, input_file_path)
     else:
-        input_file_path = args.path
+        input_file_path = pdf_url
 
     validate_file_type(input_file_path)
 
     add_revision(
-        args.anthology_id,
+        anthology_id,
         input_file_path,
-        args.explanation,
+        explanation_text,
         change_type=change_type,
         dry_run=args.dry_run,
     )
 
-    if args.path.startswith("http"):
+    if pdf_url.startswith("http"):
         os.remove(input_file_path)
 
     """
@@ -245,22 +376,22 @@ def main(args):
         # Change to the new branch
         repo.git.checkout(branch_name)
         # Stage changed files
-        repo.git.add(get_xml_file(args.anthology_id))
+        repo.git.add(get_xml_file(anthology_id))
         if repo.is_dirty(index=True, working_tree=True, untracked_files=True):
             repo.index.commit(
-                f"Add {change_type} for {args.anthology_id} (closes #{args.issue})"
+                f"Add {change_type} for {anthology_id} (closes #{args.issue})"
             )
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "anthology_id", help="The Anthology paper ID to revise (e.g., P18-1001)"
+        "--anthology_id", help="The Anthology paper ID to revise (e.g., P18-1001)"
     )
     parser.add_argument(
-        "path", type=str, help="Path to the revised paper ID (can be URL)"
+        "--path", type=str, help="Path to the revised paper ID (can be URL)"
     )
-    parser.add_argument("explanation", help="Brief description of the changes.")
+    parser.add_argument("--explanation", help="Brief description of the changes.")
     parser.add_argument(
         "--issue",
         "-i",
@@ -287,6 +418,12 @@ if __name__ == "__main__":
         "--dry-run", "-n", action="store_true", default=False, help="Just a dry run."
     )
     parser.add_argument("--branch", "-b", default=None, help="Branch name.")
+    parser.add_argument(
+        "--repo",
+        "-r",
+        default=DEFAULT_GITHUB_REPO,
+        help="GitHub repository (owner/name) to query for issues.",
+    )
 
     args = parser.parse_args()
 

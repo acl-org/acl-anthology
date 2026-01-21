@@ -1,0 +1,162 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2025.wat">
+  <volume id="1" ingest-date="2026-01-13" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of the Twelfth Workshop on Asian Translation (WAT 2025)</booktitle>
+      <editor><first>Toshiaki</first><last>Nakazawa</last></editor>
+      <editor><first>Isao</first><last>Goto</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Mumbai, India</address>
+      <month>December</month>
+      <year>2025</year>
+      <url hash="b01cabaf">2025.wat-1</url>
+      <venue>wat</venue>
+      <venue>ws</venue>
+      <isbn>979-8-89176-309-8</isbn>
+    </meta>
+    <frontmatter>
+      <url hash="c4ec9fce">2025.wat-1.0</url>
+      <bibkey>wat-ws-2025-1</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Findings of the First Patent Claims Translation Task at <fixed-case>WAT</fixed-case>2025</title>
+      <author><first>Toshiaki</first><last>Nakazawa</last><affiliation>The University of Tokyo, Tokyo Institute of Technology</affiliation></author>
+      <author><first>Takashi</first><last>Tsunakawa</last><affiliation>NA</affiliation></author>
+      <author><first>Isao</first><last>Goto</last><affiliation>Ehime University</affiliation></author>
+      <author><first>Kazuhiro</first><last>Kasada</last><affiliation>NA</affiliation></author>
+      <author id="katsuhito-sudoh" orcid="0000-0002-2122-9846"><first>Katsuhito</first><last>Sudoh</last><affiliation>Nara Women’s University</affiliation></author>
+      <author><first>Shoichi</first><last>Okuyama</last><affiliation>NA</affiliation></author>
+      <author><first>Takashi</first><last>Ieda</last><affiliation>NA</affiliation></author>
+      <author><first>Masaaki</first><last>Nagata</last><affiliation>NTT Corporation</affiliation></author>
+      <pages>1-15</pages>
+      <abstract>This paper presents the results and findings of the first shared task of translating patent claims. We provide training, development, and test data for participants and perform human evaluation of the submitted translations. This time, 2 teams submitted their translation results. Our analysis of the human-annotated translation errors revealed not only general, domain-independent errors but also errors specific to patent translation. We also found that the human annotation itself exhibited some serious issues. In this paper, we report on these findings.</abstract>
+      <url hash="d1d4aaab">2025.wat-1.1</url>
+      <bibkey>nakazawa-etal-2025-findings</bibkey>
+    </paper>
+    <paper id="2">
+      <title><fixed-case>E</fixed-case>hime-<fixed-case>U</fixed-case> System with Judge and Refinement, Specialized Prompting, and Few-shot for the Patent Claim Translation Task at <fixed-case>WAT</fixed-case> 2025</title>
+      <author><first>Taishi</first><last>Edamatsu</last></author>
+      <author><first>Isao</first><last>Goto</last><affiliation>Ehime University</affiliation></author>
+      <author><first>Takashi</first><last>Ninomiya</last><affiliation>Ehime University</affiliation></author>
+      <pages>16-29</pages>
+      <abstract>The Ehime University team participated inthe Japanese-to-English Patent Claim Trans-lation Task at WAT 2025. We experimentedwith (i) Judge and Refinement, (ii) SpecializedPrompting, and (iii) Few-Shot approaches, us-ing GPT-5 as the underlying LLM. Evaluationbased on the LLM-as-a-Judge framework con-firmed improvements for (i), while (ii) and (iii)showed no significant effects.</abstract>
+      <url hash="383d744e">2025.wat-1.2</url>
+      <bibkey>edamatsu-etal-2025-ehime</bibkey>
+    </paper>
+    <paper id="3">
+      <title><fixed-case>UTSK</fixed-case>25 at <fixed-case>WAT</fixed-case>2025 Patent Claims Translation/Evaluation Task</title>
+      <author><first>Haruto</first><last>Azami</last><affiliation>University of Tsukuba, Tsukuba University</affiliation></author>
+      <author><first>Yin</first><last>Zhang</last></author>
+      <author><first>Futo</first><last>Kajita</last></author>
+      <author id="nobuyori-nishimura" orcid="0009-0005-1716-4639"><first>Nobuyori</first><last>Nishimura</last></author>
+      <author><first>Takehito</first><last>Utsuro</last><affiliation>University of Tsukuba</affiliation></author>
+      <pages>30-34</pages>
+      <abstract>This paper presents the submission of UTSK25 for the English–Japanese and Japanese–English at the WAT2025 Patent Claims Translation/Evaluation Task. We use a single translation model for both translation directions, built from a large language model through monolingual and bilingual continual pretraining and bilingual supervised fine-tuning. We finally generate translations via prompt engineering to reduce omissions and hallucinations.</abstract>
+      <url hash="ae751f73">2025.wat-1.3</url>
+      <bibkey>azami-etal-2025-utsk25</bibkey>
+    </paper>
+    <paper id="4">
+      <title>Segmentation Beyond Defaults: Asymmetrical Byte Pair Encoding for Optimal Machine Translation Performance</title>
+      <author id="saumitra-yadav" orcid="0009-0002-1859-3353"><first>Saumitra</first><last>Yadav</last><affiliation>International Institute of Information Technology Hyderabad</affiliation></author>
+      <author id="manish-shrivastava" orcid="0000-0001-8705-6637"><first>Manish</first><last>Shrivastava</last><affiliation>International Institute of Information Technology Hyderabad, India</affiliation></author>
+      <pages>35-53</pages>
+      <abstract>Existing Machine Translation (MT) research often suggests a single, fixed set of hyperparameters for word segmentation models, <b>symmetric Byte Pair Encoding</b> (BPE), which applies the same number of merge operations (NMO) to train tokenizers for both source and target languages. However, we demonstrate that this uniform approach doesn’t guarantee optimal MT performance across different language pairs and data sizes. This work investigates BPE segmentation recipes across various data volumes and language pairs to evaluate MT system performance. We find that utilizing <b>asymmetric BPE</b>—where the source and target languages have different NMOs—significantly improves results over the symmetric approach, especially in low-resource settings (50K, 100K, and 500K sentence pairs). Specifically, asymmetric BPE yield statistically significant (p&lt;0.05) average gains of 5.32, 4.46, and 0.7 CHRF++ on English-Hindi in low-resource setups (50K, 100K, and 500K sentence pairs, respectively). We validated this trend across six additional language pairs (English<tex-math>\leftrightarrow</tex-math>Telugu, Shona, Norwegian, Kyrgyz, Hausa, and Inuktitut), observing statistically significant improvement in 10 out of 12 systems compared to symmetric BPE. Our findings indicate a high NMO for the source (4K to 32K) and a low NMO for the target (0.5K to 2K) provides optimal results, particularly benefiting low-resource MT.</abstract>
+      <url hash="2599a30f">2025.wat-1.4</url>
+      <bibkey>yadav-shrivastava-2025-segmentation</bibkey>
+    </paper>
+    <paper id="5">
+      <title>Speech-to-Speech Machine Translation for Dialectal Variations of <fixed-case>H</fixed-case>indi</title>
+      <author><first>Sanmay</first><last>Sood</last></author>
+      <author><first>Siddharth</first><last>Rajput</last></author>
+      <author><first>Md Shad</first><last>Akhtar</last><affiliation>Indraprastha Institute of Information Technology, Delhi</affiliation></author>
+      <pages>54-65</pages>
+      <abstract>Hindi has many dialects and they are vital to India’s cultural and linguistics heritage. However, many of them have been largely overlooked in modern language technological advancements, primarily due to lack proper resources. In this study, we explore speech-to-speech machine translation (S2ST) for four Hindi dialects, i.e., <i>Awadhi</i>, <i>Bhojpuri</i>, <i>Braj Bhasha</i>, and <i>Magahi</i>. We adopt a cascaded S2ST pipeline comprising of three stages: Automatic Speech Recognition (ASR), Machine Translation (MT), and Text-to-Speech (TTS). We evaluate many recent large language models (LLMs) for dialect-to-Hindi and dialect-to-English translations in zero-shot, few-shot, and chain-of-thought setups. Our comparative analysis offers insights into the current capabilities and limitations of LLM-based approaches for low-resource dialectal S2ST in Indian context.</abstract>
+      <url hash="27ef60bd">2025.wat-1.5</url>
+      <bibkey>sood-etal-2025-speech</bibkey>
+    </paper>
+    <paper id="6">
+      <title>A Systematic Review on Machine Translation and Transliteration Techniques for Code-Mixed <fixed-case>I</fixed-case>ndo-<fixed-case>A</fixed-case>ryan Languages</title>
+      <author><first>H. Rukshan</first><last>Dias</last><affiliation>Informatics Institute of Technology</affiliation></author>
+      <author id="deshan-sumanathilaka" orcid="0009-0005-8933-6559"><first>Deshan</first><last>Sumanathilaka</last></author>
+      <pages>66-77</pages>
+      <abstract>In multilingual societies, it is common to observe the blending of multiple languages in communication, a phenomenon known as <tex-math>\textbf{Code-mixing}</tex-math>. Globalization and the increasing influence of social media have further amplified multilingualism, resulting in a wider use of code-mixing. This systematic review analyzes existing translation and transliteration techniques for code-mixed Indo-Aryan languages, spanning rule-based and statistical approaches to neural machine translation and transformer-based architectures. It also examines publicly available code-mixed datasets designed for machine translation and transliteration tasks, along with the evaluation metrics commonly introduced and applied in prior studies. Finally, the paper discusses current challenges and limitations, highlighting future research directions for developing more tailored translation pipelines for code-mixed Indo-Aryan languages.</abstract>
+      <url hash="ab271cce">2025.wat-1.6</url>
+      <bibkey>dias-sumanathilaka-2025-systematic</bibkey>
+    </paper>
+    <paper id="7">
+      <title><fixed-case>C</fixed-case>ycle<fixed-case>D</fixed-case>istill: Bootstrapping Machine Translation using <fixed-case>LLM</fixed-case>s with Cyclical Distillation</title>
+      <author><first>Deepon</first><last>Halder</last><affiliation>AI4Bharat, IIT Madras</affiliation></author>
+      <author><first>Thanmay</first><last>Jayakumar</last></author>
+      <author><first>Raj</first><last>Dabre</last><affiliation>Department of Computer Science, Indian Institute of Technology, Madras, Indian Institute of Technology, Madras and National Institute of Information and Communications Technology (NICT), National Institute of Advanced Industrial Science and Technology</affiliation></author>
+      <pages>78-92</pages>
+      <abstract>Large language models (LLMs), despite their ability to perform few-shot machine translation (MT), often lag behind dedicated MT systems trained on parallel corpora, which are crucial for high quality machine translation (MT). However, parallel corpora are often scarce or non-existent for low-resource languages. In this paper, we propose CycleDistill, a bootstrapping approach leveraging LLMs and few-shot translation to obtain high-quality MT systems. CycleDistill involves iteratively generating synthetic parallel corpora from monolingual corpora via zero- or few-shot MT, which is then used to fine-tune the model that was used for generating said data for MT. CycleDistill does not need parallel corpora beyond 1 to 4 few-shot examples, and in our experiments focusing on three Indian languages, by relying solely on monolingual corpora, it can achieve high-quality machine translation, improving upon a few-shot baseline model by 20-30 chrF points on average in the first iteration. We also study the effect of leveraging softmax activations during the distillation process and observe mild improvements in translation quality.</abstract>
+      <url hash="13021f59">2025.wat-1.7</url>
+      <bibkey>halder-etal-2025-cycledistill</bibkey>
+    </paper>
+    <paper id="8">
+      <title>Findings of the <fixed-case>WAT</fixed-case> 2025 Shared Task on <fixed-case>J</fixed-case>apanese-<fixed-case>E</fixed-case>nglish Article-level News Translation</title>
+      <author><first>Naoto</first><last>Shirai</last><affiliation>Japan Broadcasting Corporation</affiliation></author>
+      <author><first>Kazutaka</first><last>Kinugawa</last><affiliation>NHK Science and Technology Research Laboratories</affiliation></author>
+      <author><first>Hitoshi</first><last>Ito</last><affiliation>Japan Broadcasting Corp.</affiliation></author>
+      <author><first>Hideya</first><last>Mino</last><affiliation>NHK</affiliation></author>
+      <author id="yoshihiko-kawai" orcid="0000-0002-0811-9095"><first>Yoshihiko</first><last>Kawai</last><affiliation>NHK</affiliation></author>
+      <pages>93-97</pages>
+      <abstract>We present the preliminary findings of the WAT 2025 shared task on document-level translation from Japanese to English in the news domain. This task focuses on translating full articles with particular attention to whether translation models can learn to produce expressions and stylistic features typical of English news writing, with the aim to generate outputs that resemble original English news articles. The task consists of three translation styles: (1) literal translation, (2) news-style translation, based on English articles edited to match Japanese content, and (3) finalized translation, the primary goal of this shared task. Only one team participated and submitted a system to a single subtask. All tasks were evaluated automatically, and one task was also evaluated manually to compare the submission with the baseline.</abstract>
+      <url hash="181d0e9d">2025.wat-1.8</url>
+      <bibkey>shirai-etal-2025-findings</bibkey>
+    </paper>
+    <paper id="9">
+      <title><fixed-case>NHK</fixed-case> Submission to <fixed-case>WAT</fixed-case> 2025: Leveraging Preference Optimization for Article-level <fixed-case>J</fixed-case>apanese–<fixed-case>E</fixed-case>nglish News Translation</title>
+      <author><first>Hideya</first><last>Mino</last><affiliation>NHK</affiliation></author>
+      <author><first>Rei</first><last>Endo</last><affiliation>Japan Broadcasting Corporation / NHK</affiliation></author>
+      <author id="yoshihiko-kawai" orcid="0000-0002-0811-9095"><first>Yoshihiko</first><last>Kawai</last><affiliation>NHK</affiliation></author>
+      <pages>98-102</pages>
+      <abstract>This paper describes our submission to the Japanese <tex-math>\rightarrow</tex-math> English Article-level News Translation Task at WAT 2025. In this task, participants were provided with a small but high-quality parallel corpus along with two intermediate English translations: a literal translation and a style-adapted translation. To effectively exploit these limited training data, our system employs a large language model (LLM) trained via supervised fine-tuning (SFT) followed by Direct Preference Optimization (DPO) that is a preference learning technique for aligning model outputs with professional-quality references. By leveraging literal and style-adapted intermediate translations as negative (rejected) samples and human-edited English articles as positive (chosen) samples in DPO training, we achieved notable improvements in translation quality. We evaluate our approach using BLEU scores and human assessments.</abstract>
+      <url hash="2aec93cd">2025.wat-1.9</url>
+      <bibkey>mino-etal-2025-nhk</bibkey>
+    </paper>
+    <paper id="10">
+      <title>Findings of <fixed-case>WAT</fixed-case>2025 <fixed-case>E</fixed-case>nglish-to-<fixed-case>I</fixed-case>ndic Multimodal Translation Task</title>
+      <author><first>Shantipriya</first><last>Parida</last><affiliation>Silo AI</affiliation></author>
+      <author id="ondrej-bojar" orcid="0000-0002-0606-0050"><first>Ondřej</first><last>Bojar</last><affiliation>Charles University Prague</affiliation></author>
+      <pages>103-108</pages>
+      <abstract>This paper presents the findings of the English-to-Indic Multimodal Translation shared task from the Workshop on Asian Translation (WAT2025). The task featured three tracks: text-only translation, image captioning, and multimodal translation across four low-resource Indic languages: Hindi, Bengali, Malayalam, and Odia. Three teams participated, submitting systems that achieved competitive performance, with BLEU scores ranging from 40.1 to 64.3 across different language pairs and tracks.</abstract>
+      <url hash="70214fab">2025.wat-1.10</url>
+      <bibkey>parida-bojar-2025-findings</bibkey>
+    </paper>
+    <paper id="11">
+      <title><fixed-case>O</fixed-case>dia<fixed-case>G</fixed-case>en<fixed-case>AI</fixed-case> participation at <fixed-case>WAT</fixed-case> 2025</title>
+      <author><first>Debasish</first><last>Dhal</last></author>
+      <author><first>Sambit</first><last>Sekhar</last></author>
+      <author id="revathy-v-r" orcid="0000-0003-2357-5475"><first>Revathy V</first><last>R</last><affiliation>Kristu Jayanti University</affiliation></author>
+      <author><first>Shantipriya</first><last>Parida</last><affiliation>Silo AI</affiliation></author>
+      <author><first>Akash Kumar</first><last>Dhaka</last><affiliation>Advanced Micro Devices</affiliation></author>
+      <pages>109-114</pages>
+      <abstract>We at ODIAGEN, provide a detailed description of the model, training procedure, results and conclusion of our submission to the Workshop on Asian Translation (WAT 2025). For this year, we focus only on text to text translation tasks on low resource Indic languages targetting Hindi, Bengali, Malayalam and Odia languages specifically. The system uses a large language model NLLB-200 finetuned on large datasets consisting of over 100K rows for each targetted language. The whole training dataset is made of the data provided by the organisers as in previous years and augmented by a much larger 100K sentences of data subsampled from the Samanantar dataset provided by AI4Bharat. From a total of eight evaluation/challenge tests, our approach obtained the highest BLEU scores yet, since the conception on five.</abstract>
+      <url hash="3dd0f094">2025.wat-1.11</url>
+      <bibkey>dhal-etal-2025-odiagenai</bibkey>
+    </paper>
+    <paper id="12">
+      <title>Does Vision Still Help? Multimodal Translation with <fixed-case>CLIP</fixed-case>-Based Image Selection</title>
+      <author><first>Deepak</first><last>Kumar</last><affiliation>Indian Institute of Technology, Patna</affiliation></author>
+      <author id="baban-gain" orcid="0000-0001-8673-7078"><first>Baban</first><last>Gain</last><affiliation>Indian Institute of Technology, Patna</affiliation></author>
+      <author id="kshetrimayum-boynao-singh" orcid="0009-0009-9275-788X"><first>Kshetrimayum Boynao</first><last>Singh</last><affiliation>National Institute of Technology Silchar,</affiliation></author>
+      <author id="asif-ekbal" orcid="0000-0003-3612-8834"><first>Asif</first><last>Ekbal</last><affiliation>Indian Institute of Technology, Jodhpur</affiliation></author>
+      <pages>115-123</pages>
+      <abstract>Multimodal Machine Translation aims to enhance conventional text-only translation systems by incorporating visual context, typically in the form of images paired with captions. In this work, we present our submission to the WAT 2025 Multimodal Translation Shared Task, which explores the role of visual information in translating English captions into four Indic languages: Hindi, Bengali, Malayalam, and Odia. Our system builds upon the strong multilingual text translation backbone IndicTrans, augmented with a CLIP-based selective visual grounding mechanism. Specifically, we compute cosine similarities between text and image embeddings (both full and cropped regions) and automatically select the most semantically aligned image representation to integrate into the translation model. We observe that overall contribution of visual features is questionable. Our findings reaffirm recent evidence that large multilingual translation models can perform competitively without explicit visual grounding.</abstract>
+      <url hash="47acc153">2025.wat-1.12</url>
+      <bibkey>kumar-etal-2025-vision</bibkey>
+    </paper>
+    <paper id="13">
+      <title>A Picture is Worth a Thousand (Correct) Captions: A Vision-Guided Judge-Corrector System for Multimodal Machine Translation</title>
+      <author id="siddharth-betala" orcid="0009-0006-8997-4945"><first>Siddharth</first><last>Betala</last><affiliation>Entalpic</affiliation></author>
+      <author><first>Kushan</first><last>Raj</last></author>
+      <author><first>Vipul</first><last>Betala</last><affiliation>Independent</affiliation></author>
+      <author><first>Rohan</first><last>Saswade</last></author>
+      <pages>124-137</pages>
+      <abstract>In this paper, we describe our system under the team name BLEU Monday for the English-to-Indic Multimodal Translation Task at WAT 2025. We participate in the text-only translation tasks for English-Hindi, English-Bengali, English-Malayalam, and English-Odia language pairs. We present a two-stage approach that addresses quality issues in the training data through automated error detection and correction, followed by parameter-efficient model fine-tuning.Our methodology introduces a vision-augmented judge-corrector pipeline that leverages multimodal language models to systematically identify and correct translation errors in the training data. The judge component classifies translations into three categories: correct, visually ambiguous (requiring image context), or mistranslated (poor translation quality). Identified errors are routed to specialized correctors: GPT-4o-mini regenerates captions requiring visual disambiguation, while IndicTrans2 retranslates cases with pure translation quality issues. This automated pipeline processes 28,928 training examples across four languages, correcting an average of 17.1% of captions per language.We then apply Low-Rank Adaptation (LoRA) to fine-tune the IndicTrans2 en-indic 200M distilled model on both original and corrected datasets. Training on corrected data yields consistent improvements, with BLEU score gains of +1.30 for English-Bengali on the evaluation set (42.00 → 43.30) and +0.70 on the challenge set (44.90 → 45.60), +0.60 for English-Odia on the evaluation set (41.00 → 41.60), and +0.10 for English-Hindi on the challenge set (53.90 → 54.00).</abstract>
+      <url hash="f06e32ab">2025.wat-1.13</url>
+      <bibkey>betala-etal-2025-picture</bibkey>
+    </paper>
+  </volume>
+</collection>

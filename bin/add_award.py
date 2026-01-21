@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 #
 # Copyright 2020 Matt Post <post@cs.jhu.edu>
+# Copyright 2025 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,79 +16,68 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""
-Used to add an award to a paper in the Anthology.
+"""Add awards to papers in the Anthology.
 
 Usage:
+  add_award.py PAPER_ID AWARD_TITLE
+  add_award.py -f TXTFILE
 
-  add_award.py paper_id "Award title"
+Arguments:
+  PAPER_ID               The Anthology ID of the paper to assign the award to.
+  AWARD_TITLE            The name of the award.
 
-If you have them all listed in a file, "awards.txt", like this:
+Options:
+  -f, --from-file FILE   A file that lists one Anthology ID + award title per line.
+
+Examples:
+  If you use --from-file, the expected format is like this:
 
     2021.naacl-main.119 Best Long Paper
     2021.naacl-main.31 Outstanding Long Paper
     2021.naacl-main.185 Outstanding Long Paper
-    2021.naacl-main.410 Best Short Paper
-    2021.naacl-main.208 Outstanding Short Paper
-    2021.naacl-main.51 Best Thematic Paper
-    2021.naacl-industry.20 Best Industry Paper
-
-You can do
-
-    cat awards.txt | while read line; do
-      id=$(echo $line | cut -d" " -f1)
-      text=$(echo $line | cut -d" " -f2-)
-      ./bin/add_award.py $id "$text"
-    done
-
-The commit the changes and push.
 """
 
-import argparse
-import os
-import sys
+from docopt import docopt
+from pathlib import Path
+import logging as log
 
-from anthology.utils import (
-    deconstruct_anthology_id,
-    make_simple_element,
-    indent,
-)
-
-import lxml.etree as ET
+from acl_anthology import Anthology
+from acl_anthology.collections import Collection
+from acl_anthology.utils.logging import setup_rich_logging
 
 
-def main(args):
-    print(f"Adding {args.award} to {args.anthology_id}...")
+def add_award(anthology: Anthology, paper_id: str, title: str) -> Collection:
+    if (paper := anthology.get_paper(paper_id)) is None:
+        log.error(f"Couldn't find paper: {paper_id}")
+        return
 
-    collection_id, volume_id, paper_id = deconstruct_anthology_id(args.anthology_id)
+    if title.lower() in (award.lower() for award in paper.awards):
+        log.warning(f"Award '{title}' already listed for {paper_id}, skipping")
+        return
 
-    # Update XML
-    xml_file = os.path.join(
-        os.path.dirname(sys.argv[0]), "..", "data", "xml", f"{collection_id}.xml"
-    )
-    tree = ET.parse(xml_file)
-    paper = tree.getroot().find(f"./volume[@id='{volume_id}']/paper[@id='{paper_id}']")
-    if paper is None:
-        print(f"Error: Can't find paper {args.anthology_id}, quitting")
-
-    existing_award = paper.find("./award")
-    if existing_award is not None and existing_award.text.lower() == args.award:
-        print(
-            f"Error: Award {args.award} already exists for {args.anthology_id}, quitting"
-        )
-
-    make_simple_element("award", args.award, parent=paper)
-    indent(tree.getroot())
-
-    tree.write(xml_file, encoding="UTF-8", xml_declaration=True)
+    paper.awards.append(title)
+    return paper.parent.parent
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "anthology_id", help="The Anthology paper ID to revise (e.g., P18-1001)"
-    )
-    parser.add_argument("award", help="Brief description of the changes.")
-    args = parser.parse_args()
+    args = docopt(__doc__)
+    anthology = Anthology(datadir=Path(__file__).parent / ".." / "data")
+    tracker = setup_rich_logging()
+    modified_collections = set()
 
-    main(args)
+    if (filename := args["--from-file"]) is not None:
+        with open(filename, "r") as f:
+            awards = [line.strip().split(maxsplit=1) for line in f]
+    else:
+        awards = [[args["PAPER_ID"], args["AWARD_TITLE"]]]
+
+    for paper_id, award in awards:
+        c = add_award(anthology, paper_id, award)
+        if c:
+            modified_collections.add(c.id)
+
+    for collection_id in modified_collections:
+        anthology.get(collection_id).save()
+
+    if tracker.highest >= log.ERROR:
+        exit(1)
