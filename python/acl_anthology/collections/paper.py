@@ -28,7 +28,6 @@ from ..config import config
 from ..exceptions import AnthologyInvalidIDError, AnthologyXMLError
 from ..files import (
     AttachmentReference,
-    PapersWithCodeReference,
     PDFReference,
     PDFThumbnailReference,
     VideoReference,
@@ -255,7 +254,6 @@ class Paper:
         language: The language this paper is (mainly) written in.  When given, this should be a ISO 639-2 code (e.g. "eng"), though occasionally IETF is used (e.g. "pt-BR").
         note: A note attached to this paper.  Used very sparingly.
         pages: Page numbers of this paper within its volume.
-        paperswithcode: Links to code implementations and datasets as provided by [Papers with Code](https://paperswithcode.com/).
         pdf: A reference to the paper's PDF.
         type: The paper's type, currently used to mark frontmatter and backmatter.
     """
@@ -315,9 +313,6 @@ class Paper:
     language: Optional[str] = field(default=None, repr=False)
     note: Optional[str] = field(default=None, repr=False)
     pages: Optional[str] = field(default=None, repr=False)
-    paperswithcode: Optional[PapersWithCodeReference] = field(
-        default=None, on_setattr=setters.frozen, repr=False
-    )
     pdf: Optional[PDFReference] = field(default=None, repr=False)
     type: PaperType = field(default=PaperType.PAPER, repr=False, converter=PaperType)
 
@@ -696,10 +691,6 @@ class Paper:
                 if "errata" not in kwargs:
                     kwargs["errata"] = []
                 kwargs["errata"].append(PaperErratum.from_xml(element))
-            elif element.tag in ("pwccode", "pwcdataset"):
-                if "paperswithcode" not in kwargs:
-                    kwargs["paperswithcode"] = PapersWithCodeReference()
-                kwargs["paperswithcode"].append_from_xml(element)
             elif element.tag in ("removed", "retracted"):
                 kwargs["deletion"] = PaperDeletionNotice.from_xml(element)
             elif element.tag == "revision":
@@ -776,6 +767,4 @@ class Paper:
         if self.deletion is not None:
             paper.append(self.deletion.to_xml())
         paper.append(E.bibkey(self.bibkey))
-        if self.paperswithcode is not None:
-            paper.extend(self.paperswithcode.to_xml_list())
         return paper

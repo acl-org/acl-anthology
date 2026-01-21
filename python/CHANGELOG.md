@@ -36,6 +36,10 @@ This release implements the new [name resolution and author ID logic](https://gi
 - EventLinkingType renamed to EventLink.
 - Refactored verbosity handling.  This fixes a bug where empty lines would appear in stdout from Rich's progress bars, even if they were disabled with `verbose=False`.  Also, `verbose=False` is set by default now if stdout is not a TTY.
 
+### Removed
+
+- Support for "Papers with Code" references has been removed, as the service has been discontinued in August 2025.
+
 ## [0.5.4] — 2025-11-27
 
 This release only exists to provide necessary functionality for transitioning to the [new author ID system](https://github.com/acl-org/acl-anthology/wiki/Author-Page-Plan).
