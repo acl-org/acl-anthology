@@ -45,9 +45,12 @@ def test_sig_get_meetings_by_year():
     }
 
 
-def test_sig_save(tmp_path):
+def test_sig_save(tmp_path, anthology_stub):
+    class SIGIndexStub:
+        parent = anthology_stub
+
     path = tmp_path / "foo.yaml"
-    sig = SIG(None, "foo", "FOO", "Special Interest Group on Foobar", path)
+    sig = SIG(SIGIndexStub(), "foo", "FOO", "Special Interest Group on Foobar", path)
     sig.save()
     assert path.is_file()
     with open(path, "r", encoding="utf-8") as f:
