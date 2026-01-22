@@ -1,4 +1,4 @@
-# Copyright 2023-2025 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2026 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -68,6 +68,8 @@ class Anthology:
         self.verbose = verbose
         self._check_schema_compatibility()
         self._relaxng: Optional[RelaxNG] = None
+        self._is_in_default_path: bool = False
+        """If set to True by Anthology.from_repo(), attempts to save will throw a warning."""
 
         self.collections = CollectionIndex(self)
         """The [CollectionIndex][acl_anthology.collections.CollectionIndex] for accessing collections, volumes, and papers."""
@@ -111,17 +113,24 @@ class Anthology:
             repo_url: The URL of a Git repo with Anthology data.  If not given, defaults to the official ACL Anthology repo.
             path: The local path for the repo data.  If not given, automatically determines a path within the user's data directory.
             verbose: Whether or not to show progress bars during longer operations.  If this argument is not supplied explicitly, it will default to True _if_ the standard output is a terminal.
+
+        Note:
+            If no explicit `path` is supplied, attempts to call any save functions on the returned objects will throw a warning, since this is likely a user error.
         """
-        if path is None:
+        in_default_path = False
+        if path is None:  # pragma: no cover
             path = (
                 dirs.user_data_path
                 / "git"
                 / slugify(repo_url).replace("https-github-com-", "")
             )
+            in_default_path = True
         else:
             path = Path(path)
         git.clone_or_pull_from_repo(repo_url, path, verbose)
-        return cls(datadir=path / "data", verbose=verbose)
+        anthology = cls(datadir=path / "data", verbose=verbose)
+        anthology._is_in_default_path = in_default_path
+        return anthology
 
     @classmethod
     def from_within_repo(
@@ -200,13 +209,25 @@ class Anthology:
             )
         return self
 
+    def _warn_if_in_default_path(self) -> None:
+        """Check if the data directory is the default path set by `Anthology.from_repo()` and throw a warning if that is the case, because saving data there is likely a user error."""
+        if self._is_in_default_path:
+            warnings.warn(
+                UserWarning(
+                    f"Anthology datadir is {self.datadir} -- are you sure you want to save there?"
+                )
+            )
+
     def save_all(self) -> Self:
         """Save all Anthology data files."""
+        self._warn_if_in_default_path()
         for collection in self.collections.values():
             if collection.is_modified:
                 collection.save()
-        self.people.save()
-        self.venues.save()
+        if self.people.is_data_loaded:
+            self.people.save()
+        if self.venues.is_data_loaded:
+            self.venues.save()
         warnings.warn(
             UserWarning(
                 "SIG metadata is not yet automatically saved.  Call `.sigs.save()` manually if you need this."

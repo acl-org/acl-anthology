@@ -627,8 +627,9 @@ class PersonIndex(SlottedDict[Person]):
         Arguments:
             path: The filename to save to. If None, defaults to the parent Anthology's `people.yaml` file.
         """
-        if path is None:
-            path = self.path  # pragma: no cover
+        if path is None:  # pragma: no cover
+            self.parent._warn_if_in_default_path()
+            path = self.path
 
         data = {}
         for person in self.values():
