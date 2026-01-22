@@ -14,7 +14,7 @@ The following histogram of name counts shows that most names are unique, but the
 <div class="table table-sm">
 
 | People sharing a name | Name count | Examples |
-| --- | --- | --- |
+| :---: | ---: | --- |
 | 1 | 122,122 | — (unique entries) |
 | 2 | 121 | Ai, Wei; Amini, Massih R |
 | 3 | 297 | Agarwal, Shubham; Bartelt, Christian |
