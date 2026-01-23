@@ -20,16 +20,13 @@ We distinguish between a **name** or **name string** (the textual representation
 Our goal is to create author pages which correspond to a real person.
 The difficulty is that a single person may publish under multiple name variants (diacritics, middle initials, different transliterations, name changes), and multiple people may publish under the same name. Both scenarios can be resolved either manually or automatically, as described below.
 
-## Name slugs
-
-To create consistent URLs and to support matching across small formatting differences, the Anthology derives a **name slug** from a name. A slug is a normalized, URL-safe representation of a name: lowercased and hyphenated, without any punctuation or diacritics, other than a hyphen separator.
-
-Each name slug has the format `{given-names}-{family-name}`, where spaces are replaced by hyphens.
-
 ## Person IDs
 
-When we manually resolve an ambiguous names to an author, we add a disambiguating third part to the name slug. By convention, this is the name or acronym of the institution where the author earned (or is expected to earn) their highest degree at the time they became known to the Anthology.
-For example, if there are two authors named "Alex Smith", one with a Ph.D. from Stanford and the other first publishing while an undergrad at Tsinghua, their slugs would be `alex-smith-stanford` and `alex-smith-tsinghua`, respectively. These extended slugs function as unique person IDs.
+By default, person IDs are derived from the person's full name, creating a **slug** from it. A slug is a normalized, URL-safe representation of a name: lowercased and hyphenated, without any punctuation or diacritics, other than a hyphen separator.
+
+When we manually resolve an ambiguous name, we create a person ID for each author. At least one of the authors requires an explicit disambiguator appended to the slug. In an attempt to keep identifiers human-focused (i.e., not numeric), by convention we use the name or acronym of the institution where the author earned (or is expected to earn) their highest degree at the time they became known to the Anthology.
+
+For example, if there are two authors named "Alex Smith", one with a Ph.D. from Stanford and the other first publishing while an undergrad at Tsinghua, one of them might be assigned `alex-smith`, while the other would be given `alex-smith-stanford` or `alex-smith-tsinghua`, respectively. These extended slugs function as unique person IDs.
 
 ## Creating author pages
 
