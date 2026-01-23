@@ -22,9 +22,9 @@ The difficulty is that a single person may publish under multiple name variants 
 
 ## Person IDs
 
-By default, person IDs are derived from the person's full name, creating a **slug** from it. A slug is a normalized, URL-safe representation of a name: lowercased and hyphenated, without any punctuation or diacritics, other than a hyphen separator.
+By default, person IDs are derived from the person's full nae, creating a **slug** from it. A slug is a normalized, URL-safe representation of a name: lowercased and hyphenated, without any punctuation or diacritics, other than a hyphen separator.
 
-When we manually resolve an ambiguous name, we create a person ID for each author. At least one of the authors requires an explicit disambiguator appended to the slug. We wish to keep identifiers human-focused (as opposed to numeric), so by convention we use the name or acronym of the institution where the author earned (or is expected to earn) their highest degree at the time they became known to the Anthology.
+When we manually resolve an ambiguous name, we create person IDs for each author. At least one of the authors requires an explicit disambiguator appended to the slug. In an attempt to keep identifiers human-focused (i.e., not numeric), by convention we use the name or acronym of the institution where the author earned (or is expected to earn) their highest degree at the time they became known to the Anthology. 
 
 For example, if there are two authors named "Alex Smith", one with a Ph.D. from Stanford and the other first publishing while an undergrad at Tsinghua, one of them might be assigned `alex-smith`, while the other would be given `alex-smith-stanford` or `alex-smith-tsinghua`, respectively. These extended slugs function as unique person IDs.
 
@@ -43,14 +43,18 @@ The presence of `/unverified/` in the URL is a signal that the page was created 
 
 For more on what “verified” means (and what the icons on author pages indicate), see [Verification]({{< ref "/info/verification" >}}).
 
-## Correcting mistakes
+## Disambiguating names
 
-When authors report problems (missing papers, wrong papers, split pages, or merged pages), we can:
+When authors report problems with the set of papers assigned to their author page, there are a number of actions we take.
+
+The first is to **ensure that the metadata matches the PDF**. Anthology policy is to treat the PDF as authoritative, so that each name in the metadata should match what is on the PDF. Many issues can be resolved by simply correcting this metadata using the "Fix data" button on each paper page.
+
+Problems with actual ambiguity can be addressed in two ways:
 
 - **Merge name variants** that refer to the same person, so their publications appear under one verified page.
 - **Separate ambiguous names** so that publications by different people do not appear on the same page.
 
-Disambiguation or merging can be initiatied from the "Fix Author" button on each author page. This will fill out a GitHub issue template that we can use to track the request.
+Both of these are initiated using the "Fix Author" button displayed on the righthand side of each author page. This will fill out a GitHub issue template that we can use to process the request.
 
 ## ORCID iDs: the best way to disambiguate
 
