@@ -24,7 +24,7 @@ The difficulty is that a single person may publish under multiple name variants 
 
 By default, person IDs are derived from the person's full name, creating a **slug** from it. A slug is a normalized, URL-safe representation of a name: lowercased and hyphenated, without any punctuation or diacritics, other than a hyphen separator.
 
-When we manually resolve an ambiguous name, we create a person ID for each author. At least one of the authors requires an explicit disambiguator appended to the slug. In an attempt to keep identifiers human-focused (i.e., not numeric), by convention we use the name or acronym of the institution where the author earned (or is expected to earn) their highest degree at the time they became known to the Anthology.
+When we manually resolve an ambiguous name, we create a person ID for each author. At least one of the authors requires an explicit disambiguator appended to the slug. We wish to keep identifiers human-focused (as opposed to numeric), so by convention we use the name or acronym of the institution where the author earned (or is expected to earn) their highest degree at the time they became known to the Anthology.
 
 For example, if there are two authors named "Alex Smith", one with a Ph.D. from Stanford and the other first publishing while an undergrad at Tsinghua, one of them might be assigned `alex-smith`, while the other would be given `alex-smith-stanford` or `alex-smith-tsinghua`, respectively. These extended slugs function as unique person IDs.
 
