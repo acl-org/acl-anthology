@@ -9,7 +9,7 @@ A basic task of the ACL Anthology is to correctly match papers to authors. When 
 
 This may sound straightforward, but in practice it’s difficult, for two reasons: the same person may publish under multiple name variants (diacritics, middle initials, name changes), and many names are shared by multiple people. In practice, we resolve both of these issues using a manual process: one mechanism to group papers for a single author with multiple names, and another to explicitly assign a paper to a specific author using [a person ID]({{< ref "/info/names" >}}). This process is time-consuming and labor-intensive.
 
-The following histogram shows the prevalence of known ambiguous names in the Anthology (i.e., those that have undergone our manual disambiguation process). For example, there are 121 names shared by two people.Most names are unique, but the number of ambiguous names is still significant. In the past few years, especially, the number of ambiguous names has increased sharply, which increases the amount of human effort in resolving these ambiguities.
+The following histogram shows the prevalence of known ambiguous names in the Anthology. For example, there are 121 names shared by two people.Most names are unique, but the number of ambiguous names is still significant. In the past few years, especially, the number of ambiguous names has increased sharply, which increases the amount of human effort in resolving these ambiguities.
 
 <div class="table table-sm">
 
