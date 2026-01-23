@@ -16,7 +16,7 @@ We urge every author who is actively publishing papers to create an ORCID iD and
 
 - **Add name variants**: In your ORCID iD profile, you can set your given and family names, your published name, and any name variants you have published under (e.g., with or without middle initials, maiden names, etc.). It is especially important to make sure you have at least one Latin variant of your name. ([This profile](https://orcid.org/0000-0002-1831-3457) is a good example.)
 - **Make sure your name is visible**: We have encountered situations where an individual's name was private.
-- **Add educational history and affiliations**: When we manually disambiguate an author, we may need to know the insituttion from which you received (or expect to receive) your highest degree, as part of our [human-focused person IDs]({{< ref "/info/names" >}}).
+- **Add educational history and affiliations**: When we manually disambiguate an author, we may need to know the institution from which you received (or expect to receive) your highest degree, as part of our [human-focused person IDs]({{< ref "/info/names" >}}).
 
 Less importantly, it can be helpful to the disambiguation process if you make the effort to add a few representative publications.
 
