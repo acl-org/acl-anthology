@@ -1,12 +1,14 @@
 # Changelog
 
-## [Unreleased]
+## [1.0.0] — 2026-01-21
 
 This release implements the new [name resolution and author ID logic](https://github.com/acl-org/acl-anthology/wiki/Author-Page-Plan), and is therefore fundamentally incompatible with ACL Anthology data before the switch to this new system.
 
 ### Added
 
-- Anthology now provides `save_all()` to conveniently save all data files.  The library tracks modifications to collection objects to only write XML files that have actually changed.
+- Support for Python 3.14.
+- Anthology now provides `save_all()` to conveniently save all data files.  The library tracks modifications to collection objects to only write XML files that have actually changed.  (Tracking changes does not work on _every_ possible modification, though; see the documentation.)
+- `Anthology.from_within_repo()` can be used to quickly instantiate the Anthology from within its own repo.
 - Person:
   - Now provides `orcid`, `degree`, `disable_name_matching`, and `similar_ids` fields that correspond to the respective fields in the new `people.yaml`.
   - Changing `id`, `orcid`, `names`, or using `add_name()` or `remove_names()` will now automatically update the PersonIndex.
@@ -34,6 +36,11 @@ This release implements the new [name resolution and author ID logic](https://gi
 - Setting a canonical name for a Person changed from `.set_canonical_name()` to `Person.canonical_name = ...`
 - Attributes that expect a MarkupText, such as `Volume.title` or `Paper.abstract`, can now be set to a string, in which case the string will be automatically converted to MarkupText, including markup parsing.
 - EventLinkingType renamed to EventLink.
+- Refactored verbosity handling.  This fixes a bug where empty lines would appear in stdout from Rich's progress bars, even if they were disabled with `verbose=False`.  Also, `verbose=False` is set by default now if stdout is not a TTY.
+
+### Removed
+
+- Support for "Papers with Code" references has been removed, as the service has been discontinued in August 2025.
 
 ## [0.5.4] — 2025-11-27
 

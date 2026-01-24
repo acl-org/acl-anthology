@@ -17,7 +17,6 @@ import re
 from slugify import slugify
 from stop_words import get_stop_words
 
-
 RE_ENGLISH_ORDINAL = re.compile(
     r"[0-9]+(st|nd|rd|th)|[a-z]+(ieth|enth)|first|second|third|fourth|fifth|sixth|eighth|ninth|twelfth"
 )

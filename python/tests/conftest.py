@@ -26,6 +26,10 @@ from acl_anthology import Anthology  # noqa: E402
 class AnthologyStub:
     datadir = None
     people = Mock()
+    verbose = False
+
+    def _warn_if_in_default_path(self) -> None:
+        pass
 
 
 @pytest.fixture

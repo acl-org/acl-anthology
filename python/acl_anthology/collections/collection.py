@@ -1,4 +1,4 @@
-# Copyright 2023-2025 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2026 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -308,8 +308,9 @@ class Collection(SlottedDict[Volume]):
             path: The filename to save to. If None, defaults to `self.path`.
             minimal_diff: If True (default), will compare against an existing XML file in `self.path` to minimize the difference, i.e., to prevent noise from changes in the XML that make no semantic difference.  See [`utils.xml.ensure_minimal_diff`][acl_anthology.utils.xml.ensure_minimal_diff] for details.
         """
-        if path is None:
-            path = self.path  # pragma: no cover
+        if path is None:  # pragma: no cover
+            self.root._warn_if_in_default_path()
+            path = self.path
         collection = etree.Element("collection", {"id": self.id})
         for volume in self.volumes():
             collection.append(volume.to_xml(with_papers=True))

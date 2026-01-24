@@ -17,7 +17,6 @@ from lxml import etree
 
 from acl_anthology.utils import xml
 
-
 test_cases_stringify_children = (
     (
         "<span>Lorem <b>ipsum</b> <i>dolor</i> sit <b>a<i>men</i></b></span>",
