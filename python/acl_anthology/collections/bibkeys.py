@@ -21,6 +21,7 @@ from slugify import slugify
 from typing import Iterable, TYPE_CHECKING
 
 from .. import constants
+from ..config import primary_console
 from ..containers import SlottedDict
 from ..exceptions import AnthologyDuplicateIDError
 from ..text import StopWords
@@ -175,6 +176,7 @@ class BibkeyIndex(SlottedDict[Paper]):
                 self.parent.values(),
                 total=len(self.parent),
                 description="Building bibkey index...",
+                console=primary_console,
             )
         errors = []
         for collection in iterator:

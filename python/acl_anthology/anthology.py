@@ -34,7 +34,7 @@ else:
 if TYPE_CHECKING:
     from _typeshed import StrPath
 
-from .config import config, dirs
+from .config import config, dirs, primary_console
 from .exceptions import AnthologyException, SchemaMismatchWarning
 from .utils import git
 from .utils.ids import AnthologyID, parse_id
@@ -64,7 +64,7 @@ class Anthology:
 
         self.datadir = Path(datadir)
         if verbose is None:
-            verbose = sys.stdout.isatty()
+            verbose = primary_console.is_terminal
         self.verbose = verbose
         self._check_schema_compatibility()
         self._relaxng: Optional[RelaxNG] = None
@@ -182,6 +182,7 @@ class Anthology:
                     iterator,
                     total=len(self.collections) + len(indices_to_load),
                     description="Loading Anthology data...",
+                    console=primary_console,
                 )
                 self.verbose = False
             for elem in iterator:
