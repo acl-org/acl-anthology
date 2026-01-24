@@ -17,8 +17,9 @@
 import logging
 from rich.console import Console
 from rich.logging import RichHandler
-from typing import cast, Optional
-from ..config import config
+from typing import cast, Any, Optional
+import warnings
+from ..config import config, primary_console
 
 
 def get_logger() -> logging.Logger:
@@ -55,15 +56,16 @@ def setup_rich_logging(
     This function is intended to be called in a script. It calls [logging.basicConfig][] and is therefore not executed by default, as applications may wish to setup their loggers differently.
 
     Parameters:
-        **kwargs: Any keyword argument will be forwarded to [logging.basicConfig][].  If logging handlers are defined here, they will be preserved in addition to the handlers added by this function.
+        console: A [rich.Console][] object to output log messages to.
+        **kwargs: Any keyword argument will be forwarded to [logging.basicConfig][].  If logging handlers are defined here, they will be preserved in addition to the handlers added by this function.  If 'level' is not given, it will default to 'INFO'.
 
     Returns:
         The severity tracker, so that it can be used to check the highest emitted log level.
     """
     if console is None:
-        console = Console(stderr=True)
+        console = primary_console
     log_config: dict[str, object] = dict(
-        level="NOTSET",
+        level=kwargs.pop("level", logging.INFO),
         format="%(message)s",
         datefmt="[%X]",
         handlers=[],
@@ -74,5 +76,12 @@ def setup_rich_logging(
         [RichHandler(console=console), tracker]
     )
     logging.basicConfig(**log_config)  # type: ignore
-    logging.captureWarnings(True)
+
+    def showwarning(
+        message: object, category: type[Any], *args: Any, **kwargs: Any
+    ) -> None:
+        logging.warning(f"{category.__name__}: {message}", stacklevel=3)
+
+    warnings.showwarning = showwarning
+
     return tracker

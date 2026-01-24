@@ -19,6 +19,7 @@ from collections import defaultdict
 from rich.progress import track
 from typing import Iterable, TYPE_CHECKING
 
+from ..config import primary_console
 from ..containers import SlottedDict
 from ..text import MarkupText
 from ..utils.ids import AnthologyID, AnthologyIDTuple, parse_id
@@ -97,6 +98,7 @@ class EventIndex(SlottedDict[Event]):
                 self.parent.collections.values(),
                 total=len(self.parent.collections),
                 description=" Building event index...",
+                console=primary_console,
             )
         raised_exception = False
         for collection in iterator:

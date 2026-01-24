@@ -85,6 +85,7 @@ def test_full_anthology_should_validate_schema(full_anthology):
 
 
 @pytest.mark.integration
+@pytest.mark.filterwarnings("ignore::acl_anthology.exceptions.NameSpecResolutionWarning")
 def test_full_anthology_roundtrip_people_yaml(full_anthology, tmp_path):
     full_anthology.people.build()
     yaml_in = full_anthology.people.path
