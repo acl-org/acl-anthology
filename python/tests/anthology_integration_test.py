@@ -85,7 +85,7 @@ def test_full_anthology_should_validate_schema(full_anthology):
 
 
 @pytest.mark.integration
-@pytest.mark.filterwarnings("ignore::acl_anthology.exceptions.SchemaMismatchWarning")
+@pytest.mark.filterwarnings("ignore::acl_anthology.exceptions.NameSpecResolutionWarning")
 @pytest.mark.xfail(
     raises=FileNotFoundError, reason="Main data folder not yet transitioned to new format"
 )
