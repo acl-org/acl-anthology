@@ -60,7 +60,6 @@ from acl_anthology.utils.text import (
     remove_extra_whitespace,
 )
 
-
 BIBLIMIT = None
 CONSOLE = Console(stderr=True)
 ENCODER = msgspec.json.Encoder()
@@ -208,21 +207,6 @@ def paper_to_dict(paper):
             }
             for erratum in paper.errata
         ]
-    if (pwc := paper.paperswithcode) is not None:
-        if pwc.code is not None:
-            data["pwccode"] = {
-                "additional": "true" if pwc.community_code else "false",
-                "name": pwc.code[0],
-                "url": pwc.code[1],
-            }
-        if pwc.datasets:
-            data["pwcdataset"] = [
-                {
-                    "name": dataset[0],
-                    "url": dataset[1],
-                }
-                for dataset in pwc.datasets
-            ]
     if paper.revisions:
         data["revision"] = [
             {
