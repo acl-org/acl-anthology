@@ -34,7 +34,6 @@ from ..utils import (
 )
 from .texmath import TexMath
 
-
 MARKUP_LATEX_CMDS = defaultdict(
     lambda: "{text}",
     {
