@@ -48,7 +48,6 @@ from acl_anthology import Anthology
 from acl_anthology.people import Name
 from acl_anthology.utils.logging import setup_rich_logging
 
-
 RE_ORCID = re.compile(r"[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{3}[0-9X]")
 """A regular expression matching any string that looks like an ORCID."""
 
