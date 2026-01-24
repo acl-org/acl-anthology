@@ -30,6 +30,7 @@ try:
 except ImportError:  # pragma: no cover
     from yaml import Loader, Dumper  # type: ignore
 
+from ..config import primary_console
 from ..containers import SlottedDict
 from ..exceptions import (
     AnthologyException,
@@ -243,6 +244,7 @@ class PersonIndex(SlottedDict[Person]):
                 self.parent.collections.values(),
                 total=len(self.parent.collections),
                 description="Building person index...",
+                console=primary_console,
             )
         raised_exception = False
         for collection in iterator:

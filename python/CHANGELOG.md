@@ -1,6 +1,6 @@
 # Changelog
 
-## [1.0.0] — 2026-01-21
+## [1.0.0] — 2026-01-24
 
 This release implements the new [name resolution and author ID logic](https://github.com/acl-org/acl-anthology/wiki/Author-Page-Plan), and is therefore fundamentally incompatible with ACL Anthology data before the switch to this new system.
 
@@ -36,7 +36,7 @@ This release implements the new [name resolution and author ID logic](https://gi
 - Setting a canonical name for a Person changed from `.set_canonical_name()` to `Person.canonical_name = ...`
 - Attributes that expect a MarkupText, such as `Volume.title` or `Paper.abstract`, can now be set to a string, in which case the string will be automatically converted to MarkupText, including markup parsing.
 - EventLinkingType renamed to EventLink.
-- Refactored verbosity handling.  This fixes a bug where empty lines would appear in stdout from Rich's progress bars, even if they were disabled with `verbose=False`.  Also, `verbose=False` is set by default now if stdout is not a TTY.
+- Refactored verbosity handling and progress/log output.  This fixes a bug where empty lines would appear in stdout from Rich's progress bars, even if they were disabled with `verbose=False`.  If stdout is not a TTY, progress/log output will be written to stderr instead.  If stderr is not a TTY, progress bars will be suppressed by default.
 
 ### Removed
 
