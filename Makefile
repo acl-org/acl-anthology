@@ -64,8 +64,6 @@ HUGO_ENV ?= production
 
 sourcefiles=$(shell find data -type f '(' -name "*.yaml" -o -name "*.xml" ')')
 xmlstaged=$(shell git diff --staged --name-only --diff-filter=d data/xml/*.xml)
-pysources=$(shell git ls-files | egrep "\.pyi?$$")
-pystaged=$(shell git diff --staged --name-only  --diff-filter=d | egrep "\.pyi?$$")
 
 # these are shown in the generated html so everyone knows when the data
 # was generated.
@@ -224,9 +222,7 @@ check: venv
 	fi
 	jing -c data/xml/schema.rnc data/xml/*xml
 	. $(VENV) \
-	  && SKIP=no-commit-to-branch pre-commit run --all-files \
-	  && black --check $(pysources) \
-	  && ruff check $(pysources)
+	  && SKIP=no-commit-to-branch pre-commit run --all-files
 
 .PHONY: check_staged_xml
 check_staged_xml:
@@ -237,9 +233,6 @@ check_staged_xml:
 .PHONY: check_commit
 check_commit: check_staged_xml venv/bin/activate
 	@. $(VENV) && pre-commit run
-	@if [ ! -z "$(pystaged)" ]; then \
-	    . $(VENV) && black --check $(pystaged) && ruff check $(pystaged) ;\
-	 fi
 
 .PHONY: autofix
 autofix: check_staged_xml venv/bin/activate
@@ -247,8 +240,7 @@ autofix: check_staged_xml venv/bin/activate
 	 EXIT_STATUS=0 ;\
 	 pre-commit run || EXIT_STATUS=$$? ;\
 	 PRE_DIFF=`git diff --no-ext-diff --no-color` ;\
-	 ruff check --fix --show-fixes $(pysources) || EXIT_STATUS=$$? ;\
-	 black $(pysources) || EXIT_STATUS=$$? ;\
+	 pre-commit run --config .pre-commit-config.autofix.yaml --all-files || EXIT_STATUS=$$? ;\
 	 POST_DIFF=`git diff --no-ext-diff --no-color` ;\
 	 [ "$${PRE_DIFF}" = "$${POST_DIFF}" ] || EXIT_STATUS=1 ;\
 	 [ $${EXIT_STATUS} -eq 0 ]
