@@ -1,6 +1,8 @@
 #!/usr/bin/env python3 -i
 # -*- coding: utf-8 -*-
 #
+# Copyright 2024-2026 Marcel Bollmann <marcel@bollmann.me>
+#
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -12,8 +14,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
-# Copyright 2024 Marcel Bollmann <marcel@bollmann.me>
 
 ##############################################################################
 # This file is not meant to be run or imported directly, but via
@@ -26,7 +26,7 @@
 #
 # The `just` command for achieving the same thing is
 #
-#   just py
+#   just repl
 #
 ##############################################################################
 
@@ -48,5 +48,5 @@ from acl_anthology import Anthology
 from acl_anthology.utils.logging import setup_rich_logging
 
 setup_rich_logging(level="INFO")
-anthology = Anthology(datadir="../data")
+anthology = Anthology.from_within_repo()
 print(f">>> anthology = {anthology}")
