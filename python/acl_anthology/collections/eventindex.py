@@ -17,7 +17,7 @@ from __future__ import annotations
 from attrs import define, field
 from collections import defaultdict
 from rich.progress import track
-from typing import TYPE_CHECKING
+from typing import Iterable, TYPE_CHECKING
 
 from ..containers import SlottedDict
 from ..text import MarkupText
@@ -29,6 +29,7 @@ from .volume import Volume
 
 if TYPE_CHECKING:
     from ..anthology import Anthology
+    from .collection import Collection
 
 log = get_logger()
 
@@ -41,13 +42,11 @@ class EventIndex(SlottedDict[Event]):
 
     Attributes:
         parent: The parent Anthology instance to which this index belongs.
-        verbose: If False, will not show progress bar when building the index from scratch.
         reverse: A mapping of volume IDs to a set of associated event IDs.
         is_data_loaded: A flag indicating whether the index has been constructed.
     """
 
     parent: Anthology = field(repr=False, eq=False)
-    verbose: bool = field(default=True)
     reverse: dict[AnthologyIDTuple, set[str]] = field(
         init=False, repr=False, factory=lambda: defaultdict(set)
     )
@@ -91,12 +90,14 @@ class EventIndex(SlottedDict[Event]):
         if self.is_data_loaded:
             return
 
-        iterator = track(
-            self.parent.collections.values(),
-            total=len(self.parent.collections),
-            disable=(not self.verbose),
-            description=" Building event index...",
-        )
+        if not self.parent.verbose:
+            iterator: Iterable[Collection] = self.parent.collections.values()
+        else:
+            iterator = track(
+                self.parent.collections.values(),
+                total=len(self.parent.collections),
+                description=" Building event index...",
+            )
         raised_exception = False
         for collection in iterator:
             try:

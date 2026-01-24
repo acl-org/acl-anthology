@@ -16,5 +16,4 @@ from .markuptext import MarkupText, to_markuptext
 from .stopwords import StopWords
 from .texmath import TexMath
 
-
 __all__ = ["MarkupText", "StopWords", "TexMath", "to_markuptext"]

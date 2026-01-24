@@ -19,7 +19,6 @@ from unittest.mock import patch
 
 from acl_anthology.venues import VenueIndex, Venue
 
-
 all_toy_venue_ids = ("acl", "cl", "humeval", "lrec", "nlma", "ws")
 
 
@@ -47,9 +46,9 @@ def test_venue_set_itemids():
         venue.item_ids = "$§§$§$"
 
 
-def test_venue_save(tmp_path):
+def test_venue_save(tmp_path, anthology_stub):
     path = tmp_path / "foo.yaml"
-    venue = Venue("foo", None, "FOO", "Workshop on Foobar", path)
+    venue = Venue("foo", anthology_stub, "FOO", "Workshop on Foobar", path)
     venue.save()
     assert path.is_file()
     with open(path, "r", encoding="utf-8") as f:

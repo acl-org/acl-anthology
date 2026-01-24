@@ -1,4 +1,4 @@
-# Copyright 2023-2025 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2026 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -23,9 +23,10 @@ from acl_anthology.sigs import SIG
 from acl_anthology.venues import Venue
 from acl_anthology.utils import xml
 
-
 # Map from [repo]/python/tests to [repo]/data
-DATADIR = Path(os.path.dirname(os.path.realpath(__file__))) / ".." / ".." / "data"
+DATADIR = (
+    Path(os.path.dirname(os.path.realpath(__file__))) / ".." / ".." / "data"
+).resolve()
 
 
 def pytest_generate_tests(metafunc):
@@ -58,9 +59,23 @@ def full_anthology():
 
 
 @pytest.mark.integration
+@pytest.mark.filterwarnings("ignore::acl_anthology.exceptions.SchemaMismatchWarning")
 def test_anthology_from_repo(tmp_path):
     # Test that we can instantiate from the GitHub repo
-    _ = Anthology.from_repo(path=tmp_path, verbose=True)
+    anthology = Anthology.from_repo(path=tmp_path, verbose=True)
+    # ...and that any attempt to save throws a warning IF the flag is set (Note:
+    # we cannot really test the default behaviour here as tests should be
+    # isolated, and not write to the user's data directory outside this repo)
+    anthology._is_in_default_path = True
+    with pytest.warns(UserWarning, match=r"are you sure you want to save"):
+        anthology.save_all()
+
+
+@pytest.mark.integration
+def test_anthology_from_within_repo(tmp_path):
+    # Test that instantiating from within repo results in correct data folder
+    anthology = Anthology.from_within_repo()
+    assert anthology.datadir.resolve() == DATADIR
 
 
 @pytest.mark.integration

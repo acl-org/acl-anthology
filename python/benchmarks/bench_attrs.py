@@ -19,7 +19,6 @@ from acl_anthology.collections import Collection, Volume
 from acl_anthology.people import NameSpecification as NameSpec
 from acl_anthology.text import MarkupText
 
-
 REPEAT = 1_000
 
 

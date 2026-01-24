@@ -21,7 +21,6 @@ from .volume import Volume
 from .types import EventLink, PaperDeletionType, PaperType, VolumeType
 from .paper import Paper
 
-
 __all__ = [
     "BibkeyIndex",
     "Collection",

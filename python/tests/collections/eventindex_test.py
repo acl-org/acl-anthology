@@ -16,6 +16,16 @@ import pytest
 from acl_anthology.collections import EventIndex, EventLink
 
 
+def test_eventindex_load(anthology):
+    index = EventIndex(anthology)
+    assert not index.is_data_loaded
+    was_verbose = anthology.verbose
+    anthology.verbose = True
+    index.load()
+    anthology.verbose = was_verbose
+    assert index.is_data_loaded
+
+
 def test_all_defined_events(anthology):
     index = EventIndex(anthology)
     expected_ids = {"acl-2022", "nlma-2022", "cl-1989", "lrec-2006", "ws-2022"}

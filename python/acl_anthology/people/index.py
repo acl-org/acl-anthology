@@ -15,14 +15,13 @@
 from __future__ import annotations
 
 from attrs import define, field
-from collections.abc import Iterable
 from collections import Counter, defaultdict
 import itertools as it
 from pathlib import Path
 from rich.progress import track
 from scipy.cluster.hierarchy import DisjointSet  # type: ignore
 import sys
-from typing import cast, Any, Optional, TYPE_CHECKING
+from typing import cast, Any, Iterable, Optional, TYPE_CHECKING
 import warnings
 import yaml
 
@@ -47,7 +46,7 @@ from .name import _YAMLName
 if TYPE_CHECKING:
     from _typeshed import StrPath
     from ..anthology import Anthology
-    from ..collections import Paper, Volume
+    from ..collections import Paper, Volume, Collection
 
 log = get_logger()
 PEOPLE_INDEX_FILE = "yaml/people.yaml"
@@ -74,7 +73,6 @@ class PersonIndex(SlottedDict[Person]):
 
     Attributes:
         parent: The parent Anthology instance to which this index belongs.
-        verbose: If False, will not show progress bar when building the index from scratch.
         path: The path to `people.yaml`.
         by_orcid: A mapping of ORCIDs (as strings) to person IDs.
         by_name: A mapping of [Name][acl_anthology.people.name.Name] instances to lists of person IDs.
@@ -84,7 +82,6 @@ class PersonIndex(SlottedDict[Person]):
     """
 
     parent: Anthology = field(repr=False, eq=False)
-    verbose: bool = field(default=True)
     path: Path = field(init=False)
     _by_orcid: dict[str, str] = field(init=False, repr=False, default={})
     _by_name: dict[Name, list[str]] = field(
@@ -217,9 +214,9 @@ class PersonIndex(SlottedDict[Person]):
         """Loads or builds the index."""
         # This function exists so we can later add the option to read the index
         # from a cache if it doesn't need re-building.
-        if self.is_data_loaded:
+        if self.is_data_loaded:  # pragma: no cover
             return
-        self.build(show_progress=self.verbose)
+        self.build(show_progress=self.parent.verbose)
 
     def reset(self) -> None:
         """Resets the index."""
@@ -239,12 +236,14 @@ class PersonIndex(SlottedDict[Person]):
         self.reset()
         self._load_people_index()
         # Go through every single volume/paper and add authors/editors
-        iterator = track(
-            self.parent.collections.values(),
-            total=len(self.parent.collections),
-            disable=(not show_progress),
-            description="Building person index...",
-        )
+        if not show_progress:
+            iterator: Iterable[Collection] = self.parent.collections.values()
+        else:
+            iterator = track(
+                self.parent.collections.values(),
+                total=len(self.parent.collections),
+                description="Building person index...",
+            )
         raised_exception = False
         for collection in iterator:
             for volume in collection.volumes():
@@ -628,8 +627,9 @@ class PersonIndex(SlottedDict[Person]):
         Arguments:
             path: The filename to save to. If None, defaults to the parent Anthology's `people.yaml` file.
         """
-        if path is None:
-            path = self.path  # pragma: no cover
+        if path is None:  # pragma: no cover
+            self.parent._warn_if_in_default_path()
+            path = self.path
 
         data = {}
         for person in self.values():

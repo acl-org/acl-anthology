@@ -18,7 +18,6 @@ import functools
 import re
 from typing import Optional
 
-
 AnthologyIDTuple = tuple[str, Optional[str], Optional[str]]
 """A tuple representing an Anthology ID."""
 

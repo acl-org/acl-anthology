@@ -1,6 +1,6 @@
 [tool.black]
 line-length = 90
-target-version = ['py310', 'py311', 'py312', 'py313']
+target-version = ['py310', 'py311', 'py312', 'py313', 'py314']
 skip-string-normalization = false
 
 [tool.mypy]
@@ -43,7 +43,7 @@ name = "acl-anthology"
 packages = [
     { include = "acl_anthology" },
 ]
-version = "0.5.4"
+version = "1.0.0"
 description = "A library for accessing the ACL Anthology"
 authors = [
     { name = "Marcel Bollmann", email = "marcel@bollmann.me" },
@@ -66,11 +66,12 @@ classifiers = [
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
 ]
-requires-python = ">=3.10, !=3.11.0, <3.14"
+requires-python = ">=3.10, !=3.11.0, <3.15"
 dependencies = [
     "docopt (>=0.6.2)",
-    "lxml (~=5.3.1)",
+    "lxml (>=6.0.2,<7.0.0)",
     "PyYAML (~=6.0)",
     "app-paths (~=0.0.7)",
     "diskcache (>=5.6.1)",
@@ -87,12 +88,12 @@ dependencies = [
     "citeproc-py (~=0.6.0)",
     "langcodes[data] (>=3.5.0)",
     "pylatexenc (~=2.10)",
-    "stop-words (>=2018.7.23)",
+    "stop-words (==2018.7.23)",
     "typing-extensions (>=4.6.0) ; python_version < '3.11'",
 ]
 
 [tool.poetry.group.dev.dependencies]
-black = ">=25.1"
+black = ">=26.1"
 pytest = "^7.3.1"
 pytest-cov = "^4.0.0"
 ruff = "^0.3.4"

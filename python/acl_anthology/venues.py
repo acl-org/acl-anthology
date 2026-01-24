@@ -1,4 +1,4 @@
-# Copyright 2023-2025 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2026 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -97,6 +97,7 @@ class Venue:
             path: The filename to save to. If None, defaults to `self.path`.
         """
         if path is None:
+            self.parent._warn_if_in_default_path()
             path = self.path
         # Serialize everything except "id", "item_ids", "path", "parent" and default values
         values = asdict(

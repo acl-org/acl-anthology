@@ -28,7 +28,6 @@ from acl_anthology.people import NameSpecification
 from acl_anthology.utils import xml
 from acl_anthology.text import MarkupText
 
-
 test_cases_xml_collections = (
     # (filename, # volumes, # papers, has event?)
     ("2022.acl.xml", 5, 779, True),

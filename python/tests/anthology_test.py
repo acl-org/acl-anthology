@@ -62,6 +62,11 @@ def test_get_paper(anthology):
     assert paper.full_id == "2022.acl-long.1"
 
 
+def test_get_paper_that_doesnt_exist(anthology):
+    paper = anthology.get_paper("1922.acl-long.1")
+    assert paper is None
+
+
 @pytest.mark.parametrize(
     "bibkey, full_id",
     (
@@ -171,7 +176,9 @@ def test_resolve_author_list(anthology):
     assert person[0].canonical_name == Name("Oliviero", "Stock")
 
 
-def test_load_all(anthology):
+@pytest.mark.parametrize("verbose", (True, False))
+def test_load_all(anthology, verbose):
+    anthology.verbose = verbose
     anthology.load_all()
     assert anthology.collections.is_data_loaded
     assert anthology.collections["J89"].is_data_loaded
