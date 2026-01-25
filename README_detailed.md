@@ -117,9 +117,9 @@ comprise:
   Each venue has its own yaml file that contains venue specific information
   such as venue acronym, venue full name and venue url.
 
-+ A name variant list ([`name_variants.yaml`](data/yaml/name_variants.yaml)) that
++ A name variant list ([`people.yaml`](data/yaml/people.yaml)) that
   defines which author names should be treated as identical for purposes of
-  generating "author" pages.
+  generating "author" pages. See also: [`names.md`](hugo/content/info/names.md).
 
 The "acl-anthology" module under [`python/`](python/) is responsible
 for parsing and interpreting all these data files.  Some information that is not
