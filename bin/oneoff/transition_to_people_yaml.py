@@ -319,17 +319,24 @@ def refactor(anthology, name_variants):
                                 # also update the auto-generated ID
                                 old_pid = pid
                                 new_pid = namespec.name.slugify()
-                                for processed_namespec in inferred_from_orcid[old_pid]:
-                                    processed_namespec.id = new_pid
-                                new_people_dict[new_pid] = new_people_dict.pop(old_pid)
-                                orcid_to_id[orcid] = new_pid
-                                inferred_from_orcid[new_pid] = inferred_from_orcid.pop(
-                                    old_pid
-                                )
-                                new_people_dict[new_pid]["names"].insert(0, name)
-                                pid = new_pid
+                                if old_pid != new_pid and new_pid not in new_people_dict:
+                                    # ID has changed and is not already in use
+                                    for processed_namespec in inferred_from_orcid[
+                                        old_pid
+                                    ]:
+                                        processed_namespec.id = new_pid
+                                    new_people_dict[new_pid] = new_people_dict.pop(
+                                        old_pid
+                                    )
+                                    orcid_to_id[orcid] = new_pid
+                                    inferred_from_orcid[new_pid] = (
+                                        inferred_from_orcid.pop(old_pid)
+                                    )
+                                    pid = new_pid
+                                new_people_dict[pid]["names"].insert(0, name)
                             else:
                                 new_people_dict[pid]["names"].append(name)
+                        inferred_from_orcid[pid].append(namespec)
                     else:
                         # No — create that person
                         entry = {
