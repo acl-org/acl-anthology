@@ -69,7 +69,6 @@ import lxml.etree as ET
 
 from datetime import datetime
 
-
 DEFAULT_GITHUB_REPO = os.environ.get("ANTHOLOGY_GITHUB_REPO", "acl-org/acl-anthology")
 GITHUB_TOKEN_ENV_VARS = ("GITHUB_TOKEN", "GH_TOKEN")
 TRAILING_URL_CHARS = ").,]>\""

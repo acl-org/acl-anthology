@@ -15,7 +15,8 @@ repos:
       exclude: ^python/mkdocs.yml$
     - id: end-of-file-fixer
     - id: name-tests-test
-      files: ^python/tests/.*\.py$
+      files: ^python/tests/
+      types: [file, python]
     - id: no-commit-to-branch
     - id: trailing-whitespace
 
@@ -23,21 +24,34 @@ repos:
   rev: v1.5.6
   hooks:
     - id: insert-license
-      files: ^python/.*\.py$
-      args: ['--license-filepath', 'python/LICENSE.header', '--allow-past-years']
+      files: ^python/
+      types: [file, python]
+      args: ['--license-filepath', 'python/LICENSE.header', '--detect-license-in-X-top-lines=10']
+
+- repo: https://github.com/astral-sh/ruff-pre-commit
+  rev: v0.14.14
+  hooks:
+    - id: ruff-check
+      name: ruff-check (on bin/)
+      files: ^bin/
+      args: ['--config', 'pyproject.toml', '--fix', '--show-fixes']
+
+    - id: ruff-check
+      name: ruff-check (on python/)
+      files: ^python/
+      args: ['--config', 'python/pyproject.toml', '--fix', '--show-fixes']
 
 - repo: https://github.com/psf/black-pre-commit-mirror
   rev: 26.1.0
   hooks:
     - id: black
-      files: ^python/.*\.py$
-      args: ['--config', 'python/pyproject.toml']
+      name: black (on bin/)
+      files: ^bin/
+      args: ['--config', 'pyproject.toml']
 
-- repo: https://github.com/astral-sh/ruff-pre-commit
-  rev: v0.14.13
-  hooks:
-    - id: ruff
-      files: ^python/.*\.py$
+    - id: black
+      name: black (on python/)
+      files: ^python/
       args: ['--config', 'python/pyproject.toml']
 
 - repo: https://github.com/python-poetry/poetry
