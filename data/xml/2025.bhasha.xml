@@ -5,7 +5,7 @@
       <booktitle>Proceedings of the 1st Workshop on Benchmarks, Harmonization, Annotation, and Standardization for Human-Centric AI in Indian Languages (BHASHA 2025)</booktitle>
       <editor><first>Arnab</first><last>Bhattacharya</last></editor>
       <editor><first>Pawan</first><last>Goyal</last></editor>
-      <editor><first>Saptarshi</first><last>Ghosh</last></editor>
+      <editor id="saptarshi-ghosh"><first>Saptarshi</first><last>Ghosh</last></editor>
       <editor><first>Kripabandhu</first><last>Ghosh</last></editor>
       <publisher>Association for Computational Linguistics</publisher>
       <address>Mumbai, India</address>
@@ -183,7 +183,7 @@
     <paper id="15">
       <title>A3-108 at <fixed-case>BHASHA</fixed-case> Task1: Asymmetric <fixed-case>BPE</fixed-case> configuration for Grammar Error Correction</title>
       <author><first>Saumitra</first><last>Yadav</last><affiliation>IIIT Hyderabad, India</affiliation></author>
-      <author id="manish-shrivastava"><first>Manish</first><last>Shrivastava</last><affiliation>IIIT Hyderabad, India</affiliation></author>
+      <author><first>Manish</first><last>Shrivastava</last><affiliation>IIIT Hyderabad, India</affiliation></author>
       <pages>147-154</pages>
       <abstract>This paper presents our approach to Grammatical Error Correction (GEC) for five low-resource Indic languages, a task severely limited by a scarcity of annotated data. Our core methodology involves two stages: synthetic data generation and model optimization. First, we leverage the provided training data to build a Statistical Machine Translation (SMT) system, which is then used to generate large-scale synthetic noisy-to-clean parallel data from available monolingual text. This artificially corrupted data significantly enhances model robustness. Second, we train Transformer-based sequence-to-sequence models using an asymmetric and symmetric Byte Pair Encoding (BPE) configuration, where the number of merge operations differs between the source (erroneous) and target (corrected) sides to better capture language-specific characteristics. For instance, source BPE sizes 4000, 8000 and 16000, with target sizes at 500, 1000, 2000, 3000 and 4000. Our experiments demonstrated competitive performance across all five languages, with the best results achieving a GLUE score of 94.16 for Malayalam (Rank 4th) followed by Bangla at 92.44 (ranked 5th), Tamil at 85.52 (ranked 5th), Telugu at 81.9 (7th), and Hindi at 79.45(10th) in the shared task. These findings substantiate the effectiveness of combining SMT-based synthetic data generation with asymmetric BPE configurations for low-resource GEC.</abstract>
       <url hash="f365b075">2025.bhasha-1.15</url>

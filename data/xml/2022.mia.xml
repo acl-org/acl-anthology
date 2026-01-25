@@ -5,7 +5,7 @@
       <booktitle>Proceedings of the Workshop on Multilingual Information Access (MIA)</booktitle>
       <editor><first>Akari</first><last>Asai</last></editor>
       <editor><first>Eunsol</first><last>Choi</last></editor>
-      <editor id="jonathan-h-clark"><first>Jonathan H.</first><last>Clark</last></editor>
+      <editor><first>Jonathan H.</first><last>Clark</last></editor>
       <editor><first>Junjie</first><last>Hu</last></editor>
       <editor><first>Chia-Hsuan</first><last>Lee</last></editor>
       <editor><first>Jungo</first><last>Kasai</last></editor>
@@ -25,7 +25,7 @@
     </frontmatter>
     <paper id="1">
       <title>Geographical Distance Is The New Hyperparameter: A Case Study Of Finding The Optimal Pre-trained Language For <fixed-case>E</fixed-case>nglish-isi<fixed-case>Z</fixed-case>ulu Machine Translation.</title>
-      <author id="muhammad-umair-nasir" orcid="0000-0002-2458-9599"><first>Muhammad Umair</first><last>Nasir</last></author>
+      <author orcid="0000-0002-2458-9599"><first>Muhammad Umair</first><last>Nasir</last></author>
       <author><first>Innocent</first><last>Mchechesi</last></author>
       <pages>1-8</pages>
       <abstract>Stemming from the limited availability of datasets and textual resources for low-resource languages such as isiZulu, there is a significant need to be able to harness knowledge from pre-trained models to improve low resource machine translation. Moreover, a lack of techniques to handle the complexities of morphologically rich languages has compounded the unequal development of translation models, with many widely spoken African languages being left behind. This study explores the potential benefits of transfer learning in an English-isiZulu translation framework. The results indicate the value of transfer learning from closely related languages to enhance the performance of low-resource translation models, thus providing a key strategy for low-resource translation going forward. We gathered results from 8 different language corpora, including one multi-lingual corpus, and saw that isiXhosa-isiZulu outperformed all languages, with a BLEU score of 8.56 on the test set which was better from the multi-lingual corpora pre-trained model by 2.73. We also derived a new coefficient, Nasir’s Geographical Distance Coefficient (NGDC) which provides an easy selection of languages for the pre-trained models. NGDC also indicated that isiXhosa should be selected as the language for the pre-trained model.</abstract>
@@ -35,7 +35,7 @@
     </paper>
     <paper id="2">
       <title>An Annotated Dataset and Automatic Approaches for Discourse Mode Identification in Low-resource <fixed-case>B</fixed-case>engali Language</title>
-      <author id="salim-sazzed" orcid="0000-0002-8552-5337"><first>Salim</first><last>Sazzed</last></author>
+      <author orcid="0000-0002-8552-5337"><first>Salim</first><last>Sazzed</last></author>
       <pages>9-15</pages>
       <abstract>The modes of discourse aid in comprehending the convention and purpose of various forms of languages used during communication. In this study, we introduce a discourse mode annotated corpus for the low-resource Bangla (also referred to as Bengali) language. The corpus consists of sentence-level annotation of three different discourse modes, narrative, descriptive, and informative of the text excerpted from a number of Bangla novels. We analyze the annotated corpus to expose various linguistic aspects of discourse modes, such as class distributions and average sentence lengths. To automatically determine the mode of discourse, we apply CML (classical machine learning) classifiers with n-gram based statistical features and a fine-tuned BERT (Bidirectional Encoder Representations from Transformers) based language model. We observe that fine-tuned BERT-based approach yields more promising results than n-gram based CML classifiers. Our created discourse mode annotated dataset, the first of its kind in Bangla, and the evaluation, provide baselines for the automatic discourse mode identification in Bangla and can assist various downstream natural language processing tasks.</abstract>
       <url hash="08b9be29">2022.mia-1.2</url>
@@ -111,7 +111,7 @@
       <author><first>Sotaro</first><last>Takeshita</last></author>
       <author><first>Marco</first><last>Bombieri</last></author>
       <author><first>Goran</first><last>Glavaš</last></author>
-      <author id="simone-paolo-ponzetto"><first>Simone Paolo</first><last>Ponzetto</last></author>
+      <author><first>Simone Paolo</first><last>Ponzetto</last></author>
       <pages>77-90</pages>
       <abstract>This paper introduces our proposed system for the MIA Shared Task on Cross-lingual Openretrieval Question Answering (COQA). In this challenging scenario, given an input question the system has to gather evidence documents from a multilingual pool and generate from them an answer in the language of the question. We devised several approaches combining different model variants for three main components: Data Augmentation, Passage Retrieval, and Answer Generation. For passage retrieval, we evaluated the monolingual BM25 ranker against the ensemble of re-rankers based on multilingual pretrained language models (PLMs) and also variants of the shared task baseline, re-training it from scratch using a recently introduced contrastive loss that maintains a strong gradient signal throughout training by means of mixed negative samples. For answer generation, we focused on languageand domain-specialization by means of continued language model (LM) pretraining of existing multilingual encoders. Additionally, for both passage retrieval and answer generation, we augmented the training data provided by the task organizers with automatically generated question-answer pairs created from Wikipedia passages to mitigate the issue of data scarcity, particularly for the low-resource languages for which no training data were provided. Our results show that language- and domain-specialization as well as data augmentation help, especially for low-resource languages.</abstract>
       <url hash="2a21c67b">2022.mia-1.8</url>
@@ -124,7 +124,7 @@
       <author><first>Sumit</first><last>Agarwal</last></author>
       <author><first>Suraj</first><last>Tripathi</last></author>
       <author><first>Teruko</first><last>Mitamura</last></author>
-      <author id="carolyn-rose"><first>Carolyn Penstein</first><last>Rose</last></author>
+      <author><first>Carolyn Penstein</first><last>Rose</last></author>
       <pages>91-99</pages>
       <abstract>People speaking different kinds of languages search for information in a cross-lingual manner. They tend to ask questions in their language and expect the answer to be in the same language, despite the evidence lying in another language. In this paper, we present our approach for this task of cross-lingual open-domain question-answering. Our proposed method employs a passage reranker, the fusion-in-decoder technique for generation, and a wiki data entity-based post-processing system to tackle the inability to generate entities across all languages. Our end-2-end pipeline shows an improvement of 3 and 4.6 points on F1 and EM metrics respectively, when compared with the baseline CORA model on the XOR-TyDi dataset. We also evaluate the effectiveness of our proposed techniques in the zero-shot setting using the MKQA dataset and show an improvement of 5 points in F1 for high-resource and 3 points improvement for low-resource zero-shot languages. Our team, CMUmQA’s submission in the MIA-Shared task ranked 1st in the constrained setup for the dev and 2nd in the test setting.</abstract>
       <url hash="572ac35a">2022.mia-1.9</url>
@@ -150,7 +150,7 @@
       <author><first>Rui</first><last>Zhang</last></author>
       <author><first>Junjie</first><last>Hu</last></author>
       <author><first>Ikuya</first><last>Yamada</last></author>
-      <author id="jonathan-h-clark"><first>Jonathan H.</first><last>Clark</last></author>
+      <author><first>Jonathan H.</first><last>Clark</last></author>
       <author><first>Eunsol</first><last>Choi</last></author>
       <pages>108-120</pages>
       <abstract>We present the results of the Workshop on Multilingual Information Access (MIA) 2022 Shared Task, evaluating cross-lingual open-retrieval question answering (QA) systems in 16 typologically diverse languages. In this task, we adapted two large-scale cross-lingual open-retrieval QA datasets in 14 typologically diverse languages, and newly annotated open-retrieval QA data in 2 underrepresented languages: Tagalog and Tamil. Four teams submitted their systems. The best constrained system uses entity-aware contextualized representations for document retrieval, thereby achieving an average F1 score of 31.6, which is 4.1 F1 absolute higher than the challenging baseline. The best system obtains particularly significant improvements in Tamil (20.8 F1), whereas most of the other systems yield nearly zero scores. The best unconstrained system achieves 32.2 F1, outperforming our baseline by 4.5 points.</abstract>
