@@ -235,15 +235,7 @@ check_commit: check_staged_xml venv/bin/activate
 	@. $(VENV) && pre-commit run
 
 .PHONY: autofix
-autofix: check_staged_xml venv/bin/activate
-	 @. $(VENV) && \
-	 EXIT_STATUS=0 ;\
-	 pre-commit run || EXIT_STATUS=$$? ;\
-	 PRE_DIFF=`git diff --no-ext-diff --no-color` ;\
-	 pre-commit run --config .pre-commit-config.autofix.yaml --all-files || EXIT_STATUS=$$? ;\
-	 POST_DIFF=`git diff --no-ext-diff --no-color` ;\
-	 [ "$${PRE_DIFF}" = "$${POST_DIFF}" ] || EXIT_STATUS=1 ;\
-	 [ $${EXIT_STATUS} -eq 0 ]
+autofix: check
 
 .PHONY: reformat
 reformat: autofix
