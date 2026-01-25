@@ -111,6 +111,15 @@ class YAMLName(yaml.YAMLObject):
         if script is not None:
             self.script = script
 
+    def score(self):
+        name = Name(getattr(self, 'first', None), self.last)
+        return name.score()
+
+    def full(self):  # only for testing
+        if getattr(self, 'first', None):
+            return f"{self.first} | {self.last}"
+        return self.last
+
 
 def name_to_yaml(name):
     return YAMLName(name.first, name.last, name.script)
@@ -273,6 +282,7 @@ def refactor(anthology, name_variants):
     # ======
     # Iterate over all papers with recorded ORCIDs that aren't assigned to
     # explicit IDs, and create one for them.
+    inferred_from_orcid = defaultdict(list)
     for paper in anthology.papers():
         # Look at the namespecs directly attached to this paper
         for namespec in it.chain(paper.authors, paper.editors):
@@ -299,7 +309,27 @@ def refactor(anthology, name_variants):
                         # ...and make sure this particular name is connected with the person
                         name = name_to_yaml(namespec.name)
                         if name not in new_people_dict[pid]["names"]:
-                            new_people_dict[pid]["names"].append(name)
+                            canonical = new_people_dict[pid]["names"][0]
+                            if (
+                                pid in inferred_from_orcid
+                                and name.score() > canonical.score()
+                            ):
+                                # This name should be considered canonical
+                                # according to our logic – set as canonical and
+                                # also update the auto-generated ID
+                                old_pid = pid
+                                new_pid = namespec.name.slugify()
+                                for processed_namespec in inferred_from_orcid[old_pid]:
+                                    processed_namespec.id = new_pid
+                                new_people_dict[new_pid] = new_people_dict.pop(old_pid)
+                                orcid_to_id[orcid] = new_pid
+                                inferred_from_orcid[new_pid] = inferred_from_orcid.pop(
+                                    old_pid
+                                )
+                                new_people_dict[new_pid]["names"].insert(0, name)
+                                pid = new_pid
+                            else:
+                                new_people_dict[pid]["names"].append(name)
                     else:
                         # No — create that person
                         entry = {
@@ -312,6 +342,7 @@ def refactor(anthology, name_variants):
                             pid = f"{pid}-{orcid[-4:].lower()}"
                         new_people_dict[pid] = entry
                         orcid_to_id[orcid] = pid
+                        inferred_from_orcid[pid].append(namespec)
                     # Add the ID to the namespec
                     namespec.id = pid
                     c_added += 1
