@@ -6,7 +6,7 @@
       <editor><first>Tsung-Hsien</first><last>Wen</last></editor>
       <editor><first>Asli</first><last>Celikyilmaz</last></editor>
       <editor><first>Zhou</first><last>Yu</last></editor>
-      <editor><first>Alexandros</first><last>Papangelis</last></editor>
+      <editor id="alexandros-papangelis"><first>Alexandros</first><last>Papangelis</last></editor>
       <editor><first>Mihail</first><last>Eric</last></editor>
       <editor><first>Anuj</first><last>Kumar</last></editor>
       <editor><first>Iñigo</first><last>Casanueva</last></editor>
@@ -39,8 +39,8 @@
       <title>On Incorporating Structural Information to improve Dialogue Response Generation</title>
       <author><first>Nikita</first><last>Moghe</last></author>
       <author><first>Priyesh</first><last>Vijayan</last></author>
-      <author><first>Balaraman</first><last>Ravindran</last></author>
-      <author><first>Mitesh M.</first><last>Khapra</last></author>
+      <author id="balaraman-ravindran"><first>Balaraman</first><last>Ravindran</last></author>
+      <author id="mitesh-m-khapra"><first>Mitesh M.</first><last>Khapra</last></author>
       <pages>11–24</pages>
       <abstract>We consider the task of generating dialogue responses from background knowledge comprising of domain specific resources. Specifically, given a conversation around a movie, the task is to generate the next response based on background knowledge about the movie such as the plot, review, Reddit comments etc. This requires capturing structural, sequential and semantic information from the conversation context and the background resources. We propose a new architecture that uses the ability of BERT to capture deep contextualized representations in conjunction with explicit structure and sequence information. More specifically, we use (i) Graph Convolutional Networks (GCNs) to capture structural information, (ii) LSTMs to capture sequential information and (iii) BERT for the deep contextualized representations that capture semantic information. We analyze the proposed architecture extensively. To this end, we propose a plug-and-play Semantics-Sequences-Structures (SSS) framework which allows us to effectively combine such linguistic information. Through a series of experiments we make some interesting observations. First, we observe that the popular adaptation of the GCN model for NLP tasks where structural information (GCNs) was added on top of sequential information (LSTMs) performs poorly on our task. This leads us to explore interesting ways of combining semantic and structural information to improve the performance. Second, we observe that while BERT already outperforms other deep contextualized representations such as ELMo, it still benefits from the additional structural information explicitly added using GCNs. This is a bit surprising given the recent claims that BERT already captures structural information. Lastly, the proposed SSS framework gives an improvement of 7.95% on BLUE score over the baseline.</abstract>
       <url hash="da7464a7">2020.nlp4convai-1.2</url>
@@ -52,7 +52,7 @@
       <title><fixed-case>C</fixed-case>opy<fixed-case>BERT</fixed-case>: A Unified Approach to Question Generation with Self-Attention</title>
       <author><first>Stalin</first><last>Varanasi</last></author>
       <author><first>Saadullah</first><last>Amin</last></author>
-      <author><first>Guenter</first><last>Neumann</last></author>
+      <author id="gunter-neumann"><first>Guenter</first><last>Neumann</last></author>
       <pages>25–31</pages>
       <abstract>Contextualized word embeddings provide better initialization for neural networks that deal with various natural language understanding (NLU) tasks including Question Answering (QA) and more recently, Question Generation(QG). Apart from providing meaningful word representations, pre-trained transformer models (Vaswani et al., 2017), such as BERT (Devlin et al., 2019) also provide self-attentions which encode syntactic information that can be probed for dependency parsing (Hewitt and Manning, 2019) and POStagging (Coenen et al., 2019). In this paper, we show that the information from selfattentions of BERT are useful for language modeling of questions conditioned on paragraph and answer phrases. To control the attention span, we use semi-diagonal mask and utilize a shared model for encoding and decoding, unlike sequence-to-sequence. We further employ copy-mechanism over self-attentions to acheive state-of-the-art results for Question Generation on SQuAD v1.1 (Rajpurkar et al., 2016).</abstract>
       <url hash="7edb9138">2020.nlp4convai-1.3</url>
@@ -146,7 +146,7 @@
       <author><first>Sanchit</first><last>Agarwal</last></author>
       <author><first>Di</first><last>Jin</last></author>
       <author><first>Tagyoung</first><last>Chung</last></author>
-      <author><first>Dilek</first><last>Hakkani-Tur</last></author>
+      <author id="dilek-hakkani-tur"><first>Dilek</first><last>Hakkani-Tur</last></author>
       <pages>79–89</pages>
       <abstract>Dialogue state tracking (DST) is at the heart of task-oriented dialogue systems. However, the scarcity of labeled data is an obstacle to building accurate and robust state tracking systems that work across a variety of domains. Existing approaches generally require some dialogue data with state information and their ability to generalize to unknown domains is limited. In this paper, we propose using machine reading comprehension (RC) in state tracking from two perspectives: model architectures and datasets. We divide the slot types in dialogue state into categorical or extractive to borrow the advantages from both multiple-choice and span-based reading comprehension models. Our method achieves near the current state-of-the-art in joint goal accuracy on MultiWOZ 2.1 given full training data. More importantly, by leveraging machine reading comprehension datasets, our method outperforms the existing approaches by many a large margin in few-shot scenarios when the availability of in-domain data is limited. Lastly, even without any state tracking data, i.e., zero-shot scenario, our proposed approach achieves greater than 90% average slot accuracy in 12 out of 30 slots in MultiWOZ 2.1.</abstract>
       <url hash="624d6e71">2020.nlp4convai-1.10</url>
@@ -170,7 +170,7 @@
       <title>Learning to Classify Intents and Slot Labels Given a Handful of Examples</title>
       <author><first>Jason</first><last>Krone</last></author>
       <author><first>Yi</first><last>Zhang</last></author>
-      <author><first>Mona</first><last>Diab</last></author>
+      <author id="mona-diab"><first>Mona</first><last>Diab</last></author>
       <pages>96–108</pages>
       <abstract>Intent classification (IC) and slot filling (SF) are core components in most goal-oriented dialogue systems. Current IC/SF models perform poorly when the number of training examples per class is small. We propose a new few-shot learning task, few-shot IC/SF, to study and improve the performance of IC and SF models on classes not seen at training time in ultra low resource scenarios. We establish a few-shot IC/SF benchmark by defining few-shot splits for three public IC/SF datasets, ATIS, TOP, and Snips. We show that two popular few-shot learning algorithms, model agnostic meta learning (MAML) and prototypical networks, outperform a fine-tuning baseline on this benchmark. Prototypical networks achieves significant gains in IC performance on the ATIS and TOP datasets, while both prototypical networks and MAML outperform the baseline with respect to SF on all three datasets. In addition, we demonstrate that joint training as well as the use of pre-trained language models, ELMo and BERT in our case, are complementary to these few-shot learning methods and yield further gains.</abstract>
       <url hash="03b39705">2020.nlp4convai-1.12</url>
@@ -213,7 +213,7 @@
       <author><first>Tovly</first><last>Deutsch</last></author>
       <author><first>Stephen</first><last>Casper</last></author>
       <author><first>Yonatan</first><last>Belinkov</last></author>
-      <author><first>Stuart</first><last>Shieber</last></author>
+      <author id="stuart-m-shieber"><first>Stuart</first><last>Shieber</last></author>
       <pages>132–143</pages>
       <abstract>The predominant approach to open-domain dialog generation relies on end-to-end training of neural models on chat datasets. However, this approach provides little insight as to what these models learn (or do not learn) about engaging in dialog. In this study, we analyze the internal representations learned by neural open-domain dialog systems and evaluate the quality of these representations for learning basic conversational skills. Our results suggest that standard open-domain dialog systems struggle with answering questions, inferring contradiction, and determining the topic of conversation, among other tasks. We also find that the dyadic, turn-taking nature of dialog is not fully leveraged by these models. By exploring these limitations, we highlight the need for additional research into architectures and training methods that can better capture high-level information about dialog.</abstract>
       <url hash="9360d36d">2020.nlp4convai-1.15</url>

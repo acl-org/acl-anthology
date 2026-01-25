@@ -51,7 +51,7 @@
     <paper id="4">
       <title>Investigating Cross-Lingual Alignment Methods for Contextualized Embeddings with Token-Level Evaluation</title>
       <author><first>Qianchu</first><last>Liu</last></author>
-      <author><first>Diana</first><last>McCarthy</last></author>
+      <author id="diana-mccarthy"><first>Diana</first><last>McCarthy</last></author>
       <author><first>Ivan</first><last>Vulić</last></author>
       <author><first>Anna</first><last>Korhonen</last></author>
       <pages>33–43</pages>
@@ -87,7 +87,7 @@
     <paper id="7">
       <title>Using Priming to Uncover the Organization of Syntactic Representations in Neural Language Models</title>
       <author><first>Grusha</first><last>Prasad</last></author>
-      <author><first>Marten</first><last>van Schijndel</last></author>
+      <author id="marten-van-schijndel"><first>Marten</first><last>van Schijndel</last></author>
       <author><first>Tal</first><last>Linzen</last></author>
       <pages>66–76</pages>
       <abstract>Neural language models (LMs) perform well on tasks that require sensitivity to syntactic structure. Drawing on the syntactic priming paradigm from psycholinguistics, we propose a novel technique to analyze the representations that enable such success. By establishing a gradient similarity metric between structures, this technique allows us to reconstruct the organization of the LMs’ syntactic representational space. We use this technique to demonstrate that LSTM LMs’ representations of different types of sentences with relative clauses are organized hierarchically in a linguistically interpretable manner, suggesting that the LMs track abstract properties of the sentence.</abstract>
@@ -127,7 +127,7 @@
       <author><first>Mahmoud</first><last>Azab</last></author>
       <author><first>Noriyuki</first><last>Kojima</last></author>
       <author><first>Jia</first><last>Deng</last></author>
-      <author><first>Rada</first><last>Mihalcea</last></author>
+      <author id="rada-mihalcea"><first>Rada</first><last>Mihalcea</last></author>
       <pages>99–109</pages>
       <abstract>We introduce a new embedding model to represent movie characters and their interactions in a dialogue by encoding in the same representation the language used by these characters as well as information about the other participants in the dialogue. We evaluate the performance of these new character embeddings on two tasks: (1) character relatedness, using a dataset we introduce consisting of a dense character interaction matrix for 4,378 unique character pairs over 22 hours of dialogue from eighteen movies; and (2) character relation classification, for fine- and coarse-grained relations, as well as sentiment relations. Our experiments show that our model significantly outperforms the traditional Word2Vec continuous bag-of-words and skip-gram models, demonstrating the effectiveness of the character embeddings we introduce. We further show how these embeddings can be used in conjunction with a visual question answering system to improve over previous results.</abstract>
       <url hash="5c915b4b">K19-1010</url>
@@ -153,7 +153,7 @@
       <author><first>Adeline</first><last>Wong</last></author>
       <author><first>Cyril</first><last>Allauzen</last></author>
       <author><first>Françoise</first><last>Beaufays</last></author>
-      <author><first>Michael</first><last>Riley</last></author>
+      <author id="michael-riley"><first>Michael</first><last>Riley</last></author>
       <pages>121–130</pages>
       <abstract>We propose algorithms to train production-quality n-gram language models using federated learning. Federated learning is a distributed computation platform that can be used to train global models for portable devices such as smart phones. Federated learning is especially relevant for applications handling privacy-sensitive data, such as virtual keyboards, because training is performed without the users’ data ever leaving their devices. While the principles of federated learning are fairly generic, its methodology assumes that the underlying models are neural networks. However, virtual keyboards are typically powered by n-gram language models for latency reasons. We propose to train a recurrent neural network language model using the decentralized FederatedAveraging algorithm and to approximate this federated model server-side with an n-gram model that can be deployed to devices for fast inference. Our technical contributions include ways of handling large vocabularies, algorithms to correct capitalization errors in user data, and efficient finite state transducer algorithms to convert word language models to word-piece language models and vice versa. The n-gram language models trained with federated learning are compared to n-grams trained with traditional server-based algorithms using A/B tests on tens of millions of users of a virtual keyboard. Results are presented for two languages, American English and Brazilian Portuguese. This work demonstrates that high-quality n-gram language models can be trained directly on client mobile devices without sensitive training data ever leaving the devices.</abstract>
       <url hash="e139da7a">K19-1012</url>
@@ -174,10 +174,10 @@
     <paper id="14">
       <title>Weird Inflects but <fixed-case>OK</fixed-case>: Making Sense of Morphological Generation Errors</title>
       <author><first>Kyle</first><last>Gorman</last></author>
-      <author><first>Arya D.</first><last>McCarthy</last></author>
+      <author id="arya-d-mccarthy"><first>Arya D.</first><last>McCarthy</last></author>
       <author><first>Ryan</first><last>Cotterell</last></author>
       <author><first>Ekaterina</first><last>Vylomova</last></author>
-      <author><first>Miikka</first><last>Silfverberg</last></author>
+      <author id="miikka-silfverberg"><first>Miikka</first><last>Silfverberg</last></author>
       <author><first>Magdalena</first><last>Markowska</last></author>
       <pages>140–151</pages>
       <abstract>We conduct a manual error analysis of the CoNLL-SIGMORPHON Shared Task on Morphological Reinflection. This task involves natural language generation: systems are given a word in citation form (e.g., hug) and asked to produce the corresponding inflected form (e.g., the simple past hugged). We propose an error taxonomy and use it to annotate errors made by the top two systems across twelve languages. Many of the observed errors are related to inflectional patterns sensitive to inherent linguistic properties such as animacy or affect; many others are failures to predict truly unpredictable inflectional behaviors. We also find nearly one quarter of the residual “errors” reflect errors in the gold data.</abstract>
@@ -191,7 +191,7 @@
       <author><first>Yingtao</first><last>Tian</last></author>
       <author><first>Haochen</first><last>Chen</last></author>
       <author><first>Kai-Wei</first><last>Chang</last></author>
-      <author><first>Steven</first><last>Skiena</last></author>
+      <author id="steven-skiena"><first>Steven</first><last>Skiena</last></author>
       <author><first>Carlo</first><last>Zaniolo</last></author>
       <pages>152–162</pages>
       <abstract>Bilingual word embeddings have been widely used to capture the correspondence of lexical semantics in different human languages. However, the cross-lingual correspondence between sentences and words is less studied, despite that this correspondence can significantly benefit many applications such as crosslingual semantic search and textual inference. To bridge this gap, we propose a neural embedding model that leverages bilingual dictionaries. The proposed model is trained to map the lexical definitions to the cross-lingual target words, for which we explore with different sentence encoding techniques. To enhance the learning process on limited resources, our model adopts several critical learning strategies, including multi-task learning on different bridges of languages, and joint learning of the dictionary model with a bilingual word embedding model. We conduct experiments on two new tasks. In the cross-lingual reverse dictionary retrieval task, we demonstrate that our model is capable of comprehending bilingual concepts based on descriptions, and the proposed learning strategies are effective. In the bilingual paraphrase identification task, we show that our model effectively associates sentences in different languages via a shared embedding space, and outperforms existing approaches in identifying bilingual paraphrases.</abstract>
@@ -276,7 +276,7 @@
       <title>Comparing Top-Down and Bottom-Up Neural Generative Dependency Models</title>
       <author><first>Austin</first><last>Matthews</last></author>
       <author><first>Graham</first><last>Neubig</last></author>
-      <author><first>Chris</first><last>Dyer</last></author>
+      <author id="chris-dyer"><first>Chris</first><last>Dyer</last></author>
       <pages>227–237</pages>
       <abstract>Recurrent neural network grammars generate sentences using phrase-structure syntax and perform very well on both parsing and language modeling. To explore whether generative dependency models are similarly effective, we propose two new generative models of dependency syntax. Both models use recurrent neural nets to avoid making explicit independence assumptions, but they differ in the order used to construct the trees: one builds the tree bottom-up and the other top-down, which profoundly changes the estimation problem faced by the learner. We evaluate the two models on three typologically different languages: English, Arabic, and Japanese. While both generative models improve parsing performance over a discriminative baseline, they are significantly less effective than non-syntactic LSTM language models. Surprisingly, little difference between the construction orders is observed for either parsing or language modeling.</abstract>
       <url hash="88970331">K19-1022</url>
@@ -285,7 +285,7 @@
     </paper>
     <paper id="23">
       <title>Representation Learning and Dynamic Programming for Arc-Hybrid Parsing</title>
-      <author><first>Joseph</first><last>Le Roux</last></author>
+      <author id="joseph-le-roux"><first>Joseph</first><last>Le Roux</last></author>
       <author><first>Antoine</first><last>Rozenknop</last></author>
       <author><first>Mathieu</first><last>Lacroix</last></author>
       <pages>238–248</pages>
@@ -298,8 +298,8 @@
       <title>Policy Preference Detection in Parliamentary Debate Motions</title>
       <author><first>Gavin</first><last>Abercrombie</last></author>
       <author><first>Federico</first><last>Nanni</last></author>
-      <author><first>Riza</first><last>Batista-Navarro</last></author>
-      <author><first>Simone Paolo</first><last>Ponzetto</last></author>
+      <author id="riza-theresa-batista-navarro"><first>Riza</first><last>Batista-Navarro</last></author>
+      <author id="simone-paolo-ponzetto"><first>Simone Paolo</first><last>Ponzetto</last></author>
       <pages>249–259</pages>
       <abstract>Debate motions (proposals) tabled in the UK Parliament contain information about the stated policy preferences of the Members of Parliament who propose them, and are key to the analysis of all subsequent speeches given in response to them. We attempt to automatically label debate motions with codes from a pre-existing coding scheme developed by political scientists for the annotation and analysis of political parties’ manifestos. We develop annotation guidelines for the task of applying these codes to debate motions at two levels of granularity and produce a dataset of manually labelled examples. We evaluate the annotation process and the reliability and utility of the labelling scheme, finding that inter-annotator agreement is comparable with that of other studies conducted on manifesto data. Moreover, we test a variety of ways of automatically labelling motions with the codes, ranging from similarity matching to neural classification methods, and evaluate them against the gold standard labels. From these experiments, we note that established supervised baselines are not always able to improve over simple lexical heuristics. At the same time, we detect a clear and evident benefit when employing BERT, a state-of-the-art deep language representation model, even in classification scenarios with over 30 different labels and limited amounts of training data.</abstract>
       <url hash="79562fde">K19-1024</url>
@@ -309,7 +309,7 @@
     <paper id="25">
       <title>Improving Neural Machine Translation by Achieving Knowledge Transfer with Sentence Alignment Learning</title>
       <author><first>Xuewen</first><last>Shi</last></author>
-      <author><first>Heyan</first><last>Huang</last></author>
+      <author id="he-yan-huang"><first>Heyan</first><last>Huang</last></author>
       <author><first>Wenguan</first><last>Wang</last></author>
       <author><first>Ping</first><last>Jian</last></author>
       <author><first>Yi-Kun</first><last>Tang</last></author>
@@ -321,7 +321,7 @@
     </paper>
     <paper id="26">
       <title>Code-Switched Language Models Using Neural Based Synthetic Data from Parallel Sentences</title>
-      <author><first>Genta Indra</first><last>Winata</last></author>
+      <author id="genta-indra-winata"><first>Genta Indra</first><last>Winata</last></author>
       <author><first>Andrea</first><last>Madotto</last></author>
       <author><first>Chien-Sheng</first><last>Wu</last></author>
       <author><first>Pascale</first><last>Fung</last></author>
@@ -359,7 +359,7 @@
       <title>Low-Resource Parsing with Crosslingual Contextualized Representations</title>
       <author><first>Phoebe</first><last>Mulcaire</last></author>
       <author><first>Jungo</first><last>Kasai</last></author>
-      <author><first>Noah A.</first><last>Smith</last></author>
+      <author id="noah-a-smith"><first>Noah A.</first><last>Smith</last></author>
       <pages>304–315</pages>
       <abstract>Despite advances in dependency parsing, languages with small treebanks still present challenges. We assess recent approaches to multilingual contextual word representations (CWRs), and compare them for crosslingual transfer from a language with a large treebank to a language with a small or nonexistent treebank, by sharing parameters between languages in the parser itself. We experiment with a diverse selection of languages in both simulated and truly low-resource scenarios, and show that multilingual CWRs greatly facilitate low-resource dependency parsing even without crosslingual supervision such as dictionaries or parallel text. Furthermore, we examine the non-contextual part of the learned language models (which we call a “decontextual probe”) to demonstrate that polyglot language models better encode crosslingual lexical correspondence compared to aligned monolingual language models. This analysis provides further evidence that polyglot training is an effective approach to crosslingual transfer.</abstract>
       <url hash="b4fd32f1">K19-1029</url>
@@ -394,7 +394,7 @@
       <title>Word Recognition, Competition, and Activation in a Model of Visually Grounded Speech</title>
       <author><first>William N.</first><last>Havard</last></author>
       <author><first>Jean-Pierre</first><last>Chevrot</last></author>
-      <author><first>Laurent</first><last>Besacier</last></author>
+      <author id="laurent-besacier"><first>Laurent</first><last>Besacier</last></author>
       <pages>339–348</pages>
       <abstract>In this paper, we study how word-like units are represented and activated in a recurrent neural model of visually grounded speech. The model used in our experiments is trained to project an image and its spoken description in a common representation space. We show that a recurrent model trained on spoken sentences implicitly segments its input into word-like units and reliably maps them to their correct visual referents. We introduce a methodology originating from linguistics to analyse the representation learned by neural networks – the gating paradigm – and show that the correct representation of a word is only activated if the network has access to first phoneme of the target word, suggesting that the network does not rely on a global acoustic pattern. Furthermore, we find out that not all speech frames (MFCC vectors in our case) play an equal role in the final encoded representation of a given word, but that some frames have a crucial effect on it. Finally we suggest that word representation could be activated through a process of lexical competition.</abstract>
       <url hash="125a4792">K19-1032</url>
@@ -406,8 +406,8 @@
       <title><fixed-case>EQUATE</fixed-case>: A Benchmark Evaluation Framework for Quantitative Reasoning in Natural Language Inference</title>
       <author><first>Abhilasha</first><last>Ravichander</last></author>
       <author><first>Aakanksha</first><last>Naik</last></author>
-      <author><first>Carolyn</first><last>Rose</last></author>
-      <author><first>Eduard</first><last>Hovy</last></author>
+      <author id="carolyn-rose"><first>Carolyn</first><last>Rose</last></author>
+      <author id="eduard-hovy"><first>Eduard</first><last>Hovy</last></author>
       <pages>349–361</pages>
       <abstract>Quantitative reasoning is a higher-order reasoning skill that any intelligent natural language understanding system can reasonably be expected to handle. We present EQUATE (Evaluating Quantitative Understanding Aptitude in Textual Entailment), a new framework for quantitative reasoning in textual entailment. We benchmark the performance of 9 published NLI models on EQUATE, and find that on average, state-of-the-art methods do not achieve an absolute improvement over a majority-class baseline, suggesting that they do not implicitly learn to reason with quantities. We establish a new baseline Q-REAS that manipulates quantities symbolically. In comparison to the best performing NLI model, it achieves success on numerical reasoning tests (+24.2 %), but has limited verbal reasoning capabilities (-8.1 %). We hope our evaluation framework will support the development of models of quantitative reasoning in language understanding.</abstract>
       <url hash="204b01ea">K19-1033</url>
@@ -417,9 +417,9 @@
     <paper id="34">
       <title>Linguistic Analysis Improves Neural Metaphor Detection</title>
       <author><first>Kevin</first><last>Stowe</last></author>
-      <author><first>Sarah</first><last>Moeller</last></author>
+      <author id="sarah-moeller"><first>Sarah</first><last>Moeller</last></author>
       <author><first>Laura</first><last>Michaelis</last></author>
-      <author><first>Martha</first><last>Palmer</last></author>
+      <author id="martha-palmer"><first>Martha</first><last>Palmer</last></author>
       <pages>362–371</pages>
       <abstract>In the field of metaphor detection, deep learning systems are the ubiquitous and achieve strong performance on many tasks. However, due to the complicated procedures for manually identifying metaphors, the datasets available are relatively small and fraught with complications. We show that using syntactic features and lexical resources can automatically provide additional high-quality training data for metaphoric language, and this data can cover gaps and inconsistencies in metaphor annotation, improving state-of-the-art word-level metaphor identification. This novel application of automatically improving training data improves classification across numerous tasks, and reconfirms the necessity of high-quality data for deep learning frameworks.</abstract>
       <url hash="cfca20ce">K19-1034</url>
@@ -428,7 +428,7 @@
     </paper>
     <paper id="35">
       <title>Cross-Lingual Dependency Parsing with Unlabeled Auxiliary Languages</title>
-      <author><first>Wasi Uddin</first><last>Ahmad</last></author>
+      <author id="wasi-ahmad"><first>Wasi Uddin</first><last>Ahmad</last></author>
       <author><first>Zhisong</first><last>Zhang</last></author>
       <author><first>Xuezhe</first><last>Ma</last></author>
       <author><first>Kai-Wei</first><last>Chang</last></author>
@@ -458,7 +458,7 @@
       <author><first>Tian</first><last>Wang</last></author>
       <author><first>Arun Tejasvi</first><last>Chaganty</last></author>
       <author><first>Gabor</first><last>Angeli</last></author>
-      <author><first>Angel X.</first><last>Chang</last></author>
+      <author id="angel-chang"><first>Angel X.</first><last>Chang</last></author>
       <pages>393–403</pages>
       <abstract>Reflective listening–demonstrating that you have heard your conversational partner–is key to effective communication. Expert human communicators often mimic and rephrase their conversational partner, e.g., when responding to sentimental stories or to questions they don’t know the answer to. We introduce a new task and an associated dataset wherein dialogue agents similarly mimic and rephrase a user’s request to communicate sympathy (I’m sorry to hear that) or lack of knowledge (I do not know that). We study what makes a rephrasal response good against a set of qualitative metrics. We then evaluate three models for generating responses: a syntax-aware rule-based system, a seq2seq LSTM neural models with attention (S2SA), and the same neural model augmented with a copy mechanism (S2SA+C). In a human evaluation, we find that S2SA+C and the rule-based system are comparable and approach human-generated response quality. In addition, experiences with a live deployment of S2SA+C in a customer support setting suggest that this generation task is a practical contribution to real world conversational agents.</abstract>
       <url hash="82065a5a">K19-1037</url>
@@ -470,7 +470,7 @@
       <title>Automated Pyramid Summarization Evaluation</title>
       <author><first>Yanjun</first><last>Gao</last></author>
       <author><first>Chen</first><last>Sun</last></author>
-      <author><first>Rebecca J.</first><last>Passonneau</last></author>
+      <author id="rebecca-j-passonneau"><first>Rebecca J.</first><last>Passonneau</last></author>
       <pages>404–418</pages>
       <abstract>Pyramid evaluation was developed to assess the content of paragraph length summaries of source texts. A pyramid lists the distinct units of content found in several reference summaries, weights content units by how many reference summaries they occur in, and produces three scores based on the weighted content of new summaries. We present an automated method that is more efficient, more transparent, and more complete than previous automated pyramid methods. It is tested on a new dataset of student summaries, and historical NIST data from extractive summarizers.</abstract>
       <url hash="f85672a0">K19-1038</url>
@@ -583,7 +583,7 @@
       <author><first>Lei</first><last>Guo</last></author>
       <author><first>Kate</first><last>Mays</last></author>
       <author><first>Margrit</first><last>Betke</last></author>
-      <author><first>Derry Tanti</first><last>Wijaya</last></author>
+      <author id="derry-tanti-wijaya"><first>Derry Tanti</first><last>Wijaya</last></author>
       <pages>504–514</pages>
       <abstract>Different news articles about the same topic often offer a variety of perspectives: an article written about gun violence might emphasize gun control, while another might promote 2nd Amendment rights, and yet a third might focus on mental health issues. In communication research, these different perspectives are known as “frames”, which, when used in news media will influence the opinion of their readers in multiple ways. In this paper, we present a method for effectively detecting frames in news headlines. Our training and performance evaluation is based on a new dataset of news headlines related to the issue of gun violence in the United States. This Gun Violence Frame Corpus (GVFC) was curated and annotated by journalism and communication experts. Our proposed approach sets a new state-of-the-art performance for multiclass news frame detection, significantly outperforming a recent baseline by 35.9% absolute difference in accuracy. We apply our frame detection approach in a large scale study of 88k news headlines about the coverage of gun violence in the U.S. between 2016 and 2018.</abstract>
       <url hash="a666a1db">K19-1047</url>
@@ -606,7 +606,7 @@
     </paper>
     <paper id="49">
       <title>Learning Dense Representations for Entity Retrieval</title>
-      <author><first>Daniel</first><last>Gillick</last></author>
+      <author id="dan-gillick"><first>Daniel</first><last>Gillick</last></author>
       <author><first>Sayali</first><last>Kulkarni</last></author>
       <author><first>Larry</first><last>Lansing</last></author>
       <author><first>Alessandro</first><last>Presta</last></author>
@@ -624,7 +624,7 @@
       <author><first>Nora</first><last>Hollenstein</last></author>
       <author><first>Antonio</first><last>de la Torre</last></author>
       <author><first>Nicolas</first><last>Langer</last></author>
-      <author id="ce-zhang"><first>Ce</first><last>Zhang</last></author>
+      <author><first>Ce</first><last>Zhang</last></author>
       <pages>538–549</pages>
       <abstract>An interesting method of evaluating word representations is by how much they reflect the semantic representations in the human brain. However, most, if not all, previous works only focus on small datasets and a single modality. In this paper, we present the first multi-modal framework for evaluating English word representations based on cognitive lexical semantics. Six types of word embeddings are evaluated by fitting them to 15 datasets of eye-tracking, EEG and fMRI signals recorded during language processing. To achieve a global score over all evaluation hypotheses, we apply statistical significance testing accounting for the multiple comparisons problem. This framework is easily extensible and available to include other intrinsic and extrinsic evaluation methods. We find strong correlations in the results between cognitive datasets, across recording modalities and to their performance on extrinsic NLP tasks.</abstract>
       <url hash="0dbeeb00">K19-1050</url>
@@ -663,7 +663,7 @@
       <author><first>Sheshera</first><last>Mysore</last></author>
       <author><first>Andrew</first><last>McCallum</last></author>
       <author><first>Adrian</first><last>Benton</last></author>
-      <author><first>Amanda</first><last>Stent</last></author>
+      <author id="amanda-stent"><first>Amanda</first><last>Stent</last></author>
       <pages>574–581</pages>
       <abstract>The official voting records of United States congresspeople are preserved as roll call votes. Prediction of voting behavior of politicians for whom no voting record exists, such as individuals running for office, is important for forecasting key political decisions. Prior work has relied on past votes cast to predict future votes, and thus fails to predict voting patterns for politicians without voting records. We address this by augmenting a prior state of the art model with multiple sources of external knowledge so as to enable prediction on unseen politicians. The sources of knowledge we use are news text and Freebase, a manually curated knowledge base. We propose augmentations based on unigram features for news text, and a knowledge base embedding method followed by a neural network composition for relations from Freebase. Empirical evaluation of these approaches indicate that the proposed models outperform the prior system for politicians with complete historical voting records by 1.0% point of accuracy (8.7% error reduction) and for politicians without voting records by 33.4% points of accuracy (66.7% error reduction). We also show that the knowledge base augmented approach outperforms the news text augmented approach by 4.2% points of accuracy.</abstract>
       <url hash="4cad6e78">K19-1053</url>
@@ -674,7 +674,7 @@
       <title><fixed-case>B</fixed-case>eam<fixed-case>S</fixed-case>eg: A Joint Model for Multi-Document Segmentation and Topic Identification</title>
       <author><first>Pedro</first><last>Mota</last></author>
       <author><first>Maxine</first><last>Eskenazi</last></author>
-      <author><first>Luísa</first><last>Coheur</last></author>
+      <author id="luisa-coheur"><first>Luísa</first><last>Coheur</last></author>
       <pages>582–592</pages>
       <abstract>We propose BeamSeg, a joint model for segmentation and topic identification of documents from the same domain. The model assumes that lexical cohesion can be observed across documents, meaning that segments describing the same topic use a similar lexical distribution over the vocabulary. The model implements lexical cohesion in an unsupervised Bayesian setting by drawing from the same language model segments with the same topic. Contrary to previous approaches, we assume that language models are not independent, since the vocabulary changes in consecutive segments are expected to be smooth and not abrupt. We achieve this by using a dynamic Dirichlet prior that takes into account data contributions from other topics. BeamSeg also models segment length properties of documents based on modality (textbooks, slides, <i>etc.</i>). The evaluation is carried out in three datasets. In two of them, improvements of up to 4.8% and 7.3% are obtained in the segmentation and topic identifications tasks, indicating that both tasks should be jointly modeled.</abstract>
       <url hash="d218f465">K19-1054</url>
@@ -695,7 +695,7 @@
     </paper>
     <paper id="56">
       <title>Effective Attention Modeling for Neural Relation Extraction</title>
-      <author><first>Tapas</first><last>Nayak</last></author>
+      <author id="tapas-nayak"><first>Tapas</first><last>Nayak</last></author>
       <author><first>Hwee Tou</first><last>Ng</last></author>
       <pages>603–612</pages>
       <abstract>Relation extraction is the task of determining the relation between two entities in a sentence. Distantly-supervised models are popular for this task. However, sentences can be long and two entities can be located far from each other in a sentence. The pieces of evidence supporting the presence of a relation between two entities may not be very direct, since the entities may be connected via some indirect links such as a third entity or via co-reference. Relation extraction in such scenarios becomes more challenging as we need to capture the long-distance interactions among the entities and other words in the sentence. Also, the words in a sentence do not contribute equally in identifying the relation between the two entities. To address this issue, we propose a novel and effective attention model which incorporates syntactic information of the sentence and a multi-factor attention mechanism. Experiments on the New York Times corpus show that our proposed model outperforms prior state-of-the-art models.</abstract>
@@ -772,7 +772,7 @@
       <author><first>I-Hung</first><last>Hsu</last></author>
       <author><first>Mu</first><last>Yang</last></author>
       <author><first>Aram</first><last>Galstyan</last></author>
-      <author><first>Ralph</first><last>Weischedel</last></author>
+      <author id="ralph-weischedel"><first>Ralph</first><last>Weischedel</last></author>
       <author><first>Nanyun</first><last>Peng</last></author>
       <pages>666–106</pages>
       <abstract>We propose a novel deep structured learning framework for event temporal relation extraction. The model consists of 1) a recurrent neural network (RNN) to learn scoring functions for pair-wise relations, and 2) a structured support vector machine (SSVM) to make joint predictions. The neural network automatically learns representations that account for long-term contexts to provide robust features for the structured model, while the SSVM incorporates domain knowledge such as transitive closure of temporal relations as constraints to make better globally consistent decisions. By jointly training the two components, our model combines the benefits of both data-driven learning and knowledge exploitation. Experimental results on three high-quality event temporal relation datasets (TCR, MATRES, and TB-Dense) demonstrate that incorporated with pre-trained contextualized embeddings, the proposed model achieves significantly better performances than the state-of-the-art methods on all three datasets. We also provide thorough ablation studies to investigate our model.</abstract>
@@ -908,9 +908,9 @@
     </paper>
     <paper id="73">
       <title><fixed-case>TILM</fixed-case>: Neural Language Models with Evolving Topical Influence</title>
-      <author><first>Shubhra Kanti</first><last>Karmaker Santu</last></author>
+      <author id="santu-karmaker"><first>Shubhra Kanti</first><last>Karmaker Santu</last></author>
       <author><first>Kalyan</first><last>Veeramachaneni</last></author>
-      <author><first>Chengxiang</first><last>Zhai</last></author>
+      <author id="chengxiang-zhai"><first>Chengxiang</first><last>Zhai</last></author>
       <pages>778–788</pages>
       <abstract>Content of text data are often influenced by contextual factors which often evolve over time (e.g., content of social media are often influenced by topics covered in the major news streams). Existing language models do not consider the influence of such related evolving topics, and thus are not optimal. In this paper, we propose to incorporate such topical-influence into a language model to both improve its accuracy and enable cross-stream analysis of topical influences. Specifically, we propose a novel language model called Topical Influence Language Model (TILM), which is a novel extension of a neural language model to capture the influences on the contents in one text stream by the evolving topics in another related (or possibly same) text stream. Experimental results on six different text stream data comprised of conference paper titles show that the incorporation of evolving topical influence into a language model is beneficial and TILM outperforms multiple baselines in a challenging task of text forecasting. In addition to serving as a language model, TILM further enables interesting analysis of topical influence among multiple text streams.</abstract>
       <url hash="9202a96c">K19-1073</url>
@@ -987,7 +987,7 @@
       <author><first>Aneesh</first><last>Pappu</last></author>
       <author><first>Rohun</first><last>Saxena</last></author>
       <author><first>Akhila</first><last>Yerukola</last></author>
-      <author><first>Christopher D.</first><last>Manning</last></author>
+      <author id="christopher-d-manning"><first>Christopher D.</first><last>Manning</last></author>
       <pages>843–861</pages>
       <abstract>Large neural language models trained on massive amounts of text have emerged as a formidable strategy for Natural Language Understanding tasks. However, the strength of these models as Natural Language Generators is less clear. Though anecdotal evidence suggests that these models generate better quality text, there has been no detailed study characterizing their generation abilities. In this work, we compare the performance of an extensively pretrained model, OpenAI GPT2-117 (Radford et al., 2019), to a state-of-the-art neural story generation model (Fan et al., 2018). By evaluating the generated text across a wide variety of automatic metrics, we characterize the ways in which pretrained models do, and do not, make better storytellers. We find that although GPT2-117 conditions more strongly on context, is more sensitive to ordering of events, and uses more unusual words, it is just as likely to produce repetitive and under-diverse text when using likelihood-maximizing decoding algorithms.</abstract>
       <url hash="762d2c11">K19-1079</url>
@@ -1038,7 +1038,7 @@
       <author><first>Lorenzo</first><last>Tarantino</last></author>
       <author><first>Alexandros</first><last>Lazaridis</last></author>
       <author><first>Andreas</first><last>Fischer</last></author>
-      <author><first>Claudiu</first><last>Musat</last></author>
+      <author id="claudiu-musat"><first>Claudiu</first><last>Musat</last></author>
       <pages>890–899</pages>
       <abstract>In sequence modeling tasks the token order matters, but this information can be partially lost due to the discretization of the sequence into data points. In this paper, we study the imbalance between the way certain token pairs are included in data points and others are not. We denote this a token order imbalance (TOI) and we link the partial sequence information loss to a diminished performance of the system as a whole, both in text and speech processing tasks. We then provide a mechanism to leverage the full token order information—Alleviated TOI—by iteratively overlapping the token composition of data points. For recurrent networks, we use prime numbers for the batch size to avoid redundancies when building batches from overlapped data points. The proposed method achieved state of the art performance in both text and speech related tasks.</abstract>
       <url hash="b8f78ed8">K19-1083</url>
@@ -1074,7 +1074,7 @@
       <author><first>Yukun</first><last>Feng</last></author>
       <author><first>Hidetaka</first><last>Kamigaito</last></author>
       <author><first>Hiroya</first><last>Takamura</last></author>
-      <author><first>Manabu</first><last>Okumura</last></author>
+      <author id="manabu-okumura"><first>Manabu</first><last>Okumura</last></author>
       <pages>920–928</pages>
       <abstract>We propose a simple and effective method to inject word-level information into character-aware neural language models. Unlike previous approaches which usually inject word-level information at the input of a long short-term memory (LSTM) network, we inject it into the softmax function. The resultant model can be seen as a combination of character-aware language model and simple word-level language model. Our injection method can also be used together with previous methods. Through the experiments on 14 typologically diverse languages, we empirically show that our injection method, when used together with the previous methods, works better than the previous methods, including a gating mechanism, averaging, and concatenation of word vectors. We also provide a comprehensive comparison of these injection methods.</abstract>
       <url hash="9c32eb7c">K19-1086</url>
@@ -1083,7 +1083,7 @@
     </paper>
     <paper id="87">
       <title>On Model Stability as a Function of Random Seed</title>
-      <author><first>Pranava</first><last>Madhyastha</last></author>
+      <author id="pranava-swaroop-madhyastha"><first>Pranava</first><last>Madhyastha</last></author>
       <author><first>Rishabh</first><last>Jain</last></author>
       <pages>929–939</pages>
       <abstract>In this paper, we focus on quantifying model stability as a function of random seed by investigating the effects of the induced randomness on model performance and the robustness of the model in general. We specifically perform a controlled study on the effect of random seeds on the behaviour of attention, gradient-based and surrogate model based (LIME) interpretations. Our analysis suggests that random seeds can adversely affect the consistency of models resulting in counterfactual interpretations. We propose a technique called Aggressive Stochastic Weight Averaging (ASWA) and an extension called Norm-filtered Aggressive Stochastic Weight Averaging (NASWA) which improves the stability of models over random seeds. With our ASWA and NASWA based optimization, we are able to improve the robustness of the original model, on average reducing the standard deviation of the model’s performance by 72%.</abstract>
@@ -1097,7 +1097,7 @@
       <title>Studying Generalisability across Abusive Language Detection Datasets</title>
       <author><first>Steve Durairaj</first><last>Swamy</last></author>
       <author><first>Anupam</first><last>Jamatia</last></author>
-      <author><first>Björn</first><last>Gambäck</last></author>
+      <author id="bjorn-gamback"><first>Björn</first><last>Gambäck</last></author>
       <pages>940–950</pages>
       <abstract>Work on Abusive Language Detection has tackled a wide range of subtasks and domains. As a result of this, there exists a great deal of redundancy and non-generalisability between datasets. Through experiments on cross-dataset training and testing, the paper reveals that the preconceived notion of including more non-abusive samples in a dataset (to emulate reality) may have a detrimental effect on the generalisability of a model trained on that data. Hence a hierarchical annotation model is utilised here to reveal redundancies in existing datasets and to help reduce redundancy in future efforts.</abstract>
       <url hash="bafcaa79">K19-1088</url>
@@ -1196,7 +1196,7 @@
       <title>Predicting the Role of Political Trolls in Social Media</title>
       <author><first>Atanas</first><last>Atanasov</last></author>
       <author><first>Gianmarco</first><last>De Francisci Morales</last></author>
-      <author><first>Preslav</first><last>Nakov</last></author>
+      <author id="preslav-nakov"><first>Preslav</first><last>Nakov</last></author>
       <pages>1023–1034</pages>
       <abstract>We investigate the political roles of “Internet trolls” in social media. Political trolls, such as the ones linked to the Russian Internet Research Agency (IRA), have recently gained enormous attention for their ability to sway public opinion and even influence elections. Analysis of the online traces of trolls has shown different behavioral patterns, which target different slices of the population. However, this analysis is manual and labor-intensive, thus making it impractical as a first-response tool for newly-discovered troll farms. In this paper, we show how to automate this analysis by using machine learning in a realistic setting. In particular, we show how to classify trolls according to their political role —left, news feed, right— by using features extracted from social media, i.e., Twitter, in two scenarios: (i) in a traditional supervised learning scenario, where labels for trolls are available, and (ii) in a distant supervision scenario, where labels for trolls are not available, and we rely on more-commonly-available labels for news outlets mentioned by the trolls. Technically, we leverage the community structure and the text of the messages in the online social network of trolls represented as a graph, from which we extract several types of learned representations, i.e., embeddings, for the trolls. Experiments on the “IRA Russian Troll” dataset show that our methodology improves over the state-of-the-art in the first scenario, while providing a compelling case for the second scenario, which has not been explored in the literature thus far.</abstract>
       <url hash="5faa5564">K19-1096</url>
@@ -1221,7 +1221,7 @@
       <url hash="1639259f">K19-2</url>
       <editor><first>Stephan</first><last>Oepen</last></editor>
       <editor><first>Omri</first><last>Abend</last></editor>
-      <editor><first>Jan</first><last>Hajic</last></editor>
+      <editor id="jan-hajic"><first>Jan</first><last>Hajic</last></editor>
       <editor><first>Daniel</first><last>Hershcovich</last></editor>
       <editor><first>Marco</first><last>Kuhlmann</last></editor>
       <editor><first>Tim</first><last>O’Gorman</last></editor>
@@ -1240,14 +1240,14 @@
       <title><fixed-case>MRP</fixed-case> 2019: Cross-Framework Meaning Representation Parsing</title>
       <author><first>Stephan</first><last>Oepen</last></author>
       <author><first>Omri</first><last>Abend</last></author>
-      <author><first>Jan</first><last>Hajic</last></author>
+      <author id="jan-hajic"><first>Jan</first><last>Hajic</last></author>
       <author><first>Daniel</first><last>Hershcovich</last></author>
       <author><first>Marco</first><last>Kuhlmann</last></author>
       <author><first>Tim</first><last>O’Gorman</last></author>
       <author><first>Nianwen</first><last>Xue</last></author>
       <author><first>Jayeol</first><last>Chun</last></author>
       <author><first>Milan</first><last>Straka</last></author>
-      <author><first>Zdenka</first><last>Uresova</last></author>
+      <author id="zdenka-uresova"><first>Zdenka</first><last>Uresova</last></author>
       <pages>1–27</pages>
       <abstract>The 2019 Shared Task at the Conference for Computational Language Learning (CoNLL) was devoted to Meaning Representation Parsing (MRP) across frameworks. Five distinct approaches to the representation of sentence meaning in the form of directed graph were represented in the training and evaluation data for the task, packaged in a uniform abstract graph representation and serialization. The task received submissions from eighteen teams, of which five do not participate in the official ranking because they arrived after the closing deadline, made use of additional training data, or involved one of the task co-organizers. All technical information regarding the task, including system submissions, official results, and links to supporting resources and software are available from the task web site at: <url>http://mrp.nlpl.eu</url></abstract>
       <url hash="334f3476">K19-2001</url>
@@ -1269,7 +1269,7 @@
     <paper id="3">
       <title>The <fixed-case>ERG</fixed-case> at <fixed-case>MRP</fixed-case> 2019: Radically Compositional Semantic Dependencies</title>
       <author><first>Stephan</first><last>Oepen</last></author>
-      <author><first>Dan</first><last>Flickinger</last></author>
+      <author id="dan-flickinger"><first>Dan</first><last>Flickinger</last></author>
       <pages>40–44</pages>
       <abstract>The English Resource Grammar (ERG) is a broad-coverage computational grammar of English that outputs underspecified logical-form representations of meaning in a framework dubbed English Resource Semantics (ERS). Two of the target representations in the the 2019 Shared Task on Cross-Framework Meaning Representation Parsing (MRP 2019) derive graph-based simplifications of ERS, viz. Elementary Dependency Structures (EDS) and DELPH-IN MRS Bi-Lexical Dependencies (DM). As a point of reference outside the official MRP competition, we parsed the evaluation strings using the ERG and converted the resulting meaning representations to EDS and DM. These graphs yield higher evaluation scores than the purely data-driven parsers in the actual shared task, suggesting that the general-purpose linguistic knowledge about English grammar encoded in the ERG can add value when parsing into these meaning representations.</abstract>
       <url hash="b3459db6">K19-2003</url>
@@ -1283,7 +1283,7 @@
       <author><first>Zhuosheng</first><last>Zhang</last></author>
       <author><first>Rui</first><last>Wang</last></author>
       <author><first>Masao</first><last>Utiyama</last></author>
-      <author><first>Eiichiro</first><last>Sumita</last></author>
+      <author id="eiichiro-sumita"><first>Eiichiro</first><last>Sumita</last></author>
       <pages>45–54</pages>
       <abstract>This paper describes our SJTU-NICT’s system for participating in the shared task on Cross-Framework Meaning Representation Parsing (MRP) at the 2019 Conference for Computational Language Learning (CoNLL). Our system uses a graph-based approach to model a variety of semantic graph parsing tasks. Our main contributions in the submitted system are summarized as follows: 1. Our model is fully end-to-end and is capable of being trained only on the given training set which does not rely on any other extra training source including the companion data provided by the organizer; 2. We extend our graph pruning algorithm to a variety of semantic graphs, solving the problem of excessive semantic graph search space; 3. We introduce multi-task learning for multiple objectives within the same framework. The evaluation results show that our system achieved second place in the overall <tex-math>F_1</tex-math> score and achieved the best <tex-math>F_1</tex-math> score on the DM framework.</abstract>
       <url hash="c50a7818">K19-2004</url>
@@ -1350,7 +1350,7 @@
       <author><first>Jinwoon</first><last>Min</last></author>
       <author><first>Kwanghyeon</first><last>Park</last></author>
       <author><first>Jong-Hun</first><last>Shin</last></author>
-      <author><first>Young-Kil</first><last>Kim</last></author>
+      <author id="young-gil-kim"><first>Young-Kil</first><last>Kim</last></author>
       <pages>95–103</pages>
       <abstract>This paper describes Jeonbuk National University (JBNU)’s system for the 2019 shared task on Cross-Framework Meaning Representation Parsing (MRP 2019) at the Conference on Computational Natural Language Learning. Of the five frameworks, we address only the DELPH-IN MRS Bi-Lexical Dependencies (DP), Prague Semantic Dependencies (PSD), and Universal Conceptual Cognitive Annotation (UCCA) frameworks. We propose a unified parsing model using biaffine attention (Dozat and Manning, 2017), consisting of 1) a BERT-BiLSTM encoder and 2) a biaffine attention decoder. First, the BERT-BiLSTM for sentence encoder uses BERT to compose a sentence’s wordpieces into word-level embeddings and subsequently applies BiLSTM to word-level representations. Second, the biaffine attention decoder determines the scores for an edge’s existence and its labels based on biaffine attention functions between roledependent representations. We also present multi-level biaffine attention models by combining all the role-dependent representations that appear at multiple intermediate layers.</abstract>
       <url hash="19d93a0f">K19-2009</url>
@@ -1425,7 +1425,7 @@
       <author><first>Kira</first><last>Droganova</last></author>
       <author><first>Andrey</first><last>Kutuzov</last></author>
       <author><first>Nikita</first><last>Mediankin</last></author>
-      <author><first>Daniel</first><last>Zeman</last></author>
+      <author id="daniel-zeman"><first>Daniel</first><last>Zeman</last></author>
       <pages>158–165</pages>
       <abstract>This paper describes the ÚFAL--Oslo system submission to the shared task on Cross-Framework Meaning Representation Parsing (MRP, Oepen et al. 2019). The submission is based on several third-party parsers. Within the official shared task results, the submission ranked 11th out of 13 participating systems.</abstract>
       <url hash="b353eb20">K19-2015</url>
@@ -1437,7 +1437,7 @@
       <title>Peking at <fixed-case>MRP</fixed-case> 2019: Factorization- and Composition-Based Parsing for Elementary Dependency Structures</title>
       <author><first>Yufei</first><last>Chen</last></author>
       <author><first>Yajie</first><last>Ye</last></author>
-      <author id="weiwei-sun"><first>Weiwei</first><last>Sun</last></author>
+      <author><first>Weiwei</first><last>Sun</last></author>
       <pages>166–176</pages>
       <abstract>We design, implement and evaluate two semantic parsers, which represent factorization- and composition-based approaches respectively, for Elementary Dependency Structures (EDS) at the CoNLL 2019 Shared Task on Cross-Framework Meaning Representation Parsing. The detailed evaluation of the two parsers gives us a new perception about parsing into linguistically enriched meaning representations: current neural EDS parsers are able to reach an accuracy at the inter-annotator agreement level in the same-epoch-and-domain setup.</abstract>
       <url hash="a8a2198e">K19-2016</url>
