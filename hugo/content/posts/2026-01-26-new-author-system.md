@@ -1,11 +1,11 @@
 ---
 title: New Author System in the ACL Anthology
-date: "2026-01-17"
+date: "2026-01-26"
 description: >
     Introducing ORCID-centered author pages with explicit verification status
 ---
 
-A basic task of the ACL Anthology is to correctly match papers to authors. When a new volume is ingested, the Anthology receives author information as textual metadata along with each PDF. When the site is built, we assemble author pages from all papers that share the same name.
+An important task of the ACL Anthology is to correctly match papers to authors. When a new volume is ingested, the Anthology receives author information as textual metadata along with each PDF. When the site is built, we assemble author pages from all papers that share the same name.
 
 This may sound straightforward, but in practice it’s difficult, for two reasons: the same person may publish under multiple name variants (diacritics, middle initials, name changes), and many names are shared by multiple people. In practice, we resolve both of these issues using a manual process: one mechanism to group papers for a single author with multiple names, and another to explicitly assign a paper to a specific author using [a person ID]({{< ref "/info/names" >}}). This process is time-consuming and labor-intensive.
 
