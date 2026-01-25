@@ -3,6 +3,7 @@
       "kind" "page"
       "path" $person_id
       "slug" (index (split $person_id "/") -1)
+      "aliases" $person.aliases
       "params" (dict "name" $person_id "lastname" $person.last)
       "title" $person.full
    }}

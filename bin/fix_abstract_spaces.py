@@ -26,6 +26,7 @@ There are three criteria to be met before a space is added:
 
 Usage: python3 fix_abstract_spaces.py
 """
+
 import glob
 import os
 import re

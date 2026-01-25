@@ -60,6 +60,7 @@ def full_anthology():
 
 @pytest.mark.integration
 @pytest.mark.filterwarnings("ignore::acl_anthology.exceptions.SchemaMismatchWarning")
+@pytest.mark.filterwarnings("ignore:SIG metadata:UserWarning")
 def test_anthology_from_repo(tmp_path):
     # Test that we can instantiate from the GitHub repo
     anthology = Anthology.from_repo(path=tmp_path, verbose=True)
