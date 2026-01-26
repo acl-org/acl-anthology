@@ -1,4 +1,4 @@
-# Copyright 2023-2025 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2026 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -33,7 +33,7 @@ from ..utils.ids import infer_year, is_valid_collection_id
 from ..utils.logging import get_logger
 from ..utils import xml
 from .event import Event
-from .types import EventLinkingType, VolumeType
+from .types import EventLink, VolumeType
 from .volume import Volume
 from .paper import Paper
 
@@ -63,6 +63,7 @@ class Collection(SlottedDict[Volume]):
     Attributes: Non-Init Attributes:
         event: An event represented by this collection.
         is_data_loaded: A flag indicating whether the XML file has already been loaded.
+        is_modified: A flag indicating whether any of the data in this collection has been modified after loading.
     """
 
     id: str = field(converter=int_to_str)
@@ -75,6 +76,7 @@ class Collection(SlottedDict[Volume]):
         validator=v.optional(v.instance_of(Event)),
     )
     is_data_loaded: bool = field(init=False, repr=True, default=False)
+    is_modified: bool = field(init=False, repr=False, default=False)
 
     @id.validator
     def _check_id(self, _: Any, value: str) -> None:
@@ -148,7 +150,7 @@ class Collection(SlottedDict[Volume]):
     def create_volume(
         self,
         id: str,
-        title: MarkupText,
+        title: MarkupText | str,
         year: Optional[str] = None,
         type: VolumeType = VolumeType.PROCEEDINGS,
         **kwargs: Any,
@@ -157,7 +159,7 @@ class Collection(SlottedDict[Volume]):
 
         Parameters:
             id: The ID of the new volume.
-            title: The title of the new volume.
+            title: The title of the new volume.  If given as a string, it will be [heuristically parsed for markup][acl_anthology.text.markuptext.MarkupText.from_].
             year: The year of the new volume (optional); if None, will infer the year from this collection's ID.
             type: Whether this is a journal or proceedings volume; defaults to [VolumeType.PROCEEDINGS][acl_anthology.collections.types.VolumeType].
             **kwargs: Any valid list or optional attribute of [Volume][acl_anthology.collections.volume.Volume].
@@ -193,11 +195,14 @@ class Collection(SlottedDict[Volume]):
         )
         volume.is_data_loaded = True
 
-        # For convenience, if editors were given, we add them to the index here
+        # If editors were given, we fill in their ID & add them to the index
         if volume.editors:
+            for namespec in volume.editors:
+                self.root.people.ingest_namespec(namespec)
             self.root.people._add_to_index(volume.editors, volume.full_id_tuple)
 
         self.data[id] = volume
+        self.is_modified = True
         return volume
 
     def create_event(
@@ -240,6 +245,7 @@ class Collection(SlottedDict[Volume]):
             **kwargs,
         )
         self.root.events._add_to_index(self.event)
+        self.is_modified = True
         return self.event
 
     def load(self) -> None:
@@ -284,15 +290,16 @@ class Collection(SlottedDict[Volume]):
         if self.event is not None:
             # Events are implicitly linked to volumes defined in the same collection
             self.event.colocated_ids = [
-                (volume.full_id_tuple, EventLinkingType.INFERRED)
+                (volume.full_id_tuple, EventLink.INFERRED)
                 for volume in self.data.values()
                 # Edge case: in case the <colocated> block lists a volume in
                 # the same collection, don't add it twice
-                if (volume.full_id_tuple, EventLinkingType.EXPLICIT)
+                if (volume.full_id_tuple, EventLink.EXPLICIT)
                 not in self.event.colocated_ids
             ] + self.event.colocated_ids
 
         self.is_data_loaded = True
+        self.is_modified = False
 
     def save(self, path: Optional[StrPath] = None, minimal_diff: bool = True) -> None:
         """Saves this collection as an XML file.
@@ -301,7 +308,8 @@ class Collection(SlottedDict[Volume]):
             path: The filename to save to. If None, defaults to `self.path`.
             minimal_diff: If True (default), will compare against an existing XML file in `self.path` to minimize the difference, i.e., to prevent noise from changes in the XML that make no semantic difference.  See [`utils.xml.ensure_minimal_diff`][acl_anthology.utils.xml.ensure_minimal_diff] for details.
         """
-        if path is None:
+        if path is None:  # pragma: no cover
+            self.root._warn_if_in_default_path()
             path = self.path
         collection = etree.Element("collection", {"id": self.id})
         for volume in self.volumes():

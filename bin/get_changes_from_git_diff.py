@@ -31,7 +31,6 @@ import sys
 import argparse
 import lxml.etree as etree
 
-
 parser = argparse.ArgumentParser()
 parser.add_argument("url_root")
 args = parser.parse_args()

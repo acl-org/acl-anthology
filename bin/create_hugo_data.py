@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# Copyright 2019-2024 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2019-2026 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -39,6 +39,7 @@ import logging as log
 import msgspec
 from omegaconf import OmegaConf
 import os
+from rich.console import Console
 from rich.progress import (
     Progress,
     TextColumn,
@@ -52,14 +53,15 @@ from acl_anthology import Anthology, config
 from acl_anthology.collections.paper import PaperDeletionType
 from acl_anthology.collections.volume import VolumeType
 from acl_anthology.utils.logging import setup_rich_logging
+from acl_anthology.utils.ids import is_verified_person_id
 from acl_anthology.utils.text import (
     interpret_pages,
     month_str2num,
     remove_extra_whitespace,
 )
 
-
 BIBLIMIT = None
+CONSOLE = Console(stderr=True)
 ENCODER = msgspec.json.Encoder()
 SCRIPTDIR = os.path.dirname(os.path.realpath(__file__))
 
@@ -93,7 +95,7 @@ def make_progress():
         TaskProgressColumn(show_speed=True),
         TimeRemainingColumn(elapsed_when_finished=True),
     ]
-    return Progress(*columns)
+    return Progress(*columns, console=CONSOLE)
 
 
 @cache
@@ -205,21 +207,6 @@ def paper_to_dict(paper):
             }
             for erratum in paper.errata
         ]
-    if (pwc := paper.paperswithcode) is not None:
-        if pwc.code is not None:
-            data["pwccode"] = {
-                "additional": "true" if pwc.community_code else "false",
-                "name": pwc.code[0],
-                "url": pwc.code[1],
-            }
-        if pwc.datasets:
-            data["pwcdataset"] = [
-                {
-                    "name": dataset[0],
-                    "url": dataset[1],
-                }
-                for dataset in pwc.datasets
-            ]
     if paper.revisions:
         data["revision"] = [
             {
@@ -392,15 +379,40 @@ def export_people(anthology, builddir, dryrun):
                     )
                     if n.script is not None:
                         diff_script_variants.append(n.as_full())
-                if diff_script_variants:
+                if diff_script_variants and is_verified_person_id(person_id):
                     data["full"] = f"{data['full']} ({', '.join(diff_script_variants)})"
             if person.comment is not None:
                 data["comment"] = person.comment
+            if person.orcid is not None:
+                data["orcid"] = person.orcid
             similar = anthology.people.similar.subset(person_id)
-            if len(similar) > 1:
-                data["similar"] = list(similar - {person_id})
+            similar.remove(person_id)
+            if similar_verified := [id_ for id_ in similar if is_verified_person_id(id_)]:
+                data["similar_verified"] = sorted(list(similar_verified))
+                similar.difference_update(similar_verified)
+            if similar:  # any remaining IDs are unverified
+                data["similar_unverified"] = sorted(list(similar))
             people[person_id] = data
             progress.update(task, advance=1)
+
+        # Generate redirects _iff_ there's a slug to a verified ID that does not
+        # correspond to an existing (verified OR unverified) person ID
+        extra_slugs = set(anthology.people.slugs_to_verified_ids.keys()) - set(
+            pid.replace("/unverified", "") for pid in people.keys()
+        )
+        for slug in extra_slugs:
+            ids = anthology.people.slugs_to_verified_ids[slug]
+            if len(ids) > 1:
+                target_id = sorted(
+                    ids,
+                    key=lambda pid: len(list(anthology.people[pid].anthology_items())),
+                )[-1]
+            else:
+                target_id = list(ids)[0]
+            if "aliases" in people[target_id]:
+                people[target_id]["aliases"].append(slug)
+            else:
+                people[target_id]["aliases"] = [slug]
 
         if not dryrun:
             with open(f"{builddir}/data/people.json", "wb") as f:
@@ -567,7 +579,7 @@ if __name__ == "__main__":
         )
 
     log_level = log.DEBUG if args["--debug"] else log.INFO
-    tracker = setup_rich_logging(level=log_level)
+    tracker = setup_rich_logging(console=CONSOLE, level=log_level)
 
     if limit := args["--bib-limit"]:
         BIBLIMIT = int(limit)

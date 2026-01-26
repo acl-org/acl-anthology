@@ -7,11 +7,9 @@ This script created Dec. 2025 to help with the transition to the new
 author representation (issue #6859).
 """
 
-
 import sys
 import requests
 from time import sleep
-
 
 CACHE = {}
 

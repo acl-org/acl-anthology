@@ -5,7 +5,7 @@
       <booktitle>Proceedings of the Sixth Workshop on Structured Prediction for NLP</booktitle>
       <editor><first>Andreas</first><last>Vlachos</last></editor>
       <editor><first>Priyanka</first><last>Agrawal</last></editor>
-      <editor><first>André</first><last>Martins</last></editor>
+      <editor id="andre-f-t-martins"><first>André</first><last>Martins</last></editor>
       <editor><first>Gerasimos</first><last>Lampouras</last></editor>
       <editor><first>Chunchuan</first><last>Lyu</last></editor>
       <publisher>Association for Computational Linguistics</publisher>
@@ -34,7 +34,7 @@
       <title>Joint Entity and Relation Extraction Based on Table Labeling Using Convolutional Neural Networks</title>
       <author><first>Youmi</first><last>Ma</last></author>
       <author><first>Tatsuya</first><last>Hiraoka</last></author>
-      <author><first>Naoaki</first><last>Okazaki</last></author>
+      <author id="naoaki-okazaki"><first>Naoaki</first><last>Okazaki</last></author>
       <pages>11-21</pages>
       <abstract>This study introduces a novel approach to the joint extraction of entities and relations by stacking convolutional neural networks (CNNs) on pretrained language models. We adopt table representations to model the entities and relations, casting the entity and relation extraction as a table-labeling problem. Regarding each table as an image and each cell in a table as an image pixel, we apply two-dimensional CNNs to the tables to capture local dependencies and predict the cell labels. The experimental results showed that the performance of the proposed method is comparable to those of current state-of-art systems on the CoNLL04, ACE05, and ADE datasets. Even when freezing pretrained language model parameters, the proposed method showed a stable performance, whereas the compared methods suffered from significant decreases in performance. This observation indicates that the parameters of the pretrained encoder may incorporate dependencies among the entity and relation labels during fine-tuning.</abstract>
       <url hash="6949900b">2022.spnlp-1.2</url>
@@ -49,7 +49,7 @@
       <author><first>Zhen</first><last>Han</last></author>
       <author><first>Zifeng</first><last>Ding</last></author>
       <author><first>Yunpu</first><last>Ma</last></author>
-      <author orcid="0000-0002-6566-6343"><first>Matthias</first><last>Schubert</last></author>
+      <author id="matthias-schubert" orcid="0000-0002-6566-6343"><first>Matthias</first><last>Schubert</last></author>
       <author><first>Volker</first><last>Tresp</last></author>
       <author><first>Roger</first><last>Wattenhofer</last></author>
       <pages>22-31</pages>
@@ -60,9 +60,9 @@
     </paper>
     <paper id="4">
       <title><fixed-case>S</fixed-case>lot<fixed-case>GAN</fixed-case>: Detecting Mentions in Text via Adversarial Distant Learning</title>
-      <author orcid="0000-0002-5357-3705"><first>Daniel</first><last>Daza</last></author>
-      <author orcid="0000-0001-5726-4638"><first>Michael</first><last>Cochez</last></author>
-      <author orcid="0000-0003-0183-6910"><first>Paul</first><last>Groth</last></author>
+      <author id="daniel-daza" orcid="0000-0002-5357-3705"><first>Daniel</first><last>Daza</last></author>
+      <author id="michael-cochez" orcid="0000-0001-5726-4638"><first>Michael</first><last>Cochez</last></author>
+      <author id="paul-groth" orcid="0000-0003-0183-6910"><first>Paul</first><last>Groth</last></author>
       <pages>32-39</pages>
       <abstract>We present SlotGAN, a framework for training a mention detection model that only requires unlabeled text and a gazetteer. It consists of a generator trained to extract spans from an input sentence, and a discriminator trained to determine whether a span comes from the generator, or from the gazetteer. We evaluate the method on English newswire data and compare it against supervised, weakly-supervised, and unsupervised methods. We find that the performance of the method is lower than these baselines, because it tends to generate more and longer spans, and in some cases it relies only on capitalization. In other cases, it generates spans that are valid but differ from the benchmark. When evaluated with metrics based on overlap, we find that SlotGAN performs within 95% of the precision of a supervised method, and 84% of its recall. Our results suggest that the model can generate spans that overlap well, but an additional filtering mechanism is required.</abstract>
       <url hash="f1cb76a4">2022.spnlp-1.4</url>
@@ -85,7 +85,7 @@
     <paper id="6">
       <title>Neural String Edit Distance</title>
       <author><first>Jindřich</first><last>Libovický</last></author>
-      <author><first>Alexander</first><last>Fraser</last></author>
+      <author id="alexander-fraser"><first>Alexander</first><last>Fraser</last></author>
       <pages>52-66</pages>
       <abstract>We propose the neural string edit distance model for string-pair matching and string transduction based on learnable string edit distance. We modify the original expectation-maximization learned edit distance algorithm into a differentiable loss function, allowing us to integrate it into a neural network providing a contextual representation of the input. We evaluate on cognate detection, transliteration, and grapheme-to-phoneme conversion, and show that we can trade off between performance and interpretability in a single framework. Using contextual representations, which are difficult to interpret, we match the performance of state-of-the-art string-pair matching models. Using static embeddings and a slightly different loss function, we force interpretability, at the expense of an accuracy drop.</abstract>
       <url hash="d2a70555">2022.spnlp-1.6</url>
@@ -97,8 +97,8 @@
       <author><first>Marcos</first><last>Treviso</last></author>
       <author><first>António</first><last>Góis</last></author>
       <author><first>Patrick</first><last>Fernandes</last></author>
-      <author><first>Erick</first><last>Fonseca</last></author>
-      <author><first>Andre</first><last>Martins</last></author>
+      <author id="erick-fonseca"><first>Erick</first><last>Fonseca</last></author>
+      <author id="andre-f-t-martins"><first>Andre</first><last>Martins</last></author>
       <pages>67-81</pages>
       <abstract>Transformers’ quadratic complexity with respect to the input sequence length has motivated a body of work on efficient sparse approximations to softmax. An alternative path, used by entmax transformers, consists of having built-in exact sparse attention; however this approach still requires quadratic computation. In this paper, we propose Sparsefinder, a simple model trained to identify the sparsity pattern of entmax attention before computing it. We experiment with three variants of our method, based on distances, quantization, and clustering, on two tasks: machine translation (attention in the decoder) and masked language modeling (encoder-only). Our work provides a new angle to study model efficiency by doing extensive analysis of the tradeoff between the sparsity and recall of the predicted attention graph. This allows for detailed comparison between different models along their Pareto curves, important to guide future benchmarks for sparse attention models.</abstract>
       <url hash="eaefbf81">2022.spnlp-1.7</url>

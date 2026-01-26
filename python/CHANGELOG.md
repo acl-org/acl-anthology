@@ -1,5 +1,47 @@
 # Changelog
 
+## [1.0.0] — 2026-01-24
+
+This release implements the new [name resolution and author ID logic](https://github.com/acl-org/acl-anthology/wiki/Author-Page-Plan), and is therefore fundamentally incompatible with ACL Anthology data before the switch to this new system.
+
+### Added
+
+- Support for Python 3.14.
+- Anthology now provides `save_all()` to conveniently save all data files.  The library tracks modifications to collection objects to only write XML files that have actually changed.  (Tracking changes does not work on _every_ possible modification, though; see the documentation.)
+- `Anthology.from_within_repo()` can be used to quickly instantiate the Anthology from within its own repo.
+- Person:
+  - Now provides `orcid`, `degree`, `disable_name_matching`, and `similar_ids` fields that correspond to the respective fields in the new `people.yaml`.
+  - Changing `id`, `orcid`, `names`, or using `add_name()` or `remove_names()` will now automatically update the PersonIndex.
+  - Added `change_id()` that updates a person's ID on all of their connected papers.
+  - Added `make_explicit()` that makes all necessary changes to change an implicit ("/unverified") to an explicit Person.
+  - Added `merge_with_explicit()` that makes all necessary changes to move an implicit ("/unverified") person's papers/volumes to an explicit Person.
+- PersonIndex:
+  - Now also indexes Person objects by ORCID, and provides `by_orcid` and `get_by_orcid()`.
+  - Now also keeps a mapping of name slugs to (verified) person IDs, via `slugs_to_verified_ids` (mostly for internal use).
+  - Added `ingest_namespec()` to implement the [matching logic on ingestion](https://github.com/acl-org/acl-anthology/wiki/Author-Page-Plan#ingestion) of new volumes.
+  - Added `PersonIndex.create` to instantiate a new Person and add it to the index.
+- MarkupText now provides a `from_()` class method that calls the appropriate builder method, using heuristic markup parsing if instantiated from a string.
+- MarkupText now supports some common string methods, such as `__contains__`, `endswith`, `startswith`.
+- Venues can now be created via `VenueIndex.create()`.
+
+### Changed
+
+- Several breaking changes to PersonIndex for the new author ID system:
+  - Loading the index now expects a `people.yaml` file instead of `name_variants.yaml`.
+  - Renamed `get_or_create_person()` to `resolve_namespec()` and refactored it to reflect the [new name resolution logic](https://github.com/acl-org/acl-anthology/wiki/Author-Page-Plan#proposed-name-resolution-logic).
+  - Renamed `name_to_ids` to `by_name`, in line with the new `by_orcid` field.
+  - Changed the type of exceptions that can be raised; `AmbiguousNameError` was replaced by `NameSpecResolutionError` and `PersonDefinitionError`.
+  - Changed the previously experimental `save()` function to serialize the `people.yaml` file.
+- Person now stores names as tuples of `(Name, NameLink)`, the latter of which indicates if the name was explicitly defined in `people.yaml` or inferred by the name resolution logic (e.g. via slug matching).  As a consequence, `Person.names` can no longer be modified in-place; use `Person.add_name()`, `Person.remove_name()`, or the setter of `Person.names`.
+- Setting a canonical name for a Person changed from `.set_canonical_name()` to `Person.canonical_name = ...`
+- Attributes that expect a MarkupText, such as `Volume.title` or `Paper.abstract`, can now be set to a string, in which case the string will be automatically converted to MarkupText, including markup parsing.
+- EventLinkingType renamed to EventLink.
+- Refactored verbosity handling and progress/log output.  This fixes a bug where empty lines would appear in stdout from Rich's progress bars, even if they were disabled with `verbose=False`.  If stdout is not a TTY, progress/log output will be written to stderr instead.  If stderr is not a TTY, progress bars will be suppressed by default.
+
+### Removed
+
+- Support for "Papers with Code" references has been removed, as the service has been discontinued in August 2025.
+
 ## [0.5.4] — 2025-11-27
 
 This release only exists to provide necessary functionality for transitioning to the [new author ID system](https://github.com/acl-org/acl-anthology/wiki/Author-Page-Plan).

@@ -43,29 +43,28 @@ In such cases, we will ask authors to arrange for this permission to be conveyed
 
 ### Merging author pages
 
-If you have published papers under different names, you will end up with multiple author profiles in the Anthology. We can merge these into a single page under your preferred name.
+If you have published papers under different names, you will end up with multiple author profiles in the Anthology. We can merge these into a single page under your preferred name.[^1]
 
 Please pay careful attention to the following steps.
 
 1. **Ensure that each name is correct**. We treat the information on the PDF as authoritative; this means that the metadata should reflect exactly what is printed on the PDF. A common situation is that the name recorded in Anthology metadata (e.g., John P. Hancock) will not match what is displayed on the PDF (John Hancock). This needs to be corrected first. Please review your papers and [follow the steps here](#metadata-corrections) to correct any discrepancies. Sometimes, this will resolve the split pages.
-2. Obtain [an ORCID](https://orcid.org). This is required to help with matching of future papers.
-3. Fill out [an author page correction](https://github.com/acl-org/acl-anthology/issues/new?template=02-name-correction.yml). A Github issue is our preferred mechanism, but you can also email [the Anthology director](mailto:anthology@aclweb.org).
-4. Finally, to avoid issues in the future, ensure that the name you use on papers is properly recorded in your profile in publication management systems such as [Open Review](https://openreview.net), [Softconf](https://softconf.com), [EasyChair](https://easychair.org), and so on.
+2. Obtain [an ORCID iD](https://orcid.org) if you do not already have one. This is required to help with matching of future papers (see: [how we use ORCID iDs]({{< ref "/info/orcid" >}})).
+3. Fill out [an author page correction](https://github.com/acl-org/acl-anthology/issues/new?template=02-name-correction.yml). A Github issue is our preferred mechanism, but you can also email [the Anthology director](mailto:anthology@aclweb.org). Anthology staff will address your issue as quickly as possible.
+4. Finally, to avoid issues in the future, ensure that the name you use on papers is properly recorded in your profile in publication management systems such as [OpenReview](https://openreview.net), [Softconf](https://softconf.com), [EasyChair](https://easychair.org), and so on.
 
-Anthology staff will address your issue as quickly as possible.
-An example merged author profile is [Aravand Joshi](https://aclanthology.org/people/aravind-joshi).
+[^1]: An example merged author profile is [Aravind Joshi](https://aclanthology.org/people/aravind-joshi).
 
 ### Splitting author pages
 
-When multiple authors publish under the same name, we disambiguate them by manually assigning an ID to one or more of the authors, and then associating that ID with each of their papers.
+When multiple authors publish under the same name, we disambiguate them to [IDs representing unique persons]({{< ref "/info/names" >}})).[^2]
 
 We need the following information from you:
-1. Your [ORCID](https://orcid.org/), which will help us assign future papers to you correctly.
+1. Your [ORCID iD](https://orcid.org/), which will help us assign future papers to you correctly (see: [how we use ORCID iDs]({{< ref "/info/orcid" >}})).
 2. The name of the institution from which you received your highest degree (e.g., where you got your Ph.D.), or where you expect to receive it (for students).
 
-Anthology staff will assign an ID to you comprising your canonical name (e.g., [yang-liu]() for "Yang Liu") and this institution. This page will be associated with your ORCID and will become your permanent Anthology author page.
+To file a author split request, we prefer you to use [this Github issue](https://github.com/acl-org/acl-anthology/issues/new?template=02-name-correction.yml). A link to this template can also be found on any author page under the "Fix author" button. Anthology staff will address your issue as quickly as possible.
 
-To file a author split request, we prefer you to use [this Github issue](https://github.com/acl-org/acl-anthology/issues/new?template=02-name-correction.yml). A link to this template can also be found on any author page under the "Fix author" button. An example different authors published under the same name is [Yang Liu (of Edinburgh)](https://aclanthology.org/people/yang-liu-edinburgh/) and [Yang Liu (of Peking University)](https://aclanthology.org/people/yang-liu-pk).
+[^2]: An example of different authors published under the same name is [Yang Liu (of Edinburgh)](https://aclanthology.org/people/yang-liu-edinburgh/) and [Yang Liu (of Peking University)](https://aclanthology.org/people/yang-liu-pk).
 
 ### PDF corrections
 

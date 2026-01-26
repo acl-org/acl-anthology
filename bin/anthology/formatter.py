@@ -28,7 +28,6 @@ from . import latexcodec
 from .texmath import TexMath
 from .utils import stringify_children, remove_extra_whitespace
 
-
 latexcodec.register()
 
 

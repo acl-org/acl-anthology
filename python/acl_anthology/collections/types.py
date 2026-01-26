@@ -15,7 +15,7 @@
 from enum import Enum
 
 
-class EventLinkingType(Enum):
+class EventLink(Enum):
     """How a volume ID was connected to an Event."""
 
     EXPLICIT = "explicit"

@@ -7,8 +7,8 @@
       <editor><first>Kenji</first><last>Sagae</last></editor>
       <editor><first>Reut</first><last>Tsarfaty</last></editor>
       <editor><first>Gosse</first><last>Bouma</last></editor>
-      <editor><first>Djamé</first><last>Seddah</last></editor>
-      <editor><first>Daniel</first><last>Zeman</last></editor>
+      <editor id="djame-seddah"><first>Djamé</first><last>Seddah</last></editor>
+      <editor id="daniel-zeman"><first>Daniel</first><last>Zeman</last></editor>
       <publisher>Association for Computational Linguistics</publisher>
       <address>Online</address>
       <month>August</month>
@@ -57,7 +57,7 @@
       <title>Semi-Automatic Construction of Text-to-<fixed-case>SQL</fixed-case> Data for Domain Transfer</title>
       <author><first>Tianyi</first><last>Li</last></author>
       <author><first>Sujian</first><last>Li</last></author>
-      <author><first>Mark</first><last>Steedman</last></author>
+      <author id="mark-steedman"><first>Mark</first><last>Steedman</last></author>
       <pages>38–49</pages>
       <abstract>Strong and affordable in-domain data is a desirable asset when transferring trained semantic parsers to novel domains. As previous methods for semi-automatically constructing such data cannot handle the complexity of realistic SQL queries, we propose to construct SQL queries via context-dependent sampling, and introduce the concept of topic. Along with our SQL query construction method, we propose a novel pipeline of semi-automatic Text-to-SQL dataset construction that covers the broad space of SQL queries. We show that the created dataset is comparable with expert annotation along multiple dimensions, and is capable of improving domain transfer performance for SOTA semantic parsers.</abstract>
       <url hash="e79eec90">2021.iwpt-1.4</url>
@@ -68,7 +68,7 @@
     <paper id="5">
       <title>Levi Graph <fixed-case>AMR</fixed-case> Parser using Heterogeneous Attention</title>
       <author><first>Han</first><last>He</last></author>
-      <author><first>Jinho D.</first><last>Choi</last></author>
+      <author id="jinho-d-choi"><first>Jinho D.</first><last>Choi</last></author>
       <pages>50–57</pages>
       <abstract>Coupled with biaffine decoders, transformers have been effectively adapted to text-to-graph transduction and achieved state-of-the-art performance on AMR parsing. Many prior works, however, rely on the biaffine decoder for either or both arc and label predictions although most features used by the decoder may be learned by the transformer already. This paper presents a novel approach to AMR parsing by combining heterogeneous data (tokens, concepts, labels) as one input to a transformer to learn attention, and use only attention matrices from the transformer to predict all elements in AMR graphs (concepts, arcs, labels). Although our models use significantly fewer parameters than the previous state-of-the-art graph parser, they show similar or better accuracy on AMR 2.0 and 3.0.</abstract>
       <url hash="4c335237">2021.iwpt-1.5</url>
@@ -112,7 +112,7 @@
     </paper>
     <paper id="9">
       <title>Multilingual Dependency Parsing for Low-Resource <fixed-case>A</fixed-case>frican Languages: Case Studies on <fixed-case>B</fixed-case>ambara, <fixed-case>W</fixed-case>olof, and <fixed-case>Y</fixed-case>oruba</title>
-      <author><first>Cheikh M. Bamba</first><last>Dione</last></author>
+      <author id="cheikh-m-bamba-dione"><first>Cheikh M. Bamba</first><last>Dione</last></author>
       <pages>84–92</pages>
       <abstract>This paper describes a methodology for syntactic knowledge transfer between high-resource languages to extremely low-resource languages. The methodology consists in leveraging multilingual BERT self-attention model pretrained on large datasets to develop a multilingual multi-task model that can predict Universal Dependencies annotations for three African low-resource languages. The UD annotations include universal part-of-speech, morphological features, lemmas, and dependency trees. In our experiments, we used multilingual word embeddings and a total of 11 Universal Dependencies treebanks drawn from three high-resource languages (English, French, Norwegian) and three low-resource languages (Bambara, Wolof and Yoruba). We developed various models to test specific language combinations involving contemporary contact languages or genetically related languages. The results of the experiments show that multilingual models that involve high-resource languages and low-resource languages with contemporary contact between each other can provide better results than combinations that only include unrelated languages. As far genetic relationships are concerned, we could not draw any conclusion regarding the impact of language combinations involving the selected low-resource languages, namely Wolof and Yoruba.</abstract>
       <url hash="b63a84ca">2021.iwpt-1.9</url>
@@ -123,7 +123,7 @@
       <title>Bidirectional Domain Adaptation Using Weighted Multi-Task Learning</title>
       <author><first>Daniel</first><last>Dakota</last></author>
       <author><first>Zeeshan Ali</first><last>Sayyed</last></author>
-      <author><first>Sandra</first><last>Kübler</last></author>
+      <author id="sandra-kubler"><first>Sandra</first><last>Kübler</last></author>
       <pages>93–105</pages>
       <abstract>Domain adaption in syntactic parsing is still a significant challenge. We address the issue of data imbalance between the in-domain and out-of-domain treebank typically used for the problem. We define domain adaptation as a Multi-task learning (MTL) problem, which allows us to train two parsers, one for each do-main. Our results show that the MTL approach is beneficial for the smaller treebank. For the larger treebank, we need to use loss weighting in order to avoid a decrease in performance be-low the single task. In order to determine towhat degree the data imbalance between two domains and the domain differences affect results, we also carry out an experiment with two imbalanced in-domain treebanks and show that loss weighting also improves performance in an in-domain setting. Given loss weighting in MTL, we can improve results for both parsers.</abstract>
       <url hash="6227bb0d">2021.iwpt-1.10</url>
@@ -134,7 +134,7 @@
     <paper id="11">
       <title>Strength in Numbers: Averaging and Clustering Effects in Mixture of Experts for Graph-Based Dependency Parsing</title>
       <author><first>Xudong</first><last>Zhang</last></author>
-      <author><first>Joseph</first><last>Le Roux</last></author>
+      <author id="joseph-le-roux"><first>Joseph</first><last>Le Roux</last></author>
       <author><first>Thierry</first><last>Charnois</last></author>
       <pages>106–118</pages>
       <abstract>We review two features of mixture of experts (MoE) models which we call averaging and clustering effects in the context of graph-based dependency parsers learned in a supervised probabilistic framework. Averaging corresponds to the ensemble combination of parsers and is responsible for variance reduction which helps stabilizing and improving parsing accuracy. Clustering describes the capacity of MoE models to give more credit to experts believed to be more accurate given an input. Although promising, this is difficult to achieve, especially without additional data. We design an experimental set-up to study the impact of these effects. Whereas averaging is always beneficial, clustering requires good initialization and stabilization techniques, but its advantages over mere averaging seem to eventually vanish when enough experts are present. As a by product, we show how this leads to state-of-the-art results on the PTB and the CoNLL09 Chinese treebank, with low variance across experiments.</abstract>
@@ -177,8 +177,8 @@
     <paper id="15">
       <title>From Raw Text to Enhanced <fixed-case>U</fixed-case>niversal <fixed-case>D</fixed-case>ependencies: The Parsing Shared Task at <fixed-case>IWPT</fixed-case> 2021</title>
       <author><first>Gosse</first><last>Bouma</last></author>
-      <author><first>Djamé</first><last>Seddah</last></author>
-      <author><first>Daniel</first><last>Zeman</last></author>
+      <author id="djame-seddah"><first>Djamé</first><last>Seddah</last></author>
+      <author id="daniel-zeman"><first>Daniel</first><last>Zeman</last></author>
       <pages>146–157</pages>
       <abstract>We describe the second IWPT task on end-to-end parsing from raw text to Enhanced Universal Dependencies. We provide details about the evaluation metrics and the datasets used for training and evaluation. We compare the approaches taken by participating teams and discuss the results of the shared task, also in comparison with the first edition of this task.</abstract>
       <url hash="cf9056a2">2021.iwpt-1.15</url>
@@ -259,7 +259,7 @@
       <author><first>Alireza</first><last>Mohammadshahi</last></author>
       <author><first>Joachim</first><last>Wagner</last></author>
       <author><first>Jennifer</first><last>Foster</last></author>
-      <author><first>James</first><last>Henderson</last></author>
+      <author id="james-henderson"><first>James</first><last>Henderson</last></author>
       <pages>204–212</pages>
       <abstract>We describe the DCU-EPFL submission to the IWPT 2021 Parsing Shared Task: From Raw Text to Enhanced Universal Dependencies. The task involves parsing Enhanced UD graphs, which are an extension of the basic dependency trees designed to be more facilitative towards representing semantic structure. Evaluation is carried out on 29 treebanks in 17 languages and participants are required to parse the data from each language starting from raw strings. Our approach uses the Stanza pipeline to preprocess the text files, XLM-RoBERTa to obtain contextualized token representations, and an edge-scoring and labeling model to predict the enhanced graph. Finally, we run a postprocessing script to ensure all of our outputs are valid Enhanced UD graphs. Our system places 6th out of 9 participants with a coarse Enhanced Labeled Attachment Score (ELAS) of 83.57. We carry out additional post-deadline experiments which include using Trankit for pre-processing, XLM-RoBERTa LARGE, treebank concatenation, and multitask learning between a basic and an enhanced dependency parser. All of these modifications improve our initial score and our final system has a coarse ELAS of 88.04.</abstract>
       <url hash="bc0dc6e3">2021.iwpt-1.22</url>

@@ -81,6 +81,11 @@ RewriteRule ^thumb/(.*)$ anthology-files/thumb/$1 [L,NC]
 # since the pattern-match can't match source side.
 RewriteRule ^people/[a-z]/([\-a-z0-9]+)/?$ people/$1/ [R=301,L,NC]
 
+# If the requested author page does not exist, soft-redirect [303 See Other] to the /unverified URL
+RewriteCond %{REQUEST_FILENAME}/index.html !-f
+RewriteCond %{REQUEST_FILENAME}/unverified -d
+RewriteRule ^people/([^/]+)/?$ people/$1/unverified [L,R=303]
+
 # Videos
 ## match old-style URLs, e.g., /N13-1001.mp4 -> anthology-files/videos/N/N13-1001.mp4
 ## also supports videos split into pieces, e.g., /N13-4001.1.mp4

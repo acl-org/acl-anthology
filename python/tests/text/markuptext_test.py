@@ -17,7 +17,7 @@ from lxml import etree
 from acl_anthology.text import MarkupText
 
 test_cases_markup = (
-    (
+    (  # Fixed-case
         "<fixed-case>A</fixed-case>dap<fixed-case>L</fixed-case>e<fixed-case>R</fixed-case>: Speeding up Inference by Adaptive Length Reduction",
         {
             "text": "AdapLeR: Speeding up Inference by Adaptive Length Reduction",
@@ -25,7 +25,15 @@ test_cases_markup = (
             "latex": "{A}dap{L}e{R}: Speeding up Inference by Adaptive Length Reduction",
         },
     ),
-    (
+    (  # Fixed-case inside markup
+        "<b><fixed-case>A</fixed-case>dap<fixed-case>L</fixed-case>e<fixed-case>R</fixed-case></b>: Speeding up Inference by Adaptive Length Reduction",
+        {
+            "text": "AdapLeR: Speeding up Inference by Adaptive Length Reduction",
+            "html": '<b><span class="acl-fixed-case">A</span>dap<span class="acl-fixed-case">L</span>e<span class="acl-fixed-case">R</span></b>: Speeding up Inference by Adaptive Length Reduction',
+            "latex": "\\textbf{{A}dap{L}e{R}}: Speeding up Inference by Adaptive Length Reduction",
+        },
+    ),
+    (  # Markup <b>
         "<b>D</b>ynamic <b>S</b>chema <b>G</b>raph <b>F</b>usion <b>Net</b>work (<b>DSGFNet</b>)",
         {
             "text": "Dynamic Schema Graph Fusion Network (DSGFNet)",
@@ -33,7 +41,7 @@ test_cases_markup = (
             "latex": "\\textbf{D}ynamic \\textbf{S}chema \\textbf{G}raph \\textbf{F}usion \\textbf{Net}work (\\textbf{DSGFNet})",
         },
     ),
-    (
+    (  # Markup <i>
         "selecting prompt templates <i>without labeled examples</i> and <i>without direct access to the model</i>.",
         {
             "text": "selecting prompt templates without labeled examples and without direct access to the model.",
@@ -41,7 +49,15 @@ test_cases_markup = (
             "latex": "selecting prompt templates \\textit{without labeled examples} and \\textit{without direct access to the model}.",
         },
     ),
-    (
+    (  # Empty markup
+        "We <b/>solve this<i/> problem",
+        {
+            "text": "We solve this problem",
+            "html": "We <b></b>solve this<i></i> problem",
+            "latex": "We \\textbf{}solve this\\textit{} problem",
+        },
+    ),
+    (  # TeX-math expression
         "<tex-math>^{\\mathcal{E}}</tex-math>: a Vectorial Resource for Computing Conceptual Similarity",
         {
             "text": "ℰ: a Vectorial Resource for Computing Conceptual Similarity",
@@ -49,7 +65,7 @@ test_cases_markup = (
             "latex": "$^{\\mathcal{E}}$: a Vectorial Resource for Computing Conceptual Similarity",
         },
     ),
-    (
+    (  # URL
         "The source code will be available at <url>https://github.com/zhang-yu-wei/MTP-CLNN</url>.",
         {
             "text": "The source code will be available at https://github.com/zhang-yu-wei/MTP-CLNN.",
@@ -57,7 +73,7 @@ test_cases_markup = (
             "latex": "The source code will be available at \\url{https://github.com/zhang-yu-wei/MTP-CLNN}.",
         },
     ),
-    (
+    (  # XML entity
         "Workshop on Topic A &amp; B",
         {
             "text": "Workshop on Topic A & B",
@@ -65,7 +81,7 @@ test_cases_markup = (
             "latex": "Workshop on Topic A {\\&} B",
         },
     ),
-    (
+    (  # Line breaks
         "Title with\n\n line breaks",
         {
             "text": "Title with line breaks",
@@ -81,7 +97,7 @@ test_cases_markup = (
             "latex": "Title with line breaks",
         },
     ),
-    (
+    (  # Nested tags
         "<fixed-case>U</fixed-case>pstream <fixed-case>M</fixed-case>itigation <fixed-case>I</fixed-case>s <i><fixed-case>N</fixed-case>ot</i> <fixed-case>A</fixed-case>ll <fixed-case>Y</fixed-case>ou <fixed-case>N</fixed-case>eed",
         {
             "text": "Upstream Mitigation Is Not All You Need",
@@ -205,11 +221,15 @@ def test_markup_from_xml(inp, out):
     assert markup.as_html() == out["html"]
     assert markup.as_latex() == out["latex"]
     assert markup.as_xml() == inp
-    assert etree.tostring(markup.to_xml("title"), encoding="unicode") == xml
+    assert MarkupText.from_(element) == markup
+    if inp == "":
+        assert etree.tostring(markup.to_xml("title"), encoding="unicode") == "<title/>"
+    else:
+        assert etree.tostring(markup.to_xml("title"), encoding="unicode") == xml
     assert markup.contains_markup == ("<" in out["html"])
 
 
-def test_simple_string():
+def test_markup_from_simple_string():
     text = "Some ASCII text without markup"
     markup = MarkupText.from_string(text)
     assert not markup.contains_markup
@@ -217,10 +237,12 @@ def test_simple_string():
     assert markup.as_html() == text
     assert markup.as_latex() == text
     assert markup.as_xml() == text
+    assert markup == text
     assert (
         etree.tostring(markup.to_xml("span"), encoding="unicode")
         == f"<span>{text}</span>"
     )
+    assert MarkupText.from_(text) == markup
 
 
 test_cases_markup_from_latex = (
@@ -424,3 +446,30 @@ def test_markup_from_latex_maybe(inp, out1, out2):
     assert markup.as_xml() == out1
     markup = MarkupText.from_latex_maybe(inp)
     assert markup.as_xml() == out2
+
+
+def test_markup_behaves_like_string():
+    markup = MarkupText.from_latex(
+        "TTCS$^{\\mathcal{E}}$: a Vectorial Resource for Computing Conceptual Similarity"
+    )
+    assert (
+        markup
+        == "TTCS<tex-math>^{\\mathcal{E}}</tex-math>: a Vectorial Resource for Computing Conceptual Similarity"
+    )
+    assert markup == MarkupText.from_latex(
+        "TTCS$^{\\mathcal{E}}$: a Vectorial Resource for Computing Conceptual Similarity"
+    )
+    assert "Vectorial" in markup
+    assert markup.startswith("TTCS")
+    assert markup.endswith("Similarity")
+    assert markup < "XTCS"
+    assert markup < MarkupText.from_string("XTCS")
+
+
+def test_markup_cannot_be_instantiated_from_unsupported_types():
+    with pytest.raises(TypeError):
+        MarkupText(42)
+    with pytest.raises(TypeError):
+        MarkupText(["foo", "bar"])
+    with pytest.raises(TypeError):
+        MarkupText(MarkupText("foo"))

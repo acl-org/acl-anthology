@@ -71,9 +71,9 @@
       <author><first>Alessio</first><last>Brutti</last><affiliation>FBK</affiliation></author>
       <author><first>Mauro</first><last>Cettolo</last><affiliation>FBK</affiliation></author>
       <author><first>Roberto</first><last>Gretter</last><affiliation>FBK</affiliation></author>
-      <author><first>Marco</first><last>Matassoni</last><affiliation>FBK</affiliation></author>
+      <author id="marco-matassoni"><first>Marco</first><last>Matassoni</last><affiliation>FBK</affiliation></author>
       <author><first>Mohamed</first><last>Nabih</last><affiliation>FBK</affiliation></author>
-      <author><first>Matteo</first><last>Negri</last><affiliation>FBK</affiliation></author>
+      <author id="matteo-negri"><first>Matteo</first><last>Negri</last><affiliation>FBK</affiliation></author>
       <pages>47-55</pages>
       <abstract>Training large-scale models presents challenges not only in terms of resource requirements but also in terms of their convergence. For this reason, the learning rate (LR) is often decreased when the size of a model is increased. Such a simple solution is not enough in the case of speech-to-text (S2T) trainings, where evolved and more complex variants of the Transformer architecture – e.g., Conformer or Branchformer – are used in light of their better performance. As a workaround, OWSM designed a double linear warmup of the LR, increasing it to a very small value in the first phase before updating it to a higher value in the second phase. While this solution worked well in practice, it was not compared with alternative solutions, nor was the impact on the final performance of different LR warmup schedules studied. This paper fills this gap, revealing that i) large-scale S2T trainings demand a sub-exponential LR warmup, and ii) a higher LR in the warmup phase accelerates initial convergence, but it does not boost final performance.</abstract>
       <url hash="7d107e26">2025.iwslt-1.4</url>
@@ -116,10 +116,10 @@
     <paper id="8">
       <title>Conversational <fixed-case>S</fixed-case>imul<fixed-case>MT</fixed-case>: Efficient Simultaneous Translation with Large Language Models</title>
       <author><first>Minghan</first><last>Wang</last><affiliation>Monash University</affiliation></author>
-      <author><first>Thuy-Trang</first><last>Vu</last><affiliation>Monash University</affiliation></author>
+      <author id="thuy-vu"><first>Thuy-Trang</first><last>Vu</last><affiliation>Monash University</affiliation></author>
       <author><first>Yuxia</first><last>Wang</last><affiliation>MBZUAI</affiliation></author>
       <author><first>Ehsan</first><last>Shareghi</last><affiliation>Monash University</affiliation></author>
-      <author><first>Gholamreza</first><last>Haffari</last><affiliation>Monash University</affiliation></author>
+      <author id="gholamreza-haffari"><first>Gholamreza</first><last>Haffari</last><affiliation>Monash University</affiliation></author>
       <pages>93-105</pages>
       <abstract>Simultaneous machine translation (SimulMT) presents a challenging trade-off between translation quality and latency. Recent studies have shown that LLMs can achieve good performance in SimulMT tasks. However, this often comes at the expense of high inference costs and latency. In this paper, we propose a conversational SimulMT framework to enhance the inference efficiency of LLM-based SimulMT through multi-turn-dialogue-based decoding where source and target chunks interleave in translation history, enabling the reuse of Key-Value cache. To adapt LLMs to the proposed conversational decoding, we create supervised fine-tuning training data by segmenting parallel sentences using an alignment tool and a novel augmentation technique to enhance generalization. Our experiments with Llama2-7b-chat on three SimulMT benchmarks demonstrate that the proposed method empowers the superiority of LLM in translation quality, meanwhile achieving comparable computational latency with specialized SimulMT models.</abstract>
       <url hash="e8ccf2af">2025.iwslt-1.8</url>
@@ -156,7 +156,7 @@
     <paper id="11">
       <title>Prompting <fixed-case>LLM</fixed-case>s: Length Control for Isometric Machine Translation</title>
       <author><first>Dávid</first><last>Javorský</last><affiliation>Charles Univerzity, Faculty of Mathematics and Physics</affiliation></author>
-      <author><first>Ondřej</first><last>Bojar</last><affiliation>Charles University, MFF UFAL</affiliation></author>
+      <author id="ondrej-bojar"><first>Ondřej</first><last>Bojar</last><affiliation>Charles University, MFF UFAL</affiliation></author>
       <author><first>François</first><last>Yvon</last><affiliation>ISIR CNRS &amp; Sorbonne Université</affiliation></author>
       <pages>119-137</pages>
       <abstract>In this study, we explore the effectiveness of isometric machine translation across multiple language pairs (En<tex-math>o</tex-math>De, En<tex-math>o</tex-math>Fr, and En<tex-math>o</tex-math>Es) under the conditions of the IWSLT Isometric Shared Task 2022. Using eight open-source large language models (LLMs) of varying sizes, we investigate how different prompting strategies, varying numbers of few-shot examples, and demonstration selection influence translation quality and length control. We discover that the phrasing of instructions, when aligned with the properties of the provided demonstrations, plays a crucial role in controlling the output length. Our experiments show that LLMs tend to produce shorter translations only when presented with extreme examples, while isometric demonstrations often lead to the models disregarding length constraints. While few-shot prompting generally enhances translation quality, further improvements are marginal across 5, 10, and 20-shot settings. Finally, considering multiple outputs allows to notably improve overall tradeoff between the length and quality, yielding state-of-the-art performance for some language pairs.</abstract>
@@ -194,7 +194,7 @@
       <author><first>Matthew</first><last>Wiesner</last><affiliation>Johns Hopkins University</affiliation></author>
       <author><first>Dan</first><last>Povey</last><affiliation>Xiaomi, Inc.</affiliation></author>
       <author><first>Leibny Paola</first><last>Garcia</last><affiliation>Johns Hopkins University</affiliation></author>
-      <author><first>Sanjeev</first><last>Khudanpur</last><affiliation>Johns Hopkins University</affiliation></author>
+      <author id="sanjeev-khudanpur"><first>Sanjeev</first><last>Khudanpur</last><affiliation>Johns Hopkins University</affiliation></author>
       <pages>153-164</pages>
       <abstract>Neural transducers (NT) provide an effective framework for speech streaming, demonstrating strong performance in automatic speech recognition (ASR). However, the application of NT to speech translation (ST) remains challenging, as existing approaches struggle with word reordering and performance degradation when jointly modeling ASR and ST, resulting in a gap with attention-based encoder-decoder (AED) models. Existing NT-based ST approaches also suffer from high computational training costs. To address these issues, we propose HENT-SRT (Hierarchical Efficient Neural Transducer for Speech Recognition and Translation), a novel framework that factorizes ASR and translation tasks to better handle reordering. To ensure robust ST while preserving ASR performance, we use self-distillation with CTC consistency regularization. Moreover, we improve computational efficiency by incorporating best practices from ASR transducers, including a down-sampled hierarchical encoder, a stateless predictor, and a pruned transducer loss to reduce training complexity. Finally, we introduce a blank penalty during decoding, reducing deletions and improving translation quality. Our approach is evaluated on three conversational datasets Arabic, Spanish, and Mandarin achieving new state-of-the-art performance among NT models and substantially narrowing the gap with AED-based systems.</abstract>
       <url hash="d962cf87">2025.iwslt-1.14</url>
@@ -205,7 +205,7 @@
       <title><fixed-case>S</fixed-case>wiss <fixed-case>G</fixed-case>erman Speech Translation and the Curse of Multidialectality</title>
       <author><first>Martin</first><last>Bär</last><affiliation>University of Malta, University of the Basque Country</affiliation></author>
       <author><first>Andrea</first><last>DeMarco</last><affiliation>University of Malta</affiliation></author>
-      <author><first>Gorka</first><last>Labaka</last><affiliation>UPV/EHU</affiliation></author>
+      <author id="gorka-labaka"><first>Gorka</first><last>Labaka</last><affiliation>UPV/EHU</affiliation></author>
       <pages>165-179</pages>
       <abstract>In many languages, non-standardized varieties make the development of NLP models challenging. This paper explores various fine-tuning techniques and data setups for training Swiss German to Standard German speech-to-text translation models. While fine-tuning on all available Swiss German data yields the best results, ASR pre-training lowers performance by 1.48 BLEU points, and jointly training on Swiss and Standard German data reduces it by 2.29 BLEU. Our dialect transfer experiments suggest that an equivalent of the Curse of Multilinguality (Conneau et al., 2020) exists in dialectal speech processing, as training on multiple dialects jointly tends to decrease single-dialect performance. However, introducing small amounts of dialectal variability can improve the performance for low-resource dialects.</abstract>
       <url hash="49fb9534">2025.iwslt-1.15</url>
@@ -229,7 +229,7 @@
       <title><fixed-case>NAVER</fixed-case> <fixed-case>LABS</fixed-case> <fixed-case>E</fixed-case>urope Submission to the Instruction-following Track</title>
       <author><first>Beomseok</first><last>Lee</last><affiliation>University of Trento</affiliation></author>
       <author><first>Marcely</first><last>Zanon Boito</last><affiliation>NAVER LABS Europe</affiliation></author>
-      <author><first>Laurent</first><last>Besacier</last><affiliation>NAVER LABS Europe</affiliation></author>
+      <author id="laurent-besacier"><first>Laurent</first><last>Besacier</last><affiliation>NAVER LABS Europe</affiliation></author>
       <author><first>Ioan</first><last>Calapodescu</last><affiliation>NAVER LABS Europe</affiliation></author>
       <pages>186-200</pages>
       <abstract>In this paper we describe NAVER LABS Europe submission to the instruction-following speech processing short track at IWSLT 2025. We participate in the constrained settings, developing systems that can simultaneously perform ASR, ST, and SQA tasks from English speech input into the following target languages: Chinese, Italian, and German. Our solution leverages two pretrained modules: (1) a speech-to-LLM embedding projector trained using representations from the SeamlessM4T-v2-large speech encoder; and (2) LoRA adapters trained on text data on top of Llama-3.1-8B-Instruct. These modules are jointly loaded and further instruction-tuned for 1K steps on multilingual and multimodal data to form our final system submitted for evaluation.</abstract>
@@ -242,7 +242,7 @@
       <author><first>Debjit</first><last>Dhar</last><affiliation>Jadavpur University</affiliation></author>
       <author><first>Soham</first><last>Lahiri</last><affiliation>Jadavpur University</affiliation></author>
       <author><first>Tapabrata</first><last>Mondal</last><affiliation>Jadavpur University</affiliation></author>
-      <author><first>Sivaji</first><last>Bandyopadhyay</last><affiliation>JADAVPUR UNIVERSITY</affiliation></author>
+      <author id="sivaji-bandyopadhyay"><first>Sivaji</first><last>Bandyopadhyay</last><affiliation>JADAVPUR UNIVERSITY</affiliation></author>
       <pages>201-205</pages>
       <abstract>This paper presents the submission of the Jadavpur University Computer Science and Engineering Natural Language Processing (JU-CSENLP) Laboratory to the International Conference on Spoken Language Translation (IWSLT) 2025 Indic track, addressing the speech-to-text translation task in both English-to-Indic (Bengali, Hindi, Tamil) and Indic-to-English directions. To tackle the challenges posed by low resource Indian languages, we adopt a cascaded approach leveraging state-of-the-art pre-trained models. For English-to-Indic translation, we utilize OpenAI’s Whisper model for Automatic Speech Recognition (ASR), followed by the Meta’s No Language Left Behind (NLLB)-200-distilled-600M model finetuned for Machine Translation (MT). For the reverse direction, we employ the AI4Bharat’s IndicConformer model for ASR and IndicTrans2 finetuned for MT. Our models are fine-tuned on the provided benchmark dataset to better handle the linguistic diversity and domain-specific variations inherent in the data. Evaluation results demonstrate that our cascaded systems achieve competitive performance, with notable BLEU and chrF++ scores across all language pairs. Our findings highlight the effectiveness of combining robust ASR and MT components in a cascaded pipeline, particularly for low-resource and morphologically rich Indian languages.</abstract>
       <url hash="7234e943">2025.iwslt-1.18</url>
@@ -271,7 +271,7 @@
       <author><first>Enes</first><last>Yavuz Ugan</last><affiliation>KIT</affiliation></author>
       <author><first>Tu</first><last>Anh Dinh</last><affiliation>Karlsruhe Institute of Technology</affiliation></author>
       <author><first>Carlos</first><last>Mullov</last><affiliation>Karlsruhe Institute of Technology</affiliation></author>
-      <author><first>Alexander</first><last>Waibel</last><affiliation>Carnegie Mellon</affiliation></author>
+      <author id="alex-waibel"><first>Alexander</first><last>Waibel</last><affiliation>Carnegie Mellon</affiliation></author>
       <author><first>Jan</first><last>Niehues</last><affiliation>Karlsruhe Institut of Technology</affiliation></author>
       <pages>212-221</pages>
       <abstract>This paper presents KIT’s submissions to the IWSLT 2025 low-resource track. We develop both cascaded systems, consisting of Automatic Speech Recognition (ASR) and Machine Translation (MT) models, and end-to-end (E2E) Speech Translation (ST) systems for three language pairs: Bemba, North Levantine Arabic, and Tunisian Arabic into English. Building upon pre-trained models, we fine-tune our systems with different strategies to utilize resources efficiently. This study further explores system enhancement with synthetic data and model regularization. Specifically, we investigate MT-augmented ST by generating translations from ASR data using MT models. For North Levantine, which lacks parallel ST training data, a system trained solely on synthetic data slightly surpasses the cascaded system trained on real data. We also explore augmentation using text-to-speech models by generating synthetic speech from MT data, demonstrating the benefits of synthetic data in improving both ASR and ST performance for Bemba. Additionally, we apply intra-distillation to enhance model performance. Our experiments show that this approach consistently improves results across ASR, MT, and ST tasks, as well as across different pre-trained models. Finally, we apply Minimum Bayes Risk decoding to combine the cascaded and end-to-end systems, achieving an improvement of approximately 1.5 BLEU points.</abstract>
@@ -299,7 +299,7 @@
       <author><first>Thai</first><last>Binh Nguyen</last><affiliation>Karlsruhe Institute of Technology</affiliation></author>
       <author><first>Seymanur</first><last>Akti</last><affiliation>Karlsruhe Institute of Technology</affiliation></author>
       <author><first>Jan</first><last>Niehues</last><affiliation>Karlsruhe Institut of Technology</affiliation></author>
-      <author><first>Alexander</first><last>Waibel</last><affiliation>Carnegie Mellon</affiliation></author>
+      <author id="alex-waibel"><first>Alexander</first><last>Waibel</last><affiliation>Carnegie Mellon</affiliation></author>
       <pages>232-244</pages>
       <abstract>In this paper, we present the submissions for the Offline ST and Instruction Following (IF) tracks, where we leverage LLMs to enhance performance across all tasks. For the Offline ST track, we propose a pipeline that employs multiple automatic speech recognition systems, whose outputs are fused using an LLM with document-level context. This is followed by a two-step translation process, incorporating additional contextual refinement step to improve translation quality. For the IF track, we develop an end-to-end model that integrates a speech encoder with an LLM to perform a wide range of instruction-following tasks. We complement it with a final document-level refinement stage to further enhance output quality by using contextual information.</abstract>
       <url hash="221299c7">2025.iwslt-1.22</url>
@@ -312,7 +312,7 @@
       <author><first>Soham</first><last>Chaudhuri</last><affiliation>Jadavpur University</affiliation></author>
       <author><first>Dipanjan</first><last>Saha</last><affiliation>Jadavpur University</affiliation></author>
       <author><first>Dipankar</first><last>Das</last><affiliation>Jadavpur University</affiliation></author>
-      <author><first>Sivaji</first><last>Bandyopadhyay</last><affiliation>JADAVPUR UNIVERSITY</affiliation></author>
+      <author id="sivaji-bandyopadhyay"><first>Sivaji</first><last>Bandyopadhyay</last><affiliation>JADAVPUR UNIVERSITY</affiliation></author>
       <pages>245-251</pages>
       <abstract>Multi-language Speech-to-Text Translation (ST) plays a crucial role in breaking linguistic barriers, particularly in multilingual regions like India. This paper focuses on building a robust ST system for low resource Indian languages, with a special emphasis on Bengali and Tamil. These languages represent the Indo-Aryan and Dravidian families, respectively. The dataset used in this work comprises spoken content from TED Talks and conferences, paired with transcriptions in English and their translations in Bengali and Tamil. Our work specifically addresses the translation of Bengali and Tamil speech to English text, a critical area given the scarcity of annotated speech data. To enhance translation quality and model robustness, we leverage cross-lingual resources and word level translation strategies. The ultimate goal is to develop an end-to-end ST model capable of real-world deployment for under represented languages.</abstract>
       <url hash="4f6df3f6">2025.iwslt-1.23</url>
@@ -324,7 +324,7 @@
       <author><first>Josef</first><last>Jon</last><affiliation>Charles University</affiliation></author>
       <author><first>Waad</first><last>Ben Kheder</last><affiliation>Vocapia Research</affiliation></author>
       <author><first>Andre</first><last>Beyer</last><affiliation>Bielefeld University</affiliation></author>
-      <author><first>Claude</first><last>Barras</last><affiliation>Vocapia Research</affiliation></author>
+      <author id="claude-barras"><first>Claude</first><last>Barras</last><affiliation>Vocapia Research</affiliation></author>
       <author><first>Jean-Luc</first><last>Gauvain</last><affiliation>CNRS/LIMSI</affiliation></author>
       <pages>252-259</pages>
       <abstract>We present our IWSLT 2025 submission for the low-resource track on North Levantine Arabic to English speech translation, building on our IWSLT 2024 efforts. We retain last year’s cascade ASR architecture that combines a TDNN-F model and a Zipformer for the ASR step. We upgrade the Zipformer to the Zipformer-Large variant (253 M parameters vs. 66 M) to capture richer acoustic representations. For the MT part, to further alleviate data sparsity, we created a crowd-sourced parallel corpus covering five major Arabic dialects (Tunisian, Levantine, Moroccan, Algerian, Egyptian) curated via rigorous qualification and filtering. We show that using crowd-sourced data is feasible in low-resource scenarios as we observe improved automatic evaluation metrics across all dialects. We also experimented with the dataset under a high-resource scenario, where we had access to a large, high-quality Levantine Arabic corpus from LDC. In this setting, adding the crowd-sourced data does not improve the scores on the official validation set anymore. Our final submission scores 20.0 BLEU on the official test set.</abstract>
@@ -374,7 +374,7 @@
     <paper id="28">
       <title><fixed-case>CUNI</fixed-case>-<fixed-case>NL</fixed-case>@<fixed-case>IWSLT</fixed-case> 2025: End-to-end Offline Speech Translation and Instruction Following with <fixed-case>LLM</fixed-case>s</title>
       <author><first>Nam</first><last>Luu</last><affiliation>Charles University</affiliation></author>
-      <author><first>Ondřej</first><last>Bojar</last><affiliation>Charles University, MFF UFAL</affiliation></author>
+      <author id="ondrej-bojar"><first>Ondřej</first><last>Bojar</last><affiliation>Charles University, MFF UFAL</affiliation></author>
       <pages>282-288</pages>
       <abstract>This paper describes the CUNI-NL team’s submission to the IWSLT 2025 Offline Speech Translation and Instruction Following tasks, focusing on transcribing the English audio, and translating the English audio to German text. Our systems follow the end-to-end approach, where each system consists of a pretrained, frozen speech encoder, along with a medium-sized large language model fine-tuned with LoRA on three tasks: 1) transcribing the English audio; 2) directly translating the English audio to German text; and 3) a combination of the above two tasks, i.e. simultaneously transcribing the English audio and translating the English audio to German text.</abstract>
       <url hash="7465d73c">2025.iwslt-1.28</url>
@@ -433,7 +433,7 @@
     <paper id="33">
       <title><fixed-case>SYSTRAN</fixed-case> @ <fixed-case>IWSLT</fixed-case> 2025 Low-resource track</title>
       <author><first>Marko</first><last>Avila</last><affiliation>Systran by Chapsvision</affiliation></author>
-      <author><first>Josep</first><last>Crego</last><affiliation>Systran by Chapsvision</affiliation></author>
+      <author id="josep-m-crego"><first>Josep</first><last>Crego</last><affiliation>Systran by Chapsvision</affiliation></author>
       <pages>324-332</pages>
       <abstract>SYSTRAN submitted systems for one language pair in the 2025 Low-Resource Language Track. Our main contribution lies in the tight coupling and light fine-tuning of an ASR encoder (Whisper) with a neural machine translation decoder (NLLB), forming an efficient speech translation pipeline. We present the modeling strategies and optimizations implemented to build a system that, unlike large-scale end-to-end models, performs effectively under constraints of limited training data and computational resources. This approach enables the development of high-quality speech translation in low-resource settings, while ensuring both efficiency and scalability. We also conduct a comparative analysis of our proposed system against various paradigms, including a cascaded Whisper+NLLB setup and direct end-to-end fine-tuning of Whisper.</abstract>
       <url hash="492f8f5c">2025.iwslt-1.33</url>
@@ -458,7 +458,7 @@
       <author><first>Javier</first><last>Iranzo-Sanchez</last><affiliation>AppTek</affiliation></author>
       <author><first>Adrià</first><last>Giménez Pastor</last><affiliation>Universitat de Valencia</affiliation></author>
       <author><first>Jorge</first><last>Civera Saiz</last><affiliation>UPV/MLLP-VRAIN</affiliation></author>
-      <author><first>Alfons</first><last>Juan</last><affiliation>Universitat Politècnica de València</affiliation></author>
+      <author id="alfons-juan"><first>Alfons</first><last>Juan</last><affiliation>Universitat Politècnica de València</affiliation></author>
       <pages>340-346</pages>
       <abstract>This work describes the participation of the MLLP-VRAIN research group in the shared task of the IWSLT 2025 Simultaneous Speech Translation track. Our submission addresses the unique challenges of real-time translation of long-form speech by developing a modular cascade system that adapts strong pre-trained models to streaming scenarios. We combine Whisper Large-V3-Turbo for ASR with the multilingual NLLB-3.3B model for MT, implementing lightweight adaptation techniques rather than training new end-to-end models from scratch. Our approach employs document-level adaptation with prefix training to enhance the MT model’s ability to handle incomplete inputs, while incorporating adaptive emission policies including a wait-k strategy and RALCP for managing the translation stream. Specialized buffer management techniques and segmentation strategies ensure coherent translations across long audio sequences. Experimental results on the ACL60/60 dataset demonstrate that our system achieves a favorable balance between translation quality and latency, with a BLEU score of 31.96 and non-computational-aware StreamLAAL latency of 2.94 seconds. Our final model achieves a preliminary score on the official test set (IWSLT25Instruct) of 29.8 BLEU. Our work demonstrates that carefully adapted pre-trained components can create effective simultaneous translation systems for long-form content without requiring extensive in-domain parallel data or specialized end-to-end training.</abstract>
       <url hash="1446bbaf">2025.iwslt-1.35</url>
@@ -571,7 +571,7 @@
       <author><first>Tanel</first><last>Alumäe</last><affiliation>TalTech</affiliation></author>
       <author><first>Antonios</first><last>Anastasopoulos</last><affiliation>GMU</affiliation></author>
       <author><first>Luisa</first><last>Bentivogli</last><affiliation>FBK</affiliation></author>
-      <author><first>Ondřej</first><last>Bojar</last><affiliation>Charles U.</affiliation></author>
+      <author id="ondrej-bojar"><first>Ondřej</first><last>Bojar</last><affiliation>Charles U.</affiliation></author>
       <author><first>Claudia</first><last>Borg</last><affiliation>U. Malta</affiliation></author>
       <author><first>Fethi</first><last>Bougares</last><affiliation>Elyadata</affiliation></author>
       <author><first>Roldano</first><last>Cattoni</last><affiliation>FBK</affiliation></author>
@@ -596,7 +596,7 @@
       <author><first>Yasmin</first><last>Moslem</last><affiliation>ADAPT Centre</affiliation></author>
       <author><first>Kenton</first><last>Murray</last><affiliation>JHU</affiliation></author>
       <author><first>Satoshi</first><last>Nakamura</last><affiliation>CUHK Shenzhen</affiliation></author>
-      <author><first>Matteo</first><last>Negri</last><affiliation>FBK</affiliation></author>
+      <author id="matteo-negri"><first>Matteo</first><last>Negri</last><affiliation>FBK</affiliation></author>
       <author><first>Jan</first><last>Niehues</last><affiliation>KIT</affiliation></author>
       <author><first>Atul</first><last>Kr. Ojha</last><affiliation>U. Galway</affiliation></author>
       <author><first>John E.</first><last>Ortega</last><affiliation>Northeastern U.</affiliation></author>
@@ -609,11 +609,11 @@
       <author><first>Nivedita</first><last>Sethiya</last><affiliation>IIT Indore</affiliation></author>
       <author><first>Claytone</first><last>Sikasote</last><affiliation>U. Cape Town</affiliation></author>
       <author><first>Matthias</first><last>Sperber</last><affiliation>Apple</affiliation></author>
-      <author><first>Sebastian</first><last>Stüker</last><affiliation>Zoom</affiliation></author>
+      <author id="sebastian-stuker"><first>Sebastian</first><last>Stüker</last><affiliation>Zoom</affiliation></author>
       <author><first>Katsuhito</first><last>Sudoh</last><affiliation>Nara Women’s U.</affiliation></author>
       <author><first>Brian</first><last>Thompson</last><affiliation>Amazon</affiliation></author>
       <author><first>Marco</first><last>Turchi</last><affiliation>Zoom</affiliation></author>
-      <author><first>Alex</first><last>Waibel</last><affiliation>CMU</affiliation></author>
+      <author id="alex-waibel"><first>Alex</first><last>Waibel</last><affiliation>CMU</affiliation></author>
       <author><first>Patrick</first><last>Wilken</last><affiliation>AppTek</affiliation></author>
       <author><first>Rodolfo</first><last>Zevallos</last><affiliation>U. Pompeu Fabra</affiliation></author>
       <author><first>Vilém</first><last>Zouhar</last><affiliation>ETH</affiliation></author>
