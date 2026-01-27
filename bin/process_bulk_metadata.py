@@ -47,6 +47,7 @@ import os
 import copy
 from datetime import datetime
 from typing import List
+import logging as log
 
 from github import Github
 import git
@@ -54,6 +55,7 @@ import json
 import lxml.etree as ET
 import re
 
+from acl_anthology.utils import setup_rich_logging
 
 from anthology.utils import deconstruct_anthology_id, indent, make_simple_element
 
@@ -160,10 +162,9 @@ class AnthologyMetadataUpdater:
                 )
                 a_new = changes["authors_new"]  #  First  Last | First F  Last Last
                 if a_from_list != a_new:
-                    print(
+                    log.warning(
                         f"  !! Author information in list and string don't match: "
                         f"{anthology_id}: please check again !!",
-                        file=sys.stderr,
                     )
 
             author_tag = "editor" if paper_id == "0" else "author"
@@ -214,10 +215,9 @@ class AnthologyMetadataUpdater:
                         b_f = backup_node.findtext("first")
                         b_l = backup_node.findtext("last")
                         if b_f != first and b_l != last:
-                            print(
+                            log.warning(
                                 f"  Potentially dangerous node selection for "
                                 f"'{first}  {last}': '{b_f}  {b_l}'",
-                                file=sys.stderr,
                             )
 
                     return existing_nodes.pop(0)
@@ -339,62 +339,48 @@ class AnthologyMetadataUpdater:
                 continue
 
             self.stats["visited_issues"] += 1
+
+            if ids and issue.number not in ids:
+                continue
+            opened_at = issue.created_at.strftime("%Y-%m-%d")
+            log.debug(f"ISSUE {issue.number} ({opened_at}): {issue.title} {issue.html_url}")
+
+            # Parse metadata changes from issue
             try:
-                if ids and issue.number not in ids:
-                    continue
-                opened_at = issue.created_at.strftime("%Y-%m-%d")
-                if verbose:
-                    print(
-                        f"ISSUE {issue.number} ({opened_at}): {issue.title} {issue.html_url}",
-                        file=sys.stderr,
-                    )
+                json_block = self._parse_metadata_changes(issue.body)
+            except json.decoder.JSONDecodeError as e:
+                log.warning(f"Failed to parse JSON block in #{issue.number}: {e}")
+                json_block = None
 
-                # Parse metadata changes from issue
-                try:
-                    json_block = self._parse_metadata_changes(issue.body)
-                except json.decoder.JSONDecodeError as e:
-                    print(
-                        f"Failed to parse JSON block in #{issue.number}: {e}",
-                        file=sys.stderr,
-                    )
-                    json_block = None
+            if not json_block:
+                if close_old_issues:
+                    # todo optionally add try catch to not interrupt flow if this fails
+                    self.add_comment_to_issue_without_json(issue, dry_run=dry_run)
+                continue
 
-                if not json_block:
-                    if close_old_issues:
-                        self.add_comment_to_issue_without_json(
-                            issue, dry_run=dry_run, verbose=verbose
-                        )
+            self.stats["relevant_issues"] += 1
 
-                    continue
+            # Skip issues that are not approved by team member
+            if not skip_validation and not self._is_approved(issue):
+                log.debug("-> Skipping (not approved yet)")
+                self.stats["unapproved_issues"] += 1
+                continue
+            self.stats["approved_issues"] += 1
 
-                self.stats["relevant_issues"] += 1
-
-                # Skip issues that are not approved by team member
-                if not skip_validation and not self._is_approved(issue):
-                    if verbose:
-                        print("-> Skipping (not approved yet)", file=sys.stderr)
-                    self.stats["unapproved_issues"] += 1
-                    continue
-
-                self.stats["approved_issues"] += 1
-
+            try:
                 anthology_id = json_block.get("anthology_id")
                 collection_id, _, _ = deconstruct_anthology_id(anthology_id)
 
                 # XML file path relative to repo root (for reading current state)
                 xml_repo_path = f"data/xml/{collection_id}.xml"
-                if verbose:
-                    print("-> Applying changes to XML file", file=sys.stderr)
+                log.debug("-> Applying changes to XML file")
 
                 try:
                     tree = self._apply_changes_to_xml(
                         xml_repo_path, anthology_id, json_block, verbose
                     )
                 except Exception as e:
-                    print(
-                        f"Failed to apply changes to #{issue.number}: {e}",
-                        file=sys.stderr,
-                    )
+                    log.warning(f"Failed to apply changes to #{issue.number}: {e}")
                     continue
 
                 if tree:
@@ -417,8 +403,8 @@ class AnthologyMetadataUpdater:
                     closed_issues.append(issue)
 
             except Exception as e:
-                print(f"Error processing issue {issue.number}: {type(e)}: {e}")
-                e.print_stack_trace()
+                log.warning(f"Error processing issue {issue.number}: {type(e)}: {e}")
+                # e.print_stack_trace()
                 continue
 
         if len(closed_issues) > 0:
@@ -441,29 +427,29 @@ class AnthologyMetadataUpdater:
                     head=new_branch_name,
                     base="master",
                 )
-                print(f"Created PR: {pr.html_url}", file=sys.stderr)
+                log.info(f"Created PR: {pr.html_url}")
 
         # Switch back to original branch
         self.local_repo.head.reference = current_branch
         self.stats["closed_issues"] = len(closed_issues)
 
-    def add_comment_to_issue_without_json(self, issue, dry_run: bool, verbose: bool):
-        # for old issues, filed without a JSON block, we append a comment
-        # alerting them to how to file a new issue using the new format.
-        # If possible, we first parse the Anthology ID out of the title:
-        # Metadata correction for {anthology_id}. We can then use this to
-        # post a link to the original paper so they can go through the
-        # automated process.
+    def add_comment_to_issue_without_json(self, issue, dry_run: bool):
+        """
+        Legacy method: close old issues having outdated format
+
+        for old issues, filed without a JSON block, we append a comment
+        alerting them to how to file a new issue using the new format.
+        If possible, we first parse the Anthology ID out of the title:
+        Metadata correction for {anthology_id}. We can then use this to
+        post a link to the original paper so they can go through the
+        automated process.
+        """
         anthology_id = None
         match = re.search(r"Paper Metadata: [\{]?(.*)[\}]?", issue.title)
         if match:
             anthology_id = match[1]
         if anthology_id:
-            if verbose:
-                print(
-                    f"-> Closing issue {issue.number} with a link to the new process",
-                    file=sys.stderr,
-                )
+            log.debug(f"-> Closing issue {issue.number} with a link to the new process")
             if not dry_run:
                 url = f"https://aclanthology.org/{anthology_id}"
                 issue.create_comment(
@@ -485,11 +471,11 @@ class AnthologyMetadataUpdater:
         # If the branch exists, use it, else create it
         if new_branch_name in self.local_repo.heads:
             ref = self.local_repo.heads[new_branch_name]
-            print(f"Using existing branch {new_branch_name}", file=sys.stderr)
+            log.info(f"Using existing branch {new_branch_name}")
         else:
             # Create new branch
             ref = self.local_repo.create_head(new_branch_name, base_branch)
-            print(f"Created branch {new_branch_name} from {base_branch}", file=sys.stderr)
+            log.info(f"Created branch {new_branch_name} from {base_branch}")
 
         # store the current branch
         current_branch = self.local_repo.head.reference
@@ -501,6 +487,8 @@ class AnthologyMetadataUpdater:
 
 if __name__ == "__main__":
     github_token = os.getenv("GITHUB_TOKEN")
+    if not github_token:
+        raise ValueError("Please set GITHUB_TOKEN environment variable")
 
     import argparse
 
@@ -525,8 +513,8 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    if not github_token:
-        raise ValueError("Please set GITHUB_TOKEN environment variable")
+    log_level = log.DEBUG if not args.quiet else log.INFO
+    tracker = setup_rich_logging(level=log_level)
 
     updater = AnthologyMetadataUpdater(github_token)
     updater.process_metadata_issues(
