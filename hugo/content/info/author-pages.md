@@ -6,12 +6,12 @@ date: "2026-01-28"
 ---
 Every author appearing on a paper in the Anthology is given an author page. The ACL Anthology distinguishes between _verified_ and _unverified_ authors.
 
-A verified author has an ORCID icon <i class="fab fa-orcid text-verified"></i> next to the author's name. If your author page is verified:
+A verified author has an ORCID icon <i class="fab fa-orcid text-verified"></i> next to the author's name (or sometimes a green question mark <i class="fas fa-question-circle text-verified"></i>). If your author page is verified:
 - Papers linked to your ORCID iD will appear on your page.
 - Papers by someone with the same name as you, but linked to a different ORCID iD, will not appear on your page.
 - Initially, papers by someone with the same name as you, but not linked to an ORCID iD, will still appear on your page. This behavior can be changed with a one-time request; please see [How to split an author page](#how-to-split-an-author-page).
 
-An unverified author page has `/unverified/` appended to its URL, and a question mark <i class="fas fa-question-circle text-secondary"></i> next to the author's name. If your author page is unverified:
+An unverified author page has `/unverified/` appended to its URL, and a gray question mark <i class="fas fa-question-circle text-secondary"></i> next to the author's name. If your author page is unverified:
 - Papers that list you as an author with a different spelling will appear on a different author page. For more information, please see [How to merge two author pages](#how-to-merge-two-author-pages).
 - Papers by someone with the same name as you (if they are also not verified) will appear on your author page. For more information, please see [How to split an author page](#how-to-split-an-author-page).
 
