@@ -17,7 +17,7 @@ An unverified author page has `/unverified/` appended to its URL, and a gray que
 
 For more details on how verification works, please see [How the ACL Anthology verifies authors]({{< ref "/info/verification">}}). To learn how to get your author page verified, please continue to [How to get an author page verified](#how-to-get-an-author-page-verified).
 
-### How to get an author page verified
+### How to get your author page verified
 
 1. Check whether your author page is verified already. (It may be if one of your publications was submitted with an ORCID iD.)
 
@@ -49,7 +49,7 @@ In each of these systems, the name that you enter is the one that gets used in t
 - Fill out at least the required fields, and check the "Verification" checkbox.
 - Click on the "Create" button, and wait for the issue to be reviewed by Anthology staff.
 
-### How to add papers to an author page
+### How to remove papers from your author page
 
 When your author page is first verified, any papers published under your name will appear on your page. However, if another author has the same name as you, their papers may also appear on your page. To fix this, please file a split/disambiguate request.
 
@@ -60,7 +60,7 @@ When your author page is first verified, any papers published under your name wi
 
 Afterwards, any new papers published under your name but not linked to an ORCID iD will no longer appear on your page.
 
-### How to remove papers from an author page
+### How to add papers to your author page
 
 After your author page is verified, any papers published under your name, if they are not linked to an ORCID iD, may appear on a different author page. To fix this, please file a merge request.
 
