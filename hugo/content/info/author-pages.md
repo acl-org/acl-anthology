@@ -58,5 +58,5 @@ After your author page is verified, any papers published under different spellin
 
 - Find your ACL Anthology author page (by using the search bar, or by finding one of your papers and clicking on your name).
 - Click on the "Fix author" button at the bottom of the links on the right-hand side of the page.
-- Fill out at least the required fields, check the "Merge profiles" checkbox, and list your papers in the "Supporting Information" field.
+- Fill out at least the required fields, check the "Merge profiles" checkbox, and list the pages to be merged in the "Supporting Information" field.
 - Click on the "Create" button, and wait for the issue to be reviewed by Anthology staff.
