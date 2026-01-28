@@ -9,11 +9,11 @@ Every author appearing on a paper in the Anthology is given an author page. The 
 A verified author has an ORCID icon <i class="fab fa-orcid text-verified"></i> next to the author's name (or sometimes a green question mark <i class="fas fa-question-circle text-verified"></i>). If your author page is verified:
 - Papers linked to your ORCID iD will appear on your page.
 - Papers by someone with the same name as you, but linked to a different ORCID iD, will not appear on your page.
-- Initially, papers by someone with the same name as you, but not linked to an ORCID iD, will still appear on your page. This behavior can be changed with a one-time request; please see [How to split an author page](#how-to-split-an-author-page).
+- Initially, papers by someone with the same name as you, but not linked to an ORCID iD, will still appear on your page. This behavior can be changed with a one-time request; please see [How to remove papers from an author page](#how-to-remove-papers-from-an-author-page).
 
 An unverified author page has `/unverified/` appended to its URL, and a gray question mark <i class="fas fa-question-circle text-secondary"></i> next to the author's name. If your author page is unverified:
-- Papers that list you as an author with a different spelling will appear on a different author page. For more information, please see [How to merge two author pages](#how-to-merge-two-author-pages).
-- Papers by someone with the same name as you (if they are also not verified) will appear on your author page. For more information, please see [How to split an author page](#how-to-split-an-author-page).
+- Papers that list you as an author with a different spelling will appear on a different author page. For more information, please see [How to add papers to an author page](#how-to-add-papers-to-an-author-page).
+- Papers by someone with the same name as you (if they are also not verified) will appear on your author page. For more information, please see [How to remove papers from an author page](#how-to-remove-papers-from-an-author-page).
 
 For more details on how verification works, please see [How the ACL Anthology verifies authors]({{< ref "/info/verification">}}). To learn how to get your author page verified, please continue to [How to get an author page verified](#how-to-get-an-author-page-verified).
 
@@ -43,7 +43,7 @@ In each of these systems, the name that you enter is the one that gets used in t
 - Fill out at least the required fields, and check the "Verification" checkbox.
 - Click on the "Create" button, and wait for the issue to be reviewed by Anthology staff.
 
-### How to split an author page
+### How to add papers to an author page
 
 When your author page is first verified, any papers published under your name will appear on your page. However, if another author has the same name as you, their papers may also appear on your page. To fix this, please file a split/disambiguate request.
 
@@ -54,11 +54,11 @@ When your author page is first verified, any papers published under your name wi
 
 Afterwards, any new papers published under your name but not linked to an ORCID iD will no longer appear on your page.
 
-### How to merge two author pages
+### How to remove papers from an author page
 
-After your author page is verified, any papers published under different spellings of your name, if they are not linked to an ORCID iD, may appear on a different author page. To fix this, please file a merge request.
+After your author page is verified, any papers published under your name, if they are not linked to an ORCID iD, may appear on a different author page. To fix this, please file a merge request.
 
 - Find your ACL Anthology author page (by using the search bar, or by finding one of your papers and clicking on your name).
 - Click on the "Fix author" button at the bottom of the links on the right-hand side of the page.
-- Fill out at least the required fields, check the "Merge profiles" checkbox, and list the pages to be merged in the "Supporting Information" field.
+- Fill out at least the required fields, check the "Merge profiles" checkbox, and list the papers or pages to be merged in the "Supporting Information" field.
 - Click on the "Create" button, and wait for the issue to be reviewed by Anthology staff.
