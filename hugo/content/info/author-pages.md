@@ -4,7 +4,6 @@ linktitle: Author pages
 subtitle: How to keep your author page up-to-date
 date: "2026-01-28"
 ---
-
 Every author appearing on a paper in the Anthology is given an author page. The ACL Anthology distinguishes between _verified_ and _unverified_ authors.
 
 A verified author has an ORCID icon <i class="fab fa-orcid text-verified"></i> next to the author's name. If your author page is verified:
