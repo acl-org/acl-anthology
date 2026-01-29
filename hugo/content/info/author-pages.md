@@ -21,33 +21,33 @@ For more details on how verification works, please see [How the ACL Anthology ve
 
 1. Check whether your author page is verified already. (It may be if one of your publications was submitted with an ORCID iD.)
 
-- Find your ACL Anthology author page (by using the search bar, or by finding one of your papers and clicking on your name).
-- Look at the icon next to your name at the top of the page.
-    * If it is a green ORCID icon <i class="fab fa-orcid text-verified"></i>, you do not need to take any further action to verify your author page (but do check that the listed papers are correct; see [corrections]({{< ref "/info/corrections">}})).
-    * Otherwise, follow the instructions below.
+   - Find your ACL Anthology author page (by using the search bar, or by finding one of your papers and clicking on your name).
+   - Look at the icon next to your name at the top of the page.
+       * If it is a green ORCID icon <i class="fab fa-orcid text-verified"></i>, you do not need to take any further action to verify your author page (but do check that the listed papers are correct; see [corrections]({{< ref "/info/corrections">}})).
+       * Otherwise, follow the instructions below.
 
 2. Obtain an ORCID iD and ensure the orcid.org profile contains key information:
 
-- Visit [the ORCID registration form](https://orcid.org/register) if you need to create one, or navigate to your existing ORCID iD profile page and click the edit button.
-- Add name variants: Set your given and family names, your published name, and any name variants you have published under (e.g., with or without middle initials, former names, etc.). It is especially important to make sure you have at least one Latin-script variant of your name. ([This profile](https://orcid.org/0000-0002-1831-3457) is a good example.)
-- Make sure your name is visible to everyone.
-- Add educational history and affiliations: When we manually disambiguate an author, we may need to know the institution from which you received (or expect to receive) your highest degree, as part of our [human-focused person ID system]({{< ref "/info/names" >}}).
-- Less importantly, it can be helpful to the disambiguation process if you make the effort to add a few representative publications.
+   - Visit [the ORCID registration form](https://orcid.org/register) if you need to create one, or navigate to your existing ORCID iD profile page and click the edit button.
+   - Add name variants: Set your given and family names, your published name, and any name variants you have published under (e.g., with or without middle initials, former names, etc.). It is especially important to make sure you have at least one Latin-script variant of your name. ([This profile](https://orcid.org/0000-0002-1831-3457) is a good example.)
+   - Make sure your name is visible to everyone.
+   - Add educational history and affiliations: When we manually disambiguate an author, we may need to know the institution from which you received (or expect to receive) your highest degree, as part of our [human-focused person ID system]({{< ref "/info/names" >}}).
+   - Less importantly, it can be helpful to the disambiguation process if you make the effort to add a few representative publications.
 
-For more information about ORCID iDs and how the Anthology uses them, please [ORCID iDs in the ACL Anthology]({{< ref "/info/orcid">}}).
+   For more information about ORCID iDs and how the Anthology uses them, please [ORCID iDs in the ACL Anthology]({{< ref "/info/orcid">}}).
 
 3. Link your profiles on conference management systems to your ORCID iD:
 
-- **OpenReview:** Visit the ["Edit Profile" page](https://openreview.net/profile/edit). (If necessary, enter your username and password and click on "Login to OpenReview.") Click on the "Personal Links" section. Enter your ORCID in the "ORCID URL" field, and click on the "Save Profile Changes" button.
-- **Softconf/START:** Visit the ["Update Profile" page](https://www.softconf.com/naacl2021/super/scmd.cgi?ucmd=updateProfile). (If necessary, click on "To Login Page", enter your username and password, click on the "ENTER" button, and click on ["Update Profile"](https://www.softconf.com/naacl2021/super/scmd.cgi?ucmd=updateProfile) again.) Scroll down to the "Additional Information for Authors and Reviewers" section. Enter your ORCID in the "ORCID" field, and click on the "SUBMIT DATA" button.
+   - **OpenReview:** Visit the ["Edit Profile" page](https://openreview.net/profile/edit). (If necessary, enter your username and password and click on "Login to OpenReview.") Click on the "Personal Links" section. Enter your ORCID in the "ORCID URL" field, and click on the "Save Profile Changes" button.
+   - **Softconf/START:** Visit the ["Update Profile" page](https://www.softconf.com/naacl2021/super/scmd.cgi?ucmd=updateProfile). (If necessary, click on "To Login Page", enter your username and password, click on the "ENTER" button, and click on ["Update Profile"](https://www.softconf.com/naacl2021/super/scmd.cgi?ucmd=updateProfile) again.) Scroll down to the "Additional Information for Authors and Reviewers" section. Enter your ORCID in the "ORCID" field, and click on the "SUBMIT DATA" button.
 
-In each of these systems, the name that you enter is the one that gets used in the paper's metadata. Please make sure that this name matches the name on the PDF file, and that this name matches one of the ORCID variants, ideally your published name.
+   In each of these systems, the name that you enter is the one that gets used in the paper's metadata. Please make sure that this name matches the name on the PDF file, and that this name matches one of the ORCID variants, ideally your published name.
 
 4. File an issue on GitHub.
 
-- On your ACL Anthology page, click on the "Fix author" button at the bottom of the links on the right-hand side of the page.
-- Fill out at least the required fields, and check the "Verification" checkbox.
-- Click on the "Create" button, and wait for the issue to be reviewed by Anthology staff.
+   - On your ACL Anthology page, click on the "Fix author" button at the bottom of the links on the right-hand side of the page.
+   - Fill out at least the required fields, and check the "Verification" checkbox.
+   - Click on the "Create" button, and wait for the issue to be reviewed by Anthology staff.
 
 ### How to remove papers from your author page
 
