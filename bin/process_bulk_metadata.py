@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# Copyright 2024 Matt Post <post@cs.jhu.edu>
+# Copyright 2024 Matt Post <post@cs.jhu.edu>, 2026 weissenh
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -37,35 +37,108 @@ Options:
     ids                      Specific issue IDs to process (default: all)
 
 TODO:
-- fix reordering bug
-- use python library to do it
-- ensure valid XML (e.g. "Buy&Hold")
+- fix reordering bug, improve name matching
+- detect duplicate issues
+- allow specifying own branch name
 """
 
-import sys
 import os
-import copy
+import warnings
 from datetime import datetime
-from typing import List
+from typing import List, Optional, Tuple, Dict
 import logging as log
 
 from github import Github
+from github.Issue import Issue
 import git
 import json
-import lxml.etree as ET
 import re
+import lxml.etree as etree
 
-from acl_anthology.utils import setup_rich_logging
-
-from anthology.utils import deconstruct_anthology_id, indent, make_simple_element
+from acl_anthology import Anthology
+from acl_anthology.collections import Paper
+from acl_anthology.people import NameSpecification, Name, Person
+from acl_anthology.text import MarkupText
+from acl_anthology.utils.ids import is_verified_person_id
 
 close_old_issue_comment = """### ⓘ Notice
 
 The Anthology has implemented a new, semi-automated workflow to better handle metadata corrections. We are closing this issue, and invite you to resubmit your request using our new workflow. Please visit your paper page ([{anthology_id}]({url})) and click the yellow 'Fix data' button. This will guide you through the new process step by step."""
 
 
+def match_old_to_new_authors(
+    paper: Paper, new_authors: List[NameSpecification], anthology: Anthology
+) -> List[Tuple[NameSpecification, NameSpecification]]:
+    """
+    Given anthology (PersonIndex), matches authors from paper to new author list
+
+    Returns list of old,new NameSpecifications of length new_authors. old may be None
+
+    Match list of new authors to paper's current authors using heuristics
+    TODO: improve matching - reordering bug probably still present
+    TODO: also handle case of completely different author set
+    Heuristics:
+    1. explicit id match
+    2. slugified names match
+    3. If nothing matches, backup to next available in candidate list (or None if no more)
+    """
+    old_new_pairs = list()
+
+    old_authors = paper.authors if not paper.is_frontmatter else paper.get_editors()
+    # candidates: dict( position_old -> (NameSpec, Person) )
+    candidates = {
+        i: (namespec, anthology.resolve(namespec))
+        for i, namespec in enumerate(old_authors)
+    }
+
+    for new_author in new_authors:
+        # (1) id match?  todo: breaks if reordering done by replacing names instead of drag/drop
+        id_ = new_author.id
+        if id_:
+            # NameSpecs often have None id, but the Person they are resolved to has an id we can compare to
+            gen = (
+                (i, ns)
+                for i, (ns, p) in candidates.items()
+                if ns.id == id_ or id_ == p.id
+            )
+            if item := next(gen, None):
+                i, ns = item
+                old_new_pairs.append((ns, new_author))
+                del candidates[i]
+                continue
+        # (2) Exact match of ORCID (orcid needs to be non-empty for both)
+        # skip this case as we shouldn't allow adding ORCIDs in issue json block?
+        # (3) Match on name slugs
+        slug = new_author.name.slugify()
+        gen = ((i, ns) for i, (ns, _) in candidates.items() if ns.name.slugify() == slug)
+        if item := next(gen, None):
+            i, ns = item
+            old_new_pairs.append((ns, new_author))
+            del candidates[i]
+            continue
+        # (4) Backup solution to use next available author in the list
+        if candidates:
+            first, last = new_author.first, new_author.last
+            # can lead to errors: print a warning unless either first or last matches
+            pos = min(candidates.keys())
+            backup_ns = candidates[pos][0]
+            b_f, b_l = backup_ns.first, backup_ns.last
+            if b_f != first and b_l != last:
+                log.debug(
+                    f"  Potentially dangerous node selection for "
+                    f"'{first}  {last}': '{b_f}  {b_l}'",
+                )
+            old_new_pairs.append((backup_ns, new_author))
+            del candidates[pos]
+            continue
+        # if no candidate could be found (candidate list is empty): use None as old value
+        old_new_pairs.append((None, new_author))
+
+    return old_new_pairs
+
+
 class AnthologyMetadataUpdater:
-    def __init__(self, github_token):
+    def __init__(self, github_token, verbose: bool = False):
         """Initialize with GitHub token."""
         self.github = Github(github_token)
         self.github_repo = self.github.get_repo("acl-org/acl-anthology")
@@ -76,10 +149,13 @@ class AnthologyMetadataUpdater:
             "approved_issues": 0,
             "unapproved_issues": 0,
         }
+        self.verbose = verbose
 
-    def _is_approved(self, issue):
-        """Check if issue has approval from anthology team member."""
-        return "approved" in [label.name for label in issue.get_labels()]
+        self.load_anthology()
+
+    def load_anthology(self):
+        self.anthology = Anthology.from_within_repo(verbose=self.verbose)
+        # self.anthology.load_all()  # not needed to load_all?
 
     def _parse_metadata_changes(self, issue_body: str) -> None | dict:
         """Parse the metadata changes from issue body.
@@ -113,212 +189,250 @@ class AnthologyMetadataUpdater:
 
         return None
 
-    def _apply_changes_to_xml(
-        self, xml_repo_path: str, anthology_id: str, changes: dict, verbose: bool
-    ) -> ET._ElementTree:
-        """Apply the specified changes to XML file."""
+    def evaluate_issue(
+        self,
+        issue: Issue,
+        ids: List[int] = [],
+        dry_run: bool = True,
+        skip_validation: bool = False,
+        close_old_issues: bool = False,
+    ) -> Optional[Tuple[Paper, Dict[str, str]]]:
+        """
+        Filters issues if eligible, retrieves Paper and change request on the way
 
-        tree = ET.parse(xml_repo_path)
-        # factored version
-        # tree = ET.ElementTree(ET.fromstring(self.get_file_contents(xml_repo_path)))
+        returns respective paper and changes asked for in case of success, None otherwise
+        """
 
-        _, volume_id, paper_id = deconstruct_anthology_id(anthology_id)
+        def is_approved(issue: Issue):
+            return "approved" in [label.name for label in issue.get_labels()]
 
-        is_frontmatter = paper_id == "0"
+        if "metadata correction" not in issue.title.lower():
+            return None
+        self.stats["visited_issues"] += 1
 
-        if is_frontmatter:
-            paper_node = tree.getroot().find(f"./volume[@id='{volume_id}']/meta")
-        else:
-            paper_node = tree.getroot().find(
-                f"./volume[@id='{volume_id}']/paper[@id='{paper_id}']"
+        if ids and issue.number not in ids:
+            return None
+
+        opened_at = issue.created_at.strftime("%Y-%m-%d")
+        log.info(f"ISSUE {issue.number} ({opened_at}): {issue.title} {issue.html_url}")
+
+        # Parse metadata changes from issue
+        try:
+            json_block = self._parse_metadata_changes(issue.body)
+        except json.decoder.JSONDecodeError as e:
+            log.warning(f"-> Failed to parse JSON block in #{issue.number}: {e}")
+            json_block = None
+
+        if not json_block:
+            if close_old_issues:
+                self.add_comment_to_issue_without_json(issue, dry_run=dry_run)
+            return None
+        self.stats["relevant_issues"] += 1
+
+        # Skip issues that are not approved by team member
+        if not skip_validation and not is_approved(issue):
+            log.info("-> Skipping (not approved yet)")
+            self.stats["unapproved_issues"] += 1
+            return None
+        self.stats["approved_issues"] += 1
+
+        # Get anthology id to find paper in need for correction
+        try:
+            anthology_id = json_block.get("anthology_id")
+        except AttributeError:  # if json object isn't a dict
+            anthology_id = None
+
+        if (
+            anthology_id is None
+            or (paper := self.anthology.get_paper(anthology_id)) is None
+        ):
+            log.warning(f"-> Anthology ID invalid/Paper not found: {anthology_id}")
+            return None
+
+        return paper, json_block
+
+    def _check_internal_consistency_json_author_lists(
+        self, changes: dict, full_id: str
+    ) -> None:
+        if "authors_new" not in changes:
+            return
+        # Check that author changes provided as list and as string match: otherwise something might be wrong
+        a_from_list = " | ".join(
+            [author['first'] + "  " + author['last'] for author in changes["authors"]]
+        )
+        a_new = changes["authors_new"]  # First  Last | First F  Last Last
+        if a_from_list != a_new:
+            log.warning(
+                f"  !! Author information in list and string don't match: "
+                f"{full_id}: please check again !!",
             )
-        if paper_node is None:
-            raise Exception(f"-> Paper not found in XML file: {xml_repo_path}")
+        return
 
-        # Apply changes to XML
-        if not is_frontmatter:
-            # frontmatter has no title or abstract
-            for key in ["title", "abstract"]:
-                if key in changes:
-                    node = paper_node.find(key)
-                    if node is None:
-                        node = make_simple_element(key, parent=paper_node)
-                        # set the node to the structure of the new string
-                    try:
-                        new_node = ET.fromstring(f"<{key}>{changes[key]}</{key}>")
-                    except ET.XMLSyntaxError as e:
-                        raise e
-                    # replace the current node with the new node in the tree
-                    paper_node.replace(node, new_node)
+    def _get_namespec_from_changes(self, changes: dict) -> List[NameSpecification]:
+        """Convert the JSON-derived author list into  List of NameSpecifications"""
+        # todo[enhancement]: we don't process orcid, affiliations, variants right now
+        assert "authors" in changes
+        namespecs = list()
+
+        for author in changes["authors"]:
+            # author is assumed to be dict with ['first', 'last', 'id'] as keys (potentially omitted/empty)
+            # NameSpecification/Name do distinguish '' and None, while I'd like None for both
+            # NameSpecification won't complain if id is not known to the index
+            # todo: test all cases
+            if 'id' in author and author['id'] == '':
+                author['id'] = None
+            if 'last' not in author or author['last'] == '':
+                # NameSpecs cannot have empty last name:
+                # try to circumvent with first name if possible, otherwise raise Exception
+                if author.get('first', ''):
+                    log.warning(
+                        f"No last name provided "
+                        f"- will use first name instead: '{author['first']}'"
+                    )
+                    author['last'] = author['first']
+                    author['first'] = None
+                else:
+                    log.error("Empty first and last name provided, cannot continue")
+                    raise ValueError("Empty names are not allowed")
+
+            ns = NameSpecification(id=author.get('id'), name=Name.from_dict(author))
+            namespecs.append(ns)
+
+        return namespecs
+
+    def _merge_namespecs(
+        self, existing_author: Optional[NameSpecification], new_author: NameSpecification
+    ) -> NameSpecification:
+        """
+        Return NameSpecification merging information from both arguments
+
+        Prefers to keep all information from existing_author if present. If there is no
+        existing author, will return new author, but with id set to None to not write
+        any ids to XML (TBD). Mainly updates author name of existing author (this may
+        introduce a new name variant to a verified author).
+        """
+
+        # todo simplify logic below if possible (after questions answered)
+        def log_if_different(asked: Optional[str], decision: str):
+            if asked is not None and asked != decision:
+                log.debug(
+                    f"  ID mismatch between asked ({asked}) and final decision ({decision})"
+                )
+
+        if existing_author is None:
+            # no existing author, so no need to copy over information like orcid etc.
+            # Should we allow submitters to assign an ID, rather than the library figuring it out?
+            # The library will usually assign unverified (disable matching true or name not known),
+            # unless there is a single, verified person... but even then no explicit id needed?
+            # -> Decide to set to None
+            if new_author.id is not None and is_verified_person_id(new_author.id):
+                # Only notify if provided id is known in principle, but is not the one
+                # that will show up after correction: happens if EITHER name lookup
+                # yielded multiple persons OR one person but with different id
+                pp = self.anthology.find_people(new_author.name)
+                if len(pp) > 1 or (len(pp) == 1 and pp.pop().id != new_author.id):
+                    log.debug(
+                        f"Will not consider provided id {new_author.id} "
+                        f"for newly inserted author {new_author.name}."
+                    )
+            # -> Decision None
+            new_author.id = None
+            return new_author
+
+        # else:  # has old author info to compare to
+        if existing_author.name == new_author.name:  # shorcut for authors not changed
+            return existing_author  # we don't allow id-only changes
+        # use existing NameSpec and only change where necessary, definitely change name
+        p = self.anthology.resolve(existing_author)
+        assert isinstance(
+            p, Person
+        ), "Existing author initially retrieved from anthology, so p cannot be a list"
+
+        existing_author.name = new_author.name
+        if existing_author.orcid is not None or p.is_explicit:
+            # for verified authors only allow name change - no need to update id
+            name = new_author.name
+            if not p.has_name(name):
+                log.info(
+                    f"  Added new name variant '{name}' to {p.id} ({p.canonical_name})"
+                )
+                p.add_name(name)
+                # todo: is this enough? do I have to check for newly introduced namesakes?
+            log_if_different(new_author.id, p.id)
+        else:  # unverified old author
+            pp = self.anthology.find_people(new_author.name)
+            if len(pp) == 0:  # discovered new name and old was unverified anyway:
+                existing_author.id = None
+            elif len(pp) > 1:  # new name is ambiguous!
+                # todo[question]: should we allow disambiguation via metadata correction?
+                #   lean towards no: submitter might not have intended this disambiguation,
+                #   aren't even aware of ambiguity  -> decision to make unverified
+                existing_author.id = None
+            else:  # exactly one person
+                new_p = pp.pop()
+                if not is_verified_person_id(new_p.id):  # unverified: no id in XML please
+                    existing_author.id = None
+                else:
+                    # todo[question]: if name unambiguously points to one verified person:
+                    #   should the XML have an id-attribute or not? (cf. above no existing_author)
+                    # existing_author.id = new_p.id  # <- store in XML
+                    # log_if_different(asked=new_author.id, decision=existing_author.id)
+                    existing_author.id = None
+        return existing_author
+
+    def _update_paper_authors(self, paper: Paper, changes: dict) -> Paper:
+        """
+        Update authors of the paper as specified by changes
+
+        Keep existing data where possible (e.g. affiliation, orcid etc).
+        """
+        assert "authors" in changes, "Only call this method, if authors-key in JSON block"
+
+        # (1) Input plausibility checks  # todo extend and move input checks higher up?
+        if self.verbose:
+            self._check_internal_consistency_json_author_lists(changes, paper.full_id)
+
+        # (2) Convert new author list into NameSpecifications, match authors to existing
+        new_authors = self._get_namespec_from_changes(changes)  # can raise ValueError?
+        old_new_matched = match_old_to_new_authors(paper, new_authors, self.anthology)
+
+        # (3) Collect final list of authors - updating information where necessary
+        # Copying over non-changed, existing attributes from old_author if available
+        final_authors = list()  # can simplify to list comprehension after debugging
+        for existing_author, new_author in old_new_matched:
+            author = self._merge_namespecs(existing_author, new_author)
+            final_authors.append(author)
+
+        # (4) Finally we replace the old list of authors/editors with the new one
+        if paper.is_frontmatter:
+            paper.parent.editors = final_authors
+        else:  # assume it is normal Paper with authors field
+            paper.authors = final_authors
+
+        return paper
+
+    def _apply_changes_to_paper(self, paper: Paper, changes: dict) -> Paper:
+        """Apply the specified changes to the paper."""
+
+        def str_to_markup(text: str) -> MarkupText:  # raises lxml.etree.XMLSyntaxError
+            return MarkupText.from_xml(etree.fromstring(f"<dummy>{text}</dummy>"))
+
+        if not paper.is_frontmatter:
+            # frontmatter has no title or abstract  : cannot change booktitle
+            if "title" in changes:
+                paper.title = str_to_markup(changes['title'])
+            if "abstract" in changes:
+                paper.abstract = str_to_markup(changes['abstract'])
 
         if "authors" in changes:
-            if verbose and "authors_new" in changes:
-                # Check that author changes provided as list and as string match: otherwise something might be wrong
-                a_from_list = " | ".join(
-                    [
-                        author['first'] + "  " + author['last']
-                        for author in changes["authors"]
-                    ]
-                )
-                a_new = changes["authors_new"]  #  First  Last | First F  Last Last
-                if a_from_list != a_new:
-                    log.warning(
-                        f"  !! Author information in list and string don't match: "
-                        f"{anthology_id}: please check again !!",
-                    )
+            paper = self._update_paper_authors(paper=paper, changes=changes)
 
-            author_tag = "editor" if paper_id == "0" else "author"
-
-            existing_nodes = list(paper_node.findall(author_tag))
-            for author_node in existing_nodes:
-                paper_node.remove(author_node)
-
-            def match_existing(author_spec: dict) -> ET._Element | None:
-                """
-                Match existing XML node to author_spec derived from issue text
-
-                Using heuristics: (1) explicit id match (2) explicit orcid match
-                (3) explicit name match (exact match including split)
-                If nothing matches, backup to next author node in XML
-                """
-                # todo: do smarter matching to fix reordering bug
-                id_ = author_spec.get("id")
-                if id_:
-                    for node in existing_nodes:
-                        if node.get("id") == id_:
-                            existing_nodes.remove(node)
-                            return node
-
-                orcid = author_spec.get("orcid")
-                if orcid:
-                    for node in existing_nodes:
-                        if node.get("orcid") == orcid:
-                            existing_nodes.remove(node)
-                            return node
-
-                first = author_spec.get("first")
-                last = author_spec.get("last")
-                if first is not None or last is not None:
-                    for node in existing_nodes:
-                        if (
-                            node.findtext("first") == first
-                            and node.findtext("last") == last
-                        ):
-                            existing_nodes.remove(node)
-                            return node
-
-                if existing_nodes:
-                    # Backup solution to use next available node can lead to errors:
-                    if verbose:
-                        # print a warning unless either first or last matches this node
-                        backup_node = existing_nodes[0]
-                        b_f = backup_node.findtext("first")
-                        b_l = backup_node.findtext("last")
-                        if b_f != first and b_l != last:
-                            log.warning(
-                                f"  Potentially dangerous node selection for "
-                                f"'{first}  {last}': '{b_f}  {b_l}'",
-                            )
-
-                    return existing_nodes.pop(0)
-                return None
-
-            def append_text_elements(
-                tag: str, values: List[str] | str, parent: ET._Element
-            ) -> None:
-                if isinstance(values, list):
-                    for value in values:
-                        if value:
-                            make_simple_element(tag, text=value, parent=parent)
-                elif values:
-                    make_simple_element(tag, text=values, parent=parent)
-
-            if is_frontmatter:
-                prev_sibling = paper_node.find("booktitle")
-            else:
-                prev_sibling = paper_node.find("title")
-
-            for author in changes["authors"]:
-                existing_node = match_existing(author)
-
-                attrib = {}
-
-                id_value = None
-                if existing_node is not None and existing_node.get("id"):
-                    # if xml had id: use it or if issue had it too, id from issue supersedes
-                    id_value = existing_node.get("id")
-                    if author.get("id"):
-                        id_value = author["id"]
-                elif author.get("id") and existing_node is None:
-                    # no node found and id in issue found
-                    id_value = author["id"]
-
-                if id_value:
-                    attrib["id"] = id_value
-                    # todo no check performed whether id ever defined in name_variants.yaml?
-
-                orcid_value = None
-                if author.get("orcid"):
-                    orcid_value = author["orcid"]
-                elif existing_node is not None and existing_node.get("orcid"):
-                    orcid_value = existing_node.get("orcid")
-
-                if orcid_value:
-                    attrib["orcid"] = orcid_value
-
-                author_node = make_simple_element(
-                    author_tag, attrib=attrib, parent=paper_node, sibling=prev_sibling
-                )
-                prev_sibling = author_node
-
-                # below <author> add <first>,<last>,<affiliation>, <variant>
-                # filled either from existing node or from issue data (author)
-                first_value = author.get("first")
-                if first_value is None and existing_node is not None:
-                    first_value = existing_node.findtext("first")
-                if first_value:
-                    make_simple_element("first", text=first_value, parent=author_node)
-
-                last_value = author.get("last")
-                if last_value is None and existing_node is not None:
-                    last_value = existing_node.findtext("last")
-                if last_value:
-                    make_simple_element("last", text=last_value, parent=author_node)
-
-                if author.get("affiliation"):
-                    # this will take an affiliation from the issue text and insert it...  potentially overwriting existing!!!
-                    append_text_elements(
-                        "affiliation", author["affiliation"], author_node
-                    )
-                elif existing_node is not None:
-                    for elem in existing_node.findall("affiliation"):
-                        author_node.append(copy.deepcopy(elem))
-
-                if author.get("variant"):
-                    append_text_elements("variant", author["variant"], author_node)
-                elif existing_node is not None:
-                    for elem in existing_node.findall("variant"):
-                        author_node.append(copy.deepcopy(elem))
-
-        return tree
-
-    def get_file_contents(self, repo_path, ref="master"):
-        """
-        Github's repo.get_contents() method has a limit of 1MB for file size. For large files, we need to download from the raw URL. You'd think the API would just handle this transparently, but it doesn't; if the file is too big, it just returns an empty object, and you have to spend hours tracking down why it doesn't work.
-        """
-        # get the file contents from the repo from the specified ref
-        tree = self.local_repo.refs[ref].commit.tree
-
-        # Get file
-        blob = tree / repo_path
-        file_content = blob.data_stream.read()
-
-        return file_content
+        paper.refresh_bibkey()  # changes bibkey only if necessary
+        return paper
 
     def process_metadata_issues(
         self,
         ids=[],
-        verbose=False,
         skip_validation=False,
         dry_run=False,
         close_old_issues=False,
@@ -335,103 +449,94 @@ class AnthologyMetadataUpdater:
         closed_issues = []
 
         for issue in issues:
-            if "metadata correction" not in issue.title.lower():
+            # Parse issue and find paper, filtering out non-eligible issues
+            evaluation_result = self.evaluate_issue(
+                issue,
+                ids=ids,
+                dry_run=dry_run,
+                skip_validation=skip_validation,
+                close_old_issues=close_old_issues,
+            )
+            if not evaluation_result:
                 continue
+            paper, json_block = evaluation_result
 
-            self.stats["visited_issues"] += 1
-
-            if ids and issue.number not in ids:
-                continue
-            opened_at = issue.created_at.strftime("%Y-%m-%d")
-            log.debug(f"ISSUE {issue.number} ({opened_at}): {issue.title} {issue.html_url}")
-
-            # Parse metadata changes from issue
+            # Apply changes to paper
+            log.debug("-> Updating paper data based on correction requested")
             try:
-                json_block = self._parse_metadata_changes(issue.body)
-            except json.decoder.JSONDecodeError as e:
-                log.warning(f"Failed to parse JSON block in #{issue.number}: {e}")
-                json_block = None
-
-            if not json_block:
-                if close_old_issues:
-                    # todo optionally add try catch to not interrupt flow if this fails
-                    self.add_comment_to_issue_without_json(issue, dry_run=dry_run)
+                paper = self._apply_changes_to_paper(paper, json_block)
+            except Exception as e:  # e.g. XML Parsing failed
+                log.warning(f"Failed to apply changes to #{issue.number}: {e}")
+                # revert changes already made for this issue # todo how to best do this? test it thoroughly
+                self.load_anthology()
                 continue
 
-            self.stats["relevant_issues"] += 1
-
-            # Skip issues that are not approved by team member
-            if not skip_validation and not self._is_approved(issue):
-                log.debug("-> Skipping (not approved yet)")
-                self.stats["unapproved_issues"] += 1
-                continue
-            self.stats["approved_issues"] += 1
-
+            # Save changes to disk and commit
             try:
-                anthology_id = json_block.get("anthology_id")
-                collection_id, _, _ = deconstruct_anthology_id(anthology_id)
+                # Save changes to disk
+                paper.collection.save()
+                self.anthology.people.save()
+                self.anthology.reset_indices()
 
-                # XML file path relative to repo root (for reading current state)
-                xml_repo_path = f"data/xml/{collection_id}.xml"
-                log.debug("-> Applying changes to XML file")
-
-                try:
-                    tree = self._apply_changes_to_xml(
-                        xml_repo_path, anthology_id, json_block, verbose
+                # No need to take action if the paper XML hasn't received any updates
+                paper_path = paper.collection.path
+                if not self.local_repo.index.diff(None, paths=paper_path):
+                    # assume people file wasn't modified either # todo test this
+                    log.debug(
+                        f"Nothing modified for {paper.full_id} (#{issue.number}) "
+                        f"- nothing to commit. Please review again."
                     )
-                except Exception as e:
-                    log.warning(f"Failed to apply changes to #{issue.number}: {e}")
                     continue
 
-                if tree:
-                    indent(tree.getroot())
-
-                    # dump tree to file
-                    tree.write(
-                        xml_repo_path,
-                        encoding='UTF-8',
-                        xml_declaration=True,
-                        with_tail=True,
+                # Commit changes
+                # ... to the paper (XML of collection)
+                self.local_repo.index.add([paper.collection.path])
+                # ... to the people.yaml
+                # e.g. when the metadata correction has surfaced a new name variant
+                people_file = self.anthology.people.path
+                if self.local_repo.index.diff(None, paths=people_file):
+                    log.debug(
+                        f"People file has been modified too: "
+                        f"Due to {paper.full_id} (#{issue.number})"
                     )
+                    self.local_repo.index.add([people_file])
 
-                    # Commit changes
-                    self.local_repo.index.add([xml_repo_path])
-                    self.local_repo.index.commit(
-                        f"Process metadata corrections for {anthology_id} (closes #{issue.number})"
-                    )
+                self.local_repo.index.commit(
+                    f"Process metadata corrections for {paper.full_id} (closes #{issue.number})"
+                )
 
-                    closed_issues.append(issue)
-
+                closed_issues.append(issue)
             except Exception as e:
                 log.warning(f"Error processing issue {issue.number}: {type(e)}: {e}")
-                # e.print_stack_trace()
+                # If we land here, we should carefully monitor file states and git status
                 continue
 
-        if len(closed_issues) > 0:
-            closed_issues_str = "\n".join(
-                [f"- closes #{issue.number}" for issue in closed_issues]
-            )
-
-            # Create pull request
-            if not dry_run:
-                title = f"Bulk metadata corrections {today}"
-
-                # push the local branch to github
-                self.local_repo.remotes.origin.push(
-                    refspec=f"refs/heads/{new_branch_name}"
-                )
-
-                pr = self.github_repo.create_pull(
-                    title=title,
-                    body=closed_issues_str,
-                    head=new_branch_name,
-                    base="master",
-                )
-                log.info(f"Created PR: {pr.html_url}")
+        if len(closed_issues) > 0 and not dry_run:
+            self._create_pull_request(closed_issues, new_branch_name, today)
+            pass
 
         # Switch back to original branch
         self.local_repo.head.reference = current_branch
         self.stats["closed_issues"] = len(closed_issues)
+
+    def _create_pull_request(
+        self, closed_issues: List[Issue], new_branch_name: str, today: str
+    ):
+        closed_issues_str = "\n".join(
+            [f"- closes #{issue.number}" for issue in closed_issues]
+        )
+        title = f"Bulk metadata corrections {today}"
+
+        # push the local branch to github
+        self.local_repo.remotes.origin.push(refspec=f"refs/heads/{new_branch_name}")
+
+        pr = self.github_repo.create_pull(
+            title=title,
+            body=closed_issues_str,
+            head=new_branch_name,
+            base="master",
+        )
+        log.info(f"Created PR: {pr.html_url}")
 
     def add_comment_to_issue_without_json(self, issue, dry_run: bool):
         """
@@ -451,13 +556,16 @@ class AnthologyMetadataUpdater:
         if anthology_id:
             log.debug(f"-> Closing issue {issue.number} with a link to the new process")
             if not dry_run:
-                url = f"https://aclanthology.org/{anthology_id}"
-                issue.create_comment(
-                    close_old_issue_comment.format(anthology_id=anthology_id, url=url)
-                )
-                # close the issue as "not planned"
-                issue.edit(state="closed", state_reason="not_planned")
-
+                try:
+                    url = f"https://aclanthology.org/{anthology_id}"
+                    issue.create_comment(
+                        close_old_issue_comment.format(anthology_id=anthology_id, url=url)
+                    )
+                    # close the issue as "not planned"
+                    issue.edit(state="closed", state_reason="not_planned")
+                except Exception as e:
+                    log.error(f"Error trying to close old issue #{issue.number}: {e}")
+                    return
             self.stats["closed_issues"] += 1
 
     def prepare_and_switch_branch(self):
@@ -514,16 +622,20 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     log_level = log.DEBUG if not args.quiet else log.INFO
-    tracker = setup_rich_logging(level=log_level)
+    log.basicConfig(level=log_level)
+    log.getLogger("acl-anthology").setLevel(log.WARNING)
+    log.getLogger("git.cmd").setLevel(log.WARNING)
+    log.getLogger("urllib3.connectionpool").setLevel(log.WARNING)
+    # tracker = setup_rich_logging(level=log_level)
 
-    updater = AnthologyMetadataUpdater(github_token)
-    updater.process_metadata_issues(
-        ids=args.ids,
-        verbose=not args.quiet,
-        skip_validation=args.skip_validation,
-        dry_run=args.dry_run,
-        close_old_issues=args.close_old_issues,
-    )
+    updater = AnthologyMetadataUpdater(github_token, verbose=not args.quiet)
+    with warnings.catch_warnings(action="ignore"):  # NameSpecResolutionWarning
+        updater.process_metadata_issues(
+            ids=args.ids,
+            skip_validation=args.skip_validation,
+            dry_run=args.dry_run,
+            close_old_issues=args.close_old_issues,
+        )
 
     for stat in updater.stats:
-        print(f"{stat}: {updater.stats[stat]}", file=sys.stderr)
+        log.info(f"{stat}: {updater.stats[stat]}")
