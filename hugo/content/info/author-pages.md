@@ -9,7 +9,7 @@ Every author appearing on a paper in the Anthology is given an author page. The 
 A verified author has an ORCID icon <i class="fab fa-orcid text-verified"></i> next to the author's name (or sometimes a green question mark <i class="fas fa-question-circle text-verified"></i>). If your author page is verified:
 - Papers linked to your ORCID iD will appear on your page.
 - Papers by someone with the same name as you, but linked to a different ORCID iD, will not appear on your page.
-- Initially, papers by someone with the same name as you, but not linked to an ORCID iD, will still appear on your page. This behavior can be changed with a one-time request; please see [How to remove papers from your author page](#how-to-remove-papers-from-your-author-page).
+- Initially, papers by someone with the same name as you, but not linked to an ORCID iD, will still appear on your page. To fix this, please see [How to remove papers from your author page](#how-to-remove-papers-from-your-author-page).
 
 An unverified author page has `/unverified/` appended to its URL, and a gray question mark <i class="fas fa-question-circle text-secondary"></i> next to the author's name. If your author page is unverified:
 - Papers that list you as an author with a different spelling will appear on a different author page. For more information, please see [How to add papers to your author page](#how-to-add-papers-to-your-author-page).
@@ -23,7 +23,7 @@ For more details on how verification works, please see [How the ACL Anthology ve
 
    - Find your ACL Anthology author page (by using the search bar, or by finding one of your papers and clicking on your name).
    - Look at the icon next to your name at the top of the page.
-       * If it is a green ORCID icon <i class="fab fa-orcid text-verified"></i>, you do not need to take any further action to verify your author page (but do check that the listed papers are correct; see [corrections]({{< ref "/info/corrections">}})).
+       * If it is a green ORCID icon <i class="fab fa-orcid text-verified"></i>, you do not need to take any further action to verify your author page (but do check that the listed papers are correct; see [How to Add/Remove Papers](#how-to-remove-papers-from-your-author-page) below and [Requesting Corrections]({{< ref "/info/corrections">}})).
        * Otherwise, follow the instructions below.
 
 2. Obtain an ORCID iD and ensure the orcid.org profile contains key information:
@@ -57,8 +57,6 @@ When your author page is first verified, any papers published under your name wi
 - Click on the "Fix author" button at the bottom of the links on the right-hand side of the page.
 - Fill out at least the required fields, check the "Split/disambiguate" checkbox, and list your papers in the "Supporting Information" field.
 - Click on the "Create" button, and wait for the issue to be reviewed by Anthology staff.
-
-Afterwards, any new papers published under your name but not linked to an ORCID iD will no longer appear on your page.
 
 ### How to add papers to your author page
 
