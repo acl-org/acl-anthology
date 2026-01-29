@@ -9,13 +9,13 @@ Every author appearing on a paper in the Anthology is given an author page. The 
 A verified author has an ORCID icon <i class="fab fa-orcid text-verified"></i> next to the author's name (or sometimes a green question mark <i class="fas fa-question-circle text-verified"></i>). If your author page is verified:
 - Papers linked to your ORCID iD will appear on your page.
 - Papers by someone with the same name as you, but linked to a different ORCID iD, will not appear on your page.
-- Initially, papers by someone with the same name as you, but not linked to an ORCID iD, will still appear on your page. This behavior can be changed with a one-time request; please see [How to remove papers from an author page](#how-to-remove-papers-from-an-author-page).
+- Initially, papers by someone with the same name as you, but not linked to an ORCID iD, will still appear on your page. This behavior can be changed with a one-time request; please see [How to remove papers from your author page](#how-to-remove-papers-from-your-author-page).
 
 An unverified author page has `/unverified/` appended to its URL, and a gray question mark <i class="fas fa-question-circle text-secondary"></i> next to the author's name. If your author page is unverified:
-- Papers that list you as an author with a different spelling will appear on a different author page. For more information, please see [How to add papers to an author page](#how-to-add-papers-to-an-author-page).
-- Papers by someone with the same name as you (if they are also not verified) will appear on your author page. For more information, please see [How to remove papers from an author page](#how-to-remove-papers-from-an-author-page).
+- Papers that list you as an author with a different spelling will appear on a different author page. For more information, please see [How to add papers to your author page](#how-to-add-papers-to-your-author-page).
+- Papers by someone with the same name as you (if they are also not verified) will appear on your author page. For more information, please see [How to remove papers from your author page](#how-to-remove-papers-from-your-author-page).
 
-For more details on how verification works, please see [How the ACL Anthology verifies authors]({{< ref "/info/verification">}}). To learn how to get your author page verified, please continue to [How to get an author page verified](#how-to-get-an-author-page-verified).
+For more details on how verification works, please see [How the ACL Anthology verifies authors]({{< ref "/info/verification">}}). To learn how to get your author page verified, please continue to [How to get your author page verified](#how-to-get-your-author-page-verified).
 
 ### How to get your author page verified
 
