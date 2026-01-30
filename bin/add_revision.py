@@ -318,6 +318,24 @@ def main(args):
     pdf_path = Path(pdf_path)
     validate_file_type(pdf_path)
 
+    # build a list of the checksums of all revisions for the paper
+    paper = anthology.get_paper(anthology_id)
+    if paper is None:
+        print(
+            f"-> FATAL: paper ID {anthology_id} not found in the Anthology",
+            file=sys.stderr,
+        )
+        sys.exit(1)
+
+    existing_checksums = [rev.pdf.checksum for rev in paper.revisions + paper.errata]
+    # make sure the new PDF is not a dupe
+    if PDFReference.from_file(pdf_path).checksum in existing_checksums:
+        print(
+            f"-> FATAL: the provided PDF is identical to an existing revision/erratum for {paper.full_id}",
+            file=sys.stderr,
+        )
+        sys.exit(1)
+
     collection_path = add_revision(
         anthology,
         anthology_id,
