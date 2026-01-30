@@ -217,11 +217,7 @@ def add_revision(
         retrieve_url(paper.pdf.url, base_path)
         validate_file_type(base_path)
         paper.revisions.append(
-            PaperRevision(
-                id="1",
-                note=None,
-                pdf=PDFReference.from_file(base_path)
-            )
+            PaperRevision(id="1", note=None, pdf=PDFReference.from_file(base_path))
         )
 
     next_id = (
