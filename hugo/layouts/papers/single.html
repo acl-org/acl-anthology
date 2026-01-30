@@ -37,8 +37,6 @@
 {{ $anthology_id := .Params.anthology_id }}
 {{ $volume_id := index (split .Params.anthology_id "-") 0 }}
 {{ $paper := index (index .Site.Data.papers $volume_id) .Params.anthology_id }}
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-  integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script src="{{ relURL "js/clipboard.min.js" }}"></script>
 <script src="{{ relURL "js/FileSaver.js" }}"></script>
 <script>
