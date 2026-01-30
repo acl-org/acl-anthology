@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ $.Site.LanguageCode | default " en" }}">
+<html lang="{{ $.Site.LanguageCode | default "en" }}">
 
 <head>
   <meta charset="utf-8">
@@ -18,7 +18,7 @@
   <title>{{ block "title" . }}{{ with .Title }}{{ . }} - {{ end }}{{ .Site.Title }}{{ end }}</title>
 
   {{ hugo.Generator }}
-  <link href="{{ relURL " aclicon.ico" }}" rel="shortcut icon" type="image/x-icon" />
+  <link href="{{ relURL "aclicon.ico" }}" rel="shortcut icon" type="image/x-icon" />
   <!-- Preconnect to CDN origins for faster resource loading -->
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="preconnect" href="https://use.fontawesome.com" crossorigin>
@@ -33,9 +33,9 @@
   <noscript>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.0/css/all.css">
   </noscript>
-  <link rel="stylesheet" href="{{ relURL " css/academicons.min.css" }}" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="{{ relURL "css/academicons.min.css" }}" media="print" onload="this.media='all'">
   <noscript>
-    <link rel="stylesheet" href="{{ relURL " css/academicons.min.css" }}">
+    <link rel="stylesheet" href="{{ relURL "css/academicons.min.css" }}">
   </noscript>
 
   {{ block "meta" . }}{{ end }}
@@ -44,7 +44,7 @@
 <body>
   {{ block "header" . }}{{ partialCached "header_navbar.html" .}}{{ end }}
 
-  <div id="main-container" class="{{ default " container" (index .Params "css_container" ) }}">
+  <div id="main-container" class="{{ default "container" (index .Params "css_container" ) }}">
     {{ block "main" . }}{{ end }}
   </div>
   {{ block "footer" . }}{{ partialCached "footer.html" . }}{{ end }}
