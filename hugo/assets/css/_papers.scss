@@ -1,20 +1,27 @@
 /* Custom styles for pages in papers/ */
 
 .acl-paper-details {
+
   /* This essentially reimplements the old Bootstrap dl-horizontal class */
   dl {
-    &:before, &:after {
+
+    &:before,
+    &:after {
       display: table;
       content: "";
       line-height: 0;
     }
+
     &:after {
       clear: both;
     }
-    &:before, &:after {
+
+    &:before,
+    &:after {
       clear: left;
       text-align: left;
     }
+
     @include media-breakpoint-up(sm) {
       dt {
         float: left;
@@ -25,6 +32,7 @@
         text-overflow: ellipsis;
         white-space: nowrap;
       }
+
       dd {
         margin-left: 180px;
       }
@@ -36,6 +44,7 @@
       &:empty {
         color: $secondary; // Replaces @extend .text-muted
       }
+
       &:empty::before {
         content: '–';
       }
@@ -51,6 +60,7 @@
 dt.acl-button-row {
   padding-top: .4rem;
 }
+
 dd.acl-button-row .btn {
   margin-top: map-get($spacers, 1);
   margin-bottom: map-get($spacers, 1); // Replaces @extend .my-1
@@ -65,6 +75,7 @@ dd.acl-button-row .btn {
 .sortable-ghost {
   opacity: 0.4;
 }
+
 .author-row {
   display: flex;
   gap: 0.5rem;
@@ -75,15 +86,19 @@ dd.acl-button-row .btn {
   border: 1px solid #ddd;
   border-radius: 4px;
 }
+
 .author-row input {
   flex: 1;
 }
+
 .author-row:active {
   cursor: grabbing;
 }
+
 .drag-handle {
   cursor: grab;
 }
+
 .drag-handle:active {
   cursor: grabbing;
 }
@@ -95,6 +110,28 @@ dd.acl-button-row .btn {
   // Replaces @extend .col-lg-2;
   @include make-col-ready();
 
+
+
+  @include media-breakpoint-down(lg) {
+    // Replaces @extend .order-1
+    order: 1;
+
+    // Replaces @extend .mb-3
+    margin-bottom: map-get($spacers, 3) !important;
+
+    // Replaces @extend .d-flex
+    display: flex !important;
+
+    // Replaces @extend .flex-wrap
+    flex-wrap: wrap !important;
+
+    // Replaces @extend .justify-content-around
+    justify-content: space-around !important;
+
+    // Fix for massive buttons in BS5 - align to start to avoid stretching
+    align-items: flex-start !important;
+  }
+
   @include media-breakpoint-up(lg) {
     @include make-col(2);
     order: 6; // @extend .order-lg-last (last usually 6 or 12?)
@@ -102,25 +139,8 @@ dd.acl-button-row .btn {
     display: block !important; // .d-lg-block
   }
 
-  // Replaces @extend .order-1
-  order: 1;
-
-  // Replaces @extend .mb-3
-  margin-bottom: map-get($spacers, 3) !important;
-
-  // Replaces @extend .d-flex
-  display: flex !important;
-
-  // Replaces @extend .flex-wrap
-  flex-wrap: wrap !important;
-
-  // Replaces @extend .justify-content-around
-  justify-content: space-around !important;
-
-  // Fix for massive buttons in BS5 - align to start to avoid stretching
-  align-items: flex-start !important;
-
-  a, button {
+  a,
+  button {
     // Replaces @extend .flex-fill
     // Removed flex: 1 1 auto to prevent vertical stretching
     // flex: 1 1 auto !important;
@@ -165,11 +185,13 @@ dd.acl-button-row .btn {
 .list-pl-responsive {
   padding-left: 24px;
 }
+
 @include media-breakpoint-up(md) {
   .list-pl-responsive {
     padding-left: 32px;
   }
 }
+
 @include media-breakpoint-up(xl) {
   .list-pl-responsive {
     padding-left: 40px; // CSS default
@@ -180,6 +202,7 @@ dd.acl-button-row .btn {
   &[data-toggle-state="hide"] .on-toggle-state-show {
     display: none;
   }
+
   &[data-toggle-state="show"] .on-toggle-state-hide {
     display: none;
   }
@@ -197,17 +220,20 @@ dd.acl-button-row .btn {
   vertical-align: text-bottom;
 }
 
-.pwc-icon-small path, .pwc-icon-big path {
+.pwc-icon-small path,
+.pwc-icon-big path {
   fill: #446E9B;
   stroke: #446E9B;
 }
 
-.btn-secondary .pwc-icon-small path, .btn-secondary .pwc-icon-big path {
+.btn-secondary .pwc-icon-small path,
+.btn-secondary .pwc-icon-big path {
   fill: white;
   stroke: white;
 }
 
-.badge-secondary .pwc-icon-small path, .badge-secondary .pwc-icon-big path {
+.badge-secondary .pwc-icon-small path,
+.badge-secondary .pwc-icon-big path {
   fill: white;
   stroke: white;
 }

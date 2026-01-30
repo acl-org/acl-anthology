@@ -14,7 +14,7 @@
     </a>
     {{- end -}}
     {{- with $paper.abstract_html -}}
-    <a class="badge text-bg-info align-middle me-1" href="#abstract-{{ replace $.Params.anthology_id "." "--" }}" data-bs-toggle="collapse" aria-expanded="false" aria-controls="abstract-{{ $.Params.anthology_id }}" title="Show Abstract">abs</a>
+    <a class="badge text-bg-info align-middle me-1" role="button" data-bs-toggle="collapse" data-bs-target="#abstract-{{ replace $.Params.anthology_id "." "--" }}" aria-expanded="false" aria-controls="abstract-{{ replace $.Params.anthology_id "." "--" }}" title="Show Abstract">abs</a>
     {{- end -}}
     <br class="d-none d-sm-inline-block" />
     {{- range $paper.award -}}

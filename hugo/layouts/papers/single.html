@@ -112,18 +112,17 @@
   const paper_params = {
     anthology_id: "{{ .Params.anthology_id }}",
     title: "{{ $paper.title_raw }}",
-        authors: [
-          {{ range $index, $author := $paper.author }}
-          {
-            first: "{{ .first }}",
-            last: "{{ .last }}",
-            id: "{{ .id }}"
-          }{{ if ne (add $index 1) (len $paper.author) }},{{ end }}
-          {{ end }}
-        ],
-  abstract: "{{ $paper.abstract_raw }}"
+    authors: [
+      {{ range $index, $author := $paper.author }}
+      {
+        first: "{{ .first }}",
+        last: "{{ .last }}",
+        id: "{{ .id }}"
+      }{{ if ne (add $index 1) (len $paper.author) }},{{ end }}
+      {{ end }}
+    ],
+    abstract: "{{ $paper.abstract_raw }}"
   };
-
   // Initial authors data
   function showMetadataDialog() {
     // Populate the modal with current values
