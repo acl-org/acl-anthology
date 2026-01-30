@@ -62,7 +62,7 @@ from github import Github, GithubException
 
 from acl_anthology import Anthology
 from acl_anthology.collections.paper import PaperErratum, PaperRevision
-from acl_anthology.files import PDFReference, compute_checksum_from_file
+from acl_anthology.files import PDFReference
 from acl_anthology.utils.ids import parse_id
 
 from anthology.utils import retrieve_url
@@ -209,8 +209,6 @@ def add_revision(
         )
         sys.exit(1)
 
-    checksum = compute_checksum_from_file(pdf_path)
-
     pdf_dir.mkdir(parents=True, exist_ok=True)
 
     if needs_initial_revision:
@@ -218,12 +216,11 @@ def add_revision(
         base_path = pdf_dir / f"{base_name}.pdf"
         retrieve_url(paper.pdf.url, base_path)
         validate_file_type(base_path)
-        base_checksum = compute_checksum_from_file(base_path)
         paper.revisions.append(
             PaperRevision(
                 id="1",
                 note=None,
-                pdf=PDFReference(name=base_name, checksum=base_checksum),
+                pdf=PDFReference.from_file(base_path)
             )
         )
 
@@ -233,7 +230,7 @@ def add_revision(
     version_name = f"{paper.full_id}{change_letter}{next_id}"
     version_path = pdf_dir / f"{version_name}.pdf"
     copy_file(pdf_path, version_path)
-    reference = PDFReference(name=version_name, checksum=checksum)
+    reference = PDFReference.from_file(version_path)
 
     if change_type == "revision":
         note = explanation.strip() if explanation else None
@@ -245,7 +242,7 @@ def add_revision(
                 date=date,
             )
         )
-        paper.pdf = PDFReference(name=paper.full_id, checksum=checksum)
+        paper.pdf = PDFReference.from_file(canonical_pdf)
         copy_file(pdf_path, canonical_pdf)
     else:
         paper.errata.append(
