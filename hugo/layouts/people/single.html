@@ -1,9 +1,23 @@
 {{ define "main" }}
 {{ $person := index .Site.Data.people .Params.name }}
+{{ $is_verified := not (hasSuffix $person.slug "/unverified") }}
 <section id="main">
   <h2 id="title">
     <!-- {{- .Title -}} -->
     <span class="font-weight-normal">{{ $person.first }}</span> <span class="fw-bold">{{ $person.last }}</span>
+    {{ if $person.orcid }}
+      <a href="https://orcid.org/{{ $person.orcid }}" title="ORCID profile (some papers below may be guesses if they were submitted without ORCID iD)" target="_blank" rel="noopener">
+        <i class="fab fa-orcid fa-xs align-middle text-verified ms-1"></i>
+      </a>
+    {{ else if $is_verified }}
+      <a href="{{ ref . `info/verification` }}" title="Author is verified but has no recorded ORCID iD" target="_blank" rel="noopener">
+        <i class="fas fa-question-circle fa-xs align-middle text-verified ms-1"></i>
+      </a>
+    {{ else }}
+      <a href="{{ ref . `info/verification` }}" title="How to verify an author" target="_blank" rel="noopener">
+        <i class="fas fa-question-circle fa-xs align-middle text-secondary ms-1"></i>
+      </a>
+    {{ end }}
   </h2>
   {{ with $person.comment }}
   <p class="fw-light text-muted">{{.}}</p>
@@ -17,13 +31,21 @@
     {{ end }}
   </p>
   {{ end }}
-  {{ with $person.similar }}
-  <p class="font-weight-light text-muted">
-    <span class="font-italic">Other people with similar names:</span>
+  {{ with $person.similar_verified }}
+  <p class="fw-light text-muted">
     {{ $len := (len .) }}
+    <span class="fst-italic">{{ if $is_verified }}Other people with similar names:{{ else }}Papers on this page may belong to the following people:{{ end }}</span>
     {{ range $index, $sim_id := . }}
-    {{ trim (partial "author_link.html" (dict "ctx" $ "person" (dict "id" $sim_id))) " \n" | safeHTML }}
-    {{ $sim_person := index $.Site.Data.people $sim_id }}{{ with $sim_person.comment }}({{.}}){{ end }}{{ if ne (add $index 1) $len }}, {{ end }}
+    {{ trim (partial "author_link.html" (dict "ctx" $ "person" (dict "id" $sim_id))) " \n" | safeHTML }}{{ $sim_person := index $.Site.Data.people $sim_id }}{{ with $sim_person.comment }} ({{.}}){{ end }}{{ if ne (add $index 1) $len }}, {{ end }}
+    {{ end }}
+  </p>
+  {{ end }}
+  {{ with $person.similar_unverified }}
+  <p class="fw-light text-muted">
+    {{ $len := (len .) }}
+    <span class="fst-italic">Unverified author pages with similar names:</span>
+    {{ range $index, $sim_id := . }}
+    {{ trim (partial "author_link.html" (dict "ctx" $ "person" (dict "id" $sim_id))) " \n" | safeHTML }}{{ $sim_person := index $.Site.Data.people $sim_id }}{{ if ne (add $index 1) $len }}, {{ end }}
     {{ end }}
   </p>
   {{ end }}
