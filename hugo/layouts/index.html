@@ -27,7 +27,7 @@
   {{ $.Scratch.Add "paper_count" (len .) }}
   {{ end }}
 
-  <div class="col-12 col-xl-2">
+  <div class="col-12 col-xl-3">
     <h2 class="ps-2 pb-2">Welcome to the ACL Anthology!</h2>
 
     <aside class="card acl-greeting font-weight-light mb-3">
@@ -64,7 +64,7 @@
       </div>
     </div>
   </div>
-  <div class="col-12 col-xl-10 col-xl-width-auto">
+  <div class="col-12 col-xl-9">
     <main aria-role="main">
     <h6>ACL Events</h6>
     {{/* ACL EVENTS */}}
@@ -77,7 +77,8 @@
     {{/* Years that should have a border on their left-hand side */}}
     {{ $border_years := slice (printf "%d" $current_year) "2019" "2009" "1999" "1989" }}
 
-    <table class="table table-hover table-sm table-responsive small text-nowrap">
+    <div class="table-responsive">
+    <table class="table table-hover table-sm small text-nowrap">
       <thead>
         <tr class="text-center border-start border-end">
           <th class="border-start" scope="col" style="width: 8rem;">Venue</th>
@@ -123,6 +124,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
 
     <h6>Non-ACL Events</h6>
     {{/* NON-ACL EVENTS */}}
@@ -132,7 +134,8 @@
     {{/* Years that should have a border on their left-hand side */}}
     {{ $border_years := slice (printf "%d" $current_year) "2019" "2009" "1999" "1989" }}
 
-    <table class="table table-hover table-sm table-responsive small text-nowrap">
+    <div class="table-responsive">
+    <table class="table table-hover table-sm small text-nowrap">
       <thead>
         <tr class="text-center border-start border-end">
           <th class="border-start" scope="col" style="width: 8rem;">Venue</th>
@@ -166,6 +169,7 @@
         {{ end }}
       </tbody>
     </table>
+    </div>
   </main>
   </div>
 </div>

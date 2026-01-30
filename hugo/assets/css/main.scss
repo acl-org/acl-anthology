@@ -81,8 +81,11 @@ $theme-colors: map-merge($theme-colors,
 }
 
 /* Fix spacing issues in nested lists */
-ul ul, ul ol, ol ul, ol ol {
-  & + p {
+ul ul,
+ul ol,
+ol ul,
+ol ol {
+  &+p {
     margin-top: 1rem !important;
   }
 }
@@ -94,6 +97,7 @@ ul ul, ul ol, ol ul, ol ol {
 .transform-lower-sm {
   text-transform: lowercase;
 }
+
 @include media-breakpoint-up(sm) {
   .transform-lower-sm {
     text-transform: unset !important;
@@ -113,15 +117,8 @@ ul ul, ul ol, ol ul, ol ol {
   &[aria-expanded=false] {
     @extend .btn-info;
   }
+
   &[aria-expanded=true] {
     display: none;
   }
-}
-
-#main-container {
-  max-width: 1140px;
-  padding-left: 15px;
-  padding-right: 15px;
-  margin-left: auto;
-  margin-right: auto;
 }
