@@ -7,9 +7,9 @@ command runner; running `just -l` will list all available recipes, while `just
 
 ## Running checks and tests
 
-- `just check` will run [**black**](https://github.com/psf/black),
-   [**ruff**](https://github.com/charliermarsh/ruff),
-   [**mypy**](https://mypy.readthedocs.io), and [some other pre-commit
+- `just check` will run [**ruff**](https://github.com/charliermarsh/ruff)
+   (linter and formatter), [**mypy**](https://mypy.readthedocs.io), and [some
+   other pre-commit
    hooks](https://github.com/acl-org/acl-anthology/blob/master/.pre-commit-config.yaml)
    on all files in the repo.
 

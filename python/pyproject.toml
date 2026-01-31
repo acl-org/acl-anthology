@@ -52,14 +52,8 @@ repository = "https://github.com/acl-org/acl-anthology"
 requires = ["uv_build>=0.9.17,<0.10.0"]
 build-backend = "uv_build"
 
-[tool.black]
-line-length = 90
-target-version = ['py310', 'py311', 'py312', 'py313', 'py314']
-skip-string-normalization = false
-
 [dependency-groups]
 dev = [
-    "black>=26.1",
     "pytest>=9.0.2,<10",
     "pytest-cov>=7.0.0,<8",
     "ruff>=0.14.14,<0.15",
@@ -113,7 +107,5 @@ filterwarnings = [
 ]
 
 [tool.ruff]
+line-length = 90
 target-version = 'py310'
-
-[tool.ruff.lint]
-ignore = ['E501']  # "Line too long" is black's job

@@ -41,6 +41,11 @@ repos:
       files: ^python/
       args: ['--config', 'python/pyproject.toml', '--fix', '--show-fixes']
 
+    - id: ruff-format
+      name: ruff-format (on python/)
+      files: ^python/
+      args: ['--config', 'python/pyproject.toml']
+
 - repo: https://github.com/psf/black-pre-commit-mirror
   rev: 26.1.0
   hooks:
@@ -48,11 +53,6 @@ repos:
       name: black (on bin/)
       files: ^bin/
       args: ['--config', 'pyproject.toml']
-
-    - id: black
-      name: black (on python/)
-      files: ^python/
-      args: ['--config', 'python/pyproject.toml']
 
 - repo: https://github.com/astral-sh/uv-pre-commit
   # uv version.

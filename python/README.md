@@ -78,10 +78,9 @@ command runner; running `just -l` will list all available recipes, while `just
 
 ### Running checks, pre-commit hooks, and tests
 
-- `just check` will run [**black**](https://github.com/psf/black),
-   [**ruff**](https://github.com/charliermarsh/ruff),
-   [**mypy**](https://mypy.readthedocs.io), and some other pre-commit hooks on all
-   files in the repo.
+- `just check` will run [**ruff**](https://github.com/charliermarsh/ruff)
+   (linter and formatter), [**mypy**](https://mypy.readthedocs.io), and some
+   other pre-commit hooks on all files in the repo.
 
     - `just install-hooks` will install pre-commit hooks so they run on every
       attempted commit.
