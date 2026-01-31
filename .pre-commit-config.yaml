@@ -41,6 +41,11 @@ repos:
       files: ^python/
       args: ['--config', 'python/pyproject.toml', '--fix', '--show-fixes']
 
+    - id: ruff-format
+      name: ruff-format (on python/)
+      files: ^python/
+      args: ['--config', 'python/pyproject.toml']
+
 - repo: https://github.com/psf/black-pre-commit-mirror
   rev: 26.1.0
   hooks:
@@ -49,13 +54,9 @@ repos:
       files: ^bin/
       args: ['--config', 'pyproject.toml']
 
-    - id: black
-      name: black (on python/)
-      files: ^python/
-      args: ['--config', 'python/pyproject.toml']
-
-- repo: https://github.com/python-poetry/poetry
-  rev: '2.3.0'
+- repo: https://github.com/astral-sh/uv-pre-commit
+  # uv version.
+  rev: 0.9.28
   hooks:
-    - id: poetry-check
-      args: ['--lock', '--directory=python']
+    - id: uv-lock
+      args: ["--directory", "python"]
