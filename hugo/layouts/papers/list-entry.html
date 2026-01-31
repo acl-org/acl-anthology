@@ -2,7 +2,7 @@
 {{ $paper := index (index $.Site.Data.papers $collection_id) .Params.anthology_id }}
 {{ if not $paper.removed }}
 <p class="d-sm-flex align-items-stretch">
-  <span class="d-block me-2 text-nowrap list-button-row">
+  <span class="d-block me-2 list-button-row">
     {{- with $paper.pdf -}}
     <a class="badge text-bg-primary align-middle me-1" href="{{ . }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Open PDF">
       pdf

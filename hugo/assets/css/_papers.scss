@@ -67,9 +67,6 @@ dd.acl-button-row .btn {
 }
 
 @include media-breakpoint-down(sm) {
-  .acl-button-row {
-    text-align: center;
-  }
 }
 
 .sortable-ghost {
@@ -126,7 +123,7 @@ dd.acl-button-row .btn {
     flex-wrap: wrap !important;
 
     // Replaces @extend .justify-content-around
-    justify-content: space-around !important;
+    justify-content: flex-start !important;
 
     // Fix for massive buttons in BS5 - align to start to avoid stretching
     align-items: flex-start !important;
@@ -143,7 +140,7 @@ dd.acl-button-row .btn {
   button {
     // Replaces @extend .flex-fill
     // Removed flex: 1 1 auto to prevent vertical stretching
-    // flex: 1 1 auto !important;
+    flex: 1 1 auto !important;
 
     // Replaces @extend .btn-lg
     @include button-size($btn-padding-y-lg, $btn-padding-x-lg, $btn-font-size-lg, $btn-border-radius-lg);
