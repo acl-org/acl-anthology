@@ -1,6 +1,6 @@
 # For Developers
 
-This package uses the [**Poetry**](https://python-poetry.org/) packaging system.
+This package uses [**uv**](https://docs.astral.sh/uv/) for project management.
 Development is easiest with the [**just**](https://github.com/casey/just)
 command runner; running `just -l` will list all available recipes, while `just
 -n <recipe>` will print the commands that the recipe would run.
@@ -34,11 +34,9 @@ command runner; running `just -l` will list all available recipes, while `just
 ## Running benchmarks
 
 There are some benchmark scripts intended to be run with
-[richbench](https://github.com/tonybaloney/rich-bench):
-
-```bash
-poetry run richbench benchmarks/
-```
+[richbench](https://github.com/tonybaloney/rich-bench) via `uv run richbench
+benchmarks/` or `just benchmark`.  They were mostly used to inform design
+decisions during development and are currently not actively maintained.
 
 ## Generating and writing documentation
 
