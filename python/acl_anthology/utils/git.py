@@ -59,9 +59,9 @@ def clone_or_pull_from_repo(
         repo = Repo.clone_from(
             repo_url,
             path,
-            progress=progress,
+            progress=progress,  # type: ignore[arg-type]
             single_branch=True,
-            depth=1,  # type: ignore[arg-type]
+            depth=1,
         )
         # ^-- It seems that Repo.clone_from() has an incorrect type signature
         # for its progress argument...
