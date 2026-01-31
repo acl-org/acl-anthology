@@ -2,17 +2,10 @@
 <html lang="{{ $.Site.LanguageCode | default "en" }}">
 
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   {{ if hasPrefix .Site.BaseURL "https://preview.aclanthology.org" }}
   <meta name="robots" content="noindex, nofollow">
   {{ end }}
-
-  <!-- Mobile IE allows us to activate ClearType technology for smoothing fonts for easy reading -->
-  {{ "<!--[if IEMobile]>" | safeHTML }}
-      <meta http-equiv="cleartype" content="on">
-    {{ "<![endif]-->" | safeHTML }}
 
   {{/* NOTE: the Site's title, and if there is a page title, that is set too */}}
   <title>{{ block "title" . }}{{ with .Title }}{{ . }} - {{ end }}{{ .Site.Title }}{{ end }}</title>
