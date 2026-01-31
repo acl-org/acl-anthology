@@ -92,9 +92,9 @@
               </li>
               {{ end }}
               {{ if gt (len $person.coauthors) 5 }}
-              <li class="list-group-item list-group-item-action text-primary list-group-toggle-btn py-1" data-bs-toggle="collapse" data-bs-target="#more-coauthors" aria-expanded="false" aria-controls="more-coauthors">
+              <button type="button" class="list-group-item list-group-item-action list-group-toggle-btn py-1" data-bs-toggle="collapse" data-bs-target="#more-coauthors" aria-expanded="false" aria-controls="more-coauthors">
                 show all...
-              </li>
+              </button>
               <div class="collapse border-top" id="more-coauthors">
               {{ range after 5 $person.coauthors }}
               <li class="list-group-item">
@@ -121,9 +121,9 @@
               </li>
               {{ end }}
               {{ if gt (len $person.venues) 5 }}
-              <li class="list-group-item list-group-item-action text-primary list-group-toggle-btn py-1" data-bs-toggle="collapse" data-bs-target="#more-venues" aria-expanded="false" aria-controls="more-venues">
+              <button type="button" class="list-group-item list-group-item-action list-group-toggle-btn py-1" data-bs-toggle="collapse" data-bs-target="#more-venues" aria-expanded="false" aria-controls="more-venues">
                 show all...
-              </li>
+              </button>
               <div class="collapse border-top" id="more-venues">
               {{ range after 5 $person.venues }}
               <li class="list-group-item">

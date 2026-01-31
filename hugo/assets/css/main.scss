@@ -21,15 +21,16 @@ $container-max-widths: (
 
 @import 'vendor/bootstrap-5/scss/functions';
 @import 'vendor/bootstrap-5/scss/variables';
-@import 'vendor/bootstrap-5/scss/maps';
-@import 'vendor/bootstrap-5/scss/mixins';
-@import 'vendor/bootstrap-5/scss/helpers';
 
 $attachment_color: darken($green, 10%);
 $theme-colors: map-merge($theme-colors,
     ("attachment": $attachment_color,
       "verified": $attachment_color,
     ));
+
+@import 'vendor/bootstrap-5/scss/maps';
+@import 'vendor/bootstrap-5/scss/mixins';
+@import 'vendor/bootstrap-5/scss/helpers';
 
 /* Optional Bootstrap components -- we only include those we need */
 @import 'vendor/bootstrap-5/scss/root';
@@ -113,10 +114,16 @@ ol ol {
 /* Simple toggle buttons for list entries */
 .list-group-toggle-btn {
   cursor: pointer;
-  @extend .text-primary;
+  text-align: center;
+  width: 100%;
+  display: block;
 
   &[aria-expanded=false] {
-    @extend .btn-info;
+    background-color: $cyan;
+    color: $white;
+    &:hover {
+      background-color: darken($cyan, 10%);
+    }
   }
 
   &[aria-expanded=true] {
