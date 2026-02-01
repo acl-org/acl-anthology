@@ -1,10 +1,15 @@
-[tool.black]
-line-length = 90
-target-version = ['py310', 'py311', 'py312', 'py313', 'py314']
-skip-string-normalization = true
+[project]
+name = "aclanthology.org"
+version = "2026.2.1"
+requires-python = ">=3.10"
+dependencies = ["acl-anthology"]
+
+[tool.uv.sources]
+acl-anthology = { workspace = true }
+
+[tool.uv.workspace]
+members = ["python/"]
 
 [tool.ruff]
+line-length = 90
 target-version = 'py310'
-
-[tool.ruff.lint]
-ignore = ['E501']  # "Line too long" is black's job
