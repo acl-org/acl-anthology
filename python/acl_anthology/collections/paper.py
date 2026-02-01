@@ -623,23 +623,24 @@ class Paper:
         # Frontmatter only supports a small subset of regular paper attributes,
         # so we duplicate these here -- but maybe suboptimal?
         for element in paper:
-            if element.tag in ("bibkey", "doi", "pages"):
-                kwargs[element.tag] = element.text
-            elif element.tag == "attachment":
+            tag = str(element.tag)
+            if tag in ("bibkey", "doi", "pages"):
+                kwargs[tag] = element.text
+            elif tag == "attachment":
                 type_ = str(element.get("type", ""))
                 kwargs["attachments"].append(
                     (type_, AttachmentReference.from_xml(element))
                 )
-            elif element.tag == "revision":
+            elif tag == "revision":
                 if "revisions" not in kwargs:
                     kwargs["revisions"] = []
                 kwargs["revisions"].append(PaperRevision.from_xml(element))
-            elif element.tag == "url":
+            elif tag == "url":
                 kwargs["pdf"] = PDFReference.from_xml(element)
             else:
                 raise AnthologyXMLError(
                     parent.full_id_tuple,
-                    element.tag,
+                    tag,
                     "unsupported element for <frontmatter>",
                 )
         return cls(**kwargs)
@@ -664,7 +665,8 @@ class Paper:
         if (ingest_date := paper.get("ingest-date")) is not None:
             kwargs["ingest_date"] = str(ingest_date)
         for element in paper:
-            if element.tag in (
+            tag = str(element.tag)
+            if tag in (
                 "bibkey",
                 "doi",
                 "issue",
@@ -673,44 +675,44 @@ class Paper:
                 "note",
                 "pages",
             ):
-                kwargs[element.tag] = element.text
-            elif element.tag in ("author", "editor"):
-                kwargs[f"{element.tag}s"].append(NameSpecification.from_xml(element))
-            elif element.tag in ("abstract", "title"):
-                kwargs[element.tag] = MarkupText.from_xml(element)
-            elif element.tag == "attachment":
+                kwargs[tag] = element.text
+            elif tag in ("author", "editor"):
+                kwargs[f"{tag}s"].append(NameSpecification.from_xml(element))
+            elif tag in ("abstract", "title"):
+                kwargs[tag] = MarkupText.from_xml(element)
+            elif tag == "attachment":
                 type_ = str(element.get("type", ""))
                 kwargs["attachments"].append(
                     (type_, AttachmentReference.from_xml(element))
                 )
-            elif element.tag == "award":
+            elif tag == "award":
                 if "awards" not in kwargs:
                     kwargs["awards"] = []
                 kwargs["awards"].append(element.text)
-            elif element.tag == "erratum":
+            elif tag == "erratum":
                 if "errata" not in kwargs:
                     kwargs["errata"] = []
                 kwargs["errata"].append(PaperErratum.from_xml(element))
-            elif element.tag in ("removed", "retracted"):
+            elif tag in ("removed", "retracted"):
                 kwargs["deletion"] = PaperDeletionNotice.from_xml(element)
-            elif element.tag == "revision":
+            elif tag == "revision":
                 if "revisions" not in kwargs:
                     kwargs["revisions"] = []
                 kwargs["revisions"].append(PaperRevision.from_xml(element))
-            elif element.tag == "url":
+            elif tag == "url":
                 kwargs["pdf"] = PDFReference.from_xml(element)
-            elif element.tag == "video":
+            elif tag == "video":
                 if "videos" not in kwargs:
                     kwargs["videos"] = []
                 kwargs["videos"].append(VideoReference.from_xml(element))
-            elif element.tag == ("mrf"):
+            elif tag == ("mrf"):
                 # consider an attachment of type "mrf"
                 kwargs["attachments"].append(
                     ("mrf", AttachmentReference.from_xml(element))
                 )
             else:
                 raise AnthologyXMLError(
-                    parent.full_id_tuple, element.tag, "unsupported element for <paper>"
+                    parent.full_id_tuple, tag, "unsupported element for <paper>"
                 )
         return cls(**kwargs)
 

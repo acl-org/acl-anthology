@@ -9,85 +9,81 @@ alias ta := test-all
 alias py := repl
 
 # Install the project dependencies
-install:
-  make dependencies
-
-# Install the project dependencies, but quietly
-# (to be used as a dependency for all other recipes)
-_deps:
-  @make -s dependencies
+install *FLAGS:
+  uv sync {{FLAGS}}
 
 # Install the pre-commit hooks
-install-hooks: _deps
-  poetry run pre-commit install
+install-hooks:
+  uv run pre-commit install
 
 # Run checks (hooks & type-checker)
-check: _deps && typecheck
-  poetry run pre-commit run --all-files
+check: && typecheck
+  uv run pre-commit run --all-files
 
 # Run checks (twice in case of failure, so autofixes are applied)
-fix: _deps && typecheck
-  @poetry run pre-commit run -a || poetry run pre-commit run -a
+fix: && typecheck
+  @uv run pre-commit run -a || uv run pre-commit run -a
 
 # Run checks (twice in case of failure) and all tests
 fix-and-test: fix test-all
 
 # Run all tests
-test-all *FLAGS: _deps
-  poetry run pytest -m "not integration" {{FLAGS}}
+test-all *FLAGS:
+  uv run pytest -m "not integration" {{FLAGS}}
 
 # Run all tests and generate coverage report
-test-with-coverage: _deps
-  poetry run pytest -m "not integration" --cov=acl_anthology --cov-report=xml
+test-with-coverage:
+  uv run pytest -m "not integration" --cov=acl_anthology --cov-report=xml
 
 # Run tests that operate on the acl-org/acl-anthology repo
-test-integration *FLAGS='-v': _deps
-  poetry run pytest {{FLAGS}} -m "integration"
+test-integration *FLAGS='-v':
+  uv run pytest {{FLAGS}} -m "integration"
 
 # Run only test functions containing TERM
-test TERM *FLAGS: _deps
-  poetry run pytest -k _{{TERM}} {{FLAGS}}
+test TERM *FLAGS:
+  uv run pytest -k _{{TERM}} {{FLAGS}}
 
 # Run all tests on all supported Python versions
-test-all-python-versions: _deps
+test-all-python-versions:
   #!/usr/bin/env bash
   set -eux
-  # Restore the currently active Poetry environment on exit
-  trap "poetry env use $(poetry env info -e)" EXIT
   # Loop over all supported Python versions
   for py in 3.10 3.11 3.12 3.13 3.14; do
-    poetry env use $py
-    poetry install --with dev --quiet
-    poetry run pytest -m "not integration"
+    uv run --python $py --isolated pytest -m "not integration"
   done
 
 # Run all tests that are expected to fail and list a summary with their reasons
-test-only-xfail: _deps
-  poetry run pytest -rx -m xfail
+test-only-xfail:
+  uv run pytest -rx -m xfail
 
 # Run type-checker only
-typecheck: _deps
-  poetry run mypy acl_anthology
+typecheck:
+  uv run mypy acl_anthology
+
+# Update dependencies and list packages where newer versions are available
+update-dependencies:
+  uv sync --upgrade
+  uv pip list --outdated
 
 # Run benchmarks
-benchmark: _deps
-  poetry run richbench --percentage benchmarks/
+benchmark:
+  uv run richbench --percentage benchmarks/
   @echo ""
   @echo "  Note: Benchmark descriptions should be interpreted as 'Is it faster to...' or"
   @echo "        'What is the performance impact if we...', with the highlighted columns"
   @echo "        showing the delta."
 
 # Build the documentation
-docs: _deps
-  poetry run mkdocs build
+docs:
+  uv run mkdocs build
 
 # Build and serve the documentation locally
-docs-serve: _deps
-  poetry run mkdocs serve
+docs-serve:
+  uv run mkdocs serve
 
 # Open a Python REPL with an Anthology object pre-instantiated
-repl: _deps
-  poetry run python -i repl_with_anthology.py
+repl:
+  uv run python -i repl_with_anthology.py
 
 # Check that there are no uncommited changes
 [private]
@@ -102,13 +98,13 @@ prepare-new-release VERSION: no-uncommitted-changes check test-all test-integrat
   # Set trap to revert on error
   trap 'git checkout -- CHANGELOG.md pyproject.toml' ERR
   # Bump version
-  poetry version {{VERSION}}
+  uv version {{VERSION}}
   # Update changelog
-  VERSION=$(poetry version --short)
+  VERSION=$(uv version --short)
   DATE=$(date -u +%Y-%m-%d)
   sed -i "s/^## \[Unreleased\].*\$/## [$VERSION] — $DATE/" CHANGELOG.md
   # Build package
-  poetry build
+  uv build
   # Commit changes
   git add CHANGELOG.md pyproject.toml
   git commit -m "Bump to version v$VERSION"
@@ -124,5 +120,5 @@ prepare-new-release VERSION: no-uncommitted-changes check test-all test-integrat
   echo "Next steps:"
   echo "  1. Create PR to master, then after merging:"
   echo "  2. git tag py-v$VERSION && git push --tags"
-  echo "  3. poetry publish"
+  echo "  3. uv publish"
   echo "  4. (optionally) Create a release on Github"

@@ -18,7 +18,7 @@
 ##############################################################################
 # This file is not meant to be run or imported directly, but via
 #
-#   poetry run python -i inspect.py
+#   uv run python -i repl_with_anthology.py
 #
 # in order to start up a Python REPL where the 'anthology' variable is
 # already pre-instantiated with an Anthology object pointing to the data

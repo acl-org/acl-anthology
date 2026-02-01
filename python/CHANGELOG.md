@@ -1,5 +1,15 @@
 # Changelog
 
+## [Unreleased]
+
+### Added
+
+- Files (such as paper PDFs) can now be downloaded from their remote URLs via `.download()`.
+
+### Changed
+
+- Switched tooling from Poetry to uv, and from Black to Ruff formatter.
+
 ## [1.0.0] — 2026-01-24
 
 This release implements the new [name resolution and author ID logic](https://github.com/acl-org/acl-anthology/wiki/Author-Page-Plan), and is therefore fundamentally incompatible with ACL Anthology data before the switch to this new system.
