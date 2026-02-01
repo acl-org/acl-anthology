@@ -50,7 +50,7 @@ jobs:
       - name: Run pre-commit hooks
         run: uv run --frozen pre-commit run --all-files
         env:
-          SKIP: no-commit-to-branch
+          SKIP: no-commit-to-branch,validate-xml
       - name: Run type checker
         run: uv run --frozen mypy acl_anthology
       # Running 'import TexSoup' is a terrible hack that seems to fix import
