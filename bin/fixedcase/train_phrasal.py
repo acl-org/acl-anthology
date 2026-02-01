@@ -16,7 +16,7 @@ if __name__ == "__main__":
         tree = ET.parse(xmlfile)
         for paper in tree.getroot().findall(".//paper"):
             for abstract in paper.findall("abstract"):
-                toks = tokenize(get_text(abstract).replace('-', ' '))
+                toks = tokenize(get_text(abstract).replace("-", " "))
                 for i, w in enumerate(toks[:-1]):
                     if w[0].isupper():
                         queue = []
@@ -29,18 +29,18 @@ if __name__ == "__main__":
                         if i + 4 < len(toks) and toks[i + 4][0].isupper():
                             queue.append(tuple(toks[i : i + 5]))  # 5-gram
                         for phr in queue:
-                            if '.' in phr or ',' in phr or '(' in phr or ')' in phr:
+                            if "." in phr or "," in phr or "(" in phr or ")" in phr:
                                 continue
                             c[phr] += 1
 
-    print(f'{len(c)} entries before filtering')
+    print(f"{len(c)} entries before filtering")
     for k, v in c.copy().items():
         if v < 3:
             del c[k]
-    print(f'{len(c)} entries after min 3 threshold')
+    print(f"{len(c)} entries after min 3 threshold")
 
-    d = {' '.join(k).lower(): Counter() for k in sorted(c)}
-    print(f'{len(d)} unique entries ignoring case')
+    d = {" ".join(k).lower(): Counter() for k in sorted(c)}
+    print(f"{len(d)} unique entries ignoring case")
 
     # Second pass: filter to n-grams that are capitalized in most abstracts,
     # and that appear in titles
@@ -53,20 +53,20 @@ if __name__ == "__main__":
         tree = ET.parse(xmlfile)
         for paper in tree.getroot().findall(".//paper"):
             for abstract in paper.findall("abstract"):
-                toks = tokenize(get_text(abstract).replace('-', ' '))
-                s = ' '.join(toks)
+                toks = tokenize(get_text(abstract).replace("-", " "))
+                s = " ".join(toks)
                 s_lower = s.lower()
                 for q in d:
                     i = s_lower.find(q)
                     if i > -1:
                         d[q][s[i : i + len(q)]] += 1
             for title in paper.findall("title") + paper.findall("booktitle"):
-                titleS = ' '.join(tokenize(get_text(title).replace('-', ' ').lower()))
+                titleS = " ".join(tokenize(get_text(title).replace("-", " ").lower()))
                 for q in d:
-                    if f' {q} ' in f' {titleS} ':
+                    if f" {q} " in f" {titleS} ":
                         intitles[q] += 1
 
-    print(f'{len(intitles)} of the entries occur in titles')
+    print(f"{len(intitles)} of the entries occur in titles")
 
     # # normalize hyphens
     # for q in d.copy():
@@ -92,7 +92,7 @@ if __name__ == "__main__":
             # this is a spelling where the first and last word are capitalized
             if (
                 top_spelling[0].isupper()
-                and top_spelling[top_spelling.rindex(' ') + 1].isupper()
+                and top_spelling[top_spelling.rindex(" ") + 1].isupper()
             ):
                 # store the most frequent capitalization
                 # with # of times the phrase occurred non-lowercased
@@ -103,7 +103,7 @@ if __name__ == "__main__":
                 # all-caps title heuristic can be unfair on short n-grams,
                 # so append some dummy words
                 bs = fixedcase_title(
-                    toks + ['The', 'the', 'The', 'the', 'The'],
+                    toks + ["The", "the", "The", "the", "The"],
                     truelist=old_uni_truelist,
                     phrase_truelist=old_phrase_truelist,
                     amodifiers=amodifiers,
@@ -125,24 +125,24 @@ if __name__ == "__main__":
                 if not keep:
                     filterLater.add(top_spelling)
 
-    print(f'{len(newC)} usually capitalized phrases that occur in titles')
+    print(f"{len(newC)} usually capitalized phrases that occur in titles")
 
     # print(newC)
     newC1 = newC.copy()
 
     # For 3-, 4-, and 5-grams, subtract counts for subsumed (n-1)-grams
-    for phr, n in sorted(newC.copy().items(), key=lambda s: s.count(' '), reverse=True):
-        if phr.count(' ') > 1:
+    for phr, n in sorted(newC.copy().items(), key=lambda s: s.count(" "), reverse=True):
+        if phr.count(" ") > 1:
             toks = tuple(phr.split())
-            newC[' '.join(toks[:-1])] -= n
-            newC[' '.join(toks[1:])] -= n
+            newC[" ".join(toks[:-1])] -= n
+            newC[" ".join(toks[1:])] -= n
             if len(toks) > 3:  # inclusion-exclusion
                 # correct for double-counting of overlap between 2 spans just decremented
-                newC[' '.join(toks[1:-1])] += n
+                newC[" ".join(toks[1:-1])] += n
 
                 if len(toks) > 4:
-                    newC[' '.join(toks[2:-1])] -= n
-                    newC[' '.join(toks[1:-2])] -= n
+                    newC[" ".join(toks[2:-1])] -= n
+                    newC[" ".join(toks[1:-2])] -= n
 
     # print(newC)
 

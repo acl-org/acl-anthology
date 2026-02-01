@@ -105,19 +105,19 @@ def bib2xml(bibfilename, anthology_id):
     """
 
     fields = [
-        'title',
-        'author',
-        'editor',
-        'booktitle',
-        'month',
-        'year',
-        'address',
-        'publisher',
-        'pages',
-        'abstract',
-        'url',
-        'doi',
-        'language',
+        "title",
+        "author",
+        "editor",
+        "booktitle",
+        "month",
+        "year",
+        "address",
+        "publisher",
+        "pages",
+        "abstract",
+        "url",
+        "doi",
+        "language",
     ]
 
     try:
@@ -125,7 +125,7 @@ def bib2xml(bibfilename, anthology_id):
     except ValueError:
         print(f"Couldn't split {anthology_id}", file=sys.stderr)
         sys.exit(1)
-    if paper_no == '':
+    if paper_no == "":
         return  # skip the master bib file; we only process the individual files
 
     bibdata = read_bibtex(bibfilename)
@@ -142,34 +142,34 @@ def bib2xml(bibfilename, anthology_id):
             log(f"unknown field {field}")
 
     for field in fields:
-        if field in ['author', 'editor']:
+        if field in ["author", "editor"]:
             if field in bibentry.persons:
                 for person in bibentry.persons[field]:
-                    first_text = ' '.join(person.bibtex_first_names)
-                    last_text = ' '.join(person.prelast_names + person.last_names)
+                    first_text = " ".join(person.bibtex_first_names)
+                    last_text = " ".join(person.prelast_names + person.last_names)
                     if person.lineage_names:
-                        last_text += ', ' + ' '.join(person.lineage_names)
+                        last_text += ", " + " ".join(person.lineage_names)
 
                     # Don't distinguish between authors that have only a first name
                     # vs. authors that have only a last name; always make it a last name.
                     if last_text.strip() in [
-                        '',
-                        '-',
+                        "",
+                        "-",
                     ]:  # Some START users have '-' for null
                         last_text = first_text
-                        first_text = ''
+                        first_text = ""
 
                     name_node = make_simple_element(field, parent=paper)
                     make_simple_element("first", first_text, parent=name_node)
                     make_simple_element("last", last_text, parent=name_node)
         else:
-            if field == 'url':
+            if field == "url":
                 value = f"{anthology_id}"
             elif field in bibentry.fields:
                 value = bibentry.fields[field]
-            elif field == 'bibtype':
+            elif field == "bibtype":
                 value = bibentry.type
-            elif field == 'bibkey':
+            elif field == "bibkey":
                 value = bibkey
             else:
                 continue
@@ -457,7 +457,7 @@ def main(args):
                 # address
                 address_node = paper_node.find("address")
                 if address_node is None:
-                    address_node = make_simple_element("address", meta['location'])
+                    address_node = make_simple_element("address", meta["location"])
                 meta_node.append(address_node)
 
                 # month

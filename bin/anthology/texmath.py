@@ -158,7 +158,7 @@ class TexMath:
     def _parse_fraction(self, args, trg):
         if len(args) != 2:
             log.warning(f"Couldn't parse \\frac: got {len(args)} arguments, expected 2")
-            self._append_unparsed({'name': 'frac', 'args': args}, trg)
+            self._append_unparsed({"name": "frac", "args": args}, trg)
         else:
             # Represent numerator of fraction as superscript
             sx = etree.Element("sup")
@@ -176,7 +176,7 @@ class TexMath:
         # TexSoup doesn't parse any non-alpha command as a command. Ex: \$
         # However it does separate them into their own text part. Ex: 'r\\&dd' -> ['r', '\\&', 'dd']
         # Therefore try to do command mapping replacement of all text beginning with \ and of length 2
-        if len(text) == 2 and text[0] == '\\':
+        if len(text) == 2 and text[0] == "\\":
             text = self.cmd_map.get(text[1], text)
             _append_text(text, trg)
             return

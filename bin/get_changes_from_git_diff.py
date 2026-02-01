@@ -63,6 +63,6 @@ for filepath in sys.stdin:
         changeset.append(change)
 
 if len(changeset) > 50:
-    changeset = changeset[0:50] + [f"(plus {len(changeset)-50} more...)"]
+    changeset = changeset[0:50] + [f"(plus {len(changeset) - 50} more...)"]
 
 print(", ".join(changeset))

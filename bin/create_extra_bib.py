@@ -156,7 +156,7 @@ def create_shards(
         entries_text = f.read()
 
     # Split entries at each next line starting with '@' (preserves the leading '@')
-    entries = re.split(r'(?=@[A-Za-z]+)', entries_text)
+    entries = re.split(r"(?=@[A-Za-z]+)", entries_text)
     entries = [e.strip() for e in entries if e.strip()]
 
     if not entries:

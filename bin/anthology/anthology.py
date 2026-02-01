@@ -66,9 +66,9 @@ class Anthology:
         """
         importdir = Path(importdir)
 
-        assert (
-            importdir.exists() and importdir.is_dir()
-        ), f"Directory not found: {importdir}"
+        assert importdir.exists() and importdir.is_dir(), (
+            f"Directory not found: {importdir}"
+        )
         self.pindex = AnthologyIndex(
             importdir,
             fast_load=self._fast_load,

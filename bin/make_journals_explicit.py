@@ -161,7 +161,7 @@ def fix_journals(srcdir, commit=False):
         volume_type = "journal" if is_journal(id_) else "proceedings"
 
         for meta in root.findall("./volume/meta"):
-            build_anthology_id(id_, meta.getparent().get('id'))
+            build_anthology_id(id_, meta.getparent().get("id"))
             if meta.getparent().get("type") is not None:
                 continue
 

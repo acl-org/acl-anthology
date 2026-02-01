@@ -37,22 +37,20 @@ def copy_front_matter(
     pdfs_dir: str,
     dry_run: bool,
 ) -> Tuple[Dict[str, Dict[str, str]], str, str, str]:
-    collection_id = meta['collection_id']
-    venue_name = meta['anthology_venue_id'].lower()
-    volume_name = meta['volume'].lower()
+    collection_id = meta["collection_id"]
+    venue_name = meta["anthology_venue_id"].lower()
+    volume_name = meta["volume"].lower()
 
     pdfs_dest_dir = create_des_path(pdfs_dir, venue_name)
 
     # copy frontmatter (0.pdf)
-    frontmatter_pdf_src_path = os.path.join(meta['path'], 'watermarked_pdfs/0.pdf')
-    assert os.path.exists(frontmatter_pdf_src_path), 'frontmatter was not found'
+    frontmatter_pdf_src_path = os.path.join(meta["path"], "watermarked_pdfs/0.pdf")
+    assert os.path.exists(frontmatter_pdf_src_path), "frontmatter was not found"
     frontmatter_pdf_dest_path = (
         os.path.join(pdfs_dest_dir, f"{collection_id}-{volume_name}") + ".0.pdf"
     )
     if dry_run:
-        print(
-            f'would\'ve moved {frontmatter_pdf_src_path} to {frontmatter_pdf_dest_path}'
-        )
+        print(f"would've moved {frontmatter_pdf_src_path} to {frontmatter_pdf_dest_path}")
     if not dry_run:
         maybe_copy(frontmatter_pdf_src_path, frontmatter_pdf_dest_path)
 
@@ -62,39 +60,39 @@ def copy_front_matter(
 def update_frontmatter_hash(
     anthology_dir, collection_id, volume_name, frontmatter_pdf_dest_path
 ):
-    xml_file = os.path.join(anthology_dir, 'data', 'xml', f'{collection_id}.xml')
+    xml_file = os.path.join(anthology_dir, "data", "xml", f"{collection_id}.xml")
     tree = ET.parse(xml_file)
     paper = tree.getroot().find(f"./volume[@id='{volume_name}']/frontmatter")
     url = paper.find("./url")
-    print(f'old hash {url.attrib["hash"]}')
+    print(f"old hash {url.attrib['hash']}")
     url.attrib["hash"] = compute_hash_from_file(frontmatter_pdf_dest_path)
-    print(f'new hash {url.attrib["hash"]}')
+    print(f"new hash {url.attrib['hash']}")
     tree.write(xml_file, encoding="UTF-8", xml_declaration=True)
 
 
 @click.command()
 @click.option(
-    '-i',
-    '--ingestion_dir',
-    help='Directory contains proceedings need to be ingested',
+    "-i",
+    "--ingestion_dir",
+    help="Directory contains proceedings need to be ingested",
 )
 @click.option(
-    '-p',
-    '--pdfs_dir',
-    default=os.path.join(os.environ['HOME'], 'anthology-files', 'pdf'),
-    help='Root path for placement of PDF files',
+    "-p",
+    "--pdfs_dir",
+    default=os.path.join(os.environ["HOME"], "anthology-files", "pdf"),
+    help="Root path for placement of PDF files",
 )
 @click.option(
-    '-n',
-    '--dry_run',
+    "-n",
+    "--dry_run",
     default=False,
-    help='Do not actually copy anything',
+    help="Do not actually copy anything",
 )
 @click.option(
-    '-r',
-    '--anthology_dir',
+    "-r",
+    "--anthology_dir",
     default=os.path.join(os.path.dirname(sys.argv[0]), ".."),
-    help='Root path of ACL Anthology Github repo.',
+    help="Root path of ACL Anthology Github repo.",
 )
 def main(ingestion_dir, pdfs_dir, dry_run, anthology_dir):
     anthology_datadir = os.path.join(os.path.dirname(sys.argv[0]), "..", "data")
@@ -109,7 +107,7 @@ def main(ingestion_dir, pdfs_dir, dry_run, anthology_dir):
     meta["collection_id"] = collection_id = meta["year"] + "." + venue_slug
 
     volume_name = meta["volume"].lower()
-    print(f'collection_id {collection_id}, venuename {volume_name}')
+    print(f"collection_id {collection_id}, venuename {volume_name}")
     # volume_full_id = f"{collection_id}-{volume_name}"
 
     frontmatter_pdf_dest_path = copy_front_matter(meta, pdfs_dir, dry_run)
@@ -118,5 +116,5 @@ def main(ingestion_dir, pdfs_dir, dry_run, anthology_dir):
     )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

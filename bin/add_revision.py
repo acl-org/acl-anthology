@@ -71,7 +71,7 @@ from datetime import datetime
 
 DEFAULT_GITHUB_REPO = os.environ.get("ANTHOLOGY_GITHUB_REPO", "acl-org/acl-anthology")
 GITHUB_TOKEN_ENV_VARS = ("GITHUB_TOKEN", "GH_TOKEN")
-TRAILING_URL_CHARS = ").,]>\""
+TRAILING_URL_CHARS = ').,]>"'
 
 
 def _get_github_repo(repo_name):
@@ -156,7 +156,7 @@ def validate_file_type(path):
     """Ensure downloaded file mime type matches its extension (e.g., PDF)"""
     detected = filetype.guess(path)
     if detected is None or not detected.mime.endswith(detected.extension):
-        mime_type = 'UNKNOWN' if detected is None else detected.mime
+        mime_type = "UNKNOWN" if detected is None else detected.mime
         print(
             f"FATAL: file {path} has MIME type {mime_type}",
             file=sys.stderr,

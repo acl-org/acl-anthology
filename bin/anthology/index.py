@@ -95,9 +95,7 @@ class AnthologyIndex:
         self._id_to_used = defaultdict(set)  # maps ids to all names actually used
         self.name_to_ids = defaultdict_names(list)  # maps canonical/variant names to ids
         self._coauthors = defaultdict(Counter)  # maps ids to co-author ids
-        self.comments = (
-            {}
-        )  # maps ids to comments (used for distinguishing authors with same name)
+        self.comments = {}  # maps ids to comments (used for distinguishing authors with same name)
         self._similar = defaultdict(set)
         self.id_to_papers = defaultdict(lambda: defaultdict(list))  # id -> role -> papers
         self.name_to_papers = defaultdict_names(
@@ -157,7 +155,7 @@ class AnthologyIndex:
                     self._similar[id_].update(entry["similar"])
                     for other in entry["similar"]:
                         if id_ not in self._similar[other]:
-                            log.debug(f'inferring similar name {other} -> {id_}')
+                            log.debug(f"inferring similar name {other} -> {id_}")
                         self._similar[other].add(id_)
 
         # form transitive closure of self._similar
@@ -170,7 +168,7 @@ class AnthologyIndex:
                         for z in list(self._similar[y]):
                             if z != x and z not in self._similar[x]:
                                 self._similar[x].add(z)
-                                log.debug(f'inferring similar name {x} -> {z}')
+                                log.debug(f"inferring similar name {x} -> {z}")
                                 again = True
 
     def _is_stopword(self, word, paper):
@@ -283,9 +281,9 @@ class AnthologyIndex:
         """
         from .papers import Paper
 
-        assert isinstance(
-            paper, Paper
-        ), f"Expected Paper, got {type(paper)} ({repr(paper)})"
+        assert isinstance(paper, Paper), (
+            f"Expected Paper, got {type(paper)} ({repr(paper)})"
+        )
         # Make sure paper has a bibkey and it is unique (except for dummy
         # frontmatter, as it is not an actual paper)
         if not dummy and not self._fast_load:

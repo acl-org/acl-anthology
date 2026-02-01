@@ -50,7 +50,7 @@ def extract_pages(source_path, page_range, local_path):
     try:
         if "--" in page_range:
             page_range = page_range.replace("--", "-")
-        page_range = ' A'.join(page_range.split(','))
+        page_range = " A".join(page_range.split(","))
         print(
             f"-> Extracting pages {page_range} from {source_path} to {local_path}",
             file=sys.stderr,
@@ -136,7 +136,7 @@ def main(args):
                         last, first = editor_name.split(", ")
                     else:
                         first, last = (
-                            ' '.join(editor_name.split()[:-1]),
+                            " ".join(editor_name.split()[:-1]),
                             editor_name.split()[-1],
                         )
                     make_simple_element("first", first, parent=editor)
@@ -177,7 +177,7 @@ def main(args):
                     last, first = author_name.split(", ")
                 else:
                     first, last = (
-                        ' '.join(author_name.split()[:-1]),
+                        " ".join(author_name.split()[:-1]),
                         author_name.split()[-1],
                     )
                 make_simple_element("first", first, parent=author)
@@ -239,29 +239,29 @@ def main(args):
     tree.write(collection_file, encoding="UTF-8", xml_declaration=True, with_tail=True)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     import argparse
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('tsv_file', type=argparse.FileType("r"))
+    parser.add_argument("tsv_file", type=argparse.FileType("r"))
     parser.add_argument(
-        'meta_file', type=argparse.FileType("r"), help="Path to conference metadata file"
+        "meta_file", type=argparse.FileType("r"), help="Path to conference metadata file"
     )
     parser.add_argument(
-        '--anthology',
+        "--anthology",
         default=f"{os.environ.get('HOME')}/code/acl-anthology",
         help="Path to Anthology repo (cloned from https://github.com/acl-org/acl-anthology)",
     )
     parser.add_argument(
-        '--anthology-files-path',
+        "--anthology-files-path",
         default=f"{os.environ.get('HOME')}/anthology-files/pdf",
         help="Path to Anthology files (Default: ~/anthology-files",
     )
     parser.add_argument(
         "--delimiter", "-d", default="\t", help="CSV file delimiter (default: TAB)"
     )
-    parser.add_argument('--proceedings', help="Path to PDF with conference proceedings")
-    parser.add_argument('--frontmatter', action="store_true")
+    parser.add_argument("--proceedings", help="Path to PDF with conference proceedings")
+    parser.add_argument("--frontmatter", action="store_true")
     parser.add_argument("--force", "-f", action="store_true")
     args = parser.parse_args()
 

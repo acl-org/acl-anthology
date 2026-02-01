@@ -83,9 +83,9 @@ def parse_variant_list(anthology):
             name_variants[entry["id"]] = entry
         else:
             people = anthology.people.get_by_name(Name.from_dict(entry["canonical"]))
-            assert (
-                len(people) == 1
-            ), "Canonical name in name_variants.yaml shouldn't be ambiguous"
+            assert len(people) == 1, (
+                "Canonical name in name_variants.yaml shouldn't be ambiguous"
+            )
             name_variants[people[0].id] = entry
     return name_variants
 
@@ -99,9 +99,9 @@ class YAMLName(yaml.YAMLObject):
 
     def __eq__(self, other):
         return (
-            getattr(self, 'first', '') == getattr(other, 'first', '')
-            and getattr(self, 'last', '') == getattr(other, 'last', '')
-            and getattr(self, 'script', '') == getattr(other, 'script', '')
+            getattr(self, "first", "") == getattr(other, "first", "")
+            and getattr(self, "last", "") == getattr(other, "last", "")
+            and getattr(self, "script", "") == getattr(other, "script", "")
         )
 
     def __init__(self, first, last, script):
@@ -112,11 +112,11 @@ class YAMLName(yaml.YAMLObject):
             self.script = script
 
     def score(self):
-        name = Name(getattr(self, 'first', None), self.last)
+        name = Name(getattr(self, "first", None), self.last)
         return name.score()
 
     def full(self):  # only for testing
-        if getattr(self, 'first', None):
+        if getattr(self, "first", None):
             return f"{self.first} | {self.last}"
         return self.last
 

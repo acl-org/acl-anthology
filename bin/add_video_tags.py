@@ -65,28 +65,28 @@ def add_video_tag(anth_paper, xml_parse):
 
 
 def main(args):
-    combo_df = combine_tsv(args['tsv_files'])
-    combo_df_uniques = combo_df['anthology_id'].apply(split_anth_id).unique()
+    combo_df = combine_tsv(args["tsv_files"])
+    combo_df_uniques = combo_df["anthology_id"].apply(split_anth_id).unique()
 
     for xml in os.listdir(data_dir):
         fname, ext = os.path.splitext(xml)
         if fname in combo_df_uniques.tolist() or fname == "2020.acl":
             tree = et.parse(os.path.join(data_dir, xml))
 
-            df_subset = combo_df[combo_df['anthology_id'].str.startswith(fname)]
+            df_subset = combo_df[combo_df["anthology_id"].str.startswith(fname)]
             df_subset.apply(add_video_tag, axis=1, xml_parse=tree)
 
-            with open(os.path.join(data_dir, fname + ".xml"), 'wb') as f:
+            with open(os.path.join(data_dir, fname + ".xml"), "wb") as f:
                 indent(tree.getroot())
                 tree.write(f, encoding="UTF-8", xml_declaration=True)
 
 
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Adds video tags to the anthology XML.')
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Adds video tags to the anthology XML.")
     parser.add_argument(
-        'tsv_files',
-        nargs='+',
-        help='Two-column TSV containing (anthology_id, presentation_id)',
+        "tsv_files",
+        nargs="+",
+        help="Two-column TSV containing (anthology_id, presentation_id)",
     )
 
     cl_args = parser.parse_args()

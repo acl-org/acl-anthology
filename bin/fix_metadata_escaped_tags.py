@@ -28,7 +28,7 @@ import re
 from tqdm import tqdm
 
 # < and > are used for things other than HTML tags, so only capture common HTML tags
-html_tag_re = re.compile(r'&lt;/?(?:b|i|sup)&gt;')
+html_tag_re = re.compile(r"&lt;/?(?:b|i|sup)&gt;")
 
 
 def fix_text(text):
@@ -42,14 +42,14 @@ def fix_text(text):
     assert len(matches) % 2 == 0
     match_pairs = list(zip(matches[::2], matches[1::2]))
     for _open, close in match_pairs:
-        open_tag = _open.split()[0][4:].replace('&gt;', '')
-        close_tag = close[5:].replace('&gt;', '')
+        open_tag = _open.split()[0][4:].replace("&gt;", "")
+        close_tag = close[5:].replace("&gt;", "")
         assert open_tag == close_tag, (open_tag, close_tag)
 
     # Do the replacements
     unique_matches = set(matches)
     for m in unique_matches:
-        text = text.replace(m, m.replace('&gt;', '>').replace('&lt;', '<'))
+        text = text.replace(m, m.replace("&gt;", ">").replace("&lt;", "<"))
 
     return text
 
@@ -58,8 +58,8 @@ def handle_file(filename):
     with open(filename) as f:
         lines = f.read()
 
-    abstracts = re.findall(r'<abstract>.*?</abstract>', lines, re.DOTALL)
-    titles = re.findall(r'<title>.*?</title>', lines, re.DOTALL)
+    abstracts = re.findall(r"<abstract>.*?</abstract>", lines, re.DOTALL)
+    titles = re.findall(r"<title>.*?</title>", lines, re.DOTALL)
     all_fields = abstracts + titles
 
     n_changes = 0
@@ -70,22 +70,22 @@ def handle_file(filename):
             lines = lines.replace(field, potentially_changed)
             n_changes += 1
 
-    with open(filename, 'w') as f:
+    with open(filename, "w") as f:
         f.write(lines)
     return n_changes
 
 
 def main():
     root_dir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
-    xml_data_files = list(glob.glob(os.path.join(root_dir, 'data', 'xml', '*.xml')))
+    xml_data_files = list(glob.glob(os.path.join(root_dir, "data", "xml", "*.xml")))
 
     n_changes = 0
 
     for filename in tqdm(xml_data_files):
         n_changes += handle_file(filename)
 
-    print(f'Fixed {n_changes} metadata fields')
+    print(f"Fixed {n_changes} metadata fields")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

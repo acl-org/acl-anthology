@@ -39,7 +39,7 @@ from collections import defaultdict
 
 
 def main(args):
-    scriptdir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'data')
+    scriptdir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data")
     anthology = Anthology(importdir=scriptdir)
 
     attachments = defaultdict(list)
@@ -60,7 +60,7 @@ def main(args):
 
             attachments[attach_type].append(
                 (
-                    anthology.papers[anthology_id].get_title('plain'),
+                    anthology.papers[anthology_id].get_title("plain"),
                     CANONICAL_URL_TEMPLATE.format(anthology_id),
                 )
             )
@@ -94,7 +94,7 @@ def main(args):
 
             errata.append(
                 (
-                    anthology.papers[anthology_id].get_title('plain'),
+                    anthology.papers[anthology_id].get_title("plain"),
                     CANONICAL_URL_TEMPLATE.format(anthology_id),
                 )
             )
