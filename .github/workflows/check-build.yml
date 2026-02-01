@@ -17,6 +17,8 @@ jobs:
     steps:
     - name: install hugo
       run: wget https://github.com/gohugoio/hugo/releases/download/v0.140.2/hugo_extended_0.140.2_linux-amd64.deb && sudo dpkg -i hugo_extended*.deb
+    - name: install uv
+      uses: astral-sh/setup-uv@v7
     - name: update
       run: sudo apt-get update
     - name: install other deps
