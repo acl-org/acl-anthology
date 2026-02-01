@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- Files (such as paper PDFs) can now be downloaded from their remote URLs via `.download()`.
+
 ### Changed
 
 - Switched tooling from Poetry to uv, and from Black to Ruff formatter.
