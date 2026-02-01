@@ -60,6 +60,11 @@ test-only-xfail:
 typecheck:
   uv run mypy acl_anthology
 
+# Update dependencies and list packages where newer versions are available
+update-dependencies:
+  uv sync --upgrade
+  uv pip list --outdated
+
 # Run benchmarks
 benchmark:
   uv run richbench --percentage benchmarks/

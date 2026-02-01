@@ -340,7 +340,8 @@ class Volume(SlottedDict[Paper]):
         if (ingest_date := volume.get("ingest-date")) is not None:
             kwargs["ingest_date"] = str(ingest_date)
         for element in meta:
-            if element.tag in (
+            tag = str(element.tag)
+            if tag in (
                 "address",
                 "doi",
                 "isbn",
@@ -348,23 +349,23 @@ class Volume(SlottedDict[Paper]):
                 "publisher",
                 "year",
             ):
-                kwargs[element.tag] = element.text
-            elif element.tag in (
+                kwargs[tag] = element.text
+            elif tag in (
                 "journal-issue",
                 "journal-volume",
                 "journal-title",
             ):
-                kwargs[element.tag.replace("-", "_")] = element.text
-            elif element.tag in ("booktitle", "shortbooktitle"):
-                kwargs[element.tag] = MarkupText.from_xml(element)
-            elif element.tag == "editor":
+                kwargs[tag.replace("-", "_")] = element.text
+            elif tag in ("booktitle", "shortbooktitle"):
+                kwargs[tag] = MarkupText.from_xml(element)
+            elif tag == "editor":
                 kwargs["editors"].append(NameSpecification.from_xml(element))
-            elif element.tag == "url":
+            elif tag == "url":
                 kwargs["pdf"] = PDFReference.from_xml(element)
-            elif element.tag == "venue":
+            elif tag == "venue":
                 kwargs["venue_ids"].append(str(element.text))
             else:  # pragma: no cover
-                raise ValueError(f"Unsupported element for Volume: <{element.tag}>")
+                raise ValueError(f"Unsupported element for Volume: <{tag}>")
         return cls(**kwargs)
 
     def to_xml(self, with_papers: bool = True) -> etree._Element:

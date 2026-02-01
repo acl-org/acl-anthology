@@ -66,7 +66,7 @@ class Talk:
                 type_ = str(meta.get("type", "attachment"))
                 kwargs["attachments"][type_] = EventFileReference.from_xml(meta)
             else:  # pragma: no cover
-                raise ValueError(f"Unsupported element for Talk: <{meta.tag}>")
+                raise ValueError(f"Unsupported element for Talk: <{str(meta.tag)}>")
         return cls(**kwargs)
 
     def to_xml(self) -> etree._Element:
@@ -212,7 +212,7 @@ class Event:
                     if meta.tag == "title":
                         kwargs["title"] = MarkupText.from_xml(meta)
                     elif meta.tag in ("location", "dates"):
-                        kwargs[meta.tag] = str(meta.text) if meta.text else None
+                        kwargs[str(meta.tag)] = str(meta.text) if meta.text else None
             elif element.tag == "links":
                 kwargs["links"] = {}
                 for url in element:
@@ -227,7 +227,7 @@ class Event:
                     if volume_id.tag == "volume-id"
                 ]
             else:  # pragma: no cover
-                raise ValueError(f"Unsupported element for Event: <{element.tag}>")
+                raise ValueError(f"Unsupported element for Event: <{str(element.tag)}>")
         return cls(**kwargs)
 
     def to_xml(self) -> etree._Element:
