@@ -605,6 +605,20 @@ def test_ingest_namespec(name_dict, namespec_params, expected_result, index):
         assert index[namespec.id].has_name(name)
 
 
+def test_ingest_namespec_should_warn(index):
+    index.reset()
+    index._load_people_index()
+    # This person exists (as verified), but without an ORCID, so ingesting them
+    # _with_ an ORCID will create a new ID, but should emit a warning
+    name = Name.from_dict({"first": "Steven", "last": "Krauwer"})
+    namespec = NameSpecification(name, orcid="0000-0002-4236-2611")
+
+    with pytest.warns(NameSpecResolutionWarning):
+        index.ingest_namespec(namespec)
+
+    assert namespec.id == "steven-krauwer-2611"
+
+
 def test_ingest_namespec_returns_namespec(index):
     ns1 = NameSpecification(Name("Matt", "Post"), orcid="0000-0002-1297-6794")
     ns2 = index.ingest_namespec(ns1)
