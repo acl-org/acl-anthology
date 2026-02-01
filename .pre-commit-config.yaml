@@ -13,12 +13,22 @@ repos:
           )$
     - id: check-yaml
       exclude: ^python/mkdocs.yml$
+      args: ['--unsafe']
     - id: end-of-file-fixer
     - id: name-tests-test
       files: ^python/tests/
       types: [file, python]
     - id: no-commit-to-branch
     - id: trailing-whitespace
+
+- repo: local
+  hooks:
+    - id: validate-xml
+      name: validate xml
+      language: unsupported
+      entry: jing -c data/xml/schema.rnc
+      files: ^data/xml
+      types: [xml]
 
 - repo: https://github.com/Lucas-C/pre-commit-hooks
   rev: v1.5.6
