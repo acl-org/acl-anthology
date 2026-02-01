@@ -140,6 +140,7 @@ class FileReference:
 
         Raises:
             ChecksumMismatchWarning: If the downloaded file's checksum doesn't match the expected one.
+            ValueError: If the response does not have the expected Content-Type (e.g. application/pdf for PDFs).
         """
         r = requests.get(self.url, timeout=timeout)
         r.raise_for_status()  # Just raise in case of 404 etc.
