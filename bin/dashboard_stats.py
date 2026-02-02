@@ -11,8 +11,10 @@ for data that may change after the publication is added
 @author: Nathan Schneider (@nschneid)
 @since: 2026-02-01
 """
+
 import sys
 from collections import defaultdict, Counter
+import pandas
 
 from acl_anthology import Anthology
 from acl_anthology.utils.ids import is_verified_person_id
@@ -113,7 +115,6 @@ num_uniq_degree_authors_by_year = {
     year: len(auths) for year, auths in uniq_degree_authors_by_year.items()
 }
 
-import pandas
 
 data = pandas.DataFrame(
     {
@@ -161,4 +162,4 @@ Headline Results
 )
 
 
-print(data.to_csv())
+print(data.to_csv(), end='')
