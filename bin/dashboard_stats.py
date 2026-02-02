@@ -35,11 +35,10 @@ authorships_by_year, explicit_authorships_by_year, verif_authorships_by_year = (
     Counter(),
 )
 orcid_authorships_by_year, orcid_suffix_authorships_by_year = Counter(), Counter()
-papers_by_venue_year = defaultdict(Counter)
-uniq_authors_by_year, uniq_verif_authors_by_year = defaultdict(set), defaultdict(set)
-uniq_orcid_authors_by_year, uniq_orcid_suffix_authors_by_year = defaultdict(
-    set
-), defaultdict(set)
+uniq_authors_by_year = defaultdict(set)
+uniq_verif_authors_by_year = defaultdict(set)
+uniq_orcid_authors_by_year = defaultdict(set)
+uniq_orcid_suffix_authors_by_year = defaultdict(set)
 uniq_degree_authors_by_year = defaultdict(set)
 big_event_names_by_year = defaultdict(set)
 for p in anthology.papers():
@@ -76,12 +75,6 @@ for p in anthology.papers():
             if person.degree:
                 uniq_degree_authors_by_year[p.year].add(person)
                 uniq_degree_authors_by_year['*'].add(person)
-            # if __person.id ends with institution suffix__ --
-            # # not clear that there's a good way to identify these! (the canonical name slug is not always the base author ID):
-            #     print(person.id, file=sys.stderr)
-            #     degree_suffix_authorships_by_year[p.year] += 1
-            #     uniq_degree_suffix_authors_by_year[p.year].add(person)
-            #     uniq_degree_suffix_authors_by_year['*'].add(person)
 for v in anthology.volumes():
     volumes_by_year[v.year] += 1
     if v.doi:
@@ -95,20 +88,7 @@ for e, evt in anthology.events.items():
     if papers_in_event >= 100:
         big_events_by_year[year] += 1
         big_event_names_by_year[year].add(venue)
-    if venue in {
-        'coling',
-        'cl',
-        'acl',
-        'aacl',
-        'eacl',
-        'naacl',
-        'starsem',
-        'semeval',
-        'tacl',
-        'wmt',
-    }:
-        for v in evt.volumes():
-            papers_by_venue_year[venue][year] += sum(1 for x in v.papers())
+
 num_uniq_authors_by_year = {
     year: len(auths) for year, auths in uniq_authors_by_year.items()
 }
