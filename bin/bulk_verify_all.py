@@ -26,7 +26,8 @@ Queries the Github API for all issues in the acl-org/acl-anthology repository.
 It then goes through them, looking for ones that
 - have an issue title ending in "/unverified"
 - have both "author-page" and "correction" labels,
-- a description that includes an ORCID URL and "[x] Verification" but other author page request types unchecked
+- a description that includes an ORCID URL (if the iD contains 'X' it must be uppercase)
+  and "[x] Verification"; other author page request types must be unchecked
 - are approved by at least one member of the Anthology group.
 It then creates a new PR on a branch labeled bulk-verifications-YYYY-MM-DD,
 where it makes a single PR from changes from all matching issues.
