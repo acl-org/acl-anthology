@@ -184,6 +184,8 @@ class AnthologyMetadataUpdater:
                     person = anthology.get_person(author_id)
                     if person is None:
                         raise ValueError(f'Author ID not found (was the verification already applied?): {author_id}')
+                    if (p2 := anthology.people.get_by_orcid(data["orcid"])):
+                        raise ValueError(f'Another author with this ORCID found (should be merge request?): {p2}')
                     person.orcid = data["orcid"]
                     person.degree = data["degree"]
                     new_author_id = author_id.replace("/unverified", "")
