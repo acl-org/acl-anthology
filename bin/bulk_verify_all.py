@@ -43,18 +43,16 @@ Options:
 
 import sys
 import os
-import copy
 from datetime import datetime
-from typing import List
 
 from github import Github
 import git
-import json
 import re
 
 from acl_anthology.anthology import Anthology
 
 anthology = Anthology(datadir="data")
+
 
 class AnthologyMetadataUpdater:
     def __init__(self, github_token):
@@ -78,7 +76,7 @@ class AnthologyMetadataUpdater:
         """Parse the metadata changes from issue body.
 
         Expected format:
-        
+
         ...
 
         ### Author Pages
@@ -103,17 +101,17 @@ class AnthologyMetadataUpdater:
         ...
         """
         issue_body = issue_body.replace('\r\n', '\n').replace('\r', '\n')
-        m = re.search(r'### Author ORCID\n\nhttps://orcid.org/([0-9X-]{19})\n\n### Institution[^\n]+\n\n([^\n]+)\n', issue_body, re.MULTILINE)
+        m = re.search(
+            r'### Author ORCID\n\nhttps://orcid.org/([0-9X-]{19})\n\n### Institution[^\n]+\n\n([^\n]+)\n',
+            issue_body,
+            re.MULTILINE,
+        )
         if m is None:
             return None
         return {"orcid": m.group(1), "degree": m.group(2)}
 
     def process_verification_issues(
-        self,
-        issue_ids=[],
-        verbose=False,
-        skip_validation=False,
-        dry_run=False
+        self, issue_ids=[], verbose=False, skip_validation=False, dry_run=False
     ):
         """Process all simple verification issues and create PR with changes."""
         # Get all open issues with required labels
@@ -173,28 +171,44 @@ class AnthologyMetadataUpdater:
                 self.stats["approved_issues"] += 1
 
                 author_id = data["author_id"]
-                
+
                 # XML file path relative to repo root (for reading current state)
-                xml_repo_path = f"data/xml/"
-                yaml_repo_path = f"data/yaml/"
+                xml_repo_path = "data/xml/"
+                yaml_repo_path = "data/yaml/"
                 if verbose:
-                    print("-> Applying changes to database for author", author_id, file=sys.stderr)
+                    print(
+                        "-> Applying changes to database for author",
+                        author_id,
+                        file=sys.stderr,
+                    )
 
                 try:
                     # update the database!
                     person = anthology.get_person(author_id)
                     if person is None:
-                        raise ValueError(f'Author ID not found (was the verification already applied?): {author_id}')
-                    if (p2 := anthology.people.get_by_orcid(data["orcid"])):
-                        raise ValueError(f'Another author with this ORCID found (should be merge request?): {p2}')
+                        raise ValueError(
+                            f'Author ID not found (was the verification already applied?): {author_id}'
+                        )
+                    if p2 := anthology.people.get_by_orcid(data["orcid"]):
+                        raise ValueError(
+                            f'Another author with this ORCID found (should be merge request?): {p2}'
+                        )
                     person.orcid = data["orcid"]
                     person.degree = data["degree"]
                     new_author_id = author_id.replace("/unverified", "")
                     if verbose:
-                        print("-> New ID", new_author_id, "ORCID", person.orcid, file=sys.stderr)
+                        print(
+                            "-> New ID",
+                            new_author_id,
+                            "ORCID",
+                            person.orcid,
+                            file=sys.stderr,
+                        )
                     if not new_author_id:
                         raise ValueError('Author ID must be nonempty')
-                    person.make_explicit(new_author_id)  # can fail if another person with this ID exists
+                    person.make_explicit(
+                        new_author_id
+                    )  # can fail if another person with this ID exists
                     anthology.save_all()
                 except Exception as e:
                     print(
@@ -205,7 +219,9 @@ class AnthologyMetadataUpdater:
                     continue
 
                 # Commit changes
-                self.local_repo.index.add([xml_repo_path+"/*.xml", yaml_repo_path+"/*.yaml"])
+                self.local_repo.index.add(
+                    [xml_repo_path + "/*.xml", yaml_repo_path + "/*.yaml"]
+                )
                 self.local_repo.index.commit(
                     f"Process verification for {author_id} (closes #{issue.number})"
                 )
@@ -262,7 +278,9 @@ class AnthologyMetadataUpdater:
             ref.checkout()
         else:
             # Create new branch
-            print(f"Creating branch {new_branch_name} from {base_branch}", file=sys.stderr)
+            print(
+                f"Creating branch {new_branch_name} from {base_branch}", file=sys.stderr
+            )
             ref = current_branch.checkout(b=new_branch_name)
 
         return current_branch, new_branch_name, today
@@ -280,7 +298,9 @@ if __name__ == "__main__":
         action="store_true",
         help="Skip validation of approval by Anthology team member",
     )
-    parser.add_argument("issue_ids", nargs="*", type=int, help="Specific issue IDs to process")
+    parser.add_argument(
+        "issue_ids", nargs="*", type=int, help="Specific issue IDs to process"
+    )
     parser.add_argument(
         "--dry-run",
         action="store_true",
@@ -297,7 +317,7 @@ if __name__ == "__main__":
         issue_ids=args.issue_ids,
         verbose=not args.quiet,
         skip_validation=args.skip_validation,
-        dry_run=args.dry_run
+        dry_run=args.dry_run,
     )
 
     for stat in updater.stats:
