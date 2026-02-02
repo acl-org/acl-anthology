@@ -18,7 +18,7 @@ import pandas
 
 from acl_anthology import Anthology
 
-anthology = Anthology('data')
+anthology = Anthology.from_within_repo()
 
 papers_by_year, doi_papers_by_year = Counter(), Counter()
 solo_papers_by_year, max_authors_by_year = Counter(), Counter()
