@@ -23,7 +23,12 @@ anthology = Anthology('data')
 
 papers_by_year, doi_papers_by_year = Counter(), Counter()
 solo_papers_by_year, max_authors_by_year = Counter(), Counter()
-volumes_by_year, doi_volumes_by_year, events_by_year = Counter(), Counter(), Counter()
+volumes_by_year, doi_volumes_by_year, events_by_year, big_events_by_year = (
+    Counter(),
+    Counter(),
+    Counter(),
+    Counter(),
+)
 authorships_by_year, explicit_authorships_by_year, verif_authorships_by_year = (
     Counter(),
     Counter(),
@@ -36,6 +41,7 @@ uniq_orcid_authors_by_year, uniq_orcid_suffix_authors_by_year = defaultdict(
     set
 ), defaultdict(set)
 uniq_degree_authors_by_year = defaultdict(set)
+big_event_names_by_year = defaultdict(set)
 for p in anthology.papers():
     if p.is_deleted:
         continue
@@ -82,9 +88,13 @@ for v in anthology.volumes():
         doi_volumes_by_year[v.year] += 1
     else:
         doi_volumes_by_year[v.year] += 0
-for e in anthology.events.keys():
+for e, evt in anthology.events.items():
     venue, year = e.rsplit('-', 1)
     events_by_year[year] += 1
+    papers_in_event = sum(1 for _v in evt.volumes() for _p in _v.papers())
+    if papers_in_event >= 100:
+        big_events_by_year[year] += 1
+        big_event_names_by_year[year].add(venue)
     if venue in {
         'coling',
         'cl',
@@ -97,7 +107,7 @@ for e in anthology.events.keys():
         'tacl',
         'wmt',
     }:
-        for v in anthology.events[e].volumes():
+        for v in evt.volumes():
             papers_by_venue_year[venue][year] += sum(1 for x in v.papers())
 num_uniq_authors_by_year = {
     year: len(auths) for year, auths in uniq_authors_by_year.items()
@@ -133,6 +143,7 @@ data = pandas.DataFrame(
         'orcid_suffix_uauthors': num_uniq_orcid_suffix_authors_by_year,
         'degree_uauthors': num_uniq_degree_authors_by_year,
         'evts': events_by_year,
+        'big_evts': big_events_by_year,
         'vols': volumes_by_year,
         'doi_vols': doi_volumes_by_year,
     }
@@ -148,7 +159,7 @@ Headline Results
 Overall
 -------
 
-{sum(events_by_year.values())} events
+{sum(events_by_year.values())} events, {sum(big_events_by_year.values())} ({sum(big_events_by_year.values())/sum(events_by_year.values()):.0%}) with 100+ papers
 {sum(volumes_by_year.values())} volumes, {sum(doi_volumes_by_year.values())} ({sum(doi_volumes_by_year.values())/sum(volumes_by_year.values()):.0%}) with DOIs
 {sum(papers_by_year.values())} papers, {sum(doi_papers_by_year.values())} ({sum(doi_papers_by_year.values())/sum(papers_by_year.values()):.0%}) with DOIs
 {num_uniq_authors_by_year['*']} people: \
@@ -164,7 +175,7 @@ Overall
 
 {YR}
 ----
-{events_by_year[YR]} events
+{events_by_year[YR]} events, {big_events_by_year[YR]} ({big_events_by_year[YR]/events_by_year[YR]:.0%}) with 100+ papers: {' '.join(sorted(big_event_names_by_year[YR]))}
 {volumes_by_year[YR]} volumes, {doi_volumes_by_year[YR]} ({doi_volumes_by_year[YR]/volumes_by_year[YR]:.0%}) with DOIs
 {papers_by_year[YR]} papers, {doi_papers_by_year[YR]} ({doi_papers_by_year[YR]/papers_by_year[YR]:.0%}) with DOIs
 {num_uniq_authors_by_year[YR]} people publishing that year: \
