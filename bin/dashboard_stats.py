@@ -140,9 +140,13 @@ data = pandas.DataFrame(
 data['pctdoi_papers'] = data['doi_papers'] / data['papers']
 data['pctdoi_vols'] = data['doi_vols'] / data['vols']
 
+YR = "2025"  # latest full year
 print(
     f'''
 Headline Results
+
+Overall
+-------
 
 {sum(events_by_year.values())} events
 {sum(volumes_by_year.values())} volumes, {sum(doi_volumes_by_year.values())} ({sum(doi_volumes_by_year.values())/sum(volumes_by_year.values()):.0%}) with DOIs
@@ -157,6 +161,22 @@ Headline Results
 ... {sum(verif_authorships_by_year.values())} ({sum(verif_authorships_by_year.values())/sum(authorships_by_year.values()):.0%}) verified
 ... {sum(orcid_authorships_by_year.values())} ({sum(orcid_authorships_by_year.values())/sum(authorships_by_year.values()):.0%}) with ORCID
 ... {sum(explicit_authorships_by_year.values())} ({sum(explicit_authorships_by_year.values())/sum(authorships_by_year.values()):.0%}) explicit author ID at paper level
+
+{YR}
+----
+{events_by_year[YR]} events
+{volumes_by_year[YR]} volumes, {doi_volumes_by_year[YR]} ({doi_volumes_by_year[YR]/volumes_by_year[YR]:.0%}) with DOIs
+{papers_by_year[YR]} papers, {doi_papers_by_year[YR]} ({doi_papers_by_year[YR]/papers_by_year[YR]:.0%}) with DOIs
+{num_uniq_authors_by_year[YR]} people publishing that year: \
+    {num_uniq_authors_by_year[YR]-num_uniq_verif_authors_by_year[YR]} ({(num_uniq_authors_by_year[YR]-num_uniq_verif_authors_by_year[YR])/num_uniq_authors_by_year[YR]:.0%}) unverified, \
+    {num_uniq_orcid_authors_by_year[YR]} ({num_uniq_orcid_authors_by_year[YR]/num_uniq_authors_by_year[YR]:.0%}) verified with ORCID, \
+    {num_uniq_verif_authors_by_year[YR]-num_uniq_orcid_authors_by_year[YR]} ({(num_uniq_verif_authors_by_year[YR]-num_uniq_orcid_authors_by_year[YR])/num_uniq_authors_by_year[YR]:.0%}) verified without ORCID
+... {num_uniq_degree_authors_by_year[YR]} of these people have a registered degree institution
+... Of the ORCID-verified people, {num_uniq_orcid_suffix_authors_by_year[YR]} ({num_uniq_orcid_suffix_authors_by_year[YR]/num_uniq_orcid_authors_by_year[YR]:.0%}) have an ORCID-based ID
+{authorships_by_year[YR]} authorships ({authorships_by_year[YR]/papers_by_year[YR]:.2} per paper; {solo_papers_by_year[YR]} solo-authored papers; max authors per paper = {max_authors_by_year[YR]})
+... {verif_authorships_by_year[YR]} ({verif_authorships_by_year[YR]/authorships_by_year[YR]:.0%}) verified
+... {orcid_authorships_by_year[YR]} ({orcid_authorships_by_year[YR]/authorships_by_year[YR]:.0%}) with ORCID
+... {explicit_authorships_by_year[YR]} ({explicit_authorships_by_year[YR]/authorships_by_year[YR]:.0%}) explicit author ID at paper level
 ''',
     file=sys.stderr,
 )
