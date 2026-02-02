@@ -17,7 +17,6 @@ from collections import defaultdict, Counter
 import pandas
 
 from acl_anthology import Anthology
-from acl_anthology.utils.ids import is_verified_person_id
 
 anthology = Anthology('data')
 
@@ -57,7 +56,7 @@ for p in anthology.papers():
         authorships_by_year[p.year] += 1
         uniq_authors_by_year[p.year].add(person)
         uniq_authors_by_year['*'].add(person)
-        if is_verified_person_id(person.id):
+        if person.is_explicit:
             verif_authorships_by_year[p.year] += 1
             uniq_verif_authors_by_year[p.year].add(person)
             uniq_verif_authors_by_year['*'].add(person)
