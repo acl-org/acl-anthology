@@ -182,13 +182,15 @@ class AnthologyMetadataUpdater:
                 try:
                     # update the database!
                     person = anthology.get_person(author_id)
+                    if person is None:
+                        raise ValueError(f'Author ID not found (was the verification already applied?): {author_id}')
                     person.orcid = data["orcid"]
                     person.degree = data["degree"]
                     new_author_id = author_id.replace("/unverified", "")
                     if verbose:
                         print("-> New ID", new_author_id, "ORCID", person.orcid, file=sys.stderr)
                     if not new_author_id:
-                        raise ValueError('author ID must be nonempty')
+                        raise ValueError('Author ID must be nonempty')
                     person.make_explicit(new_author_id)  # can fail if another person with this ID exists
                     anthology.save_all()
                 except Exception as e:
