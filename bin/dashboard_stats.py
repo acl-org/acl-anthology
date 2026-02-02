@@ -23,18 +23,15 @@ anthology = Anthology('data')
 
 papers_by_year, doi_papers_by_year = Counter(), Counter()
 solo_papers_by_year, max_authors_by_year = Counter(), Counter()
-volumes_by_year, doi_volumes_by_year, events_by_year, big_events_by_year = (
-    Counter(),
-    Counter(),
-    Counter(),
-    Counter(),
-)
-authorships_by_year, explicit_authorships_by_year, verif_authorships_by_year = (
-    Counter(),
-    Counter(),
-    Counter(),
-)
-orcid_authorships_by_year, orcid_suffix_authorships_by_year = Counter(), Counter()
+volumes_by_year = Counter()
+doi_volumes_by_year = Counter()
+events_by_year = Counter()
+big_events_by_year = Counter()
+authorships_by_year = Counter()
+explicit_authorships_by_year = Counter()
+verif_authorships_by_year = Counter()
+orcid_authorships_by_year = Counter()
+orcid_suffix_authorships_by_year = Counter()
 uniq_authors_by_year = defaultdict(set)
 uniq_verif_authors_by_year = defaultdict(set)
 uniq_orcid_authors_by_year = defaultdict(set)
@@ -89,21 +86,16 @@ for e, evt in anthology.events.items():
         big_events_by_year[year] += 1
         big_event_names_by_year[year].add(venue)
 
-num_uniq_authors_by_year = {
-    year: len(auths) for year, auths in uniq_authors_by_year.items()
-}
-num_uniq_verif_authors_by_year = {
-    year: len(auths) for year, auths in uniq_verif_authors_by_year.items()
-}
-num_uniq_orcid_authors_by_year = {
-    year: len(auths) for year, auths in uniq_orcid_authors_by_year.items()
-}
-num_uniq_orcid_suffix_authors_by_year = {
-    year: len(auths) for year, auths in uniq_orcid_suffix_authors_by_year.items()
-}
-num_uniq_degree_authors_by_year = {
-    year: len(auths) for year, auths in uniq_degree_authors_by_year.items()
-}
+
+def vals2sizes(d):
+    return {k: len(v) for k, v in d.items()}
+
+
+num_uniq_authors_by_year = vals2sizes(uniq_authors_by_year)
+num_uniq_verif_authors_by_year = vals2sizes(uniq_verif_authors_by_year)
+num_uniq_orcid_authors_by_year = vals2sizes(uniq_orcid_authors_by_year)
+num_uniq_orcid_suffix_authors_by_year = vals2sizes(uniq_orcid_suffix_authors_by_year)
+num_uniq_degree_authors_by_year = vals2sizes(uniq_degree_authors_by_year)
 
 
 data = pandas.DataFrame(
