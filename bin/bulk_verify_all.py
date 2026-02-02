@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# Copyright 2024 Matt Post <post@cs.jhu.edu>
+# Copyright 2026 Nathan Schneider (@nschneid)
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -32,7 +32,7 @@ It then goes through them, looking for ones that
 It then creates a new PR on a branch labeled bulk-verifications-YYYY-MM-DD,
 where it makes a single PR from changes from all matching issues.
 
-Usage: process_bulk_metadata.py [-q] [--skip-validation] [--dry-run] [issue_ids...]
+Usage: bulk_verify_all.py [-q] [--skip-validation] [--dry-run] [issue_ids...]
 
 Options:
     -q, --quiet              Suppress output
