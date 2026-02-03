@@ -2,31 +2,16 @@
 
 .acl-paper-details {
 
-  /* This essentially reimplements the old Bootstrap dl-horizontal class */
+  /* Modern CSS Grid implementation of dl-horizontal */
   dl {
-
-    &:before,
-    &:after {
-      display: table;
-      content: "";
-      line-height: 0;
-    }
-
-    &:after {
-      clear: both;
-    }
-
-    &:before,
-    &:after {
-      clear: left;
-      text-align: left;
-    }
-
     @include media-breakpoint-up(sm) {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      column-gap: 20px;
+      align-items: baseline;
+
       dt {
-        float: left;
-        width: 160px;
-        clear: left;
+        grid-column: 1;
         text-align: right;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -34,16 +19,17 @@
       }
 
       dd {
-        margin-left: 180px;
+        grid-column: 2;
+        margin-left: 0;
       }
     }
 
     dd {
-      margin-left: 1rem;
       margin-bottom: .25rem;
+      margin-left: 1rem; // Restore indentation on mobile
 
       &:empty {
-        color: $secondary; // Replaces @extend .text-muted
+        color: #6c757d; // Standard text-muted color
       }
 
       &:empty::before {
