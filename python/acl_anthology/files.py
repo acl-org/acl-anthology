@@ -21,7 +21,9 @@ from attrs import define, field, validators as v
 from lxml import etree
 from lxml.builder import E
 from pathlib import Path
+import requests
 from typing import cast, ClassVar, Optional, TYPE_CHECKING
+import warnings
 from zlib import crc32
 
 if sys.version_info >= (3, 11):
@@ -33,6 +35,7 @@ if TYPE_CHECKING:
     from _typeshed import StrPath
 
 from .config import config
+from .exceptions import ChecksumMismatchWarning
 from .utils.xml import xsd_boolean
 
 
@@ -69,6 +72,7 @@ class FileReference:
     Do not instantiate directly; use the sub-classes instead.
 
     Attributes:
+        content_type (Optional[str]): The expected content type of the file.  Set by some sub-classes.
         template_field (str): The URL formatting template to use.  Set by the sub-classes.
         name (str): The file reference (as found in the XML), typically a URL or an internal filename.
         checksum (Optional[str]): The CRC32 checksum for the file.  Only specified for internal filenames.
@@ -78,6 +82,7 @@ class FileReference:
     checksum: Optional[str] = field(
         default=None, validator=v.optional(v.instance_of(str))
     )
+    content_type: ClassVar[Optional[str]] = None
     template_field: ClassVar[str] = ""
 
     @property
@@ -126,6 +131,31 @@ class FileReference:
         checksum = elem.get("hash")
         return cls(name=str(elem.text), checksum=str(checksum) if checksum else None)
 
+    def download(self, filename: StrPath, timeout: float = 10) -> None:
+        """Download this file from its remote URL.
+
+        Arguments:
+            filename: The path to the local file to write to.
+            timeout: The timeout in seconds for the GET request.
+
+        Raises:
+            ChecksumMismatchWarning: If the downloaded file's checksum doesn't match the expected one.
+            ValueError: If the response does not have the expected Content-Type (e.g. application/pdf for PDFs).
+        """
+        r = requests.get(self.url, timeout=timeout)
+        r.raise_for_status()  # Just raise in case of 404 etc.
+        if (
+            self.content_type is not None
+            and r.headers.get("Content-Type") != self.content_type
+        ):
+            raise ValueError(
+                f"Expected '{self.content_type}', got '{r.headers.get('Content-Type')}"
+            )
+        if self.checksum is not None and compute_checksum(r.content) != self.checksum:
+            warnings.warn(ChecksumMismatchWarning(self))
+        with open(filename, "wb") as f:
+            f.write(r.content)
+
     def to_xml(self, tag: str = "url") -> etree._Element:
         """
         Arguments:
@@ -145,6 +175,7 @@ class FileReference:
 class PDFReference(FileReference):
     """Reference to a PDF file."""
 
+    content_type: ClassVar[Optional[str]] = "application/pdf"
     template_field: ClassVar[str] = "pdf_location_template"
 
 

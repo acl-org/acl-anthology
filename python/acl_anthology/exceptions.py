@@ -18,6 +18,7 @@ import sys
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from .files import FileReference
     from .people import NameSpecification
     from .utils.ids import AnthologyIDTuple
 
@@ -116,6 +117,18 @@ class PersonDefinitionError(NameSpecResolutionError):
     """
 
     pass
+
+
+class ChecksumMismatchWarning(UserWarning):
+    """Raised when a file's checksum doesn't match the checksum in the Anthology data files.
+
+    Attributes:
+        file (FileReference): The file reference that caused the mismatch.
+    """
+
+    def __init__(self, file: FileReference) -> None:
+        super().__init__(f"Checksum doesn't match for {file.name}")
+        self.file = file
 
 
 class SchemaMismatchWarning(UserWarning):

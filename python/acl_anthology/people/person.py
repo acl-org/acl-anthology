@@ -120,6 +120,7 @@ class Person:
 
     @property
     def names(self) -> list[Name]:
+        """A list of all names associated with this person."""
         return [name for (name, _) in self._names]
 
     @names.setter
@@ -132,10 +133,7 @@ class Person:
 
     @property
     def canonical_name(self) -> Name:
-        """
-        Returns:
-            The canonical name for this person.
-        """
+        """The canonical name for this person."""
         try:
             # By convention, the first entry of `self.names` is treated as the
             # canonical entry
