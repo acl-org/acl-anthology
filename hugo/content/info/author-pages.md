@@ -41,7 +41,7 @@ For more details on how verification works, please see [How the ACL Anthology ve
    - **OpenReview:** Visit the ["Edit Profile" page](https://openreview.net/profile/edit). (If necessary, enter your username and password and click on "Login to OpenReview.") Click on the "Personal Links" section. Enter your ORCID in the "ORCID URL" field, and click on the "Save Profile Changes" button.
    - **Softconf/START:** Visit the ["Update Profile" page](https://www.softconf.com/naacl2021/super/scmd.cgi?ucmd=updateProfile). (If necessary, click on "To Login Page", enter your username and password, click on the "ENTER" button, and click on ["Update Profile"](https://www.softconf.com/naacl2021/super/scmd.cgi?ucmd=updateProfile) again.) Scroll down to the "Additional Information for Authors and Reviewers" section. Enter your ORCID in the "ORCID" field, and click on the "SUBMIT DATA" button.
 
-   In each of these systems, the name that you enter is the one that gets used in the paper's metadata. Please make sure that this name matches the name on the PDF file, and that this name matches one of the ORCID variants, ideally your published name.
+   In each of these systems, the name that you enter is the one that gets used in your papers' metadata. Please make sure that this name matches the name that you use in your papers' PDF files, and that this name matches one of the ORCID variants, ideally your published name.
 
 4. File an issue on GitHub.
 
@@ -51,18 +51,28 @@ For more details on how verification works, please see [How the ACL Anthology ve
 
 ### How to remove papers from your author page
 
-When your author page is first verified, any papers published under your name will appear on your page. However, if another author has the same name as you, their papers may also appear on your page. To fix this, please file a split/disambiguate request.
+When your author page is first verified, any papers published under your name will appear on your page. However, if another author has the same name as you, their papers may also appear on your page.
+
+To fix this, please verify your author page, if you haven't already, using the [instructions above](#how-to-get-your-author-page-verified).
+
+Then, please file a split/disambiguate request, as follows:
 
 - Find your ACL Anthology author page (by using the search bar, or by finding one of your papers and clicking on your name).
 - Click on the "Fix author" button at the bottom of the links on the right-hand side of the page.
-- Fill out at least the required fields, check the "Split/disambiguate" checkbox, and list your papers in the "Supporting Information" field.
+- Fill out at least the required fields, check the "Split/disambiguate" checkbox, and list which papers should be kept or which papers should be removed in the "Supporting Information" field.
 - Click on the "Create" button, and wait for the issue to be reviewed by Anthology staff.
 
 ### How to add papers to your author page
 
-After your author page is verified, any papers published under your name, if they are not linked to an ORCID iD, may appear on a different author page. To fix this, please file a merge request.
+After your author page is verified, any papers published under your name, if they are not linked to an ORCID iD, may appear on a different author page.
+
+To fix this, please first of all check that the names on the other papers are correct. We treat the information on the PDF as authoritative; this means that the metadata should match exactly what is printed on the PDF. Please review your papers and [follow the steps here]({{< ref "info/corrections/#metadata-corrections" >}}) to correct any discrepancies. Sometimes, this will resolve the problem.
+
+Second, please verify your author page, if you haven't already, using the [instructions above](#how-to-get-your-author-page-verified).
+
+If the names are correct and your author page is verified, then please file a merge request, as follows:
 
 - Find your ACL Anthology author page (by using the search bar, or by finding one of your papers and clicking on your name).
 - Click on the "Fix author" button at the bottom of the links on the right-hand side of the page.
-- Fill out at least the required fields, check the "Merge profiles" checkbox, and list the papers or pages to be merged in the "Supporting Information" field.
+- Fill out at least the required fields, check the "Merge profiles" checkbox, and list the papers to be added or pages to be merged in the "Supporting Information" field.
 - Click on the "Create" button, and wait for the issue to be reviewed by Anthology staff.
