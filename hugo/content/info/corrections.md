@@ -9,14 +9,14 @@ date: 2025-08-02
 
 Our central guiding corrections principle is that **we view the content of PDFs as authoritative**. If you see errors or inconsistencies in the metadata (author list, title, abstract), you need to first check to see if it matches the PDF.
 
-This view drives two main types of paper-level corrections:
+This view drives two main types of __paper-level corrections__:
 
 * [_There are problems with the PDF_](#pdf-corrections). We can process corrections, revisions, errata, and retractions.
 * [_The PDF is fine, but there are problems with the metadata_](#metadata-corrections). Errors in the title, abstract, author names, or list of authors.
 
 Below, we describe the process for addressing these types of corrections.
 
-Additionally, there are two main types of corrections to author pages. For these, please see [Author pages]({{< ref "/info/author-pages">}}).
+Additionally, there are two main types of __corrections to author pages__. For these, please see [Author pages]({{< ref "/info/author-pages">}}).
 
 * You have more than one author page. This occurs if you published papers under different variations of your name, or if you changed your name.
 * Your papers are mixed with someone else's. If multiple people publish under the same name, we need to manually disambiguate them.
