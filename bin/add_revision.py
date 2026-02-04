@@ -212,12 +212,12 @@ def add_revision(
     pdf_dir.mkdir(parents=True, exist_ok=True)
 
     if needs_initial_revision:
-        base_name = f"{paper.full_id}{change_letter}1"
-        base_path = pdf_dir / f"{base_name}.pdf"
-        retrieve_url(paper.pdf.url, base_path)
-        validate_file_type(base_path)
+        v1_name = f"{paper.full_id}{change_letter}1"
+        v1_path = pdf_dir / f"{v1_name}.pdf"
+        retrieve_url(paper.pdf.url, v1_path)
+        validate_file_type(v1_path)
         paper.revisions.append(
-            PaperRevision(id="1", note=None, pdf=PDFReference.from_file(base_path))
+            PaperRevision(id="1", note=None, pdf=PDFReference.from_file(v1_path))
         )
 
     next_id = (
@@ -238,8 +238,8 @@ def add_revision(
                 date=date,
             )
         )
-        paper.pdf = PDFReference.from_file(canonical_pdf)
         copy_file(pdf_path, canonical_pdf)
+        paper.pdf = PDFReference.from_file(canonical_pdf)
     else:
         paper.errata.append(
             PaperErratum(
