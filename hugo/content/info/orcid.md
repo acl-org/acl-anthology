@@ -20,4 +20,10 @@ We urge every author who is actively publishing papers to create an ORCID iD and
 
 Less importantly, it can be helpful to the disambiguation process if you make the effort to add a few representative publications.
 
-Finally, make sure that the name you enter into submission mangagement systems (such as Softconf or OpenReview) matches one of the ORCID variants, ideally the published name. The name variant entered into these systems is the one that gets used as the paper's metadata, and should also match the PDF.
+Finally, make sure that the name you enter into submission management systems (such as Softconf or OpenReview) matches one of the ORCID variants, ideally the published name. The name variant entered into these systems is the one that gets used as the paper's metadata, and should also match the PDF.
+
+## Related documentation
+
+- [Author pages]({{< ref "/info/author-pages" >}})
+- [Names]({{< ref "/info/names" >}})
+- [Verification]({{< ref "/info/verification" >}})
