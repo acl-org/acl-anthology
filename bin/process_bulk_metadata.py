@@ -20,21 +20,25 @@ Creates bulk pull request with all approved metadata corrections applied to the 
 
 Queries the Github API for all issues in the acl-org/acl-anthology repository.
 It then goes through them, looking for ones that
-- have metadata correction in the issue title,
-- have both "metadata" and "correction" labels,
-- a "JSON code block" in the description, and
-- are approved by at least one member of the anthology group.
++ have "metadata correction" in the issue title,
++ have both "metadata" and "correction" labels,
++ a "JSON code block" in the description, and
++ are approved by at least one member of the Anthology group ("approved" label).
 It then creates a new PR on a branch labeled bulk-corrections-YYYY-MM-DD,
 where it makes a single PR from changes from all matching issues.
+Note: if you have non-staged changes, the script will try to stash them before switching
+to the other branch.
 
-Usage: process_bulk_metadata.py [-q] [--skip-validation] [--dry-run] [--close-old-issues] [ids...]
+Usage:
+  process_bulk_metadata.py [-q] [--skip-validation] [--dry-run] [--close-old-issues] [ <issueid>... ]
 
 Options:
+    -h, --help               Show this help message
     -q, --quiet              Suppress output
     --skip-validation        Skip requirement of "approved" tag
-    --dry-run                Dry run (do not create PRs)
+    --dry-run                Dry run (do not create PRs or add issue comments)
     --close-old-issues       Close old metadata requests with a comment (those without a JSON block)
-    ids                      Specific issue IDs to process (default: all)
+    <issueid>                Specific issue IDs to process (default: all)
 
 TODO:
 - fix reordering bug, improve name matching
@@ -47,6 +51,7 @@ import warnings
 from datetime import datetime
 from typing import List, Optional, Tuple, Dict
 import logging as log
+from docopt import docopt
 
 from github import Github
 from github.Issue import Issue
@@ -64,6 +69,16 @@ from acl_anthology.utils.ids import is_verified_person_id
 close_old_issue_comment = """### ⓘ Notice
 
 The Anthology has implemented a new, semi-automated workflow to better handle metadata corrections. We are closing this issue, and invite you to resubmit your request using our new workflow. Please visit your paper page ([{anthology_id}]({url})) and click the yellow 'Fix data' button. This will guide you through the new process step by step."""
+
+
+AUTHORS = "authors"
+AUTHOR_ID, AUTHOR_LAST, AUTHOR_FIRST = "id", "last", "first"
+ABSTRACT = "abstract"
+TITLE = "title"
+ANTHOLOGY_ID = "anthology_id"
+NEW_AUTHORS, OLD_AUTHORS = "authors_new", "authors_old"
+allowed_keys = [AUTHORS, ABSTRACT, TITLE, ANTHOLOGY_ID, NEW_AUTHORS, OLD_AUTHORS]
+author_keys = [AUTHOR_ID, AUTHOR_LAST, AUTHOR_FIRST]
 
 
 def match_old_to_new_authors(
@@ -91,6 +106,7 @@ def match_old_to_new_authors(
         for i, namespec in enumerate(old_authors)
     }
 
+    # First round: match based on id or name slug
     for new_author in new_authors:
         # (1) id match?  todo: breaks if reordering done by replacing names instead of drag/drop
         id_ = new_author.id
@@ -116,6 +132,17 @@ def match_old_to_new_authors(
             old_new_pairs.append((ns, new_author))
             del candidates[i]
             continue
+
+        # If no match, register with empty predecessor for now
+        old_new_pairs.append((None, new_author))
+
+    # Second round: maybe can match nonetheless?
+    if not candidates:  # if no candidates left, nothing more to do
+        return old_new_pairs
+
+    for i, new_author in enumerate(new_authors):
+        if old_new_pairs[i][0] is not None:  # already found a match
+            continue
         # (4) Backup solution to use next available author in the list
         if candidates:
             first, last = new_author.first, new_author.last
@@ -128,11 +155,10 @@ def match_old_to_new_authors(
                     f"  Potentially dangerous node selection for "
                     f"'{first}  {last}': '{b_f}  {b_l}'",
                 )
-            old_new_pairs.append((backup_ns, new_author))
+            assert old_new_pairs[i][1] == new_author
+            old_new_pairs[i] = (backup_ns, new_author)
             del candidates[pos]
             continue
-        # if no candidate could be found (candidate list is empty): use None as old value
-        old_new_pairs.append((None, new_author))
 
     return old_new_pairs
 
@@ -142,7 +168,9 @@ class AnthologyMetadataUpdater:
         """Initialize with GitHub token."""
         self.github = Github(github_token)
         self.github_repo = self.github.get_repo("acl-org/acl-anthology")
-        self.local_repo = git.Repo(os.path.join(os.path.dirname(__file__), ".."))
+        self.local_repo = git.Repo(
+            os.path.join(os.path.dirname(__file__), "..")
+        )  # todo make this more flexible
         self.stats = {
             "visited_issues": 0,
             "relevant_issues": 0,
@@ -188,6 +216,108 @@ class AnthologyMetadataUpdater:
                 return json.loads(match[1])
 
         return None
+
+    def _has_expected_json_structure(self, json_block: dict) -> bool:
+        """Checks presence of required keys/structure"""
+        if not isinstance(json_block, dict):
+            log.warning("-> JSON data has unexpected type (expect dict)")
+            return False
+
+        if ik := [k for k in json_block if k not in allowed_keys]:
+            log.warning(f"-> Invalid keys in JSON: {ik}")
+            return False
+
+        if ANTHOLOGY_ID not in json_block:
+            log.warning(f"-> Key not found: {ANTHOLOGY_ID}")
+
+        # need to have at least one of abstract, title or authors
+        if not any([AUTHORS in json_block, TITLE in json_block, ABSTRACT in json_block]):
+            log.warning(
+                f"-> Nothing to change: need to provide at least one of "
+                f"'{AUTHORS}', '{ABSTRACT}', '{TITLE}'."
+            )
+            return False
+
+        # author list need to be a list of dicts with certain keys
+        if AUTHORS in json_block:
+            if not isinstance(json_block[AUTHORS], list):
+                log.warning("-> Invalid format for author list: expect list")
+                return False
+            if len(json_block[AUTHORS]) == 0:
+                log.warning("-> Empty list of authors")
+                # return False
+            for author in json_block[AUTHORS]:
+                if not isinstance(author, dict):
+                    log.warning("-> Invalid format for individual author: expect dict")
+                    return False
+                if not author.get(AUTHOR_LAST):
+                    log.warning(f"-> Author has no last name: {author}")
+                    if not author.get(AUTHOR_FIRST):
+                        log.warning("-> Author has no first name too: cannot continue")
+                        return False
+                    log.warning(
+                        f"-> No last name provided "
+                        f"- will use first name instead: '{author[AUTHOR_FIRST]}'"
+                    )
+                    author[AUTHOR_LAST] = author[AUTHOR_FIRST]
+                    author[AUTHOR_FIRST] = None  # todo: test this
+                if ak := [k for k in author.keys() if k not in author_keys]:
+                    log.warning(f"-> Invalid author keys: {ak}")
+
+        # warn if author list contradicts info in authors_new
+        if NEW_AUTHORS in json_block or OLD_AUTHORS in json_block:
+            if not (
+                AUTHORS in json_block
+                and NEW_AUTHORS in json_block
+                and OLD_AUTHORS in json_block
+            ):
+                log.warning(
+                    f"-> either just {AUTHORS} or plus both {OLD_AUTHORS} and {NEW_AUTHORS}"
+                )
+            else:
+                # Check that author changes provided as list and as string match:
+                # otherwise something might be wrong
+                a_from_list = " | ".join(
+                    [
+                        author[AUTHOR_FIRST] + "  " + author[AUTHOR_LAST]
+                        for author in json_block[AUTHORS]
+                    ]
+                )
+                a_new = json_block[NEW_AUTHORS]  # First  Last | First F  Last Last
+                if a_from_list != a_new:
+                    log.warning(
+                        f"--> Author information in '{AUTHORS}' and '{NEW_AUTHORS}' "
+                        f"don't match: please check again.",
+                    )
+        return True
+
+    def _is_sensible_request(self, json_block: dict) -> bool:
+        """Checks whether request from JSON makes sense"""
+        has_expected_json_structure = self._has_expected_json_structure(json_block)
+        if not has_expected_json_structure:
+            return False
+
+        # more semantic checks
+        # - Paper needs to be known to anthology
+        anthology_id = json_block[ANTHOLOGY_ID]
+        if self.anthology.get_paper(anthology_id) is None:
+            log.warning(f"-> Paper not found: {anthology_id}")
+            return False
+
+        # - XML needs to match schema
+        for key in [TITLE, ABSTRACT]:
+            if key not in json_block:
+                continue
+            ex = json_block[key]
+            bigtree = etree.fromstring(
+                f'<collection id="dummy"><volume id="1" type="proceedings"><meta><booktitle>{ex}</booktitle><venue>acl</venue><year>2000</year></meta></volume></collection>'
+            )
+            is_valid = self.anthology.relaxng.validate(bigtree)
+            if not is_valid:
+                log.warning(f"-> Value for {key} is not valid XML according to schema")
+                return False
+
+        return True
 
     def evaluate_issue(
         self,
@@ -236,66 +366,35 @@ class AnthologyMetadataUpdater:
             return None
         self.stats["approved_issues"] += 1
 
-        # Get anthology id to find paper in need for correction
-        try:
-            anthology_id = json_block.get("anthology_id")
-        except AttributeError:  # if json object isn't a dict
-            anthology_id = None
-
-        if (
-            anthology_id is None
-            or (paper := self.anthology.get_paper(anthology_id)) is None
-        ):
-            log.warning(f"-> Anthology ID invalid/Paper not found: {anthology_id}")
+        # Input validation and plausibility checks
+        is_sensible = self._is_sensible_request(json_block)
+        if not is_sensible:
             return None
+        anthology_id = json_block.get(ANTHOLOGY_ID)
+        assert anthology_id is not None, "Input validation already performed"
+        paper = self.anthology.get_paper(anthology_id)
+        assert paper is not None, "Input validation already performed"
 
         return paper, json_block
 
-    def _check_internal_consistency_json_author_lists(
-        self, changes: dict, full_id: str
-    ) -> None:
-        if "authors_new" not in changes:
-            return
-        # Check that author changes provided as list and as string match: otherwise something might be wrong
-        a_from_list = " | ".join(
-            [author['first'] + "  " + author['last'] for author in changes["authors"]]
-        )
-        a_new = changes["authors_new"]  # First  Last | First F  Last Last
-        if a_from_list != a_new:
-            log.warning(
-                f"  !! Author information in list and string don't match: "
-                f"{full_id}: please check again !!",
-            )
-        return
-
     def _get_namespec_from_changes(self, changes: dict) -> List[NameSpecification]:
         """Convert the JSON-derived author list into  List of NameSpecifications"""
-        # todo[enhancement]: we don't process orcid, affiliations, variants right now
-        assert "authors" in changes
+        # we don't process orcid, affiliations, variants right now
+        assert AUTHORS in changes, "Don't call this method if no authors to change"
         namespecs = list()
 
-        for author in changes["authors"]:
+        for author in changes[AUTHORS]:
             # author is assumed to be dict with ['first', 'last', 'id'] as keys (potentially omitted/empty)
             # NameSpecification/Name do distinguish '' and None, while I'd like None for both
             # NameSpecification won't complain if id is not known to the index
             # todo: test all cases
-            if 'id' in author and author['id'] == '':
-                author['id'] = None
-            if 'last' not in author or author['last'] == '':
-                # NameSpecs cannot have empty last name:
-                # try to circumvent with first name if possible, otherwise raise Exception
-                if author.get('first', ''):
-                    log.warning(
-                        f"No last name provided "
-                        f"- will use first name instead: '{author['first']}'"
-                    )
-                    author['last'] = author['first']
-                    author['first'] = None
-                else:
-                    log.error("Empty first and last name provided, cannot continue")
-                    raise ValueError("Empty names are not allowed")
+            if not author.get(AUTHOR_ID):
+                author[AUTHOR_ID] = None
+            assert author.get(AUTHOR_LAST), "Already performed input validation"
+            if not author.get(AUTHOR_FIRST):
+                author[AUTHOR_FIRST] = None
 
-            ns = NameSpecification(id=author.get('id'), name=Name.from_dict(author))
+            ns = NameSpecification(id=author[AUTHOR_ID], name=Name.from_dict(author))
             namespecs.append(ns)
 
         return namespecs
@@ -308,17 +407,10 @@ class AnthologyMetadataUpdater:
 
         Prefers to keep all information from existing_author if present. If there is no
         existing author, will return new author, but with id set to None to not write
-        any ids to XML (TBD). Mainly updates author name of existing author (this may
+        any ids to XML. Mainly updates author name of existing author (this may
         introduce a new name variant to a verified author).
         """
-
         # todo simplify logic below if possible (after questions answered)
-        def log_if_different(asked: Optional[str], decision: str):
-            if asked is not None and asked != decision:
-                log.debug(
-                    f"  ID mismatch between asked ({asked}) and final decision ({decision})"
-                )
-
         if existing_author is None:
             # no existing author, so no need to copy over information like orcid etc.
             # Should we allow submitters to assign an ID, rather than the library figuring it out?
@@ -332,7 +424,7 @@ class AnthologyMetadataUpdater:
                 pp = self.anthology.find_people(new_author.name)
                 if len(pp) > 1 or (len(pp) == 1 and pp.pop().id != new_author.id):
                     log.debug(
-                        f"Will not consider provided id {new_author.id} "
+                        f"-> Will not consider provided id {new_author.id} "
                         f"for newly inserted author {new_author.name}."
                     )
             # -> Decision None
@@ -340,7 +432,7 @@ class AnthologyMetadataUpdater:
             return new_author
 
         # else:  # has old author info to compare to
-        if existing_author.name == new_author.name:  # shorcut for authors not changed
+        if existing_author.name == new_author.name:  # shortcut for authors not changed
             return existing_author  # we don't allow id-only changes
         # use existing NameSpec and only change where necessary, definitely change name
         p = self.anthology.resolve(existing_author)
@@ -354,30 +446,22 @@ class AnthologyMetadataUpdater:
             name = new_author.name
             if not p.has_name(name):
                 log.info(
-                    f"  Added new name variant '{name}' to {p.id} ({p.canonical_name})"
+                    f"-> Added new name variant '{name}' to {p.id} ({p.canonical_name})"
                 )
                 p.add_name(name)
                 # todo: is this enough? do I have to check for newly introduced namesakes?
-            log_if_different(new_author.id, p.id)
+            if new_author.id is not None and new_author.id != p.id:
+                log.debug(
+                    f"-> ID mismatch between asked ({new_author.id}) and final decision ({p.id})"
+                )
         else:  # unverified old author
-            pp = self.anthology.find_people(new_author.name)
-            if len(pp) == 0:  # discovered new name and old was unverified anyway:
-                existing_author.id = None
-            elif len(pp) > 1:  # new name is ambiguous!
-                # todo[question]: should we allow disambiguation via metadata correction?
-                #   lean towards no: submitter might not have intended this disambiguation,
-                #   aren't even aware of ambiguity  -> decision to make unverified
-                existing_author.id = None
-            else:  # exactly one person
-                new_p = pp.pop()
-                if not is_verified_person_id(new_p.id):  # unverified: no id in XML please
-                    existing_author.id = None
-                else:
-                    # todo[question]: if name unambiguously points to one verified person:
-                    #   should the XML have an id-attribute or not? (cf. above no existing_author)
-                    # existing_author.id = new_p.id  # <- store in XML
-                    # log_if_different(asked=new_author.id, decision=existing_author.id)
-                    existing_author.id = None
+            existing_author.id = None
+            # if new name not known to anthology and old was unverified anyway:
+            # - no need to add id
+            # if new name is ambiguous: don't do disambiguation that way
+            # - submitter maybe hasn't intended disambiguation, isn't aware of ambiguity
+            # if new name belongs to exactly one known person
+            # - unverified: no id in XML anyway. verified: no need for id in XML
         return existing_author
 
     def _update_paper_authors(self, paper: Paper, changes: dict) -> Paper:
@@ -386,24 +470,20 @@ class AnthologyMetadataUpdater:
 
         Keep existing data where possible (e.g. affiliation, orcid etc).
         """
-        assert "authors" in changes, "Only call this method, if authors-key in JSON block"
+        assert AUTHORS in changes, "Only call this method, if authors-key in JSON block"
 
-        # (1) Input plausibility checks  # todo extend and move input checks higher up?
-        if self.verbose:
-            self._check_internal_consistency_json_author_lists(changes, paper.full_id)
-
-        # (2) Convert new author list into NameSpecifications, match authors to existing
+        # (1) Convert new author list into NameSpecifications, match authors to existing
         new_authors = self._get_namespec_from_changes(changes)  # can raise ValueError?
         old_new_matched = match_old_to_new_authors(paper, new_authors, self.anthology)
 
-        # (3) Collect final list of authors - updating information where necessary
+        # (2) Collect final list of authors - updating information where necessary
         # Copying over non-changed, existing attributes from old_author if available
         final_authors = list()  # can simplify to list comprehension after debugging
         for existing_author, new_author in old_new_matched:
             author = self._merge_namespecs(existing_author, new_author)
             final_authors.append(author)
 
-        # (4) Finally we replace the old list of authors/editors with the new one
+        # (3) Finally we replace the old list of authors/editors with the new one
         if paper.is_frontmatter:
             paper.parent.editors = final_authors
         else:  # assume it is normal Paper with authors field
@@ -419,15 +499,18 @@ class AnthologyMetadataUpdater:
 
         if not paper.is_frontmatter:
             # frontmatter has no title or abstract  : cannot change booktitle
-            if "title" in changes:
-                paper.title = str_to_markup(changes['title'])
-            if "abstract" in changes:
-                paper.abstract = str_to_markup(changes['abstract'])
+            if TITLE in changes:
+                paper.title = str_to_markup(changes[TITLE])
+            if ABSTRACT in changes:
+                paper.abstract = str_to_markup(changes[ABSTRACT])
 
-        if "authors" in changes:
+        if AUTHORS in changes:
             paper = self._update_paper_authors(paper=paper, changes=changes)
 
-        paper.refresh_bibkey()  # changes bibkey only if necessary
+        if not paper.is_frontmatter:
+            # as of 02/2026 bibkey generation for frontmatter can still be improved
+            # also don't expect a change as authors not relevant for frontmatter bibkey
+            paper.refresh_bibkey()  # changes bibkey only if necessary
         return paper
 
     def process_metadata_issues(
@@ -467,6 +550,7 @@ class AnthologyMetadataUpdater:
                 paper = self._apply_changes_to_paper(paper, json_block)
             except Exception as e:  # e.g. XML Parsing failed
                 log.warning(f"Failed to apply changes to #{issue.number}: {e}")
+                log.exception(e)
                 # revert changes already made for this issue # todo how to best do this? test it thoroughly
                 self.load_anthology()
                 continue
@@ -508,6 +592,7 @@ class AnthologyMetadataUpdater:
                 closed_issues.append(issue)
             except Exception as e:
                 log.warning(f"Error processing issue {issue.number}: {type(e)}: {e}")
+                log.exception(e)
                 # If we land here, we should carefully monitor file states and git status
                 continue
 
@@ -517,6 +602,9 @@ class AnthologyMetadataUpdater:
 
         # Switch back to original branch
         self.local_repo.head.reference = current_branch
+        self.local_repo.head.reset(index=True, working_tree=True)
+        self.local_repo.git.stash(["pop"])
+
         self.stats["closed_issues"] = len(closed_issues)
 
     def _create_pull_request(
@@ -554,7 +642,7 @@ class AnthologyMetadataUpdater:
         if match:
             anthology_id = match[1]
         if anthology_id:
-            log.debug(f"-> Closing issue {issue.number} with a link to the new process")
+            log.info(f"-> Closing issue {issue.number} with a link to the new process")
             if not dry_run:
                 try:
                     url = f"https://aclanthology.org/{anthology_id}"
@@ -565,6 +653,7 @@ class AnthologyMetadataUpdater:
                     issue.edit(state="closed", state_reason="not_planned")
                 except Exception as e:
                     log.error(f"Error trying to close old issue #{issue.number}: {e}")
+                    log.exception(e)
                     return
             self.stats["closed_issues"] += 1
 
@@ -575,6 +664,7 @@ class AnthologyMetadataUpdater:
 
         today = datetime.now().strftime("%Y-%m-%d")
         new_branch_name = f"bulk-corrections-{today}"
+        # new_branch_name = f"bulk-corrections-debugging"
 
         # If the branch exists, use it, else create it
         if new_branch_name in self.local_repo.heads:
@@ -587,9 +677,12 @@ class AnthologyMetadataUpdater:
 
         # store the current branch
         current_branch = self.local_repo.head.reference
+        self.local_repo.git.stash(['push', f'-m "{datetime.now().isoformat()}"'])
 
         # switch to that branch
         self.local_repo.head.reference = ref
+        self.local_repo.head.reset(index=True, working_tree=True)
+
         return current_branch, new_branch_name, today
 
 
@@ -598,43 +691,24 @@ if __name__ == "__main__":
     if not github_token:
         raise ValueError("Please set GITHUB_TOKEN environment variable")
 
-    import argparse
+    args = docopt(__doc__)
 
-    parser = argparse.ArgumentParser(description="Bulk metadata corrections")
-    parser.add_argument("-q", "--quiet", action="store_true", help="Suppress output")
-    parser.add_argument(
-        "--skip-validation",
-        action="store_true",
-        help="Skip validation of approval by Anthology team member",
-    )
-    parser.add_argument("ids", nargs="*", type=int, help="Specific issue IDs to process")
-    parser.add_argument(
-        "--dry-run",
-        action="store_true",
-        help="Dry run (do not create PRs)",
-    )
-    parser.add_argument(
-        "--close-old-issues",
-        action="store_true",
-        help="Close old metadata requests with a comment (those without a JSON block)",
-    )
-
-    args = parser.parse_args()
-
-    log_level = log.DEBUG if not args.quiet else log.INFO
+    log_level = log.DEBUG if not args["--quiet"] else log.INFO
     log.basicConfig(level=log_level)
     log.getLogger("acl-anthology").setLevel(log.WARNING)
     log.getLogger("git.cmd").setLevel(log.WARNING)
     log.getLogger("urllib3.connectionpool").setLevel(log.WARNING)
     # tracker = setup_rich_logging(level=log_level)
 
-    updater = AnthologyMetadataUpdater(github_token, verbose=not args.quiet)
+    ids = [int(iid) for iid in args["<issueid>"]]
+
+    updater = AnthologyMetadataUpdater(github_token, verbose=args["--quiet"])
     with warnings.catch_warnings(action="ignore"):  # NameSpecResolutionWarning
         updater.process_metadata_issues(
-            ids=args.ids,
-            skip_validation=args.skip_validation,
-            dry_run=args.dry_run,
-            close_old_issues=args.close_old_issues,
+            ids=ids,
+            skip_validation=args["--skip-validation"],
+            dry_run=args["--dry-run"],
+            close_old_issues=args["--close-old-issues"],
         )
 
     for stat in updater.stats:
