@@ -4,6 +4,19 @@
 
   /* Modern CSS Grid implementation of dl-horizontal */
   dl {
+    dd {
+      margin-bottom: .25rem;
+      margin-left: 1rem; // Restore indentation on mobile
+
+      &:empty {
+        color: #6c757d; // Standard text-muted color
+      }
+
+      &:empty::before {
+        content: '–';
+      }
+    }
+
     @include media-breakpoint-up(sm) {
       display: grid;
       grid-template-columns: 160px 1fr;
@@ -21,19 +34,6 @@
       dd {
         grid-column: 2;
         margin-left: 0;
-      }
-    }
-
-    dd {
-      margin-bottom: .25rem;
-      margin-left: 1rem; // Restore indentation on mobile
-
-      &:empty {
-        color: #6c757d; // Standard text-muted color
-      }
-
-      &:empty::before {
-        content: '–';
       }
     }
   }
