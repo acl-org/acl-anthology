@@ -569,7 +569,7 @@
         <dt class="acl-button-row">Bibkey:</dt>
         <dd class="acl-button-row">{{ with $paper.bibkey }}<button type="button"
             class="btn btn-clipboard-outside btn-secondary btn-sm d-none" data-clipboard-target="#citePaperBibkey" aria-label="Copy Bibkey to clipboard"><i
-              class="far fa-clipboard"></i><span id="citePaperBibkey" class="ps-2 text-monospace">{{ .
+              class="far fa-clipboard"></i><span id="citePaperBibkey" class="ps-2 font-monospace">{{ .
               }}</span></button>{{ end }}</dd>
         {{ with $paper.citation_acl }}
         <dt>Cite (ACL):</dt>
@@ -800,7 +800,7 @@
             </div>
             <div class="tab-pane" id="citeMarkdown" role="tabpanel">
               <h5>Markdown (Informal)</h5>
-              <p id="citeMarkdownContent" class="text-monospace small bg-light border p-2">
+              <p id="citeMarkdownContent" class="font-monospace small bg-light border p-2">
                 {{- $paper.citation -}}
               </p>
               <ul class="mt-2">
