@@ -1,5 +1,6 @@
 <nav class="navbar navbar-expand-sm navbar-light bg-light bg-gradient shadow-sm py-0 mb-3 mb-md-4 mb-xl-5">
-  <div id="navbar-container" class="container">
+  {{ $container_class := default "container" (index .Params "css_container") }}
+  <div id="navbar-container" class="{{ $container_class }}">
     <a class="navbar-brand" href={{ absURL "" }}>
       <img src={{ absURL "images/acl-logo.svg" }} width=56 alt="ACL Logo">
       <span class="d-inline ps-2">ACL Anthology</span>

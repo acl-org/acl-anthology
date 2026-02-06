@@ -36,7 +36,7 @@
 </head>
 
 <body>
-  {{ block "header" . }}{{ partialCached "header_navbar.html" .}}{{ end }}
+  {{ block "header" . }}{{ partialCached "header_navbar.html" . (index .Params "css_container") }}{{ end }}
 
   <div id="main-container" class="{{ default "container" (index .Params "css_container" ) }}">
     {{ block "main" . }}{{ end }}

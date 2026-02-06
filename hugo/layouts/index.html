@@ -1,18 +1,4 @@
 {{ define "javascript" }}
-<script>
-  // Makes the header expand to the width of the (fluid) main container
-  $(function () {
-    var resize_navbar = function () {
-      var width = 0;
-      $('#main-container .col-12').each(function () {
-        width += $(this).width();
-      });
-      $("#navbar-container").css("max-width", width);
-    };
-    $(window).resize(resize_navbar);
-    resize_navbar();
-  })
-</script>
 {{ end }}
 
 {{ define "meta" }}
