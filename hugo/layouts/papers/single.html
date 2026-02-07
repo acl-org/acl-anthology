@@ -141,13 +141,13 @@
 
     const modal = new bootstrap.Modal(document.getElementById('metadataModal'));
     modal.show();
-  }
 
-  // Just call Sortable on your container after you’ve populated it:
-  new Sortable(document.getElementById('authorsContainer'), {
-    animation: 150, // a nice animation
-    ghostClass: 'sortable-ghost'
-  });
+    // Just call Sortable on your container after you’ve populated it:
+    new Sortable(document.getElementById('authorsContainer'), {
+      animation: 150, // a nice animation
+      ghostClass: 'sortable-ghost'
+    });
+  }
 
   // Dragstart: store the element being dragged
   authorsContainer.addEventListener('dragstart', (e) => {
