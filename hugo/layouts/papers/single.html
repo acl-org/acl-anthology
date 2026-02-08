@@ -620,44 +620,6 @@
         <dd class="acl-button-row"><a href="{{ . }}" class="btn btn-attachment btn-sm"><i
               class="fas fa-video"></i>&nbsp;{{ . }}</a></dd>
         {{ end }}
-
-        {{ with $paper.pwccode }}
-        <dt>Code</dt>
-        <dd>
-          {{ if .url }}
-          <a href="{{ .url }}">
-            {{- if in .url "github.com/" -}}
-            <i class="fab fa-github"></i>
-            {{- else if in .url "gitlab.com/" -}}
-            <i class="fab fa-gitlab"></i>
-            {{- else if in .url "bitbucket" -}}
-            <i class="fab fa-bitbucket"></i>
-            {{- end -}}&nbsp;{{ .name }}
-          </a>
-          {{ end }}
-          {{ if (and (eq .additional "true") .url) }}
-          +
-          {{ end }}
-          {{ if eq .additional "true" }}
-          <a href="https://paperswithcode.com/paper/?acl={{ $anthology_id }}"><svg xmlns="http://www.w3.org/2000/svg"
-              class="pwc-icon" viewBox="0 0 512 512">
-              <path stroke="#4d8093" fill="#4d8093"
-                d="M88 128h48v256H88zM232 128h48v256h-48zM160 144h48v224h-48zM304 144h48v224h-48zM376 128h48v256h-48z">
-              </path>
-              <path stroke="#4d8093" fill="#4d8093"
-                d="M104 104V56H16v400h88v-48H64V104zM408 56v48h40v304h-40v48h88V56z"></path>
-            </svg>&nbsp;additional community code
-          </a>
-          {{ end }}
-        </dd>
-        {{ end }}
-
-        {{ with $paper.pwcdataset }}
-        <dt>Data</dt>
-        <dd>
-          {{ range $i, $t := . }}{{ if $i }},&nbsp;{{ end }}<a href="{{ $t.url }}">{{ $t.name }}</a>{{ end }}
-        </dd>
-        {{ end }}
       </dl>
     </div>
 
@@ -692,22 +654,6 @@
         }}" title="Search for '{{ $paper.title | htmlEscape }}' on Semantic Scholar" aria-label="Search for this paper on Semantic Scholar">
         <i class="ai ai-semantic-scholar"></i><span class="ps-sm-2 d-none d-sm-inline">Search</span>
       </a>
-      {{ with $paper.pwccode }}
-      {{ if (or (eq .additional "true") .url) }}
-      <a class="btn btn-secondary d-flex flex-wrap justify-content-center"
-        href="https://paperswithcode.com/paper/?acl={{ $anthology_id }}"
-        title="Code for '{{ $paper.title | htmlEscape }}' on Papers with Code" aria-label="View code for this paper on Papers with Code">
-        <svg xmlns="http://www.w3.org/2000/svg" class="pwc-icon-big" viewBox="0 0 512 512">
-          <path stroke="#4d8093" fill="#4d8093"
-            d="M88 128h48v256H88zM232 128h48v256h-48zM160 144h48v224h-48zM304 144h48v224h-48zM376 128h48v256h-48z">
-          </path>
-          <path stroke="#4d8093" fill="#4d8093" d="M104 104V56H16v400h88v-48H64V104zM408 56v48h40v304h-40v48h88V56z">
-          </path>
-        </svg>
-        <span class="ps-sm-2 d-none d-sm-inline">Code</span>
-      </a>
-      {{ end }}
-      {{ end }}
       {{ range $paper.attachment }}
       <a class="btn btn-attachment d-flex flex-wrap justify-content-center" href="{{ .url }}"
         title="Open {{ .type | humanize | lower }} for '{{ $paper.title | htmlEscape }}'">
