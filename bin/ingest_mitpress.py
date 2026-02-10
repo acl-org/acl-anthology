@@ -39,7 +39,6 @@ from acl_anthology.utils import setup_rich_logging
 from fixedcase.protect import protect
 from anthology.utils import retrieve_url
 
-
 __version__ = "0.7"
 
 TACL = "tacl"
@@ -351,7 +350,9 @@ def discover_crossref_items(
     return items
 
 
-def convert_crossref_item_to_paper(item: dict[str, Any], venue: str) -> Optional[dict[str, Any]]:
+def convert_crossref_item_to_paper(
+    item: dict[str, Any], venue: str
+) -> Optional[dict[str, Any]]:
     doi = item.get("DOI")
     if not doi:
         return None
@@ -420,7 +421,9 @@ def convert_crossref_item_to_paper(item: dict[str, Any], venue: str) -> Optional
     }
 
 
-def maybe_download_pdf(doi: str, destination: Path, dry_run: bool) -> tuple[bool, Optional[str]]:
+def maybe_download_pdf(
+    doi: str, destination: Path, dry_run: bool
+) -> tuple[bool, Optional[str]]:
     pdf_url = PDF_URL_TEMPLATE.format(doi=doi)
     if dry_run:
         return True, pdf_url
@@ -547,7 +550,9 @@ def ingest_papers(args, papers: list[dict[str, Any]]) -> dict[str, Any]:
             report["no_pdf"] += 1
             report["no_pdf_dois"].append(paper_data["doi"])
             if pdf_url:
-                report["errors"].append(f"{paper_data['doi']}: PDF fetch failed ({pdf_url})")
+                report["errors"].append(
+                    f"{paper_data['doi']}: PDF fetch failed ({pdf_url})"
+                )
             raise RuntimeError(
                 f"PDF download failed for DOI {paper_data['doi']} ({pdf_url}); aborting ingestion."
             )
