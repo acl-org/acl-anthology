@@ -1,51 +1,46 @@
 #! /usr/bin/env python3
 """
-Convert MIT Press XML files for CL and TACL to Anthology XML.
+Ingest MIT Press journal metadata (TACL/CL) into Anthology XML using DOI discovery
+from Crossref.
 
-version 0.5 - reads from new MIT Press format.
-version 0.4 - now updates XML directly, skips existing papers, sorts by page number
-version 0.3 - produces anthology ID in new format 2020.cl-1.1
+This script is a single entrypoint for both discovery and ingestion:
 
-Example usage: unpack the ZIP file from MIT press. You'll have something like this:
+1) Discover candidate DOIs from Crossref for a venue/year.
+2) Resolve paper metadata from Crossref payloads.
+3) Skip already-ingested DOIs in the target collection.
+4) Ingest new papers into data/xml/<year>.<venue>.xml using the Python library.
+5) Download PDFs via DOI URL and place them under anthology-files/pdf/<venue>/.
 
-    ./taclv9-11082021/
-      tacl_a_00350.xml
-      tacl_a_00350.pdf
-      tacl_a_00351.xml
-      tacl_a_00351.pdf
-      tacl_a_00352.xml
-      tacl_a_00352.pdf
+Example usage:
 
-Then, run
+    bin/ingest_mitpress.py --venue tacl --year 2025 --volume 13 --dry-run
+    bin/ingest_mitpress.py --venue cl --year 2025
 
-    /path/to/anthology/bin/ingest_mitpress.py /path/to/taclv9-11082021/
-
-This will
-
-* infer the path of, then update or create the XML file, skipping existing papers
-* copy new PDFs where they can be bundled up or rsynced over.
-
-It assumes that you are working within a single collection (e.g., a single XML
-file), but there can be multiple volumes (like for CL).
-
-Warning (August 2020): not yet tested with CL, but should work!
-
-Authors: Arya D. McCarthy, Matt Post
+Authors: David Stap (earlier versions: Arya D. McCarthy, Matt Post, Marcel Bollmann)
 """
 
-import os
-import shutil
+import argparse
 import logging
-import lxml.etree as etree
-
+import os
+import re
+import sys
+import time
 from pathlib import Path
-from typing import List, Optional, Tuple
+from typing import Any, Optional
 
-from anthology import Anthology, Paper, Volume
-from normalize_anth import normalize
-from anthology.utils import make_simple_element, indent, compute_hash_from_file
+import requests
 
-__version__ = "0.5"
+from acl_anthology import Anthology
+from acl_anthology.files import PDFReference
+from acl_anthology.people import Name, NameSpecification as NameSpec
+from acl_anthology.text import MarkupText
+from acl_anthology.utils import setup_rich_logging
+
+from fixedcase.protect import protect
+from anthology.utils import retrieve_url
+
+
+__version__ = "0.7"
 
 TACL = "tacl"
 CL = "cl"
@@ -65,425 +60,565 @@ MONTHS = {
     "12": "December",
 }
 
+VENUE_CONFIG = {
+    TACL: {
+        "journal_title": "Transactions of the Association for Computational Linguistics",
+        "issn": ["2307-387X"],
+        "booktitle_template": (
+            "Transactions of the Association for Computational Linguistics, "
+            "Volume {volume}"
+        ),
+        "default_issue_id": "1",
+    },
+    CL: {
+        "journal_title": "Computational Linguistics",
+        "issn": ["0891-2017", "1530-9312"],
+        "booktitle_template": (
+            "Computational Linguistics, Volume {volume}, Issue {issue} - {month} {year}"
+        ),
+        "default_issue_id": None,
+    },
+}
+
+CROSSREF_API = "https://api.crossref.org/works"
+PDF_URL_TEMPLATE = "https://www.mitpressjournals.org/doi/pdf/{doi}"
+
 
 def collapse_spaces(text: str) -> str:
     return " ".join(text.split())
 
 
-def get_volume_info(xml: Path) -> str:
-    logging.info("Getting volume info from {}".format(xml))
-    # So far, their XML for the volume doesn't play nicely with xml.etree. Thus, we hack.
-    paper = etree.Element("paper")
-    paper.attrib["id"] = "1000"  # hard-code because there's only one collection.
-
-    volume_text = xml.stem.split(".")[-1]
-    title_text = "Transactions of the Association for Computational Linguistics"
-
-    title = etree.Element("title")
-    title.text = "{}, Volume {}".format(title_text, volume_text)
-    paper.append(title)
-
-    year_text = xml.stem.split(".")[1]
-    year = etree.Element("year")
-    year.text = year_text
-    paper.append(year)
-
-    return paper
+def normalize_doi(value: str) -> str:
+    doi = value.strip().lower()
+    for prefix in ("https://doi.org/", "http://doi.org/", "doi:"):
+        if doi.startswith(prefix):
+            doi = doi[len(prefix) :]
+    return doi.strip()
 
 
-def get_paperid(xml: Path, count: int, issue_count: int) -> str:
-    assert int(issue_count) < 10
-    assert 0 < count < 1000
-    # for i in range(1, 4+1):
-    #     assert basename[-i] in [str(x) for x in range(10)], basename
-    return f"{issue_count}.{count}"  # after dash in new anth id
-
-
-def get_title(xml_front_node: etree.Element) -> str:
-    nsmap = xml_front_node.nsmap
-
-    article_meta = xml_front_node.find("article-meta", nsmap)
-    title_group = article_meta.find("title-group", nsmap)
-    title = title_group.find("article-title", nsmap)
-    title_text = collapse_spaces("".join(title.itertext()))
-    return title_text
-
-
-def get_year(xml_front_node: etree.Element) -> str:
-    nsmap = xml_front_node.nsmap
-
-    article_meta = xml_front_node.find("article-meta", nsmap)
-    pub_date = article_meta.find("pub-date", nsmap)
-    year_text = pub_date.find("year", nsmap).text
-    return year_text
-
-
-def get_month(xml_front_node: etree.Element) -> str:
-    nsmap = xml_front_node.nsmap
-
-    article_meta = xml_front_node.find("article-meta", nsmap)
-    pub_date = article_meta.find("pub-date", nsmap)
-    try:
-        month_id = pub_date.find("month", nsmap).text
-    except AttributeError:
-        return None
-    months = [
-        None,
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December",
-    ]
-    month_text = months[int(month_id)]
-    return month_text
-
-
-def get_abstract(xml_front_node: etree.Element) -> str:
-    nsmap = xml_front_node.nsmap
-
-    article_meta = xml_front_node.find("article-meta", nsmap)
-    abstract = article_meta.find("abstract", nsmap)
-    if abstract is not None:
-        abstract_text = collapse_spaces("".join(abstract.itertext()))
-        # 2022/June abstracts all started with "Abstract "
-        if abstract_text.startswith("Abstract "):
-            abstract_text = abstract_text[9:]
-        return abstract_text
-    else:
+def parse_crossref_abstract(value: Optional[str]) -> Optional[str]:
+    if not value:
         return None
 
+    text = value
 
-def get_authors(xml_front_node: etree.Element) -> List[Tuple[str, str]]:
-    nsmap = xml_front_node.nsmap
+    # Crossref often returns escaped JATS fragments (e.g., "&lt;jats:p&gt;...").
+    # Decode first so we can strip markup consistently.
+    if "&lt;" in text or "&gt;" in text or "&amp;lt;" in text or "&amp;gt;" in text:
+        import html
 
-    article_meta = xml_front_node.find("article-meta", nsmap)
-    contrib_group = article_meta.find("contrib-group", nsmap)
-    authors = []
-    for author in contrib_group.findall("contrib", nsmap):
-        string_name = author.find("name", nsmap)
+        # Crossref can return doubly escaped JATS. Decode until stable.
+        for _ in range(3):
+            decoded = html.unescape(text)
+            if decoded == text:
+                break
+            text = decoded
+
+    if "<" in text and ">" in text:
         try:
-            given_names = string_name.find("given-names", nsmap).text
-        except AttributeError:
-            given_names = ""  # Special case for Mausam, and potentially Madonna.
-        surname = string_name.find("surname", nsmap).text
-        try:
-            suffix = string_name.find("suffix", nsmap).text
-            surname = surname + " " + suffix
-        except AttributeError:
+            text = text.replace("<jats:", "<").replace("</jats:", "</")
+            wrapped = f"<root>{text}</root>"
+            from lxml import etree
+
+            node = etree.fromstring(wrapped.encode("utf-8"))
+            text = " ".join(node.itertext())
+        except Exception:
             pass
-        authors.append((given_names, surname))
-    return authors
+
+    # Some JATS abstracts include a leading "Abstract" heading.
+    text = text.strip()
+    if text.lower().startswith("abstract "):
+        text = text[9:]
+
+    text = collapse_spaces(text)
+    return text or None
 
 
-def get_pages(xml_front_node: etree.Element) -> Tuple[str, str]:
-    nsmap = xml_front_node.nsmap
+def _decode_markup_text(value: str) -> str:
+    text = value
+    if "&lt;" in text or "&gt;" in text or "&amp;lt;" in text or "&amp;gt;" in text:
+        import html
 
-    article_meta = xml_front_node.find("article-meta", nsmap)
-    fpage = article_meta.find("fpage", nsmap)
-    lpage = article_meta.find("lpage", nsmap)
-    return fpage.text, lpage.text
-
-
-def get_doi(xml_front_node: etree.Element) -> str:
-    nsmap = xml_front_node.nsmap
-
-    article_meta = xml_front_node.find("article-meta", nsmap)
-    doi_ = article_meta.find("*[@pub-id-type='doi']", nsmap)
-    return doi_.text
+        for _ in range(3):
+            decoded = html.unescape(text)
+            if decoded == text:
+                break
+            text = decoded
+    return text
 
 
-def get_article_journal_info(xml_front_node: etree.Element, is_tacl: bool) -> str:
-    """ """
-    nsmap = xml_front_node.nsmap
+def _join_spaced_mixedcase_tokens(text: str) -> str:
+    def repl(match: re.Match[str]) -> str:
+        token = match.group(0)
+        joined = token.replace(" ", "")
+        if any(c.islower() for c in joined) and any(c.isupper() for c in joined):
+            return joined
+        return token
 
-    journal_meta = xml_front_node.find("journal-meta", nsmap)
+    return re.sub(r"\b(?:[A-Za-z]\s+){2,}[A-Za-z]\b", repl, text)
 
-    journal_title_group = journal_meta.find("journal-title-group", nsmap)
-    journal_title = journal_title_group.find("journal-title", nsmap)
-    # For some reason, sometimes this is not present, so look for this one
-    if journal_title is None:
-        journal_title = journal_title_group.find("abbrev-journal-title", nsmap)
-    journal_title_text = journal_title.text
 
-    article_meta = xml_front_node.find("article-meta", nsmap)
-    volume = article_meta.find("volume", nsmap)
+def parse_crossref_title(value: str) -> str:
+    text = _decode_markup_text(value)
+    text = text.replace("<jats:", "<").replace("</jats:", "</")
 
-    # Fixes
-    journal_title_text = " ".join(
-        journal_title_text.split()
-    )  # Sometimes it's split onto two lines...
-    journal_title_text = journal_title_text.replace(  # Fix typo found in 2018
-        "Association of Computational Linguistics",
-        "Association for Computational Linguistics",
-    )
-    volume_text = volume.text.lstrip("0")  # Sometimes we find "06" instead of "6"
+    # MIT/Crossref can emit stylization tags such as <scp> with whitespace
+    # around each fragment; remove these wrappers before text extraction.
+    text = re.sub(r"\s*<\s*scp\s*>\s*", "", text, flags=re.IGNORECASE)
+    text = re.sub(r"\s*<\s*/\s*scp\s*>\s*", "", text, flags=re.IGNORECASE)
 
-    if is_tacl:
-        issue_text = None
-        string_date_text = None
-        format_string = "{journal}, Volume {volume}"
-    else:
-        issue = article_meta.find("issue", nsmap)
-        issue_text = issue.text
+    if "<" in text and ">" in text:
+        try:
+            from lxml import etree
 
-        string_date_text = None
-        for pub_date in article_meta.findall("pub-date", nsmap):
-            month = pub_date.find("season", nsmap).text
-            if month is None:
-                continue
-            year = pub_date.find("year", nsmap).text
-            string_date_text = f"{month} {year}"
+            node = etree.fromstring(f"<root>{text}</root>".encode("utf-8"))
+            text = " ".join(node.itertext())
+        except Exception:
+            pass
+
+    text = collapse_spaces(text)
+    text = _join_spaced_mixedcase_tokens(text)
+    text = re.sub(r"\s+([:;,.!?])", r"\1", text)
+    return text
+
+
+def parse_month_from_crossref(item: dict[str, Any]) -> Optional[str]:
+    for field in ("published-print", "published-online", "issued"):
+        payload = item.get(field)
+        if not isinstance(payload, dict):
+            continue
+        date_parts = payload.get("date-parts")
+        if not date_parts or not date_parts[0]:
+            continue
+        first = date_parts[0]
+        if len(first) < 2:
+            continue
+        month_num = f"{int(first[1]):02d}"
+        return MONTHS.get(month_num)
+    return None
+
+
+def parse_year_from_crossref(item: dict[str, Any]) -> Optional[int]:
+    for field in ("published-print", "published-online", "issued"):
+        payload = item.get(field)
+        if not isinstance(payload, dict):
+            continue
+        date_parts = payload.get("date-parts")
+        if not date_parts or not date_parts[0]:
+            continue
+        first = date_parts[0]
+        if not first:
+            continue
+        return int(first[0])
+    return None
+
+
+def parse_pages(page: Optional[str]) -> Optional[str]:
+    if not page:
+        return None
+    page_text = collapse_spaces(page)
+    if not page_text:
+        return None
+
+    if "-" in page_text and "–" not in page_text:
+        parts = [p.strip() for p in page_text.split("-") if p.strip()]
+        if len(parts) == 2:
+            return f"{parts[0]}–{parts[1]}"
+    return page_text
+
+
+def start_page_for_sorting(page_text: Optional[str]) -> int:
+    if not page_text:
+        return 10**9
+    head = page_text.split("–")[0].split("-")[0].strip()
+    try:
+        return int(head)
+    except ValueError:
+        return 10**9
+
+
+def is_target_journal(item: dict[str, Any], venue: str) -> bool:
+    config = VENUE_CONFIG[venue]
+    expected_title = config["journal_title"].lower()
+
+    container_titles = item.get("container-title") or []
+    for title in container_titles:
+        if isinstance(title, str) and title.strip().lower() == expected_title:
+            return True
+
+    issn_values = set(item.get("ISSN") or [])
+    for issn in config["issn"]:
+        if issn in issn_values:
+            return True
+
+    return False
+
+
+def crossref_request_json(
+    session: requests.Session,
+    params: dict[str, Any],
+    retries: int = 4,
+    timeout_sec: int = 45,
+) -> dict[str, Any]:
+    headers = {
+        "User-Agent": "acl-anthology-ingest-mitpress/0.7 (mailto:acl-anthology@aclweb.org)"
+    }
+
+    for attempt in range(1, retries + 1):
+        try:
+            response = session.get(
+                CROSSREF_API,
+                params=params,
+                headers=headers,
+                timeout=timeout_sec,
+            )
+            response.raise_for_status()
+            return response.json()
+        except requests.RequestException as exc:
+            if attempt == retries:
+                raise
+            wait_s = min(2**attempt, 10)
+            logging.warning("Crossref request failed (%s). Retrying in %ss", exc, wait_s)
+            time.sleep(wait_s)
+
+    raise RuntimeError("Unreachable retry loop")
+
+
+def discover_crossref_items(
+    venue: str,
+    year: int,
+    volume: Optional[str],
+) -> list[dict[str, Any]]:
+    filters = [
+        f"from-pub-date:{year}-01-01",
+        f"until-pub-date:{year}-12-31",
+        "prefix:10.1162",
+        "type:journal-article",
+    ]
+
+    config = VENUE_CONFIG[venue]
+    if config["issn"]:
+        filters.append(f"issn:{config['issn'][0]}")
+
+    rows = 200
+    cursor = "*"
+    seen_dois: set[str] = set()
+    items: list[dict[str, Any]] = []
+
+    session = requests.Session()
+
+    while True:
+        params = {
+            "filter": ",".join(filters),
+            "rows": rows,
+            "cursor": cursor,
+            "select": (
+                "DOI,title,author,abstract,page,issue,volume,"
+                "container-title,ISSN,published-print,published-online,issued,type"
+            ),
+        }
+        payload = crossref_request_json(session, params)
+        message = payload.get("message", {})
+        batch = message.get("items", [])
+
+        if not batch:
             break
 
-        if string_date_text is None:
-            print("Fatal: found no year/date", file=sys.stderr)
-            sys.exit(1)
+        for item in batch:
+            raw_doi = item.get("DOI")
+            if not raw_doi:
+                continue
+            doi = normalize_doi(str(raw_doi))
+            if doi in seen_dois:
+                continue
+            if not is_target_journal(item, venue):
+                continue
 
-        format_string = "{journal}, Volume {volume}, Issue {issue} - {date}"
+            item["DOI"] = doi
+            if parse_year_from_crossref(item) != year:
+                continue
+            if volume is not None and str(item.get("volume", "")).strip() != str(volume):
+                continue
 
-    data = dict(
-        journal=journal_title_text,
-        volume=volume_text,
-        issue=issue_text,
-        date=string_date_text,
-    )
-    logging.debug(format_string.format(**data))
-    return format_string.format(**data), issue_text, volume_text
+            seen_dois.add(doi)
+            items.append(item)
 
+        next_cursor = message.get("next-cursor")
+        if not next_cursor or next_cursor == cursor:
+            break
+        cursor = next_cursor
 
-def process_xml(xml: Path, is_tacl: bool) -> Optional[etree.Element]:
-    """ """
-    logging.info("Reading {}".format(xml))
-
-    tree = etree.parse(open(str(xml)))
-    root = tree.getroot()
-    front = root.find("front", root.nsmap)
-
-    info, issue, volume = get_article_journal_info(front, is_tacl)
-
-    paper = etree.Element("paper")
-
-    title_text = get_title(front)
-    title = etree.Element("title")
-    title.text = title_text
-    paper.append(title)
-
-    authors = get_authors(front)
-    for given_names, surname in authors:
-        first = etree.Element("first")
-        first.text = given_names
-
-        last = etree.Element("last")
-        last.text = surname
-
-        author = etree.Element("author")
-        author.append(first)
-        author.append(last)
-
-        paper.append(author)
-
-    doi_text = get_doi(front)
-    doi = etree.Element("doi")
-    doi.text = doi_text
-    paper.append(doi)
-
-    abstract_text = get_abstract(front)
-    if abstract_text:
-        make_simple_element("abstract", abstract_text, parent=paper)
-
-    pages_tuple = get_pages(front)
-    pages = etree.Element("pages")
-    pages.text = "–".join(pages_tuple)  # en-dash, not hyphen!
-    paper.append(pages)
-
-    return paper, info, issue, volume
+    return items
 
 
-def issue_info_to_node(
-    issue_info: str, year_: str, journal_issue: str, venue: str, volume: str
-) -> etree.Element:
-    """Creates the meta block for a new issue / volume"""
-    meta = make_simple_element("meta")
+def convert_crossref_item_to_paper(item: dict[str, Any], venue: str) -> Optional[dict[str, Any]]:
+    doi = item.get("DOI")
+    if not doi:
+        return None
 
-    assert int(year_)
+    titles = item.get("title") or []
+    if not titles:
+        return None
+    title = parse_crossref_title(str(titles[0]))
 
-    make_simple_element("booktitle", issue_info, parent=meta)
-    make_simple_element("publisher", "MIT Press", parent=meta)
-    make_simple_element("address", "Cambridge, MA", parent=meta)
+    authors = []
+    for author in item.get("author") or []:
+        given = author.get("given")
+        family = author.get("family")
+        if family:
+            authors.append(
+                {
+                    "first": collapse_spaces(str(given)) if given else None,
+                    "last": collapse_spaces(str(family)),
+                }
+            )
 
-    if venue == "cl":
-        month_text = issue_info.split()[-2]  # blah blah blah month year
-        if month_text not in {
-            "January",
-            "February",
-            "March",
-            "April",
-            "May",
-            "June",
-            "July",
-            "August",
-            "September",
-            "October",
-            "November",
-            "December",
-        }:
-            logging.error("Unknown month: " + month_text)
-        make_simple_element("month", month_text, parent=meta)
+    volume = item.get("volume")
+    if not volume:
+        return None
 
-    make_simple_element("year", str(year_), parent=meta)
-    make_simple_element("venue", venue, parent=meta)
-    make_simple_element("journal-volume", volume, parent=meta)
+    issue = item.get("issue")
+    month = parse_month_from_crossref(item)
 
-    return meta
+    if venue == CL and not issue:
+        # Keep behavior strict for CL where issue IDs map to volume IDs in XML.
+        return None
 
-
-def main(args):
-    anthology = Anthology(
-        importdir=os.path.join(args.anthology_dir, "data"), require_bibkeys=False
-    )
-
-    is_tacl = "tacl" in args.root_dir.stem
-    logging.info(f"Looks like a {'TACL' if is_tacl else 'CL'} ingestion")
-
-    venue = TACL if is_tacl else CL  # J for CL, Q for TACL.
-    year = args.year
-    if year is None:
-        try:
-            year = int(args.root_dir.name[-4:])
-        except ValueError:
-            logging.warning(f"Expected last four chars of {args.root_dir} to be a year")
-            logging.warning("Or you can use --year YYYY")
-            sys.exit(-1)
-
-    collection_id = str(year) + "." + venue
-
-    collection_file = os.path.join(
-        args.anthology_dir, "data", "xml", f"{collection_id}.xml"
-    )
-    if os.path.exists(collection_file):
-        collection = etree.parse(collection_file).getroot()
+    if venue == TACL:
+        issue_id = VENUE_CONFIG[TACL]["default_issue_id"]
+        issue_display = issue_id
     else:
-        collection = make_simple_element("collection", attrib={"id": collection_id})
+        issue_id = str(issue)
+        issue_display = issue_id
 
-    # volume_info = get_volume_info(list(args.year_root.glob("*.*.*/*.*.*.xml"))[0])
-    # volume.append(volume_info)
+    if venue == TACL:
+        booktitle = VENUE_CONFIG[TACL]["booktitle_template"].format(volume=volume)
+    else:
+        if not month:
+            month = "January"
+        year = parse_year_from_crossref(item)
+        if year is None:
+            return None
+        booktitle = VENUE_CONFIG[CL]["booktitle_template"].format(
+            volume=volume,
+            issue=issue_display,
+            month=month,
+            year=year,
+        )
 
-    previous_issue_info = None
+    return {
+        "doi": doi,
+        "title": title,
+        "authors": authors,
+        "abstract": parse_crossref_abstract(item.get("abstract")),
+        "pages": parse_pages(item.get("page")),
+        "issue_id": issue_id,
+        "journal_volume": str(volume),
+        "journal_issue": issue_display if venue == CL else None,
+        "month": month if venue == CL else None,
+        "booktitle": booktitle,
+    }
 
-    papers = []
-    for xml in sorted(args.root_dir.glob("*.xml")):
-        papernode, issue_info, issue, volume = process_xml(xml, is_tacl)
-        if papernode is None or papernode.find("title").text.startswith("Erratum: “"):
+
+def maybe_download_pdf(doi: str, destination: Path, dry_run: bool) -> tuple[bool, Optional[str]]:
+    pdf_url = PDF_URL_TEMPLATE.format(doi=doi)
+    if dry_run:
+        return True, pdf_url
+
+    try:
+        retrieve_url(pdf_url, str(destination))
+    except Exception as exc:
+        logging.warning("Failed to fetch PDF for DOI %s: %s", doi, exc)
+        return False, pdf_url
+
+    if not destination.is_file() or destination.stat().st_size == 0:
+        return False, pdf_url
+
+    return True, pdf_url
+
+
+def existing_dois(collection) -> set[str]:
+    return {paper.doi.lower() for paper in collection.papers() if paper.doi}
+
+
+def ensure_volume(
+    collection,
+    venue: str,
+    year: int,
+    issue_id: str,
+    paper: dict[str, Any],
+):
+    if (volume := collection.get(issue_id)) is not None:
+        return volume
+
+    volume = collection.create_volume(
+        issue_id,
+        title=MarkupText.from_string(str(paper["booktitle"])),
+        type="journal",
+        year=str(year),
+        month=paper.get("month"),
+        publisher="MIT Press",
+        address="Cambridge, MA",
+        venue_ids=[venue],
+        journal_volume=paper.get("journal_volume"),
+        journal_issue=paper.get("journal_issue"),
+    )
+    return volume
+
+
+def ingest_papers(args, papers: list[dict[str, Any]]) -> dict[str, Any]:
+    anthology = Anthology(datadir=os.path.join(args.anthology_dir, "data"))
+
+    collection_id = f"{args.year}.{args.venue}"
+    if (collection := anthology.collections.get(collection_id)) is None:
+        if args.dry_run:
+            logging.info("Collection %s does not exist yet (dry-run mode)", collection_id)
+            collection = anthology.collections.create(collection_id)
+        else:
+            collection = anthology.collections.create(collection_id)
+
+    report: dict[str, Any] = {
+        "collection": collection_id,
+        "venue": args.venue,
+        "year": args.year,
+        "discovered": len(papers),
+        "new": 0,
+        "existing": 0,
+        "invalid": 0,
+        "ingested": 0,
+        "no_pdf": 0,
+        "errors": [],
+        "new_dois": [],
+        "existing_dois": [],
+        "no_pdf_dois": [],
+    }
+
+    doi_set = existing_dois(collection)
+
+    valid_papers: list[dict[str, Any]] = []
+    for paper in papers:
+        doi = normalize_doi(str(paper.get("doi", "")))
+        if not doi:
+            report["invalid"] += 1
+            report["errors"].append("paper without DOI")
             continue
 
-        pdf_path = xml.parent / xml.with_suffix(".pdf").name
-        if not pdf_path.is_file():
-            logging.error(f"Missing pdf for {pdf_path}")
-            sys.exit(1)
+        paper["doi"] = doi
+        if doi in doi_set:
+            report["existing"] += 1
+            report["existing_dois"].append(doi)
+            continue
 
-        papers.append((papernode, pdf_path, issue_info, issue))
+        required = ["title", "issue_id", "journal_volume", "booktitle"]
+        missing = [field for field in required if not paper.get(field)]
+        if missing:
+            report["invalid"] += 1
+            report["errors"].append(f"{doi}: missing {','.join(missing)}")
+            continue
 
-        pdf_destination = Path(args.pdfs_dir)
-        pdf_destination = pdf_destination / "pdf" / venue
+        valid_papers.append(paper)
+
+    valid_papers.sort(
+        key=lambda p: (
+            str(p.get("issue_id")),
+            start_page_for_sorting(p.get("pages")),
+            p["doi"],
+        )
+    )
+
+    pdf_destination = Path(args.pdfs_dir) / "pdf" / args.venue
+    if not args.dry_run:
         pdf_destination.mkdir(parents=True, exist_ok=True)
 
-    # MIT Press does assign its IDs in page order, so we have to sort by page
-    def sort_papers_by_page(paper_tuple):
-        papernode = paper_tuple[0]
-        startpage = int(papernode.find("./pages").text.split("–")[0])
-        return startpage
-
-    paper_id = 1  # Stupid non-enumerate counter because of "Erratum: " papers interleaved with real ones.
-    for papernode, pdf_path, issue_info, issue in sorted(papers, key=sort_papers_by_page):
-        issue = issue or "1"
-        if issue_info != previous_issue_info:
-            # Emit the new volume info before the paper.
-            logging.info("New issue")
-            logging.info(f"{issue_info} vs. {previous_issue_info}")
-            previous_issue_info = issue_info
-
-            # Look for node in tree, else create it
-            volume_xml = collection.find(f'./volume[@id="{issue}"]')
-            if volume_xml is None:
-                # xml volume = journal issue
-                volume_xml = make_simple_element(
-                    "volume", attrib={"id": issue, "type": "journal"}, parent=collection
-                )
-                volume_xml.append(
-                    issue_info_to_node(issue_info, year, issue, venue, volume)
-                )
-                paper_id = 1
-            else:
-                for paper in volume_xml.findall(".//paper"):
-                    paper_id = max(paper_id, int(paper.attrib["id"]))
-
-                paper_id += 1
-
-        anth_id = f"{collection_id}-{issue}.{paper_id}"
-
-        # Check if the paper is already present in the volume
-        doi_text = papernode.find("./doi").text
-        doi_node = collection.xpath(f'.//doi[text()="{doi_text}"]')
-        if len(doi_node):
-            logging.info(
-                f"Skipping existing paper {anth_id}/{doi_text} with title {papernode.find('title').text}"
-            )
-            continue
-
-        papernode.attrib["id"] = f"{paper_id}"
-
-        destination = pdf_destination / f"{anth_id}.pdf"
-        print(f"Copying {pdf_path} to {destination}")
-        shutil.copyfile(pdf_path, destination)
-        checksum = compute_hash_from_file(pdf_path)
-
-        url_text = anth_id
-        url = etree.Element("url")
-        url.attrib["hash"] = checksum
-        url.text = url_text
-        papernode.append(url)
-
-        # Generate bibkey
-        volume = Volume.from_xml(
-            volume_xml,
-            collection_id,
-            anthology.venues,
-            anthology.sigs,
-            anthology.formatter,
+    for paper_data in valid_papers:
+        volume = ensure_volume(
+            collection,
+            args.venue,
+            args.year,
+            str(paper_data["issue_id"]),
+            paper_data,
         )
-        paper = Paper.from_xml(papernode, volume, anthology.formatter)
-        bibkey = anthology.pindex.create_bibkey(paper, vidx=anthology.venues)
-        make_simple_element("bibkey", bibkey, parent=papernode)
 
-        # Normalize
-        for oldnode in papernode:
-            normalize(oldnode, informat="latex")
-        volume_xml.append(papernode)
+        paper_id = volume.generate_paper_id()
+        anth_id = f"{volume.full_id}.{paper_id}"
+        destination = pdf_destination / f"{anth_id}.pdf"
+        ok, pdf_url = maybe_download_pdf(paper_data["doi"], destination, args.dry_run)
+        if not ok:
+            report["no_pdf"] += 1
+            report["no_pdf_dois"].append(paper_data["doi"])
+            if pdf_url:
+                report["errors"].append(f"{paper_data['doi']}: PDF fetch failed ({pdf_url})")
+            raise RuntimeError(
+                f"PDF download failed for DOI {paper_data['doi']} ({pdf_url}); aborting ingestion."
+            )
 
-        paper_id += 1
+        create_kwargs: dict[str, Any] = {
+            "id": paper_id,
+            "title": MarkupText.from_latex_maybe(str(paper_data["title"])),
+            "doi": paper_data["doi"],
+            "authors": [
+                NameSpec(Name.from_dict(author))
+                for author in paper_data.get("authors", [])
+                if author.get("last")
+            ],
+        }
+        if paper_data.get("abstract"):
+            create_kwargs["abstract"] = MarkupText.from_latex_maybe(
+                str(paper_data["abstract"])
+            )
+        if paper_data.get("pages"):
+            create_kwargs["pages"] = str(paper_data["pages"])
 
-    indent(collection)  # from anthology.utils
-    et = etree.ElementTree(collection)
-    et.write(collection_file, encoding="UTF-8", xml_declaration=True, with_tail=True)
+        paper_obj = volume.create_paper(**create_kwargs)
+
+        # Keep legacy title post-processing behavior.
+        xml_title = paper_obj.title.to_xml("title")
+        protect(xml_title)
+        paper_obj.title = MarkupText.from_xml(xml_title)
+
+        if not args.dry_run:
+            paper_obj.pdf = PDFReference.from_file(destination)
+
+        report["new"] += 1
+        report["ingested"] += 1
+        report["new_dois"].append(paper_data["doi"])
+
+    if args.dry_run:
+        logging.info("Dry-run mode: no XML changes written")
+    else:
+        collection.save()
+
+    return report
+
+
+def write_report(report: dict[str, Any]) -> None:
+    summary = (
+        "discovered={discovered} new={new} existing={existing} invalid={invalid} "
+        "no_pdf={no_pdf}"
+    ).format(**report)
+    logging.info("Summary: %s", summary)
+
+
+def discover_papers(args) -> list[dict[str, Any]]:
+    items = discover_crossref_items(args.venue, args.year, args.volume)
+    papers = []
+    for item in items:
+        paper = convert_crossref_item_to_paper(item, args.venue)
+        if paper is None:
+            continue
+        papers.append(paper)
+
+    papers.sort(key=lambda p: (str(p.get("issue_id")), p["doi"]))
+    return papers
+
+
+def main(args) -> None:
+    papers = discover_papers(args)
+    report = ingest_papers(args, papers)
+    write_report(report)
 
 
 if __name__ == "__main__":
-    import sys
-
-    if sys.version_info < (3, 6):
-        sys.stderr.write("Python >=3.6 required.\n")
-        sys.exit(1)
-
-    import argparse
-
     parser = argparse.ArgumentParser(description=__doc__)
     anthology_path = os.path.join(os.path.dirname(sys.argv[0]), "..")
     parser.add_argument(
@@ -493,19 +628,20 @@ if __name__ == "__main__":
         help="Root path of ACL Anthology Github repo. Default: %(default)s.",
     )
     parser.add_argument(
-        "--year",
-        type=int,
-        default=None,
-        help="The current year",
-    )
-    pdfs_path = os.path.join(os.environ["HOME"], "anthology-files")
-    parser.add_argument(
         "--pdfs-dir",
         "-p",
-        default=pdfs_path,
+        default=os.path.join(os.environ["HOME"], "anthology-files"),
         help="Root path for placement of PDF files",
     )
+    parser.add_argument("--venue", choices=[TACL, CL], required=True)
+    parser.add_argument("--year", type=int, required=True)
+    parser.add_argument("--volume", type=str, default=None)
 
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Run full logic but do not write XML or PDFs.",
+    )
     verbosity = parser.add_mutually_exclusive_group()
     verbosity.add_argument(
         "-v", "--verbose", action="store_const", const=logging.DEBUG, default=logging.INFO
@@ -515,11 +651,8 @@ if __name__ == "__main__":
     )
 
     parser.add_argument("--version", action="version", version=f"%(prog)s v{__version__}")
-    parser.add_argument("root_dir", metavar="FOLDER", type=Path)
 
     args = parser.parse_args()
-    args.root_dir = args.root_dir.resolve()  # Get absolute path.
 
-    logging.basicConfig(level=args.verbose)
-
+    setup_rich_logging(level=args.verbose)
     main(args)
