@@ -97,6 +97,7 @@ endif
 
 
 VENV := "venv/bin/activate"
+PRECOMMIT_HOOK ?= check_commit
 
 .PHONY: site
 site: build/.hugo build/.sitemap
@@ -233,6 +234,12 @@ check_staged_xml:
 .PHONY: check_commit
 check_commit: check_staged_xml venv/bin/activate
 	@. $(VENV) && pre-commit run
+
+.PHONY: setup
+setup:
+	@mkdir -p .git/hooks
+	@ln -sf ../../.git-hooks/$(PRECOMMIT_HOOK) .git/hooks/pre-commit
+	@echo "INFO     Installed pre-commit hook: $(PRECOMMIT_HOOK)"
 
 .PHONY: autofix
 autofix: check
