@@ -481,9 +481,7 @@ def ingest_papers(args, papers: list[dict[str, Any]]) -> dict[str, Any]:
     if (collection := anthology.collections.get(collection_id)) is None:
         if args.dry_run:
             logging.info("Collection %s does not exist yet (dry-run mode)", collection_id)
-            collection = anthology.collections.create(collection_id)
-        else:
-            collection = anthology.collections.create(collection_id)
+        collection = anthology.collections.create(collection_id)
 
     report: dict[str, Any] = {
         "collection": collection_id,
