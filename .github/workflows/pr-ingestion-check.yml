@@ -1,0 +1,159 @@
+# Checks for ingestion related PRs to master and comments on linked issues once they have been merged
+
+name: ingestion-check
+
+on:
+  pull_request:
+    types: [closed]
+
+# only run one at a time per branch
+concurrency:
+  group: preview-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ingestion-check:
+    # Only run this job if the PR was merged
+    if: github.event.pull_request.merged == true && github.repository == 'acl-org/acl-anthology'
+    runs-on:
+      labels: ubuntu-latest-m
+    steps:
+    # Step 1: Check if the word ingestion is in the title or labels
+    - name: Check PR for the word ingestion in the title or labels
+      id: check_pr
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const pr = context.payload.pull_request;
+
+          if (!pr) {
+            return;
+          }
+
+          const titleMatches = pr.title.toLowerCase().includes("ingestion");
+          const labelMatches = pr.labels.some(
+            label => label.name.toLowerCase() === "ingestion"
+          );
+
+          const prMatches = titleMatches || labelMatches;
+          
+          if (!titleMatches && !labelMatches) {
+            core.setFailed("PR is not an ingestion PR");
+          }
+          core.setOutput("pr_matches", prMatches ? "true" : "false");
+          core.info(`PR matches ingestion: ${prMatches}`);
+
+      # Step 2: Fetch and filter linked issues with the word ingestion in the title or labels
+    - name: Fetch linked ingestion issues
+      id: fetch_issues
+      if: steps.check_pr.outputs.pr_matches == 'true'
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const pr = context.payload.pull_request;
+
+          # GraphQL query to fetch Development-linked issues
+          # Set correct environment variables here
+          const query = `
+            query ($owner: String!, $repo: String!, $number: Int!) {
+              repository(owner: $owner, name: $repo) {
+                pullRequest(number: $number) {
+                  closingIssuesReferences(first: 50) {
+                    nodes {
+                      number
+                      title
+                      labels(first: 50) {
+                        nodes {
+                          name
+                        }
+                      }
+                      comments(last: 100) {
+                        nodes {
+                          body
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          `;
+
+          const result = await github.graphql(query, {
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            number: pr.number
+          });
+
+          const issues =
+            result.repository.pullRequest.closingIssuesReferences.nodes;
+
+          if (!issues.length) {
+            return;
+          }
+
+          // Filter only ingestion-related issues
+          const ingestionIssues = issues.filter(issue => {
+            const titleMatches = issue.title.toLowerCase().includes("ingestion");
+            const labelMatches = issue.labels.nodes.some(
+              label => label.name.toLowerCase() === "ingestion"
+            );
+            return titleMatches || labelMatches;
+          });
+          
+          if (!ingestionIssues.length) {
+            core.setFailed("PR does not have any ingestion issues linked");
+          }
+          
+          core.setOutput("ingestion_issues", JSON.stringify(ingestionIssues));
+          core.info(`Found ${ingestionIssues.length} ingestion-linked issues.`);
+    - name: install other deps
+      # Clean this up, remove unnecessary dependencies, not sure if I even need any of them except libpython3-dev
+      run: sudo apt-get install -y jing bibutils openssh-client rsync libyaml-dev libpython3-dev
+    - uses: actions/checkout@v3
+    - name: fetch master branch
+      run: |
+        git fetch origin master
+    - name: install pip dependencies
+      run: |
+        python -m pip install -U pip
+        python -m pip install lxml
+    - name: extract branch name
+      shell: bash
+      run: echo "branch=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_OUTPUT
+      id: extract_branch
+    - name: list changes
+      shell: bash
+      run: echo "changes=$(git diff --name-only $GITHUB_REF origin/master | python ./bin/get_changes_from_git_diff.py https://preview.aclanthology.org/${{ steps.extract_branch.outputs.branch }})" >> $GITHUB_OUTPUT
+      id: list_changes
+
+
+      # Step 3: Comment on ingestion issues
+    - name: Comment on ingestion issues
+      if: steps.check_pr.outputs.pr_matches == 'true'
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const ingestionIssues = JSON.parse('${{ steps.fetch_issues.outputs.ingestion_issues }}');
+          let changes = '${{ steps.list_changes.outputs.changes }}';
+          
+        # Transform preview URL to canonical ACL Anthology URL
+          changes = changes.replace(
+            /^https:\/\/preview\.aclanthology\.org\/[^/]+/,
+            "https://aclanthology.org"
+          );        
+        
+        const commentBody = `This issue has been closed automatically because an ingestion request has been completed. Within a half hour or so, you should be able to find your event or volumes live on the Anthology at ${changes}`.trim();
+
+
+
+          for (const issue of ingestionIssues) {
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issue.number,
+              body: commentBody
+            });
+
+          }
