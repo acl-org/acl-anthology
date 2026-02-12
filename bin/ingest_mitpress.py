@@ -20,6 +20,7 @@ Authors: David Stap (earlier versions: Arya D. McCarthy, Matt Post, Marcel Bollm
 """
 
 import argparse
+import html
 import logging
 import os
 import re
@@ -81,6 +82,8 @@ VENUE_CONFIG = {
 
 CROSSREF_API = "https://api.crossref.org/works"
 PDF_URL_TEMPLATE = "https://www.mitpressjournals.org/doi/pdf/{doi}"
+PDF_DOWNLOAD_RETRIES = 5
+PDF_DOWNLOAD_RETRY_BASE_DELAY_SEC = 2
 
 
 def collapse_spaces(text: str) -> str:
@@ -99,30 +102,7 @@ def parse_crossref_abstract(value: Optional[str]) -> Optional[str]:
     if not value:
         return None
 
-    text = value
-
-    # Crossref often returns escaped JATS fragments (e.g., "&lt;jats:p&gt;...").
-    # Decode first so we can strip markup consistently.
-    if "&lt;" in text or "&gt;" in text or "&amp;lt;" in text or "&amp;gt;" in text:
-        import html
-
-        # Crossref can return doubly escaped JATS. Decode until stable.
-        for _ in range(3):
-            decoded = html.unescape(text)
-            if decoded == text:
-                break
-            text = decoded
-
-    if "<" in text and ">" in text:
-        try:
-            text = text.replace("<jats:", "<").replace("</jats:", "</")
-            wrapped = f"<root>{text}</root>"
-            from lxml import etree
-
-            node = etree.fromstring(wrapped.encode("utf-8"))
-            text = " ".join(node.itertext())
-        except Exception:
-            pass
+    text = strip_inline_markup(value)
 
     # Some JATS abstracts include a leading "Abstract" heading.
     text = text.strip()
@@ -146,6 +126,26 @@ def _decode_markup_text(value: str) -> str:
     return text
 
 
+def strip_inline_markup(value: str) -> str:
+    text = _decode_markup_text(value)
+    text = text.replace("<jats:", "<").replace("</jats:", "</")
+
+    if "<" in text and ">" in text:
+        try:
+            from lxml import etree
+
+            node = etree.fromstring(f"<root>{text}</root>".encode("utf-8"))
+            text = " ".join(node.itertext())
+        except Exception:
+            text = re.sub(r"</?[A-Za-z0-9:_-]+(?:\s+[^<>]*)?>", " ", text)
+
+    # One more pass for leftover escaped tags, then remove any raw tags.
+    text = html.unescape(text)
+    text = re.sub(r"&lt;\s*/?\s*[A-Za-z0-9:_-]+(?:\s+[^&<>]*)?&gt;", " ", text)
+    text = re.sub(r"</?[A-Za-z0-9:_-]+(?:\s+[^<>]*)?>", " ", text)
+    return collapse_spaces(text)
+
+
 def _join_spaced_mixedcase_tokens(text: str) -> str:
     def repl(match: re.Match[str]) -> str:
         token = match.group(0)
@@ -158,22 +158,7 @@ def _join_spaced_mixedcase_tokens(text: str) -> str:
 
 
 def parse_crossref_title(value: str) -> str:
-    text = _decode_markup_text(value)
-    text = text.replace("<jats:", "<").replace("</jats:", "</")
-
-    # MIT/Crossref can emit stylization tags such as <scp> with whitespace
-    # around each fragment; remove these wrappers before text extraction.
-    text = re.sub(r"\s*<\s*scp\s*>\s*", "", text, flags=re.IGNORECASE)
-    text = re.sub(r"\s*<\s*/\s*scp\s*>\s*", "", text, flags=re.IGNORECASE)
-
-    if "<" in text and ">" in text:
-        try:
-            from lxml import etree
-
-            node = etree.fromstring(f"<root>{text}</root>".encode("utf-8"))
-            text = " ".join(node.itertext())
-        except Exception:
-            pass
+    text = strip_inline_markup(value)
 
     text = collapse_spaces(text)
     text = _join_spaced_mixedcase_tokens(text)
@@ -428,16 +413,36 @@ def maybe_download_pdf(
     if dry_run:
         return True, pdf_url
 
-    try:
-        retrieve_url(pdf_url, str(destination))
-    except Exception as exc:
-        logging.warning("Failed to fetch PDF for DOI %s: %s", doi, exc)
-        return False, pdf_url
+    for attempt in range(1, PDF_DOWNLOAD_RETRIES + 1):
+        try:
+            retrieve_url(pdf_url, str(destination))
+            if destination.is_file() and destination.stat().st_size > 0:
+                return True, pdf_url
+            raise RuntimeError("downloaded file missing or empty")
+        except Exception as exc:
+            # Avoid keeping a partial file between retries.
+            try:
+                if destination.exists():
+                    destination.unlink()
+            except OSError:
+                pass
 
-    if not destination.is_file() or destination.stat().st_size == 0:
-        return False, pdf_url
+            if attempt == PDF_DOWNLOAD_RETRIES:
+                logging.warning("Failed to fetch PDF for DOI %s: %s", doi, exc)
+                return False, pdf_url
 
-    return True, pdf_url
+            wait_s = min(PDF_DOWNLOAD_RETRY_BASE_DELAY_SEC * (2 ** (attempt - 1)), 30)
+            logging.warning(
+                "PDF fetch failed for DOI %s (attempt %s/%s): %s. Retrying in %ss",
+                doi,
+                attempt,
+                PDF_DOWNLOAD_RETRIES,
+                exc,
+                wait_s,
+            )
+            time.sleep(wait_s)
+
+    return False, pdf_url
 
 
 def existing_dois(collection) -> set[str]:
