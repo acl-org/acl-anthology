@@ -1,0 +1,218 @@
+{{ define "meta" }}
+{{ $talk := index .Site.Data.talks .Params.talk_id }}
+  <meta content="{{ $talk.title }}" name="citation_title" >
+{{ range $talk.speakers }}
+  <meta content="{{ .full }}" name="citation_author" >
+{{ end }}
+{{ with $talk.event_id }}
+  {{ $event := index $.Site.Data.events . }}
+  <meta content="{{ $event.title }}" name="citation_conference_title" >
+{{ end }}
+{{ with $talk.dates }}<meta content="{{ . }}" name="citation_publication_date" >{{ end }}
+{{ with $talk.video_url }}
+  <meta content="{{ . }}" name="citation_video_url" >
+{{ end }}
+  <meta property="og:title" content="{{ $talk.title }}" />
+  <meta property="og:type" content="video.other" />
+  <meta property="og:site_name" content="ACL Anthology" />
+  <meta property="og:url" content="{{ .Permalink }}" />
+  <meta property="og:description" content="{{ range $talk.speakers }}{{ .full }}{{ end }}. {{ $talk.event_title }}." />
+{{ end }}
+
+{{ define "javascript" }}
+{{ $talk := index .Site.Data.talks .Params.talk_id }}
+<script src="{{ relURL "js/clipboard.min.js" }}"></script>
+<script src="{{ relURL "js/FileSaver.js" }}"></script>
+<script>
+  $( document ).ready(function() {
+      if (ClipboardJS.isSupported()) {
+          success_fn = function(e) {
+              // turns button into "copy successful"-style for 2 seconds
+              var src = $(e.trigger);
+              src.toggleClass("btn-success");
+              src.children("i").toggleClass("far fa-clipboard fas fa-clipboard-check");
+              e.clearSelection();
+
+              setTimeout(function() {
+                  src.toggleClass("btn-success");
+                  src.children("i").toggleClass("far fa-clipboard fas fa-clipboard-check");
+              }, 2000);
+          };
+
+          var clipboard = new ClipboardJS(".btn-clipboard");
+          clipboard.on('success', success_fn);
+          $(".btn-clipboard").removeClass("d-none");
+
+          var clipboard_outside = new ClipboardJS(".btn-clipboard-outside", {
+              text: function(trigger) {
+                  var target = trigger.getAttribute("data-clipboard-target");
+                  return $(target).text();
+              }
+          });
+          clipboard_outside.on('success', success_fn);
+          $(".btn-clipboard-outside").removeClass("d-none");
+      }
+  });
+
+  $( document ).ready(function() {
+      if ($(".btn-filesaver")) {
+          $(".btn-filesaver").on("click",
+              function() {
+                  var target = $( this ).attr("data-filesaver-target");
+                  var filename = $( this ).attr("data-filesaver-name");
+                  var blob = new Blob([$(target).text()], {type: "text/plain;charset=utf-8"});
+                  saveAs(blob, filename);
+              }
+          );
+          $(".btn-filesaver").removeClass("disabled");
+      }
+  });
+</script>
+{{ end }}
+
+{{ define "main" }}
+{{ $talk_id := .Params.talk_id }}
+{{ $talk := index .Site.Data.talks $talk_id }}
+<section id="main">
+  <div>
+  <h2 id="title">
+    {{ with $talk.video_url }}
+    <a href="{{ . }}">{{ $talk.title_html | safeHTML }}</a>
+    {{ else }}
+      {{ $talk.title_html | safeHTML }}
+    {{ end }}
+  </h2>
+  {{ with $talk.speakers }}
+  <p class="lead">
+    {{ $len := (len .) }}
+    {{ range $index, $speaker := . }}
+      {{ if $speaker.id }}
+        {{ partial "author_link.html" (dict "ctx" $ "person" $speaker) | chomp }}
+      {{ else }}
+        {{ $speaker.full }}
+      {{ end }}{{ if ne (add $index 1) $len }}, {{ end }}
+    {{ end }}
+  </p>
+  {{ end }}
+  {{ if $talk.type }}
+  <p class="text-muted">{{ $talk.type | humanize }}</p>
+  {{ end }}
+  </div>
+  <hr />
+  <div class="row acl-paper-details">
+    <div class="col col-lg-10 order-2">
+      {{ with $talk.video_url }}
+      <div class="card bg-light mb-2 mb-lg-3">
+        <div class="card-body">
+          <h5 class="card-title">Video</h5>
+          <div class="embed-responsive embed-responsive-16by9">
+            <video controls class="embed-responsive-item">
+              <source src="{{ . }}" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </div>
+      </div>
+      {{ end }}
+
+    <dl>
+      <dt>Talk ID:</dt>
+      <dd>{{ $talk_id }}</dd>
+
+      <dt>Event:</dt>
+      <dd>
+        {{ with $talk.event_id }}
+        {{ $event_page := printf "/events/%s" . }}
+        <a href="{{ relref $ $event_page }}">{{ $talk.event_title }}</a>
+        {{ end }}
+      </dd>
+
+      {{ with $talk.location }}
+      <dt>Location:</dt>
+      <dd>{{ . }}</dd>
+      {{ end }}
+
+      {{ with $talk.dates }}
+      <dt>Date:</dt>
+      <dd>{{ . }}</dd>
+      {{ end }}
+
+      <dt>URL:</dt>
+      <dd><a href="{{ .Permalink }}">{{ .Permalink }}</a></dd>
+
+      <dt class="acl-button-row">Cite (BibTeX):</dt>
+      <dd class="acl-button-row">
+        <button type="button" class="btn btn-clipboard-outside btn-secondary btn-sm d-none" data-clipboard-target="#citeBibtexContent">
+          <i class="far fa-clipboard pr-2"></i>Copy BibTeX
+        </button>
+      </dd>
+
+      {{ with $talk.video_url }}
+      <dt class="acl-button-row">Video:</dt>
+      <dd class="acl-button-row"><a href="{{ . }}" class="btn btn-attachment btn-sm"><i class="fas fa-video"></i>&nbsp;{{ . }}</a></dd>
+      {{ end }}
+
+      {{ range $talk.attachments }}
+      <dt class="acl-button-row">{{ humanize .type }}:</dt>
+      <dd class="acl-button-row">
+        <a href="{{ .url }}" class="btn btn-attachment btn-sm">
+          <i class="fas fa-file"></i>&nbsp;{{ .filename }}
+        </a>
+      </dd>
+      {{ end }}
+    </dl>
+    </div>
+
+    <div class="acl-paper-link-block">
+      {{ with $talk.video_url }}
+      <a class="btn btn-attachment d-flex flex-wrap justify-content-center" href="{{ . }}" title="Open video for '{{ $talk.title | htmlEscape }}'">
+        <span class="align-self-center px-1"><i class="fas fa-video"></i></span>
+        <span class="px-1">Video</span>
+      </a>
+      {{ end }}
+      <a class="btn btn-secondary" title="Export citation" data-toggle="modal" data-target="#citeModal" href="#">
+        <i class="fas fa-quote-left"></i><span class="pl-2">Cite</span>
+      </a>
+      {{ range $talk.attachments }}
+      <a class="btn btn-attachment d-flex flex-wrap justify-content-center" href="{{ .url }}" title="Open {{ .type | humanize | lower }} for '{{ $talk.title | htmlEscape }}'">
+        <span class="align-self-center px-1"><i class="fas fa-file"></i></span>
+        <span class="px-1">{{ humanize .type }}</span>
+      </a>
+      {{ end }}
+    </div>
+  </div>
+  <hr />
+
+  <div class="modal fade" id="citeModal" tabindex="-1" role="dialog" aria-labelledby="citeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="citeModalLabel">Export citation</h5>
+          <button class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          {{ $authors := slice }}
+          {{ range $talk.speakers }}
+            {{ $authors = $authors | append .full }}
+          {{ end }}
+          <pre id="citeBibtexContent" class="bg-light border p-2" style="max-height: 50vh;">@misc{{ printf "{%s" ($talk_id | replace "." "-") }},
+    title = {{ printf "{%s}" $talk.title }},
+    author = {{ printf "{%s}" (delimit $authors " and ") }},
+    booktitle = {{ printf "{%s}" $talk.event_title }},
+    year = {{ printf "{%s}" (substr $talk.event_id 0 4) }},
+    {{ with $talk.location }}address = {{ printf "{%s}" . }},{{ end }}
+    url = {{ printf "{%s}" $.Permalink }},
+    {{ with $talk.video_url }}video = {{ printf "{%s}" . }}{{ end }}
+}</pre>
+          <div class="modal-footer pb-1">
+            <a class="btn btn-secondary btn-filesaver disabled" data-filesaver-target="#citeBibtexContent" data-filesaver-name="{{ $talk_id }}.bib"><i class="fas fa-download pr-2"></i>Download as File</a>
+            <button class="btn btn-clipboard btn-primary d-none" data-clipboard-target="#citeBibtexContent"><i class="far fa-clipboard pr-2"></i>Copy to Clipboard</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{{ end }}
