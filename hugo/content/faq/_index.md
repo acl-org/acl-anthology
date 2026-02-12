@@ -1,5 +1,5 @@
 ---
 Title: Frequently Asked Questions
 linktitle: FAQ
-subtitle: Other information about the ACL Anthology
+subtitle: Important information about the ACL Anthology
 ---
