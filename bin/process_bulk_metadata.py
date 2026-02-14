@@ -431,7 +431,7 @@ class AnthologyMetadataUpdater:
         # check that if current author list contains duplicate (unverified) author IDs,
         # they do not have hidden attributes like affiliations attached
         current_author_namespecs_by_id = {}
-        for current_author in paper.authors:
+        for current_author in paper.authors or paper.parent.editors:
             person = self.anthology.people.resolve_namespec(current_author)
             if person.id in current_author_namespecs_by_id:
                 # duplicate. check that namespecs are identical
@@ -442,7 +442,7 @@ class AnthologyMetadataUpdater:
                 current_author_namespecs_by_id[person.id] = current_author
 
         # edit current namespecs for non-added authors. this retains any existing hidden attributes like orcid
-        for current_author in paper.authors:
+        for current_author in paper.authors or paper.parent.editors:
             person = self.anthology.people.resolve_namespec(current_author)
             if person.id in retained_author_json_by_id:
                 retained_author_json_by_id[person.id]["namespec"] = current_author
@@ -591,9 +591,9 @@ class AnthologyMetadataUpdater:
             pass
 
         # Switch back to original branch
-        self.local_repo.head.reference = current_branch
-        self.local_repo.head.reset(index=True, working_tree=True)
-        self.local_repo.git.stash(["pop"])
+        # self.local_repo.head.reference = current_branch
+        # self.local_repo.head.reset(index=True, working_tree=True)
+        # self.local_repo.git.stash(["pop"])
 
         self.stats["closed_issues"] = len(closed_issues)
 
