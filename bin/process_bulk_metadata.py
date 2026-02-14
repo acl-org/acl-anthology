@@ -86,37 +86,53 @@ METADATA_JSON_SCHEMA = {
     "anyOf": [
         {"required": [AUTHORS, OLD_AUTHORS, NEW_AUTHORS]},
         {"required": [TITLE]},
-        {"required": [ABSTRACT]}
+        {"required": [ABSTRACT]},
     ],
     "properties": {
         "anthology_id": {"type": "string", "pattern": "^[.a-z0-9-]+\\.[0-9]+$"},
-        AUTHORS: {"type": "array", "minItems": 1, "items": {
-            "type": "object",
-            "required": [AUTHOR_FIRST, AUTHOR_LAST, AUTHOR_ID],
-            "properties": {
-                AUTHOR_LAST: {"type": "string", "pattern": "^\\S+( \\S+)*$"},
-                AUTHOR_FIRST: {"type": "string", "pattern": "^(\\S+( \\S+)*)?$"},
-                AUTHOR_ID: {"type": "string", "pattern": "^([a-z]+(-[a-z]+)*(/unverified)?|" + AUTHOR_ADDED + ")$"}
+        AUTHORS: {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+                "type": "object",
+                "required": [AUTHOR_FIRST, AUTHOR_LAST, AUTHOR_ID],
+                "properties": {
+                    AUTHOR_LAST: {"type": "string", "pattern": "^\\S+( \\S+)*$"},
+                    AUTHOR_FIRST: {"type": "string", "pattern": "^(\\S+( \\S+)*)?$"},
+                    AUTHOR_ID: {
+                        "type": "string",
+                        "pattern": "^([a-z]+(-[a-z]+)*(/unverified)?|"
+                        + AUTHOR_ADDED
+                        + ")$",
+                    },
+                },
+                "additionalProperties": False,
             },
-            "additionalProperties": False
-        }},
-        DELETED_AUTHORS: {"type": "array", "items": {
-            "type": "object",
-            "required": [AUTHOR_FIRST, AUTHOR_LAST, AUTHOR_ID],
-            "properties": {
-                AUTHOR_LAST: {"type": "string", "pattern": "^\\S+( \\S+)*$"},
-                AUTHOR_FIRST: {"type": "string", "pattern": "^(\\S+( \\S+)*)?$"},
-                AUTHOR_ID: {"type": "string", "pattern": "^[a-z]+(-[a-z]+)*(/unverified)?$"}
+        },
+        DELETED_AUTHORS: {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "required": [AUTHOR_FIRST, AUTHOR_LAST, AUTHOR_ID],
+                "properties": {
+                    AUTHOR_LAST: {"type": "string", "pattern": "^\\S+( \\S+)*$"},
+                    AUTHOR_FIRST: {"type": "string", "pattern": "^(\\S+( \\S+)*)?$"},
+                    AUTHOR_ID: {
+                        "type": "string",
+                        "pattern": "^[a-z]+(-[a-z]+)*(/unverified)?$",
+                    },
+                },
+                "additionalProperties": False,
             },
-            "additionalProperties": False
-        }},
+        },
         OLD_AUTHORS: {"type": "string"},
         NEW_AUTHORS: {"type": "string"},
         TITLE: {"type": "string", "pattern": "^\\S+( \\S+)*$"},
-        ABSTRACT: {"type": "string"}
+        ABSTRACT: {"type": "string"},
     },
-    "additionalProperties": False
+    "additionalProperties": False,
 }
+
 
 def match_old_to_new_authors(
     paper: Paper, new_authors: List[NameSpecification], anthology: Anthology
@@ -279,7 +295,9 @@ class AnthologyMetadataUpdater:
                 )
                 return False
 
-            num_retained = sum(1 for author in json_block[AUTHORS] if author[AUTHOR_ID]!=AUTHOR_ADDED)
+            num_retained = sum(
+                1 for author in json_block[AUTHORS] if author[AUTHOR_ID] != AUTHOR_ADDED
+            )
             num_deleted = len(json_block[DELETED_AUTHORS])
             a_old = json_block[OLD_AUTHORS]
             if len(a_old.split(" | ")) != num_retained + num_deleted:
