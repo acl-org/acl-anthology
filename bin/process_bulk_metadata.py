@@ -236,7 +236,7 @@ class AnthologyMetadataUpdater:
 
     def load_anthology(self):
         self.anthology = Anthology.from_within_repo(verbose=self.verbose)
-        # self.anthology.load_all()  # not needed to load_all?
+        self.anthology.load_all()  # not needed to load_all?
 
     def _parse_metadata_changes(self, issue_body: str) -> None | dict:
         """Parse the metadata changes from issue body.
@@ -298,7 +298,7 @@ class AnthologyMetadataUpdater:
             num_retained = sum(
                 1 for author in json_block[AUTHORS] if author[AUTHOR_ID] != AUTHOR_ADDED
             )
-            num_deleted = len(json_block[DELETED_AUTHORS])
+            num_deleted = len(json_block.get(DELETED_AUTHORS, []))
             a_old = json_block[OLD_AUTHORS]
             if len(a_old.split(" | ")) != num_retained + num_deleted:
                 log.warning(
@@ -432,7 +432,7 @@ class AnthologyMetadataUpdater:
         # they do not have hidden attributes like affiliations attached
         current_author_namespecs_by_id = {}
         for current_author in paper.authors:
-            person = self.anthology.people.index.resolve_namespec(current_author)
+            person = self.anthology.people.resolve_namespec(current_author)
             if person.id in current_author_namespecs_by_id:
                 # duplicate. check that namespecs are identical
                 assert current_author == (
@@ -443,12 +443,14 @@ class AnthologyMetadataUpdater:
 
         # edit current namespecs for non-added authors. this retains any existing hidden attributes like orcid
         for current_author in paper.authors:
-            person = self.anthology.people.index.resolve_namespec(current_author)
+            person = self.anthology.people.resolve_namespec(current_author)
             if person.id in retained_author_json_by_id:
                 retained_author_json_by_id[person.id]["namespec"] = current_author
                 # update namespec based on JSON
-                current_author.first = retained_author_json_by_id[person.id][AUTHOR_FIRST]
-                current_author.last = retained_author_json_by_id[person.id][AUTHOR_LAST]
+                current_author.name = Name(
+                    retained_author_json_by_id[person.id][AUTHOR_FIRST],
+                    retained_author_json_by_id[person.id][AUTHOR_LAST],
+                )
             else:
                 assert (
                     person.id in deleted_author_json_by_id
@@ -647,8 +649,8 @@ class AnthologyMetadataUpdater:
 
     def prepare_and_switch_branch(self):
         # Create new branch off "master"
-        # base_branch = self.local_repo.head.reference
-        base_branch = self.local_repo.heads.master
+        base_branch = self.local_repo.head.reference
+        # base_branch = self.local_repo.heads.master
 
         today = datetime.now().strftime("%Y-%m-%d")
         new_branch_name = f"bulk-corrections-{today}"
