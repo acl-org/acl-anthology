@@ -395,113 +395,83 @@ class AnthologyMetadataUpdater:
 
         return paper, json_block
 
-    def _get_namespec_from_changes(self, changes: dict) -> List[NameSpecification]:
-        """Convert the JSON-derived author list into  List of NameSpecifications"""
-        # we don't process orcid, affiliations, variants right now
-        assert AUTHORS in changes, "Don't call this method if no authors to change"
-        namespecs = list()
-
-        for author in changes[AUTHORS]:
-            # author is assumed to be dict with ['first', 'last', 'id'] as keys (potentially omitted/empty)
-            # NameSpecification/Name do distinguish '' and None, while I'd like None for both
-            # NameSpecification won't complain if id is not known to the index
-            # todo: test all cases
-            if not author.get(AUTHOR_ID):
-                author[AUTHOR_ID] = None
-            assert author.get(AUTHOR_LAST), "Already performed input validation"
-            if not author.get(AUTHOR_FIRST):
-                author[AUTHOR_FIRST] = None
-
-            ns = NameSpecification(id=author[AUTHOR_ID], name=Name.from_dict(author))
-            namespecs.append(ns)
-
-        return namespecs
-
-    def _merge_namespecs(
-        self, existing_author: Optional[NameSpecification], new_author: NameSpecification
-    ) -> NameSpecification:
-        """
-        Return NameSpecification merging information from both arguments
-
-        Prefers to keep all information from existing_author if present. If there is no
-        existing author, will return new author, but with id set to None to not write
-        any ids to XML. Mainly updates author name of existing author (this may
-        introduce a new name variant to a verified author).
-        """
-        # todo simplify logic below if possible (after questions answered)
-        if existing_author is None:
-            # no existing author, so no need to copy over information like orcid etc.
-            # Should we allow submitters to assign an ID, rather than the library figuring it out?
-            # The library will usually assign unverified (disable matching true or name not known),
-            # unless there is a single, verified person... but even then no explicit id needed?
-            # -> Decide to set to None
-            if new_author.id is not None and is_verified_person_id(new_author.id):
-                # Only notify if provided id is known in principle, but is not the one
-                # that will show up after correction: happens if EITHER name lookup
-                # yielded multiple persons OR one person but with different id
-                pp = self.anthology.find_people(new_author.name)
-                if len(pp) > 1 or (len(pp) == 1 and pp.pop().id != new_author.id):
-                    log.debug(
-                        f"-> Will not consider provided id {new_author.id} "
-                        f"for newly inserted author {new_author.name}."
-                    )
-            # -> Decision None
-            new_author.id = None
-            return new_author
-
-        # else:  # has old author info to compare to
-        if existing_author.name == new_author.name:  # shortcut for authors not changed
-            return existing_author  # we don't allow id-only changes
-        # use existing NameSpec and only change where necessary, definitely change name
-        p = self.anthology.resolve(existing_author)
-        assert isinstance(
-            p, Person
-        ), "Existing author initially retrieved from anthology, so p cannot be a list"
-
-        existing_author.name = new_author.name
-        if existing_author.orcid is not None or p.is_explicit:
-            # for verified authors only allow name change - no need to update id
-            name = new_author.name
-            if not p.has_name(name):
-                log.info(
-                    f"-> Added new name variant '{name}' to {p.id} ({p.canonical_name})"
-                )
-                p.add_name(name)
-                # todo: is this enough? do I have to check for newly introduced namesakes?
-            if new_author.id is not None and new_author.id != p.id:
-                log.debug(
-                    f"-> ID mismatch between asked ({new_author.id}) and final decision ({p.id})"
-                )
-        else:  # unverified old author
-            existing_author.id = None
-            # if new name not known to anthology and old was unverified anyway:
-            # - no need to add id
-            # if new name is ambiguous: don't do disambiguation that way
-            # - submitter maybe hasn't intended disambiguation, isn't aware of ambiguity
-            # if new name belongs to exactly one known person
-            # - unverified: no id in XML anyway. verified: no need for id in XML
-        return existing_author
-
     def _update_paper_authors(self, paper: Paper, changes: dict) -> Paper:
         """
-        Update authors of the paper as specified by changes
-
-        Keep existing data where possible (e.g. affiliation, orcid etc).
+        Update authors of the paper as specified by changes.
+        Logic assumes the given ID for each author is the *current* ID.
+        This ID is used for matching entries in the new author list against
+        the old one to retain existing hidden data (e.g. affiliation, orcid etc).
         """
         assert AUTHORS in changes, "Only call this method, if authors-key in JSON block"
 
-        # (1) Convert new author list into NameSpecifications, match authors to existing
-        new_authors = self._get_namespec_from_changes(changes)  # can raise ValueError?
-        old_new_matched = match_old_to_new_authors(paper, new_authors, self.anthology)
+        # create ID-to-JSON mappings for deleted and retained authors
+        # (excluding added authors, which have a pseudo-ID of `##ADDED##`)
+        deleted_author_json_by_id = {
+            auth[AUTHOR_ID]: auth for auth in changes.get(DELETED_AUTHORS, {})
+        }
+        retained_author_json_by_id = {}
+        for auth in changes[AUTHORS]:
+            if (aid := auth[AUTHOR_ID]) != AUTHOR_ADDED:
+                if aid in retained_author_json_by_id:
+                    # we have already seen this author ID. OK if unverified:
+                    assert aid.endswith(
+                        "/unverified"
+                    ), f"Duplicate verified author ID in author list: {aid}"
+                    log.warning(
+                        f"--> Duplicate unverified author ID in author list (possibly valid): {aid}",
+                    )
+                retained_author_json_by_id[aid] = auth
 
-        # (2) Collect final list of authors - updating information where necessary
-        # Copying over non-changed, existing attributes from old_author if available
-        final_authors = list()  # can simplify to list comprehension after debugging
-        for existing_author, new_author in old_new_matched:
-            author = self._merge_namespecs(existing_author, new_author)
-            final_authors.append(author)
+        # warn about overlap between IDs in the retained and deleted author lists
+        for aid in deleted_author_json_by_id.keys() & retained_author_json_by_id.keys():
+            log.warning(
+                f"--> Author ID appears in both author list and deleted authors list (possibly valid): {aid}",
+            )
 
-        # (3) Finally we replace the old list of authors/editors with the new one
+        # check that if current author list contains duplicate (unverified) author IDs,
+        # they do not have hidden attributes like affiliations attached
+        current_author_namespecs_by_id = {}
+        for current_author in paper.authors:
+            person = self.anthology.people.index.resolve_namespec(current_author)
+            if person.id in current_author_namespecs_by_id:
+                # duplicate. check that namespecs are identical
+                assert current_author == (
+                    earlier_match := current_author_namespecs_by_id[person.id]
+                ), f"Duplicate author should have identical namespec: {earlier_match} vs. {current_author}"
+            else:
+                current_author_namespecs_by_id[person.id] = current_author
+
+        # edit current namespecs for non-added authors. this retains any existing hidden attributes like orcid
+        for current_author in paper.authors:
+            person = self.anthology.people.index.resolve_namespec(current_author)
+            if person.id in retained_author_json_by_id:
+                retained_author_json_by_id[person.id]["namespec"] = current_author
+                # update namespec based on JSON
+                current_author.first = retained_author_json_by_id[person.id][AUTHOR_FIRST]
+                current_author.last = retained_author_json_by_id[person.id][AUTHOR_LAST]
+            else:
+                assert (
+                    person.id in deleted_author_json_by_id
+                ), f"Author ID is missing or author should be listed as deleted: {person.id}"
+                deleted_author_json_by_id[person.id]["namespec"] = current_author
+
+        # construct revised list of author namespecs, creating new namespecs for any added authors
+        final_authors = []
+        for auth in changes[AUTHORS]:
+            if auth[AUTHOR_ID] == AUTHOR_ADDED:
+                auth["namespec"] = NameSpecification(name=Name.from_dict(auth))
+            assert (
+                "namespec" in auth
+            ), f'Could not match JSON author ID to an entry in the current author list: "{auth[AUTHOR_ID]}"'
+            final_authors.append(auth["namespec"])
+
+        # check that deleted authors were in fact present in the original author list
+        for aid, auth in deleted_author_json_by_id.items():
+            assert (
+                "namespec" in auth
+            ), f'Could not match JSON deleted author ID to an entry in the current author list: "{aid}"'
+
+        # replace the old list of authors/editors with the new one
         if paper.is_frontmatter:
             paper.parent.editors = final_authors
         else:  # assume it is normal Paper with authors field
