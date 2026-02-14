@@ -52,6 +52,7 @@ from datetime import datetime
 from typing import List, Optional, Tuple, Dict
 import logging as log
 from docopt import docopt
+from jsonschema import validate
 
 from github import Github
 from github.Issue import Issue
@@ -70,16 +71,52 @@ close_old_issue_comment = """### ⓘ Notice
 
 The Anthology has implemented a new, semi-automated workflow to better handle metadata corrections. We are closing this issue, and invite you to resubmit your request using our new workflow. Please visit your paper page ([{anthology_id}]({url})) and click the yellow 'Fix data' button. This will guide you through the new process step by step."""
 
-
+# specify the schema for the JSON provided in the issue. developed with https://www.jsonschemavalidator.net/
 AUTHORS = "authors"
 AUTHOR_ID, AUTHOR_LAST, AUTHOR_FIRST = "id", "last", "first"
 ABSTRACT = "abstract"
 TITLE = "title"
 ANTHOLOGY_ID = "anthology_id"
 NEW_AUTHORS, OLD_AUTHORS = "authors_new", "authors_old"
-allowed_keys = [AUTHORS, ABSTRACT, TITLE, ANTHOLOGY_ID, NEW_AUTHORS, OLD_AUTHORS]
-author_keys = [AUTHOR_ID, AUTHOR_LAST, AUTHOR_FIRST]
-
+AUTHOR_ADDED = "##ADDED##"
+DELETED_AUTHORS = "deleted_authors"
+METADATA_JSON_SCHEMA = {
+    "type": "object",
+    "required": [ANTHOLOGY_ID],
+    "anyOf": [
+        {"required": [AUTHORS, OLD_AUTHORS, NEW_AUTHORS]},
+        {"required": [TITLE]},
+        {"required": [ABSTRACT]}
+    ],
+    "properties": {
+        "anthology_id": {"type": "string", "pattern": "^[.a-z0-9-]+\\.[0-9]+$"},
+        AUTHORS: {"type": "array", "minItems": 1, "items": {
+            "type": "object",
+            "required": [AUTHOR_FIRST, AUTHOR_LAST, AUTHOR_ID],
+            "properties": {
+                AUTHOR_LAST: {"type": "string", "pattern": "^\\S+( \\S+)*$"},
+                AUTHOR_FIRST: {"type": "string", "pattern": "^(\\S+( \\S+)*)?$"},
+                AUTHOR_ID: {"type": "string", "pattern": "^([a-z]+(-[a-z]+)*(/unverified)?|" + AUTHOR_ADDED + ")$"}
+            },
+            "additionalProperties": False
+        }},
+        DELETED_AUTHORS: {"type": "array", "items": {
+            "type": "object",
+            "required": [AUTHOR_FIRST, AUTHOR_LAST, AUTHOR_ID],
+            "properties": {
+                AUTHOR_LAST: {"type": "string", "pattern": "^\\S+( \\S+)*$"},
+                AUTHOR_FIRST: {"type": "string", "pattern": "^(\\S+( \\S+)*)?$"},
+                AUTHOR_ID: {"type": "string", "pattern": "^[a-z]+(-[a-z]+)*(/unverified)?$"}
+            },
+            "additionalProperties": False
+        }},
+        OLD_AUTHORS: {"type": "string"},
+        NEW_AUTHORS: {"type": "string"},
+        TITLE: {"type": "string", "pattern": "^\\S+( \\S+)*$"},
+        ABSTRACT: {"type": "string"}
+    },
+    "additionalProperties": False
+}
 
 def match_old_to_new_authors(
     paper: Paper, new_authors: List[NameSpecification], anthology: Anthology
@@ -219,76 +256,39 @@ class AnthologyMetadataUpdater:
 
     def _has_expected_json_structure(self, json_block: dict) -> bool:
         """Checks presence of required keys/structure"""
-        if not isinstance(json_block, dict):
-            log.warning("-> JSON data has unexpected type (expect dict)")
-            return False
 
-        if ik := [k for k in json_block if k not in allowed_keys]:
-            log.warning(f"-> Invalid keys in JSON: {ik}")
-            return False
-
-        if ANTHOLOGY_ID not in json_block:
-            log.warning(f"-> Key not found: {ANTHOLOGY_ID}")
-
-        # need to have at least one of abstract, title or authors
-        if not any([AUTHORS in json_block, TITLE in json_block, ABSTRACT in json_block]):
-            log.warning(
-                f"-> Nothing to change: need to provide at least one of "
-                f"'{AUTHORS}', '{ABSTRACT}', '{TITLE}'."
-            )
-            return False
-
-        # author list need to be a list of dicts with certain keys
-        if AUTHORS in json_block:
-            if not isinstance(json_block[AUTHORS], list):
-                log.warning("-> Invalid format for author list: expect list")
-                return False
-            if len(json_block[AUTHORS]) == 0:
-                log.warning("-> Empty list of authors")
-                # return False
-            for author in json_block[AUTHORS]:
-                if not isinstance(author, dict):
-                    log.warning("-> Invalid format for individual author: expect dict")
-                    return False
-                if not author.get(AUTHOR_LAST):
-                    log.warning(f"-> Author has no last name: {author}")
-                    if not author.get(AUTHOR_FIRST):
-                        log.warning("-> Author has no first name too: cannot continue")
-                        return False
-                    log.warning(
-                        f"-> No last name provided "
-                        f"- will use first name instead: '{author[AUTHOR_FIRST]}'"
-                    )
-                    author[AUTHOR_LAST] = author[AUTHOR_FIRST]
-                    author[AUTHOR_FIRST] = None  # todo: test this
-                if ak := [k for k in author.keys() if k not in author_keys]:
-                    log.warning(f"-> Invalid author keys: {ak}")
+        # check against the schema. raises if the validation fails
+        validate(json_block, METADATA_JSON_SCHEMA)
 
         # warn if author list contradicts info in authors_new
-        if NEW_AUTHORS in json_block or OLD_AUTHORS in json_block:
-            if not (
-                AUTHORS in json_block
-                and NEW_AUTHORS in json_block
-                and OLD_AUTHORS in json_block
-            ):
+        # or fails to match the length of authors_old
+        if AUTHORS in json_block:
+            # Check that author changes provided as list and as string match:
+            # otherwise something might be wrong
+            a_from_list = " | ".join(
+                [
+                    author[AUTHOR_FIRST] + "  " + author[AUTHOR_LAST]
+                    for author in json_block[AUTHORS]
+                ]
+            )
+            a_new = json_block[NEW_AUTHORS]  # First  Last | First F  Last Last
+            if a_from_list != a_new:
                 log.warning(
-                    f"-> either just {AUTHORS} or plus both {OLD_AUTHORS} and {NEW_AUTHORS}"
+                    f"--> Author information in '{AUTHORS}' and '{NEW_AUTHORS}' "
+                    f"don't match: please check again.",
                 )
-            else:
-                # Check that author changes provided as list and as string match:
-                # otherwise something might be wrong
-                a_from_list = " | ".join(
-                    [
-                        author[AUTHOR_FIRST] + "  " + author[AUTHOR_LAST]
-                        for author in json_block[AUTHORS]
-                    ]
+                return False
+
+            num_retained = sum(1 for author in json_block[AUTHORS] if author[AUTHOR_ID]!=AUTHOR_ADDED)
+            num_deleted = len(json_block[DELETED_AUTHORS])
+            a_old = json_block[OLD_AUTHORS]
+            if len(a_old.split(" | ")) != num_retained + num_deleted:
+                log.warning(
+                    f"--> Number of authors in '{AUTHORS}' and '{DELETED_AUTHORS}' "
+                    f"doesn't match '{OLD_AUTHORS}': please check again.",
                 )
-                a_new = json_block[NEW_AUTHORS]  # First  Last | First F  Last Last
-                if a_from_list != a_new:
-                    log.warning(
-                        f"--> Author information in '{AUTHORS}' and '{NEW_AUTHORS}' "
-                        f"don't match: please check again.",
-                    )
+                return False
+
         return True
 
     def _is_sensible_request(self, json_block: dict) -> bool:
