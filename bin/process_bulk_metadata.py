@@ -64,9 +64,8 @@ import lxml.etree as etree
 
 from acl_anthology import Anthology
 from acl_anthology.collections import Paper
-from acl_anthology.people import NameSpecification, Name, Person
+from acl_anthology.people import NameSpecification, Name
 from acl_anthology.text import MarkupText
-from acl_anthology.utils.ids import is_verified_person_id
 
 close_old_issue_comment = """### ⓘ Notice
 
@@ -359,7 +358,7 @@ class AnthologyMetadataUpdater:
         # they do not have hidden attributes like affiliations attached
         current_author_namespecs_by_id = {}
         for current_author in paper.authors or paper.parent.editors:
-            person = self.anthology.people.get_by_namespec(current_author)
+            person = self.anthology.resolve(current_author)
             if person.id in current_author_namespecs_by_id:
                 # duplicate. check that namespecs are identical
                 assert current_author == (
@@ -370,7 +369,7 @@ class AnthologyMetadataUpdater:
 
         # edit current namespecs for non-added authors. this retains any existing hidden attributes like orcid
         for current_author in paper.authors or paper.parent.editors:
-            person = self.anthology.people.get_by_namespec(current_author)
+            person = self.anthology.resolve(current_author)
             if person.id in retained_author_json_by_id:
                 retained_author_json_by_id[person.id]["namespec"] = current_author
                 # update namespec based on JSON
