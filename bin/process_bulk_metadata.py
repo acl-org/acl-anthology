@@ -90,7 +90,7 @@ METADATA_JSON_SCHEMA = {
         {"required": [ABSTRACT]},
     ],
     "properties": {
-        "anthology_id": {"type": "string", "pattern": "^[.a-z0-9-]+\\.[0-9]+$"},
+        "anthology_id": {"type": "string", "pattern": "^([.a-z0-9-]+\\.[0-9]+|[A-Z][0-9][0-9]-[0-9]+)$"},
         AUTHORS: {
             "type": "array",
             "minItems": 1,
