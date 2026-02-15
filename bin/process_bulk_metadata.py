@@ -52,6 +52,7 @@ from datetime import datetime
 from typing import List, Optional, Tuple, Dict
 import logging as log
 from docopt import docopt
+import jsonschema
 from jsonschema import validate
 
 from github import Github
@@ -192,7 +193,11 @@ class AnthologyMetadataUpdater:
         """Checks presence of required keys/structure"""
 
         # check against the schema. raises if the validation fails
-        validate(json_block, METADATA_JSON_SCHEMA)
+        try:
+            validate(json_block, METADATA_JSON_SCHEMA)
+        except jsonschema.exceptions.ValidationError as e:
+            log.exception(e)
+            return False
 
         # warn if author list contradicts info in authors_new
         # or fails to match the length of authors_old
