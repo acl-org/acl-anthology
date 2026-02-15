@@ -138,17 +138,19 @@ class PersonIndex(SlottedDict[Person]):
     def get_by_namespec(self, name_spec: NameSpecification) -> Person:
         """Access persons by their name specification.
 
-        See [resolve_namespec()][acl_anthology.people.index.PersonIndex.resolve_namespec] for exceptions that can be raised by this function.
-
         Parameters:
             name_spec: A name specification.
 
         Returns:
             The person associated with this name specification.
+
+        Raises:
+            NameSpecResolutionError: If `name_spec` cannot be resolved to a Person.
+            PersonDefinitionError: If `name_spec.id` is set, but either the ID or the name used with the ID has not been defined in `people.yaml`. (Inherits from NameSpecResolutionError)
         """
         if not self.is_data_loaded:
             self.load()
-        return self.resolve_namespec(name_spec)
+        return self._resolve_namespec(name_spec)
 
     def get_by_orcid(self, orcid: str) -> Person | None:
         """Access persons by their ORCID.
@@ -205,9 +207,9 @@ class PersonIndex(SlottedDict[Person]):
                 and not cast("Volume", item).has_frontmatter
             ):
                 continue
-            coauthors.update(self.resolve_namespec(ns).id for ns in item.editors)
+            coauthors.update(self._resolve_namespec(ns).id for ns in item.editors)
             if hasattr(item, "authors"):
-                coauthors.update(self.resolve_namespec(ns).id for ns in item.authors)
+                coauthors.update(self._resolve_namespec(ns).id for ns in item.authors)
         del coauthors[person.id]
         return coauthors
 
@@ -464,6 +466,9 @@ class PersonIndex(SlottedDict[Person]):
 
         If the name specification contains an ORCID but doesn't have an ID yet, this will find the person with this ORCID and fill in their ID; if it doesn't exist yet, it will create a new person with a "verified" ID and fill in the new, generated ID.  The supplied name specification will be modified in-place, but also returned.
 
+        Warning:
+            If you add new material via [create_paper()][acl_anthology.collections.volume.Volume.create_paper] or [create_volume()][acl_anthology.collections.collection.Collection.create_volume] and supply an author/editor list at that time, there is no need to call this function manually.
+
         Parameters:
             name_spec: The name specification on the paper, volume, etc.
 
@@ -497,7 +502,7 @@ class PersonIndex(SlottedDict[Person]):
 
         return name_spec
 
-    def resolve_namespec(
+    def _resolve_namespec(
         self, name_spec: NameSpecification, allow_creation: bool = False
     ) -> Person:
         """Resolve a name specification to a person, potentially creating a new unverified person instance.
@@ -613,7 +618,7 @@ class PersonIndex(SlottedDict[Person]):
 
         seen_ids = set()
         for namespec in namespecs:
-            person = self.resolve_namespec(namespec, allow_creation=True)
+            person = self._resolve_namespec(namespec, allow_creation=True)
             person.item_ids.append(item_id)
             if person.id in seen_ids:
                 message = f"More than one NameSpecification resolves to '{person.id}' on the same item ({item_id})"

@@ -454,12 +454,12 @@ def test_resolve_namespec(name_dict, namespec_params, expected_result, index):
     namespec = NameSpecification(name, **namespec_params)
 
     if isinstance(expected_result, str):
-        person = index.resolve_namespec(namespec, allow_creation=True)
+        person = index._resolve_namespec(namespec, allow_creation=True)
         assert person.has_name(name)
         assert person.id == expected_result
     elif isinstance(expected_result, type):
         with pytest.raises(expected_result):
-            index.resolve_namespec(namespec, allow_creation=True)
+            index._resolve_namespec(namespec, allow_creation=True)
     else:
         raise ValueError(
             f"Test cannot take expected result of type {type(expected_result)}"
@@ -471,20 +471,20 @@ def test_resolve_namespec_disallow_creation(index):
     index._load_people_index()
     # If we would map to an unverified ID but allow_creation is False, should raise
     with pytest.raises(NameSpecResolutionError):
-        index.resolve_namespec(
+        index._resolve_namespec(
             NameSpecification(Name("Matthew", "Stevens")), allow_creation=False
         )
 
 
 def test_resolve_namespec_name_scoring_for_unverified_ids(index_stub):
     # Person does not exist, will create an unverified ID
-    person1 = index_stub.resolve_namespec(
+    person1 = index_stub._resolve_namespec(
         NameSpecification(Name("Rene", "Muller")), allow_creation=True
     )
     assert person1.id == UNVERIFIED_PID_FORMAT.format(pid="rene-muller")
     assert person1.canonical_name == Name("Rene", "Muller")
     # Name resolves to the same person as above
-    person2 = index_stub.resolve_namespec(
+    person2 = index_stub._resolve_namespec(
         NameSpecification(Name("René", "Müller")), allow_creation=True
     )
     assert person2.id == UNVERIFIED_PID_FORMAT.format(pid="rene-muller")
@@ -531,7 +531,7 @@ def test_check_namelink_after_resolve_namespec(name_dict, expected_namelink, ind
     index._load_people_index()
     name = Name.from_dict(name_dict)
     namespec = NameSpecification(name)
-    person = index.resolve_namespec(namespec, allow_creation=True)
+    person = index._resolve_namespec(namespec, allow_creation=True)
 
     assert (
         name,
