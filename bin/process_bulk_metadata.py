@@ -388,6 +388,9 @@ class AnthologyMetadataUpdater:
         for auth in changes[AUTHORS]:
             if auth[AUTHOR_ID] == AUTHOR_ADDED:
                 auth["namespec"] = NameSpecification(name=Name.from_dict(auth))
+            if "namespec" not in auth and auth[AUTHOR_ID] in current_author_namespecs_by_id:
+                # duplicate author
+                auth["namespec"] = current_author_namespecs_by_id[auth[AUTHOR_ID]]
             assert (
                 "namespec" in auth
             ), f'Could not match JSON author ID to an entry in the current author list: "{auth[AUTHOR_ID]}"'
@@ -395,6 +398,9 @@ class AnthologyMetadataUpdater:
 
         # check that deleted authors were in fact present in the original author list
         for aid, auth in deleted_author_json_by_id.items():
+            if "namespec" not in auth and auth[AUTHOR_ID] in current_author_namespecs_by_id:
+                # duplicate author
+                auth["namespec"] = current_author_namespecs_by_id[auth[AUTHOR_ID]]
             assert (
                 "namespec" in auth
             ), f'Could not match JSON deleted author ID to an entry in the current author list: "{aid}"'
