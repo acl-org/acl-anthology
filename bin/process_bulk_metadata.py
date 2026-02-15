@@ -90,7 +90,10 @@ METADATA_JSON_SCHEMA = {
         {"required": [ABSTRACT]},
     ],
     "properties": {
-        "anthology_id": {"type": "string", "pattern": "^([.a-z0-9-]+\\.[0-9]+|[A-Z][0-9][0-9]-[0-9]+)$"},
+        "anthology_id": {
+            "type": "string",
+            "pattern": "^([.a-z0-9-]+\\.[0-9]+|[A-Z][0-9][0-9]-[0-9]+)$",
+        },
         AUTHORS: {
             "type": "array",
             "minItems": 1,
@@ -388,7 +391,10 @@ class AnthologyMetadataUpdater:
         for auth in changes[AUTHORS]:
             if auth[AUTHOR_ID] == AUTHOR_ADDED:
                 auth["namespec"] = NameSpecification(name=Name.from_dict(auth))
-            if "namespec" not in auth and auth[AUTHOR_ID] in current_author_namespecs_by_id:
+            if (
+                "namespec" not in auth
+                and auth[AUTHOR_ID] in current_author_namespecs_by_id
+            ):
                 # duplicate author
                 auth["namespec"] = current_author_namespecs_by_id[auth[AUTHOR_ID]]
             assert (
@@ -398,7 +404,10 @@ class AnthologyMetadataUpdater:
 
         # check that deleted authors were in fact present in the original author list
         for aid, auth in deleted_author_json_by_id.items():
-            if "namespec" not in auth and auth[AUTHOR_ID] in current_author_namespecs_by_id:
+            if (
+                "namespec" not in auth
+                and auth[AUTHOR_ID] in current_author_namespecs_by_id
+            ):
                 # duplicate author
                 auth["namespec"] = current_author_namespecs_by_id[auth[AUTHOR_ID]]
             assert (
