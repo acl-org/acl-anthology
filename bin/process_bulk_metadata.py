@@ -154,7 +154,8 @@ class AnthologyMetadataUpdater:
         }
         self.verbose = verbose
 
-        self.load_anthology()
+        # don't load the anthology here because we may be switching to another
+        # branch with a different version of the database
 
     def load_anthology(self):
         self.anthology = Anthology.from_within_repo(verbose=self.verbose)
@@ -458,6 +459,8 @@ class AnthologyMetadataUpdater:
         )
 
         current_branch, new_branch_name, today = self.prepare_and_switch_branch()
+
+        self.load_anthology()
 
         # record which issues were successfully processed and need closing
         closed_issues = []
