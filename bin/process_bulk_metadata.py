@@ -101,7 +101,7 @@ METADATA_JSON_SCHEMA = {
                     AUTHOR_FIRST: {"type": "string", "pattern": "^(\\S+( \\S+)*)?$"},
                     AUTHOR_ID: {
                         "type": "string",
-                        "pattern": "^([a-z]+(-[a-z]+)*(/unverified)?|"
+                        "pattern": "^([a-z0-9]+(-[a-z0-9]+)*(/unverified)?|"
                         + AUTHOR_ADDED
                         + ")$",
                     },
@@ -119,7 +119,7 @@ METADATA_JSON_SCHEMA = {
                     AUTHOR_FIRST: {"type": "string", "pattern": "^(\\S+( \\S+)*)?$"},
                     AUTHOR_ID: {
                         "type": "string",
-                        "pattern": "^[a-z]+(-[a-z]+)*(/unverified)?$",
+                        "pattern": "^[a-z0-9]+(-[a-z0-9]+)*(/unverified)?$",
                     },
                 },
                 "additionalProperties": False,
