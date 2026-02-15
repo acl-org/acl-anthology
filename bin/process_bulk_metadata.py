@@ -526,7 +526,7 @@ class AnthologyMetadataUpdater:
                 closed_issues.append(issue)
 
                 # TODO: why is this needed after save/commit?
-                self.load_anthology()
+                #self.load_anthology()
             except Exception as e:
                 log.warning(f"Error processing issue {issue.number}: {type(e)}: {e}")
                 log.exception(e)
