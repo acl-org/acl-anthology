@@ -369,6 +369,9 @@ class AnthologyMetadataUpdater:
                     retained_author_json_by_id[person.id][AUTHOR_FIRST],
                     retained_author_json_by_id[person.id][AUTHOR_LAST],
                 )
+                if not person.has_name(current_author.name):
+                    # new variant
+                    person.add_name(current_author.name)
             else:
                 assert (
                     person.id in deleted_author_json_by_id
