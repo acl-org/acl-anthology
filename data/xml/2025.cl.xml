@@ -64,7 +64,7 @@
     <paper id="5">
       <title>Compositionality and Sentence Meaning: Comparing Semantic Parsing and Transformers on a Challenging Sentence Similarity Dataset</title>
       <author><first>James</first><last>Fodor</last></author>
-      <author><first>Simon De</first><last>Deyne</last></author>
+      <author><first>Simon</first><last>De Deyne</last></author>
       <author><first>Shinsuke</first><last>Suzuki</last></author>
       <doi>10.1162/coli_a_00536</doi>
       <abstract>One of the major outstanding questions in computational semantics is how humans integrate the meaning of individual words into a sentence in a way that enables understanding of complex and novel combinations of words, a phenomenon known as compositionality. Many approaches to modeling the process of compositionality can be classified as either “vector-based” models, in which the meaning of a sentence is represented as a vector of numbers, or “syntax-based” models, in which the meaning of a sentence is represented as a structured tree of labeled components. A major barrier in assessing and comparing these contrasting approaches is the lack of large, relevant datasets for model comparison. This article aims to address this gap by introducing a new dataset, STS3k, which consists of 2,800 pairs of sentences rated for semantic similarity by human participants. The sentence pairs have been selected to systematically vary different combinations of words, providing a rigorous test and enabling a clearer picture of the comparative strengths and weaknesses of vector-based and syntax-based methods. Our results show that when tested on the new STS3k dataset, state-of-the-art transformers poorly capture the pattern of human semantic similarity judgments, while even simple methods for combining syntax- and vector-based components into a novel hybrid model yield substantial improvements. We further show that this improvement is due to the ability of the hybrid model to replicate human sensitivity to specific changes in sentence structure. Our findings provide evidence for the value of integrating multiple methods to better reflect the way in which humans mentally represent compositional meaning.</abstract>
@@ -266,7 +266,7 @@
       <author><first>Mark</first><last>Dras</last></author>
       <pages>705–738</pages>
       <abstract>Adversarial examples pose a significant challenge to deep neural networks across both image and text domains, with the intent to degrade model performance through carefully altered inputs. Adversarial texts, however, are distinct from adversarial images due to their requirement for semantic similarity and the discrete nature of the textual contents. This study delves into the concept of human suspiciousness, a quality distinct from the traditional focus on imperceptibility found in image-based adversarial examples, where adversarial changes are often desired to be indistinguishable to the human eye even when placed side by side with originals. Although this is generally not possible with text, textual adversarial content must still often remain undetected or non-suspicious to human readers. Even when the text’s purpose is to deceive NLP systems or bypass filters, the text is often expected to be natural to read. In this research, we expand the study of human suspiciousness by analyzing how individuals perceive adversarial texts. We gather and publish a novel dataset of Likert-scale human evaluations on the suspiciousness of adversarial sentences, crafted by four widely used adversarial attack methods and assess their correlation with the human ability to detect machine-generated alterations. Additionally, we develop a regression-based model to predict levels of suspiciousness and establish a baseline for future research in reducing the suspiciousness in adversarial text generation. We also demonstrate how the regressor-generated suspicious scores can be incorporated into adversarial generation methods to produce texts that are less likely to be perceived as computer-generated.</abstract>
-      <url hash="3a6b3b2c">2025.cl-3.1</url>
+      <url hash="b8b0dbcf">2025.cl-3.1</url>
       <doi>10.1162/coli_a_00555</doi>
       <bibkey>tonni-etal-2025-graded</bibkey>
     </paper>
@@ -280,7 +280,7 @@
       <author><first>Ruifeng</first><last>Xu</last></author>
       <pages>739–784</pages>
       <abstract>Argumentation is a fundamental human activity that involves reasoning and persuasion, which also serves as the basis for the development of AI systems capable of complex reasoning. In NLP, to better understand human argumentation, argument structure analysis aims to identify argument components, such as claims and premises, and their relations from free text. It encompasses a variety of divergent tasks, such as end-to-end argument mining, argument pair extraction, and argument quadruplet extraction. Existing methods are usually tailored to only one specific argument structure analysis task, overlooking the inherent connections among different tasks. We observe that the fundamental goal of these tasks is similar: identifying argument components and their interrelations. Motivated by this, we present a unified generative framework for argument structure analysis (UniASA). It can uniformly address multiple argument structure analysis tasks in a sequence-to-sequence manner. Further, we enhance UniASA with a multi-view learning strategy based on subtask decomposition. We conduct experiments on seven datasets across three tasks. The results indicate that UniASA can address these tasks uniformly and achieve performance that is either superior to or comparable with the previous state-of-the-art methods. Also, we show that UniASA can be effectively integrated with large language models, such as Llama, through fine-tuning or in-context learning.</abstract>
-      <url hash="0d8371b0">2025.cl-3.2</url>
+      <url hash="5f127513">2025.cl-3.2</url>
       <doi>10.1162/coli_a_00553</doi>
       <bibkey>bao-etal-2025-uniasa</bibkey>
     </paper>
@@ -289,7 +289,7 @@
       <author><first>David A.</first><last>Haslett</last></author>
       <pages>785–814</pages>
       <abstract>Large language models segment many words into multiple tokens, and there is mixed evidence as to whether tokenization affects how state-of-the-art models represent meanings. Chinese characters present an opportunity to investigate this issue: They contain semantic radicals, which often convey useful information; characters with the same semantic radical tend to begin with the same one or two bytes (when using UTF-8 encodings); and tokens are common strings of bytes, so characters with the same radical often begin with the same token. This study asked GPT-4, GPT-4o, and Llama 3 whether characters contain the same semantic radical, elicited semantic similarity ratings, and conducted odd-one-out tasks (i.e., which character is not like the others). In all cases, misalignment between tokens and radicals systematically corrupted representations of Chinese characters. In experiments comparing characters represented by single tokens to multi-token characters, the models were less accurate for single-token characters, which suggests that segmenting words into fewer, longer tokens obscures valuable information in word form and will not resolve the problems introduced by tokenization. In experiments with 12 European languages, misalignment between tokens and suffixes systematically corrupted categorization of words by all three models, which suggests that the tendency to treat malformed tokens like linguistic units is pervasive.</abstract>
-      <url hash="5bed6ddd">2025.cl-3.3</url>
+      <url hash="e4e82c24">2025.cl-3.3</url>
       <doi>10.1162/coli_a_00557</doi>
       <bibkey>haslett-2025-tokenization</bibkey>
     </paper>
@@ -302,7 +302,7 @@
       <author><first>Lili</first><last>Mou</last></author>
       <pages>815–841</pages>
       <abstract>In Natural Language Processing (NLP), predicting linguistic structures, such as parsing and chunking, has mostly relied on manual annotations of syntactic structures. This article introduces an unsupervised approach to chunking, a syntactic task that involves grouping words in a non-hierarchical manner. We present a Hierarchical Recurrent Neural Network (HRNN) designed to model word-to-chunk and chunk-to-sentence compositions. Our approach involves a two-stage training process: pretraining with an unsupervised parser and finetuning on downstream NLP tasks. Experiments on multiple datasets reveal a notable improvement of unsupervised chunking performance in both pretraining and finetuning stages. Interestingly, we observe that the emergence of the chunking structure is transient during the neural model’s downstream-task training. This study contributes to the advancement of unsupervised syntactic structure discovery and opens avenues for further research in linguistic theory.1</abstract>
-      <url hash="43bee15b">2025.cl-3.4</url>
+      <url hash="f5899166">2025.cl-3.4</url>
       <doi>10.1162/coli_a_00545</doi>
       <bibkey>wu-etal-2025-emergence</bibkey>
     </paper>
@@ -318,7 +318,7 @@
       <author><first>Marcos André</first><last>Gonçalves</last></author>
       <pages>843–883</pages>
       <abstract>We investigate two essential challenges in the context of hierarchical topic modeling (HTM)—(i) the impact of data representation and (ii) topic evaluation. The data representation directly influences the performance of the topic generation, and the impact of new representations such as contextual embeddings in this task has been under-investigated. Topic evaluation, responsible for driving the advances in the field, assesses the overall quality of the topic generation process. HTM studies exploit the exact topic modeling (TM) evaluation metrics as traditional TM to measure the quality of topics. One significant result of our work is demonstrating that the HTM’s hierarchical nature demands novel ways of evaluating the quality of topics. As our main contribution, we propose two new topic quality metrics to assess the topical quality of the hierarchical structures. Uniqueness considers topic topological consistency, while the Semantic Hierarchical Structure (SHS) captures the semantic relatedness of the hierarchies. We also present an additional advance to the state-of-the-art by proposing the c-CluHTM. To the best of our knowledge, c-CluHTM is the first method that exploits contextual embeddings into NMF in HTM tasks. c-CluHTM enhances the topics’ semantics while preserving the hierarchical structure. We perform an experimental evaluation, and our results demonstrate the superiority of our proposal with gains between 12% and 21%, regarding NPMI and Coherence over the best baselines. Regarding the newly proposed metrics, our results reveal that Uniqueness and SHS can capture relevant information about the structure of the hierarchical topics that traditional metrics cannot.</abstract>
-      <url hash="27c90dd5">2025.cl-3.5</url>
+      <url hash="4b6fa594">2025.cl-3.5</url>
       <doi>10.1162/coli_a_00543</doi>
       <bibkey>viegas-etal-2025-exploiting</bibkey>
     </paper>
@@ -327,7 +327,7 @@
       <author><first>Philip</first><last>Resnik</last></author>
       <pages>885–906</pages>
       <abstract>This position paper’s primary goal is to provoke thoughtful discussion about the relationship between bias and fundamental properties of large language models (LLMs). I do this by seeking to convince the reader that harmful biases are an inevitable consequence arising from the design of any large language model as LLMs are currently formulated. To the extent that this is true, it suggests that the problem of harmful bias cannot be properly addressed without a serious reconsideration of AI driven by LLMs, going back to the foundational assumptions underlying their design.</abstract>
-      <url hash="15a0656f">2025.cl-3.6</url>
+      <url hash="86cb1031">2025.cl-3.6</url>
       <doi>10.1162/coli_a_00558</doi>
       <bibkey>resnik-2025-large</bibkey>
     </paper>
@@ -345,7 +345,7 @@
       <author><first>Isabelle</first><last>Augenstein</last></author>
       <pages>907–1004</pages>
       <abstract>Large-scale deployment of large language models (LLMs) in various applications, such as chatbots and virtual assistants, requires LLMs to be culturally sensitive to the user to ensure inclusivity. Culture has been widely studied in psychology and anthropology, and there has been a recent surge in research on making LLMs more culturally inclusive, going beyond multilinguality and building on findings from psychology and anthropology. In this article, we survey efforts towards incorporating cultural awareness into text-based and multimodal LLMs. We start by defining cultural awareness in LLMs, taking definitions of culture from the anthropology and psychology literature as a point of departure. We then examine methodologies adopted for creating cross-cultural datasets, strategies for cultural inclusion in downstream tasks, and methodologies that have been used for benchmarking cultural awareness in LLMs. Further, we discuss the ethical implications of cultural alignment, the role of human–computer interaction in driving cultural inclusion in LLMs, and the role of cultural alignment in driving social science research. We finally provide pointers to future research based on our findings about gaps in the literature.1</abstract>
-      <url hash="b0b0a93d">2025.cl-3.7</url>
+      <url hash="326b4e50">2025.cl-3.7</url>
       <doi>10.1162/coli.a.14</doi>
       <bibkey>pawar-etal-2025-survey</bibkey>
     </paper>
@@ -353,7 +353,7 @@
       <title>Automated Essay Scoring</title>
       <author><first>Anaïs</first><last>Tack</last></author>
       <pages>1005–1008</pages>
-      <url hash="b8899bf2">2025.cl-3.8</url>
+      <url hash="2edb2627">2025.cl-3.8</url>
       <doi>10.1162/coli_r_00513</doi>
       <bibkey>tack-2025-automated</bibkey>
     </paper>
@@ -364,7 +364,7 @@
       <author><first>Nathan</first><last>Schneider</last></author>
       <pages>1009–1032</pages>
       <abstract>Large Language Models have become capable of generating highly fluent text in certain languages, without modules specially designed to capture grammar or semantic coherence. What does this mean for the future of linguistic expertise in NLP? We highlight several aspects in which NLP (still) relies on linguistics, or where linguistic thinking can illuminate new directions. We argue our case around the acronym RELIES, which encapsulates six major facets where linguistics contributes to NLP: Resources, Evaluation, Low-resource settings, Interpretability, Explanation, and the Study of language. This list is not exhaustive, nor is linguistics the main point of reference for every effort under these themes; but at a macro level, these facets highlight the enduring importance of studying machine systems vis-à-vis systems of human language.</abstract>
-      <url hash="44d79c78">2025.cl-3.9</url>
+      <url hash="1061861f">2025.cl-3.9</url>
       <doi>10.1162/coli_a_00560</doi>
       <bibkey>opitz-etal-2025-natural</bibkey>
     </paper>
@@ -387,7 +387,7 @@
       <author><first>Luke</first><last>Zettlemoyer</last></author>
       <pages>1033–1118</pages>
       <abstract>Large language models (LMs) such as ChatGPT have revolutionized natural language processing and artificial intelligence more broadly. In this work, we discuss our research on understanding and advancing these models, centered around how they use the very large text corpora they are trained on. First, we describe our efforts to understand how these models learn to perform new tasks after training, demonstrating that their so-called in-context learning capabilities are almost entirely determined by what they learn from the training data. Next, we introduce a new class of LMs—nonparametric LMs—that repurpose this training data as a data store from which they retrieve information for improved accuracy and updatability. We discuss our work establishing the foundations of such models, including one of the first broadly used neural retrieval models and an approach that simplifies a traditional, two-stage pipeline into one. We also discuss how nonparametric models open up new avenues for responsible data use, e.g., by segregating permissive and copyrighted text and using them differently. Finally, we envision the next generation of LMs we should build, focusing on efficient scaling, improved factuality, and decentralization.</abstract>
-      <url hash="8b52fe3c">2025.cl-4.1</url>
+      <url hash="f6ac1e0b">2025.cl-4.1</url>
       <doi>10.1162/coli.a.573</doi>
       <bibkey>min-etal-2025-rethinking</bibkey>
     </paper>
@@ -397,7 +397,7 @@
       <author><first>Naoaki</first><last>Okazaki</last></author>
       <pages>1119–1149</pages>
       <abstract>Tokenization is the first step in modern neural language model pipelines where an input text is converted to a sequence of subword tokens. We introduce from first principles a finite-state transduction framework that can encode all possible tokenizations of a regular language. We then constructively show that Byte-Pair Encoding (BPE) and MaxMatch (WordPiece), two popular tokenization schemes, are also efficiently representable by simple finite-state transducers. For BPE, this is particularly surprising given that it does not tokenize strings from left to right and requires a notion of priority. We also discuss an application of subword-level pattern promotion to guided generation, where the outputs of a language model are constrained to match a specified pattern, and how tokenization-aware promotion offers a theoretical benefit to modeling.</abstract>
-      <url hash="cb5aa8da">2025.cl-4.2</url>
+      <url hash="815b6a05">2025.cl-4.2</url>
       <doi>10.1162/coli.a.23</doi>
       <bibkey>cognetta-okazaki-2025-tokenization</bibkey>
     </paper>
@@ -410,7 +410,7 @@
       <author><first>Mark</first><last>Dras</last></author>
       <pages>1151–1189</pages>
       <abstract>Natural language processing (NLP) models may leak private information in different ways, including membership inference, reconstruction, or attribute inference attacks. Sensitive information may not be explicit in the text, but hidden in underlying writing characteristics. Methods to protect privacy can involve using representations inside models that are demonstrated not to detect sensitive attributes or—for instance, in cases where users might be at risk from an untrustworthy model, the sort of scenario of interest here—changing the raw text before models can have access to it. The goal is to rewrite text to prevent someone from inferring a sensitive attribute (e.g., the gender of the author, or their location by the writing style) while keeping the text useful for its original intention (e.g., the sentiment of a product review). The few works tackling this have focused on generative techniques. However, these often create extensively different texts from the original ones or face problems such as mode collapse. This article explores a novel adaptation of adversarial attack techniques to manipulate a text to deceive a classifier w.r.t. one task (privacy) while keeping the predictions of another classifier trained for another task (utility) unchanged. We propose IDT, a method that analyses predictions made by auxiliary and interpretable models to identify which tokens are important to change for the privacy task, and which ones should be kept for the utility task. We evaluate different datasets for NLP suitable for different tasks. Automatic and human evaluations show that IDT retains the utility of text, while also outperforming existing methods when deceiving a classifier w.r.t. a privacy task.</abstract>
-      <url hash="3893befb">2025.cl-4.3</url>
+      <url hash="72302f91">2025.cl-4.3</url>
       <doi>10.1162/coli.a.17</doi>
       <bibkey>faustini-etal-2025-idt</bibkey>
     </paper>
@@ -419,7 +419,7 @@
       <author><first>Fermín</first><last>Moscoso del Prado Martín</last></author>
       <pages>1191–1233</pages>
       <abstract>In many fields, such as language acquisition, neuropsychology of language, the study of aging, and historical linguistics, corpora are used for estimating the diversity of grammatical structures that are produced during a period by an individual, community, or type of speakers. In these cases, treebanks are taken as representative samples of the syntactic structures that might be encountered. Generalizing the potential syntactic diversity from the structures documented in a small corpus requires careful extrapolation whose accuracy is constrained by the limited size of representative sub-corpora. In this article, I demonstrate—both theoretically and empirically—that a grammar’s derivational entropy and the mean length of the utterances (MLU) it generates are fundamentally linked, giving rise to a new measure, the derivational entropy rate. The mean length of utterances becomes the most practical index of syntactic complexity; I demonstrate that MLU is not a mere proxy, but a fundamental measure of syntactic diversity. In combination with the new derivational entropy rate measure, it provides a theory-free assessment of grammatical complexity. The derivational entropy rate indexes the rate at which different grammatical annotation frameworks determine the grammatical complexity of treebanks. I evaluate the Smoothed Induced Treebank Entropy (SITE) as a tool for estimating these measures accurately, even from very small treebanks. I conclude by discussing important implications of these results for both NLP and human language processing.</abstract>
-      <url hash="144d814f">2025.cl-4.4</url>
+      <url hash="d63d8328">2025.cl-4.4</url>
       <doi>10.1162/coli.a.15</doi>
       <bibkey>moscoso-del-prado-martin-2025-measuring</bibkey>
     </paper>
@@ -433,7 +433,7 @@
       <author><first>Mauricio</first><last>Barahona</last></author>
       <pages>1235–1266</pages>
       <abstract>We present Local Graph-based Dictionary Expansion (LGDE), a method for data-driven discovery of the semantic neighborhood of words using tools from manifold learning and network science. At the heart of LGDE lies the creation of a word similarity graph from the geometry of word embeddings followed by local community detection based on graph diffusion. The diffusion in the local graph manifold allows the exploration of the complex nonlinear geometry of word embeddings to capture word similarities based on paths of semantic association, over and above direct pairwise similarities. Exploiting such semantic neighborhoods enables the expansion of dictionaries of pre-selected keywords, an important step for tasks in information retrieval, such as database queries and online data collection. We validate LGDE on two user-generated English-language corpora and show that LGDE enriches the list of keywords with improved performance relative to methods based on direct word similarities or co-occurrences. We further demonstrate our method through a real-world use case from communication science, where LGDE is evaluated quantitatively on the expansion of a conspiracy-related dictionary from online data collected and analyzed by domain experts. Our empirical results and expert user assessment indicate that LGDE expands the seed dictionary with more useful keywords due to the manifold-learning-based similarity network.</abstract>
-      <url hash="27a23a4a">2025.cl-4.5</url>
+      <url hash="121fe5df">2025.cl-4.5</url>
       <doi>10.1162/coli_a_00562</doi>
       <bibkey>schindler-etal-2025-lgde</bibkey>
     </paper>
@@ -446,18 +446,18 @@
       <author><first>Stefan L.</first><last>Frank</last></author>
       <pages>1267–1301</pages>
       <abstract>We present a corpus of 8,400 Dutch sentence pairs, intended primarily for the grammatical evaluation of language models. Each pair consists of a grammatical sentence and a minimally different ungrammatical sentence. The corpus covers 84 paradigms, classified into 22 syntactic phenomena. Ten sentence pairs of each paradigm were created by hand, while the remaining 90 were generated semi-automatically and manually validated afterwards. Nine of the 10 hand-crafted sentences of each paradigm are rated for acceptability by at least 30 participants each, and for the same 9 sentences reading times are recorded per word, through self-paced reading. Here, we report on the construction of the dataset, the measured acceptability ratings and reading times, as well as the extent to which a variety of language models can be used to predict both the ground-truth grammaticality and human acceptability ratings.</abstract>
-      <url hash="715630c5">2025.cl-4.6</url>
+      <url hash="dfe5b8ea">2025.cl-4.6</url>
       <doi>10.1162/coli_a_00559</doi>
       <bibkey>suijkerbuijk-etal-2025-blimp</bibkey>
     </paper>
     <paper id="7">
       <title>A Novel Methodology for Enhancing Cross-language and Domain Adaptability in Temporal Expression Normalization</title>
-      <author><first>Alejandro Sánchez de</first><last>Castro</last></author>
+      <author><first>Alejandro Sánchez</first><last>de Castro</last></author>
       <author><first>Lourdes</first><last>Araujo</last></author>
       <author><first>Juan</first><last>Martinez-Romo</last></author>
       <pages>1303–1335</pages>
       <abstract>Accurate temporal expression normalization, the process of assigning a numerical value to a temporal expression, is essential for tasks such as timeline creation and temporal reasoning. While rule-based normalization systems are limited in adaptability across different domains and languages, deep-learning solutions in this area have not been extensively explored. An additional challenge is the scarcity of manually annotated corpora with temporal annotations. To address the adaptability limitations of current systems, we propose a highly adaptable methodology that can be applied to multiple domains and languages. This can be achieved by leveraging a multilingual Pre-trained Language Model (PTLM) with a fill-mask architecture, using a Value Intermediate Representation (VIR) where the temporal expression value format is adjusted to the fill-mask representation. Our approach involves a two-phase training process. Initially, the model is trained with a novel masking policy on a large English biomedical corpus that is automatically annotated with normalized temporal expressions, along with a complementary hand-crafted temporal expressions corpus. This addresses the lack of manually annotated data and helps to achieve sufficient capacity for adaptation to diverse domains or languages. In the second phase, we show how the model can be tailored to different domains and languages using various techniques, showcasing the versatility of the proposed methodology. This approach significantly outperforms existing systems.</abstract>
-      <url hash="34189e3a">2025.cl-4.7</url>
+      <url hash="5dcda951">2025.cl-4.7</url>
       <doi>10.1162/coli.a.12</doi>
       <bibkey>castro-etal-2025-novel</bibkey>
     </paper>
@@ -475,7 +475,7 @@
       <author><first>Hinrich</first><last>Schütze</last></author>
       <pages>1337–1372</pages>
       <abstract>While there is a widespread belief that artificial general intelligence—or even superhuman AI—is imminent, complex problems in expert domains are far from being solved. We argue that such problems require human–AI cooperation and that the current state of the art in generative AI is unable to play the role of a reliable partner due to a multitude of shortcomings, including difficulty in keeping track of a complex solution artifact (e.g., a software program), limited support for versatile human preference expression, and lack of adapting to human preference in an interactive setting. To address these challenges, we propose HAI-Co2, a novel human–AI co-construction framework. We take first steps towards a formalization of HAI-Co2 and discuss the difficult open research problems that it faces.</abstract>
-      <url hash="c87ab4a5">2025.cl-4.8</url>
+      <url hash="e79801fd">2025.cl-4.8</url>
       <doi>10.1162/coli.a.19</doi>
       <bibkey>dutta-etal-2025-problem</bibkey>
     </paper>
@@ -498,7 +498,7 @@
       <author><first>Shuming</first><last>Shi</last></author>
       <pages>1373–1418</pages>
       <abstract>While large language models (LLMs) have demonstrated remarkable capabilities across a range of downstream tasks, a significant concern revolves around their propensity to exhibit hallucinations: LLMs occasionally generate content that diverges from the user input, contradicts previously generated context, or misaligns with established world knowledge. This phenomenon poses a substantial challenge to the reliability of LLMs in real-world scenarios. In this article, we survey recent efforts on the detection, explanation, and mitigation of hallucination, with an emphasis on the unique challenges posed by LLMs. We present taxonomies of the LLM hallucination phenomena and evaluation benchmarks, analyze existing approaches aiming at mitigating LLM hallucination, and discuss potential directions for future research.</abstract>
-      <url hash="991d00ca">2025.cl-4.9</url>
+      <url hash="81c3b4a5">2025.cl-4.9</url>
       <doi>10.1162/coli.a.16</doi>
       <bibkey>zhang-etal-2025-sirens</bibkey>
     </paper>
@@ -507,7 +507,7 @@
       <author><first>Ehud</first><last>Reiter</last></author>
       <pages>1419–1431</pages>
       <abstract>The ACL community has very little interest in evaluating the real-world impact of NLP systems. A structured survey of the ACL Anthology shows that perhaps 0.1% of its papers contain such evaluations; furthermore most papers that include impact evaluations present them very sketchily and instead focus on metric evaluations. NLP technology would be more useful and more quickly adopted if we seriously tried to understand and evaluate its real-world impact.</abstract>
-      <url hash="5bef73c7">2025.cl-4.10</url>
+      <url hash="8895b639">2025.cl-4.10</url>
       <doi>10.1162/coli.a.18</doi>
       <bibkey>reiter-2025-evaluate</bibkey>
     </paper>
