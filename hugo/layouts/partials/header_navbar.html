@@ -1,37 +1,42 @@
-<nav class="navbar navbar-expand-sm navbar-light bg-light bg-gradient-light shadow-sm py-0 mb-3 mb-md-4 mb-xl-5">
-  <div id="navbar-container" class="container">
-  <a class="navbar-brand" href={{ absURL "" }}>
-    <img src={{ absURL "images/acl-logo.svg" }} width=56 alt="ACL Logo">
-    <span class="d-inline pl-2">ACL Anthology</span>
-  </a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+<nav class="navbar navbar-expand-md navbar-light bg-light bg-gradient shadow-sm py-0 mb-3 mb-md-4 mb-xl-5">
+  <div id="navbar-container" class="container-xl col-xl-11 mx-auto px-0">
+    <a class="navbar-brand" href={{ absURL "" }}>
+      <img src={{ absURL "images/acl-logo.svg" }} width=56 alt="ACL Logo">
+      <span class="d-inline ps-2">ACL Anthology</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav flex-grow-1 pr-md-2">
-      <li class="nav-item">
-        <a class="nav-link" href={{ relref . "/posts" }}>News<span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href={{ relref . "/faq" }}>FAQ<span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href={{ relref . "/info/corrections.md" }}>Corrections<span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href={{ relref . "/info/contrib.md" }}>Submissions<span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="https://github.com/acl-org/acl-anthology/"><i class="fab fa-github pr-1"></i>GitHub</a>
-      </li>
-    </ul>
-    <form class="form-inline my-2 my-lg-0 flex-nowrap" action={{ relURL "search/?" }} method=get>
-      <input id=acl-search-box class="form-control mr-sm-2" name=q type=search placeholder=Search... aria-label=Search>
-      <button class="btn btn-outline-primary" type=submit><i class="fas fa-search"></i></button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav flex-grow-1 pe-md-2">
+        <li class="nav-item">
+          <a class="nav-link" href={{ relref . "/posts" }}>News<span class="visually-hidden">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href={{ relref . "/faq" }}>FAQ<span class="visually-hidden">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href={{ relref . "/info/corrections.md" }}>Corrections<span class="visually-hidden">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href={{ relref . "/info/contrib.md" }}>Submissions<span class="visually-hidden">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-nowrap" href="https://github.com/acl-org/acl-anthology/"><i class="fab fa-github pe-1"></i>GitHub</a>
+        </li>
+      </ul>
+      <form class="d-flex d-sm-none align-items-center my-2 my-lg-0 flex-nowrap" action={{ relURL "search/?" }} method=get role="search">
+        <input class="form-control acl-search-box me-sm-2 shadow-sm" name=q type=search placeholder=Search... aria-label="Search the Anthology">
+        <button class="btn btn-outline-primary" type=submit aria-label="Submit search"><i class="fas fa-search"></i></button>
+      </form>
+    </div>
+    <form class="d-none d-sm-flex align-items-center my-2 my-lg-0 flex-nowrap" action={{ relURL "search/?" }} method=get role="search">
+      <input class="form-control acl-search-box me-sm-2 shadow-sm" name=q type=search placeholder=Search... aria-label="Search the Anthology">
+      <button class="btn btn-outline-primary" type=submit aria-label="Submit search"><i class="fas fa-search"></i></button>
     </form>
   </div>
-</div></nav>
+</nav>
 {{ if hasPrefix .Site.BaseURL "https://preview.aclanthology.org" }}
 <div role="alert" class="alert alert-danger text-center">
   This is an <b>internal, incomplete preview</b> of a proposed change to the ACL Anthology.

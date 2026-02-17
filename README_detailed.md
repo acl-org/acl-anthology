@@ -144,12 +144,15 @@ HTML templates for the website are found under [`hugo/layouts/`](hugo/layouts/).
   [`papers/list-entry.html`](hugo/layouts/papers/list-entry.html).
 
 CSS styling for the website is based on [Bootstrap
-4.3](https://getbootstrap.com/docs/4.3/).  The final CSS is compiled from
+5.3](https://getbootstrap.com/docs/5.3/).  The final CSS is compiled from
 [`hugo/assets/css/main.scss`](hugo/assets/css/main.scss), which defines
 
 1. which Bootstrap components to include,
 2. which Bootstrap variables to customize (e.g. colors), and
 3. additional style definitions on top of that.
+
+We use the [Inter](https://rsms.me/inter/) font family, which is self-hosted
+within the repository to ensure visual consistency and privacy.
 
 
 ### Adding new years to the Anthology
