@@ -37,8 +37,6 @@ from pathlib import Path
 from slugify import slugify
 from typing import Any, Dict, Optional
 
-import lxml.etree as etree
-
 from acl_anthology import Anthology
 from acl_anthology.collections.types import PaperType, VolumeType
 from acl_anthology.files import (
@@ -49,8 +47,7 @@ from acl_anthology.files import (
 from acl_anthology.people import Name, NameSpecification
 from acl_anthology.text import MarkupText
 from acl_anthology.utils.ids import parse_id
-
-from normalize_anth import normalize
+from fixedcase.protect import protect as protect_fixedcase
 
 
 def log(text: str, fake: bool = False):
@@ -112,22 +109,28 @@ def venue_slug_from_acronym(acronym: str) -> str:
     return slug
 
 
-def normalize_text(text: Optional[str], tag: str) -> Optional[str | MarkupText]:
-    """Apply normalize_anth's LaTeX normalization to text fields.
-
-    For markup-capable fields, returns MarkupText to preserve child XML
-    (e.g., <fixed-case>), which may otherwise be lost when reading node.text.
-    """
+def normalize_markup_text(text: Optional[str]) -> Optional[MarkupText]:
+    """Normalize potentially-LaTeX text into MarkupText."""
     if text is None:
         return None
-    node = etree.Element(tag)
-    node.text = text
-    normalize(node, informat="latex")
+    return MarkupText.from_latex_maybe(text)
 
-    if tag in {"title", "booktitle", "abstract"}:
-        return MarkupText.from_xml(node)
 
-    return "".join(node.itertext())
+def normalize_title_text(text: Optional[str], tag: str) -> Optional[MarkupText]:
+    """Normalize and apply truelist-based fixed-case protection for titles."""
+    if text is None:
+        return None
+    markup = MarkupText.from_latex_maybe(text)
+    elem = markup.to_xml(tag)
+    protect_fixedcase(elem)
+    return MarkupText.from_xml(elem)
+
+
+def normalize_plain_text(text: Optional[str]) -> Optional[str]:
+    """Normalize potentially-LaTeX text into plain text."""
+    if text is None:
+        return None
+    return MarkupText.from_latex_maybe(text).as_text()
 
 
 def make_name_spec(person) -> NameSpecification:
@@ -165,14 +168,14 @@ def read_bib_entry(bibfilename: str, anthology_id: str) -> Optional[Dict[str, An
         sys.exit(1)
 
     return {
-        "title": bibentry.fields.get("title"),
-        "booktitle": bibentry.fields.get("booktitle"),
-        "month": bibentry.fields.get("month"),
+        "title": normalize_title_text(bibentry.fields.get("title"), "title"),
+        "booktitle": normalize_title_text(bibentry.fields.get("booktitle"), "booktitle"),
+        "month": normalize_plain_text(bibentry.fields.get("month")),
         "year": bibentry.fields.get("year"),
-        "address": bibentry.fields.get("address"),
-        "publisher": bibentry.fields.get("publisher"),
-        "pages": bibentry.fields.get("pages"),
-        "abstract": bibentry.fields.get("abstract"),
+        "address": normalize_plain_text(bibentry.fields.get("address")),
+        "publisher": normalize_plain_text(bibentry.fields.get("publisher")),
+        "pages": normalize_plain_text(bibentry.fields.get("pages")),
+        "abstract": normalize_markup_text(bibentry.fields.get("abstract")),
         "doi": bibentry.fields.get("doi"),
         "language": bibentry.fields.get("language"),
         "authors": [
@@ -406,11 +409,9 @@ def main(args):
                 parsed_papers[paper_num] = parsed
 
         volume_title = (
-            normalize_text(
-                (frontmatter_data or {}).get("title")
-                or meta.get("booktitle")
-                or meta.get("title"),
-                "booktitle",
+            (frontmatter_data or {}).get("title")
+            or normalize_title_text(
+                meta.get("booktitle") or meta.get("title"), "booktitle"
             )
             or f"{meta['abbrev']} {meta['year']}"
         )
@@ -432,13 +433,10 @@ def main(args):
             "ingest_date": args.ingest_date,
             "editors": volume_editors,
             "venue_ids": venue_ids,
-            "publisher": normalize_text(
-                (frontmatter_data or {}).get("publisher") or meta.get("publisher"),
-                "publisher",
-            ),
-            "address": normalize_text(
-                (frontmatter_data or {}).get("address") or meta.get("location"), "address"
-            ),
+            "publisher": (frontmatter_data or {}).get("publisher")
+            or normalize_plain_text(meta.get("publisher")),
+            "address": (frontmatter_data or {}).get("address")
+            or normalize_plain_text(meta.get("location")),
             "month": (frontmatter_data or {}).get("month") or meta.get("month"),
         }
 
@@ -464,9 +462,7 @@ def main(args):
             and book_src_path is not None
             and book_dest_path is not None
         ):
-            frontmatter_title = (
-                normalize_text(frontmatter_data.get("title"), "title") or volume_title
-            )
+            frontmatter_title = frontmatter_data.get("title") or volume_title
             frontmatter_kwargs = {
                 "id": "0",
                 "type": PaperType.FRONTMATTER,
@@ -492,7 +488,7 @@ def main(args):
 
             parsed = parsed_papers[paper_num]
 
-            title = normalize_text(parsed.get("title"), "title")
+            title = parsed.get("title")
             if title is None:
                 print(f"Fatal: missing title in {paper['bib']}", file=sys.stderr)
                 sys.exit(1)
@@ -518,9 +514,7 @@ def main(args):
             for key in ("abstract", "doi", "pages"):
                 value = parsed.get(key)
                 if value:
-                    kwargs[key] = (
-                        normalize_text(value, key) if key == "abstract" else value
-                    )
+                    kwargs[key] = value
 
             language = parsed.get("language")
             if language:
