@@ -25,11 +25,14 @@ import logging
 import os
 import re
 import sys
+import tempfile
 import time
 from pathlib import Path
 from typing import Any, Optional
 
 import requests
+from PyPDF2 import PdfReader, PdfWriter
+from PyPDF2.generic import ArrayObject, DecodedStreamObject, NameObject
 
 from acl_anthology import Anthology
 from acl_anthology.files import PDFReference
@@ -82,6 +85,12 @@ VENUE_CONFIG = {
 
 CROSSREF_API = "https://api.crossref.org/works"
 PDF_URL_TEMPLATE = "https://www.mitpressjournals.org/doi/pdf/{doi}"
+WATERMARK_MARKERS = (
+    "Downloaded from http://direct.mit.edu",
+    "Downloaded from https://direct.mit.edu",
+    "Downloaded from http://www.mitpressjournals.org/doi/pdf/",
+    "Downloaded from https://www.mitpressjournals.org/doi/pdf/",
+)
 PDF_DOWNLOAD_RETRIES = 5
 PDF_DOWNLOAD_RETRY_BASE_DELAY_SEC = 2
 
@@ -417,6 +426,20 @@ def maybe_download_pdf(
         try:
             retrieve_url(pdf_url, str(destination))
             if destination.is_file() and destination.stat().st_size > 0:
+                try:
+                    removed = maybe_remove_mitpress_watermark(destination)
+                    if removed > 0:
+                        logging.info(
+                            "Removed %s watermark content stream(s) from %s",
+                            removed,
+                            destination.name,
+                        )
+                except Exception as exc:
+                    logging.warning(
+                        "Watermark cleanup failed for DOI %s (%s), keeping original PDF",
+                        doi,
+                        exc,
+                    )
                 return True, pdf_url
             raise RuntimeError("downloaded file missing or empty")
         except Exception as exc:
@@ -443,6 +466,98 @@ def maybe_download_pdf(
             time.sleep(wait_s)
 
     return False, pdf_url
+
+
+def remove_margin_watermark_streams(
+    src: Path,
+    dst: Path,
+    markers: tuple[str, ...] = WATERMARK_MARKERS,
+    encoding_fallback: str = "latin-1",
+) -> int:
+    """
+    Remove per-page content streams containing MIT's margin watermark text.
+
+    Returns the number of removed content streams.
+    """
+    reader = PdfReader(str(src))
+    writer = PdfWriter()
+    removed = 0
+
+    marker_bytes = [m.encode("utf-8", errors="ignore") for m in markers]
+
+    for page in reader.pages:
+        contents = page.get("/Contents")
+        if contents is None:
+            writer.add_page(page)
+            continue
+
+        if isinstance(contents, (list, ArrayObject)):
+            streams = list(contents)
+        else:
+            streams = [contents]
+
+        kept_streams = []
+        page_removed = 0
+
+        for stream in streams:
+            obj = stream.get_object() if hasattr(stream, "get_object") else stream
+            data = obj.get_data()
+            has_marker = any(mb in data for mb in marker_bytes)
+            if not has_marker:
+                try:
+                    decoded = data.decode("utf-8")
+                except UnicodeDecodeError:
+                    decoded = data.decode(encoding_fallback, errors="ignore")
+                has_marker = any(marker in decoded for marker in markers)
+
+            if has_marker:
+                page_removed += 1
+            else:
+                kept_streams.append(stream)
+
+        removed += page_removed
+
+        if page_removed == 0:
+            writer.add_page(page)
+            continue
+
+        if len(kept_streams) == 0:
+            empty_stream = DecodedStreamObject()
+            empty_stream.set_data(b"")
+            page[NameObject("/Contents")] = empty_stream
+        elif len(kept_streams) == 1:
+            page[NameObject("/Contents")] = kept_streams[0]
+        else:
+            page[NameObject("/Contents")] = ArrayObject(kept_streams)
+
+        writer.add_page(page)
+
+    if removed > 0:
+        with dst.open("wb") as out_f:
+            writer.write(out_f)
+
+    return removed
+
+
+def maybe_remove_mitpress_watermark(path: Path) -> int:
+    if not path.is_file() or path.stat().st_size == 0:
+        return 0
+
+    tmp = Path(
+        tempfile.NamedTemporaryFile(
+            dir=path.parent, prefix=f"{path.name}.", suffix=".tmp", delete=False
+        ).name
+    )
+    try:
+        removed = remove_margin_watermark_streams(path, tmp, markers=WATERMARK_MARKERS)
+        if removed > 0:
+            tmp.replace(path)
+        else:
+            tmp.unlink(missing_ok=True)
+        return removed
+    except Exception:
+        tmp.unlink(missing_ok=True)
+        raise
 
 
 def existing_dois(collection) -> set[str]:
@@ -497,9 +612,18 @@ def ingest_papers(args, papers: list[dict[str, Any]]) -> dict[str, Any]:
         "new_dois": [],
         "existing_dois": [],
         "no_pdf_dois": [],
+        "existing_pdf_downloaded": 0,
+        "existing_pdf_downloaded_dois": [],
     }
 
     doi_set = existing_dois(collection)
+    existing_papers_by_doi = {
+        paper.doi.lower(): paper for paper in collection.papers() if paper.doi
+    }
+
+    pdf_destination = Path(args.pdfs_dir) / "pdf" / args.venue
+    if not args.dry_run:
+        pdf_destination.mkdir(parents=True, exist_ok=True)
 
     valid_papers: list[dict[str, Any]] = []
     for paper in papers:
@@ -513,6 +637,27 @@ def ingest_papers(args, papers: list[dict[str, Any]]) -> dict[str, Any]:
         if doi in doi_set:
             report["existing"] += 1
             report["existing_dois"].append(doi)
+            if not args.dry_run and (existing_paper := existing_papers_by_doi.get(doi)):
+                destination = pdf_destination / f"{existing_paper.full_id}.pdf"
+                if not destination.is_file() or destination.stat().st_size == 0:
+                    logging.info(
+                        "Existing DOI %s is missing local PDF; downloading %s",
+                        doi,
+                        destination.name,
+                    )
+                    ok, pdf_url = maybe_download_pdf(doi, destination, args.dry_run)
+                    if not ok:
+                        report["no_pdf"] += 1
+                        report["no_pdf_dois"].append(doi)
+                        if pdf_url:
+                            report["errors"].append(
+                                f"{doi}: PDF fetch failed ({pdf_url})"
+                            )
+                        raise RuntimeError(
+                            f"PDF download failed for existing DOI {doi} ({pdf_url}); aborting ingestion."
+                        )
+                    report["existing_pdf_downloaded"] += 1
+                    report["existing_pdf_downloaded_dois"].append(doi)
             continue
 
         required = ["title", "issue_id", "journal_volume", "booktitle"]
@@ -531,10 +676,6 @@ def ingest_papers(args, papers: list[dict[str, Any]]) -> dict[str, Any]:
             p["doi"],
         )
     )
-
-    pdf_destination = Path(args.pdfs_dir) / "pdf" / args.venue
-    if not args.dry_run:
-        pdf_destination.mkdir(parents=True, exist_ok=True)
 
     for paper_data in valid_papers:
         volume = ensure_volume(
