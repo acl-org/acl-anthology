@@ -351,9 +351,7 @@ def crossref_request_json(
             if attempt == retries:
                 raise
             wait_s = min(2**attempt, 10)
-            logging.warning(
-                "Crossref request failed (%s). Retrying in %ss", exc, wait_s
-            )
+            logging.warning("Crossref request failed (%s). Retrying in %ss", exc, wait_s)
             time.sleep(wait_s)
 
     raise RuntimeError("Unreachable retry loop")
@@ -412,9 +410,7 @@ def discover_crossref_items(
             item["DOI"] = doi
             if parse_year_from_crossref(item) != year:
                 continue
-            if volume is not None and str(item.get("volume", "")).strip() != str(
-                volume
-            ):
+            if volume is not None and str(item.get("volume", "")).strip() != str(volume):
                 continue
 
             seen_dois.add(doi)
@@ -653,9 +649,7 @@ def existing_dois(collection) -> set[str]:
 
 
 def normalize_author_specs(authors: list[dict[str, Any]]) -> list[NameSpec]:
-    return [
-        NameSpec(Name.from_dict(author)) for author in authors if author.get("last")
-    ]
+    return [NameSpec(Name.from_dict(author)) for author in authors if author.get("last")]
 
 
 def authors_equal(
@@ -700,9 +694,7 @@ def ingest_papers(args, papers: list[dict[str, Any]]) -> dict[str, Any]:
     collection_id = f"{args.year}.{args.venue}"
     if (collection := anthology.collections.get(collection_id)) is None:
         if args.dry_run:
-            logging.info(
-                "Collection %s does not exist yet (dry-run mode)", collection_id
-            )
+            logging.info("Collection %s does not exist yet (dry-run mode)", collection_id)
         collection = anthology.collections.create(collection_id)
 
     report: dict[str, Any] = {
@@ -918,9 +910,7 @@ if __name__ == "__main__":
         "-q", "--quiet", dest="verbose", action="store_const", const=logging.WARNING
     )
 
-    parser.add_argument(
-        "--version", action="version", version=f"%(prog)s v{__version__}"
-    )
+    parser.add_argument("--version", action="version", version=f"%(prog)s v{__version__}")
 
     args = parser.parse_args()
 
