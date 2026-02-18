@@ -42,7 +42,6 @@ from acl_anthology import Anthology
 from acl_anthology.collections.types import PaperType, VolumeType
 from acl_anthology.files import (
     AttachmentReference,
-    FileReference,
     PDFReference,
 )
 from acl_anthology.people import Name, NameSpecification
@@ -74,13 +73,17 @@ def read_meta(path: str) -> Dict[str, Any]:
 
 def maybe_copy(source_path: str, dest_path: str):
     """Copies the file if it's different from the target."""
-    if (
-        not os.path.exists(dest_path)
-        or FileReference.from_file(source_path).checksum
-        != FileReference.from_file(dest_path).checksum
-    ):
-        log(f"Copying {source_path} -> {dest_path}")
-        shutil.copyfile(source_path, dest_path)
+    try:
+        if (
+            not os.path.exists(dest_path)
+            or PDFReference.from_file(source_path).checksum
+            != PDFReference.from_file(dest_path).checksum
+        ):
+            log(f"Copying {source_path} -> {dest_path}")
+            shutil.copyfile(source_path, dest_path)
+    except Exception as e:
+        log(f"Error copying {source_path} to {dest_path}: {e}")
+        raise
 
 
 def correct_caps(name: Optional[str]) -> Optional[str]:
@@ -111,21 +114,14 @@ def venue_slug_from_acronym(acronym: str) -> str:
     return slug
 
 
-def normalize_title_text(text: Optional[str]) -> Optional[MarkupText]:
-    """Normalize and apply truelist-based fixed-case protection for titles."""
+def normalize_latex_text(text: Optional[str]) -> Optional[MarkupText]:
+    """Normalize and apply truelist-based fixed-case protection for LaTeX text."""
     if text is None:
         return None
     markup = MarkupText.from_latex_maybe(text)
     elem = markup.to_xml()
     protect_fixedcase(elem)
     return MarkupText.from_xml(elem)
-
-
-def normalize_plain_text(text: Optional[str]) -> Optional[str]:
-    """Normalize potentially-LaTeX text into plain text."""
-    if text is None:
-        return None
-    return MarkupText.from_latex_maybe(text).as_text()
 
 
 def make_name_spec(person) -> NameSpecification:
@@ -161,14 +157,14 @@ def read_bib_entry(bibfilename: str, anthology_id: str) -> Optional[Dict[str, An
         sys.exit(1)
 
     return {
-        "title": normalize_title_text(bibentry.fields.get("title")),
-        "booktitle": normalize_title_text(bibentry.fields.get("booktitle")),
-        "month": normalize_plain_text(bibentry.fields.get("month")),
+        "title": normalize_latex_text(bibentry.fields.get("title")),
+        "booktitle": normalize_latex_text(bibentry.fields.get("booktitle")),
+        "month": bibentry.fields.get("month"),
         "year": bibentry.fields.get("year"),
-        "address": normalize_plain_text(bibentry.fields.get("address")),
-        "publisher": normalize_plain_text(bibentry.fields.get("publisher")),
-        "pages": normalize_plain_text(bibentry.fields.get("pages")),
-        "abstract": MarkupText.from_latex_maybe(bibentry.fields.get("abstract")),
+        "address": bibentry.fields.get("address"),
+        "publisher": bibentry.fields.get("publisher"),
+        "pages": bibentry.fields.get("pages"),
+        "abstract": normalize_latex_text(bibentry.fields.get("abstract")),
         "doi": bibentry.fields.get("doi"),
         "language": bibentry.fields.get("language"),
         "authors": [
@@ -193,11 +189,6 @@ def register_volume_with_sig(
             f"Warning: SIG '{sig_key}' not found; cannot register {volume_full_id}",
             file=sys.stderr,
         )
-        if booktitle:
-            print(
-                f"Add this line to yaml/sigs/{sig_key}.yaml manually: {volume_full_id} # {booktitle}",
-                file=sys.stderr,
-            )
         return
 
     sig = anthology.sigs[sig_key]
@@ -387,7 +378,7 @@ def main(args):
 
         volume_title = (
             (frontmatter_data or {}).get("title")
-            or normalize_title_text(meta.get("booktitle") or meta.get("title"))
+            or normalize_latex_text(meta.get("booktitle") or meta.get("title"))
             or f"{meta['abbrev']} {meta['year']}"
         )
 
@@ -408,9 +399,8 @@ def main(args):
             "editors": volume_editors,
             "venue_ids": venue_ids,
             "publisher": (frontmatter_data or {}).get("publisher")
-            or normalize_plain_text(meta.get("publisher")),
-            "address": (frontmatter_data or {}).get("address")
-            or normalize_plain_text(meta.get("location")),
+            or meta.get("publisher"),
+            "address": (frontmatter_data or {}).get("address") or meta.get("location"),
             "month": (frontmatter_data or {}).get("month") or meta.get("month"),
         }
 
