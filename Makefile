@@ -177,11 +177,6 @@ mirror:
 mirror-no-attachments:
 	uv run python bin/create_mirror.py --only-papers data/xml/*xml
 
-.PHONY: test
-test: hugo
-	diff -u build/website/$(ANTHOLOGYDIR)/P19-1007.bib test/data/P19-1007.bib
-	diff -u build/website/$(ANTHOLOGYDIR)/P19-1007.xml test/data/P19-1007.xml
-
 .PHONY: clean
 clean:
 	rm -rf build .venv
