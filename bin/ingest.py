@@ -156,6 +156,10 @@ def read_bib_entry(bibfilename: str, anthology_id: str) -> Optional[Dict[str, An
         log(f"parsing bib of paper {paper_id} failed")
         sys.exit(1)
 
+    page_range = bibentry.fields.get("pages")
+    if page_range is not None:
+        page_range = page_range.replace("--", "-")
+
     return {
         "title": normalize_latex_text(bibentry.fields.get("title")),
         "booktitle": normalize_latex_text(bibentry.fields.get("booktitle")),
@@ -163,7 +167,7 @@ def read_bib_entry(bibfilename: str, anthology_id: str) -> Optional[Dict[str, An
         "year": bibentry.fields.get("year"),
         "address": bibentry.fields.get("address"),
         "publisher": bibentry.fields.get("publisher"),
-        "pages": bibentry.fields.get("pages"),
+        "pages": page_range,
         "abstract": normalize_latex_text(bibentry.fields.get("abstract")),
         "doi": bibentry.fields.get("doi"),
         "language": bibentry.fields.get("language"),
