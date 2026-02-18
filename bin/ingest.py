@@ -125,7 +125,7 @@ def normalize_latex_text(text: Optional[str]) -> Optional[MarkupText]:
 
 
 def make_name_spec(person) -> NameSpecification:
-    first_text = " ".join(person.first_names)
+    first_text = " ".join(person.first_names + person.middle_names)
     last_text = " ".join(person.prelast_names + person.last_names)
 
     if person.lineage_names:
