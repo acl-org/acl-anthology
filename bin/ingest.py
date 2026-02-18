@@ -31,6 +31,7 @@ import pybtex.database.input.bibtex
 import re
 import shutil
 import sys
+import warnings
 
 from datetime import datetime
 from pathlib import Path
@@ -218,16 +219,40 @@ def attachment_reference(
     return AttachmentReference.from_file(dest_path)
 
 
+def register_volume_with_sig(
+    anthology: Anthology,
+    sig_id: str,
+    volume_full_id: str,
+    booktitle: Optional[str] = None,
+) -> None:
+    """Register an ingested volume with a SIG if that SIG exists."""
+    sig_key = sig_id.lower()
+    if sig_key not in anthology.sigs:
+        print(
+            f"Warning: SIG '{sig_key}' not found; cannot register {volume_full_id}",
+            file=sys.stderr,
+        )
+        if booktitle:
+            print(
+                f"Add this line to yaml/sigs/{sig_key}.yaml manually: {volume_full_id} # {booktitle}",
+                file=sys.stderr,
+            )
+        return
+
+    sig = anthology.sigs[sig_key]
+    if volume_full_id not in sig.meetings:
+        sig.meetings.append(volume_full_id)
+    anthology.sigs.reverse[parse_id(volume_full_id)].add(sig_key)
+
+
 def main(args):
     volumes = {}
 
     anthology_datadir = Path(args.anthology_dir) / "data"
     anthology = Anthology(datadir=anthology_datadir)
 
-    anthology.collections.load()
     anthology.collections.bibkeys.load()
-    anthology.venues.load()
-    anthology.people.load()
+    anthology.sigs.load()
 
     venue_keys = {venue_id.lower() for venue_id in anthology.venues.keys()}
 
@@ -261,13 +286,6 @@ def main(args):
             sys.exit(1)
 
         volumes[volume_full_id] = meta
-
-        if "sig" in meta:
-            print(
-                f"Add this line to {anthology_datadir}/yaml/sigs/{meta['sig'].lower()}.yaml:"
-            )
-            print(f"  - {meta['year']}:")
-            print(f"    - {volume_full_id} # {meta['booktitle']}")
 
     if len(unseen_venues) > 0:
         for slug, abbrev, title in unseen_venues:
@@ -541,10 +559,25 @@ def main(args):
 
             volume_obj.create_paper(**kwargs)
 
+        if "sig" in meta:
+            register_volume_with_sig(
+                anthology,
+                meta["sig"],
+                volume_full_id,
+                meta.get("booktitle"),
+            )
+
     if args.dry_run:
         log("Dry run complete: skipping save to Anthology XML files.", fake=True)
     else:
-        anthology.save_all()
+        with warnings.catch_warnings():
+            warnings.filterwarnings(
+                "ignore",
+                message=r"SIG metadata is not yet automatically saved\\..*",
+                category=UserWarning,
+            )
+            anthology.save_all()
+        anthology.sigs.save()
 
 
 if __name__ == "__main__":
