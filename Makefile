@@ -179,7 +179,7 @@ mirror-no-attachments:
 
 .PHONY: clean
 clean:
-	rm -rf build .venv
+	rm -rf build
 
 .PHONY: check
 check:
