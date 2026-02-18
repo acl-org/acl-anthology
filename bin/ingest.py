@@ -887,8 +887,8 @@ def main(args):
     anthology_datadir = Path(args.anthology_dir) / "data"
     anthology = Anthology(datadir=anthology_datadir)
 
-    anthology.collections.bibkeys.load()
-    anthology.sigs.load()
+    anthology.load_all()
+
     seen_volume_ids: set[str] = set()
     for source in args.proceedings:
         format_ = detect_ingestion_format(source)
