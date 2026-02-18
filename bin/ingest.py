@@ -15,7 +15,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Ingests ACLPUB proceedings/ directories into the Anthology.
+"""Ingests data into the ACL Anthology from either ACLPUB or aclpub2 formats.
 
 This script:
 - executes some basic sanity checks
