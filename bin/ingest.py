@@ -50,9 +50,8 @@ from acl_anthology.utils.ids import parse_id
 from fixedcase.protect import protect as protect_fixedcase
 
 
-def log(text: str, fake: bool = False):
-    message = "[DRY RUN] " if fake else ""
-    print(f"{message}{text}", file=sys.stderr)
+def log(text: str) -> None:
+    print(f"{text}", file=sys.stderr)
 
 
 def read_meta(path: str) -> Dict[str, Any]:
@@ -197,27 +196,6 @@ def set_disambiguation_ids(
             name_spec.id = matches[0].id
 
 
-def paper_pdf_reference(
-    anthology_id: str, src_path: str, dest_path: str, dry_run: bool
-) -> PDFReference:
-    if dry_run:
-        return PDFReference(
-            name=anthology_id, checksum=compute_checksum_from_file(src_path)
-        )
-    return PDFReference.from_file(dest_path)
-
-
-def attachment_reference(
-    src_path: str, dest_path: str, dry_run: bool
-) -> AttachmentReference:
-    if dry_run:
-        return AttachmentReference(
-            name=os.path.basename(dest_path),
-            checksum=compute_checksum_from_file(src_path),
-        )
-    return AttachmentReference.from_file(dest_path)
-
-
 def main(args):
     volumes = {}
 
@@ -310,8 +288,7 @@ def main(args):
             book_dest_path = os.path.join(
                 pdfs_dest_dir, f"{collection_id}-{volume_name}.pdf"
             )
-            if not args.dry_run:
-                maybe_copy(book_src_path, book_dest_path)
+            maybe_copy(book_src_path, book_dest_path)
 
         volume = dict()
 
@@ -335,8 +312,7 @@ def main(args):
 
             pdf_src_path = os.path.join(pdf_src_dir, pdf_file)
             pdf_dest_path = os.path.join(pdfs_dest_dir, f"{paper_id_full}.pdf")
-            if not args.dry_run:
-                maybe_copy(pdf_src_path, pdf_dest_path)
+            maybe_copy(pdf_src_path, pdf_dest_path)
 
             volume[paper_num] = {
                 "anthology_id": paper_id_full,
@@ -371,8 +347,8 @@ def main(args):
 
                 file_name = f"{collection_id}-{volume_name}.{paper_num}.{type_}.{ext}"
                 dest_path = os.path.join(attachments_dest_dir, file_name)
-                if not args.dry_run and not os.path.exists(dest_path):
-                    log(f"Copying {attachment_file} -> {dest_path}", args.dry_run)
+                if not os.path.exists(dest_path):
+                    log(f"Copying {attachment_file} -> {dest_path}")
                     shutil.copyfile(attachment_file_path, dest_path)
 
                 if paper_num not in volume:
@@ -447,13 +423,7 @@ def main(args):
             volume_kwargs["isbn"] = meta["isbn"]
 
         if book_src_path is not None and book_dest_path is not None:
-            if args.dry_run:
-                volume_kwargs["pdf"] = PDFReference(
-                    name=f"{collection_id}-{volume_name}",
-                    checksum=compute_checksum_from_file(book_src_path),
-                )
-            else:
-                volume_kwargs["pdf"] = PDFReference.from_file(book_dest_path)
+            volume_kwargs["pdf"] = PDFReference.from_file(book_dest_path)
 
         volume_obj = collection.create_volume(**volume_kwargs)
 
@@ -472,14 +442,7 @@ def main(args):
             }
             set_disambiguation_ids(frontmatter_kwargs["authors"], anthology)
             set_disambiguation_ids(frontmatter_kwargs["editors"], anthology)
-            frontmatter_kwargs["pdf"] = (
-                PDFReference(
-                    name=f"{collection_id}-{volume_name}",
-                    checksum=compute_checksum_from_file(book_src_path),
-                )
-                if args.dry_run
-                else PDFReference.from_file(book_dest_path)
-            )
+            frontmatter_kwargs["pdf"] = PDFReference.from_file(book_dest_path)
             volume_obj.create_paper(**frontmatter_kwargs)
 
         for paper_num, paper in sorted(volume.items()):
@@ -503,12 +466,7 @@ def main(args):
                 "title": title,
                 "authors": authors,
                 "editors": editors,
-                "pdf": paper_pdf_reference(
-                    anthology_id=paper["anthology_id"],
-                    src_path=paper["pdf_src"],
-                    dest_path=paper["pdf_dest"],
-                    dry_run=args.dry_run,
-                ),
+                "pdf": PDFReference.from_file(paper["pdf_dest"]),
             }
 
             for key in ("abstract", "doi", "pages"):
@@ -529,11 +487,7 @@ def main(args):
                 attachments.append(
                     (
                         attachment["type"],
-                        attachment_reference(
-                            src_path=attachment["src"],
-                            dest_path=attachment["dest"],
-                            dry_run=args.dry_run,
-                        ),
+                        AttachmentReference.from_file(attachment["dest"]),
                     )
                 )
             if attachments:
@@ -541,10 +495,7 @@ def main(args):
 
             volume_obj.create_paper(**kwargs)
 
-    if args.dry_run:
-        log("Dry run complete: skipping save to Anthology XML files.", fake=True)
-    else:
-        anthology.save_all()
+    anthology.save_all()
 
 
 if __name__ == "__main__":
@@ -585,9 +536,6 @@ if __name__ == "__main__":
     )
     parser.add_argument(
         "--is-journal", "-j", action="store_true", help="Venue is a journal"
-    )
-    parser.add_argument(
-        "--dry-run", "-n", action="store_true", help="Don't actually copy anything."
     )
     args = parser.parse_args()
 
