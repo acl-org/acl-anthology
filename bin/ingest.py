@@ -698,7 +698,7 @@ def ingest(
             "editors": paper.get("editors", []),
         }
         if paper.get("pdf_src") and paper.get("pdf_dest"):
-            maybe_copy(paper["pdf_src"], paper["pdf_dest"])
+            maybe_copy(paper["pdf_src"], paper["pdf_dest"], dry_run=args.dry_run)
             kwargs["pdf"] = pdf_reference_from_paths(
                 anthology_id=paper["anthology_id"],
                 src_path=paper["pdf_src"],
@@ -719,7 +719,7 @@ def ingest(
         for attachment in paper.get("attachments", []):
             if "copyright" in attachment["type"]:
                 continue
-            maybe_copy(attachment["src"], attachment["dest"])
+            maybe_copy(attachment["src"], attachment["dest"], dry_run=args.dry_run)
             attachment_refs.append(
                 (
                     attachment["type"],
@@ -743,9 +743,12 @@ def ingest(
     add_parent_event(anthology, args.parent_event, volume_full_id)
 
 
-def maybe_copy(source_path: str, dest_path: str):
+def maybe_copy(source_path: str, dest_path: str, dry_run: bool = False):
     """Copies the file if it's different from the target."""
     try:
+        if dry_run:
+            log(f"[dry-run] Skipping copy {source_path} -> {dest_path}")
+            return
         if (
             not os.path.exists(dest_path)
             or PDFReference.from_file(source_path).checksum
@@ -954,6 +957,11 @@ if __name__ == "__main__":
         "--parent-event",
         default=None,
         help="Event ID (e.g., naacl-2025) workshop was colocated with",
+    )
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Run ingestion without copying paper/frontmatter PDFs and attachments.",
     )
     args = parser.parse_args()
 
