@@ -27,9 +27,9 @@ log = get_logger()
 
 FUNCTION_NAMES = ("lim", "log")
 TEX_TO_HTML: dict[str, Tuple[str, dict[str, str]]] = {
-    "mathrm": ("span", {"class": "font-weight-normal"}),
-    "textrm": ("span", {"class": "font-weight-normal"}),
-    "text": ("span", {"class": "font-weight-normal"}),
+    "mathrm": ("span", {"class": "fw-normal"}),
+    "textrm": ("span", {"class": "fw-normal"}),
+    "text": ("span", {"class": "fw-normal"}),
     "mathbf": ("strong", {}),
     "textbf": ("strong", {}),
     "bf": ("strong", {}),  # not a correct use of this command, but sometimes observed
@@ -39,8 +39,8 @@ TEX_TO_HTML: dict[str, Tuple[str, dict[str, str]]] = {
     "it": ("em", {}),  # not a correct use of this command, but sometimes observed
     "emph": ("em", {}),
     "textsc": ("span", {"style": "font-variant: small-caps;"}),
-    "texttt": ("span", {"class": "text-monospace"}),
-    "tt": ("span", {"class": "text-monospace"}),
+    "texttt": ("span", {"class": "font-monospace"}),
+    "tt": ("span", {"class": "font-monospace"}),
     "textsubscript": ("sub", {}),
     "textsuperscript": ("sup", {}),
 }
