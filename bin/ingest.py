@@ -41,8 +41,8 @@ from acl_anthology import Anthology
 from acl_anthology.collections.types import PaperType, VolumeType
 from acl_anthology.files import (
     AttachmentReference,
+    FileReference,
     PDFReference,
-    compute_checksum_from_file,
 )
 from acl_anthology.people import Name, NameSpecification
 from acl_anthology.text import MarkupText
@@ -73,9 +73,11 @@ def read_meta(path: str) -> Dict[str, Any]:
 
 def maybe_copy(source_path: str, dest_path: str):
     """Copies the file if it's different from the target."""
-    if not os.path.exists(dest_path) or compute_checksum_from_file(
-        source_path
-    ) != compute_checksum_from_file(dest_path):
+    if (
+        not os.path.exists(dest_path)
+        or FileReference.from_file(source_path).checksum
+        != FileReference.from_file(dest_path).checksum
+    ):
         log(f"Copying {source_path} -> {dest_path}")
         shutil.copyfile(source_path, dest_path)
 
@@ -108,19 +110,12 @@ def venue_slug_from_acronym(acronym: str) -> str:
     return slug
 
 
-def normalize_markup_text(text: Optional[str]) -> Optional[MarkupText]:
-    """Normalize potentially-LaTeX text into MarkupText."""
-    if text is None:
-        return None
-    return MarkupText.from_latex_maybe(text)
-
-
-def normalize_title_text(text: Optional[str], tag: str) -> Optional[MarkupText]:
+def normalize_title_text(text: Optional[str]) -> Optional[MarkupText]:
     """Normalize and apply truelist-based fixed-case protection for titles."""
     if text is None:
         return None
     markup = MarkupText.from_latex_maybe(text)
-    elem = markup.to_xml(tag)
+    elem = markup.to_xml()
     protect_fixedcase(elem)
     return MarkupText.from_xml(elem)
 
@@ -146,9 +141,7 @@ def make_name_spec(person) -> NameSpecification:
     first_text = correct_caps(first_text.strip())
     last_text = correct_caps(last_text.strip())
 
-    return NameSpecification(
-        name=Name(first_text if first_text else None, last_text if last_text else "")
-    )
+    return NameSpecification(name=Name(first_text, last_text))
 
 
 def read_bib_entry(bibfilename: str, anthology_id: str) -> Optional[Dict[str, Any]]:
@@ -167,14 +160,14 @@ def read_bib_entry(bibfilename: str, anthology_id: str) -> Optional[Dict[str, An
         sys.exit(1)
 
     return {
-        "title": normalize_title_text(bibentry.fields.get("title"), "title"),
-        "booktitle": normalize_title_text(bibentry.fields.get("booktitle"), "booktitle"),
+        "title": normalize_title_text(bibentry.fields.get("title")),
+        "booktitle": normalize_title_text(bibentry.fields.get("booktitle")),
         "month": normalize_plain_text(bibentry.fields.get("month")),
         "year": bibentry.fields.get("year"),
         "address": normalize_plain_text(bibentry.fields.get("address")),
         "publisher": normalize_plain_text(bibentry.fields.get("publisher")),
         "pages": normalize_plain_text(bibentry.fields.get("pages")),
-        "abstract": normalize_markup_text(bibentry.fields.get("abstract")),
+        "abstract": MarkupText.from_latex_maybe(bibentry.fields.get("abstract")),
         "doi": bibentry.fields.get("doi"),
         "language": bibentry.fields.get("language"),
         "authors": [
@@ -184,16 +177,6 @@ def read_bib_entry(bibfilename: str, anthology_id: str) -> Optional[Dict[str, An
             make_name_spec(person) for person in bibentry.persons.get("editor", [])
         ],
     }
-
-
-def set_disambiguation_ids(
-    name_specs: list[NameSpecification], anthology: Anthology
-) -> None:
-    """Preserve old ingest behavior: pick first match when names are ambiguous."""
-    for name_spec in name_specs:
-        matches = anthology.people.get_by_name(name_spec.name)
-        if len(matches) > 1:
-            name_spec.id = matches[0].id
 
 
 def main(args):
@@ -386,16 +369,13 @@ def main(args):
 
         volume_title = (
             (frontmatter_data or {}).get("title")
-            or normalize_title_text(
-                meta.get("booktitle") or meta.get("title"), "booktitle"
-            )
+            or normalize_title_text(meta.get("booktitle") or meta.get("title"))
             or f"{meta['abbrev']} {meta['year']}"
         )
 
         volume_editors = []
         if frontmatter_data is not None:
             volume_editors = frontmatter_data["editors"] + frontmatter_data["authors"]
-            set_disambiguation_ids(volume_editors, anthology)
 
         venue_ids = [venue_name]
         if args.is_workshop:
@@ -440,8 +420,6 @@ def main(args):
                 "authors": frontmatter_data["authors"],
                 "editors": frontmatter_data["editors"],
             }
-            set_disambiguation_ids(frontmatter_kwargs["authors"], anthology)
-            set_disambiguation_ids(frontmatter_kwargs["editors"], anthology)
             frontmatter_kwargs["pdf"] = PDFReference.from_file(book_dest_path)
             volume_obj.create_paper(**frontmatter_kwargs)
 
@@ -458,8 +436,6 @@ def main(args):
 
             authors = parsed["authors"]
             editors = parsed["editors"]
-            set_disambiguation_ids(authors, anthology)
-            set_disambiguation_ids(editors, anthology)
 
             kwargs: Dict[str, Any] = {
                 "id": str(paper_num),
