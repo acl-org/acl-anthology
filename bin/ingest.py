@@ -42,8 +42,8 @@ from acl_anthology import Anthology
 from acl_anthology.collections.types import PaperType, VolumeType
 from acl_anthology.files import (
     AttachmentReference,
+    FileReference,
     PDFReference,
-    compute_checksum_from_file,
 )
 from acl_anthology.people import Name, NameSpecification
 from acl_anthology.text import MarkupText
@@ -51,9 +51,8 @@ from acl_anthology.utils.ids import parse_id
 from fixedcase.protect import protect as protect_fixedcase
 
 
-def log(text: str, fake: bool = False):
-    message = "[DRY RUN] " if fake else ""
-    print(f"{message}{text}", file=sys.stderr)
+def log(text: str) -> None:
+    print(f"{text}", file=sys.stderr)
 
 
 def read_meta(path: str) -> Dict[str, Any]:
@@ -75,9 +74,11 @@ def read_meta(path: str) -> Dict[str, Any]:
 
 def maybe_copy(source_path: str, dest_path: str):
     """Copies the file if it's different from the target."""
-    if not os.path.exists(dest_path) or compute_checksum_from_file(
-        source_path
-    ) != compute_checksum_from_file(dest_path):
+    if (
+        not os.path.exists(dest_path)
+        or FileReference.from_file(source_path).checksum
+        != FileReference.from_file(dest_path).checksum
+    ):
         log(f"Copying {source_path} -> {dest_path}")
         shutil.copyfile(source_path, dest_path)
 
@@ -110,19 +111,12 @@ def venue_slug_from_acronym(acronym: str) -> str:
     return slug
 
 
-def normalize_markup_text(text: Optional[str]) -> Optional[MarkupText]:
-    """Normalize potentially-LaTeX text into MarkupText."""
-    if text is None:
-        return None
-    return MarkupText.from_latex_maybe(text)
-
-
-def normalize_title_text(text: Optional[str], tag: str) -> Optional[MarkupText]:
+def normalize_title_text(text: Optional[str]) -> Optional[MarkupText]:
     """Normalize and apply truelist-based fixed-case protection for titles."""
     if text is None:
         return None
     markup = MarkupText.from_latex_maybe(text)
-    elem = markup.to_xml(tag)
+    elem = markup.to_xml()
     protect_fixedcase(elem)
     return MarkupText.from_xml(elem)
 
@@ -148,9 +142,7 @@ def make_name_spec(person) -> NameSpecification:
     first_text = correct_caps(first_text.strip())
     last_text = correct_caps(last_text.strip())
 
-    return NameSpecification(
-        name=Name(first_text if first_text else None, last_text if last_text else "")
-    )
+    return NameSpecification(name=Name(first_text, last_text))
 
 
 def read_bib_entry(bibfilename: str, anthology_id: str) -> Optional[Dict[str, Any]]:
@@ -169,14 +161,14 @@ def read_bib_entry(bibfilename: str, anthology_id: str) -> Optional[Dict[str, An
         sys.exit(1)
 
     return {
-        "title": normalize_title_text(bibentry.fields.get("title"), "title"),
-        "booktitle": normalize_title_text(bibentry.fields.get("booktitle"), "booktitle"),
+        "title": normalize_title_text(bibentry.fields.get("title")),
+        "booktitle": normalize_title_text(bibentry.fields.get("booktitle")),
         "month": normalize_plain_text(bibentry.fields.get("month")),
         "year": bibentry.fields.get("year"),
         "address": normalize_plain_text(bibentry.fields.get("address")),
         "publisher": normalize_plain_text(bibentry.fields.get("publisher")),
         "pages": normalize_plain_text(bibentry.fields.get("pages")),
-        "abstract": normalize_markup_text(bibentry.fields.get("abstract")),
+        "abstract": MarkupText.from_latex_maybe(bibentry.fields.get("abstract")),
         "doi": bibentry.fields.get("doi"),
         "language": bibentry.fields.get("language"),
         "authors": [
@@ -186,37 +178,6 @@ def read_bib_entry(bibfilename: str, anthology_id: str) -> Optional[Dict[str, An
             make_name_spec(person) for person in bibentry.persons.get("editor", [])
         ],
     }
-
-
-def set_disambiguation_ids(
-    name_specs: list[NameSpecification], anthology: Anthology
-) -> None:
-    """Preserve old ingest behavior: pick first match when names are ambiguous."""
-    for name_spec in name_specs:
-        matches = anthology.people.get_by_name(name_spec.name)
-        if len(matches) > 1:
-            name_spec.id = matches[0].id
-
-
-def paper_pdf_reference(
-    anthology_id: str, src_path: str, dest_path: str, dry_run: bool
-) -> PDFReference:
-    if dry_run:
-        return PDFReference(
-            name=anthology_id, checksum=compute_checksum_from_file(src_path)
-        )
-    return PDFReference.from_file(dest_path)
-
-
-def attachment_reference(
-    src_path: str, dest_path: str, dry_run: bool
-) -> AttachmentReference:
-    if dry_run:
-        return AttachmentReference(
-            name=os.path.basename(dest_path),
-            checksum=compute_checksum_from_file(src_path),
-        )
-    return AttachmentReference.from_file(dest_path)
 
 
 def register_volume_with_sig(
@@ -328,8 +289,7 @@ def main(args):
             book_dest_path = os.path.join(
                 pdfs_dest_dir, f"{collection_id}-{volume_name}.pdf"
             )
-            if not args.dry_run:
-                maybe_copy(book_src_path, book_dest_path)
+            maybe_copy(book_src_path, book_dest_path)
 
         volume = dict()
 
@@ -353,8 +313,7 @@ def main(args):
 
             pdf_src_path = os.path.join(pdf_src_dir, pdf_file)
             pdf_dest_path = os.path.join(pdfs_dest_dir, f"{paper_id_full}.pdf")
-            if not args.dry_run:
-                maybe_copy(pdf_src_path, pdf_dest_path)
+            maybe_copy(pdf_src_path, pdf_dest_path)
 
             volume[paper_num] = {
                 "anthology_id": paper_id_full,
@@ -389,8 +348,8 @@ def main(args):
 
                 file_name = f"{collection_id}-{volume_name}.{paper_num}.{type_}.{ext}"
                 dest_path = os.path.join(attachments_dest_dir, file_name)
-                if not args.dry_run and not os.path.exists(dest_path):
-                    log(f"Copying {attachment_file} -> {dest_path}", args.dry_run)
+                if not os.path.exists(dest_path):
+                    log(f"Copying {attachment_file} -> {dest_path}")
                     shutil.copyfile(attachment_file_path, dest_path)
 
                 if paper_num not in volume:
@@ -428,16 +387,13 @@ def main(args):
 
         volume_title = (
             (frontmatter_data or {}).get("title")
-            or normalize_title_text(
-                meta.get("booktitle") or meta.get("title"), "booktitle"
-            )
+            or normalize_title_text(meta.get("booktitle") or meta.get("title"))
             or f"{meta['abbrev']} {meta['year']}"
         )
 
         volume_editors = []
         if frontmatter_data is not None:
             volume_editors = frontmatter_data["editors"] + frontmatter_data["authors"]
-            set_disambiguation_ids(volume_editors, anthology)
 
         venue_ids = [venue_name]
         if args.is_workshop:
@@ -465,13 +421,7 @@ def main(args):
             volume_kwargs["isbn"] = meta["isbn"]
 
         if book_src_path is not None and book_dest_path is not None:
-            if args.dry_run:
-                volume_kwargs["pdf"] = PDFReference(
-                    name=f"{collection_id}-{volume_name}",
-                    checksum=compute_checksum_from_file(book_src_path),
-                )
-            else:
-                volume_kwargs["pdf"] = PDFReference.from_file(book_dest_path)
+            volume_kwargs["pdf"] = PDFReference.from_file(book_dest_path)
 
         volume_obj = collection.create_volume(**volume_kwargs)
 
@@ -488,16 +438,7 @@ def main(args):
                 "authors": frontmatter_data["authors"],
                 "editors": frontmatter_data["editors"],
             }
-            set_disambiguation_ids(frontmatter_kwargs["authors"], anthology)
-            set_disambiguation_ids(frontmatter_kwargs["editors"], anthology)
-            frontmatter_kwargs["pdf"] = (
-                PDFReference(
-                    name=f"{collection_id}-{volume_name}",
-                    checksum=compute_checksum_from_file(book_src_path),
-                )
-                if args.dry_run
-                else PDFReference.from_file(book_dest_path)
-            )
+            frontmatter_kwargs["pdf"] = PDFReference.from_file(book_dest_path)
             volume_obj.create_paper(**frontmatter_kwargs)
 
         for paper_num, paper in sorted(volume.items()):
@@ -513,20 +454,13 @@ def main(args):
 
             authors = parsed["authors"]
             editors = parsed["editors"]
-            set_disambiguation_ids(authors, anthology)
-            set_disambiguation_ids(editors, anthology)
 
             kwargs: Dict[str, Any] = {
                 "id": str(paper_num),
                 "title": title,
                 "authors": authors,
                 "editors": editors,
-                "pdf": paper_pdf_reference(
-                    anthology_id=paper["anthology_id"],
-                    src_path=paper["pdf_src"],
-                    dest_path=paper["pdf_dest"],
-                    dry_run=args.dry_run,
-                ),
+                "pdf": PDFReference.from_file(paper["pdf_dest"]),
             }
 
             for key in ("abstract", "doi", "pages"):
@@ -547,11 +481,7 @@ def main(args):
                 attachments.append(
                     (
                         attachment["type"],
-                        attachment_reference(
-                            src_path=attachment["src"],
-                            dest_path=attachment["dest"],
-                            dry_run=args.dry_run,
-                        ),
+                        AttachmentReference.from_file(attachment["dest"]),
                     )
                 )
             if attachments:
@@ -567,17 +497,14 @@ def main(args):
                 meta.get("booktitle"),
             )
 
-    if args.dry_run:
-        log("Dry run complete: skipping save to Anthology XML files.", fake=True)
-    else:
-        with warnings.catch_warnings():
-            warnings.filterwarnings(
-                "ignore",
-                message=r"SIG metadata is not yet automatically saved\\..*",
-                category=UserWarning,
-            )
-            anthology.save_all()
-        anthology.sigs.save()
+    with warnings.catch_warnings():
+        warnings.filterwarnings(
+            "ignore",
+            message=r"SIG metadata is not yet automatically saved\\..*",
+            category=UserWarning,
+        )
+        anthology.save_all()
+    anthology.sigs.save()
 
 
 if __name__ == "__main__":
@@ -618,9 +545,6 @@ if __name__ == "__main__":
     )
     parser.add_argument(
         "--is-journal", "-j", action="store_true", help="Venue is a journal"
-    )
-    parser.add_argument(
-        "--dry-run", "-n", action="store_true", help="Don't actually copy anything."
     )
     args = parser.parse_args()
 
