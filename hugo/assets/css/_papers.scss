@@ -1,45 +1,39 @@
 /* Custom styles for pages in papers/ */
 
 .acl-paper-details {
-  /* This essentially reimplements the old Bootstrap dl-horizontal class */
+
+  /* Modern CSS Grid implementation of dl-horizontal */
   dl {
-    &:before, &:after {
-      display: table;
-      content: "";
-      line-height: 0;
-    }
-
-    dt {
-      clear: left;
-      text-align: left;
-    }
-    @include media-breakpoint-up(sm) {
-      dt {
-        float: left;
-        width: 10rem;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        text-align: right;
-      }
-    }
-
     dd {
-      margin-left: 1rem;
       margin-bottom: .25rem;
+      margin-left: 1rem; // Restore indentation on mobile
 
       &:empty {
-        @extend .text-muted;
+        color: #6c757d; // Standard text-muted color
       }
+
       &:empty::before {
         content: '–';
       }
     }
 
     @include media-breakpoint-up(sm) {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      column-gap: 20px;
+      align-items: baseline;
+
+      dt {
+        grid-column: 1;
+        text-align: right;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
       dd {
-        margin-left: 11rem;
-        margin-bottom: 0 !important;
+        grid-column: 2;
+        margin-left: 0;
       }
     }
   }
@@ -48,126 +42,190 @@
 dt.acl-button-row {
   padding-top: .4rem;
 }
+
 dd.acl-button-row .btn {
-  @extend .my-1;
+  margin-top: map-get($spacers, 1);
+  margin-bottom: map-get($spacers, 1); // Replaces @extend .my-1
 }
 
 @include media-breakpoint-down(sm) {
-  .acl-abstract {
-    padding: .75rem !important;
-  }
 }
 
-/* Styling related to the paper metadata-editing modal dialog */
 .sortable-ghost {
   opacity: 0.4;
 }
+
 .author-row {
   display: flex;
   gap: 0.5rem;
-  margin-bottom: 0.5rem;
   align-items: center;
-  cursor: grab;
-  background: #f8f9fa;
+  margin-bottom: 0.5rem;
   padding: 0.5rem;
+  background: #f9f9f9;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
+
 .author-row input {
   flex: 1;
 }
+
 .author-row:active {
   cursor: grabbing;
 }
+
 .drag-handle {
   cursor: grab;
 }
+
 .drag-handle:active {
   cursor: grabbing;
 }
 
-/* Bootstrap classes explanation:
-   + By default, show this block first and use flexbox to space out buttons
-   + On large displays, show this block as a third column in the layout
+/* On paper pages, make links block full-width on mobile
      and disable flexbox to make buttons full-width instead
 */
 .acl-paper-link-block {
-  @extend .col-lg-2;
-  @extend .order-1;
-  @extend .order-lg-last;
-  @extend .mb-3;
-  @extend .mb-lg-0;
-  @extend .d-flex;
-  @extend .d-lg-block;
-  @extend .flex-wrap;
-  @extend .justify-content-around;
+  // Replaces @extend .col-lg-2;
+  @include make-col-ready();
 
-  a, button {
-    @extend .flex-fill;
-    @extend .btn-lg;
-    @extend .btn-lg-block;
-    @extend .mx-1;
-    @extend .mx-lg-0;
-    @extend .mb-2;
+
+
+  @include media-breakpoint-down(lg) {
+    // Replaces @extend .order-1
+    order: 1;
+
+    // Replaces @extend .mb-3
+    margin-bottom: map-get($spacers, 3) !important;
+
+    // Replaces @extend .d-flex
+    display: flex !important;
+
+    // Replaces @extend .flex-wrap
+    flex-wrap: wrap !important;
+
+    // Replaces @extend .justify-content-around
+    justify-content: flex-start !important;
+
+    // Fix for massive buttons in BS5 - align to start to avoid stretching
+    align-items: flex-start !important;
+  }
+
+  @include media-breakpoint-up(lg) {
+    @include make-col(2);
+    order: 6; // @extend .order-lg-last (last usually 6 or 12?)
+    margin-bottom: 0 !important; // .mb-lg-0
+    display: block !important; // .d-lg-block
+  }
+
+  a,
+  button {
+    // Replaces @extend .flex-fill
+    // Removed flex: 1 1 auto to prevent vertical stretching
+    flex: 1 1 auto !important;
+
+    // Replaces @extend .btn-lg
+    @include button-size($btn-padding-y-lg, $btn-padding-x-lg, $btn-font-size-lg, $btn-border-radius-lg);
+
+    // Replaces @extend .btn-lg-block (which was custom anyway?)
+    // No, .btn-lg-block was defined below?
+    // Defining properties directly:
+    // .mx-1
+    margin-left: map-get($spacers, 1) !important;
+    margin-right: map-get($spacers, 1) !important;
+
+    @include media-breakpoint-up(lg) {
+      // .mx-lg-0
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+
+      // .btn-lg-block behavior
+      display: block;
+      width: 100%;
+    }
+
+    // .mb-2
+    margin-bottom: map-get($spacers, 2) !important;
   }
 }
 
-/* A responsive variant of Bootstrap's .btn-block */
-@include media-breakpoint-up(lg) {
-  .btn-lg-block {
-    display: block;
-    width: 100%;
-  }
+.pwc-icon {
+  width: 1.2em;
+  height: 1.2em;
+  vertical-align: text-bottom;
+}
+
+.pwc-icon-small {
+  width: 1em;
+  height: 1em;
+  vertical-align: text-bottom;
 }
 
 .list-pl-responsive {
   padding-left: 24px;
 }
+
 @include media-breakpoint-up(md) {
   .list-pl-responsive {
     padding-left: 32px;
   }
 }
+
 @include media-breakpoint-up(xl) {
   .list-pl-responsive {
     padding-left: 40px; // CSS default
   }
 }
 
-/* Abstracts toggling on list pages */
-#toggle-all-abstracts {
+.abstract-collapse {
   &[data-toggle-state="hide"] .on-toggle-state-show {
     display: none;
   }
+
   &[data-toggle-state="show"] .on-toggle-state-hide {
     display: none;
   }
 }
 
+#toggle-all-abstracts {
+  &[data-toggle-state="hide"] .on-toggle-state-show {
+    display: none;
+  }
+
+  &[data-toggle-state="show"] .on-toggle-state-hide {
+    display: none;
+  }
+}
+
+
 .list-button-row {
-  min-width: 6.3rem;
+  min-width: 7.5rem;
 }
 
 /* Papers with Code related styles */
 
-.pwc-icon {
-  height: 18px;
-  width: 18px;
-  fill: #4d8093;
-  position: relative;
-  top: -2px;
-}
-
 .pwc-icon-big {
-  height: 20px;
-  width: 20px;
-  position: relative;
-  top: 4px;
+  width: 1.5em;
+  height: 1.5em;
+  vertical-align: text-bottom;
 }
 
-.pwc-icon-small {
-  height: 16px;
-  width: 16px;
+.pwc-icon-small path,
+.pwc-icon-big path {
+  fill: #446E9B;
+  stroke: #446E9B;
+}
+
+.btn-secondary .pwc-icon-small path,
+.btn-secondary .pwc-icon-big path {
+  fill: white;
+  stroke: white;
+}
+
+.badge-secondary .pwc-icon-small path,
+.badge-secondary .pwc-icon-big path {
+  fill: white;
+  stroke: white;
 }
 
 .badge.badge-secondary.pwc-reduced-padding {
