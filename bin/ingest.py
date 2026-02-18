@@ -38,7 +38,7 @@ import PyPDF2
 from datetime import datetime
 from pathlib import Path
 from slugify import slugify
-from typing import Any, Dict, Optional, List
+from typing import Any, Dict, Iterator, Optional, List
 
 from acl_anthology import Anthology
 from acl_anthology.collections.types import EventLink, PaperType, VolumeType
@@ -290,287 +290,291 @@ def ensure_venue(anthology: Anthology, venue_abbrev: str, venue_title: str) -> s
         )
     if venue_slug not in anthology.venues:
         print(f"Creating venue '{venue_abbrev}' ({venue_title}) slug {venue_slug}")
-        anthology.venues.create(id=venue_slug, acronym=venue_abbrev, name=venue_title)
+        venue = anthology.venues.create(
+            id=venue_slug, acronym=venue_abbrev, name=venue_title
+        )
+        venue.save()
     return venue_slug
 
 
-def ingest_aclpub(
-    anthology: Anthology,
-    proceedings: str,
-    seen_volume_ids: set[str],
-    args: argparse.Namespace,
-) -> None:
-    meta = read_meta(os.path.join(proceedings, "meta"))
-    venue_abbrev = meta["abbrev"]
-    venue_slug = ensure_venue(anthology, venue_abbrev, meta.get("title", venue_abbrev))
+def _find_book_pdf(
+    path: str, year: str, venue_name: str, volume_name: str
+) -> Optional[str]:
+    potential_names = [
+        os.path.join(path, "book.pdf"),
+        os.path.join(path, "cdrom", "book.pdf"),
+        os.path.join(
+            path,
+            "cdrom",
+            f"{year}-{venue_name.lower()}-{volume_name}.pdf",
+            f"{venue_name.lower()}-{year}.{volume_name}.pdf",
+        ),
+        os.path.join(path, "cdrom", f"{venue_name.upper()}-{year}.pdf"),
+    ]
+    for book_rel_path in potential_names:
+        if os.path.exists(book_rel_path):
+            return book_rel_path
+    return None
 
-    meta["path"] = proceedings
-    collection_id = meta["year"] + "." + venue_slug
-    volume_name = meta["volume"].lower()
-    volume_full_id = f"{collection_id}-{volume_name}"
-    if volume_full_id in seen_volume_ids:
-        raise Exception(f"Duplicate volume ID encountered: {volume_full_id}")
-    seen_volume_ids.add(volume_full_id)
 
-    root_path = os.path.join(meta["path"], "cdrom")
-    venue_name = meta["abbrev"].lower()
-    year = meta["year"]
+def _aclpub_attachment_map(
+    root_path: str,
+    year: str,
+    collection_id: str,
+    volume_name: str,
+    attachments_dest_dir: str,
+) -> Dict[int, List[Dict[str, str]]]:
+    attachments: Dict[int, List[Dict[str, str]]] = {}
+    additional_dir = os.path.join(root_path, "additional")
+    if not os.path.exists(additional_dir):
+        return attachments
+    os.makedirs(attachments_dest_dir, exist_ok=True)
+    for attachment_file in os.listdir(additional_dir):
+        if os.path.basename(attachment_file).startswith("."):
+            continue
+        attachment_file_path = os.path.join(additional_dir, attachment_file)
+        match = re.match(rf"{year}\..*-\w+\.(\d+)_?(\w+)\.(\w+)$", attachment_file)
+        if match is None:
+            print(
+                f"* Warning: no attachment match for {attachment_file}", file=sys.stderr
+            )
+            continue
+        paper_num, type_, ext = match.groups()
+        paper_num = int(paper_num)
+        file_name = f"{collection_id}-{volume_name}.{paper_num}.{type_}.{ext}"
+        dest_path = os.path.join(attachments_dest_dir, file_name)
+        attachments.setdefault(paper_num, []).append(
+            {"src": attachment_file_path, "dest": dest_path, "type": type_}
+        )
+    return attachments
 
-    pdfs_dest_dir = os.path.join(args.pdfs_dir, venue_name)
-    os.makedirs(pdfs_dest_dir, exist_ok=True)
 
-    def find_book():
-        potential_names = [
-            os.path.join(meta["path"], "book.pdf"),
-            os.path.join(meta["path"], "cdrom", "book.pdf"),
-            os.path.join(
-                meta["path"],
-                "cdrom",
-                f"{year}-{venue_name.lower()}-{volume_name}.pdf",
-                f"{venue_name.lower()}-{year}.{volume_name}.pdf",
-            ),
-            os.path.join(meta["path"], "cdrom", f"{venue_name.upper()}-{year}.pdf"),
-        ]
-        for book_rel_path in potential_names:
-            if os.path.exists(book_rel_path):
-                return book_rel_path
+def _aclpub_frontmatter_data(
+    root_path: str, collection_id: str, volume_name: str
+) -> Optional[Dict[str, Any]]:
+    bib0 = os.path.join(root_path, "bib", "0.bib")
+    if not os.path.exists(bib0):
         return None
+    return read_bib_entry(bib0, f"{collection_id}-{volume_name}.0")
 
-    book_src_path = find_book()
-    book_dest_path = None
-    if book_src_path is not None:
-        book_dest_path = os.path.join(pdfs_dest_dir, f"{collection_id}-{volume_name}.pdf")
-        maybe_copy(book_src_path, book_dest_path)
 
-    volume = {}
+def read_ingest_metadata(
+    anthology: Anthology, source: str, format_: str, args: argparse.Namespace
+) -> Dict[str, Any]:
+    if format_ == "aclpub":
+        meta = read_meta(os.path.join(source, "meta"))
+        venue_abbrev = meta["abbrev"]
+        venue_slug = ensure_venue(
+            anthology, venue_abbrev, meta.get("title", venue_abbrev)
+        )
+        collection_id = meta["year"] + "." + venue_slug
+        volume_name = meta["volume"].lower()
+        venue_name = venue_abbrev.lower()
+        root_path = os.path.join(source, "cdrom")
+        pdfs_dest_dir = os.path.join(args.pdfs_dir, venue_name)
+        os.makedirs(pdfs_dest_dir, exist_ok=True)
+        attachments_dest_dir = os.path.join(args.attachments_dir, venue_name)
+        book_src = _find_book_pdf(source, str(meta["year"]), venue_name, volume_name)
+        book_dest = (
+            os.path.join(pdfs_dest_dir, f"{collection_id}-{volume_name}.pdf")
+            if book_src is not None
+            else None
+        )
+        frontmatter_data = _aclpub_frontmatter_data(root_path, collection_id, volume_name)
+        volume_title = (
+            (frontmatter_data or {}).get("title")
+            or normalize_latex_title(meta.get("booktitle") or meta.get("title"))
+            or f"{meta['abbrev']} {meta['year']}"
+        )
+        volume_editors = []
+        if frontmatter_data is not None:
+            volume_editors = frontmatter_data["editors"] + frontmatter_data["authors"]
+        return {
+            "format": format_,
+            "source": source,
+            "raw_meta": meta,
+            "collection_id": collection_id,
+            "volume_name": volume_name,
+            "volume_full_id": f"{collection_id}-{volume_name}",
+            "venue_name": venue_name,
+            "venue_abbrev": venue_abbrev,
+            "volume_type": (
+                VolumeType.JOURNAL if args.is_journal else VolumeType.PROCEEDINGS
+            ),
+            "year": str(meta["year"]),
+            "month": (frontmatter_data or {}).get("month") or meta.get("month"),
+            "publisher": (frontmatter_data or {}).get("publisher")
+            or meta.get("publisher"),
+            "address": (frontmatter_data or {}).get("address") or meta.get("location"),
+            "title": volume_title,
+            "editors": volume_editors,
+            "venue_ids": [venue_name] + (["ws"] if args.is_workshop else []),
+            "isbn": meta.get("isbn"),
+            "journal_volume": volume_name if args.is_journal else None,
+            "root_path": root_path,
+            "pdfs_dest_dir": pdfs_dest_dir,
+            "attachments_dest_dir": attachments_dest_dir,
+            "proceedings_pdf_src": book_src,
+            "proceedings_pdf_dest": book_dest,
+            "sig": meta.get("sig"),
+            "booktitle": meta.get("booktitle"),
+        }
+
+    if format_ == "aclpub2":
+        meta = parse_conf_yaml(source)
+        venue_abbrev = meta["anthology_venue_id"]
+        venue_slug = ensure_venue(anthology, venue_abbrev, meta["event_name"])
+        collection_id = meta["year"] + "." + venue_slug
+        volume_name = meta["volume_name"].lower()
+        venue_name = venue_abbrev.lower()
+        pdfs_dest_dir = create_dest_path(args.pdfs_dir, venue_name)
+        attachments_dest_dir = create_dest_path(args.attachments_dir, venue_name)
+        source_path = Path(source)
+        proceedings_pdf_src = None
+        for path in [
+            source_path / "proceedings.pdf",
+            source_path / "build" / "proceedings.pdf",
+        ]:
+            if path.exists():
+                proceedings_pdf_src = str(path)
+                break
+        proceedings_pdf_dest = (
+            os.path.join(pdfs_dest_dir, f"{collection_id}-{volume_name}.pdf")
+            if proceedings_pdf_src is not None
+            else None
+        )
+        return {
+            "format": format_,
+            "source": source,
+            "raw_meta": meta,
+            "collection_id": collection_id,
+            "volume_name": volume_name,
+            "volume_full_id": f"{collection_id}-{volume_name}",
+            "venue_name": venue_name,
+            "venue_abbrev": venue_abbrev,
+            "volume_type": VolumeType.PROCEEDINGS,
+            "year": str(meta["year"]),
+            "month": meta.get("month"),
+            "publisher": meta.get("publisher"),
+            "address": meta.get("location"),
+            "title": normalize_latex_title(meta["book_title"]) or meta["book_title"],
+            "editors": [namespec_from_author(author) for author in meta["editors"]],
+            "venue_ids": [venue_name] + (["ws"] if args.is_workshop else []),
+            "isbn": str(meta["isbn"]) if meta.get("isbn") else None,
+            "journal_volume": None,
+            "root_path": str(source_path),
+            "pdfs_dest_dir": pdfs_dest_dir,
+            "attachments_dest_dir": attachments_dest_dir,
+            "proceedings_pdf_src": proceedings_pdf_src,
+            "proceedings_pdf_dest": proceedings_pdf_dest,
+            "sig": None,
+            "booktitle": meta.get("book_title"),
+        }
+
+    raise Exception(f"Unknown format: {format_}")
+
+
+def iter_aclpub_papers(metadata: Dict[str, Any]) -> Iterator[Dict[str, Any]]:
+    collection_id = metadata["collection_id"]
+    volume_name = metadata["volume_name"]
+    root_path = metadata["root_path"]
+    pdfs_dest_dir = metadata["pdfs_dest_dir"]
+    attachments_map = _aclpub_attachment_map(
+        root_path,
+        metadata["year"],
+        collection_id,
+        volume_name,
+        metadata["attachments_dest_dir"],
+    )
     pdf_src_dir = os.path.join(root_path, "pdf")
+    paper_entries: List[tuple[int, str]] = []
     for pdf_file in os.listdir(pdf_src_dir):
         if os.path.basename(pdf_file).startswith("."):
             continue
         match = re.match(r".*?(\d+)\.pdf", pdf_file)
         if match is None:
             continue
-        paper_num = int(match[1])
-        paper_id_full = f"{collection_id}-{volume_name}.{paper_num}"
-        bib_path = os.path.join(
-            root_path, "bib", pdf_file.replace("/pdf", "/bib/").replace(".pdf", ".bib")
-        )
-        pdf_src_path = os.path.join(pdf_src_dir, pdf_file)
-        pdf_dest_path = os.path.join(pdfs_dest_dir, f"{paper_id_full}.pdf")
-        maybe_copy(pdf_src_path, pdf_dest_path)
-        volume[paper_num] = {
-            "anthology_id": paper_id_full,
-            "bib": bib_path,
-            "pdf_src": pdf_src_path,
-            "pdf_dest": pdf_dest_path,
-            "attachments": [],
-        }
+        paper_entries.append((int(match[1]), pdf_file))
 
-    additional_dir = os.path.join(root_path, "additional")
-    if os.path.exists(additional_dir):
-        attachments_dest_dir = os.path.join(args.attachments_dir, venue_name)
-        os.makedirs(attachments_dest_dir, exist_ok=True)
-        for attachment_file in os.listdir(additional_dir):
-            if os.path.basename(attachment_file).startswith("."):
-                continue
-            attachment_file_path = os.path.join(additional_dir, attachment_file)
-            match = re.match(rf"{year}\..*-\w+\.(\d+)_?(\w+)\.(\w+)$", attachment_file)
-            if match is None:
-                print(
-                    f"* Warning: no attachment match for {attachment_file}",
-                    file=sys.stderr,
-                )
-                continue
-            paper_num, type_, ext = match.groups()
-            paper_num = int(paper_num)
-            file_name = f"{collection_id}-{volume_name}.{paper_num}.{type_}.{ext}"
-            dest_path = os.path.join(attachments_dest_dir, file_name)
-            if not os.path.exists(dest_path):
-                log(f"Copying {attachment_file} -> {dest_path}")
-                shutil.copyfile(attachment_file_path, dest_path)
-            if paper_num not in volume:
-                print(f"Fatal: no key {paper_num} in volume", file=sys.stderr)
-                sys.exit(1)
-            volume[paper_num]["attachments"].append(
-                {"src": attachment_file_path, "dest": dest_path, "type": type_}
-            )
-
-    collection = anthology.get_collection(collection_id)
-    if collection is None:
-        collection = anthology.collections.create(collection_id)
-    if collection.get(volume_name) is not None:
-        del collection[volume_name]
-        collection.is_modified = True
-
-    volume_type = VolumeType.JOURNAL if args.is_journal else VolumeType.PROCEEDINGS
-    frontmatter_data = None
-    parsed_papers = {}
-    for paper_num, paper in sorted(volume.items()):
-        parsed = read_bib_entry(paper["bib"], paper["anthology_id"])
+    for paper_num, pdf_file in sorted(paper_entries):
+        anthology_id = f"{collection_id}-{volume_name}.{paper_num}"
+        bib_path = os.path.join(root_path, "bib", pdf_file.replace(".pdf", ".bib"))
+        parsed = read_bib_entry(bib_path, anthology_id)
         if parsed is None:
             continue
         if paper_num == 0:
-            frontmatter_data = parsed
-        else:
-            parsed_papers[paper_num] = parsed
-
-    volume_title = (
-        (frontmatter_data or {}).get("title")
-        or normalize_latex_title(meta.get("booktitle") or meta.get("title"))
-        or f"{meta['abbrev']} {meta['year']}"
-    )
-    volume_editors = []
-    if frontmatter_data is not None:
-        volume_editors = frontmatter_data["editors"] + frontmatter_data["authors"]
-
-    venue_ids = [venue_name]
-    if args.is_workshop:
-        venue_ids.append("ws")
-    volume_kwargs = {
-        "id": volume_name,
-        "title": volume_title,
-        "year": str(year),
-        "type": volume_type,
-        "ingest_date": args.ingest_date,
-        "editors": volume_editors,
-        "venue_ids": venue_ids,
-        "publisher": (frontmatter_data or {}).get("publisher") or meta.get("publisher"),
-        "address": (frontmatter_data or {}).get("address") or meta.get("location"),
-        "month": (frontmatter_data or {}).get("month") or meta.get("month"),
-    }
-    if args.is_journal:
-        volume_kwargs["journal_volume"] = volume_name
-    if "isbn" in meta:
-        volume_kwargs["isbn"] = meta["isbn"]
-    if book_src_path is not None and book_dest_path is not None:
-        volume_kwargs["pdf"] = PDFReference.from_file(book_dest_path)
-
-    volume_obj = collection.create_volume(**volume_kwargs)
-    if (
-        frontmatter_data is not None
-        and book_src_path is not None
-        and book_dest_path is not None
-    ):
-        frontmatter_kwargs = {
-            "id": "0",
-            "type": PaperType.FRONTMATTER,
-            "title": frontmatter_data.get("title") or volume_title,
-            "authors": frontmatter_data["authors"],
-            "editors": frontmatter_data["editors"],
-            "pdf": PDFReference.from_file(book_dest_path),
-        }
-        volume_obj.create_paper(**frontmatter_kwargs)
-
-    for paper_num, paper in sorted(volume.items()):
-        if paper_num == 0:
+            yield {
+                "id": "0",
+                "type": PaperType.FRONTMATTER,
+                "title": parsed.get("title") or metadata["title"],
+                "authors": parsed["authors"],
+                "editors": parsed["editors"],
+                "pdf_src": metadata["proceedings_pdf_src"],
+                "pdf_dest": metadata["proceedings_pdf_dest"],
+                "anthology_id": anthology_id,
+                "archival": True,
+                "attachments": [],
+            }
             continue
-        parsed = parsed_papers[paper_num]
-        title = parsed.get("title")
-        if title is None:
-            print(f"Fatal: missing title in {paper['bib']}", file=sys.stderr)
-            sys.exit(1)
-        kwargs: Dict[str, Any] = {
+        pdf_src_path = os.path.join(pdf_src_dir, pdf_file)
+        pdf_dest_path = os.path.join(pdfs_dest_dir, f"{anthology_id}.pdf")
+        yield {
             "id": str(paper_num),
-            "title": title,
+            "type": PaperType.PAPER,
+            "title": parsed["title"],
             "authors": parsed["authors"],
             "editors": parsed["editors"],
-            "pdf": PDFReference.from_file(paper["pdf_dest"]),
-        }
-        for key in ("abstract", "doi", "pages"):
-            value = parsed.get(key)
-            if value:
-                kwargs[key] = value
-        language = parsed.get("language")
-        if language:
-            try:
-                lang = iso639.languages.get(name=language)
-            except KeyError:
-                raise Exception(f"Can't find language '{language}'")
-            kwargs["language"] = lang.part3
-        attachments = [
-            (attachment["type"], AttachmentReference.from_file(attachment["dest"]))
-            for attachment in paper["attachments"]
-        ]
-        if attachments:
-            kwargs["attachments"] = attachments
-        volume_obj.create_paper(**kwargs)
-
-    if "sig" in meta:
-        register_volume_with_sig(
-            anthology, meta["sig"], volume_full_id, meta.get("booktitle")
-        )
-    add_parent_event(anthology, args.parent_event, volume_full_id)
-
-
-def ingest_aclpub2(
-    anthology: Anthology,
-    ingestion_dir: str,
-    seen_volume_ids: set[str],
-    args: argparse.Namespace,
-) -> None:
-    meta = parse_conf_yaml(ingestion_dir)
-    venue_abbrev = meta["anthology_venue_id"]
-    venue_slug = ensure_venue(anthology, venue_abbrev, meta["event_name"])
-    meta["path"] = Path(ingestion_dir)
-    collection_id = meta["year"] + "." + venue_slug
-    volume_name = meta["volume_name"].lower()
-    volume_full_id = f"{collection_id}-{volume_name}"
-    if volume_full_id in seen_volume_ids:
-        raise Exception(f"Duplicate volume ID encountered: {volume_full_id}")
-    seen_volume_ids.add(volume_full_id)
-
-    papers = add_page_numbers(parse_paper_yaml(ingestion_dir), ingestion_dir)
-    venue_name = meta["anthology_venue_id"].lower()
-    pdfs_dest_dir = Path(create_dest_path(args.pdfs_dir, venue_name))
-
-    proceedings_pdf_src_path = None
-    for path in [
-        meta["path"] / "proceedings.pdf",
-        meta["path"] / "build" / "proceedings.pdf",
-    ]:
-        if path.exists():
-            proceedings_pdf_src_path = str(path)
-            break
-    proceedings_pdf_dest_path = None
-    if proceedings_pdf_src_path is not None:
-        proceedings_pdf_dest_path = str(
-            pdfs_dest_dir / f"{collection_id}-{volume_name}.pdf"
-        )
-        maybe_copy(proceedings_pdf_src_path, proceedings_pdf_dest_path)
-
-    volume_data: Dict[int, Dict[str, Any]] = {
-        0: {
-            "anthology_id": f"{collection_id}-{volume_name}.0",
-            "attachments": [],
+            "abstract": parsed.get("abstract"),
+            "doi": parsed.get("doi"),
+            "pages": parsed.get("pages"),
+            "language": parsed.get("language"),
+            "pdf_src": pdf_src_path,
+            "pdf_dest": pdf_dest_path,
+            "anthology_id": anthology_id,
             "archival": True,
+            "attachments": attachments_map.get(paper_num, []),
         }
-    }
-    frontmatter_src_path = None
+
+
+def iter_aclpub2_papers(metadata: Dict[str, Any]) -> Iterator[Dict[str, Any]]:
+    collection_id = metadata["collection_id"]
+    volume_name = metadata["volume_name"]
+    source_path = Path(metadata["source"])
+    papers = add_page_numbers(parse_paper_yaml(metadata["source"]), metadata["source"])
+    pdfs_src_dir = source_path / "watermarked_pdfs"
+
+    frontmatter_src = None
     for path in [
-        meta["path"] / "front_matter.pdf",
-        meta["path"] / "watermarked_pdfs" / "front_matter.pdf",
-        meta["path"] / "watermarked_pdfs" / "0.pdf",
+        source_path / "front_matter.pdf",
+        source_path / "watermarked_pdfs" / "front_matter.pdf",
+        source_path / "watermarked_pdfs" / "0.pdf",
     ]:
         if path.exists():
-            frontmatter_src_path = str(path)
+            frontmatter_src = str(path)
             break
-    if frontmatter_src_path is not None:
-        frontmatter_dest_path = str(
-            pdfs_dest_dir / f"{collection_id}-{volume_name}.0.pdf"
-        )
-        maybe_copy(frontmatter_src_path, frontmatter_dest_path)
-        volume_data[0]["pdf_src"] = frontmatter_src_path
-        volume_data[0]["pdf_dest"] = frontmatter_dest_path
+    frontmatter_dest = (
+        os.path.join(metadata["pdfs_dest_dir"], f"{collection_id}-{volume_name}.0.pdf")
+        if frontmatter_src is not None
+        else None
+    )
+    yield {
+        "id": "0",
+        "type": PaperType.FRONTMATTER,
+        "title": metadata["title"],
+        "authors": [],
+        "editors": metadata["editors"],
+        "pdf_src": frontmatter_src,
+        "pdf_dest": frontmatter_dest,
+        "anthology_id": f"{collection_id}-{volume_name}.0",
+        "archival": True,
+        "attachments": [],
+    }
 
-    pdfs_src_dir = meta["path"] / "watermarked_pdfs"
+    attachments_src_dir = source_path / "attachments"
     for paper_num, paper in enumerate(papers, start=1):
-        paper_id_full = f"{collection_id}-{volume_name}.{paper_num}"
-        volume_data[paper_num] = {
-            "anthology_id": paper_id_full,
-            "attachments": [],
-            "archival": paper.get("archival", ARCHIVAL_DEFAULT),
-        }
-        if not volume_data[paper_num]["archival"]:
+        archival = paper.get("archival", ARCHIVAL_DEFAULT)
+        anthology_id = f"{collection_id}-{volume_name}.{paper_num}"
+        if not archival:
             continue
         paper_name = paper["file"]
         paper_id = str(paper["id"])
@@ -579,120 +583,163 @@ def ingest_aclpub2(
             if (pdfs_src_dir / paper_name).exists()
             else str(pdfs_src_dir / f"{paper_id}.pdf")
         )
-        pdf_dest_path = str(pdfs_dest_dir / f"{paper_id_full}.pdf")
-        maybe_copy(pdf_src_path, pdf_dest_path)
-        volume_data[paper_num]["pdf_src"] = pdf_src_path
-        volume_data[paper_num]["pdf_dest"] = pdf_dest_path
-        if "attachments" in paper:
-            attachs_dest_dir = create_dest_path(args.attachments_dir, venue_name)
-            attachs_src_dir = meta["path"] / "attachments"
-            for attachment in paper["attachments"]:
-                file_path_value = attachment.get("file")
-                if file_path_value is None:
-                    continue
-                file_path = Path(file_path_value)
-                attach_src_path = None
-                for p in [attachs_src_dir / file_path, attachs_src_dir / file_path.name]:
-                    if p.exists():
-                        attach_src_path = str(p)
-                        break
-                if attach_src_path is None:
-                    continue
-                attach_src_extension = attach_src_path.split(".")[-1]
-                type_ = str(attachment["type"]).replace(" ", "")
-                file_name = f"{collection_id}-{volume_name}.{paper_num}.{type_}.{attach_src_extension}"
-                attach_dest_path = os.path.join(attachs_dest_dir, file_name).replace(
-                    " ", ""
-                )
-                maybe_copy(attach_src_path, attach_dest_path)
-                volume_data[paper_num]["attachments"].append(
-                    {"src": attach_src_path, "dest": attach_dest_path, "type": type_}
-                )
-
-    collection = anthology.get_collection(collection_id)
-    if collection is None:
-        collection = anthology.collections.create(collection_id)
-    if collection.get(volume_name) is not None:
-        del collection[volume_name]
-        collection.is_modified = True
-
-    editors = [namespec_from_author(author) for author in meta["editors"]]
-    venue_ids = [venue_name]
-    if args.is_workshop:
-        venue_ids.append("ws")
-    volume_kwargs: Dict[str, Any] = {
-        "id": volume_name,
-        "title": normalize_latex_title(meta["book_title"]) or meta["book_title"],
-        "year": str(meta["year"]),
-        "type": VolumeType.PROCEEDINGS,
-        "ingest_date": args.ingest_date,
-        "editors": editors,
-        "venue_ids": venue_ids,
-        "publisher": meta.get("publisher"),
-        "address": meta.get("location"),
-        "month": meta.get("month"),
-    }
-    if "isbn" in meta and meta["isbn"]:
-        volume_kwargs["isbn"] = str(meta["isbn"])
-    if proceedings_pdf_src_path is not None and proceedings_pdf_dest_path is not None:
-        volume_kwargs["pdf"] = pdf_reference_from_paths(
-            anthology_id=f"{collection_id}-{volume_name}",
-            src_path=proceedings_pdf_src_path,
-            dest_path=proceedings_pdf_dest_path,
-        )
-    volume_obj = collection.create_volume(**volume_kwargs)
-
-    frontmatter_kwargs: Dict[str, Any] = {
-        "id": "0",
-        "type": PaperType.FRONTMATTER,
-        "title": normalize_latex_title(meta["book_title"]) or meta["book_title"],
-        "editors": editors,
-    }
-    if "pdf_src" in volume_data[0] and "pdf_dest" in volume_data[0]:
-        frontmatter_kwargs["pdf"] = pdf_reference_from_paths(
-            anthology_id=f"{collection_id}-{volume_name}.0",
-            src_path=volume_data[0]["pdf_src"],
-            dest_path=volume_data[0]["pdf_dest"],
-        )
-    volume_obj.create_paper(**frontmatter_kwargs)
-
-    for paper_num, volume_entry in sorted(volume_data.items()):
-        if paper_num == 0 or not volume_entry["archival"]:
-            continue
-        paper = papers[paper_num - 1]
-        title = normalize_latex_title(paper.get("title"))
+        pdf_dest_path = os.path.join(metadata["pdfs_dest_dir"], f"{anthology_id}.pdf")
+        attachments = []
+        for attachment in paper.get("attachments", []):
+            file_path_value = attachment.get("file")
+            if file_path_value is None:
+                continue
+            file_path = Path(file_path_value)
+            attach_src_path = None
+            for p in [
+                attachments_src_dir / file_path,
+                attachments_src_dir / file_path.name,
+            ]:
+                if p.exists():
+                    attach_src_path = str(p)
+                    break
+            if attach_src_path is None:
+                continue
+            attach_src_extension = attach_src_path.split(".")[-1]
+            type_ = str(attachment["type"]).replace(" ", "")
+            file_name = f"{collection_id}-{volume_name}.{paper_num}.{type_}.{attach_src_extension}"
+            attach_dest_path = os.path.join(
+                metadata["attachments_dest_dir"], file_name
+            ).replace(" ", "")
+            attachments.append(
+                {"src": attach_src_path, "dest": attach_dest_path, "type": type_}
+            )
         abstract = paper.get("abstract")
         if abstract is not None:
             abstract = normalize_abstract(abstract.replace("\n", ""))
-        authors = [namespec_from_author(author) for author in paper.get("authors", [])]
-        kwargs: Dict[str, Any] = {
+        yield {
             "id": str(paper_num),
-            "title": title,
-            "authors": authors,
+            "type": PaperType.PAPER,
+            "title": normalize_latex_title(paper.get("title")),
+            "authors": [
+                namespec_from_author(author) for author in paper.get("authors", [])
+            ],
+            "editors": [],
+            "abstract": abstract,
+            "doi": paper.get("doi"),
             "pages": paper.get("pages"),
-            "pdf": pdf_reference_from_paths(
-                anthology_id=volume_entry["anthology_id"],
-                src_path=volume_entry["pdf_src"],
-                dest_path=volume_entry["pdf_dest"],
-            ),
+            "language": paper.get("language"),
+            "pdf_src": pdf_src_path,
+            "pdf_dest": pdf_dest_path,
+            "anthology_id": anthology_id,
+            "archival": True,
+            "attachments": attachments,
         }
-        if abstract:
-            kwargs["abstract"] = abstract
-        attachment_refs = [
-            (
-                attachment["type"],
-                attachment_reference_from_paths(
-                    src_path=attachment["src"],
-                    dest_path=attachment["dest"],
-                ),
+
+
+def iter_papers(metadata: Dict[str, Any]) -> Iterator[Dict[str, Any]]:
+    if metadata["format"] == "aclpub":
+        yield from iter_aclpub_papers(metadata)
+        return
+    if metadata["format"] == "aclpub2":
+        yield from iter_aclpub2_papers(metadata)
+        return
+    raise Exception(f"Unknown metadata format: {metadata['format']}")
+
+
+def ingest(
+    anthology: Anthology,
+    metadata: Dict[str, Any],
+    paper_stream: Iterator[Dict[str, Any]],
+    seen_volume_ids: set[str],
+    args: argparse.Namespace,
+) -> None:
+    volume_full_id = metadata["volume_full_id"]
+    if volume_full_id in seen_volume_ids:
+        raise Exception(f"Duplicate volume ID encountered: {volume_full_id}")
+    seen_volume_ids.add(volume_full_id)
+
+    collection = anthology.get_collection(metadata["collection_id"])
+    if collection is None:
+        collection = anthology.collections.create(metadata["collection_id"])
+    if collection.get(metadata["volume_name"]) is not None:
+        del collection[metadata["volume_name"]]
+        collection.is_modified = True
+
+    volume_kwargs: Dict[str, Any] = {
+        "id": metadata["volume_name"],
+        "title": metadata["title"],
+        "year": metadata["year"],
+        "type": metadata["volume_type"],
+        "ingest_date": args.ingest_date,
+        "editors": metadata["editors"],
+        "venue_ids": metadata["venue_ids"],
+        "publisher": metadata["publisher"],
+        "address": metadata["address"],
+        "month": metadata["month"],
+    }
+    if metadata.get("journal_volume") is not None:
+        volume_kwargs["journal_volume"] = metadata["journal_volume"]
+    if metadata.get("isbn"):
+        volume_kwargs["isbn"] = metadata["isbn"]
+    if metadata.get("proceedings_pdf_src") and metadata.get("proceedings_pdf_dest"):
+        maybe_copy(metadata["proceedings_pdf_src"], metadata["proceedings_pdf_dest"])
+        volume_kwargs["pdf"] = pdf_reference_from_paths(
+            anthology_id=metadata["volume_full_id"],
+            src_path=metadata["proceedings_pdf_src"],
+            dest_path=metadata["proceedings_pdf_dest"],
+        )
+
+    volume_obj = collection.create_volume(**volume_kwargs)
+
+    for paper in paper_stream:
+        if not paper.get("archival", True):
+            continue
+        kwargs: Dict[str, Any] = {
+            "id": paper["id"],
+            "type": paper["type"],
+            "title": paper["title"],
+            "authors": paper.get("authors", []),
+            "editors": paper.get("editors", []),
+        }
+        if paper.get("pdf_src") and paper.get("pdf_dest"):
+            maybe_copy(paper["pdf_src"], paper["pdf_dest"])
+            kwargs["pdf"] = pdf_reference_from_paths(
+                anthology_id=paper["anthology_id"],
+                src_path=paper["pdf_src"],
+                dest_path=paper["pdf_dest"],
             )
-            for attachment in volume_entry["attachments"]
-            if "copyright" not in attachment["type"]
-        ]
+        for key in ("abstract", "doi", "pages"):
+            value = paper.get(key)
+            if value:
+                kwargs[key] = value
+        language = paper.get("language")
+        if language:
+            try:
+                lang = iso639.languages.get(name=language)
+                kwargs["language"] = lang.part3
+            except KeyError:
+                raise Exception(f"Can't find language '{language}'")
+        attachment_refs = []
+        for attachment in paper.get("attachments", []):
+            if "copyright" in attachment["type"]:
+                continue
+            maybe_copy(attachment["src"], attachment["dest"])
+            attachment_refs.append(
+                (
+                    attachment["type"],
+                    attachment_reference_from_paths(
+                        src_path=attachment["src"],
+                        dest_path=attachment["dest"],
+                    ),
+                )
+            )
         if attachment_refs:
             kwargs["attachments"] = attachment_refs
         volume_obj.create_paper(**kwargs)
 
+    if metadata.get("sig"):
+        register_volume_with_sig(
+            anthology,
+            metadata["sig"],
+            volume_full_id,
+            metadata.get("booktitle"),
+        )
     add_parent_event(anthology, args.parent_event, volume_full_id)
 
 
@@ -843,10 +890,14 @@ def main(args):
     for source in args.proceedings:
         format_ = detect_ingestion_format(source)
         log(f"Detected {format_} format for {source}")
-        if format_ == "aclpub":
-            ingest_aclpub(anthology, source, seen_volume_ids, args)
-        elif format_ == "aclpub2":
-            ingest_aclpub2(anthology, source, seen_volume_ids, args)
+        metadata = read_ingest_metadata(anthology, source, format_, args)
+        ingest(
+            anthology=anthology,
+            metadata=metadata,
+            paper_stream=iter_papers(metadata),
+            seen_volume_ids=seen_volume_ids,
+            args=args,
+        )
 
     with warnings.catch_warnings():
         warnings.filterwarnings(
@@ -864,7 +915,9 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "proceedings", nargs="+", help="List of paths to ACLPUB proceedings/ directories."
+        "proceedings",
+        nargs="+",
+        help="List of paths to proceedings directories (ACLPUB or aclpub2).",
     )
     parser.add_argument(
         "--ingest-date",
