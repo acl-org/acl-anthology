@@ -117,7 +117,7 @@ You will need this software on the server
  - rsync
  - git
  - python3 >= 3.10
- - hugo > 0.154.0
+ - hugo >= 0.154.0
  - python3-venv
 
 Note that generating the anthology takes quite a bit of RAM, so make

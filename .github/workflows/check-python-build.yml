@@ -36,7 +36,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
           working-directory: python
       - name: Install dependencies
-        run: uv sync --frozen --verbose
+        run: uv sync --locked --verbose
       - name: Cache pre-commit hooks based on pre-commit config
         uses: actions/cache@v3
         with:
@@ -45,26 +45,26 @@ jobs:
       - name: Print information about CI environment (for debugging)
         run: |
           locale
-          uv run --frozen python -c "import locale; print(locale.getpreferredencoding())"
+          uv run python -c "import locale; print(locale.getpreferredencoding())"
 
       # Run all checks and tests
       - name: Run pre-commit hooks
-        run: uv run --frozen pre-commit run --all-files
+        run: uv run pre-commit run --all-files
         env:
           SKIP: no-commit-to-branch,validate-xml
       - name: Run type checker
-        run: uv run --frozen mypy acl_anthology
+        run: uv run mypy acl_anthology
       # Running 'import TexSoup' is a terrible hack that seems to fix import
       # errors from pytest, probably through byte-compiling the package
       - name: Run tests
         run: |
-          uv run --frozen python -c "import TexSoup"
-          uv run --frozen pytest -m "not integration" --cov=acl_anthology --cov-report=xml --trace-config
+          uv run python -c "import TexSoup"
+          uv run pytest -m "not integration" --cov=acl_anthology --cov-report=xml --trace-config
 
       # Run integration tests, but only run on latest Python version to save time
       - name: Run integration tests
         if: ${{ matrix.python-version == '3.14' }}
-        run: uv run --frozen pytest -m "integration" --cov=acl_anthology --cov-report=xml --cov-append
+        run: uv run pytest -m "integration" --cov=acl_anthology --cov-report=xml --cov-append
 
       # Coverage report
       - name: Upload coverage reports to Codecov
