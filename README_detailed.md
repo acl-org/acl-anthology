@@ -8,85 +8,114 @@ seen on <https://aclanthology.org/> and contributing to it.
 
 The Anthology website is generated using the [Hugo](https://gohugo.io) static
 site generator.  However, before we can actually invoke Hugo, we need to prepare
-the contents of the website.  The following steps describe what happens
-behind the scenes.  All the steps have a corresponding `make` target as well.
-If you are on a system that uses `apt` for installing packages, you can therefore
-just run the following commands:
+the contents of the website.  The following steps describe what happens behind
+the scenes.  All the steps have a corresponding `make` target as well.  To build
+the entire website, you can simply run:
 
 ```bash
-sudo apt install jing bibutils hugo
-make all
+make site
 ```
 
 If this doesn't work, you can instead use the following instructions to go through
 the process step by step and observe the expected outputs.
 
-### Step 0: Install required Python packages
+> [!WARNING]
+> As of February 2026, building the website will generate ca. 18 GB of extra
+> data in 522,000 separate files on your hard drive.  This amount will grow as
+> more proceedings are added to the Anthology.
 
-To build the Anthology, the packages listed in
-  [bin/requirements.txt](bin/requirements.txt) are needed (they are installed and updated by make automatically).
-  + *Note:* You can install all needed dependencies using the command `pip install -r bin/requirements.txt`
+### Step 0: Install prerequisites
 
-You also need to install "jing", an XML schema checker. if you are using Homebrew on OS X, you can install
-this with `brew install jing-trang`.
+#### Required dependencies
+
++ [**uv**](https://docs.astral.sh/uv/getting-started/installation/) manages the
+  Python library and other Python dependencies.
++ [**Hugo 0.154.0 (extended version)**](https://gohugo.io/installation/) is the
+  static site generator that builds the website.
++ [**Dart Sass**](https://sass-lang.com/install/), a CSS extension that is
+  needed by Hugo.
+
+#### Optional dependencies
+
++ [**bibutils**](https://sourceforge.net/p/bibutils/home/Bibutils/) creates
+  non-BibTeX citation formats (not strictly required to build the website, but
+  these citation formats will be missing otherwise).
++ [**jing**](https://github.com/relaxng/jing-trang) is a RELAX NG validator that
+  checks that XML files conform to the schema; required for running checks.
++ [**just**](https://just.systems/man/en/) is a command runner that can be used
+  to invoke some "recipes" defined in the repo, which provides some convenience.
+
+#### Installation
+
+All of these dependencies can be installed via Homebrew:
+
+```bash
+brew install bibutils hugo jing-trang just sass/sass/sass uv
+```
+
+If you're not on a system that uses Homebrew, refer to the linked websites above
+for installation instructions.
 
 ### Step 1: Prepare the data for site generation
 
-The data sources for the Anthology currently reside in the [`data/`](data/)
-directory.  XML files contain the authoritative paper metadata, and additional
-YAML files document information about venues and special interest groups (SIGs).
+The data sources for the Anthology reside in the [`data/`](data/) directory.
+XML files contain the authoritative paper metadata, and additional YAML files
+document information about authors, venues, and special interest groups (SIGs).
 Before the Anthology website can be generated, all this information needs to be
 converted and preprocessed for the static site generator.  Some derived
 information, such as BibTeX entries for each paper, is also added in this step.
 
-This is achieved by calling:
+This step can be run separately by calling `make hugo_data`, which runs the
+[`bin/create_hugo_data.py`](bin/create_hugo_data.py) script, and should not take
+longer than a few minutes.  Manually, it can be run via:
 
 ```bash
-$ python3 bin/create_hugo_data.py
+uv run python bin/create_hugo_data.py --clean
 ```
-
-This process should not take longer than a few minutes.
 
 ### Step 2: Create extra bibliography export files for papers
 
-_(NB: This step is skipped on preview branches.)_
+> [!TIP]
+> This step is skipped on preview branches, and can also be skipped in local
+> builds by setting `NOBIB=true`, e.g. `make NOBIB=true all`.
 
 In this step, we create the full consolidated BibTeX files (`anthology.bib`
-etc.) as well as the MODS and Endnote formats.  This is achieved by calling:
+etc.) as well as the MODS and Endnote formats.  For other export formats, we
+rely on the [`bibutils`](https://sourceforge.net/p/bibutils/home/Bibutils/)
+suite by first converting the generated `.bib` files to MODS XML, then
+converting the MODS XML to Endnote.  We use some performance optimizations (such
+as process pools) to speed this up.
+
+This step can be run separately by calling `make bib`, which runs the
+[`bin/create_extra_bib.py`](bin/create_extra_bib.py) script.  Manually, it can
+be run via:
 
 ```bash
-$ python3 bin/create_extra_bib.py
+uv run python bin/create_extra_bib.py --clean
 ```
 
 The exported files will be written to the `build/data-export/` subdirectory.
 
-For other export formats, we rely on the
-[`bibutils`](https://sourceforge.net/p/bibutils/home/Bibutils/) suite by first
-converting the generated `.bib` files to MODS XML, then converting the MODS XML
-to Endnote.  This happens within the `bin/create_extra_bib.py` script and uses
-some performance optimizations (such as process pools) to speed this up.
-
 ### Step 3: Run Hugo
 
 The files that were generated so far are in the `build/` subdirectory, in which
-Hugo will be invoked. Before doing this, however, you need to also copy the
+Hugo will be invoked. Before doing this, however, we need to also copy the
 content of the `hugo/` subdirectory into `build/` so that all the configuration
-files and the page structure is accessible to the engine.
-
-After doing so, the website can be built by simply invoking Hugo from the `build/`
-subdirectory.  Optionally, the `--minify` flag can be used to create minified
-HTML output:
+files and the page structure is accessible to the engine.  Afterwards, the
+website can be built by invoking `hugo` from the `build/` subdirectory:
 
 ```bash
-$ hugo --minify
+cp -r hugo/* build
+cd build/ && hugo --cleanDestinationDir --minify
 ```
 
 Generating the website is quite a resource-hungry process, but should not take
-longer than a few minutes.  Due to the high memory usage (approx. 18 GB
-according to the output of `hugo --stepAnalysis`), it is possible that it will
-cause swapping and consequently slow down your system for a while.
+longer than a few minutes.  Due to the high memory usage, it is possible that it
+will cause swapping and consequently slow down your system for a while, though
+recent versions of Hugo have become quite efficient at running periodic garbage
+collection to keep memory usage low (ca. 13 GB).
 
-The fully generated website will be in `build/anthology/` afterwards.
+The fully generated website will be in `build/website/` afterwards.
 
 
 ## Making changes to the Anthology
@@ -106,25 +135,28 @@ The data sources of the Anthology are currently stored under `data/`.  They
 comprise:
 
 + The authoritative XML files (in [`xml/`](data/xml)); these contain all paper
-  metadata.  Their format is defined in an RelaxNG schema
-  [`schema.rnc`](data/xml/schema.rnc) in the
-  same directory.
+  metadata.  Their format is defined in a RELAX NG schema
+  [`schema.rnc`](data/xml/schema.rnc) in the same directory.
 
 + YAML files for SIGs (in [`yaml/sigs/`](data/yaml/sigs)); these contain names,
-  URLs, and associated venues for all special interest groups.
+  URLs, and associated venues for all Special Interest Groups (SIGs).
 
 + YAML files that define venues (in [`yaml/venues/`](data/yaml/venues)).
-  Each venue has its own yaml file that contains venue specific information
-  such as venue acronym, venue full name and venue url.
+  Each venue has its own YAML file that contains venue-specific information
+  such as acronym, full name and URL.
 
-+ A name variant list ([`people.yaml`](data/yaml/people.yaml)) that
-  defines which author names should be treated as identical for purposes of
-  generating "author" pages. See also: [`names.md`](hugo/content/info/names.md).
++ An author index ([`people.yaml`](data/yaml/people.yaml)) that defines all
+  [verified authors](hugo/content/info/verification.md), together with metadata
+  such as ORCID iDs and all [known name variants](hugo/content/info/names.md).
 
-The "acl-anthology" module under [`python/`](python/) is responsible
-for parsing and interpreting all these data files.  Some information that is not
-explicitly stored in any of these files is *derived automatically* by this
-module during Step 1 of building the website.
+**The `acl_anthology` Python library** under [`python/`](python/) is responsible
+for parsing and interpreting all these data files, and **is the recommended way
+of making modifications to them** – see the [documentation of the Python
+library](https://acl-anthology.readthedocs.io/) and the [guide for modifying
+data](https://acl-anthology.readthedocs.io/latest/guide/modifying-data/).
+
+Some information that is not explicitly stored in any of these files is *derived
+automatically* by this library during Step 1 of building the website.
 
 ### Presentation (Templates)
 
@@ -154,6 +186,13 @@ CSS styling for the website is based on [Bootstrap
 We use the [Inter](https://rsms.me/inter/) font family, which is self-hosted
 within the repository to ensure visual consistency and privacy.
 
+> [!TIP]
+> For making changes to the Hugo templates (or CSS styling), it can be useful
+> to preview the website locally with Hugo's built-in webserver, which watches
+> the files (in `build/`) for changes and automatically rebuilds the site.
+> You can invoke this most easily via `just serve`.  Note that you will have to
+> develop your changes inside the `build/` folder and copy them back to the
+> `hugo/` folder afterwards.
 
 ### Adding new years to the Anthology
 
@@ -166,38 +205,57 @@ attributes need to match the number of years subsumed under the header.)
 
 ## Testing & coding style
 
-The following criteria are checked automatically (via Travis CI) and enforced
-for all changes pushed to the Anthology:
+The following criteria are checked automatically (via [pre-commit
+hooks](.pre-commit-config.yaml) that are run within GitHub workflows) and
+enforced for all changes pushed to the Anthology:
 
-1. YAML files need to be syntactically well-formed, and XML files need to follow
-   the schema definition in [`schema.rnc`](data/xml/schema.rnc).
-2. Files should end in exactly one newline, and lines should not have trailing
+1. YAML files need to be syntactically well-formed.
+2. XML files need to follow the schema definition in
+   [`schema.rnc`](data/xml/schema.rnc).
+3. Files should end in exactly one newline, and lines should not have trailing
    whitespace.
-3. Python files should have a maximum line length of 90 and follow the
-   formatting guidelines defined by the [`black`](https://black.readthedocs.io/)
-   tool.
-4. Python files need to follow the lint rules covered by the
+4. Python files should have a maximum line length of 90 and follow the linting
+   and formatting rules defined by the
    [`ruff`](https://github.com/charliermarsh/ruff) tool.  If there's a good
    reason to ignore a rule, [`noqa`
-   comments](https://beta.ruff.rs/docs/configuration/#error-suppression) can be
-   used on an individual basis.
+   comments](https://docs.astral.sh/ruff/configuration/#error-suppression) can
+   be used on an individual basis.
 
-There are three `make` targets that help you check (and fix) your commits:
+These checks can be run on *all files in the repository* via `make check`, which
+will invoke `uv run pre-commit run --all-files`.
 
-+ `make check` will check *all files in the repository.*
-+ `make check_commit` will only check files *currently staged for commit.* This
-  is best used as a pre-commit hook in order to help you identify problems
-  early.
-+ `make autofix` works like `check_commit`, except that it will also run the
-  [`black`](https://black.readthedocs.io/) code formatter to automatically make
-  your Python files style-compliant, and the
-  [`ruff`](https://github.com/charliermarsh/ruff) linter to correct those
-  linting errors which can be fixed automatically.  This can also be used as a
-  pre-commit hook, or run manually when you find that `make check_commit`
-  complains about your files.
+**Before committing to this repo,** it is strongly recommended that you set up
+the pre-commit hooks to run on every attempted commit:
 
-To easily make any of these targets work as a pre-commit hook, you can create a
-symlink to one of the predefined scripts as follows:
+```bash
+uv run pre-commit install
+```
 
-+ `ln -s ../../.git-hooks/check_commit .git/hooks/pre-commit` (for check target)
-+ `ln -s ../../.git-hooks/autofix .git/hooks/pre-commit` (for autofix target)
+The first time you run pre-commit, the hooks will be downloaded and installed,
+which may take a short while.  However, the actual pre-commit hooks will only
+run on files *currently staged for commit*, which should not introduce
+noticeable delays most of the time.
+
+Some pre-commit hooks will **automatically modify ("fix") files** when they
+encounter issues.  These changes need to be explicitly staged before the next
+commit attempt, so you can always review (and potentially undo) what the hooks
+do to your files before you commit.
+
+### Integration tests of the Python library
+
+The `acl_anthology` library contains an extensive test suite that includes
+[integration tests](python/tests/anthology_integration_test.py), which test,
+among other things, that (i) there is no error loading the data files with the
+library, and that (ii) loading and saving the data files is a non-destructive
+operation that does not introduce unexpected changes.  The latter also requires
+that XML files follow a consistent, pre-defined formatting scheme (e.g. correct
+indentation, no unnecessary HTML entities).
+
+As the integration tests are more time-intensive to run, they are _not_ included
+in the pre-commit checks.  However, they _will_ be run via GitHub workflows
+during a build check.  If you modify data files and want to ensure that the
+integration tests pass, they can be run via:
+
+```bash
+just python test-integration
+```

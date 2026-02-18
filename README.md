@@ -26,10 +26,11 @@ These are basic instructions on generating the ACL Anthology website as seen on 
 
 To build the Anthology website, you will need:
 
-+ **Python 3.10** or higher
-+ Python packages listed in `bin/requirements.txt`; to install, run `pip -r bin/requirements.txt`
-+ [**Hugo 0.126.0**](https://gohugo.io) or higher (can be [downloaded directly from
-  their repo](https://github.com/gohugoio/hugo/releases); the ***extended version*** is required!)
++ [**uv**](https://docs.astral.sh/uv/getting-started/installation/), the Python package manager
++ [**Hugo 0.154.0**](https://gohugo.io) or higher (can be [downloaded directly
+  from their repo](https://github.com/gohugoio/hugo/releases); the ***extended
+  version*** is required!)
++ [**Dart Sass**](https://sass-lang.com/install/), a CSS extension that is needed by Hugo.
 + [**bibutils**](https://sourceforge.net/p/bibutils/home/Bibutils/) for creating
   non-BibTeX citation formats (not strictly required to build the website, but
   without them you need to invoke the build steps manually as laid out in the
@@ -83,7 +84,7 @@ about a minute to start.
 
 First, creating a mirror is slow and stresses the ACL Anthology
 infrastructure because on initial setup you have to download every
-single file of the anthology from the official webserver.  This can
+single file of the Anthology from the official webserver.  This can
 take up to 8 hours no matter how fast *your* connection is.  So please
 don't play around with this just for fun.
 
@@ -116,7 +117,7 @@ You will need this software on the server
  - rsync
  - git
  - python3 >= 3.10
- - hugo > 0.126.0
+ - hugo > 0.154.0
  - python3-venv
 
 Note that generating the anthology takes quite a bit of RAM, so make
