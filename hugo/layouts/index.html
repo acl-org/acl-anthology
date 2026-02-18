@@ -1,33 +1,20 @@
 {{ define "javascript" }}
-<script>
-  // Makes the header expand to the width of the (fluid) main container
-  $(function () {
-      var resize_navbar = function() {
-          var width = 0;
-          $('#main-container .col-12').each(function() {
-              width += $(this).width();
-          });
-          $("#navbar-container").css("max-width", width);
-      };
-      $(window).resize(resize_navbar);
-      resize_navbar();
-  })
-</script>
 {{ end }}
 
 {{ define "meta" }}
-    <link rel="alternate" type="application/rss+xml" href="{{ "papers/index.xml" | relURL }}" title="ACL Anthology Papers" />
+<link rel="alternate" type="application/rss+xml" href="{{ "papers/index.xml" | relURL }}"
+  title="ACL Anthology Papers"/>
 {{ end }}
 
 {{ define "main" }}
 <div class="row justify-content-center">
   {{ $.Scratch.Set "paper_count" 0 }}
   {{ range $.Site.Data.papers }}
-    {{ $.Scratch.Add "paper_count" (len .) }}
+  {{ $.Scratch.Add "paper_count" (len .) }}
   {{ end }}
 
   <div class="col-12 col-xl-2">
-    <h2 class="pl-2 pb-2">Welcome to the ACL Anthology!</h2>
+    <h2 class="ps-2 pb-2">Welcome to the ACL Anthology!</h2>
 
     <aside class="card acl-greeting font-weight-light mb-3">
       <div class="card-body">
@@ -51,20 +38,20 @@
     <div class="row mb-3">
       {{ if (fileExists "/data-export/anthology.bib.gz") }}
       <div class="col-6 col-xl-12 mb-2">
-        <a class="btn btn-block btn-info" href="{{ "anthology.bib.gz" | relURL }}">Full Anthology as BibTeX ({{ printf "%.2f MB" (div (os.Stat "/data-export/anthology.bib.gz").Size 1000000.0) }})</a>
-        <a class="btn btn-block btn-info" href="{{ "anthology+abstracts.bib.gz" | relURL }}">…with abstracts ({{ printf "%.2f MB" (div (os.Stat "/data-export/anthology+abstracts.bib.gz").Size 1000000.0) }})</a>
+        <a class="btn btn-info w-100" href="{{ "anthology.bib.gz" | relURL }}">Full Anthology as BibTeX ({{ printf "%.2f MB" (div (os.Stat "/data-export/anthology.bib.gz").Size 1000000.0) }})</a>
+        <a class="btn btn-info w-100 mt-2" href="{{ "anthology+abstracts.bib.gz" | relURL }}">…with abstracts ({{ printf "%.2f MB" (div (os.Stat "/data-export/anthology+abstracts.bib.gz").Size 1000000.0) }})</a>
       </div>
       {{ end }}
       <div class="col-6 col-xl-12 mb-2">
-        <a class="btn btn-block btn-warning" href="{{ "papers/index.xml" | relURL }}">RSS Feed (latest 1000 papers)</a>
+        <a class="btn btn-warning w-100" href="{{ "papers/index.xml" | relURL }}">RSS Feed (latest 1000 papers)</a>
       </div>
       <div class="col-6 col-xl-12 mb-2">
-        <a class="btn btn-block btn-success" href="{{ ($.Site.GetPage "/faq/feedback.md").RelPermalink }}">Give feedback</a>
+        <a class="btn btn-success w-100" href="{{ ($.Site.GetPage "/faq/feedback.md").RelPermalink }}">Give feedback</a>
       </div>
     </div>
   </div>
-  <div class="col-12 col-xl-10 col-xl-width-auto">
-    <main aria-role="main">
+  <div class="col-12 col-xl-9">
+    <main role="main">
     <h6>ACL Events</h6>
     {{/* ACL EVENTS */}}
     {{/* Hardcoded range of years because the table layout depends on it */}}
@@ -76,29 +63,30 @@
     {{/* Years that should have a border on their left-hand side */}}
     {{ $border_years := slice (printf "%d" $current_year) "2019" "2009" "1999" "1989" }}
 
-    <table class="table table-hover table-sm table-responsive small text-nowrap">
+    <div class="table-responsive">
+    <table class="table table-hover table-sm small text-nowrap acl-event-table">
       <thead>
-        <tr class="text-center border-left border-right">
-          <th class="border-left" scope="col" style="width: 8rem;">Venue</th>
+        <tr class="text-center border-start border-end">
+          <th class="border-start" scope="col" style="width: 8rem;">Venue</th>
           <!-- Each year, adjust this line, changing the date and incrementing colspan -->
-          <th class="border-left" scope="col" colspan="{{ $num_cols }}">{{ $current_year }} &ndash; 2020</th>
-          <th class="border-left" scope="col" colspan="10">2019 &ndash; 2010</th>
-          <th class="border-left" scope="col" colspan="10">2009 &ndash; 2000</th>
-          <th class="border-left" scope="col" colspan="10">1999 &ndash; 1990</th>
-          <th class="border-left" scope="col" colspan="16">1989 and older</th>
+          <th class="border-start" scope="col" colspan="{{ $num_cols }}">{{ $current_year }} &ndash; 2020</th>
+          <th class="border-start" scope="col" colspan="10">2019 &ndash; 2010</th>
+          <th class="border-start" scope="col" colspan="10">2009 &ndash; 2000</th>
+          <th class="border-start" scope="col" colspan="10">1999 &ndash; 1990</th>
+          <th class="border-start" scope="col" colspan="16">1989 and older</th>
         </tr>
       </thead>
       <tbody class="border-bottom">
         {{ range $venue := sort $.Site.Data.venues "slug" "asc" }}
         {{ if (and $venue.is_toplevel $venue.is_acl) }}
-        <tr class="text-center border-left border-right">
+        <tr class="text-center border-start border-end">
           {{ $venue_page := $.Site.GetPage (printf "/venues/%s" $venue.slug) }}
           <th scope="row"><a href="{{ $venue_page.RelPermalink }}">{{ $venue.acronym }}</a></th>
           {{ range $all_years }}
           {{ $year := string . }}
           {{ $event := printf "%s-%s" $venue.slug $year }}
           {{/* this is the actual default case */}}
-          <td class="{{ cond (in $border_years $year) "border-left" "" }}">
+          <td class="{{ cond (in $border_years $year) "border-start" "" }}">
             {{- with index $.Site.Data.events $event -}}
               {{- with index $.Site.Data.events $event "volumes" -}}
             <a href="{{ relref $ (printf "/events/%s" $event) }}">{{ slicestr $year 2 4 }}</a>
@@ -110,9 +98,9 @@
         {{ end }}
         {{ end }}
         {{/* SIGs */}}
-        <tr class="text-center border-left border-right">
+        <tr class="text-center border-start border-end">
           <th scope="row">SIGs</th>
-          <td class="border-left" colspan="{{ len $all_years }}">
+          <td class="border-start" colspan="{{ len $all_years }}">
           {{ $sig_pages := (where $.Site.RegularPages "Section" "sigs").ByParam "short_acronym" }}
           {{ $len := len $sig_pages }}
           {{ range $index, $page := $sig_pages}}
@@ -122,8 +110,9 @@
         </tr>
       </tbody>
     </table>
+    </div>
 
-    <h6>Non-ACL Events</h6>
+    <h6 class="pt-4">Non-ACL Events</h6>
     {{/* NON-ACL EVENTS */}}
     {{/* Hardcoded range of years because the table layout depends on it */}}
     {{/* Adjust this range at the beginning of each year */}}
@@ -131,28 +120,29 @@
     {{/* Years that should have a border on their left-hand side */}}
     {{ $border_years := slice (printf "%d" $current_year) "2019" "2009" "1999" "1989" }}
 
-    <table class="table table-hover table-sm table-responsive small text-nowrap">
+    <div class="table-responsive">
+    <table class="table table-hover table-sm small text-nowrap acl-event-table">
       <thead>
-        <tr class="text-center border-left border-right">
-          <th class="border-left" scope="col" style="width: 8rem;">Venue</th>
+        <tr class="text-center border-start border-end">
+          <th class="border-start" scope="col" style="width: 8rem;">Venue</th>
           <!-- Each year, adjust this line, changing the date and incrementing colspan -->
-          <th class="border-left" scope="col" colspan="{{ $num_cols }}">{{ $current_year }} &ndash; 2020</th>
-          <th class="border-left" scope="col" colspan="10">2019 &ndash; 2010</th>
-          <th class="border-left" scope="col" colspan="10">2009 &ndash; 2000</th>
-          <th class="border-left" scope="col" colspan="10">1999 &ndash; 1990</th>
-          <th class="border-left" scope="col" colspan="13">1989 and older</th>
+          <th class="border-start" scope="col" colspan="{{ $num_cols }}">{{ $current_year }} &ndash; 2020</th>
+          <th class="border-start" scope="col" colspan="10">2019 &ndash; 2010</th>
+          <th class="border-start" scope="col" colspan="10">2009 &ndash; 2000</th>
+          <th class="border-start" scope="col" colspan="10">1999 &ndash; 1990</th>
+          <th class="border-start" scope="col" colspan="13">1989 and older</th>
         </tr>
       </thead>
       <tbody class="border-bottom">
         {{ range $venue := sort $.Site.Data.venues "slug" "asc" }}
         {{ if (and $venue.is_toplevel (not $venue.is_acl)) }}
-        <tr class="text-center border-left border-right">
+        <tr class="text-center border-start border-end">
           {{ $venue_page := $.Site.GetPage (printf "/venues/%s" $venue.slug) }}
           <th scope="row"><a href="{{ $venue_page.RelPermalink }}">{{ $venue.acronym }}</a></th>
           {{ range $all_years }}
           {{ $year := string . }}
           {{ $event := printf "%s-%s" $venue.slug $year }}
-          <td class="{{ cond (in $border_years $year) "border-left" "" }}">
+          <td class="{{ cond (in $border_years $year) "border-start" "" }}">
             {{- with index $.Site.Data.events $event -}}
               {{- with index $.Site.Data.events $event "volumes" -}}
             <a href="{{ relref $ (printf "/events/%s" $event) }}">{{ slicestr $year 2 4 }}</a>
@@ -162,9 +152,10 @@
           {{ end }}
         </tr>
         {{ end }}
-      {{ end }}
+        {{ end }}
       </tbody>
     </table>
+    </div>
   </main>
   </div>
 </div>

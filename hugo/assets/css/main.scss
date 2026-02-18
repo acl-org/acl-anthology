@@ -1,4 +1,3 @@
-
 $enable-gradients: true;
 
 $blue: #446E9B;
@@ -10,55 +9,77 @@ $cyan: #29ABE0;
 $secondary: #dee2e6;
 $yiq-contrasted-threshold: 200;
 
-/* Required Bootstrap components */
-@import 'vendor/bootstrap/scss/functions';
-@import 'vendor/bootstrap/scss/variables';
-@import 'vendor/bootstrap/scss/mixins';
+/* Web Fonts */
+@font-face {
+  font-family: 'Inter';
+  src: url('../fonts/InterVariable.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-display: swap;
+  font-style: normal;
+}
 
-$attachment_color: darken( $green, 10% );
-$theme-colors: map-merge(
-  $theme-colors,
-  (
-      "attachment": $attachment_color,
-      "verified": $attachment_color,
-  )
+@font-face {
+  font-family: 'Inter';
+  src: url('../fonts/InterVariable-Italic.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-display: swap;
+  font-style: italic;
+}
+
+$font-family-sans-serif: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+/* Required Bootstrap components */
+$grid-gutter-width: 30px;
+$link-decoration: none;
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1140px
 );
 
+@import 'vendor/bootstrap-5/scss/functions';
+@import 'vendor/bootstrap-5/scss/variables';
+
+$attachment_color: darken($green, 10%);
+$theme-colors: map-merge($theme-colors,
+    ("attachment": $attachment_color,
+      "verified": $attachment_color,
+    ));
+
+@import 'vendor/bootstrap-5/scss/maps';
+@import 'vendor/bootstrap-5/scss/mixins';
+@import 'vendor/bootstrap-5/scss/helpers';
+
 /* Optional Bootstrap components -- we only include those we need */
-@import 'vendor/bootstrap/scss/root';
-@import 'vendor/bootstrap/scss/reboot';
-@import 'vendor/bootstrap/scss/type';
-@import 'vendor/bootstrap/scss/images';
-@import 'vendor/bootstrap/scss/code';
-@import 'vendor/bootstrap/scss/grid';
-@import 'vendor/bootstrap/scss/tables';
-@import 'vendor/bootstrap/scss/forms';
-@import 'vendor/bootstrap/scss/buttons';
-@import 'vendor/bootstrap/scss/transitions';
-// @import 'vendor/bootstrap/scss/dropdown';
-// @import 'vendor/bootstrap/scss/button-group';
-// @import 'vendor/bootstrap/scss/input-group';
-// @import 'vendor/bootstrap/scss/custom-forms';
-@import 'vendor/bootstrap/scss/nav';
-@import 'vendor/bootstrap/scss/navbar';
-@import 'vendor/bootstrap/scss/card';
-// @import 'vendor/bootstrap/scss/breadcrumb';
-@import 'vendor/bootstrap/scss/pagination';
-@import 'vendor/bootstrap/scss/badge';
-// @import 'vendor/bootstrap/scss/jumbotron';
-@import 'vendor/bootstrap/scss/alert';
-// @import 'vendor/bootstrap/scss/progress';
-// @import 'vendor/bootstrap/scss/media';
-@import 'vendor/bootstrap/scss/list-group';
-@import 'vendor/bootstrap/scss/close';
-// @import 'vendor/bootstrap/scss/toasts';
-@import 'vendor/bootstrap/scss/modal';
-@import 'vendor/bootstrap/scss/tooltip';
-// @import 'vendor/bootstrap/scss/popover';
-// @import 'vendor/bootstrap/scss/carousel';
-// @import 'vendor/bootstrap/scss/spinners';
-@import 'vendor/bootstrap/scss/utilities';
-@import 'vendor/bootstrap/scss/print';
+@import 'vendor/bootstrap-5/scss/root';
+@import 'vendor/bootstrap-5/scss/reboot';
+@import 'vendor/bootstrap-5/scss/type';
+@import 'vendor/bootstrap-5/scss/images';
+@import 'vendor/bootstrap-5/scss/containers';
+@import 'vendor/bootstrap-5/scss/grid';
+@import 'vendor/bootstrap-5/scss/tables';
+@import 'vendor/bootstrap-5/scss/forms';
+@import 'vendor/bootstrap-5/scss/buttons';
+@import 'vendor/bootstrap-5/scss/transitions';
+// @import 'vendor/bootstrap-5/scss/dropdown';
+// @import 'vendor/bootstrap-5/scss/button-group';
+// @import 'vendor/bootstrap-5/scss/input-group';
+// @import 'vendor/bootstrap-5/scss/custom-forms'; // Merged into forms
+@import 'vendor/bootstrap-5/scss/nav';
+@import 'vendor/bootstrap-5/scss/navbar';
+@import 'vendor/bootstrap-5/scss/card';
+// @import 'vendor/bootstrap-5/scss/breadcrumb';
+@import 'vendor/bootstrap-5/scss/pagination';
+@import 'vendor/bootstrap-5/scss/badge';
+@import 'vendor/bootstrap-5/scss/alert';
+@import 'vendor/bootstrap-5/scss/list-group';
+@import 'vendor/bootstrap-5/scss/close';
+@import 'vendor/bootstrap-5/scss/modal';
+@import 'vendor/bootstrap-5/scss/tooltip';
+@import 'vendor/bootstrap-5/scss/utilities';
+@import 'vendor/bootstrap-5/scss/utilities/api';
+// @import 'vendor/bootstrap-5/scss/print'; // Merged
 
 @import 'homepage';
 @import 'info';
@@ -73,24 +94,32 @@ $theme-colors: map-merge(
 }
 
 /* Fix spacing issues in nested lists */
-ul ul, ul ol, ol ul, ol ol {
-  & + p {
+ul ul,
+ul ol,
+ol ul,
+ol ol {
+  &+p {
     margin-top: 1rem !important;
   }
 }
 
-.col-xl-width-auto {
-  flex-basis: auto;
-  width: auto;
-}
-
+/* On medium and small screens, we don't have enough horizontal space
+   to display both search box and navigation links; therefore, we
+   transform links to lowercase so they fit.
+*/
 .transform-lower-sm {
   text-transform: lowercase;
 }
+
 @include media-breakpoint-up(sm) {
   .transform-lower-sm {
     text-transform: unset !important;
   }
+}
+
+/* Adjust the style of the "abs" buttons */
+.abstract-collapse {
+  @extend .mt-2;
 }
 
 /* For co-author/venue info on people/ pages */
@@ -101,13 +130,43 @@ ul ul, ul ol, ol ul, ol ol {
   }
 }
 
+/* Simple toggle buttons for list entries */
 .list-group-toggle-btn {
-  @extend .btn;
+  cursor: pointer;
+  text-align: center;
+  width: 100%;
+  display: block;
 
   &[aria-expanded=false] {
-    @extend .btn-info;
+    background-color: $cyan;
+    color: $white;
+    &:hover {
+      background-color: darken($cyan, 10%);
+    }
   }
+
   &[aria-expanded=true] {
     display: none;
   }
+}
+
+/* Custom text color utilities for verified/attachment badges */
+.text-verified,
+.text-attachment {
+  color: $attachment_color !important;
+}
+
+/* Force white text on primary, info, and attachment/verified badges to override BS5 contrast calculation */
+.btn-primary,
+.btn-info,
+.btn-attachment,
+.text-bg-primary,
+.text-bg-info,
+.text-bg-attachment,
+.text-bg-verified {
+  color: $white !important;
+}
+
+body {
+  letter-spacing: 0.01em;
 }

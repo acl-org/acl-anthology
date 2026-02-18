@@ -1,39 +1,38 @@
 {{ define "meta" }}
 {{ $volume_id := index (split .Params.anthology_id "-") 0 }}
 {{ $paper := index (index .Site.Data.papers $volume_id) .Params.anthology_id }}
-  <meta content="{{ $paper.title }}" name="citation_title" >
+  <meta content="{{ $paper.title }}" name="citation_title">
 {{ range $paper.author }}
-  <meta content="{{ (index $.Site.Data.people .id).full }}" name="citation_author" >
+  <meta content="{{ (index $.Site.Data.people .id).full }}" name="citation_author">
 {{ end }}
 {{ with $paper.parent_volume_id }}
   {{ $volume := index $.Site.Data.volumes . }}
   {{ if isset $volume "meta_journal_title" }}
-  <meta content="{{ $volume.meta_journal_title }}" name="citation_journal_title" >
+  <meta content="{{ $volume.meta_journal_title }}" name="citation_journal_title">
   {{ else }}
-  <meta content="{{ $volume.title }}" name="citation_conference_title" >
+  <meta content="{{ $volume.title }}" name="citation_conference_title">
   {{ end }}
-  {{ with $volume.meta_volume }}<meta content="{{ . }}" name="citation_volume" >{{ end }}
-  {{ with $volume.meta_issue }}<meta content="{{ . }}" name="citation_issue" >{{ end }}
-  {{ with $volume.meta_date }}<meta content="{{ . }}" name="citation_publication_date" >{{ end }}
+  {{ with $volume.meta_volume }}<meta content="{{ . }}" name="citation_volume">{{ end }}
+  {{ with $volume.meta_issue }}<meta content="{{ . }}" name="citation_issue">{{ end }}
+  {{ with $volume.meta_date }}<meta content="{{ . }}" name="citation_publication_date">{{ end }}
 {{ end }}
 {{ with $paper.pdf }}
-  <meta content="{{ . }}" name="citation_pdf_url" >
+  <meta content="{{ . }}" name="citation_pdf_url">
 {{ end }}
-{{ with $paper.page_first }}<meta content="{{ . }}" name="citation_firstpage" >{{ end }}
-{{ with $paper.page_last }}<meta content="{{ . }}" name="citation_lastpage" >{{ end }}
-{{ with $paper.doi }}<meta content="{{ . }}" name="citation_doi" >{{ end }}
+{{ with $paper.page_first }}<meta content="{{ . }}" name="citation_firstpage">{{ end }}
+{{ with $paper.page_last }}<meta content="{{ . }}" name="citation_lastpage">{{ end }}
+{{ with $paper.doi }}<meta content="{{ . }}" name="citation_doi">{{ end }}
   <meta property="og:title" content="{{ $paper.title }}" />
-  {{ with $paper.thumbnail }}
+{{ with $paper.thumbnail }}
   <meta property="og:image" content="{{ . }}" />
   <meta property="og:image:alt" content="First page of paper PDF." />
-  {{ end }}
+{{ end }}
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="ACL Anthology" />
   <meta property="og:url" content="{{ $paper.url }}" />
   <meta property="og:description" content="{{ $paper.author_string }}. {{ $paper.booktitle }}. {{ $paper.year }}." />
   <link rel="canonical" href="{{ $paper.url }}" />
 {{ end }}
-
 {{ define "javascript" }}
 {{ $anthology_id := .Params.anthology_id }}
 {{ $volume_id := index (split .Params.anthology_id "-") 0 }}
@@ -41,68 +40,87 @@
 <script src="{{ relURL "js/clipboard.min.js" }}"></script>
 <script src="{{ relURL "js/FileSaver.js" }}"></script>
 <script>
-  $( document ).ready(function() {
-      if (ClipboardJS.isSupported()) {
-          success_fn = function(e) {
-              // turns button into "copy successful"-style for 2 seconds
-              var src = $(e.trigger);
-              src.toggleClass("btn-success");
-              src.children("i").toggleClass("far fa-clipboard fas fa-clipboard-check");
-              e.clearSelection();
+  document.addEventListener("DOMContentLoaded", function () {
+    if (ClipboardJS.isSupported()) {
+      var success_fn = function (e) {
+        // turns button into "copy successful"-style for 2 seconds
+        var src = e.trigger;
+        src.classList.toggle("btn-success");
+        var icon = src.querySelector("i");
+        if (icon) {
+          icon.classList.toggle("far");
+          icon.classList.toggle("fa-clipboard");
+          icon.classList.toggle("fas");
+          icon.classList.toggle("fa-clipboard-check");
+        }
+        e.clearSelection();
 
-              setTimeout(function() {
-                  src.toggleClass("btn-success");
-                  src.children("i").toggleClass("far fa-clipboard fas fa-clipboard-check");
-              }, 2000);
-          };
+        setTimeout(function () {
+          src.classList.toggle("btn-success");
+          if (icon) {
+            icon.classList.toggle("far");
+            icon.classList.toggle("fa-clipboard");
+            icon.classList.toggle("fas");
+            icon.classList.toggle("fa-clipboard-check");
+          }
+        }, 2000);
+      };
 
-          var clipboard = new ClipboardJS(".btn-clipboard");
-          clipboard.on('success', success_fn);
-          $(".btn-clipboard").removeClass("d-none");
+      var clipboard = new ClipboardJS(".btn-clipboard");
+      clipboard.on('success', success_fn);
+      document.querySelectorAll(".btn-clipboard").forEach(function (el) {
+        el.classList.remove("d-none");
+      });
 
-          // buttons outside the "cite" popup can't copy the content the usual way
-          // because the content element is hidden at the time; therefore we fetch
-          // and return the text to be copied manually
-          var clipboard_outside = new ClipboardJS(".btn-clipboard-outside", {
-              text: function(trigger) {
-                  var target = trigger.getAttribute("data-clipboard-target");
-                  return $(target).text();
-              }
-          });
-          clipboard_outside.on('success', success_fn);
-          $(".btn-clipboard-outside").removeClass("d-none");
-      }
+      // buttons outside the "cite" popup can't copy the content the usual way
+      // because the content element is hidden at the time; therefore we fetch
+      // and return the text to be copied manually
+      var clipboard_outside = new ClipboardJS(".btn-clipboard-outside", {
+        text: function (trigger) {
+          var target = trigger.getAttribute("data-clipboard-target");
+          var targetEl = document.querySelector(target);
+          return targetEl ? targetEl.innerText : "";
+        }
+      });
+      clipboard_outside.on('success', success_fn);
+      document.querySelectorAll(".btn-clipboard-outside").forEach(function (el) {
+        el.classList.remove("d-none");
+      });
+    }
   });
 
-  $( document ).ready(function() {
-      if ($(".btn-filesaver")) {
-          $(".btn-filesaver").on("click",
-              function() {
-                  var target = $( this ).attr("data-filesaver-target");
-                  var filename = $( this ).attr("data-filesaver-name");
-                  var blob = new Blob([$(target).text()], {type: "text/plain;charset=utf-8"});
-                  saveAs(blob, filename);
-              }
-          );
-          $(".btn-filesaver").removeClass("disabled");
-      }
+  document.addEventListener("DOMContentLoaded", function () {
+    var filesavers = document.querySelectorAll(".btn-filesaver");
+    if (filesavers.length > 0) {
+      filesavers.forEach(function (btn) {
+        btn.addEventListener("click", function (e) {
+          var target = this.getAttribute("data-filesaver-target");
+          var filename = this.getAttribute("data-filesaver-name");
+          var targetEl = document.querySelector(target);
+          if (targetEl) {
+            var blob = new Blob([targetEl.innerText], { type: "text/plain;charset=utf-8" });
+            saveAs(blob, filename);
+          }
+        });
+        btn.classList.remove("disabled");
+      });
+    }
   });
 
   const paper_params = {
     anthology_id: "{{ .Params.anthology_id }}",
     title: "{{ $paper.title_raw }}",
     authors: [
-      {{ range $paper.author }}
+      {{ range $index, $author := $paper.author }}
       {
         first: "{{ .first }}",
         last: "{{ .last }}",
         id: "{{ .id }}"
-      },
+      }{{ if ne (add $index 1) (len $paper.author) }},{{ end }}
       {{ end }}
     ],
     abstract: "{{ $paper.abstract_raw }}"
   };
-
   // Initial authors data
   function showMetadataDialog() {
     // Populate the modal with current values
@@ -123,13 +141,13 @@
 
     const modal = new bootstrap.Modal(document.getElementById('metadataModal'));
     modal.show();
-  }
 
-  // Just call Sortable on your container after you’ve populated it:
-  new Sortable(document.getElementById('authorsContainer'), {
-    animation: 150, // a nice animation
-    ghostClass: 'sortable-ghost'
-  });
+    // Just call Sortable on your container after you’ve populated it:
+    new Sortable(document.getElementById('authorsContainer'), {
+      animation: 150, // a nice animation
+      ghostClass: 'sortable-ghost'
+    });
+  }
 
   // Dragstart: store the element being dragged
   authorsContainer.addEventListener('dragstart', (e) => {
@@ -248,7 +266,7 @@
       const last = authorRow.children[2].children[0].value;
       authors += first + "  " + last + "; "
     }
-    document.getElementById("paperAuthorList").textContent = authors.slice(0,-2);
+    document.getElementById("paperAuthorList").textContent = authors.slice(0, -2);
   }
 
   // Drag & Drop functions for authors
@@ -354,74 +372,80 @@
 {{ $paper := index (index .Site.Data.papers $volume_id) .Params.anthology_id }}
 <section id="main">
   <div>
-  <h2 id="title">
-    {{ with $paper.pdf }}
-    <a href="{{ . }}">{{ $paper.title_html | safeHTML }}</a>
-    {{ else }}
+    <h2 id="title">
+      {{ with $paper.pdf }}
+      <a href="{{ . }}">{{ $paper.title_html | safeHTML }}</a>
+      {{ else }}
       {{ $paper.title_html | safeHTML }}
-    {{ end }}
-  </h2>
-  {{ with $paper.author }}
-  <p class="lead">
-    {{ $len := (len .) }}
-    {{ range $index, $person := . }}
+      {{ end }}
+    </h2>
+    {{ with $paper.author }}
+    <p class="lead">
+      {{ $len := (len .) }}
+      {{ range $index, $person := . }}
       {{ partial "author_link.html" (dict "ctx" $ "person" $person) | chomp }}{{ if ne (add $index 1) $len }}, {{ end }}
+      {{ end }}
+    </p>
     {{ end }}
-  {{ end }}
-  </p>
   </div>
+
   <div class="modal fade" id="metadataModal" tabindex="-1" aria-labelledby="metadataModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Correct Metadata for <span id="paperIdSpan"></span></h5>
-          <button class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <form id="metadataForm">
             <div class="mb-3">
-            Use this form to create a GitHub issue with structured data describing the correction. You will need a GitHub account.
-            Once you create that issue, the correction will be reviewed by a staff member.
+              Use this form to create a GitHub issue with structured data describing the correction. You will need a GitHub account.
+              Once you create that issue, the correction will be reviewed by a staff member.
             </div>
             <div class="alert alert-danger d-lg-none">
               ⚠️ Mobile Users: Submitting this form to create a new issue will only work with github.com, not the GitHub Mobile app.
             </div>
             <div class="alert alert-warning" role="alert">
-              <b>Important</b>: The Anthology treat PDFs as authoritative. Please use this form only to correct data that is out of line with the PDF. See <a href="https://aclanthology.org/info/corrections/">our corrections guidelines</a> if you need to change the PDF.
+              <b>Important</b>: The Anthology treat PDFs as authoritative. Please use this form only to correct data
+              that is out of line with the PDF. See <a href="https://aclanthology.org/info/corrections/">our corrections
+                guidelines</a> if you need to change the PDF.
             </div>
             <div class="mb-3">
-              <label for="paperTitle" class="form-label">Title</label>
-              <small id="paperTitleHelp" class="form-text text-muted">Adjust the title. Retain tags such as &lt;fixed-case&gt;.</small>
+              <label for="paperTitle" class="form-label d-block">Title</label>
+              <small id="paperTitleHelp" class="form-text text-muted d-block mb-2">Adjust the title. Retain tags such as
+                &lt;fixed-case&gt;.</small>
               <input type="text" class="form-control" id="paperTitle">
             </div>
-            <label class="form-label">Authors</label>
-            <small id="authorTitleHelp" class="form-text text-muted">Adjust author names and order to match the PDF.</small>
+            <label class="form-label d-block">Authors</label>
+            <small id="authorTitleHelp" class="form-text text-muted d-block mb-2">Adjust author names and order to match the
+              PDF.</small>
             <div id="authorsContainer" class="px-3" ondrop="dropAuthor(event)" ondragover="allowDrop(event)"></div>
             <button type="button" class="btn btn-secondary btn-sm mb-3" onclick="addAuthor()">Add Author</button>
 
             <div class="mb-3">
-              <label for="paperAbstract" class="form-label">Abstract</label>
-              <small id="abstractTitleHelp" class="form-text text-muted">Correct abstract if needed. Retain XML formatting tags such as &lt;tex-math&gt;. You may use &lt;b&gt;...&lt;/b&gt; for <b>bold</b>, &lt;i&gt;...&lt;/i&gt; for <i>italic</i>, and &lt;url&gt;...&lt;/url&gt; for URLs.</small>
+              <label for="paperAbstract" class="form-label d-block">Abstract</label>
+              <small id="abstractTitleHelp" class="form-text text-muted d-block mb-2">Correct abstract if needed. Retain XML formatting tags such as &lt;tex-math&gt;. You may use &lt;b&gt;...&lt;/b&gt; for <b>bold</b>, &lt;i&gt;...&lt;/i&gt; for <i>italic</i>, and &lt;url&gt;...&lt;/url&gt; for URLs.</small>
               <textarea class="form-control" id="paperAbstract" rows="6"></textarea>
             </div>
 
             <div class="mb-3">
-              <label class="form-label">Verification against PDF</label>
-              <small class="form-text text-muted">Ensure that the new title/authors match the snapshot below. (If there is no snapshot or it is too small, consult <a href="#" id="paperPDF">the PDF</a>.)</small>
+              <label class="form-label d-block">Verification against PDF</label>
+              <small class="form-text text-muted d-block mb-2">Ensure that the new title/authors match the snapshot below. (If there
+                is no snapshot or it is too small, consult <a href="#" id="paperPDF">the PDF</a>.)</small>
               <div style="max-height:150px;" class="overflow-hidden w-100" style="text-align: center;">
-                <a id="paperSnapshot" href="#"><img id="paperSnapshotImg" src="" style="min-width: 80%; max-width: 100%"></a>
+                <a id="paperSnapshot" href="#"><img id="paperSnapshotImg" src=""
+                    style="min-width: 80%; max-width: 100%"></a>
               </div>
               <small class="form-text text-muted">Authors concatenated from the text boxes above:</small>
               <div class="card card-body bg-light" id="paperAuthorList"></div>
             </div>
           </form>
         </div>
-        <div class="modal-footer d-flex align-items-center">
+        <div class="modal-footer justify-content-between flex-nowrap">
           <div class="form-check mb-0">
             <input type="checkbox" class="form-check-input" id="pdfCorrectionCheck">
-            <label class="form-check-label" for="pdfCorrectionCheck">ALL author names match the snapshot above—including middle initials, hyphens, and accents.</label>
+            <label class="form-check-label" for="pdfCorrectionCheck">ALL author names match the snapshot above—including
+              middle initials, hyphens, and accents.</label>
           </div>
           <button type="button" class="btn btn-primary" onclick="submitMetadataCorrection()">Create GitHub issue for&nbsp;staff review</button>
         </div>
@@ -429,6 +453,7 @@
     </div>
   </div>
   <hr />
+
   <div class="row acl-paper-details">
     <div class="col col-lg-10 order-2">
       {{ with $paper.retracted }}
@@ -444,256 +469,241 @@
       </div>
       {{ end }}
 
-      {{ with $paper.abstract_html }}
-      <div class="card bg-light mb-2 mb-lg-3">
-        <div class="card-body acl-abstract">
-          <h5 class="card-title">Abstract</h5>
-          <span {{ with $paper.retracted }} style="text-decoration: line-through" {{ end }}>
-          {{ . | safeHTML }}
-          </span>
-        </div>
-      </div>
-      {{ end }}
+            {{ with $paper.abstract_html }}
+            <div class="card bg-light mb-2 mb-lg-3">
+              <div class="card-body acl-abstract">
+                <h5 class="card-title">Abstract</h5>
+                <span{{ if $paper.retracted }} class="text-decoration-line-through" {{ end }}>
+                  {{ . | safeHTML }}
+                </span>
+              </div>
+            </div>
+            {{ end }}
+      <!-- To avoid cluttering this template with Bootstrap classes, the styling
+           for this list is defined in assets/css/_papers.scss -->
+      <dl>
+        <dt>Anthology ID:</dt>
+        <dd>{{ $anthology_id }}</dd>
 
-    <!-- To avoid cluttering this template with Bootstrap classes, the styling
-    for this list is defined in assets/css/_papers.scss -->
-    <dl>
-      <dt>Anthology ID:</dt>
-      <dd>{{ $anthology_id }}</dd>
-
-      {{ range $paper.revision }}
+        {{ range $paper.revision }}
         {{ if eq .id "1" }}
         <dt>Original:</dt>
         {{ else }}
         <dt>Version {{ .id }}:</dt>
         {{ end }}
         <dd><a href="{{ .url }}">{{ .value }}</a></dd>
-      {{ end }}
-      {{ range $paper.erratum }}
+        {{ end }}
+        {{ range $paper.erratum }}
         <dt>Erratum e{{ .id }}:</dt>
         <dd><a href="{{ .url }}">{{ .value }}</a></dd>
-      {{ end }}
+        {{ end }}
 
-      <dt>Volume:</dt>
-      <dd>
-        {{- with $paper.parent_volume_id -}}
+        <dt>Volume:</dt>
+        <dd>
+          {{- with $paper.parent_volume_id -}}
+          {{ $volume := index $.Site.Data.volumes . }}
+          {{ $volume_page := printf "/volumes/%s" . }}
+          <a href="{{ relref $ $volume_page }}">{{ $volume.title }}</a>
+          {{- end -}}
+        </dd>
+
+        <dt>Month:</dt>
+        <dd>{{ with $paper.month }}{{ . }}{{ end }}</dd>
+        <dt>Year:</dt>
+        <dd>{{ with $paper.year }}{{ . }}{{ end }}</dd>
+        <dt>Address:</dt>
+        <dd>{{ with $paper.address }}{{ . }}{{ end }}</dd>
+
+                {{ with $paper.editor }}
+                  {{ $len := (len .) }}
+                  <dt>Editor{{ if gt $len 1 }}s{{ end }}:</dt>
+                  <dd>
+                  {{ range $index, $person := . }}
+                    {{ partial "author_link.html" (dict "ctx" $ "person" $person) | chomp }}{{ if ne (add $index 1) $len }}, {{ end }}
+                  {{ end }}
+                  </dd>
+                {{ end }}
+        {{ with $paper.parent_volume_id }}
         {{ $volume := index $.Site.Data.volumes . }}
-        {{ $volume_page := printf "/volumes/%s" . }}
-        <a href="{{ relref $ $volume_page }}">{{ $volume.title }}</a>
-        {{- end -}}
-      </dd>
-
-      <dt>Month:</dt>
-      <dd>{{ with $paper.month }}{{ . }}{{ end }}</dd>
-      <dt>Year:</dt>
-      <dd>{{ with $paper.year }}{{ . }}{{ end }}</dd>
-      <dt>Address:</dt>
-      <dd>{{ with $paper.address }}{{ . }}{{ end }}</dd>
-
-      {{ with $paper.editor }}
-        {{ $len := (len .) }}
-        <dt>Editor{{ if gt $len 1 }}s{{ end }}:</dt>
+        <dt>{{ if gt (len $volume.venues) 1 }}Venues:{{ else }}Venue:{{ end }}</dt>
         <dd>
-        {{ range $index, $person := . }}
-          {{ partial "author_link.html" (dict "ctx" $ "person" $person) | chomp }}{{ if ne (add $index 1) $len }}, {{ end }}
+          {{- $len := (len $volume.venues) -}}
+          {{- range $index, $venue := $volume.venues -}}
+                    {{ $acronym := index $.Site.Data.venues $venue "acronym" }}
+                    <a href="{{ relref $ (printf "/venues/%s" ($venue)) }}">{{- $acronym -}}</a>
+                    {{ if ne (add $index 1) $len }} | {{ end }}
+                  {{- end -}}
+                </dd>
+                <dt>{{ if gt (len $volume.sigs) 1 }}SIGs:{{ else }}SIG:{{ end }}</dt>
+                <dd>
+                  {{- $len := (len $volume.sigs) -}}
+                  {{- range $index, $sig := $volume.sigs -}}
+                    {{ $slug := index $.Site.Data.sigs $sig "slug" }}
+                    <a href="{{ relref $ (printf "/sigs/%s" $slug) }}">{{ $sig }}</a>
+                    {{ if ne (add $index 1) $len }} | {{ end }}
+                  {{- end -}}
+                </dd>        {{ end }}
+
+        <dt>Publisher:</dt>
+        <dd>{{ with $paper.publisher }}{{ . }}{{ end }}</dd>
+        <dt>Note:</dt>
+        <dd>{{ with $paper.note }}{{ . }}{{ end }}</dd>
+        <dt>Pages:</dt>
+        <dd>{{ with $paper.pages }}{{ . }}{{ end }}</dd>
+        <dt>Language:</dt>
+        <dd>{{ with $paper.language }}{{ . }}{{ end }}</dd>
+        <dt>URL:</dt>
+        <dd><a href="{{ $paper.url }}">{{ $paper.url }}</a></dd>
+        <dt>DOI:</dt>
+        <dd>{{ with $paper.doi }}<a href="https://doi.org/{{ . }}" title="To the current version of the paper by DOI">{{
+            . }}</a>{{ end }}</dd>
+        {{ range $paper.award }}
+        <dt>Award:</dt>
+        <dd><i class="fas fa-award"></i>&nbsp;{{ . }}</dd>
         {{ end }}
+        <!--
+        <dt>Bibtype:</dt>
+        <dd>{{ with $paper.bibtype }}{{ . }}{{ end }}</dd>
+        -->
+        {{ if and (not $paper.retracted) (not $paper.removed) }}
+        <dt class="acl-button-row">Bibkey:</dt>
+        <dd class="acl-button-row">{{ with $paper.bibkey }}<button type="button"
+            class="btn btn-clipboard-outside btn-secondary btn-sm d-none" data-clipboard-target="#citePaperBibkey" aria-label="Copy Bibkey to clipboard"><i
+              class="far fa-clipboard"></i><span id="citePaperBibkey" class="ps-2 font-monospace">{{ .
+              }}</span></button>{{ end }}</dd>
+        {{ with $paper.citation_acl }}
+        <dt>Cite (ACL):</dt>
+        <dd><span id="citeACL">{{ safeHTML . }}</span><button type="button"
+            class="btn btn-clipboard btn-secondary btn-sm d-none ms-2" data-clipboard-target="#citeACL" aria-label="Copy ACL citation to clipboard"><i
+              class="far fa-clipboard"></i></button></dd>
+        {{ end }}
+        {{ with $paper.citation }}
+        <dt>Cite (Informal):</dt>
+        <dd><span id="citeRichText">{{ markdownify . }}</span><button type="button"
+            class="btn btn-clipboard btn-secondary btn-sm d-none ms-2" data-clipboard-target="#citeRichText" aria-label="Copy informal citation to clipboard"><i
+              class="far fa-clipboard"></i></button></dd>
+        {{ end }}
+        <dt class="acl-button-row">Copy Citation:</dt>
+        <dd class="acl-button-row">
+          {{ with $paper.bibtex }}
+          <button type="button" class="btn btn-clipboard-outside btn-secondary btn-sm d-none"
+            data-clipboard-target="#citeBibtexContent" aria-label="Copy BibTeX to clipboard"><i class="far fa-clipboard pe-2"></i>BibTeX</button>
+          {{ end }}
+          <button type="button" class="btn btn-clipboard-outside btn-secondary btn-sm d-none"
+            data-clipboard-target="#citeMarkdownContent" aria-label="Copy Markdown to clipboard"><i class="far fa-clipboard pe-2"></i>Markdown</button>
+          {{ with $paper.mods }}
+          <button type="button" class="btn btn-clipboard-outside btn-secondary btn-sm d-none"
+            data-clipboard-target="#citeModsContent" aria-label="Copy MODS XML to clipboard"><i class="far fa-clipboard pe-2"></i>MODS XML</button>
+          {{ end }}
+          {{ with $paper.endf }}
+          <button type="button" class="btn btn-clipboard-outside btn-secondary btn-sm d-none"
+            data-clipboard-target="#citeEndnoteContent" aria-label="Copy Endnote to clipboard"><i class="far fa-clipboard pe-2"></i>Endnote</button>
+          {{ end }}
+          <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#citeModal">More
+            options…</button>
         </dd>
-      {{ end }}
+        {{ end }} <!-- if not $paper.retracted -->
 
-      {{ with $paper.parent_volume_id }}
-      {{ $volume := index $.Site.Data.volumes . }}
-      <dt>{{ if gt (len $volume.venues) 1 }}Venues:{{ else }}Venue:{{ end }}</dt>
-      <dd>
-        {{- $len := (len $volume.venues) -}}
-        {{- range $index, $venue := $volume.venues -}}
-            {{ $acronym := index $.Site.Data.venues $venue "acronym" }}
-          <a href="{{ relref $ (printf "/venues/%s" ($venue)) }}">
-            {{- $acronym -}}
-          </a>
-          {{ if ne (add $index 1) $len }} | {{ end }}
-        {{- end -}}
-      </dd>
-      <dt>{{ if gt (len $volume.sigs) 1 }}SIGs:{{ else }}SIG:{{ end }}</dt>
-      <dd>
-        {{- $len := (len $volume.sigs) -}}
-        {{- range $index, $sig := $volume.sigs -}}
-          {{ $slug := index $.Site.Data.sigs $sig "slug" }}
-          <a href="{{ relref $ (printf "/sigs/%s" $slug) }}">{{ $sig }}</a>
-          {{ if ne (add $index 1) $len }} | {{ end }}
-        {{- end -}}
-      </dd>
-      {{ end }}
-
-      <dt>Publisher:</dt>
-      <dd>{{ with $paper.publisher }}{{ . }}{{ end }}</dd>
-      <dt>Note:</dt>
-      <dd>{{ with $paper.note }}{{ . }}{{ end }}</dd>
-      <dt>Pages:</dt>
-      <dd>{{ with $paper.pages }}{{ . }}{{ end }}</dd>
-      <dt>Language:</dt>
-      <dd>{{ with $paper.language }}{{ . }}{{ end }}</dd>
-      <dt>URL:</dt>
-      <dd><a href="{{ $paper.url }}">{{ $paper.url }}</a></dd>
-      <dt>DOI:</dt>
-      <dd>{{ with $paper.doi }}<a href="https://doi.org/{{ . }}" title="To the current version of the paper by DOI">{{ . }}</a>{{ end }}</dd>
-      {{ range $paper.award }}
-      <dt>Award:</dt>
-      <dd><i class="fas fa-award"></i>&nbsp;{{ . }}</dd>
-      {{ end }}
-      <!--
-      <dt>Bibtype:</dt>
-      <dd>{{ with $paper.bibtype }}{{ . }}{{ end }}</dd>
-      -->
-      {{ if and (not $paper.retracted) (not $paper.removed) }}
-      <dt class="acl-button-row">Bibkey:</dt>
-      <dd class="acl-button-row">{{ with $paper.bibkey }}<button type="button" class="btn btn-clipboard-outside btn-secondary btn-sm d-none" data-clipboard-target="#citePaperBibkey"><i class="far fa-clipboard"></i><span id="citePaperBibkey" class="pl-2 text-monospace">{{ . }}</span></button>{{ end }}</dd>
-      {{ with $paper.citation_acl }}
-      <dt>Cite (ACL):</dt><dd><span id="citeACL">{{ safeHTML . }}</span><button type="button" class="btn btn-clipboard btn-secondary btn-sm d-none ml-2" data-clipboard-target="#citeACL"><i class="far fa-clipboard"></i></button></dd>
-      {{ end }}
-      {{ with $paper.citation }}
-      <dt>Cite (Informal):</dt><dd><span id="citeRichText">{{ markdownify . }}</span><button type="button" class="btn btn-clipboard btn-secondary btn-sm d-none ml-2" data-clipboard-target="#citeRichText"><i class="far fa-clipboard"></i></button></dd>
-      {{ end }}
-      <dt class="acl-button-row">Copy Citation:</dt>
-      <dd class="acl-button-row">
-      {{ with $paper.bibtex }}
-        <button type="button" class="btn btn-clipboard-outside btn-secondary btn-sm d-none" data-clipboard-target="#citeBibtexContent"><i class="far fa-clipboard pr-2"></i>BibTeX</button>
-      {{ end }}
-        <button type="button" class="btn btn-clipboard-outside btn-secondary btn-sm d-none" data-clipboard-target="#citeMarkdownContent"><i class="far fa-clipboard pr-2"></i>Markdown</button>
-      {{ with $paper.mods }}
-        <button type="button" class="btn btn-clipboard-outside btn-secondary btn-sm d-none" data-clipboard-target="#citeModsContent"><i class="far fa-clipboard pr-2"></i>MODS XML</button>
-      {{ end }}
-      {{ with $paper.endf }}
-        <button type="button" class="btn btn-clipboard-outside btn-secondary btn-sm d-none" data-clipboard-target="#citeEndnoteContent"><i class="far fa-clipboard pr-2"></i>Endnote</button>
-      {{ end }}
-        <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#citeModal">More options…</button>
-      </dd>
-      {{ end }}  <!-- if not $paper.retracted -->
-
-      {{ with $paper.pdf }}
-      <dt>PDF:</dt><dd><a href="{{ . }}">{{ . }}</a></dd>
-      {{ end }}
-
-      {{ range $paper.attachment }}
-      <dt class="acl-button-row">{{ humanize .type }}:</dt>
-      <dd class="acl-button-row"><a href="{{ .url }}" class="btn btn-attachment btn-sm">{{ partial "attachment_repr.html" . }}&nbsp;{{ .filename }}</a></dd>
-      {{ end }}
-
-      {{ range $paper.video }}
-      <dt class="acl-button-row">Video:</dt>
-      <dd class="acl-button-row"><a href="{{ . }}" class="btn btn-attachment btn-sm"><i class="fas fa-video"></i>&nbsp;{{ . }}</a></dd>
-      {{ end }}
-
-      {{ with $paper.pwccode }}
-      <dt>Code</dt>
-      <dd>
-        {{ if .url }}
-        <a href="{{ .url }}">
-          {{- if in .url "github.com/" -}}
-          <i class="fab fa-github"></i>
-          {{- else if in .url "gitlab.com/" -}}
-          <i class="fab fa-gitlab"></i>
-          {{- else if in .url "bitbucket" -}}
-          <i class="fab fa-bitbucket"></i>
-          {{- end -}}&nbsp;{{ .name }}
-        </a>
+        {{ with $paper.pdf }}
+        <dt>PDF:</dt>
+        <dd><a href="{{ . }}">{{ . }}</a></dd>
         {{ end }}
-        {{ if (and (eq .additional "true") .url) }}
-          +
-        {{ end }}
-        {{ if eq .additional "true" }}
-        <a href="https://paperswithcode.com/paper/?acl={{ $anthology_id }}"><svg xmlns="http://www.w3.org/2000/svg" class="pwc-icon" viewBox="0 0 512 512"><path stroke="#4d8093" fill="#4d8093" d="M88 128h48v256H88zM232 128h48v256h-48zM160 144h48v224h-48zM304 144h48v224h-48zM376 128h48v256h-48z"></path><path stroke="#4d8093" fill="#4d8093" d="M104 104V56H16v400h88v-48H64V104zM408 56v48h40v304h-40v48h88V56z"></path></svg>&nbsp;additional community code
-        </a>
-        {{ end }}
-      </dd>
-      {{ end }}
 
-      {{ with $paper.pwcdataset }}
-        <dt>Data</dt>
-        <dd>
-        {{ range $i, $t := . }}{{ if $i }},&nbsp;{{ end }}<a href="{{ $t.url }}">{{ $t.name }}</a>{{ end }}
-        </dd>
-      {{ end }}
+        {{ range $paper.attachment }}
+        <dt class="acl-button-row">{{ humanize .type }}:</dt>
+        <dd class="acl-button-row"><a href="{{ .url }}" class="btn btn-attachment btn-sm">{{ partial
+            "attachment_repr.html" . }}&nbsp;{{ .filename }}</a></dd>
+        {{ end }}
+
+        {{ range $paper.video }}
+        <dt class="acl-button-row">Video:</dt>
+        <dd class="acl-button-row"><a href="{{ . }}" class="btn btn-attachment btn-sm"><i
+              class="fas fa-video"></i>&nbsp;{{ . }}</a></dd>
+        {{ end }}
       </dl>
     </div>
 
     <!-- Most of the styling for this block is set in _papers.scss to avoid clutter -->
-    <div class="acl-paper-link-block">
+    <div class="acl-paper-link-block order-lg-last">
       {{ if isset $paper "revision" }}
-        {{ range last 1 $paper.revision }}
-        <a class="btn btn-primary" href="{{ .url }}" title="Open latest revision PDF of '{{ $paper.title | htmlEscape }}'">
-          <i class="far fa-file-pdf"></i><span class="pl-2">PDF&nbsp;<small>(v{{ .id }})</small></span>
-        </a>
-        {{ end }}
-        {{ range first 1 $paper.revision }}
-        <a class="btn btn-secondary" href="{{ .url }}" title="Open original PDF of '{{ $paper.title | htmlEscape }}'">
-          <i class="far fa-file-pdf"></i><span class="pl-2">PDF&nbsp;<small>(v{{ .id }})</small></span>
-        </a>
-        {{ end }}
+      {{ range last 1 $paper.revision }}
+      <a class="btn btn-primary" href="{{ .url }}"
+        title="Open latest revision PDF of '{{ $paper.title | htmlEscape }}'">
+        <i class="far fa-file-pdf"></i><span class="ps-2">PDF&nbsp;<small>(v{{ .id }})</small></span>
+      </a>
+      {{ end }}
+      {{ range first 1 $paper.revision }}
+      <a class="btn btn-secondary" href="{{ .url }}" title="Open original PDF of '{{ $paper.title | htmlEscape }}'">
+        <i class="far fa-file-pdf"></i><span class="ps-2">PDF&nbsp;<small>(v{{ .id }})</small></span>
+      </a>
+      {{ end }}
       {{ else }}
-        {{ with $paper.pdf }}
-        <a class="btn btn-primary" href="{{ . }}" title="Open PDF of '{{ $paper.title | htmlEscape }}'">
-          <i class="far fa-file-pdf"></i><span class="pl-2">PDF</span>
-        </a>
-        {{ end }}
+      {{ with $paper.pdf }}
+      <a class="btn btn-primary" href="{{ . }}" title="Open PDF of '{{ $paper.title | htmlEscape }}'">
+        <i class="far fa-file-pdf"></i><span class="ps-2">PDF</span>
+      </a>
+      {{ end }}
       {{ end }}
       {{ if and (not $paper.retracted) (not $paper.removed) ($paper.bibtex) }}
-      <a class="btn btn-secondary" title="Open dialog for exporting citations" data-toggle="modal" data-target="#citeModal" href="#">
-        <i class="fas fa-quote-left"></i><span class="pl-2">Cite</span>
+      <a class="btn btn-secondary" title="Open dialog for exporting citations" data-bs-toggle="modal"
+        data-bs-target="#citeModal" href="#">
+        <i class="fas fa-quote-left"></i><span class="ps-2">Cite</span>
       </a>
       {{ end }}
-      <a class="btn btn-secondary" href="https://www.semanticscholar.org/search?{{ (querify "q" $paper.title) | safeURL }}" title="Search for '{{ $paper.title | htmlEscape }}' on Semantic Scholar">
-        <i class="ai ai-semantic-scholar"></i><span class="pl-sm-2 d-none d-sm-inline">Search</span>
+      <a class="btn btn-secondary" href="https://www.semanticscholar.org/search?{{ (querify " q" $paper.title) | safeURL
+        }}" title="Search for '{{ $paper.title | htmlEscape }}' on Semantic Scholar" aria-label="Search for this paper on Semantic Scholar">
+        <i class="ai ai-semantic-scholar"></i><span class="ps-sm-2 d-none d-sm-inline">Search</span>
       </a>
-      {{ with $paper.pwccode }}
-        {{ if (or (eq .additional "true") .url) }}
-      <a class="btn btn-secondary d-flex flex-wrap justify-content-center" href="https://paperswithcode.com/paper/?acl={{ $anthology_id }}" title="Code for '{{ $paper.title | htmlEscape }}' on Papers with Code">
-        <svg xmlns="http://www.w3.org/2000/svg" class="pwc-icon-big" viewBox="0 0 512 512"><path stroke="#4d8093" fill="#4d8093" d="M88 128h48v256H88zM232 128h48v256h-48zM160 144h48v224h-48zM304 144h48v224h-48zM376 128h48v256h-48z"></path><path stroke="#4d8093" fill="#4d8093" d="M104 104V56H16v400h88v-48H64V104zM408 56v48h40v304h-40v48h88V56z"></path></svg>
-        <span class="pl-sm-2 d-none d-sm-inline">Code</span>
-      </a>
-        {{ end }}
-      {{ end }}
       {{ range $paper.attachment }}
-      <a class="btn btn-attachment d-flex flex-wrap justify-content-center" href="{{ .url }}" title="Open {{ .type | humanize | lower }} for '{{ $paper.title | htmlEscape }}'">
+      <a class="btn btn-attachment d-flex flex-wrap justify-content-center" href="{{ .url }}"
+        title="Open {{ .type | humanize | lower }} for '{{ $paper.title | htmlEscape }}'">
         <span class="align-self-center px-1">{{ partial "attachment_repr.html" . -}}</span>
         <span class="px-1">{{ humanize .type }}</span>
       </a>
       {{ end }}
       {{ range $paper.video }}
-      <a class="btn btn-attachment d-flex flex-wrap justify-content-center" href="{{ . }}" title="Open video for '{{ $paper.title | htmlEscape }}'">
+      <a class="btn btn-attachment d-flex flex-wrap justify-content-center" href="{{ . }}"
+        title="Open video for '{{ $paper.title | htmlEscape }}'">
         <span class="align-self-center px-1"><i class="fas fa-video"></i></span>
         <span class="px-1">Video</span>
       </a>
       {{ end }}
-      <a class="btn btn-warning d-flex flex-wrap justify-content-center" href=# title="Correct problems with title, author list, and abstract" onclick="showMetadataDialog()">
+      <a class="btn btn-warning d-flex flex-wrap justify-content-center" href=#
+        title="Correct problems with title, author list, and abstract" onclick="showMetadataDialog()" aria-label="Suggest a correction for this paper's metadata">
         <span class="d-none d-sm-inline"><i class="fas fa-edit"></i></span>
-        <span class="pl-md-2">Fix data</span>
+        <span class="ps-md-2">Fix data</span>
       </a>
     </div>
   </div>
   <hr />
 
-  <div class="modal fade" id="citeModal" tabindex="-1" role="dialog" aria-labelledby="citeModalLabel" aria-hidden="true">
+  <div class="modal fade" id="citeModal" tabindex="-1" role="dialog" aria-labelledby="citeModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="citeModalLabel">Export citation</h5>
-          <button class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <ul class="nav nav-tabs mb-2" id="citeFormats" role="tablist">
             <li class="nav-item">
-              <a class="nav-link {{ if not $paper.bibtex }}disabled{{ else }}active{{ end }}" data-toggle="list" href="#citeBibtex" role="tab" aria-controls="citeBibtex" aria-selected="{{ if $paper.bibtex }}true{{ else }}false{{ end }}">BibTeX</a>
+              <a class="nav-link {{ if not $paper.bibtex }}disabled{{ else }}active{{ end }}" data-bs-toggle="list"
+                href="#citeBibtex" role="tab" aria-controls="citeBibtex"
+                aria-selected="{{ if $paper.bibtex }}true{{ else }}false{{ end }}">BibTeX</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link {{ if not $paper.mods }}disabled{{ end }}" data-toggle="list" href="#citeMods" role="tab" aria-controls="citeMods" aria-selected="false">MODS XML</a>
+              <a class="nav-link {{ if not $paper.mods }}disabled{{ end }}" data-bs-toggle="list" href="#citeMods"
+                role="tab" aria-controls="citeMods" aria-selected="false">MODS XML</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link {{ if not $paper.endf }}disabled{{ end }}" data-toggle="list" href="#citeEndnote" role="tab" aria-controls="citeEndnote" aria-selected="false">Endnote</a>
+              <a class="nav-link {{ if not $paper.endf }}disabled{{ end }}" data-bs-toggle="list" href="#citeEndnote"
+                role="tab" aria-controls="citeEndnote" aria-selected="false">Endnote</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link {{ if not $paper.bibtex }}active{{ end }}" data-toggle="list" href="#citeMarkdown" role="tab" aria-controls="citeMarkdown" aria-selected="{{ if $paper.bibtex }}false{{ else }}true{{ end }}">Preformatted</a>
+              <a class="nav-link {{ if not $paper.bibtex }}active{{ end }}" data-bs-toggle="list" href="#citeMarkdown"
+                role="tab" aria-controls="citeMarkdown"
+                aria-selected="{{ if $paper.bibtex }}false{{ else }}true{{ end }}">Preformatted</a>
             </li>
           </ul>
 
@@ -702,8 +712,11 @@
               {{- with $paper.bibtex -}}
               <pre id="citeBibtexContent" class="bg-light border p-2" style="max-height: 50vh;">{{ . }}</pre>
               <div class="modal-footer pb-1">
-                <a class="btn btn-secondary btn-filesaver disabled" data-filesaver-target="#citeBibtexContent" data-filesaver-name="{{ $.Params.anthology_id }}.bib"><i class="fas fa-download pr-2"></i>Download as File</a>
-                <button class="btn btn-clipboard btn-primary d-none" data-clipboard-target="#citeBibtexContent"><i class="far fa-clipboard pr-2"></i>Copy to Clipboard</button>
+                <a class="btn btn-secondary btn-filesaver disabled" data-filesaver-target="#citeBibtexContent"
+                  data-filesaver-name="{{ $.Params.anthology_id }}.bib"><i class="fas fa-download pe-2"></i>Download as
+                  File</a>
+                <button class="btn btn-clipboard btn-primary d-none" data-clipboard-target="#citeBibtexContent" aria-label="Copy BibTeX to clipboard"><i
+                    class="far fa-clipboard pe-2"></i>Copy to Clipboard</button>
               </div>
               {{- end -}}
             </div>
@@ -711,8 +724,11 @@
               {{- with $paper.mods -}}
               <pre id="citeModsContent" class="bg-light border p-2" style="max-height: 50vh;">{{ . }}</pre>
               <div class="modal-footer pb-1">
-                <a class="btn btn-secondary btn-filesaver disabled" data-filesaver-target="#citeModsContent" data-filesaver-name="{{ $.Params.anthology_id }}.xml"><i class="fas fa-download pr-2"></i>Download as File</a>
-                <button class="btn btn-clipboard btn-primary d-none" data-clipboard-target="#citeModsContent"><i class="far fa-clipboard pr-2"></i>Copy to Clipboard</button>
+                <a class="btn btn-secondary btn-filesaver disabled" data-filesaver-target="#citeModsContent"
+                  data-filesaver-name="{{ $.Params.anthology_id }}.xml"><i class="fas fa-download pe-2"></i>Download as
+                  File</a>
+                <button class="btn btn-clipboard btn-primary d-none" data-clipboard-target="#citeModsContent" aria-label="Copy MODS XML to clipboard"><i
+                    class="far fa-clipboard pe-2"></i>Copy to Clipboard</button>
               </div>
               {{- end -}}
             </div>
@@ -720,14 +736,17 @@
               {{- with $paper.endf -}}
               <pre id="citeEndnoteContent" class="bg-light border p-2" style="max-height: 50vh;">{{ . }}</pre>
               <div class="modal-footer pb-1">
-                <a class="btn btn-secondary btn-filesaver disabled" data-filesaver-target="#citeEndnoteContent" data-filesaver-name="{{ $.Params.anthology_id }}.enw"><i class="fas fa-download pr-2"></i>Download as File</a>
-                <button class="btn btn-clipboard btn-primary d-none" data-clipboard-target="#citeEndnoteContent"><i class="far fa-clipboard pr-2"></i>Copy to Clipboard</button>
+                <a class="btn btn-secondary btn-filesaver disabled" data-filesaver-target="#citeEndnoteContent"
+                  data-filesaver-name="{{ $.Params.anthology_id }}.endf"><i class="fas fa-download pe-2"></i>Download as
+                  File</a>
+                <button class="btn btn-clipboard btn-primary d-none" data-clipboard-target="#citeEndnoteContent" aria-label="Copy Endnote to clipboard"><i
+                    class="far fa-clipboard pe-2"></i>Copy to Clipboard</button>
               </div>
               {{- end -}}
             </div>
             <div class="tab-pane" id="citeMarkdown" role="tabpanel">
               <h5>Markdown (Informal)</h5>
-              <p id="citeMarkdownContent" class="text-monospace small bg-light border p-2">
+              <p id="citeMarkdownContent" class="font-monospace small bg-light border p-2">
                 {{- $paper.citation -}}
               </p>
               <ul class="mt-2">
@@ -740,9 +759,13 @@
               </ul>
               {{ end }}
               <div class="modal-footer pb-1">
-                <button type="button" class="btn btn-clipboard btn-primary d-none" data-clipboard-target="#citeMarkdownContent"><i class="far fa-clipboard pr-2"></i>Copy Markdown to Clipboard</button>
+                <button type="button" class="btn btn-clipboard btn-primary d-none"
+                  data-clipboard-target="#citeMarkdownContent" aria-label="Copy Markdown to clipboard"><i class="far fa-clipboard pe-2"></i>Copy Markdown to
+                  Clipboard</button>
                 {{ with $paper.citation_acl }}
-                <button type="button" class="btn btn-clipboard btn-primary d-none" data-clipboard-target="#citeACLstyleContent"><i class="far fa-clipboard pr-2"></i>Copy ACL to Clipboard</button>
+                <button type="button" class="btn btn-clipboard btn-primary d-none"
+                  data-clipboard-target="#citeACLstyleContent" aria-label="Copy ACL citation to clipboard"><i class="far fa-clipboard pe-2"></i>Copy ACL to
+                  Clipboard</button>
                 {{ end }}
               </div>
             </div>

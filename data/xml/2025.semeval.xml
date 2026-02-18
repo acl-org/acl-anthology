@@ -458,7 +458,7 @@
       <title>tinaal at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2025 Task 11: Enhancing Perceived Emotion Intensity Prediction with Boosting Fine-Tuned Transformers</title>
       <author><first>Ting</first><last>Zhu</last><affiliation>Newcastle University</affiliation></author>
       <author><first>Liting</first><last>Huang</last><affiliation>Newcastle University</affiliation></author>
-      <author><first>Huizhi(elly)</first><last>Liang</last><affiliation>Newcastle University</affiliation></author>
+      <author><first>Huizhi</first><last>Liang</last><affiliation>Newcastle University</affiliation></author>
       <pages>302-307</pages>
       <abstract>This paper presents a framework for perceived emotion intensity prediction, focusing on SemEval-2025 Task 11 Track B. The task involves predicting the intensity of five perceived emotions—anger, fear, joy, sadness, and surprise—on an ordinal scale from 0 (no emotion) to 3 (high emotion). Our approach builds upon our method introduced in the WASSA workshop and enhances it by integrating ModernBERT in place of the traditional BERT model within a boosting-based ensemble framework. To address the difficulty in capturing fine-grained emotional distinctions, we incorporate class-preserving mixup data augmentation, a custom Pearson CombinLoss function, and fine-tuned transformer models, including ModernBERT, RoBERTa, and DeBERTa. Compared to individual fine-tuned transformer models (BERT, RoBERTa, DeBERTa and ModernBERT) without augmentation or ensemble learning, our approach demonstrates significant improvements. The proposed system achieves an average Pearson correlation coefficient of 0.768 on the test set, outperforming the best individual baseline model. In particular, the model performs best for sadness (r = 0.808) and surprise (r = 0.770), highlighting its ability to capture subtle intensity variations in the text. Despite these improvements, challenges such as data imbalance, performance on low-resource emotions (e.g., anger and fear), and the need for refined data augmentation techniques remain open for future research.</abstract>
       <url hash="0881f021">2025.semeval-1.43</url>
@@ -467,7 +467,7 @@
     <paper id="44">
       <title><fixed-case>NCL</fixed-case>-<fixed-case>AR</fixed-case> at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2025 Task 7: A Sieve Filtering Approach to Refute the Misinformation within Harmful Social Media Posts</title>
       <author><first>Alex</first><last>Robertson</last><affiliation>Newcastle University</affiliation></author>
-      <author><first>Huizhi(elly)</first><last>Liang</last><affiliation>Newcastle University</affiliation></author>
+      <author><first>Huizhi</first><last>Liang</last><affiliation>Newcastle University</affiliation></author>
       <pages>308-313</pages>
       <abstract>In this paper, we propose a sieve filtering-based approach that can retrieve facts to invalidate claims made in social media posts. The fact filters are initially coarse-grained, based on the original language of the social media posts, and end with fine-grained filters based on the exact time frame in which the posts were uploaded online. This streamlined approach achieved a 0.883 retrieval success rate in the monolingual task while maintaining a scalable efficiency level of processing a social media post per 0.07 seconds.</abstract>
       <url hash="3a372dd3">2025.semeval-1.44</url>
@@ -487,7 +487,7 @@
       <title>Chinchunmei at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2025 Task 11: Boosting the Large Language Model’s Capability of Emotion Perception using Contrastive Learning</title>
       <author><first>Tian</first><last>Li</last><affiliation>Newcastle University</affiliation></author>
       <author><first>Yujian</first><last>Sun</last><affiliation>Shumei AI Research Institute, China</affiliation></author>
-      <author><first>Huizhi(elly)</first><last>Liang</last><affiliation>Newcastle University</affiliation></author>
+      <author><first>Huizhi</first><last>Liang</last><affiliation>Newcastle University</affiliation></author>
       <pages>319-330</pages>
       <abstract>The SemEval-2025 Task 11, Bridging the Gap in Text-Based Emotion Detection, introduces an emotion recognition challenge spanning over 28 languages. This competition encourages researchers to explore more advanced approaches to address the challenges posed by the diversity of emotional expressions and background variations. It features two tracks: multi-label classification (Track A) and emotion intensity prediction (Track B), covering six emotion categories: anger, fear, joy, sadness, surprise, and disgust.In our work, we systematically explore the benefits of two contrastive learning approaches: sample-based (Contrastive Reasoning Calibration) and generation-based (DPO, SimPO) contrastive learning. The sample-based contrastive approach trains the model by comparing two samples to generate more reliable predictions. The generation-based contrastive approach trains the model to differentiate between correct and incorrect generations, refining its prediction. All models are fine-tuned from LLaMa3-Instruct-8B. Our system achieves 12th place in Track A and 7th place in Track B for English, while ranking among the top-tier performing systems for other languages.</abstract>
       <url hash="b0b3a48b">2025.semeval-1.46</url>
@@ -515,8 +515,8 @@
     </paper>
     <paper id="49">
       <title><fixed-case>O</fixed-case>sei<fixed-case>B</fixed-case>refo-Liang at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2025 Task 8 : A Multi-Agent <fixed-case>LLM</fixed-case> code generation approach for answering Tabular Questions</title>
-      <author><first>Emmanuel</first><last>Osei - Brefo</last><affiliation>University of Reading</affiliation></author>
-      <author><first>Huizhi(elly)</first><last>Liang</last><affiliation>Newcastle University</affiliation></author>
+      <author><first>Emmanuel</first><last>Osei-Brefo</last><affiliation>University of Reading</affiliation></author>
+      <author><first>Huizhi</first><last>Liang</last><affiliation>Newcastle University</affiliation></author>
       <pages>343-349</pages>
       <abstract>This paper presents a novel multi-agent framework for automated code generation and execution in tabular question answering. Developed for the SemEval-2025 Task 8, our system utilises a structured, multi-agent approach where distinct agents handle dataset extraction, schema identification, prompt engineering, code generation, execution, and prediction. Unlike traditional methods such as semantic parsing-based SQL generation and transformer-based table models such as TAPAS, our approach leverages a large language model-driven code synthesis pipeline using the DeepSeek API. Our system follows a zero-shot inference approach, which generates Python functions that operate directly on structured data. Through the dynamic extraction of dataset schema and intergration into structured prompts, the model comprehension of tabular structures is enhanced, which leads to more precise and interpretable results. Experimental results demonstrate that our system outperforms existing tabular questioning and answering models, achieving an accuracy of 84.67% on DataBench and 86.02% on DataBench-lite, which significantly surpassed the performances of TAPAS (2.68%) and stable-code-3b-GGUF (27%). The source code used in this paper is available at t https://github.com/oseibrefo/semEval25task8</abstract>
       <url hash="4796a297">2025.semeval-1.49</url>
@@ -533,8 +533,8 @@
     </paper>
     <paper id="51">
       <title>sonrobok4 Team at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2025 Task 8: Question Answering over Tabular Data Using Pandas and Large Language Models</title>
-      <author><first>Nguyen</first><last>Son</last><affiliation>University of Information Technology, Vietnam National University Ho Chi Minh City (VNU-HCM)</affiliation></author>
-      <author><first>Dang</first><last>Thin</last><affiliation>University of Information Technology,Vietnam National University Ho Chi Minh city</affiliation></author>
+      <author><first>Nguyen Minh</first><last>Son</last><affiliation>University of Information Technology, Vietnam National University Ho Chi Minh City (VNU-HCM)</affiliation></author>
+      <author><first>Dang Van</first><last>Thin</last><affiliation>University of Information Technology,Vietnam National University Ho Chi Minh city</affiliation></author>
       <pages>357-362</pages>
       <abstract>This paper describes the system of the son robok4 team for the SemEval-2025 Task 8: DataBench, Question-Answering over Tabular Data. The task requires answering questions based on the given question and dataset ID, ensuring that the responses are derived solely from the provided table. We address this task by using large language models (LLMs) to translate natural language questions into executable Python code for querying Pandas DataFrames. Furthermore, we employ techniques such as a rerun mechanism for error handling, structured metadata extraction, and dataset preprocessing to enhance performance. Our best-performing system achieved 89.46% accuracy on Subtask 1 and placed in the top 4 on the private test set. Additionally, it achieved 85.25% accuracy on Subtask 2 and placed in the top 9. We mainly focus on Subtask 1. We analyze the effectiveness of different LLMs for structured data reasoning and discuss key challenges in tabular question answering.</abstract>
       <url hash="4f552e55">2025.semeval-1.51</url>
@@ -1127,12 +1127,12 @@
     </paper>
     <paper id="107">
       <title><fixed-case>ABCD</fixed-case> at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2025 Task 9: <fixed-case>BERT</fixed-case>-based and Generation-based models combine with advanced weighted majority soft voting strategy</title>
-      <author><first>Tai</first><last>Le</last><affiliation>University of Information Technology-VNUHCM, Ho Chi Minh City, Vietnam</affiliation></author>
-      <author><first>Dang</first><last>Thin</last><affiliation>University of Information Technology,Vietnam National University Ho Chi Minh city</affiliation></author>
+      <author><first>Le Duc</first><last>Tai</last><affiliation>University of Information Technology-VNUHCM, Ho Chi Minh City, Vietnam</affiliation></author>
+      <author><first>Dang Van</first><last>Thin</last><affiliation>University of Information Technology,Vietnam National University Ho Chi Minh city</affiliation></author>
       <pages>785-790</pages>
-      <abstract>first submission to SemEval-2025 task 9 by ABCD team</abstract>
+      <abstract>This paper illustrates our ABCD team system approach in ACL 2025 - SemEval-2025 Task 9: The Food Hazard Detection Challenge, aim to solving both Task 1: Text classification for food hazard prediction, predicting the type of hazard and product, and Task 2: Food hazard and product “vector” detection, predicting the exact hazard and product. Precisely, we received a food report and our system needed to automatically detect which category of hazard and product the food belonged to. However, in Task 2, we must classify the food report into the exact name of the food hazard and category. To tackle Task 1, we implement and investigate various solutions, including (1) experimenting with a large battery of BERT-based models; and (2) utilizing generation-based models, and (3) taking advantage of a custom ensemble learning method. In addition, to address Task 2, we make use of different data augmentation techniques like synonym replacement and back-translation. To enhance the context of input, we cleaned some special characters that bring more clarity into text input. Our best official results on Task 1 and Task 2 are 0.786 and 0.458 in terms of F1-score, respectively—finally, our team solution achieved top 8th in task 1 and top 10th in task 2.</abstract>
       <url hash="61b63690">2025.semeval-1.107</url>
-      <bibkey>le-thin-2025-abcd</bibkey>
+      <bibkey>tai-thin-2025-abcd</bibkey>
     </paper>
     <paper id="108">
       <title>Sakura at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2025 Task 2: Enhancing Named Entity Translation with Fine-Tuning and Preference Optimization</title>
@@ -1448,14 +1448,14 @@
     </paper>
     <paper id="136">
       <title>Firefly Team at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2025 Task 8: Question-Answering over Tabular Data using <fixed-case>SQL</fixed-case>/Python generation with Closed-Source Large Language Models</title>
-      <author><first>Nga</first><last>Ho</last><affiliation>University of Information Technology</affiliation></author>
-      <author><first>Tuyen</first><last>Ho</last><affiliation>University of Information Technology</affiliation></author>
-      <author><first>Hung</first><last>Le</last><affiliation>University of Information Technology, Vietnam National University Ho Chi Minh City</affiliation></author>
-      <author><first>Dang</first><last>Thin</last><affiliation>University of Information Technology,Vietnam National University Ho Chi Minh city</affiliation></author>
+      <author><first>Ho Thuy</first><last>Nga</last><affiliation>University of Information Technology</affiliation></author>
+      <author><first>Ho Thi Thanh</first><last>Tuyen</last><affiliation>University of Information Technology</affiliation></author>
+      <author><first>Le Minh</first><last>Hung</last><affiliation>University of Information Technology, Vietnam National University Ho Chi Minh City</affiliation></author>
+      <author><first>Dang Van</first><last>Thin</last><affiliation>University of Information Technology,Vietnam National University Ho Chi Minh city</affiliation></author>
       <pages>1028-1033</pages>
       <abstract>In this paper, we describe our official system of the Firefly team for two main tasks in the SemEval-2025 Task 8: Question-Answering over Tabular Data. Our solution employs large language models (LLMs) to translate natural language queries into executable code, specifically Python and SQL, which are then used to generate answers categorized into five predefined types. Our empirical evaluation highlights the superiority of Python code generation over SQL for this challenge. Besides, the experimental results show that our system has achieved competitive performance in two subtasks. In Subtask I: Databench QA, where we rank the Top 9 across datasets of any size. Besides, our solution achieved competitive results and ranked 5th place in Subtask II: Databench QA Lite, where datasets are restricted to a maximum of 20 rows.</abstract>
       <url hash="76b9b382">2025.semeval-1.136</url>
-      <bibkey>ho-etal-2025-firefly</bibkey>
+      <bibkey>nga-etal-2025-firefly</bibkey>
     </paper>
     <paper id="137">
       <title><fixed-case>S</fixed-case>murf<fixed-case>C</fixed-case>at at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2025 Task 3: Bridging External Knowledge and Model Uncertainty for Enhanced Hallucination Detection</title>
@@ -2910,8 +2910,8 @@
     </paper>
     <paper id="272">
       <title><fixed-case>J</fixed-case>elly<fixed-case>K</fixed-case> at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2025 Task 11: <fixed-case>R</fixed-case>ussian Multi-label Emotion Detection with Pre-trained <fixed-case>BERT</fixed-case>-based Language Models</title>
-      <author><first>Khoa</first><last>Le</last><affiliation>University of Information Technology VNU-HCM</affiliation></author>
-      <author><first>Dang</first><last>Thin</last><affiliation>University of Information Technology,Vietnam National University Ho Chi Minh city</affiliation></author>
+      <author><first>Khoa Anh-Nguyen</first><last>Le</last><affiliation>University of Information Technology VNU-HCM</affiliation></author>
+      <author><first>Dang Van</first><last>Thin</last><affiliation>University of Information Technology,Vietnam National University Ho Chi Minh city</affiliation></author>
       <pages>2090-2095</pages>
       <abstract>This paper presents our approach for SemEval-2025 Task 11, we focus on on multi-label emotion detection in Russian text (track A). We preprocess the data by handling special characters, punctuation, and emotive expressions to improve feature-label relationships. To select the best model performance, we fine-tune various pre-trained language models specialized in Russian and evaluate them using K-FOLD Cross-Validation. Our results indicated that ruRoberta-large achieved the best Macro F1-score among tested models. Finally, our system achieved fifth place in the unofficial competition ranking.</abstract>
       <url hash="34b0dd14">2025.semeval-1.272</url>
