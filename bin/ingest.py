@@ -114,7 +114,7 @@ def venue_slug_from_acronym(acronym: str) -> str:
     return slug
 
 
-def normalize_latex_text(text: Optional[str]) -> Optional[MarkupText]:
+def normalize_latex_title(text: Optional[str]) -> Optional[MarkupText]:
     """Normalize and apply truelist-based fixed-case protection for LaTeX text."""
     if text is None:
         return None
@@ -122,6 +122,13 @@ def normalize_latex_text(text: Optional[str]) -> Optional[MarkupText]:
     elem = markup.to_xml()
     protect_fixedcase(elem)
     return MarkupText.from_xml(elem)
+
+
+def normalize_abstract(text: Optional[str]) -> Optional[MarkupText]:
+    """Normalize and apply truelist-based fixed-case protection for LaTeX text."""
+    if text is None:
+        return None
+    return MarkupText.from_latex_maybe(text)
 
 
 def make_name_spec(person) -> NameSpecification:
@@ -161,14 +168,14 @@ def read_bib_entry(bibfilename: str, anthology_id: str) -> Optional[Dict[str, An
         page_range = page_range.replace("--", "-")
 
     return {
-        "title": normalize_latex_text(bibentry.fields.get("title")),
-        "booktitle": normalize_latex_text(bibentry.fields.get("booktitle")),
+        "title": normalize_latex_title(bibentry.fields.get("title")),
+        "booktitle": normalize_latex_title(bibentry.fields.get("booktitle")),
         "month": bibentry.fields.get("month"),
         "year": bibentry.fields.get("year"),
         "address": bibentry.fields.get("address"),
         "publisher": bibentry.fields.get("publisher"),
         "pages": page_range,
-        "abstract": normalize_latex_text(bibentry.fields.get("abstract")),
+        "abstract": normalize_abstract(bibentry.fields.get("abstract")),
         "doi": bibentry.fields.get("doi"),
         "language": bibentry.fields.get("language"),
         "authors": [
@@ -382,7 +389,7 @@ def main(args):
 
         volume_title = (
             (frontmatter_data or {}).get("title")
-            or normalize_latex_text(meta.get("booktitle") or meta.get("title"))
+            or normalize_latex_title(meta.get("booktitle") or meta.get("title"))
             or f"{meta['abbrev']} {meta['year']}"
         )
 

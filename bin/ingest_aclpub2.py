@@ -14,141 +14,39 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
-# Usage:
-#
-# First, make sure the ACLPUB2_DIR subscribes to the following format.
-#
-# aclpub2/
-#   front_matter.pdf
-#   proceedings.pdf
-#   papers.yml   # updated with relative paths for attachments and PDFs
-#   conference_details.yml  # this could probably be unchanged
-#   pdfs/
-#     1.pdf
-#     ...
-#   attachments/
-#     49_software.zip
-#     17_dataset.tgz
-#     ...
-#
-# It sometimes doesn't because the format is not set in stone, so files
-# may be scattered. Use symlinks or move everything around to make it all
-# right.
-#
-# Then, run
-#
-#     python bin/ingest_aclpub2.py -i ACLPUB2_DIR
-#
-# It will:
-# - Create the volumes in the acl-anthology directory (updating if they exist)
-# - Copy PDFs and attachments to ~/anthology-files/{pdf,attachments}
-#
-# Check things over, then commit and push the changes and synchronize the files.
-
-# TODO:
-# - check for venue YAML, create/complain if non-existent
-# - add verification model to ensure format is correct
 
 import click
 import yaml
 import re
 import sys
 import os
-import glob
 import PyPDF2
+
 from pathlib import Path
 from datetime import datetime
-import lxml.etree as etree
 from typing import Dict, List, Tuple, Any, Optional
-from ingest import maybe_copy
 
-from normalize_anth import normalize
-from anthology.index import AnthologyIndex
-from anthology.venues import VenueIndex
-from anthology.people import PersonName
-from anthology.utils import (
-    make_simple_element,
-    indent,
-    compute_hash_from_file,
+from acl_anthology import Anthology
+from acl_anthology.collections.types import EventLink, PaperType, VolumeType
+from acl_anthology.files import (
+    AttachmentReference,
+    PDFReference,
+    compute_checksum_from_file,
+)
+from acl_anthology.people import Name, NameSpecification
+
+from ingest import (
+    correct_caps,
+    maybe_copy,
+    normalize_latex_title,
+    normalize_abstract,
+    venue_slug_from_acronym,
 )
 
-# Whether papers are archival by default
 ARCHIVAL_DEFAULT = True
 
 
-def disambiguate_name(node, anth_id, people):
-    """
-    There may be multiple matching names. If so, ask the ingester to choose
-    which one is the disambiguated one. Ideally, this would be determined
-    automatically from metadata or providing orcid ids or other disambiguators.
-    """
-    name = PersonName.from_element(node)
-    ids = people.get_ids(name)
-
-    choice = -1
-    if len(ids) > 1:
-        # TEMPORARY
-        choice = 0
-
-        while choice < 0 or choice >= len(ids):
-            print(
-                f'({anth_id}): ambiguous author {name}; Please choose from the following:'
-            )
-            for i, id_ in enumerate(ids):
-                print(f'[{i}] {id_} ({people.get_comment(id_)})')
-            choice = int(input("--> "))
-
-    return ids[choice], choice
-
-
-def correct_caps(name):
-    '''
-    Many people submit their names in "ALL CAPS" or "all lowercase".
-    Correct this with heuristics.
-    '''
-    if name is not None and (name.islower() or name.isupper()):
-        # capitalize all parts
-        corrected = " ".join(list(map(lambda x: x.capitalize(), name.split())))
-        if name != corrected:
-            print(
-                f"-> Correcting capitalization of '{name}' to '{corrected}'",
-                file=sys.stderr,
-            )
-        name = corrected
-    return name
-
-
 def parse_conf_yaml(ingestion_dir: str) -> Dict[str, Any]:
-    '''
-    poss meta keys = [
-                 'book_title',
-                 'event_name',
-                 'cover_subtitle',
-                 'anthology_venue_id',
-                 'volume',
-                 'start_date',
-                 'end_date',
-                 'isbn',
-                 'location',
-                 'editors',
-                 'publisher'
-                 ]
-    must meta keys = [
-                 'book_title',
-                 'anthology_venue_id',
-                 'volume_name',
-                 'month',
-                 'year',
-                 'location',
-                 'editors',
-                 'publisher'
-                ]
-
-    anthology_venue_id == abbrev
-    event_name == title
-    cover_subtitle == shortbooktitle
-    '''
     ingestion_dir = Path(ingestion_dir)
 
     paths_to_check = [
@@ -189,10 +87,7 @@ def parse_conf_yaml(ingestion_dir: str) -> Dict[str, Any]:
     return meta
 
 
-def parse_paper_yaml(ingestion_dir: str) -> List[Dict[str, str]]:
-    """
-    Reads papers.yml to get metadata. Skips non-archival papers.
-    """
+def parse_paper_yaml(ingestion_dir: str) -> List[Dict[str, Any]]:
     ingestion_dir = Path(ingestion_dir)
 
     paths_to_check = [
@@ -208,51 +103,42 @@ def parse_paper_yaml(ingestion_dir: str) -> List[Dict[str, str]]:
         raise Exception("Can't find papers.yml (looked in root dir and under inputs/)")
 
     for paper in papers:
-        if "archival" not in paper:
-            paper["archival"] = ARCHIVAL_DEFAULT
+        if 'archival' not in paper:
+            paper['archival'] = ARCHIVAL_DEFAULT
 
     return papers
 
 
-def add_paper_nums_in_paper_yaml(
-    papers: List[Dict[str, str]], ingestion_dir: str
-) -> List[Dict[str, str]]:
-    """
-    Reads PDFs to get page numbers for metadata.
-    """
+def add_page_numbers(
+    papers: List[Dict[str, Any]], ingestion_dir: str
+) -> List[Dict[str, Any]]:
     ingestion_dir = Path(ingestion_dir)
 
     start, end = 1, 0
     for paper in papers:
-        if paper["archival"]:
-            assert 'file' in paper.keys(), f'{paper["id"]} is missing key "file"'
+        if not paper['archival']:
+            continue
 
-            paper_id = str(paper['id'])
-            # if 'file' not in paper.keys():
-            #     print(f'{paper_id} does not have file key but archive is {paper["archival"]}')
-            #     paper_name = paper['title']
-            # else:
+        assert 'file' in paper.keys(), f"{paper['id']} is missing key 'file'"
 
-            paper_path = paper['file']
+        paper_id = str(paper['id'])
+        paper_path = paper['file']
 
-            # TODO: we should just be able to read paper_path directly, and throw an
-            # error if it doesn't exist
-            paper_need_read_path = None
-            paths_to_check = [
-                ingestion_dir / "watermarked_pdfs" / paper_path,
-                ingestion_dir / "watermarked_pdfs" / f"{paper_id}.pdf",
-            ]
-            paper_need_read_path = None
-            for path in paths_to_check:
-                if path.exists():
-                    paper_need_read_path = str(path)
-                    break
-            else:
-                raise Exception(
-                    f"* Fatal: could not find paper ID {paper_id} ({paths_to_check})"
-                )
+        paths_to_check = [
+            ingestion_dir / 'watermarked_pdfs' / paper_path,
+            ingestion_dir / 'watermarked_pdfs' / f'{paper_id}.pdf',
+        ]
+        paper_need_read_path = None
+        for path in paths_to_check:
+            if path.exists():
+                paper_need_read_path = str(path)
+                break
+        else:
+            raise Exception(
+                f"* Fatal: could not find paper ID {paper_id} ({paths_to_check})"
+            )
 
-            pdf = open(paper_need_read_path, 'rb')
+        with open(paper_need_read_path, 'rb') as pdf:
             pdf_reader = PyPDF2.PdfReader(pdf)
             num_of_pages = len(pdf_reader.pages)
             start = end + 1
@@ -262,6 +148,55 @@ def add_paper_nums_in_paper_yaml(
     return papers
 
 
+def trim_orcid(orcid: str) -> str:
+    match = re.match(r'.*(\d{4}-\d{4}-\d{4}-\d{3}[\dX]).*', orcid, re.IGNORECASE)
+    if match is not None:
+        return match.group(1).upper()
+    return orcid
+
+
+def correct_names(author: Dict[str, Any]) -> Dict[str, Any]:
+    if author.get('middle_name') is not None and author['middle_name'].lower() == 'de':
+        author['last_name'] = author['middle_name'] + ' ' + author['last_name']
+        del author['middle_name']
+    return author
+
+
+def join_names(author: Dict[str, Any], fields=None) -> str:
+    if fields is None:
+        fields = ['first_name', 'middle_name']
+    names = []
+    for field in fields:
+        if author.get(field) is not None:
+            names.append(author[field])
+    return ' '.join(names)
+
+
+def namespec_from_author(author: Dict[str, Any]) -> NameSpecification:
+    author = correct_names(dict(author))
+
+    first_name = correct_caps(join_names(author).strip())
+    last_name = correct_caps((author.get('last_name') or '').strip())
+    if first_name and not last_name:
+        first_name, last_name = last_name, first_name
+
+    if not last_name:
+        raise Exception(f'BAD AUTHOR: {author}')
+
+    kwargs: Dict[str, Any] = {
+        'name': Name(first_name if first_name else None, last_name),
+    }
+
+    if 'orcid' in author and author['orcid']:
+        kwargs['orcid'] = trim_orcid(str(author['orcid']))
+
+    affiliation = author.get('institution') or author.get('affiliation')
+    if affiliation:
+        kwargs['affiliation'] = affiliation
+
+    return NameSpecification(**kwargs)
+
+
 def create_dest_path(org_dir_name: str, venue_name: str) -> str:
     dest_dir = os.path.join(org_dir_name, venue_name)
     if not os.path.exists(dest_dir):
@@ -269,237 +204,38 @@ def create_dest_path(org_dir_name: str, venue_name: str) -> str:
     return dest_dir
 
 
-def find_paper_attachment(paper_name: str, attachments_dir: str) -> Optional[str]:
-    '''
-    files in the attachments folder need to be named filename.zip
-    '''
-    attachment_path = None
-    for filename in glob.glob(attachments_dir + '/*'):
-        if os.path.splitext(os.path.split(filename)[1])[0] == paper_name:
-            attachment_path = filename
-            break
-    return attachment_path
-
-
-def correct_names(author):
-    """
-    A set of corrections we apply to upstream name parsing.
-    """
-    if author.get("middle_name") is not None and author["middle_name"].lower() == "de":
-        author["last_name"] = author["middle_name"] + " " + author["last_name"]
-        del author["middle_name"]
-
-    return author
-
-
-def join_names(author, fields=["first_name", "middle_name"]):
-    """
-    Joins name fields. If you want to merge first names with middle names,
-    set fields to ["first_name", "middle_name"]. However, many people enter
-    their middle names without the expectation that it will appear.
-    """
-    names = []
-    for field in fields:
-        if author.get(field) is not None:
-            names.append(author[field])
-    return " ".join(names)
-
-
-def trim_orcid(orcid: str) -> str:
-    """
-    Match the ORCID iD out of a potentially longer URL.
-    """
-    match = re.match(r'.*(\d{4}-\d{4}-\d{4}-\d{3}[\dX]).*', orcid, re.IGNORECASE)
-    if match is not None:
-        return match.group(1).upper()
-    return orcid
-
-
-def proceeding2xml(anthology_id: str, meta: Dict[str, Any], frontmatter):
-    """
-    Creates the XML meta block for a volume from the paper YAML data structure.
-    If the frontmatter PDF is not set, we skip the "url" field, which downstream
-    will cause the <frontmatter> block not to be generated.
-    """
-    fields = [
-        'editor',
-        'booktitle',
-        'month',
-        'year',
-        'url',
-    ]
-
-    frontmatter_node = make_simple_element('frontmatter', attrib={'id': '0'})
-    for field in fields:
-        if field == 'editor':
-            authors = meta['editors']
-            for author in authors:
-                create_node_from_author(author, frontmatter_node, fieldname="editor")
-        else:
-            if field == 'url':
-                if "pdf" in frontmatter:
-                    # Only create the entry if the PDF exists
-                    value = f'{anthology_id}'
-                else:
-                    print(
-                        f"Warning: skipping PDF for {anthology_id}: {meta}",
-                        file=sys.stderr,
-                    )
-                    value = None
-            elif field == 'booktitle':
-                value = meta['book_title']
-            elif field == 'month':
-                value = meta['month']
-            elif field == 'year':
-                value = meta['year']
-
-            if value is not None:
-                make_simple_element(field, text=value, parent=frontmatter_node)
-
-    return frontmatter_node
-
-
-def create_node_from_author(author, paper_node, fieldname="author"):
-    author = correct_names(author)
-
-    attrib = {}
-    if 'orcid' in author.keys():
-        attrib = {'orcid': trim_orcid(author['orcid'])}
-
-    name_node = make_simple_element(fieldname, parent=paper_node, attrib=attrib)
-
-    # swap names (<last> can't be empty)
-    first_name = join_names(author)
-    try:
-        last_name = author['last_name']
-    except KeyError:
-        print("BAD AUTHOR", author, file=sys.stderr)
-        sys.exit(1)
-    if first_name != "" and last_name == "":
-        first_name, last_name = last_name, first_name
-
-    make_simple_element('first', first_name, parent=name_node)
-    make_simple_element('last', last_name, parent=name_node)
-
-    # add affiliation
-    if 'institution' in author.keys():
-        make_simple_element('affiliation', author['institution'], parent=name_node)
-    elif 'affiliation' in author.keys():
-        make_simple_element('affiliation', author['affiliation'], parent=name_node)
-
-
-def paper2xml(
-    paper_item: Dict[str, str], paper_num: int, anthology_id: str, meta: Dict[str, Any]
-):
-    '''
-    paper keys = ['abstract',
-                  'attachments',
-                  'attributes',
-                  'authors',
-                  'decision',
-                  'file',
-                  'id',
-                  'openreview_id',
-                  'pdf_file',
-                  'title']
-    author keys = ['emails',
-                   'first_name',
-                   'google_scholar_id',
-                   'homepage',
-                   'last_name',
-                   'name',
-                   'semantic_scholar_id',
-                   'username']
-    '''
-
-    fields = [
-        'title',
-        'author',
-        'pages',
-        'abstract',
-        'url',
-        'doi',
-        'language',
-    ]
-    paper = make_simple_element('paper', attrib={"id": str(paper_num)})
-    for field in fields:
-        if field == 'author':
-            authors = paper_item['authors']
-            for author in authors:
-                create_node_from_author(author, paper)
-        else:
-            if field == 'url':
-                value = f'{anthology_id}'
-            elif field == 'abstract':
-                value = None
-                if "abstract" in paper_item and paper_item["abstract"] is not None:
-                    value = paper_item["abstract"].replace('\n', '')
-            elif field == 'title':
-                value = paper_item[field]
-            elif field == 'pages':
-                value = paper_item[field]
-            else:
-                continue
-
-            try:
-                if value is not None:
-                    make_simple_element(field, text=value, parent=paper)
-            except Exception as e:
-                print("* WARNING:", e, file=sys.stderr)
-                print(
-                    f"* Couldn't process {field}='{value}' for {anthology_id}, please check the abstract in the papers.yaml file for this paper",
-                    file=sys.stderr,
-                )
-                #                for key, value in paper_item.items():
-                #                    print(f"* -> {key} => {value}", file=sys.stderr)
-                #                sys.exit(2)
-                continue
-    return paper
-
-
 def process_proceeding(
-    ingestion_dir: str,
-    anthology_datadir: str,
-    venue_index: VenueIndex,
-    venue_keys: List[str],
+    ingestion_dir: str, anthology: Anthology
 ) -> Tuple[str, Dict[str, Any]]:
     meta = parse_conf_yaml(ingestion_dir)
-    venue_abbrev = meta["anthology_venue_id"]
-    venue_slug = venue_index.get_slug_from_acronym(venue_abbrev)
+    venue_abbrev = meta['anthology_venue_id']
+    venue_slug = venue_slug_from_acronym(venue_abbrev)
 
     if str(datetime.now().year) in venue_abbrev:
         print(f"Fatal: Venue assembler put year in acronym: '{venue_abbrev}'")
         sys.exit(1)
 
-    if re.match(r".*\d$", venue_abbrev) is not None:
+    if re.match(r'.*\d$', venue_abbrev) is not None:
         print(
-            f"WARNING: Venue {venue_abbrev} ends in a number, this is probably a mistake"
+            f'WARNING: Venue {venue_abbrev} ends in a number, this is probably a mistake'
         )
 
-    if venue_slug not in venue_keys:
+    if venue_slug not in anthology.venues:
         event_name = meta['event_name']
         if re.match(r'(.)* [Ww]orkshop', event_name) is None:
             print(
-                "* Warning: event name should start with Workshop, instead it started with",
-                re.match(r'(.)* [Ww]orkshop', event_name),
+                '* Warning: event name should start with Workshop, instead it started with',
+                event_name,
                 file=sys.stderr,
             )
         print(f"Creating new venue '{venue_abbrev}' ({event_name})")
-        venue_index.add_venue(anthology_datadir, venue_abbrev, meta['event_name'])
+        anthology.venues.create(id=venue_slug, acronym=venue_abbrev, name=event_name)
 
-    meta["path"] = Path(ingestion_dir)
-    meta["collection_id"] = collection_id = meta["year"] + "." + venue_slug
-    volume_name = meta["volume_name"].lower()
-    volume_full_id = f"{collection_id}-{volume_name}"
+    meta['path'] = Path(ingestion_dir)
+    meta['collection_id'] = collection_id = meta['year'] + '.' + venue_slug
+    volume_name = meta['volume_name'].lower()
+    volume_full_id = f'{collection_id}-{volume_name}'
 
-    # if "sig" in meta:
-    #     print(
-    #         f"Add this line to {anthology_datadir}/sigs/{meta['sig'].lower()}.yaml:"
-    #     )
-    #     print(f"  - {meta['year']}:")
-    #     print(f"    - {volume_full_id} # {meta['booktitle']}")
-
-    # print(f'volume_full_id {volume_full_id} meta {meta}')
     return volume_full_id, meta
 
 
@@ -507,367 +243,300 @@ def copy_pdf_and_attachment(
     meta: Dict[str, Any],
     pdfs_dir: str,
     attachments_dir: str,
-    papers: List[Dict[str, str]],
-) -> Tuple[Dict[str, Dict[str, str]], str, str, str]:
-    """
-    Copies PDFs and attachments to ready them for upload. Creates
-    data structures used to subsequently generate the XML.
-    """
-
-    volume = dict()
+    papers: List[Dict[str, Any]],
+) -> Tuple[Dict[int, Dict[str, Any]], str, str, Optional[str], Optional[str]]:
+    volume: Dict[int, Dict[str, Any]] = {}
     collection_id = meta['collection_id']
     venue_name = meta['anthology_venue_id'].lower()
     volume_name = meta['volume_name'].lower()
 
     pdfs_src_dir = None
-    paths_to_check = [
-        meta['path'] / 'watermarked_pdfs',
-    ]
-    for path in paths_to_check:
+    for path in [meta['path'] / 'watermarked_pdfs']:
         if path.exists() and path.is_dir():
             pdfs_src_dir = path
             break
     else:
-        raise FileNotFoundError(f"Could not find watermarked PDFs in {paths_to_check}")
+        raise FileNotFoundError(
+            f'Could not find watermarked PDFs in {[meta["path"] / "watermarked_pdfs"]}'
+        )
 
     pdfs_dest_dir = Path(create_dest_path(pdfs_dir, venue_name))
 
-    # copy proceedings.pdf
     proceedings_pdf_src_path = None
-    paths_to_check = [
+    for path in [
         meta['path'] / 'proceedings.pdf',
-        meta['path'] / "build" / 'proceedings.pdf',
-    ]
-    for path in paths_to_check:
+        meta['path'] / 'build' / 'proceedings.pdf',
+    ]:
         if path.exists():
             proceedings_pdf_src_path = str(path)
             break
-    else:
-        print(
-            f"Warning: could not find proceedings.pdf in {paths_to_check}",
-            file=sys.stderr,
-        )
+    if proceedings_pdf_src_path is None:
+        print('Warning: proceedings.pdf was not found, skipping', file=sys.stderr)
 
     proceedings_pdf_dest_path = None
     if proceedings_pdf_src_path is not None:
-        proceedings_pdf_dest_path = pdfs_dest_dir / f"{collection_id}-{volume_name}.pdf"
+        proceedings_pdf_dest_path = str(
+            pdfs_dest_dir / f'{collection_id}-{volume_name}.pdf'
+        )
         maybe_copy(proceedings_pdf_src_path, proceedings_pdf_dest_path)
-    else:
-        print("Warning: proceedings.pdf was not found, skipping", file=sys.stderr)
 
-    # Create entry for frontmatter, even if the PDF isn't there. We need this entry
-    # because it is used to create the <meta> block for the volume.
     volume[0] = {
-        "anthology_id": f"{collection_id}-{volume_name}.0",
-        "attachments": [],
-        "archival": True,
+        'anthology_id': f'{collection_id}-{volume_name}.0',
+        'attachments': [],
+        'archival': True,
     }
 
     frontmatter_src_path = None
-    paths_to_check = [
+    for path in [
         meta['path'] / 'front_matter.pdf',
-        meta['path'] / "watermarked_pdfs" / 'front_matter.pdf',
-        meta['path'] / "watermarked_pdfs" / '0.pdf',
-    ]
-    for path in paths_to_check:
+        meta['path'] / 'watermarked_pdfs' / 'front_matter.pdf',
+        meta['path'] / 'watermarked_pdfs' / '0.pdf',
+    ]:
         if path.exists():
             frontmatter_src_path = str(path)
-            print(f"Found frontmatter at {frontmatter_src_path}", file=sys.stderr)
+            print(f'Found frontmatter at {frontmatter_src_path}', file=sys.stderr)
             break
-    else:
-        print(
-            f"Warning: could not find front matter in {paths_to_check}", file=sys.stderr
-        )
 
     if frontmatter_src_path is not None:
-        frontmatter_dest_path = pdfs_dest_dir / f"{collection_id}-{volume_name}.0.pdf"
+        frontmatter_dest_path = str(
+            pdfs_dest_dir / f'{collection_id}-{volume_name}.0.pdf'
+        )
         maybe_copy(frontmatter_src_path, frontmatter_dest_path)
-
-        # create the PDF entry so that we'll get <frontmatter>
-        volume[0]['pdf'] = frontmatter_dest_path
+        volume[0]['pdf_src'] = frontmatter_src_path
+        volume[0]['pdf_dest'] = frontmatter_dest_path
 
     paper_num = 0
-    for i, paper in enumerate(papers):
-        assert 'archival' in paper.keys(), f'{paper["id"]} is missing key "archival"'
-
+    for paper in papers:
+        assert 'archival' in paper.keys(), f"{paper['id']} is missing key 'archival'"
         paper_num += 1
         paper_id_full = f'{collection_id}-{volume_name}.{paper_num}'
 
-        is_archival = paper["archival"]
-
+        is_archival = paper['archival']
         volume[paper_num] = {
             'anthology_id': paper_id_full,
             'attachments': [],
             'archival': is_archival,
         }
 
-        if is_archival:
-            assert 'file' in paper.keys(), f'{paper["id"]} is missing key "file"'
-            paper_name = paper['file']
-            paper_id = str(paper['id'])
+        if not is_archival:
+            continue
 
-            pdf_src_path = None
-            if (pdfs_src_dir / paper_name).exists():
-                pdf_src_path = pdfs_src_dir / paper_name
-            elif pdfs_src_dir / f'{paper_id}.pdf':
-                pdf_src_path = pdfs_src_dir / f'{paper_id}.pdf'
+        assert 'file' in paper.keys(), f"{paper['id']} is missing key 'file'"
+        paper_name = paper['file']
+        paper_id = str(paper['id'])
 
-            assert (
-                pdf_src_path
-            ), f"Couldn't find {paper_name} or {paper_id} in {pdfs_src_dir}"
-            pdf_dest_path = pdfs_dest_dir / f"{paper_id_full}.pdf"
-            maybe_copy(pdf_src_path, pdf_dest_path)
+        pdf_src_path = None
+        if (pdfs_src_dir / paper_name).exists():
+            pdf_src_path = str(pdfs_src_dir / paper_name)
+        elif (pdfs_src_dir / f'{paper_id}.pdf').exists():
+            pdf_src_path = str(pdfs_src_dir / f'{paper_id}.pdf')
 
-            volume[paper_num]["pdf"] = pdf_dest_path
+        assert pdf_src_path, f"Couldn't find {paper_name} or {paper_id} in {pdfs_src_dir}"
 
-            # copy attachments
-            if 'attachments' in paper:
-                attachs_dest_dir = create_dest_path(attachments_dir, venue_name)
-                attachs_src_dir = meta['path'] / 'attachments'
-                # assert (
-                #     attachs_src_dir.exists()
-                # ), f'paper {i, paper_name} contains attachments but attachments folder was not found'
+        pdf_dest_path = str(pdfs_dest_dir / f'{paper_id_full}.pdf')
+        maybe_copy(pdf_src_path, pdf_dest_path)
 
-                for attachment in paper['attachments']:
-                    file_path = Path(attachment.get('file', None))
-                    if file_path is None:
-                        continue
+        volume[paper_num]['pdf_src'] = pdf_src_path
+        volume[paper_num]['pdf_dest'] = pdf_dest_path
 
-                    attach_src_path = None
-                    paths_to_check = [
-                        attachs_src_dir / file_path,
-                        attachs_src_dir / file_path.name,
-                    ]
-                    for path in paths_to_check:
-                        if path.exists():
-                            attach_src_path = str(path)
-                            break
-                    else:
-                        print(
-                            f"Warning: paper {paper_id} attachment {file_path} not found, skipping",
-                            file=sys.stderr,
-                        )
-                        continue
+        if 'attachments' in paper:
+            attachs_dest_dir = create_dest_path(attachments_dir, venue_name)
+            attachs_src_dir = meta['path'] / 'attachments'
 
-                    attach_src_extension = attach_src_path.split(".")[-1]
-                    type_ = attachment['type'].replace(" ", "")
-                    file_name = f'{collection_id}-{volume_name}.{paper_num}.{type_}.{attach_src_extension}'
+            for attachment in paper['attachments']:
+                file_path_value = attachment.get('file', None)
+                if file_path_value is None:
+                    continue
+                file_path = Path(file_path_value)
 
-                    # the destination path
-                    attach_dest_path = os.path.join(attachs_dest_dir, file_name).replace(
-                        " ", ""
+                attach_src_path = None
+                for path in [
+                    attachs_src_dir / file_path,
+                    attachs_src_dir / file_path.name,
+                ]:
+                    if path.exists():
+                        attach_src_path = str(path)
+                        break
+                if attach_src_path is None:
+                    print(
+                        f"Warning: paper {paper_id} attachment {file_path} not found, skipping",
+                        file=sys.stderr,
+                    )
+                    continue
+
+                attach_src_extension = attach_src_path.split('.')[-1]
+                type_ = str(attachment['type']).replace(' ', '')
+                file_name = f'{collection_id}-{volume_name}.{paper_num}.{type_}.{attach_src_extension}'
+                attach_dest_path = os.path.join(attachs_dest_dir, file_name).replace(
+                    ' ', ''
+                )
+
+                if Path(attach_src_path).exists():
+                    maybe_copy(attach_src_path, attach_dest_path)
+                    print(f'Attaching {attach_dest_path} ({type_}) to {paper_num}')
+                    volume[paper_num]['attachments'].append(
+                        {
+                            'src': attach_src_path,
+                            'dest': attach_dest_path,
+                            'type': type_,
+                        }
                     )
 
-                    if Path(attach_src_path).exists():
-                        maybe_copy(attach_src_path, attach_dest_path)
-                        print(f"Attaching {attach_dest_path} ({type_}) to {paper_num}")
-                        volume[paper_num]['attachments'].append((attach_dest_path, type_))
+    return (
+        volume,
+        collection_id,
+        volume_name,
+        proceedings_pdf_src_path,
+        proceedings_pdf_dest_path,
+    )
 
-    return volume, collection_id, volume_name, proceedings_pdf_dest_path
+
+def set_disambiguation_ids(
+    name_specs: List[NameSpecification], anthology: Anthology
+) -> None:
+    for name_spec in name_specs:
+        matches = anthology.people.get_by_name(name_spec.name)
+        if len(matches) > 1:
+            name_spec.id = matches[0].id
 
 
-def create_xml(
-    volume: Dict[str, Dict[str, str]],
-    anthology_dir: str,
-    ingest_date: str,
+def pdf_reference_from_paths(
+    anthology_id: str, src_path: str, dest_path: str
+) -> PDFReference:
+    if os.path.exists(dest_path):
+        return PDFReference.from_file(dest_path)
+    return PDFReference(name=anthology_id, checksum=compute_checksum_from_file(src_path))
+
+
+def attachment_reference_from_paths(src_path: str, dest_path: str) -> AttachmentReference:
+    if os.path.exists(dest_path):
+        return AttachmentReference.from_file(dest_path)
+    return AttachmentReference(
+        name=os.path.basename(dest_path), checksum=compute_checksum_from_file(src_path)
+    )
+
+
+def create_volume_with_library(
+    anthology: Anthology,
+    volume_data: Dict[int, Dict[str, Any]],
     collection_id: str,
     volume_name: str,
     meta: Dict[str, Any],
-    proceedings_pdf_dest_path: str,
-    people,
-    papers: List[Dict[str, str]],
-    is_workshop=False,
+    papers: List[Dict[str, Any]],
+    proceedings_pdf_src_path: Optional[str],
+    proceedings_pdf_dest_path: Optional[str],
+    ingest_date: str,
+    is_workshop: bool,
 ) -> None:
     venue_name = meta['anthology_venue_id'].lower()
-    collection_file = os.path.join(anthology_dir, 'data', 'xml', f'{collection_id}.xml')
-    if os.path.exists(collection_file):
-        root_node = etree.parse(collection_file).getroot()
-    else:
-        root_node = make_simple_element('collection', attrib={'id': collection_id})
 
-    volume_node = make_simple_element(
-        'volume',
-        attrib={'id': volume_name, 'ingest-date': ingest_date, "type": "proceedings"},
-    )
-    # Replace the existing one if present
-    root_node.find(f"./volume[@id='{volume_name}']")
-    for i, child in enumerate(root_node):
-        if child.attrib['id'] == volume_name:
-            root_node[i] = volume_node
-            break
-    else:
-        root_node.append(volume_node)
+    collection = anthology.get_collection(collection_id)
+    if collection is None:
+        collection = anthology.collections.create(collection_id)
 
-    meta_node = None
+    if collection.get(volume_name) is not None:
+        del collection[volume_name]
+        collection.is_modified = True
 
-    for paper_num, paper in sorted(volume.items()):
-        if not paper["archival"]:
-            print(f"Skipping non-archival paper #{paper_num}", file=sys.stderr)
+    editors = [namespec_from_author(author) for author in meta['editors']]
+    set_disambiguation_ids(editors, anthology)
+
+    venue_ids = [venue_name]
+    if is_workshop:
+        venue_ids.append('ws')
+
+    volume_kwargs: Dict[str, Any] = {
+        'id': volume_name,
+        'title': normalize_latex_title(meta['book_title']) or meta['book_title'],
+        'year': str(meta['year']),
+        'type': VolumeType.PROCEEDINGS,
+        'ingest_date': ingest_date,
+        'editors': editors,
+        'venue_ids': venue_ids,
+        'publisher': meta.get('publisher'),
+        'address': meta.get('location'),
+        'month': meta.get('month'),
+    }
+
+    if 'isbn' in meta and meta['isbn']:
+        volume_kwargs['isbn'] = str(meta['isbn'])
+
+    if proceedings_pdf_src_path is not None and proceedings_pdf_dest_path is not None:
+        volume_kwargs['pdf'] = pdf_reference_from_paths(
+            anthology_id=f'{collection_id}-{volume_name}',
+            src_path=proceedings_pdf_src_path,
+            dest_path=proceedings_pdf_dest_path,
+        )
+
+    volume_obj = collection.create_volume(**volume_kwargs)
+
+    frontmatter_kwargs: Dict[str, Any] = {
+        'id': '0',
+        'type': PaperType.FRONTMATTER,
+        'title': normalize_latex_title(meta['book_title']) or meta['book_title'],
+        'editors': editors,
+    }
+
+    frontmatter = volume_data.get(0, {})
+    if 'pdf_src' in frontmatter and 'pdf_dest' in frontmatter:
+        frontmatter_kwargs['pdf'] = pdf_reference_from_paths(
+            anthology_id=f'{collection_id}-{volume_name}.0',
+            src_path=frontmatter['pdf_src'],
+            dest_path=frontmatter['pdf_dest'],
+        )
+
+    volume_obj.create_paper(**frontmatter_kwargs)
+
+    for paper_num, volume_entry in sorted(volume_data.items()):
+        if paper_num == 0:
+            continue
+        if not volume_entry['archival']:
+            print(f'Skipping non-archival paper #{paper_num}', file=sys.stderr)
             continue
 
-        paper_id_full = paper['anthology_id']
-        # print(f'creating xml for paper name {paper}, in papers {papers[paper_num-1]}')
-        if paper_num == 0:
-            paper_node = proceeding2xml(paper_id_full, meta, volume[0])
-            # year, venue = collection_id.split(".")
-            # bibkey = f"{venue}-{year}-{volume_name}"
-        else:
-            try:
-                paper_node = paper2xml(
-                    papers[paper_num - 1], paper_num, paper_id_full, meta
-                )
-            except Exception:
-                import json
+        paper = papers[paper_num - 1]
+        title = normalize_latex_title(paper.get('title'))
 
-                print(
-                    f"Failed to create XML for paper {paper_num} id={paper_id_full}",
-                    file=sys.stderr,
-                )
-                print(
-                    json.dumps(papers[paper_num - 1], indent=2, ensure_ascii=False),
-                    file=sys.stderr,
-                )
-                sys.exit(1)
-            # bibkey = anthology.pindex.create_bibkey(paper_node, vidx=anthology.venues)
+        abstract = paper.get('abstract')
+        if abstract is not None:
+            abstract = abstract.replace('\n', '')
+            abstract = normalize_abstract(abstract)
 
-        # Ideally this would be here, but it requires a Paper object, which requires a Volume object, etc
-        # Just a little bit complicated
-        # make_simple_element("bibkey", "", parent=paper)
+        authors = [namespec_from_author(author) for author in paper.get('authors', [])]
+        set_disambiguation_ids(authors, anthology)
 
-        paper_id = paper_node.attrib['id']
-        if paper_id == '0':
-            # create metadata subtree
-            meta_node = make_simple_element('meta', parent=volume_node)
-            title_node = paper_node.find('booktitle')
-            meta_node.append(title_node)
-            for editor in paper_node.findall('./editor'):
-                disamb_name, name_choice = disambiguate_name(
-                    editor, paper_id_full, people
-                )
-                if name_choice != -1:
-                    editor.attrib['id'] = disamb_name
-                PersonName.from_element(editor)
-                for name_part in editor:
-                    if name_part.text is not None and name_part.tag in [
-                        "first",
-                        "middle",
-                        "last",
-                    ]:
-                        name_part.text = correct_caps(name_part.text)
-                meta_node.append(editor)
+        kwargs: Dict[str, Any] = {
+            'id': str(paper_num),
+            'title': title,
+            'authors': authors,
+            'pages': paper.get('pages'),
+            'pdf': pdf_reference_from_paths(
+                anthology_id=volume_entry['anthology_id'],
+                src_path=volume_entry['pdf_src'],
+                dest_path=volume_entry['pdf_dest'],
+            ),
+        }
 
-            # Get the publisher from the meta file
-            publisher_node = make_simple_element('publisher', meta['publisher'])
-            meta_node.append(publisher_node)
+        if abstract:
+            kwargs['abstract'] = abstract
 
-            # Get the address from the meta file
-            address_node = make_simple_element("address", meta['location'])
-            meta_node.append(address_node)
-
-            meta_node.append(paper_node.find('month'))
-            meta_node.append(paper_node.find('year'))
-
-            # Create the entry for the PDF, if defined
-            if proceedings_pdf_dest_path is not None:
-                make_simple_element(
-                    'url',
-                    text=f"{collection_id}-{volume_name}",
-                    attrib={'hash': compute_hash_from_file(proceedings_pdf_dest_path)},
-                    parent=meta_node,
-                )
-
-            # add the venue tag
-            make_simple_element("venue", venue_name, parent=meta_node)
-            if is_workshop:
-                make_simple_element("venue", "ws", parent=meta_node)
-
-            # modify frontmatter tag
-            paper_node.tag = "frontmatter"
-            del paper_node.attrib['id']
-
-        url = paper_node.find('./url')
-        if url is not None:
-            url.attrib['hash'] = compute_hash_from_file(paper['pdf'])
-
-        for path, type_ in paper['attachments']:
-            # skip copyrights
-            if "copyright" in type_:
+        attachment_refs = []
+        for attachment in volume_entry['attachments']:
+            if 'copyright' in attachment['type']:
                 continue
-
-            make_simple_element(
-                'attachment',
-                text=os.path.basename(path),
-                attrib={
-                    'type': type_,
-                    'hash': compute_hash_from_file(path),
-                },
-                parent=paper_node,
+            attachment_refs.append(
+                (
+                    attachment['type'],
+                    attachment_reference_from_paths(
+                        src_path=attachment['src'],
+                        dest_path=attachment['dest'],
+                    ),
+                )
             )
+        if attachment_refs:
+            kwargs['attachments'] = attachment_refs
 
-        if len(paper_node) > 0:
-            volume_node.append(paper_node)
-        else:
-            print("Not appending", paper_node, file=sys.stderr)
-
-        # Normalize fields from LaTeX
-        for oldnode in paper_node:
-            try:
-                normalize(oldnode, informat='latex')
-            except UnicodeError:
-                print(
-                    f"Fatal on paper {paper_num} field {oldnode.tag}: {oldnode.text}",
-                    file=sys.stderr,
-                )
-                sys.exit(1)
-
-        # Adjust the language tag
-        # language_node = paper_node.find('./language')
-        # if language_node is not None:
-        #     try:
-        #         lang = iso639.languages.get(name=language_node.text)
-        #     except KeyError:
-        #         raise Exception(f"Can't find language '{language_node.text}'")
-        #     language_node.text = lang.part3
-
-        # Fix abstracts
-        # People love cutting and pasting their LaTeX-infused abstracts directly
-        # from their papers. We attempt to parse this but there are failure cases
-        # particularly with embedded LaTeX commands. Here we use a simple heuristic
-        # to remove likely-failed parsing instances: delete abstracts with stray
-        # latex commands (a backslash followed at some distance by a {).
-        abstract_node = paper_node.find('./abstract')
-        # TODO: this doesn't work because the XML is hierarchical, need to render
-        # to text first
-        if abstract_node is not None:
-            if abstract_node.text is not None and '\\' in abstract_node.text:
-                print(
-                    f"* WARNING: paper {paper_id_full}: deleting abstract node containing a backslash: {abstract_node.text}",
-                    file=sys.stderr,
-                )
-                paper_node.remove(abstract_node)
-
-        # Fix author names
-        for name_node in paper_node.findall('./author'):
-            disamb_name, name_choice = disambiguate_name(name_node, paper_id_full, people)
-            if name_choice != -1:
-                name_node.attrib['id'] = disamb_name
-            PersonName.from_element(name_node)
-            for name_part in name_node:
-                if name_part.text is None:
-                    print(
-                        f"* WARNING: element {name_part.tag} has null text",
-                        file=sys.stderr,
-                    )
-                if name_part is not None and name_part.tag in ["first", "middle", "last"]:
-                    name_part.text = correct_caps(name_part.text)
-
-    # Other data from the meta file
-    if 'isbn' in meta:
-        make_simple_element('isbn', meta['isbn'], parent=meta_node)
-
-    indent(root_node)
-    tree = etree.ElementTree(root_node)
-    tree.write(collection_file, encoding='UTF-8', xml_declaration=True, with_tail=True)
+        volume_obj.create_paper(**kwargs)
 
 
 @click.command()
@@ -890,7 +559,7 @@ def create_xml(
 @click.option(
     '-r',
     '--anthology_dir',
-    default=os.path.join(os.path.dirname(sys.argv[0]), ".."),
+    default=os.path.join(os.path.dirname(sys.argv[0]), '..'),
     help='Root path of ACL Anthology Github repo.',
 )
 @click.option(
@@ -921,96 +590,71 @@ def main(
     workshop,
     parent_event,
 ):
-    anthology_datadir = Path(sys.argv[0]).parent / ".." / "data"
-    # anthology = Anthology(
-    #     importdir=anthology_datadir, require_bibkeys=False
-    # )
+    anthology_datadir = Path(anthology_dir) / 'data'
+    anthology = Anthology(datadir=anthology_datadir)
 
-    venue_index = VenueIndex(srcdir=anthology_datadir)
-    venue_keys = [venue["slug"].lower() for _, venue in venue_index.items()]
+    anthology.collections.load()
+    anthology.venues.load()
+    anthology.people.load()
 
-    people = AnthologyIndex(srcdir=anthology_datadir)
-    # people.bibkeys = load_bibkeys(anthology_datadir)
+    volume_full_id, meta = process_proceeding(ingestion_dir, anthology)
 
-    volume_full_id, meta = process_proceeding(
-        ingestion_dir, anthology_datadir, venue_index, venue_keys
-    )
-
-    # Load the papers.yaml file, skipping non-archival papers
     papers = parse_paper_yaml(ingestion_dir)
     print(
-        "Found",
-        len([p for p in papers if p["archival"]]),
-        "archival papers",
+        'Found',
+        len([p for p in papers if p['archival']]),
+        'archival papers',
         file=sys.stderr,
     )
 
-    # add page numbering by parsing the PDFs
-    papers = add_paper_nums_in_paper_yaml(papers, ingestion_dir)
+    papers = add_page_numbers(papers, ingestion_dir)
 
     (
-        volume,
+        volume_data,
         collection_id,
         volume_name,
+        proceedings_pdf_src_path,
         proceedings_pdf_dest_path,
     ) = copy_pdf_and_attachment(meta, pdfs_dir, attachments_dir, papers)
 
-    create_xml(
-        volume=volume,
-        anthology_dir=anthology_dir,
-        ingest_date=ingest_date,
+    create_volume_with_library(
+        anthology=anthology,
+        volume_data=volume_data,
         collection_id=collection_id,
         volume_name=volume_name,
         meta=meta,
-        proceedings_pdf_dest_path=proceedings_pdf_dest_path,
-        people=people,
         papers=papers,
+        proceedings_pdf_src_path=proceedings_pdf_src_path,
+        proceedings_pdf_dest_path=proceedings_pdf_dest_path,
+        ingest_date=ingest_date,
         is_workshop=workshop,
     )
 
     if parent_event is not None:
-        parent_venue_id, year = parent_event.split("-")
-        collection_file = os.path.join(
-            anthology_dir, 'data', 'xml', f'{year}.{parent_venue_id}.xml'
-        )
-        if not os.path.exists(collection_file):
-            print(f"No such parent file {collection_file}", file=sys.stderr)
+        anthology.events.load()
+        event = anthology.get_event(parent_event)
+        if event is None:
+            print(f"No event node with id '{parent_event}' found", file=sys.stderr)
             sys.exit(1)
 
-        root_node = etree.parse(collection_file).getroot()
+        if anthology.get_volume(volume_full_id) is None:
+            print(f"No such ingested volume {volume_full_id}", file=sys.stderr)
+            sys.exit(1)
 
-        event_node = root_node.find(f"./event[@id='{parent_event}']")
-        if event_node is None:
+        existing = {event_id for (event_id, _) in event.colocated_ids}
+        if any(collection_id == c and volume_name == v for (c, v, _) in existing):
             print(
-                f"No event node with id '{parent_event}' found in {collection_file}",
+                f'Event {volume_full_id} already listed as colocated with {parent_event}, skipping',
                 file=sys.stderr,
             )
-            sys.exit(1)
-
-        colocated_node = event_node.find("./colocated")
-        if colocated_node is None:
-            colocated_node = make_simple_element('colocated', parent=event_node)
-
-        # see if it already exists
-        for volume_node in colocated_node:
-            if volume_node.text == volume_full_id:
-                print(
-                    f"Event {volume_full_id} already listed as colocated with {parent_event}, skipping",
-                    file=sys.stderr,
-                )
-                break
         else:
+            event.add_colocated(volume_full_id, type_=EventLink.EXPLICIT)
             print(
-                f"Created event entry in {parent_event} for {volume_full_id}",
+                f'Created event entry in {parent_event} for {volume_full_id}',
                 file=sys.stderr,
             )
-            make_simple_element("volume-id", volume_full_id, parent=colocated_node)
 
-            indent(root_node)
-            tree = etree.ElementTree(root_node)
-            tree.write(
-                collection_file, encoding='UTF-8', xml_declaration=True, with_tail=True
-            )
+    anthology.save_all()
 
 
 if __name__ == '__main__':
