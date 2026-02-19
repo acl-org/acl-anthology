@@ -11,8 +11,6 @@ This may sound straightforward, but in practice it’s difficult, for two reason
 
 The following histogram shows the prevalence of known ambiguous names in the Anthology. For example, there are 121 names shared by two people. Most names are unique, but the number of ambiguous names is still significant. In the past few years, especially, the number of ambiguous names has increased sharply, which increases the amount of human effort in resolving these ambiguities.
 
-<div class="table table-sm">
-
 | # people | count | examples |
 | :---: | ---: | --- |
 | 1 | 122,122 | — (unique entries) |
@@ -27,8 +25,7 @@ The following histogram shows the prevalence of known ambiguous names in the Ant
 | 10 | 2 | Chen, Hao; Li, Xiang |
 | 14 | 1 | Zhang, Li (only known example) |
 | 25 | 1 | Liu, Yang (only known example) |
-
-</div>
+{: .table .table-sm}
 
 To address this, we are introducing a new author system centered on [ORCID iDs](https://orcid.org), a widely used persistent identifier for researchers. Papers with ORCID iDs will be automatically linked together and used to create "verified" author pages. Authors without ORCID iDs will still have author pages, but these will be marked as "unverified" to indicate that the papers listed may not all belong to the same person.
 
