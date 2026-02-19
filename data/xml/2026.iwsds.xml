@@ -4,7 +4,7 @@
     <meta>
       <booktitle>Proceedings of the 16th International Workshop on Spoken Dialogue System Technology</booktitle>
       <editor><first>Giuseppe</first><last>Riccardi</last></editor>
-      <editor><first/><last>Mousavi</last></editor>
+      <editor><first>Seyed Mahed</first><last>Mousavi</last></editor>
       <editor><first>Maria Ines</first><last>Torres</last></editor>
       <editor><first>Koichiro</first><last>Yoshino</last></editor>
       <editor><first>Zoraida</first><last>Callejas</last></editor>
@@ -14,7 +14,7 @@
       <editor><first>Joakim</first><last>Gustafson</last></editor>
       <editor><first>Géraldine</first><last>Damnati</last></editor>
       <editor><first>Alex</first><last>Papangelis</last></editor>
-      <editor><first>Luis Fernando</first><last>D'Haro</last></editor>
+      <editor><first>Luis Fernando</first><last>D’Haro</last></editor>
       <editor><first>John</first><last>Mendonça</last></editor>
       <editor><first>Raffaella</first><last>Bernardi</last></editor>
       <editor><first>Dilek</first><last>Hakkani-Tur</last></editor>
@@ -89,7 +89,7 @@
       <author><first>Marcos</first><last>Estecha-Goritagoitia</last></author>
       <author><first>Mario</first><last>Rodriguez-Cantelar</last></author>
       <author><first>Ricardo</first><last>Cordoba</last></author>
-      <author><first>Luis Fernando</first><last>D'Haro</last></author>
+      <author><first>Luis Fernando</first><last>D’Haro</last></author>
       <pages>52–63</pages>
       <abstract>Conversational <fixed-case>AI</fixed-case> is a central application of <fixed-case>NLP</fixed-case>, yet ensuring high response quality remains challenging due to the inherently subjective nature of user satisfaction. Dialogue evaluation can be performed manually—through expert or user ratings—or automatically, using methods that aim to predict quality scores consistent with human judgment. In this work, we present a reference-free automatic dialogue evaluation system that predicts user ratings from a dataset of real human–chatbot interactions collected during the <fixed-case>A</fixed-case>lexa <fixed-case>P</fixed-case>rize Socialbot Grand Challenge 5, combining multiple complementary models to enhance correlation with human scores. Experimental results indicate that the model that achieves the highest <fixed-case>P</fixed-case>earson correlation with users’ ratings is an <fixed-case>XGB</fixed-case>oost regression model that combines different features such as conversation length, engineered flags capturing conversation characteristics, predictions from an Encoder-based Panel of Experts (<fixed-case>P</fixed-case>o<fixed-case>E</fixed-case>), and instruction-based outputs from a fine-tuned <fixed-case>LLM</fixed-case>. The overall <fixed-case>P</fixed-case>earson Correlation on the eval set is 0.404, which is competitive with prior work trained on an order of magnitude more dialogues, albeit using different datasets and system configurations.</abstract>
       <url hash="a61128f0">2026.iwsds-1.5</url>
@@ -218,7 +218,6 @@
       <pages>142–152</pages>
       <abstract>To develop clinical reasoning skills, medical students are often tasked with interacting with trained standardized patients (<fixed-case>SP</fixed-case>s). Human <fixed-case>SP</fixed-case>s enable real conversations that can resemble authentic clinical scenarios. However, human <fixed-case>SP</fixed-case>s require extensive training and are often limited in their accessibility and continual availability to medical students or residents. Virtual <fixed-case>SP</fixed-case>s offer the ability for medical students to practice clinical interviews in a lower-stakes setting across a broader set of clinical cases. This paper introduces a virtual <fixed-case>SP</fixed-case> (<fixed-case>VSP</fixed-case>) that leverages <fixed-case>A</fixed-case>mazon’s Nova Sonic, a speech-to-speech foundation model designed for human-like conversation. We investigated the ability of Nova Sonic to portray four distinct clinical cases in virtual doctor-patient encounters with 20 third-year medical students. The system’s realism, its perceived learning value, and user experience were all assessed via a survey administered to the students. Students were also asked to compare this experience to interactions with a human <fixed-case>SP</fixed-case>. Survey results and conversations were analyzed to derive insights for improving the Nova Sonic-based <fixed-case>VSP</fixed-case> system.</abstract>
       <url hash="ab8a6550">2026.iwsds-1.16</url>
-      <attachment hash="1ef71326" type="OptionalSupplementaryMaterial">2026.iwsds-1.16.OptionalSupplementaryMaterial.pdf</attachment>
       <bibkey>emerson-etal-2026-conversational</bibkey>
     </paper>
     <paper id="17">
@@ -238,7 +237,7 @@
       <author><first>Samuel</first><last>Ramos-Varela</last></author>
       <author><first>Anmol</first><last>Guragain</last></author>
       <author><first>Ricardo</first><last>Córdoba</last></author>
-      <author><first>Luis Fernando</first><last>D'Haro</last></author>
+      <author><first>Luis Fernando</first><last>D’Haro</last></author>
       <pages>158–167</pages>
       <abstract>Industry stakeholders are willing to incorporate <fixed-case>AI</fixed-case> systems in their pipelines, therefore they want agentic flexibility without losing the guaranties and auditability of fixed pipelines. This paper describes <fixed-case>ORCHESTRA</fixed-case>, a portable and extensible microservice architecture for orchestrating customizable multimodal <fixed-case>AI</fixed-case> workflows across domains. It embeds Large Language Model (<fixed-case>LLM</fixed-case>) agents within a deterministic control flow, combining reliability with adaptive reasoning. A Dockerized Manager routes text, speech, and image requests through specialist workers for <fixed-case>ASR</fixed-case>, emotion analysis, retrieval, guardrails, and <fixed-case>TTS</fixed-case>, ensuring that multimodal processing, safety checks, logging, and memory updates are consistently executed, while scoped agent nodes adjust prompts and retrieval strategies dynamically. The system scales via container replication and exposes per-step observability through open-source dashboards. We ground the discussion in a concrete deployment: an interactive museum guide that handles speech and image queries, personalizes narratives with emotion cues, invokes tools, and enforces policy-compliant responses. From this application, we report actionable guidance: interface contracts for services, where to place pre/post safety passes, how to structure memory for <fixed-case>RAG</fixed-case>, and common failure modes with mitigations. We position the approach against fully agentic and pure pipeline baselines, outline trade-offs (determinism vs. flexibility, latency budget), and sketch near-term extensions such as sharded managers, adaptive sub-flows, and streaming inference. Our goal is to provide a reusable blueprint for safely deploying agent-enhanced, multimodal assistants in production, illustrated through the museums use case.</abstract>
       <url hash="96b4d24e">2026.iwsds-1.18</url>
@@ -390,7 +389,6 @@
       <pages>307–311</pages>
       <abstract>Adaptability to the audience is an important feature for conversational systems, especially in the healthcare dissemination field, where scientific concepts have to be delivered to a potentially wide range of users. This work presents an evaluation of the capability of <fixed-case>LLM</fixed-case>s to support style transfer according to the target user’s age group. Two complementary evaluation methods were employed: an automatic assessment based on the <fixed-case>ARI</fixed-case> readability index, and a human experts evaluation focusing on appropriateness depending on the user’s educational level as well as content accuracy. Results show that <fixed-case>LLM</fixed-case>s efficiently switch style when provided with information about the user’s age while managing content still requires the adoption of safety measures.</abstract>
       <url hash="be2d23d0">2026.iwsds-1.31</url>
-      <attachment hash="376b8eac" type="OptionalSupplementaryMaterial">2026.iwsds-1.31.OptionalSupplementaryMaterial.zip</attachment>
       <bibkey>di-maro-etal-2026-evaluating</bibkey>
     </paper>
     <paper id="32">
