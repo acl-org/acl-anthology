@@ -411,8 +411,9 @@ class Anthology:
     ) -> list[Person]:  # pragma: no cover
         ...
 
-    @warnings.deprecated("Deprecated in favor of NameSpecification.resolve()")
-    def resolve(self, name_spec: NameSpecificationOrIter) -> PersonOrList:
+    def resolve(
+        self, name_spec: NameSpecificationOrIter
+    ) -> PersonOrList:  # pragma: no cover
         """Resolve a name specification (e.g. as attached to papers) to a natural person.
 
         Warning:
@@ -429,6 +430,12 @@ class Anthology:
             >>> anthology.resolve(paper.authors)
             [Person(id='lauri-karttunen', ...), Person(id='ronald-kaplan', ...), Person(id='annie-zaenen', ...)]
         """
+        warnings.warn(
+            DeprecationWarning(
+                "Anthology.resolve() is deprecated in favor of NameSpecification.resolve()"
+            )
+        )
+
         if isinstance(name_spec, NameSpecification):
             return self.people.get_by_namespec(name_spec)
         return [self.people.get_by_namespec(ns) for ns in name_spec]
