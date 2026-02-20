@@ -147,6 +147,45 @@ def test_name_spec_to_xml_with_id_and_orcid():
     assert etree.tostring(element, encoding="unicode") == xml
 
 
+class CollectionMock:
+    def __init__(self):
+        self.is_modified = False
+
+
+class NameSpecParent:
+    def __init__(self):
+        self.collection = CollectionMock()
+
+
+@pytest.fixture
+def parent():
+    return NameSpecParent()
+
+
+@pytest.mark.parametrize(
+    "attr_name",
+    (
+        "id",
+        "name",
+        "orcid",
+        "affiliation",
+        "variants",
+    ),
+)
+def test_namespec_setattr_sets_parentcollection_is_modified(attr_name, parent):
+    namespec = NameSpecification(
+        name=Name("Xinyue", "Lou"),
+        id="xinyue-lou",
+        orcid="0009-0001-8460-3882",
+        affiliation=None,
+        variants=[Name("馨月", "娄")],
+        parent=parent,
+    )
+    assert not parent.collection.is_modified
+    setattr(namespec, attr_name, getattr(namespec, attr_name))
+    assert parent.collection.is_modified
+
+
 def test_name_variant_from_xml():
     xml = """
         <variant script="hani">

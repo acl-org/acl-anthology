@@ -228,7 +228,11 @@ class Event:
                 ]
             else:  # pragma: no cover
                 raise ValueError(f"Unsupported element for Event: <{str(element.tag)}>")
-        return cls(**kwargs)
+        obj = cls(**kwargs)
+        for talk in obj.talks:
+            for namespec in talk.speakers:
+                namespec.parent = obj
+        return obj
 
     def to_xml(self) -> etree._Element:
         """

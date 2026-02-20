@@ -714,7 +714,10 @@ class Paper:
                 raise AnthologyXMLError(
                     parent.full_id_tuple, tag, "unsupported element for <paper>"
                 )
-        return cls(**kwargs)
+        obj = cls(**kwargs)
+        for namespec in obj.namespecs:
+            namespec.parent = obj
+        return obj
 
     def to_xml(self) -> etree._Element:
         """

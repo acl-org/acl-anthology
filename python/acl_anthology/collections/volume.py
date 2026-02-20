@@ -366,7 +366,10 @@ class Volume(SlottedDict[Paper]):
                 kwargs["venue_ids"].append(str(element.text))
             else:  # pragma: no cover
                 raise ValueError(f"Unsupported element for Volume: <{tag}>")
-        return cls(**kwargs)
+        obj = cls(**kwargs)
+        for namespec in obj.namespecs:
+            namespec.parent = obj
+        return obj
 
     def to_xml(self, with_papers: bool = True) -> etree._Element:
         """Serialize this volume in the Anthology XML format.

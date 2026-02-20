@@ -172,6 +172,13 @@ def test_paper_setattr_sets_collection_is_modified(anthology, attr_name):
     assert paper.collection.is_modified
 
 
+def test_paper_setattr_on_namespec_sets_collection_is_modified(anthology):
+    paper = anthology.get_paper("2022.acl-long.48")
+    assert not paper.collection.is_modified
+    paper.authors[0].affiliation = "University of Someplace"
+    assert paper.collection.is_modified
+
+
 test_cases_language = (
     ("2022.acl-short.11", None, None),
     ("2022.naloma-1.3", "fra", "French"),

@@ -14,13 +14,13 @@
 
 from __future__ import annotations
 
-from attrs import define, field, validators as v
+from attrs import define, field, setters, validators as v
 from functools import cache, cached_property
 from lxml import etree
 from lxml.builder import E
 import re
 from slugify import slugify
-from typing import Any, Optional, cast, TypeAlias
+from typing import Any, Optional, cast, TypeAlias, TYPE_CHECKING
 import yaml
 
 try:
@@ -28,7 +28,11 @@ try:
 except ImportError:  # pragma: no cover
     from yaml import Dumper  # type: ignore
 
+from ..utils.attrs import track_namespec_modifications
 from ..utils.latex import latex_encode
+
+if TYPE_CHECKING:
+    from ..collections import Volume, Paper, Event
 
 
 SLUGIFY_REPLACEMENTS = (
@@ -253,7 +257,9 @@ def _Name_from(value: Any) -> Name:
     return Name.from_(value)
 
 
-@define
+@define(
+    on_setattr=[setters.convert, setters.validate, track_namespec_modifications],
+)
 class NameSpecification:
     """A name specification on a paper etc., containing additional data fields for information or disambiguation besides just the name.
 
@@ -273,6 +279,7 @@ class NameSpecification:
 
     name: Name = field(converter=_Name_from)
     id: Optional[str] = field(default=None, validator=v.optional(v.instance_of(str)))
+    parent: Optional[Paper | Volume | Event] = field(default=None, repr=False, eq=False)
     orcid: Optional[str] = field(default=None, validator=v.optional(v.instance_of(str)))
     affiliation: Optional[str] = field(
         default=None, validator=v.optional(v.instance_of(str))

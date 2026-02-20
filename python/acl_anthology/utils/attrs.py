@@ -26,10 +26,19 @@ from .ids import AnthologyIDTuple
 
 if TYPE_CHECKING:
     from ..collections import Paper, Volume, Event
+    from ..people import NameSpecification
 
 
 RE_WRAPPED_TYPE = re.compile(r"^([^\[]*)\[(.*)\]$")
 T = TypeVar("T")
+
+
+def track_namespec_modifications(
+    obj: NameSpecification, attr: attrs.Attribute[Any], value: T
+) -> T:
+    if attr.name != "parent" and obj.parent is not None:
+        obj.parent.collection.is_modified = True
+    return value
 
 
 def track_modifications(

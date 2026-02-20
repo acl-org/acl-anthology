@@ -12,6 +12,7 @@
 - Renamed `PersonIndex.resolve_namespec` to `_resolve_namespec` to discourage external use.
 - Improvements to Names and NameSpecifications:
   - `Name.slugify()` now treats typographic apostrophes (U+02BC and U+2019) the same as regular ones.
+  - `NameSpecification`s that were loaded from the XML now track if they have been modified, and will trigger their parent collection being saved on `Anthology.save_all()`.
 
 ## [1.0.0] — 2026-01-24
 
