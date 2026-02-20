@@ -104,7 +104,7 @@ def test_url_code(url):
     """
     Test a URL, returning the result.
     """
-    headers = {'user-agent': 'acl-anthology/0.0.1'}
+    headers = {"user-agent": "acl-anthology/0.0.1"}
     r = requests.head(url, headers=headers, allow_redirects=True)  # , verify=False)
     return r
 
@@ -142,7 +142,7 @@ def retrieve_url(remote_url: str, local_path: str):
         def _download_gdrive(file_id: str, dest: str) -> None:
             session = requests.Session()
             base = "https://drive.google.com/uc?export=download"
-            headers = {'User-Agent': 'acl-anthology/0.0.1'}
+            headers = {"User-Agent": "acl-anthology/0.0.1"}
             resp = session.get(
                 base, params={"id": file_id}, stream=True, headers=headers, timeout=100
             )
@@ -182,7 +182,7 @@ def retrieve_url(remote_url: str, local_path: str):
         request = urllib.request.Request(
             remote_url,
             headers={
-                'User-Agent': 'Mozilla/5.0 (X11; U; Linux i686) Gecko/20071127 Firefox/2.0.0.11'
+                "User-Agent": "Mozilla/5.0 (X11; U; Linux i686) Gecko/20071127 Firefox/2.0.0.11"
             },
         )
 
@@ -330,9 +330,9 @@ def infer_url(filename, template=data.CANONICAL_URL_TEMPLATE):
     Returns the canonical URL by default, unless a different
     template is provided."""
 
-    assert (
-        "{}" in template or "%s" in template
-    ), "template has no substitution text; did you pass a prefix by mistake?"
+    assert "{}" in template or "%s" in template, (
+        "template has no substitution text; did you pass a prefix by mistake?"
+    )
 
     if "://" in filename:
         return filename
@@ -360,9 +360,9 @@ def infer_year(collection_id):
     if is_newstyle_id(collection_id):
         return collection_id.split(".")[0]
 
-    assert (
-        len(collection_id) == 3
-    ), f"Couldn't infer year: unknown volume ID format '{collection_id}' ({type(collection_id)})"
+    assert len(collection_id) == 3, (
+        f"Couldn't infer year: unknown volume ID format '{collection_id}' ({type(collection_id)})"
+    )
     digits = collection_id[1:]
     if int(digits) >= 60:
         year = f"19{digits}"

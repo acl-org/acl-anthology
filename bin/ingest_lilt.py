@@ -29,7 +29,7 @@ def main(args):
     paper_nums = {}
     prev_year = None
     prev_volume = None
-    for row in csv.DictReader(args.tsv_file, delimiter='\t'):
+    for row in csv.DictReader(args.tsv_file, delimiter="\t"):
         year = row.get("year")
         month = row.get("month")
         issue = row.get("issue#", "")
@@ -104,18 +104,18 @@ def main(args):
     )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     import argparse
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('tsv_file', type=argparse.FileType("r"))
+    parser.add_argument("tsv_file", type=argparse.FileType("r"))
     parser.add_argument(
-        '--anthology',
+        "--anthology",
         default=f"{os.environ.get('HOME')}/code/acl-anthology",
         help="Path to Anthology repo (cloned from https://github.com/acl-org/acl-anthology)",
     )
     parser.add_argument(
-        '--anthology-files-path',
+        "--anthology-files-path",
         default=f"{os.environ.get('HOME')}/anthology-files/pdf",
         help="Path to Anthology files (Default: ~/anthology-files",
     )

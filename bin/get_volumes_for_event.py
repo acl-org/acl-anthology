@@ -13,11 +13,11 @@ def get_volumes(xml_file):
     tree = ET.parse(xml_file)
     root = tree.getroot()
 
-    collection_id = root.attrib['id']
+    collection_id = root.attrib["id"]
 
     volumes = []
     for volume in root.findall(".//volume"):
-        volume_id_full = collection_id + "-" + volume.attrib['id']
+        volume_id_full = collection_id + "-" + volume.attrib["id"]
         volumes.append(volume_id_full)
 
     # get the <colocated> node under <event>
@@ -31,11 +31,11 @@ def get_volumes(xml_file):
     return volumes
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     import argparse
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('xml_file', help='XML file to process')
+    parser.add_argument("xml_file", help="XML file to process")
     args = parser.parse_args()
 
     print(" ".join(get_volumes(args.xml_file)))

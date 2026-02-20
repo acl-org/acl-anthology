@@ -18,7 +18,7 @@ jobs:
       HUGO_VERSION: 0.154.2
       DART_SASS_VERSION: 1.97.1
     steps:
-    - name: install hugo
+    - name: Install Hugo
       run: wget "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb" && sudo dpkg -i "hugo_extended_${HUGO_VERSION}_linux-amd64.deb"
     - name: Install Dart Sass
       run: |
@@ -27,10 +27,17 @@ jobs:
         tar -C "${HOME}/.local" -xf "dart-sass-${DART_SASS_VERSION}-linux-x64.tar.gz"
         rm "dart-sass-${DART_SASS_VERSION}-linux-x64.tar.gz"
         echo "${HOME}/.local/dart-sass" >> "${GITHUB_PATH}"
-    - name: update
-      run: sudo apt-get update
-    - name: install other deps
-      run: sudo apt-get install -y jing bibutils openssh-client rsync libyaml-dev libpython3-dev
-    - uses: actions/checkout@v3
-    - name: build
+    - name: Install uv
+      uses: astral-sh/setup-uv@v7
+    - name: Install other dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y jing bibutils openssh-client rsync libyaml-dev libpython3-dev
+    - uses: actions/checkout@v5
+
+    - name: Run Python library integration tests
+      run: uv run --locked pytest -m "integration"
+      working-directory: ./python
+
+    - name: Build website
       run: make check site

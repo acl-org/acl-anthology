@@ -154,7 +154,7 @@ def main(args):
         pdf_local_path = os.path.join(args.anthology_files_path, venue, f"{anth_id}.pdf")
         url = None
         if "pdf" in row and row["pdf"] != "" and row["pdf"] is not None:
-            pdf_source_path = source_path_prefix + 'Papers/' + row["pdf"]
+            pdf_source_path = source_path_prefix + "Papers/" + row["pdf"]
             if retrieve_url(pdf_source_path, pdf_local_path):
                 url = anth_id
             else:
@@ -180,7 +180,7 @@ def main(args):
                 and row["presentation"] != "None"
             ):
                 presentation_source_path = (
-                    source_path_prefix + 'Presentations/' + row["presentation"]
+                    source_path_prefix + "Presentations/" + row["presentation"]
                 )
                 extension = row["presentation"].split(".")[-1]
                 name = f"{anth_id}.Presentation.{extension}"
@@ -212,20 +212,20 @@ def main(args):
     tree.write(collection_file, encoding="UTF-8", xml_declaration=True, with_tail=True)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     import argparse
 
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        '--tsv-file', nargs="?", default=sys.stdin, type=argparse.FileType("r")
+        "--tsv-file", nargs="?", default=sys.stdin, type=argparse.FileType("r")
     )
     parser.add_argument(
-        '--anthology-dir',
+        "--anthology-dir",
         default=f"{os.environ.get('HOME')}/code/acl-anthology",
         help="Path to Anthology repo (cloned from https://github.com/acl-org/acl-anthology)",
     )
     parser.add_argument(
-        '--anthology-files-path',
+        "--anthology-files-path",
         default=f"{os.environ.get('HOME')}/anthology-files/pdf",
         help="Path to Anthology files (Default: ~/anthology-files",
     )
@@ -233,13 +233,13 @@ if __name__ == '__main__':
         "--delimiter", "-d", default="\t", help="CSV file delimiter (default: TAB)"
     )
     parser.add_argument(
-        '--proceedings-pdf', help="Path to PDF with conference proceedings"
+        "--proceedings-pdf", help="Path to PDF with conference proceedings"
     )
     parser.add_argument("venue", help="Venue code, e.g., acl")
     parser.add_argument("volume", help="Volume name, e.g., main or 1")
     parser.add_argument("year", help="Full year, e.g., 2020")
     parser.add_argument(
-        '--source_path',
+        "--source_path",
         default=sys.stdin,
         help="the source dir for all pdfs and presentations",
     )

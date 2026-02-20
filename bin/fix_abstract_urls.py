@@ -27,27 +27,27 @@ import re
 
 from tqdm import tqdm
 
-tld_regex = r'[a-zA-Z]+'
+tld_regex = r"[a-zA-Z]+"
 # regex to capture valid urls (ensure it starts with a bracket or a space to avoid joined-together URLS)
 # e.g. http://web.archive.org/web/20230924000431/http://www.google.com
-url_domain = rf'(?<=[ ([:“,])(?:https?|ftp)://[-a-zA-Z0-9@:%._+~#=]+\.(?:{tld_regex})'
-url_path = r'\b(?:[-a-zA-Z0-9@:%_+.~#?&/=]*[-a-zA-Z0-9@:%_+~#?&/=])?'
+url_domain = rf"(?<=[ ([:“,])(?:https?|ftp)://[-a-zA-Z0-9@:%._+~#=]+\.(?:{tld_regex})"
+url_path = r"\b(?:[-a-zA-Z0-9@:%_+.~#?&/=]*[-a-zA-Z0-9@:%_+~#?&/=])?"
 # regex for URL that is not between <url> tags
-url_regex = re.compile(rf'{url_domain}{url_path}')
+url_regex = re.compile(rf"{url_domain}{url_path}")
 
 # regex to capture valid urls that are split up by spaces, being careful not to pick up any words after the URL
-url_spaces_domain = rf'(?:https?|ftp)://(?: ?[-a-zA-Z0-9@:%_+~#=]+\.)+ ?(?:{tld_regex})'
+url_spaces_domain = rf"(?:https?|ftp)://(?: ?[-a-zA-Z0-9@:%_+~#=]+\.)+ ?(?:{tld_regex})"
 url_spaces_path = (
-    r'\b(?: [-a-zA-Z0-9@:%._+~#=&?]*/|[-a-zA-Z0-9@:%._+~#=&?/]*)*[-a-zA-Z0-9@:%_+~#=&?/]'
+    r"\b(?: [-a-zA-Z0-9@:%._+~#=&?]*/|[-a-zA-Z0-9@:%._+~#=&?/]*)*[-a-zA-Z0-9@:%_+~#=&?/]"
 )
 
-url_spaces_regex_str = rf'{url_spaces_domain}{url_spaces_path}'
+url_spaces_regex_str = rf"{url_spaces_domain}{url_spaces_path}"
 url_spaces_regex = re.compile(url_spaces_regex_str)
 
 
 def fix_abstract_url_tags(text):
-    url_begin_tag = '<url>'
-    url_end_tag = '</url>'
+    url_begin_tag = "<url>"
+    url_end_tag = "</url>"
 
     addtl_chars = 0
 
@@ -87,10 +87,10 @@ def fix_abstract_url_tags(text):
 def fix_abstract_url_space(text):
     # fix abstracts that have spaces in the URL
     matches = url_spaces_regex.findall(text)
-    matches = [m for m in matches if ' ' in m]
+    matches = [m for m in matches if " " in m]
 
     for m in matches:
-        text = text.replace(m, m.replace(' ', ''))
+        text = text.replace(m, m.replace(" ", ""))
 
     return text
 
@@ -98,24 +98,24 @@ def fix_abstract_url_space(text):
 def handle_file(filename, method_fn):
     with open(filename) as f:
         lines = f.read()
-    abstracts = re.findall(r'<abstract>.*?</abstract>', lines, re.DOTALL)
+    abstracts = re.findall(r"<abstract>.*?</abstract>", lines, re.DOTALL)
 
     for abstract in abstracts:
         lines = lines.replace(abstract, method_fn(abstract))
 
-    with open(filename, 'w') as f:
+    with open(filename, "w") as f:
         f.write(lines)
 
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--mode', choices=['fix_spaces', 'fix_tags'], required=True)
+    parser.add_argument("--mode", choices=["fix_spaces", "fix_tags"], required=True)
     args = parser.parse_args()
 
     root_dir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
-    xml_data_files = list(glob.glob(os.path.join(root_dir, 'data', 'xml', '*.xml')))
+    xml_data_files = list(glob.glob(os.path.join(root_dir, "data", "xml", "*.xml")))
 
-    if args.mode == 'fix_spaces':
+    if args.mode == "fix_spaces":
         method_fn = fix_abstract_url_space
     else:
         method_fn = fix_abstract_url_tags
@@ -124,5 +124,5 @@ def main():
         handle_file(filename, method_fn)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

@@ -37,20 +37,20 @@ from tqdm import tqdm
 
 def load_english_words():
     try:
-        with open('words_alpha.txt') as f:
+        with open("words_alpha.txt") as f:
             loaded_words = {line.strip() for line in f}
     except FileNotFoundError:
         raise FileNotFoundError(
-            'Download words_alpha.txt from '
-            'https://raw.githubusercontent.com/dwyl/english-words/master/words_alpha.txt'
+            "Download words_alpha.txt from "
+            "https://raw.githubusercontent.com/dwyl/english-words/master/words_alpha.txt"
         )
 
     loaded_words = {w for w in loaded_words if len(w) > 1}
-    loaded_words -= {'com', 'org', 'net', 'edu', 'gov', 'mil', 'int', 'eu'}
+    loaded_words -= {"com", "org", "net", "edu", "gov", "mil", "int", "eu"}
     return loaded_words
 
 
-missing_space_re = re.compile(r'([a-z]+)\.([A-Z][a-z]+)')
+missing_space_re = re.compile(r"([a-z]+)\.([A-Z][a-z]+)")
 words = load_english_words()
 
 
@@ -63,7 +63,7 @@ def fix_abstract(text):
             continue
 
         has_change = True
-        text = text.replace(f'{m[0]}.{m[1]}', f'{m[0]}. {m[1]}')
+        text = text.replace(f"{m[0]}.{m[1]}", f"{m[0]}. {m[1]}")
 
     if has_change:
         return text
@@ -73,7 +73,7 @@ def fix_abstract(text):
 
 def handle_file(filename):
     root = etree.parse(filename)
-    abstracts = root.xpath('//abstract')
+    abstracts = root.xpath("//abstract")
     n_changes = 0
 
     for abstract in abstracts:
@@ -85,21 +85,21 @@ def handle_file(filename):
             abstract.text = fixed
             n_changes += 1
 
-    root.write(filename, pretty_print=True, encoding='utf-8', xml_declaration=True)
+    root.write(filename, pretty_print=True, encoding="utf-8", xml_declaration=True)
     return n_changes
 
 
 def main():
     root_dir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
-    xml_data_files = list(glob.glob(os.path.join(root_dir, 'data', 'xml', '*.xml')))
+    xml_data_files = list(glob.glob(os.path.join(root_dir, "data", "xml", "*.xml")))
 
     n_changes = 0
 
     for filename in tqdm(xml_data_files):
         n_changes += handle_file(filename)
 
-    print(f'Fixed {n_changes} abstracts')
+    print(f"Fixed {n_changes} abstracts")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

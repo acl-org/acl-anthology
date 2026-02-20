@@ -14,7 +14,7 @@ Anthology](https://aclanthology.org).
 - [**Documentation**](https://acl-anthology.readthedocs.io/)
 - [**Package on PyPI**](https://pypi.org/project/acl-anthology/)
 
-## How to use
+## For end users
 
 Install via `pip`:
 
@@ -55,19 +55,32 @@ Two-Level Morphology with Composition
 Find more examples and details on the API in the [**official
 documentation**](https://acl-anthology.readthedocs.io/).
 
-## Developing
+## For Anthology maintainers
 
-This package uses the [**Poetry**](https://python-poetry.org/) packaging system.
+If you want to instantiate the library from a script within the repo, e.g. in
+order to make modifications to the data and push them to a branch, instantiate
+the library like this:
+
+```python
+anthology = Anthology.from_within_repo()
+```
+
+If you want to quickly check or try out something in a Python REPL, you can
+invoke `just python repl` (or simply `just repl` if you're within the `python/`
+folder) to start a REPL with this `anthology` object already instantiated.
+
+## For developers
+
+This package uses [**uv**](https://docs.astral.sh/uv/) for project management.
 Development is easiest with the [**just**](https://github.com/casey/just)
 command runner; running `just -l` will list all available recipes, while `just
 -n <recipe>` will print the commands that the recipe would run.
 
 ### Running checks, pre-commit hooks, and tests
 
-- `just check` will run [**black**](https://github.com/psf/black),
-   [**ruff**](https://github.com/charliermarsh/ruff),
-   [**mypy**](https://mypy.readthedocs.io), and some other pre-commit hooks on all
-   files in the repo.
+- `just check` will run [**ruff**](https://github.com/charliermarsh/ruff)
+   (linter and formatter), [**mypy**](https://mypy.readthedocs.io), and some
+   other pre-commit hooks on all files in the repo.
 
     - `just install-hooks` will install pre-commit hooks so they run on every
       attempted commit.
@@ -83,15 +96,6 @@ command runner; running `just -l` will list all available recipes, while `just
   testing will continue even if some hooks have modified files.
 
 - The justfile defines several more useful recipes; list them with `just -l`!
-
-### Running benchmarks
-
-There are some benchmark scripts intended to be run with
-[richbench](https://github.com/tonybaloney/rich-bench):
-
-```bash
-poetry run richbench benchmarks/
-```
 
 ### Generating and writing documentation
 

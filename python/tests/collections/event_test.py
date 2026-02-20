@@ -116,13 +116,16 @@ def test_event_to_xml_dont_list_colocated_volumes_of_parent():
     )
     out = event.to_xml()
     indent(out)
-    assert etree.tostring(out, encoding="unicode") == """<event id="li-2023">
+    assert (
+        etree.tostring(out, encoding="unicode")
+        == """<event id="li-2023">
   <colocated>
     <volume-id>2023.baz-1</volume-id>
     <volume-id>2023.ling-1</volume-id>
   </colocated>
 </event>
 """
+    )
 
 
 @pytest.mark.parametrize("xml", test_cases_event_xml)

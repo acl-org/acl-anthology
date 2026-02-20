@@ -154,7 +154,7 @@ class AnthologyMetadataUpdater:
                 # Check that author changes provided as list and as string match: otherwise something might be wrong
                 a_from_list = " | ".join(
                     [
-                        author['first'] + "  " + author['last']
+                        author["first"] + "  " + author["last"]
                         for author in changes["authors"]
                     ]
                 )
@@ -326,7 +326,7 @@ class AnthologyMetadataUpdater:
         """Process all metadata issues and create PR with changes."""
         # Get all open issues with required labels
         issues = self.github_repo.get_issues(
-            state='open', labels=['metadata', 'correction']
+            state="open", labels=["metadata", "correction"]
         )
 
         current_branch, new_branch_name, today = self.prepare_and_switch_branch()
@@ -403,7 +403,7 @@ class AnthologyMetadataUpdater:
                     # dump tree to file
                     tree.write(
                         xml_repo_path,
-                        encoding='UTF-8',
+                        encoding="UTF-8",
                         xml_declaration=True,
                         with_tail=True,
                     )

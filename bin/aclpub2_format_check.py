@@ -96,7 +96,6 @@ logger.addHandler(CounterHandler(logging.ERROR))
 
 
 def main(args):
-
     rootdir = Path(args.import_dir)
 
     if not rootdir.exists():
@@ -133,7 +132,7 @@ def main(args):
             "It looks like you may have the year in the venue ID. The venue ID is not tied to the year, but groups volumes from the same venue across years, e.g., KnowledgeNLP = https://aclanthology.org/venues/knowledgenlp"
         )
     # volume name must match this format
-    if not re.fullmatch(r'[a-z0-9]+', volume_name):
+    if not re.fullmatch(r"[a-z0-9]+", volume_name):
         logger.error(
             "Volume name can only have a-z0-9 (most single-volume workshops use 1 or main)"
         )
@@ -158,9 +157,9 @@ def main(args):
         paper_id = paper["id"]
 
         # For each file, there should be a file {rootdir}/watermarked_pdfs/{id}.pdf
-        if "archival" not in paper or paper['archival']:
+        if "archival" not in paper or paper["archival"]:
             if not (
-                pdf_path := rootdir / "watermarked_pdfs" / f'{paper["id"]}.pdf'
+                pdf_path := rootdir / "watermarked_pdfs" / f"{paper['id']}.pdf"
             ).exists():
                 logger.error(f"Paper file '{pdf_path}' not found")
             elif args.verbose:

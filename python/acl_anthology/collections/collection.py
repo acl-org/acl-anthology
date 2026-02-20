@@ -270,7 +270,7 @@ class Collection(SlottedDict[Volume]):
             elif element.tag in ("paper", "frontmatter"):
                 current_volume._add_paper_from_xml(element)
             elif element.tag == "volume":
-                current_volume = cast(Volume, None)  # noqa: F481
+                current_volume = cast(Volume, None)  # noqa: F841
             elif element.tag == "event":
                 self._set_event_from_xml(element)
                 element.clear()

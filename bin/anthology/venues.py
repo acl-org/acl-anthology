@@ -68,9 +68,9 @@ class VenueIndex:
         whereas the slug must match VENUE_FORMAT (lowercase, no punc)
         """
         slug = slugify(acronym.replace("-", ""))
-        assert (
-            re.match(VENUE_FORMAT, slug) is not None
-        ), f"Proposed slug '{slug}' of venue '{acronym}' doesn't match {VENUE_FORMAT}"
+        assert re.match(VENUE_FORMAT, slug) is not None, (
+            f"Proposed slug '{slug}' of venue '{acronym}' doesn't match {VENUE_FORMAT}"
+        )
         return slug
 
     def get_venue(self, venue_slug):

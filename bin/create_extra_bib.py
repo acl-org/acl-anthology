@@ -34,6 +34,7 @@ import gzip
 import logging as log
 import os
 import msgspec
+import multiprocessing
 from pathlib import Path
 import re
 from rich.console import Console
@@ -156,7 +157,7 @@ def create_shards(
         entries_text = f.read()
 
     # Split entries at each next line starting with '@' (preserves the leading '@')
-    entries = re.split(r'(?=@[A-Za-z]+)', entries_text)
+    entries = re.split(r"(?=@[A-Za-z]+)", entries_text)
     entries = [e.strip() for e in entries if e.strip()]
 
     if not entries:
@@ -249,14 +250,25 @@ def convert_bibtex(builddir, max_workers=None):
             "Convert to MODS & Endnote...", total=len(data_files) + len(bib_files)
         )
 
-        with concurrent.futures.ProcessPoolExecutor(max_workers=max_workers) as executor:
-            futures = [
-                executor.submit(convert_collection_file, file) for file in data_files
-            ] + [executor.submit(convert_volume_bib_file, file) for file in bib_files]
-            for future in concurrent.futures.as_completed(futures):
+        if max_workers == 1:
+            # Mainly for debugging purposes
+            for file in data_files:
+                convert_collection_file(file)
                 progress.update(task, advance=1)
-                if (exc := future.exception()) is not None:
-                    log.exception(exc)
+            for file in bib_files:
+                convert_volume_bib_file(file)
+                progress.update(task, advance=1)
+        else:
+            with concurrent.futures.ProcessPoolExecutor(
+                max_workers=max_workers, mp_context=multiprocessing.get_context("fork")
+            ) as executor:
+                futures = [
+                    executor.submit(convert_collection_file, file) for file in data_files
+                ] + [executor.submit(convert_volume_bib_file, file) for file in bib_files]
+                for future in concurrent.futures.as_completed(futures):
+                    progress.update(task, advance=1)
+                    if (exc := future.exception()) is not None:
+                        log.exception(exc)
 
 
 def convert_collection_file(collection_file):

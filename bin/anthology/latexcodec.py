@@ -115,7 +115,7 @@ def _registry(encoding):
             # This should always be safe since we are supposed
             # to be producing unicode output anyway.
             x = map(str, _unlatex(input))
-            return u"".join(x), len(input)
+            return "".join(x), len(input)
 
     class StreamWriter(Codec, codecs.StreamWriter):
         pass
@@ -548,7 +548,7 @@ _blacklist = set(" \n\r")
 _blacklist.add(None)  # shortcut candidate generation at end of data
 
 # Construction of inverse translation table
-_l2u = {'\\ ': ord(" ")}  # unexpanding space makes no sense in non-TeX contexts
+_l2u = {"\\ ": ord(" ")}  # unexpanding space makes no sense in non-TeX contexts
 
 for _tex in latex_equivalents:
     if _tex <= 0x0020 or (_tex <= 0x007F and len(latex_equivalents[_tex]) <= 1):

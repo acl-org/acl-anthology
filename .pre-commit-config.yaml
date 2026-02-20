@@ -13,12 +13,22 @@ repos:
           )$
     - id: check-yaml
       exclude: ^python/mkdocs.yml$
+      args: ['--unsafe']
     - id: end-of-file-fixer
     - id: name-tests-test
       files: ^python/tests/
       types: [file, python]
     - id: no-commit-to-branch
     - id: trailing-whitespace
+
+- repo: local
+  hooks:
+    - id: validate-xml
+      name: validate xml
+      language: unsupported
+      entry: jing -c data/xml/schema.rnc
+      files: ^data/xml
+      types: [xml]
 
 - repo: https://github.com/Lucas-C/pre-commit-hooks
   rev: v1.5.6
@@ -32,30 +42,17 @@ repos:
   rev: v0.14.14
   hooks:
     - id: ruff-check
-      name: ruff-check (on bin/)
-      files: ^bin/
+      name: ruff-check
+      types: [file, python]
       args: ['--config', 'pyproject.toml', '--fix', '--show-fixes']
 
-    - id: ruff-check
-      name: ruff-check (on python/)
-      files: ^python/
-      args: ['--config', 'python/pyproject.toml', '--fix', '--show-fixes']
-
-- repo: https://github.com/psf/black-pre-commit-mirror
-  rev: 26.1.0
-  hooks:
-    - id: black
-      name: black (on bin/)
-      files: ^bin/
+    - id: ruff-format
+      name: ruff-format
+      types: [file, python]
       args: ['--config', 'pyproject.toml']
 
-    - id: black
-      name: black (on python/)
-      files: ^python/
-      args: ['--config', 'python/pyproject.toml']
-
-- repo: https://github.com/python-poetry/poetry
-  rev: '2.3.0'
+- repo: https://github.com/astral-sh/uv-pre-commit
+  # uv version.
+  rev: 0.9.28
   hooks:
-    - id: poetry-check
-      args: ['--lock', '--directory=python']
+    - id: uv-lock

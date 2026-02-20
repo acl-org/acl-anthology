@@ -69,7 +69,7 @@ from anthology.utils import retrieve_url
 
 DEFAULT_GITHUB_REPO = os.environ.get("ANTHOLOGY_GITHUB_REPO", "acl-org/acl-anthology")
 GITHUB_TOKEN_ENV_VARS = ("GITHUB_TOKEN", "GH_TOKEN")
-TRAILING_URL_CHARS = ").,]>\""
+TRAILING_URL_CHARS = ').,]>"'
 ANTHOLOGY_FILES_DIR = Path(
     os.environ.get("ANTHOLOGY_FILES", Path.home() / "anthology-files")
 )

@@ -60,7 +60,7 @@ def clean_unicode(s: str) -> str:
     while (idx := s.find("ı", start)) > -1:
         # bug: we should only be looking for accents above, not below
         if unicodedata.category(s[idx + 1]) == "Mn":
-            s = f"{s[:idx]}i{s[idx+1:]}"
+            s = f"{s[:idx]}i{s[idx + 1 :]}"
         start = idx + 1
 
     # Selectively apply compatibility decomposition.

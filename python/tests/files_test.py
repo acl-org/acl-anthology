@@ -14,8 +14,11 @@
 
 import pytest
 from lxml import etree
+import requests
+import responses
 
 from acl_anthology import config
+from acl_anthology.exceptions import ChecksumMismatchWarning
 from acl_anthology.files import (
     AttachmentReference,
     PDFReference,
@@ -142,3 +145,66 @@ def test_attachmentreference_from_file(datadir):
     ref = AttachmentReference.from_file(datadir / "J16-4001.pdf")
     assert ref.name == "J16-4001.pdf"  # WITH the .pdf
     assert ref.checksum == "f9f4f558"
+
+
+@responses.activate
+def test_pdfreference_download(datadir, tmp_path):
+    ref = PDFReference(name="J16-4001", checksum="f9f4f558")
+    with open(datadir / "J16-4001.pdf", "rb") as f:
+        content = f.read()
+
+    # Mock server response
+    responses.get(
+        "https://aclanthology.org/J16-4001.pdf",
+        status=200,
+        headers={"Content-Type": "application/pdf"},
+        body=content,
+    )
+
+    ref.download(tmp_path / "J16-4001.pdf")
+
+
+@responses.activate
+def test_pdfreference_download_warns_on_wrong_checksum(datadir, tmp_path):
+    ref = PDFReference(name="J16-4001", checksum="a1e5f231")
+    with open(datadir / "J16-4001.pdf", "rb") as f:
+        content = f.read()
+
+    # Mock server response
+    responses.get(
+        "https://aclanthology.org/J16-4001.pdf",
+        status=200,
+        headers={"Content-Type": "application/pdf"},
+        body=content,
+    )
+
+    with pytest.warns(ChecksumMismatchWarning):
+        ref.download(tmp_path / "J16-4001.pdf")
+
+
+@responses.activate
+def test_pdfreference_download_raises_on_404(tmp_path):
+    ref = PDFReference(name="J16-4001", checksum="f9f4f558")
+
+    # Mock server response
+    responses.get(
+        "https://aclanthology.org/J16-4001.pdf",
+        status=404,
+    )
+
+    with pytest.raises(requests.HTTPError):
+        ref.download(tmp_path / "J16-4001.pdf")
+
+
+@responses.activate
+def test_pdfreference_download_raises_on_wrong_contenttype(tmp_path):
+    ref = PDFReference(name="J16-4001", checksum="f9f4f558")
+
+    # Mock server response
+    responses.get(
+        "https://aclanthology.org/J16-4001.pdf",
+        status=200,
+    )
+
+    with pytest.raises(ValueError, match="Expected 'application/pdf'"):
+        ref.download(tmp_path / "J16-4001.pdf")
