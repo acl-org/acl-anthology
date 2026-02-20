@@ -56,7 +56,7 @@ dev = [
     { name = "types-requests" },
 ]
 profiling = [
-    { name = "memray" },
+    { name = "memray", marker = "sys_platform != 'win32'" },
     { name = "richbench" },
 ]
 
@@ -104,7 +104,7 @@ dev = [
     { name = "types-requests", specifier = ">=2.32.4.20260107" },
 ]
 profiling = [
-    { name = "memray", specifier = ">=1.19.1" },
+    { name = "memray", marker = "sys_platform != 'win32'", specifier = ">=1.19.1" },
     { name = "richbench", git = "https://github.com/tonybaloney/rich-bench.git" },
 ]
 
