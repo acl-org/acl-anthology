@@ -85,6 +85,10 @@ docs-serve:
 repl:
   uv run python -i repl_with_anthology.py
 
+# Profile Anthology.load_all() and output some performance metrics
+profile-load-all:
+  uv run python -m acl_anthology.debug -t
+
 # Check that there are no uncommited changes
 [private]
 no-uncommitted-changes:
