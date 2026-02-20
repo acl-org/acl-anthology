@@ -6,7 +6,7 @@ name: preview
 on:
   push:
     branches:
-    - '*'
+    - '**'
     - '!master'
     - '!python-*'
 
@@ -54,7 +54,10 @@ jobs:
         python -m pip install lxml
     - name: extract branch name
       shell: bash
-      run: echo "branch=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_OUTPUT
+      run: |
+        raw_branch="${GITHUB_REF#refs/heads/}"
+        branch="${raw_branch//\//_}"
+        echo "branch=$(echo ${branch})" >> $GITHUB_OUTPUT
       id: extract_branch
     - name: list changes
       shell: bash
