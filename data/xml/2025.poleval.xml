@@ -1,0 +1,132 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2025.poleval">
+  <volume id="main" type="proceedings" ingest-date="2026-02-18">
+    <meta>
+      <booktitle>Proceedings of the <fixed-case>P</fixed-case>ol<fixed-case>E</fixed-case>val 2025 Workshop</booktitle>
+      <editor><first>Łukasz</first><last>Kobyliński</last></editor>
+      <editor><first>Alina</first><last>Wróblewska</last></editor>
+      <editor><first>Maciej</first><last>Ogrodniczuk</last></editor>
+      <publisher>Institute of Computer Science PAS and Association for Computational Linguistics</publisher>
+      <address>Warsaw</address>
+      <month>November</month>
+      <year>2025</year>
+      <url hash="e88baf5c">2025.poleval-main</url>
+      <venue>poleval</venue>
+      <venue>ws</venue>
+    </meta>
+    <frontmatter>
+      <url hash="53004782">2025.poleval-main.0</url>
+      <bibkey>poleval-2025-main</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title><fixed-case>P</fixed-case>ol<fixed-case>E</fixed-case>val 2025</title>
+      <author><first>Łukasz</first><last>Kobyliński</last></author>
+      <author><first>Ryszard</first><last>Staruch</last></author>
+      <author><first>Alina</first><last>Wróblewska</last></author>
+      <author><first>Maciej</first><last>Ogrodniczuk</last></author>
+      <pages>1-4</pages>
+      <abstract>PolEval is an annual shared-task evaluation campaign dedicated to advancing natural language processing for the Polish language. This paper presents an overview of PolEval 2025, the eighth edition of the campaign, which included three completed tasks covering machine-generated text detection, gender-inclusive language generation, and speech emotion recognition. The evaluation was conducted using standardised datasets and metrics via the AmuEval platform. PolEval 2025 attracted 15 teams and over 100 submissions, demonstrating continued engagement from the Polish NLP community. We describe the organisation of the campaign, the evaluation setup, and the role of PolEval in fostering reproducible research and community-driven benchmarking.</abstract>
+      <url hash="7b79b48c">2025.poleval-main.1</url>
+      <bibkey>kobylinski-etal-2025-poleval</bibkey>
+    </paper>
+    <paper id="2">
+      <title><fixed-case>P</fixed-case>ol<fixed-case>E</fixed-case>val 2025 Task 1 Śmigiel: Spotting Machine-Generated Text from <fixed-case>LLM</fixed-case>s for <fixed-case>P</fixed-case>olish</title>
+      <author><first>Piotr</first><last>Przybyła</last></author>
+      <author><first>Jakub</first><last>Strebeyko</last></author>
+      <author><first>Alina</first><last>Wróblewska</last></author>
+      <pages>5-15</pages>
+      <abstract>This paper introduces the first shared task on machine-generated text (MGT) detection for Polish, organised as part of the PolEval 2025 evaluation campaign. The task evaluates participating systems under three scenarios — unsupervised, constrained, and open — designed to reflect different levels of access to training data. In total, seven systems were submitted.The results indicate that MGT detection for Polish is feasible, with the best-performing constrained systems achieving over 90% accuracy on the main evaluation set. However, performance drops when models are tested on unseen domains or generator models, revealing substantial limitations in generalisation. In the most challenging settings, unsupervised approaches perform better, despite achieving overall lower performance.This shared task establishes a new benchmark for MGT detection in Polish. The publicly released Śmigiel dataset is intended to support future research on robust and generalisable MGT detection methods.</abstract>
+      <url hash="b5c8b491">2025.poleval-main.2</url>
+      <bibkey>przybyla-etal-2025-poleval</bibkey>
+    </paper>
+    <paper id="3">
+      <title>Detecting Machine-Generated Text in <fixed-case>P</fixed-case>olish Using Fine-Tuned Qwen Models</title>
+      <author><first>Konrad</first><last>Pierzyński</last></author>
+      <pages>16-20</pages>
+      <abstract>This paper introduces the first shared task on machine-generated text (MGT) detection for Polish, organised as part of the PolEval 2025 evaluation campaign. The task evaluates participating systems under three scenarios – unsupervised, constrained, and open – designed to reflect different levels of access to training data. In total, seven systems were submitted. The results indicate that MGT detection for Polish is feasible, with the best-performing constrained systems achieving over 90% accuracy on the main evaluation set. However, performance drops when models are tested on unseen domains or generator models, revealing substantial limitations in generalisation. In the most challenging settings, unsupervised approaches beat the supervised ones. This shared task establishes a new benchmark for MGT detection in Polish. The publicly released Śmigiel dataset is intended to support future research on robust and generalisable MGT detection.</abstract>
+      <url hash="827a6713">2025.poleval-main.3</url>
+      <bibkey>pierzynski-2025-detecting</bibkey>
+    </paper>
+    <paper id="4">
+      <title>Perplexity-Driven Contrastive Scoring for Unsupervised Detection of <fixed-case>AI</fixed-case>-Generated Texts in <fixed-case>P</fixed-case>olish</title>
+      <author><first>Damian</first><last>Stachura</last></author>
+      <pages>21-25</pages>
+      <abstract>The SMIGIEL competition at PolEval 2025 focuses on distinguishing Polish human-written text from AI-generated text. I participated in one of the subtasks that required a zero-shot detection method. My solution adapts the Binoculars detector by pairing language models and using calibrated thresholds. Specifically, I replaced the English language models from the original Binoculars method with models trained on Polish corpora. This approach achieved first place in the chosen competition track. Overall, my findings demonstrate that domain-specific language models and careful thresholding enable state-of-the-art zero-shot AI-text detection performance across new languages and domains. The code is publicly available at https://github.com/damian1996/2025-smigiel.</abstract>
+      <url hash="8a6ec537">2025.poleval-main.4</url>
+      <bibkey>stachura-2025-perplexity</bibkey>
+    </paper>
+    <paper id="5">
+      <title>Unsupervised Detection of <fixed-case>LLM</fixed-case>-Generated <fixed-case>P</fixed-case>olish Text Using Perplexity Difference</title>
+      <author><first>Krzysztof</first><last>Wróbel</last></author>
+      <pages>26-38</pages>
+      <abstract>Inspired by zero-shot detection methods that compare perplexity across model pairs, we investigate whether computing perplexity differences on whole-text character-level perplexity can effectively detect LLM-generated Polish text. Unlike token-level ratio methods that require compatible tokenizers, our approach enables pairing any models regardless of tokenization. Through systematic evaluation of 91 model pairs on the PolEval 2025 ŚMIGIEL shared task, we identify Gemma-3-27B and PLLuM-12B as optimal, achieving 81.22% accuracy on test data with unseen generators. Our difference-based approach outperforms token-level ratio methods (+5.5pp) and single-model baselines (+8.3pp) without using training labels, capturing asymmetric reactions where human text causes greater perplexity divergence than LLM text. We demonstrate that complementary model pairing (multilingual + monolingual) and architectural quality matter more than raw model size for this task.</abstract>
+      <url hash="fec85cdd">2025.poleval-main.5</url>
+      <bibkey>wrobel-2025-unsupervised</bibkey>
+    </paper>
+    <paper id="6">
+      <title><fixed-case>P</fixed-case>ol<fixed-case>E</fixed-case>val 2025 Task 2: Gender-inclusive <fixed-case>LLM</fixed-case>s for <fixed-case>P</fixed-case>olish</title>
+      <author><first>Alina</first><last>Wróblewska</last></author>
+      <pages>39-47</pages>
+      <abstract>This paper presents the results of the PolEval 2025 shared task on gender-inclusive large language models for Polish. The primary goal of this task is to encourage the development of models capable of generating grammatically well-formed, contextually appropriate, and gender-inclusive output — a property of increasing importance in both human-centred NLP and NLG applications. To support this objective, we employed the newly developed Inclusive Polish Instruction Set (IPIS), a high-quality, human-annotated resource designed to guide models toward gender-inclusive behaviour. The shared task comprised two subtasks: gender-inclusive proofreading, which evaluates the ability of a model to transform masculine-generic Polish text into an inclusive equivalent, and gender-sensitive Polish-English translation, which investigates gender marking across languages. A total of six system submissions were received — three for each subtask. The evaluation demonstrates that the top-performing gender-inclusive systems outperform both the baseline and state-of-the-art models. These findings highlight the effectiveness of IPIS-tuned approaches and establish strong benchmarks for future research on gender inclusivity in Polish NLP.</abstract>
+      <url hash="bb417702">2025.poleval-main.6</url>
+      <bibkey>wroblewska-2025-poleval</bibkey>
+    </paper>
+    <paper id="7">
+      <title>Less is <fixed-case>M</fixed-case>ore—<fixed-case>A</fixed-case>chieving <fixed-case>SOTA</fixed-case> at <fixed-case>P</fixed-case>ol<fixed-case>E</fixed-case>val 2025 Task 2a: Gender-inclusive <fixed-case>LLM</fixed-case>s for <fixed-case>P</fixed-case>olish (Proofreading) with <fixed-case>L</fixed-case>o<fixed-case>RA</fixed-case> and Qwen3-8<fixed-case>B</fixed-case></title>
+      <author><first>Adam</first><last>Majczyk</last></author>
+      <pages>48-53</pages>
+      <abstract>In this paper the winning solution of PolEval 2025 Task 2a is presented. The approach utilizes LoRA fine-tuning of the Qwen3-8B model. Multiple LoRA matrix ranks are explored. Versions with and without the system prompt in loss calculation are evaluated. New SOTA was established at <tex-math>F1=0.6039</tex-math> beating the previously best model at <tex-math>F1=0.5985</tex-math>. After the task’s conclusion the solution was improved upon and <tex-math>F1=0.6283\pm0.0056</tex-math> was achieved.</abstract>
+      <url hash="e16a26c6">2025.poleval-main.7</url>
+      <bibkey>majczyk-2025-less</bibkey>
+    </paper>
+    <paper id="8">
+      <title>Prompt-Based Gender-Inclusive <fixed-case>P</fixed-case>olish-<fixed-case>E</fixed-case>nglish Translation Using Bielik Large Language Model with Structured Output</title>
+      <author><first>Krzysztof</first><last>Wróbel</last></author>
+      <pages>54-59</pages>
+      <abstract>We present a simple yet effective approach to gender-inclusive Polish<tex-math>\leftrightarrow</tex-math>English translation for the PolEval 2025 Task 2 shared task. Without any fine-tuning, our solution leverages the Bielik 11B v2.6 model with carefully engineered system prompts and structured output, achieving a chrF score of 84.03 and securing first place in the translation subtask. The approach demonstrates that prompt engineering with few-shot examples and structured output can effectively handle the complex task of generating and removing gender-inclusive forms with the inclusive asterisk notation in Polish text. Per-direction analysis reveals stronger performance on PL<tex-math>\rightarrow</tex-math>EN (chrF 88.24) compared to EN<tex-math>\rightarrow</tex-math>PL (chrF 79.88), highlighting the asymmetric difficulty of adding versus removing inclusive forms.</abstract>
+      <url hash="999a1f3a">2025.poleval-main.8</url>
+      <bibkey>wrobel-2025-prompt</bibkey>
+    </paper>
+    <paper id="9">
+      <title>Instruction fine-tuning using pragmatic layer</title>
+      <author><first>Adrianna</first><last>Paszkowska</last></author>
+      <pages>60-65</pages>
+      <abstract>The Polish language, like some Slavic and Romance languages, has a masculine-centric bias in its generic forms, leading to frequent use of masculine nouns when referring to women or mixed-gender groups. This presents a linguistic challenge for development of gender-inclusive technologies, addressed in PolEval task 2.This paper presents pragmatic instruction fine-tuning approach, using Low-Rank Adaptation (LoRA) on the pre-trained Polish PLT5 sequence-to-sequence model.</abstract>
+      <url hash="fdbb803e">2025.poleval-main.9</url>
+      <bibkey>paszkowska-2025-instruction</bibkey>
+    </paper>
+    <paper id="10">
+      <title>Lightweight <fixed-case>IPIS</fixed-case> Instruction Tuning of Bielik-7<fixed-case>B</fixed-case> for Gender-Inclusive <fixed-case>P</fixed-case>olish&lt;—&gt;<fixed-case>E</fixed-case>nglish Translation: System Description for <fixed-case>P</fixed-case>ol<fixed-case>E</fixed-case>val 2025 Task 2 (<fixed-case>IPIS</fixed-case>-translation)</title>
+      <author><first>Mateusz</first><last>Czajka</last></author>
+      <pages>66-71</pages>
+      <abstract>We describe a compact but fully open-source system submitted to PolEval 2025 Task 2 (Gender-inclusive LLMs for Polish), subtask B: IPIS-translation. The goal of this subtask is gender-sensitive Polish↔English translation, including the production of gender-inclusive Polish outputs that follow specific orthographic conventions such as gender stars and slash forms. Our method performs instruction tuning of the Polish LLM Bielik-7B-Instruct using parameter-efficient LoRA adapters, with optional 4-bit NF4 quantization for single-GPU training. Samples from the Inclusive Polish Instruction Set (IPIS) are converted into a chat-style format with a task-provided gender-inclusive system prompt. Despite a deliberately lightweight tuning budget and greedy decoding, our submission placed 3rd on the hidden test B split, achieving bleu_pe = 20.7871. We detail the training and inference pipeline, discuss design choices and limitations, and outline directions for improving inclusive translation quality in Polish.</abstract>
+      <url hash="f0dbdd8f">2025.poleval-main.10</url>
+      <bibkey>czajka-2025-lightweight</bibkey>
+    </paper>
+    <paper id="11">
+      <title><fixed-case>P</fixed-case>ol<fixed-case>E</fixed-case>val 2025 Task 4: <fixed-case>P</fixed-case>olish Speech Emotion Recognition Challenge</title>
+      <author><first>Iwona</first><last>Christop</last></author>
+      <author><first>Maciej</first><last>Czajka</last></author>
+      <pages>72-81</pages>
+      <abstract>This paper introduces the Polish Speech Emotion Recognition Challenge, a shared task aimed at advancing research on cross-lingual emotion recognition in low-resource languages. The challenge’s objective was to develop systems that could recognize emotional states in Polish speech using only multilingual training data, with no access to Polish training examples. The final test set consisted of newly recorded Polish speech samples created specifically for the challenge, ensuring a fully blind evaluation. Participants submitted emotion predictions for six target classes. System performance was assessed using the macro-averaged F1 score as the primary metric.</abstract>
+      <url hash="1b95966c">2025.poleval-main.11</url>
+      <bibkey>christop-czajka-2025-poleval</bibkey>
+    </paper>
+    <paper id="12">
+      <title>Inference-Only Speaker Adaptation Improves Cross-Lingual Speech Emotion Recognition</title>
+      <author><first>Maciej</first><last>Łachut</last></author>
+      <pages>82-90</pages>
+      <abstract>Cross-lingual Speech Emotion Recognition (SER) is frequently hindered by speaker-specific prosodic variations that obscure universal emotional cues. Standard models often fail to generalize across languages due to the domain shift caused by differing acoustic standards. To address this, we present a novel SER approach that integrates unsupervised speaker adaptation directly at inference time. Our architecture utilizes a frozen, pretrained HuBERT encoder and introduces a Greedy Cluster Assignment Algorithm. This method groups a speaker’s utterances to form emotion-dependent centroids, enforcing speaker-consistent labeling without the computational cost of retraining. We evaluated this approach in a cross-lingual setting using the Polish nEMO dataset, which was excluded from training. Our method achieved the best performance in the POL-EVAL 2025 Task 4, improving the Macro F1 score from 0.619 to 0.753 on validation data and securing 1st place on the official leaderboard. Results demonstrate that inference-only clustering effectively disentangles ambiguous high-arousal categories, such as Fear and Surprise, by calibrating to the individual speaker’s vocal range.</abstract>
+      <url hash="20457fe0">2025.poleval-main.12</url>
+      <bibkey>lachut-2025-inference</bibkey>
+    </paper>
+    <paper id="13">
+      <title>Zero-Shot Transfer of Pretrained Speech Representations for Multilingual Emotion Recognition</title>
+      <author><first>Tomasz</first><last>Kuczyński</last></author>
+      <pages>91-96</pages>
+      <abstract>Speech emotion recognition remains a challenging task, particularly in low-resource language settings. In this work, we explore the development of a system capable of identifying emotional states in Polish speech using training data exclusively from other languages. Our approach relies on a pretrained speech representation model and follows a strict zero-shot training paradigm, enabling cross-lingual knowledge transfer without access to any Polish data. The system was developed in the context of the Polish Speech Emotion Recognition Challenge (PolEval 2025), which required participants to train models solely on multilingual resources and evaluate them on Polish speech in a zero-shot setup. We present a complete solution encompassing model selection, audio preprocessing, and fine-tuning strategy, and discuss the potential of large-scale language models for cross-lingual emotion recognition.</abstract>
+      <url hash="b494eab7">2025.poleval-main.13</url>
+      <bibkey>kuczynski-2025-zero</bibkey>
+    </paper>
+  </volume>
+</collection>
