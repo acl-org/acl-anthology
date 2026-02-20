@@ -172,15 +172,41 @@ def test_name_variant_to_xml_onlylast():
     assert etree.tostring(element, encoding="unicode") == xml
 
 
-def test_name_slugify():
-    n1 = Name("Tai Man", "Chan")
-    n2 = Name("Tai", "Man Chan")
-    n3 = Name("Tai-Man", "Chan")
-    n4 = Name("Tai Man", "Chen")
-    for a, b in it.combinations((n1, n2, n3), 2):
-        assert a.slugify() == b.slugify()
-    for a in (n1, n2, n3):
-        assert a.slugify() != n4.slugify()
+test_cases_slugify = (
+    # Should slugify to the same thing
+    (
+        [
+            ("Tai Man", "Chan"),
+            ("Tai", "Man Chan"),
+            ("Tai-Man", "Chan"),
+            (None, "Tai Man Chan"),
+        ],
+        True,
+    ),
+    (
+        [
+            ("James", "O'Neill"),
+            ("James", "OʼNeill"),
+            ("James", "O’Neill"),
+            ("James", "O`Neill"),
+        ],
+        True,
+    ),
+    ([("A", "B-C"), ("A", "B–C"), ("A", "B—C")], True),
+    ([("Charles M.", "King"), ("Charles M", "King")], True),
+    ([("澳", "李"), ("Ao", "Li")], True),
+    # Should NOT slugify to the same thing
+    ([("Tai Man", "Chan"), ("TaiMan", "Chan")], False),
+)
+
+
+@pytest.mark.parametrize("names, should_match", test_cases_slugify)
+def test_name_slugify(names, should_match):
+    for a, b in it.combinations(names, 2):
+        if should_match:
+            assert Name(*a).slugify() == Name(*b).slugify()
+        else:
+            assert Name(*a).slugify() != Name(*b).slugify()
 
 
 def test_name_scoring():

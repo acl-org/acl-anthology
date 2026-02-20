@@ -10,6 +10,8 @@
 
 - Switched tooling from Poetry to uv, and from Black to Ruff formatter.
 - Renamed `PersonIndex.resolve_namespec` to `_resolve_namespec` to discourage external use.
+- Improvements to Names and NameSpecifications:
+  - `Name.slugify()` now treats typographic apostrophes (U+02BC and U+2019) the same as regular ones.
 
 ## [1.0.0] — 2026-01-24
 

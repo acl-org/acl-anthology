@@ -31,6 +31,13 @@ except ImportError:  # pragma: no cover
 from ..utils.latex import latex_encode
 
 
+SLUGIFY_REPLACEMENTS = (
+    ["ʼ", "-"],
+    ["’", "-"],
+)
+"""Custom replacement rules for name slugs."""
+
+
 @define(frozen=True)
 class Name:
     """A person's name.
@@ -126,7 +133,7 @@ class Name:
         Returns:
             A [slugified string](https://github.com/un33k/python-slugify#how-to-use) of the full name.
         """
-        return slugify(self.as_first_last())
+        return slugify(self.as_first_last(), replacements=SLUGIFY_REPLACEMENTS)
 
     @classmethod
     def from_dict(cls, name: dict[str, str]) -> Name:
