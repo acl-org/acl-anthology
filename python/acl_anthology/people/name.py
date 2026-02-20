@@ -28,11 +28,13 @@ try:
 except ImportError:  # pragma: no cover
     from yaml import Dumper  # type: ignore
 
+from ..exceptions import AnthologyException
 from ..utils.attrs import track_namespec_modifications
 from ..utils.latex import latex_encode
 
 if TYPE_CHECKING:
-    from ..collections import Volume, Paper, Event
+    from ..collections import Volume, Paper, Talk
+    from ..people import Person
 
 
 SLUGIFY_REPLACEMENTS = (
@@ -266,6 +268,7 @@ class NameSpecification:
     Attributes:
         name: The person's name.
         id: Unique ID for the person that this name refers to.
+        parent: The Anthology item that this name specification belongs to.
         orcid: An ORCID that was supplied together with this name.
         affiliation: Professional affiliation.
         variants: Variant spellings of this name in different scripts.
@@ -279,7 +282,7 @@ class NameSpecification:
 
     name: Name = field(converter=_Name_from)
     id: Optional[str] = field(default=None, validator=v.optional(v.instance_of(str)))
-    parent: Optional[Paper | Volume | Event] = field(default=None, repr=False, eq=False)
+    parent: Optional[Paper | Volume | Talk] = field(default=None, repr=False, eq=False)
     orcid: Optional[str] = field(default=None, validator=v.optional(v.instance_of(str)))
     affiliation: Optional[str] = field(
         default=None, validator=v.optional(v.instance_of(str))
@@ -311,6 +314,21 @@ class NameSpecification:
         if not self.name.first:
             return {"family": self.name.last}
         return {"family": self.name.last, "given": self.name.first}
+
+    def resolve(self) -> Person:
+        """Resolve this name specification to a natural person.
+
+        Returns:
+            The Person object that this name specification resolves to.
+
+        Raises:
+            AnthologyException: If this name specification is not attached to an Anthology item (i.e., `parent` is not set).
+        """
+        if self.parent is None:
+            raise AnthologyException(
+                "Cannot resolve NameSpecification that is not attached to a paper."
+            )
+        return self.parent.root.people.get_by_namespec(self)
 
     @classmethod
     def from_xml(cls, person: etree._Element) -> NameSpecification:

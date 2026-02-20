@@ -18,6 +18,7 @@ import attrs
 from attrs import define, field, converters, setters, validators as v
 import datetime
 from functools import cached_property
+import itertools as it
 import langcodes
 from lxml import etree
 from lxml.builder import E
@@ -35,6 +36,7 @@ from ..files import (
 from ..people import NameSpecification
 from ..text import MarkupText, to_markuptext
 from ..utils.attrs import (
+    attach_parent,
     auto_validate_types,
     date_to_str,
     int_to_str,
@@ -273,10 +275,17 @@ class Paper:
             iterable_validator=v.instance_of(list),
         ),
     )
-    authors: list[NameSpecification] = field(factory=list)
+    authors: list[NameSpecification] = field(
+        factory=list,
+        on_setattr=[setters.validate, attach_parent, track_modifications],
+    )
     awards: list[str] = field(factory=list, repr=False)
     # TODO: why can a Paper ever have "editors"? it's allowed by the schema
-    editors: list[NameSpecification] = field(factory=list, repr=False)
+    editors: list[NameSpecification] = field(
+        factory=list,
+        repr=False,
+        on_setattr=[setters.validate, attach_parent, track_modifications],
+    )
     errata: list[PaperErratum] = field(
         factory=list,
         repr=False,
@@ -315,6 +324,10 @@ class Paper:
     pages: Optional[str] = field(default=None, repr=False)
     pdf: Optional[PDFReference] = field(default=None, repr=False)
     type: PaperType = field(default=PaperType.PAPER, repr=False, converter=PaperType)
+
+    def __attrs_post_init__(self) -> None:
+        for namespec in it.chain(self.authors, self.editors):
+            namespec.parent = self
 
     @id.validator
     def _check_id(self, _: Any, value: str) -> None:
@@ -714,10 +727,7 @@ class Paper:
                 raise AnthologyXMLError(
                     parent.full_id_tuple, tag, "unsupported element for <paper>"
                 )
-        obj = cls(**kwargs)
-        for namespec in obj.namespecs:
-            namespec.parent = obj
-        return obj
+        return cls(**kwargs)
 
     def to_xml(self) -> etree._Element:
         """

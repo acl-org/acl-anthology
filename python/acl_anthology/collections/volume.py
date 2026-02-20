@@ -30,6 +30,7 @@ from ..people import NameSpecification
 from ..text import MarkupText, to_markuptext
 from ..venues import Venue
 from ..utils.attrs import (
+    attach_parent,
     auto_validate_types,
     date_to_str,
     int_to_str,
@@ -90,7 +91,10 @@ class Volume(SlottedDict[Paper]):
         converter=int_to_str, validator=validators.matches_re(r"^[0-9]{4}$")
     )
 
-    editors: list[NameSpecification] = field(factory=list)
+    editors: list[NameSpecification] = field(
+        factory=list,
+        on_setattr=[setters.validate, attach_parent, track_modifications],
+    )
     venue_ids: list[str] = field(factory=list)
 
     address: Optional[str] = field(default=None, repr=False)
@@ -114,6 +118,10 @@ class Volume(SlottedDict[Paper]):
         repr=False,
         converter=converters.optional(to_markuptext),
     )
+
+    def __attrs_post_init__(self) -> None:
+        for namespec in self.editors:
+            namespec.parent = self
 
     @id.validator
     def _check_id(self, _: Any, value: str) -> None:
@@ -366,10 +374,7 @@ class Volume(SlottedDict[Paper]):
                 kwargs["venue_ids"].append(str(element.text))
             else:  # pragma: no cover
                 raise ValueError(f"Unsupported element for Volume: <{tag}>")
-        obj = cls(**kwargs)
-        for namespec in obj.namespecs:
-            namespec.parent = obj
-        return obj
+        return cls(**kwargs)
 
     def to_xml(self, with_papers: bool = True) -> etree._Element:
         """Serialize this volume in the Anthology XML format.

@@ -25,7 +25,7 @@ import re
 from .ids import AnthologyIDTuple
 
 if TYPE_CHECKING:
-    from ..collections import Paper, Volume, Event
+    from ..collections import Paper, Volume, Event, Talk
     from ..people import NameSpecification
 
 
@@ -42,7 +42,7 @@ def track_namespec_modifications(
 
 
 def track_modifications(
-    obj: Paper | Volume | Event, attr: attrs.Attribute[Any], value: T
+    obj: Paper | Volume | Event | Talk, attr: attrs.Attribute[Any], value: T
 ) -> T:
     if attr.name != "parent":
         obj.collection.is_modified = True
@@ -200,4 +200,18 @@ def date_to_str(value: Any) -> Any:
         return value.isoformat()
     elif isinstance(value, datetime.datetime):
         return value.date().isoformat()
+    return value
+
+
+def attach_parent(
+    item: Paper | Volume | Talk,
+    attr: attrs.Attribute[Any],
+    value: list[NameSpecification],
+) -> list[NameSpecification]:
+    """Attach parent object to a [NameSpecification][acl_anthology.people.name.NameSpecification].
+
+    Intended to be called from `on_setattr` of an [attrs.field][].
+    """
+    for namespec in value:
+        namespec.parent = item
     return value

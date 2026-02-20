@@ -258,6 +258,13 @@ def test_volume_setattr_sets_collection_is_modified(anthology, attr_name):
     assert volume.parent.is_modified
 
 
+def test_paper_setattr_on_namespec_sets_collection_is_modified(anthology):
+    volume = anthology.get_volume("2022.acl-long")
+    assert not volume.collection.is_modified
+    volume.editors[0].affiliation = "University of Someplace"
+    assert volume.collection.is_modified
+
+
 def test_volume_venues_j89(anthology):
     volume = anthology.get_volume("J89-1")
     assert volume.venue_ids == ["cl"]

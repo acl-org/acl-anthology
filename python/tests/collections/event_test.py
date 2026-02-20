@@ -101,6 +101,7 @@ def test_event_all_attribs():
     assert event.collection_id == "2023.li"
     assert event.title == event_title
     assert event.is_explicit
+    assert event.talks[0].parent is event
 
 
 def test_event_to_xml_dont_list_colocated_volumes_of_parent():
@@ -159,6 +160,13 @@ def test_event_setattr_sets_collection_is_modified(anthology, attr_name):
     event = anthology.events.get("lrec-2006")
     assert not event.collection.is_modified
     setattr(event, attr_name, getattr(event, attr_name))
+    assert event.collection.is_modified
+
+
+def test_event_setattr_on_namespec_sets_collection_is_modified(anthology):
+    event = anthology.events.get("acl-2022")
+    assert not event.collection.is_modified
+    event.talks[1].speakers[0].affiliation = "University of Someplace"
     assert event.collection.is_modified
 
 
