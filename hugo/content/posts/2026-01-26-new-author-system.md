@@ -11,73 +11,73 @@ This may sound straightforward, but in practice it’s difficult, for two reason
 
 The following histogram shows the prevalence of known ambiguous names in the Anthology. For example, there are 121 names shared by two people. Most names are unique, but the number of ambiguous names is still significant. In the past few years, especially, the number of ambiguous names has increased sharply, which increases the amount of human effort in resolving these ambiguities.
 
-<table class="table table-sm">
+<table class="table table-sm" style="max-width:60rem; width:100%">
     <thead>
         <tr>
-            <th style="text-align:center"># people</th>
-            <th style="text-align:right">count</th>
+            <th style="text-align:center; padding-right:1.25rem; width:6rem"># people</th>
+            <th style="text-align:right; padding-right:1.5rem; width:7rem">count</th>
             <th>examples</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td style="text-align:center">1</td>
-            <td style="text-align:right">122,122</td>
+            <td style="text-align:center; padding-right:1.25rem; width:6rem">1</td>
+            <td style="text-align:right; padding-right:1.5rem; width:7rem">122,122</td>
             <td>— (unique entries)</td>
         </tr>
         <tr>
-            <td style="text-align:center">2</td>
-            <td style="text-align:right">121</td>
+            <td style="text-align:center; padding-right:1.25rem; width:6rem">2</td>
+            <td style="text-align:right; padding-right:1.5rem; width:7rem">121</td>
             <td>Ai, Wei; Amini, Massih R</td>
         </tr>
         <tr>
-            <td style="text-align:center">3</td>
-            <td style="text-align:right">297</td>
+            <td style="text-align:center; padding-right:1.25rem; width:6rem">3</td>
+            <td style="text-align:right; padding-right:1.5rem; width:7rem">297</td>
             <td>Agarwal, Shubham; Bartelt, Christian</td>
         </tr>
         <tr>
-            <td style="text-align:center">4</td>
-            <td style="text-align:right">63</td>
+            <td style="text-align:center; padding-right:1.25rem; width:6rem">4</td>
+            <td style="text-align:right; padding-right:1.5rem; width:7rem">63</td>
             <td>Zhang, Dongyu; Zhang, Han</td>
         </tr>
         <tr>
-            <td style="text-align:center">5</td>
-            <td style="text-align:right">22</td>
+            <td style="text-align:center; padding-right:1.25rem; width:6rem">5</td>
+            <td style="text-align:right; padding-right:1.5rem; width:7rem">22</td>
             <td>Chen, Wei; Li, Yang</td>
         </tr>
         <tr>
-            <td style="text-align:center">6</td>
-            <td style="text-align:right">9</td>
+            <td style="text-align:center; padding-right:1.25rem; width:6rem">6</td>
+            <td style="text-align:right; padding-right:1.5rem; width:7rem">9</td>
             <td>Li, Lei; Wang, Di</td>
         </tr>
         <tr>
-            <td style="text-align:center">7</td>
-            <td style="text-align:right">11</td>
+            <td style="text-align:center; padding-right:1.25rem; width:6rem">7</td>
+            <td style="text-align:right; padding-right:1.5rem; width:7rem">11</td>
             <td>Chen, Chen; Li, Chen</td>
         </tr>
         <tr>
-            <td style="text-align:center">8</td>
-            <td style="text-align:right">2</td>
+            <td style="text-align:center; padding-right:1.25rem; width:6rem">8</td>
+            <td style="text-align:right; padding-right:1.5rem; width:7rem">2</td>
             <td>Liu, Wei; Zhang, Yu</td>
         </tr>
         <tr>
-            <td style="text-align:center">9</td>
-            <td style="text-align:right">2</td>
+            <td style="text-align:center; padding-right:1.25rem; width:6rem">9</td>
+            <td style="text-align:right; padding-right:1.5rem; width:7rem">2</td>
             <td>Li, Bo; Wang, Hao</td>
         </tr>
         <tr>
-            <td style="text-align:center">10</td>
-            <td style="text-align:right">2</td>
+            <td style="text-align:center; padding-right:1.25rem; width:6rem">10</td>
+            <td style="text-align:right; padding-right:1.5rem; width:7rem">2</td>
             <td>Chen, Hao; Li, Xiang</td>
         </tr>
         <tr>
-            <td style="text-align:center">14</td>
-            <td style="text-align:right">1</td>
+            <td style="text-align:center; padding-right:1.25rem; width:6rem">14</td>
+            <td style="text-align:right; padding-right:1.5rem; width:7rem">1</td>
             <td>Zhang, Li (only known example)</td>
         </tr>
         <tr>
-            <td style="text-align:center">25</td>
-            <td style="text-align:right">1</td>
+            <td style="text-align:center; padding-right:1.25rem; width:6rem">25</td>
+            <td style="text-align:right; padding-right:1.5rem; width:7rem">1</td>
             <td>Liu, Yang (only known example)</td>
         </tr>
     </tbody>
