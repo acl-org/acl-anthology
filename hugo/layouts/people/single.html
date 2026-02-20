@@ -4,7 +4,7 @@
 <section id="main">
   <h2 id="title">
     <!-- {{- .Title -}} -->
-    <span class="font-weight-normal">{{ $person.first }}</span> <span class="fw-bold">{{ $person.last }}</span>
+    <span class="fw-normal">{{ $person.first }}</span> <span class="fw-bold">{{ $person.last }}</span>
     {{ if $person.orcid }}
       <a href="https://orcid.org/{{ $person.orcid }}" title="ORCID profile (some papers below may be guesses if they were submitted without ORCID iD)" target="_blank" rel="noopener">
         <i class="fab fa-orcid fa-xs align-middle text-verified ms-1"></i>
@@ -27,7 +27,7 @@
     <span class="fst-italic">Also published as:</span>
     {{ $len := (len .) }}
     {{ range $index, $var := . }}
-    {{ $var.first }} <span class="font-weight-normal">{{ $var.last }}</span>{{ if ne (add $index 1) $len }}, {{ end }}
+    {{ $var.first }} <span class="fw-bold">{{ $var.last }}</span>{{ if ne (add $index 1) $len }}, {{ end }}
     {{ end }}
   </p>
   {{ end }}
