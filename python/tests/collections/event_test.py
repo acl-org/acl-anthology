@@ -163,13 +163,6 @@ def test_event_setattr_sets_collection_is_modified(anthology, attr_name):
     assert event.collection.is_modified
 
 
-def test_event_setattr_on_namespec_sets_collection_is_modified(anthology):
-    event = anthology.events.get("acl-2022")
-    assert not event.collection.is_modified
-    event.talks[1].speakers[0].affiliation = "University of Someplace"
-    assert event.collection.is_modified
-
-
 def test_event_add_colocated(anthology):
     event = anthology.events.get("lrec-2006")
     assert len(event.colocated_ids) == 1
@@ -215,6 +208,16 @@ def test_talk_minimum_attribs():
     assert not talk.attachments
 
 
+def test_talk_attribs(anthology):
+    event = anthology.events.get("acl-2022")
+    talk = event.talks[0]
+    assert talk.parent is event
+    assert talk.root is anthology
+    assert talk.type is None
+    assert len(talk.attachments) == 1
+    assert isinstance(talk.attachments.get("video"), EventFileReference)
+
+
 @pytest.mark.parametrize("xml", test_cases_talk_xml)
 def test_talk_roundtrip_xml(xml):
     element = etree.fromstring(xml)
@@ -222,3 +225,10 @@ def test_talk_roundtrip_xml(xml):
     out = talk.to_xml()
     indent(out)
     assert etree.tostring(out, encoding="unicode") == xml
+
+
+def test_talk_setattr_on_namespec_sets_collection_is_modified(anthology):
+    event = anthology.events.get("acl-2022")
+    assert not event.collection.is_modified
+    event.talks[1].speakers[0].affiliation = "University of Someplace"
+    assert event.collection.is_modified

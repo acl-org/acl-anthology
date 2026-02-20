@@ -60,14 +60,14 @@ class Talk:
     @property
     def collection(self) -> Collection:
         """The collection this talk belongs to."""
-        if self.parent is None:
+        if self.parent is None:  # pragma: no cover
             raise Exception("Talk was instantiated without parent")
         return self.parent.collection
 
     @property
     def root(self) -> Anthology:
         """The Anthology instance to which this object belongs."""
-        if self.parent is None:
+        if self.parent is None:  # pragma: no cover
             raise Exception("Talk was instantiated without parent")
         return self.parent.parent.parent.parent
 

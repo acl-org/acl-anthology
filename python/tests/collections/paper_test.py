@@ -252,6 +252,13 @@ def test_paper_get_namespec_for(anthology):
     assert namespec.resolve() is person
 
 
+def test_paper_get_namespec_for_should_fail(anthology):
+    paper = anthology.get_paper("2022.acl-demo.24")
+    person = anthology.get_person("matt-post")
+    with pytest.raises(ValueError):
+        paper.get_namespec_for(person)
+
+
 test_cases_xml = (
     """<frontmatter>
   <url hash="56ea4e43">2022.acl-long.0</url>

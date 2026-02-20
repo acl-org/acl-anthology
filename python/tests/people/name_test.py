@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from acl_anthology.exceptions import AnthologyException
 from acl_anthology.people import Name, NameSpecification
 from lxml import etree
 import itertools as it
@@ -66,6 +67,12 @@ def test_name_specification_converter():
     n2 = NameSpecification("Doe, John")
     n3 = NameSpecification({"first": "John", "last": "Doe"})
     assert n1 == n2 == n3
+
+
+def test_name_specification_cannot_resolve():
+    n1 = NameSpecification(Name("John", "Doe"))
+    with pytest.raises(AnthologyException):
+        n1.resolve()  # cannot resolve without parent
 
 
 def test_name_spec_citeproc():
