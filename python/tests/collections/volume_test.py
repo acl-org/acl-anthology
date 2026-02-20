@@ -1,4 +1,4 @@
-# Copyright 2023-2024 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2026 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -526,6 +526,14 @@ def test_volume_add_editor(anthology):
     anthology.reset_indices()
     person = ns.resolve()
     assert volume.full_id_tuple in person.item_ids
+
+
+def test_volume_get_namespec_for(anthology):
+    volume = anthology.get_volume("2022.acl-demo")
+    person = volume.editors[1].resolve()
+    namespec = volume.get_namespec_for(person)
+    assert person.has_name(namespec.name)
+    assert namespec.resolve() is person
 
 
 def test_volume_type_conversion():

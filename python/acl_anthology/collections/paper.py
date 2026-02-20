@@ -1,4 +1,4 @@
-# Copyright 2023-2025 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2026 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -50,6 +50,7 @@ from .types import PaperDeletionType, PaperType, VolumeType
 
 if TYPE_CHECKING:
     from ..anthology import Anthology
+    from ..people import Person
     from ..utils.latex import SerializableAsBibTeX
     from . import Event, Volume, Collection
 
@@ -519,6 +520,28 @@ class Paper:
         if self.journal is None:
             return self.parent.get_journal_title()
         return self.journal
+
+    def get_namespec_for(self, person: Person) -> NameSpecification:
+        """Find the NameSpecification on this paper that refers to a given Person.
+
+        Arguments:
+            person: A person that is an author/editor on this paper.
+
+        Returns:
+            The NameSpecification that resolves to the given Person.
+
+        Raises:
+            ValueError: If none of the authors/editors resolve to the given Person.
+        """
+        namespecs = (
+            it.chain(self.namespecs, self.get_editors())
+            if self.is_frontmatter
+            else self.namespecs
+        )
+        for namespec in namespecs:
+            if namespec.resolve() is person:
+                return namespec
+        raise ValueError(f"No NameSpecification on {self.full_id} resolves to {person}")
 
     def refresh_bibkey(self) -> str:
         """Replace this paper's bibkey with a unique, automatically-generated one.

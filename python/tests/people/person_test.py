@@ -143,6 +143,13 @@ def test_person_papers_verified(anthology):
     assert len(list(person.papers())) == 2
 
 
+def test_person_namespecs(anthology):
+    for person in anthology.people.values():
+        assert len(list(person.namespecs())) == len(person.item_ids)
+        for namespec in person.namespecs():
+            assert namespec.resolve() is person
+
+
 def test_person_change_id(anthology):
     person = anthology.get_person("marcel-bollmann")
     person.change_id("marcel-bollmann-rub")

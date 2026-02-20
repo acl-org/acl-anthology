@@ -1,4 +1,4 @@
-# Copyright 2023-2024 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2026 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -242,6 +242,14 @@ def test_paper_add_author(anthology):
     anthology.reset_indices()
     person = ns.resolve()
     assert paper.full_id_tuple in person.item_ids
+
+
+def test_paper_get_namespec_for(anthology):
+    paper = anthology.get_paper("2022.acl-demo.24")
+    person = paper.authors[1].resolve()
+    namespec = paper.get_namespec_for(person)
+    assert person.has_name(namespec.name)
+    assert namespec.resolve() is person
 
 
 test_cases_xml = (

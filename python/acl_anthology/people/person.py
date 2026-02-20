@@ -227,7 +227,9 @@ class Person:
                 new_id, f"Not a valid verified-person ID: {new_id}"
             )
 
-        self._set_id_on_items(new_id)
+        for namespec in list(self.namespecs()):
+            if namespec.id == self.id:
+                namespec.id = new_id
         self.id = new_id  # triggers update in PersonIndex
 
     def make_explicit(self, new_id: str) -> None:
@@ -249,7 +251,8 @@ class Person:
                 new_id, f"Not a valid verified-person ID: {new_id}"
             )
 
-        self._set_id_on_items(new_id)
+        for namespec in list(self.namespecs()):
+            namespec.id = new_id
         self.is_explicit = True
         self.id = new_id  # triggers update in PersonIndex
         self._names = [(name, NameLink.EXPLICIT) for name, _ in self._names]
@@ -272,33 +275,17 @@ class Person:
                 f"Can only merge with explicit persons; not '{person.id}'"
             )
 
-        self._set_id_on_items(person.id)
+        for namespec in list(self.namespecs()):
+            namespec.id = person.id
         person.item_ids.extend(self.item_ids)
         self.item_ids = []
 
         for name in self.names:
             person.add_name(name, inferred=False)
 
-    def _set_id_on_items(self, new_id: str) -> None:
-        """Set `new_id` on all name specifications that currently resolve to this person.  Intended for internal use."""
-        if self.is_explicit:
-
-            def namespec_refers_to_self(namespec: NameSpecification) -> bool:
-                return namespec.id == self.id
-
-        else:
-
-            def namespec_refers_to_self(namespec: NameSpecification) -> bool:
-                return namespec.resolve() is self
-
-        for item in self.anthology_items():
-            for namespec in item.namespecs:
-                if namespec_refers_to_self(namespec):
-                    namespec.id = new_id
-                    item.collection.is_modified = True
-
     def anthology_items(self) -> Iterator[Paper | Volume]:
         """Returns an iterator over all Anthology items associated with this person, regardless of their type."""
+        # TODO: This does not consider talks yet!
         for anthology_id in self.item_ids:
             item = self.parent.get(anthology_id)
             if item is None:
@@ -307,6 +294,11 @@ class Person:
                 )  # pragma: no cover
             # TODO: typing issue will be resolved later with CollectionItem refactoring
             yield item  # type: ignore
+
+    def namespecs(self) -> Iterator[NameSpecification]:
+        """Returns an iterator over all NameSpecifications that resolve to this person."""
+        for item in self.anthology_items():
+            yield item.get_namespec_for(self)
 
     def papers(self) -> Iterator[Paper]:
         """Returns an iterator over all papers associated with this person.

@@ -1,4 +1,4 @@
-# Copyright 2023-2025 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2026 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -42,6 +42,7 @@ from .types import VolumeType
 
 if TYPE_CHECKING:
     from ..anthology import Anthology
+    from ..people import Person
     from ..sigs import SIG
     from . import Collection, Event
 
@@ -224,6 +225,23 @@ class Volume(SlottedDict[Paper]):
                 "Journal volume must have exactly one venue or an explicit <journal-title>"
             )
         return self.root.venues[self.venue_ids[0]].name
+
+    def get_namespec_for(self, person: Person) -> NameSpecification:
+        """Find the NameSpecification on this volume that refers to a given Person.
+
+        Arguments:
+            person: A person that is an editor on this volume.
+
+        Returns:
+            The NameSpecification that resolves to the given Person.
+
+        Raises:
+            ValueError: If none of the editors resolve to the given Person.
+        """
+        for namespec in self.namespecs:
+            if namespec.resolve() is person:
+                return namespec
+        raise ValueError(f"No NameSpecification on {self.full_id} resolves to {person}")
 
     def get_sigs(self) -> list[SIG]:
         """
