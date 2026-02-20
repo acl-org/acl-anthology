@@ -56,7 +56,8 @@ jobs:
       shell: bash
       run: |
         raw_branch="${GITHUB_REF#refs/heads/}"
-        server_branch="${raw_branch//\//_}"
+        branch="${raw_branch//\//_}"
+        echo "branch=$(echo ${branch})" >> $GITHUB_OUTPUT
       id: extract_branch
     - name: list changes
       shell: bash
