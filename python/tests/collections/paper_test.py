@@ -216,7 +216,7 @@ def test_paper_bibtype():
 def test_paper_remove_author(anthology):
     paper = anthology.get_paper("2022.acl-demo.2")
     ns = paper.authors[-1]
-    person = anthology.resolve(ns)
+    person = ns.resolve()
     assert person.id == UNVERIFIED_PID_FORMAT.format(pid="iryna-gurevych")
     assert paper.full_id_tuple in person.item_ids
 
@@ -224,7 +224,7 @@ def test_paper_remove_author(anthology):
     paper.authors = paper.authors[:-1]
     # Person should be updated after resetting indices
     anthology.reset_indices()
-    person = anthology.resolve(ns)
+    person = ns.resolve()
     assert paper.full_id_tuple not in person.item_ids
 
 
@@ -233,14 +233,14 @@ def test_paper_add_author(anthology):
     # This person exists, but is not an author on this paper
     ns = NameSpecification("Maya Varma")
     assert ns not in paper.authors
-    person = anthology.resolve(ns)
+    person = anthology.people.get_by_namespec(ns)
     assert paper.full_id_tuple not in person.item_ids
 
     # Adding this author to the paper
-    paper.authors.insert(0, ns)
+    paper.authors += [ns]
     # Person should be updated after resetting indices
     anthology.reset_indices()
-    person = anthology.resolve(ns)
+    person = ns.resolve()
     assert paper.full_id_tuple in person.item_ids
 
 

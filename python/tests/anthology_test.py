@@ -165,13 +165,13 @@ def test_find_people(anthology):
 
 def test_resolve_single_author(anthology):
     name_spec = anthology.get_paper("J89-1001").authors[0]
-    person = anthology.resolve(name_spec)
+    person = name_spec.resolve()
     assert person.canonical_name == Name("Oliviero", "Stock")
 
 
 def test_resolve_author_list(anthology):
-    name_spec = anthology.get_paper("J89-1001").authors
-    person = anthology.resolve(name_spec)
+    name_specs = anthology.get_paper("J89-1001").authors
+    person = [ns.resolve() for ns in name_specs]
     assert len(person) == 1
     assert person[0].canonical_name == Name("Oliviero", "Stock")
 

@@ -289,7 +289,7 @@ class Person:
         else:
 
             def namespec_refers_to_self(namespec: NameSpecification) -> bool:
-                return self.parent.resolve(namespec) is self
+                return namespec.resolve() is self
 
         for item in self.anthology_items():
             for namespec in item.namespecs:

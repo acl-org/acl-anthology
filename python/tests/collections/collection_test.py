@@ -216,7 +216,7 @@ def test_collection_create_volume_should_update_person(anthology, pre_load):
     assert volume.editors == editors
 
     # Volume should have been added to the person object
-    person = anthology.resolve(editors[0])
+    person = editors[0].resolve()
     assert volume.full_id_tuple in person.item_ids
 
 
@@ -235,7 +235,7 @@ def test_collection_create_volume_should_update_personindex(anthology, pre_load)
     assert volume.editors == editors
 
     # New editor should exist in the person index
-    person = anthology.resolve(editors[0])
+    person = editors[0].resolve()
     assert volume.full_id_tuple in person.item_ids
 
 

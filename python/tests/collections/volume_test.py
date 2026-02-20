@@ -474,7 +474,7 @@ def test_volume_create_paper_should_update_person(anthology, pre_load):
     assert paper.authors == authors
 
     # Paper should have been added to the person object
-    person = anthology.resolve(authors[0])
+    person = authors[0].resolve()
     assert paper.full_id_tuple in person.item_ids
 
 
@@ -493,14 +493,14 @@ def test_volume_create_paper_should_update_personindex(anthology, pre_load):
     assert paper.authors == authors
 
     # New author should exist in the author index
-    person = anthology.resolve(authors[0])
+    person = authors[0].resolve()
     assert paper.full_id_tuple in person.item_ids
 
 
 def test_volume_remove_editor(anthology):
     volume = anthology.get_volume("2022.acl-long")
     ns = volume.editors[1]
-    person = anthology.resolve(ns)
+    person = ns.resolve()
     assert person.id == UNVERIFIED_PID_FORMAT.format(pid="preslav-nakov")
     assert volume.full_id_tuple in person.item_ids
 
@@ -508,7 +508,7 @@ def test_volume_remove_editor(anthology):
     volume.editors = [volume.editors[0], volume.editors[2]]
     # Person should be updated after resetting indices
     anthology.reset_indices()
-    person = anthology.resolve(ns)
+    person = ns.resolve()
     assert volume.full_id_tuple not in person.item_ids
 
 
@@ -517,14 +517,14 @@ def test_volume_add_editor(anthology):
     # This person exists, but is not an editor on this volume
     ns = NameSpec("Rada Mihalcea")
     assert ns not in volume.editors
-    person = anthology.resolve(ns)
+    person = anthology.people.get_by_namespec(ns)
     assert volume.full_id_tuple not in person.item_ids
 
     # Adding this editor to the volume
-    volume.editors.append(ns)
+    volume.editors += [ns]
     # Person should be updated after resetting indices
     anthology.reset_indices()
-    person = anthology.resolve(ns)
+    person = ns.resolve()
     assert volume.full_id_tuple in person.item_ids
 
 

@@ -411,8 +411,12 @@ class Anthology:
     ) -> list[Person]:  # pragma: no cover
         ...
 
+    @warnings.deprecated("Deprecated in favor of NameSpecification.resolve()")
     def resolve(self, name_spec: NameSpecificationOrIter) -> PersonOrList:
         """Resolve a name specification (e.g. as attached to papers) to a natural person.
+
+        Warning:
+            Deprecated in favor of [`NameSpecification.resolve()`][acl_anthology.people.name.NameSpecification.resolve]; alternatively, [`PersonIndex.get_by_namespec()`][acl_anthology.people.index.PersonIndex.get_by_namespec] if you want to see what a hypothetical NameSpecification would resolve to that is not yet attached to a paper.
 
         Parameters:
             name_spec: A name specification, or an iterator over name specifications.
