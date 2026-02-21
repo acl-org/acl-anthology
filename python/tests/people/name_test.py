@@ -1,4 +1,4 @@
-# Copyright 2023-2024 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2026 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,10 +12,27 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from acl_anthology.exceptions import AnthologyException
 from acl_anthology.people import Name, NameSpecification
 from lxml import etree
 import itertools as it
 import pytest
+
+
+class CollectionMock:
+    def __init__(self):
+        self.is_modified = False
+
+
+class NameSpecParent:
+    def __init__(self, root):
+        self.collection = CollectionMock()
+        self.root = root
+
+
+@pytest.fixture
+def parent(anthology):
+    return NameSpecParent(anthology)
 
 
 def test_name_firstlast():
@@ -66,6 +83,12 @@ def test_name_specification_converter():
     n2 = NameSpecification("Doe, John")
     n3 = NameSpecification({"first": "John", "last": "Doe"})
     assert n1 == n2 == n3
+
+
+def test_name_specification_cannot_resolve():
+    n1 = NameSpecification(Name("John", "Doe"))
+    with pytest.raises(AnthologyException):
+        n1.resolve()  # cannot resolve without parent
 
 
 def test_name_spec_citeproc():
@@ -147,6 +170,30 @@ def test_name_spec_to_xml_with_id_and_orcid():
     assert etree.tostring(element, encoding="unicode") == xml
 
 
+@pytest.mark.parametrize(
+    "attr_name",
+    (
+        "id",
+        "name",
+        "orcid",
+        "affiliation",
+        "variants",
+    ),
+)
+def test_namespec_setattr_sets_parentcollection_is_modified(attr_name, parent):
+    namespec = NameSpecification(
+        name=Name("Xinyue", "Lou"),
+        id="xinyue-lou",
+        orcid="0009-0001-8460-3882",
+        affiliation=None,
+        variants=[Name("馨月", "娄")],
+        parent=parent,
+    )
+    assert not parent.collection.is_modified
+    setattr(namespec, attr_name, getattr(namespec, attr_name))
+    assert parent.collection.is_modified
+
+
 def test_name_variant_from_xml():
     xml = """
         <variant script="hani">
@@ -172,15 +219,41 @@ def test_name_variant_to_xml_onlylast():
     assert etree.tostring(element, encoding="unicode") == xml
 
 
-def test_name_slugify():
-    n1 = Name("Tai Man", "Chan")
-    n2 = Name("Tai", "Man Chan")
-    n3 = Name("Tai-Man", "Chan")
-    n4 = Name("Tai Man", "Chen")
-    for a, b in it.combinations((n1, n2, n3), 2):
-        assert a.slugify() == b.slugify()
-    for a in (n1, n2, n3):
-        assert a.slugify() != n4.slugify()
+test_cases_slugify = (
+    # Should slugify to the same thing
+    (
+        [
+            ("Tai Man", "Chan"),
+            ("Tai", "Man Chan"),
+            ("Tai-Man", "Chan"),
+            (None, "Tai Man Chan"),
+        ],
+        True,
+    ),
+    (
+        [
+            ("James", "O'Neill"),
+            ("James", "OʼNeill"),
+            ("James", "O’Neill"),
+            ("James", "O`Neill"),
+        ],
+        True,
+    ),
+    ([("A", "B-C"), ("A", "B–C"), ("A", "B—C")], True),
+    ([("Charles M.", "King"), ("Charles M", "King")], True),
+    ([("澳", "李"), ("Ao", "Li")], True),
+    # Should NOT slugify to the same thing
+    ([("Tai Man", "Chan"), ("TaiMan", "Chan")], False),
+)
+
+
+@pytest.mark.parametrize("names, should_match", test_cases_slugify)
+def test_name_slugify(names, should_match):
+    for a, b in it.combinations(names, 2):
+        if should_match:
+            assert Name(*a).slugify() == Name(*b).slugify()
+        else:
+            assert Name(*a).slugify() != Name(*b).slugify()
 
 
 def test_name_scoring():
@@ -242,3 +315,36 @@ def test_name_from_any():
 def test_name_as_bibtex():
     n1 = Name.from_string("André Rieu")
     assert n1.as_bibtex() == "Rieu, Andr{\\'e}"
+
+
+test_cases_namespec_normalize = (
+    (("marcel", "bollmann"), ("Marcel", "Bollmann")),
+    (("MARCEL", "BOLLMANN"), ("Marcel", "Bollmann")),
+    (
+        ("MIRYAM", "DE LHONEUX"),
+        ("Miryam", "de Lhoneux"),
+    ),  # heuristic for last name particle
+    (
+        ("LUNA", "DE BRUYNE"),
+        ("Luna", "De Bruyne"),
+    ),  # canonical name in people.yaml overrides heuristic
+    (("marc-andre", "hackforth-jones"), ("Marc-Andre", "Hackforth-Jones")),
+    (("james", "o'neill"), ("James", "O'Neill")),
+    (("JAMES", "O’NEILL"), ("James", "O’Neill")),
+    (("ken", "mcguire"), ("Ken", "McGuire")),
+    (
+        ("Emily", "Prud'hommeaux"),
+        ("Emily", "Prud’hommeaux"),
+    ),  # canonical name in people.yaml has typographic quote
+    (
+        ("Luna De", "Bruyne"),
+        ("Luna", "De Bruyne"),
+    ),  # canonical name in people.yaml has different first/last split
+)
+
+
+@pytest.mark.parametrize("before, after", test_cases_namespec_normalize)
+def test_namespec_normalize(before, after, parent):
+    ns = NameSpecification(before, parent=parent)
+    ns.normalize()
+    assert ns.name == Name(*after)

@@ -1,4 +1,4 @@
-# Copyright 2023-2025 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2026 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@ import attrs
 from attrs import define, field, converters, setters, validators as v
 import datetime
 from functools import cached_property
+import itertools as it
 import langcodes
 from lxml import etree
 from lxml.builder import E
@@ -35,6 +36,7 @@ from ..files import (
 from ..people import NameSpecification
 from ..text import MarkupText, to_markuptext
 from ..utils.attrs import (
+    attach_parent,
     auto_validate_types,
     date_to_str,
     int_to_str,
@@ -48,6 +50,7 @@ from .types import PaperDeletionType, PaperType, VolumeType
 
 if TYPE_CHECKING:
     from ..anthology import Anthology
+    from ..people import Person
     from ..utils.latex import SerializableAsBibTeX
     from . import Event, Volume, Collection
 
@@ -273,10 +276,17 @@ class Paper:
             iterable_validator=v.instance_of(list),
         ),
     )
-    authors: list[NameSpecification] = field(factory=list)
+    authors: list[NameSpecification] = field(
+        factory=list,
+        on_setattr=[setters.validate, attach_parent, track_modifications],
+    )
     awards: list[str] = field(factory=list, repr=False)
     # TODO: why can a Paper ever have "editors"? it's allowed by the schema
-    editors: list[NameSpecification] = field(factory=list, repr=False)
+    editors: list[NameSpecification] = field(
+        factory=list,
+        repr=False,
+        on_setattr=[setters.validate, attach_parent, track_modifications],
+    )
     errata: list[PaperErratum] = field(
         factory=list,
         repr=False,
@@ -315,6 +325,10 @@ class Paper:
     pages: Optional[str] = field(default=None, repr=False)
     pdf: Optional[PDFReference] = field(default=None, repr=False)
     type: PaperType = field(default=PaperType.PAPER, repr=False, converter=PaperType)
+
+    def __attrs_post_init__(self) -> None:
+        for namespec in it.chain(self.authors, self.editors):
+            namespec.parent = self
 
     @id.validator
     def _check_id(self, _: Any, value: str) -> None:
@@ -506,6 +520,28 @@ class Paper:
         if self.journal is None:
             return self.parent.get_journal_title()
         return self.journal
+
+    def get_namespec_for(self, person: Person) -> NameSpecification:
+        """Find the NameSpecification on this paper that refers to a given Person.
+
+        Arguments:
+            person: A person that is an author/editor on this paper.
+
+        Returns:
+            The NameSpecification that resolves to the given Person.
+
+        Raises:
+            ValueError: If none of the authors/editors resolve to the given Person.
+        """
+        namespecs = (
+            it.chain(self.namespecs, self.get_editors())
+            if self.is_frontmatter
+            else self.namespecs
+        )
+        for namespec in namespecs:
+            if namespec.resolve() is person:
+                return namespec
+        raise ValueError(f"No NameSpecification on {self.full_id} resolves to {person}")
 
     def refresh_bibkey(self) -> str:
         """Replace this paper's bibkey with a unique, automatically-generated one.

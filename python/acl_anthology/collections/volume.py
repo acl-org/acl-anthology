@@ -1,4 +1,4 @@
-# Copyright 2023-2025 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2026 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -30,6 +30,7 @@ from ..people import NameSpecification
 from ..text import MarkupText, to_markuptext
 from ..venues import Venue
 from ..utils.attrs import (
+    attach_parent,
     auto_validate_types,
     date_to_str,
     int_to_str,
@@ -41,6 +42,7 @@ from .types import VolumeType
 
 if TYPE_CHECKING:
     from ..anthology import Anthology
+    from ..people import Person
     from ..sigs import SIG
     from . import Collection, Event
 
@@ -90,7 +92,10 @@ class Volume(SlottedDict[Paper]):
         converter=int_to_str, validator=validators.matches_re(r"^[0-9]{4}$")
     )
 
-    editors: list[NameSpecification] = field(factory=list)
+    editors: list[NameSpecification] = field(
+        factory=list,
+        on_setattr=[setters.validate, attach_parent, track_modifications],
+    )
     venue_ids: list[str] = field(factory=list)
 
     address: Optional[str] = field(default=None, repr=False)
@@ -114,6 +119,10 @@ class Volume(SlottedDict[Paper]):
         repr=False,
         converter=converters.optional(to_markuptext),
     )
+
+    def __attrs_post_init__(self) -> None:
+        for namespec in self.editors:
+            namespec.parent = self
 
     @id.validator
     def _check_id(self, _: Any, value: str) -> None:
@@ -217,6 +226,23 @@ class Volume(SlottedDict[Paper]):
             )
         return self.root.venues[self.venue_ids[0]].name
 
+    def get_namespec_for(self, person: Person) -> NameSpecification:
+        """Find the NameSpecification on this volume that refers to a given Person.
+
+        Arguments:
+            person: A person that is an editor on this volume.
+
+        Returns:
+            The NameSpecification that resolves to the given Person.
+
+        Raises:
+            ValueError: If none of the editors resolve to the given Person.
+        """
+        for namespec in self.namespecs:
+            if namespec.resolve() is person:
+                return namespec
+        raise ValueError(f"No NameSpecification on {self.full_id} resolves to {person}")
+
     def get_sigs(self) -> list[SIG]:
         """
         Returns:
@@ -305,10 +331,12 @@ class Volume(SlottedDict[Paper]):
         # If authors/editors were given, we fill in their ID & add them to the index
         if paper.authors:
             for namespec in paper.authors:
+                namespec.normalize()
                 self.root.people.ingest_namespec(namespec)
             self.root.people._add_to_index(paper.authors, paper.full_id_tuple)
         if paper.editors:
             for namespec in paper.editors:
+                namespec.normalize()
                 self.root.people.ingest_namespec(namespec)
             self.root.people._add_to_index(paper.editors, paper.full_id_tuple)
 

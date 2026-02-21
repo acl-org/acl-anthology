@@ -86,28 +86,28 @@ following will also work:
 
 ### List attributes
 
-List attributes can be modified the same way as other attributes; for example,
+List attributes can be modified the same way as other attributes, however, there
+is **no input validation or conversion** when modifying mutable attributes such
+as lists, and no automatic tracking of modifications (see [Saving
+changes](#saving-changes)) – only when _setting_ them.  Therefore, it is
+recommended to _set_ list attributes every time you modify them.  For example,
 to add an author to a paper, you can create a new
 [`NameSpecification`][acl_anthology.people.name.NameSpecification] and append it
-to the author list:
+to the author list via `+=` (rather than `.append`), which will create a _new_
+list and _set_ it on the attribute:
 
 ```pycon
 >>> spec = NameSpecification("Bollmann, Marcel")
->>> paper.authors.append(spec)
+>>> paper.authors += [spec]
 ```
 
 To change an existing author's name, you just need to remember that **names are
-immutable**:
+immutable**, so you need to modify the `NameSpecification` instead:
 
 ```pycon
 >>> paper.authors[0].name.first = "Marc Marcel"             # will NOT work
 >>> paper.authors[0].name = Name("Bollmann, Marc Marcel")   # works
 ```
-
-There is **no input validation or conversion** when modifying mutable attributes
-such as lists (only when _setting_ them).  That means you won't get an
-immediate error if you e.g. append the wrong type of object to a list
-attribute!
 
 ### Things to keep in mind
 

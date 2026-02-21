@@ -101,6 +101,7 @@ def test_event_all_attribs():
     assert event.collection_id == "2023.li"
     assert event.title == event_title
     assert event.is_explicit
+    assert event.talks[0].parent is event
 
 
 def test_event_to_xml_dont_list_colocated_volumes_of_parent():
@@ -207,6 +208,16 @@ def test_talk_minimum_attribs():
     assert not talk.attachments
 
 
+def test_talk_attribs(anthology):
+    event = anthology.events.get("acl-2022")
+    talk = event.talks[0]
+    assert talk.parent is event
+    assert talk.root is anthology
+    assert talk.type is None
+    assert len(talk.attachments) == 1
+    assert isinstance(talk.attachments.get("video"), EventFileReference)
+
+
 @pytest.mark.parametrize("xml", test_cases_talk_xml)
 def test_talk_roundtrip_xml(xml):
     element = etree.fromstring(xml)
@@ -214,3 +225,10 @@ def test_talk_roundtrip_xml(xml):
     out = talk.to_xml()
     indent(out)
     assert etree.tostring(out, encoding="unicode") == xml
+
+
+def test_talk_setattr_on_namespec_sets_collection_is_modified(anthology):
+    event = anthology.events.get("acl-2022")
+    assert not event.collection.is_modified
+    event.talks[1].speakers[0].affiliation = "University of Someplace"
+    assert event.collection.is_modified

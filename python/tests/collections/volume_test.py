@@ -1,4 +1,4 @@
-# Copyright 2023-2024 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2026 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -258,6 +258,13 @@ def test_volume_setattr_sets_collection_is_modified(anthology, attr_name):
     assert volume.parent.is_modified
 
 
+def test_paper_setattr_on_namespec_sets_collection_is_modified(anthology):
+    volume = anthology.get_volume("2022.acl-long")
+    assert not volume.collection.is_modified
+    volume.editors[0].affiliation = "University of Someplace"
+    assert volume.collection.is_modified
+
+
 def test_volume_venues_j89(anthology):
     volume = anthology.get_volume("J89-1")
     assert volume.venue_ids == ["cl"]
@@ -467,7 +474,7 @@ def test_volume_create_paper_should_update_person(anthology, pre_load):
     assert paper.authors == authors
 
     # Paper should have been added to the person object
-    person = anthology.resolve(authors[0])
+    person = authors[0].resolve()
     assert paper.full_id_tuple in person.item_ids
 
 
@@ -486,14 +493,14 @@ def test_volume_create_paper_should_update_personindex(anthology, pre_load):
     assert paper.authors == authors
 
     # New author should exist in the author index
-    person = anthology.resolve(authors[0])
+    person = authors[0].resolve()
     assert paper.full_id_tuple in person.item_ids
 
 
 def test_volume_remove_editor(anthology):
     volume = anthology.get_volume("2022.acl-long")
     ns = volume.editors[1]
-    person = anthology.resolve(ns)
+    person = ns.resolve()
     assert person.id == UNVERIFIED_PID_FORMAT.format(pid="preslav-nakov")
     assert volume.full_id_tuple in person.item_ids
 
@@ -501,7 +508,7 @@ def test_volume_remove_editor(anthology):
     volume.editors = [volume.editors[0], volume.editors[2]]
     # Person should be updated after resetting indices
     anthology.reset_indices()
-    person = anthology.resolve(ns)
+    person = ns.resolve()
     assert volume.full_id_tuple not in person.item_ids
 
 
@@ -510,15 +517,23 @@ def test_volume_add_editor(anthology):
     # This person exists, but is not an editor on this volume
     ns = NameSpec("Rada Mihalcea")
     assert ns not in volume.editors
-    person = anthology.resolve(ns)
+    person = anthology.people.get_by_namespec(ns)
     assert volume.full_id_tuple not in person.item_ids
 
     # Adding this editor to the volume
-    volume.editors.append(ns)
+    volume.editors += [ns]
     # Person should be updated after resetting indices
     anthology.reset_indices()
-    person = anthology.resolve(ns)
+    person = ns.resolve()
     assert volume.full_id_tuple in person.item_ids
+
+
+def test_volume_get_namespec_for(anthology):
+    volume = anthology.get_volume("2022.acl-demo")
+    person = volume.editors[1].resolve()
+    namespec = volume.get_namespec_for(person)
+    assert person.has_name(namespec.name)
+    assert namespec.resolve() is person
 
 
 def test_volume_type_conversion():
