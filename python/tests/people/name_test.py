@@ -19,6 +19,22 @@ import itertools as it
 import pytest
 
 
+class CollectionMock:
+    def __init__(self):
+        self.is_modified = False
+
+
+class NameSpecParent:
+    def __init__(self, root):
+        self.collection = CollectionMock()
+        self.root = root
+
+
+@pytest.fixture
+def parent(anthology):
+    return NameSpecParent(anthology)
+
+
 def test_name_firstlast():
     n1 = Name("John", "Doe")
     assert n1.first == "John"
@@ -152,21 +168,6 @@ def test_name_spec_to_xml_with_id_and_orcid():
     xml = '<editor id="mausam" orcid="0000-0003-4088-4296"><first/><last>Mausam</last></editor>'
     element = NameSpecification.from_xml(etree.fromstring(xml)).to_xml("editor")
     assert etree.tostring(element, encoding="unicode") == xml
-
-
-class CollectionMock:
-    def __init__(self):
-        self.is_modified = False
-
-
-class NameSpecParent:
-    def __init__(self):
-        self.collection = CollectionMock()
-
-
-@pytest.fixture
-def parent():
-    return NameSpecParent()
 
 
 @pytest.mark.parametrize(
@@ -314,3 +315,36 @@ def test_name_from_any():
 def test_name_as_bibtex():
     n1 = Name.from_string("André Rieu")
     assert n1.as_bibtex() == "Rieu, Andr{\\'e}"
+
+
+test_cases_namespec_normalize = (
+    (("marcel", "bollmann"), ("Marcel", "Bollmann")),
+    (("MARCEL", "BOLLMANN"), ("Marcel", "Bollmann")),
+    (
+        ("MIRYAM", "DE LHONEUX"),
+        ("Miryam", "de Lhoneux"),
+    ),  # heuristic for last name particle
+    (
+        ("LUNA", "DE BRUYNE"),
+        ("Luna", "De Bruyne"),
+    ),  # canonical name in people.yaml overrides heuristic
+    (("marc-andre", "hackforth-jones"), ("Marc-Andre", "Hackforth-Jones")),
+    (("james", "o'neill"), ("James", "O'Neill")),
+    (("JAMES", "O’NEILL"), ("James", "O’Neill")),
+    (("ken", "mcguire"), ("Ken", "McGuire")),
+    (
+        ("Emily", "Prud'hommeaux"),
+        ("Emily", "Prud’hommeaux"),
+    ),  # canonical name in people.yaml has typographic quote
+    (
+        ("Luna De", "Bruyne"),
+        ("Luna", "De Bruyne"),
+    ),  # canonical name in people.yaml has different first/last split
+)
+
+
+@pytest.mark.parametrize("before, after", test_cases_namespec_normalize)
+def test_namespec_normalize(before, after, parent):
+    ns = NameSpecification(before, parent=parent)
+    ns.normalize()
+    assert ns.name == Name(*after)

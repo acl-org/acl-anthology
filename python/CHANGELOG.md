@@ -7,6 +7,7 @@
 - Files (such as paper PDFs) can now be downloaded from their remote URLs via `.download()`.
 - Added `.get_namespec_for(Person)` on papers and volumes, to more easily find the NameSpecification referring to a given Person.
 - Added `Person.namespecs()` to iterate over all NameSpecifications referring to this Person.
+- Added `NameSpecification.normalize()` to heuristically fix casing and match spelling details to known canonical names. This is mainly intended for ingestion and called automatically when using `create_paper()`/`create_volume()`.
 
 ### Changed
 

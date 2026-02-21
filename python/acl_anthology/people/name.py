@@ -20,7 +20,7 @@ from lxml import etree
 from lxml.builder import E
 import re
 from slugify import slugify
-from typing import Any, Optional, cast, TypeAlias, TYPE_CHECKING
+from typing import Any, Optional, Self, cast, TypeAlias, TYPE_CHECKING
 import yaml
 
 try:
@@ -33,6 +33,7 @@ from ..utils.attrs import track_namespec_modifications
 from ..utils.latex import latex_encode
 
 if TYPE_CHECKING:
+    from ..anthology import Anthology
     from ..collections import Volume, Paper, Talk
     from ..people import Person
 
@@ -42,6 +43,28 @@ SLUGIFY_REPLACEMENTS = (
     ["’", "-"],
 )
 """Custom replacement rules for name slugs."""
+
+
+LAST_NAME_LOWERCASE_PREFIXES = {
+    "al",
+    "bin",
+    "bint",
+    "da",
+    "de",
+    "del",
+    "di",
+    "dos",
+    "du",
+    "la",
+    "le",
+    "van",
+    "von",
+}
+"""Strings that tend to be lowercased when prefixing a last name; used for [`NameSpecification.normalize()`][acl_anthology.people.name.NameSpecification.normalize]."""
+
+
+LAST_NAME_CAPITALIZATION_RULES = ((r"^Mc([a-z])", lambda p: "Mc" + p.group(1).upper()),)
+"""Regex rules for heuristically normalizing last names; used for [`NameSpecification.normalize()`][acl_anthology.people.name.NameSpecification.normalize]."""
 
 
 @define(frozen=True)
@@ -308,12 +331,58 @@ class NameSpecification:
         """The last name component."""
         return self.name.last
 
+    @property
+    def root(self) -> Anthology:
+        """The Anthology instance to which this object belongs."""
+        if self.parent is None:  # pragma: no cover
+            raise AnthologyException(
+                "NameSpecification is not attached to an Anthology item."
+            )
+        return self.parent.root
+
     @cached_property
     def citeproc_dict(self) -> dict[str, str]:
         """A citation object corresponding to this name for use with CiteProcJSON."""
         if not self.name.first:
             return {"family": self.name.last}
         return {"family": self.name.last, "given": self.name.first}
+
+    def normalize(self) -> Self:
+        """Try to heuristically normalize the name.
+
+        Concretely, this will:
+        - Normalize the casing of the name *iff* it is currently all-lowercased or all-uppercased.
+        - Check against known verified names to see if a normalized variant already exists, and choose that one.
+        """
+        first, last = self.name.first, self.name.last
+
+        # Casing heuristics
+        firstlast = self.name.as_first_last()
+        if firstlast.islower() or firstlast.isupper():
+            if first is not None:
+                first = first.title()
+            last = last.title()
+            last_parts = last.split(" ")
+            # Prefixes
+            if (
+                len(last_parts) > 1
+                and last_parts[0].lower() in LAST_NAME_LOWERCASE_PREFIXES
+            ):
+                last = last[0].lower() + last[1:]
+            # Other normalization rules
+            for pattern, substitute in LAST_NAME_CAPITALIZATION_RULES:
+                last = re.sub(pattern, substitute, last)
+
+        # Checks against verified persons
+        name = Name(first, last)
+        for pid in self.root.people.slugs_to_verified_ids.get(name.slugify(), []):
+            canonical = self.root.people[pid].canonical_name
+            if canonical.slugify() == name.slugify():
+                name = canonical
+                break
+
+        self.name = name
+        return self
 
     def resolve(self) -> Person:
         """Resolve this name specification to a natural person.

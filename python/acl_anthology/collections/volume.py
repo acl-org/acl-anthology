@@ -331,10 +331,12 @@ class Volume(SlottedDict[Paper]):
         # If authors/editors were given, we fill in their ID & add them to the index
         if paper.authors:
             for namespec in paper.authors:
+                namespec.normalize()
                 self.root.people.ingest_namespec(namespec)
             self.root.people._add_to_index(paper.authors, paper.full_id_tuple)
         if paper.editors:
             for namespec in paper.editors:
+                namespec.normalize()
                 self.root.people.ingest_namespec(namespec)
             self.root.people._add_to_index(paper.editors, paper.full_id_tuple)
 
