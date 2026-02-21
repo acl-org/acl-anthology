@@ -1,0 +1,138 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2026.tacl">
+  <volume id="1" type="journal">
+    <meta>
+      <booktitle>Transactions of the Association for Computational Linguistics, Volume 14</booktitle>
+      <publisher>MIT Press</publisher>
+      <address>Cambridge, MA</address>
+      <year>2026</year>
+      <venue>tacl</venue>
+      <journal-volume>14</journal-volume>
+    </meta>
+    <paper id="1">
+      <title><fixed-case>A</fixed-case>ctive<fixed-case>LLM</fixed-case>: Large Language Model-Based Active Learning for Textual Few-Shot Scenarios</title>
+      <author><first>Markus</first><last>Bayer</last></author>
+      <author><first>Justin</first><last>Lutz</last></author>
+      <author><first>Christian</first><last>Reuter</last></author>
+      <pages>1–22</pages>
+      <abstract>Active learning is designed to minimize annotation efforts by prioritizing instances that most enhance learning. However, many active learning strategies struggle with a ‘cold-start’ problem, needing substantial initial data to be effective. This limitation reduces their utility in the increasingly relevant few-shot scenarios, where the instance selection has a substantial impact. To address this, we introduce ActiveLLM, a novel active learning approach that leverages Large Language Models such as GPT-4, o1, Llama 3, or Mistral Large for selecting instances. We demonstrate that ActiveLLM significantly enhances the classification performance of BERT classifiers in few-shot scenarios, outperforming traditional active learning methods as well as improving the few-shot learning methods ADAPET, PERFECT, and SetFit. Additionally, ActiveLLM can be extended to non-few-shot scenarios, allowing for iterative selections. In this way, ActiveLLM can even help other active learning strategies to overcome their cold-start problem. Our results suggest that ActiveLLM offers a promising solution for improving model performance across various learning setups.</abstract>
+      <url hash="1930e9b3">2026.tacl-1.1</url>
+      <doi>10.1162/tacl.a.63</doi>
+      <bibkey>bayer-etal-2026-activellm</bibkey>
+    </paper>
+    <paper id="2">
+      <title><fixed-case>M</fixed-case>o<fixed-case>N</fixed-case>a<fixed-case>C</fixed-case>o: More Natural and Complex Questions for Reasoning Across Dozens of Documents</title>
+      <author><first>Tomer</first><last>Wolfson</last></author>
+      <author><first>Harsh</first><last>Trivedi</last></author>
+      <author><first>Mor</first><last>Geva</last></author>
+      <author><first>Yoav</first><last>Goldberg</last></author>
+      <author><first>Dan</first><last>Roth</last></author>
+      <author><first>Tushar</first><last>Khot</last></author>
+      <author><first>Ashish</first><last>Sabharwal</last></author>
+      <author><first>Reut</first><last>Tsarfaty</last></author>
+      <pages>23–46</pages>
+      <abstract>Automated agents, powered by large language models (LLMs), are emerging as the go-to tool for querying information. However, evaluation benchmarks for LLM agents rarely feature natural questions that are both information-seeking and genuinely time-consuming for humans. To address this gap we introduce MoNaCo, a benchmark of 1,315 natural and time-consuming questions that require dozens, and at times hundreds, of intermediate steps to solve— far more than any existing QA benchmark. To build MoNaCo, we developed a decomposed annotation pipeline to elicit and manually answer real-world time-consuming questions at scale. Frontier LLMs evaluated on MoNaCo achieve at most 61.2% F1, hampered by low recall and hallucinations. Our results underscore the limitations of LLM-powered agents in handling the complexity and sheer breadth of real-world information-seeking tasks—with MoNaCo providing an effective resource for tracking such progress. The MoNaCo benchmark, codebase, prompts, and models predictions are all publicly available at: https://tomerwolgithub.github.io/monaco.</abstract>
+      <url hash="308dddd4">2026.tacl-1.2</url>
+      <doi>10.1162/tacl.a.64</doi>
+      <bibkey>wolfson-etal-2026-monaco</bibkey>
+    </paper>
+    <paper id="3">
+      <title><fixed-case>D</fixed-case>eep<fixed-case>T</fixed-case>rans: Deep Reasoning Translation via Reinforcement Learning</title>
+      <author><first>Jiaan</first><last>Wang</last></author>
+      <author><first>Fandong</first><last>Meng</last></author>
+      <author><first>Jie</first><last>Zhou</last></author>
+      <pages>47–63</pages>
+      <abstract>Recently, deep reasoning LLMs (e.g., OpenAI o1 and DeepSeek-R1) have shown promising performance in various downstream tasks. Free translation is an important and interesting task in the multilingual world, which requires going beyond word-for-word translation. However, the task is still under-explored in deep reasoning LLMs. In this paper, we introduce DeepTrans, a deep reasoning translation model that learns free translation via reinforcement learning (RL). Specifically, we carefully build a reward model with pre-defined scoring criteria on both the translation results and the thought processes. The reward model teaches DeepTrans how to think and free-translate the given sentences during RL. Besides, our RL training does not need any labeled translations, avoiding the human-intensive annotation or resource-intensive data synthesis. Experimental results show the effectiveness of DeepTrans. Using Qwen2.5-7B as the backbone, DeepTrans improves performance by 16.3% in literature translation, and outperforms strong deep reasoning LLMs. Moreover, we summarize the failures and interesting findings during our RL exploration. We hope this work could inspire other researchers in free translation.1</abstract>
+      <url hash="1962a9f6">2026.tacl-1.3</url>
+      <doi>10.1162/tacl.a.65</doi>
+      <bibkey>wang-etal-2026-deeptrans</bibkey>
+    </paper>
+    <paper id="4">
+      <title><fixed-case>C</fixed-case>oref<fixed-case>I</fixed-case>nst: Leveraging <fixed-case>LLM</fixed-case>s for Multilingual Coreference Resolution</title>
+      <author><first>Tuğba</first><last>Pamay Arslan</last></author>
+      <author><first>Emircan</first><last>Erol</last></author>
+      <author><first>Gülşen</first><last>Eryiğit</last></author>
+      <pages>64–80</pages>
+      <abstract>Coreference Resolution (CR) is a crucial yet challenging task in natural language understanding, often constrained by task-specific architectures and encoder-based language models that demand extensive training and lack adaptability. This study introduces the first multilingual CR methodology which leverages decoder-only LLMs to handle both overt and zero mentions. The article explores how to model the CR task for LLMs via five different instruction sets using a controlled inference method. The approach is evaluated across three LLMs: Llama 3.1, Gemma 2, and Mistral 0.3. The results indicate that LLMs, when instruction-tuned with a suitable instruction set, can surpass state-of-the-art task-specific architectures. Specifically, our best model, a fully fine-tuned Llama 3.1 for multilingual CR, outperforms the leading multilingual CR model (i.e., Corpipe 24 single stage variant) by 2 percentage points on average across all languages in the CorefUD v1.2 dataset collection.</abstract>
+      <url hash="475bb1f4">2026.tacl-1.4</url>
+      <doi>10.1162/tacl.a.593</doi>
+      <bibkey>pamay-arslan-etal-2026-corefinst</bibkey>
+    </paper>
+    <paper id="5">
+      <title>Generative Induction of Dialogue Task Schemas with Streaming Refinement and Simulated Interactions</title>
+      <author><first>James D.</first><last>Finch</last></author>
+      <author><first>Yasasvi</first><last>Josyula</last></author>
+      <author><first>Jinho D.</first><last>Choi</last></author>
+      <pages>81–99</pages>
+      <abstract>In task-oriented dialogue (TOD) systems, Slot Schema Induction (SSI) is essential for automatically identifying key information slots from dialogue data without manual intervention. This paper presents a novel state-of-the-art (SotA) approach that formulates SSI as a text generation task, where a language model incrementally constructs and refines a slot schema over a stream of dialogue data. To develop this approach, we present a fully automatic LLM-based TOD simulation method that creates data with high-quality state labels for novel task domains. Furthermore, we identify issues in SSI evaluation due to data leakage and poor metric alignment with human judgment. We resolve these by creating new evaluation data using our simulation method with human guidance and correction, as well as designing improved evaluation metrics. These contributions establish a foundation for future SSI research and advance the SotA in dialogue understanding and system development.</abstract>
+      <url hash="50657364">2026.tacl-1.5</url>
+      <doi>10.1162/tacl.a.66</doi>
+      <bibkey>finch-etal-2026-generative</bibkey>
+    </paper>
+    <paper id="6">
+      <title>Localizing Factual Inconsistencies in Attributable Text Generation</title>
+      <author><first>Arie</first><last>Cattan</last></author>
+      <author><first>Paul</first><last>Roit</last></author>
+      <author><first>Shiyue</first><last>Zhang</last></author>
+      <author><first>David</first><last>Wan</last></author>
+      <author><first>Roee</first><last>Aharoni</last></author>
+      <author><first>Idan</first><last>Szpektor</last></author>
+      <author><first>Mohit</first><last>Bansal</last></author>
+      <author><first>Ido</first><last>Dagan</last></author>
+      <pages>100–123</pages>
+      <abstract>There has been an increasing interest in detecting hallucinations in model-generated texts, both manually and automatically, at varying levels of granularity. However, most existing methods fail to precisely pinpoint the errors. In this work, we introduce QASemConsistency, a new formalism for localizing factual inconsistencies in attributable text generation, at a fine-grained level. Drawing inspiration from Neo-Davidsonian formal semantics, we propose decomposing the generated text into minimal predicate-argument level propositions, expressed as simple question-answer (QA) pairs, and assess whether each individual QA pair is supported by a trusted reference text. As each QA pair corresponds to a single semantic relation between a predicate and an argument, QASemConsistency effectively localizes the unsupported information. We first demonstrate the effectiveness of the QASemConsistency methodology for human annotation, by collecting crowdsourced annotations of granular consistency errors, while achieving a substantial inter-annotator agreement. This benchmark includes more than 3K instances spanning various tasks of attributable text generation. We also show that QASemConsistency yields factual consistency scores that correlate well with human judgments. Finally, we implement several methods for automatically detecting localized factual inconsistencies, with both supervised entailment models and LLMs.1</abstract>
+      <url hash="0b161f63">2026.tacl-1.6</url>
+      <doi>10.1162/tacl.a.598</doi>
+      <bibkey>cattan-etal-2026-localizing</bibkey>
+    </paper>
+    <paper id="7">
+      <title>What Can String Probability Tell Us About Grammaticality?</title>
+      <author><first>Jennifer</first><last>Hu</last></author>
+      <author><first>Ethan Gotlieb</first><last>Wilcox</last></author>
+      <author><first>Siyuan</first><last>Song</last></author>
+      <author><first>Kyle</first><last>Mahowald</last></author>
+      <author><first>Roger P.</first><last>Levy</last></author>
+      <pages>124–146</pages>
+      <abstract>What have language models (LMs) learned about grammar? This question remains hotly debated, with major ramifications for linguistic theory. However, since probability and grammaticality are distinct notions in linguistics, it is not obvious what string probabilities can reveal about an LM’s underlying grammatical knowledge. We present a theoretical analysis of the relationship between grammar, meaning, and string probability, based on simple assumptions about the generative process of corpus data. Our framework makes three predictions, which we validate empirically using 280K sentence pairs in English and Chinese: (1) correlation between the probability of strings within minimal pairs, i.e., string pairs with minimal semantic differences; (2) correlation between models’ and humans’ deltas within minimal pairs; and (3) poor separation in probability space between unpaired grammatical and ungrammatical strings. Our analyses give theoretical grounding for using probability to learn about LMs’ structural knowledge, and suggest directions for future work in LM grammatical evaluation.</abstract>
+      <url hash="f15dcfb2">2026.tacl-1.7</url>
+      <doi>10.1162/tacl.a.611</doi>
+      <bibkey>hu-etal-2026-string</bibkey>
+    </paper>
+    <paper id="8">
+      <title>Simulating Hard Attention Using Soft Attention</title>
+      <author><first>Andy</first><last>Yang</last></author>
+      <author><first>Lena</first><last>Strobl</last></author>
+      <author><first>David</first><last>Chiang</last></author>
+      <author><first>Dana</first><last>Angluin</last></author>
+      <pages>147–166</pages>
+      <abstract>We study conditions under which transformers using soft attention can simulate hard attention, that is, effectively focus all attention on a subset of positions. First, we examine several subclasses of languages recognized by hard-attention transformers, which can be defined in variants of linear temporal logic. We demonstrate how soft-attention transformers can compute formulas of these logics using unbounded positional embeddings or temperature scaling. Second, we demonstrate how temperature scaling allows softmax transformers to simulate general hard-attention transformers, using a temperature that depends on the minimum gap between the maximum attention scores and other attention scores.</abstract>
+      <url hash="269d7234">2026.tacl-1.8</url>
+      <doi>10.1162/tacl.a.597</doi>
+      <bibkey>yang-etal-2026-simulating</bibkey>
+    </paper>
+    <paper id="9">
+      <title>On the Limitations of Language-targeted Pruning: Investigating the Calibration Language Impact in Multilingual <fixed-case>LLM</fixed-case> Pruning</title>
+      <author><first>Simon</first><last>Kurz</last></author>
+      <author><first>Jian-Jia</first><last>Chen</last></author>
+      <author><first>Lucie</first><last>Flek</last></author>
+      <author><first>Zhixue</first><last>Zhao</last></author>
+      <pages>167–192</pages>
+      <abstract>Recent advances in large language model (LLM) pruning have shown state-of-the-art (SotA) compression results in post-training and retraining-free settings while maintaining high predictive performance. However, previous research mainly considered calibrating based on English text, despite the multilingual nature of modern LLMs and their frequent use in non-English languages. This analysis paper conducts an in-depth investigation of the performance and internal representation changes associated with pruning multilingual language models for monolingual applications. We present the first comprehensive empirical study, comparing different calibration languages for pruning multilingual models across diverse languages, tasks, models, and SotA pruning techniques. We further analyze the latent subspaces, pruning masks, and individual neurons within pruned models. Our results reveal that while calibration on the target language effectively retains perplexity and yields high signal-to-noise ratios, it does not consistently improve downstream task performance. Further analysis of internal representations at three different levels highlights broader limitations of current pruning approaches: While they effectively preserve dominant information like language-specific features, this is insufficient to counteract the loss of nuanced, language-agnostic features that are crucial for knowledge retention and reasoning.</abstract>
+      <url hash="bdc1f7ae">2026.tacl-1.9</url>
+      <doi>10.1162/tacl.a.599</doi>
+      <bibkey>kurz-etal-2026-limitations</bibkey>
+    </paper>
+    <paper id="10">
+      <title><fixed-case>M</fixed-case>ulti<fixed-case>BL</fixed-case>i<fixed-case>MP</fixed-case> 1.0: A Massively Multilingual Benchmark of Linguistic Minimal Pairs</title>
+      <author><first>Jaap</first><last>Jumelet</last></author>
+      <author><first>Leonie</first><last>Weissweiler</last></author>
+      <author><first>Joakim</first><last>Nivre</last></author>
+      <author><first>Arianna</first><last>Bisazza</last></author>
+      <pages>193–216</pages>
+      <abstract>We introduce MultiBLiMP 1.0, a massively multilingual benchmark of linguistic minimal pairs, covering 101 languages and 2 types of subject-verb agreement, containing more than 128,000 minimal pairs. Our minimal pairs are created using a fully automated pipeline, leveraging the large-scale linguistic resources of Universal Dependencies and UniMorph. MultiBLiMP 1.0 evaluates abilities of LLMs at an unprecedented multilingual scale, and highlights the shortcomings of the current state-of-the-art in modelling low-resource languages.1</abstract>
+      <url hash="35b95242">2026.tacl-1.10</url>
+      <doi>10.1162/tacl.a.600</doi>
+      <bibkey>jumelet-etal-2026-multiblimp</bibkey>
+    </paper>
+  </volume>
+</collection>
