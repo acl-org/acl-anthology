@@ -5,6 +5,8 @@
 ### Added
 
 - Files (such as paper PDFs) can now be downloaded from their remote URLs via `.download()`.
+- Added input conversion for ORCIDs: `person.orcid = "https://orcid.org/..."` works now.
+- Added input validation for bibkeys (to follow our convention of all-lowercase keys) and last names (to disallow empty strings).
 
 ### Changed
 
