@@ -28,7 +28,6 @@ the relevant entries in the anthology data model, and links them together.
 import argparse
 import iso639
 import logging as log
-import os
 import pybtex.database.input.bibtex
 import yaml
 import re
@@ -178,7 +177,7 @@ def add_page_numbers(
         paper_need_read_path = None
         for path in paths_to_check:
             if path.exists():
-                paper_need_read_path = str(path)
+                paper_need_read_path = path
                 break
         else:
             raise Exception(
@@ -235,25 +234,26 @@ def namespec_from_author(author: Dict[str, Any]) -> NameSpecification:
     return NameSpecification(**kwargs)
 
 
-def create_dest_path(org_dir_name: str, venue_name: str) -> str:
-    dest_dir = os.path.join(org_dir_name, venue_name)
-    if not os.path.exists(dest_dir):
-        os.makedirs(dest_dir)
+def create_dest_path(org_dir_name: str, venue_name: str) -> Path:
+    dest_dir = Path(org_dir_name) / venue_name
+    dest_dir.mkdir(parents=True, exist_ok=True)
     return dest_dir
 
 
 def pdf_reference_from_paths(
     anthology_id: str, src_path: str, dest_path: str
 ) -> PDFReference:
-    if os.path.exists(dest_path):
-        return PDFReference.from_file(dest_path)
+    dest = Path(dest_path)
+    if dest.exists():
+        return PDFReference.from_file(str(dest))
     return PDFReference(name=anthology_id)
 
 
 def attachment_reference_from_paths(src_path: str, dest_path: str) -> AttachmentReference:
-    if os.path.exists(dest_path):
-        return AttachmentReference.from_file(dest_path)
-    return AttachmentReference(name=os.path.basename(dest_path))
+    dest = Path(dest_path)
+    if dest.exists():
+        return AttachmentReference.from_file(str(dest))
+    return AttachmentReference(name=dest.name)
 
 
 def add_parent_event(
@@ -312,21 +312,21 @@ def ensure_venue(anthology: Anthology, venue_abbrev: str, venue_title: str) -> s
 
 def _find_book_pdf(
     path: str, year: str, venue_name: str, volume_name: str
-) -> Optional[str]:
-    potential_names = [
-        os.path.join(path, "book.pdf"),
-        os.path.join(path, "cdrom", "book.pdf"),
-        os.path.join(
-            path,
-            "cdrom",
-            f"{year}-{venue_name.lower()}-{volume_name}.pdf",
-            f"{venue_name.lower()}-{year}.{volume_name}.pdf",
-        ),
-        os.path.join(path, "cdrom", f"{venue_name.upper()}-{year}.pdf"),
+) -> Optional[Path]:
+    """
+    Searches for the full-book PDF.
+    """
+    path = Path(path)
+    potential_paths = [
+        path / "book.pdf",
+        path / "cdrom" / "book.pdf",
+        path / "cdrom" / f"{year}-{venue_name.lower()}-{volume_name}.pdf",
+        path / "cdrom" / f"{venue_name.lower()}-{year}.{volume_name}.pdf",
+        path / "cdrom" / f"{venue_name.upper()}-{year}.pdf",
     ]
-    for book_rel_path in potential_names:
-        if os.path.exists(book_rel_path):
-            return book_rel_path
+    for book_path in potential_paths:
+        if book_path.exists():
+            return book_path
     return None
 
 
@@ -336,16 +336,17 @@ def _aclpub_attachment_map(
     collection_id: str,
     volume_name: str,
     attachments_dest_dir: str,
-) -> Dict[int, List[Dict[str, str]]]:
-    attachments: Dict[int, List[Dict[str, str]]] = {}
-    additional_dir = os.path.join(root_path, "additional")
-    if not os.path.exists(additional_dir):
+) -> Dict[int, List[Dict[str, Any]]]:
+    attachments: Dict[int, List[Dict[str, Any]]] = {}
+    additional_dir = Path(root_path) / "additional"
+    if not additional_dir.exists():
         return attachments
-    os.makedirs(attachments_dest_dir, exist_ok=True)
-    for attachment_file in os.listdir(additional_dir):
-        if os.path.basename(attachment_file).startswith("."):
+    attachments_dest = Path(attachments_dest_dir)
+    attachments_dest.mkdir(parents=True, exist_ok=True)
+    for attachment_path in additional_dir.iterdir():
+        attachment_file = attachment_path.name
+        if attachment_file.startswith("."):
             continue
-        attachment_file_path = os.path.join(additional_dir, attachment_file)
         match = re.match(rf"{year}\..*-\w+\.(\d+)_?(\w+)\.(\w+)$", attachment_file)
         if match is None:
             print(
@@ -355,9 +356,9 @@ def _aclpub_attachment_map(
         paper_num, type_, ext = match.groups()
         paper_num = int(paper_num)
         file_name = f"{collection_id}-{volume_name}.{paper_num}.{type_}.{ext}"
-        dest_path = os.path.join(attachments_dest_dir, file_name)
+        dest_path = attachments_dest / file_name
         attachments.setdefault(paper_num, []).append(
-            {"src": attachment_file_path, "dest": dest_path, "type": type_}
+            {"src": attachment_path, "dest": dest_path, "type": type_}
         )
     return attachments
 
@@ -365,8 +366,8 @@ def _aclpub_attachment_map(
 def _aclpub_frontmatter_data(
     root_path: str, collection_id: str, volume_name: str
 ) -> Optional[Dict[str, Any]]:
-    bib0 = os.path.join(root_path, "bib", "0.bib")
-    if not os.path.exists(bib0):
+    bib0 = Path(root_path) / "bib" / "0.bib"
+    if not bib0.exists():
         return None
     return read_bib_entry(bib0, f"{collection_id}-{volume_name}.0")
 
@@ -375,7 +376,8 @@ def read_ingest_metadata(
     anthology: Anthology, source: str, format_: str, args: argparse.Namespace
 ) -> Dict[str, Any]:
     if format_ == "aclpub":
-        meta = read_meta(os.path.join(source, "meta"))
+        source_path = Path(source)
+        meta = read_meta(source_path / "meta")
         venue_abbrev = meta["abbrev"]
         venue_slug = ensure_venue(
             anthology, venue_abbrev, meta.get("title", venue_abbrev)
@@ -383,13 +385,13 @@ def read_ingest_metadata(
         collection_id = meta["year"] + "." + venue_slug
         volume_name = meta["volume"].lower()
         venue_name = venue_abbrev.lower()
-        root_path = os.path.join(source, "cdrom")
-        pdfs_dest_dir = os.path.join(args.pdfs_dir, venue_name)
-        os.makedirs(pdfs_dest_dir, exist_ok=True)
-        attachments_dest_dir = os.path.join(args.attachments_dir, venue_name)
+        root_path = source_path / "cdrom"
+        pdfs_dest_dir = Path(args.pdfs_dir) / venue_name
+        pdfs_dest_dir.mkdir(parents=True, exist_ok=True)
+        attachments_dest_dir = Path(args.attachments_dir) / venue_name
         book_src = _find_book_pdf(source, str(meta["year"]), venue_name, volume_name)
         book_dest = (
-            os.path.join(pdfs_dest_dir, f"{collection_id}-{volume_name}.pdf")
+            pdfs_dest_dir / f"{collection_id}-{volume_name}.pdf"
             if book_src is not None
             else None
         )
@@ -404,7 +406,7 @@ def read_ingest_metadata(
             volume_editors = frontmatter_data["editors"] + frontmatter_data["authors"]
         return {
             "format": format_,
-            "source": source,
+            "source": source_path,
             "raw_meta": meta,
             "collection_id": collection_id,
             "volume_name": volume_name,
@@ -449,16 +451,16 @@ def read_ingest_metadata(
             source_path / "build" / "proceedings.pdf",
         ]:
             if path.exists():
-                proceedings_pdf_src = str(path)
+                proceedings_pdf_src = path
                 break
         proceedings_pdf_dest = (
-            os.path.join(pdfs_dest_dir, f"{collection_id}-{volume_name}.pdf")
+            Path(pdfs_dest_dir) / f"{collection_id}-{volume_name}.pdf"
             if proceedings_pdf_src is not None
             else None
         )
         return {
             "format": format_,
-            "source": source,
+            "source": source_path,
             "raw_meta": meta,
             "collection_id": collection_id,
             "volume_name": volume_name,
@@ -475,7 +477,7 @@ def read_ingest_metadata(
             "venue_ids": [venue_name] + (["ws"] if args.is_workshop else []),
             "isbn": str(meta["isbn"]) if meta.get("isbn") else None,
             "journal_volume": None,
-            "root_path": str(source_path),
+            "root_path": source_path,
             "pdfs_dest_dir": pdfs_dest_dir,
             "attachments_dest_dir": attachments_dest_dir,
             "proceedings_pdf_src": proceedings_pdf_src,
@@ -496,8 +498,8 @@ def iter_aclpub_papers(metadata: Dict[str, Any]) -> Iterator[Dict[str, Any]]:
     """
     collection_id = metadata["collection_id"]
     volume_name = metadata["volume_name"]
-    root_path = metadata["root_path"]
-    pdfs_dest_dir = metadata["pdfs_dest_dir"]
+    root_path = Path(metadata["root_path"])
+    pdfs_dest_dir = Path(metadata["pdfs_dest_dir"])
     attachments_map = _aclpub_attachment_map(
         root_path,
         metadata["year"],
@@ -505,19 +507,19 @@ def iter_aclpub_papers(metadata: Dict[str, Any]) -> Iterator[Dict[str, Any]]:
         volume_name,
         metadata["attachments_dest_dir"],
     )
-    pdf_src_dir = os.path.join(root_path, "pdf")
-    paper_entries: List[tuple[int, str]] = []
-    for pdf_file in os.listdir(pdf_src_dir):
-        if os.path.basename(pdf_file).startswith("."):
+    pdf_src_dir = root_path / "pdf"
+    paper_entries: List[tuple[int, Path]] = []
+    for pdf_path in pdf_src_dir.iterdir():
+        if pdf_path.name.startswith("."):
             continue
-        match = re.match(r".*?(\d+)\.pdf", pdf_file)
+        match = re.match(r".*?(\d+)\.pdf", pdf_path.name)
         if match is None:
             continue
-        paper_entries.append((int(match[1]), pdf_file))
+        paper_entries.append((int(match[1]), pdf_path))
 
-    for paper_num, pdf_file in sorted(paper_entries):
+    for paper_num, pdf_path in sorted(paper_entries):
         anthology_id = f"{collection_id}-{volume_name}.{paper_num}"
-        bib_path = os.path.join(root_path, "bib", pdf_file.replace(".pdf", ".bib"))
+        bib_path = root_path / "bib" / f"{pdf_path.stem}.bib"
         parsed = read_bib_entry(bib_path, anthology_id)
         if parsed is None:
             continue
@@ -535,8 +537,8 @@ def iter_aclpub_papers(metadata: Dict[str, Any]) -> Iterator[Dict[str, Any]]:
                 "attachments": [],
             }
             continue
-        pdf_src_path = os.path.join(pdf_src_dir, pdf_file)
-        pdf_dest_path = os.path.join(pdfs_dest_dir, f"{anthology_id}.pdf")
+        pdf_src_path = pdf_path
+        pdf_dest_path = pdfs_dest_dir / f"{anthology_id}.pdf"
         yield {
             "id": str(paper_num),
             "type": PaperType.PAPER,
@@ -574,10 +576,10 @@ def iter_aclpub2_papers(metadata: Dict[str, Any]) -> Iterator[Dict[str, Any]]:
         source_path / "watermarked_pdfs" / "0.pdf",
     ]:
         if path.exists():
-            frontmatter_src = str(path)
+            frontmatter_src = path
             break
     frontmatter_dest = (
-        os.path.join(metadata["pdfs_dest_dir"], f"{collection_id}-{volume_name}.0.pdf")
+        Path(metadata["pdfs_dest_dir"]) / f"{collection_id}-{volume_name}.0.pdf"
         if frontmatter_src is not None
         else None
     )
@@ -603,11 +605,11 @@ def iter_aclpub2_papers(metadata: Dict[str, Any]) -> Iterator[Dict[str, Any]]:
         paper_name = paper["file"]
         paper_id = str(paper["id"])
         pdf_src_path = (
-            str(pdfs_src_dir / paper_name)
+            pdfs_src_dir / paper_name
             if (pdfs_src_dir / paper_name).exists()
-            else str(pdfs_src_dir / f"{paper_id}.pdf")
+            else pdfs_src_dir / f"{paper_id}.pdf"
         )
-        pdf_dest_path = os.path.join(metadata["pdfs_dest_dir"], f"{anthology_id}.pdf")
+        pdf_dest_path = Path(metadata["pdfs_dest_dir"]) / f"{anthology_id}.pdf"
         attachments = []
         for attachment in paper.get("attachments", []):
             file_path_value = attachment.get("file")
@@ -620,16 +622,14 @@ def iter_aclpub2_papers(metadata: Dict[str, Any]) -> Iterator[Dict[str, Any]]:
                 attachments_src_dir / file_path.name,
             ]:
                 if p.exists():
-                    attach_src_path = str(p)
+                    attach_src_path = p
                     break
             if attach_src_path is None:
                 continue
-            attach_src_extension = attach_src_path.split(".")[-1]
+            attach_src_extension = attach_src_path.suffix.lstrip(".")
             type_ = str(attachment["type"]).replace(" ", "")
             file_name = f"{collection_id}-{volume_name}.{paper_num}.{type_}.{attach_src_extension}"
-            attach_dest_path = os.path.join(
-                metadata["attachments_dest_dir"], file_name
-            ).replace(" ", "")
+            attach_dest_path = Path(metadata["attachments_dest_dir"]) / file_name
             attachments.append(
                 {"src": attach_src_path, "dest": attach_dest_path, "type": type_}
             )
@@ -775,19 +775,21 @@ def ingest(
 
 def maybe_copy(source_path: str, dest_path: str, dry_run: bool = False):
     """Copies the file if it's different from the target."""
+    source = Path(source_path)
+    dest = Path(dest_path)
     try:
         if dry_run:
-            log.info(f"[dry-run] Skipping copy {source_path} -> {dest_path}")
+            log.info(f"[dry-run] Skipping copy {source} -> {dest}")
             return
         if (
-            not os.path.exists(dest_path)
-            or PDFReference.from_file(source_path).checksum
-            != PDFReference.from_file(dest_path).checksum
+            not dest.exists()
+            or PDFReference.from_file(str(source)).checksum
+            != PDFReference.from_file(str(dest)).checksum
         ):
-            log.info(f"Copying {source_path} -> {dest_path}")
-            shutil.copyfile(source_path, dest_path)
+            log.info(f"Copying {source} -> {dest}")
+            shutil.copyfile(source, dest)
     except Exception as e:
-        log.error(f"Error copying {source_path} to {dest_path}: {e}")
+        log.error(f"Error copying {source} to {dest}: {e}")
         raise
 
 
@@ -847,7 +849,9 @@ def make_name_spec(person) -> NameSpecification:
     return NameSpecification(name=Name(first_text, last_text))
 
 
-def read_bib_entry(bibfilename: str, anthology_id: str) -> Optional[Dict[str, Any]]:
+def read_bib_entry(
+    bibfilename: Path | str, anthology_id: str
+) -> Optional[Dict[str, Any]]:
     """Parse a single-entry BibTeX file into structured metadata."""
     _, _, paper_id = parse_id(anthology_id)
     if paper_id is None:
@@ -954,18 +958,18 @@ if __name__ == "__main__":
         default=today,
         help="Ingestion date as YYYY-MM-DD. Default: %(default)s.",
     )
-    anthology_path = os.path.join(os.path.dirname(sys.argv[0]), "..")
+    anthology_path = Path(__file__).resolve().parent.parent
     parser.add_argument(
         "--anthology-dir",
         "-r",
         default=anthology_path,
         help="Root path of ACL Anthology Github repo. Default: %(default)s.",
     )
-    pdfs_path = os.path.join(os.environ["HOME"], "anthology-files", "pdf")
+    pdfs_path = Path.home() / "anthology-files" / "pdf"
     parser.add_argument(
         "--pdfs-dir", "-p", default=pdfs_path, help="Root path for placement of PDF files"
     )
-    attachments_path = os.path.join(os.environ["HOME"], "anthology-files", "attachments")
+    attachments_path = Path.home() / "anthology-files" / "attachments"
     parser.add_argument(
         "--attachments-dir",
         "-a",
