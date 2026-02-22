@@ -268,7 +268,9 @@ def convert_bibtex(builddir, max_workers=None):
                 for future in concurrent.futures.as_completed(futures):
                     progress.update(task, advance=1)
                     if (exc := future.exception()) is not None:
-                        log.exception(exc)
+                        log.critical(exc)
+                        executor.shutdown(wait=False, cancel_futures=True)
+                        break
 
 
 def convert_collection_file(collection_file):
