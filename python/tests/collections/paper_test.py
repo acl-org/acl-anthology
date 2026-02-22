@@ -196,7 +196,7 @@ def test_paper_language(anthology, paper_id, language, language_name):
 def test_paper_bibtype():
     volume = VolumeStub()
     volume.type = VolumeType.JOURNAL
-    paper = Paper("1", volume, bibkey="", title="")
+    paper = Paper("1", volume, bibkey="foo", title="")
     assert paper.bibtype == "article"
     volume.type = VolumeType.PROCEEDINGS
     assert paper.bibtype == "inproceedings"
