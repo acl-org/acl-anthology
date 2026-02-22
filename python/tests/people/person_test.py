@@ -121,9 +121,13 @@ def test_person_orcid(anthology_stub):
     assert person.orcid == "0000-0002-1297-6794"
     person.orcid = "0000-0003-2598-8150"
     assert person.orcid == "0000-0003-2598-8150"
+    # should automatically convert into correct format
+    person.orcid = "https://orcid.org/0000-0002-1297-6794"
+    assert person.orcid == "0000-0002-1297-6794"
     with pytest.raises(ValueError):
-        person.orcid = "https://orcid.org/0000-0003-2598-8150"
+        person.orcid = "foo-bar"
     with pytest.raises(ValueError):
+        # does not pass checksum
         person.orcid = "0000-0003-2598-815X"
 
 
