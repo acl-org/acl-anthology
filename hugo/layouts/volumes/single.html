@@ -4,7 +4,7 @@
 {{ define "main" }}
 {{ $anthology_id := .Params.anthology_id }}
 {{/* "$paper" here refers to a full proceedings volume */}}
-{{ $paper := index .Site.Data.volumes .Params.anthology_id }}
+{{ $paper := index hugo.Data.volumes .Params.anthology_id }}
 <section id="main">
   <h2 id="title">
     {{ with $paper.pdf }}
@@ -44,7 +44,7 @@
       <dd>
         {{- $len := (len $paper.venues) -}}
         {{- range $index, $venue := $paper.venues -}}
-          {{ $acronym := index $.Site.Data.venues $venue "acronym" }}
+          {{ $acronym := index hugo.Data.venues $venue "acronym" }}
           <a href="{{ relref $ (printf "/venues/%s" ($venue)) }}">{{- $acronym -}}</a>
           {{ if ne (add $index 1) $len }} | {{ end }}
         {{- end -}}
@@ -56,7 +56,7 @@
       <dd>
         {{- $len := (len $paper.sigs) -}}
         {{- range $index, $sig := $paper.sigs -}}
-          {{ $slug := index $.Site.Data.sigs $sig "slug" }}
+          {{ $slug := index hugo.Data.sigs $sig "slug" }}
           <a href="{{ relref $ (printf "/sigs/%s" $slug) }}">{{ $sig }}</a>
           {{ if ne (add $index 1) $len }} | {{ end }}
         {{- end -}}

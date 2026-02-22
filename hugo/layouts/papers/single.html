@@ -1,12 +1,12 @@
 {{ define "meta" }}
 {{ $volume_id := index (split .Params.anthology_id "-") 0 }}
-{{ $paper := index (index .Site.Data.papers $volume_id) .Params.anthology_id }}
+{{ $paper := index (index hugo.Data.papers $volume_id) .Params.anthology_id }}
   <meta content="{{ $paper.title }}" name="citation_title">
 {{ range $paper.author }}
-  <meta content="{{ (index $.Site.Data.people .id).full }}" name="citation_author">
+  <meta content="{{ (index hugo.Data.people .id).full }}" name="citation_author">
 {{ end }}
 {{ with $paper.parent_volume_id }}
-  {{ $volume := index $.Site.Data.volumes . }}
+  {{ $volume := index hugo.Data.volumes . }}
   {{ if isset $volume "meta_journal_title" }}
   <meta content="{{ $volume.meta_journal_title }}" name="citation_journal_title">
   {{ else }}
@@ -36,7 +36,7 @@
 {{ define "javascript" }}
 {{ $anthology_id := .Params.anthology_id }}
 {{ $volume_id := index (split .Params.anthology_id "-") 0 }}
-{{ $paper := index (index .Site.Data.papers $volume_id) .Params.anthology_id }}
+{{ $paper := index (index hugo.Data.papers $volume_id) .Params.anthology_id }}
 <script src="{{ relURL "js/clipboard.min.js" }}"></script>
 <script src="{{ relURL "js/FileSaver.js" }}"></script>
 <script>
@@ -369,7 +369,7 @@
 {{ define "main" }}
 {{ $anthology_id := .Params.anthology_id }}
 {{ $volume_id := index (split .Params.anthology_id "-") 0 }}
-{{ $paper := index (index .Site.Data.papers $volume_id) .Params.anthology_id }}
+{{ $paper := index (index hugo.Data.papers $volume_id) .Params.anthology_id }}
 <section id="main">
   <div>
     <h2 id="title">
@@ -501,7 +501,7 @@
         <dt>Volume:</dt>
         <dd>
           {{- with $paper.parent_volume_id -}}
-          {{ $volume := index $.Site.Data.volumes . }}
+          {{ $volume := index hugo.Data.volumes . }}
           {{ $volume_page := printf "/volumes/%s" . }}
           <a href="{{ relref $ $volume_page }}">{{ $volume.title }}</a>
           {{- end -}}
@@ -524,12 +524,12 @@
                   </dd>
                 {{ end }}
         {{ with $paper.parent_volume_id }}
-        {{ $volume := index $.Site.Data.volumes . }}
+        {{ $volume := index hugo.Data.volumes . }}
         <dt>{{ if gt (len $volume.venues) 1 }}Venues:{{ else }}Venue:{{ end }}</dt>
         <dd>
           {{- $len := (len $volume.venues) -}}
           {{- range $index, $venue := $volume.venues -}}
-                    {{ $acronym := index $.Site.Data.venues $venue "acronym" }}
+                    {{ $acronym := index hugo.Data.venues $venue "acronym" }}
                     <a href="{{ relref $ (printf "/venues/%s" ($venue)) }}">{{- $acronym -}}</a>
                     {{ if ne (add $index 1) $len }} | {{ end }}
                   {{- end -}}
@@ -538,7 +538,7 @@
                 <dd>
                   {{- $len := (len $volume.sigs) -}}
                   {{- range $index, $sig := $volume.sigs -}}
-                    {{ $slug := index $.Site.Data.sigs $sig "slug" }}
+                    {{ $slug := index hugo.Data.sigs $sig "slug" }}
                     <a href="{{ relref $ (printf "/sigs/%s" $slug) }}">{{ $sig }}</a>
                     {{ if ne (add $index 1) $len }} | {{ end }}
                   {{- end -}}

@@ -4,7 +4,7 @@
     {{ .Title }}
   </h2>
 
-  {{ $venue := index .Site.Data.sigs .Params.acronym }}
+  {{ $venue := index hugo.Data.sigs .Params.acronym }}
   <p>
     <ul>
       <li><i class="fas fa-external-link-alt"></i>&nbsp; <a href="{{ $venue.url }}">Website of {{ .Params.acronym }}</a></li>
@@ -28,7 +28,7 @@
                 <i class="fas fa-external-link-alt"></i>&nbsp; <a href="{{ $volume_id.url }}">{{ $volume_id.name }}</a>
               </li>
             {{ else }}
-              {{ $volume := index $.Site.Data.volumes $volume_id }}
+              {{ $volume := index hugo.Data.volumes $volume_id }}
               <li>
                 {{ if eq hugo.Environment "development" }}
                   <span class="badge text-bg-light align-middle">{{ $volume_id }}</span>
