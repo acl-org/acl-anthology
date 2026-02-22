@@ -26,6 +26,7 @@ This script:
 
 import argparse
 import iso639
+import logging as log
 import os
 import pybtex.database.input.bibtex
 import yaml
@@ -49,13 +50,10 @@ from acl_anthology.files import (
 from acl_anthology.people import Name, NameSpecification
 from acl_anthology.text import MarkupText
 from acl_anthology.utils.ids import parse_id
+from acl_anthology import setup_rich_logging
 from fixedcase.protect import protect as protect_fixedcase
 
 ARCHIVAL_DEFAULT = True
-
-
-def log(text: str) -> None:
-    print(f"{text}", file=sys.stderr)
 
 
 def read_meta(path: str) -> Dict[str, Any]:
@@ -747,17 +745,17 @@ def maybe_copy(source_path: str, dest_path: str, dry_run: bool = False):
     """Copies the file if it's different from the target."""
     try:
         if dry_run:
-            log(f"[dry-run] Skipping copy {source_path} -> {dest_path}")
+            log.info(f"[dry-run] Skipping copy {source_path} -> {dest_path}")
             return
         if (
             not os.path.exists(dest_path)
             or PDFReference.from_file(source_path).checksum
             != PDFReference.from_file(dest_path).checksum
         ):
-            log(f"Copying {source_path} -> {dest_path}")
+            log.info(f"Copying {source_path} -> {dest_path}")
             shutil.copyfile(source_path, dest_path)
     except Exception as e:
-        log(f"Error copying {source_path} to {dest_path}: {e}")
+        log.error(f"Error copying {source_path} to {dest_path}: {e}")
         raise
 
 
@@ -831,11 +829,11 @@ def read_bib_entry(bibfilename: str, anthology_id: str) -> Optional[Dict[str, An
 
     bibdata = pybtex.database.input.bibtex.Parser().parse_file(bibfilename)
     if len(bibdata.entries) != 1:
-        log(f"more than one entry in {bibfilename}")
+        log.warning(f"more than one entry in {bibfilename}")
 
     bibentry = next(iter(bibdata.entries.values()))
     if len(bibentry.fields) == 0:
-        log(f"parsing bib of paper {paper_id} failed")
+        log.error(f"parsing bib of paper {paper_id} failed")
         sys.exit(1)
 
     page_range = bibentry.fields.get("pages")
@@ -884,6 +882,7 @@ def register_volume_with_sig(
 
 
 def main(args):
+    setup_rich_logging()
     anthology_datadir = Path(args.anthology_dir) / "data"
     anthology = Anthology(datadir=anthology_datadir)
 
@@ -892,7 +891,7 @@ def main(args):
     seen_volume_ids: set[str] = set()
     for source in args.proceedings:
         format_ = detect_ingestion_format(source)
-        log(f"Detected {format_} format for {source}")
+        log.info(f"Detected {format_} format for {source}")
         metadata = read_ingest_metadata(anthology, source, format_, args)
         ingest(
             anthology=anthology,
