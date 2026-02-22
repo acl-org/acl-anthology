@@ -255,7 +255,7 @@ def add_parent_event(
 ) -> None:
     if parent_event is None:
         return
-    anthology.events.load()
+
     event = anthology.get_event(parent_event)
     if event is None:
         print(f"No event node with id '{parent_event}' found", file=sys.stderr)
