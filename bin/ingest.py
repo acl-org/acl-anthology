@@ -218,6 +218,7 @@ def join_names(author: Dict[str, Any], fields=None) -> str:
 
 
 def namespec_from_author(author: Dict[str, Any]) -> NameSpecification:
+    """Creates a NameSpecification from an author dictionary (aclpub2)."""
     author = correct_names(dict(author))
     first_name = correct_caps(join_names(author).strip())
     last_name = correct_caps((author.get("last_name") or "").strip())
@@ -831,7 +832,7 @@ def normalize_latex_title(text: Optional[str]) -> Optional[MarkupText]:
     return MarkupText.from_xml(elem)
 
 
-def make_name_spec(person) -> NameSpecification:
+def namespec_from_bib(person) -> NameSpecification:
     """Creates a NameSpecification from a pybtex Person object."""
     first_text = " ".join(person.first_names + person.middle_names)
     last_text = " ".join(person.prelast_names + person.last_names)
@@ -882,10 +883,10 @@ def read_bib_entry(
         "doi": bibentry.fields.get("doi"),
         "language": bibentry.fields.get("language"),
         "authors": [
-            make_name_spec(person) for person in bibentry.persons.get("author", [])
+            namespec_from_bib(person) for person in bibentry.persons.get("author", [])
         ],
         "editors": [
-            make_name_spec(person) for person in bibentry.persons.get("editor", [])
+            namespec_from_bib(person) for person in bibentry.persons.get("editor", [])
         ],
     }
 
