@@ -15,13 +15,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Ingests data into the ACL Anthology from either ACLPUB or aclpub2 formats.
+"""
+Ingests data into the ACL Anthology from either ACLPUB or aclpub2 formats.
 
-This script:
-- executes some basic sanity checks
-- applies normalization to names and titles
-- ingests metadata through the acl_anthology Python library
-- copies PDFs and attachments into place for rsyncing to the server
+Each format has a metadata file (meta for ACLPUB, conference_details.yml for ACLPUB2)
+that describes the volume to be ingested, and a set of papers with associated metadata
+and files. These papers are abstracted away into a stream. The script copies the PDFs
+and attachments to their final location in the anthology directory structure, creates
+the relevant entries in the anthology data model, and links them together.
 """
 
 import argparse
@@ -42,7 +43,7 @@ from slugify import slugify
 from typing import Any, Dict, Iterator, Optional, List
 
 from acl_anthology import Anthology
-from acl_anthology.collections.types import EventLink, PaperType, VolumeType
+from acl_anthology.collections.types import PaperType, VolumeType
 from acl_anthology.files import (
     AttachmentReference,
     PDFReference,
@@ -57,6 +58,8 @@ ARCHIVAL_DEFAULT = True
 
 
 def read_meta(path: str) -> Dict[str, Any]:
+    """Reads the ACLPUB meta file, which is a simple space-delimited key-value format with one entry per line. The "chair" key can be repeated for multiple chairs.
+    Each chair is expected to be in BibTeX format, e.g., "Last name, First name(s)"."""
     meta = {"chairs": []}
     with open(path) as instream:
         for line in instream:
@@ -200,8 +203,11 @@ def trim_orcid(orcid: str) -> str:
 
 
 def correct_names(author: Dict[str, Any]) -> Dict[str, Any]:
-    if author.get("middle_name") is not None and author["middle_name"].lower() == "de":
-        author["last_name"] = author["middle_name"] + " " + author["last_name"]
+    """
+    Fold middle name into the first name.
+    """
+    if author.get("middle_name") is not None:
+        author["first_name"] = author["first_name"] + " " + author["middle_name"]
         del author["middle_name"]
     return author
 
@@ -253,6 +259,11 @@ def attachment_reference_from_paths(src_path: str, dest_path: str) -> Attachment
 def add_parent_event(
     anthology: Anthology, parent_event: Optional[str], volume_full_id: str
 ) -> None:
+    """
+    If a parent event is specified, then this volume should be listed in
+    that parent's <event> block. This facilitates listing colocated volumes
+    (mostly workshops, but also Findings) in a main volume's event page.
+    """
     if parent_event is None:
         return
 
@@ -271,15 +282,19 @@ def add_parent_event(
             file=sys.stderr,
         )
     else:
-        event.add_colocated(volume_full_id, type_=EventLink.EXPLICIT)
+        event.add_colocated(volume_full_id)
         print(
             f"Created event entry in {parent_event} for {volume_full_id}", file=sys.stderr
         )
 
 
 def ensure_venue(anthology: Anthology, venue_abbrev: str, venue_title: str) -> str:
+    """
+    Looks for existing venue or creates a new one.
+    """
     venue_slug = venue_slug_from_acronym(venue_abbrev)
-    if str(datetime.now().year) in venue_abbrev:
+    year = str(datetime.now().year)
+    if year in venue_abbrev or year[2:] in venue_abbrev:
         print(f"Fatal: Venue assembler put year in acronym: '{venue_abbrev}'")
         sys.exit(1)
     if re.match(r".*\d$", venue_abbrev) is not None:
@@ -473,6 +488,12 @@ def read_ingest_metadata(
 
 
 def iter_aclpub_papers(metadata: Dict[str, Any]) -> Iterator[Dict[str, Any]]:
+    """
+    ACLPUB papers are read in from the cdrom/bib directory, which expects
+    one paper per file. It parses this file to get paper information, and
+    then finds the associated PDF in the cdrom/pdf directory. Attachments
+    are read from the cdrom/additional directory.
+    """
     collection_id = metadata["collection_id"]
     volume_name = metadata["volume_name"]
     root_path = metadata["root_path"]
@@ -535,6 +556,11 @@ def iter_aclpub_papers(metadata: Dict[str, Any]) -> Iterator[Dict[str, Any]]:
 
 
 def iter_aclpub2_papers(metadata: Dict[str, Any]) -> Iterator[Dict[str, Any]]:
+    """
+    The aclpub2 paper stream is read from the papers.yml file. Each entry
+    contains a reference to the PDF file name, which is expected to be
+    found in the watermarked_pdfs directory in the root folder.
+    """
     collection_id = metadata["collection_id"]
     volume_name = metadata["volume_name"]
     source_path = Path(metadata["source"])
@@ -609,7 +635,7 @@ def iter_aclpub2_papers(metadata: Dict[str, Any]) -> Iterator[Dict[str, Any]]:
             )
         abstract = paper.get("abstract")
         if abstract is not None:
-            abstract = normalize_abstract(abstract.replace("\n", ""))
+            abstract = MarkupText.from_latex_maybe(abstract.replace("\n", ""))
         yield {
             "id": str(paper_num),
             "type": PaperType.PAPER,
@@ -631,6 +657,9 @@ def iter_aclpub2_papers(metadata: Dict[str, Any]) -> Iterator[Dict[str, Any]]:
 
 
 def iter_papers(metadata: Dict[str, Any]) -> Iterator[Dict[str, Any]]:
+    """
+    Yields paper metadata dictionaries for the given volume, abstracting away the differences between ACLPUB and aclpub2 formats.
+    """
     if metadata["format"] == "aclpub":
         yield from iter_aclpub_papers(metadata)
         return
@@ -647,6 +676,10 @@ def ingest(
     seen_volume_ids: set[str],
     args: argparse.Namespace,
 ) -> None:
+    """
+    Ingests the volume and its papers into the Anthology, agnostic to the underlying
+    ingestion format.
+    """
     volume_full_id = metadata["volume_full_id"]
     if volume_full_id in seen_volume_ids:
         raise Exception(f"Duplicate volume ID encountered: {volume_full_id}")
@@ -657,7 +690,6 @@ def ingest(
         collection = anthology.collections.create(metadata["collection_id"])
     if collection.get(metadata["volume_name"]) is not None:
         del collection[metadata["volume_name"]]
-        collection.is_modified = True
 
     volume_kwargs: Dict[str, Any] = {
         "id": metadata["volume_name"],
@@ -671,10 +703,8 @@ def ingest(
         "address": metadata["address"],
         "month": metadata["month"],
     }
-    if metadata.get("journal_volume") is not None:
-        volume_kwargs["journal_volume"] = metadata["journal_volume"]
-    if metadata.get("isbn"):
-        volume_kwargs["isbn"] = metadata["isbn"]
+    volume_kwargs["journal_volume"] = metadata.get("journal_volume")
+    volume_kwargs["isbn"] = metadata.get("isbn")
     if metadata.get("proceedings_pdf_src") and metadata.get("proceedings_pdf_dest"):
         maybe_copy(metadata["proceedings_pdf_src"], metadata["proceedings_pdf_dest"])
         volume_kwargs["pdf"] = pdf_reference_from_paths(
@@ -715,6 +745,8 @@ def ingest(
                 raise Exception(f"Can't find language '{language}'")
         attachment_refs = []
         for attachment in paper.get("attachments", []):
+            # The copyright transfer forms are sometimes inclued as attachments,
+            # but we don't want to publish them.
             if "copyright" in attachment["type"]:
                 continue
             maybe_copy(attachment["src"], attachment["dest"], dry_run=args.dry_run)
@@ -797,14 +829,8 @@ def normalize_latex_title(text: Optional[str]) -> Optional[MarkupText]:
     return MarkupText.from_xml(elem)
 
 
-def normalize_abstract(text: Optional[str]) -> Optional[MarkupText]:
-    """Normalize and apply truelist-based fixed-case protection for LaTeX text."""
-    if text is None:
-        return None
-    return MarkupText.from_latex_maybe(text)
-
-
 def make_name_spec(person) -> NameSpecification:
+    """Creates a NameSpecification from a pybtex Person object."""
     first_text = " ".join(person.first_names + person.middle_names)
     last_text = " ".join(person.prelast_names + person.last_names)
 
@@ -848,7 +874,7 @@ def read_bib_entry(bibfilename: str, anthology_id: str) -> Optional[Dict[str, An
         "address": bibentry.fields.get("address"),
         "publisher": bibentry.fields.get("publisher"),
         "pages": page_range,
-        "abstract": normalize_abstract(bibentry.fields.get("abstract")),
+        "abstract": MarkupText.from_latex_maybe(bibentry.fields.get("abstract")),
         "doi": bibentry.fields.get("doi"),
         "language": bibentry.fields.get("language"),
         "authors": [
