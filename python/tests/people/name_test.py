@@ -55,6 +55,13 @@ def test_name_onlylast_none_vs_empty_string():
     assert n1 == n2
 
 
+def test_name_empty_lastname_should_raise():
+    with pytest.raises(ValueError):
+        Name("Mausam", "")
+    with pytest.raises(ValueError):
+        Name(None, "")
+
+
 def test_name_specification():
     n1 = NameSpecification(Name("John", "Doe"))
     n2 = NameSpecification(Name("John", "Doe"))
