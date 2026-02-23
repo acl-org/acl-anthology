@@ -474,6 +474,9 @@ class PersonIndex(SlottedDict[Person]):
 
         Returns:
             The name specification as it should be used for the new ingestion material.
+
+        Raises:
+            NameSpecResolutionWarning: If a new ID with an ORCID suffix would be created, but the existing ID has no ORCID (= likely to be the same person).
         """
         if name_spec.orcid is None or name_spec.id is not None:
             return name_spec
@@ -486,8 +489,17 @@ class PersonIndex(SlottedDict[Person]):
             # Need to create a new person; generate name slug for the ID
             pid = name_spec.name.slugify()
             if pid in self.data:
-                # ID is already in use; add last four digits of ORCID to disambiguate
-                pid = f"{pid}-{name_spec.orcid[-4:].lower()}"
+                # ID is already in use, so add last four digits of ORCID to disambiguate
+                new_pid = f"{pid}-{name_spec.orcid[-4:].lower()}"
+                if self.data[pid].orcid is None:
+                    # ...but existing person is verified without an ORCID -> warn
+                    warnings.warn(
+                        NameSpecResolutionWarning(
+                            name_spec,
+                            f"Creating new person '{new_pid}', but existing person '{pid}' is verified without an ORCID",
+                        )
+                    )
+                pid = new_pid
 
             self.add_person(
                 Person(
