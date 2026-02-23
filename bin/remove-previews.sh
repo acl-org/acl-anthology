@@ -9,7 +9,9 @@ set -u
 if [[ -d $PREVIEW_DIR ]]; then
 	cd $PREVIEW_DIR
 	for branch in *; do
-		if ! curl -s -o /dev/null -f https://github.com/acl-org/acl-anthology/tree/$branch; then
+		# replace ___ with / for the check
+		remote_branch="${branch//___//}"
+		if ! curl -s -o /dev/null -f https://github.com/acl-org/acl-anthology/tree/$remote_branch; then
 			echo "* Removing Anthology preview $branch"
 			rm -rf "./$branch"
 		fi
