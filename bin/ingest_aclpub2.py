@@ -81,7 +81,7 @@ def disambiguate_name(node, anth_id, people):
     """
     There may be multiple matching names. If so, ask the ingester to choose
     which one is the disambiguated one. Ideally, this would be determined
-    automatically from metadata or providing orcids or other disambiguators.
+    automatically from metadata or providing orcid ids or other disambiguators.
     """
     name = PersonName.from_element(node)
     ids = people.get_ids(name)
@@ -285,7 +285,7 @@ def correct_names(author):
     """
     A set of corrections we apply to upstream name parsing.
     """
-    if "middle_name" in author and author["middle_name"].lower() == "de":
+    if author.get("middle_name") is not None and author["middle_name"].lower() == "de":
         author["last_name"] = author["middle_name"] + " " + author["last_name"]
         del author["middle_name"]
 
@@ -303,6 +303,16 @@ def join_names(author, fields=["first_name", "middle_name"]):
         if author.get(field) is not None:
             names.append(author[field])
     return " ".join(names)
+
+
+def trim_orcid(orcid: str) -> str:
+    """
+    Match the ORCID iD out of a potentially longer URL.
+    """
+    match = re.match(r'.*(\d{4}-\d{4}-\d{4}-\d{3}[\dX]).*', orcid, re.IGNORECASE)
+    if match is not None:
+        return match.group(1).upper()
+    return orcid
 
 
 def proceeding2xml(anthology_id: str, meta: Dict[str, Any], frontmatter):
@@ -324,19 +334,7 @@ def proceeding2xml(anthology_id: str, meta: Dict[str, Any], frontmatter):
         if field == 'editor':
             authors = meta['editors']
             for author in authors:
-                author = correct_names(author)
-                name_node = make_simple_element(field, parent=frontmatter_node)
-                make_simple_element('first', join_names(author), parent=name_node)
-                make_simple_element('last', author['last_name'], parent=name_node)
-                # add affiliation
-                if 'institution' in author.keys():
-                    make_simple_element(
-                        'affiliation', author['institution'], parent=name_node
-                    )
-                elif 'affiliation' in author.keys():
-                    make_simple_element(
-                        'affiliation', author['affiliation'], parent=name_node
-                    )
+                create_node_from_author(author, frontmatter_node, fieldname="editor")
         else:
             if field == 'url':
                 if "pdf" in frontmatter:
@@ -359,6 +357,35 @@ def proceeding2xml(anthology_id: str, meta: Dict[str, Any], frontmatter):
                 make_simple_element(field, text=value, parent=frontmatter_node)
 
     return frontmatter_node
+
+
+def create_node_from_author(author, paper_node, fieldname="author"):
+    author = correct_names(author)
+
+    attrib = {}
+    if 'orcid' in author.keys():
+        attrib = {'orcid': trim_orcid(author['orcid'])}
+
+    name_node = make_simple_element(fieldname, parent=paper_node, attrib=attrib)
+
+    # swap names (<last> can't be empty)
+    first_name = join_names(author)
+    try:
+        last_name = author['last_name']
+    except KeyError:
+        print("BAD AUTHOR", author, file=sys.stderr)
+        sys.exit(1)
+    if first_name != "" and last_name == "":
+        first_name, last_name = last_name, first_name
+
+    make_simple_element('first', first_name, parent=name_node)
+    make_simple_element('last', last_name, parent=name_node)
+
+    # add affiliation
+    if 'institution' in author.keys():
+        make_simple_element('affiliation', author['institution'], parent=name_node)
+    elif 'affiliation' in author.keys():
+        make_simple_element('affiliation', author['affiliation'], parent=name_node)
 
 
 def paper2xml(
@@ -399,28 +426,7 @@ def paper2xml(
         if field == 'author':
             authors = paper_item['authors']
             for author in authors:
-                author = correct_names(author)
-
-                name_node = make_simple_element(field, parent=paper)
-
-                # swap names (<last> can't be empty)
-                first_name = join_names(author)
-                last_name = author['last_name']
-                if first_name != "" and last_name == "":
-                    first_name, last_name = last_name, first_name
-
-                make_simple_element('first', first_name, parent=name_node)
-                make_simple_element('last', last_name, parent=name_node)
-
-                # add affiliation
-                if 'institution' in author.keys():
-                    make_simple_element(
-                        'affiliation', author['institution'], parent=name_node
-                    )
-                elif 'affiliation' in author.keys():
-                    make_simple_element(
-                        'affiliation', author['affiliation'], parent=name_node
-                    )
+                create_node_from_author(author, paper)
         else:
             if field == 'url':
                 value = f'{anthology_id}'
@@ -439,14 +445,15 @@ def paper2xml(
                 if value is not None:
                     make_simple_element(field, text=value, parent=paper)
             except Exception as e:
-                print("* ERROR:", e, file=sys.stderr)
+                print("* WARNING:", e, file=sys.stderr)
                 print(
                     f"* Couldn't process {field}='{value}' for {anthology_id}, please check the abstract in the papers.yaml file for this paper",
                     file=sys.stderr,
                 )
-                for key, value in paper_item.items():
-                    print(f"* -> {key} => {value}", file=sys.stderr)
-                sys.exit(2)
+                #                for key, value in paper_item.items():
+                #                    print(f"* -> {key} => {value}", file=sys.stderr)
+                #                sys.exit(2)
+                continue
     return paper
 
 
@@ -784,7 +791,7 @@ def create_xml(
 
         for path, type_ in paper['attachments']:
             # skip copyrights
-            if type_ == "copyright":
+            if "copyright" in type_:
                 continue
 
             make_simple_element(
@@ -870,7 +877,6 @@ def create_xml(
     help='Directory contains proceedings need to be ingested',
 )
 @click.option(
-    '-p',
     '--pdfs_dir',
     default=os.path.join(os.environ['HOME'], 'anthology-files', 'pdf'),
     help='Root path for placement of PDF files',
@@ -959,7 +965,7 @@ def main(
         proceedings_pdf_dest_path=proceedings_pdf_dest_path,
         people=people,
         papers=papers,
-        is_workshop=workshop is not None,
+        is_workshop=workshop,
     )
 
     if parent_event is not None:

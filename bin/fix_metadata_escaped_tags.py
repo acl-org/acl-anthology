@@ -20,6 +20,7 @@
 
 Usage: python3 fix_metadata_escaped_tags.py
 """
+
 import glob
 import os
 import re

@@ -17,18 +17,20 @@ from __future__ import annotations
 from attrs import define, field
 from collections import defaultdict
 from rich.progress import track
-from typing import TYPE_CHECKING
+from typing import Iterable, TYPE_CHECKING
 
+from ..config import primary_console
 from ..containers import SlottedDict
 from ..text import MarkupText
 from ..utils.ids import AnthologyID, AnthologyIDTuple, parse_id
 from ..utils.logging import get_logger
 from .event import Event
-from .types import EventLinkingType
+from .types import EventLink
 from .volume import Volume
 
 if TYPE_CHECKING:
     from ..anthology import Anthology
+    from .collection import Collection
 
 log = get_logger()
 
@@ -41,13 +43,11 @@ class EventIndex(SlottedDict[Event]):
 
     Attributes:
         parent: The parent Anthology instance to which this index belongs.
-        verbose: If False, will not show progress bar when building the index from scratch.
         reverse: A mapping of volume IDs to a set of associated event IDs.
         is_data_loaded: A flag indicating whether the index has been constructed.
     """
 
     parent: Anthology = field(repr=False, eq=False)
-    verbose: bool = field(default=True)
     reverse: dict[AnthologyIDTuple, set[str]] = field(
         init=False, repr=False, factory=lambda: defaultdict(set)
     )
@@ -91,12 +91,15 @@ class EventIndex(SlottedDict[Event]):
         if self.is_data_loaded:
             return
 
-        iterator = track(
-            self.parent.collections.values(),
-            total=len(self.parent.collections),
-            disable=(not self.verbose),
-            description=" Building event index...",
-        )
+        if not self.parent.verbose:
+            iterator: Iterable[Collection] = self.parent.collections.values()
+        else:
+            iterator = track(
+                self.parent.collections.values(),
+                total=len(self.parent.collections),
+                description=" Building event index...",
+                console=primary_console,
+            )
         raised_exception = False
         for collection in iterator:
             try:
@@ -124,12 +127,12 @@ class EventIndex(SlottedDict[Event]):
                                 event_id,
                                 collection,
                                 is_explicit=False,
-                                colocated_ids=[(volume_fid, EventLinkingType.INFERRED)],
+                                colocated_ids=[(volume_fid, EventLink.INFERRED)],
                                 title=MarkupText.from_string(event_name),
                             )
                         else:
                             # Add implicit connection to existing event
-                            event.add_colocated(volume_fid, EventLinkingType.INFERRED)
+                            event.add_colocated(volume_fid, EventLink.INFERRED)
                         self.reverse[volume_fid].add(event_id)
             except Exception as exc:
                 log.exception(exc)

@@ -23,7 +23,6 @@
 
 import os
 
-
 # this is the canonical URL.  In contrast to all other
 # URL templates, it always links to the official anthology.
 CANONICAL_URL_TEMPLATE = "https://aclanthology.org/{}"

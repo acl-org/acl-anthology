@@ -19,16 +19,29 @@ from __future__ import annotations
 import attrs
 from attrs import validators
 import datetime
-from typing import Any, Callable, Optional
+from typing import Any, Callable, Optional, TypeVar, TYPE_CHECKING
 import re
 
 from .ids import AnthologyIDTuple
 
+if TYPE_CHECKING:
+    from ..collections import Paper, Volume, Event
+
 
 RE_WRAPPED_TYPE = re.compile(r"^([^\[]*)\[(.*)\]$")
+T = TypeVar("T")
+
+
+def track_modifications(
+    obj: Paper | Volume | Event, attr: attrs.Attribute[Any], value: T
+) -> T:
+    if attr.name != "parent":
+        obj.collection.is_modified = True
+    return value
 
 
 def validate_anthology_id_tuple(cls: Any, attr: attrs.Attribute[Any], value: Any) -> None:
+    """Validate that an AnthologyIDTuple has the correct format."""
     if (
         isinstance(value, tuple)
         and len(value) == 3
@@ -73,7 +86,6 @@ def auto_validate_types(
         AttachmentReference,
         EventFileReference,
         VideoReference,
-        PapersWithCodeReference,
     )
     from ..people import Name, NameSpecification
     from ..text import MarkupText
@@ -89,7 +101,6 @@ def auto_validate_types(
             AttachmentReference,
             EventFileReference,
             VideoReference,
-            PapersWithCodeReference,
             MarkupText,
             Name,
             NameSpecification,

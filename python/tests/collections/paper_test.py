@@ -17,8 +17,9 @@ import copy
 import pytest
 from acl_anthology.collections import CollectionIndex
 from acl_anthology.collections.types import PaperType, VolumeType
+from acl_anthology.exceptions import AnthologyXMLError
 from acl_anthology.files import AttachmentReference, PDFReference
-from acl_anthology.people import NameSpecification
+from acl_anthology.people import NameSpecification, UNVERIFIED_PID_FORMAT
 from acl_anthology.text import MarkupText
 from acl_anthology.utils.xml import indent
 from lxml import etree
@@ -32,9 +33,15 @@ from acl_anthology.collections.paper import (
 )
 
 
+class CollectionStub:
+    is_modified = False
+
+
 class VolumeStub:
     title = MarkupText.from_string("Generic volume")
     editors = []
+    full_id_tuple = ("2099", "stub", None)
+    parent = CollectionStub()
 
 
 @pytest.fixture
@@ -43,16 +50,29 @@ def index(anthology_stub):
 
 
 def test_paper_minimum_attribs():
-    paper_title = MarkupText.from_string("A minimal example")
     parent = None
-    paper = Paper("42", parent, bibkey="nn-1900-minimal", title=paper_title)
+    paper = Paper("42", parent, bibkey="nn-1900-minimal", title="A minimal example")
     assert not paper.is_deleted
-    assert paper.title == paper_title
+    assert paper.title == "A minimal example"
 
 
 def test_paper_web_url(anthology):
     paper = anthology.get_paper("2022.acl-demo.2")
     assert paper.web_url == "https://aclanthology.org/2022.acl-demo.2/"
+
+
+def test_paper_namespecs():
+    authors = [NameSpecification("John", "Doe")]
+    editors = [NameSpecification("Jane", "Doe")]
+    paper = Paper(
+        "42",
+        None,
+        bibkey="nn-2025-conthrived",
+        title="A conthrived example just for testing",
+        authors=authors,
+        editors=editors,
+    )
+    assert paper.namespecs == authors + editors
 
 
 def test_paper_get_events(anthology):
@@ -130,6 +150,28 @@ def test_paper_change_id(anthology):
     paper.id = "1"
 
 
+@pytest.mark.parametrize(
+    "attr_name",
+    (
+        "id",
+        "bibkey",
+        "title",
+        "attachments",
+        "authors",
+        "awards",
+        "abstract",
+        "doi",
+        "ingest_date",
+        "type",
+    ),
+)
+def test_paper_setattr_sets_collection_is_modified(anthology, attr_name):
+    paper = anthology.get_paper("2022.acl-long.48")
+    assert not paper.collection.is_modified
+    setattr(paper, attr_name, getattr(paper, attr_name))
+    assert paper.collection.is_modified
+
+
 test_cases_language = (
     ("2022.acl-short.11", None, None),
     ("2022.naloma-1.3", "fra", "French"),
@@ -154,7 +196,7 @@ def test_paper_language(anthology, paper_id, language, language_name):
 def test_paper_bibtype():
     volume = VolumeStub()
     volume.type = VolumeType.JOURNAL
-    paper = Paper("1", volume, bibkey="", title=MarkupText.from_string(""))
+    paper = Paper("1", volume, bibkey="", title="")
     assert paper.bibtype == "article"
     volume.type = VolumeType.PROCEEDINGS
     assert paper.bibtype == "inproceedings"
@@ -168,7 +210,7 @@ def test_paper_remove_author(anthology):
     paper = anthology.get_paper("2022.acl-demo.2")
     ns = paper.authors[-1]
     person = anthology.resolve(ns)
-    assert person.id == "iryna-gurevych"
+    assert person.id == UNVERIFIED_PID_FORMAT.format(pid="iryna-gurevych")
     assert paper.full_id_tuple in person.item_ids
 
     # Removing last author from paper
@@ -205,6 +247,7 @@ test_cases_xml = (
   <title>Strings from neurons to language</title>
   <author><first>Tim</first><last>Fernando</last></author>
   <pages>1–10</pages>
+  <abstract/>
   <url hash="61daae5b">2022.naloma-1.1</url>
   <bibkey>fernando-2022-strings</bibkey>
 </paper>
@@ -256,8 +299,6 @@ test_cases_xml = (
   <award>Most ridiculous entry</award>
   <removed date="2023-09-30">Removed immediately for being fake</removed>
   <bibkey>why-would-you-cite-this</bibkey>
-  <pwccode url="https://github.com/acl-org/fake-repo" additional="false">acl-org/fake-repo</pwccode>
-  <pwcdataset url="https://paperswithcode.com/dataset/fake-dataset">FaKe-DaTaSeT</pwcdataset>
 </paper>
 """,
 )
@@ -269,6 +310,18 @@ def test_paper_roundtrip_xml(xml):
     out = paper.to_xml()
     indent(out)
     assert etree.tostring(out, encoding="unicode") == xml
+
+
+def test_paper_from_xml_invalid_tag():
+    xml = """<paper id="9">
+  <title>Briefly Noted</title>
+  <speaker><first>John</first><last>Doe</last></speaker>
+  <url hash="166bd6c1">J89-1009</url>
+  <bibkey>nn-1989-briefly</bibkey>
+</paper>
+"""
+    with pytest.raises(AnthologyXMLError):
+        Paper.from_xml(VolumeStub(), etree.fromstring(xml))
 
 
 test_cases_paper_to_bibtex = (

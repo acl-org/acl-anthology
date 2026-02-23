@@ -17,6 +17,8 @@
 from attrs import define
 from omegaconf import OmegaConf
 from platformdirs import PlatformDirs
+from rich.console import Console
+import sys
 
 
 @define
@@ -57,3 +59,6 @@ config = OmegaConf.structured(DefaultConfig)
 
 dirs = PlatformDirs("acl-anthology")
 """A [PlatformDirs instance](https://platformdirs.readthedocs.io/en/latest/api.html#platformdirs) that returns platform-specific directories for storing data."""
+
+primary_console = Console(stderr=not sys.stdout.isatty())
+"""A [Rich Console instance](https://rich.readthedocs.io/en/latest/console.html) that will be used to output progress bars and log messages. Defaults to STDOUT if it's a TTY, and STDERR otherwise."""

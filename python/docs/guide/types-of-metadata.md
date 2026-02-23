@@ -26,6 +26,9 @@ paper.attachments      # is {}
 paper.language         # is None
 ```
 
+When modifying metadata fields, most of them will [perform input validation
+and/or conversion](modifying-data.md#modifying-publications).
+
 ## Markup text
 
 Two of the most common field types, **titles** and **abstracts**, can contain
@@ -43,7 +46,15 @@ This means that such metadata fields don't contain strings, but rather
 MarkupText('S<span class="tex-math"><sup>4</sup></span>-Tuning: A Simple Cross-lingual Sub-network Tuning Method')
 ```
 
-To work with these as Unicode strings, you need to explicitly convert them:
+For convenience, they support a limited subset of string methods, for example:
+
+```pycon
+>>> paper.title.startswith("S")  # True
+>>> "Tuning" in paper.title      # True
+```
+
+If MarkupText is converted to a string, any containing markup will be discarded:
+
 ```pycon
 >>> str(paper.title)
 'S4-Tuning: A Simple Cross-lingual Sub-network Tuning Method'

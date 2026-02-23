@@ -6,7 +6,7 @@ name: preview
 on:
   push:
     branches:
-    - '*'
+    - '**'
     - '!master'
     - '!python-*'
 
@@ -20,9 +20,19 @@ jobs:
     if: github.repository == 'acl-org/acl-anthology'
     runs-on:
       labels: ubuntu-latest-m
+    env:
+      HUGO_VERSION: 0.154.2
+      DART_SASS_VERSION: 1.97.1
     steps:
     - name: install hugo
-      run: wget https://github.com/gohugoio/hugo/releases/download/v0.140.2/hugo_extended_0.140.2_linux-amd64.deb && sudo dpkg -i hugo_extended*.deb
+      run: wget "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb" && sudo dpkg -i "hugo_extended_${HUGO_VERSION}_linux-amd64.deb"
+    - name: Install Dart Sass
+      run: |
+        mkdir -p "${HOME}/.local"
+        curl -sLJO "https://github.com/sass/dart-sass/releases/download/${DART_SASS_VERSION}/dart-sass-${DART_SASS_VERSION}-linux-x64.tar.gz"
+        tar -C "${HOME}/.local" -xf "dart-sass-${DART_SASS_VERSION}-linux-x64.tar.gz"
+        rm "dart-sass-${DART_SASS_VERSION}-linux-x64.tar.gz"
+        echo "${HOME}/.local/dart-sass" >> "${GITHUB_PATH}"
     - name: update
       run: sudo apt-get update
     - name: install other deps
@@ -44,12 +54,15 @@ jobs:
         python -m pip install lxml
     - name: extract branch name
       shell: bash
-      run: echo "branch=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_OUTPUT
+      run: |
+        raw_branch="${GITHUB_REF#refs/heads/}"
+        branch="${raw_branch//\//_}"
+        echo "branch=$(echo ${branch})" >> $GITHUB_OUTPUT
       id: extract_branch
-    - name: list volumes
+    - name: list changes
       shell: bash
-      run: echo "volumes=$(git diff --name-only $GITHUB_REF origin/master | python ./bin/volumes_from_diff.py https://preview.aclanthology.org/${{ steps.extract_branch.outputs.branch }}/volumes)" >> $GITHUB_OUTPUT
-      id: list_volumes
+      run: echo "changes=$(git diff --name-only $GITHUB_REF origin/master | python ./bin/get_changes_from_git_diff.py https://preview.aclanthology.org/${{ steps.extract_branch.outputs.branch }})" >> $GITHUB_OUTPUT
+      id: list_changes
 #    - name: list volumes debug
 #      shell: bash
 #      run: |
@@ -68,7 +81,7 @@ jobs:
         message: |
           Build successful. Some useful links:
           * Complete site preview: https://preview.aclanthology.org/${{ steps.extract_branch.outputs.branch }}
-          * Potential volumes of interest: ${{ steps.list_volumes.outputs.volumes }}
+          * Potential changes of interest: ${{ steps.list_changes.outputs.changes }}
 
           This preview will be removed when the branch is merged.
         repo-token: ${{ secrets.GITHUB_TOKEN }}

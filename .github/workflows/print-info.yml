@@ -10,10 +10,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Print event details
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_BODY: ${{ github.event.pull_request.body }}
         run: |
           cat << "END_OF_BLOCK"
           Event Name: ${{ github.event_name }}
           Action: ${{ github.event.action }}
-          PR Title: ${{ github.event.pull_request.title }}
-          Original PR Body: ${{ github.event.pull_request.body }}
+          PR Title: $PR_TITLE
+          Original PR Body: $PR_BODY
           END_OF_BLOCK

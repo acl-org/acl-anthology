@@ -15,7 +15,7 @@
 from __future__ import annotations
 
 import attrs
-from attrs import define, field, validators as v
+from attrs import define, field, converters, setters, validators as v
 import datetime
 from functools import cached_property
 import langcodes
@@ -28,14 +28,18 @@ from ..config import config
 from ..exceptions import AnthologyInvalidIDError, AnthologyXMLError
 from ..files import (
     AttachmentReference,
-    PapersWithCodeReference,
     PDFReference,
     PDFThumbnailReference,
     VideoReference,
 )
 from ..people import NameSpecification
-from ..text import MarkupText
-from ..utils.attrs import auto_validate_types, date_to_str, int_to_str
+from ..text import MarkupText, to_markuptext
+from ..utils.attrs import (
+    auto_validate_types,
+    date_to_str,
+    int_to_str,
+    track_modifications,
+)
 from ..utils.citation import citeproc_render_html, render_acl_citation
 from ..utils.ids import build_id, is_valid_item_id, AnthologyIDTuple
 from ..utils.latex import make_bibtex_entry
@@ -45,7 +49,7 @@ from .types import PaperDeletionType, PaperType, VolumeType
 if TYPE_CHECKING:
     from ..anthology import Anthology
     from ..utils.latex import SerializableAsBibTeX
-    from . import Event, Volume
+    from . import Event, Volume, Collection
 
 log = get_logger()
 
@@ -215,7 +219,10 @@ def _update_bibkey_index(paper: Paper, attr: attrs.Attribute[Any], value: str) -
     return value
 
 
-@define(field_transformer=auto_validate_types)
+@define(
+    field_transformer=auto_validate_types,
+    on_setattr=[setters.convert, setters.validate, track_modifications],
+)
 class Paper:
     """A paper entry.
 
@@ -247,17 +254,16 @@ class Paper:
         language: The language this paper is (mainly) written in.  When given, this should be a ISO 639-2 code (e.g. "eng"), though occasionally IETF is used (e.g. "pt-BR").
         note: A note attached to this paper.  Used very sparingly.
         pages: Page numbers of this paper within its volume.
-        paperswithcode: Links to code implementations and datasets as provided by [Papers with Code](https://paperswithcode.com/).
         pdf: A reference to the paper's PDF.
         type: The paper's type, currently used to mark frontmatter and backmatter.
     """
 
-    id: str = field(converter=int_to_str)
+    id: str = field(converter=int_to_str)  # validator defined below
     parent: Volume = field(repr=False, eq=False)
     bibkey: str = field(
-        on_setattr=attrs.setters.pipe(attrs.setters.validate, _update_bibkey_index),
+        on_setattr=[setters.validate, track_modifications, _update_bibkey_index],
     )
-    title: MarkupText = field()
+    title: MarkupText = field(converter=to_markuptext)
 
     attachments: list[tuple[str, AttachmentReference]] = field(
         factory=list,
@@ -289,20 +295,24 @@ class Paper:
     )
     videos: list[VideoReference] = field(factory=list, repr=False)
 
-    abstract: Optional[MarkupText] = field(default=None)
+    abstract: Optional[MarkupText] = field(
+        default=None, converter=converters.optional(to_markuptext)
+    )
     deletion: Optional[PaperDeletionNotice] = field(
         default=None, repr=False, validator=v.optional(v.instance_of(PaperDeletionNotice))
     )
     doi: Optional[str] = field(default=None, repr=False)
-    ingest_date: Optional[str] = field(default=None, repr=False)
+    ingest_date: Optional[str] = field(
+        default=None,
+        repr=False,
+        converter=date_to_str,
+        validator=v.optional(v.matches_re(constants.RE_ISO_DATE)),
+    )
     issue: Optional[str] = field(default=None, repr=False)
     journal: Optional[str] = field(default=None, repr=False)
     language: Optional[str] = field(default=None, repr=False)
     note: Optional[str] = field(default=None, repr=False)
     pages: Optional[str] = field(default=None, repr=False)
-    paperswithcode: Optional[PapersWithCodeReference] = field(
-        default=None, on_setattr=attrs.setters.frozen, repr=False
-    )
     pdf: Optional[PDFReference] = field(default=None, repr=False)
     type: PaperType = field(default=PaperType.PAPER, repr=False, converter=PaperType)
 
@@ -310,6 +320,11 @@ class Paper:
     def _check_id(self, _: Any, value: str) -> None:
         if not is_valid_item_id(value):
             raise AnthologyInvalidIDError(value, "not a valid paper ID")
+
+    @property
+    def collection(self) -> Collection:
+        """The collection this paper belongs to."""
+        return self.parent.parent
 
     @property
     def collection_id(self) -> str:
@@ -443,6 +458,11 @@ class Paper:
     def web_url(self) -> str:
         """The URL of this paper's landing page on the ACL Anthology website."""
         return cast(str, config["paper_page_template"]).format(self.full_id)
+
+    @property
+    def namespecs(self) -> list[NameSpecification]:
+        """All name specifications on this paper."""
+        return self.authors + self.editors
 
     def get_editors(self) -> list[NameSpecification]:
         """
@@ -671,10 +691,6 @@ class Paper:
                 if "errata" not in kwargs:
                     kwargs["errata"] = []
                 kwargs["errata"].append(PaperErratum.from_xml(element))
-            elif element.tag in ("pwccode", "pwcdataset"):
-                if "paperswithcode" not in kwargs:
-                    kwargs["paperswithcode"] = PapersWithCodeReference()
-                kwargs["paperswithcode"].append_from_xml(element)
             elif element.tag in ("removed", "retracted"):
                 kwargs["deletion"] = PaperDeletionNotice.from_xml(element)
             elif element.tag == "revision":
@@ -751,6 +767,4 @@ class Paper:
         if self.deletion is not None:
             paper.append(self.deletion.to_xml())
         paper.append(E.bibkey(self.bibkey))
-        if self.paperswithcode is not None:
-            paper.extend(self.paperswithcode.to_xml_list())
         return paper

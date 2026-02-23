@@ -14,8 +14,9 @@
 
 import pytest
 from pathlib import Path
-from acl_anthology.sigs import SIGIndex, SIGMeeting, SIG
+from unittest.mock import patch
 
+from acl_anthology.sigs import SIGIndex, SIGMeeting, SIG
 
 all_toy_sigs = ("sigdat", "sigsem")
 
@@ -44,9 +45,12 @@ def test_sig_get_meetings_by_year():
     }
 
 
-def test_sig_save(tmp_path):
+def test_sig_save(tmp_path, anthology_stub):
+    class SIGIndexStub:
+        parent = anthology_stub
+
     path = tmp_path / "foo.yaml"
-    sig = SIG(None, "foo", "FOO", "Special Interest Group on Foobar", path)
+    sig = SIG(SIGIndexStub(), "foo", "FOO", "Special Interest Group on Foobar", path)
     sig.save()
     assert path.is_file()
     with open(path, "r", encoding="utf-8") as f:
@@ -115,3 +119,11 @@ def test_sig_by_volume(anthology):
     sigs = index.by_volume("2022.naloma-1")
     assert len(sigs) == len(all_toy_sigs)
     assert set(sig.id for sig in sigs) == set(all_toy_sigs)
+
+
+def test_sigindex_save(anthology):
+    index = SIGIndex(anthology)
+    index.load()
+    with patch.object(SIG, "save") as mock:
+        index.save()
+        assert mock.call_count == len(index)

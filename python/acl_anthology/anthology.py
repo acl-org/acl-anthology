@@ -1,4 +1,4 @@
-# Copyright 2023-2025 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2026 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,11 +19,12 @@ import itertools as it
 import pkgutil
 import sys
 import warnings
+from git.repo import Repo
 from lxml.etree import RelaxNG
 from pathlib import Path
 from rich.progress import track
 from slugify import slugify
-from typing import cast, overload, Iterator, Optional, TypeAlias, TYPE_CHECKING
+from typing import cast, overload, Iterable, Iterator, Optional, TypeAlias, TYPE_CHECKING
 
 if sys.version_info >= (3, 11):
     from typing import Self
@@ -33,7 +34,7 @@ else:
 if TYPE_CHECKING:
     from _typeshed import StrPath
 
-from .config import config, dirs
+from .config import config, dirs, primary_console
 from .exceptions import AnthologyException, SchemaMismatchWarning
 from .utils import git
 from .utils.ids import AnthologyID, parse_id
@@ -54,25 +55,29 @@ class Anthology:
 
     Attributes:
         datadir: The path to the data folder.
-        verbose: If False, will not show progress bars during longer operations.
+        verbose: Whether or not to show progress bars during longer operations.  If this argument is not supplied explicitly, it will default to True _if_ the standard output is a terminal.
     """
 
-    def __init__(self, datadir: StrPath, verbose: bool = True) -> None:
-        if not Path(datadir).is_dir():
+    def __init__(self, datadir: StrPath, verbose: Optional[bool] = None) -> None:
+        if not Path(datadir).is_dir():  # pragma: no cover
             raise FileNotFoundError(f"Not a directory: {datadir}")
 
         self.datadir = Path(datadir)
+        if verbose is None:
+            verbose = primary_console.is_terminal
         self.verbose = verbose
         self._check_schema_compatibility()
         self._relaxng: Optional[RelaxNG] = None
+        self._is_in_default_path: bool = False
+        """If set to True by Anthology.from_repo(), attempts to save will throw a warning."""
 
         self.collections = CollectionIndex(self)
         """The [CollectionIndex][acl_anthology.collections.CollectionIndex] for accessing collections, volumes, and papers."""
 
-        self.events = EventIndex(self, verbose)
+        self.events = EventIndex(self)
         """The [EventIndex][acl_anthology.collections.EventIndex] for accessing events."""
 
-        self.people = PersonIndex(self, verbose)
+        self.people = PersonIndex(self)
         """The [PersonIndex][acl_anthology.people.PersonIndex] for accessing authors and editors."""
 
         self.sigs = SIGIndex(self)
@@ -100,24 +105,49 @@ class Anthology:
         cls,
         repo_url: str = "https://github.com/acl-org/acl-anthology.git",
         path: Optional[StrPath] = None,
-        verbose: bool = True,
+        verbose: Optional[bool] = None,
     ) -> Self:
         """Instantiates the Anthology from a Git repo.
 
         Arguments:
             repo_url: The URL of a Git repo with Anthology data.  If not given, defaults to the official ACL Anthology repo.
             path: The local path for the repo data.  If not given, automatically determines a path within the user's data directory.
-            verbose: If False, will not show progress bars during longer operations.
+            verbose: Whether or not to show progress bars during longer operations.  If this argument is not supplied explicitly, it will default to True _if_ the standard output is a terminal.
+
+        Note:
+            If no explicit `path` is supplied, attempts to call any save functions on the returned objects will throw a warning, since this is likely a user error.
         """
-        if path is None:
+        in_default_path = False
+        if path is None:  # pragma: no cover
             path = (
                 dirs.user_data_path
                 / "git"
                 / slugify(repo_url).replace("https-github-com-", "")
             )
+            in_default_path = True
         else:
             path = Path(path)
         git.clone_or_pull_from_repo(repo_url, path, verbose)
+        anthology = cls(datadir=path / "data", verbose=verbose)
+        anthology._is_in_default_path = in_default_path
+        return anthology
+
+    @classmethod
+    def from_within_repo(
+        cls,
+        verbose: Optional[bool] = None,
+    ) -> Self:
+        """Instantiates the Anthology from within its own Git repo, using the repo's main data folder.
+
+        Assumes that you have cloned the acl-org/acl-anthology repo and run a script that imports this library from within the repo.
+
+        Arguments:
+            verbose: Whether or not to show progress bars during longer operations.  If this argument is not supplied explicitly, it will default to True _if_ the standard output is a terminal.
+
+        Raises:
+            git.InvalidGitRepositoryError: If this module is not within a Git repository, e.g. if it was pip-installed.
+        """
+        path = Path(Repo(__file__, search_parent_directories=True).working_dir)
         return cls(datadir=path / "data", verbose=verbose)
 
     def load_all(self) -> Self:
@@ -134,6 +164,7 @@ class Anthology:
             gc.disable()
         elem = None
         raised_exception = False
+        was_verbose = self.verbose
         try:
             indices_to_load = (
                 self.collections.bibkeys,
@@ -142,18 +173,18 @@ class Anthology:
                 self.sigs,
                 self.venues,
             )
-            iterator = track(
-                it.chain(
-                    self.collections.values(),
-                    indices_to_load,
-                ),
-                total=len(self.collections) + len(indices_to_load),
-                disable=(not self.verbose),
-                description="Loading Anthology data...",
+            iterator: Iterable[object] = it.chain(
+                self.collections.values(),
+                indices_to_load,
             )
             if self.verbose:
-                self.events.verbose = False
-                self.people.verbose = False
+                iterator = track(
+                    iterator,
+                    total=len(self.collections) + len(indices_to_load),
+                    description="Loading Anthology data...",
+                    console=primary_console,
+                )
+                self.verbose = False
             for elem in iterator:
                 try:
                     elem.load()  # type: ignore
@@ -168,9 +199,8 @@ class Anthology:
                             exc.add_note(note)
                     log.exception(exc)
                     raised_exception = True
-            if self.verbose:
-                self.events.verbose = True
-                self.people.verbose = True
+            if was_verbose:
+                self.verbose = True
         finally:
             if was_gc_enabled:
                 gc.enable()
@@ -178,6 +208,32 @@ class Anthology:
             raise Exception(
                 "An exception was raised during loading; check the logger for details."
             )
+        return self
+
+    def _warn_if_in_default_path(self) -> None:
+        """Check if the data directory is the default path set by `Anthology.from_repo()` and throw a warning if that is the case, because saving data there is likely a user error."""
+        if self._is_in_default_path:
+            warnings.warn(
+                UserWarning(
+                    f"Anthology datadir is {self.datadir} -- are you sure you want to save there?"
+                )
+            )
+
+    def save_all(self) -> Self:
+        """Save all Anthology data files."""
+        self._warn_if_in_default_path()
+        for collection in self.collections.values():
+            if collection.is_modified:
+                collection.save()
+        if self.people.is_data_loaded:
+            self.people.save()
+        if self.venues.is_data_loaded:
+            self.venues.save()
+        warnings.warn(
+            UserWarning(
+                "SIG metadata is not yet automatically saved.  Call `.sigs.save()` manually if you need this."
+            )
+        )
         return self
 
     def reset_indices(self) -> Self:
@@ -242,7 +298,7 @@ class Anthology:
         Returns:
             The object corresponding to the given ID.
         """
-        (collection_id, volume_id, paper_id) = parse_id(full_id)
+        collection_id, volume_id, paper_id = parse_id(full_id)
         collection = self.collections.get(collection_id)
         if collection is None or volume_id is None:
             return collection
@@ -260,7 +316,7 @@ class Anthology:
         Returns:
             The collection associated with the given ID.
         """
-        (collection_id, *_) = parse_id(full_id)
+        collection_id, *_ = parse_id(full_id)
         return self.collections.get(collection_id)
 
     def get_volume(self, full_id: AnthologyID) -> Optional[Volume]:
@@ -272,7 +328,7 @@ class Anthology:
         Returns:
             The volume associated with the given ID.
         """
-        (collection_id, volume_id, _) = parse_id(full_id)
+        collection_id, volume_id, _ = parse_id(full_id)
         collection = self.collections.get(collection_id)
         if collection is None or volume_id is None:
             return None
@@ -287,7 +343,7 @@ class Anthology:
         Returns:
             The paper associated with the given ID.
         """
-        (collection_id, volume_id, paper_id) = parse_id(full_id)
+        collection_id, volume_id, paper_id = parse_id(full_id)
         volume = self.get_volume((collection_id, volume_id, None))
         if volume is None or paper_id is None:
             return None

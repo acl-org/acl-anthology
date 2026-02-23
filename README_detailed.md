@@ -117,9 +117,9 @@ comprise:
   Each venue has its own yaml file that contains venue specific information
   such as venue acronym, venue full name and venue url.
 
-+ A name variant list ([`name_variants.yaml`](data/yaml/name_variants.yaml)) that
++ A name variant list ([`people.yaml`](data/yaml/people.yaml)) that
   defines which author names should be treated as identical for purposes of
-  generating "author" pages.
+  generating "author" pages. See also: [`names.md`](hugo/content/info/names.md).
 
 The "acl-anthology" module under [`python/`](python/) is responsible
 for parsing and interpreting all these data files.  Some information that is not
@@ -144,12 +144,15 @@ HTML templates for the website are found under [`hugo/layouts/`](hugo/layouts/).
   [`papers/list-entry.html`](hugo/layouts/papers/list-entry.html).
 
 CSS styling for the website is based on [Bootstrap
-4.3](https://getbootstrap.com/docs/4.3/).  The final CSS is compiled from
+5.3](https://getbootstrap.com/docs/5.3/).  The final CSS is compiled from
 [`hugo/assets/css/main.scss`](hugo/assets/css/main.scss), which defines
 
 1. which Bootstrap components to include,
 2. which Bootstrap variables to customize (e.g. colors), and
 3. additional style definitions on top of that.
+
+We use the [Inter](https://rsms.me/inter/) font family, which is self-hosted
+within the repository to ensure visual consistency and privacy.
 
 
 ### Adding new years to the Anthology

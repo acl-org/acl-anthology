@@ -17,7 +17,6 @@
 from typing import cast, Optional
 import unicodedata
 
-
 _MONTH_TO_NUM: dict[str, int] = {
     "january": 1,
     "february": 2,

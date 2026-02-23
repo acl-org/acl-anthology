@@ -18,9 +18,8 @@ from .bibkeys import BibkeyIndex
 from .eventindex import EventIndex
 from .event import Event, Talk
 from .volume import Volume
-from .types import EventLinkingType, PaperDeletionType, PaperType, VolumeType
+from .types import EventLink, PaperDeletionType, PaperType, VolumeType
 from .paper import Paper
-
 
 __all__ = [
     "BibkeyIndex",
@@ -28,7 +27,7 @@ __all__ = [
     "CollectionIndex",
     "Event",
     "EventIndex",
-    "EventLinkingType",
+    "EventLink",
     "Paper",
     "PaperDeletionType",
     "PaperType",

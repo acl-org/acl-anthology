@@ -14,8 +14,12 @@
 
 import pytest
 from lxml.etree import RelaxNG
+from unittest.mock import patch
+
 from acl_anthology import Anthology
-from acl_anthology.people import Name
+from acl_anthology.collections import Collection
+from acl_anthology.people import PersonIndex, Name
+from acl_anthology.venues import VenueIndex
 
 
 def test_instantiate(shared_datadir):
@@ -56,6 +60,11 @@ def test_get_paper(anthology):
     assert paper is not None
     assert paper.id == "1"
     assert paper.full_id == "2022.acl-long.1"
+
+
+def test_get_paper_that_doesnt_exist(anthology):
+    paper = anthology.get_paper("1922.acl-long.1")
+    assert paper is None
 
 
 @pytest.mark.parametrize(
@@ -112,7 +121,7 @@ def test_papers(anthology):
         count += 1
         found.add(paper.collection_id)
     assert expected == found
-    assert count == 851
+    assert count == 852
 
 
 def test_papers_by_collection_id(anthology):
@@ -120,7 +129,7 @@ def test_papers_by_collection_id(anthology):
     for paper in anthology.papers("2022.naloma"):
         assert paper.collection_id == "2022.naloma"
         count += 1
-    assert count == 6
+    assert count == 7
 
 
 def test_papers_by_volume_id(anthology):
@@ -142,10 +151,10 @@ def test_get_event(anthology):
 
 
 def test_get_person(anthology):
-    person = anthology.get_person("yang-liu-edinburgh")
+    person = anthology.get_person("yang-liu-microsoft")
     assert person is not None
     assert person.canonical_name == Name("Yang", "Liu")
-    assert person.comment == "Edinburgh"
+    assert person.comment == "Microsoft Cognitive Services Research"
 
 
 def test_find_people(anthology):
@@ -167,7 +176,9 @@ def test_resolve_author_list(anthology):
     assert person[0].canonical_name == Name("Oliviero", "Stock")
 
 
-def test_load_all(anthology):
+@pytest.mark.parametrize("verbose", (True, False))
+def test_load_all(anthology, verbose):
+    anthology.verbose = verbose
     anthology.load_all()
     assert anthology.collections.is_data_loaded
     assert anthology.collections["J89"].is_data_loaded
@@ -176,3 +187,26 @@ def test_load_all(anthology):
     assert anthology.people.is_data_loaded
     assert anthology.sigs.is_data_loaded
     assert anthology.venues.is_data_loaded
+
+
+def test_save_all(anthology):
+    anthology.load_all()
+    anthology.collections["J89"].is_modified = True
+    anthology.collections["2022.acl"].is_modified = True
+    with (
+        patch.object(Collection, "save", autospec=True) as mock,
+        patch.object(PersonIndex, "save") as people_mock,
+        patch.object(VenueIndex, "save") as venue_mock,
+        pytest.warns(UserWarning),
+    ):
+        anthology.save_all()
+
+        # Get the instances that called save (first argument is self)
+        called_instances = [call[0][0] for call in mock.call_args_list]
+        assert anthology.collections["J89"] in called_instances
+        assert anthology.collections["2022.acl"] in called_instances
+        assert mock.call_count == 2  # no other instances have called save
+
+        # Check the others
+        people_mock.assert_called_once()
+        venue_mock.assert_called_once()

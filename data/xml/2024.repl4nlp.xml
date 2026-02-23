@@ -45,9 +45,9 @@
     <paper id="3">
       <title>Relevance-aware Diverse Query Generation for Out-of-domain Text Ranking</title>
       <author><first>Jia-Huei</first><last>Ju</last></author>
-      <author><first>Huck Chao-Han</first><last>Yang</last></author>
+      <author id="chao-han-huck-yang"><first>Huck Chao-Han</first><last>Yang</last></author>
       <author><first>Szu-Wei</first><last>Fu</last></author>
-      <author><first>Ming-Feng</first><last>Tsai</last></author>
+      <author id="ming-feng-tsai"><first>Ming-Feng</first><last>Tsai</last></author>
       <author><first>Chuan-Ju</first><last>Wang</last></author>
       <pages>26-36</pages>
       <abstract>Domain adaptation presents significant challenges for out-of-domain text ranking, especially when supervised data is limited. In this paper, we present ReadQG (Relevance-Aware Diverse Query Generation), a method to generate informative synthetic queries to facilitate the adaptation process of text ranking models. Unlike previous approaches focusing solely on relevant query generation, our ReadQG generates diverse queries with continuous relevance scores. Specifically, we propose leveraging soft-prompt tuning and diverse generation objectives to control query generation according to the given relevance. Our experiments show that integrating negative queries into the learning process enhances the effectiveness of text ranking models in out-of-domain information retrieval (IR) benchmarks. Furthermore, we measure the quality of query generation, highlighting the underlying beneficial characteristics of negative queries. Our empirical results and analysis also shed light on potential directions for more advanced data augmentation in IR. The data and code have been released.</abstract>
@@ -121,7 +121,7 @@
       <author><first>Edward</first><last>Gow-Smith</last></author>
       <author><first>Dylan</first><last>Phelps</last></author>
       <author><first>Harish</first><last>Tayyar Madabushi</last><affiliation>University of Bath</affiliation></author>
-      <author><first>Carolina</first><last>Scarton</last><affiliation>University of Sheffield</affiliation></author>
+      <author id="carolina-scarton"><first>Carolina</first><last>Scarton</last><affiliation>University of Sheffield</affiliation></author>
       <author><first>Aline</first><last>Villavicencio</last><affiliation>University of Exeter and University of Sheffield</affiliation></author>
       <pages>118-135</pages>
       <abstract>All existing transformer-based approaches to NLP using subword tokenisation algorithms encode whitespace (word boundary information) through the use of special space symbols (such as ## or _) forming part of tokens. These symbols have been shown to a) lead to reduced morphological validity of tokenisations, and b) give substantial vocabulary redundancy. As such, removing these symbols has been shown to have a beneficial effect on the processing of morphologically complex words for transformer encoders in the pretrain-finetune paradigm. In this work, we explore whether word boundary information is at all useful to such models. In particular, we train transformer encoders across four different training scales, and investigate several alternative approaches to including word boundary information, evaluating on two languages (English and Finnish) with a range of tasks across different domains and problem set-ups: sentence classification datasets, NER (for token-level classification), and two classification datasets involving complex words (Superbizarre and FLOTA). Overall, through an extensive experimental setup that includes the pre-training of 35 models, we find no substantial improvements from our alternative approaches, suggesting that modifying tokenisers to remove word boundary information isn’t leading to a loss of useful information.</abstract>
@@ -143,7 +143,7 @@
       <author><first>Heike</first><last>Adel</last><affiliation>Hochschule der Medien (University of Applied Sciences)</affiliation></author>
       <author><first>Lukas</first><last>Lange</last><affiliation>Robert Bosch GmbH, Bosch</affiliation></author>
       <author><first>Jannik</first><last>Strötgen</last><affiliation>Karlsruhe University of Applied Sciences</affiliation></author>
-      <author><first>Hinrich</first><last>Schuetze</last></author>
+      <author id="hinrich-schutze"><first>Hinrich</first><last>Schuetze</last></author>
       <pages>163-176</pages>
       <abstract>In real-world environments, continual learning is essential for machine learning models, as they need to acquire new knowledge incrementally without forgetting what they have already learned. While pretrained language models have shown impressive capabilities on various static tasks, applying them to continual learning poses significant challenges, including avoiding catastrophic forgetting, facilitating knowledge transfer, and maintaining parameter efficiency. In this paper, we introduce MoCL-P, a novel lightweight continual learning method that addresses these challenges simultaneously. Unlike traditional approaches that continuously expand parameters for newly arriving tasks, MoCL-P integrates task representation-guided module composition with adaptive pruning, effectively balancing knowledge integration and computational overhead. Our evaluation across three continual learning benchmarks with up to 176 tasks shows that MoCL-P achieves state-of-the-art performance and improves parameter efficiency by up to three times, demonstrating its potential for practical applications where resource requirements are constrained.</abstract>
       <url hash="b945aedd">2024.repl4nlp-1.12</url>
@@ -174,7 +174,7 @@
     </paper>
     <paper id="15">
       <title>Tracking linguistic information in transformer-based sentence embeddings through targeted sparsification</title>
-      <author><first>Vivi</first><last>Nastase</last><affiliation>University of Geneva</affiliation></author>
+      <author id="vivi-nastase"><first>Vivi</first><last>Nastase</last><affiliation>University of Geneva</affiliation></author>
       <author><first>Paola</first><last>Merlo</last><affiliation>Idiap Research Institute and University of Geneva, Switzerland</affiliation></author>
       <pages>203-214</pages>
       <abstract>Analyses of transformer-based models have shown that they encode a variety of linguistic information from their textual input. While these analyses have shed a light on the relation between linguistic information on one side, and internal architecture and parameters on the other, a question remains unanswered: how is this linguistic information reflected in sentence embeddings? Using datasets consisting of sentences with known structure, we test to what degree information about chunks (in particular noun, verb or prepositional phrases), such as grammatical number, or semantic role, can be localized in sentence embeddings. Our results show that such information is not distributed over the entire sentence embedding, but rather it is encoded in specific regions. Understanding how the information from an input text is compressed into sentence embeddings helps understand current transformer models and help build future explainable neural models.</abstract>

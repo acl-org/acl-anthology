@@ -42,7 +42,6 @@ from anthology.utils import (
 
 import lxml.etree as ET
 
-
 ### Copy-pasted from data.py and utils.py
 
 JOURNAL_IDS = ("cl", "tacl", "tal", "lilt", "ijclclp")

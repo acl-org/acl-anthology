@@ -1,4 +1,4 @@
-# Copyright 2023-2025 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2026 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -129,6 +129,7 @@ class SIG:
             path: The filename to save to. If None, defaults to `self.path`.
         """
         if path is None:
+            self.root._warn_if_in_default_path()
             path = self.path
         values = {
             "Name": self.name,
@@ -208,6 +209,11 @@ class SIGIndex(SlottedDict[SIG]):
                     self.reverse[volume_fid].add(sig.id)
 
         self.is_data_loaded = True
+
+    def save(self) -> None:
+        """Save all SIG metadata to `sigs/*.yaml` files."""
+        for sig in self.values():
+            sig.save()
 
     def by_volume(self, volume: Volume | AnthologyID) -> list[SIG]:
         """Find SIGs associated with a volume."""

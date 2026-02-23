@@ -7,13 +7,14 @@ We are grateful to all our contributors whose work makes this collection of scho
 
 ### Active Volunteers
 
-+ **Director** [Matt Post](http://post3.net/) (2019&ndash;)
++ **Director** [Matt Post](http://waypost.net/) (2019—)
 + **Indexing Lead**: [A. Seza Doğruöz](https://lt3.ugent.be/people/as-dogruoz/) (Universiteit Gent)
-+ **Site Development Lead**: [Marcel Bollmann](https://marcel.bollmann.me/) (Jönköping University)
++ **Site Development Lead**: [Marcel Bollmann](https://marcel.bollmann.me/) (Linköping University)
 + [David Chiang](https://www3.nd.edu/~dchiang/) (University of Notre Dame)
 + [Arne Köhn](https://arne.chark.eu) (New Work SE)
 + [Daniel Gildea](https://www.cs.rochester.edu/u/gildea/) (University of Rochester)
 + [Nathan Schneider](http://people.cs.georgetown.edu/nschneid/) (Georgetown University)
++ [Pia Weißenhorn](https://github.com/weissenh)
 
 ### Past Volunteers
 
@@ -34,14 +35,15 @@ We are grateful to all our contributors whose work makes this collection of scho
 
 ### Past Directors
 
-+ [Min-Yen Kan](http://www.comp.nus.edu.sg/~kanmy/) (2008&ndash;2018)
-+ [Steven Bird](http://stevenbird.net/) (2001&ndash;2007)
++ [Min-Yen Kan](http://www.comp.nus.edu.sg/~kanmy/) (2008–2018)
++ [Steven Bird](http://stevenbird.net/) (2001–2007)
 + Eduard Hovy, John Nerbonne, Mike Rosner, Nicoletta Calzolari and Doug Arnold (Past Associate Editors)
 
-### Assistants
+### Paid Assistants
 
-+ Xinru Yan (2020&ndash;)
-+ [David Stap](https://davidstap.github.io) (2020&ndash;)
++ Ankur Kejriwal (2025—)
++ [David Stap](https://davidstap.github.io) (2020—)
++ Xinru Yan (2020–2025)
 
 ### Donors
 

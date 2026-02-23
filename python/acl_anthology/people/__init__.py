@@ -13,7 +13,15 @@
 # limitations under the License.
 
 from .name import Name, NameSpecification, ConvertableIntoName
-from .person import Person
-from .index import PersonIndex
+from .person import Person, NameLink
+from .index import PersonIndex, UNVERIFIED_PID_FORMAT
 
-__all__ = ["ConvertableIntoName", "Name", "NameSpecification", "Person", "PersonIndex"]
+__all__ = [
+    "ConvertableIntoName",
+    "Name",
+    "NameLink",
+    "NameSpecification",
+    "Person",
+    "PersonIndex",
+    "UNVERIFIED_PID_FORMAT",
+]

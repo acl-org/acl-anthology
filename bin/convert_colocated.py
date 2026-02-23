@@ -38,7 +38,6 @@ import sys
 
 import lxml.etree as ET
 
-
 sys.path.append("/Users/mattpost/src/acl-anthology/bin")
 from anthology.utils import make_simple_element, indent  # noqa: E402
 

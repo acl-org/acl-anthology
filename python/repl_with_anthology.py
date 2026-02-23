@@ -1,7 +1,7 @@
 #!/usr/bin/env python3 -i
 # -*- coding: utf-8 -*-
 #
-# Copyright 2024 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2024-2026 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@
 #
 # The `just` command for achieving the same thing is
 #
-#   just py
+#   just repl
 #
 ##############################################################################
 
@@ -48,5 +48,5 @@ from acl_anthology import Anthology
 from acl_anthology.utils.logging import setup_rich_logging
 
 setup_rich_logging(level="INFO")
-anthology = Anthology(datadir="../data")
+anthology = Anthology.from_within_repo()
 print(f">>> anthology = {anthology}")
