@@ -15,5 +15,6 @@ Our bulk downloads are available for BibTeX export formats from the following fi
 * [anthology+abstracts.bib.gz](https://aclanthology.org/anthology.bib) contains citations for all papers that exist in the Anthology, including abstracts.
 * [anthology.bib.gz](https://aclanthology.org/anthology.bib.gz) contains all citations but remove abstracts, to save on space.
 * [anthology.bib](https://aclanthology.org/anthology.bib) contains all citations without abstracts, and is suitable for direct import into Overleaf repositories.
+* [anthology-1.bib](https://aclanthology.org/anthology-1.bib), [anthology-2.bib](https://aclanthology.org/anthology-2.bib) etc. are sharded variants that are under 50 MB each, suitable for direct import into Overleaf repositories.
 
 Finally, we also offer [an XML paper feed](https://aclanthology.org/papers/index.xml), which is useful in tools like [Zotero](https://www.zotero.org/) and [Mendeley](https://www.mendeley.com/).
