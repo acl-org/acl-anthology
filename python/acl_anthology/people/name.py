@@ -59,16 +59,30 @@ LAST_NAME_LOWERCASE_PREFIXES = {
     "da",
     "de",
     "del",
+    "de la",
+    "dela",
+    "della",
     "di",
     "dos",
     "du",
+    "el",
     "la",
     "le",
     "van",
+    "van den",
+    "van der",
     "von",
+    "von der",
 }
 """Strings that tend to be lowercased when prefixing a last name; used for [`NameSpecification.case_normalize()`][acl_anthology.people.name.NameSpecification.case_normalize]."""
 
+# Automatically compile LAST_NAME_LOWERCASE_PREFIXES into a regex; the prefixes
+# are reverse-sorted by length so that it is always the longest string that
+# matches (e.g. so that "von der Weide" matches "von der", not just "von").
+_LAST_NAME_LOWERCASE_REGEX = re.compile(
+    f"^({'|'.join(sorted(LAST_NAME_LOWERCASE_PREFIXES, key=lambda s: -len(s)))}) ",
+    flags=re.IGNORECASE,
+)
 
 LAST_NAME_CAPITALIZATION_RULES = ((r"^Mc([a-z])", lambda p: "Mc" + p.group(1).upper()),)
 """Regex rules for heuristically normalizing last names; used for [`NameSpecification.case_normalize()`][acl_anthology.people.name.NameSpecification.case_normalize]."""
@@ -379,10 +393,10 @@ class NameSpecification:
         if first is not None:
             first = first.title()
         last = last.title()
-        last_parts = last.split(" ")
         # Prefixes
-        if len(last_parts) > 1 and last_parts[0].lower() in LAST_NAME_LOWERCASE_PREFIXES:
-            last = last[0].lower() + last[1:]
+        if (m := _LAST_NAME_LOWERCASE_REGEX.match(last)) is not None:
+            print(m)
+            last = m.group(0).lower() + last[m.end() :]
         # Other normalization rules
         for pattern, substitute in LAST_NAME_CAPITALIZATION_RULES:
             last = re.sub(pattern, substitute, last)

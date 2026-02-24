@@ -324,6 +324,10 @@ test_cases_namespec_case_normalize = (
         ("MIRYAM", "DE LHONEUX"),
         ("Miryam", "de Lhoneux"),
     ),  # heuristic for last name particle
+    (
+        ("simon", "von der weide"),
+        ("Simon", "von der Weide"),
+    ),  # heuristic for multi-part last name particle
     (("marc-andre", "hackforth-jones"), ("Marc-Andre", "Hackforth-Jones")),
     (("james", "o'neill"), ("James", "O'Neill")),
     (("JAMES", "O’NEILL"), ("James", "O’Neill")),
