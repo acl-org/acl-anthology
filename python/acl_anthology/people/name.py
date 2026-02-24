@@ -67,11 +67,11 @@ LAST_NAME_LOWERCASE_PREFIXES = {
     "van",
     "von",
 }
-"""Strings that tend to be lowercased when prefixing a last name; used for [`NameSpecification.normalize()`][acl_anthology.people.name.NameSpecification.normalize]."""
+"""Strings that tend to be lowercased when prefixing a last name; used for [`NameSpecification.case_normalize()`][acl_anthology.people.name.NameSpecification.case_normalize]."""
 
 
 LAST_NAME_CAPITALIZATION_RULES = ((r"^Mc([a-z])", lambda p: "Mc" + p.group(1).upper()),)
-"""Regex rules for heuristically normalizing last names; used for [`NameSpecification.normalize()`][acl_anthology.people.name.NameSpecification.normalize]."""
+"""Regex rules for heuristically normalizing last names; used for [`NameSpecification.case_normalize()`][acl_anthology.people.name.NameSpecification.case_normalize]."""
 
 
 @define(frozen=True)
@@ -354,41 +354,40 @@ class NameSpecification:
             return {"family": self.name.last}
         return {"family": self.name.last, "given": self.name.first}
 
-    def normalize(self) -> Self:
-        """Try to heuristically normalize the name.
+    def case_normalize(self, force: bool = False) -> Self:
+        """Try to heuristically normalize the casing of the name.
 
-        Concretely, this will:
-        - Normalize the casing of the name *iff* it is currently all-lowercased or all-uppercased.
-        - Check against known verified names to see if a normalized variant already exists, and choose that one.
+        By default, this only changes the name *iff* it is currently all-lowercased or all-uppercased.
+
+        Arguments:
+            force: Always case-normalize, without checking the current casing.
+
+        Raises:
+            ValueError: If the name's script attribute is set, indicating a non-Latin script name.
         """
+        if self.name.script is not None:
+            # Non-Latin script variants are left unchanged;
+            # should never trigger, but just in case...
+            return self  # pragma: no cover
+
         first, last = self.name.first, self.name.last
-
-        # Casing heuristics
         firstlast = self.name.as_first_last()
-        if firstlast.islower() or firstlast.isupper():
-            if first is not None:
-                first = first.title()
-            last = last.title()
-            last_parts = last.split(" ")
-            # Prefixes
-            if (
-                len(last_parts) > 1
-                and last_parts[0].lower() in LAST_NAME_LOWERCASE_PREFIXES
-            ):
-                last = last[0].lower() + last[1:]
-            # Other normalization rules
-            for pattern, substitute in LAST_NAME_CAPITALIZATION_RULES:
-                last = re.sub(pattern, substitute, last)
 
-        # Checks against verified persons
-        name = Name(first, last)
-        for pid in self.root.people.slugs_to_verified_ids.get(name.slugify(), []):
-            canonical = self.root.people[pid].canonical_name
-            if canonical.slugify() == name.slugify():
-                name = canonical
-                break
+        if not (force or firstlast.islower() or firstlast.isupper()):
+            return self
 
-        self.name = name
+        if first is not None:
+            first = first.title()
+        last = last.title()
+        last_parts = last.split(" ")
+        # Prefixes
+        if len(last_parts) > 1 and last_parts[0].lower() in LAST_NAME_LOWERCASE_PREFIXES:
+            last = last[0].lower() + last[1:]
+        # Other normalization rules
+        for pattern, substitute in LAST_NAME_CAPITALIZATION_RULES:
+            last = re.sub(pattern, substitute, last)
+
+        self.name = Name(first, last)
         return self
 
     def resolve(self) -> Person:

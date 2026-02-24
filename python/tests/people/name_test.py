@@ -317,34 +317,22 @@ def test_name_as_bibtex():
     assert n1.as_bibtex() == "Rieu, Andr{\\'e}"
 
 
-test_cases_namespec_normalize = (
+test_cases_namespec_case_normalize = (
     (("marcel", "bollmann"), ("Marcel", "Bollmann")),
     (("MARCEL", "BOLLMANN"), ("Marcel", "Bollmann")),
     (
         ("MIRYAM", "DE LHONEUX"),
         ("Miryam", "de Lhoneux"),
     ),  # heuristic for last name particle
-    (
-        ("LUNA", "DE BRUYNE"),
-        ("Luna", "De Bruyne"),
-    ),  # canonical name in people.yaml overrides heuristic
     (("marc-andre", "hackforth-jones"), ("Marc-Andre", "Hackforth-Jones")),
     (("james", "o'neill"), ("James", "O'Neill")),
     (("JAMES", "O’NEILL"), ("James", "O’Neill")),
     (("ken", "mcguire"), ("Ken", "McGuire")),
-    (
-        ("Emily", "Prud'hommeaux"),
-        ("Emily", "Prud’hommeaux"),
-    ),  # canonical name in people.yaml has typographic quote
-    (
-        ("Luna De", "Bruyne"),
-        ("Luna", "De Bruyne"),
-    ),  # canonical name in people.yaml has different first/last split
 )
 
 
-@pytest.mark.parametrize("before, after", test_cases_namespec_normalize)
-def test_namespec_normalize(before, after, parent):
+@pytest.mark.parametrize("before, after", test_cases_namespec_case_normalize)
+def test_namespec_case_normalize(before, after, parent):
     ns = NameSpecification(before, parent=parent)
-    ns.normalize()
+    ns.case_normalize()
     assert ns.name == Name(*after)
