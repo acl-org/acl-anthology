@@ -58,7 +58,7 @@ of larger projects). Examples include:
   corrections](https://github.com/acl-org/acl-anthology/issues?q=is%3Aissue+is%3Aopen+label%3Acorrection)
   (simple edits to authoritative XML)
 
-<p class="lead font-weight-bold">
+<p class="lead fw-bold">
 If something bothers you about the Anthology, please let us help you fix it!
 </p>
 
