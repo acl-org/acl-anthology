@@ -1,4 +1,4 @@
-{{ range $volume := .Site.Data.papers }}
+{{ range $volume := hugo.Data.papers }}
    {{ range $anthology_id, $paper := $volume }}
       {{ $page := dict
          "kind" "page"

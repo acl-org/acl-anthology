@@ -71,7 +71,7 @@ def main(args):
             continue
         else:
             with open(outfile, "w") as out:
-                erratum_flag = '' if attachment_type == 'Correction' else '-e '
+                erratum_flag = "" if attachment_type == "Correction" else "-e "
                 print(
                     f'{erratum_flag}{anthology_id} -d {date} "{download_path}" "{explanation}"',
                     file=out,
@@ -79,7 +79,7 @@ def main(args):
                 print(f"Wrote line for {anthology_id} to {outfile}", file=sys.stderr)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     import argparse
 
     parser = argparse.ArgumentParser()

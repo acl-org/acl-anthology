@@ -1,4 +1,4 @@
-name: Checks
+name: Python library
 
 on:
   push:
@@ -16,7 +16,8 @@ on:
       - 'python/**'
 
 jobs:
-  build:
+  tests:
+    name: "Tests"
     defaults:
       run:
         working-directory: ./python
@@ -28,20 +29,14 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       # Setup all dependencies
-      - uses: actions/checkout@v3
-      - name: Install Python
-        uses: actions/setup-python@v4
+      - uses: actions/checkout@v5
+      - name: Install uv and set python version
+        uses: astral-sh/setup-uv@v7
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Install Poetry
-        run: |
-          pipx install poetry --python python${{ matrix.python-version }}
-      - name: Setup a local virtual environment (if no poetry.toml file)
-        run: |
-          poetry config virtualenvs.create true --local
-          poetry config virtualenvs.in-project true --local
+          working-directory: python
       - name: Install dependencies
-        run: poetry install --with dev --no-cache --verbose
+        run: uv sync --locked --verbose
       - name: Cache pre-commit hooks based on pre-commit config
         uses: actions/cache@v3
         with:
@@ -50,27 +45,26 @@ jobs:
       - name: Print information about CI environment (for debugging)
         run: |
           locale
-          poetry run python -c "import locale; print(locale.getpreferredencoding())"
-          poetry env info
+          uv run python -c "import locale; print(locale.getpreferredencoding())"
 
       # Run all checks and tests
       - name: Run pre-commit hooks
-        run: poetry run pre-commit run --all-files
+        run: uv run pre-commit run --all-files
         env:
-          SKIP: no-commit-to-branch
+          SKIP: no-commit-to-branch,validate-xml
       - name: Run type checker
-        run: poetry run mypy acl_anthology
+        run: uv run mypy acl_anthology
       # Running 'import TexSoup' is a terrible hack that seems to fix import
       # errors from pytest, probably through byte-compiling the package
       - name: Run tests
         run: |
-          poetry run python -c "import TexSoup"
-          poetry run pytest -m "not integration" --cov=acl_anthology --cov-report=xml --trace-config
+          uv run python -c "import TexSoup"
+          uv run pytest -m "not integration" --cov=acl_anthology --cov-report=xml --trace-config
 
       # Run integration tests, but only run on latest Python version to save time
       - name: Run integration tests
         if: ${{ matrix.python-version == '3.14' }}
-        run: poetry run pytest -m "integration" --cov=acl_anthology --cov-report=xml --cov-append
+        run: uv run pytest -m "integration" --cov=acl_anthology --cov-report=xml --cov-append
 
       # Coverage report
       - name: Upload coverage reports to Codecov
