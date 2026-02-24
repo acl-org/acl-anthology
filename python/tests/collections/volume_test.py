@@ -536,6 +536,13 @@ def test_volume_get_namespec_for(anthology):
     assert namespec.resolve() is person
 
 
+def test_volume_get_namespec_for_should_fail(anthology):
+    volume = anthology.get_volume("2022.acl-demo")
+    person = anthology.get_person("matt-post")
+    with pytest.raises(ValueError):
+        volume.get_namespec_for(person)
+
+
 def test_volume_type_conversion():
     parent = Collection("L05", None, Path("."))
     volume = Volume(
