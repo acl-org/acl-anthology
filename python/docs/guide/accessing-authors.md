@@ -74,11 +74,15 @@ anthology.find_people(("Yang", "Liu"))
 ```
 
 However, supplying a `{first} {last}` string only works as long as the split is
-unambiguous; you must use the `{last}, {first}` format otherwise:
+unambiguous.  If either the first or last name contains spaces, you must use the
+`{last}, {first}` format; if either of them contains a comma, you must use a
+tuple instead:
 
 ```python
-anthology.find_people("Daniel A. McFarland")      # raises ValueError
-anthology.find_people("McFarland, Daniel A.")     # works
+anthology.find_people("Daniel A. McFarland")          # raises ValueError
+anthology.find_people("McFarland, Daniel A.")         # works
+anthology.find_people("Stabler, Jr., Edward P.")      # raises ValueError
+anthology.find_people(("Edward P.", "Stabler, Jr."))  # works
 ```
 
 ## Name specifications

@@ -240,6 +240,11 @@ class Anthology:
         """Reset all non-collection indices.
 
         Intended to be used after modifying data, to make sure all indices correctly reflect the changes.
+
+        Note:
+            - Any modifications to data stored directly by the indices (i.e. stored in the YAML files, rather than inferred from the XML) need to be saved before calling this, or they will be lost.
+            - This will not update any Event, Person, or Venue objects you may have already obtained, but any objects returned by an index after the reset will reflect the new data.
+            - This is a bit of a brute-force approach; future versions of this library might get smarter about updating indices.
         """
         self.events.reset()
         self.people.reset()
@@ -374,6 +379,8 @@ class Anthology:
     def get_person(self, person_id: str) -> Optional[Person]:
         """Access a person by their ID.
 
+        See also: [`find_people()`][acl_anthology.anthology.Anthology.find_people] to find a person by name.
+
         Parameters:
             person_id: An ID that refers to a person.
 
@@ -385,6 +392,8 @@ class Anthology:
     def find_people(self, name_def: ConvertableIntoName) -> list[Person]:
         """Find people by name.
 
+        See also: [`get_person()`][acl_anthology.anthology.Anthology.get_person] to find a person by their ID.
+
         Parameters:
             name_def: Anything that can be resolved to a name; see below for examples.
 
@@ -392,11 +401,10 @@ class Anthology:
             A list of [`Person`][acl_anthology.people.person.Person] objects with the given name.
 
         Examples:
-            >>> anthology.find_people("Doe, Jane")
-            >>> anthology.find_people(("Jane", "Doe"))       # same as above
-            >>> anthology.find_people({"first": "Jane",
-                                         "last": "Doe"})      # same as above
-            >>> anthology.find_people(Name("Jane", "Doe"))   # same as above
+            >>> anthology.find_people("Doe, Jane")       # all of these are identical
+            >>> anthology.find_people(("Jane", "Doe"))
+            >>> anthology.find_people({"first": "Jane", "last": "Doe"})
+            >>> anthology.find_people(Name("Jane", "Doe"))
         """
         name = Name.from_(name_def)
         return self.people.get_by_name(name)

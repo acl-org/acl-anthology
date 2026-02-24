@@ -528,7 +528,7 @@ class Paper:
             person: A person that is an author/editor on this paper.
 
         Returns:
-            The NameSpecification that resolves to the given Person.
+            The first NameSpecification that resolves to the given Person.
 
         Raises:
             ValueError: If none of the authors/editors resolve to the given Person.
