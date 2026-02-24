@@ -33,9 +33,8 @@ For more details on how verification works, please see [How the ACL Anthology ve
    - **Softconf/START:** Visit the ["Update Profile" page](https://www.softconf.com/naacl2021/super/scmd.cgi?ucmd=updateProfile). (If necessary, click on "To Login Page", enter your username and password, click on the "ENTER" button, and click on ["Update Profile"](https://www.softconf.com/naacl2021/super/scmd.cgi?ucmd=updateProfile) again.) Scroll down to the "Additional Information for Authors and Reviewers" section. Enter your ORCID in the "ORCID" field, and click on the "SUBMIT DATA" button.
 
 3. In each of these systems, the name that you enter is the one that gets used in your papers' metadata. Please make sure that this name matches the name that you use in your papers' PDF files, and that this name matches one of the ORCID variants, ideally your published name.
-
-  - **OpenReview:** OpenReview allows you to list multiple names, one of which is the "preferred name". The spelling of the preferred name should exactly match the way your name is spelled in your papers (in the PDF). Visit the ["Edit Profile" page](https://openreview.net/profile/edit) to see the "Names" screen where you can edit this.
-  - **Softconf/START:** Visit the ["Update Profile" page](https://www.softconf.com/naacl2021/super/scmd.cgi?ucmd=updateProfile). Enter your first, middle, and last names as they appear on your papers. This may mean your middle name is omitted or abbreviated.
+   - **OpenReview:** OpenReview allows you to list multiple names, one of which is the "preferred name". The spelling of the preferred name should exactly match the way your name is spelled in your papers (in the PDF). Visit the ["Edit Profile" page](https://openreview.net/profile/edit) to see the "Names" screen where you can edit this.
+   - **Softconf/START:** Visit the ["Update Profile" page](https://www.softconf.com/naacl2021/super/scmd.cgi?ucmd=updateProfile). Enter your first, middle, and last names as they appear on your papers. This may mean your middle name is omitted or abbreviated.
 
 4. Let the Anthology know about your ORCID iD:
    - Find your ACL Anthology author page (by using the search bar, or by finding one of your papers and clicking on your name).
