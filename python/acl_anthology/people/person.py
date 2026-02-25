@@ -18,6 +18,8 @@ import attrs
 from attrs import define, field, setters
 from enum import Enum
 from typing import Any, Iterator, Optional, Sequence, TYPE_CHECKING
+import warnings
+
 from ..exceptions import AnthologyException, AnthologyInvalidIDError
 from ..utils.attrs import auto_validate_types
 from ..utils.ids import (
@@ -76,7 +78,7 @@ class Person:
         Person objects **can** be used to make changes to metadata that appears in `people.yaml`, such as ORCID, comment, degree, and alternative names for this person.
 
     Attributes:
-        id: A unique ID for this person.  Do not change this attribute directly; use [`change_id()`][acl_anthology.people.person.Person.change_id], [`make_explicit()`][acl_anthology.people.person.Person.make_explicit], or [`merge_with_explicit()`][acl_anthology.people.person.Person.merge_with_explicit] instead.
+        id: A unique ID for this person.  Do not change this attribute directly; use [`change_id()`][acl_anthology.people.person.Person.change_id], [`make_explicit()`][acl_anthology.people.person.Person.make_explicit], or [`merge_into()`][acl_anthology.people.person.Person.merge_into] instead.
         parent: The parent Anthology instance to which this person belongs.
         item_ids: A list of volume and/or paper IDs this person has authored or edited.
         orcid: The person's ORCID.
@@ -216,7 +218,7 @@ class Person:
         """
         if new_id in self.parent.people:
             exc = AnthologyInvalidIDError(new_id, f"Person ID already exists: {new_id}")
-            exc.add_note("Did you want to use merge_with_explicit() instead?")
+            exc.add_note("Did you want to use merge_into() instead?")
             raise exc
         if not self.is_explicit:
             exc2 = AnthologyException("Can only update ID for explicit person")
@@ -257,31 +259,44 @@ class Person:
         self.id = new_id  # triggers update in PersonIndex
         self._names = [(name, NameLink.EXPLICIT) for name, _ in self._names]
 
-    def merge_with_explicit(self, person: Person) -> None:
-        """Merge this person that was implicitly created with an explicitly-represented one.
+    def merge_with_explicit(self, person: Person) -> None:  # pragma: no cover
+        warnings.warn(
+            DeprecationWarning(
+                "Person.merge_with_explicit() is deprecated in favor of Person.merge_into()"
+            )
+        )
+        self.merge_into(person)
 
-        This will add the explicit person's ID to all papers and volumes currently associated with this inferred person.
+    def merge_into(self, other: Person) -> None:
+        """Merge this person and all their publications into another person.
+
+        This will move all attributes, papers, and volumes currently associated with this person over to the `other` person.  The other person's ID will be explicitly set on all items currently associated with this person.  If an attribute (e.g. ORCID iD, comment) is already set on the other person, it will _not_ be changed.
 
         Parameters:
-            person: An explicit person to merge this person's items into.
+            other: A person to merge this person into.  Must be explicit.
 
         Raises:
-            AnthologyException: If `self.explicit` is True or `person.explicit` is False.
+            AnthologyException: If `other.explicit` is False.
         """
-        if self.is_explicit:
-            raise AnthologyException("Can only merge non-explicit persons")
-        if not person.is_explicit:
+        if not other.is_explicit:
             raise AnthologyException(
-                f"Can only merge with explicit persons; not '{person.id}'"
+                f"Can only merge with explicit persons; not '{other.id}'"
             )
 
         for namespec in list(self.namespecs()):
-            namespec.id = person.id
-        person.item_ids.extend(self.item_ids)
+            namespec.id = other.id
+        other.item_ids.extend(self.item_ids)
         self.item_ids = []
 
+        for attr in ("orcid", "comment", "degree", "disable_name_matching"):
+            if (
+                getattr(other, attr) is None
+                and (value := getattr(self, attr)) is not None
+            ):
+                setattr(other, attr, value)
+        other.similar_ids.extend(self.similar_ids)
         for name in self.names:
-            person.add_name(name, inferred=False)
+            other.add_name(name, inferred=False)
 
     def anthology_items(self) -> Iterator[Paper | Volume]:
         """Returns an iterator over all Anthology items associated with this person, regardless of their type."""

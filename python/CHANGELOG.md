@@ -7,7 +7,7 @@
 - Files (such as paper PDFs) can now be downloaded from their remote URLs via `.download()`.
 - Added `.get_namespec_for(Person)` on papers and volumes, to more easily find the NameSpecification referring to a given Person.
 - Added `Person.namespecs()` to iterate over all NameSpecifications referring to this Person.
-- Added `NameSpecification.normalize()` to heuristically fix casing and match spelling details to known canonical names. This is mainly intended for ingestion and called automatically when using `create_paper()`/`create_volume()`.
+- Added `NameSpecification.case_normalize()` to heuristically fix casing and match spelling details to known canonical names. This is mainly intended for ingestion and called automatically when using `create_paper()`/`create_volume()`.
 
 ### Changed
 
@@ -17,6 +17,8 @@
   - `Name.slugify()` now treats typographic apostrophes (U+02BC and U+2019) the same as regular ones.
   - NameSpecifications now track if they have been modified, and will trigger their parent collection being saved on `Anthology.save_all()`.
   - NameSpecifications can now be resolved via `NameSpecification.resolve()`. Therefore, `Anthology.resolve()` has been deprecated.
+- Improvements to Person:
+  - `Person.merge_with_explicit()` has been renamed `Person.merge_into()` and now supports merging two explicit persons.
 
 ## [1.0.0] — 2026-01-24
 

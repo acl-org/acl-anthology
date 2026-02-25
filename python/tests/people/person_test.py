@@ -226,20 +226,57 @@ def test_person_make_explicit_should_raise_when_explicit(anthology):
         person.make_explicit("marcel-bollmann")
 
 
-def test_person_merge_with_explicit(anthology):
+def test_person_merge_into_unverified_verified(anthology):
     # Pre-conditions
     person1 = anthology.get_person(UNVERIFIED_PID_FORMAT.format(pid="yang-liu"))
     assert not person1.is_explicit
     assert person1.item_ids == [("2022.naloma", "1", "6")]
     person2 = anthology.get_person("yang-liu-microsoft")
+    assert person2.is_explicit
     assert person2.item_ids == [("2022.acl", "long", "226")]
 
     # Test merging
-    person1.merge_with_explicit(person2)
+    person1.merge_into(person2)
     assert not person1.item_ids
     assert person2.item_ids == [("2022.acl", "long", "226"), ("2022.naloma", "1", "6")]
     namespec = anthology.get_paper(("2022.naloma", "1", "6")).authors[0]
     assert namespec.id == "yang-liu-microsoft"
+
+    anthology.reset_indices()
+
+
+@pytest.mark.parametrize(
+    "pid1, pid2",
+    (
+        ("m-bollmann", "marcel-bollmann"),
+        ("marcel-bollmann", "m-bollmann"),
+    ),
+)
+def test_person_merge_into_verified_verified(anthology, pid1, pid2):
+    person1 = anthology.get_person(pid1)
+    person2 = anthology.get_person(pid2)
+    expected_canonical_name = person2.canonical_name
+
+    # Test merging
+    person1.merge_into(person2)
+    assert not person1.item_ids
+    assert set(person2.item_ids) == {("2022.naloma", "1", "7"), ("2022.naloma", "1", "8")}
+    namespec = anthology.get_paper(("2022.naloma", "1", "8")).authors[0]
+    assert namespec.id == pid2
+    assert person2.has_name(Name("M.", "Bollmann"))
+    assert person2.has_name(Name("Marcel", "Bollmann"))
+    assert person2.canonical_name == expected_canonical_name
+    assert person2.degree == "Ruhr-Universität Bochum"
+    assert person2.orcid == "0000-0003-2598-8150"
+
+    anthology.reset_indices()
+
+
+def test_person_merge_into_unverified_should_raise(anthology):
+    person1 = anthology.get_person(UNVERIFIED_PID_FORMAT.format(pid="yang-liu"))
+    person2 = anthology.get_person("yang-liu-microsoft")
+    with pytest.raises(AnthologyException):
+        person2.merge_into(person1)
 
     anthology.reset_indices()
 

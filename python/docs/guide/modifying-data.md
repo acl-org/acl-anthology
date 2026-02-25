@@ -166,7 +166,7 @@ have an ORCID and other metadata) can be done in two ways:
 
 1. If neither person is _explicit_ yet: Call [`p1.make_explicit()`][acl_anthology.people.person.Person.make_explicit].  This will create an entry in `people.yaml` with all current names of `p1` add the new ID to all papers and volumes currently inferred to belong to either `p1`.
 
-2. `p1` can now assumed to be explicit.  If `p2` is not explicit, call [`p2.merge_with_explicit(p1)`][acl_anthology.people.person.Person.merge_with_explicit].  This will add all of `p2`'s names to `p1` and set `p1`'s ID on all papers and volumes currently inferred to belong to `p2`.
+2. `p1` can now assumed to be explicit.  If `p2` is not explicit, call [`p2.merge_into(p1)`][acl_anthology.people.person.Person.merge_into].  This will add all of `p2`'s names to `p1` and set `p1`'s ID on all papers and volumes currently inferred to belong to `p2`.
 
 3. Save the changes, e.g. via `Anthology.save_all()`.
 
