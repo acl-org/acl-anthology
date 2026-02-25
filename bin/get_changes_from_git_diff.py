@@ -24,6 +24,7 @@ Example usage:
 
     git diff --name-only master | ./bin/get_changes_from_git_diff.py https://preview.aclanthology.org/BRANCH
 
+The argument to the script is the URL root for the preview.
 
 """
 

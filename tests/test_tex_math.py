@@ -199,7 +199,7 @@ test_cases_html = (
     ),
     (
         '<tex-math>p(\\boldsymbol{y}|\\textrm{do}(\\boldsymbol{x}))</tex-math>',
-        '<span class="tex-math">p(<strong>y</strong>|<span class="font-weight-normal">do</span>(<strong>x</strong>))</span>',
+        '<span class="tex-math">p(<strong>y</strong>|<span class="fw-normal">do</span>(<strong>x</strong>))</span>',
     ),
     ('<tex-math>{\\sim}3\\%</tex-math>', '<span class="tex-math">∼3%</span>'),
     (
@@ -253,7 +253,7 @@ test_cases_html = (
     ),
     (
         '<tex-math>foo^{\\texttt{bar}}</tex-math>',
-        '<span class="tex-math">foo<sup><span class="text-monospace">bar</span></sup></span>',
+        '<span class="tex-math">foo<sup><span class="font-monospace">bar</span></sup></span>',
     ),
 )
 
