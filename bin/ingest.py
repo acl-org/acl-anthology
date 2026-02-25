@@ -49,8 +49,8 @@ from acl_anthology.files import (
 )
 from acl_anthology.people import Name, NameSpecification
 from acl_anthology.text import MarkupText
+from acl_anthology.utils import setup_rich_logging
 from acl_anthology.utils.ids import parse_id
-from acl_anthology import setup_rich_logging
 from fixedcase.protect import protect as protect_fixedcase
 
 ARCHIVAL_DEFAULT = True
@@ -399,7 +399,7 @@ def read_ingest_metadata(
         frontmatter_data = _aclpub_frontmatter_data(root_path, collection_id, volume_name)
         volume_title = (
             (frontmatter_data or {}).get("title")
-            or normalize_latex_title(meta.get("booktitle") or meta.get("title"))
+            or normalize_latex(meta.get("booktitle") or meta.get("title"))
             or f"{meta['abbrev']} {meta['year']}"
         )
         volume_editors = []
@@ -473,7 +473,7 @@ def read_ingest_metadata(
             "month": meta.get("month"),
             "publisher": meta.get("publisher"),
             "address": meta.get("location"),
-            "title": normalize_latex_title(meta["book_title"]) or meta["book_title"],
+            "title": normalize_latex(meta["book_title"]) or meta["book_title"],
             "editors": [namespec_from_author(author) for author in meta["editors"]],
             "venue_ids": [venue_name] + (["ws"] if args.is_workshop else []),
             "isbn": str(meta["isbn"]) if meta.get("isbn") else None,
@@ -640,7 +640,7 @@ def iter_aclpub2_papers(metadata: Dict[str, Any]) -> Iterator[Dict[str, Any]]:
         yield {
             "id": str(paper_num),
             "type": PaperType.PAPER,
-            "title": normalize_latex_title(paper.get("title")),
+            "title": normalize_latex(paper.get("title")),
             "authors": [
                 namespec_from_author(author) for author in paper.get("authors", [])
             ],
@@ -822,14 +822,19 @@ def venue_slug_from_acronym(acronym: str) -> str:
     return slug
 
 
-def normalize_latex_title(text: Optional[str]) -> Optional[MarkupText]:
-    """Normalize and apply truelist-based fixed-case protection for LaTeX text."""
+def normalize_latex(text: Optional[str], is_title: bool = True) -> Optional[MarkupText]:
+    """Normalize and apply truelist-based fixed-case protection for (potentially) LaTeX
+    text. If is_title is true, we also apply fixed-case protection. Used for both
+    titles and abstracts."""
     if text is None:
         return None
     markup = MarkupText.from_latex_maybe(text)
-    elem = markup.to_xml()
-    protect_fixedcase(elem)
-    return MarkupText.from_xml(elem)
+    if is_title:
+        elem = markup.to_xml()
+        protect_fixedcase(elem)
+        return MarkupText.from_xml(elem)
+    else:
+        return markup
 
 
 def namespec_from_bib(person) -> NameSpecification:
@@ -858,7 +863,11 @@ def read_bib_entry(
     if paper_id is None:
         return None
 
-    bibdata = pybtex.database.input.bibtex.Parser().parse_file(bibfilename)
+    try:
+        bibdata = pybtex.database.input.bibtex.Parser().parse_file(bibfilename)
+    except pybtex.scanner.PybtexSyntaxError:
+        log.error(f"error parsing {bibfilename}")
+        raise
     if len(bibdata.entries) != 1:
         log.warning(f"more than one entry in {bibfilename}")
 
@@ -872,14 +881,14 @@ def read_bib_entry(
         page_range = page_range.replace("--", "-")
 
     return {
-        "title": normalize_latex_title(bibentry.fields.get("title")),
-        "booktitle": normalize_latex_title(bibentry.fields.get("booktitle")),
+        "title": normalize_latex(bibentry.fields.get("title")),
+        "booktitle": normalize_latex(bibentry.fields.get("booktitle")),
         "month": bibentry.fields.get("month"),
         "year": bibentry.fields.get("year"),
         "address": bibentry.fields.get("address"),
         "publisher": bibentry.fields.get("publisher"),
         "pages": page_range,
-        "abstract": MarkupText.from_latex_maybe(bibentry.fields.get("abstract")),
+        "abstract": normalize_latex(bibentry.fields.get("abstract"), is_title=False),
         "doi": bibentry.fields.get("doi"),
         "language": bibentry.fields.get("language"),
         "authors": [
