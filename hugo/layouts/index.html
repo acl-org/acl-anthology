@@ -14,38 +14,19 @@
   {{ end }}
 
   <div class="col-12 col-xl-2">
-    <h2 class="ps-2 pb-2">Welcome to the ACL Anthology!</h2>
-
     <aside class="card acl-greeting fw-light mb-3">
       <div class="card-body">
-        The ACL Anthology currently hosts {{ $.Scratch.Get "paper_count" }} papers on the study of computational linguistics and natural language processing.
-      </div>
-      <div class="card-body">
-        <a href="http://groups.google.com/group/acl-anthology?hl=en">Subscribe to the mailing list</a> or the <a href="{{ "posts/index.xml" | relURL }}">RSS news feed</a> to receive announcements and updates to the Anthology.
+        The ACL Anthology is a library of publications in the scientific fields of <a href="https://www.aclweb.org/portal/what-is-cl">computational linguistics</a> and speech and natural language processing. It currently hosts {{ lang.FormatNumberCustom 0 ($.Scratch.Get "paper_count") }} papers from official venues of the <a href="https://www.aclweb.org/">Association for Computational Linguistics</a> and other organizations.
       </div>
     </aside>
-
-    <!-- Temporarily disabled...
-    <aside class="alert alert-info acl-news mb-3" role="alert">
-      // The news message pulls from content/_index.md
-      {{ if (gt (time .PublishDate).Year 2018) }}
-      <div class="acl-news-date">{{ .PublishDate.Format "January 2006" }}</div>
-      {{ end }}
-      {{ .Content }}
-    </aside>
-    -->
-
-    <div class="row mb-3">
-      {{ if (fileExists "/data-export/anthology.bib.gz") }}
-      <div class="col-6 col-xl-12 mb-2">
-        <a class="btn btn-info w-100" href="{{ "anthology.bib.gz" | relURL }}">Full Anthology as BibTeX ({{ printf "%.2f MB" (div (os.Stat "/data-export/anthology.bib.gz").Size 1000000.0) }})</a>
-        <a class="btn btn-info w-100 mt-2" href="{{ "anthology+abstracts.bib.gz" | relURL }}">…with abstracts ({{ printf "%.2f MB" (div (os.Stat "/data-export/anthology+abstracts.bib.gz").Size 1000000.0) }})</a>
+    <div class="row">
+      <div class="col-4 col-xl-12 mb-2">
+        <a class="btn btn-info w-100" href="{{ ($.Site.GetPage "/info/author-pages.md").RelPermalink }}">Info for authors</a>
       </div>
-      {{ end }}
-      <div class="col-6 col-xl-12 mb-2">
-        <a class="btn btn-warning w-100" href="{{ "papers/index.xml" | relURL }}">RSS Feed (latest 1000 papers)</a>
+      <div class="col-4 col-xl-12 mb-2">
+        <a class="btn btn-warning w-100" href="{{ ($.Site.GetPage "/faq/data.md").RelPermalink }}">Access data</a>
       </div>
-      <div class="col-6 col-xl-12 mb-2">
+      <div class="col-4 col-xl-12 mb-2">
         <a class="btn btn-success w-100" href="{{ ($.Site.GetPage "/faq/feedback.md").RelPermalink }}">Give feedback</a>
       </div>
     </div>
