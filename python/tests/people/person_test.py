@@ -129,6 +129,8 @@ def test_person_orcid(anthology_stub):
     with pytest.raises(ValueError):
         # does not pass checksum
         person.orcid = "0000-0003-2598-815X"
+    person.orcid = None
+    assert person.orcid is None
 
 
 def test_person_papers_unverified(anthology):
