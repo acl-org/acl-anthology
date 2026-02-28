@@ -122,7 +122,7 @@ def test_papers(anthology):
         found.add(paper.collection_id)
     assert expected == found
     # TODO: can we compare this against counting "<paper>" tags or something?
-    assert count == 854
+    assert count == 855
 
 
 def test_papers_by_collection_id(anthology):
@@ -130,7 +130,7 @@ def test_papers_by_collection_id(anthology):
     for paper in anthology.papers("2022.naloma"):
         assert paper.collection_id == "2022.naloma"
         count += 1
-    assert count == 9
+    assert count == 10
 
 
 def test_papers_by_volume_id(anthology):

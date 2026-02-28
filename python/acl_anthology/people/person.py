@@ -23,10 +23,12 @@ import warnings
 from ..exceptions import AnthologyException, AnthologyInvalidIDError
 from ..utils.attrs import auto_validate_types
 from ..utils.ids import (
+    AnthologyID,
     AnthologyIDTuple,
     build_id_from_tuple,
     is_valid_orcid,
     is_verified_person_id,
+    parse_id,
 )
 from . import Name
 
@@ -230,32 +232,40 @@ class Person:
             )
 
         for namespec in list(self.namespecs()):
+            # We're not calling .set_id_on_items() since only _explicitly_
+            # linked papers should get updated with the new ID
             if namespec.id == self.id:
                 namespec.id = new_id
         self.id = new_id  # triggers update in PersonIndex
 
-    def make_explicit(self, new_id: str) -> None:
+    def make_explicit(
+        self, new_id: Optional[str] = None, skip_setting_ids: bool = False
+    ) -> None:
         """Turn this person that was implicitly created into an explicitly-represented one.
 
         This will result in this person having an explicit entry in `people.yaml` with all names that are currently associated with this person.  It will also add their new explicit ID to all papers and volumes currently associated with this person.
 
         Parameters:
-            new_id: The new ID for this person, which must match [`RE_VERIFIED_PERSON_ID`][acl_anthology.utils.ids.RE_VERIFIED_PERSON_ID].
+            new_id: The new ID for this person, which must match [`RE_VERIFIED_PERSON_ID`][acl_anthology.utils.ids.RE_VERIFIED_PERSON_ID].  If not specified, will try to generate one automatically based on this person's canonical name (and, potentially, ORCID).
 
         Raises:
-            AnthologyException: If `self.explicit` is already True.
-            ValueError: If the supplied ID is not valid, or if it already exists in the PersonIndex.
+            AnthologyException: If `self.explicit` is already True, or if the ID already exists in the PersonIndex (both if it was supplied or auto-generated).
+            AnthologyInvalidIDError: If the supplied ID is not valid.
         """
         if self.is_explicit:
             raise AnthologyException(f"Person '{self.id}' is already explicit")
-        if not is_verified_person_id(new_id):
+        if new_id is None:
+            new_id = self.parent.people.generate_person_id(self)
+        elif not is_verified_person_id(new_id):
             raise AnthologyInvalidIDError(
                 new_id, f"Not a valid verified-person ID: {new_id}"
             )
+        elif new_id in self.parent.people:
+            raise AnthologyException(f"ID already exists in the index: {new_id}")
 
-        for namespec in list(self.namespecs()):
-            namespec.id = new_id
         self.is_explicit = True
+        if not skip_setting_ids:
+            self.set_id_on_items()
         self.id = new_id  # triggers update in PersonIndex
         self._names = [(name, NameLink.EXPLICIT) for name, _ in self._names]
 
@@ -297,6 +307,42 @@ class Person:
         other.similar_ids.extend(self.similar_ids)
         for name in self.names:
             other.add_name(name, inferred=False)
+
+    def set_id_on_items(
+        self, exclude: Optional[list[AnthologyID | Paper | Volume]] = None
+    ) -> None:
+        """Set this person's ID explicitly on all Anthology items associated with them.
+
+        Parameters:
+            exclude: An optional list of Anthology items or IDs that should be excluded.
+
+        Warning:
+            This should only be done if it is certain that all papers currently linked to this person actually belong to them, including those that were implicitly linked (i.e. via name matching).
+
+        Raises:
+            AnthologyException: If `self.explicit` is False.
+        """
+        if not self.is_explicit:
+            exc = AnthologyException("Can only set ID for explicit person")
+            exc.add_note("Did you want to use make_explicit() instead?")
+            raise exc
+
+        from ..collections import Paper, Volume
+
+        excluded_ids = set()
+        if exclude:
+            for item in exclude:
+                if isinstance(item, (Paper, Volume)):
+                    excluded_ids.add(item.full_id_tuple)
+                else:
+                    excluded_ids.add(parse_id(item))
+
+        for namespec in list(self.namespecs()):
+            if not (
+                isinstance(namespec.parent, (Paper, Volume))
+                and namespec.parent.full_id_tuple in excluded_ids
+            ):
+                namespec.id = self.id
 
     def anthology_items(self) -> Iterator[Paper | Volume]:
         """Returns an iterator over all Anthology items associated with this person, regardless of their type."""

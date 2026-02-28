@@ -14,6 +14,7 @@
 
 import pytest
 from acl_anthology.exceptions import (
+    AnthologyException,
     AnthologyInvalidIDError,
     NameSpecResolutionError,
     NameSpecResolutionWarning,
@@ -99,6 +100,7 @@ def test_similar_names_through_same_canonical_name(index):
     assert index.is_data_loaded
     similar = index.similar.subset("yang-liu-ict")
     assert similar == {
+        "yang-liu",
         "yang-liu-icsi",
         "yang-liu-ict",
         "yang-liu-microsoft",
@@ -197,6 +199,63 @@ def test_change_orcid(index):
     person.orcid = "0000-0002-2909-0906"
     assert index.get_by_orcid("0000-0003-2598-8150") is None
     assert index.get_by_orcid("0000-0002-2909-0906") is person
+
+
+test_cases_generate_person_id_from_name = (
+    (Name("Matt", "Post"), None, None, "matt-post"),
+    (
+        Name("Matt", "Post"),
+        "jhu",
+        "0000-0002-1297-6794",
+        "matt-post",
+    ),  # suffix/orcid not needed
+    (
+        Name("Marcel", "Bollmann"),
+        None,
+        None,
+        AnthologyException,
+    ),  # marcel-bollmann already exists
+    (Name("Marcel", "Bollmann"), "rub", None, "marcel-bollmann-rub"),
+    (Name("Marcel", "Bollmann"), "RUB", None, "marcel-bollmann-rub"),
+    (Name("Marcel", "Bollmann"), None, "0000-0003-2598-8150", "marcel-bollmann-8150"),
+    (Name("Marcel", "Bollmann"), "rub", "0000-0003-2598-8150", "marcel-bollmann-rub"),
+    (
+        Name("Yang", "Liu"),
+        "icsi",
+        None,
+        AnthologyException,
+    ),  # yang-liu-icsi already exists
+    (Name("Yang", "Liu"), "icsi", "0000-0000-0000-018X", "yang-liu-018x"),
+)
+
+
+@pytest.mark.parametrize(
+    "name, suffix, orcid, expected_result", test_cases_generate_person_id_from_name
+)
+def test_generate_person_id_from_name(index, name, suffix, orcid, expected_result):
+    if isinstance(expected_result, str):
+        pid = index.generate_person_id(name, suffix=suffix, orcid=orcid)
+        assert pid == expected_result
+    elif isinstance(expected_result, type):
+        with pytest.raises(expected_result):
+            index.generate_person_id(name, suffix=suffix, orcid=orcid)
+    else:
+        raise ValueError(
+            f"Test cannot take expected result of type {type(expected_result)}"
+        )
+
+
+def test_generate_person_id_from_person(index):
+    person = index["marcel-bollmann"]
+    # Would add suffix to generate new ID for disambiguation
+    assert index.generate_person_id(person, suffix="rub") == "marcel-bollmann-rub"
+    # Would add ORCID to generate new ID for disambiguation
+    assert index.generate_person_id(person) == "marcel-bollmann-8150"
+    # Would add supplied ORCID to generate new ID for disambiguation
+    assert (
+        index.generate_person_id(person, orcid="0000-0002-2909-0906")
+        == "marcel-bollmann-0906"
+    )
 
 
 def test_create_person(index):
@@ -570,7 +629,7 @@ test_cases_ingest_namespec = (
     (  # It shouldn't matter if other persons with the same name exist, only ORCID matters
         {"first": "Yang", "last": "Liu"},
         {"orcid": "0000-0003-4154-7507"},
-        "yang-liu",  # this ID is actually not defined in people.yaml!
+        "yang-liu-7507",
     ),
     (  # When generated ID is already taken, append the last four digits of ORCID
         {"first": "Marcel", "last": "Bollmann"},
