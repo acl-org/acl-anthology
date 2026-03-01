@@ -257,6 +257,13 @@ def add_revision(
     return paper.collection.path
 
 
+def normalize_id(id):
+    """
+    Remove common user errors.
+    """
+    return id.rstrip("/")
+
+
 def main(args):
     change_type = "erratum" if args.erratum else "revision"
     repo_name = args.repo or DEFAULT_GITHUB_REPO
@@ -266,7 +273,8 @@ def main(args):
     if args.issue:
         github_repo = _get_github_repo(repo_name)
         issue_metadata = fetch_issue_revision_metadata(args.issue, repo_name, github_repo)
-        anthology_id = issue_metadata.get("anthology_id")
+        anthology_id = normalize_id(issue_metadata.get("anthology_id"))
+
         pdf_url = issue_metadata.get("pdf_url")
 
         print(
