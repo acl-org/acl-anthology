@@ -351,19 +351,12 @@ def main(args):
 
     """
     If a Github issue was passed as an argument, do the following.
-    First ensure, that we are on a branch named "corrections-YYYY-MM".
-    Then, create a commit with the message "Add revision for {anthology_id} (closes {issue})"
+    Create a commit with the message "Add revision for {anthology_id} (closes {issue})"
     Use the Github module to create the brnach (if not existing), change to it,
     and create the commit.
     """
     if args.issue and collection_path is not None:
         repo = Repo(".", search_parent_directories=True)
-        branch_name = args.branch
-        existing_heads = [h.name for h in repo.heads]
-        base_branch = "master"
-        if branch_name not in existing_heads:
-            repo.create_head(branch_name, getattr(repo.heads, base_branch).commit)
-        repo.git.checkout(branch_name)
         repo.git.add(str(collection_path))
         if repo.is_dirty(index=True, working_tree=True, untracked_files=True):
             repo.index.commit(
@@ -402,7 +395,6 @@ if __name__ == "__main__":
         default=today,
         help="The date of the revision (ISO 8601 format)",
     )
-    parser.add_argument("--branch", "-b", default=None, help="Branch name.")
     parser.add_argument(
         "--repo",
         "-r",
@@ -411,8 +403,5 @@ if __name__ == "__main__":
     )
 
     args = parser.parse_args()
-
-    if args.branch is None:
-        args.branch = f"corrections-{args.date[:7]}"
 
     main(args)
