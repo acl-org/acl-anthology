@@ -36,7 +36,7 @@ verify_author.py [--issue NUM | --no-commit] [--degree DEGREE] [--suffix SUFFIX]
   are explicitly mapped to the target author (merging the author pages).
   If listing multiple author IDs, the first will be used for the canonical name,
   and subsequent ones must be unverified.
-  
+
 verify_author.py [--issue NUM | --no-commit] [--degree DEGREE] [--suffix SUFFIX] [--only | --ONLY] ORCID PAPERID:NAMESLUG ...
 
   To add specified papers under a verified author (the target author).
@@ -72,7 +72,6 @@ Options:
                         other papers should not be matched by name.
     --except PAPERIDS   Assign to this author all papers on selected pages except the ones listed here.
 """
-
 
 import warnings
 import logging as log

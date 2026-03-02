@@ -34,7 +34,6 @@ Options:
     --keep              Keep only the specified items; unlink all others.
 """
 
-
 import warnings
 import logging as log
 from docopt import docopt
