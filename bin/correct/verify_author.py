@@ -25,7 +25,6 @@ All papers on the final verified author page will be explicitly marked
 with the author ID (even if the author is already verified and
 implicitly associated with all the right papers).
 
-TODO: By default, creates a commit in the current branch.
 
 Usage:
   verify_author.py [--issue NUM | --no-commit] [--degree DEGREE] [--suffix SUFFIX] [--except PAPERIDs] ORCID AUTHORID ...
@@ -65,7 +64,6 @@ Arguments:
 Options:
     -h --help           Show this help message.
     --issue NUM         GitHub issue number to include in commit message.
-    --no-commit         Do not create a commit after modifying the database.
     --degree DEGREE     Full name of the author's highest degree institution.
                         Required if a new author ID is being created.
     --suffix SUFFIX     Disambiguating suffix (usually abbreviated from the degree institution).
@@ -76,29 +74,15 @@ Options:
 """
 
 
-import os
 import warnings
-from datetime import datetime
-from typing import List, Optional, Tuple, Dict
 import logging as log
 from docopt import docopt
-import jsonschema
-from jsonschema import validate
 
-from github import Github
-from github.Issue import Issue
-import git
-import json
-import re
-import lxml.etree as etree
 
 from acl_anthology import Anthology
 from acl_anthology.collections import Paper
-from acl_anthology.people import NameSpecification, Name, NameLink
-from acl_anthology.text import MarkupText
+from acl_anthology.exceptions import NameSpecResolutionWarning
 from acl_anthology.utils.ids import is_valid_orcid, is_verified_person_id, parse_id
-
-# TODO: no is_valid_full_paper_or_volume_id
 
 
 def _construct_new_person_id(anthology, current_matching_person, name, suffix):
@@ -345,7 +329,6 @@ def verify_by_paper(orcid, paper_ids, degree=None, suffix=None, only_these_paper
     if person is None:
         # Create new verified person
         implicit_person = anthology.resolve(paper_and_namespec[0][1])
-        specified_item_ids = [parse_id(paper.full_id) for paper, _ in paper_and_namespec]
         person = _implicit_person_to_new_verified(
             anthology,
             implicit_person,
@@ -353,7 +336,6 @@ def verify_by_paper(orcid, paper_ids, degree=None, suffix=None, only_these_paper
             suffix=suffix,
             has_degree=degree is not None,
         )
-        # item_ids=specified_item_ids)
         for _, ns in paper_and_namespec[:1]:
             # Add any names from other papers (which may correspond to other unverified persons)
             person.add_name(ns.name)
@@ -438,35 +420,6 @@ def verify_by_paper(orcid, paper_ids, degree=None, suffix=None, only_these_paper
     return changes + f' author {person.id}'
 
 
-def prepare_and_switch_branch():
-    # Create new branch off "master"
-    base_branch = self.local_repo.head.reference
-    # base_branch = self.local_repo.heads.master
-
-    today = datetime.now().strftime("%Y-%m-%d")
-    new_branch_name = f"bulk-corrections-{today}"
-    # new_branch_name = f"bulk-corrections-debugging"
-
-    # If the branch exists, use it, else create it
-    if new_branch_name in self.local_repo.heads:
-        ref = self.local_repo.heads[new_branch_name]
-        log.info(f"Using existing branch {new_branch_name}")
-    else:
-        # Create new branch
-        ref = self.local_repo.create_head(new_branch_name, base_branch)
-        log.info(f"Created branch {new_branch_name} from {base_branch}")
-
-    # store the current branch
-    current_branch = self.local_repo.head.reference
-    self.local_repo.git.stash(['push', f'-m "{datetime.now().isoformat()}"'])
-
-    # switch to that branch
-    self.local_repo.head.reference = ref
-    self.local_repo.head.reset(index=True, working_tree=True)
-
-    return current_branch, new_branch_name, today
-
-
 if __name__ == "__main__":
     args = docopt(__doc__)
 
@@ -477,7 +430,7 @@ if __name__ == "__main__":
     log.getLogger("urllib3.connectionpool").setLevel(log.WARNING)
     # tracker = setup_rich_logging(level=log_level)
 
-    with warnings.catch_warnings(action="ignore"):  # NameSpecResolutionWarning
+    with warnings.catch_warnings(action="ignore", category=NameSpecResolutionWarning):
         if args['AUTHORID']:
             if any(
                 ':' in x for x in args['AUTHORID']
