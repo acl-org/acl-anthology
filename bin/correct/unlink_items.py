@@ -35,27 +35,12 @@ Options:
 """
 
 
-import os
 import warnings
-from datetime import datetime
-from typing import List, Optional, Tuple, Dict
 import logging as log
 from docopt import docopt
-import jsonschema
-from jsonschema import validate
-
-from github import Github
-from github.Issue import Issue
-import git
-import json
-import re
-import lxml.etree as etree
 
 from acl_anthology import Anthology
 from acl_anthology.collections import Paper
-from acl_anthology.people import NameSpecification, Name, NameLink
-from acl_anthology.text import MarkupText
-from acl_anthology.utils.ids import is_valid_orcid, is_verified_person_id, parse_id
 
 
 def unlink_items(author_id, paper_ids, keep_only_these_papers=False):
