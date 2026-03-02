@@ -24,7 +24,6 @@ Arguments:
     AUTHORID            One or more author IDs
 """
 
-
 import warnings
 import logging as log
 from docopt import docopt
