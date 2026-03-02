@@ -97,7 +97,9 @@ from acl_anthology.collections import Paper
 from acl_anthology.people import NameSpecification, Name, NameLink
 from acl_anthology.text import MarkupText
 from acl_anthology.utils.ids import is_valid_orcid, is_verified_person_id, parse_id
+
 # TODO: no is_valid_full_paper_or_volume_id
+
 
 def _construct_new_person_id(anthology, current_matching_person, name, suffix):
     new_aid = name.slugify()
@@ -107,20 +109,24 @@ def _construct_new_person_id(anthology, current_matching_person, name, suffix):
         log.info(f'The author ID {new_aid} already exists; using suffix')
         assert suffix is not None
         new_aid += '-' + suffix
-        assert anthology.get_person(new_aid) is None,f'Even with suffix the author ID exists: {new_aid}'
+        assert (
+            anthology.get_person(new_aid) is None
+        ), f'Even with suffix the author ID exists: {new_aid}'
     return new_aid
+
 
 def _unverified_person_convert_to_verified(anthology, person, suffix, has_degree):
     """An unverified author page should be converted to a verified page.
     Makes an existing unverified Person verified (and all the papers on the page
     will be explicitly linked)."""
     assert has_degree, 'To newly verify an author we need a degree institution'
-    assert person.id.endswith('/unverified'),person.id
+    assert person.id.endswith('/unverified'), person.id
     new_aid = _construct_new_person_id(anthology, person, person.names[0], suffix)
 
     # Convert unverified person to verified, which assigns IDs to all papers under the unverified person
     log.info(f'Verifying author {person.id} -> {new_aid}')
     person.make_explicit(new_aid)
+
 
 def _implicit_person_to_new_verified(anthology, person, name, suffix, has_degree):
     """A paper is being split off from an implicitly matched (verified or unverified) Person's page.
@@ -128,7 +134,7 @@ def _implicit_person_to_new_verified(anthology, person, name, suffix, has_degree
     assert has_degree, 'To newly verify an author we need a degree institution'
     assert name in person.names
     new_aid = _construct_new_person_id(anthology, person, name, suffix)
-    
+
     # Make a brand new person with the name
     log.info(f'Verifying author from scratch: {new_aid}')
     new_person = anthology.people.create(new_aid, [name])
@@ -139,7 +145,7 @@ def verify_all(orcid, author_ids, degree=None, suffix=None, except_paper_ids=Non
     changes = False
     anthology = Anthology.from_within_repo()
     assert is_valid_orcid(orcid), f'Invalid ORCID iD: {orcid}'
-    assert len(set(author_ids))==len(author_ids), 'Author IDs should be unique'
+    assert len(set(author_ids)) == len(author_ids), 'Author IDs should be unique'
 
     # First try to match an existing person by ORCID
     person = anthology.people.get_by_orcid(orcid)
@@ -150,14 +156,17 @@ def verify_all(orcid, author_ids, degree=None, suffix=None, except_paper_ids=Non
         assert person is not None, f'Unregistered author ID: {aid}'
         if not person.is_explicit:
             # First provided author ID is an unverified author. Convert to a verified author.
-            _unverified_person_convert_to_verified(anthology, person,
-                                                   suffix=suffix, has_degree=degree is not None)
+            _unverified_person_convert_to_verified(
+                anthology, person, suffix=suffix, has_degree=degree is not None
+            )
             changes = 'Verify'
         else:
             log.info(f'Matched existing author by author ID: {aid}')
 
         # We did not find an ORCID match, so assign the provided ORCID to the first matched author ID
-        assert not person.orcid, f'Author {aid} already has an ORCID {person.orcid} which differs from {orcid}'
+        assert (
+            not person.orcid
+        ), f'Author {aid} already has an ORCID {person.orcid} which differs from {orcid}'
         log.info('Assigning ORCID')
         person.orcid = orcid
         changes = 'Verify'
@@ -170,7 +179,9 @@ def verify_all(orcid, author_ids, degree=None, suffix=None, except_paper_ids=Non
     # Specify the degree institution if provided
     if degree is not None:
         if person.degree:
-            assert person.degree==degree, f'Mismatched degree institution: "{person.degree}" != "{degree}"'
+            assert (
+                person.degree == degree
+            ), f'Mismatched degree institution: "{person.degree}" != "{degree}"'
         else:
             log.info('Assigning degree institution')
             person.degree = degree
@@ -182,16 +193,20 @@ def verify_all(orcid, author_ids, degree=None, suffix=None, except_paper_ids=Non
     for aid in author_ids:
         person2 = anthology.get_person(aid)
         assert person2 is not None, f'Invalid author ID: {aid}'
-        if person2 is person:   # ORCID match may be the same as first author ID match
-            if len(author_ids)==1 and (not changes or changes=='Add degree for'):
+        if person2 is person:  # ORCID match may be the same as first author ID match
+            if len(author_ids) == 1 and (not changes or changes == 'Add degree for'):
                 # Author is already verified with ORCID; make_explicit() has not been called
                 # and merge_with_explicit() will not be called.
                 # Interpret as a request to make this author's ID fully explicit on papers.
                 log.info(f'Ensuring author ID {aid} is explicit on all papers/volumes')
                 # TODO: this is clunky; there ought to be better API support for this
-                candidate_namespecs = [(ns,paper) for paper in person.papers() for ns in paper.authors]
-                candidate_namespecs += [(ns,volume) for volume in person.volumes() for ns in volume.editors]
-                for (namespec,item) in candidate_namespecs:
+                candidate_namespecs = [
+                    (ns, paper) for paper in person.papers() for ns in paper.authors
+                ]
+                candidate_namespecs += [
+                    (ns, volume) for volume in person.volumes() for ns in volume.editors
+                ]
+                for namespec, item in candidate_namespecs:
                     if anthology.resolve(namespec) is person:
                         if namespec.id:
                             assert namespec.id == person.id
@@ -203,23 +218,30 @@ def verify_all(orcid, author_ids, degree=None, suffix=None, except_paper_ids=Non
 
         # Besides the canonical person, other author IDs to merge should be unverified
         # (else it means two author IDs corresponding to the same individual were erroneously verified)
-        assert not person2.is_explicit, f'Author ID corresponds to a verified author, should be unverified: {aid}'
+        assert (
+            not person2.is_explicit
+        ), f'Author ID corresponds to a verified author, should be unverified: {aid}'
         log.info(f'Merging author {aid} into {person.id}')
         except_papers = []
         for paper_id in except_paper_ids or []:
             paper = anthology.get(paper_id)
-            assert paper is not None,paper_id
-            assert paper.authors,paper
-            assert not any(ns.id==person.id for ns in (paper.authors if isinstance(paper, Paper) else paper.editors)), f'Excluded paper {paper_id} already specifies the author ID {person.id}'
-            except_papers.append((paper_id,paper))
+            assert paper is not None, paper_id
+            assert paper.authors, paper
+            assert not any(
+                ns.id == person.id
+                for ns in (paper.authors if isinstance(paper, Paper) else paper.editors)
+            ), f'Excluded paper {paper_id} already specifies the author ID {person.id}'
+            except_papers.append((paper_id, paper))
         person2.merge_with_explicit(person)
         anthology.save_all()
         anthology.people.reset()
 
         # reset the ID for excluded papers
-        for paper_id,paper in except_papers:
-            matching_authors = [ns for ns in paper.authors if ns.id==person.id]
-            assert matching_authors, f'Cannot exclude paper {paper_id} because it was not matched in the first place'
+        for paper_id, paper in except_papers:
+            matching_authors = [ns for ns in paper.authors if ns.id == person.id]
+            assert (
+                matching_authors
+            ), f'Cannot exclude paper {paper_id} because it was not matched in the first place'
             for ns in matching_authors:
                 log.info(f'Excluding paper {paper_id} author {ns}')
                 ns.id = None
@@ -232,6 +254,7 @@ def verify_all(orcid, author_ids, degree=None, suffix=None, except_paper_ids=Non
         changes = 'No changes for'
 
     return changes + f' author {person.id}'
+
 
 def verify_by_paper(orcid, paper_ids, degree=None, suffix=None, only_these_papers=False):
     """
@@ -250,66 +273,88 @@ def verify_by_paper(orcid, paper_ids, degree=None, suffix=None, only_these_paper
           a brand new verified Person by assigning explicit ID. With `only_these_papers=True`,
           disable name matching for the new Person if not doing so would cause other papers
           to appear on the author page based on name match.
-    
+
     Does not handle the case where there is already an explicit author ID on a paper that is incorrect.
     """
     changes = False
     anthology = Anthology.from_within_repo()
 
-    assert len(paper_ids)>0
+    assert len(paper_ids) > 0
     name_slug_queries = set()
     paper_and_namespec = []
     for paper_and_name_slug in paper_ids:
         if not paper_and_namespec:
-            assert paper_and_name_slug.count(':')==1,'First arg after ORCID must be PAPERID:NAMESLUG'
+            assert (
+                paper_and_name_slug.count(':') == 1
+            ), 'First arg after ORCID must be PAPERID:NAMESLUG'
         else:
-            assert paper_and_name_slug.count(':')<=1,f'Invalid arg syntax: {paper_and_name_slug}'
-        paper_id, name_slug = (paper_and_name_slug+':').split(':', 1)
+            assert (
+                paper_and_name_slug.count(':') <= 1
+            ), f'Invalid arg syntax: {paper_and_name_slug}'
+        paper_id, name_slug = (paper_and_name_slug + ':').split(':', 1)
         if name_slug:
-            name_slug = name_slug.replace(':','')
-            assert name_slug,name_slug
-            assert is_verified_person_id(name_slug),f'Name slug must have the form of a verified person ID (not including /unverified): {name_slug}'
+            name_slug = name_slug.replace(':', '')
+            assert name_slug, name_slug
+            assert is_verified_person_id(
+                name_slug
+            ), f'Name slug must have the form of a verified person ID (not including /unverified): {name_slug}'
             name_slug_queries.add(name_slug)
         paper = anthology.get(paper_id)
 
         # match the author of the paper by name slug
-        author_list = paper.authors if isinstance(paper,Paper) else paper.editors
+        author_list = paper.authors if isinstance(paper, Paper) else paper.editors
         query = [name_slug] if name_slug else name_slug_queries
-        matches = [namespec for namespec in author_list if namespec.name.slugify() in query]
-        assert len(matches)==1, f'In {paper_id}, looking for exactly 1 author matching one of {query}, found: {matches}'
+        matches = [
+            namespec for namespec in author_list if namespec.name.slugify() in query
+        ]
+        assert (
+            len(matches) == 1
+        ), f'In {paper_id}, looking for exactly 1 author matching one of {query}, found: {matches}'
         matched_namespec = matches[0]
         log.info(f'In {paper_id}, matched author {matched_namespec.name}')
         paper_and_namespec.append((paper, matched_namespec))
-
-
-
 
     assert is_valid_orcid(orcid), f'Invalid ORCID iD: {orcid}'
 
     # Try to match an existing person by ORCID
     # (requires loading the person index, so do this after other validation)
     person = anthology.people.get_by_orcid(orcid)
-    orcid_matched = (person is not None)
-    explicit_verified_matches = [namespec for (_,namespec) in paper_and_namespec if namespec.id]
+    orcid_matched = person is not None
+    explicit_verified_matches = [
+        namespec for (_, namespec) in paper_and_namespec if namespec.id
+    ]
     if person is None:
         # No ORCID match. Look for a verified person among the matched namespecs
-        assert len(explicit_verified_matches)<=1,f'Expected at most 1 explicit verified author match in specified papers, got: {explicit_verified_matches}'
+        assert (
+            len(explicit_verified_matches) <= 1
+        ), f'Expected at most 1 explicit verified author match in specified papers, got: {explicit_verified_matches}'
         if explicit_verified_matches:
-            assert not only_these_papers,'`--only` flag does not work with an already-verified author'
+            assert (
+                not only_these_papers
+            ), '`--only` flag does not work with an already-verified author'
             # TODO: replace with new .resolve()
             person = anthology.resolve(explicit_verified_matches[0])
     else:
-        assert not only_these_papers,'`--only` flag does not work with an already-verified author'
-        assert len(explicit_verified_matches)==0,f'Expected no explicit verified author matches in specified papers, got: {explicit_verified_matches}'
-    
+        assert (
+            not only_these_papers
+        ), '`--only` flag does not work with an already-verified author'
+        assert (
+            len(explicit_verified_matches) == 0
+        ), f'Expected no explicit verified author matches in specified papers, got: {explicit_verified_matches}'
+
     if person is None:
         # Create new verified person
         implicit_person = anthology.resolve(paper_and_namespec[0][1])
-        specified_item_ids = [parse_id(paper.full_id) for paper,_ in paper_and_namespec]
-        person = _implicit_person_to_new_verified(anthology, implicit_person, paper_and_namespec[0][1].name,
-                                                  suffix=suffix, has_degree=degree is not None)
-                                                  #item_ids=specified_item_ids)
-        for _,ns in paper_and_namespec[:1]:
+        specified_item_ids = [parse_id(paper.full_id) for paper, _ in paper_and_namespec]
+        person = _implicit_person_to_new_verified(
+            anthology,
+            implicit_person,
+            paper_and_namespec[0][1].name,
+            suffix=suffix,
+            has_degree=degree is not None,
+        )
+        # item_ids=specified_item_ids)
+        for _, ns in paper_and_namespec[:1]:
             # Add any names from other papers (which may correspond to other unverified persons)
             person.add_name(ns.name)
         del implicit_person
@@ -317,43 +362,53 @@ def verify_by_paper(orcid, paper_ids, degree=None, suffix=None, only_these_paper
 
     if not orcid_matched:
         # We did not find an ORCID match, so assign the provided ORCID to the first matched author ID
-        assert not person.orcid, f'Author {person.id} already has an ORCID {person.orcid} which differs from {orcid}'
+        assert (
+            not person.orcid
+        ), f'Author {person.id} already has an ORCID {person.orcid} which differs from {orcid}'
         log.info('Assigning ORCID')
         person.orcid = orcid
 
     # Specify the degree institution if provided
     if degree is not None:
         if person.degree:
-            assert person.degree==degree, f'Mismatched degree institution: "{person.degree}" != "{degree}"'
+            assert (
+                person.degree == degree
+            ), f'Mismatched degree institution: "{person.degree}" != "{degree}"'
         else:
             log.info('Assigning degree institution')
             person.degree = degree
             changes = 'Verify'
 
     # Now add papers under the person (or in other words, specify person ID in namespecs for listed papers)
-    for paper,ns in paper_and_namespec:
+    for paper, ns in paper_and_namespec:
         if not ns.id:
             ns.id = person.id
-            paper.collection.is_modified = True # TODO: remove after API change
+            paper.collection.is_modified = True  # TODO: remove after API change
             changes = 'Verify'
         else:
-            assert ns.id == person.id,(ns.id,person.id)
-    log.info(f'The specified {len(paper_and_namespec)} papers have been explicitly assigned to the author')
+            assert ns.id == person.id, (ns.id, person.id)
+    log.info(
+        f'The specified {len(paper_and_namespec)} papers have been explicitly assigned to the author'
+    )
 
     if changes:
         anthology.save_all()
 
     anthology.people.reset()
-    person = anthology.get_person(person.id)    # refreshed after reset
+    person = anthology.get_person(person.id)  # refreshed after reset
 
     numPapers = len(list(person.papers())) + len(list(person.volumes()))
     if only_these_papers and not person.disable_name_matching:
         log.info(f'This person now has {numPapers} papers.')
-        if numPapers>len(paper_and_namespec):
+        if numPapers > len(paper_and_namespec):
             # There are papers that would appear under this author by name match but should not
             log.info('Disabling name matching to limit to the specified papers.')
             person.disable_name_matching = True
-            changes = changes + ' and disable name matching for' if changes else 'Disable name matching for'
+            changes = (
+                changes + ' and disable name matching for'
+                if changes
+                else 'Disable name matching for'
+            )
     else:
         log.info(f'This person now has {numPapers} papers')
 
@@ -365,16 +420,23 @@ def verify_by_paper(orcid, paper_ids, degree=None, suffix=None, only_these_paper
 
     if not person.disable_name_matching:
         # Check that there are no more implicit matches
-        person = anthology.get_person(person.id)    # refreshed after reset
+        person = anthology.get_person(person.id)  # refreshed after reset
         log.info(f'Checking that author ID {person.id} is explicit on all papers/volumes')
         # TODO: this is clunky; there ought to be better API support for this
-        candidate_namespecs = [(ns,paper) for paper in person.papers() for ns in paper.authors]
-        candidate_namespecs += [(ns,volume) for volume in person.volumes() for ns in volume.editors]
-        for (namespec,item) in candidate_namespecs:
+        candidate_namespecs = [
+            (ns, paper) for paper in person.papers() for ns in paper.authors
+        ]
+        candidate_namespecs += [
+            (ns, volume) for volume in person.volumes() for ns in volume.editors
+        ]
+        for namespec, item in candidate_namespecs:
             if anthology.resolve(namespec) is person:
-                assert namespec.id == person.id, f'Implicit match (did you mean to run with --only?): {item}'
+                assert (
+                    namespec.id == person.id
+                ), f'Implicit match (did you mean to run with --only?): {item}'
 
     return changes + f' author {person.id}'
+
 
 def prepare_and_switch_branch():
     # Create new branch off "master"
@@ -408,7 +470,7 @@ def prepare_and_switch_branch():
 if __name__ == "__main__":
     args = docopt(__doc__)
 
-    log_level = log.DEBUG if not args.get("--quiet",False) else log.INFO
+    log_level = log.DEBUG if not args.get("--quiet", False) else log.INFO
     log.basicConfig(level=log_level)
     log.getLogger("acl-anthology").setLevel(log.WARNING)
     log.getLogger("git.cmd").setLevel(log.WARNING)
@@ -417,23 +479,31 @@ if __name__ == "__main__":
 
     with warnings.catch_warnings(action="ignore"):  # NameSpecResolutionWarning
         if args['AUTHORID']:
-            if any(':' in x for x in args['AUTHORID']):  # this is actually paperID:nameslug
+            if any(
+                ':' in x for x in args['AUTHORID']
+            ):  # this is actually paperID:nameslug
                 args['PAPERID:NAMESLUG'] = args['AUTHORID']
                 args['AUTHORID'] = None
             else:
-                msg = verify_all(orcid=args['ORCID'],
-                                author_ids=args['AUTHORID'],
-                                degree=args['--degree'],
-                                suffix=args['--suffix'],
-                                except_paper_ids=args['--except'].split() if args['--except'] else None)
+                msg = verify_all(
+                    orcid=args['ORCID'],
+                    author_ids=args['AUTHORID'],
+                    degree=args['--degree'],
+                    suffix=args['--suffix'],
+                    except_paper_ids=(
+                        args['--except'].split() if args['--except'] else None
+                    ),
+                )
 
         if not args['AUTHORID']:
-            assert args['PAPERID:NAMESLUG'],args
-            msg = verify_by_paper(orcid=args['ORCID'],
-                                  paper_ids=args['PAPERID:NAMESLUG'],
-                                  degree=args['--degree'],
-                                  suffix=args['--suffix'],
-                                  only_these_papers=args['--only'])
+            assert args['PAPERID:NAMESLUG'], args
+            msg = verify_by_paper(
+                orcid=args['ORCID'],
+                paper_ids=args['PAPERID:NAMESLUG'],
+                degree=args['--degree'],
+                suffix=args['--suffix'],
+                only_these_papers=args['--only'],
+            )
 
         if args['--issue']:
             msg += f' (closes #{args["--issue"]})'
