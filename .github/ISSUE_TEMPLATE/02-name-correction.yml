@@ -44,7 +44,7 @@ body:
     attributes:
       label: Author ORCID
       description: |
-        Provide a valid [ORCID](https://orcid.org) link here, and [add your name variants to your profile on orcid.org](https://aclanthology.org/info/orcid_id). This will be used to match papers to your Anthology ID.
+        Provide a valid [ORCID](https://orcid.org) link here and on submission platforms per [these instructions](https://aclanthology.org/info/author-pages/). This will be used to populate your author page on the Anthology.
       placeholder: ex. https://orcid.org/0009-0003-8868-7504
     validations:
       required: true
@@ -86,8 +86,7 @@ body:
     attributes:
       label: Preferred author name
       description: |
-        If this request is merging multiple names, please provide the preferred canonical form of your name in "Family name, Given name(s)" format. This will be used to form your person ID in the Anthology. For example, if you are merging "Schmidt, John" and "Schmidt, John Jacob Jingleheimer", please list which variant you prefer.
-        Your [Anthology person ID](https://aclanthology.org/info/names/#person-ids) will be constructed from this variant, e.g., john-jacob-jingleheimer-schmidt.
+        If you have published under multiple names, list the main one that should appear at the top of your author page.
       placeholder: ex. Family name, Given name(s).
     validations:
       required: false
@@ -96,7 +95,7 @@ body:
     attributes:
       label: OpenReview profile page URL
       description: |
-        If you have an OpenReview profile page, please ensure it [includes an ORCID link](https://aclanthology.org/info/orcid/) so that future publications will be linked to you when it is ingested by the Anthology. Include the OpenReview URL here so we can verify the information.
+        If you have an OpenReview profile page, please include it here and ensure the page has your ORCID link: [instructions](https://aclanthology.org/info/author-pages/).
       placeholder: ex. https://openreview.net/profile?id=~Your_Name1
     validations:
       required: false
