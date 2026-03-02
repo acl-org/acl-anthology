@@ -57,6 +57,7 @@ from acl_anthology.people import NameSpecification, Name, NameLink
 from acl_anthology.text import MarkupText
 from acl_anthology.utils.ids import is_valid_orcid, is_verified_person_id, parse_id
 
+
 def unlink_items(author_id, paper_ids, keep_only_these_papers=False):
     changes = ''
     anthology = Anthology.from_within_repo()
@@ -72,9 +73,11 @@ def unlink_items(author_id, paper_ids, keep_only_these_papers=False):
         assert paper, f'Unknown item ID: {paper_id}'
 
         # match the author of the paper by name slug
-        author_list = paper.authors if isinstance(paper,Paper) else paper.editors
-        matches = [namespec for namespec in author_list if namespec.id==author_id]
-        assert len(matches)==1, f'In {paper_id}, looking for exactly 1 author with id={author_id}, found: {matches}'
+        author_list = paper.authors if isinstance(paper, Paper) else paper.editors
+        matches = [namespec for namespec in author_list if namespec.id == author_id]
+        assert (
+            len(matches) == 1
+        ), f'In {paper_id}, looking for exactly 1 author with id={author_id}, found: {matches}'
         matched_namespec = matches[0]
         log.info(f'In {paper_id}, matched author {matched_namespec.name}')
         paper_and_namespec.append((paper, matched_namespec))
@@ -83,41 +86,44 @@ def unlink_items(author_id, paper_ids, keep_only_these_papers=False):
 
     if keep_only_these_papers:
         # unlink any other papers
-        if numPapers>len(paper_and_namespec):
+        if numPapers > len(paper_and_namespec):
             included_items = list(zip(*paper_and_namespec))[0]
             all_items = list(person.papers()) + list(person.volumes())
             for item in all_items:
                 if item not in included_items:
                     for ns in item.authors if isinstance(item, Paper) else item.editors:
-                        if ns.id==person.id:
+                        if ns.id == person.id:
                             log.info(f'Unlinking {item.full_id} {ns}')
-                            assert ns.orcid is None,'ORCID expected to be None'
+                            assert ns.orcid is None, 'ORCID expected to be None'
                             ns.id = None
                             numUnlinked += 1
                             item.collection.is_modified = True
-    else:   # unlink the specified papers
+    else:  # unlink the specified papers
         for item, ns in paper_and_namespec:
             log.info(f'Unlinking {item.full_id} {ns}')
-            assert ns.orcid is None,'ORCID expected to be None'
+            assert ns.orcid is None, 'ORCID expected to be None'
             ns.id = None
             numUnlinked += 1
             item.collection.is_modified = True
 
-    if numUnlinked>0:
-        changes = f'Unlinked {numUnlinked} explicit papers/volumes from author {author_id}'
+    if numUnlinked > 0:
+        changes = (
+            f'Unlinked {numUnlinked} explicit papers/volumes from author {author_id}'
+        )
         log.info(changes)
         anthology.save_all()
         anthology.people.reset()
-        person = anthology.get_person(person.id)    # refreshed after reset
+        person = anthology.get_person(person.id)  # refreshed after reset
         numPapers = len(list(person.papers())) + len(list(person.volumes()))
         log.info(f'Now {numPapers} implicitly or explicitly linked')
-    
+
     return changes
+
 
 if __name__ == "__main__":
     args = docopt(__doc__)
 
-    log_level = log.DEBUG if not args.get("--quiet",False) else log.INFO
+    log_level = log.DEBUG if not args.get("--quiet", False) else log.INFO
     log.basicConfig(level=log_level)
     log.getLogger("acl-anthology").setLevel(log.WARNING)
     log.getLogger("git.cmd").setLevel(log.WARNING)
@@ -125,10 +131,12 @@ if __name__ == "__main__":
     # tracker = setup_rich_logging(level=log_level)
 
     with warnings.catch_warnings(action="ignore"):  # NameSpecResolutionWarning
-        
-        msg = unlink_items(author_id=args['AUTHORID'],
-                           paper_ids=args['PAPERID'],
-                           keep_only_these_papers=args['--keep'])
+
+        msg = unlink_items(
+            author_id=args['AUTHORID'],
+            paper_ids=args['PAPERID'],
+            keep_only_these_papers=args['--keep'],
+        )
 
         if args['--issue']:
             msg += f' (closes #{args["--issue"]})'

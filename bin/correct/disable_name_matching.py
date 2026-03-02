@@ -50,10 +50,11 @@ def disable_name_matching(author_ids):
 
     return changes
 
+
 if __name__ == "__main__":
     args = docopt(__doc__)
 
-    log_level = log.DEBUG if not args.get("--quiet",False) else log.INFO
+    log_level = log.DEBUG if not args.get("--quiet", False) else log.INFO
     log.basicConfig(level=log_level)
     log.getLogger("acl-anthology").setLevel(log.WARNING)
     log.getLogger("git.cmd").setLevel(log.WARNING)
