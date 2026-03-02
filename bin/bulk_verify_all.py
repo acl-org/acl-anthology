@@ -43,6 +43,7 @@ Options:
 
 import sys
 import os
+import warnings
 from datetime import datetime
 
 from github import Github
@@ -304,7 +305,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--dry-run",
         action="store_true",
-        help="Dry run (do not update the database or create PRs)",
+        help="Dry run (do not create PRs)",
     )
 
     args = parser.parse_args()
@@ -312,13 +313,14 @@ if __name__ == "__main__":
     if not github_token:
         raise ValueError("Please set GITHUB_TOKEN environment variable")
 
-    updater = AnthologyMetadataUpdater(github_token)
-    updater.process_verification_issues(
-        issue_ids=args.issue_ids,
-        verbose=not args.quiet,
-        skip_validation=args.skip_validation,
-        dry_run=args.dry_run,
-    )
+    with warnings.catch_warnings(action="ignore"):  # NameSpecResolutionWarning
+        updater = AnthologyMetadataUpdater(github_token)
+        updater.process_verification_issues(
+            issue_ids=args.issue_ids,
+            verbose=not args.quiet,
+            skip_validation=args.skip_validation,
+            dry_run=args.dry_run,
+        )
 
     for stat in updater.stats:
         print(f"{stat}: {updater.stats[stat]}", file=sys.stderr)
