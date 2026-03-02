@@ -82,7 +82,7 @@ from docopt import docopt
 from acl_anthology import Anthology
 from acl_anthology.collections import Paper
 from acl_anthology.exceptions import NameSpecResolutionWarning
-from acl_anthology.utils.ids import is_valid_orcid, is_verified_person_id, parse_id
+from acl_anthology.utils.ids import is_valid_orcid, is_verified_person_id
 
 
 def _construct_new_person_id(anthology, current_matching_person, name, suffix):
@@ -158,7 +158,7 @@ def verify_all(orcid, author_ids, degree=None, suffix=None, except_paper_ids=Non
         # We have used the first of the provided author IDs
         author_ids = author_ids[1:]
     else:
-        log.info(f'Matched existing author by ORCID')
+        log.info('Matched existing author by ORCID')
 
     # Specify the degree institution if provided
     if degree is not None:
