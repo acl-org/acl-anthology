@@ -19,7 +19,8 @@ For more details on how verification works, please see [How the ACL Anthology ve
 
 ### How to get your author page verified
 
-1. Obtain an ORCID iD and update your ORCID profile:
+#### 1. Obtain an ORCID iD and update your ORCID profile
+
    - Visit [the ORCID registration form](https://orcid.org/register) if you need to create one, or navigate to your existing ORCID profile page and click the edit button.
    - Add name variants: Set your given and family names, your published name, and any name variants you have published under (e.g., with or without middle initials, former names, etc.). It is especially important to make sure you have at least one Latin-script variant of your name. ([This profile](https://orcid.org/0000-0002-1831-3457) is a good example.)
    - Make sure your name is visible to everyone.
@@ -28,13 +29,18 @@ For more details on how verification works, please see [How the ACL Anthology ve
 
    For more information about ORCID iDs and how the Anthology uses them, please [ORCID iDs in the ACL Anthology]({{< ref "/info/orcid">}}).
 
-2. Link your profiles on conference management systems to your ORCID iD:
-   - **OpenReview:** Visit the ["Edit Profile" page](https://openreview.net/profile/edit). (If necessary, enter your username and password and click on "Login to OpenReview.") Click on the "Personal Links" section. Enter your ORCID in the "ORCID URL" field, and click on the "Save Profile Changes" button.
+#### 2. Link your profiles on conference management systems to your ORCID iD
+
+   - **OpenReview:** Visit the ["Edit Profile" page](https://openreview.net/profile/edit). (If necessary, enter your username and password and click on "Login to OpenReview.") Click on the "Personal Links" section. Enter your ORCID in the "ORCID URL" field, optionally click the "Add ORCID Papers to Profile" button (if you have papers to import), and finally click on the "Save Profile Changes" button at the bottom of the page.
    - **Softconf/START:** Visit the ["Update Profile" page](https://www.softconf.com/naacl2021/super/scmd.cgi?ucmd=updateProfile). (If necessary, click on "To Login Page", enter your username and password, click on the "ENTER" button, and click on ["Update Profile"](https://www.softconf.com/naacl2021/super/scmd.cgi?ucmd=updateProfile) again.) Scroll down to the "Additional Information for Authors and Reviewers" section. Enter your ORCID in the "ORCID" field, and click on the "SUBMIT DATA" button.
 
-   In each of these systems, the name that you enter is the one that gets used in your papers' metadata. Please make sure that this name matches the name that you use in your papers' PDF files, and that this name matches one of the ORCID variants, ideally your published name.
+#### 3. Ensure your name in the conference management system matches how you spell it in papers
 
-3. Let the Anthology know about your ORCID iD:
+   - **OpenReview:** OpenReview allows you to list multiple names, one of which is the "preferred name". The spelling of the preferred name should exactly match the way your name is spelled in your papers (in the PDF), taking into account any accents and punctuation. Visit the ["Edit Profile" page](https://openreview.net/profile/edit) to see the "Names" screen where you can edit this.
+   - **Softconf/START:** Visit the ["Update Profile" page](https://www.softconf.com/naacl2021/super/scmd.cgi?ucmd=updateProfile). Enter your first, middle, and last names as they appear on your papers. This may mean your middle name is omitted or abbreviated.
+
+#### 4. Let the Anthology know about your ORCID iD
+
    - Find your ACL Anthology author page (by using the search bar, or by finding one of your papers and clicking on your name).
    - Look at the icon next to your name at the top of the page. If it is a green ORCID icon <i class="fab fa-orcid text-verified"></i>, then your author page is verified already!
    - Otherwise, click on the "Fix author" button at the bottom of the links on the right-hand side of the page.
