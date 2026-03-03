@@ -524,6 +524,8 @@ def iter_aclpub_papers(metadata: Dict[str, Any]) -> Iterator[Dict[str, Any]]:
         parsed = read_bib_entry(bib_path, anthology_id)
         if parsed is None:
             continue
+        pdf_src_path = pdf_path
+        pdf_dest_path = pdfs_dest_dir / f"{anthology_id}.pdf"
         if paper_num == 0:
             yield {
                 "id": "0",
@@ -531,15 +533,13 @@ def iter_aclpub_papers(metadata: Dict[str, Any]) -> Iterator[Dict[str, Any]]:
                 "title": parsed.get("title") or metadata["title"],
                 "authors": parsed["authors"],
                 "editors": parsed["editors"],
-                "pdf_src": metadata["proceedings_pdf_src"],
-                "pdf_dest": metadata["proceedings_pdf_dest"],
+                "pdf_src": pdf_src_path,
+                "pdf_dest": pdf_dest_path,
                 "anthology_id": anthology_id,
                 "archival": True,
                 "attachments": [],
             }
             continue
-        pdf_src_path = pdf_path
-        pdf_dest_path = pdfs_dest_dir / f"{anthology_id}.pdf"
         yield {
             "id": str(paper_num),
             "type": PaperType.PAPER,
