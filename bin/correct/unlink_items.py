@@ -40,6 +40,8 @@ from docopt import docopt
 
 from acl_anthology import Anthology
 from acl_anthology.collections import Paper
+from acl_anthology.exceptions import NameSpecResolutionWarning
+from acl_anthology.utils.logging import setup_rich_logging
 
 
 def unlink_items(author_id, paper_ids, keep_only_these_papers=False):
@@ -112,9 +114,9 @@ if __name__ == "__main__":
     log.getLogger("acl-anthology").setLevel(log.WARNING)
     log.getLogger("git.cmd").setLevel(log.WARNING)
     log.getLogger("urllib3.connectionpool").setLevel(log.WARNING)
-    # tracker = setup_rich_logging(level=log_level)
+    tracker = setup_rich_logging(level=log_level)
 
-    with warnings.catch_warnings(action="ignore"):  # NameSpecResolutionWarning
+    with warnings.catch_warnings(action="ignore", category=NameSpecResolutionWarning):
 
         msg = unlink_items(
             author_id=args['AUTHORID'],

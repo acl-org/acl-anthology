@@ -82,6 +82,7 @@ from acl_anthology import Anthology
 from acl_anthology.collections import Paper
 from acl_anthology.exceptions import NameSpecResolutionWarning
 from acl_anthology.utils.ids import is_valid_orcid, is_verified_person_id
+from acl_anthology.utils.logging import setup_rich_logging
 
 
 def _construct_new_person_id(anthology, current_matching_person, name, suffix):
@@ -427,7 +428,7 @@ if __name__ == "__main__":
     log.getLogger("acl-anthology").setLevel(log.WARNING)
     log.getLogger("git.cmd").setLevel(log.WARNING)
     log.getLogger("urllib3.connectionpool").setLevel(log.WARNING)
-    # tracker = setup_rich_logging(level=log_level)
+    tracker = setup_rich_logging(level=log_level)
 
     with warnings.catch_warnings(action="ignore", category=NameSpecResolutionWarning):
         if args['AUTHORID']:
