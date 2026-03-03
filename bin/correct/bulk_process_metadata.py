@@ -64,6 +64,7 @@ import lxml.etree as etree
 
 from acl_anthology import Anthology
 from acl_anthology.collections import Paper
+from acl_anthology.exceptions import NameSpecResolutionWarning
 from acl_anthology.people import NameSpecification, Name
 from acl_anthology.text import MarkupText
 
@@ -143,7 +144,7 @@ class AnthologyMetadataUpdater:
         self.github = Github(github_token)
         self.github_repo = self.github.get_repo("acl-org/acl-anthology")
         self.local_repo = git.Repo(
-            os.path.join(os.path.dirname(__file__), "..")
+            os.path.join(os.path.dirname(__file__), "../..")
         )  # todo make this more flexible
         self.stats = {
             "visited_issues": 0,
@@ -632,12 +633,11 @@ if __name__ == "__main__":
     log.getLogger("acl-anthology").setLevel(log.WARNING)
     log.getLogger("git.cmd").setLevel(log.WARNING)
     log.getLogger("urllib3.connectionpool").setLevel(log.WARNING)
-    # tracker = setup_rich_logging(level=log_level)
 
     ids = [int(iid) for iid in args["<issueid>"]]
 
     updater = AnthologyMetadataUpdater(github_token, verbose=args["--quiet"])
-    with warnings.catch_warnings(action="ignore"):  # NameSpecResolutionWarning
+    with warnings.catch_warnings(action="ignore", category=NameSpecResolutionWarning):
         updater.process_metadata_issues(
             ids=ids,
             skip_validation=args["--skip-validation"],
