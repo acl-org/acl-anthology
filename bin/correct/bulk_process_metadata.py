@@ -143,9 +143,7 @@ class AnthologyMetadataUpdater:
         """Initialize with GitHub token."""
         self.github = Github(github_token)
         self.github_repo = self.github.get_repo("acl-org/acl-anthology")
-        self.local_repo = git.Repo(
-            os.path.join(os.path.dirname(__file__), "../..")
-        )  # todo make this more flexible
+        self.local_repo = git.Repo(__file__, search_parent_directories=True)
         self.stats = {
             "visited_issues": 0,
             "relevant_issues": 0,
@@ -378,9 +376,8 @@ class AnthologyMetadataUpdater:
                     retained_author_json_by_id[person.id][AUTHOR_FIRST],
                     retained_author_json_by_id[person.id][AUTHOR_LAST],
                 )
-                if not person.has_name(current_author.name):
-                    # new variant
-                    person.add_name(current_author.name)
+                # possibly new or newly explicit variant
+                person.add_name(current_author.name)
             else:
                 assert (
                     person.id in deleted_author_json_by_id
