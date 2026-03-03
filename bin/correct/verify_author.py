@@ -378,7 +378,7 @@ def verify_by_paper(orcid, paper_ids, degree=None, suffix=None, only_these_paper
     anthology.people.reset()
     person = anthology.get_person(person.id)  # refreshed after reset
 
-    numPapers = len(list(person.papers())) + len(list(person.volumes()))
+    numPapers = len(list(person.anthology_items()))
     if only_these_papers and not person.disable_name_matching:
         log.info(f'This person now has {numPapers} papers.')
         if numPapers > len(paper_and_namespec):
