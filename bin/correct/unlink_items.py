@@ -48,7 +48,7 @@ def unlink_items(author_id, paper_ids, keep_only_these_papers=False):
 
     person = anthology.get_person(author_id)
 
-    numPapers = len(list(person.papers())) + len(list(person.volumes()))
+    numPapers = len(list(person.anthology_items()))
     log.info(f'Author {person.id} has {numPapers} implicitly or explicitly linked')
 
     paper_and_namespec = []
@@ -72,7 +72,7 @@ def unlink_items(author_id, paper_ids, keep_only_these_papers=False):
         # unlink any other papers
         if numPapers > len(paper_and_namespec):
             included_items = list(zip(*paper_and_namespec))[0]
-            all_items = list(person.papers()) + list(person.volumes())
+            all_items = list(person.anthology_items())
             for item in all_items:
                 if item not in included_items:
                     for ns in item.authors if isinstance(item, Paper) else item.editors:
@@ -98,7 +98,7 @@ def unlink_items(author_id, paper_ids, keep_only_these_papers=False):
         anthology.save_all()
         anthology.people.reset()
         person = anthology.get_person(person.id)  # refreshed after reset
-        numPapers = len(list(person.papers())) + len(list(person.volumes()))
+        numPapers = len(list(person.anthology_items()))
         log.info(f'Now {numPapers} implicitly or explicitly linked')
 
     return changes
