@@ -38,13 +38,12 @@ import logging as log
 from docopt import docopt
 
 from acl_anthology import Anthology
-from acl_anthology.collections import Paper
 from acl_anthology.exceptions import NameSpecResolutionWarning
 from acl_anthology.utils.logging import setup_rich_logging
 
 
 def merge_verified(author_ids):
-    assert len(author_ids)>1, 'Multiple author IDs required'
+    assert len(author_ids) > 1, 'Multiple author IDs required'
 
     author_id = author_ids[0]
     changes = f'Merging verified Persons under {author_id}'
@@ -59,7 +58,7 @@ def merge_verified(author_ids):
         assert person2 is not None, f'Could not find person: {author_id2}'
         assert person2.is_explicit, f'Person is unverified: {author_id2}'
 
-        assert False,'Not implemented'
+        assert False, 'Not implemented'
         # TODO: merge person2 into person. awaiting library support for the merge
 
     anthology.save_all()
@@ -79,9 +78,7 @@ if __name__ == "__main__":
 
     with warnings.catch_warnings(action="ignore", category=NameSpecResolutionWarning):
 
-        msg = merge_verified(
-            author_ids=args['AUTHORID']
-        )
+        msg = merge_verified(author_ids=args['AUTHORID'])
 
         if args['--issue']:
             msg += f' (closes #{args["--issue"]})'
