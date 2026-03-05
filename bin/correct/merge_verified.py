@@ -60,6 +60,8 @@ def merge_verified(author_ids):
 
         assert False, 'Not implemented'
         # TODO: merge person2 into person. awaiting library support for the merge
+        # ensure the merging copies any metadata attached to the Person:
+        # ORCID, degree, comment, etc.
 
     anthology.save_all()
 
