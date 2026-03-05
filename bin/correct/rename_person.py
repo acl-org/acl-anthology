@@ -38,7 +38,6 @@ import logging as log
 from docopt import docopt
 
 from acl_anthology import Anthology
-from acl_anthology.collections import Paper
 from acl_anthology.exceptions import NameSpecResolutionWarning
 from acl_anthology.utils.logging import setup_rich_logging
 
@@ -68,10 +67,7 @@ if __name__ == "__main__":
 
     with warnings.catch_warnings(action="ignore", category=NameSpecResolutionWarning):
 
-        msg = rename_person(
-            author_id=args['AUTHORID'],
-            new_id=args['NEWID']
-        )
+        msg = rename_person(author_id=args['AUTHORID'], new_id=args['NEWID'])
 
         if args['--issue']:
             msg += f' (closes #{args["--issue"]})'
