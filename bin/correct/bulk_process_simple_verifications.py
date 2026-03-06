@@ -60,7 +60,7 @@ class AnthologyMetadataUpdater:
         """Initialize with GitHub token."""
         self.github = Github(github_token)
         self.github_repo = self.github.get_repo("acl-org/acl-anthology")
-        self.local_repo = git.Repo(os.path.join(os.path.dirname(__file__), ".."))
+        self.local_repo = git.Repo(__file__, search_parent_directories=True)
         self.stats = {
             "visited_issues": 0,
             "relevant_issues": 0,
