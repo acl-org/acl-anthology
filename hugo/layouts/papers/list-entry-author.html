@@ -1,41 +1,37 @@
 {{ $collection_id := index (split .Params.anthology_id "-") 0 }}
 {{ $paper := index (index $.Site.Data.papers $collection_id) .Params.anthology_id }}
-<p class="d-sm-flex align-items-stretch">
-  <span class="d-block mr-2 text-nowrap list-button-row">
-    {{- with $paper.pdf -}}
-    <a class="badge badge-primary align-middle mr-1" href="{{ . }}" data-toggle="tooltip" data-placement="top" title="Open PDF">
-      pdf
-    </a>
-    {{- end -}}
-    {{- if (fileExists (printf "/data-export/volumes/%s.bib" $paper.parent_volume_id)) -}}
-    <a class="badge badge-secondary align-middle mr-1" href="{{ (printf "%s.bib" .Params.anthology_id) | relURL }}" data-toggle="tooltip" data-placement="top" title="Export to BibTeX">
-      bib
-    </a>
-    {{- end -}}
-    {{- with $paper.abstract_html -}}
-    <a class="badge badge-info align-middle mr-1" href="#abstract-{{ replace $.Params.anthology_id "." "--" }}" data-toggle="collapse" aria-expanded="false" aria-controls="abstract-{{ $.Params.anthology_id }}" title="Show Abstract">abs</a>
-    {{- end -}}
-    <br class="d-none d-sm-inline-block" />
-    {{- range $paper.award -}}
-    <span class="align-middle mr-1" data-toggle=tooltip data-placement=bottom title="{{ . }}"><i class="fas fa-award"></i></span>
-    {{- end -}}
-    {{- range $paper.attachment -}}
-      <a class="badge badge-attachment align-middle mr-1" href="{{ .url }}" data-toggle="tooltip" data-placement="top" title="{{ .type | humanize }}">{{ partial "attachment_repr.html" . }}</a>
-    {{- end -}}
-    {{- range $paper.video -}}
-    <a class="badge badge-attachment align-middle mr-1" href="{{ . }}" data-toggle="tooltip" data-placement="top" title="Video"><i class="fas fa-video"></i></a>
-    {{- end -}}
-    {{- with $paper.pwccode -}}
-      {{- if (or (eq .additional "true") .url) -}}
-          <a class="badge badge-secondary align-middle mr-1 pwc-reduced-padding" href="https://paperswithcode.com/paper/?acl={{ $.Params.anthology_id }}" data-toggle="tooltip" data-placement="top" title="Code">
-            <svg xmlns="http://www.w3.org/2000/svg" class="pwc-icon-small" viewBox="0 0 512 512"><path stroke="#4d8093" fill="#4d8093" d="M88 128h48v256H88zM232 128h48v256h-48zM160 144h48v224h-48zM304 144h48v224h-48zM376 128h48v256h-48z"></path><path stroke="#4d8093" fill="#4d8093" d="M104 104V56H16v400h88v-48H64V104zM408 56v48h40v304h-40v48h88V56z"></path></svg>
-          </a>
+<div class="d-sm-flex align-items-stretch mb-3">
+  <div class="d-block me-2 list-button-row">
+    <span class="d-inline d-sm-block text-nowrap">
+      {{- with $paper.pdf -}}
+      <a class="badge text-bg-primary align-middle me-1" href="{{ . }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Open PDF" aria-label="Open PDF">
+        pdf
+      </a>
       {{- end -}}
-    {{- end -}}
-  </span>
+      {{- if (fileExists (printf "/data-export/volumes/%s.bib" $paper.parent_volume_id)) -}}
+      <a class="badge text-bg-secondary align-middle me-1" href="{{ (printf "%s.bib" .Params.anthology_id) | relURL }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Export to BibTeX" aria-label="Export to BibTeX">
+        bib
+      </a>
+      {{- end -}}
+      {{- with $paper.abstract_html -}}
+      <a class="badge text-bg-info align-middle me-1" href="#abstract-{{ replace $.Params.anthology_id "." "--" }}" data-bs-toggle="collapse" aria-expanded="false"  aria-controls="abstract-{{ replace $.Params.anthology_id "." "--" }}" title="Show Abstract" aria-label="Show Abstract">abs</a>
+      {{- end -}}
+    </span>
+    <span class="d-inline d-sm-block text-nowrap">
+      {{- range $paper.award -}}
+      <span class="align-middle me-1" data-bs-toggle=tooltip data-bs-placement=bottom title="{{ . }}"><i class="fas fa-award"></i></span>
+      {{- end -}}
+      {{- range $paper.attachment -}}
+        <a class="badge text-bg-attachment align-middle me-1" href="{{ .url }}" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ .type | humanize }}" aria-label="Open {{ .type | humanize }}">{{ partial "attachment_repr.html" . }}</a>
+      {{- end -}}
+      {{- range $paper.video -}}
+      <a class="badge text-bg-attachment align-middle me-1" href="{{ . }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Video" aria-label="Open Video"><i class="fas fa-video"></i></a>
+      {{- end -}}
+    </span>
+  </div>
   <span class="d-block">
     {{ if eq hugo.Environment "development" }}
-      <span class="badge badge-light align-middle">{{ .Params.anthology_id }}</span>
+      <span class="badge text-bg-light align-middle">{{ .Params.anthology_id }}</span>
     {{ end }}
     <strong><a class="align-middle" href="{{ .RelPermalink }}">{{ $paper.title_html | safeHTML }}</a></strong>
     <br />
@@ -53,7 +49,7 @@
     <a href="{{ relref $ $volume_page }}" class="text-muted">{{ $volume.title }}</a>
     {{- end -}}
   </span>
-</p>
+</div>
 
 {{ with $paper.abstract_html }}
 <div class="card bg-light mb-2 mb-lg-3 collapse abstract-collapse" id="abstract-{{ replace $.Params.anthology_id "." "--" }}">

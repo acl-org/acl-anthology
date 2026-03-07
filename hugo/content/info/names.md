@@ -30,7 +30,7 @@ For example, if there are two authors named "Alex Smith", one with a Ph.D. from 
 
 ## Creating author pages
 
-Author pages are created automatically when the Anthology site is built (following any change to the database).
+[Author pages]({{< ref "/info/author-pages" >}}) are created automatically when the Anthology site is built (following any change to the database).
 This is done by (a) reading names off paper metadata and (b) grouping them according to our internal database of verified authors.
 
 A verified author is one for whom we have an explicit entry in our names database. This can happen either automatically (when a paper is ingested with ORCID iD information attached to the author) or manually (when we intervene to disambiguate authors with similar names or who publish under multiple names).
@@ -64,6 +64,7 @@ If you are an author, we strongly encourage you to create an ORCID iD and add it
 
 ## Related documentation
 
+- [Author pages]({{< ref "/info/author-pages" >}})
 - [Verification]({{< ref "/info/verification" >}})
 - [ORCID iDs]({{< ref "/info/orcid" >}})
 - [IDs]({{< ref "/info/ids" >}}) (paper/volume identifiers, not person identifiers)

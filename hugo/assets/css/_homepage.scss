@@ -1,9 +1,11 @@
+@use "sass:math";
+
 /* Custom styles for main homepage */
 
 .acl-news {
   .acl-news-date {
-    @extend .mb-2;
-    @extend .font-weight-light;
+    margin-bottom: .5rem; // Equivalent to .mb-2
+    font-weight: $font-weight-light; // Equivalent to .fw-light (renamed from .font-weight-light)
     font-style: italic;
   }
 
@@ -12,7 +14,7 @@
   }
 
   a {
-    @extend .alert-link;
+    font-weight: $font-weight-bold; // Approximate for .alert-link
   }
 }
 
@@ -33,7 +35,7 @@
 
 $acl-row-th-width: 8rem;  /* Width for the "venue" column */
 $acl-td-width: 1.5rem;    /* Width for each "year" cell   */
-$et-border-width: ($border-width / 2);
+$et-border-width: math.div($border-width, 2);
 
 .acl-event-table {
   border: $et-border-width solid $border-color;

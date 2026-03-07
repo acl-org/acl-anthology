@@ -31,10 +31,10 @@
               {{ $volume := index $.Site.Data.volumes $volume_id }}
               <li>
                 {{ if eq hugo.Environment "development" }}
-                  <span class="badge badge-light align-middle">{{ $volume_id }}</span>
+                  <span class="badge text-bg-light align-middle">{{ $volume_id }}</span>
                 {{ end }}
                 <a class="align-middle" href="{{ relref $ (printf "/volumes/%s" $volume_id) }}">{{ $volume.title }}</a>
-                <span class="badge badge-info align-middle ml-1">{{ len $volume.papers }}&nbsp;{{ cond (gt (len $volume.papers) 1) "papers" "paper" }}</span>
+                <span class="badge text-bg-info align-middle ms-1">{{ len (default slice $volume.papers) }}&nbsp;{{ cond (gt (len (default slice $volume.papers)) 1) "papers" "paper" }}</span>
               </li>
             {{ end }}
           {{ end }}
