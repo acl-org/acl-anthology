@@ -110,7 +110,7 @@ prepare-new-release VERSION: no-uncommitted-changes check test-all test-integrat
   # Build package
   uv build
   # Commit changes
-  git add CHANGELOG.md pyproject.toml
+  git add CHANGELOG.md pyproject.toml uv.lock
   git commit -m "Bump to version v$VERSION"
   # Done!
   set +x
