@@ -36,10 +36,11 @@ except ImportError:  # pragma: no cover
     from yaml import Dumper  # type: ignore
 
 from ..exceptions import AnthologyException
-from ..utils.attrs import track_namespec_modifications
+from ..utils.attrs import attach_custom_repr, track_namespec_modifications
 from ..utils.latex import latex_encode
 
 if TYPE_CHECKING:
+    import rich
     from ..anthology import Anthology
     from ..collections import Volume, Paper, Talk
     from ..people import Person
@@ -112,8 +113,19 @@ class Name:
     )
     last: str = field(validator=(v.instance_of(str), v.min_len(1)))
     script: Optional[str] = field(
-        default=None, repr=False, eq=False, validator=v.optional(v.instance_of(str))
+        default=None, eq=False, validator=v.optional(v.instance_of(str))
     )
+
+    def __repr__(self) -> str:
+        parts = [repr(self.first), repr(self.last)]
+        if self.script is not None:
+            parts.append(f"script={self.script!r}")
+        return f"{type(self).__name__}({', '.join(parts)})"
+
+    def __rich_repr__(self) -> rich.repr.Result:
+        yield self.first
+        yield self.last
+        yield "script", self.script, None
 
     def as_first_last(self) -> str:
         """
@@ -308,6 +320,7 @@ def _into_name_tuple(value: Iterable[ConvertableIntoName]) -> tuple[Name, ...]:
     return tuple(Name.from_(v) for v in value)
 
 
+@attach_custom_repr
 @define(
     on_setattr=[setters.convert, setters.validate, track_namespec_modifications],
 )

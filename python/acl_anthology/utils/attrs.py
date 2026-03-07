@@ -25,11 +25,13 @@ import re
 from .ids import AnthologyIDTuple
 
 if TYPE_CHECKING:
+    import rich
     from ..collections import Paper, Volume, Event, Talk
     from ..people import NameSpecification
 
 
 RE_WRAPPED_TYPE = re.compile(r"^([^\[]*)\[(.*)\]$")
+C = TypeVar("C", bound=attrs.AttrsInstance)
 T = TypeVar("T")
 
 
@@ -215,3 +217,58 @@ def attach_parent(
     for namespec in value:
         namespec.parent = item
     return value
+
+
+def _repr(self: attrs.AttrsInstance) -> str:
+    fields = attrs.fields(type(self))
+    parts = []
+    for f in fields:
+        if not f.repr:
+            continue
+        value = getattr(self, f.name)
+        if type(f.default) is attrs.Factory:
+            default = (
+                f.default.factory(self) if f.default.takes_self else f.default.factory()
+            )
+        else:
+            default = f.default
+        if value != default:
+            if (default is not attrs.NOTHING) or f.kw_only:
+                parts.append(f"{f.name}={value!r}")
+            else:
+                parts.append(f"{value!r}")
+    return f"{type(self).__name__}({', '.join(parts)})"
+
+
+def _rich_repr(self: attrs.AttrsInstance) -> rich.repr.Result:
+    fields = attrs.fields(type(self))
+    for f in fields:
+        if not f.repr:
+            continue
+        value = getattr(self, f.name)
+        if type(f.default) is attrs.Factory:
+            default = (
+                f.default.factory(self) if f.default.takes_self else f.default.factory()
+            )
+        else:
+            default = f.default
+        if (default is not attrs.NOTHING) or f.kw_only:
+            yield f.name, value, default
+        elif value != default:
+            yield value
+
+
+def attach_custom_repr(cls: type[C]) -> type[C]:
+    """Attach custom `__repr__` and `__rich_repr__` functions to an [attrs class][attrs.define].
+
+    These functions will respect the `repr` attributes on individual [attrs fields][attrs.field], but additionally:
+    - Omit field names if the attribute can be positional and is required (i.e. does not have a default value).
+    - Skip fields whose values are equal to their default values.
+    """
+    # NOTE: mypy doesn't support dunder method reassignment, and also doesn't
+    # know whether C has a __rich_repr__ attribute yet or not (and we don’t
+    # actually care), hence a few type: ignores are necessary here
+
+    cls.__repr__ = _repr  # type: ignore[method-assign,assignment]
+    cls.__rich_repr__ = _rich_repr  # type: ignore[attr-defined]
+    return cls
