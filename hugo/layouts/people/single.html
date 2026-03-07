@@ -117,7 +117,7 @@
                 {{ $venue := index . 0 }}
                 {{ $acronym := index $.Site.Data.venues $venue "acronym" }}
                 {{ $name := index $.Site.Data.venues $venue "name" }}
-                <a href="{{ relref $ (printf "/venues/%s" (index $.Site.Data.venues $venue "slug")) }}" title="{{ htmlEscape $name }}" class="align-middle">
+                <a href="{{ relref $ (printf "/venues/%s" (index $.Site.Data.venues $venue "slug")) }}" title="{{ $name }}" class="align-middle">
                   {{- $acronym -}}
                 </a><span class="badge text-bg-secondary align-middle ms-2">{{ index . 1 }}</span>
               </li>
@@ -132,7 +132,7 @@
                 {{ $venue := index . 0 }}
                 {{ $acronym := index $.Site.Data.venues $venue "acronym" }}
                 {{ $name := index $.Site.Data.venues $venue "name" }}
-                <a href="{{ relref $ (printf "/venues/%s" (index $.Site.Data.venues $venue "slug")) }}" title="{{ htmlEscape $name }}" class="align-middle">
+                <a href="{{ relref $ (printf "/venues/%s" (index $.Site.Data.venues $venue "slug")) }}" title="{{ $name }}" class="align-middle">
                   {{- $acronym -}}
                 </a><span class="badge text-bg-secondary align-middle ms-2">{{ index . 1 }}</span>
               </li>

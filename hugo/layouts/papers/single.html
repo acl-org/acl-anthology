@@ -549,7 +549,7 @@
           {{- range $index, $venue := $volume.venues -}}
                     {{ $acronym := index $.Site.Data.venues $venue "acronym" }}
                     {{ $name := index $.Site.Data.venues $venue "name" }}
-                    <a href="{{ relref $ (printf "/venues/%s" ($venue)) }}" title="{{ htmlEscape $name }}">{{- $acronym -}}</a>
+                    <a href="{{ relref $ (printf "/venues/%s" ($venue)) }}" title="{{ $name }}">{{- $acronym -}}</a>
                     {{ if ne (add $index 1) $len }} | {{ end }}
                   {{- end -}}
                 </dd>
@@ -559,11 +559,10 @@
                   {{- range $index, $sig := $volume.sigs -}}
                     {{ $slug := index $.Site.Data.sigs $sig "slug" }}
                     {{ $name := index $.Site.Data.sigs $sig "name" }}
-                    <a href="{{ relref $ (printf "/sigs/%s" $slug) }}" title="{{ htmlEscape $name }}">{{ $sig }}</a>
+                    <a href="{{ relref $ (printf "/sigs/%s" $slug) }}" title="{{ $name }}">{{ $sig }}</a>
                     {{ if ne (add $index 1) $len }} | {{ end }}
                   {{- end -}}
-                </dd>
-        {{ end }}
+                </dd>        {{ end }}
 
         <dt>Publisher:</dt>
         <dd>{{ with $paper.publisher }}{{ . }}{{ end }}</dd>
