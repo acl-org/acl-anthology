@@ -347,3 +347,10 @@ def test_namespec_case_normalize(before, after, parent):
     ns = NameSpecification(before, parent=parent)
     ns.case_normalize()
     assert ns.name == Name(*after)
+
+
+def test_namespec_root_is_anthology(parent):
+    from acl_anthology import Anthology
+
+    ns = NameSpecification(Name("Foo", "Bar"), parent=parent)
+    assert isinstance(ns.root, Anthology)

@@ -257,6 +257,17 @@ def test_person_make_explicit_should_raise_when_explicit(anthology):
         person.make_explicit("marcel-bollmann-new")
 
 
+def test_person_make_explicit_should_raise_on_id_errors(anthology):
+    person = anthology.get_person(UNVERIFIED_PID_FORMAT.format(pid="nicoletta-calzolari"))
+    assert not person.is_explicit
+    with pytest.raises(AnthologyException, match="Not a valid verified-person ID"):
+        person.make_explicit("Nicoletta-Calzolari")
+    with pytest.raises(AnthologyException, match="Not a valid verified-person ID"):
+        person.make_explicit("nicoletta-calzolari-still/unverified")
+    with pytest.raises(AnthologyException, match="ID already exists"):
+        person.make_explicit("marcel-bollmann")
+
+
 def test_person_set_id_on_items(anthology):
     person = anthology.get_person("steven-krauwer")
     # Verify precondition: Not all papers associated with this person have an ID set

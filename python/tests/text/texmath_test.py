@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import pytest
+import logging
 from lxml import etree
 from acl_anthology.text import TexMath
 
@@ -280,7 +281,16 @@ test_cases_html = (
         "<tex-math>foo^{\\mathtt{bar}}</tex-math>",
         '<span class="tex-math">foo<sup><span class="font-monospace">bar</span></sup></span>',
     ),
+    (
+        "<tex-math>foo^{\\mathsf{bar}}</tex-math>",
+        '<span class="tex-math">foo<sup>bar</sup></span>',
+    ),
     ("<tex-math>\\textemdash{}</tex-math>", '<span class="tex-math">—</span>'),
+    ("<tex-math>\\bigl{42}</tex-math>", '<span class="tex-math">42</span>'),
+    (
+        "<tex-math>\\left\\{42\\right\\}</tex-math>",
+        '<span class="tex-math">{42}</span>',
+    ),
 )
 
 
@@ -301,3 +311,13 @@ def test_texmath_to_html(inp, out):
     result = TexMath.to_html(math_element)
     actual_out = etree.tostring(result, encoding="unicode")
     assert actual_out == out
+
+
+def test_texmath_should_warn(caplog):
+    element = etree.fromstring("<tex-math>\\somecustomcommand</tex-math>")
+    with caplog.at_level(logging.WARNING):
+        TexMath.to_html(element)
+    assert any(
+        "Unknown TeX-math command: \\somecustomcommand" in rec.message
+        for rec in caplog.records
+    )
