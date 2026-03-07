@@ -33,6 +33,12 @@ from typing import (
     TypeAlias,
     TYPE_CHECKING,
 )
+import sys
+
+if sys.version_info >= (3, 13):
+    from warnings import deprecated
+else:
+    from typing_extensions import deprecated
 
 if TYPE_CHECKING:
     from _typeshed import StrPath
@@ -416,7 +422,7 @@ class Anthology:
     ) -> list[Person]:  # pragma: no cover
         ...
 
-    @warnings.deprecated(
+    @deprecated(
         "Anthology.resolve() is deprecated in favor of NameSpecification.resolve()"
     )
     def resolve(

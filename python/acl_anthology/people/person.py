@@ -18,7 +18,12 @@ import attrs
 from attrs import define, field, setters
 from enum import Enum
 from typing import Any, Iterator, Optional, Sequence, TYPE_CHECKING
-import warnings
+import sys
+
+if sys.version_info >= (3, 13):
+    from warnings import deprecated
+else:
+    from typing_extensions import deprecated
 
 from ..exceptions import AnthologyException, AnthologyInvalidIDError
 from ..utils.attrs import auto_validate_types
@@ -279,7 +284,7 @@ class Person:
         self.id = new_id  # triggers update in PersonIndex
         self._names = [(name, NameLink.EXPLICIT) for name, _ in self._names]
 
-    @warnings.deprecated(
+    @deprecated(
         "Person.merge_with_explicit() is deprecated in favor of Person.merge_into()"
     )
     def merge_with_explicit(self, person: Person) -> None:  # pragma: no cover
