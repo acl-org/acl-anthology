@@ -536,7 +536,7 @@ class PersonIndex(SlottedDict[Person]):
                 Person(
                     id=pid,
                     parent=self.parent,
-                    names=[name_spec.name] + name_spec.variants,
+                    names=[name_spec.name] + list(name_spec.variants),
                     orcid=name_spec.orcid,
                     is_explicit=True,
                 )

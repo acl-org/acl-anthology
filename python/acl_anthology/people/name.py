@@ -20,7 +20,7 @@ from lxml import etree
 from lxml.builder import E
 import re
 from slugify import slugify
-from typing import Any, Optional, cast, TypeAlias, TYPE_CHECKING
+from typing import Any, Iterable, Optional, cast, TypeAlias, TYPE_CHECKING
 import sys
 
 if sys.version_info >= (3, 11):
@@ -303,6 +303,11 @@ def _Name_from(value: Any) -> Name:
     return Name.from_(value)
 
 
+def _into_name_tuple(value: Iterable[ConvertableIntoName]) -> tuple[Name, ...]:
+    # Converter for NameSpecification.variants, to satisfy type checker
+    return tuple(Name.from_(v) for v in value)
+
+
 @define(
     on_setattr=[setters.convert, setters.validate, track_namespec_modifications],
 )
@@ -331,16 +336,17 @@ class NameSpecification:
     affiliation: Optional[str] = field(
         default=None, validator=v.optional(v.instance_of(str))
     )
-    variants: list[Name] = field(
-        factory=list,
+    variants: tuple[Name, ...] = field(
+        default=(),
+        converter=_into_name_tuple,
         validator=v.deep_iterable(
             member_validator=v.instance_of(Name),
-            iterable_validator=v.instance_of(list),
+            iterable_validator=v.instance_of(tuple),
         ),
     )
 
     def __hash__(self) -> int:
-        return hash((self.name, self.id, self.affiliation, tuple(self.variants)))
+        return hash((self.name, self.id, self.affiliation, self.variants))
 
     @property
     def first(self) -> Optional[str]:
