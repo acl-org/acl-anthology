@@ -85,7 +85,7 @@
           {{ $sig_pages := (where $.Site.RegularPages "Section" "sigs").ByParam "short_acronym" }}
           {{ $len := len $sig_pages }}
           {{ range $index, $page := $sig_pages}}
-            <a href="{{ $page.RelPermalink }}" title="{{ htmlEscape $page.title }}">{{ $page.Params.short_acronym }}</a>{{ if ne (add $index 1) $len }} | {{ end }}
+            <a href="{{ $page.RelPermalink }}" title="{{ $page.Title }}">{{ $page.Params.short_acronym }}</a>{{ if ne (add $index 1) $len }} | {{ end }}
           {{ end }}
           </td>
         </tr>
