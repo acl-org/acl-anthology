@@ -547,20 +547,23 @@
         <dd>
           {{- $len := (len $volume.venues) -}}
           {{- range $index, $venue := $volume.venues -}}
-                    {{ $acronym := index $.Site.Data.venues $venue "acronym" }}
-                    <a href="{{ relref $ (printf "/venues/%s" ($venue)) }}">{{- $acronym -}}</a>
-                    {{ if ne (add $index 1) $len }} | {{ end }}
-                  {{- end -}}
-                </dd>
-                <dt>{{ if gt (len $volume.sigs) 1 }}SIGs:{{ else }}SIG:{{ end }}</dt>
-                <dd>
-                  {{- $len := (len $volume.sigs) -}}
-                  {{- range $index, $sig := $volume.sigs -}}
-                    {{ $slug := index $.Site.Data.sigs $sig "slug" }}
-                    <a href="{{ relref $ (printf "/sigs/%s" $slug) }}">{{ $sig }}</a>
-                    {{ if ne (add $index 1) $len }} | {{ end }}
-                  {{- end -}}
-                </dd>        {{ end }}
+            {{ $acronym := index $.Site.Data.venues $venue "acronym" }}
+            {{ $name := index $.Site.Data.venues $venue "name" }}
+            <a href="{{ relref $ (printf "/venues/%s" ($venue)) }}" title="{{ $name }}">{{- $acronym -}}</a>
+            {{ if ne (add $index 1) $len }} | {{ end }}
+          {{- end -}}
+        </dd>
+        <dt>{{ if gt (len $volume.sigs) 1 }}SIGs:{{ else }}SIG:{{ end }}</dt>
+        <dd>
+          {{- $len := (len $volume.sigs) -}}
+          {{- range $index, $sig := $volume.sigs -}}
+            {{ $slug := index $.Site.Data.sigs $sig "slug" }}
+            {{ $name := index $.Site.Data.sigs $sig "name" }}
+            <a href="{{ relref $ (printf "/sigs/%s" $slug) }}" title="{{ $name }}">{{ $sig }}</a>
+            {{ if ne (add $index 1) $len }} | {{ end }}
+          {{- end -}}
+        </dd>
+        {{ end }}
 
         <dt>Publisher:</dt>
         <dd>{{ with $paper.publisher }}{{ . }}{{ end }}</dd>
