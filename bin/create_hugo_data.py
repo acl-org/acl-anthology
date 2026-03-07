@@ -506,11 +506,133 @@ def export_events(anthology, builddir, dryrun):
         else:
             data["title"] = f"{anthology.venues[main_venue].name} ({data['year']})"
 
+        # Add talks data if available
+        talks_data = []
+        for idx, talk in enumerate(event.talks or [], 1):
+            # Generate talk ID from video filename if available, otherwise use default pattern
+            if "video" in talk.attachments and talk.attachments["video"].name:
+                # Extract talk ID from video filename like "2022.acl-keynote.2.mp4"
+                video_name = talk.attachments["video"].name
+                if video_name.endswith(".mp4"):
+                    # Remove .mp4 extension to get the talk ID
+                    talk_id = video_name[:-4]
+                else:
+                    talk_id = video_name
+            else:
+                # Fallback to sequential numbering if no video
+                talk_id = f"{event.id}.talk-{idx}"
+
+            talk_data = {
+                "id": talk_id,
+                "title": talk.title.as_text(),
+                "title_html": remove_extra_whitespace(
+                    talk.title.as_html(allow_url=False)
+                ),
+                "speakers": [],  # Process speakers differently
+                "type": talk.type,
+            }
+            # Process speakers - NameSpecification objects
+            for speaker in talk.speakers:
+                speaker_dict = person_to_dict(speaker.id if speaker.id else "", speaker)
+                talk_data["speakers"].append(speaker_dict)
+            # Add video URL if available
+            if "video" in talk.attachments:
+                talk_data["video_url"] = talk.attachments["video"].url
+            # Add other attachments
+            attachments = []
+            for att_type, attachment in talk.attachments.items():
+                if att_type != "video":
+                    attachments.append(
+                        {
+                            "filename": attachment.name,
+                            "type": att_type.capitalize(),
+                            "url": attachment.url,
+                        }
+                    )
+            if attachments:
+                talk_data["attachments"] = attachments
+            talks_data.append(talk_data)
+        if talks_data:
+            data["talks"] = talks_data
+
         all_events[event.id] = data
 
     if not dryrun:
         with open(f"{builddir}/data/events.json", "wb") as f:
             f.write(ENCODER.encode(all_events))
+
+
+def export_talks(anthology, builddir, dryrun):
+    # Export talks data
+    all_talks = {}
+    print("Exporting talks...")
+
+    for event in anthology.events.values():
+        if not event.talks:
+            continue
+
+        for idx, talk in enumerate(event.talks, 1):
+            # Generate talk ID from video filename if available, otherwise use default pattern
+            if "video" in talk.attachments and talk.attachments["video"].name:
+                # Extract talk ID from video filename like "2022.acl-keynote.2.mp4"
+                video_name = talk.attachments["video"].name
+                if video_name.endswith(".mp4"):
+                    # Remove .mp4 extension to get the talk ID
+                    talk_id = video_name[:-4]
+                else:
+                    talk_id = video_name
+            else:
+                # Fallback to sequential numbering if no video
+                talk_id = f"{event.id}.talk-{idx}"
+
+            # Create talk data
+            talk_data = {
+                "id": talk_id,
+                "event_id": event.id,
+                "event_title": event.title.as_text() if event.title else f"{event.id}",
+                "title": talk.title.as_text(),
+                "title_html": remove_extra_whitespace(
+                    talk.title.as_html(allow_url=False)
+                ),
+                "speakers": [],
+                "type": talk.type,
+            }
+
+            # Process speakers
+            for speaker in talk.speakers:
+                speaker_data = person_to_dict(speaker.id if speaker.id else "", speaker)
+                talk_data["speakers"].append(speaker_data)
+
+            # Add video URL if available
+            if "video" in talk.attachments:
+                talk_data["video_url"] = talk.attachments["video"].url
+                talk_data["video_name"] = talk.attachments["video"].name
+
+            # Add other attachments
+            attachments = []
+            for att_type, attachment in talk.attachments.items():
+                if att_type != "video":
+                    attachments.append(
+                        {
+                            "filename": attachment.name,
+                            "type": att_type.capitalize(),
+                            "url": attachment.url,
+                        }
+                    )
+            if attachments:
+                talk_data["attachments"] = attachments
+
+            # Add location and dates from event
+            if event.location:
+                talk_data["location"] = event.location
+            if event.dates:
+                talk_data["dates"] = event.dates
+
+            all_talks[talk_id] = talk_data
+
+    if not dryrun:
+        with open(f"{builddir}/data/talks.json", "wb") as f:
+            f.write(ENCODER.encode(all_talks))
 
 
 def export_sigs(anthology, builddir, dryrun):
@@ -563,6 +685,7 @@ def export_anthology(anthology, builddir, clean=False, dryrun=False):
     export_people(anthology, builddir, dryrun)
     export_venues(anthology, builddir, dryrun)
     export_events(anthology, builddir, dryrun)
+    export_talks(anthology, builddir, dryrun)
     export_sigs(anthology, builddir, dryrun)
 
 
