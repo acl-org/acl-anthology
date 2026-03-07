@@ -110,7 +110,7 @@ class Name:
     first: Optional[str] = field(
         eq=lambda x: x if x else None, validator=v.optional(v.instance_of(str))
     )
-    last: str = field(validator=v.instance_of(str))
+    last: str = field(validator=(v.instance_of(str), v.min_len(1)))
     script: Optional[str] = field(
         default=None, repr=False, eq=False, validator=v.optional(v.instance_of(str))
     )

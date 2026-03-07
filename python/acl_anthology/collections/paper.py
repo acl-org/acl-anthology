@@ -264,6 +264,7 @@ class Paper:
     id: str = field(converter=int_to_str)  # validator defined below
     parent: Volume = field(repr=False, eq=False)
     bibkey: str = field(
+        validator=v.matches_re(constants.RE_BIBKEY),
         on_setattr=[setters.validate, track_modifications, _update_bibkey_index],
     )
     title: MarkupText = field(converter=to_markuptext)

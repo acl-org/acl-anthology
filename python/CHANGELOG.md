@@ -10,6 +10,8 @@
 - Added `Person.namespecs()` to iterate over all NameSpecifications referring to this Person.
 - Added `Person.set_id_on_items()` to explicitly set a verified person's ID on all NameSpecifications that currently resolve to them.
 - Added `PersonIndex.generate_person_id()` to facilitate generating verified person IDs that don't exist yet in the index.
+- Added input conversion for ORCIDs: `person.orcid = "https://orcid.org/..."` works now.
+- Added input validation for bibkeys (to follow our convention of all-lowercase keys) and last names (to disallow empty strings).
 
 ### Changed
 

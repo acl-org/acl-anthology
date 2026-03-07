@@ -29,6 +29,7 @@ from ..utils.ids import (
     is_valid_orcid,
     is_verified_person_id,
     parse_id,
+    RE_ORCID,
 )
 from . import Name
 
@@ -55,6 +56,20 @@ def _name_list_converter(
         (item, NameLink.EXPLICIT) if isinstance(item, Name) else item
         for item in name_list
     ]
+
+
+def _orcid_converter_and_validator(
+    _: Person, __: attrs.Attribute[Any], value: object
+) -> Optional[str]:
+    if value is None:
+        return None
+    value = str(value).upper()
+    # e.g. "https://orcid.org/0000-0002-1297-6794" -> "0000-0002-1297-6794"
+    if len(value) > 19 and (m := RE_ORCID.search(value)) is not None:
+        value = m.group(0)
+    if not is_valid_orcid(value):
+        raise ValueError(f"ORCID is not valid (wrong format or checksum): {value}")
+    return value
 
 
 def _update_person_index(person: Person, attr: attrs.Attribute[Any], value: str) -> str:
@@ -101,8 +116,8 @@ class Person:
     )
     orcid: Optional[str] = field(
         default=None,
-        on_setattr=[setters.validate, _update_person_index],
-    )  # validator defined below
+        on_setattr=[_orcid_converter_and_validator, _update_person_index],
+    )
     comment: Optional[str] = field(default=None)
     degree: Optional[str] = field(default=None)
     similar_ids: list[str] = field(factory=list)
@@ -116,11 +131,6 @@ class Person:
 
     def __hash__(self) -> int:
         return hash(self.id)
-
-    @orcid.validator
-    def _check_orcid(self, _: Any, value: Optional[str]) -> None:
-        if value is not None and not is_valid_orcid(value):
-            raise ValueError(f"ORCID is not valid (wrong format or checksum): {value}")
 
     @property
     def names(self) -> list[Name]:

@@ -64,6 +64,7 @@ class Collection(SlottedDict[Volume]):
         event: An event represented by this collection.
         is_data_loaded: A flag indicating whether the XML file has already been loaded.
         is_modified: A flag indicating whether any of the data in this collection has been modified after loading.
+        raised_error_on_load: A flag indicating whether loading the XML file raised an error. If True, calling `load()` again won't do anything. This is to prevent the same exceptions being triggered over and over again by other functions accessing this collection (and thereby triggering a load) multiple times.
     """
 
     id: str = field(converter=int_to_str)
@@ -77,6 +78,7 @@ class Collection(SlottedDict[Volume]):
     )
     is_data_loaded: bool = field(init=False, repr=True, default=False)
     is_modified: bool = field(init=False, repr=False, default=False)
+    raised_error_on_load: bool = field(init=False, repr=False, default=False)
 
     @id.validator
     def _check_id(self, _: Any, value: str) -> None:
@@ -120,7 +122,7 @@ class Collection(SlottedDict[Volume]):
         volume = Volume.from_xml(self, meta)
         if volume.id in self.data:
             raise AnthologyDuplicateIDError(
-                volume.id, "Volume already exists in collection {self.id}"
+                volume.id, f"Volume {volume.id} already exists in collection {self.id}"
             )
         self.data[volume.id] = volume
         return volume
@@ -251,42 +253,46 @@ class Collection(SlottedDict[Volume]):
 
     def load(self) -> None:
         """Loads the XML file belonging to this collection."""
-        if self.is_data_loaded:
+        if self.is_data_loaded or self.raised_error_on_load:
             return
 
         log.debug(f"Parsing XML data file: {self.path}")
         current_volume = cast(Volume, None)  # noqa: F841
-        for _, element in etree.iterparse(
-            self.path,
-            tag=("meta", "frontmatter", "paper", "volume", "event", "collection"),
-        ):
-            discard_element = True
-            if (
-                element.tag == "meta"
-                and (parent := element.getparent()) is not None
-                and parent.tag != "event"
+        try:
+            for _, element in etree.iterparse(
+                self.path,
+                tag=("meta", "frontmatter", "paper", "volume", "event", "collection"),
             ):
-                # Seeing a volume's <meta> block instantiates a new volume
-                current_volume = self._add_volume_from_xml(element)  # noqa: F841
-            elif element.tag in ("paper", "frontmatter"):
-                current_volume._add_paper_from_xml(element)
-            elif element.tag == "volume":
-                current_volume = cast(Volume, None)  # noqa: F841
-            elif element.tag == "event":
-                self._set_event_from_xml(element)
-                element.clear()
-            elif element.tag == "collection":
-                if element.get("id") != self.id:
-                    raise AnthologyInvalidIDError(
-                        element.get("id"),
-                        f"File {self.path} does not contain Collection {self.id}",
-                    )
-            else:
-                # Keep element around; should only apply to <event><meta> ...
-                discard_element = False
+                discard_element = True
+                if (
+                    element.tag == "meta"
+                    and (parent := element.getparent()) is not None
+                    and parent.tag != "event"
+                ):
+                    # Seeing a volume's <meta> block instantiates a new volume
+                    current_volume = self._add_volume_from_xml(element)  # noqa: F841
+                elif element.tag in ("paper", "frontmatter"):
+                    current_volume._add_paper_from_xml(element)
+                elif element.tag == "volume":
+                    current_volume = cast(Volume, None)  # noqa: F841
+                elif element.tag == "event":
+                    self._set_event_from_xml(element)
+                    element.clear()
+                elif element.tag == "collection":
+                    if element.get("id") != self.id:
+                        raise AnthologyInvalidIDError(
+                            element.get("id"),
+                            f"File {self.path} does not contain Collection {self.id}",
+                        )
+                else:
+                    # Keep element around; should only apply to <event><meta> ...
+                    discard_element = False
 
-            if discard_element:
-                element.clear()
+                if discard_element:
+                    element.clear()
+        except:
+            self.raised_error_on_load = True
+            raise
 
         if self.event is not None:
             # Events are implicitly linked to volumes defined in the same collection
