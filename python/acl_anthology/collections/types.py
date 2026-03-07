@@ -12,10 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from enum import Enum
+from enum import StrEnum
 
 
-class EventLink(Enum):
+class SimpleReprEnum(StrEnum):
+    def __repr__(self) -> str:
+        return f"{self.__class__.__name__}.{self.name}"
+
+
+class EventLink(SimpleReprEnum):
     """How a volume ID was connected to an Event."""
 
     EXPLICIT = "explicit"
@@ -25,7 +30,7 @@ class EventLink(Enum):
     """Volume ID was inferred to belong to Event through venue association."""
 
 
-class PaperDeletionType(Enum):
+class PaperDeletionType(SimpleReprEnum):
     """Type of deletion of a paper."""
 
     RETRACTED = "retracted"
@@ -35,7 +40,7 @@ class PaperDeletionType(Enum):
     """Paper was removed.  A removal occurs in rare circumstances where serious ethical or legal issues arise, such as plagiarism."""
 
 
-class PaperType(Enum):
+class PaperType(SimpleReprEnum):
     """Type of paper.
 
     Currently only exists to support a few paper instances that are marked up as 'backmatter'.
@@ -51,7 +56,7 @@ class PaperType(Enum):
     """The backmatter of a volume."""
 
 
-class VolumeType(Enum):
+class VolumeType(SimpleReprEnum):
     """Type of publication a volume represents."""
 
     JOURNAL = "journal"

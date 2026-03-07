@@ -39,6 +39,7 @@ from ..exceptions import (
     NameSpecResolutionWarning,
     PersonDefinitionError,
 )
+from ..utils.attrs import attach_custom_repr
 from ..utils.ids import AnthologyIDTuple, is_verified_person_id
 from ..utils.logging import get_logger
 from . import Person, Name, NameLink, NameSpecification
@@ -58,6 +59,7 @@ UNVERIFIED_PID_FORMAT = "{pid}/unverified"
 # Note: Changing this will require changes in Hugo templates etc. as well!
 
 
+@attach_custom_repr
 @define
 class PersonIndex(SlottedDict[Person]):
     """Index object through which all persons (authors/editors) can be accessed.
@@ -92,7 +94,9 @@ class PersonIndex(SlottedDict[Person]):
         init=False, repr=False, factory=lambda: defaultdict(list)
     )
     _similar: DisjointSet = field(init=False, repr=False, factory=DisjointSet)
-    is_data_loaded: bool = field(init=False, repr=True, default=False)
+    is_data_loaded: bool = field(
+        init=False, default=False, metadata={"repr_omit_if": True}
+    )
 
     @path.default
     def _path(self) -> Path:

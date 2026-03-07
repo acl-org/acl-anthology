@@ -36,6 +36,7 @@ from ..files import (
 from ..people import NameSpecification
 from ..text import MarkupText, to_markuptext
 from ..utils.attrs import (
+    attach_custom_repr,
     attach_parent,
     auto_validate_types,
     date_to_str,
@@ -57,6 +58,7 @@ if TYPE_CHECKING:
 log = get_logger()
 
 
+@attach_custom_repr
 @define(field_transformer=auto_validate_types)
 class PaperErratum:
     """An erratum for a paper."""
@@ -106,6 +108,7 @@ class PaperErratum:
         return elem
 
 
+@attach_custom_repr
 @define(field_transformer=auto_validate_types)
 class PaperRevision:
     """A revised version of a paper."""
@@ -165,6 +168,7 @@ class PaperRevision:
         return elem
 
 
+@attach_custom_repr
 @define(field_transformer=auto_validate_types)
 class PaperDeletionNotice:
     """A notice about a paper's deletion (i.e., retraction or removal) from the Anthology."""
@@ -222,6 +226,7 @@ def _update_bibkey_index(paper: Paper, attr: attrs.Attribute[Any], value: str) -
     return value
 
 
+@attach_custom_repr
 @define(
     field_transformer=auto_validate_types,
     on_setattr=[setters.convert, setters.validate, track_modifications],
@@ -271,7 +276,6 @@ class Paper:
 
     attachments: list[tuple[str, AttachmentReference]] = field(
         factory=list,
-        repr=False,
         validator=v.deep_iterable(
             member_validator=_attachment_validator,
             iterable_validator=v.instance_of(list),
@@ -281,16 +285,14 @@ class Paper:
         factory=list,
         on_setattr=[setters.validate, attach_parent, track_modifications],
     )
-    awards: list[str] = field(factory=list, repr=False)
+    awards: list[str] = field(factory=list)
     # TODO: why can a Paper ever have "editors"? it's allowed by the schema
     editors: list[NameSpecification] = field(
         factory=list,
-        repr=False,
         on_setattr=[setters.validate, attach_parent, track_modifications],
     )
     errata: list[PaperErratum] = field(
         factory=list,
-        repr=False,
         validator=v.deep_iterable(
             member_validator=v.instance_of(PaperErratum),
             iterable_validator=v.instance_of(list),
@@ -298,34 +300,32 @@ class Paper:
     )
     revisions: list[PaperRevision] = field(
         factory=list,
-        repr=False,
         validator=v.deep_iterable(
             member_validator=v.instance_of(PaperRevision),
             iterable_validator=v.instance_of(list),
         ),
     )
-    videos: list[VideoReference] = field(factory=list, repr=False)
+    videos: list[VideoReference] = field(factory=list)
 
     abstract: Optional[MarkupText] = field(
         default=None, converter=converters.optional(to_markuptext)
     )
     deletion: Optional[PaperDeletionNotice] = field(
-        default=None, repr=False, validator=v.optional(v.instance_of(PaperDeletionNotice))
+        default=None, validator=v.optional(v.instance_of(PaperDeletionNotice))
     )
-    doi: Optional[str] = field(default=None, repr=False)
+    doi: Optional[str] = field(default=None)
     ingest_date: Optional[str] = field(
         default=None,
-        repr=False,
         converter=date_to_str,
         validator=v.optional(v.matches_re(constants.RE_ISO_DATE)),
     )
-    issue: Optional[str] = field(default=None, repr=False)
-    journal: Optional[str] = field(default=None, repr=False)
-    language: Optional[str] = field(default=None, repr=False)
-    note: Optional[str] = field(default=None, repr=False)
-    pages: Optional[str] = field(default=None, repr=False)
-    pdf: Optional[PDFReference] = field(default=None, repr=False)
-    type: PaperType = field(default=PaperType.PAPER, repr=False, converter=PaperType)
+    issue: Optional[str] = field(default=None)
+    journal: Optional[str] = field(default=None)
+    language: Optional[str] = field(default=None)
+    note: Optional[str] = field(default=None)
+    pages: Optional[str] = field(default=None)
+    pdf: Optional[PDFReference] = field(default=None)
+    type: PaperType = field(default=PaperType.PAPER, converter=PaperType)
 
     def __attrs_post_init__(self) -> None:
         for namespec in it.chain(self.authors, self.editors):

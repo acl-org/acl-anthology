@@ -25,7 +25,12 @@ from ..constants import RE_EVENT_ID
 from ..files import EventFileReference
 from ..people import NameSpecification
 from ..text import MarkupText, to_markuptext
-from ..utils.attrs import attach_parent, auto_validate_types, track_modifications
+from ..utils.attrs import (
+    attach_custom_repr,
+    attach_parent,
+    auto_validate_types,
+    track_modifications,
+)
 from ..utils.ids import AnthologyID, AnthologyIDTuple, parse_id, build_id_from_tuple
 
 if TYPE_CHECKING:
@@ -33,6 +38,7 @@ if TYPE_CHECKING:
     from . import Collection, Volume
 
 
+@attach_custom_repr
 @define(
     field_transformer=auto_validate_types,
     on_setattr=[setters.convert, setters.validate, track_modifications],
@@ -109,6 +115,7 @@ class Talk:
         return elem
 
 
+@attach_custom_repr
 @define(
     field_transformer=auto_validate_types,
     on_setattr=[setters.convert, setters.validate, track_modifications],
@@ -143,14 +150,14 @@ class Event:
         factory=list,
         repr=lambda x: f"<list of {len(x)} tuples>",
     )
-    links: dict[str, EventFileReference] = field(factory=dict, repr=False)
+    links: dict[str, EventFileReference] = field(factory=dict)
     talks: list[Talk] = field(
         factory=list,
-        repr=False,
         validator=v.deep_iterable(
             member_validator=v.instance_of(Talk),
             iterable_validator=v.instance_of(list),
         ),
+        repr=lambda x: f"<list of {len(x)} Talk objects>",
     )
 
     title: Optional[MarkupText] = field(

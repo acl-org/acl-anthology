@@ -30,6 +30,7 @@ from ..people import NameSpecification
 from ..text import MarkupText, to_markuptext
 from ..venues import Venue
 from ..utils.attrs import (
+    attach_custom_repr,
     attach_parent,
     auto_validate_types,
     date_to_str,
@@ -47,6 +48,7 @@ if TYPE_CHECKING:
     from . import Collection, Event
 
 
+@attach_custom_repr
 @define(
     field_transformer=auto_validate_types,
     on_setattr=[setters.convert, setters.validate, track_modifications],
@@ -86,7 +88,7 @@ class Volume(SlottedDict[Paper]):
 
     id: str = field(converter=int_to_str)  # validator defined below
     parent: Collection = field(repr=False, eq=False)
-    type: VolumeType = field(repr=False, converter=VolumeType)
+    type: VolumeType = field(converter=VolumeType)
     title: MarkupText = field(alias="booktitle", converter=to_markuptext)
     year: str = field(
         converter=int_to_str, validator=validators.matches_re(r"^[0-9]{4}$")
@@ -98,21 +100,20 @@ class Volume(SlottedDict[Paper]):
     )
     venue_ids: list[str] = field(factory=list)
 
-    address: Optional[str] = field(default=None, repr=False)
-    doi: Optional[str] = field(default=None, repr=False)
+    address: Optional[str] = field(default=None)
+    doi: Optional[str] = field(default=None)
     ingest_date: Optional[str] = field(
         default=None,
-        repr=False,
         converter=date_to_str,
         validator=validators.optional(validators.matches_re(constants.RE_ISO_DATE)),
     )
-    isbn: Optional[str] = field(default=None, repr=False)
-    journal_issue: Optional[str] = field(default=None, repr=False, converter=int_to_str)
-    journal_volume: Optional[str] = field(default=None, repr=False, converter=int_to_str)
-    journal_title: Optional[str] = field(default=None, repr=False)
-    month: Optional[str] = field(default=None, repr=False)  # TODO: validate/convert?
-    pdf: Optional[PDFReference] = field(default=None, repr=False)
-    publisher: Optional[str] = field(default=None, repr=False)
+    isbn: Optional[str] = field(default=None)
+    journal_issue: Optional[str] = field(default=None, converter=int_to_str)
+    journal_volume: Optional[str] = field(default=None, converter=int_to_str)
+    journal_title: Optional[str] = field(default=None)
+    month: Optional[str] = field(default=None)  # TODO: validate/convert?
+    pdf: Optional[PDFReference] = field(default=None)
+    publisher: Optional[str] = field(default=None)
     shorttitle: Optional[MarkupText] = field(
         default=None,
         alias="shortbooktitle",
@@ -360,7 +361,9 @@ class Volume(SlottedDict[Paper]):
         # type-checking kwargs is a headache
         kwargs: dict[str, Any] = {
             "id": str(volume.get("id")),
-            "type": VolumeType(volume.get("type")),
+            "type": VolumeType(
+                cast(str, volume.get("type"))
+            ),  # 'type' required by schema
             "parent": parent,
             "editors": [],
             "venue_ids": [],

@@ -342,7 +342,7 @@ class NameSpecification:
         (for this functionality, see [Person][acl_anthology.people.person.Person]).
     """
 
-    name: Name = field(converter=_Name_from)
+    name: Name = field(converter=_Name_from, metadata={"repr_omits_field_name": True})
     id: Optional[str] = field(default=None, validator=v.optional(v.instance_of(str)))
     parent: Optional[Paper | Volume | Talk] = field(default=None, repr=False, eq=False)
     orcid: Optional[str] = field(default=None, validator=v.optional(v.instance_of(str)))
