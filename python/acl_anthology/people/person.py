@@ -279,12 +279,10 @@ class Person:
         self.id = new_id  # triggers update in PersonIndex
         self._names = [(name, NameLink.EXPLICIT) for name, _ in self._names]
 
+    @warnings.deprecated(
+        "Person.merge_with_explicit() is deprecated in favor of Person.merge_into()"
+    )
     def merge_with_explicit(self, person: Person) -> None:  # pragma: no cover
-        warnings.warn(
-            DeprecationWarning(
-                "Person.merge_with_explicit() is deprecated in favor of Person.merge_into()"
-            )
-        )
         self.merge_into(person)
 
     def merge_into(self, other: Person) -> None:
