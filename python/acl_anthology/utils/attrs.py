@@ -211,6 +211,12 @@ def into_namespec_tuple(
     return tuple(value)
 
 
+def into_str_tuple(value: Iterable[str]) -> tuple[str, ...]:
+    if isinstance(value, str):
+        raise TypeError("Expected Iterable[str], got str; this is most likely a mistake")
+    return tuple(value)
+
+
 def attach_parent(
     item: Paper | Volume | Talk,
     attr: attrs.Attribute[Any],

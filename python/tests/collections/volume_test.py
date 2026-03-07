@@ -169,7 +169,7 @@ def test_volume_attributes_2022acl_long(anthology):
     assert volume.year == "2022"
     assert volume.pdf.name == "2022.acl-long"
     assert volume.pdf.checksum == "b8317652"
-    assert volume.venue_ids == ["acl"]
+    assert volume.venue_ids == ("acl",)
     assert volume.venue_acronym == "ACL"
     assert not volume.is_workshop
     assert isinstance(volume.frontmatter, Paper) and volume.frontmatter.id == "0"
@@ -188,7 +188,7 @@ def test_volume_attributes_2022acl_demo(anthology):
     assert volume.year == "2022"
     assert volume.pdf.name == "2022.acl-demo"
     assert volume.pdf.checksum == "d92e3f4d"
-    assert volume.venue_ids == ["acl"]
+    assert volume.venue_ids == ("acl",)
     assert volume.venue_acronym == "ACL"
     assert not volume.is_workshop
     assert isinstance(volume.frontmatter, Paper) and volume.frontmatter.id == "0"
@@ -200,7 +200,7 @@ def test_volume_attributes_j89(anthology):
     volume = anthology.get_volume("J89-1")
     assert isinstance(volume, Volume)
     assert volume.id == "1"
-    assert volume.venue_ids == ["cl"]
+    assert volume.venue_ids == ("cl",)
     assert volume.venue_acronym == "CL"
     assert volume.year == "1989"
     assert not volume.is_workshop
@@ -217,7 +217,7 @@ def test_volume_attributes_naloma(anthology):
     assert volume.id == "1"
     assert volume.year == "2022"
     assert volume.is_workshop
-    assert volume.venue_ids == ["nlma", "ws"]
+    assert volume.venue_ids == ("nlma", "ws")
     assert volume.venue_acronym == "NALOMA"
     assert isinstance(volume.frontmatter, Paper) and volume.frontmatter.id == "0"
 
@@ -267,7 +267,7 @@ def test_paper_setattr_on_namespec_sets_collection_is_modified(anthology):
 
 def test_volume_venues_j89(anthology):
     volume = anthology.get_volume("J89-1")
-    assert volume.venue_ids == ["cl"]
+    assert volume.venue_ids == ("cl",)
     venues = volume.venues()
     assert len(venues) == 1
     assert venues[0].id == "cl"
@@ -275,7 +275,7 @@ def test_volume_venues_j89(anthology):
 
 def test_volume_venues_naloma(anthology):
     volume = anthology.get_volume("2022.naloma-1")
-    assert volume.venue_ids == ["nlma", "ws"]
+    assert volume.venue_ids == ("nlma", "ws")
     venues = volume.venues()
     assert len(venues) == 2
     assert venues[0].id == "nlma"
@@ -311,7 +311,7 @@ def test_volume_with_multiple_venues(anthology):
     )
     assert volume.full_id == "2092.acl-1"
     assert volume.title == volume_title
-    assert volume.venue_ids == ["acl", "lrec"]
+    assert volume.venue_ids == ("acl", "lrec")
     assert volume.venue_acronym == "ACL-LREC"
 
 

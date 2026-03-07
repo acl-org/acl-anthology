@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import attrs
 import copy
 import pytest
 from acl_anthology.collections import CollectionIndex
@@ -120,22 +119,14 @@ def test_paper_attachments_set_should_raise_on_invalid_items(anthology):
             AttachmentReference(name="2022.acl-long.42.software.txt"),
         )
 
+    with pytest.raises(TypeError):
+        paper.attachments += ("something invalid",)
+
     # this is the correct way:
     paper.attachments = [
         ("software", AttachmentReference(name="2022.acl-long.42.software.txt"))
     ]
     assert len(paper.attachments) == 1
-
-
-def test_paper_attachments_append(anthology):
-    paper = anthology.get_paper("2022.acl-long.48")
-
-    # list modifications cannot automatically be validated...
-    paper.attachments.append("something invalid")
-
-    # ...but manually triggering validation should raise an error
-    with pytest.raises(TypeError):
-        attrs.validate(paper)
 
 
 def test_paper_change_id(anthology):

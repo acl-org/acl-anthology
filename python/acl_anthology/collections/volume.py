@@ -36,6 +36,7 @@ from ..utils.attrs import (
     date_to_str,
     int_to_str,
     into_namespec_tuple,
+    into_str_tuple,
     track_modifications,
 )
 from ..utils.ids import build_id, is_valid_item_id, AnthologyIDTuple
@@ -69,7 +70,7 @@ class Volume(SlottedDict[Paper]):
         title: The title of the volume. (Aliased to `booktitle` for initialization.)
         year: The year of publication.
 
-    Attributes: List Attributes:
+    Attributes: Tuple Attributes:
         editors: Names of editors associated with this volume.
         venue_ids: List of venue IDs associated with this volume. See also [venues][acl_anthology.collections.volume.Volume.venues].
 
@@ -105,7 +106,7 @@ class Volume(SlottedDict[Paper]):
             track_modifications,
         ],
     )
-    venue_ids: list[str] = field(factory=list)
+    venue_ids: tuple[str, ...] = field(default=(), converter=into_str_tuple)
 
     address: Optional[str] = field(default=None)
     doi: Optional[str] = field(default=None)

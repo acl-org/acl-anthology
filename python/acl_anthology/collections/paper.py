@@ -22,7 +22,7 @@ import itertools as it
 import langcodes
 from lxml import etree
 from lxml.builder import E
-from typing import cast, Any, Optional, TYPE_CHECKING
+from typing import cast, Any, Iterable, Optional, TYPE_CHECKING
 
 from .. import constants
 from ..config import config
@@ -42,6 +42,7 @@ from ..utils.attrs import (
     date_to_str,
     int_to_str,
     into_namespec_tuple,
+    into_str_tuple,
     track_modifications,
 )
 from ..utils.citation import citeproc_render_html, render_acl_citation
@@ -60,7 +61,7 @@ log = get_logger()
 
 
 @attach_custom_repr
-@define(field_transformer=auto_validate_types)
+@define(field_transformer=auto_validate_types, frozen=True)
 class PaperErratum:
     """An erratum for a paper."""
 
@@ -110,7 +111,7 @@ class PaperErratum:
 
 
 @attach_custom_repr
-@define(field_transformer=auto_validate_types)
+@define(field_transformer=auto_validate_types, frozen=True)
 class PaperRevision:
     """A revised version of a paper."""
 
@@ -170,7 +171,7 @@ class PaperRevision:
 
 
 @attach_custom_repr
-@define(field_transformer=auto_validate_types)
+@define(field_transformer=auto_validate_types, frozen=True)
 class PaperDeletionNotice:
     """A notice about a paper's deletion (i.e., retraction or removal) from the Anthology."""
 
@@ -227,6 +228,27 @@ def _update_bibkey_index(paper: Paper, attr: attrs.Attribute[Any], value: str) -
     return value
 
 
+# Note: You would think that all of the following could be generalized with
+# `TypeVar`s, but this doesn't work in the context of attrs.Converters, so we
+# have to define a function for each type...
+def _into_attachment_tuple(
+    value: Iterable[tuple[str, AttachmentReference]],
+) -> tuple[tuple[str, AttachmentReference], ...]:
+    return tuple(value)
+
+
+def _into_errata_tuple(value: Iterable[PaperErratum]) -> tuple[PaperErratum, ...]:
+    return tuple(value)
+
+
+def _into_revisions_tuple(value: Iterable[PaperRevision]) -> tuple[PaperRevision, ...]:
+    return tuple(value)
+
+
+def _into_vidref_tuple(value: Iterable[VideoReference]) -> tuple[VideoReference, ...]:
+    return tuple(value)
+
+
 @attach_custom_repr
 @define(
     field_transformer=auto_validate_types,
@@ -244,7 +266,7 @@ class Paper:
         bibkey: Bibliography key, e.g. for BibTeX.  Must be unique across all papers in the Anthology.
         title: The title of the paper.
 
-    Attributes: List Attributes:
+    Attributes: Tuple Attributes:
         attachments: File attachments of this paper, as tuples of the format `(type_of_attachment, attachment_file)`; can be empty.
         authors: Names of authors associated with this paper; can be empty.
         awards: Names of awards this has paper has received; can be empty.
@@ -275,11 +297,12 @@ class Paper:
     )
     title: MarkupText = field(converter=to_markuptext)
 
-    attachments: list[tuple[str, AttachmentReference]] = field(
-        factory=list,
+    attachments: tuple[tuple[str, AttachmentReference], ...] = field(
+        default=(),
+        converter=_into_attachment_tuple,
         validator=v.deep_iterable(
             member_validator=_attachment_validator,
-            iterable_validator=v.instance_of(list),
+            iterable_validator=v.instance_of(tuple),
         ),
     )
     authors: tuple[NameSpecification, ...] = field(
@@ -292,7 +315,7 @@ class Paper:
             track_modifications,
         ],
     )
-    awards: list[str] = field(factory=list)
+    awards: tuple[str, ...] = field(default=(), converter=into_str_tuple)
     # TODO: why can a Paper ever have "editors"? it's allowed by the schema
     editors: tuple[NameSpecification, ...] = field(
         default=(),
@@ -304,21 +327,25 @@ class Paper:
             track_modifications,
         ],
     )
-    errata: list[PaperErratum] = field(
-        factory=list,
+    errata: tuple[PaperErratum, ...] = field(
+        default=(),
+        converter=_into_errata_tuple,
         validator=v.deep_iterable(
             member_validator=v.instance_of(PaperErratum),
-            iterable_validator=v.instance_of(list),
-        ),
+            iterable_validator=v.instance_of(tuple),
+        ),  # necessary because auto_validate_types cannot cover this
     )
-    revisions: list[PaperRevision] = field(
-        factory=list,
+    revisions: tuple[PaperRevision, ...] = field(
+        default=(),
+        converter=_into_revisions_tuple,
         validator=v.deep_iterable(
             member_validator=v.instance_of(PaperRevision),
-            iterable_validator=v.instance_of(list),
-        ),
+            iterable_validator=v.instance_of(tuple),
+        ),  # necessary because auto_validate_types cannot cover this
     )
-    videos: list[VideoReference] = field(factory=list)
+    videos: tuple[VideoReference, ...] = field(
+        default=(), converter=_into_vidref_tuple
+    )  # auto_validate_types covers this, so no validator necessary
 
     abstract: Optional[MarkupText] = field(
         default=None, converter=converters.optional(to_markuptext)
@@ -473,8 +500,8 @@ class Paper:
         return langcodes.Language.get(self.language).display_name()
 
     @property
-    def venue_ids(self) -> list[str]:
-        """List of venue IDs associated with this paper. Inherited from the parent Volume."""
+    def venue_ids(self) -> tuple[str, ...]:
+        """Sequence of venue IDs associated with this paper. Inherited from the parent Volume."""
         return self.parent.venue_ids
 
     @property
