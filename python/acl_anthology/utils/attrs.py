@@ -19,7 +19,7 @@ from __future__ import annotations
 import attrs
 from attrs import validators
 import datetime
-from typing import Any, Callable, Optional, TypeVar, TYPE_CHECKING
+from typing import Any, Callable, Iterable, Optional, TypeVar, TYPE_CHECKING
 import re
 
 from .ids import AnthologyIDTuple
@@ -203,6 +203,12 @@ def date_to_str(value: Any) -> Any:
     elif isinstance(value, datetime.datetime):
         return value.date().isoformat()
     return value
+
+
+def into_namespec_tuple(
+    value: Iterable[NameSpecification],
+) -> tuple[NameSpecification, ...]:
+    return tuple(value)
 
 
 def attach_parent(

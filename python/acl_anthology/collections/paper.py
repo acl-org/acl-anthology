@@ -41,6 +41,7 @@ from ..utils.attrs import (
     auto_validate_types,
     date_to_str,
     int_to_str,
+    into_namespec_tuple,
     track_modifications,
 )
 from ..utils.citation import citeproc_render_html, render_acl_citation
@@ -281,15 +282,27 @@ class Paper:
             iterable_validator=v.instance_of(list),
         ),
     )
-    authors: list[NameSpecification] = field(
-        factory=list,
-        on_setattr=[setters.validate, attach_parent, track_modifications],
+    authors: tuple[NameSpecification, ...] = field(
+        default=(),
+        converter=into_namespec_tuple,
+        on_setattr=[
+            setters.convert,
+            setters.validate,
+            attach_parent,
+            track_modifications,
+        ],
     )
     awards: list[str] = field(factory=list)
     # TODO: why can a Paper ever have "editors"? it's allowed by the schema
-    editors: list[NameSpecification] = field(
-        factory=list,
-        on_setattr=[setters.validate, attach_parent, track_modifications],
+    editors: tuple[NameSpecification, ...] = field(
+        default=(),
+        converter=into_namespec_tuple,
+        on_setattr=[
+            setters.convert,
+            setters.validate,
+            attach_parent,
+            track_modifications,
+        ],
     )
     errata: list[PaperErratum] = field(
         factory=list,
@@ -475,11 +488,13 @@ class Paper:
         return cast(str, config["paper_page_template"]).format(self.full_id)
 
     @property
-    def namespecs(self) -> list[NameSpecification]:
+    def namespecs(self) -> tuple[NameSpecification, ...]:
         """All name specifications on this paper."""
+        if not self.editors:
+            return self.authors
         return self.authors + self.editors
 
-    def get_editors(self) -> list[NameSpecification]:
+    def get_editors(self) -> tuple[NameSpecification, ...]:
         """
         Returns:
             `self.editors`, if not empty; the parent volume's editors otherwise.

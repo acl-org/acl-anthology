@@ -72,7 +72,7 @@ def test_paper_namespecs():
         authors=authors,
         editors=editors,
     )
-    assert paper.namespecs == authors + editors
+    assert list(paper.namespecs) == authors + editors
 
 
 def test_paper_get_events(anthology):
@@ -237,7 +237,7 @@ def test_paper_add_author(anthology):
     assert paper.full_id_tuple not in person.item_ids
 
     # Adding this author to the paper
-    paper.authors += [ns]
+    paper.authors += (ns,)
     # Person should be updated after resetting indices
     anthology.reset_indices()
     person = ns.resolve()

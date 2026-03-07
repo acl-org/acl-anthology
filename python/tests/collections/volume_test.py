@@ -373,7 +373,7 @@ def test_volume_generate_paper_id(anthology):
 def test_volume_create_paper_implicit(anthology):
     volume = anthology.get_volume("2022.acl-long")
     assert not volume.collection.is_modified
-    authors = [NameSpec("Bollmann, Marcel")]
+    authors = (NameSpec("Bollmann, Marcel"),)
     paper = volume.create_paper(
         title="The awesome paper I have never written",
         authors=authors,
@@ -395,7 +395,7 @@ def test_volume_create_paper_implicit(anthology):
 def test_volume_create_paper_explicit(anthology):
     volume = anthology.get_volume("2022.acl-long")
     assert not volume.collection.is_modified
-    authors = [NameSpec("Bollmann, Marcel")]
+    authors = (NameSpec("Bollmann, Marcel"),)
     paper = volume.create_paper(
         title="The awesome paper I have never written",
         authors=authors,
@@ -416,7 +416,7 @@ def test_volume_create_paper_explicit(anthology):
 
 def test_volume_create_paper_with_duplicate_id_should_fail(anthology):
     volume = anthology.get_volume("2022.acl-long")
-    authors = [NameSpec("Bollmann, Marcel")]
+    authors = (NameSpec("Bollmann, Marcel"),)
     with pytest.raises(ValueError):
         _ = volume.create_paper(
             title="The awesome paper I have never written",
@@ -439,7 +439,7 @@ def test_volume_create_paper_with_editors(anthology):
     volume = anthology.get_volume("2022.acl-long")
 
     # For most papers, the editors are the volume's editors
-    authors = [NameSpec("Bollmann, Marcel")]
+    authors = (NameSpec("Bollmann, Marcel"),)
     paper = volume.create_paper(
         title="The awesome paper I have never written",
         authors=authors,
@@ -448,7 +448,7 @@ def test_volume_create_paper_with_editors(anthology):
     assert paper.get_editors() == volume.editors
 
     # But the schema allows paper-level editors too
-    editors = [NameSpec("Calzolari, Nicoletta")]
+    editors = (NameSpec("Calzolari, Nicoletta"),)
     paper = volume.create_paper(
         title="The awesome paper I have never written",
         authors=authors,
@@ -465,7 +465,7 @@ def test_volume_create_paper_should_update_person(anthology, pre_load):
         anthology.people.load()  # otherwise we test creation, not updating
 
     volume = anthology.get_volume("2022.acl-long")
-    authors = [NameSpec("Berg-Kirkpatrick, Taylor")]
+    authors = (NameSpec("Berg-Kirkpatrick, Taylor"),)
     paper = volume.create_paper(
         title="The awesome paper I have never written",
         authors=authors,
@@ -484,7 +484,7 @@ def test_volume_create_paper_should_update_personindex(anthology, pre_load):
         anthology.people.load()  # otherwise we test creation, not updating
 
     volume = anthology.get_volume("2022.acl-long")
-    authors = [NameSpec("Nonexistant, Guy Absolutely")]
+    authors = (NameSpec("Nonexistant, Guy Absolutely"),)
     paper = volume.create_paper(
         title="An entirely imaginary paper",
         authors=authors,
@@ -521,7 +521,7 @@ def test_volume_add_editor(anthology):
     assert volume.full_id_tuple not in person.item_ids
 
     # Adding this editor to the volume
-    volume.editors += [ns]
+    volume.editors += (ns,)
     # Person should be updated after resetting indices
     anthology.reset_indices()
     person = ns.resolve()

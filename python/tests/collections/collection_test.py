@@ -207,7 +207,7 @@ def test_collection_create_volume_should_update_person(anthology, pre_load):
         anthology.people.load()  # otherwise we test creation, not updating
 
     collection = anthology.collections.get("2022.acl")
-    editors = [NameSpecification("Rada Mihalcea")]
+    editors = (NameSpecification("Rada Mihalcea"),)
     volume = collection.create_volume(
         "keynotes",
         title=MarkupText.from_string("Keynotes from ACL 2022"),
@@ -226,7 +226,7 @@ def test_collection_create_volume_should_update_personindex(anthology, pre_load)
         anthology.people.load()  # otherwise we test creation, not updating
 
     collection = anthology.collections.get("2022.acl")
-    editors = [NameSpecification("Nonexistant, Guy Absolutely")]
+    editors = (NameSpecification("Nonexistant, Guy Absolutely"),)
     volume = collection.create_volume(
         "keynotes",
         title=MarkupText.from_string("Keynotes from ACL 2022"),

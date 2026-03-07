@@ -35,6 +35,7 @@ from ..utils.attrs import (
     auto_validate_types,
     date_to_str,
     int_to_str,
+    into_namespec_tuple,
     track_modifications,
 )
 from ..utils.ids import build_id, is_valid_item_id, AnthologyIDTuple
@@ -94,9 +95,15 @@ class Volume(SlottedDict[Paper]):
         converter=int_to_str, validator=validators.matches_re(r"^[0-9]{4}$")
     )
 
-    editors: list[NameSpecification] = field(
-        factory=list,
-        on_setattr=[setters.validate, attach_parent, track_modifications],
+    editors: tuple[NameSpecification, ...] = field(
+        default=(),
+        converter=into_namespec_tuple,
+        on_setattr=[
+            setters.convert,
+            setters.validate,
+            attach_parent,
+            track_modifications,
+        ],
     )
     venue_ids: list[str] = field(factory=list)
 
@@ -187,7 +194,7 @@ class Volume(SlottedDict[Paper]):
         return cast(str, config["volume_page_template"]).format(self.full_id)
 
     @property
-    def namespecs(self) -> list[NameSpecification]:
+    def namespecs(self) -> tuple[NameSpecification, ...]:
         """All name specifications on this volume."""
         return self.editors
 
