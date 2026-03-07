@@ -62,7 +62,7 @@
         {{ if (and $venue.is_toplevel $venue.is_acl) }}
         <tr class="text-center border-start border-end">
           {{ $venue_page := $.Site.GetPage (printf "/venues/%s" $venue.slug) }}
-          <th scope="row"><a href="{{ $venue_page.RelPermalink }}" title="{{ $venue.name }}">{{ $venue.acronym }}</a></th>
+          <th scope="row"><a href="{{ $venue_page.RelPermalink }}" title="{{ htmlEscape $venue.name }}">{{ $venue.acronym }}</a></th>
           {{ range $all_years }}
           {{ $year := string . }}
           {{ $event := printf "%s-%s" $venue.slug $year }}
@@ -85,7 +85,7 @@
           {{ $sig_pages := (where $.Site.RegularPages "Section" "sigs").ByParam "short_acronym" }}
           {{ $len := len $sig_pages }}
           {{ range $index, $page := $sig_pages}}
-            <a href="{{ $page.RelPermalink }}" title="{{ $page.Params.name }}">{{ $page.Params.short_acronym }}</a>{{ if ne (add $index 1) $len }} | {{ end }}
+            <a href="{{ $page.RelPermalink }}" title="{{ htmlEscape $page.Params.name }}">{{ $page.Params.short_acronym }}</a>{{ if ne (add $index 1) $len }} | {{ end }}
           {{ end }}
           </td>
         </tr>
@@ -119,7 +119,7 @@
         {{ if (and $venue.is_toplevel (not $venue.is_acl)) }}
         <tr class="text-center border-start border-end">
           {{ $venue_page := $.Site.GetPage (printf "/venues/%s" $venue.slug) }}
-          <th scope="row"><a href="{{ $venue_page.RelPermalink }}" title="{{ $venue.name }}>{{ $venue.acronym }}</a></th>
+          <th scope="row"><a href="{{ $venue_page.RelPermalink }}" title="{{ htmlEscape $venue.name }}>{{ $venue.acronym }}</a></th>
           {{ range $all_years }}
           {{ $year := string . }}
           {{ $event := printf "%s-%s" $venue.slug $year }}
