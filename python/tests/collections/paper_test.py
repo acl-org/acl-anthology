@@ -1,4 +1,4 @@
-# Copyright 2023-2024 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2026 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -172,6 +172,13 @@ def test_paper_setattr_sets_collection_is_modified(anthology, attr_name):
     assert paper.collection.is_modified
 
 
+def test_paper_setattr_on_namespec_sets_collection_is_modified(anthology):
+    paper = anthology.get_paper("2022.acl-long.48")
+    assert not paper.collection.is_modified
+    paper.authors[0].affiliation = "University of Someplace"
+    assert paper.collection.is_modified
+
+
 test_cases_language = (
     ("2022.acl-short.11", None, None),
     ("2022.naloma-1.3", "fra", "French"),
@@ -209,7 +216,7 @@ def test_paper_bibtype():
 def test_paper_remove_author(anthology):
     paper = anthology.get_paper("2022.acl-demo.2")
     ns = paper.authors[-1]
-    person = anthology.resolve(ns)
+    person = ns.resolve()
     assert person.id == UNVERIFIED_PID_FORMAT.format(pid="iryna-gurevych")
     assert paper.full_id_tuple in person.item_ids
 
@@ -217,7 +224,7 @@ def test_paper_remove_author(anthology):
     paper.authors = paper.authors[:-1]
     # Person should be updated after resetting indices
     anthology.reset_indices()
-    person = anthology.resolve(ns)
+    person = ns.resolve()
     assert paper.full_id_tuple not in person.item_ids
 
 
@@ -226,15 +233,30 @@ def test_paper_add_author(anthology):
     # This person exists, but is not an author on this paper
     ns = NameSpecification("Maya Varma")
     assert ns not in paper.authors
-    person = anthology.resolve(ns)
+    person = anthology.people.get_by_namespec(ns)
     assert paper.full_id_tuple not in person.item_ids
 
     # Adding this author to the paper
-    paper.authors.insert(0, ns)
+    paper.authors += [ns]
     # Person should be updated after resetting indices
     anthology.reset_indices()
-    person = anthology.resolve(ns)
+    person = ns.resolve()
     assert paper.full_id_tuple in person.item_ids
+
+
+def test_paper_get_namespec_for(anthology):
+    paper = anthology.get_paper("2022.acl-demo.24")
+    person = paper.authors[1].resolve()
+    namespec = paper.get_namespec_for(person)
+    assert person.has_name(namespec.name)
+    assert namespec.resolve() is person
+
+
+def test_paper_get_namespec_for_should_fail(anthology):
+    paper = anthology.get_paper("2022.acl-demo.24")
+    person = anthology.get_person("matt-post")
+    with pytest.raises(ValueError):
+        paper.get_namespec_for(person)
 
 
 test_cases_xml = (
