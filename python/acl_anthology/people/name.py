@@ -20,14 +20,7 @@ from lxml import etree
 from lxml.builder import E
 import re
 from slugify import slugify
-from typing import Any, Optional, cast, TypeAlias, TYPE_CHECKING
-import sys
-
-if sys.version_info >= (3, 11):
-    from typing import Self
-else:
-    from typing_extensions import Self
-
+from typing import Any, Iterable, Optional, cast, Self, TypeAlias, TYPE_CHECKING
 import yaml
 
 try:
@@ -36,10 +29,11 @@ except ImportError:  # pragma: no cover
     from yaml import Dumper  # type: ignore
 
 from ..exceptions import AnthologyException
-from ..utils.attrs import track_namespec_modifications
+from ..utils.attrs import attach_custom_repr, track_namespec_modifications
 from ..utils.latex import latex_encode
 
 if TYPE_CHECKING:
+    import rich
     from ..anthology import Anthology
     from ..collections import Volume, Paper, Talk
     from ..people import Person
@@ -112,8 +106,19 @@ class Name:
     )
     last: str = field(validator=(v.instance_of(str), v.min_len(1)))
     script: Optional[str] = field(
-        default=None, repr=False, eq=False, validator=v.optional(v.instance_of(str))
+        default=None, eq=False, validator=v.optional(v.instance_of(str))
     )
+
+    def __repr__(self) -> str:
+        parts = [repr(self.first), repr(self.last)]
+        if self.script is not None:
+            parts.append(f"script={self.script!r}")
+        return f"{type(self).__name__}({', '.join(parts)})"
+
+    def __rich_repr__(self) -> rich.repr.Result:
+        yield self.first
+        yield self.last
+        yield "script", self.script, None
 
     def as_first_last(self) -> str:
         """
@@ -303,6 +308,12 @@ def _Name_from(value: Any) -> Name:
     return Name.from_(value)
 
 
+def _into_name_tuple(value: Iterable[ConvertableIntoName]) -> tuple[Name, ...]:
+    # Converter for NameSpecification.variants, to satisfy type checker
+    return tuple(Name.from_(v) for v in value)
+
+
+@attach_custom_repr
 @define(
     on_setattr=[setters.convert, setters.validate, track_namespec_modifications],
 )
@@ -324,23 +335,24 @@ class NameSpecification:
         (for this functionality, see [Person][acl_anthology.people.person.Person]).
     """
 
-    name: Name = field(converter=_Name_from)
+    name: Name = field(converter=_Name_from, metadata={"repr_omits_field_name": True})
     id: Optional[str] = field(default=None, validator=v.optional(v.instance_of(str)))
     parent: Optional[Paper | Volume | Talk] = field(default=None, repr=False, eq=False)
     orcid: Optional[str] = field(default=None, validator=v.optional(v.instance_of(str)))
     affiliation: Optional[str] = field(
         default=None, validator=v.optional(v.instance_of(str))
     )
-    variants: list[Name] = field(
-        factory=list,
+    variants: tuple[Name, ...] = field(
+        default=(),
+        converter=_into_name_tuple,
         validator=v.deep_iterable(
             member_validator=v.instance_of(Name),
-            iterable_validator=v.instance_of(list),
+            iterable_validator=v.instance_of(tuple),
         ),
     )
 
     def __hash__(self) -> int:
-        return hash((self.name, self.id, self.affiliation, tuple(self.variants)))
+        return hash((self.name, self.id, self.affiliation, self.variants))
 
     @property
     def first(self) -> Optional[str]:

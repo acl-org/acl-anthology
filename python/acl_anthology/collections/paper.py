@@ -22,7 +22,7 @@ import itertools as it
 import langcodes
 from lxml import etree
 from lxml.builder import E
-from typing import cast, Any, Optional, TYPE_CHECKING
+from typing import cast, Any, Iterable, Optional, TYPE_CHECKING
 
 from .. import constants
 from ..config import config
@@ -36,10 +36,13 @@ from ..files import (
 from ..people import NameSpecification
 from ..text import MarkupText, to_markuptext
 from ..utils.attrs import (
+    attach_custom_repr,
     attach_parent,
     auto_validate_types,
     date_to_str,
     int_to_str,
+    into_namespec_tuple,
+    into_str_tuple,
     track_modifications,
 )
 from ..utils.citation import citeproc_render_html, render_acl_citation
@@ -57,7 +60,8 @@ if TYPE_CHECKING:
 log = get_logger()
 
 
-@define(field_transformer=auto_validate_types)
+@attach_custom_repr
+@define(field_transformer=auto_validate_types, frozen=True)
 class PaperErratum:
     """An erratum for a paper."""
 
@@ -106,7 +110,8 @@ class PaperErratum:
         return elem
 
 
-@define(field_transformer=auto_validate_types)
+@attach_custom_repr
+@define(field_transformer=auto_validate_types, frozen=True)
 class PaperRevision:
     """A revised version of a paper."""
 
@@ -165,7 +170,8 @@ class PaperRevision:
         return elem
 
 
-@define(field_transformer=auto_validate_types)
+@attach_custom_repr
+@define(field_transformer=auto_validate_types, frozen=True)
 class PaperDeletionNotice:
     """A notice about a paper's deletion (i.e., retraction or removal) from the Anthology."""
 
@@ -222,6 +228,28 @@ def _update_bibkey_index(paper: Paper, attr: attrs.Attribute[Any], value: str) -
     return value
 
 
+# Note: You would think that all of the following could be generalized with
+# `TypeVar`s, but this doesn't work in the context of attrs.Converters, so we
+# have to define a function for each type...
+def _into_attachment_tuple(
+    value: Iterable[tuple[str, AttachmentReference]],
+) -> tuple[tuple[str, AttachmentReference], ...]:
+    return tuple(value)
+
+
+def _into_errata_tuple(value: Iterable[PaperErratum]) -> tuple[PaperErratum, ...]:
+    return tuple(value)
+
+
+def _into_revisions_tuple(value: Iterable[PaperRevision]) -> tuple[PaperRevision, ...]:
+    return tuple(value)
+
+
+def _into_vidref_tuple(value: Iterable[VideoReference]) -> tuple[VideoReference, ...]:
+    return tuple(value)
+
+
+@attach_custom_repr
 @define(
     field_transformer=auto_validate_types,
     on_setattr=[setters.convert, setters.validate, track_modifications],
@@ -238,7 +266,7 @@ class Paper:
         bibkey: Bibliography key, e.g. for BibTeX.  Must be unique across all papers in the Anthology.
         title: The title of the paper.
 
-    Attributes: List Attributes:
+    Attributes: Tuple Attributes:
         attachments: File attachments of this paper, as tuples of the format `(type_of_attachment, attachment_file)`; can be empty.
         authors: Names of authors associated with this paper; can be empty.
         awards: Names of awards this has paper has received; can be empty.
@@ -269,63 +297,75 @@ class Paper:
     )
     title: MarkupText = field(converter=to_markuptext)
 
-    attachments: list[tuple[str, AttachmentReference]] = field(
-        factory=list,
-        repr=False,
+    attachments: tuple[tuple[str, AttachmentReference], ...] = field(
+        default=(),
+        converter=_into_attachment_tuple,
         validator=v.deep_iterable(
             member_validator=_attachment_validator,
-            iterable_validator=v.instance_of(list),
+            iterable_validator=v.instance_of(tuple),
         ),
     )
-    authors: list[NameSpecification] = field(
-        factory=list,
-        on_setattr=[setters.validate, attach_parent, track_modifications],
+    authors: tuple[NameSpecification, ...] = field(
+        default=(),
+        converter=into_namespec_tuple,
+        on_setattr=[
+            setters.convert,
+            setters.validate,
+            attach_parent,
+            track_modifications,
+        ],
     )
-    awards: list[str] = field(factory=list, repr=False)
+    awards: tuple[str, ...] = field(default=(), converter=into_str_tuple)
     # TODO: why can a Paper ever have "editors"? it's allowed by the schema
-    editors: list[NameSpecification] = field(
-        factory=list,
-        repr=False,
-        on_setattr=[setters.validate, attach_parent, track_modifications],
+    editors: tuple[NameSpecification, ...] = field(
+        default=(),
+        converter=into_namespec_tuple,
+        on_setattr=[
+            setters.convert,
+            setters.validate,
+            attach_parent,
+            track_modifications,
+        ],
     )
-    errata: list[PaperErratum] = field(
-        factory=list,
-        repr=False,
+    errata: tuple[PaperErratum, ...] = field(
+        default=(),
+        converter=_into_errata_tuple,
         validator=v.deep_iterable(
             member_validator=v.instance_of(PaperErratum),
-            iterable_validator=v.instance_of(list),
-        ),
+            iterable_validator=v.instance_of(tuple),
+        ),  # necessary because auto_validate_types cannot cover this
     )
-    revisions: list[PaperRevision] = field(
-        factory=list,
-        repr=False,
+    revisions: tuple[PaperRevision, ...] = field(
+        default=(),
+        converter=_into_revisions_tuple,
         validator=v.deep_iterable(
             member_validator=v.instance_of(PaperRevision),
-            iterable_validator=v.instance_of(list),
-        ),
+            iterable_validator=v.instance_of(tuple),
+        ),  # necessary because auto_validate_types cannot cover this
     )
-    videos: list[VideoReference] = field(factory=list, repr=False)
+    videos: tuple[VideoReference, ...] = field(
+        default=(), converter=_into_vidref_tuple
+    )  # auto_validate_types covers this, so no validator necessary
 
     abstract: Optional[MarkupText] = field(
         default=None, converter=converters.optional(to_markuptext)
     )
     deletion: Optional[PaperDeletionNotice] = field(
-        default=None, repr=False, validator=v.optional(v.instance_of(PaperDeletionNotice))
+        default=None, validator=v.optional(v.instance_of(PaperDeletionNotice))
     )
-    doi: Optional[str] = field(default=None, repr=False)
+    doi: Optional[str] = field(default=None)
     ingest_date: Optional[str] = field(
         default=None,
-        repr=False,
         converter=date_to_str,
         validator=v.optional(v.matches_re(constants.RE_ISO_DATE)),
     )
-    issue: Optional[str] = field(default=None, repr=False)
-    journal: Optional[str] = field(default=None, repr=False)
-    language: Optional[str] = field(default=None, repr=False)
-    note: Optional[str] = field(default=None, repr=False)
-    pages: Optional[str] = field(default=None, repr=False)
-    pdf: Optional[PDFReference] = field(default=None, repr=False)
-    type: PaperType = field(default=PaperType.PAPER, repr=False, converter=PaperType)
+    issue: Optional[str] = field(default=None)
+    journal: Optional[str] = field(default=None)
+    language: Optional[str] = field(default=None)
+    note: Optional[str] = field(default=None)
+    pages: Optional[str] = field(default=None)
+    pdf: Optional[PDFReference] = field(default=None)
+    type: PaperType = field(default=PaperType.PAPER, converter=PaperType)
 
     def __attrs_post_init__(self) -> None:
         for namespec in it.chain(self.authors, self.editors):
@@ -460,8 +500,8 @@ class Paper:
         return langcodes.Language.get(self.language).display_name()
 
     @property
-    def venue_ids(self) -> list[str]:
-        """List of venue IDs associated with this paper. Inherited from the parent Volume."""
+    def venue_ids(self) -> tuple[str, ...]:
+        """Sequence of venue IDs associated with this paper. Inherited from the parent Volume."""
         return self.parent.venue_ids
 
     @property
@@ -475,11 +515,13 @@ class Paper:
         return cast(str, config["paper_page_template"]).format(self.full_id)
 
     @property
-    def namespecs(self) -> list[NameSpecification]:
+    def namespecs(self) -> tuple[NameSpecification, ...]:
         """All name specifications on this paper."""
+        if not self.editors:
+            return self.authors
         return self.authors + self.editors
 
-    def get_editors(self) -> list[NameSpecification]:
+    def get_editors(self) -> tuple[NameSpecification, ...]:
         """
         Returns:
             `self.editors`, if not empty; the parent volume's editors otherwise.

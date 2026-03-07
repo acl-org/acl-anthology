@@ -19,17 +19,19 @@ from __future__ import annotations
 import attrs
 from attrs import validators
 import datetime
-from typing import Any, Callable, Optional, TypeVar, TYPE_CHECKING
+from typing import Any, Callable, Iterable, Optional, TypeVar, TYPE_CHECKING
 import re
 
 from .ids import AnthologyIDTuple
 
 if TYPE_CHECKING:
+    import rich
     from ..collections import Paper, Volume, Event, Talk
     from ..people import NameSpecification
 
 
 RE_WRAPPED_TYPE = re.compile(r"^([^\[]*)\[(.*)\]$")
+C = TypeVar("C", bound=attrs.AttrsInstance)
 T = TypeVar("T")
 
 
@@ -203,6 +205,18 @@ def date_to_str(value: Any) -> Any:
     return value
 
 
+def into_namespec_tuple(
+    value: Iterable[NameSpecification],
+) -> tuple[NameSpecification, ...]:
+    return tuple(value)
+
+
+def into_str_tuple(value: Iterable[str]) -> tuple[str, ...]:
+    if isinstance(value, str):
+        raise TypeError("Expected Iterable[str], got str; this is most likely a mistake")
+    return tuple(value)
+
+
 def attach_parent(
     item: Paper | Volume | Talk,
     attr: attrs.Attribute[Any],
@@ -215,3 +229,85 @@ def attach_parent(
     for namespec in value:
         namespec.parent = item
     return value
+
+
+def _repr(self: attrs.AttrsInstance) -> str:
+    fields = attrs.fields(type(self))
+    parts = []
+    for f in fields:
+        if not f.repr:
+            continue
+        if f.name == "id" and hasattr(self, "full_id"):
+            parts.append(repr(getattr(self, "full_id")))
+            continue
+
+        value = getattr(self, f.name)
+        if type(f.default) is attrs.Factory:
+            default = (
+                f.default.factory(self) if f.default.takes_self else f.default.factory()
+            )
+        else:
+            default = f.metadata.get("repr_omit_if", f.default)
+        if value != default:
+            value_r = f.repr(value) if callable(f.repr) else repr(value)
+            if f.metadata.get("repr_omits_field_name"):
+                parts.append(f"{value_r}")
+            else:
+                parts.append(f"{f.name}={value_r}")
+    return f"{type(self).__name__}({', '.join(parts)})"
+
+
+class _PreformattedRepr:
+    def __init__(self, value: str) -> None:
+        self.value = value
+
+    def __repr__(self) -> str:
+        return self.value
+
+
+def _rich_repr(self: attrs.AttrsInstance) -> rich.repr.Result:
+    from ..text import MarkupText
+
+    fields = attrs.fields(type(self))
+    for f in fields:
+        if not f.repr:
+            continue
+        if f.name == "id" and hasattr(self, "full_id"):
+            yield getattr(self, "full_id")
+            continue
+
+        value = getattr(self, f.name)
+        if type(f.default) is attrs.Factory:
+            default = (
+                f.default.factory(self) if f.default.takes_self else f.default.factory()
+            )
+        else:
+            default = f.metadata.get("repr_omit_if", f.default)
+        if callable(f.repr) and value != default:
+            # If we don't use the _PreformattedRepr hack, Rich renders the repr
+            # as a string, which is not what we want
+            value = _PreformattedRepr(f.repr(value))
+        elif isinstance(value, MarkupText):
+            if not value.contains_markup:
+                value = value._content
+        if f.metadata.get("repr_omits_field_name") and value != default:
+            yield value
+        else:
+            yield f.name, value, default
+
+
+def attach_custom_repr(cls: type[C]) -> type[C]:
+    """Attach custom `__repr__` and `__rich_repr__` functions to an [attrs class][attrs.define].
+
+    These functions will respect the `repr` attributes on individual [attrs fields][attrs.field], but additionally:
+    - Skip fields whose values are equal to their default values, or the `repr_omit_if` attribute, if set.
+    - Omit field names if the `repr_omits_field_name` metadata attribute is set.
+    - Print `full_id` instead of `id` for objects that have it (e.g., papers or volumes).
+    """
+    # NOTE: mypy doesn't support dunder method reassignment, and also doesn't
+    # know whether C has a __rich_repr__ attribute yet or not (and we don’t
+    # actually care), hence a few type: ignores are necessary here
+
+    cls.__repr__ = _repr  # type: ignore[method-assign,assignment]
+    cls.__rich_repr__ = _rich_repr  # type: ignore[attr-defined]
+    return cls

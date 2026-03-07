@@ -16,12 +16,17 @@ from __future__ import annotations
 
 import attrs
 from attrs import define, field, setters
-from enum import Enum
+from enum import StrEnum
 from typing import Any, Iterator, Optional, Sequence, TYPE_CHECKING
-import warnings
+import sys
+
+if sys.version_info >= (3, 13):
+    from warnings import deprecated
+else:
+    from typing_extensions import deprecated
 
 from ..exceptions import AnthologyException, AnthologyInvalidIDError
-from ..utils.attrs import auto_validate_types
+from ..utils.attrs import attach_custom_repr, auto_validate_types
 from ..utils.ids import (
     AnthologyID,
     AnthologyIDTuple,
@@ -39,7 +44,7 @@ if TYPE_CHECKING:
     from ..collections import Paper, Volume
 
 
-class NameLink(Enum):
+class NameLink(StrEnum):
     """How a Name was connected to a Person."""
 
     EXPLICIT = "explicit"
@@ -47,6 +52,9 @@ class NameLink(Enum):
 
     INFERRED = "inferred"
     """Name was connected to this Person via slug matching heuristic."""
+
+    def __repr__(self) -> str:
+        return f"{self.__class__.__name__}.{self.name}"
 
 
 def _name_list_converter(
@@ -85,6 +93,7 @@ def _update_person_index(person: Person, attr: attrs.Attribute[Any], value: str)
     return value
 
 
+@attach_custom_repr
 @define(field_transformer=auto_validate_types)
 class Person:
     """A natural person.
@@ -106,10 +115,15 @@ class Person:
         is_explicit: If True, this person's ID is explicitly defined in `people.yaml`.  You probably want to use [`make_explicit()`][acl_anthology.people.person.Person.make_explicit] rather than change this attribute.
     """
 
-    id: str = field(on_setattr=[setters.validate, _update_person_index])
+    id: str = field(
+        on_setattr=[setters.validate, _update_person_index],
+        metadata={"repr_omits_field_name": True},
+    )
     parent: Anthology = field(repr=False, eq=False)
     _names: list[tuple[Name, NameLink]] = field(
-        factory=list, converter=_name_list_converter
+        factory=list,
+        converter=_name_list_converter,
+        metadata={"repr_omits_field_name": True},
     )
     item_ids: list[AnthologyIDTuple] = field(
         factory=list, repr=lambda x: f"<list of {len(x)} AnthologyIDTuple objects>"
@@ -122,7 +136,7 @@ class Person:
     degree: Optional[str] = field(default=None)
     similar_ids: list[str] = field(factory=list)
     disable_name_matching: Optional[bool] = field(default=False, converter=bool)
-    is_explicit: Optional[bool] = field(default=False, converter=bool)
+    is_explicit: Optional[bool] = field(default=False, converter=bool, repr=False)
 
     def __eq__(self, other: object) -> bool:
         if not isinstance(other, Person):
@@ -279,12 +293,10 @@ class Person:
         self.id = new_id  # triggers update in PersonIndex
         self._names = [(name, NameLink.EXPLICIT) for name, _ in self._names]
 
+    @deprecated(
+        "Person.merge_with_explicit() is deprecated in favor of Person.merge_into()"
+    )
     def merge_with_explicit(self, person: Person) -> None:  # pragma: no cover
-        warnings.warn(
-            DeprecationWarning(
-                "Person.merge_with_explicit() is deprecated in favor of Person.merge_into()"
-            )
-        )
         self.merge_into(person)
 
     def merge_into(self, other: Person) -> None:

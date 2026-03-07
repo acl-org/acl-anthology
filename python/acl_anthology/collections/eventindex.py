@@ -22,6 +22,7 @@ from typing import Iterable, TYPE_CHECKING
 from ..config import primary_console
 from ..containers import SlottedDict
 from ..text import MarkupText
+from ..utils.attrs import attach_custom_repr
 from ..utils.ids import AnthologyID, AnthologyIDTuple, parse_id
 from ..utils.logging import get_logger
 from .event import Event
@@ -35,6 +36,7 @@ if TYPE_CHECKING:
 log = get_logger()
 
 
+@attach_custom_repr
 @define
 class EventIndex(SlottedDict[Event]):
     """Index object through which events can be accessed.
@@ -51,7 +53,9 @@ class EventIndex(SlottedDict[Event]):
     reverse: dict[AnthologyIDTuple, set[str]] = field(
         init=False, repr=False, factory=lambda: defaultdict(set)
     )
-    is_data_loaded: bool = field(init=False, repr=True, default=False)
+    is_data_loaded: bool = field(
+        init=False, default=False, metadata={"repr_omit_if": True}
+    )
 
     def by_volume(self, volume: Volume | AnthologyID) -> list[Event]:
         """Find events associated with a volume."""

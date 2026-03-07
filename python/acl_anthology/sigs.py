@@ -23,6 +23,7 @@ import yaml
 from .collections import Volume
 from .containers import SlottedDict
 from .utils import ids
+from .utils.attrs import attach_custom_repr
 from .utils.ids import AnthologyID, AnthologyIDTuple
 
 try:
@@ -36,6 +37,7 @@ if TYPE_CHECKING:
     from .collections.volume import Volume
 
 
+@attach_custom_repr
 @define
 class SIG:
     """A special interest group (SIG).
@@ -50,7 +52,7 @@ class SIG:
     """
 
     parent: SIGIndex = field(repr=False, eq=False)
-    id: str = field(converter=str)
+    id: str = field(converter=str, metadata={"repr_omits_field_name": True})
     acronym: str = field(converter=str)
     name: str = field(converter=str)
     path: Path = field(converter=Path, eq=False)
@@ -159,6 +161,7 @@ class SIG:
                 yaml.dump({"Meetings": values_meetings}, f, Dumper=Dumper, width=999)
 
 
+@attach_custom_repr
 @define(unsafe_hash=True)
 class SIGMeeting:
     """A meeting of a SIG that doesn't have a volume in the Anthology.
@@ -174,6 +177,7 @@ class SIGMeeting:
     url: Optional[str] = field(default=None)
 
 
+@attach_custom_repr
 @define
 class SIGIndex(SlottedDict[SIG]):
     """Index object through which SIGs and their associated volumes can be accessed.
@@ -189,7 +193,9 @@ class SIGIndex(SlottedDict[SIG]):
     reverse: dict[AnthologyIDTuple, set[str]] = field(
         init=False, repr=False, factory=lambda: defaultdict(set)
     )
-    is_data_loaded: bool = field(init=False, repr=True, default=False)
+    is_data_loaded: bool = field(
+        init=False, default=False, metadata={"repr_omit_if": True}
+    )
 
     def load(self) -> None:
         """Loads and parses the `sigs/*.yaml` files.

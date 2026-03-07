@@ -14,16 +14,10 @@
 
 """Provides the base class for all dictionary-like containers."""
 
-import sys
 from attrs import define, field
 from collections.abc import ItemsView, KeysView, ValuesView
 from copy import copy
-from typing import TypeVar, Generic, Iterator, Optional
-
-if sys.version_info >= (3, 11):
-    from typing import Self
-else:
-    from typing_extensions import Self
+from typing import Self, TypeVar, Generic, Iterator, Optional
 
 T = TypeVar("T")
 U = TypeVar("U")
@@ -56,7 +50,9 @@ class SlottedDict(Generic[T]):
         repr=lambda x: f"<dict of {len(x)} {dict_type(x)}item{'' if len(x) == 1 else 's'}>",
         factory=dict,
     )
-    is_data_loaded: bool = field(init=False, repr=True, default=True)
+    is_data_loaded: bool = field(
+        init=False, repr=True, default=True, metadata={"repr_omit_if": True}
+    )
 
     def __contains__(self, key: str) -> bool:
         if not self.is_data_loaded:

@@ -14,7 +14,6 @@
 
 from __future__ import annotations
 
-import sys
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -22,23 +21,12 @@ if TYPE_CHECKING:
     from .people import NameSpecification
     from .utils.ids import AnthologyIDTuple
 
-if sys.version_info >= (3, 11):
 
-    class AnthologyException(Exception):
-        """Base class from which all other exceptions defined here inherit."""
+class AnthologyException(Exception):
+    """Base class from which all other exceptions defined here inherit."""
 
-        def __init__(self, msg: str):
-            super().__init__(msg)
-
-else:
-
-    class AnthologyException(Exception):
-        def __init__(self, msg: str):
-            super().__init__(msg)
-            self.__notes__: list[str] = []
-
-        def add_note(self, note: str) -> None:
-            self.__notes__.append(note)
+    def __init__(self, msg: str):
+        super().__init__(msg)
 
 
 class AnthologyDuplicateIDError(AnthologyException, ValueError):
