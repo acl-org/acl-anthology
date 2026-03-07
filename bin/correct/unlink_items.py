@@ -110,11 +110,10 @@ if __name__ == "__main__":
     args = docopt(__doc__)
 
     log_level = log.DEBUG if not args.get("--quiet", False) else log.INFO
-    log.basicConfig(level=log_level)
+    tracker = setup_rich_logging(level=log_level)
     log.getLogger("acl-anthology").setLevel(log.WARNING)
     log.getLogger("git.cmd").setLevel(log.WARNING)
     log.getLogger("urllib3.connectionpool").setLevel(log.WARNING)
-    tracker = setup_rich_logging(level=log_level)
 
     with warnings.catch_warnings(action="ignore", category=NameSpecResolutionWarning):
 
