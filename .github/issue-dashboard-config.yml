@@ -1,0 +1,104 @@
+title: 'ACL Anthology Issue Dashboard'
+description: |
+  Snapshot of the active ACL Anthology backlog, mirroring the manual updates shared in
+  https://github.com/acl-org/acl-anthology/discussions/7058. Counts update whenever the
+  workflow runs; click any widget to open the underlying GitHub query.
+output:
+  format: html
+  filename: hugo/static/dashboard/index.html
+sections:
+  - title: 'Headline counts'
+    widgets:
+      - type: number
+        title: 'Open issues'
+        issue_query: 'repo:acl-org/acl-anthology is:issue is:open'
+        color: red
+      - type: number
+        title: 'Data corrections'
+        issue_query: 'repo:acl-org/acl-anthology is:issue is:open label:correction'
+        color: yellow
+      - type: number
+        title: 'Other issues'
+        issue_query: 'repo:acl-org/acl-anthology is:issue is:open -label:correction'
+        color: green
+  - title: 'Author page corrections'
+    description: 'Issues labeled correction+author-page, split by age.'
+    widgets:
+      - type: number
+        title: 'Author page corrections'
+        issue_query: 'repo:acl-org/acl-anthology is:issue is:open label:correction label:author-page'
+        color: yellow
+      - type: number
+        title: 'Filed before 2025-06-01'
+        issue_query: 'repo:acl-org/acl-anthology is:issue is:open label:correction label:author-page created:<2025-06-01'
+        color: red
+      - type: number
+        title: 'Filed since 2025-06-01'
+        issue_query: 'repo:acl-org/acl-anthology is:issue is:open label:correction label:author-page created:>=2025-06-01'
+        color: green
+  - title: 'Paper metadata corrections'
+    widgets:
+      - type: number
+        title: 'Metadata corrections'
+        issue_query: 'repo:acl-org/acl-anthology is:issue is:open label:correction label:metadata'
+        color: yellow
+      - type: number
+        title: 'Approved metadata corrections'
+        issue_query: 'repo:acl-org/acl-anthology is:issue is:open label:correction label:metadata label:approved'
+        color: green
+      - type: number
+        title: 'Waiting for clarification'
+        issue_query: 'repo:acl-org/acl-anthology is:issue is:open label:correction label:metadata label:waiting'
+        color: yellow
+      - type: number
+        title: 'Other metadata corrections'
+        issue_query: 'repo:acl-org/acl-anthology is:issue is:open label:correction label:metadata -label:waiting -label:approved'
+        color: red
+  - title: 'Other correction requests'
+    widgets:
+      - type: number
+        title: 'Other corrections'
+        issue_query: 'repo:acl-org/acl-anthology is:issue is:open label:correction -label:author-page -label:metadata'
+        color: yellow
+      - type: number
+        title: 'On hold'
+        issue_query: 'repo:acl-org/acl-anthology is:issue is:open label:correction -label:author-page -label:metadata label:"on hold"'
+        color: red
+      - type: number
+        title: 'Pending'
+        issue_query: 'repo:acl-org/acl-anthology is:issue is:open label:correction -label:author-page -label:metadata label:pending'
+        color: yellow
+      - type: number
+        title: 'Other statuses'
+        issue_query: 'repo:acl-org/acl-anthology is:issue is:open label:correction -label:author-page -label:metadata -label:pending -label:"on hold"'
+        color: green
+  - title: 'Non-correction issues'
+    widgets:
+      - type: number
+        title: 'Ingestions'
+        issue_query: 'repo:acl-org/acl-anthology is:issue is:open -label:correction label:ingestion'
+        color: yellow
+      - type: number
+        title: 'Ingestion ideas milestone'
+        issue_query: 'repo:acl-org/acl-anthology is:issue is:open -label:correction milestone:"Ingestion ideas"'
+        color: green
+      - type: number
+        title: 'Non-ingestion, no milestone'
+        issue_query: 'repo:acl-org/acl-anthology is:issue is:open -label:correction -label:ingestion no:milestone'
+        color: yellow
+      - type: number
+        title: '2026Q1 milestone'
+        issue_query: 'repo:acl-org/acl-anthology is:issue is:open -label:correction milestone:"2026Q1"'
+        color: green
+      - type: number
+        title: '2026Q2 milestone'
+        issue_query: 'repo:acl-org/acl-anthology is:issue is:open -label:correction milestone:"2026Q2"'
+        color: green
+      - type: number
+        title: '2026Q3 milestone'
+        issue_query: 'repo:acl-org/acl-anthology is:issue is:open -label:correction milestone:"2026Q3"'
+        color: green
+      - type: number
+        title: '2026Q4 milestone'
+        issue_query: 'repo:acl-org/acl-anthology is:issue is:open -label:correction milestone:"2026Q4"'
+        color: green
