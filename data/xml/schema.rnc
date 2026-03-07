@@ -138,7 +138,7 @@ Event = element event {
    & element links { url* }?
    & Talk*
    & element colocated {
-       element volume-id { text }*
+       element volume-id { attribute note { xsd:string }?, text }*
      }?
  )
 }
