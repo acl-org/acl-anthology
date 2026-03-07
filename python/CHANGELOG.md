@@ -1,5 +1,30 @@
 # Changelog
 
+## [1.1.0] — 2026-03-07
+
+### Added
+
+- Files (such as paper PDFs) can now be downloaded from their remote URLs via `.download()`.
+- Added `.get_namespec_for(Person)` on papers and volumes, to more easily find the NameSpecification referring to a given Person.
+- Added `NameSpecification.case_normalize()` to heuristically fix casing and match spelling details to known canonical names. This is mainly intended for ingestion and called automatically when using `create_paper()`/`create_volume()`.
+- Added `Person.namespecs()` to iterate over all NameSpecifications referring to this Person.
+- Added `Person.set_id_on_items()` to explicitly set a verified person's ID on all NameSpecifications that currently resolve to them.
+- Added `PersonIndex.generate_person_id()` to facilitate generating verified person IDs that don't exist yet in the index.
+- Added input conversion for ORCIDs: `person.orcid = "https://orcid.org/..."` works now.
+- Added input validation for bibkeys (to follow our convention of all-lowercase keys) and last names (to disallow empty strings).
+
+### Changed
+
+- Switched tooling from Poetry to uv, and from Black to Ruff formatter.
+- Renamed `PersonIndex.resolve_namespec` to `_resolve_namespec` to discourage external use.
+- Improvements to Names and NameSpecifications:
+  - `Name.slugify()` now treats typographic apostrophes (U+02BC and U+2019) the same as regular ones.
+  - NameSpecifications now track if they have been modified, and will trigger their parent collection being saved on `Anthology.save_all()`.
+  - NameSpecifications can now be resolved via `NameSpecification.resolve()`. Therefore, `Anthology.resolve()` has been deprecated.
+- Improvements to Person:
+  - `Person.make_explicit()` can now auto-generate an ID.
+  - `Person.merge_with_explicit()` has been renamed `Person.merge_into()` and now supports merging two explicit persons.
+
 ## [1.0.0] — 2026-01-24
 
 This release implements the new [name resolution and author ID logic](https://github.com/acl-org/acl-anthology/wiki/Author-Page-Plan), and is therefore fundamentally incompatible with ACL Anthology data before the switch to this new system.

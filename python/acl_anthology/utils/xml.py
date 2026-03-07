@@ -103,8 +103,8 @@ def _sort_children(x: etree._Element) -> tuple[str, str]:
         # should not be changed. This guarantees that their original order will
         # not be changed due to Python's sort stability:
         # <https://docs.python.org/3/howto/sorting.html#sort-stability-and-complex-sorts>
-        return (x.tag, "")
-    return (x.tag, etree.tostring(x, encoding="unicode"))
+        return (str(x.tag), "")
+    return (str(x.tag), etree.tostring(x, encoding="unicode"))
 
 
 def assert_equals(elem: etree._Element, other: etree._Element) -> None:
@@ -251,7 +251,7 @@ def ensure_minimal_diff(elem: etree._Element, reference: etree._Element) -> None
     """
     if elem.tag != reference.tag:
         raise ValueError(
-            f"ensure_minimal_diff received two elements with different tags ({elem.tag} != {reference.tag})"
+            f"ensure_minimal_diff received two elements with different tags ({str(elem.tag)} != {str(reference.tag)})"
         )
 
     # If the entire elements are logically equivalent, we just clone the reference
@@ -299,7 +299,7 @@ def ensure_minimal_diff(elem: etree._Element, reference: etree._Element) -> None
     # attributes.
     def make_match_keys(elems: Iterable[etree._Element]) -> list[str]:
         """Key used for element matching."""
-        return [f"{elem.tag}{sorted(elem.items())}" for elem in elems]
+        return [f"{str(elem.tag)}{sorted(elem.items())}" for elem in elems]
 
     matcher = SequenceMatcher(
         a=make_match_keys(elem),
