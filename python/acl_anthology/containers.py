@@ -14,16 +14,10 @@
 
 """Provides the base class for all dictionary-like containers."""
 
-import sys
 from attrs import define, field
 from collections.abc import ItemsView, KeysView, ValuesView
 from copy import copy
-from typing import TypeVar, Generic, Iterator, Optional
-
-if sys.version_info >= (3, 11):
-    from typing import Self
-else:
-    from typing_extensions import Self
+from typing import Self, TypeVar, Generic, Iterator, Optional
 
 T = TypeVar("T")
 U = TypeVar("U")

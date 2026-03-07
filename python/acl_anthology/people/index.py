@@ -20,7 +20,6 @@ import itertools as it
 from pathlib import Path
 from rich.progress import track
 from scipy.cluster.hierarchy import DisjointSet  # type: ignore
-import sys
 from typing import cast, Any, Iterable, Optional, TYPE_CHECKING
 import warnings
 import yaml
@@ -298,7 +297,7 @@ class PersonIndex(SlottedDict[Person]):
                 description="Building person index...",
                 console=primary_console,
             )
-        raised_exception = False
+        raised_exceptions = []
         for collection in iterator:
             for volume in collection.volumes():
                 context: Paper | Volume = volume
@@ -319,18 +318,13 @@ class PersonIndex(SlottedDict[Person]):
                             name_specs, paper.full_id_tuple, during_build=True
                         )
                 except Exception as exc:  # pragma: no cover
-                    note = f"Raised in {context.__class__.__name__} {context.full_id}"
-                    # If this is merged into a single if-statement (with "or"),
-                    # the type checker complains ¯\_(ツ)_/¯
-                    if isinstance(exc, AnthologyException):
-                        exc.add_note(note)
-                    elif sys.version_info >= (3, 11):
-                        exc.add_note(note)
-                    log.exception(exc)
-                    raised_exception = True
-        if raised_exception:
-            raise Exception(
-                "An exception was raised while building PersonIndex; check the logger for details."
+                    exc.add_note(
+                        f"Raised in {context.__class__.__name__} {context.full_id}"
+                    )
+                    raised_exceptions.append(exc)
+        if raised_exceptions:
+            raise ExceptionGroup(
+                "An exception was raised while building PersonIndex.", raised_exceptions
             )  # pragma: no cover
         self.is_data_loaded = True
 

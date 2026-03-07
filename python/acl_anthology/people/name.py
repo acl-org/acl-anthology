@@ -20,14 +20,7 @@ from lxml import etree
 from lxml.builder import E
 import re
 from slugify import slugify
-from typing import Any, Iterable, Optional, cast, TypeAlias, TYPE_CHECKING
-import sys
-
-if sys.version_info >= (3, 11):
-    from typing import Self
-else:
-    from typing_extensions import Self
-
+from typing import Any, Iterable, Optional, cast, Self, TypeAlias, TYPE_CHECKING
 import yaml
 
 try:
