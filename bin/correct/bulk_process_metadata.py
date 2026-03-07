@@ -67,6 +67,7 @@ from acl_anthology.collections import Paper
 from acl_anthology.exceptions import NameSpecResolutionWarning
 from acl_anthology.people import NameSpecification, Name
 from acl_anthology.text import MarkupText
+from acl_anthology.utils.logging import setup_rich_logging
 
 close_old_issue_comment = """### ⓘ Notice
 
@@ -626,7 +627,7 @@ if __name__ == "__main__":
     args = docopt(__doc__)
 
     log_level = log.DEBUG if not args["--quiet"] else log.INFO
-    log.basicConfig(level=log_level)
+    tracker = setup_rich_logging(level=log_level)
     log.getLogger("acl-anthology").setLevel(log.WARNING)
     log.getLogger("git.cmd").setLevel(log.WARNING)
     log.getLogger("urllib3.connectionpool").setLevel(log.WARNING)
