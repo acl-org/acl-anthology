@@ -57,7 +57,10 @@ class SIG:
     name: str = field(converter=str)
     path: Path = field(converter=Path, eq=False)
     url: Optional[str] = field(default=None, validator=v.optional(v.instance_of(str)))
-    meetings: list[str | SIGMeeting] = field(factory=list, repr=False)
+    meetings: list[str | SIGMeeting] = field(
+        factory=list,
+        repr=lambda x: f"<list[str | SIGMeeting] with {len(x)} item{'' if len(x) == 1 else 's'}>",
+    )
 
     @property
     def root(self) -> Anthology:

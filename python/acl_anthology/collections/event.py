@@ -148,7 +148,7 @@ class Event:
 
     colocated_ids: list[tuple[AnthologyIDTuple, EventLink]] = field(
         factory=list,
-        repr=lambda x: f"<list of {len(x)} tuples>",
+        repr=lambda x: f"<list[tuple[AnthologyIDTuple, EventLink]] of {len(x)} item{'' if len(x) == 1 else 's'}>",
     )
     links: dict[str, EventFileReference] = field(factory=dict)
     talks: list[Talk] = field(
@@ -157,7 +157,7 @@ class Event:
             member_validator=v.instance_of(Talk),
             iterable_validator=v.instance_of(list),
         ),
-        repr=lambda x: f"<list of {len(x)} Talk objects>",
+        repr=lambda x: f"<list[Talk] of {len(x)} item{'' if len(x) == 1 else 's'}>",
     )
 
     title: Optional[MarkupText] = field(

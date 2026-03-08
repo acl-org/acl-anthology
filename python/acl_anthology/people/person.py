@@ -26,7 +26,7 @@ else:
     from typing_extensions import deprecated
 
 from ..exceptions import AnthologyException, AnthologyInvalidIDError
-from ..utils.attrs import attach_custom_repr, auto_validate_types
+from ..utils.attrs import attach_custom_repr, auto_validate_types, repr_item_ids
 from ..utils.ids import (
     AnthologyID,
     AnthologyIDTuple,
@@ -125,9 +125,7 @@ class Person:
         converter=_name_list_converter,
         metadata={"repr_omits_field_name": True},
     )
-    item_ids: list[AnthologyIDTuple] = field(
-        factory=list, repr=lambda x: f"<list of {len(x)} AnthologyIDTuple objects>"
-    )
+    item_ids: list[AnthologyIDTuple] = field(factory=list, repr=repr_item_ids)
     orcid: Optional[str] = field(
         default=None,
         on_setattr=[_orcid_converter_and_validator, _update_person_index],

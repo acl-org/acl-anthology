@@ -19,10 +19,10 @@ from __future__ import annotations
 import attrs
 from attrs import validators
 import datetime
-from typing import Any, Callable, Iterable, Optional, TypeVar, TYPE_CHECKING
+from typing import Any, Callable, Iterable, Optional, Sequence, TypeVar, TYPE_CHECKING
 import re
 
-from .ids import AnthologyIDTuple
+from .ids import AnthologyIDTuple, build_id_from_tuple
 
 if TYPE_CHECKING:
     import rich
@@ -231,6 +231,22 @@ def attach_parent(
     return value
 
 
+def repr_item_ids(ids: Sequence[AnthologyIDTuple]) -> str:
+    """Produce a repr for sequences of AnthologyIDTuples.
+
+    Will show a 'slice' of the first few IDs along with the sequence's length.
+
+    Intended to be set on the `repr` attribute of suitable attribute fields.
+    """
+    if not ids:
+        return repr(ids)
+    MAX_LEN = 3
+    shown_ids = [repr(build_id_from_tuple(id_)) for id_ in ids[:MAX_LEN]]
+    if len(ids) > MAX_LEN:
+        shown_ids.append("...")
+    return f"<{type(ids).__name__}[AnthologyIDTuple] with {len(ids)} item{'' if len(ids) == 1 else 's'} [{', '.join(shown_ids)}]>"
+
+
 def _repr(self: attrs.AttrsInstance) -> str:
     fields = attrs.fields(type(self))
     parts = []
@@ -238,7 +254,7 @@ def _repr(self: attrs.AttrsInstance) -> str:
         if not f.repr:
             continue
         if f.name == "id" and hasattr(self, "full_id"):
-            parts.append(repr(getattr(self, "full_id")))
+            parts.append(f"full_id={getattr(self, 'full_id')!r}")
             continue
 
         value = getattr(self, f.name)
@@ -273,7 +289,7 @@ def _rich_repr(self: attrs.AttrsInstance) -> rich.repr.Result:
         if not f.repr:
             continue
         if f.name == "id" and hasattr(self, "full_id"):
-            yield getattr(self, "full_id")
+            yield "full_id", getattr(self, "full_id")
             continue
 
         value = getattr(self, f.name)
