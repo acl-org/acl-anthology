@@ -1,5 +1,17 @@
 # Changelog
 
+## [Unreleased]
+
+### Changed
+
+- **Breaking change:** Collection items now use tuples instead of list attributes, and many objects that can be child attributes on collections (e.g. PDFReference, PaperRevision, ...) have been made immutable.
+- `Person.parent` now points to the `PersonIndex`, not the `Anthology`.  Use `Person.root` for that, if needed.  (This brings `Person` objects in line with how these attributes work anywhere else in the library.)
+- `__repr__` and `__rich_repr__` functions of all objects have been tweaked.
+
+### Removed
+
+- Support for Python 3.10 was dropped.
+
 ## [1.1.0] — 2026-03-07
 
 ### Added

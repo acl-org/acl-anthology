@@ -16,20 +16,14 @@
 
 from __future__ import annotations
 
-import sys
 from attrs import define, field, validators as v
 from lxml import etree
 from lxml.builder import E
 from pathlib import Path
 import requests
-from typing import cast, ClassVar, Optional, TYPE_CHECKING
+from typing import cast, ClassVar, Optional, Self, TYPE_CHECKING
 import warnings
 from zlib import crc32
-
-if sys.version_info >= (3, 11):
-    from typing import Self
-else:
-    from typing_extensions import Self
 
 if TYPE_CHECKING:
     from _typeshed import StrPath
@@ -65,7 +59,7 @@ def compute_checksum_from_file(path: StrPath) -> str:
         return compute_checksum(f.read())
 
 
-@define
+@define(frozen=True)
 class FileReference:
     """Base class for all references to local or remote files in the XML data.
 
@@ -171,7 +165,7 @@ class FileReference:
         return elem
 
 
-@define
+@define(frozen=True)
 class PDFReference(FileReference):
     """Reference to a PDF file."""
 
@@ -179,14 +173,14 @@ class PDFReference(FileReference):
     template_field: ClassVar[str] = "pdf_location_template"
 
 
-@define
+@define(frozen=True)
 class PDFThumbnailReference(FileReference):
     """Reference to a PDF thumbnail image."""
 
     template_field: ClassVar[str] = "pdf_thumbnail_location_template"
 
 
-@define
+@define(frozen=True)
 class AttachmentReference(FileReference):
     """Reference to an attachment."""
 
@@ -195,14 +189,14 @@ class AttachmentReference(FileReference):
     template_field: ClassVar[str] = "attachment_location_template"
 
 
-@define
+@define(frozen=True)
 class EventFileReference(FileReference):
     """Reference to an event-related file."""
 
     template_field: ClassVar[str] = "event_location_template"
 
 
-@define
+@define(frozen=True)
 class VideoReference(FileReference):
     """Reference to a video."""
 

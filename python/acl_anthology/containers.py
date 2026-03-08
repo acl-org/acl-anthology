@@ -14,16 +14,10 @@
 
 """Provides the base class for all dictionary-like containers."""
 
-import sys
 from attrs import define, field
 from collections.abc import ItemsView, KeysView, ValuesView
 from copy import copy
-from typing import TypeVar, Generic, Iterator, Optional
-
-if sys.version_info >= (3, 11):
-    from typing import Self
-else:
-    from typing_extensions import Self
+from typing import Self, TypeVar, Generic, Iterator, Optional
 
 T = TypeVar("T")
 U = TypeVar("U")
@@ -33,7 +27,7 @@ def dict_type(x: dict[str, T]) -> str:
     if not x:
         return ""
     value = next(iter(x.values()))
-    return f"{value.__class__.__name__} "
+    return f"{value.__class__.__name__}"
 
 
 @define
@@ -49,14 +43,15 @@ class SlottedDict(Generic[T]):
         is_data_loaded: Flag that defaults to True. Subclasses can set this to False to indicate that [`self.load()`][acl_anthology.containers.SlottedDict.load] must be called before any data can be accessed; in that case, they also have to implement the `load` function.
     """
 
-    # TODO: We would probably like to take is_data_loaded into account, but
-    # that's not really possible
     data: dict[str, T] = field(
         init=False,
-        repr=lambda x: f"<dict of {len(x)} {dict_type(x)}item{'' if len(x) == 1 else 's'}>",
+        repr=lambda x: f"<dict[str, {dict_type(x)}] with {len(x)} item{'' if len(x) == 1 else 's'}>",
         factory=dict,
+        metadata={"repr_omits_field_name": True},
     )
-    is_data_loaded: bool = field(init=False, repr=True, default=True)
+    is_data_loaded: bool = field(
+        init=False, repr=True, default=True, metadata={"repr_omit_if": True}
+    )
 
     def __contains__(self, key: str) -> bool:
         if not self.is_data_loaded:

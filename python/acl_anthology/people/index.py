@@ -20,7 +20,6 @@ import itertools as it
 from pathlib import Path
 from rich.progress import track
 from scipy.cluster.hierarchy import DisjointSet  # type: ignore
-import sys
 from typing import cast, Any, Iterable, Optional, TYPE_CHECKING
 import warnings
 import yaml
@@ -39,6 +38,7 @@ from ..exceptions import (
     NameSpecResolutionWarning,
     PersonDefinitionError,
 )
+from ..utils.attrs import attach_custom_repr
 from ..utils.ids import AnthologyIDTuple, is_verified_person_id
 from ..utils.logging import get_logger
 from . import Person, Name, NameLink, NameSpecification
@@ -58,6 +58,7 @@ UNVERIFIED_PID_FORMAT = "{pid}/unverified"
 # Note: Changing this will require changes in Hugo templates etc. as well!
 
 
+@attach_custom_repr
 @define
 class PersonIndex(SlottedDict[Person]):
     """Index object through which all persons (authors/editors) can be accessed.
@@ -92,7 +93,9 @@ class PersonIndex(SlottedDict[Person]):
         init=False, repr=False, factory=lambda: defaultdict(list)
     )
     _similar: DisjointSet = field(init=False, repr=False, factory=DisjointSet)
-    is_data_loaded: bool = field(init=False, repr=True, default=False)
+    is_data_loaded: bool = field(
+        init=False, default=False, metadata={"repr_omit_if": True}
+    )
 
     @path.default
     def _path(self) -> Path:
@@ -294,7 +297,7 @@ class PersonIndex(SlottedDict[Person]):
                 description="Building person index...",
                 console=primary_console,
             )
-        raised_exception = False
+        raised_exceptions = []
         for collection in iterator:
             for volume in collection.volumes():
                 context: Paper | Volume = volume
@@ -315,18 +318,13 @@ class PersonIndex(SlottedDict[Person]):
                             name_specs, paper.full_id_tuple, during_build=True
                         )
                 except Exception as exc:  # pragma: no cover
-                    note = f"Raised in {context.__class__.__name__} {context.full_id}"
-                    # If this is merged into a single if-statement (with "or"),
-                    # the type checker complains ¯\_(ツ)_/¯
-                    if isinstance(exc, AnthologyException):
-                        exc.add_note(note)
-                    elif sys.version_info >= (3, 11):
-                        exc.add_note(note)
-                    log.exception(exc)
-                    raised_exception = True
-        if raised_exception:
-            raise Exception(
-                "An exception was raised while building PersonIndex; check the logger for details."
+                    exc.add_note(
+                        f"Raised in {context.__class__.__name__} {context.full_id}"
+                    )
+                    raised_exceptions.append(exc)
+        if raised_exceptions:
+            raise ExceptionGroup(
+                "An exception was raised while building PersonIndex.", raised_exceptions
             )  # pragma: no cover
         self.is_data_loaded = True
 
@@ -347,7 +345,7 @@ class PersonIndex(SlottedDict[Person]):
             self.add_person(
                 Person(
                     id=pid,
-                    parent=self.parent,
+                    parent=self,
                     names=[Name.from_dict(n) for n in entry.pop("names")],
                     orcid=entry.pop("orcid", None),
                     comment=entry.pop("comment", None),
@@ -422,7 +420,7 @@ class PersonIndex(SlottedDict[Person]):
         if not names:
             raise ValueError("List of names cannot be empty")
 
-        kwargs["parent"] = self.parent
+        kwargs["parent"] = self
         kwargs["is_explicit"] = True
 
         person = Person(id=id, names=names, **kwargs)
@@ -535,8 +533,8 @@ class PersonIndex(SlottedDict[Person]):
             self.add_person(
                 Person(
                     id=pid,
-                    parent=self.parent,
-                    names=[name_spec.name] + name_spec.variants,
+                    parent=self,
+                    names=[name_spec.name] + list(name_spec.variants),
                     orcid=name_spec.orcid,
                     is_explicit=True,
                 )
@@ -624,7 +622,7 @@ class PersonIndex(SlottedDict[Person]):
                 elif allow_creation:
                     # Unverified ID doesn't exist yet; create it
                     person = Person(
-                        id=pid, parent=self.parent, names=[(name, NameLink.INFERRED)]
+                        id=pid, parent=self, names=[(name, NameLink.INFERRED)]
                     )
                     self.add_person(person)
                 else:

@@ -24,7 +24,7 @@ try:
 except ImportError:  # pragma: no cover
     from yaml import Loader, Dumper  # type: ignore
 
-from .utils.attrs import auto_validate_types
+from .utils.attrs import attach_custom_repr, auto_validate_types, repr_item_ids
 from .utils.ids import AnthologyIDTuple, build_id_from_tuple
 from .constants import RE_VENUE_ID
 from .containers import SlottedDict
@@ -35,6 +35,7 @@ if TYPE_CHECKING:
     from .collections import Volume
 
 
+@attach_custom_repr
 @define(field_transformer=auto_validate_types)
 class Venue:
     """A publication venue.
@@ -52,18 +53,18 @@ class Venue:
         url: A website URL for the venue.
     """
 
-    id: str = field(converter=str, validator=v.matches_re(RE_VENUE_ID))
+    id: str = field(
+        converter=str,
+        validator=v.matches_re(RE_VENUE_ID),
+        metadata={"repr_omits_field_name": True},
+    )
     parent: Anthology = field(repr=False, eq=False)
     acronym: str = field(converter=str)
     name: str = field(converter=str)
     path: Path = field(converter=Path, eq=False)
     is_acl: bool = field(default=False, converter=bool)
     is_toplevel: bool = field(default=False, converter=bool)
-    item_ids: list[AnthologyIDTuple] = field(
-        factory=list,
-        repr=lambda x: f"<list of {len(x)} AnthologyIDTuple objects>",
-        eq=False,
-    )
+    item_ids: list[AnthologyIDTuple] = field(factory=list, repr=repr_item_ids, eq=False)
     oldstyle_letter: Optional[str] = field(
         default=None, validator=v.optional(v.matches_re("^[A-Z]$"))
     )
@@ -119,6 +120,7 @@ class Venue:
             yield volume
 
 
+@attach_custom_repr
 @define
 class VenueIndex(SlottedDict[Venue]):
     """Index object through which venues and their associated volumes can be accessed.
@@ -133,7 +135,9 @@ class VenueIndex(SlottedDict[Venue]):
 
     parent: Anthology = field(repr=False, eq=False)
     no_item_ids: bool = field(repr=False, default=False)
-    is_data_loaded: bool = field(init=False, repr=True, default=False)
+    is_data_loaded: bool = field(
+        init=False, default=False, metadata={"repr_omit_if": True}
+    )
 
     def load(self) -> None:
         """Load and parse the `venues/*.yaml` files.

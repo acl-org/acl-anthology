@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import pytest
+import attrs
 from lxml import etree
 import requests
 import responses
@@ -128,6 +129,13 @@ def test_reference_cant_change_template_field():
     assert isinstance(ref.template_field, str)
     with pytest.raises(AttributeError):
         ref.template_field = "foo"
+
+
+def test_reference_is_frozen():
+    name = "2023.venue-volume.222"
+    ref = PDFReference(name)
+    with pytest.raises(attrs.exceptions.FrozenInstanceError):
+        ref.checksum = "f9f4f558"
 
 
 def test_pdfreference_from_file(datadir):
