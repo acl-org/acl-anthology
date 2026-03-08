@@ -45,9 +45,9 @@ just fetch the paper and set its `doi` attribute:
 
 !!! tip "Rule of thumb"
 
-    As a general rule, all classes perform **automatic input conversion and validation**.  This means that setting attributes should either "do the right thing" or raise a `TypeError`.  The main exception currently is modifying attributes in-place, e.g. appending to lists, as no input validation is performed then.
+    As a general rule, all classes perform **automatic input conversion and validation**.  This means that setting attributes should either "do the right thing" or raise a `TypeError`.
 
-### Simple attributes
+### Input validation and conversion
 
 Attributes generally perform **input validation**.  For example, since a paper's
 PDF attribute needs to be an instance of
@@ -55,10 +55,10 @@ PDF attribute needs to be an instance of
 won't work and will raise a `TypeError`:
 
 ```pycon
->>> paper.pdf = Path("2025.test-1.pdf")  # TypeError
+>>> paper.pdf = Path("2025.test-1.pdf")    # will raise TypeError
 ```
 
-However, some attributes also provide **input converters** that perform simpler
+However, many attributes also provide **input converters** that perform simpler
 conversions automatically.  For example, paper titles and abstracts are stored
 as [`MarkupText`][acl_anthology.text.markuptext.MarkupText] objects, but setting
 such an attribute to a string will automatically convert it:
@@ -69,43 +69,63 @@ such an attribute to a string will automatically convert it:
 MarkupText('Improving the ACL Anthology')
 ```
 
-The same applies to a [`Volume`][acl_anthology.collections.volume.Volume]'s year
-of publication or date of ingestion, which both are stored as strings, but the
-following will also work:
+Here are a few more _examples_ of input converters, showing what you can set and
+how it will be converted & stored internally:
 
 ```pycon
+>>> paper.awards = ["Best paper award"]
+>>> paper.awards                           # stored as a tuple
+('Best paper award',)
+>>> person = anthology.get_person("marcel-bollmann")
+>>> person.orcid = "https://orcid.org/0000-0003-2598-8150"
+>>> person.orcid                           # stored without URL prefix
+'0000-0003-2598-8150'
 >>> volume = anthology.get("2022.acl-long")
 >>> volume.year = 2022
->>> volume.year
+>>> volume.year                            # stored as string
 '2022'
 >>> from datetime import date
 >>> volume.ingest_date = date.today()
->>> volume.ingest_date
+>>> volume.ingest_date                     # stored as string
 '2025-01-08'
 ```
 
-### List attributes
+This design philosophy means that there’s normally no need to check values in
+your code before you set them, as you can just check for errors upon setting.
 
-List attributes can be modified the same way as other attributes, however, there
-is **no input validation or conversion** when modifying mutable attributes such
-as lists, and no automatic tracking of modifications (see [Saving
-changes](#saving-changes)) – only when _setting_ them.  Therefore, it is
-recommended to _set_ list attributes every time you modify them.  For example,
-to add an author to a paper, you can create a new
-[`NameSpecification`][acl_anthology.people.name.NameSpecification] and append it
-to the author list via `+=` (rather than `.append`), which will create a _new_
-list and _set_ it on the attribute:
+### Immutable attributes
+
+Since input conversion and validation can only happen upon _setting_ an
+attribute, but not generally when _modifying_ a (mutable) attribute, collection
+objects generally use **immutable attributes**.
+
+A common example is the author list on papers, which is exposed as a **tuple**
+(rather than a list).  To modify the author list, you need to create a new tuple
+and set it on the paper.  For example, to add an author to a paper, you can
+create a new [`NameSpecification`][acl_anthology.people.name.NameSpecification],
+wrap it in a tuple, and "append" it to the author list via `+=`:
 
 ```pycon
 >>> spec = NameSpecification("Bollmann, Marcel")
->>> paper.authors += [spec]
+>>> paper.authors += (spec,)
 ```
 
-To change an existing author's name, you just need to remember that **names are
-immutable**, so you need to modify the `NameSpecification` instead:
+Anthology objects that can be set on collection items are generally immutable,
+too.  For example, to correct a checksum on a
+[`PDFReference`][acl_anthology.files.PDFReference], it won't work to update the
+reference itself – you need to create a new one and re-set the attribute:
 
 ```pycon
->>> paper.authors[0].name.first = "Marc Marcel"             # will NOT work
+>>> paper.pdf.checksum = "f9f4f558"                         # will raise
+>>> paper.pdf = PDFReference.from_file(...)                 # works
+```
+
+The main exception to this rule is modifying name specifications.  To update an
+existing author's name, you need to remember that **names are immutable**, but
+**name specifications can be modified**:
+
+```pycon
+>>> paper.authors[0].name.first = "Marc Marcel"             # will raise
 >>> paper.authors[0].name = Name("Bollmann, Marc Marcel")   # works
 ```
 
@@ -119,6 +139,11 @@ If the auto-generated bibkey is identical to the current one, the bibkey will
 not change.
 
 #### Dependent indices
+
+!!! warning
+
+    This is work in progress, and automatic updating of indices might improve in the future.
+
 - If an item's `bibkey` changes, the [BibkeyIndex][acl_anthology.collections.bibkeys.BibkeyIndex] **will** update automatically.
 - If an item's author or editor list changes, the [PersonIndex][acl_anthology.people.index.PersonIndex] and any [Person][acl_anthology.people.person.Person] objects created from it **will not update** automatically.
 - If an item's `venue_ids` list changes, the [VenueIndex][acl_anthology.venues.VenueIndex] and any [Venue][acl_anthology.venues.Venue] objects created from it **will not update** automatically.
@@ -355,9 +380,7 @@ XML and YAML files to the Anthology's data directory, with the following
 caveats:
 
 - **Collections will track if they have been modified** to prevent writing XML
-  files unnecessarily.  As with modifying attributes in general, this requires
-  that you have _set_ an attribute; modifying attributes in-place, e.g. lists,
-  will not be detected.
+  files unnecessarily.
 
   - Saving a collection manually can be done by calling
     [`Collection.save()`][acl_anthology.collections.collection.Collection.save].
