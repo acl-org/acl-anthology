@@ -21,7 +21,7 @@ def test_person_names(anthology_stub):
     n1 = Name("Yang", "Liu")
     n2 = Name("Y.", "Liu")
     n3 = Name("Yang X.", "Liu")
-    person = Person("yang-liu", anthology_stub, [n1, n2])
+    person = Person("yang-liu", anthology_stub.people, [n1, n2])
     assert len(person.names) == 2
     assert person.has_name(n1)
     assert person.has_name(n2)
@@ -31,7 +31,7 @@ def test_person_names(anthology_stub):
 def test_person_canonical_name(anthology_stub):
     n1 = Name("Yang", "Liu")
     n2 = Name("Y.", "Liu")
-    person = Person("yang-liu", anthology_stub, [n1, n2])
+    person = Person("yang-liu", anthology_stub.people, [n1, n2])
     assert person.canonical_name == n1
     person.canonical_name = n2
     assert person.canonical_name == n2
@@ -41,7 +41,7 @@ def test_person_canonical_name(anthology_stub):
 def test_person_add_name(anthology_stub):
     n1 = Name("Yang", "Liu")
     n2 = Name("Y.", "Liu")
-    person = Person("yang-liu", anthology_stub, [n1])
+    person = Person("yang-liu", anthology_stub.people, [n1])
     assert person.canonical_name == n1
     person.canonical_name = n2
     assert person.canonical_name == n2
@@ -55,7 +55,7 @@ def test_person_add_name(anthology_stub):
 def test_person_remove_name(anthology_stub):
     n1 = Name("Yang", "Liu")
     n2 = Name("Y.", "Liu")
-    person = Person("yang-liu", anthology_stub, [n1, n2])
+    person = Person("yang-liu", anthology_stub.people, [n1, n2])
     assert person.has_name(n2)
     person.remove_name(n2)
     assert not person.has_name(n2)
@@ -65,7 +65,7 @@ def test_person_remove_name(anthology_stub):
 def test_person_names_explicit_vs_inferred(anthology_stub):
     n1 = Name("Yang", "Liu")
     n2 = Name("Y.", "Liu")
-    person = Person("yang-liu", anthology_stub, [n1])
+    person = Person("yang-liu", anthology_stub.people, [n1])
     assert (n1, NameLink.EXPLICIT) in person._names
     person.canonical_name = n2
     assert (n2, NameLink.EXPLICIT) in person._names
@@ -78,7 +78,7 @@ def test_person_add_name_explicit_vs_inferred(anthology_stub):
     n1 = Name("Yang", "Liu")
     n2 = Name("Y.", "Liu")
     n3 = Name("Yang X.", "Liu")
-    person = Person("yang-liu", anthology_stub, [n1])
+    person = Person("yang-liu", anthology_stub.people, [n1])
     person.add_name(n2, inferred=True)
     person.add_name(n3, inferred=False)
     assert person._names[1] == (n2, NameLink.INFERRED)
@@ -92,7 +92,7 @@ def test_person_add_name_explicit_vs_inferred(anthology_stub):
 
 
 def test_person_no_name(anthology_stub):
-    person = Person("yang-liu", anthology_stub, [])
+    person = Person("yang-liu", anthology_stub.people, [])
     assert len(person.names) == 0
     with pytest.raises(ValueError):
         person.canonical_name
@@ -103,7 +103,7 @@ def test_person_no_name(anthology_stub):
 
 
 def test_person_set_canonical_name(anthology_stub):
-    person = Person("rene-muller", anthology_stub, [Name("Rene", "Muller")])
+    person = Person("rene-muller", anthology_stub.people, [Name("Rene", "Muller")])
     assert len(person.names) == 1
     name = Name("René", "Müller")
     person.canonical_name = name
@@ -114,7 +114,7 @@ def test_person_set_canonical_name(anthology_stub):
 def test_person_orcid(anthology_stub):
     person = Person(
         "marcel-bollmann",
-        anthology_stub,
+        anthology_stub.people,
         [Name("Marcel", "Bollmann")],
         orcid="0000-0002-1297-6794",
     )
@@ -350,9 +350,9 @@ def test_person_merge_into_unverified_should_raise(anthology):
 
 def test_person_equality(anthology_stub):
     n = Name("Yang", "Liu")
-    person1 = Person("yang-liu", anthology_stub, [n])
-    person2 = Person("yang-liu", anthology_stub, [n])
-    person3 = Person("yang-liu-mit", anthology_stub, [n])
+    person1 = Person("yang-liu", anthology_stub.people, [n])
+    person2 = Person("yang-liu", anthology_stub.people, [n])
+    person3 = Person("yang-liu-mit", anthology_stub.people, [n])
     assert person1 == person2
     assert person1 != person3
     assert person2 != person3

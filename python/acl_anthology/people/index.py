@@ -345,7 +345,7 @@ class PersonIndex(SlottedDict[Person]):
             self.add_person(
                 Person(
                     id=pid,
-                    parent=self.parent,
+                    parent=self,
                     names=[Name.from_dict(n) for n in entry.pop("names")],
                     orcid=entry.pop("orcid", None),
                     comment=entry.pop("comment", None),
@@ -420,7 +420,7 @@ class PersonIndex(SlottedDict[Person]):
         if not names:
             raise ValueError("List of names cannot be empty")
 
-        kwargs["parent"] = self.parent
+        kwargs["parent"] = self
         kwargs["is_explicit"] = True
 
         person = Person(id=id, names=names, **kwargs)
@@ -533,7 +533,7 @@ class PersonIndex(SlottedDict[Person]):
             self.add_person(
                 Person(
                     id=pid,
-                    parent=self.parent,
+                    parent=self,
                     names=[name_spec.name] + list(name_spec.variants),
                     orcid=name_spec.orcid,
                     is_explicit=True,
@@ -622,7 +622,7 @@ class PersonIndex(SlottedDict[Person]):
                 elif allow_creation:
                     # Unverified ID doesn't exist yet; create it
                     person = Person(
-                        id=pid, parent=self.parent, names=[(name, NameLink.INFERRED)]
+                        id=pid, parent=self, names=[(name, NameLink.INFERRED)]
                     )
                     self.add_person(person)
                 else:
