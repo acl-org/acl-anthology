@@ -1,5 +1,5 @@
 # Copyright 2022 Matt Post <post@cs.jhu.edu>
-# Copyright 2023-2025 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2026 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@ from ..constants import RE_EVENT_ID
 from ..files import EventFileReference
 from ..people import NameSpecification
 from ..text import MarkupText, to_markuptext
-from ..utils.attrs import auto_validate_types, track_modifications
+from ..utils.attrs import attach_parent, auto_validate_types, track_modifications
 from ..utils.ids import AnthologyID, AnthologyIDTuple, parse_id, build_id_from_tuple
 
 if TYPE_CHECKING:
@@ -33,21 +33,43 @@ if TYPE_CHECKING:
     from . import Collection, Volume
 
 
-@define(field_transformer=auto_validate_types)
+@define(
+    field_transformer=auto_validate_types,
+    on_setattr=[setters.convert, setters.validate, track_modifications],
+)
 class Talk:
     """A talk without an associated paper, such as a keynote or invited talk.
 
     Attributes:
         title: The title of the talk.
+        parent: The Event object that this talk belongs to.
         type: Type of talk, e.g. "keynote".
         speakers: Name(s) of speaker(s) who gave this talk; can be empty.
         attachments: Links to attachments for this talk. The dictionary key specifies the type of attachment (e.g., "video" or "slides").
     """
 
     title: MarkupText = field(converter=to_markuptext)
+    parent: Optional[Event] = field(default=None, repr=False, eq=False)
     type: Optional[str] = field(default=None)
-    speakers: list[NameSpecification] = field(factory=list)
+    speakers: list[NameSpecification] = field(
+        factory=list,
+        on_setattr=[setters.validate, attach_parent, track_modifications],
+    )
     attachments: dict[str, EventFileReference] = field(factory=dict)
+
+    @property
+    def collection(self) -> Collection:
+        """The collection this talk belongs to."""
+        if self.parent is None:  # pragma: no cover
+            raise Exception("Talk was instantiated without parent")
+        return self.parent.collection
+
+    @property
+    def root(self) -> Anthology:
+        """The Anthology instance to which this object belongs."""
+        if self.parent is None:  # pragma: no cover
+            raise Exception("Talk was instantiated without parent")
+        return self.parent.parent.parent.parent
 
     @classmethod
     def from_xml(cls, element: etree._Element) -> Talk:
@@ -66,7 +88,7 @@ class Talk:
                 type_ = str(meta.get("type", "attachment"))
                 kwargs["attachments"][type_] = EventFileReference.from_xml(meta)
             else:  # pragma: no cover
-                raise ValueError(f"Unsupported element for Talk: <{meta.tag}>")
+                raise ValueError(f"Unsupported element for Talk: <{str(meta.tag)}>")
         return cls(**kwargs)
 
     def to_xml(self) -> etree._Element:
@@ -136,6 +158,12 @@ class Event:
     )
     location: Optional[str] = field(default=None)
     dates: Optional[str] = field(default=None)
+
+    def __attrs_post_init__(self) -> None:
+        for talk in self.talks:
+            talk.parent = self
+            for speaker in talk.speakers:
+                speaker.parent = talk
 
     @property
     def collection(self) -> Collection:
@@ -212,7 +240,7 @@ class Event:
                     if meta.tag == "title":
                         kwargs["title"] = MarkupText.from_xml(meta)
                     elif meta.tag in ("location", "dates"):
-                        kwargs[meta.tag] = str(meta.text) if meta.text else None
+                        kwargs[str(meta.tag)] = str(meta.text) if meta.text else None
             elif element.tag == "links":
                 kwargs["links"] = {}
                 for url in element:
@@ -227,7 +255,7 @@ class Event:
                     if volume_id.tag == "volume-id"
                 ]
             else:  # pragma: no cover
-                raise ValueError(f"Unsupported element for Event: <{element.tag}>")
+                raise ValueError(f"Unsupported element for Event: <{str(element.tag)}>")
         return cls(**kwargs)
 
     def to_xml(self) -> etree._Element:
