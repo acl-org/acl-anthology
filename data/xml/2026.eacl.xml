@@ -4815,4 +4815,645 @@
       <bibkey>alqahtani-etal-2026-stop</bibkey>
     </paper>
   </volume>
+  <volume id="short" type="proceedings" ingest-date="2026-03-13">
+    <meta>
+      <booktitle>Proceedings of the 19th Conference of the <fixed-case>E</fixed-case>uropean Chapter of the <fixed-case>A</fixed-case>ssociation for <fixed-case>C</fixed-case>omputational <fixed-case>L</fixed-case>inguistics (Volume 2: Short Papers)</booktitle>
+      <editor><first>Vera</first><last>Demberg</last></editor>
+      <editor><first>Kentaro</first><last>Inui</last></editor>
+      <editor><first>Lluís</first><last>Marquez</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Rabat, Morocco</address>
+      <isbn>979-8-89176-381-4</isbn>
+      <month>March</month>
+      <year>2026</year>
+      <venue>eacl</venue>
+    </meta>
+    <frontmatter>
+      <url hash="4da15d48">2026.eacl-short.0</url>
+      <bibkey>eacl-2026-short</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Investigating the Multilingual Calibration Effects of Language Model Instruction Tuning</title>
+      <author id="jerry-huang" orcid="0000-0002-1627-3316"><first>Jerry</first><last>Huang</last><affiliation>University of Waterloo and Montreal Institute for Learning Algorithms, Université de Montréal</affiliation></author>
+      <author><first>Peng</first><last>Lu</last></author>
+      <author><first>Qiuhao</first><last>Zeng</last></author>
+      <author id="yusuke-iwasawa" orcid="0000-0002-1321-2622"><first>Yusuke</first><last>Iwasawa</last><affiliation>The University of Tokyo, The University of Tokyo</affiliation></author>
+      <author id="yutaka-matsuo" orcid="0000-0002-2106-8907"><first>Yutaka</first><last>Matsuo</last><affiliation>The University of Tokyo</affiliation></author>
+      <author><first>Sarath</first><last>Chandar</last><affiliation>École Polytechnique de Montréal</affiliation></author>
+      <author id="edison-marrese-taylor" orcid="0000-0002-0328-0437"><first>Edison</first><last>Marrese-Taylor</last><affiliation>The Univesity of Tokyo and AIST, National Institute of Advanced Industrial Science and Technology</affiliation></author>
+      <author><first>Irene</first><last>Li</last></author>
+      <pages>1-59</pages>
+      <abstract>Ensuring that deep learning models are well-calibrated in terms of their predictive uncertainty is essential in maintaining their trustworthiness and reliability, yet despite increasing advances in foundation model research, the relationship between such large language models (LLMs) and their calibration remains an open area of research. In this work, we look at a critical gap in the calibration of LLMs within multilingual settings, in an attempt to better understand how the data scarcity can potentially lead to different calibration effects and how commonly used techniques can apply in these settings. Our analysis on two multilingual benchmarks, over 29 and 42 languages respectively, reveals that even in low-resource languages, model confidence can increase significantly after instruction-tuning on high-resource language SFT datasets. However, improvements in accuracy are marginal or non-existent, resulting in mis-calibration, highlighting a critical shortcoming of standard SFT for multilingual languages. Furthermore, we observe that the use of label smoothing to be a reasonable method alleviate this concern, again without any need for low-resource SFT data, maintaining better calibration across all languages. Overall, this highlights the importance of multilingual considerations for both training and tuning LLMs in order to improve their reliability and fairness in downstream use.</abstract>
+      <url hash="d542e3b5">2026.eacl-short.1</url>
+      <attachment hash="baeae36d" type="checklist">2026.eacl-short.1.checklist.pdf</attachment>
+      <bibkey>huang-etal-2026-investigating</bibkey>
+    </paper>
+    <paper id="2">
+      <title>Detecting Subtle Sense Shift with Polysemy-Aware Trends</title>
+      <author><first>Ondřej</first><last>Herman</last><affiliation>Masaryk University</affiliation></author>
+      <author id="pavel-rychly-4610" orcid="0000-0001-5097-4610"><first>Pavel</first><last>Rychlý</last><affiliation>Masaryk University and Lexical Computing</affiliation></author>
+      <pages>60-65</pages>
+      <abstract>Language changes faster than dictionaries can be revised, yet automatic tools still struggle to spot the subtle, short-term shifts in meaning that precede a formal update. We present a language-independent pipeline that detects word-sense shifts in large, time-stamped web corpora. The method couples a robust re-implementation of the Adaptive Skip-Gram model, which induces multiple sense vectors per lemma without any external inventory, with a second stage that tracks each sense through time under three alternative frequency normalizations. Linear Regression and the robust Mann-Kendall/Theil-Sen estimator then test whether a sense’s frequency slope deviates significantly from zero, producing a ranked list of headwords whose semantics are drifting.We evaluate the system on the English (12 B tokens) and Czech (1 B tokens) Timestamped corpora for May 2023-May 2025. Expert annotation of the top-100 candidates for each model variant shows that 50.7% of Czech and 25.7% of English headwords exhibit genuine sense shifts, despite web-scale noise.</abstract>
+      <url hash="e7a6928f">2026.eacl-short.2</url>
+      <attachment hash="c2700475" type="checklist">2026.eacl-short.2.checklist.pdf</attachment>
+      <bibkey>herman-rychly-2026-detecting</bibkey>
+    </paper>
+    <paper id="3">
+      <title>Logic Haystacks: Probing <fixed-case>LLM</fixed-case>s’ Long-Context Logical Reasoning (Without Easily Identifiable Unrelated Padding)</title>
+      <author id="damien-sileo" orcid="0000-0002-3274-291X"><first>Damien</first><last>Sileo</last><affiliation>INRIA</affiliation></author>
+      <pages>66-75</pages>
+      <abstract>Large language models demonstrate promising long-context processing capabilities, with recent models touting context windows close to one million tokens. However, the evaluations supporting these claims often involve simple retrieval tasks or synthetic tasks padded with irrelevant text, which models may easily detect and discard. In this work, we generate lengthy, simplified English text with first-order logic representations spanning up to 2048 sentences (~25<tex-math>k GPT-4 tokens). We formulate an evaluation task with evidence retrieval for contradiction detection. The long, homogeneous text is filled with distractors that are both hard to distinguish from relevant evidence and provably non-interfering. Our evaluation of evidence retrieval reveals that the effective context window is much smaller with such realistic distractors, already crumbling at 128 sentences.</tex-math></abstract>
+      <url hash="47c30a0b">2026.eacl-short.3</url>
+      <attachment hash="badd4cf3" type="checklist">2026.eacl-short.3.checklist.pdf</attachment>
+      <bibkey>sileo-2026-logic</bibkey>
+    </paper>
+    <paper id="4">
+      <title>When Does Auxiliary Modality Matter in Solving Geometric Problems? A Comprehensive Study of Textual, Formal, and Visual Modalities</title>
+      <author id="hyuk-namgoong" orcid="0000-0001-5166-3064"><first>Hyuk</first><last>Namgoong</last><affiliation>Chungnam National University</affiliation></author>
+      <author id="jeesu-jung" orcid="0000-0003-1684-0517"><first>Jeesu</first><last>Jung</last></author>
+      <author><first>Yerim</first><last>Han</last><affiliation>Chungnam National University</affiliation></author>
+      <author id="sangkeun-jung" orcid="0000-0003-3531-0618"><first>Sangkeun</first><last>Jung</last><affiliation>Chungnam National University</affiliation></author>
+      <pages>76-92</pages>
+      <abstract>Large Language Models (LLMs) face challenges in integrating linguistic and spatial reasoning, which limits their performance on geometry problems. While prior work has attempted to bridge this gap using diagram parsers with multimodal models, a systematic comparison of how various auxiliary modalities and their combinations affect performance has been lacking. To address this, we present a systematic study of four auxiliary modalities—formal diagram facts (CDL), natural language representations (<tex-math>T_{CDL}</tex-math>), diagram descriptions (DES), and image augmentations (IMG)—on a range of open- and closed-source multimodal LLMs. Our analysis reveals a compelling dichotomy in the effectiveness of these modalities. While formal representations like CDL and <tex-math>T_{CDL}</tex-math> offer a modest performance lift, diagram descriptions (DES) cause a dramatic split: they significantly boost the accuracy of open-source LLMs which often struggle with visual parsing, while often misleading more capable closed-source models and causing a performance drop. This highlights a critical trade-off between augmenting input with helpful information and introducing misleading noise, demonstrating that the efficacy of auxiliary modalities is heavily dependent on the inherent capabilities of the underlying model.</abstract>
+      <url hash="9ade586c">2026.eacl-short.4</url>
+      <attachment hash="5dbf44df" type="checklist">2026.eacl-short.4.checklist.pdf</attachment>
+      <bibkey>namgoong-etal-2026-auxiliary</bibkey>
+    </paper>
+    <paper id="5">
+      <title>Progressive Visual Refinement for Multi-modal Summarization</title>
+      <author id="ye-xiong" orcid="0000-0003-2621-7905"><first>Ye</first><last>Xiong</last></author>
+      <author id="hidetaka-kamigaito" orcid="0000-0002-5249-5813"><first>Hidetaka</first><last>Kamigaito</last><affiliation>CyberAgent, Inc. and Nara Institute of Science and Technology</affiliation></author>
+      <author id="soichiro-murakami" orcid="0009-0008-4563-2833"><first>Soichiro</first><last>Murakami</last><affiliation>CyberAgent, Inc.</affiliation></author>
+      <author id="peinan-zhang" orcid="0009-0007-6541-1029"><first>Peinan</first><last>Zhang</last><affiliation>CyberAgent AI Lab</affiliation></author>
+      <author id="hiroya-takamura" orcid="0000-0002-3244-8294"><first>Hiroya</first><last>Takamura</last><affiliation>AIST, National Institute of Advanced Industrial Science and Technology</affiliation></author>
+      <author id="manabu-okumura" orcid="0009-0001-7730-1536"><first>Manabu</first><last>Okumura</last><affiliation>Institute of Science Tokyo and Tokyo Institute of Technology, Tokyo Institute of Technology</affiliation></author>
+      <pages>93-104</pages>
+      <abstract>Multi-modal summarization (MMS) has emerged as a critical research area driven by the proliferation of multimedia content, focusing on generating condensed summaries by cross-modal complementary information synthesis. Previous studies have demonstrated the effectiveness of heterogeneous fusion paradigms, particularly through visual-centric feature extraction mechanisms, in constructing cross-modal representations that yield substantial performance gains. Nevertheless, the comprehensive utilization of multimodal information along with the intricate interdependencies among textual content, visual elements, and the summary generation process has been still insufficiently explored. We propose the Patch-Refined Visual Information Network (PRVIN) to address the insufficient exploitation of visual information. The essential patch selector and patch refiner components in PRVIN work collaboratively to progressively identify and refine critical visual features. An additional vision-to-summary alignment mechanism is also introduced to enhance the semantic connections between multi-modal representations and summary outputs. Extensive experiments conducted on two public MMS benchmark datasets demonstrate the superiority of PRVIN while quantitatively validating the crucial role of comprehensive visual information utilization in MMS tasks.</abstract>
+      <url hash="74c5bbcb">2026.eacl-short.5</url>
+      <attachment hash="4abf7594" type="checklist">2026.eacl-short.5.checklist.pdf</attachment>
+      <bibkey>xiong-etal-2026-progressive</bibkey>
+    </paper>
+    <paper id="6">
+      <title>Benchmarking Temporal Reasoning and Alignment Across <fixed-case>C</fixed-case>hinese Dynasties</title>
+      <author><first>Zhenglin</first><last>Wang</last></author>
+      <author><first>Jialong</first><last>Wu</last><affiliation>Southeast University</affiliation></author>
+      <author><first>Pengfei</first><last>Li</last></author>
+      <author><first>Yong</first><last>Jiang</last><affiliation>Tongyi Lab</affiliation></author>
+      <author><first>Deyu</first><last>Zhou</last><affiliation>Southeast University</affiliation></author>
+      <pages>105-120</pages>
+      <abstract>Temporal reasoning is fundamental to human cognition and is crucial for various real-world applications. While recent advances in Large Language Models have demonstrated promising capabilities in temporal reasoning, existing benchmarks primarily rely on rule-based construction, lack contextual depth, and involve a limited range of temporal entities. To address these limitations, we introduce Chinese Time Reasoning (CTM), a benchmark designed to evaluate LLMs on temporal reasoning within the extensive scope of Chinese dynastic chronology. CTM emphasizes cross-entity relationships, pairwise temporal alignment, and contextualized and culturally-grounded reasoning, providing a comprehensive evaluation. Extensive experimental results reveal the challenges posed by CTM and highlight potential avenues for improvement.</abstract>
+      <url hash="95c1a53a">2026.eacl-short.6</url>
+      <attachment hash="69f59d9a" type="checklist">2026.eacl-short.6.checklist.pdf</attachment>
+      <bibkey>wang-etal-2026-benchmarking</bibkey>
+    </paper>
+    <paper id="7">
+      <title>Training in Step-by-Step Formal Reasoning Improves Pronominal Reasoning in Language Models</title>
+      <author id="vagrant-gautam" orcid="0000-0002-7263-8578"><first>Vagrant</first><last>Gautam</last></author>
+      <pages>121-135</pages>
+      <abstract>Large reasoning models are trained to solve problems by decomposing them into steps.While they show impressive progress on reasoning tasks, "reasoning" here is typically limited to formal reasoning, i.e., math, code, and logic.An open question is whether these abilities transfer to _pronominal reasoning_, where step-by-step thinking in non-reasoning models worsens performance, but code pre-training may help.I answer this question by evaluating six pairs of original and DeepSeek-distilled models (1.5B-70B parameters) on six challenging datasets for English pronoun resolution (identifying whom a pronoun refers to) and pronoun fidelity (learning and applying a pronoun mapping correctly).Performance improves statistically significantly on all datasets (31% relative increase), indicating that distilling step-by-step formal reasoning does in fact help with pronominal reasoning, in part by improving instruction-following.With a qualitative evaluation of 720 generations, I show that improvements occur across granular error types, and come from plausible-looking reasoning chains employing a variety of reasoning strategies.However, the gains put models just above random performance on these datasets, leaving plenty of room for improvement.</abstract>
+      <url hash="a8bc6550">2026.eacl-short.7</url>
+      <attachment hash="8e76373b" type="checklist">2026.eacl-short.7.checklist.pdf</attachment>
+      <bibkey>gautam-2026-training</bibkey>
+    </paper>
+    <paper id="8">
+      <title>When Words Wear Masks: Detecting Malicious Intents and Hostile Impacts of Online Hate Speech</title>
+      <author id="priyansh-singhal" orcid="0009-0002-1202-386X"><first>Priyansh</first><last>Singhal</last></author>
+      <author><first>Piyush</first><last>Joshi</last><affiliation>Indian Institute of Information Technology Sri City</affiliation></author>
+      <pages>136-153</pages>
+      <abstract>Hate speech on social media poses significant challenges for content moderation and user safety. While various datasets exist for hate speech detection, existing approaches treat hate speech as a monolithic phenomenon, detecting hateful content by using simple categorical labels such as hate, offensive, or toxic. This approach fails to distinguish between the speaker’s underlying motivations and the content’s potential societal consequences. This paper introduces I2-Hate, a novel dataset with a dual taxonomy that separately captures Intent (why the speaker produced hate speech) and Impact (what harm it may cause to individuals and communities) of online hateful posts. This dual-taxonomy approach enables moderation systems to differentiate hateful content based on underlying motivation and potential harm, supporting more nuanced intervention strategies. We release the I2-Hate dataset and code publicly.</abstract>
+      <url hash="3ffc308c">2026.eacl-short.8</url>
+      <attachment hash="935033eb" type="checklist">2026.eacl-short.8.checklist.pdf</attachment>
+      <bibkey>singhal-joshi-2026-words</bibkey>
+    </paper>
+    <paper id="9">
+      <title>Lost in Activations: A Neuron-level Analysis of Encoders for Cross-Lingual Emotion Detection</title>
+      <author><first>Pranaydeep</first><last>Singh</last></author>
+      <author id="orphee-de-clercq" orcid="0000-0002-6090-5552"><first>Orphee</first><last>De Clercq</last><affiliation>Ghent University</affiliation></author>
+      <author id="els-lefever" orcid="0000-0002-7755-0591"><first>Els</first><last>Lefever</last><affiliation>Ghent University</affiliation></author>
+      <pages>154-159</pages>
+      <abstract>The rapid advancement of multilingual pre-trained transformers has fueled significant progress in natural language understanding across diverse languages. Yet, their inner workings remain opaque, especially with regard to how individual neurons encode and generalize semantic and affective features across languages. This paper presents an interpretability study of a fine-tuned XLM-R model for multilingual emotion classification. Using neuron-level activation analysis, we investigate the variance of neurons across labels, cross-lingual alignment of activations, and the existence of “polyglot” versus language-specific neurons. Our results reveal that while certain neurons consistently encode emotion-related concepts across languages, others show strong monolingual specialization.</abstract>
+      <url hash="3aa95472">2026.eacl-short.9</url>
+      <attachment hash="5180ab59" type="checklist">2026.eacl-short.9.checklist.pdf</attachment>
+      <bibkey>singh-etal-2026-lost</bibkey>
+    </paper>
+    <paper id="10">
+      <title><fixed-case>M</fixed-case>c<fixed-case>M</fixed-case>ining: Automated Discovery of Misconceptions in Student Code</title>
+      <author><first>Erfan</first><last>Al-Hossami</last><affiliation>University of North Carolina at Charlotte</affiliation></author>
+      <author id="razvan-bunescu" orcid="0000-0003-2919-3566"><first>Razvan</first><last>Bunescu</last><affiliation>University of North Carolina at Charlotte</affiliation></author>
+      <pages>160-178</pages>
+      <abstract>When learning to code, students often develop misconceptions about various programming language concepts. These can not only lead to bugs or inefficient code, but also slow down the learning of related concepts. In this paper, we introduce McMining, the task of mining programming misconceptions from samples of code from a student. To enable the training and evaluation of McMining systems, we develop an extensible benchmark dataset of misconceptions, together with a large set of code samples where these misconceptions are manifested. We then introduce two LLM-based McMiner approaches and, through extensive evaluations, show that models from the Gemini, Claude, and GPT families are effective at discovering misconceptions in student code.</abstract>
+      <url hash="eb0820e6">2026.eacl-short.10</url>
+      <attachment hash="c041a72e" type="checklist">2026.eacl-short.10.checklist.pdf</attachment>
+      <bibkey>al-hossami-bunescu-2026-mcmining</bibkey>
+    </paper>
+    <paper id="11">
+      <title>Surprisal from Larger Transformer-based Language Models Predicts f<fixed-case>MRI</fixed-case> Data More Poorly</title>
+      <author id="yi-chien-lin" orcid="0009-0001-3585-5426"><first>Yi-Chien</first><last>Lin</last><affiliation>Ohio State University, Columbus</affiliation></author>
+      <author><first>William</first><last>Schuler</last><affiliation>Ohio State University, Columbus</affiliation></author>
+      <pages>179-186</pages>
+      <abstract>There has been considerable interest in using surprisal from Transformer-based language models (LMs) as predictors of human sentence processing difficulty. Recent work has observed an inverse scaling relationship between Transformers’ per-word estimated probability and the predictive power of their surprisal estimates on reading times, showing that LMs with more parameters and trained on more data are less predictive of human reading times. However, these studies focused on predicting latency-based measures. Tests on brain imaging data have not shown a trend in any direction when using a relatively small set of LMs, leaving open the possibility that the inverse scaling phenomenon is constrained to latency data. This study therefore conducted a more comprehensive evaluation using surprisal estimates from 17 pre-trained LMs across three different LM families on two functional magnetic resonance imaging (fMRI) datasets. Results show that the inverse scaling relationship between models’ per-word estimated probability and model fit on both datasets still obtains, resolving the inconclusive results of previous work and indicating that this trend is not specific to latency-based measures.</abstract>
+      <url hash="46fd0dc2">2026.eacl-short.11</url>
+      <attachment hash="4d4a887d" type="checklist">2026.eacl-short.11.checklist.pdf</attachment>
+      <bibkey>lin-schuler-2026-surprisal</bibkey>
+    </paper>
+    <paper id="12">
+      <title><fixed-case>W</fixed-case>eb<fixed-case>R</fixed-case>ollback: Enhancing Web Agents with Explicit Rollback Mechanisms</title>
+      <author><first>Zhisong</first><last>Zhang</last><affiliation>City University of Hong Kong</affiliation></author>
+      <author><first>Tianqing</first><last>Fang</last><affiliation>Tencent AI Lab</affiliation></author>
+      <author><first>Kaixin</first><last>Ma</last><affiliation>Apple</affiliation></author>
+      <author id="wenhao-yu" orcid="0000-0002-4075-5980"><first>Wenhao</first><last>Yu</last><affiliation>Tencent AI Lab</affiliation></author>
+      <author><first>Hongming</first><last>Zhang</last></author>
+      <author><first>Haitao</first><last>Mi</last><affiliation>Tencent AI Lab</affiliation></author>
+      <author id="dong-yu" orcid="0000-0003-0520-6844"><first>Dong</first><last>Yu</last><affiliation>Tencent AI Lab</affiliation></author>
+      <pages>187-197</pages>
+      <abstract>With recent advancements in large language models, web agents have been greatly improved. However, dealing with complex and dynamic web environments requires more advanced planning and search abilities. Previous studies usually adopt a greedy one-way search strategy, which may struggle to recover from erroneous states. In this work, we enhance web agents with an explicit rollback mechanism, enabling the agent to revert back to a previous state in its navigation trajectory. This mechanism gives models the flexibility to directly control the search process, leading to an effective and efficient web navigation method. We conduct experiments on two live web navigation benchmarks with zero-shot and fine-tuning settings. The results demonstrate the effectiveness of our proposed approach.</abstract>
+      <url hash="e56516ed">2026.eacl-short.12</url>
+      <attachment hash="2e2e1b5c" type="checklist">2026.eacl-short.12.checklist.pdf</attachment>
+      <bibkey>zhang-etal-2026-webrollback</bibkey>
+    </paper>
+    <paper id="13">
+      <title>Hacking Neural Evaluation Metrics with Single Text</title>
+      <author id="hiroyuki-deguchi" orcid="0000-0003-2127-6607"><first>Hiroyuki</first><last>Deguchi</last><affiliation>NTT</affiliation></author>
+      <author><first>Katsuki</first><last>Chousa</last><affiliation>Nara Institute of Science and Technology, Japan and NTT Communication Science Laboratories</affiliation></author>
+      <author id="yusuke-sakai" orcid="0009-0005-7670-9184"><first>Yusuke</first><last>Sakai</last><affiliation>Nara Institute of Science and Technology, Japan</affiliation></author>
+      <pages>198-206</pages>
+      <abstract>Strongly human-correlated evaluation metrics serve as an essential compass for the development and improvement of generation models and must be highly reliable and robust.Recent embedding-based neural text evaluation metrics, such as COMET for translation tasks, are widely used in both research and development fields.However, there is no guarantee that they yield reliable evaluation results due to the black-box nature of neural networks.To raise concerns about the reliability and safety of such metrics, we propose a method for finding a single adversarial text in the discrete space that is consistently evaluated as high-quality, regardless of the test cases, to identify the vulnerabilities in evaluation metrics.The single hub text found with our method achieved 79.1 COMET% and 67.8 COMET% in the WMT’24 English-to-Japanese (En–Ja) and English-to-German (En–De) translation tasks, respectively, outperforming translations generated individually for each source sentence by using M2M100, a general translation model.Furthermore, we also confirmed that the hub text found with our method generalizes across multiple language pairs such as Ja–En and De–En.</abstract>
+      <url hash="cf94c69f">2026.eacl-short.13</url>
+      <attachment hash="26bf3ba6" type="checklist">2026.eacl-short.13.checklist.pdf</attachment>
+      <bibkey>deguchi-etal-2026-hacking</bibkey>
+    </paper>
+    <paper id="14">
+      <title>To Paraphrase or Not: Efficient Comment Detoxification with Unsupervised Detoxifiability Discrimination</title>
+      <author><first>Jing</first><last>Ke</last></author>
+      <author id="zheyong-xie" orcid="0009-0009-7453-5781"><first>Zheyong</first><last>Xie</last></author>
+      <author id="shaosheng-cao" orcid="0000-0002-3795-8824"><first>Shaosheng</first><last>Cao</last></author>
+      <author id="tong-xu" orcid="0000-0003-4246-5386"><first>Tong</first><last>Xu</last><affiliation>University of Science and Technology of China</affiliation></author>
+      <author id="enhong-chen" orcid="0000-0002-4835-4102"><first>Enhong</first><last>Chen</last><affiliation>University of Science and Technology of China</affiliation></author>
+      <pages>207-213</pages>
+      <abstract>Mitigating toxic content is critical for maintaining a healthy social platform, yet existing detoxification systems face significant limitations: overcorrection from uniformly processing all toxic comments, and parallel data scarcity in paraphrasing model training. To tackle these challenges, we propose Detoxifiability-Aware Detoxification (DID), a novel paradigm that adaptively conducts filtering or paraphrasing for each toxic comment based on its detoxifiability, namely whether it can be paraphrased into a benign comment in essence. Specifically, DID integrates three core modules: (1) an unsupervised detoxifiability discriminator, (2) a semantic purification module that extracts harmful intents and then performs targeted paraphrasing only on detoxifiable comments and (3) a feedback-adaptive refinement loop that processes remaining harmful contents only when they are detoxifiable. Experimental results demonstrate that DID significantly outperforms existing approaches on academic data and an industrial platform, establishing a novel and practical modeling paradigm for comment detoxification.</abstract>
+      <url hash="026f59c4">2026.eacl-short.14</url>
+      <attachment hash="49cd2d8a" type="checklist">2026.eacl-short.14.checklist.pdf</attachment>
+      <bibkey>ke-etal-2026-paraphrase</bibkey>
+    </paper>
+    <paper id="15">
+      <title>Hey, wait a minute: on at-issue sensitivity in Language Models</title>
+      <author><first>Sanghee J.</first><last>Kim</last><affiliation>University of Chicago</affiliation></author>
+      <author><first>Kanishka</first><last>Misra</last><affiliation>University of Texas at Austin</affiliation></author>
+      <pages>214-224</pages>
+      <abstract>Evaluating the naturalness of dialogue in language models (LMs) is not trivial: notions of *naturalness* vary, and scalable quantitative metrics remain limited. This study leverages the linguistic notion of *at-issueness* to assess dialogue naturalness and introduces a new method: Divide, Generate, Recombine, and Compare (DGRC). DGRC (i) divides a dialogue as a prompt, (ii) generates continuations for subparts using LMs, (iii) recombines the dialogue and continuations, and (iv) compares the likelihoods of the recombined sequences. This approach mitigates bias in linguistic analyses of LMs and enables systematic testing of discourse-sensitive behavior. Applying DGRC, we find that LMs prefer to continue dialogue on at-issue content, with this effect enhanced in instruct-tuned models. They also reduce their at-issue preference when relevant cues (e.g., "Hey, wait a minute") are present. Although instruct-tuning does not further amplify this modulation, the pattern reflects a hallmark of successful dialogue dynamics.</abstract>
+      <url hash="6aa3ea78">2026.eacl-short.15</url>
+      <attachment hash="e4ed3d8e" type="checklist">2026.eacl-short.15.checklist.pdf</attachment>
+      <bibkey>kim-misra-2026-hey</bibkey>
+    </paper>
+    <paper id="16">
+      <title>Exploring Cross-Lingual Voice Conversion Methods for Anonymizing Low-Resource Text-to-Speech</title>
+      <author><first>Shenran</first><last>Wang</last></author>
+      <author id="aidan-pine" orcid="0000-0001-6552-5324"><first>Aidan</first><last>Pine</last><affiliation>National Research Council Canada</affiliation></author>
+      <author id="mengzhe-geng" orcid="0000-0002-7886-439X"><first>Mengzhe</first><last>Geng</last><affiliation>National Research Council Canada and The Chinese University of Hong Kong</affiliation></author>
+      <pages>225-231</pages>
+      <abstract>We describe and compare multiple approaches for using voice conversion techniques to mask speaker identities in low-resource text-to-speech. We build and evaluate speaker-anonymized text-to-speech systems for two Canadian Indigenous languages, nêhiyawêwin and SENĆOŦEN, and show that cross-lingual speaker transfer via multilingual training with English data produces the most consistent results across both languages. Our research also underscores the need for better evaluation metrics tailored to cross-lingual voice conversion. Our code can be found at https://github.com/EveryVoiceTTS/Speaker_Anonymization_StyleTTS2</abstract>
+      <url hash="3b2f067c">2026.eacl-short.16</url>
+      <attachment hash="d1bdc4f7" type="checklist">2026.eacl-short.16.checklist.pdf</attachment>
+      <bibkey>wang-etal-2026-exploring</bibkey>
+    </paper>
+    <paper id="17">
+      <title><fixed-case>K</fixed-case>orean Canonical Legal Benchmark: Toward Knowledge-Independent Evaluation of <fixed-case>LLM</fixed-case>s’ Legal Reasoning Capabilities</title>
+      <author id="hongseok-oh" orcid="0009-0007-5829-1241"><first>Hongseok</first><last>Oh</last></author>
+      <author><first>Wonseok</first><last>Hwang</last><affiliation>University of Seoul</affiliation></author>
+      <author><first>Kyoung-Woon</first><last>On</last><affiliation>LBOX</affiliation></author>
+      <pages>232-243</pages>
+      <abstract>We introduce the Korean Canonical Legal Benchmark (KCL), a benchmark designed to assess language models’ legal reasoning capabilities independently of domain-specific knowledge. KCL provides question-level supporting precedents, enabling a more faithful disentanglement of reasoning ability from parameterized knowledge. KCL consists of two components: (1) KCL-MCQA, multiple-choice problems of 283 questions with 1,103 aligned precedents, and (2) KCL-Essay, open-ended generation problems of 169 questions with 550 aligned precedents and 2,739 instance-level rubrics for automated evaluation. Our systematic evaluation of 30+ models shows large remaining gaps, particularly in KCL-Essay, and that reasoning-specialized models consistently outperform their general-purpose counterparts. We release all resources, including the benchmark dataset and evaluation code, at https://github.com/lbox-kr/kcl.</abstract>
+      <url hash="7e6bc8d0">2026.eacl-short.17</url>
+      <attachment hash="9ae67650" type="checklist">2026.eacl-short.17.checklist.pdf</attachment>
+      <bibkey>oh-etal-2026-korean</bibkey>
+    </paper>
+    <paper id="18">
+      <title>Task-Level Instructions Induction for Audio Question Answering from Few Examples</title>
+      <author id="po-chun-chen" orcid="0000-0002-2888-7278"><first>Po-Chun</first><last>Chen</last><affiliation>National Taiwan University</affiliation></author>
+      <author id="hen-hsen-huang" orcid="0000-0001-9169-3081"><first>Hen-Hsen</first><last>Huang</last><affiliation>Institute of Information Science, Academia Sinica</affiliation></author>
+      <author id="hsin-hsi-chen" orcid="0000-0001-9757-9423"><first>Hsin-Hsi</first><last>Chen</last><affiliation>National Taiwan University</affiliation></author>
+      <pages>244-264</pages>
+      <abstract>Large audio-language models (LALMs) benefit from Chain-of-Thought (CoT) prompting for audio question answering (AQA), but acquiring audio CoT examples is particularly challenging as it requires sequential listening and careful integration of acoustic and linguistic information. Surprisingly, our experiments reveal that standard few-shot prompting yields inconsistent results compared to zero-shot CoT, with several models showing degraded accuracy. Moreover, few-shot prompting incurs substantially higher inference costs by processing multiple audio demonstrations per inference. We propose Audio-Induct, which induces reusable textual task instructions from few audio examples once per task, requiring no additional demonstrations at inference. Evaluated on 9 LALMs across two benchmarks, Audio-Induct outperforms state-of-the-art prompting methods while maintaining low inference costs. Inducted Task Instructions transfer effectively across models, enabling scalable deployment.</abstract>
+      <url hash="c9b502b7">2026.eacl-short.18</url>
+      <attachment hash="1fdb782e" type="checklist">2026.eacl-short.18.checklist.pdf</attachment>
+      <bibkey>chen-etal-2026-task</bibkey>
+    </paper>
+    <paper id="19">
+      <title>Optical Character Recognition for the International Phonetic Alphabet</title>
+      <author id="shu-okabe" orcid="0009-0003-0169-3689"><first>Shu</first><last>Okabe</last><affiliation>Technische Universität München</affiliation></author>
+      <author><first>Dejvi</first><last>Zelo</last></author>
+      <author id="alexander-fraser-682x" orcid="0000-0003-4891-682X"><first>Alexander</first><last>Fraser</last><affiliation>Technical University of Munich</affiliation></author>
+      <pages>265-273</pages>
+      <abstract>As grammar books are increasingly used as additional reference resources specifically for very low-resource languages, a significant portion comes from scans and relies on the quality of the Optical Character Recognition (OCR) tool. We focus here on a particular script used in linguistics to transcribe sounds: the International Phonetic Alphabet (IPA). We consider two data sources: actual grammar book PDFs for two languages under documentation, Japhug and Kagayanen, and a synthetically generated dataset based on Wiktionary. We compare two neural OCR frameworks, Tesseract and Calamari, and a recent large vision-language model, Qwen2.5-VL-7B, all three in an off-the-shelf setting and with fine-tuning. While their zero-shot performance is relatively poor for IPA characters in general due to character set mismatch, fine-tuning with the synthetic dataset leads to notable improvements.</abstract>
+      <url hash="08ae670f">2026.eacl-short.19</url>
+      <attachment hash="679e695a" type="checklist">2026.eacl-short.19.checklist.pdf</attachment>
+      <bibkey>okabe-etal-2026-optical</bibkey>
+    </paper>
+    <paper id="20">
+      <title>How <fixed-case>DDAIR</fixed-case> you? Disambiguated Data Augmentation for Intent Recognition</title>
+      <author id="galo-castillo-lopez" orcid="0009-0001-8875-811X"><first>Galo</first><last>Castillo-López</last></author>
+      <author><first>Alexis</first><last>Lombard</last><affiliation>CEA</affiliation></author>
+      <author><first>Nasredine</first><last>Semmar</last><affiliation>CEA</affiliation></author>
+      <author id="gael-de-chalendar" orcid="0000-0003-4460-0297"><first>Gaël</first><last>de Chalendar</last><affiliation>CEA, Paris-Saclay University</affiliation></author>
+      <pages>274-286</pages>
+      <abstract>Large Language Models (LLMs) are effective for data augmentation in classification tasks like intent detection. In some cases, they inadvertently produce examples that are ambiguous with regard to untargeted classes. We present DDAIR (Disambiguated Data Augmentation for Intent Recognition) to mitigate this problem. We use Sentence Transformers to detect ambiguous class-guided augmented examples generated by LLMs for intent recognition in low-resource scenarios. We identify synthetic examples that are semantically more similar to another intent than to their target one. We also provide an iterative re-generation method to mitigate such ambiguities. Our findings show that sentence embeddings effectively help to (re)generate less ambiguous examples, and suggest promising potential to improve classification performance in scenarios where intents are loosely or broadly defined.</abstract>
+      <url hash="11164929">2026.eacl-short.20</url>
+      <attachment hash="09c85b22" type="checklist">2026.eacl-short.20.checklist.pdf</attachment>
+      <bibkey>castillo-lopez-etal-2026-ddair</bibkey>
+    </paper>
+    <paper id="21">
+      <title>Measuring Linguistic Competence of <fixed-case>LLM</fixed-case>s on Indigenous Languages of the <fixed-case>A</fixed-case>mericas</title>
+      <author><first>Justin</first><last>Vasselli</last></author>
+      <author id="arturo-mp" orcid="0000-0002-4525-1861"><first>Arturo</first><last>Mp</last><affiliation>Nara Institute of Science and Technology</affiliation></author>
+      <author><first>Frederikus</first><last>Hudi</last></author>
+      <author><first>Haruki</first><last>Sakajo</last><affiliation>Nara Institute of Science and Technology</affiliation></author>
+      <author id="taro-watanabe" orcid="0000-0001-8349-3522"><first>Taro</first><last>Watanabe</last><affiliation>Nara Institute of Science and Technology, Japan</affiliation></author>
+      <pages>287-296</pages>
+      <abstract>This paper presents an evaluation framework for probing large language models’ linguistic knowledge of Indigenous languages of the Americas using zero- and few-shot prompting. The framework consists of three tasks: (1) language identification, (2) cloze completion of Spanish sentences supported by Indigenous-language translations, and (3) grammatical feature classification. We evaluate models from five major families (GPT, Gemini, DeepSeek, Qwen, and LLaMA) on 13 Indigenous languages, including Bribri, Guarani, and Nahuatl. The results show substantial variation across both languages and model families. While a small number of model-language combinations demonstrate consistently stronger performance across tasks, many others perform near chance, highlighting persistent gaps in current models’ abilities on Indigenous languages.</abstract>
+      <url hash="34b329d9">2026.eacl-short.21</url>
+      <attachment hash="9dc1cfd0" type="checklist">2026.eacl-short.21.checklist.pdf</attachment>
+      <bibkey>vasselli-etal-2026-measuring</bibkey>
+    </paper>
+    <paper id="22">
+      <title>Morpheme Matters: Morpheme-Based Subword Tokenization for <fixed-case>K</fixed-case>orean Language Models</title>
+      <author id="donghyeok-lee" orcid="0009-0001-3525-4487"><first>DongHyeok</first><last>Lee</last></author>
+      <author id="jeongyeon-park" orcid="0009-0005-3830-3132"><first>Jeongyeon</first><last>Park</last></author>
+      <author id="kyungbeen-cho" orcid="0009-0003-9746-8880"><first>Kyungbeen</first><last>Cho</last></author>
+      <author id="jae-sung-lee" orcid="0000-0001-8644-4566"><first>Jae Sung</first><last>Lee</last><affiliation>Chungbuk National University</affiliation></author>
+      <pages>297-306</pages>
+      <abstract>Tokenization plays a crucial role in the performance of language models. However, most existing tokenizers rely on frequency-based segmentation, which fails to capture the morphological structure of languages and often leads to inefficient token representations. In this study, we propose a novel tokenization method that emphasizes the importance of Korean morphological structures in eojeol (Korean spacing unit). This method is designed to accommodate both inter-eojeol segmentation and intra-eojeol segmentation, enabling the selection of subwords based on morphemes. We pretrained a language model using the proposed method and evaluated its performance on Korean benchmark tasks. Experimental results demonstrate that the proposed method generally outperforms existing approaches. Notably, it produces significantly fewer tokens per input sequence, indicating its effectiveness and efficiency for Korean language modeling. The code is available at https://github.com/Dohy-Lee/mob.</abstract>
+      <url hash="0d7fd86a">2026.eacl-short.22</url>
+      <attachment hash="a7013c12" type="checklist">2026.eacl-short.22.checklist.pdf</attachment>
+      <bibkey>lee-etal-2026-morpheme</bibkey>
+    </paper>
+    <paper id="23">
+      <title>Communication Enables Cooperation in <fixed-case>LLM</fixed-case> Agents: A Comparison with Curriculum-Based Approaches</title>
+      <author><first>Hachem</first><last>Madmoun</last><affiliation>Imperial College London</affiliation></author>
+      <author><first>Salem</first><last>Lahlou</last><affiliation>Mohamed bin Zayed University of Artificial Intelligence</affiliation></author>
+      <pages>307-321</pages>
+      <abstract>Eliciting cooperation in multi-agent LLM systems is critical for AI alignment. We investigate two approaches: direct communication and curriculum learning. In a 4-player Stag Hunt, a one-word "cheap talk" channel increases cooperation from 0% to 48.3%, demonstrating communication as a robust coordination mechanism. In contrast, we find that curriculum learning is highly sensitive to design choices: our pedagogical curriculum through progressively complex games reduced agent payoffs by 27.4% in an Iterated Public Goods Game with Punishment. Qualitative analysis reveals that curricula emphasizing defection-equilibrium games can induce "learned pessimism" in agents. These findings suggest that for coordination problems, simple communication protocols may be more reliable than experience-based training, and that curriculum design for social dilemmas requires careful attention to the strategic lessons embedded in game sequences.</abstract>
+      <url hash="b780ee75">2026.eacl-short.23</url>
+      <attachment hash="00e195fe" type="checklist">2026.eacl-short.23.checklist.pdf</attachment>
+      <bibkey>madmoun-lahlou-2026-communication</bibkey>
+    </paper>
+    <paper id="24">
+      <title>Mind Your Special Tokens! On the Importance of Dedicated Sequence-End Tokens in Vision-Language Embedding Models</title>
+      <author><first>Elio</first><last>Musacchio</last><affiliation>University of Pisa</affiliation></author>
+      <author id="giovanni-semeraro-1853" orcid="0000-0001-6883-1853"><first>Giovanni</first><last>Semeraro</last><affiliation>University of Bari</affiliation></author>
+      <author><first>Goran</first><last>Glavaš</last><affiliation>Julius-Maximilians-Universität Würzburg</affiliation></author>
+      <pages>322-328</pages>
+      <abstract>Large Vision-Language Models (LVLMs), trained by aligning visual encoders to LLMs on extensive vision-language data, demonstrate impressive performance across a broad variety of tasks that require understanding of both visual and textual inputs. Acknowledging this, recent work proposed to post-hoc convert generative LVLMs into vision-language encoders (VLEs) via supervised contrastive learning objectives. This type of training enables LVLMs to produce better representations, i.e., embeddings for image and text input, used in retrieval and (semantic) similarity tasks. Having observed that this type of VLEs (i.e., LVLMs turned into encoders) commonly employ last-token pooling in downstream tasks, without using special sequence-end tokens, in this focused contribution, we study the effect of pooling strategies on VLEs’ downstream performance. We empirically show that, in contrast to mean pooling, last-token pooling (without special sequence-end tokens) makes VLEs highly sensitive to end-of-input artifacts in fine-tuning and inference data, e.g., whether input sequences end with punctuation or newline characters. Finally, we show that introducing the special end-of-sequence token removes this sensitivity and makes VLEs robust to formatting artifacts of input text.</abstract>
+      <url hash="868a5d27">2026.eacl-short.24</url>
+      <attachment hash="7dc2ec93" type="checklist">2026.eacl-short.24.checklist.pdf</attachment>
+      <bibkey>musacchio-etal-2026-mind</bibkey>
+    </paper>
+    <paper id="25">
+      <title>The Reasoning Lingua Franca: A Double-Edged Sword for Multilingual <fixed-case>AI</fixed-case></title>
+      <author><first>Alan</first><last>Saji</last><affiliation>ai4bharat</affiliation></author>
+      <author><first>Raj</first><last>Dabre</last><affiliation>Department of Computer Science, Indian Institute of Technology, Madras, Indian Institute of Technology, Madras and National Institute of Information and Communications Technology (NICT), National Institute of Advanced Industrial Science and Technology</affiliation></author>
+      <author><first>Anoop</first><last>Kunchukuttan</last><affiliation>Microsoft and Indian Institute of Technology, Madras</affiliation></author>
+      <author><first>Ratish</first><last>Puduppully</last><affiliation>IT University of Copenhagen</affiliation></author>
+      <pages>329-344</pages>
+      <abstract>Large Reasoning Models (LRMs) achieve strong performance on mathematical, scientific, and other question-answering tasks, but their multilingual reasoning abilities remain underexplored. When presented with non-English questions, LRMs often default to reasoning in English, raising concerns about interpretability and the handling of linguistic and cultural nuances. We systematically compare an LRM’s reasoning in English versus the language of the question. Our evaluation spans two tasks: MGSM and GPQA Diamond. Beyond measuring answer accuracy, we also analyze cognitive attributes in the reasoning traces. We find that English reasoning traces exhibit a substantially higher presence of these cognitive behaviors, and that reasoning in English generally yields higher final-answer accuracy, with the performance gap increasing as tasks become more complex. However, this English-centric strategy is susceptible to a key failure mode - getting “Lost in Translation," where translation steps lead to errors that would have been avoided by reasoning in the language of the question.</abstract>
+      <url hash="2c78038c">2026.eacl-short.25</url>
+      <attachment hash="820b8d01" type="checklist">2026.eacl-short.25.checklist.pdf</attachment>
+      <bibkey>saji-etal-2026-reasoning</bibkey>
+    </paper>
+    <paper id="26">
+      <title>When <fixed-case>F</fixed-case>lores Bloomz Wrong: Cross-Direction Contamination in Machine Translation Evaluation</title>
+      <author><first>David</first><last>Tan</last><affiliation>Universität des Saarlandes</affiliation></author>
+      <author><first>Pinzhen</first><last>Chen</last><affiliation>Queen's University Belfast</affiliation></author>
+      <author><first>Josef Van</first><last>Genabith</last></author>
+      <author><first>Koel</first><last>Dutta Chowdhury</last></author>
+      <pages>345-358</pages>
+      <abstract>Large language models (LLMs) can be benchmark-contaminated, resulting in inflated scores that mask memorization as generalization, and in multilingual settings, this memorization can even transfer to "uncontaminated" languages. Using the FLORES-200 translation benchmark as a diagnostic, we study two 7-8B instruction-tuned multilingual LLMs: Bloomz, which was trained on FLORES, and Llama as an uncontaminated control. We confirm Bloomz’s FLORES contamination and demonstrate that machine translation contamination can be cross-directional, artificially boosting performance in unseen translation directions due to target-side memorization. Further analysis shows that recall of memorized references often persists despite various source-side perturbation efforts like paraphrasing and named entity replacement. However, replacing named entities leads to a consistent decrease in BLEU, suggesting an effective probing method for memorization in contaminated models.</abstract>
+      <url hash="b1e5d03a">2026.eacl-short.26</url>
+      <attachment hash="3da663c2" type="checklist">2026.eacl-short.26.checklist.pdf</attachment>
+      <bibkey>tan-etal-2026-flores</bibkey>
+    </paper>
+    <paper id="27">
+      <title><fixed-case>SAFARI</fixed-case>: A Community-Engaged Approach and Dataset of Stereotype Resources in the Sub-<fixed-case>S</fixed-case>aharan <fixed-case>A</fixed-case>frican Context</title>
+      <author><first>Aishwarya</first><last>Verma</last></author>
+      <author id="laud-ammah" orcid="0000-0002-3410-1526"><first>Laud</first><last>Ammah</last></author>
+      <author><first>Olivia Nercy Ndlovu</first><last>Lucas</last><affiliation>Tangerine Enterprises Lda</affiliation></author>
+      <author id="andrew-zaldivar" orcid="0000-0002-8861-591X"><first>Andrew</first><last>Zaldivar</last><affiliation>Research, Google</affiliation></author>
+      <author><first>Vinodkumar</first><last>Prabhakaran</last><affiliation>Google</affiliation></author>
+      <author><first>Sunipa</first><last>Dev</last><affiliation>Google</affiliation></author>
+      <pages>359-370</pages>
+      <abstract>Stereotype repositories are critical to assess generative AI model safety, but currently lack adequate global coverage. It is imperative to prioritize targeted expansion, strategically addressing existing deficits, over merely increasing data volume. This work introduces a multilingual stereotype resource covering four sub-Saharan African countries that are severely underrepresented in NLP resources: Ghana, Kenya, Nigeria, and South Africa. By utilizing socioculturally-situated, community-engaged methods, including telephonic surveys moderated in native languages, we establish a reproducible methodology that is sensitive to the region’s complex linguistic diversity and traditional orality. By deliberately balancing the sample across diverse ethnic and demographic backgrounds, we ensure broad coverage, resulting in a dataset of 3,534 stereotypes in English and 3,206 stereotypes across 15 native languages.</abstract>
+      <url hash="d7df75ac">2026.eacl-short.27</url>
+      <attachment hash="6218ec0b" type="checklist">2026.eacl-short.27.checklist.pdf</attachment>
+      <bibkey>verma-etal-2026-safari</bibkey>
+    </paper>
+    <paper id="28">
+      <title><fixed-case>STREAM</fixed-case>-<fixed-case>ZH</fixed-case>: Simplified Topic Retrieval Exploration and Analysis Module for <fixed-case>C</fixed-case>hinese Language</title>
+      <author id="hongyi-li" orcid="0009-0000-0471-8624"><first>Hongyi</first><last>Li</last></author>
+      <author id="jianjun-lian" orcid="0000-0002-5271-6495"><first>Jianjun</first><last>Lian</last></author>
+      <author><first>Anton Frederik</first><last>Thielmann</last><affiliation>Amazon Music</affiliation></author>
+      <author><first>Andre</first><last>Python</last><affiliation>Zhejiang University</affiliation></author>
+      <pages>371-383</pages>
+      <abstract>We introduce Simplified Topic Retrieval Exploration and Analysis Module for Chinese language (STREAM-ZH), the first topic modeling package to fully support the Chinese language across a broad range of topic models, evaluation metrics, and preprocessing workflows. Tailored to both simplified and traditional Chinese language, our package extends the STREAM topic modeling framework with a curated collection of preprocessed textual datasets in Chinese from which we assess the performance of classical, neural, and clustering topic models using commonly-used intruder, diversity, and coherence metrics. The results of a benchmark analysis bring evidence that within our framework, topic models may generate coherent and diverse topics from datasets in Chinese language, outperforming those generated by topic models using English-translated textual input. Our framework facilitates multilingual accessibility and research in topic modeling applied to Chinese textual data. The code is available at the following link: https://github.com/AnFreTh/STREAM</abstract>
+      <url hash="6938ee54">2026.eacl-short.28</url>
+      <attachment hash="3bf5efc5" type="checklist">2026.eacl-short.28.checklist.pdf</attachment>
+      <bibkey>li-etal-2026-stream</bibkey>
+    </paper>
+    <paper id="29">
+      <title><fixed-case>M</fixed-case>i<fixed-case>SCH</fixed-case>i<fixed-case>EF</fixed-case>: A Benchmark in Minimal-Pairs of Safety and Culture for Holistic Evaluation of Fine-Grained Image-Caption Alignment</title>
+      <author><first>Sagarika</first><last>Banerjee</last><affiliation>Algoverse Coding Academy LLC</affiliation></author>
+      <author><first>Tangatar</first><last>Madi</last></author>
+      <author><first>Advait</first><last>Swaminathan</last></author>
+      <author><first>Jolie</first><last>Nguyen</last></author>
+      <author><first>Shivank</first><last>Garg</last></author>
+      <author><first>Kevin</first><last>Zhu</last><affiliation>Algoverse AI Research</affiliation></author>
+      <author><first>Vasu</first><last>Sharma</last><affiliation>NA</affiliation></author>
+      <pages>384-406</pages>
+      <abstract>Fine-grained image-caption alignment is crucial for vision-language models (VLMs), especially in socially critical contexts such as identifying real-world risk scenarios or distinguishing cultural proxies, where correct interpretation hinges on subtle visual or linguistic clues and where minor misinterpretations can lead to significant real-world consequences. We present MiSCHiEF, a set of two benchmarking datasets (MiC and MiS) based on a contrastive pair design in the domains of safety and culture, and evaluate four VLMs on tasks requiring fine-grained differentiation of paired images and captions. In both datasets, each sample contains two minimally differing captions and corresponding minimally differing images. In MiS, the image-caption pairs depict a safe and an unsafe scenario, while in MiC, they depict cultural proxies in two distinct cultural contexts. We find that models generally perform better at confirming the correct image-caption pair than rejecting incorrect ones. Additionally, models achieve higher accuracy when selecting the correct caption from two highly similar captions for a given image, compared to the converse task. The results, overall, highlight persistent modality misalignment challenges in current VLMs, underscoring the difficulty of precise cross-modal grounding required for applications with subtle semantic and visual distinctions.</abstract>
+      <url hash="76c469b4">2026.eacl-short.29</url>
+      <attachment hash="58a32126" type="checklist">2026.eacl-short.29.checklist.pdf</attachment>
+      <bibkey>banerjee-etal-2026-mischief</bibkey>
+    </paper>
+    <paper id="30">
+      <title>Exploring Generative Process Reward Modeling for Semi-Structured Data: A Case Study of Table Question Answering</title>
+      <author><first>Lei</first><last>Tang</last></author>
+      <author id="wei-zhou" orcid="0009-0006-8617-8337"><first>Wei</first><last>Zhou</last></author>
+      <author><first>Mohsen</first><last>Mesgar</last><affiliation>Bosch</affiliation></author>
+      <pages>407-420</pages>
+      <abstract>Process reward models (PRMs) improve complex reasoning in large language models (LLMs) by grading candidate solutions step-by-step and selecting answers via aggregated step scores. While effective in domains such as mathematics, their applicability to tasks involving semi-structured data, like table question answering (TQA) remains unexplored. TQA poses unique challenges for PRMs, including abundant irrelevant information, loosely connected reasoning steps, and domain-specific reasoning. This work presents the first systematic study of PRMs for TQA. We evaluate state-of-the-art generative PRMs on TQA from both answer and step perspectives. Results show that PRMs that combine textual and code verification can aid solution selection but struggle to generalize to out-of-domain data. Analysis reveals a weak correlation between performance in step-level verification and answer accuracy, possibly stemming from weak step dependencies and loose causal links. Our findings highlight limitations of current PRMs on TQA and offer valuable insights for building more robust, process-aware verifiers.</abstract>
+      <url hash="525d0324">2026.eacl-short.30</url>
+      <attachment hash="d7b43a32" type="checklist">2026.eacl-short.30.checklist.pdf</attachment>
+      <bibkey>tang-etal-2026-exploring</bibkey>
+    </paper>
+    <paper id="31">
+      <title>Out of Distribution, Out of Luck: Process Rewards Misguide Reasoning Models</title>
+      <author><first>Alexey</first><last>Dontsov</last><affiliation>DS NLP Group</affiliation></author>
+      <author><first>Anton</first><last>Korznikov</last><affiliation>DS-NLP Group</affiliation></author>
+      <author><first>Andrey V.</first><last>Galichin</last><affiliation>Applied AI Institute</affiliation></author>
+      <author id="elena-tutubalina" orcid="0000-0001-7936-0284"><first>Elena</first><last>Tutubalina</last></author>
+      <pages>421-435</pages>
+      <abstract>Process Reward Models (PRMs) have emerged as a promising approach for guiding large language models (LLMs) through multi-step reasoning by providing step-level feedback during inference. However, our evaluation across 7 LLMs reveals a failure mode: while PRMs improve performance for instruct mathematical models, they fail to enhance and sometimes degrade reasoning model performance. Through systematic analysis with linear probes, we identify distinct reward prediction patterns that differentiate reasoning from non-reasoning model outputs. To understand this mechanism, we train Sparse Autoencoders on the Qwen2.5-Math-PRM and analyze reasoning features. Our analysis reveals that 80% of these features respond to formatting artifacts (whitespace patterns, Unicode tokens, punctuation) rather than mathematical content. Reasoning model outputs exhibit distinct metacognitive patterns absent from standard mathematical solutions. This explains why they lead to unreliable reward estimation. Our findings expose a fundamental limitation in applying existing reward models to reasoning systems and provide mechanistic insights into this failure mode. We release our trained SAEs to facilitate future research into reward model interpretability.</abstract>
+      <url hash="b84329ed">2026.eacl-short.31</url>
+      <attachment hash="ea42364e" type="checklist">2026.eacl-short.31.checklist.pdf</attachment>
+      <bibkey>dontsov-etal-2026-distribution</bibkey>
+    </paper>
+    <paper id="32">
+      <title>Learning to Ideate for Machine Learning Engineering Agents</title>
+      <author><first>Yunxiang</first><last>Zhang</last></author>
+      <author><first>Kang</first><last>Zhou</last><affiliation>Amazon</affiliation></author>
+      <author id="zhichao-xu" orcid="0000-0002-2370-4487"><first>Zhichao</first><last>Xu</last><affiliation>Amazon</affiliation></author>
+      <author><first>Kiran</first><last>Ramnath</last><affiliation>Amazon</affiliation></author>
+      <author><first>Yun</first><last>Zhou</last><affiliation>Amazon</affiliation></author>
+      <author id="sangmin-woo" orcid="0000-0003-4451-9675"><first>Sangmin</first><last>Woo</last><affiliation>Amazon</affiliation></author>
+      <author><first>Haibo</first><last>Ding</last><affiliation>Amazon</affiliation></author>
+      <author><first>Lin Lee</first><last>Cheong</last><affiliation>Amazon</affiliation></author>
+      <pages>436-447</pages>
+      <abstract>Existing machine learning engineering (MLE) agents struggle to iteratively optimize their implemented algorithms for effectiveness. To address this, we introduce MLE-Ideator, a dual-agent framework that separates ideation from implementation. In our system, an implementation agent can request strategic help from a dedicated Ideator. We show this approach is effective in two ways. First, in a training-free setup, our framework significantly outperforms implementation-only agent baselines on MLE-Bench. Second, we demonstrate that the Ideator can be trained with reinforcement learning (RL) to generate more effective ideas. With only 1K training samples from 10 MLE tasks, our RL-trained Qwen3-8B Ideator achieves an 11.5% relative improvement compared to its untrained counterpart and surpasses Claude Sonnet 3.5. These results highlights a promising path toward training strategic AI systems for scientific discovery.</abstract>
+      <url hash="e7817ac0">2026.eacl-short.32</url>
+      <attachment hash="0a03e405" type="checklist">2026.eacl-short.32.checklist.pdf</attachment>
+      <bibkey>zhang-etal-2026-learning</bibkey>
+    </paper>
+    <paper id="33">
+      <title>Infinity-<fixed-case>M</fixed-case>o<fixed-case>E</fixed-case>: Generalizing Mixture of Experts to Infinite Experts</title>
+      <author><first>Shota</first><last>Takashiro</last></author>
+      <author><first>Takeshi</first><last>Kojima</last><affiliation>The University of Tokyo</affiliation></author>
+      <author><first>Shohei</first><last>Taniguchi</last><affiliation>The University of Tokyo</affiliation></author>
+      <author id="yusuke-iwasawa" orcid="0000-0002-1321-2622"><first>Yusuke</first><last>Iwasawa</last><affiliation>The University of Tokyo, The University of Tokyo</affiliation></author>
+      <author id="yutaka-matsuo" orcid="0000-0002-2106-8907"><first>Yutaka</first><last>Matsuo</last><affiliation>The University of Tokyo</affiliation></author>
+      <pages>448-456</pages>
+      <abstract>The Mixture of Experts (MoE) selects a few feed-forward networks (FFNs) per token, achieving an effective trade-off between computational cost and performance. In conventional MoE, each expert is treated as entirely independent, and experts are combined in a discrete space. As a result, when the number of experts increases, it becomes difficult to train each expert effectively. To stabilize training while increasing the number of experts, we propose <tex-math>\infty</tex-math>-MoE that selects a portion of the parameters of large FFNs based on continuous values sampled for each token. By considering experts in a continuous space, this approach allows for an infinite number of experts while maintaining computational efficiency. Experiments show that a GPT-2 Small-based <tex-math>\infty</tex-math>-MoE model, with 129M active and 186M total parameters, achieves comparable performance to a dense GPT-2 Medium with 350M parameters. Adjusting the number of sampled experts at inference time allows for a flexible trade-off between accuracy and speed, with an improvement of up to 2.5% in accuracy over conventional MoE.</abstract>
+      <url hash="033890ec">2026.eacl-short.33</url>
+      <attachment hash="ff78bd75" type="checklist">2026.eacl-short.33.checklist.pdf</attachment>
+      <bibkey>takashiro-etal-2026-infinity</bibkey>
+    </paper>
+    <paper id="34">
+      <title>Beyond Tokens: Concept-Level Training Objectives for <fixed-case>LLM</fixed-case>s</title>
+      <author id="laya-iyer" orcid="0000-0003-2130-5199"><first>Laya</first><last>Iyer</last></author>
+      <author><first>Pranav</first><last>Somani</last></author>
+      <author><first>Alice</first><last>Guo</last></author>
+      <author><first>Dan</first><last>Jurafsky</last><affiliation>Stanford University</affiliation></author>
+      <author><first>Chen</first><last>Shani</last></author>
+      <pages>457-474</pages>
+      <abstract>The next-token prediction (NTP) objective has been foundational in the development of modern large language models (LLMs), driving advances in fluency and generalization. However, NTP operates at the token level, treating deviations from a single reference continuation as errors even when alternative continuations are equally plausible or semantically equivalent. As a result, token-level loss can penalize valid abstractions, paraphrases, or conceptually correct reasoning paths, biasing models toward surface form rather than underlying meaning. This mismatch between the training signal and semantic correctness motivates learning objectives that operate over higher-level representations.We propose a shift from token-level to concept-level prediction, where concepts group multiple surface forms of the same idea (e.g., "mom," "mommy," "mother" <tex-math>\rightarrow</tex-math> <i>MOTHER</i>). We introduce various methods for integrating conceptual supervision into LLM training and show that concept-aware models achieve lower perplexity, improved robustness under domain shift, and stronger performance than NTP-based models on diverse NLP benchmarks. This suggests concept-level supervision as an improved training signal that better aligns LLMs with human semantic abstractions.</abstract>
+      <url hash="cc894152">2026.eacl-short.34</url>
+      <attachment hash="0f5700c9" type="checklist">2026.eacl-short.34.checklist.pdf</attachment>
+      <bibkey>iyer-etal-2026-beyond</bibkey>
+    </paper>
+    <paper id="35">
+      <title>Persuasion Tokens for Editing Factual Knowledge in <fixed-case>LLM</fixed-case>s</title>
+      <author id="paul-youssef" orcid="0009-0004-4953-4553"><first>Paul</first><last>Youssef</last></author>
+      <author id="jorg-schlotterer" orcid="0000-0002-3678-0390"><first>Jörg</first><last>Schlötterer</last><affiliation>Phillips-Universität Marburg</affiliation></author>
+      <author id="christin-seifert" orcid="0000-0002-6776-3868"><first>Christin</first><last>Seifert</last><affiliation>Phillips-Universität Marburg</affiliation></author>
+      <pages>475-486</pages>
+      <abstract>In-context knowledge editing (IKE) is a promising technique for updating Large Language Models (LLMs) with new information. However, IKE relies on lengthy, fact-specific demonstrations which are costly to create and consume significant context window space. In this paper, we introduce persuasion tokens (P-Tokens) – special tokens trained to replicate the effect of IKE demonstrations, enabling efficient knowledge editing without requiring fact-specific demonstrations. We evaluate P-Tokens across two editing datasets and three LLMs, demonstrating performance comparable to, and often exceeding, IKE. We further find that editing performance is robust to distractors with small negative effects to neighboring facts, and that increasing the number of P-Tokens improves performance. Our work addresses key limitations of IKE and provides a more practical and scalable alternative for editing LLMs.</abstract>
+      <url hash="9a42acb6">2026.eacl-short.35</url>
+      <attachment hash="fe6d009c" type="checklist">2026.eacl-short.35.checklist.pdf</attachment>
+      <bibkey>youssef-etal-2026-persuasion</bibkey>
+    </paper>
+    <paper id="36">
+      <title>Language Family Matters: Evaluating <fixed-case>S</fixed-case>peech<fixed-case>LLM</fixed-case>s Across Linguistic Boundaries</title>
+      <author id="yuchen-zhang" orcid="0000-0001-8536-7175"><first>Yuchen</first><last>Zhang</last><affiliation>University of Essex</affiliation></author>
+      <author id="ravi-shekhar" orcid="0000-0002-8798-641X"><first>Ravi</first><last>Shekhar</last><affiliation>University of Essex</affiliation></author>
+      <author id="haralambos-mouratidis" orcid="0000-0002-2599-0712"><first>Haralambos</first><last>Mouratidis</last><affiliation>University of Essex</affiliation></author>
+      <pages>487-499</pages>
+      <abstract>Large Language Model (LLM)-powered Automatic Speech Recognition (ASR) systems achieve strong performance with limited resources by linking a frozen speech encoder to a pretrained LLM via a lightweight connector. Prior work trains a separate connector per language, overlooking linguistic relatedness. We propose an efficient and novel connector-sharing strategy based on linguistic family membership, enabling one connector per family, and empirically validate its effectiveness across two multilingual LLMs and two real-world corpora spanning curated and crowd-sourced speech. Our results show that family-based connectors reduce parameter count while improving generalization across domains, offering a practical and scalable strategy for multilingual ASR deployment.</abstract>
+      <url hash="307e88c2">2026.eacl-short.36</url>
+      <attachment hash="e9eabd59" type="checklist">2026.eacl-short.36.checklist.pdf</attachment>
+      <bibkey>zhang-etal-2026-language</bibkey>
+    </paper>
+    <paper id="37">
+      <title>When Benchmarks Age: Temporal Misalignment through Large Language Model Factuality Evaluation</title>
+      <author><first>Xunyi</first><last>Jiang</last></author>
+      <author><first>Dingyi</first><last>Chang</last></author>
+      <author id="julian-mcauley" orcid="0000-0003-0955-7588"><first>Julian</first><last>McAuley</last><affiliation>University of California, San Diego, University of California, San Diego</affiliation></author>
+      <author id="xin-xu-ucsd" orcid="0000-0001-5238-0955"><first>Xin</first><last>Xu</last></author>
+      <pages>500-512</pages>
+      <abstract>The rapid evolution of large language models (LLMs) and the real world has outpaced the static nature of widely used evaluation benchmarks, raising concerns about their reliability for evaluating LLM factuality. While substantial works continue to rely on the popular but old benchmarks, their temporal misalignment with real-world facts and modern LLMs, and their effects on LLM factuality evaluation remain underexplored. Therefore, in this work, we present a systematic investigation of this issue by examining five popular factuality benchmarks and eight LLMs released across different years. An up-to-date fact retrieval pipeline and three metrics are tailored to quantify benchmark aging and its impact on LLM factuality evaluation. Experimental results and analysis illustrate that a considerable portion of samples in the widely used factuality benchmarks are outdated, leading to unreliable assessments of LLM factuality. We hope our work can provide a testbed to assess the reliability of a benchmark for LLM factuality evaluation and inspire more research on the benchmark aging issue.</abstract>
+      <url hash="2648e1e8">2026.eacl-short.37</url>
+      <attachment hash="6f8c6470" type="checklist">2026.eacl-short.37.checklist.pdf</attachment>
+      <bibkey>jiang-etal-2026-benchmarks</bibkey>
+    </paper>
+    <paper id="38">
+      <title>On the Additive Compositionality of Task Vectors in Vision–Language Models</title>
+      <author><first>Yuting</first><last>Shi</last></author>
+      <author><first>Houjing</first><last>Wei</last></author>
+      <author id="naoya-inoue" orcid="0000-0002-2961-6939"><first>Naoya</first><last>Inoue</last><affiliation>Ichikara, RIKEN and Japan Advanced Institute of Science and Technology</affiliation></author>
+      <pages>513-521</pages>
+      <abstract>In-context learning (ICL) in large language models (LLMs) has been shown to operate through task vectors—the representation that summarizes the mapping induced by in-context demonstrations and can be composed by simple arithmetic operations. While this phenomenon is well studied in LLMs, its extension to vision-language models (VLMs) remains underexplored. In this work, we systematically examine the additive compositionality of in-context task vectors in VLMs, extracted from text-side hidden representations. Specifically, we construct compositional visual reasoning tasks with clearly defined subtasks and extract task vectors from few-shot demonstrations. Empirical experiments show that the vector for a complex task can be approximated by adding the vectors of its constituent subtasks. Beyond this, we analyze token-level contextual embeddings and show that additive composition arises because complex-task representations emerge as the superposition of atomic subtask components, preserving semantic structure within the model’s activation space.</abstract>
+      <url hash="d4bdecad">2026.eacl-short.38</url>
+      <attachment hash="a4ffad30" type="checklist">2026.eacl-short.38.checklist.pdf</attachment>
+      <bibkey>shi-etal-2026-additive</bibkey>
+    </paper>
+    <paper id="39">
+      <title>Funny or Persuasive, but Not Both: Evaluating Fine-Grained Multi-Concept Control in <fixed-case>LLM</fixed-case>s</title>
+      <author><first>Arya</first><last>Labroo</last></author>
+      <author><first>Ivaxi</first><last>Sheth</last><affiliation>CISPA, saarland university, saarland informatics campus</affiliation></author>
+      <author id="vyas-raina" orcid="0000-0002-7157-5392"><first>Vyas</first><last>Raina</last></author>
+      <author><first>Amaani</first><last>Ahmed</last></author>
+      <author><first>Mario</first><last>Fritz</last><affiliation>CISPA Helmholtz Center for Information Security and Saarland University</affiliation></author>
+      <pages>522-554</pages>
+      <abstract>Large Language Models (LLMs) offer strong generative capabilities, but many applications require explicit and <i>fine-grained</i> control over specific textual concepts, such as humor, persuasiveness, or formality. Prior approaches in prompting and representation engineering can provide coarse or single-attribute control, but systematic evaluation of multi-attribute settings remains limited. We introduce an evaluation framework for fine-grained controllability for both single- and dual-concept scenarios, focusing on linguistically distinct concept pairs (e.g., persuasiveness vs. humor). Surprisingly, across multiple LLMs and generative tasks, we find that performance often drops in the dual-concept setting, even though the chosen concepts should in principle be separable. This reveals a fundamental limitation of naive prompting-based control: models struggle with compositionality even when concepts are intuitively independent. Our framework provides systematic evidence of this gap and offers a principled approach for measuring the ability of future methods for multi-concept control.</abstract>
+      <url hash="df922f73">2026.eacl-short.39</url>
+      <attachment hash="29e42a01" type="checklist">2026.eacl-short.39.checklist.pdf</attachment>
+      <bibkey>labroo-etal-2026-funny</bibkey>
+    </paper>
+    <paper id="40">
+      <title>Common Sense or Ableism? Rethinking Commonsense Reasoning Through the Lens of Disability</title>
+      <author id="karina-halevy" orcid="0000-0003-2694-140X"><first>Karina H</first><last>Halevy</last></author>
+      <author><first>Kimi</first><last>Wenzel</last></author>
+      <author id="seyun-kim" orcid="0000-0001-5905-7093"><first>Seyun</first><last>Kim</last><affiliation>Carnegie Mellon University</affiliation></author>
+      <author><first>Kyle Dean</first><last>Bauer</last></author>
+      <author><first>Bruno</first><last>Neira</last></author>
+      <author><first>Mona T.</first><last>Diab</last><affiliation>Carnegie Mellon University</affiliation></author>
+      <author><first>Maarten</first><last>Sap</last><affiliation>Carnegie Mellon University</affiliation></author>
+      <pages>555-571</pages>
+      <abstract>Commonsense reasoning (CSR) is a popular set of tasks used to evaluate large language model performance. However, what constitutes common sense might not apply to disabled people, leaving them out of AI progress by ignoring their identities. This paper investigates how datasets and models deal with disability in commonsense reasoning through a case study of three types of disabilities: autism, vision impairments, and long COVID. We first obtain annotations from disabled and non-disabled persons on <tex-math>n = 300</tex-math> samples of three widely used CSR datasets (CommonsenseQA, Social IQA, Physical IQA) for <tex-math>\textit{ableism}</tex-math>, which we define as entries in which gold labels assume a lack of disability, finding that <tex-math>\textasciitilde</tex-math>15% of entries contain ableism. Then, we investigate LLMs’ ability to flag ableism in CSR instances, and their flexibility to adapt to disability contexts—whether the CSR gold answer changes if the person is disabled. Our results show that the three LLMs tested have low sensitivity to human-detected ableism occurrences but still detect 5 to 25% of entries as ableist. Our findings call into question whether relying on such assumption-laden commonsense reasoning benchmarks risks leaving disabled people behind in the AI world.</abstract>
+      <url hash="6fb8e941">2026.eacl-short.40</url>
+      <attachment hash="c03ffdcb" type="checklist">2026.eacl-short.40.checklist.pdf</attachment>
+      <bibkey>halevy-etal-2026-common</bibkey>
+    </paper>
+    <paper id="41">
+      <title>Machine translation Evaluation <fixed-case>E</fixed-case>ng-<fixed-case>T</fixed-case>hai <fixed-case>MQM</fixed-case> Ranking dataset</title>
+      <author><first>Phichet</first><last>Phuangrot</last></author>
+      <author><first>Natdanai</first><last>Trintawat</last></author>
+      <author><first>Kanawat</first><last>Vilasri</last></author>
+      <author><first>Yanapat</first><last>Patcharawiwatpong</last></author>
+      <author><first>Pachara</first><last>Boonsarngsuk</last><affiliation>King's College London, University of London and Chulalongkorn University</affiliation></author>
+      <author><first>Nat</first><last>Pavasant</last><affiliation>Chulalongkorn University</affiliation></author>
+      <author id="ekapol-chuangsuwanich" orcid="0000-0001-6104-4857"><first>Ekapol</first><last>Chuangsuwanich</last><affiliation>Chulalongkorn University</affiliation></author>
+      <pages>572-587</pages>
+      <abstract>We introduce MEET-MR (Machine Translation English–Thai MQM and Ranking Dataset), a comprehensive benchmark for evaluating English–Thai machine translation systems. The dataset is constructed using the Multidimensional Quality Metrics (MQM) annotation framework, providing fine-grained human judgements of translation quality. In addition, MEET-MR includes human preference rankings and reference translations, enabling both absolute and relative assessment of translation quality. The dataset covers nine diverse domains providing linguistic and contextual diversity. By combining high-quality reference translations, objective MQM error annotations, and subjective preference rankings, MEET-MR serves as a valuable resource for studying translation quality estimation, model alignment with human evaluation, and cross-domain performance in English–Thai machine translation. MEET-MR is publicly available at https://huggingface.co/datasets/Chula-AI/MEET-MR</abstract>
+      <url hash="ed628c89">2026.eacl-short.41</url>
+      <attachment hash="929af66c" type="checklist">2026.eacl-short.41.checklist.pdf</attachment>
+      <bibkey>phuangrot-etal-2026-machine</bibkey>
+    </paper>
+    <paper id="42">
+      <title>Evaluation of Deontic Conditional Reasoning in Large Language Models: The Case of Wason’s Selection Task</title>
+      <author id="hirohiko-abe" orcid="0009-0008-5415-3367"><first>Hirohiko</first><last>Abe</last><affiliation>Keio University</affiliation></author>
+      <author><first>Kentaro</first><last>Ozeki</last><affiliation>The University of Tokyo and Keio University</affiliation></author>
+      <author id="risako-ando" orcid="0009-0001-1517-2572"><first>Risako</first><last>Ando</last><affiliation>Keio University</affiliation></author>
+      <author><first>Takanobu</first><last>Morishita</last><affiliation>Keio University</affiliation></author>
+      <author id="koji-mineshima" orcid="0000-0003-4033-3216"><first>Koji</first><last>Mineshima</last><affiliation>Keio University</affiliation></author>
+      <author><first>Mitsuhiro</first><last>Okada</last></author>
+      <pages>588-601</pages>
+      <abstract>As large language models (LLMs) advance in linguistic competence, their reasoning abilities are gaining increasing attention.In humans, reasoning often performs well in domain specific settings, particularly in normative rather than purely formal contexts.Although prior studies have compared LLM and human reasoning, the domain specificity of LLM reasoning remains underexplored.In this study, we introduce a new Wason Selection Task dataset that explicitly encodes deontic modality to systematically distinguish deontic from descriptive conditionals, and use it to examine LLMs’ conditional reasoning under deontic rules.We further analyze whether observed error patterns are better explained by confirmation bias (a tendency to seek rule-supporting evidence) or by matching bias (a tendency to ignore negation and select items that lexically match elements of the rule).Results show that, like humans, LLMs reason better with deontic rules and display matching-bias-like errors.Together, these findings suggest that the performance of LLMs varies systematically across rule types and that their error patterns can parallel well-known human biases in this paradigm.</abstract>
+      <url hash="bf5255dc">2026.eacl-short.42</url>
+      <attachment hash="0ac13bc9" type="checklist">2026.eacl-short.42.checklist.pdf</attachment>
+      <bibkey>abe-etal-2026-evaluation</bibkey>
+    </paper>
+    <paper id="43">
+      <title>Confidence Leaps in <fixed-case>LLM</fixed-case> Reasoning: Early Stopping and Cross-Model Transfer</title>
+      <author id="pavel-tikhonov" orcid="0009-0000-5847-2586"><first>Pavel</first><last>Tikhonov</last></author>
+      <author><first>Ivan</first><last>Oseledets</last><affiliation>Institute of Numerical Mathematics</affiliation></author>
+      <author id="elena-tutubalina" orcid="0000-0001-7936-0284"><first>Elena</first><last>Tutubalina</last></author>
+      <pages>602-616</pages>
+      <abstract>We challenge the common assumption that Large Language Models (LLMs) build confidence gradually during reasoning. Instead, we find that conviction is often reached in a discrete "moment of insight", characterized by a sudden and sharp increase in an answer’s probability-a phenomenon we term a "confidence leap". Leveraging this discovery, we introduce a training-free, model-agnostic early-stopping heuristic that halts generation upon detecting such a leap, significantly reducing the generation length without sacrificing accuracy. We also demonstrate that the reasoning text leading up to this leap is semantically potent and transferable: feeding this partial reasoning to a different model family substantially boosts its performance. This suggests that the "confidence leap" marks a shared, interpretable reasoning milestone, not just a model-specific statistical artifact.</abstract>
+      <url hash="4fd17137">2026.eacl-short.43</url>
+      <attachment hash="b647b7d3" type="checklist">2026.eacl-short.43.checklist.pdf</attachment>
+      <bibkey>tikhonov-etal-2026-confidence</bibkey>
+    </paper>
+    <paper id="44">
+      <title>Exploring Fine-Tuning for In-Context Retrieval and Efficient <fixed-case>KV</fixed-case>-Caching in Long-Context Language Models</title>
+      <author id="francesco-maria-molfese" orcid="0009-0007-7598-2343"><first>Francesco Maria</first><last>Molfese</last><affiliation>University of Roma "La Sapienza"</affiliation></author>
+      <author><first>Momchil</first><last>Hardalov</last><affiliation>Amazon AGI</affiliation></author>
+      <author><first>Rexhina</first><last>Blloshmi</last><affiliation>Amazon</affiliation></author>
+      <author><first>Bill</first><last>Byrne</last><affiliation>Amazon and University of Cambridge</affiliation></author>
+      <author><first>Adrià de</first><last>Gispert</last><affiliation>Amazon</affiliation></author>
+      <pages>617-635</pages>
+      <abstract>With context windows of millions of tokens, Long-Context Language Models (LCLMs) can encode entire document collections, offering a strong alternative to conventional retrieval-augmented generation (RAG). However, it remains unclear whether fine-tuning strategies can improve long-context performance and translate to greater robustness under KV-cache compression techniques. In this work, we investigate which training strategies most effectively enhance LCLMs’ ability to identify and use relevant information, as well as enhancing their robustness under KV-cache compression. Our experiments show substantial in-domain improvements, achieving gains of up to +20 points over the base model. However, out-of-domain generalization remains task dependent with large variance – LCLMs excels on finance questions (+9 points), while RAG shows stronger performance on multiple-choice questions (+6 points) over the baseline models. Finally, we show that our fine-tuning approaches bring moderate improvements in robustness under KV-cache compression, with gains varying across tasks.</abstract>
+      <url hash="384f5708">2026.eacl-short.44</url>
+      <attachment hash="e52614f1" type="checklist">2026.eacl-short.44.checklist.pdf</attachment>
+      <bibkey>molfese-etal-2026-exploring</bibkey>
+    </paper>
+    <paper id="45">
+      <title>Post-<fixed-case>ASR</fixed-case> Correction in <fixed-case>H</fixed-case>indi: Comparing Language Models and Large Language Models in Low-Resource Scenarios</title>
+      <author><first>Rishabh</first><last>Kumar</last></author>
+      <author><first>Amrith</first><last>Krishna</last><affiliation>Learno</affiliation></author>
+      <author><first>Ganesh</first><last>Ramakrishnan</last><affiliation>Indian Institute of Technology Bombay, Indian Institute of Technology Bombay</affiliation></author>
+      <author><first>Preethi</first><last>Jyothi</last><affiliation>Indian Institute of Technology Bombay</affiliation></author>
+      <pages>636-645</pages>
+      <abstract>Automatic Speech Recognition (ASR) systems for low-resource languages like Hindi often produce erroneous transcripts due to limited annotated data and linguistic complexity. **Post-ASR correction** using language models (LMs) and large language models (LLMs) offers a promising approach to improve transcription quality. In this work, we compare fine-tuned LMs (mT5, ByT5), fine-tuned LLMs (Nanda 10B), and instruction-tuned LLMs (GPT-4o-mini, LLaMA variants) for post-ASR correction in Hindi. Our findings reveal that **smaller, fine-tuned models** consistently **outperform larger LLMs** in both fine-tuning and in-context learning (ICL) settings. We observe a **U-shaped inverse scaling** trend under zero-shot ICL, where mid-sized LLMs degrade performance before marginal recovery at extreme scales, yet still fall short of fine-tuned models. **ByT5 is more effective for character-level corrections** such as transliteration and word segmentation, while **mT5 handles broader semantic inconsistencies**. We also identify performance drops in out-of-domain settings and propose **mitigation strategies** to preserve domain fidelity. In particular, we observe similar trends in **Marathi and Telugu**, indicating the broader applicability of our findings across low-resource Indian languages.</abstract>
+      <url hash="12e8d347">2026.eacl-short.45</url>
+      <attachment hash="b982d7fc" type="checklist">2026.eacl-short.45.checklist.pdf</attachment>
+      <bibkey>kumar-etal-2026-post</bibkey>
+    </paper>
+    <paper id="46">
+      <title><fixed-case>CH</fixed-case>i<fixed-case>RPE</fixed-case>: A Step Towards Real-World Clinical <fixed-case>NLP</fixed-case> with Clinician-Oriented Model Explanations</title>
+      <author><first>Stephanie</first><last>Fong</last><affiliation>University of Melbourne</affiliation></author>
+      <author><first>Zimu</first><last>Wang</last><affiliation>Monash University and University of Liverpool</affiliation></author>
+      <author><first>Guilherme C</first><last>Oliveira</last><affiliation>Monash University</affiliation></author>
+      <author><first>Xiangyu</first><last>Zhao</last><affiliation>Monash University</affiliation></author>
+      <author id="yiwen-jiang" orcid="0009-0004-1549-9657"><first>Yiwen</first><last>Jiang</last></author>
+      <author><first>Jiahe</first><last>Liu</last></author>
+      <author><first>Beau-Luke</first><last>Colton</last><affiliation>University of Melbourne</affiliation></author>
+      <author><first>Scott W.</first><last>Woods</last><affiliation>Yale University</affiliation></author>
+      <author><first>Martha</first><last>Shenton</last></author>
+      <author><first>Barnaby</first><last>Nelson</last><affiliation>University of Melbourne</affiliation></author>
+      <author id="zongyuan-ge" orcid="0000-0002-5880-8673"><first>Zongyuan</first><last>Ge</last></author>
+      <author id="dominic-dwyer" orcid="0000-0003-3949-5867"><first>Dominic</first><last>Dwyer</last><affiliation>University of Melbourne</affiliation></author>
+      <pages>646-658</pages>
+      <abstract>The medical adoption of NLP tools requires interpretability by end users, yet traditional explainable AI (XAI) methods are misaligned with clinical reasoning and lack clinician input. We introduce CHiRPE (Clinical High-Risk Prediction with Explainability), an NLP pipeline that takes transcribed semi-structured clinical interviews to: (i) predict psychosis risk; and (ii) generate novel SHAP explanation formats co-developed with clinicians. Trained on 944 semi-structured interview transcripts across 24 international clinics of the AMP-SCZ study, the CHiRPE pipeline integrates symptom-domain mapping, LLM summarisation, and BERT classification. CHiRPE achieved over 90% accuracy across three BERT variants and outperformed baseline models. Explanation formats were evaluated by 28 clinical experts who indicated a strong preference for our novel concept-guided explanations, especially hybrid graph-and-text summary formats. CHiRPE demonstrates that clinically-guided model development produces both accurate and interpretable results. Our next step is focused on real-world testing across our 24 international sites.</abstract>
+      <url hash="66a0b586">2026.eacl-short.46</url>
+      <attachment hash="9773bf69" type="checklist">2026.eacl-short.46.checklist.pdf</attachment>
+      <bibkey>fong-etal-2026-chirpe</bibkey>
+    </paper>
+    <paper id="47">
+      <title><fixed-case>LLM</fixed-case>s Know More About Numbers than They Can Say</title>
+      <author><first>Fengting</first><last>Yuchi</last><affiliation>Shanghai Jiao Tong University</affiliation></author>
+      <author><first>Li</first><last>Du</last><affiliation>Johns Hopkins University</affiliation></author>
+      <author id="jason-eisner" orcid="0000-0002-8861-0772"><first>Jason</first><last>Eisner</last><affiliation>Johns Hopkins University</affiliation></author>
+      <pages>659-673</pages>
+      <abstract>Although state-of-the-art LLMs can solve math problems, we find that they make errors on numerical comparisons with mixed notation: "Which is larger, <tex-math>5.7 \times 10^2</tex-math> or 580?”This raises a fundamental question: Do LLMs even know how big these numbers are?We probe the hidden states of several smaller open-source LLMs.  A single linear projection of an appropriate hidden layer encodes the *log-magnitudes* of both kinds of numerals, allowing us to recover the numbers with relative error of about 2.3% (on restricted synthetic text) or 19.06% (on scientific papers).Furthermore, the hidden state after reading a *pair* of numerals encodes their *ranking*, with a linear classifier achieving over 90% accuracy.Yet surprisingly, when explicitly asked to rank the same pairs of numerals, these LLMs achieve only 50-70% accuracy, with worse performance for models whose probes are less effective.Finally, we show that incorporating the classifier probe’s log-loss as an auxiliary objective during finetuning brings an additional 3.22% improvement in verbalized accuracy over base models, demonstrating that improving models’ internal magnitude representations can enhance their numerical reasoning capabilities.</abstract>
+      <url hash="e48718df">2026.eacl-short.47</url>
+      <attachment hash="649c23b8" type="checklist">2026.eacl-short.47.checklist.pdf</attachment>
+      <bibkey>yuchi-etal-2026-llms</bibkey>
+    </paper>
+    <paper id="48">
+      <title>On the Mathematical Relationship Between Layer Normalization and Dynamic Activation Functions</title>
+      <author id="felix-stollenwerk" orcid="0009-0000-0514-2807"><first>Felix</first><last>Stollenwerk</last><affiliation>AI Sweden</affiliation></author>
+      <pages>674-681</pages>
+      <abstract>Layer normalization (LN) is an essential component of modern neural networks. While many alternative techniques have been proposed, none of them have succeeded in replacing LN so far. The latest suggestion in this line of research is a dynamic activation function called Dynamic Tanh (DyT). Although it is empirically well-motivated and appealing from a practical point of view, it lacks a theoretical foundation. In this work, we shed light on the mathematical relationship between LN and dynamic activation functions. In particular, we derive DyT from the LN variant RMSNorm, and show that a well-defined decoupling in derivative space as well as an approximation are needed to do so. By applying the same decoupling procedure directly in function space, we are able to omit the approximation and obtain the exact element-wise counterpart of RMSNorm, which we call Dynamic Inverse Square Root Unit (DyISRU). We demonstrate numerically that DyISRU reproduces the normalization effect on outliers more accurately than DyT does.</abstract>
+      <url hash="98cc8ac1">2026.eacl-short.48</url>
+      <attachment hash="4ea50e1d" type="checklist">2026.eacl-short.48.checklist.pdf</attachment>
+      <bibkey>stollenwerk-2026-mathematical</bibkey>
+    </paper>
+    <paper id="49">
+      <title>Semantic Token Clustering for Efficient Uncertainty Quantification in Large Language Models</title>
+      <author><first>Qi</first><last>Cao</last><affiliation>The University of Tokyo</affiliation></author>
+      <author><first>Andrew</first><last>Gambardella</last><affiliation>The University of Tokyo, Tokyo University</affiliation></author>
+      <author><first>Takeshi</first><last>Kojima</last><affiliation>The University of Tokyo</affiliation></author>
+      <author id="yutaka-matsuo" orcid="0000-0002-2106-8907"><first>Yutaka</first><last>Matsuo</last><affiliation>The University of Tokyo</affiliation></author>
+      <author id="yusuke-iwasawa" orcid="0000-0002-1321-2622"><first>Yusuke</first><last>Iwasawa</last><affiliation>The University of Tokyo, The University of Tokyo</affiliation></author>
+      <pages>682-696</pages>
+      <abstract>Large Language Models (LLMs) have demonstrated remarkable capabilities across diverse tasks. However, their limited truthfulness and tendency toward overconfidence constrain their reliability in factual tasks. Uncertainty quantification offers a promising approach to identifying potentially unreliable outputs from LLMs. Yet most existing methods rely on repeated sampling or auxiliary models, which substantially increase computational overhead. To address these limitations, we propose an efficient uncertainty quantification method that leverages semantic information inherently encoded in LLMs. Specifically, we group tokens into semantically consistent clusters based on embedding clustering and prefix matching, and compute a cluster-based score at each decoding step to represent uncertainty. Our approach requires only a single generation and does not depend on any auxiliary models. Experiments on multiple datasets and models demonstrate that our method achieves performance comparable to existing baselines while substantially reducing computational overhead.</abstract>
+      <url hash="dfe9734a">2026.eacl-short.49</url>
+      <attachment hash="41201d82" type="checklist">2026.eacl-short.49.checklist.pdf</attachment>
+      <bibkey>cao-etal-2026-semantic</bibkey>
+    </paper>
+    <paper id="50">
+      <title>Becoming Experienced Judges: Selective Test-Time Learning for Evaluators</title>
+      <author id="seungyeon-jwa" orcid="0009-0001-0552-7325"><first>Seungyeon</first><last>Jwa</last><affiliation>Seoul National University</affiliation></author>
+      <author id="daechul-ahn" orcid="0000-0002-8689-3107"><first>Daechul</first><last>Ahn</last><affiliation>Seoul National University</affiliation></author>
+      <author id="reokyoung-kim" orcid="0009-0004-7241-0401"><first>Reokyoung</first><last>Kim</last><affiliation>Seoul National University</affiliation></author>
+      <author id="dongyeop-kang" orcid="0000-0002-9021-1789"><first>Dongyeop</first><last>Kang</last><affiliation>University of Minnesota</affiliation></author>
+      <author id="jonghyun-choi-umd" orcid="0000-0002-7934-8434"><first>Jonghyun</first><last>Choi</last><affiliation>Seoul National University</affiliation></author>
+      <pages>697-721</pages>
+      <abstract>Automatic evaluation with large language models, commonly known as LLM-as-a-judge, is now standard across reasoning and alignment tasks. Despite evaluating many samples in deployment, these evaluators typically (i) treat each case independently, missing the opportunity to accumulate and reuse evaluation insights across cases, and (ii) rely on a single fixed prompt for all cases, neglecting the need for sample-specific evaluation criteria. We introduce **Learning While Evaluating** (LWE), a framework that allows evaluators to improve *sequentially* at inference time without requiring additional training or external signals. LWE maintains an evolving *meta-prompt* that (i) stores evaluation insights derived from self-generated feedback during sequential testing, and (ii) allows evaluators to leverage these insights to generate sample-specific evaluation instructions for accurate and consistent judgments. Furthermore, we propose ***Selective* LWE**, which updates the meta-prompt only on self-inconsistent cases, focusing computation where it matters most. This selective approach retains the benefits of sequential learning while being far more cost-effective. Across two pairwise comparison benchmarks, *Selective* LWE outperforms strong baselines, empirically demonstrating that evaluators can improve during sequential testing with a simple selective update—learning most from the cases they struggle with.</abstract>
+      <url hash="04141a73">2026.eacl-short.50</url>
+      <attachment hash="1a93a901" type="checklist">2026.eacl-short.50.checklist.pdf</attachment>
+      <bibkey>jwa-etal-2026-becoming</bibkey>
+    </paper>
+    <paper id="51">
+      <title>Statistical Foundations of <fixed-case>DIME</fixed-case>: Risk Estimation for Practical Index Selection</title>
+      <author id="giulio-d-erasmo" orcid="0009-0002-2287-051X"><first>Giulio</first><last>D'Erasmo</last><affiliation>University of Roma "La Sapienza"</affiliation></author>
+      <author id="cesare-campagnano" orcid="0000-0002-8362-274X"><first>Cesare</first><last>Campagnano</last></author>
+      <author><first>Antonio</first><last>Mallia</last><affiliation>Pinecone</affiliation></author>
+      <author id="pierpaolo-brutti" orcid="0000-0003-0458-7868"><first>Pierpaolo</first><last>Brutti</last><affiliation>University of Roma "La Sapienza"</affiliation></author>
+      <author id="nicola-tonellotto" orcid="0000-0002-7427-1001"><first>Nicola</first><last>Tonellotto</last><affiliation>University of Pisa</affiliation></author>
+      <author id="fabrizio-silvestri" orcid="0000-0001-7669-9055"><first>Fabrizio</first><last>Silvestri</last><affiliation>Sapienza University of Rome</affiliation></author>
+      <pages>722-730</pages>
+      <abstract>High-dimensional dense embeddings have become central to modern Information Retrieval, but many dimensions are noisy or redundant. Recently proposed DIME (Dimension IMportance Estimation), provides query-dependent scores to identify informative components of embeddings. DIME relies on a costly grid search to select a priori a dimensionality for all the query corpus’s embeddings. Our work provides a statistically grounded criterion that directly identifies the optimal set of dimensions for each query at inference time. Experiments confirm that this approach improves retrieval effectiveness and reduces embedding size by an average 50% of across different models and datasets at inference time.</abstract>
+      <url hash="d0f44297">2026.eacl-short.51</url>
+      <attachment hash="1baf8d70" type="checklist">2026.eacl-short.51.checklist.pdf</attachment>
+      <bibkey>d-erasmo-etal-2026-statistical</bibkey>
+    </paper>
+  </volume>
 </collection>
