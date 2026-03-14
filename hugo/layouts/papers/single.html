@@ -631,7 +631,8 @@
         {{ end }}
 
         {{ range $paper.attachment }}
-        <dt class="acl-button-row">{{ humanize .type }}:</dt>
+	<!-- We do not know how long the type is so we allow breaking here -->
+        <dt class="acl-button-row text-wrap">{{ humanize .type }}:</dt>
         <dd class="acl-button-row"><a href="{{ .url }}" class="btn btn-attachment btn-sm">{{ partial
             "attachment_repr.html" . }}&nbsp;{{ .filename }}</a></dd>
         {{ end }}
