@@ -225,7 +225,7 @@ def verify_all(orcid, author_ids, degree=None, suffix=None, except_paper_ids=Non
 
         # reset the ID for excluded papers
         for paper_id, paper in except_papers:
-            paper = anthology.get(paper_id) # reload the paper (to avoid stale NameSpecs)
+            paper = anthology.get(paper_id)  # reload the paper (to avoid stale NameSpecs)
             matching_authors = [ns for ns in paper.authors if ns.id == person.id]
             assert (
                 matching_authors
