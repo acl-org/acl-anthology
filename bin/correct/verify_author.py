@@ -194,10 +194,12 @@ def verify_all(orcid, author_ids, degree=None, suffix=None, except_paper_ids=Non
                     if anthology.resolve(namespec) is person:
                         if namespec.id:
                             assert namespec.id == person.id
+                        elif item.full_id in except_paper_ids:
+                            log.info(f'Excluding paper {item.full_id}')
                         else:
                             namespec.id = person.id
                             item.collection.is_modified = True
-                changes = 'Verify'
+                            changes = 'Verify'
             continue
 
         # Besides the canonical person, other author IDs to merge should be unverified
@@ -215,6 +217,7 @@ def verify_all(orcid, author_ids, degree=None, suffix=None, except_paper_ids=Non
                 ns.id == person.id
                 for ns in (paper.authors if isinstance(paper, Paper) else paper.editors)
             ), f'Excluded paper {paper_id} already specifies the author ID {person.id}'
+            log.info(f'Temporarily adding paper {paper_id}, will exclude later')
             except_papers.append((paper_id, paper))
         person2.merge_with_explicit(person)
         anthology.save_all()
@@ -222,6 +225,7 @@ def verify_all(orcid, author_ids, degree=None, suffix=None, except_paper_ids=Non
 
         # reset the ID for excluded papers
         for paper_id, paper in except_papers:
+            paper = anthology.get(paper_id) # reload the paper (to avoid stale NameSpecs)
             matching_authors = [ns for ns in paper.authors if ns.id == person.id]
             assert (
                 matching_authors
