@@ -168,7 +168,14 @@ def paper_to_dict(paper):
         data["attachment"] = [
             {
                 "filename": attachment[1].name,
-                "type": attachment[0].capitalize() if attachment[0] else "Attachment",
+                # only Capitalize first letter, keep rest untouched
+                # this ensures CamelCase stays CamelCase,
+                # `capitalize` would create Camelcase.
+                "type": (
+                    (attachment[0][:1].upper() + attachment[0][1:])
+                    if attachment[0]
+                    else "Attachment"
+                ),
                 "url": attachment[1].url,
             }
             for attachment in paper.attachments
