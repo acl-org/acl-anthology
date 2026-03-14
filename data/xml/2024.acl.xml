@@ -1196,7 +1196,7 @@
       <title>Dependency Transformer Grammars: Integrating Dependency Structures into Transformer Language Models</title>
       <author><first>Yida</first><last>Zhao</last></author>
       <author><first>Chao</first><last>Lou</last><affiliation>ShanghaiTech University</affiliation></author>
-      <author><first>Kewei</first><last>Tu</last><affiliation>ShanghaiTech University</affiliation></author>
+      <author id="kewei-tu"><first>Kewei</first><last>Tu</last><affiliation>ShanghaiTech University</affiliation></author>
       <pages>1543-1556</pages>
       <abstract>Syntactic Transformer language models aim to achieve better generalization through simultaneously modeling syntax trees and sentences. While prior work has been focusing on adding constituency-based structures to Transformers, we introduce Dependency Transformer Grammars (DTGs), a new class of Transformer language model with explicit dependency-based inductive bias. DTGs simulate dependency transition systems with constrained attention patterns by modifying attention masks, incorporate the stack information through relative positional encoding, and augment dependency arc representation with a combination of token embeddings and operation embeddings. When trained on a dataset of sentences annotated with dependency trees, DTGs achieve better generalization while maintaining comparable perplexity with Transformer language model baselines. DTGs also outperform recent constituency-based models, showing that dependency can better guide Transformer language models. Our code is released at https://github.com/zhaoyd1/Dep_Transformer_Grammars.</abstract>
       <url hash="da9d50ca">2024.acl-long.84</url>
@@ -2026,7 +2026,7 @@
       <author><first>Pengyu</first><last>Ji</last></author>
       <author><first>Qingyang</first><last>Zhu</last></author>
       <author><first>Wei</first><last>Wu</last><affiliation>Ant Research</affiliation></author>
-      <author><first>Kewei</first><last>Tu</last><affiliation>ShanghaiTech University</affiliation></author>
+      <author id="kewei-tu"><first>Kewei</first><last>Tu</last><affiliation>ShanghaiTech University</affiliation></author>
       <pages>2640-2657</pages>
       <abstract>A syntactic language model (SLM) incrementally generates a sentence with its syntactic tree in a left-to-right manner.We present Generative Pretrained Structured Transformers (GPST), an unsupervised SLM at scale capable of being pre-trained from scratch on raw texts with high parallelism. GPST circumvents the limitations of previous SLMs such as relying on gold trees and sequential training. It consists of two components, a usual SLM supervised by a uni-directional language modeling loss, and an additional composition model, which induces syntactic parse trees and computes constituent representations, supervised by a bi-directional language modeling loss. We propose a representation surrogate to enable joint parallel training of the two models in a hard-EM fashion.We pre-train GPST on OpenWebText, a corpus with billion tokens, and demonstrate the superiority of GPST over GPT-2 with a comparable size in numerous tasks covering both language understanding and language generation. Meanwhile, GPST also significantly outperforms existing unsupervised SLMs on left-to-right grammar induction, while holding a substantial acceleration on training.</abstract>
       <url hash="b5b79735">2024.acl-long.145</url>
@@ -8408,7 +8408,7 @@
     <paper id="602">
       <title>Layer-Condensed <fixed-case>KV</fixed-case> Cache for Efficient Inference of Large Language Models</title>
       <author><first>Haoyi</first><last>Wu</last><affiliation>ShanghaiTech University</affiliation></author>
-      <author><first>Kewei</first><last>Tu</last><affiliation>ShanghaiTech University</affiliation></author>
+      <author id="kewei-tu"><first>Kewei</first><last>Tu</last><affiliation>ShanghaiTech University</affiliation></author>
       <pages>11175-11188</pages>
       <abstract>Huge memory consumption has been a major bottleneck for deploying high-throughput large language models in real-world applications. In addition to the large number of parameters, the key-value (KV) cache for the attention mechanism in the transformer architecture consumes a significant amount of memory, especially when the number of layers is large for deep language models. In this paper, we propose a novel method that only computes and caches the KVs of a small number of layers, thus significantly saving memory consumption and improving inference throughput. Our experiments on large language models show that our method achieves up to 26<tex-math>\times</tex-math> higher throughput than standard transformers and competitive performance in language modeling and downstream tasks. In addition, our method is orthogonal to existing transformer memory-saving techniques, so it is straightforward to integrate them with our model, achieving further improvement in inference efficiency. Our code is available at https://github.com/whyNLP/LCKV.</abstract>
       <url hash="7ad55a06">2024.acl-long.602</url>
