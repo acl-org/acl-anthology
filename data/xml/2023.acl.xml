@@ -2447,7 +2447,7 @@
       <author><first>Chengyue</first><last>Jiang</last><affiliation>ShanghaiTech University</affiliation></author>
       <author><first>Yong</first><last>Jiang</last><affiliation>Alibaba DAMO Academy</affiliation></author>
       <author><first>Pengjun</first><last>Xie</last><affiliation>Alibaba Group</affiliation></author>
-      <author><first>Kewei</first><last>Tu</last><affiliation>ShanghaiTech University</affiliation></author>
+      <author id="kewei-tu"><first>Kewei</first><last>Tu</last><affiliation>ShanghaiTech University</affiliation></author>
       <pages>3080-3101</pages>
       <abstract>Ontological knowledge, which comprises classes and properties and their relationships, is integral to world knowledge. It is significant to explore whether Pretrained Language Models (PLMs) know and understand such knowledge. However, existing PLM-probing studies focus mainly on factual knowledge, lacking a system- atic probing of ontological knowledge. In this paper, we focus on probing whether PLMs store ontological knowledge and have a semantic un- derstanding of the knowledge rather than rote memorization of the surface form. To probe whether PLMs know ontological knowledge, we investigate how well PLMs memorize: (1) types of entities; (2) hierarchical relationships among classes and properties, e.g., Person is a subclass of Animal and Member of Sports Team is a subproperty of Member of ; (3) domain and range constraints of properties, e.g., the subject of Member of Sports Team should be a Person and the object should be a Sports Team. To further probe whether PLMs truly understand ontological knowledge beyond memorization, we comprehensively study whether they can reliably perform logical reasoning with given knowledge according to ontological entailment rules. Our probing results show that PLMs can memorize certain ontological knowledge and utilize implicit knowledge in reasoning. How- ever, both the memorizing and reasoning per- formances are less than perfect, indicating in- complete knowledge and understanding.</abstract>
       <url hash="0b9caad7">2023.acl-long.173</url>
@@ -4793,7 +4793,7 @@
     </paper>
     <paper id="338">
       <title>Similarity-weighted Construction of Contextualized Commonsense Knowledge Graphs for Knowledge-intense Argumentation Tasks</title>
-      <author><first>Moritz</first><last>Plenz</last><affiliation>Heidelberg University</affiliation></author>
+      <author id="moritz-plenz"><first>Moritz</first><last>Plenz</last><affiliation>Heidelberg University</affiliation></author>
       <author><first>Juri</first><last>Opitz</last><affiliation>Heidelberg University</affiliation></author>
       <author><first>Philipp</first><last>Heinisch</last><affiliation>Bielefeld University</affiliation></author>
       <author id="philipp-cimiano" orcid="0000-0002-4771-441X"><first>Philipp</first><last>Cimiano</last><affiliation>Univ. Bielefeld</affiliation></author>
@@ -5165,7 +5165,7 @@
       <author><first>Soyoung</first><last>Oh</last><affiliation>EPFL</affiliation></author>
       <author><first>Deniz</first><last>Bayazit</last><affiliation>EPFL</affiliation></author>
       <author><first>Saya</first><last>Kanno</last><affiliation>R&amp;D Center, Sony Corporation</affiliation></author>
-      <author><first>Hiromi</first><last>Wakaki</last><affiliation>Sony Group Corporation</affiliation></author>
+      <author id="hiromi-wakaki"><first>Hiromi</first><last>Wakaki</last><affiliation>Sony Group Corporation</affiliation></author>
       <author id="yuki-mitsufuji" orcid="0000-0002-6806-6140"><first>Yuki</first><last>Mitsufuji</last><affiliation>Sony Group Corporation</affiliation></author>
       <author id="antoine-bosselut" orcid="0000-0001-8968-9649"><first>Antoine</first><last>Bosselut</last><affiliation>EPFL</affiliation></author>
       <pages>6569-6591</pages>
@@ -6695,7 +6695,7 @@
     <paper id="469">
       <title>Don’t Parse, Choose Spans! Continuous and Discontinuous Constituency Parsing via Autoregressive Span Selection</title>
       <author><first>Songlin</first><last>Yang</last><affiliation>ShanghaiTech University</affiliation></author>
-      <author><first>Kewei</first><last>Tu</last><affiliation>ShanghaiTech University</affiliation></author>
+      <author id="kewei-tu"><first>Kewei</first><last>Tu</last><affiliation>ShanghaiTech University</affiliation></author>
       <pages>8420-8433</pages>
       <abstract>We present a simple and unified approach for both continuous and discontinuous constituency parsing via autoregressive span selection. Constituency parsing aims to produce a set of non-crossing spans so that they can form a constituency parse tree. We sort gold spans using a predefined order and leverage a pointer network to autoregressively select spans by that order. To deal with discontinuous spans, we consecutively select their subspans from left to right, label all but last subspans with special discontinuous labels and the last subspan as the whole discontinuous spans’ labels. We use simple heuristic to output valid trees so that our approach is able to predict all possible continuous and discontinuous constituency trees without sacrificing data coverage and without the need to use expensive chart-based parsing algorithms. Experiments on multiple continuous and discontinuous benchmarks show that our model achieves state-of-the-art or competitive performance.</abstract>
       <url hash="628cb4c6">2023.acl-long.469</url>
@@ -9324,7 +9324,7 @@
       <author><first>Yong</first><last>Jiang</last><affiliation>Alibaba DAMO Academy</affiliation></author>
       <author><first>Xiaobin</first><last>Wang</last><affiliation>Alibaba Group</affiliation></author>
       <author><first>Pengjun</first><last>Xie</last><affiliation>Alibaba Group</affiliation></author>
-      <author><first>Kewei</first><last>Tu</last><affiliation>ShanghaiTech University</affiliation></author>
+      <author id="kewei-tu"><first>Kewei</first><last>Tu</last><affiliation>ShanghaiTech University</affiliation></author>
       <pages>11597-11609</pages>
       <abstract>Ultra-fine entity typing (UFET) predicts extremely free-formed types (e.g., <i>president, politician</i>) of a given entity mention (e.g., <i>Joe Biden</i>) in context. State-of-the-art (SOTA) methods use the cross-encoder (CE) based architecture. CE concatenates a mention (and its context) with each type and feeds the pair into a pretrained language model (PLM) to score their relevance. It brings deeper interaction between the mention and the type to reach better performance but has to perform <tex-math>N</tex-math> (the type set size) forward passes to infer all the types of a single mention. CE is therefore very slow in inference when the type set is large (e.g., <tex-math>N=10k</tex-math> for UFET). % Cross-encoder also ignores the correlation between different types.To this end, we propose to perform entity typing in a recall-expand-filter manner. The recall and expansion stages prune the large type set and generate <tex-math>K</tex-math> (typically much smaller than <tex-math>N</tex-math>) most relevant type candidates for each mention. At the filter stage, we use a novel model called {pasted macro ‘NAME’} to concurrently encode and score all these <tex-math>K</tex-math> candidates in only one forward pass to obtain the final type prediction. We investigate different model options for each stage and conduct extensive experiments to compare each option, experiments show that our method reaches SOTA performance on UFET and is thousands of times faster than the CE-based architecture. We also found our method is very effective in fine-grained (130 types) and coarse-grained (9 types) entity typing. Our code is available at {pasted macro ‘CODE’}.</abstract>
       <url hash="d0e5c22a">2023.acl-long.648</url>
@@ -11045,7 +11045,7 @@
       <author id="zhaohui-yan" orcid="0000-0001-6782-1813"><first>Zhaohui</first><last>Yan</last><affiliation>Shanghaitech University</affiliation></author>
       <author id="wenjuan-han" orcid="0000-0002-2327-0842"><first>Wenjuan</first><last>Han</last><affiliation>Beijing Jiaotong University</affiliation></author>
       <author><first>Zilong</first><last>Zheng</last><affiliation>Beijing Institute for General Artificial Intelligence</affiliation></author>
-      <author><first>Kewei</first><last>Tu</last><affiliation>ShanghaiTech University</affiliation></author>
+      <author id="kewei-tu"><first>Kewei</first><last>Tu</last><affiliation>ShanghaiTech University</affiliation></author>
       <pages>13695-13710</pages>
       <abstract>Prior works on joint Information Extraction (IE) typically model instance (e.g., event triggers, entities, roles, relations) interactions by representation enhancement, type dependencies scoring, or global decoding. We find that the previous models generally consider binary type dependency scoring of a pair of instances, and leverage local search such as beam search to approximate global solutions. To better integrate cross-instance interactions, in this work, we introduce a joint IE framework (CRFIE) that formulates joint IE as a high-order Conditional Random Field. Specifically, we design binary factors and ternary factors to directly model interactions between not only a pair of instances but also triplets. Then, these factors are utilized to jointly predict labels of all instances. To address the intractability problem of exact high-order inference, we incorporate a high-order neural decoder that is unfolded from a mean-field variational inference method, which achieves consistent learning and inference. The experimental results show that our approach achieves consistent improvements on three IE tasks compared with our baseline and prior work.</abstract>
       <url hash="1b7a8aa4">2023.acl-long.766</url>
@@ -13269,7 +13269,7 @@
       <author><first>Yong</first><last>Jiang</last><affiliation>Alibaba DAMO Academy</affiliation></author>
       <author><first>Zeqi</first><last>Tan</last><affiliation>Zhejiang University</affiliation></author>
       <author><first>Pengjun</first><last>Xie</last><affiliation>Alibaba Group</affiliation></author>
-      <author><first>Kewei</first><last>Tu</last><affiliation>ShanghaiTech University</affiliation></author>
+      <author id="kewei-tu"><first>Kewei</first><last>Tu</last><affiliation>ShanghaiTech University</affiliation></author>
       <pages>110-118</pages>
       <abstract>Data augmentation is an effective solution to improve model performance and robustness for low-resource named entity recognition (NER). However, synthetic data often suffer from poor diversity, which leads to performance limitations. In this paper, we propose a novel Graph Propagated Data Augmentation (GPDA) framework for Named Entity Recognition (NER), leveraging graph propagation to build relationships between labeled data and unlabeled natural texts. By projecting the annotations from the labeled text to the unlabeled text, the unlabeled texts are partially labeled, which has more diversity rather than synthetic annotated data. To strengthen the propagation precision, a simple search engine built on Wikipedia is utilized to fetch related texts of labeled data and to propagate the entity labels to them in the light of the anchor links. Besides, we construct and perform experiments on a real-world low-resource dataset of the E-commerce domain, which will be publicly available to facilitate the low-resource NER research. Experimental results show that GPDA presents substantial improvements over previous data augmentation methods on multiple low-resource NER datasets.</abstract>
       <url hash="7be39de3">2023.acl-short.11</url>
@@ -14174,7 +14174,7 @@
       <author><first>Julius</first><last>Steen</last><affiliation>Heidelberg University</affiliation></author>
       <author><first>Juri</first><last>Opitz</last><affiliation>Heidelberg University</affiliation></author>
       <author><first>Anette</first><last>Frank</last><affiliation>Heidelberg University</affiliation></author>
-      <author><first>Katja</first><last>Markert</last><affiliation>Heidelberg University</affiliation></author>
+      <author id="katja-markert"><first>Katja</first><last>Markert</last><affiliation>Heidelberg University</affiliation></author>
       <pages>914-924</pages>
       <abstract>Conditional language models still generate unfaithful output that is not supported by their input. These unfaithful generations jeopardize trust in real-world applications such as summarization or human-machine interaction, motivating a need for automatic faithfulness metrics. To implement such metrics, NLI models seem attractive, since they solve a strongly related task that comes with a wealth of prior research and data. But recent research suggests that NLI models require costly additional machinery to perform reliably across datasets, e.g., by running inference on a cartesian product of input and generated sentences, or supporting them with a question-generation/answering step. In this work we show that pure NLI models _can_ outperform more complex metrics when combining task-adaptive data augmentation with robust inference procedures. We propose: (1) Augmenting NLI training data toadapt NL inferences to the specificities of faithfulness prediction in dialogue;(2) Making use of both entailment and contradiction probabilities in NLI, and(3) Using Monte-Carlo dropout during inference. Applied to the TRUE benchmark, which combines faithfulness datasets across diverse domains and tasks, our approach strongly improves a vanilla NLI model and significantly outperforms previous work, while showing favourable computational cost.</abstract>
       <url hash="3e4416d0">2023.acl-short.79</url>
@@ -15318,7 +15318,7 @@
     <paper id="163">
       <title>Improving Grammar-based Sequence-to-Sequence Modeling with Decomposition and Constraints</title>
       <author><first>Chao</first><last>Lou</last><affiliation>ShanghaiTech University</affiliation></author>
-      <author><first>Kewei</first><last>Tu</last><affiliation>ShanghaiTech University</affiliation></author>
+      <author id="kewei-tu"><first>Kewei</first><last>Tu</last><affiliation>ShanghaiTech University</affiliation></author>
       <pages>1918-1929</pages>
       <abstract>Neural QCFG is a grammar-based sequence-to-sequence model with strong inductive biases on hierarchical structures. It excels in interpretability and generalization but suffers from expensive inference. In this paper, we study two low-rank variants of Neural QCFG for faster inference with different trade-offs between efficiency and expressiveness. Furthermore, utilizing the symbolic interface provided by the grammar, we introduce two soft constraints over tree hierarchy and source coverage. We experiment with various datasets and find that our models outperform vanilla Neural QCFG in most settings.</abstract>
       <url hash="ac111fb0">2023.acl-short.163</url>
