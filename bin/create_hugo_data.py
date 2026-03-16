@@ -305,7 +305,11 @@ def export_papers_and_volumes(anthology, builddir, dryrun):
 
                 # Now build the data for every paper
                 for paper in volume.papers():
-                    data = paper_to_dict(paper)
+                    try:
+                        data = paper_to_dict(paper)
+                    except ValueError as e:
+                        log.error(f"Paper {paper.full_id}: {e}")
+                        continue
                     data.update(volume_data)
                     collection_papers[paper.full_id] = data
                     if "bibtex" in data:
