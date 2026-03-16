@@ -162,7 +162,11 @@ def paper_to_dict(paper):
     if (language_name := paper.language_name) is not None:
         data["language"] = language_name
     if (abstract := paper.abstract) is not None:
-        data["abstract_html"] = remove_extra_whitespace(abstract.as_html())
+        try:
+            data["abstract_html"] = remove_extra_whitespace(abstract.as_html())
+        except ValueError as e:
+            log.error(f"Paper {paper.full_id}: error processing abstract: {e}")
+            data["abstract_html"] = abstract.as_xml()
         data["abstract_raw"] = abstract.as_xml()
     if paper.attachments:
         data["attachment"] = [
