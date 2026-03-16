@@ -17,7 +17,7 @@ import pkgutil
 from attrs import define, field
 from lxml import etree
 from TexSoup import TexSoup
-from TexSoup.data import TexCmd, TexText, TexGroup
+from TexSoup.data import TexCmd, TexText, TexGroup, TexMathModeEnv
 from typing import Literal, Tuple, Union, overload
 
 from ..utils.logging import get_logger
@@ -124,7 +124,7 @@ class _TexMath:
             elif isinstance(code, (str, TexText)):
                 # code is text
                 sxscript = self._parse_text(code, trg)
-            elif isinstance(code, TexGroup):
+            elif isinstance(code, (TexGroup, TexMathModeEnv)):
                 # If in subscript/superscript, wrap the entire element in respective tag
                 if sxscript:
                     my_trg = etree.Element(sxscript)
@@ -135,7 +135,7 @@ class _TexMath:
                 else:
                     self._parse(code.contents, trg)
             else:
-                log.error(f"TeX-math parser got unhandled element: {type(code)}")
+                raise ValueError(f"TeX-math parser got unhandled element: {type(code)}")
 
     def _parse_command(self, code: TexCmd, trg: etree._Element) -> None:
         args = list(code.args)
