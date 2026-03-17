@@ -1,0 +1,257 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2026.loresmt">
+  <volume id="1" type="proceedings" ingest-date="2026-03-17">
+    <meta>
+      <booktitle>Proceedings for the Ninth Workshop on Technologies for Machine Translation of Low Resource Languages (<fixed-case>L</fixed-case>o<fixed-case>R</fixed-case>es<fixed-case>MT</fixed-case> 2026)</booktitle>
+      <editor><first>Atul Kr.</first><last>Ojha</last></editor>
+      <editor><first>Chao-hong</first><last>Liu</last></editor>
+      <editor><first>Ekaterina</first><last>Vylomova</last></editor>
+      <editor><first>Flammie</first><last>Pirinen</last></editor>
+      <editor><first>Jonathan</first><last>Washington</last></editor>
+      <editor><first>Nathaniel</first><last>Oco</last></editor>
+      <editor><first>Xiaobing</first><last>Zhao</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Rabat, Morocco</address>
+      <isbn>979-8-89176-366-1</isbn>
+      <month>March</month>
+      <year>2026</year>
+      <url hash="9b120095">2026.loresmt-1</url>
+      <venue>loresmt</venue>
+    </meta>
+    <frontmatter>
+      <url hash="0f563c5b">2026.loresmt-1.0</url>
+      <bibkey>loresmt-2026-1</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Are Small Language Models the Silver Bullet to Low-Resource Languages Machine Translation?</title>
+      <author id="yewei-song" orcid="0000-0002-6314-7515"><first>Yewei</first><last>Song</last></author>
+      <author><first>Lujun</first><last>Li</last><affiliation>University of Luxemburg</affiliation></author>
+      <author id="cedric-lothritz" orcid="0000-0002-5372-7970"><first>Cedric</first><last>Lothritz</last><affiliation>Luxembourg Institute of Science and Technology</affiliation></author>
+      <author id="saad-ezzini" orcid="0000-0001-7657-4738"><first>Saad</first><last>Ezzini</last><affiliation>King Fahad University of Petroleum and Minerals</affiliation></author>
+      <author id="lama-sleem" orcid="0000-0001-9503-1587"><first>Lama</first><last>Sleem</last><affiliation>University of Luxemburg</affiliation></author>
+      <author><first>Niccolo'</first><last>Gentile</last><affiliation>Foyer Group</affiliation></author>
+      <author><first>Radu</first><last>State</last></author>
+      <author id="tegawende-f-bissyande" orcid="0000-0001-7270-9869"><first>Tegawendé F.</first><last>Bissyandé</last><affiliation>University of Luxemburg</affiliation></author>
+      <author id="jacques-klein" orcid="0000-0003-4052-475X"><first>Jacques</first><last>Klein</last><affiliation>University of Luxemburg</affiliation></author>
+      <pages>1-26</pages>
+      <abstract>Small language models (SLMs) offer computationally efficient alternatives to large language models, yet their translation quality for low-resource languages (LRLs) remains severely limited. This work presents the first large-scale evaluation of SLMs across 200 languages, revealing systematic underperformance in LRLs and identifying key sources of linguistic disparity. We show that knowledge distillation from strong teacher models using predominantly monolingual LRL data substantially boosts SLM translation quality—often enabling 2B–3B models to match or surpass systems up to 70B parameters. Our study highlights three core findings: (1) a comprehensive benchmark exposing the limitations of SLMs on 200 languages; (2) evidence that LRL-focused distillation improves translation without inducing catastrophic forgetting, with full-parameter fine-tuning and decoder-only teachers outperforming LoRA and encoder–decoder approaches; and (3) consistent cross-lingual gains demonstrating the scalability and robustness of the method. These results establish an effective, low-cost pathway for improving LRL translation and provide practical guidance for deploying SLMs in truly low-resource settings.</abstract>
+      <url hash="49151946">2026.loresmt-1.1</url>
+      <bibkey>song-etal-2026-small</bibkey>
+    </paper>
+    <paper id="2">
+      <title>Tao–<fixed-case>F</fixed-case>ilipino Neural Machine Translation: Strategies for Ultra–Low-Resource Settings</title>
+      <author><first>Adrian Denzel</first><last>Macayan</last></author>
+      <author><first>Luis Andrew Sunga</first><last>Madridijo</last></author>
+      <author><first>Ellexandrei</first><last>Esponilla</last></author>
+      <author><first>Zachary Mitchell</first><last>Francisco</last></author>
+      <pages>27-36</pages>
+      <abstract>Neural Machine Translation (NMT) performance degrades significantly in ultra-low resource settings, particularly for endangeredlanguages like Tao (Yami) which lack extensive parallel corpora. This study investigates strategies to bootstrap a Tao-Tagalog translation system using the NLLB-200 (600 million parameter) model under extremely limited supervision. We propose a multi-faceted approach combining domain-specific fine-tuning, synthetic data augmentation, and cross-lingual transfer learning. Specifically, we leverage the phylogenetic proximity of Ivatan, a related Batanic language, to pre-train the model, and utilize dictionary-based generation to construct synthetic conversational data. Our results demonstrate that transfer learning from Ivatan improves translation quality on in-domain religious texts, achieving a BLEU score of 34.85. Conversely, incorporating synthetic data enhances the model’s ability to generalize to conversational contexts, mitigating the domain bias often inherent in religious corpora. These findings highlight the effectiveness of exploiting linguistic typology and structured lexical resources to develop functional NMT systems for under-represented Austronesian languages.</abstract>
+      <url hash="957d17e6">2026.loresmt-1.2</url>
+      <bibkey>macayan-etal-2026-tao</bibkey>
+    </paper>
+    <paper id="3">
+      <title>Text Filter Based on Automatically Acquired Vocabularies for Multilingual Machine Translation</title>
+      <author><first>Kenji</first><last>Imamura</last><affiliation>National Institute of Information and Communications Technology (NICT), National Institute of Advanced Industrial Science and Technology</affiliation></author>
+      <author><first>Masao</first><last>Utiyama</last><affiliation>National Institute of Information and Communications Technology (NICT), National Institute of Advanced Industrial Science and Technology</affiliation></author>
+      <pages>37-48</pages>
+      <abstract>In this paper, we propose a text filter designed to support multiple languages. The method simply aggregates vocabulary from a monolingual corpus and compares it against the input. Despite its simplicity, the approach proves highly effective in removing code-mixed text.When combined with existing language identification techniques, our method can enhance the purity of the corpus in the target language. Consequently, applying it to parallel corpora for machine translation has the potential to improve translation quality.Additionally, the proposed method supports the incremental addition of new languages without the need to retrain those already learned. This feature easily enables our method to be applied to low-resource languages.</abstract>
+      <url hash="b5956b7b">2026.loresmt-1.3</url>
+      <bibkey>imamura-utiyama-2026-text</bibkey>
+    </paper>
+    <paper id="4">
+      <title>Comparing <fixed-case>LLM</fixed-case>-Based Translation Approaches for Extremely Low-Resource Languages</title>
+      <author id="jared-coleman" orcid="0000-0003-1227-2962"><first>Jared</first><last>Coleman</last><affiliation>Loyola Marymount University</affiliation></author>
+      <author><first>Ruben</first><last>Rosales</last></author>
+      <author><first>Kira</first><last>Toal</last></author>
+      <author><first>Diego</first><last>Cuadros</last></author>
+      <author><first>Nicholas</first><last>Leeds</last><affiliation>Loyola Marymount University</affiliation></author>
+      <author id="bhaskar-krishnamachari" orcid="0000-0002-9994-9931"><first>Bhaskar</first><last>Krishnamachari</last><affiliation>University of Southern California</affiliation></author>
+      <author><first>Khalil</first><last>Iskarous</last><affiliation>University of Southern California</affiliation></author>
+      <pages>49-68</pages>
+      <abstract>We present a comprehensive evaluation and extension of the LLM-Assisted Rule-Based Machine Translation (LLM-RBMT) paradigm, an approach that combines the strengths of rule-based methods and Large Language Models (LLMs) to support translation in no-resource settings. We present a robust new implementation (the Pipeline Translator) that generalizes the LLM-RBMT approach and enables flexible adaptation to novel constructions. We benchmark it against four alternatives (Builder, Instructions, RAG, and Fine-tuned translators) on a curated dataset of 150 English sentences, and compare them across translation quality and runtime. The Pipeline Translator consistently achieves the best overall performance. The LLM-RBMT methods (Pipeline and Builder) also offer an important advantage: they naturally align with evaluation strategies that prioritize grammaticality and semantic fidelity over surface-form overlap, which is critical for endangered languages where mistranslation carries high risk.</abstract>
+      <url hash="6ba7bbb4">2026.loresmt-1.4</url>
+      <bibkey>coleman-etal-2026-comparing</bibkey>
+    </paper>
+    <paper id="5">
+      <title>Can <fixed-case>LLM</fixed-case>s Translate <fixed-case>I</fixed-case>taly’s Language Varieties?</title>
+      <author id="edoardo-signoroni" orcid="0000-0002-1029-8299"><first>Edoardo</first><last>Signoroni</last><affiliation>Masaryk University</affiliation></author>
+      <author id="pavel-rychly-4610" orcid="0000-0001-5097-4610"><first>Pavel</first><last>Rychlý</last><affiliation>Masaryk University and Lexical Computing</affiliation></author>
+      <pages>69-77</pages>
+      <abstract>We evaluate the capabilities of several small large language models (LLMs) to translate between Italian and six low-resource language varieties from Italy (Friulan, Ligurian, Lombard, Sicilian, Sardinian, and Venetian). Using recent benchmark datasets, such as FLORES+ and OLDI-Seed, we compare prompting and fine-tuning approaches for downstream translation, evaluated with CHRF scores. Our findings confirm that these LLMs struggle to translate into and from these low-resource language varieties. Pretraining and fine-tuning a small LLM did not yield improvements over a zero-shot baseline. These results underscore the need for further NLP research on Italy’s low-resource language varieties. As the digital divide continues to threaten the conservation of this diverse linguistic landscape, greater engagement with speaker communities to create better and more representative datasets is essential to boost the translation performance of current LLMs.</abstract>
+      <url hash="9c0c19bf">2026.loresmt-1.5</url>
+      <bibkey>signoroni-rychly-2026-llms</bibkey>
+    </paper>
+    <paper id="6">
+      <title>Balancing Fluency and Adherence: Hybrid Fallback Term Injection in Low-Resource Terminology Translation</title>
+      <author><first>Kurt</first><last>Abela</last></author>
+      <author id="marc-tanti" orcid="0000-0002-7156-0596"><first>Marc</first><last>Tanti</last><affiliation>University of Malta</affiliation></author>
+      <author id="claudia-borg" orcid="0000-0001-8704-6893"><first>Claudia</first><last>Borg</last><affiliation>University of Malta</affiliation></author>
+      <pages>78-86</pages>
+      <abstract>Integrating domain-specific terminology into Machine Translation systems is a persistent challenge, particularly in low-resource and morphologically-rich scenarios where models lack the robustness to handle imposed constraints. This paper investigates the trade-off between static dictionary-based data augmentation and dynamic inference constraints (Constrained Beam Search). We evaluate these methods on two high-to-low resource language pairs: English-Maltese (Semitic) and English-Slovak (Slavic). Our experiments reveal a dichotomy: while dynamic constraints achieve near-perfect Terminology Insertion Rates (TIR), they drastically degrade translation quality (BLEU) in low-resource settings, breaking the fragile fluency of the model. Conversely, static augmentation improves terminology adherence on unseen terms in Maltese (4% <tex-math>\rightarrow</tex-math> 19%), but fails in the context of a highly inflected language like Slovak. To resolve this conflict, we propose Hybrid Fallback Term Injections, a strategy that prioritizes the fluency of static models while using dynamic constraints as a safety net. This approach recovers up to 90% of missing terms while mitigating the quality degradation of pure constraint approaches, providing a viable solution for high-fidelity translation in data-scarce environments.</abstract>
+      <url hash="d4746079">2026.loresmt-1.6</url>
+      <bibkey>abela-etal-2026-balancing</bibkey>
+    </paper>
+    <paper id="7">
+      <title>Context Volume Drives Performance: Tackling Domain Shift in Extremely Low-Resource Translation via <fixed-case>RAG</fixed-case></title>
+      <author><first>David Samuel</first><last>Setiawan</last></author>
+      <author id="raphael-merx" orcid="0009-0007-3242-2311"><first>Raphael</first><last>Merx</last><affiliation>University of Melbourne</affiliation></author>
+      <author id="jey-han-lau" orcid="0000-0002-1647-4628"><first>Jey Han</first><last>Lau</last><affiliation>The University of Melbourne</affiliation></author>
+      <pages>87-101</pages>
+      <abstract>Neural Machine Translation (NMT) models for low-resource languages suffer significant performance degradation under domain shift. We quantify this challenge using **Dhao**, an indigenous language of Eastern Indonesia with no digital footprint beyond the New Testament (NT). When applied to the unseen Old Testament (OT), a standard NMT model fine-tuned on the NT drops from an in-domain score of 36.17 chrF++ to 27.11 chrF++. To recover this loss, we introduce a **hybrid framework** where a fine-tuned NMT model generates an initial draft, which is then refined by a Large Language Model (LLM) using Retrieval-Augmented Generation (RAG). The final system achieves 35.21 chrF++ (<tex-math>+8.10</tex-math> recovery), effectively matching the original in-domain quality. Our analysis reveals that this performance is driven primarily by the **number of retrieved examples** rather than the choice of retrieval algorithm. Qualitative analysis confirms the LLM acts as a robust "safety net," repairing severe failures in zero-shot domains.</abstract>
+      <url hash="e3cf8337">2026.loresmt-1.7</url>
+      <bibkey>setiawan-etal-2026-context</bibkey>
+    </paper>
+    <paper id="8">
+      <title>Building and Evaluating a High Quality Parallel Corpus for <fixed-case>E</fixed-case>nglish <fixed-case>U</fixed-case>rdu Low Resource Machine Translation</title>
+      <author><first>Munief Hassan</first><last>Tahir</last><affiliation>Al Khawarizmi Institute of Computer Science, University of Engineering and Technology, Lahore, Pakistan</affiliation></author>
+      <author><first>Hunain</first><last>Azam</last></author>
+      <author id="sana-shams" orcid="0009-0007-3719-4565"><first>Sana</first><last>Shams</last><affiliation>Al Khawarzmi Institute of Computer Science</affiliation></author>
+      <author><first>Sarmad</first><last>Hussain</last></author>
+      <pages>102-110</pages>
+      <abstract>Low-resource languages like Urdu suffer from limited high quality parallel data for machine translation. We introduce a curated English–Urdu corpus of 80,749 high-fidelity sentence pairs across 18 diverse domains, built via ethical collection, manual alignment, deduplication, and strict length-based filtering (AWCD <tex-math>\leq</tex-math> 5). The corpus is converted into a bidirectional SFT dataset with bilingual (English/Urdu) instructions to enhance prompt-language robustness. Fine-tuning Llama-3.1-8B-Instruct (Llama-FT) and UrduLlama 1.1 (UrduLlama-FT) yields major gains over the baseline. sacreBLEU scores reach 24.65–25.24 (En<tex-math>\to</tex-math>Ur) and 76.14–77.97 (Ur<tex-math>\to</tex-math>En) for Llama-FT, with minimal sensitivity to prompt language. Blind human evaluation on 90 sentences per direction confirms substantial perceptual improvements. Results demonstrate the value of clean parallel data and bilingual instruction tuning, revealing complementary benefits of general SFT versus Urdu specific pretraining. This work provides a reproducible resource and pipeline to advance Urdu machine translation and similar low-resource languages.</abstract>
+      <url hash="dc3b9972">2026.loresmt-1.8</url>
+      <bibkey>tahir-etal-2026-building</bibkey>
+    </paper>
+    <paper id="9">
+      <title>Semi-Automatic construction of a <fixed-case>Q</fixed-case>uechua-<fixed-case>S</fixed-case>panish dictionary</title>
+      <author><first>Maximiliano</first><last>Duran</last><affiliation>NA</affiliation></author>
+      <author id="max-silberztein-6463" orcid="0000-0003-0930-6463"><first>Max</first><last>Silberztein</last></author>
+      <pages>111-118</pages>
+      <abstract>This paper presents a set of linguistic resources that describes Quechua verbs. We first present a dictionary of 1,444 fundamental Quechua verbs, associated with morpho-syntactic grammars to formalize their inflection and their derivations, that can be used to produce over 2,777,000 conjugated Quechua derived verbal forms. We aligned this list of Quechua verbal forms with the corresponding Spanish dictionary that contains 618,000 conjugated verbal forms, thus producing both a Spanish to Quechua and a Quechua to Spanish dictionary.</abstract>
+      <url hash="9300c0d6">2026.loresmt-1.9</url>
+      <bibkey>duran-silberztein-2026-semi</bibkey>
+    </paper>
+    <paper id="10">
+      <title>Improving Indigenous Language Machine Translation with Synthetic Data and Language-Specific Preprocessing</title>
+      <author><first>Aashish</first><last>Dhawan</last></author>
+      <author id="christopher-driggers-ellis" orcid="0009-0006-8063-7571"><first>Christopher</first><last>Driggers-Ellis</last><affiliation>University of Florida</affiliation></author>
+      <author id="christan-grant" orcid="0000-0002-6684-3620"><first>Christan</first><last>Grant</last><affiliation>University of Florida</affiliation></author>
+      <author id="daisy-zhe-wang-5482" orcid="0009-0003-8234-5482"><first>Daisy Zhe</first><last>Wang</last><affiliation>University of Florida</affiliation></author>
+      <pages>119-126</pages>
+      <abstract>Machine translation for Indigenous and other low-resource languages is constrained by limited parallel data, orthographic variation, and evaluation instability for morphologically rich languages. In this work, we study Spanish–Aymara, Spanish–Guarani, and Spanish–Quechua translation in the context of the AmericasNLP benchmarks, focusing on data-centric improvements rather than architectural changes. We augment curated parallel corpora with forward-translated synthetic sentence pairs generated using a high-capacity multilingual translation model, while applying conservative, language-specific preprocessing tailored to each language. Training data is filtered using length-ratio constraints and deduplication, whereas official development sets are left unfiltered to ensure fair evaluation. We fine-tune a multilingual mBART model under curated-only and curated+synthetic settings and evaluate performance primarily using chrF++, which is better suited for agglutinative languages than BLEU. Across all three languages, synthetic data augmentation consistently improves chrF++, with the largest gains observed for Aymara and Guarani, while Quechua benefits primarily from deterministic orthographic normalization. Our analysis highlights both the effectiveness and the limitations of generic preprocessing for highly agglutinative languages, suggesting that data-centric augmentation and language-aware normalization are strong, reproducible baselines for low-resource Indigenous language machine translation.</abstract>
+      <url hash="92713534">2026.loresmt-1.10</url>
+      <bibkey>dhawan-etal-2026-improving</bibkey>
+    </paper>
+    <paper id="11">
+      <title>Adapting Multilingual <fixed-case>NMT</fixed-case> to Language Isolates: The Role of Proxy Language Selection and Dialect Handling for Nivkh</title>
+      <author id="eleonora-izmailova" orcid="0009-0002-3539-222X"><first>Eleonora</first><last>Izmailova</last><affiliation>MSU Center of Artificial Intelligence</affiliation></author>
+      <author><first>Alexey</first><last>Sorokin</last><affiliation>MSU Center of Artificial Intelligence and Yandex</affiliation></author>
+      <author><first>Pavel</first><last>Grashchenkov</last><affiliation>RCC MSU</affiliation></author>
+      <pages>127-137</pages>
+      <abstract>Neural machine translation has achieved remarkable results for high-resource languages, yet language isolates – those with no demonstrated genetic relatives – remain severely underserved, as they cannot benefit from cross-lingual transfer with related languages. We present the first NMT system for Nivkh, a critically endangered language isolate spoken by fewer than 100 fluent speakers in the Russian Far East. Working with approximately 9.5k parallel sentences – expanded through fine-tuned LaBSE sentence alignment – we adapt NLLB-200 to Nivkh-Russian translation. Since Nivkh is absent from NLLB’s language inventory, we investigate proxy language token selection, comparing six typologically diverse languages: Bashkir, Kazakh, Halh Mongolian, Turkish, Tajik, and French. We find that using any proxy substantially outperforms random token initialization (BLEU 18-19.02 vs. 15.44 for rus→niv), confirming the value of proxy-based transfer. However, the choice of which proxy has minimal impact, with all six achieving comparable results despite spanning four language families and two scripts. This suggests that for language isolates, practitioners can select any typologically reasonable proxy without significant performance penalty. We additionally present preliminary experiments on dialect-specific models for Amur and Sakhalin Nivkh. Our findings establish baseline results for future Nivkh NLP research and provide practical guidance for adapting multilingual models to other language isolates.</abstract>
+      <url hash="ddb4e6bb">2026.loresmt-1.11</url>
+      <bibkey>izmailova-etal-2026-adapting</bibkey>
+    </paper>
+    <paper id="12">
+      <title>A Fine-Grained Linguistic Evaluation of Low-Resource <fixed-case>L</fixed-case>uxembourgish–<fixed-case>E</fixed-case>nglish <fixed-case>MT</fixed-case></title>
+      <author><first>Nils</first><last>Rehlinger</last><affiliation>University of Luxemburg</affiliation></author>
+      <pages>138-150</pages>
+      <abstract>Machine translation (MT) evaluation is central in guiding researchers on how to improve a model’s performance. Current automatic evaluation practices fail to provide reliable insights into the specific translation errors that occur, especially for low-resource languages. This paper introduces the Lux-MT-Test-Suite, enabling a linguistically motivated and fine-grained analysis of Luxembourgish–English (LB-EN) MT based on 896 test items covering 12 linguistic categories and 36 linguistic phenomena. We compare a baseline local LLM (Gemma 3), its fine-tuned counterpart (LuxMT), and a proprietary state-of-the-art LLM (GPT-5) to analyse what local LLMs learn through fine-tuning in a low-resource setting and to assess performance differences between local and proprietary systems. The findings identify specific performance gains through fine-tuning, minor degradations, a difference in translation strategies, performance gaps between local and proprietary models, and remaining challenges.</abstract>
+      <url hash="e80f6e81">2026.loresmt-1.12</url>
+      <bibkey>rehlinger-2026-fine</bibkey>
+    </paper>
+    <paper id="13">
+      <title>Assessing and Improving Punctuation Robustness in <fixed-case>E</fixed-case>nglish-<fixed-case>M</fixed-case>arathi Machine Translation</title>
+      <author id="kaustubh-shivshankar-shejole" orcid="0009-0004-8072-1680"><first>Kaustubh Shivshankar</first><last>Shejole</last></author>
+      <author><first>Sourabh</first><last>Deoghare</last></author>
+      <author><first>Pushpak</first><last>Bhattacharyya</last><affiliation>Indian Institute of Technology, Bombay, Dhirubhai Ambani Institute Of Information and Communication Technology</affiliation></author>
+      <pages>151-167</pages>
+      <abstract>Neural Machine Translation (NMT) systems rely heavily on explicit punctuation cues to resolve semantic ambiguities in a source sentence. Inputting user-generated sentences, which are likely to contain missing or incorrect punctuation, results in fluent but semantically disastrous translations. This work attempts to highlight and address the problem of punctuation robustness of NMT systems through an English-to-Marathi translation. First, we introduce <b><i>Virām</i></b>, a human-curated diagnostic benchmark of 54 punctuation-ambiguous English-Marathi sentence pairs to stress-test existing NMT systems. Second, we evaluate two simple remediation strategies: cascade-based <i>restore-then-translate</i> and <i>direct fine-tuning</i>. Our experimental results and analysis demonstrate that both strategies yield substantial NMT performance improvements. Furthermore, we find that current Large Language Models (LLMs) exhibit relatively poorer robustness in translating such sentences than these task-specific strategies, thus necessitating further research in this area. The code and dataset are available at https://github.com/KaustubhShejole/Viram_Marathi.</abstract>
+      <url hash="e39666ec">2026.loresmt-1.13</url>
+      <bibkey>shejole-etal-2026-assessing</bibkey>
+    </paper>
+    <paper id="14">
+      <title>Can Linguistically Related Languages Guide <fixed-case>LLM</fixed-case> Translation in Low-Resource Settings?</title>
+      <author id="aishwarya-ramasethu" orcid="0009-0000-7185-022X"><first>Aishwarya</first><last>Ramasethu</last><affiliation>Prediction Guard</affiliation></author>
+      <author><first>Rohin</first><last>Garg</last><affiliation>Scale AI</affiliation></author>
+      <author><first>Niyathi</first><last>Allu</last></author>
+      <author><first>Harshwardhan</first><last>Fartale</last><affiliation>ZS</affiliation></author>
+      <author><first>Dun Li</first><last>Chan</last></author>
+      <pages>168-185</pages>
+      <abstract>Large Language Models (LLMs) have achieved strong performance across many downstream tasks, yet their effectiveness in extremely low-resource machine translation remains limited. Standard adaptation techniques typically rely on large-scale parallel data or extensive fine-tuning, which are infeasible for the long tail of underrepresented languages. In this work, we investigate a more constrained question: in data-scarce settings, to what extent can linguistically similar pivot languages and few-shot demonstrations provide useful guidance for on-the-fly adaptation in LLMs? We study a data-efficient experimental setup that combines linguistically related pivot languages with few-shot in-context examples, without any parameter updates, and evaluate translation behavior under controlled conditions. Our analysis shows that while pivot-based prompting can yield improvements in certain configurations, particularly in settings where the target language is less well represented in the model’s vocabulary, the gains are often modest and sensitive to few shot example construction. For closely related or better represented varieties, we observe diminishing or inconsistent gains. Broadly, our findings provide empirical guidance on how and when inference-time prompting and pivot-based examples can be used as a lightweight alternative to fine-tuning in low-resource translation settings.</abstract>
+      <url hash="2f3e95ad">2026.loresmt-1.14</url>
+      <bibkey>ramasethu-etal-2026-linguistically</bibkey>
+    </paper>
+    <paper id="15">
+      <title><fixed-case>CTC</fixed-case> Regularization for Low-Resource Speech-to-Text Translation</title>
+      <author id="zachary-william-hopton" orcid="0000-0003-2397-2470"><first>Zachary William</first><last>Hopton</last><affiliation>University of Zurich</affiliation></author>
+      <author id="rico-sennrich" orcid="0000-0002-1438-4741"><first>Rico</first><last>Sennrich</last><affiliation>University of Zurich</affiliation></author>
+      <pages>186-197</pages>
+      <abstract>The challenges of building speech-to-text translation (ST) systems (e.g., a relative lack of parallel speech–text data and robustness to noise in audio) are exacerbated for low-resource language pairs. In this work, we seek to improve low-resource ST by building on previous studies that regularize ST training with the connectionist temporal classification (CTC) loss. By systematically evaluating a diverse range of linguistic annotations as CTC labels across multiple auxiliary loss configurations, we improve speech translation systems for both low- and high-resource settings. These improvements over both a standard end-to-end ST system and a speech LLM indicate a need for continued research on regularizing speech representations in ST.</abstract>
+      <url hash="d9b71572">2026.loresmt-1.15</url>
+      <bibkey>hopton-sennrich-2026-ctc</bibkey>
+    </paper>
+    <paper id="16">
+      <title>Navigating Data Scarcity in Low-Resource <fixed-case>E</fixed-case>nglish-<fixed-case>T</fixed-case>atar Translation using <fixed-case>LLM</fixed-case> Fine-Tuning</title>
+      <author><first>Ahmed Khaled</first><last>Khamis</last><affiliation>Georgia Institute of Technology</affiliation></author>
+      <pages>198-202</pages>
+      <abstract>The scarcity of high-quality parallel corpora remains the primary bottleneck for English-Tatar machine translation. While the OPUS project provides various datasets, our tests reveal that datasets like WikiMatrix, GNOME, and NLLB, suffer from significant noise and incorrect labeling, making them unsuitable for training robust encoder-decoder translation models that typically requires larger amount of high quality data. Furthermore, we demonstrate that small-scale multilingual Large Language Models (LLMs), such as Qwen3 (4B-30B), Gemma3 (4B-12B) and others, show severe "Turkish interference", and they frequently hallucinate Turkish vocabulary when prompted for Tatar.In this paper, we navigate this data scarcity by leveraging Llama 3.3 70B Instruct, which is the only model in our zero-shot benchmarks capable of maintaining distinct linguistic boundaries for Tatar. To address the lack of gold-standard data, we curated a synthetic dataset of 7,995 high-quality translation pairs using a frontier model as a teacher. We then performed 4-bit LoRA fine-tuning to train Llama for English-Tatar translation. Our results show a performance leap: while fine-tuning on the limited Tatoeba dataset (1,193 samples) yielded a CHRF++ score of 24.38, while fine-tuning on our synthetic dataset achieved 32.02 on the LoResMT 2026 shared task test set. We release our curated dataset and fine-tuned models to support further research in low-resource Turkic machine translation.</abstract>
+      <url hash="2cc35548">2026.loresmt-1.16</url>
+      <bibkey>khamis-2026-navigating</bibkey>
+    </paper>
+    <paper id="17">
+      <title>No One-Size-Fits-All: Building Systems For Translation to <fixed-case>B</fixed-case>ashkir, <fixed-case>K</fixed-case>azakh, <fixed-case>K</fixed-case>yrgyz, <fixed-case>T</fixed-case>atar and <fixed-case>C</fixed-case>huvash Using Synthetic And Original Data</title>
+      <author><first>Dmitry</first><last>Karpov</last><affiliation>Severstal</affiliation></author>
+      <pages>203-208</pages>
+      <abstract>We explore machine translation for five Turkic language pairs: Russian-Bashkir, Russian-Kazakh, Russian-Kyrgyz, English-Tatar, English-Chuvash. Fine-tuning nllb-200-distilled-600M with LoRA on synthetic data achieved chrF++ 49.71 for Kazakh and 46.94 for Bashkir. Prompting DeepSeek-V3.2 with retrieved similar examples achieved chrF++ 39.47 for Chuvash. For Tatar, zero-shot or retrieval-based approaches achieved chrF++ 41.6, while for Kyrgyz the zero-shot approach reached 45.6. We release the dataset and the obtained weights.</abstract>
+      <url hash="d57fe596">2026.loresmt-1.17</url>
+      <bibkey>karpov-2026-one</bibkey>
+    </paper>
+    <paper id="18">
+      <title><fixed-case>D</fixed-case>ev<fixed-case>L</fixed-case>ake at <fixed-case>L</fixed-case>o<fixed-case>R</fixed-case>es<fixed-case>MT</fixed-case> 2026: The Impact of Pre-training and Model Scale on <fixed-case>R</fixed-case>ussian-<fixed-case>B</fixed-case>ashkir Low-Resource Translation</title>
+      <author id="vyacheslav-tyurin" orcid="0009-0001-0689-6798"><first>Vyacheslav</first><last>Tyurin</last><affiliation>Tyumen Industrial University</affiliation></author>
+      <pages>209-212</pages>
+      <abstract>This paper describes the submission of Team DevLake for the LoResMT 2026 Shared Task on Russian-Bashkir machine translation. We conducted a comprehensive comparative study of three distinct neural architectures: NLLB-200 (1.3B), M2M-100 (418M), and MarianMT (77M). To overcome hardware constraints, we employed parameter-efficient fine-tuning techniques (QLoRA) and extensive data filtering using a domain-specific BERT-based classifier. Our experiments demonstrate that the presence of the target language (Bashkir) in the model’s pre-training data is the decisive factor for performance. Our best system, a fine-tuned NLLB-200-1.3B model augmented with exact match retrieval, achieved a CHRF++ score of 52.67. We also report on negative results with custom tokenization for smaller models, providing insights into the limitations of vocabulary adaptation without extensive pre-training.</abstract>
+      <url hash="dfaa08f9">2026.loresmt-1.18</url>
+      <bibkey>tyurin-2026-devlake</bibkey>
+    </paper>
+    <paper id="19">
+      <title>A Comparative Evaluation of Open-Source Models for <fixed-case>R</fixed-case>ussian-<fixed-case>K</fixed-case>azakh Translation</title>
+      <author><first>Gleb</first><last>Shanshin</last><affiliation>ITMO University</affiliation></author>
+      <pages>213-216</pages>
+      <abstract>We describe an evaluation of several open-source models under identical inference conditions without task-specific training. Despite covering a wide range of available models, including both multilingual systems and models specifically designed for Russian-Kazakh translation, the results indicate that the highest performance is achieved by the language-specific approach.</abstract>
+      <url hash="c2793355">2026.loresmt-1.19</url>
+      <bibkey>shanshin-2026-comparative</bibkey>
+    </paper>
+    <paper id="20">
+      <title>Script Correction and Synthetic Pivoting: Adapting Tencent <fixed-case>HY</fixed-case>-<fixed-case>MT</fixed-case> for Low-Resource <fixed-case>T</fixed-case>urkic Translation</title>
+      <author id="bolgov-maxim" orcid="0009-0003-5163-5508"><first>Bolgov</first><last>Maxim</last><affiliation>None</affiliation></author>
+      <pages>217-221</pages>
+      <abstract>This paper describes a submission to the LoResMT 2026 Shared Task for the Russian-Kazakh, Russian-Bashkir, and English-Chuvash tracks. The primary approach involves parameter-efficient fine-tuning (LoRA) of the Tencent HY-MT1.5-7B multilingual model. For the Russian-Kazakh and Russian-Bashkir pairs, LoRA adaptation was employed to correct the model’s default Arabic script output to Cyrillic. For the extremely low-resource English-Chuvash pair, two strategies were compared: mixed training on authentic English-Chuvash and Russian-Chuvash data versus training exclusively on a synthetic English-Chuvash corpus created via pivoting through Russian. Baseline systems included NLLB 1.3B (distilled) for Russian-Kazakh and Russian-Bashkir, and Gemma 2 3B for English-Chuvash. Results demonstrate that adapting a strong multilingual backbone with LoRA yields significant improvements over baselines while successfully addressing script mismatch challenges. Code for training and inference is released at: https://github.com/defdet/low-resource-langs-mt-adapt</abstract>
+      <url hash="4756869d">2026.loresmt-1.20</url>
+      <bibkey>maxim-2026-script</bibkey>
+    </paper>
+    <paper id="21">
+      <title>Machine Translation for Low Resource <fixed-case>T</fixed-case>urkic Languages: <fixed-case>E</fixed-case>nglish-<fixed-case>T</fixed-case>atar</title>
+      <author><first>Alexander</first><last>Dikov</last></author>
+      <pages>222-224</pages>
+      <abstract>This paper outlines our winning submission to the English-to-Tatar translation task. We evaluated three strategies: few-shot prompting with Gemini 3 Pro Preview, specialized trans-tokenized Tweeties models, and the RL-distilled TranslateGemma family. Results demonstrate that large commercial models significantly outperform smaller specialized ones in this low-resource setting. Gemini secured first place with a chrF++ score of 56.71, surpassing the open-source baseline of 25.23.</abstract>
+      <url hash="435dfd25">2026.loresmt-1.21</url>
+      <bibkey>dikov-2026-machine</bibkey>
+    </paper>
+    <paper id="22">
+      <title>Data-Centric Approach at the <fixed-case>L</fixed-case>o<fixed-case>R</fixed-case>es<fixed-case>MT</fixed-case> 2026 <fixed-case>T</fixed-case>urkic Translation Challenge: <fixed-case>R</fixed-case>ussian-<fixed-case>K</fixed-case>yrgyz</title>
+      <author id="dmitry-novokshanov" orcid="0009-0005-2935-4026"><first>Dmitry</first><last>Novokshanov</last></author>
+      <pages>225-230</pages>
+      <abstract>We describe our submission to the Turkic languages translation challenge at LoResMT 2026, which focuses on translation from Russian into Kyrgyz. Our approach leverages parallel data, synthetic translations, a comprehensive filtering pipeline and a four-stage curriculum learning strategy. We compare our system with contemporary baselines and present the model that achieves a chrF++ score of 49.1 and takes first place in the competition.</abstract>
+      <url hash="1fe2c0b0">2026.loresmt-1.22</url>
+      <bibkey>novokshanov-2026-data</bibkey>
+    </paper>
+    <paper id="23">
+      <title><fixed-case>L</fixed-case>o<fixed-case>R</fixed-case>es<fixed-case>MT</fixed-case> 2026 Shared Task System Description</title>
+      <author><first>Vladimir</first><last>Panov</last><affiliation>ITMO University</affiliation></author>
+      <pages>231-234</pages>
+      <abstract>We describe our submission to the shared task LoResMT 2026, which involved translating from low-resource Turkic languages Bashkir, Chuvash, Kazakh, Kyrgyz, and Tatar from English or Russian. We submitted runs for the English-Chuvash language pair using Neural machine translation (NMT). Our approach focused on systematic experimentation with diverse model architectures and an emphasis on optimizing inference-time parameters. The key findings indicate that a large-scale, specialized multilingual translation model, combined with targeted data preprocessing and careful generation tuning, yielded the best performance, achieving a chrF++ score of 29.67 on the public test set.</abstract>
+      <url hash="24f40c80">2026.loresmt-1.23</url>
+      <bibkey>panov-2026-loresmt</bibkey>
+    </paper>
+    <paper id="24">
+      <title>Ensemble Methods for Low-Resource <fixed-case>R</fixed-case>ussian-<fixed-case>K</fixed-case>yrgyz Machine Translation: When Diverse Models Beat Better Models</title>
+      <author id="adilet-metinov" orcid="0009-0007-6400-4173"><first>Adilet</first><last>Metinov</last><affiliation>Kyrgyz State Technical University</affiliation></author>
+      <pages>235-237</pages>
+      <abstract>We present our submission to the LoResMT 2026 Shared Task on Russian-Kyrgyz machine translation. Our approach demonstrates that ensembling diverse translation models with simple consensus-based voting can significantly outperform individual models, achieving a +1.37 CHRF++ improvement over our best single model. Notably, we find that including "weaker" models in the ensemble improves overall performance, challenging the conventional assumption that ensembles should only combine top-performing systems. Our system achieved 49.31 CHRF++ on the public leaderboard and 48.55 CHRF++ on the final private test set, placing 3rd in the Russian-Kyrgyz track using only open-weight models without any fine-tuning on parallel Kyrgyz data. We report several counter-intuitive findings: (1) simple voting outperforms quality-weighted selection, (2) more diverse models help even when individually weaker, and (3) post-processing "corrections" can hurt performance when reference translations contain similar artifacts.</abstract>
+      <url hash="6a3cd205">2026.loresmt-1.24</url>
+      <bibkey>metinov-2026-ensemble</bibkey>
+    </paper>
+  </volume>
+</collection>
