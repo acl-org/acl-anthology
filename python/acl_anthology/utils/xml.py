@@ -348,6 +348,16 @@ def xml_escape_or_none(t: Optional[str]) -> Optional[str]:
     return None if t is None else xml_escape(t)
 
 
+def normalize_empty_elements(xml_bytes: bytes) -> bytes:
+    """Normalize expanded empty elements to self-closing form.
+
+    Converts ``<tag></tag>`` to ``<tag/>`` (and likewise for elements with
+    attributes).  This ensures consistent serialization across Python/lxml
+    versions, as some versions produce the expanded form for empty elements.
+    """
+    return re.sub(rb"<([a-zA-Z][\w-]*)((?:\s[^>]*)?)></\1>", rb"<\1\2/>", xml_bytes)
+
+
 def xsd_boolean(value: str) -> bool:
     """Converts an xsd:boolean value to a bool."""
     if value in ("0", "false"):
