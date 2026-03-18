@@ -15,6 +15,7 @@
 """Functions for XML serialization."""
 
 import itertools as it
+import re
 from difflib import SequenceMatcher
 from lxml import etree
 from typing import Callable, Iterable, Optional
@@ -122,10 +123,13 @@ def assert_equals(elem: etree._Element, other: etree._Element) -> None:
     assert elem.text == other.text or (not elem.text and not other.text)
     if elem.tag in TAGS_WITH_MARKUP:
         # Should render identically, except maybe for trailing whitespace
-        assert (
+        # and self-closing vs expanded empty tags (e.g. <i/> vs <i></i>)
+        def _normalize_empty_tags(s: str) -> str:
+            return re.sub(r"<(\w+)></\1>", r"<\1/>", s)
+
+        assert _normalize_empty_tags(
             etree.tostring(elem, encoding="unicode").rstrip()
-            == etree.tostring(other, encoding="unicode").rstrip()
-        )
+        ) == _normalize_empty_tags(etree.tostring(other, encoding="unicode").rstrip())
     else:
         elem_children = _filter_children(elem)
         other_children = _filter_children(other)
