@@ -1,0 +1,734 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2026.abjadnlp">
+  <volume id="1" type="proceedings" ingest-date="2026-03-18">
+    <meta>
+      <booktitle>Proceedings of the 2nd Workshop on <fixed-case>NLP</fixed-case> for Languages Using <fixed-case>A</fixed-case>rabic Script</booktitle>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Rabat, Morocco</address>
+      <month>March</month>
+      <year>2026</year>
+      <url hash="c4bc2bfe">2026.abjadnlp-1</url>
+      <venue>abjadnlp</venue>
+    </meta>
+    <frontmatter>
+      <url hash="b9ebcc73">2026.abjadnlp-1.0</url>
+      <bibkey>abjadnlp-2026-1</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title><fixed-case>A</fixed-case>rabic<fixed-case>D</fixed-case>ialect<fixed-case>H</fixed-case>ub: A Cross-Dialectal <fixed-case>A</fixed-case>rabic Learning Resource and Platform</title>
+      <author><first>Salem</first><last>Lahlou</last></author>
+      <pages>1-5</pages>
+      <abstract>We present ArabicDialectHub, a cross-dialectal Arabic learning resource comprising 552 phrases across six varieties (Moroccan Darija, Lebanese, Syrian, Emirati, Saudi, and MSA) and an interactive web platform. Phrases were generated using LLMs and validated by five native speakers, stratified by difficulty, and organized thematically. The open-source platform provides translation exploration, adaptive quizzing with algorithmic distractor generation, cloud-synchronized progress tracking, and cultural context. Both the dataset and complete platform source code are released under MIT license. Platform: https://arabic-dialect-hub.netlify.app.</abstract>
+      <url hash="5c2883ac">2026.abjadnlp-1.1</url>
+      <bibkey>lahlou-2026-arabicdialecthub</bibkey>
+    </paper>
+    <paper id="2">
+      <title>Rethinking Polarity Detection: When <fixed-case>BPE</fixed-case> Fails Across Scripts</title>
+      <author><first>Manodyna</first><last>K H</last></author>
+      <author><first>Luc</first><last>De Nardi</last></author>
+      <pages>6-14</pages>
+      <abstract>Multilingual evaluation often relies on language coverage or translated benchmarks, implicitly assuming that subword tokenization behaves comparably across scripts. In mixed-script settings, this assumption breaks down. We examine this effect using polarity detection as a case study, comparing Orthographic Syllable Pair Encoding (OSPE) and Byte Pair Encoding (BPE) under identical architectures, data, and training conditions on SemEval Task 9, which spans Devanagari, Perso-Arabic, and Latin scripts. OSPE is applied to Hindi, Nepali, Urdu, and Arabic, while BPE is retained for English. We find that BPE systematically underestimates performance in abugida and abjad scripts, producing fragmented representations, unstable optimization, and drops of up to 27 macro-F1 points for Nepali, while English remains largely unaffected. Script-aware segmentation preserves orthographic structure, stabilizes training, and improves cross-language comparability without additional data or model scaling, highlighting tokenization as a latent but consequential evaluation decision in multilingual benchmarks. While the analysis spans multiple scripts, we place particular emphasis on Arabic and Perso-Arabic languages, where frequency-driven tokenization most severely disrupts orthographic and morphological structure.</abstract>
+      <url hash="7dbb8646">2026.abjadnlp-1.2</url>
+      <bibkey>k-h-de-nardi-2026-rethinking</bibkey>
+    </paper>
+    <paper id="3">
+      <title>Optimizing What We Trust: Reliability-Guided <fixed-case>QUBO</fixed-case> Selection of Multi-Agent Weak Framing Signals for <fixed-case>A</fixed-case>rabic Sentiment Prediction</title>
+      <author><first>Rabab</first><last>Alkhalifa</last></author>
+      <pages>15-25</pages>
+      <abstract>Framing detection in Arabic social media is difficult due to interpretive ambiguity, cultural grounding, and limited reliable supervision. Existing LLM-based weak supervision methods typically rely on label aggregation, which is brittle when annotations are few and socially dependent. We propose a reliability-aware weak supervision framework that shifts the focus from label fusion to data curation. A small multi-agent LLM pipeline—two framers, a critic, and a discriminator—treats disagreement and reasoning quality as epistemic signals and produces instance-level reliability estimates. These estimates guide a QUBO-based subset selection procedure that enforces frame balance while reducing redundancy. Intrinsic diagnostics and an out-of-domain Arabic sentiment transfer test show that the selected subsets are more reliable and encode non-random, transferable structure, without degrading strong text-only baselines.</abstract>
+      <url hash="d9423ed9">2026.abjadnlp-1.3</url>
+      <attachment hash="f207bc0b" type="OptionalSupplementaryMaterial">2026.abjadnlp-1.3.OptionalSupplementaryMaterial.zip</attachment>
+      <bibkey>alkhalifa-2026-optimizing</bibkey>
+    </paper>
+    <paper id="4">
+      <title>Optimizer Choice and Calibration for <fixed-case>QAR</fixed-case>i<fixed-case>B</fixed-case> on <fixed-case>A</fixed-case>rabic-Script Social Media Offensive Language Detection</title>
+      <author><first>Auda</first><last>Elshokry</last></author>
+      <author><first>Mohammed</first><last>Alhanjouri</last></author>
+      <pages>26-36</pages>
+      <abstract>Optimizer choice is a central hyperparameter in fine-tuning transformer models, yet its impact remains under-studied for Arabic-script social media classification un der class imbalance. We compare Adam, AdamW, and SGD for fine-tuning QARiB on two Arabic offensive-language bench marks, OffensEval20 and MPOLD, using a controlled grid over learning rate, weight decay, and warmup, and report test-set performance as mean (std) over three random seeds. Minority-class discrimination is evaluated using macro-F1 and AUC-PROFF, while calibration is assessed via expected calibration error (ECE), reliability diagrams, and proper scoring rules (Brier score and negative log-likelihood, NLL). Across both datasets, AdamW and Adam are consistently strong and closely matched when properly tuned, whereas SGD substantially underperforms under the same tuning bud get and exhibits higher seed sensitivity. We observe non-trivial miscalibration across optimizers; post-hoc temperature scaling offers a low-cost adjustment, yielding modest, dataset-dependent changes in calibration while preserving ranking-based discrimination. We further evaluate a practical decision-rule step by optimizing the classification threshold on the validation set and applying it to test predictions, and provide qualitative examples il lustrating typical optimizer-dependent confidence behaviors. In practice, for Arabic offensive-language detection under imbalance, we recommend starting from a tuned AdamW or Adam baseline; when calibrated probabilities are required for thresholding or triage, temperature scaling can be applied. We will release a reproducible pipeline to support further evaluation of optimizer–calibration trade-offs in Arabic-script safety tasks.</abstract>
+      <url hash="b949fcd3">2026.abjadnlp-1.4</url>
+      <bibkey>elshokry-alhanjouri-2026-optimizer</bibkey>
+    </paper>
+    <paper id="5">
+      <title>Tarab: A Multi-Dialect Corpus of <fixed-case>A</fixed-case>rabic Lyrics and Poetry</title>
+      <author><first>Mo</first><last>El-Haj</last></author>
+      <pages>37-46</pages>
+      <abstract>We introduce the Tarab Corpus, a large-scale cultural and linguistic resource that brings together Arabic song lyrics and poetry within a unified analytical framework. The corpus comprises 2.56 million verses and more than 13.5 million tokens, making it, to our knowledge, the largest open Arabic corpus of creative text spanning both classical and contemporary production. Tarab is broadly balanced between songs and poems and covers Classical Arabic, Modern Standard Arabic (MSA), and six major regional varieties: Egyptian, Gulf, Levantine, Iraqi, Sudanese, and Maghrebi Arabic. The artists and poets represented in the corpus are associated with 28 modern nation states and multiple historical eras, covering over fourteen centuries of Arabic creative expression from the Pre-Islamic period to the twenty-first century. Each verse is accompanied by structured metadata describing linguistic variety, geographic origin, and historical or cultural context, enabling comparative linguistic, stylistic, and diachronic analysis across genres and time. We describe the data collection, normalisation, and validation pipeline and present baseline analyses for variety identification and genre differentiation. The dataset is publicly available on HuggingFace at https://huggingface.co/datasets/drelhaj/Tarab.</abstract>
+      <url hash="e0b8c01f">2026.abjadnlp-1.5</url>
+      <bibkey>el-haj-2026-tarab</bibkey>
+    </paper>
+    <paper id="6">
+      <title><fixed-case>LLM</fixed-case>-to-Speech: A Synthetic Data Pipeline for Training Dialectal Text-to-Speech Models</title>
+      <author><first>Ahmed</first><last>Khamis</last></author>
+      <author><first>Hesham Ali</first><last>Ahmed</last></author>
+      <pages>47-54</pages>
+      <abstract>Despite the advances in neural text to speech (TTS), many Arabic dialectal varieties remain marginally addressed, with most resources con- centrated on Modern Spoken Arabic (MSA) and Gulf dialects, leaving Egyptian Arabic— the most widely understood Arabic dialect— severely under-resourced. We address this gap by introducing NileTTS: 38 hours of tran- scribed speech from two speakers across di- verse domains including medical, sales, and general conversations. We construct this dataset using a novel synthetic pipeline: large language models (LLM) generate Egyptian Arabic content, which is then converted to natu- ral speech using audio synthesis tools, followed by automatic transcription and speaker diariza- tion with manual quality verification. We fine- tune XTTS v2, a state-of-the-art multilingual TTS model, on our dataset and evaluate against the baseline model trained on other Arabic dialects. Our contributions include: (1) the first publicly available Egyptian Arabic TTS dataset, (2) a reproducible synthetic data gen- eration pipeline for dialectal TTS, and (3) an open-source fine-tuned model. All resources are released to advance Egyptian Arabic speech synthesis research.</abstract>
+      <url hash="c4aba9e7">2026.abjadnlp-1.6</url>
+      <bibkey>khamis-ahmed-2026-llm</bibkey>
+    </paper>
+    <paper id="7">
+      <title><fixed-case>HCMUS</fixed-case>_<fixed-case>P</fixed-case>rompter<fixed-case>XP</fixed-case>rompter at <fixed-case>A</fixed-case>bjad<fixed-case>M</fixed-case>ed: When Classification Meets Retrieval: Taming the Long Tail in <fixed-case>A</fixed-case>rabic Medical Text Classification</title>
+      <author><first>Duy Minh</first><last>Dao Sy</last></author>
+      <author><first>Trung Kiet</first><last>Huynh</last></author>
+      <author><first>Nguyen Dinh Ha</first><last>Duong</last></author>
+      <author><first>Nguyen Chi</first><last>Tran</last></author>
+      <author><first>Phu Quy</first><last>Nguyen Lam</last></author>
+      <author><first>Hoa</first><last>Pham Phu</last></author>
+      <pages>55-59</pages>
+      <abstract>Medical text classification is high-stakes work, yet models often falter precisely where they are needed most: on rare, critical conditions buried in the long tail of the data distribution. In the EACL 2026 ABJAD-NLP Shared Task, we confronted this challenge with a dataset of Arabic medical questions heavily skewed towards a few common topics, leaving dozens of categories with fewer than ten examples. We present HybridMed, a system that effectively tames this long tail by marrying the semantic generalization of a fine-tuned Arabic BERT model with the precise, instance-based memory of k-nearest neighbor retrieval. This complementary union allowed our system to achieve a macro-F1 score of 0.4902, demonstrating that for diverse and imbalanced medical data, the whole is indeed greater than the sum of its parts.</abstract>
+      <url hash="57674cde">2026.abjadnlp-1.7</url>
+      <bibkey>dao-sy-etal-2026-hcmus</bibkey>
+    </paper>
+    <paper id="8">
+      <title><fixed-case>K</fixed-case>azakh<fixed-case>OCR</fixed-case>: A Synthetic Benchmark for Evaluating Multimodal Models in Low-Resource <fixed-case>K</fixed-case>azakh Script <fixed-case>OCR</fixed-case></title>
+      <author><first>Henry</first><last>Gagnier</last></author>
+      <author><first>Sophie</first><last>Gagnier</last></author>
+      <author><first>Ashwin</first><last>Kirubakaran</last></author>
+      <pages>60-65</pages>
+      <abstract>Kazakh is a Turkic language using the Arabic, Cyrillic, and Latin scripts, making it unique in terms of optical character recognition (OCR). Work on OCR for low-resource Kazakh scripts is very scarce, and no OCR benchmarks or images exist for the Arabic and Latin scripts. We construct a synthetic OCR dataset of 7,219 images for all three scripts with font, color, and noise variations to imitate real OCR tasks. We evaluated three multimodal large language models (MLLMs) on a subset of the benchmark for OCR and language identification: Gemma-3-12B-it, Qwen2.5-VL-7B-Instruct, and Llama-3.2-11B-Vision-Instruct. All models are unsuccessful with Latin and Arabic script OCR, and fail to recognize the Arabic script as Kazakh text, misclassifying it as Arabic, Farsi, and Kurdish. We further compare MLLMs with a classical OCR baseline and find that while traditional OCR has lower character error rates, MLLMs fail to match this performance. These findings show significant gaps in current MLLM capabilities to process low-resource Abjad-based scripts and demonstrate the need for inclusive models and benchmarks supporting low-resource scripts and languages.</abstract>
+      <url hash="1255d1d2">2026.abjadnlp-1.8</url>
+      <bibkey>gagnier-etal-2026-kazakhocr</bibkey>
+    </paper>
+    <paper id="9">
+      <title>Seeing Words Differently: Visual Embeddings for Robust <fixed-case>E</fixed-case>nglish-<fixed-case>A</fixed-case>rabic Machine Translation</title>
+      <author><first>Mahdi</first><last>Alshaikh Saleh</last></author>
+      <author><first>Irfan</first><last>Ahmad</last></author>
+      <pages>66-74</pages>
+      <abstract>Context: Natural Language Processing (NLP) has become an essential field with widespread applications across domains such as Large Language Models (LLMs). One of the core applications of NLP is machine translation (MT). A major challenge in MT is handling out-of-vocabulary (OOV) words and spelling mistakes, which can lead to poor translation quality. Objective: This study compares traditional text-based embeddings with visual embeddings for English-to-Arabic translation. It investigates the effectiveness of each approach, especially in handling noisy inputs or OOV terms. Method: Using the IWSLT 2017 English-Arabic dataset, we trained a baseline transformer encoder-decoder model using standard text embeddings and compared it with models using several visual embeddings strategies, including vowel-removal preprocessing and trigram-based image rendering. The translated outputs were evaluated using BLEU scores. Results: show that although traditional BPE-based models achieve higher BLEU on clean data, visual embedding models are substantially more robust to spelling noise, retaining up to 2.4× higher BLEU scores at 50% character corruption.</abstract>
+      <url hash="43abe162">2026.abjadnlp-1.9</url>
+      <bibkey>alshaikh-saleh-ahmad-2026-seeing</bibkey>
+    </paper>
+    <paper id="10">
+      <title>Character-Level Transformer for <fixed-case>T</fixed-case>ajik–<fixed-case>P</fixed-case>ersian Transliteration with a Parallel Lexical Corpus</title>
+      <author><first>Arabov Mullosharaf</first><last>Kurbonovich</last></author>
+      <pages>75-83</pages>
+      <abstract>This study addresses automatic transliteration from Tajik (Cyrillic script) to Persian (Perso-Arabic script). We present a curated, lexicographically verified parallel corpus of 52,152 Tajik–Persian words and short phrases, compiled from printed dictionaries, encyclopedic sources, and manually verified online resources. To the best of our knowledge, this is one of the largest publicly available word-level corpora for Tajik–Persian transliteration. Using this corpus, we train a character-level sequence-to-sequence Transformer model and evaluate it using Character Error Rate (CER) and exact-match accuracy. The best Transformer configuration with beam search (k=3) achieves a CER of 0.3182 and an exact-match accuracy of 0.3215, achieving lower error rates than dictionary-based rule-based and recurrent neural baselines. We describe the data collection and preprocessing pipeline, model architecture, and experimental protocol, and report a part-of-speech analysis showing performance differences across lexical categories. All resources (dataset, preprocessing scripts, splits, and training configurations) will be released publicly to ensure reproducibility and facilitate future work on Tajik–Persian transliteration, cross-script NLP, and lexicographic applications.</abstract>
+      <url hash="ecdc3500">2026.abjadnlp-1.10</url>
+      <bibkey>kurbonovich-2026-character</bibkey>
+    </paper>
+    <paper id="11">
+      <title><fixed-case>A</fixed-case>rabic Dialect Translation with Small <fixed-case>LLM</fixed-case>s: Enhancing through Reasoning-Oriented Reinforcement Learning</title>
+      <author><first>Sohaila</first><last>Abdulsattar</last></author>
+      <author><first>Keith</first><last>Ross</last></author>
+      <pages>84-99</pages>
+      <abstract>Arabic dialect↔English machine translation remains difficult due to extreme dialect variation, inconsistent orthography, and limited parallel data. Moreover, dialect translation is often needed in remote regions or by economically-disadvantaged communities, which often operate in compute-constrained or offline settings. Motivated by these concerns, in this paper we explore optimizing Arabic dialect↔English translators that run over small LLMs, which could be implemented on small offline devices. We show that reasoning-oriented reinforcement learning can substantially improve small multilingual LLMs for Arabic dialect translation. Using the MADAR corpus, small Qwen-2.5 models trained with a think-then-translate template and optimized with Group-Relative Policy Optimization using a SacreBLEU reward outperform a much larger 7B baseline trained with supervised fine-tuning. The dialect-to-English BLEU score more than doubles from 17.4 to 34.9, while the English-to-dialect COMET score improves from 0.57 to 0.73.</abstract>
+      <url hash="cec48e00">2026.abjadnlp-1.11</url>
+      <bibkey>abdulsattar-ross-2026-arabic</bibkey>
+    </paper>
+    <paper id="12">
+      <title><fixed-case>M</fixed-case>ed<fixed-case>A</fixed-case>rabs at <fixed-case>A</fixed-case>bjad<fixed-case>M</fixed-case>ed: <fixed-case>A</fixed-case>rabic Medical Text Classification via Data- and Algorithm-Level Fusion</title>
+      <author><first>Amrita</first><last>Singh</last></author>
+      <pages>100-104</pages>
+      <abstract>In this work, we address the challenges of Arabic medical text classification, focusing on class imbalance and the complexity of the language’s morphology. We propose a multiclass classification pipeline based on Data- and Algorithm-Level fusion, which integrates the optimal Back Translation technique for data augmentation with the Class Balanced (CB) loss function to enhance performance. The domain-specific AraBERT model is fine-tuned using this approach, achieving competitive results. On the official test set of the AbjadMed task, our pipeline achieves a Macro-F1 score of 0.4219, and it achieves 0.4068 on the development set.</abstract>
+      <url hash="94447c96">2026.abjadnlp-1.12</url>
+      <bibkey>singh-2026-medarabs</bibkey>
+    </paper>
+    <paper id="13">
+      <title><fixed-case>GAT</fixed-case>ech at <fixed-case>A</fixed-case>bjad<fixed-case>M</fixed-case>ed: Bidirectional Encoders vs. Causal Decoders: Insights from 82-Class <fixed-case>A</fixed-case>rabic Medical Classification</title>
+      <author><first>Ahmed</first><last>Khamis</last></author>
+      <pages>105-109</pages>
+      <abstract>This paper presents system description for Arabic medical text classification across 82 distinct categories. Our primary architecture utilizes a fine-tuned AraBERTv2 encoder enhanced with a hybrid pooling strategies, combining attention and mean representations, and multi-sample dropout for robust regularization. We systematically benchmark this approach against a suite of multilingual and Arabic-specific encoders, as well as several large-scale causal decoders, including zero-shot re-ranking via Llama 3.3 70B and feature extraction from Qwen 3B hidden states. Our findings demonstrate that specialized bidirectional encoders significantly outperform causal decoders in capturing the precise semantic boundaries required for fine-grained medical text classification. We show that causal decoders, optimized for next-token prediction, produce sequence-biased embeddings that are less effective for categorization compared to the global context captured by bidirectional attention. Despite significant class imbalance and label noise identified within the training data, our results highlight the superior semantic compression of fine-tuned encoders for specialized Arabic NLP tasks. Final performance metrics on the test set, including Accuracy and Macro-F1, are reported and discussed.</abstract>
+      <url hash="0ad6b9b3">2026.abjadnlp-1.13</url>
+      <bibkey>khamis-2026-gatech</bibkey>
+    </paper>
+    <paper id="14">
+      <title>Orthographic Robustness of <fixed-case>P</fixed-case>ersian Named Entity Recognition Models</title>
+      <author><first>Henry</first><last>Gagnier</last></author>
+      <author><first>Sophie</first><last>Gagnier</last></author>
+      <pages>110-114</pages>
+      <abstract>Named Entity Recognition (NER) models trained on clean text often fail on real-world data containing orthographic noise. Work on NER for Persian is emerging, but it has not yet explored the orthographic robustness of models to perturbations often exhibited in user-generated content. We evaluate ParsBERT, ParsBERT v2.0, BertNER, and two XLM-r-based models on a subset of Persian-NER-Dataset-500k after applying eleven different perturbations, including simulated typos, code-switching, and segmentation errors. All models were competitive with each other, but XLM-r-large consistently displayed the best robustness to perturbations. Code-switching, typos, similar character swaps, segmentation errors, and noisy text all decreased F1 scores, while Latinized numbers increased F1 scores in ParsBERT. Removing diacritics, zero-width non-joiners, and normalizing Yeh/Kaf all did not have an effect on F1. These findings suggest that Persian NER models require improvement for performance on noisy text, and that the Perso-Arabic script introduces unique factors into NER not present in many high-resource languages, such as code-switching and Eastern Arabic numerals. This work creates a foundation for the development of robust Persian NER models and highlights the necessity of evaluating low-resource NER models under challenging and realistic conditions.</abstract>
+      <url hash="09b8d671">2026.abjadnlp-1.14</url>
+      <bibkey>gagnier-gagnier-2026-orthographic</bibkey>
+    </paper>
+    <paper id="15">
+      <title><fixed-case>A</fixed-case>rabic<fixed-case>M</fixed-case>edical<fixed-case>BERT</fixed-case>-<fixed-case>QA</fixed-case>-82 at <fixed-case>A</fixed-case>bjad<fixed-case>M</fixed-case>ed: Fighting Class Imbalance in <fixed-case>A</fixed-case>rabic Medical Text Classification</title>
+      <author><first>Gleb</first><last>Shanshin</last></author>
+      <pages>115-119</pages>
+      <abstract>We present a supervised system for Arabic medical question-answer classification developed for the AbjadMed shared task. The task involves assigning one of 82 highly imbalanced medical categories and is evaluated using macro-averaged F1. Our approach builds on an AraBERT model further pretrained on a related Arabic medical classification dataset. Under a unified fine-tuning setup, this domain-adapted model consistently outperforms general-purpose Arabic backbones, with the best results obtained using a low backbone learning rate, indicating that only limited adaptation is required. The final system achieves a macro F1 score of 0.51 on the private test split. For comparison, we evaluate several cost-efficient large language models under constrained prompting and observe substantially lower performance.</abstract>
+      <url hash="2ac31c92">2026.abjadnlp-1.15</url>
+      <bibkey>shanshin-2026-arabicmedicalbert</bibkey>
+    </paper>
+    <paper id="16">
+      <title><fixed-case>K</fixed-case>vochur<fixed-case>H</fixed-case>egel at <fixed-case>A</fixed-case>bjad<fixed-case>M</fixed-case>ed: Combining <fixed-case>LDAM</fixed-case> Loss and Adversarial Training for <fixed-case>A</fixed-case>rabic Medical Question-Answer Classification</title>
+      <author><first>Minh-Hoang</first><last>Le</last></author>
+      <pages>120-123</pages>
+      <abstract>This paper describes our team’s submission to AbjadMed at AbjadNLP 2026. The task involves classifying Arabic medical question-answer pairs into 82 categories, characterized by a long-tail distribution and significant semantic overlap. While domain-specific Arabic models exist, they are primarily optimized for Named Entity Recognition or span-extraction tasks rather than high-cardinality sequence classification. Consequently, our system adopts a robust optimization approach using a general-purpose encoder. We utilize ARBERTv2 as the backbone, employing Label-Distribution-Aware Margin (LDAM) loss to mitigate class imbalance and Fast Gradient Method (FGM) adversarial training to enhance generalization boundaries. Our approach achieves a Macro-F1 score of 0.4028 on the private test set, demonstrating that advanced optimization techniques can yield competitive performance on specialized taxonomies without requiring domain-specific pre-training.</abstract>
+      <url hash="5e1000e5">2026.abjadnlp-1.16</url>
+      <attachment hash="63ce7f7d" type="OptionalSupplementaryMaterial">2026.abjadnlp-1.16.OptionalSupplementaryMaterial.zip</attachment>
+      <bibkey>le-2026-kvochurhegel</bibkey>
+    </paper>
+    <paper id="17">
+      <title>baellouf at <fixed-case>A</fixed-case>bjad<fixed-case>M</fixed-case>ed: Efficient Fine-tuning with All-Linear <fixed-case>L</fixed-case>o<fixed-case>RA</fixed-case> for <fixed-case>A</fixed-case>rabic Medical <fixed-case>QA</fixed-case> Classification</title>
+      <author><first>Abdallah</first><last>Khallouf</last></author>
+      <pages>124-126</pages>
+      <abstract>We describe our system for the AbjadMed shared task on Arabic medical text classification at AbjadNLP 2026. Our approach combines efficient fine-tuning of Qwen3-8B using QLoRA with a Dice+CrossEntropy hybrid loss designed for Macro F1 optimization. Taking inspiration from recent research on optimal LoRA configurations, we apply low-rank adapters to all linear layers of the model rather than attention layers only, which we validate improves performance by 4.0 points. We also explore data augmentation through machine translation of external medical QA data, though this did not improve generalization. Our best submission achieves a Macro F1 score of 0.4441 on the test set.</abstract>
+      <url hash="ab6f0a44">2026.abjadnlp-1.17</url>
+      <bibkey>khallouf-2026-baellouf</bibkey>
+    </paper>
+    <paper id="18">
+      <title>Supachoke at <fixed-case>A</fixed-case>bjad<fixed-case>M</fixed-case>ed: Enhancing <fixed-case>A</fixed-case>rabic Medical Text Classification Using Fine-Tuned <fixed-case>A</fixed-case>ra<fixed-case>BERT</fixed-case></title>
+      <author><first>Thanh Phu</first><last>Nguyen</last></author>
+      <author><first>Tuan Thai Huy Nguyen</first><last>Cu</last></author>
+      <author><first>Son Thai</first><last>Pham</last></author>
+      <author><first>Tri Duy Ho</first><last>Nguyen</last></author>
+      <pages>127-131</pages>
+      <abstract>Medical text classification is an important task in healthcare NLP, yet Arabic medical texts remain underexplored due to linguistic complexity and limited annotated data. In this paper, we study the effectiveness of AraBERT, a pre-trained Arabic transformer model, for Arabic medical text classification. We fine-tune AraBERT on a labeled medical dataset and evaluate its performance using standard classification metrics. Experimental results show that our fine-tuned AraBERT model achieves a private leaderboard score of 0.4076 and ranks 13th among participating teams, outperforming classical machine learning baselines and other transformer variants. These findings highlight the potential of transformer-based approaches for Arabic medical NLP and motivate further research.</abstract>
+      <url hash="0e96a721">2026.abjadnlp-1.18</url>
+      <bibkey>nguyen-etal-2026-supachoke</bibkey>
+    </paper>
+    <paper id="19">
+      <title><fixed-case>REIGNITE</fixed-case> at <fixed-case>A</fixed-case>bjad<fixed-case>M</fixed-case>ed: Imbalance-Aware Fine-Tuning of Pretrained <fixed-case>A</fixed-case>rabic Transformers for <fixed-case>A</fixed-case>rabic Medical Text Classification Task</title>
+      <author><first>Nahid Montasir</first><last>Rifat</last></author>
+      <author><first>Foyez Ahmed</first><last>Dewan</last></author>
+      <pages>132-136</pages>
+      <abstract>This paper presents our system developed for the AbjadNLP Shared Task 4 on Medical Text Classification in Arabic, which aims to assign Arabic medical question-answer pairs to a predefined set of medical categories. The task poses significant challenges due to severe class imbalance across 82 categories and the linguistic complexity of domain-specific Arabic medical text. To address these challenges, we propose an imbalance-aware training framework that combines targeted data augmentation for minority classes with class-weighted focal loss during fine-tuning. We evaluate multiple Arabic pretrained transformer models under a unified training configuration and further improve robustness through a majority-voting ensemble of the best-performing models. Our approach achieves competitive performance, ranking 15th on the private leaderboard with a macro F1 score of 0.4052, demonstrating the effectiveness of combining different data augmentation techniques, imbalance-aware training objectives, and ensemble learning for large-scale, highly imbalanced Arabic medical text classification. The code is available on GitHub.</abstract>
+      <url hash="94753fdc">2026.abjadnlp-1.19</url>
+      <bibkey>rifat-dewan-2026-reignite</bibkey>
+    </paper>
+    <paper id="20">
+      <title>Tashkees-<fixed-case>AI</fixed-case> at <fixed-case>A</fixed-case>bjad<fixed-case>M</fixed-case>ed 2026: Flat vs. Hierarchical Classification for Fine-Grained <fixed-case>A</fixed-case>rabic Medical <fixed-case>QA</fixed-case></title>
+      <author><first>Fatimah Mohamed</first><last>Emad Eldin</last></author>
+      <pages>137-143</pages>
+      <abstract>This paper describes Tashkees-AI, a system developed for the AbjadMed 2026 Shared Task on Arabic Medical Question Classification. A comprehensive empirical study was conducted across 82 fine-grained categories, investigating three paradigms: fine-tuned encoder models, hierarchical classification, and ensemble methods. Leveraging a dataset of 27k Arabic medical question-answer pairs, an extensive ablation studies was conducted, comparing MARBERTv2, CAMeLBERT, two-stage hierarchical classifiers, and RAG-based approaches. The findings reveal that fine-tuned MARBERTv2 with data cleaning yields the best performance, achieving a macro F1-score of 0.3659 on the blind test set. In contrast, hierarchical methods surprisingly underperformed (0.332 F1) due to error propagation. The system ranked 26th on the official leaderboard.</abstract>
+      <url hash="259a5146">2026.abjadnlp-1.20</url>
+      <bibkey>emad-eldin-2026-tashkees</bibkey>
+    </paper>
+    <paper id="21">
+      <title><fixed-case>M</fixed-case>eta<fixed-case>S</fixed-case>warm at <fixed-case>A</fixed-case>bjad<fixed-case>M</fixed-case>ed: Forensic Optimization and Class-Balanced Discovery for Medical Diglossia in Abjad Scripts</title>
+      <author><first>Rahul</first><last>Jaisy</last></author>
+      <pages>144-148</pages>
+      <abstract>The classification of diglossic medical text presents a high-dimensional challenge defined by extreme class imbalance (N = 82) and the orthographic ambiguity of unvocalized Abjad scripts. While standard supervised learning often collapses into majority-class prediction due to the "Long Tail" distribution, we intro- duce a Human-in-the-Loop Forensic Opti- mization framework. Unlike static end-to-end pipelines, our approach decouples strategic hy- perparameter tuning from high-throughput tac- tical execution (Elastic Compute). We lever- age a rigorous Class-Balanced Focal Loss (CBFL) derived from the "Effective Number of Samples" theory (En) to stabilize the de- cision manifold against stochastic class domi- nance. Using a CAMELBERT-DA backbone optimized via a custom weighted trainer on Dual H200 GPUs, our system achieved a ro- bust Public Leaderboard score of 0.3588. We further perform a "Linguistic Error Topology" analysis, utilizing UMAP projections and atten- tion saliency, to demonstrate that generalization gaps are driven by dialectal "Constraint Drift" rather than stochastic model failure.</abstract>
+      <url hash="9e73001e">2026.abjadnlp-1.21</url>
+      <bibkey>jaisy-2026-metaswarm</bibkey>
+    </paper>
+    <paper id="22">
+      <title><fixed-case>Q</fixed-case>ur<fixed-case>S</fixed-case>ci-Onto: A Hierarchical Ontology and Dataset for Scientific Exegesis in the <fixed-case>Q</fixed-case>uran</title>
+      <author><first>Ibad-ur-Rehman</first><last>Rashid</last></author>
+      <author><first>Junaid</first><last>Hussain</last></author>
+      <author><first>Sadam</first><last>Al-Azani</last></author>
+      <pages>149-165</pages>
+      <abstract>This paper introduces resources for the computational study of scientific exegesis (Tafsir Ilmi): a structured ontology, a curated dataset of 194 scientifically relevant Quranic verses linked to 260 exegetical records from two authoritative Tafsir books, and an annotation framework that organizes scientific references by topic and sequential context. Existing Quranic resources treat verses as unstructured text, losing the logical order and causal relationships of scientific concepts documented in exegesis. To address this, we present QurSci-Onto, a three-layer ontology that categorizes verses by scientific domain, links them to authoritative Tafsir, and provides a framework for representing sequential processes through stage-based annotations. Our dataset includes page-level citations and covers 8 major scientific topics across 73 nodes. While the full corpus is tagged with broad categories and scientific topics, a specialized subset features granular node-level mappings to capture complex scientific narratives. We release QurSci-Onto as a foundational resource for Arabic semantic NLP and demonstrate that it enables significant improvements in semantic retrieval and enables multi-hop sequential reasoning capabilities over unstructured baselines.</abstract>
+      <url hash="dd43483d">2026.abjadnlp-1.22</url>
+      <bibkey>rashid-etal-2026-qursci</bibkey>
+    </paper>
+    <paper id="23">
+      <title><fixed-case>A</fixed-case>jami<fixed-case>M</fixed-case>orph: Zero-Annotation Morphological Discovery for <fixed-case>H</fixed-case>ausa Ajami via Multi-Method Consensus</title>
+      <author><first>Soumedhik</first><last>Bharati</last></author>
+      <author><first>Shibam</first><last>Mandal</last></author>
+      <author><first>Prithwish</first><last>Ghosh</last></author>
+      <author><first>Swarup Kr</first><last>Ghosh</last></author>
+      <author><first>Sayani</first><last>Mondal</last></author>
+      <pages>166-171</pages>
+      <abstract>Hausa Ajami (Hausa written in Arabic script) remains severely under-resourced for computational morphology. We present AjamiMorph, a zero-annotation framework that discovers morphemes through consensus among three unsupervised methods, namely, Byte Pair Encoding (BPE), transition-based boundary detection using Pointwise Mutual Information (PMI), and computational linguistics based Distributional Affix Mining (DAM). Using a Hausa Ajami Bible corpus consisting of 637,414 tokens, AjamiMorph identifies 1,611 high-confidence morphemes, achieving 99.9% coverage. The inventory exhibits a linguistically realistic distribution (66.0% stems, 22.6% suffixes, 11.4% prefixes) and recovers 77.8% of known Hausa affixes. A permutation test that shuffles method assignments (preserving per-method selection sizes) confirms that the observed agreement is above-chance; chi-square remains as a secondary check. A lightweight 5-gram LM comparison (characters vs. consensus morphemes) provides an extrinsic signal. We also report negative results for script-driven Arabic assumptions and LLM-first annotation. This work provides the first unsupervised morpheme inventory for Hausa Ajami and demonstrates consensus as a robust strategy for zero-resource morphology.</abstract>
+      <url hash="687181ee">2026.abjadnlp-1.23</url>
+      <attachment hash="4ffddd64" type="OptionalSupplementaryMaterial">2026.abjadnlp-1.23.OptionalSupplementaryMaterial.rar</attachment>
+      <bibkey>bharati-etal-2026-ajamimorph</bibkey>
+    </paper>
+    <paper id="24">
+      <title>Morphological Feature Extraction for Fine-Grained <fixed-case>S</fixed-case>orani <fixed-case>K</fixed-case>urdish Dialect Identification: A Hybrid Transformer-Linguistic Approach</title>
+      <author><first>Soumedhik</first><last>Bharati</last></author>
+      <author><first>Shibam</first><last>Mandal</last></author>
+      <author><first>Subham</first><last>Majumdar</last></author>
+      <author><first>Swarup Kr</first><last>Ghosh</last></author>
+      <author><first>Sayani</first><last>Mondal</last></author>
+      <pages>172-176</pages>
+      <abstract>As reported, approximately 6 million people in Iraq and Iran speak in Sorani Kurdish, which exhibits substantial regional variation but lacks computational resources for dialect identification. We present the first fine-grained sub-dialect classification system for six Sorani varieties namely, Sulaymaniyah, Erbil, Iranian Sorani, Ardalani, Babani, and Mukriani. This investigation combines cross-lingual contextual embeddings (XLM-RoBERTa) with morphological features derived from explicit linguistic rules, including 24 patterns capturing verb prefixes, pronominal clitics, and definite markers. The suggested morphology-augmented XLM-R model has been trained on a unified dataset of 16,409 sentences without manual annotation, and achieves 91.91% accuracy, outperforming pure transformers (91.79%) and traditional machine learning baselines (SVM 86.41%). Key ablation studies reveal that morphological features serve as effective regularizers for geographically proximate dialects.</abstract>
+      <url hash="012c8a7b">2026.abjadnlp-1.24</url>
+      <attachment hash="f62a0e9e" type="OptionalSupplementaryMaterial">2026.abjadnlp-1.24.OptionalSupplementaryMaterial.rar</attachment>
+      <bibkey>bharati-etal-2026-morphological</bibkey>
+    </paper>
+    <paper id="25">
+      <title>Olga Snissarenko at <fixed-case>A</fixed-case>bjad<fixed-case>M</fixed-case>ed: <fixed-case>A</fixed-case>rabic Clinical Text Classification with <fixed-case>A</fixed-case>ra<fixed-case>BERT</fixed-case>: Results from the <fixed-case>A</fixed-case>bjad<fixed-case>M</fixed-case>ed Shared Task</title>
+      <author><first>Olga</first><last>Snissarenko</last></author>
+      <pages>177-181</pages>
+      <abstract>We present a solution for the Arabic medical text classification task, formulated as a multi-class classification problem with 82 medical categories. The task is challenging due to severe class imbalance, long and heterogeneous input texts, and the presence of domain-specific medical terminology in Modern Standard Arabic. Our approach is based on fine-tuning pretrained AraBERT models with a focus on loss-level imbalance handling rather than architectural complexity. Through a systematic comparison of multiple AraBERT-based configurations, we show that class-weighted loss combined with simple mean pooling yields the strongest performance. Our best model achieves a macro-F1 score of 0.387 on the public evaluation set and 0.411 on the private test set.</abstract>
+      <url hash="1a83e16a">2026.abjadnlp-1.25</url>
+      <bibkey>snissarenko-2026-olga</bibkey>
+    </paper>
+    <paper id="26">
+      <title>From Classical to Contemporary: Evolutionary Analysis &amp; Classification of <fixed-case>U</fixed-case>rdu Poetry</title>
+      <author><first>Noor</first><last>Fatima</last></author>
+      <author><first>Hasan Faraz</first><last>Khan</last></author>
+      <author><first>Irfan</first><last>Ahmad</last></author>
+      <pages>182-191</pages>
+      <abstract>Automatic classification of literary text by historical era can support literary analysis and reveal stylistic evolution. We study this problem for Urdu poetry across three eras, classical, modern, and contemporary. We introduce a new dataset of 10,026 four-line Urdu poetry segments collected from online archives (Rekhta and UrduPoint) and labeled by era. To handle Urdu’s script and orthographic variability, we apply standard preprocessing, including Unicode normalization and removal of diacritics and non-Urdu characters. We benchmark a range of approaches, from traditional machine learning classifiers to deep learning models, including fine-tuned Urdu BERT-style transformers. To assess generalization, we evaluate under two regimes: (i) a standard stratified random split and (ii) a stricter author-disjoint split that ensures poets do not overlap between training and test sets. On the random split, the best traditional models achieve about 70-73% accuracy, suggesting era-related stylistic cues are learnable. However, performance drops to roughly 58-60% under the author-disjoint split, highlighting the difficulty in generalizing across unseen poets and the possibility of overestimating performance via author-specific leakage. Notably, fine-tuned transformers do not surpass simpler TF-IDF-based baselines, indicating that era cues may be subtle and that data limitations constrain more complex models.</abstract>
+      <url hash="cdb2e233">2026.abjadnlp-1.26</url>
+      <bibkey>fatima-etal-2026-classical</bibkey>
+    </paper>
+    <paper id="27">
+      <title>Alkhalil Corpus: An Open-Source Thematic and Lemmatized Corpus for <fixed-case>M</fixed-case>odern <fixed-case>S</fixed-case>tandard <fixed-case>A</fixed-case>rabic</title>
+      <author><first>Samir</first><last>Belayachi</last></author>
+      <author><first>Azzeddine</first><last>Mazroui</last></author>
+      <pages>192-197</pages>
+      <abstract>The availability of large annotated corpora remains a major challenge for the development of natural language processing systems for under-resourced languages such as Arabic. In this paper, we present two annotated corpora dedicated to Modern Standard Arabic. These corpora are open-source and freely available on the Hugging Face platform. The first corpus, annotated by theme and designed to provide a balanced representation of contemporary Arabic usage, comprises approximately 76 million words collected from diverse sources covering multiple domains and geographical regions. The second corpus, containing approximately one million words, is a sub-corpus extracted from the first. It was annotated with lemma tags using a semi-automatic approach that combines automatic annotation with the Alkhalil lemmatizer and MADAMIRA, followed by manual validation.</abstract>
+      <url hash="b7c67a52">2026.abjadnlp-1.27</url>
+      <bibkey>belayachi-mazroui-2026-alkhalil</bibkey>
+    </paper>
+    <paper id="28">
+      <title>Enhancing <fixed-case>U</fixed-case>rdu Sentiment Classification through Instruction-Tuned <fixed-case>LLM</fixed-case>s and Cross-Lingual Transfer</title>
+      <author><first>Hasan Faraz</first><last>Khan</last></author>
+      <author><first>Noor</first><last>Fatima</last></author>
+      <author><first>Irfan</first><last>Ahmad</last></author>
+      <pages>198-207</pages>
+      <abstract>Sentiment analysis in low-resource languages such as Urdu poses unique challenges due to limited annotated data, morphological complexity, and significant class imbalance in most publicly available datasets. This study addresses these issues through two experimental strategies. First, we explore class imbalance mitigation by using instruction-tuned large language models (LLMs) to generate synthetic negative sentiment samples in Urdu. This augmentation strategy results in a more balanced dataset, which significantly improves the recall and F1-score for minority class predictions when fine-tuned using a multilingual BERT model. Second, we investigate the effectiveness of translating Urdu text into English and applying sentiment classification through a pre-trained English language model. Comparative evaluation reveals that the translation-based pipeline, using a RoBERTa model fine-tuned for English sentiment classification, achieves superior performance across major metrics. Our results suggest that LLM-based augmentation and cross-lingual transfer via translation both serve as viable approaches to overcome data scarcity and performance limitations in sentiment analysis for low-resource languages. The findings highlight the potential applicability of these approaches to other under-resourced linguistic domains.</abstract>
+      <url hash="99b33906">2026.abjadnlp-1.28</url>
+      <bibkey>khan-etal-2026-enhancing</bibkey>
+    </paper>
+    <paper id="29">
+      <title>Back-of-the-Book Index Automation for <fixed-case>A</fixed-case>rabic Documents</title>
+      <author><first>Nawal</first><last>Haidar</last></author>
+      <author><first>Ahmad</first><last>Kashmar</last></author>
+      <author><first>Fadi</first><last>Zaraket</last></author>
+      <pages>208-217</pages>
+      <abstract>Back-of-the-book indexes (BoBIs) are crucial for book readability. However, their manual creation is laborious and error prone. In this paper, we introduce ArBoBIM to automate BoBI extraction and review processes for Arabic books. Given a book with a corresponding BoBI, ArBoBIM extracts BoBI terms and identifies their occurrences and aligns those across several versions of the book. ArBoBIM first defines a pool of candidates for each term by leveraging noun phrases and named entities. ArBoBIM leverages several metrics, including exact matches, morpho-lexical similarity, and semantic similarity, to determine the best candidates. We empirically fine-tuned thresholds for ArBoBIM and achieve an F1-score of 0.94 (precision= 0.97, recall=0.91). These results are significantly better than baseline results, and top LLM based results with lower computational cost and no publishing house IP risks. Additionally, with ArBoBIM, over 500 books have been processed, resulting in the ArBoBIMap dataset, containing books, their terms, occurrences, and various metadata related to them, to be made available for the public. This dataset is used to train a model to identify if a term, given its features, should be added to the back-of-the-book index of a specific book. The model achieves an F1-score of 0.91 (precision = 0.97, recall = 0.85).</abstract>
+      <url hash="d157870a">2026.abjadnlp-1.29</url>
+      <bibkey>haidar-etal-2026-back</bibkey>
+    </paper>
+    <paper id="30">
+      <title>Improving on State-of-the-Art Models for Sentiment Analysis on Saudi-<fixed-case>E</fixed-case>nglish Code-Switching Text</title>
+      <author><first>Samaher</first><last>Alghamdi</last></author>
+      <author><first>Paul</first><last>Rayson</last></author>
+      <author><first>Reem</first><last>Alotibi</last></author>
+      <pages>218-228</pages>
+      <abstract>Inserting English words, phrases, or sentences while writing or speaking in the Saudi Arabic dialect has become a widespread phenomenon in Saudi society. This phenomenon is linguistically called code-switching. It remains unclear how current sentiment analysis methods perform on Saudi-English code-switching text. In this paper, we address this gap by conducting the first sentiment analysis study on Saudi-English code-switching text. We present the first Saudi-English Sentiment Analysis Code Switching Dataset (SESA-CSD) and establish baseline results on this dataset. By evaluating multiple state-of-the-art small language models, we achieve improvements over the baseline of 3% to 11% in both accuracy and macro-F1. Among all small language models, XLM-RoBERTa achieved the highest performance,with an accuracy of 95.50% and a macro-F1 of 95.53%. Our findings indicate that multilingual and Arabic small language models, such as XLM-RoBERTa, GigaBERT, and SaudiBERT, consistently outperform bilingual Arabic-English large language models, such as Fanar and ALLaM, across zero-shot and multiple few-shot settings.</abstract>
+      <url hash="e9f924e3">2026.abjadnlp-1.30</url>
+      <bibkey>alghamdi-etal-2026-improving</bibkey>
+    </paper>
+    <paper id="31">
+      <title><fixed-case>OMAN</fixed-case>-<fixed-case>SPEECH</fixed-case>: A Multi-Layer Annotated Speech Corpus for <fixed-case>O</fixed-case>mani <fixed-case>A</fixed-case>rabic Dialects</title>
+      <author><first>Rayyan S.</first><last>Al Khadhuri</last></author>
+      <author><first>Firas</first><last>Al Mahrouqi</last></author>
+      <author><first>Salim</first><last>Al Mandhari</last></author>
+      <author><first>Amir Azad</first><last>Al-Kathiri</last></author>
+      <author><first>Omar Said</first><last>Alshahri</last></author>
+      <author><first>Ghassab Mansoor</first><last>Alsaqr</last></author>
+      <author><first>Badri Abdulhakim</first><last>Mudhsh</last></author>
+      <author><first>Tarek</first><last>Fatnassi</last></author>
+      <pages>229-235</pages>
+      <abstract>Automatic Speech Recognition (ASR) has achieved strong performance in high-resource languages; however, Dialectal Arabic remains significantly under-resourced. This gap is particularly evident in Oman, where Arabic exhibits substantial sociolinguistic variation shaped by settlement patterns between sedentary (Hadari) and nomadic (Badu) communities, which are often overlooked by urban-centric or generalized Gulf Arabic datasets. We introduce OMAN-SPEECH, a sociolinguistically stratified spoken corpus for Omani Arabic comprising approximately 40 hours of spontaneous and semi-spontaneous speech from 32 speakers across 11 Wilayats (provinces). The corpus is balanced to capture regional and lifestyle variation and is annotated at the sentence level with Arabic transcription, English translation, and phonetic transcription using the International Phonetic Alphabet (IPA) through a human-in-the-loop annotation pipeline. OMAN-SPEECH provides a foundational resource for evaluating ASR and related speech technologies on Omani and Gulf Arabic varieties and supports more granular modeling of regional dialectal variation.</abstract>
+      <url hash="6e0989b5">2026.abjadnlp-1.31</url>
+      <bibkey>al-khadhuri-etal-2026-oman</bibkey>
+    </paper>
+    <paper id="32">
+      <title>Hala Technical Report Building <fixed-case>A</fixed-case>rabic-Centric Instruction &amp; Translation Models at Scale</title>
+      <author><first>Hasan Abed Al Kader</first><last>Hammoud</last></author>
+      <author><first>Mohamad Bilal</first><last>Zbib</last></author>
+      <author><first>Bernard</first><last>Ghanem</last></author>
+      <pages>236-244</pages>
+      <abstract>We present HALA, a family of Arabic-centric instruction and translation models built with our translate-and-tune pipeline. We first compress a strong AR↔EN teacher to FP8 (yielding ~2× higher throughput with no quality loss) and use it to create high-fidelity bilingual supervision. A lightweight language model LFM2–1.2B is then fine-tuned on this data and used to translate high-quality English instruction sets into Arabic, producing a million-scale corpus tailored to instruction following. We train HALA models at 350M, 700M, 1.2B, and 9B parameters, and apply slerp merging to balance Arabic specialization with base-model strengths. On Arabic-centric benchmarks, HALA achieves state-of-the-art results within both the "nano" (≤2B) and "small" (7–9B) categories, outperforming their bases. We are committed to release models, data, evaluation, and recipes to accelerate research in Arabic NLP.</abstract>
+      <url hash="f1e8d226">2026.abjadnlp-1.32</url>
+      <bibkey>hammoud-etal-2026-hala</bibkey>
+    </paper>
+    <paper id="33">
+      <title><fixed-case>A</fixed-case>rabic Citation Parsing using Part of Speech and Named Entity Recognition</title>
+      <author><first>Youssef</first><last>Karout</last></author>
+      <author><first>Hadi</first><last>Hammoud</last></author>
+      <author><first>Fadi</first><last>Zaraket</last></author>
+      <pages>245-252</pages>
+      <abstract>This paper introduces an industry level citation element extractor from Arabic text. Citation element extraction enables editorial task automation for publishing houses, creation of citation networks, and automatic citation analytics for impact analysis firms. Citation library tools help users manage their citations. However, for Arabic, these tools lack basic support to identify and extract citation elements. Consequently, researchers, editors and reviewers manually manage Arabic citations tasks. We present a novel Arabic citation element dataset, use it to train a citation element extraction model, and use named entity recognition, morphological analysis, and keyword detection to improve the results for practical use. The paper reports industry ready performance with F1 scores ranging between .80 and .95 for interesting citation elements.</abstract>
+      <url hash="5061c98a">2026.abjadnlp-1.33</url>
+      <bibkey>karout-etal-2026-arabic</bibkey>
+    </paper>
+    <paper id="34">
+      <title><fixed-case>D</fixed-case>eform<fixed-case>AR</fixed-case>: A Visual Analytics Framework for Evaluation of <fixed-case>A</fixed-case>rabic Named Entity Recognition</title>
+      <author><first>Ahmed Mustafa</first><last>Younes</last></author>
+      <pages>253-275</pages>
+      <abstract>Arabic Named Entity Recognition (ANER) presents challenges due to its linguistic characteristics (Qu et al., 2023). While Transformer models have advanced ANER, evaluation still relies heavily on aggregate metrics like F1 score that obscure the interplay between data characteristics, model behaviour, and error patterns. We present DeformAR, a diagnostic visual analytics framework for evaluating and diagnosing Arabic NER systems through structured, component-level analysis and interpretability. DeformAR integrates quantitative metrics with interactive visualizations to support systematic error analysis, dataset and model debugging. In a case study on ANERCorp, DeformAR identifies annotation mistakes, model calibration issues, and subcomponent interaction effects. To our knowledge, this is the first open-source framework for component-level diagnostic evaluation and interpretability in Arabic NER, available at https://github.com/ay94/DeformAR.</abstract>
+      <url hash="c54b104f">2026.abjadnlp-1.34</url>
+      <bibkey>younes-2026-deformar</bibkey>
+    </paper>
+    <paper id="35">
+      <title>A Corpus-Based Investigation of Contemporary <fixed-case>A</fixed-case>rabic Dialects Using the <fixed-case>SADA</fixed-case> Corpus</title>
+      <author><first>Ghada</first><last>Alfattni</last></author>
+      <pages>276-286</pages>
+      <abstract>The spoken Arabic exhibits substantial dialectal variation in the Arabic-speaking world. This paper presents a corpus-based analysis of Arabic dialectal variation using the SADA corpus, examining lexical, morphosyntactic, and discourse-pragmatic patterns across dialects. We combine quantitative frequency-based measures with qualitative linguistic analysis, including keyword comparison, distributional profiling, collocational and trigram analyses, and similarity-based clustering. Our results show that Arabic dialects share a substantial common core, while differing systematically in frequent discourse markers, evaluative expressions, and recurrent phraseological patterns. These findings provide empirical evidence for regional clustering among contemporary dialects and for variation relative to the standard register. The study contributes linguistic insights that support both Arabic dialectology and the development of dialect-aware NLP systems.</abstract>
+      <url hash="7052d36a">2026.abjadnlp-1.35</url>
+      <bibkey>alfattni-2026-corpus</bibkey>
+    </paper>
+    <paper id="36">
+      <title><fixed-case>HACS</fixed-case>-<fixed-case>TL</fixed-case>: Cross-Script Transfer Learning for <fixed-case>H</fixed-case>ausa Ajami Hate Speech Detection Using Transformer-Based Architecture</title>
+      <author><first>Abdulkadir Shehu</first><last>Bichi</last></author>
+      <author><first>Muqaddar</first><last>Ali</last></author>
+      <author><first>Prashant</first><last>Sharma</last></author>
+      <author><first>Ismail Dauda</first><last>Abubakar</last></author>
+      <pages>287-294</pages>
+      <abstract>The Arabic-derived scripts contain several languages that face challenges with the limited resources of speech detection, these challenges are worsened by the scarcity of resources and highly complex linguistic challenges. We proposed ( HACS-TL Hausa Ajami Cross-Script Transfer Learning) a brand new transformer-based architecture that focuses on the detection of hate speech within Ajami script. Hausa is a Chadic language which contains over 77 million speakers located in West Africa; it uses two types of scripts: the Latin (Boko) and the Arabic-derived Ajami which creates new computational difficulties. Our method combines scripts of artistically converted linguistics, augmented cross script multi-head attention, and dialect feature extraction to trellis the morphophonological depth of the Hausa. After a thorough examination using stratified cross-validation along with systemically augmented data, HACS-TL obtained a Macro F1 score of 76.09% which is a significant improvement from the other multilingual baselines (mBERT (69.17 % ) XLM-RoBERTa (73.20 % ) AraBERT (58.63% ) ) HACS-TL outperformed all of the previously stated models. Strong multilingual baselines refer to the other stated models; AraBERT (58.63) XLM-RoBERTa (73.20) mBERT (69.17) HACS-TL 70.73 + 10 % Cross-Script+ (mBERT) 46.73 + 0.9 % Cross-Script + AraBERT. The importance of cross-script attention and learning from transfer sources of resources to languages with limited scripts has proven effective. Our systematic method has aided the advancement of Arabic script homage Hausa and African language resources for the NLP of the Nubians in learning African languages and the intricate Nubian and cross-learning systems from different scripts.</abstract>
+      <url hash="ae95a77e">2026.abjadnlp-1.36</url>
+      <attachment hash="d59cb7d3" type="OptionalSupplementaryMaterial">2026.abjadnlp-1.36.OptionalSupplementaryMaterial.zip</attachment>
+      <bibkey>bichi-etal-2026-hacs</bibkey>
+    </paper>
+    <paper id="37">
+      <title>Code-Switching as a Safety Failure Mode in Large Language Models: An Empirical Study of <fixed-case>R</fixed-case>oman <fixed-case>U</fixed-case>rdu across <fixed-case>E</fixed-case>nglish, Mixed, and Transliteration-Only Inputs</title>
+      <author><first>Waleed</first><last>Jamil</last></author>
+      <author><first>Saima</first><last>Rafi</last></author>
+      <pages>295-300</pages>
+      <abstract>Large Language Models exhibit robust safety alignment when harmful intent is expressed in English, yet their resilience to code-switching and transliteration remains underexplored. This paper presents the first targeted investigation of code-switching as a safety failure mode, focusing on Roman Urdu—a widely used transliterated form common in informal and emotionally expressive communication. We introduce the Roman Urdu Adversarial Benchmark (RUAB), a semantically controlled evaluation benchmark designed to isolate linguistic variation from intent across four safety-critical categories: passive suicidal ideation, psychological distress, threat or intimidation, and coercion or emotional manipulation. Evaluating seven state-of-the-art models, we find that safety detection degrades consistently in code-switched and transliterated inputs, with the most pronounced failures occurring for passive suicidal ideation. Instruction-tuned and reasoning-capable models demonstrate greater robustness, suggesting these failures reflect alignment gaps rather than inherent model limitations. Our findings highlight transliteration and code-switching as under-recognized safety risks and motivate the development of linguistically inclusive, transliteration-aware safety methods.</abstract>
+      <url hash="ffb48610">2026.abjadnlp-1.37</url>
+      <bibkey>jamil-rafi-2026-code</bibkey>
+    </paper>
+    <paper id="38">
+      <title><fixed-case>QAMAR</fixed-case>: A New Fully Verified and Accurate <fixed-case>Q</fixed-case>uranic <fixed-case>A</fixed-case>rabic Morphological Analysis Resource.</title>
+      <author><first>Sara</first><last>Faqihi</last></author>
+      <author><first>Karim</first><last>Bouzoubaa</last></author>
+      <author><first>Rachida</first><last>Tajmout</last></author>
+      <author><first>Driss</first><last>Namly</last></author>
+      <pages>301-312</pages>
+      <abstract>Several Quranic morphological corpora have been developed to support Arabic linguistic analysis and NLP applications, yet they often lack full coverage, consistency, or manual verification. We present QAMAR, a morphologically oriented, multi-task corpus derived from the Qur’an. This comprehensive, manually verified resource provides a detailed linguistic layer for every Quranic word, including the Modern Standard Arabic (MSA) equivalent, the stem, the lemma, the root, and the part of speech (POS). QAMAR supports multiple NLP tasks, such as normalization, lemmatization, root extraction, and POS tagging, and serves as a gold-standard reference for Quranic and Arabic NLP research, including corpus-to-corpus evaluation and morphological analyzer benchmarking. The paper details QAMAR’s annotation framework, verification process, and resource structure, and reports comparative analyses with existing Quranic morphological resources and outputs produced by current large language models (LLMs).</abstract>
+      <url hash="d4556843">2026.abjadnlp-1.38</url>
+      <attachment hash="76a4d7d0" type="OptionalSupplementaryMaterial">2026.abjadnlp-1.38.OptionalSupplementaryMaterial.zip</attachment>
+      <bibkey>faqihi-etal-2026-qamar</bibkey>
+    </paper>
+    <paper id="39">
+      <title><fixed-case>A</fixed-case>ra<fixed-case>M</fixed-case>odern<fixed-case>BERT</fixed-case>: Transtokenized Initialization and Long-Context Encoder Modeling for <fixed-case>A</fixed-case>rabic</title>
+      <author><first>Omar</first><last>Elshehy</last></author>
+      <author><first>Omer</first><last>Nacar</last></author>
+      <author><first>Abdelbasset</first><last>Djamai</last></author>
+      <author><first>Muhammed</first><last>Ragab</last></author>
+      <author><first>Khloud</first><last>AL Jallad</last></author>
+      <author><first>Mona</first><last>Abdelazim</last></author>
+      <pages>313-321</pages>
+      <abstract>Encoder-only transformer models remain widely used for discriminative NLP tasks, yet recent architectural advances have largely focused on English. In this work, we present <b>AraModernBERT</b>, an adaptation of the ModernBERT encoder architecture to Arabic, and study the impact of transtokenized embedding initialization and native long-context modeling up to 8,192 tokens. We show that transtokenization is essential for Arabic language modeling, yielding dramatic improvements in masked language modeling performance compared to non-transtokenized initialization. We further demonstrate that AraModernBERT supports stable and effective long-context modeling, achieving improved intrinsic language modeling performance at extended sequence lengths. Downstream evaluations on Arabic natural language understanding tasks, including inference, offensive language detection, question-question similarity, and named entity recognition, confirm strong transfer to discriminative and sequence labeling settings. Our results highlight practical considerations for adapting modern encoder architectures to Arabic and other languages written in Arabic-derived scripts.</abstract>
+      <url hash="9b287833">2026.abjadnlp-1.39</url>
+      <bibkey>elshehy-etal-2026-aramodernbert</bibkey>
+    </paper>
+    <paper id="40">
+      <title>Parameter-Efficient Adaptation of Self-Supervised Models for <fixed-case>A</fixed-case>rabic Speech Recognition</title>
+      <author><first>Wafa Mohammed</first><last>Alshehri</last></author>
+      <author><first>Wasfi G.</first><last>Al-khatib</last></author>
+      <author><first>Mohammad Ismail</first><last>Amro</last></author>
+      <pages>322-328</pages>
+      <abstract>Arabic speech recognition systems face distinct challenges due to the language’s complex morphology and dialectal variations. Self-supervised models (SSL) like XLS-R have shown promising results, but their size with over than 300 million of parameters, makes fine-tuning computationally expensive. In this work, we present the first comparative study of parameter-efficient fine-tuning (PEFT), specifically LoRA and DoRA, applied to XLS-R for Arabic ASR. We evaluate on the newly released Common Voice Arabic V24.0 dataset, establishing new benchmarks. Our full fine-tuning achieves state-of-the-art results among XLS-R-based models with 23.03% Word Error Rate (WER). In our experiments, LoRA achieved a 36.10% word error rate (WER) while training just 2% of the model’s parameters. DoRA reached 45.20% WER in initial experiments. We analyze the trade-offs between accuracy and efficiency, offering practical guidance for developing Arabic ASR systems when computational resources are limited. The models and code are publicly available.</abstract>
+      <url hash="0db9303a">2026.abjadnlp-1.40</url>
+      <attachment hash="e9e35988" type="OptionalSupplementaryMaterial">2026.abjadnlp-1.40.OptionalSupplementaryMaterial.docx</attachment>
+      <bibkey>alshehri-etal-2026-parameter</bibkey>
+    </paper>
+    <paper id="41">
+      <title>Current state of <fixed-case>LLM</fixed-case>s for <fixed-case>A</fixed-case>rabic dialectal machine translation</title>
+      <author><first>Josef</first><last>Jon</last></author>
+      <author><first>Rawan</first><last>Bondok</last></author>
+      <author><first>Ondřej</first><last>Bojar</last></author>
+      <pages>329-363</pages>
+      <abstract>This work presents an evaluation of large language models (LLMs) for English to dialectal Arabic machine translation on the MADAR dataset. We evaluate both translation directions (English to Arabic and vice-versa) on 16 Arabic dialects. Our experiments cover a diverse set of models, including specialized Arabic models (Jais, Nile), multilingual models (Gemma, Command-R, Mistral, Aya), and commercial APIs (GPT-4.1). We employ multiple evaluation metrics: BLEU, CHRF, COMET (both reference-based and reference-less variants) and GEMBA (LLM-as-a-judge), as well as a small-scale manual evaluation, to assess translation quality. We discuss the challenges of automatic MT evaluation, especially in the context of Arabic dialects. We also evaluate the ability of LLMs to classify the dialect used in a text. The study offers insights into the capabilities and limitations of current LLMs for dialectal Arabic machine translation, particularly highlighting the difficulty of handling dialectal diversity, although the results may be influenced by possible training data contamination, which is always a concern with LLMs.</abstract>
+      <url hash="23dfd63c">2026.abjadnlp-1.41</url>
+      <bibkey>jon-etal-2026-current</bibkey>
+    </paper>
+    <paper id="42">
+      <title>A Hybrid Confidence-Aware Framework for <fixed-case>A</fixed-case>rabic Toxicity Detection in Social Media</title>
+      <author><first>Fawzia Zaal</first><last>Alanazi</last></author>
+      <author><first>Asma Mohammed</first><last>Alamri</last></author>
+      <author><first>Arwa</first><last>Bin Saleh</last></author>
+      <author><first>Abdullah I.</first><last>Alharbi</last></author>
+      <pages>364-370</pages>
+      <abstract>Automatic detection of toxic and offensive content in Arabic social media is a challenging task due to rich morphology, dialectal variation, and noisy writing styles. While transformer-based language models have achieved strong performance, they often produce uncertain predictions in borderline cases. This paper presents a hybrid framework for Arabic toxicity detection that combines a pretrained Arabic-specific transformer model with a confidence-aware rule-based mechanism. The proposed approach activates automatically induced lexical rules only when the model prediction falls within a predefined gray zone of uncertainty, preserving neural dominance while improving robustness and interpretability. Experiments conducted on a manually annotated dataset of 35,000 Arabic posts demonstrate that the hybrid approach achieves consistent improvements over the baseline model, particularly in reducing false negatives for toxic content. The results indicate that selective rule activation is an effective strategy for enhancing reliability in real-world Arabic social media moderation systems.</abstract>
+      <url hash="48cee533">2026.abjadnlp-1.42</url>
+      <bibkey>alanazi-etal-2026-hybrid</bibkey>
+    </paper>
+    <paper id="43">
+      <title><fixed-case>A</fixed-case>rabic-Adapted One-Step Speech-to-Diacritized <fixed-case>ASR</fixed-case>: Evaluation and Error Analysis</title>
+      <author><first>Osamah A. I.</first><last>Abduljalil</last></author>
+      <author><first>Dalal</first><last>Ali</last></author>
+      <author><first>Razan A.</first><last>Bajaman</last></author>
+      <author><first>Abdullah I.</first><last>Alharbi</last></author>
+      <pages>371-379</pages>
+      <abstract>Arabic diacritics encode phonetic information essential for pronunciation, disambiguation, and downstream applications, yet most Arabic ASR systems generate undiacritized output. In this work, we study direct speech-to-diacritized-text recognition using a single-stage ASR pipeline that predicts diacritics jointly with Arabic letters, without text-based post-processing. We evaluate two Arabic-adapted ASR architectures—wav2vec 2.0 XLSR-53 and Whisper-base—under a unified experimental setup on the ClArTTS Classical Arabic dataset. Performance is assessed using surface and lexical WER/CER alongside diacritic error rate (DER) to disentangle base transcription accuracy from diacritic realization. Our results show that Arabic-adapted wav2vec 2.0 achieves substantially lower diacritic error rates than Whisper, indicating stronger exploitation of acoustic cues relevant to vowelization. We further analyze the effect of decoding strategy and provide a detailed breakdown of diacritic errors, highlighting challenges associated with short vowels and morphosyntactic markers. These findings underscore the importance of model architecture and Arabic-specific adaptation for accurate diacritized Arabic ASR.</abstract>
+      <url hash="754f8aaa">2026.abjadnlp-1.43</url>
+      <bibkey>abduljalil-etal-2026-arabic</bibkey>
+    </paper>
+    <paper id="44">
+      <title><fixed-case>GAT</fixed-case>ech at <fixed-case>A</fixed-case>bjad<fixed-case>G</fixed-case>en<fixed-case>E</fixed-case>val Shared Task: Multilingual Embeddings for <fixed-case>A</fixed-case>rabic Machine-Generated Text Classification</title>
+      <author><first>Ahmed</first><last>Khamis</last></author>
+      <pages>380-384</pages>
+      <abstract>We present our approach to the AbjadGenEval shared task on detecting AI-generated Arabic text. We fine-tuned the multilingual E5-large encoder for binary classification, and we explored several pooling strategies to pool token representations, including weighted layer pooling, multi-head attention pooling, and gated fusion. Interestingly, none of these outperformed simple mean pooling, which achieved an F1 of 0.75 on the test set. We believe this is because complex pooling methods introduce additional parameters that need more data to train properly, whereas mean pooling offers a stable baseline that generalizes well even with limited examples. We also observe a clear pattern in the data: human-written texts tend to be significantly longer than machine-generated ones.</abstract>
+      <url hash="35d511c4">2026.abjadnlp-1.44</url>
+      <bibkey>khamis-2026-gatech-abjadgeneval</bibkey>
+    </paper>
+    <paper id="45">
+      <title><fixed-case>A</fixed-case>ra<fixed-case>L</fixed-case>ing<fixed-case>B</fixed-case>ench: A Human-Annotated Benchmark for Evaluating <fixed-case>A</fixed-case>rabic Linguistic Capabilities of Large Language Models</title>
+      <author><first>Mohamad Bilal</first><last>Zbib</last></author>
+      <author><first>Hasan Abed Al Kader</first><last>Hammoud</last></author>
+      <author><first>Ammar</first><last>Mohanna</last></author>
+      <author><first>Nadine</first><last>Rizk</last></author>
+      <author><first>Fatima</first><last>Karnib</last></author>
+      <author><first>Sina</first><last>Moukaled</last></author>
+      <author><first>Bernard</first><last>Ghanem</last></author>
+      <pages>385-393</pages>
+      <abstract>We present AraLingBench, a fully human annotated benchmark for evaluating the Arabic linguistic competence of large language mod- els (LLMs). The benchmark spans five core categories: grammar, morphology, spelling, reading comprehension, and syntax, through 150 expert designed multiple choice questions that directly assess structural language understanding. Evaluating 35 Arabic and bilingual LLMs reveals that current models demonstrate strong surface level proficiency but struggle with deeper grammatical and syntactic reasoning. AraLingBench highlights a persistent gap between high scores on knowledge-based benchmarks and true linguistic mastery, showing that many models succeed through memorization or pattern recognition rather than au- thentic comprehension. By isolating and measuring fundamental linguistic skills, AraLingBench provides a diagnostic framework for developing Arabic LLMs. The benchmark and evaluation code are available on Hugging Face and GitHub.</abstract>
+      <url hash="1fc0a949">2026.abjadnlp-1.45</url>
+      <bibkey>zbib-etal-2026-aralingbench</bibkey>
+    </paper>
+    <paper id="46">
+      <title><fixed-case>REGLAT</fixed-case> at <fixed-case>A</fixed-case>bjad<fixed-case>M</fixed-case>ed: Handling Imbalanced <fixed-case>A</fixed-case>rabic Medical Text Classification via Hierarchical <fixed-case>KNN</fixed-case>-<fixed-case>MLP</fixed-case> Architecture</title>
+      <author><first>Ahmed Megahed</first><last>Fetouh</last></author>
+      <author><first>Mohammed</first><last>Rahmath</last></author>
+      <author><first>Omer</first><last>Dawood</last></author>
+      <author><first>Mariam</first><last>Labib</last></author>
+      <author><first>Nsrin</first><last>Ashraf</last></author>
+      <author><first>Hamada</first><last>Nayel</last></author>
+      <pages>394-397</pages>
+      <abstract>In this paper, we demonstrate the system submitted to the shared task of medical text classification in Arabic. We proposed a single-model approach based on fine-tuned LLM-based embedding combined with hierarchical classical classifiers, achieving a competitive macro F1-score of 0.46 on the blind test set. We explored various modeling strategies, including tree-based ensembles, LLM, and hierarchical correction for rare classes, highlighting the effectiveness of domain-specific fine-tuning in low-resource settings. The results demonstrate that a single fine-tuned Arabic BERT variant can serve as a strong baseline in extreme imbalance scenarios, outperforming more complex ensembles in simplicity and reproducibility.</abstract>
+      <url hash="6eab3bed">2026.abjadnlp-1.46</url>
+      <bibkey>fetouh-etal-2026-reglat</bibkey>
+    </paper>
+    <paper id="47">
+      <title>Murabaa: A comprehensive Resource Platform for <fixed-case>A</fixed-case>rabic Morphology</title>
+      <author><first>Karim</first><last>Bouzoubaa</last></author>
+      <author><first>Driss</first><last>Namly</last></author>
+      <author><first>Hamid</first><last>Jihad</last></author>
+      <author><first>Rachida</first><last>Tajmout</last></author>
+      <author><first>Jamal</first><last>Ezzouaine</last></author>
+      <author><first>Hakima</first><last>Khamar</last></author>
+      <pages>398-407</pages>
+      <abstract>Arabic language faces technical and cultural challenges, including a lack of high-quality resources and the prevalence of regional dialects, which hinders the development of effective language processing systems. Therefore, the "Murabaa" platform was developed to transform Arabic linguistic knowledge into integrated digital resources. The platform aims to provide accurate digital content and promote the use of Arabic in various fields to bridge the gap between tradition and modernity by offering integrated linguistic resources for developing advanced research tools. The platform provides eight accurate dictionaries in the form of a website and a web application, contributing to the digitization of knowledge and its representation within the framework of standard lexical markup. In this study, we also conduct a quantitative comparison of the resources against similar ones to assess the quality of the linguistic knowledge they provide.</abstract>
+      <url hash="81a74d63">2026.abjadnlp-1.47</url>
+      <bibkey>bouzoubaa-etal-2026-murabaa</bibkey>
+    </paper>
+    <paper id="48">
+      <title>Sujith Kanakkassery at <fixed-case>A</fixed-case>bjad<fixed-case>M</fixed-case>ed: Imbalance-Aware Transformer Fine-tuning for <fixed-case>A</fixed-case>rabic Medical Text Classification</title>
+      <author><first>Sujith</first><last>Kanakkassery</last></author>
+      <pages>408-412</pages>
+      <abstract>This paper describes our system submitted to the AbjadMed 2026 shared task at AbjadNLP. The task focuses on the multi-class classification of Arabic medical texts under severe class imbalance. Our approach fine-tunes a pre-trained Arabic Transformer model and incorporates several imbalance-aware strategies, including data cleaning, class-weighted loss, and label smoothing. Through ablation experiments, we observe consistent improvements over a baseline system, demonstrating the effectiveness of these techniques in improving performance on underrepresented medical categories. Finally, our error analysis highlights persistent challenges related to label sparsity and semantic overlap among medical classes.</abstract>
+      <url hash="a1f4f5d8">2026.abjadnlp-1.48</url>
+      <attachment hash="dad9e2af" type="OptionalSupplementaryMaterial">2026.abjadnlp-1.48.OptionalSupplementaryMaterial.zip</attachment>
+      <bibkey>kanakkassery-2026-sujith</bibkey>
+    </paper>
+    <paper id="49">
+      <title>A Knowledge Graph Based Diagnostic Framework for Analyzing Hallucinations in <fixed-case>A</fixed-case>rabic Machine Reading Comprehension</title>
+      <author><first>Najwa Abdullah</first><last>AlGhamdi</last></author>
+      <author><first>Sadam</first><last>Al-Azani</last></author>
+      <author><first>Kwabena</first><last>Nuamah</last></author>
+      <author><first>Alan</first><last>Bundy</last></author>
+      <pages>413-421</pages>
+      <abstract>Large Language Models (LLMs) frequently generate answers that are fluent but not fully grounded in the provided context, a phenomenon commonly referred to as hallucination. While recent work has explored hallucination detection primarily in English and open domain settings, comparatively little attention has been given to Arabic machine reading comprehension (MRC), particularly in culturally sensitive domains such as Qur’anic texts. In this paper, we present a knowledge graph based diagnostic framework for analyzing hallucinations and question misalignment in Arabic MRC. Rather than proposing a new detection model or metric, the framework provides an interpretable, triple level analysis of model generated answers by comparing subject-relation-object representations derived from the passage, the question, and the answer. The approach incorporates question-aware filtering and operates under weak supervision, combining automatic analysis with targeted human adjudication to handle annotation gaps and semantic ambiguity. We apply the framework to the Qur’anic Reading Comprehension Dataset (QRCD) and demonstrate how it exposes systematic hallucination patterns that are difficult to capture using surface level similarity metrics alone, particularly for questions requiring justification or abstract interpretation. The results highlight the value of structured, transparent diagnostic evaluation for understanding LLM behavior in low resource and high stakes Arabic NLP settings.</abstract>
+      <url hash="25f8daa9">2026.abjadnlp-1.49</url>
+      <bibkey>alghamdi-etal-2026-knowledge</bibkey>
+    </paper>
+    <paper id="50">
+      <title>From Posts to Pressure: An <fixed-case>A</fixed-case>rabic Dataset about Stress and Mental-Health Monitoring</title>
+      <author><first>Wajdi</first><last>Zaghouani</last></author>
+      <author><first>Eman Sedqy</first><last>Shlkamy</last></author>
+      <author><first>Mabrouka</first><last>Bessghaier</last></author>
+      <pages>422-432</pages>
+      <abstract>How do Arabic-speaking communities express and engage with psychological stress on social media? We introduce AraStress, the first large-scale Arabic corpus dedicated to psychological stress research, comprising 175,862 public social media posts from 2020 to 2024, covering pandemic and post-pandemic periods.It fills a significant gap in Arabic mental-health NLP resources focused on stress, enabling large-scale analysis of related expressions.Unlike prior work focusing primarily on Twitter and depression or suicidality, AraStress addresses the critical gap in stress-focused resources. Our lexicon-based analysis reveals that stress-related posts elicit predominantly affective engagement and exhibit a hybrid lexical framing that integrates religious and therapeutic language. AraStress provides a foundational resource for culturally grounded computational models of stress detection and digital wellbeing in Arabic-speaking communities.</abstract>
+      <url hash="6bd661a8">2026.abjadnlp-1.50</url>
+      <bibkey>zaghouani-etal-2026-posts</bibkey>
+    </paper>
+    <paper id="51">
+      <title><fixed-case>HCMUS</fixed-case>_<fixed-case>T</fixed-case>he<fixed-case>F</fixed-case>angs at <fixed-case>A</fixed-case>bjad<fixed-case>G</fixed-case>en<fixed-case>E</fixed-case>val Shared Task: Weighted Layer Pooling with Attention Fusion for <fixed-case>A</fixed-case>rabic <fixed-case>AI</fixed-case>-Generated Text Detection</title>
+      <author><first>Duy Minh</first><last>Dao Sy</last></author>
+      <author><first>Nguyen Chi</first><last>Tran</last></author>
+      <author><first>Trung Kiet</first><last>Huynh</last></author>
+      <author><first>Nguyen Lam Phu</first><last>Quy</last></author>
+      <author><first>Pham</first><last>Phu Hoa</last></author>
+      <author><first>Nguyen Dinh Ha</first><last>Duong</last></author>
+      <pages>433-437</pages>
+      <abstract>The rapid advancement of large language mod-els poses significant challenges for content au-thenticity, particularly in under-resourced lan-guages where detection tools remain scarce.We present our winning system for the Abjad-GenEval shared task on Arabic AI-generatedtext detection. Our key insight is that AI-generated text exhibits distinctive patternsacross multiple linguistic levels-from local syn-tax to global semantics-that can be captured bylearning to fuse representations from differenttransformer layers. We introduce aWeightedLayer Poolingmechanism that learns optimallayer combinations, combined withAttentionPoolingfor sequence-level context aggregation.Through systematic experimentation with 15+ approaches, we make a surprising discovery:model architecture selection dominates over so-phisticated training techniques, with DeBERTa-v3 providing +27% relative improvement overAraBERT regardless of training strategy. Oursystem achieves 0.93 F1-score, securing 1st placeamong all participants and outperform-ing the runner-up by 3 absolute points</abstract>
+      <url hash="06885481">2026.abjadnlp-1.51</url>
+      <bibkey>dao-sy-etal-2026-hcmus-thefangs</bibkey>
+    </paper>
+    <paper id="52">
+      <title><fixed-case>HCMUS</fixed-case>_<fixed-case>T</fixed-case>he Fangs at <fixed-case>A</fixed-case>bjad<fixed-case>S</fixed-case>tyle<fixed-case>T</fixed-case>ransfer Shared Task: Learning to Query Style, Contrastive Representations for Zero-Shot <fixed-case>A</fixed-case>rabic Authorship Style Transfer</title>
+      <author><first>Duy Minh</first><last>Dao Sy</last></author>
+      <author><first>Trung Kiet</first><last>Huynh</last></author>
+      <author><first>Nguyen Chi</first><last>Tran</last></author>
+      <author><first>Nguyen Lam Phu</first><last>Quy</last></author>
+      <author><first>Pham Phu</first><last>Hoa</last></author>
+      <author><first>Nguyen Dinh Ha</first><last>Duong</last></author>
+      <pages>438-442</pages>
+      <abstract>This paper describes the system developed by team HCMUS_The Fangs for the AbjadStyleTransfer shared task (ArabicNLP 2026), where we achieved 1st place. We present a contrastive style learning approach for zero-shot Arabic authorship style transfer. Our key discovery is that the 21 test authors-including Nobel laureate Naguib Mahfouz and literary pioneer Taha Hussein-have zero overlap with the 32,784 training authors, transforming this into a pure zero-shot challenge. This insight led us to develop a dual-encoder architecture that learns transferable style representations through contrastive objectives, rather than memorizing author-specific patterns. Our system achieves 19.77 BLEU and 55.74 chrF, outperforming retrieval-augmented generation (+18%) and multi-task learning (+31%). Counter-intuitively, we find that sophisticated architectural modifications like style injection consistently degrade performance, while simpler approaches that preserve pre-trained knowledge excel. Our analysis reveals that for famous authors, pre-trained Arabic language models already encode substantial stylistic knowledge-the key is surfacing it, not learning from scratch.</abstract>
+      <url hash="54212930">2026.abjadnlp-1.52</url>
+      <bibkey>dao-sy-etal-2026-hcmus-fangs</bibkey>
+    </paper>
+    <paper id="53">
+      <title><fixed-case>U</fixed-case>-<fixed-case>R</fixed-case>o<fixed-case>CX</fixed-case>: An x<fixed-case>LSTM</fixed-case> based Approach to <fixed-case>AI</fixed-case>-Generated <fixed-case>U</fixed-case>rdu Text Detection</title>
+      <author><first>Rabee Adel</first><last>Al-Qasem</last></author>
+      <pages>443-447</pages>
+      <abstract>Large Language Models (LLMs) have rapidly proliferated, presenting challenges in distinguishing human-written text from AI-generated content, especially in low-resource languages like Urdu. This paper introduces U-RoCX, a novel hybrid architecture for the AbjadGenEval Shared Task on AI-Generated Urdu Text Detection. U-RoCX combines the multilingual semantic capabilities of a frozen XLM-RoBERTa backbone with local feature extraction from Convolutional Neural Networks (CNNs) and the advanced sequential modeling of the recently proposed Extended LSTM (xLSTM). By utilizing xLSTM’s matrix memory and covariance update rules, the model addresses traditional Recurrent Neural Network bottlenecks. Experimental results demonstrate the robustness of U-RoCX, achieving a balanced accuracy and F1-score of 88% on the test set.</abstract>
+      <url hash="290e85f8">2026.abjadnlp-1.53</url>
+      <bibkey>al-qasem-2026-u</bibkey>
+    </paper>
+    <paper id="54">
+      <title><fixed-case>HCMUS</fixed-case>_<fixed-case>P</fixed-case>rison<fixed-case>D</fixed-case>ilemma at <fixed-case>A</fixed-case>bjad<fixed-case>A</fixed-case>uthor<fixed-case>ID</fixed-case> Shared Task: Less is More with Base Models</title>
+      <author><first>Trung Kiet</first><last>Huynh</last></author>
+      <author><first>Duy Minh</first><last>Dao Sy</last></author>
+      <author><first>Nguyen Chi</first><last>Tran</last></author>
+      <author><first>Pham Phu</first><last>Hoa</last></author>
+      <author><first>Nguyen Lam Phu</first><last>Quy</last></author>
+      <author><first>Truong Bao</first><last>Tran</last></author>
+      <pages>448-452</pages>
+      <abstract>We present our approach to the AbjadNLP 2026 Arabic Authorship Identification shared task, achieving 4th place. Our key finding is that AraBERT-base (110M) outperforms AraBERT-large (340M) on the test set with macro F1 of 0.8449 versus 0.8096, despite lower validation scores. We handle long passages via sliding window chunking with mean pooling, and use a two-stage classification head with dual dropout for regularization. Per-class analysis reveals that translated works achieve perfect F1 while classical poets remain challenging due to shared formal structures. Our results challenge the "scale is all you need" assumption for stylometric tasks.</abstract>
+      <url hash="e94dcdf8">2026.abjadnlp-1.54</url>
+      <bibkey>huynh-etal-2026-hcmus</bibkey>
+    </paper>
+    <paper id="55">
+      <title><fixed-case>U</fixed-case>-<fixed-case>MIRAGE</fixed-case>: Benchmarking Chain-of-Thought Reasoning for <fixed-case>U</fixed-case>rdu Medical <fixed-case>QA</fixed-case></title>
+      <author><first>Ali</first><last>Faheem</last></author>
+      <author><first>Faizad</first><last>Ullah</last></author>
+      <author><first>Muhammad</first><last>Hammad</last></author>
+      <author><first>Ahmed</first><last>Hassan</last></author>
+      <author><first>Muhammad Sohaib</first><last>Ayub</last></author>
+      <author><first>Asim</first><last>Karim</last></author>
+      <pages>453-460</pages>
+      <abstract>Medical AI systems increasingly rely on large language models (LLMs), yet their deployment in linguistically diverse regions remains unexplored. We address this gap by introducing U-MIRAGE, the first medical question-answering benchmark for Urdu and Roman Urdu. Urdu is the 11th most spoken language (with over 246 million speakers) worldwide. Our systematic evaluation of six state-of-the-art LLMs reveals three main findings. (1) 6% to 10% drop in performance when moving from English to Urdu variants, even though medical knowledge should theoretically transfer across languages. (2) Chain-of-Thought (CoT) prompting improves small models by 8% to 20%, while surprisingly the larger models’ performance degraded by up to 3%. (3) Quantized small models fail catastrophically in low-resource languages, achieving near-random accuracy regardless of various prompting strategies. These findings challenge core assumptions about multilingual medical AI systems. Roman Urdu consistently outperforms standard Urdu script, suggesting orthographic alignment with pre-training data matters more than linguistic proximity. CoT prompting effectiveness depends critically on model architecture rather than task complexity alone. CoT prompting effectiveness depends critically on model architecture rather than task complexity alone. Our contributions are threefold: (1) U-MIRAGE, (2) systematic benchmarking of LLMs for Urdu and Roman Urdu medical reasoning, and (3) empirical analysis of CoT prompting in low-resource contexts. Our code and datasets are publicly available.</abstract>
+      <url hash="fa773da0">2026.abjadnlp-1.55</url>
+      <bibkey>faheem-etal-2026-u</bibkey>
+    </paper>
+    <paper id="56">
+      <title><fixed-case>XLMR</fixed-case>-<fixed-case>U</fixed-case>rdu at <fixed-case>A</fixed-case>bjad<fixed-case>G</fixed-case>en<fixed-case>E</fixed-case>val Shared Task: A Data-Centric Transformer-Based Approach for <fixed-case>AI</fixed-case>-Generated <fixed-case>U</fixed-case>rdu Text Detection</title>
+      <author><first>Mohannad Mohammad</first><last>Hendi</last></author>
+      <pages>461-467</pages>
+      <abstract>The rapid advancement of large language models (LLMs) has led to a substantial increase in automatically generated textual content, raising concerns regarding misinformation, plagiarism, and authorship verification. These challenges are particularly pronounced for low-resource languages such as Urdu, where limited annotated data and complex linguistic properties hinder robust detection. In this paper, we present a transformer-based approach for binary classification of human-written versus AI-generated Urdu text, developed for the AbjadGenEval Task 2 shared task. Beyond model fine-tuning, we adopt a data-centric perspective, emphasizing dataset diagnostics, document-level inference, and calibration strategies. Our system achieves strong performance on the official test set, with an F1-score of 88.68% and balanced accuracy of 88.71%. Through empirical analysis, we demonstrate that dataset characteristics and generator-specific artifacts play a dominant role in model generalization, highlighting critical directions for future research in low-resource AI-generated text detection.</abstract>
+      <url hash="90774ddf">2026.abjadnlp-1.56</url>
+      <bibkey>hendi-2026-xlmr</bibkey>
+    </paper>
+    <paper id="57">
+      <title><fixed-case>L</fixed-case>o<fixed-case>RAD</fixed-case>: Low-Resource <fixed-case>AI</fixed-case>-Generated Text Detection with <fixed-case>XLM</fixed-case>-<fixed-case>R</fixed-case>o<fixed-case>BERT</fixed-case>a</title>
+      <author><first>Ali</first><last>Zain</last></author>
+      <pages>468-471</pages>
+      <abstract>This paper describes our system submitted to the AbjadGenEval Shared Task at ArabicNLP 2026, which focuses on binary classification of human-written versus machine-generated text in low-resource languages. We participated in two independent subtasks targeting Arabic and Urdu news and literary texts. Our approach relies exclusively on fine-tuning XLM-RoBERTa, a multilingual Transformer-based model, under carefully controlled training and preprocessing settings. While the same model architecture was used for both subtasks, language-specific data handling strategies were applied based on empirical observations. The proposed system achieved first place in the Urdu subtask and third place in the Arabic subtask according to the official evaluation. These results demonstrate that multilingual pretrained models can serve as strong and reliable systems for AI-generated text detection across diverse languages.</abstract>
+      <url hash="f8d9b630">2026.abjadnlp-1.57</url>
+      <bibkey>zain-2026-lorad</bibkey>
+    </paper>
+    <paper id="58">
+      <title>A Stylometric and Statistical Pipeline for <fixed-case>U</fixed-case>rdu <fixed-case>AI</fixed-case>-Generated Text Classification</title>
+      <author><first>saeed A.</first><last>Anabtawi</last></author>
+      <pages>472-475</pages>
+      <abstract>The proliferation of Large Language Models (LLMs) has introduced significant challenges regarding algorithmic bias, privacy, and the authenticity of digital content. While detection mechanisms for English are maturing, low-resource languages like Urdu—spoken by over 100 million people—require dedicated research. In this paper, we present a technical framework for Urdu AI-generated text detection developed for the *ACL shared task. We propose a hybrid pipeline that combines TF-IDF Character N-grams with a custom stylometric feature extractor designed to capture unique Urdu linguistic markers, including repeated word ratios, punctuation density, and formal function markers. Using a Linear Support Vector Machine (SVM) optimized via Stochastic Gradient Descent (SGD), our system achieves a balanced accuracy and <tex-math>F_1</tex-math>-score of 87.80% on a dataset of 6,800 records. Our results demonstrate that a computationally efficient, classical machine learning approach—prioritizing stylistic signals over heavy preprocessing—remains highly effective for distinguishing between human-written and AI-generated Urdu text.</abstract>
+      <url hash="5e56fa29">2026.abjadnlp-1.58</url>
+      <bibkey>anabtawi-2026-stylometric</bibkey>
+    </paper>
+    <paper id="59">
+      <title><fixed-case>Q</fixed-case>alam<fixed-case>ID</fixed-case> at <fixed-case>A</fixed-case>bjad<fixed-case>A</fixed-case>uthor<fixed-case>ID</fixed-case> Shared Task: Morphology Matters, A Hybrid Ensemble for <fixed-case>A</fixed-case>rabic Authorship Attribution</title>
+      <author><first>Youssef</first><last>Zaghloul</last></author>
+      <pages>476-482</pages>
+      <abstract>Arabic authorship attribution presents unique challenges due to the language’s rich derivational morphology, which often fragments word-level frequencies. In this paper, we describe our winning submission to the AbjadAuthorID Shared Task. We propose a hybrid ensemble system that fuses the morphological precision of character n-gram LinearSVCs with the semantic understanding of fine-tuned Transformers (AraBERT and XLM-RoBERTa). Contrary to current trends in NLP, we demonstrate that traditional character n-grams (0.92 F1) significantly outperform deep learning baselines (AraBERT 0.87 F1) for this task, suggesting that authorial signature in Arabic is encoded more densely in morphological patterns than in semantic content. Our final system employs a novel Precision Scalpel post-hoc calibration technique and selective pseudo-labeling to address class imbalance and genre confounds. The system achieved the 1st place ranking with a macro F1-score of 0.932 and accuracy of 0.963 on the test set.</abstract>
+      <url hash="9a6ee2a6">2026.abjadnlp-1.59</url>
+      <bibkey>zaghloul-2026-qalamid</bibkey>
+    </paper>
+    <paper id="60">
+      <title>Kashif-<fixed-case>AI</fixed-case> at <fixed-case>A</fixed-case>bjad<fixed-case>G</fixed-case>en<fixed-case>E</fixed-case>val Shared Task: A Transformer-based Approach for <fixed-case>A</fixed-case>rabic <fixed-case>AI</fixed-case>-Generated Text Detection</title>
+      <author><first>Fatimah Mohamed</first><last>Emad Eldin</last></author>
+      <pages>483-488</pages>
+      <abstract>As Large Language Models (LLMs) become increasingly proficient at generating human-like text, distinguishing between human-written and machine-generated content has become a critical challenge for information integrity. This paper presents Kashif-AI, a system developed for the AbjadGenEval Task 1: AI-Generated Arabic Text Detection. The approach leverages fine-tuned Arabic Pre-trained Language Models (PLMs), specifically MARBERT and CAMeLBERT, to classify news articles. A rigorous ablation study was conducted to evaluate the impact of data augmentation, comparing models trained on the official shared task data against those trained on a combined corpus of over 47,000 samples. While near-perfect performance was observed during validation, the blind test set evaluation revealed a significant generalization gap. Contrary to expectations, data augmentation resulted in performance degradation due to domain shifts. The best-performing configuration, which utilized CAMeLBERT-Mix trained on the original dataset, achieved an F1-score of 66.29% and an Accuracy of 70.5% on the blind test set.</abstract>
+      <url hash="569e52aa">2026.abjadnlp-1.60</url>
+      <bibkey>emad-eldin-2026-kashif</bibkey>
+    </paper>
+    <paper id="61">
+      <title><fixed-case>N</fixed-case>ile<fixed-case>U</fixed-case>n at <fixed-case>A</fixed-case>bjad<fixed-case>G</fixed-case>en<fixed-case>E</fixed-case>val Shared Task: Contrastive Learning with Stacking Ensemble for Efficient <fixed-case>A</fixed-case>rabic <fixed-case>AI</fixed-case>-Generated Text Detection</title>
+      <author><first>Mohamed Hussein</first><last>Mohamed</last></author>
+      <author><first>Shrouk</first><last>Shalaby</last></author>
+      <author><first>Nesreen</first><last>Mohamed</last></author>
+      <pages>489-492</pages>
+      <abstract>We present a computationally efficient ap- proach for detecting AI-generated Arabic text as part of the AbjadGenEval shared task. Our method combines Supervised Con- trastive Learning with a Stacking Ensemble of AraBERT and XLM-RoBERTa models. Our training pipeline progresses through three stages: (1) standard fine-tuning without con- trastive loss, (2) adding supervised contrastive loss for better embeddings, and (3) further fine-tuning on diverse generation styles. On our held-out test split, the stacking ensemble achieves F1=0.983 before fine-tuning. On the official workshop test data, our system achieved 4th place with F1=0.782, demonstrating strong generalization using only encoder-based trans- formers without requiring large language mod- els. Our implementation is publicly available</abstract>
+      <url hash="3577e4c1">2026.abjadnlp-1.61</url>
+      <bibkey>mohamed-etal-2026-nileun</bibkey>
+    </paper>
+    <paper id="62">
+      <title><fixed-case>REGLAT</fixed-case> at <fixed-case>A</fixed-case>bjad<fixed-case>G</fixed-case>en<fixed-case>E</fixed-case>val: Multi-Model Ensemble Approach for <fixed-case>A</fixed-case>rabic <fixed-case>AI</fixed-case>-Generated Text Detection</title>
+      <author><first>Mariam Labib</first><last>Francies</last></author>
+      <author><first>Nsrin</first><last>Ashraf</last></author>
+      <author><first>Ahmed Megahed</first><last>Fetouh</last></author>
+      <author><first>Hamada</first><last>Nayel</last></author>
+      <pages>493-496</pages>
+      <abstract>The rapid advancement of large language models necessitates robust methods for detecting AI-generated Arabic text. This paper presents our system for distinguishing human-written from machine-generated Arabic content. We propose a weighted ensemble combining AraBERTv2 and BERT-base-arabic, trained via 5-fold stratified cross-validation with class-balanced loss functions. Our methodology incorporates Arabic text normalization, strategic data augmentation using 16,678 samples from external scientific abstracts, and threshold optimization prioritizing recall. On the official test set, our system achieved an F1-score of 0.763, an accuracy of 0.695, a precision of 0.624, and a recall of 0.980, demonstrating strong detection of machine-generated texts with minimal false negatives at the cost of elevated false positives. Analysis reveals critical insights into precision-recall trade-offs and challenges in cross-domain generalization for Arabic AI text detection.</abstract>
+      <url hash="8e6705aa">2026.abjadnlp-1.62</url>
+      <bibkey>francies-etal-2026-reglat</bibkey>
+    </paper>
+    <paper id="63">
+      <title><fixed-case>A</fixed-case>yah<fixed-case>V</fixed-case>erse at <fixed-case>A</fixed-case>bjad<fixed-case>G</fixed-case>en<fixed-case>E</fixed-case>val Shared Task: Monolingual Precision and Cross-Lingual Analysis in <fixed-case>P</fixed-case>erso-<fixed-case>A</fixed-case>rabic <fixed-case>AI</fixed-case> Detection</title>
+      <author><first>Fizza</first><last>Nawaz</last></author>
+      <author><first>Ibad-ur-Rehman</first><last>Rashid</last></author>
+      <author><first>Uswa</first><last>Abid</last></author>
+      <author><first>Junaid</first><last>Hussain</last></author>
+      <pages>497-505</pages>
+      <abstract>This paper presents our submission to the AbjadGenEval shared task on AI-generated text detection in Arabic and Urdu. To address the challenges of morphologically rich and low-resource environments, we developed a composite framework leveraging monolingual specialists (AraBERTv2, CAMeLBERT-DA) and multilingual transformers. Our system achieved robust in-domain performance with Test F1-scores of 0.75 for Arabic and 0.86 for Urdu. Methodologically, we tested both raw and normalized text to distinguish whether models detect based on semantic content or on surface artifacts such as punctuation and formatting patterns. Furthermore, our cross-lingual investigations reveal directional performance differences, where Urdu-trained models achieve 0.75 F1 on Arabic, while Arabic-trained models achieve only 0.61 F1 on Urdu. Despite this difference, both directions maintained notably high recall for the machine class, indicating that the model learns cross-lingual machine detection patterns across the Perso-Arabic script. Finally, transfer performance collapsed when internal layers were frozen, demonstrating that full fine-tuning is essential for cross-lingual detection. However, the observed performance differences may partly reflect data imbalance rather than purely linguistic factors.</abstract>
+      <url hash="2a42c3a7">2026.abjadnlp-1.63</url>
+      <bibkey>nawaz-etal-2026-ayahverse</bibkey>
+    </paper>
+    <paper id="64">
+      <title><fixed-case>A</fixed-case>bjad<fixed-case>M</fixed-case>ed: <fixed-case>A</fixed-case>rabic Medical Text Classification at <fixed-case>A</fixed-case>bjad<fixed-case>NLP</fixed-case> 2026</title>
+      <author><first>Pranav</first><last>Gupta</last></author>
+      <author><first>Niranjan Kumar</first><last>M</last></author>
+      <author><first>Balaji</first><last>Nagarajan</last></author>
+      <author><first>Imed</first><last>Zitouni</last></author>
+      <author><first>Mo</first><last>El-Haj</last></author>
+      <pages>506-514</pages>
+      <abstract>We present <i>AbjadMed</i>, a shared task on Arabic medical text classification organised as part of the 2nd AbjadNLP workshop at EACL 2026. The task targets supervised multi-class classification under realistic conditions of severe class imbalance, fine-grained category structure, and naturally occurring label noise. Participants assign each Arabic medical question–answer instance to one of 82 predefined categories derived from real healthcare consultations. The dataset is based on the Arabic Healthcare Dataset (AHD) and is released as curated training and test splits containing 27,951 and 18,634 instances respectively, while preserving the original label distribution. Systems are evaluated using macro-averaged F1 to emphasise performance on minority medical topics. Results show that Arabic medical text classification remains challenging even with modern pretrained models, particularly for low-frequency and semantically overlapping categories. AbjadMed provides a reproducible benchmark for studying robustness and generalisation in Arabic healthcare NLP.</abstract>
+      <url hash="1a8aaaa9">2026.abjadnlp-1.64</url>
+      <bibkey>gupta-etal-2026-abjadmed</bibkey>
+    </paper>
+    <paper id="65">
+      <title>Uslub at <fixed-case>A</fixed-case>bjad<fixed-case>A</fixed-case>uthor<fixed-case>ID</fixed-case> Shared Task: A Comparative Analysis of Traditional Machine Learning and Transformer-Based Models for Authorship Attribution in <fixed-case>A</fixed-case>rabic and <fixed-case>U</fixed-case>rdu</title>
+      <author><first>Shahad</first><last>Alsuhaibani</last></author>
+      <author><first>Mohamed</first><last>Alkaoud</last></author>
+      <pages>515-519</pages>
+      <abstract>Authorship attribution is a critical task in natural language processing with applications ranging from forensic linguistics to plagiarism detection. While well-studied in high-resource languages, it remains challenging for low-resource languages like Arabic and Urdu. In this paper, we present our participation in the AbjadNLP shared task, where we systematically evaluate three distinct approaches: traditional machine learning using SVM with TF-IDF features, fine-tuned transformer-based models (AraBERT), and LLMs. We demonstrate that while fine-tuned AraBERT excels in Arabic, traditional lexical models (SVM) prove more robust for Urdu, outperforming both BERT-based and LLM approaches. We also show that few-shot prompting with LLMs, when operated as a reranker over top candidates, significantly outperforms zero-shot baselines. Our final systems achieved competitive performance, ranking 6th and 1st in the Arabic and Urdu tasks respectively.</abstract>
+      <url hash="3bb41b7c">2026.abjadnlp-1.65</url>
+      <bibkey>alsuhaibani-alkaoud-2026-uslub</bibkey>
+    </paper>
+    <paper id="66">
+      <title><fixed-case>A</fixed-case>rabic Author Attribution Using Transformer-Based Models: Insights from the <fixed-case>A</fixed-case>bjad<fixed-case>A</fixed-case>uthor<fixed-case>ID</fixed-case> Shared Task</title>
+      <author><first>Ghader</first><last>Kurdi</last></author>
+      <pages>520-524</pages>
+      <abstract>This paper describes the author’s participation in the Arabic track of the AbjadAuthorID shared task which focuses on multiclass authorship attribution using transformer-based models. The task involves identifying the author of a given text excerpt drawn from diverse genres and historical periods, posing significant challenges due to stylistic variation and linguistic richness. Experimental results demonstrate strong performance, with an ensemble of MAR BERTv2 and ARBERTv2 achieving achieving an accuracy of 92% and a macro-averaged F1 score of 89%, ranking second on the leader board, and highlighting the effectiveness of the proposed approach for Arabic authorship identification.</abstract>
+      <url hash="8b5b89c4">2026.abjadnlp-1.66</url>
+      <bibkey>kurdi-2026-arabic</bibkey>
+    </paper>
+    <paper id="67">
+      <title><fixed-case>R</fixed-case>-<fixed-case>R</fixed-case> at <fixed-case>A</fixed-case>bjad<fixed-case>A</fixed-case>uthor<fixed-case>ID</fixed-case> Shared Task: A Fine-Tuned Approach for <fixed-case>K</fixed-case>urdish Authorship Identification</title>
+      <author><first>Rania</first><last>Azad M. San Ahmed</last></author>
+      <author><first>Rebwar M.</first><last>Nabi</last></author>
+      <pages>525-529</pages>
+      <abstract>Authorship identification is a fundamental task in natural language processing and computational stylistics. Despite significant advancements in high-resource languages, lowresource languagesparticularly those utilizing non-Latin scriptsremain largely underexplored, leaving a critical gap in resources and benchmarks for this linguistically distinct, lowresource language. Addressing this oversight, this paper presents Task 3 of AbjadNLP 2026, the first shared task dedicated to authorship identification for Kurdish. The task introduces a newly constructed dataset designed to capture the unique phonological and orthographic features of Sorani Kurdish and formulate the task as a closed-set multiclass classification problem. To establish a robust baseline, we fine-tune the pretrained XLM-RoBERTa model to capture authorial, stylistic patterns. Experimental results on the test set demonstrate the efficacy of transformer-based representations for this domain, achieving an accuracy of approximately 75%.</abstract>
+      <url hash="2f4ff1eb">2026.abjadnlp-1.67</url>
+      <bibkey>azad-m-san-ahmed-nabi-2026-r</bibkey>
+    </paper>
+    <paper id="68">
+      <title><fixed-case>A</fixed-case>bjad<fixed-case>G</fixed-case>en<fixed-case>E</fixed-case>val: Abjad <fixed-case>AI</fixed-case> Generated Text Detection Shared Task for Languages Using <fixed-case>A</fixed-case>rabic Script at <fixed-case>A</fixed-case>bjad<fixed-case>NLP</fixed-case> 2026</title>
+      <author><first>Saad</first><last>Ezzini</last></author>
+      <author><first>Irfan</first><last>Ahmad</last></author>
+      <author><first>Salmane</first><last>Chafik</last></author>
+      <author><first>Shadi</first><last>Abudalfa</last></author>
+      <author><first>Mo</first><last>El-Haj</last></author>
+      <author><first>Ahmed</first><last>Abdelali</last></author>
+      <author><first>Mustafa</first><last>Jarrar</last></author>
+      <author><first>Nadir</first><last>Durrani</last></author>
+      <author><first>Hassan</first><last>Sajjad</last></author>
+      <author><first>Farah</first><last>Adeeba</last></author>
+      <pages>530-537</pages>
+      <abstract>We present the findings of the AbjadGenEval shared task, organized as part of the AbjadNLP workshop at EACL 2026, which benchmarks AI-generated text detection for Arabic-script languages. Extending beyond Arabic to include Urdu, the task serves as a binary classification platform distinguishing human-written from AI-generated news articles produced by varied LLMs (e.g., GPT, Gemini). Twenty teams par- ticipated, with top systems achieving F1 scores of 0.93 for Arabic and 0.89 for Urdu. The re- sults highlight the dominance of multilingual transformers-specifically XLM-RoBERTa and DeBERTa-v3-and reveal significant challenges in cross-domain generalization, where naive data augmentation often yielded diminishing returns. This shared task establishes a robust baseline for authenticating content in the Abjad ecosystem.</abstract>
+      <url hash="647fcc56">2026.abjadnlp-1.68</url>
+      <bibkey>ezzini-etal-2026-abjadgeneval</bibkey>
+    </paper>
+    <paper id="69">
+      <title><fixed-case>A</fixed-case>bjad<fixed-case>A</fixed-case>uthor<fixed-case>ID</fixed-case>: Authorship Identification for <fixed-case>A</fixed-case>rabic-Script Languages at <fixed-case>A</fixed-case>bjad<fixed-case>NLP</fixed-case> 2026</title>
+      <author><first>Shadi</first><last>Abudalfa</last></author>
+      <author><first>Saad</first><last>Ezzini</last></author>
+      <author><first>Ahmed</first><last>Abdelali</last></author>
+      <author><first>Mustafa</first><last>Jarrar</last></author>
+      <author><first>Mo</first><last>El-Haj</last></author>
+      <author><first>Nadir</first><last>Durrani</last></author>
+      <author><first>Hassan</first><last>Sajjad</last></author>
+      <author><first>Farah</first><last>Adeeba</last></author>
+      <author><first>Sina</first><last>Ahmadi</last></author>
+      <pages>538-544</pages>
+      <abstract>Authorship identification is a core problem in Natural Language Processing and computational linguistics, with applications spanning digital humanities, literary analysis, and forensic linguistics. While substantial progress has been made for English and other high-resource languages, authorship attribution for languages written in the Arabic (Abjad) script remains underexplored. In this paper, we present an overview of AbjadAuthorID, a shared task organised as part of the AbjadNLP workshop at EACL 2026, which focuses on multiclass authorship identification across Arabic-script languages. The shared task covers Modern Standard Arabic, Urdu, and Kurdish, and is formulated as a closed-set multiclass classification problem over literary text spanning multiple authors and historical periods. We describe the task motivation, dataset construction, evaluation protocol, and participation statistics, and report official results for the Arabic track. The findings highlight both the effectiveness of current approaches in controlled settings and the challenges posed by lower participation and resource availability in some language tracks. AbjadAuthorID establishes a new benchmark for multilingual authorship attribution in morphologically rich, underrepresented languages.</abstract>
+      <url hash="8051e085">2026.abjadnlp-1.69</url>
+      <bibkey>abudalfa-etal-2026-abjadauthorid</bibkey>
+    </paper>
+    <paper id="70">
+      <title><fixed-case>A</fixed-case>bjad<fixed-case>S</fixed-case>tyle<fixed-case>T</fixed-case>ransfer: Authorship Style Transfer for <fixed-case>A</fixed-case>rabic-Script Languages at <fixed-case>A</fixed-case>bjad<fixed-case>NLP</fixed-case> 2026</title>
+      <author><first>Shadi</first><last>Abudalfa</last></author>
+      <author><first>Saad</first><last>Ezzini</last></author>
+      <author><first>Ahmed</first><last>Abdelali</last></author>
+      <author><first>Mustafa</first><last>Jarrar</last></author>
+      <author><first>Mo</first><last>El-Haj</last></author>
+      <author><first>Nadir</first><last>Durrani</last></author>
+      <author><first>Hassan</first><last>Sajjad</last></author>
+      <author><first>Farah</first><last>Adeeba</last></author>
+      <pages>545-549</pages>
+      <abstract>Authorship style transfer aims to rewrite a given text so that it reflects the distinctive style of a target author while preserving the original meaning. Despite growing interest in text style transfer, most existing work has focused on English and other high-resource languages, with limited attention to languages written in the Arabic script. In this paper, we present an overview of <b>AbjadStyleTransfer</b>, a shared task organised as part of the AbjadNLP workshop at EACL 2026, which targets authorship style transfer for Arabic-script languages with a strong focus on literary text. The shared task covers Modern Standard Arabic and Urdu, and is designed to encourage research on controllable text generation in morphologically rich and stylistically diverse languages. Participants are required to generate text that conforms to the writing style of a specified author, given a semantically equivalent formal input. We describe the task motivation, dataset construction, evaluation protocol, and participation statistics, and provide an initial discussion of the challenges associated with authorship style transfer in Arabic-script languages. AbjadStyleTransfer establishes a new benchmark for literary style transfer beyond Latin-script settings and supports future research on culturally grounded and linguistically informed text generation.</abstract>
+      <url hash="3d9570c7">2026.abjadnlp-1.70</url>
+      <bibkey>abudalfa-etal-2026-abjadstyletransfer</bibkey>
+    </paper>
+  </volume>
+</collection>
