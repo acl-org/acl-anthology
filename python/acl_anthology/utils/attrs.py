@@ -1,4 +1,4 @@
-# Copyright 2025 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2025-2026 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -25,15 +25,24 @@ import re
 from .ids import AnthologyIDTuple
 
 if TYPE_CHECKING:
-    from ..collections import Paper, Volume, Event
+    from ..collections import Paper, Volume, Event, Talk
+    from ..people import NameSpecification
 
 
 RE_WRAPPED_TYPE = re.compile(r"^([^\[]*)\[(.*)\]$")
 T = TypeVar("T")
 
 
+def track_namespec_modifications(
+    obj: NameSpecification, attr: attrs.Attribute[Any], value: T
+) -> T:
+    if attr.name != "parent" and obj.parent is not None:
+        obj.parent.collection.is_modified = True
+    return value
+
+
 def track_modifications(
-    obj: Paper | Volume | Event, attr: attrs.Attribute[Any], value: T
+    obj: Paper | Volume | Event | Talk, attr: attrs.Attribute[Any], value: T
 ) -> T:
     if attr.name != "parent":
         obj.collection.is_modified = True
@@ -191,4 +200,18 @@ def date_to_str(value: Any) -> Any:
         return value.isoformat()
     elif isinstance(value, datetime.datetime):
         return value.date().isoformat()
+    return value
+
+
+def attach_parent(
+    item: Paper | Volume | Talk,
+    attr: attrs.Attribute[Any],
+    value: list[NameSpecification],
+) -> list[NameSpecification]:
+    """Attach parent object to a [NameSpecification][acl_anthology.people.name.NameSpecification].
+
+    Intended to be called from `on_setattr` of an [attrs.field][].
+    """
+    for namespec in value:
+        namespec.parent = item
     return value
