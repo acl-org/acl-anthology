@@ -339,9 +339,9 @@ class AnthologyMetadataUpdater:
             if (aid := auth[AUTHOR_ID]) != AUTHOR_ADDED:
                 if aid in retained_author_json_by_id:
                     # we have already seen this author ID. OK if unverified:
-                    assert aid.endswith(
-                        "/unverified"
-                    ), f"Duplicate verified author ID in author list: {aid}"
+                    assert aid.endswith("/unverified"), (
+                        f"Duplicate verified author ID in author list: {aid}"
+                    )
                     log.warning(
                         f"--> Duplicate unverified author ID in author list (possibly valid): {aid}",
                     )
@@ -362,7 +362,9 @@ class AnthologyMetadataUpdater:
                 # duplicate. check that namespecs are identical
                 assert current_author == (
                     earlier_match := current_author_namespecs_by_id[person.id]
-                ), f"Duplicate author should have identical namespec: {earlier_match} vs. {current_author}"
+                ), (
+                    f"Duplicate author should have identical namespec: {earlier_match} vs. {current_author}"
+                )
             else:
                 current_author_namespecs_by_id[person.id] = current_author
 
@@ -379,9 +381,9 @@ class AnthologyMetadataUpdater:
                 # possibly new or newly explicit variant
                 person.add_name(current_author.name)
             else:
-                assert (
-                    person.id in deleted_author_json_by_id
-                ), f"Author ID is missing or author should be listed as deleted: {person.id}"
+                assert person.id in deleted_author_json_by_id, (
+                    f"Author ID is missing or author should be listed as deleted: {person.id}"
+                )
                 deleted_author_json_by_id[person.id]["namespec"] = current_author
 
         # construct revised list of author namespecs, creating new namespecs for any added authors
@@ -395,9 +397,9 @@ class AnthologyMetadataUpdater:
             ):
                 # duplicate author
                 auth["namespec"] = current_author_namespecs_by_id[auth[AUTHOR_ID]]
-            assert (
-                "namespec" in auth
-            ), f'Could not match JSON author ID to an entry in the current author list: "{auth[AUTHOR_ID]}"'
+            assert "namespec" in auth, (
+                f'Could not match JSON author ID to an entry in the current author list: "{auth[AUTHOR_ID]}"'
+            )
             final_authors.append(auth["namespec"])
 
         # check that deleted authors were in fact present in the original author list
@@ -408,9 +410,9 @@ class AnthologyMetadataUpdater:
             ):
                 # duplicate author
                 auth["namespec"] = current_author_namespecs_by_id[auth[AUTHOR_ID]]
-            assert (
-                "namespec" in auth
-            ), f'Could not match JSON deleted author ID to an entry in the current author list: "{aid}"'
+            assert "namespec" in auth, (
+                f'Could not match JSON deleted author ID to an entry in the current author list: "{aid}"'
+            )
 
         # replace the old list of authors/editors with the new one
         if paper.is_frontmatter:
@@ -452,7 +454,7 @@ class AnthologyMetadataUpdater:
         """Process all metadata issues and create PR with changes."""
         # Get all open issues with required labels
         issues = self.github_repo.get_issues(
-            state='open', labels=['metadata', 'correction']
+            state="open", labels=["metadata", "correction"]
         )
 
         current_branch, new_branch_name, today = self.prepare_and_switch_branch()
@@ -609,7 +611,7 @@ class AnthologyMetadataUpdater:
 
         # store the current branch
         current_branch = self.local_repo.head.reference
-        self.local_repo.git.stash(['push', f'-m "{datetime.now().isoformat()}"'])
+        self.local_repo.git.stash(["push", f'-m "{datetime.now().isoformat()}"'])
 
         # switch to that branch
         self.local_repo.head.reference = ref
