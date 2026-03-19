@@ -371,7 +371,7 @@ class NameSpecification:
     def case_normalize(self, force: bool = False) -> Self:
         """Try to heuristically normalize the casing of the name.
 
-        By default, this only changes the name *iff* it is currently all-lowercased or all-uppercased.
+        By default, this *only* changes the name if it is currently all-lowercased or all-uppercased.
 
         Arguments:
             force: Always case-normalize, without checking the current casing.
