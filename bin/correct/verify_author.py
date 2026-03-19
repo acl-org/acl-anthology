@@ -125,7 +125,7 @@ def _implicit_person_to_new_verified(anthology, person, name, suffix, has_degree
     return new_person
 
 
-def verify_all(orcid, author_ids, degree=None, suffix=None, except_paper_ids=None):
+def verify_by_author_id(orcid, author_ids, degree=None, suffix=None, except_paper_ids=None):
     changes = False
     anthology = Anthology.from_within_repo()
     assert is_valid_orcid(orcid), f'Invalid ORCID iD: {orcid}'
@@ -468,7 +468,7 @@ if __name__ == "__main__":
                 args['PAPERID:NAMESLUG'] = args['AUTHORID']
                 args['AUTHORID'] = None
             else:
-                msg = verify_all(
+                msg = verify_by_author_id(
                     orcid=args['ORCID'],
                     author_ids=args['AUTHORID'],
                     degree=args['--degree'],
