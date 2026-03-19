@@ -16,20 +16,14 @@
 
 from __future__ import annotations
 
-import sys
 from attrs import define, field, validators as v
 from lxml import etree
 from lxml.builder import E
 from pathlib import Path
 import requests
-from typing import cast, ClassVar, Optional, TYPE_CHECKING
+from typing import cast, ClassVar, Optional, Self, TYPE_CHECKING
 import warnings
 from zlib import crc32
-
-if sys.version_info >= (3, 11):
-    from typing import Self
-else:
-    from typing_extensions import Self
 
 if TYPE_CHECKING:
     from _typeshed import StrPath
