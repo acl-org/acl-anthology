@@ -1,6 +1,6 @@
 [project]
 name = "acl-anthology"
-version = "1.0.0"
+version = "1.1.0"
 description = "A library for accessing the ACL Anthology"
 authors = [{ name = "Marcel Bollmann", email = "marcel@bollmann.me" }]
 requires-python = ">=3.10, !=3.11.0, <3.15"
@@ -68,13 +68,19 @@ dev = [
     "types-lxml>=2026.1.1",
     "pymdown-extensions>=10.20.1,<11",
     "pytest-datadir>=1.8.0,<2",
-    "richbench",
     "types-requests>=2.32.4.20260107",
     "responses>=0.25.8",
+]
+profiling = [
+    "memray>=1.19.1; sys_platform != 'win32'",
+    "richbench",
 ]
 
 [tool.mypy]
 strict = true
+
+[tool.uv]
+default-groups = "all"
 
 [tool.uv.build-backend]
 module-name = "acl_anthology"

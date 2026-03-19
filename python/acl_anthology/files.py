@@ -138,10 +138,19 @@ class FileReference:
             filename: The path to the local file to write to.
             timeout: The timeout in seconds for the GET request.
 
+        Note:
+            If `filename` already exists _and_ has the expected checksum for this file, this function will do nothing.  Otherwise, this will attempt to (re)download the file, and `filename` **will get overwritten.**
+
         Raises:
             ChecksumMismatchWarning: If the downloaded file's checksum doesn't match the expected one.
             ValueError: If the response does not have the expected Content-Type (e.g. application/pdf for PDFs).
         """
+        if (
+            Path(filename).exists()
+            and self.checksum is not None
+            and compute_checksum_from_file(filename) == self.checksum
+        ):
+            return None  # correct file already downloaded
         r = requests.get(self.url, timeout=timeout)
         r.raise_for_status()  # Just raise in case of 404 etc.
         if (

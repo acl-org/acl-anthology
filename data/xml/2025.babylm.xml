@@ -133,7 +133,7 @@
       <title>What is the Best Sequence Length for <fixed-case>B</fixed-case>aby<fixed-case>LM</fixed-case>?</title>
       <author id="suchir-salhan" orcid="0000-0001-7201-7387"><first>Suchir</first><last>Salhan</last><affiliation>University of Cambridge</affiliation></author>
       <author><first>Richard</first><last>Diehl Martinez</last></author>
-      <author id="zebulon-goriely" orcid="0000-0002-8877-4099"><first>Zebulon</first><last>Goriely</last><affiliation>University of Cambridge</affiliation></author>
+      <author id="zebulon-goriely" orcid="0000-0002-8877-4099"><first>Zébulon</first><last>Goriely</last><affiliation>University of Cambridge</affiliation></author>
       <author><first>Paula</first><last>Buttery</last><affiliation>University of Cambridge</affiliation></author>
       <pages>130-146</pages>
       <abstract>Transformer language models typically operate with a fixed-length context window, which has grown in step with large-scale pretraining datasets. In the BabyLM Challenge, however, many past submissions have defaulted to using much shorter sequence lengths. We examine the impact of sequence length on BabyLM pretraining, to answer the simple question: what sequence length should we be using when training Baby LMs? Using 100M-word training data and fixed compute budgets, we compare 125M-parameter Mamba and OPT models, finding that although longer is often better, the optimal length depends on both task and architecture. Shorter sequences are sufficient for grammatical generalization tasks whereas longer contexts benefit morphological analogical reasoning tasks.</abstract>
@@ -353,13 +353,13 @@
       <author><first>Jaap</first><last>Jumelet</last></author>
       <author><first>Tal</first><last>Linzen</last></author>
       <author><first>Aaron</first><last>Mueller</last></author>
-      <author><first>Candance</first><last>Ross</last></author>
+      <author><first>Candace</first><last>Ross</last></author>
       <author><first>Raj Sanjay</first><last>Shah</last></author>
       <author><first>Alex</first><last>Warstadt</last></author>
       <author><first>Ethan Gotlieb</first><last>Wilcox</last></author>
       <author><first>Adina</first><last>Williams</last></author>
       <pages>399-420</pages>
-      <abstract>This report summarizes the findings from the 3rd BabyLM Challenge and the 1st BabyLM Workshop. The BabyLM Challenge is a shared task aimed at closing the data efficiency gap between human and machine language learners. The goal is to improve the performance of language models given a fixed training budget of no more than 100 million words. This year, the challenge was held as part of an expanded BabyLM Workshop that invited paper submissions on topics relevant to the BabyLM effort, including sample-efficient pretraining and cognitive modeling for LMs. For the challenge, we kept the text-only and text–image tracks from previous years, but also introduced a new <i>interaction</i> track, where student models are allowed to learn from feedback from larger teacher models. Furthermore, we introduce a new set of evaluation tasks to assess the “human likeness” of models on a cognitive and linguistic level, limit the total amount of training compute allowed, and measure performance on intermediate checkpoints. We observe that new training objectives and architectures tend to produce the best-performing approaches, and that interaction with teacher models can yield high-quality language models. The strict and interaction tracks saw submissions that outperformed the best-performing methods from previous years. We do not observe a complete correlation between training FLOPs and performance. %, suggesting that some methods can produce real gains beyond allowing us to spend more compute. This year’s BabyLM Challenge shows that there is still room to innovate in a data-constrained setting, and that community-driven research can yield actionable insights for language modeling.</abstract>
+      <abstract>This report summarizes the findings from the 3rd BabyLM Challenge. The BabyLM Challenge is a shared task aimed at closing the data efficiency gap between human and machine language learners. This year, the challenge was held as part of an expanded BabyLM Workshop that invited paper submissions on topics relevant to the BabyLM effort, including sample-efficient pretraining and cognitive modeling for LMs. For the challenge, we kept the text-only and text–image tracks from previous years, but also introduced a new <i>interaction</i> track, where student models are allowed to learn from feedback from larger teacher models. Furthermore, we introduce a new set of evaluation tasks to assess the “human likeness” of models on a cognitive and linguistic level, limit the total amount of training compute allowed, and measure performance on intermediate checkpoints. We observe that new training objectives and architectures tend to produce the best-performing approaches, and that interaction with teacher models can yield high-quality language models. The strict-small and interaction tracks saw submissions that outperformed the baselines. We do not observe a complete correlation between training FLOPs and performance. This year’s BabyLM Challenge shows that there is still room to innovate in a data-constrained setting, and that community-driven research can yield actionable insights for language modeling.</abstract>
       <url hash="884336e0">2025.babylm-main.28</url>
       <bibkey>charpentier-etal-2025-findings</bibkey>
       <doi>10.18653/v1/2025.babylm-main.28</doi>
@@ -445,9 +445,11 @@
       <author id="cristiano-chesi" orcid="0000-0003-1935-1348"><first>Cristiano</first><last>Chesi</last><affiliation>Istituto Universitario di Studi Superiori</affiliation></author>
       <pages>496-507</pages>
       <abstract>Tokenization is often treated as a preprocessing step, yet in data-limited settings it directly shapes what a model can learn. We compare four segmentation strategies in the BabyLM Challenge: frequency-based BPE, morphology-aware MorPiece and ParadigmFinder, and syllable-based SylliTok. Evaluation combines two perspectives. First, an intrinsic test on the SIGMORPHON 2022 segmentation benchmark, adapted to English, measures how closely each tokenizer aligns with morpheme boundaries. Second, extrinsic tests train GPT-2 on the 10M BabyLM corpus and evaluate on the 2025 benchmark. No single tokenizer dominates. BPE remains strong on syntax-heavy tasks. ParadigmFinder excels in semantic composition and age-of-acquisition alignment. MorPiece shows advantages in discourse tracking. Morphology-aware tokenizers achieve the best intrinsic segmentation scores, and these gains translate into more robust generalisation in comprehension tasks. These results highlight tokenization as a core modeling decision, with direct consequences for compression, morphology, and the path to humanlike learning.</abstract>
-      <url hash="3a6559af">2025.babylm-main.35</url>
+      <url hash="c0046ad8">2025.babylm-main.35</url>
       <bibkey>fusco-etal-2025-linguistic</bibkey>
       <doi>10.18653/v1/2025.babylm-main.35</doi>
+      <revision id="1" href="2025.babylm-main.35v1" hash="3a6559af"/>
+      <revision id="2" href="2025.babylm-main.35v2" hash="c0046ad8" date="2026-03-03">Corrects a few references and the first author's email.</revision>
     </paper>
     <paper id="36">
       <title>Batch-wise Convergent Pre-training: Step-by-Step Learning Inspired by Child Language Development</title>

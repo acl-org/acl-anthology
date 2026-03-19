@@ -121,6 +121,9 @@
     ],
     abstract: "{{ $paper.abstract_raw }}"
   };
+
+  const deleted_authors = [];
+
   // Initial authors data
   function showMetadataDialog() {
     // Populate the modal with current values
@@ -240,7 +243,7 @@
     delBtn.type = 'button';
     delBtn.className = 'btn btn-sm btn-danger';
     delBtn.textContent = 'X';
-    delBtn.onclick = () => { row.remove(); refreshAuthorList(); };
+    delBtn.onclick = () => { deleteAuthor(row, first, last, id); };
 
     delCol.appendChild(delBtn);
 
@@ -255,7 +258,18 @@
 
   function addAuthor() {
     const container = document.getElementById('authorsContainer');
-    container.appendChild(createAuthorRow("", "", "", ""));
+    container.appendChild(createAuthorRow("", "", "##ADDED##", ""));
+  }
+
+  function deleteAuthor(row, first, last, id) {
+    row.remove();
+    const deletion_record = {
+      first: first,
+      last: last,
+      id: id
+    };
+    deleted_authors.push(deletion_record);
+    refreshAuthorList();
   }
 
   function refreshAuthorList() {
@@ -335,6 +349,10 @@
       updatedParams.authors = newAuthors;
       updatedParams.authors_old = paper_params.authors.map((x) => x.first + "  " + x.last).join(" | ");
       updatedParams.authors_new = newAuthors.map((x) => x.first + "  " + x.last).join(" | ");
+    }
+
+    if (deleted_authors.length>0) {
+      updatedParams.deleted_authors = deleted_authors;
     }
 
     if (Object.keys(updatedParams).length === 1) {
@@ -529,20 +547,23 @@
         <dd>
           {{- $len := (len $volume.venues) -}}
           {{- range $index, $venue := $volume.venues -}}
-                    {{ $acronym := index hugo.Data.venues $venue "acronym" }}
-                    <a href="{{ relref $ (printf "/venues/%s" ($venue)) }}">{{- $acronym -}}</a>
-                    {{ if ne (add $index 1) $len }} | {{ end }}
-                  {{- end -}}
-                </dd>
-                <dt>{{ if gt (len $volume.sigs) 1 }}SIGs:{{ else }}SIG:{{ end }}</dt>
-                <dd>
-                  {{- $len := (len $volume.sigs) -}}
-                  {{- range $index, $sig := $volume.sigs -}}
-                    {{ $slug := index hugo.Data.sigs $sig "slug" }}
-                    <a href="{{ relref $ (printf "/sigs/%s" $slug) }}">{{ $sig }}</a>
-                    {{ if ne (add $index 1) $len }} | {{ end }}
-                  {{- end -}}
-                </dd>        {{ end }}
+            {{ $acronym := index hugo.Data.venues $venue "acronym" }}
+            {{ $name := index hugo.Data.venues $venue "name" }}
+            <a href="{{ relref $ (printf "/venues/%s" ($venue)) }}" title="{{ $name }}">{{- $acronym -}}</a>
+            {{ if ne (add $index 1) $len }} | {{ end }}
+          {{- end -}}
+        </dd>
+        <dt>{{ if gt (len $volume.sigs) 1 }}SIGs:{{ else }}SIG:{{ end }}</dt>
+        <dd>
+          {{- $len := (len $volume.sigs) -}}
+          {{- range $index, $sig := $volume.sigs -}}
+            {{ $slug := index hugo.Data.sigs $sig "slug" }}
+            {{ $name := index hugo.Data.sigs $sig "name" }}
+            <a href="{{ relref $ (printf "/sigs/%s" $slug) }}" title="{{ $name }}">{{ $sig }}</a>
+            {{ if ne (add $index 1) $len }} | {{ end }}
+          {{- end -}}
+        </dd>
+        {{ end }}
 
         <dt>Publisher:</dt>
         <dd>{{ with $paper.publisher }}{{ . }}{{ end }}</dd>

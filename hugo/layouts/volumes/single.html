@@ -45,7 +45,8 @@
         {{- $len := (len $paper.venues) -}}
         {{- range $index, $venue := $paper.venues -}}
           {{ $acronym := index hugo.Data.venues $venue "acronym" }}
-          <a href="{{ relref $ (printf "/venues/%s" ($venue)) }}">{{- $acronym -}}</a>
+          {{ $name := index hugo.Data.venues $venue "name" }}
+          <a href="{{ relref $ (printf "/venues/%s" ($venue)) }}" title="{{ $name }}">{{- $acronym -}}</a>
           {{ if ne (add $index 1) $len }} | {{ end }}
         {{- end -}}
       </dd>
@@ -57,7 +58,8 @@
         {{- $len := (len $paper.sigs) -}}
         {{- range $index, $sig := $paper.sigs -}}
           {{ $slug := index hugo.Data.sigs $sig "slug" }}
-          <a href="{{ relref $ (printf "/sigs/%s" $slug) }}">{{ $sig }}</a>
+          {{ $name := index hugo.Data.sigs $sig "name" }}
+          <a href="{{ relref $ (printf "/sigs/%s" $slug) }}" title="{{ $name }}">{{ $sig }}</a>
           {{ if ne (add $index 1) $len }} | {{ end }}
         {{- end -}}
       </dd>
