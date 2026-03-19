@@ -144,6 +144,30 @@ def verify_all(orcid, author_ids, degree=None, suffix=None, except_paper_ids=Non
                 anthology, person, suffix=suffix, has_degree=degree is not None
             )
             changes = 'Verify'
+
+            # reset the ID for excluded papers
+            if except_paper_ids:
+                for paper_id in except_paper_ids:
+                    paper = anthology.get(paper_id)
+                    assert paper is not None, f'Paper not found: {paper_id}'
+                    matching_authors = [ns for ns in paper.authors if ns.id == person.id]
+                    assert (
+                        matching_authors
+                    ), f'Cannot exclude paper {paper_id} because it was not matched in the first place'
+                    for ns in matching_authors:
+                        log.info(f'Excluding paper {paper_id} author {ns}')
+                        ns.id = None
+                        paper.collection.is_modified = True
+
+                # since we are verifying an unverified person and there are excluded papers,
+                # disable name matching
+                log.info('Disabling name matching to limit to the specified papers.')
+                person.disable_name_matching = True
+                changes = (
+                    changes + ' and disable name matching for'
+                    if changes
+                    else 'Disable name matching for'
+                )
         else:
             log.info(f'Matched existing author by author ID: {aid}')
 
@@ -190,11 +214,14 @@ def verify_all(orcid, author_ids, degree=None, suffix=None, except_paper_ids=Non
                 candidate_namespecs += [
                     (ns, volume) for volume in person.volumes() for ns in volume.editors
                 ]
+                for paper_id in except_paper_ids or []:
+                    paper = anthology.get(paper_id)
+                    assert paper is not None, f'Paper not found: {paper_id}'
                 for namespec, item in candidate_namespecs:
                     if anthology.resolve(namespec) is person:
                         if namespec.id:
                             assert namespec.id == person.id
-                        elif item.full_id in except_paper_ids:
+                        elif item.full_id in (except_paper_ids or []):
                             log.info(f'Excluding paper {item.full_id}')
                         else:
                             namespec.id = person.id
