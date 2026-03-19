@@ -322,8 +322,4 @@ class Collection(SlottedDict[Volume]):
             xml.ensure_minimal_diff(collection, reference)
         xml.indent(collection)
         with open(path, "wb") as f:
-            f.write(
-                xml.normalize_empty_elements(
-                    etree.tostring(collection, xml_declaration=True, encoding="UTF-8")
-                )
-            )
+            f.write(etree.tostring(collection, xml_declaration=True, encoding="UTF-8"))

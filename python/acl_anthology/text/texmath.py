@@ -135,7 +135,7 @@ class _TexMath:
                 else:
                     self._parse(code.contents, trg)
             else:
-                raise ValueError(f"TeX-math parser got unhandled element: {type(code)}")
+                log.error(f"TeX-math parser got unhandled element: {type(code)}")
 
     def _parse_command(self, code: TexCmd, trg: etree._Element) -> None:
         args = list(code.args)

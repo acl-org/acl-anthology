@@ -15,7 +15,6 @@
 """Functions for XML serialization."""
 
 import itertools as it
-import re
 from difflib import SequenceMatcher
 from lxml import etree
 from typing import Callable, Iterable, Optional
@@ -123,13 +122,10 @@ def assert_equals(elem: etree._Element, other: etree._Element) -> None:
     assert elem.text == other.text or (not elem.text and not other.text)
     if elem.tag in TAGS_WITH_MARKUP:
         # Should render identically, except maybe for trailing whitespace
-        # and self-closing vs expanded empty tags (e.g. <i/> vs <i></i>)
-        def _normalize_empty_tags(s: str) -> str:
-            return re.sub(r"<(\w+)></\1>", r"<\1/>", s)
-
-        assert _normalize_empty_tags(
+        assert (
             etree.tostring(elem, encoding="unicode").rstrip()
-        ) == _normalize_empty_tags(etree.tostring(other, encoding="unicode").rstrip())
+            == etree.tostring(other, encoding="unicode").rstrip()
+        )
     else:
         elem_children = _filter_children(elem)
         other_children = _filter_children(other)
@@ -346,16 +342,6 @@ def stringify_children(node: etree._Element) -> str:
 def xml_escape_or_none(t: Optional[str]) -> Optional[str]:
     """Like [xml.sax.saxutils.escape][], but accepts [None][]."""
     return None if t is None else xml_escape(t)
-
-
-def normalize_empty_elements(xml_bytes: bytes) -> bytes:
-    """Normalize expanded empty elements to self-closing form.
-
-    Converts ``<tag></tag>`` to ``<tag/>`` (and likewise for elements with
-    attributes).  This ensures consistent serialization across Python/lxml
-    versions, as some versions produce the expanded form for empty elements.
-    """
-    return re.sub(rb"<([a-zA-Z][\w-]*)((?:\s[^>]*)?)></\1>", rb"<\1\2/>", xml_bytes)
 
 
 def xsd_boolean(value: str) -> bool:
