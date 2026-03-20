@@ -178,7 +178,7 @@ mirror-no-attachments:
 	uv run python bin/create_mirror.py --only-papers data/xml/*xml
 
 .PHONY: test-scripts
-test-scripts: venv/bin/activate
+test-scripts:
 	uv run python -m pytest tests/ -v
 
 .PHONY: clean
