@@ -85,8 +85,9 @@ from acl_anthology.utils.ids import is_valid_orcid, is_verified_person_id
 from acl_anthology.utils.logging import setup_rich_logging
 
 
-
-def verify_by_author_id(orcid, author_ids, degree=None, suffix=None, except_paper_ids=None):
+def verify_by_author_id(
+    orcid, author_ids, degree=None, suffix=None, except_paper_ids=None
+):
     changes = False
     anthology = Anthology.from_within_repo()
     assert is_valid_orcid(orcid), f'Invalid ORCID iD: {orcid}'
@@ -103,7 +104,9 @@ def verify_by_author_id(orcid, author_ids, degree=None, suffix=None, except_pape
             # First provided author ID is an unverified author. Convert to a verified author.
             # Makes an existing unverified Person verified (and papers on the page
             # will be explicitly linked unless specifically excluded).
-            assert degree is not None, 'To newly verify an author we need a degree institution'
+            assert (
+                degree is not None
+            ), 'To newly verify an author we need a degree institution'
             assert person.id.endswith('/unverified'), person.id
             new_aid = anthology.people.generate_person_id(person, suffix)
 
@@ -165,8 +168,12 @@ def verify_by_author_id(orcid, author_ids, degree=None, suffix=None, except_pape
                 numExplicit = sum(1 for ns in person.namespecs() if ns.id is not None)
                 if numExplicit < len(list(person.namespecs())):
                     person.set_id_on_items(exclude=except_paper_ids)
-                    numExplicit2 = sum(1 for ns in person.namespecs() if ns.id is not None)
-                    log.info(f'...was explicit on {numExplicit}, now explicit on {numExplicit2}')
+                    numExplicit2 = sum(
+                        1 for ns in person.namespecs() if ns.id is not None
+                    )
+                    log.info(
+                        f'...was explicit on {numExplicit}, now explicit on {numExplicit2}'
+                    )
                     changes = 'Verify'
             continue
 
@@ -187,7 +194,7 @@ def verify_by_author_id(orcid, author_ids, degree=None, suffix=None, except_pape
             ), f'Excluded paper {paper_id} already specifies the author ID {person.id}'
             log.info(f'Temporarily adding paper {paper_id}, will exclude later')
             except_papers.append((paper_id, paper))
-        person2.merge_with_explicit(person)
+        person2.merge_into(person)
         anthology.save_all()
         anthology.people.reset()
 
@@ -299,12 +306,32 @@ def verify_by_paper(orcid, paper_ids, degree=None, suffix=None, only_these_paper
 
     if person is None:
         # Create new verified person
-        assert degree is not None, 'To newly verify an author we need a degree institution'
-        person = anthology.resolve(paper_and_namespec[0][1])    # implicit person
-        person.make_explicit(skip_setting_ids=True)
-        for _, ns in paper_and_namespec[:1]:
+        assert (
+            degree is not None
+        ), 'To newly verify an author we need a degree institution'
+        cur_person = anthology.resolve(paper_and_namespec[0][1])  # implicit match
+
+        # A paper is being split off from an implicitly matched (verified or unverified) Person's page.
+        # Create a new verified Person for this paper (or group of papers).
+        # We will add the papers to the new Person later.
+        if not cur_person.is_explicit:
+            # Currently unverified; verify
+            log.info('Verifying an unverified person')
+            cur_person.make_explicit(skip_setting_ids=True)
+            person = cur_person
+        else:
+            # Matches a verified person; we need to create a new verified person
+            log.info('Splitting from a verified person (implicit name match)')
+            new_aid = anthology.people.generate_person_id(
+                paper_and_namespec[0][1].name, suffix
+            )
+            log.info(f'Verifying author from scratch: {new_aid}')
+            person = anthology.people.create(new_aid, [paper_and_namespec[0][1].name])
+
+        for _, ns in paper_and_namespec[1:]:
             # Add any names from other papers (which may correspond to other unverified persons)
             person.add_name(ns.name)
+
         changes = 'Verify'
 
     if not orcid_matched:
@@ -371,7 +398,9 @@ def verify_by_paper(orcid, paper_ids, degree=None, suffix=None, only_these_paper
         numNamespecs = sum(1 for ns in person.namespecs())
         numExplicit = sum(1 for ns in person.namespecs() if ns.id is not None)
         if numExplicit < numNamespecs:
-            log.warning(f'There are {numNamespecs-numExplicit} implicit matches (did you mean to run with --only?)')
+            log.warning(
+                f'There are {numNamespecs-numExplicit} implicit matches (did you mean to run with --only?)'
+            )
 
     return changes + f' author {person.id}'
 
