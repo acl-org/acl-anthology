@@ -177,12 +177,16 @@ mirror:
 mirror-no-attachments:
 	uv run python bin/create_mirror.py --only-papers data/xml/*xml
 
+.PHONY: test-scripts
+test-scripts: venv/bin/activate
+	uv run python -m pytest tests/ -v
+
 .PHONY: clean
 clean:
 	rm -rf build
 
 .PHONY: check
-check:
+check: test-scripts
 	@if grep -rl '	' data/xml; then \
 	    echo "check error: found a tab character in the above XML files!"; \
 	    exit 1; \
