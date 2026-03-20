@@ -86,3 +86,30 @@ jobs:
           This preview will be removed when the branch is merged.
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         allow-repeats: false
+    - name: Update preview link in PR description
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const branch = context.ref.replace('refs/heads/', '');
+          const { data: prs } = await github.rest.pulls.list({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            head: `${context.repo.owner}:${branch}`,
+            state: 'open',
+          });
+          if (prs.length === 0) return;
+          const pr = prs[0];
+          const body = pr.body || '';
+          const previewUrl = 'https://preview.aclanthology.org/${{ steps.extract_branch.outputs.branch }}';
+          const updated = body.replace(
+            'Navigate to the preview site (it will be generated after the first build)',
+            `Navigate to the [preview site](${previewUrl})`
+          );
+          if (updated !== body) {
+            await github.rest.pulls.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: pr.number,
+              body: updated,
+            });
+          }
