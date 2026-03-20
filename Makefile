@@ -214,6 +214,12 @@ test: hugo
 test-scripts: venv/bin/activate
 	. $(VENV) && python3 -m pytest tests/ -v
 
+# Sometimes after a merge conflict the entries in people.yaml
+# get miss-sorted. This corrects that by reloading and saving the file.
+.PHONY: normalize
+normalize: venv/bin/activate
+	. $(VENV) && python3 -c "from acl_anthology import Anthology; anth = Anthology.from_within_repo(); anth.people.load(); anth.people.save()"
+
 .PHONY: clean
 clean:
 	rm -rf build venv
