@@ -22,11 +22,6 @@ from acl_anthology import Anthology
 DATADIR = Path(__file__).resolve().parent.parent / "data"
 
 
-@pytest.fixture(scope="module")
-def anthology():
-    return Anthology.from_within_repo()
-
-
 # -------------------------------------------------------------------
 # classify_input tests (same logic as generate_crossref_doi_metadata)
 # -------------------------------------------------------------------
