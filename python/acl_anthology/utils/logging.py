@@ -56,7 +56,7 @@ def setup_rich_logging(
     This function is intended to be called in a script. It calls [logging.basicConfig][] and is therefore not executed by default, as applications may wish to setup their loggers differently.
 
     Parameters:
-        console: A [rich.Console][] object to output log messages to.
+        console: A [rich.Console][rich.console.Console] object to output log messages to.
         **kwargs: Any keyword argument will be forwarded to [logging.basicConfig][].  If logging handlers are defined here, they will be preserved in addition to the handlers added by this function.  If 'level' is not given, it will default to 'INFO'.
 
     Returns:
