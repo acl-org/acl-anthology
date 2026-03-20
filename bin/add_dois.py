@@ -31,6 +31,7 @@ For events, all colocated volumes are resolved automatically.
 Modifies the XML.  Warns if DOIs already present.  Use -f to force.
 """
 
+import logging
 import sys
 from pathlib import Path
 from time import sleep
@@ -41,8 +42,11 @@ import requests
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from acl_anthology import Anthology
+from acl_anthology.utils.logging import setup_rich_logging
 
 from generate_crossref_doi_metadata import resolve_inputs, DOI_PREFIX
+
+log = logging.getLogger(__name__)
 
 # Constants
 DOI_URL_PREFIX = "https://doi.org/"
@@ -69,9 +73,10 @@ def add_doi_to_item(item, anth_id, doi_prefix=DOI_PREFIX, force=False):
     new_doi = f"{doi_prefix}{anth_id}"
 
     if item.doi is not None and not force:
-        print(
-            f"-> [{anth_id}] Cowardly refusing to overwrite existing DOI {item.doi} (use --force)",
-            file=sys.stderr,
+        log.warning(
+            "[%s] Cowardly refusing to overwrite existing DOI %s (use --force)",
+            anth_id,
+            item.doi,
         )
         return False
 
@@ -80,22 +85,22 @@ def add_doi_to_item(item, anth_id, doi_prefix=DOI_PREFIX, force=False):
         try:
             result = test_url_code(doi_url)
             if result.status_code == 200:
-                print(f"-> Adding DOI {new_doi}", file=sys.stderr)
+                log.info("Adding DOI %s", new_doi)
                 item.doi = new_doi
                 return True
             elif result.status_code == 429:
                 pause_for = int(result.headers["Retry-After"])
-                print(f"--> Got 429, pausing for {pause_for} seconds", file=sys.stderr)
+                log.warning("Got 429, pausing for %d seconds", pause_for)
                 sleep(pause_for + 1)
             elif result.status_code == 404:
-                print("--> Got 404", file=sys.stderr)
+                log.warning("Got 404")
                 break
             else:
-                print(f"--> Other problem: {result}", file=sys.stderr)
+                log.warning("Other problem: %s", result)
         except Exception as e:
-            print(e, file=sys.stderr)
+            log.error("%s", e)
 
-    print(f"-> Couldn't add DOI for {doi_url}", file=sys.stderr)
+    log.error("Couldn't add DOI for %s", doi_url)
     return False
 
 
@@ -107,14 +112,11 @@ def process_volume(anthology, full_volume_id, doi_prefix=DOI_PREFIX, force=False
     """
     volume = anthology.get_volume(full_volume_id)
     if volume is None:
-        print(
-            f"-> FATAL: volume {full_volume_id} not found in the Anthology",
-            file=sys.stderr,
-        )
+        log.error("Volume %s not found in the Anthology", full_volume_id)
         sys.exit(1)
 
-    print(f"Attempting to add DOIs for {full_volume_id}", file=sys.stderr)
-    print(f'-> Found volume "{volume.title}"', file=sys.stderr)
+    log.info("Attempting to add DOIs for %s", full_volume_id)
+    log.info('Found volume "%s"', volume.title)
 
     num_added = 0
 
@@ -132,15 +134,13 @@ def process_volume(anthology, full_volume_id, doi_prefix=DOI_PREFIX, force=False
     # Save the collection
     collection = volume.parent
     collection.save()
-    print(
-        f"-> Added {num_added} DOIs to the XML for collection {collection.id}",
-        file=sys.stderr,
-    )
+    log.info("Added %d DOIs to the XML for collection %s", num_added, collection.id)
 
     return num_added
 
 
 def main(args):
+    setup_rich_logging()
     anthology = Anthology.from_within_repo(verbose=False)
     volume_ids = resolve_inputs(anthology, args.identifiers)
 

@@ -24,7 +24,7 @@ DATADIR = Path(__file__).resolve().parent.parent / "data"
 
 @pytest.fixture(scope="module")
 def anthology():
-    return Anthology(datadir=DATADIR)
+    return Anthology.from_within_repo()
 
 
 # -------------------------------------------------------------------

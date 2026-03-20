@@ -40,6 +40,7 @@ Limitations:
 - Doesn't properly handle existing ISBN information.
 """
 
+import logging
 import re
 import sys
 import time
@@ -48,6 +49,9 @@ from lxml import etree
 
 from acl_anthology import Anthology
 from acl_anthology.constants import RE_EVENT_ID
+from acl_anthology.utils.logging import setup_rich_logging
+
+log = logging.getLogger(__name__)
 
 # CONSTANTS
 DOI_PREFIX = "10.18653/v1/"
@@ -106,10 +110,7 @@ def classify_input(identifier):
     # Event IDs: lowercase venue + dash + 4-digit year
     if re.match(RE_EVENT_ID, identifier):
         return ("event", identifier)
-    print(
-        f"ERROR: Cannot classify '{identifier}' as a volume ID or event ID",
-        file=sys.stderr,
-    )
+    log.error("Cannot classify '%s' as a volume ID or event ID", identifier)
     sys.exit(1)
 
 
@@ -129,7 +130,7 @@ def resolve_inputs(anthology, identifiers):
         elif kind == "event":
             event = anthology.get_event(value)
             if event is None:
-                print(f"ERROR: Event '{value}' not found", file=sys.stderr)
+                log.error("Event '%s' not found", value)
                 sys.exit(1)
             for volume in event.volumes():
                 volume_ids.add(volume.full_id)
@@ -177,7 +178,7 @@ def generate_crossref_xml(anthology, volume_ids, batch_id=None):
     for full_volume_id in sorted(volume_ids):
         volume = anthology.get_volume(full_volume_id)
         if volume is None:
-            print(f"* Can't find volume {full_volume_id}", file=sys.stderr)
+            log.warning("Can't find volume %s", full_volume_id)
             continue
 
         year = volume.year
@@ -195,10 +196,7 @@ def generate_crossref_xml(anthology, volume_ids, batch_id=None):
                 start_month = MONTH_HASH[parts[0]]
                 end_month = MONTH_HASH[parts[1]] if len(parts) > 1 else start_month
             except (KeyError, IndexError):
-                print(
-                    f"FATAL: can't parse month {month} in {full_volume_id}",
-                    file=sys.stderr,
-                )
+                log.error("Can't parse month %s in %s", month, full_volume_id)
                 sys.exit(1)
 
         # Conference element
@@ -222,10 +220,7 @@ def generate_crossref_xml(anthology, volume_ids, batch_id=None):
             make_simple_element("surname", text=editor.name.last, parent=pn)
 
         if editor_index == 0:
-            print(
-                f"WARNING: Found no editors for volume {full_volume_id}, skipping",
-                file=sys.stderr,
-            )
+            log.error("Found no editors for volume %s", full_volume_id)
             sys.exit(1)
 
         # Event Metadata
@@ -272,9 +267,10 @@ def generate_crossref_xml(anthology, volume_ids, batch_id=None):
                 contributor_specs = paper.authors
 
             if len(contributor_specs) == 0:
-                print(
-                    f"WARNING: Found no contributors for {'frontmatter' if is_frontmatter else 'paper'} {paper.full_id}, skipping",
-                    file=sys.stderr,
+                log.warning(
+                    "Found no contributors for %s %s, skipping",
+                    "frontmatter" if is_frontmatter else "paper",
+                    paper.full_id,
                 )
                 continue
 
@@ -340,6 +336,7 @@ def generate_crossref_xml(anthology, volume_ids, batch_id=None):
 
 
 def main(args):
+    setup_rich_logging()
     anthology = Anthology.from_within_repo(verbose=False)
     volume_ids = resolve_inputs(anthology, args.identifiers)
 
