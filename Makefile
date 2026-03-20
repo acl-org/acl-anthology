@@ -210,12 +210,16 @@ test: hugo
 	diff -u build/website/$(ANTHOLOGYDIR)/P19-1007.bib test/data/P19-1007.bib
 	diff -u build/website/$(ANTHOLOGYDIR)/P19-1007.xml test/data/P19-1007.xml
 
+.PHONY: test-scripts
+test-scripts: venv/bin/activate
+	. $(VENV) && python3 -m pytest tests/ -v
+
 .PHONY: clean
 clean:
 	rm -rf build venv
 
 .PHONY: check
-check: venv
+check: venv test-scripts
 	@if grep -rl '	' data/xml; then \
 	    echo "check error: found a tab character in the above XML files!"; \
 	    exit 1; \
