@@ -219,7 +219,7 @@ clean:
 	rm -rf build venv
 
 .PHONY: check
-check: venv
+check: venv test-scripts
 	@if grep -rl '	' data/xml; then \
 	    echo "check error: found a tab character in the above XML files!"; \
 	    exit 1; \
