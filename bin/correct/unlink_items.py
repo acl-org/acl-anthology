@@ -39,7 +39,6 @@ import logging as log
 from docopt import docopt
 
 from acl_anthology import Anthology
-from acl_anthology.collections import Paper
 from acl_anthology.exceptions import NameSpecResolutionWarning
 from acl_anthology.utils.logging import setup_rich_logging
 
@@ -59,8 +58,7 @@ def unlink_items(author_id, paper_ids, keep_only_these_papers=False):
         assert paper, f'Unknown item ID: {paper_id}'
 
         # match the author of the paper by name slug
-        author_list = paper.authors if isinstance(paper, Paper) else paper.editors
-        matches = [namespec for namespec in author_list if namespec.id == author_id]
+        matches = [namespec for namespec in paper.namespecs if namespec.id == author_id]
         assert (
             len(matches) == 1
         ), f'In {paper_id}, looking for exactly 1 author with id={author_id}, found: {matches}'
@@ -77,20 +75,18 @@ def unlink_items(author_id, paper_ids, keep_only_these_papers=False):
             all_items = list(person.anthology_items())
             for item in all_items:
                 if item not in included_items:
-                    for ns in item.authors if isinstance(item, Paper) else item.editors:
+                    for ns in item.namespecs:
                         if ns.id == person.id:
                             log.info(f'Unlinking {item.full_id} {ns}')
                             assert ns.orcid is None, 'ORCID expected to be None'
                             ns.id = None
                             numUnlinked += 1
-                            item.collection.is_modified = True
     else:  # unlink the specified papers
         for item, ns in paper_and_namespec:
             log.info(f'Unlinking {item.full_id} {ns}')
             assert ns.orcid is None, 'ORCID expected to be None'
             ns.id = None
             numUnlinked += 1
-            item.collection.is_modified = True
 
     if numUnlinked > 0:
         changes = (
