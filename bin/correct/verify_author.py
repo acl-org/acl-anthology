@@ -88,22 +88,31 @@ from acl_anthology.utils.logging import setup_rich_logging
 def verify_by_author_id(
     orcid, author_ids, degree=None, suffix=None, except_paper_ids=None
 ):
+    """
+    Merges the author pages corresponding to the provided author IDs
+    into a new verified page with an ORCID. Papers under the newly
+    verified Person will all have explicit author IDs.
+
+    The logic is as follows: given one or more author IDs, identifies
+    - the target Person to be used for verification/merging
+    - the primary Person, whose canonical name will be made canonical for the result.
+    These are typically the same Person, but not necessarily.
+    The primary Person is determined based on the first listed author ID.
+    The target Person is selected among the ones denoted by listed author IDs according to the priority:
+        existing legacy-verified > existing ORCID-verified > primary Person (who may be unverified)
+    (legacy-verified is preferred because this ID was created manually, whereas the ORCID-verified
+    one may have been autocreated and have an ORCID-based suffix).
+    """
     changes = False
     anthology = Anthology.from_within_repo()
     assert is_valid_orcid(orcid), f'Invalid ORCID iD: {orcid}'
     assert author_ids, 'At least 1 author ID is required'
     assert len(set(author_ids)) == len(author_ids), 'Author IDs should be unique'
 
-    # Given one or more author IDs, identify
-    #   - the target Person to be used for verification/merging
-    #   - the primary Person, whose canonical name will be made canonical for the result
-    # These are typically the same Person, but not necessarily.
-    # The primary Person is determined based on the first listed author ID.
-    # The target Person is selected among the ones denoted by listed author IDs according to the priority:
-    #     existing legacy-verified > existing ORCID-verified > primary Person (who may be unverified)
-    #    (legacy-verified is preferred because this ID was created manually, whereas the ORCID-verified
-    #    one may have been autocreated and have an ORCID-based suffix)
-    # TODO: not tested: --exclude; changing the canonical name of the target Person; merging 2 verified profiles
+    # TODO: not tested:
+    #   * --exclude
+    #   * changing the canonical name of the target Person
+    #   * merging 2 verified profiles
 
     people = []
     for aid in author_ids:
@@ -116,17 +125,21 @@ def verify_by_author_id(
     del person
 
     primary_person = people[0]
-    target_person = ([p for p in people if p.is_explicit and p.orcid is None] +
-        [p for p in people if p.is_explicit and p.orcid is not None] +
-        [primary_person])[0]
+    target_person = (
+        [p for p in people if p.is_explicit and p.orcid is None]
+        + [p for p in people if p.is_explicit and p.orcid is not None]
+        + [primary_person]
+    )[0]
 
     if not target_person.is_explicit:
         # Convert unverified person to verified
-        assert degree is not None, 'To newly verify an author we need a degree institution'
+        assert (
+            degree is not None
+        ), 'To newly verify an author we need a degree institution'
         new_aid = anthology.people.generate_person_id(target_person, suffix)
         log.info(f'Verifying author {target_person.id} -> {new_aid}')
         target_person.make_explicit(new_aid, skip_setting_ids=True)
-        changes = 'Verify/merge' if len(author_ids)>1 else 'Verify'
+        changes = 'Verify/merge' if len(author_ids) > 1 else 'Verify'
         if except_paper_ids:
             # since we are verifying an unverified person and there are excluded papers,
             # disable name matching
@@ -145,7 +158,9 @@ def verify_by_author_id(
         if person is not target_person:
             if person.is_explicit:
                 log.info(f'Already verified, merging into another person: {person.id}')
-            assert (person.orcid is None) or (target_person.orcid is None), f'ORCID clash: {person.orcid}, {target_person.orcid}'
+            assert (person.orcid is None) or (
+                target_person.orcid is None
+            ), f'ORCID clash: {person.orcid}, {target_person.orcid}'
             person.merge_into(target_person)
             if not changes:
                 changes = 'Verify/merge'
