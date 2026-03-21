@@ -91,124 +91,90 @@ def verify_by_author_id(
     changes = False
     anthology = Anthology.from_within_repo()
     assert is_valid_orcid(orcid), f'Invalid ORCID iD: {orcid}'
+    assert author_ids, 'At least 1 author ID is required'
     assert len(set(author_ids)) == len(author_ids), 'Author IDs should be unique'
 
-    # First try to match an existing person by ORCID
-    person = anthology.people.get_by_orcid(orcid)
-    if person is None:
-        # No ORCID match. Match canonical person by first author ID instead.
-        aid = author_ids[0]
+    # Given one or more author IDs, identify
+    #   - the target Person to be used for verification/merging
+    #   - the primary Person, whose canonical name will be made canonical for the result
+    # These are typically the same Person, but not necessarily.
+    # The primary Person is determined based on the first listed author ID.
+    # The target Person is selected among the ones denoted by listed author IDs according to the priority:
+    #     existing legacy-verified > existing ORCID-verified > primary Person (who may be unverified)
+    #    (legacy-verified is preferred because this ID was created manually, whereas the ORCID-verified
+    #    one may have been autocreated and have an ORCID-based suffix)
+    # TODO: not tested: --exclude; changing the canonical name of the target Person; merging 2 verified profiles
+
+    people = []
+    for aid in author_ids:
         person = anthology.get_person(aid)
         assert person is not None, f'Unregistered author ID: {aid}'
-        if not person.is_explicit:
-            # First provided author ID is an unverified author. Convert to a verified author.
-            # Makes an existing unverified Person verified (and papers on the page
-            # will be explicitly linked unless specifically excluded).
-            assert (
-                degree is not None
-            ), 'To newly verify an author we need a degree institution'
-            assert person.id.endswith('/unverified'), person.id
-            new_aid = anthology.people.generate_person_id(person, suffix)
+        people.append(person)
+    person = anthology.people.get_by_orcid(orcid)
+    if person is not None and person not in people:
+        people.append(person)
+    del person
 
-            # Convert unverified person to verified, which assigns IDs to all papers under the unverified person
-            log.info(f'Verifying author {person.id} -> {new_aid}')
-            person.make_explicit(new_aid, skip_setting_ids=True)
-            person.set_id_on_items(exclude=except_paper_ids)
-            changes = 'Verify'
+    primary_person = people[0]
+    target_person = ([p for p in people if p.is_explicit and p.orcid is None] +
+        [p for p in people if p.is_explicit and p.orcid is not None] +
+        [primary_person])[0]
 
-            if except_paper_ids:
-                # since we are verifying an unverified person and there are excluded papers,
-                # disable name matching
-                log.info('Disabling name matching to limit to the specified papers.')
-                person.disable_name_matching = True
-                changes = (
-                    changes + ' and disable name matching for'
-                    if changes
-                    else 'Disable name matching for'
-                )
-        else:
-            log.info(f'Matched existing author by author ID: {aid}')
+    if not target_person.is_explicit:
+        # Convert unverified person to verified
+        assert degree is not None, 'To newly verify an author we need a degree institution'
+        new_aid = anthology.people.generate_person_id(target_person, suffix)
+        log.info(f'Verifying author {target_person.id} -> {new_aid}')
+        target_person.make_explicit(new_aid, skip_setting_ids=True)
+        changes = 'Verify/merge' if len(author_ids)>1 else 'Verify'
+        if except_paper_ids:
+            # since we are verifying an unverified person and there are excluded papers,
+            # disable name matching
+            log.info('Disabling name matching to limit to the specified papers.')
+            target_person.disable_name_matching = True
+            changes = (
+                changes + ' and disable name matching for'
+                if changes
+                else 'Disable name matching for'
+            )
 
-        # We did not find an ORCID match, so assign the provided ORCID to the first matched author ID
-        assert (
-            not person.orcid
-        ), f'Author {aid} already has an ORCID {person.orcid} which differs from {orcid}'
+    canonical_name = primary_person.canonical_name
+
+    # Merge any other Persons into the target Person
+    for person in people:
+        if person is not target_person:
+            if person.is_explicit:
+                log.info(f'Already verified, merging into another person: {person.id}')
+            assert (person.orcid is None) or (target_person.orcid is None), f'ORCID clash: {person.orcid}, {target_person.orcid}'
+            person.merge_into(target_person)
+            if not changes:
+                changes = 'Verify/merge'
+
+    if target_person.canonical_name != canonical_name:
+        log.info(f'Using {canonical_name} as canonical')
+        target_person.canonical_name = canonical_name
+        # TODO: also update the ID?
+
+    # Set ORCID
+    if target_person.orcid is None:
         log.info('Assigning ORCID')
-        person.orcid = orcid
-        changes = 'Verify'
-
-        # We have used the first of the provided author IDs
-        author_ids = author_ids[1:]
-    else:
-        log.info('Matched existing author by ORCID')
+        target_person.orcid = orcid
+        if not changes:
+            changes = 'Add ORCID for'
 
     # Specify the degree institution if provided
     if degree is not None:
-        if person.degree:
+        if target_person.degree:
             assert (
-                person.degree == degree
+                target_person.degree == degree
             ), f'Mismatched degree institution: "{person.degree}" != "{degree}"'
         else:
             log.info('Assigning degree institution')
-            person.degree = degree
+            target_person.degree = degree
             if not changes:
                 changes = 'Add degree for'
 
-    # Merge specified author IDs with the canonical person
-    # Note that we may have already used the first author ID
-    for aid in author_ids:
-        person2 = anthology.get_person(aid)
-        assert person2 is not None, f'Invalid author ID: {aid}'
-        if person2 is person:  # ORCID match may be the same as first author ID match
-            if len(author_ids) == 1 and (not changes or changes == 'Add degree for'):
-                # Author is already verified with ORCID; make_explicit() has not been called
-                # and merge_with_explicit() will not be called.
-                # Interpret as a request to make this author's ID fully explicit on papers.
-                log.info(f'Ensuring author ID {aid} is explicit on all papers/volumes')
-                numExplicit = sum(1 for ns in person.namespecs() if ns.id is not None)
-                if numExplicit < len(list(person.namespecs())):
-                    person.set_id_on_items(exclude=except_paper_ids)
-                    numExplicit2 = sum(
-                        1 for ns in person.namespecs() if ns.id is not None
-                    )
-                    log.info(
-                        f'...was explicit on {numExplicit}, now explicit on {numExplicit2}'
-                    )
-                    changes = 'Verify'
-            continue
-
-        # Besides the canonical person, other author IDs to merge should be unverified
-        # (else it means two author IDs corresponding to the same individual were erroneously verified)
-        assert (
-            not person2.is_explicit
-        ), f'Author ID corresponds to a verified author, should be unverified: {aid}'
-        log.info(f'Merging author {aid} into {person.id}')
-        except_papers = []
-        for paper_id in except_paper_ids or []:
-            paper = anthology.get(paper_id)
-            assert paper is not None, paper_id
-            assert paper.authors, paper
-            assert not any(
-                ns.id == person.id
-                for ns in (paper.authors if isinstance(paper, Paper) else paper.editors)
-            ), f'Excluded paper {paper_id} already specifies the author ID {person.id}'
-            log.info(f'Temporarily adding paper {paper_id}, will exclude later')
-            except_papers.append((paper_id, paper))
-        person2.merge_into(person)
-        anthology.save_all()
-        anthology.people.reset()
-
-        # reset the ID for excluded papers
-        for paper_id, paper in except_papers:
-            paper = anthology.get(paper_id)  # reload the paper (to avoid stale NameSpecs)
-            matching_authors = [ns for ns in paper.authors if ns.id == person.id]
-            assert (
-                matching_authors
-            ), f'Cannot exclude paper {paper_id} because it was not matched in the first place'
-            for ns in matching_authors:
-                log.info(f'Excluding paper {paper_id} author {ns}')
-                ns.id = None
-        changes = 'Verify/merge'
+    target_person.set_id_on_items(exclude=except_paper_ids)
 
     if changes:
         anthology.save_all()
