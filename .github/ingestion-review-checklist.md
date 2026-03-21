@@ -7,10 +7,10 @@
 1. [ ] For workshops, add a backlink from the main event's `<event>` block
 1. [ ] Add events to their relevant SIGs
 1. [ ] Look at the venue listing for prior years, and ensure that the new volume titles are consistent. You can do this by clicking on the venue name from a paper page, which will take you to the vendor listing.
-1. [ ] Navigate to the event page preview (e.g., https://preview.aclanthology.org/icnlsp-ingestion/events/icnlsp-2021/), and page through, to see if there are any glaring mistakes
-1. [ ] Skim through the complete listing, looking for mis-parsed author names.
-1. [ ] Download the frontmatter and verify that the table of contents matches at least three randomly-selected papers
-1. [ ] Download 3–5 PDFs (including the first and last one) and make sure they are correct (title, authors, page numbers).
+1. [ ] Navigate to the preview site (it will be generated after the first build) and check the following:
+   1. [ ] Skim through the complete listing, looking for mis-parsed author names.
+   1. [ ] Download the frontmatter and verify that the table of contents matches at least three randomly-selected papers
+   1. [ ] Download 3–5 PDFs (including the first and last one) and make sure they are correct (title, authors, page numbers).
 
 After the PR is closed, for all events:
 - [ ] Archive the ingestion materials in format `YYYY-MM-DD-{event}`
