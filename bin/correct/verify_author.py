@@ -149,6 +149,7 @@ def verify_by_author_id(
             person.merge_into(target_person)
             if not changes:
                 changes = 'Verify/merge'
+    del person
 
     if target_person.canonical_name != canonical_name:
         log.info(f'Using {canonical_name} as canonical')
@@ -167,21 +168,31 @@ def verify_by_author_id(
         if target_person.degree:
             assert (
                 target_person.degree == degree
-            ), f'Mismatched degree institution: "{person.degree}" != "{degree}"'
+            ), f'Mismatched degree institution: "{target_person.degree}" != "{degree}"'
         else:
             log.info('Assigning degree institution')
             target_person.degree = degree
             if not changes:
                 changes = 'Add degree for'
 
+    msg = f'Ensuring author ID {aid} is explicit on all papers/volumes'
+    log.info(msg if not except_paper_ids else msg + f' except: {except_paper_ids}')
+    numExplicit = sum(1 for ns in target_person.namespecs() if ns.id is not None)
+    if numExplicit < len(list(target_person.namespecs())) - len(except_paper_ids or []):
+        if not changes:
+            changes = 'Verify'
+
     target_person.set_id_on_items(exclude=except_paper_ids)
+
+    numExplicit2 = sum(1 for ns in target_person.namespecs() if ns.id is not None)
+    log.info(f'...was explicit on {numExplicit}, now explicit on {numExplicit2}')
 
     if changes:
         anthology.save_all()
     else:
         changes = 'No changes for'
 
-    return changes + f' author {person.id}'
+    return changes + f' author {target_person.id}'
 
 
 def verify_by_paper(orcid, paper_ids, degree=None, suffix=None, only_these_papers=False):
