@@ -142,11 +142,13 @@ def verify_by_author_id(
         # target_person.make_explicit(new_aid, skip_setting_ids=True)
         # workaround for bug #7879
         new_person = anthology.people.create(new_aid, [target_person.canonical_name])
-        new_person.disable_name_matching = True # temporarily, so authors don't get automatically moved from `target_person`
-        assert not except_paper_ids, 'Person.merge_into() currently does not support excluding some papers'
-        target_person.merge_into(new_person)    # copy attributes, set explicit IDs
+        new_person.disable_name_matching = True  # temporarily, so authors don't get automatically moved from `target_person`
+        assert (
+            not except_paper_ids
+        ), 'Person.merge_into() currently does not support excluding some papers'
+        target_person.merge_into(new_person)  # copy attributes, set explicit IDs
         target_person = new_person
-        new_person.disable_name_matching = False    # reset
+        new_person.disable_name_matching = False  # reset
 
         changes = 'Verify/merge' if len(author_ids) > 1 else 'Verify'
         if except_paper_ids:
@@ -163,7 +165,7 @@ def verify_by_author_id(
     canonical_name = primary_person.canonical_name
 
     # Merge any other Persons into the target Person
-    numExplicit = 0 # items initially with an explicit author ID
+    numExplicit = 0  # items initially with an explicit author ID
     for person in people:
         numExplicit += sum(1 for ns in person.namespecs() if ns.id is not None)
         if person is not target_person:
@@ -172,7 +174,9 @@ def verify_by_author_id(
             assert (person.orcid is None) or (
                 target_person.orcid is None
             ), f'ORCID clash: {person.orcid}, {target_person.orcid}'
-            assert not except_paper_ids, 'Person.merge_into() currently does not support excluding some papers'
+            assert (
+                not except_paper_ids
+            ), 'Person.merge_into() currently does not support excluding some papers'
             person.merge_into(target_person)
             if not changes:
                 changes = 'Verify/merge'
@@ -205,8 +209,12 @@ def verify_by_author_id(
     msg = f'Ensuring author ID {target_person.id} is explicit on all papers/volumes'
     log.info(msg if not except_paper_ids else msg + f' except: {except_paper_ids}')
 
-    if not changes and numExplicit < len(list(target_person.namespecs())) - len(except_paper_ids or []):
-        changes = 'Verify'  # simply want to set explicit IDs on all items for a verified author
+    if not changes and numExplicit < len(list(target_person.namespecs())) - len(
+        except_paper_ids or []
+    ):
+        changes = (
+            'Verify'  # simply want to set explicit IDs on all items for a verified author
+        )
 
     target_person.set_id_on_items(exclude=except_paper_ids)
 
@@ -303,7 +311,9 @@ def verify_by_paper(orcid, paper_ids, degree=None, suffix=None, only_these_paper
         if only_these_papers:
             # ensure the already-verified person doesn't have other explicit papers
             for paper in person.anthology_items():
-                assert paper.full_id in just_paper_ids, f'--only was specified, but list does not include already explicit paper under author {person.id}: {paper.full_id}'
+                assert (
+                    paper.full_id in just_paper_ids
+                ), f'--only was specified, but list does not include already explicit paper under author {person.id}: {paper.full_id}'
 
     if person is None:
         # Create new verified person
@@ -362,7 +372,9 @@ def verify_by_paper(orcid, paper_ids, degree=None, suffix=None, only_these_paper
             changes = 'Verify'
         else:
             assert ns.id == person.id, (ns.id, person.id)
-            log.warning(f'Already explicitly linked to author {person.id}: {paper.full_id}')
+            log.warning(
+                f'Already explicitly linked to author {person.id}: {paper.full_id}'
+            )
     log.info(
         f'The specified {len(paper_and_namespec)} papers have been explicitly assigned to the author'
     )
