@@ -138,7 +138,14 @@ def verify_by_author_id(
         ), 'To newly verify an author we need a degree institution'
         new_aid = anthology.people.generate_person_id(target_person, suffix)
         log.info(f'Verifying author {target_person.id} -> {new_aid}')
-        target_person.make_explicit(new_aid, skip_setting_ids=True)
+
+        # target_person.make_explicit(new_aid, skip_setting_ids=True)
+        # workaround for bug #7879
+        new_person = anthology.people.create(new_aid, [target_person.canonical_name])
+        assert not except_paper_ids, 'Person.merge_into() currently does not support excluding some papers'
+        target_person.merge_into(new_person)    # copy attributes, set explicit IDs
+        target_person = new_person
+
         changes = 'Verify/merge' if len(author_ids) > 1 else 'Verify'
         if except_paper_ids:
             # since we are verifying an unverified person and there are excluded papers,
@@ -154,13 +161,16 @@ def verify_by_author_id(
     canonical_name = primary_person.canonical_name
 
     # Merge any other Persons into the target Person
+    numExplicit = 0 # items initially with an explicit author ID
     for person in people:
+        numExplicit += sum(1 for ns in person.namespecs() if ns.id is not None)
         if person is not target_person:
             if person.is_explicit:
                 log.info(f'Already verified, merging into another person: {person.id}')
             assert (person.orcid is None) or (
                 target_person.orcid is None
             ), f'ORCID clash: {person.orcid}, {target_person.orcid}'
+            assert not except_paper_ids, 'Person.merge_into() currently does not support excluding some papers'
             person.merge_into(target_person)
             if not changes:
                 changes = 'Verify/merge'
@@ -190,12 +200,11 @@ def verify_by_author_id(
             if not changes:
                 changes = 'Add degree for'
 
-    msg = f'Ensuring author ID {aid} is explicit on all papers/volumes'
+    msg = f'Ensuring author ID {target_person.id} is explicit on all papers/volumes'
     log.info(msg if not except_paper_ids else msg + f' except: {except_paper_ids}')
-    numExplicit = sum(1 for ns in target_person.namespecs() if ns.id is not None)
-    if numExplicit < len(list(target_person.namespecs())) - len(except_paper_ids or []):
-        if not changes:
-            changes = 'Verify'
+
+    if not changes and numExplicit < len(list(target_person.namespecs())) - len(except_paper_ids or []):
+        changes = 'Verify'  # simply want to set explicit IDs on all items for a verified author
 
     target_person.set_id_on_items(exclude=except_paper_ids)
 
