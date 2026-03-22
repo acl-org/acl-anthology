@@ -142,9 +142,11 @@ def verify_by_author_id(
         # target_person.make_explicit(new_aid, skip_setting_ids=True)
         # workaround for bug #7879
         new_person = anthology.people.create(new_aid, [target_person.canonical_name])
+        new_person.disable_name_matching = True # temporarily, so authors don't get automatically moved from `target_person`
         assert not except_paper_ids, 'Person.merge_into() currently does not support excluding some papers'
         target_person.merge_into(new_person)    # copy attributes, set explicit IDs
         target_person = new_person
+        new_person.disable_name_matching = False    # reset
 
         changes = 'Verify/merge' if len(author_ids) > 1 else 'Verify'
         if except_paper_ids:
@@ -288,22 +290,20 @@ def verify_by_paper(orcid, paper_ids, degree=None, suffix=None, only_these_paper
     ]
     if person is None:
         # No ORCID match. Look for a verified person among the matched namespecs
-        assert (
-            len(explicit_verified_matches) <= 1
-        ), f'Expected at most 1 explicit verified author match in specified papers, got: {explicit_verified_matches}'
         if explicit_verified_matches:
-            assert (
-                not only_these_papers
-            ), '`--only` flag does not work with an already-verified author'
-            # TODO: replace with new .resolve()
-            person = anthology.resolve(explicit_verified_matches[0])
-    else:
-        assert (
-            not only_these_papers
-        ), '`--only` flag does not work with an already-verified author'
-        assert (
-            len(explicit_verified_matches) == 0
-        ), f'Expected no explicit verified author matches in specified papers, got: {explicit_verified_matches}'
+            person = explicit_verified_matches[0].resolve()
+
+    # If there is an already-verified person, ensure there aren't more than one
+    if person is not None:
+        just_paper_ids = []
+        for paper, ns in paper_and_namespec:
+            just_paper_ids.append(paper.full_id)
+            if ns.id:
+                assert ns.id == person.id, (paper.full_id, ns.id, person.id)
+        if only_these_papers:
+            # ensure the already-verified person doesn't have other explicit papers
+            for paper in person.anthology_items():
+                assert paper.full_id in just_paper_ids, f'--only was specified, but list does not include already explicit paper under author {person.id}: {paper.full_id}'
 
     if person is None:
         # Create new verified person
@@ -318,7 +318,8 @@ def verify_by_paper(orcid, paper_ids, degree=None, suffix=None, only_these_paper
         if not cur_person.is_explicit:
             # Currently unverified; verify
             log.info('Verifying an unverified person')
-            cur_person.make_explicit(skip_setting_ids=True)
+            new_aid = anthology.people.generate_person_id(cur_person, suffix)
+            cur_person.make_explicit(new_aid, skip_setting_ids=True)
             person = cur_person
         else:
             # Matches a verified person; we need to create a new verified person
@@ -361,6 +362,7 @@ def verify_by_paper(orcid, paper_ids, degree=None, suffix=None, only_these_paper
             changes = 'Verify'
         else:
             assert ns.id == person.id, (ns.id, person.id)
+            log.warning(f'Already explicitly linked to author {person.id}: {paper.full_id}')
     log.info(
         f'The specified {len(paper_and_namespec)} papers have been explicitly assigned to the author'
     )
