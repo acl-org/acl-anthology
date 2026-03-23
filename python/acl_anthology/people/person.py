@@ -1,4 +1,4 @@
-# Copyright 2023-2024 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2026 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -262,6 +262,7 @@ class Person:
 
         Parameters:
             new_id: The new ID for this person, which must match [`RE_VERIFIED_PERSON_ID`][acl_anthology.utils.ids.RE_VERIFIED_PERSON_ID].  If not specified, will try to generate one automatically based on this person's canonical name (and, potentially, ORCID).
+            skip_setting_ids: If True, will skip setting IDs on name specifications that previously resolved to this person.  **This means that some or all of the items in `self.item_ids` might disappear if they no longer resolve to this person.**
 
         Raises:
             AnthologyException: If `self.explicit` is already True, or if the ID already exists in the PersonIndex (both if it was supplied or auto-generated).
@@ -280,7 +281,11 @@ class Person:
 
         self.is_explicit = True
         if not skip_setting_ids:
-            self.set_id_on_items()
+            # We're not calling .set_id_on_items() since this would set the
+            # _old_ ID, and we need to set this before we update this person's
+            # ID and trigger and update in the PersonIndex
+            for namespec in list(self.namespecs()):
+                namespec.id = new_id
         self.id = new_id  # triggers update in PersonIndex
         self._names = [(name, NameLink.EXPLICIT) for name, _ in self._names]
 
