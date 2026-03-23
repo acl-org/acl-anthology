@@ -1,0 +1,39 @@
+name: Create DOI issue for ACL events
+
+on:
+  pull_request_target:
+    types: [closed]
+
+jobs:
+  create-doi-issue:
+    if: >-
+      github.event.pull_request.merged == true
+      && startsWith(github.event.pull_request.title, 'ingest')
+      && contains(github.event.pull_request.body, '- [x] This is an ACL event')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create DOI tracking issue
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const prTitle = context.payload.pull_request.title;
+            const prNumber = context.payload.pull_request.number;
+            const prUrl = context.payload.pull_request.html_url;
+
+            const issueBody = [
+              `Merged PR: ${prUrl}`,
+              '',
+              '## DOI tasks',
+              '',
+              '- [ ] Generate the DOIs for all volumes (`generate_crossref_doi_metadata.py`)',
+              '- [ ] Upload to [Crossref](https://doi.crossref.org/servlet/home)',
+              '- [ ] Add the DOIs to the XML in a separate PR (`add_dois.py`)',
+            ].join('\n');
+
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `Add DOIs for ${prTitle}`,
+              body: issueBody,
+              labels: ['DOI'],
+            });

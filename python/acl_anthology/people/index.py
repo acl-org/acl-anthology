@@ -138,17 +138,19 @@ class PersonIndex(SlottedDict[Person]):
     def get_by_namespec(self, name_spec: NameSpecification) -> Person:
         """Access persons by their name specification.
 
-        See [resolve_namespec()][acl_anthology.people.index.PersonIndex.resolve_namespec] for exceptions that can be raised by this function.
-
         Parameters:
             name_spec: A name specification.
 
         Returns:
             The person associated with this name specification.
+
+        Raises:
+            NameSpecResolutionError: If `name_spec` cannot be resolved to a Person.
+            PersonDefinitionError: If `name_spec.id` is set, but either the ID or the name used with the ID has not been defined in `people.yaml`. (Inherits from NameSpecResolutionError)
         """
         if not self.is_data_loaded:
             self.load()
-        return self.resolve_namespec(name_spec)
+        return self._resolve_namespec(name_spec)
 
     def get_by_orcid(self, orcid: str) -> Person | None:
         """Access persons by their ORCID.
@@ -205,11 +207,57 @@ class PersonIndex(SlottedDict[Person]):
                 and not cast("Volume", item).has_frontmatter
             ):
                 continue
-            coauthors.update(self.resolve_namespec(ns).id for ns in item.editors)
+            coauthors.update(self._resolve_namespec(ns).id for ns in item.editors)
             if hasattr(item, "authors"):
-                coauthors.update(self.resolve_namespec(ns).id for ns in item.authors)
+                coauthors.update(self._resolve_namespec(ns).id for ns in item.authors)
         del coauthors[person.id]
         return coauthors
+
+    def generate_person_id(
+        self,
+        person_or_name: Person | Name,
+        suffix: Optional[str] = None,
+        orcid: Optional[str] = None,
+    ) -> str:
+        """Generate a verified person ID that does not exist yet in the index.
+
+        This does _not_ modify the index or a supplied Person instance in any way.
+
+        Parameters:
+            person_or_name: A Person or Name instance to use as the basis for generating the ID.  If given a Person, their canonical name will be used, and potentially their ORCID iD (if set).
+            suffix: A suffix to append to the ID in case the generated ID is already taken.
+            orcid: An ORCID iD whose last four characters can be appended to the ID in case the generated ID is already taken.  If None and the first argument is a Person, the Person's ORCID iD will be used instead.
+
+        Returns:
+            A valid verified person ID that doesn't exist yet.
+
+        Raises:
+            AnthologyException: If all generated IDs already exist in the index.
+        """
+        if not self.is_data_loaded:
+            self.load()
+
+        if isinstance(person_or_name, Person):
+            slug = person_or_name.canonical_name.slugify()
+        elif isinstance(person_or_name, Name):
+            slug = person_or_name.slugify()
+        else:  # pragma: no cover
+            raise TypeError(
+                f"First argument must be Person or Name (got '{person_or_name!r}' that is a {type(person_or_name)!r})"
+            )
+
+        if slug not in self.data:
+            return slug
+
+        if suffix is not None and (pid := f"{slug}-{suffix.lower()}") not in self.data:
+            return pid
+
+        if orcid is None and isinstance(person_or_name, Person):
+            orcid = person_or_name.orcid
+        if orcid is not None and (pid := f"{slug}-{orcid[-4:].lower()}") not in self.data:
+            return pid
+
+        raise AnthologyException(f"Could not generate an ID for {person_or_name!r}")
 
     def load(self) -> None:
         """Loads or builds the index."""
@@ -464,6 +512,9 @@ class PersonIndex(SlottedDict[Person]):
 
         If the name specification contains an ORCID but doesn't have an ID yet, this will find the person with this ORCID and fill in their ID; if it doesn't exist yet, it will create a new person with a "verified" ID and fill in the new, generated ID.  The supplied name specification will be modified in-place, but also returned.
 
+        Warning:
+            If you add new material via [create_paper()][acl_anthology.collections.volume.Volume.create_paper] or [create_volume()][acl_anthology.collections.collection.Collection.create_volume] and supply an author/editor list at that time, there is no need to call this function manually.
+
         Parameters:
             name_spec: The name specification on the paper, volume, etc.
 
@@ -478,11 +529,8 @@ class PersonIndex(SlottedDict[Person]):
             # Make sure the name used here is listed for this person
             person.add_name(name_spec.name)
         else:
-            # Need to create a new person; generate name slug for the ID
-            pid = name_spec.name.slugify()
-            if pid in self.data:
-                # ID is already in use; add last four digits of ORCID to disambiguate
-                pid = f"{pid}-{name_spec.orcid[-4:].lower()}"
+            # Need to create a new person; generate ID
+            pid = self.generate_person_id(name_spec.name, orcid=name_spec.orcid)
 
             self.add_person(
                 Person(
@@ -497,7 +545,7 @@ class PersonIndex(SlottedDict[Person]):
 
         return name_spec
 
-    def resolve_namespec(
+    def _resolve_namespec(
         self, name_spec: NameSpecification, allow_creation: bool = False
     ) -> Person:
         """Resolve a name specification to a person, potentially creating a new unverified person instance.
@@ -613,7 +661,7 @@ class PersonIndex(SlottedDict[Person]):
 
         seen_ids = set()
         for namespec in namespecs:
-            person = self.resolve_namespec(namespec, allow_creation=True)
+            person = self._resolve_namespec(namespec, allow_creation=True)
             person.item_ids.append(item_id)
             if person.id in seen_ids:
                 message = f"More than one NameSpecification resolves to '{person.id}' on the same item ({item_id})"
