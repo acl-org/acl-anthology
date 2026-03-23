@@ -59,14 +59,14 @@ ARCHIVAL_DEFAULT = True
 def read_meta(path: str) -> Dict[str, Any]:
     """Reads the ACLPUB meta file, which is a simple space-delimited key-value format with one entry per line. The "chair" key can be repeated for multiple chairs.
     Each chair is expected to be in BibTeX format, e.g., "Last name, First name(s)"."""
-    meta = {"chairs": []}
+    meta = {"editors": []}
     with open(path) as instream:
         for line in instream:
             if re.match(r"^\s*$", line):
                 continue
             key, value = line.rstrip().split(" ", maxsplit=1)
             if key.startswith("chair"):
-                meta["chairs"].append(value)
+                meta["editors"].append(value)
             else:
                 meta[key] = value
     if "volume" in meta and re.match(r"^[a-z0-9]+$", meta["volume"]) is None:
