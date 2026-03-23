@@ -993,4 +993,682 @@
       <bibkey>cui-etal-2025-quality</bibkey>
     </paper>
   </volume>
+  <volume id="2" type="proceedings" ingest-date="2026-03-23">
+    <meta>
+      <booktitle>Proceedings of the 24th <fixed-case>C</fixed-case>hina National Conference on Computational Linguistics (<fixed-case>CCL</fixed-case> 2025)</booktitle>
+      <editor><first>Hongfei</first><last>Lin</last></editor>
+      <editor><first>Bin</first><last>Li</last></editor>
+      <editor><first>Hongye</first><last>Tan</last></editor>
+      <publisher>Chinese Information Processing Society of China</publisher>
+      <address>Jinan, China</address>
+      <month>August</month>
+      <year>2025</year>
+      <venue>ccl</venue>
+    </meta>
+    <frontmatter>
+      <url hash="92375555">2025.ccl-2.0</url>
+      <bibkey>ccl-2025-2</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title><fixed-case>CCL</fixed-case>25-Eval任务1系统报告:基于上下文学习与格式化约束的空间语义理解</title>
+      <author><first>Yiyang</first><last>Zheng</last></author>
+      <pages>1-12</pages>
+      <abstract>"本系统报告详细介绍了我们团队参加第五届中文空间语义理解评测(SpaCE2025)的方法和成果。SpaCE2025旨在评估大语言模型在空间语义理解和空间推理能力上的表现,涵盖空间信息正误判断、空间异形同义判断、空间参照实体判断、中文空间方位关系推理和英文空间方位关系推理五个子任务。针对不同任务,我们采用基于上下文的有监督微调和格式化约束的逻辑推理框架,结合LoRA高效微调Qwen2.5-7B-Instruct和DeepSeek-R1-Distill-Qwen-7B模型,设计了约束提取、排列遍历和求解器求解的推理流程。在测试集上,我们在信息正误判断、异形同义判断、参照实体判断、中文方位推理、英文方位推理分别取得0.6454、0.7082、0.7720、0.6254、0.5997的准确率,综合排名第二。"</abstract>
+      <url hash="bb99e2e4">2025.ccl-2.1</url>
+      <bibkey>zheng-2025-ccl25</bibkey>
+    </paper>
+    <paper id="2">
+      <title><fixed-case>CCL</fixed-case>25-Eval任务1系统报告:基于数据、训练、推理三阶协同增强的空间语义理解</title>
+      <author id="zhongtian-hua" orcid="0009-0004-0344-9601"><first>Zhongtian</first><last>Hua</last></author>
+      <author id="yi-luo" orcid="0009-0004-3238-8975"><first>Yi</first><last>Luo</last></author>
+      <author id="mengyuan-wang" orcid="0009-0004-6240-0496"><first>Mengyuan</first><last>Wang</last></author>
+      <author id="yumeijia-yumeijia" orcid="0009-0007-1755-4105"><first>Yumeijia</first><last>Yumeijia</last></author>
+      <author><first>Yingjie</first><last>Han</last><affiliation>Zhengzhou University</affiliation></author>
+      <pages>13-23</pages>
+      <abstract>"SpaCE2025以空间语义理解为核心,聚焦于具有较高难度的空间语义理解任务,旨在评估大语言模型(LLM)在空间语言能力和空间推理能力两方面的表现。面对空间语义复杂、训练数据缺失和模型参数限制等挑战,本文提出了一个基于数据、训练、推理三阶协同增强的模型优化框架,针对空间语言能力和空间推理能力两个子任务分别设计了两套不同的优化方案。对于空间语言能力任务,我们利用DeepSeek-R1结合空间词表对训练集进行了扩充,对Qwen系列LLM进行了LoRA微调,在推理过程中使用了测试时增强来进一步优化结果;对于空间推理能力任务,我们将空间语言能力数据集也纳入训练集,对DeepSeek-R1-Distill-Qwen-7B模型进行微调,并对模型预测结果进行了累计投票集成。最终,我们的方法排名第六,总体准确率得分为58.54%。此外,本文还报告了一些尝试过但未能提升模型表现的其他方法。"</abstract>
+      <url hash="5d99d68d">2025.ccl-2.2</url>
+      <bibkey>hua-etal-2025-ccl25</bibkey>
+    </paper>
+    <paper id="3">
+      <title><fixed-case>CCL</fixed-case>25-Eval任务1系统报告:使用思维链和投票集成增强大型语言模型空间语义理解</title>
+      <author><first>LiuHaixin</first><last>LiuHaixin</last></author>
+      <author><first>Hongying</first><last>Zan</last><affiliation>Zhengzhou University</affiliation></author>
+      <author><first>Jinwang</first><last>Song</last></author>
+      <author><first>Yifan</first><last>Li</last></author>
+      <author><first>KongLulu</first><last>KongLulu</last></author>
+      <pages>24-32</pages>
+      <abstract>"本技术报告详细介绍了我们团队在第五届空间语义理解评测(SpaCE2025)中的方法与成果。SpaCE2025 继续聚焦大语言模型在空间语义理解方面的能力评估,涵盖空间语言理解与空间推理两个核心维度,共设置五个子任务:空间信息正误判断、空间参照实体判断、空间异形同义判断、中文空间方位关系推理以及英文空间方位关系推理。我们通过设计结构化提示词并引入思维链推理机制,结合LoRA 微调技术和投票集成方法,有效提升了大语言模型在空间语义理解任务中的表现。在最终评测中,我们团队五个子任务的综合准确率为0.5983,整体排名第五。"</abstract>
+      <url hash="4cad81e4">2025.ccl-2.3</url>
+      <bibkey>liuhaixin-etal-2025-ccl25</bibkey>
+    </paper>
+    <paper id="4">
+      <title>Overview of <fixed-case>CCL</fixed-case>25-Eval Task 1: The Fifth Spatial Cognition Evaluation (<fixed-case>S</fixed-case>pa<fixed-case>CE</fixed-case>2025)</title>
+      <author><first>Yuhang</first><last>Qin</last><affiliation>Peking University</affiliation></author>
+      <author><first>Liming</first><last>Xiao</last></author>
+      <author id="nan-hu" orcid="0009-0004-7971-3149"><first>Nan</first><last>Hu</last><affiliation>Peking University</affiliation></author>
+      <author><first>Sirui</first><last>Deng</last></author>
+      <author><first>Jingyuan</first><last>Ma</last></author>
+      <author><first>Hyang</first><last>Cui</last></author>
+      <author><first>Zihan</first><last>Zhang</last><affiliation>Peking University</affiliation></author>
+      <author><first>Chi Hsu</first><last>Tsai</last></author>
+      <author><first>Jinkun</first><last>Ding</last><affiliation>Peking University</affiliation></author>
+      <author><first>Sumin</first><last>Kang</last><affiliation>Peking University</affiliation></author>
+      <author><first>Zhifang</first><last>Sui</last><affiliation>Peking University</affiliation></author>
+      <author id="weidong-zhan" orcid="0000-0002-3773-9541"><first>Weidong</first><last>Zhan</last><affiliation>Peking University</affiliation></author>
+      <pages>33-46</pages>
+      <abstract>"The Fifth Spatial Cognition Evaluation (SpaCE2025) presents a benchmark aimed at evaluating the spatial semantic understanding and reasoning capabilities of Large Language Models(LLMs), primarily in Chinese.It consists of five subtasks: (1) Retrieving Spatial Referents(RSR), (2) Detecting Spatial Semantic Anomalies (DSA), (3) Recognizing Synonymous SpatialExpression (RSE), (4) Spatial Position Reasoning (SPR) in Chinese, and (5) SPR in English. The fourth and fifth subtask share the same content and structure, differing only in language, and are designed to assess the cross-linguistic spatial reasoning capability of LLMs. A total of 12 teams submitted their final results, and the best-performing team achieved an accuracy of 0.7931. The results suggest that while LLMs are capable of handling basic spatial semantic understanding tasks such as RSR, their performance on more complex tasks, such as DSA and RSE, still re-quires improvement. Additionally, finetuning methods that effectively activate LLMs’ reasoning ability are essential to improve their performance."</abstract>
+      <url hash="2a942c14">2025.ccl-2.4</url>
+      <bibkey>qin-etal-2025-overview</bibkey>
+    </paper>
+    <paper id="5">
+      <title>System Report for <fixed-case>CCL</fixed-case>25-Eval Task 2: Enhanced <fixed-case>C</fixed-case>hinese Frame Semantic Parsing with Pre-trained Model and Linguistic Features</title>
+      <author><first>Yahui</first><last>Liu</last><affiliation>Soochow University</affiliation></author>
+      <author><first>Ziheng</first><last>Qiao</last><affiliation>Soochow University</affiliation></author>
+      <author id="chen-gong" orcid="0000-0003-2570-6969"><first>Chen</first><last>Gong</last></author>
+      <author id="min-zhang" orcid="0000-0002-3895-5510"><first>Min</first><last>Zhang</last><affiliation>Harbin Institute of Technology, Shenzhen and Harbin Institute of Technology</affiliation></author>
+      <pages>47-54</pages>
+      <abstract>"This paper presents our system submitted to the Chinese Frame Semantic Parsing evaluation task at the 24th China National Conference on Computational Linguistics (CCL2025). For the three subtasks of Frame Identification (FI), Argument Identification (AI), and Role Identification(RI), we utilized a larger Chinese pre-trained model, as the foundation and adopted specific optimization strategies for FI and RI subtasks. Specifically, we incorporated word segmentation structure information and updatable pre-trained target word embeddings in the FI subtask, and explored the use of Focal Loss combined with target word embeddings and word segmentation structure information in the RI subtask. Furthermore, a voting mechanism was employed in both the FI and RI subtasks to enhance performance. Our system ultimately achieved first place on the TestA and second place on the TestB."</abstract>
+      <url hash="ced6d33e">2025.ccl-2.5</url>
+      <bibkey>liu-etal-2025-system</bibkey>
+    </paper>
+    <paper id="6">
+      <title><fixed-case>CCL</fixed-case>25-Eval2系统报告:基于高效参数旋转位置编码的汉语框架语义解析</title>
+      <author><first>Huang Yong</first><last>Qing</last></author>
+      <pages>55-59</pages>
+      <abstract>"汉语框架语义解析(Chinese Frame Semantic Parsing)是中文自然语言处理中的一项重要任务,其目标是从句子中提取框架语义结构,实现对句子中事件或情境的深层理解。框架语义解析对阅读理解、文本摘要、关系抽取等下游任务具有重要意义。旨在从句子中提取框架语义结构,实现对句子中事件或情境的深层理解。本文将框架识别和论元角色识别任务建模为分类任务,将论元范围识别任务建模为抽取任务,使用预训练语言模型进行微调,并通过对抗训练、指数滑动平均、分组学习率、参数高效旋转位置编码等策略提升模型性能。"</abstract>
+      <url hash="05b798ca">2025.ccl-2.6</url>
+      <bibkey>qing-2025-ccl25</bibkey>
+    </paper>
+    <paper id="7">
+      <title>Overview of <fixed-case>CCL</fixed-case>25-Eval Task2: <fixed-case>C</fixed-case>hinese Frame Semantic Parsing Evaluation</title>
+      <author id="hao-xu-2022" orcid="0009-0004-8526-2022"><first>Hao</first><last>Xu</last></author>
+      <author><first>Juncai</first><last>Li</last></author>
+      <author><first>Zhichao</first><last>Yan</last></author>
+      <author id="haikun-liu" orcid="0009-0001-5321-9730"><first>Haikun</first><last>Liu</last></author>
+      <author><first>Xuefeng</first><last>Su</last><affiliation>Shanxi Vocational University of Engineering and Technology</affiliation></author>
+      <author><first>ZhangJiaYang</first><last>ZhangJiaYang</last></author>
+      <author id="ru-li" orcid="0000-0003-1545-5553"><first>Ru</first><last>Li</last><affiliation>Shanxi University</affiliation></author>
+      <pages>60-69</pages>
+      <abstract>"Chinese Frame Semantic Parsing (CFSP) aims to extract fine-grained frame semantic structures from text, providing rich semantic information to enhance the capabilities of natural language understanding models in semantic representation and downstream applications. Building on the CCL-2024 CFSP evaluation task and motivated by the prevalent phenomenon of semantic roles nesting in sentences, we update the nested role annotation data by simultaneously labeling all nested semantic roles. Based on this enhancement, we publish a more challenging CFSP evaluation task for CCL-2025. The evaluation dataset consists of 22,000 annotated examples involving 703 frames, including nested annotations covering 101 semantic roles. The evaluation task, divided into three subtasks: frame identification, argument identification, and role identification, has attracted wide attention from both industry and academia, with a total of 156 teams participating. As for the evaluation results, Yongqing Huang from Guangdong Province won first place with a final score of 70.76.In this paper, we report key information about the evaluation task, including key concepts, evaluation dataset, top-3 results and corresponding methods. More information about this task can be found on the website for the CCL-2025 CFSP evaluation task."</abstract>
+      <url hash="2b72b53d">2025.ccl-2.7</url>
+      <bibkey>xu-etal-2025-overview</bibkey>
+    </paper>
+    <paper id="8">
+      <title>System Report for <fixed-case>CCL</fixed-case>25-Eval Task 2 Solving Frame Semantic Parsing with <fixed-case>LLM</fixed-case>s</title>
+      <author><first>Dujingtao</first><last>Dujingtao</last></author>
+      <pages>70-75</pages>
+      <abstract>"Frame Semantic Parsing (FSP) is a critical task in natural language processing (NLP) that involves identifying semantic frames, argument spans, and their corresponding roles within a sentence. This paper presents a novel approach to Chinese Frame Seman-tic Parsing by fine-tuning the Qwen3 large language model to simultaneously address three sub-tasks: Frame Identification, Argument Identification, and Role Identification.We propose a unified prompt-based framework with iterative refinements, including direct argument output for span identification and a majority-voting mechanism for frame prediction. Our experiments demonstrate significant improvements in argument and role identification through modified output formats, while frame identification benefits from ensemble voting. However, integrating Chain-of-Thought (CoT) reasoning with model-generated explanations yielded suboptimal results, suggesting limitations in the auxiliary model’s performance. This work highlights the potential of fine-tuned large language models for complex semantic parsing tasks and identifies avenues for further optimization."</abstract>
+      <url hash="14516f2a">2025.ccl-2.8</url>
+      <bibkey>dujingtao-2025-system</bibkey>
+    </paper>
+    <paper id="9">
+      <title>System Report for <fixed-case>CCL</fixed-case>25-Eval Task 3: Hallucination Mitigation in <fixed-case>C</fixed-case>hinese <fixed-case>A</fixed-case>bstract <fixed-case>M</fixed-case>eaning <fixed-case>R</fixed-case>epresentation Parsing with a Multi-Agent Approach</title>
+      <author><first>Rongbo</first><last>Chen</last><affiliation>Harbin Institute of Technology</affiliation></author>
+      <author><first>Xuefeng</first><last>Bai</last></author>
+      <author id="kehai-chen" orcid="0000-0002-4346-7618"><first>Kehai</first><last>Chen</last><affiliation>Harbin Institute of Technology (Shenzhen)</affiliation></author>
+      <author id="min-zhang" orcid="0000-0002-3895-5510"><first>Min</first><last>Zhang</last><affiliation>Harbin Institute of Technology, Shenzhen and Harbin Institute of Technology</affiliation></author>
+      <pages>76-87</pages>
+      <abstract>"This paper introduces our system for the Fifth Chinese Abstract Meaning Representation(CAMR) Parsing Evaluation task at the 24th China National Conference on ComputationalLinguistics (CCL 2025). Our framework formulates both CAMR parsing and document-level coreference resolution as sequence-to-sequence generation tasks, employing large languagemodels (LLMs) to produce linearized CAMR sequences and coreference sequences. To mitigate hallucinations in generated graphs, we design a multi-agent system comprising: (1) two detection agents for automated error detection and hallucination identification; (2) a refinement agent that corrects graph structures based on detected inconsistencies. Experimental results show that:(1) recent LLMs, especially Qwen-3, achieve promising performance in CAMR parsing; (2)the proposed multi-agent system can effectively identify and correct hallucinations of CAMR predictions; and (3) sequence-to-sequence methods exhibit significant limitations in document-level coreference resolution due to context length constraints."</abstract>
+      <url hash="704e2fcf">2025.ccl-2.9</url>
+      <bibkey>chen-etal-2025-system</bibkey>
+    </paper>
+    <paper id="10">
+      <title><fixed-case>CCL</fixed-case>25-Eval任务3总结报告:第五届中文抽象语义表示解析评测</title>
+      <author id="zhixing-xu" orcid="0000-0002-0432-2870"><first>Zhixing</first><last>Xu</last><affiliation>Nanjing Normal University</affiliation></author>
+      <author><first>Yixuan</first><last>Zhang</last></author>
+      <author><first>Bin</first><last>Li</last></author>
+      <author><first>徐静</first><last>徐静</last></author>
+      <author><first>Qu</first><last>Weiguang</last><affiliation>Nanjing Normal University</affiliation></author>
+      <author id="junsheng-zhou" orcid="0000-0002-1919-8227"><first>Junsheng</first><last>Zhou</last><affiliation>Nanjing Normal University</affiliation></author>
+      <pages>88-95</pages>
+      <abstract>"本文为第五届中文抽象语义表示解析评测(CAMRP 2025)的总结报告。CAMRP2025包含两个子任务:中文抽象语义表示(CAMR)句子级解析任务,和CAMR篇章共指解析任务。评测任务共有96支队伍报名,4支队伍提交结果,最终总计26份有 效 成 绩 。 哈 尔 滨 工 业 大 学 ( 深 圳 ) 团 队 在 开 放 测 试 下 , 取 得 了84.72%的F值 ,为CAMRP评测系列五年来的历史最好成绩。该团队在篇章共指消解任务中同样获得了最高61.15%的好成绩,相比baseline有较大提升。参赛队伍的实验结果表明,尽管基于监督微调和图聚合的策略在句子级解析任务中展现出了较好的性能,但大模型对于细粒度的篇章共指关系识别仍然存在挑战。如何有效利用CAMR结构化信息来提升大模型篇章共指解析的性能,仍是未来研究的重要方向。"</abstract>
+      <url hash="272265ca">2025.ccl-2.10</url>
+      <bibkey>xu-etal-2025-ccl25</bibkey>
+    </paper>
+    <paper id="11">
+      <title><fixed-case>CCL</fixed-case>25-Eval任务4系统报告:基于叙实性分类和语境特征的大语言模型叙实性推理</title>
+      <author><first>Zhangxiaoyi</first><last>Zhangxiaoyi</last></author>
+      <author><first>鲁嘉琪</first><last>鲁嘉琪</last></author>
+      <author><first>Zhang</first><last>Da</last></author>
+      <author><first>Xiaoyu</first><last>Chen</last><affiliation>NA</affiliation></author>
+      <author><first>卢达威</first><last>卢达威</last><affiliation>Renmin University of China</affiliation></author>
+      <pages>96-104</pages>
+      <abstract>"叙实性推理是机器理解文本隐含事实的关键能力之一,核心在于结合动词的语义判断动词宾语命题的真值。本研究基于首届中文叙实性推理评测任务4(FIE2025)开展叙实性推理研究,经过前期对不同模型的测验和比对,选择了Deepseek-R1模型为基座模型。提示语的总体撰写思路是:首先将动词叙实性进行分类,从传统的三分法扩展至五分法(叙实、弱叙实、反叙实、非叙实、半叙实),同时,对自然语料与人造语料进行差异化处理,再针对部分语义复杂的动词编写更加细致的判断规则。最终结果显示,自然语料的正确率达到0.9155,人造语料的正确率为0.9541,总正确率达到0.9261。"</abstract>
+      <url hash="d0dfa16d">2025.ccl-2.11</url>
+      <bibkey>zhangxiaoyi-etal-2025-ccl25</bibkey>
+    </paper>
+    <paper id="12">
+      <title>System Report for <fixed-case>CCL</fixed-case>25-Eval Task 4: From Plain to Hierarchical —Knowledge-Augmented Prompting for <fixed-case>C</fixed-case>hinese Factivity Inference</title>
+      <author id="minjun-park" orcid="0000-0003-1506-3680"><first>Minjun</first><last>Park</last></author>
+      <author><first>Seulki</first><last>Lee</last><affiliation>NA</affiliation></author>
+      <pages>105-109</pages>
+      <abstract>"To improve the factivity inference capability of large language models (LLMs), we adopted a Retrieval-Augmented Generation (RAG) framework using a curated bibliography on Chinese factivity semantics. We compared a baseline without retrieval against two RAG-based strategies, showing that hierarchical prompting with RAPTOR yields the high-est accuracy. Using recursive summarization from the bottom up, RAPTOR allows models to access document context at multiple abstraction levels, resulting in more accurate and stable inference. Our findings contribute to deeper Chinese semantic inference through linguistic knowledge-augmented prompting in factivity inference and textual entailment."</abstract>
+      <url hash="228cb36f">2025.ccl-2.12</url>
+      <bibkey>park-lee-2025-system</bibkey>
+    </paper>
+    <paper id="13">
+      <title><fixed-case>CCL</fixed-case>25-Eval 任务四系统报告:现代汉语动词的叙实性语用推理机制</title>
+      <author id="zhao-peixiang" orcid="0009-0001-7517-1176"><first>ZHaO</first><last>Peixiang</last><affiliation>Kunming University</affiliation></author>
+      <author id="limingzhu-limingzhu" orcid="0009-0000-5714-4417"><first>Limingzhu</first><last>Limingzhu</last><affiliation>Kunming University</affiliation></author>
+      <author id="mei-liya" orcid="0009-0002-9963-6254"><first>Mei</first><last>Liya</last><affiliation>Kunming University</affiliation></author>
+      <author id="wangfang-wangfang" orcid="0009-0001-3857-5622"><first>Wangfang</first><last>Wangfang</last><affiliation>Kunming University</affiliation></author>
+      <author id="gao-nianxin" orcid="0009-0001-4409-7831"><first>Gao</first><last>Nianxin</last><affiliation>Kunming University</affiliation></author>
+      <author id="zhao-lang" orcid="0009-0006-5535-9987"><first>Zhao</first><last>Lang</last><affiliation>Hunan Normal University</affiliation></author>
+      <pages>110-117</pages>
+      <abstract>"叙实性推理是一项与事件真实性判断密切相关的语义理解任务,主要关注语言表达中的事实性信息传递。本次测评任务基于沈家煊(2003)提出的“行、知、言”三域理论,对动词叙实性分类体系进行了进一步细分。这一改进不仅为汉语叙实性研究提供了更为精细的分析工具,还显著提升了大语言模型对“叙实性”语义的理解能力。测试结果表明,在不微调赛道上,我们团队在测试集上的最终正确率达到93.41%。"</abstract>
+      <url hash="084ed432">2025.ccl-2.13</url>
+      <bibkey>peixiang-etal-2025-ccl25</bibkey>
+    </paper>
+    <paper id="14">
+      <title><fixed-case>CCL</fixed-case>25-Eval任务四系统报告:宏观模式提示与高效微调在叙实性推理中的应用</title>
+      <author id="zequn-li-576x" orcid="0009-0005-9827-576X"><first>Zequn</first><last>Li</last></author>
+      <author id="yuanhao-zhong" orcid="0009-0003-0132-2036"><first>Yuanhao</first><last>Zhong</last></author>
+      <author><first>Chengliang</first><last>Chai</last><affiliation>Beijing Institute of Technology</affiliation></author>
+      <pages>118-127</pages>
+      <abstract>"本文研究了利用大语言模型进行谓词引导的叙实性推理任务。在不微调场景下,针对Gemini 2.5 Pro模型,我们构建了基于谓词类型的思维链(CoT)提示,并创新性地让模型学习整个带答案的样本集以归纳宏观模式和规则,最终形成高效的提示词模板。在微调场景下,我们选用Qwen3-32b模型,利用llama factory进行LoRA微调,并使用llama.cpp完成模型向gguf格式的转换、量化及Ollama部署。实验结果展示了所提方法的有效性,其中在不微调赛道上,基于宏观模式提示的方法取得了94.01%的准确率;在微调赛道上,基于微调模型的系统取得了92.61%的准确率。"</abstract>
+      <url hash="f13e280d">2025.ccl-2.14</url>
+      <bibkey>li-etal-2025-ccl25</bibkey>
+    </paper>
+    <paper id="15">
+      <title>System Report for <fixed-case>CCL</fixed-case>25-Eval Task 4: Factivity Inference Based on Dynamic Few-Shot Learning</title>
+      <author><first>Sunyan</first><last>Gu</last></author>
+      <author><first>Taoyu</first><last>Lu</last></author>
+      <author><first>Siqi</first><last>Liu</last></author>
+      <author><first>Kan</first><last>Guo</last></author>
+      <author><first>Yan</first><last>Shao</last></author>
+      <pages>128-133</pages>
+      <abstract>"This paper presents the implementation approach we employ in the First Chinese Factivity Inference Evaluation 2025 (FIE2025). Factivity inference (FI) is a semantic understanding task related to judging the truth value of events, based on the use of semantic verbal elements, such as “believe”, “falsely claim”, “realize”. We approach factivity inference as a large language model(LLM) based task. We aim to enhance LLM’s discriminative capability by adequately integrating the task-specific information via prompts, as well as constructing dynamic few-shot datasets for fine-tuning. Additionally, we incorporate data augmentation and ensemble strategies to further boost the performance. Our approach achieves a score of 93.41% in the official evaluation of the shared task, ranking second in the leaderboard."</abstract>
+      <url hash="b5bf7137">2025.ccl-2.15</url>
+      <bibkey>gu-etal-2025-system</bibkey>
+    </paper>
+    <paper id="16">
+      <title><fixed-case>CCL</fixed-case>25-Eval任务四系统报告: 基于层次化思维链构造与推理模型高效微调的中文叙实性推理</title>
+      <author><first>Qiang</first><last>Yan</last><affiliation>, Chinese Academy of Sciences</affiliation></author>
+      <author><first>Yixing</first><last>Fan</last></author>
+      <author><first>Yunfei</first><last>Zhong</last></author>
+      <pages>134-145</pages>
+      <abstract>"本文介绍了我们在第二十五届中国计算语言学大会(CCL 2025)中文叙实性推理评测(FIE2025)中荣获双赛道第一名和第二名的系统方案。针对中文叙实性推理任务中模型需要从谓词语义正确推断事件真实性的挑战,我们提出了层次化思维链(Hierarchical Chain-of-Thought, HCoT)推理框架,通过结构化的多级推理过程引导模型逐步识别关键谓词、分析其叙实性类型及其在否定、疑问等复杂语境下的叙实性变化。在非微调赛道中,我们通过集成多种强大的推理型大模型(如Deepseek-R1-671B、Deepseek-v3-671B、GPT-4o、Gemini-2.5-pro-0506等)的预测结果,并采用自适应投票策略,取得了0.9376的分数。在微调赛道上,我们构建了高质量的思维链指令数据集,发现专注于推理能力的基础模型(如DeepSeek-R1-Distill-Qwen-32B)经微调后在叙实性推理任务上优于同等规模甚至更大参数量的通用大模型(如Qwen2.5-72B-Instruct)。通过伪标签训练进一步优化,最终在官方评测中取得0.9396的最高正确率。实验结果表明,我们提出的层次化思维链结构与推理模型的结合在中文叙实性推理任务中具有显著优势,特别是在处理复杂语境和隐含语义的情况下。"</abstract>
+      <url hash="2a6783aa">2025.ccl-2.16</url>
+      <bibkey>yan-etal-2025-ccl25</bibkey>
+    </paper>
+    <paper id="17">
+      <title>System Report for <fixed-case>CCL</fixed-case>25-Eval Task 4: Prompting, Scheduling, and Arbitration Strategies for <fixed-case>C</fixed-case>hinese Factivity Inference</title>
+      <author id="liu-daohuan" orcid="0000-0002-1815-3369"><first>Liu</first><last>Daohuan</last><affiliation>Huazhong University of Science and Technology</affiliation></author>
+      <author><first>Xia</first><last>Lun</last></author>
+      <author><first>Yuxuan</first><last>Zhang</last></author>
+      <author><first>Xinyu</first><last>Yang</last><affiliation>NA</affiliation></author>
+      <author><first>Fanzhen</first><last>Kong</last></author>
+      <pages>146-151</pages>
+      <abstract>This report presents the methodology and findings of prompting large language models (LLMs) for Chinese Factivity Inference (FI). We evaluated five LLMs, among which DeepSeek-R1 demonstrated the best overall performance. A combination of Chain-of-Thought (CoT), few-shot, and system-level instructions were combined for final prompting. Additionally, we introduced a pairwise task scheduling strategy and a multi-agent disagreement arbitration mechanism to further enhance inference quality. Experimental results show that the integration of prompting, scheduling, and arbitration strategies significantly improves performance, with DeepSeek-R1 achieving 91.7% overall accuracy on the evaluation set. The report also highlights findings regarding LLM behavior on FI tasks and outlines potential directions for future improvement.</abstract>
+      <url hash="04f6266c">2025.ccl-2.17</url>
+      <bibkey>daohuan-etal-2025-system</bibkey>
+    </paper>
+    <paper id="18">
+      <title><fixed-case>CCL</fixed-case>25-Eval任务四系统报告:基于<fixed-case>RAG</fixed-case>与谓词相似性方法的叙实性检测智能体</title>
+      <author id="yu-wang-hkpoly" orcid="0000-0003-2561-8053"><first>Yu</first><last>Wang</last><affiliation>Hong Kong Polytechnic University</affiliation></author>
+      <author><first>Yang</first><last>Qian</last></author>
+      <author><first>Ke</first><last>Liang</last></author>
+      <author><first>Yiheng</first><last>Yang</last></author>
+      <author id="zhai-yu" orcid="0000-0220-0000-0000"><first>Zhai</first><last>Yu</last></author>
+      <author id="chu-ren-huang" orcid="0000-0002-8526-5520"><first>Chu-Ren</first><last>Huang</last></author>
+      <pages>152-156</pages>
+      <abstract>"本文聚焦于“叙实性推理”任务,即判断语言中事件真实性的语义理解能力。该任务不依赖外部知识,而基于语言结构本身进行推理,对当前大语言模型(LLMs)提出挑战。为解决模型在叙实性漂移、多义词处理等方面的不足,作者提出一种结合RAG(检索增强生成)与谓词相似性的方法,构建了一个融合参数化与非参数化知识的叙实性检测智能体系统。该系统通过分步提示与知识库支持,实现了更高的一致性、准确性与可解释性,在评测任务中取得了0.9240的稳健表现。"</abstract>
+      <url hash="0fb616b6">2025.ccl-2.18</url>
+      <bibkey>wang-etal-2025-ccl25</bibkey>
+    </paper>
+    <paper id="19">
+      <title><fixed-case>CCL</fixed-case>25-Eval任务四系统报告:基于多策略知识融合的叙实性推理方法研究</title>
+      <author><first>Hongyu</first><last>Li</last></author>
+      <author><first>Zhihui</first><last>Yang</last></author>
+      <author id="renfen-hu" orcid="0000-0002-8310-5232"><first>Renfen</first><last>Hu</last><affiliation>Beijing Normal University</affiliation></author>
+      <pages>157-165</pages>
+      <abstract>"FIE2025任务旨在使用大语言模型对文本及相关假设进行叙实性推理。我们参加了微调和非微调两个赛道,分别在人工数据集和自然数据集上采用提示词优化和词表RAG策略融合语言学知识,并利用模型集成投票方法提升判断准确率。评测结果显示,我们的方法在非微调赛道取得了0.9351的成绩,在微调赛道取得了0.9261的成绩,均位列第三名。"</abstract>
+      <url hash="b6790eba">2025.ccl-2.19</url>
+      <bibkey>li-etal-2025-ccl25-evalren</bibkey>
+    </paper>
+    <paper id="20">
+      <title>Overview of <fixed-case>CCL</fixed-case>25-Eval Task 4: Factivity Inference Evaluation 2025</title>
+      <author><first>Guanliang</first><last>Cong</last><affiliation>University of Macau</affiliation></author>
+      <author><first>Junchao</first><last>Wu</last><affiliation>University of Macau</affiliation></author>
+      <author><first>Chen</first><last>Yang</last></author>
+      <author><first>Tianqi</first><last>Xun</last></author>
+      <author id="derek-f-wong" orcid="0000-0002-5307-7322"><first>Derek F.</first><last>Wong</last><affiliation>University of Macau</affiliation></author>
+      <author><first>Bin</first><last>Li</last></author>
+      <author><first>Yulin</first><last>Yuan</last><affiliation>University of Macau</affiliation></author>
+      <pages>166-180</pages>
+      <abstract>"This paper presents the results of the FIE2025, a shared task aimed at evaluating the ability of Large Language Models (LLMs) to perform factivity inference on Chinese texts: whether LLMs can correctly discern the veridical information of propositions encoded in the complement clauses. The responses to the task mirror the extent to which LLMs can grasp the implicit truth judgments made by human speakers through texts, as well as their subjective stances. Such a capability is crucial for autonomous inference in intelligent agents and for achieving fluid human–AI interaction. The task was hosted on the Alibaba Tianchi platform and evaluated through two tracks: with and without finetuning. A mixed dataset was constructed, combining both synthetic sentences and authentic corpus instances. The dataset comprises a total of about 3,000 items labeled by expert linguists, including 845 (300+545) manually created items and 2,143 (700+1,443) items selected from existing corpus. 404 results proposed by 74 teams were successfully submitted to Tianchi system. Overall, under current technological conditions, the key to successful factivity inference lies in whether LLMs effectively identify different types of predicates and various contextual conditions from the given texts. Models that support long-context prompt inputs tend to achieve the best inference performance when provided with numerous shots. This shared task deepened our understanding of the factivity phenomenon in Chinese, expanded the influence of factivity research within the field of natural language processing, and provided an exploratory precedent for future activities focusing on factivity inference in Chinese and potentially other languages."</abstract>
+      <url hash="3083f940">2025.ccl-2.20</url>
+      <bibkey>cong-etal-2025-overview</bibkey>
+    </paper>
+    <paper id="21">
+      <title>System Report for <fixed-case>CCL</fixed-case>25-Eval Task 5: Data Augmentation and Large Language Model Fine Tuning for <fixed-case>C</fixed-case>hinese Ancient Poetry Comprehension and Inference</title>
+      <author id="lichengfei-lichengfei" orcid="0009-0006-2114-4283"><first>Lichengfei</first><last>Lichengfei</last><affiliation>Qilu Normal University</affiliation></author>
+      <author id="chunyu-wang" orcid="0000-0002-9960-5530"><first>Chunyu</first><last>Wang</last></author>
+      <author id="hanlin-li" orcid="0009-0009-0830-1477"><first>Hanlin</first><last>Li</last></author>
+      <author id="wenya-zhang" orcid="0009-0009-7041-7016"><first>Wenya</first><last>Zhang</last></author>
+      <pages>181-186</pages>
+      <abstract>"This paper introduces the CCL25-Eval evaluation task for ancient poetry comprehension and inference, which aims to enhance the capabilities of large language models(LLMs) in processing context-dependent texts with strong cultural backgrounds. Addressing the dual challenges of se-mantic analysis and emotional inference in ancient poetry, we propose a solution that integratesQwen-series LLMs with systematic data augmentation and LoRA-based parameter-efficient fine-tuning. We construct a high-quality dataset and design multi-phase training and inference strategies. Particularly in emotional inference tasks, we explore two approaches: emotion lexicon-based indirect matching and emotion appreciation-based direct judgment of emotional lexicon options. Experimental results indicated that: 1) Data augmentation significantly improves the model’s overall performance; 2) The result of emotion appreciation-based direct judgment approach achieves an accuracy of 0.865, ranking first in Task A; 3) Attempts with Qwen3 and reinforcement learning approaches do not significantly improve Task B results, but demonstrated good performance in sentence semantic similarity scores and format stability."</abstract>
+      <url hash="cd50dc91">2025.ccl-2.21</url>
+      <bibkey>lichengfei-etal-2025-system</bibkey>
+    </paper>
+    <paper id="22">
+      <title><fixed-case>CCL</fixed-case>25-Eval任务5系统报告:基于风格改写与投票机制的中文古诗词赏析评测</title>
+      <author><first>Zhoupanpan</first><last>Zhoupanpan</last></author>
+      <author><first>Yang</first><last>Qingyi</last></author>
+      <pages>187-191</pages>
+      <abstract>"本研究聚焦于古诗文理解与情感推理任务,面向CCL-EVAL任务5评测中的关键词解释、关键句意译与情感分类三个子任务,以古典诗词为核心语料,通过高质量数据清洗、模型改写和情感推理优化等策略,提升模型对复杂语义和历史情感的建模能力,探索了语言风格适配与生成策略对模型性能的影响。实验表明,经过指令微调的Qwen2.5-14B-Instruct在多项指标上优于7B模型,尤其在情感推理任务中表现突出,准确率达0.714。此外,基于多次生成结果的加权投票机制有效提高了输出稳定性。然而,引入其他古诗文数据训练与模型风格改写未提升任务正确率,暴露出数据一致性与评测机制适配性方面的问题与挑战。本研究验证了大模型在古诗文理解中的能力及提升潜力,未来可从数据质量提升、评测优化与计算效率控制等方面进一步改进。"</abstract>
+      <url hash="008767c8">2025.ccl-2.22</url>
+      <bibkey>zhoupanpan-qingyi-2025-ccl25</bibkey>
+    </paper>
+    <paper id="23">
+      <title>System Report for <fixed-case>CCL</fixed-case>25-Eval Task 5: Hierarchical Multi-Task Prompt Fine-Tuning and <fixed-case>PPO</fixed-case> Reinforcement for Classical <fixed-case>C</fixed-case>hinese Poetry Comprehension and Sentiment Reasoning</title>
+      <author><first>Jingjun</first><last>Tang</last></author>
+      <author><first>Zhiwen</first><last>Tang</last><affiliation>Yunnan University</affiliation></author>
+      <pages>192-199</pages>
+      <abstract>"We present a hierarchical multi-task framework to enhance classical Chinese poetry understand-ing and sentiment reasoning using large language models. Centered on Qwen2.5-14B-Instruction or Xunzi-Qwen-14B, we construct a 1,225-sample corpus of Tang and Song poems with parallel translations and multi-label sentiment annotations (e.g., nostalgia, patriotism, contemplation).The task is divided into comprehension, translation, and sentiment inference, each guided by dynamic prompting and task-specific templates. We employ mixed supervised fine-tuning to better capture syntactic and metaphorical patterns. For sentiment reasoning, we apply proximal policy optimization (PPO) with a custom reward function, boosting accuracy from 0.771 to 0.807(p &lt; 0.01). Our model achieves a 0.714 comprehensive score, outperforming single-task base-lines by 12.6%. Ablation studies further confirm the benefits of multi-task learning in promoting cross-task knowledge transfer.Keywords: Classical Chinese Poetry, Multi-Task Fine-Tuning, Data Augmentation, ProximalPolicy Optimization"</abstract>
+      <url hash="f98b884b">2025.ccl-2.23</url>
+      <bibkey>tang-tang-2025-system</bibkey>
+    </paper>
+    <paper id="24">
+      <title>System Report for <fixed-case>CCL</fixed-case>25-Eval Task 5: New Dataset and <fixed-case>L</fixed-case>o<fixed-case>RA</fixed-case>-Fine-Tuned Qwen2.5</title>
+      <author id="haotao-xie" orcid="0009-0002-3061-8090"><first>Haotao</first><last>Xie</last></author>
+      <pages>200-205</pages>
+      <abstract>"Recently, large language models (LLMs) have achieved promising progress in the fields of classical Chinese translation and the generation of classical poetry. However, domain-specific re-search on precise translation and affective-semantic understanding of classical poetry remains limited. The main challenge is that most studies treat the poetic appreciation task as a general-domain problem, neglecting the distinctive features of poetic appreciation, while high-quality and domain-specific datasets are extremely limited. To address this limitation, we decompose the task into three subtasks: term interpretation, semantic interpretation, and emotional inference.Based on multiple open-source datasets, we perform data cleansing and alignment to construct the Classical Chinese Poetry Instruction Pair Dataset (CCPoetry-49K), which comprises 49,404high-quality instruction–response pairs explicitly optimized for this domain. We then propose a domain-specialized LLM, called PoetryQwen, by applying Low-Rank Adaptation (LoRA) to fine-tune the Qwen2.5-14B model. Experimental results on the CCL25-Eval Task 5 benchmark demonstrate that PoetryQwen achieves a score of 0.757, representing a 9.7% improvement over the Qwen2.5-14B-Instruct baseline (0.690). These findings clearly indicate that Poetry Qwen significantly enhances performance in precise translation and emotional understanding of classical poetry. We present new dataset and methodological considerations intended to support the domain-specific optimization of LLMs."</abstract>
+      <url hash="30ed0e5d">2025.ccl-2.24</url>
+      <bibkey>xie-2025-system</bibkey>
+    </paper>
+    <paper id="25">
+      <title><fixed-case>CCL</fixed-case>25-Eval 任务5系统报告:基于千问大模型的古诗词理解与推理研究</title>
+      <author><first>Jue</first><last>Wang</last></author>
+      <pages>206-211</pages>
+      <abstract>"中国古典诗词语言凝练、意境深远,对自然语言处理系统提出了严峻挑战。本次评测聚焦于古诗词理解与推理,包括词语释义、句子翻译和情感分析三项子任务。本文基于Qwen2.5-14B-Instruct 模型,在LLaMA Factory 框架下采用监督微调(SFT)与LoRA 参数高效微调策略,提升模型在few-shot 条件下的表现。训练数据来自官方发布的多类别JSON 格式语料,经整合与指令格式转换后用于模型训练。实验表明,LoRA 微调显著优于zero-shot 基线。本研究验证了参数高效微调方法在有限数据场景下的有效性。"</abstract>
+      <url hash="dd2d83cf">2025.ccl-2.25</url>
+      <bibkey>wang-2025-ccl25</bibkey>
+    </paper>
+    <paper id="26">
+      <title>Overview of <fixed-case>CCL</fixed-case>25-Eval Task 5: <fixed-case>C</fixed-case>hinese Classical Poetry Appreciation Evaluation (<fixed-case>CCPA</fixed-case>) Task</title>
+      <author><first>Zhenwu</first><last>Pei</last></author>
+      <author id="yingjie-zhu" orcid="0009-0009-3078-1964"><first>Yingjie</first><last>Zhu</last><affiliation>Harbin Institute of Technology (Shenzhen)</affiliation></author>
+      <author><first>Rongbo</first><last>Chen</last><affiliation>Harbin Institute of Technology</affiliation></author>
+      <author><first>Xuefeng</first><last>Bai</last></author>
+      <author id="kehai-chen" orcid="0000-0002-4346-7618"><first>Kehai</first><last>Chen</last><affiliation>Harbin Institute of Technology (Shenzhen)</affiliation></author>
+      <author id="min-zhang" orcid="0000-0002-3895-5510"><first>Min</first><last>Zhang</last><affiliation>Harbin Institute of Technology, Shenzhen and Harbin Institute of Technology</affiliation></author>
+      <pages>212-219</pages>
+      <abstract>"This paper presents a review of CCL2025-Eval Task 5: Appreciation Evaluation (CCPA). The primary aim of this task is to evaluate the ability of lan-guage models in performing deep semantic understanding and aesthetic appreciation of Chinese classical poetry. The evaluation comprises two tracks: (1) Poetic content understanding, which examines models’ ability to interpret both fine-grained and coarse-grained semantics; (2) Poetic emotion recognition, which evaluates models’ capacity to identify and analyze emotional expressions. A total of 55 teams registered for the task, among which 7 teams provided valid submissions. The paper provides an in-depth analysis of the submissions and results from all participating teams."</abstract>
+      <url hash="e5668414">2025.ccl-2.26</url>
+      <bibkey>pei-etal-2025-overview</bibkey>
+    </paper>
+    <paper id="27">
+      <title>System Report for <fixed-case>CCL</fixed-case>25-Eval Task 6: <fixed-case>C</fixed-case>hinese Essay Rhetoric Recognition Using <fixed-case>L</fixed-case>o<fixed-case>RA</fixed-case>, In-context Learning and Model Ensemble</title>
+      <author><first>Yuxuan</first><last>Lai</last><affiliation>The Open University of China</affiliation></author>
+      <author id="xiajing-wang" orcid="0000-0002-9897-0579"><first>Xiajing</first><last>Wang</last><affiliation>The Open University of China</affiliation></author>
+      <author id="chen-zheng-8568" orcid="0009-0002-8268-8568"><first>Chen</first><last>Zheng</last></author>
+      <pages>220-232</pages>
+      <abstract>"Rhetoric recognition is a critical component in automated essay scoring. By identifying rhetorical elements in student writing, AI systems can better assess linguistic and higher-order thinking skills, making it an essential task in the area of AI for education. In this paper, we leverage LargeLanguage Models (LLMs) for the Chinese rhetoric recognition task. Specifically, we exploreLow-Rank Adaptation (LoRA) based fine-tuning and in-context learning to integrate rhetoric knowledge into LLMs. We formulate the outputs as JSON to obtain structural outputs and trans-late keys to Chinese. To further enhance the performance, we also investigate several model ensemble methods. Our method achieves the best performance on all three tracks of CCL 2025Chinese essay rhetoric recognition evaluation task, winning the first prize."</abstract>
+      <url hash="ac8f3a30">2025.ccl-2.27</url>
+      <bibkey>lai-etal-2025-system</bibkey>
+    </paper>
+    <paper id="28">
+      <title><fixed-case>CCL</fixed-case>25-Eval 任务6系统报告:基于数据增强及大小模型协同的中小学作文修辞识别</title>
+      <author><first>Xuquan</first><last>Zong</last></author>
+      <author><first>Jiyuan</first><last>An</last></author>
+      <author><first>Xiang</first><last>Fu</last><affiliation>Beijing Language and Culture University</affiliation></author>
+      <author><first>Luming</first><last>Lu</last></author>
+      <author><first>Haonan</first><last>Zhu</last></author>
+      <author><first>Liner</first><last>Yang</last><affiliation>Beijing Language and Culture University</affiliation></author>
+      <author><first>Erhong</first><last>Yang</last></author>
+      <pages>233-243</pages>
+      <abstract>"CCL25-Eval任务6提出了一个段落级、多层次,细粒度中小学修辞识别与理解任务。针对修辞分类任务的特点,本文构建了一种以数据增强为核心、结合高效监督微调的多策略融合框架,并融合语句层面修辞识别与段落句间关系建模及识别,以全面提升模型的修辞理解能力。针对修辞成分抽取任务的特点,本文采用先进行修辞类别判定,后在该基础上进行修辞相关实体识别的两阶段处理策略,有效提升了整体识别精度。结果表明,本文所提出的方法能够有效对修辞进行识别和抽取,三个赛道上的分数分别达到了43.47、51.71、38.27,总成绩位列第二。"</abstract>
+      <url hash="02e7dbe9">2025.ccl-2.28</url>
+      <bibkey>zong-etal-2025-ccl25</bibkey>
+    </paper>
+    <paper id="29">
+      <title>System Report for <fixed-case>CCL</fixed-case>25-Eval Task 6: Enhancing <fixed-case>C</fixed-case>hinese Essay Rhetoric Recognition through Targeted Data Augmentation and Model Ensemble Voting</title>
+      <author><first>Jingjun</first><last>Tang</last></author>
+      <author><first>Zhiwen</first><last>Tang</last><affiliation>Yunnan University</affiliation></author>
+      <pages>244-251</pages>
+      <abstract>"This paper presents our approach to the Second Chinese Essay Rhetoric Identification and Understanding Competition, which focuses on analyzing rhetorical features in essays written by primary and secondary school students. The competition includes three tasks: multi-label classification of rhetorical forms, divided into 9 coarse-grained and 19 fine-grained categories; multi-label classification of rhetorical content, comprising 5 coarse-grained and 11 fine-grained categories specific to certain rhetorical types; and extraction of rhetorical components, including connectives, descriptive objects, and specific rhetorical content. To address the challenge of limited training data, we applied targeted data augmentation and manual corrections to build a high-quality dataset. We then fine-tuned large language models using one-shot and in-context learning. Finally, we employed an ensemble strategy that integrates model predictions through a voting mechanism. Our system achieved a score of 52.78 and ranked third in the competition."</abstract>
+      <url hash="aa384ac9">2025.ccl-2.29</url>
+      <bibkey>tang-tang-2025-system-report</bibkey>
+    </paper>
+    <paper id="30">
+      <title>Overview of <fixed-case>CCL</fixed-case>25-Eval Task6: <fixed-case>C</fixed-case>hinese Essay Rhetoric Recognition Evaluation (<fixed-case>CERRE</fixed-case>)</title>
+      <author><first>Yujiang</first><last>Lu</last></author>
+      <author><first>Nuowei</first><last>Liu</last></author>
+      <author id="yupei-ren" orcid="0000-0003-0381-1661"><first>Yupei</first><last>Ren</last></author>
+      <author><first>Yicheng</first><last>Zhu</last></author>
+      <author id="man-lan" orcid="0000-0002-9114-4629"><first>Man</first><last>Lan</last></author>
+      <author><first>Xiaopeng</first><last>Bai</last><affiliation>East China Normal University</affiliation></author>
+      <author><first>Mofan</first><last>Xu</last></author>
+      <author><first>Qingyu</first><last>Liao</last><affiliation>NA</affiliation></author>
+      <pages>252-260</pages>
+      <abstract>"Literary grace in Chinese composition writing is a hallmark of linguistic sophistication, often realized through various rhetorical devices. The automatic identification and analysis of rhetorical devices in essays play a crucial role in educational NLP applications, particularly for assessing writing proficiency and facilitating pedagogical interventions. Although prior research has predominantly focused on coarse-grained recognition of limited rhetorical devices at sentence level, these approaches prove inadequate for handling complex rhetorical structures and emerging educational demands. In this paper, we present the CCL25-Eval Task6: Chinese EssayRhetoric Recognition Evaluation (CERRE), a novel framework comprising three distinct evaluation tracks at the document level: (1) Fine-grained Form-level Categories Recognition, (2)Fine-grained Content-level Categories Recognition, and (3) Rhetorical Component Extraction.The evaluation has attracted 29 registered participating teams, with 8 teams submitting valid system outputs. In particular, two participating systems demonstrated superior performance by exceeding the baseline metrics in complete evaluation criteria."</abstract>
+      <url hash="bf6b3a08">2025.ccl-2.30</url>
+      <bibkey>lu-etal-2025-overview</bibkey>
+    </paper>
+    <paper id="31">
+      <title><fixed-case>CCL</fixed-case>25-Eval任务7系统报告:基于古典汉语理解的双阶段多域微调解析框架</title>
+      <author><first>魏祺哲</first><last>魏祺哲</last></author>
+      <pages>261-270</pages>
+      <abstract>"古典汉语作为中华传统文化的重要载体,其语言表达高度凝练且语义复杂,给现代大语言模型带来挑战。为提升中文文学语言理解能力,本文提出一种新的解析框架,采用双阶段多域微调训练策略:第一阶段利用指令生成技术获取大量数据集,随后在此数据集上进行稀疏微调,实现基础适应;第二阶段则高质量标注数据上通过冻结参数在不同域精调,提升具体任务表现。实验基于"第一届中国文学语言理解评测(争鸣)"七项任务,此微调框架得到的结果显著优于基线,验证了双阶段多域微调方法的有效性,相关模型已开源于https:/huggingface.co/wqz123/D2Dtest。"</abstract>
+      <url hash="d00654c7">2025.ccl-2.31</url>
+      <bibkey>wei-qi-zhe-2025-ccl25</bibkey>
+    </paper>
+    <paper id="32">
+      <title><fixed-case>CCL</fixed-case>25-Eval任务7系统报告:学而不思则罔?</title>
+      <author><first>郑陈锐</first><last>郑陈锐</last></author>
+      <author><first>朱奕澄</first><last>朱奕澄</last></author>
+      <author><first>王欣雨</first><last>王欣雨</last></author>
+      <author><first>姜伟麟</first><last>姜伟麟</last></author>
+      <author><first>吴会腾</first><last>吴会腾</last></author>
+      <pages>271-277</pages>
+      <abstract>"以DeepSeek-R1为 代 表 ,"思 考"普 遍 被 认 为 是 一 种 提 高 大 语 言 模 型 性 能 的 方 法 。在CCL25-Eval"争鸣"中文阅读理解任务下,本文分别探索了"思考"和"非思考"两种模型在这项任务下的潜力。具体来说,在古代文学知识理解任务中,本文构建了古汉语特定领域的知识数据集,用大模型蒸馏了思考数据集,整理了高质量思考数据集,在这些数据基础之下同样lora微调,发现思考模型虽然性能有巨大提升,但依旧比不上原本的非思考模型。最后,开源并提交了基于Qwen2.5的SongPanda模型。"</abstract>
+      <url hash="143dc53c">2025.ccl-2.32</url>
+      <bibkey>zheng-chen-rui-etal-2025-ccl25</bibkey>
+    </paper>
+    <paper id="33">
+      <title>System Report for <fixed-case>CCL</fixed-case>25-Eval Task 7: A Two-stage Framework for Aligning <fixed-case>LLM</fixed-case> to <fixed-case>C</fixed-case>hinese Literature via Fine-Tuning and Prompting</title>
+      <author><first>Fan</first><last>Su</last></author>
+      <author><first>Yiming</first><last>Qin</last></author>
+      <author><first>Aijia</first><last>Zhao</last></author>
+      <author><first>Zhenxu</first><last>Wang</last><affiliation>Yunnan University</affiliation></author>
+      <author><first>Zekang</first><last>Huang</last></author>
+      <pages>278-287</pages>
+      <abstract>"This system report presents our approach and results for the First Chinese Literary Language Understanding Evaluation (ZhengMing) task at CCL25-Eval. The ZhengMing evaluation benchmark consists of seven subtasks: Biases in Modern Literary Criticism, Modern Literary Criticism Mining, Classical Chinese Literature Comprehension, Literary Reading Comprehension,Literary Named Entity Recognition, Literary Language Style Transfer, and Literary Work Style Prediction. To address these tasks, we propose a two-stage framework named StageAli to align large language models (LLMs) to the Chinese literature domain. In the first stage, we employLow-Rank Adaptation (LoRA) to fine-tune an LLM on Chinese literary datasets, aiming to adapt the model to Chinese literature domain. In the second stage, we utilize a combination of prompt-ing strategies to further unleash the potential of the fine-tuned model in addressing the ChineseLiterary Language Understanding task. Our proposed StageAli framework achieves second place in the overall evaluation, demonstrating the effectiveness of our method."</abstract>
+      <url hash="7db7bc34">2025.ccl-2.33</url>
+      <bibkey>su-etal-2025-system</bibkey>
+    </paper>
+    <paper id="34">
+      <title>Overview of <fixed-case>CCL</fixed-case>25-Eval Task 7: <fixed-case>C</fixed-case>hinese Literary Language Understanding Evaluation (<fixed-case>Z</fixed-case>heng<fixed-case>M</fixed-case>ing)</title>
+      <author><first>Kang</first><last>Wang</last></author>
+      <author><first>Qing</first><last>Wang</last></author>
+      <author><first>Min</first><last>Peng</last></author>
+      <author><first>Kun</first><last>Yue</last></author>
+      <author><first>Gang</first><last>Hu</last></author>
+      <pages>288-297</pages>
+      <abstract>"The 24th Chinese Computational Linguistics Conference (CCL25-Eval) features 12 technical evaluation tasks. Among them, Task 7 is the Chinese Literary Language Understanding Evaluation (ZhengMing). ZhengMing is a universal and scalable evaluation framework designed to assess natural language processing (NLP) tasks in the literary domain, such as text classification, text generation, automated question answering, relation extraction, and machine translation.ZhengMing framework aims to evaluate the performance of large language models (LLMs) in the literary field at a fine-grained level. In this mission, 89 teams signed up for the competition, with5 teams ultimately submitting results. The highest score achieved is 0.65. This paper presents and discusses the dataset, task descriptions, competition results, and other relevant information for this evaluation task. This paper introduces and presents relevant information about this evaluation task, including the dataset, task description, and competition results. More details are available at https://github.com/isShayulajiao/CCL25-Eval-ZhengMing."</abstract>
+      <url hash="0b37408f">2025.ccl-2.34</url>
+      <bibkey>wang-etal-2025-overview</bibkey>
+    </paper>
+    <paper id="35">
+      <title><fixed-case>CCL</fixed-case>25-Eval任务7系统报告:微调与提示协同增强大语言模型的文学语义理解</title>
+      <author><first>Yang</first><last>Qingyi</last></author>
+      <author><first>Zhoupanpan</first><last>Zhoupanpan</last></author>
+      <pages>298-303</pages>
+      <abstract>"本报告基于"第一届中国文学语言理解评测(争鸣)任务",对Qwen2.5-7B-Instruct模型进行了低秩适配(Low-Rank Adaptation, LoRA)微调实验。任务包括五项主任务:古代文学知识理解、文学阅读完形填空、文学命名实体识别、文学作品风格预测和文学风格转换;另有两项域外任务,涉及现代文学批评倾向与批评挖掘。在有限计算资源条件下,采用LoRA技术实现了高效参数更新,并结合少量样本提示和高质量指令设计,提升了模型在少样本条件下的鲁棒性与泛化能力。实验结果显示,该方法在五项主任务上取得了良好表现,并在域外任务中展现出显著的跨领域能力。其中,在批评挖掘任务中取得了0.847的准确率,体现了较强的抽象推理与知识迁移能力。基于本报告方法训练的模型在所有任务的平均指标为0.540,在参赛队伍中排名第三。"</abstract>
+      <url hash="fef247be">2025.ccl-2.35</url>
+      <bibkey>qingyi-zhoupanpan-2025-ccl25</bibkey>
+    </paper>
+    <paper id="36">
+      <title>System Report for <fixed-case>CCL</fixed-case>25-Eval Task 8: Improving <fixed-case>ICD</fixed-case> Coding with Large Language Models via Disease Entity Recognition</title>
+      <author><first>Tengxiao</first><last>Lv</last></author>
+      <author><first>Juntao</first><last>Li</last></author>
+      <author><first>Chao</first><last>Liu</last><affiliation>Dalian University of Technology</affiliation></author>
+      <author><first>Haobin</first><last>Yuan</last></author>
+      <author id="ling-luo" orcid="0000-0002-5141-0259"><first>Ling</first><last>Luo</last><affiliation>Dalian University of Technology and Dalian University of Technology</affiliation></author>
+      <author><first>Jian</first><last>Wang</last></author>
+      <author id="hongfei-lin" orcid="0000-0003-0872-7688"><first>Hongfei</first><last>Lin</last></author>
+      <pages>304-311</pages>
+      <abstract>"With the widespread adoption of Electronic Medical Records (EMRs), automated coding of theInternational Classification of Diseases (ICD) has become increasingly essential. However, the complexity of Chinese clinical texts presents significant challenges to traditional methods. To address these issues, CCL25-Eval Task 8 organized the Chinese EMRs ICD Diagnosis CodingEvaluation. This paper presents a method based on Large Language Models (LLMs), which divides the task into primary and other diagnosis coding. For the primary diagnosis, a confidence-guided semantic retrieval strategy is applied, while ensemble learning enhanced with NamedEntity Recognition (NER) is used for other diagnoses. The proposed approach achieved 83.42%accuracy on the official test set, ranking second in the evaluation."</abstract>
+      <url hash="ceae97b2">2025.ccl-2.36</url>
+      <bibkey>lv-etal-2025-system</bibkey>
+    </paper>
+    <paper id="37">
+      <title>System Report for <fixed-case>CCL</fixed-case>25-Eval Task 8: Structured <fixed-case>ICD</fixed-case> Coding with <fixed-case>LLM</fixed-case>-Augmented Learning and Group-specific Classifiers</title>
+      <author id="bo-wang" orcid="0000-0001-8102-5346"><first>Bo</first><last>Wang</last></author>
+      <author><first>Kaiyuan</first><last>Zhang</last><affiliation>Beijing Institute of Technology</affiliation></author>
+      <author id="chong-feng" orcid="0000-0002-1691-1584"><first>Chong</first><last>Feng</last></author>
+      <author id="ge-shi" orcid="0000-0002-9296-9905"><first>Ge</first><last>Shi</last><affiliation>Beijing Institute of Technology</affiliation></author>
+      <author><first>Jinhua</first><last>Ye</last><affiliation>NA</affiliation></author>
+      <author id="jiahao-teng" orcid="0009-0004-5774-3996"><first>Jiahao</first><last>Teng</last></author>
+      <author><first>Shouzhen</first><last>Wang</last></author>
+      <author><first>Fanqing</first><last>Meng</last><affiliation>Beijing Institute of Technology</affiliation></author>
+      <author><first>Changsen</first><last>Yuan</last></author>
+      <author><first>Yan</first><last>Zhuang</last></author>
+      <pages>312-321</pages>
+      <abstract>"The International Classification of Diseases (ICD) provides a standardized framework for encoding diagnoses, serving critical roles in clinical scenarios. Automatic ICD coding aims to assign formalized diagnostic codes to medical records for documentation and analysis, which is challenged by an extremely large and imbalanced label space, noisy and heterogeneous clinical text,and the need for interpretability. In this paper, we propose a structured multi-class classification framework that partitions diseases into clinically coherent groups, enabling group-specific dataaugmentation and supervision. Our method combines input compression with generative and discriminative fine-tuning strategies tailored to primary and secondary diagnoses, respectively.On the CCL2025-Eval Task 8 benchmark for Chinese electronic medical records, our approach ranked first in the final evaluation."</abstract>
+      <url hash="b565a9fa">2025.ccl-2.37</url>
+      <bibkey>wang-etal-2025-system</bibkey>
+    </paper>
+    <paper id="38">
+      <title><fixed-case>CCL</fixed-case>25-Eval任务8系统报告:基于规则奖励与自主思考强化学习的中文电子病历<fixed-case>ICD</fixed-case>诊断编码探索</title>
+      <author><first>Zou</first><last>You</last></author>
+      <author id="lei-zhang-5532" orcid="0000-0002-2949-5532"><first>Lei</first><last>Zhang</last><affiliation>China Telecom Corporation Limited Chongqing Branch</affiliation></author>
+      <author><first>Xiaodong</first><last>Liang</last><affiliation>China Telecom</affiliation></author>
+      <author><first>Kundong</first><last>Mo</last><affiliation>China Telecom Corporation Limited Chongqing Branch</affiliation></author>
+      <author><first>Guozitao</first><last>Guozitao</last><affiliation>China Telecom Corporation Limited Chongqing Branch</affiliation></author>
+      <author><first>Feng</first><last>Wei</last></author>
+      <author><first>Chenzi</first><last>Wang</last><affiliation>China Telecom Corporation Limited Chongqing Branch</affiliation></author>
+      <pages>322-330</pages>
+      <abstract>"世界卫生组织国际疾病分类ICD诊断编码的自动生成是医疗信息化的核心挑战,面临主诊断单标签分类准确性不足、其他诊断多标签预测不完整以及长尾分布等技术瓶颈。本文系统研究探索了大语言模型在中文电子病历ICD诊断编码任务中的微调范式创新,针对生成式微调、判别式微调,以及强化学习分别提出了不同的微调训练策略。其中,创新性地设计针对医疗特性的基于规则奖励的强化学习框架(RBRs-RL),通过动态难度校准、Token级梯度优化和超长奖励塑造策略改进了GRPO算法的效率和性能,同时结合提出的策略轮动数据增强迭代训练(SRADIT)策略,实现了强化微调性能上限的提升。此外,本文还系统比较了生成式与判别式微调在中文诊断ICD编码任务中的性能边界,同时构建了端到端的临床决策优化框架,为奖励微调提供有效路径。并且针对推理阶段,本文设计了一种温度调节集成共识预测方法(TCECP),提升了推理的稳定性和可靠性。最后基于Qwen2.5-7B模型的微调实验结果表明,通过本文提出的优化后的RBR-R1式强化微调方法,在CCL25-Eval任务朸的A榜和B榜分别取得80.98和82.33的优异成绩,其效果显著超越传统SFT的性能上限。综上所述,本文的探索与发现为医疗诊断编码系统的实际应用提供了重要的技术参考。"</abstract>
+      <url hash="5bdce90f">2025.ccl-2.38</url>
+      <bibkey>you-etal-2025-ccl25</bibkey>
+    </paper>
+    <paper id="39">
+      <title>System Report for <fixed-case>CCL</fixed-case>25-Eval Task 8: <fixed-case>C</fixed-case>lin<fixed-case>S</fixed-case>plit<fixed-case>FT</fixed-case>: Enhancing <fixed-case>ICD</fixed-case> Coding in <fixed-case>C</fixed-case>hinese <fixed-case>EMR</fixed-case>s with Prompt Engineering and Candidate Set Splitting</title>
+      <author><first>Pusheng</first><last>Chen</last></author>
+      <author id="qiangyu-tan" orcid="0009-0005-9607-8674"><first>Qiangyu</first><last>Tan</last></author>
+      <author><first>Zhiwen</first><last>Tang</last><affiliation>Yunnan University</affiliation></author>
+      <pages>331-337</pages>
+      <abstract>"CCL25-Eval Task 8 focuses on ICD coding from clinical narratives. The challenge of this task lies in the imbalanced and complex label space, with primary diagnoses having a small, focused set of labels and secondary diagnoses involving a much larger, intricate set. To address these challenges, we propose ClinSplitFT (Clinical Code Split Fine-Tuning), a novel framework that enhances ICD coding accuracy using large language models (LLMs). The key innovation of ClinSplitFT is its candidate set split strategy, which splits the full candidate set into several manageable subsets and fine-tunes the model separately on each. During inference, predictions from all subsets are aggregated to produce the final output. This split-based fine-tuning approach enables more focused learning and better generalization in multi-label settings, making it an effective solution for clinical code prediction at scale. Experimental results show significant improvements in ICD coding performance. The code for our system is publicly available at https://github.com/277CPS/ICD-Code-prediction."</abstract>
+      <url hash="829a16c1">2025.ccl-2.39</url>
+      <bibkey>chen-etal-2025-system-report</bibkey>
+    </paper>
+    <paper id="40">
+      <title><fixed-case>CCL</fixed-case>25-Eval任务8总结报告:中文电子病历<fixed-case>ICD</fixed-case>诊断编码评测</title>
+      <author><first>Zhenpeng</first><last>Liang</last></author>
+      <author><first>Chuanlong</first><last>Li</last><affiliation>Qilu University of Technology</affiliation></author>
+      <author><first>Ying</first><last>Lian</last><affiliation>The First Affiliated Hospital of Shandong First Medical University &amp; Shandong Provincial Qianfoshan Hospital</affiliation></author>
+      <author><first>Guoqiang</first><last>Chen</last><affiliation>The First Affiliated Hospital of Shandong First Medical University &amp; Shandong Provincial Qianfoshan Hospital</affiliation></author>
+      <author id="hongjiao-guan" orcid="0000-0002-4372-7416"><first>Hongjiao</first><last>Guan</last></author>
+      <author id="wenpeng-lu" orcid="0000-0002-1840-3540"><first>Wenpeng</first><last>Lu</last></author>
+      <pages>338-346</pages>
+      <abstract>"中文电子病历国际疾病分类(ICD)诊断编码评测依托第二十四届中国计算语言学大会(CCL)举办。该评测聚焦于自然语言处理技术在智能医疗领域的应用,旨在从真实脱敏的电子病历文本中自动分析关键临床表征,实现主诊断及其他诊断ICD编码的精准预测与分配,从而辅助临床医生与专业编码员提升编码工作的准确性和效率。本次评测在阿里云天池平台进行,获得了学术界与工业界的广泛关注和积极参与。数据显示,共有445支队伍报名参赛,其中A榜和B榜分别有85支和36支队伍成功提交了有效结果。最终,8支表现优异的队伍受邀撰写并分享了其技术报告,为推动该领域的技术进步与方法创新贡献了宝贵经验。本次评测的详细信息可参见相关发布页面。"</abstract>
+      <url hash="fe4fa585">2025.ccl-2.40</url>
+      <bibkey>liang-etal-2025-ccl25</bibkey>
+    </paper>
+    <paper id="41">
+      <title><fixed-case>CCL</fixed-case>25-Eval任务9系统报告:中医辨证辨病及处方生成中的少样本数据增强方法</title>
+      <author id="zicheng-zuo" orcid="0000-0002-8055-0437"><first>Zicheng</first><last>Zuo</last></author>
+      <author><first>Jiamin</first><last>Ren</last></author>
+      <author id="turdi-tohti" orcid="0000-0002-1639-8899"><first>Turdi</first><last>Tohti</last><affiliation>Xinjiang University</affiliation></author>
+      <pages>347-354</pages>
+      <abstract>"中医药在临床诊断和治疗中发挥了不可或缺的作用。中医辨证辨病及中药处方生成任务包含两个富有挑战性的问题,包括中医多标签辨证辨病和中药处方推荐。由于缺乏高质量的标注数据,之前的方法大多需要引入外部数据,容易出现知识滞后的问题。因此,我们提出了一种融合大模型与可控文本生成的混合增强策略。具体而言,通过设计基于词汇独立性的数据增强,与微调大模型进行可控文本生成,在少量标注样本的基础上构建高质量扩展数据集。然后采用LoRA微调技术适配此任务。实验结果表明,该方案分别获得了0.553和0.4515的得分。在不需要引入额外数据的情况下,也能获得较好的效果。"</abstract>
+      <url hash="9deb196b">2025.ccl-2.41</url>
+      <bibkey>zuo-etal-2025-ccl25</bibkey>
+    </paper>
+    <paper id="42">
+      <title><fixed-case>CCL</fixed-case>25-Eval任务9系统报告:一种面向中医辨证与处方生成任务的检索增强大模型方法</title>
+      <author><first>Yiyang</first><last>Kang</last></author>
+      <author><first>Yao</first><last>Jiaqi</last></author>
+      <author><first>Tengxiao</first><last>Lv</last></author>
+      <author id="bo-xu" orcid="0000-0001-5453-978X"><first>Bo</first><last>Xu</last><affiliation>Dalian University of Technology</affiliation></author>
+      <author id="ling-luo" orcid="0000-0002-5141-0259"><first>Ling</first><last>Luo</last><affiliation>Dalian University of Technology and Dalian University of Technology</affiliation></author>
+      <author id="yuanyuan-sun" orcid="0000-0002-6515-134X"><first>Yuanyuan</first><last>Sun</last><affiliation>Dalian University of Technology</affiliation></author>
+      <author id="hongfei-lin" orcid="0000-0003-0872-7688"><first>Hongfei</first><last>Lin</last></author>
+      <pages>355-362</pages>
+      <abstract>"本文面向CCL2025-Eval任务9中的中医辨证辨病与中药处方推荐两个子任务,提出了一套基于大语言模型的系统性方法。在子任务1中,本文基于QLoRA方法对Qwen2.5-7B、Mistral-7B和Baichuan-7B三种预训练模型进行高效微调,并引入多模型集成投票策略。在子任务串中,本文设计了融合向量检索、监督微调与强化学习的中药推荐框架,通过相似度检索构建候选处方集合,并利用强化学习优化模型的生成能力。最终在评测中获得总分0.5171(Task1得分0.5710,Task2得分0.4632),排名第四,验证了所提方法的有效性与实用性。"</abstract>
+      <url hash="fbcab1b4">2025.ccl-2.42</url>
+      <bibkey>kang-etal-2025-ccl25</bibkey>
+    </paper>
+    <paper id="43">
+      <title><fixed-case>CCL</fixed-case>25-Eval 任务9系统报告:基于大模型及指令微调方法的中医辨证辨病及中药处方生成研究</title>
+      <author><first>坑多洛夫斯基</first><last>坑多洛夫斯基</last><affiliation>赣西肿瘤医院</affiliation></author>
+      <pages>363-368</pages>
+      <abstract>"辨证论治是中医认识疾病和治疗疾病的核心原则和方法,其基本思想是通过望、闻、问、切的方法,收集患者症状、舌苔、脉象等临床信息,通过分析、综合,辨清疾病的病因、病机,概括、判断为某种性质的证,进而制定个性化的治疗方案,开具合适的中药处方予以治疗。本研究探究如何增强大模型根据格式化,标准化的中医病例自动生成相对应的辨证辨病及中药处方的能力。本研究将任务拆分为辩证辨病与中药处方生成两个任务,使用的训练框架是LLamafactory,使用的大模型是开源模型(qwen2.5-7B-Instruct(Qwen Team, 2024),qwen3-4B)。首先设置lora参数为LLamafactory默认参数,修改参数中验证集比例为0.2,epoch为5,进行lora监督微调,获得验证集相对最佳的epoch。然后,设置lora参数为默认,修改其中的epoch参数为验证集最佳epoch+1,同时对模型进行全数据lora调参优化,择其中相对最优者。最后对全数据进行full微调,与lora调参最优模型比较,择其更优者。最终在B榜中获得score1:0.648,score:0.4259,总score:0.5369,综合排名第一的成绩。"</abstract>
+      <url hash="c917bf77">2025.ccl-2.43</url>
+      <bibkey>keng-duo-luo-fu-si-ji-2025-ccl25</bibkey>
+    </paper>
+    <paper id="44">
+      <title>System Report for <fixed-case>CCL</fixed-case>25-Eval Task 9: Leveraging Chain-of-Thought and Multi-task Learning for Optimized Traditional <fixed-case>C</fixed-case>hinese Medicine Diagnosis and Treatment</title>
+      <author><first>张坚</first><last>张坚</last></author>
+      <author><first>Wei</first><last>Zhu</last><affiliation>Yunnan University</affiliation></author>
+      <author><first>Zhiwen</first><last>Tang</last><affiliation>Yunnan University</affiliation></author>
+      <pages>369-375</pages>
+      <abstract>"This paper introduces an intelligent diagnostic system for Traditional Chinese Medicine (TCM) that emulates clinical reasoning through a phased multi-turn dialogue process. The system architecture is divided into three sequential stages: syndrome differentiation, disease diagnosis,and prescription generation. Each stage leverages Chain-of-Thought (CoT) techniques to ensure coherent reasoning, maintaining contextual continuity and consistency throughout the diagnostic process. To optimize model performance, we employ a multi-task fine-tuning approach, combin-ing data from all three stages for training the Qwen2.5-7B-Instruct model. Experimental results show that the system achieves strong performance across all diagnostic tasks. Error analysis re-veals that the accuracy of the first two stages, syndrome differentiation and disease diagnosis, has a significant impact on the quality of the generated prescriptions. This work provides a scalable framework for intelligent TCM diagnosis, advancing both medical knowledge reasoning and the application of domain-specific large language models."</abstract>
+      <url hash="072b253f">2025.ccl-2.44</url>
+      <bibkey>zhang-jian-etal-2025-system</bibkey>
+    </paper>
+    <paper id="45">
+      <title><fixed-case>CCL</fixed-case>25-Eval任务9总结报告:中医辨证辨病及中药处方生成评测</title>
+      <author id="cong-wang-0248" orcid="0009-0009-2993-0248"><first>Cong</first><last>Wang</last></author>
+      <author><first>Zhizhuo</first><last>Zhao</last></author>
+      <author><first>Yishuo</first><last>Li</last></author>
+      <author id="hongjiao-guan" orcid="0000-0002-4372-7416"><first>Hongjiao</first><last>Guan</last></author>
+      <author id="yifei-wang" orcid="0000-0003-0562-3058"><first>Yifei</first><last>Wang</last></author>
+      <author><first>Zhenyu</first><last>Li</last><affiliation>qilu university of science and technology</affiliation></author>
+      <author id="wenpeng-lu" orcid="0000-0002-1840-3540"><first>Wenpeng</first><last>Lu</last></author>
+      <pages>376-386</pages>
+      <abstract>"中医辨证辨病及中药处方生成评测任务专注于中医“辨证论治”。该任务由齐鲁工业大学(山东省科学院)与山东中医药大学附属医院联合发起,基于真实病历构建了中医“辨证论治”全流程公开数据集TCM-TBOSD,覆盖10类中医证型、4类中医疾病及381种常见中药。评测任务设立两个子任务:中医多标签辨证辨病与中药处方推荐,旨在系统评估大模型在中医诊疗全过程中的建模与推理能力。本次评测收到了学术界与产业界的广泛关注,评测共吸引123支队伍参与,35支队伍晋级复赛,最终提交了8份高质量技术报告。评测结果表明,大语言模型在中医任务中展现出良好的适应性与发展潜力,为中医智能化提供了可行路径与技术参考。详细信息可以从网址查看我们的评测任务。"</abstract>
+      <url hash="3632a42e">2025.ccl-2.45</url>
+      <bibkey>wang-etal-2025-ccl25-evalren</bibkey>
+    </paper>
+    <paper id="46">
+      <title>Overview of <fixed-case>CCL</fixed-case>25-Eval Task 10: Fine-grained <fixed-case>C</fixed-case>hinese Hate Speech Identification Evaluation Task</title>
+      <author id="junyu-lu" orcid="0000-0002-4094-2540"><first>Junyu</first><last>Lu</last></author>
+      <author><first>Zewen</first><last>Bai</last></author>
+      <author><first>Shengdi</first><last>Yin</last></author>
+      <author><first>Liang</first><last>Yang</last><affiliation>Dalian University of Technology</affiliation></author>
+      <author id="hongfei-lin" orcid="0000-0003-0872-7688"><first>Hongfei</first><last>Lin</last></author>
+      <pages>387-394</pages>
+      <abstract>"This paper provides an overview of the CCL25-Eval Task 10, i.e., Fine-grained Chinese Hate Speech Identification Evaluation. The primary objective of this task is to perform a fine-grained analysis of hateful samples. In addition to binary classification, systems are required to identify and extract the comment target, argument span, and the associated targeted group within each sample, thereby enhancing the model’s capability in fine-grained detection and improving the interpretability of its decisions. In total, more than 300 teams registered for the task, with 100 teams submitting valid results. We present the submitted results and provide a comprehensive analysis of the technical approaches adopted by the top-performing teams. The dataset used in this task has been available."</abstract>
+      <url hash="c4780c35">2025.ccl-2.46</url>
+      <bibkey>lu-etal-2025-overview-ccl25</bibkey>
+    </paper>
+    <paper id="47">
+      <title>System Report for <fixed-case>CCL</fixed-case>25-Eval Task 10: <fixed-case>SRAG</fixed-case>-<fixed-case>MAV</fixed-case> for Fine-Grained <fixed-case>C</fixed-case>hinese Hate Speech Recognition</title>
+      <author><first>Jiahao</first><last>Wang</last><affiliation>Harbin Institute of Technology</affiliation></author>
+      <author><first>Ramen</first><last>Liu</last></author>
+      <author><first>Longhui</first><last>Zhang</last></author>
+      <author><first>Jing</first><last>Li</last><affiliation>Harbin Institute of Technology</affiliation></author>
+      <pages>395-402</pages>
+      <abstract>"This paper presents our system for CCL25-Eval Task 10, addressing Fine-Grained Chinese Hate Speech Recognition (FGCHSR). We propose a novel SRAG-MAV framework that synergistically integrates task reformulation(TR), Self-Retrieval-Augmented Generation (SRAG), and Multi-Round Accumulative Voting (MAV). Our method reformulates the quadruplet extraction task into triplet extraction, uses dynamic retrieval from the training set to create contextual prompts,and applies multi-round inference with voting to improve output stability and performance. Our system, based on the Qwen2.5-7B model, achieves a Hard Score of 26.66, a Soft Score of 48.35,and an Average Score of 37.505 on the STATE ToxiCN dataset, significantly outperforming base-lines such as GPT-4o (Average Score 15.63) and fine-tuned Qwen2.5-7B (Average Score 35.365).The code is available at https://github.com/king-wang123/CCL25-SRAG-MAV."</abstract>
+      <url hash="ebbf37c6">2025.ccl-2.47</url>
+      <bibkey>wang-etal-2025-system-report</bibkey>
+    </paper>
+    <paper id="48">
+      <title>System Report for <fixed-case>CCL</fixed-case>25-Eval Task 10: Prompt-Driven Large Language Model Merge for Fine-Grained <fixed-case>C</fixed-case>hinese Hate Speech Detection</title>
+      <author id="binglin-wu" orcid="0009-0000-2295-6773"><first>Binglin</first><last>Wu</last></author>
+      <author id="jiaxiu-zou" orcid="0009-0001-6004-6866"><first>Jiaxiu</first><last>Zou</last></author>
+      <author id="xianneng-li" orcid="0000-0003-4130-6930"><first>Xianneng</first><last>Li</last><affiliation>Dalian University of Technology</affiliation></author>
+      <pages>403-410</pages>
+      <abstract>"The proliferation of hate speech on Chinese social media poses urgent societal risks, yet traditional systems struggle to decode context-dependent rhetorical strategies and evolving slang. To bridge this gap, we propose a novel three-stage LLM-based framework: Prompt Engineering, Supervised Fine-tuning, and LLM Merging. First, context-aware prompts are designed to guide LLMs in extracting implicit hate patterns. Next, task-specific features are integrated during supervised fine-tuning to enhance domain adaptation. Finally, merging fine-tuned LLMs improves robustness against out-of-distribution cases. Evaluations on the STATE-ToxiCN benchmark validate the framework’s effectiveness, demonstrating superior performance over baseline methods in detecting fine-grained hate speech."</abstract>
+      <url hash="ebba4859">2025.ccl-2.48</url>
+      <bibkey>wu-etal-2025-system</bibkey>
+    </paper>
+    <paper id="49">
+      <title><fixed-case>CCL</fixed-case>25-Eval任务10系统报告:面向细粒度中文仇恨言论识别的大语言模型增强</title>
+      <author><first>Fanjun</first><last>Lin</last></author>
+      <author><first>Yanwei</first><last>Zhang</last></author>
+      <author><first>Huang</first><last>Yang</last></author>
+      <author><first>Zhiyuan</first><last>Yao</last></author>
+      <pages>411-418</pages>
+      <abstract>"本文介绍了我们在第二十四届中文计算语言学大会细粒度中文仇恨言论识别任务中的参赛系统。该任务要求构建结构化仇恨四元组(评论对象、论点、目标群体、是否仇恨),提升模型的细粒度检测与可解释性。我们基于大语言模型,首先评估了LoRA参数高效微调效果,优化了超参数配置;其次对标注数据进行结构化处理,增强数据规范性;最后优化提示词设计,引导模型生成准确的结构化输出。实验表明,三阶段优化提升了模型性能。"</abstract>
+      <url hash="4156b6fe">2025.ccl-2.49</url>
+      <bibkey>lin-etal-2025-ccl25</bibkey>
+    </paper>
+    <paper id="50">
+      <title><fixed-case>CCL</fixed-case>25-Eval任务10系统报告:基于动态线索增强提示与多阶段渐进优化的中文仇恨言论检测方法</title>
+      <author><first>LuRuan</first><last>LuRuan</last><affiliation>China Telecom Corporation Limited Chongqing Branch</affiliation></author>
+      <author><first>ZhaiBo</first><last>ZhaiBo</last></author>
+      <author id="lei-zhang-5532" orcid="0000-0002-2949-5532"><first>Lei</first><last>Zhang</last><affiliation>China Telecom Corporation Limited Chongqing Branch</affiliation></author>
+      <author><first>Lie</first><last>Bao</last><affiliation>NA</affiliation></author>
+      <author><first>Zeyu</first><last>Wang</last><affiliation>NA</affiliation></author>
+      <author><first>Feng</first><last>Wei</last></author>
+      <author><first>Chenzi</first><last>Wang</last><affiliation>China Telecom Corporation Limited Chongqing Branch</affiliation></author>
+      <pages>419-429</pages>
+      <abstract>"随着社交媒体的迅速普及,用户生成内容呈指数级增长,同时也助长了仇恨言论的扩散。因此,有效检测仇恨言论已成为自然语言处理研究领域的一项关键挑战。为推动中文仇恨言论检测技术的发展,本文提出了一种新颖的大语言模型微调框架,该框架融合了动态线索增强提示和多阶段渐进优化方法。所提出的方法将复杂的细粒度仇恨言论识别任务分解为两个相辅相成的子任务:仇恨倾向分类和仇恨信息提取。为此采用了两种专门的训练策略:动态线索增强提示微调(DCA-SFT)用于优化模型的分类性能,而动态线索增强强化学习(DCA-RL)则用于提升模型的信息提取能力。具体而言,在DCA-SFT阶段,引入判别式分类并采用多标签独热(Multi-Hot)编码作为输出表示形式,以提高模型的多类别分类准确率。在DCA-RL阶段,通过知识蒸馏的方式,将闭源大语言模型在执行仇恨信息提取任务时的思维链(CoT)知识迁移至小参数模型,同时引入基于规则奖励的强化微调策略来增强小参数模型在信息提取任务中的逻辑推理能力。实验结果证明了该方法的有效性,在CCL25-Eval任务10的初赛排行榜上以0.3864的F1值,排名第二;在决赛排行榜上以0.3591的F1值,位列第三。"</abstract>
+      <url hash="79b08c48">2025.ccl-2.50</url>
+      <bibkey>luruan-etal-2025-ccl25</bibkey>
+    </paper>
+    <paper id="51">
+      <title><fixed-case>CCL</fixed-case>25-Eval任务11系统报告:基于大模型微调的汉字硬笔书写质量自动评价</title>
+      <author><first>KongLulu</first><last>KongLulu</last></author>
+      <author><first>Hongying</first><last>Zan</last><affiliation>Zhengzhou University</affiliation></author>
+      <author><first>Jinwang</first><last>Song</last></author>
+      <author><first>LiuHaixin</first><last>LiuHaixin</last></author>
+      <author><first>Yifan</first><last>Li</last></author>
+      <author><first>Zhewei</first><last>Luo</last></author>
+      <pages>430-436</pages>
+      <abstract>本技术报告探讨了通过微调本地视觉语言模型,实现汉字硬笔书写质量自动评价的技术方案。针对传统评价方法难以提供准确性反馈的问题,我们团队采用精心设计的prompt并结合微调的方式构建了一个高效的汉字硬笔书写质量自动评价系统。我们采用Qwen2.5-VL-7B-Instruct模型作为基础,通过LoRA微调技术实现了汉字书写质量等级分类(子任务一)和个性化评语生成(子任务二)的功能。系统地融合了视觉特征分析与语言生成能力,在训练过程中采用了梯度检查点、BF16混合精度训练等技术优化显存使用,并设计了针对性的损失函数和评估指标。实验结果表明,我们的方法能够有效实现汉字书写质量的细粒度评价。</abstract>
+      <url hash="c2754820">2025.ccl-2.51</url>
+      <bibkey>konglulu-etal-2025-ccl25</bibkey>
+    </paper>
+    <paper id="52">
+      <title>System Report for <fixed-case>CCL</fixed-case>25-Eval Task 11: Enhancing <fixed-case>C</fixed-case>hinese Character Handwriting Evaluation with Multimodal Large Language Models</title>
+      <author id="xiaoqing-hong" orcid="0009-0001-1142-7443"><first>Xiaoqing</first><last>Hong</last></author>
+      <author><first>Yunhan</first><last>Li</last></author>
+      <author><first>Lyu</first><last>Ni</last><affiliation>East China Normal University</affiliation></author>
+      <pages>437-443</pages>
+      <abstract>"With the development of smart devices, students’ ability to handwrite Chinese characters has generally been decreasing. Chinese character handwriting receives increasing attention because the standardization of Chinese character handwriting is one of the most important components of national education in China. Due to inadequate professional teachers and labor-intensive evaluation means, it is difficult to provide large-scale,personalized, and low-latency evaluation feedback in Chinese character handwriting education. Recently, large language models (LLMs) have made outstanding achievements in natural language understanding and generation. Thus, the multimodal large language model(MLLM) is an efficient method to resolve the difficulties. We introduce an enhanced neural network architecture, referred to as ACBAM-VGG16, which is developed by augmenting the CBAM-VGG16 framework with adversarially generated examples. Leveraging this model, we propose customized training and inference mechanisms for MLLMs, specifically targeting two downstream tasks: quality assessment of handwritten Chinese character images and generation of descriptive textual comments. We introduce an effective inference strategy that allows an MLLM to maintain high performance in scenarios where limited training data are available for model fine-tuning, resulting in the average F1 score can be improved by 6.74%. Moreover, we design a hierarchical MLLM fine-tuning framework to ensure the precision and diversity of generated comments. In the comparison of various MLLMs, the proposed framework increases the weighted aver-age of ROUGE-1, ROUGE-2, and ROUGE-L by 2.33%-9.94%."</abstract>
+      <url hash="9cf39df2">2025.ccl-2.52</url>
+      <bibkey>hong-etal-2025-system</bibkey>
+    </paper>
+    <paper id="53">
+      <title>System Report for <fixed-case>CCL</fixed-case>25-Eval Task 11: Aesthetic Assessment of <fixed-case>C</fixed-case>hinese Handwritings Based on Vision Language Models</title>
+      <author id="chen-zheng-8568" orcid="0009-0002-8268-8568"><first>Chen</first><last>Zheng</last></author>
+      <author><first>Yuxuan</first><last>Lai</last><affiliation>The Open University of China</affiliation></author>
+      <author><first>Haoyang</first><last>Lu</last><affiliation>NA</affiliation></author>
+      <author><first>Wentao</first><last>Ma</last><affiliation>NA</affiliation></author>
+      <author><first>Jitao</first><last>Yang</last><affiliation>NA</affiliation></author>
+      <author><first>Jian</first><last>Wang</last><affiliation>NA</affiliation></author>
+      <pages>444-451</pages>
+      <abstract>"The handwriting of Chinese characters is a fundamental aspect of learning the Chinese language. Previous automated assessment methods often framed scoring as a regression problem. However, this score-only feedback lacks actionable guidance, which limits its effectiveness in helping learners improve their handwriting skills.In this paper, we leverage vision-language models(VLMs) to analyze the quality of handwritten Chinese characters and generate multi-level feedback. Specifically, we investigate two feedback generation tasks: simple grade feedback (Task 1)and enriched, descriptive feedback (Task 2). We explore both low-rank adaptation (LoRA)-based fine-tuning strategies and in-context learning methods to integrate aesthetic assessment knowl-edge into VLMs. Experimental results show that our approach achieves state-of-the-art performances across multiple evaluation tracks in the CCL 2025 workshop on evaluation of handwrittenChinese character quality."</abstract>
+      <url hash="43cceff1">2025.ccl-2.53</url>
+      <bibkey>zheng-etal-2025-system</bibkey>
+    </paper>
+    <paper id="54">
+      <title>Overview of <fixed-case>CCL</fixed-case>25-Eval Task 11: Evaluation of the Quality of Handwritten <fixed-case>C</fixed-case>hinese Characters</title>
+      <author><first>Meng</first><last>Wang</last></author>
+      <author><first>Shicong</first><last>Lu</last></author>
+      <author><first>Zhidan</first><last>Hu</last></author>
+      <author><first>Chen</first><last>Su</last></author>
+      <author><first>Yujie</first><last>Cao</last></author>
+      <pages>452-460</pages>
+      <abstract>"As an important means of disseminating Chinese cultural heritage, the development of Chinese handwriting skills faces dual challenges in the digital era: insufficient pedagogical resources anda lack of personalized feedback. At the 24th China National Conference on Computational Linguistics (CCL 2025), we organized a handwritten Chinese character evaluation task focusing on writing quality grading and comments generation. This benchmark utilized an expert-annotated calligraphic dataset to enhance task efficacy. Eight teams participated in the evaluation, three ofwhich submitted valid entries. In the character grading subtask, the top-performing team achieved an F1-score of 90.5%, whereas the optimal system in the comments generation subtask attained a score of 52.8%."</abstract>
+      <url hash="26347a13">2025.ccl-2.54</url>
+      <bibkey>wang-etal-2025-overview-ccl25</bibkey>
+    </paper>
+    <paper id="55">
+      <title><fixed-case>CCL</fixed-case>25-Eval任务12系统报告:基于语音识别与大语言模型的中文语音实体关系三元组抽取方法</title>
+      <author><first>Zhishan</first><last>Qiao</last></author>
+      <pages>461-465</pages>
+      <abstract>"本文针对中文语音实体关系三元组抽取任务,提出了一种基于语音识别模型与大语言模型相结合的Pipeline解决方案。该方法首先利用SenseVoice语音识别模型将语音转换为文本,通过热词检测与拼音相似度匹配技术对转录文本进行纠错优化,然后采用微调后的Qwen2.5-7B-Instruct进行实体关系三元组抽取。在数据预处理阶段,我们设计了一套完整的流水线,包括:(1)基于HanLP的命名实体识别构建热词库;(2)拼音相似度匹配算法进行音近字纠错;(3)阿拉伯数字到中文数字的转换;(4)热词引导的语音识别优化。在模型训练方面,我们构建了高质量的指令微调数据集,采用统一的prompt模板对大语言模型进行监督微调,使其能够从语音转录文本中准确提取结构化的三元组信息。实验结果表明,我们的方法在中文语音实体关系三元组抽取任务上取得了良好的性能。热词引导机制显著提升了语音识别在专有名词上的准确率,拼音相似度匹配有效解决了语音识别中的同音字错误问题,基于大语言模型的三元组抽取模块则展现出优秀的泛化能力和推理性能。"</abstract>
+      <url hash="9f433746">2025.ccl-2.55</url>
+      <bibkey>qiao-2025-ccl25</bibkey>
+    </paper>
+    <paper id="56">
+      <title>System Report for <fixed-case>CCL</fixed-case>25-Eval Task 12: Surpassing <fixed-case>LLM</fixed-case>s with a Simple Pipeline for <fixed-case>M</fixed-case>andarin Spoken Entity-Relation Extraction</title>
+      <author id="wuganjing-song" orcid="0000-0001-9581-4127"><first>Wuganjing</first><last>Song</last></author>
+      <pages>466-469</pages>
+      <abstract>"We present a strong and practical pipeline system for Mandarin spoken entity and relation extraction (Spoken-ERE), which integrates an industrial-grade ASR module (FireRedASR) with a span-based joint entity-relation extraction model. Unlike recent approaches that rely on large language models (LLMs) for end-to-end spoken information extraction, our method uses a modular pipeline design that is lightweight, interpretable, and easy to deploy. Despite its simplicity,our system achieves top-tier performance in a recent shared task workshop, outperform-ing several 5× larger LLM-based systems for 20% on F1-score. We demonstrate through experiments that with robust ASR and a well-designed span-based model, classical pipelines re-main competitive and, in some scenarios, even preferable to LLM-based solutions for spoken information extraction in Mandarin."</abstract>
+      <url hash="57de7197">2025.ccl-2.56</url>
+      <bibkey>song-2025-system</bibkey>
+    </paper>
+    <paper id="57">
+      <title><fixed-case>CCL</fixed-case>25-Eval任务12系统报告:基于端到端模型以及指令微调方法的面向中文语音的实体关系三元组抽取研究</title>
+      <author><first>坑多洛夫斯基</first><last>坑多洛夫斯基</last><affiliation>赣西肿瘤医院</affiliation></author>
+      <pages>470-474</pages>
+      <abstract>"传统的关系三元组抽取任务主要集中于书面文本,通过识别实体及其相互关系来构建结构化的知识图谱。然而,语音作为人机交互的主要形式之一,在智能助手、智能客服、语音搜索等诸多应用中发挥着日益重要的作用。因此,如何高效、准确地从语音数据中提取有价值的结构化信息成为研究的热点之一。本研究通过测试模型在数据集上的性能,探究如何增强模型在三元抽取任务中的能力。本研究使用的训练框架是LLamafactory,使用的大模型是两个7B量级的开源模型(qwen2-audio,qwen2.5-omin(Qwen Team, 2025)),首先任取其中的一个模型(本研究选取的为qwen2-audio)设置lora参数为LLamafactory默认参数,修改参数中验证集比例为0.2,epoch为5,进行lora监督微调,获得验证集最佳的epoch。然后,设置lora参数为默认,修改其中的epoch参数为验证集最佳epoch+1,同时对两个模型进行全数据lora监督微调,择其中更优胜者,最后进行进一步的lora调参,以期模型在该任务上达到相对最优性能。最终在B榜获得了end-to-end赛道的第二名,分数为0.5292。"</abstract>
+      <url hash="bdd32656">2025.ccl-2.57</url>
+      <bibkey>keng-duo-luo-fu-si-ji-2025-ccl25-evalren</bibkey>
+    </paper>
+    <paper id="58">
+      <title><fixed-case>CCL</fixed-case>25-Eval任务12总结报告:面向中文语音的实体关系三元组抽取</title>
+      <author><first>Wenxuan</first><last>Mu</last></author>
+      <author><first>Jinzhong</first><last>Ning</last><affiliation>Dalian Martime University</affiliation></author>
+      <author><first>Yilin</first><last>Pan</last></author>
+      <author id="paerhati-tulajiang" orcid="0009-0000-0432-692X"><first>Paerhati</first><last>Tulajiang</last><affiliation>Xinjiang Normal University</affiliation></author>
+      <author id="yuanyuan-sun" orcid="0000-0002-6515-134X"><first>Yuanyuan</first><last>Sun</last><affiliation>Dalian University of Technology</affiliation></author>
+      <author id="songtao-li" orcid="0009-0004-6589-417X"><first>SongTao</first><last>Li</last></author>
+      <author id="yanxu-ji" orcid="0009-0009-3006-931X"><first>Yanxu</first><last>Ji</last></author>
+      <author id="weiming-yin" orcid="0009-0005-5701-634X"><first>Weiming</first><last>Yin</last><affiliation>Dalian Martime University</affiliation></author>
+      <author id="yijia-zhang" orcid="0000-0002-5843-4675"><first>Yijia</first><last>Zhang</last></author>
+      <author id="hongfei-lin" orcid="0000-0003-0872-7688"><first>Hongfei</first><last>Lin</last></author>
+      <pages>475-480</pages>
+      <abstract>"中文语音实体关系三元组抽取任务(Chinese Speech Entity-Relation Triple Extraction Task, CSRTE)是第二十四届中国计算语言学大会中的一项技术评测,旨在从中文语音数据中自动识别并提取实体及其相互关系,构建结构化的语音关系三元组(头实体、关系、尾实体)。本任务的目标是提升中文语音关系三元组抽取的准确性与效率,增强模型在不同语境和复杂语音场景下的鲁棒性,实现从语音输入到文本三元组输出的全流程自动化处理。通过本次评测,有助于推动中文语音信息抽取技术的发展,促进语音与自然语言处理技术的深度融合,为智能应用提供更加丰富且精准的基础数据支持。此次评测共有257支队伍报名参赛,其中59支队伍提交了A榜成绩。成绩排名前15的队伍晋级A榜,并且表现突出的前朷支队伍提交了技术报告。"</abstract>
+      <url hash="988005fa">2025.ccl-2.58</url>
+      <bibkey>mu-etal-2025-ccl25</bibkey>
+    </paper>
+  </volume>
 </collection>
