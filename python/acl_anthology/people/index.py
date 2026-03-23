@@ -419,6 +419,7 @@ class PersonIndex(SlottedDict[Person]):
         kwargs["parent"] = self.parent
         kwargs["is_explicit"] = True
 
+        names = names[:1] + list(set(names) - {names[0]})  # deduplication
         person = Person(id=id, names=names, **kwargs)
         self.add_person(person)
         return person

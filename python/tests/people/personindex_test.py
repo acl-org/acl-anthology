@@ -297,6 +297,16 @@ def test_create_person_should_fail_on_unverified_id(index):
         )
 
 
+def test_create_person_should_handle_duplicate_names(index):
+    person = index.create(
+        id="matt-post",
+        names=[Name("Matt", "Post"), Name("Matt", "Post")],
+        orcid="0000-0002-1297-6794",
+    )
+    assert person.id in index
+    assert len(person.names) == 1
+
+
 def test_create_person_should_fail_on_empty_names(index):
     with pytest.raises(ValueError):
         index.create(
