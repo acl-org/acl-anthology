@@ -1,5 +1,13 @@
 # Changelog
 
+## [Unreleased]
+
+### Changed
+
+- `Person.item_ids` will now update dynamically when a new Person is created and/or relevant attributes of a Person change (i.e. `names`, `disable_name_matching`). (related to #7879)
+- Bugfix: NameSpecifications now prevent having unverified IDs set on them (#7901)
+- `PersonIndex.create` now deduplicates list of names (#7858)
+
 ## [1.1.0] — 2026-03-19
 
 ### Added
