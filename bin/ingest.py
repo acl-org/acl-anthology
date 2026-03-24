@@ -405,6 +405,11 @@ def read_ingest_metadata(
         volume_editors = []
         if frontmatter_data is not None:
             volume_editors = frontmatter_data["editors"] + frontmatter_data["authors"]
+        if not volume_editors and meta.get("editors"):
+            volume_editors = [
+                namespec_from_bib(pybtex.database.Person(name))
+                for name in meta["editors"]
+            ]
         return {
             "format": format_,
             "source": source_path,
@@ -426,7 +431,8 @@ def read_ingest_metadata(
             "editors": volume_editors,
             "venue_ids": [venue_name] + (["ws"] if args.is_workshop else []),
             "isbn": meta.get("isbn"),
-            "journal_volume": volume_name if args.is_journal else None,
+            "journal_volume": meta.get("volume") if args.is_journal else None,
+            "journal_issue": meta.get("issue") if args.is_journal else None,
             "root_path": root_path,
             "pdfs_dest_dir": pdfs_dest_dir,
             "attachments_dest_dir": attachments_dest_dir,
@@ -705,6 +711,7 @@ def ingest(
         "month": metadata["month"],
     }
     volume_kwargs["journal_volume"] = metadata.get("journal_volume")
+    volume_kwargs["journal_issue"] = metadata.get("journal_issue")
     volume_kwargs["isbn"] = metadata.get("isbn")
     if metadata.get("proceedings_pdf_src") and metadata.get("proceedings_pdf_dest"):
         maybe_copy(metadata["proceedings_pdf_src"], metadata["proceedings_pdf_dest"])
