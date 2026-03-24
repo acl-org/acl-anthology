@@ -384,7 +384,7 @@ def read_ingest_metadata(
             anthology, venue_abbrev, meta.get("title", venue_abbrev)
         )
         collection_id = meta["year"] + "." + venue_slug
-        volume_name = meta["volume"].lower()
+        volume_name = meta.get("issue", meta["volume"]).lower()
         venue_name = venue_abbrev.lower()
         root_path = source_path / "cdrom"
         pdfs_dest_dir = Path(args.pdfs_dir) / venue_name
