@@ -107,7 +107,6 @@ class Person:
         comment: A comment for disambiguation purposes.
         degree: The person's institution of highest degree, for disambiguation purposes.
         similar_ids: A list of person IDs with names that should be considered similar to this one.  Do **not** use this to _find_ people with similar names; that should be done via [`PersonIndex.similar`][acl_anthology.people.index.PersonIndex].  This attribute can be used to explicitly add more "similar IDs" that are not automatically derived via similar names.
-        disable_name_matching: If True, no items should be assigned to this person unless they explicitly specify this person's ID.
         is_explicit: If True, this person's ID is explicitly defined in `people.yaml`.  You probably want to use [`make_explicit()`][acl_anthology.people.person.Person.make_explicit] rather than change this attribute.
     """
 
@@ -126,7 +125,7 @@ class Person:
     comment: Optional[str] = field(default=None)
     degree: Optional[str] = field(default=None)
     similar_ids: list[str] = field(factory=list)
-    disable_name_matching: Optional[bool] = field(default=False, converter=bool)
+    _disable_name_matching: Optional[bool] = field(default=False, converter=bool)
     is_explicit: Optional[bool] = field(default=False, converter=bool)
 
     def __eq__(self, other: object) -> bool:
@@ -149,6 +148,20 @@ class Person:
         for name in values:
             self.parent.people._add_name(self.id, name)
         self._names = _name_list_converter(values)
+        self.parent.people._reresolve_items_for_person(self)
+
+    @property
+    def disable_name_matching(self) -> bool:
+        """Flag to indicate if items can be assigned to this person via name matching.
+
+        If True, no items should be assigned to this person unless they explicitly specify this person's ID.
+        """
+        return bool(self._disable_name_matching)
+
+    @disable_name_matching.setter
+    def disable_name_matching(self, value: Optional[bool]) -> None:
+        self._disable_name_matching = value
+        self.parent.people._reresolve_items_for_names(self.names)
 
     @property
     def canonical_name(self) -> Name:
@@ -175,7 +188,7 @@ class Person:
         """
         link_type = NameLink.INFERRED if inferred else NameLink.EXPLICIT
         if not self.has_name(name):
-            self._names.insert(0, (name, link_type))
+            self._names = [(name, link_type)] + self._names
         else:
             self._names = [(name, link_type)] + [x for x in self._names if x[0] != name]
 
@@ -190,6 +203,8 @@ class Person:
         if not self.has_name(name):
             self._names.append((name, link_type))
             self.parent.people._add_name(self.id, name)
+            if not inferred:
+                self.parent.people._reresolve_items_for_names([name])
         elif (name, link_type) not in self._names:
             # ensure that name is re-inserted at same position
             idx = self.names.index(name)
@@ -210,6 +225,8 @@ class Person:
         """
         self._names.remove((name, NameLink.EXPLICIT))
         self.parent.people._remove_name(self.id, name)
+        self.parent.people._reresolve_items_for_person(self)
+        self.parent.people._reresolve_items_for_names([name])
 
     def has_name(self, name: Name) -> bool:
         """

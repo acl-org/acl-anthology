@@ -270,6 +270,44 @@ def test_create_person(index):
     assert person.is_explicit
 
 
+def test_create_person_changes_namespec_resolution(index):
+    implicit_person = index[UNVERIFIED_PID_FORMAT.format(pid="yongfeng-zhang")]
+    namespecs = list(implicit_person.namespecs())
+    assert len(namespecs) > 0
+    explicit_person = index.create(
+        id="yongfeng-zhang",
+        names=[Name("Yongfeng", "Zhang")],
+    )
+    # Papers that resolved to implicit_person before should resolve to explicit_person now
+    assert all(ns.resolve() is explicit_person for ns in namespecs)
+    assert set(explicit_person.namespecs()) == set(namespecs)
+    assert len(list(implicit_person.namespecs())) == 0
+
+
+def test_create_person_creates_ambiguous_name(index):
+    person1 = index["hinrich-schuetze"]
+    # Precondition: This person has both explicitly and implicitly linked papers
+    assert len(person1.item_ids) == 5
+    assert sum(ns.id == "hinrich-schuetze" for ns in person1.namespecs()) == 2
+    # Precondition: No unverified "hinrich-schuetze" exists
+    assert UNVERIFIED_PID_FORMAT.format(pid="hinrich-schuetze") not in index
+
+    person2 = index.create(
+        id="hinrich-schuetze-two",
+        names=[Name("Hinrich", "Schuetze")],
+    )
+    # No papers should resolve to person2
+    assert len(person2.item_ids) == 0
+    # Only explicitly linked papers should resolve to person1 now
+    assert len(person1.item_ids) == 2
+    assert all(ns.id == "hinrich-schuetze" for ns in person1.namespecs())
+    # An unverified "hinrich-schuetze" should now exist with the remaining three papers
+    person3 = index[UNVERIFIED_PID_FORMAT.format(pid="hinrich-schuetze")]
+    assert person3 is not None
+    assert len(person3.item_ids) == 3
+    assert all(ns.id is None for ns in person3.namespecs())
+
+
 def test_create_person_should_fail_on_duplicate_orcid(index):
     with pytest.raises(ValueError):
         index.create(
@@ -351,9 +389,21 @@ def test_add_to_index_behavior_on_duplicate_namespecs(index):
 ##############################################################################
 
 
+def test_person_id_change_should_fail_on_existing_items(anthology):
+    index = anthology.people
+    person = index["marcel-bollmann"]
+    # Cannot change this directly – there are items associated with the old ID!
+    with pytest.raises(PersonDefinitionError):
+        person.id = "marcel-bollmann-rub"
+
+
 def test_person_id_change_should_update_index(anthology):
     index = anthology.people
     person = index["marcel-bollmann"]
+    # Unlink all items first
+    for ns in person.namespecs():
+        ns.id = None
+    # Now, the ID can be changed
     person.id = "marcel-bollmann-rub"
     assert "marcel-bollmann" not in index
     assert "marcel-bollmann-rub" in index
@@ -384,24 +434,26 @@ def test_person_add_name_should_update_index(anthology):
 def test_person_remove_name_should_update_index(anthology):
     index = anthology.people
     person = index["steven-krauwer"]
-    name = Name("S.", "Krauwer")
+    name = Name("Steven", "Krauwer")
     assert index.by_name[name] == ["steven-krauwer"]
     person.remove_name(name)
-    assert not index.by_name[name]
+    assert index.by_name[name] == [UNVERIFIED_PID_FORMAT.format(pid="steven-krauwer")]
     assert not index.slugs_to_verified_ids[name.slugify()]
 
 
 def test_person_setting_names_should_update_index(anthology):
     index = anthology.people
     person = index["steven-krauwer"]
-    names = [Name("Steven", "Krauwer"), Name("Steven J.", "Krauwer")]
+    names = [Name("S.", "Krauwer"), Name("Steven J.", "Krauwer")]
     person.names = names
     # previously existing name
     assert index.by_name[names[0]] == ["steven-krauwer"]
     # added name
     assert index.by_name[names[1]] == ["steven-krauwer"]
-    # removed name
-    assert not index.by_name[Name("S.", "Krauwer")]
+    # removed name, now resolves to unverified
+    assert index.by_name[Name("Steven", "Krauwer")] == [
+        UNVERIFIED_PID_FORMAT.format(pid="steven-krauwer")
+    ]
 
 
 ##############################################################################
@@ -606,6 +658,55 @@ def test_check_namelink_after_resolve_namespec(name_dict, expected_namelink, ind
         name,
         expected_namelink,
     ) in person._names  # maybe provide a function for this?
+
+
+def test_person_add_name_affects_name_resolution(anthology):
+    index = anthology.people
+    # Precondition: 3 papers resolve to this explicit person
+    person1 = index["yang-liu-icsi"]
+    assert len(person1.item_ids) == 3
+    # Precondition: 1 paper resolves to this unverified person
+    person2 = index[UNVERIFIED_PID_FORMAT.format(pid="alexander-liu")]
+    assert len(person2.item_ids) == 1
+    all_papers = set(person1.item_ids + person2.item_ids)
+
+    # Adding a name should move unverified papers to this person via name matching
+    name = Name("Alexander", "Liu")
+    person1.add_name(name)
+    assert "yang-liu-icsi" in index.by_name[name]
+    assert set(person1.item_ids) == all_papers
+    assert len(person2.item_ids) == 0
+
+
+def test_person_remove_name_affects_name_resolution(anthology):
+    index = anthology.people
+    person = index["steven-krauwer"]
+    # Precondition: 2 papers resolve to this person
+    assert len(person.item_ids) == 2
+
+    # Remove a name should move implicitly-linked papers to unverified person
+    name = Name("Steven", "Krauwer")
+    person.remove_name(name)
+    assert UNVERIFIED_PID_FORMAT.format(pid="steven-krauwer") in index
+    assert index.by_name[name] == [UNVERIFIED_PID_FORMAT.format(pid="steven-krauwer")]
+    assert len(person.item_ids) == 1
+
+
+def test_person_disable_name_matching_affects_name_resolution(anthology):
+    index = anthology.people
+    person = index["steven-krauwer"]
+    # Precondition: 2 papers resolve to this person
+    assert len(person.item_ids) == 2
+
+    # Setting disable_name_matching should move implicitly-linked papers to
+    # unverified person
+    person.disable_name_matching = True
+    assert UNVERIFIED_PID_FORMAT.format(pid="steven-krauwer") in index
+    assert len(person.item_ids) == 1
+
+    # Setting it back should change it back
+    person.disable_name_matching = False
+    assert len(person.item_ids) == 2
 
 
 ##############################################################################
