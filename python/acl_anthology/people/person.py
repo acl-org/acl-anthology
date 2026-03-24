@@ -263,12 +263,12 @@ class Person:
                 new_id, f"Not a valid verified-person ID: {new_id}"
             )
 
-        for namespec in list(self.namespecs()):
-            # We're not calling .set_id_on_items() since only _explicitly_
-            # linked papers should get updated with the new ID
-            if namespec.id == self.id:
-                namespec.id = new_id
+        namespecs = list(ns for ns in self.namespecs() if ns.id == self.id)
+        for namespec in namespecs:
+            namespec.id = None
         self.id = new_id  # triggers update in PersonIndex
+        for namespec in namespecs:
+            namespec.id = new_id
 
     def make_explicit(
         self, new_id: Optional[str] = None, skip_setting_ids: bool = False
@@ -296,15 +296,13 @@ class Person:
         elif new_id in self.parent.people:
             raise AnthologyException(f"ID already exists in the index: {new_id}")
 
+        namespecs = list(self.namespecs())
         self.is_explicit = True
-        if not skip_setting_ids:
-            # We're not calling .set_id_on_items() since this would set the
-            # _old_ ID, and we need to set this before we update this person's
-            # ID and trigger and update in the PersonIndex
-            for namespec in list(self.namespecs()):
-                namespec.id = new_id
         self.id = new_id  # triggers update in PersonIndex
         self._names = [(name, NameLink.EXPLICIT) for name, _ in self._names]
+        if not skip_setting_ids:
+            for namespec in namespecs:
+                namespec.id = new_id
 
     @deprecated(
         "Person.merge_with_explicit() is deprecated in favor of Person.merge_into()"
@@ -328,11 +326,7 @@ class Person:
                 f"Can only merge with explicit persons; not '{other.id}'"
             )
 
-        for namespec in list(self.namespecs()):
-            namespec.id = other.id
-        other.item_ids.extend(self.item_ids)
-        self.item_ids = []
-
+        namespecs = list(self.namespecs())
         for attr in ("orcid", "comment", "degree", "disable_name_matching"):
             if (
                 getattr(other, attr) is None
@@ -342,6 +336,8 @@ class Person:
         other.similar_ids.extend(self.similar_ids)
         for name in self.names:
             other.add_name(name, inferred=False)
+        for namespec in namespecs:
+            namespec.id = other.id
 
     def set_id_on_items(
         self, exclude: Optional[list[AnthologyID | Paper | Volume]] = None

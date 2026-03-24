@@ -709,6 +709,78 @@ def test_person_disable_name_matching_affects_name_resolution(anthology):
     assert len(person.item_ids) == 2
 
 
+def test_namespec_change_name_affects_name_resolution(anthology):
+    index = anthology.people
+    # Precondition: Find a paper that resolves to a given unverified person
+    item_id = ("2022.acl", "long", "187")
+    namespec = anthology.get_paper(item_id).authors[2]
+    person1 = index.get(UNVERIFIED_PID_FORMAT.format(pid="nathan-noiry"))
+    assert namespec.resolve() is person1
+    assert item_id in person1.item_ids
+
+    # Changing the name should move the paper to another person
+    namespec.name = Name("Nathan Middlename", "Noiry")
+    person2 = namespec.resolve()
+    assert person2 is not person1
+    assert item_id not in person1.item_ids
+    assert item_id in person2.item_ids
+    assert person2.id == UNVERIFIED_PID_FORMAT.format(pid="nathan-middlename-noiry")
+
+
+def test_namespec_change_id_affects_name_resolution(anthology):
+    index = anthology.people
+    # Precondition: Find a paper that resolves to a given verified person
+    item_id = ("2022.acl", "long", "88")
+    namespec = anthology.get_paper(item_id).authors[-2]
+    person1 = index.get("yang-liu-icsi")
+    person2 = index.get("yang-liu-microsoft")
+    assert namespec.resolve() is person1
+    assert item_id in person1.item_ids
+    assert item_id not in person2.item_ids
+
+    # Changing the ID should move the paper to another person
+    namespec.id = "yang-liu-microsoft"
+    assert namespec.resolve() is person2
+    assert item_id not in person1.item_ids
+    assert item_id in person2.item_ids
+
+
+def test_namespec_remove_id_affects_name_resolution(anthology):
+    index = anthology.people
+    # Precondition: Find a paper that resolves to a given verified person
+    item_id = ("2022.acl", "long", "88")
+    namespec = anthology.get_paper(item_id).authors[-2]
+    person1 = index.get("yang-liu-icsi")
+    person2 = index.get(UNVERIFIED_PID_FORMAT.format(pid="yang-liu"))
+    assert namespec.resolve() is person1
+    assert item_id in person1.item_ids
+    assert item_id not in person2.item_ids
+
+    # Changing the ID should move the paper to another person
+    namespec.id = None
+    assert namespec.resolve() is person2
+    assert item_id not in person1.item_ids
+    assert item_id in person2.item_ids
+
+
+def test_namespec_add_id_affects_name_resolution(anthology):
+    index = anthology.people
+    # Precondition: Find a paper that resolves to a given verified person
+    item_id = ("2022.naloma", "1", "6")
+    namespec = anthology.get_paper(item_id).authors[0]
+    person1 = index.get(UNVERIFIED_PID_FORMAT.format(pid="yang-liu"))
+    person2 = index.get("yang-liu-icsi")
+    assert namespec.resolve() is person1
+    assert item_id in person1.item_ids
+    assert item_id not in person2.item_ids
+
+    # Changing the ID should move the paper to another person
+    namespec.id = "yang-liu-icsi"
+    assert namespec.resolve() is person2
+    assert item_id not in person1.item_ids
+    assert item_id in person2.item_ids
+
+
 ##############################################################################
 ### Tests for ingestion logic
 ##############################################################################

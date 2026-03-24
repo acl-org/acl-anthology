@@ -487,13 +487,8 @@ class PersonIndex(SlottedDict[Person]):
     def _reresolve_items_for_person(self, person: Person) -> None:
         """Update `item_ids` for a given person.
 
-        Checks if all items linked to a person still have NameSpecs resolving to
-        that person, and updates the `item_ids` attribute accordingly (of both
-        _this_ person and potentially others who the NameSpec now resolves to).
-        May result in the creation of new unverified persons, if necessary.
-
-        Will be called automatically from functions that can affect item
-        assignment; do not call manually.
+        If any item currently in `person.item_ids` does not have a NameSpecification resolving to `person`, this will remove that item from `person.item_ids` and add it to the Person instance that it now resolves to.  This may result in the creation of new unverified Person instances.
+        Will be called automatically from functions that can affect item assignment; do not call manually.
         """
         items = list(person.anthology_items())
         for item in items:
