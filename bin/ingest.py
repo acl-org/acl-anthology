@@ -194,13 +194,6 @@ def add_page_numbers(
     return papers
 
 
-def trim_orcid(orcid: str) -> str:
-    match = re.match(r".*(\d{4}-\d{4}-\d{4}-\d{3}[\dX]).*", orcid, re.IGNORECASE)
-    if match is not None:
-        return match.group(1).upper()
-    return orcid
-
-
 def correct_names(author: Dict[str, Any]) -> Dict[str, Any]:
     """
     Fold middle name into the first name.
@@ -220,15 +213,15 @@ def join_names(author: Dict[str, Any], fields=None) -> str:
 def namespec_from_author(author: Dict[str, Any]) -> NameSpecification:
     """Creates a NameSpecification from an author dictionary (aclpub2)."""
     author = correct_names(dict(author))
-    first_name = correct_caps(join_names(author).strip())
-    last_name = correct_caps((author.get("last_name") or "").strip())
+    first_name = join_names(author).strip()
+    last_name = (author.get("last_name") or "").strip()
     if first_name and not last_name:
         first_name, last_name = last_name, first_name
     if not last_name:
         raise Exception(f"BAD AUTHOR: {author}")
     kwargs: Dict[str, Any] = {"name": Name(first_name if first_name else None, last_name)}
     if "orcid" in author and author["orcid"]:
-        kwargs["orcid"] = trim_orcid(str(author["orcid"]))
+        kwargs["orcid"] = str(author["orcid"])
     affiliation = author.get("institution") or author.get("affiliation")
     if affiliation:
         kwargs["affiliation"] = affiliation
@@ -801,26 +794,6 @@ def maybe_copy(source_path: str, dest_path: str, dry_run: bool = False):
         raise
 
 
-def correct_caps(name: Optional[str]) -> Optional[str]:
-    """
-    Many people submit their names in "ALL CAPS" or "all lowercase".
-    Correct this with heuristics.
-    """
-    if name is None:
-        return None
-
-    if name.islower() or name.isupper():
-        corrected = " ".join(part.capitalize() for part in name.split())
-        if corrected != name:
-            print(
-                f"-> Correcting capitalization of '{name}' to '{corrected}'",
-                file=sys.stderr,
-            )
-        name = corrected
-
-    return name
-
-
 def venue_slug_from_acronym(acronym: str) -> str:
     """Build a venue slug from an acronym (legacy-compatible behavior)."""
     slug = slugify(acronym.replace("-", ""))
@@ -856,8 +829,8 @@ def namespec_from_bib(person) -> NameSpecification:
         last_text = first_text
         first_text = ""
 
-    first_text = correct_caps(first_text.strip())
-    last_text = correct_caps(last_text.strip())
+    first_text = first_text.strip()
+    last_text = last_text.strip()
 
     return NameSpecification(name=Name(first_text, last_text))
 
