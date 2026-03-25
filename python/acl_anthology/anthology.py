@@ -17,25 +17,34 @@ from __future__ import annotations
 import gc
 import itertools as it
 import pkgutil
-import sys
 import warnings
 from git.repo import Repo
 from lxml.etree import RelaxNG
 from pathlib import Path
 from rich.progress import track
 from slugify import slugify
-from typing import cast, overload, Iterable, Iterator, Optional, TypeAlias, TYPE_CHECKING
+from typing import (
+    cast,
+    overload,
+    Iterable,
+    Iterator,
+    Optional,
+    Self,
+    TypeAlias,
+    TYPE_CHECKING,
+)
+import sys
 
-if sys.version_info >= (3, 11):
-    from typing import Self
+if sys.version_info >= (3, 13):
+    from warnings import deprecated
 else:
-    from typing_extensions import Self
+    from typing_extensions import deprecated
 
 if TYPE_CHECKING:
     from _typeshed import StrPath
 
 from .config import config, dirs, primary_console
-from .exceptions import AnthologyException, SchemaMismatchWarning
+from .exceptions import SchemaMismatchWarning
 from .utils import git
 from .utils.ids import AnthologyID, parse_id
 from .utils.logging import get_logger
@@ -163,7 +172,7 @@ class Anthology:
             was_gc_enabled = gc.isenabled()
             gc.disable()
         elem = None
-        raised_exception = False
+        raised_exceptions = []
         was_verbose = self.verbose
         try:
             indices_to_load = (
@@ -188,26 +197,20 @@ class Anthology:
             for elem in iterator:
                 try:
                     elem.load()  # type: ignore
-                except Exception as exc:
+                except Exception as exc:  # pragma: no cover
                     if elem is not None:
-                        note = f"Raised in {elem!r}"
-                        # If this is merged into a single if-statement (with "or"),
-                        # the type checker complains ¯\_(ツ)_/¯
-                        if isinstance(exc, AnthologyException):
-                            exc.add_note(note)
-                        elif sys.version_info >= (3, 11):
-                            exc.add_note(note)
-                    log.exception(exc)
-                    raised_exception = True
+                        exc.add_note(f"Raised in {elem!r}")
+                    raised_exceptions.append(exc)
             if was_verbose:
                 self.verbose = True
         finally:
             if was_gc_enabled:
                 gc.enable()
-        if raised_exception:
-            raise Exception(
-                "An exception was raised during loading; check the logger for details."
-            )
+        if raised_exceptions:
+            raise ExceptionGroup(
+                "An exception was raised during load_all().",
+                raised_exceptions,
+            )  # pragma: no cover
         return self
 
     def _warn_if_in_default_path(self) -> None:
@@ -419,6 +422,9 @@ class Anthology:
     ) -> list[Person]:  # pragma: no cover
         ...
 
+    @deprecated(
+        "Anthology.resolve() is deprecated in favor of NameSpecification.resolve()"
+    )
     def resolve(
         self, name_spec: NameSpecificationOrIter
     ) -> PersonOrList:  # pragma: no cover
@@ -438,12 +444,6 @@ class Anthology:
             >>> anthology.resolve(paper.authors)
             [Person(id='lauri-karttunen', ...), Person(id='ronald-kaplan', ...), Person(id='annie-zaenen', ...)]
         """
-        warnings.warn(
-            DeprecationWarning(
-                "Anthology.resolve() is deprecated in favor of NameSpecification.resolve()"
-            )
-        )
-
         if isinstance(name_spec, NameSpecification):
             return self.people.get_by_namespec(name_spec)
         return [self.people.get_by_namespec(ns) for ns in name_spec]
