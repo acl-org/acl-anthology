@@ -60,6 +60,11 @@ test-only-xfail:
 typecheck:
   uv run mypy acl_anthology
 
+# Update dependencies and list packages where newer versions are available
+update-dependencies:
+  uv sync --upgrade
+  uv pip list --outdated
+
 # Run benchmarks
 benchmark:
   uv run richbench --percentage benchmarks/
@@ -79,6 +84,10 @@ docs-serve:
 # Open a Python REPL with an Anthology object pre-instantiated
 repl:
   uv run python -i repl_with_anthology.py
+
+# Profile Anthology.load_all() and output some performance metrics
+profile-load-all:
+  uv run python -m acl_anthology.debug -t
 
 # Check that there are no uncommited changes
 [private]
@@ -101,7 +110,7 @@ prepare-new-release VERSION: no-uncommitted-changes check test-all test-integrat
   # Build package
   uv build
   # Commit changes
-  git add CHANGELOG.md pyproject.toml
+  git add CHANGELOG.md pyproject.toml uv.lock
   git commit -m "Bump to version v$VERSION"
   # Done!
   set +x

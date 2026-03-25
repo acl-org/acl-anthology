@@ -11,24 +11,77 @@ This may sound straightforward, but in practice it’s difficult, for two reason
 
 The following histogram shows the prevalence of known ambiguous names in the Anthology. For example, there are 121 names shared by two people. Most names are unique, but the number of ambiguous names is still significant. In the past few years, especially, the number of ambiguous names has increased sharply, which increases the amount of human effort in resolving these ambiguities.
 
-<div class="table table-sm">
-
-| # people | count | examples |
-| :---: | ---: | --- |
-| 1 | 122,122 | — (unique entries) |
-| 2 | 121 | Ai, Wei; Amini, Massih R |
-| 3 | 297 | Agarwal, Shubham; Bartelt, Christian |
-| 4 | 63 | Zhang, Dongyu; Zhang, Han |
-| 5 | 22 | Chen, Wei; Li, Yang |
-| 6 | 9 | Li, Lei; Wang, Di |
-| 7 | 11 | Chen, Chen; Li, Chen |
-| 8 | 2 | Liu, Wei; Zhang, Yu |
-| 9 | 2 | Li, Bo; Wang, Hao |
-| 10 | 2 | Chen, Hao; Li, Xiang |
-| 14 | 1 | Zhang, Li (only known example) |
-| 25 | 1 | Liu, Yang (only known example) |
-
-</div>
+<table class="table table-sm" style="max-width:60rem; width:100%">
+    <thead>
+        <tr>
+            <th style="text-align:center; padding-right:1.25rem; width:6rem"># people</th>
+            <th style="text-align:right; padding-right:1.5rem; width:7rem">count</th>
+            <th>examples</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td style="text-align:center; padding-right:1.25rem; width:6rem">1</td>
+            <td style="text-align:right; padding-right:1.5rem; width:7rem">122,122</td>
+            <td>— (unique entries)</td>
+        </tr>
+        <tr>
+            <td style="text-align:center; padding-right:1.25rem; width:6rem">2</td>
+            <td style="text-align:right; padding-right:1.5rem; width:7rem">121</td>
+            <td>Ai, Wei; Amini, Massih R</td>
+        </tr>
+        <tr>
+            <td style="text-align:center; padding-right:1.25rem; width:6rem">3</td>
+            <td style="text-align:right; padding-right:1.5rem; width:7rem">297</td>
+            <td>Agarwal, Shubham; Bartelt, Christian</td>
+        </tr>
+        <tr>
+            <td style="text-align:center; padding-right:1.25rem; width:6rem">4</td>
+            <td style="text-align:right; padding-right:1.5rem; width:7rem">63</td>
+            <td>Zhang, Dongyu; Zhang, Han</td>
+        </tr>
+        <tr>
+            <td style="text-align:center; padding-right:1.25rem; width:6rem">5</td>
+            <td style="text-align:right; padding-right:1.5rem; width:7rem">22</td>
+            <td>Chen, Wei; Li, Yang</td>
+        </tr>
+        <tr>
+            <td style="text-align:center; padding-right:1.25rem; width:6rem">6</td>
+            <td style="text-align:right; padding-right:1.5rem; width:7rem">9</td>
+            <td>Li, Lei; Wang, Di</td>
+        </tr>
+        <tr>
+            <td style="text-align:center; padding-right:1.25rem; width:6rem">7</td>
+            <td style="text-align:right; padding-right:1.5rem; width:7rem">11</td>
+            <td>Chen, Chen; Li, Chen</td>
+        </tr>
+        <tr>
+            <td style="text-align:center; padding-right:1.25rem; width:6rem">8</td>
+            <td style="text-align:right; padding-right:1.5rem; width:7rem">2</td>
+            <td>Liu, Wei; Zhang, Yu</td>
+        </tr>
+        <tr>
+            <td style="text-align:center; padding-right:1.25rem; width:6rem">9</td>
+            <td style="text-align:right; padding-right:1.5rem; width:7rem">2</td>
+            <td>Li, Bo; Wang, Hao</td>
+        </tr>
+        <tr>
+            <td style="text-align:center; padding-right:1.25rem; width:6rem">10</td>
+            <td style="text-align:right; padding-right:1.5rem; width:7rem">2</td>
+            <td>Chen, Hao; Li, Xiang</td>
+        </tr>
+        <tr>
+            <td style="text-align:center; padding-right:1.25rem; width:6rem">14</td>
+            <td style="text-align:right; padding-right:1.5rem; width:7rem">1</td>
+            <td>Zhang, Li (only known example)</td>
+        </tr>
+        <tr>
+            <td style="text-align:center; padding-right:1.25rem; width:6rem">25</td>
+            <td style="text-align:right; padding-right:1.5rem; width:7rem">1</td>
+            <td>Liu, Yang (only known example)</td>
+        </tr>
+    </tbody>
+</table>
 
 To address this, we are introducing a new author system centered on [ORCID iDs](https://orcid.org), a widely used persistent identifier for researchers. Papers with ORCID iDs will be automatically linked together and used to create "verified" author pages. Authors without ORCID iDs will still have author pages, but these will be marked as "unverified" to indicate that the papers listed may not all belong to the same person.
 

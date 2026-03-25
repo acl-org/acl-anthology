@@ -1,71 +1,90 @@
 <!DOCTYPE html>
 <html lang="{{ $.Site.LanguageCode | default "en" }}">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    {{ if hasPrefix .Site.BaseURL "https://preview.aclanthology.org" }}
-    <meta name="robots" content="noindex, nofollow">
-    {{ end }}
 
-    <!-- Mobile IE allows us to activate ClearType technology for smoothing fonts for easy reading -->
-    {{ "<!--[if IEMobile]>" | safeHTML }}
-      <meta http-equiv="cleartype" content="on">
-    {{ "<![endif]-->" | safeHTML }}
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  {{ if hasPrefix .Site.BaseURL "https://preview.aclanthology.org" }}
+  <meta name="robots" content="noindex, nofollow">
+  {{ end }}
 
-    {{/* NOTE: the Site's title, and if there is a page title, that is set too */}}
-    <title>{{ block "title" . }}{{ with .Title }}{{ . }} - {{ end }}{{ .Site.Title }}{{ end }}</title>
+  {{/* NOTE: the Site's title, and if there is a page title, that is set too */}}
+  <title>{{ block "title" . }}{{ with .Title }}{{ . }} - {{ end }}{{ .Site.Title }}{{ end }}</title>
 
-    {{ hugo.Generator }}
-    <link href="{{ relURL "aclicon.ico" }}" rel="shortcut icon" type="image/x-icon" />
+  {{ hugo.Generator }}
+  <link href="{{ relURL "aclicon.ico" }}" rel="shortcut icon" type="image/x-icon" />
+  <!-- Preconnect to CDN origins for faster resource loading -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="preconnect" href="https://use.fontawesome.com" crossorigin>
 
-    {{ $sass_options := (dict "includePaths" (slice "assets/css" "assets/css/vendor/bootstrap/scss")) }}
-    {{ $style := resources.Get "css/main.scss" | toCSS $sass_options | minify | fingerprint }}
-    <link rel="stylesheet" href="{{ $style.RelPermalink }}" media="screen" />
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.0/css/all.css" integrity="sha384-XLYVh3ZsmvjnjODXg/qvDYjcINmPLORACP+Tk6qA3jNLbStl84PzAeEz2Su02511" crossorigin="anonymous">
+  {{ $sass_options := (dict "transpiler" "dartsass" "includePaths" (slice "assets/css"
+  "assets/css/vendor/bootstrap-5/scss")) }}
+  {{ $style := resources.Get "css/main.scss" | toCSS $sass_options | minify | fingerprint }}
+  <link rel="stylesheet" href="{{ $style.RelPermalink }}" media="screen" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.0/css/all.css"
+    integrity="sha384-XLYVh3ZsmvjnjODXg/qvDYjcINmPLORACP+Tk6qA3jNLbStl84PzAeEz2Su02511" crossorigin="anonymous"
+    media="print" onload="this.media='all'">
+  <noscript>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.0/css/all.css">
+  </noscript>
+  <link rel="stylesheet" href="{{ relURL "css/academicons.min.css" }}" media="print" onload="this.media='all'">
+  <noscript>
     <link rel="stylesheet" href="{{ relURL "css/academicons.min.css" }}">
+  </noscript>
 
-    {{ block "meta" . }}{{ end }}
-  </head>
+  {{ block "meta" . }}{{ end }}
+</head>
 
-  <body>
-    {{ block "header" . }}{{ partialCached "header_navbar.html" .}}{{ end }}
+<body>
+  {{ block "header" . }}{{ partialCached "header_navbar.html" . (index .Params "css_container") }}{{ end }}
 
-    <div id="main-container" class="{{ default "container" (index .Params "css_container") }}">
-      {{ block "main" . }}{{ end }}
-    </div>
-    {{ block "footer" . }}{{ partialCached "footer.html" . }}{{ end }}
+  <div id="main-container" class="{{ default "container" (index .Params "css_container" ) }}">
+    {{ block "main" . }}{{ end }}
+  </div>
+  {{ block "footer" . }}{{ partialCached "footer.html" . }}{{ end }}
 
-    <!-- JavaScript used by Bootstrap -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
-    <script>
-      $(function () {
-          // tooltips
-          $('[data-toggle="tooltip"]').tooltip();
-
-          // abstract toggling -- used on multiple pages, so defined here
-          if ($("#toggle-all-abstracts")) {
-              $("#toggle-all-abstracts").on("click",
-                  function() {
-                      var target = $("#toggle-all-abstracts");
-                      target.attr("disabled", true);
-                      if (target.attr("data-toggle-state") == "hide") {
-                          $(".abstract-collapse").collapse('show');
-                          target.attr("data-toggle-state", "show");
-                      } else {
-                          $(".abstract-collapse").collapse('hide');
-                          target.attr("data-toggle-state", "hide");
-                      }
-                      target.attr("disabled", false);
-                  }
-              );
-              $("#toggle-all-abstracts").attr("disabled", false);
-          }
+  <!-- JavaScript used by Bootstrap -->
+  <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // tooltips
+      var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+      var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
       })
-    </script>
-    {{ block "javascript" . }}{{ end }}
-  </body>
+
+      // abstract toggling -- used on multiple pages, so defined here
+      var toggleAll = document.getElementById("toggle-all-abstracts");
+      if (toggleAll) {
+        toggleAll.addEventListener("click", function () {
+          toggleAll.disabled = true;
+          var state = toggleAll.getAttribute("data-toggle-state");
+          var abstracts = document.querySelectorAll(".abstract-collapse");
+
+          abstracts.forEach(function (el) {
+            var bsCollapse = bootstrap.Collapse.getOrCreateInstance(el, { toggle: false });
+            if (state === "hide") {
+              bsCollapse.show();
+            } else {
+              bsCollapse.hide();
+            }
+          });
+
+          if (state === "hide") {
+            toggleAll.setAttribute("data-toggle-state", "show");
+          } else {
+            toggleAll.setAttribute("data-toggle-state", "hide");
+          }
+          toggleAll.disabled = false;
+        });
+        toggleAll.disabled = false;
+      }
+    });
+  </script>
+  {{ block "javascript" . }}{{ end }}
+</body>
+
 </html>

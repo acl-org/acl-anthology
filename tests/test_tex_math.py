@@ -1,8 +1,6 @@
 import pytest
 from lxml import etree
-from anthology.texmath import TexMath
-
-texmath = TexMath()
+from acl_anthology.text.texmath import TexMath
 
 test_cases_unicode = (
     (
@@ -199,7 +197,7 @@ test_cases_html = (
     ),
     (
         '<tex-math>p(\\boldsymbol{y}|\\textrm{do}(\\boldsymbol{x}))</tex-math>',
-        '<span class="tex-math">p(<strong>y</strong>|<span class="font-weight-normal">do</span>(<strong>x</strong>))</span>',
+        '<span class="tex-math">p(<strong>y</strong>|<span class="fw-normal">do</span>(<strong>x</strong>))</span>',
     ),
     ('<tex-math>{\\sim}3\\%</tex-math>', '<span class="tex-math">∼3%</span>'),
     (
@@ -253,7 +251,7 @@ test_cases_html = (
     ),
     (
         '<tex-math>foo^{\\texttt{bar}}</tex-math>',
-        '<span class="tex-math">foo<sup><span class="text-monospace">bar</span></sup></span>',
+        '<span class="tex-math">foo<sup><span class="font-monospace">bar</span></sup></span>',
     ),
 )
 
@@ -262,7 +260,7 @@ test_cases_html = (
 def test_unicode(inp, out):
     element = etree.fromstring(f"<span>{inp}</span>")
     math_element = element.find(".//tex-math")
-    actual_out = texmath.to_unicode(math_element)
+    actual_out = TexMath.to_unicode(math_element)
     if math_element.tail:
         actual_out += math_element.tail
     assert actual_out == out
@@ -272,6 +270,6 @@ def test_unicode(inp, out):
 def test_html(inp, out):
     element = etree.fromstring(f"<span>{inp}</span>")
     math_element = element.find(".//tex-math")
-    result = texmath.to_html(math_element)
+    result = TexMath.to_html(math_element)
     actual_out = etree.tostring(result, encoding="unicode")
     assert actual_out == out

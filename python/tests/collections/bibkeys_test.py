@@ -187,6 +187,18 @@ def test_bibkeys_should_not_allow_setting_duplicate_bibkeys(anthology):
         paper_b.bibkey = "my-duplicate-bibkey"  # not okay
 
 
+def test_bibkeys_should_perform_input_validation(anthology):
+    index = BibkeyIndex(anthology.collections)
+    index.is_data_loaded = True
+
+    paper = anthology.get_paper("2022.acl-long.1")
+
+    with pytest.raises(ValueError):
+        paper.bibkey = "No-Capital-Letters"
+    with pytest.raises(ValueError):
+        paper.bibkey = "no-spurious-whitespace  "
+
+
 def test_bibkeys_should_not_allow_loading_duplicate_bibkeys(anthology, shared_datadir):
     # Manipulate an XML file so that two papers have identical bibkeys
     filename = shared_datadir / "anthology" / "xml" / "2022.acl.xml"

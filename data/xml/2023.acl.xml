@@ -1002,7 +1002,7 @@
       <title><fixed-case>D</fixed-case>ialo<fixed-case>GPS</fixed-case>: Dialogue Path Sampling in Continuous Semantic Space for Data Augmentation in Multi-Turn Conversations</title>
       <author><first>Ang</first><last>Lv</last><affiliation>Renmin University of China</affiliation></author>
       <author><first>Jinpeng</first><last>Li</last><affiliation>Institute of Computer Science and Technology, Peking University</affiliation></author>
-      <author><first>Yuhan</first><last>Chen</last><affiliation>Renmin University of China</affiliation></author>
+      <author id="yuhan-chen"><first>Yuhan</first><last>Chen</last><affiliation>Renmin University of China</affiliation></author>
       <author><first>Gao</first><last>Xing</last><affiliation>alibaba</affiliation></author>
       <author id="ji-zhang" orcid="0000-0002-3835-7975"><first>Ji</first><last>Zhang</last><affiliation>Alibaba Group</affiliation></author>
       <author><first>Rui</first><last>Yan</last><affiliation>Renmin University of China</affiliation></author>
@@ -1162,7 +1162,7 @@
       <author><first>Ethan</first><last>Wilcox</last><affiliation>ETH Zürich</affiliation></author>
       <author><first>Ryan</first><last>Cotterell</last><affiliation>ETH Zürich</affiliation></author>
       <pages>1437-1455</pages>
-      <abstract>Sampling-based decoding strategies are widely employed for generating text from probabilistic models, yet standard ancestral sampling often results in text that is degenerate or incoherent. To alleviate this issue, various modifications to a model’s sampling distribution, such as top-p or top-k sampling, have been introduced and are now ubiquitously used in language generation systems. We propose a unified framework for understanding these techniques, which we term sampling adapters. Sampling adapters often lead to qualitatively better text, which raises the question: From a formal perspective, how are they changing the token-level distributions of language generation models? And why do these local changes lead to higher-quality text? We argue that the shift they enforce can be viewed as a trade-off between precision and recall: while the model loses its ability to produce certain strings, its precision rate on desirable text increases. While this trade-off is not reflected in standard metrics of distribution quality (such as perplexity), we find that several precision-emphasizing measures indeed indicate that sampling adapters can lead to probability distributions more aligned with the true distribution. Further, these measures correlate with higher sequence-level quality scores, specifically, Mauve.</abstract>
+      <abstract>Sampling-based decoding strategies are widely employed for generating text from probabilistic models, yet standard ancestral sampling often results in text that is degenerate or incoherent. To alleviate this issue, various modifications to a model’s sampling distribution, such as nucleus or top-<i>k</i> sampling, have been introduced and are now ubiquitously used in language generation systems. We propose a unified framework for understanding these techniques, which we term <b>sampling adapters</b>. Sampling adapters often lead to qualitatively better text, which raises the question: From a formal perspective, how are they changing the token-level distributions of language generation models? And why do these local changes lead to higher-quality text? We argue that the shift they enforce can be viewed as a trade-off between precision and recall: while the model loses its ability to produce certain strings, its precision rate on desirable text increases. While this trade-off is not reflected in standard metrics of distribution quality (such as perplexity), we find that several precision-emphasizing measures indeed indicate that sampling adapters can lead to probability distributions more aligned with the true distribution. Further, these measures correlate with higher sequence-level quality scores, specifically, Mauve.</abstract>
       <url hash="c7b7f4b1">2023.acl-long.80</url>
       <bibkey>meister-etal-2023-efficacy</bibkey>
       <doi>10.18653/v1/2023.acl-long.80</doi>
@@ -1860,7 +1860,7 @@
     </paper>
     <paper id="132">
       <title><fixed-case>S</fixed-case>tory<fixed-case>ARG</fixed-case>: a corpus of narratives and personal experiences in argumentative texts</title>
-      <author><first>Neele</first><last>Falk</last><affiliation>University of Stuttgart</affiliation></author>
+      <author id="neele-falk"><first>Neele</first><last>Falk</last><affiliation>University of Stuttgart</affiliation></author>
       <author><first>Gabriella</first><last>Lapesa</last><affiliation>Universität Stuttgart, Institut für Maschinelle Sprachverarbeitung</affiliation></author>
       <pages>2350-2372</pages>
       <abstract>Humans are storytellers, even in communication scenarios which are assumed to be more rationality-oriented, such as argumentation. Indeed, supporting arguments with narratives or personal experiences (henceforth, stories) is a very natural thing to do – and yet, this phenomenon is largely unexplored in computational argumentation. Which role do stories play in an argument? Do they make the argument more effective? What are their narrative properties? To address these questions, we collected and annotated StoryARG, a dataset sampled from well-established corpora in computational argumentation (ChangeMyView and RegulationRoom), and the Social Sciences (Europolis), as well as comments to New York Times articles. StoryARG contains 2451 textual spans annotated at two levels. At the argumentative level, we annotate the function of the story (e.g., clarification, disclosure of harm, search for a solution, establishing speaker’s authority), as well as its impact on the effectiveness of the argument and its emotional load. At the level of narrative properties, we annotate whether the story has a plot-like development, is factual or hypothetical, and who the protagonist is. What makes a story effective in an argument? Our analysis of the annotations in StoryARG uncover a positive impact on effectiveness for stories which illustrate a solution to a problem, and in general, annotator-specific preferences that we investigate with regression analysis.</abstract>
@@ -2447,7 +2447,7 @@
       <author><first>Chengyue</first><last>Jiang</last><affiliation>ShanghaiTech University</affiliation></author>
       <author><first>Yong</first><last>Jiang</last><affiliation>Alibaba DAMO Academy</affiliation></author>
       <author><first>Pengjun</first><last>Xie</last><affiliation>Alibaba Group</affiliation></author>
-      <author><first>Kewei</first><last>Tu</last><affiliation>ShanghaiTech University</affiliation></author>
+      <author id="kewei-tu"><first>Kewei</first><last>Tu</last><affiliation>ShanghaiTech University</affiliation></author>
       <pages>3080-3101</pages>
       <abstract>Ontological knowledge, which comprises classes and properties and their relationships, is integral to world knowledge. It is significant to explore whether Pretrained Language Models (PLMs) know and understand such knowledge. However, existing PLM-probing studies focus mainly on factual knowledge, lacking a system- atic probing of ontological knowledge. In this paper, we focus on probing whether PLMs store ontological knowledge and have a semantic un- derstanding of the knowledge rather than rote memorization of the surface form. To probe whether PLMs know ontological knowledge, we investigate how well PLMs memorize: (1) types of entities; (2) hierarchical relationships among classes and properties, e.g., Person is a subclass of Animal and Member of Sports Team is a subproperty of Member of ; (3) domain and range constraints of properties, e.g., the subject of Member of Sports Team should be a Person and the object should be a Sports Team. To further probe whether PLMs truly understand ontological knowledge beyond memorization, we comprehensively study whether they can reliably perform logical reasoning with given knowledge according to ontological entailment rules. Our probing results show that PLMs can memorize certain ontological knowledge and utilize implicit knowledge in reasoning. How- ever, both the memorizing and reasoning per- formances are less than perfect, indicating in- complete knowledge and understanding.</abstract>
       <url hash="0b9caad7">2023.acl-long.173</url>
@@ -2986,7 +2986,7 @@
       <author id="wayne-xin-zhao"><first>Wayne Xin</first><last>Zhao</last><affiliation>RUC</affiliation></author>
       <author id="ji-rong-wen" orcid="0000-0002-9777-9676"><first>Ji-Rong</first><last>Wen</last><affiliation>Renmin University of China</affiliation></author>
       <pages>3819-3834</pages>
-      <abstract>By scaling the model size, large pre-trained language models (PLMs) have shown remarkable performance in various natural language processing tasks, mostly outperforming small PLMs by a large margin. However, due to the high computational cost, the huge number of parameters also restricts the applicability of large PLMs in real-world systems. In this paper, we focus on scaling up the parameters of PLMs <i>only during</i> fine-tuning, to benefit from the over-parameterization, while without increasing <i>the inference latency</i>. Given a relatively small PLM, we over-parameterize it by employing a matrix product operator, an efficient and almost lossless decomposition method to factorize its contained parameter matrices into a set of higher-dimensional tensors.Considering the efficiency, we further propose both static and dynamic strategies to select the most important parameter matrices for over-parameterization.Extensive experiments have demonstrated that our approach can significantly boost the fine-tuning performance of small PLMs and even help small PLMs outperform <tex-math>3\times</tex-math> parameterized larger ones.Our code is publicly available at <url>https://github.com/zfgao66/OPF</url>.</abstract>
+      <abstract>By scaling the model size, large pre-trained language models (PLMs) have shown remarkable performance in various natural language processing tasks, mostly outperforming small PLMs by a large margin. However, due to the high computational cost, the huge number of parameters also restricts the applicability of large PLMs in real-world systems. In this paper, we focus on scaling up the parameters of PLMs <i>only during</i> fine-tuning, to benefit from the over-parameterization, while without increasing <i>the inference latency</i>. Given a relatively small PLM, we over-parameterize it by employing a matrix product operator, an efficient and almost lossless decomposition method to factorize its contained parameter matrices into a set of higher-dimensional tensors. Considering the efficiency, we further propose both static and dynamic strategies to select the most important parameter matrices for over-parameterization. Extensive experiments have demonstrated that our approach can significantly boost the fine-tuning performance of small PLMs and even help small PLMs outperform <tex-math>3\times</tex-math> parameterized larger ones.Our code is publicly available at <url>https://github.com/zfgao66/OPF</url>.</abstract>
       <url hash="e900e8fe">2023.acl-long.212</url>
       <bibkey>gao-etal-2023-small</bibkey>
       <doi>10.18653/v1/2023.acl-long.212</doi>
@@ -3072,7 +3072,7 @@
     </paper>
     <paper id="219">
       <title>Unbalanced Optimal Transport for Unbalanced Word Alignment</title>
-      <author><first>Yuki</first><last>Arase</last><affiliation>Osaka University</affiliation></author>
+      <author id="yuki-arase"><first>Yuki</first><last>Arase</last><affiliation>Osaka University</affiliation></author>
       <author id="han-bao" orcid="0000-0002-4473-2604"><first>Han</first><last>Bao</last><affiliation>Kyoto University</affiliation></author>
       <author><first>Sho</first><last>Yokoi</last><affiliation>Tohoku University / RIKEN</affiliation></author>
       <pages>3966-3986</pages>
@@ -4561,7 +4561,7 @@
     <paper id="322">
       <title>Node Placement in Argument Maps: Modeling Unidirectional Relations in High &amp; Low-Resource Scenarios</title>
       <author><first>Iman</first><last>Jundi</last><affiliation>University of Stuttgart</affiliation></author>
-      <author><first>Neele</first><last>Falk</last><affiliation>University of Stuttgart</affiliation></author>
+      <author id="neele-falk"><first>Neele</first><last>Falk</last><affiliation>University of Stuttgart</affiliation></author>
       <author id="eva-maria-vecchi"><first>Eva Maria</first><last>Vecchi</last><affiliation>Universitat Stuttgart, Institut fur Maschinelle Sprachverarbeitung</affiliation></author>
       <author><first>Gabriella</first><last>Lapesa</last><affiliation>Universität Stuttgart, Institut für Maschinelle Sprachverarbeitung</affiliation></author>
       <pages>5854-5876</pages>
@@ -4793,7 +4793,7 @@
     </paper>
     <paper id="338">
       <title>Similarity-weighted Construction of Contextualized Commonsense Knowledge Graphs for Knowledge-intense Argumentation Tasks</title>
-      <author><first>Moritz</first><last>Plenz</last><affiliation>Heidelberg University</affiliation></author>
+      <author id="moritz-plenz"><first>Moritz</first><last>Plenz</last><affiliation>Heidelberg University</affiliation></author>
       <author><first>Juri</first><last>Opitz</last><affiliation>Heidelberg University</affiliation></author>
       <author><first>Philipp</first><last>Heinisch</last><affiliation>Bielefeld University</affiliation></author>
       <author id="philipp-cimiano" orcid="0000-0002-4771-441X"><first>Philipp</first><last>Cimiano</last><affiliation>Univ. Bielefeld</affiliation></author>
@@ -5165,7 +5165,7 @@
       <author><first>Soyoung</first><last>Oh</last><affiliation>EPFL</affiliation></author>
       <author><first>Deniz</first><last>Bayazit</last><affiliation>EPFL</affiliation></author>
       <author><first>Saya</first><last>Kanno</last><affiliation>R&amp;D Center, Sony Corporation</affiliation></author>
-      <author><first>Hiromi</first><last>Wakaki</last><affiliation>Sony Group Corporation</affiliation></author>
+      <author id="hiromi-wakaki"><first>Hiromi</first><last>Wakaki</last><affiliation>Sony Group Corporation</affiliation></author>
       <author id="yuki-mitsufuji" orcid="0000-0002-6806-6140"><first>Yuki</first><last>Mitsufuji</last><affiliation>Sony Group Corporation</affiliation></author>
       <author id="antoine-bosselut" orcid="0000-0001-8968-9649"><first>Antoine</first><last>Bosselut</last><affiliation>EPFL</affiliation></author>
       <pages>6569-6591</pages>
@@ -6309,7 +6309,7 @@
     </paper>
     <paper id="442">
       <title>Generating Visual Spatial Description via Holistic 3<fixed-case>D</fixed-case> Scene Understanding</title>
-      <author><first>Yu</first><last>Zhao</last><affiliation>Tianjin University</affiliation></author>
+      <author id="yu-zhao-tianjin"><first>Yu</first><last>Zhao</last><affiliation>Tianjin University</affiliation></author>
       <author id="hao-fei" orcid="0000-0003-3026-6347"><first>Hao</first><last>Fei</last><affiliation>National University of Singapore</affiliation></author>
       <author id="wei-ji" orcid="0000-0002-8106-9768"><first>Wei</first><last>Ji</last><affiliation>National University of Singapore</affiliation></author>
       <author><first>Jianguo</first><last>Wei</last><affiliation>Tianjin University</affiliation></author>
@@ -6695,7 +6695,7 @@
     <paper id="469">
       <title>Don’t Parse, Choose Spans! Continuous and Discontinuous Constituency Parsing via Autoregressive Span Selection</title>
       <author><first>Songlin</first><last>Yang</last><affiliation>ShanghaiTech University</affiliation></author>
-      <author><first>Kewei</first><last>Tu</last><affiliation>ShanghaiTech University</affiliation></author>
+      <author id="kewei-tu"><first>Kewei</first><last>Tu</last><affiliation>ShanghaiTech University</affiliation></author>
       <pages>8420-8433</pages>
       <abstract>We present a simple and unified approach for both continuous and discontinuous constituency parsing via autoregressive span selection. Constituency parsing aims to produce a set of non-crossing spans so that they can form a constituency parse tree. We sort gold spans using a predefined order and leverage a pointer network to autoregressively select spans by that order. To deal with discontinuous spans, we consecutively select their subspans from left to right, label all but last subspans with special discontinuous labels and the last subspan as the whole discontinuous spans’ labels. We use simple heuristic to output valid trees so that our approach is able to predict all possible continuous and discontinuous constituency trees without sacrificing data coverage and without the need to use expensive chart-based parsing algorithms. Experiments on multiple continuous and discontinuous benchmarks show that our model achieves state-of-the-art or competitive performance.</abstract>
       <url hash="628cb4c6">2023.acl-long.469</url>
@@ -8061,7 +8061,7 @@
     </paper>
     <paper id="562">
       <title>Token-wise Decomposition of Autoregressive Language Model Hidden States for Analyzing Model Predictions</title>
-      <author><first>Byung-Doh</first><last>Oh</last><affiliation>The Ohio State University</affiliation></author>
+      <author id="byung-doh-oh"><first>Byung-Doh</first><last>Oh</last><affiliation>The Ohio State University</affiliation></author>
       <author><first>William</first><last>Schuler</last><affiliation>The Ohio State University</affiliation></author>
       <pages>10105-10117</pages>
       <abstract>While there is much recent interest in studying why Transformer-based large language models make predictions the way they do, the complex computations performed within each layer have made their behavior somewhat opaque. To mitigate this opacity, this work presents a linear decomposition of final hidden states from autoregressive language models based on each initial input token, which is exact for virtually all contemporary Transformer architectures. This decomposition allows the definition of probability distributions that ablate the contribution of specific input tokens, which can be used to analyze their influence on model probabilities over a sequence of upcoming words with only one forward pass from the model. Using the change in next-word probability as a measure of importance, this work first examines which context words make the biggest contribution to language model predictions. Regression experiments suggest that Transformer-based language models rely primarily on collocational associations, followed by linguistic factors such as syntactic dependencies and coreference relationships in making next-word predictions. Additionally, analyses using these measures to predict syntactic dependencies and coreferent mention spans show that collocational association and repetitions of the same token largely explain the language models’ predictions on these tasks.</abstract>
@@ -9324,7 +9324,7 @@
       <author><first>Yong</first><last>Jiang</last><affiliation>Alibaba DAMO Academy</affiliation></author>
       <author><first>Xiaobin</first><last>Wang</last><affiliation>Alibaba Group</affiliation></author>
       <author><first>Pengjun</first><last>Xie</last><affiliation>Alibaba Group</affiliation></author>
-      <author><first>Kewei</first><last>Tu</last><affiliation>ShanghaiTech University</affiliation></author>
+      <author id="kewei-tu"><first>Kewei</first><last>Tu</last><affiliation>ShanghaiTech University</affiliation></author>
       <pages>11597-11609</pages>
       <abstract>Ultra-fine entity typing (UFET) predicts extremely free-formed types (e.g., <i>president, politician</i>) of a given entity mention (e.g., <i>Joe Biden</i>) in context. State-of-the-art (SOTA) methods use the cross-encoder (CE) based architecture. CE concatenates a mention (and its context) with each type and feeds the pair into a pretrained language model (PLM) to score their relevance. It brings deeper interaction between the mention and the type to reach better performance but has to perform <tex-math>N</tex-math> (the type set size) forward passes to infer all the types of a single mention. CE is therefore very slow in inference when the type set is large (e.g., <tex-math>N=10k</tex-math> for UFET). % Cross-encoder also ignores the correlation between different types.To this end, we propose to perform entity typing in a recall-expand-filter manner. The recall and expansion stages prune the large type set and generate <tex-math>K</tex-math> (typically much smaller than <tex-math>N</tex-math>) most relevant type candidates for each mention. At the filter stage, we use a novel model called {pasted macro ‘NAME’} to concurrently encode and score all these <tex-math>K</tex-math> candidates in only one forward pass to obtain the final type prediction. We investigate different model options for each stage and conduct extensive experiments to compare each option, experiments show that our method reaches SOTA performance on UFET and is thousands of times faster than the CE-based architecture. We also found our method is very effective in fine-grained (130 types) and coarse-grained (9 types) entity typing. Our code is available at {pasted macro ‘CODE’}.</abstract>
       <url hash="d0e5c22a">2023.acl-long.648</url>
@@ -11045,7 +11045,7 @@
       <author id="zhaohui-yan" orcid="0000-0001-6782-1813"><first>Zhaohui</first><last>Yan</last><affiliation>Shanghaitech University</affiliation></author>
       <author id="wenjuan-han" orcid="0000-0002-2327-0842"><first>Wenjuan</first><last>Han</last><affiliation>Beijing Jiaotong University</affiliation></author>
       <author><first>Zilong</first><last>Zheng</last><affiliation>Beijing Institute for General Artificial Intelligence</affiliation></author>
-      <author><first>Kewei</first><last>Tu</last><affiliation>ShanghaiTech University</affiliation></author>
+      <author id="kewei-tu"><first>Kewei</first><last>Tu</last><affiliation>ShanghaiTech University</affiliation></author>
       <pages>13695-13710</pages>
       <abstract>Prior works on joint Information Extraction (IE) typically model instance (e.g., event triggers, entities, roles, relations) interactions by representation enhancement, type dependencies scoring, or global decoding. We find that the previous models generally consider binary type dependency scoring of a pair of instances, and leverage local search such as beam search to approximate global solutions. To better integrate cross-instance interactions, in this work, we introduce a joint IE framework (CRFIE) that formulates joint IE as a high-order Conditional Random Field. Specifically, we design binary factors and ternary factors to directly model interactions between not only a pair of instances but also triplets. Then, these factors are utilized to jointly predict labels of all instances. To address the intractability problem of exact high-order inference, we incorporate a high-order neural decoder that is unfolded from a mean-field variational inference method, which achieves consistent learning and inference. The experimental results show that our approach achieves consistent improvements on three IE tasks compared with our baseline and prior work.</abstract>
       <url hash="1b7a8aa4">2023.acl-long.766</url>
@@ -11232,7 +11232,7 @@
     </paper>
     <paper id="779">
       <title>Reference Matters: Benchmarking Factual Error Correction for Dialogue Summarization with Fine-grained Evaluation Framework</title>
-      <author><first>Mingqi</first><last>Gao</last><affiliation>Peking University</affiliation></author>
+      <author id="mingqi-gao"><first>Mingqi</first><last>Gao</last><affiliation>Peking University</affiliation></author>
       <author><first>Xiaojun</first><last>Wan</last><affiliation>Peking University</affiliation></author>
       <author id="jia-su" orcid="0000-0003-3769-7764"><first>Jia</first><last>Su</last><affiliation>Huawei cloud</affiliation></author>
       <author><first>Zhefeng</first><last>Wang</last><affiliation>Huawei Cloud</affiliation></author>
@@ -12481,7 +12481,7 @@
       <author><first>Kai</first><last>Mei</last><affiliation>Rutgers University</affiliation></author>
       <author id="zheng-li" orcid="0000-0002-4466-7523"><first>Zheng</first><last>Li</last><affiliation>CISPA Helmholtz Center for Information Security</affiliation></author>
       <author id="zhenting-wang" orcid="0000-0003-0311-1331"><first>Zhenting</first><last>Wang</last><affiliation>Rutgers University</affiliation></author>
-      <author><first>Yang</first><last>Zhang</last><affiliation>CISPA Helmholtz Center for Information Security</affiliation></author>
+      <author id="yang-zhang-7348"><first>Yang</first><last>Zhang</last><affiliation>CISPA Helmholtz Center for Information Security</affiliation></author>
       <author id="shiqing-ma" orcid="0000-0003-1551-8948"><first>Shiqing</first><last>Ma</last><affiliation>Rutgers University</affiliation></author>
       <pages>15551-15565</pages>
       <abstract>Prompt-based learning is vulnerable to backdoor attacks. Existing backdoor attacks against prompt-based models consider injecting backdoors into the entire embedding layers or word embedding vectors. Such attacks can be easily affected by retraining on downstream tasks and with different prompting strategies, limiting the transferability of backdoor attacks. In this work, we propose transferable backdoor attacks against prompt-based models, called NOTABLE, which is independent of downstream tasks and prompting strategies. Specifically, NOTABLE injects backdoors into the encoders of PLMs by utilizing an adaptive verbalizer to bind triggers to specific words (i.e., anchors). It activates the backdoor by pasting input with triggers to reach adversary-desired anchors, achieving independence from downstream tasks and prompting strategies. We conduct experiments on six NLP tasks, three popular models, and three prompting strategies. Empirical results show that NOTABLE achieves superior attack performance (i.e., attack success rate over 90% on all the datasets), and outperforms two state-of-the-art baselines. Evaluations on three defenses show the robustness of NOTABLE. Our code can be found at <url>https://github.com/RU-System-Software-and-Security/Notable</url>.</abstract>
@@ -12876,7 +12876,7 @@
       <author><first>Jiho</first><last>Kim</last><affiliation>KAIST</affiliation></author>
       <author><first>Sungjin</first><last>Park</last><affiliation>KAIST</affiliation></author>
       <author><first>Yeonsu</first><last>Kwon</last><affiliation>KAIST</affiliation></author>
-      <author><first>Yohan</first><last>Jo</last><affiliation>Amazon.com, Inc.</affiliation></author>
+      <author id="yohan-jo"><first>Yohan</first><last>Jo</last><affiliation>Amazon.com, Inc.</affiliation></author>
       <author><first>James</first><last>Thorne</last><affiliation>KAIST AI</affiliation></author>
       <author><first>Edward</first><last>Choi</last><affiliation>KAIST</affiliation></author>
       <pages>16190-16206</pages>
@@ -13269,7 +13269,7 @@
       <author><first>Yong</first><last>Jiang</last><affiliation>Alibaba DAMO Academy</affiliation></author>
       <author><first>Zeqi</first><last>Tan</last><affiliation>Zhejiang University</affiliation></author>
       <author><first>Pengjun</first><last>Xie</last><affiliation>Alibaba Group</affiliation></author>
-      <author><first>Kewei</first><last>Tu</last><affiliation>ShanghaiTech University</affiliation></author>
+      <author id="kewei-tu"><first>Kewei</first><last>Tu</last><affiliation>ShanghaiTech University</affiliation></author>
       <pages>110-118</pages>
       <abstract>Data augmentation is an effective solution to improve model performance and robustness for low-resource named entity recognition (NER). However, synthetic data often suffer from poor diversity, which leads to performance limitations. In this paper, we propose a novel Graph Propagated Data Augmentation (GPDA) framework for Named Entity Recognition (NER), leveraging graph propagation to build relationships between labeled data and unlabeled natural texts. By projecting the annotations from the labeled text to the unlabeled text, the unlabeled texts are partially labeled, which has more diversity rather than synthetic annotated data. To strengthen the propagation precision, a simple search engine built on Wikipedia is utilized to fetch related texts of labeled data and to propagate the entity labels to them in the light of the anchor links. Besides, we construct and perform experiments on a real-world low-resource dataset of the E-commerce domain, which will be publicly available to facilitate the low-resource NER research. Experimental results show that GPDA presents substantial improvements over previous data augmentation methods on multiple low-resource NER datasets.</abstract>
       <url hash="7be39de3">2023.acl-short.11</url>
@@ -13343,10 +13343,10 @@
     </paper>
     <paper id="17">
       <title>A Weakly Supervised Classifier and Dataset of White Supremacist Language</title>
-      <author id="michael-miller-yoder" orcid="0000-0002-0489-3358"><first>Michael</first><last>Yoder</last><affiliation>Carnegie Mellon University</affiliation></author>
+      <author id="michael-miller-yoder" orcid="0000-0002-0489-3358"><first>Michael Miller</first><last>Yoder</last><affiliation>Carnegie Mellon University</affiliation></author>
       <author id="ahmad-diab" orcid="0000-0001-6151-7140"><first>Ahmad</first><last>Diab</last><affiliation>University of Pittsburgh</affiliation></author>
-      <author id="david-brown" orcid="0000-0001-7745-6354"><first>David</first><last>Brown</last><affiliation>Carnegie Mellon University</affiliation></author>
-      <author id="kathleen-m-carley" orcid="0000-0002-6356-0238"><first>Kathleen</first><last>Carley</last><affiliation>Carnegie Mellon University, Netanomics</affiliation></author>
+      <author id="david-brown" orcid="0000-0001-7745-6354"><first>David West</first><last>Brown</last><affiliation>Carnegie Mellon University</affiliation></author>
+      <author id="kathleen-m-carley" orcid="0000-0002-6356-0238"><first>Kathleen M.</first><last>Carley</last><affiliation>Carnegie Mellon University, Netanomics</affiliation></author>
       <pages>172-185</pages>
       <abstract>We present a dataset and classifier for detecting the language of white supremacist extremism, a growing issue in online hate speech. Our weakly supervised classifier is trained on large datasets of text from explicitly white supremacist domains paired with neutral and anti-racist data from similar domains. We demonstrate that this approach improves generalization performance to new domains. Incorporating anti-racist texts as counterexamples to white supremacist language mitigates bias.</abstract>
       <url hash="a4798bcf">2023.acl-short.17</url>
@@ -13470,11 +13470,11 @@
     <paper id="26">
       <title><fixed-case>COGEN</fixed-case>: Abductive Commonsense Language Generation</title>
       <author><first>Rohola</first><last>Zandie</last><affiliation>University of Denver</affiliation></author>
-      <author><first>Diwanshu</first><last>Shekhar</last><affiliation>University of Denver</affiliation></author>
+      <author><first>Danny</first><last>Brahman</last><affiliation>University of Denver</affiliation></author>
       <author><first>Mohammad</first><last>Mahoor</last><affiliation>University of Denver</affiliation></author>
       <pages>295-302</pages>
       <abstract>Reasoning is one of the most important elements in achieving Artificial General Intelligence (AGI), specifically when it comes to Abductive and counterfactual reasoning. In order to introduce these capabilities of reasoning in Natural Language Processing (NLP) models, there have been recent advances towards training NLP models to better perform on two main tasks - Abductive Natural Language Inference (alphaNLI) and Abductive Natural Language Generation Task (alphaNLG). This paper proposes CoGen, a model for both alphaNLI and alphaNLG tasks that employ a novel approach of combining the temporal commonsense reasoning for each observation (before and after a real hypothesis) from pre-trained models with contextual filtering for training. Additionally, we use state-of-the-art semantic entailment to filter out the contradictory hypothesis during the inference. Our experimental results show that CoGen outperforms current models and set a new state of the art in regards to alphaNLI and alphaNLG tasks. We make the source code of CoGen model publicly available for reproducibility and to facilitate relevant future research.</abstract>
-      <url hash="c206fe3a">2023.acl-short.26</url>
+      <url hash="d3a8111c">2023.acl-short.26</url>
       <bibkey>zandie-etal-2023-cogen</bibkey>
       <doi>10.18653/v1/2023.acl-short.26</doi>
       <video href="2023.acl-short.26.mp4"/>
@@ -13743,7 +13743,7 @@
     </paper>
     <paper id="47">
       <title><fixed-case>KNOW</fixed-case> How to Make Up Your Mind! Adversarially Detecting and Alleviating Inconsistencies in Natural Language Explanations</title>
-      <author><first>Myeongjun</first><last>Jang</last><affiliation>University of Oxford</affiliation></author>
+      <author id="myeongjun-erik-jang"><first>Myeongjun</first><last>Jang</last><affiliation>University of Oxford</affiliation></author>
       <author><first>Bodhisattwa Prasad</first><last>Majumder</last><affiliation>University of California San Diego</affiliation></author>
       <author><first>Julian</first><last>McAuley</last><affiliation>UCSD</affiliation></author>
       <author id="thomas-lukasiewicz" orcid="0000-0002-7644-1668"><first>Thomas</first><last>Lukasiewicz</last><affiliation>University of Oxford</affiliation></author>
@@ -14174,7 +14174,7 @@
       <author><first>Julius</first><last>Steen</last><affiliation>Heidelberg University</affiliation></author>
       <author><first>Juri</first><last>Opitz</last><affiliation>Heidelberg University</affiliation></author>
       <author><first>Anette</first><last>Frank</last><affiliation>Heidelberg University</affiliation></author>
-      <author><first>Katja</first><last>Markert</last><affiliation>Heidelberg University</affiliation></author>
+      <author id="katja-markert"><first>Katja</first><last>Markert</last><affiliation>Heidelberg University</affiliation></author>
       <pages>914-924</pages>
       <abstract>Conditional language models still generate unfaithful output that is not supported by their input. These unfaithful generations jeopardize trust in real-world applications such as summarization or human-machine interaction, motivating a need for automatic faithfulness metrics. To implement such metrics, NLI models seem attractive, since they solve a strongly related task that comes with a wealth of prior research and data. But recent research suggests that NLI models require costly additional machinery to perform reliably across datasets, e.g., by running inference on a cartesian product of input and generated sentences, or supporting them with a question-generation/answering step. In this work we show that pure NLI models _can_ outperform more complex metrics when combining task-adaptive data augmentation with robust inference procedures. We propose: (1) Augmenting NLI training data toadapt NL inferences to the specificities of faithfulness prediction in dialogue;(2) Making use of both entailment and contradiction probabilities in NLI, and(3) Using Monte-Carlo dropout during inference. Applied to the TRUE benchmark, which combines faithfulness datasets across diverse domains and tasks, our approach strongly improves a vanilla NLI model and significantly outperforms previous work, while showing favourable computational cost.</abstract>
       <url hash="3e4416d0">2023.acl-short.79</url>
@@ -14253,7 +14253,7 @@
       <title><fixed-case>N</fixed-case>olly<fixed-case>S</fixed-case>enti: Leveraging Transfer Learning and Machine Translation for <fixed-case>N</fixed-case>igerian Movie Sentiment Classification</title>
       <author><first>Iyanuoluwa</first><last>Shode</last><affiliation>Montclair State University</affiliation></author>
       <author id="david-ifeoluwa-adelani"><first>David Ifeoluwa</first><last>Adelani</last><affiliation>University College London</affiliation></author>
-      <author><first>JIng</first><last>Peng</last><affiliation>Montclair State University</affiliation></author>
+      <author><first>Jing</first><last>Peng</last><affiliation>Montclair State University</affiliation></author>
       <author><first>Anna</first><last>Feldman</last><affiliation>Montclair State University</affiliation></author>
       <pages>986-998</pages>
       <abstract>Africa has over 2000 indigenous languages but they are under-represented in NLP research due to lack of datasets. In recent years, there have been progress in developing labelled corpora for African languages. However, they are often available in a single domain and may not generalize to other domains. In this paper, we focus on the task of sentiment classification for cross-domain adaptation. We create a new dataset, Nollywood movie reviews for five languages widely spoken in Nigeria (English, Hausa, Igbo, Nigerian Pidgin, and Yoruba). We provide an extensive empirical evaluation using classical machine learning methods and pre-trained language models. By leveraging transfer learning, we compare the performance of cross-domain adaptation from Twitter domain, and cross-lingual adaptation from English language. Our evaluation shows that transfer from English in the same target domain leads to more than 5% improvement in accuracy compared to transfer from Twitter in the same language. To further mitigate the domain difference, we leverage machine translation from English to other Nigerian languages, which leads to a further improvement of 7% over cross-lingual evaluation. While machine translation to low-resource languages are often of low quality, our analysis shows that sentiment related words are often preserved.</abstract>
@@ -15221,7 +15221,7 @@
     <paper id="156">
       <title>Mind the Gap between the Application Track and the Real World</title>
       <author><first>Ananya</first><last>Ganesh</last><affiliation>University of Colorado Boulder</affiliation></author>
-      <author><first>Jie</first><last>Cao</last><affiliation>University of Colorado</affiliation></author>
+      <author id="jie-cao"><first>Jie</first><last>Cao</last><affiliation>University of Colorado</affiliation></author>
       <author id="e-margaret-perkoff" orcid="0000-0002-6325-9162"><first>E. Margaret</first><last>Perkoff</last><affiliation>University of Colorado Boulder</affiliation></author>
       <author><first>Rosy</first><last>Southwell</last><affiliation>University of Colorado</affiliation></author>
       <author id="martha-palmer"><first>Martha</first><last>Palmer</last><affiliation>University of Colorado</affiliation></author>
@@ -15318,7 +15318,7 @@
     <paper id="163">
       <title>Improving Grammar-based Sequence-to-Sequence Modeling with Decomposition and Constraints</title>
       <author><first>Chao</first><last>Lou</last><affiliation>ShanghaiTech University</affiliation></author>
-      <author><first>Kewei</first><last>Tu</last><affiliation>ShanghaiTech University</affiliation></author>
+      <author id="kewei-tu"><first>Kewei</first><last>Tu</last><affiliation>ShanghaiTech University</affiliation></author>
       <pages>1918-1929</pages>
       <abstract>Neural QCFG is a grammar-based sequence-to-sequence model with strong inductive biases on hierarchical structures. It excels in interpretability and generalization but suffers from expensive inference. In this paper, we study two low-rank variants of Neural QCFG for faster inference with different trade-offs between efficiency and expressiveness. Furthermore, utilizing the symbolic interface provided by the grammar, we introduce two soft constraints over tree hierarchy and source coverage. We experiment with various datasets and find that our models outperform vanilla Neural QCFG in most settings.</abstract>
       <url hash="ac111fb0">2023.acl-short.163</url>
@@ -15359,7 +15359,7 @@
     </frontmatter>
     <paper id="1">
       <title>Human-in-the-loop Schema Induction</title>
-      <author><first>Tianyi</first><last>Zhang</last><affiliation>Department of Computer and Information Science, University of Pennsylvania</affiliation></author>
+      <author id="tianyi-zhang-upenn"><first>Tianyi</first><last>Zhang</last><affiliation>Department of Computer and Information Science, University of Pennsylvania</affiliation></author>
       <author><first>Isaac</first><last>Tham</last><affiliation>University of Pennsylvania</affiliation></author>
       <author><first>Zhaoyi</first><last>Hou</last><affiliation>University of Pennsylvania</affiliation></author>
       <author><first>Jiaxuan</first><last>Ren</last><affiliation>University of Pennsylvania</affiliation></author>
@@ -15691,7 +15691,7 @@
     </paper>
     <paper id="21">
       <title><fixed-case>N</fixed-case>euro<fixed-case>X</fixed-case> Library for Neuron Analysis of Deep <fixed-case>NLP</fixed-case> Models</title>
-      <author><first>Fahim</first><last>Dalvi</last><affiliation>Qatar Computing Research Institute, HBKU</affiliation></author>
+      <author id="fahim-dalvi"><first>Fahim</first><last>Dalvi</last><affiliation>Qatar Computing Research Institute, HBKU</affiliation></author>
       <author><first>Hassan</first><last>Sajjad</last><affiliation>Dalhousie University</affiliation></author>
       <author><first>Nadir</first><last>Durrani</last><affiliation>QCRI</affiliation></author>
       <pages>226-234</pages>
@@ -16597,7 +16597,7 @@
       <author><first>Nana</first><last>Yoshimi</last><affiliation>Ehime University</affiliation></author>
       <author><first>Tomoyuki</first><last>Kajiwara</last><affiliation>Ehime University</affiliation></author>
       <author><first>Satoru</first><last>Uchida</last><affiliation>Kyushu University</affiliation></author>
-      <author><first>Yuki</first><last>Arase</last><affiliation>Osaka University</affiliation></author>
+      <author id="yuki-arase"><first>Yuki</first><last>Arase</last><affiliation>Osaka University</affiliation></author>
       <author><first>Takashi</first><last>Ninomiya</last><affiliation>Ehime University</affiliation></author>
       <pages>276-281</pages>
       <abstract>This study addresses the automatic generation of distractors for English fill-in-the-blank exercises in the entrance examinations for Japanese universities. While previous studies applied the same method to all questions, actual entrance examinations have multiple question types that reflect the purpose of the questions. Therefore, we define three types of questions (grammar, function word, and context) and propose a method to generate distractors according to the characteristics of each question type. Experimental results on 500 actual questions show the effectiveness of the proposed method for both automatic and manual evaluation.</abstract>
@@ -17058,7 +17058,7 @@
     <paper id="27">
       <title><fixed-case>PLA</fixed-case>t<fixed-case>E</fixed-case>: A Large-scale Dataset for List Page Web Extraction</title>
       <author><first>Aidan</first><last>San</last><affiliation>University of Virginia</affiliation></author>
-      <author><first>Yuan</first><last>Zhuang</last><affiliation>University of Utah</affiliation></author>
+      <author id="yuan-zhuang"><first>Yuan</first><last>Zhuang</last><affiliation>University of Utah</affiliation></author>
       <author><first>Jan</first><last>Bakus</last><affiliation>Amazon</affiliation></author>
       <author><first>Colin</first><last>Lockard</last><affiliation>Amazon</affiliation></author>
       <author><first>David</first><last>Ciemiewicz</last><affiliation>Amazon</affiliation></author>

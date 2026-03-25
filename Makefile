@@ -210,12 +210,22 @@ test: hugo
 	diff -u build/website/$(ANTHOLOGYDIR)/P19-1007.bib test/data/P19-1007.bib
 	diff -u build/website/$(ANTHOLOGYDIR)/P19-1007.xml test/data/P19-1007.xml
 
+.PHONY: test-scripts
+test-scripts: venv/bin/activate
+	. $(VENV) && python3 -m pytest tests/ -v
+
+# Sometimes after a merge conflict the entries in people.yaml
+# get miss-sorted. This corrects that by reloading and saving the file.
+.PHONY: normalize
+normalize: venv/bin/activate
+	. $(VENV) && python3 -c "from acl_anthology import Anthology; anth = Anthology.from_within_repo(); anth.people.load(); anth.people.save()"
+
 .PHONY: clean
 clean:
 	rm -rf build venv
 
 .PHONY: check
-check: venv
+check: venv test-scripts
 	@if grep -rl '	' data/xml; then \
 	    echo "check error: found a tab character in the above XML files!"; \
 	    exit 1; \
