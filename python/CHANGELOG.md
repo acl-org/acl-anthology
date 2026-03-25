@@ -10,9 +10,9 @@
 
 ### Removed
 
-- Support for Python 3.10 was dropped.
+- Dropped support for Python 3.10.
 
-## [1.1.0] — 2026-03-07
+## [1.1.0] — 2026-03-19
 
 ### Added
 

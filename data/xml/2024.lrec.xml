@@ -66,7 +66,7 @@
     <paper id="4">
       <title><fixed-case>ABLE</fixed-case>: Agency-<fixed-case>B</fixed-case>e<fixed-case>L</fixed-case>iefs Embedding to Address Stereotypical Bias through Awareness Instead of Obliviousness</title>
       <author><first>Michelle YoungJin</first><last>Kim</last></author>
-      <author><first>Junghwan</first><last>Kim</last></author>
+      <author id="junghwan-kim-umich"><first>Junghwan</first><last>Kim</last></author>
       <author id="kristen-johnson"><first>Kristen</first><last>Johnson</last></author>
       <pages>43–56</pages>
       <abstract>Natural Language Processing (NLP) models tend to inherit and amplify stereotypical biases present in their training data, leading to harmful societal consequences. Current efforts to rectify these biases typically revolve around making models oblivious to bias, which is at odds with the idea that humans require increased awareness to tackle these biases better. This prompts a fundamental research question: are bias-oblivious models the only viable solution to combat stereotypical biases? This paper answers this question by proposing the Agency-BeLiefs Embedding (ABLE) model, a novel approach that actively encodes stereotypical biases into the embedding space. ABLE draws upon social psychological theory to acquire and represent stereotypical biases in the form of agency and belief scores rather than directly representing stereotyped groups. Our experimental results showcase ABLE’s effectiveness in learning agency and belief stereotypes while preserving the language model’s proficiency. Furthermore, we underscore the practical significance of incorporating stereotypes within the ABLE model by demonstrating its utility in various downstream tasks. Our approach exemplifies the potential benefits of addressing bias through awareness, as opposed to the prevailing approach of mitigating bias through obliviousness.</abstract>
@@ -1690,7 +1690,7 @@
       <title>A Single Linear Layer Yields Task-Adapted Low-Rank Matrices</title>
       <author><first>Hwichan</first><last>Kim</last></author>
       <author><first>Shota</first><last>Sasaki</last></author>
-      <author><first>Sho</first><last>Hoshino</last></author>
+      <author id="sho-hoshino"><first>Sho</first><last>Hoshino</last></author>
       <author><first>Ukyo</first><last>Honda</last></author>
       <pages>1602–1608</pages>
       <abstract>Low-Rank Adaptation (LoRA) is a widely used Parameter-Efficient Fine-Tuning (PEFT) method that updates an initial weight matrix <tex-math>W_0</tex-math> with a delta matrix <tex-math>\Delta W</tex-math> consisted by two low-rank matrices <tex-math>A</tex-math> and <tex-math>B</tex-math>. A previous study suggested that there is correlation between <tex-math>W_0</tex-math> and <tex-math>\Delta W</tex-math>. In this study, we aim to delve deeper into relationships between <tex-math>W_0</tex-math> and low-rank matrices <tex-math>A</tex-math> and <tex-math>B</tex-math> to further comprehend the behavior of LoRA. In particular, we analyze a conversion matrix that transform <tex-math>W_0</tex-math> into low-rank matrices, which encapsulates information about the relationships. Our analysis reveals that the conversion matrices are similar across each layer. Inspired by these findings, we hypothesize that a single linear layer, which takes each layer’s <tex-math>W_0</tex-math> as input, can yield task-adapted low-rank matrices. To confirm this hypothesis, we devise a method named Conditionally Parameterized LoRA (CondLoRA) that updates initial weight matrices with low-rank matrices derived from a single linear layer. Our empirical results show that CondLoRA maintains a performance on par with LoRA, despite the fact that the trainable parameters of CondLoRA are fewer than those of LoRA. Therefore, we conclude that “a single linear layer yields task-adapted low-rank matrices.” The code used in our experiments is available at <url>https://github.com/CyberAgentAILab/CondLoRA</url>.</abstract>
@@ -3844,7 +3844,7 @@
       <author><first>Marie</first><last>Bauer</last></author>
       <author><first>Kaleb E.</first><last>Smith</last></author>
       <author><first>Jiang</first><last>Bian</last></author>
-      <author><first>Yonghui</first><last>Wu</last></author>
+      <author id="yonghui-wu"><first>Yonghui</first><last>Wu</last></author>
       <author><first>Jörg</first><last>Schlötterer</last></author>
       <author><first>Torsten</first><last>Zesch</last></author>
       <author><first>Peter A.</first><last>Horn</last></author>
@@ -4212,7 +4212,7 @@
     </paper>
     <paper id="355">
       <title><fixed-case>C</fixed-case>o<fixed-case>R</fixed-case>elation: Boosting Automatic <fixed-case>ICD</fixed-case> Coding through Contextualized Code Relation Learning</title>
-      <author><first>Junyu</first><last>Luo</last></author>
+      <author id="junyu-luo"><first>Junyu</first><last>Luo</last></author>
       <author><first>Xiaochen</first><last>Wang</last></author>
       <author><first>Jiaqi</first><last>Wang</last></author>
       <author><first>Aofei</first><last>Chang</last></author>
@@ -4387,7 +4387,7 @@
     </paper>
     <paper id="371">
       <title>Cross-lingual Transfer or Machine Translation? On Data Augmentation for Monolingual Semantic Textual Similarity</title>
-      <author><first>Sho</first><last>Hoshino</last></author>
+      <author id="sho-hoshino"><first>Sho</first><last>Hoshino</last></author>
       <author><first>Akihiko</first><last>Kato</last></author>
       <author><first>Soichiro</first><last>Murakami</last></author>
       <author><first>Peinan</first><last>Zhang</last></author>
@@ -5551,7 +5551,7 @@
     </paper>
     <paper id="467">
       <title>Domain Adaptation for Dense Retrieval and Conversational Dense Retrieval through Self-Supervision by Meticulous Pseudo-Relevance Labeling</title>
-      <author><first>Minghan</first><last>Li</last></author>
+      <author id="minghan-li-grenoble"><first>Minghan</first><last>Li</last></author>
       <author id="eric-gaussier"><first>Eric</first><last>Gaussier</last></author>
       <pages>5247–5259</pages>
       <abstract>Recent studies have demonstrated that the ability of dense retrieval models to generalize to target domains with different distributions is limited, which contrasts with the results obtained with interaction-based models. Prior attempts to mitigate this challenge involved leveraging adversarial learning and query generation approaches, but both approaches nevertheless resulted in limited improvements. In this paper, we propose to combine the query-generation approach with a self-supervision approach in which pseudo-relevance labels are automatically generated on the target domain. To accomplish this, a T5-3B model is utilized for pseudo-positive labeling, and meticulous hard negatives are chosen. We also apply this strategy on conversational dense retrieval model for conversational search. A similar pseudo-labeling approach is used, but with the addition of a query-rewriting module to rewrite conversational queries for subsequent labeling. This proposed approach enables a model’s domain adaptation with real queries and documents from the target dataset. Experiments on standard dense retrieval and conversational dense retrieval models both demonstrate improvements on baseline models when they are fine-tuned on the pseudo-relevance labeled data.</abstract>
@@ -6118,7 +6118,7 @@
     </paper>
     <paper id="516">
       <title>Endowing Neural Language Learners with Human-like Biases: A Case Study on Dependency Length Minimization</title>
-      <author><first>Yuqing</first><last>Zhang</last></author>
+      <author id="yuqing-zhang"><first>Yuqing</first><last>Zhang</last></author>
       <author><first>Tessa</first><last>Verhoef</last></author>
       <author id="gertjan-van-noord"><first>Gertjan</first><last>van Noord</last></author>
       <author><first>Arianna</first><last>Bisazza</last></author>
@@ -8451,7 +8451,7 @@
     <paper id="713">
       <title>High-order Joint Constituency and Dependency Parsing</title>
       <author><first>Yanggan</first><last>Gu</last></author>
-      <author><first>Yang</first><last>Hou</last></author>
+      <author id="yang-hou"><first>Yang</first><last>Hou</last></author>
       <author><first>Zhefeng</first><last>Wang</last></author>
       <author><first>Xinyu</first><last>Duan</last></author>
       <author><first>Zhenghua</first><last>Li</last></author>
@@ -9740,7 +9740,7 @@
       <author><first>François</first><last>Portet</last></author>
       <author><first>Fabien</first><last>Ringeval</last></author>
       <author><first>Vincent</first><last>Vandeghinste</last></author>
-      <author><first>Maximin</first><last>Coavoux</last></author>
+      <author id="maximin-coavoux"><first>Maximin</first><last>Coavoux</last></author>
       <author><first>Marco</first><last>Dinarelli</last></author>
       <author><first>Didier</first><last>Schwab</last></author>
       <pages>9463–9476</pages>
@@ -10816,7 +10816,7 @@
     <paper id="919">
       <title>Limitations of Human Identification of Automatically Generated Text</title>
       <author><first>Nadège</first><last>Alavoine</last></author>
-      <author><first>Maximin</first><last>Coavoux</last></author>
+      <author id="maximin-coavoux"><first>Maximin</first><last>Coavoux</last></author>
       <author><first>Emmanuelle</first><last>Esperança-Rodier</last></author>
       <author><first>Romane</first><last>Gallienne</last></author>
       <author><first>Carlos-Emiliano</first><last>González-Gallardo</last></author>
@@ -11676,7 +11676,7 @@
       <author><first>Priscilla Amondi</first><last>Amuok</last></author>
       <author><first>Shamsuddeen Hassan</first><last>Muhammad</last></author>
       <author><first>Anuoluwapo</first><last>Aremu</last></author>
-      <author><first>Verrah</first><last>Otiende</last></author>
+      <author id="verrah-akinyi-otiende"><first>Verrah</first><last>Otiende</last></author>
       <author><first>Loice Emma</first><last>Nanyanga</last></author>
       <author><first>Teresiah W.</first><last>Nyoike</last></author>
       <author><first>Aniefon D.</first><last>Akpan</last></author>
@@ -12373,7 +12373,7 @@
       <title>Multi-Tiered <fixed-case>C</fixed-case>antonese Word Segmentation</title>
       <author><first>Charles</first><last>Lam</last></author>
       <author><first>Chaak-ming</first><last>Lau</last></author>
-      <author><first>Jackson L.</first><last>Lee</last></author>
+      <author id="jackson-l-lee"><first>Jackson L.</first><last>Lee</last></author>
       <pages>11993–12002</pages>
       <abstract>Word segmentation for Chinese text data is essential for compiling corpora and any other tasks where the notion of “word” is assumed, since Chinese orthography does not have conventional word boundaries as languages such as English do. A perennial issue, however, is that there is no consensus about the definition of “word” in Chinese, which makes word segmentation challenging. Recent work in Chinese word segmentation has begun to embrace the idea of multiple word segmentation possibilities. In a similar spirit, this paper focuses on Cantonese, another major Chinese variety. We propose a linguistically motivated, multi-tiered word segmentation system for Cantonese, and release a Cantonese corpus of 150,000 characters word-segmented by this proposal. Our work will be of interest to researchers whose work involves Cantonese corpus data.</abstract>
       <url hash="2ccf72e3">2024.lrec-main.1047</url>
@@ -12435,11 +12435,11 @@
     <paper id="1053">
       <title><fixed-case>NAIST</fixed-case>-<fixed-case>SIC</fixed-case>-Aligned: An Aligned <fixed-case>E</fixed-case>nglish-<fixed-case>J</fixed-case>apanese Simultaneous Interpretation Corpus</title>
       <author><first>Jinming</first><last>Zhao</last></author>
-      <author><first>Katsuhito</first><last>Sudoh</last></author>
-      <author><first>Satoshi</first><last>Nakamura</last></author>
       <author><first>Yuka</first><last>Ko</last></author>
       <author><first>Kosuke</first><last>Doi</last></author>
       <author><first>Ryo</first><last>Fukuda</last></author>
+      <author><first>Katsuhito</first><last>Sudoh</last></author>
+      <author><first>Satoshi</first><last>Nakamura</last></author>
       <pages>12046–12052</pages>
       <abstract>It remains a question that how simultaneous interpretation (SI) data affects simultaneous machine translation (SiMT). Research has been limited due to the lack of a large-scale training corpus. In this work, we aim to fill in the gap by introducing NAIST-SIC-Aligned, which is an automatically-aligned parallel English-Japanese SI dataset. Starting with a non-aligned corpus NAIST-SIC, we propose a two-stage alignment approach to make the corpus parallel and thus suitable for model training. The first stage is coarse alignment where we perform a many-to-many mapping between source and target sentences, and the second stage is fine-grained alignment where we perform intra- and inter-sentence filtering to improve the quality of aligned pairs. To ensure the quality of the corpus, each step has been validated either quantitatively or qualitatively. This is the first open-sourced large-scale parallel SI dataset in the literature. We also manually curated a small test set for evaluation purposes. Our results show that models trained with SI data lead to significant improvement in translation quality and latency over baselines. We hope our work advances research on SI corpora construction and SiMT. Our data will be released upon the paper’s acceptance.</abstract>
       <url hash="0e1ca144">2024.lrec-main.1053</url>
@@ -14052,7 +14052,7 @@
     <paper id="1194">
       <title>Recognizing Social Cues in Crisis Situations</title>
       <author><first>Di</first><last>Wang</last></author>
-      <author><first>Yuan</first><last>Zhuang</last></author>
+      <author id="yuan-zhuang"><first>Yuan</first><last>Zhuang</last></author>
       <author id="ellen-riloff"><first>Ellen</first><last>Riloff</last></author>
       <author><first>Marina</first><last>Kogan</last></author>
       <pages>13677–13687</pages>
@@ -14206,7 +14206,7 @@
     </paper>
     <paper id="1207">
       <title><fixed-case>R</fixed-case>eflect<fixed-case>S</fixed-case>umm: A Benchmark for Course Reflection Summarization</title>
-      <author><first>Yang</first><last>Zhong</last></author>
+      <author id="yang-zhong"><first>Yang</first><last>Zhong</last></author>
       <author><first>Mohamed</first><last>Elaraby</last></author>
       <author id="diane-litman"><first>Diane</first><last>Litman</last></author>
       <author><first>Ahmed Ashraf</first><last>Butt</last></author>
@@ -14789,7 +14789,7 @@
       <author><first>Qi</first><last>Zhang</last></author>
       <author><first>Cornelia</first><last>Caragea</last></author>
       <author><first>Eduard</first><last>Dragut</last></author>
-      <author><first>Longin Jan</first><last>Latecki</last></author>
+      <author id="longin-jan-latecki"><first>Longin Jan</first><last>Latecki</last></author>
       <pages>14407–14417</pages>
       <abstract>We present SciDMT, an enhanced and expanded corpus for scientific mention detection, offering a significant advancement over existing related resources. SciDMT contains annotated scientific documents for datasets (D), methods (M), and tasks (T). The corpus consists of two components: 1) the SciDMT main corpus, which includes 48 thousand scientific articles with over 1.8 million weakly annotated mention annotations in the format of in-text span, and 2) an evaluation set, which comprises 100 scientific articles manually annotated for evaluation purposes. To the best of our knowledge, SciDMT is the largest corpus for scientific entity mention detection. The corpus’s scale and diversity are instrumental in developing and refining models for tasks such as indexing scientific papers, enhancing information retrieval, and improving the accessibility of scientific knowledge. We demonstrate the corpus’s utility through experiments with advanced deep learning architectures like SciBERT and GPT-3.5. Our findings establish performance baselines and highlight unresolved challenges in scientific mention detection. SciDMT serves as a robust benchmark for the research community, encouraging the development of innovative models to further the field of scientific information extraction.</abstract>
       <url hash="58ad2261">2024.lrec-main.1256</url>
@@ -15237,7 +15237,7 @@
       <title><fixed-case>SI</fixed-case>-<fixed-case>NLI</fixed-case>: A <fixed-case>S</fixed-case>lovene Natural Language Inference Dataset and Its Evaluation</title>
       <author><first>Matej</first><last>Klemen</last></author>
       <author><first>Aleš</first><last>Žagar</last></author>
-      <author><first>Jaka</first><last>Čibej</last></author>
+      <author id="jaka-cibej"><first>Jaka</first><last>Čibej</last></author>
       <author><first>Marko</first><last>Robnik-Šikonja</last></author>
       <pages>14859–14870</pages>
       <abstract>Natural language inference (NLI) is an important language understanding benchmark. Two deficiencies of this benchmark are: i) most existing NLI datasets exist for English and a few other well-resourced languages, and ii) most NLI datasets are formed with a narrow set of annotators’ instructions, allowing the prediction models to capture linguistic clues instead of measuring true reasoning capability. We address both issues and introduce SI-NLI, the first dataset for Slovene natural language inference. The dataset is constructed from scratch using knowledgeable annotators with carefully crafted guidelines aiming to avoid commonly encountered problems in existing NLI datasets. We also manually translate the SI-NLI to English to enable cross-lingual model training and evaluation. Using the newly created dataset and its translation, we train and evaluate a variety of large transformer language models in a monolingual and cross-lingual setting. The results indicate that larger models, in general, achieve better performance. The qualitative analysis shows that the SI-NLI dataset is diverse and that there remains plenty of room for improvement even for the largest models.</abstract>
@@ -15768,7 +15768,7 @@
     <paper id="1340">
       <title><fixed-case>SUK</fixed-case> 1.0: A New Training Corpus for Linguistic Annotation of Modern Standard <fixed-case>S</fixed-case>lovene</title>
       <author><first>Špela</first><last>Arhar Holdt</last></author>
-      <author><first>Jaka</first><last>Čibej</last></author>
+      <author id="jaka-cibej"><first>Jaka</first><last>Čibej</last></author>
       <author><first>Kaja</first><last>Dobrovoljc</last></author>
       <author id="tomaz-erjavec"><first>Tomaž</first><last>Erjavec</last></author>
       <author><first>Polona</first><last>Gantar</last></author>
@@ -17872,7 +17872,7 @@
       <author><first>Zdravko</first><last>Dugonjić</last></author>
       <author><first>Adrien</first><last>Pupier</last></author>
       <author><first>Benjamin</first><last>Lecouteux</last></author>
-      <author><first>Maximin</first><last>Coavoux</last></author>
+      <author id="maximin-coavoux"><first>Maximin</first><last>Coavoux</last></author>
       <pages>17493–17499</pages>
       <abstract>The paper reports on a series of experiments aiming at probing LeBenchmark, a pretrained acoustic model trained on 7k hours of spoken French, for syntactic information. Pretrained acoustic models are increasingly used for downstream speech tasks such as automatic speech recognition, speech translation, spoken language understanding or speech parsing. They are trained on very low level information (the raw speech signal), and do not have explicit lexical knowledge. Despite that, they obtained reasonable results on tasks that requires higher level linguistic knowledge. As a result, an emerging question is whether these models encode syntactic information. We probe each representation layer of LeBenchmark for syntax, using the Orféo treebank, and observe that it has learnt some syntactic information. Our results show that syntactic information is more easily extractable from the middle layers of the network, after which a very sharp decrease is observed.</abstract>
       <url hash="b5e7e25a">2024.lrec-main.1521</url>

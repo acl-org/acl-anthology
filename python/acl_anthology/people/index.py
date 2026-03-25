@@ -250,14 +250,24 @@ class PersonIndex(SlottedDict[Person]):
             )
 
         if slug not in self.data:
+            # Can use name slug as-is
             return slug
 
         if suffix is not None and (pid := f"{slug}-{suffix.lower()}") not in self.data:
+            # Use the provided suffix to disambiguate
             return pid
 
         if orcid is None and isinstance(person_or_name, Person):
             orcid = person_or_name.orcid
         if orcid is not None and (pid := f"{slug}-{orcid[-4:].lower()}") not in self.data:
+            # Use the last four ORCID characters to disambiguate
+            if self.data[slug].orcid is None:
+                # ...but existing person is verified without an ORCID -> warn
+                warnings.warn(
+                    UserWarning(
+                        f"Generating new person ID '{pid}', but '{slug}' exists and has no ORCID -> same person?",
+                    )
+                )
             return pid
 
         raise AnthologyException(f"Could not generate an ID for {person_or_name!r}")

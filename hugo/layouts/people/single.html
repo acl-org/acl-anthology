@@ -115,8 +115,10 @@
               {{ range first 5 $person.venues }}
               <li class="list-group-item">
                 {{ $venue := index . 0 }}
-                <a href="{{ relref $ (printf "/venues/%s" (index $.Site.Data.venues $venue "slug")) }}" class="align-middle">
-                  {{- $venue -}}
+                {{ $acronym := index $.Site.Data.venues $venue "acronym" }}
+                {{ $name := index $.Site.Data.venues $venue "name" }}
+                <a href="{{ relref $ (printf "/venues/%s" (index $.Site.Data.venues $venue "slug")) }}" title="{{ $name }}" class="align-middle">
+                  {{- $acronym -}}
                 </a><span class="badge text-bg-secondary align-middle ms-2">{{ index . 1 }}</span>
               </li>
               {{ end }}
@@ -128,8 +130,10 @@
               {{ range after 5 $person.venues }}
               <li class="list-group-item">
                 {{ $venue := index . 0 }}
-                <a href="{{ relref $ (printf "/venues/%s" (index $.Site.Data.venues $venue "slug")) }}" class="align-middle">
-                  {{- $venue -}}
+                {{ $acronym := index $.Site.Data.venues $venue "acronym" }}
+                {{ $name := index $.Site.Data.venues $venue "name" }}
+                <a href="{{ relref $ (printf "/venues/%s" (index $.Site.Data.venues $venue "slug")) }}" title="{{ $name }}" class="align-middle">
+                  {{- $acronym -}}
                 </a><span class="badge text-bg-secondary align-middle ms-2">{{ index . 1 }}</span>
               </li>
               {{ end }}
