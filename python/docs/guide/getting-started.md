@@ -1,6 +1,6 @@
 # Getting Started
 
-To use this library, you need **Python 3.10 or newer**.  For automatically
+To use this library, you need **Python 3.11 or newer**.  For automatically
 fetching data from the main ACL Anthology repository, you will also need to have
 **Git** installed.
 

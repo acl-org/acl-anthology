@@ -225,7 +225,8 @@ test_cases_generate_person_id_from_name = (
         None,
         AnthologyException,
     ),  # yang-liu-icsi already exists
-    (Name("Yang", "Liu"), "icsi", "0000-0000-0000-018X", "yang-liu-018x"),
+    (Name("Yang", "Liu"), "icsi", "0000-0000-0000-018X", UserWarning),
+    (Name("Xu", "Huang"), "nanjing", "0000-0000-0000-018X", "xu-huang-018x"),
 )
 
 
@@ -256,6 +257,19 @@ def test_generate_person_id_from_person(index):
         index.generate_person_id(person, orcid="0000-0002-2909-0906")
         == "marcel-bollmann-0906"
     )
+
+
+def test_generate_person_id_should_warn(index):
+    index.reset()
+    index._load_people_index()
+    # This person exists (as verified), but without an ORCID, so generating an
+    # ID with an ORCID suffix should emit a warning
+    name = Name.from_dict({"first": "Steven", "last": "Krauwer"})
+
+    with pytest.warns(UserWarning):
+        pid = index.generate_person_id(name, orcid="0000-0002-4236-2611")
+
+    assert pid == "steven-krauwer-2611"
 
 
 def test_create_person(index):
@@ -627,9 +641,9 @@ test_cases_ingest_namespec = (
         "matt-post",
     ),
     (  # It shouldn't matter if other persons with the same name exist, only ORCID matters
-        {"first": "Yang", "last": "Liu"},
+        {"first": "Xu", "last": "Huang"},
         {"orcid": "0000-0003-4154-7507"},
-        "yang-liu-7507",
+        "xu-huang-7507",
     ),
     (  # When generated ID is already taken, append the last four digits of ORCID
         {"first": "Marcel", "last": "Bollmann"},

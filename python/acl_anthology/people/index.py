@@ -20,7 +20,6 @@ import itertools as it
 from pathlib import Path
 from rich.progress import track
 from scipy.cluster.hierarchy import DisjointSet  # type: ignore
-import sys
 from typing import cast, Any, Iterable, Optional, TYPE_CHECKING
 import warnings
 import yaml
@@ -247,14 +246,24 @@ class PersonIndex(SlottedDict[Person]):
             )
 
         if slug not in self.data:
+            # Can use name slug as-is
             return slug
 
         if suffix is not None and (pid := f"{slug}-{suffix.lower()}") not in self.data:
+            # Use the provided suffix to disambiguate
             return pid
 
         if orcid is None and isinstance(person_or_name, Person):
             orcid = person_or_name.orcid
         if orcid is not None and (pid := f"{slug}-{orcid[-4:].lower()}") not in self.data:
+            # Use the last four ORCID characters to disambiguate
+            if self.data[slug].orcid is None:
+                # ...but existing person is verified without an ORCID -> warn
+                warnings.warn(
+                    UserWarning(
+                        f"Generating new person ID '{pid}', but '{slug}' exists and has no ORCID -> same person?",
+                    )
+                )
             return pid
 
         raise AnthologyException(f"Could not generate an ID for {person_or_name!r}")
@@ -294,7 +303,7 @@ class PersonIndex(SlottedDict[Person]):
                 description="Building person index...",
                 console=primary_console,
             )
-        raised_exception = False
+        raised_exceptions = []
         for collection in iterator:
             for volume in collection.volumes():
                 context: Paper | Volume = volume
@@ -315,18 +324,13 @@ class PersonIndex(SlottedDict[Person]):
                             name_specs, paper.full_id_tuple, during_build=True
                         )
                 except Exception as exc:  # pragma: no cover
-                    note = f"Raised in {context.__class__.__name__} {context.full_id}"
-                    # If this is merged into a single if-statement (with "or"),
-                    # the type checker complains ¯\_(ツ)_/¯
-                    if isinstance(exc, AnthologyException):
-                        exc.add_note(note)
-                    elif sys.version_info >= (3, 11):
-                        exc.add_note(note)
-                    log.exception(exc)
-                    raised_exception = True
-        if raised_exception:
-            raise Exception(
-                "An exception was raised while building PersonIndex; check the logger for details."
+                    exc.add_note(
+                        f"Raised in {context.__class__.__name__} {context.full_id}"
+                    )
+                    raised_exceptions.append(exc)
+        if raised_exceptions:
+            raise ExceptionGroup(
+                "An exception was raised while building PersonIndex.", raised_exceptions
             )  # pragma: no cover
         self.is_data_loaded = True
 
