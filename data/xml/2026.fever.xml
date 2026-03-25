@@ -20,10 +20,12 @@
       <year>2026</year>
       <venue>fever</venue>
       <venue>ws</venue>
+      <doi>10.18653/v1/2026.fever-1</doi>
     </meta>
     <frontmatter>
       <url hash="371d1d8b">2026.fever-1.0</url>
       <bibkey>fever-2026-1</bibkey>
+      <doi>10.18653/v1/2026.fever-1.0</doi>
     </frontmatter>
     <paper id="1">
       <title>Weakly-supervised Argument Mining with Boundary Refinement and Relation Denoising</title>
@@ -37,6 +39,7 @@
       <abstract>Argument mining (AM) involves extracting argument components and predicting relations between them to create argumentative graphs, which are essential for applications requiring argumentative comprehension. To automatically provide high-quality graphs, previous works require a large amount of human-annotated training samples to train AM models. Instead, we leverage a large language model (LLM) to assign pseudo-labels to training samples for reducing reliance on human-annotated training data. However, the training data weakly-labeled by the LLM are too noisy to develop an AM model with reliable performance. In this paper, to improve the model performance, we propose a center-based component detector that refines the boundaries of the detected components and a relation denoiser to deal with noise present in the pseudo-labels when classifying relations between detected components. Experimentally, our AM model improves the boundary detection obtained from the LLM by up to 16% in terms of IoU75 and of the relation classification obtained from the LLM by up to 12% in terms of macro-F1 score. Our AM model achieves new state-of-the-art performance in weakly-supervised AM, showing up to a 6% improvement over the state-of-the-art component detector and up to a 7% improvement over the state-of-the-art relation classifier. Additionally, our model uses less than 20% of human-annotated data to match the performance of state-of-the-art fully-supervised AM models.</abstract>
       <url hash="7df1ab41">2026.fever-1.1</url>
       <bibkey>sun-etal-2026-weakly</bibkey>
+      <doi>10.18653/v1/2026.fever-1.1</doi>
     </paper>
     <paper id="2">
       <title><fixed-case>PO</fixed-case>aa<fixed-case>S</fixed-case>: Minimal-Edit Prompt Optimization as a Service to Lift Accuracy and Cut Hallucinations on On-Device s<fixed-case>LLM</fixed-case>s</title>
@@ -51,6 +54,7 @@
       <abstract>Small language models (sLLMs) are increasingly deployed on-device, where imperfect user prompts–typos, unclear intent, or missing context–can trigger factual errors and hallucinations. Existing automatic prompt optimization (APO) methods were designed for large cloud LLMs and rely on search that often produces long, structured instructions; when executed under an on-device constraint where the same small model must act as optimizer and solver, these pipelines can waste context and even hurt accuracy. We propose POaaS, a minimal-edit prompt optimization layer that routes each query to lightweight specialists (Cleaner, Paraphraser, Fact-Adder) and merges their outputs under strict drift and length constraints, with a conservative skip policy for well-formed prompts. Under a strict fixed-model setting with Llama-3.2-3B and Llama-3.1-8B, POaaS improves both task accuracy and factuality while representative APO baselines degrade them, and POaaS recovers up to +7.4% under token deletion and mixup. Overall, per-query conservative optimization is a practical alternative to search-heavy APO for on-device sLLMs.</abstract>
       <url hash="7f335b05">2026.fever-1.2</url>
       <bibkey>shim-etal-2026-poaas</bibkey>
+      <doi>10.18653/v1/2026.fever-1.2</doi>
     </paper>
     <paper id="3">
       <title>Evidence Grounding vs. Memorization: Why Neural Semantics Matter for Knowledge Graph Fact Verification</title>
@@ -61,6 +65,7 @@
       <abstract>Knowledge graphs like DBpedia enable structured fact verification, but the relative contributions of symbolic structure, neural semantics, and evidence grounding remain unclear. We present a systematic study on FACTKG (108,675 claims) comparing symbolic, neural, and LLM-based approaches. Our symbolic baseline using 29 hand-crafted features covering graph structure, entity coverage, and semantic relation type achieves 66.54% accuracy, while BERT over linearized subgraphs reaches 92.68% and graph neural networks plateau at 70%, demonstrating that token-level semantics outperform both symbolic features and message passing. Using GPT-4.1-mini to filter training data, budget-matched controls show that token-budget control recovers most of the gap over truncation-dominated inputs, while LLM semantic selection adds +1.31 points beyond lexical heuristics (78.85% filtered vs. 77.54% heuristic vs. 52.70% unfiltered), showing that semantic relevance, not just evidence quantity, governs learnability. Finally, comparing 300 test claims under memorization (claim-only) versus KG-grounded reasoning with chain-of-thought, we find KG grounding improves GPT-4o-mini and GPT-4.1-mini accuracy by 12.67 and 9.33 points respectively, with models citing specific triples for interpretability. These results demonstrate that neural semantic representations and explicit KG evidence grounding are highly effective for robust, interpretable fact verification.</abstract>
       <url hash="a19631d3">2026.fever-1.3</url>
       <bibkey>upadhyay-etal-2026-evidence</bibkey>
+      <doi>10.18653/v1/2026.fever-1.3</doi>
     </paper>
     <paper id="4">
       <title>The Energy of Falsehood: Detecting Hallucinations via Diffusion Model Likelihoods</title>
@@ -71,6 +76,7 @@
       <abstract>Large Language Models (LLMs) frequently "hallucinate" plausible but incorrect assertions, a vulnerability often missed by uncertainty metrics when models are "confidently wrong." We propose DiffuTruth, an unsupervised framework that re-conceptualizes fact verification via non-equilibrium thermodynamics, positing that factual truths act as stable attractors on a generative manifold while hallucinations are unstable. We introduce the "Generative Stress Test": claims are corrupted with noise and reconstructed using a discrete text diffusion model. We define Semantic Energy, a metric measuring the semantic divergence between the original claim and its reconstruction using an NLI critic. Unlike vector-space errors, Semantic Energy isolates deep factual contradictions. We further propose a Hybrid Calibration fusing this stability signal with discriminative confidence. Extensive experiments on FEVER demonstrate DiffuTruth achieves a state-of-the-art unsupervised AUROC of 0.725, outperforming baselines by +1.5% through the correction of overconfident predictions. Furthermore, we show superior zero-shot generalization on the multi-hop HOVER dataset, outperforming baselines by over 4%, confirming the robustness of thermodynamic truth properties to distribution shifts.</abstract>
       <url hash="0afae38a">2026.fever-1.4</url>
       <bibkey>gautam-etal-2026-energy</bibkey>
+      <doi>10.18653/v1/2026.fever-1.4</doi>
     </paper>
     <paper id="5">
       <title><fixed-case>B</fixed-case>i<fixed-case>C</fixed-case>on-Gate: Consistency-Gated De-colloquialisation for Dialogue Fact-Checking</title>
@@ -80,6 +86,7 @@
       <abstract>Automated fact-checking in dialogue involves multi-turn conversations where colloquial language is frequent yet understudied. To address this gap, we propose a conservative rewrite candidate for each response claim via staged de-colloquialisation, combining lightweight surface normalisation with scoped in-claim coreference resolution. We then introduce BiCon-Gate, a semantics-aware consistency gate that selects the rewrite candidate only when it is semantically supported by the dialogue context, otherwise falling back to the original claim. On the DialFact benchmark, this gated selection stabilises downstream fact-checking and yields gains in both evidence retrieval and fact verification particularly strong gains on SUPPORTS and outperforms competitive baselines, including a decoder-based one-shot LLM rewrite that attempts to perform all de-colloquialisation steps in a single pass.</abstract>
       <url hash="7218cfe5">2026.fever-1.5</url>
       <bibkey>park-zubiaga-2026-bicon</bibkey>
+      <doi>10.18653/v1/2026.fever-1.5</doi>
     </paper>
     <paper id="6">
       <title>The Automatic Verification of Image-Text Claims (<fixed-case>AV</fixed-case>er<fixed-case>I</fixed-case>ma<fixed-case>T</fixed-case>e<fixed-case>C</fixed-case>) Shared Task</title>
@@ -92,6 +99,7 @@
       <abstract>The Automatic Verification of Image-Text Claims (AVerImaTeC) shared task aims to advance system development for retrieving evidence and verifying real-world image-text claims. Participants were allowed to either employ external knowledge sources, such as web search engines, or leverage the curated knowledge store provided by the organizers. System performance was evaluated using the AVerImaTeC score, defined as a conditional verdict accuracy in which a verdict is considered correct only when the associated evidence score exceeds a predefined threshold. The shared task attracted 14 submissions during the development phase and 6 submissions during the testing phase. All participating systems in the testing phase outperformed the baseline provided. The winning team, HUMAN, achieved an AVerImaTeC score of 0.5455. This paper provides a detailed description of the shared task, presents the complete evaluation results, and discusses key insights and lessons learned.</abstract>
       <url hash="371d1d8b">2026.fever-1.6</url>
       <bibkey>cao-etal-2026-automatic</bibkey>
+      <doi>10.18653/v1/2026.fever-1.6</doi>
     </paper>
     <paper id="7">
       <title>Take It All: Ensemble Retrieval for Multimodal Evidence Aggregation</title>
@@ -106,6 +114,7 @@
       <abstract>Multimodal fact checking has become increasingly important due to the predominance of visual content on social media platforms, where images are frequently used to enhance the credibility and spread of misleading claims, while generated images become more prevalent and realistic as generative models advance. Incorporating visual information, however, substantially increases computational costs, raising critical efficiency concerns for practical deployment. In this study, we propose and evaluate the ADA-AGGR (ensemble retrievAl for multimoDAl evidence AGGRegation) pipeline, which achieved the second place on both the dev and test leaderboards of the FEVER 9/AVerImaTeC shared task. However, long runtimes per claim highlight challenges regarding efficiency concerns when designing multimodal claim verification pipelines. We therefore run extensive ablation studies and configuration analyses to identify possible performance–runtime improvements. Our experiments show that substantial efficiency gains are possible without significant loss in verification quality. For instance, we reduced the average runtime by up to 6.28× while maintaining comparable performance across evaluation metrics by aggressively downsampling input images processed by visual language models. Overall, our results highlight that careful design choices are crucial for building scalable and resource-efficient multimodal fact-checking systems suitable for real-world deployment.</abstract>
       <url hash="b0137102">2026.fever-1.7</url>
       <bibkey>upravitelev-etal-2026-take</bibkey>
+      <doi>10.18653/v1/2026.fever-1.7</doi>
     </paper>
     <paper id="8">
       <title><fixed-case>REVEAL</fixed-case>: Retrieval-Enhanced Verification for Multimodal Fact-Checking</title>
@@ -115,6 +124,7 @@
       <abstract>Multimodal misinformation combines images and text to amplify false narratives, yet most fact-checking research addresses only textualclaims. The AVerImaTeC shared task introduces real-world image-text claims requiring sophisticated evidence retrieval. We present REVEAL (Retrieval-Enhanced Verification with Evidence Accumulation Loop), a system designed to overcome the “semantic gap,” defined as the disconnect between the neutral phrasing of claims and the adversarial vocabulary of debunking evidence. Unlike static baselines, REVEAL breaks down the verification task into an iterative context loop, integrating sparse and dense retrieval signals to aggressively target refuting evidence. We achieve a Verdict Accuracy of 23.6% and an Evidence Recall of 27.7% on the test set. Our results outperform the official baseline across all metrics, validating our hybrid retrieval strategy for complex multimodal verification.</abstract>
       <url hash="acf56d5c">2026.fever-1.8</url>
       <bibkey>tariq-kementchedjhieva-2026-reveal</bibkey>
+      <doi>10.18653/v1/2026.fever-1.8</doi>
     </paper>
     <paper id="9">
       <title><fixed-case>VILLAIN</fixed-case> at <fixed-case>AV</fixed-case>er<fixed-case>I</fixed-case>ma<fixed-case>T</fixed-case>e<fixed-case>C</fixed-case>: Verifying Image–Text Claims via Multi-Agent Collaboration</title>
@@ -126,6 +136,7 @@
       <abstract>This paper describes VILLAIN, a multimodal fact-checking system that verifies image-text claims through prompt-based multi-agent collaboration. For the AVerImaTeC shared task, VILLAIN employs vision-language model agents across multiple stages of fact-checking. Textual and visual evidence is retrieved from the knowledge store enriched through additional web collection. To identify key information and address inconsistencies among evidence items, modality-specific and cross-modal agents generate analysis reports. In the subsequent stage, question-answer pairs are produced based on these reports. Finally, the Verdict Prediction agent produces the verification outcome based on the image-text claim and the generated question-answer pairs. Our system ranked first on the leaderboard across all evaluation metrics. The source code is publicly available at https://github.com/ssu-humane/VILLAIN.</abstract>
       <url hash="2373b071">2026.fever-1.9</url>
       <bibkey>jung-etal-2026-villain</bibkey>
+      <doi>10.18653/v1/2026.fever-1.9</doi>
     </paper>
     <paper id="10">
       <title>Selective Multimodal Retrieval for Automated Verification of Image–Text Claims</title>
@@ -140,6 +151,7 @@
       <abstract>This paper presents an efficiency-aware pipeline for automated fact-checking of real-world image–text claims that treats multimodality as a controllable design variable rather than a property that must be uniformly propagated through every stage of the system. The approach decomposes claims into verification questions, assigns each to text- or image-related types, and applies modality-aware retrieval strategies, while ultimately relying on text-only evidence for verdict prediction and justification generation. Evaluated on the AVerImaTeC dataset within the FEVER-9 shared task, the system achieves competitive question, evidence, verdict, and justification scores and ranks fourth overall, outperforming the official baseline on evidence recall, verdict accuracy, and justification quality despite not using visual evidence during retrieval. These results demonstrate that strong performance on multimodal fact-checking can be achieved by selectively controlling where visual information influences retrieval and reasoning, rather than performing full multimodal fusion at every stage of the pipeline.</abstract>
       <url hash="21efbf92">2026.fever-1.10</url>
       <bibkey>tsoneva-etal-2026-selective</bibkey>
+      <doi>10.18653/v1/2026.fever-1.10</doi>
     </paper>
     <paper id="11">
       <title><fixed-case>AIC</fixed-case> <fixed-case>CTU</fixed-case>@<fixed-case>AV</fixed-case>er<fixed-case>I</fixed-case>ma<fixed-case>T</fixed-case>e<fixed-case>C</fixed-case>: dual-retriever <fixed-case>RAG</fixed-case> for image-text fact checking</title>
@@ -149,6 +161,7 @@
       <abstract>In this paper, we present our 3rd place system in the AVerImaTeC shared task, which combines our last year’s retrieval-augmented generation (RAG) pipeline with a reverse image search (RIS) module.Despite its simplicity, our system delivers competitive performance with a single multimodal LLM call per fact-check at just <tex-math>0.013 on average using GPT5.1 via OpenAI Batch API.Our system is also easy to reproduce and tweak, consisting of only three decoupled modules — a textual retrieval module based on similarity search, an image retrieval module based on API-accessed RIS, and a generation module using GPT5.1 — which is why we suggest it as an accesible starting point for further experimentation.We publish its code and prompts, as well as our vector stores and insights into the scheme's running costs and directions for further improvement.</tex-math></abstract>
       <url hash="f3f5c1af">2026.fever-1.11</url>
       <bibkey>ullrich-drchal-2026-aic</bibkey>
+      <doi>10.18653/v1/2026.fever-1.11</doi>
     </paper>
   </volume>
 </collection>
