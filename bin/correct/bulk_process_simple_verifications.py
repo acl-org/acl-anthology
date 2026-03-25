@@ -195,7 +195,7 @@ class AnthologyMetadataUpdater:
                             f'Another author with this ORCID found (should be merge request?): {p2}'
                         )
                     person.orcid = data["orcid"]
-                    person.degree = data["degree"]
+                    person.degree = data["degree"].strip()
                     new_author_id = author_id.replace("/unverified", "")
                     if verbose:
                         print(
@@ -207,9 +207,8 @@ class AnthologyMetadataUpdater:
                         )
                     if not new_author_id:
                         raise ValueError('Author ID must be nonempty')
-                    person.make_explicit(
-                        new_author_id
-                    )  # can fail if another person with this ID exists
+                    person.make_explicit()  # can fail if another person with this ID exists
+                    assert person.id == new_author_id, f'Explicit ID is {person.id}, expected {new_author_id}'
                     anthology.save_all()
                 except Exception as e:
                     print(
