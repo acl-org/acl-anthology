@@ -9,6 +9,10 @@
 - Bugfix: NameSpecifications now prevent having unverified IDs set on them (#7901)
 - `PersonIndex.create` now deduplicates list of names (#7858)
 
+### Removed
+
+- Dropped support for Python 3.10.
+
 ## [1.1.0] — 2026-03-19
 
 ### Added
