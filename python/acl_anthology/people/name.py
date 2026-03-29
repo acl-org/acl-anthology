@@ -28,9 +28,9 @@ try:
 except ImportError:  # pragma: no cover
     from yaml import Dumper  # type: ignore
 
+from ..constants import RE_VERIFIED_PERSON_ID
 from ..exceptions import AnthologyException
 from ..utils.attrs import track_namespec_modifications
-from ..utils.ids import RE_VERIFIED_PERSON_ID
 from ..utils.latex import latex_encode
 
 if TYPE_CHECKING:

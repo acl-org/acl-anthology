@@ -25,6 +25,7 @@ if sys.version_info >= (3, 13):
 else:
     from typing_extensions import deprecated
 
+from ..constants import RE_ORCID
 from ..exceptions import AnthologyException, AnthologyInvalidIDError
 from ..utils.attrs import auto_validate_types
 from ..utils.ids import (
@@ -34,7 +35,6 @@ from ..utils.ids import (
     is_valid_orcid,
     is_verified_person_id,
     parse_id,
-    RE_ORCID,
 )
 from . import Name
 
@@ -244,7 +244,7 @@ class Person:
         This updates `self.id`, but also ensures that all papers/items with the old ID are updated to the new one.
 
         Parameters:
-            new_id: The new ID for this person, which must match [`RE_VERIFIED_PERSON_ID`][acl_anthology.utils.ids.RE_VERIFIED_PERSON_ID].
+            new_id: The new ID for this person, which must match [`RE_VERIFIED_PERSON_ID`][acl_anthology.constants.RE_VERIFIED_PERSON_ID].
 
         Raises:
             AnthologyException: If `self.explicit` is False.
@@ -278,7 +278,7 @@ class Person:
         This will result in this person having an explicit entry in `people.yaml` with all names that are currently associated with this person.  It will also add their new explicit ID to all papers and volumes currently associated with this person.
 
         Parameters:
-            new_id: The new ID for this person, which must match [`RE_VERIFIED_PERSON_ID`][acl_anthology.utils.ids.RE_VERIFIED_PERSON_ID].  If not specified, will try to generate one automatically based on this person's canonical name (and, potentially, ORCID).
+            new_id: The new ID for this person, which must match [`RE_VERIFIED_PERSON_ID`][acl_anthology.constants.RE_VERIFIED_PERSON_ID].  If not specified, will try to generate one automatically based on this person's canonical name (and, potentially, ORCID).
             skip_setting_ids: If True, will skip setting IDs on name specifications that previously resolved to this person.  **This means that some or all of the items in `self.item_ids` might disappear if they no longer resolve to this person.**
 
         Raises:
