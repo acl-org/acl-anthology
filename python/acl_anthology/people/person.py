@@ -25,7 +25,7 @@ if sys.version_info >= (3, 13):
 else:
     from typing_extensions import deprecated
 
-from ..constants import RE_ORCID
+from ..constants import RE_ORCID, NO_PERSON_ID
 from ..exceptions import AnthologyException, AnthologyInvalidIDError
 from ..utils.attrs import auto_validate_types
 from ..utils.ids import (
@@ -265,7 +265,7 @@ class Person:
 
         namespecs = list(ns for ns in self.namespecs() if ns.id == self.id)
         for namespec in namespecs:
-            namespec.id = None
+            namespec.id = NO_PERSON_ID
         self.id = new_id  # triggers update in PersonIndex
         for namespec in namespecs:
             namespec.id = new_id

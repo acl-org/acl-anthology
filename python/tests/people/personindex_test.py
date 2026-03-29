@@ -416,6 +416,7 @@ def test_person_id_change_should_update_index(anthology):
     person = index["marcel-bollmann"]
     # Unlink all items first
     for ns in person.namespecs():
+        ns.orcid = None
         ns.id = None
     # Now, the ID can be changed
     person.id = "marcel-bollmann-rub"

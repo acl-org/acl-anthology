@@ -28,7 +28,7 @@ try:
 except ImportError:  # pragma: no cover
     from yaml import Dumper  # type: ignore
 
-from ..constants import RE_VERIFIED_PERSON_ID
+from ..constants import RE_VERIFIED_PERSON_ID, NO_PERSON_ID
 from ..exceptions import AnthologyException
 from ..utils.attrs import track_namespec_modifications
 from ..utils.latex import latex_encode
@@ -500,6 +500,8 @@ class NameSpecification:
             A serialization of this name in Anthology XML format.
         """
         elem = etree.Element(tag)
+        if self.id == NO_PERSON_ID:
+            self.id = None
         if self.id is not None:
             elem.set("id", self.id)
         if self.orcid is not None:

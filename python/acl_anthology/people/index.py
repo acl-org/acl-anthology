@@ -30,6 +30,7 @@ except ImportError:  # pragma: no cover
     from yaml import Loader, Dumper  # type: ignore
 
 from ..config import primary_console
+from ..constants import NO_PERSON_ID
 from ..containers import SlottedDict
 from ..exceptions import (
     AnthologyException,
@@ -615,7 +616,7 @@ class PersonIndex(SlottedDict[Person]):
             PersonDefinitionError: If `name_spec.id` is set, but either the ID or the name used with the ID has not been defined in `people.yaml`. (Inherits from NameSpecResolutionError)
         """
         name = name_spec.name
-        if (pid := name_spec.id) is not None:
+        if (pid := name_spec.id) is not None and pid != NO_PERSON_ID:
             # Explicit ID given – should be explicitly defined in people.yaml
             if pid not in self.data or not (person := self.data[pid]).is_explicit:
                 raise PersonDefinitionError(
@@ -633,7 +634,7 @@ class PersonIndex(SlottedDict[Person]):
                 )
         else:
             # No explicit ID given
-            if name_spec.orcid is not None:
+            if name_spec.orcid is not None and pid != NO_PERSON_ID:
                 exc1 = NameSpecResolutionError(
                     name_spec,
                     "NameSpecification defines an ORCID without an ID",
