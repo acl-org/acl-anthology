@@ -32,10 +32,10 @@ Usage:
 
 verify_author.py [--issue NUM | --no-commit] [--degree DEGREE] [--suffix SUFFIX] ORCID AUTHORID ...
 
-  To add papers under a verified author: all papers currently associated with the listed author(s)
-  are explicitly mapped to the target author (merging the author pages).
-  If listing multiple author IDs, the first will be used for the canonical name,
-  and subsequent ones must be unverified.
+  Merges the author pages corresponding to the provided author IDs
+  into a (new or existing) verified page with an ORCID.
+  Papers under this verified Person will all have explicit author IDs.
+  If listing multiple author IDs, the first will be used for the canonical name.
 
 verify_author.py [--issue NUM | --no-commit] [--degree DEGREE] [--suffix SUFFIX] [--only] ORCID PAPERID:NAMESLUG ...
 
@@ -90,8 +90,8 @@ def verify_by_author_id(
 ):
     """
     Merges the author pages corresponding to the provided author IDs
-    into a new verified page with an ORCID. Papers under the newly
-    verified Person will all have explicit author IDs.
+    into a (new or existing) verified page with an ORCID.
+    Papers under this verified Person will all have explicit author IDs.
 
     The logic is as follows: given one or more author IDs, identifies
     - the target Person to be used for verification/merging
@@ -110,9 +110,11 @@ def verify_by_author_id(
     assert len(set(author_ids)) == len(author_ids), 'Author IDs should be unique'
 
     # TODO: not tested:
-    #   * --exclude
     #   * changing the canonical name of the target Person
     #   * merging 2 verified profiles
+    # TODO: if merging an unverified Person with an author with ORCID-based suffix,
+    # strip the suffix to leave the bare name slug as ID if not already taken?
+    # (Not sure this ever occurs in practice because ORCID suffix was only added if necessary.)
 
     people = []
     for aid in author_ids:
@@ -123,6 +125,11 @@ def verify_by_author_id(
     if person is not None and person not in people:
         people.append(person)
     del person
+
+    # count how many items have explicit IDs
+    numExplicit = 0  # items initially with an explicit author ID
+    for person in people:
+        numExplicit += sum(1 for ns in person.namespecs() if ns.id is not None)
 
     primary_person = people[0]
     target_person = (
@@ -141,33 +148,34 @@ def verify_by_author_id(
 
         # target_person.make_explicit(new_aid, skip_setting_ids=True)
         # workaround for bug #7879
-        new_person = anthology.people.create(new_aid, [target_person.canonical_name])
-        new_person.disable_name_matching = True  # temporarily, so authors don't get automatically moved from `target_person`
-        assert (
-            not except_paper_ids
-        ), 'Person.merge_into() currently does not support excluding some papers'
-        target_person.merge_into(new_person)  # copy attributes, set explicit IDs
-        target_person = new_person
-        new_person.disable_name_matching = False  # reset
+        # new_person = anthology.people.create(new_aid, [target_person.canonical_name])
+        # new_person.disable_name_matching = True  # temporarily, so authors don't get automatically moved from `target_person`
+        # assert (
+        #     not except_paper_ids
+        # ), 'Person.merge_into() currently does not support excluding some papers'
+        # target_person.merge_into(new_person)  # copy attributes, set explicit IDs
+        # target_person = new_person
+        # new_person.disable_name_matching = False  # reset
+
+        # validate the excluded papers list
+        for item_id in except_paper_ids or []:
+            assert (
+                anthology.get(item_id).get_namespec_for(target_person).id is None
+            ), f'Paper {item_id.full_id} in the exclude list does not belong to {target_person.id}'
+
+        # create verified person and set explicit IDs for all papers
+        target_person.make_explicit(new_aid)
+
+        # remove the ID for any excluded paper
+        for item_id in except_paper_ids or []:
+            anthology.get(item_id).get_namespec_for(target_person).id = None
 
         changes = 'Verify/merge' if len(author_ids) > 1 else 'Verify'
-        if except_paper_ids:
-            # since we are verifying an unverified person and there are excluded papers,
-            # disable name matching
-            log.info('Disabling name matching to limit to the specified papers.')
-            target_person.disable_name_matching = True
-            changes = (
-                changes + ' and disable name matching for'
-                if changes
-                else 'Disable name matching for'
-            )
 
     canonical_name = primary_person.canonical_name
 
     # Merge any other Persons into the target Person
-    numExplicit = 0  # items initially with an explicit author ID
     for person in people:
-        numExplicit += sum(1 for ns in person.namespecs() if ns.id is not None)
         if person is not target_person:
             if person.is_explicit:
                 log.info(f'Already verified, merging into another person: {person.id}')
@@ -219,7 +227,27 @@ def verify_by_author_id(
     target_person.set_id_on_items(exclude=except_paper_ids)
 
     numExplicit2 = sum(1 for ns in target_person.namespecs() if ns.id is not None)
-    log.info(f'...was explicit on {numExplicit}, now explicit on {numExplicit2}')
+    log.info(f'...was explicit on {numExplicit}, now explicit on {numExplicit2}:')
+    log.info(
+        [
+            item.full_id
+            for item in target_person.anthology_items()
+            if item.get_namespec_for(target_person).id is not None
+        ]
+    )
+
+    # If any of the excluded papers appear under the target person by implicit matching,
+    # disable name matching
+    for item_id in except_paper_ids or []:
+        if anthology.get(item_id).get_namespec_for(target_person) is not None:
+            log.info('Disabling name matching to limit to the specified papers.')
+            target_person.disable_name_matching = True
+            changes = (
+                changes + ' and disable name matching for'
+                if changes
+                else 'Disable name matching for'
+            )
+            break
 
     if changes:
         anthology.save_all()
@@ -313,6 +341,7 @@ def verify_by_paper(orcid, paper_ids, degree=None, suffix=None, only_these_paper
             for paper in person.anthology_items():
                 assert (
                     paper.full_id in just_paper_ids
+                    or paper.get_namespec_for(person).id is None
                 ), f'--only was specified, but list does not include already explicit paper under author {person.id}: {paper.full_id}'
 
     if person is None:
@@ -320,29 +349,35 @@ def verify_by_paper(orcid, paper_ids, degree=None, suffix=None, only_these_paper
         assert (
             degree is not None
         ), 'To newly verify an author we need a degree institution'
-        cur_person = anthology.resolve(paper_and_namespec[0][1])  # implicit match
+        cur_person = paper_and_namespec[0][1].resolve()  # implicit match
 
         # A paper is being split off from an implicitly matched (verified or unverified) Person's page.
         # Create a new verified Person for this paper (or group of papers).
         # We will add the papers to the new Person later.
         if not cur_person.is_explicit:
             # Currently unverified; verify
-            log.info('Verifying an unverified person')
-            new_aid = anthology.people.generate_person_id(cur_person, suffix)
-            cur_person.make_explicit(new_aid, skip_setting_ids=True)
-            person = cur_person
+            log.info('Verifying an unverified person for specific papers')
+            # new_aid = anthology.people.generate_person_id(cur_person, suffix)
+            # cur_person.make_explicit(new_aid, skip_setting_ids=True)
+            # -- make_explicit() currently copies all names, but we may just want a subset of names
+            # person = cur_person
         else:
             # Matches a verified person; we need to create a new verified person
             log.info('Splitting from a verified person (implicit name match)')
-            new_aid = anthology.people.generate_person_id(
-                paper_and_namespec[0][1].name, suffix
-            )
-            log.info(f'Verifying author from scratch: {new_aid}')
-            person = anthology.people.create(new_aid, [paper_and_namespec[0][1].name])
+
+        new_aid = anthology.people.generate_person_id(
+            paper_and_namespec[0][1].name, suffix
+        )
+        log.info(f'Creating new verified author: {new_aid}')
+        person = anthology.people.create(
+            new_aid, [paper_and_namespec[0][1].name] + paper_and_namespec[0][1].variants
+        )
 
         for _, ns in paper_and_namespec[1:]:
             # Add any names from other papers (which may correspond to other unverified persons)
             person.add_name(ns.name)
+            for variant in ns.variants:
+                person.add_name(variant)  # name in different script
 
         changes = 'Verify'
 
