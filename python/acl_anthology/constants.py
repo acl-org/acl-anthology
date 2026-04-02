@@ -26,6 +26,9 @@ NO_BIBKEY: Final = "__NO_BIBKEY__"
 UNKNOWN_INGEST_DATE = date(1900, 1, 1)
 """Default ingestion date."""
 
+RE_BIBKEY = rf"^([a-z][a-z0-9-]+)|({NO_BIBKEY})$"
+"""A regular expression matching a valid bibkey (following our conventions)."""
+
 RE_EVENT_ID = r"^[a-z0-9]+-[0-9]{4}$"
 """A regular expression matching a valid event ID."""
 

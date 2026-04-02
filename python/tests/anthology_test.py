@@ -1,4 +1,4 @@
-# Copyright 2023-2025 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2026 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ from acl_anthology import Anthology
 from acl_anthology.collections import Collection
 from acl_anthology.people import PersonIndex, Name
 from acl_anthology.venues import VenueIndex
+from acl_anthology.sigs import SIGIndex
 
 
 def test_instantiate(shared_datadir):
@@ -121,7 +122,8 @@ def test_papers(anthology):
         count += 1
         found.add(paper.collection_id)
     assert expected == found
-    assert count == 852
+    # TODO: can we compare this against counting "<paper>" tags or something?
+    assert count == 855
 
 
 def test_papers_by_collection_id(anthology):
@@ -129,7 +131,7 @@ def test_papers_by_collection_id(anthology):
     for paper in anthology.papers("2022.naloma"):
         assert paper.collection_id == "2022.naloma"
         count += 1
-    assert count == 7
+    assert count == 10
 
 
 def test_papers_by_volume_id(anthology):
@@ -165,13 +167,13 @@ def test_find_people(anthology):
 
 def test_resolve_single_author(anthology):
     name_spec = anthology.get_paper("J89-1001").authors[0]
-    person = anthology.resolve(name_spec)
+    person = name_spec.resolve()
     assert person.canonical_name == Name("Oliviero", "Stock")
 
 
 def test_resolve_author_list(anthology):
-    name_spec = anthology.get_paper("J89-1001").authors
-    person = anthology.resolve(name_spec)
+    name_specs = anthology.get_paper("J89-1001").authors
+    person = [ns.resolve() for ns in name_specs]
     assert len(person) == 1
     assert person[0].canonical_name == Name("Oliviero", "Stock")
 
@@ -197,7 +199,7 @@ def test_save_all(anthology):
         patch.object(Collection, "save", autospec=True) as mock,
         patch.object(PersonIndex, "save") as people_mock,
         patch.object(VenueIndex, "save") as venue_mock,
-        pytest.warns(UserWarning),
+        patch.object(SIGIndex, "save") as sig_mock,
     ):
         anthology.save_all()
 
@@ -210,3 +212,4 @@ def test_save_all(anthology):
         # Check the others
         people_mock.assert_called_once()
         venue_mock.assert_called_once()
+        sig_mock.assert_called_once()

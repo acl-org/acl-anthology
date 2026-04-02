@@ -1,0 +1,400 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2026.africanlp">
+  <volume id="main" type="proceedings" ingest-date="2026-03-17">
+    <meta>
+      <booktitle>Proceedings of the 7th Workshop on <fixed-case>A</fixed-case>frican Natural Language Processing (<fixed-case>A</fixed-case>frica<fixed-case>NLP</fixed-case> 2026)</booktitle>
+      <editor><first>Everlyn Asiko</first><last>Chimoto</last></editor>
+      <editor><first>Constantine</first><last>Lignos</last></editor>
+      <editor><first>Shamsuddeen</first><last>Muhammad</last></editor>
+      <editor><first>Idris</first><last>Abdulmumin</last></editor>
+      <editor><first>Clemencia</first><last>Siro</last></editor>
+      <editor><first>David Ifeoluwa</first><last>Adelani</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Rabat, Morocco</address>
+      <isbn>979-8-89176-364-7</isbn>
+      <month>March</month>
+      <year>2026</year>
+      <url hash="a14a441c">2026.africanlp-main</url>
+      <venue>africanlp</venue>
+      <venue>ws</venue>
+      <doi>10.18653/v1/2026.africanlp-main</doi>
+    </meta>
+    <frontmatter>
+      <url hash="88335239">2026.africanlp-main.0</url>
+      <bibkey>africanlp-2026-main</bibkey>
+      <doi>10.18653/v1/2026.africanlp-main.0</doi>
+    </frontmatter>
+    <paper id="1">
+      <title>Dealing with the Hard Facts of Low-Resource <fixed-case>A</fixed-case>frican <fixed-case>NLP</fixed-case></title>
+      <author id="michael-leventhal" orcid="0000-0002-4337-9394"><first>Michael</first><last>Leventhal</last><affiliation>RobotsMali</affiliation></author>
+      <author id="yacouba-diarra" orcid="0009-0008-2860-9738"><first>Yacouba</first><last>Diarra</last><affiliation>RobotsMali AI4D Lab</affiliation></author>
+      <author><first>Nouhoum</first><last>Coulibaly</last></author>
+      <author><first>Panga Azazia</first><last>Kamaté</last><affiliation>Robots Mali</affiliation></author>
+      <author><first>Aymane</first><last>Dembélé</last><affiliation>NA</affiliation></author>
+      <author><first>Madani Amadou</first><last>Tall</last><affiliation>NA</affiliation></author>
+      <author><first>Emmanuel Elise</first><last>Kone</last></author>
+      <pages>1-10</pages>
+      <abstract>Creating speech datasets, models, and evaluation frameworks for low-resource languages remains challenging given the lack of a broad base of pertinent experience to draw from. This paper reports on the field collection of 612 hours of spontaneous speech in Bambara, a low-resource West African language; the semi-automated annotation of that dataset with transcriptions; the creation of several monolingual ultra-compact and small models using the dataset; and the automatic and human evaluation of their output. We offer practical suggestions for data collection protocols, annotation, and model design, as well as evidence for the importance of performing human evaluation. In addition to the main dataset, multiple evaluation datasets, models, and code are made publicly available.</abstract>
+      <url hash="90b71749">2026.africanlp-main.1</url>
+      <bibkey>leventhal-etal-2026-dealing</bibkey>
+      <doi>10.18653/v1/2026.africanlp-main.1</doi>
+    </paper>
+    <paper id="2">
+      <title><fixed-case>M</fixed-case>-<fixed-case>M</fixed-case>ini<fixed-case>GPT</fixed-case>4: Multilingual <fixed-case>VLLM</fixed-case> Alignment via Translated Data</title>
+      <author><first>Seung Hun Eddie</first><last>Han</last><affiliation>Inception AI and Mohamed bin Zayed University of Artificial Intelligence</affiliation></author>
+      <author id="youssef-mohamed" orcid="0000-0001-5699-7362"><first>Youssef</first><last>Mohamed</last></author>
+      <author id="mohamed-elhoseiny" orcid="0000-0001-9659-1551"><first>Mohamed</first><last>Elhoseiny</last></author>
+      <pages>11-16</pages>
+      <abstract>This paper presents a Multilingual Vision Large Language Model, named M-MiniGPT4. Our model exhibits strong vision-language understanding (VLU) capabilities across 11 languages. We utilize a mixture of native multilingual and translated data to push the multilingual VLU performance of the MiniGPT4 architecture. In addition, we propose a multilingual alignment training stage that uses parallel text corpora to further enhance the multilingual capabilities of our model. M-MiniGPT4 achieves 36% accuracy on the multilingual MMMU benchmark, outperforming state-of-the-art models in the same weight class, including foundation models released after the majority of this work was completed. We open-source our models, code, and translated datasets to facilitate future research in low-resource and multilingual settings.</abstract>
+      <url hash="29c92371">2026.africanlp-main.2</url>
+      <bibkey>han-etal-2026-minigpt4</bibkey>
+      <doi>10.18653/v1/2026.africanlp-main.2</doi>
+    </paper>
+    <paper id="3">
+      <title><fixed-case>I</fixed-case>nstruct<fixed-case>LR</fixed-case>: A Scalable Approach to Create Instruction Dataset for Under-Resourced Languages</title>
+      <author><first>Mamadou K.</first><last>Keita</last></author>
+      <author id="sebastien-diarra" orcid="0009-0008-8010-6492"><first>Sebastien</first><last>Diarra</last><affiliation>RobotsMali</affiliation></author>
+      <author><first>Christopher M</first><last>Homan</last></author>
+      <author><first>Seydou</first><last>Diallo</last><affiliation>MALIBA-AI and Caytu Robotics</affiliation></author>
+      <pages>17-36</pages>
+      <abstract>Effective text generation and chat interfaces for low-resource languages (LRLs) remain a challenge for state-of-the-art large language models (LLMs) to support. This is mainly due to the difficulty of curating high-quality instruction datasets for LRLs, a limitation prevalent in the languages spoken across the African continent and other regions. Current approaches, such as automated translation and synthetic data generation, frequently yield outputs that lack fluency or even orthographic consistency. In this paper, we introduce InstructLR, a novel framework designed to generate high-quality instruction datasets for LRLs. Our approach integrates LLM-driven text generation with a dual-layer quality filtering mechanism: an automated filtering layer based on retrieval-augmented-generation (RAG)-based n-shot prompting, and a human-in-the-loop validation layer. Drawing inspiration from benchmarks such as MMLU in task definition, InstructLR has facilitated the creation of three multi-domain instruction benchmarks: **ZarmaInstruct-50k**, **BambaraInstruct-50k**, and **FulfuldeInstruct-50k**.</abstract>
+      <url hash="d6a72850">2026.africanlp-main.3</url>
+      <bibkey>keita-etal-2026-instructlr</bibkey>
+      <doi>10.18653/v1/2026.africanlp-main.3</doi>
+    </paper>
+    <paper id="4">
+      <title>Leveraging <fixed-case>C</fixed-case>o<fixed-case>H</fixed-case>ere Multilingual Embeddings and Inverted Softmax Retrieval for Automatic Parallel Sentence Alignment in Low-Resource Languages</title>
+      <author><first>Abubakar Auwal</first><last>Khalid</last></author>
+      <author><first>Salisu Musa</first><last>Borodo</last><affiliation>NA</affiliation></author>
+      <author><first>Amina Abubakar</first><last>Imam</last><affiliation>University of Abuja</affiliation></author>
+      <pages>37-43</pages>
+      <abstract>We present an improved method for automaticparallel sentence alignment in low- resourcelanguages. We used CoHere multilingualembeddings and inverted softmax retrieval.Our technique achieved a higher F1-score of78.30% on the MAFAND-MT test set, comparedto the existing technique’s 54.75%. Precisionand recall have shown similar performance.We assessed the quality of the extracted data bydemonstrating that it outperforms the existingtechnique in terms of low-resource translationperformance.</abstract>
+      <url hash="be9ee860">2026.africanlp-main.4</url>
+      <bibkey>khalid-etal-2026-leveraging</bibkey>
+      <doi>10.18653/v1/2026.africanlp-main.4</doi>
+    </paper>
+    <paper id="5">
+      <title><fixed-case>A</fixed-case>fri<fixed-case>C</fixed-case>aption: Establishing a New Paradigm for Image Captioning in <fixed-case>A</fixed-case>frican Languages</title>
+      <author><first>Mardiyyah</first><last>Oduwole</last><affiliation>ML Collective</affiliation></author>
+      <author id="prince-mireku" orcid="0009-0006-0333-9650"><first>Prince</first><last>Mireku</last></author>
+      <author><first>Fatimo</first><last>Adebanjo</last></author>
+      <author><first>Oluwatosin</first><last>Olajide</last><affiliation>ML Collective</affiliation></author>
+      <author><first>Mahi Aminu</first><last>Aliyu</last></author>
+      <author id="jekaterina-novikova" orcid="0000-0003-4754-6126"><first>Jekaterina</first><last>Novikova</last><affiliation>Vanguard</affiliation></author>
+      <pages>44-55</pages>
+      <abstract>Multimodal AI research has overwhelmingly focused on high-resource languages, hindering the democratization of advancements in the field. To address this, we present AfriCaption, a comprehensive framework for multilingual image captioning in 20 African languages and our contributions are threefold: (i) a curated dataset built on Flickr8k, featuring semantically aligned captions generated via a context-aware selection and translation process; (ii) a dynamic, context-preserving pipeline that ensures ongoing quality through model ensembling and adaptive substitution; and (iii) the AfriCaption model, a 0.5B parametervision-to-text architecture that integrates SigLIP and NLLB200 for caption generation across underrepresented languages. This unified framework ensures ongoing data quality and establishes the first scalable image-captioning resource for underrepresented African languages, laying the groundwork for truly inclusive multimodal AI.</abstract>
+      <url hash="a94efe7f">2026.africanlp-main.5</url>
+      <bibkey>oduwole-etal-2026-africaption</bibkey>
+      <doi>10.18653/v1/2026.africanlp-main.5</doi>
+    </paper>
+    <paper id="6">
+      <title>Developing an <fixed-case>E</fixed-case>nglish–<fixed-case>E</fixed-case>fik Corpus and Machine Translation System for Digitization Inclusion</title>
+      <author id="offiong-bassey-edet" orcid="0009-0007-4890-2635"><first>Offiong Bassey</first><last>Edet</last></author>
+      <author id="mbuotidem-awak" orcid="0009-0004-6388-8921"><first>Mbuotidem</first><last>Awak</last></author>
+      <author><first>Emmanuel Ubene</first><last>Oyo-Ita</last></author>
+      <author><first>Benjamin Okon</first><last>Nyong</last></author>
+      <author><first>Ita Etim</first><last>Bassey</last><affiliation>NA</affiliation></author>
+      <pages>56-63</pages>
+      <abstract>Low-resource languages serve as invaluable repositories of human history, preserving cultural and intellectual diversity. Despite their significance, they remain largely absent from modern natural language processing systems. While progress has been made for widely spoken African languages such as Swahili, Yoruba, and Amharic, smaller indigenous languages like Efik continue to be underrepresented in machine translation research. This study evaluates the effectiveness of state-of-the-art multilingual neural machine translation models for English–Efik translation, leveraging a small-scale, community-curated parallel corpus of <tex-math>N = 13{,}865</tex-math> sentence pairs. We fine-tuned both the mT5 multilingual model and the NLLB-200 model on this dataset. NLLB-200 outperformed mT5, achieving BLEU scores of 26.64 for English–Efik and 31.21 for Efik–English, with corresponding chrF scores of 51.04 and 47.92, indicating improved fluency and semantic fidelity. Our findings demonstrate the feasibility of developing practical machine translation tools for low-resource languages and highlight the importance of inclusive data practices and culturally grounded evaluation in advancing equitable NLP.</abstract>
+      <url hash="e0a741ab">2026.africanlp-main.6</url>
+      <bibkey>edet-etal-2026-developing</bibkey>
+      <doi>10.18653/v1/2026.africanlp-main.6</doi>
+    </paper>
+    <paper id="7">
+      <title>Reasoning Beyond Labels: Measuring <fixed-case>LLM</fixed-case> Sentiment in Low-Resource, Culturally Nuanced Contexts</title>
+      <author id="millicent-ochieng" orcid="0000-0003-4769-7039"><first>Millicent</first><last>Ochieng</last><affiliation>Microsoft</affiliation></author>
+      <author id="anja-thieme" orcid="0000-0002-9639-5531"><first>Anja</first><last>Thieme</last><affiliation>Microsoft</affiliation></author>
+      <author id="ignatius-ezeani" orcid="0000-0001-8286-9997"><first>Ignatius</first><last>Ezeani</last><affiliation>Lancaster University</affiliation></author>
+      <author id="risa-ueno" orcid="0000-0002-4083-8460"><first>Risa</first><last>Ueno</last></author>
+      <author id="samuel-chege-maina" orcid="0000-0002-0754-2553"><first>Samuel Chege</first><last>Maina</last></author>
+      <author id="keshet-ronen" orcid="0000-0001-5625-4884"><first>Keshet</first><last>Ronen</last><affiliation>University of Washington</affiliation></author>
+      <author><first>Javier</first><last>Gonzalez</last></author>
+      <author><first>Jacki</first><last>O'Neill</last><affiliation>Microsoft</affiliation></author>
+      <pages>64-81</pages>
+      <abstract>Sentiment analysis in low-resource, culturally nuanced contexts challenges conventional NLP approaches that assume fixed labels and universal affective expressions. We present a diagnostic framework that treats sentiment as a context-dependent, culturally embedded construct, and evaluate how large language models (LLMs) reason about sentiment in informal, code-mixed WhatsApp messages from Nairobi youth health groups. Using human-annotated data, sentiment-flipped counterfactuals, and rubric-based explanation evaluation, we probe LLM interpretability, robustness, and alignment with human reasoning. Framing our evaluation through a social science measurement lens, we operationalize LLM outputs as an instrument for measuring the abstract concept of sentiment. Our findings reveal significant variation in model reasoning quality, with top-tier LLMs demonstrating greater interpretive stability, while smaller open-weight models in our study show reduced stability under ambiguity or sentiment shifts. This work highlights the need for culturally sensitive, reasoning-aware AI evaluation in complex, real-world communication.</abstract>
+      <url hash="e4dcbcd7">2026.africanlp-main.7</url>
+      <bibkey>ochieng-etal-2026-reasoning</bibkey>
+      <doi>10.18653/v1/2026.africanlp-main.7</doi>
+    </paper>
+    <paper id="8">
+      <title><fixed-case>ÒWE</fixed-case>-Voice: An Evaluation of Monolingual and Multilingual <fixed-case>ASR</fixed-case> Model Using <fixed-case>Y</fixed-case>oruba Proverb Speech Dataset</title>
+      <author><first>Daud</first><last>Abolade</last></author>
+      <pages>82-87</pages>
+      <abstract>Given the advancement of various Artificial Intelligence (AI) technologies in the 21st century, Automatic Speech Recognition (ASR) plays a vital role in human and machine interaction and serves as an interface for a wide range of applications. The development of these high-performing, robust and useful technologies continue to gain more attention on high-resource languages due to high availability of language data, market profitability dominance and access to funding and research initiatives compared to the marginalised low-resource languages. Despite efforts to develop ASR systems for African languages, there are still numerous challenges due to limited speech datasets, tonal complexity and dialectal variation. In this study, we curated a domain-specific speech dataset for one of the oral Yoruba literatures, proverbs, which are highly culturally inclined. We used the Yoruba recording app that was developed for Iroyin-speech project to record 6 hours of Yoruba proverb sentences. The NCAIR1/Yoruba-ASR model which was finetuned on Open AI Whisper Small and Massively Multilingual Speech, a multilingual speech model featuring low-resource languages including Yoruba language was evaluated with the recorded Yoruba proverbs. Evaluation was conducted based on Word Error Rate (WER) and Tone Error Rate (TER). Our result shows that current ASR systems that support Yoruba does not capture cultural nuances. These findings highlight an urgent need to curate more robust speech datasets that are culturally embedded for low resource languages and in this case particularly, Yoruba language in order to build technological tools that preserve African culture, language and identity.</abstract>
+      <url hash="8e83915d">2026.africanlp-main.8</url>
+      <bibkey>abolade-2026-owe</bibkey>
+      <doi>10.18653/v1/2026.africanlp-main.8</doi>
+    </paper>
+    <paper id="9">
+      <title>Language Choice in <fixed-case>N</fixed-case>igerian Social Media Hate Speech</title>
+      <author><first>Nneoma C</first><last>Udeze</last></author>
+      <author><first>Rob</first><last>Voigt</last><affiliation>University of California, Davis</affiliation></author>
+      <pages>88-102</pages>
+      <abstract>Language choice in multilingual societies is rarely arbitrary. In Nigerian, English, Nigerian Pidgin (NP) and indigenous languages are strategically deployed in online discourse, yet little is known about how they function in hostile contexts. Here we conduct the first systematic analysis of NP in online hate speech on two platforms, Twitter and Instagram. Using a linguistically enriched annotation scheme, we label each post for class, targeted group, language variety, and hate type. Our results show that NP is disproportionately used in offensive and hateful discourse, particularly against Hausa, women, and LGBTQ+ groups, and that insults are the dominant hate strategy. Cross-domain evaluation further reveals that classifiers trained on Twitter systematically over-predict hate on Instagram, highlighting challenges of domain transfer. These findings underscore NP’s role as a linguistic resource for hostility and its sociolinguistic salience in amplifying stereotypes and affect. For NLP, the work demonstrates the need for NP-specific resources, sensitivity to figurative strategies, and domain adaptation across platforms. By bridging sociolinguistics and computational modeling, this study contributes new evidence on how language choice shapes online hate speech in a multilingual African context.</abstract>
+      <url hash="49c9b936">2026.africanlp-main.9</url>
+      <bibkey>udeze-voigt-2026-language</bibkey>
+      <doi>10.18653/v1/2026.africanlp-main.9</doi>
+    </paper>
+    <paper id="10">
+      <title>The Token Tax: Systematic Bias in Multilingual Tokenization</title>
+      <author id="jessica-m-lundin" orcid="0000-0003-3799-1453"><first>Jessica M.</first><last>Lundin</last></author>
+      <author><first>Ada</first><last>Zhang</last></author>
+      <author><first>Nihal</first><last>Karim</last></author>
+      <author><first>Hamza</first><last>Louzan</last></author>
+      <author><first>Guohao</first><last>Wei</last></author>
+      <author id="david-ifeoluwa-adelani" orcid="0000-0002-0193-2083"><first>David Ifeoluwa</first><last>Adelani</last><affiliation>McGill University</affiliation></author>
+      <author id="cody-carroll" orcid="0000-0003-3525-8653"><first>Cody</first><last>Carroll</last></author>
+      <pages>103-112</pages>
+      <abstract>Tokenization inefficiency is associated with structural disadvantages on morphologically complex, low-resource languages, inflating compute resources and reducing accuracy. We evaluate 10 Large Language Models (LLMs) on AfriMMLU (5 subjects; 16 African languages) and show that token fertility reliably predicts accuracy. Higher fertility consistently predicts lower accuracy across all models and subjects. We further find that reasoning models (e.g., DeepSeek, o1) consistently outperform non-reasoning peers across high- and low-resource languages in the AfriMMLU dataset, narrowing accuracy gaps observed in prior generations. In terms of economics, a doubling in tokens results in quadrupled training cost and time, underscoring the “token tax” faced by many languages. These results motivate morphologically aware tokenization, fair pricing, and multilingual benchmarks for equitable natural language processing (NLP).</abstract>
+      <url hash="6af72d41">2026.africanlp-main.10</url>
+      <bibkey>lundin-etal-2026-token</bibkey>
+      <doi>10.18653/v1/2026.africanlp-main.10</doi>
+    </paper>
+    <paper id="11">
+      <title><fixed-case>E</fixed-case>du<fixed-case>N</fixed-case>aija <fixed-case>AI</fixed-case> Tutor: A Multi-Agent Retrieval-Augmented Generation System for <fixed-case>N</fixed-case>igerian Curriculum Education</title>
+      <author><first>Israel Olanrewaju</first><last>Odeajo</last></author>
+      <author><first>Edifon Emmanuel</first><last>Jimmy</last></author>
+      <pages>113-115</pages>
+      <abstract>Equitable access to quality education remains a critical challenge in Nigeria, where millions of students prepare annually for standardized examinations (WAEC, NECO, JAMB) with limited access to personalized tutoring (Badei et.al, 2024). This research presents EduNaija AI Tutor, a multi-agent Retrieval-Augmented Generation (RAG) system designed to democratize educational support through AI-powered tutoring aligned with Nigerian curricula. The system integrates conversational AI with document-based question answering, automated assessment generation, and multilingual support for English, Yoruba, Hausa, and Igbo. Using LangChain for agent orchestration, OpenAI GPT models for natural language processing, and FAISS for vector retrieval, the system enables students to interact with educational content through natural language queries while maintaining cultural relevance through Nigerian-contextualized examples and conventions (Chukwuma et.al, 2024). The multi-agent architecture comprises five specialized components: a main orchestrator, explanation agent, quiz generation agent, web search agent, and RAG agent for processing uploaded educational materials. Preliminary evaluation demonstrates the system’s capability to provide curriculum-aligned explanations, generate practice assessments, and answer questions from uploaded textbooks and study materials. This work contributes a culturally-aware educational AI framework addressing linguistic diversity and curriculum alignment challenges in African educational contexts, while leveraging open-source tools for reproducibility and accessibility (Shoukat et.al, 2025).</abstract>
+      <url hash="8ab16b14">2026.africanlp-main.11</url>
+      <bibkey>odeajo-jimmy-2026-edunaija</bibkey>
+      <doi>10.18653/v1/2026.africanlp-main.11</doi>
+    </paper>
+    <paper id="12">
+      <title>Synthetic Data Generation Pipeline for Low-Resource <fixed-case>S</fixed-case>wahili Sentiment Analysis: Multi-<fixed-case>LLM</fixed-case> Judging with Human Validation</title>
+      <author><first>Samuel</first><last>Gyamfi</last></author>
+      <author id="alfred-malengo-kondoro" orcid="0009-0000-6664-7526"><first>Alfred Malengo</first><last>Kondoro</last></author>
+      <author><first>Yankı</first><last>Öztürk</last></author>
+      <author><first>Richard Hans</first><last>Schreiber</last></author>
+      <author><first>Vadim</first><last>Borisov</last><affiliation>Tabularis.AI</affiliation></author>
+      <pages>116-141</pages>
+      <abstract>Despite serving over 100 million speakers as a vital African lingua franca, Swahili remains critically under-resourced for Natural Language Processing, hindering technological progress across East Africa. We present a scalable solution: a controllable synthetic data generation pipeline that produces culturally grounded Swahili text for sentiment analysis, validated through automated LLM judges. To ensure reliability, we conduct targeted human evaluation with a native Swahili speaker on a stratified sample, achieving 80.95% agreementbetween generated sentiment labels and human ground truth, with strong agreement on judge quality assessments. This demonstrates that LLM-based generation and quality assessment can transfer effectively to low-resource languages. We release a dataset and provide a reproducible pipeline in tandem, providing ample knowledge and working material for NLP researchers in low-resource contexts. We release the resulting Swahili sentiment dataset and the full reproducible generation pipeline publicly at https://huggingface.co/datasets/tabularisai/swahili-sentiment-dataset and https://github.com/tabularis-ai/Synthetic-Data-Generation-Pipeline-for-Low-Resource-Swahili-Sentiment-Analysis.</abstract>
+      <url hash="d7ec012b">2026.africanlp-main.12</url>
+      <bibkey>gyamfi-etal-2026-synthetic</bibkey>
+      <doi>10.18653/v1/2026.africanlp-main.12</doi>
+    </paper>
+    <paper id="13">
+      <title>Advancing <fixed-case>A</fixed-case>frican <fixed-case>NLP</fixed-case>: <fixed-case>UDM</fixed-case>orph and flexi<fixed-case>P</fixed-case>ipe</title>
+      <author id="maarten-janssen" orcid="0000-0003-0272-6318"><first>Maarten</first><last>Janssen</last><affiliation>Charles University Prague</affiliation></author>
+      <pages>142-148</pages>
+      <abstract>In this paper, we present some of our recent efforts to provide base NLP pipelines for African languages. These include an infrastructure called UDMorph to make UD-compatible training data available for resources that do not have dependency relations, and a Python package called flexiPipe to easily run an NLP pipeline in various NLP tools using a uniform front-end, including the models provided by UDMorph. flexiPipe also provides Unicode normalization, an often overlooked feature that has a significant impact on African NLP. flexiPipe currently provides an NLP pipeline for 33 African languages, a significant increase from the handful of models that are currently easily accessible. And UDMorph is designed to make it easy to provide training data for more languages.</abstract>
+      <url hash="5a93600b">2026.africanlp-main.13</url>
+      <bibkey>janssen-2026-advancing</bibkey>
+      <doi>10.18653/v1/2026.africanlp-main.13</doi>
+    </paper>
+    <paper id="14">
+      <title>Linguistically Informed Evaluation of Multilingual <fixed-case>ASR</fixed-case> for <fixed-case>A</fixed-case>frican Languages</title>
+      <author><first>Fei-Yueh</first><last>Chen</last></author>
+      <author><first>Lateef</first><last>Adeleke</last></author>
+      <author><first>C. M.</first><last>Downey</last><affiliation>University of Rochester</affiliation></author>
+      <pages>149-162</pages>
+      <abstract>Word Error Rate (WER) mischaracterizes ASR models’ performance for African languages by combining phonological, tone, and other linguistic errors into a single lexical error. By contrast, Feature Error Rate (FER) has recently attracted attention as a viable metric that reveals linguistically meaningful errors in models’ performance. In this paper, we evaluate three speech encoders on two African languages by complementing WER with CER, and FER, and add a tone-aware extension (TER). We show that by computing errors on phonological features, FER and TER reveal linguistically-salient error patterns even when word-level accuracy remains low. Our results reveal that models perform better on segmental features, while tones (especially mid and downstep) remain the most challenging features. Results on Yoruba show a striking differential in metrics, with WER=0.788, CER=0.305, and FER=0.151. Similarly for Uneme (an endangered language absent from pretraining data) a model with near-total WER and 0.461 CER achieves the relatively low FER of 0.267. This indicates model error is often attributable to individual phonetic feature errors, which is obscured by all-or-nothing metrics like WER.</abstract>
+      <url hash="0f3e1df7">2026.africanlp-main.14</url>
+      <bibkey>chen-etal-2026-linguistically</bibkey>
+      <doi>10.18653/v1/2026.africanlp-main.14</doi>
+    </paper>
+    <paper id="15">
+      <title>Evaluating Native-Speaker Preferences on Machine Translation and Post-Edits for Five <fixed-case>A</fixed-case>frican Languages</title>
+      <author><first>Hiba</first><last>El Oirghi</last></author>
+      <author><first>Tajuddeen</first><last>Gwadabe</last><affiliation>Masakhane Research Foundation</affiliation></author>
+      <author><first>Marine</first><last>Carpuat</last><affiliation>University of Maryland, College Park</affiliation></author>
+      <pages>163-170</pages>
+      <abstract>Wikipedia editors undertake the task of editing machine translation (MT) outputs in various languages to disseminate multilingual knowledge from English. But are editors doing more than just translating or fixing MT output? To answer this broad question, we constructed a dataset of 4,335 fine-grained annotated parallel pairs of MT translations and human post-edit (HE) translations for five low-resource African languages: Hausa, Igbo, Swahili, Yoruba, and Zulu. We report on our data selection and annotation methodologies as well as findings from the annotated dataset, the most surprising of which is that annotators mostly preferred the MT translations over their HE counterparts for three out of five languages. We analyze the nature of these "fluency breaking" edits and provide recommendations for the MT post-editing workflows in the Wikipedia domain and beyond.</abstract>
+      <url hash="d9363385">2026.africanlp-main.15</url>
+      <bibkey>el-oirghi-etal-2026-evaluating</bibkey>
+      <doi>10.18653/v1/2026.africanlp-main.15</doi>
+    </paper>
+    <paper id="16">
+      <title>Building a Conversational <fixed-case>AI</fixed-case> Assistant for <fixed-case>A</fixed-case>frican Travel Services with <fixed-case>LLM</fixed-case>s and <fixed-case>RAG</fixed-case></title>
+      <author><first>Grace Kevine</first><last>Ngoufo</last></author>
+      <author id="shamsuddeen-hassan-muhammad" orcid="0000-0001-7708-0799"><first>Shamsuddeen Hassan</first><last>Muhammad</last><affiliation>Imperial College London and Bayero University, Kano-Nigeria</affiliation></author>
+      <author><first>Kevin Jeff Fogang</first><last>Fokoa</last><affiliation>NA</affiliation></author>
+      <pages>171-178</pages>
+      <abstract>Travel agencies in many African countries face increasing pressure to handle large volumes of customer inquiries with limited staff or, either non-existent or outdated rule-based chat-bots. To address this challenge, we develop a conversational virtual assistant powered by a Large Language Model (LLM) and enhanced with a Retrieval-Augmented Generation (RAG) pipeline. The system combines LLM reasoning, company-specific knowledge retrieval, and real-time API (Application Programming Interface) integration to deliver accurate, context-aware responses through WhatsApp, the region’s most widely used communication platform. A dedicated web interface enables staff to upload and update internal documents, ensuring that the assistant remains aligned with changing service information. Demonstrations show that the proposed solution improves response speed, enhances user experience, and reduces operational burden.</abstract>
+      <url hash="227cf57e">2026.africanlp-main.16</url>
+      <bibkey>ngoufo-etal-2026-building</bibkey>
+      <doi>10.18653/v1/2026.africanlp-main.16</doi>
+    </paper>
+    <paper id="17">
+      <title>Morphologically-informed <fixed-case>S</fixed-case>omali Lemmatization Corpus built with a Web-based Crowdsourcing Platform</title>
+      <author id="abdifatah-ahmed-gedi" orcid="0000-0002-3446-2540"><first>Abdifatah Ahmed</first><last>Gedi</last><affiliation>Jamhuriya University</affiliation></author>
+      <author><first>Shafie Abdi</first><last>Mohamed</last></author>
+      <author><first>Yusuf A.</first><last>Yusuf</last><affiliation>NA</affiliation></author>
+      <author><first>Muhidin A.</first><last>Mohamed</last></author>
+      <author><first>Fuad Mire</first><last>Hassan</last></author>
+      <author><first>Houssein A</first><last>Assowe</last><affiliation>Université de Djibouti</affiliation></author>
+      <pages>179-189</pages>
+      <abstract>Lemmatization, which reduces words to their root forms, plays a key role in tasks such as information retrieval, text indexing, and machinelearning-based language models. However, a key research challenge for low-resourced languages such as the Somali is the lack of human-annotated lemmatization datasets and reliable ground truth to underpin accurate morphological analysis and training relevant NLP models. To address this problem, we developed the first large-scale, purpose-built Somali lemmatization lexicon, coupled with a crowdsourcing platform for ongoing expansion. The system leverages Somali’s agglutinative and derivational morphology, encompassing over5,584 root words and 78,629 derivative forms, each annotated with part-of-speech tags. For data validation purpose, we have devised a pilot lexicon-based lemmatizer integrated with rule-based logic to handle out-of-vocabulary terms. Evaluation on a 294-document corpuscovering news articles, social media posts, and short messages shows lemmatization accuracies of 51.27% for full articles, 44.14% forexcerpts, and 59.51% for short texts such as tweets. These results demonstrate that combining lexical resources, POS tagging, and rulebased strategies provides a robust and scalable framework for addressing morphological complexity in Somali and other low-resource languages</abstract>
+      <url hash="a2fa9961">2026.africanlp-main.17</url>
+      <bibkey>gedi-etal-2026-morphologically</bibkey>
+      <doi>10.18653/v1/2026.africanlp-main.17</doi>
+    </paper>
+    <paper id="18">
+      <title>Kunnafonidilaw ka Cadeau: an <fixed-case>ASR</fixed-case> dataset of present-day <fixed-case>B</fixed-case>ambara</title>
+      <author id="michael-leventhal" orcid="0000-0002-4337-9394"><first>Michael</first><last>Leventhal</last><affiliation>RobotsMali</affiliation></author>
+      <author id="yacouba-diarra" orcid="0009-0008-2860-9738"><first>Yacouba</first><last>Diarra</last><affiliation>RobotsMali AI4D Lab</affiliation></author>
+      <author><first>Nouhoum</first><last>Coulibaly</last></author>
+      <author><first>Panga Azazia</first><last>Kamaté</last><affiliation>Robots Mali</affiliation></author>
+      <pages>190-196</pages>
+      <abstract>We present Kunkado, a 160-hour Bambara ASR dataset compiled from Malian radio archives to capture present-day spontaneous speech across a wide range of topics. It includes code-switching, disfluencies, background noise, and overlapping speakers that practical ASR systems encounter in real-world use. We finetuned Parakeet-based models on a 33.47-hour human-reviewed subset and apply pragmatic transcript normalization to reduce variability in number formatting, tags, and code-switching annotations. Evaluated on two real-world test sets, finetuning with Kunkado reduces WER from 44.47% to 37.12% on one and from 36.07% to 32.33% on the other. In human evaluation, the resulting model also outperforms a comparable system with the same architecture trained on 98 hours of cleaner, less realistic speech. We release the data and models to support robust ASR for predominantly oral languages.</abstract>
+      <url hash="ee5c066c">2026.africanlp-main.18</url>
+      <bibkey>leventhal-etal-2026-kunnafonidilaw</bibkey>
+      <doi>10.18653/v1/2026.africanlp-main.18</doi>
+    </paper>
+    <paper id="19">
+      <title>Full Fine-Tuning vs. Parameter-Efficient Adaptation for Low-Resource <fixed-case>A</fixed-case>frican <fixed-case>ASR</fixed-case>: A Controlled Study with Whisper-Small</title>
+      <author><first>Sukairaj Hafiz</first><last>Imam</last></author>
+      <author><first>Muhammad Yahuza</first><last>Bello</last></author>
+      <author><first>Hadiza Ali</first><last>Umar</last><affiliation>NA</affiliation></author>
+      <author id="tadesse-destaw-belay" orcid="0000-0003-0883-984X"><first>Tadesse Destaw</first><last>Belay</last></author>
+      <author id="idris-abdulmumin" orcid="0000-0002-3795-8381"><first>Idris</first><last>Abdulmumin</last><affiliation>University of Pretoria</affiliation></author>
+      <author id="seid-muhie-yimam" orcid="0000-0002-8289-388X"><first>Seid Muhie</first><last>Yimam</last><affiliation>Universität Hamburg</affiliation></author>
+      <author id="shamsuddeen-hassan-muhammad" orcid="0000-0001-7708-0799"><first>Shamsuddeen Hassan</first><last>Muhammad</last><affiliation>Imperial College London and Bayero University, Kano-Nigeria</affiliation></author>
+      <pages>197-203</pages>
+      <abstract>Automatic speech recognition (ASR) for African low-resource languages (LRLs) is often limited by scarce labelled data and the high cost of adapting large foundation models. This study evaluates whether parameter-efficient fine-tuning (PEFT) can serve as a practical alternative to full fine-tuning (FFT) for adapting Whisper-Small with limited labelled speech and constrained compute. We used a 10-hour subset of NaijaVoices covering Hausa, Yorùbá, and Igbo, and we compared FFT with several PEFT strategies under a fixed evaluation protocol. DoRA attains a 22.0% macro-average WER, closely aligning with the 22.1% achieved by FFT while updating only 4M parameters rather than 240M, and this difference remains within run-to-run variation across random seeds. Yorùbá consistently yields the lowest word error rates, whereas Igbo remains the most challenging, indicating that PEFT can deliver near FFT accuracy with substantially lower training and storage requirements for low-resource African ASR.</abstract>
+      <url hash="9f198460">2026.africanlp-main.19</url>
+      <bibkey>imam-etal-2026-full</bibkey>
+      <doi>10.18653/v1/2026.africanlp-main.19</doi>
+    </paper>
+    <paper id="20">
+      <title>Real-Time Spoken Instruction Following and Translation in Ugandan Languages</title>
+      <author><first>Benjamin</first><last>Akera</last></author>
+      <author><first>Tim Wenjie</first><last>Hu</last><affiliation>NA</affiliation></author>
+      <author><first>Patrick</first><last>Walukagga</last></author>
+      <author><first>Evelyn Nafula</first><last>Ouma</last><affiliation>Makerere University</affiliation></author>
+      <author id="yiga-gilbert" orcid="0009-0004-6001-1470"><first>Yiga</first><last>Gilbert</last></author>
+      <author><first>Ernest Tonny</first><last>Mwebaze</last><affiliation>Sunbird AI</affiliation></author>
+      <author><first>John</first><last>Quinn</last><affiliation>Sunbird AI</affiliation></author>
+      <pages>204-210</pages>
+      <abstract>Many languages are predominantly spoken rather than written, and to bring the benefits of LLMs to speakers of these languages, it is essential that models cater to the voice modality. The typical approach is to cascade ASR, LLM and TTS models together, though this results in systems with high latency, making them unsuitable for natural, real-time interaction. We describe results on taking the encoder part of a Whisper-based model trained to recognise ten languages common in Uganda, and using the Ultravox architecture to project its output directly to the input embedding space of a text model based on Qwen 3 32B, also trained to have comprehension of those languages. The result is a speech LLM with high accuracy and very low latency. For most spoken prompts, we can begin streaming a text response within as low as 50 ms, and a speech audio response within around one second, making real-time spoken interaction with an LLM possible for the first time in these languages. The model is available open source onHugging Face.</abstract>
+      <url hash="dd3989c5">2026.africanlp-main.20</url>
+      <bibkey>akera-etal-2026-real</bibkey>
+      <doi>10.18653/v1/2026.africanlp-main.20</doi>
+    </paper>
+    <paper id="21">
+      <title><fixed-case>SALT</fixed-case>-31: A Machine Translation Benchmark Dataset for 31 Ugandan Languages</title>
+      <author id="solomon-nsumba" orcid="0000-0002-1264-5565"><first>Solomon</first><last>Nsumba</last></author>
+      <author><first>Benjamin</first><last>Akera</last></author>
+      <author><first>Evelyn Nafula</first><last>Ouma</last><affiliation>Makerere University</affiliation></author>
+      <author><first>Medadi E.</first><last>Ssentanda</last></author>
+      <author><first>Deo</first><last>Kawalya</last><affiliation>NA</affiliation></author>
+      <author><first>Engineer</first><last>Bainomugisha</last></author>
+      <author><first>Ernest Tonny</first><last>Mwebaze</last><affiliation>Sunbird AI</affiliation></author>
+      <author><first>John</first><last>Quinn</last></author>
+      <pages>211-216</pages>
+      <abstract>We present the SALT-31 benchmark dataset for evaluation of machine translation models covering 31 Ugandan languages. Unlike sentence-level evaluation sets, SALT-31 is constructed from short, scenario-driven mini-dialogues designed to preserve discourse context, pragmatics, and culturally grounded communication patterns common in everyday Ugandan settings. The dataset contains 100 English sentences organized into 20 typical communication scenarios, each represented as a five-sentence mini-sequence. It can therefore be used to evaluate both sentence-level and paragraph level machine translation, and includes nearly every language spoken in a country with high linguistic diversity. It is available at https://huggingface.co/datasets/Sunbird/salt-31</abstract>
+      <url hash="98d10b5e">2026.africanlp-main.21</url>
+      <bibkey>nsumba-etal-2026-salt</bibkey>
+      <doi>10.18653/v1/2026.africanlp-main.21</doi>
+    </paper>
+    <paper id="22">
+      <title>Sample-Size Scaling of the <fixed-case>A</fixed-case>frican Languages <fixed-case>NLI</fixed-case> Evaluation</title>
+      <author id="anuj-tiwari" orcid="0009-0002-5885-1927"><first>Anuj</first><last>Tiwari</last></author>
+      <author><first>Oluwapelumi</first><last>Ogunremu</last></author>
+      <author><first>Terry</first><last>Oko-odion</last><affiliation>Machine Learning Collective</affiliation></author>
+      <author><first>Jesujuwon</first><last>Egbewale</last></author>
+      <author><first>Hannah Sopuruchi</first><last>Nwokocha</last><affiliation>Independent</affiliation></author>
+      <pages>217-227</pages>
+      <abstract>African languages have very little labelled data, and it is unclear if augmenting the quantity of annotation data reliably enhances downstream performance. The study is a systematic sample-size scaling study of natural language inference (NLI) on 16 African languages based on the AfriXNLI benchmark. Under controlled conditions, two multilingual transformer models with roughly 0.6B parameters XLM-R Large fine-tuned on XNLI and AfroXLM-R Large are tested on sample sizes of between 50 and 500 labeled examples and average their results across random subsampling runs. As opposed to the usual belief of monotonic increase with increased data, we find a strongly language-sensitive and often non-monotonic scaling behavior. Some languages show early saturation or decrease in performance with sample size as well as high variance in low resource regimes. These results indicate that the volume of data is not enough to guarantee stable profits to African NLI, creating the necessity of language-sensitive datasets creation and stronger multi-lingual modelling strategies.</abstract>
+      <url hash="73a195d2">2026.africanlp-main.22</url>
+      <bibkey>tiwari-etal-2026-sample</bibkey>
+      <doi>10.18653/v1/2026.africanlp-main.22</doi>
+    </paper>
+    <paper id="23">
+      <title>Evaluating <fixed-case>Y</fixed-case>oruba Text-to-Speech Systems for Accessible Computer-Based Testing in Visually Impaired Learners</title>
+      <author><first>Kausar Yetunde</first><last>Moshood</last><affiliation>LyngualLabs</affiliation></author>
+      <author><first>Victor Tolulope</first><last>Olufemi</last></author>
+      <author><first>Oreoluwa Boluwatife</first><last>Babatunde</last><affiliation>LyngualLabs</affiliation></author>
+      <author><first>Emmanuel</first><last>Bolarinwa</last><affiliation>Lynguallabs</affiliation></author>
+      <author><first>Williams</first><last>Oluwademilade</last><affiliation>LyngualLabs</affiliation></author>
+      <pages>228-234</pages>
+      <abstract>Text-to-Speech (TTS) technology offers potential to improve exam accessibility for visually impaired learners, but existing systems often underperform in underrepresented languages like Yoruba. This study evaluates current Yoruba TTS models in delivering standardized exam content to five visually impaired students through a web-based interface. Before testing, four Yoruba TTS systems were compared; only Facebook’s mms-tts-yor and YarnGPT produced intelligible Yoruba speech. Students experienced exam questions delivered by human voice, Braille, and TTS. All preferred Braille for clarity and independence, some valued human narration, while TTS was least favored due to robotic and unclear output. These results reveal a significant gap between TTS capabilities and the needs of users in low-resource languages. The paper highlights the urgency of developing tone-aware, user-centered TTS solutions to ensure equitable access to digital education for visually impaired speakers of underrepresented languages.</abstract>
+      <url hash="2d860988">2026.africanlp-main.23</url>
+      <bibkey>moshood-etal-2026-evaluating</bibkey>
+      <doi>10.18653/v1/2026.africanlp-main.23</doi>
+    </paper>
+    <paper id="24">
+      <title>Power Asymmetries, Bias, and <fixed-case>AI</fixed-case>, a Reflection of Society on Low-Resourced Languages - <fixed-case>A</fixed-case>frican Languages as Case Study</title>
+      <author><first>Simbiat</first><last>Ajao</last></author>
+      <pages>235-242</pages>
+      <abstract>In recent times, artificial intelligence (AI) systems have become the primary intermediary to information access, services, and opportunities. Currently, there are growing concerns as to how existing social inequalities are reproduced and amplified through AI. This is significantly evident in language technologies, where a small number of dominant languages or what we’ll refer to as big languages and cultural contexts shape the training, design, and evaluation of models. This paper examines the intersections of power asymmetries, linguistic bias, and cultural representation in AI, with a major focus on African languages and communities. We argue that current Natural Language Processing (NLP) systems reflect a high level of global imbalances in the availability of data, infrastructure, and decision making power, often marginalizing low-resourced languages and cultural peculiarities. It is important we know that how these data are structured is a great determinant in what their outcome will be. With reference to examples from speech recognition, machine translation, and large language models, we highlight the social and cultural consequences of linguistic exclusion, including reduced accessibility, misinterpretation, and digital invisibility. Finally, we identify and discuss pathways toward more equitable language technologies, emphasizing community-led data practices, interdisciplinary collaboration, and context-aware evaluation frameworks. By foregrounding language as both a technical and political concern, this work advocates for African-centered approaches to NLP that promote fairness, accountability, and linguistic justice in AI development.</abstract>
+      <url hash="7dc56224">2026.africanlp-main.24</url>
+      <bibkey>ajao-2026-power</bibkey>
+      <doi>10.18653/v1/2026.africanlp-main.24</doi>
+    </paper>
+    <paper id="25">
+      <title>Sudanese-<fixed-case>F</fixed-case>lores: Extending <fixed-case>FLORES</fixed-case>+ to <fixed-case>S</fixed-case>udanese <fixed-case>A</fixed-case>rabic Dialect</title>
+      <author><first>Hadia Mohmmedosman Ahmed</first><last>Samil</last></author>
+      <author id="david-ifeoluwa-adelani" orcid="0000-0002-0193-2083"><first>David Ifeoluwa</first><last>Adelani</last><affiliation>McGill University</affiliation></author>
+      <pages>243-247</pages>
+      <abstract>In this work, we introduce Sudanese-Flores, an extension of the popular Flores+ machine translation (MT) benchmark to the Sudanese Arabic dialect. We translate both the DEV and DEVTEST splits of the Modern Standard Arabic dataset into the corresponding Sudanese dialect, resulting in a total of 2,009 sentences. While the dialect was recently introduced in Google Translate, there are no available benchmark in this dialect despite spoken by over 40 million people. Our evaluation on two leading LLMs such as GPT-4.1 and Gemini 2.5 Flash showed that while the performance English to Arabic is impressive (more than 23 BLEU), they struggle on Sudanese dialect (less than 11 BLEU) in zero-shot settings. In few-shot scenario, we achieved only a slight boost in performance.</abstract>
+      <url hash="0f48e742">2026.africanlp-main.25</url>
+      <bibkey>samil-adelani-2026-sudanese</bibkey>
+      <doi>10.18653/v1/2026.africanlp-main.25</doi>
+    </paper>
+    <paper id="26">
+      <title>Where Are We at with Automatic Speech Recognition for the <fixed-case>B</fixed-case>ambara Language?</title>
+      <author><first>Seydou</first><last>Diallo</last><affiliation>MALIBA-AI and Caytu Robotics</affiliation></author>
+      <author id="yacouba-diarra" orcid="0009-0008-2860-9738"><first>Yacouba</first><last>Diarra</last><affiliation>RobotsMali AI4D Lab</affiliation></author>
+      <author><first>Panga Azazia</first><last>Kamaté</last><affiliation>Robots Mali</affiliation></author>
+      <author><first>Aboubacar</first><last>Ouattara</last><affiliation>NA</affiliation></author>
+      <author><first>Mamadou K.</first><last>Keita</last></author>
+      <author><first>Adam Bouno</first><last>Kampo</last><affiliation>NA</affiliation></author>
+      <pages>248-255</pages>
+      <abstract>This paper introduces the first standardized benchmark for evaluating Automatic Speech Recognition (ASR) in the Bambara language, utilizing one hour of professionally recorded Malian constitutional text. Designed as a controlled reference set under near-optimal acoustic and linguistic conditions, the benchmark was used to evaluate 37 models, ranging from Bambara-trained systems to large-scale commercial models. Our findings reveal that current ASR performance remains significantly below deployment standards; the top-performing system in terms of Word Error Rate (WER) achieved 46.76% and the best Character Error Rate (CER) of 13.00% was set by another model, while several prominent multilingual models exceeded 100% WER due to severe hallucinations. These results suggest that multilingual pre-training and model scaling alone are insufficient for underrepresented languages. Furthermore, because this dataset represents a best-case scenario of the most simplified and formal form of spoken Bambara, these figures likely establish an upper bound for performance in practical, real-world settings. We provide the benchmark and an accompanying public leaderboard to facilitate transparent evaluation and future research in Bambara speech technology.</abstract>
+      <url hash="46056fbc">2026.africanlp-main.26</url>
+      <bibkey>diallo-etal-2026-automatic</bibkey>
+      <doi>10.18653/v1/2026.africanlp-main.26</doi>
+    </paper>
+    <paper id="27">
+      <title>Enhancing Automatic Speech Recognition Models for Maternal and Reproductive Health: Fine-Tuning and Real-World Evaluation in <fixed-case>W</fixed-case>olof</title>
+      <author><first>Ertony</first><last>Basilwango</last></author>
+      <author><first>Yann Le</first><last>Beux</last><affiliation>NA</affiliation></author>
+      <author><first>Oche David</first><last>Ankeli</last><affiliation>NA</affiliation></author>
+      <author><first>Pierre Herve</first><last>Berdys</last><affiliation>NA</affiliation></author>
+      <pages>256-263</pages>
+      <abstract>Automatic Speech Recognition (ASR) systems perform well for high-resource languages, but most African languages, including Wolof, remain underrepresented, particularly in maternal and reproductive healthcare. This work proposes a domain-specific approach to improving Wolof ASR under low-resource conditions, addressing limited annotated data, orthographic variability, and code-switching. We curated a dataset of 750 validated Wolof utterances covering 250 maternal health keywords and applied data augmentation to increase acoustic diversity. Pretrained models, including wav2vec 2.0 and Whisper, were benchmarked to select candidates for fine-tuning. Using parameter-efficient Low-Rank Adaptation (LoRA), a Whisper model was adapted to the maternal health domain. Evaluation using Word Error Rate (WER), Character Error Rate (CER), and Keyword Error Rate (KER), which measures medically critical term transcription accuracy, shows substantial gains, reducing WER from 46.5% to 23.2% and KER from 17% to 11%. Community-based evaluation on 1,340 real-world utterances reveals a moderate degradation, with WER increasing by 35%. These results demonstrate that lightweight domain adaptation with small, high-quality data can significantly improve ASR for low-resource healthcare applications.This work introduces one of the first Wolof ASR datasets for healthcare and presents a practical framework for developing reliable speech recognition tools in underrepresented languages, improving access to healthcare information and services.</abstract>
+      <url hash="5192ec99">2026.africanlp-main.27</url>
+      <bibkey>basilwango-etal-2026-enhancing</bibkey>
+      <doi>10.18653/v1/2026.africanlp-main.27</doi>
+    </paper>
+    <paper id="28">
+      <title>Eyaa-Tom 26, Yodi-Mantissa and Lom Bench: A Community Benchmark for <fixed-case>TTS</fixed-case> in Local Languages</title>
+      <author id="bakoubolo-essowe-justin" orcid="0009-0008-2575-493X"><first>Bakoubolo Essowe</first><last>Justin</last><affiliation>Umbaji</affiliation></author>
+      <author><first>Catherine Nana Nyaah</first><last>Essuman</last><affiliation>Umbaji</affiliation></author>
+      <author><first>Messan</first><last>Agbobli</last><affiliation>NA</affiliation></author>
+      <author><first>Ahoefa</first><last>Kansiwer</last><affiliation>NA</affiliation></author>
+      <author><first>Eli Jean</first><last>Doumeyan</last><affiliation>NA</affiliation></author>
+      <author><first>Julie</first><last>Pato</last><affiliation>NA</affiliation></author>
+      <author><first>Notou Your</first><last>Timibe</last><affiliation>NA</affiliation></author>
+      <author><first>Emile KOGBEDJI</first><last>Agossou</last><affiliation>NA</affiliation></author>
+      <author><first>Guedela</first><last>Bakouya</last><affiliation>NA</affiliation></author>
+      <pages>264-270</pages>
+      <abstract>We present an extension of our previous work on multilingual NLP for Togolese languages by introducing new datasets, improved models, and a community-driven evaluation benchmark for Text-To-Speech (TTS). We expand the Eyaa-Tom multilingual corpus with additional speech data of about 26.9k recordings (30.9 hours) across 10 local languages, and incorporated 64.6k clips (46.6 hours) of Mozilla Common Voice contributions for Adja, Nawdm, Mina, and Tem to strengthen Automatic Speech Recognition (ASR) and speech synthesis. We detail how community contributors – including collaboration with a national TV journalist – helped collect and validate the Kabyè and French text, with an ethical compensation model in place. We fine-tune state-of-the-art models: OpenAI Whisper and faster-whisper, and Meta’s NLLB-200 model for machine translation across 11 languages (achieving 19.4 BLEU score for French→Ewe and 26.1 BLEU score for Kabyè→French). We also introduce the Lom Bench, a community-based benchmark where native speakers rate TTS output, indicating promising preliminary results in Mina and Togolese lingua franca french although further data is needed. We provide a comparative analysis of our results with recent multilingual systems, including Simba, Meta’s Omnilingual ASR, and UBC Toucan. Our work emphasizes practical pathways and how FAIR data sourcing and community participation can drive sustainable NLP development for underserved languages.</abstract>
+      <url hash="24139c8e">2026.africanlp-main.28</url>
+      <bibkey>justin-etal-2026-eyaa</bibkey>
+      <doi>10.18653/v1/2026.africanlp-main.28</doi>
+    </paper>
+    <paper id="29">
+      <title>Using Subword-Embeddings for Bilingual Lexicon Induction in <fixed-case>B</fixed-case>antu Languages</title>
+      <author><first>Adrian</first><last>Breiding</last></author>
+      <author><first>Alan</first><last>Akbik</last><affiliation>Humboldt Universität Berlin</affiliation></author>
+      <pages>271-280</pages>
+      <abstract>Bilingual Lexicon Induction (BLI) is a valuable tool in machine translation and cross-lingual transfer learning, but it remains challenging for agglutinative and low-resource languages. In this work, we investigate the use of weighted sub-word embeddings in BLI for agglutinative languages. We further evaluate a graph-matching and Procrustes-based BLI approach on two Bantu languages, assessing its effectiveness in a previously underexplored language family. Our results for Swahili with an average P@1 score of 51.84% for a 3000 word dictionary demonstrate the success of the approach for Bantu languages. Weighted sub-word embeddings perform competitively on Swahili and outperform word embeddings in our experiments with Zulu.</abstract>
+      <url hash="c92c4d52">2026.africanlp-main.29</url>
+      <bibkey>breiding-akbik-2026-using</bibkey>
+      <doi>10.18653/v1/2026.africanlp-main.29</doi>
+    </paper>
+    <paper id="30">
+      <title><fixed-case>A</fixed-case>fri<fixed-case>NLLB</fixed-case>: Efficient Translation Models for <fixed-case>A</fixed-case>frican Languages</title>
+      <author id="yasmin-moslem" orcid="0000-0003-4595-6877"><first>Yasmin</first><last>Moslem</last><affiliation>Trinity College Dublin</affiliation></author>
+      <author><first>Aman Kassahun</first><last>Wassie</last></author>
+      <author><first>Amanuel Gizachew</first><last>Abebe</last></author>
+      <pages>281-292</pages>
+      <abstract>In this work, we present AfriNLLB, a series of lightweight models for efficient translation from and into African languages. AfriNLLB supports 15 language pairs (30 translation directions), including Swahili, Hausa, Yoruba, Amharic, Somali, Zulu, Lingala, Afrikaans, Wolof, and Egyptian Arabic, as well as other African Union official languages such as Arabic (MSA), French, Portuguese, and Spanish. Our training data covers bidirectional translation between English and 13 languages, and between French and two languages (Lingala and Wolof). AfriNLLB models are based on NLLB-200 600M, which we compress using iterative layer pruning and quantization. We fine-tune the pruned models on parallel corpora we curated for African languages, employing knowledge distillation from a larger teacher model. Our work aims at enabling efficient deployment of translation models for African languages in resource-constrained settings. Our evaluation results demonstrate that AfriNLLB models achieve performance comparable to the baseline while being significantly faster. We release two versions of the AfriNLLB models, a Transformers version that allows further fine-tuning and a CTranslate2 version for efficient inference. Moreover, we release all the training data that we used for fine-tuning the baseline and pruned models to facilitate further research.</abstract>
+      <url hash="f7218016">2026.africanlp-main.30</url>
+      <bibkey>moslem-etal-2026-afrinllb</bibkey>
+      <doi>10.18653/v1/2026.africanlp-main.30</doi>
+    </paper>
+  </volume>
+</collection>
