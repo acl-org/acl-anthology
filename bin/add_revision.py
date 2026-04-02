@@ -257,6 +257,32 @@ def add_revision(
     return paper.collection.path
 
 
+def update_frontmatter(
+    anthology: Anthology,
+    anth_id: str,
+    pdf_path: Path,
+) -> Path | None:
+    """Update a frontmatter PDF in place, replacing the file and updating the checksum.
+
+    Frontmatter does not support <revision> entries, so we simply overwrite the
+    canonical PDF and record the new checksum.
+    """
+    paper = anthology.get_paper(anth_id)
+    if paper is None:
+        print(f"-> FATAL: paper ID {anth_id} not found in the Anthology", file=sys.stderr)
+        sys.exit(1)
+
+    pdf_dir = resolve_pdf_dir(paper.full_id)
+    canonical_pdf = pdf_dir / f"{paper.full_id}.pdf"
+
+    pdf_dir.mkdir(parents=True, exist_ok=True)
+    copy_file(pdf_path, canonical_pdf)
+    paper.pdf = PDFReference.from_file(canonical_pdf)
+    paper.collection.save()
+    print(f"-> Updated frontmatter PDF and checksum for {paper.full_id}", file=sys.stderr)
+    return paper.collection.path
+
+
 def normalize_id(id):
     """
     Remove common user errors.
@@ -326,32 +352,42 @@ def main(args):
     pdf_path = Path(pdf_path)
     validate_file_type(pdf_path)
 
-    # build a list of the checksums of all revisions for the paper
-    paper = anthology.get_paper(anthology_id)
-    if paper is None:
-        print(
-            f"-> FATAL: paper ID {anthology_id} not found in the Anthology",
-            file=sys.stderr,
-        )
-        sys.exit(1)
+    _, _, paper_id = parse_id(anthology_id)
+    is_frontmatter = paper_id == "0"
 
-    existing_checksums = [rev.pdf.checksum for rev in paper.revisions + paper.errata]
-    # make sure the new PDF is not a dupe
-    if PDFReference.from_file(pdf_path).checksum in existing_checksums:
-        print(
-            f"-> FATAL: the provided PDF is identical to an existing revision/erratum for {paper.full_id}",
-            file=sys.stderr,
+    if is_frontmatter:
+        collection_path = update_frontmatter(
+            anthology,
+            anthology_id,
+            pdf_path,
         )
-        sys.exit(1)
+    else:
+        # build a list of the checksums of all revisions for the paper
+        paper = anthology.get_paper(anthology_id)
+        if paper is None:
+            print(
+                f"-> FATAL: paper ID {anthology_id} not found in the Anthology",
+                file=sys.stderr,
+            )
+            sys.exit(1)
 
-    collection_path = add_revision(
-        anthology,
-        anthology_id,
-        pdf_path,
-        explanation_text,
-        change_type=change_type,
-        date=args.date,
-    )
+        existing_checksums = [rev.pdf.checksum for rev in paper.revisions + paper.errata]
+        # make sure the new PDF is not a dupe
+        if PDFReference.from_file(pdf_path).checksum in existing_checksums:
+            print(
+                f"-> FATAL: the provided PDF is identical to an existing revision/erratum for {paper.full_id}",
+                file=sys.stderr,
+            )
+            sys.exit(1)
+
+        collection_path = add_revision(
+            anthology,
+            anthology_id,
+            pdf_path,
+            explanation_text,
+            change_type=change_type,
+            date=args.date,
+        )
 
     # clean up
     if temp_path is not None and temp_path.exists():
@@ -367,9 +403,11 @@ def main(args):
         repo = Repo(".", search_parent_directories=True)
         repo.git.add(str(collection_path))
         if repo.is_dirty(index=True, working_tree=True, untracked_files=True):
-            repo.index.commit(
-                f"Add {change_type} for {anthology_id} (closes #{args.issue})"
-            )
+            if is_frontmatter:
+                msg = f"Update frontmatter for {anthology_id} (closes #{args.issue})"
+            else:
+                msg = f"Add {change_type} for {anthology_id} (closes #{args.issue})"
+            repo.index.commit(msg)
 
 
 if __name__ == "__main__":
