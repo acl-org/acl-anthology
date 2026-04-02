@@ -41,9 +41,9 @@ Options:
     issue_ids                Specific issue IDs to process (default: all)
 """
 
-import sys
 import os
 import warnings
+import logging as log
 from datetime import datetime
 
 from github import Github
@@ -51,8 +51,7 @@ import git
 import re
 
 from acl_anthology.anthology import Anthology
-
-anthology = Anthology(datadir="data")
+from acl_anthology.utils.logging import setup_rich_logging
 
 
 class AnthologyMetadataUpdater:
@@ -68,6 +67,7 @@ class AnthologyMetadataUpdater:
             "unapproved_issues": 0,
             "error_issues": 0,
         }
+        self.load_anthology()
 
     def _is_approved(self, issue):
         """Check if issue has approval from anthology team member."""
@@ -111,6 +111,10 @@ class AnthologyMetadataUpdater:
             return None
         return {"orcid": m.group(1), "degree": m.group(2)}
 
+    def load_anthology(self):
+        log.info('Loading anthology')
+        self.anthology = Anthology.from_within_repo()
+
     def process_verification_issues(
         self, issue_ids=[], verbose=False, skip_validation=False, dry_run=False
     ):
@@ -144,18 +148,14 @@ class AnthologyMetadataUpdater:
                     continue
                 opened_at = issue.created_at.strftime("%Y-%m-%d")
                 if verbose:
-                    print(
-                        f"ISSUE {issue.number} ({opened_at}): {issue.title} {issue.html_url}",
-                        file=sys.stderr,
+                    log.info(
+                        f"ISSUE {issue.number} ({opened_at}): {issue.title} {issue.html_url}"
                     )
 
                 # Parse metadata changes from issue
                 data = self._parse_verification_request(issue.body)
                 if data is None:
-                    print(
-                        f"Failed to parse verification data in #{issue.number}",
-                        file=sys.stderr,
-                    )
+                    log.info(f"Failed to parse verification data in #{issue.number}")
                     continue
 
                 data["author_id"] = issue.title.split()[-1]
@@ -165,7 +165,7 @@ class AnthologyMetadataUpdater:
                 # Skip issues that are not approved by team member
                 if not skip_validation and not self._is_approved(issue):
                     if verbose:
-                        print("-> Skipping (not approved yet)", file=sys.stderr)
+                        log.info("-> Skipping (not approved yet)")
                     self.stats["unapproved_issues"] += 1
                     continue
 
@@ -177,20 +177,16 @@ class AnthologyMetadataUpdater:
                 xml_repo_path = "data/xml/"
                 yaml_repo_path = "data/yaml/"
                 if verbose:
-                    print(
-                        "-> Applying changes to database for author",
-                        author_id,
-                        file=sys.stderr,
-                    )
+                    log.info(f'-> Applying changes to database for author {author_id}')
 
                 try:
                     # update the database!
-                    person = anthology.get_person(author_id)
+                    person = self.anthology.get_person(author_id)
                     if person is None:
                         raise ValueError(
                             f'Author ID not found (was the verification already applied?): {author_id}'
                         )
-                    if p2 := anthology.people.get_by_orcid(data["orcid"]):
+                    if p2 := self.anthology.people.get_by_orcid(data["orcid"]):
                         raise ValueError(
                             f'Another author with this ORCID found (should be merge request?): {p2}'
                         )
@@ -198,24 +194,20 @@ class AnthologyMetadataUpdater:
                     person.degree = data["degree"].strip()
                     new_author_id = author_id.replace("/unverified", "")
                     if verbose:
-                        print(
-                            "-> New ID",
-                            new_author_id,
-                            "ORCID",
-                            person.orcid,
-                            file=sys.stderr,
-                        )
+                        log.info(f'-> New ID {new_author_id}, ORCID {person.orcid}')
                     if not new_author_id:
                         raise ValueError('Author ID must be nonempty')
                     person.make_explicit()  # can fail if another person with this ID exists
-                    assert person.id == new_author_id, f'Explicit ID is {person.id}, expected {new_author_id}'
-                    anthology.save_all()
+                    assert (
+                        person.id == new_author_id
+                    ), f'Explicit ID is {person.id}, expected {new_author_id}'
+                    self.anthology.save_all()
                 except Exception as e:
-                    print(
-                        f"Failed to apply changes to #{issue.number}: {e}",
-                        file=sys.stderr,
+                    log.error(
+                        f'Failed to apply changes to #{issue.number}: {e}',
                     )
                     self.stats["error_issues"] += 1
+                    self.load_anthology()
                     continue
 
                 # Commit changes
@@ -229,9 +221,10 @@ class AnthologyMetadataUpdater:
                 closed_issues.append(issue)
 
             except Exception as e:
-                print(f"Error processing issue {issue.number}: {type(e)}: {e}")
+                log.error(f'Error processing issue {issue.number}: {type(e)}: {e}')
                 e.print_stack_trace()
                 self.stats["error_issues"] += 1
+                self.load_anthology()
                 continue
 
         if len(closed_issues) > 0:
@@ -254,7 +247,7 @@ class AnthologyMetadataUpdater:
                     head=new_branch_name,
                     base="master",
                 )
-                print(f"Created PR: {pr.html_url}", file=sys.stderr)
+                log.info(f"Created PR: {pr.html_url}")
 
         # Switch back to original branch
         self.local_repo.head.reference = current_branch
@@ -274,13 +267,11 @@ class AnthologyMetadataUpdater:
         # If the branch exists, use it, else create it
         if new_branch_name in self.local_repo.heads:
             ref = self.local_repo.heads[new_branch_name]
-            print(f"Using existing branch {new_branch_name}", file=sys.stderr)
+            log.info(f'Using existing branch {new_branch_name}')
             ref.checkout()
         else:
             # Create new branch
-            print(
-                f"Creating branch {new_branch_name} from {base_branch}", file=sys.stderr
-            )
+            log.info(f'Creating branch {new_branch_name} from {base_branch}')
             ref = current_branch.checkout(b=new_branch_name)
 
         return current_branch, new_branch_name, today
@@ -309,6 +300,12 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
+    log_level = log.DEBUG if not args.quiet else log.INFO
+    tracker = setup_rich_logging(level=log_level)
+    log.getLogger("acl-anthology").setLevel(log.WARNING)
+    log.getLogger("git.cmd").setLevel(log.WARNING)
+    log.getLogger("urllib3.connectionpool").setLevel(log.WARNING)
+
     if not github_token:
         raise ValueError("Please set GITHUB_TOKEN environment variable")
 
@@ -322,4 +319,4 @@ if __name__ == "__main__":
         )
 
     for stat in updater.stats:
-        print(f"{stat}: {updater.stats[stat]}", file=sys.stderr)
+        log.info(f"{stat}: {updater.stats[stat]}")
