@@ -206,6 +206,7 @@ class AnthologyMetadataUpdater:
                     log.error(
                         f'Failed to apply changes to #{issue.number}: {e}',
                     )
+                    log.exception(e)
                     self.stats["error_issues"] += 1
                     self.load_anthology()
                     continue
@@ -222,7 +223,7 @@ class AnthologyMetadataUpdater:
 
             except Exception as e:
                 log.error(f'Error processing issue {issue.number}: {type(e)}: {e}')
-                e.print_stack_trace()
+                log.exception(e)
                 self.stats["error_issues"] += 1
                 self.load_anthology()
                 continue
