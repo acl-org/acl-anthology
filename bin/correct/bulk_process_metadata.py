@@ -157,8 +157,9 @@ class AnthologyMetadataUpdater:
         # branch with a different version of the database
 
     def load_anthology(self):
+        log.info('Loading anthology')
         self.anthology = Anthology.from_within_repo(verbose=self.verbose)
-        self.anthology.load_all()  # not needed to load_all?
+        # self.anthology.load_all()  # not needed to load_all?
 
     def _parse_metadata_changes(self, issue_body: str) -> None | dict:
         """Parse the metadata changes from issue body.
@@ -358,7 +359,7 @@ class AnthologyMetadataUpdater:
         # they do not have hidden attributes like affiliations attached
         current_author_namespecs_by_id = {}
         for current_author in paper.authors or paper.parent.editors:
-            person = self.anthology.resolve(current_author)
+            person = current_author.resolve()
             if person.id in current_author_namespecs_by_id:
                 # duplicate. check that namespecs are identical
                 assert current_author == (
@@ -369,7 +370,7 @@ class AnthologyMetadataUpdater:
 
         # edit current namespecs for non-added authors. this retains any existing hidden attributes like orcid
         for current_author in paper.authors or paper.parent.editors:
-            person = self.anthology.resolve(current_author)
+            person = current_author.resolve()
             if person.id in retained_author_json_by_id:
                 retained_author_json_by_id[person.id]["namespec"] = current_author
                 # update namespec based on JSON
