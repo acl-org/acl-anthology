@@ -407,6 +407,8 @@ def main(args):
                 msg = f"Update frontmatter for {anthology_id} (closes #{args.issue})"
             else:
                 msg = f"Add {change_type} for {anthology_id} (closes #{args.issue})"
+            if explanation_text:
+                msg += f"\n\n{explanation_text}"
             repo.index.commit(msg)
 
 
