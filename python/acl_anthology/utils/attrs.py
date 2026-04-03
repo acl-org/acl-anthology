@@ -240,7 +240,7 @@ def repr_item_ids(ids: Sequence[AnthologyIDTuple]) -> str:
     """
     if not ids:
         return repr(ids)
-    MAX_LEN = 3
+    MAX_LEN = 5
     shown_ids = [repr(build_id_from_tuple(id_)) for id_ in ids[:MAX_LEN]]
     if len(ids) > MAX_LEN:
         shown_ids.append("...")
@@ -256,8 +256,13 @@ def _repr(self: attrs.AttrsInstance) -> str:
         if f.name == "id" and hasattr(self, "full_id"):
             parts.append(f"full_id={getattr(self, 'full_id')!r}")
             continue
+        elif f.name[0] == "_" and hasattr(self, f.name[1:]):
+            # Replace underscore attributes with their non-underscore versions
+            name = f.name[1:]
+        else:
+            name = f.name
 
-        value = getattr(self, f.name)
+        value = getattr(self, name)
         if type(f.default) is attrs.Factory:
             default = (
                 f.default.factory(self) if f.default.takes_self else f.default.factory()
@@ -269,7 +274,7 @@ def _repr(self: attrs.AttrsInstance) -> str:
             if f.metadata.get("repr_omits_field_name"):
                 parts.append(f"{value_r}")
             else:
-                parts.append(f"{f.name}={value_r}")
+                parts.append(f"{name}={value_r}")
     return f"{type(self).__name__}({', '.join(parts)})"
 
 
@@ -291,8 +296,13 @@ def _rich_repr(self: attrs.AttrsInstance) -> rich.repr.Result:
         if f.name == "id" and hasattr(self, "full_id"):
             yield "full_id", getattr(self, "full_id")
             continue
+        elif f.name[0] == "_" and hasattr(self, f.name[1:]):
+            # Replace underscore attributes with their non-underscore versions
+            name = f.name[1:]
+        else:
+            name = f.name
 
-        value = getattr(self, f.name)
+        value = getattr(self, name)
         if type(f.default) is attrs.Factory:
             default = (
                 f.default.factory(self) if f.default.takes_self else f.default.factory()
@@ -309,7 +319,7 @@ def _rich_repr(self: attrs.AttrsInstance) -> rich.repr.Result:
         if f.metadata.get("repr_omits_field_name") and value != default:
             yield value
         else:
-            yield f.name, value, default
+            yield name, value, default
 
 
 def attach_custom_repr(cls: type[C]) -> type[C]:
