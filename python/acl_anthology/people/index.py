@@ -30,6 +30,7 @@ except ImportError:  # pragma: no cover
     from yaml import Loader, Dumper  # type: ignore
 
 from ..config import primary_console
+from ..constants import NO_PERSON_ID
 from ..containers import SlottedDict
 from ..exceptions import (
     AnthologyException,
@@ -428,9 +429,15 @@ class PersonIndex(SlottedDict[Person]):
 
         kwargs["parent"] = self.parent
         kwargs["is_explicit"] = True
+        names = names[:1] + list(set(names) - {names[0]})  # deduplication
 
+        # Create new Person
         person = Person(id=id, names=names, **kwargs)
         self.add_person(person)
+
+        # Check if any NameSpecs resolve differently now
+        self._reresolve_items_for_names(names)
+
         return person
 
     def _update_id(self, old_id: str, new_id: str) -> None:
@@ -453,14 +460,19 @@ class PersonIndex(SlottedDict[Person]):
             )
         person = self.data.pop(old_id)
         self.data[new_id] = person
+
         # Note: cannot remove from DisjointSet
         self._similar.add(new_id)
         self._similar.merge(old_id, new_id)
+
         if person.orcid is not None:
             self._by_orcid[person.orcid] = new_id
         for name in person.names:
             self._remove_name(old_id, name)
             self._add_name(new_id, name)
+
+        # Check if any namespecs resolve differently now
+        self._reresolve_items_for_person(person)
 
     def _update_orcid(self, pid: str, old: Optional[str], new: Optional[str]) -> None:
         """Update a person's ORCID in the index.
@@ -473,6 +485,44 @@ class PersonIndex(SlottedDict[Person]):
             del self._by_orcid[old]
         if new is not None:
             self._by_orcid[new] = pid
+
+    def _reresolve_items_for_names(self, names: Iterable[Name]) -> None:
+        """Update `item_ids` for all persons with a given list of names.
+
+        See [`_reresolve_items_for_person()`][acl_anthology.people.index.PersonIndex._reresolve_items_for_person] for details.
+        """
+        people = set(person for name in names for person in self.get_by_name(name))
+        for person in people:
+            self._reresolve_items_for_person(person)
+
+    def _reresolve_items_for_person(self, person: Person) -> None:
+        """Update `item_ids` for a given person.
+
+        If any item currently in `person.item_ids` does not have a NameSpecification resolving to `person`, this will remove that item from `person.item_ids` and add it to the Person instance that it now resolves to.  This may result in the creation of new unverified Person instances.
+        Will be called automatically from functions that can affect item assignment; do not call manually.
+        """
+        items = list(person.anthology_items())
+        for item in items:
+            item_id = item.full_id_tuple
+            try:
+                item.get_namespec_for(person)
+            except NameSpecResolutionError as exc:
+                # Item has a NameSpec resolving to non-existing person; this
+                # person must be unverified, otherwise something has gone wrong.
+                # Create this unverified person, and assign the item to them.
+                new_person = self._resolve_namespec(exc.name_spec, allow_creation=True)
+                new_person.item_ids.append(item_id)
+                if item_id in person.item_ids:
+                    person.item_ids.remove(item_id)
+            except ValueError:
+                # Item no longer has any NameSpec resolving to this person
+                if item_id in person.item_ids:
+                    person.item_ids.remove(item_id)
+                # Go through all NameSpecs on the item to reassign, if necessary
+                for namespec in item.namespecs:
+                    this_person = self._resolve_namespec(namespec)
+                    if item_id not in this_person.item_ids:
+                        this_person.item_ids.append(item_id)
 
     def _add_name(self, pid: str, name: Name, during_build: bool = False) -> None:
         """Add a name for a person to the index.
@@ -566,7 +616,7 @@ class PersonIndex(SlottedDict[Person]):
             PersonDefinitionError: If `name_spec.id` is set, but either the ID or the name used with the ID has not been defined in `people.yaml`. (Inherits from NameSpecResolutionError)
         """
         name = name_spec.name
-        if (pid := name_spec.id) is not None:
+        if (pid := name_spec.id) is not None and pid != NO_PERSON_ID:
             # Explicit ID given – should be explicitly defined in people.yaml
             if pid not in self.data or not (person := self.data[pid]).is_explicit:
                 raise PersonDefinitionError(
@@ -584,7 +634,7 @@ class PersonIndex(SlottedDict[Person]):
                 )
         else:
             # No explicit ID given
-            if name_spec.orcid is not None:
+            if name_spec.orcid is not None and pid != NO_PERSON_ID:
                 exc1 = NameSpecResolutionError(
                     name_spec,
                     "NameSpecification defines an ORCID without an ID",
