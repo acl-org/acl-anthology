@@ -61,8 +61,8 @@ def test_paper_web_url(anthology):
 
 
 def test_paper_namespecs():
-    authors = [NameSpecification("John", "Doe")]
-    editors = [NameSpecification("Jane", "Doe")]
+    authors = [NameSpecification(("John", "Doe"))]
+    editors = [NameSpecification(("Jane", "Doe"))]
     paper = Paper(
         "42",
         None,

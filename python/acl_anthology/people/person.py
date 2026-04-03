@@ -1,4 +1,4 @@
-# Copyright 2023-2024 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2026 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -25,6 +25,7 @@ if sys.version_info >= (3, 13):
 else:
     from typing_extensions import deprecated
 
+from ..constants import RE_ORCID, NO_PERSON_ID
 from ..exceptions import AnthologyException, AnthologyInvalidIDError
 from ..utils.attrs import attach_custom_repr, auto_validate_types, repr_item_ids
 from ..utils.ids import (
@@ -34,7 +35,6 @@ from ..utils.ids import (
     is_valid_orcid,
     is_verified_person_id,
     parse_id,
-    RE_ORCID,
 )
 from . import Name
 
@@ -111,7 +111,6 @@ class Person:
         comment: A comment for disambiguation purposes.
         degree: The person's institution of highest degree, for disambiguation purposes.
         similar_ids: A list of person IDs with names that should be considered similar to this one.  Do **not** use this to _find_ people with similar names; that should be done via [`PersonIndex.similar`][acl_anthology.people.index.PersonIndex].  This attribute can be used to explicitly add more "similar IDs" that are not automatically derived via similar names.
-        disable_name_matching: If True, no items should be assigned to this person unless they explicitly specify this person's ID.
         is_explicit: If True, this person's ID is explicitly defined in `people.yaml`.  You probably want to use [`make_explicit()`][acl_anthology.people.person.Person.make_explicit] rather than change this attribute.
     """
 
@@ -133,7 +132,7 @@ class Person:
     comment: Optional[str] = field(default=None)
     degree: Optional[str] = field(default=None)
     similar_ids: list[str] = field(factory=list)
-    disable_name_matching: Optional[bool] = field(default=False, converter=bool)
+    _disable_name_matching: Optional[bool] = field(default=False, converter=bool)
     is_explicit: Optional[bool] = field(default=False, converter=bool, repr=False)
 
     def __eq__(self, other: object) -> bool:
@@ -161,6 +160,20 @@ class Person:
         for name in values:
             self.parent._add_name(self.id, name)
         self._names = _name_list_converter(values)
+        self.parent._reresolve_items_for_person(self)
+
+    @property
+    def disable_name_matching(self) -> bool:
+        """Flag to indicate if items can be assigned to this person via name matching.
+
+        If True, no items should be assigned to this person unless they explicitly specify this person's ID.
+        """
+        return bool(self._disable_name_matching)
+
+    @disable_name_matching.setter
+    def disable_name_matching(self, value: Optional[bool]) -> None:
+        self._disable_name_matching = value
+        self.parent._reresolve_items_for_names(self.names)
 
     @property
     def canonical_name(self) -> Name:
@@ -187,7 +200,7 @@ class Person:
         """
         link_type = NameLink.INFERRED if inferred else NameLink.EXPLICIT
         if not self.has_name(name):
-            self._names.insert(0, (name, link_type))
+            self._names = [(name, link_type)] + self._names
         else:
             self._names = [(name, link_type)] + [x for x in self._names if x[0] != name]
 
@@ -202,6 +215,8 @@ class Person:
         if not self.has_name(name):
             self._names.append((name, link_type))
             self.parent._add_name(self.id, name)
+            if not inferred:
+                self.parent._reresolve_items_for_names([name])
         elif (name, link_type) not in self._names:
             # ensure that name is re-inserted at same position
             idx = self.names.index(name)
@@ -222,6 +237,8 @@ class Person:
         """
         self._names.remove((name, NameLink.EXPLICIT))
         self.parent._remove_name(self.id, name)
+        self.parent._reresolve_items_for_person(self)
+        self.parent._reresolve_items_for_names([name])
 
     def has_name(self, name: Name) -> bool:
         """
@@ -239,7 +256,7 @@ class Person:
         This updates `self.id`, but also ensures that all papers/items with the old ID are updated to the new one.
 
         Parameters:
-            new_id: The new ID for this person, which must match [`RE_VERIFIED_PERSON_ID`][acl_anthology.utils.ids.RE_VERIFIED_PERSON_ID].
+            new_id: The new ID for this person, which must match [`RE_VERIFIED_PERSON_ID`][acl_anthology.constants.RE_VERIFIED_PERSON_ID].
 
         Raises:
             AnthologyException: If `self.explicit` is False.
@@ -258,12 +275,12 @@ class Person:
                 new_id, f"Not a valid verified-person ID: {new_id}"
             )
 
-        for namespec in list(self.namespecs()):
-            # We're not calling .set_id_on_items() since only _explicitly_
-            # linked papers should get updated with the new ID
-            if namespec.id == self.id:
-                namespec.id = new_id
+        namespecs = list(ns for ns in self.namespecs() if ns.id == self.id)
+        for namespec in namespecs:
+            namespec.id = NO_PERSON_ID
         self.id = new_id  # triggers update in PersonIndex
+        for namespec in namespecs:
+            namespec.id = new_id
 
     def make_explicit(
         self, new_id: Optional[str] = None, skip_setting_ids: bool = False
@@ -273,7 +290,8 @@ class Person:
         This will result in this person having an explicit entry in `people.yaml` with all names that are currently associated with this person.  It will also add their new explicit ID to all papers and volumes currently associated with this person.
 
         Parameters:
-            new_id: The new ID for this person, which must match [`RE_VERIFIED_PERSON_ID`][acl_anthology.utils.ids.RE_VERIFIED_PERSON_ID].  If not specified, will try to generate one automatically based on this person's canonical name (and, potentially, ORCID).
+            new_id: The new ID for this person, which must match [`RE_VERIFIED_PERSON_ID`][acl_anthology.constants.RE_VERIFIED_PERSON_ID].  If not specified, will try to generate one automatically based on this person's canonical name (and, potentially, ORCID).
+            skip_setting_ids: If True, will skip setting IDs on name specifications that previously resolved to this person.  **This means that some or all of the items in `self.item_ids` might disappear if they no longer resolve to this person.**
 
         Raises:
             AnthologyException: If `self.explicit` is already True, or if the ID already exists in the PersonIndex (both if it was supplied or auto-generated).
@@ -290,11 +308,13 @@ class Person:
         elif new_id in self.parent:
             raise AnthologyException(f"ID already exists in the index: {new_id}")
 
+        namespecs = list(self.namespecs())
         self.is_explicit = True
-        if not skip_setting_ids:
-            self.set_id_on_items()
         self.id = new_id  # triggers update in PersonIndex
         self._names = [(name, NameLink.EXPLICIT) for name, _ in self._names]
+        if not skip_setting_ids:
+            for namespec in namespecs:
+                namespec.id = new_id
 
     @deprecated(
         "Person.merge_with_explicit() is deprecated in favor of Person.merge_into()"
@@ -318,11 +338,7 @@ class Person:
                 f"Can only merge with explicit persons; not '{other.id}'"
             )
 
-        for namespec in list(self.namespecs()):
-            namespec.id = other.id
-        other.item_ids.extend(self.item_ids)
-        self.item_ids = []
-
+        namespecs = list(self.namespecs())
         for attr in ("orcid", "comment", "degree", "disable_name_matching"):
             if (
                 getattr(other, attr) is None
@@ -332,6 +348,8 @@ class Person:
         other.similar_ids.extend(self.similar_ids)
         for name in self.names:
             other.add_name(name, inferred=False)
+        for namespec in namespecs:
+            namespec.id = other.id
 
     def set_id_on_items(
         self, exclude: Optional[list[AnthologyID | Paper | Volume]] = None

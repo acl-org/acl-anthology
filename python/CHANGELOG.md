@@ -7,6 +7,10 @@
 - **Breaking change:** Collection items now use tuples instead of list attributes, and many objects that can be child attributes on collections (e.g. PDFReference, PaperRevision, ...) have been made immutable.
 - `Person.parent` now points to the `PersonIndex`, not the `Anthology`.  Use `Person.root` for that, if needed.  (This brings `Person` objects in line with how these attributes work anywhere else in the library.)
 - `__repr__` and `__rich_repr__` functions of all objects have been tweaked.
+- `Person.item_ids` will now update dynamically when a new Person is created and/or relevant attributes of a Person change (i.e. `names`, `disable_name_matching`). (related to #7879)
+- `Person.item_ids` will now update dynamically when a NameSpecification's `name` or `id` attributes are modified.
+- Bugfix: NameSpecifications now prevent having unverified IDs set on them (#7901)
+- `PersonIndex.create` now deduplicates list of names (#7858)
 
 ### Removed
 

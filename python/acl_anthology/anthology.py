@@ -232,11 +232,8 @@ class Anthology:
             self.people.save()
         if self.venues.is_data_loaded:
             self.venues.save()
-        warnings.warn(
-            UserWarning(
-                "SIG metadata is not yet automatically saved.  Call `.sigs.save()` manually if you need this."
-            )
-        )
+        if self.sigs.is_data_loaded:
+            self.sigs.save()
         return self
 
     def reset_indices(self) -> Self:

@@ -20,10 +20,7 @@ are some rules of thumb when making modifications to the data:
     - It also includes persons where `Person.is_explicit == True`, as those have
       an explicit representation in `people.yaml`.
 3. **Saving data is always non-destructive**.  In XML files, it will also avoid
-   introducing unnecessary changes (e.g. no needless reordering of tags).  The
-   only exception to this is saving SIG YAML files, as they currently frequently
-   contain comments, which will be lost when saving these files through the
-   library.
+   introducing unnecessary changes (e.g. no needless reordering of tags).
 4. If you need to refer to indices such as
    [PersonIndex][acl_anthology.people.index.PersonIndex],
    [EventIndex][acl_anthology.collections.eventindex.EventIndex], or
@@ -396,8 +393,3 @@ caveats:
 - **YAML files will always be written**.  Serializing all YAML files is much
   faster than serializing all XML files, so they are written unconditionally,
   without tracking changes.
-
-- **SIG YAML files are currently not written automatically**.  This is because
-  the current format of the SIG YAML files is a bit arcane, and existing files
-  use a lot of comments, which would be deleted upon writing these files.
-  {==This may change in the future.==}

@@ -19,10 +19,12 @@
       <year>2026</year>
       <url hash="50ff1f0b">2026.loreslm-1</url>
       <venue>loreslm</venue>
+      <doi>10.18653/v1/2026.loreslm-1</doi>
     </meta>
     <frontmatter>
       <url hash="3404e5a7">2026.loreslm-1.0</url>
       <bibkey>loreslm-2026-1</bibkey>
+      <doi>10.18653/v1/2026.loreslm-1.0</doi>
     </frontmatter>
     <paper id="1">
       <title><fixed-case>NE</fixed-case>-<fixed-case>BERT</fixed-case>: A Multilingual Language Model for Nine <fixed-case>N</fixed-case>ortheast <fixed-case>I</fixed-case>ndian Languages</title>
@@ -31,6 +33,7 @@
       <abstract>Large pretrained language models have demonstrated remarkable capabilities across diverse languages, yet critically underrepresented low-resource languages remain marginalized. We present NE-BERT, a domain-specific multilingual encoder model trained on approximately 8.3 million sentences spanning 9 Northeast Indian languages and 2 anchor languages (Hindi, English), a linguistically diverse region with minimal representation in existing multilingual models. By employing weighted data sampling and a custom SentencePiece Unigram tokenizer, NE-BERT outperforms IndicBERT-V2 and MuRIL across all 9 Northeast Indian languages, achieving 15.97× and 7.64× lower average perplexity respectively, with 1.50× better tokenization fertility than mBERT. We address critical vocabulary fragmentation issues in extremely low-resource languages such as Pnar (1,002 sentences) and Kokborok (2,463 sentences) through aggressive upsampling strategies. Downstream evaluation on part-of-speech tagging validates practical utility on three Northeast Indian languages. We release NE-BERT, test sets, and training corpus under CC-BY-4.0 to support NLP research and digital inclusion for Northeast Indian communities.</abstract>
       <url hash="4c9dca0c">2026.loreslm-1.1</url>
       <bibkey>nyalang-2026-ne</bibkey>
+      <doi>10.18653/v1/2026.loreslm-1.1</doi>
     </paper>
     <paper id="2">
       <title>Do Tokenizers Fail on Informal <fixed-case>H</fixed-case>indi Expressions? Evidence from Static, Downstream, and Robustness Analyses</title>
@@ -44,6 +47,7 @@
       <abstract>We present, to our knowledge, the first systematic evaluation of tokenization quality for <i>informal Hindi expressions</i>, combining static, downstream, and robustness analyses. Our investigation centers on three questions: (RQ1) how well tokenizers preserve informal expression units using static boundary and integrity metrics, (RQ2) how tokenization choices affect downstream identification of informal expressions, and (RQ3) how robust tokenizers remain under orthographic variation, romanization, and noisy spelling. Across multilingual, Indic-focused, and byte-level tokenizers, we find that Indic-oriented models (e.g., MuRIL, IndicBERT) preserve expression boundaries better and achieve higher downstream F1 on clean text than generic multilingual models (e.g., mBERT, XLM-R). However, all tokenizers exhibit severe degradation under romanization, with phrase integrity rates approaching zero. These findings demonstrate that tokenization constitutes a hidden but critical bottleneck for informal Hindi NLP, particularly in cross-script settings, and motivate the need for tokenization strategies that explicitly account for phrase-level semantics and orthographic variation.</abstract>
       <url hash="4ff7a413">2026.loreslm-1.2</url>
       <bibkey>ravikiran-etal-2026-tokenizers</bibkey>
+      <doi>10.18653/v1/2026.loreslm-1.2</doi>
     </paper>
     <paper id="3">
       <title>Competence Collapse in Code-Mixed Generation: Spectral Evidence and Mechanistic Recovery via Cross-Lingual Activation Steering</title>
@@ -52,6 +56,7 @@
       <abstract>As Large Language Models (LLMs) approachhuman-level reasoning in English, their performance in low-resource, code-mixed languagesremains surprisingly brittle. We identify Competence Collapse, a distinct pathology wheremodels capable of complex reasoning in English exhibit severe utility degradation whenprompted in Hinglish (Hindi-English). Wequantify this as a Service Gap, observing astatistically significant decline in instructionalquality (∆D ≈ −11.3%, p &lt; 0.001) across9 diverse architectures. Spectral analysis suggests that this stems from a representationaldivergence between the model’s High-UtilityDirection and its Generation Subspace. Tobridge this gap, we propose Cross-LingualActivation Steering (CLAS), an inferencetime intervention that injects a "CompetenceGap Vector" into the residual stream. Evaluated across 6 open-weight models (using alightweight calibration set, N = 50), CLASrecovered utility by ∆D = +2.22 (d = 0.60)while preserving code-mixed fidelity (CMI ≈0.4) and reinforcing safety protocols.</abstract>
       <url hash="a4c7a838">2026.loreslm-1.3</url>
       <bibkey>yadav-2026-competence</bibkey>
+      <doi>10.18653/v1/2026.loreslm-1.3</doi>
     </paper>
     <paper id="4">
       <title>When Multilingual Evaluation Assumptions Fail: Tokenization Effects Across Scripts</title>
@@ -61,6 +66,7 @@
       <abstract>Multilingual evaluation often relies on language coverage or translated benchmarks, implicitly assuming that subword tokenization behaves comparably across scripts. In mixed-script settings, this assumption breaks down. We examine this effect using polarity detection as a case study, comparing Orthographic Syllable Pair Encoding (OSPE) and Byte Pair Encoding (BPE) under identical architectures, data, and training conditions on SemEval Task 9, which spans Devanagari, Perso-Arabic, and Latin scripts. OSPE is applied to Hindi, Nepali, Urdu, and Arabic, while BPE is retained for English. We find that BPE systematically underestimates performance in abugida and abjad scripts, producing fragmented representations, unstable optimization, and drops of up to 27 macro-F1 points for Nepali, while English remains largely unaffected. Script-aware segmentation preserves orthographic structure, stabilizes training, and improves cross-language comparability without additional data or model scaling, highlighting tokenization as a latent but consequential evaluation decision in multilingual benchmarks.</abstract>
       <url hash="0dabc2b6">2026.loreslm-1.4</url>
       <bibkey>h-de-nardi-2026-multilingual</bibkey>
+      <doi>10.18653/v1/2026.loreslm-1.4</doi>
     </paper>
     <paper id="5">
       <title>Making Large Language Models Speak <fixed-case>T</fixed-case>ulu: Structured Prompting for an Extremely Low-Resource Language</title>
@@ -70,6 +76,7 @@
       <abstract>Can large language models converse in languages virtually absent from their training data? We investigate this question through a case study on Tulu, a Dravidian language with over two million speakers but minimal digital presence. Rather than fine-tuning, we examine whether structured prompt engineering alone can elicit basic conversational ability under extreme data scarcity. Our framework combines explicit grammar documentation, negative constraints to suppress high-probability tokens from related languages, romanization standardization, and quality-controlled synthetic data generation via self-play. Evaluated on a manually curated held-out set across three LLMs (Gemini 2.0 Flash, GPT-4o, and Llama 3.1 70B) and validated by native speakers, our approach reduces vocabulary contamination from 80% to 5% while achieving 85% grammatical accuracy. Cross-model analysis shows that negative constraints provide consistent improvements (12–18 percentage points), while the effectiveness of grammar documentation varies by model architecture (8–22 points). These results demonstrate that structured in-context learning can meaningfully extend LLM capabilities to extremely low-resource languages without parameter updates.</abstract>
       <url hash="3aa4eba3">2026.loreslm-1.5</url>
       <bibkey>devadiga-chopra-2026-making</bibkey>
+      <doi>10.18653/v1/2026.loreslm-1.5</doi>
     </paper>
     <paper id="6">
       <title>To make someone do something: mining alert-style directives in <fixed-case>B</fixed-case>ulgarian social media for low-resource language modelling</title>
@@ -79,6 +86,7 @@
       <abstract>The work demonstrates how meaningful rhetorical signals can be isolated from a social media dataset even without pre-labelled data or predefined lexicons. By combining unsupervised mining with linguistic theory and interpretable machine learning, the research offers a scalable approach to understanding how language can shape political perception and behaviour in digital spaces.The study focuses on Bulgarian, a morphologically rich, relatively low-resource language, and produces reusable resources—alert constructions, post-level features, and trained classifiers—that are explicitly designed to support low-resource language modelling, including the training and evaluation of neural language models and LLMs for tasks such as content moderation and propaganda-alert detection. The finding that rhetorical salience, not just topical content, drives engagement has implications beyond Bulgarian: it suggests that how something is said may matter as much as what is said in determining a message’s viral potential and persuasive impact.</abstract>
       <url hash="4dda7971">2026.loreslm-1.6</url>
       <bibkey>margova-penkov-2026-make</bibkey>
+      <doi>10.18653/v1/2026.loreslm-1.6</doi>
     </paper>
     <paper id="7">
       <title><fixed-case>B</fixed-case>angla<fixed-case>L</fixed-case>lama: <fixed-case>LL</fixed-case>a<fixed-case>MA</fixed-case> for <fixed-case>B</fixed-case>angla Language</title>
@@ -91,15 +99,17 @@
       <abstract>Bangla is a language spoken by approximately 240 million native speakers and around 300 million people worldwide. Despite being the 5th largest spoken language in the world, Bangla is still a "low-resource" language, and existing pretrained language models often struggle to perform well on Bangla Language Processing (BLP) tasks. This paper addresses this gap by: (1) introducing two high-quality translated Bangla-instruction datasets totaling 224k samples – Bangla-Orca (172k) and Bangla-Alpaca (52k); and (2) leveraging these datasets to develop BanglaLlama, an open-source family of Bangla-specific LLMs, consisting of five base and instruct variants. We present our methodology, two large datasets, and comprehensive benchmarking results showcasing the effectiveness of our dataset and model on multiple benchmarks. We believe our proposed datasets and models will serve as the new standard baseline for future research focused on this widely spoken yet "low-resource" language.</abstract>
       <url hash="680d30a0">2026.loreslm-1.7</url>
       <bibkey>zehady-etal-2026-banglallama</bibkey>
+      <doi>10.18653/v1/2026.loreslm-1.7</doi>
     </paper>
     <paper id="8">
       <title>Evaluating Retrieval-Augmented Generation for Medication Question Answering on <fixed-case>N</fixed-case>igerian Drug Labels in <fixed-case>Y</fixed-case>orùbá</title>
-      <author><first>Zainab</first><last>Tairu</last></author>
-      <author><first>Aramide</first><last>Adebesin</last></author>
+      <author id="zainab-tairu"><first>Zainab</first><last>Tairu</last></author>
+      <author id="aramide-adebesin"><first>Aramide</first><last>Adebesin</last></author>
       <pages>90-97</pages>
       <abstract>Large Language Models (LLMs) have the potential to improve healthcare information access in Nigeria, but they risk generating unsafe or inaccurate responses when used in low-resource languages such as Yorùbá. Retrieval-Augmented Generation (RAG) has since emerged as a promising approach to mitigate hallucinations by grounding LLM outputs in verified knowledge sources. To assess its effectiveness in low-resource contexts, we construct a controlled Yorùbá QA dataset derived from Nigerian drug labels, comprising 460 question–answer pairs across 92 drugs, which was used to evaluate the impact of different retrieval strategies: hybrid lexical–semantic retrieval, Hypothetical Document Embeddings(HyDE), and Cross-Encoder re-ranking. Our results show that hybrid retrieval strategies, combining lexical and semantic signals, generally yield more reliable and clinically accurate responses, while other advanced re-ranking approaches show inconsistent improvements. These findings hereby underscore the importance of effective retrieval design for safe and trustworthy multilingual healthcare QA systems.</abstract>
       <url hash="5f31768d">2026.loreslm-1.8</url>
       <bibkey>tairu-adebesin-2026-evaluating</bibkey>
+      <doi>10.18653/v1/2026.loreslm-1.8</doi>
     </paper>
     <paper id="9">
       <title>Grammatical Error Correction for Low-Resource Languages: The Case of <fixed-case>Z</fixed-case>arma</title>
@@ -113,6 +123,7 @@
       <abstract>Grammatical error correction (GEC) aims to improve text quality and readability. Previous work on the task focused primarily on high-resource languages, while low-resource languages lack robust tools. To address this shortcoming, we present a study on GEC for Zarma, a language spoken by over five million people in West Africa. We compare three approaches: rule-based methods, machine translation (MT) models, and large language models (LLMs). We evaluated GEC models using a dataset of more than 250,000 examples, including synthetic and human-annotated data. Our results showed that the MT-based approach using M2M100 outperforms others, with a detection rate of 95.82% and a suggestion accuracy of 78.90% in automatic evaluations (AE) and an average score of 3.0 out of 5.0 in manual evaluation (ME) from native speakers for grammar and logical corrections. The rule-based method was effective for spelling errors but failed on complex context-level errors. LLMs—Gemma 2b and MT5-small—showed moderate performance. Our work supports use of MT models to enhance GEC in low-resource settings, and we validated these results with Bambara, another West African language.</abstract>
       <url hash="66ee970d">2026.loreslm-1.9</url>
       <bibkey>keita-etal-2026-grammatical</bibkey>
+      <doi>10.18653/v1/2026.loreslm-1.9</doi>
     </paper>
     <paper id="10">
       <title>Quantifying Cross-Lingual Interference: Algorithmic Standardization of Kamtapuri in Large Language Models</title>
@@ -121,6 +132,7 @@
       <abstract>Multilingual Large Language Models (LLMs) often demonstrate impressive zero-shot capabilities on low-resource languages. However, for languages that share a script and significant lexical overlap with a high-resource language (HRL), models may exhibit negative transfer. Focusing on Kamtapuri (Rajbanshi), a distinct low-resource language of North Bengal, we investigate the extent to which SOTA models (e.g., GPT-5.1, Gemini 2.5) preserve distinct dialectal features versus reverting to the dominant language’s norms. We introduce the Kamta-Shibboleth-100 (Benchmark available at: https://github.com/kamtapuri-research/Kamta-Shibboleth-100-BENCHMARK), a diagnostic benchmark derived from a curated 400k-token corpus. Our evaluation reveals a significant discrepancy: while models show high receptive understanding (up to 88% translation accuracy), they exhibit a 0% Syntactic Competence Rate in zero-shot generation of distinct Kamtapuri morphology, compared to 96%+ accuracy on a Standard Bengali control set. Even with 5-shot prompting, syntactic accuracy improves only to 10%, while the Substitution Erasure Rate (SER) reaches 71%, systematically replacing Kamtapuri vocabulary with Bengali cognates. We characterize this behavior not as a lack of knowledge, but as a strong alignment bias toward high-resource standards.</abstract>
       <url hash="034391e7">2026.loreslm-1.10</url>
       <bibkey>das-2026-quantifying</bibkey>
+      <doi>10.18653/v1/2026.loreslm-1.10</doi>
     </paper>
     <paper id="11">
       <title><fixed-case>S</fixed-case>inha<fixed-case>L</fixed-case>egal: A Benchmark Corpus for Information Extraction and Analysis in <fixed-case>S</fixed-case>inhala Legislative Texts</title>
@@ -130,6 +142,7 @@
       <abstract>SinhaLegal introduces a Sinhala legislative text corpus containing approximately 2 million words across 1,206 legal documents. The dataset includes two types of legal documents: 1,065 Acts dated from 1981 to 2014 and 141 Bills from 2010 to 2014, which were systematically collected from official sources. The texts were extracted using OCR with Google Document AI, followed by extensive post-processing and manual cleaning to ensure high-quality, machine-readable content, along with dedicated metadata files for each document. A comprehensive evaluation was conducted, including corpus statistics, lexical diversity, word frequency analysis, named entity recognition, and topic modelling, demonstrating the structured and domain-specific nature of the corpus. Additionally, perplexity analysis using both large and small language models was performed to assess how effectively language models respond to domain-specific texts. The SinhaLegal corpus represents a vital resource designed to support NLP tasks such as summarisation, information extraction, and analysis, thereby bridging a critical gap in Sinhala legal research.</abstract>
       <url hash="759a561c">2026.loreslm-1.11</url>
       <bibkey>lasandi-jayatilleke-2026-sinhalegal</bibkey>
+      <doi>10.18653/v1/2026.loreslm-1.11</doi>
     </paper>
     <paper id="12">
       <title><fixed-case>B</fixed-case>angla<fixed-case>IPA</fixed-case>: Towards Robust Text-to-<fixed-case>IPA</fixed-case> Transcription with Contextual Rewriting in <fixed-case>B</fixed-case>engali</title>
@@ -142,6 +155,7 @@
       <abstract>Despite its widespread use, Bengali lacks a robust automated International Phonetic Alphabet (IPA) transcription system that effectively supports both standard language and regional dialectal texts. Existing approaches struggle to handle regional variations, numerical expressions, and generalize poorly to previously unseen words. To address these limitations, we propose BanglaIPA, a novel IPA generation system that integrates a character-based vocabulary with word-level alignment. The proposed system accurately handles Bengali numerals and demonstrates strong performance across regional dialects. BanglaIPA improves inference efficiency by leveraging a precomputed word-to-IPA mapping dictionary for previously observed words. The system is evaluated on the standard Bengali and six regional variations of the DUAL-IPA dataset. Experimental results show that BanglaIPA outperforms baseline IPA transcription models by 58.4-78.7% and achieves an overall mean word error rate of 11.4%, highlighting its robustness in phonetic transcription generation for the Bengali language.</abstract>
       <url hash="474257d9">2026.loreslm-1.12</url>
       <bibkey>hasan-etal-2026-banglaipa</bibkey>
+      <doi>10.18653/v1/2026.loreslm-1.12</doi>
     </paper>
     <paper id="13">
       <title>Improving <fixed-case>R</fixed-case>omanian <fixed-case>LLM</fixed-case> Pretraining Data using Diversity and Quality Filtering</title>
@@ -152,6 +166,7 @@
       <abstract>Large Language Models (LLMs) have recently exploded in popularity, often matching or outperforming human abilities on many tasks. One of the key factors in training LLMs is the availability and curation of high-quality data.Data quality is especially crucial for under-represented languages, where high-quality corpora are scarce. In this work we study the characteristics and coverage of Romanian pretraining corpora and we examine how they differ from English data. By training a lightweight multitask model on carefully LLM-annotated Romanian texts, we are able to analyze and perform multi-level filtering (e.g., educational value, topic, format) to generate high-quality pretraining datasets. Our experiments show noteworthy trends in the topics present in Romanian and English data, while also proving the effectiveness of filtering data through improved LLM pretraining performance across multiple benchmarks.</abstract>
       <url hash="690883cf">2026.loreslm-1.13</url>
       <bibkey>negoita-etal-2026-improving</bibkey>
+      <doi>10.18653/v1/2026.loreslm-1.13</doi>
     </paper>
     <paper id="14">
       <title>Tone in <fixed-case>Y</fixed-case>oruba <fixed-case>ASR</fixed-case>: Evaluating the Impact of Tone Recognition on Transformer-Based <fixed-case>ASR</fixed-case> Models</title>
@@ -160,6 +175,7 @@
       <abstract>This research investigates the role of tone in Standard Yoruba Automatic Speech Recognition (ASR), focusing on how explicit tone marking (diacritics) influences accuracy and overall system performance. As a low-resource tonal language, Yoruba encodes critical lexical and grammatical contrasts via pitch, making tone handling both essential and challenging for ASR. Three pre-trained models, Meta’s MMS-1B-all, OpenAI’s Whisper-small, and AstralZander/Yoruba_ASR, were trained and evaluated on datasets that vary by tone annotation (fully tone-marked vs. non-tone-marked). Using Word Error Rate (WER) and Tone Error Rate (TER) as primary metrics, results consistently favored non-tone-marked data, yielding substantially lower error rates than their tone-marked counterparts. These outcomes suggest that current architectures encounter difficulties with diacritically marked Yoruba, likely stemming from tokenization behavior, insufficient representation of tonal cues, and limited tone modeling in the underlying pre-training. The study concludes that tone-aware approaches, spanning tokenization, acoustic-text alignment, and model objectives, are necessary to improve recognition for Yoruba and other low-resource tonal languages. The findings clarify the interaction between linguistic tone systems and computational modeling, and offer concrete directions for building more robust, tone-sensitive ASR systems.</abstract>
       <url hash="60717d81">2026.loreslm-1.14</url>
       <bibkey>olusanya-2026-tone</bibkey>
+      <doi>10.18653/v1/2026.loreslm-1.14</doi>
     </paper>
     <paper id="15">
       <title><fixed-case>LLM</fixed-case>-as-a-Judge for Low-Resource Languages: Adapting Ragas and Comparative Ranking for <fixed-case>R</fixed-case>omanian</title>
@@ -169,6 +185,7 @@
       <abstract>Evaluating Retrieval-Augmented Generation (RAG) systems remains a challenge for Low-Resource Languages (LRLs), where standard reference-based metrics fall short. This paper investigates the viability of the "LLM-as-a-Judge" paradigm for Romanian by adapting the Ragas framework using next-generation models (Gemini 2.5 and Gemini 3). We introduce AdminRo-Eval, a curated dataset of Romanian administrative documents annotated by native speakers, to serve as a ground truth for benchmarking automated evaluators. We compare three evaluation methodologies—direct scoring, comparative ranking, and granular decomposition—across metrics for Faithfulness, Answer Relevance, and Context Relevance. Our findings reveal that evaluation strategies must be metric-specific: granular decomposition achieves the highest human alignment for Faithfulness (96% with Gemini 2.5 Pro), while comparative ranking outperforms in Answer Relevance (90%). Furthermore, we demonstrate that while lightweight models struggle with complex reasoning in LRLs, the Gemini 2.5 Pro architecture establishes a robust, transferable baseline for automated Romanian RAG evaluation.</abstract>
       <url hash="00c1f72f">2026.loreslm-1.15</url>
       <bibkey>creanga-dinu-2026-llm</bibkey>
+      <doi>10.18653/v1/2026.loreslm-1.15</doi>
     </paper>
     <paper id="16">
       <title><fixed-case>QARI</fixed-case>: Neural Architecture for <fixed-case>U</fixed-case>rdu Extractive Machine Reading Comprehension</title>
@@ -178,6 +195,7 @@
       <abstract>Urdu, a morphologically rich and low-resource language spoken by over 300 million people, poses unique challenges for extractive machine reading comprehension (EMRC), particularly in accurately identifying span boundaries involving postpositions and copulas. Existing multilingual models struggle with subword fragmentation and imprecise span extraction in such settings. We introduce QARI (قاری, “reader”), a character-enhanced architecture for Urdu extractive MRC that augments pretrained multilingual encoders with three innovations: (1) a character-level CNN that captures affix patterns and morphological features from full word forms; (2) a gated fusion mechanism that integrates semantic and morphological representations; and (3) a boundary-contrastive learning objective targeting Urdu-specific span errors. Evaluated on UQuAD+, the first native Urdu MRC benchmark, QARI achieves 83.5 F1, a 5.5 point improvement over the previous best result (mT5, 78.0 F1), setting a new state of the art. Ablations show that character-level modeling and boundary supervision contribute +7.5 and +7.0 F1, respectively. Cross-dataset evaluations on UQA and UrFQuAD confirm QARI’s robustness. Error analysis reveals significant reductions in boundary drift, with improvements most notable for short factual questions.</abstract>
       <url hash="62ab362a">2026.loreslm-1.16</url>
       <bibkey>kazi-khoja-2026-qari</bibkey>
+      <doi>10.18653/v1/2026.loreslm-1.16</doi>
     </paper>
     <paper id="17">
       <title>When <fixed-case>LLM</fixed-case>s Annotate: Reliability Challenges in Low-Resource <fixed-case>NLI</fixed-case></title>
@@ -188,6 +206,7 @@
       <abstract>This paper systematically evaluates LLM reliability on the complex semantic task of Natural Language Inference (NLI) in Farsi, assessing six prominent models across eight prompt variations through a multi-dimensional framework that measures accuracy, prompt sensitivity, and intra-class consistency. Our results demonstrate that prompt design—particularly the order of premise and hypothesis—significantly impacts prediction stability. Proprietary models (Claude-Opus-4, GPT-4o) exhibit superior stability and accuracy compared to open-weight alternatives. Across all models, the ’Neutral’ class emerges as the most challenging and least stable category. Crucially, we redefine model instability as a diagnostic tool for benchmark quality, demonstrating that observed disagreement often reflects valid challenges to ambiguous or erroneous gold-standard labels.</abstract>
       <url hash="7c6de591">2026.loreslm-1.17</url>
       <bibkey>panahi-etal-2026-llms</bibkey>
+      <doi>10.18653/v1/2026.loreslm-1.17</doi>
     </paper>
     <paper id="18">
       <title>Qomhrá: A Bilingual <fixed-case>I</fixed-case>rish and <fixed-case>E</fixed-case>nglish Large Language Model</title>
@@ -201,6 +220,7 @@
       <abstract>Large language model (LLM) research and development has overwhelmingly focused on the world’s major languages, leading to under-representation of low-resource languages such as Irish. This paper introduces Qomhrá, a bilingual Irish and English LLM, developed under extremely low-resource constraints. A complete pipeline is outlined spanning bilingual continued pre-training, instruction tuning, and the synthesis of human preference data for future alignment training. We focus on the lack of scalable methods to create human preference data by proposing a novel method to synthesise such data by prompting an LLM to generate "accepted" and "rejected" responses, which we validate as aligning with L1 Irish speakers.To select an LLM for synthesis, we evaluate the top closed-weight LLMs for Irish language generation performance. Gemini-2.5-Pro is ranked highest by L1 and L2 Irish-speakers, diverging from LLM-as-a-judge ratings, indicating a misalignment between current LLMs and the Irish-language community. Subsequently, we leverage Gemini-2.5-Pro to translate a large scale English-language instruction tuning dataset to Irish and to synthesise a first-of-its-kind Irish-language human preference dataset. We comprehensively evaluate Qomhrá across several benchmarks, testing translation, gender understanding, topic identification, and world knowledge; these evaluations show gains of up to 29% in Irish and 44% in English compared to the existing open-source Irish LLM baseline, UCCIX. The results of our framework provide insight and guidance to developing LLMs for both Irish and other low-resource languages.</abstract>
       <url hash="7cc15e4d">2026.loreslm-1.18</url>
       <bibkey>mcinerney-etal-2026-qomhra</bibkey>
+      <doi>10.18653/v1/2026.loreslm-1.18</doi>
     </paper>
     <paper id="19">
       <title>Anchoring the Judge: Curriculum-Based Adaptation and Reference-Anchored <fixed-case>MQM</fixed-case> for <fixed-case>LLM</fixed-case>-Based Machine Translation of an Unseen Low-Resource Language - A Case of Nupe</title>
@@ -211,6 +231,7 @@
       <abstract>Adapting large language models (LLMs) for machine translation has shown strong performance in low-resource languages; however, their effectiveness for <i>unseen, extremely low-resource languages</i> remains largely unexplored. We present <b>NupeMT-QLoRA</b>, a curriculum-based adaptation framework for the Nupe–English language pair. Our approach employs a two-stage QLoRA fine-tuning strategy: (i) initial training on 34k noisy parallel sentence pairs, followed by (ii) continued fine-tuning on a smaller, cleaner set of 12k bidirectional parallel sentences with explicit translation-direction tags. This staged curriculum stabilizes optimization and improves robustness under severe data scarcity.We further identify a reliability crisis in existing automatic evaluation metrics for unseen languages. Popular LLM-based judges such as GEMBA and xCOMET exhibit weak correlation with human judgments (Kendall’s <tex-math>\tau \approx 0.21</tex-math>) and low inter-rater reliability (Fleiss’ <tex-math>\kappa \approx 0.27</tex-math>), largely due to fluency bias. To address this, we propose <b>Ref-Anchor-MQM</b>, a reference-anchored evaluation protocol that forces the judge to extract Key Semantic Units from a human reference before scoring.Experimental results show that NupeMT-QLoRA substantially outperforms NLLB-200, improving chrF++ from 22.73 to 41.10, while Ref-Anchor-MQM achieves significantly higher alignment with human evaluation (<tex-math>\tau = 0.71</tex-math>). Our framework provides a scalable pipeline for adapting and evaluating LLMs on languages with zero prior representation.</abstract>
       <url hash="bbfb232e">2026.loreslm-1.19</url>
       <bibkey>umar-etal-2026-anchoring</bibkey>
+      <doi>10.18653/v1/2026.loreslm-1.19</doi>
     </paper>
     <paper id="20">
       <title><fixed-case>T</fixed-case>elugu<fixed-case>E</fixed-case>val: A Comprehensive Benchmark for Evaluating <fixed-case>LLM</fixed-case> Capabilities in <fixed-case>T</fixed-case>elugu</title>
@@ -220,16 +241,18 @@
       <abstract>Large Language Models (LLMs) excel on English reasoning tasks but falter on morphologically rich, low-resource languages such as Telugu, Tamil, and Kannada. We present TeluguEval, a human-curated reasoning benchmark created by translating GSM8K (math), Winogrande (commonsense), ARC (science), CaseHOLD (law), and Hendrycks Ethics into Telugu. We evaluate eight models spanning global (Llama-3.1-8B, Llama-2-7B, Qwen-8B, Gemma-7B, Gemini-2.0) and regional (Telugu-Llama2-7B, Indic-Gemma-7B, Sarvam-m-24B) systems. While extremely strong models such as Gemini and Sarvam-m largely retain performance in Telugu, most English-centric models suffer severe accuracy drops, often exceeding 30 to 40 points, particularly on mathematical and scientific reasoning. We further observe systematic failure modes including script sensitivity, option-selection bias, repetition loops, and unintended code-switching. Our results demonstrate that surface-level Telugu fluency does not imply robust reasoning capability, underscoring the need for Telugu-specific data, tokenization, and pretraining. TeluguEval provides a standardized testbed to drive progress on reasoning in low-resource Indian languages.</abstract>
       <url hash="e2300ad1">2026.loreslm-1.20</url>
       <bibkey>gundam-mamidi-2026-telugueval</bibkey>
+      <doi>10.18653/v1/2026.loreslm-1.20</doi>
     </paper>
     <paper id="21">
       <title>Cross-Lingual Emotion Recognition in <fixed-case>B</fixed-case>alinese Text using Multilingual-<fixed-case>LLM</fixed-case>s under Peer-Collaborations Settings</title>
       <author id="putu-kussa-laksana-utama" orcid="0000-0002-7074-9338"><first>Putu Kussa Laksana</first><last>Utama</last><affiliation>University of Groningen</affiliation></author>
-      <author id="tsegaye-misikir-tashu" orcid="0000-0002-4498-2486"><first>Tsegaye Misikir</first><last>Tashu</last><affiliation>University of Groningen</affiliation></author>
       <author><first>Jilles Steeve</first><last>Dibangoye</last><affiliation>University of Groningen and INSA de Lyon</affiliation></author>
+      <author id="tsegaye-misikir-tashu" orcid="0000-0002-4498-2486"><first>Tsegaye Misikir</first><last>Tashu</last><affiliation>University of Groningen</affiliation></author>
       <pages>225-238</pages>
       <abstract>Cross-Lingual Emotion Recognition (CLER) remains a formidable challenge for ultra-low-resource languages like Balinese due to the scarcity of high-quality annotated data and the performance limitations of traditional multilingual models. This study addresses these gaps through two primary contributions. First, we present a newly created multi-label Balinese emotion dataset annotated by a panel of experts in Balinese linguistics and psychology. Second, we propose the Multi-Agent Peer Collaboration (MAPC) framework, which transforms the multi-label classification problem into a series of independent binary tasks to leverage the collaborative reasoning of Large Language Models (LLMs). We evaluated the framework against the LaBSE multilingual model and three LLMs of varying scales under zero-shot and few-shot settings using the Macro-F1 measure. The experimental results showed that LLMs significantly outperform traditional Pre-trained Language Models (PLMs). MAPC achieved an overall macro <tex-math>F_1</tex-math>-score of 63.95, which was higher than the individual baselines in both zero-shot and few-shot settings. Analysis shows that while some models exhibit sensitivity to few-shot prompting in low-resource contexts, the MAPC review and revision process consistently improves individual reasoning and provides a more accurate final classification.</abstract>
       <url hash="0758675f">2026.loreslm-1.21</url>
       <bibkey>utama-etal-2026-cross</bibkey>
+      <doi>10.18653/v1/2026.loreslm-1.21</doi>
     </paper>
     <paper id="22">
       <title>Enabling Structured Reasoning in <fixed-case>S</fixed-case>indhi with Culturally Grounded Instruction Tuning</title>
@@ -243,6 +266,7 @@
       <abstract>While Large Language Models (LLMs) excel in high-resource contexts, reasoning capabilities in low-resource languages (LRLs) like Sindhi remain limited. To bridge this gap, we introduce Sindhi-Reasoning-Instruct, the first culturally grounded Sindhi instruction corpus. We fine-tuned six LLaMA and Mistral models (1B–24B) to evaluate if parameter-efficient tuning enables deductive, inductive, and causal reasoning. Results demonstrate that linguistically authentic data is the decisive factor. Fine-tuning effectively restored Sindhi’s Perso-Arabic orthography and SOV structure, with the Mistral-Small-24B model achieving a massive 141% relative improvement in human quality ratings over its base version. Furthermore, structured reasoning capabilities were found to scale with model size; while smaller models achieved high fluency, Mistral-Small-24B achieved top performance across logical categories, reaching 83% on inductive reasoning tasks. This study provides empirical evidence that expert-curated, native instruction data allows LRL models to move beyond simple translation toward robust, structured reasoning. The dataset and models are publicly available.</abstract>
       <url hash="67422668">2026.loreslm-1.22</url>
       <bibkey>mehak-etal-2026-enabling</bibkey>
+      <doi>10.18653/v1/2026.loreslm-1.22</doi>
     </paper>
     <paper id="23">
       <title>Targeted Syntactic Evaluation of Language Models on <fixed-case>G</fixed-case>eorgian Case Alignment</title>
@@ -252,6 +276,7 @@
       <abstract>This paper evaluates the performance of transformer-based language models on split-ergative case alignment in Georgian, a particularly rare system for assigning grammatical cases to mark argument roles. We focus on subject and object marking determined through various permutations of nominative, ergative, and dative noun forms. A treebank-based approach for the generation of minimal pairs using the Grew query language is implemented. We create a dataset of 370 syntactic tests made up of seven tasks containing 50-70 samples each, where three noun forms are tested in any given sample. Five encoder- and two decoder-only models are evaluated with word- and/or sentence-level accuracy metrics. Regardless of the specific syntactic makeup, models performed worst in assigning the ergative case correctly and strongest in assigning the nominative case correctly. Performance correlated with the overall frequency distribution of the three forms (NOM &gt; DAT &gt; ERG). Though data scarcity is a known issue for low-resource languages, we show that the highly specific role of the ergative along with a lack of available training data likely contributes to poor performance on this case. The dataset is made publicly available and the methodology provides an interesting avenue for future syntactic evaluations of languages where benchmarks are limited.</abstract>
       <url hash="ab22c180">2026.loreslm-1.23</url>
       <bibkey>gallagher-heyer-2026-targeted</bibkey>
+      <doi>10.18653/v1/2026.loreslm-1.23</doi>
     </paper>
     <paper id="24">
       <title>"So, How Much Do <fixed-case>LLM</fixed-case>s Hallucinate on Low-Resource Languages?" A Quantitative and Qualitative Analysis</title>
@@ -262,6 +287,7 @@
       <abstract>Language models have recently gained significant attention in natural language processing, showing strong performance across a wide range of tasks such as text classification, text generation, language modeling, and question answering (Q A). Despite these advances, one of the most critical challenges faced by language models is hallucination — the generation of fluent and plausible responses that are factually incorrect or fabricated. This study presents preliminary work on analyzing hallucinations in Q A tasks for low-resource languages. We evaluate model performance on the Mpox-Myanmar and SynDARin datasets using three API-accessible models: LLaMA 3.1 70B, LLaMA 3.1 8B, and Gemini 2.5 — and two monolingual language models: HyGPT 10B for Armenian and SeaLLM for Burmese. Our work contributes by systematically examining hallucinations through quantitative analysis using Natural Language Inference and Semantic Similarity metrics across different model sizes and prompting strategies, as well as qualitative analysis through human verification. We further investigate whether common assumptions about model behavior hold consistently and provide explanations for the observed patterns.</abstract>
       <url hash="f271fc25">2026.loreslm-1.24</url>
       <bibkey>trivedi-etal-2026-much</bibkey>
+      <doi>10.18653/v1/2026.loreslm-1.24</doi>
     </paper>
     <paper id="25">
       <title>Learning from Scarcity: Building and Benchmarking Speech Technology for <fixed-case>S</fixed-case>ukuma.</title>
@@ -275,6 +301,7 @@
       <abstract>Automatic Speech Recognition (ASR) systems are gaining increasing attention in both academia and industry. Despite having remarkable performance in high-resource languages, their efficacy is less pronounced in low-resource settings. We present the first ASR system for Sukuma, one of the most severely under-resourced Tanzanian languages, and provide an open-source Sukuma speech corpus comprising 7.47 hours of carefully transcribed audio. The data, sourced primarily from Bible readings, was rigorously annotated to ensure phonetic and orthographic consistency, making it the most linguistically reliable resource currently available for the Sukuma language. To establish baselines, we train lightweight ASR and Text-to-Speech (TTS) models that demonstrate the feasibility of building end-to-end speech systems for this underrepresented language. This work addresses the challenges of developing language and communication tools for speakers of less-represented languages, particularly the scarcity of representative datasets and benchmarks, and highlights future research directions for linguistically challenging languages, such as Sukuma. We make our data and code publicly available to facilitate reproducibility and further research.</abstract>
       <url hash="0a8b931d">2026.loreslm-1.25</url>
       <bibkey>mgonzo-etal-2026-learning</bibkey>
+      <doi>10.18653/v1/2026.loreslm-1.25</doi>
     </paper>
     <paper id="26">
       <title>"We Are (Language) Family”: Adapting Transformer models to related minority languages with linguistic data</title>
@@ -284,6 +311,7 @@
       <abstract>Transformer-based language models, despite their widespread use, remain mostly unavailable for low-resourced languages (LRLs), due to their lack of texts for pre-training. While solutions have emerged to remedy this, they still almost exclusively rely on raw text corpora, which may be almost non-existent for some languages. A recent line of work has attempted to circumvent this by replacing these with linguistics-based materials, such as grammars, to adapt LRLs to these models. However, many approaches tend to work with languages that are typologically very distant to each other.In this work we investigate whether adapting closely related languages, belonging to the same family, with linguistics-based data can facilitate this process. For this, we look into the adaptation of two Spanish-based Transformer encoders –a monolingual and multilingual models– to Aragonese, a low-resourced Romance language spoken in Northern Spain, with whom it shares similar syntax but differing lexical and morphological phenomena. We rely on several knowledge injection methods, with which we report results, for a monolingual model, above some baselines in a set of Natural Language Understanding (NLU) benchmarks, proving the efficiency of relying on linguistics materials –or combined with a small amount of text– when languages belong to the same family.</abstract>
       <url hash="4203fbd9">2026.loreslm-1.26</url>
       <bibkey>lopez-otal-gracia-2026-language</bibkey>
+      <doi>10.18653/v1/2026.loreslm-1.26</doi>
     </paper>
     <paper id="27">
       <title>A Comprehensive Evaluation of Chain-of-Thought Faithfulness in <fixed-case>P</fixed-case>ersian Classification Tasks</title>
@@ -296,6 +324,7 @@
       <abstract>Large language models (LLMs) have shown remarkable performance when prompted to reason step by step, commonly referred to as chain-of-thought (CoT) reasoning. While prior work has proposed mechanism-level approaches to evaluate CoT faithfulness, these studies have primarily focused on English, leaving low-resource languages such as Persian largely underexplored. In this paper, we present the first comprehensive study of CoT faithfulness in Persian. Our analysis spans 15 classification datasets and 6 language models across three classes (small, large, and reasoning models) evaluated under both English and Persian prompting conditions. We first assess model performance on each dataset while collecting the corresponding CoT traces and final predictions. We then evaluate the faithfulness of these CoT traces using an LLM-as-a-judge approach, followed by a human evaluation to measure agreement between the LLM-based judge and human annotator. Our results reveal substantial variation in CoT faithfulness across tasks, datasets, and model classes. In particular, faithfulness is strongly influenced by the dataset and the language model class, while the language used for prompting has a comparatively smaller effect. Notably, small language models exhibit lower or comparable faithfulness scores than large language models and reasoning models.</abstract>
       <url hash="af6f8234">2026.loreslm-1.27</url>
       <bibkey>yazdani-etal-2026-comprehensive</bibkey>
+      <doi>10.18653/v1/2026.loreslm-1.27</doi>
     </paper>
     <paper id="28">
       <title>Under-resourced studies of under-resourced languages: lemmatization and <fixed-case>POS</fixed-case>-tagging with <fixed-case>LLM</fixed-case> annotators for historical <fixed-case>A</fixed-case>rmenian, <fixed-case>G</fixed-case>eorgian, <fixed-case>G</fixed-case>reek and <fixed-case>S</fixed-case>yriac</title>
@@ -306,6 +335,7 @@
       <abstract>Low-resource languages pose persistent challenges for Natural Language Processing tasks such as lemmatization and part-of-speech (POS) tagging. This paper investigates the capacity of recent large language models (LLMs), including GPT-4 variants and open-weight Mistral models, to address these tasks in few-shot and zero-shot settings for four historically and linguistically diverse under-resourced languages: Ancient Greek, Classical Armenian, Old Georgian, and Syriac. Using a novel benchmark comprising aligned training and out-of-domain test corpora, we evaluate the performance of foundation models across lemmatization and POS-tagging, and compare them with PIE, a task-specific RNN baseline. Our results demonstrate that LLMs, even without fine-tuning, achieve competitive or superior performance in POS-tagging and lemmatization across most languages in few-shot settings. Significant challenges persist for languages characterized by complex morphology and non-Latin scripts, but we demonstrate that LLMs are a credible and relevant option for initiating linguistic annotation tasks in the absence of data, serving as an effective aid for annotation.</abstract>
       <url hash="5d7b9681">2026.loreslm-1.28</url>
       <bibkey>vidal-gorene-etal-2026-resourced</bibkey>
+      <doi>10.18653/v1/2026.loreslm-1.28</doi>
     </paper>
     <paper id="29">
       <title>Large Language Models for Mental Health: A Multilingual Evaluation</title>
@@ -318,6 +348,7 @@
       <abstract>Large Language Models (LLMs) have remarkable capabilities across NLP tasks. However, their performance in multilingual contexts, especially within the mental health domain, has not been thoroughly explored. In this paper, we evaluate proprietary and open-source LLMs on eight mental health datasets in various languages, as well as their machine-translated (MT) counterparts. We compare LLM performance in zero-shot, few-shot, and fine-tuned settings against conventional NLP baselines that do not employ LLMs. In addition, we assess translation quality across language families and typologies to understand its influence on LLM performance. Proprietary LLMs and fine-tuned open-source LLMs achieve competitive F1 scores on several datasets, often surpassing state-of-the-art results. However, performance on MT data is generally lower, and the extent of this decline varies by language and typology. This variation highlights both the strengths of LLMs in handling mental health tasks in languages other than English and their limitations when translation quality introduces structural or lexical mismatches.</abstract>
       <url hash="84b0c1ac">2026.loreslm-1.29</url>
       <bibkey>raihan-etal-2026-large</bibkey>
+      <doi>10.18653/v1/2026.loreslm-1.29</doi>
     </paper>
     <paper id="30">
       <title><fixed-case>S</fixed-case>erbian <fixed-case>S</fixed-case>uper<fixed-case>GLUE</fixed-case>: Towards an Evaluation Benchmark for <fixed-case>S</fixed-case>outh <fixed-case>S</fixed-case>lavic Language Models</title>
@@ -327,6 +358,7 @@
       <abstract>We introduce Serbian SuperGLUE, a comprehensive benchmark for evaluating natural language understanding in Serbian, adapted from the English SuperGLUE benchmark. The benchmark comprises seven tasks spanning question answering, natural language inference, and coreference resolution, created through a combination of LLM-based translation with automatic post-editing and native data generation. We evaluate seven encoder-based language models, including both Serbian-specific (BERTić, Jerteh) and multilingual models (mmBERT, XLM-RoBERTa variants). Our results reveal that multilingual models remain competitive with language-specific alternatives, with mmBERT achieving the best performance on RTE (75.7%) and XLM-R-BERTić leading on BoolQ (82.0%). We observe significant training variance on smaller datasets, with standard deviations exceeding 10% in some configurations, highlighting the importance of multi-seed evaluation for low-resource benchmarking. We release the benchmark, evaluation code, and model checkpoints to facilitate reproducible research on South Slavic language understanding.</abstract>
       <url hash="b14fd648">2026.loreslm-1.30</url>
       <bibkey>perovic-mihajlov-2026-serbian</bibkey>
+      <doi>10.18653/v1/2026.loreslm-1.30</doi>
     </paper>
     <paper id="31">
       <title>Less is More: Adapting Text Embeddings for Low-Resource Languages with Small Scale Noisy Synthetic Data</title>
@@ -338,6 +370,7 @@
       <abstract>Low-resource languages (LRLs) often lack high-quality, large-scale datasets for training effective text embedding models, hindering their application in tasks like retrieval-augmented generation (RAG) and semantic search. In this work, we challenge the prevailing assumption that effective semantic alignment requires massive datasets or pristine, human-verified translations. Focusing on Armenian (an LRL with a unique script), we introduce a cost-effective adaptation strategy using small scale noisy synthetic data generated by translating English Reddit title-body pairs with open-weights models. We establish a comprehensive evaluation benchmark comprising existing datasets, translated data, and a manually curated dataset. Our experiments reveal a surprising "Less is More" phenomenon: fine-tuning a multilingual encoder (mE5) on just 10,000 noisy synthetic pairs yields 11-12% average improvements across the benchmark with a 20%+ relative improvement in retrieval performance, matching the performance of models trained on ~1 million examples. Furthermore, we demonstrate that neither increasing data scale, improving translation quality via state-of-the-art LLMs, nor diversifying data domains yields significant gains over this minimal baseline. We validate the generalizability of these findings on another LRL with a unique script. Our results suggest that semantic alignment for LRLs saturates early and is highly robust to noise, democratizing high-performance embedding creation for resource-constrained communities. We release the model, data, and the benchmark at this https URL to facilitate further research.</abstract>
       <url hash="27515d58">2026.loreslm-1.31</url>
       <bibkey>navasardyan-etal-2026-less</bibkey>
+      <doi>10.18653/v1/2026.loreslm-1.31</doi>
     </paper>
     <paper id="32">
       <title>Evaluating Large Language Models on <fixed-case>L</fixed-case>ithuanian Grammatical Cases</title>
@@ -347,6 +380,7 @@
       <abstract>We present a systematic evaluation of large language models (LLMs) on Lithuanian grammatical case marking, a task that has received little prior attention. Lithuanian is a relatively low-resource language, with rich morphology and explicit marking. To enable fine-grained syntactic and morphological assessment, we introduce a novel dataset of 305 minimal sentence pairs contrasting correct and incorrect case usage. Our results show that case marking is challenging for current models, with overall accuracy ranging from 0.662 to 0.852. A monolingual Lithuanian LLM consistently outperforms multilingual counterparts, highlighting the value of language-specific training over model size. Performance varies across cases: genitive and locative forms are generally better handled, while rarer constructions and subtle functional distinctions remain difficult. The dataset and analysis provide a resource for future work, supporting the development of more robust LLMs and targeted evaluation benchmarks for morphologically rich, low-resource languages.</abstract>
       <url hash="d2f1da58">2026.loreslm-1.32</url>
       <bibkey>jakubauskaite-alhama-2026-evaluating</bibkey>
+      <doi>10.18653/v1/2026.loreslm-1.32</doi>
     </paper>
     <paper id="33">
       <title>Tracking the evolution of <fixed-case>LLM</fixed-case> capabilities for <fixed-case>B</fixed-case>elarusian with <fixed-case>O</fixed-case>pen<fixed-case>AI</fixed-case> Evals</title>
@@ -359,6 +393,7 @@
       <abstract>We examine how the capabilities of large language models (LLMs) have evolved on eight Belarusian language tasks contributed in 2023 to OpenAI’s Evals framework. We evaluate state-of-the-art models both on the original development sets and newly created test sets. Results demonstrate significant but non-uniform progress over this period: some tasks are almost saturated, while others show minor improvement beyond trivial baselines. Error analysis shows that certain challenges haven’t yet been addressed, e.g. misidentification of non-words as legitimate vocabulary, or conversion from modern to classical orthography. We release the datasets and the generated completions (https://doi.org/10.5281/zenodo.18163825).</abstract>
       <url hash="3f0c5be4">2026.loreslm-1.33</url>
       <bibkey>poritski-etal-2026-tracking</bibkey>
+      <doi>10.18653/v1/2026.loreslm-1.33</doi>
     </paper>
     <paper id="34">
       <title>Beyond Many-Shot Translation: Scaling In-Context Demonstrations For Low-Resource Machine Translation</title>
@@ -371,6 +406,7 @@
       <abstract>Building machine translation (MT) systems for low-resource languages is notably difficult due to the scarcity of high-quality data. Although Large Language Models (LLMs) have improved MT system performance, adapting them to lesser-represented languages remains challenging. In-context learning (ICL) may offer novel ways to adapt LLMs for low-resource MT by conditioning models on demonstration at inference time. In this study, we explore scaling low-resource machine translation ICL beyond the few-shot setting to thousands of examples with long-context models. We scale in-context token budget to 1M tokens and compare three types of training corpora used as in-context supervision: monolingual unsupervised data, instruction-style data, and parallel data (English–target and Indonesian–target). Our experiments on Javanese and Sundanese show that gains from additional context saturate quickly and can degrade near the maximum context window, with scaling behavior strongly dependent on corpus type. Notably, some forms of monolingual supervision can be competitive with parallel data, despite the latter offering additional supervision. Overall, our results characterize the effective limits and corpus-type sensitivity of long-context ICL for low-resource MT, highlighting that larger context windows do not necessarily yield proportional quality gains.</abstract>
       <url hash="ff245d08">2026.loreslm-1.34</url>
       <bibkey>salim-etal-2026-beyond</bibkey>
+      <doi>10.18653/v1/2026.loreslm-1.34</doi>
     </paper>
     <paper id="35">
       <title>Bootstrapping Embeddings for Low Resource Languages</title>
@@ -381,6 +417,7 @@
       <abstract>Embedding models are a crucial to modern NLP. However, the creation of the most effective models relies on carefully constructed supervised finetuning data. For high resource languages, such as English, such datasets are readily available. However, for hundreds of other languages, they are simply non-existent. We investigate whether the advent of large language models can help to bridge this gap. We test three different strategies for generating synthetic triplet data used to optimising embedding models. These include in-context learning as well as two novel approaches, leveraging adapter composition and cross lingual finetuning of the LLM generator (XL-LoRA) respectively. We find that while in-context learning still falls short of strong non-synthetic baselines, adapter composition and XL-LoRA yield strong performance gains across a wide array of tasks and languages, offering a clear scalable pathway to producing performant embedding models for a wide variety of languages.</abstract>
       <url hash="03ac517d">2026.loreslm-1.35</url>
       <bibkey>basoz-etal-2026-bootstrapping</bibkey>
+      <doi>10.18653/v1/2026.loreslm-1.35</doi>
     </paper>
     <paper id="36">
       <title>The <fixed-case>I</fixed-case>ndonesian Religiolect Corpus: Data Curation for Muslim, Protestant, and Catholic Language Varieties</title>
@@ -389,6 +426,7 @@
       <abstract>Religiolects—language varieties shaped by re- ligious community identity—are low-resource domains often overlooked within high-resource languages. We present the Indo-Religiolect Corpus, the first large-scale dataset for In- donesian religious language variation, con- taining 3 million sentences from over 100 institutional websites representing Muslim, Catholic, and Protestant communities. Fine- tuning IndoBERT demonstrates these religi- olects are computationally distinguishable: Is- lamic Indonesian exhibits high distinctiveness (91.73%), while Catholic and Protestant vari- eties share substantial lexical overlap yet retain detectable shibboleths (86.41% and 86.64%). Our findings indicate a potential for represen- tation collapse: models trained on majority- normative data may default to secular or Muslim-dominant Indonesian, blurring distinct minority voices. We hypothesize that these gaps plausibly translate into downstream fair- ness risks for applications like content mod- eration and automated hiring. This corpus of- fers a template for documenting sub-national varieties, advancing linguistic equity beyond “National Language” benchmarks toward “No Language Variety Left Behind.”</abstract>
       <url hash="f1673acd">2026.loreslm-1.36</url>
       <bibkey>sachs-2026-indonesian</bibkey>
+      <doi>10.18653/v1/2026.loreslm-1.36</doi>
     </paper>
     <paper id="37">
       <title>Representation-Aware Prompting for Zero-Shot <fixed-case>M</fixed-case>arathi Text Classification: <fixed-case>IPA</fixed-case>, <fixed-case>R</fixed-case>omanization, Repetition</title>
@@ -400,6 +438,7 @@
       <abstract>Large language models (LLMs) often underperform in zero-shot text classification for low-resource, non-Latin languages due to script and tokenization mismatches. We propose <i>representation-aware prompting</i> for Marathi that augments the original script with International Phonetic Alphabet (IPA) transcriptions, romanization, or a repetition-based fallback when external converters are unavailable. Experiments with two instruction-tuned LLMs on Marathi sentiment analysis and hate detection show consistent gains over script-only prompting (up to +2.6 accuracy points). We further find that the most effective augmentation is model-dependent, and that combining all variants is not consistently beneficial, suggesting that concise, targeted cues are preferable in zero-shot settings.</abstract>
       <url hash="9a1891ca">2026.loreslm-1.37</url>
       <bibkey>tran-etal-2026-representation</bibkey>
+      <doi>10.18653/v1/2026.loreslm-1.37</doi>
     </paper>
     <paper id="38">
       <title><fixed-case>M</fixed-case>ai<fixed-case>BERT</fixed-case>: A Pre-training Corpus and Language Model for Low-Resourced <fixed-case>M</fixed-case>aithili Language</title>
@@ -413,6 +452,7 @@
       <abstract>Natural Language Understanding (NLU) for low-resource languages remains a major challenge in NLP due to the scarcity of high-quality data and language-specific models. Maithili, despite being spoken by millions, lacks adequate computational resources, limiting its inclusion in digital and AI-driven applications. To address this gap, we introduce maiBERT, a BERT-based language model pre-trained specifically for Maithili using the Masked Language Modeling (MLM) technique. Our model is trained on a newly constructed Maithili corpus and evaluated through a news classification task. In our experiments, maiBERT achieved an accuracy of 87.02%, outperforming existing regional models like NepBERTa and HindiBERT, with a 0.13% overall accuracy gain and 5–7% improvement across various classes. We have open-sourced maiBERT on Hugging Face, enabling further fine-tuning for downstream tasks such as sentiment analysis and Named Entity Recognition (NER).</abstract>
       <url hash="be7702ba">2026.loreslm-1.38</url>
       <bibkey>yadav-etal-2026-maibert</bibkey>
+      <doi>10.18653/v1/2026.loreslm-1.38</doi>
     </paper>
     <paper id="39">
       <title><fixed-case>K</fixed-case>yr<fixed-case>T</fixed-case>ext: A Multi-Domain Large-Scale Corpus for <fixed-case>K</fixed-case>yrgyz Language</title>
@@ -421,6 +461,7 @@
       <abstract>Kyrgyz is a morphologically rich Turkic language that remains significantly underrepresented in modern multilingual language models. To address this resource gap, we introduce KyrText, a diverse, large-scale corpus containing 680.5 million words. Unlike existing web-crawled datasets which are often noisy or misidentified, KyrText aggregates high-quality news, Wikipedia entries, digitized literature, and extensive legal archives from the Supreme Court and Ministry of Justice of the Kyrgyz Republic. We leverage this corpus for the continual pre-training of mBERT, XLM-R, and DeBERTaV3, while also training RoBERTa architectures from scratch.Evaluations across several bench marks—including natural language inference (XNLI), question answering (BoolQ), sentiment analysis (SST-2), and paraphrase identification (PAWS-X)—demonstrate that targeted pre-training on KyrText yields substantial performance improvements over baseline multilingual models.Our findings indicate that while base-sized models benefit immediately from this domain-specific data, larger architectures require more extensive training cycles to fully realize their potential. We release our corpus and suite of models to establish a new foundation for Kyrgyz Natural Language Processing.</abstract>
       <url hash="7392c264">2026.loreslm-1.39</url>
       <bibkey>chubakov-2026-kyrtext</bibkey>
+      <doi>10.18653/v1/2026.loreslm-1.39</doi>
     </paper>
     <paper id="40">
       <title>Pretraining and Benchmarking Modern Encoders for <fixed-case>L</fixed-case>atvian</title>
@@ -429,6 +470,7 @@
       <abstract>Encoder-only transformers remain essential for practical NLP tasks. While recent advances in multilingual models have improved cross-lingual capabilities, low-resource languages such as Latvian remain underrepresented in pretraining corpora, and few monolingual Latvian encoders currently exist. We address this gap by pretraining a suite of Latvian-specific encoders based on RoBERTa, DeBERTaV3, and ModernBERT architectures, including long-context variants, and evaluating them on a comprehensive Latvian benchmark suite. Our models are competitive with existing monolingual and multilingual encoders while benefiting from recent architectural and efficiency advances. Our best model, lv-deberta-base (111M parameters), achieves the strongest overall performance, outperforming larger multilingual baselines and prior Latvian-specific encoders. We release all pretrained models and evaluation resources to support further research and practical applications in Latvian NLP.</abstract>
       <url hash="28474145">2026.loreslm-1.40</url>
       <bibkey>znotins-2026-pretraining</bibkey>
+      <doi>10.18653/v1/2026.loreslm-1.40</doi>
     </paper>
     <paper id="41">
       <title>Escaping the Probability Trap: Mitigating Semantic Drift in <fixed-case>C</fixed-case>antonese-<fixed-case>M</fixed-case>andarin Translation</title>
@@ -438,6 +480,7 @@
       <abstract>Fine-tuning multilingual models for low-resource dialect translation frequently encounters a “plausibility over faithfulness” dilemma, resulting in severe semantic drift on dialect-specific tokens. We term this phenomenon the “Probability Trap,” where models prioritize statistical fluency over semantic fidelity. To address this, we propose MVS-Rank (Multi-View Scoring Reranking), a generate-then-rerank framework that decouples evaluation from generation. Our method assesses translation candidates through three complementary perspectives: (1) Source-Side Faithfulness via a Reverse Translation Model to anchor semantic fidelity; (2) Local Fluency using Masked Language Models to ensure syntactic precision; and (3) Global Fluency leveraging Large Language Models to capture discourse coherence. Extensive experiments on Cantonese-Mandarin benchmarks demonstrate that MVS-Rank achieves state-of-the-art performance, significantly outperforming strong fine-tuning baselines by effectively rectifying hallucinations while maintaining high fluency.</abstract>
       <url hash="eab94a60">2026.loreslm-1.41</url>
       <bibkey>liang-chen-2026-escaping</bibkey>
+      <doi>10.18653/v1/2026.loreslm-1.41</doi>
     </paper>
     <paper id="42">
       <title>How multilingual are multilingual <fixed-case>LLM</fixed-case>s? A case study in <fixed-case>N</fixed-case>orthern <fixed-case>S</fixed-case>ámi-<fixed-case>F</fixed-case>innish Translation</title>
@@ -447,6 +490,7 @@
       <abstract>We use Finnish and Northern Sámi as a case study to investigate how suitable multilingual LLMs are for low-resource machine translation and how much performance can be improved using supervised finetuning with varying amounts of parallel data. Our experiments on zero-shot translation reveal that mainstream multilingual LLMs from a variety of model families are unsuitable for translation between our chosen languages as-is, regardless of the generation hyperparameters. On the other hand, our experiments on supervised finetuning reveal that even relatively small amounts of parallel data can be very useful for improving performance in both translation directions.</abstract>
       <url hash="4d012211">2026.loreslm-1.42</url>
       <bibkey>saleva-lignos-2026-multilingual</bibkey>
+      <doi>10.18653/v1/2026.loreslm-1.42</doi>
     </paper>
     <paper id="43">
       <title>Tokenization and Morphological Fidelity in <fixed-case>U</fixed-case>ralic <fixed-case>NLP</fixed-case>: A Cross-Lingual Evaluation</title>
@@ -456,6 +500,7 @@
       <abstract>Subword tokenization critically affects Natural Language Processing (NLP) performance, yet its behavior in morphologically rich and low-resource language families remains under-explored. This study systematically compares three subword paradigms—Byte Pair Encoding (BPE), Overlap BPE (OBPE), and Unigram Language Model—across six Uralic languages with varying resource availability and typological diversity.Using part-of-speech (POS) tagging as a controlled downstream task, we show that OBPE consistently achieves stronger morphological alignment and higher tagging accuracy than conventional methods, particularly within the Latin-script group. These gains arise from reduced fragmentation in open-class categories and a better balance across the frequency spectrum. Transfer efficacy further depends on the downstream tagging architecture, interacting with both training volume and genealogical proximity.Taken together, these findings highlight that morphology-sensitive tokenization is not merely a preprocessing choice but a decisive factor in enabling effective cross-lingual transfer for agglutinative, low-resource languages.</abstract>
       <url hash="46ef02c2">2026.loreslm-1.43</url>
       <bibkey>xu-kim-2026-tokenization</bibkey>
+      <doi>10.18653/v1/2026.loreslm-1.43</doi>
     </paper>
     <paper id="44">
       <title><fixed-case>H</fixed-case>ebrew Diacritics Restoration using Visual Representation</title>
@@ -465,6 +510,7 @@
       <abstract>Diacritics restoration in Hebrew is a fundamental task for ensuring accurate word pronunciation and disambiguating textual meaning. Despite the language’s high degree of ambiguity when unvocalized, recent machine learning approaches have significantly advanced performance on this task. In this work, we present DiVRit, a novel system for Hebrew diacritization that frames the task as a zero-shot classification problem. Our approach operates at the word level, selecting the most appropriate diacritization pattern for each undiacritized word from a dynamically generated candidate set, conditioned on the surrounding textual context. A key innovation of DiVRit is its use of a Hebrew Visual Language Model to process diacritized candidates as images, allowing diacritic information to be embedded directly within their vector representations while the surrounding context remains tokenization-based. Through a comprehensive evaluation across various configurations, we demonstrate that the system effectively performs diacritization without relying on complex, explicit linguistic analysis. Notably, in an “oracle” setting where the correct diacritized form is guaranteed to be among the provided candidates, DiVRit achieves a high level of accuracy. Furthermore, strategic architectural enhancements and optimized training methodologies yield significant improvements in the system’s overall generalization capabilities. These findings highlight the promising potential of visual representations for accurate and automated Hebrew diacritization.</abstract>
       <url hash="445434a7">2026.loreslm-1.44</url>
       <bibkey>elboher-pinter-2026-hebrew</bibkey>
+      <doi>10.18653/v1/2026.loreslm-1.44</doi>
     </paper>
     <paper id="45">
       <title>Out-Of-Tune rather than Fine-Tuned: How Pre-training, Fine-tuning and Tokenization Affect Semantic Similarity in a Historical, Non-Standardized Domain</title>
@@ -474,6 +520,7 @@
       <abstract>Domain-specific encoder language models have been shown to accurately represent semantic distributions as they appear in the pre-training corpus. However, the general consensus is that general language models can adapt to a domain through fine-tuning. Similarly, multilingual models have been shown to leverage transfer learning even for languages that were not present in their pre-training data. Contrastively, tokenization has also been shown to have a great impact on a models’ abilities to capture relevant semantic information, while this remains unchanged between pre-training and fine-tuning. This raises the question whether word embeddings for subtokens in models are of sufficient semantic quality for a target domain if not learned for the same domain. In this paper, we compare how different models assign similarity scores to different semantic categories in a highly specialized, non-standardised domain: Early Modern Dutch as written in the archives of the Dutch East India Company. Since the language in this domain is from before spelling conventions were established, and noise accumulates due to the fact that the original handwritten text went through a Handwritten Text Recognition pipeline, this use-case offers a unique opportunity to study both domain-specific semantics as well as a highly complex tokenization task for lesser-resourced languages. Our results support findings in earlier work that fine-tuned models may pick up spurious correlations in the adaptation process and stop relying on relevant semantics learned during pre-training.</abstract>
       <url hash="066fad69">2026.loreslm-1.45</url>
       <bibkey>verkijk-vossen-2026-tune</bibkey>
+      <doi>10.18653/v1/2026.loreslm-1.45</doi>
     </paper>
     <paper id="46">
       <title><fixed-case>L</fixed-case>ux<fixed-case>D</fixed-case>iag<fixed-case>RC</fixed-case>: A Diagnostic Reading Comprehension Corpus for <fixed-case>L</fixed-case>uxembourgish with Linguistic and Cognitive Annotation Layers</title>
@@ -484,6 +531,7 @@
       <abstract>Reading comprehension resources for low-resource languages remain limited, particularly datasets designed for educational assessment and diagnostic analysis in contrast to binary correctness.We present a diagnostically rich reading comprehension corpus forLuxembourgish, annotated using a two-layer framework that separateslinguistic sources of textual difficulty from cognitive and diagnosticproperties of comprehension questions. The linguistic layer captures span-level lexical, syntactic, morphological, and discourse-related features, while the cognitive layerannotates multiple-choice questions according to the PIRLS cognitiveprocesses and diagnostically meaningful distractor types following theSTARC framework.This design enables fine-grained analysis of reading comprehensionerrors by linking response patterns to underlying linguistic phenomena. The resulting corpus consists of 640 multiple-choice questions based on 16 annotated Luxembourgish texts. We describe the annotation methodology agreement measures, and will releasethe dataset as a publicly available resource for educational andlow-resource NLP research.</abstract>
       <url hash="cc784b01">2026.loreslm-1.46</url>
       <bibkey>goncalves-etal-2026-luxdiagrc</bibkey>
+      <doi>10.18653/v1/2026.loreslm-1.46</doi>
     </paper>
     <paper id="47">
       <title>Cross-Lingual and Cross-Domain Transfer Learning for <fixed-case>POS</fixed-case> Tagging in Historical <fixed-case>G</fixed-case>ermanic Low-Resource Languages</title>
@@ -494,6 +542,7 @@
       <abstract>Although Part-of-Speech (POS) tagging has been widely studied, it still presents several challenges, particularly reduced performance on out-of-domain data. While increasing in-domain training data can be effective, this strategy is often impractical in historical low-resource settings. Cross-lingual transfer learning has shown promise for low-resource languages; however, its impact on domain generalization has received limited attention and may remain insufficient when used in isolation. This study focuses on cross-lingual and cross-domain transfer learning for POS tagging on four historical Germanic low-resource languages in two literary genres. For each language, POS tagged data were extracted and mapped to the Universal Dependencies UPOS tag set to establish a monolingual baseline and train three multilingual models in two dataset configurations. The results were consistent with previous findings, indicating that structural differences between the genres can negatively influence transfer learning. The poetry-only multilingual model showed improvements within that domain compared to the baseline. In contrast, multilingual models trained with all available data had lower performance caused by substantial structural differences in the corpora. This study underlines the importance of investigating the domain-generalization abilities of the models, which may be negatively influenced by substantial structural differences between data. In addition, it sheds light on the study of historical low-resource languages.</abstract>
       <url hash="6f7a2909">2026.loreslm-1.47</url>
       <bibkey>miani-etal-2026-cross</bibkey>
+      <doi>10.18653/v1/2026.loreslm-1.47</doi>
     </paper>
     <paper id="48">
       <title><fixed-case>MTQE</fixed-case>.en-he: Machine Translation Quality Estimation for <fixed-case>E</fixed-case>nglish-<fixed-case>H</fixed-case>ebrew</title>
@@ -504,6 +553,7 @@
       <abstract>We release MTQE.en-he: to our knowledge,the first publicly available English-Hebrewbenchmark for Machine Translation QualityEstimation. MTQE.en-he contains 959 English segments from WMT24++, each pairedwith a machine translation into Hebrew, andDirect Assessment scores of the translationquality annotated by three human experts. Webenchmark ChatGPT prompting, TransQuest,and CometKiwi and show that ensemblingthe three models outperforms the best singlemodel (CometKiwi) by 6.4 percentage pointsPearson and 5.8 percentage points Spearman.Fine-tuning experiments with TransQuest andCometKiwi reveal that full-model updates aresensitive to overfitting and distribution collapse,yet parameter-efficient methods (LoRA, BitFit, and FTHead, i.e., fine-tuning only the classification head)train stably and yield improvements of 2-3 percentage points. MTQE.en-heand our experimental results enable future research on this under-resourced language pair.</abstract>
       <url hash="1b1cbe54">2026.loreslm-1.48</url>
       <bibkey>rosenbaum-etal-2026-mtqe</bibkey>
+      <doi>10.18653/v1/2026.loreslm-1.48</doi>
     </paper>
     <paper id="49">
       <title>Tokenization Cost, Retention, and Orthography Robustness for <fixed-case>L</fixed-case>adin and <fixed-case>I</fixed-case>talian Varieties</title>
@@ -512,6 +562,7 @@
       <abstract>Tokenizer mismatch is a practical bottleneck for low-resource language varieties: when text is fragmented into disproportionately many subwords or bytes, it wastes context, increases truncation, and can be brittle to orthographic variation.We present a lightweight and reproducible audit centered on Ladin and evaluated on the Identification of Languages and Dialects ofItaly benchmark of eleven Italian varieties.Our diagnostic suite combines tokenization cost measures (tokens per word, truncation pressure, bytes per token) with retention indicators (word split rate, continued-token rate, and type-level retention) and fragmentation proxies that reveal splitting patterns beyond fertility.We pair these diagnostics with a conservative orthography robustness protocol (diacritics, casing, punctuation and dash normalization) and assess how diagnostic changes relate to performance drops in lightweight baselines for sentence-level variety identification.We release code and derived statistics to support reproducible tokenizer audits in other low-resource settings.</abstract>
       <url hash="284a0046">2026.loreslm-1.49</url>
       <bibkey>staffini-2026-tokenization</bibkey>
+      <doi>10.18653/v1/2026.loreslm-1.49</doi>
     </paper>
     <paper id="50">
       <title><fixed-case>U</fixed-case>r<fixed-case>H</fixed-case>i<fixed-case>O</fixed-case>d<fixed-case>S</fixed-case>ynth: A Multilingual Synthetic Corpus for Speech-to-Speech Translation in Low-Resource <fixed-case>I</fixed-case>ndic Languages</title>
@@ -524,6 +575,7 @@
       <abstract>Speech-to-Speech Translation (S2ST) focuses on generating spoken output in a target language directly from spoken input in a source language. Despite progress in S2ST modeling, low-resource Indic languages remain poorly supported, primarily because large-scale parallel speech corpora are unavailable. We present UrHiOdSynth, a three-language parallel S2ST dataset containing approximately 75 hours of speech across Urdu, Hindi, and Odia. The corpus consists of 10,735 aligned sentence triplets, with an average utterance length of 8.45 seconds. To our knowledge, UrHiOdSynth represents the largest multi-domain resource offering aligned speech and text for S2ST in this language context. Beyond speech-to-speech translation, the dataset supports tasks such as automatic speech recognition, speech-to-text translation, text-to-speech synthesis, and machine translation. This flexibility enables the training of unified multilingual models, particularly for low-resource Indic languages.</abstract>
       <url hash="bef6958f">2026.loreslm-1.50</url>
       <bibkey>jamaluddin-etal-2026-urhiodsynth</bibkey>
+      <doi>10.18653/v1/2026.loreslm-1.50</doi>
     </paper>
     <paper id="51">
       <title><fixed-case>B</fixed-case>angla<fixed-case>S</fixed-case>umm<fixed-case>E</fixed-case>val: Reference-Free Factual Consistency Evaluation for <fixed-case>B</fixed-case>angla Summarization</title>
@@ -536,6 +588,7 @@
       <abstract>Evaluating factual consistency is essential for reliable text summarization, particularly in high-stakes domains such as healthcare and news. However, most existing evaluation metrics overlook Bangla, a widely spoken yet under-resourced language, and often depend on reference summaries. We introduce BanglaSummEval, a reference-free, question-answering-based framework for evaluating factual consistency in Bangla summarization. The proposed method assesses both factual accuracy and content coverage through automatically generated questions and answers derived from the source document and the summary. A single multilingual instruction-tuned language model handles question generation, question answering, candidate answer extraction, and question importance weighting. This unified design reduces system complexity and computational cost. To capture semantic consistency beyond surface-level overlap, we use BERTScore-Recall for answer comparison. We validate BanglaSummEval on 300 human-written summaries from educational and medical domains, demonstrating strong correlation with expert human judgments (Pearson’s <tex-math>r = 0.694</tex-math>, Spearman’s <tex-math>\rho = 0.763</tex-math>). By providing interpretable, step-wise diagnostics alongside reliable evaluation scores, BanglaSummEval offers a practical and transparent solution for factual consistency evaluation in low-resource language settings.</abstract>
       <url hash="8a7cc390">2026.loreslm-1.51</url>
       <bibkey>rafid-etal-2026-banglasummeval</bibkey>
+      <doi>10.18653/v1/2026.loreslm-1.51</doi>
     </paper>
     <paper id="52">
       <title>Parameter-Efficient Quality Estimation via Frozen Recursive Models</title>
@@ -546,6 +599,7 @@
       <abstract>Tiny Recursive Models (TRM) achieve strong results on reasoning tasks through iterative refinement of a shared network. We investigate whether these recursive mechanisms transfer to Quality Estimation (QE) for low-resource languages using a three-phase methodology. Experiments on 8 language pairs on a low-resource QE dataset reveal three findings. First, TRM’s recursive mechanisms do not transfer to QE. External iteration hurts performance, and internal recursion offers only narrow benefits. Next, representation quality dominates architectural choices, and lastly, frozen pretrained embeddings match fine-tuned performance while reducing trainable parameters by 37<tex-math>\times</tex-math> (7M vs 262M). TRM-QE with frozen XLM-R embeddings achieves a Spearman’s correlation of 0.370, matching fine-tuned variants (0.369) and outperforming an equivalent-depth standard transformer (0.336). On Hindi and Tamil, frozen TRM-QE outperforms MonoTransQuest (560M parameters) with 80<tex-math>\times</tex-math> fewer trainable parameters, suggesting that weight sharing combined with frozen embeddings enables parameter efficiency for QE.</abstract>
       <url hash="ca2b0b92">2026.loreslm-1.52</url>
       <bibkey>abubacar-etal-2026-parameter</bibkey>
+      <doi>10.18653/v1/2026.loreslm-1.52</doi>
     </paper>
     <paper id="53">
       <title>Neural Machine Translation for <fixed-case>F</fixed-case>rench–Mooré: Adapting Large Language Models to Low-Resource Languages</title>
@@ -559,6 +613,7 @@
       <abstract>This work focuses on neural machine translation between French and Mooré, leveraging the capabilities of Large Language Models (LLMs) in a low-resource language context. Mooré is a local language widely spoken in Burkina Faso but remains underrepresented in digital resources. Alongside Mooré, French, now a working language, remains widely used in administration, education, justice, etc. The coexistence of these two languages creates a growing demand for effective translation tools. However, Mooré, like many low-resource languages, poses significant challenges for machine translation due to the scarcity of parallel corpora and its complex morphology.The main objective of this work is to adapt LLMs for French–Mooré translation. Three pre-trained models were selected: No Language Left Behind (NLLB-200), mBART50, and AfroLM. A corpus of approximately 83,000 validated sentence pairs was compiled from an initial collection of 97,060 pairs through pre-processing, semantic filtering, and human evaluation. Specific adaptations to tokenizers and model architectures were applied to improve translation quality.The results show that the fine-tuned NLLB model outperforms the others, highlighting the importance of native language support. mBART50 achieves comparable performance after fine-tuning, while AfroLM remains less effective. Despite existing limitations, this study demonstrates the potential of fine-tuned LLMs for African low-resource languages.</abstract>
       <url hash="80feeed0">2026.loreslm-1.53</url>
       <bibkey>stanislas-rocksane-compaore-etal-2026-neural</bibkey>
+      <doi>10.18653/v1/2026.loreslm-1.53</doi>
     </paper>
     <paper id="54">
       <title>Contributing to Speech-to-Speech Translation for <fixed-case>A</fixed-case>frican Low-Resource Languages : Study of <fixed-case>F</fixed-case>rench-Mooré Pair</title>
@@ -572,6 +627,7 @@
       <abstract>Most of African low-resource languages are primarily spoken rather than written and lack large, standardized textual resources. In many communities, low literacy rates and limited access to formal education mean that text-based translation technologies alone are insufficient for effective communication. As a result, speech-to-speech translation systems play a crucial role by enabling direct and natural interaction across languages without requiring reading or writing skills. Such systems are essential for improving access to information, public services, healthcare, and education. The goal of our work is to build powerful transcription and speech synthesis models for Mooré language. Then, these models have been used to build a cascaded voice translation system between French and Mooré, since we already got a French-Mooré machine translation model. We collected Mooré audio-text pairs, reaching a total audio duration of 150 hours. Then, We fine-tuned Orpheus-3B and XTTS-v2 for speech synthesis and Wav2Vec-Bert-2.0 for transcription task. After fine-tuning and evaluation by 36 Mooré native speakers, XTTS-v2 achieved a MOS of 4.36 out of 5 compared to 3.47 out of 5 for Orpheus-3B. The UTMOS evaluation resulted in 3.47 out of 5 for XTTS-v2 and 2.80 out of 5 for Orpheus-3B. The A/B tests revealed that the evaluators preferred XTTS-v2 Mooré audios in 77.8% of cases compared to 22.2% for Orpheus-3B. After fine-tuning on Mooré, Wav2Vec-Bert-2.0 achieved a WER of 4.24% and a CER of 1.11%. Using these models, we successfully implemented a French-Mooré Speech-to-Speech Translation system.</abstract>
       <url hash="68d8e0c3">2026.loreslm-1.54</url>
       <bibkey>ouedraogo-etal-2026-contributing</bibkey>
+      <doi>10.18653/v1/2026.loreslm-1.54</doi>
     </paper>
     <paper id="55">
       <title>Domain-Specific Quality Estimation for Machine Translation in Low-Resource Scenarios</title>
@@ -583,6 +639,7 @@
       <abstract>Quality Estimation (QE) is essential for assessing machine translation quality in reference-less settings, particularly for domain-specific and low-resource language scenarios. In this paper, we investigate sentence-level QE for English to Indic machine translation across four domains (Healthcare, Legal, Tourism, and General) and five language pairs. We systematically compare zero-shot, few-shot, and guideline-anchored prompting across selected closed-weight and open-weight LLMs. Findings indicate that while closed-weight models achieve strong performance via prompting alone, prompt-only approaches remain fragile for open-weight models, especially in high-risk domains. To address this, we adopt ALOPE, a framework for LLM-based QE which uses Low-Rank Adaptation with regression heads attached to selected intermediate Transformer layers. We also extend ALOPE with the recently proposed Low-Rank Multiplicative Adaptation (LoRMA) for this work. Our results show that intermediate-layer adaptation consistently improves QE performance, with gains in semantically complex domains, indicating a way ahead for robust QE in practical scenarios. We release code and domain-specific QE datasets publicly for further research.</abstract>
       <url hash="b22730ea">2026.loreslm-1.55</url>
       <bibkey>gurav-etal-2026-domain</bibkey>
+      <doi>10.18653/v1/2026.loreslm-1.55</doi>
     </paper>
     <paper id="56">
       <title>Overview of the Second Workshop on Language Models for Low-Resource Languages (<fixed-case>L</fixed-case>o<fixed-case>R</fixed-case>es<fixed-case>LM</fixed-case> 2026)</title>
@@ -599,6 +656,7 @@
       <abstract>The second workshop on Language Models for Low-Resource Languages (LoResLM 2026) was held in conjunction with the 19th Conference of the European Chapter of the Association for Computational Linguistics (EACL 2026) in Rabat, Morocco. This workshop mainly aimed to provide a forum for researchers to share and discuss their ongoing work on language models (LMs) focusing on low-resource languages and dialects, following recent advancements in neural language models and their linguistic biases towards high- resource languages. LoResLM 2026 attracted a notable interest from the natural language processing (NLP) community, resulting in 55 accepted papers from 79 submissions. These contributions cover a broad range of low-resource languages from 13 language families and 11 diverse research areas, paving the way for future possibilities and promoting linguistic inclusivity in NLP.</abstract>
       <url hash="14ade1f2">2026.loreslm-1.56</url>
       <bibkey>hettiarachchi-etal-2026-overview</bibkey>
+      <doi>10.18653/v1/2026.loreslm-1.56</doi>
     </paper>
   </volume>
 </collection>
