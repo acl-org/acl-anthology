@@ -52,7 +52,7 @@ for p in anthology.papers():
     for a in p.authors:
         if a.id:
             explicit_authorships_by_year[p.year] += 1
-        person = anthology.resolve(a)
+        person = a.resolve()
         authorships_by_year[p.year] += 1
         uniq_authors_by_year[p.year].add(person)
         uniq_authors_by_year['*'].add(person)
