@@ -14,13 +14,13 @@
 
 from __future__ import annotations
 
-from attrs import define, field, validators as v
+from attrs import define, field, setters, validators as v
 from functools import cache, cached_property
 from lxml import etree
 from lxml.builder import E
 import re
 from slugify import slugify
-from typing import Any, Optional, cast, TypeAlias
+from typing import Any, Optional, cast, Self, TypeAlias, TYPE_CHECKING
 import yaml
 
 try:
@@ -28,7 +28,58 @@ try:
 except ImportError:  # pragma: no cover
     from yaml import Dumper  # type: ignore
 
+from ..constants import RE_VERIFIED_PERSON_ID, NO_PERSON_ID
+from ..exceptions import AnthologyException
+from ..utils.attrs import track_namespec_modifications
 from ..utils.latex import latex_encode
+
+if TYPE_CHECKING:
+    from ..anthology import Anthology
+    from ..collections import Volume, Paper, Talk
+    from ..people import Person
+
+
+SLUGIFY_REPLACEMENTS = (
+    ["ʼ", "-"],
+    ["’", "-"],
+)
+"""Custom replacement rules for name slugs."""
+
+
+LAST_NAME_LOWERCASE_PREFIXES = {
+    "al",
+    "bin",
+    "bint",
+    "da",
+    "de",
+    "del",
+    "de la",
+    "dela",
+    "della",
+    "di",
+    "dos",
+    "du",
+    "el",
+    "la",
+    "le",
+    "van",
+    "van den",
+    "van der",
+    "von",
+    "von der",
+}
+"""Strings that tend to be lowercased when prefixing a last name; used for [`NameSpecification.case_normalize()`][acl_anthology.people.name.NameSpecification.case_normalize]."""
+
+# Automatically compile LAST_NAME_LOWERCASE_PREFIXES into a regex; the prefixes
+# are reverse-sorted by length so that it is always the longest string that
+# matches (e.g. so that "von der Weide" matches "von der", not just "von").
+_LAST_NAME_LOWERCASE_REGEX = re.compile(
+    f"^({'|'.join(sorted(LAST_NAME_LOWERCASE_PREFIXES, key=lambda s: -len(s)))}) ",
+    flags=re.IGNORECASE,
+)
+
+LAST_NAME_CAPITALIZATION_RULES = ((r"^Mc([a-z])", lambda p: "Mc" + p.group(1).upper()),)
+"""Regex rules for heuristically normalizing last names; used for [`NameSpecification.case_normalize()`][acl_anthology.people.name.NameSpecification.case_normalize]."""
 
 
 @define(frozen=True)
@@ -53,7 +104,7 @@ class Name:
     first: Optional[str] = field(
         eq=lambda x: x if x else None, validator=v.optional(v.instance_of(str))
     )
-    last: str = field(validator=v.instance_of(str))
+    last: str = field(validator=(v.instance_of(str), v.min_len(1)))
     script: Optional[str] = field(
         default=None, repr=False, eq=False, validator=v.optional(v.instance_of(str))
     )
@@ -126,7 +177,7 @@ class Name:
         Returns:
             A [slugified string](https://github.com/un33k/python-slugify#how-to-use) of the full name.
         """
-        return slugify(self.as_first_last())
+        return slugify(self.as_first_last(), replacements=SLUGIFY_REPLACEMENTS)
 
     @classmethod
     def from_dict(cls, name: dict[str, str]) -> Name:
@@ -246,13 +297,14 @@ def _Name_from(value: Any) -> Name:
     return Name.from_(value)
 
 
-@define
+@define(
+    on_setattr=[setters.convert, setters.validate, track_namespec_modifications],
+)
 class NameSpecification:
     """A name specification on a paper etc., containing additional data fields for information or disambiguation besides just the name.
 
     Attributes:
-        name: The person's name.
-        id: Unique ID for the person that this name refers to.
+        parent: The Anthology item that this name specification belongs to.
         orcid: An ORCID that was supplied together with this name.
         affiliation: Professional affiliation.
         variants: Variant spellings of this name in different scripts.
@@ -264,8 +316,12 @@ class NameSpecification:
         (for this functionality, see [Person][acl_anthology.people.person.Person]).
     """
 
-    name: Name = field(converter=_Name_from)
-    id: Optional[str] = field(default=None, validator=v.optional(v.instance_of(str)))
+    _name: Name = field(converter=_Name_from)
+    _id: Optional[str] = field(
+        default=None,
+        validator=v.optional([v.instance_of(str), v.matches_re(RE_VERIFIED_PERSON_ID)]),
+    )
+    parent: Optional[Paper | Volume | Talk] = field(default=None, repr=False, eq=False)
     orcid: Optional[str] = field(default=None, validator=v.optional(v.instance_of(str)))
     affiliation: Optional[str] = field(
         default=None, validator=v.optional(v.instance_of(str))
@@ -282,6 +338,51 @@ class NameSpecification:
         return hash((self.name, self.id, self.affiliation, tuple(self.variants)))
 
     @property
+    def name(self) -> Name:
+        """The person's name."""
+        return self._name
+
+    @name.setter
+    def name(self, value: Any) -> None:
+        # TODO: hasattr check pending the CollectionItem refactoring
+        if (
+            self.id is None
+            and self.parent is not None
+            and hasattr(self.parent, "full_id_tuple")
+            and self.root.people.is_data_loaded
+        ):
+            person_before = self.resolve()
+            self._name = _Name_from(value)
+            person_after = self.root.people._resolve_namespec(self, allow_creation=True)
+            if person_before != person_after:
+                person_before.item_ids.remove(self.parent.full_id_tuple)
+                person_after.item_ids.append(self.parent.full_id_tuple)
+        else:
+            self._name = _Name_from(value)
+
+    @property
+    def id(self) -> Optional[str]:
+        """Unique ID for the person that this NameSpecification refers to."""
+        return self._id
+
+    @id.setter
+    def id(self, value: Optional[str]) -> None:
+        # TODO: duplicates code from above, should probably be refactored
+        if (
+            self.parent is not None
+            and hasattr(self.parent, "full_id_tuple")
+            and self.root.people.is_data_loaded
+        ):
+            person_before = self.resolve()
+            self._id = value
+            person_after = self.root.people._resolve_namespec(self, allow_creation=True)
+            if person_before != person_after:
+                person_before.item_ids.remove(self.parent.full_id_tuple)
+                person_after.item_ids.append(self.parent.full_id_tuple)
+        else:
+            self._id = value
+
+    @property
     def first(self) -> Optional[str]:
         """The first name component."""
         return self.name.first
@@ -291,12 +392,72 @@ class NameSpecification:
         """The last name component."""
         return self.name.last
 
+    @property
+    def root(self) -> Anthology:
+        """The Anthology instance to which this object belongs."""
+        if self.parent is None:  # pragma: no cover
+            raise AnthologyException(
+                "NameSpecification is not attached to an Anthology item."
+            )
+        return self.parent.root
+
     @cached_property
     def citeproc_dict(self) -> dict[str, str]:
         """A citation object corresponding to this name for use with CiteProcJSON."""
         if not self.name.first:
             return {"family": self.name.last}
         return {"family": self.name.last, "given": self.name.first}
+
+    def case_normalize(self, force: bool = False) -> Self:
+        """Try to heuristically normalize the casing of the name.
+
+        By default, this *only* changes the name if it is currently all-lowercased or all-uppercased.
+
+        Arguments:
+            force: Always case-normalize, without checking the current casing.
+
+        Raises:
+            ValueError: If the name's script attribute is set, indicating a non-Latin script name.
+        """
+        if self.name.script is not None:
+            # Non-Latin script variants are left unchanged;
+            # should never trigger, but just in case...
+            return self  # pragma: no cover
+
+        first, last = self.name.first, self.name.last
+        firstlast = self.name.as_first_last()
+
+        if not (force or firstlast.islower() or firstlast.isupper()):
+            return self
+
+        if first is not None:
+            first = first.title()
+        last = last.title()
+        # Prefixes
+        if (m := _LAST_NAME_LOWERCASE_REGEX.match(last)) is not None:
+            print(m)
+            last = m.group(0).lower() + last[m.end() :]
+        # Other normalization rules
+        for pattern, substitute in LAST_NAME_CAPITALIZATION_RULES:
+            last = re.sub(pattern, substitute, last)
+
+        self.name = Name(first, last)
+        return self
+
+    def resolve(self) -> Person:
+        """Resolve this name specification to a natural person.
+
+        Returns:
+            The Person object that this name specification resolves to.
+
+        Raises:
+            AnthologyException: If this name specification is not attached to an Anthology item (i.e., `parent` is not set).
+        """
+        if self.parent is None:
+            raise AnthologyException(
+                "Cannot resolve NameSpecification that is not attached to a paper."
+            )
+        return self.parent.root.people.get_by_namespec(self)
 
     @classmethod
     def from_xml(cls, person: etree._Element) -> NameSpecification:
@@ -339,6 +500,8 @@ class NameSpecification:
             A serialization of this name in Anthology XML format.
         """
         elem = etree.Element(tag)
+        if self.id == NO_PERSON_ID:
+            self.id = None
         if self.id is not None:
             elem.set("id", self.id)
         if self.orcid is not None:

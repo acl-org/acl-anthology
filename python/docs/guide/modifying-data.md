@@ -20,10 +20,7 @@ are some rules of thumb when making modifications to the data:
     - It also includes persons where `Person.is_explicit == True`, as those have
       an explicit representation in `people.yaml`.
 3. **Saving data is always non-destructive**.  In XML files, it will also avoid
-   introducing unnecessary changes (e.g. no needless reordering of tags).  The
-   only exception to this is saving SIG YAML files, as they currently frequently
-   contain comments, which will be lost when saving these files through the
-   library.
+   introducing unnecessary changes (e.g. no needless reordering of tags).
 4. If you need to refer to indices such as
    [PersonIndex][acl_anthology.people.index.PersonIndex],
    [EventIndex][acl_anthology.collections.eventindex.EventIndex], or
@@ -86,28 +83,28 @@ following will also work:
 
 ### List attributes
 
-List attributes can be modified the same way as other attributes; for example,
+List attributes can be modified the same way as other attributes, however, there
+is **no input validation or conversion** when modifying mutable attributes such
+as lists, and no automatic tracking of modifications (see [Saving
+changes](#saving-changes)) – only when _setting_ them.  Therefore, it is
+recommended to _set_ list attributes every time you modify them.  For example,
 to add an author to a paper, you can create a new
 [`NameSpecification`][acl_anthology.people.name.NameSpecification] and append it
-to the author list:
+to the author list via `+=` (rather than `.append`), which will create a _new_
+list and _set_ it on the attribute:
 
 ```pycon
 >>> spec = NameSpecification("Bollmann, Marcel")
->>> paper.authors.append(spec)
+>>> paper.authors += [spec]
 ```
 
 To change an existing author's name, you just need to remember that **names are
-immutable**:
+immutable**, so you need to modify the `NameSpecification` instead:
 
 ```pycon
 >>> paper.authors[0].name.first = "Marc Marcel"             # will NOT work
 >>> paper.authors[0].name = Name("Bollmann, Marc Marcel")   # works
 ```
-
-There is **no input validation or conversion** when modifying mutable attributes
-such as lists (only when _setting_ them).  That means you won't get an
-immediate error if you e.g. append the wrong type of object to a list
-attribute!
 
 ### Things to keep in mind
 
@@ -166,7 +163,7 @@ have an ORCID and other metadata) can be done in two ways:
 
 1. If neither person is _explicit_ yet: Call [`p1.make_explicit()`][acl_anthology.people.person.Person.make_explicit].  This will create an entry in `people.yaml` with all current names of `p1` add the new ID to all papers and volumes currently inferred to belong to either `p1`.
 
-2. `p1` can now assumed to be explicit.  If `p2` is not explicit, call [`p2.merge_with_explicit(p1)`][acl_anthology.people.person.Person.merge_with_explicit].  This will add all of `p2`'s names to `p1` and set `p1`'s ID on all papers and volumes currently inferred to belong to `p2`.
+2. `p1` can now assumed to be explicit.  If `p2` is not explicit, call [`p2.merge_into(p1)`][acl_anthology.people.person.Person.merge_into].  This will add all of `p2`'s names to `p1` and set `p1`'s ID on all papers and volumes currently inferred to belong to `p2`.
 
 3. Save the changes, e.g. via `Anthology.save_all()`.
 
@@ -373,8 +370,3 @@ caveats:
 - **YAML files will always be written**.  Serializing all YAML files is much
   faster than serializing all XML files, so they are written unconditionally,
   without tracking changes.
-
-- **SIG YAML files are currently not written automatically**.  This is because
-  the current format of the SIG YAML files is a bit arcane, and existing files
-  use a lot of comments, which would be deleted upon writing these files.
-  {==This may change in the future.==}

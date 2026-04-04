@@ -24,7 +24,7 @@
       <title><fixed-case>V</fixed-case>erba<fixed-case>N</fixed-case>ex<fixed-case>AI</fixed-case> at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2025 Task 9: Advances and Challenges in the Automatic Detection of Food Hazards</title>
       <author><first>Andrea</first><last>Menco Tovar</last><affiliation>Universidad Tecnológica de Bolivar</affiliation></author>
       <author><first>Edwin</first><last>Puertas</last><affiliation>Universidad Tecnologica de Bolivar</affiliation></author>
-      <author><first>Juan Carlos</first><last>Martinez-Santos</last><affiliation>Universidad Tecnológica de Bolívar</affiliation></author>
+      <author id="juan-carlos-martinez-santos"><first>Juan Carlos</first><last>Martinez-Santos</last><affiliation>Universidad Tecnológica de Bolívar</affiliation></author>
       <pages>1-6</pages>
       <abstract>Ensuring food safety requires effective detection of potential hazards in food products. This paper presents the participation of VerbaNexAI in the SemEval-2025 Task 9 challenge, which focuses on the automatic identification and classification of food hazards from descriptive texts. Our approach employs a machine learning-based strategy, leveraging a Random Forest classifier combined with TF-IDF vectorization and character n-grams (n=2-5) to enhance linguistic pattern recognition. The system achieved competitive performance in hazard and product classification tasks, obtaining notable macro and micro F1 scores. However, we identified challenges such as handling underrepresented categories and improving generalization in multilingual contexts. Our findings highlight the need to refine preprocessing techniques and model architectures to enhance food hazard detection. We made the source code publicly available to encourage reproducibility and collaboration in future research.</abstract>
       <url hash="be674f55">2025.semeval-1.1</url>
@@ -400,8 +400,10 @@
       <author><first>Xia</first><last>Cui</last><affiliation>Manchester Metropolitan University</affiliation></author>
       <pages>247-256</pages>
       <abstract>This paper explores the application of a simplified weighted loss function to Transformer-based models for multi-label emotion detection in SemEval-2025 Shared Task 11. Our approach addresses data imbalance by dynamically adjusting class weights, thereby enhancing performance on minority emotion classes without the computational burden of traditional resampling methods. We evaluate BERT, RoBERTa, and BART on the BRIGHTER dataset, using evaluation metrics such as Micro F1, Macro F1, ROC-AUC, Accuracy, and Jaccard similarity coefficients. The results demonstrate that the weighted loss function improves performance on high-frequency emotion classes but shows limited impact on minority classes. These findings underscore both the effectiveness and the challenges of applying this approach to imbalanced multi-label emotion detection.</abstract>
-      <url hash="28858d5e">2025.semeval-1.37</url>
+      <url hash="438c49b1">2025.semeval-1.37</url>
       <bibkey>cui-2025-xiacui</bibkey>
+      <revision id="1" href="2025.semeval-1.37v1" hash="28858d5e"/>
+      <revision id="2" href="2025.semeval-1.37v2" hash="438c49b1" date="2026-02-15">Fix references.</revision>
     </paper>
     <paper id="38">
       <title><fixed-case>UZH</fixed-case> at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2025 Task 3: Token-Level Self-Consistency for Hallucination Detection</title>
@@ -414,14 +416,14 @@
       <bibkey>wastl-etal-2025-uzh</bibkey>
     </paper>
     <paper id="39">
-      <title><fixed-case>NCL</fixed-case>-<fixed-case>U</fixed-case>o<fixed-case>R</fixed-case> at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2025 Task 3: Detecting Multilingual Hallucination and Related Observable Overgeneration Text Spans with Modified <fixed-case>R</fixed-case>ef<fixed-case>C</fixed-case>hecker and Modified <fixed-case>S</fixed-case>efl<fixed-case>C</fixed-case>heck<fixed-case>GPT</fixed-case></title>
+      <title><fixed-case>NCL</fixed-case>-<fixed-case>U</fixed-case>o<fixed-case>R</fixed-case> at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2025 Task 3: Detecting Multilingual Hallucination and Related Observable Overgeneration Text Spans with Modified <fixed-case>R</fixed-case>ef<fixed-case>C</fixed-case>hecker and Modified <fixed-case>S</fixed-case>elf<fixed-case>C</fixed-case>heck<fixed-case>GPT</fixed-case></title>
       <author><first>Jiaying</first><last>Hong</last><affiliation>School of Computing, Newcastle University, Newcastle upon Tyne, UK</affiliation></author>
       <author><first>Thanet</first><last>Markchom</last><affiliation>Department of Computer Science, University of Reading</affiliation></author>
       <author><first>Jianfei</first><last>Xu</last><affiliation>School of Computing, Newcastle University, Newcastle upon Tyne, UK</affiliation></author>
       <author><first>Tong</first><last>Wu</last><affiliation>Formerly at School of Computing, Newcastle University, Newcastle upon Tyne, UK</affiliation></author>
       <author id="huizhi-liang"><first>Huizhi</first><last>Liang</last><affiliation>School of Computing, Newcastle University, Newcastle upon Tyne, UK</affiliation></author>
       <pages>271-279</pages>
-      <abstract>SemEval-2025 Task 3 (Mu-SHROOM) focuses on detecting hallucinations in content generated by various large language models (LLMs) across multiple languages. This task involves not only identifying the presence of hallucinations but also pinpointing their specific occurrences. To tackle this challenge, this study introduces two methods: modified RefChecker and modified SelfCheckGPT. The modified RefChecker integrates prompt-based factual verification into References, structuring them as claim-based tests rather than single external knowledge sources. The modified SelfCheckGPT ~incorporates external knowledge to overcome its reliance on internal knowledge. In addition, both methods’ original prompt designs are enhanced to identify hallucinated words within LLM-generated texts. Experimental results demonstrate the effectiveness of the approach, achieving a high ranking on the test dataset in detecting hallucinations across various languages, with an average IoU of 0.5310 and an average COR of 0.5669.</abstract>
+      <abstract>SemEval-2025 Task 3 (Mu-SHROOM) focuses on detecting hallucinations in content generated by various large language models (LLMs) across multiple languages. This task involves not only identifying the presence of hallucinations but also pinpointing their specific occurrences. To tackle this challenge, this study introduces two methods: Modified-RefChecker (MRC) and Modified-SelfCheckGPT-H (MSCGH). MRC integrates prompt-based factual verification into References, structuring them as claim-based tests rather than single external knowledge sources. MSCGH incorporates external knowledge to overcome its reliance on internal knowledge. In addition, both methods’ original prompt designs are enhanced to identify hallucinated words within LLM-generated texts. Experimental results demonstrate the effectiveness of the approach, achieving a high ranking on the test dataset in detecting hallucinations across various languages, with an average IoU of 0.5310 and an average COR of 0.5669. The source code used in this paper is available at <url>https://github.com/jianfeixu95/NCL-UoR</url>.</abstract>
       <url hash="21c7203c">2025.semeval-1.39</url>
       <bibkey>hong-etal-2025-ncl</bibkey>
     </paper>
@@ -1692,7 +1694,7 @@
       <title><fixed-case>V</fixed-case>erba<fixed-case>N</fixed-case>ex<fixed-case>AI</fixed-case> at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2025 Task 11 Track A: A <fixed-case>R</fixed-case>o<fixed-case>BERT</fixed-case>a-Based Approach for the Classification of Emotions in Text</title>
       <author><first>Danileth</first><last>Almanza Gonzalez</last><affiliation>Universidad Tecnológica de Bolívar</affiliation></author>
       <author><first>Edwin</first><last>Puertas</last><affiliation>Universidad Tecnologica de Bolivar</affiliation></author>
-      <author><first>Juan Carlos</first><last>Martinez-Santos</last><affiliation>Universidad Tecnológica de Bolívar</affiliation></author>
+      <author id="juan-carlos-martinez-santos"><first>Juan Carlos</first><last>Martinez-Santos</last><affiliation>Universidad Tecnológica de Bolívar</affiliation></author>
       <pages>1192-1197</pages>
       <abstract>Emotion detection in text has become a highly relevant research area due to the growing interest in understanding emotional states from human interaction in the digital world. This study presents an approach for emotion detection in text using a RoBERTa-based model, optimized for multi-label classification of the emotions joy, sadness, fear, anger, and surprise in the context of the SemEval 2025 - Task 11: Bridging the Gap in Text-Based Emotion Detection competition. Advanced preprocessing strategies were incorporated, including the augmentation of the training dataset through automatic translation to improve the representativeness of less frequent emotions. Additionally, a loss function adjustment mechanism was implemented to mitigate class imbalance, enabling the model to enhance its detection capability for underrepresented categories. The experimental results reflect competitive performance, with a macro F1 of 0.6577 on the development set and 0.6266 on the test set. In the competition, the model ranked 47th, demonstrating solid performance against the challenge posed.</abstract>
       <url hash="73cfb217">2025.semeval-1.158</url>
@@ -1735,7 +1737,7 @@
       <title><fixed-case>UTBNLP</fixed-case> at <fixed-case>S</fixed-case>emeval-2025 Task 11: Predicting Emotion Intensity with <fixed-case>BERT</fixed-case> and <fixed-case>VAD</fixed-case>-Informed Attention.</title>
       <author><first>Melissa</first><last>Moreno Novoa</last><affiliation>Universidad Tecnológica de Bolívar</affiliation></author>
       <author><first>Edwin</first><last>Puertas</last><affiliation>Universidad Tecnologica de Bolivar</affiliation></author>
-      <author><first>Juan Carlos</first><last>Martinez-Santos</last><affiliation>Universidad Tecnológica de Bolívar</affiliation></author>
+      <author id="juan-carlos-martinez-santos"><first>Juan Carlos</first><last>Martinez-Santos</last><affiliation>Universidad Tecnológica de Bolívar</affiliation></author>
       <pages>1217-1222</pages>
       <abstract>Emotion intensity prediction plays a crucial role in affective computing, allowing for a more precise understanding of how emotions are conveyed in text. This study proposes a system that estimates emotion intensity levels by integrating contextual language representations with numerical emotion-based features derived from Valence, Arousal, and Dominance (VAD). The methodology combines BERT embeddings, predefined VAD values per emotion, and machine learning techniques to enhance emotion detection, without relying on external lexicons. The system was evaluated on the SemEval-2025 Task 11 Track B dataset, predicting five emotions (anger, fear, joy, sadness, and surprise) on an ordinal scale.The results highlight the effectiveness of integrating contextual representations with predefined VAD values, enabling a more nuanced representation of emotional intensity. However, challenges arose in distinguishing intermediate intensity levels, affecting classification accuracy for certain emotions. Despite these limitations, the study provides insights into the strengths and weaknesses of combining deep learning with numerical emotion modeling, contributing to the development of more robust emotion prediction systems. Future research will explore advanced architectures and additional linguistic features to enhance model generalization across diverse textual domains.</abstract>
       <url hash="7ad3b762">2025.semeval-1.162</url>
@@ -1798,7 +1800,7 @@
     <paper id="167">
       <title><fixed-case>V</fixed-case>erba<fixed-case>N</fixed-case>ex<fixed-case>AI</fixed-case> at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2025 Task 2: Enhancing Entity-Aware Translation with <fixed-case>W</fixed-case>ikidata-Enriched <fixed-case>M</fixed-case>arian<fixed-case>MT</fixed-case></title>
       <author><first>Daniel</first><last>Peña Gnecco</last><affiliation>Universidad Tecnologica de Bolivar</affiliation></author>
-      <author><first>Juan Carlos</first><last>Martinez Santos</last><affiliation>Universidad Tecnologica de Bolivar</affiliation></author>
+      <author id="juan-carlos-martinez-santos"><first>Juan Carlos</first><last>Martinez Santos</last><affiliation>Universidad Tecnologica de Bolivar</affiliation></author>
       <author><first>Edwin</first><last>Puertas</last><affiliation>Universidad Tecnologica de Bolivar</affiliation></author>
       <pages>1255-1262</pages>
       <abstract>This paper presents the VerbaNexAi Lab system for SemEval-2025 Task 2: Entity-Aware Machine Translation (EA-MT), focusing on translating named entities from English to Spanish across categories such as musical works, foods, and landmarks. Our approach integrates detailed data preprocessing, enrichment with 240,432 Wikidata entity pairs, and fine-tuning of the MarianMT model to enhance entity translation accuracy. Official results reveal a COMET score of 87.09, indicating high fluency, an M-ETA score of 24.62, highlighting challenges in entity precision, and an Overall Score of 38.38, ranking last among 34 systems. While Wikidata improved translations for common entities like “Águila de San Juan,” our static methodology underperformed compared to dynamic LLM-based approaches.</abstract>
@@ -2155,7 +2157,7 @@
       <title><fixed-case>V</fixed-case>erba<fixed-case>N</fixed-case>ex<fixed-case>AI</fixed-case> at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2025 Task 3: Fact Retrieval with <fixed-case>G</fixed-case>oogle Snippets for <fixed-case>LLM</fixed-case> Context Filtering to identify Hallucinations</title>
       <author><first>Anderson</first><last>Morillo</last><affiliation>Universidad Tecnológica Bolívar</affiliation></author>
       <author><first>Edwin</first><last>Puertas</last><affiliation>Universidad Tecnologica de Bolivar</affiliation></author>
-      <author><first>Juan Carlos</first><last>Martinez Santos</last><affiliation>Universidad Tecnologica de Bolivar</affiliation></author>
+      <author id="juan-carlos-martinez-santos"><first>Juan Carlos</first><last>Martinez Santos</last><affiliation>Universidad Tecnologica de Bolivar</affiliation></author>
       <pages>1534-1541</pages>
       <abstract>Thefirst approach leverages advanced LLMs, employing a chain-of-thought prompting strategywith one-shot learning and Google snippets forcontext retrieval, demonstrating superior performance. The second approach utilizes traditional NLP analysis techniques, including semantic ranking, token-level extraction, and rigorous data cleaning, to identify hallucinations</abstract>
       <url hash="d71c1acd">2025.semeval-1.202</url>
@@ -2807,7 +2809,7 @@
     </paper>
     <paper id="262">
       <title>indi<fixed-case>D</fixed-case>ata<fixed-case>M</fixed-case>iner at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2025 Task 11: From Text to Emotion: Transformer-Based Models for Emotions Detection in <fixed-case>I</fixed-case>ndian Languages</title>
-      <author><first>Saurabh</first><last>Kumar</last><affiliation>Indian Institute of Technology Guwahati</affiliation></author>
+      <author id="saurabh-kumar"><first>Saurabh</first><last>Kumar</last><affiliation>Indian Institute of Technology Guwahati</affiliation></author>
       <author><first>Sujit</first><last>Kumar</last><affiliation>Postdoctoral Research Fellow, Nanyang Technological University Singapore</affiliation></author>
       <author><first>Sanasam Ranbir</first><last>Singh</last><affiliation>Indian Institute of Technology</affiliation></author>
       <author><first>Sukumar</first><last>Nandi</last><affiliation>Indian Institute of Technology Guwahati</affiliation></author>
@@ -2979,8 +2981,10 @@
       <author><first>Xia</first><last>Cui</last><affiliation>Manchester Metropolitan University</affiliation></author>
       <pages>2140-2148</pages>
       <abstract>This paper presents our system for SemEval 2025 Task 11: Bridging the Gap in Text-Based Emotion Detection (Track A), which focuses on multi-label emotion detection in short texts. We propose a feature-centric framework that dynamically adapts document representations and learning algorithms to optimize language-specific performance. Our study evaluates three key components: document representation, dimensionality reduction, and model training in 28 languages, highlighting five for detailed analysis. The results show that TF-IDF remains highly effective for low-resource languages, while contextual embeddings like FastText and Contextual String Embeddings (CSEs) exhibit language-specific strengths. Principal Component Analysis (PCA) reduces training time without compromising performance, particularly benefiting FastText and neural models such as Multi-Layer Perceptrons (MLP). Computational efficiency analysis underscores the trade-off between model complexity and processing cost. Our framework provides a scalable solution for multilingual emotion detection, addressing the challenges of linguistic diversity and resource constraints.</abstract>
-      <url hash="b06b563c">2025.semeval-1.278</url>
+      <url hash="ff483af0">2025.semeval-1.278</url>
       <bibkey>huang-cui-2025-promotiongo</bibkey>
+      <revision id="1" href="2025.semeval-1.278v1" hash="b06b563c"/>
+      <revision id="2" href="2025.semeval-1.278v2" hash="ff483af0" date="2026-02-15">Correct references.</revision>
     </paper>
     <paper id="279">
       <title><fixed-case>U</fixed-case>niversity of <fixed-case>I</fixed-case>ndonesia at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2025 Task 11: Evaluating State-of-the-Art Encoders for Multi-Label Emotion Detection</title>
@@ -3098,7 +3102,7 @@
       <author><first>Faiza</first><last>Khan</last></author>
       <author><first>Laiba</first><last>Rana</last></author>
       <author><first>Seemab</first><last>Latif</last></author>
-      <author><first>Raja Khurram</first><last>Shahzad</last></author>
+      <author id="raja-khurram-shahzad"><first>Raja Khurram</first><last>Shahzad</last></author>
       <pages>2225-2232</pages>
       <abstract>This paper presents AfroEmo, a multilingual, multi label emotion classification system designed for SemEval 2025 Task 11, leveraging the Afro XLMR model. Our approach integrates adaptive pretraining on domain specific corpora followed by fine tuning on low resource languages. Through comprehensive exploratory data analysis, we assess label distribution and model performance across diverse linguistic settings. By incorporating perceived emotions, how emotions are interpreted rather than explicitly stated, we enhance emotion recognition capabilities in underrepresented languages. Experimental results demonstrate that our method achieves competitive performance particularly in Amharic, while addressing key challenges in low resource emotion detection.</abstract>
       <url hash="6dc6dd5d">2025.semeval-1.289</url>
@@ -3472,7 +3476,7 @@
       <author><first>Vincent</first><last>Segonne</last><affiliation>IRISA - UniversitÃ© Bretagne Sud</affiliation></author>
       <author><first>Fernando</first><last>Sanchez - Vega</last><affiliation>Center for Mathematical Research (CIMAT)</affiliation></author>
       <author><first>Alessandro</first><last>Raganato</last><affiliation>University of Milano-Bicocca</affiliation></author>
-      <author><first>Jindřich</first><last>Libovický</last><affiliation>Charles Univeristy</affiliation></author>
+      <author id="jindrich-libovicky"><first>Jindřich</first><last>Libovický</last><affiliation>Charles Univeristy</affiliation></author>
       <author><first>Jussi</first><last>Karlgren</last><affiliation>Silo AI</affiliation></author>
       <author><first>Shaoxiong</first><last>Ji</last><affiliation>University of Helsinki</affiliation></author>
       <author id="jindrich-helcl"><first>Jindřich</first><last>Helcl</last><affiliation>Charles University in Prague</affiliation></author>

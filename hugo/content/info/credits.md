@@ -8,12 +8,12 @@ We are grateful to all our contributors whose work makes this collection of scho
 ### Active Volunteers
 
 + **Director** [Matt Post](http://waypost.net/) (2019—)
-+ **Indexing Lead**: [A. Seza Doğruöz](https://lt3.ugent.be/people/as-dogruoz/) (Universiteit Gent)
++ **Program Manager**: [Nathan Schneider](http://people.cs.georgetown.edu/nschneid/) (Georgetown University)
 + **Site Development Lead**: [Marcel Bollmann](https://marcel.bollmann.me/) (Linköping University)
++ **Indexing Lead**: [A. Seza Doğruöz](https://lt3.ugent.be/people/as-dogruoz/) (Universiteit Gent)
 + [David Chiang](https://www3.nd.edu/~dchiang/) (University of Notre Dame)
 + [Arne Köhn](https://arne.chark.eu) (New Work SE)
 + [Daniel Gildea](https://www.cs.rochester.edu/u/gildea/) (University of Rochester)
-+ [Nathan Schneider](http://people.cs.georgetown.edu/nschneid/) (Georgetown University)
 + [Pia Weißenhorn](https://github.com/weissenh)
 
 ### Past Volunteers

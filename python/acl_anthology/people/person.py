@@ -1,4 +1,4 @@
-# Copyright 2023-2024 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2026 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,13 +18,23 @@ import attrs
 from attrs import define, field, setters
 from enum import Enum
 from typing import Any, Iterator, Optional, Sequence, TYPE_CHECKING
+import sys
+
+if sys.version_info >= (3, 13):
+    from warnings import deprecated
+else:
+    from typing_extensions import deprecated
+
+from ..constants import RE_ORCID, NO_PERSON_ID
 from ..exceptions import AnthologyException, AnthologyInvalidIDError
 from ..utils.attrs import auto_validate_types
 from ..utils.ids import (
+    AnthologyID,
     AnthologyIDTuple,
     build_id_from_tuple,
     is_valid_orcid,
     is_verified_person_id,
+    parse_id,
 )
 from . import Name
 
@@ -53,6 +63,20 @@ def _name_list_converter(
     ]
 
 
+def _orcid_converter_and_validator(
+    _: Person, __: attrs.Attribute[Any], value: object
+) -> Optional[str]:
+    if value is None:
+        return None
+    value = str(value).upper()
+    # e.g. "https://orcid.org/0000-0002-1297-6794" -> "0000-0002-1297-6794"
+    if len(value) > 19 and (m := RE_ORCID.search(value)) is not None:
+        value = m.group(0)
+    if not is_valid_orcid(value):
+        raise ValueError(f"ORCID is not valid (wrong format or checksum): {value}")
+    return value
+
+
 def _update_person_index(person: Person, attr: attrs.Attribute[Any], value: str) -> str:
     """Update the [PersonIndex][acl_anthology.people.index.PersonIndex].
 
@@ -76,14 +100,13 @@ class Person:
         Person objects **can** be used to make changes to metadata that appears in `people.yaml`, such as ORCID, comment, degree, and alternative names for this person.
 
     Attributes:
-        id: A unique ID for this person.  Do not change this attribute directly; use [`change_id()`][acl_anthology.people.person.Person.change_id], [`make_explicit()`][acl_anthology.people.person.Person.make_explicit], or [`merge_with_explicit()`][acl_anthology.people.person.Person.merge_with_explicit] instead.
+        id: A unique ID for this person.  Do not change this attribute directly; use [`change_id()`][acl_anthology.people.person.Person.change_id], [`make_explicit()`][acl_anthology.people.person.Person.make_explicit], or [`merge_into()`][acl_anthology.people.person.Person.merge_into] instead.
         parent: The parent Anthology instance to which this person belongs.
         item_ids: A list of volume and/or paper IDs this person has authored or edited.
         orcid: The person's ORCID.
         comment: A comment for disambiguation purposes.
         degree: The person's institution of highest degree, for disambiguation purposes.
         similar_ids: A list of person IDs with names that should be considered similar to this one.  Do **not** use this to _find_ people with similar names; that should be done via [`PersonIndex.similar`][acl_anthology.people.index.PersonIndex].  This attribute can be used to explicitly add more "similar IDs" that are not automatically derived via similar names.
-        disable_name_matching: If True, no items should be assigned to this person unless they explicitly specify this person's ID.
         is_explicit: If True, this person's ID is explicitly defined in `people.yaml`.  You probably want to use [`make_explicit()`][acl_anthology.people.person.Person.make_explicit] rather than change this attribute.
     """
 
@@ -97,12 +120,12 @@ class Person:
     )
     orcid: Optional[str] = field(
         default=None,
-        on_setattr=[setters.validate, _update_person_index],
-    )  # validator defined below
+        on_setattr=[_orcid_converter_and_validator, _update_person_index],
+    )
     comment: Optional[str] = field(default=None)
     degree: Optional[str] = field(default=None)
     similar_ids: list[str] = field(factory=list)
-    disable_name_matching: Optional[bool] = field(default=False, converter=bool)
+    _disable_name_matching: Optional[bool] = field(default=False, converter=bool)
     is_explicit: Optional[bool] = field(default=False, converter=bool)
 
     def __eq__(self, other: object) -> bool:
@@ -113,13 +136,9 @@ class Person:
     def __hash__(self) -> int:
         return hash(self.id)
 
-    @orcid.validator
-    def _check_orcid(self, _: Any, value: Optional[str]) -> None:
-        if value is not None and not is_valid_orcid(value):
-            raise ValueError(f"ORCID is not valid (wrong format or checksum): {value}")
-
     @property
     def names(self) -> list[Name]:
+        """A list of all names associated with this person."""
         return [name for (name, _) in self._names]
 
     @names.setter
@@ -129,13 +148,24 @@ class Person:
         for name in values:
             self.parent.people._add_name(self.id, name)
         self._names = _name_list_converter(values)
+        self.parent.people._reresolve_items_for_person(self)
+
+    @property
+    def disable_name_matching(self) -> bool:
+        """Flag to indicate if items can be assigned to this person via name matching.
+
+        If True, no items should be assigned to this person unless they explicitly specify this person's ID.
+        """
+        return bool(self._disable_name_matching)
+
+    @disable_name_matching.setter
+    def disable_name_matching(self, value: Optional[bool]) -> None:
+        self._disable_name_matching = value
+        self.parent.people._reresolve_items_for_names(self.names)
 
     @property
     def canonical_name(self) -> Name:
-        """
-        Returns:
-            The canonical name for this person.
-        """
+        """The canonical name for this person."""
         try:
             # By convention, the first entry of `self.names` is treated as the
             # canonical entry
@@ -158,7 +188,7 @@ class Person:
         """
         link_type = NameLink.INFERRED if inferred else NameLink.EXPLICIT
         if not self.has_name(name):
-            self._names.insert(0, (name, link_type))
+            self._names = [(name, link_type)] + self._names
         else:
             self._names = [(name, link_type)] + [x for x in self._names if x[0] != name]
 
@@ -173,6 +203,8 @@ class Person:
         if not self.has_name(name):
             self._names.append((name, link_type))
             self.parent.people._add_name(self.id, name)
+            if not inferred:
+                self.parent.people._reresolve_items_for_names([name])
         elif (name, link_type) not in self._names:
             # ensure that name is re-inserted at same position
             idx = self.names.index(name)
@@ -193,6 +225,8 @@ class Person:
         """
         self._names.remove((name, NameLink.EXPLICIT))
         self.parent.people._remove_name(self.id, name)
+        self.parent.people._reresolve_items_for_person(self)
+        self.parent.people._reresolve_items_for_names([name])
 
     def has_name(self, name: Name) -> bool:
         """
@@ -210,7 +244,7 @@ class Person:
         This updates `self.id`, but also ensures that all papers/items with the old ID are updated to the new one.
 
         Parameters:
-            new_id: The new ID for this person, which must match [`RE_VERIFIED_PERSON_ID`][acl_anthology.utils.ids.RE_VERIFIED_PERSON_ID].
+            new_id: The new ID for this person, which must match [`RE_VERIFIED_PERSON_ID`][acl_anthology.constants.RE_VERIFIED_PERSON_ID].
 
         Raises:
             AnthologyException: If `self.explicit` is False.
@@ -218,7 +252,7 @@ class Person:
         """
         if new_id in self.parent.people:
             exc = AnthologyInvalidIDError(new_id, f"Person ID already exists: {new_id}")
-            exc.add_note("Did you want to use merge_with_explicit() instead?")
+            exc.add_note("Did you want to use merge_into() instead?")
             raise exc
         if not self.is_explicit:
             exc2 = AnthologyException("Can only update ID for explicit person")
@@ -229,78 +263,121 @@ class Person:
                 new_id, f"Not a valid verified-person ID: {new_id}"
             )
 
-        self._set_id_on_items(new_id)
+        namespecs = list(ns for ns in self.namespecs() if ns.id == self.id)
+        for namespec in namespecs:
+            namespec.id = NO_PERSON_ID
         self.id = new_id  # triggers update in PersonIndex
+        for namespec in namespecs:
+            namespec.id = new_id
 
-    def make_explicit(self, new_id: str) -> None:
+    def make_explicit(
+        self, new_id: Optional[str] = None, skip_setting_ids: bool = False
+    ) -> None:
         """Turn this person that was implicitly created into an explicitly-represented one.
 
         This will result in this person having an explicit entry in `people.yaml` with all names that are currently associated with this person.  It will also add their new explicit ID to all papers and volumes currently associated with this person.
 
         Parameters:
-            new_id: The new ID for this person, which must match [`RE_VERIFIED_PERSON_ID`][acl_anthology.utils.ids.RE_VERIFIED_PERSON_ID].
+            new_id: The new ID for this person, which must match [`RE_VERIFIED_PERSON_ID`][acl_anthology.constants.RE_VERIFIED_PERSON_ID].  If not specified, will try to generate one automatically based on this person's canonical name (and, potentially, ORCID).
+            skip_setting_ids: If True, will skip setting IDs on name specifications that previously resolved to this person.  **This means that some or all of the items in `self.item_ids` might disappear if they no longer resolve to this person.**
 
         Raises:
-            AnthologyException: If `self.explicit` is already True.
-            ValueError: If the supplied ID is not valid, or if it already exists in the PersonIndex.
+            AnthologyException: If `self.explicit` is already True, or if the ID already exists in the PersonIndex (both if it was supplied or auto-generated).
+            AnthologyInvalidIDError: If the supplied ID is not valid.
         """
         if self.is_explicit:
             raise AnthologyException(f"Person '{self.id}' is already explicit")
-        if not is_verified_person_id(new_id):
+        if new_id is None:
+            new_id = self.parent.people.generate_person_id(self)
+        elif not is_verified_person_id(new_id):
             raise AnthologyInvalidIDError(
                 new_id, f"Not a valid verified-person ID: {new_id}"
             )
+        elif new_id in self.parent.people:
+            raise AnthologyException(f"ID already exists in the index: {new_id}")
 
-        self._set_id_on_items(new_id)
+        namespecs = list(self.namespecs())
         self.is_explicit = True
         self.id = new_id  # triggers update in PersonIndex
         self._names = [(name, NameLink.EXPLICIT) for name, _ in self._names]
+        if not skip_setting_ids:
+            for namespec in namespecs:
+                namespec.id = new_id
 
-    def merge_with_explicit(self, person: Person) -> None:
-        """Merge this person that was implicitly created with an explicitly-represented one.
+    @deprecated(
+        "Person.merge_with_explicit() is deprecated in favor of Person.merge_into()"
+    )
+    def merge_with_explicit(self, person: Person) -> None:  # pragma: no cover
+        self.merge_into(person)
 
-        This will add the explicit person's ID to all papers and volumes currently associated with this inferred person.
+    def merge_into(self, other: Person) -> None:
+        """Merge this person and all their publications into another person.
+
+        This will move all attributes, papers, and volumes currently associated with this person over to the `other` person.  The other person's ID will be explicitly set on all items currently associated with this person.  If an attribute (e.g. ORCID iD, comment) is already set on the other person, it will _not_ be changed.
 
         Parameters:
-            person: An explicit person to merge this person's items into.
+            other: A person to merge this person into.  Must be explicit.
 
         Raises:
-            AnthologyException: If `self.explicit` is True or `person.explicit` is False.
+            AnthologyException: If `other.explicit` is False.
         """
-        if self.is_explicit:
-            raise AnthologyException("Can only merge non-explicit persons")
-        if not person.is_explicit:
+        if not other.is_explicit:
             raise AnthologyException(
-                f"Can only merge with explicit persons; not '{person.id}'"
+                f"Can only merge with explicit persons; not '{other.id}'"
             )
 
-        self._set_id_on_items(person.id)
-        person.item_ids.extend(self.item_ids)
-        self.item_ids = []
-
+        namespecs = list(self.namespecs())
+        for attr in ("orcid", "comment", "degree", "disable_name_matching"):
+            if (
+                getattr(other, attr) is None
+                and (value := getattr(self, attr)) is not None
+            ):
+                setattr(other, attr, value)
+        other.similar_ids.extend(self.similar_ids)
         for name in self.names:
-            person.add_name(name, inferred=False)
+            other.add_name(name, inferred=False)
+        for namespec in namespecs:
+            namespec.id = other.id
 
-    def _set_id_on_items(self, new_id: str) -> None:
-        """Set `new_id` on all name specifications that currently resolve to this person.  Intended for internal use."""
-        if self.is_explicit:
+    def set_id_on_items(
+        self, exclude: Optional[list[AnthologyID | Paper | Volume]] = None
+    ) -> None:
+        """Set this person's ID explicitly on all Anthology items associated with them.
 
-            def namespec_refers_to_self(namespec: NameSpecification) -> bool:
-                return namespec.id == self.id
+        Parameters:
+            exclude: An optional list of Anthology items or IDs that should be excluded.
 
-        else:
+        Warning:
+            This should only be done if it is certain that all papers currently linked to this person actually belong to them, including those that were implicitly linked (i.e. via name matching).
 
-            def namespec_refers_to_self(namespec: NameSpecification) -> bool:
-                return self.parent.resolve(namespec) is self
+        Raises:
+            AnthologyException: If `self.explicit` is False.
+        """
+        if not self.is_explicit:
+            exc = AnthologyException("Can only set ID for explicit person")
+            exc.add_note("Did you want to use make_explicit() instead?")
+            raise exc
 
-        for item in self.anthology_items():
-            for namespec in item.namespecs:
-                if namespec_refers_to_self(namespec):
-                    namespec.id = new_id
-                    item.collection.is_modified = True
+        from ..collections import Paper, Volume
+
+        excluded_ids = set()
+        if exclude:
+            for item in exclude:
+                if isinstance(item, (Paper, Volume)):
+                    excluded_ids.add(item.full_id_tuple)
+                else:
+                    excluded_ids.add(parse_id(item))
+
+        for namespec in list(self.namespecs()):
+            if not (
+                isinstance(namespec.parent, (Paper, Volume))
+                and namespec.parent.full_id_tuple in excluded_ids
+            ):
+                namespec.id = self.id
 
     def anthology_items(self) -> Iterator[Paper | Volume]:
         """Returns an iterator over all Anthology items associated with this person, regardless of their type."""
+        # TODO: This does not consider talks yet!
         for anthology_id in self.item_ids:
             item = self.parent.get(anthology_id)
             if item is None:
@@ -309,6 +386,11 @@ class Person:
                 )  # pragma: no cover
             # TODO: typing issue will be resolved later with CollectionItem refactoring
             yield item  # type: ignore
+
+    def namespecs(self) -> Iterator[NameSpecification]:
+        """Returns an iterator over all NameSpecifications that resolve to this person."""
+        for item in self.anthology_items():
+            yield item.get_namespec_for(self)
 
     def papers(self) -> Iterator[Paper]:
         """Returns an iterator over all papers associated with this person.

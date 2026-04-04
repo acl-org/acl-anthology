@@ -25,26 +25,48 @@ from ..utils.logging import get_logger
 log = get_logger()
 
 
-FUNCTION_NAMES = ("lim", "log")
+FUNCTION_NAMES = ("lim", "log", "min", "max")
 TEX_TO_HTML: dict[str, Tuple[str, dict[str, str]]] = {
     "mathrm": ("span", {"class": "fw-normal"}),
     "textrm": ("span", {"class": "fw-normal"}),
+    "rm": ("span", {"class": "fw-normal"}),
     "text": ("span", {"class": "fw-normal"}),
     "mathbf": ("strong", {}),
     "textbf": ("strong", {}),
     "bf": ("strong", {}),  # not a correct use of this command, but sometimes observed
+    "bm": ("strong", {}),
     "boldsymbol": ("strong", {}),
-    "mathit": ("em", {}),
-    "textit": ("em", {}),
-    "it": ("em", {}),  # not a correct use of this command, but sometimes observed
+    "pmb": ("strong", {}),
+    "mathit": ("span", {"class": "fst-italic"}),
+    "textit": ("span", {"class": "fst-italic"}),
+    "mathcal": (
+        "span",
+        {"class": "fst-italic"},
+    ),  # calligraphy font, not currently supported
+    "it": (
+        "span",
+        {"class": "fst-italic"},
+    ),  # not a correct use of this command, but sometimes observed
     "emph": ("em", {}),
     "textsc": ("span", {"style": "font-variant: small-caps;"}),
+    "sc": ("span", {"style": "font-variant: small-caps;"}),
     "texttt": ("span", {"class": "font-monospace"}),
+    "mathtt": ("span", {"class": "font-monospace"}),
     "tt": ("span", {"class": "font-monospace"}),
     "textsubscript": ("sub", {}),
     "textsuperscript": ("sup", {}),
+    "small": ("span", {"class": "small"}),
 }
-REMOVED_COMMANDS = ("bf", "rm", "it", "sc", "sf", "mathcal")
+REMOVED_COMMANDS = ("bigl", "bigr", "mathsf", "sf", "normalsize")
+CUSTOM_SYMBOLS = {
+    "dots": "…",
+    "lVert": "|",
+    "rVert": "|",
+    "textendash": "–",
+    "textemdash": "—",
+    "textgreater": ">",
+    "textless": "<",
+}
 
 
 def _append_text(text: str, trg: etree._Element) -> None:
@@ -101,7 +123,10 @@ class _TexMath:
                 # last column sometimes contains alternative command
                 cmd = row[-1][2:].split(", ")[0]
                 if cmd.startswith("\\"):
-                    self.cmd_map[cmd[1:]] = char
+                    cmd = cmd.split(" ")[0][1:]  # sometimes has additional explanation...
+                    if cmd not in self.cmd_map:  # don't overwrite existing ones
+                        self.cmd_map[cmd] = char
+        self.cmd_map.update(CUSTOM_SYMBOLS)
         self.loaded = True
 
     def _parse(self, everything: TexEverything, trg: etree._Element) -> None:
@@ -140,6 +165,10 @@ class _TexMath:
     def _parse_command(self, code: TexCmd, trg: etree._Element) -> None:
         args = list(code.args)
         name = str(code.name)
+        # Check if command is of type \left\cmd or \right\cmd
+        if name.startswith("left\\") or name.startswith("right\\"):
+            # discard \left \right as unsupported, but process following command
+            name = name.split("\\", maxsplit=1)[1]
         # Check if the command is in the list of known Unicode mappings
         if name in self.cmd_map:
             _append_text(self.cmd_map[name], trg)
@@ -158,14 +187,16 @@ class _TexMath:
         elif name == "frac":
             self._parse_fraction(args, trg)
         # Handle commands with simple HTML tag substitutions
-        elif name in TEX_TO_HTML and args:
-            elem_name, elem_attrib = TEX_TO_HTML[name]
-            sx = etree.Element(elem_name, attrib=elem_attrib)
-            self._parse(args, sx)
-            trg.append(sx)
+        elif name in TEX_TO_HTML:
+            if args:
+                elem_name, elem_attrib = TEX_TO_HTML[name]
+                sx = etree.Element(elem_name, attrib=elem_attrib)
+                self._parse(args, sx)
+                trg.append(sx)
         # Known, but unsupported formatting tags that will just be removed
-        elif name in REMOVED_COMMANDS and not args:
-            pass
+        elif name in REMOVED_COMMANDS:
+            if args:
+                self._parse(args, trg)
         # Give up, but preserve element
         else:
             log.warning(f"Unknown TeX-math command: {code}")

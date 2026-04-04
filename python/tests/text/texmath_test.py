@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import pytest
+import logging
 from lxml import etree
 from acl_anthology.text import TexMath
 
@@ -92,6 +93,7 @@ test_cases_unicode = (
     ("<tex-math>\\lambda</tex-math>-", "𝜆-"),
     ("<tex-math>\\leftrightarrow</tex-math> ", "↔ "),
     ("<tex-math>\\Phi</tex-math>", "𝛷"),
+    ("<tex-math>\\textemdash{}</tex-math>", "—"),
 )
 
 test_cases_html = (
@@ -102,6 +104,10 @@ test_cases_html = (
     (
         "<tex-math>^{\\mathcal{E}}</tex-math>: a Vectorial Resource for Computing Conceptual Similarity",
         '<span class="tex-math"><sup>ℰ</sup></span>: a Vectorial Resource for Computing Conceptual Similarity',
+    ),
+    (
+        "<tex-math>{\\mathcal{WFS}}</tex-math>",
+        '<span class="tex-math"><span class="fst-italic">WFS</span></span>',
     ),
     (
         "<tex-math>\\sharp</tex-math>: An Enhancement Approach to Reference-based Evaluation Metrics for Open-domain Dialog Generation",
@@ -240,8 +246,8 @@ test_cases_html = (
         '<span class="tex-math">n <span class="tex-math-function">log</span><sub>2</sub> <sup>m</sup>⁄<sub>n</sub> + o(m)</span>',
     ),
     (
-        "<tex-math>\textrm{Pr}(f_1^J/e^I_1)</tex-math>",
-        '<span class="tex-math">\textrmPr(f<sub>1</sub><sup>J</sup>/e<sup>I</sup><sub>1</sub>)</span>',
+        "<tex-math>\\textrm{Pr}(f_1^J/e^I_1)</tex-math>",
+        '<span class="tex-math"><span class="fw-normal">Pr</span>(f<sub>1</sub><sup>J</sup>/e<sup>I</sup><sub>1</sub>)</span>',
     ),
     (
         "<tex-math>\\# \\$ \\% \\&amp; \\_ \\{ \\} \\| \\:</tex-math>",
@@ -256,6 +262,10 @@ test_cases_html = (
         '<span class="tex-math">2_3</span>',
     ),
     (
+        "<tex-math>2\\small{3}</tex-math>",
+        '<span class="tex-math">2<span class="small">3</span></span>',
+    ),
+    (
         "<tex-math>2_3</tex-math>",
         '<span class="tex-math">2<sub>3</sub></span>',
     ),
@@ -267,11 +277,25 @@ test_cases_html = (
         "<tex-math>foo^{\\texttt{bar}}</tex-math>",
         '<span class="tex-math">foo<sup><span class="font-monospace">bar</span></sup></span>',
     ),
+    (
+        "<tex-math>foo^{\\mathtt{bar}}</tex-math>",
+        '<span class="tex-math">foo<sup><span class="font-monospace">bar</span></sup></span>',
+    ),
+    (
+        "<tex-math>foo^{\\mathsf{bar}}</tex-math>",
+        '<span class="tex-math">foo<sup>bar</sup></span>',
+    ),
+    ("<tex-math>\\textemdash{}</tex-math>", '<span class="tex-math">—</span>'),
+    ("<tex-math>\\bigl{42}</tex-math>", '<span class="tex-math">42</span>'),
+    (
+        "<tex-math>\\left\\{42\\right\\}</tex-math>",
+        '<span class="tex-math">{42}</span>',
+    ),
 )
 
 
 @pytest.mark.parametrize("inp, out", test_cases_unicode)
-def test_unicode(inp, out):
+def test_texmath_to_unicode(inp, out):
     element = etree.fromstring(f"<span>{inp}</span>")
     math_element = element.find(".//tex-math")
     actual_out = TexMath.to_unicode(math_element)
@@ -281,9 +305,19 @@ def test_unicode(inp, out):
 
 
 @pytest.mark.parametrize("inp, out", test_cases_html)
-def test_html(inp, out):
+def test_texmath_to_html(inp, out):
     element = etree.fromstring(f"<span>{inp}</span>")
     math_element = element.find(".//tex-math")
     result = TexMath.to_html(math_element)
     actual_out = etree.tostring(result, encoding="unicode")
     assert actual_out == out
+
+
+def test_texmath_should_warn(caplog):
+    element = etree.fromstring("<tex-math>\\somecustomcommand</tex-math>")
+    with caplog.at_level(logging.WARNING):
+        TexMath.to_html(element)
+    assert any(
+        "Unknown TeX-math command: \\somecustomcommand" in rec.message
+        for rec in caplog.records
+    )

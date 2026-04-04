@@ -257,6 +257,39 @@ def add_revision(
     return paper.collection.path
 
 
+def update_frontmatter(
+    anthology: Anthology,
+    anth_id: str,
+    pdf_path: Path,
+) -> Path | None:
+    """Update a frontmatter PDF in place, replacing the file and updating the checksum.
+
+    Frontmatter does not support <revision> entries, so we simply overwrite the
+    canonical PDF and record the new checksum.
+    """
+    paper = anthology.get_paper(anth_id)
+    if paper is None:
+        print(f"-> FATAL: paper ID {anth_id} not found in the Anthology", file=sys.stderr)
+        sys.exit(1)
+
+    pdf_dir = resolve_pdf_dir(paper.full_id)
+    canonical_pdf = pdf_dir / f"{paper.full_id}.pdf"
+
+    pdf_dir.mkdir(parents=True, exist_ok=True)
+    copy_file(pdf_path, canonical_pdf)
+    paper.pdf = PDFReference.from_file(canonical_pdf)
+    paper.collection.save()
+    print(f"-> Updated frontmatter PDF and checksum for {paper.full_id}", file=sys.stderr)
+    return paper.collection.path
+
+
+def normalize_id(id):
+    """
+    Remove common user errors.
+    """
+    return id.rstrip("/")
+
+
 def main(args):
     change_type = "erratum" if args.erratum else "revision"
     repo_name = args.repo or DEFAULT_GITHUB_REPO
@@ -266,7 +299,8 @@ def main(args):
     if args.issue:
         github_repo = _get_github_repo(repo_name)
         issue_metadata = fetch_issue_revision_metadata(args.issue, repo_name, github_repo)
-        anthology_id = issue_metadata.get("anthology_id")
+        anthology_id = normalize_id(issue_metadata.get("anthology_id"))
+
         pdf_url = issue_metadata.get("pdf_url")
 
         print(
@@ -318,32 +352,42 @@ def main(args):
     pdf_path = Path(pdf_path)
     validate_file_type(pdf_path)
 
-    # build a list of the checksums of all revisions for the paper
-    paper = anthology.get_paper(anthology_id)
-    if paper is None:
-        print(
-            f"-> FATAL: paper ID {anthology_id} not found in the Anthology",
-            file=sys.stderr,
-        )
-        sys.exit(1)
+    _, _, paper_id = parse_id(anthology_id)
+    is_frontmatter = paper_id == "0"
 
-    existing_checksums = [rev.pdf.checksum for rev in paper.revisions + paper.errata]
-    # make sure the new PDF is not a dupe
-    if PDFReference.from_file(pdf_path).checksum in existing_checksums:
-        print(
-            f"-> FATAL: the provided PDF is identical to an existing revision/erratum for {paper.full_id}",
-            file=sys.stderr,
+    if is_frontmatter:
+        collection_path = update_frontmatter(
+            anthology,
+            anthology_id,
+            pdf_path,
         )
-        sys.exit(1)
+    else:
+        # build a list of the checksums of all revisions for the paper
+        paper = anthology.get_paper(anthology_id)
+        if paper is None:
+            print(
+                f"-> FATAL: paper ID {anthology_id} not found in the Anthology",
+                file=sys.stderr,
+            )
+            sys.exit(1)
 
-    collection_path = add_revision(
-        anthology,
-        anthology_id,
-        pdf_path,
-        explanation_text,
-        change_type=change_type,
-        date=args.date,
-    )
+        existing_checksums = [rev.pdf.checksum for rev in paper.revisions + paper.errata]
+        # make sure the new PDF is not a dupe
+        if PDFReference.from_file(pdf_path).checksum in existing_checksums:
+            print(
+                f"-> FATAL: the provided PDF is identical to an existing revision/erratum for {paper.full_id}",
+                file=sys.stderr,
+            )
+            sys.exit(1)
+
+        collection_path = add_revision(
+            anthology,
+            anthology_id,
+            pdf_path,
+            explanation_text,
+            change_type=change_type,
+            date=args.date,
+        )
 
     # clean up
     if temp_path is not None and temp_path.exists():
@@ -351,24 +395,21 @@ def main(args):
 
     """
     If a Github issue was passed as an argument, do the following.
-    First ensure, that we are on a branch named "corrections-YYYY-MM".
-    Then, create a commit with the message "Add revision for {anthology_id} (closes {issue})"
+    Create a commit with the message "Add revision for {anthology_id} (closes {issue})"
     Use the Github module to create the brnach (if not existing), change to it,
     and create the commit.
     """
     if args.issue and collection_path is not None:
         repo = Repo(".", search_parent_directories=True)
-        branch_name = args.branch
-        existing_heads = [h.name for h in repo.heads]
-        base_branch = "master"
-        if branch_name not in existing_heads:
-            repo.create_head(branch_name, getattr(repo.heads, base_branch).commit)
-        repo.git.checkout(branch_name)
         repo.git.add(str(collection_path))
         if repo.is_dirty(index=True, working_tree=True, untracked_files=True):
-            repo.index.commit(
-                f"Add {change_type} for {anthology_id} (closes #{args.issue})"
-            )
+            if is_frontmatter:
+                msg = f"Update frontmatter for {anthology_id} (closes #{args.issue})"
+            else:
+                msg = f"Add {change_type} for {anthology_id} (closes #{args.issue})"
+            if explanation_text:
+                msg += f"\n\n{explanation_text}"
+            repo.index.commit(msg)
 
 
 if __name__ == "__main__":
@@ -402,7 +443,6 @@ if __name__ == "__main__":
         default=today,
         help="The date of the revision (ISO 8601 format)",
     )
-    parser.add_argument("--branch", "-b", default=None, help="Branch name.")
     parser.add_argument(
         "--repo",
         "-r",
@@ -411,8 +451,5 @@ if __name__ == "__main__":
     )
 
     args = parser.parse_args()
-
-    if args.branch is None:
-        args.branch = f"corrections-{args.date[:7]}"
 
     main(args)

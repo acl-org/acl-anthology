@@ -17,25 +17,34 @@ from __future__ import annotations
 import gc
 import itertools as it
 import pkgutil
-import sys
 import warnings
 from git.repo import Repo
 from lxml.etree import RelaxNG
 from pathlib import Path
 from rich.progress import track
 from slugify import slugify
-from typing import cast, overload, Iterable, Iterator, Optional, TypeAlias, TYPE_CHECKING
+from typing import (
+    cast,
+    overload,
+    Iterable,
+    Iterator,
+    Optional,
+    Self,
+    TypeAlias,
+    TYPE_CHECKING,
+)
+import sys
 
-if sys.version_info >= (3, 11):
-    from typing import Self
+if sys.version_info >= (3, 13):
+    from warnings import deprecated
 else:
-    from typing_extensions import Self
+    from typing_extensions import deprecated
 
 if TYPE_CHECKING:
     from _typeshed import StrPath
 
 from .config import config, dirs, primary_console
-from .exceptions import AnthologyException, SchemaMismatchWarning
+from .exceptions import SchemaMismatchWarning
 from .utils import git
 from .utils.ids import AnthologyID, parse_id
 from .utils.logging import get_logger
@@ -163,7 +172,7 @@ class Anthology:
             was_gc_enabled = gc.isenabled()
             gc.disable()
         elem = None
-        raised_exception = False
+        raised_exceptions = []
         was_verbose = self.verbose
         try:
             indices_to_load = (
@@ -188,26 +197,20 @@ class Anthology:
             for elem in iterator:
                 try:
                     elem.load()  # type: ignore
-                except Exception as exc:
+                except Exception as exc:  # pragma: no cover
                     if elem is not None:
-                        note = f"Raised in {elem!r}"
-                        # If this is merged into a single if-statement (with "or"),
-                        # the type checker complains ¯\_(ツ)_/¯
-                        if isinstance(exc, AnthologyException):
-                            exc.add_note(note)
-                        elif sys.version_info >= (3, 11):
-                            exc.add_note(note)
-                    log.exception(exc)
-                    raised_exception = True
+                        exc.add_note(f"Raised in {elem!r}")
+                    raised_exceptions.append(exc)
             if was_verbose:
                 self.verbose = True
         finally:
             if was_gc_enabled:
                 gc.enable()
-        if raised_exception:
-            raise Exception(
-                "An exception was raised during loading; check the logger for details."
-            )
+        if raised_exceptions:
+            raise ExceptionGroup(
+                "An exception was raised during load_all().",
+                raised_exceptions,
+            )  # pragma: no cover
         return self
 
     def _warn_if_in_default_path(self) -> None:
@@ -229,17 +232,19 @@ class Anthology:
             self.people.save()
         if self.venues.is_data_loaded:
             self.venues.save()
-        warnings.warn(
-            UserWarning(
-                "SIG metadata is not yet automatically saved.  Call `.sigs.save()` manually if you need this."
-            )
-        )
+        if self.sigs.is_data_loaded:
+            self.sigs.save()
         return self
 
     def reset_indices(self) -> Self:
         """Reset all non-collection indices.
 
         Intended to be used after modifying data, to make sure all indices correctly reflect the changes.
+
+        Note:
+            - Any modifications to data stored directly by the indices (i.e. stored in the YAML files, rather than inferred from the XML) need to be saved before calling this, or they will be lost.
+            - This will not update any Event, Person, or Venue objects you may have already obtained, but any objects returned by an index after the reset will reflect the new data.
+            - This is a bit of a brute-force approach; future versions of this library might get smarter about updating indices.
         """
         self.events.reset()
         self.people.reset()
@@ -374,6 +379,8 @@ class Anthology:
     def get_person(self, person_id: str) -> Optional[Person]:
         """Access a person by their ID.
 
+        See also: [`find_people()`][acl_anthology.anthology.Anthology.find_people] to find a person by name.
+
         Parameters:
             person_id: An ID that refers to a person.
 
@@ -385,6 +392,8 @@ class Anthology:
     def find_people(self, name_def: ConvertableIntoName) -> list[Person]:
         """Find people by name.
 
+        See also: [`get_person()`][acl_anthology.anthology.Anthology.get_person] to find a person by their ID.
+
         Parameters:
             name_def: Anything that can be resolved to a name; see below for examples.
 
@@ -392,11 +401,10 @@ class Anthology:
             A list of [`Person`][acl_anthology.people.person.Person] objects with the given name.
 
         Examples:
-            >>> anthology.find_people("Doe, Jane")
-            >>> anthology.find_people(("Jane", "Doe"))       # same as above
-            >>> anthology.find_people({"first": "Jane",
-                                         "last": "Doe"})      # same as above
-            >>> anthology.find_people(Name("Jane", "Doe"))   # same as above
+            >>> anthology.find_people("Doe, Jane")       # all of these are identical
+            >>> anthology.find_people(("Jane", "Doe"))
+            >>> anthology.find_people({"first": "Jane", "last": "Doe"})
+            >>> anthology.find_people(Name("Jane", "Doe"))
         """
         name = Name.from_(name_def)
         return self.people.get_by_name(name)
@@ -411,8 +419,16 @@ class Anthology:
     ) -> list[Person]:  # pragma: no cover
         ...
 
-    def resolve(self, name_spec: NameSpecificationOrIter) -> PersonOrList:
+    @deprecated(
+        "Anthology.resolve() is deprecated in favor of NameSpecification.resolve()"
+    )
+    def resolve(
+        self, name_spec: NameSpecificationOrIter
+    ) -> PersonOrList:  # pragma: no cover
         """Resolve a name specification (e.g. as attached to papers) to a natural person.
+
+        Warning:
+            Deprecated in favor of [`NameSpecification.resolve()`][acl_anthology.people.name.NameSpecification.resolve]; alternatively, [`PersonIndex.get_by_namespec()`][acl_anthology.people.index.PersonIndex.get_by_namespec] if you want to see what a hypothetical NameSpecification would resolve to that is not yet attached to a paper.
 
         Parameters:
             name_spec: A name specification, or an iterator over name specifications.

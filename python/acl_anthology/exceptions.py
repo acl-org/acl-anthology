@@ -1,4 +1,4 @@
-# Copyright 2023-2025 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2026 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,30 +14,19 @@
 
 from __future__ import annotations
 
-import sys
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from .files import FileReference
     from .people import NameSpecification
     from .utils.ids import AnthologyIDTuple
 
-if sys.version_info >= (3, 11):
 
-    class AnthologyException(Exception):
-        """Base class from which all other exceptions defined here inherit."""
+class AnthologyException(Exception):
+    """Base class from which all other exceptions defined here inherit."""
 
-        def __init__(self, msg: str):
-            super().__init__(msg)
-
-else:
-
-    class AnthologyException(Exception):
-        def __init__(self, msg: str):
-            super().__init__(msg)
-            self.__notes__: list[str] = []
-
-        def add_note(self, note: str) -> None:
-            self.__notes__.append(note)
+    def __init__(self, msg: str):
+        super().__init__(msg)
 
 
 class AnthologyDuplicateIDError(AnthologyException, ValueError):
@@ -116,6 +105,18 @@ class PersonDefinitionError(NameSpecResolutionError):
     """
 
     pass
+
+
+class ChecksumMismatchWarning(UserWarning):
+    """Raised when a file's checksum doesn't match the checksum in the Anthology data files.
+
+    Attributes:
+        file (FileReference): The file reference that caused the mismatch.
+    """
+
+    def __init__(self, file: FileReference) -> None:
+        super().__init__(f"Checksum doesn't match for {file.name}")
+        self.file = file
 
 
 class SchemaMismatchWarning(UserWarning):
