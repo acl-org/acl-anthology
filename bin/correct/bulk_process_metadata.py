@@ -150,6 +150,7 @@ class AnthologyMetadataUpdater:
             "relevant_issues": 0,
             "approved_issues": 0,
             "unapproved_issues": 0,
+            "error_issues": 0
         }
         self.verbose = verbose
 
@@ -484,6 +485,7 @@ class AnthologyMetadataUpdater:
             except Exception as e:  # e.g. XML Parsing failed
                 log.warning(f"Failed to apply changes to #{issue.number}: {e}")
                 log.exception(e)
+                self.stats["error_issues"] += 1
                 # revert changes already made for this issue # todo how to best do this? test it thoroughly
                 self.load_anthology()
                 continue
@@ -499,10 +501,11 @@ class AnthologyMetadataUpdater:
                 paper_path = paper.collection.path
                 if not self.local_repo.index.diff(None, paths=paper_path):
                     # assume people file wasn't modified either # todo test this
-                    log.debug(
+                    log.warning(
                         f"Nothing modified for {paper.full_id} (#{issue.number}) "
                         f"- nothing to commit. Please review again."
                     )
+                    self.stats["error_issues"] += 1
                     continue
 
                 # Commit changes
@@ -527,6 +530,7 @@ class AnthologyMetadataUpdater:
             except Exception as e:
                 log.warning(f"Error processing issue {issue.number}: {type(e)}: {e}")
                 log.exception(e)
+                self.stats["error_issues"] += 1
                 # If we land here, we should carefully monitor file states and git status
                 continue
 
