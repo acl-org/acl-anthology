@@ -150,7 +150,7 @@ class AnthologyMetadataUpdater:
             "relevant_issues": 0,
             "approved_issues": 0,
             "unapproved_issues": 0,
-            "error_issues": 0
+            "error_issues": 0,
         }
         self.verbose = verbose
 
