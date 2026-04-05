@@ -74,6 +74,7 @@
             {{ $page = printf "/papers/%s" . }}
           {{ else }}
             {{ $page = printf "/volumes/%s" . }}
+          {{ end }}
           {{ ($.Site.GetPage $page).Render "list-entry-author" }}
         {{ end }}
       {{ end }}
