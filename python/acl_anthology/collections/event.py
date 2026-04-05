@@ -29,6 +29,7 @@ from ..utils.attrs import (
     attach_custom_repr,
     attach_parent,
     auto_validate_types,
+    into_namespec_tuple,
     track_modifications,
 )
 from ..utils.ids import AnthologyID, AnthologyIDTuple, parse_id, build_id_from_tuple
@@ -57,9 +58,15 @@ class Talk:
     title: MarkupText = field(converter=to_markuptext)
     parent: Optional[Event] = field(default=None, repr=False, eq=False)
     type: Optional[str] = field(default=None)
-    speakers: list[NameSpecification] = field(
-        factory=list,
-        on_setattr=[setters.validate, attach_parent, track_modifications],
+    speakers: tuple[NameSpecification, ...] = field(
+        default=(),
+        converter=into_namespec_tuple,
+        on_setattr=[
+            setters.convert,
+            setters.validate,
+            attach_parent,
+            track_modifications,
+        ],  # TODO: After CollectionItem refactoring, once talks have IDs, also update the connected Persons
     )
     attachments: dict[str, EventFileReference] = field(factory=dict)
 

@@ -506,9 +506,8 @@ def test_volume_remove_editor(anthology):
 
     # Removing editor from volume
     volume.editors = [volume.editors[0], volume.editors[2]]
-    # Person should be updated after resetting indices
-    anthology.reset_indices()
-    person = ns.resolve()
+
+    # Person should be updated
     assert volume.full_id_tuple not in person.item_ids
 
 
@@ -522,9 +521,10 @@ def test_volume_add_editor(anthology):
 
     # Adding this editor to the volume
     volume.editors += (ns,)
-    # Person should be updated after resetting indices
-    anthology.reset_indices()
-    person = ns.resolve()
+
+    # NameSpecification should point to volume
+    assert ns.parent is volume
+    # Person should be updated
     assert volume.full_id_tuple in person.item_ids
 
 

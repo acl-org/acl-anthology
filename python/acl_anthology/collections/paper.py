@@ -228,6 +228,27 @@ def _update_bibkey_index(paper: Paper, attr: attrs.Attribute[Any], value: str) -
     return value
 
 
+def _update_person_itemids(
+    paper: Paper, attr: attrs.Attribute[Any], value: tuple[NameSpecification, ...]
+) -> tuple[NameSpecification, ...]:
+    """Update the `item_ids` of persons linked to or unlinked from a paper/volume.
+
+    Intended to be called from `on_setattr` of an [attrs.field][].
+    """
+    person_index = paper.root.people
+    if person_index.is_data_loaded:
+        old_value = getattr(paper, attr.name)
+        # Update item_ids for people who are no longer on this item
+        for namespec in set(old_value) - set(value):
+            person = namespec.resolve()
+            person.item_ids.remove(paper.full_id_tuple)
+        # Update item_ids for people who are newly on this item
+        for namespec in set(value) - set(old_value):
+            person = namespec.resolve()
+            person.item_ids.append(paper.full_id_tuple)
+    return value
+
+
 # Note: You would think that all of the following could be generalized with
 # `TypeVar`s, but this doesn't work in the context of attrs.Converters, so we
 # have to define a function for each type...
@@ -312,6 +333,7 @@ class Paper:
             setters.convert,
             setters.validate,
             attach_parent,
+            _update_person_itemids,
             track_modifications,
         ],
     )
@@ -324,6 +346,7 @@ class Paper:
             setters.convert,
             setters.validate,
             attach_parent,
+            _update_person_itemids,
             track_modifications,
         ],
     )

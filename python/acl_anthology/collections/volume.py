@@ -39,7 +39,10 @@ from ..utils.attrs import (
     track_modifications,
 )
 from ..utils.ids import build_id, is_valid_item_id, AnthologyIDTuple
-from .paper import Paper
+from .paper import (
+    Paper,
+    _update_person_itemids,
+)  # Note: importing a private function from Paper will be unnecessary after CollectionItem refactoring
 from .types import VolumeType
 
 if TYPE_CHECKING:
@@ -102,6 +105,7 @@ class Volume(SlottedDict[Paper]):
             setters.convert,
             setters.validate,
             attach_parent,
+            _update_person_itemids,
             track_modifications,
         ],
     )

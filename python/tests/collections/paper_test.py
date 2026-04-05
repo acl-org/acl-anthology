@@ -213,9 +213,8 @@ def test_paper_remove_author(anthology):
 
     # Removing last author from paper
     paper.authors = paper.authors[:-1]
-    # Person should be updated after resetting indices
-    anthology.reset_indices()
-    person = ns.resolve()
+
+    # Person should be updated
     assert paper.full_id_tuple not in person.item_ids
 
 
@@ -224,14 +223,16 @@ def test_paper_add_author(anthology):
     # This person exists, but is not an author on this paper
     ns = NameSpecification("Maya Varma")
     assert ns not in paper.authors
+    assert ns.parent is None
     person = anthology.people.get_by_namespec(ns)
     assert paper.full_id_tuple not in person.item_ids
 
     # Adding this author to the paper
     paper.authors += (ns,)
-    # Person should be updated after resetting indices
-    anthology.reset_indices()
-    person = ns.resolve()
+
+    # NameSpecification should point to paper
+    assert ns.parent is paper
+    # Person should be updated
     assert paper.full_id_tuple in person.item_ids
 
 
