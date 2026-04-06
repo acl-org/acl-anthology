@@ -169,7 +169,7 @@ def test_person_change_id(anthology):
 def test_person_change_id_should_update_connected_papers(anthology):
     person = anthology.get_person("yang-liu-ict")
     person.change_id("yang-liu-new")
-    namespec = anthology.get(person.item_ids[0]).authors[-1]
+    namespec = anthology.get("2022.acl-long.424").authors[-1]
     assert namespec.name == Name("Yang", "Liu")
     assert namespec.id == "yang-liu-new"
     assert anthology.collections["2022.acl"].is_modified
@@ -322,15 +322,15 @@ def test_person_merge_into_unverified_verified(anthology):
     # Pre-conditions
     person1 = anthology.get_person(UNVERIFIED_PID_FORMAT.format(pid="yang-liu"))
     assert not person1.is_explicit
-    assert person1.item_ids == [("2022.naloma", "1", "6")]
+    assert person1.item_ids == {("2022.naloma", "1", "6")}
     person2 = anthology.get_person("yang-liu-microsoft")
     assert person2.is_explicit
-    assert person2.item_ids == [("2022.acl", "long", "226")]
+    assert person2.item_ids == {("2022.acl", "long", "226")}
 
     # Test merging
     person1.merge_into(person2)
     assert not person1.item_ids
-    assert person2.item_ids == [("2022.acl", "long", "226"), ("2022.naloma", "1", "6")]
+    assert person2.item_ids == {("2022.acl", "long", "226"), ("2022.naloma", "1", "6")}
     namespec = anthology.get_paper(("2022.naloma", "1", "6")).authors[0]
     assert namespec.id == "yang-liu-microsoft"
 

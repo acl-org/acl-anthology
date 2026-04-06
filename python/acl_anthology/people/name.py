@@ -374,8 +374,8 @@ class NameSpecification:
             self._name = _Name_from(value)
             person_after = self.root.people._resolve_namespec(self, allow_creation=True)
             if person_before != person_after:
-                person_before.item_ids.remove(self.parent.full_id_tuple)
-                person_after.item_ids.append(self.parent.full_id_tuple)
+                person_before.item_ids.discard(self.parent.full_id_tuple)
+                person_after.item_ids.add(self.parent.full_id_tuple)
         else:
             self._name = _Name_from(value)
 
@@ -396,8 +396,8 @@ class NameSpecification:
             self._id = value
             person_after = self.root.people._resolve_namespec(self, allow_creation=True)
             if person_before != person_after:
-                person_before.item_ids.remove(self.parent.full_id_tuple)
-                person_after.item_ids.append(self.parent.full_id_tuple)
+                person_before.item_ids.discard(self.parent.full_id_tuple)
+                person_after.item_ids.add(self.parent.full_id_tuple)
         else:
             self._id = value
 

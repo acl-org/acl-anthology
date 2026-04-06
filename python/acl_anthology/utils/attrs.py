@@ -85,6 +85,7 @@ def auto_validate_types(
       - `Optional[<type>]`
       - `list[<type>]`
       - `tuple[<type>, ...]`
+      - `set[<type>]`
 
     The purpose of this function is to reduce the need for explicitly adding validators to the classes in `acl_anthology.collections` and `acl_anthology.people.person`.  It does _not_ automatically validate classes _defined_ in `acl_anthology.collections`, as that would lead to circular imports.
 
@@ -143,6 +144,12 @@ def auto_validate_types(
                         return validators.deep_iterable(
                             member_validator=inner,
                             iterable_validator=validators.instance_of(list),
+                        )
+                case "set":
+                    if (inner := make_validator(m.group(2))) is not None:
+                        return validators.deep_iterable(
+                            member_validator=inner,
+                            iterable_validator=validators.instance_of(set),
                         )
                 case "tuple":
                     tuple_parts = m.group(2).split(", ")
@@ -231,7 +238,7 @@ def attach_parent(
     return value
 
 
-def repr_item_ids(ids: Sequence[AnthologyIDTuple]) -> str:
+def repr_item_ids(ids: Sequence[AnthologyIDTuple] | set[AnthologyIDTuple]) -> str:
     """Produce a repr for sequences of AnthologyIDTuples.
 
     Will show a 'slice' of the first few IDs along with the sequence's length.
@@ -241,10 +248,18 @@ def repr_item_ids(ids: Sequence[AnthologyIDTuple]) -> str:
     if not ids:
         return repr(ids)
     MAX_LEN = 5
-    shown_ids = [repr(build_id_from_tuple(id_)) for id_ in ids[:MAX_LEN]]
+    if isinstance(ids, set):
+        shown_ids = [repr(build_id_from_tuple(id_)) for id_ in tuple(ids)[:MAX_LEN]]
+        lb, rb = "{", "}"
+    else:
+        shown_ids = [repr(build_id_from_tuple(id_)) for id_ in ids[:MAX_LEN]]
+        if isinstance(ids, tuple):
+            lb, rb = "(", ")"
+        else:
+            lb, rb = "[", "]"
     if len(ids) > MAX_LEN:
         shown_ids.append("...")
-    return f"<{type(ids).__name__}[AnthologyIDTuple] with {len(ids)} item{'' if len(ids) == 1 else 's'} [{', '.join(shown_ids)}]>"
+    return f"<{type(ids).__name__}[AnthologyIDTuple] with {len(ids)} item{'' if len(ids) == 1 else 's'} {lb}{', '.join(shown_ids)}{rb}>"
 
 
 def _repr(self: attrs.AttrsInstance) -> str:

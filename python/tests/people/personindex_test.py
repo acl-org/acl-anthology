@@ -683,7 +683,7 @@ def test_person_add_name_affects_name_resolution(anthology):
     # Precondition: 1 paper resolves to this unverified person
     person2 = index[UNVERIFIED_PID_FORMAT.format(pid="alexander-liu")]
     assert len(person2.item_ids) == 1
-    all_papers = set(person1.item_ids + person2.item_ids)
+    all_papers = person1.item_ids | person2.item_ids
 
     # Adding a name should move unverified papers to this person via name matching
     name = Name("Alexander", "Liu")

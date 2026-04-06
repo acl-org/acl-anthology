@@ -9,6 +9,7 @@
 - `__repr__` and `__rich_repr__` functions of all objects have been tweaked.
 - `Person.item_ids` will now update dynamically when a new Person is created and/or relevant attributes of a Person change (i.e. `names`, `disable_name_matching`). (related to #7879)
 - `Person.item_ids` will now update dynamically when a NameSpecification's `name` or `id` attributes are modified.
+- `Person.item_ids` and `Venue.item_ids` are now sets instead of lists.
 - Bugfix: NameSpecifications now prevent having unverified IDs set on them (#7901)
 - `PersonIndex.create` now deduplicates list of names (#7858)
 - `Venue.item_ids` will now update dynamically when a Volume's `venue_ids` attribute is modified.

@@ -241,11 +241,11 @@ def _update_person_itemids(
         # Update item_ids for people who are no longer on this item
         for namespec in set(old_value) - set(value):
             person = namespec.resolve()
-            person.item_ids.remove(paper.full_id_tuple)
+            person.item_ids.discard(paper.full_id_tuple)
         # Update item_ids for people who are newly on this item
         for namespec in set(value) - set(old_value):
             person = namespec.resolve()
-            person.item_ids.append(paper.full_id_tuple)
+            person.item_ids.add(paper.full_id_tuple)
     return value
 
 

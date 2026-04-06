@@ -515,18 +515,15 @@ class PersonIndex(SlottedDict[Person]):
                 # person must be unverified, otherwise something has gone wrong.
                 # Create this unverified person, and assign the item to them.
                 new_person = self._resolve_namespec(exc.name_spec, allow_creation=True)
-                new_person.item_ids.append(item_id)
-                if item_id in person.item_ids:
-                    person.item_ids.remove(item_id)
+                new_person.item_ids.add(item_id)
+                person.item_ids.discard(item_id)
             except ValueError:
                 # Item no longer has any NameSpec resolving to this person
-                if item_id in person.item_ids:
-                    person.item_ids.remove(item_id)
+                person.item_ids.discard(item_id)
                 # Go through all NameSpecs on the item to reassign, if necessary
                 for namespec in item.namespecs:
                     this_person = self._resolve_namespec(namespec)
-                    if item_id not in this_person.item_ids:
-                        this_person.item_ids.append(item_id)
+                    this_person.item_ids.add(item_id)
 
     def _add_name(self, pid: str, name: Name, during_build: bool = False) -> None:
         """Add a name for a person to the index.
@@ -720,7 +717,7 @@ class PersonIndex(SlottedDict[Person]):
         seen_ids = set()
         for namespec in namespecs:
             person = self._resolve_namespec(namespec, allow_creation=True)
-            person.item_ids.append(item_id)
+            person.item_ids.add(item_id)
             if person.id in seen_ids:
                 message = f"More than one NameSpecification resolves to '{person.id}' on the same item ({item_id})"
                 if person.is_explicit:

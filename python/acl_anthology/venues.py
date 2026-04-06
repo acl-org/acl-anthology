@@ -48,7 +48,7 @@ class Venue:
         path: The path of the YAML file representing this venue.
         is_acl: True if this is a venue organized or sponsored by the ACL.
         is_toplevel: True if this venue appears on the ACL Anthology's front page.
-        item_ids: A list of volume IDs associated with this venue.
+        item_ids: An unordered set of volume IDs associated with this venue.
         oldstyle_letter: First letter of old-style Anthology IDs that is associated with this venue (e.g., "P" for ACL proceedings).
         url: A website URL for the venue.
     """
@@ -64,7 +64,9 @@ class Venue:
     path: Path = field(converter=Path, eq=False)
     is_acl: bool = field(default=False, converter=bool)
     is_toplevel: bool = field(default=False, converter=bool)
-    item_ids: list[AnthologyIDTuple] = field(factory=list, repr=repr_item_ids, eq=False)
+    item_ids: set[AnthologyIDTuple] = field(
+        factory=set, converter=set, repr=repr_item_ids, eq=False
+    )
     oldstyle_letter: Optional[str] = field(
         default=None, validator=v.optional(v.matches_re("^[A-Z]$"))
     )
@@ -200,11 +202,12 @@ class VenueIndex(SlottedDict[Venue]):
             return
         for volume in self.parent.volumes():
             for venue_id in volume.venue_ids:
-                if venue_id not in self.data:
+                try:
+                    self.data[venue_id].item_ids.add(volume.full_id_tuple)
+                except KeyError:
                     raise ValueError(
                         f"Volume {volume.full_id} lists associated venue {venue_id}, which doesn't exist"
                     )
-                self.data[venue_id].item_ids.append(volume.full_id_tuple)
 
     def save(self) -> None:
         """Saves all venue metadata to `venues/*.yaml` files."""

@@ -106,7 +106,7 @@ class Person:
     Attributes:
         id: A unique ID for this person.  Do not change this attribute directly; use [`change_id()`][acl_anthology.people.person.Person.change_id], [`make_explicit()`][acl_anthology.people.person.Person.make_explicit], or [`merge_into()`][acl_anthology.people.person.Person.merge_into] instead.
         parent: The parent Anthology instance to which this person belongs.
-        item_ids: A list of volume and/or paper IDs this person has authored or edited.
+        item_ids: An unordered set of volume and/or paper IDs this person has authored or edited.
         orcid: The person's ORCID.
         comment: A comment for disambiguation purposes.
         degree: The person's institution of highest degree, for disambiguation purposes.
@@ -124,7 +124,9 @@ class Person:
         converter=_name_list_converter,
         metadata={"repr_omits_field_name": True},
     )
-    item_ids: list[AnthologyIDTuple] = field(factory=list, repr=repr_item_ids)
+    item_ids: set[AnthologyIDTuple] = field(
+        factory=set, converter=set, repr=repr_item_ids
+    )
     orcid: Optional[str] = field(
         default=None,
         on_setattr=[_orcid_converter_and_validator, _update_person_index],

@@ -65,14 +65,11 @@ def _update_venues(
         old_value = getattr(volume, attr.name)
         # Update item_ids for venues who are no longer on this item
         for venue in set(old_value) - set(value):
-            try:
-                venue_index[venue].item_ids.remove(volume.full_id_tuple)
-            except KeyError:
-                pass
+            venue_index[venue].item_ids.discard(volume.full_id_tuple)
         # Update item_ids for venues who are newly on this item
         for venue in set(value) - set(old_value):
             try:
-                venue_index[venue].item_ids.append(volume.full_id_tuple)
+                venue_index[venue].item_ids.add(volume.full_id_tuple)
             except KeyError:
                 raise ValueError(f"Tried setting venue that doesn't exist: {venue}")
     return value
@@ -172,7 +169,7 @@ class Volume(SlottedDict[Paper]):
             namespec.parent = self
         if self.root.venues.is_data_loaded:
             for venue in self.venue_ids:
-                self.root.venues[venue].item_ids.append(self.full_id_tuple)
+                self.root.venues[venue].item_ids.add(self.full_id_tuple)
 
     @id.validator
     def _check_id(self, _: Any, value: str) -> None:
