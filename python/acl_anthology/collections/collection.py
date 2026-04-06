@@ -292,14 +292,15 @@ class Collection(SlottedDict[Volume]):
 
         if self.event is not None:
             # Events are implicitly linked to volumes defined in the same collection
-            self.event.colocated_ids = [
-                (volume.full_id_tuple, EventLink.INFERRED)
+            colocated_ids = {
+                volume.full_id_tuple: EventLink.INFERRED
                 for volume in self.data.values()
-                # Edge case: in case the <colocated> block lists a volume in
-                # the same collection, don't add it twice
-                if (volume.full_id_tuple, EventLink.EXPLICIT)
-                not in self.event.colocated_ids
-            ] + self.event.colocated_ids
+                # Edge case: in case the <colocated> block lists a volume in the same collection, don't add it twice
+                if volume.full_id_tuple not in self.event.colocated_ids
+            }
+            # Make sure that implicitly linked volumes come first
+            colocated_ids.update(self.event.colocated_ids)
+            self.event.colocated_ids = colocated_ids
 
         self.is_data_loaded = True
         self.is_modified = False

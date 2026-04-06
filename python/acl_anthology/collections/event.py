@@ -139,7 +139,7 @@ class Event:
         is_explicit: True if this event was defined explicitly in the XML.
 
     Attributes: List Attributes:
-        colocated_ids: Tuples of volume IDs and their [`EventLink`][acl_anthology.collections.types.EventLink] that are colocated with this event.
+        colocated_ids: A dictionary mapping colocated volume IDs to their [`EventLink`][acl_anthology.collections.types.EventLink] type.
         links: Links to materials for this event paper. The dictionary key specifies the type of link (e.g., "handbook" or "website").
         talks: Zero or more references to talks belonging to this event.
 
@@ -153,9 +153,9 @@ class Event:
     parent: Collection = field(repr=False, eq=False)
     is_explicit: bool = field(default=False, converter=bool)  # TODO: freeze?
 
-    colocated_ids: list[tuple[AnthologyIDTuple, EventLink]] = field(
-        factory=list,
-        repr=lambda x: f"<list[tuple[AnthologyIDTuple, EventLink]] of {len(x)} item{'' if len(x) == 1 else 's'}>",
+    colocated_ids: dict[AnthologyIDTuple, EventLink] = field(
+        factory=dict,
+        repr=lambda x: f"<dict[AnthologyIDTuple, EventLink] of {len(x)} item{'' if len(x) == 1 else 's'}>",
     )
     links: dict[str, EventFileReference] = field(factory=dict)
     talks: list[Talk] = field(
@@ -196,7 +196,7 @@ class Event:
 
     def volumes(self) -> Iterator[Volume]:
         """Returns an iterator over all volumes co-located with this event."""
-        for anthology_id, _ in self.colocated_ids:
+        for anthology_id in self.colocated_ids.keys():
             volume = self.root.get_volume(anthology_id)
             if volume is None:
                 raise ValueError(
@@ -225,13 +225,14 @@ class Event:
         else:
             volume_id = parse_id(volume)
 
-        for idx, (existing_id, existing_type) in enumerate(self.colocated_ids):
-            if volume_id == existing_id:
-                if existing_type == EventLink.INFERRED and type_ == EventLink.EXPLICIT:
-                    self.colocated_ids[idx] = (volume_id, type_)
-                return
+        if (
+            type_ == EventLink.EXPLICIT
+            and self.colocated_ids.get(volume_id) == EventLink.INFERRED
+        ):
+            self.colocated_ids[volume_id] = type_
+            return
 
-        self.colocated_ids.append((volume_id, type_))
+        self.colocated_ids[volume_id] = type_
         if type_ == EventLink.EXPLICIT:
             self.collection.is_modified = True
 
@@ -263,11 +264,11 @@ class Event:
             elif element.tag == "talk":
                 kwargs["talks"].append(Talk.from_xml(element))
             elif element.tag == "colocated":
-                kwargs["colocated_ids"] = [
-                    (parse_id(str(volume_id.text)), EventLink.EXPLICIT)
+                kwargs["colocated_ids"] = {
+                    parse_id(str(volume_id.text)): EventLink.EXPLICIT
                     for volume_id in element
                     if volume_id.tag == "volume-id"
-                ]
+                }
             else:  # pragma: no cover
                 raise ValueError(f"Unsupported element for Event: <{str(element.tag)}>")
         return cls(**kwargs)
@@ -302,7 +303,7 @@ class Event:
         # <colocated>
         if self.colocated_ids:
             colocated = E.colocated()
-            for id_tuple, el_type in self.colocated_ids:
+            for id_tuple, el_type in self.colocated_ids.items():
                 if el_type == EventLink.EXPLICIT:
                     colocated.append(
                         getattr(E, "volume-id")(build_id_from_tuple(id_tuple))
