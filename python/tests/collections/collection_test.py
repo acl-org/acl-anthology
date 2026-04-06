@@ -243,7 +243,7 @@ def test_collection_create_volume_should_update_personindex(anthology, pre_load)
     "pre_load, reset",
     (
         (True, True),
-        pytest.param(True, False, marks=pytest.mark.xfail(reason="not implemented")),
+        (True, False),
         (False, False),
         (False, True),
     ),
@@ -276,7 +276,7 @@ def test_collection_create_volume_should_create_event(anthology, pre_load, reset
     "pre_load, reset",
     (
         (True, True),
-        pytest.param(True, False, marks=pytest.mark.xfail(reason="not implemented")),
+        (True, False),
         (False, False),
         (False, True),
     ),

@@ -199,6 +199,9 @@ class Collection(SlottedDict[Volume]):
                 namespec.case_normalize()
                 self.root.people.ingest_namespec(namespec)
             self.root.people._add_to_index(volume.editors, volume.full_id_tuple)
+        # Register this volume with the EventIndex
+        if self.root.events.is_data_loaded:
+            self.root.events._add_volume_to_index(volume)
 
         self.data[id] = volume
         self.is_modified = True

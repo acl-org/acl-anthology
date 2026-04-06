@@ -14,7 +14,8 @@
 - `Person.item_ids` and `Venue.item_ids` are now sets instead of lists.
 - Bugfix: NameSpecifications now prevent having unverified IDs set on them (#7901)
 - `PersonIndex.create` now deduplicates list of names (#7858)
-- `Venue.item_ids` will now update dynamically when a Volume's `venue_ids` attribute is modified.
+- `Event.colocated_ids` and `EventIndex.reverse` will now update dynamically when a Volume's `venue_ids` attribute is modified, or when a new Volume is created.
+- `Venue.item_ids` will now update dynamically when a Volume's `venue_ids` attribute is modified, or when a new Volume is created.
 
 ### Removed
 

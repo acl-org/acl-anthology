@@ -119,6 +119,21 @@ class EventIndex(SlottedDict[Event]):
             self.data[event_id] = event
         return event
 
+    def _add_volume_to_index(self, volume: Volume) -> None:
+        """Add a new Volume to the index, linking it to existing events and instantiating implicit events for it, if necessary.
+
+        Intended to be called when building the index or creating new volumes; do not call this manually.
+        """
+        volume_fid = volume.full_id_tuple
+        if (explicit_event := volume.collection.get_event()) is not None:
+            self.reverse[volume_fid].add(explicit_event.id)
+        for venue_id in volume.venue_ids:
+            implicit_event = cast(
+                Event, self.get_or_create_implicit_event(volume, venue_id)
+            )
+            implicit_event.add_colocated(volume_fid, EventLink.INFERRED)
+            self.reverse[volume_fid].add(implicit_event.id)
+
     def load(self) -> None:
         """Load the entire Anthology data and build an index of events."""
         if self.is_data_loaded:
@@ -149,15 +164,8 @@ class EventIndex(SlottedDict[Event]):
                         self.reverse[volume_fid].add(explicit_event.id)
 
                 for volume in collection.volumes():
-                    volume_fid = volume.full_id_tuple
-                    if explicit_event is not None:
-                        self.reverse[volume_fid].add(explicit_event.id)
-                    for venue_id in volume.venue_ids:
-                        implicit_event = cast(
-                            Event, self.get_or_create_implicit_event(volume, venue_id)
-                        )
-                        implicit_event.add_colocated(volume_fid, EventLink.INFERRED)
-                        self.reverse[volume_fid].add(implicit_event.id)
+                    self._add_volume_to_index(volume)
+
             except Exception as exc:
                 log.exception(exc)
                 raised_exception = True

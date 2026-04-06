@@ -363,6 +363,26 @@ def test_volume_add_venue_raises(anthology):
         volume.venue_ids += ("doesntexist",)
 
 
+def test_volume_add_venue_creates_event(anthology):
+    volume = anthology.get_volume("2022.naloma-1")
+    events = anthology.events.by_volume(volume)
+    assert set(ev.id for ev in events) == {"acl-2022", "nlma-2022", "ws-2022"}
+    assert "humeval-2022" not in anthology.events
+
+    # Adding a venue to this volume
+    volume.venue_ids += ("humeval",)
+
+    # Events should be updated
+    events = anthology.events.by_volume(volume)
+    assert set(ev.id for ev in events) == {
+        "acl-2022",
+        "humeval-2022",
+        "nlma-2022",
+        "ws-2022",
+    }
+    assert "humeval-2022" in anthology.events
+
+
 def test_volume_remove_venue_updates_venue(anthology):
     volume = anthology.get_volume("2022.naloma-1")
     nlma = anthology.venues["nlma"]
@@ -373,6 +393,17 @@ def test_volume_remove_venue_updates_venue(anthology):
 
     # Venue should be updated
     assert volume.full_id_tuple not in nlma.item_ids
+
+
+def test_volume_remove_venue_updates_event(anthology):
+    volume = anthology.get_volume("2022.naloma-1")
+
+    # Removing a venue from this volume
+    volume.venue_ids = ("ws",)
+
+    # Events should be updated
+    events = anthology.events.by_volume(volume)
+    assert set(ev.id for ev in events) == {"acl-2022", "ws-2022"}
 
 
 @pytest.mark.parametrize("xml", test_cases_volume_xml)

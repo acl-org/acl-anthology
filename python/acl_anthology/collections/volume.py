@@ -40,11 +40,12 @@ from ..utils.attrs import (
     track_modifications,
 )
 from ..utils.ids import build_id, is_valid_item_id, AnthologyIDTuple
+from .event import Event
 from .paper import (
     Paper,
     _update_person_itemids,
 )  # Note: importing a private function from Paper will be unnecessary after CollectionItem refactoring
-from .types import VolumeType
+from .types import EventLink, VolumeType
 
 if TYPE_CHECKING:
     from ..anthology import Anthology
@@ -56,22 +57,60 @@ if TYPE_CHECKING:
 def _update_venues(
     volume: Volume, attr: attrs.Attribute[Any], value: tuple[str, ...]
 ) -> tuple[str, ...]:
-    """Update the `item_ids` of venues linked to or unlinked from a volume.
+    """Update objects depending on a volume's `venue_ids`.
+
+    This will:
+    - Update `Venue.item_ids` for venues linked to or unlinked from a volume
+    - Create or remove implicitly created events
+    - Update the EventIndex and any connected `Event.colocated_ids`
 
     Intended to be called from `on_setattr` of an [attrs.field][].
     """
     venue_index = volume.root.venues
-    if venue_index.is_data_loaded:
-        old_value = getattr(volume, attr.name)
-        # Update item_ids for venues who are no longer on this item
-        for venue in set(old_value) - set(value):
+    event_index = volume.root.events
+    old_value = getattr(volume, attr.name)
+    for venue in set(old_value) - set(value):
+        # Venues that are being removed from this volume
+        if venue_index.is_data_loaded:
             venue_index[venue].item_ids.discard(volume.full_id_tuple)
-        # Update item_ids for venues who are newly on this item
-        for venue in set(value) - set(old_value):
+        if (
+            event_index.is_data_loaded
+            and (
+                implicit_event := event_index.get_or_create_implicit_event(
+                    volume, venue, create=False
+                )
+            )
+            is not None
+            and (
+                implicit_event.colocated_ids.get(volume.full_id_tuple)
+                == EventLink.INFERRED
+            )
+        ):
+            # Update Event.colocated_ids
+            del implicit_event.colocated_ids[volume.full_id_tuple]
+            # Update EventIndex.reverse
+            event_index.reverse[volume.full_id_tuple].discard(implicit_event.id)
+            # Check if implicit event can be deleted
+            if not implicit_event.colocated_ids:
+                del event_index[implicit_event.id]
+
+    for venue in set(value) - set(old_value):
+        # Venues that are being added to this volume
+        if venue_index.is_data_loaded:
             try:
+                # Update Venue.item_ids
                 venue_index[venue].item_ids.add(volume.full_id_tuple)
             except KeyError:
                 raise ValueError(f"Tried setting venue that doesn't exist: {venue}")
+        if event_index.is_data_loaded:
+            # Update Event.colocated_ids
+            implicit_event = cast(
+                Event,
+                event_index.get_or_create_implicit_event(volume, venue, create=True),
+            )
+            implicit_event.add_colocated(volume.full_id_tuple, EventLink.INFERRED)
+            # Update EventIndex.reverse
+            event_index.reverse[volume.full_id_tuple].add(implicit_event.id)
     return value
 
 
