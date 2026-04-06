@@ -14,13 +14,16 @@ are some rules of thumb when making modifications to the data:
     - This includes collections, volumes, papers, events.
     - It also includes persons where `Person.is_explicit == True`, as those have
       an explicit representation in `people.yaml`.
-3. **Saving data is always non-destructive**.  In XML files, it will also avoid
+3. **Saving data is always non-destructive.**  In XML files, it will also avoid
    introducing unnecessary changes (e.g. no needless reordering of tags).
-4. If you need to refer to the
-   [EventIndex][acl_anthology.collections.eventindex.EventIndex] after making
-   modifications, you should call
-   [`anthology.events.reset()`][acl_anthology.collections.eventindex.EventIndex.reset]
-   first.  All other indices should update automatically.
+4. Affected indices and their child objects **should automatically update** on relevant changes.
+    - This includes the `item_ids` attribute of affected `Person` or `Venue` instances, or the `colocated_ids` of `Event` instances.
+    - It also includes the `BibkeyIndex` and the reverse-mapping of volume IDs to events in `EventIndex`.
+
+!!! warning "Caution: Dynamic updating of linked items is experimental"
+
+    There may be edge cases where it currently doesn't work yet as expected.  If you encounter such issues, please report them as a bug.
+
 
 ## Modifying publications
 
@@ -133,16 +136,7 @@ Changing an item's attribute might affect various indices.  As a rule of thumb, 
 
 - Changing an item's `bibkey` changes will update the [BibkeyIndex][acl_anthology.collections.bibkeys.BibkeyIndex].
 - Changing an item's author or editor list will update the [PersonIndex][acl_anthology.people.index.PersonIndex] and the `item_ids` of any [Person][acl_anthology.people.person.Person] objects affected by the change.
-- Changing an item's `venue_ids` will update the [VenueIndex][acl_anthology.venues.VenueIndex] and the `item_ids` of any [Venue][acl_anthology.venues.Venue] objects affected by the change.
-
-!!! warning "Exception: Events"
-
-    Currently, events are not properly handled by the dynamic updating.  If an item's `venue_ids` list changes, any implicit [Event][acl_anthology.collections.event.Event] created by it and its corresponding reverse-indexing in the [EventIndex][acl_anthology.collections.eventindex.EventIndex] **will not update** automatically.
-
-    If, after making changes, you need to access events, you will need to reset the EventIndex (`anthology.events.reset()`) and re-obtain any Event objects from it.
-
-    This behavior will be fixed in the future.
-
+- Changing an item's `venue_ids` will update the [VenueIndex][acl_anthology.venues.VenueIndex] and the `item_ids` of any [Venue][acl_anthology.venues.Venue] objects affected by the change.  It will also update any [Event][acl_anthology.collections.event.Event] objects that are implicitly inferred from the venue assignment, as well as the reverse-indexing in the [EventIndex][acl_anthology.collections.eventindex.EventIndex] for such events.
 
 ## Modifying people
 
