@@ -22,7 +22,7 @@ import itertools as it
 import langcodes
 from lxml import etree
 from lxml.builder import E
-from typing import cast, Any, Iterable, Optional, TYPE_CHECKING
+from typing import cast, Any, Optional, TYPE_CHECKING
 
 from .. import constants
 from ..config import config
@@ -249,27 +249,6 @@ def _update_person_itemids(
     return value
 
 
-# Note: You would think that all of the following could be generalized with
-# `TypeVar`s, but this doesn't work in the context of attrs.Converters, so we
-# have to define a function for each type...
-def _into_attachment_tuple(
-    value: Iterable[tuple[str, AttachmentReference]],
-) -> tuple[tuple[str, AttachmentReference], ...]:
-    return tuple(value)
-
-
-def _into_errata_tuple(value: Iterable[PaperErratum]) -> tuple[PaperErratum, ...]:
-    return tuple(value)
-
-
-def _into_revisions_tuple(value: Iterable[PaperRevision]) -> tuple[PaperRevision, ...]:
-    return tuple(value)
-
-
-def _into_vidref_tuple(value: Iterable[VideoReference]) -> tuple[VideoReference, ...]:
-    return tuple(value)
-
-
 @attach_custom_repr
 @define(
     field_transformer=auto_validate_types,
@@ -320,7 +299,7 @@ class Paper:
 
     attachments: tuple[tuple[str, AttachmentReference], ...] = field(
         default=(),
-        converter=_into_attachment_tuple,
+        converter=tuple,
         validator=v.deep_iterable(
             member_validator=_attachment_validator,
             iterable_validator=v.instance_of(tuple),
@@ -352,7 +331,7 @@ class Paper:
     )
     errata: tuple[PaperErratum, ...] = field(
         default=(),
-        converter=_into_errata_tuple,
+        converter=tuple,
         validator=v.deep_iterable(
             member_validator=v.instance_of(PaperErratum),
             iterable_validator=v.instance_of(tuple),
@@ -360,14 +339,14 @@ class Paper:
     )
     revisions: tuple[PaperRevision, ...] = field(
         default=(),
-        converter=_into_revisions_tuple,
+        converter=tuple,
         validator=v.deep_iterable(
             member_validator=v.instance_of(PaperRevision),
             iterable_validator=v.instance_of(tuple),
         ),  # necessary because auto_validate_types cannot cover this
     )
     videos: tuple[VideoReference, ...] = field(
-        default=(), converter=_into_vidref_tuple
+        default=(), converter=tuple
     )  # auto_validate_types covers this, so no validator necessary
 
     abstract: Optional[MarkupText] = field(
