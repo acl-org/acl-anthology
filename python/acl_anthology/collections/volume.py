@@ -15,6 +15,7 @@
 from __future__ import annotations
 
 import datetime
+import attrs
 from attrs import define, field, converters, setters, validators
 from lxml import etree
 from lxml.builder import E
@@ -50,6 +51,31 @@ if TYPE_CHECKING:
     from ..people import Person
     from ..sigs import SIG
     from . import Collection, Event
+
+
+def _update_venues(
+    volume: Volume, attr: attrs.Attribute[Any], value: tuple[str, ...]
+) -> tuple[str, ...]:
+    """Update the `item_ids` of venues linked to or unlinked from a volume.
+
+    Intended to be called from `on_setattr` of an [attrs.field][].
+    """
+    venue_index = volume.root.venues
+    if venue_index.is_data_loaded:
+        old_value = getattr(volume, attr.name)
+        # Update item_ids for venues who are no longer on this item
+        for venue in set(old_value) - set(value):
+            try:
+                venue_index[venue].item_ids.remove(volume.full_id_tuple)
+            except KeyError:
+                pass
+        # Update item_ids for venues who are newly on this item
+        for venue in set(value) - set(old_value):
+            try:
+                venue_index[venue].item_ids.append(volume.full_id_tuple)
+            except KeyError:
+                raise ValueError(f"Tried setting venue that doesn't exist: {venue}")
+    return value
 
 
 @attach_custom_repr
@@ -109,7 +135,16 @@ class Volume(SlottedDict[Paper]):
             track_modifications,
         ],
     )
-    venue_ids: tuple[str, ...] = field(default=(), converter=into_str_tuple)
+    venue_ids: tuple[str, ...] = field(
+        default=(),
+        converter=into_str_tuple,
+        on_setattr=[
+            setters.convert,
+            setters.validate,
+            _update_venues,
+            track_modifications,
+        ],
+    )
 
     address: Optional[str] = field(default=None)
     doi: Optional[str] = field(default=None)
@@ -135,6 +170,9 @@ class Volume(SlottedDict[Paper]):
     def __attrs_post_init__(self) -> None:
         for namespec in self.editors:
             namespec.parent = self
+        if self.root.venues.is_data_loaded:
+            for venue in self.venue_ids:
+                self.root.venues[venue].item_ids.append(self.full_id_tuple)
 
     @id.validator
     def _check_id(self, _: Any, value: str) -> None:

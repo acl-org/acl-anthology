@@ -117,8 +117,8 @@ test_cases_volume_xml = (
 )
 
 
-def test_volume_minimum_attribs():
-    parent = Collection("L05", None, Path("."))
+def test_volume_minimum_attribs(anthology):
+    parent = Collection("L05", CollectionIndexStub(anthology), Path("."))
     volume = Volume(
         "6",
         parent,
@@ -133,8 +133,8 @@ def test_volume_minimum_attribs():
     assert not volume.is_workshop
 
 
-def test_volume_all_attribs():
-    parent = Collection("2023.acl", None, Path("."))
+def test_volume_all_attribs(anthology):
+    parent = Collection("2023.acl", CollectionIndexStub(anthology), Path("."))
     volume = Volume(
         id="long",
         parent=parent,
@@ -340,12 +340,48 @@ def test_volume_change_id(anthology):
     volume.id = "long"
 
 
+def test_volume_add_venue_updates_venue(anthology):
+    volume = anthology.get_volume("2022.naloma-1")
+    nlma = anthology.venues["nlma"]
+    humeval = anthology.venues["humeval"]
+    assert volume.full_id_tuple in nlma.item_ids
+    assert volume.full_id_tuple not in humeval.item_ids
+
+    # Adding a venue to this volume
+    volume.venue_ids += ("humeval",)
+
+    # Venues should be updated
+    assert volume.full_id_tuple in nlma.item_ids
+    assert volume.full_id_tuple in humeval.item_ids
+
+
+def test_volume_add_venue_raises(anthology):
+    volume = anthology.get_volume("2022.naloma-1")
+    anthology.venues.load()
+    with pytest.raises(ValueError):
+        # Adding a venue to this volume that doesn't exist
+        volume.venue_ids += ("doesntexist",)
+
+
+def test_volume_remove_venue_updates_venue(anthology):
+    volume = anthology.get_volume("2022.naloma-1")
+    nlma = anthology.venues["nlma"]
+    assert volume.full_id_tuple in nlma.item_ids
+
+    # Removing a venue from this volume
+    volume.venue_ids = ("ws",)
+
+    # Venue should be updated
+    assert volume.full_id_tuple not in nlma.item_ids
+
+
 @pytest.mark.parametrize("xml", test_cases_volume_xml)
-def test_volume_roundtrip_xml(xml):
+def test_volume_roundtrip_xml(xml, anthology):
     # Create and populate volume
     volume_element = etree.fromstring(xml)
     meta = volume_element.find("meta")
-    volume = Volume.from_xml(None, meta)
+    parent = Collection("2026.dummy", CollectionIndexStub(anthology), Path("."))
+    volume = Volume.from_xml(parent, meta)
     for child in volume_element:
         if child.tag in ("frontmatter", "paper"):
             volume._add_paper_from_xml(child)
@@ -543,8 +579,8 @@ def test_volume_get_namespec_for_should_fail(anthology):
         volume.get_namespec_for(person)
 
 
-def test_volume_type_conversion():
-    parent = Collection("L05", None, Path("."))
+def test_volume_type_conversion(anthology):
+    parent = Collection("L05", CollectionIndexStub(anthology), Path("."))
     volume = Volume(
         6,
         parent,
@@ -559,9 +595,9 @@ def test_volume_type_conversion():
     assert volume.type == VolumeType.JOURNAL
 
 
-def test_volume_type_validation():
+def test_volume_type_validation(anthology):
     volume_title = MarkupText.from_string("Lorem ipsum")
-    parent = Collection("L05", None, Path("."))
+    parent = Collection("L05", CollectionIndexStub(anthology), Path("."))
     volume = Volume(
         "6",
         parent,

@@ -11,6 +11,7 @@
 - `Person.item_ids` will now update dynamically when a NameSpecification's `name` or `id` attributes are modified.
 - Bugfix: NameSpecifications now prevent having unverified IDs set on them (#7901)
 - `PersonIndex.create` now deduplicates list of names (#7858)
+- `Venue.item_ids` will now update dynamically when a Volume's `venue_ids` attribute is modified.
 
 ### Removed
 

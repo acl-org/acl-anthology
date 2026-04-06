@@ -308,7 +308,7 @@ def test_collection_create_volume_should_update_event(anthology, pre_load, reset
     "pre_load, reset",
     (
         (True, True),
-        pytest.param(True, False, marks=pytest.mark.xfail(reason="not implemented")),
+        (True, False),
         (False, False),
         (False, True),
     ),
