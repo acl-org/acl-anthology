@@ -204,7 +204,7 @@ class VenueIndex(SlottedDict[Venue]):
             for venue_id in volume.venue_ids:
                 try:
                     self.data[venue_id].item_ids.add(volume.full_id_tuple)
-                except KeyError:
+                except KeyError:  # pragma: no cover
                     raise ValueError(
                         f"Volume {volume.full_id} lists associated venue {venue_id}, which doesn't exist"
                     )

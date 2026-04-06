@@ -110,6 +110,19 @@ def test_venueindex_cl(anthology):
     }
 
 
+def test_venue_volumes(anthology):
+    index = anthology.venues
+    venue = index.get("cl")
+    volumes = list(venue.volumes())
+    assert len(volumes) == 4
+    assert set(volume.full_id_tuple for volume in volumes) == {
+        ("J89", "1", None),
+        ("J89", "2", None),
+        ("J89", "3", None),
+        ("J89", "4", None),
+    }
+
+
 def test_venueindex_iter(anthology):
     index = VenueIndex(anthology)
     venue_ids = index.keys()

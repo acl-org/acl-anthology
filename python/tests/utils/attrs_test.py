@@ -13,10 +13,15 @@
 # limitations under the License.
 
 
+import re
 import itertools as it
+from rich.console import Console
+
+import acl_anthology.utils.attrs as my_attrs
 
 
 def test_all_objects_have_functioning_rich_repr(anthology):
+    console = Console(quiet=True, width=120)
     anthology.load_all()
     for obj in it.chain(
         (
@@ -28,12 +33,36 @@ def test_all_objects_have_functioning_rich_repr(anthology):
         ),
         anthology.collections.values(),
         anthology.volumes(),
-        anthology.papers(),
+        list(anthology.papers())[:5],  # slow, so we limit ourselves to a sample
         anthology.events.values(),
-        anthology.people.values(),
+        list(anthology.people.values())[:5],  # slow, so we limit ourselves to a sample
         anthology.sigs.values(),
         anthology.venues.values(),
     ):
         repr(obj)
         assert hasattr(obj, "__rich_repr__")
-        list(obj.__rich_repr__())
+        console.print(obj)
+
+
+def test_repr_item_ids():
+    assert my_attrs.repr_item_ids([]) == "[]"
+    assert (
+        re.search(
+            r"list.* with 1 item ", my_attrs.repr_item_ids([("2024.aacl", "main", "777")])
+        )
+        is not None
+    )
+    item_ids = [
+        ("2026.acl", "long", "1"),
+        ("2028.eacl", "main", "100"),
+        ("2030.emnlp", "short", "9870"),
+    ]
+    assert re.search(r"list.* with 3 items", my_attrs.repr_item_ids(item_ids)) is not None
+    assert (
+        re.search(r"tuple.* with 3 items", my_attrs.repr_item_ids(tuple(item_ids)))
+        is not None
+    )
+    assert (
+        re.search(r"set.* with 3 items", my_attrs.repr_item_ids(set(item_ids)))
+        is not None
+    )
