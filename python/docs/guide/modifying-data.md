@@ -1,10 +1,5 @@
 # Modifying Data
 
-!!! danger
-
-    This is currently still **work in progress.**
-
-
 ## Rules of thumb
 
 **The aim of this library is to also make it easy to modify or create data in
@@ -21,13 +16,11 @@ are some rules of thumb when making modifications to the data:
       an explicit representation in `people.yaml`.
 3. **Saving data is always non-destructive**.  In XML files, it will also avoid
    introducing unnecessary changes (e.g. no needless reordering of tags).
-4. If you need to refer to indices such as
-   [PersonIndex][acl_anthology.people.index.PersonIndex],
-   [EventIndex][acl_anthology.collections.eventindex.EventIndex], or
-   [VenueIndex][acl_anthology.venues.VenueIndex] after making modifications, you
-   should call
-   [`Anthology.reset_indices()`][acl_anthology.anthology.Anthology.reset_indices]
-   first.
+4. If you need to refer to the
+   [EventIndex][acl_anthology.collections.eventindex.EventIndex] after making
+   modifications, you should call
+   [`anthology.events.reset()`][acl_anthology.collections.eventindex.EventIndex.reset]
+   first.  All other indices should update automatically.
 
 ## Modifying publications
 
@@ -136,25 +129,19 @@ If the auto-generated bibkey is identical to the current one, the bibkey will
 not change.
 
 #### Dependent indices
+Changing an item's attribute might affect various indices.  As a rule of thumb, all indices – as well as objects connected to these indices – will **update automatically**.  For example:
 
-!!! warning
+- Changing an item's `bibkey` changes will update the [BibkeyIndex][acl_anthology.collections.bibkeys.BibkeyIndex].
+- Changing an item's author or editor list will update the [PersonIndex][acl_anthology.people.index.PersonIndex] and the `item_ids` of any [Person][acl_anthology.people.person.Person] objects affected by the change.
+- Changing an item's `venue_ids` will update the [VenueIndex][acl_anthology.venues.VenueIndex] and the `item_ids` of any [Venue][acl_anthology.venues.Venue] objects affected by the change.
 
-    This is work in progress, and automatic updating of indices might improve in the future.
+!!! warning "Exception: Events"
 
-- If an item's `bibkey` changes, the [BibkeyIndex][acl_anthology.collections.bibkeys.BibkeyIndex] **will** update automatically.
-- If an item's author or editor list changes, the [PersonIndex][acl_anthology.people.index.PersonIndex] and any [Person][acl_anthology.people.person.Person] objects created from it **will not update** automatically.
-- If an item's `venue_ids` list changes, the [VenueIndex][acl_anthology.venues.VenueIndex] and any [Venue][acl_anthology.venues.Venue] objects created from it **will not update** automatically.
-- If an item's `venue_ids` list changes, any implicit [Event][acl_anthology.collections.event.Event] created by it and its corresponding reverse-indexing in the [EventIndex][acl_anthology.collections.eventindex.EventIndex] **will not update** automatically.
+    Currently, events are not properly handled by the dynamic updating.  If an item's `venue_ids` list changes, any implicit [Event][acl_anthology.collections.event.Event] created by it and its corresponding reverse-indexing in the [EventIndex][acl_anthology.collections.eventindex.EventIndex] **will not update** automatically.
 
-If, after making changes, you need to access an index that is not updated automatically, just do:
+    If, after making changes, you need to access events, you will need to reset the EventIndex (`anthology.events.reset()`) and re-obtain any Event objects from it.
 
-```python
-anthology.reset_indices()
-```
-
-This will _not_ update any Event, Person, or Venue objects you may have already
-obtained, but any objects returned by an index _after_ the reset will reflect
-the new data.
+    This behavior will be fixed in the future.
 
 
 ## Modifying people
@@ -163,7 +150,7 @@ A person can be _explicit_ (has an entry in `people.yaml`) or _inferred_ (was in
 
 1. Only an _explicit_ person's attributes can be meaningfully modified.
 
-2. Changing which person a paper/volume is assigned to should be done by modifying the name specification on the paper/volume, not by changing anything on the Person object.
+2. Changing which person a paper/volume is assigned to should be done by modifying the name specification on the paper/volume, not by changing anything on the Person object.  In other words, do **not** modify `Person.item_ids`.
 
 ??? info "A note on terminology"
 
@@ -202,31 +189,20 @@ have an ORCID and other metadata) can be done in two ways:
 
 ## Ingesting new proceedings
 
-Proceedings can be ingested almost entirely via functionality from this library;
-in particular, no data files (XML or YAML) need to be saved manually.  _(The
-only functionality that is currently not part of this library is the fixed-caser
-for paper titles, which is described below.)_
+Proceedings can be ingested almost entirely via functionality from this library; in particular, no data files (XML or YAML) need to be saved manually.  _(The only functionality that is currently not part of this library is the fixed-caser for paper titles, which is described below.)_
 
 ### New collections, volumes, and papers
 
-Creating new objects from `acl_anthology.collections` should be done with
-`create_` functions from their respective parent objects.
+Creating new objects from `acl_anthology.collections` should be done with `create_` functions from their respective parent objects.
 
-All attributes that can be set on these objects (Volumes, Papers, etc.) can also
-be supplied as keyword parameters to the `create_` functions.  Some required
-attributes don't _need_ to be supplied here:
+All attributes that can be set on these objects (Volumes, Papers, etc.) can also be supplied as keyword parameters to the `create_` functions.  Some required attributes don't _need_ to be supplied here:
 
-- A Paper's `id` will be set to the next-highest numeric ID that doesn't already
-  exist in the volume, starting at `"1"`.
+- A Paper's `id` will be set to the next-highest numeric ID that doesn't already exist in the volume, starting at `"1"`.
 - A Paper's `bibkey` will be automatically generated if not explicitly set.
-- A Volume's `year` attribute will be derived from the collection ID (e.g.,
-  `"2049"` in a collection with ID `"2049.acl"`).
-- A Volume's `type` will default to
-  [PROCEEDINGS][acl_anthology.collections.types.VolumeType].
+- A Volume's `year` attribute will be derived from the collection ID (e.g., `"2049"` in a collection with ID `"2049.acl"`).
+- A Volume's `type` will default to [PROCEEDINGS][acl_anthology.collections.types.VolumeType].
 
-However, it is **strongly recommended to supply the author/editor list** when
-calling a `create_` function, as this will resolve person IDs and create correct
-bibkeys automatically.
+However, it is **strongly recommended to supply the author/editor list** when calling a `create_` function, as this will resolve person IDs and create correct bibkeys automatically.
 
 !!! example
 
@@ -301,8 +277,7 @@ Paper titles should also have our **fixed-casing algorithm** applied to protect 
 
 ### Specifying authors
 
-Authors need to be specified by creating [name
-specifications](accessing-authors.md#name-specifications), for example:
+Authors need to be specified by creating [name specifications](accessing-authors.md#name-specifications), for example:
 
 ```python
 NameSpecification(Name("Marcel", "Bollmann"), orcid="0000-0003-2598-8150")
