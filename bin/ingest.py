@@ -225,7 +225,7 @@ def namespec_from_author(author: Dict[str, Any]) -> NameSpecification:
     affiliation = author.get("institution") or author.get("affiliation")
     if affiliation:
         kwargs["affiliation"] = affiliation
-    return NameSpecification(**kwargs)
+    return NameSpecification(**kwargs).case_normalize()
 
 
 def create_dest_path(org_dir_name: str, venue_name: str) -> Path:
@@ -832,7 +832,7 @@ def namespec_from_bib(person) -> NameSpecification:
     first_text = first_text.strip()
     last_text = last_text.strip()
 
-    return NameSpecification(name=Name(first_text, last_text))
+    return NameSpecification(name=Name(first_text, last_text)).case_normalize()
 
 
 def read_bib_entry(
