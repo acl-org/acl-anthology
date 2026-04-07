@@ -8,13 +8,13 @@ are not supported, nor are volume-level changes.
 ## Bulk processing scripts
 
 These scripts query the GitHub issue tracker and use their data to implement
-corrections in a branch. Specific issue numbers may be specified as arguments;
+corrections in a branch. Specific issue numbers may be given as arguments;
 otherwise, all relevant issues will be retrieved.
 
-They require obtaining a Personal Access Token and storing it in
-the `GITHUB_TOKEN` environment variable.
+Before running the script it is necessary to obtain a Personal Access Token
+and store it in the `GITHUB_TOKEN` environment variable.
 
-Currently they should be run with `--dry-run` to avoid triggering
+Currently these scripts should be run with `--dry-run` to avoid triggering
 a new PR (which requires elevated privileges).
 
 - `bulk_process_metadata.py`: For paper metadata issues updating the title, abstract,
