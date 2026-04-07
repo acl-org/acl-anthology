@@ -234,16 +234,14 @@ def create_dest_path(org_dir_name: str, venue_name: str) -> Path:
     return dest_dir
 
 
-def pdf_reference_from_paths(
-    anthology_id: str, src_path: str, dest_path: str
-) -> PDFReference:
+def pdf_reference_from_paths(anthology_id: str, dest_path: str) -> PDFReference:
     dest = Path(dest_path)
     if dest.exists():
         return PDFReference.from_file(str(dest))
     return PDFReference(name=anthology_id)
 
 
-def attachment_reference_from_paths(src_path: str, dest_path: str) -> AttachmentReference:
+def attachment_reference_from_paths(dest_path: str) -> AttachmentReference:
     dest = Path(dest_path)
     if dest.exists():
         return AttachmentReference.from_file(str(dest))
@@ -710,7 +708,6 @@ def ingest(
         maybe_copy(metadata["proceedings_pdf_src"], metadata["proceedings_pdf_dest"])
         volume_kwargs["pdf"] = pdf_reference_from_paths(
             anthology_id=metadata["volume_full_id"],
-            src_path=metadata["proceedings_pdf_src"],
             dest_path=metadata["proceedings_pdf_dest"],
         )
 
@@ -730,7 +727,6 @@ def ingest(
             maybe_copy(paper["pdf_src"], paper["pdf_dest"], dry_run=args.dry_run)
             kwargs["pdf"] = pdf_reference_from_paths(
                 anthology_id=paper["anthology_id"],
-                src_path=paper["pdf_src"],
                 dest_path=paper["pdf_dest"],
             )
         for key in ("abstract", "doi", "pages"):
@@ -755,7 +751,6 @@ def ingest(
                 (
                     attachment["type"],
                     attachment_reference_from_paths(
-                        src_path=attachment["src"],
                         dest_path=attachment["dest"],
                     ),
                 )
