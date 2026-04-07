@@ -24,16 +24,19 @@ Input is a YAML file with paper metadata in aclpub2 format:
     authors:
     - first_name: Jane
       last_name: Doe
+      orcid: 0000-0001-2345-6789  # optional
     - first_name: John
       last_name: Smith
     abstract: "The abstract text..."
     language: eng  # optional, ISO 639-2
     pages: "1-10"  # optional
 
-The volume is specified by --volume-id (e.g., "2025.isa-1").
+Specify either a paper ID (e.g., "2025.isa-1.10") to use an explicit ID,
+or a volume ID (e.g., "2025.isa-1") to auto-generate the next paper ID.
 
 Usage:
-    python bin/add_paper.py --volume-id 2025.isa-1 paper.yaml
+    python bin/add_paper.py 2025.isa-1 paper.yaml       # auto-generate paper ID
+    python bin/add_paper.py 2025.isa-1.10 paper.yaml    # use explicit paper ID 10
 """
 
 import click
@@ -48,6 +51,7 @@ from acl_anthology import Anthology
 from acl_anthology.files import PDFReference
 from acl_anthology.people import Name, NameSpecification as NameSpec
 from acl_anthology.text import MarkupText
+from acl_anthology.utils.ids import parse_id
 
 from fixedcase.protect import protect
 
@@ -67,27 +71,19 @@ def parse_authors(authors_data):
             )
             continue
         name = Name(first=first, last=last)
-        namespec = NameSpec(name)
+        orcid = author.get("orcid")
+        namespec = NameSpec(name, orcid=orcid)
         namespecs.append(namespec)
     return namespecs
 
 
 @click.command()
+@click.argument("anth_id")
 @click.argument("yaml_file", type=click.Path(exists=True))
-@click.option(
-    "--volume-id",
-    required=True,
-    help="Full volume ID (e.g., 2025.isa-1)",
-)
 @click.option(
     "--anthology-dir",
     default=os.path.join(os.path.dirname(sys.argv[0]), ".."),
     help="Root path of the ACL Anthology repo",
-)
-@click.option(
-    "--paper-id",
-    default=None,
-    help="Paper ID to assign (default: auto-generate next available)",
 )
 @click.option(
     "--ingest-date",
@@ -111,10 +107,13 @@ def parse_authors(authors_data):
     default=False,
     help="Print what would be done without saving",
 )
-def main(
-    yaml_file, volume_id, anthology_dir, paper_id, ingest_date, pdf, pdfs_dir, dry_run
-):
-    """Add a paper from YAML_FILE to an existing Anthology volume."""
+def main(anth_id, yaml_file, anthology_dir, ingest_date, pdf, pdfs_dir, dry_run):
+    """Add a paper from YAML_FILE to an existing Anthology volume.
+
+    ANTH_ID is either a volume ID (e.g., "2025.isa-1") to auto-generate
+    the next paper ID, or a full paper ID (e.g., "2025.isa-1.10") to use
+    that specific paper ID.
+    """
     # Load the YAML input
     with open(yaml_file, "r") as f:
         data = yaml.safe_load(f)
@@ -127,60 +126,64 @@ def main(
             )
         data = data[0]
 
+    # Parse the anthology ID to determine volume and optional paper ID
+    collection_id, volume_id_part, paper_id = parse_id(anth_id)
+    if volume_id_part is None:
+        raise click.UsageError(
+            f"'{anth_id}' looks like a collection ID; please provide a volume or paper ID"
+        )
+
+    volume_full_id = f"{collection_id}-{volume_id_part}"
+
     # Load the Anthology and build the people index so that
     # known authors are properly resolved (matched by name slug)
     anthology = Anthology(datadir=os.path.join(anthology_dir, "data"))
     print("Loading people index (this may take a minute)...", file=sys.stderr)
     anthology.people.load()
 
-    volume = anthology.get_volume(volume_id)
+    volume = anthology.get_volume(volume_full_id)
     if volume is None:
-        raise click.UsageError(f"Volume '{volume_id}' not found in the Anthology")
+        raise click.UsageError(f"Volume '{volume_full_id}' not found in the Anthology")
 
     collection = volume.parent
 
-    # Build the paper kwargs
-    create_kwargs = {}
-
-    # Title (with case protection)
+    # Validate required fields
     title_text = data.get("title")
     if not title_text:
         raise click.UsageError("Paper must have a 'title' field")
-    create_kwargs["title"] = MarkupText.from_latex_maybe(str(title_text))
 
-    # Authors
     authors_data = data.get("authors", [])
     if not authors_data:
         raise click.UsageError("Paper must have at least one author")
-    create_kwargs["authors"] = parse_authors(authors_data)
 
-    # Abstract
+    # Build kwargs for create_paper
+    create_kwargs = {}
+    if paper_id is not None:
+        create_kwargs["id"] = paper_id
     if data.get("abstract"):
-        abstract_text = str(data["abstract"]).strip()
-        create_kwargs["abstract"] = MarkupText.from_latex_maybe(abstract_text)
-
-    # Pages
+        create_kwargs["abstract"] = MarkupText.from_latex_maybe(
+            str(data["abstract"]).strip()
+        )
     if data.get("pages"):
         create_kwargs["pages"] = str(data["pages"])
-
-    # Language (ISO 639-2 code)
     if data.get("language"):
         create_kwargs["language"] = str(data["language"])
 
-    # Paper ID
-    if paper_id is not None:
-        create_kwargs["id"] = paper_id
+    # Create the paper (this handles case normalization, namespec
+    # ingestion for ORCIDs, and person index updates)
+    paper_obj = volume.create_paper(
+        title=MarkupText.from_latex_maybe(str(title_text)),
+        authors=parse_authors(authors_data),
+        **create_kwargs,
+    )
 
-    # Create the paper
-    paper_obj = volume.create_paper(**create_kwargs)
-
-    # Resolve author IDs: create_paper adds authors to the index internally,
-    # but doesn't write back the resolved person ID to the NameSpecification.
-    # We do that here so the id= attribute appears in the XML output.
+    # Resolve author IDs so that known persons get their id= in the XML.
+    # create_paper indexes authors but doesn't write back person IDs to
+    # the NameSpecification objects; we use the public API to do that.
     for namespec in paper_obj.authors:
         if namespec.id is not None:
             continue
-        person = anthology.people._resolve_namespec(namespec)
+        person = anthology.people.get_by_namespec(namespec)
         if person.is_explicit:
             namespec.id = person.id
 
