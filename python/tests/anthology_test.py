@@ -20,6 +20,7 @@ from acl_anthology import Anthology
 from acl_anthology.collections import Collection
 from acl_anthology.people import PersonIndex, Name
 from acl_anthology.venues import VenueIndex
+from acl_anthology.sigs import SIGIndex
 
 
 def test_instantiate(shared_datadir):
@@ -198,7 +199,7 @@ def test_save_all(anthology):
         patch.object(Collection, "save", autospec=True) as mock,
         patch.object(PersonIndex, "save") as people_mock,
         patch.object(VenueIndex, "save") as venue_mock,
-        pytest.warns(UserWarning),
+        patch.object(SIGIndex, "save") as sig_mock,
     ):
         anthology.save_all()
 
@@ -211,3 +212,4 @@ def test_save_all(anthology):
         # Check the others
         people_mock.assert_called_once()
         venue_mock.assert_called_once()
+        sig_mock.assert_called_once()

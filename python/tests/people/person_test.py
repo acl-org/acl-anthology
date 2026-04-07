@@ -248,6 +248,31 @@ def test_person_make_explicit_skip_setting_ids(anthology):
     assert not anthology.collections["J89"].is_modified
     assert not anthology.collections["L06"].is_modified
     assert not anthology.collections["2022.acl"].is_modified
+    # Person still has three papers resolving to them
+    assert len(person.item_ids) == 3
+    assert len(list(person.namespecs())) == 3
+
+
+def test_person_make_explicit_skip_setting_ids_updates_item_ids(anthology):
+    unverified_id = UNVERIFIED_PID_FORMAT.format(pid="yang-liu")
+    person = anthology.get_person(unverified_id)
+    # Prerequisites: Person is implicit and has exactly one paper resolving to them
+    assert not person.is_explicit
+    assert len(person.item_ids) == 1
+    assert len(list(person.namespecs())) == 1
+    person.make_explicit(new_id="yang-liu-suffix", skip_setting_ids=True)
+    assert person.is_explicit
+    assert person.id == "yang-liu-suffix"
+    # Person no longer has any papers resolving to them
+    assert len(person.item_ids) == 0
+    assert len(list(person.namespecs())) == 0
+    # Unverified person still exists, but is a different person
+    person2 = anthology.get_person(unverified_id)
+    assert person2 is not None
+    assert person2 != person
+    # ...and still has the one paper resolving to them
+    assert len(person2.item_ids) == 1
+    assert len(list(person2.namespecs())) == 1
 
 
 def test_person_make_explicit_should_raise_when_explicit(anthology):
