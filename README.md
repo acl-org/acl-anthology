@@ -26,7 +26,7 @@ These are basic instructions on generating the ACL Anthology website as seen on 
 
 To build the Anthology website, you will need:
 
-+ **Python 3.10** or higher
++ **Python 3.11** or higher
 + Python packages listed in `bin/requirements.txt`; to install, run `pip -r bin/requirements.txt`
 + [**Hugo 0.126.0**](https://gohugo.io) or higher (can be [downloaded directly from
   their repo](https://github.com/gohugoio/hugo/releases); the ***extended version*** is required!)
@@ -115,7 +115,7 @@ shell script `bin/acl-mirror-cronjob.sh` to your needs.
 You will need this software on the server
  - rsync
  - git
- - python3 >= 3.10
+ - python3 > 3.11.0
  - hugo > 0.126.0
  - python3-venv
 

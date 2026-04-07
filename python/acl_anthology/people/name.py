@@ -20,14 +20,7 @@ from lxml import etree
 from lxml.builder import E
 import re
 from slugify import slugify
-from typing import Any, Optional, cast, TypeAlias, TYPE_CHECKING
-import sys
-
-if sys.version_info >= (3, 11):
-    from typing import Self
-else:
-    from typing_extensions import Self
-
+from typing import Any, Optional, cast, Self, TypeAlias, TYPE_CHECKING
 import yaml
 
 try:
@@ -35,6 +28,7 @@ try:
 except ImportError:  # pragma: no cover
     from yaml import Dumper  # type: ignore
 
+from ..constants import RE_VERIFIED_PERSON_ID, NO_PERSON_ID
 from ..exceptions import AnthologyException
 from ..utils.attrs import track_namespec_modifications
 from ..utils.latex import latex_encode
@@ -310,8 +304,6 @@ class NameSpecification:
     """A name specification on a paper etc., containing additional data fields for information or disambiguation besides just the name.
 
     Attributes:
-        name: The person's name.
-        id: Unique ID for the person that this name refers to.
         parent: The Anthology item that this name specification belongs to.
         orcid: An ORCID that was supplied together with this name.
         affiliation: Professional affiliation.
@@ -324,8 +316,11 @@ class NameSpecification:
         (for this functionality, see [Person][acl_anthology.people.person.Person]).
     """
 
-    name: Name = field(converter=_Name_from)
-    id: Optional[str] = field(default=None, validator=v.optional(v.instance_of(str)))
+    _name: Name = field(converter=_Name_from)
+    _id: Optional[str] = field(
+        default=None,
+        validator=v.optional([v.instance_of(str), v.matches_re(RE_VERIFIED_PERSON_ID)]),
+    )
     parent: Optional[Paper | Volume | Talk] = field(default=None, repr=False, eq=False)
     orcid: Optional[str] = field(default=None, validator=v.optional(v.instance_of(str)))
     affiliation: Optional[str] = field(
@@ -341,6 +336,51 @@ class NameSpecification:
 
     def __hash__(self) -> int:
         return hash((self.name, self.id, self.affiliation, tuple(self.variants)))
+
+    @property
+    def name(self) -> Name:
+        """The person's name."""
+        return self._name
+
+    @name.setter
+    def name(self, value: Any) -> None:
+        # TODO: hasattr check pending the CollectionItem refactoring
+        if (
+            self.id is None
+            and self.parent is not None
+            and hasattr(self.parent, "full_id_tuple")
+            and self.root.people.is_data_loaded
+        ):
+            person_before = self.resolve()
+            self._name = _Name_from(value)
+            person_after = self.root.people._resolve_namespec(self, allow_creation=True)
+            if person_before != person_after:
+                person_before.item_ids.remove(self.parent.full_id_tuple)
+                person_after.item_ids.append(self.parent.full_id_tuple)
+        else:
+            self._name = _Name_from(value)
+
+    @property
+    def id(self) -> Optional[str]:
+        """Unique ID for the person that this NameSpecification refers to."""
+        return self._id
+
+    @id.setter
+    def id(self, value: Optional[str]) -> None:
+        # TODO: duplicates code from above, should probably be refactored
+        if (
+            self.parent is not None
+            and hasattr(self.parent, "full_id_tuple")
+            and self.root.people.is_data_loaded
+        ):
+            person_before = self.resolve()
+            self._id = value
+            person_after = self.root.people._resolve_namespec(self, allow_creation=True)
+            if person_before != person_after:
+                person_before.item_ids.remove(self.parent.full_id_tuple)
+                person_after.item_ids.append(self.parent.full_id_tuple)
+        else:
+            self._id = value
 
     @property
     def first(self) -> Optional[str]:
@@ -460,6 +500,8 @@ class NameSpecification:
             A serialization of this name in Anthology XML format.
         """
         elem = etree.Element(tag)
+        if self.id == NO_PERSON_ID:
+            self.id = None
         if self.id is not None:
             elem.set("id", self.id)
         if self.orcid is not None:

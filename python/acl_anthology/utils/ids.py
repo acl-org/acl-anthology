@@ -15,26 +15,14 @@
 """Functions for manipulating Anthology IDs."""
 
 import functools
-import re
 from typing import Optional
+from ..constants import RE_COLLECTION_ID, RE_ITEM_ID, RE_VERIFIED_PERSON_ID, RE_ORCID
 
 AnthologyIDTuple = tuple[str, Optional[str], Optional[str]]
 """A tuple representing an Anthology ID."""
 
 AnthologyID = str | AnthologyIDTuple
 """Any type that can be parsed into an Anthology ID."""
-
-RE_COLLECTION_ID = re.compile(r"([0-9]{4}\.[a-z0-9]+)|([A-Z][0-9]{2})")
-"""A regular expression matching any valid collection ID."""
-
-RE_ITEM_ID = re.compile(r"[a-z0-9]+")
-"""A regular expression matching any valid volume or paper ID."""
-
-RE_VERIFIED_PERSON_ID = re.compile(r"[a-z][\-a-z0-9]+")
-"""A regular expression matching any valid verified person ID."""
-
-RE_ORCID = re.compile(r"[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{3}[0-9X]")
-"""A regular expression matching any string that looks like an ORCID."""
 
 
 def build_id(

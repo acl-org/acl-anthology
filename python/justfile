@@ -48,7 +48,7 @@ test-all-python-versions:
   #!/usr/bin/env bash
   set -eux
   # Loop over all supported Python versions
-  for py in 3.10 3.11 3.12 3.13 3.14; do
+  for py in 3.11 3.12 3.13 3.14; do
     uv run --python $py --isolated pytest -m "not integration"
   done
 
