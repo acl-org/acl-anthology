@@ -205,6 +205,9 @@ def correct_names(author: Dict[str, Any]) -> Dict[str, Any]:
 
 
 def join_names(author: Dict[str, Any], fields=None) -> str:
+    """
+    Joins first and middle name, if present.
+    """
     if fields is None:
         fields = ["first_name", "middle_name"]
     return " ".join(author[field] for field in fields if author.get(field) is not None)
@@ -212,40 +215,15 @@ def join_names(author: Dict[str, Any], fields=None) -> str:
 
 def namespec_from_author(author: Dict[str, Any]) -> NameSpecification:
     """Creates a NameSpecification from an author dictionary (aclpub2)."""
-    author = correct_names(dict(author))
     first_name = join_names(author).strip()
     last_name = (author.get("last_name") or "").strip()
-    if first_name and not last_name:
-        first_name, last_name = last_name, first_name
-    if not last_name:
-        raise Exception(f"BAD AUTHOR: {author}")
     kwargs: Dict[str, Any] = {"name": Name(first_name if first_name else None, last_name)}
     if "orcid" in author and author["orcid"]:
         kwargs["orcid"] = str(author["orcid"])
     affiliation = author.get("institution") or author.get("affiliation")
     if affiliation:
         kwargs["affiliation"] = affiliation
-    return NameSpecification(**kwargs).case_normalize()
-
-
-def create_dest_path(org_dir_name: str, venue_name: str) -> Path:
-    dest_dir = Path(org_dir_name) / venue_name
-    dest_dir.mkdir(parents=True, exist_ok=True)
-    return dest_dir
-
-
-def pdf_reference_from_paths(anthology_id: str, dest_path: str) -> PDFReference:
-    dest = Path(dest_path)
-    if dest.exists():
-        return PDFReference.from_file(str(dest))
-    return PDFReference(name=anthology_id)
-
-
-def attachment_reference_from_paths(dest_path: str) -> AttachmentReference:
-    dest = Path(dest_path)
-    if dest.exists():
-        return AttachmentReference.from_file(str(dest))
-    return AttachmentReference(name=dest.name)
+    return NameSpecification(**kwargs)
 
 
 def add_parent_event(
@@ -256,19 +234,15 @@ def add_parent_event(
     that parent's <event> block. This facilitates listing colocated volumes
     (mostly workshops, but also Findings) in a main volume's event page.
     """
-    if parent_event is None:
-        return
-
     event = anthology.get_event(parent_event)
     if event is None:
         print(f"No event node with id '{parent_event}' found", file=sys.stderr)
         return
-    if anthology.get_volume(volume_full_id) is None:
+    if volume := anthology.get_volume(volume_full_id) is None:
         print(f"No such ingested volume {volume_full_id}", file=sys.stderr)
         return
-    existing = {event_id for (event_id, _) in event.colocated_ids}
-    collection_id, volume_name, _ = parse_id(volume_full_id)
-    if any(collection_id == c and volume_name == v for (c, v, _) in existing):
+
+    if event in volume.get_events():
         print(
             f"Event {volume_full_id} already listed as colocated with {parent_event}, skipping",
             file=sys.stderr,
@@ -440,8 +414,12 @@ def read_ingest_metadata(
         collection_id = meta["year"] + "." + venue_slug
         volume_name = meta["volume_name"].lower()
         venue_name = venue_abbrev.lower()
-        pdfs_dest_dir = create_dest_path(args.pdfs_dir, venue_name)
-        attachments_dest_dir = create_dest_path(args.attachments_dir, venue_name)
+        pdfs_dest_dir = (Path(args.pdfs_dir) / venue_name).mkdir(
+            parents=True, exist_ok=True
+        )
+        attachments_dest_dir = (Path(args.attachments_dir, venue_name)).mkdir(
+            parents=True, exist_ok=True
+        )
         source_path = Path(source)
         proceedings_pdf_src = None
         for path in [
@@ -706,9 +684,8 @@ def ingest(
     volume_kwargs["isbn"] = metadata.get("isbn")
     if metadata.get("proceedings_pdf_src") and metadata.get("proceedings_pdf_dest"):
         maybe_copy(metadata["proceedings_pdf_src"], metadata["proceedings_pdf_dest"])
-        volume_kwargs["pdf"] = pdf_reference_from_paths(
-            anthology_id=metadata["volume_full_id"],
-            dest_path=metadata["proceedings_pdf_dest"],
+        volume_kwargs["pdf"] = PDFReference.from_file(
+            str(metadata["proceedings_pdf_dest"])
         )
 
     volume_obj = collection.create_volume(**volume_kwargs)
@@ -725,10 +702,7 @@ def ingest(
         }
         if paper.get("pdf_src") and paper.get("pdf_dest"):
             maybe_copy(paper["pdf_src"], paper["pdf_dest"], dry_run=args.dry_run)
-            kwargs["pdf"] = pdf_reference_from_paths(
-                anthology_id=paper["anthology_id"],
-                dest_path=paper["pdf_dest"],
-            )
+            kwargs["pdf"] = PDFReference.from_file(str(paper["pdf_dest"]))
         for key in ("abstract", "doi", "pages"):
             value = paper.get(key)
             if value:
@@ -750,9 +724,7 @@ def ingest(
             attachment_refs.append(
                 (
                     attachment["type"],
-                    attachment_reference_from_paths(
-                        dest_path=attachment["dest"],
-                    ),
+                    AttachmentReference.from_file(str(attachment["dest"])),
                 )
             )
         if attachment_refs:
@@ -827,7 +799,7 @@ def namespec_from_bib(person) -> NameSpecification:
     first_text = first_text.strip()
     last_text = last_text.strip()
 
-    return NameSpecification(name=Name(first_text, last_text)).case_normalize()
+    return NameSpecification(name=Name(first_text, last_text))
 
 
 def read_bib_entry(
