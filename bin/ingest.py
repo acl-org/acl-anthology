@@ -234,6 +234,9 @@ def add_parent_event(
     that parent's <event> block. This facilitates listing colocated volumes
     (mostly workshops, but also Findings) in a main volume's event page.
     """
+    if parent_event is None:
+        return
+
     event = anthology.get_event(parent_event)
     if event is None:
         print(f"No event node with id '{parent_event}' found", file=sys.stderr)
@@ -308,7 +311,6 @@ def _aclpub_attachment_map(
     if not additional_dir.exists():
         return attachments
     attachments_dest = Path(attachments_dest_dir)
-    attachments_dest.mkdir(parents=True, exist_ok=True)
     for attachment_path in additional_dir.iterdir():
         attachment_file = attachment_path.name
         if attachment_file.startswith("."):
@@ -353,7 +355,6 @@ def read_ingest_metadata(
         venue_name = venue_abbrev.lower()
         root_path = source_path / "cdrom"
         pdfs_dest_dir = Path(args.pdfs_dir) / venue_name
-        pdfs_dest_dir.mkdir(parents=True, exist_ok=True)
         attachments_dest_dir = Path(args.attachments_dir) / venue_name
         book_src = _find_book_pdf(source, str(meta["year"]), venue_name, volume_name)
         book_dest = (
@@ -414,12 +415,8 @@ def read_ingest_metadata(
         collection_id = meta["year"] + "." + venue_slug
         volume_name = meta["volume_name"].lower()
         venue_name = venue_abbrev.lower()
-        pdfs_dest_dir = (Path(args.pdfs_dir) / venue_name).mkdir(
-            parents=True, exist_ok=True
-        )
-        attachments_dest_dir = (Path(args.attachments_dir, venue_name)).mkdir(
-            parents=True, exist_ok=True
-        )
+        pdfs_dest_dir = Path(args.pdfs_dir) / venue_name
+        attachments_dest_dir = Path(args.attachments_dir) / venue_name
         source_path = Path(source)
         proceedings_pdf_src = None
         for path in [
@@ -429,8 +426,9 @@ def read_ingest_metadata(
             if path.exists():
                 proceedings_pdf_src = path
                 break
+
         proceedings_pdf_dest = (
-            Path(pdfs_dest_dir) / f"{collection_id}-{volume_name}.pdf"
+            pdfs_dest_dir / f"{collection_id}-{volume_name}.pdf"
             if proceedings_pdf_src is not None
             else None
         )
@@ -749,6 +747,7 @@ def maybe_copy(source_path: str, dest_path: str, dry_run: bool = False):
         if dry_run:
             log.info(f"[dry-run] Skipping copy {source} -> {dest}")
             return
+        dest.parent.mkdir(parents=True, exist_ok=True)
         if (
             not dest.exists()
             or PDFReference.from_file(str(source)).checksum
