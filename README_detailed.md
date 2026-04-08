@@ -1,7 +1,9 @@
-# ACL Anthology - Detailed Instructions
+# ACL Anthology – Detailed Instructions
 
-These are the detailed instructions on generating the ACL Anthology website as
-seen on <https://aclanthology.org/> and contributing to it.
+This file contains (i) detailed instructions on generating the ACL Anthology
+website as seen on <https://aclanthology.org/>, (ii) descriptions of the
+Anthology data and template files and what they contain, and (iii) instructions
+for maintaining and contributing to the Anthology.
 
 
 ## Generating the Anthology
@@ -118,7 +120,7 @@ collection to keep memory usage low (ca. 13 GB).
 The fully generated website will be in `build/website/` afterwards.
 
 
-## Making changes to the Anthology
+## Data and template files
 
 The static site tries to follow a strict *separation of content and
 presentation.* If you need to make changes to the Anthology, the first step is
@@ -129,7 +131,7 @@ always be made in the data files under `data/` or in the scripts that
 interpret them; changes that only affect the **presentation** on the website can
 be made within the Hugo templates.
 
-### Content (Data Files)
+### Content (Data files)
 
 The data sources of the Anthology are currently stored under `data/`.  They
 comprise:
@@ -194,7 +196,7 @@ within the repository to ensure visual consistency and privacy.
 > develop your changes inside the `build/` folder and copy them back to the
 > `hugo/` folder afterwards.
 
-### Adding new years to the Anthology
+#### Note: Adding new years to the Anthology
 
 If a new year is added to the Anthology, make sure the [front page
 template](hugo/layouts/index.html) is updated to include this new year.  Make
@@ -202,6 +204,32 @@ sure to adjust the variable `$all_years` (and `$border_years`, if needed) and
 don't forget to **update the table headers** as well!  (Their `colspan`
 attributes need to match the number of years subsumed under the header.)
 
+
+## Running scripts
+
+The `bin/` directory contains various scripts to help maintain the Anthology.
+As a general rule, scripts should use the [`acl-anthology` Python
+library](python/README.md) to interact with Anthology data.  You will need
+[**uv**](https://docs.astral.sh/uv/getting-started/installation/) to run any of
+these scripts; e.g., after installing uv, you can simply invoke:
+
+```bash
+uv run bin/ingest.py -h
+```
+
+Any required dependencies will be managed and installed automatically (in an
+isolated environment) by uv.
+
+#### Adding dependencies
+
+If you are contributing a script that requires a new dependency, it should also
+be added via uv, e.g.:
+
+```bash
+uv add PyPDF2
+```
+
+This will add the dependency to the `pyproject.toml` in the root folder.
 
 ## Testing & coding style
 
