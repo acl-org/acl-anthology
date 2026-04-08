@@ -27,7 +27,7 @@ These are basic instructions on generating the ACL Anthology website as seen on 
 To build the Anthology website, you will need:
 
 + [**uv**](https://docs.astral.sh/uv/getting-started/installation/), the Python package manager
-+ [**Hugo 0.156.0**](https://gohugo.io) or higher (can be [downloaded directly
++ [**Hugo 0.160.0**](https://gohugo.io) or higher (can be [downloaded directly
   from their repo](https://github.com/gohugoio/hugo/releases); the ***extended
   version*** is required!)
 + [**Dart Sass**](https://sass-lang.com/install/), a CSS extension that is needed by Hugo.
@@ -117,7 +117,7 @@ You will need this software on the server
  - rsync
  - git
  - python3 > 3.11.0
- - hugo >= 0.156.0
+ - hugo >= 0.160.0
  - python3-venv
 
 Note that generating the anthology takes quite a bit of RAM, so make

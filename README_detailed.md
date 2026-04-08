@@ -30,7 +30,7 @@ the process step by step and observe the expected outputs.
 
 + [**uv**](https://docs.astral.sh/uv/getting-started/installation/) manages the
   Python library and other Python dependencies.
-+ [**Hugo 0.156.0 (extended version)**](https://gohugo.io/installation/) is the
++ [**Hugo 0.160.0 (extended version)**](https://gohugo.io/installation/) is the
   static site generator that builds the website.
 + [**Dart Sass**](https://sass-lang.com/install/), a CSS extension that is
   needed by Hugo.
