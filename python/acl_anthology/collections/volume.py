@@ -19,7 +19,6 @@ from attrs import define, field, converters, setters, validators
 from lxml import etree
 from lxml.builder import E
 from typing import Any, Iterator, Optional, cast, TYPE_CHECKING
-import sys
 
 from .. import constants
 from ..config import config
@@ -259,10 +258,9 @@ class Volume(SlottedDict[Paper]):
         try:
             return [self.root.venues[vid] for vid in self.venue_ids]
         except KeyError as exc:
-            if sys.version_info >= (3, 11):
-                exc.add_note(
-                    f"Most likely, venue ID '{exc.args[0]}' is not defined in yaml/venues/*.yaml"
-                )
+            exc.add_note(
+                f"Most likely, venue ID '{exc.args[0]}' is not defined in yaml/venues/*.yaml"
+            )
             raise exc
 
     def to_bibtex(self) -> str:

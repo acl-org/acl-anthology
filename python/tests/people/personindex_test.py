@@ -225,7 +225,8 @@ test_cases_generate_person_id_from_name = (
         None,
         AnthologyException,
     ),  # yang-liu-icsi already exists
-    (Name("Yang", "Liu"), "icsi", "0000-0000-0000-018X", "yang-liu-018x"),
+    (Name("Yang", "Liu"), "icsi", "0000-0000-0000-018X", UserWarning),
+    (Name("Xu", "Huang"), "nanjing", "0000-0000-0000-018X", "xu-huang-018x"),
 )
 
 
@@ -258,6 +259,19 @@ def test_generate_person_id_from_person(index):
     )
 
 
+def test_generate_person_id_should_warn(index):
+    index.reset()
+    index._load_people_index()
+    # This person exists (as verified), but without an ORCID, so generating an
+    # ID with an ORCID suffix should emit a warning
+    name = Name.from_dict({"first": "Steven", "last": "Krauwer"})
+
+    with pytest.warns(UserWarning):
+        pid = index.generate_person_id(name, orcid="0000-0002-4236-2611")
+
+    assert pid == "steven-krauwer-2611"
+
+
 def test_create_person(index):
     person = index.create(
         id="matt-post",
@@ -268,6 +282,44 @@ def test_create_person(index):
     assert person.id == "matt-post"
     assert person.orcid == "0000-0002-1297-6794"
     assert person.is_explicit
+
+
+def test_create_person_changes_namespec_resolution(index):
+    implicit_person = index[UNVERIFIED_PID_FORMAT.format(pid="yongfeng-zhang")]
+    namespecs = list(implicit_person.namespecs())
+    assert len(namespecs) > 0
+    explicit_person = index.create(
+        id="yongfeng-zhang",
+        names=[Name("Yongfeng", "Zhang")],
+    )
+    # Papers that resolved to implicit_person before should resolve to explicit_person now
+    assert all(ns.resolve() is explicit_person for ns in namespecs)
+    assert set(explicit_person.namespecs()) == set(namespecs)
+    assert len(list(implicit_person.namespecs())) == 0
+
+
+def test_create_person_creates_ambiguous_name(index):
+    person1 = index["hinrich-schuetze"]
+    # Precondition: This person has both explicitly and implicitly linked papers
+    assert len(person1.item_ids) == 5
+    assert sum(ns.id == "hinrich-schuetze" for ns in person1.namespecs()) == 2
+    # Precondition: No unverified "hinrich-schuetze" exists
+    assert UNVERIFIED_PID_FORMAT.format(pid="hinrich-schuetze") not in index
+
+    person2 = index.create(
+        id="hinrich-schuetze-two",
+        names=[Name("Hinrich", "Schuetze")],
+    )
+    # No papers should resolve to person2
+    assert len(person2.item_ids) == 0
+    # Only explicitly linked papers should resolve to person1 now
+    assert len(person1.item_ids) == 2
+    assert all(ns.id == "hinrich-schuetze" for ns in person1.namespecs())
+    # An unverified "hinrich-schuetze" should now exist with the remaining three papers
+    person3 = index[UNVERIFIED_PID_FORMAT.format(pid="hinrich-schuetze")]
+    assert person3 is not None
+    assert len(person3.item_ids) == 3
+    assert all(ns.id is None for ns in person3.namespecs())
 
 
 def test_create_person_should_fail_on_duplicate_orcid(index):
@@ -295,6 +347,16 @@ def test_create_person_should_fail_on_unverified_id(index):
             ),  # cannot create this manually
             names=[Name("John", "Doe")],
         )
+
+
+def test_create_person_should_handle_duplicate_names(index):
+    person = index.create(
+        id="matt-post",
+        names=[Name("Matt", "Post"), Name("Matt", "Post")],
+        orcid="0000-0002-1297-6794",
+    )
+    assert person.id in index
+    assert len(person.names) == 1
 
 
 def test_create_person_should_fail_on_empty_names(index):
@@ -341,9 +403,22 @@ def test_add_to_index_behavior_on_duplicate_namespecs(index):
 ##############################################################################
 
 
+def test_person_id_change_should_fail_on_existing_items(anthology):
+    index = anthology.people
+    person = index["marcel-bollmann"]
+    # Cannot change this directly – there are items associated with the old ID!
+    with pytest.raises(PersonDefinitionError):
+        person.id = "marcel-bollmann-rub"
+
+
 def test_person_id_change_should_update_index(anthology):
     index = anthology.people
     person = index["marcel-bollmann"]
+    # Unlink all items first
+    for ns in person.namespecs():
+        ns.orcid = None
+        ns.id = None
+    # Now, the ID can be changed
     person.id = "marcel-bollmann-rub"
     assert "marcel-bollmann" not in index
     assert "marcel-bollmann-rub" in index
@@ -374,24 +449,26 @@ def test_person_add_name_should_update_index(anthology):
 def test_person_remove_name_should_update_index(anthology):
     index = anthology.people
     person = index["steven-krauwer"]
-    name = Name("S.", "Krauwer")
+    name = Name("Steven", "Krauwer")
     assert index.by_name[name] == ["steven-krauwer"]
     person.remove_name(name)
-    assert not index.by_name[name]
+    assert index.by_name[name] == [UNVERIFIED_PID_FORMAT.format(pid="steven-krauwer")]
     assert not index.slugs_to_verified_ids[name.slugify()]
 
 
 def test_person_setting_names_should_update_index(anthology):
     index = anthology.people
     person = index["steven-krauwer"]
-    names = [Name("Steven", "Krauwer"), Name("Steven J.", "Krauwer")]
+    names = [Name("S.", "Krauwer"), Name("Steven J.", "Krauwer")]
     person.names = names
     # previously existing name
     assert index.by_name[names[0]] == ["steven-krauwer"]
     # added name
     assert index.by_name[names[1]] == ["steven-krauwer"]
-    # removed name
-    assert not index.by_name[Name("S.", "Krauwer")]
+    # removed name, now resolves to unverified
+    assert index.by_name[Name("Steven", "Krauwer")] == [
+        UNVERIFIED_PID_FORMAT.format(pid="steven-krauwer")
+    ]
 
 
 ##############################################################################
@@ -598,6 +675,127 @@ def test_check_namelink_after_resolve_namespec(name_dict, expected_namelink, ind
     ) in person._names  # maybe provide a function for this?
 
 
+def test_person_add_name_affects_name_resolution(anthology):
+    index = anthology.people
+    # Precondition: 3 papers resolve to this explicit person
+    person1 = index["yang-liu-icsi"]
+    assert len(person1.item_ids) == 3
+    # Precondition: 1 paper resolves to this unverified person
+    person2 = index[UNVERIFIED_PID_FORMAT.format(pid="alexander-liu")]
+    assert len(person2.item_ids) == 1
+    all_papers = set(person1.item_ids + person2.item_ids)
+
+    # Adding a name should move unverified papers to this person via name matching
+    name = Name("Alexander", "Liu")
+    person1.add_name(name)
+    assert "yang-liu-icsi" in index.by_name[name]
+    assert set(person1.item_ids) == all_papers
+    assert len(person2.item_ids) == 0
+
+
+def test_person_remove_name_affects_name_resolution(anthology):
+    index = anthology.people
+    person = index["steven-krauwer"]
+    # Precondition: 2 papers resolve to this person
+    assert len(person.item_ids) == 2
+
+    # Remove a name should move implicitly-linked papers to unverified person
+    name = Name("Steven", "Krauwer")
+    person.remove_name(name)
+    assert UNVERIFIED_PID_FORMAT.format(pid="steven-krauwer") in index
+    assert index.by_name[name] == [UNVERIFIED_PID_FORMAT.format(pid="steven-krauwer")]
+    assert len(person.item_ids) == 1
+
+
+def test_person_disable_name_matching_affects_name_resolution(anthology):
+    index = anthology.people
+    person = index["steven-krauwer"]
+    # Precondition: 2 papers resolve to this person
+    assert len(person.item_ids) == 2
+
+    # Setting disable_name_matching should move implicitly-linked papers to
+    # unverified person
+    person.disable_name_matching = True
+    assert UNVERIFIED_PID_FORMAT.format(pid="steven-krauwer") in index
+    assert len(person.item_ids) == 1
+
+    # Setting it back should change it back
+    person.disable_name_matching = False
+    assert len(person.item_ids) == 2
+
+
+def test_namespec_change_name_affects_name_resolution(anthology):
+    index = anthology.people
+    # Precondition: Find a paper that resolves to a given unverified person
+    item_id = ("2022.acl", "long", "187")
+    namespec = anthology.get_paper(item_id).authors[2]
+    person1 = index.get(UNVERIFIED_PID_FORMAT.format(pid="nathan-noiry"))
+    assert namespec.resolve() is person1
+    assert item_id in person1.item_ids
+
+    # Changing the name should move the paper to another person
+    namespec.name = Name("Nathan Middlename", "Noiry")
+    person2 = namespec.resolve()
+    assert person2 is not person1
+    assert item_id not in person1.item_ids
+    assert item_id in person2.item_ids
+    assert person2.id == UNVERIFIED_PID_FORMAT.format(pid="nathan-middlename-noiry")
+
+
+def test_namespec_change_id_affects_name_resolution(anthology):
+    index = anthology.people
+    # Precondition: Find a paper that resolves to a given verified person
+    item_id = ("2022.acl", "long", "88")
+    namespec = anthology.get_paper(item_id).authors[-2]
+    person1 = index.get("yang-liu-icsi")
+    person2 = index.get("yang-liu-microsoft")
+    assert namespec.resolve() is person1
+    assert item_id in person1.item_ids
+    assert item_id not in person2.item_ids
+
+    # Changing the ID should move the paper to another person
+    namespec.id = "yang-liu-microsoft"
+    assert namespec.resolve() is person2
+    assert item_id not in person1.item_ids
+    assert item_id in person2.item_ids
+
+
+def test_namespec_remove_id_affects_name_resolution(anthology):
+    index = anthology.people
+    # Precondition: Find a paper that resolves to a given verified person
+    item_id = ("2022.acl", "long", "88")
+    namespec = anthology.get_paper(item_id).authors[-2]
+    person1 = index.get("yang-liu-icsi")
+    person2 = index.get(UNVERIFIED_PID_FORMAT.format(pid="yang-liu"))
+    assert namespec.resolve() is person1
+    assert item_id in person1.item_ids
+    assert item_id not in person2.item_ids
+
+    # Changing the ID should move the paper to another person
+    namespec.id = None
+    assert namespec.resolve() is person2
+    assert item_id not in person1.item_ids
+    assert item_id in person2.item_ids
+
+
+def test_namespec_add_id_affects_name_resolution(anthology):
+    index = anthology.people
+    # Precondition: Find a paper that resolves to a given verified person
+    item_id = ("2022.naloma", "1", "6")
+    namespec = anthology.get_paper(item_id).authors[0]
+    person1 = index.get(UNVERIFIED_PID_FORMAT.format(pid="yang-liu"))
+    person2 = index.get("yang-liu-icsi")
+    assert namespec.resolve() is person1
+    assert item_id in person1.item_ids
+    assert item_id not in person2.item_ids
+
+    # Changing the ID should move the paper to another person
+    namespec.id = "yang-liu-icsi"
+    assert namespec.resolve() is person2
+    assert item_id not in person1.item_ids
+    assert item_id in person2.item_ids
+
+
 ##############################################################################
 ### Tests for ingestion logic
 ##############################################################################
@@ -627,9 +825,9 @@ test_cases_ingest_namespec = (
         "matt-post",
     ),
     (  # It shouldn't matter if other persons with the same name exist, only ORCID matters
-        {"first": "Yang", "last": "Liu"},
+        {"first": "Xu", "last": "Huang"},
         {"orcid": "0000-0003-4154-7507"},
-        "yang-liu-7507",
+        "xu-huang-7507",
     ),
     (  # When generated ID is already taken, append the last four digits of ORCID
         {"first": "Marcel", "last": "Bollmann"},

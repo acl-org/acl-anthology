@@ -67,6 +67,7 @@ from acl_anthology.collections import Paper
 from acl_anthology.exceptions import NameSpecResolutionWarning
 from acl_anthology.people import NameSpecification, Name
 from acl_anthology.text import MarkupText
+from acl_anthology.utils.logging import setup_rich_logging
 
 close_old_issue_comment = """### ⓘ Notice
 
@@ -149,6 +150,7 @@ class AnthologyMetadataUpdater:
             "relevant_issues": 0,
             "approved_issues": 0,
             "unapproved_issues": 0,
+            "error_issues": 0,
         }
         self.verbose = verbose
 
@@ -156,8 +158,9 @@ class AnthologyMetadataUpdater:
         # branch with a different version of the database
 
     def load_anthology(self):
+        log.info("Loading anthology")
         self.anthology = Anthology.from_within_repo(verbose=self.verbose)
-        self.anthology.load_all()  # not needed to load_all?
+        # self.anthology.load_all()  # not needed to load_all?
 
     def _parse_metadata_changes(self, issue_body: str) -> None | dict:
         """Parse the metadata changes from issue body.
@@ -357,7 +360,7 @@ class AnthologyMetadataUpdater:
         # they do not have hidden attributes like affiliations attached
         current_author_namespecs_by_id = {}
         for current_author in paper.authors or paper.parent.editors:
-            person = self.anthology.resolve(current_author)
+            person = current_author.resolve()
             if person.id in current_author_namespecs_by_id:
                 # duplicate. check that namespecs are identical
                 assert current_author == (
@@ -370,7 +373,7 @@ class AnthologyMetadataUpdater:
 
         # edit current namespecs for non-added authors. this retains any existing hidden attributes like orcid
         for current_author in paper.authors or paper.parent.editors:
-            person = self.anthology.resolve(current_author)
+            person = current_author.resolve()
             if person.id in retained_author_json_by_id:
                 retained_author_json_by_id[person.id]["namespec"] = current_author
                 # update namespec based on JSON
@@ -484,6 +487,7 @@ class AnthologyMetadataUpdater:
             except Exception as e:  # e.g. XML Parsing failed
                 log.warning(f"Failed to apply changes to #{issue.number}: {e}")
                 log.exception(e)
+                self.stats["error_issues"] += 1
                 # revert changes already made for this issue # todo how to best do this? test it thoroughly
                 self.load_anthology()
                 continue
@@ -499,10 +503,11 @@ class AnthologyMetadataUpdater:
                 paper_path = paper.collection.path
                 if not self.local_repo.index.diff(None, paths=paper_path):
                     # assume people file wasn't modified either # todo test this
-                    log.debug(
+                    log.warning(
                         f"Nothing modified for {paper.full_id} (#{issue.number}) "
                         f"- nothing to commit. Please review again."
                     )
+                    self.stats["error_issues"] += 1
                     continue
 
                 # Commit changes
@@ -527,6 +532,7 @@ class AnthologyMetadataUpdater:
             except Exception as e:
                 log.warning(f"Error processing issue {issue.number}: {type(e)}: {e}")
                 log.exception(e)
+                self.stats["error_issues"] += 1
                 # If we land here, we should carefully monitor file states and git status
                 continue
 
@@ -628,7 +634,7 @@ if __name__ == "__main__":
     args = docopt(__doc__)
 
     log_level = log.DEBUG if not args["--quiet"] else log.INFO
-    log.basicConfig(level=log_level)
+    tracker = setup_rich_logging(level=log_level)
     log.getLogger("acl-anthology").setLevel(log.WARNING)
     log.getLogger("git.cmd").setLevel(log.WARNING)
     log.getLogger("urllib3.connectionpool").setLevel(log.WARNING)

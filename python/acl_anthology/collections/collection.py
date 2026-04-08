@@ -14,16 +14,10 @@
 
 from __future__ import annotations
 
-import sys
 from attrs import define, field, validators as v
 from lxml import etree
 from pathlib import Path
-from typing import Any, Iterator, Optional, cast, TYPE_CHECKING
-
-if sys.version_info >= (3, 11):
-    from typing import Self
-else:
-    from typing_extensions import Self
+from typing import Any, Iterator, Optional, Self, cast, TYPE_CHECKING
 
 from ..containers import SlottedDict
 from ..exceptions import AnthologyDuplicateIDError, AnthologyInvalidIDError

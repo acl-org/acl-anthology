@@ -128,9 +128,7 @@ def paper_to_dict(paper):
         "citation": paper.to_markdown_citation(),
         "citation_acl": paper.to_citation(),
     }
-    editors = [
-        person_to_dict(paper.root.resolve(ns).id, ns) for ns in paper.get_editors()
-    ]
+    editors = [person_to_dict(ns.resolve().id, ns) for ns in paper.get_editors()]
     if BIBLIMIT is None or int(paper.id) <= BIBLIMIT:
         data["bibtex"] = paper.to_bibtex(with_abstract=True)
     if paper.is_frontmatter:
@@ -139,9 +137,7 @@ def paper_to_dict(paper):
             data["author"] = editors
     else:
         if paper.authors:
-            data["author"] = [
-                person_to_dict(paper.root.resolve(ns).id, ns) for ns in paper.authors
-            ]
+            data["author"] = [person_to_dict(ns.resolve().id, ns) for ns in paper.authors]
         if editors:
             data["editor"] = editors
     if "author" in data:
@@ -160,7 +156,11 @@ def paper_to_dict(paper):
     if (language_name := paper.language_name) is not None:
         data["language"] = language_name
     if (abstract := paper.abstract) is not None:
-        data["abstract_html"] = remove_extra_whitespace(abstract.as_html())
+        try:
+            data["abstract_html"] = remove_extra_whitespace(abstract.as_html())
+        except ValueError as e:
+            log.error(f"Paper {paper.full_id}: error processing abstract: {e}")
+            data["abstract_html"] = abstract.as_xml()
         data["abstract_raw"] = abstract.as_xml()
     if paper.attachments:
         data["attachment"] = [
@@ -250,9 +250,7 @@ def volume_to_dict(volume):
     if volume.shorttitle:
         data["shortbooktitle"] = volume.shorttitle.as_text()
     if volume.editors:
-        data["editor"] = [
-            person_to_dict(volume.root.resolve(ns).id, ns) for ns in volume.editors
-        ]
+        data["editor"] = [person_to_dict(ns.resolve().id, ns) for ns in volume.editors]
     if events := volume.get_events():
         data["events"] = [event.id for event in events if event.is_explicit]
     if sigs := volume.get_sigs():
@@ -299,7 +297,11 @@ def export_papers_and_volumes(anthology, builddir, dryrun):
 
                 # Now build the data for every paper
                 for paper in volume.papers():
-                    data = paper_to_dict(paper)
+                    try:
+                        data = paper_to_dict(paper)
+                    except ValueError as e:
+                        log.error(f"Paper {paper.full_id}: {e}")
+                        continue
                     data.update(volume_data)
                     collection_papers[paper.full_id] = data
                     if "bibtex" in data:

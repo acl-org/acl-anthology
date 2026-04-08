@@ -116,7 +116,7 @@ shell script `bin/acl-mirror-cronjob.sh` to your needs.
 You will need this software on the server
  - rsync
  - git
- - python3 >= 3.10
+ - python3 > 3.11.0
  - hugo >= 0.156.0
  - python3-venv
 
