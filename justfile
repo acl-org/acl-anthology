@@ -1,3 +1,5 @@
+set script-interpreter := ['uv', 'run', '--script']
+
 @_default:
   just -l
   echo -e "\npython:"
@@ -20,3 +22,21 @@ upgrade-hugo-version VERSION:
 serve ENV='development' NOBIB='true':
   make NOBIB={{NOBIB}} static hugo_data bib
   cd build/ && hugo server --environment {{ENV}}
+
+# Fetch an Anthology item and print it
+[script]
+print ANTHOLOGYID:
+  from acl_anthology import Anthology
+  from rich import print
+  item = Anthology.from_within_repo().get("{{ANTHOLOGYID}}")
+  print(item)
+
+# Fetch an Anthology item and print its XML representation
+[script]
+print-xml ANTHOLOGYID:
+  from acl_anthology import Anthology
+  from acl_anthology.utils.xml import indent
+  from lxml import etree
+  item = Anthology.from_within_repo().get("{{ANTHOLOGYID}}").to_xml()
+  indent(item)
+  print(etree.tostring(item, encoding="utf-8").decode())
