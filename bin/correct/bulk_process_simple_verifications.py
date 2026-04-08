@@ -101,9 +101,9 @@ class AnthologyMetadataUpdater:
 
         ...
         """
-        issue_body = issue_body.replace('\r\n', '\n').replace('\r', '\n')
+        issue_body = issue_body.replace("\r\n", "\n").replace("\r", "\n")
         m = re.search(
-            r'### Author ORCID\n\nhttps://orcid.org/([0-9X-]{19})\n\n### Institution[^\n]+\n\n([^\n]+)\n',
+            r"### Author ORCID\n\nhttps://orcid.org/([0-9X-]{19})\n\n### Institution[^\n]+\n\n([^\n]+)\n",
             issue_body,
             re.MULTILINE,
         )
@@ -112,7 +112,7 @@ class AnthologyMetadataUpdater:
         return {"orcid": m.group(1), "degree": m.group(2)}
 
     def load_anthology(self):
-        log.info('Loading anthology')
+        log.info("Loading anthology")
         self.anthology = Anthology.from_within_repo()
 
     def process_verification_issues(
@@ -121,7 +121,7 @@ class AnthologyMetadataUpdater:
         """Process all simple verification issues and create PR with changes."""
         # Get all open issues with required labels
         issues = self.github_repo.get_issues(
-            state='open', labels=['author-page', 'correction']
+            state="open", labels=["author-page", "correction"]
         )
 
         current_branch, new_branch_name, today = self.prepare_and_switch_branch()
@@ -130,7 +130,7 @@ class AnthologyMetadataUpdater:
         closed_issues = []
 
         for issue in issues:
-            if not issue.title.lower().endswith('/unverified'):
+            if not issue.title.lower().endswith("/unverified"):
                 continue
 
             if "[x] Verification:" not in issue.body:
@@ -177,34 +177,34 @@ class AnthologyMetadataUpdater:
                 xml_repo_path = "data/xml/"
                 yaml_repo_path = "data/yaml/"
                 if verbose:
-                    log.info(f'-> Applying changes to database for author {author_id}')
+                    log.info(f"-> Applying changes to database for author {author_id}")
 
                 try:
                     # update the database!
                     person = self.anthology.get_person(author_id)
                     if person is None:
                         raise ValueError(
-                            f'Author ID not found (was the verification already applied?): {author_id}'
+                            f"Author ID not found (was the verification already applied?): {author_id}"
                         )
                     if p2 := self.anthology.people.get_by_orcid(data["orcid"]):
                         raise ValueError(
-                            f'Another author with this ORCID found (should be merge request?): {p2}'
+                            f"Another author with this ORCID found (should be merge request?): {p2}"
                         )
                     person.orcid = data["orcid"]
                     person.degree = data["degree"].strip()
                     new_author_id = author_id.replace("/unverified", "")
                     if verbose:
-                        log.info(f'-> New ID {new_author_id}, ORCID {person.orcid}')
+                        log.info(f"-> New ID {new_author_id}, ORCID {person.orcid}")
                     if not new_author_id:
-                        raise ValueError('Author ID must be nonempty')
+                        raise ValueError("Author ID must be nonempty")
                     person.make_explicit()  # can fail if another person with this ID exists
-                    assert (
-                        person.id == new_author_id
-                    ), f'Explicit ID is {person.id}, expected {new_author_id}'
+                    assert person.id == new_author_id, (
+                        f"Explicit ID is {person.id}, expected {new_author_id}"
+                    )
                     self.anthology.save_all()
                 except Exception as e:
                     log.error(
-                        f'Failed to apply changes to #{issue.number}: {e}',
+                        f"Failed to apply changes to #{issue.number}: {e}",
                     )
                     log.exception(e)
                     self.stats["error_issues"] += 1
@@ -222,7 +222,7 @@ class AnthologyMetadataUpdater:
                 closed_issues.append(issue)
 
             except Exception as e:
-                log.error(f'Error processing issue {issue.number}: {type(e)}: {e}')
+                log.error(f"Error processing issue {issue.number}: {type(e)}: {e}")
                 log.exception(e)
                 self.stats["error_issues"] += 1
                 self.load_anthology()
@@ -268,11 +268,11 @@ class AnthologyMetadataUpdater:
         # If the branch exists, use it, else create it
         if new_branch_name in self.local_repo.heads:
             ref = self.local_repo.heads[new_branch_name]
-            log.info(f'Using existing branch {new_branch_name}')
+            log.info(f"Using existing branch {new_branch_name}")
             ref.checkout()
         else:
             # Create new branch
-            log.info(f'Creating branch {new_branch_name} from {base_branch}')
+            log.info(f"Creating branch {new_branch_name} from {base_branch}")
             ref = current_branch.checkout(b=new_branch_name)
 
         return current_branch, new_branch_name, today

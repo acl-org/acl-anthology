@@ -40,9 +40,9 @@ def disable_name_matching(author_ids):
     for author_id in author_ids:
         person = anthology.get_person(author_id)
         if person is None:
-            log.error(f'The author ID {author_id} cannot be found. Skipping')
+            log.error(f"The author ID {author_id} cannot be found. Skipping")
         else:
-            log.info(f'Disabling name matching for {author_id} ({person.orcid})')
+            log.info(f"Disabling name matching for {author_id} ({person.orcid})")
             person.disable_name_matching = True
             changes += 1
 
@@ -62,4 +62,4 @@ if __name__ == "__main__":
     log.getLogger("urllib3.connectionpool").setLevel(log.WARNING)
 
     with warnings.catch_warnings(action="ignore", category=NameSpecResolutionWarning):
-        disable_name_matching(author_ids=args['AUTHORID'])
+        disable_name_matching(author_ids=args["AUTHORID"])
