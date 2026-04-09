@@ -51,7 +51,6 @@ from acl_anthology import Anthology
 from acl_anthology.files import PDFReference
 from acl_anthology.people import Name, NameSpecification as NameSpec
 from acl_anthology.text import MarkupText
-from acl_anthology.utils.ids import parse_id
 
 from fixedcase.protect import protect
 
@@ -126,24 +125,13 @@ def main(anth_id, yaml_file, anthology_dir, ingest_date, pdf, pdfs_dir, dry_run)
             )
         data = data[0]
 
-    # Parse the anthology ID to determine volume and optional paper ID
-    collection_id, volume_id_part, paper_id = parse_id(anth_id)
-    if volume_id_part is None:
-        raise click.UsageError(
-            f"'{anth_id}' looks like a collection ID; please provide a volume or paper ID"
-        )
-
-    volume_full_id = f"{collection_id}-{volume_id_part}"
-
     # Load the Anthology and build the people index so that
     # known authors are properly resolved (matched by name slug)
-    anthology = Anthology(datadir=os.path.join(anthology_dir, "data"))
-    print("Loading people index (this may take a minute)...", file=sys.stderr)
-    anthology.people.load()
+    anthology = Anthology.from_within_repo()
 
-    volume = anthology.get_volume(volume_full_id)
+    volume = anthology.get_volume(anth_id)
     if volume is None:
-        raise click.UsageError(f"Volume '{volume_full_id}' not found in the Anthology")
+        raise click.UsageError(f"Volume for paper '{anth_id}' not found in the Anthology")
 
     collection = volume.parent
 
@@ -158,8 +146,8 @@ def main(anth_id, yaml_file, anthology_dir, ingest_date, pdf, pdfs_dir, dry_run)
 
     # Build kwargs for create_paper
     create_kwargs = {}
-    if paper_id is not None:
-        create_kwargs["id"] = paper_id
+    if anth_id is not None:
+        create_kwargs["id"] = anth_id
     if data.get("abstract"):
         create_kwargs["abstract"] = MarkupText.from_latex_maybe(
             str(data["abstract"]).strip()
@@ -176,16 +164,6 @@ def main(anth_id, yaml_file, anthology_dir, ingest_date, pdf, pdfs_dir, dry_run)
         authors=parse_authors(authors_data),
         **create_kwargs,
     )
-
-    # Resolve author IDs so that known persons get their id= in the XML.
-    # create_paper indexes authors but doesn't write back person IDs to
-    # the NameSpecification objects; we use the public API to do that.
-    for namespec in paper_obj.authors:
-        if namespec.id is not None:
-            continue
-        person = anthology.people.get_by_namespec(namespec)
-        if person.is_explicit:
-            namespec.id = person.id
 
     # Apply case protection to the title
     xml_title = paper_obj.title.to_xml("title")
