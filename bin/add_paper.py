@@ -62,15 +62,9 @@ def parse_authors(authors_data):
     for author in authors_data:
         first = author.get("first_name") or author.get("first")
         last = author.get("last_name") or author.get("last")
-        if not last:
-            print(
-                f"WARNING: skipping author with no last name: {author}", file=sys.stderr
-            )
-            continue
-        name = Name(first=first, last=last)
         orcid = author.get("orcid")
-        namespec = NameSpec(name, orcid=orcid)
-        namespecs.append(namespec)
+        namespecs.append(NameSpec(Name(first=first, last=last), orcid=orcid))
+
     return namespecs
 
 
