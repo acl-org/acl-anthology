@@ -31,12 +31,10 @@ Input is a YAML file with paper metadata in aclpub2 format:
     language: eng  # optional, ISO 639-2
     pages: "1-10"  # optional
 
-Specify either a paper ID (e.g., "2025.isa-1.10") to use an explicit ID,
-or a volume ID (e.g., "2025.isa-1") to auto-generate the next paper ID.
+The paper ID will be auto-generated from the volume ID (e.g., "2025.isa-1").
 
 Usage:
-    python bin/add_paper.py 2025.isa-1 paper.yaml       # auto-generate paper ID
-    python bin/add_paper.py 2025.isa-1.10 paper.yaml    # use explicit paper ID 10
+    python bin/add_paper.py 2025.isa-1 paper.yaml
 """
 
 import click
@@ -77,7 +75,7 @@ def parse_authors(authors_data):
 
 
 @click.command()
-@click.argument("anth_id")
+@click.argument("volume_id")
 @click.argument("yaml_file", type=click.Path(exists=True))
 @click.option(
     "--anthology-dir",
@@ -106,12 +104,10 @@ def parse_authors(authors_data):
     default=False,
     help="Print what would be done without saving",
 )
-def main(anth_id, yaml_file, anthology_dir, ingest_date, pdf, pdfs_dir, dry_run):
+def main(volume_id, yaml_file, anthology_dir, ingest_date, pdf, pdfs_dir, dry_run):
     """Add a paper from YAML_FILE to an existing Anthology volume.
 
-    ANTH_ID is either a volume ID (e.g., "2025.isa-1") to auto-generate
-    the next paper ID, or a full paper ID (e.g., "2025.isa-1.10") to use
-    that specific paper ID.
+    VOLUME_ID is the ID of the volume (e.g., "2025.isa-1") to which the paper will be added.
     """
     # Load the YAML input
     with open(yaml_file, "r") as f:
@@ -129,9 +125,11 @@ def main(anth_id, yaml_file, anthology_dir, ingest_date, pdf, pdfs_dir, dry_run)
     # known authors are properly resolved (matched by name slug)
     anthology = Anthology.from_within_repo()
 
-    volume = anthology.get_volume(anth_id)
+    volume = anthology.get_volume(volume_id)
     if volume is None:
-        raise click.UsageError(f"Volume for paper '{anth_id}' not found in the Anthology")
+        raise click.UsageError(
+            f"Volume for paper '{volume_id}' not found in the Anthology"
+        )
 
     collection = volume.parent
 
@@ -146,8 +144,6 @@ def main(anth_id, yaml_file, anthology_dir, ingest_date, pdf, pdfs_dir, dry_run)
 
     # Build kwargs for create_paper
     create_kwargs = {}
-    if anth_id is not None:
-        create_kwargs["id"] = anth_id
     if data.get("abstract"):
         create_kwargs["abstract"] = MarkupText.from_latex_maybe(
             str(data["abstract"]).strip()
