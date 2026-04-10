@@ -181,7 +181,6 @@ def main(volume_id, yaml_file, anthology_dir, ingest_date, pdf, pdfs_dir, dry_ru
         print("Dry run: not saving changes", file=sys.stderr)
     else:
         anthology.save_all()
-        print(f"Saved to {anthology.path}", file=sys.stderr)
 
 
 if __name__ == "__main__":
