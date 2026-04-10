@@ -8,7 +8,7 @@
 
 ## Key API patterns
 
-- Load the Anthology: `Anthology(datadir=...)` or `Anthology.from_within_repo()`
+- Load the Anthology: ideally using `Anthology.from_within_repo()`
 - Access volumes: `anthology.get_volume("2025.acl-main")`
 - Access papers: `anthology.get_paper("2025.acl-main.1")`
 - Create papers: `volume.create_paper(title=..., authors=..., **kwargs)` — this handles case normalization, ORCID ingestion, and person indexing automatically.
@@ -18,14 +18,16 @@
 
 ## People index
 
-- Call `anthology.people.load()` before creating papers if you need author resolution (matching names to known persons).
 - Author names use `NameSpecification` wrapping a `Name` object.
 - aclpub2 format uses `first_name`/`last_name`; the library uses `first`/`last`.
 
 ## Important scripts in `bin/`
 
+These may be useful as references for how the library works.
+
 - `bin/ingest.py` — Ingests new proceedings into the Anthology.
 - `bin/create_hugo_data.py` — Builds the website data.
 - `bin/generate_crossref_doi_metadata.py` and `bin/add_dois.py` — Add DOIs to ingested volumes.
 - `bin/add_revision.py` — Adds revisions by reading from structured input.
-- One-time transition scripts go under `bin/oneoff/`.
+
+One-time transition scripts go under `bin/oneoff/`.
