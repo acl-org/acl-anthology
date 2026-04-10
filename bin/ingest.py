@@ -33,7 +33,6 @@ import yaml
 import re
 import shutil
 import sys
-import warnings
 import PyPDF2
 
 from datetime import datetime
@@ -869,8 +868,7 @@ def register_volume_with_sig(
 
 def main(args):
     setup_rich_logging()
-    anthology_datadir = Path(args.anthology_dir) / "data"
-    anthology = Anthology(datadir=anthology_datadir)
+    anthology = Anthology.from_within_repo()
 
     anthology.load_all()
 
@@ -887,14 +885,7 @@ def main(args):
             args=args,
         )
 
-    with warnings.catch_warnings():
-        warnings.filterwarnings(
-            "ignore",
-            message=r"SIG metadata is not yet automatically saved\\..*",
-            category=UserWarning,
-        )
-        anthology.save_all()
-    anthology.sigs.save()
+    anthology.save_all()
 
 
 if __name__ == "__main__":
