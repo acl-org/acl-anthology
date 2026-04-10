@@ -64,8 +64,10 @@ def read_meta(path: str) -> Dict[str, Any]:
             if re.match(r"^\s*$", line):
                 continue
             key, value = line.rstrip().split(" ", maxsplit=1)
-            if key.startswith("chair"):
-                meta["editors"].append(value)
+            if key.startswith("chair") or key.startswith("editor"):
+                # Allow for Bib format, an occasional error in the meta file
+                for value in value.split(" and "):
+                    meta["editors"].append(value)
             else:
                 meta[key] = value
     if "volume" in meta and re.match(r"^[a-z0-9]+$", meta["volume"]) is None:
