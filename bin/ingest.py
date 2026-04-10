@@ -336,7 +336,7 @@ def _aclpub_frontmatter_data(
     bib0 = Path(root_path) / "bib" / "0.bib"
     if not bib0.exists():
         return None
-    return read_bib_entry(bib0, f"{collection_id}-{volume_name}.0")
+    return read_bib_entry(bib0, "0")
 
 
 def read_ingest_metadata(
@@ -493,7 +493,7 @@ def iter_aclpub_papers(metadata: Dict[str, Any]) -> Iterator[Dict[str, Any]]:
     for paper_num, pdf_path in sorted(paper_entries):
         anthology_id = f"{collection_id}-{volume_name}.{paper_num}"
         bib_path = root_path / "bib" / f"{pdf_path.stem}.bib"
-        parsed = read_bib_entry(bib_path, anthology_id)
+        parsed = read_bib_entry(bib_path, paper_num)
         if parsed is None:
             continue
         pdf_src_path = pdf_path
@@ -800,13 +800,8 @@ def namespec_from_bib(person) -> NameSpecification:
     return NameSpecification(name=Name(first_text, last_text))
 
 
-def read_bib_entry(
-    bibfilename: Path | str, anthology_id: str
-) -> Optional[Dict[str, Any]]:
+def read_bib_entry(bibfilename: Path | str, paper_id: str) -> Optional[Dict[str, Any]]:
     """Parse a single-entry BibTeX file into structured metadata."""
-    _, _, paper_id = parse_id(anthology_id)
-    if paper_id is None:
-        return None
 
     try:
         bibdata = pybtex.database.input.bibtex.Parser().parse_file(bibfilename)
