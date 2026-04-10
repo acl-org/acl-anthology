@@ -417,8 +417,8 @@ def verify_by_paper(orcid, paper_ids, degree=None, suffix=None, only_these_paper
     if changes:
         anthology.save_all()
 
-    anthology.people.reset()
-    person = anthology.get_person(person.id)  # refreshed after reset
+    # anthology.people.reset()
+    # person = anthology.get_person(person.id)  # refreshed after reset
 
     numPapers = len(list(person.anthology_items()))
     if only_these_papers and not person.disable_name_matching:
@@ -437,13 +437,13 @@ def verify_by_paper(orcid, paper_ids, degree=None, suffix=None, only_these_paper
 
     if changes:
         anthology.save_all()
-        anthology.people.reset()
+        # anthology.people.reset()
     else:
         changes = 'No changes for'
 
     if not person.disable_name_matching:
         # Check that there are no more implicit matches
-        person = anthology.get_person(person.id)  # refreshed after reset
+        # person = anthology.get_person(person.id)  # refreshed after reset
         log.info(f'Checking that author ID {person.id} is explicit on all papers/volumes')
         numNamespecs = sum(1 for ns in person.namespecs())
         numExplicit = sum(1 for ns in person.namespecs() if ns.id is not None)
