@@ -12,9 +12,9 @@
 - Access volumes: `anthology.get_volume("2025.acl-main")`
 - Access papers: `anthology.get_paper("2025.acl-main.1")`
 - Create papers: `volume.create_paper(title=..., authors=..., **kwargs)` — this handles case normalization, ORCID ingestion, and person indexing automatically.
-- Resolve authors: `anthology.people.get_by_namespec(namespec)` (not `_resolve_namespec`)
+- Resolve authors: `anthology.people.get_by_namespec(NameSpecification)`, `anthology.people.get_by_name(Name)`, or `anthology.people.get_by_orcid(orcid)`
 - Case protection: use `fixedcase.protect.protect()` on XML title elements
-- Save changes: `collection.save()`
+- Save changes: `anthology.save_all()`
 
 ## People index
 

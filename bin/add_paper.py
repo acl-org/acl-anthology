@@ -125,8 +125,6 @@ def main(volume_id, yaml_file, anthology_dir, ingest_date, pdf, pdfs_dir, dry_ru
             f"Volume for paper '{volume_id}' not found in the Anthology"
         )
 
-    collection = volume.parent
-
     # Validate required fields
     title_text = data.get("title")
     if not title_text:
@@ -182,8 +180,8 @@ def main(volume_id, yaml_file, anthology_dir, ingest_date, pdf, pdfs_dir, dry_ru
     if dry_run:
         print("Dry run: not saving changes", file=sys.stderr)
     else:
-        collection.save()
-        print(f"Saved to {collection.path}", file=sys.stderr)
+        anthology.save_all()
+        print(f"Saved to {anthology.path}", file=sys.stderr)
 
 
 if __name__ == "__main__":
