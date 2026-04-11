@@ -144,7 +144,7 @@ def verify_by_author_id(
             "To newly verify an author we need a degree institution"
         )
         new_aid = anthology.people.generate_person_id(target_person, suffix)
-        log.info(f'Verifying author {target_person.id} -> {new_aid}')
+        log.info(f"Verifying author {target_person.id} -> {new_aid}")
 
         # validate the excluded papers list
         for item_id in except_paper_ids or []:
@@ -347,7 +347,7 @@ def verify_by_paper(orcid, paper_ids, degree=None, suffix=None, only_these_paper
         # We will add the papers to the new Person later.
         if not cur_person.is_explicit:
             # Currently unverified; verify
-            log.info('Verifying an unverified person for specific papers')
+            log.info("Verifying an unverified person for specific papers")
         else:
             # Matches a verified person; we need to create a new verified person
             log.info("Splitting from a verified person (implicit name match)")
@@ -426,7 +426,7 @@ def verify_by_paper(orcid, paper_ids, degree=None, suffix=None, only_these_paper
 
     if not person.disable_name_matching:
         # Check that there are no more implicit matches
-        log.info(f'Checking that author ID {person.id} is explicit on all papers/volumes')
+        log.info(f"Checking that author ID {person.id} is explicit on all papers/volumes")
         numNamespecs = sum(1 for ns in person.namespecs())
         numExplicit = sum(1 for ns in person.namespecs() if ns.id is not None)
         if numExplicit < numNamespecs:
