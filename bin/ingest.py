@@ -41,7 +41,7 @@ from slugify import slugify
 from typing import Any, Dict, Iterator, Optional, List
 
 from acl_anthology import Anthology
-from acl_anthology.collections.types import PaperType, VolumeType
+from acl_anthology.collections.types import PaperType, Volume, VolumeType
 from acl_anthology.files import (
     AttachmentReference,
     PDFReference,
@@ -49,7 +49,6 @@ from acl_anthology.files import (
 from acl_anthology.people import Name, NameSpecification
 from acl_anthology.text import MarkupText
 from acl_anthology.utils import setup_rich_logging
-from acl_anthology.utils.ids import parse_id
 from fixedcase.protect import protect as protect_fixedcase
 
 ARCHIVAL_DEFAULT = True
@@ -734,7 +733,7 @@ def ingest(
         register_volume_with_sig(
             anthology,
             metadata["sig"],
-            volume_full_id,
+            volume_obj,
             metadata.get("booktitle"),
         )
     add_parent_event(anthology, args.parent_event, volume_full_id)
@@ -845,22 +844,22 @@ def read_bib_entry(bibfilename: Path | str, paper_id: str) -> Optional[Dict[str,
 def register_volume_with_sig(
     anthology: Anthology,
     sig_id: str,
-    volume_full_id: str,
+    volume: Volume,
     booktitle: Optional[str] = None,
 ) -> None:
     """Register an ingested volume with a SIG if that SIG exists."""
     sig_key = sig_id.lower()
     if sig_key not in anthology.sigs:
         print(
-            f"Warning: SIG '{sig_key}' not found; cannot register {volume_full_id}",
+            f"Warning: SIG '{sig_key}' not found; cannot register {volume.full_id}",
             file=sys.stderr,
         )
         return
 
     sig = anthology.sigs[sig_key]
-    if volume_full_id not in sig.meetings:
-        sig.meetings.append(volume_full_id)
-    anthology.sigs.reverse[parse_id(volume_full_id)].add(sig_key)
+    if volume.full_id not in sig.meetings:
+        sig.meetings.append(volume.full_id)
+    anthology.sigs.reverse[volume.full_id_tuple].add(sig_key)
 
 
 def main(args):
