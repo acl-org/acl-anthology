@@ -17,11 +17,12 @@ from __future__ import annotations
 from attrs import define, field
 from collections import defaultdict
 from rich.progress import track
-from typing import Iterable, TYPE_CHECKING
+from typing import cast, Iterable, Optional, TYPE_CHECKING
 
 from ..config import primary_console
 from ..containers import SlottedDict
 from ..text import MarkupText
+from ..utils.attrs import attach_custom_repr
 from ..utils.ids import AnthologyID, AnthologyIDTuple, parse_id
 from ..utils.logging import get_logger
 from .event import Event
@@ -35,6 +36,7 @@ if TYPE_CHECKING:
 log = get_logger()
 
 
+@attach_custom_repr
 @define
 class EventIndex(SlottedDict[Event]):
     """Index object through which events can be accessed.
@@ -51,7 +53,9 @@ class EventIndex(SlottedDict[Event]):
     reverse: dict[AnthologyIDTuple, set[str]] = field(
         init=False, repr=False, factory=lambda: defaultdict(set)
     )
-    is_data_loaded: bool = field(init=False, repr=True, default=False)
+    is_data_loaded: bool = field(
+        init=False, default=False, metadata={"repr_omit_if": True}
+    )
 
     def by_volume(self, volume: Volume | AnthologyID) -> list[Event]:
         """Find events associated with a volume."""
@@ -80,11 +84,55 @@ class EventIndex(SlottedDict[Event]):
             return
 
         if event.id in self.data:
-            for co_id, co_type in self.data[event.id].colocated_ids:
+            for co_id, co_type in self.data[event.id].colocated_ids.items():
                 event.add_colocated(co_id, co_type)
         self.data[event.id] = event
-        for volume_fid, _ in event.colocated_ids:
+        for volume_fid in event.colocated_ids.keys():
             self.reverse[volume_fid].add(event.id)
+
+    def get_or_create_implicit_event(
+        self, volume: Volume, venue_id: str, create: bool = True
+    ) -> Optional[Event]:
+        """Find and return the event implicitly defined by a venue tag on a given volume.
+
+        Volumes implicitly define events by a combination of their linked venue IDs and the year of the volume (`f"{venue_id}-{volume.year}"`).  This function is used when loading the index and/or modifying data to find and, if necessary, instantiate these implicit events.
+
+        Parameters:
+            volume: The Volume that implicitly defines the event.  Used to derive the year of the event, but also to connect it to the correct Collection.
+            venue_id: The venue ID that implicitly defines the event.
+            create: If False, do not create the event if it doesn't exist yet.
+
+        Returns:
+            The implicit event defined by the combination of `venue_id` and `volume`, or None if it doesn't exist and `create` was False.
+        """
+        event_id = f"{venue_id}-{volume.year}"
+        if (event := self.data.get(event_id)) is None and create:
+            # Implicitly create event if it doesn't exist yet
+            venue_name = self.parent.venues[venue_id].name
+            event_name = f"{venue_name} ({volume.year})"
+            event = Event(
+                event_id,
+                volume.collection,
+                is_explicit=False,
+                title=MarkupText.from_string(event_name),
+            )
+            self.data[event_id] = event
+        return event
+
+    def _add_volume_to_index(self, volume: Volume) -> None:
+        """Add a new Volume to the index, linking it to existing events and instantiating implicit events for it, if necessary.
+
+        Intended to be called when building the index or creating new volumes; do not call this manually.
+        """
+        volume_fid = volume.full_id_tuple
+        if (explicit_event := volume.collection.get_event()) is not None:
+            self.reverse[volume_fid].add(explicit_event.id)
+        for venue_id in volume.venue_ids:
+            implicit_event = cast(
+                Event, self.get_or_create_implicit_event(volume, venue_id)
+            )
+            implicit_event.add_colocated(volume_fid, EventLink.INFERRED)
+            self.reverse[volume_fid].add(implicit_event.id)
 
     def load(self) -> None:
         """Load the entire Anthology data and build an index of events."""
@@ -107,33 +155,17 @@ class EventIndex(SlottedDict[Event]):
                     if explicit_event.id in self.data:
                         # This event has already been implicitly created in another file
                         # See https://github.com/acl-org/acl-anthology/issues/2743#issuecomment-2453501562
-                        for co_id, co_type in self.data[explicit_event.id].colocated_ids:
+                        for co_id, co_type in self.data[
+                            explicit_event.id
+                        ].colocated_ids.items():
                             explicit_event.add_colocated(co_id, co_type)
                     self.data[explicit_event.id] = explicit_event
-                    for volume_fid, _ in explicit_event.colocated_ids:
+                    for volume_fid in explicit_event.colocated_ids.keys():
                         self.reverse[volume_fid].add(explicit_event.id)
 
                 for volume in collection.volumes():
-                    volume_fid = volume.full_id_tuple
-                    if explicit_event is not None:
-                        self.reverse[volume_fid].add(explicit_event.id)
-                    for venue_id in volume.venue_ids:
-                        event_id = f"{venue_id}-{volume.year}"
-                        if (event := self.data.get(event_id)) is None:
-                            # Implicitly create event if it doesn't exist yet
-                            venue_name = self.parent.venues[venue_id].name
-                            event_name = f"{venue_name} ({volume.year})"
-                            self.data[event_id] = Event(
-                                event_id,
-                                collection,
-                                is_explicit=False,
-                                colocated_ids=[(volume_fid, EventLink.INFERRED)],
-                                title=MarkupText.from_string(event_name),
-                            )
-                        else:
-                            # Add implicit connection to existing event
-                            event.add_colocated(volume_fid, EventLink.INFERRED)
-                        self.reverse[volume_fid].add(event_id)
+                    self._add_volume_to_index(volume)
+
             except Exception as exc:
                 log.exception(exc)
                 raised_exception = True

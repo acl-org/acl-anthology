@@ -15,6 +15,7 @@
 from __future__ import annotations
 
 import datetime
+import attrs
 from attrs import define, field, converters, setters, validators
 from lxml import etree
 from lxml.builder import E
@@ -29,15 +30,22 @@ from ..people import NameSpecification
 from ..text import MarkupText, to_markuptext
 from ..venues import Venue
 from ..utils.attrs import (
+    attach_custom_repr,
     attach_parent,
     auto_validate_types,
     date_to_str,
     int_to_str,
+    into_namespec_tuple,
+    into_str_tuple,
     track_modifications,
 )
 from ..utils.ids import build_id, is_valid_item_id, AnthologyIDTuple
-from .paper import Paper
-from .types import VolumeType
+from .event import Event
+from .paper import (
+    Paper,
+    _update_person_itemids,
+)  # Note: importing a private function from Paper will be unnecessary after CollectionItem refactoring
+from .types import EventLink, VolumeType
 
 if TYPE_CHECKING:
     from ..anthology import Anthology
@@ -46,6 +54,67 @@ if TYPE_CHECKING:
     from . import Collection, Event
 
 
+def _update_venues(
+    volume: Volume, attr: attrs.Attribute[Any], value: tuple[str, ...]
+) -> tuple[str, ...]:
+    """Update objects depending on a volume's `venue_ids`.
+
+    This will:
+    - Update `Venue.item_ids` for venues linked to or unlinked from a volume
+    - Create or remove implicitly created events
+    - Update the EventIndex and any connected `Event.colocated_ids`
+
+    Intended to be called from `on_setattr` of an [attrs.field][].
+    """
+    venue_index = volume.root.venues
+    event_index = volume.root.events
+    old_value = getattr(volume, attr.name)
+    for venue in set(old_value) - set(value):
+        # Venues that are being removed from this volume
+        if venue_index.is_data_loaded:
+            venue_index[venue].item_ids.discard(volume.full_id_tuple)
+        if (
+            event_index.is_data_loaded
+            and (
+                implicit_event := event_index.get_or_create_implicit_event(
+                    volume, venue, create=False
+                )
+            )
+            is not None
+            and (
+                implicit_event.colocated_ids.get(volume.full_id_tuple)
+                == EventLink.INFERRED
+            )
+        ):
+            # Update Event.colocated_ids
+            del implicit_event.colocated_ids[volume.full_id_tuple]
+            # Update EventIndex.reverse
+            event_index.reverse[volume.full_id_tuple].discard(implicit_event.id)
+            # Check if implicit event can be deleted
+            if not implicit_event.colocated_ids:
+                del event_index[implicit_event.id]
+
+    for venue in set(value) - set(old_value):
+        # Venues that are being added to this volume
+        if venue_index.is_data_loaded:
+            try:
+                # Update Venue.item_ids
+                venue_index[venue].item_ids.add(volume.full_id_tuple)
+            except KeyError:
+                raise ValueError(f"Tried setting venue that doesn't exist: {venue}")
+        if event_index.is_data_loaded:
+            # Update Event.colocated_ids
+            implicit_event = cast(
+                Event,
+                event_index.get_or_create_implicit_event(volume, venue, create=True),
+            )
+            implicit_event.add_colocated(volume.full_id_tuple, EventLink.INFERRED)
+            # Update EventIndex.reverse
+            event_index.reverse[volume.full_id_tuple].add(implicit_event.id)
+    return value
+
+
+@attach_custom_repr
 @define(
     field_transformer=auto_validate_types,
     on_setattr=[setters.convert, setters.validate, track_modifications],
@@ -65,7 +134,7 @@ class Volume(SlottedDict[Paper]):
         title: The title of the volume. (Aliased to `booktitle` for initialization.)
         year: The year of publication.
 
-    Attributes: List Attributes:
+    Attributes: Tuple Attributes:
         editors: Names of editors associated with this volume.
         venue_ids: List of venue IDs associated with this volume. See also [venues][acl_anthology.collections.volume.Volume.venues].
 
@@ -85,33 +154,48 @@ class Volume(SlottedDict[Paper]):
 
     id: str = field(converter=int_to_str)  # validator defined below
     parent: Collection = field(repr=False, eq=False)
-    type: VolumeType = field(repr=False, converter=VolumeType)
+    type: VolumeType = field(converter=VolumeType)
     title: MarkupText = field(alias="booktitle", converter=to_markuptext)
     year: str = field(
         converter=int_to_str, validator=validators.matches_re(r"^[0-9]{4}$")
     )
 
-    editors: list[NameSpecification] = field(
-        factory=list,
-        on_setattr=[setters.validate, attach_parent, track_modifications],
+    editors: tuple[NameSpecification, ...] = field(
+        default=(),
+        converter=into_namespec_tuple,
+        on_setattr=[
+            setters.convert,
+            setters.validate,
+            attach_parent,
+            _update_person_itemids,
+            track_modifications,
+        ],
     )
-    venue_ids: list[str] = field(factory=list)
+    venue_ids: tuple[str, ...] = field(
+        default=(),
+        converter=into_str_tuple,
+        on_setattr=[
+            setters.convert,
+            setters.validate,
+            _update_venues,
+            track_modifications,
+        ],
+    )
 
-    address: Optional[str] = field(default=None, repr=False)
-    doi: Optional[str] = field(default=None, repr=False)
+    address: Optional[str] = field(default=None)
+    doi: Optional[str] = field(default=None)
     ingest_date: Optional[str] = field(
         default=None,
-        repr=False,
         converter=date_to_str,
         validator=validators.optional(validators.matches_re(constants.RE_ISO_DATE)),
     )
-    isbn: Optional[str] = field(default=None, repr=False)
-    journal_issue: Optional[str] = field(default=None, repr=False, converter=int_to_str)
-    journal_volume: Optional[str] = field(default=None, repr=False, converter=int_to_str)
-    journal_title: Optional[str] = field(default=None, repr=False)
-    month: Optional[str] = field(default=None, repr=False)  # TODO: validate/convert?
-    pdf: Optional[PDFReference] = field(default=None, repr=False)
-    publisher: Optional[str] = field(default=None, repr=False)
+    isbn: Optional[str] = field(default=None)
+    journal_issue: Optional[str] = field(default=None, converter=int_to_str)
+    journal_volume: Optional[str] = field(default=None, converter=int_to_str)
+    journal_title: Optional[str] = field(default=None)
+    month: Optional[str] = field(default=None)  # TODO: validate/convert?
+    pdf: Optional[PDFReference] = field(default=None)
+    publisher: Optional[str] = field(default=None)
     shorttitle: Optional[MarkupText] = field(
         default=None,
         alias="shortbooktitle",
@@ -122,6 +206,9 @@ class Volume(SlottedDict[Paper]):
     def __attrs_post_init__(self) -> None:
         for namespec in self.editors:
             namespec.parent = self
+        if self.root.venues.is_data_loaded:
+            for venue in self.venue_ids:
+                self.root.venues[venue].item_ids.add(self.full_id_tuple)
 
     @id.validator
     def _check_id(self, _: Any, value: str) -> None:
@@ -185,7 +272,7 @@ class Volume(SlottedDict[Paper]):
         return cast(str, config["volume_page_template"]).format(self.full_id)
 
     @property
-    def namespecs(self) -> list[NameSpecification]:
+    def namespecs(self) -> tuple[NameSpecification, ...]:
         """All name specifications on this volume."""
         return self.editors
 
@@ -358,7 +445,9 @@ class Volume(SlottedDict[Paper]):
         # type-checking kwargs is a headache
         kwargs: dict[str, Any] = {
             "id": str(volume.get("id")),
-            "type": VolumeType(volume.get("type")),
+            "type": VolumeType(
+                cast(str, volume.get("type"))
+            ),  # 'type' required by schema
             "parent": parent,
             "editors": [],
             "venue_ids": [],
