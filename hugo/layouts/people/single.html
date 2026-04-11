@@ -1,5 +1,5 @@
 {{ define "main" }}
-{{ $person := index .Site.Data.people .Params.name }}
+{{ $person := index hugo.Data.people .Params.name }}
 {{ $is_verified := not (hasSuffix $person.slug "/unverified") }}
 <section id="main">
   <h2 id="title">
@@ -36,7 +36,7 @@
     {{ $len := (len .) }}
     <span class="fst-italic">{{ if $is_verified }}Other people with similar names:{{ else }}Papers on this page may belong to the following people:{{ end }}</span>
     {{ range $index, $sim_id := . }}
-    {{ trim (partial "author_link.html" (dict "ctx" $ "person" (dict "id" $sim_id))) " \n" | safeHTML }}{{ $sim_person := index $.Site.Data.people $sim_id }}{{ with $sim_person.comment }} ({{.}}){{ end }}{{ if ne (add $index 1) $len }}, {{ end }}
+    {{ trim (partial "author_link.html" (dict "ctx" $ "person" (dict "id" $sim_id))) " \n" | safeHTML }}{{ $sim_person := index hugo.Data.people $sim_id }}{{ with $sim_person.comment }} ({{.}}){{ end }}{{ if ne (add $index 1) $len }}, {{ end }}
     {{ end }}
   </p>
   {{ end }}
@@ -45,7 +45,7 @@
     {{ $len := (len .) }}
     <span class="fst-italic">Unverified author pages with similar names:</span>
     {{ range $index, $sim_id := . }}
-    {{ trim (partial "author_link.html" (dict "ctx" $ "person" (dict "id" $sim_id))) " \n" | safeHTML }}{{ $sim_person := index $.Site.Data.people $sim_id }}{{ if ne (add $index 1) $len }}, {{ end }}
+    {{ trim (partial "author_link.html" (dict "ctx" $ "person" (dict "id" $sim_id))) " \n" | safeHTML }}{{ $sim_person := index hugo.Data.people $sim_id }}{{ if ne (add $index 1) $len }}, {{ end }}
     {{ end }}
   </p>
   {{ end }}
@@ -57,7 +57,7 @@
       {{ range $person.papers }}
         {{/* Generate a heading per year -- assumes that papers are already sorted by year,
              which the YAML exporter should take care of */}}
-        {{ $paper := index (index $.Site.Data.papers (index (split . "-") 0)) . }}
+        {{ $paper := index (index hugo.Data.papers (index (split . "-") 0)) . }}
         {{ if and (not $paper.retracted) (not $paper.removed) }}
           {{ if ne $paper.year ($.Scratch.Get "current_year") }}
             <h4>{{ $paper.year }}</h4>
@@ -115,9 +115,9 @@
               {{ range first 5 $person.venues }}
               <li class="list-group-item">
                 {{ $venue := index . 0 }}
-                {{ $acronym := index $.Site.Data.venues $venue "acronym" }}
-                {{ $name := index $.Site.Data.venues $venue "name" }}
-                <a href="{{ relref $ (printf "/venues/%s" (index $.Site.Data.venues $venue "slug")) }}" title="{{ $name }}" class="align-middle">
+                {{ $acronym := index hugo.Data.venues $venue "acronym" }}
+                {{ $name := index hugo.Data.venues $venue "name" }}
+                <a href="{{ relref $ (printf "/venues/%s" (index hugo.Data.venues $venue "slug")) }}" title="{{ $name }}" class="align-middle">
                   {{- $acronym -}}
                 </a><span class="badge text-bg-secondary align-middle ms-2">{{ index . 1 }}</span>
               </li>
@@ -130,9 +130,9 @@
               {{ range after 5 $person.venues }}
               <li class="list-group-item">
                 {{ $venue := index . 0 }}
-                {{ $acronym := index $.Site.Data.venues $venue "acronym" }}
-                {{ $name := index $.Site.Data.venues $venue "name" }}
-                <a href="{{ relref $ (printf "/venues/%s" (index $.Site.Data.venues $venue "slug")) }}" title="{{ $name }}" class="align-middle">
+                {{ $acronym := index hugo.Data.venues $venue "acronym" }}
+                {{ $name := index hugo.Data.venues $venue "name" }}
+                <a href="{{ relref $ (printf "/venues/%s" (index hugo.Data.venues $venue "slug")) }}" title="{{ $name }}" class="align-middle">
                   {{- $acronym -}}
                 </a><span class="badge text-bg-secondary align-middle ms-2">{{ index . 1 }}</span>
               </li>

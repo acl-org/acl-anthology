@@ -19,13 +19,15 @@ from __future__ import annotations
 import re
 from functools import lru_cache
 from lxml import etree
-from typing import cast, Optional, TypeAlias, TYPE_CHECKING
+from typing import cast, Iterable, Optional, TypeAlias, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from ..people.name import NameSpecification
     from ..text import MarkupText
 
-    SerializableAsBibTeX: TypeAlias = None | str | MarkupText | list[NameSpecification]
+    SerializableAsBibTeX: TypeAlias = (
+        None | str | MarkupText | tuple[NameSpecification, ...]
+    )
     """Any type that can be supplied to `make_bibtex_entry`."""
 
 from .logging import get_logger
@@ -237,7 +239,7 @@ def make_bibtex_entry(
             continue
         if isinstance(value, MarkupText):
             value = value.as_latex()
-        elif isinstance(value, list) and isinstance(value[0], NameSpecification):
+        elif isinstance(value, (list, tuple)) and isinstance(value[0], NameSpecification):
             value = namespecs_to_bibtex(value)
         elif isinstance(value, str):
             if key in BIBTEX_FIELD_NEEDS_ENCODING:
@@ -263,7 +265,7 @@ def make_bibtex_entry(
     return "\n".join(lines)
 
 
-def namespecs_to_bibtex(namespecs: list[NameSpecification]) -> str:
+def namespecs_to_bibtex(namespecs: Iterable[NameSpecification]) -> str:
     """Convert a list of NameSpecifications to a BibTeX-formatted entry.
 
     Arguments:

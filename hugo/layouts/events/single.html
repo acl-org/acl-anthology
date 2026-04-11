@@ -1,5 +1,5 @@
 {{ define "main" }}
-{{ $event := index .Site.Data.events .Params.event_slug }}
+{{ $event := index hugo.Data.events .Params.event_slug }}
 <section id="main">
   <h2 id="title">
     {{ .Title }}
@@ -31,7 +31,7 @@
       <h4 class="card-title">Volumes</h4>
       <ul class="list-ps-responsive">
         {{ range $volumes }}
-        {{ $volume := index $.Site.Data.volumes . }}
+        {{ $volume := index hugo.Data.volumes . }}
         <li>
           {{ if eq hugo.Environment "development" }}
             <span class="badge text-bg-light align-middle">{{ . }}</span>
@@ -47,7 +47,7 @@
   {{/* Check if any of the volumes associated with this event have abstracts */}}
   {{ $with_abstracts := 0 }}
   {{ range $volumes }}
-    {{ $volume := index $.Site.Data.volumes . }}
+    {{ $volume := index hugo.Data.volumes . }}
     {{ if $volume.has_abstracts }}
       {{ $with_abstracts = add $with_abstracts 1 }}
     {{ end }}
@@ -58,7 +58,7 @@
   {{ end }}
 
   {{ range $volumes }}
-  {{ $volume := index $.Site.Data.volumes . }}
+  {{ $volume := index hugo.Data.volumes . }}
   <div id="{{ . | anchorize }}">
     <small><a href="#" class="text-muted"><i class="fas fa-arrow-up"></i> up</a></small>
 
