@@ -901,13 +901,6 @@ if __name__ == "__main__":
         default=today,
         help="Ingestion date as YYYY-MM-DD. Default: %(default)s.",
     )
-    anthology_path = Path(__file__).resolve().parent.parent
-    parser.add_argument(
-        "--anthology-dir",
-        "-r",
-        default=anthology_path,
-        help="Root path of ACL Anthology Github repo. Default: %(default)s.",
-    )
     pdfs_path = Path.home() / "anthology-files" / "pdf"
     parser.add_argument(
         "--pdfs-dir", "-p", default=pdfs_path, help="Root path for placement of PDF files"
