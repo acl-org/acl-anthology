@@ -17,17 +17,12 @@ from __future__ import annotations
 from attrs import define, field
 from collections import Counter, defaultdict
 import itertools as it
+from msgspec import json
 from pathlib import Path
 from rich.progress import track
 from scipy.cluster.hierarchy import DisjointSet  # type: ignore
 from typing import cast, Any, Iterable, Optional, TYPE_CHECKING
 import warnings
-import yaml
-
-try:
-    from yaml import CLoader as Loader, CDumper as Dumper
-except ImportError:  # pragma: no cover
-    from yaml import Loader, Dumper  # type: ignore
 
 from ..config import primary_console
 from ..constants import NO_PERSON_ID
@@ -43,7 +38,6 @@ from ..utils.attrs import attach_custom_repr
 from ..utils.ids import AnthologyIDTuple, is_verified_person_id
 from ..utils.logging import get_logger
 from . import Person, Name, NameLink, NameSpecification
-from .name import _YAMLName
 
 if TYPE_CHECKING:
     from _typeshed import StrPath
@@ -51,7 +45,7 @@ if TYPE_CHECKING:
     from ..collections import Paper, Volume, Collection
 
 log = get_logger()
-PEOPLE_INDEX_FILE = "yaml/people.yaml"
+PEOPLE_INDEX_FILE = "json/people.json"
 
 
 UNVERIFIED_PID_FORMAT = "{pid}/unverified"
@@ -76,7 +70,7 @@ class PersonIndex(SlottedDict[Person]):
 
     Attributes:
         parent: The parent Anthology instance to which this index belongs.
-        path: The path to `people.yaml`.
+        path: The path to `people.json`.
         by_orcid: A mapping of ORCIDs (as strings) to person IDs.
         by_name: A mapping of [Name][acl_anthology.people.name.Name] instances to lists of person IDs.
         slugs_to_verified_ids: A mapping of strings (representing slugified names) to lists of person IDs.
@@ -150,7 +144,7 @@ class PersonIndex(SlottedDict[Person]):
 
         Raises:
             NameSpecResolutionError: If `name_spec` cannot be resolved to a Person.
-            PersonDefinitionError: If `name_spec.id` is set, but either the ID or the name used with the ID has not been defined in `people.yaml`. (Inherits from NameSpecResolutionError)
+            PersonDefinitionError: If `name_spec.id` is set, but either the ID or the name used with the ID has not been defined in `people.json`. (Inherits from NameSpecResolutionError)
         """
         if not self.is_data_loaded:
             self.load()
@@ -340,13 +334,13 @@ class PersonIndex(SlottedDict[Person]):
         self.is_data_loaded = True
 
     def _load_people_index(self) -> None:
-        """Load and parse the `people.yaml` file.
+        """Load and parse the `people.json` file.
 
         Raises:
             AnthologyInvalidIDError: If `people.yaml` contains a malformed person ID; or if a person is listed without any names.
         """
-        with open(self.path, "r", encoding="utf-8") as f:
-            data = yaml.load(f, Loader=Loader)
+        with open(self.path, "rb") as f:
+            data = json.decode(f.read())
 
         for pid, entry in data.items():
             if not is_verified_person_id(pid):
@@ -370,7 +364,7 @@ class PersonIndex(SlottedDict[Person]):
             # Check for unprocessed keys to catch errors
             if entry:
                 log.warning(
-                    f"people.yaml: entry '{pid}' has unknown keys: {entry.keys()}"
+                    f"people.json: entry '{pid}' has unknown keys: {entry.keys()}"
                 )  # pragma: no cover
 
     def add_person(self, person: Person) -> None:
@@ -614,24 +608,24 @@ class PersonIndex(SlottedDict[Person]):
 
         Raises:
             NameSpecResolutionError: If `name_spec` cannot be resolved to a Person and `allow_creation` is False.
-            PersonDefinitionError: If `name_spec.id` is set, but either the ID or the name used with the ID has not been defined in `people.yaml`. (Inherits from NameSpecResolutionError)
+            PersonDefinitionError: If `name_spec.id` is set, but either the ID or the name used with the ID has not been defined in `people.json`. (Inherits from NameSpecResolutionError)
         """
         name = name_spec.name
         if (pid := name_spec.id) is not None and pid != NO_PERSON_ID:
-            # Explicit ID given – should be explicitly defined in people.yaml
+            # Explicit ID given – should be explicitly defined in people.json
             if pid not in self.data or not (person := self.data[pid]).is_explicit:
                 raise PersonDefinitionError(
-                    name_spec, f"ID '{pid}' wasn't defined in people.yaml"
+                    name_spec, f"ID '{pid}' wasn't defined in people.json"
                 )
             if not person.has_name(name):
                 raise PersonDefinitionError(
                     name_spec,
-                    f"ID '{pid}' was used with name '{name}' that wasn't defined in people.yaml",
+                    f"ID '{pid}' was used with name '{name}' that wasn't defined in people.json",
                 )
             if name_spec.orcid is not None and name_spec.orcid != person.orcid:
                 raise PersonDefinitionError(
                     name_spec,
-                    f"ID '{pid}' was used with ORCID '{name_spec.orcid}', but people.yaml has '{person.orcid}'",
+                    f"ID '{pid}' was used with ORCID '{name_spec.orcid}', but people.json has '{person.orcid}'",
                 )
         else:
             # No explicit ID given
@@ -641,7 +635,7 @@ class PersonIndex(SlottedDict[Person]):
                     "NameSpecification defines an ORCID without an ID",
                 )
                 exc1.add_note(
-                    "To specify an ORCID on a paper, the person needs to have an entry in `people.yaml` and be used with an explicit ID."
+                    "To specify an ORCID on a paper, the person needs to have an entry in `people.json` and be used with an explicit ID."
                 )
                 raise exc1
 
@@ -727,10 +721,10 @@ class PersonIndex(SlottedDict[Person]):
             seen_ids.add(person.id)
 
     def save(self, path: Optional[StrPath] = None) -> None:
-        """Save the `people.yaml` file.
+        """Save the `people.json` file.
 
         Arguments:
-            path: The filename to save to. If None, defaults to the parent Anthology's `people.yaml` file.
+            path: The filename to save to. If None, defaults to the parent Anthology's `people.json` file.
         """
         if path is None:  # pragma: no cover
             self.parent._warn_if_in_default_path()
@@ -743,7 +737,7 @@ class PersonIndex(SlottedDict[Person]):
 
             attrib: dict[str, Any] = {
                 "names": [
-                    _YAMLName(name)
+                    name
                     for (name, link_type) in person._names
                     if link_type == NameLink.EXPLICIT
                 ],
@@ -755,5 +749,6 @@ class PersonIndex(SlottedDict[Person]):
             }
             data[person.id] = {k: v for k, v in attrib.items() if v}
 
-        with open(path, "w", encoding="utf-8") as f:
-            yaml.dump(data, f, allow_unicode=True, Dumper=Dumper)
+        with open(path, "wb") as f:
+            f.write(json.format(json.encode(data)))
+            f.write(b"\n")

@@ -171,6 +171,16 @@ class Volume(SlottedDict[Paper]):
             track_modifications,
         ],
     )
+    sig_ids: tuple[str, ...] = field(
+        default=(),
+        converter=into_str_tuple,
+        on_setattr=[
+            setters.convert,
+            setters.validate,
+            # _update_venues,  # TODO: _update_sigs
+            track_modifications,
+        ],
+    )
     venue_ids: tuple[str, ...] = field(
         default=(),
         converter=into_str_tuple,
@@ -334,7 +344,7 @@ class Volume(SlottedDict[Paper]):
         Returns:
             A list of SIGs associated with this volume.
         """
-        return self.root.sigs.by_volume(self.full_id_tuple)
+        return [self.root.sigs[sig] for sig in self.sig_ids]
 
     def papers(self) -> Iterator[Paper]:
         """An iterator over all Paper objects in this volume."""
@@ -450,6 +460,7 @@ class Volume(SlottedDict[Paper]):
             ),  # 'type' required by schema
             "parent": parent,
             "editors": [],
+            "sig_ids": [],
             "venue_ids": [],
         }
         if (ingest_date := volume.get("ingest-date")) is not None:
@@ -477,6 +488,8 @@ class Volume(SlottedDict[Paper]):
                 kwargs["editors"].append(NameSpecification.from_xml(element))
             elif tag == "url":
                 kwargs["pdf"] = PDFReference.from_xml(element)
+            elif tag == "sig":
+                kwargs["sig_ids"].append(str(element.text))
             elif tag == "venue":
                 kwargs["venue_ids"].append(str(element.text))
             else:  # pragma: no cover
@@ -513,6 +526,8 @@ class Volume(SlottedDict[Paper]):
                 meta.append(getattr(E, tag)(value))
         if self.pdf is not None:
             meta.append(self.pdf.to_xml("url"))
+        for sig in self.sig_ids:
+            meta.append(E.sig(sig))
         for venue in self.venue_ids:
             meta.append(E.venue(venue))
         for tag in (
