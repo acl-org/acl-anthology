@@ -94,8 +94,6 @@ def unlink_items(author_id, paper_ids, keep_only_these_papers=False):
         )
         log.info(changes)
         anthology.save_all()
-        # anthology.people.reset()
-        # person = anthology.get_person(person.id)  # refreshed after reset
         numPapers = len(list(person.anthology_items()))
         log.info(f'Now {numPapers} implicitly or explicitly linked')
 

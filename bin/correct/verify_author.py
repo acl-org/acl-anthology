@@ -146,17 +146,6 @@ def verify_by_author_id(
         new_aid = anthology.people.generate_person_id(target_person, suffix)
         log.info(f'Verifying author {target_person.id} -> {new_aid}')
 
-        # target_person.make_explicit(new_aid, skip_setting_ids=True)
-        # workaround for bug #7879
-        # new_person = anthology.people.create(new_aid, [target_person.canonical_name])
-        # new_person.disable_name_matching = True  # temporarily, so authors don't get automatically moved from `target_person`
-        # assert (
-        #     not except_paper_ids
-        # ), 'Person.merge_into() currently does not support excluding some papers'
-        # target_person.merge_into(new_person)  # copy attributes, set explicit IDs
-        # target_person = new_person
-        # new_person.disable_name_matching = False  # reset
-
         # validate the excluded papers list
         for item_id in except_paper_ids or []:
             assert (
@@ -357,10 +346,6 @@ def verify_by_paper(orcid, paper_ids, degree=None, suffix=None, only_these_paper
         if not cur_person.is_explicit:
             # Currently unverified; verify
             log.info('Verifying an unverified person for specific papers')
-            # new_aid = anthology.people.generate_person_id(cur_person, suffix)
-            # cur_person.make_explicit(new_aid, skip_setting_ids=True)
-            # -- make_explicit() currently copies all names, but we may just want a subset of names
-            # person = cur_person
         else:
             # Matches a verified person; we need to create a new verified person
             log.info('Splitting from a verified person (implicit name match)')
@@ -417,9 +402,6 @@ def verify_by_paper(orcid, paper_ids, degree=None, suffix=None, only_these_paper
     if changes:
         anthology.save_all()
 
-    # anthology.people.reset()
-    # person = anthology.get_person(person.id)  # refreshed after reset
-
     numPapers = len(list(person.anthology_items()))
     if only_these_papers and not person.disable_name_matching:
         log.info(f'This person now has {numPapers} papers.')
@@ -437,13 +419,11 @@ def verify_by_paper(orcid, paper_ids, degree=None, suffix=None, only_these_paper
 
     if changes:
         anthology.save_all()
-        # anthology.people.reset()
     else:
         changes = 'No changes for'
 
     if not person.disable_name_matching:
         # Check that there are no more implicit matches
-        # person = anthology.get_person(person.id)  # refreshed after reset
         log.info(f'Checking that author ID {person.id} is explicit on all papers/volumes')
         numNamespecs = sum(1 for ns in person.namespecs())
         numExplicit = sum(1 for ns in person.namespecs() if ns.id is not None)
