@@ -1,5 +1,5 @@
 {{ $collection_id := index (split .Params.anthology_id "-") 0 }}
-{{ $paper := index (index $.Site.Data.papers $collection_id) .Params.anthology_id }}
+{{ $paper := index (index hugo.Data.papers $collection_id) .Params.anthology_id }}
 <div class="d-sm-flex align-items-stretch mb-3">
   <div class="d-block me-2 list-button-row">
     <span class="d-inline d-sm-block text-nowrap">
@@ -44,7 +44,7 @@
     {{ end }}
     <br />
     {{- with $paper.parent_volume_id -}}
-    {{ $volume := index $.Site.Data.volumes . }}
+    {{ $volume := index hugo.Data.volumes . }}
     {{ $volume_page := printf "/volumes/%s" . }}
     <a href="{{ relref $ $volume_page }}" class="text-muted">{{ $volume.title }}</a>
     {{- end -}}

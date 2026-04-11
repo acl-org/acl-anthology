@@ -39,6 +39,7 @@ from ..exceptions import (
     NameSpecResolutionWarning,
     PersonDefinitionError,
 )
+from ..utils.attrs import attach_custom_repr
 from ..utils.ids import AnthologyIDTuple, is_verified_person_id
 from ..utils.logging import get_logger
 from . import Person, Name, NameLink, NameSpecification
@@ -58,6 +59,7 @@ UNVERIFIED_PID_FORMAT = "{pid}/unverified"
 # Note: Changing this will require changes in Hugo templates etc. as well!
 
 
+@attach_custom_repr
 @define
 class PersonIndex(SlottedDict[Person]):
     """Index object through which all persons (authors/editors) can be accessed.
@@ -92,7 +94,9 @@ class PersonIndex(SlottedDict[Person]):
         init=False, repr=False, factory=lambda: defaultdict(list)
     )
     _similar: DisjointSet = field(init=False, repr=False, factory=DisjointSet)
-    is_data_loaded: bool = field(init=False, repr=True, default=False)
+    is_data_loaded: bool = field(
+        init=False, default=False, metadata={"repr_omit_if": True}
+    )
 
     @path.default
     def _path(self) -> Path:
@@ -352,7 +356,7 @@ class PersonIndex(SlottedDict[Person]):
             self.add_person(
                 Person(
                     id=pid,
-                    parent=self.parent,
+                    parent=self,
                     names=[Name.from_dict(n) for n in entry.pop("names")],
                     orcid=entry.pop("orcid", None),
                     comment=entry.pop("comment", None),
@@ -427,7 +431,7 @@ class PersonIndex(SlottedDict[Person]):
         if not names:
             raise ValueError("List of names cannot be empty")
 
-        kwargs["parent"] = self.parent
+        kwargs["parent"] = self
         kwargs["is_explicit"] = True
         names = names[:1] + list(set(names) - {names[0]})  # deduplication
 
@@ -511,18 +515,15 @@ class PersonIndex(SlottedDict[Person]):
                 # person must be unverified, otherwise something has gone wrong.
                 # Create this unverified person, and assign the item to them.
                 new_person = self._resolve_namespec(exc.name_spec, allow_creation=True)
-                new_person.item_ids.append(item_id)
-                if item_id in person.item_ids:
-                    person.item_ids.remove(item_id)
+                new_person.item_ids.add(item_id)
+                person.item_ids.discard(item_id)
             except ValueError:
                 # Item no longer has any NameSpec resolving to this person
-                if item_id in person.item_ids:
-                    person.item_ids.remove(item_id)
+                person.item_ids.discard(item_id)
                 # Go through all NameSpecs on the item to reassign, if necessary
                 for namespec in item.namespecs:
                     this_person = self._resolve_namespec(namespec)
-                    if item_id not in this_person.item_ids:
-                        this_person.item_ids.append(item_id)
+                    this_person.item_ids.add(item_id)
 
     def _add_name(self, pid: str, name: Name, during_build: bool = False) -> None:
         """Add a name for a person to the index.
@@ -589,8 +590,8 @@ class PersonIndex(SlottedDict[Person]):
             self.add_person(
                 Person(
                     id=pid,
-                    parent=self.parent,
-                    names=[name_spec.name] + name_spec.variants,
+                    parent=self,
+                    names=[name_spec.name] + list(name_spec.variants),
                     orcid=name_spec.orcid,
                     is_explicit=True,
                 )
@@ -678,7 +679,7 @@ class PersonIndex(SlottedDict[Person]):
                 elif allow_creation:
                     # Unverified ID doesn't exist yet; create it
                     person = Person(
-                        id=pid, parent=self.parent, names=[(name, NameLink.INFERRED)]
+                        id=pid, parent=self, names=[(name, NameLink.INFERRED)]
                     )
                     self.add_person(person)
                 else:
@@ -716,7 +717,7 @@ class PersonIndex(SlottedDict[Person]):
         seen_ids = set()
         for namespec in namespecs:
             person = self._resolve_namespec(namespec, allow_creation=True)
-            person.item_ids.append(item_id)
+            person.item_ids.add(item_id)
             if person.id in seen_ids:
                 message = f"More than one NameSpecification resolves to '{person.id}' on the same item ({item_id})"
                 if person.is_explicit:

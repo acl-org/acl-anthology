@@ -25,6 +25,7 @@ from ..config import primary_console
 from ..containers import SlottedDict
 from ..exceptions import AnthologyDuplicateIDError
 from ..text import StopWords
+from ..utils.attrs import attach_custom_repr
 from ..utils.logging import get_logger
 from .paper import Paper
 
@@ -40,6 +41,7 @@ BIBKEY_MAX_NAMES = 2
 """The maximum number of names to consider when generating bibkeys."""
 
 
+@attach_custom_repr
 @define
 class BibkeyIndex(SlottedDict[Paper]):
     """Index object which collects citation keys for all papers.
@@ -52,7 +54,9 @@ class BibkeyIndex(SlottedDict[Paper]):
     """
 
     parent: CollectionIndex = field(repr=False, eq=False)
-    is_data_loaded: bool = field(init=False, repr=True, default=False)
+    is_data_loaded: bool = field(
+        init=False, default=False, metadata={"repr_omit_if": True}
+    )
 
     def generate_bibkey(self, paper: Paper) -> str:
         """Generate a unique bibkey for the given paper.
