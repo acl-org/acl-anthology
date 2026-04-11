@@ -27,8 +27,8 @@ implicitly associated with all the right papers).
 
 
 Usage:
-  verify_author.py [--issue NUM | --no-commit] [--degree DEGREE] [--suffix SUFFIX] [--except PAPERIDs] ORCID AUTHORID ...
-  verify_author.py [--issue NUM | --no-commit] [--degree DEGREE] [--suffix SUFFIX] [--only] ORCID PAPERID:NAMESLUG ...
+  verify_author.py [--issue NUM | --no-commit] [--degree DEGREE] [--suffix SUFFIX] [--canonical NAME] [--except PAPERIDs] ORCID AUTHORID ...
+  verify_author.py [--issue NUM | --no-commit] [--degree DEGREE] [--suffix SUFFIX] [--canonical NAME] [--only] ORCID PAPERID:NAMESLUG ...
 
 verify_author.py [--issue NUM | --no-commit] [--degree DEGREE] [--suffix SUFFIX] ORCID AUTHORID ...
 
@@ -68,6 +68,7 @@ Options:
                         Required if a new author ID is being created.
     --suffix SUFFIX     Disambiguating suffix (usually abbreviated from the degree institution).
                         Required if a new author ID is being created and the plain name slug is already in use.
+    --canonical NAME    Name to set as canonical for the Person.
     --only              Create a newly verified author for only the specified papers;
                         other papers should not be matched by name.
     --except PAPERIDS   Assign to this author all papers on selected pages except the ones listed here.
@@ -76,17 +77,19 @@ Options:
 import warnings
 import logging as log
 from docopt import docopt
+from typing import Optional
 
 
 from acl_anthology import Anthology
 from acl_anthology.collections import Paper
 from acl_anthology.exceptions import NameSpecResolutionWarning
+from acl_anthology.people import Name, Person
 from acl_anthology.utils.ids import is_valid_orcid, is_verified_person_id
 from acl_anthology.utils.logging import setup_rich_logging
 
 
 def verify_by_author_id(
-    orcid, author_ids, degree=None, suffix=None, except_paper_ids=None
+    orcid, author_ids, degree=None, suffix=None, canonical_name: Optional[Name]=None, except_paper_ids=None
 ):
     """
     Merges the author pages corresponding to the provided author IDs
@@ -131,8 +134,8 @@ def verify_by_author_id(
     for person in people:
         numExplicit += sum(1 for ns in person.namespecs() if ns.id is not None)
 
-    primary_person = people[0]
-    target_person = (
+    primary_person: Person = people[0]
+    target_person: Person = (
         [p for p in people if p.is_explicit and p.orcid is None]
         + [p for p in people if p.is_explicit and p.orcid is not None]
         + [primary_person]
@@ -161,7 +164,7 @@ def verify_by_author_id(
 
         changes = "Verify/merge" if len(author_ids) > 1 else "Verify"
 
-    canonical_name = primary_person.canonical_name
+    canonical_name = canonical_name or primary_person.canonical_name
 
     # Merge any other Persons into the target Person
     for person in people:
@@ -246,7 +249,7 @@ def verify_by_author_id(
     return changes + f" author {target_person.id}"
 
 
-def verify_by_paper(orcid, paper_ids, degree=None, suffix=None, only_these_papers=False):
+def verify_by_paper(orcid, paper_ids, degree=None, suffix=None, canonical_name: Optional[Name]=None, only_these_papers=False):
     """
     Links a verified author to specific papers not already explicitly associated with them,
     creating a new verified author in the process if necessary.
@@ -387,6 +390,13 @@ def verify_by_paper(orcid, paper_ids, degree=None, suffix=None, only_these_paper
             person.degree = degree
             changes = "Verify"
 
+    if canonical_name is not None:
+        if person.canonical_name == canonical_name:
+            log.info(f"Canonical name is already {person.canonical_name}")
+        else:
+            log.info(f"Changing canonical name: {person.canonical_name} -> {canonical_name}")
+            person.canonical_name = canonical_name
+
     # Now add papers under the person (or in other words, specify person ID in namespecs for listed papers)
     for paper, ns in paper_and_namespec:
         if not ns.id:
@@ -436,6 +446,12 @@ def verify_by_paper(orcid, paper_ids, degree=None, suffix=None, only_these_paper
 
     return changes + f" author {person.id}"
 
+def parse_canonical(canonical_name: Optional[str]):
+    if canonical_name:
+        if ' | ' in canonical_name:
+            return Name(*canonical_name.split(" | ", 1))
+        else:
+            return Name.from_string(canonical_name)
 
 if __name__ == "__main__":
     args = docopt(__doc__)
@@ -459,6 +475,7 @@ if __name__ == "__main__":
                     author_ids=args["AUTHORID"],
                     degree=args["--degree"],
                     suffix=args["--suffix"],
+                    canonical_name=parse_canonical(args["--canonical"]),
                     except_paper_ids=(
                         args["--except"].split() if args["--except"] else None
                     ),
@@ -471,6 +488,7 @@ if __name__ == "__main__":
                 paper_ids=args["PAPERID:NAMESLUG"],
                 degree=args["--degree"],
                 suffix=args["--suffix"],
+                canonical_name=parse_canonical(args["--canonical"]),
                 only_these_papers=args["--only"],
             )
 
