@@ -35,6 +35,7 @@ Options:
 from docopt import docopt
 from collections import Counter
 from functools import cache
+from itertools import chain
 import logging as log
 import msgspec
 from omegaconf import OmegaConf
@@ -346,7 +347,12 @@ def export_people(anthology, builddir, dryrun):
         for person_id, person in anthology.people.items():
             cname = person.canonical_name
             papers = sorted(
-                person.papers(),
+                # papers (which includes frontmatter of volumes)
+                # + volumes with no frontmatter
+                chain(
+                    person.papers(),
+                    filter(lambda vol: vol.frontmatter is None, person.volumes()),
+                ),
                 key=lambda paper: paper.year,
                 reverse=True,
             )
