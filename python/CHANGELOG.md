@@ -13,6 +13,7 @@
   - ...a Paper's or Volume's `authors` or `editors` attributes are modified.
 - `Person.item_ids` and `Venue.item_ids` are now sets instead of lists.
 - Bugfix: NameSpecifications now prevent having unverified IDs set on them (#7901)
+- `Person.names` and other attributes/functions that work with names now accept `ConvertableIntoName` and correctly raise errors on incompatible types (#8040)
 - `PersonIndex.create` now deduplicates list of names (#7858)
 - `Event.colocated_ids` and `EventIndex.reverse` will now update dynamically when a Volume's `venue_ids` attribute is modified, or when a new Volume is created.
 - `Venue.item_ids` will now update dynamically when a Volume's `venue_ids` attribute is modified, or when a new Volume is created.
