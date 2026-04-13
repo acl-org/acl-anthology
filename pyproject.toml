@@ -1,10 +1,31 @@
-[tool.black]
-line-length = 90
-target-version = ['py311', 'py312', 'py313', 'py314']
-skip-string-normalization = true
+[project]
+name = "aclanthology.org"
+version = "2026.2.1"
+requires-python = ">=3.11"
+dependencies = [
+    "acl-anthology",
+    "docopt>=0.6.2",
+    "gitpython>=3.1.46",
+    "iso639>=0.1.4",
+    "jsonschema>=4.26.0",
+    "lxml>=6.0.2",
+    "msgspec>=0.20.0",
+    "nltk>=3.9.2",
+    "pre-commit>=4.5.1",
+    "pybtex>=0.26.1",
+    "pygithub>=2.8.1",
+    "pypdf2>=3.0.1",
+    "pytest>=9.0.2",
+    "rich>=14.3.2",
+    "texsoup~=0.3.1",
+]
+
+[tool.uv.sources]
+acl-anthology = { workspace = true }
+
+[tool.uv.workspace]
+members = ["python/"]
 
 [tool.ruff]
+line-length = 90
 target-version = 'py311'
-
-[tool.ruff.lint]
-ignore = ['E501']  # "Line too long" is black's job

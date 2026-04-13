@@ -72,7 +72,7 @@ def test_load_people_index_registers_names(index_stub):
 def test_add_person(index_stub):
     index = index_stub
     index.reset()
-    p1 = Person("yang-liu", index.parent, [Name("Yang", "Liu")])
+    p1 = Person("yang-liu", index, [Name("Yang", "Liu")])
     index.add_person(p1)
     index.is_data_loaded = True  # to prevent it attempting to build itself
     assert "yang-liu" in index
@@ -82,7 +82,7 @@ def test_add_person(index_stub):
     assert index.get_by_namespec(NameSpecification(Name("Yang", "Liu"))) is p1
     assert index.get("yang-liu") is p1
     with pytest.raises(ValueError):
-        index.add_person(Person("yang-liu", index.parent))
+        index.add_person(Person("yang-liu", index))
 
 
 def test_similar_names_defined_in_people_index(index_stub):
@@ -683,7 +683,7 @@ def test_person_add_name_affects_name_resolution(anthology):
     # Precondition: 1 paper resolves to this unverified person
     person2 = index[UNVERIFIED_PID_FORMAT.format(pid="alexander-liu")]
     assert len(person2.item_ids) == 1
-    all_papers = set(person1.item_ids + person2.item_ids)
+    all_papers = person1.item_ids | person2.item_ids
 
     # Adding a name should move unverified papers to this person via name matching
     name = Name("Alexander", "Liu")

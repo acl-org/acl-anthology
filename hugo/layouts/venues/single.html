@@ -21,7 +21,7 @@
   </div>
   <hr />
 
-  {{ $venue := index .Site.Data.venues .Params.venue }}
+  {{ $venue := index hugo.Data.venues .Params.venue }}
   <div>
     {{ range $year := sort (index $venue "years") "value" "desc" }}
     {{ $volumes := index $venue "volumes_by_year" $year }}
@@ -32,7 +32,7 @@
       <div class="col-sm">
         <ul>
           {{ range $volumes }}
-          {{ $volume := index $.Site.Data.volumes . }}
+          {{ $volume := index hugo.Data.volumes . }}
           <li>
             {{ if eq hugo.Environment "development" }}
               <span class="badge text-bg-light align-middle">{{ . }}</span>

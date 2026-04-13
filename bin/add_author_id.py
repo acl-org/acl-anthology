@@ -25,7 +25,6 @@ import lxml.etree as ET
 
 
 def main(args: argparse.Namespace) -> None:
-
     last_name, first_name = (
         args.name.split(", ") if ", " in args.name else (args.name, None)
     )

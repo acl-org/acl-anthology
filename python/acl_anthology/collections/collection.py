@@ -22,7 +22,7 @@ from typing import Any, Iterator, Optional, Self, cast, TYPE_CHECKING
 from ..containers import SlottedDict
 from ..exceptions import AnthologyDuplicateIDError, AnthologyInvalidIDError
 from ..text.markuptext import MarkupText
-from ..utils.attrs import auto_validate_types, int_to_str
+from ..utils.attrs import attach_custom_repr, auto_validate_types, int_to_str
 from ..utils.ids import infer_year, is_valid_collection_id
 from ..utils.logging import get_logger
 from ..utils import xml
@@ -40,6 +40,7 @@ if TYPE_CHECKING:
 log = get_logger()
 
 
+@attach_custom_repr
 @define(field_transformer=auto_validate_types)
 class Collection(SlottedDict[Volume]):
     """A collection of volumes and events, corresponding to an XML file in the `data/xml/` directory of the Anthology repo.
@@ -61,18 +62,19 @@ class Collection(SlottedDict[Volume]):
         raised_error_on_load: A flag indicating whether loading the XML file raised an error. If True, calling `load()` again won't do anything. This is to prevent the same exceptions being triggered over and over again by other functions accessing this collection (and thereby triggering a load) multiple times.
     """
 
-    id: str = field(converter=int_to_str)
+    id: str = field(converter=int_to_str)  # validator defined below
     parent: CollectionIndex = field(repr=False, eq=False)
     path: Path = field(converter=Path)
     event: Optional[Event] = field(
         init=False,
-        repr=False,
         default=None,
         validator=v.optional(v.instance_of(Event)),
     )
-    is_data_loaded: bool = field(init=False, repr=True, default=False)
-    is_modified: bool = field(init=False, repr=False, default=False)
-    raised_error_on_load: bool = field(init=False, repr=False, default=False)
+    is_data_loaded: bool = field(
+        init=False, default=False, metadata={"repr_omit_if": True}
+    )
+    is_modified: bool = field(init=False, default=False)
+    raised_error_on_load: bool = field(init=False, default=False)
 
     @id.validator
     def _check_id(self, _: Any, value: str) -> None:
@@ -197,6 +199,9 @@ class Collection(SlottedDict[Volume]):
                 namespec.case_normalize()
                 self.root.people.ingest_namespec(namespec)
             self.root.people._add_to_index(volume.editors, volume.full_id_tuple)
+        # Register this volume with the EventIndex
+        if self.root.events.is_data_loaded:
+            self.root.events._add_volume_to_index(volume)
 
         self.data[id] = volume
         self.is_modified = True
@@ -290,14 +295,15 @@ class Collection(SlottedDict[Volume]):
 
         if self.event is not None:
             # Events are implicitly linked to volumes defined in the same collection
-            self.event.colocated_ids = [
-                (volume.full_id_tuple, EventLink.INFERRED)
+            colocated_ids = {
+                volume.full_id_tuple: EventLink.INFERRED
                 for volume in self.data.values()
-                # Edge case: in case the <colocated> block lists a volume in
-                # the same collection, don't add it twice
-                if (volume.full_id_tuple, EventLink.EXPLICIT)
-                not in self.event.colocated_ids
-            ] + self.event.colocated_ids
+                # Edge case: in case the <colocated> block lists a volume in the same collection, don't add it twice
+                if volume.full_id_tuple not in self.event.colocated_ids
+            }
+            # Make sure that implicitly linked volumes come first
+            colocated_ids.update(self.event.colocated_ids)
+            self.event.colocated_ids = colocated_ids
 
         self.is_data_loaded = True
         self.is_modified = False

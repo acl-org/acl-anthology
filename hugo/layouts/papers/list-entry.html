@@ -1,5 +1,5 @@
 {{ $collection_id := index (split .Params.anthology_id "-") 0 }}
-{{ $paper := index (index $.Site.Data.papers $collection_id) .Params.anthology_id }}
+{{ $paper := index (index hugo.Data.papers $collection_id) .Params.anthology_id }}
 {{ if not $paper.removed }}
 <div class="d-sm-flex align-items-stretch mb-3">
   <div class="d-block me-2 list-button-row">

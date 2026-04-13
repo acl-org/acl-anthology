@@ -10,11 +10,10 @@ import pytest
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from bin.generate_crossref_doi_metadata import classify_input, resolve_inputs, DOI_PREFIX
+from bin.generate_crossref_doi_metadata import classify_input, DOI_PREFIX
 from bin.add_dois import (
     add_doi_to_item,
     process_volume,
-    DOI_URL_PREFIX,
 )
 
 from acl_anthology import Anthology
