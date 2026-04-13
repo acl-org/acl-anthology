@@ -50,7 +50,9 @@ def test_implicit_event_data(anthology):
     )
     assert event.location is None
     assert event.dates is None
-    assert event.colocated_ids == [(("2022.naloma", "1", None), EventLink.INFERRED)]
+    assert list(event.colocated_ids.items()) == [
+        (("2022.naloma", "1", None), EventLink.INFERRED)
+    ]
 
 
 def test_implicit_and_explicit_event_data(anthology):
@@ -59,7 +61,7 @@ def test_implicit_and_explicit_event_data(anthology):
     # assert event.title.as_text() == "Other Workshops and Events (2022)"
     assert event.location is None
     assert event.dates is None
-    assert event.colocated_ids == [
+    assert list(event.colocated_ids.items()) == [
         (("2022.nonexistant", "1", None), EventLink.EXPLICIT),
         (("2022.naloma", "1", None), EventLink.INFERRED),
     ]
@@ -82,7 +84,7 @@ def test_explicit_event_data(anthology):
     )
     assert event.location == "Dublin, Ireland"
     assert event.dates == "May 22–27, 2022"
-    assert event.colocated_ids == [
+    assert list(event.colocated_ids.items()) == [
         (("2022.acl", "long", None), EventLink.INFERRED),
         (("2022.acl", "short", None), EventLink.INFERRED),
         (("2022.acl", "srw", None), EventLink.INFERRED),

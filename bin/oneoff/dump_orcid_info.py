@@ -38,9 +38,9 @@ def edit_distance(a: str, b: str) -> int:
 
 
 def remove_diacritics(input_str):
-    nfkd_form = unicodedata.normalize('NFKD', input_str)
-    only_ascii = nfkd_form.encode('ASCII', 'ignore')
-    return only_ascii.decode('ASCII')
+    nfkd_form = unicodedata.normalize("NFKD", input_str)
+    only_ascii = nfkd_form.encode("ASCII", "ignore")
+    return only_ascii.decode("ASCII")
 
 
 def munge_names(name):
@@ -114,7 +114,6 @@ if __name__ == "__main__":
         anthology_id = paper.full_id
 
         for author in paper.authors:
-
             anthology_name = author.name.as_first_last()
 
             if author.orcid:

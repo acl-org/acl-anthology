@@ -1,7 +1,7 @@
 <li>
   <a href="{{ .RelPermalink }}">{{ .Title }}</a>
   <span class="badge text-bg-secondary align-middle ms-1">{{ .Params.acronym }}</span>
-  {{ $venue := index .Site.Data.venues .Params.venue }}
+  {{ $venue := index hugo.Data.venues .Params.venue }}
   {{ $volumes := slice }}
   {{ range $year := index $venue "years" }}
     {{ $volumes = $volumes | append (index $venue "volumes_by_year" $year) }}

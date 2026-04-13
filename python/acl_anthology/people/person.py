@@ -16,7 +16,7 @@ from __future__ import annotations
 
 import attrs
 from attrs import define, field, setters
-from enum import Enum
+from enum import StrEnum
 from typing import Any, Iterator, Optional, Sequence, TYPE_CHECKING
 import sys
 
@@ -27,7 +27,7 @@ else:
 
 from ..constants import RE_ORCID, NO_PERSON_ID
 from ..exceptions import AnthologyException, AnthologyInvalidIDError
-from ..utils.attrs import auto_validate_types
+from ..utils.attrs import attach_custom_repr, auto_validate_types, repr_item_ids
 from ..utils.ids import (
     AnthologyID,
     AnthologyIDTuple,
@@ -39,12 +39,12 @@ from ..utils.ids import (
 from . import Name
 
 if TYPE_CHECKING:
-    from . import NameSpecification
+    from . import NameSpecification, PersonIndex
     from ..anthology import Anthology
     from ..collections import Paper, Volume
 
 
-class NameLink(Enum):
+class NameLink(StrEnum):
     """How a Name was connected to a Person."""
 
     EXPLICIT = "explicit"
@@ -52,6 +52,9 @@ class NameLink(Enum):
 
     INFERRED = "inferred"
     """Name was connected to this Person via slug matching heuristic."""
+
+    def __repr__(self) -> str:
+        return f"{self.__class__.__name__}.{self.name}"
 
 
 def _name_list_converter(
@@ -82,7 +85,7 @@ def _update_person_index(person: Person, attr: attrs.Attribute[Any], value: str)
 
     Intended to be called from `on_setattr` of an [attrs.field][].
     """
-    index = person.parent.people
+    index = person.parent
     if attr.name == "id":
         index._update_id(person.id, value)
     elif attr.name == "orcid":
@@ -90,6 +93,7 @@ def _update_person_index(person: Person, attr: attrs.Attribute[Any], value: str)
     return value
 
 
+@attach_custom_repr
 @define(field_transformer=auto_validate_types)
 class Person:
     """A natural person.
@@ -102,7 +106,7 @@ class Person:
     Attributes:
         id: A unique ID for this person.  Do not change this attribute directly; use [`change_id()`][acl_anthology.people.person.Person.change_id], [`make_explicit()`][acl_anthology.people.person.Person.make_explicit], or [`merge_into()`][acl_anthology.people.person.Person.merge_into] instead.
         parent: The parent Anthology instance to which this person belongs.
-        item_ids: A list of volume and/or paper IDs this person has authored or edited.
+        item_ids: An unordered set of volume and/or paper IDs this person has authored or edited.
         orcid: The person's ORCID.
         comment: A comment for disambiguation purposes.
         degree: The person's institution of highest degree, for disambiguation purposes.
@@ -110,13 +114,18 @@ class Person:
         is_explicit: If True, this person's ID is explicitly defined in `people.yaml`.  You probably want to use [`make_explicit()`][acl_anthology.people.person.Person.make_explicit] rather than change this attribute.
     """
 
-    id: str = field(on_setattr=[setters.validate, _update_person_index])
-    parent: Anthology = field(repr=False, eq=False)
-    _names: list[tuple[Name, NameLink]] = field(
-        factory=list, converter=_name_list_converter
+    id: str = field(
+        on_setattr=[setters.validate, _update_person_index],
+        metadata={"repr_omits_field_name": True},
     )
-    item_ids: list[AnthologyIDTuple] = field(
-        factory=list, repr=lambda x: f"<list of {len(x)} AnthologyIDTuple objects>"
+    parent: PersonIndex = field(repr=False, eq=False)
+    _names: list[tuple[Name, NameLink]] = field(
+        factory=list,
+        converter=_name_list_converter,
+        metadata={"repr_omits_field_name": True},
+    )
+    item_ids: set[AnthologyIDTuple] = field(
+        factory=set, converter=set, repr=repr_item_ids
     )
     orcid: Optional[str] = field(
         default=None,
@@ -126,7 +135,7 @@ class Person:
     degree: Optional[str] = field(default=None)
     similar_ids: list[str] = field(factory=list)
     _disable_name_matching: Optional[bool] = field(default=False, converter=bool)
-    is_explicit: Optional[bool] = field(default=False, converter=bool)
+    is_explicit: Optional[bool] = field(default=False, converter=bool, repr=False)
 
     def __eq__(self, other: object) -> bool:
         if not isinstance(other, Person):
@@ -137,6 +146,11 @@ class Person:
         return hash(self.id)
 
     @property
+    def root(self) -> Anthology:
+        """The Anthology instance to which this object belongs."""
+        return self.parent.parent
+
+    @property
     def names(self) -> list[Name]:
         """A list of all names associated with this person."""
         return [name for (name, _) in self._names]
@@ -144,11 +158,11 @@ class Person:
     @names.setter
     def names(self, values: list[Name]) -> None:
         for name, _ in self._names:
-            self.parent.people._remove_name(self.id, name)
+            self.parent._remove_name(self.id, name)
         for name in values:
-            self.parent.people._add_name(self.id, name)
+            self.parent._add_name(self.id, name)
         self._names = _name_list_converter(values)
-        self.parent.people._reresolve_items_for_person(self)
+        self.parent._reresolve_items_for_person(self)
 
     @property
     def disable_name_matching(self) -> bool:
@@ -161,7 +175,7 @@ class Person:
     @disable_name_matching.setter
     def disable_name_matching(self, value: Optional[bool]) -> None:
         self._disable_name_matching = value
-        self.parent.people._reresolve_items_for_names(self.names)
+        self.parent._reresolve_items_for_names(self.names)
 
     @property
     def canonical_name(self) -> Name:
@@ -202,9 +216,9 @@ class Person:
         link_type = NameLink.INFERRED if inferred else NameLink.EXPLICIT
         if not self.has_name(name):
             self._names.append((name, link_type))
-            self.parent.people._add_name(self.id, name)
+            self.parent._add_name(self.id, name)
             if not inferred:
-                self.parent.people._reresolve_items_for_names([name])
+                self.parent._reresolve_items_for_names([name])
         elif (name, link_type) not in self._names:
             # ensure that name is re-inserted at same position
             idx = self.names.index(name)
@@ -224,9 +238,9 @@ class Person:
             ValueError: If this name was not explicitly linked to this person.
         """
         self._names.remove((name, NameLink.EXPLICIT))
-        self.parent.people._remove_name(self.id, name)
-        self.parent.people._reresolve_items_for_person(self)
-        self.parent.people._reresolve_items_for_names([name])
+        self.parent._remove_name(self.id, name)
+        self.parent._reresolve_items_for_person(self)
+        self.parent._reresolve_items_for_names([name])
 
     def has_name(self, name: Name) -> bool:
         """
@@ -250,7 +264,7 @@ class Person:
             AnthologyException: If `self.explicit` is False.
             AnthologyInvalidIDError: If the supplied ID is not well-formed, or if it already exists in the PersonIndex.
         """
-        if new_id in self.parent.people:
+        if new_id in self.parent:
             exc = AnthologyInvalidIDError(new_id, f"Person ID already exists: {new_id}")
             exc.add_note("Did you want to use merge_into() instead?")
             raise exc
@@ -288,12 +302,12 @@ class Person:
         if self.is_explicit:
             raise AnthologyException(f"Person '{self.id}' is already explicit")
         if new_id is None:
-            new_id = self.parent.people.generate_person_id(self)
+            new_id = self.parent.generate_person_id(self)
         elif not is_verified_person_id(new_id):
             raise AnthologyInvalidIDError(
                 new_id, f"Not a valid verified-person ID: {new_id}"
             )
-        elif new_id in self.parent.people:
+        elif new_id in self.parent:
             raise AnthologyException(f"ID already exists in the index: {new_id}")
 
         namespecs = list(self.namespecs())
@@ -379,7 +393,7 @@ class Person:
         """Returns an iterator over all Anthology items associated with this person, regardless of their type."""
         # TODO: This does not consider talks yet!
         for anthology_id in self.item_ids:
-            item = self.parent.get(anthology_id)
+            item = self.root.get(anthology_id)
             if item is None:
                 raise ValueError(
                     f"Person {self.id} lists associated item {build_id_from_tuple(anthology_id)}, which doesn't exist"
@@ -401,7 +415,7 @@ class Person:
         for anthology_id in self.item_ids:
             paper_id = anthology_id[-1]
             if paper_id is not None:
-                paper = self.parent.get_paper(anthology_id)
+                paper = self.root.get_paper(anthology_id)
                 if paper is None:
                     raise ValueError(
                         f"Person {self.id} lists associated paper {build_id_from_tuple(anthology_id)}, which doesn't exist"
@@ -413,7 +427,7 @@ class Person:
         for anthology_id in self.item_ids:
             paper_id = anthology_id[-1]
             if paper_id is None:
-                volume = self.parent.get_volume(anthology_id)
+                volume = self.root.get_volume(anthology_id)
                 if volume is None:
                     raise ValueError(
                         f"Person {self.id} lists associated volume {build_id_from_tuple(anthology_id)}, which doesn't exist"

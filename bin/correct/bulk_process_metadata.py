@@ -67,6 +67,7 @@ from acl_anthology.collections import Paper
 from acl_anthology.exceptions import NameSpecResolutionWarning
 from acl_anthology.people import NameSpecification, Name
 from acl_anthology.text import MarkupText
+from acl_anthology.utils.logging import setup_rich_logging
 
 close_old_issue_comment = """### ⓘ Notice
 
@@ -149,6 +150,7 @@ class AnthologyMetadataUpdater:
             "relevant_issues": 0,
             "approved_issues": 0,
             "unapproved_issues": 0,
+            "error_issues": 0,
         }
         self.verbose = verbose
 
@@ -156,8 +158,9 @@ class AnthologyMetadataUpdater:
         # branch with a different version of the database
 
     def load_anthology(self):
+        log.info("Loading anthology")
         self.anthology = Anthology.from_within_repo(verbose=self.verbose)
-        self.anthology.load_all()  # not needed to load_all?
+        # self.anthology.load_all()  # not needed to load_all?
 
     def _parse_metadata_changes(self, issue_body: str) -> None | dict:
         """Parse the metadata changes from issue body.
@@ -339,9 +342,9 @@ class AnthologyMetadataUpdater:
             if (aid := auth[AUTHOR_ID]) != AUTHOR_ADDED:
                 if aid in retained_author_json_by_id:
                     # we have already seen this author ID. OK if unverified:
-                    assert aid.endswith(
-                        "/unverified"
-                    ), f"Duplicate verified author ID in author list: {aid}"
+                    assert aid.endswith("/unverified"), (
+                        f"Duplicate verified author ID in author list: {aid}"
+                    )
                     log.warning(
                         f"--> Duplicate unverified author ID in author list (possibly valid): {aid}",
                     )
@@ -362,7 +365,9 @@ class AnthologyMetadataUpdater:
                 # duplicate. check that namespecs are identical
                 assert current_author == (
                     earlier_match := current_author_namespecs_by_id[person.id]
-                ), f"Duplicate author should have identical namespec: {earlier_match} vs. {current_author}"
+                ), (
+                    f"Duplicate author should have identical namespec: {earlier_match} vs. {current_author}"
+                )
             else:
                 current_author_namespecs_by_id[person.id] = current_author
 
@@ -379,9 +384,9 @@ class AnthologyMetadataUpdater:
                 # possibly new or newly explicit variant
                 person.add_name(current_author.name)
             else:
-                assert (
-                    person.id in deleted_author_json_by_id
-                ), f"Author ID is missing or author should be listed as deleted: {person.id}"
+                assert person.id in deleted_author_json_by_id, (
+                    f"Author ID is missing or author should be listed as deleted: {person.id}"
+                )
                 deleted_author_json_by_id[person.id]["namespec"] = current_author
 
         # construct revised list of author namespecs, creating new namespecs for any added authors
@@ -395,9 +400,9 @@ class AnthologyMetadataUpdater:
             ):
                 # duplicate author
                 auth["namespec"] = current_author_namespecs_by_id[auth[AUTHOR_ID]]
-            assert (
-                "namespec" in auth
-            ), f'Could not match JSON author ID to an entry in the current author list: "{auth[AUTHOR_ID]}"'
+            assert "namespec" in auth, (
+                f'Could not match JSON author ID to an entry in the current author list: "{auth[AUTHOR_ID]}"'
+            )
             final_authors.append(auth["namespec"])
 
         # check that deleted authors were in fact present in the original author list
@@ -408,9 +413,9 @@ class AnthologyMetadataUpdater:
             ):
                 # duplicate author
                 auth["namespec"] = current_author_namespecs_by_id[auth[AUTHOR_ID]]
-            assert (
-                "namespec" in auth
-            ), f'Could not match JSON deleted author ID to an entry in the current author list: "{aid}"'
+            assert "namespec" in auth, (
+                f'Could not match JSON deleted author ID to an entry in the current author list: "{aid}"'
+            )
 
         # replace the old list of authors/editors with the new one
         if paper.is_frontmatter:
@@ -452,7 +457,7 @@ class AnthologyMetadataUpdater:
         """Process all metadata issues and create PR with changes."""
         # Get all open issues with required labels
         issues = self.github_repo.get_issues(
-            state='open', labels=['metadata', 'correction']
+            state="open", labels=["metadata", "correction"]
         )
 
         current_branch, new_branch_name, today = self.prepare_and_switch_branch()
@@ -482,6 +487,7 @@ class AnthologyMetadataUpdater:
             except Exception as e:  # e.g. XML Parsing failed
                 log.warning(f"Failed to apply changes to #{issue.number}: {e}")
                 log.exception(e)
+                self.stats["error_issues"] += 1
                 # revert changes already made for this issue # todo how to best do this? test it thoroughly
                 self.load_anthology()
                 continue
@@ -497,10 +503,11 @@ class AnthologyMetadataUpdater:
                 paper_path = paper.collection.path
                 if not self.local_repo.index.diff(None, paths=paper_path):
                     # assume people file wasn't modified either # todo test this
-                    log.debug(
+                    log.warning(
                         f"Nothing modified for {paper.full_id} (#{issue.number}) "
                         f"- nothing to commit. Please review again."
                     )
+                    self.stats["error_issues"] += 1
                     continue
 
                 # Commit changes
@@ -525,6 +532,7 @@ class AnthologyMetadataUpdater:
             except Exception as e:
                 log.warning(f"Error processing issue {issue.number}: {type(e)}: {e}")
                 log.exception(e)
+                self.stats["error_issues"] += 1
                 # If we land here, we should carefully monitor file states and git status
                 continue
 
@@ -609,7 +617,7 @@ class AnthologyMetadataUpdater:
 
         # store the current branch
         current_branch = self.local_repo.head.reference
-        self.local_repo.git.stash(['push', f'-m "{datetime.now().isoformat()}"'])
+        self.local_repo.git.stash(["push", f'-m "{datetime.now().isoformat()}"'])
 
         # switch to that branch
         self.local_repo.head.reference = ref
@@ -626,7 +634,7 @@ if __name__ == "__main__":
     args = docopt(__doc__)
 
     log_level = log.DEBUG if not args["--quiet"] else log.INFO
-    log.basicConfig(level=log_level)
+    tracker = setup_rich_logging(level=log_level)
     log.getLogger("acl-anthology").setLevel(log.WARNING)
     log.getLogger("git.cmd").setLevel(log.WARNING)
     log.getLogger("urllib3.connectionpool").setLevel(log.WARNING)

@@ -809,6 +809,7 @@ def read_bib_entry(bibfilename: Path | str, paper_id: str) -> Optional[Dict[str,
     except pybtex.scanner.PybtexSyntaxError:
         log.error(f"error parsing {bibfilename}")
         raise
+
     if len(bibdata.entries) != 1:
         log.warning(f"more than one entry in {bibfilename}")
 

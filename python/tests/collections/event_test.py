@@ -108,12 +108,12 @@ def test_event_to_xml_dont_list_colocated_volumes_of_parent():
     event = Event(
         id="li-2023",
         parent=CollectionStub("2023.li"),
-        colocated_ids=[
-            (("2023.baz", "1", None), EventLink.EXPLICIT),
-            (("2023.li", "main", None), EventLink.INFERRED),
-            (("2023.li", "side", None), EventLink.INFERRED),
-            (("2023.ling", "1", None), EventLink.EXPLICIT),
-        ],
+        colocated_ids={
+            ("2023.baz", "1", None): EventLink.EXPLICIT,
+            ("2023.li", "main", None): EventLink.INFERRED,
+            ("2023.li", "side", None): EventLink.INFERRED,
+            ("2023.ling", "1", None): EventLink.EXPLICIT,
+        },
     )
     out = event.to_xml()
     indent(out)
@@ -144,9 +144,7 @@ def test_event_volumes(anthology):
     assert len(event.colocated_ids) == 4
     volumes = list(event.volumes())
     assert len(volumes) == 4
-    assert {vol.full_id_tuple for vol in volumes} == set(
-        x[0] for x in event.colocated_ids
-    )
+    assert {vol.full_id_tuple for vol in volumes} == set(event.colocated_ids.keys())
     with pytest.raises(ValueError):
         # acl-2022 lists co-located volumes that we don't have in the toy
         # dataset, so trying to access them should raise an error
@@ -172,7 +170,7 @@ def test_event_add_colocated(anthology):
     # Adding colocated volume should update Event & EventIndex
     event.add_colocated(volume)
     assert len(event.colocated_ids) == 2
-    assert (volume.full_id_tuple, EventLink.EXPLICIT) in event.colocated_ids
+    assert event.colocated_ids.get(volume.full_id_tuple) == EventLink.EXPLICIT
     assert event in anthology.events.by_volume(volume)
     assert event.collection.is_modified
 

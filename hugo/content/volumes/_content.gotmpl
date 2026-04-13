@@ -1,4 +1,4 @@
-{{ range $anthology_id, $volume := .Site.Data.volumes }}
+{{ range $anthology_id, $volume := hugo.Data.volumes }}
    {{ $page := dict
       "kind" "page"
       "path" $anthology_id

@@ -117,8 +117,8 @@ test_cases_volume_xml = (
 )
 
 
-def test_volume_minimum_attribs():
-    parent = Collection("L05", None, Path("."))
+def test_volume_minimum_attribs(anthology):
+    parent = Collection("L05", CollectionIndexStub(anthology), Path("."))
     volume = Volume(
         "6",
         parent,
@@ -133,8 +133,8 @@ def test_volume_minimum_attribs():
     assert not volume.is_workshop
 
 
-def test_volume_all_attribs():
-    parent = Collection("2023.acl", None, Path("."))
+def test_volume_all_attribs(anthology):
+    parent = Collection("2023.acl", CollectionIndexStub(anthology), Path("."))
     volume = Volume(
         id="long",
         parent=parent,
@@ -169,7 +169,7 @@ def test_volume_attributes_2022acl_long(anthology):
     assert volume.year == "2022"
     assert volume.pdf.name == "2022.acl-long"
     assert volume.pdf.checksum == "b8317652"
-    assert volume.venue_ids == ["acl"]
+    assert volume.venue_ids == ("acl",)
     assert volume.venue_acronym == "ACL"
     assert not volume.is_workshop
     assert isinstance(volume.frontmatter, Paper) and volume.frontmatter.id == "0"
@@ -188,7 +188,7 @@ def test_volume_attributes_2022acl_demo(anthology):
     assert volume.year == "2022"
     assert volume.pdf.name == "2022.acl-demo"
     assert volume.pdf.checksum == "d92e3f4d"
-    assert volume.venue_ids == ["acl"]
+    assert volume.venue_ids == ("acl",)
     assert volume.venue_acronym == "ACL"
     assert not volume.is_workshop
     assert isinstance(volume.frontmatter, Paper) and volume.frontmatter.id == "0"
@@ -200,7 +200,7 @@ def test_volume_attributes_j89(anthology):
     volume = anthology.get_volume("J89-1")
     assert isinstance(volume, Volume)
     assert volume.id == "1"
-    assert volume.venue_ids == ["cl"]
+    assert volume.venue_ids == ("cl",)
     assert volume.venue_acronym == "CL"
     assert volume.year == "1989"
     assert not volume.is_workshop
@@ -217,7 +217,7 @@ def test_volume_attributes_naloma(anthology):
     assert volume.id == "1"
     assert volume.year == "2022"
     assert volume.is_workshop
-    assert volume.venue_ids == ["nlma", "ws"]
+    assert volume.venue_ids == ("nlma", "ws")
     assert volume.venue_acronym == "NALOMA"
     assert isinstance(volume.frontmatter, Paper) and volume.frontmatter.id == "0"
 
@@ -267,7 +267,7 @@ def test_paper_setattr_on_namespec_sets_collection_is_modified(anthology):
 
 def test_volume_venues_j89(anthology):
     volume = anthology.get_volume("J89-1")
-    assert volume.venue_ids == ["cl"]
+    assert volume.venue_ids == ("cl",)
     venues = volume.venues()
     assert len(venues) == 1
     assert venues[0].id == "cl"
@@ -275,7 +275,7 @@ def test_volume_venues_j89(anthology):
 
 def test_volume_venues_naloma(anthology):
     volume = anthology.get_volume("2022.naloma-1")
-    assert volume.venue_ids == ["nlma", "ws"]
+    assert volume.venue_ids == ("nlma", "ws")
     venues = volume.venues()
     assert len(venues) == 2
     assert venues[0].id == "nlma"
@@ -311,7 +311,7 @@ def test_volume_with_multiple_venues(anthology):
     )
     assert volume.full_id == "2092.acl-1"
     assert volume.title == volume_title
-    assert volume.venue_ids == ["acl", "lrec"]
+    assert volume.venue_ids == ("acl", "lrec")
     assert volume.venue_acronym == "ACL-LREC"
 
 
@@ -340,12 +340,79 @@ def test_volume_change_id(anthology):
     volume.id = "long"
 
 
+def test_volume_add_venue_updates_venue(anthology):
+    volume = anthology.get_volume("2022.naloma-1")
+    nlma = anthology.venues["nlma"]
+    humeval = anthology.venues["humeval"]
+    assert volume.full_id_tuple in nlma.item_ids
+    assert volume.full_id_tuple not in humeval.item_ids
+
+    # Adding a venue to this volume
+    volume.venue_ids += ("humeval",)
+
+    # Venues should be updated
+    assert volume.full_id_tuple in nlma.item_ids
+    assert volume.full_id_tuple in humeval.item_ids
+
+
+def test_volume_add_venue_raises(anthology):
+    volume = anthology.get_volume("2022.naloma-1")
+    anthology.venues.load()
+    with pytest.raises(ValueError):
+        # Adding a venue to this volume that doesn't exist
+        volume.venue_ids += ("doesntexist",)
+
+
+def test_volume_add_venue_creates_event(anthology):
+    volume = anthology.get_volume("2022.naloma-1")
+    events = anthology.events.by_volume(volume)
+    assert set(ev.id for ev in events) == {"acl-2022", "nlma-2022", "ws-2022"}
+    assert "humeval-2022" not in anthology.events
+
+    # Adding a venue to this volume
+    volume.venue_ids += ("humeval",)
+
+    # Events should be updated
+    events = anthology.events.by_volume(volume)
+    assert set(ev.id for ev in events) == {
+        "acl-2022",
+        "humeval-2022",
+        "nlma-2022",
+        "ws-2022",
+    }
+    assert "humeval-2022" in anthology.events
+
+
+def test_volume_remove_venue_updates_venue(anthology):
+    volume = anthology.get_volume("2022.naloma-1")
+    nlma = anthology.venues["nlma"]
+    assert volume.full_id_tuple in nlma.item_ids
+
+    # Removing a venue from this volume
+    volume.venue_ids = ("ws",)
+
+    # Venue should be updated
+    assert volume.full_id_tuple not in nlma.item_ids
+
+
+def test_volume_remove_venue_updates_event(anthology):
+    volume = anthology.get_volume("2022.naloma-1")
+
+    # Removing a venue from this volume
+    volume.venue_ids = ("ws",)
+
+    # Events should be updated
+    events = anthology.events.by_volume(volume)
+    assert set(ev.id for ev in events) == {"acl-2022", "ws-2022"}
+
+
 @pytest.mark.parametrize("xml", test_cases_volume_xml)
-def test_volume_roundtrip_xml(xml):
+def test_volume_roundtrip_xml(xml, anthology):
     # Create and populate volume
     volume_element = etree.fromstring(xml)
     meta = volume_element.find("meta")
-    volume = Volume.from_xml(None, meta)
+    parent = Collection("2026.dummy", CollectionIndexStub(anthology), Path("."))
+    volume = Volume.from_xml(parent, meta)
     for child in volume_element:
         if child.tag in ("frontmatter", "paper"):
             volume._add_paper_from_xml(child)
@@ -373,7 +440,7 @@ def test_volume_generate_paper_id(anthology):
 def test_volume_create_paper_implicit(anthology):
     volume = anthology.get_volume("2022.acl-long")
     assert not volume.collection.is_modified
-    authors = [NameSpec("Bollmann, Marcel")]
+    authors = (NameSpec("Bollmann, Marcel"),)
     paper = volume.create_paper(
         title="The awesome paper I have never written",
         authors=authors,
@@ -395,7 +462,7 @@ def test_volume_create_paper_implicit(anthology):
 def test_volume_create_paper_explicit(anthology):
     volume = anthology.get_volume("2022.acl-long")
     assert not volume.collection.is_modified
-    authors = [NameSpec("Bollmann, Marcel")]
+    authors = (NameSpec("Bollmann, Marcel"),)
     paper = volume.create_paper(
         title="The awesome paper I have never written",
         authors=authors,
@@ -416,7 +483,7 @@ def test_volume_create_paper_explicit(anthology):
 
 def test_volume_create_paper_with_duplicate_id_should_fail(anthology):
     volume = anthology.get_volume("2022.acl-long")
-    authors = [NameSpec("Bollmann, Marcel")]
+    authors = (NameSpec("Bollmann, Marcel"),)
     with pytest.raises(ValueError):
         _ = volume.create_paper(
             title="The awesome paper I have never written",
@@ -439,7 +506,7 @@ def test_volume_create_paper_with_editors(anthology):
     volume = anthology.get_volume("2022.acl-long")
 
     # For most papers, the editors are the volume's editors
-    authors = [NameSpec("Bollmann, Marcel")]
+    authors = (NameSpec("Bollmann, Marcel"),)
     paper = volume.create_paper(
         title="The awesome paper I have never written",
         authors=authors,
@@ -448,7 +515,7 @@ def test_volume_create_paper_with_editors(anthology):
     assert paper.get_editors() == volume.editors
 
     # But the schema allows paper-level editors too
-    editors = [NameSpec("Calzolari, Nicoletta")]
+    editors = (NameSpec("Calzolari, Nicoletta"),)
     paper = volume.create_paper(
         title="The awesome paper I have never written",
         authors=authors,
@@ -465,7 +532,7 @@ def test_volume_create_paper_should_update_person(anthology, pre_load):
         anthology.people.load()  # otherwise we test creation, not updating
 
     volume = anthology.get_volume("2022.acl-long")
-    authors = [NameSpec("Berg-Kirkpatrick, Taylor")]
+    authors = (NameSpec("Berg-Kirkpatrick, Taylor"),)
     paper = volume.create_paper(
         title="The awesome paper I have never written",
         authors=authors,
@@ -484,7 +551,7 @@ def test_volume_create_paper_should_update_personindex(anthology, pre_load):
         anthology.people.load()  # otherwise we test creation, not updating
 
     volume = anthology.get_volume("2022.acl-long")
-    authors = [NameSpec("Nonexistant, Guy Absolutely")]
+    authors = (NameSpec("Nonexistant, Guy Absolutely"),)
     paper = volume.create_paper(
         title="An entirely imaginary paper",
         authors=authors,
@@ -506,9 +573,8 @@ def test_volume_remove_editor(anthology):
 
     # Removing editor from volume
     volume.editors = [volume.editors[0], volume.editors[2]]
-    # Person should be updated after resetting indices
-    anthology.reset_indices()
-    person = ns.resolve()
+
+    # Person should be updated
     assert volume.full_id_tuple not in person.item_ids
 
 
@@ -521,10 +587,11 @@ def test_volume_add_editor(anthology):
     assert volume.full_id_tuple not in person.item_ids
 
     # Adding this editor to the volume
-    volume.editors += [ns]
-    # Person should be updated after resetting indices
-    anthology.reset_indices()
-    person = ns.resolve()
+    volume.editors += (ns,)
+
+    # NameSpecification should point to volume
+    assert ns.parent is volume
+    # Person should be updated
     assert volume.full_id_tuple in person.item_ids
 
 
@@ -543,8 +610,8 @@ def test_volume_get_namespec_for_should_fail(anthology):
         volume.get_namespec_for(person)
 
 
-def test_volume_type_conversion():
-    parent = Collection("L05", None, Path("."))
+def test_volume_type_conversion(anthology):
+    parent = Collection("L05", CollectionIndexStub(anthology), Path("."))
     volume = Volume(
         6,
         parent,
@@ -559,9 +626,9 @@ def test_volume_type_conversion():
     assert volume.type == VolumeType.JOURNAL
 
 
-def test_volume_type_validation():
+def test_volume_type_validation(anthology):
     volume_title = MarkupText.from_string("Lorem ipsum")
-    parent = Collection("L05", None, Path("."))
+    parent = Collection("L05", CollectionIndexStub(anthology), Path("."))
     volume = Volume(
         "6",
         parent,

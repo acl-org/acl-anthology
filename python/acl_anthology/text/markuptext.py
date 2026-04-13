@@ -21,8 +21,11 @@ from collections import defaultdict
 from copy import deepcopy
 from functools import total_ordering
 from lxml import etree
-from typing import Iterator, Optional, SupportsIndex
+from typing import Optional, SupportsIndex, TYPE_CHECKING
 from xml.sax.saxutils import escape as xml_escape
+
+if TYPE_CHECKING:
+    import rich
 
 from ..utils import (
     clean_unicode,
@@ -130,9 +133,11 @@ class MarkupText:
         return self.as_text()
 
     def __repr__(self) -> str:
-        return f"<MarkupText {self.as_html()!r}>"
+        if isinstance(self._content, str):
+            return repr(self._content)
+        return f"MarkupText({self.as_xml()!r})"
 
-    def __rich_repr__(self) -> Iterator[str]:
+    def __rich_repr__(self) -> rich.repr.Result:
         yield self.as_xml()
 
     @property
