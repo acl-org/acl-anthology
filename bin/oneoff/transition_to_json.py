@@ -1,5 +1,12 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+# /// script
+# dependencies = [
+#   "acl-anthology==1.1.0",
+#   "docopt",
+#   "lxml",
+#   "msgspec",
+#   "PyYAML",
+# ]
+# ///
 #
 # Copyright 2026 Marcel Bollmann <marcel@bollmann.me>
 #
@@ -56,12 +63,38 @@ def write_json(filename, data):
     log.info(f"Wrote {target_path}")
 
 
+def remove_sig_tags(datadir):
+    for xmlfile in datadir.glob("xml/*.xml"):
+        tree = etree.parse(xmlfile)
+        for sig in tree.findall(".//volume/meta/sig"):
+            sig.getparent().remove(sig)
+        root = tree.getroot()
+        indent(root)
+        with open(xmlfile, "wb") as f:
+            f.write(etree.tostring(root, xml_declaration=True, encoding="UTF-8"))
+
+
 def convert_people_yaml(anthology):
-    # Nothing changes about the data format here, so we just read & write the file directly
     with open(anthology.people.path, "r", encoding="utf-8") as f:
         data = yaml.load(f, Loader=Loader)
 
-    write_json("people.json", data)
+    new_data = {}
+    insert_order = (
+        "names",
+        "comment",
+        "degree",
+        "disable_name_matching",
+        "orcid",
+        "similar",
+    )
+    for pid, values in data.items():
+        new_values = {}
+        for key in insert_order:
+            if key in values:
+                new_values[key] = values[key]
+        new_data[pid] = new_values
+
+    write_json("people.json", new_data)
 
 
 def convert_venues_yaml(anthology):
@@ -107,6 +140,7 @@ def convert_sigs_yaml(anthology):
     write_json("sigs.json", sigs)
 
     # Write <sig> tags to XML files
+    num_changed = 0
     for path, updates in collections_to_update.items():
         tree = etree.parse(path)
         for volume_id, sig_id in updates:
@@ -116,8 +150,9 @@ def convert_sigs_yaml(anthology):
         indent(root)
         with open(path, "wb") as f:
             f.write(etree.tostring(root, xml_declaration=True, encoding="UTF-8"))
+        num_changed += 1
 
-    log.info(f"Updated {len(collections_to_update)} XML files")
+    log.info(f"Updated {num_changed} XML files")
 
 
 if __name__ == "__main__":
@@ -132,6 +167,8 @@ if __name__ == "__main__":
         )
     datadir = Path(args["--datadir"])
     log.info(f"Using data directory {datadir}")
+
+    remove_sig_tags(datadir)
 
     anthology = Anthology(datadir=datadir)
     anthology.load_all()
