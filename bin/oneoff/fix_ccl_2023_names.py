@@ -75,12 +75,7 @@ for line in lines:
     # Determine if we should swap this author line
     should_swap = False
 
-    if (
-        current_volume
-        and current_paper
-        and "<author" in line
-        and "<first>" in line
-    ):
+    if current_volume and current_paper and "<author" in line and "<first>" in line:
         paper_num = int(current_paper)
         language = paper_languages.get((current_volume, current_paper))
 
@@ -107,9 +102,7 @@ for line in lines:
                 work_part = line[:variant_pos]
                 rest_part = line[variant_pos:]
 
-            match = re.search(
-                r"(<first>)(.*?)(</first><last>)(.*?)(</last>)", work_part
-            )
+            match = re.search(r"(<first>)(.*?)(</first><last>)(.*?)(</last>)", work_part)
             if match:
                 old_first = match.group(2)
                 old_last = match.group(4)
