@@ -559,7 +559,7 @@ class PersonIndex(SlottedDict[Person]):
             self._by_name[name].remove(pid)
             if is_verified_person_id(pid):
                 self._slugs_to_verified_ids[name.slugify()].remove(pid)
-        except KeyError:
+        except (KeyError, ValueError):
             pass
 
     def ingest_namespec(self, name_spec: NameSpecification) -> NameSpecification:
