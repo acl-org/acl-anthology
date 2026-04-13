@@ -85,9 +85,9 @@ if __name__ == "__main__":
 
     changes = {}
     for line in open(args.changefile):
-        paperid, role, oldname, newname = line.rstrip().split('\t')
-        oldfirst, oldlast = oldname.split(' || ')
-        newfirst, newlast = newname.split(' || ')
+        paperid, role, oldname, newname = line.rstrip().split("\t")
+        oldfirst, oldlast = oldname.split(" || ")
+        newfirst, newlast = newname.split(" || ")
         changes[paperid, oldfirst, oldlast] = newfirst, newlast
 
     anth = anthology.Anthology(importdir=datadir)
@@ -138,7 +138,7 @@ if __name__ == "__main__":
                     # Update XML file
                     if newfirst != "":
                         if firstnode is None:
-                            firstnode = etree.SubElement(authornode, 'first')
+                            firstnode = etree.SubElement(authornode, "first")
                         firstnode.text = newfirst
                     else:
                         if firstnode is not None:

@@ -20,7 +20,7 @@ from lxml import etree
 from lxml.builder import E
 import re
 from slugify import slugify
-from typing import Any, Optional, cast, Self, TypeAlias, TYPE_CHECKING
+from typing import Any, Iterable, Optional, cast, Self, TypeAlias, TYPE_CHECKING
 import yaml
 
 try:
@@ -30,10 +30,11 @@ except ImportError:  # pragma: no cover
 
 from ..constants import RE_VERIFIED_PERSON_ID, NO_PERSON_ID
 from ..exceptions import AnthologyException
-from ..utils.attrs import track_namespec_modifications
+from ..utils.attrs import attach_custom_repr, track_namespec_modifications
 from ..utils.latex import latex_encode
 
 if TYPE_CHECKING:
+    import rich
     from ..anthology import Anthology
     from ..collections import Volume, Paper, Talk
     from ..people import Person
@@ -106,8 +107,19 @@ class Name:
     )
     last: str = field(validator=(v.instance_of(str), v.min_len(1)))
     script: Optional[str] = field(
-        default=None, repr=False, eq=False, validator=v.optional(v.instance_of(str))
+        default=None, eq=False, validator=v.optional(v.instance_of(str))
     )
+
+    def __repr__(self) -> str:
+        parts = [repr(self.first), repr(self.last)]
+        if self.script is not None:
+            parts.append(f"script={self.script!r}")
+        return f"{type(self).__name__}({', '.join(parts)})"
+
+    def __rich_repr__(self) -> rich.repr.Result:
+        yield self.first
+        yield self.last
+        yield "script", self.script, None
 
     def as_first_last(self) -> str:
         """
@@ -297,6 +309,12 @@ def _Name_from(value: Any) -> Name:
     return Name.from_(value)
 
 
+def _into_name_tuple(value: Iterable[ConvertableIntoName]) -> tuple[Name, ...]:
+    # Converter for NameSpecification.variants, to satisfy type checker
+    return tuple(Name.from_(v) for v in value)
+
+
+@attach_custom_repr
 @define(
     on_setattr=[setters.convert, setters.validate, track_namespec_modifications],
 )
@@ -316,7 +334,7 @@ class NameSpecification:
         (for this functionality, see [Person][acl_anthology.people.person.Person]).
     """
 
-    _name: Name = field(converter=_Name_from)
+    _name: Name = field(converter=_Name_from, metadata={"repr_omits_field_name": True})
     _id: Optional[str] = field(
         default=None,
         validator=v.optional([v.instance_of(str), v.matches_re(RE_VERIFIED_PERSON_ID)]),
@@ -326,16 +344,17 @@ class NameSpecification:
     affiliation: Optional[str] = field(
         default=None, validator=v.optional(v.instance_of(str))
     )
-    variants: list[Name] = field(
-        factory=list,
+    variants: tuple[Name, ...] = field(
+        default=(),
+        converter=_into_name_tuple,
         validator=v.deep_iterable(
             member_validator=v.instance_of(Name),
-            iterable_validator=v.instance_of(list),
+            iterable_validator=v.instance_of(tuple),
         ),
     )
 
     def __hash__(self) -> int:
-        return hash((self.name, self.id, self.affiliation, tuple(self.variants)))
+        return hash((self.name, self.id, self.affiliation, self.variants))
 
     @property
     def name(self) -> Name:
@@ -355,8 +374,8 @@ class NameSpecification:
             self._name = _Name_from(value)
             person_after = self.root.people._resolve_namespec(self, allow_creation=True)
             if person_before != person_after:
-                person_before.item_ids.remove(self.parent.full_id_tuple)
-                person_after.item_ids.append(self.parent.full_id_tuple)
+                person_before.item_ids.discard(self.parent.full_id_tuple)
+                person_after.item_ids.add(self.parent.full_id_tuple)
         else:
             self._name = _Name_from(value)
 
@@ -377,8 +396,8 @@ class NameSpecification:
             self._id = value
             person_after = self.root.people._resolve_namespec(self, allow_creation=True)
             if person_before != person_after:
-                person_before.item_ids.remove(self.parent.full_id_tuple)
-                person_after.item_ids.append(self.parent.full_id_tuple)
+                person_before.item_ids.discard(self.parent.full_id_tuple)
+                person_after.item_ids.add(self.parent.full_id_tuple)
         else:
             self._id = value
 

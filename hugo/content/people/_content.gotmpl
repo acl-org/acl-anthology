@@ -1,4 +1,4 @@
-{{ range $person_id, $person := .Site.Data.people }}
+{{ range $person_id, $person := hugo.Data.people }}
    {{ $page := dict
       "kind" "page"
       "path" $person_id

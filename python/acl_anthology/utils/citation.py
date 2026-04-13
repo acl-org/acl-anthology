@@ -25,7 +25,7 @@ from citeproc import (
 )
 from citeproc.source.json import CiteProcJSON
 from pathlib import Path
-from typing import Any, TYPE_CHECKING
+from typing import Any, Sequence, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from ..collections import Paper
@@ -92,7 +92,7 @@ def citeproc_render_html(
     return "".join(rendered_list)
 
 
-def _format_names(names: list[NameSpecification]) -> str:
+def _format_names(names: Sequence[NameSpecification]) -> str:
     match len(names):
         case 0:
             return "N.N."

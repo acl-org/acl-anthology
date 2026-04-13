@@ -29,7 +29,7 @@ def protect(node):
     def process(text):
         if text is None:
             return
-        tokens = list(re.split(r'([\s:.,?-])', text))
+        tokens = list(re.split(r"([\s:.,?-])", text))
         for token in tokens:
             if token == token.upper() and token in truelist:
                 print(token, file=sys.stderr)

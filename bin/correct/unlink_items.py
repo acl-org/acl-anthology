@@ -44,26 +44,26 @@ from acl_anthology.utils.logging import setup_rich_logging
 
 
 def unlink_items(author_id, paper_ids, keep_only_these_papers=False):
-    changes = ''
+    changes = ""
     anthology = Anthology.from_within_repo()
 
     person = anthology.get_person(author_id)
 
     numPapers = len(list(person.anthology_items()))
-    log.info(f'Author {person.id} has {numPapers} implicitly or explicitly linked')
+    log.info(f"Author {person.id} has {numPapers} implicitly or explicitly linked")
 
     paper_and_namespec = []
     for paper_id in paper_ids:
         paper = anthology.get(paper_id)
-        assert paper, f'Unknown item ID: {paper_id}'
+        assert paper, f"Unknown item ID: {paper_id}"
 
         # match the author of the paper by name slug
         matches = [namespec for namespec in paper.namespecs if namespec.id == author_id]
-        assert (
-            len(matches) == 1
-        ), f'In {paper_id}, looking for exactly 1 author with id={author_id}, found: {matches}'
+        assert len(matches) == 1, (
+            f"In {paper_id}, looking for exactly 1 author with id={author_id}, found: {matches}"
+        )
         matched_namespec = matches[0]
-        log.info(f'In {paper_id}, matched author {matched_namespec.name}')
+        log.info(f"In {paper_id}, matched author {matched_namespec.name}")
         paper_and_namespec.append((paper, matched_namespec))
 
     numUnlinked = 0
@@ -77,27 +77,25 @@ def unlink_items(author_id, paper_ids, keep_only_these_papers=False):
                 if item not in included_items:
                     for ns in item.namespecs:
                         if ns.id == person.id:
-                            log.info(f'Unlinking {item.full_id} {ns}')
-                            assert ns.orcid is None, 'ORCID expected to be None'
+                            log.info(f"Unlinking {item.full_id} {ns}")
+                            assert ns.orcid is None, "ORCID expected to be None"
                             ns.id = None
                             numUnlinked += 1
     else:  # unlink the specified papers
         for item, ns in paper_and_namespec:
-            log.info(f'Unlinking {item.full_id} {ns}')
-            assert ns.orcid is None, 'ORCID expected to be None'
+            log.info(f"Unlinking {item.full_id} {ns}")
+            assert ns.orcid is None, "ORCID expected to be None"
             ns.id = None
             numUnlinked += 1
 
     if numUnlinked > 0:
         changes = (
-            f'Unlinked {numUnlinked} explicit papers/volumes from author {author_id}'
+            f"Unlinked {numUnlinked} explicit papers/volumes from author {author_id}"
         )
         log.info(changes)
         anthology.save_all()
-        anthology.people.reset()
-        person = anthology.get_person(person.id)  # refreshed after reset
         numPapers = len(list(person.anthology_items()))
-        log.info(f'Now {numPapers} implicitly or explicitly linked')
+        log.info(f"Now {numPapers} implicitly or explicitly linked")
 
     return changes
 
@@ -112,13 +110,12 @@ if __name__ == "__main__":
     log.getLogger("urllib3.connectionpool").setLevel(log.WARNING)
 
     with warnings.catch_warnings(action="ignore", category=NameSpecResolutionWarning):
-
         msg = unlink_items(
-            author_id=args['AUTHORID'],
-            paper_ids=args['PAPERID'],
-            keep_only_these_papers=args['--keep'],
+            author_id=args["AUTHORID"],
+            paper_ids=args["PAPERID"],
+            keep_only_these_papers=args["--keep"],
         )
 
-        if args['--issue']:
-            msg += f' (closes #{args["--issue"]})'
+        if args["--issue"]:
+            msg += f" (closes #{args['--issue']})"
         print(f'Now run>>> git commit -a -m "{msg}"')

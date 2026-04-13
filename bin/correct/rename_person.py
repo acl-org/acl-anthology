@@ -43,11 +43,11 @@ from acl_anthology.utils.logging import setup_rich_logging
 
 
 def rename_person(author_id, new_id):
-    changes = f'Renaming author ID: {author_id} -> {new_id}'
+    changes = f"Renaming author ID: {author_id} -> {new_id}"
     anthology = Anthology.from_within_repo()
 
     person = anthology.get_person(author_id)
-    assert person is not None, f'Could not find person: {author_id}'
+    assert person is not None, f"Could not find person: {author_id}"
     person.change_id(new_id)
 
     anthology.save_all()
@@ -65,9 +65,8 @@ if __name__ == "__main__":
     log.getLogger("urllib3.connectionpool").setLevel(log.WARNING)
 
     with warnings.catch_warnings(action="ignore", category=NameSpecResolutionWarning):
+        msg = rename_person(author_id=args["AUTHORID"], new_id=args["NEWID"])
 
-        msg = rename_person(author_id=args['AUTHORID'], new_id=args['NEWID'])
-
-        if args['--issue']:
-            msg += f' (closes #{args["--issue"]})'
+        if args["--issue"]:
+            msg += f" (closes #{args['--issue']})"
         print(f'Now run>>> git commit -a -m "{msg}"')

@@ -19,6 +19,7 @@ from typing import TYPE_CHECKING
 
 from ..containers import SlottedDict
 from ..exceptions import AnthologyDuplicateIDError, AnthologyInvalidIDError
+from ..utils.attrs import attach_custom_repr
 from .bibkeys import BibkeyIndex
 from .collection import Collection
 
@@ -26,6 +27,7 @@ if TYPE_CHECKING:
     from ..anthology import Anthology
 
 
+@attach_custom_repr
 @define
 class CollectionIndex(SlottedDict[Collection]):
     """Index object through which all collections can be accessed.
@@ -39,8 +41,10 @@ class CollectionIndex(SlottedDict[Collection]):
     """
 
     parent: Anthology = field(repr=False, eq=False)
-    bibkeys: BibkeyIndex = field(init=False, repr=False, eq=False)
-    is_data_loaded: bool = field(init=False, repr=True, default=False)
+    bibkeys: BibkeyIndex = field(init=False, eq=False)
+    is_data_loaded: bool = field(
+        init=False, default=False, metadata={"repr_omit_if": True}
+    )
 
     def __attrs_post_init__(self) -> None:
         self.bibkeys = BibkeyIndex(self)

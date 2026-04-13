@@ -4,10 +4,19 @@
 
 ### Changed
 
-- `Person.item_ids` will now update dynamically when a new Person is created and/or relevant attributes of a Person change (i.e. `names`, `disable_name_matching`). (related to #7879)
-- `Person.item_ids` will now update dynamically when a NameSpecification's `name` or `id` attributes are modified.
+- **Breaking change:** Collection items now use tuples instead of list attributes, and many objects that can be child attributes on collections (e.g. PDFReference, PaperRevision, ...) have been made immutable.
+- `Person.parent` now points to the `PersonIndex`, not the `Anthology`.  Use `Person.root` for that, if needed.  (This brings `Person` objects in line with how these attributes work anywhere else in the library.)
+- `__repr__` and `__rich_repr__` functions of all objects have been tweaked.
+- `Person.item_ids` will now update dynamically when...
+  - ...a new Person is created and/or relevant attributes of a Person change (i.e. `names`, `disable_name_matching`). (related to #7879)
+  - ...a NameSpecification's `name` or `id` attributes are modified.
+  - ...a Paper's or Volume's `authors` or `editors` attributes are modified.
+- `Person.item_ids` and `Venue.item_ids` are now sets instead of lists.
 - Bugfix: NameSpecifications now prevent having unverified IDs set on them (#7901)
+- `Person.names` and other attributes/functions that work with names now accept `ConvertableIntoName` and correctly raise errors on incompatible types (#8040)
 - `PersonIndex.create` now deduplicates list of names (#7858)
+- `Event.colocated_ids` and `EventIndex.reverse` will now update dynamically when a Volume's `venue_ids` attribute is modified, or when a new Volume is created.
+- `Venue.item_ids` will now update dynamically when a Volume's `venue_ids` attribute is modified, or when a new Volume is created.
 
 ### Removed
 

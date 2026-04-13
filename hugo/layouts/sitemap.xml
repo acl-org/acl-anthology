@@ -9,16 +9,16 @@
     <priority>{{ .Sitemap.Priority }}</priority>{{ end }}
   </url>
   {{ end }}
-  {{ range .Site.Data.volumes }}
+  {{ range hugo.Data.volumes }}
     {{ with .pdf }}
       {{ if (hasPrefix . "https://aclanthology.org") }}
   <url><loc>{{ . }}</loc></url>
       {{ end }}
     {{ end }}
   {{ end }}
-  {{ range .Site.Data.papers }}
+  {{ range hugo.Data.papers }}
     {{ range . }}
-      {{ $volume := index $.Site.Data.volumes .parent_volume_id }}
+      {{ $volume := index hugo.Data.volumes .parent_volume_id }}
       {{ with .pdf }}
         {{ if (hasPrefix . "https://aclanthology.org") }}
         <url>
