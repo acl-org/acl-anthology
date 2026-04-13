@@ -478,23 +478,23 @@ def test_person_setting_names_should_update_index(anthology):
 # Format: (Name, NameSpecification attributes, expected ID or Exception)
 test_cases_resolve_namespec = (
     #### "No match" cases
-    (  # Name does not exist in people.yaml
+    (  # Name does not exist in people.json
         {"first": "Matthew", "last": "Stevens"},
         {},
         UNVERIFIED_PID_FORMAT.format(pid="matthew-stevens"),
     ),
-    (  # Person with explicit ID does not exist in people.yaml
+    (  # Person with explicit ID does not exist in people.json
         {"first": "Matthew", "last": "Stevens"},
         {"id": "matthew-stevens"},
         PersonDefinitionError,
     ),
     #### "One match" cases
-    (  # Name exists in people.yaml, unambiguous
+    (  # Name exists in people.json, unambiguous
         {"first": "Steven", "last": "Krauwer"},
         {},
         "steven-krauwer",
     ),
-    (  # Name exists in people.yaml, unambiguous, but not as canonical name
+    (  # Name exists in people.json, unambiguous, but not as canonical name
         {"first": "Emily T.", "last": "Prud’hommeaux"},
         {},
         "emily-prudhommeaux",
@@ -509,7 +509,7 @@ test_cases_resolve_namespec = (
         {"id": "pranav-anand"},
         "pranav-anand",
     ),
-    (  # Name exists in people.yaml with an ORCID, unambiguous
+    (  # Name exists in people.json with an ORCID, unambiguous
         {"first": "Marcel", "last": "Bollmann"},
         {},
         "marcel-bollmann",
@@ -529,7 +529,7 @@ test_cases_resolve_namespec = (
         {"id": "marcel-bollmann", "orcid": "0000-0002-7491-7669"},
         PersonDefinitionError,
     ),
-    (  # ... with explicit ID & ORCID, but name isn't listed in people.yaml
+    (  # ... with explicit ID & ORCID, but name isn't listed in people.json
         {"first": "Marc Marcel", "last": "Bollmann"},
         {"id": "marcel-bollmann", "orcid": "0000-0003-2598-8150"},
         PersonDefinitionError,
@@ -550,7 +550,7 @@ test_cases_resolve_namespec = (
         "emily-prudhommeaux",
     ),
     #### "2+ matches" cases
-    (  # Name exists in people.yaml for several people
+    (  # Name exists in people.json for several people
         {"first": "Yang", "last": "Liu"},
         {},
         UNVERIFIED_PID_FORMAT.format(pid="yang-liu"),
@@ -630,7 +630,7 @@ def test_resolve_namespec_name_scoring_for_unverified_ids(index_stub):
 
 
 test_cases_namelink = (
-    # Names that are explicitly defined in people.yaml should always have
+    # Names that are explicitly defined in people.json should always have
     # NameLink.EXPLICIT after resolve_namespec()
     (
         {"first": "Steven", "last": "Krauwer"},
@@ -807,18 +807,18 @@ test_cases_ingest_namespec = (
         {},
         None,
     ),
-    #### ORCID in the ingestion material, matches a person in our `people.yaml`
+    #### ORCID in the ingestion material, matches a person in our `people.json`
     (
         {"first": "Marcel", "last": "Bollmann"},
         {"orcid": "0000-0003-2598-8150"},
         "marcel-bollmann",
     ),
-    (  # ... even if the name wasn't recorded yet in `people.yaml`
+    (  # ... even if the name wasn't recorded yet in `people.json`
         {"first": "Marc Marcel", "last": "Bollmann"},
         {"orcid": "0000-0003-2598-8150"},
         "marcel-bollmann",
     ),
-    #### ORCID in the ingestion material, no match in our `people.yaml`
+    #### ORCID in the ingestion material, no match in our `people.json`
     (  # Person should be created
         {"first": "Matt", "last": "Post"},
         {"orcid": "0000-0002-1297-6794"},
@@ -869,7 +869,7 @@ def test_ingest_namespec_returns_namespec(index):
 
 
 ##############################################################################
-### Tests for saving people.yaml
+### Tests for saving people.json
 ##############################################################################
 
 
@@ -897,7 +897,7 @@ def test_add_fields_to_people_data(index, tmp_path):
     person.add_name(Name("Marc Marcel", "Bollmann"))
     person.degree = "Ruhr-Universität Bochum"
 
-    # Test that modifications are saved to people.yaml
+    # Test that modifications are saved to people.json
     index.save(data_out)
     assert data_out.is_file()
     with open(data_out, "r", encoding="utf-8") as f:
@@ -931,7 +931,7 @@ def test_add_person_to_people_data_via_make_explicit(index, tmp_path):
     person.make_explicit("preslav-nakov")
     person.orcid = "0000-0002-3600-1510"
 
-    # Test that modifications are saved to people.yaml
+    # Test that modifications are saved to people.json
     index.save(data_out)
     assert data_out.is_file()
     with open(data_out, "r", encoding="utf-8") as f:
@@ -962,7 +962,7 @@ def test_add_person_to_people_data_via_create_person(index, tmp_path):
         orcid="0000-0002-3600-1510",
     )
 
-    # Test that modifications are saved to people.yaml
+    # Test that modifications are saved to people.json
     index.save(data_out)
     assert data_out.is_file()
     with open(data_out, "r", encoding="utf-8") as f:

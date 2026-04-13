@@ -337,7 +337,7 @@ class PersonIndex(SlottedDict[Person]):
         """Load and parse the `people.json` file.
 
         Raises:
-            AnthologyInvalidIDError: If `people.yaml` contains a malformed person ID; or if a person is listed without any names.
+            AnthologyInvalidIDError: If `people.json` contains a malformed person ID; or if a person is listed without any names.
         """
         with open(self.path, "rb") as f:
             data = json.decode(f.read())
@@ -345,7 +345,7 @@ class PersonIndex(SlottedDict[Person]):
         for pid, entry in data.items():
             if not is_verified_person_id(pid):
                 raise AnthologyInvalidIDError(
-                    pid, f"Invalid person ID in people.yaml: {pid}"
+                    pid, f"Invalid person ID in people.json: {pid}"
                 )  # pragma: no cover
             self.add_person(
                 Person(

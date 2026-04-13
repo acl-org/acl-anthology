@@ -2,7 +2,7 @@
 
 Scripts for processing corrections to metadata for papers and authors.
 Updates are reflected in changes to volume files (in data/xml/)
-and the author database (data/yaml/people.yaml). Changes to PDFs and attachments
+and the author database (data/yaml/people.json). Changes to PDFs and attachments
 are not supported, nor are volume-level changes.
 
 ## Bulk processing scripts
