@@ -737,7 +737,7 @@ class PersonIndex(SlottedDict[Person]):
 
             attrib: dict[str, Any] = {
                 "names": [
-                    name
+                    name.to_dict()
                     for (name, link_type) in person._names
                     if link_type == NameLink.EXPLICIT
                 ],

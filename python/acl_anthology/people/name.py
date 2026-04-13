@@ -197,6 +197,7 @@ class Name:
         return cls(
             name.get("first"),
             name["last"],
+            script=name.get("script"),
         )
 
     @classmethod
@@ -274,6 +275,19 @@ class Name:
             return cls.from_string(name)
         else:  # pragma: no cover
             raise TypeError(f"Cannot instantiate Name from {type(name)}")
+
+    def to_dict(self) -> dict[str, str]:
+        """
+        Returns:
+            A dictionary representing this name.
+        """
+        if self.first is not None:
+            d = {"first": self.first, "last": self.last}
+        else:
+            d = {"last": self.last}
+        if self.script is not None:
+            d["script"] = self.script
+        return d
 
     def to_xml(self, tag: str = "variant") -> etree._Element:
         """

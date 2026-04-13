@@ -873,24 +873,24 @@ def test_ingest_namespec_returns_namespec(index):
 ##############################################################################
 
 
-def test_people_yaml_roundtrip(index, tmp_path):
+def test_people_data_roundtrip(index, tmp_path):
     index.load()
-    yaml_in = index.path
-    yaml_out = tmp_path / "people.yaml"
-    index.save(yaml_out)
-    assert yaml_out.is_file()
+    data_in = index.path
+    data_out = tmp_path / "people.json"
+    index.save(data_out)
+    assert data_out.is_file()
     with (
-        open(yaml_in, "r", encoding="utf-8") as f,
-        open(yaml_out, "r", encoding="utf-8") as g,
+        open(data_in, "r", encoding="utf-8") as f,
+        open(data_out, "r", encoding="utf-8") as g,
     ):
         expected = f.read()
         out = g.read()
     assert out == expected
 
 
-def test_add_fields_to_people_yaml(index, tmp_path):
+def test_add_fields_to_people_data(index, tmp_path):
     index.load()
-    yaml_out = tmp_path / "people.add_fields.yaml"
+    data_out = tmp_path / "people.add_fields.json"
 
     # Modifications
     person = index["marcel-bollmann"]
@@ -898,26 +898,33 @@ def test_add_fields_to_people_yaml(index, tmp_path):
     person.degree = "Ruhr-Universität Bochum"
 
     # Test that modifications are saved to people.yaml
-    index.save(yaml_out)
-    assert yaml_out.is_file()
-    with open(yaml_out, "r", encoding="utf-8") as f:
+    index.save(data_out)
+    assert data_out.is_file()
+    with open(data_out, "r", encoding="utf-8") as f:
         out = f.read()
 
     assert (
-        """
-marcel-bollmann:
-  degree: Ruhr-Universität Bochum
-  names:
-  - {first: Marcel, last: Bollmann}
-  - {first: Marc Marcel, last: Bollmann}
-  orcid: 0000-0003-2598-8150"""
+        """  "marcel-bollmann": {
+    "names": [
+      {
+        "first": "Marcel",
+        "last": "Bollmann"
+      },
+      {
+        "first": "Marc Marcel",
+        "last": "Bollmann"
+      }
+    ],
+    "degree": "Ruhr-Universität Bochum",
+    "orcid": "0000-0003-2598-8150"
+  }"""
         in out
     )
 
 
-def test_add_person_to_people_yaml_via_make_explicit(index, tmp_path):
+def test_add_person_to_people_data_via_make_explicit(index, tmp_path):
     index.load()
-    yaml_out = tmp_path / "people.make_explicit.yaml"
+    data_out = tmp_path / "people.make_explicit.json"
 
     # Modifications
     person = index[UNVERIFIED_PID_FORMAT.format(pid="preslav-nakov")]
@@ -925,24 +932,28 @@ def test_add_person_to_people_yaml_via_make_explicit(index, tmp_path):
     person.orcid = "0000-0002-3600-1510"
 
     # Test that modifications are saved to people.yaml
-    index.save(yaml_out)
-    assert yaml_out.is_file()
-    with open(yaml_out, "r", encoding="utf-8") as f:
+    index.save(data_out)
+    assert data_out.is_file()
+    with open(data_out, "r", encoding="utf-8") as f:
         out = f.read()
 
     assert (
-        """
-preslav-nakov:
-  names:
-  - {first: Preslav, last: Nakov}
-  orcid: 0000-0002-3600-1510"""
+        """  "preslav-nakov": {
+    "names": [
+      {
+        "first": "Preslav",
+        "last": "Nakov"
+      }
+    ],
+    "orcid": "0000-0002-3600-1510"
+  }"""
         in out
     )
 
 
-def test_add_person_to_people_yaml_via_create_person(index, tmp_path):
+def test_add_person_to_people_data_via_create_person(index, tmp_path):
     index.load()
-    yaml_out = tmp_path / "people.create_person.yaml"
+    data_out = tmp_path / "people.create_person.yaml"
 
     # Modifications
     index.create(
@@ -952,16 +963,20 @@ def test_add_person_to_people_yaml_via_create_person(index, tmp_path):
     )
 
     # Test that modifications are saved to people.yaml
-    index.save(yaml_out)
-    assert yaml_out.is_file()
-    with open(yaml_out, "r", encoding="utf-8") as f:
+    index.save(data_out)
+    assert data_out.is_file()
+    with open(data_out, "r", encoding="utf-8") as f:
         out = f.read()
 
     assert (
-        """
-preslav-nakov:
-  names:
-  - {first: Preslav, last: Nakov}
-  orcid: 0000-0002-3600-1510"""
+        """  "preslav-nakov": {
+    "names": [
+      {
+        "first": "Preslav",
+        "last": "Nakov"
+      }
+    ],
+    "orcid": "0000-0002-3600-1510"
+  }"""
         in out
     )
