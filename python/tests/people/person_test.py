@@ -28,17 +28,28 @@ def test_person_names(anthology_stub):
     assert not person.has_name(n3)
 
 
-def test_person_canonical_name(anthology_stub):
+@pytest.mark.parametrize("n2", (Name("Y.", "Liu"), "Liu, Y."))
+def test_person_set_canonical_name1(anthology_stub, n2):
     n1 = Name("Yang", "Liu")
-    n2 = Name("Y.", "Liu")
-    person = Person("yang-liu", anthology_stub.people, [n1, n2])
+    person = Person("yang-liu", anthology_stub.people)
+    person.names = [n1, n2]
     assert person.canonical_name == n1
     person.canonical_name = n2
-    assert person.canonical_name == n2
+    assert person.canonical_name == Name("Y.", "Liu")
     assert len(person.names) == 2
 
 
-def test_person_add_name(anthology_stub):
+def test_person_set_canonical_name2(anthology_stub):
+    person = Person("rene-muller", anthology_stub.people, [Name("Rene", "Muller")])
+    assert len(person.names) == 1
+    name = Name("René", "Müller")
+    person.canonical_name = name
+    assert len(person.names) == 2
+    assert person.canonical_name == name
+
+
+@pytest.mark.parametrize("n3", (Name("Yang X.", "Liu"), "Liu, Yang X."))
+def test_person_add_name(anthology_stub, n3):
     n1 = Name("Yang", "Liu")
     n2 = Name("Y.", "Liu")
     person = Person("yang-liu", anthology_stub.people, [n1])
@@ -46,16 +57,17 @@ def test_person_add_name(anthology_stub):
     person.canonical_name = n2
     assert person.canonical_name == n2
     assert len(person.names) == 2
-    n3 = Name("Yang X.", "Liu")
     person.add_name(n3)
     assert person.canonical_name == n2
     assert len(person.names) == 3
+    assert person.has_name(Name("Yang X.", "Liu"))
 
 
-def test_person_remove_name(anthology_stub):
+@pytest.mark.parametrize("n2", (Name("Y.", "Liu"), "Liu, Y."))
+def test_person_remove_name(anthology_stub, n2):
     n1 = Name("Yang", "Liu")
-    n2 = Name("Y.", "Liu")
-    person = Person("yang-liu", anthology_stub.people, [n1, n2])
+    person = Person("yang-liu", anthology_stub.people)
+    person.names = [n1, n2]
     assert person.has_name(n2)
     person.remove_name(n2)
     assert not person.has_name(n2)
@@ -99,15 +111,6 @@ def test_person_no_name(anthology_stub):
     name = Name("Yang", "Liu")
     person.canonical_name = name
     assert len(person.names) == 1
-    assert person.canonical_name == name
-
-
-def test_person_set_canonical_name(anthology_stub):
-    person = Person("rene-muller", anthology_stub.people, [Name("Rene", "Muller")])
-    assert len(person.names) == 1
-    name = Name("René", "Müller")
-    person.canonical_name = name
-    assert len(person.names) == 2
     assert person.canonical_name == name
 
 
