@@ -300,11 +300,15 @@ def main(args):
         anthology_id = normalize_id(issue_metadata.get("anthology_id"))
 
         pdf_url = issue_metadata.get("pdf_url")
+        if args.path:
+            pdf_url = args.path
 
         print(
             f"-> Issue #{args.issue} description from {repo_name}:\n"
             f"   Anthology ID: {anthology_id or 'not provided'}\n"
-            f"   PDF URL: {pdf_url or 'not provided'}\n"
+            f"   PDF URL: {issue_metadata.get('pdf_url') or 'not provided'}\n"
+            f"   PDF override (--path): {args.path or 'not provided'}\n"
+            f"   PDF used: {pdf_url or 'not provided'}\n"
         )
 
         description = issue_metadata.get("description") or ""
