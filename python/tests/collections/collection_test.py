@@ -207,7 +207,7 @@ def test_collection_create_volume_should_update_person(anthology, pre_load):
         anthology.people.load()  # otherwise we test creation, not updating
 
     collection = anthology.collections.get("2022.acl")
-    editors = [NameSpecification("Rada Mihalcea")]
+    editors = (NameSpecification("Rada Mihalcea"),)
     volume = collection.create_volume(
         "keynotes",
         title=MarkupText.from_string("Keynotes from ACL 2022"),
@@ -226,7 +226,7 @@ def test_collection_create_volume_should_update_personindex(anthology, pre_load)
         anthology.people.load()  # otherwise we test creation, not updating
 
     collection = anthology.collections.get("2022.acl")
-    editors = [NameSpecification("Nonexistant, Guy Absolutely")]
+    editors = (NameSpecification("Nonexistant, Guy Absolutely"),)
     volume = collection.create_volume(
         "keynotes",
         title=MarkupText.from_string("Keynotes from ACL 2022"),
@@ -243,7 +243,7 @@ def test_collection_create_volume_should_update_personindex(anthology, pre_load)
     "pre_load, reset",
     (
         (True, True),
-        pytest.param(True, False, marks=pytest.mark.xfail(reason="not implemented")),
+        (True, False),
         (False, False),
         (False, True),
     ),
@@ -264,9 +264,10 @@ def test_collection_create_volume_should_create_event(anthology, pre_load, reset
 
     # New implicit event should exist in the event index
     assert "acl-2000" in anthology.events
-    assert (volume.full_id_tuple, EventLink.INFERRED) in anthology.events[
-        "acl-2000"
-    ].colocated_ids
+    assert (
+        anthology.events["acl-2000"].colocated_ids.get(volume.full_id_tuple)
+        == EventLink.INFERRED
+    )
     assert volume.full_id_tuple in anthology.events.reverse
     assert anthology.events.reverse[volume.full_id_tuple] == {"acl-2000"}
 
@@ -275,7 +276,7 @@ def test_collection_create_volume_should_create_event(anthology, pre_load, reset
     "pre_load, reset",
     (
         (True, True),
-        pytest.param(True, False, marks=pytest.mark.xfail(reason="not implemented")),
+        (True, False),
         (False, False),
         (False, True),
     ),
@@ -297,9 +298,10 @@ def test_collection_create_volume_should_update_event(anthology, pre_load, reset
 
     # New volume should be added to existing event
     assert "acl-2022" in anthology.events
-    assert (volume.full_id_tuple, EventLink.INFERRED) in anthology.events[
-        "acl-2022"
-    ].colocated_ids
+    assert (
+        anthology.events["acl-2022"].colocated_ids.get(volume.full_id_tuple)
+        == EventLink.INFERRED
+    )
     assert volume.full_id_tuple in anthology.events.reverse
     assert anthology.events.reverse[volume.full_id_tuple] == {"acl-2022"}
 
@@ -308,7 +310,7 @@ def test_collection_create_volume_should_update_event(anthology, pre_load, reset
     "pre_load, reset",
     (
         (True, True),
-        pytest.param(True, False, marks=pytest.mark.xfail(reason="not implemented")),
+        (True, False),
         (False, False),
         (False, True),
     ),
@@ -370,9 +372,9 @@ def test_collection_create_event_should_update_eventindex(pre_load, anthology):
 
     if pre_load:
         # Volume should automatically have been added
-        assert event.colocated_ids == [
-            (collection.get("1").full_id_tuple, EventLink.INFERRED)
-        ]
+        assert event.colocated_ids == {
+            collection.get("1").full_id_tuple: EventLink.INFERRED
+        }
     else:
         # If event index wasn't loaded, it's not
-        assert event.colocated_ids == []
+        assert event.colocated_ids == {}

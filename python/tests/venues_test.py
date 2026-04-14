@@ -32,7 +32,7 @@ def test_venue_defaults():
     assert not venue.is_toplevel
     assert venue.oldstyle_letter is None
     assert venue.url is None
-    assert venue.item_ids == list()
+    assert venue.item_ids == set()
 
 
 def test_venue_set_itemids():
@@ -102,12 +102,25 @@ def test_venueindex_cl(anthology):
     assert venue.is_acl
     assert venue.is_toplevel
     assert venue.oldstyle_letter == "J"
-    assert venue.item_ids == [
+    assert venue.item_ids == {
         ("J89", "1", None),
         ("J89", "2", None),
         ("J89", "3", None),
         ("J89", "4", None),
-    ]
+    }
+
+
+def test_venue_volumes(anthology):
+    index = anthology.venues
+    venue = index.get("cl")
+    volumes = list(venue.volumes())
+    assert len(volumes) == 4
+    assert set(volume.full_id_tuple for volume in volumes) == {
+        ("J89", "1", None),
+        ("J89", "2", None),
+        ("J89", "3", None),
+        ("J89", "4", None),
+    }
 
 
 def test_venueindex_iter(anthology):

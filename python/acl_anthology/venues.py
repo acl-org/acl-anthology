@@ -24,7 +24,7 @@ try:
 except ImportError:  # pragma: no cover
     from yaml import Loader, Dumper  # type: ignore
 
-from .utils.attrs import auto_validate_types
+from .utils.attrs import attach_custom_repr, auto_validate_types, repr_item_ids
 from .utils.ids import AnthologyIDTuple, build_id_from_tuple
 from .constants import RE_VENUE_ID
 from .containers import SlottedDict
@@ -35,6 +35,7 @@ if TYPE_CHECKING:
     from .collections import Volume
 
 
+@attach_custom_repr
 @define(field_transformer=auto_validate_types)
 class Venue:
     """A publication venue.
@@ -47,22 +48,24 @@ class Venue:
         path: The path of the YAML file representing this venue.
         is_acl: True if this is a venue organized or sponsored by the ACL.
         is_toplevel: True if this venue appears on the ACL Anthology's front page.
-        item_ids: A list of volume IDs associated with this venue.
+        item_ids: An unordered set of volume IDs associated with this venue.
         oldstyle_letter: First letter of old-style Anthology IDs that is associated with this venue (e.g., "P" for ACL proceedings).
         url: A website URL for the venue.
     """
 
-    id: str = field(converter=str, validator=v.matches_re(RE_VENUE_ID))
+    id: str = field(
+        converter=str,
+        validator=v.matches_re(RE_VENUE_ID),
+        metadata={"repr_omits_field_name": True},
+    )
     parent: Anthology = field(repr=False, eq=False)
     acronym: str = field(converter=str)
     name: str = field(converter=str)
     path: Path = field(converter=Path, eq=False)
     is_acl: bool = field(default=False, converter=bool)
     is_toplevel: bool = field(default=False, converter=bool)
-    item_ids: list[AnthologyIDTuple] = field(
-        factory=list,
-        repr=lambda x: f"<list of {len(x)} AnthologyIDTuple objects>",
-        eq=False,
+    item_ids: set[AnthologyIDTuple] = field(
+        factory=set, converter=set, repr=repr_item_ids, eq=False
     )
     oldstyle_letter: Optional[str] = field(
         default=None, validator=v.optional(v.matches_re("^[A-Z]$"))
@@ -119,6 +122,7 @@ class Venue:
             yield volume
 
 
+@attach_custom_repr
 @define
 class VenueIndex(SlottedDict[Venue]):
     """Index object through which venues and their associated volumes can be accessed.
@@ -133,7 +137,9 @@ class VenueIndex(SlottedDict[Venue]):
 
     parent: Anthology = field(repr=False, eq=False)
     no_item_ids: bool = field(repr=False, default=False)
-    is_data_loaded: bool = field(init=False, repr=True, default=False)
+    is_data_loaded: bool = field(
+        init=False, default=False, metadata={"repr_omit_if": True}
+    )
 
     def load(self) -> None:
         """Load and parse the `venues/*.yaml` files.
@@ -196,11 +202,12 @@ class VenueIndex(SlottedDict[Venue]):
             return
         for volume in self.parent.volumes():
             for venue_id in volume.venue_ids:
-                if venue_id not in self.data:
+                try:
+                    self.data[venue_id].item_ids.add(volume.full_id_tuple)
+                except KeyError:  # pragma: no cover
                     raise ValueError(
                         f"Volume {volume.full_id} lists associated venue {venue_id}, which doesn't exist"
                     )
-                self.data[venue_id].item_ids.append(volume.full_id_tuple)
 
     def save(self) -> None:
         """Saves all venue metadata to `venues/*.yaml` files."""

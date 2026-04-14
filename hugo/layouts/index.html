@@ -9,7 +9,7 @@
 {{ define "main" }}
 <div class="row justify-content-center">
   {{ $.Scratch.Set "paper_count" 0 }}
-  {{ range $.Site.Data.papers }}
+  {{ range hugo.Data.papers }}
   {{ $.Scratch.Add "paper_count" (len .) }}
   {{ end }}
 
@@ -58,7 +58,7 @@
         </tr>
       </thead>
       <tbody class="border-bottom">
-        {{ range $venue := sort $.Site.Data.venues "slug" "asc" }}
+        {{ range $venue := sort hugo.Data.venues "slug" "asc" }}
         {{ if (and $venue.is_toplevel $venue.is_acl) }}
         <tr class="text-center border-start border-end">
           {{ $venue_page := $.Site.GetPage (printf "/venues/%s" $venue.slug) }}
@@ -68,8 +68,8 @@
           {{ $event := printf "%s-%s" $venue.slug $year }}
           {{/* this is the actual default case */}}
           <td class="{{ cond (in $border_years $year) "border-start" "" }}">
-            {{- with index $.Site.Data.events $event -}}
-              {{- with index $.Site.Data.events $event "volumes" -}}
+            {{- with index hugo.Data.events $event -}}
+              {{- with index hugo.Data.events $event "volumes" -}}
             <a href="{{ relref $ (printf "/events/%s" $event) }}">{{ slicestr $year 2 4 }}</a>
               {{- end -}}
             {{- end -}}
@@ -115,7 +115,7 @@
         </tr>
       </thead>
       <tbody class="border-bottom">
-        {{ range $venue := sort $.Site.Data.venues "slug" "asc" }}
+        {{ range $venue := sort hugo.Data.venues "slug" "asc" }}
         {{ if (and $venue.is_toplevel (not $venue.is_acl)) }}
         <tr class="text-center border-start border-end">
           {{ $venue_page := $.Site.GetPage (printf "/venues/%s" $venue.slug) }}
@@ -124,8 +124,8 @@
           {{ $year := string . }}
           {{ $event := printf "%s-%s" $venue.slug $year }}
           <td class="{{ cond (in $border_years $year) "border-start" "" }}">
-            {{- with index $.Site.Data.events $event -}}
-              {{- with index $.Site.Data.events $event "volumes" -}}
+            {{- with index hugo.Data.events $event -}}
+              {{- with index hugo.Data.events $event "volumes" -}}
             <a href="{{ relref $ (printf "/events/%s" $event) }}">{{ slicestr $year 2 4 }}</a>
               {{- end -}}
             {{- end -}}

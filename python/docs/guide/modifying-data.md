@@ -1,10 +1,5 @@
 # Modifying Data
 
-!!! danger
-
-    This is currently still **work in progress.**
-
-
 ## Rules of thumb
 
 **The aim of this library is to also make it easy to modify or create data in
@@ -19,15 +14,16 @@ are some rules of thumb when making modifications to the data:
     - This includes collections, volumes, papers, events.
     - It also includes persons where `Person.is_explicit == True`, as those have
       an explicit representation in `people.yaml`.
-3. **Saving data is always non-destructive**.  In XML files, it will also avoid
+3. **Saving data is always non-destructive.**  In XML files, it will also avoid
    introducing unnecessary changes (e.g. no needless reordering of tags).
-4. If you need to refer to indices such as
-   [PersonIndex][acl_anthology.people.index.PersonIndex],
-   [EventIndex][acl_anthology.collections.eventindex.EventIndex], or
-   [VenueIndex][acl_anthology.venues.VenueIndex] after making modifications, you
-   should call
-   [`Anthology.reset_indices()`][acl_anthology.anthology.Anthology.reset_indices]
-   first.
+4. Affected indices and their child objects **should automatically update** on relevant changes.
+    - This includes the `item_ids` attribute of affected `Person` or `Venue` instances, or the `colocated_ids` of `Event` instances.
+    - It also includes the `BibkeyIndex` and the reverse-mapping of volume IDs to events in `EventIndex`.
+
+!!! warning "Caution: Dynamic updating of linked items is experimental"
+
+    There may be edge cases where it currently doesn't work yet as expected.  If you encounter such issues, please report them as a bug.
+
 
 ## Modifying publications
 
@@ -42,9 +38,9 @@ just fetch the paper and set its `doi` attribute:
 
 !!! tip "Rule of thumb"
 
-    As a general rule, all classes perform **automatic input conversion and validation**.  This means that setting attributes should either "do the right thing" or raise a `TypeError`.  The main exception currently is modifying attributes in-place, e.g. appending to lists, as no input validation is performed then.
+    As a general rule, all classes perform **automatic input conversion and validation**.  This means that setting attributes should either "do the right thing" or raise a `TypeError`.
 
-### Simple attributes
+### Input validation and conversion
 
 Attributes generally perform **input validation**.  For example, since a paper's
 PDF attribute needs to be an instance of
@@ -52,10 +48,10 @@ PDF attribute needs to be an instance of
 won't work and will raise a `TypeError`:
 
 ```pycon
->>> paper.pdf = Path("2025.test-1.pdf")  # TypeError
+>>> paper.pdf = Path("2025.test-1.pdf")    # will raise TypeError
 ```
 
-However, some attributes also provide **input converters** that perform simpler
+However, many attributes also provide **input converters** that perform simpler
 conversions automatically.  For example, paper titles and abstracts are stored
 as [`MarkupText`][acl_anthology.text.markuptext.MarkupText] objects, but setting
 such an attribute to a string will automatically convert it:
@@ -66,43 +62,63 @@ such an attribute to a string will automatically convert it:
 MarkupText('Improving the ACL Anthology')
 ```
 
-The same applies to a [`Volume`][acl_anthology.collections.volume.Volume]'s year
-of publication or date of ingestion, which both are stored as strings, but the
-following will also work:
+Here are a few more _examples_ of input converters, showing what you can set and
+how it will be converted & stored internally:
 
 ```pycon
+>>> paper.awards = ["Best paper award"]
+>>> paper.awards                           # stored as a tuple
+('Best paper award',)
+>>> person = anthology.get_person("marcel-bollmann")
+>>> person.orcid = "https://orcid.org/0000-0003-2598-8150"
+>>> person.orcid                           # stored without URL prefix
+'0000-0003-2598-8150'
 >>> volume = anthology.get("2022.acl-long")
 >>> volume.year = 2022
->>> volume.year
+>>> volume.year                            # stored as string
 '2022'
 >>> from datetime import date
 >>> volume.ingest_date = date.today()
->>> volume.ingest_date
+>>> volume.ingest_date                     # stored as string
 '2025-01-08'
 ```
 
-### List attributes
+This design philosophy means that there’s normally no need to check values in
+your code before you set them, as you can just check for errors upon setting.
 
-List attributes can be modified the same way as other attributes, however, there
-is **no input validation or conversion** when modifying mutable attributes such
-as lists, and no automatic tracking of modifications (see [Saving
-changes](#saving-changes)) – only when _setting_ them.  Therefore, it is
-recommended to _set_ list attributes every time you modify them.  For example,
-to add an author to a paper, you can create a new
-[`NameSpecification`][acl_anthology.people.name.NameSpecification] and append it
-to the author list via `+=` (rather than `.append`), which will create a _new_
-list and _set_ it on the attribute:
+### Immutable attributes
+
+Since input conversion and validation can only happen upon _setting_ an
+attribute, but not generally when _modifying_ a (mutable) attribute, collection
+objects generally use **immutable attributes**.
+
+A common example is the author list on papers, which is exposed as a **tuple**
+(rather than a list).  To modify the author list, you need to create a new tuple
+and set it on the paper.  For example, to add an author to a paper, you can
+create a new [`NameSpecification`][acl_anthology.people.name.NameSpecification],
+wrap it in a tuple, and "append" it to the author list via `+=`:
 
 ```pycon
 >>> spec = NameSpecification("Bollmann, Marcel")
->>> paper.authors += [spec]
+>>> paper.authors += (spec,)
 ```
 
-To change an existing author's name, you just need to remember that **names are
-immutable**, so you need to modify the `NameSpecification` instead:
+Anthology objects that can be set on collection items are generally immutable,
+too.  For example, to correct a checksum on a
+[`PDFReference`][acl_anthology.files.PDFReference], it won't work to update the
+reference itself – you need to create a new one and re-set the attribute:
 
 ```pycon
->>> paper.authors[0].name.first = "Marc Marcel"             # will NOT work
+>>> paper.pdf.checksum = "f9f4f558"                         # will raise
+>>> paper.pdf = PDFReference.from_file(...)                 # works
+```
+
+The main exception to this rule is modifying name specifications.  To update an
+existing author's name, you need to remember that **names are immutable**, but
+**name specifications can be modified**:
+
+```pycon
+>>> paper.authors[0].name.first = "Marc Marcel"             # will raise
 >>> paper.authors[0].name = Name("Bollmann, Marc Marcel")   # works
 ```
 
@@ -116,21 +132,11 @@ If the auto-generated bibkey is identical to the current one, the bibkey will
 not change.
 
 #### Dependent indices
-- If an item's `bibkey` changes, the [BibkeyIndex][acl_anthology.collections.bibkeys.BibkeyIndex] **will** update automatically.
-- If an item's author or editor list changes, the [PersonIndex][acl_anthology.people.index.PersonIndex] and any [Person][acl_anthology.people.person.Person] objects created from it **will not update** automatically.
-- If an item's `venue_ids` list changes, the [VenueIndex][acl_anthology.venues.VenueIndex] and any [Venue][acl_anthology.venues.Venue] objects created from it **will not update** automatically.
-- If an item's `venue_ids` list changes, any implicit [Event][acl_anthology.collections.event.Event] created by it and its corresponding reverse-indexing in the [EventIndex][acl_anthology.collections.eventindex.EventIndex] **will not update** automatically.
+Changing an item's attribute might affect various indices.  As a rule of thumb, all indices – as well as objects connected to these indices – will **update automatically**.  For example:
 
-If, after making changes, you need to access an index that is not updated automatically, just do:
-
-```python
-anthology.reset_indices()
-```
-
-This will _not_ update any Event, Person, or Venue objects you may have already
-obtained, but any objects returned by an index _after_ the reset will reflect
-the new data.
-
+- Changing an item's `bibkey` changes will update the [BibkeyIndex][acl_anthology.collections.bibkeys.BibkeyIndex].
+- Changing an item's author or editor list will update the [PersonIndex][acl_anthology.people.index.PersonIndex] and the `item_ids` of any [Person][acl_anthology.people.person.Person] objects affected by the change.
+- Changing an item's `venue_ids` will update the [VenueIndex][acl_anthology.venues.VenueIndex] and the `item_ids` of any [Venue][acl_anthology.venues.Venue] objects affected by the change.  It will also update any [Event][acl_anthology.collections.event.Event] objects that are implicitly inferred from the venue assignment, as well as the reverse-indexing in the [EventIndex][acl_anthology.collections.eventindex.EventIndex] for such events.
 
 ## Modifying people
 
@@ -138,7 +144,7 @@ A person can be _explicit_ (has an entry in `people.yaml`) or _inferred_ (was in
 
 1. Only an _explicit_ person's attributes can be meaningfully modified.
 
-2. Changing which person a paper/volume is assigned to should be done by modifying the name specification on the paper/volume, not by changing anything on the Person object.
+2. Changing which person a paper/volume is assigned to should be done by modifying the name specification on the paper/volume, not by changing anything on the Person object.  In other words, do **not** modify `Person.item_ids`.
 
 ??? info "A note on terminology"
 
@@ -177,31 +183,20 @@ have an ORCID and other metadata) can be done in two ways:
 
 ## Ingesting new proceedings
 
-Proceedings can be ingested almost entirely via functionality from this library;
-in particular, no data files (XML or YAML) need to be saved manually.  _(The
-only functionality that is currently not part of this library is the fixed-caser
-for paper titles, which is described below.)_
+Proceedings can be ingested almost entirely via functionality from this library; in particular, no data files (XML or YAML) need to be saved manually.  _(The only functionality that is currently not part of this library is the fixed-caser for paper titles, which is described below.)_
 
 ### New collections, volumes, and papers
 
-Creating new objects from `acl_anthology.collections` should be done with
-`create_` functions from their respective parent objects.
+Creating new objects from `acl_anthology.collections` should be done with `create_` functions from their respective parent objects.
 
-All attributes that can be set on these objects (Volumes, Papers, etc.) can also
-be supplied as keyword parameters to the `create_` functions.  Some required
-attributes don't _need_ to be supplied here:
+All attributes that can be set on these objects (Volumes, Papers, etc.) can also be supplied as keyword parameters to the `create_` functions.  Some required attributes don't _need_ to be supplied here:
 
-- A Paper's `id` will be set to the next-highest numeric ID that doesn't already
-  exist in the volume, starting at `"1"`.
+- A Paper's `id` will be set to the next-highest numeric ID that doesn't already exist in the volume, starting at `"1"`.
 - A Paper's `bibkey` will be automatically generated if not explicitly set.
-- A Volume's `year` attribute will be derived from the collection ID (e.g.,
-  `"2049"` in a collection with ID `"2049.acl"`).
-- A Volume's `type` will default to
-  [PROCEEDINGS][acl_anthology.collections.types.VolumeType].
+- A Volume's `year` attribute will be derived from the collection ID (e.g., `"2049"` in a collection with ID `"2049.acl"`).
+- A Volume's `type` will default to [PROCEEDINGS][acl_anthology.collections.types.VolumeType].
 
-However, it is **strongly recommended to supply the author/editor list** when
-calling a `create_` function, as this will resolve person IDs and create correct
-bibkeys automatically.
+However, it is **strongly recommended to supply the author/editor list** when calling a `create_` function, as this will resolve person IDs and create correct bibkeys automatically.
 
 !!! example
 
@@ -276,8 +271,7 @@ Paper titles should also have our **fixed-casing algorithm** applied to protect 
 
 ### Specifying authors
 
-Authors need to be specified by creating [name
-specifications](accessing-authors.md#name-specifications), for example:
+Authors need to be specified by creating [name specifications](accessing-authors.md#name-specifications), for example:
 
 ```python
 NameSpecification(Name("Marcel", "Bollmann"), orcid="0000-0003-2598-8150")
@@ -352,9 +346,7 @@ XML and YAML files to the Anthology's data directory, with the following
 caveats:
 
 - **Collections will track if they have been modified** to prevent writing XML
-  files unnecessarily.  As with modifying attributes in general, this requires
-  that you have _set_ an attribute; modifying attributes in-place, e.g. lists,
-  will not be detected.
+  files unnecessarily.
 
   - Saving a collection manually can be done by calling
     [`Collection.save()`][acl_anthology.collections.collection.Collection.save].
