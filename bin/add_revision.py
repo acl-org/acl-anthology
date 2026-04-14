@@ -62,10 +62,8 @@ from github import Github, GithubException
 
 from acl_anthology import Anthology
 from acl_anthology.collections.paper import PaperErratum, PaperRevision
-from acl_anthology.files import PDFReference
+from acl_anthology.files import FileReference, PDFReference
 from acl_anthology.utils.ids import parse_id
-
-from anthology.utils import retrieve_url
 
 DEFAULT_GITHUB_REPO = os.environ.get("ANTHOLOGY_GITHUB_REPO", "acl-org/acl-anthology")
 GITHUB_TOKEN_ENV_VARS = ("GITHUB_TOKEN", "GH_TOKEN")
@@ -214,10 +212,10 @@ def add_revision(
     if needs_initial_revision:
         v1_name = f"{paper.full_id}{change_letter}1"
         v1_path = pdf_dir / f"{v1_name}.pdf"
-        retrieve_url(paper.pdf.url, v1_path)
+        paper.pdf.download(v1_path)
         validate_file_type(v1_path)
-        paper.revisions.append(
-            PaperRevision(id="1", note=None, pdf=PDFReference.from_file(v1_path))
+        paper.revisions += (
+            PaperRevision(id="1", note=None, pdf=PDFReference.from_file(v1_path)),
         )
 
     next_id = (
@@ -230,23 +228,23 @@ def add_revision(
 
     if change_type == "revision":
         note = explanation.strip() if explanation else None
-        paper.revisions.append(
+        paper.revisions += (
             PaperRevision(
                 id=str(next_id),
                 note=note,
                 pdf=reference,
                 date=date,
-            )
+            ),
         )
         copy_file(pdf_path, canonical_pdf)
         paper.pdf = PDFReference.from_file(canonical_pdf)
     else:
-        paper.errata.append(
+        paper.errata += (
             PaperErratum(
                 id=str(next_id),
                 pdf=reference,
                 date=date,
-            )
+            ),
         )
 
     paper.collection.save()
@@ -342,7 +340,7 @@ def main(args):
     if pdf_url.lower().startswith("http"):
         _, temp_path_str = tempfile.mkstemp(suffix=".pdf")
         temp_path = pdf_path = Path(temp_path_str)
-        retrieve_url(pdf_url, pdf_path)
+        FileReference(name=pdf_url).download(pdf_path)
     else:
         pdf_path = Path(pdf_url)
         if not pdf_path.is_file():
