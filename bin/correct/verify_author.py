@@ -77,13 +77,13 @@ Options:
 import warnings
 import logging as log
 from docopt import docopt
-from typing import Optional
+from typing import Optional, Tuple
 
 
 from acl_anthology import Anthology
-from acl_anthology.collections import Paper
+from acl_anthology.collections import Paper, Volume
 from acl_anthology.exceptions import NameSpecResolutionWarning
-from acl_anthology.people import Name, Person
+from acl_anthology.people import Name, NameSpecification, Person
 from acl_anthology.utils.ids import is_valid_orcid, is_verified_person_id
 from acl_anthology.utils.logging import setup_rich_logging
 
@@ -273,8 +273,8 @@ def verify_by_paper(orcid, paper_ids, degree=None, suffix=None, canonical_name: 
     anthology = Anthology.from_within_repo()
 
     assert len(paper_ids) > 0
-    name_slug_queries = set()
-    paper_and_namespec = []
+    name_slug_queries: set[str] = set()
+    paper_and_namespec: list[Tuple[Paper|Volume,NameSpecification]] = []
     for paper_and_name_slug in paper_ids:
         if not paper_and_namespec:
             assert paper_and_name_slug.count(":") == 1, (
@@ -293,6 +293,7 @@ def verify_by_paper(orcid, paper_ids, degree=None, suffix=None, canonical_name: 
             )
             name_slug_queries.add(name_slug)
         paper = anthology.get(paper_id)
+        assert isinstance(paper, (Paper, Volume)),paper
 
         # match the author of the paper by name slug
         author_list = paper.authors if isinstance(paper, Paper) else paper.editors
@@ -360,7 +361,7 @@ def verify_by_paper(orcid, paper_ids, degree=None, suffix=None, canonical_name: 
         )
         log.info(f"Creating new verified author: {new_aid}")
         person = anthology.people.create(
-            new_aid, [paper_and_namespec[0][1].name] + paper_and_namespec[0][1].variants
+            new_aid, [paper_and_namespec[0][1].name] + list(paper_and_namespec[0][1].variants)
         )
 
         for _, ns in paper_and_namespec[1:]:
