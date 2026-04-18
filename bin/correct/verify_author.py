@@ -191,6 +191,8 @@ def verify_by_author_id(
         log.info(f"Using {canonical_name} as canonical")
         target_person.canonical_name = canonical_name
         # TODO: also update the ID?
+        if not changes:
+            changes = "Set canonical name for"
 
     # Set ORCID
     if target_person.orcid is None:
