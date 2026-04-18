@@ -4,11 +4,12 @@ Usage:
 
 Arguments:
     AUTHORID            ID of the author whose name is to be modified on papers.
-    PAPERID             Paper or volume to include under the verified author.
     OLDFIRST            Only update the name entry if it matches this first name.
     OLDLAST             Only update the name entry if it matches this last name.
     FIRST               First name to apply to retrieved papers/volumes.
     LAST                Last name to apply to retrieved papers/volumes.
+    PAPERID             Paper or volume belonging to the author to specifically
+                        include or exclude (may list multiple IDs).
 
 Options:
     -h --help           Show this help message.
