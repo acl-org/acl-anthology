@@ -69,9 +69,10 @@ def batch_edit_names(
             skipped.append(item_id)
             continue
         targets.append(item_id)
-        person.add_name(name)
         ns.name = name
     log.info(f"Assigned name on {len(targets)} items: {targets}")
+    if len(targets) > 0:
+        person.add_name(name)
     log.info(f"Skipped {len(skipped)} items based on flags: {skipped}")
     if specific_paper_ids:
         assert len(specific_paper_ids) == len(skipped), specific_paper_ids
