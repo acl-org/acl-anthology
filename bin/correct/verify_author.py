@@ -89,7 +89,12 @@ from acl_anthology.utils.logging import setup_rich_logging
 
 
 def verify_by_author_id(
-    orcid, author_ids, degree=None, suffix=None, canonical_name: Optional[Name]=None, except_paper_ids=None
+    orcid,
+    author_ids,
+    degree=None,
+    suffix=None,
+    canonical_name: Optional[Name] = None,
+    except_paper_ids=None,
 ):
     """
     Merges the author pages corresponding to the provided author IDs
@@ -249,7 +254,14 @@ def verify_by_author_id(
     return changes + f" author {target_person.id}"
 
 
-def verify_by_paper(orcid, paper_ids, degree=None, suffix=None, canonical_name: Optional[Name]=None, only_these_papers=False):
+def verify_by_paper(
+    orcid,
+    paper_ids,
+    degree=None,
+    suffix=None,
+    canonical_name: Optional[Name] = None,
+    only_these_papers=False,
+):
     """
     Links a verified author to specific papers not already explicitly associated with them,
     creating a new verified author in the process if necessary.
@@ -274,7 +286,7 @@ def verify_by_paper(orcid, paper_ids, degree=None, suffix=None, canonical_name: 
 
     assert len(paper_ids) > 0
     name_slug_queries: set[str] = set()
-    paper_and_namespec: list[Tuple[Paper|Volume,NameSpecification]] = []
+    paper_and_namespec: list[Tuple[Paper | Volume, NameSpecification]] = []
     for paper_and_name_slug in paper_ids:
         if not paper_and_namespec:
             assert paper_and_name_slug.count(":") == 1, (
@@ -293,7 +305,7 @@ def verify_by_paper(orcid, paper_ids, degree=None, suffix=None, canonical_name: 
             )
             name_slug_queries.add(name_slug)
         paper = anthology.get(paper_id)
-        assert isinstance(paper, (Paper, Volume)),paper
+        assert isinstance(paper, (Paper, Volume)), paper
 
         # match the author of the paper by name slug
         author_list = paper.authors if isinstance(paper, Paper) else paper.editors
@@ -361,7 +373,8 @@ def verify_by_paper(orcid, paper_ids, degree=None, suffix=None, canonical_name: 
         )
         log.info(f"Creating new verified author: {new_aid}")
         person = anthology.people.create(
-            new_aid, [paper_and_namespec[0][1].name] + list(paper_and_namespec[0][1].variants)
+            new_aid,
+            [paper_and_namespec[0][1].name] + list(paper_and_namespec[0][1].variants),
         )
 
         for _, ns in paper_and_namespec[1:]:
@@ -395,7 +408,9 @@ def verify_by_paper(orcid, paper_ids, degree=None, suffix=None, canonical_name: 
         if person.canonical_name == canonical_name:
             log.info(f"Canonical name is already {person.canonical_name}")
         else:
-            log.info(f"Changing canonical name: {person.canonical_name} -> {canonical_name}")
+            log.info(
+                f"Changing canonical name: {person.canonical_name} -> {canonical_name}"
+            )
             person.canonical_name = canonical_name
 
     # Now add papers under the person (or in other words, specify person ID in namespecs for listed papers)
@@ -447,12 +462,14 @@ def verify_by_paper(orcid, paper_ids, degree=None, suffix=None, canonical_name: 
 
     return changes + f" author {person.id}"
 
+
 def parse_canonical(canonical_name: Optional[str]):
     if canonical_name:
-        if ' | ' in canonical_name:
+        if " | " in canonical_name:
             return Name(*canonical_name.split(" | ", 1))
         else:
             return Name.from_string(canonical_name)
+
 
 if __name__ == "__main__":
     args = docopt(__doc__)
