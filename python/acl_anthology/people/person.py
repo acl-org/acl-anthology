@@ -337,6 +337,8 @@ class Person:
 
         This will move all attributes, papers, and volumes currently associated with this person over to the `other` person.  The other person's ID will be explicitly set on all items currently associated with this person.  If an attribute (e.g. ORCID iD, comment) is already set on the other person, it will _not_ be changed.
 
+        This Person object should no longer be used after calling this function.
+
         Parameters:
             other: A person to merge this person into.  Must be explicit.
 
@@ -360,6 +362,10 @@ class Person:
             other.add_name(name, inferred=False)
         for namespec in namespecs:
             namespec.id = other.id
+
+        if self.is_explicit:
+            # This person should no longer exist
+            self.parent.remove_person(self)
 
     def set_id_on_items(
         self, exclude: Optional[list[AnthologyID | Paper | Volume]] = None
