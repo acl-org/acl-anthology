@@ -85,6 +85,44 @@ def test_add_person(index_stub):
         index.add_person(Person("yang-liu", index))
 
 
+def test_remove_person(index):
+    # Preconditions
+    pid = "xu-huang-nanjing"
+    name = Name("Xu", "Huang")
+    person = index[pid]
+    assert index._by_orcid.get("0009-0006-0385-4054") == pid
+    assert pid in index._by_name[name]
+    assert pid in index._slugs_to_verified_ids["xu-huang"]
+    assert len(person.item_ids) == 0
+
+    # Remove person
+    index.remove_person(person)
+
+    assert pid not in index
+    assert index._by_orcid.get("0009-0006-0385-4054") is None
+    assert pid not in index._by_name[name]
+    assert pid not in index._slugs_to_verified_ids["xu-huang"]
+
+    with pytest.raises(ValueError):
+        # Can't remove again...
+        index.remove_person(person)
+
+
+def test_remove_person_should_raise(index):
+    assert "yang-liu/unverified" in index
+    person1 = index["yang-liu/unverified"]
+    # Can't remove unverified
+    with pytest.raises(ValueError):
+        index.remove_person(person1)
+
+    assert "yang-liu-icsi" in index
+    person2 = index["yang-liu-icsi"]
+    assert len(person2.item_ids) > 0
+    # Can't remove if papers still attached to Person
+    with pytest.raises(ValueError):
+        index.remove_person(person2)
+
+
 def test_similar_names_defined_in_people_index(index_stub):
     index = index_stub
     index.reset()
