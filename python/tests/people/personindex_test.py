@@ -775,9 +775,33 @@ def test_namespec_change_name_affects_name_resolution(anthology):
     namespec.name = Name("Nathan Middlename", "Noiry")
     person2 = namespec.resolve()
     assert person2 is not person1
+    assert person2.id == UNVERIFIED_PID_FORMAT.format(pid="nathan-middlename-noiry")
     assert item_id not in person1.item_ids
     assert item_id in person2.item_ids
-    assert person2.id == UNVERIFIED_PID_FORMAT.format(pid="nathan-middlename-noiry")
+
+
+def test_namespec_change_name_affects_volume_and_frontmatter(anthology):
+    index = anthology.people
+    # Precondition: Find a volume that resolves to a given (unverified) person
+    item_id = ("2022.acl", "long", None)
+    frontmatter_id = ("2022.acl", "long", "0")
+    namespec = anthology.get_volume(item_id).editors[-1]
+    person1 = index.get(UNVERIFIED_PID_FORMAT.format(pid="aline-villavicencio"))
+    assert namespec.resolve() is person1
+    assert item_id in person1.item_ids
+    assert frontmatter_id in person1.item_ids
+
+    # Changing the name should move the volume AND its frontmatter
+    namespec.name = Name("Aline Middlename", "Villavicencio")
+    person2 = namespec.resolve()
+    assert person2 is not person1
+    assert person2.id == UNVERIFIED_PID_FORMAT.format(
+        pid="aline-middlename-villavicencio"
+    )
+    assert item_id not in person1.item_ids
+    assert frontmatter_id not in person1.item_ids
+    assert item_id in person2.item_ids
+    assert frontmatter_id in person2.item_ids
 
 
 def test_namespec_change_id_affects_name_resolution(anthology):
@@ -796,6 +820,28 @@ def test_namespec_change_id_affects_name_resolution(anthology):
     assert namespec.resolve() is person2
     assert item_id not in person1.item_ids
     assert item_id in person2.item_ids
+
+
+def test_namespec_change_id_affects_volume_and_frontmatter(anthology):
+    index = anthology.people
+    # Precondition: Find a volume that resolves to a given (unverified) person
+    item_id = ("2022.acl", "long", None)
+    frontmatter_id = ("2022.acl", "long", "0")
+    namespec = anthology.get_volume(item_id).editors[-1]
+    person1 = index.get(UNVERIFIED_PID_FORMAT.format(pid="aline-villavicencio"))
+    assert namespec.resolve() is person1
+    assert item_id in person1.item_ids
+    assert frontmatter_id in person1.item_ids
+
+    # Changing the name should move the volume AND its frontmatter
+    namespec.id = "aline-villavicencio-test"
+    person2 = namespec.resolve()
+    assert person2 is not person1
+    assert person2.id == "aline-villavicencio-test"
+    assert item_id not in person1.item_ids
+    assert frontmatter_id not in person1.item_ids
+    assert item_id in person2.item_ids
+    assert frontmatter_id in person2.item_ids
 
 
 def test_namespec_remove_id_affects_name_resolution(anthology):
