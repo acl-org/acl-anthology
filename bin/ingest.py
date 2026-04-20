@@ -26,7 +26,7 @@ the relevant entries in the anthology data model, and links them together.
 """
 
 import argparse
-import iso639
+import iso639  # iso-639 pypi package
 import logging as log
 import pybtex.database.input.bibtex
 import yaml
@@ -41,7 +41,7 @@ from slugify import slugify
 from typing import Any, Dict, Iterator, Optional, List
 
 from acl_anthology import Anthology
-from acl_anthology.collections.types import PaperType, Volume, VolumeType
+from acl_anthology.collections.types import PaperType, VolumeType
 from acl_anthology.files import (
     AttachmentReference,
     PDFReference,
