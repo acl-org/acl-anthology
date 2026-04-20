@@ -283,6 +283,7 @@ class Paper:
         issue: The journal issue for this paper.  Should normally be set at the volume level; you probably want to use `get_issue()` instead.
         journal: The journal name for this paper.   Should normally be set at the volume level; you probably want to use `get_journal_title()` instead.
         language: The language this paper is (mainly) written in.  When given, this should be a ISO 639-2 code (e.g. "eng"), though occasionally IETF is used (e.g. "pt-BR").
+        month: The month of publication, if it differs from the parent volume's month.  Use `resolved_month` to get the effective month (falling back to the volume's month).
         note: A note attached to this paper.  Used very sparingly.
         pages: Page numbers of this paper within its volume.
         pdf: A reference to the paper's PDF.
@@ -364,6 +365,7 @@ class Paper:
     issue: Optional[str] = field(default=None)
     journal: Optional[str] = field(default=None)
     language: Optional[str] = field(default=None)
+    month: Optional[str] = field(default=None)
     note: Optional[str] = field(default=None)
     pages: Optional[str] = field(default=None)
     pdf: Optional[PDFReference] = field(default=None)
@@ -478,9 +480,9 @@ class Paper:
         return self.parent.address
 
     @property
-    def month(self) -> Optional[str]:
-        """The month of publication. Inherited from the parent Volume."""
-        return self.parent.month
+    def resolved_month(self) -> Optional[str]:
+        """The month of publication. Uses the paper's own month if set, otherwise inherited from the parent Volume."""
+        return self.month if self.month is not None else self.parent.month
 
     @property
     def publisher(self) -> Optional[str]:
@@ -635,7 +637,7 @@ class Paper:
                     bibtex_fields.append(("booktitle", self.parent.title))
         bibtex_fields.extend(
             [
-                ("month", self.month),
+                ("month", self.resolved_month),
                 ("year", self.year),
                 ("address", self.address),
                 ("publisher", self.publisher),
@@ -753,6 +755,7 @@ class Paper:
                 "issue",
                 "journal",
                 "language",
+                "month",
                 "note",
                 "pages",
             ):
@@ -831,7 +834,7 @@ class Paper:
             paper.append(erratum.to_xml())
         for revision in self.revisions:
             paper.append(revision.to_xml())
-        for tag in ("doi", "issue", "journal", "language", "note"):
+        for tag in ("doi", "issue", "journal", "language", "month", "note"):
             if (value := getattr(self, tag)) is not None:
                 paper.append(getattr(E, tag)(value))
         for type_, attachment in self.attachments:

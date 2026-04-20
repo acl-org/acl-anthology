@@ -303,6 +303,8 @@ def export_papers_and_volumes(anthology, builddir, dryrun):
                         log.error(f"Paper {paper.full_id}: {e}")
                         continue
                     data.update(volume_data)
+                    if paper.month is not None:
+                        data["month"] = paper.month
                     collection_papers[paper.full_id] = data
                     if "bibtex" in data:
                         volume_bibtex[volume.full_id].append(
