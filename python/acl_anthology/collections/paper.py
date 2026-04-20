@@ -285,6 +285,7 @@ class Paper:
         language: The language this paper is (mainly) written in.  When given, this should be a ISO 639-2 code (e.g. "eng"), though occasionally IETF is used (e.g. "pt-BR").
         month: The month of publication, if it differs from the parent volume's month.  Use `resolved_month` to get the effective month (falling back to the volume's month).
         note: A note attached to this paper.  Used very sparingly.
+        year: The year of publication, if it differs from the parent volume's year.  Use `resolved_year` to get the effective year (falling back to the volume's year).
         pages: Page numbers of this paper within its volume.
         pdf: A reference to the paper's PDF.
         type: The paper's type, currently used to mark frontmatter and backmatter.
@@ -370,6 +371,11 @@ class Paper:
     pages: Optional[str] = field(default=None)
     pdf: Optional[PDFReference] = field(default=None)
     type: PaperType = field(default=PaperType.PAPER, converter=PaperType)
+    year: Optional[str] = field(
+        default=None,
+        converter=converters.optional(int_to_str),
+        validator=v.optional(v.matches_re(r"^[0-9]{4}$")),
+    )
 
     def __attrs_post_init__(self) -> None:
         for namespec in it.chain(self.authors, self.editors):
@@ -457,7 +463,7 @@ class Paper:
             "publisher": self.publisher,
             "publisher-place": self.address,
             # TODO: month currently not included
-            "issued": {"date-parts": [[self.year]]},
+            "issued": {"date-parts": [[self.resolved_year]]},
             "URL": self.web_url,
             "DOI": self.doi,
             "ISBN": self.parent.isbn,
@@ -485,6 +491,11 @@ class Paper:
         return self.month if self.month is not None else self.parent.month
 
     @property
+    def resolved_year(self) -> str:
+        """The year of publication. Uses the paper's own year if set, otherwise inherited from the parent Volume."""
+        return self.year if self.year is not None else self.parent.year
+
+    @property
     def publisher(self) -> Optional[str]:
         """The paper's publisher. Inherited from the parent Volume."""
         return self.parent.publisher
@@ -507,11 +518,6 @@ class Paper:
     def venue_ids(self) -> tuple[str, ...]:
         """Sequence of venue IDs associated with this paper. Inherited from the parent Volume."""
         return self.parent.venue_ids
-
-    @property
-    def year(self) -> str:
-        """The year of publication. Inherited from the parent Volume."""
-        return self.parent.year
 
     @property
     def web_url(self) -> str:
@@ -638,7 +644,7 @@ class Paper:
         bibtex_fields.extend(
             [
                 ("month", self.resolved_month),
-                ("year", self.year),
+                ("year", self.resolved_year),
                 ("address", self.address),
                 ("publisher", self.publisher),
                 ("note", self.note),
@@ -758,6 +764,7 @@ class Paper:
                 "month",
                 "note",
                 "pages",
+                "year",
             ):
                 kwargs[tag] = element.text
             elif tag in ("author", "editor"):
@@ -834,7 +841,7 @@ class Paper:
             paper.append(erratum.to_xml())
         for revision in self.revisions:
             paper.append(revision.to_xml())
-        for tag in ("doi", "issue", "journal", "language", "month", "note"):
+        for tag in ("doi", "issue", "journal", "language", "month", "note", "year"):
             if (value := getattr(self, tag)) is not None:
                 paper.append(getattr(E, tag)(value))
         for type_, attachment in self.attachments:

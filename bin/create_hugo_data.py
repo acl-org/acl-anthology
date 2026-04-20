@@ -305,6 +305,8 @@ def export_papers_and_volumes(anthology, builddir, dryrun):
                     data.update(volume_data)
                     if paper.month is not None:
                         data["month"] = paper.month
+                    if paper.year is not None:
+                        data["year"] = paper.year
                     collection_papers[paper.full_id] = data
                     if "bibtex" in data:
                         volume_bibtex[volume.full_id].append(
