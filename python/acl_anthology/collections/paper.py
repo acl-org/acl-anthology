@@ -283,9 +283,9 @@ class Paper:
         issue: The journal issue for this paper.  Should normally be set at the volume level; you probably want to use `get_issue()` instead.
         journal: The journal name for this paper.   Should normally be set at the volume level; you probably want to use `get_journal_title()` instead.
         language: The language this paper is (mainly) written in.  When given, this should be a ISO 639-2 code (e.g. "eng"), though occasionally IETF is used (e.g. "pt-BR").
-        month: The month of publication, if it differs from the parent volume's month.  Use `resolved_month` to get the effective month (falling back to the volume's month).
+        month: The month of publication. If not set on the paper, this is inherited from the parent volume.
         note: A note attached to this paper.  Used very sparingly.
-        year: The year of publication, if it differs from the parent volume's year.  Use `resolved_year` to get the effective year (falling back to the volume's year).
+        year: The year of publication. If not set on the paper, this is inherited from the parent volume.
         pages: Page numbers of this paper within its volume.
         pdf: A reference to the paper's PDF.
         type: The paper's type, currently used to mark frontmatter and backmatter.
@@ -366,13 +366,14 @@ class Paper:
     issue: Optional[str] = field(default=None)
     journal: Optional[str] = field(default=None)
     language: Optional[str] = field(default=None)
-    month: Optional[str] = field(default=None)
+    _month: Optional[str] = field(default=None, alias="month")
     note: Optional[str] = field(default=None)
     pages: Optional[str] = field(default=None)
     pdf: Optional[PDFReference] = field(default=None)
     type: PaperType = field(default=PaperType.PAPER, converter=PaperType)
-    year: Optional[str] = field(
+    _year: Optional[str] = field(
         default=None,
+        alias="year",
         converter=converters.optional(int_to_str),
         validator=v.optional(v.matches_re(r"^[0-9]{4}$")),
     )
@@ -463,7 +464,7 @@ class Paper:
             "publisher": self.publisher,
             "publisher-place": self.address,
             # TODO: month currently not included
-            "issued": {"date-parts": [[self.resolved_year]]},
+            "issued": {"date-parts": [[self.year]]},
             "URL": self.web_url,
             "DOI": self.doi,
             "ISBN": self.parent.isbn,
@@ -486,14 +487,22 @@ class Paper:
         return self.parent.address
 
     @property
-    def resolved_month(self) -> Optional[str]:
+    def month(self) -> Optional[str]:
         """The month of publication. Uses the paper's own month if set, otherwise inherited from the parent Volume."""
-        return self.month if self.month is not None else self.parent.month
+        return self._month if self._month is not None else self.parent.month
+
+    @month.setter
+    def month(self, value: Optional[str]) -> None:
+        self._month = value
 
     @property
-    def resolved_year(self) -> str:
+    def year(self) -> str:
         """The year of publication. Uses the paper's own year if set, otherwise inherited from the parent Volume."""
-        return self.year if self.year is not None else self.parent.year
+        return self._year if self._year is not None else self.parent.year
+
+    @year.setter
+    def year(self, value: Optional[str]) -> None:
+        self._year = value
 
     @property
     def publisher(self) -> Optional[str]:
@@ -643,8 +652,8 @@ class Paper:
                     bibtex_fields.append(("booktitle", self.parent.title))
         bibtex_fields.extend(
             [
-                ("month", self.resolved_month),
-                ("year", self.resolved_year),
+                ("month", self.month),
+                ("year", self.year),
                 ("address", self.address),
                 ("publisher", self.publisher),
                 ("note", self.note),
@@ -766,7 +775,10 @@ class Paper:
                 "pages",
                 "year",
             ):
-                kwargs[tag] = element.text
+                if tag in ("month", "year"):
+                    kwargs[f"_{tag}"] = element.text
+                else:
+                    kwargs[tag] = element.text
             elif tag in ("author", "editor"):
                 kwargs[f"{tag}s"].append(NameSpecification.from_xml(element))
             elif tag in ("abstract", "title"):
@@ -842,7 +854,11 @@ class Paper:
         for revision in self.revisions:
             paper.append(revision.to_xml())
         for tag in ("doi", "issue", "journal", "language", "month", "note", "year"):
-            if (value := getattr(self, tag)) is not None:
+            if tag in ("month", "year"):
+                value = getattr(self, f"_{tag}")
+            else:
+                value = getattr(self, tag)
+            if value is not None:
                 paper.append(getattr(E, tag)(value))
         for type_, attachment in self.attachments:
             if type_ == "mrf":  # rarely used <mrf> tag
