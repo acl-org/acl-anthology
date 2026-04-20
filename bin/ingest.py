@@ -523,6 +523,8 @@ def iter_aclpub_papers(metadata: Dict[str, Any]) -> Iterator[Dict[str, Any]]:
             "doi": parsed.get("doi"),
             "pages": parsed.get("pages"),
             "language": parsed.get("language"),
+            "month": parsed.get("month"),
+            "year": parsed.get("year"),
             "pdf_src": pdf_src_path,
             "pdf_dest": pdf_dest_path,
             "anthology_id": anthology_id,
@@ -622,6 +624,8 @@ def iter_aclpub2_papers(metadata: Dict[str, Any]) -> Iterator[Dict[str, Any]]:
             "doi": paper.get("doi"),
             "pages": paper.get("pages"),
             "language": paper.get("language"),
+            "month": paper.get("month"),
+            "year": paper.get("year"),
             "pdf_src": pdf_src_path,
             "pdf_dest": pdf_dest_path,
             "anthology_id": anthology_id,
@@ -705,6 +709,12 @@ def ingest(
             value = paper.get(key)
             if value:
                 kwargs[key] = value
+        paper_month = paper.get("month")
+        if paper_month and paper_month != metadata["month"]:
+            kwargs["month"] = paper_month
+        paper_year = paper.get("year")
+        if paper_year and str(paper_year) != str(metadata["year"]):
+            kwargs["year"] = str(paper_year)
         language = paper.get("language")
         if language:
             try:
