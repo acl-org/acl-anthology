@@ -42,6 +42,7 @@ from typing import Any, Dict, Iterator, Optional, List
 
 from acl_anthology import Anthology
 from acl_anthology.collections.types import PaperType, VolumeType
+from acl_anthology.collections.volume import Volume
 from acl_anthology.files import (
     AttachmentReference,
     PDFReference,
