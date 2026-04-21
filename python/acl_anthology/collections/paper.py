@@ -366,14 +366,13 @@ class Paper:
     issue: Optional[str] = field(default=None)
     journal: Optional[str] = field(default=None)
     language: Optional[str] = field(default=None)
-    _month: Optional[str] = field(default=None, alias="month")
+    _month: Optional[str] = field(default=None)
     note: Optional[str] = field(default=None)
     pages: Optional[str] = field(default=None)
     pdf: Optional[PDFReference] = field(default=None)
     type: PaperType = field(default=PaperType.PAPER, converter=PaperType)
     _year: Optional[str] = field(
         default=None,
-        alias="year",
         converter=converters.optional(int_to_str),
         validator=v.optional(v.matches_re(r"^[0-9]{4}$")),
     )
@@ -493,7 +492,7 @@ class Paper:
 
     @month.setter
     def month(self, value: Optional[str]) -> None:
-        self._month = value  # pragma: no cover
+        self._month = value
 
     @property
     def year(self) -> str:
@@ -502,7 +501,7 @@ class Paper:
 
     @year.setter
     def year(self, value: Optional[str]) -> None:
-        self._year = value  # pragma: no cover
+        self._year = value
 
     @property
     def publisher(self) -> Optional[str]:
@@ -775,7 +774,7 @@ class Paper:
                 "pages",
                 "year",
             ):
-                kwargs[tag if tag not in ("month", "year") else f"_{tag}"] = element.text
+                kwargs[tag] = element.text
             elif tag in ("author", "editor"):
                 kwargs[f"{tag}s"].append(NameSpecification.from_xml(element))
             elif tag in ("abstract", "title"):
@@ -851,7 +850,7 @@ class Paper:
         for revision in self.revisions:
             paper.append(revision.to_xml())
         for tag in ("doi", "issue", "journal", "language", "month", "note", "year"):
-            if tag in ("month", "year"):
+            if hasattr(self, f"_{tag}"):
                 value = getattr(self, f"_{tag}")
             else:
                 value = getattr(self, tag)
