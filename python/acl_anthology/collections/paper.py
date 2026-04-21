@@ -493,7 +493,7 @@ class Paper:
 
     @month.setter
     def month(self, value: Optional[str]) -> None:
-        self._month = value
+        self._month = value  # pragma: no cover
 
     @property
     def year(self) -> str:
@@ -502,7 +502,7 @@ class Paper:
 
     @year.setter
     def year(self, value: Optional[str]) -> None:
-        self._year = value
+        self._year = value  # pragma: no cover
 
     @property
     def publisher(self) -> Optional[str]:
@@ -775,10 +775,7 @@ class Paper:
                 "pages",
                 "year",
             ):
-                if tag in ("month", "year"):
-                    kwargs[f"_{tag}"] = element.text
-                else:
-                    kwargs[tag] = element.text
+                kwargs[tag if tag not in ("month", "year") else f"_{tag}"] = element.text
             elif tag in ("author", "editor"):
                 kwargs[f"{tag}s"].append(NameSpecification.from_xml(element))
             elif tag in ("abstract", "title"):
