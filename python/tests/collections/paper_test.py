@@ -276,6 +276,8 @@ test_cases_xml = (
   <title>Briefly Noted</title>
   <url hash="166bd6c1">J89-1009</url>
   <issue>42</issue>
+  <month>June</month>
+  <year>1989</year>
   <bibkey>nn-1989-briefly</bibkey>
 </paper>
 """,
@@ -417,6 +419,21 @@ test_cases_paper_to_bibtex = (
     title = "Computational Linguistics, Volume 15, Number 4, {D}ecember 1989",
     year = "1989",
     url = "https://aclanthology.org/J89-4000/"
+}""",
+    ),
+    # Month defined at the paper level
+    (
+        "J89-3004",
+        False,
+        """@article{bien-1989-book,
+    title = "Book Reviews: Natural Language Understanding and Logic Programming, {II}: Proceedings of the Second International Workshop",
+    author = "Bien, Janusz S.",
+    journal = "Computational Linguistics",
+    volume = "15",
+    number = "3",
+    month = aug,
+    year = "1988",
+    url = "https://aclanthology.org/J89-3004/"
 }""",
     ),
 )
