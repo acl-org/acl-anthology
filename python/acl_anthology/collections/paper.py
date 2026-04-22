@@ -244,7 +244,7 @@ def _update_person_itemids(
             person.item_ids.discard(paper.full_id_tuple)
         # Update item_ids for people who are newly on this item
         for namespec in set(value) - set(old_value):
-            person = namespec.resolve()
+            person = person_index._resolve_namespec(namespec, allow_creation=True)
             person.item_ids.add(paper.full_id_tuple)
     return value
 

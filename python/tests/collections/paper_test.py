@@ -16,7 +16,7 @@ import copy
 import pytest
 from acl_anthology.collections import CollectionIndex
 from acl_anthology.collections.types import PaperType, VolumeType
-from acl_anthology.exceptions import AnthologyXMLError
+from acl_anthology.exceptions import AnthologyXMLError, NameSpecResolutionError
 from acl_anthology.files import AttachmentReference, PDFReference
 from acl_anthology.people import NameSpecification, UNVERIFIED_PID_FORMAT
 from acl_anthology.text import MarkupText
@@ -233,6 +233,25 @@ def test_paper_add_author(anthology):
     # NameSpecification should point to paper
     assert ns.parent is paper
     # Person should be updated
+    assert paper.full_id_tuple in person.item_ids
+
+
+def test_paper_add_new_unverified_author(anthology):
+    paper = anthology.get_paper("2022.acl-demo.2")
+    # This person does not exist at all in the data yet
+    ns = NameSpecification("Truman, Harry S.")
+    assert ns not in paper.authors
+    assert ns.parent is None
+    with pytest.raises(NameSpecResolutionError):
+        anthology.people.get_by_namespec(ns)
+
+    # Adding this author to the paper
+    paper.authors += (ns,)
+
+    # NameSpecification should point to paper
+    assert ns.parent is paper
+    # Person should exist now
+    person = anthology.people.get_by_namespec(ns)
     assert paper.full_id_tuple in person.item_ids
 
 
