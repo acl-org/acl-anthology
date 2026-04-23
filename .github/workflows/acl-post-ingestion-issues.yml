@@ -1,0 +1,70 @@
+name: Create post-ingestion issues for ACL events
+
+on:
+  pull_request_target:
+    types: [closed]
+
+jobs:
+  create-post-ingestion-issues:
+    if: >-
+      github.event.pull_request.merged == true
+      && startsWith(github.event.pull_request.title, 'ingest')
+      && contains(github.event.pull_request.body, '- [x] This is an ACL event')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create post-ingestion tracking issues
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const prTitle = context.payload.pull_request.title;
+            const prNumber = context.payload.pull_request.number;
+            const prUrl = context.payload.pull_request.html_url;
+            const commonHeader = `Merged PR: ${prUrl}`;
+
+            const issues = [
+              {
+                title: `Add DOIs for ${prTitle}`,
+                body: [
+                  commonHeader,
+                  '',
+                  '## DOI tasks',
+                  '',
+                  '- [ ] Generate the DOIs for all volumes (`generate_crossref_doi_metadata.py`)',
+                  '- [ ] Upload to [Crossref](https://doi.crossref.org/servlet/home)',
+                  '- [ ] Add the DOIs to the XML (`add_dois.py`)',
+                ].join('\n'),
+                labels: ['DOI'],
+              },
+              {
+                title: `Copy videos for ${prTitle}`,
+                body: [
+                  commonHeader,
+                  '',
+                  '## Video tasks',
+                  '',
+                  '- [ ] Copy over the videos from',
+                ].join('\n'),
+                labels: ['videos'],
+              },
+              {
+                title: `Add awards for ${prTitle}`,
+                body: [
+                  commonHeader,
+                  '',
+                  '## Award tasks',
+                  '',
+                  '- [ ] Add awards to the XML',
+                ].join('\n'),
+                labels: ['awards'],
+              },
+            ];
+
+            for (const issue of issues) {
+              await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title: issue.title,
+                body: issue.body,
+                labels: issue.labels,
+              });
+            }
