@@ -154,6 +154,8 @@ def test_paper_change_id(anthology):
         "doi",
         "ingest_date",
         "type",
+        "month",
+        "year",
     ),
 )
 def test_paper_setattr_sets_collection_is_modified(anthology, attr_name):
@@ -168,6 +170,23 @@ def test_paper_setattr_on_namespec_sets_collection_is_modified(anthology):
     assert not paper.collection.is_modified
     paper.authors[0].affiliation = "University of Someplace"
     assert paper.collection.is_modified
+
+
+@pytest.mark.parametrize(
+    "attr_name",
+    (
+        "month",
+        "year",
+    ),
+)
+def test_paper_attr_inherits_from_parent_volume(anthology, attr_name):
+    paper = anthology.get_paper("2022.acl-long.48")
+    value = getattr(paper.parent, attr_name)
+    assert hasattr(paper, f"_{attr_name}")
+    assert getattr(paper, f"_{attr_name}") is None
+    assert getattr(paper, attr_name) == value
+    setattr(paper, attr_name, value)
+    assert getattr(paper, f"_{attr_name}") == value
 
 
 test_cases_language = (
