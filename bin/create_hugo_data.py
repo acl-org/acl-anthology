@@ -127,6 +127,7 @@ def paper_to_dict(paper):
         "url": paper.web_url if (not paper.pdf or paper.pdf.is_local) else paper.pdf.url,
         "citation": paper.to_markdown_citation(),
         "citation_acl": paper.to_citation(),
+        "year": paper.year,
     }
     editors = [person_to_dict(ns.resolve().id, ns) for ns in paper.get_editors()]
     if BIBLIMIT is None or int(paper.id) <= BIBLIMIT:
@@ -142,7 +143,7 @@ def paper_to_dict(paper):
             data["editor"] = editors
     if "author" in data:
         data["author_string"] = ", ".join(author["full"] for author in data["author"])
-    for key in ("doi", "issue", "journal", "note"):
+    for key in ("doi", "issue", "journal", "note", "month"):
         # TODO: Keys 'issue' and 'journal' are currently unused on Hugo templates
         if (value := getattr(paper, key)) is not None:
             data[key] = value
@@ -297,14 +298,12 @@ def export_papers_and_volumes(anthology, builddir, dryrun):
 
                 # Now build the data for every paper
                 for paper in volume.papers():
+                    data = volume_data.copy()
                     try:
-                        data = paper_to_dict(paper)
+                        data.update(paper_to_dict(paper))
                     except ValueError as e:
                         log.error(f"Paper {paper.full_id}: {e}")
                         continue
-                    data.update(volume_data)
-                    data["month"] = paper.month
-                    data["year"] = paper.year
                     collection_papers[paper.full_id] = data
                     if "bibtex" in data:
                         volume_bibtex[volume.full_id].append(
