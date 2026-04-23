@@ -488,7 +488,9 @@ class Paper:
     @property
     def month(self) -> Optional[str]:
         """The month of publication. Uses the paper's own month if set, otherwise inherited from the parent Volume."""
-        return self._month if self._month is not None else self.parent.month
+        if self._month is None:
+            return self.parent.month
+        return self._month
 
     @month.setter
     def month(self, value: Optional[str]) -> None:
@@ -497,7 +499,9 @@ class Paper:
     @property
     def year(self) -> str:
         """The year of publication. Uses the paper's own year if set, otherwise inherited from the parent Volume."""
-        return self._year if self._year is not None else self.parent.year
+        if self._year is None:
+            return self.parent.year
+        return self._year
 
     @year.setter
     def year(self, value: Optional[str]) -> None:
