@@ -311,6 +311,8 @@ def verify_by_paper(
 
         # match the author of the paper by name slug
         author_list = paper.authors if isinstance(paper, Paper) else paper.editors
+        if not author_list and paper.is_frontmatter:
+            author_list = paper.parent.editors
         query = [name_slug] if name_slug else name_slug_queries
         matches = [
             namespec for namespec in author_list if namespec.name.slugify() in query
