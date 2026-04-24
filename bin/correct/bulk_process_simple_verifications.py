@@ -162,7 +162,7 @@ class AnthologyMetadataUpdater:
                 # Parse metadata changes from issue
                 data = self._parse_verification_request(issue.body)
                 if data is None:
-                    log.info(f"Failed to parse verification data in #{issue.number}")
+                    log.error(f"Failed to parse verification data in #{issue.number}")
                     continue
 
                 data["author_id"] = issue.title.split()[-1]
