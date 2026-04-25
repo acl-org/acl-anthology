@@ -39,6 +39,7 @@ from ..utils.attrs import (
     into_namespec_tuple,
     into_str_tuple,
     track_modifications,
+    ConvertableIntoDate,
 )
 from ..utils.ids import build_id, is_valid_item_id, AnthologyIDTuple
 from .event import Event
@@ -142,7 +143,6 @@ class Volume(SlottedDict[Paper]):
     Attributes: Optional Attributes:
         address: The publisher's address for this volume.
         doi: The DOI for the volume.
-        ingest_date: The date of ingestion.
         isbn: The ISBN for the volume.
         journal_issue: The journal's issue number, if this volume belongs to a journal.
         journal_volume: The journal's volume number, if this volume belongs to a journal.
@@ -185,7 +185,7 @@ class Volume(SlottedDict[Paper]):
 
     address: Optional[str] = field(default=None)
     doi: Optional[str] = field(default=None)
-    ingest_date: Optional[str] = field(
+    _ingest_date: Optional[str] = field(
         default=None,
         converter=date_to_str,
         validator=validators.optional(validators.matches_re(constants.RE_ISO_DATE)),
@@ -287,6 +287,17 @@ class Volume(SlottedDict[Paper]):
         return self.editors
 
     @property
+    def ingest_date(self) -> datetime.date:
+        """The date when this volume was added to the Anthology.  If not set explicitly, will use [constants.UNKNOWN_INGEST_DATE][acl_anthology.constants.UNKNOWN_INGEST_DATE] instead."""
+        if self._ingest_date is None:
+            return constants.UNKNOWN_INGEST_DATE
+        return datetime.date.fromisoformat(self._ingest_date)
+
+    @ingest_date.setter
+    def ingest_date(self, value: ConvertableIntoDate) -> None:
+        self._ingest_date = date_to_str(value)
+
+    @property
     def journal_title(self) -> Optional[str]:
         """The journal title for this volume. Fetched from the associated venue if not explicitly set."""
         if self.type != VolumeType.JOURNAL:
@@ -306,14 +317,9 @@ class Volume(SlottedDict[Paper]):
         """
         return self.root.events.by_volume(self.full_id_tuple)
 
+    @deprecated("Volume.get_ingest_date() is deprecated in favor of Volume.ingest_date")
     def get_ingest_date(self) -> datetime.date:
-        """
-        Returns:
-            The date when this volume was added to the Anthology. If not set, will return [constants.UNKNOWN_INGEST_DATE][acl_anthology.constants.UNKNOWN_INGEST_DATE] instead.
-        """
-        if self.ingest_date is None:
-            return constants.UNKNOWN_INGEST_DATE
-        return datetime.date.fromisoformat(self.ingest_date)
+        return self.ingest_date
 
     @deprecated(
         "Volume.get_journal_title() is deprecated in favor of Volume.journal_title"
@@ -502,8 +508,8 @@ class Volume(SlottedDict[Paper]):
             A serialization of this volume as a `<volume>` block in the Anthology XML format.
         """
         volume = E.volume(id=self.id, type=self.type.value)
-        if self.ingest_date is not None:
-            volume.set("ingest-date", self.ingest_date)
+        if self._ingest_date is not None:
+            volume.set("ingest-date", self._ingest_date)
         meta = E.meta()
         meta.append(self.title.to_xml("booktitle"))
         if self.shorttitle is not None:

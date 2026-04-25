@@ -116,7 +116,7 @@ def paper_to_dict(paper):
     data = {
         "bibkey": paper.bibkey,
         "bibtype": paper.bibtype,
-        "ingest_date": paper.get_ingest_date().isoformat(),
+        "ingest_date": paper.ingest_date.isoformat(),
         "paper_id": paper.id,
         "title": paper.title.as_text(),
         "title_html": remove_extra_whitespace(paper.title.as_html(allow_url=False)),

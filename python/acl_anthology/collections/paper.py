@@ -45,6 +45,7 @@ from ..utils.attrs import (
     into_namespec_tuple,
     into_str_tuple,
     track_modifications,
+    ConvertableIntoDate,
 )
 from ..utils.citation import citeproc_render_html, render_acl_citation
 from ..utils.ids import build_id, is_valid_item_id, AnthologyIDTuple
@@ -280,7 +281,6 @@ class Paper:
         abstract: The full abstract.
         deletion: A notice of the paper's retraction or removal, if applicable.
         doi: The DOI for the paper.
-        ingest_date: The date of ingestion.
         language: The language this paper is (mainly) written in.  When given, this should be a ISO 639-2 code (e.g. "eng"), though occasionally IETF is used (e.g. "pt-BR").
         month: The month of publication. If not set on the paper, this is inherited from the parent volume.
         note: A note attached to this paper.  Used very sparingly.
@@ -357,7 +357,7 @@ class Paper:
         default=None, validator=v.optional(v.instance_of(PaperDeletionNotice))
     )
     doi: Optional[str] = field(default=None)
-    ingest_date: Optional[str] = field(
+    _ingest_date: Optional[str] = field(
         default=None,
         converter=date_to_str,
         validator=v.optional(v.matches_re(constants.RE_ISO_DATE)),
@@ -507,6 +507,17 @@ class Paper:
         self._year = value
 
     @property
+    def ingest_date(self) -> datetime.date:
+        """The date when this paper was added to the Anthology. Uses the paper's own ingestion date if set, otherwise inherited from the parent Volume."""
+        if self._ingest_date is None:
+            return self.parent.ingest_date
+        return datetime.date.fromisoformat(self._ingest_date)
+
+    @ingest_date.setter
+    def ingest_date(self, value: ConvertableIntoDate) -> None:
+        self._ingest_date = date_to_str(value)
+
+    @property
     def journal_issue(self) -> Optional[str]:
         """The issue number of this paper. Uses the paper's own issue number if set, otherwise inherited from the parent Volume."""
         if self._journal_issue is None:
@@ -585,14 +596,9 @@ class Paper:
         """
         return self.root.events.by_volume(self.parent.full_id_tuple)
 
+    @deprecated("Paper.get_ingest_date() is deprecated in favor of Paper.ingest_date")
     def get_ingest_date(self) -> datetime.date:
-        """
-        Returns:
-            The date when this paper was added to the Anthology. Inherits from its parent volume. If not set, will return [constants.UNKNOWN_INGEST_DATE][acl_anthology.constants.UNKNOWN_INGEST_DATE] instead.
-        """
-        if self.ingest_date is None:
-            return self.parent.get_ingest_date()
-        return datetime.date.fromisoformat(self.ingest_date)
+        return self.ingest_date
 
     @deprecated("Paper.get_issue() is deprecated in favor of Paper.journal_issue")
     def get_issue(self) -> Optional[str]:
@@ -849,8 +855,8 @@ class Paper:
             paper = etree.Element("frontmatter")
         else:
             paper = etree.Element("paper", attrib={"id": self.id})
-        if self.ingest_date is not None:
-            paper.set("ingest-date", self.ingest_date)
+        if self._ingest_date is not None:
+            paper.set("ingest-date", self._ingest_date)
         if self.type == PaperType.BACKMATTER:
             paper.set("type", "backmatter")
         if not self.is_frontmatter:
