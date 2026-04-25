@@ -143,8 +143,8 @@ def paper_to_dict(paper):
             data["editor"] = editors
     if "author" in data:
         data["author_string"] = ", ".join(author["full"] for author in data["author"])
-    for key in ("doi", "issue", "journal", "note", "month"):
-        # TODO: Keys 'issue' and 'journal' are currently unused on Hugo templates
+    for key in ("doi", "journal_issue", "journal_title", "note", "month"):
+        # TODO: 'journal_*' keys are currently unused on Hugo templates
         if (value := getattr(paper, key)) is not None:
             data[key] = value
     # Frontmatter inherits DOI from volume ... not sure if it should, and this is a bit messy
@@ -257,7 +257,7 @@ def volume_to_dict(volume):
     if sigs := volume.get_sigs():
         data["sigs"] = [sig.acronym for sig in sigs]
     if volume.type == VolumeType.JOURNAL:
-        data["meta_journal_title"] = volume.get_journal_title()
+        data["meta_journal_title"] = volume.journal_title
         data["meta_issue"] = volume.journal_issue
         data["meta_volume"] = volume.journal_volume
     if volume.pdf is not None:

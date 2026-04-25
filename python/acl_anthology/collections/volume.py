@@ -20,6 +20,7 @@ from attrs import define, field, converters, setters, validators
 from lxml import etree
 from lxml.builder import E
 from typing import Any, Iterator, Optional, cast, TYPE_CHECKING
+from warnings import deprecated
 
 from .. import constants
 from ..config import config
@@ -192,7 +193,7 @@ class Volume(SlottedDict[Paper]):
     isbn: Optional[str] = field(default=None)
     journal_issue: Optional[str] = field(default=None, converter=int_to_str)
     journal_volume: Optional[str] = field(default=None, converter=int_to_str)
-    journal_title: Optional[str] = field(default=None)
+    _journal_title: Optional[str] = field(default=None)
     month: Optional[str] = field(default=None)  # TODO: validate/convert?
     pdf: Optional[PDFReference] = field(default=None)
     publisher: Optional[str] = field(default=None)
@@ -209,6 +210,15 @@ class Volume(SlottedDict[Paper]):
         if self.root.venues.is_data_loaded:
             for venue in self.venue_ids:
                 self.root.venues[venue].item_ids.add(self.full_id_tuple)
+
+        if (
+            self.type == VolumeType.JOURNAL
+            and self._journal_title is None
+            and len(self.venue_ids) != 1
+        ):
+            raise ValueError(
+                "Journal volume must have exactly one venue or an explicit <journal-title>"
+            )
 
     @id.validator
     def _check_id(self, _: Any, value: str) -> None:
@@ -276,6 +286,19 @@ class Volume(SlottedDict[Paper]):
         """All name specifications on this volume."""
         return self.editors
 
+    @property
+    def journal_title(self) -> Optional[str]:
+        """The journal title for this volume. Fetched from the associated venue if not explicitly set."""
+        if self.type != VolumeType.JOURNAL:
+            return None
+        if self._journal_title is not None:
+            return self._journal_title
+        return self.root.venues[self.venue_ids[0]].name
+
+    @journal_title.setter
+    def journal_title(self, value: Optional[str]) -> None:
+        self._journal_title = value
+
     def get_events(self) -> list[Event]:
         """
         Returns:
@@ -292,25 +315,11 @@ class Volume(SlottedDict[Paper]):
             return constants.UNKNOWN_INGEST_DATE
         return datetime.date.fromisoformat(self.ingest_date)
 
+    @deprecated(
+        "Volume.get_journal_title() is deprecated in favor of Volume.journal_title"
+    )
     def get_journal_title(self) -> str:
-        """
-        Returns:
-            The journal title for this volume, fetching this information from the associated venue if it isn't explicit set.
-
-        Raises:
-            TypeError: If this volume doesn't represent a journal.
-            ValueError: If the journal title isn't explicitly set, but there isn't exactly one venue associated with this volume.
-        """
-        if self.type != VolumeType.JOURNAL:
-            raise TypeError("Volume is not a journal")
-        if self.journal_title is not None:
-            return self.journal_title
-        # If journal-title isn't explicit set, we fetch it from the associated venue
-        if len(self.venue_ids) != 1:
-            raise ValueError(
-                "Journal volume must have exactly one venue or an explicit <journal-title>"
-            )
-        return self.root.venues[self.venue_ids[0]].name
+        return self.journal_title or ""
 
     def get_namespec_for(self, person: Person) -> NameSpecification:
         """Find the NameSpecification on this volume that refers to a given Person.
@@ -518,10 +527,11 @@ class Volume(SlottedDict[Paper]):
         for tag in (
             "journal_volume",
             "journal_issue",
-            "journal_title",
         ):
             if (value := getattr(self, tag)) is not None:
                 meta.append(getattr(E, tag.replace("_", "-"))(value))
+        if self._journal_title is not None:
+            meta.append(getattr(E, "journal-title")(self._journal_title))
         volume.append(meta)
 
         if with_papers:

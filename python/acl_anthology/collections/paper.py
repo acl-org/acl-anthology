@@ -23,6 +23,7 @@ import langcodes
 from lxml import etree
 from lxml.builder import E
 from typing import cast, Any, Optional, TYPE_CHECKING
+from warnings import deprecated
 
 from .. import constants
 from ..config import config
@@ -280,8 +281,6 @@ class Paper:
         deletion: A notice of the paper's retraction or removal, if applicable.
         doi: The DOI for the paper.
         ingest_date: The date of ingestion.
-        issue: The journal issue for this paper.  Should normally be set at the volume level; you probably want to use `get_issue()` instead.
-        journal: The journal name for this paper.   Should normally be set at the volume level; you probably want to use `get_journal_title()` instead.
         language: The language this paper is (mainly) written in.  When given, this should be a ISO 639-2 code (e.g. "eng"), though occasionally IETF is used (e.g. "pt-BR").
         month: The month of publication. If not set on the paper, this is inherited from the parent volume.
         note: A note attached to this paper.  Used very sparingly.
@@ -363,8 +362,8 @@ class Paper:
         converter=date_to_str,
         validator=v.optional(v.matches_re(constants.RE_ISO_DATE)),
     )
-    issue: Optional[str] = field(default=None)
-    journal: Optional[str] = field(default=None)
+    _journal_issue: Optional[str] = field(default=None, alias="issue")
+    _journal_title: Optional[str] = field(default=None, alias="journal")
     language: Optional[str] = field(default=None)
     _month: Optional[str] = field(default=None)
     note: Optional[str] = field(default=None)
@@ -475,7 +474,7 @@ class Paper:
             case VolumeType.JOURNAL:
                 data["container-title"] = self.get_journal_title()
                 data["volume"] = self.parent.journal_volume
-                data["issue"] = self.get_issue()
+                data["issue"] = self.journal_issue
             case VolumeType.PROCEEDINGS:
                 data["container-title"] = self.parent.title.as_text()
         return {k: v for k, v in data.items() if v is not None}
@@ -506,6 +505,33 @@ class Paper:
     @year.setter
     def year(self, value: Optional[str]) -> None:
         self._year = value
+
+    @property
+    def journal_issue(self) -> Optional[str]:
+        """The issue number of this paper. Uses the paper's own issue number if set, otherwise inherited from the parent Volume."""
+        if self._journal_issue is None:
+            return self.parent.journal_issue
+        return self._journal_issue
+
+    @journal_issue.setter
+    def journal_issue(self, value: Optional[str]) -> None:
+        self._journal_issue = value
+
+    @property
+    def journal_volume(self) -> Optional[str]:
+        """The volume number of this paper. Inherited from the parent Volume."""
+        return self.parent.journal_volume
+
+    @property
+    def journal_title(self) -> Optional[str]:
+        """The journal title of this paper. Uses the paper's own journal title if set, otherwise inherited from the parent Volume."""
+        if self._journal_title is None:
+            return self.parent.journal_title
+        return self._journal_title
+
+    @journal_title.setter
+    def journal_title(self, value: Optional[str]) -> None:
+        self._journal_title = value
 
     @property
     def publisher(self) -> Optional[str]:
@@ -568,23 +594,13 @@ class Paper:
             return self.parent.get_ingest_date()
         return datetime.date.fromisoformat(self.ingest_date)
 
+    @deprecated("Paper.get_issue() is deprecated in favor of Paper.journal_issue")
     def get_issue(self) -> Optional[str]:
-        """
-        Returns:
-            The issue number of this paper. Inherits from its parent volume unless explicitly set for the paper.
-        """
-        if self.issue is None:
-            return self.parent.journal_issue
-        return self.issue
+        return self.journal_issue
 
+    @deprecated("Paper.get_journal_title() is deprecated in favor of Paper.journal_title")
     def get_journal_title(self) -> str:
-        """
-        Returns:
-            The journal title for this paper.  Inherits from its parent volume unless explicitly set for the paper.
-        """
-        if self.journal is None:
-            return self.parent.get_journal_title()
-        return self.journal
+        return self.journal_title or ""
 
     def get_namespec_for(self, person: Person) -> NameSpecification:
         """Find the NameSpecification on this paper that refers to a given Person.
@@ -646,9 +662,9 @@ class Paper:
                 case VolumeType.JOURNAL:
                     bibtex_fields.extend(
                         [
-                            ("journal", self.get_journal_title()),
-                            ("volume", self.parent.journal_volume),
-                            ("number", self.get_issue()),
+                            ("journal", self.journal_title),
+                            ("volume", self.journal_volume),
+                            ("number", self.journal_issue),
                         ]
                     )
                 case VolumeType.PROCEEDINGS:
@@ -853,7 +869,13 @@ class Paper:
             paper.append(erratum.to_xml())
         for revision in self.revisions:
             paper.append(revision.to_xml())
-        for tag in ("doi", "issue", "journal", "language", "month", "note", "year"):
+        if self.doi is not None:
+            paper.append(E.doi(self.doi))
+        if self._journal_issue is not None:
+            paper.append(E.issue(self._journal_issue))
+        if self._journal_title is not None:
+            paper.append(E.journal(self._journal_title))
+        for tag in ("language", "month", "note", "year"):
             if hasattr(self, f"_{tag}"):
                 value = getattr(self, f"_{tag}")
             else:

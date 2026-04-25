@@ -207,7 +207,7 @@ def test_volume_attributes_j89(anthology):
     assert volume.type == VolumeType.JOURNAL
     assert volume.journal_issue == "1"
     assert volume.journal_volume == "15"
-    assert volume.get_journal_title() == "Computational Linguistics"
+    assert volume.journal_title == "Computational Linguistics"
     assert isinstance(volume.frontmatter, Paper) and volume.frontmatter.id == "0"
 
 
@@ -617,6 +617,7 @@ def test_volume_type_conversion(anthology):
         parent,
         type="journal",
         booktitle="Lorem ipsum",
+        journal_title="Foo bar",
         year=2005,
     )
     assert volume.id == "6"  # str
@@ -634,6 +635,7 @@ def test_volume_type_validation(anthology):
         parent,
         type=VolumeType.JOURNAL,
         booktitle=volume_title,
+        journal_title="Foo bar",
         year="2005",
     )
     with pytest.raises(TypeError):
