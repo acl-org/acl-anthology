@@ -20,7 +20,12 @@ from attrs import define, field, converters, setters, validators
 from lxml import etree
 from lxml.builder import E
 from typing import Any, Iterator, Optional, cast, TYPE_CHECKING
-from warnings import deprecated
+import sys
+
+if sys.version_info >= (3, 13):
+    from warnings import deprecated
+else:
+    from typing_extensions import deprecated
 
 from .. import constants
 from ..config import config

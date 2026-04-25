@@ -22,8 +22,13 @@ import itertools as it
 import langcodes
 from lxml import etree
 from lxml.builder import E
+import sys
 from typing import cast, Any, Iterable, Optional, TYPE_CHECKING
-from warnings import deprecated
+
+if sys.version_info >= (3, 13):
+    from warnings import deprecated
+else:
+    from typing_extensions import deprecated
 
 from .. import constants
 from ..config import config
