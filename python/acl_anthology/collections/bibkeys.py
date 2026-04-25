@@ -82,7 +82,7 @@ class BibkeyIndex(SlottedDict[Paper]):
             )
         else:
             # Generate slugified author string, using '-etal' if necessary
-            namespecs = paper.authors if paper.authors else paper.get_editors()
+            namespecs = paper.authors if paper.authors else paper.editors
             if not namespecs:
                 bibnames = "nn"
             elif len(namespecs) > BIBKEY_MAX_NAMES:

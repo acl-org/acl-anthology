@@ -49,7 +49,7 @@ def index(anthology_stub):
 
 
 def test_paper_minimum_attribs():
-    parent = None
+    parent = VolumeStub()
     paper = Paper("42", parent, bibkey="nn-1900-minimal", title="A minimal example")
     assert not paper.is_deleted
     assert paper.title == "A minimal example"

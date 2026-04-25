@@ -507,8 +507,8 @@ def test_volume_create_paper_with_editors(anthology):
         title="The awesome paper I have never written",
         authors=authors,
     )
-    assert not paper.editors
-    assert paper.get_editors() == volume.editors
+    assert not paper._editors
+    assert paper.editors == volume.editors
 
     # But the schema allows paper-level editors too
     editors = (NameSpec("Calzolari, Nicoletta"),)
@@ -519,7 +519,6 @@ def test_volume_create_paper_with_editors(anthology):
         ingest_date="2025-01-07",
     )
     assert paper.editors == editors
-    assert paper.get_editors() == editors
 
 
 @pytest.mark.parametrize("pre_load", (True, False))

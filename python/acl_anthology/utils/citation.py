@@ -123,7 +123,7 @@ def render_acl_citation(paper: Paper) -> str:
     if paper.authors:
         authors = _format_names(paper.authors)
     else:
-        editors = paper.get_editors()
+        editors = paper.editors
         if not editors:
             # No authors, no editors
             authors = ""

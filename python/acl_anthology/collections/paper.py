@@ -22,7 +22,7 @@ import itertools as it
 import langcodes
 from lxml import etree
 from lxml.builder import E
-from typing import cast, Any, Optional, TYPE_CHECKING
+from typing import cast, Any, Iterable, Optional, TYPE_CHECKING
 from warnings import deprecated
 
 from .. import constants
@@ -272,7 +272,6 @@ class Paper:
         attachments: File attachments of this paper, as tuples of the format `(type_of_attachment, attachment_file)`; can be empty.
         authors: Names of authors associated with this paper; can be empty.
         awards: Names of awards this has paper has received; can be empty.
-        editors: Names of editors associated with this paper; can be empty.
         errata: Errata for this paper; can be empty.
         revisions: Revisions for this paper; can be empty.
         videos: Zero or more references to video recordings belonging to this paper.
@@ -318,8 +317,7 @@ class Paper:
         ],
     )
     awards: tuple[str, ...] = field(default=(), converter=into_str_tuple)
-    # TODO: why can a Paper ever have "editors"? it's allowed by the schema
-    editors: tuple[NameSpecification, ...] = field(
+    _editors: tuple[NameSpecification, ...] = field(
         default=(),
         converter=into_namespec_tuple,
         on_setattr=[
@@ -377,7 +375,7 @@ class Paper:
     )
 
     def __attrs_post_init__(self) -> None:
-        for namespec in it.chain(self.authors, self.editors):
+        for namespec in it.chain(self.authors, self._editors):
             namespec.parent = self
 
     @id.validator
@@ -458,7 +456,7 @@ class Paper:
             "title": self.title.as_text(),
             "type": self.csltype,
             "author": [namespec.citeproc_dict for namespec in self.authors],
-            "editor": [namespec.citeproc_dict for namespec in self.get_editors()],
+            "editor": [namespec.citeproc_dict for namespec in self.editors],
             "publisher": self.publisher,
             "publisher-place": self.address,
             # TODO: month currently not included
@@ -472,8 +470,8 @@ class Paper:
             data["author"] = data["editor"]
         match self.parent.type:
             case VolumeType.JOURNAL:
-                data["container-title"] = self.get_journal_title()
-                data["volume"] = self.parent.journal_volume
+                data["container-title"] = self.journal_title
+                data["volume"] = self.journal_volume
                 data["issue"] = self.journal_issue
             case VolumeType.PROCEEDINGS:
                 data["container-title"] = self.parent.title.as_text()
@@ -505,6 +503,17 @@ class Paper:
     @year.setter
     def year(self, value: Optional[str]) -> None:
         self._year = value
+
+    @property
+    def editors(self) -> tuple[NameSpecification, ...]:
+        """The editors for this paper. Uses the paper's own editor list if set, otherwise inherited from the parent Volume."""
+        if self._editors:
+            return self._editors
+        return self.parent.editors
+
+    @editors.setter
+    def editors(self, value: Iterable[NameSpecification]) -> None:
+        self._editors = into_namespec_tuple(value)
 
     @property
     def ingest_date(self) -> datetime.date:
@@ -576,18 +585,13 @@ class Paper:
     @property
     def namespecs(self) -> tuple[NameSpecification, ...]:
         """All name specifications on this paper."""
-        if not self.editors:
+        if not self._editors:
             return self.authors
-        return self.authors + self.editors
+        return self.authors + self._editors
 
+    @deprecated("Paper.get_editors() is deprecated in favor of Paper.editors")
     def get_editors(self) -> tuple[NameSpecification, ...]:
-        """
-        Returns:
-            `self.editors`, if not empty; the parent volume's editors otherwise.
-        """
-        if self.editors:
-            return self.editors
-        return self.parent.editors
+        return self.editors
 
     def get_events(self) -> list[Event]:
         """
@@ -621,7 +625,7 @@ class Paper:
             ValueError: If none of the authors/editors resolve to the given Person.
         """
         namespecs = (
-            it.chain(self.namespecs, self.get_editors())
+            it.chain(self.namespecs, self.editors)
             if self.is_frontmatter
             else self.namespecs
         )
@@ -661,7 +665,7 @@ class Paper:
         bibtex_fields: list[tuple[str, SerializableAsBibTeX]] = [
             ("title", self.title),
             ("author", self.authors),
-            ("editor", self.get_editors()),
+            ("editor", self.editors),
         ]
         if not self.is_frontmatter:
             match self.parent.type:
@@ -712,7 +716,7 @@ class Paper:
         Returns:
             The generated citation reference as a single string with Markdown markup.
         """
-        namespecs = self.authors if not self.is_frontmatter else self.get_editors()
+        namespecs = self.authors if not self.is_frontmatter else self.editors
         if len(namespecs) == 0:
             name = ""
         elif len(namespecs) == 1:
@@ -863,7 +867,7 @@ class Paper:
             paper.append(self.title.to_xml("title"))
             for name_spec in self.authors:
                 paper.append(name_spec.to_xml("author"))
-            for name_spec in self.editors:
+            for name_spec in self._editors:
                 paper.append(name_spec.to_xml("editor"))
         if self.pages is not None:
             paper.append(E.pages(self.pages))

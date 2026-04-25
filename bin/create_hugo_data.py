@@ -129,7 +129,7 @@ def paper_to_dict(paper):
         "citation_acl": paper.to_citation(),
         "year": paper.year,
     }
-    editors = [person_to_dict(ns.resolve().id, ns) for ns in paper.get_editors()]
+    editors = [person_to_dict(ns.resolve().id, ns) for ns in paper.editors]
     if BIBLIMIT is None or int(paper.id) <= BIBLIMIT:
         data["bibtex"] = paper.to_bibtex(with_abstract=True)
     if paper.is_frontmatter:

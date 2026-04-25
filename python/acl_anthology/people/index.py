@@ -198,6 +198,8 @@ class PersonIndex(SlottedDict[Person]):
         Returns:
             A Counter mapping **IDs** of other persons Y to the number of papers this person has co-authored with Y.
         """
+        from ..collections import Paper, Volume
+
         if not self.is_data_loaded:
             self.load()
         if isinstance(person, str):
@@ -211,9 +213,11 @@ class PersonIndex(SlottedDict[Person]):
                 and not cast("Volume", item).has_frontmatter
             ):
                 continue
-            coauthors.update(self._resolve_namespec(ns).id for ns in item.editors)
-            if hasattr(item, "authors"):
+            if isinstance(item, Volume):
+                coauthors.update(self._resolve_namespec(ns).id for ns in item.editors)
+            elif isinstance(item, Paper):
                 coauthors.update(self._resolve_namespec(ns).id for ns in item.authors)
+                coauthors.update(self._resolve_namespec(ns).id for ns in item._editors)
         del coauthors[person.id]
         return coauthors
 
@@ -320,10 +324,10 @@ class PersonIndex(SlottedDict[Person]):
                         context = paper
                         name_specs = (
                             # Associate explicitly given authors/editors with the paper
-                            it.chain(paper.authors, paper.editors)
+                            it.chain(paper.authors, paper._editors)
                             # For frontmatter, also associate the volume editors with it
                             if not paper.is_frontmatter
-                            else paper.get_editors()
+                            else paper.editors
                         )
                         self._add_to_index(
                             name_specs, paper.full_id_tuple, during_build=True
