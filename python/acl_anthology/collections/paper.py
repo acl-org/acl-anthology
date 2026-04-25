@@ -595,7 +595,7 @@ class Paper:
         return self.authors + self._editors
 
     @deprecated("Paper.get_editors() is deprecated in favor of Paper.editors")
-    def get_editors(self) -> tuple[NameSpecification, ...]:
+    def get_editors(self) -> tuple[NameSpecification, ...]:  # pragma: no cover
         return self.editors
 
     def get_events(self) -> list[Event]:
@@ -606,15 +606,15 @@ class Paper:
         return self.root.events.by_volume(self.parent.full_id_tuple)
 
     @deprecated("Paper.get_ingest_date() is deprecated in favor of Paper.ingest_date")
-    def get_ingest_date(self) -> datetime.date:
+    def get_ingest_date(self) -> datetime.date:  # pragma: no cover
         return self.ingest_date
 
     @deprecated("Paper.get_issue() is deprecated in favor of Paper.journal_issue")
-    def get_issue(self) -> Optional[str]:
+    def get_issue(self) -> Optional[str]:  # pragma: no cover
         return self.journal_issue
 
     @deprecated("Paper.get_journal_title() is deprecated in favor of Paper.journal_title")
-    def get_journal_title(self) -> str:
+    def get_journal_title(self) -> str:  # pragma: no cover
         return self.journal_title or ""
 
     def get_namespec_for(self, person: Person) -> NameSpecification:

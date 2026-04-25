@@ -223,7 +223,7 @@ class Volume(SlottedDict[Paper]):
         ):
             raise ValueError(
                 "Journal volume must have exactly one venue or an explicit <journal-title>"
-            )
+            )  # pragma: no cover
 
     @id.validator
     def _check_id(self, _: Any, value: str) -> None:
@@ -323,13 +323,13 @@ class Volume(SlottedDict[Paper]):
         return self.root.events.by_volume(self.full_id_tuple)
 
     @deprecated("Volume.get_ingest_date() is deprecated in favor of Volume.ingest_date")
-    def get_ingest_date(self) -> datetime.date:
+    def get_ingest_date(self) -> datetime.date:  # pragma: no cover
         return self.ingest_date
 
     @deprecated(
         "Volume.get_journal_title() is deprecated in favor of Volume.journal_title"
     )
-    def get_journal_title(self) -> str:
+    def get_journal_title(self) -> str:  # pragma: no cover
         return self.journal_title or ""
 
     def get_namespec_for(self, person: Person) -> NameSpecification:

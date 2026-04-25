@@ -225,6 +225,15 @@ def test_volume_without_frontmatter(anthology):
     assert volume.frontmatter is None
 
 
+def test_volume_explicit_journal_title(anthology):
+    volume = anthology.get_volume("J89-4")
+    assert isinstance(volume, Volume)
+    assert volume._journal_title is not None
+    assert volume.journal_title == volume._journal_title
+    volume.journal_title = "Computational Linguistics"
+    assert volume._journal_title == "Computational Linguistics"
+
+
 def test_volume_set_ingest_date(anthology):
     volume = anthology.get_volume("2022.acl-demo")
     volume.ingest_date = "2025-07-15"
