@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- Added `PersonIndex.remove_person()` to properly remove a Person from the index, and make `Person.merge_into()` call this. (fixes #8068)
+
 ### Changed
 
 - **Breaking change:** Collection items now use tuples instead of list attributes, and many objects that can be child attributes on collections (e.g. PDFReference, PaperRevision, ...) have been made immutable.

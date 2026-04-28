@@ -26,7 +26,7 @@ the relevant entries in the anthology data model, and links them together.
 """
 
 import argparse
-import iso639
+import iso639  # iso-639 pypi package
 import logging as log
 import pybtex.database.input.bibtex
 import yaml
@@ -41,7 +41,8 @@ from slugify import slugify
 from typing import Any, Dict, Iterator, Optional, List
 
 from acl_anthology import Anthology
-from acl_anthology.collections.types import PaperType, Volume, VolumeType
+from acl_anthology.collections.types import PaperType, VolumeType
+from acl_anthology.collections.volume import Volume
 from acl_anthology.files import (
     AttachmentReference,
     PDFReference,
@@ -523,6 +524,8 @@ def iter_aclpub_papers(metadata: Dict[str, Any]) -> Iterator[Dict[str, Any]]:
             "doi": parsed.get("doi"),
             "pages": parsed.get("pages"),
             "language": parsed.get("language"),
+            "month": parsed.get("month"),
+            "year": parsed.get("year"),
             "pdf_src": pdf_src_path,
             "pdf_dest": pdf_dest_path,
             "anthology_id": anthology_id,
@@ -622,6 +625,8 @@ def iter_aclpub2_papers(metadata: Dict[str, Any]) -> Iterator[Dict[str, Any]]:
             "doi": paper.get("doi"),
             "pages": paper.get("pages"),
             "language": paper.get("language"),
+            "month": paper.get("month"),
+            "year": paper.get("year"),
             "pdf_src": pdf_src_path,
             "pdf_dest": pdf_dest_path,
             "anthology_id": anthology_id,
@@ -705,6 +710,12 @@ def ingest(
             value = paper.get(key)
             if value:
                 kwargs[key] = value
+        paper_month = paper.get("month")
+        if paper_month and paper_month != metadata["month"]:
+            kwargs["month"] = paper_month
+        paper_year = paper.get("year")
+        if paper_year and str(paper_year) != str(metadata["year"]):
+            kwargs["year"] = str(paper_year)
         language = paper.get("language")
         if language:
             try:

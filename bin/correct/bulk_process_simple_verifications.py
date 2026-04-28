@@ -116,7 +116,12 @@ class AnthologyMetadataUpdater:
         self.anthology = Anthology.from_within_repo()
 
     def process_verification_issues(
-        self, issue_ids=[], verbose=False, skip_validation=False, dry_run=False
+        self,
+        issue_ids=[],
+        verbose=False,
+        skip_validation=False,
+        dry_run=False,
+        no_branch=False,
     ):
         """Process all simple verification issues and create PR with changes."""
         # Get all open issues with required labels
@@ -124,7 +129,9 @@ class AnthologyMetadataUpdater:
             state="open", labels=["author-page", "correction"]
         )
 
-        current_branch, new_branch_name, today = self.prepare_and_switch_branch()
+        current_branch, new_branch_name, today = self.prepare_and_switch_branch(
+            no_branch=no_branch
+        )
 
         # record which issues were successfully processed and need closing
         closed_issues = []
@@ -155,7 +162,7 @@ class AnthologyMetadataUpdater:
                 # Parse metadata changes from issue
                 data = self._parse_verification_request(issue.body)
                 if data is None:
-                    log.info(f"Failed to parse verification data in #{issue.number}")
+                    log.error(f"Failed to parse verification data in #{issue.number}")
                     continue
 
                 data["author_id"] = issue.title.split()[-1]
@@ -254,7 +261,7 @@ class AnthologyMetadataUpdater:
         self.local_repo.head.reference = current_branch
         self.stats["closed_issues"] = len(closed_issues)
 
-    def prepare_and_switch_branch(self):
+    def prepare_and_switch_branch(self, no_branch: bool = False):
         # Create new branch off "master"
         # base_branch = self.local_repo.head.reference
         base_branch = self.local_repo.heads.master
@@ -266,7 +273,11 @@ class AnthologyMetadataUpdater:
         current_branch = self.local_repo.head.reference
 
         # If the branch exists, use it, else create it
-        if new_branch_name in self.local_repo.heads:
+        if no_branch:
+            # Do not create or change to a new branch
+            log.info(f"Staying on branch {current_branch}")
+            new_branch_name = current_branch
+        elif new_branch_name in self.local_repo.heads:
             ref = self.local_repo.heads[new_branch_name]
             log.info(f"Using existing branch {new_branch_name}")
             ref.checkout()
@@ -298,6 +309,11 @@ if __name__ == "__main__":
         action="store_true",
         help="Dry run (do not create PRs)",
     )
+    parser.add_argument(
+        "--no-branch",
+        action="store_true",
+        help="Do not create a new branch or switch branches",
+    )
 
     args = parser.parse_args()
 
@@ -317,6 +333,7 @@ if __name__ == "__main__":
             verbose=not args.quiet,
             skip_validation=args.skip_validation,
             dry_run=args.dry_run,
+            no_branch=args.no_branch,
         )
 
     for stat in updater.stats:
