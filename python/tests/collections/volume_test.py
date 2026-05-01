@@ -526,6 +526,34 @@ def test_volume_create_paper_with_editors(anthology):
     assert paper.get_editors() == editors
 
 
+def test_volume_create_paper_with_existing_explicit_author(anthology):
+    volume = anthology.get_volume("2022.acl-long")
+
+    authors = [NameSpec("Bollmann, Marcel", orcid="0000-0003-2598-8150")]
+    paper = volume.create_paper(
+        title="New paper by existing author",
+        authors=authors,
+    )
+    assert (person := anthology.people.get_by_orcid("0000-0003-2598-8150")) is not None
+    assert paper.authors[0].id == "marcel-bollmann"
+    assert paper.authors[0].resolve() is person
+    assert paper.full_id_tuple in person.item_ids
+
+
+def test_volume_create_paper_with_new_explicit_author(anthology):
+    volume = anthology.get_volume("2022.acl-long")
+
+    authors = [NameSpec("Tånnander, Christina", orcid="0000-0002-9659-1532")]
+    paper = volume.create_paper(
+        title="First paper by new author",
+        authors=authors,
+    )
+    assert (person := anthology.people.get_by_orcid("0000-0002-9659-1532")) is not None
+    assert paper.authors[0].id == "christina-tannander"
+    assert paper.authors[0].resolve() is person
+    assert person.item_ids == set([paper.full_id_tuple])
+
+
 @pytest.mark.parametrize("pre_load", (True, False))
 def test_volume_create_paper_should_update_person(anthology, pre_load):
     if pre_load:
