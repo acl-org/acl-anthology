@@ -123,7 +123,7 @@ def render_acl_citation(paper: Paper) -> str:
     if paper.authors:
         authors = _format_names(paper.authors)
     else:
-        editors = paper.get_editors()
+        editors = paper.editors
         if not editors:
             # No authors, no editors
             authors = ""
@@ -145,11 +145,11 @@ def render_acl_citation(paper: Paper) -> str:
         if paper.publisher:
             parent.append(f". {paper.publisher}")
     elif paper.bibtype == "article":
-        parent = [f"<i>{paper.get_journal_title()}</i>"]
-        if paper.parent.journal_volume:
-            parent.append(f", {paper.parent.journal_volume}")
-            if (journal_issue := paper.get_issue()) is not None:
-                parent.append(f"({journal_issue})")
+        parent = [f"<i>{paper.journal_title}</i>"]
+        if paper.journal_volume:
+            parent.append(f", {paper.journal_volume}")
+            if paper.journal_issue is not None:
+                parent.append(f"({paper.journal_issue})")
             if paper.pages:
                 parent.append(f":{_format_pages(paper.pages)}")
         elif paper.pages:

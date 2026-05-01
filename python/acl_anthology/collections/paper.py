@@ -22,7 +22,13 @@ import itertools as it
 import langcodes
 from lxml import etree
 from lxml.builder import E
-from typing import cast, Any, Optional, TYPE_CHECKING
+import sys
+from typing import cast, Any, Iterable, Optional, TYPE_CHECKING
+
+if sys.version_info >= (3, 13):
+    from warnings import deprecated
+else:
+    from typing_extensions import deprecated
 
 from .. import constants
 from ..config import config
@@ -44,6 +50,7 @@ from ..utils.attrs import (
     into_namespec_tuple,
     into_str_tuple,
     track_modifications,
+    ConvertableIntoDate,
 )
 from ..utils.citation import citeproc_render_html, render_acl_citation
 from ..utils.ids import build_id, is_valid_item_id, AnthologyIDTuple
@@ -270,7 +277,6 @@ class Paper:
         attachments: File attachments of this paper, as tuples of the format `(type_of_attachment, attachment_file)`; can be empty.
         authors: Names of authors associated with this paper; can be empty.
         awards: Names of awards this has paper has received; can be empty.
-        editors: Names of editors associated with this paper; can be empty.
         errata: Errata for this paper; can be empty.
         revisions: Revisions for this paper; can be empty.
         videos: Zero or more references to video recordings belonging to this paper.
@@ -279,9 +285,6 @@ class Paper:
         abstract: The full abstract.
         deletion: A notice of the paper's retraction or removal, if applicable.
         doi: The DOI for the paper.
-        ingest_date: The date of ingestion.
-        issue: The journal issue for this paper.  Should normally be set at the volume level; you probably want to use `get_issue()` instead.
-        journal: The journal name for this paper.   Should normally be set at the volume level; you probably want to use `get_journal_title()` instead.
         language: The language this paper is (mainly) written in.  When given, this should be a ISO 639-2 code (e.g. "eng"), though occasionally IETF is used (e.g. "pt-BR").
         month: The month of publication. If not set on the paper, this is inherited from the parent volume.
         note: A note attached to this paper.  Used very sparingly.
@@ -319,8 +322,7 @@ class Paper:
         ],
     )
     awards: tuple[str, ...] = field(default=(), converter=into_str_tuple)
-    # TODO: why can a Paper ever have "editors"? it's allowed by the schema
-    editors: tuple[NameSpecification, ...] = field(
+    _editors: tuple[NameSpecification, ...] = field(
         default=(),
         converter=into_namespec_tuple,
         on_setattr=[
@@ -358,13 +360,13 @@ class Paper:
         default=None, validator=v.optional(v.instance_of(PaperDeletionNotice))
     )
     doi: Optional[str] = field(default=None)
-    ingest_date: Optional[str] = field(
+    _ingest_date: Optional[str] = field(
         default=None,
         converter=date_to_str,
         validator=v.optional(v.matches_re(constants.RE_ISO_DATE)),
     )
-    issue: Optional[str] = field(default=None)
-    journal: Optional[str] = field(default=None)
+    _journal_issue: Optional[str] = field(default=None, alias="issue")
+    _journal_title: Optional[str] = field(default=None, alias="journal")
     language: Optional[str] = field(default=None)
     _month: Optional[str] = field(default=None)
     note: Optional[str] = field(default=None)
@@ -378,7 +380,7 @@ class Paper:
     )
 
     def __attrs_post_init__(self) -> None:
-        for namespec in it.chain(self.authors, self.editors):
+        for namespec in it.chain(self.authors, self._editors):
             namespec.parent = self
 
     @id.validator
@@ -459,7 +461,7 @@ class Paper:
             "title": self.title.as_text(),
             "type": self.csltype,
             "author": [namespec.citeproc_dict for namespec in self.authors],
-            "editor": [namespec.citeproc_dict for namespec in self.get_editors()],
+            "editor": [namespec.citeproc_dict for namespec in self.editors],
             "publisher": self.publisher,
             "publisher-place": self.address,
             # TODO: month currently not included
@@ -473,9 +475,9 @@ class Paper:
             data["author"] = data["editor"]
         match self.parent.type:
             case VolumeType.JOURNAL:
-                data["container-title"] = self.get_journal_title()
-                data["volume"] = self.parent.journal_volume
-                data["issue"] = self.get_issue()
+                data["container-title"] = self.journal_title
+                data["volume"] = self.journal_volume
+                data["issue"] = self.journal_issue
             case VolumeType.PROCEEDINGS:
                 data["container-title"] = self.parent.title.as_text()
         return {k: v for k, v in data.items() if v is not None}
@@ -506,6 +508,55 @@ class Paper:
     @year.setter
     def year(self, value: Optional[str]) -> None:
         self._year = value
+
+    @property
+    def editors(self) -> tuple[NameSpecification, ...]:
+        """The editors for this paper. Uses the paper's own editor list if set, otherwise inherited from the parent Volume."""
+        if self._editors:
+            return self._editors
+        return self.parent.editors
+
+    @editors.setter
+    def editors(self, value: Iterable[NameSpecification]) -> None:
+        self._editors = into_namespec_tuple(value)
+
+    @property
+    def ingest_date(self) -> datetime.date:
+        """The date when this paper was added to the Anthology. Uses the paper's own ingestion date if set, otherwise inherited from the parent Volume."""
+        if self._ingest_date is None:
+            return self.parent.ingest_date
+        return datetime.date.fromisoformat(self._ingest_date)
+
+    @ingest_date.setter
+    def ingest_date(self, value: ConvertableIntoDate) -> None:
+        self._ingest_date = date_to_str(value)
+
+    @property
+    def journal_issue(self) -> Optional[str]:
+        """The issue number of this paper. Uses the paper's own issue number if set, otherwise inherited from the parent Volume."""
+        if self._journal_issue is None:
+            return self.parent.journal_issue
+        return self._journal_issue
+
+    @journal_issue.setter
+    def journal_issue(self, value: Optional[str]) -> None:
+        self._journal_issue = value
+
+    @property
+    def journal_volume(self) -> Optional[str]:
+        """The volume number of this paper. Inherited from the parent Volume."""
+        return self.parent.journal_volume
+
+    @property
+    def journal_title(self) -> Optional[str]:
+        """The journal title of this paper. Uses the paper's own journal title if set, otherwise inherited from the parent Volume."""
+        if self._journal_title is None:
+            return self.parent.journal_title
+        return self._journal_title
+
+    @journal_title.setter
+    def journal_title(self, value: Optional[str]) -> None:
+        self._journal_title = value
 
     @property
     def publisher(self) -> Optional[str]:
@@ -539,18 +590,13 @@ class Paper:
     @property
     def namespecs(self) -> tuple[NameSpecification, ...]:
         """All name specifications on this paper."""
-        if not self.editors:
+        if not self._editors:
             return self.authors
-        return self.authors + self.editors
+        return self.authors + self._editors
 
-    def get_editors(self) -> tuple[NameSpecification, ...]:
-        """
-        Returns:
-            `self.editors`, if not empty; the parent volume's editors otherwise.
-        """
-        if self.editors:
-            return self.editors
-        return self.parent.editors
+    @deprecated("Paper.get_editors() is deprecated in favor of Paper.editors")
+    def get_editors(self) -> tuple[NameSpecification, ...]:  # pragma: no cover
+        return self.editors
 
     def get_events(self) -> list[Event]:
         """
@@ -559,32 +605,17 @@ class Paper:
         """
         return self.root.events.by_volume(self.parent.full_id_tuple)
 
-    def get_ingest_date(self) -> datetime.date:
-        """
-        Returns:
-            The date when this paper was added to the Anthology. Inherits from its parent volume. If not set, will return [constants.UNKNOWN_INGEST_DATE][acl_anthology.constants.UNKNOWN_INGEST_DATE] instead.
-        """
-        if self.ingest_date is None:
-            return self.parent.get_ingest_date()
-        return datetime.date.fromisoformat(self.ingest_date)
+    @deprecated("Paper.get_ingest_date() is deprecated in favor of Paper.ingest_date")
+    def get_ingest_date(self) -> datetime.date:  # pragma: no cover
+        return self.ingest_date
 
-    def get_issue(self) -> Optional[str]:
-        """
-        Returns:
-            The issue number of this paper. Inherits from its parent volume unless explicitly set for the paper.
-        """
-        if self.issue is None:
-            return self.parent.journal_issue
-        return self.issue
+    @deprecated("Paper.get_issue() is deprecated in favor of Paper.journal_issue")
+    def get_issue(self) -> Optional[str]:  # pragma: no cover
+        return self.journal_issue
 
-    def get_journal_title(self) -> str:
-        """
-        Returns:
-            The journal title for this paper.  Inherits from its parent volume unless explicitly set for the paper.
-        """
-        if self.journal is None:
-            return self.parent.get_journal_title()
-        return self.journal
+    @deprecated("Paper.get_journal_title() is deprecated in favor of Paper.journal_title")
+    def get_journal_title(self) -> str:  # pragma: no cover
+        return self.journal_title or ""
 
     def get_namespec_for(self, person: Person) -> NameSpecification:
         """Find the NameSpecification on this paper that refers to a given Person.
@@ -599,7 +630,7 @@ class Paper:
             ValueError: If none of the authors/editors resolve to the given Person.
         """
         namespecs = (
-            it.chain(self.namespecs, self.get_editors())
+            it.chain(self.namespecs, self.editors)
             if self.is_frontmatter
             else self.namespecs
         )
@@ -639,16 +670,16 @@ class Paper:
         bibtex_fields: list[tuple[str, SerializableAsBibTeX]] = [
             ("title", self.title),
             ("author", self.authors),
-            ("editor", self.get_editors()),
+            ("editor", self.editors),
         ]
         if not self.is_frontmatter:
             match self.parent.type:
                 case VolumeType.JOURNAL:
                     bibtex_fields.extend(
                         [
-                            ("journal", self.get_journal_title()),
-                            ("volume", self.parent.journal_volume),
-                            ("number", self.get_issue()),
+                            ("journal", self.journal_title),
+                            ("volume", self.journal_volume),
+                            ("number", self.journal_issue),
                         ]
                     )
                 case VolumeType.PROCEEDINGS:
@@ -690,7 +721,7 @@ class Paper:
         Returns:
             The generated citation reference as a single string with Markdown markup.
         """
-        namespecs = self.authors if not self.is_frontmatter else self.get_editors()
+        namespecs = self.authors if not self.is_frontmatter else self.editors
         if len(namespecs) == 0:
             name = ""
         elif len(namespecs) == 1:
@@ -833,15 +864,15 @@ class Paper:
             paper = etree.Element("frontmatter")
         else:
             paper = etree.Element("paper", attrib={"id": self.id})
-        if self.ingest_date is not None:
-            paper.set("ingest-date", self.ingest_date)
+        if self._ingest_date is not None:
+            paper.set("ingest-date", self._ingest_date)
         if self.type == PaperType.BACKMATTER:
             paper.set("type", "backmatter")
         if not self.is_frontmatter:
             paper.append(self.title.to_xml("title"))
             for name_spec in self.authors:
                 paper.append(name_spec.to_xml("author"))
-            for name_spec in self.editors:
+            for name_spec in self._editors:
                 paper.append(name_spec.to_xml("editor"))
         if self.pages is not None:
             paper.append(E.pages(self.pages))
@@ -853,7 +884,13 @@ class Paper:
             paper.append(erratum.to_xml())
         for revision in self.revisions:
             paper.append(revision.to_xml())
-        for tag in ("doi", "issue", "journal", "language", "month", "note", "year"):
+        if self.doi is not None:
+            paper.append(E.doi(self.doi))
+        if self._journal_issue is not None:
+            paper.append(E.issue(self._journal_issue))
+        if self._journal_title is not None:
+            paper.append(E.journal(self._journal_title))
+        for tag in ("language", "month", "note", "year"):
             if hasattr(self, f"_{tag}"):
                 value = getattr(self, f"_{tag}")
             else:
