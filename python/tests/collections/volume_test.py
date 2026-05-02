@@ -18,7 +18,11 @@ from pathlib import Path
 import pytest
 
 from acl_anthology.collections import Collection, Volume, VolumeType, Paper
-from acl_anthology.people import NameSpecification as NameSpec, UNVERIFIED_PID_FORMAT
+from acl_anthology.people import (
+    Name,
+    NameSpecification as NameSpec,
+    UNVERIFIED_PID_FORMAT,
+)
 from acl_anthology.text import MarkupText
 from acl_anthology.utils.xml import indent
 
@@ -540,15 +544,20 @@ def test_volume_create_paper_with_existing_explicit_author(anthology):
     assert paper.full_id_tuple in person.item_ids
 
 
-def test_volume_create_paper_with_new_explicit_author(anthology):
+@pytest.mark.parametrize("name", ("Tånnander, Christina", "tånnander, christina"))
+def test_volume_create_paper_with_new_explicit_author(name, anthology):
     volume = anthology.get_volume("2022.acl-long")
+    assert "christina-tannander" not in anthology.people
 
-    authors = [NameSpec("Tånnander, Christina", orcid="0000-0002-9659-1532")]
+    authors = [NameSpec(name, orcid="0000-0002-9659-1532")]
     paper = volume.create_paper(
         title="First paper by new author",
         authors=authors,
     )
     assert (person := anthology.people.get_by_orcid("0000-0002-9659-1532")) is not None
+    assert person.canonical_name == Name.from_(
+        "Tånnander, Christina"
+    )  # always the case-normalized version
     assert paper.authors[0].id == "christina-tannander"
     assert paper.authors[0].resolve() is person
     assert person.item_ids == set([paper.full_id_tuple])

@@ -324,7 +324,7 @@ def test_name_as_bibtex():
     assert n1.as_bibtex() == "Rieu, Andr{\\'e}"
 
 
-test_cases_namespec_case_normalize = (
+test_cases_name_case_normalize = (
     (("marcel", "bollmann"), ("Marcel", "Bollmann")),
     (("MARCEL", "BOLLMANN"), ("Marcel", "Bollmann")),
     (
@@ -342,11 +342,10 @@ test_cases_namespec_case_normalize = (
 )
 
 
-@pytest.mark.parametrize("before, after", test_cases_namespec_case_normalize)
-def test_namespec_case_normalize(before, after, parent):
-    ns = NameSpecification(before, parent=parent)
-    ns.case_normalize()
-    assert ns.name == Name(*after)
+@pytest.mark.parametrize("before, after", test_cases_name_case_normalize)
+def test_name_case_normalize(before, after):
+    name = Name(*before)
+    assert name.case_normalize() == Name(*after)
 
 
 def test_namespec_root_is_anthology(parent):
