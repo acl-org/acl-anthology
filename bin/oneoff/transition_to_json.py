@@ -122,7 +122,7 @@ def convert_sigs_yaml(anthology):
             data["url"] = sigmeeting.url
         return data
 
-    for sig in anthology.sigs.values():
+    for sig in sorted(anthology.sigs.values(), key=lambda s: s.acronym):
         sigs[sig.id] = {
             "acronym": sig.acronym,
             "name": sig.name,
