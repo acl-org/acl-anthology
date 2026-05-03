@@ -1,6 +1,6 @@
 # /// script
 # dependencies = [
-#   "acl-anthology==1.1.0",
+#   "acl-anthology @ git+https://github.com/acl-org/acl-anthology/#egg=pkg&subdirectory=python",
 #   "docopt",
 #   "lxml",
 #   "msgspec",
