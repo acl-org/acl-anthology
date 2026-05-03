@@ -384,6 +384,12 @@ class NameSpecification:
             if person_before != person_after:
                 person_before.item_ids.discard(self.parent.full_id_tuple)
                 person_after.item_ids.add(self.parent.full_id_tuple)
+                if (
+                    hasattr(self.parent, "frontmatter")
+                    and (frontmatter := self.parent.frontmatter) is not None
+                ):
+                    person_before.item_ids.discard(frontmatter.full_id_tuple)
+                    person_after.item_ids.add(frontmatter.full_id_tuple)
         else:
             self._name = _Name_from(value)
 
@@ -406,6 +412,12 @@ class NameSpecification:
             if person_before != person_after:
                 person_before.item_ids.discard(self.parent.full_id_tuple)
                 person_after.item_ids.add(self.parent.full_id_tuple)
+                if (
+                    hasattr(self.parent, "frontmatter")
+                    and (frontmatter := self.parent.frontmatter) is not None
+                ):
+                    person_before.item_ids.discard(frontmatter.full_id_tuple)
+                    person_after.item_ids.add(frontmatter.full_id_tuple)
         else:
             self._id = value
 

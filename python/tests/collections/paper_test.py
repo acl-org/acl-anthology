@@ -16,7 +16,7 @@ import copy
 import pytest
 from acl_anthology.collections import CollectionIndex
 from acl_anthology.collections.types import PaperType, VolumeType
-from acl_anthology.exceptions import AnthologyXMLError
+from acl_anthology.exceptions import AnthologyXMLError, NameSpecResolutionError
 from acl_anthology.files import AttachmentReference, PDFReference
 from acl_anthology.people import NameSpecification, UNVERIFIED_PID_FORMAT
 from acl_anthology.text import MarkupText
@@ -154,6 +154,8 @@ def test_paper_change_id(anthology):
         "doi",
         "ingest_date",
         "type",
+        "month",
+        "year",
     ),
 )
 def test_paper_setattr_sets_collection_is_modified(anthology, attr_name):
@@ -168,6 +170,23 @@ def test_paper_setattr_on_namespec_sets_collection_is_modified(anthology):
     assert not paper.collection.is_modified
     paper.authors[0].affiliation = "University of Someplace"
     assert paper.collection.is_modified
+
+
+@pytest.mark.parametrize(
+    "attr_name",
+    (
+        "month",
+        "year",
+    ),
+)
+def test_paper_attr_inherits_from_parent_volume(anthology, attr_name):
+    paper = anthology.get_paper("2022.acl-long.48")
+    value = getattr(paper.parent, attr_name)
+    assert hasattr(paper, f"_{attr_name}")
+    assert getattr(paper, f"_{attr_name}") is None
+    assert getattr(paper, attr_name) == value
+    setattr(paper, attr_name, value)
+    assert getattr(paper, f"_{attr_name}") == value
 
 
 test_cases_language = (
@@ -236,6 +255,25 @@ def test_paper_add_author(anthology):
     assert paper.full_id_tuple in person.item_ids
 
 
+def test_paper_add_new_unverified_author(anthology):
+    paper = anthology.get_paper("2022.acl-demo.2")
+    # This person does not exist at all in the data yet
+    ns = NameSpecification("Truman, Harry S.")
+    assert ns not in paper.authors
+    assert ns.parent is None
+    with pytest.raises(NameSpecResolutionError):
+        anthology.people.get_by_namespec(ns)
+
+    # Adding this author to the paper
+    paper.authors += (ns,)
+
+    # NameSpecification should point to paper
+    assert ns.parent is paper
+    # Person should exist now
+    person = anthology.people.get_by_namespec(ns)
+    assert paper.full_id_tuple in person.item_ids
+
+
 def test_paper_get_namespec_for(anthology):
     paper = anthology.get_paper("2022.acl-demo.24")
     person = paper.authors[1].resolve()
@@ -276,6 +314,8 @@ test_cases_xml = (
   <title>Briefly Noted</title>
   <url hash="166bd6c1">J89-1009</url>
   <issue>42</issue>
+  <month>June</month>
+  <year>1989</year>
   <bibkey>nn-1989-briefly</bibkey>
 </paper>
 """,
@@ -417,6 +457,21 @@ test_cases_paper_to_bibtex = (
     title = "Computational Linguistics, Volume 15, Number 4, {D}ecember 1989",
     year = "1989",
     url = "https://aclanthology.org/J89-4000/"
+}""",
+    ),
+    # Month defined at the paper level
+    (
+        "J89-3004",
+        False,
+        """@article{bien-1989-book,
+    title = "Book Reviews: Natural Language Understanding and Logic Programming, {II}: Proceedings of the Second International Workshop",
+    author = "Bien, Janusz S.",
+    journal = "Computational Linguistics",
+    volume = "15",
+    number = "3",
+    month = aug,
+    year = "1988",
+    url = "https://aclanthology.org/J89-3004/"
 }""",
     ),
 )

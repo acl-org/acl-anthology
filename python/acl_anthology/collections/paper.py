@@ -244,7 +244,7 @@ def _update_person_itemids(
             person.item_ids.discard(paper.full_id_tuple)
         # Update item_ids for people who are newly on this item
         for namespec in set(value) - set(old_value):
-            person = namespec.resolve()
+            person = person_index._resolve_namespec(namespec, allow_creation=True)
             person.item_ids.add(paper.full_id_tuple)
     return value
 
@@ -283,7 +283,9 @@ class Paper:
         issue: The journal issue for this paper.  Should normally be set at the volume level; you probably want to use `get_issue()` instead.
         journal: The journal name for this paper.   Should normally be set at the volume level; you probably want to use `get_journal_title()` instead.
         language: The language this paper is (mainly) written in.  When given, this should be a ISO 639-2 code (e.g. "eng"), though occasionally IETF is used (e.g. "pt-BR").
+        month: The month of publication. If not set on the paper, this is inherited from the parent volume.
         note: A note attached to this paper.  Used very sparingly.
+        year: The year of publication. If not set on the paper, this is inherited from the parent volume.
         pages: Page numbers of this paper within its volume.
         pdf: A reference to the paper's PDF.
         type: The paper's type, currently used to mark frontmatter and backmatter.
@@ -364,10 +366,16 @@ class Paper:
     issue: Optional[str] = field(default=None)
     journal: Optional[str] = field(default=None)
     language: Optional[str] = field(default=None)
+    _month: Optional[str] = field(default=None)
     note: Optional[str] = field(default=None)
     pages: Optional[str] = field(default=None)
     pdf: Optional[PDFReference] = field(default=None)
     type: PaperType = field(default=PaperType.PAPER, converter=PaperType)
+    _year: Optional[str] = field(
+        default=None,
+        converter=converters.optional(int_to_str),
+        validator=v.optional(v.matches_re(r"^[0-9]{4}$")),
+    )
 
     def __attrs_post_init__(self) -> None:
         for namespec in it.chain(self.authors, self.editors):
@@ -479,8 +487,25 @@ class Paper:
 
     @property
     def month(self) -> Optional[str]:
-        """The month of publication. Inherited from the parent Volume."""
-        return self.parent.month
+        """The month of publication. Uses the paper's own month if set, otherwise inherited from the parent Volume."""
+        if self._month is None:
+            return self.parent.month
+        return self._month
+
+    @month.setter
+    def month(self, value: Optional[str]) -> None:
+        self._month = value
+
+    @property
+    def year(self) -> str:
+        """The year of publication. Uses the paper's own year if set, otherwise inherited from the parent Volume."""
+        if self._year is None:
+            return self.parent.year
+        return self._year
+
+    @year.setter
+    def year(self, value: Optional[str]) -> None:
+        self._year = value
 
     @property
     def publisher(self) -> Optional[str]:
@@ -505,11 +530,6 @@ class Paper:
     def venue_ids(self) -> tuple[str, ...]:
         """Sequence of venue IDs associated with this paper. Inherited from the parent Volume."""
         return self.parent.venue_ids
-
-    @property
-    def year(self) -> str:
-        """The year of publication. Inherited from the parent Volume."""
-        return self.parent.year
 
     @property
     def web_url(self) -> str:
@@ -753,8 +773,10 @@ class Paper:
                 "issue",
                 "journal",
                 "language",
+                "month",
                 "note",
                 "pages",
+                "year",
             ):
                 kwargs[tag] = element.text
             elif tag in ("author", "editor"):
@@ -831,8 +853,12 @@ class Paper:
             paper.append(erratum.to_xml())
         for revision in self.revisions:
             paper.append(revision.to_xml())
-        for tag in ("doi", "issue", "journal", "language", "note"):
-            if (value := getattr(self, tag)) is not None:
+        for tag in ("doi", "issue", "journal", "language", "month", "note", "year"):
+            if hasattr(self, f"_{tag}"):
+                value = getattr(self, f"_{tag}")
+            else:
+                value = getattr(self, tag)
+            if value is not None:
                 paper.append(getattr(E, tag)(value))
         for type_, attachment in self.attachments:
             if type_ == "mrf":  # rarely used <mrf> tag

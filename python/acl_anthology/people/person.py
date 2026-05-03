@@ -36,7 +36,7 @@ from ..utils.ids import (
     is_verified_person_id,
     parse_id,
 )
-from . import Name
+from . import Name, ConvertableIntoName
 
 if TYPE_CHECKING:
     from . import NameSpecification, PersonIndex
@@ -156,12 +156,15 @@ class Person:
         return [name for (name, _) in self._names]
 
     @names.setter
-    def names(self, values: list[Name]) -> None:
+    def names(self, values: list[ConvertableIntoName]) -> None:
         for name, _ in self._names:
             self.parent._remove_name(self.id, name)
-        for name in values:
+        names = []
+        for ci_name in values:
+            name = Name.from_(ci_name)
             self.parent._add_name(self.id, name)
-        self._names = _name_list_converter(values)
+            names.append((name, NameLink.EXPLICIT))
+        self._names = names
         self.parent._reresolve_items_for_person(self)
 
     @property
@@ -188,8 +191,8 @@ class Person:
             raise ValueError(f"No names defined for person '{self.id}'")
 
     @canonical_name.setter
-    def canonical_name(self, name: Name) -> None:
-        self._set_canonical_name(name)
+    def canonical_name(self, name: ConvertableIntoName) -> None:
+        self._set_canonical_name(Name.from_(name))
 
     def _set_canonical_name(self, name: Name, inferred: bool = False) -> None:
         """Set the canonical name for this person.
@@ -203,10 +206,11 @@ class Person:
         link_type = NameLink.INFERRED if inferred else NameLink.EXPLICIT
         if not self.has_name(name):
             self._names = [(name, link_type)] + self._names
+            self.parent._add_name(self.id, name)
         else:
             self._names = [(name, link_type)] + [x for x in self._names if x[0] != name]
 
-    def add_name(self, name: Name, inferred: bool = False) -> None:
+    def add_name(self, name: ConvertableIntoName, inferred: bool = False) -> None:
         """Add a name for this person.
 
         Parameters:
@@ -214,6 +218,7 @@ class Person:
             inferred: If True, will be marked as `NameLinkingType.INFERRED`, which will e.g. cause this name to not be written to `people.json`.  Used when building the [`PersonIndex`][acl_anthology.people.index.PersonIndex] from the XML data; you probably don't want to set this manually.  Defaults to False.
         """
         link_type = NameLink.INFERRED if inferred else NameLink.EXPLICIT
+        name = Name.from_(name)
         if not self.has_name(name):
             self._names.append((name, link_type))
             self.parent._add_name(self.id, name)
@@ -225,7 +230,7 @@ class Person:
             del self._names[idx]
             self._names.insert(idx, (name, link_type))
 
-    def remove_name(self, name: Name) -> None:
+    def remove_name(self, name: ConvertableIntoName) -> None:
         """Remove an explicit name for this person.
 
         Warning:
@@ -237,12 +242,13 @@ class Person:
         Raises:
             ValueError: If this name was not explicitly linked to this person.
         """
+        name = Name.from_(name)
         self._names.remove((name, NameLink.EXPLICIT))
         self.parent._remove_name(self.id, name)
         self.parent._reresolve_items_for_person(self)
         self.parent._reresolve_items_for_names([name])
 
-    def has_name(self, name: Name) -> bool:
+    def has_name(self, name: ConvertableIntoName) -> bool:
         """
         Parameters:
             name: Name to be checked.
@@ -250,7 +256,9 @@ class Person:
         Returns:
             True if the given name can refer to this person.
         """
-        return any(existing_name == name for (existing_name, _) in self._names)
+        return any(
+            existing_name == Name.from_(name) for (existing_name, _) in self._names
+        )
 
     def change_id(self, new_id: str) -> None:
         """Change this person's ID.
@@ -329,6 +337,8 @@ class Person:
 
         This will move all attributes, papers, and volumes currently associated with this person over to the `other` person.  The other person's ID will be explicitly set on all items currently associated with this person.  If an attribute (e.g. ORCID iD, comment) is already set on the other person, it will _not_ be changed.
 
+        This Person object should no longer be used after calling this function.
+
         Parameters:
             other: A person to merge this person into.  Must be explicit.
 
@@ -352,6 +362,10 @@ class Person:
             other.add_name(name, inferred=False)
         for namespec in namespecs:
             namespec.id = other.id
+
+        if self.is_explicit:
+            # This person should no longer exist
+            self.parent.remove_person(self)
 
     def set_id_on_items(
         self, exclude: Optional[list[AnthologyID | Paper | Volume]] = None

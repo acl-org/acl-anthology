@@ -28,17 +28,28 @@ def test_person_names(anthology_stub):
     assert not person.has_name(n3)
 
 
-def test_person_canonical_name(anthology_stub):
+@pytest.mark.parametrize("n2", (Name("Y.", "Liu"), "Liu, Y."))
+def test_person_set_canonical_name1(anthology_stub, n2):
     n1 = Name("Yang", "Liu")
-    n2 = Name("Y.", "Liu")
-    person = Person("yang-liu", anthology_stub.people, [n1, n2])
+    person = Person("yang-liu", anthology_stub.people)
+    person.names = [n1, n2]
     assert person.canonical_name == n1
     person.canonical_name = n2
-    assert person.canonical_name == n2
+    assert person.canonical_name == Name("Y.", "Liu")
     assert len(person.names) == 2
 
 
-def test_person_add_name(anthology_stub):
+def test_person_set_canonical_name2(anthology_stub):
+    person = Person("rene-muller", anthology_stub.people, [Name("Rene", "Muller")])
+    assert len(person.names) == 1
+    name = Name("René", "Müller")
+    person.canonical_name = name
+    assert len(person.names) == 2
+    assert person.canonical_name == name
+
+
+@pytest.mark.parametrize("n3", (Name("Yang X.", "Liu"), "Liu, Yang X."))
+def test_person_add_name(anthology_stub, n3):
     n1 = Name("Yang", "Liu")
     n2 = Name("Y.", "Liu")
     person = Person("yang-liu", anthology_stub.people, [n1])
@@ -46,16 +57,17 @@ def test_person_add_name(anthology_stub):
     person.canonical_name = n2
     assert person.canonical_name == n2
     assert len(person.names) == 2
-    n3 = Name("Yang X.", "Liu")
     person.add_name(n3)
     assert person.canonical_name == n2
     assert len(person.names) == 3
+    assert person.has_name(Name("Yang X.", "Liu"))
 
 
-def test_person_remove_name(anthology_stub):
+@pytest.mark.parametrize("n2", (Name("Y.", "Liu"), "Liu, Y."))
+def test_person_remove_name(anthology_stub, n2):
     n1 = Name("Yang", "Liu")
-    n2 = Name("Y.", "Liu")
-    person = Person("yang-liu", anthology_stub.people, [n1, n2])
+    person = Person("yang-liu", anthology_stub.people)
+    person.names = [n1, n2]
     assert person.has_name(n2)
     person.remove_name(n2)
     assert not person.has_name(n2)
@@ -99,15 +111,6 @@ def test_person_no_name(anthology_stub):
     name = Name("Yang", "Liu")
     person.canonical_name = name
     assert len(person.names) == 1
-    assert person.canonical_name == name
-
-
-def test_person_set_canonical_name(anthology_stub):
-    person = Person("rene-muller", anthology_stub.people, [Name("Rene", "Muller")])
-    assert len(person.names) == 1
-    name = Name("René", "Müller")
-    person.canonical_name = name
-    assert len(person.names) == 2
     assert person.canonical_name == name
 
 
@@ -349,17 +352,26 @@ def test_person_merge_into_verified_verified(anthology, pid1, pid2):
     person2 = anthology.get_person(pid2)
     expected_canonical_name = person2.canonical_name
 
-    # Test merging
     person1.merge_into(person2)
+
+    # Item assignment should have changed
     assert not person1.item_ids
     assert set(person2.item_ids) == {("2022.naloma", "1", "7"), ("2022.naloma", "1", "8")}
     namespec = anthology.get_paper(("2022.naloma", "1", "8")).authors[0]
     assert namespec.id == pid2
+
+    # New person should have the old person's attributes
     assert person2.has_name(Name("M.", "Bollmann"))
     assert person2.has_name(Name("Marcel", "Bollmann"))
     assert person2.canonical_name == expected_canonical_name
     assert person2.degree == "Ruhr-Universität Bochum"
     assert person2.orcid == "0000-0003-2598-8150"
+
+    # Old person should no longer exist in index
+    assert anthology.people.get_by_orcid("0000-0003-2598-8150") is person2
+    assert set(anthology.people.get_by_name(Name("Marcel", "Bollmann"))) == set([person2])
+    assert pid2 in anthology.people
+    assert pid1 not in anthology.people
 
     anthology.reset_indices()
 

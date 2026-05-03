@@ -394,6 +394,33 @@ class PersonIndex(SlottedDict[Person]):
             self._similar.add(similar_id)  # might not have been added yet
             self._similar.merge(pid, similar_id)
 
+    def remove_person(self, person: Person) -> None:
+        """Remove a person from the index.
+
+        Warning:
+            The person object should not be used in any way after this operation.
+
+        Parameters:
+            person: The person to remove, which must be explicit.
+
+        Raises:
+            ValueError: If the person does not exist in in the index, is not explicit, or if there are still NameSpecifications associated with this person.
+        """
+        if (pid := person.id) not in self.data:
+            raise ValueError(f"A Person with ID '{pid}' does not exist in the index")
+        if not person.is_explicit:
+            raise ValueError(f"Cannot remove Person with ID '{pid}' that is not explicit")
+        if person.item_ids:
+            raise ValueError(
+                f"Cannot remove Person with ID '{pid}' that still has items associated with them"
+            )
+
+        person.orcid = None  # ensure ORCID gets removed from index
+        for name in person.names:
+            self._remove_name(pid, name)
+        person.is_explicit = False
+        del self.data[pid]
+
     def create(
         self,
         id: str,
@@ -479,7 +506,7 @@ class PersonIndex(SlottedDict[Person]):
         """
         if not self.is_data_loaded:
             return
-        if old is not None and old in self._by_orcid:
+        if old is not None and self._by_orcid.get(old) == pid:
             del self._by_orcid[old]
         if new is not None:
             self._by_orcid[new] = pid
@@ -553,7 +580,7 @@ class PersonIndex(SlottedDict[Person]):
             self._by_name[name].remove(pid)
             if is_verified_person_id(pid):
                 self._slugs_to_verified_ids[name.slugify()].remove(pid)
-        except KeyError:
+        except (KeyError, ValueError):
             pass
 
     def ingest_namespec(self, name_spec: NameSpecification) -> NameSpecification:
