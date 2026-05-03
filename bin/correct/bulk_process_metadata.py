@@ -513,7 +513,7 @@ class AnthologyMetadataUpdater:
                 # Commit changes
                 # ... to the paper (XML of collection)
                 self.local_repo.index.add([paper.collection.path])
-                # ... to the people.yaml
+                # ... to the people.json
                 # e.g. when the metadata correction has surfaced a new name variant
                 people_file = self.anthology.people.path
                 if self.local_repo.index.diff(None, paths=people_file):

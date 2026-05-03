@@ -48,7 +48,7 @@ class NameLink(StrEnum):
     """How a Name was connected to a Person."""
 
     EXPLICIT = "explicit"
-    """Name is explicitly listed in `people.yaml` file."""
+    """Name is explicitly listed in `people.json` file."""
 
     INFERRED = "inferred"
     """Name was connected to this Person via slug matching heuristic."""
@@ -101,7 +101,7 @@ class Person:
     Info:
         The connection between persons and Anthology items is derived from [name specifications][acl_anthology.people.name.NameSpecification] on volumes and papers, and not stored explicitly. This means that Person objects **cannot be used to make changes to paper metadata**, e.g. which person a paper is associated with or under which name; change the information on papers instead.
 
-        Person objects **can** be used to make changes to metadata that appears in `people.yaml`, such as ORCID, comment, degree, and alternative names for this person.
+        Person objects **can** be used to make changes to metadata that appears in `people.json`, such as ORCID, comment, degree, and alternative names for this person.
 
     Attributes:
         id: A unique ID for this person.  Do not change this attribute directly; use [`change_id()`][acl_anthology.people.person.Person.change_id], [`make_explicit()`][acl_anthology.people.person.Person.make_explicit], or [`merge_into()`][acl_anthology.people.person.Person.merge_into] instead.
@@ -111,7 +111,7 @@ class Person:
         comment: A comment for disambiguation purposes.
         degree: The person's institution of highest degree, for disambiguation purposes.
         similar_ids: A list of person IDs with names that should be considered similar to this one.  Do **not** use this to _find_ people with similar names; that should be done via [`PersonIndex.similar`][acl_anthology.people.index.PersonIndex].  This attribute can be used to explicitly add more "similar IDs" that are not automatically derived via similar names.
-        is_explicit: If True, this person's ID is explicitly defined in `people.yaml`.  You probably want to use [`make_explicit()`][acl_anthology.people.person.Person.make_explicit] rather than change this attribute.
+        is_explicit: If True, this person's ID is explicitly defined in `people.json`.  You probably want to use [`make_explicit()`][acl_anthology.people.person.Person.make_explicit] rather than change this attribute.
     """
 
     id: str = field(
@@ -215,7 +215,7 @@ class Person:
 
         Parameters:
             name: Name that can refer to this person.
-            inferred: If True, will be marked as `NameLinkingType.INFERRED`, which will e.g. cause this name to not be written to `people.yaml`.  Used when building the [`PersonIndex`][acl_anthology.people.index.PersonIndex] from the XML data; you probably don't want to set this manually.  Defaults to False.
+            inferred: If True, will be marked as `NameLinkingType.INFERRED`, which will e.g. cause this name to not be written to `people.json`.  Used when building the [`PersonIndex`][acl_anthology.people.index.PersonIndex] from the XML data; you probably don't want to set this manually.  Defaults to False.
         """
         link_type = NameLink.INFERRED if inferred else NameLink.EXPLICIT
         name = Name.from_(name)
@@ -297,7 +297,7 @@ class Person:
     ) -> None:
         """Turn this person that was implicitly created into an explicitly-represented one.
 
-        This will result in this person having an explicit entry in `people.yaml` with all names that are currently associated with this person.  It will also add their new explicit ID to all papers and volumes currently associated with this person.
+        This will result in this person having an explicit entry in `people.json` with all names that are currently associated with this person.  It will also add their new explicit ID to all papers and volumes currently associated with this person.
 
         Parameters:
             new_id: The new ID for this person, which must match [`RE_VERIFIED_PERSON_ID`][acl_anthology.constants.RE_VERIFIED_PERSON_ID].  If not specified, will try to generate one automatically based on this person's canonical name (and, potentially, ORCID).
