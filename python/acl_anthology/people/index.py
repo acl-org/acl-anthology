@@ -607,7 +607,7 @@ class PersonIndex(SlottedDict[Person]):
             return name_spec
 
         if (person := self.get_by_orcid(name_spec.orcid)) is not None:
-            name_spec.id = person.id
+            name_spec._id = person.id
             # Make sure the name used here is listed for this person
             person.add_name(name_spec.name)
         else:
@@ -623,7 +623,7 @@ class PersonIndex(SlottedDict[Person]):
                     is_explicit=True,
                 )
             )
-            name_spec.id = pid
+            name_spec._id = pid
 
         return name_spec
 

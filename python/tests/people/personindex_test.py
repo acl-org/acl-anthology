@@ -880,6 +880,24 @@ def test_namespec_add_id_affects_name_resolution(anthology):
     assert item_id in person2.item_ids
 
 
+def test_namespec_case_normalize_affects_person_names_unverified(anthology):
+    index = anthology.people
+    # Precondition: Find a paper that resolves to a person with all-lowercase name
+    item_id = ("2022.naloma", "1", "4")
+    namespec = anthology.get_paper(item_id).authors[-1]
+    person = index.get(UNVERIFIED_PID_FORMAT.format(pid="mihalis-yannakakis"))
+    assert namespec.resolve() is person
+    assert namespec.name == Name("mihalis", "yannakakis")
+    assert person.names == [Name("mihalis", "yannakakis")]
+
+    # Case-normalizing should update the person's name
+    namespec.case_normalize()
+    assert namespec.name == Name("Mihalis", "Yannakakis")
+    assert (
+        Name("Mihalis", "Yannakakis") in person.names
+    )  # for an unverified person, it's fine that the old name is still in here
+
+
 ##############################################################################
 ### Tests for ingestion logic
 ##############################################################################
