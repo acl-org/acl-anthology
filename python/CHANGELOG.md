@@ -21,6 +21,7 @@
 - `PersonIndex.create` now deduplicates list of names (#7858)
 - `Event.colocated_ids` and `EventIndex.reverse` will now update dynamically when a Volume's `venue_ids` attribute is modified, or when a new Volume is created.
 - `Venue.item_ids` will now update dynamically when a Volume's `venue_ids` attribute is modified, or when a new Volume is created.
+- Fix a bug in `Name` where "script" attributes were not always preserved.
 
 ### Removed
 
