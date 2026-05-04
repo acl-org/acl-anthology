@@ -4,6 +4,7 @@
 
 - Only use **public API** methods from the `acl_anthology` library. Never call private methods (those starting with `_`).
 - Read the library documentation under `python/docs/` before writing code that uses the library.
+- You should never parse XML directly; always use the library
 - The online docs are at https://acl-anthology.readthedocs.io/
 
 ## Key API patterns
