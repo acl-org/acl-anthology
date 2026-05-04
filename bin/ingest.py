@@ -741,7 +741,9 @@ def ingest(
         try:
             volume_obj.create_paper(**kwargs)
         except Exception as e:
-            log.error(f"Error creating paper {paper['id']} in volume {metadata['volume_name']}: {e}")
+            log.error(
+                f"Error creating paper {paper['id']} in volume {metadata['volume_name']}: {e}"
+            )
             # print all the authors for debugging
             for author in paper.get("authors", []):
                 log.error(f"Author: {author}")
@@ -873,7 +875,11 @@ def read_bib_entry(bibfilename: Path | str, paper_id: str) -> Optional[Dict[str,
 
     try:
         bibdata = pybtex.database.input.bibtex.Parser().parse_file(bibfilename)
-    except (FileNotFoundError, pybtex.scanner.PybtexSyntaxError, pybtex.scanner.TokenRequired):
+    except (
+        FileNotFoundError,
+        pybtex.scanner.PybtexSyntaxError,
+        pybtex.scanner.TokenRequired,
+    ):
         log.error(f"error parsing {bibfilename}")
         raise
 
@@ -908,8 +914,7 @@ def read_bib_entry(bibfilename: Path | str, paper_id: str) -> Optional[Dict[str,
             for idx, person in enumerate(bibentry.persons.get("author", []), start=1)
         ],
         "editors": [
-            namespec_from_bib(person)
-            for person in bibentry.persons.get("editor", [])
+            namespec_from_bib(person) for person in bibentry.persons.get("editor", [])
         ],
     }
 
