@@ -15,7 +15,7 @@
 from __future__ import annotations
 
 import attrs
-from attrs import define, field, setters
+from attrs import define, field, setters, validators as v
 from enum import StrEnum
 from typing import Any, Iterator, Optional, Sequence, TYPE_CHECKING
 import sys
@@ -31,7 +31,8 @@ from ..utils.attrs import (
     attach_custom_repr,
     auto_validate_types,
     repr_item_ids,
-    validate_and_convert_orcid,
+    convert_orcid,
+    validate_orcid,
 )
 from ..utils.ids import (
     AnthologyID,
@@ -119,7 +120,9 @@ class Person:
     )
     orcid: Optional[str] = field(
         default=None,
-        on_setattr=[validate_and_convert_orcid, _update_person_index],
+        converter=convert_orcid,
+        validator=v.optional(validate_orcid),
+        on_setattr=[setters.convert, setters.validate, _update_person_index],
     )
     comment: Optional[str] = field(default=None)
     degree: Optional[str] = field(default=None)
