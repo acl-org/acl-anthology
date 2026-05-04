@@ -25,14 +25,18 @@ if sys.version_info >= (3, 13):
 else:
     from typing_extensions import deprecated
 
-from ..constants import RE_ORCID, NO_PERSON_ID
+from ..constants import NO_PERSON_ID
 from ..exceptions import AnthologyException, AnthologyInvalidIDError
-from ..utils.attrs import attach_custom_repr, auto_validate_types, repr_item_ids
+from ..utils.attrs import (
+    attach_custom_repr,
+    auto_validate_types,
+    repr_item_ids,
+    validate_and_convert_orcid,
+)
 from ..utils.ids import (
     AnthologyID,
     AnthologyIDTuple,
     build_id_from_tuple,
-    is_valid_orcid,
     is_verified_person_id,
     parse_id,
 )
@@ -64,20 +68,6 @@ def _name_list_converter(
         (item, NameLink.EXPLICIT) if isinstance(item, Name) else item
         for item in name_list
     ]
-
-
-def _orcid_converter_and_validator(
-    _: Person, __: attrs.Attribute[Any], value: object
-) -> Optional[str]:
-    if value is None:
-        return None
-    value = str(value).upper()
-    # e.g. "https://orcid.org/0000-0002-1297-6794" -> "0000-0002-1297-6794"
-    if len(value) > 19 and (m := RE_ORCID.search(value)) is not None:
-        value = m.group(0)
-    if not is_valid_orcid(value):
-        raise ValueError(f"ORCID is not valid (wrong format or checksum): {value}")
-    return value
 
 
 def _update_person_index(person: Person, attr: attrs.Attribute[Any], value: str) -> str:
@@ -129,7 +119,7 @@ class Person:
     )
     orcid: Optional[str] = field(
         default=None,
-        on_setattr=[_orcid_converter_and_validator, _update_person_index],
+        on_setattr=[validate_and_convert_orcid, _update_person_index],
     )
     comment: Optional[str] = field(default=None)
     degree: Optional[str] = field(default=None)

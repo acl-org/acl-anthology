@@ -920,6 +920,11 @@ test_cases_ingest_namespec = (
         {"orcid": "0000-0003-2598-8150"},
         "marcel-bollmann",
     ),
+    (  # ... and even if the ORCID is given in URL style
+        {"first": "Marcel", "last": "Böllmann"},
+        {"orcid": "https://orcid.org/0000-0003-2598-8150"},
+        "marcel-bollmann",
+    ),
     #### ORCID in the ingestion material, no match in our `people.yaml`
     (  # Person should be created
         {"first": "Matt", "last": "Post"},
