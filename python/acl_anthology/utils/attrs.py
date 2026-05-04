@@ -22,7 +22,8 @@ import datetime
 from typing import Any, Callable, Iterable, Optional, Sequence, TypeVar, TYPE_CHECKING
 import re
 
-from .ids import AnthologyIDTuple, build_id_from_tuple
+from ..constants import RE_ORCID
+from .ids import AnthologyIDTuple, build_id_from_tuple, is_valid_orcid
 
 if TYPE_CHECKING:
     import rich
@@ -68,6 +69,19 @@ def validate_anthology_id_tuple(cls: Any, attr: attrs.Attribute[Any], value: Any
         AnthologyIDTuple,
         value,
     )
+
+
+def validate_and_convert_orcid(_: Any, __: Any, value: object) -> Optional[str]:
+    """Validate an ORCID, potentially converting it from a URL first."""
+    if value is None:
+        return None
+    value = str(value).upper()
+    # e.g. "https://orcid.org/0000-0002-1297-6794" -> "0000-0002-1297-6794"
+    if len(value) > 19 and (m := RE_ORCID.search(value)) is not None:
+        value = str(m.group(0))
+    if not is_valid_orcid(value):
+        raise ValueError(f"ORCID is not valid (wrong format or checksum): {value}")
+    return value
 
 
 def auto_validate_types(

@@ -30,7 +30,11 @@ except ImportError:  # pragma: no cover
 
 from ..constants import RE_VERIFIED_PERSON_ID, NO_PERSON_ID
 from ..exceptions import AnthologyException
-from ..utils.attrs import attach_custom_repr, track_namespec_modifications
+from ..utils.attrs import (
+    attach_custom_repr,
+    track_namespec_modifications,
+    validate_and_convert_orcid,
+)
 from ..utils.latex import latex_encode
 
 if TYPE_CHECKING:
@@ -350,6 +354,10 @@ def _into_name_tuple(value: Iterable[ConvertableIntoName]) -> tuple[Name, ...]:
     return tuple(Name.from_(v) for v in value)
 
 
+def _validate_and_convert_orcid(value: object) -> Optional[str]:
+    return validate_and_convert_orcid(None, None, value)
+
+
 @attach_custom_repr
 @define(
     on_setattr=[setters.convert, setters.validate, track_namespec_modifications],
@@ -376,7 +384,7 @@ class NameSpecification:
         validator=v.optional([v.instance_of(str), v.matches_re(RE_VERIFIED_PERSON_ID)]),
     )
     parent: Optional[Paper | Volume | Talk] = field(default=None, repr=False, eq=False)
-    orcid: Optional[str] = field(default=None, validator=v.optional(v.instance_of(str)))
+    orcid: Optional[str] = field(default=None, converter=_validate_and_convert_orcid)
     affiliation: Optional[str] = field(
         default=None, validator=v.optional(v.instance_of(str))
     )
