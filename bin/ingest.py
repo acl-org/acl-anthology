@@ -738,7 +738,15 @@ def ingest(
             )
         if attachment_refs:
             kwargs["attachments"] = attachment_refs
-        volume_obj.create_paper(**kwargs)
+        try:
+            volume_obj.create_paper(**kwargs)
+        except Exception as e:
+            log.error(f"Error creating paper {paper['id']} in volume {metadata['volume_name']}: {e}")
+            # print all the authors for debugging
+            for author in paper.get("authors", []):
+                log.error(f"Author: {author}")
+
+            raise
 
     if metadata.get("sig"):
         register_volume_with_sig(
@@ -794,8 +802,12 @@ def normalize_latex(text: Optional[str], is_title: bool = True) -> Optional[Mark
         return markup
 
 
-def namespec_from_bib(person) -> NameSpecification:
-    """Creates a NameSpecification from a pybtex Person object."""
+def namespec_from_bib(person, orcid: Optional[str] = None) -> NameSpecification:
+    """Creates a NameSpecification from a pybtex Person object.
+
+    If ``orcid`` is provided (and non-empty), it is attached to the
+    NameSpecification.
+    """
     first_text = " ".join(person.first_names + person.middle_names)
     last_text = " ".join(person.prelast_names + person.last_names)
 
@@ -809,15 +821,51 @@ def namespec_from_bib(person) -> NameSpecification:
     first_text = first_text.strip()
     last_text = last_text.strip()
 
-    return NameSpecification(name=Name(first_text, last_text))
+    kwargs: Dict[str, Any] = {"name": Name(first_text, last_text)}
+    if orcid:
+        kwargs["orcid"] = orcid
+    return NameSpecification(**kwargs)
+
+
+def read_orc_file(orcfilename: Path | str) -> Dict[int, str]:
+    """Parse an ACLPUB ``.orc`` sidecar file mapping author indices to ORCIDs.
+
+    The file format has one entry per line, e.g.::
+
+        Author{1}{Orcid}:0000-0002-9659-1532
+        Author{2}{Orcid}:
+        Author{3}{Orcid}:
+
+    Returns a dict mapping 1-based author index to ORCID string. Entries with
+    empty ORCID values are omitted. Returns an empty dict if the file does not
+    exist."""
+    orcids: Dict[int, str] = {}
+    path = Path(orcfilename)
+    if not path.exists():
+        return orcids
+    with open(path) as instream:
+        for line in instream:
+            match = re.match(r"Author\{(\d+)\}\{Orcid\}\s*:\s*(\S*)", line.strip())
+            if match is None:
+                continue
+            orcid = match.group(2).strip()
+            if not orcid:
+                continue
+            orcids[int(match.group(1))] = orcid
+    return orcids
 
 
 def read_bib_entry(bibfilename: Path | str, paper_id: str) -> Optional[Dict[str, Any]]:
-    """Parse a single-entry BibTeX file into structured metadata."""
+    """Parse a single-entry BibTeX file into structured metadata.
+
+    If a sibling ``.orc`` file exists alongside the ``.bib`` file (an ACLPUB
+    extension), ORCIDs are read from it and attached to the corresponding
+    authors by 1-based index.
+    """
 
     try:
         bibdata = pybtex.database.input.bibtex.Parser().parse_file(bibfilename)
-    except pybtex.scanner.PybtexSyntaxError:
+    except (FileNotFoundError, pybtex.scanner.PybtexSyntaxError, pybtex.scanner.TokenRequired):
         log.error(f"error parsing {bibfilename}")
         raise
 
@@ -833,6 +881,9 @@ def read_bib_entry(bibfilename: Path | str, paper_id: str) -> Optional[Dict[str,
     if page_range is not None:
         page_range = page_range.replace("--", "-")
 
+    orc_path = Path(bibfilename).with_suffix(".orc")
+    orcids = read_orc_file(orc_path)
+
     return {
         "title": normalize_latex(bibentry.fields.get("title")),
         "booktitle": normalize_latex(bibentry.fields.get("booktitle")),
@@ -845,10 +896,12 @@ def read_bib_entry(bibfilename: Path | str, paper_id: str) -> Optional[Dict[str,
         "doi": bibentry.fields.get("doi"),
         "language": bibentry.fields.get("language"),
         "authors": [
-            namespec_from_bib(person) for person in bibentry.persons.get("author", [])
+            namespec_from_bib(person, orcids.get(idx))
+            for idx, person in enumerate(bibentry.persons.get("author", []), start=1)
         ],
         "editors": [
-            namespec_from_bib(person) for person in bibentry.persons.get("editor", [])
+            namespec_from_bib(person)
+            for person in bibentry.persons.get("editor", [])
         ],
     }
 
