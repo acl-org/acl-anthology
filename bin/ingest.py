@@ -824,7 +824,15 @@ def namespec_from_bib(person, orcid: Optional[str] = None) -> NameSpecification:
     kwargs: Dict[str, Any] = {"name": Name(first_text, last_text)}
     if orcid:
         kwargs["orcid"] = orcid
-    return NameSpecification(**kwargs)
+
+    try:
+        namespec = NameSpecification(**kwargs)
+    except ValueError as e:
+        log.warning(e)
+        del kwargs["orcid"]
+        namespec = NameSpecification(**kwargs)
+
+    return namespec
 
 
 def read_orc_file(orcfilename: Path | str) -> Dict[int, str]:
