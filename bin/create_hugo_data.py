@@ -116,7 +116,7 @@ def paper_to_dict(paper):
     data = {
         "bibkey": paper.bibkey,
         "bibtype": paper.bibtype,
-        "ingest_date": paper.get_ingest_date().isoformat(),
+        "ingest_date": paper.ingest_date.isoformat(),
         "paper_id": paper.id,
         "title": paper.title.as_text(),
         "title_html": remove_extra_whitespace(paper.title.as_html(allow_url=False)),
@@ -129,7 +129,7 @@ def paper_to_dict(paper):
         "citation_acl": paper.to_citation(),
         "year": paper.year,
     }
-    editors = [person_to_dict(ns.resolve().id, ns) for ns in paper.get_editors()]
+    editors = [person_to_dict(ns.resolve().id, ns) for ns in paper.editors]
     if BIBLIMIT is None or int(paper.id) <= BIBLIMIT:
         data["bibtex"] = paper.to_bibtex(with_abstract=True)
     if paper.is_frontmatter:
@@ -143,8 +143,8 @@ def paper_to_dict(paper):
             data["editor"] = editors
     if "author" in data:
         data["author_string"] = ", ".join(author["full"] for author in data["author"])
-    for key in ("doi", "issue", "journal", "note", "month"):
-        # TODO: Keys 'issue' and 'journal' are currently unused on Hugo templates
+    for key in ("doi", "journal_issue", "journal_title", "note", "month"):
+        # TODO: 'journal_*' keys are currently unused on Hugo templates
         if (value := getattr(paper, key)) is not None:
             data[key] = value
     # Frontmatter inherits DOI from volume ... not sure if it should, and this is a bit messy
@@ -257,7 +257,7 @@ def volume_to_dict(volume):
     if sigs := volume.get_sigs():
         data["sigs"] = [sig.acronym for sig in sigs]
     if volume.type == VolumeType.JOURNAL:
-        data["meta_journal_title"] = volume.get_journal_title()
+        data["meta_journal_title"] = volume.journal_title
         data["meta_issue"] = volume.journal_issue
         data["meta_volume"] = volume.journal_volume
     if volume.pdf is not None:

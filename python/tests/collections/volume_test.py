@@ -129,7 +129,7 @@ def test_volume_minimum_attribs(anthology):
     )
     assert volume.full_id == "L05-6"
     assert volume.title == "Lorem ipsum"
-    assert volume.get_ingest_date().year == 1900
+    assert volume.ingest_date.year == 1900
     assert not volume.is_workshop
 
 
@@ -152,16 +152,14 @@ def test_volume_all_attribs(anthology):
         shortbooktitle="L.I.",
         venue_ids=["li", "acl"],
     )
-    assert volume.ingest_date == "2023-01-12"
-    assert volume.get_ingest_date() == date(2023, 1, 12)
+    assert volume.ingest_date == date(2023, 1, 12)
 
 
 def test_volume_attributes_2022acl_long(anthology):
     volume = anthology.get_volume("2022.acl-long")
     assert isinstance(volume, Volume)
     assert volume.id == "long"
-    assert volume.ingest_date == "2022-05-15"
-    assert volume.get_ingest_date() == date(2022, 5, 15)
+    assert volume.ingest_date == date(2022, 5, 15)
     assert volume.address == "Dublin, Ireland"
     assert volume.publisher == "Association for Computational Linguistics"
     assert volume.doi is None
@@ -179,8 +177,7 @@ def test_volume_attributes_2022acl_demo(anthology):
     volume = anthology.get_volume("2022.acl-demo")
     assert isinstance(volume, Volume)
     assert volume.id == "demo"
-    assert volume.ingest_date == "2022-05-15"
-    assert volume.get_ingest_date() == date(2022, 5, 15)
+    assert volume.ingest_date == date(2022, 5, 15)
     assert volume.address == "Dublin, Ireland"
     assert volume.publisher == "Association for Computational Linguistics"
     assert volume.doi == "10.18653/v1/2022.acl-demo"
@@ -207,7 +204,7 @@ def test_volume_attributes_j89(anthology):
     assert volume.type == VolumeType.JOURNAL
     assert volume.journal_issue == "1"
     assert volume.journal_volume == "15"
-    assert volume.get_journal_title() == "Computational Linguistics"
+    assert volume.journal_title == "Computational Linguistics"
     assert isinstance(volume.frontmatter, Paper) and volume.frontmatter.id == "0"
 
 
@@ -228,13 +225,21 @@ def test_volume_without_frontmatter(anthology):
     assert volume.frontmatter is None
 
 
+def test_volume_explicit_journal_title(anthology):
+    volume = anthology.get_volume("J89-4")
+    assert isinstance(volume, Volume)
+    assert volume._journal_title is not None
+    assert volume.journal_title == volume._journal_title
+    volume.journal_title = "Computational Linguistics"
+    assert volume._journal_title == "Computational Linguistics"
+
+
 def test_volume_set_ingest_date(anthology):
     volume = anthology.get_volume("2022.acl-demo")
     volume.ingest_date = "2025-07-15"
-    assert volume.get_ingest_date() == date(2025, 7, 15)
+    assert volume.ingest_date == date(2025, 7, 15)
     volume.ingest_date = date(2026, 3, 1)
-    assert volume.get_ingest_date() == date(2026, 3, 1)
-    assert volume.ingest_date == "2026-03-01"
+    assert volume.ingest_date == date(2026, 3, 1)
 
 
 @pytest.mark.parametrize(
@@ -449,7 +454,7 @@ def test_volume_create_paper_implicit(anthology):
     assert volume.collection.is_modified
     assert paper.authors == authors
     assert paper.title.as_text() == "The awesome paper I have never written"
-    assert paper.ingest_date == "2025-01-07"
+    assert paper.ingest_date.isoformat() == "2025-01-07"
     assert paper.parent is volume
     assert paper.id in volume
     # Highest paper ID in 2022.acl-long is 603, so this one should automatically get 604
@@ -473,7 +478,7 @@ def test_volume_create_paper_explicit(anthology):
     assert volume.collection.is_modified
     assert paper.authors == authors
     assert paper.title.as_text() == "The awesome paper I have never written"
-    assert paper.ingest_date == "2025-01-07"
+    assert paper.ingest_date.isoformat() == "2025-01-07"
     assert paper.parent is volume
     assert paper.id in volume
     assert paper.id == "701"
@@ -511,8 +516,8 @@ def test_volume_create_paper_with_editors(anthology):
         title="The awesome paper I have never written",
         authors=authors,
     )
-    assert not paper.editors
-    assert paper.get_editors() == volume.editors
+    assert not paper._editors
+    assert paper.editors == volume.editors
 
     # But the schema allows paper-level editors too
     editors = (NameSpec("Calzolari, Nicoletta"),)
@@ -523,7 +528,6 @@ def test_volume_create_paper_with_editors(anthology):
         ingest_date="2025-01-07",
     )
     assert paper.editors == editors
-    assert paper.get_editors() == editors
 
 
 @pytest.mark.parametrize("pre_load", (True, False))
@@ -617,6 +621,7 @@ def test_volume_type_conversion(anthology):
         parent,
         type="journal",
         booktitle="Lorem ipsum",
+        journal_title="Foo bar",
         year=2005,
     )
     assert volume.id == "6"  # str
@@ -634,6 +639,7 @@ def test_volume_type_validation(anthology):
         parent,
         type=VolumeType.JOURNAL,
         booktitle=volume_title,
+        journal_title="Foo bar",
         year="2005",
     )
     with pytest.raises(TypeError):
