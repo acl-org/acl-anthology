@@ -20,8 +20,8 @@
           (dict "id" "policy" "title" "Policies & identifiers")
           (dict "id" "info" "title" "Community & other info")
         }}
-        <li class="nav-item dropdown">
-          <a class="nav-link d-inline-block pe-1" href={{ relref . "/faq" }}>FAQ</a><a class="nav-link dropdown-toggle dropdown-toggle-split d-inline-block ps-0" href="#" id="faqDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Open FAQ menu"></a>
+        <li class="nav-item dropdown d-flex align-items-center">
+          <a class="nav-link pe-1" href={{ relref . "/faq" }}>FAQ</a><a class="nav-link ps-0" href="#" id="faqDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Open FAQ menu"><i class="fas fa-caret-down"></i></a>
           <ul class="dropdown-menu" aria-labelledby="faqDropdown">
             {{ range $i, $cat := $categories }}
               {{ $entries := where $faq.Pages "Params.category" $cat.id }}
