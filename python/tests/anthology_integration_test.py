@@ -167,3 +167,12 @@ def test_full_anthology_roundtrip_sig_yaml(
     for attrib in ("id", "acronym", "name", "url"):
         assert getattr(out, attrib) == getattr(sig, attrib)
     assert set(out.meetings) == set(sig.meetings)
+
+
+def test_full_anthology_loading_eventindex_shouldnt_modify_collections(full_anthology):
+    # See https://github.com/acl-org/acl-anthology/pull/8174#issuecomment-4392366090
+    # for why this exists -- bugs in event linking could cause Collections to be
+    # unintentionally modified
+    full_anthology.events.load()
+    for collection in full_anthology.collections.values():
+        assert not collection.is_modified

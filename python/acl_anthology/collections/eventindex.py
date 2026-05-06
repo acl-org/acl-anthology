@@ -157,7 +157,8 @@ class EventIndex(SlottedDict[Event]):
                         for co_id, co_type in self.data[
                             explicit_event.id
                         ].colocated_ids.items():
-                            explicit_event.add_colocated(co_id, co_type)
+                            if co_type == EventLink.INFERRED:
+                                explicit_event.add_colocated(co_id, co_type)
                     self.data[explicit_event.id] = explicit_event
                     for volume_fid in explicit_event.colocated_ids.keys():
                         self.reverse[volume_fid].add(explicit_event.id)
