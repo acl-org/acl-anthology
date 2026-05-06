@@ -13,27 +13,8 @@
         <li class="nav-item">
           <a class="nav-link" href={{ relref . "/posts" }}>News<span class="visually-hidden">(current)</span></a>
         </li>
-        {{ $faq := site.GetPage "/faq" }}
-        {{ $categories := slice
-          (dict "id" "usage" "title" "Using the Anthology")
-          (dict "id" "content" "title" "Submitting and correcting content")
-          (dict "id" "policy" "title" "Policies & identifiers")
-          (dict "id" "info" "title" "Community & other info")
-        }}
-        <li class="nav-item dropdown">
-          <a class="nav-link d-inline-block pe-1" href={{ relref . "/faq" }}>FAQ</a><a class="nav-link dropdown-toggle dropdown-toggle-split d-inline-block ps-0" href="#" id="faqDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Open FAQ menu"></a>
-          <ul class="dropdown-menu" aria-labelledby="faqDropdown">
-            {{ range $i, $cat := $categories }}
-              {{ $entries := where $faq.Pages "Params.category" $cat.id }}
-              {{ if $entries }}
-                {{ if gt $i 0 }}<li><hr class="dropdown-divider"></li>{{ end }}
-                <li><h6 class="dropdown-header">{{ $cat.title }}</h6></li>
-                {{ range $entries }}
-                  <li><a class="dropdown-item" href="{{ .RelPermalink }}">{{ .Title }}</a></li>
-                {{ end }}
-              {{ end }}
-            {{ end }}
-          </ul>
+        <li class="nav-item">
+          <a class="nav-link" href={{ relref . "/faq" }}>FAQ<span class="visually-hidden">(current)</span></a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href={{ relref . "/info/corrections.md" }}>Corrections<span class="visually-hidden">(current)</span></a>
