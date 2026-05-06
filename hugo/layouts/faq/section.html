@@ -28,7 +28,7 @@
         <li><a href="#{{ $cat }}">{{ .title }}</a>
           <ul>
           {{ range $entries }}
-            <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+            <li><a href="#{{ .File.BaseFileName }}">{{ .Title }}</a></li>
           {{ end }}
           </ul>
         </li>
