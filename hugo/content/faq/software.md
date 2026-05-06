@@ -1,6 +1,6 @@
 ---
 Title: What software does the ACL Anthology use?
-category: community
+category: info
 weight: 4
 ---
 

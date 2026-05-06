@@ -1,6 +1,6 @@
 ---
 Title: How can I submit attachments to papers?
-category: submitting
+category: content
 weight: 3
 ---
 

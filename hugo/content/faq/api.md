@@ -1,6 +1,6 @@
 ---
 Title: How can I programmatically access the Anthology's data?
-category: accessing
+category: usage
 weight: 1
 ---
 

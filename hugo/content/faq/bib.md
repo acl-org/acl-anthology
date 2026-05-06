@@ -1,6 +1,6 @@
 ---
 Title: How do I cite papers in the ACL Anthology?
-category: citing
+category: usage
 weight: 1
 ---
 Citing papers in the ACL Anthology is simple. We provide

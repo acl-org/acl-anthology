@@ -1,6 +1,6 @@
 ---
 Title: How can I stay up to date with the ACL Anthology?
-category: community
+category: info
 weight: 1
 ---
 You may be interested in the following:

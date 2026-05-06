@@ -1,6 +1,6 @@
 ---
 Title: What other resources are there based on the ACL Anthology?
-category: community
+category: info
 weight: 3
 ---
 

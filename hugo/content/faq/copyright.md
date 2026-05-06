@@ -1,6 +1,6 @@
 ---
 Title: What is the copyright for materials in the ACL Anthology?
-category: policies
+category: info
 weight: 1
 ---
 

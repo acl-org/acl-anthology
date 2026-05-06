@@ -1,6 +1,6 @@
 ---
 Title: How can I submit my proceedings or journal to the Anthology?
-category: submitting
+category: content
 weight: 1
 ---
 

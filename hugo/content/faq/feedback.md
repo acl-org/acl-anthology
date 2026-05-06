@@ -1,6 +1,6 @@
 ---
 Title: How can I make suggestions or provide feedback on the Anthology?
-category: corrections
+category: info
 weight: 2
 ---
 

@@ -1,6 +1,6 @@
 ---
 Title: How does the ACL Anthology use Digital Object Identifiers (DOIs)?
-category: policies
+category: info
 weight: 2
 ---
 

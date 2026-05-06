@@ -1,6 +1,6 @@
 ---
 Title: How can I submit new a new venue to the Anthology?
-category: submitting
+category: content
 weight: 2
 ---
 

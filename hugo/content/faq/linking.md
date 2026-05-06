@@ -1,6 +1,6 @@
 ---
 Title: How do I link to publications in the ACL Anthology?
-category: citing
+category: usage
 weight: 2
 ---
 
