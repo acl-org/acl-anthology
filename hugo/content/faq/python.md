@@ -11,4 +11,4 @@ pip install acl-anthology
 
 Documentation on the API can be found at [readthedocs](https://acl-anthology.readthedocs.io/), and its source code in our [GitHub repository](https://github.com/acl-org/acl-anthology/tree/master/python).
 
-You may also be interested in learning how easy it is to cite our papers in a variety of citation formats.
+You may also be interested in learning [how easy it is to cite our papers]({{< ref "/faq/bib" >}}) in a variety of citation formats.
