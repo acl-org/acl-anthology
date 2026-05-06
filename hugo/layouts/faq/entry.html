@@ -1,7 +1,3 @@
-{{ $id := .File.BaseFileName }}
-<h5 class="card-title faq-question" id="{{ $id }}">
-  <a href="{{ .RelPermalink }}" class="faq-anchor" aria-label="Link to this question" title="Link to this question">#</a>
-  {{ .Title }}
-</h5>
+<h5 class="card-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h5>
 
 {{ .Content }}
