@@ -30,7 +30,12 @@ except ImportError:  # pragma: no cover
 
 from ..constants import RE_VERIFIED_PERSON_ID, NO_PERSON_ID
 from ..exceptions import AnthologyException
-from ..utils.attrs import attach_custom_repr, track_namespec_modifications
+from ..utils.attrs import (
+    attach_custom_repr,
+    track_namespec_modifications,
+    convert_orcid,
+    validate_orcid,
+)
 from ..utils.latex import latex_encode
 
 if TYPE_CHECKING:
@@ -80,7 +85,7 @@ _LAST_NAME_LOWERCASE_REGEX = re.compile(
 )
 
 LAST_NAME_CAPITALIZATION_RULES = ((r"^Mc([a-z])", lambda p: "Mc" + p.group(1).upper()),)
-"""Regex rules for heuristically normalizing last names; used for [`NameSpecification.case_normalize()`][acl_anthology.people.name.NameSpecification.case_normalize]."""
+"""Regex rules for heuristically normalizing last names; used for [acl_anthology.people.name.Name.case_normalize][]."""
 
 
 @define(frozen=True)
@@ -182,6 +187,41 @@ class Name:
         if self.first and len(self.first) > len(self.last):
             score += 0.5
         return score
+
+    def case_normalize(self, force: bool = False) -> Name:
+        """Try to heuristically normalize the casing of the name.
+
+        By default, this *only* changes the name if it is currently all-lowercased or all-uppercased.
+
+        Arguments:
+            force: Always case-normalize, without checking the current casing.
+
+        Raises:
+            ValueError: If the name's script attribute is set, indicating a non-Latin script name.
+        """
+        if self.script is not None:
+            # Non-Latin script variants are left unchanged;
+            # should never trigger, but just in case...
+            return self  # pragma: no cover
+
+        first, last = self.first, self.last
+        firstlast = self.as_first_last()
+
+        if not (force or firstlast.islower() or firstlast.isupper()):
+            return self
+
+        if first is not None:
+            first = first.title()
+        last = last.title()
+        # Prefixes
+        if (m := _LAST_NAME_LOWERCASE_REGEX.match(last)) is not None:
+            print(m)
+            last = m.group(0).lower() + last[m.end() :]
+        # Other normalization rules
+        for pattern, substitute in LAST_NAME_CAPITALIZATION_RULES:
+            last = re.sub(pattern, substitute, last)
+
+        return self.__class__(first, last)
 
     @cache
     def slugify(self) -> str:
@@ -341,7 +381,11 @@ class NameSpecification:
         validator=v.optional([v.instance_of(str), v.matches_re(RE_VERIFIED_PERSON_ID)]),
     )
     parent: Optional[Paper | Volume | Talk] = field(default=None, repr=False, eq=False)
-    orcid: Optional[str] = field(default=None, validator=v.optional(v.instance_of(str)))
+    orcid: Optional[str] = field(
+        default=None,
+        converter=convert_orcid,
+        validator=v.optional(validate_orcid),
+    )
     affiliation: Optional[str] = field(
         default=None, validator=v.optional(v.instance_of(str))
     )
@@ -443,37 +487,9 @@ class NameSpecification:
     def case_normalize(self, force: bool = False) -> Self:
         """Try to heuristically normalize the casing of the name.
 
-        By default, this *only* changes the name if it is currently all-lowercased or all-uppercased.
-
-        Arguments:
-            force: Always case-normalize, without checking the current casing.
-
-        Raises:
-            ValueError: If the name's script attribute is set, indicating a non-Latin script name.
+        See [acl_anthology.people.name.Name.case_normalize][].
         """
-        if self.name.script is not None:
-            # Non-Latin script variants are left unchanged;
-            # should never trigger, but just in case...
-            return self  # pragma: no cover
-
-        first, last = self.name.first, self.name.last
-        firstlast = self.name.as_first_last()
-
-        if not (force or firstlast.islower() or firstlast.isupper()):
-            return self
-
-        if first is not None:
-            first = first.title()
-        last = last.title()
-        # Prefixes
-        if (m := _LAST_NAME_LOWERCASE_REGEX.match(last)) is not None:
-            print(m)
-            last = m.group(0).lower() + last[m.end() :]
-        # Other normalization rules
-        for pattern, substitute in LAST_NAME_CAPITALIZATION_RULES:
-            last = re.sub(pattern, substitute, last)
-
-        self.name = Name(first, last)
+        self.name = self.name.case_normalize(force=force)
         return self
 
     def resolve(self) -> Person:

@@ -54,7 +54,12 @@ def pytest_assertrepr_compare(op, left, right):
             for x in it.chain(
                 [f"{short.repr(left)} == {short.repr(right)}"],
                 difflib.unified_diff(
-                    left, right, fromfile="left", tofile="right", n=1, lineterm=""
+                    [repr(item) for item in left],
+                    [repr(item) for item in right],
+                    fromfile="left",
+                    tofile="right",
+                    n=1,
+                    lineterm="",
                 ),
             )
         ]
