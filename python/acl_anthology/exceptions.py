@@ -96,9 +96,9 @@ class NameSpecResolutionWarning(UserWarning):
 
 
 class PersonDefinitionError(NameSpecResolutionError):
-    """Raised when a NameSpecification defines an ID, but either the ID or one of its fields is not compatible with the definition in `people.yaml`.
+    """Raised when a NameSpecification defines an ID, but either the ID or one of its fields is not compatible with the definition in `people.json`.
 
-    This can happen when an `<author>` or `<editor>` is used with an ID which was not defined in `people.yaml`; when the name used together with this ID was not listed among the possible names in `people.yaml`; or when the ORCID used together with this ID does not match the ORCID defined in `people.yaml`.
+    This can happen when an `<author>` or `<editor>` is used with an ID which was not defined in `people.json`; when the name used together with this ID was not listed among the possible names in `people.json`; or when the ORCID used together with this ID does not match the ORCID defined in `people.json`.
 
     Attributes:
         name_spec (NameSpecification): The name specification that raised the error.

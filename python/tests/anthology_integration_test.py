@@ -86,15 +86,15 @@ def test_full_anthology_should_validate_schema(full_anthology):
 
 @pytest.mark.integration
 @pytest.mark.filterwarnings("ignore::acl_anthology.exceptions.NameSpecResolutionWarning")
-def test_full_anthology_roundtrip_people_yaml(full_anthology, tmp_path):
+def test_full_anthology_roundtrip_people_data(full_anthology, tmp_path):
     full_anthology.people.build()
-    yaml_in = full_anthology.people.path
-    yaml_out = tmp_path / "people.yaml"
-    full_anthology.people.save(yaml_out)
-    assert yaml_out.is_file()
+    data_in = full_anthology.people.path
+    data_out = tmp_path / "people.json"
+    full_anthology.people.save(data_out)
+    assert data_out.is_file()
     with (
-        open(yaml_in, "r", encoding="utf-8") as f,
-        open(yaml_out, "r", encoding="utf-8") as g,
+        open(data_in, "r", encoding="utf-8") as f,
+        open(data_out, "r", encoding="utf-8") as g,
     ):
         expected = f.read()
         out = g.read()

@@ -21,12 +21,6 @@ from lxml.builder import E
 import re
 from slugify import slugify
 from typing import Any, Iterable, Optional, cast, Self, TypeAlias, TYPE_CHECKING
-import yaml
-
-try:
-    from yaml import CDumper as Dumper
-except ImportError:  # pragma: no cover
-    from yaml import Dumper  # type: ignore
 
 from ..constants import RE_VERIFIED_PERSON_ID, NO_PERSON_ID
 from ..exceptions import AnthologyException
@@ -281,6 +275,19 @@ class Name:
             return cls.from_string(name)
         else:  # pragma: no cover
             raise TypeError(f"Cannot instantiate Name from {type(name)}")
+
+    def to_dict(self) -> dict[str, str]:
+        """
+        Returns:
+            A dictionary representing this name.
+        """
+        if self.first is not None:
+            d = {"first": self.first, "last": self.last}
+        else:
+            d = {"last": self.last}
+        if self.script is not None:
+            d["script"] = self.script
+        return d
 
     def to_xml(self, tag: str = "variant") -> etree._Element:
         """
@@ -549,21 +556,3 @@ class NameSpecification:
         for variant in self.variants:
             elem.append(variant.to_xml())
         return elem
-
-
-class _YAMLName(yaml.YAMLObject):
-    """YAMLObject representing names.
-
-    This exists to serialize names in "flow" style (i.e. one-liner `{first: ..., last: ...}`) without having to force flow style on the entire YAML document.
-    """
-
-    yaml_dumper = Dumper
-    yaml_tag = "tag:yaml.org,2002:map"  # serialize like a dictionary
-    yaml_flow_style = True  # force flow style
-
-    def __init__(self, name: Name) -> None:
-        if name.first is not None:
-            self.first = name.first
-        self.last = name.last
-        if name.script is not None:
-            self.script = name.script
