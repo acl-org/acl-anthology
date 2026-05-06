@@ -1,6 +1,7 @@
 ---
 Title: How can I submit my proceedings or journal to the Anthology?
-weight: 2
+category: submitting
+weight: 1
 ---
 
 Please see our [submission guide]({{< relref "/info/contrib.md" >}}).

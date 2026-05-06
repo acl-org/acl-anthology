@@ -1,6 +1,7 @@
 ---
 Title: How can I submit attachments to papers?
-weight: 2
+category: submitting
+weight: 3
 ---
 
 To submit paper attachments, use [this Microsoft form](https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAMAABqTSThUN0I2VEdZMTk4Sks3S042MVkxUEZQUVdOUS4u).

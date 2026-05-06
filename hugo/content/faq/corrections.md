@@ -1,5 +1,6 @@
 ---
 Title: How can I submit corrections to papers?
+category: corrections
 weight: 1
 ---
 

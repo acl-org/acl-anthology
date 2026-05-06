@@ -1,6 +1,7 @@
 ---
 Title: How can I stay up to date with the ACL Anthology?
-weight: 2
+category: community
+weight: 1
 ---
 You may be interested in the following:
 - [Our email list](http://groups.google.com/group/acl-anthology?hl=en), used to announce ingestions of major proceedings and other significant updates

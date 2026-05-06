@@ -1,6 +1,7 @@
 ---
 Title: What software does the ACL Anthology use?
-weight: 6
+category: community
+weight: 4
 ---
 
 The ACL Anthology is built using completely open-source software, with further developments and customization done by the ACL Anthology staff.
