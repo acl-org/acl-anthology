@@ -166,3 +166,32 @@ ol ol {
 .text-bg-verified {
   color: $white !important;
 }
+
+/* FAQ entries: deep-linkable questions with a hover-revealed anchor link */
+.acl-faq {
+  .faq-question {
+    /* Avoid the question being hidden under a sticky/fixed navbar when
+       jumping to its anchor */
+    scroll-margin-top: 5rem;
+
+    .faq-anchor {
+      opacity: 0;
+      margin-right: 0.25rem;
+      color: $secondary;
+      text-decoration: none;
+      transition: opacity 0.15s ease-in-out;
+    }
+
+    &:hover .faq-anchor,
+    &:focus-within .faq-anchor,
+    .faq-anchor:focus {
+      opacity: 1;
+    }
+
+    /* Always show when the entry is the current target */
+    &:target .faq-anchor {
+      opacity: 1;
+      color: $primary;
+    }
+  }
+}
