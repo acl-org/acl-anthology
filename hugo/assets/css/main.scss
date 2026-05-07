@@ -167,10 +167,12 @@ ol ol {
   color: $white !important;
 }
 
-/* FAQ entries: visual separation between adjacent questions */
-.faq-entry {
-  padding-block: 1.25rem;
-}
+/* FAQ: spacing between entries, dividers between sections */
 .faq-entry + .faq-entry {
+  margin-top: 1.5rem;
+}
+.faq-section + .faq-section {
+  margin-top: 2rem;
+  padding-top: 2rem;
   border-top: 1px solid var(--bs-border-color, #{$gray-300});
 }

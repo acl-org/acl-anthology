@@ -43,7 +43,7 @@
     {{ $catTitle := .title }}
     {{ $entries := where $.Pages "Params.category" $cat }}
     {{ if $entries }}
-    <section id="{{ $cat }}">
+    <section id="{{ $cat }}" class="faq-section">
       <h3>{{ $catTitle }}</h3>
       {{ range $entries }}
         {{ .Render "entry" }}
