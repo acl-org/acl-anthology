@@ -129,9 +129,8 @@ class EventIndex(SlottedDict[Event]):
             self.reverse[volume_fid].add(explicit_event.id)
         for venue_id in volume.venue_ids:
             event = cast(Event, self.get_or_create_implicit_event(volume, venue_id))
-            if volume_fid not in event.colocated_ids:
-                event.add_colocated(volume_fid, EventLink.INFERRED)
-                self.reverse[volume_fid].add(event.id)
+            event.add_colocated(volume_fid, EventLink.INFERRED)
+            self.reverse[volume_fid].add(event.id)
 
     def load(self) -> None:
         """Load the entire Anthology data and build an index of events."""
@@ -157,8 +156,7 @@ class EventIndex(SlottedDict[Event]):
                         for co_id, co_type in self.data[
                             explicit_event.id
                         ].colocated_ids.items():
-                            if co_type == EventLink.INFERRED:
-                                explicit_event.add_colocated(co_id, co_type)
+                            explicit_event.add_colocated(co_id, co_type)
                     self.data[explicit_event.id] = explicit_event
                     for volume_fid in explicit_event.colocated_ids.keys():
                         self.reverse[volume_fid].add(explicit_event.id)

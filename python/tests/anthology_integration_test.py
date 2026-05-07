@@ -169,6 +169,7 @@ def test_full_anthology_roundtrip_sig_yaml(
     assert set(out.meetings) == set(sig.meetings)
 
 
+@pytest.mark.integration
 def test_full_anthology_loading_eventindex_shouldnt_modify_collections(full_anthology):
     # See https://github.com/acl-org/acl-anthology/pull/8174#issuecomment-4392366090
     # for why this exists -- bugs in event linking could cause Collections to be

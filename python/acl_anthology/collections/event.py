@@ -225,11 +225,12 @@ class Event:
         else:
             volume_id = parse_id(volume)
 
+        if type_ == self.colocated_ids.get(volume_id):
+            return  # nothing to do
         if (
-            type_ == EventLink.EXPLICIT
-            and self.colocated_ids.get(volume_id) == EventLink.INFERRED
+            type_ == EventLink.INFERRED
+            and self.colocated_ids.get(volume_id) == EventLink.EXPLICIT
         ):
-            self.colocated_ids[volume_id] = type_
             return
 
         self.colocated_ids[volume_id] = type_
