@@ -18,7 +18,7 @@
   }}
 
   {{/* Table of contents */}}
-  <nav class="acl-faq-toc" aria-label="FAQ table of contents">
+  <nav aria-label="FAQ table of contents">
     <h3>Contents</h3>
     <ul>
       {{ range $categories }}
@@ -26,9 +26,11 @@
         {{ $entries := where $.Pages "Params.category" $cat }}
         {{ if $entries }}
         <li><a href="#{{ $cat }}">{{ .title }}</a>
+          <ul>
           {{ range $entries }}
-            <a href="#{{ .File.BaseFileName }}">{{ .Title }}</a><
+            <li><a href="#{{ .File.BaseFileName }}">{{ .Title }}</a></li>
           {{ end }}
+          </ul>
         </li>
         {{ end }}
       {{ end }}
@@ -43,11 +45,9 @@
     {{ if $entries }}
     <section id="{{ $cat }}">
       <h3>{{ $catTitle }}</h3>
-      <ul class="acl-faq">
       {{ range $entries }}
-        <li>{{ .Render "entry" }}</li>
+        {{ .Render "entry" }}
       {{ end }}
-      </ul>
     </section>
     {{ end }}
   {{ end }}
