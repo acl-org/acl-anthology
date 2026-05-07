@@ -1,14 +1,11 @@
 ---
 Title: How can I submit attachments to papers?
-weight: 2
+category: content
+weight: 3
 ---
 
-To submit paper attachments, use [this Microsoft form](https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAMAABqTSThUN0I2VEdZMTk4Sks3S042MVkxUEZQUVdOUS4u).
-**Important**: If the file attachment cannot be downloaded automatically (via `wget`), processing of your attachment will fail.
-Many sharing sites (Github, Google Drive, Dropbox) display by default an HTML page.
-This complicates processing of attachments and increases the time it takes.
-*Please manually check that you can download your file via `wget`*.
+Anthology paper pages can include attachments submitted at the time of ingestion. This typically includes supplementary materials uploaded with the final ("camera-ready") version of the paper, such as code or data tarballs or submission checklists.
 
-Attachments are processed at least quarterly, at the beginning of January, April, July, and October.
-We often also process a week or so after major *ACL conferences.
-Additional processing is undertaken as volunteer time permits.
+We do not have a formal process for accepting attachments submitted after initial publication. If you have an important artifact that you would like to be archived with a paper (e.g., a unique poster or sought-after presentation), please [create a Github issue](https://github.com/acl-org/acl-anthology/issues/new) and we will deal with it on a case-by-case basis.
+
+Around 2020, we had a more formal process for accepting attachments to papers, but we retired this ability due to the cost in time to Anthology volunteers. We may restore this ability in the future.
