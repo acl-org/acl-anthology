@@ -166,3 +166,11 @@ ol ol {
 .text-bg-verified {
   color: $white !important;
 }
+
+/* FAQ entries: visual separation between adjacent questions */
+.faq-entry {
+  padding-block: 1.25rem;
+}
+.faq-entry + .faq-entry {
+  border-top: 1px solid var(--bs-border-color, #{$gray-300});
+}
