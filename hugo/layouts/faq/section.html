@@ -26,11 +26,9 @@
         {{ $entries := where $.Pages "Params.category" $cat }}
         {{ if $entries }}
         <li><a href="#{{ $cat }}">{{ .title }}</a>
-          <ul>
           {{ range $entries }}
-            <li><a href="#{{ .File.BaseFileName }}">{{ .Title }}</a></li>
+            <a href="#{{ .File.BaseFileName }}">{{ .Title }}</a><
           {{ end }}
-          </ul>
         </li>
         {{ end }}
       {{ end }}
