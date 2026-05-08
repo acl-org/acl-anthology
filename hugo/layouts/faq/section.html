@@ -10,10 +10,46 @@
 
   {{ .Content }}
 
-  <ul class="acl-faq">
-  {{ range .Pages }}
-    <li>{{ .Render "entry" }}</li>
+  {{ $categories := slice
+    (dict "id" "usage" "title" "Using the Anthology")
+    (dict "id" "content" "title" "Submitting and correcting content")
+    (dict "id" "policy" "title" "Policies & identifiers")
+    (dict "id" "info" "title" "Community & other info")
+  }}
+
+  {{/* Table of contents */}}
+  <nav aria-label="FAQ table of contents">
+    <h3>Contents</h3>
+    <ul>
+      {{ range $categories }}
+        {{ $cat := .id }}
+        {{ $entries := where $.Pages "Params.category" $cat }}
+        {{ if $entries }}
+        <li><a href="#{{ $cat }}">{{ .title }}</a>
+          <ul>
+          {{ range $entries }}
+            <li><a href="#{{ .File.BaseFileName }}">{{ .Title }}</a></li>
+          {{ end }}
+          </ul>
+        </li>
+        {{ end }}
+      {{ end }}
+    </ul>
+  </nav>
+
+  {{/* Grouped FAQ sections */}}
+  {{ range $categories }}
+    {{ $cat := .id }}
+    {{ $catTitle := .title }}
+    {{ $entries := where $.Pages "Params.category" $cat }}
+    {{ if $entries }}
+    <section id="{{ $cat }}" class="faq-section">
+      <h3>{{ $catTitle }}</h3>
+      {{ range $entries }}
+        {{ .Render "entry" }}
+      {{ end }}
+    </section>
+    {{ end }}
   {{ end }}
-  </ul>
 </main>
 {{ end }}

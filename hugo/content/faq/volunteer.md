@@ -1,6 +1,7 @@
 ---
 Title: How can I help improve the ACL Anthology?
-weight: 4
+category: info
+weight: 2
 ---
 
 We welcome your contributions!
