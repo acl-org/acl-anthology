@@ -49,7 +49,7 @@ def index(anthology_stub):
 
 
 def test_paper_minimum_attribs():
-    parent = None
+    parent = VolumeStub()
     paper = Paper("42", parent, bibkey="nn-1900-minimal", title="A minimal example")
     assert not paper.is_deleted
     assert paper.title == "A minimal example"
@@ -175,18 +175,30 @@ def test_paper_setattr_on_namespec_sets_collection_is_modified(anthology):
 @pytest.mark.parametrize(
     "attr_name",
     (
+        "editors",
         "month",
         "year",
+        "journal_title",
+        "journal_issue",
     ),
 )
 def test_paper_attr_inherits_from_parent_volume(anthology, attr_name):
-    paper = anthology.get_paper("2022.acl-long.48")
+    paper = anthology.get_paper("J89-3001")
     value = getattr(paper.parent, attr_name)
     assert hasattr(paper, f"_{attr_name}")
-    assert getattr(paper, f"_{attr_name}") is None
+    assert not getattr(paper, f"_{attr_name}")
     assert getattr(paper, attr_name) == value
     setattr(paper, attr_name, value)
     assert getattr(paper, f"_{attr_name}") == value
+
+
+def test_paper_ingest_date_inherits_from_parent_volume(anthology):
+    paper = anthology.get_paper("J89-3001")
+    value = paper.parent.ingest_date
+    assert paper._ingest_date is None
+    assert paper.ingest_date == value
+    paper.ingest_date = value
+    assert paper._ingest_date == value.isoformat()
 
 
 test_cases_language = (
@@ -466,6 +478,7 @@ test_cases_paper_to_bibtex = (
         """@article{bien-1989-book,
     title = "Book Reviews: Natural Language Understanding and Logic Programming, {II}: Proceedings of the Second International Workshop",
     author = "Bien, Janusz S.",
+    editor = "Doe, John",
     journal = "Computational Linguistics",
     volume = "15",
     number = "3",
@@ -487,7 +500,7 @@ test_cases_papercitation = (
     # Journal article
     (
         "J89-4001",
-        'Andrew Haas. 1989. <a href="https://aclanthology.org/J89-4001/">A Parsing Algorithm for Unification Grammar</a>. <i>Computational Linguistics</i>, 15(4):219–232.',
+        'Andrew Haas. 1989. <a href="https://aclanthology.org/J89-4001/">A Parsing Algorithm for Unification Grammar</a>. <i>Comp. Ling.</i>, 15(4):219–232.',
     ),
     # Journal article, single page
     (

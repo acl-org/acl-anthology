@@ -1,3 +1,4 @@
-<h5 class="card-title">{{ .Title }}</h5>
-
-{{ .Content }}
+<article class="faq-entry">
+  <h5 class="card-title" id="{{ .File.BaseFileName }}"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h5>
+  {{ .Content }}
+</article>

@@ -20,6 +20,12 @@ from attrs import define, field, converters, setters, validators
 from lxml import etree
 from lxml.builder import E
 from typing import Any, Iterator, Optional, cast, TYPE_CHECKING
+import sys
+
+if sys.version_info >= (3, 13):
+    from warnings import deprecated
+else:
+    from typing_extensions import deprecated
 
 from .. import constants
 from ..config import config
@@ -38,6 +44,7 @@ from ..utils.attrs import (
     into_namespec_tuple,
     into_str_tuple,
     track_modifications,
+    ConvertableIntoDate,
 )
 from ..utils.ids import build_id, is_valid_item_id, AnthologyIDTuple
 from .event import Event
@@ -141,7 +148,6 @@ class Volume(SlottedDict[Paper]):
     Attributes: Optional Attributes:
         address: The publisher's address for this volume.
         doi: The DOI for the volume.
-        ingest_date: The date of ingestion.
         isbn: The ISBN for the volume.
         journal_issue: The journal's issue number, if this volume belongs to a journal.
         journal_volume: The journal's volume number, if this volume belongs to a journal.
@@ -184,7 +190,7 @@ class Volume(SlottedDict[Paper]):
 
     address: Optional[str] = field(default=None)
     doi: Optional[str] = field(default=None)
-    ingest_date: Optional[str] = field(
+    _ingest_date: Optional[str] = field(
         default=None,
         converter=date_to_str,
         validator=validators.optional(validators.matches_re(constants.RE_ISO_DATE)),
@@ -192,7 +198,7 @@ class Volume(SlottedDict[Paper]):
     isbn: Optional[str] = field(default=None)
     journal_issue: Optional[str] = field(default=None, converter=int_to_str)
     journal_volume: Optional[str] = field(default=None, converter=int_to_str)
-    journal_title: Optional[str] = field(default=None)
+    _journal_title: Optional[str] = field(default=None)
     month: Optional[str] = field(default=None)  # TODO: validate/convert?
     pdf: Optional[PDFReference] = field(default=None)
     publisher: Optional[str] = field(default=None)
@@ -209,6 +215,15 @@ class Volume(SlottedDict[Paper]):
         if self.root.venues.is_data_loaded:
             for venue in self.venue_ids:
                 self.root.venues[venue].item_ids.add(self.full_id_tuple)
+
+        if (
+            self.type == VolumeType.JOURNAL
+            and self._journal_title is None
+            and len(self.venue_ids) != 1
+        ):
+            raise ValueError(
+                "Journal volume must have exactly one venue or an explicit <journal-title>"
+            )  # pragma: no cover
 
     @id.validator
     def _check_id(self, _: Any, value: str) -> None:
@@ -276,6 +291,30 @@ class Volume(SlottedDict[Paper]):
         """All name specifications on this volume."""
         return self.editors
 
+    @property
+    def ingest_date(self) -> datetime.date:
+        """The date when this volume was added to the Anthology.  If not set explicitly, will use [constants.UNKNOWN_INGEST_DATE][acl_anthology.constants.UNKNOWN_INGEST_DATE] instead."""
+        if self._ingest_date is None:
+            return constants.UNKNOWN_INGEST_DATE
+        return datetime.date.fromisoformat(self._ingest_date)
+
+    @ingest_date.setter
+    def ingest_date(self, value: ConvertableIntoDate) -> None:
+        self._ingest_date = date_to_str(value)
+
+    @property
+    def journal_title(self) -> Optional[str]:
+        """The journal title for this volume. Fetched from the associated venue if not explicitly set."""
+        if self.type != VolumeType.JOURNAL:
+            return None
+        if self._journal_title is not None:
+            return self._journal_title
+        return self.root.venues[self.venue_ids[0]].name
+
+    @journal_title.setter
+    def journal_title(self, value: Optional[str]) -> None:
+        self._journal_title = value
+
     def get_events(self) -> list[Event]:
         """
         Returns:
@@ -283,34 +322,15 @@ class Volume(SlottedDict[Paper]):
         """
         return self.root.events.by_volume(self.full_id_tuple)
 
-    def get_ingest_date(self) -> datetime.date:
-        """
-        Returns:
-            The date when this volume was added to the Anthology. If not set, will return [constants.UNKNOWN_INGEST_DATE][acl_anthology.constants.UNKNOWN_INGEST_DATE] instead.
-        """
-        if self.ingest_date is None:
-            return constants.UNKNOWN_INGEST_DATE
-        return datetime.date.fromisoformat(self.ingest_date)
+    @deprecated("Volume.get_ingest_date() is deprecated in favor of Volume.ingest_date")
+    def get_ingest_date(self) -> datetime.date:  # pragma: no cover
+        return self.ingest_date
 
-    def get_journal_title(self) -> str:
-        """
-        Returns:
-            The journal title for this volume, fetching this information from the associated venue if it isn't explicit set.
-
-        Raises:
-            TypeError: If this volume doesn't represent a journal.
-            ValueError: If the journal title isn't explicitly set, but there isn't exactly one venue associated with this volume.
-        """
-        if self.type != VolumeType.JOURNAL:
-            raise TypeError("Volume is not a journal")
-        if self.journal_title is not None:
-            return self.journal_title
-        # If journal-title isn't explicit set, we fetch it from the associated venue
-        if len(self.venue_ids) != 1:
-            raise ValueError(
-                "Journal volume must have exactly one venue or an explicit <journal-title>"
-            )
-        return self.root.venues[self.venue_ids[0]].name
+    @deprecated(
+        "Volume.get_journal_title() is deprecated in favor of Volume.journal_title"
+    )
+    def get_journal_title(self) -> str:  # pragma: no cover
+        return self.journal_title or ""
 
     def get_namespec_for(self, person: Person) -> NameSpecification:
         """Find the NameSpecification on this volume that refers to a given Person.
@@ -493,8 +513,8 @@ class Volume(SlottedDict[Paper]):
             A serialization of this volume as a `<volume>` block in the Anthology XML format.
         """
         volume = E.volume(id=self.id, type=self.type.value)
-        if self.ingest_date is not None:
-            volume.set("ingest-date", self.ingest_date)
+        if self._ingest_date is not None:
+            volume.set("ingest-date", self._ingest_date)
         meta = E.meta()
         meta.append(self.title.to_xml("booktitle"))
         if self.shorttitle is not None:
@@ -518,10 +538,11 @@ class Volume(SlottedDict[Paper]):
         for tag in (
             "journal_volume",
             "journal_issue",
-            "journal_title",
         ):
             if (value := getattr(self, tag)) is not None:
                 meta.append(getattr(E, tag.replace("_", "-"))(value))
+        if self._journal_title is not None:
+            meta.append(getattr(E, "journal-title")(self._journal_title))
         volume.append(meta)
 
         if with_papers:
