@@ -27,8 +27,8 @@ from citeproc.source.json import CiteProcJSON
 from pathlib import Path
 from typing import Any, Sequence, TYPE_CHECKING
 
+from ..collections import Paper, Volume
 if TYPE_CHECKING:
-    from ..collections import Paper, Volume
     from ..people import NameSpecification
 
 
