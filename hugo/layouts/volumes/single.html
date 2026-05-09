@@ -352,6 +352,7 @@
 {{ end }}
 
 {{ define "main" }}
+{{ $anthology_id := .Params.anthology_id }}
 {{/* "$paper" here refers to a full proceedings volume */}}
 {{ $paper := index hugo.Data.volumes .Params.anthology_id }}
 <section id="main">
