@@ -77,16 +77,15 @@
   const paper_params = {
     anthology_id: "{{ .Params.anthology_id }}",
     title: "{{ $paper.title_raw }}",
-    authors: [
-      {{ range $index, $author := $paper.author }}
+    editors: [
+      {{ range $index, $author := $paper.editor }}
       {
         first: "{{ .first }}",
         last: "{{ .last }}",
         id: "{{ .id }}"
-      }{{ if ne (add $index 1) (len $paper.author) }},{{ end }}
+      }{{ if ne (add $index 1) (len $paper.editor) }},{{ end }}
       {{ end }}
-    ],
-    abstract: "{{ $paper.abstract_raw }}"
+    ]
   };
 
   const deleted_authors = [];
@@ -96,14 +95,13 @@
     // Populate the modal with current values
     document.getElementById("paperIdSpan").textContent = paper_params.anthology_id;
     document.getElementById("paperTitle").value = paper_params.title;
-    document.getElementById("paperAbstract").value = paper_params.abstract;
     document.getElementById("paperPDF").href = "{{ $paper.pdf }}";
     document.getElementById("paperSnapshot").href = "https://aclanthology.org/thumb/" + paper_params.anthology_id + "-trimmed.jpg";
     document.getElementById("paperSnapshotImg").src = "https://aclanthology.org/thumb/" + paper_params.anthology_id + "-trimmed.jpg";
 
     const container = document.getElementById("authorsContainer");
     container.innerHTML = "";
-    paper_params.authors.forEach((author, idx) => {
+    paper_params.editors.forEach((author, idx) => {
       container.appendChild(createAuthorRow(author.first, author.last, author.id));
     });
 
@@ -284,8 +282,7 @@
     }
 
     const newTitle = document.getElementById("paperTitle").value;
-    const newAbstract = document.getElementById("paperAbstract").value;
-
+    
     const authorRows = document.querySelectorAll("#authorsContainer .author-row");
     const newAuthors = [];
     authorRows.forEach(row => {
@@ -306,16 +303,12 @@
       updatedParams.title = newTitle;
     }
 
-    if (newAbstract !== paper_params.abstract) {
-      updatedParams.abstract = newAbstract;
-    }
-
-    const oldAuthorString = JSON.stringify(paper_params.authors);
+    const oldAuthorString = JSON.stringify(paper_params.editors);
     const newAuthorString = JSON.stringify(newAuthors);
     if (newAuthorString != oldAuthorString) {
-      updatedParams.authors = newAuthors;
-      updatedParams.authors_old = paper_params.authors.map((x) => x.first + "  " + x.last).join(" | ");
-      updatedParams.authors_new = newAuthors.map((x) => x.first + "  " + x.last).join(" | ");
+      updatedParams.editors = newAuthors;
+      updatedParams.editors_old = paper_params.editors.map((x) => x.first + "  " + x.last).join(" | ");
+      updatedParams.editors_new = newAuthors.map((x) => x.first + "  " + x.last).join(" | ");
     }
 
     if (deleted_authors.length>0) {
@@ -402,17 +395,11 @@
                 &lt;fixed-case&gt;.</small>
               <input type="text" class="form-control" id="paperTitle">
             </div>
-            <label class="form-label d-block">Authors</label>
-            <small id="authorTitleHelp" class="form-text text-muted d-block mb-2">Adjust author names and order to match the
+            <label class="form-label d-block">Editors</label>
+            <small id="authorTitleHelp" class="form-text text-muted d-block mb-2">Adjust editor names and order to match the
               PDF.</small>
             <div id="authorsContainer" class="px-3" ondrop="dropAuthor(event)" ondragover="allowDrop(event)"></div>
             <button type="button" class="btn btn-secondary btn-sm mb-3" onclick="addAuthor()">Add Author</button>
-
-            <div class="mb-3">
-              <label for="paperAbstract" class="form-label d-block">Abstract</label>
-              <small id="abstractTitleHelp" class="form-text text-muted d-block mb-2">Correct abstract if needed. Retain XML formatting tags such as &lt;tex-math&gt;. You may use &lt;b&gt;...&lt;/b&gt; for <b>bold</b>, &lt;i&gt;...&lt;/i&gt; for <i>italic</i>, and &lt;url&gt;...&lt;/url&gt; for URLs.</small>
-              <textarea class="form-control" id="paperAbstract" rows="6"></textarea>
-            </div>
 
             <div class="mb-3">
               <label class="form-label d-block">Verification against PDF</label>
@@ -577,7 +564,7 @@
         <i class="ai ai-semantic-scholar"></i><span class="ps-sm-2 d-none d-sm-inline">Search</span>
       </a>
       <a class="btn btn-warning d-flex flex-wrap justify-content-center" href=#
-        title="Correct problems with title, author list, and abstract" onclick="showMetadataDialog()" aria-label="Suggest a correction for this volume's metadata">
+        title="Correct problems with title and editor list" onclick="showMetadataDialog()" aria-label="Suggest a correction for this volume's metadata">
         <span class="d-none d-sm-inline"><i class="fas fa-edit"></i></span>
         <span class="ps-md-2">Fix data</span>
       </a>
