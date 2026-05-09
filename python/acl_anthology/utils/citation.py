@@ -27,9 +27,8 @@ from citeproc.source.json import CiteProcJSON
 from pathlib import Path
 from typing import Any, Sequence, TYPE_CHECKING
 
-from ..collections import Paper, Volume
-
 if TYPE_CHECKING:
+    from ..collections import Paper, Volume
     from ..people import NameSpecification
 
 
@@ -121,10 +120,8 @@ def render_acl_citation(paper: Paper | Volume) -> str:
     Note:
         This function re-implements (parts of) the ACL citation style in pure Python, making it a much faster alternative to [citeproc_render_html][acl_anthology.utils.citation.citeproc_render_html].
     """
-    is_volume_level = isinstance(paper, Volume) or (
-        isinstance(paper, Paper) and paper.is_frontmatter
-    )
-    if isinstance(paper, Paper) and paper.authors:
+    is_volume_level = type(paper).__name__=='Volume' or getattr(paper, 'is_frontmatter', False)
+    if getattr(paper, 'authors', None):
         authors = _format_names(paper.authors)
     else:
         editors = paper.editors

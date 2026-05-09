@@ -38,6 +38,7 @@ from functools import cache
 import logging as log
 import msgspec
 from omegaconf import OmegaConf
+from typing import TYPE_CHECKING
 import os
 from rich.progress import (
     Progress,
@@ -49,8 +50,8 @@ from rich.progress import (
 import shutil
 
 from acl_anthology import Anthology, config, primary_console
-from acl_anthology.collections.paper import Paper, PaperDeletionType
-from acl_anthology.collections.volume import Volume, VolumeType
+from acl_anthology.collections.paper import PaperDeletionType
+from acl_anthology.collections.volume import VolumeType
 from acl_anthology.utils.logging import setup_rich_logging
 from acl_anthology.utils.ids import is_verified_person_id
 from acl_anthology.utils.text import (
@@ -58,6 +59,9 @@ from acl_anthology.utils.text import (
     month_str2num,
     remove_extra_whitespace,
 )
+
+if TYPE_CHECKING:
+    from acl_anthology.collections import Paper, Volume
 
 BIBLIMIT = None
 ENCODER = msgspec.json.Encoder()
