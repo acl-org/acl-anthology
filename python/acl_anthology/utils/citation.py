@@ -120,8 +120,10 @@ def render_acl_citation(paper: Paper | Volume) -> str:
     Note:
         This function re-implements (parts of) the ACL citation style in pure Python, making it a much faster alternative to [citeproc_render_html][acl_anthology.utils.citation.citeproc_render_html].
     """
-    is_volume_level = type(paper).__name__=='Volume' or getattr(paper, 'is_frontmatter', False)
-    if getattr(paper, 'authors', None):
+    is_volume_level = type(paper).__name__ == "Volume" or getattr(
+        paper, "is_frontmatter", False
+    )
+    if getattr(paper, "authors", None):
         authors = _format_names(paper.authors)
     else:
         editors = paper.editors
@@ -137,7 +139,8 @@ def render_acl_citation(paper: Paper | Volume) -> str:
         title = f"<i>{title}</i>"
     parent = []
     if paper.bibtype == "inproceedings":
-        assert isinstance(paper, Paper)
+        if TYPE_CHECKING:
+            assert isinstance(paper, Paper)
         parent = [f"In <i>{paper.parent.title.as_text()}</i>"]
         if paper.pages:
             pages = _format_pages(paper.pages)
@@ -147,7 +150,8 @@ def render_acl_citation(paper: Paper | Volume) -> str:
         if paper.publisher:
             parent.append(f". {paper.publisher}")
     elif paper.bibtype == "article":
-        assert isinstance(paper, Paper)
+        if TYPE_CHECKING:
+            assert isinstance(paper, Paper)
         parent = [f"<i>{paper.journal_title}</i>"]
         if paper.journal_volume:
             parent.append(f", {paper.journal_volume}")
