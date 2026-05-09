@@ -1,11 +1,361 @@
 {{ define "meta" }}
 {{ end }}
-
-{{ define "main" }}
+{{ define "javascript" }}
 {{ $anthology_id := .Params.anthology_id }}
 {{/* "$paper" here refers to a full proceedings volume */}}
 {{ $paper := index hugo.Data.volumes .Params.anthology_id }}
+<script src="{{ relURL "js/clipboard.min.js" }}"></script>
+<script src="{{ relURL "js/FileSaver.js" }}"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    if (ClipboardJS.isSupported()) {
+      var success_fn = function (e) {
+        // turns button into "copy successful"-style for 2 seconds
+        var src = e.trigger;
+        src.classList.toggle("btn-success");
+        var icon = src.querySelector("i");
+        if (icon) {
+          icon.classList.toggle("far");
+          icon.classList.toggle("fa-clipboard");
+          icon.classList.toggle("fas");
+          icon.classList.toggle("fa-clipboard-check");
+        }
+        e.clearSelection();
+
+        setTimeout(function () {
+          src.classList.toggle("btn-success");
+          if (icon) {
+            icon.classList.toggle("far");
+            icon.classList.toggle("fa-clipboard");
+            icon.classList.toggle("fas");
+            icon.classList.toggle("fa-clipboard-check");
+          }
+        }, 2000);
+      };
+
+      var clipboard = new ClipboardJS(".btn-clipboard");
+      clipboard.on('success', success_fn);
+      document.querySelectorAll(".btn-clipboard").forEach(function (el) {
+        el.classList.remove("d-none");
+      });
+
+      // buttons outside the "cite" popup can't copy the content the usual way
+      // because the content element is hidden at the time; therefore we fetch
+      // and return the text to be copied manually
+      var clipboard_outside = new ClipboardJS(".btn-clipboard-outside", {
+        text: function (trigger) {
+          var target = trigger.getAttribute("data-clipboard-target");
+          var targetEl = document.querySelector(target);
+          return targetEl ? targetEl.innerText : "";
+        }
+      });
+      clipboard_outside.on('success', success_fn);
+      document.querySelectorAll(".btn-clipboard-outside").forEach(function (el) {
+        el.classList.remove("d-none");
+      });
+    }
+  });
+
+  document.addEventListener("DOMContentLoaded", function () {
+    var filesavers = document.querySelectorAll(".btn-filesaver");
+    if (filesavers.length > 0) {
+      filesavers.forEach(function (btn) {
+        btn.addEventListener("click", function (e) {
+          var target = this.getAttribute("data-filesaver-target");
+          var filename = this.getAttribute("data-filesaver-name");
+          var targetEl = document.querySelector(target);
+          if (targetEl) {
+            var blob = new Blob([targetEl.innerText], { type: "text/plain;charset=utf-8" });
+            saveAs(blob, filename);
+          }
+        });
+        btn.classList.remove("disabled");
+      });
+    }
+  });
+
+  const paper_params = {
+    anthology_id: "{{ .Params.anthology_id }}",
+    title: "{{ $paper.title_raw }}",
+    authors: [
+      {{ range $index, $author := $paper.author }}
+      {
+        first: "{{ .first }}",
+        last: "{{ .last }}",
+        id: "{{ .id }}"
+      }{{ if ne (add $index 1) (len $paper.author) }},{{ end }}
+      {{ end }}
+    ],
+    abstract: "{{ $paper.abstract_raw }}"
+  };
+
+  const deleted_authors = [];
+
+  // Initial authors data
+  function showMetadataDialog() {
+    // Populate the modal with current values
+    document.getElementById("paperIdSpan").textContent = paper_params.anthology_id;
+    document.getElementById("paperTitle").value = paper_params.title;
+    document.getElementById("paperAbstract").value = paper_params.abstract;
+    document.getElementById("paperPDF").href = "{{ $paper.pdf }}";
+    document.getElementById("paperSnapshot").href = "https://aclanthology.org/thumb/" + paper_params.anthology_id + "-trimmed.jpg";
+    document.getElementById("paperSnapshotImg").src = "https://aclanthology.org/thumb/" + paper_params.anthology_id + "-trimmed.jpg";
+
+    const container = document.getElementById("authorsContainer");
+    container.innerHTML = "";
+    paper_params.authors.forEach((author, idx) => {
+      container.appendChild(createAuthorRow(author.first, author.last, author.id));
+    });
+
+    refreshAuthorList();
+
+    const modal = new bootstrap.Modal(document.getElementById('metadataModal'));
+    modal.show();
+
+    // Just call Sortable on your container after you’ve populated it:
+    new Sortable(document.getElementById('authorsContainer'), {
+      animation: 150, // a nice animation
+      ghostClass: 'sortable-ghost'
+    });
+  }
+
+  // Dragstart: store the element being dragged
+  authorsContainer.addEventListener('dragstart', (e) => {
+    const row = e.target.closest('.author-row');
+    if (row) {
+      draggedElement = row;
+      e.dataTransfer.effectAllowed = 'move';
+      e.dataTransfer.setData('text/plain', 'reordering'); // required to initiate drag
+    }
+  });
+
+  // Dragover: allow drop
+  authorsContainer.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+  });
+
+  // Drop: Insert the dragged element before the hovered row if found
+  authorsContainer.addEventListener('drop', (e) => {
+    e.preventDefault();
+    const targetRow = e.target.closest('.author-row');
+    if (targetRow && targetRow !== draggedElement) {
+      authorsContainer.insertBefore(draggedElement, targetRow);
+    } else if (!targetRow) {
+      // If dropped outside any specific row, append to the end
+      authorsContainer.appendChild(draggedElement);
+    }
+    draggedElement = null;
+    refreshAuthorList();
+  });
+
+  function createAuthorRow(first, last, id) {
+    // Create the container for the entire row
+    const row = document.createElement('div');
+    row.className = 'row g-0 g-lg-2 mb-2 author-row align-items-center';
+    row.draggable = true;
+    row.ondragstart = dragAuthor;
+
+    // Group drag handle and first name column
+    const grabberCol = document.createElement('div');
+    grabberCol.className = 'col-auto pe-1';
+
+    const handle = document.createElement('span');
+    handle.className = 'drag-handle';
+    handle.textContent = '⋮';
+    handle.style = "padding: 0 2px";
+    // Note: If you don't want to restrict dragging to the handle, remove handle.draggable
+    handle.draggable = true;
+
+    grabberCol.appendChild(handle);
+
+    // First name column
+    const firstNameCol = document.createElement('div');
+    firstNameCol.className = 'col-10 col-lg-4';
+
+    const firstName = document.createElement('input');
+    firstName.type = 'text';
+    firstName.placeholder = 'First name';
+    firstName.className = 'form-control';
+    firstName.value = first;
+    firstName.oninput = () => refreshAuthorList();
+
+    firstNameCol.appendChild(firstName);
+    grabberCol.appendChild(firstNameCol);
+
+    // Last name column
+    const lastNameCol = document.createElement('div');
+    lastNameCol.className = 'col-10 col-lg-4 mt-2 mt-lg-0';
+
+    const lastName = document.createElement('input');
+    lastName.type = 'text';
+    lastName.placeholder = 'Last name';
+    lastName.className = 'form-control';
+    lastName.value = last;
+    lastName.oninput = () => refreshAuthorList();
+
+    lastNameCol.appendChild(lastName);
+
+    // Add a hidden form control for author ID
+    const idInput = document.createElement('input');
+    idInput.type = 'hidden';
+    idInput.value = id;
+    lastNameCol.appendChild(idInput);
+
+    // Delete button column
+    const delCol = document.createElement('div');
+    delCol.className = 'col-auto ms-lg-auto text-end';
+
+    const delBtn = document.createElement('button');
+    delBtn.type = 'button';
+    delBtn.className = 'btn btn-sm btn-danger';
+    delBtn.textContent = 'X';
+    delBtn.onclick = () => { deleteAuthor(row, first, last, id); };
+
+    delCol.appendChild(delBtn);
+
+    // Append all columns to the row
+    row.appendChild(grabberCol);
+    row.appendChild(firstNameCol);
+    row.appendChild(lastNameCol);
+    row.appendChild(delCol);
+
+    return row;
+  }
+
+  function addAuthor() {
+    const container = document.getElementById('authorsContainer');
+    container.appendChild(createAuthorRow("", "", "##ADDED##", ""));
+  }
+
+  function deleteAuthor(row, first, last, id) {
+    row.remove();
+    const deletion_record = {
+      first: first,
+      last: last,
+      id: id
+    };
+    deleted_authors.push(deletion_record);
+    refreshAuthorList();
+  }
+
+  function refreshAuthorList() {
+    const container = document.getElementById('authorsContainer');
+    var authors = "";
+    for (authorRow of container.children) {
+      const first = authorRow.children[1].children[0].value;
+      const last = authorRow.children[2].children[0].value;
+      authors += first + "  " + last + "; "
+    }
+    document.getElementById("paperAuthorList").textContent = authors.slice(0, -2);
+  }
+
+  // Drag & Drop functions for authors
+  let draggedAuthor = null;
+  function dragAuthor(ev) {
+    ev.dataTransfer.setData('text/plain', '');
+    draggedAuthor = ev.currentTarget;
+  }
+  function allowDrop(ev) {
+    ev.preventDefault();
+  }
+  function dropAuthor(ev) {
+    ev.preventDefault();
+    if (ev.target.id === "authorsContainer" || ev.target.parentNode.id === "authorsContainer") {
+      const container = document.getElementById("authorsContainer");
+      // Insert before the target row if we dropped on a row, otherwise at the end
+      if (ev.target.classList && ev.target.classList.contains('author-row')) {
+        container.insertBefore(draggedAuthor, ev.target);
+      } else if (ev.target.parentNode.classList && ev.target.parentNode.classList.contains('author-row')) {
+        container.insertBefore(draggedAuthor, ev.target.parentNode);
+      } else {
+        container.appendChild(draggedAuthor);
+      }
+      refreshAuthorList();
+    }
+  }
+
+  // New function to handle submission
+  function submitMetadataCorrection() {
+    // make sure the pdfCorrectionCheck box is checked
+    if (!document.getElementById("pdfCorrectionCheck").checked) {
+      alert("Please check the box to confirm that these changes match the PDF.");
+      return;
+    }
+
+    const newTitle = document.getElementById("paperTitle").value;
+    const newAbstract = document.getElementById("paperAbstract").value;
+
+    const authorRows = document.querySelectorAll("#authorsContainer .author-row");
+    const newAuthors = [];
+    authorRows.forEach(row => {
+      const inputs = row.querySelectorAll("input");
+      newAuthors.push({
+        "first": inputs[0].value,
+        "last": inputs[1].value,
+        "id": inputs[2].value
+      });
+    });
+
+    // Compare original values to current values
+    const updatedParams = {
+      anthology_id: paper_params.anthology_id
+    }
+
+    if (newTitle !== paper_params.title) {
+      updatedParams.title = newTitle;
+    }
+
+    if (newAbstract !== paper_params.abstract) {
+      updatedParams.abstract = newAbstract;
+    }
+
+    const oldAuthorString = JSON.stringify(paper_params.authors);
+    const newAuthorString = JSON.stringify(newAuthors);
+    if (newAuthorString != oldAuthorString) {
+      updatedParams.authors = newAuthors;
+      updatedParams.authors_old = paper_params.authors.map((x) => x.first + "  " + x.last).join(" | ");
+      updatedParams.authors_new = newAuthors.map((x) => x.first + "  " + x.last).join(" | ");
+    }
+
+    if (deleted_authors.length>0) {
+      updatedParams.deleted_authors = deleted_authors;
+    }
+
+    if (Object.keys(updatedParams).length === 1) {
+      // ensure it's not just the anthology_id in the dictionary
+      alert("No changes detected.");
+      return;
+    }
+
+    // Same assembly as original code
+    const baseurl = "https://github.com/acl-org/acl-anthology/issues/new?template=99-bulk-metadata-correction.yml";
+    const issue_title = "Metadata correction for {{ .Params.anthology_id}}";
+    const labels = "metadata,correction";
+    const who = "anthology-assist";
+    const param_string = "```json\n" + JSON.stringify(updatedParams, null, 2) + "\n```";
+
+    const url = baseurl + `&title=${encodeURIComponent(issue_title)}&assignee=${encodeURIComponent(who)}&labels=${encodeURIComponent(labels)}&data=` + encodeURIComponent(param_string);
+
+    // Display an error if the URL length string is too long
+    /*
+    // TODO: find actual cutoff length
+    if (url.length > 2000) {
+      alert(`The correction string URL is too long to submit (${url.length} chars). Please open a manual correction request at https://github.com/acl-org/acl-anthology/issues/new`);
+      return;
+    }
+    */
+
+    window.open(url, "_blank");
+  }
+</script>
+{{ end }}
+
+{{ define "main" }}
+{{/* "$paper" here refers to a full proceedings volume */}}
+{{ $paper := index hugo.Data.volumes .Params.anthology_id }}
 <section id="main">
+  <div>
   <h2 id="title">
     {{ with $paper.pdf }}
       <a href="{{ . }}">{{ $paper.title_html | safeHTML }}</a>
@@ -20,8 +370,73 @@
       {{ partial "author_link.html" (dict "ctx" $ "person" $person) | chomp }}{{ if ne (add $index 1) $len }}, {{ end }}
     {{ end }}
     <span class="text-muted">({{ cond (eq (len .) 1) "Editor" "Editors" }})</span>
+  </p>
   {{ end }}
+  </div>
 
+  <div class="modal fade" id="metadataModal" tabindex="-1" aria-labelledby="metadataModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Correct Metadata for <span id="paperIdSpan"></span></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="metadataForm">
+            <div class="mb-3">
+              Use this form to create a GitHub issue with structured data describing the correction. You will need a GitHub account.
+              Once you create that issue, the correction will be reviewed by a staff member.
+            </div>
+            <div class="alert alert-danger d-lg-none">
+              ⚠️ Mobile Users: Submitting this form to create a new issue will only work with github.com, not the GitHub Mobile app.
+            </div>
+            <div class="alert alert-warning" role="alert">
+              <b>Important</b>: The Anthology treat PDFs as authoritative. Please use this form only to correct data
+              that is out of line with the PDF. See <a href="https://aclanthology.org/info/corrections/">our corrections
+                guidelines</a> if you need to change the PDF.
+            </div>
+            <div class="mb-3">
+              <label for="paperTitle" class="form-label d-block">Title</label>
+              <small id="paperTitleHelp" class="form-text text-muted d-block mb-2">Adjust the title. Retain tags such as
+                &lt;fixed-case&gt;.</small>
+              <input type="text" class="form-control" id="paperTitle">
+            </div>
+            <label class="form-label d-block">Authors</label>
+            <small id="authorTitleHelp" class="form-text text-muted d-block mb-2">Adjust author names and order to match the
+              PDF.</small>
+            <div id="authorsContainer" class="px-3" ondrop="dropAuthor(event)" ondragover="allowDrop(event)"></div>
+            <button type="button" class="btn btn-secondary btn-sm mb-3" onclick="addAuthor()">Add Author</button>
+
+            <div class="mb-3">
+              <label for="paperAbstract" class="form-label d-block">Abstract</label>
+              <small id="abstractTitleHelp" class="form-text text-muted d-block mb-2">Correct abstract if needed. Retain XML formatting tags such as &lt;tex-math&gt;. You may use &lt;b&gt;...&lt;/b&gt; for <b>bold</b>, &lt;i&gt;...&lt;/i&gt; for <i>italic</i>, and &lt;url&gt;...&lt;/url&gt; for URLs.</small>
+              <textarea class="form-control" id="paperAbstract" rows="6"></textarea>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label d-block">Verification against PDF</label>
+              <small class="form-text text-muted d-block mb-2">Ensure that the new title/authors match the snapshot below. (If there
+                is no snapshot or it is too small, consult <a href="#" id="paperPDF">the PDF</a>.)</small>
+              <div style="max-height:150px;" class="overflow-hidden w-100" style="text-align: center;">
+                <a id="paperSnapshot" href="#"><img id="paperSnapshotImg" src=""
+                    style="min-width: 80%; max-width: 100%"></a>
+              </div>
+              <small class="form-text text-muted">Authors concatenated from the text boxes above:</small>
+              <div class="card card-body bg-light" id="paperAuthorList"></div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer justify-content-between flex-nowrap">
+          <div class="form-check mb-0">
+            <input type="checkbox" class="form-check-input" id="pdfCorrectionCheck">
+            <label class="form-check-label" for="pdfCorrectionCheck">ALL author names match the snapshot above—including
+              middle initials, hyphens, and accents.</label>
+          </div>
+          <button type="button" class="btn btn-primary" onclick="submitMetadataCorrection()">Create GitHub issue for&nbsp;staff review</button>
+        </div>
+      </div>
+    </div>
+  </div>
   <hr />
 
   <div class="row acl-paper-details">
@@ -67,6 +482,10 @@
 
       <dt>Publisher:</dt>
       <dd>{{ with $paper.publisher }}{{ . }}{{ end }}</dd>
+      <dt>Note:</dt>
+      <dd>{{ with $paper.note }}{{ . }}{{ end }}</dd>
+      <dt>Language:</dt>
+      <dd>{{ with $paper.language }}{{ . }}{{ end }}</dd>
       <dt>URL:</dt>
       <dd><a href="{{ $paper.url }}">{{ $paper.url }}</a></dd>
       <dt>DOI:</dt>
@@ -78,8 +497,6 @@
       <!--
       <dt>Bibtype:</dt>
       <dd>{{ with $paper.bibtype }}{{ . }}{{ end }}</dd>
-      <dt>Bibkey:</dt>
-      <dd>{{ with $paper.bibkey }}{{ . }}{{ end }}</dd>
       -->
       <dt class="acl-button-row">Bib Export formats:</dt>
       <dd class="acl-button-row">
@@ -90,6 +507,42 @@
       {{ $expfile := printf "volumes/%s.xml" $anthology_id }}
       {{ if (fileExists (printf "/data-export/%s" $expfile)) }}
         <a class="btn btn-secondary btn-sm" href="{{ $expfile | relURL }}">MODS XML</a>
+      <dt class="acl-button-row">Bibkey:</dt>
+      <dd class="acl-button-row">{{ with $paper.bibkey }}<button type="button"
+          class="btn btn-clipboard-outside btn-secondary btn-sm d-none" data-clipboard-target="#citePaperBibkey" aria-label="Copy Bibkey to clipboard"><i
+            class="far fa-clipboard"></i><span id="citePaperBibkey" class="ps-2 font-monospace">{{ .
+            }}</span></button>{{ end }}</dd>
+      {{ with $paper.citation_acl }}
+      <dt>Cite (ACL):</dt>
+      <dd><span id="citeACL">{{ safeHTML . }}</span><button type="button"
+          class="btn btn-clipboard btn-secondary btn-sm d-none ms-2" data-clipboard-target="#citeACL" aria-label="Copy ACL citation to clipboard"><i
+            class="far fa-clipboard"></i></button></dd>
+      {{ end }}
+      {{ with $paper.citation }}
+      <dt>Cite (Informal):</dt>
+      <dd><span id="citeRichText">{{ markdownify . }}</span><button type="button"
+          class="btn btn-clipboard btn-secondary btn-sm d-none ms-2" data-clipboard-target="#citeRichText" aria-label="Copy informal citation to clipboard"><i
+            class="far fa-clipboard"></i></button></dd>
+      {{ end }}
+      <dt class="acl-button-row">Copy Citation:</dt>
+      <dd class="acl-button-row">
+        {{ with $paper.bibtex }}
+        <button type="button" class="btn btn-clipboard-outside btn-secondary btn-sm d-none"
+          data-clipboard-target="#citeBibtexContent" aria-label="Copy BibTeX to clipboard"><i class="far fa-clipboard pe-2"></i>BibTeX</button>
+        {{ end }}
+        <button type="button" class="btn btn-clipboard-outside btn-secondary btn-sm d-none"
+          data-clipboard-target="#citeMarkdownContent" aria-label="Copy Markdown to clipboard"><i class="far fa-clipboard pe-2"></i>Markdown</button>
+        {{ with $paper.mods }}
+        <button type="button" class="btn btn-clipboard-outside btn-secondary btn-sm d-none"
+          data-clipboard-target="#citeModsContent" aria-label="Copy MODS XML to clipboard"><i class="far fa-clipboard pe-2"></i>MODS XML</button>
+        {{ end }}
+        {{ with $paper.endf }}
+        <button type="button" class="btn btn-clipboard-outside btn-secondary btn-sm d-none"
+          data-clipboard-target="#citeEndnoteContent" aria-label="Copy Endnote to clipboard"><i class="far fa-clipboard pe-2"></i>Endnote</button>
+        {{ end }}
+        <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#citeModal">More
+          options…</button>
+      </dd>
       {{ end }}
       {{ $endfile := printf "volumes/%s.enw" $anthology_id }}
       {{ if (fileExists (printf "/data-export/%s" $endfile)) }}
@@ -115,12 +568,118 @@
         <i class="fas fa-file-export"></i><span class="ps-2 transform-lower-sm">Bib</span><span class="d-none d-sm-inline">TeX</span>
       </a>
       {{ end }}
+      <a class="btn btn-secondary" title="Open dialog for exporting citations" data-bs-toggle="modal"
+        data-bs-target="#citeModal" href="#">
+        <i class="fas fa-quote-left"></i><span class="ps-2">Cite</span>
+      </a>
       <a class="btn btn-secondary" href="https://www.semanticscholar.org/search?{{ (querify "q" $paper.title) | safeURL }}" title="Search for '{{ $paper.title | htmlEscape }}' on Semantic Scholar">
         <i class="ai ai-semantic-scholar"></i><span class="ps-sm-2 d-none d-sm-inline">Search</span>
+      </a>
+      <a class="btn btn-warning d-flex flex-wrap justify-content-center" href=#
+        title="Correct problems with title, author list, and abstract" onclick="showMetadataDialog()" aria-label="Suggest a correction for this volume's metadata">
+        <span class="d-none d-sm-inline"><i class="fas fa-edit"></i></span>
+        <span class="ps-md-2">Fix data</span>
       </a>
     </div>
   </div>
   <hr />
+
+  <div class="modal fade" id="citeModal" tabindex="-1" role="dialog" aria-labelledby="citeModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="citeModalLabel">Export citation</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <ul class="nav nav-tabs mb-2" id="citeFormats" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link {{ if not $paper.bibtex }}disabled{{ else }}active{{ end }}" data-bs-toggle="list"
+                href="#citeBibtex" role="tab" aria-controls="citeBibtex"
+                aria-selected="{{ if $paper.bibtex }}true{{ else }}false{{ end }}">BibTeX</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link {{ if not $paper.mods }}disabled{{ end }}" data-bs-toggle="list" href="#citeMods"
+                role="tab" aria-controls="citeMods" aria-selected="false">MODS XML</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link {{ if not $paper.endf }}disabled{{ end }}" data-bs-toggle="list" href="#citeEndnote"
+                role="tab" aria-controls="citeEndnote" aria-selected="false">Endnote</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link {{ if not $paper.bibtex }}active{{ end }}" data-bs-toggle="list" href="#citeMarkdown"
+                role="tab" aria-controls="citeMarkdown"
+                aria-selected="{{ if $paper.bibtex }}false{{ else }}true{{ end }}">Preformatted</a>
+            </li>
+          </ul>
+
+          <div class="tab-content" id="citeFormatsContent">
+            <div class="tab-pane active" id="citeBibtex" role="tabpanel">
+              {{- with $paper.bibtex -}}
+              <pre id="citeBibtexContent" class="bg-light border p-2" style="max-height: 50vh;">{{ . }}</pre>
+              <div class="modal-footer pb-1">
+                <a class="btn btn-secondary btn-filesaver disabled" data-filesaver-target="#citeBibtexContent"
+                  data-filesaver-name="{{ $.Params.anthology_id }}.bib"><i class="fas fa-download pe-2"></i>Download as
+                  File</a>
+                <button class="btn btn-clipboard btn-primary d-none" data-clipboard-target="#citeBibtexContent" aria-label="Copy BibTeX to clipboard"><i
+                    class="far fa-clipboard pe-2"></i>Copy to Clipboard</button>
+              </div>
+              {{- end -}}
+            </div>
+            <div class="tab-pane" id="citeMods" role="tabpanel">
+              {{- with $paper.mods -}}
+              <pre id="citeModsContent" class="bg-light border p-2" style="max-height: 50vh;">{{ . }}</pre>
+              <div class="modal-footer pb-1">
+                <a class="btn btn-secondary btn-filesaver disabled" data-filesaver-target="#citeModsContent"
+                  data-filesaver-name="{{ $.Params.anthology_id }}.xml"><i class="fas fa-download pe-2"></i>Download as
+                  File</a>
+                <button class="btn btn-clipboard btn-primary d-none" data-clipboard-target="#citeModsContent" aria-label="Copy MODS XML to clipboard"><i
+                    class="far fa-clipboard pe-2"></i>Copy to Clipboard</button>
+              </div>
+              {{- end -}}
+            </div>
+            <div class="tab-pane" id="citeEndnote" role="tabpanel">
+              {{- with $paper.endf -}}
+              <pre id="citeEndnoteContent" class="bg-light border p-2" style="max-height: 50vh;">{{ . }}</pre>
+              <div class="modal-footer pb-1">
+                <a class="btn btn-secondary btn-filesaver disabled" data-filesaver-target="#citeEndnoteContent"
+                  data-filesaver-name="{{ $.Params.anthology_id }}.endf"><i class="fas fa-download pe-2"></i>Download as
+                  File</a>
+                <button class="btn btn-clipboard btn-primary d-none" data-clipboard-target="#citeEndnoteContent" aria-label="Copy Endnote to clipboard"><i
+                    class="far fa-clipboard pe-2"></i>Copy to Clipboard</button>
+              </div>
+              {{- end -}}
+            </div>
+            <div class="tab-pane" id="citeMarkdown" role="tabpanel">
+              <h5>Markdown (Informal)</h5>
+              <p id="citeMarkdownContent" class="font-monospace small bg-light border p-2">
+                {{- $paper.citation -}}
+              </p>
+              <ul class="mt-2">
+                <li>{{- $paper.citation | markdownify -}}</li>
+              </ul>
+              {{ with $paper.citation_acl }}
+              <h5>ACL</h5>
+              <ul class="mt-2">
+                <li id="citeACLstyleContent">{{- $paper.citation_acl | safeHTML -}}</li>
+              </ul>
+              {{ end }}
+              <div class="modal-footer pb-1">
+                <button type="button" class="btn btn-clipboard btn-primary d-none"
+                  data-clipboard-target="#citeMarkdownContent" aria-label="Copy Markdown to clipboard"><i class="far fa-clipboard pe-2"></i>Copy Markdown to
+                  Clipboard</button>
+                {{ with $paper.citation_acl }}
+                <button type="button" class="btn btn-clipboard btn-primary d-none"
+                  data-clipboard-target="#citeACLstyleContent" aria-label="Copy ACL citation to clipboard"><i class="far fa-clipboard pe-2"></i>Copy ACL to
+                  Clipboard</button>
+                {{ end }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
   {{ if $paper.has_abstracts }}
   <button class="btn btn-sm btn-info d-block mb-3" id="toggle-all-abstracts" data-toggle-state="hide" disabled>
