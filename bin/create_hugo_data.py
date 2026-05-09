@@ -49,8 +49,8 @@ from rich.progress import (
 import shutil
 
 from acl_anthology import Anthology, config, primary_console
-from acl_anthology.collections.paper import PaperDeletionType
-from acl_anthology.collections.volume import VolumeType
+from acl_anthology.collections.paper import Paper, PaperDeletionType
+from acl_anthology.collections.volume import Volume, VolumeType
 from acl_anthology.utils.logging import setup_rich_logging
 from acl_anthology.utils.ids import is_verified_person_id
 from acl_anthology.utils.text import (
@@ -109,7 +109,7 @@ def person_to_dict(person_id, ns):
     }
 
 
-def paper_to_dict(paper):
+def paper_to_dict(paper: Paper):
     """
     Turn a single paper into a dictionary as used by the Hugo templates.
     """
@@ -223,7 +223,7 @@ def paper_to_dict(paper):
     return data
 
 
-def volume_to_dict(volume):
+def volume_to_dict(volume: Volume):
     """
     Turn a single volume into a dictionary as used by the Hugo templates.
     """
@@ -240,6 +240,10 @@ def volume_to_dict(volume):
             volume.web_url if (not volume.pdf or volume.pdf.is_local) else volume.pdf.url
         ),
         "venues": volume.venue_ids,
+        "bibkey": volume.bibkey,
+        "bibtype": volume.bibtype,
+        "citation": volume.to_markdown_citation(),
+        "citation_acl": volume.to_citation(),
     }
     for key in ("address", "doi", "isbn", "publisher"):
         if (value := getattr(volume, key)) is not None:
