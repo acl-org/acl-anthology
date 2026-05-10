@@ -74,7 +74,7 @@ def batch_edit_names(
     log.info(f"Assigned name on {len(targets)} items: {targets}")
     log.info(f"Skipped {len(skipped)} items based on flags: {skipped}")
     if specific_paper_ids:
-        assert len(specific_paper_ids) == len(skipped), specific_paper_ids
+        assert len(specific_paper_ids) == len(targets), specific_paper_ids
     elif exclude_paper_ids:
         assert len(exclude_paper_ids) == len(skipped), exclude_paper_ids
 
@@ -101,8 +101,8 @@ if __name__ == "__main__":
             author_id=args["AUTHORID"],
             name=name,
             oldname=oldname,
-            specific_paper_ids=args["--only"].split() if args["--only"] else [],
-            exclude_paper_ids=args["--except"].split() if args["--except"] else [],
+            specific_paper_ids=args["--only"][0].split() if args["--only"] else [],
+            exclude_paper_ids=args["--except"][0].split() if args["--except"] else [],
         )
 
         print(f'Now run>>> git commit -a -m "{msg}"')
