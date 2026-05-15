@@ -8,6 +8,7 @@ date: "2025-08-26"
 This page contains general information about submitting proceedings of a conference to the ACL Anthology.
 It is intended for publication chairs of main conferences and standalone events, who have the responsibility of delivering the proceedings for all main conference and workshop volumes to the Anthology director.
 **Chairs of workshops** attached to a larger conference should also read this page, but should work through their main conference publication chair instead of directly with the Anthology.
+It is also common for people to submit older proceedings or journals.
 
 Please note that this document does not describe how to manage the submissions and review process, or even how to assemble proceedings from accepted papers.
 For complete information about the conference management process, especially for ACL conference publication chairs, please see [our official documentation](https://acl-org.github.io/ACLPUB/).
@@ -24,14 +25,6 @@ We are happy to ingest and host material for **new venues**. We generally accept
 * The venue publishes papers in the fields of computational linguistics or speech and natural language processing, broadly defined.
 * The venue has high standards, which generally means that it is peer-reviewed by experts in the field.
 * The venue organizers either sign over paper copyrights to the ACL (preferred), or sign an agreement allowing us to share the papers under a Creative Commons [CC-BY-4.0](https://creativecommons.org/licenses/by/4.0/) license.
-
-
-
-
-It is also common for people to submit older proceedings or journals.
-We are happy to accept volumes from vetted venues within the fields of speech and natural language processing and computational linguistics.
-For these situations, it's best to file a Github issue and/or contact the Anthology director directly (links elsewhere on this page).
-We can also help resolve questions.
 
 ## Overview of the Submission Process
 
