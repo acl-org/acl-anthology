@@ -381,13 +381,14 @@ def verify_by_paper(
             [paper_and_namespec[0][1].name] + list(paper_and_namespec[0][1].variants),
         )
 
-        for _, ns in paper_and_namespec[1:]:
-            # Add any names from other papers (which may correspond to other unverified persons)
-            person.add_name(ns.name)
-            for variant in ns.variants:
-                person.add_name(variant)  # name in different script
-
         changes = "Verify"
+
+    # Ensure all names are listed under the verified author
+    # (otherwise there will be an error when setting the person ID)
+    for _, ns in paper_and_namespec:
+        person.add_name(ns.name)
+        for variant in ns.variants:
+            person.add_name(variant)  # name in different script
 
     if not orcid_matched:
         # We did not find an ORCID match, so assign the provided ORCID to the first matched author ID
