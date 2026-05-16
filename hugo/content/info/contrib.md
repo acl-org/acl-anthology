@@ -8,6 +8,7 @@ date: "2025-08-26"
 This page contains general information about submitting proceedings of a conference to the ACL Anthology.
 It is intended for publication chairs of main conferences and standalone events, who have the responsibility of delivering the proceedings for all main conference and workshop volumes to the Anthology director.
 **Chairs of workshops** attached to a larger conference should also read this page, but should work through their main conference publication chair instead of directly with the Anthology.
+It is also common for people to submit older proceedings or journals.
 
 Please note that this document does not describe how to manage the submissions and review process, or even how to assemble proceedings from accepted papers.
 For complete information about the conference management process, especially for ACL conference publication chairs, please see [our official documentation](https://acl-org.github.io/ACLPUB/).
@@ -15,12 +16,17 @@ That document focuses on [Softconf](https://softconf.com) for conference managem
 More recently, ACL has moved to using [OpenReview](https://openreview.net), and a new software tool, [aclpub2](https://github.com/rycolab/aclpub2/blob/main/README.md), has been built for proceedings generation.
 However, we continue to support both.
 
-It is also common for people to submit older proceedings or journals.
-We are happy to accept volumes from vetted venues within the fields of speech and natural language processing and computational linguistics.
-For these situations, it's best to file a Github issue and/or contact the Anthology director directly (links elsewhere on this page).
-We can also help resolve questions.
+## About Venues
 
-### Overview of the Submission Process
+A _venue_ in the ACL Anthology is a conference, workshop, journal, or other publication series that publishes _volumes_ of papers. The central venues in the ACL are the major ACL-operated **conferences** ([ACL](https://aclanthology.org/venues/acl/), [AACL](https://aclanthology.org/venues/aacl/), [EMNLP](https://aclanthology.org/venues/emnlp/), [NAACL](https://aclanthology.org/venues/naacl/), [EACL](https://aclanthology.org/venues/eacl/), [CoNLL](https://aclanthology.org/venues/conll/)) and **journals** ([CL](https://aclanthology.org/venues/cl/) and [TACL](https://aclanthology.org/venues/tacl/)). We also host papers for many other **non-ACL** venues, for example, [COLING](https://aclanthology.org/venues/coling/), [LREC](https://aclanthology.org/venues/lrec/), [IJCNLP](https://aclanthology.org/venues/ijcnlp/), [NoDaLiDa](https://aclanthology.org/venues/nodalida/), and [AMTA](https://aclanthology.org/venues/amta/). You can browse the [full list of current venues](https://aclanthology.org/venues/).
+
+We are happy to ingest and host material for **new venues**. We generally accept proceedings subject to the following conditions:
+
+* The venue publishes papers in the fields of computational linguistics or speech and natural language processing, broadly defined.
+* The venue has high standards, which generally means that it is peer-reviewed by experts in the field.
+* The venue organizers either sign over paper copyrights to the ACL (preferred), or sign an agreement allowing us to share the papers under a Creative Commons [CC-BY-4.0](https://creativecommons.org/licenses/by/4.0/) license.
+
+## Overview of the Submission Process
 
 Please note the following important dates.
 
@@ -55,7 +61,7 @@ Please note the following important dates.
   </tbody>
 </table>
 
-### Register your meeting
+## Register your meeting
 
 If you are a conference publications chair, you must register your intention to submit your proceedings.
 (Workshop chairs should do this through your main conference publication chair).
@@ -87,8 +93,9 @@ Your Github issue should contain the following information for each volume.
 
 **We emphasize** that if you are chairing a meeting attached as a satellite of a main conference (e.g., ACL or EMNLP), please do not communicate directly with the Anthology, but instead first work with your main conference publication chair(s), who will take care of registration and many of the details below.
 
-#### New venues
+### New venues
 
+As noted [above](#about-venues), the Anthology welcomes new ACL and non-ACL venues.
 If your venue is appearing for the first time in the Anthology, we need to assign it a venue identifier, as described above.
 You can choose one yourself, but it will require confirmation from the Anthology director.
 If you are submitting a new venue, please be sure to also include the following information:
@@ -101,7 +108,7 @@ If you are submitting a new venue, please be sure to also include the following 
 - **Website**. The website of the venue.
   Ideally this is a website of the venue itself (e.g., [https://naacl.org](https://naacl.org)), and not a particular meeting of the venue.
 
-### Submit your data
+## Submit your data
 
 After your conference management software has collected all the camera-ready papers and associated attachments, you will arrange them into one of two formats.
 1. _ACLPUB_. If you're using Softconf, this will likely be the original ACLPUB format, as described in the [ACLPUB → Anthology documentation](https://acl-org.github.io/ACLPUB/anthology.html), because Softconf has built-in support for this.
@@ -122,7 +129,7 @@ The remaining steps are handled by Anthology staff and use [Anthology tools](htt
 
 **Please note** that workshop chairs should handle this step through their main conference publication chair, and not directly with the Anthology.
 
-### Copyright
+## Copyright
 
 If you are using the START system, this process is handled as part of the camera-ready submission process.
 
@@ -136,13 +143,13 @@ In aclpub2, copyrights should be listed as paper attachments with a type of 'cop
 
 For both current and legacy events, it is good practice for the organizers to attempt to obtain copyright transfers for their materials, but we will ingest materials even if no copyright transfers are on file.
 
-### ISBN Numbers
+## ISBN Numbers
 
 If you plan to publish or print your proceedings, you will need an ISBN.
 The ACL can provide these for *ACL conferences.
 Please provide the exact titles of each volume to be assigned an ISBN and send this information to [Jennifer Rachford](acl.rachford@gmail.com), the ACL Business Manager.
 
-### Errata and Corrections
+## Errata and Corrections
 
 If you get requests from authors needing to post errata or revised versions of the papers, or supplemental attachments after the publication of the proceedings, please refer them to [our documentation on the matter]({{< relref "corrections.md" >}}).
 Note that after the publication date, corrections can only be applied to individual papers; the full proceedings volumes will not be replaced or revised.
