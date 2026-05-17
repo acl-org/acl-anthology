@@ -49,7 +49,6 @@ def batch_edit_names(
 
     # workaround for the fact that frontmatter and volumes share namespecs
 
-
     log.info(changes)
     if oldname:
         log.info(f"Limiting to instances of current name: {oldname}")
@@ -64,10 +63,16 @@ def batch_edit_names(
         if oldname and ns.name != oldname:
             skipped.append(item_id)
             continue
-        if any(ns is anthology.get(paper_id).get_namespec_for(person) for paper_id in exclude_paper_ids):
+        if any(
+            ns is anthology.get(paper_id).get_namespec_for(person)
+            for paper_id in exclude_paper_ids
+        ):
             skipped.append(item_id)
             continue
-        if specific_paper_ids and not any(ns is anthology.get(paper_id).get_namespec_for(person) for paper_id in specific_paper_ids):
+        if specific_paper_ids and not any(
+            ns is anthology.get(paper_id).get_namespec_for(person)
+            for paper_id in specific_paper_ids
+        ):
             skipped.append(item_id)
             continue
         targets.append(item_id)
