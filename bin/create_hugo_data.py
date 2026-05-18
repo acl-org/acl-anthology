@@ -292,9 +292,9 @@ def export_papers_and_volumes(anthology, builddir, dryrun):
                         volume_data[key] = value
                 if events := volume.get_events():
                     # TODO: This information is currently not used on paper templates
-                    volume_data["events"] = [
+                    volume_data["events"] = sorted(
                         event.id for event in events if event.is_explicit
-                    ]
+                    )
 
                 # Now build the data for every paper
                 for paper in volume.papers():
