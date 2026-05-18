@@ -1,21 +1,18 @@
 """
 Usage:
-  batch_edit_name_on_papers.py AUTHORID [OLDFIRST OLDLAST] FIRST LAST [--except PAPERID ... | --only PAPERID ...]
+  batch_edit_name_on_papers.py AUTHORID FIRST LAST [--old OLDFIRST OLDLAST] [--except PAPERIDS ... | --only PAPERIDS ...]
 
 Arguments:
     AUTHORID            ID of the author whose name is to be modified on papers.
-    OLDFIRST            Only update the name entry if it matches this first name.
-    OLDLAST             Only update the name entry if it matches this last name.
     FIRST               First name to apply to retrieved papers/volumes.
     LAST                Last name to apply to retrieved papers/volumes.
-    PAPERID             Paper or volume belonging to the author to specifically
-                        include or exclude (may list multiple IDs).
 
 Options:
     -h --help           Show this help message.
     --issue NUM         GitHub issue number to include in commit message.
-    --only PAPERID      Only update names on the specified paper(s)/volume(s).
-    --except PAPERID    Skip the specified paper(s)/volume(s) when updating names.
+    --old OLDFIRST OLDLAST    Only update the name if it matches OLDFIRST OLDLAST.
+    --only PAPERIDS      Only update names on the specified paper(s)/volume(s).
+    --except PAPERIDS    Skip the specified paper(s)/volume(s) when updating names.
 
 Apply the given first and last name strings to a Person across their papers,
 filtering by an existing name if OLDFIRST and OLDLAST are specified.
@@ -50,6 +47,8 @@ def batch_edit_names(
     person = anthology.get_person(author_id)
     assert person is not None, f"Could not find person: {author_id}"
 
+    # workaround for the fact that frontmatter and volumes share namespecs
+
     log.info(changes)
     if oldname:
         log.info(f"Limiting to instances of current name: {oldname}")
@@ -59,13 +58,21 @@ def batch_edit_names(
         assert ns.parent is not None
         item = ns.parent
         item_id = item.full_id
+        # note: frontmatter and Volumes share namespecs. So cannot simply check whether
+        # the full_id matches the user-provided ID
         if oldname and ns.name != oldname:
             skipped.append(item_id)
             continue
-        if item_id in exclude_paper_ids:
+        if any(
+            ns is anthology.get(paper_id).get_namespec_for(person)
+            for paper_id in exclude_paper_ids
+        ):
             skipped.append(item_id)
             continue
-        if specific_paper_ids and item_id not in specific_paper_ids:
+        if specific_paper_ids and not any(
+            ns is anthology.get(paper_id).get_namespec_for(person)
+            for paper_id in specific_paper_ids
+        ):
             skipped.append(item_id)
             continue
         targets.append(item_id)
@@ -76,7 +83,8 @@ def batch_edit_names(
     if specific_paper_ids:
         assert len(specific_paper_ids) == len(targets), specific_paper_ids
     elif exclude_paper_ids:
-        assert len(exclude_paper_ids) == len(skipped), exclude_paper_ids
+        assert len(exclude_paper_ids) <= len(skipped), exclude_paper_ids
+        # some could be skipped based on oldname
 
     anthology.save_all()
 
@@ -95,8 +103,9 @@ if __name__ == "__main__":
     with warnings.catch_warnings(action="ignore", category=NameSpecResolutionWarning):
         name = Name(first=args["FIRST"], last=args["LAST"])
         oldname = None
-        if args["OLDFIRST"]:
-            oldname = Name(first=args["OLDFIRST"], last=args["OLDLAST"])
+        if args["--old"]:
+            oldfirst, oldlast = args["--old"], args["OLDLAST"]
+            oldname = Name(first=oldfirst, last=oldlast)
         msg = batch_edit_names(
             author_id=args["AUTHORID"],
             name=name,
