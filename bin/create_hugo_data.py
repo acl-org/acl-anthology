@@ -346,7 +346,8 @@ def export_people(anthology, builddir, dryrun):
             cname = person.canonical_name
             papers = sorted(
                 person.papers(),
-                key=lambda paper: paper.year,
+                # TODO: Sort by month as well? Converting from string first?
+                key=lambda paper: (paper.year, paper.full_id),
                 reverse=True,
             )
             data = {
