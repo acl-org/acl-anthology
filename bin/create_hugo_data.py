@@ -459,6 +459,9 @@ def export_venues(anthology, builddir, dryrun):
                 data["volumes_by_year"][year].append(volume_id)
             except KeyError:
                 data["volumes_by_year"][year] = [volume_id]
+        data["volumes_by_year"] = {
+            k: sorted(v) for k, v in sorted(data["volumes_by_year"].items())
+        }
         data["years"] = sorted(list(data["volumes_by_year"].keys()))
         all_venues[venue_id] = data
 
