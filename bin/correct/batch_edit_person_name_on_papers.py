@@ -104,7 +104,7 @@ if __name__ == "__main__":
         name = Name(first=args["FIRST"], last=args["LAST"])
         oldname = None
         if args["--old"]:
-            oldfirst, oldlast = args["--old"]
+            oldfirst, oldlast = args["--old"], args["OLDLAST"]
             oldname = Name(first=oldfirst, last=oldlast)
         msg = batch_edit_names(
             author_id=args["AUTHORID"],
