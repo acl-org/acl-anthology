@@ -363,6 +363,9 @@ def export_people(anthology, builddir, dryrun):
                     key=lambda item: (
                         -item[1],
                         anthology.people[item[0]].canonical_name.last,
+                        # Some people lack a first name
+                        anthology.people[item[0]].canonical_name.first or "",
+                        anthology.people[item[0]].id,
                     ),
                 ),
                 "venues": sorted(
