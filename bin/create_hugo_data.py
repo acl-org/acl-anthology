@@ -253,7 +253,7 @@ def volume_to_dict(volume):
     if volume.editors:
         data["editor"] = [person_to_dict(ns.resolve().id, ns) for ns in volume.editors]
     if volume.type != VolumeType.JOURNAL and (events := volume.get_events()):
-        data["events"] = [event.id for event in events]
+        data["events"] = sorted(event.id for event in events)
     if sigs := volume.get_sigs():
         data["sigs"] = [sig.acronym for sig in sigs]
     if volume.type == VolumeType.JOURNAL:
