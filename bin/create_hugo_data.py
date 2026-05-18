@@ -421,6 +421,9 @@ def export_people(anthology, builddir, dryrun):
                 people[target_id]["aliases"].append(slug)
             else:
                 people[target_id]["aliases"] = [slug]
+        for person in people.values():
+            if "aliases" in person:
+                person["aliases"].sort()
 
         if not dryrun:
             with open(f"{builddir}/data/people.json", "wb") as f:
