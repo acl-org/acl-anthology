@@ -410,7 +410,10 @@ def export_people(anthology, builddir, dryrun):
             if len(ids) > 1:
                 target_id = sorted(
                     ids,
-                    key=lambda pid: len(list(anthology.people[pid].anthology_items())),
+                    key=lambda pid: (
+                        len(list(anthology.people[pid].anthology_items())),
+                        pid,
+                    ),
                 )[-1]
             else:
                 target_id = list(ids)[0]
