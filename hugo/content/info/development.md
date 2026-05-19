@@ -5,6 +5,14 @@ subtitle: Information on how to programmatically access Anthology data
 date: "2025-09-26"
 ---
 
+### Software
+
+The ACL Anthology is built from open-source software.
+The Anthology website uses the [Hugo](https://gohugo.io/) framework to generate a static website that makes heavy use of the [Bootstrap](https://getbootstrap.com/) library for a modern design. We use [Font Awesome](https://fontawesome.com/) for icon fonts.
+[Font Awesome](https://fontawesome.com/) is used as the icon font.
+
+Our source code and data [are available on Github](https://github.com/acl-org/acl-anthology/).
+
 ### Data organization
 
 All the data in the ACL Anthology is stored under [the data directory](https://github.com/acl-org/acl-anthology/tree/master/data) in our Github repository.
