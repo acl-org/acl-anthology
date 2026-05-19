@@ -8,7 +8,7 @@ date: "2025-09-26"
 ### Software
 
 The ACL Anthology is built using completely open-source software, with further developments and customization done by the ACL Anthology staff.
-The current Anthology website is statically generated using the [Hugo](https://gohugo.io/) framework, with the layout being designed using the [Bootstrap](https://getbootstrap.com/) library.
+The Anthology website uses the [Hugo](https://gohugo.io/) framework to generate a static website that makes heavy use of the [Bootstrap](https://getbootstrap.com/) library for a modern design. We use [Font Awesome](https://fontawesome.com/) for icon fonts.
 [Font Awesome](https://fontawesome.com/) is used as the icon font.
 
 The [source code](https://github.com/acl-org/acl-anthology/) for the Anthology is available on GitHub at <https://github.com/acl-org/acl-anthology/>.
