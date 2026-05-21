@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [1.2.0] — 2026-05-21
 
 This release refactors internals of the library to improve modification tracking and dynamic updating of relevant attributes when data is modified.  The breaking changes here are mostly relevant if you are modifying data.
 
