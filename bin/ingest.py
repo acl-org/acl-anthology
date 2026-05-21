@@ -442,7 +442,9 @@ def read_ingest_metadata(
             "volume_full_id": f"{collection_id}-{volume_name}",
             "venue_name": venue_name,
             "venue_abbrev": venue_abbrev,
-            "volume_type": VolumeType.PROCEEDINGS,
+            "volume_type": (
+                VolumeType.JOURNAL if args.is_journal else VolumeType.PROCEEDINGS
+            ),
             "year": str(meta["year"]),
             "month": meta.get("month"),
             "publisher": meta.get("publisher"),
