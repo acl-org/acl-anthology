@@ -9,7 +9,7 @@ Output: updated xml file including name variant
 import lxml.etree as etree
 import sys
 
-tree = etree.parse(sys.argv[1])
+import pathlib; input_path = pathlib.Path(sys.argv[1]); tree = etree.parse(str(input_path.resolve()))
 root = tree.getroot()
 if not root.tail:
     root.tail = "\n"
@@ -63,4 +63,4 @@ for paper in root.findall(".//paper"):
 for meta in root.findall(".//meta"):
     process(list(meta.findall("editor")))
 
-tree.write(sys.argv[2], encoding="UTF-8", xml_declaration=True)
+output_path = pathlib.Path(sys.argv[2]); tree.write(str(output_path.resolve()), encoding="UTF-8", xml_declaration=True)
