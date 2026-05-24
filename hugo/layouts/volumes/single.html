@@ -57,9 +57,8 @@
       <dd>
         {{- $len := (len $paper.events) -}}
         {{- range $index, $event := $paper.events -}}
-          {{ $acronym := index hugo.Data.events $event "acronym" }}
-          {{ $name := index hugo.Data.events $event "name" }}
-          <a href="{{ relref $ (printf "/events/%s" ($event)) }}" title="{{ $name }}">{{- $acronym -}}</a>
+          {{ $name := index hugo.Data.events $event "title" }}
+          <a href="{{ relref $ (printf "/events/%s" ($event)) }}">{{- $name -}}</a>
           {{ if ne (add $index 1) $len }} | {{ end }}
         {{- end -}}
       </dd>
