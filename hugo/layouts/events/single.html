@@ -11,12 +11,12 @@
   <span class="fw-light text-muted">{{ . }}</span><br/>
   {{ end }}
   <hr />
-  {{ if isset $event "venues" }}
+  {{ if isset $event "vol_venues" }}
   <dl id="venues">
-      <dt>{{ if gt (len $event.venues) 1 }}Venues:{{ else }}Venue:{{ end }}</dt>
+      <dt>{{ if gt (len $event.vol_venues) 1 }}Venues:{{ else }}Venue:{{ end }}</dt>
       <dd>
-        {{- $len := (len $event.venues) -}}
-        {{- range $index, $venue := $event.venues -}}
+        {{- $len := (len $event.vol_venues) -}}
+        {{- range $index, $venue := $event.vol_venues -}}
           {{ $acronym := index hugo.Data.venues $venue "acronym" }}
           {{ $name := index hugo.Data.venues $venue "name" }}
           <a href="{{ relref $ (printf "/venues/%s" ($venue)) }}" title="{{ $name }}">{{- $acronym -}}</a>
