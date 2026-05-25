@@ -528,7 +528,7 @@ def export_events(anthology, builddir, dryrun):
             vol = anthology.get(vol_id)
             for venue in vol.venues():
                 if venue.id not in main_vol_venues:
-                    other_venues.add((venue.acronym, venue_id))
+                    other_venues.add((venue.acronym, venue.id))
         vol_venues = main_vol_venues + sorted(other_venues)
         data["vol_venues"] = [tuples[1] for tuples in vol_venues]
 
