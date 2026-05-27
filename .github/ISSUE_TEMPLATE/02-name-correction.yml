@@ -33,7 +33,7 @@ body:
   - type: textarea
     id: name_pages_affected
     attributes:
-      label: Author Pages
+      label: Author Pages in the Anthology
       description: |
         Which author page(s) are affected by this correction? Please list the URL of every affected author page here.
       placeholder: ex. https://aclanthology.org/people/matt-post
@@ -97,6 +97,7 @@ body:
       label: OpenReview profile page URL
       description: |
         If you have an OpenReview profile page, please include it here and ensure the page has your ORCID link: [instructions](https://aclanthology.org/info/author-pages/).
+        If you do not have an OpenReview profile, put "none".
       placeholder: ex. https://openreview.net/profile?id=~Your_Name1
     validations:
-      required: false
+      required: true
