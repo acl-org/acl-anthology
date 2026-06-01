@@ -377,7 +377,7 @@
     </paper>
     <paper id="35">
       <title>Train More Parameters But Mind Their Placement: <fixed-case>Insights</fixed-case> into Language Adaptation with <fixed-case>PEFT</fixed-case></title>
-      <author><first>Jenny</first><last>Kunz</last></author>
+      <author id="jenny-kunz"><first>Jenny</first><last>Kunz</last></author>
       <pages>323–330</pages>
       <abstract>Smaller LLMs still face significant challenges even in medium-resourced languages, particularly when it comes to language-specific knowledge – a problem not easily resolved with machine-translated data. In this case study on Icelandic, we aim to enhance the generation performance of an LLM by specialising it using unstructured text corpora. A key focus is on preventing interference with the models’ capabilities of handling longer context during this adaptation. Through ablation studies using various parameter-efficient fine-tuning (PEFT) methods and setups, we find that increasing the number of trainable parameters leads to better and more robust language adaptation. LoRAs placed in the feed-forward layers and bottleneck adapters show promising results with sufficient parameters, while prefix tuning and (IA)<tex-math>^3</tex-math> are not suitable. Although improvements are consistent in 0-shot summarisation, some adapted models struggle with longer context lengths, an issue that can be mitigated by adapting only the final layers.</abstract>
       <url hash="e25e5484">2025.nodalida-1.35</url>
@@ -508,8 +508,8 @@
     </paper>
     <paper id="47">
       <title>How to Tune a Multilingual Encoder Model for <fixed-case>German</fixed-case>ic Languages: <fixed-case>A</fixed-case> Study of <fixed-case>PEFT,</fixed-case> Full Fine-Tuning, and Language Adapters</title>
-      <author><first>Romina</first><last>Oji</last></author>
-      <author><first>Jenny</first><last>Kunz</last></author>
+      <author id="romina-oji"><first>Romina</first><last>Oji</last></author>
+      <author id="jenny-kunz"><first>Jenny</first><last>Kunz</last></author>
       <pages>433–439</pages>
       <abstract>This paper investigates the optimal use of the multilingual encoder model mDeBERTa for tasks in three Germanic languages – German, Swedish, and Icelandic – representing varying levels of presence and likely data quality in mDeBERTas pre-training data. We compare full fine-tuning with the parameter-efficient fine-tuning (PEFT) methods LoRA and Pfeiffer bottleneck adapters, finding that PEFT is more effective for the higher-resource language, German. However, results for Swedish and Icelandic are less consistent. We also observe differences between tasks: While PEFT tends to work better for question answering, full fine-tuning is preferable for named entity recognition. Inspired by previous research on modular approaches that combine task and language adapters, we evaluate the impact of adding PEFT modules trained on unstructured text, finding that this approach is not beneficial.</abstract>
       <url hash="7a76d458">2025.nodalida-1.47</url>

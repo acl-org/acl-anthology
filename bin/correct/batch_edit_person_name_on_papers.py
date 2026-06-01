@@ -54,7 +54,8 @@ def batch_edit_names(
         log.info(f"Limiting to instances of current name: {oldname}")
     targets = []
     skipped = []
-    for ns in person.namespecs():
+    namespecs = list(person.namespecs())
+    for ns in namespecs:
         assert ns.parent is not None
         item = ns.parent
         item_id = item.full_id
