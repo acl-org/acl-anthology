@@ -73,7 +73,7 @@ endif
 
 # hugo version check
 HUGO_VERSION_MIN=154
-HUGO_VERSION=$(shell hugo version | sed 's/^.* v0\.\(.*\)\..*/\1/')
+HUGO_VERSION=$(shell hugo version | sed 's/^.* v0\.\([0-9]*\)\..*/\1/')
 HUGO_VERSION_TOO_LOW:=$(shell [[ $(HUGO_VERSION_MIN) -gt $(HUGO_VERSION) ]] && echo true)
 ifeq ($(HUGO_VERSION_TOO_LOW),true)
   $(error "incorrect hugo version installed! Need hugo 0.$(HUGO_VERSION_MIN), but only found hugo 0.$(HUGO_VERSION)!")
