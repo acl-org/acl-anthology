@@ -394,6 +394,7 @@ class Person:
                 isinstance(namespec.parent, (Paper, Volume))
                 and namespec.parent.full_id_tuple in excluded_ids
             ):
+                self.add_name(namespec.name)
                 namespec.id = self.id
 
     def anthology_items(self) -> Iterator[Paper | Volume]:
