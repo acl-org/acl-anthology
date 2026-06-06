@@ -315,6 +315,20 @@ def test_person_set_id_on_items(anthology):
     assert paper.authors[0].id == "steven-krauwer"
 
 
+def test_person_set_id_on_items_should_add_name_variants(anthology):
+    person = anthology.get_person("jey-han-lau")
+    # Verify precondition: This person has an inferred name variant
+    assert person.canonical_name == Name("Jey Han", "Lau")
+    assert (Name("Jey", "Han Lau"), NameLink.INFERRED) in person._names
+    assert (Name("Jey", "Han Lau"), NameLink.EXPLICIT) not in person._names
+    # Set IDs
+    person.set_id_on_items()
+    namespecs = list(person.namespecs())
+    assert all(namespec.id == "jey-han-lau" for namespec in namespecs)
+    # Name should be added as explicit now
+    assert (Name("Jey", "Han Lau"), NameLink.EXPLICIT) in person._names
+
+
 def test_person_set_id_on_items_should_raise(anthology):
     person = anthology.get_person(UNVERIFIED_PID_FORMAT.format(pid="nicoletta-calzolari"))
     with pytest.raises(AnthologyException):
