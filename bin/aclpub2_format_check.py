@@ -123,9 +123,7 @@ def main(args):
     conference_details = yaml.safe_load(conference_details_path.read_text())
     anthology_venue_id = str(conference_details.get("anthology_venue_id", ""))
     if "volume_name" not in conference_details:
-        logger.fatal(
-            f"x No 'volume_name' found in '{conference_details_path}'"
-        )
+        logger.fatal(f"x No 'volume_name' found in '{conference_details_path}'")
         sys.exit(1)
     volume_name = str(conference_details["volume_name"])
 
@@ -143,9 +141,7 @@ def main(args):
     for field in required_fields:
         value = conference_details.get(field)
         if value is None or (isinstance(value, str) and not value.strip()):
-            logger.error(
-                f"No (or blank) '{field}' found in '{conference_details_path}'"
-            )
+            logger.error(f"No (or blank) '{field}' found in '{conference_details_path}'")
 
     # every volume needs editors
     if "editors" not in conference_details:

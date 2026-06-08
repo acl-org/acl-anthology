@@ -883,7 +883,9 @@ def main(args):
     formats: Dict[str, str] = {}
     for source in args.proceedings:
         if not Path(source).is_dir():
-            raise Exception(f"Proceedings path does not exist or is not a directory: {source}")
+            raise Exception(
+                f"Proceedings path does not exist or is not a directory: {source}"
+            )
         format_ = detect_ingestion_format(source)
         log.info(f"Detected {format_} format for {source}")
         formats[source] = format_
