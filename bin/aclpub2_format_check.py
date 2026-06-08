@@ -129,6 +129,24 @@ def main(args):
         sys.exit(1)
     volume_name = str(conference_details["volume_name"])
 
+    # every required field must be present and non-blank
+    required_fields = [
+        "book_title",
+        "event_name",
+        "anthology_venue_id",
+        "volume_name",
+        "start_date",
+        "location",
+        "editors",
+        "publisher",
+    ]
+    for field in required_fields:
+        value = conference_details.get(field)
+        if value is None or (isinstance(value, str) and not value.strip()):
+            logger.error(
+                f"No (or blank) '{field}' found in '{conference_details_path}'"
+            )
+
     # every volume needs editors
     if "editors" not in conference_details:
         logger.error("No editors found in conference_details")
