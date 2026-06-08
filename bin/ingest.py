@@ -878,14 +878,23 @@ def register_volume_with_sig(
 
 def main(args):
     setup_rich_logging()
+
+    # Validate all proceedings up front, before loading the (slow) Anthology.
+    formats: Dict[str, str] = {}
+    for source in args.proceedings:
+        if not Path(source).is_dir():
+            raise Exception(f"Proceedings path does not exist or is not a directory: {source}")
+        format_ = detect_ingestion_format(source)
+        log.info(f"Detected {format_} format for {source}")
+        formats[source] = format_
+
     anthology = Anthology.from_within_repo()
 
     anthology.load_all()
 
     seen_volume_ids: set[str] = set()
     for source in args.proceedings:
-        format_ = detect_ingestion_format(source)
-        log.info(f"Detected {format_} format for {source}")
+        format_ = formats[source]
         metadata = read_ingest_metadata(anthology, source, format_, args)
         ingest(
             anthology=anthology,
