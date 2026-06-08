@@ -38,6 +38,7 @@ Options:
     -q, --quiet              Suppress output
     --skip-validation        Skip requirement of "approved" tag
     --dry-run                Dry run (do not create PRs)
+    --no-branch              Stay on the current branch
     issue_ids                Specific issue IDs to process (default: all)
 """
 

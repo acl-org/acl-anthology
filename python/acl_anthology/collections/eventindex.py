@@ -128,11 +128,9 @@ class EventIndex(SlottedDict[Event]):
         if (explicit_event := volume.collection.get_event()) is not None:
             self.reverse[volume_fid].add(explicit_event.id)
         for venue_id in volume.venue_ids:
-            implicit_event = cast(
-                Event, self.get_or_create_implicit_event(volume, venue_id)
-            )
-            implicit_event.add_colocated(volume_fid, EventLink.INFERRED)
-            self.reverse[volume_fid].add(implicit_event.id)
+            event = cast(Event, self.get_or_create_implicit_event(volume, venue_id))
+            event.add_colocated(volume_fid, EventLink.INFERRED)
+            self.reverse[volume_fid].add(event.id)
 
     def load(self) -> None:
         """Load the entire Anthology data and build an index of events."""

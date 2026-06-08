@@ -194,7 +194,7 @@
       <author><first>Chang</first><last>Zhou</last></author>
       <author><first>Jingren</first><last>Zhou</last><affiliation>Alibaba Group</affiliation></author>
       <pages>177-198</pages>
-      <abstract>Large language models (LLMs) with enormous pre-training tokens and parameters emerge diverse abilities, including math reasoning, codegeneration, and instruction following. These abilities are further enhanced by supervised fine-tuning (SFT). While the open-source community has explored ad-hoc SFT for enhancing individual capabilities, proprietary LLMs exhibit versatility across various skills. Therefore, understanding the facilitation of multiple abilities via SFT is paramount. In this study, we specificially focuses on the interplay of data composition between mathematical reasoning, code generation, and general human-aligning abilities during SFT. We propose four intriguing research questions to explore the association between model performance and various factors including data amount, composition ratio, model size and SFT strategies. Our experiments reveal that distinct capabilities scale differently and larger models generally show superior performance with same amount of data. Mathematical reasoning and code generation consistently improve with increasing data amount, whereas general abilities plateau after roughly a thousand samples. Moreover, we observe data composition appears to enhance various abilities under limited data conditions, yet can lead to performance conflicts when data is plentiful. Our findings also suggest the amount of composition data influences performance more than the composition ratio. In analysis of SFT strategies, we find that sequentially learning multiple skills risks catastrophic forgetting. Our proposed Dual-stage Mixed Fine-tuning (DMT) strategy offers a promising solution to learn multiple abilities with different scaling patterns.</abstract>
+      <abstract>Large language models (LLMs) with enormous pre-training tokens and parameters emerge diverse abilities, including math reasoning, codegeneration, and instruction following. These abilities are further enhanced by supervised fine-tuning (SFT). While the open-source community has explored ad-hoc SFT for enhancing individual capabilities, proprietary LLMs exhibit versatility across various skills. Therefore, understanding the facilitation of multiple abilities via SFT is paramount. In this study, we specificially focuses on the interplay of data composition between mathematical reasoning, code generation, and general human-aligning abilities during SFT. We propose four intriguing research questions to explore the association between model performance and various factors including data amount, composition ratio, model size and SFT strategies. Our experiments reveal that distinct capabilities scale differently and larger models generally show superior performance with same amount of data. Mathematical reasoning and code generation consistently improve with increasing data amount, whereas general abilities plateau after roughly a thousand samples. Moreover, we observe data composition appears to enhance various abilities under limited data conditions, yet can lead to performance conflicts when data is plentiful. Our findings also suggest the amount of composition data influences performance more than the composition ratio. In analysis of SFT strategies, we find that sequentially learning multiple skills risks catastrophic forgetting. Our proposed <b>Dual-stage Mixed Fine-tuning (DMT) strategy</b> offers a promising solution to learn multiple abilities with different scaling patterns.</abstract>
       <url hash="c3cc16e2">2024.acl-long.12</url>
       <bibkey>dong-etal-2024-abilities</bibkey>
       <doi>10.18653/v1/2024.acl-long.12</doi>
@@ -422,7 +422,7 @@
       <author><first>Tim</first><last>O’Gorman</last></author>
       <author><first>Nalini</first><last>Singh</last></author>
       <author><first>Andrew</first><last>McCallum</last><affiliation>University of Massachusetts Amherst and University of Massachusetts Amherst</affiliation></author>
-      <author><first>Xiang Lorraine</first><last>Li</last></author>
+      <author id="xiang-lorraine-li"><first>Xiang Lorraine</first><last>Li</last></author>
       <pages>493-506</pages>
       <abstract>Large language models have demonstrated impressive performance on commonsense tasks; however, these tasks are often posed as multiple-choice questions, allowing models to exploit systematic biases. Commonsense is also inherently probabilistic with multiple correct answers. The purpose of “boiling water” could be making tea, cooking but also could be killing germs. Existing tasks do not capture the probabilistic nature of common sense. To this end, we present commonsense frame completion (CFC), a new generative task that evaluates common sense via multiple open-ended generations. We also propose a method of probabilistic evaluation that strongly correlates with human judgments. Humans drastically outperform strong language model baselines on our dataset, indicating this approach is both a challenging and useful evaluation of machine common sense.</abstract>
       <url hash="664f5a62">2024.acl-long.29</url>
@@ -2536,7 +2536,7 @@
     <paper id="181">
       <title><fixed-case>G</fixed-case>row<fixed-case>OVER</fixed-case>: How Can <fixed-case>LLM</fixed-case>s Adapt to Growing Real-World Knowledge?</title>
       <author><first>Dayoon</first><last>Ko</last></author>
-      <author><first>Jinyoung</first><last>Kim</last><affiliation>Seoul National University</affiliation></author>
+      <author id="jinyoung-kim"><first>Jinyoung</first><last>Kim</last><affiliation>Seoul National University</affiliation></author>
       <author><first>Hahyeon</first><last>Choi</last></author>
       <author><first>Gunhee</first><last>Kim</last><affiliation>Seoul National University</affiliation></author>
       <pages>3282-3308</pages>
@@ -7360,7 +7360,7 @@
       <author><first>Donglei</first><last>Yu</last></author>
       <author><first>Xiaomian</first><last>Kang</last></author>
       <author><first>Yuchen</first><last>Liu</last><affiliation>Institute of automation, Chinese academy of science, Chinese Academy of Sciences</affiliation></author>
-      <author><first>Yu</first><last>Zhou</last><affiliation>Institute of Automation, Chinese Academy of Sciences</affiliation></author>
+      <author id="yu-zhou"><first>Yu</first><last>Zhou</last><affiliation>Institute of Automation, Chinese Academy of Sciences</affiliation></author>
       <author id="chengqing-zong"><first>Chengqing</first><last>Zong</last><affiliation>Institute of automation, Chinese academy of science, Chinese Academy of Sciences</affiliation></author>
       <pages>9781-9795</pages>
       <abstract>Simultaneous Machine Translation (SiMT) generates target outputs while receiving stream source inputs and requires a read/write policy to decide whether to wait for the next source token or generate a new target token, whose decisions form a decision path. Existing SiMT methods, which learn the policy by exploring various decision paths in training, face inherent limitations. These methods not only fail to precisely optimize the policy due to the inability to accurately assess the individual impact of each decision on SiMT performance, but also cannot sufficiently explore all potential paths because of their vast number. Besides, building decision paths requires unidirectional encoders to simulate streaming source inputs, which impairs the translation quality of SiMT models. To solve these issues, we propose Self-Modifying State Modeling (SM<tex-math>^2</tex-math>), a novel training paradigm for SiMT task. Without building decision paths, SM<tex-math>^2</tex-math> individually optimizes decisions at each state during training. To precisely optimize the policy, SM<tex-math>^2</tex-math> introduces Self-Modifying process to independently assess and adjust decisions at each state. For sufficient exploration, SM<tex-math>^2</tex-math> proposes Prefix Sampling to efficiently traverse all potential states. Moreover, SM<tex-math>^2</tex-math> ensures compatibility with bidirectional encoders, thus achieving higher translation quality. Experiments show that SM<tex-math>^2</tex-math> outperforms strong baselines. Furthermore, SM<tex-math>^2</tex-math> allows offline machine translation models to acquire SiMT ability with fine-tuning.</abstract>
@@ -7480,7 +7480,7 @@
       <title>Dodo: Dynamic Contextual Compression for Decoder-only <fixed-case>LM</fixed-case>s</title>
       <author><first>Guanghui</first><last>Qin</last></author>
       <author><first>Corby</first><last>Rosset</last></author>
-      <author><first>Ethan</first><last>Chau</last><affiliation>Microsoft</affiliation></author>
+      <author><first>Ethan C.</first><last>Chau</last><affiliation>Microsoft</affiliation></author>
       <author><first>Nikhil</first><last>Rao</last><affiliation>Microsoft</affiliation></author>
       <author><first>Benjamin</first><last>Van Durme</last><affiliation>Johns Hopkins University, Johns Hopkins University, Johns Hopkins University and Microsoft</affiliation></author>
       <pages>9961-9975</pages>
@@ -9192,7 +9192,7 @@
       <title><fixed-case>LAND</fixed-case>e<fixed-case>RMT</fixed-case>: Dectecting and Routing Language-Aware Neurons for Selectively Finetuning <fixed-case>LLM</fixed-case>s to Machine Translation</title>
       <author><first>Shaolin</first><last>Zhu</last><affiliation>Tianjin University</affiliation></author>
       <author><first>Leiyu</first><last>Pan</last><affiliation>Tianjin University</affiliation></author>
-      <author><first>Bo</first><last>Li</last><affiliation>Baidu Inc</affiliation></author>
+      <author id="bo-li"><first>Bo</first><last>Li</last><affiliation>Baidu Inc</affiliation></author>
       <author id="deyi-xiong"><first>Deyi</first><last>Xiong</last><affiliation>Tianjin University</affiliation></author>
       <pages>12135-12148</pages>
       <abstract>Recent advancements in large language models (LLMs) have shown promising results in multilingual translation even with limited bilingual supervision. The major challenges are catastrophic forgetting and parameter interference for finetuning LLMs when provided parallel training data. To address these challenges, we propose LANDeRMT, a Language-Aware Neuron Detecting and Routing framework that selectively finetunes LLMs to Machine Translation with diverse translation training data. In LANDeRMT, we evaluate the awareness of neurons to MT tasks and categorize them into language-general and language-specific neurons. This categorization enables selective parameter updates during finetuning, mitigating parameter interference and catastrophic forgetting issues. For the detected neurons, we further propose a conditional awareness-based routing mechanism to dynamically adjust language-general and language-specific capacity within LLMs, guided by translation signals. Experimental results demonstrate that the proposed LANDeRMT is very effective in learning translation knowledge, significantly improving translation quality over various strong baselines for multiple language pairs.</abstract>
@@ -9558,7 +9558,7 @@
     </paper>
     <paper id="683">
       <title><fixed-case>A</fixed-case>ction<fixed-case>IE</fixed-case>: Action Extraction from Scientific Literature with Programming Languages</title>
-      <author><first>Xianrui</first><last>Zhong</last><affiliation>University of Illinois at Urbana-Champaign</affiliation></author>
+      <author id="xianrui-zhong"><first>Xianrui</first><last>Zhong</last><affiliation>University of Illinois at Urbana-Champaign</affiliation></author>
       <author><first>Yufeng</first><last>Du</last></author>
       <author><first>Siru</first><last>Ouyang</last><affiliation>University of Illinois Urbana-Champaign Champaign</affiliation></author>
       <author><first>Ming</first><last>Zhong</last></author>
@@ -12770,7 +12770,7 @@
       <author><first>Anton Frederik</first><last>Thielmann</last></author>
       <author><first>Arik</first><last>Reuter</last></author>
       <author><first>Benjamin</first><last>Säfken</last></author>
-      <author><first>Christoph</first><last>Weisser</last></author>
+      <author id="christoph-weisser"><first>Christoph</first><last>Weisser</last></author>
       <author><first>Manish</first><last>Kumar</last></author>
       <author><first>Gillian</first><last>Kant</last></author>
       <pages>435-444</pages>
@@ -13959,7 +13959,7 @@ These changes do not affect the experimental results or the main conclusions of 
     </paper>
     <paper id="20">
       <title>Vector Spaces for Quantifying Disparity of Multiword Expressions in Annotated Text</title>
-      <author><first>Louis</first><last>Estève</last></author>
+      <author id="louis-esteve"><first>Louis</first><last>Estève</last></author>
       <author><first>Agata</first><last>Savary</last><affiliation>Université Paris-Saclay</affiliation></author>
       <author><first>Thomas</first><last>Lavergne</last></author>
       <pages>110-130</pages>
@@ -13982,7 +13982,7 @@ These changes do not affect the experimental results or the main conclusions of 
       <title>Assessing In-context Learning and Fine-tuning for Topic Classification of <fixed-case>G</fixed-case>erman Web Data</title>
       <author><first>Julian</first><last>Schelb</last><affiliation>Universität Konstanz</affiliation></author>
       <author><first>Roberto</first><last>Ulloa</last></author>
-      <author><first>Andreas</first><last>Spitz</last><affiliation>Universität Konstanz</affiliation></author>
+      <author id="andreas-spitz"><first>Andreas</first><last>Spitz</last><affiliation>Universität Konstanz</affiliation></author>
       <pages>144-158</pages>
       <abstract>Researchers in the political and social sciences often rely on classification models to analyze trends in information consumption by examining browsing histories of millions of webpages. Automated scalable methods are necessary due to the impracticality of manual labeling. In this paper, we model the detection of topic-related content as a binary classification task and compare the accuracy of fine-tuned pre-trained encoder models against in-context learning strategies. Using only a few hundred annotated data points per topic, we detect content related to three German policies in a database of scraped webpages. We compare multilingual and monolingual models, as well as zero and few-shot approaches, and investigate the impact of negative sampling strategies and the combination of URL &amp; content-based features. Our results show that a small sample of annotated data is sufficient to train an effective classifier. Fine-tuning encoder-based models yields better results than in-context learning. Classifiers using both URL &amp; content-based features perform best, while using URLs alone provides adequate results when content is unavailable.</abstract>
       <url hash="2fedeb49">2024.acl-srw.22</url>
