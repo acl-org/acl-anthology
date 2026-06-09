@@ -96,6 +96,7 @@ WATERMARK_MARKERS = (
 PDF_DOWNLOAD_RETRIES = 5
 PDF_DOWNLOAD_RETRY_BASE_DELAY_SEC = 2
 DOWNLOAD_CHUNK_SIZE = 1024 * 1024
+PDF_FILE_MODE = 0o644
 
 # ACLPUB2 ingestion gets richer structured name fields (first/middle/last), but
 # Crossref only gives us `given` + `family`. We therefore need a small heuristic
@@ -274,6 +275,7 @@ def retrieve_url(url: str, destination: str, timeout_sec: int = 120) -> bool:
             for chunk in response.iter_content(chunk_size=DOWNLOAD_CHUNK_SIZE):
                 if chunk:
                     out_f.write(chunk)
+    target.chmod(PDF_FILE_MODE)
     return True
 
 
@@ -543,6 +545,7 @@ def maybe_download_pdf(
                         doi,
                         exc,
                     )
+                destination.chmod(PDF_FILE_MODE)
                 return True, pdf_url
             raise RuntimeError("downloaded file missing or empty")
         except Exception as exc:
