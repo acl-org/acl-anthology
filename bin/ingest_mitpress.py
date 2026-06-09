@@ -44,8 +44,7 @@ from fixedcase.protect import protect
 
 __version__ = "0.7"
 USER_AGENT = (
-    f"acl-anthology-ingest-mitpress/{__version__} "
-    "(mailto:acl-anthology@aclweb.org)"
+    f"acl-anthology-ingest-mitpress/{__version__} (mailto:acl-anthology@aclweb.org)"
 )
 
 TACL = "tacl"
