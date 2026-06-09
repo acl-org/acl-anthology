@@ -41,9 +41,12 @@ from acl_anthology.text import MarkupText
 from acl_anthology.utils import setup_rich_logging
 
 from fixedcase.protect import protect
-from anthology.utils import retrieve_url
 
 __version__ = "0.7"
+USER_AGENT = (
+    f"acl-anthology-ingest-mitpress/{__version__} "
+    "(mailto:acl-anthology@aclweb.org)"
+)
 
 TACL = "tacl"
 CL = "cl"
@@ -93,6 +96,7 @@ WATERMARK_MARKERS = (
 )
 PDF_DOWNLOAD_RETRIES = 5
 PDF_DOWNLOAD_RETRY_BASE_DELAY_SEC = 2
+DOWNLOAD_CHUNK_SIZE = 1024 * 1024
 
 # ACLPUB2 ingestion gets richer structured name fields (first/middle/last), but
 # Crossref only gives us `given` + `family`. We therefore need a small heuristic
@@ -256,6 +260,24 @@ def start_page_for_sorting(page_text: Optional[str]) -> int:
         return 10**9
 
 
+def retrieve_url(url: str, destination: str, timeout_sec: int = 120) -> bool:
+    target = Path(destination)
+    target.parent.mkdir(parents=True, exist_ok=True)
+    headers = {"User-Agent": USER_AGENT}
+    with requests.get(
+        url,
+        headers=headers,
+        stream=True,
+        timeout=timeout_sec,
+    ) as response:
+        response.raise_for_status()
+        with target.open("wb") as out_f:
+            for chunk in response.iter_content(chunk_size=DOWNLOAD_CHUNK_SIZE):
+                if chunk:
+                    out_f.write(chunk)
+    return True
+
+
 def normalize_crossref_author_name_split(
     given: Optional[str], family: str
 ) -> tuple[Optional[str], str]:
@@ -333,9 +355,7 @@ def crossref_request_json(
     retries: int = 4,
     timeout_sec: int = 45,
 ) -> dict[str, Any]:
-    headers = {
-        "User-Agent": "acl-anthology-ingest-mitpress/0.7 (mailto:acl-anthology@aclweb.org)"
-    }
+    headers = {"User-Agent": USER_AGENT}
 
     for attempt in range(1, retries + 1):
         try:
