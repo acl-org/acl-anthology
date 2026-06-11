@@ -727,8 +727,12 @@ def ingest(
             kwargs["pdf"] = PDFReference.from_file(str(paper["pdf_dest"]))
         for key in ("abstract", "doi", "pages"):
             value = paper.get(key)
-            if value:
-                kwargs[key] = value
+            try:
+                # This can trigger a call to MarkupText.__len__, which will fail for bad abstracts
+                if value:
+                    kwargs[key] = value
+            except Exception as e:
+                log.warning(f"Error normalizing LaTeX for key '{key}': {e}")
         paper_month = paper.get("month")
         if paper_month and paper_month != metadata["month"]:
             kwargs["month"] = paper_month
