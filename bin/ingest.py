@@ -623,9 +623,13 @@ def iter_aclpub2_papers(metadata: Dict[str, Any]) -> Iterator[Dict[str, Any]]:
             attachments.append(
                 {"src": attach_src_path, "dest": attach_dest_path, "type": type_}
             )
-        abstract = paper.get("abstract")
-        if abstract is not None:
-            abstract = MarkupText.from_latex_maybe(abstract.replace("\n", ""))
+        try:
+            abstract = paper.get("abstract")
+            if abstract is not None:
+                abstract = MarkupText.from_latex_maybe(abstract.replace("\n", ""))
+        except ValueError as e:
+            log.warning(f"Error parsing abstract for paper {paper_num} ({paper.get('title', 'Unknown Title')}): {e}")
+            abstract = None
         yield {
             "id": str(paper_num),
             "type": PaperType.PAPER,
