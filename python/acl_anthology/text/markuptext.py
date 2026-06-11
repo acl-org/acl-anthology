@@ -178,7 +178,6 @@ class MarkupText:
         if self._html is not None:
             return self._html
         element = deepcopy(self._content)
-        unclosed_paragraph = False
         for sub in element.iter():
             if sub.tag == "url":
                 if allow_url:
@@ -202,15 +201,10 @@ class MarkupText:
                 parsed_elem.tail = sub.tail
                 sub.getparent().replace(sub, parsed_elem)  # type: ignore
             elif sub.tag == "pbr":
-                if unclosed_paragraph:
-                    sub.addprevious(etree.fromstring("</p>"))
-                sub.tag = "p"
-                unclosed_paragraph = True
+                sub.tag = "br"
+                # TODO: wrap material before and after in <p> tags
             elif len(sub) == 0 and sub.text is None:
                 sub.text = ""
-        if unclosed_paragraph:
-            element.addprevious(etree.fromstring("<p>"))
-            element.addnext(etree.fromstring("</p>"))
 
         self._html = remove_extra_whitespace(stringify_children(element))
         return self._html
