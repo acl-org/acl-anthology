@@ -232,24 +232,23 @@ def format_report(stats: Dict) -> str:
             "No ingested volumes were detected, so no statistics could be computed."
         )
         lines.append("")
-        lines.append(
-            f"New `people.yaml` entries: **{stats['num_new_people_entries']}**"
-        )
+        lines.append(f"New `people.yaml` entries: **{stats['num_new_people_entries']}**")
         return "\n".join(lines)
 
-    lines.append(f"Analyzed **{len(volume_ids)}** volume(s): " + ", ".join(
-        f"`{vid}`" for vid in volume_ids
-    ))
+    lines.append(
+        f"Analyzed **{len(volume_ids)}** volume(s): "
+        + ", ".join(f"`{vid}`" for vid in volume_ids)
+    )
     lines.append("")
 
     lines.append("| Metric | Count |")
     lines.append("| --- | ---: |")
     lines.append(f"| New papers | {stats['num_papers']} |")
     lines.append(f"| Distinct authors | {stats['num_authors']} |")
-    lines.append(f"| New authors (first time in the Anthology) | {stats['num_new_authors']} |")
     lines.append(
-        f"| New `people.yaml` entries | {stats['num_new_people_entries']} |"
+        f"| New authors (first time in the Anthology) | {stats['num_new_authors']} |"
     )
+    lines.append(f"| New `people.yaml` entries | {stats['num_new_people_entries']} |")
     lines.append(
         f"| Single-author papers by new authors | {stats['num_single_author_new']} |"
     )
