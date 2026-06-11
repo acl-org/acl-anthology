@@ -628,7 +628,9 @@ def iter_aclpub2_papers(metadata: Dict[str, Any]) -> Iterator[Dict[str, Any]]:
             if abstract is not None:
                 abstract = MarkupText.from_latex_maybe(abstract.replace("\n", ""))
         except ValueError as e:
-            log.warning(f"Error parsing abstract for paper {paper_num} ({paper.get('title', 'Unknown Title')}): {e}")
+            log.warning(
+                f"Error parsing abstract for paper {paper_num} ({paper.get('title', 'Unknown Title')}): {e}"
+            )
             abstract = None
         yield {
             "id": str(paper_num),
