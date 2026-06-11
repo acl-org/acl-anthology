@@ -624,7 +624,7 @@ def iter_aclpub2_papers(metadata: Dict[str, Any]) -> Iterator[Dict[str, Any]]:
                 {"src": attach_src_path, "dest": attach_dest_path, "type": type_}
             )
         try:
-            if abstract := paper.get("abstract") is not None:
+            if (abstract := paper.get("abstract")) is not None:
                 abstract = MarkupText.from_latex_maybe(abstract.replace("\n", ""))
                 # ensure the abstract can be rendered without error
                 _ = abstract.as_text()
