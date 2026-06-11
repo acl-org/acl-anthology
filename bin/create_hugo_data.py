@@ -452,16 +452,22 @@ def export_venues(anthology, builddir, dryrun):
         if venue.type is not None:
             data["type"] = venue.type
         data["volumes_by_year"] = {}
-        for volume in venue.volumes():
+        sorted_volumes = sorted(
+            venue.volumes(),
+            key=lambda volume: (
+                volume.year,
+                volume.parent.id,
+                # Follow order of volumes within a collection
+                list(volume.parent.keys()).index(volume.id),
+            ),
+        )
+        for volume in sorted_volumes:
             year, volume_id = volume.year, volume.full_id
             try:
                 data["volumes_by_year"][year].append(volume_id)
             except KeyError:
                 data["volumes_by_year"][year] = [volume_id]
-        data["volumes_by_year"] = {
-            k: sorted(v) for k, v in sorted(data["volumes_by_year"].items())
-        }
-        data["years"] = sorted(list(data["volumes_by_year"].keys()))
+        data["years"] = list(data["volumes_by_year"].keys())
         all_venues[venue_id] = data
 
     if not dryrun:
