@@ -43,8 +43,11 @@ MARKUP_LATEX_CMDS = defaultdict(
         "fixed-case": "{{{text}}}",
         "b": "\\textbf{{{text}}}",
         "i": "\\textit{{{text}}}",
+        "u": "\\uline{{{text}}}",
+        "sc": "\\textsc{{{text}}}",
         "tex-math": "${text}$",
         "url": "\\url{{{text}}}",
+        # TODO: <a href>
     },
 )
 
@@ -175,6 +178,7 @@ class MarkupText:
         if self._html is not None:
             return self._html
         element = deepcopy(self._content)
+        unclosed_paragraph = False
         for sub in element.iter():
             if sub.tag == "url":
                 if allow_url:
@@ -183,6 +187,13 @@ class MarkupText:
                 else:
                     sub.tag = "span"
                 sub.set("class", "acl-markup-url")
+            elif sub.tag == "a":
+                if not allow_url:
+                    sub.tag = "span"
+                sub.set("class", "acl-markup-url")
+            elif sub.tag == "sc":
+                sub.tag = "span"
+                sub.set("style", "font-variant: small-caps")
             elif sub.tag == "fixed-case":
                 sub.tag = "span"
                 sub.set("class", "acl-fixed-case")
@@ -190,8 +201,17 @@ class MarkupText:
                 parsed_elem = TexMath.to_html(sub)
                 parsed_elem.tail = sub.tail
                 sub.getparent().replace(sub, parsed_elem)  # type: ignore
+            elif sub.tag == "pbr":
+                if unclosed_paragraph:
+                    sub.addprevious(etree.fromstring("</p>"))
+                sub.tag = "p"
+                unclosed_paragraph = True
             elif len(sub) == 0 and sub.text is None:
                 sub.text = ""
+        if unclosed_paragraph:
+            element.addprevious(etree.fromstring("<p>"))
+            element.addnext(etree.fromstring("</p>"))
+
         self._html = remove_extra_whitespace(stringify_children(element))
         return self._html
 
