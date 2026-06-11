@@ -624,9 +624,10 @@ def iter_aclpub2_papers(metadata: Dict[str, Any]) -> Iterator[Dict[str, Any]]:
                 {"src": attach_src_path, "dest": attach_dest_path, "type": type_}
             )
         try:
-            abstract = paper.get("abstract")
-            if abstract is not None:
+            if abstract := paper.get("abstract") is not None:
                 abstract = MarkupText.from_latex_maybe(abstract.replace("\n", ""))
+                # ensure the abstract can be rendered without error
+                _ = abstract.as_text()
         except ValueError as e:
             log.warning(
                 f"Error parsing abstract for paper {paper_num} ({paper.get('title', 'Unknown Title')}): {e}"
@@ -726,13 +727,8 @@ def ingest(
             maybe_copy(paper["pdf_src"], paper["pdf_dest"], dry_run=args.dry_run)
             kwargs["pdf"] = PDFReference.from_file(str(paper["pdf_dest"]))
         for key in ("abstract", "doi", "pages"):
-            value = paper.get(key)
-            try:
-                # This can trigger a call to MarkupText.__len__, which will fail for bad abstracts
-                if value:
-                    kwargs[key] = value
-            except Exception as e:
-                log.warning(f"Error normalizing LaTeX for key '{key}': {e}")
+            if value := paper.get(key):
+                kwargs[key] = value
         paper_month = paper.get("month")
         if paper_month and paper_month != metadata["month"]:
             kwargs["month"] = paper_month
