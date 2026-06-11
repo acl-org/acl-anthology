@@ -224,7 +224,18 @@ def namespec_from_author(author: Dict[str, Any]) -> NameSpecification:
     affiliation = author.get("institution") or author.get("affiliation")
     if affiliation:
         kwargs["affiliation"] = affiliation
-    return NameSpecification(**kwargs)
+    try:
+        return NameSpecification(**kwargs)
+    except ValueError as e:
+        if "orcid" in kwargs:
+            print(
+                f"WARNING: Dropping invalid ORCID '{kwargs['orcid']}' for author "
+                f"'{first_name} {last_name}': {e}",
+                file=sys.stderr,
+            )
+            del kwargs["orcid"]
+            return NameSpecification(**kwargs)
+        raise
 
 
 def add_parent_event(
