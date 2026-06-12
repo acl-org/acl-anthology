@@ -291,6 +291,15 @@ test_cases_html = (
         "<tex-math>\\left\\{42\\right\\}</tex-math>",
         '<span class="tex-math">{42}</span>',
     ),
+    # Nested math-mode delimiters (stray "$") are redundant and parsed in place
+    (
+        "<tex-math>a $\\times$ b</tex-math>",
+        '<span class="tex-math">a × b</span>',
+    ),
+    (
+        "<tex-math>n$x$</tex-math>",
+        '<span class="tex-math">nx</span>',
+    ),
 )
 
 
@@ -321,3 +330,9 @@ def test_texmath_should_warn(caplog):
         "Unknown TeX-math command: \\somecustomcommand" in rec.message
         for rec in caplog.records
     )
+
+
+def test_texmath_unhandled_element_raises():
+    trg = etree.Element("span")
+    with pytest.raises(ValueError, match="unhandled element"):
+        TexMath._parse([object()], trg)
