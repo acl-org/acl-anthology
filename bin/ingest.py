@@ -224,7 +224,18 @@ def namespec_from_author(author: Dict[str, Any]) -> NameSpecification:
     affiliation = author.get("institution") or author.get("affiliation")
     if affiliation:
         kwargs["affiliation"] = affiliation
-    return NameSpecification(**kwargs)
+    try:
+        return NameSpecification(**kwargs)
+    except ValueError as e:
+        if "orcid" in kwargs:
+            print(
+                f"WARNING: Dropping invalid ORCID '{kwargs['orcid']}' for author "
+                f"'{first_name} {last_name}': {e}",
+                file=sys.stderr,
+            )
+            del kwargs["orcid"]
+            return NameSpecification(**kwargs)
+        raise
 
 
 def add_parent_event(
@@ -612,9 +623,16 @@ def iter_aclpub2_papers(metadata: Dict[str, Any]) -> Iterator[Dict[str, Any]]:
             attachments.append(
                 {"src": attach_src_path, "dest": attach_dest_path, "type": type_}
             )
-        abstract = paper.get("abstract")
-        if abstract is not None:
-            abstract = MarkupText.from_latex_maybe(abstract.replace("\n", ""))
+        try:
+            if (abstract := paper.get("abstract")) is not None:
+                abstract = MarkupText.from_latex_maybe(abstract.replace("\n", ""))
+                # ensure the abstract can be rendered without error
+                _ = abstract.as_text()
+        except ValueError as e:
+            log.warning(
+                f"Error parsing abstract for paper {paper_num} ({paper.get('title', 'Unknown Title')}): {e}"
+            )
+            abstract = None
         yield {
             "id": str(paper_num),
             "type": PaperType.PAPER,
@@ -709,8 +727,7 @@ def ingest(
             maybe_copy(paper["pdf_src"], paper["pdf_dest"], dry_run=args.dry_run)
             kwargs["pdf"] = PDFReference.from_file(str(paper["pdf_dest"]))
         for key in ("abstract", "doi", "pages"):
-            value = paper.get(key)
-            if value:
+            if value := paper.get(key):
                 kwargs[key] = value
         paper_month = paper.get("month")
         if paper_month and paper_month != metadata["month"]:
