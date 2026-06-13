@@ -32,7 +32,7 @@ It then goes through them, looking for ones that
 It then creates a new PR on a branch labeled bulk-verifications-YYYY-MM-DD,
 where it makes a single PR from changes from all matching issues.
 
-Usage: bulk_verify_all.py [-q] [--skip-validation] [--dry-run] [issue_ids...]
+Usage: bulk_verify_all.py [-q] [--skip-validation] [--dry-run] [--no-branch] [issue_ids...]
 
 Options:
     -q, --quiet              Suppress output
