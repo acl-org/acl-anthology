@@ -142,13 +142,15 @@ class AnthologyMetadataUpdater:
             issuetype = []
             issuelabels = [label.name for label in issue.get_labels()]
             if "[x] Split/disambiguate:" in issue.body:
-                issuetype.append('SPLIT')
+                issuetype.append("SPLIT")
             if "[x] Merge profiles:" in issue.body:
-                issuetype.append('MERGE')
+                issuetype.append("MERGE")
             if "[x] Name change:" in issue.body:
-                issuetype.append('NAMECHANGE')
-            if issuetype and not any(lbl.startswith('meta:') for lbl in issuelabels):
-                log.warning(f"#{issue.number}: No meta:* label for issue type {'+'.join(issuetype)} {issue.html_url}")
+                issuetype.append("NAMECHANGE")
+            if issuetype and not any(lbl.startswith("meta:") for lbl in issuelabels):
+                log.warning(
+                    f"#{issue.number}: No meta:* label for issue type {'+'.join(issuetype)} {issue.html_url}"
+                )
 
             # Skip verification if non-simple
             if not issue.title.lower().endswith("/unverified"):
