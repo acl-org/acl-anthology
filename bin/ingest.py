@@ -224,6 +224,55 @@ def latex_to_text(text: Optional[str]) -> Optional[str]:
     return MarkupText.from_latex_maybe(text).as_text()
 
 
+# Repairs for common LaTeX quirks introduced by upstream export pipelines
+# (aclpub2, OpenReview, START, etc.) before the text is handed to
+# ``MarkupText.from_latex_maybe()``. Each entry is a ``(name, pattern, repl)``
+# tuple applied in order via ``re.sub``. Add new repairs here as additional
+# malformed-LaTeX patterns are discovered.
+#
+# - over_escaped_dollar: An intended literal dollar (``\$``, e.g. the currency
+#   "$1") gets double-escaped to ``\\$``, which LaTeX reads as a line break
+#   (``\\``) followed by a math-mode toggle (``$``). The stray toggle then
+#   desynchronizes every following ``$...$`` span. Collapse it back to ``\$``.
+#
+# - texttt_unwrap: ``MarkupText.from_latex_maybe()`` silently DROPS the content
+#   of ``\texttt{...}`` (monospace has no Anthology markup equivalent), which
+#   empties acronyms such as ``\textbf{\texttt{RBED}}`` -> ``<b></b>``. Since we
+#   cannot represent monospace anyway, unwrap ``\texttt{X}`` to its literal
+#   content ``X`` so the text survives. (Non-nested braces only.)
+#
+# - strip_newlines: Source text (especially YAML-wrapped abstracts) often
+#   contains hard line breaks that are not meaningful LaTeX; drop them so the
+#   text is flattened to a single line before parsing.
+LATEX_REPAIRS: List[Tuple[str, "re.Pattern[str]", str]] = [
+    (
+        "over_escaped_dollar",
+        re.compile(r"\\\\\$"),
+        r"\\$",
+    ),
+    (
+        "texttt_unwrap",
+        re.compile(r"\\texttt\s*\{([^{}]*)\}"),
+        r"\1",
+    ),
+    (
+        "strip_newlines",
+        re.compile(r"\n"),
+        "",
+    ),
+]
+
+
+def repair_latex(text: str) -> str:
+    """Apply known repairs for malformed/over-escaped LaTeX produced by upstream
+    export pipelines, so the text can be parsed correctly by
+    ``MarkupText.from_latex_maybe()``. See ``LATEX_REPAIRS`` for the individual
+    fixes."""
+    for _name, pattern, repl in LATEX_REPAIRS:
+        text = pattern.sub(repl, text)
+    return text
+
+
 # Maps (slugified full name, number of spaces in the full name) -> set of
 # observed split points (i.e. the number of whitespace-delimited tokens in the
 # first name) seen in the existing Anthology data. Populated once in main() and
@@ -729,7 +778,7 @@ def iter_aclpub2_papers(metadata: Dict[str, Any]) -> Iterator[Dict[str, Any]]:
             )
         try:
             if (abstract := paper.get("abstract")) is not None:
-                abstract = MarkupText.from_latex_maybe(abstract.replace("\n", ""))
+                abstract = MarkupText.from_latex_maybe(repair_latex(abstract))
                 # ensure the abstract can be rendered without error
                 _ = abstract.as_text()
         except ValueError as e:
@@ -908,7 +957,7 @@ def normalize_latex(text: Optional[str], is_title: bool = True) -> Optional[Mark
     titles and abstracts."""
     if text is None:
         return None
-    markup = MarkupText.from_latex_maybe(text)
+    markup = MarkupText.from_latex_maybe(repair_latex(text))
     if is_title:
         elem = markup.to_xml()
         protect_fixedcase(elem)
