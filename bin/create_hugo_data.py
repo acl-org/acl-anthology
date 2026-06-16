@@ -266,9 +266,9 @@ def volume_to_dict(volume):
     if volume.editors:
         data["editor"] = [person_to_dict(ns.resolve().id, ns) for ns in volume.editors]
     if volume.type != VolumeType.JOURNAL and (events := volume.get_events()):
-        data["events"] = [event.id for event in events]
+        data["events"] = sorted(event.id for event in events)
     if sigs := volume.get_sigs():
-        data["sigs"] = [sig.acronym for sig in sigs]
+        data["sigs"] = sorted(sig.acronym for sig in sigs)
     if volume.type == VolumeType.JOURNAL:
         data["meta_journal_title"] = volume.journal_title
         data["meta_issue"] = volume.journal_issue
@@ -305,9 +305,9 @@ def export_papers_and_volumes(anthology, builddir, dryrun):
                         volume_data[key] = value
                 if events := volume.get_events():
                     # TODO: This information is currently not used on paper templates
-                    volume_data["events"] = [
+                    volume_data["events"] = sorted(
                         event.id for event in events if event.is_explicit
-                    ]
+                    )
 
                 # Now build the data for every paper
                 for paper in volume.papers():
@@ -359,7 +359,8 @@ def export_people(anthology, builddir, dryrun):
             cname = person.canonical_name
             papers = sorted(
                 person.papers(),
-                key=lambda paper: paper.year,
+                # TODO: Sort by month as well? Converting from string first?
+                key=lambda paper: (paper.year, paper.full_id),
                 reverse=True,
             )
             data = {
@@ -375,6 +376,8 @@ def export_people(anthology, builddir, dryrun):
                     key=lambda item: (
                         -item[1],
                         anthology.people[item[0]].canonical_name.last,
+                        anthology.people[item[0]].canonical_name.as_last_first(),
+                        anthology.people[item[0]].id,
                     ),
                 ),
                 "venues": sorted(
@@ -419,7 +422,10 @@ def export_people(anthology, builddir, dryrun):
             if len(ids) > 1:
                 target_id = sorted(
                     ids,
-                    key=lambda pid: len(list(anthology.people[pid].anthology_items())),
+                    key=lambda pid: (
+                        len(list(anthology.people[pid].anthology_items())),
+                        pid,
+                    ),
                 )[-1]
             else:
                 target_id = list(ids)[0]
@@ -427,6 +433,9 @@ def export_people(anthology, builddir, dryrun):
                 people[target_id]["aliases"].append(slug)
             else:
                 people[target_id]["aliases"] = [slug]
+        for person in people.values():
+            if "aliases" in person:
+                person["aliases"].sort()
 
         if not dryrun:
             with open(f"{builddir}/data/people.json", "wb") as f:
@@ -456,13 +465,22 @@ def export_venues(anthology, builddir, dryrun):
         if venue.type is not None:
             data["type"] = venue.type
         data["volumes_by_year"] = {}
-        for volume in venue.volumes():
+        sorted_volumes = sorted(
+            venue.volumes(),
+            key=lambda volume: (
+                volume.year,
+                volume.parent.id,
+                # Follow order of volumes within a collection
+                list(volume.parent.keys()).index(volume.id),
+            ),
+        )
+        for volume in sorted_volumes:
             year, volume_id = volume.year, volume.full_id
             try:
                 data["volumes_by_year"][year].append(volume_id)
             except KeyError:
                 data["volumes_by_year"][year] = [volume_id]
-        data["years"] = sorted(list(data["volumes_by_year"].keys()))
+        data["years"] = list(data["volumes_by_year"].keys())
         all_venues[venue_id] = data
 
     if not dryrun:

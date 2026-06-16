@@ -2053,7 +2053,7 @@
       <author><first>Jiwan</first><last>Chung</last></author>
       <author><first>Seungwon</first><last>Lim</last><affiliation>Yonsei University</affiliation></author>
       <author><first>Jaehyun</first><last>Jeon</last><affiliation>Yonsei University</affiliation></author>
-      <author><first>Seungbeen</first><last>Lee</last><affiliation>Yonsei University</affiliation></author>
+      <author id="seungbeen-lee"><first>Seungbeen</first><last>Lee</last><affiliation>Yonsei University</affiliation></author>
       <author><first>Youngjae</first><last>Yu</last><affiliation>Yonsei University</affiliation></author>
       <pages>2452-2469</pages>
       <abstract>Humans possess multimodal literacy, allowing them to actively integrate information from various modalities to form reasoning. Faced with challenges like lexical ambiguity in text, we supplement this with other modalities, such as thumbnail images or textbook illustrations. Is it possible for machines to achieve a similar multimodal understanding capability?In response, we present Understanding Pun with Image Explanations (UNPIE), a novel benchmark designed to assess the impact of multimodal inputs in resolving lexical ambiguities. Puns serve as the ideal subject for this evaluation due to their intrinsic ambiguity. Our dataset includes 1,000 puns, each accompanied by an image that explains both meanings. We pose three multimodal challenges with the annotations to assess different aspects of multimodal literacy; Pun Grounding, Disambiguation, and Reconstruction. The results indicate that various Socratic Models and Visual-Language Models improve over the text-only models when given visual context, particularly as the complexity of the tasks increases.</abstract>
@@ -6175,14 +6175,14 @@
     </paper>
     <paper id="438">
       <title><fixed-case>K</fixed-case>nowledge<fixed-case>SG</fixed-case>: Privacy-Preserving Synthetic Text Generation with Knowledge Distillation from Server</title>
-      <author><first>WenHao</first><last>Wang</last></author>
+      <author><first>Wenhao</first><last>Wang</last></author>
       <author><first>Xiaoyu</first><last>Liang</last></author>
       <author><first>Rui</first><last>Ye</last><affiliation>Shanghai Jiaotong University</affiliation></author>
       <author><first>Jingyi</first><last>Chai</last></author>
       <author><first>Siheng</first><last>Chen</last><affiliation>Shanghai Jiao Tong University</affiliation></author>
       <author id="yanfeng-wang" orcid="0000-0002-3196-2347"><first>Yanfeng</first><last>Wang</last><affiliation>Shanghai Jiao Tong University</affiliation></author>
       <pages>7677-7695</pages>
-      <abstract>The success of large language models (LLMs) facilitate many parties to fine-tune LLMs on their own private data. However, this practice raises privacy concerns due to the memorization of LLMs. Existing solutions, such as utilizing synthetic data for substitution, struggle to simultaneously improve performance and preserve privacy.They either rely on a local model for generation, resulting in a performance decline, or take advantage of APIs, directly exposing the data to API servers. To address this issue, we propose <i>KnowledgeSG</i>, a novel client-server framework which enhances synthetic data quality and improves model performance while ensuring privacy. We achieve this by learning local knowledge from the private data with differential privacy (DP) and distilling professional knowledge from the server. Additionally, inspired by federated learning, we transmit models rather than data between the client and server to prevent privacy leakage.Extensive experiments in medical and financial domains demonstrate the effectiveness of *KnowledgeSG*. Our code is now publicly available at https://github.com/wwh0411/KnowledgeSG.</abstract>
+      <abstract>The success of large language models (LLMs) facilitate many parties to fine-tune LLMs on their own private data. However, this practice raises privacy concerns due to the memorization of LLMs. Existing solutions, such as utilizing synthetic data for substitution, struggle to simultaneously improve performance and preserve privacy. They either rely on a local model for generation, resulting in a performance decline, or take advantage of APIs, directly exposing the data to API servers. To address this issue, we propose <i>KnowledgeSG</i>, a novel client-server framework which enhances synthetic data quality and improves model performance while ensuring privacy. We achieve this by learning local knowledge from the private data with differential privacy (DP) and distilling professional knowledge from the server. Additionally, inspired by federated learning, we transmit models rather than data between the client and server to prevent privacy leakage. Extensive experiments in medical and financial domains demonstrate the effectiveness of <i>KnowledgeSG</i>. Our code is now publicly available at <url>https://github.com/wwh0411/KnowledgeSG</url>.</abstract>
       <url hash="39e48897">2024.emnlp-main.438</url>
       <bibkey>wang-etal-2024-knowledgesg</bibkey>
       <doi>10.18653/v1/2024.emnlp-main.438</doi>
@@ -10654,7 +10654,7 @@
     </paper>
     <paper id="764">
       <title>A Systematic Survey and Critical Review on Evaluating Large Language Models: Challenges, Limitations, and Recommendations</title>
-      <author><first>Md Tahmid Rahman</first><last>Laskar</last><affiliation>Dialpad Inc.</affiliation></author>
+      <author id="md-tahmid-rahman-laskar"><first>Md Tahmid Rahman</first><last>Laskar</last><affiliation>Dialpad Inc.</affiliation></author>
       <author><first>Sawsan</first><last>Alqahtani</last><affiliation>Princess Nourah Bint Abdulrahman University</affiliation></author>
       <author><first>M Saiful</first><last>Bari</last><affiliation>National Centre of Artificial Intelligence, Saudi Data and AI Authority</affiliation></author>
       <author><first>Mizanur</first><last>Rahman</last></author>
@@ -10969,7 +10969,7 @@
       <author id="wei-wang" orcid="0000-0002-8180-2886"><first>Wei</first><last>Wang</last><affiliation>University of California, Los Angeles</affiliation></author>
       <author><first>Wei</first><last>Cheng</last><affiliation>NEC-Labs</affiliation></author>
       <pages>14179-14201</pages>
-      <abstract>The proliferation of Large Language Models (LLMs) has driven considerable interest in fine-tuning them with domain-specific data to create specialized language models. Nevertheless, such domain-specific fine-tuning data often contains contextually sensitive personally identifiable information (PII). Direct fine-tuning LLMs on this data without privacy protection poses a risk of data leakage of sensitive PII during inference time. To address this challenge, we introduce Contextual Privacy Protection Language Models (CPPLM), a novel paradigm for fine-tuning LLMs that effectively injects domain-specific knowledge while safeguarding inference-time data privacy. Our work offers a theoretical analysis for model design and delves into various techniques such as corpus curation, penalty-based unlikelihood in training loss, and instruction-based tuning, etc. Extensive experiments across diverse datasets and scenarios demonstrate the effectiveness of our approaches. In particular, instruction tuning with both positive and negative examples, stands out as a promising method, effectively protecting private data while enhancing the model’s knowledge. Our work underscores the potential for Large Language Models as robust contextual privacy protection learners.</abstract>
+      <abstract>The proliferation of Large Language Models (LLMs) has driven considerable interest in fine-tuning them with domain-specific data to create specialized language models. Nevertheless, such domain-specific fine-tuning data often contains <i>contextually sensitive</i> personally identifiable information (PII). Direct fine-tuning LLMs on this data without privacy protection poses a risk of data leakage of sensitive PII during inference time. To address this challenge, we introduce Contextual Privacy Protection Language Models (CPPLM), a novel paradigm for fine-tuning LLMs that effectively injects domain-specific knowledge while safeguarding inference-time data privacy. Our work offers a theoretical analysis for model design and delves into various techniques such as corpus curation, penalty-based unlikelihood in training loss, and instruction-based tuning, etc. Extensive experiments across diverse datasets and scenarios demonstrate the effectiveness of our approaches. In particular, instruction tuning with both positive and negative examples, stands out as a promising method, effectively protecting private data while enhancing the model’s knowledge. Our work underscores the potential for Large Language Models as robust contextual privacy protection learners. The complete code and data for the work can be found at <url>https://github.com/Yijia-Xiao/PPLM</url>.</abstract>
       <url hash="12fe1b44">2024.emnlp-main.785</url>
       <bibkey>xiao-etal-2024-large</bibkey>
       <doi>10.18653/v1/2024.emnlp-main.785</doi>
@@ -13206,7 +13206,7 @@
     <paper id="950">
       <title>Do <fixed-case>LLM</fixed-case>s learn a true syntactic universal?</title>
       <author id="john-hale"><first>John T.</first><last>Hale</last><affiliation>Johns Hopkins University, University of Georgia and DeepMind</affiliation></author>
-      <author><first>Miloš</first><last>Stanojević</last><affiliation>University College London and Google DeepMind</affiliation></author>
+      <author id="milos-stanojevic"><first>Miloš</first><last>Stanojević</last><affiliation>University College London and Google DeepMind</affiliation></author>
       <pages>17106-17119</pages>
       <abstract>Do large multilingual language models learn language universals? We consider a candidate universal much-discussed in the linguistics literature, the Final-over-Final Condition (Sheehan et al., 2017b). This Condition is syntactic in the sense that it can only be stated by reference to abstract sentence properties such as nested phrases and head direction. A study of typologically diverse “mixed head direction” languages confirms that the Condition holds in corpora. But in a targeted syntactic evaluation, Gemini Pro only seems to respect the Condition in German, Russian, Hungarian and Serbian. These relatively high-resource languages contrast with Basque, where Gemini Pro does not seem to have learned the Condition at all. This result suggests that modern language models may need additional sources of bias in order to become truly human-like, within a developmentally-realistic budget of training data.</abstract>
       <url hash="0ee52bd0">2024.emnlp-main.950</url>
@@ -14832,7 +14832,7 @@
     <paper id="1073">
       <title><fixed-case>D</fixed-case>ata<fixed-case>N</fixed-case>arrative: Automated Data-Driven Storytelling with Visualizations and Texts</title>
       <author><first>Mohammed Saidul</first><last>Islam</last><affiliation>York University</affiliation></author>
-      <author><first>Md Tahmid Rahman</first><last>Laskar</last><affiliation>Dialpad Inc.</affiliation></author>
+      <author id="md-tahmid-rahman-laskar"><first>Md Tahmid Rahman</first><last>Laskar</last><affiliation>Dialpad Inc.</affiliation></author>
       <author id="md-rizwan-parvez" orcid="0000-0002-3708-7803"><first>Md Rizwan</first><last>Parvez</last><affiliation>Qatar Computing Research Institute and Bosch</affiliation></author>
       <author><first>Enamul</first><last>Hoque</last><affiliation>York University</affiliation></author>
       <author id="shafiq-joty"><first>Shafiq</first><last>Joty</last><affiliation>SalesForce.com and Nanyang Technological University</affiliation></author>
@@ -15020,7 +15020,7 @@
     </paper>
     <paper id="1086">
       <title>Video-Text Prompting for Weakly Supervised Spatio-Temporal Video Grounding</title>
-      <author><first>Heng</first><last>Zhao</last><affiliation>Institute of High Performance Computing, Singapore, A*STAR</affiliation></author>
+      <author id="heng-zhao"><first>Heng</first><last>Zhao</last><affiliation>Institute of High Performance Computing, Singapore, A*STAR</affiliation></author>
       <author><first>Zhao</first><last>Yinjie</last></author>
       <author id="bihan-wen" orcid="0000-0002-6874-6453"><first>Bihan</first><last>Wen</last></author>
       <author id="yew-soon-ong" orcid="0000-0002-4480-169X"><first>Yew-Soon</first><last>Ong</last><affiliation>Nanyang Technological University</affiliation></author>
@@ -16148,7 +16148,7 @@
     </paper>
     <paper id="1170">
       <title>A Morphology-Based Investigation of Positional Encodings</title>
-      <author><first>Poulami</first><last>Ghosh</last><affiliation>Indian Institute of Technology, Bombay</affiliation></author>
+      <author id="poulami-ghosh"><first>Poulami</first><last>Ghosh</last><affiliation>Indian Institute of Technology, Bombay</affiliation></author>
       <author><first>Shikhar</first><last>Vashishth</last><affiliation>Google</affiliation></author>
       <author><first>Raj</first><last>Dabre</last><affiliation>National Institute of Information and Communications Technology (NICT), National Institute of Advanced Industrial Science and Technology</affiliation></author>
       <author id="pushpak-bhattacharyya"><first>Pushpak</first><last>Bhattacharyya</last><affiliation>Indian Institute of Technology, Bombay, Dhirubhai Ambani Institute Of Information and Communication Technology</affiliation></author>
@@ -19645,7 +19645,7 @@
     </paper>
     <paper id="86">
       <title>Query-<fixed-case>OPT</fixed-case>: Optimizing Inference of Large Language Models via Multi-Query Instructions in Meeting Summarization</title>
-      <author><first>Md Tahmid Rahman</first><last>Laskar</last><affiliation>Dialpad Inc.</affiliation></author>
+      <author id="md-tahmid-rahman-laskar"><first>Md Tahmid Rahman</first><last>Laskar</last><affiliation>Dialpad Inc.</affiliation></author>
       <author><first>Elena</first><last>Khasanova</last><affiliation>Dialpad, Inc.</affiliation></author>
       <author><first>Xue-Yong</first><last>Fu</last></author>
       <author><first>Cheng</first><last>Chen</last><affiliation>Dialpad</affiliation></author>

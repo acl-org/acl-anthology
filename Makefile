@@ -177,6 +177,15 @@ mirror:
 mirror-no-attachments:
 	uv run python bin/create_mirror.py --only-papers data/xml/*xml
 
+# Syncs the PDF and attachment hierarchies to the live server.
+# Override the local base directory with SYNC_BASEDIR=/path/to/files.
+SYNC_BASEDIR ?= ~/anthology-files
+SYNC_DEST := anthologizer@aclanthology.org:anthology-files
+
+.PHONY: sync
+sync:
+	rsync -azve ssh --remove-source-files $(SYNC_BASEDIR)/pdf $(SYNC_BASEDIR)/attachments $(SYNC_DEST)
+
 .PHONY: test-scripts
 test-scripts:
 	uv run python -m pytest tests/ -v

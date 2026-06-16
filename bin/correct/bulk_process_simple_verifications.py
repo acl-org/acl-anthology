@@ -32,7 +32,7 @@ It then goes through them, looking for ones that
 It then creates a new PR on a branch labeled bulk-verifications-YYYY-MM-DD,
 where it makes a single PR from changes from all matching issues.
 
-Usage: bulk_verify_all.py [-q] [--skip-validation] [--dry-run] [issue_ids...]
+Usage: bulk_verify_all.py [-q] [--skip-validation] [--dry-run] [--no-branch] [issue_ids...]
 
 Options:
     -q, --quiet              Suppress output
@@ -138,6 +138,21 @@ class AnthologyMetadataUpdater:
         closed_issues = []
 
         for issue in issues:
+            # Flag non-simple issues that are not already labeled as such
+            issuetype = []
+            issuelabels = [label.name for label in issue.get_labels()]
+            if "[x] Split/disambiguate:" in issue.body:
+                issuetype.append("SPLIT")
+            if "[x] Merge profiles:" in issue.body:
+                issuetype.append("MERGE")
+            if "[x] Name change:" in issue.body:
+                issuetype.append("NAMECHANGE")
+            if issuetype and not any(lbl.startswith("meta:") for lbl in issuelabels):
+                log.warning(
+                    f"#{issue.number}: No meta:* label for issue type {'+'.join(issuetype)} {issue.html_url}"
+                )
+
+            # Skip verification if non-simple
             if not issue.title.lower().endswith("/unverified"):
                 continue
 
@@ -150,6 +165,7 @@ class AnthologyMetadataUpdater:
             if "[ ] Name change:" not in issue.body:
                 continue
 
+            # Process the issue if consistent with command line args
             self.stats["visited_issues"] += 1
             try:
                 if issue_ids and issue.number not in issue_ids:
