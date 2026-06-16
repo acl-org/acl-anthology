@@ -357,10 +357,9 @@ def namespec_from(
     try:
         name = Name(first or None, last)
     except ValueError as e:
-        print(
-            f"ERROR: Could not create name from first={raw_first!r} last={raw_last!r} "
-            f"(converted to first={first!r} last={last!r}): {e}",
-            file=sys.stderr,
+        log.error(
+            f"Could not create name from first={raw_first!r} last={raw_last!r} "
+            f"(converted to first={first!r} last={last!r}): {e}"
         )
         raise
     name = resegment_name(name)
@@ -375,10 +374,9 @@ def namespec_from(
         return NameSpecification(**kwargs)
     except ValueError as e:
         if "orcid" in kwargs:
-            print(
-                f"WARNING: Dropping invalid ORCID '{kwargs['orcid']}' for author "
-                f"'{first} {last}': {e}",
-                file=sys.stderr,
+            log.warning(
+                f"Dropping invalid ORCID '{kwargs['orcid']}' for author "
+                f"'{first} {last}': {e}"
             )
             del kwargs["orcid"]
             if openreview:
@@ -411,22 +409,19 @@ def add_parent_event(
 
     event = anthology.get_event(parent_event)
     if event is None:
-        print(f"No event node with id '{parent_event}' found", file=sys.stderr)
+        log.warning(f"No event node with id '{parent_event}' found")
         return
     if volume := anthology.get_volume(volume_full_id) is None:
-        print(f"No such ingested volume {volume_full_id}", file=sys.stderr)
+        log.warning(f"No such ingested volume {volume_full_id}")
         return
 
     if event in volume.get_events():
-        print(
-            f"Event {volume_full_id} already listed as colocated with {parent_event}, skipping",
-            file=sys.stderr,
+        log.info(
+            f"Event {volume_full_id} already listed as colocated with {parent_event}, skipping"
         )
     else:
         event.add_colocated(volume_full_id)
-        print(
-            f"Created event entry in {parent_event} for {volume_full_id}", file=sys.stderr
-        )
+        log.info(f"Created event entry in {parent_event} for {volume_full_id}")
 
 
 def ensure_venue(anthology: Anthology, venue_abbrev: str, venue_title: str) -> str:
@@ -489,9 +484,7 @@ def _aclpub_attachment_map(
             continue
         match = re.match(rf"{year}\..*-\w+\.(\d+)_?(\w+)\.(\w+)$", attachment_file)
         if match is None:
-            print(
-                f"* Warning: no attachment match for {attachment_file}", file=sys.stderr
-            )
+            log.warning(f"no attachment match for {attachment_file}")
             continue
         paper_num, type_, ext = match.groups()
         paper_num = int(paper_num)
@@ -1038,10 +1031,7 @@ def register_volume_with_sig(
     """Register an ingested volume with a SIG if that SIG exists."""
     sig_key = sig_id.lower()
     if sig_key not in anthology.sigs:
-        print(
-            f"Warning: SIG '{sig_key}' not found; cannot register {volume.full_id}",
-            file=sys.stderr,
-        )
+        log.warning(f"SIG '{sig_key}' not found; cannot register {volume.full_id}")
         return
 
     sig = anthology.sigs[sig_key]
