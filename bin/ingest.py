@@ -35,10 +35,11 @@ import shutil
 import sys
 import PyPDF2
 
+from collections import defaultdict
 from datetime import datetime
 from pathlib import Path
 from slugify import slugify
-from typing import Any, Dict, Iterator, Optional, List
+from typing import Any, Dict, Iterator, Optional, List, Tuple
 
 from acl_anthology import Anthology
 from acl_anthology.collections.types import PaperType, VolumeType
@@ -223,6 +224,74 @@ def latex_to_text(text: Optional[str]) -> Optional[str]:
     return MarkupText.from_latex_maybe(text).as_text()
 
 
+# Maps (slugified full name, number of spaces in the full name) -> set of
+# observed split points (i.e. the number of whitespace-delimited tokens in the
+# first name) seen in the existing Anthology data. Populated once in main() and
+# used by resegment_name() to align ingested name splits with existing ones.
+_name_split_index: Optional[Dict[Tuple[str, int], set]] = None
+
+
+def build_name_split_index(anthology: Anthology) -> Dict[Tuple[str, int], set]:
+    """Builds an index of how multi-token names are split into first/last in the
+    existing Anthology data.
+
+    aclpub2 (and other upstream sources) use heuristics to split a full name into
+    first and last name, which are sometimes wrong (e.g. splitting "Sang Won Kim"
+    as "Sang" / "Won Kim" instead of "Sang Won" / "Kim"). When a person already
+    exists in the Anthology with a particular split, we prefer to reuse that
+    split, to avoid creating spurious duplicate (and possibly verified) persons
+    (see acl-anthology issue #7567).
+
+    The index is keyed by the slugified full name together with the number of
+    spaces in the full name (so that, e.g., "Jean-Pierre Dupont" and
+    "Jean Pierre Dupont" -- which share a slug but differ in token count -- are
+    kept distinct). The value is the set of split points observed for that name.
+
+    Returns:
+        The index, which can be assigned to the module-level ``_name_split_index``.
+    """
+    index: Dict[Tuple[str, int], set] = defaultdict(set)
+    for name in anthology.people.by_name:
+        # Only Latin-script, multi-token names have an ambiguous split point.
+        if not name.first or name.script is not None:
+            continue
+        num_spaces = name.as_first_last().count(" ")
+        if num_spaces < 2:
+            continue
+        index[(name.slugify(), num_spaces)].add(len(name.first.split()))
+    return index
+
+
+def resegment_name(name: Name) -> Name:
+    """Re-splits a name's first/last segmentation to match an existing name in
+    the Anthology, if one with the same full form but a different split exists.
+
+    Does nothing if the name-split index has not been built, the name has no
+    first name, is a non-Latin-script variant, or has fewer than two spaces (no
+    ambiguity). The spelling and casing of the name are preserved; only the
+    boundary between first and last name may change.
+    """
+    if _name_split_index is None or not name.first or name.script is not None:
+        return name
+    full = name.as_first_last()
+    num_spaces = full.count(" ")
+    if num_spaces < 2:
+        return name
+    existing_split_points = _name_split_index.get((name.slugify(), num_spaces))
+    if not existing_split_points:
+        return name
+    current_split_point = len(name.first.split())
+    if current_split_point in existing_split_points:
+        return name
+    new_split_point = max(existing_split_points)
+    tokens = full.split()
+    resegmented = Name(
+        " ".join(tokens[:new_split_point]), " ".join(tokens[new_split_point:])
+    )
+    log.info(f"Resegmented name based on database match: {name} -> {resegmented}")
+    return resegmented
+
+
 def namespec_from(
     first: Optional[str],
     last: str,
@@ -243,6 +312,7 @@ def namespec_from(
             file=sys.stderr,
         )
         raise
+    name = resegment_name(name)
     kwargs: Dict[str, Any] = {"name": name}
     if orcid:
         kwargs["orcid"] = str(orcid)
@@ -929,6 +999,11 @@ def main(args):
     anthology = Anthology.from_within_repo()
 
     anthology.load_all()
+
+    # Build an index of existing name splits so that ingested names reuse the
+    # segmentation already present in the Anthology (see build_name_split_index).
+    global _name_split_index
+    _name_split_index = build_name_split_index(anthology)
 
     seen_volume_ids: set[str] = set()
     for source in args.proceedings:
