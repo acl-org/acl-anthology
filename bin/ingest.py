@@ -214,14 +214,38 @@ def join_names(author: Dict[str, Any], fields=None) -> str:
     return " ".join(author[field] for field in fields if author.get(field) is not None)
 
 
-def namespec_from_author(author: Dict[str, Any]) -> NameSpecification:
-    """Creates a NameSpecification from an author dictionary (aclpub2)."""
-    first_name = join_names(author).strip()
-    last_name = (author.get("last_name") or "").strip()
-    kwargs: Dict[str, Any] = {"name": Name(first_name if first_name else None, last_name)}
-    if "orcid" in author and author["orcid"]:
-        kwargs["orcid"] = str(author["orcid"])
-    affiliation = author.get("institution") or author.get("affiliation")
+def latex_to_text(text: Optional[str]) -> Optional[str]:
+    """Convert a possibly-LaTeX string (e.g. a name with LaTeX-style diacritics
+    such as ``Sch\\"utze``) into plain Unicode text. Returns None if the input is
+    None."""
+    if text is None:
+        return None
+    return MarkupText.from_latex_maybe(text).as_text()
+
+
+def namespec_from(
+    first: Optional[str],
+    last: str,
+    orcid: Optional[str] = None,
+    affiliation: Optional[str] = None,
+) -> NameSpecification:
+    """Creates a NameSpecification from name parts, converting any LaTeX-style
+    diacritics in the names to Unicode. Invalid ORCIDs are dropped with a warning."""
+    raw_first, raw_last = first, last
+    first = latex_to_text(first.strip()) if first else None
+    last = latex_to_text(last.strip()) if last else ""
+    try:
+        name = Name(first or None, last)
+    except ValueError as e:
+        print(
+            f"ERROR: Could not create name from first={raw_first!r} last={raw_last!r} "
+            f"(converted to first={first!r} last={last!r}): {e}",
+            file=sys.stderr,
+        )
+        raise
+    kwargs: Dict[str, Any] = {"name": name}
+    if orcid:
+        kwargs["orcid"] = str(orcid)
     if affiliation:
         kwargs["affiliation"] = affiliation
     try:
@@ -230,12 +254,22 @@ def namespec_from_author(author: Dict[str, Any]) -> NameSpecification:
         if "orcid" in kwargs:
             print(
                 f"WARNING: Dropping invalid ORCID '{kwargs['orcid']}' for author "
-                f"'{first_name} {last_name}': {e}",
+                f"'{first} {last}': {e}",
                 file=sys.stderr,
             )
             del kwargs["orcid"]
             return NameSpecification(**kwargs)
         raise
+
+
+def namespec_from_author(author: Dict[str, Any]) -> NameSpecification:
+    """Creates a NameSpecification from an author dictionary (aclpub2)."""
+    return namespec_from(
+        first=join_names(author),
+        last=author.get("last_name") or "",
+        orcid=author.get("orcid"),
+        affiliation=author.get("institution") or author.get("affiliation"),
+    )
 
 
 def add_parent_event(
@@ -825,10 +859,7 @@ def namespec_from_bib(person) -> NameSpecification:
         last_text = first_text
         first_text = ""
 
-    first_text = first_text.strip()
-    last_text = last_text.strip()
-
-    return NameSpecification(name=Name(first_text, last_text))
+    return namespec_from(first=first_text, last=last_text)
 
 
 def read_bib_entry(bibfilename: Path | str, paper_id: str) -> Optional[Dict[str, Any]]:
