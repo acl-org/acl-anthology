@@ -345,10 +345,12 @@ def namespec_from(
     first: Optional[str],
     last: str,
     orcid: Optional[str] = None,
+    openreview: Optional[str] = None,
     affiliation: Optional[str] = None,
 ) -> NameSpecification:
     """Creates a NameSpecification from name parts, converting any LaTeX-style
-    diacritics in the names to Unicode. Invalid ORCIDs are dropped with a warning."""
+    diacritics in the names to Unicode. Invalid ORCIDs are dropped with a warning.
+    The OpenReview ID is only stored when no ORCID is available."""
     raw_first, raw_last = first, last
     first = latex_to_text(first.strip()) if first else None
     last = latex_to_text(last.strip()) if last else ""
@@ -365,6 +367,8 @@ def namespec_from(
     kwargs: Dict[str, Any] = {"name": name}
     if orcid:
         kwargs["orcid"] = str(orcid)
+    elif openreview:
+        kwargs["openreview"] = str(openreview)
     if affiliation:
         kwargs["affiliation"] = affiliation
     try:
@@ -377,6 +381,8 @@ def namespec_from(
                 file=sys.stderr,
             )
             del kwargs["orcid"]
+            if openreview:
+                kwargs["openreview"] = str(openreview)
             return NameSpecification(**kwargs)
         raise
 
@@ -387,6 +393,7 @@ def namespec_from_author(author: Dict[str, Any]) -> NameSpecification:
         first=join_names(author),
         last=author.get("last_name") or "",
         orcid=author.get("orcid"),
+        openreview=author.get("openreview"),
         affiliation=author.get("institution") or author.get("affiliation"),
     )
 

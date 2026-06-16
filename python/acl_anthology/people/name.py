@@ -365,6 +365,7 @@ class NameSpecification:
     Attributes:
         parent: The Anthology item that this name specification belongs to.
         orcid: An ORCID that was supplied together with this name.
+        openreview: An OpenReview profile ID that was supplied together with this name.
         affiliation: Professional affiliation.
         variants: Variant spellings of this name in different scripts.
 
@@ -385,6 +386,9 @@ class NameSpecification:
         default=None,
         converter=convert_orcid,
         validator=v.optional(validate_orcid),
+    )
+    openreview: Optional[str] = field(
+        default=None, validator=v.optional(v.instance_of(str))
     )
     affiliation: Optional[str] = field(
         default=None, validator=v.optional(v.instance_of(str))
@@ -535,6 +539,7 @@ class NameSpecification:
             Name(first, cast(str, last)),
             id=person.get("id"),
             orcid=person.get("orcid"),
+            openreview=person.get("openreview"),
             affiliation=affiliation,
             variants=variants,
         )
@@ -554,6 +559,8 @@ class NameSpecification:
             elem.set("id", self.id)
         if self.orcid is not None:
             elem.set("orcid", self.orcid)
+        if self.openreview is not None:
+            elem.set("openreview", self.openreview)
         elem.extend(
             (
                 E.first(self.first) if self.first else E.first(),
