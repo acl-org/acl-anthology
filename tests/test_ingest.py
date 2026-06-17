@@ -41,9 +41,7 @@ def test_check_for_anonymous_pdf_flags_anonymous(filename, caplog):
     pdf_path = DATADIR / filename
     with caplog.at_level(logging.WARNING):
         check_for_anonymous_pdf(str(pdf_path))
-    assert any(
-        "Potentially anonymous PDF" in record.message for record in caplog.records
-    )
+    assert any("Potentially anonymous PDF" in record.message for record in caplog.records)
 
 
 @pytest.mark.parametrize("filename", CLEAN_PDFS)
