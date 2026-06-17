@@ -877,6 +877,7 @@ def ingest(
             "editors": paper.get("editors", []),
         }
         if paper.get("pdf_src") and paper.get("pdf_dest"):
+            check_for_anonymous_pdf(paper["pdf_src"])
             maybe_copy(paper["pdf_src"], paper["pdf_dest"], dry_run=args.dry_run)
             kwargs["pdf"] = PDFReference.from_file(str(paper["pdf_dest"]))
         for key in ("abstract", "doi", "pages"):
@@ -922,7 +923,23 @@ def ingest(
     add_parent_event(anthology, args.parent_event, volume_full_id)
 
 
-def maybe_copy(source_path: str, dest_path: str, dry_run: bool = False):
+ANONYMOUS_PATTERN = re.compile(r"\bAnonymous\s+[A-Za-z]+\s+submission\b")
+
+
+def check_for_anonymous_pdf(source_path: str) -> None:
+    """
+    Checks for signs of anonymous PDFs and outputs a warning; does nothing otherwise.
+    """
+    source = Path(source_path)
+    with open(source, "rb") as pdf:
+        pdf_reader = PyPDF2.PdfReader(pdf)
+        # Check for "Anonymous [XXX] submission" string on first page
+        text = pdf_reader.pages[0].extract_text() or ""
+        if ANONYMOUS_PATTERN.search(text) is not None:
+            log.warning(f"Potentially anonymous PDF: {source}")
+
+
+def maybe_copy(source_path: str, dest_path: str, dry_run: bool = False) -> None:
     """Copies the file if it's different from the target."""
     source = Path(source_path)
     dest = Path(dest_path)
