@@ -11,10 +11,10 @@ a = element a {
 url = element url {
   attribute type { xsd:NCName }? & xsd:anyURI
 }
-pbr = element pbr { empty }  # paragraph break
+br = element br { empty }  # line break (use two for a paragraph break)
 fixed-case = element fixed-case { MarkupText }
 tex-math = element tex-math { text }
-MarkupText = (text | b | i | u | sc | a | url | pbr | fixed-case | tex-math )+
+MarkupText = (text | b | i | u | sc | a | url | br | fixed-case | tex-math )+
 
 # Authors
 first = element first { xsd:string { pattern="(\S(.*\S)?)?" } }
