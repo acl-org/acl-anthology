@@ -37,7 +37,8 @@ from acl_anthology.utils.logging import setup_rich_logging
 
 EARLIEST_YEAR_WITH_OR_IDS = 2026
 
-def get_user_orcids(ids: list, version=2, username=None, password=None) -> dict[str,str]:
+
+def get_user_orcids(ids: list, version=2, username=None, password=None) -> dict[str, str]:
     """
     Queries the OpenReview API for a user profile and returns their ORCID link.
 
@@ -59,7 +60,7 @@ def get_user_orcids(ids: list, version=2, username=None, password=None) -> dict[
 
     try:
         # Initialize the client. Public data can generally be read using Guest access (no credentials).
-        assert version==2
+        assert version == 2
         client = openreview.api.OpenReviewClient(
             baseurl=baseurl, username=username, password=password
         )
@@ -68,15 +69,13 @@ def get_user_orcids(ids: list, version=2, username=None, password=None) -> dict[
         log.exception(e)
         return {}
 
-    log.info(
-        f"Retrieving profile for: {len(ids)} users: first 10 are {ids[:10]}"
-    )
+    log.info(f"Retrieving profile for: {len(ids)} users: first 10 are {ids[:10]}")
 
     # Safely look up the profile via openreview.tools (returns None instead of throwing an error if missing)
     profiles = openreview.tools.get_profiles(client, ids)
 
     if not profiles:
-        log.error(f"No profiles returned.")
+        log.error("No profiles returned.")
         return {}
 
     orid2orcid = {}
@@ -104,11 +103,15 @@ def get_user_orcids(ids: list, version=2, username=None, password=None) -> dict[
 
     return orid2orcid
 
-TEST_CASES = [('2025.emnlp-main.8', 'Jandaghi', '~Pegah_Jandaghi1'),
-              ('2025.acl-demo.60', 'Zhuocheng', '~Zhang_Zhuocheng1'),
-              ('2023.findings-emnlp.773', 'Zhuocheng', '~Zhang_Zhuocheng1'),
-              ('2025.findings-emnlp.679', 'Rezaei', '~Mohammad_Reza_Rezaei1')]
+
+TEST_CASES = [
+    ("2025.emnlp-main.8", "Jandaghi", "~Pegah_Jandaghi1"),
+    ("2025.acl-demo.60", "Zhuocheng", "~Zhang_Zhuocheng1"),
+    ("2023.findings-emnlp.773", "Zhuocheng", "~Zhang_Zhuocheng1"),
+    ("2025.findings-emnlp.679", "Rezaei", "~Mohammad_Reza_Rezaei1"),
+]
 # TODO: test a legacy-verified author
+
 
 def refresh_or_orcids(username=None, password=None):
     anthology = Anthology.from_within_repo()
@@ -127,21 +130,23 @@ def refresh_or_orcids(username=None, password=None):
                 for ns in vol.namespecs:
                     if ns.orcid is None and ns.openreviewid is not None:
                         user2nses[ns.openreviewid].append(ns)
-    
+
     orid2orcid = get_user_orcids(list(user2nses), username=username, password=password)
     if not orid2orcid:
         log.info("No new ORCIDs found.")
     else:
         log.info(f"{len(orid2orcid)} new ORCIDs found.")
         numUpdatedNSes = 0
-        for user,orcid in orid2orcid.items():
+        for user, orcid in orid2orcid.items():
             log.debug(f"{user}: {orcid}")
             person = anthology.people.get_by_orcid(orcid)
             # check if any namespecs have an explicit ID (could be a legacy-verified person)
             explicit_ids = set(ns.id for ns in user2nses[user])
-            assert len(explicit_ids) < 2,f"OR ID is associated with multiple explicit Anthology people: {explicit_ids}"
+            assert len(explicit_ids) < 2, (
+                f"OR ID is associated with multiple explicit Anthology people: {explicit_ids}"
+            )
             if explicit_ids:
-                explicit_id, = explicit_ids
+                (explicit_id,) = explicit_ids
                 person = anthology.get_person(explicit_id)
 
             if person is None:
@@ -160,7 +165,7 @@ def refresh_or_orcids(username=None, password=None):
                         new_aid,
                         [ns.name] + list(ns.variants),
                     )
-                assert ns.id is None or ns.id == person.id,ns.id
+                assert ns.id is None or ns.id == person.id, ns.id
                 ns.id = person.id
                 ns.orcid = orcid
         log.info(f"{numUpdatedNSes} NameSpecs updated with ORCID.")
