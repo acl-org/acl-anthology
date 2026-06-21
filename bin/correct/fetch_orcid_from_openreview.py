@@ -15,6 +15,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+"""
+Queries the OpenReview API by one or more OpenReview user IDs
+and retrieves the ORCID link from the profile, if present.
+With -i, looks up the specified author page issue(s) in the Anthology issue tracker
+and checks the ORCID field in the issue against the OpenReview profile.
+Should be called on a small number of users to avoid hitting API limits.
+
+Usage:
+  fetch_orcid_from_openreview.py ORID ...
+  fetch_orcid_from_openreview.py -i ISSUE ...
+"""
+
 # Drafted with Gemini
 
 import openreview
