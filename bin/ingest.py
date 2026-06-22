@@ -366,7 +366,7 @@ def namespec_from(
     kwargs: Dict[str, Any] = {"name": name}
     if orcid:
         kwargs["orcid"] = str(orcid)
-    elif openreview:
+    if openreview:
         kwargs["openreview"] = str(openreview)
     if affiliation:
         kwargs["affiliation"] = affiliation
