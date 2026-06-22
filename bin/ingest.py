@@ -985,9 +985,16 @@ def normalize_latex(text: Optional[str], is_title: bool = True) -> Optional[Mark
     if is_title:
         elem = markup.to_xml()
         protect_fixedcase(elem)
-        return MarkupText.from_xml(elem)
-    else:
-        return markup
+        markup = MarkupText.from_xml(elem)
+    # Ensure the markup renders to HTML without error, so that invalid markup
+    # (e.g. malformed TeX-math) is caught here at ingestion rather than later
+    # breaking the website build in create_hugo_data.py.
+    try:
+        _ = markup.as_html(allow_url=not is_title)
+    except Exception as e:
+        snippet = text if len(text) <= 100 else text[:97] + "..."
+        log.warning(f"Error rendering markup to HTML for {snippet!r}: {e}")
+    return markup
 
 
 def namespec_from_bib(person) -> NameSpecification:
