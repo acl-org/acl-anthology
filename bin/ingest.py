@@ -273,6 +273,25 @@ def repair_latex(text: str) -> str:
     return text
 
 
+def abstract_has_empty_markup(abstract: MarkupText) -> bool:
+    """Return True if the abstract contains an empty markup element, e.g. an
+    empty ``<i/>`` left behind when a LaTeX command (such as a custom macro)
+    expands to nothing.
+
+    The Anthology schema defines ``MarkupText = (text | b | i | url |
+    fixed-case | tex-math)+``, so a markup element with neither text nor child
+    elements is invalid and makes the XML fail schema validation at build time.
+    Such abstracts render without raising, so they must be detected explicitly.
+    """
+    root = abstract.to_xml()
+    for element in root.iter():
+        if element is root:
+            continue
+        if len(element) == 0 and not element.text:
+            return True
+    return False
+
+
 # Maps (slugified full name, number of spaces in the full name) -> set of
 # observed split points (i.e. the number of whitespace-delimited tokens in the
 # first name) seen in the existing Anthology data. Populated once in main() and
@@ -781,6 +800,11 @@ def iter_aclpub2_papers(metadata: Dict[str, Any]) -> Iterator[Dict[str, Any]]:
                 abstract = MarkupText.from_latex_maybe(repair_latex(abstract))
                 # ensure the abstract can be rendered without error
                 _ = abstract.as_text()
+                _ = abstract.as_html()
+                # reject abstracts with empty markup elements (e.g. an empty
+                # <i/>), which are invalid per the schema and break the build
+                if abstract_has_empty_markup(abstract):
+                    raise ValueError("abstract contains an empty markup element")
         except Exception as e:
             log.warning(
                 f"Error parsing abstract for paper {paper_num} ({paper.get('title', 'Unknown Title')}): {e}"
