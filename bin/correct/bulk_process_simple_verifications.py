@@ -169,7 +169,11 @@ class AnthologyMetadataUpdater:
             self.stats["visited_issues"] += 1
             try:
                 if issue_ids and issue.number not in issue_ids:
-                    continue
+                    if self.stats["relevant_issues"] == len(issue_ids):
+                        # we've already visited all the specified issues
+                        break
+                    else:
+                        continue
                 opened_at = issue.created_at.strftime("%Y-%m-%d")
                 if verbose:
                     log.info(
