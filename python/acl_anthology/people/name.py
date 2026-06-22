@@ -365,8 +365,8 @@ class NameSpecification:
     Attributes:
         parent: The Anthology item that this name specification belongs to.
         orcid: An ORCID that was supplied together with this name.
-        openreview: An OpenReview profile ID that was supplied together with this name.
-        affiliation: Professional affiliation.
+        openreview: An OpenReview profile ID that was supplied together with this name. (This is _not_ used for resolving author identities.)
+        affiliation: Professional affiliation. (This is _not_ used for resolving author identities.)
         variants: Variant spellings of this name in different scripts.
 
     Note:
