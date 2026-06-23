@@ -33,6 +33,7 @@ import warnings
 from acl_anthology import Anthology
 from acl_anthology.collections import Paper
 from acl_anthology.exceptions import NameSpecResolutionWarning
+from acl_anthology.utils.ids import is_valid_orcid
 from acl_anthology.utils.logging import setup_rich_logging
 
 EARLIEST_YEAR_WITH_OR_IDS = 2026
@@ -155,11 +156,15 @@ def refresh_or_orcids(username=None, password=None):
         log.info(f"{len(orid2orcid)} new ORCIDs found.")
         numUpdatedNSes = 0
         numUpdatedNSesByVolume = defaultdict(int)
-        numNSErrors = 0
+        numOrcidErrors = 0
         numNewPerson = 0
         for user, orcid in orid2orcid.items():
             log.debug(f"{user}: {orcid}")
             bare_orcid = orcid.split("/")[-1]
+            if not is_valid_orcid(bare_orcid):
+                numOrcidErrors += 1
+                log.error(f"ORCID is invalid: {bare_orcid} for {user}")
+                continue
             person = anthology.people.get_by_orcid(bare_orcid)
             # assert user!="~Yuxi_Sun7",(orcid,bare_orcid,person is None)
             # check if any namespecs have an explicit ID (could be a legacy-verified person)
@@ -190,20 +195,16 @@ def refresh_or_orcids(username=None, password=None):
                 assert ns.id is None or ns.id == person.id, ns.id
                 person.add_name(ns.name)
                 ns.id = person.id
-                try:
-                    ns.orcid = orcid
-                    person.orcid = orcid
-                    numUpdatedNSes += 1
-                    paper = ns.parent
-                    assert isinstance(paper, Paper)
-                    numUpdatedNSesByVolume[paper.parent.full_id] += 1
-                except ValueError:
-                    log.error(f"ORCID is invalid: {orcid} for {user}")
-                    numNSErrors += 1
+                ns.orcid = orcid
+                person.orcid = orcid
+                numUpdatedNSes += 1
+                paper = ns.parent
+                assert isinstance(paper, Paper)
+                numUpdatedNSesByVolume[paper.parent.full_id] += 1
         log.info(f"{numNewPerson} new Persons created.")
         log.info(f"{numUpdatedNSes} NameSpecs updated with ORCID.")
         log.info(numUpdatedNSesByVolume)
-        log.info(f"{numNSErrors} NameSpecs could not be updated due to an error.")
+        log.info(f"{numOrcidErrors} users' ORCIDs were rejected as invalid.")
         anthology.save_all()
 
 
