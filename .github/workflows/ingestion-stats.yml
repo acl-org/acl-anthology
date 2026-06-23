@@ -1,0 +1,66 @@
+name: ingestion-stats
+
+# Computes statistics about an ingestion (new papers, new authors, a histogram
+# of papers by number of authors, and single-author papers by new authors) and
+# posts them as a single, self-updating comment on the PR.
+#
+# This is gated by the same condition as the ingestion review checklist: the PR
+# title must start with "ingest". Unlike the checklist workflow, this one needs
+# to read the PR's data and run the Anthology library over it, so it uses the
+# `pull_request` event (which checks out the PR's code and only grants a
+# write-scoped token for same-repo branches) rather than `pull_request_target`,
+# avoiding exposure of secrets to untrusted code.
+
+on:
+  workflow_dispatch:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+# Only run one at a time per branch; newer pushes cancel older runs.
+concurrency:
+  group: ingestion-stats-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  ingestion-stats:
+    if: ${{ github.event_name == 'workflow_dispatch' || startsWith(github.event.pull_request.title, 'ingest') }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v5
+        with:
+          # Need the base commit available locally to diff against it.
+          fetch-depth: 0
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libyaml-dev libpython3-dev
+
+      - name: Compute ingestion statistics
+        env:
+          # For pull_request events, diff against the PR base; otherwise (e.g.
+          # workflow_dispatch) fall back to the fetched master branch.
+          BASE_REF: ${{ github.event.pull_request.base.sha || 'origin/master' }}
+        run: |
+          uv run --project python --locked python bin/ingestion_stats.py \
+            --base "${BASE_REF}" \
+            --datadir data \
+            > stats.md
+          cat stats.md
+
+      - name: Post or update statistics comment
+        uses: mshick/add-pr-comment@v2
+        with:
+          # A fixed message-id makes new pushes update this comment in place
+          # instead of adding a new one.
+          message-id: ingestion-stats
+          message-path: stats.md
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
