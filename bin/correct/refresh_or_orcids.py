@@ -31,7 +31,6 @@ import logging as log
 import os
 import warnings
 from acl_anthology import Anthology
-from acl_anthology.collections import Paper
 from acl_anthology.exceptions import NameSpecResolutionWarning
 from acl_anthology.utils.logging import setup_rich_logging
 
@@ -86,7 +85,7 @@ def get_user_orcids(ids: list, version=2, username=None, password=None) -> dict[
         content = profile.content
         if not content:
             log.error("No profile content")
-            return {}
+            continue
 
         orcid_data = content.get("orcid")
 
@@ -98,18 +97,28 @@ def get_user_orcids(ids: list, version=2, username=None, password=None) -> dict[
             else:
                 orcid_link = orcid_data
 
-            orid2orcid[profile.id] = orcid_link
-            # TODO: what about aliases? look at profile.referent?
+            names = profile.content[
+                "names"
+            ]  # all the user's names including each username
+            # one of these usernames will be the queried ID (profile.id is the canonical one,
+            # which may be different from the preferred name)
+            for name in names:
+                if (u := name["username"]) in ids:
+                    # index the ORCID under the queried username
+                    orid2orcid[u] = orcid_link
+                    break
+            else:
+                assert False, names
 
     return orid2orcid
 
 
-TEST_CASES = [
-    ("2025.emnlp-main.8", "Jandaghi", "~Pegah_Jandaghi1"),
-    ("2025.acl-demo.60", "Zhuocheng", "~Zhang_Zhuocheng1"),
-    ("2023.findings-emnlp.773", "Zhuocheng", "~Zhang_Zhuocheng1"),
-    ("2025.findings-emnlp.679", "Rezaei", "~Mohammad_Reza_Rezaei1"),
-]
+# TEST_CASES = [
+#     ("2025.emnlp-main.8", "Jandaghi", "~Pegah_Jandaghi1"),
+#     ("2025.acl-demo.60", "Zhuocheng", "~Zhang_Zhuocheng1"),
+#     ("2023.findings-emnlp.773", "Zhuocheng", "~Zhang_Zhuocheng1"),
+#     ("2025.findings-emnlp.679", "Rezaei", "~Mohammad_Reza_Rezaei1"),
+# ]
 # TODO: test a legacy-verified author
 
 
@@ -117,19 +126,25 @@ def refresh_or_orcids(username=None, password=None):
     anthology = Anthology.from_within_repo()
 
     user2nses = defaultdict(list)
-    if TEST_CASES:  # TODO: temporary
-        for itemid, lastname, user in TEST_CASES:
-            paper = anthology.get(itemid)
-            assert isinstance(paper, Paper)
-            for ns in paper.namespecs:
-                if ns.last == lastname:
-                    user2nses[user].append(ns)
-    else:
-        for vol in anthology.volumes():
-            if int(vol.year) >= EARLIEST_YEAR_WITH_OR_IDS:
-                for ns in vol.namespecs:
-                    if ns.orcid is None and ns.openreviewid is not None:
-                        user2nses[ns.openreviewid].append(ns)
+    nORCIDOnly, nOROnly, nBoth, nNeither = 0, 0, 0, 0
+    nVols = 0
+    for vol in anthology.volumes():
+        if int(vol.year) >= EARLIEST_YEAR_WITH_OR_IDS:
+            nVols += 1
+            for paper in vol.papers():
+                for ns in paper.namespecs:
+                    if ns.orcid is None and ns.openreview is not None:
+                        user2nses[ns.openreview].append(ns)
+                        nOROnly += 1
+                    elif ns.orcid is None:
+                        nNeither += 1
+                    elif ns.openreview is not None:
+                        nBoth += 1
+                    else:
+                        nORCIDOnly += 1
+    log.info(
+        f"In {nVols} target volumes, {nOROnly} namespecs with openreview but not orcid, {nORCIDOnly} with orcid but not openreview, {nBoth} with both, {nNeither} with neither"
+    )
 
     orid2orcid = get_user_orcids(list(user2nses), username=username, password=password)
     if not orid2orcid:
@@ -137,11 +152,15 @@ def refresh_or_orcids(username=None, password=None):
     else:
         log.info(f"{len(orid2orcid)} new ORCIDs found.")
         numUpdatedNSes = 0
+        numNSErrors = 0
+        numNewPerson = 0
         for user, orcid in orid2orcid.items():
             log.debug(f"{user}: {orcid}")
-            person = anthology.people.get_by_orcid(orcid)
+            bare_orcid = orcid.split("/")[-1]
+            person = anthology.people.get_by_orcid(bare_orcid)
+            # assert user!="~Yuxi_Sun7",(orcid,bare_orcid,person is None)
             # check if any namespecs have an explicit ID (could be a legacy-verified person)
-            explicit_ids = set(ns.id for ns in user2nses[user])
+            explicit_ids = set(ns.id for ns in user2nses[user] if ns.id is not None)
             assert len(explicit_ids) < 2, (
                 f"OR ID is associated with multiple explicit Anthology people: {explicit_ids}"
             )
@@ -150,14 +169,13 @@ def refresh_or_orcids(username=None, password=None):
                 person = anthology.get_person(explicit_id)
 
             if person is None:
-                log.debug("Will create a new verified person")
+                log.debug("...will create a new verified person")
             else:
-                log.debug(f"Found: {person.id}, current ORCID: {person.orcid}")
+                log.debug(f"...found: {person.id}, current ORCID: {person.orcid}")
                 if person.orcid is None:
                     person.orcid = orcid
 
             for ns in user2nses[user]:
-                numUpdatedNSes += 1
                 if person is None:
                     # log.debug("Creating a new verified person")
                     new_aid = anthology.people.generate_person_id(ns.name, orcid=orcid)
@@ -165,10 +183,20 @@ def refresh_or_orcids(username=None, password=None):
                         new_aid,
                         [ns.name] + list(ns.variants),
                     )
+                    numNewPerson += 1
                 assert ns.id is None or ns.id == person.id, ns.id
+                person.add_name(ns.name)
                 ns.id = person.id
-                ns.orcid = orcid
+                try:
+                    ns.orcid = orcid
+                    person.orcid = orcid
+                    numUpdatedNSes += 1
+                except ValueError:
+                    log.error(f"ORCID is invalid: {orcid} for {user}")
+                    numNSErrors += 1
+        log.info(f"{numNewPerson} new Persons created.")
         log.info(f"{numUpdatedNSes} NameSpecs updated with ORCID.")
+        log.info(f"{numNSErrors} NameSpecs could not be updated due to an error.")
         anthology.save_all()
 
 
