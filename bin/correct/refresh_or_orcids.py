@@ -31,6 +31,7 @@ import logging as log
 import os
 import warnings
 from acl_anthology import Anthology
+from acl_anthology.collections import Paper
 from acl_anthology.exceptions import NameSpecResolutionWarning
 from acl_anthology.utils.logging import setup_rich_logging
 
@@ -142,6 +143,7 @@ def refresh_or_orcids(username=None, password=None):
                         nBoth += 1
                     else:
                         nORCIDOnly += 1
+    del vol
     log.info(
         f"In {nVols} target volumes, {nOROnly} namespecs with openreview but not orcid, {nORCIDOnly} with orcid but not openreview, {nBoth} with both, {nNeither} with neither"
     )
@@ -152,6 +154,7 @@ def refresh_or_orcids(username=None, password=None):
     else:
         log.info(f"{len(orid2orcid)} new ORCIDs found.")
         numUpdatedNSes = 0
+        numUpdatedNSesByVolume = defaultdict(int)
         numNSErrors = 0
         numNewPerson = 0
         for user, orcid in orid2orcid.items():
@@ -191,11 +194,15 @@ def refresh_or_orcids(username=None, password=None):
                     ns.orcid = orcid
                     person.orcid = orcid
                     numUpdatedNSes += 1
+                    paper = ns.parent
+                    assert isinstance(paper, Paper)
+                    numUpdatedNSesByVolume[paper.parent.full_id] += 1
                 except ValueError:
                     log.error(f"ORCID is invalid: {orcid} for {user}")
                     numNSErrors += 1
         log.info(f"{numNewPerson} new Persons created.")
         log.info(f"{numUpdatedNSes} NameSpecs updated with ORCID.")
+        log.info(numUpdatedNSesByVolume)
         log.info(f"{numNSErrors} NameSpecs could not be updated due to an error.")
         anthology.save_all()
 
