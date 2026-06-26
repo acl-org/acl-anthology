@@ -605,7 +605,10 @@ def read_ingest_metadata(
         venue_slug = ensure_venue(anthology, venue_abbrev, meta["event_name"])
         collection_id = meta["year"] + "." + venue_slug
         volume_name = meta["volume_name"].lower()
-        venue_name = venue_abbrev.lower()
+        # Use the registered venue slug (letters/digits only) for the venue tag
+        # and file paths; `anthology_venue_id` may contain hyphens/`+`/case
+        # (e.g. "LT-EDI", "CODI-CRAC") that don't match the venue key.
+        venue_name = venue_slug
         pdfs_dest_dir = Path(args.pdfs_dir) / venue_name
         attachments_dest_dir = Path(args.attachments_dir) / venue_name
         source_path = Path(source)
