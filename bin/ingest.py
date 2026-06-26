@@ -388,7 +388,11 @@ def namespec_from(
     if openreview:
         kwargs["openreview"] = str(openreview)
     if affiliation:
-        kwargs["affiliation"] = affiliation
+        # Collapse internal whitespace (tabs, newlines, repeated spaces) to single
+        # spaces; stray tabs in affiliations otherwise produce invalid XML.
+        affiliation = " ".join(affiliation.split())
+        if affiliation:
+            kwargs["affiliation"] = affiliation
     try:
         return NameSpecification(**kwargs)
     except ValueError as e:
